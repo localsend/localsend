@@ -1,7 +1,11 @@
 mod client_cert_verifier;
+mod error;
 
 use crate::crypto::cert::public_key_from_cert_der;
+use crate::http::dto::{ErrorResponse, NonceRequest, NonceResponse};
 use crate::http::server::client_cert_verifier::CustomClientCertVerifier;
+use crate::http::server::error::AppError;
+use crate::{crypto, util};
 use bytes::Bytes;
 use http_body_util::{BodyExt, Full};
 use hyper::body::{Body, Incoming};
@@ -11,27 +15,34 @@ use hyper_util::server::conn::auto::Builder;
 use lru::LruCache;
 use rustls::pki_types::pem::PemObject;
 use rustls::pki_types::{CertificateDer, PrivateKeyDer};
+use serde::{Deserialize, Serialize};
 use std::fmt::Debug;
 use std::net::{IpAddr, Ipv4Addr, Ipv6Addr, SocketAddr};
 use std::num::NonZeroUsize;
 use std::ops::Deref;
 use std::sync::Arc;
-use serde::{Deserialize, Serialize};
 use tokio::sync::{oneshot, Mutex};
 use uuid::Uuid;
-use crate::http::dto::NonceRequest;
+use x509_parser::nom::Parser;
 
 #[derive(Clone)]
 struct AppState {
-    local_nonce_map: Arc<Mutex<LruCache<String, Vec<u8>>>>,
-    remote_nonce_map: Arc<Mutex<LruCache<String, Vec<u8>>>>,
+    /// Maps client identifiers to nonces that have been received from remote.
+    received_nonce_map: Arc<Mutex<LruCache<String, Vec<u8>>>>,
+
+    /// Maps client identifiers to nonces that are expected to be received from remote.
+    generated_nonce_map: Arc<Mutex<LruCache<String, Vec<u8>>>>,
 }
 
 impl AppState {
     fn new() -> Self {
         Self {
-            local_nonce_map: Arc::new(Mutex::new(LruCache::new(NonZeroUsize::new(200).unwrap()))),
-            remote_nonce_map: Arc::new(Mutex::new(LruCache::new(NonZeroUsize::new(200).unwrap()))),
+            received_nonce_map: Arc::new(Mutex::new(LruCache::new(
+                NonZeroUsize::new(200).unwrap(),
+            ))),
+            generated_nonce_map: Arc::new(Mutex::new(LruCache::new(
+                NonZeroUsize::new(200).unwrap(),
+            ))),
         }
     }
 }
@@ -200,11 +211,13 @@ struct ClientInfo {
     cert: Option<Vec<u8>>,
 }
 
-trait PublicCertExt {
+trait ClientInfoExt {
     fn extract_public_key(&self) -> Option<String>;
+
+    fn to_remote_key(&self) -> String;
 }
 
-impl PublicCertExt for &ClientInfo {
+impl ClientInfoExt for ClientInfo {
     fn extract_public_key(&self) -> Option<String> {
         match &self.cert {
             Some(cert) => match public_key_from_cert_der(cert) {
@@ -217,34 +230,63 @@ impl PublicCertExt for &ClientInfo {
             None => None,
         }
     }
+
+    fn to_remote_key(&self) -> String {
+        self.extract_public_key()
+            .unwrap_or_else(|| self.ip.to_string())
+    }
 }
 
-fn build_response(
-    status: StatusCode,
-    body: Option<serde_json::Value>,
-) -> Result<Response<Full<Bytes>>, hyper::Error> {
+fn build_response<T: Serialize>(status: StatusCode, body: Option<T>) -> Response<Full<Bytes>> {
     let mut response = Response::new(Full::default());
     *response.status_mut() = status;
 
     if let Some(body) = body {
-        *response.body_mut() = Full::from(Bytes::from(serde_json::to_string(&body).unwrap_or_else(|_| "{}".to_string())));
+        *response.body_mut() = Full::from(Bytes::from(
+            serde_json::to_string(&body).unwrap_or_else(|_| "{}".to_string()),
+        ));
     }
 
-    Ok(response)
+    response
 }
 
-async fn handle_request(mut req: Request<Incoming>) -> Result<Response<Full<Bytes>>, hyper::Error> {
+async fn handle_request(req: Request<Incoming>) -> Result<Response<Full<Bytes>>, hyper::Error> {
+    Ok(handle_request_inner(req).await.unwrap_or_else(|err| {
+        tracing::error!("Error handling request: {err:?}");
+        build_response(
+            err.status,
+            err.message.map(|msg| ErrorResponse { message: msg }),
+        )
+    }))
+}
+
+trait IntoResponse {
+    fn into_response(self) -> Response<Full<Bytes>>;
+}
+
+impl<T: Serialize> IntoResponse for (StatusCode, T) {
+    fn into_response(self) -> Response<Full<Bytes>> {
+        let (status, body) = self;
+        build_response(status, Some(body))
+    }
+}
+
+async fn handle_request_inner(
+    mut req: Request<Incoming>,
+) -> Result<Response<Full<Bytes>>, AppError> {
     let Some(state) = req.extensions_mut().remove::<AppState>() else {
-        return build_response(StatusCode::INTERNAL_SERVER_ERROR, None);
+        return Err(AppError::status(StatusCode::INTERNAL_SERVER_ERROR, None));
     };
 
     let Some(client_info) = req.extensions_mut().remove::<ClientInfo>() else {
-        return build_response(StatusCode::INTERNAL_SERVER_ERROR, None);
+        return Err(AppError::status(StatusCode::INTERNAL_SERVER_ERROR, None));
     };
 
     match (req.method(), req.uri().path()) {
         (&Method::POST, "/api/localsend/v3/nonce") => {
-            nonce_exchange(req.into_body(), state, client_info).await
+            Ok(nonce_exchange(req.into_body(), state, client_info)
+                .await?
+                .into_response())
         }
         _ => {
             let mut res = Response::new(Full::default());
@@ -258,18 +300,52 @@ async fn nonce_exchange(
     body: Incoming,
     state: AppState,
     client_info: ClientInfo,
-) -> Result<Response<Full<Bytes>>, hyper::Error> {
+) -> Result<(StatusCode, NonceResponse), AppError> {
     let bytes = body.collect().await?.to_bytes();
     let request = match serde_json::from_slice::<NonceRequest>(&bytes) {
         Ok(json) => json,
         Err(err) => {
             tracing::warn!("Failed to parse JSON body: {err:#}");
-            return build_response(StatusCode::BAD_REQUEST, Some(serde_json::json!({
-                "message": "Invalid JSON body"
-            })));
+            return Err(AppError::status(
+                StatusCode::BAD_REQUEST,
+                Some("Invalid JSON body".to_string()),
+            ));
         }
     };
-    Ok(Response::new(Full::from(
-        "Nonce exchange successful".to_string(),
-    )))
+
+    let nonce = util::base64::decode(&request.nonce).map_err(|_| {
+        tracing::warn!("Failed to decode nonce from base64");
+        AppError::status(
+            StatusCode::BAD_REQUEST,
+            Some("Invalid nonce format".to_string()),
+        )
+    })?;
+
+    if !crypto::nonce::validate_nonce(&nonce) {
+        tracing::warn!("Invalid nonce received");
+        return Err(AppError::status(
+            StatusCode::BAD_REQUEST,
+            Some("Invalid nonce".to_string()),
+        ));
+    }
+
+    // Save the nonce
+    let remote_key = client_info.to_remote_key();
+    let mut challenged_nonce_map = state.received_nonce_map.lock().await;
+    challenged_nonce_map.put(remote_key.clone(), nonce);
+
+    // Generate new nonce for the client
+    let new_nonce = crypto::nonce::generate_nonce();
+    let new_nonce_base64 = util::base64::encode(&new_nonce);
+    let mut expecting_nonce_map = state.generated_nonce_map.lock().await;
+    expecting_nonce_map.put(remote_key, new_nonce);
+
+    tracing::info!("Nonce exchange successful for client: {}", client_info.ip);
+
+    Ok((
+        StatusCode::OK,
+        NonceResponse {
+            nonce: new_nonce_base64,
+        },
+    ))
 }

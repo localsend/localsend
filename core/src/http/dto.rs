@@ -5,3 +5,15 @@ pub struct NonceRequest {
     /// The nonce string.
     pub nonce: String,
 }
+
+#[derive(Clone, Debug, PartialEq, Eq, Deserialize, Serialize)]
+pub struct NonceResponse {
+    /// The nonce string.
+    pub nonce: String,
+}
+
+#[derive(Clone, Debug, PartialEq, Eq, Deserialize, Serialize)]
+pub struct ErrorResponse {
+    /// The error message.
+    pub message: String,
+}
