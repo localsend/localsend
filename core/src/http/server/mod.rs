@@ -9,7 +9,7 @@ use crate::{crypto, util};
 use bytes::Bytes;
 use http_body_util::{BodyExt, Full};
 use hyper::body::{Body, Incoming};
-use hyper::{Method, Request, Response, StatusCode};
+use hyper::{http, Method, Request, Response, StatusCode};
 use hyper_util::rt::{TokioExecutor, TokioIo};
 use hyper_util::server::conn::auto::Builder;
 use lru::LruCache;
@@ -237,37 +237,41 @@ impl ClientInfoExt for ClientInfo {
     }
 }
 
-fn build_response<T: Serialize>(status: StatusCode, body: Option<T>) -> Response<Full<Bytes>> {
-    let mut response = Response::new(Full::default());
-    *response.status_mut() = status;
-
-    if let Some(body) = body {
-        *response.body_mut() = Full::from(Bytes::from(
-            serde_json::to_string(&body).unwrap_or_else(|_| "{}".to_string()),
-        ));
-    }
-
-    response
-}
-
 async fn handle_request(req: Request<Incoming>) -> Result<Response<Full<Bytes>>, hyper::Error> {
     Ok(handle_request_inner(req).await.unwrap_or_else(|err| {
         tracing::error!("Error handling request: {err:?}");
-        build_response(
-            err.status,
-            err.message.map(|msg| ErrorResponse { message: msg }),
-        )
+        JsonResponse {
+            status: err.status,
+            body: ErrorResponse {
+                message: err
+                    .message
+                    .unwrap_or_else(|| "Internal Server Error".to_string()),
+            },
+        }
+        .into_response()
     }))
 }
 
-trait IntoResponse {
-    fn into_response(self) -> Response<Full<Bytes>>;
+struct JsonResponse<T: Serialize> {
+    status: StatusCode,
+    body: T,
 }
 
-impl<T: Serialize> IntoResponse for (StatusCode, T) {
+impl<T: Serialize> JsonResponse<T> {
     fn into_response(self) -> Response<Full<Bytes>> {
-        let (status, body) = self;
-        build_response(status, Some(body))
+        let mut response = Response::new(Full::default());
+        *response.status_mut() = self.status;
+
+        response.headers_mut().insert(
+            http::header::CONTENT_TYPE,
+            http::HeaderValue::from_static("application/json"),
+        );
+
+        *response.body_mut() = Full::from(Bytes::from(
+            serde_json::to_string(&self.body).unwrap_or_else(|_| "{}".to_string()),
+        ));
+
+        response
     }
 }
 
@@ -300,7 +304,7 @@ async fn nonce_exchange(
     body: Incoming,
     state: AppState,
     client_info: ClientInfo,
-) -> Result<(StatusCode, NonceResponse), AppError> {
+) -> Result<JsonResponse<NonceResponse>, AppError> {
     let bytes = body.collect().await?.to_bytes();
     let request = match serde_json::from_slice::<NonceRequest>(&bytes) {
         Ok(json) => json,
@@ -342,10 +346,10 @@ async fn nonce_exchange(
 
     tracing::info!("Nonce exchange successful for client: {}", client_info.ip);
 
-    Ok((
-        StatusCode::OK,
-        NonceResponse {
+    Ok(JsonResponse {
+        status: StatusCode::OK,
+        body: NonceResponse {
             nonce: new_nonce_base64,
         },
-    ))
+    })
 }

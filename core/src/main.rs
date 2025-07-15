@@ -28,7 +28,19 @@ async fn main() -> Result<()> {
         .with_max_level(Level::DEBUG)
         .init();
 
-    server_test().await?;
+    let a = tokio::spawn(async move {
+        let _ = server_test().await;
+    });
+
+    let b = tokio::spawn(async move {
+        tokio::time::sleep(std::time::Duration::from_secs(2)).await;
+        let _ = client_test().await;
+    });
+
+    tokio::select! {
+        _ = a => {},
+        _ = b => {},
+    }
 
     Ok(())
 }
@@ -117,11 +129,10 @@ MCowBQYDK2VwAyEAZmdXP230oqK92o65ra3XaF2F8r3+fK5DEBK4c40qVts=
 async fn server_test() -> Result<()> {
     let server = http::server::LsHttpServer::start_with_port(
         53317,
-        // Some(TlsConfig {
-        //     cert: CERT.to_string(),
-        //     private_key: PRIVATE_KEY.to_string(),
-        // }),
-        None,
+        Some(TlsConfig {
+            cert: CERT.to_string(),
+            private_key: PRIVATE_KEY.to_string(),
+        }),
     )
     .await?;
     tokio::time::sleep(std::time::Duration::from_secs(u64::MAX)).await;
@@ -129,14 +140,14 @@ async fn server_test() -> Result<()> {
     Ok(())
 }
 
-async fn http_test() -> Result<()> {
+async fn client_test() -> Result<()> {
     let client = LsHttpClient::try_new(PRIVATE_KEY, CERT)?;
 
     let register_dto = RegisterDto {
         alias: "test 2".to_string(),
         version: "2.3".to_string(),
         device_model: Some("test".to_string()),
-        device_type: Some(crate::model::discovery::DeviceType::Headless),
+        device_type: Some(DeviceType::Headless),
         fingerprint: "test".to_string(),
         port: 53317,
         protocol: ProtocolType::Https,

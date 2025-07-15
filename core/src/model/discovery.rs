@@ -29,10 +29,8 @@ pub struct RegisterResponseDto {
     pub download: bool,
 }
 
-// TODO: Change enums to SCREAMING_SNAKE_CASE for v3
-
 #[derive(Clone, Debug, Deserialize, Eq, Serialize, PartialEq)]
-#[serde(rename_all = "camelCase")]
+#[serde(rename_all = "SCREAMING_SNAKE_CASE")]
 pub enum DeviceType {
     Mobile,
     Desktop,
@@ -42,7 +40,7 @@ pub enum DeviceType {
 }
 
 #[derive(Clone, Debug, Deserialize, Eq, Serialize, PartialEq)]
-#[serde(rename_all = "camelCase")]
+#[serde(rename_all = "SCREAMING_SNAKE_CASE")]
 pub enum ProtocolType {
     Http,
     Https,
