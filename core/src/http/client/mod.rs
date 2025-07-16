@@ -1,16 +1,29 @@
+mod url;
+
+use crate::http::{dto, StatusCodeError};
 use crate::model::discovery::{ProtocolType, RegisterDto, RegisterResponseDto};
 use crate::model::transfer::{PrepareUploadRequestDto, PrepareUploadResponseDto};
+use crate::{crypto, util};
 use futures_util::StreamExt;
+use lru::LruCache;
 use reqwest::{Response, StatusCode};
 use serde::{Deserialize, Serialize};
-use tokio::sync::mpsc;
+use std::num::NonZeroUsize;
+use std::sync::Arc;
+use tokio::sync::{mpsc, Mutex};
 use tokio_stream::wrappers::ReceiverStream;
-use crate::http::StatusCodeError;
+use crate::http::client::url::{ApiVersion, TargetUrl};
 
-const BASE_PATH: &str = "/api/localsend/v2";
+const BASE_PATH: &str = "/api/localsend/v3";
 
 pub struct LsHttpClient {
     client: reqwest::Client,
+
+    /// Maps client identifiers to nonces that have been received from remote.
+    received_nonce_map: Arc<Mutex<LruCache<String, Vec<u8>>>>,
+
+    /// Maps client identifiers to nonces that are expected to be received from remote.
+    generated_nonce_map: Arc<Mutex<LruCache<String, Vec<u8>>>>,
 }
 
 pub struct RegisterResult {
@@ -39,7 +52,72 @@ impl LsHttpClient {
             .identity(identity)
             .build()?;
 
-        Ok(Self { client })
+        Ok(Self {
+            client,
+            received_nonce_map: Arc::new(Mutex::new(LruCache::new(
+                NonZeroUsize::new(200).unwrap(),
+            ))),
+            generated_nonce_map: Arc::new(Mutex::new(LruCache::new(
+                NonZeroUsize::new(200).unwrap(),
+            ))),
+        })
+    }
+
+    pub async fn nonce(
+        &self,
+        protocol: &ProtocolType,
+        ip: &str,
+        port: u16,
+    ) -> anyhow::Result<String> {
+        // Generate nonce to send to server
+        let generated_nonce = crypto::nonce::generate_nonce();
+        let generated_nonce_base64 = util::base64::encode(&generated_nonce);
+
+        let request_body = dto::NonceRequest {
+            nonce: generated_nonce_base64,
+        };
+
+        let res = self
+            .client
+            .post(TargetUrl {
+                version: ApiVersion::V3,
+                protocol: protocol.clone(),
+                host: ip.to_string(),
+                port,
+                path: "/nonce",
+            }.to_string())
+            .body(serde_json::to_string(&request_body)?)
+            .send()
+            .await?;
+
+        if res.status() != StatusCode::OK {
+            return Err(status_code_error_from_res(res).await?);
+        }
+
+        let remote_key = to_remote_key(&res, protocol == &ProtocolType::Https, None)?;
+        let body = res.json::<dto::NonceResponse>().await?;
+
+        // Save the response nonce and our generated nonce
+        let response_nonce = util::base64::decode(&body.nonce)?;
+
+        let mut received_nonce_map = self.received_nonce_map.lock().await;
+        received_nonce_map.put(remote_key.clone(), response_nonce);
+
+        let mut generated_nonce_map = self.generated_nonce_map.lock().await;
+        generated_nonce_map.put(remote_key.clone(), generated_nonce);
+
+        tracing::info!("Nonce exchange successful for server: {ip} (ID: {remote_key})");
+
+        tracing::debug!(
+            "Received map: {:?}",
+            received_nonce_map.get(&remote_key).unwrap()
+        );
+        tracing::debug!(
+            "Generated map: {:?}",
+            generated_nonce_map.get(&remote_key).unwrap()
+        );
+
+        Ok(body.nonce)
     }
 
     pub async fn register(
@@ -166,24 +244,6 @@ impl LsHttpClient {
     }
 }
 
-/// Verifies the certificate from the response.
-/// Returns the public key extracted from the certificate.
-fn verify_cert_from_res(response: &Response, public_key: Option<String>) -> anyhow::Result<String> {
-    let tls_info_ext = response
-        .extensions()
-        .get::<reqwest::tls::TlsInfo>()
-        .ok_or_else(|| anyhow::anyhow!("TLS info not found"))?;
-    let cert = tls_info_ext
-        .peer_certificate()
-        .ok_or_else(|| anyhow::anyhow!("Certificate not found"))?;
-    let public_key = match public_key {
-        Some(public_key) => public_key.to_owned(),
-        None => crate::crypto::cert::public_key_from_cert_der(cert)?,
-    };
-    crate::crypto::cert::verify_cert_from_der(cert, Some(public_key.clone()))?;
-    Ok(public_key)
-}
-
 #[derive(Serialize, Deserialize)]
 struct ErrorResponse {
     message: String,
@@ -204,4 +264,31 @@ async fn status_code_error_from_res(response: Response) -> anyhow::Result<anyhow
             _ => Some(body),
         },
     }))
+}
+
+fn to_remote_key(response: &Response, require_cert: bool, public_key: Option<String>) -> anyhow::Result<String> {
+    match require_cert {
+        true => verify_cert_from_res(response, public_key),
+        false => response.remote_addr().map(|addr| addr.ip().to_string()).ok_or_else(|| {
+            anyhow::anyhow!("Remote address not found in response")
+        }),
+    }
+}
+
+/// Verifies the certificate from the response.
+/// Returns the public key extracted from the certificate.
+fn verify_cert_from_res(response: &Response, public_key: Option<String>) -> anyhow::Result<String> {
+    let tls_info_ext = response
+        .extensions()
+        .get::<reqwest::tls::TlsInfo>()
+        .ok_or_else(|| anyhow::anyhow!("TLS info not found"))?;
+    let cert = tls_info_ext
+        .peer_certificate()
+        .ok_or_else(|| anyhow::anyhow!("Certificate not found"))?;
+    let public_key = match public_key {
+        Some(public_key) => public_key.to_owned(),
+        None => crypto::cert::public_key_from_cert_der(cert)?,
+    };
+    crypto::cert::verify_cert_from_der(cert, Some(public_key.clone()))?;
+    Ok(public_key)
 }

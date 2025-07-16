@@ -143,6 +143,14 @@ async fn server_test() -> Result<()> {
 async fn client_test() -> Result<()> {
     let client = LsHttpClient::try_new(PRIVATE_KEY, CERT)?;
 
+    let nonce = client.nonce(
+        &ProtocolType::Https,
+        "localhost",
+        53317,
+    ).await?;
+
+    println!("Received Nonce: {}", nonce);
+
     let register_dto = RegisterDto {
         alias: "test 2".to_string(),
         version: "2.3".to_string(),

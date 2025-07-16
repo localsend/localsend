@@ -1,13 +1,14 @@
 mod client_cert_verifier;
 mod error;
+mod collect_to_json;
 
 use crate::crypto::cert::public_key_from_cert_der;
-use crate::http::dto::{ErrorResponse, NonceRequest, NonceResponse};
+use crate::http::dto::{ErrorResponse, NonceRequest, NonceResponse, RegisterRequest, RegisterResponse};
 use crate::http::server::client_cert_verifier::CustomClientCertVerifier;
 use crate::http::server::error::AppError;
 use crate::{crypto, util};
 use bytes::Bytes;
-use http_body_util::{BodyExt, Full};
+use http_body_util::Full;
 use hyper::body::{Body, Incoming};
 use hyper::{http, Method, Request, Response, StatusCode};
 use hyper_util::rt::{TokioExecutor, TokioIo};
@@ -24,6 +25,7 @@ use std::sync::Arc;
 use tokio::sync::{oneshot, Mutex};
 use uuid::Uuid;
 use x509_parser::nom::Parser;
+use crate::http::server::collect_to_json::CollectToJson;
 
 #[derive(Clone)]
 struct AppState {
@@ -211,13 +213,7 @@ struct ClientInfo {
     cert: Option<Vec<u8>>,
 }
 
-trait ClientInfoExt {
-    fn extract_public_key(&self) -> Option<String>;
-
-    fn to_remote_key(&self) -> String;
-}
-
-impl ClientInfoExt for ClientInfo {
+impl ClientInfo {
     fn extract_public_key(&self) -> Option<String> {
         match &self.cert {
             Some(cert) => match public_key_from_cert_der(cert) {
@@ -292,6 +288,11 @@ async fn handle_request_inner(
                 .await?
                 .into_response())
         }
+        // (&Method::POST, "/api/localsend/v3/register") => {
+        //     Ok(register(req.into_body(), state, client_info)
+        //         .await?
+        //         .into_response())
+        // }
         _ => {
             let mut res = Response::new(Full::default());
             *res.status_mut() = StatusCode::NOT_FOUND;
@@ -305,19 +306,9 @@ async fn nonce_exchange(
     state: AppState,
     client_info: ClientInfo,
 ) -> Result<JsonResponse<NonceResponse>, AppError> {
-    let bytes = body.collect().await?.to_bytes();
-    let request = match serde_json::from_slice::<NonceRequest>(&bytes) {
-        Ok(json) => json,
-        Err(err) => {
-            tracing::warn!("Failed to parse JSON body: {err:#}");
-            return Err(AppError::status(
-                StatusCode::BAD_REQUEST,
-                Some("Invalid JSON body".to_string()),
-            ));
-        }
-    };
+    let payload = body.collect_to_json::<NonceRequest>().await?;
 
-    let nonce = util::base64::decode(&request.nonce).map_err(|_| {
+    let nonce = util::base64::decode(&payload.nonce).map_err(|_| {
         tracing::warn!("Failed to decode nonce from base64");
         AppError::status(
             StatusCode::BAD_REQUEST,
@@ -335,16 +326,20 @@ async fn nonce_exchange(
 
     // Save the nonce
     let remote_key = client_info.to_remote_key();
-    let mut challenged_nonce_map = state.received_nonce_map.lock().await;
-    challenged_nonce_map.put(remote_key.clone(), nonce);
+    let mut received_nonce_map = state.received_nonce_map.lock().await;
+    received_nonce_map.put(remote_key.clone(), nonce);
 
     // Generate new nonce for the client
     let new_nonce = crypto::nonce::generate_nonce();
     let new_nonce_base64 = util::base64::encode(&new_nonce);
-    let mut expecting_nonce_map = state.generated_nonce_map.lock().await;
-    expecting_nonce_map.put(remote_key, new_nonce);
+    let mut generated_nonce_map = state.generated_nonce_map.lock().await;
+    generated_nonce_map.put(remote_key.clone(), new_nonce);
 
-    tracing::info!("Nonce exchange successful for client: {}", client_info.ip);
+    tracing::info!(
+        "Nonce exchange successful for client: {} (ID: {})",
+        client_info.ip,
+        remote_key
+    );
 
     Ok(JsonResponse {
         status: StatusCode::OK,
@@ -353,3 +348,18 @@ async fn nonce_exchange(
         },
     })
 }
+
+// async fn register(
+//     body: Incoming,
+//     state: AppState,
+//     client_info: ClientInfo,
+// ) -> Result<JsonResponse<RegisterResponse>, AppError> {
+//     let payload = body.collect_to_json::<RegisterRequest>().await?;
+//
+//     Ok(JsonResponse {
+//         status: StatusCode::OK,
+//         body: RegisterResponse {
+//             token: payload.token,
+//         },
+//     })
+// }
