@@ -11,9 +11,9 @@
     "confirm": "Təsdiqlə",
     "continueStr": "Davam et",
     "copy": "Köçür",
-    "copiedToClipboard": "Buferə Köçürüldü",
+    "copiedToClipboard": "Məlumat buferinə köçürüldü",
     "decline": "İmtina et",
-    "done": "Bitdi",
+    "done": "Oldu",
     "delete": "Sil",
     "edit": "Düzəliş et",
     "error": "Xəta",
@@ -27,26 +27,26 @@
     "online": "Onlayn",
     "open": "Aç",
     "queue": "Növbə",
-    "quickSave": "Cəld Saxla",
-    "quickSaveFromFavorites": "\"Sevimlilər\" üçün cəld saxla",
-    "renamed": "Təkrar adlandırıldı",
-    "reset": "Dəyişiklikləri geri al",
-    "restart": "Təkrar başlat",
-    "settings": "Tənzimləmələr",
+    "quickSave": "Cəld yadda saxla",
+    "quickSaveFromFavorites": "\"Sevimlilər\" üçün cəld yadda saxla",
+    "renamed": "Adı dəyişdirildi",
+    "reset": "Dəyişiklikləri geri qaytar",
+    "restart": "Yenidən başlat",
+    "settings": "Parametrlər",
     "skipped": "Ötürüldü",
     "start": "Başlat",
     "stop": "Dayandır",
-    "save": "Saxla",
-    "unchanged": "Dəyişməmiş",
+    "save": "Yadda saxla",
+    "unchanged": "Dəyişdirilməmiş",
     "unknown": "Naməlum",
-    "noItemInClipboard": "Buferdə element yoxdur."
+    "noItemInClipboard": "Məlumat buferində element yoxdur."
   },
   "receiveTab": {
     "title": "Qəbul et",
     "infoBox": {
       "ip": "IP:",
       "port": "Port:",
-      "alias": "Cihaz adı:"
+      "alias": "Cihazın adı:"
     },
     "quickSave": {
       "off": "@:general.off",
@@ -57,9 +57,9 @@
   "sendTab": {
     "title": "Göndər",
     "selection": {
-      "title": "Seçilmə",
+      "title": "Seçim",
       "files": "Fayllar: {files}",
-      "size": "Həcm: {size}"
+      "size": "Ölçü: {size}"
     },
     "picker": {
       "file": "Fayl",
@@ -78,7 +78,7 @@
     "sendModes": {
       "single": "Tək qəbul edən",
       "multiple": "Çoxsaylı alıcılar",
-      "link": "Bağlantıdan paylaş"
+      "link": "Keçid vasitəsilə paylaş"
     },
     "sendModeHelp": "İzahat",
     "help": "Xahiş olunur, əmin olun ki, istədiyiniz hədəf eyni Wi-Fi şəbəkəsindədir.",
@@ -115,7 +115,343 @@
       "title": "Qəbul et",
       "quickSave": "@:general.quickSave",
       "quickSaveFromFavorites": "@:general.quickSaveFromFavorites",
-      "autoFinish": "Avtomatik Bitirmə"
+      "autoFinish": "Avtomatik Bitirmə",
+      "requirePin": "@:webSharePage.requirePin",
+      "destination": "Qovluqda yadda saxla",
+      "downloads": "(Yüklənənlər)",
+      "saveToGallery": "Medianı qalereyada yadda saxla",
+      "saveToHistory": "Tarixçədə yadda saxla"
+    },
+    "advancedSettings": "Qabaqcıl parametrlər",
+    "send": {
+      "title": "Göndər",
+      "shareViaLinkAutoAccept": "\"Keçid vasitəsilə paylaş\" rejimində sorğuları avtomatik qəbul et"
+    },
+    "network": {
+      "title": "Şəbəkə",
+      "needRestart": "Parametrləri tətbiq etmək üçün serveri yenidən başladın!",
+      "server": "Server",
+      "alias": "Cihazın adı",
+      "deviceType": "Cihazın tipi",
+      "deviceModel": "Cihazın modeli",
+      "port": "Port",
+      "discoveryTimeout": "Axtarışın zaman aşımı",
+      "useSystemName": "Sistemin adından istifadə et",
+      "generateRandomAlias": "Təsadüfi ad yarat",
+      "portWarning": "Fərdi portdan istifadə etdiyiniz üçün başqa cihazlar tərəfindən aşkarlanmaya bilərsiniz. (defolt: {defaultPort})",
+      "multicastGroup": "Multicast ünvanı",
+      "encryption": "Şifrələmə",
+      "multicastGroupWarning": "Fərdi multicast ünvanından istifadə etdiyiniz üçün başqa cihazlar tərəfindən aşkarlanmaya bilərsiniz. (defolt: {defaultMulticast})",
+      "network": "Şəbəkə",
+      "networkOptions": {
+        "all": "Hamısı",
+        "filtered": "Filtrlənmiş"
+      }
+    },
+    "other": {
+      "title": "Digər",
+      "support": "LocalSend-i dəstəklə",
+      "donate": "İanə et",
+      "privacyPolicy": "Məxfilik siyasəti",
+      "termsOfUse": "İstifadə şərtləri"
     }
+  },
+  "receiveHistoryPage": {
+    "openFolder": "Qovluğu aç",
+    "deleteHistory": "Tarixçəni sil",
+    "title": "Tarixçə",
+    "entryActions": {
+      "deleteFromHistory": "Tarixçədən sil",
+      "open": "Faylı aç",
+      "showInFolder": "Qovluqda göstər",
+      "info": "Məlumat"
+    },
+    "empty": "Tarixçə boşdur."
+  },
+  "dialogs": {
+    "noFiles": {
+      "title": "Heç bir fayl seçilməyib",
+      "content": "Zəhmət olmasa, ən azı bir fayl seçin."
+    },
+    "fileInfo": {
+      "size": "Ölçüsü:",
+      "path": "Yol:",
+      "sender": "Göndərən:",
+      "title": "Fayl məlumatı",
+      "fileName": "Faylın adı:",
+      "time": "Vaxt:"
+    },
+    "qr": {
+      "title": "QR-kod"
+    },
+    "historyClearDialog": {
+      "content": "Bütün tarixçəni silmək istədiyinizə əminsiniz?",
+      "title": "Tarixçəni təmizlə"
+    },
+    "localNetworkUnauthorized": {
+      "title": "@:dialogs.noPermission.title",
+      "description": "LocalSend lokal şəbəkəni skan etmək icazəsi olmadan digər cihazları tapa bilmir. Zəhmət olmasa, parametrlərdən bu icazəni verin.",
+      "gotoSettings": "Parametrlər"
+    },
+    "quickSaveFromFavoritesNotice": {
+      "content": [
+        "Fayl sorğuları artıq sevimlilər siyahısındakı cihazlardan avtomatik qəbul edəcək.",
+        "Xəbərdarlıq! Hal-hazırda bu, tamamilə təhlükəsiz deyil, çünki sevimlilər siyahısındakı istənilən cihazın barmaq izinə sahib olan haker məhdudiyyətsiz sizə fayllar göndərə bilər.",
+        "Bununla belə, bu seçim lokal şəbəkədəki bütün istifadəçilərin sizə məhdudiyyətsiz fayllar göndərməsinə icazə verməkdən daha təhlükəsizdir."
+      ],
+      "title": "@:general.quickSaveFromFavorites"
+    },
+    "pin": {
+      "title": "PIN-i daxil et"
+    },
+    "sendModeHelp": {
+      "title": "Göndərmə rejimləri",
+      "single": "Faylları bir cihaza göndərir. Faylların ötürülməsi başa çatdıqdan sonra seçim silinəcək.",
+      "multiple": "Faylları birdən çox cihaza göndərir. Faylların ötürülməsi tamamlandıqdan sonra seçim silinməyəcək.",
+      "link": "LocalSend-i quraşdırmamış alıcılar linki brauzerlərində açaraq seçilmiş faylları endirə bilərlər."
+    },
+    "favoriteDialog": {
+      "addFavorite": "Əlavə et",
+      "title": "Sevimlilər",
+      "noFavorites": "Hələ ki, sevimli cihaz yoxdur."
+    },
+    "errorDialog": {
+      "title": "@:general.error"
+    },
+    "favoriteEditDialog": {
+      "titleAdd": "Sevimlilərə əlavə et",
+      "titleEdit": "Parametrlər",
+      "name": "Cihazın adı",
+      "auto": "(avtomatik)",
+      "ip": "IP ünvan",
+      "port": "Port"
+    },
+    "addFile": {
+      "title": "Seçilmişlərə əlavə et",
+      "content": "Nə əlavə etmək istəyirsiniz?"
+    },
+    "openFile": {
+      "title": "Faylı aç",
+      "content": "Qəbul edilmiş faylı açmaq istəyirsiniz?"
+    },
+    "addressInput": {
+      "title": "Ünvanı daxil et",
+      "hashtag": "Heşteq",
+      "ip": "IP ünvan",
+      "recentlyUsed": "Son istifadə olunan: "
+    },
+    "cancelSession": {
+      "title": "Fayl transferini ləğv et",
+      "content": "Siz həqiqətən faylların transferini ləğv etmək istəyirsiniz?"
+    },
+    "cannotOpenFile": {
+      "title": "Faylı açmaq mümkün olmadı",
+      "content": "\"{file}\" faylını açmaq mümkün olmadı. Fayl köçürülmüş, adı dəyişdirilmiş və ya silinmiş ola bilər?"
+    },
+    "encryptionDisabledNotice": {
+      "title": "Şifrələmə deaktiv edilib",
+      "content": "Əlaqə artıq şifrələnməmiş HTTP protokolu vasitəsilə həyata keçirilir. HTTPS protokolundan istifadə etmək üçün şifrələməni yenidən aktiv edin."
+    },
+    "favoriteDeleteDialog": {
+      "title": "Sevimlilərdən sil",
+      "content": "Həqiqətən də \"{name}\" cihazını sevimlilərdən silmək istəyirsiniz?"
+    },
+    "fileNameInput": {
+      "title": "Faylın adını daxil et",
+      "original": "Orijinal: {original}"
+    },
+    "messageInput": {
+      "title": "Mesaj yaz",
+      "multiline": "Çoxsətirli"
+    },
+    "noPermission": {
+      "title": "İcazə yoxdur",
+      "content": "Siz lazımi icazələri verməmisiniz. Zəhmət olmasa, parametrlərdə icazə verin."
+    },
+    "notAvailableOnPlatform": {
+      "title": "Mövcud deyil",
+      "content": "Bu funksiya sadəcə burada mövcuddur:"
+    },
+    "quickActions": {
+      "title": "Sürətli hərəkətlər",
+      "counter": "Sayğac",
+      "prefix": "Prefiks",
+      "padZero": "Sıfırlar ilə doldur",
+      "sortBeforeCount": "Qabaqcadan əlifba sırası ilə sırala",
+      "random": "Təsadüfi"
+    },
+    "quickSaveNotice": {
+      "title": "@:general.quickSave",
+      "content": "Fayl sorğuları artıq avtomatik qəbul ediləcək. Nəzərə alın ki, lokal şəbəkədəki hər kəs sizə fayl göndərə bilər."
+    },
+    "zoom": {
+      "title": "URL"
+    }
+  },
+  "troubleshootPage": {
+    "title": "Problemləri həll etmə",
+    "noDiscovery": {
+      "solution": "Zəhmət olmasa, bütün cihazların eyni Wi-Fi şəbəkəsində olduğundan və eyni konfiqurasiyanı (port, multicast ünvanı, şifrələmə) paylaşdığından əmin olun. Hədəf cihazın IP ünvanını əl ilə yazmağı cəhd edə bilərsiniz. Əgər bu işə yararsa, gələcəkdə avtomatik aşkarlanması üçün bu cihazı sevimlilərə əlavə etməyi nəzərdən keçirin.",
+      "symptom": "Bu cihaz digər cihazları aşkar edə bilməz."
+    },
+    "subTitle": "Tətbiq gözlənildiyi kimi işləmir? Burada problemlərin ümumi həll yollarını tapa bilərsiniz.",
+    "firewall": {
+      "symptom": "Bu cihaz digər cihazlara fayl göndərə bilər, lakin qəbul edə bilməz.",
+      "solution": "Bu, çox güman ki, firewall problemidir. Siz {port} portunda daxil olan bağlantılara (UDP və TCP) icazə verməklə bunu həll edə bilərsiniz.",
+      "openFirewall": "Şəbəkə ekranını (firewall) aç"
+    },
+    "noConnection": {
+      "solution": "Problem hər iki tərəfdə də var? Əgər belədirsə, hər iki cihazın eyni Wi-Fi şəbəkəsində olduğundan və eyni konfiqurasiyanı (port, multicast ünvanı, şifrələmə) paylaşdığından əmin olmalısınız. Wi-Fi şəbəkəsi Access Point (AP) izolyasiyasına görə iştirakçılar arasında ünsiyyətə icazə verməyə bilər. Bu halda, bu seçim ruterdə söndürülməlidir.",
+      "symptom": "Hər iki cihaz bir-birini aşkarlaya bilmir və faylları paylaşa bilmir."
+    },
+    "solution": "Həll:",
+    "fixButton": "Avtomatik düzəlt"
+  },
+  "webSharePage": {
+    "stopping": "Server dayandırılır…",
+    "pendingRequests": "Gözləyən sorğular: {n}",
+    "loading": "Server aktivləşdirilir…",
+    "error": "Serveri aktivləşdirərkən xəta baş verdi.",
+    "openLink": {
+      "one": "Bu keçidi brauzerdə aç:",
+      "other": "Bu keçidlərdən birini brauzerdə aç:"
+    },
+    "title": "Keçid vasitəsilə paylaş",
+    "requests": "Sorğular",
+    "noRequests": "Hələ ki, heç bir sorğu yoxdur.",
+    "encryption": "@:settingsTab.network.encryption",
+    "autoAccept": "Sorğuları avtomatik qəbul et",
+    "requirePin": "PIN tələb et",
+    "pinHint": "Sizin PIN: \"{pin}\"",
+    "encryptionHint": "LocalSend özü imzalanmış sertifikatdan istifadə edir. Siz onu brauzerinizdə qəbul etməlisiniz."
+  },
+  "networkInterfacesPage": {
+    "info": "Defolt olaraq, LocalSend bütün mövcud şəbəkə interfeyslərindən istifadə edir. Burada istənilməyən şəbəkələri istisna edə bilərsiniz. Dəyişiklikləri tətbiq etmək üçün serveri yenidən başlatmalısınız.",
+    "whitelist": "Ağ siyahı",
+    "blacklist": "Qara siyahı",
+    "title": "Şəbəkə interfeysləri",
+    "preview": "Önizlə"
+  },
+  "assetPicker": {
+    "accessiblePathName": "Əlçatan fayllar",
+    "sTypeAudioLabel": "Audio",
+    "loadFailed": "Yükləmə uğursuz oldu",
+    "accessLimitedAssets": "Məhdud icazə ilə davam et",
+    "preview": "Önizləmə",
+    "select": "Seç",
+    "emptyList": "Boş siyahı",
+    "unSupportedAssetType": "Dəstəklənməyən fayl tipi.",
+    "unableToAccessAll": "Cihazdakı bütün fayllara daxil olmaq mümkün deyil",
+    "viewingLimitedAssetsTip": "Yalnız proqram üçün əlçatan olan fayl və albomlara bax.",
+    "@info": "Android və iPhone üçün Media seçim aləti üçün tərcümələr",
+    "confirm": "Təsdiqlə",
+    "cancel": "İmtina",
+    "edit": "Düzəliş et",
+    "gifIndicator": "GIF",
+    "original": "Orijinal",
+    "changeAccessibleLimitedAssets": "Əlçatan faylları yeniləmək üçün kliklə",
+    "accessAllTip": "Tətbiq cihazdakı yalnız bəzi fayllara daxil ola bilər. Sistem parametrlərinə gedin və tətbiqin cihazdakı bütün mediaya daxil olmasına icazə verin.",
+    "goToSystemSettings": "Sistem parametrlərinə get",
+    "sTypeImageLabel": "Şəkil",
+    "sTypeVideoLabel": "Video",
+    "sTypeOtherLabel": "Digər media",
+    "sActionPlayHint": "aç",
+    "sActionPreviewHint": "önizləmə",
+    "sActionSelectHint": "seç",
+    "sActionSwitchPathLabel": "yolu dəyiş",
+    "sActionUseCameraHint": "kamera istifadə et",
+    "sNameDurationLabel": "müddət",
+    "sUnitAssetCountLabel": "say"
+  },
+  "sendPage": {
+    "rejected": "Qəbul edən bu sorğudan imtina etdi.",
+    "waiting": "Qarşı tərəfdən cavab gözlənilir…",
+    "tooManyAttempts": "@:web.tooManyAttempts",
+    "busy": "Qəbul edən başqa sorğu ilə məşğuldur."
+  },
+  "web": {
+    "fileName": "Fayl adı",
+    "files": "Fayllar",
+    "waiting": "@:sendPage.waiting",
+    "enterPin": "PIN-i daxil et",
+    "invalidPin": "Səhv PIN",
+    "tooManyAttempts": "Çoxsaylı cəhd",
+    "rejected": "Rədd edildi",
+    "size": "Ölçü"
+  },
+  "tray": {
+    "closeWindows": "Çıxış",
+    "@info": "Apple təlimatları \"bağla\" ifadələri ilə bağlı çox ciddidir.",
+    "open": "@:general.open",
+    "close": "LocalSend-dən çıx"
+  },
+  "apkPickerPage": {
+    "apps": "{n} tətbiq",
+    "title": "Tətbiqlər (APK)",
+    "excludeSystemApps": "Sistem tətbiqlərini istisna et",
+    "excludeAppsWithoutLaunchIntent": "Açıla bilməyən tətbiqləri istisna et"
+  },
+  "receivePage": {
+    "subTitleLink": "sənə keçid göndərdi:",
+    "canceled": "Göndərən bu sorğunu ləğv etdi.",
+    "subTitle": {
+      "one": "sənə fayl göndərmək istəyir",
+      "other": "sənə {n} fayl göndərmək istəyir"
+    },
+    "subTitleMessage": "sənə mesaj göndərdi:"
+  },
+  "receiveOptionsPage": {
+    "title": "Seçimlər",
+    "destination": "@:settingsTab.receive.destination",
+    "appDirectory": "(LocalSend qovluğu)",
+    "saveToGallery": "@:settingsTab.receive.saveToGallery",
+    "saveToGalleryOff": "Qovluqlar olduğu üçün avtomatik söndürülür."
+  },
+  "progressPage": {
+    "total": {
+      "title": {
+        "canceledSender": "Göndərən tərəfindən dayandırıldı",
+        "sending": "Ümumi proses ({time})",
+        "finishedError": "Proses xəta verərək dayandı",
+        "canceledReceiver": "Qəbul edən tərəfindən dayandırıldı"
+      },
+      "count": "Fayl: {curr} / {n}",
+      "size": "Ölçü: {curr} / {n}",
+      "speed": "Sürət: {speed}/s"
+    },
+    "titleSending": "Fayllar göndərilir",
+    "titleReceiving": "Fayllar qəbul edilir",
+    "savedToGallery": "Qalereyada saxlanıldı"
+  },
+  "donationPage": {
+    "info": "LocalSend pulsuz, açıq mənbəlidir və heç bir reklam yoxdur. Proqramı bəyənirsinizsə, ianə ilə inkişafını dəstəkləyə bilərsiniz.",
+    "title": "İanə et",
+    "donate": "{amount} ianə et",
+    "thanks": "Çox təşəkkür edirəm!",
+    "restore": "Satın almaları bərpa et"
+  },
+  "selectedFilesPage": {
+    "deleteAll": "Hamısını sil"
+  },
+  "aboutPage": {
+    "description": [
+      "LocalSend internet bağlantısına ehtiyac olmadan lokal şəbəkə üzərindən yaxınlıqdakı cihazlarla faylları və mesajları təhlükəsiz paylaşmağa imkan verən pulsuz, açıq mənbəli proqramdır.",
+      "Bu proqram Android, iOS, macOS, Windows və Linux sistemlərində mövcuddur. Bütün yükləmə variantlarını rəsmi saytda tapa bilərsiniz."
+    ],
+    "author": "Müəllif",
+    "contributors": "Töhfə verənlər",
+    "title": "LocalSend haqqında",
+    "packagers": "Paketləyənlər",
+    "translators": "Tərcüməçilər"
+  },
+  "changelogPage": {
+    "title": "Versiya jurnalı"
+  },
+  "aliasGenerator(ignoreMissing, ignoreGpt)": {
+    "@info": "Fərqli dillərdə fərqli sözlər ola bilər, 1:1 uyğun olmaya bilər"
+  },
+  "sanitization": {
+    "empty": "Fayl adı boş ola bilməz",
+    "invalid": "Fayl adında etibarsız simvollar ola bilməz"
   }
 }
