@@ -78,6 +78,8 @@ dependencies:
   wakelock_plus: 1.2.8
   wechat_assets_picker: 9.5.0
   win32_registry: 1.1.5
+  workmanager: ^0.5.2
+  flutter_local_notifications: ^17.2.3
   window_manager: 0.4.3
   windows_taskbar: 1.1.2
   yaru: 5.3.2
