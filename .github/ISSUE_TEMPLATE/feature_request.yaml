@@ -1,29 +1,51 @@
 name: Feature request
 description: Suggest an idea for this project
-title: Feature request
-labels: ["feature :sparkles:"]
+title: "fr: "
+labels: ["enhancement"]
 body:
-  - type: textarea
-    id: feature_request_description
+  - type: checkboxes
+    id: duplication
     attributes:
-      label: Is your feature request related to a problem? Please describe.
-      description: A clear and concise description of what the problem is. Ex. I'm always frustrated when [...]
+      label: "Make sure about:"
+      options:
+        - label: This issue is not duplicated with any other open or closed issues.
+          required: true
+        - label: This issue is a feature request, not a bug report.
+          required: true
+
+  - type: textarea
+    id: reason
+    attributes:
+      label: Reason of the change
+      description: Why the things need to be changed? Inconvenient or logical wrong?
+      placeholder: |
+        Because if I want to ..., I'll need to ...
+        It's not very ... to do so ...
     validations:
       required: true
+
   - type: textarea
-    id: feature_request_solution_description
+    id: solution
     attributes:
-      label: Describe the solution you'd like
-      description: A clear and concise description of what you want to happen
+      label: Description of the change
+      description: What should we change or add, to make it better?
+      placeholder: |
+        If there's a choice like ..., it will be more ...
     validations:
       required: true
+      
   - type: textarea
-    id: feature_request_alternatives
+    id: alternatives
     attributes:
-      label: Describe alternatives you've considered
-      description: A clear and concise description of any alternative solutions or features you've considered
+      label: The alternatives you've considered
+      description: If we are unable to do that above, any other solution?
+      placeholder: |
+        Add a ... also helps ...
+      
   - type: textarea
-    id: feature_request_additional_context
+    id: additional
     attributes:
       label: Additional context
-      description: Add any other context or screenshots about the feature request here
+      description: Add any other context or screenshots about the request here
+      placeholder: |
+        Related app, website, system, or a design. Anything helpful can be here.
