@@ -6,17 +6,11 @@ body:
   - type: checkboxes
     id: duplication
     attributes:
-      label: ⠀
+      label: "Make sure about:"
       options:
-        - label: This issue is not duplicated with any other open or closed issues
+        - label: This issue is not duplicated with any other open or closed issues.
           required: true
-
-  - type: checkboxes
-    id: latest
-    attributes:
-      label: ⠀
-      options:
-        - label: I am using the latest version from the release
+        - label: I am using the latest version from the release.
           required: true
 
   - type: textarea
@@ -47,12 +41,12 @@ body:
       label: Reproduction
       description: Steps to reproduce the bug
       placeholder: |
-        1. Turn on "What" in "What settings"
+        1. Turn on "..." in "... settings"
         2. Restart the app
         3. Crash
         /
-        1. Transfer a "What" file is What size takes What long
-        2. Observe What
+        1. Transfer a "..." file is ... size takes ... long
+        2. Observe ...
         3. Crash
     validations:
       required: true
@@ -88,6 +82,6 @@ body:
       label: Additional context
       description: Add any other context about the problem here
       placeholder: |
-        Crash report or other helpful information
+        Crash report or any helpful information.
     validations:
       required: false
