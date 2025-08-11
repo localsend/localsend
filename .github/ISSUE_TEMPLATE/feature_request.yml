@@ -4,6 +4,14 @@ title: "fr: "
 labels: ["enhancement"]
 body:
   - type: checkboxes
+    id: confirm
+    attributes:
+      label: Read [this](https://github.com/localsend/localsend/issues/528) before anything
+      options:
+        - label: I have read it.
+        - label: Issues not fitting are closed.
+
+  - type: checkboxes
     id: duplication
     attributes:
       label: "Make sure about:"
@@ -33,7 +41,7 @@ body:
         If there's a choice like ..., it will be more ...
     validations:
       required: true
-      
+
   - type: textarea
     id: alternatives
     attributes:
@@ -41,7 +49,7 @@ body:
       description: If we are unable to do that above, any other solution?
       placeholder: |
         Add a ... also helps ...
-      
+
   - type: textarea
     id: additional
     attributes:
