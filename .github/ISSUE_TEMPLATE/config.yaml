@@ -1,0 +1,18 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Security issues
+    url: https://github.com/localsend/localsend/blob/main/CONTRIBUTING.md#security-issues
+    about: Help us address security issues as quickly and effectively as possible
+
+  - name: Get latest LocalSend
+    url: https://localsend.org/download
+    about: Your issue may be version related, so try updating first
+
+  - name: GitHub Discussions
+    url: https://github.com/localsend/localsend/discussions
+    about: If you think your issue isn't that serious, you can discuss it here
+
+  - name: Contributing guide
+    url: https://github.com/localsend/localsend/blob/main/CONTRIBUTING.md
+    about: Check our contributing guide if you’re interested or have time
+    
