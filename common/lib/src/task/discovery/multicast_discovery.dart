@@ -65,6 +65,7 @@ class MulticastService {
             streamController.add(peer);
             if ((dto.announcement == true || dto.announce == true) && syncState.serverRunning) {
               // only respond when server is running
+              // ignore: discarded_futures
               _answerAnnouncement(peer);
             }
           } catch (e) {
@@ -83,6 +84,7 @@ class MulticastService {
 
       // ignore: unawaited_futures
       _cancelCompleter.future.then((_) {
+        // ignore: discarded_futures
         streamController.close();
         for (final socket in sockets) {
           socket.socket.close();

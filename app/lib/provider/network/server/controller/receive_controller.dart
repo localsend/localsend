@@ -601,11 +601,12 @@ class ReceiveController {
           closeSession();
           _logger.info('Closing session');
 
-          // ignore: use_build_context_synchronously
+          // ignore: use_build_context_synchronously, discarded_futures
           Routerino.context.pushRootImmediately(() => const HomePage(initialTab: HomeTab.receive, appStart: false));
 
           // open the dialog to open file instantly
           if (outerDestinationPath != null && outerDestinationPath.isNotEmpty) {
+            // ignore: discarded_futures
             OpenFileDialog.open(
               Routerino.context, // ignore: use_build_context_synchronously
               filePath: outerDestinationPath,

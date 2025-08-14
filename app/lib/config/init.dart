@@ -224,8 +224,8 @@ Future<void> postInit(BuildContext context, Ref ref, bool appStart) async {
   if (appStart) {
     if (defaultTargetPlatform == TargetPlatform.macOS) {
       // handle dropped files
-      pendingFilesStream.listen((files) {
-        ref.global.dispatchAsync(_HandleAppStartArgumentsAction(
+      pendingFilesStream.listen((files) async {
+        await ref.global.dispatchAsync(_HandleAppStartArgumentsAction(
           args: files,
         ));
       });
@@ -264,8 +264,8 @@ Future<void> postInit(BuildContext context, Ref ref, bool appStart) async {
     }
 
     _sharedMediaSubscription?.cancel(); // ignore: unawaited_futures
-    _sharedMediaSubscription = shareHandler.sharedMediaStream.listen((SharedMedia payload) {
-      ref.global.dispatchAsync(_HandleShareIntentAction(
+    _sharedMediaSubscription = shareHandler.sharedMediaStream.listen((SharedMedia payload) async {
+      await ref.global.dispatchAsync(_HandleShareIntentAction(
         payload: payload,
       ));
     });

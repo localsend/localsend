@@ -48,6 +48,7 @@ class TaskRunner<T> {
           onFinish: () {
             _runnerCount--;
             if (_stopped || (_runnerCount == 0 && !_stayAlive)) {
+              // ignore: discarded_futures
               _streamController.close();
               onFinish?.call();
             }
