@@ -48,7 +48,7 @@ dependencies:
   nanoid2: 2.0.1
   network_info_plus: 6.1.1
   open_dir: 0.0.2+1
-  open_filex: 4.5.0
+  open_filex: 4.7.0
   package_info_plus: 8.1.1
   pasteboard: 0.3.0
   path: 1.9.1
@@ -80,7 +80,7 @@ dependencies:
   win32_registry: 1.1.5
   window_manager: 0.4.3
   windows_taskbar: 1.1.2
-  yaru: 5.3.2
+  yaru: 8.1.0
 
 dev_dependencies:
   build_runner: 2.4.13
