@@ -33,6 +33,7 @@ import 'package:localsend_app/provider/selection/selected_sending_files_provider
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/provider/tv_provider.dart';
 import 'package:localsend_app/provider/window_dimensions_provider.dart';
+import 'package:localsend_app/provider/background_service_provider.dart';
 import 'package:localsend_app/rust/api/logging.dart' as rust_logging;
 import 'package:localsend_app/rust/frb_generated.dart';
 import 'package:localsend_app/util/i18n.dart';
@@ -217,6 +218,13 @@ Future<void> postInit(BuildContext context, Ref ref, bool appStart) async {
     ref.redux(nearbyDevicesProvider).dispatchAsync(StartMulticastListener()); // ignore: unawaited_futures
   } catch (e) {
     _logger.warning('Starting multicast listener failed', e);
+  }
+
+  // Initialize background service for notifications
+  try {
+    await ref.notifier(backgroundServiceProvider).initialize();
+  } catch (e) {
+    _logger.warning('Initializing background service failed', e);
   }
 
   ref.redux(signalingProvider).dispatch(SetupSignalingConnection());
