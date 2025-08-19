@@ -289,9 +289,14 @@ class LoadSelectionFromArgsAction extends AsyncReduxActionWithResult<SelectedSen
   Future<(List<CrossFile>, bool)> reduce() async {
     bool filesAdded = false;
     bool nextShare = false;
+    bool nextText = false;
     for (final arg in args) {
       if (arg == '--share') {
         nextShare = true;
+        continue;
+      }
+      if (arg == '--text' || arg == '-t') {
+        nextText = true;
         continue;
       }
       if (nextShare) {
@@ -307,6 +312,14 @@ class LoadSelectionFromArgsAction extends AsyncReduxActionWithResult<SelectedSen
               converter: CrossFileConverters.convertSharedAttachment,
             ));
         filesAdded = true;
+        continue;
+      }
+      if (nextText) {
+        nextText = false;
+        if (arg.trim().isNotEmpty) {
+          dispatch(AddMessageAction(message: arg.trim()));
+          filesAdded = true;
+        }
         continue;
       }
       if (arg.startsWith('-')) {
