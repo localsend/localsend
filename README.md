@@ -88,7 +88,7 @@ Read more about [distribution channels][].
 | iOS      | 12.0            | -                                                                                                                           |
 | macOS    | 11 Big Sur      | Use OpenCore Legacy Patcher 2.0.2 (See [#1005](https://github.com/localsend/localsend/issues/1005#issuecomment-2449899384)) |
 | Windows  | 10              | The last version to support Windows 7 is v1.15.4. There might be backports of newer versions for Windows 7 in the future.   |
-| Linux    | N.A.            | -                                                                                                                           |
+| Linux    | N.A.            | Deps: Gnome: `xdg-desktop-portal` and `xdg-desktop-portal-gtk`, KDE: `xdg-desktop-portal` and `xdg-desktop-portal-kde`      |
 
 ## Setup
 
