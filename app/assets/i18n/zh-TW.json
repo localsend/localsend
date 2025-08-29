@@ -46,7 +46,7 @@
     "infoBox": {
       "ip": "IP：",
       "port": "通訊埠：",
-      "alias": "別名："
+      "alias": "裝置名稱："
     },
     "quickSave": {
       "off": "@:general.off",
@@ -130,7 +130,7 @@
       "title": "網路",
       "needRestart": "重新啟動伺服器以套用設定！",
       "server": "伺服器",
-      "alias": "別名",
+      "alias": "裝置名稱",
       "deviceType": "裝置類型",
       "deviceModel": "裝置型號",
       "port": "通訊埠",
@@ -265,7 +265,7 @@
   },
   "donationPage": {
     "title": "贊助",
-    "info": "LocalSend 是免費、開源且沒有任何廣告的。如果您喜歡此應用程式，您可以透過捐贈來支持開發。",
+    "info": "LocalSend 是免費、開源且沒有任何廣告的。如果您喜歡此應用程式，可以透過捐贈來支持開發。",
     "donate": "贊助 {amount}",
     "thanks": "非常感謝您！",
     "restore": "復原購買"
@@ -289,7 +289,7 @@
       "title": "輸入位址",
       "hashtag": "雜湊標記",
       "ip": "IP 位址",
-      "recentlyUsed": "最近使用："
+      "recentlyUsed": "最近使用： "
     },
     "cancelSession": {
       "title": "取消檔案傳輸",
