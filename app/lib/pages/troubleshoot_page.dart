@@ -27,7 +27,7 @@ class TroubleshootPage extends StatelessWidget {
           const SizedBox(height: 5),
           _TroubleshootItem(
             symptomText: t.troubleshootPage.firewall.symptom,
-            solutionText: t.troubleshootPage.firewall.solution(port: settings.port),
+            solutionText: '${t.troubleshootPage.firewall.solution(port: settings.port)}\n\n⚠️  Important: The LocalSend .exe and Winget packages do not automatically configure Windows Firewall rules. You must configure the firewall manually using the buttons below or through Windows Firewall settings.',
             primaryButton: _FixButton(
               label: t.troubleshootPage.fixButton,
               onTapMap: {
@@ -49,6 +49,49 @@ class TroubleshootPage extends StatelessWidget {
                 ),
               },
             ),
+            additionalInfo: Platform.isWindows ? Container(
+              margin: const EdgeInsets.only(top: 10),
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.primaryContainer.withOpacity(0.3),
+                borderRadius: BorderRadius.circular(8),
+                border: Border.all(
+                  color: Theme.of(context).colorScheme.primary.withOpacity(0.3),
+                ),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Icon(
+                        Icons.security,
+                        size: 18,
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
+                      const SizedBox(width: 8),
+                      Expanded(
+                        child: Text(
+                          'Windows Firewall Configuration Required',
+                          style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                            color: Theme.of(context).colorScheme.primary,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    '• Use "Auto Fix" above to automatically add firewall rules (requires admin privileges)\n• Or use "Open Firewall" to manually configure Windows Defender Firewall\n• Allow LocalSend through both Private and Public networks for best compatibility',
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      color: Theme.of(context).colorScheme.onPrimaryContainer,
+                      height: 1.4,
+                    ),
+                  ),
+                ],
+              ),
+            ) : null,
           ),
           _TroubleshootItem(
             symptomText: t.troubleshootPage.noDiscovery.symptom,
@@ -69,12 +112,14 @@ class _TroubleshootItem extends StatefulWidget {
   final String solutionText;
   final _FixButton? primaryButton;
   final _FixButton? secondaryButton;
+  final Widget? additionalInfo;
 
   const _TroubleshootItem({
     required this.symptomText,
     required this.solutionText,
     this.primaryButton,
     this.secondaryButton,
+    this.additionalInfo,
   });
 
   @override
@@ -136,6 +181,10 @@ class _TroubleshootItemState extends State<_TroubleshootItem> {
                     ),
                   ),
                 ),
+              ],
+              if (widget.additionalInfo != null) ...[
+                const SizedBox(height: 10),
+                widget.additionalInfo!,
               ],
             ],
           ),
