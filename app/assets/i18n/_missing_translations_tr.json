@@ -9,20 +9,20 @@
     },
     "network": {
       "networkOptions": {
-        "filtered": "Filtered"
+        "filtered": "Filtreli"
       }
     }
   },
   "networkInterfacesPage": {
-    "info": "By default, LocalSend uses all available network interfaces. You can exclude unwanted networks here. You need to restart the server to apply the changes."
+    "info": "Varsayılan olarak LocalSend tüm ağ arabirimlerini kullanır. Buradan kullanılmasını istemediğiniz ağları kaldırabilirsiniz. Değişikliklerin uygulanması için sunucu yeniden başlatılmalıdır."
   },
   "dialogs": {
     "quickSaveFromFavoritesNotice": {
       "title": "@:general.quickSaveFromFavorites",
       "content": [
-        "File requests are now accepted automatically from devices in your favorites list.",
-        "Warning! Currently, this is not entirely secure, as a hacker who has the fingerprint of any device from your favorites list can send you files without restriction.",
-        "However, this option is still safer than allowing all users on the local network to send you files without restriction."
+        "Favorilerinizdeki cihazlardan gelen dosya istekleri artık otomatik olarak kabul edilecektir.",
+        "Uyarı! Şu anda bu seçenek tamamen güvenli değildir. Favorilerinizde olan bir cihazın parmak izi kötü niyetli bir kişide bulunuyorsa sizlere engel olmadan dosya gönderebilir.",
+        "Fakat, bu seçenek hâlâ yerel ağınızdaki herkesten dosya alınmasına izin vermekten daha güvenlidir."
       ]
     }
   }
