@@ -4,6 +4,7 @@ mod collect_to_json;
 
 use crate::crypto::cert::public_key_from_cert_der;
 use crate::http::dto::{ErrorResponse, NonceRequest, NonceResponse, RegisterRequest, RegisterResponse};
+use crate::clipboard::{ClipboardManager, SendClipboardRequest, SendClipboardResponse, ReceiveClipboardRequest, ReceiveClipboardResponse};
 use crate::http::server::client_cert_verifier::CustomClientCertVerifier;
 use crate::http::server::error::AppError;
 use crate::{crypto, util};
@@ -34,6 +35,9 @@ struct AppState {
 
     /// Maps client identifiers to nonces that are expected to be received from remote.
     generated_nonce_map: Arc<Mutex<LruCache<String, Vec<u8>>>>,
+
+    /// Clipboard manager for handling clipboard operations
+    clipboard_manager: Arc<Mutex<ClipboardManager>>,
 }
 
 impl AppState {
@@ -45,6 +49,7 @@ impl AppState {
             generated_nonce_map: Arc::new(Mutex::new(LruCache::new(
                 NonZeroUsize::new(200).unwrap(),
             ))),
+            clipboard_manager: Arc::new(Mutex::new(ClipboardManager::new())),
         }
     }
 }
@@ -288,6 +293,16 @@ async fn handle_request_inner(
                 .await?
                 .into_response())
         }
+        (&Method::POST, "/api/localsend/v3/clipboard/send") => {
+            Ok(send_clipboard(req.into_body(), state, client_info)
+                .await?
+                .into_response())
+        }
+        (&Method::POST, "/api/localsend/v3/clipboard/receive") => {
+            Ok(receive_clipboard(req.into_body(), state, client_info)
+                .await?
+                .into_response())
+        }
         // (&Method::POST, "/api/localsend/v3/register") => {
         //     Ok(register(req.into_body(), state, client_info)
         //         .await?
@@ -345,6 +360,67 @@ async fn nonce_exchange(
         status: StatusCode::OK,
         body: NonceResponse {
             nonce: new_nonce_base64,
+        },
+    })
+}
+
+async fn send_clipboard(
+    body: Incoming,
+    state: AppState,
+    client_info: ClientInfo,
+) -> Result<JsonResponse<SendClipboardResponse>, AppError> {
+    let payload = body.collect_to_json::<SendClipboardRequest>().await?;
+
+    // Store the clipboard data
+    let mut clipboard_manager = state.clipboard_manager.lock().await;
+    clipboard_manager.store_clipboard_data(payload.clipboard_data);
+
+    tracing::info!(
+        "Clipboard data received from client: {} (ID: {})",
+        client_info.ip,
+        client_info.to_remote_key()
+    );
+
+    Ok(JsonResponse {
+        status: StatusCode::OK,
+        body: SendClipboardResponse {
+            success: true,
+            message: Some("Clipboard data stored successfully".to_string()),
+        },
+    })
+}
+
+async fn receive_clipboard(
+    body: Incoming,
+    state: AppState,
+    client_info: ClientInfo,
+) -> Result<JsonResponse<ReceiveClipboardResponse>, AppError> {
+    let _payload = body.collect_to_json::<ReceiveClipboardRequest>().await?;
+
+    // Get the latest clipboard data
+    let clipboard_manager = state.clipboard_manager.lock().await;
+    let all_data = clipboard_manager.get_all_clipboard_data();
+    
+    // For now, return the most recent clipboard data
+    // In a real implementation, you might want to filter by device or timestamp
+    let latest_data = all_data.last().cloned();
+
+    tracing::info!(
+        "Clipboard data requested by client: {} (ID: {})",
+        client_info.ip,
+        client_info.to_remote_key()
+    );
+
+    Ok(JsonResponse {
+        status: StatusCode::OK,
+        body: ReceiveClipboardResponse {
+            success: true,
+            clipboard_data: latest_data,
+            message: if latest_data.is_some() {
+                Some("Clipboard data retrieved successfully".to_string())
+            } else {
+                Some("No clipboard data available".to_string())
+            },
         },
     })
 }

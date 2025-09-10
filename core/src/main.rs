@@ -1,3 +1,4 @@
+mod clipboard;
 mod crypto;
 mod http;
 mod model;

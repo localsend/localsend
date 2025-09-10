@@ -12,6 +12,8 @@ enum ApiRoute {
   show('show'),
   prepareDownload('prepare-download'),
   download('download'),
+  clipboardSend('clipboard/send'),
+  clipboardReceive('clipboard/receive'),
   ;
 
   const ApiRoute(String path, [String? legacy])
