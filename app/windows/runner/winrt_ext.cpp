@@ -1,19 +1,21 @@
 #include "winrt_ext.h"
 
-#include <windows.h>
 #include <appmodel.h>
-#include <winrt/windows.foundation.h>
-#include <winrt/windows.foundation.collections.h>
-#include <winrt/windows.storage.h>
-#include <winrt/windows.storage.streams.h>
+#include <windows.h>
 #include <winrt/windows.applicationmodel.activation.h>
 #include <winrt/windows.applicationmodel.datatransfer.h>
 #include <winrt/windows.applicationmodel.datatransfer.sharetarget.h>
 #include <winrt/windows.data.json.h>
+#include <winrt/windows.foundation.collections.h>
+#include <winrt/windows.foundation.h>
+#include <winrt/windows.storage.h>
+#include <winrt/windows.storage.streams.h>
 
 using winrt::Windows::ApplicationModel::AppInstance;
 using winrt::Windows::ApplicationModel::Activation::ActivationKind;
-using winrt::Windows::ApplicationModel::Activation::ShareTargetActivatedEventArgs;
+using winrt::Windows::ApplicationModel::Activation::ProtocolActivatedEventArgs;
+using winrt::Windows::ApplicationModel::Activation::
+    ShareTargetActivatedEventArgs;
 using winrt::Windows::ApplicationModel::DataTransfer::DataPackageView;
 using winrt::Windows::ApplicationModel::DataTransfer::StandardDataFormats;
 using winrt::Windows::Data::Json::JsonArray;
@@ -52,18 +54,51 @@ winrt::hstring GetSharedMedia() {
   }
   if (data.Contains(StandardDataFormats::Uri())) {
     auto uri = data.GetUriAsync().get();
-    json.SetNamedValue(L"content", JsonValue::CreateStringValue(uri.ToString()));
+    json.SetNamedValue(L"content",
+                       JsonValue::CreateStringValue(uri.ToString()));
   }
   if (data.Contains(StandardDataFormats::StorageItems())) {
     JsonArray attachments;
     auto storage_items = data.GetStorageItemsAsync().get();
-    for (const auto& item : storage_items) {
+    for (const auto &item : storage_items) {
       JsonObject attachment;
-      attachment.SetNamedValue(L"type", JsonValue::CreateNumberValue(double(SharedAttachmentType::FILE)));
-      attachment.SetNamedValue(L"path", JsonValue::CreateStringValue(item.Path()));
+      attachment.SetNamedValue(L"type", JsonValue::CreateNumberValue(double(
+                                            SharedAttachmentType::FILE)));
+      attachment.SetNamedValue(L"path",
+                               JsonValue::CreateStringValue(item.Path()));
       attachments.Append(attachment);
     }
     json.SetNamedValue(L"attachments", attachments);
   }
   return json.Stringify();
+}
+
+std::vector<std::wstring> GetProtocolArgs() {
+  std::vector<std::wstring> result;
+  auto args = AppInstance::GetActivatedEventArgs();
+  if (args == nullptr)
+    return result;
+  if (args.Kind() != ActivationKind::Protocol)
+    return result;
+  auto proto_args = args.as<ProtocolActivatedEventArgs>();
+  auto uri = proto_args.Uri();
+  auto path = uri.Path();
+  if (path != L"/addfile" && path != L"/addfile/")
+    return result;
+  auto decoder = uri.QueryParsed();
+  for (const auto &pair : decoder) {
+    auto name = pair.Name();
+    auto value = pair.Value();
+    if (name == L"openwindow") {
+      if (value == L"0") {
+        result.push_back(L"--hidden");
+      }
+      continue;
+    }
+    std::wstring name_str = name.c_str();
+    if (name_str.rfind(L"file", 0) == 0) {
+      result.push_back(value.c_str());
+    }
+  }
+  return result;
 }
