@@ -130,6 +130,18 @@ To start the app hidden (only in tray), use the `--hidden` flag (example: `local
 
 On v1.14.0 and earlier, the app starts hidden if `autostart` flag is set, and the hidden setting is enabled.
 
+**Windows URI scheme**
+
+The Windows build registers the custom URI scheme `localsend`.
+Files can be added to the send queue by launching URIs such as:
+
+```
+localsend://addfile/?file0=C:\path\to\file1.txt&file1=C:\path\to\file2.jpg&openwindow=1&shareui=1
+```
+
+Use `openwindow=0` to queue files without showing the window.
+Include `shareui=1` to immediately open the Windows share pane for the provided files.
+
 ## How It Works
 
 LocalSend uses a secure communication protocol that allows devices to communicate with each other using a REST API. All data is sent securely over HTTPS, and the TLS/SSL certificate is generated on the fly on each device, ensuring maximum security.
