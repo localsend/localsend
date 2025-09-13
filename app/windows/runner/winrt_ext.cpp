@@ -1,7 +1,6 @@
 #include "winrt_ext.h"
 
 #include <appmodel.h>
-#include <shlobj.h>
 #include <windows.h>
 #include <winrt/windows.applicationmodel.activation.h>
 #include <winrt/windows.applicationmodel.datatransfer.h>
@@ -18,8 +17,6 @@ using winrt::Windows::ApplicationModel::Activation::ProtocolActivatedEventArgs;
 using winrt::Windows::ApplicationModel::Activation::
     ShareTargetActivatedEventArgs;
 using winrt::Windows::ApplicationModel::DataTransfer::DataPackageView;
-using winrt::Windows::ApplicationModel::DataTransfer::DataRequestedEventArgs;
-using winrt::Windows::ApplicationModel::DataTransfer::DataTransferManager;
 using winrt::Windows::ApplicationModel::DataTransfer::StandardDataFormats;
 using winrt::Windows::Data::Json::JsonArray;
 using winrt::Windows::Data::Json::JsonObject;
@@ -98,42 +95,10 @@ std::vector<std::wstring> GetProtocolArgs() {
       }
       continue;
     }
-    if (name == L"shareui" && value == L"1") {
-      result.push_back(L"--shareui");
-      continue;
-    }
     std::wstring name_str = name.c_str();
     if (name_str.rfind(L"file", 0) == 0) {
       result.push_back(value.c_str());
     }
   }
   return result;
-}
-
-void ShowShareUI(HWND hwnd, const std::vector<std::wstring> &files) {
-  if (files.empty())
-    return;
-  auto interop = winrt::get_activation_factory<DataTransferManager,
-                                               IDataTransferManagerInterop>();
-  DataTransferManager manager{nullptr};
-  interop->GetForWindow(hwnd, winrt::guid_of<DataTransferManager>(),
-                        winrt::put_abi(manager));
-  auto revoker = manager.DataRequested(
-      winrt::auto_revoke,
-      [files](DataTransferManager const &, DataRequestedEventArgs const &args) {
-        auto deferral = args.Request().GetDeferral();
-        auto data = args.Request().Data();
-        auto items = winrt::single_threaded_vector<
-            winrt::Windows::Storage::IStorageItem>();
-        for (const auto &path : files) {
-          auto file =
-              winrt::Windows::Storage::StorageFile::GetFileFromPathAsync(path)
-                  .get();
-          items.Append(file);
-        }
-        data.Properties().Title(L"Share files");
-        data.SetStorageItems(items);
-        deferral.Complete();
-      });
-  interop->ShowShareUIForWindow(hwnd);
 }

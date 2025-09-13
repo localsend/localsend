@@ -9,6 +9,5 @@
 bool IsRunningWithIdentity();
 winrt::hstring GetSharedMedia();
 std::vector<std::wstring> GetProtocolArgs();
-void ShowShareUI(HWND hwnd, const std::vector<std::wstring> &files);
 
 #endif // RUNNER_WINRT_EXT_H_

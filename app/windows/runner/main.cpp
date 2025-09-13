@@ -23,8 +23,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE instance, _In_opt_ HINSTANCE prev,
 
   std::vector<std::string> command_line_arguments = GetCommandLineArguments();
 
-  std::vector<std::wstring> protocol_files;
-  bool show_share_ui = false;
   if (IsRunningWithIdentity()) {
     winrt::hstring share_arg = GetSharedMedia();
     if (!share_arg.empty()) {
@@ -34,15 +32,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE instance, _In_opt_ HINSTANCE prev,
     }
     auto protocol_args = GetProtocolArgs();
     for (const auto &arg : protocol_args) {
-      if (arg == L"--shareui") {
-        show_share_ui = true;
-        continue;
-      }
-      if (arg == L"--hidden") {
-        command_line_arguments.push_back(Utf8FromUtf16(arg.c_str()));
-        continue;
-      }
-      protocol_files.push_back(arg);
       command_line_arguments.push_back(Utf8FromUtf16(arg.c_str()));
     }
   }
@@ -56,10 +45,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE instance, _In_opt_ HINSTANCE prev,
     return EXIT_FAILURE;
   }
   window.SetQuitOnClose(true);
-
-  if (show_share_ui) {
-    ShowShareUI(window.GetHandle(), protocol_files);
-  }
 
   ::MSG msg;
   while (::GetMessage(&msg, nullptr, 0, 0)) {

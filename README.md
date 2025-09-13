@@ -136,11 +136,12 @@ The Windows build registers the custom URI scheme `localsend`.
 Files can be added to the send queue by launching URIs such as:
 
 ```
-localsend://addfile/?file0=C:\path\to\file1.txt&file1=C:\path\to\file2.jpg&openwindow=1&shareui=1
+localsend://addfile/?file0=C:\path\to\file1.txt&file1=C:\path\to\file2.jpg&openwindow=1
 ```
 
 Use `openwindow=0` to queue files without showing the window.
-Include `shareui=1` to immediately open the Windows share pane for the provided files.
+
+The app is also registered as a Windows Share Target and accepts any file type.
 
 ## How It Works
 
