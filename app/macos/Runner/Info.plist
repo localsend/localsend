@@ -145,7 +145,7 @@
                 <string>Send to LocalSend</string>
             </dict>
             <key>NSMessage</key>
-            <string>handleTextDropEvent</string>
+            <string>handleSendTextService</string>
             <key>NSPortName</key>
             <string>LocalSend</string>
             <key>NSSendTypes</key>
