@@ -264,6 +264,18 @@ class AppDelegate: FlutterAppDelegate {
             }
         }
     }
+
+    override func application(_ application: NSApplication, open urls: [URL]) {
+        for url in urls {
+            if url.isFileURL {
+                if let fileBookmark = createBookmarkForFile(at: url) {
+                    Defaults[.pendingFiles].append(fileBookmark)
+                }
+            } else {
+                Defaults[.pendingStrings].append(url.absoluteString)
+            }
+        }
+    }
     // END: handle opened files
     
     /// Handle **text** dropped onto the Dock icon
