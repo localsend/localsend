@@ -38,6 +38,7 @@ LocalSend is a free, open-source app that allows you to securely share files and
 - [Sponsors](#sponsors)
 - [Screenshots](#screenshots)
 - [Download](#download)
+- [Web App](#web-app)
 - [How It Works](#how-it-works)
 - [Getting Started](#getting-started)
 - [Contributing](#contributing)
@@ -138,6 +139,40 @@ The app will use this file to store settings instead of the default location.
 To start the app hidden (only in tray), use the `--hidden` flag (example: `localsend_app.exe --hidden`).
 
 On v1.14.0 and earlier, the app starts hidden if `autostart` flag is set, and the hidden setting is enabled.
+
+## 🌐 Web App
+
+The LocalSend **Web App** allows you to send and receive files directly through a browser without installing any software. It is currently **experimental** and under **active development**, so some features or browsers may not work perfectly.
+
+> 🧪 **Note**: For the most reliable experience, we recommend using the native desktop or mobile apps.
+
+### 🚀 Try It
+
+👉 Launch the web app here: [https://web.localsend.org](https://web.localsend.org)
+
+---
+
+### ✅ Web App Compatibility
+
+| Platform / Browser    | Support Level    | Notes                                                                 |
+|------------------------|------------------|------------------------------------------------------------------------|
+| **Chrome / Edge**      | ✅ Fully Supported | Best experience using modern Web APIs                                 |
+| **Firefox**            | ⚠️ Partial Support | May have issues with large files or device discovery                   |
+| **Safari (macOS)**     | ⚠️ Limited Support | File APIs and local discovery may be restricted                       |
+| **Safari (iOS)**       | ⚠️ Very Limited    | iOS browser limitations affect file access and device discovery       |
+| **Android (Chrome)**   | ⚠️ Experimental    | May work, but native app is more stable                               |
+| **iOS Web**            | ⚠️ Unreliable      | Browser limits impact file access; native app strongly recommended    |
+
+---
+
+### 📌 Known Limitations
+
+- Device discovery may fail on some browsers due to lack of mDNS support.
+- Large file transfers (>1GB) may time out or fail, especially on mobile browsers.
+- File system access and download behavior are browser-specific and may vary.
+- iOS browsers are heavily sandboxed, limiting file handling and local networking.
+
+---
 
 ## How It Works
 
