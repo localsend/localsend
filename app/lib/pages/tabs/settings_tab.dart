@@ -351,8 +351,13 @@ class SettingsTab extends StatelessWidget {
                               message: t.settingsTab.network.useSystemName,
                               child: IconButton(
                                 onPressed: () async {
-                                  // Uses dart.io to find the systems hostname
-                                  final newAlias = Platform.localHostname;
+                                  final String newAlias;
+                                  if (Platform.isMacOS) {
+                                    final result = await Process.run('scutil', ['--get', 'ComputerName']);
+                                    newAlias = result.stdout.toString().trim();
+                                  } else {
+                                    newAlias = Platform.localHostname;
+                                  }
 
                                   vm.aliasController.text = newAlias;
                                   await ref.notifier(settingsProvider).setAlias(newAlias);
