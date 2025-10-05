@@ -70,7 +70,7 @@ dependencies:
   shared_storage: 0.8.1
   slang: 4.5.0
   slang_flutter: 4.5.0
-  system_settings: 2.1.0
+  system_settings_2: 3.0.1
   tray_manager: 0.2.4
   uri_content: 2.2.0
   url_launcher: 6.3.1
