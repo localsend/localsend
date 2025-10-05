@@ -113,6 +113,8 @@ flutter:
   assets:
     - assets/img/
     - assets/web/
+    - assets/packaging/
+    - assets/packaging/deb/
     - assets/CHANGELOG.md
 
 flutter_gen:

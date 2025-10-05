@@ -1,0 +1,4 @@
+[LocalSend]
+title=LocalSend
+description=An open source cross-platform alternative to AirDrop for sharing files over LAN
+ports=53317

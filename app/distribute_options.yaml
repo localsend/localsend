@@ -1,0 +1,10 @@
+output: dist/
+releases:
+  - name: dev
+    jobs:
+      - name: release-dev-linux-deb
+        package:
+          platform: linux
+          target: deb
+          build_args:
+            enable-experiment: records

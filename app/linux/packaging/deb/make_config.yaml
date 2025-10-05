@@ -22,9 +22,11 @@ dependencies:
   - xdg-user-dirs
 
 postinstall_scripts:
-  - echo "Installed Localsend successfully"
+  - chmod +x /usr/share/localsend_app/data/flutter_assets/assets/packaging/deb/postinst.sh
+  - /usr/share/localsend_app/data/flutter_assets/assets/packaging/deb/postinst.sh
 postuninstall_scripts:
-  - echo "Sorry to see you go :("
+  - chmod +x /usr/share/localsend_app/data/flutter_assets/assets/packaging/deb/postrm.sh
+  - /usr/share/localsend_app/data/flutter_assets/assets/packaging/deb/postrm.sh
 
 keywords:
   - Sharing
