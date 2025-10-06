@@ -43,7 +43,7 @@ class AppDelegate: FlutterAppDelegate {
         channel = FlutterMethodChannel(name: "main-delegate-channel", binaryMessenger: controller.engine.binaryMessenger)
         channel?.setMethodCallHandler(handleFlutterCall)
         
-        self.setupDockIconTextDropEventListener()
+        NSApplication.shared.servicesProvider = self
         
         let localsendBrandColor = NSColor(red: 0, green: 0.392, blue: 0.353, alpha: 0.8) // #00645a
         DockProgress.style = .squircle(color: localsendBrandColor)
@@ -81,16 +81,6 @@ class AppDelegate: FlutterAppDelegate {
         }
     }
     
-    private func setupDockIconTextDropEventListener() {
-        let appleEventManager = NSAppleEventManager.shared()
-        
-        appleEventManager.setEventHandler(
-            self,
-            andSelector: #selector(handleOpenContentsEvent(_:withReplyEvent:)),
-            forEventClass: AEEventClass(kCoreEventClass),
-            andEventID: AEEventID(kAEOpenContents)
-        )
-    }
     
     private func setupStatusBarItem(i18n: [String: String]) {
         statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
@@ -264,12 +254,23 @@ class AppDelegate: FlutterAppDelegate {
             }
         }
     }
-    // END: handle opened files
-    
-    /// Handle **text** dropped onto the Dock icon
-    @objc func handleOpenContentsEvent(_ event: NSAppleEventDescriptor, withReplyEvent replyEvent: NSAppleEventDescriptor) {
-        if let string = event.paramDescriptor(forKeyword: AEKeyword(keyDirectObject))?.stringValue {
-            Defaults[.pendingStrings].append(string)
+
+    override func application(_ application: NSApplication, open urls: [URL]) {
+        for url in urls {
+            if url.isFileURL {
+                if let fileBookmark = createBookmarkForFile(at: url) {
+                    Defaults[.pendingFiles].append(fileBookmark)
+                }
+            } else {
+                Defaults[.pendingStrings].append(url.absoluteString)
+            }
         }
+    }
+    // END: handle opened files
+
+    /// Also handles text dropped on the Dock icon
+    @objc func handleSendTextService(_ pasteboard: NSPasteboard, userData: String, error: NSErrorPointer) {
+        guard let string = pasteboard.string(forType: .string) else { return }
+        Defaults[.pendingStrings].append(string)
     }
 }

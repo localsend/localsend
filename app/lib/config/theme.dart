@@ -40,6 +40,14 @@ ThemeData getTheme(ColorMode colorMode, Brightness brightness, DynamicColors? dy
       AppLocale.zhHk || AppLocale.zhTw => 'Microsoft JhengHei UI',
       _ => 'Segoe UI Variable Display',
     };
+  } else if (checkPlatform([TargetPlatform.linux])) {
+    fontFamily = switch (LocaleSettings.currentLocale) {
+      AppLocale.ja => 'Noto Sans CJK JP',
+      AppLocale.ko => 'Noto Sans CJK KR',
+      AppLocale.zhCn => 'Noto Sans CJK SC',
+      AppLocale.zhHk || AppLocale.zhTw => 'Noto Sans CJK TC',
+      _ => 'Noto Sans', 
+    };
   } else {
     fontFamily = null;
   }

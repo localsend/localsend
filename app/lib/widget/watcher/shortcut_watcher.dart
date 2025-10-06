@@ -27,7 +27,9 @@ class ShortcutWatcher extends StatelessWidget {
         if (checkPlatform([TargetPlatform.linux])) LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.keyQ): _ExitAppIntent(),
         // Add Command+W to close the window for macOS
         if (checkPlatform([TargetPlatform.macOS])) LogicalKeySet(LogicalKeyboardKey.meta, LogicalKeyboardKey.keyW): _CloseWindowIntent(),
-
+        // Add Control+, to open settings for macOS
+        if (checkPlatform([TargetPlatform.macOS])) LogicalKeySet(LogicalKeyboardKey.meta, LogicalKeyboardKey.comma): _OpenSettingsIntent(),
+        
         LogicalKeySet(LogicalKeyboardKey.escape): _PopPageIntent(),
 
         // Control+V and Command+V
@@ -55,6 +57,10 @@ class ShortcutWatcher extends StatelessWidget {
               return null;
             },
           ),
+          _OpenSettingsIntent: CallbackAction(onInvoke: (_) async {
+            context.redux(homePageControllerProvider).dispatch(ChangeTabAction(HomeTab.settings));
+            return null;
+          }),
         },
         child: child,
       ),
@@ -69,6 +75,8 @@ class _PopPageIntent extends Intent {}
 class _PasteIntent extends Intent {}
 
 class _CloseWindowIntent extends Intent {}
+
+class _OpenSettingsIntent extends Intent {}
 
 bool _ignoreMetaLast = false;
 bool _isFakeMetaKey() {

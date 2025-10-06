@@ -1703,14 +1703,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.4.1"
-  system_settings:
+  system_settings_2:
     dependency: "direct main"
     description:
-      name: system_settings
-      sha256: "666693f8dace789bcf1200a88f6132b6906026643a5ee93ff140d3a547e5faf1"
+      name: system_settings_2
+      sha256: d0f6c6ef87d31e9ff5b3a928f49f398bcfb9d92cacd31f0af505d5ad951b4313
       url: "https://pub.dev"
     source: hosted
-    version: "2.1.0"
+    version: "3.0.1"
   term_glyph:
     dependency: transitive
     description:
