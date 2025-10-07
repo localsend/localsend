@@ -234,6 +234,17 @@ Future<void> _pickFolder(BuildContext context, Ref ref) async {
 }
 
 Future<void> _pickMedia(BuildContext context, Ref ref) async {
+  if (checkPlatform([TargetPlatform.android])) {
+    await PhotoManager.requestPermissionExtend(
+      requestOption: const PermissionRequestOption(
+        androidPermission: AndroidPermission(
+          type: RequestType.common,
+          mediaLocation: true,
+        ),
+      ),
+    );
+  }
+
   final oldBrightness = Theme.of(context).brightness;
   // ignore: use_build_context_synchronously
   final List<AssetEntity>? result = await AssetPicker.pickAssets(
