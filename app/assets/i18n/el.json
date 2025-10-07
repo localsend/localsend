@@ -240,16 +240,16 @@
     "stopping": "Σταμάτημα διακομιστή…",
     "error": "Ένα σφάλμα προέκυψε κατά την εκκίνηση του διακομιστή.",
     "openLink": {
-      "one": "Άνοιγμα αυτού του συνδέσμου στον φυλλομετρητή:",
-      "other": "Άνοιγμα ενός από αυτούς τους συνδέσμους στον φυλλομετρητή:"
+      "one": "Άνοιγμα αυτού του συνδέσμου στο πρόγραμμα περιήγησης:",
+      "other": "Άνοιγμα ενός από αυτούς τους συνδέσμους στο πρόγραμμα περιήγησης:"
     },
     "requests": "Αιτήματα",
-    "noRequests": "Κανένα αίτμηα ακόμα.",
+    "noRequests": "Κανένα αίτημα ακόμα.",
     "encryption": "@:settingsTab.network.encryption",
     "autoAccept": "Αυτόματη αποδοχή αιτημάτων",
     "requirePin": "Απαίτηση PIN",
     "pinHint": "Το PIN είναι \"{pin}\"",
-    "encryptionHint": "Το LocalSend χρησιμοποιεί αυτο-υπογεγραμμένο πιστοποιητικό. Χρειάζεται να το αποθεχτείτε στον φυλλομετρητή.",
+    "encryptionHint": "Το LocalSend χρησιμοποιεί αυτο-υπογεγραμμένο πιστοποιητικό. Χρειάζεται να το αποδεχτείτε στο πρόγραμμα περιήγησης.",
     "pendingRequests": "Αναμονή αιτημάτων: {n}"
   },
   "aboutPage": {
@@ -349,14 +349,14 @@
   "dialogs": {
     "addFile": {
       "title": "Προσθήκη στις επιλογές",
-      "content": "Τι θέλετε να προστεθεί;"
+      "content": "Τι θέλετε να προσθέσετε;"
     },
     "openFile": {
       "title": "Άνοιγμα αρχείου",
       "content": "Θέλετε να ανοιχτεί το ληφθέν αρχείο;"
     },
     "addressInput": {
-      "title": "Εισαγωγή διεύθυνσης",
+      "title": "Εισάγετε διεύθυνση",
       "hashtag": "Hashtag",
       "ip": "Διεύθυνση IP",
       "recentlyUsed": "Χρησιμοποιήθηκε πρόσφατα: "
@@ -396,7 +396,7 @@
     "fileInfo": {
       "title": "Πληροφορίες αρχείου",
       "fileName": "Όνομα αρχείου:",
-      "path": "Μονοπάτι:",
+      "path": "Διαδρομή αρχείου:",
       "size": "Μέγεθος:",
       "sender": "Αποστολέας:",
       "time": "Ώρα:"
@@ -406,13 +406,13 @@
       "original": "Πρωτότυπο: {original}"
     },
     "historyClearDialog": {
-      "title": "Καθαρισμός ιστορικού",
+      "title": "Διαγραφή ιστορικού",
       "content": "Θέλετε σίγουρα να διαγράψετε όλο το ιστορικό;"
     },
     "localNetworkUnauthorized": {
       "title": "@:dialogs.noPermission.title",
-      "description": "LocalSend can't find other devices without having the permission to scan the local network. Please grant this permission in the settings.",
-      "gotoSettings": "Ρυθμίσεις"
+      "description": "Το LocalSend δεν μπορεί να αναγνωρίσει άλλες συσκευές χωρίς να έχει την άδεια να σκανάρει το τοπικό σας δίκτυο. Παρακαλώ δώστε αυτή την άδεια στις ρυθμίσεις.",
+      "gotoSettings": "Άνοιγμα Ρυθμίσεων"
     },
     "messageInput": {
       "title": "Τύπος μηνύματος",
@@ -480,7 +480,7 @@
     "waiting": "@:sendPage.waiting",
     "enterPin": "Εισαγωγή PIN",
     "invalidPin": "Μη έγκυρο PIN",
-    "tooManyAttempts": "Πάρα πολλές προσπάθειες",
+    "tooManyAttempts": "Υπερβήκατε το όριο προσπαθειών.",
     "rejected": "Απορρίφθηκε",
     "files": "Αρχεία",
     "fileName": "Όνομα αρχείου",
@@ -493,7 +493,7 @@
     "edit": "Επεξεργασία",
     "gifIndicator": "GIF",
     "loadFailed": "Η φόρτωση απέτυχε",
-    "original": "Προέλευση",
+    "original": "Πρωτότυπο",
     "preview": "Προεπισκόπηση",
     "select": "Επιλογή",
     "emptyList": "Κενή λίστα",
@@ -512,7 +512,7 @@
     "sActionPlayHint": "αναπαραγωγή",
     "sActionPreviewHint": "προεπισκόπηση",
     "sActionSelectHint": "επιλογή",
-    "sActionSwitchPathLabel": "αλλαγή μονοπατιού",
+    "sActionSwitchPathLabel": "αλλαγή διαδρομής",
     "sActionUseCameraHint": "χρήση κάμερας",
     "sNameDurationLabel": "διάρκεια",
     "sUnitAssetCountLabel": "μετρητής"
@@ -521,7 +521,7 @@
     "info": "Από προεπιλογή, το LocalSend χρησιμοποιεί όλες τις διαθέσιμες διεπαφές δικτύου. Μπορείτε να εξαιρέσετε τα ανεπιθύμητα δίκτυα εδώ. Πρέπει να κάνετε επανεκκίνηση του διακομιστή για να εφαρμόσετε τις αλλαγές.",
     "title": "Διεπαφές δικτύου",
     "preview": "Προεπισκόπηση",
-    "whitelist": "Λευκή λίστα",
-    "blacklist": "Μαύρη λίστα"
+    "whitelist": "Λίστα επιτρεπόμενων",
+    "blacklist": "Λίστα αποκλεισμού"
   }
 }
