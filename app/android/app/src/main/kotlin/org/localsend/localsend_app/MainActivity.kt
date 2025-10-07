@@ -2,11 +2,12 @@ package org.localsend.localsend_app
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.database.Cursor
 import android.net.Uri
 import android.provider.DocumentsContract
-import android.provider.Settings;
+import android.provider.Settings
 import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.plugin.common.MethodCall
@@ -20,6 +21,18 @@ private const val REQUEST_CODE_PICK_FILE = 3
 
 class MainActivity : FlutterActivity() {
     private var pendingResult: MethodChannel.Result? = null
+
+    // Overriding the static methods we need from the Java class, as described
+    // in the documentation of `FlutterActivity.NewEngineIntentBuilder`
+    companion object {
+        fun withNewEngine(): NewEngineIntentBuilder {
+            return NewEngineIntentBuilder(MainActivity::class.java)
+        }
+
+        fun createDefaultIntent(launchContext: Context): Intent {
+            return withNewEngine().build(launchContext)
+        }
+    }
 
     override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
         super.configureFlutterEngine(flutterEngine)
