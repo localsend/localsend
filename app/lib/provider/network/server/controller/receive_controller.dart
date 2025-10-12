@@ -120,11 +120,7 @@ class ReceiveController {
     });
   }
 
-  Future<void> _infoHandler({
-    required HttpRequest request,
-    required String alias,
-    required String fingerprint,
-  }) async {
+  Future<void> _infoHandler({required HttpRequest request, required String alias, required String fingerprint}) async {
     final senderFingerprint = request.uri.queryParameters['fingerprint'];
     if (senderFingerprint == fingerprint) {
       // "I talked to myself lol"
@@ -185,12 +181,7 @@ class ReceiveController {
     return await request.respondJson(200, body: responseDto.toJson());
   }
 
-  Future<void> _prepareUploadHandler({
-    required HttpRequest request,
-    required int port,
-    required bool https,
-    required bool v2,
-  }) async {
+  Future<void> _prepareUploadHandler({required HttpRequest request, required int port, required bool https, required bool v2}) async {
     if (server.getState().session != null) {
       // block incoming requests when we are already in a session
       return await request.respondJson(409, message: 'Blocked by another session');
@@ -269,9 +260,7 @@ class ReceiveController {
     final Map<String, String>? selection;
     if (quickSave) {
       // accept all files
-      selection = {
-        for (final f in dto.files.values) f.id: f.fileName,
-      };
+      selection = {for (final f in dto.files.values) f.id: f.fileName};
     } else {
       if (checkPlatformHasTray() && (await windowManager.isMinimized() || !(await windowManager.isVisible()) || !(await windowManager.isFocused()))) {
         await showFromTray();
@@ -280,17 +269,21 @@ class ReceiveController {
       final message = server.getState().session?.message;
       if (message != null) {
         // Message already received
-        await server.ref.redux(receiveHistoryProvider).dispatchAsync(AddHistoryEntryAction(
-              entryId: const Uuid().v4(),
-              fileName: message,
-              fileType: FileType.text,
-              path: null,
-              savedToGallery: false,
-              isMessage: true,
-              fileSize: utf8.encode(message).length,
-              senderAlias: server.getState().session!.senderAlias,
-              timestamp: DateTime.now().toUtc(),
-            ));
+        await server.ref
+            .redux(receiveHistoryProvider)
+            .dispatchAsync(
+              AddHistoryEntryAction(
+                entryId: const Uuid().v4(),
+                fileName: message,
+                fileType: FileType.text,
+                path: null,
+                savedToGallery: false,
+                isMessage: true,
+                fileSize: utf8.encode(message).length,
+                senderAlias: server.getState().session!.senderAlias,
+                timestamp: DateTime.now().toUtc(),
+              ),
+            );
       }
 
       final receiveProvider = ViewProvider((ref) {
@@ -318,11 +311,7 @@ class ReceiveController {
 
             await Routerino.context.pushAndRemoveUntilImmediately(
               removeUntil: ReceivePage,
-              builder: () => ProgressPage(
-                showAppBar: false,
-                closeSessionOnClose: true,
-                sessionId: sessionId,
-              ),
+              builder: () => ProgressPage(showAppBar: false, closeSessionOnClose: true, sessionId: sessionId),
             );
           },
           onDecline: () {
@@ -358,47 +347,39 @@ class ReceiveController {
       return await request.respondJson(204);
     }
 
-    server.setState(
-      (oldState) {
-        final receiveState = oldState!.session!;
-        return oldState.copyWith(
-          session: receiveState.copyWith(
-            status: SessionStatus.sending,
-            files: Map.fromEntries(
-              receiveState.files.values.map((entry) {
-                final desiredName = selection![entry.file.id];
-                return MapEntry(
-                  entry.file.id,
-                  ReceivingFile(
-                    file: entry.file,
-                    status: desiredName != null ? FileStatus.queue : FileStatus.skipped,
-                    token: desiredName != null ? _uuid.v4() : null,
-                    desiredName: desiredName,
-                    path: null,
-                    savedToGallery: false,
-                    errorMessage: null,
-                  ),
-                );
-              }),
-            ),
-            responseHandler: null,
+    server.setState((oldState) {
+      final receiveState = oldState!.session!;
+      return oldState.copyWith(
+        session: receiveState.copyWith(
+          status: SessionStatus.sending,
+          files: Map.fromEntries(
+            receiveState.files.values.map((entry) {
+              final desiredName = selection![entry.file.id];
+              return MapEntry(
+                entry.file.id,
+                ReceivingFile(
+                  file: entry.file,
+                  status: desiredName != null ? FileStatus.queue : FileStatus.skipped,
+                  token: desiredName != null ? _uuid.v4() : null,
+                  desiredName: desiredName,
+                  path: null,
+                  savedToGallery: false,
+                  errorMessage: null,
+                ),
+              );
+            }),
           ),
-        );
-      },
-    );
+          responseHandler: null,
+        ),
+      );
+    });
 
     if (quickSave) {
       // ignore: use_build_context_synchronously, unawaited_futures
-      Routerino.context.pushImmediately(() => ProgressPage(
-            showAppBar: false,
-            closeSessionOnClose: true,
-            sessionId: sessionId,
-          ));
+      Routerino.context.pushImmediately(() => ProgressPage(showAppBar: false, closeSessionOnClose: true, sessionId: sessionId));
     }
 
-    final files = {
-      for (final file in server.getState().session!.files.values.where((f) => f.token != null)) file.file.id: file.token,
-    };
+    final files = {for (final file in server.getState().session!.files.values.where((f) => f.token != null)) file.file.id: file.token};
 
     if (checkPlatform([TargetPlatform.android, TargetPlatform.iOS])) {
       if (checkPlatform([TargetPlatform.android]) && !server.getState().session!.destinationDirectory.startsWith('/storage/emulated/0/Download')) {
@@ -418,20 +399,16 @@ class ReceiveController {
     }
 
     if (v2) {
-      return await request.respondJson(200,
-          body: PrepareUploadResponseDto(
-            sessionId: sessionId,
-            files: files.cast(),
-          ).toJson());
+      return await request.respondJson(
+        200,
+        body: PrepareUploadResponseDto(sessionId: sessionId, files: files.cast()).toJson(),
+      );
     }
 
     return await request.respondJson(200, body: files);
   }
 
-  Future<void> _uploadHandler({
-    required HttpRequest request,
-    required bool v2,
-  }) async {
+  Future<void> _uploadHandler({required HttpRequest request, required bool v2}) async {
     final receiveState = server.getState().session;
     if (receiveState == null) {
       return await request.respondJson(409, message: 'No session');
@@ -474,12 +451,7 @@ class ReceiveController {
     server.setState(
       (oldState) => oldState?.copyWith(
         session: receiveState.copyWith(
-          files: {...receiveState.files}..update(
-              fileId,
-              (_) => receivingFile.copyWith(
-                status: FileStatus.sending,
-              ),
-            ),
+          files: {...receiveState.files}..update(fileId, (_) => receivingFile.copyWith(status: FileStatus.sending)),
           startTime: receiveState.startTime ?? DateTime.now().millisecondsSinceEpoch,
           status: SessionStatus.sending, // in case it was finishedWithErrors and user retries a failed file
         ),
@@ -512,11 +484,9 @@ class ReceiveController {
         lastAccessed: receivingFile.file.metadata?.lastAccessed,
         onProgress: (savedBytes) {
           if (receivingFile.file.size != 0) {
-            server.ref.notifier(progressProvider).setProgress(
-                  sessionId: receiveState.sessionId,
-                  fileId: fileId,
-                  progress: savedBytes / receivingFile.file.size,
-                );
+            server.ref
+                .notifier(progressProvider)
+                .setProgress(sessionId: receiveState.sessionId, fileId: fileId, progress: savedBytes / receivingFile.file.size);
           }
         },
       );
@@ -536,17 +506,21 @@ class ReceiveController {
       );
 
       // Track it in history
-      await server.ref.redux(receiveHistoryProvider).dispatchAsync(AddHistoryEntryAction(
-            entryId: fileId,
-            fileName: receivingFile.desiredName!,
-            fileType: receivingFile.file.fileType,
-            path: saveToGallery ? null : destinationPath,
-            savedToGallery: saveToGallery,
-            isMessage: false,
-            fileSize: receivingFile.file.size,
-            senderAlias: receiveState.senderAlias,
-            timestamp: DateTime.now().toUtc(),
-          ));
+      await server.ref
+          .redux(receiveHistoryProvider)
+          .dispatchAsync(
+            AddHistoryEntryAction(
+              entryId: fileId,
+              fileName: receivingFile.desiredName!,
+              fileType: receivingFile.file.fileType,
+              path: saveToGallery ? null : destinationPath,
+              savedToGallery: saveToGallery,
+              isMessage: false,
+              fileSize: receivingFile.file.size,
+              senderAlias: receiveState.senderAlias,
+              timestamp: DateTime.now().toUtc(),
+            ),
+          );
 
       _logger.info('Saved ${receivingFile.file.fileName}.');
     } catch (e, st) {
@@ -564,11 +538,7 @@ class ReceiveController {
       _logger.severe('Failed to save file', e, st);
     }
 
-    server.ref.notifier(progressProvider).setProgress(
-          sessionId: receiveState.sessionId,
-          fileId: fileId,
-          progress: 1,
-        );
+    server.ref.notifier(progressProvider).setProgress(sessionId: receiveState.sessionId, fileId: fileId, progress: 1);
 
     final session = server.getState().session;
     if (session == null) {
@@ -624,10 +594,7 @@ class ReceiveController {
         : await request.respondJson(500, message: 'Could not save file. Check receiving device for more information.');
   }
 
-  Future<void> _cancelHandler({
-    required HttpRequest request,
-    required bool v2,
-  }) async {
+  Future<void> _cancelHandler({required HttpRequest request, required bool v2}) async {
     final receiveSession = server.getState().session;
     if (receiveSession != null) {
       // We are currently receiving files.
@@ -694,17 +661,12 @@ class ReceiveController {
         return await request.respondJson(403, message: 'No permission');
       }
 
-      server.ref.notifier(sendProvider).cancelSessionByReceiver(
-            sendState.sessionId,
-          );
+      server.ref.notifier(sendProvider).cancelSessionByReceiver(sendState.sessionId);
       return await request.respondJson(200);
     }
   }
 
-  Future<void> _showHandler({
-    required HttpRequest request,
-    required String showToken,
-  }) async {
+  Future<void> _showHandler({required HttpRequest request, required String showToken}) async {
     final senderToken = request.uri.queryParameters['token'];
     if (senderToken == showToken && checkPlatformIsDesktop()) {
       // ignore: unawaited_futures
@@ -756,23 +718,13 @@ class ReceiveController {
   /// Updates the destination directory for the current session.
   void setSessionDestinationDir(String destinationDirectory) {
     server.setState(
-      (oldState) => oldState?.copyWith(
-        session: oldState.session?.copyWith(
-          destinationDirectory: destinationDirectory.replaceAll('\\', '/'),
-        ),
-      ),
+      (oldState) => oldState?.copyWith(session: oldState.session?.copyWith(destinationDirectory: destinationDirectory.replaceAll('\\', '/'))),
     );
   }
 
   /// Updates the "saveToGallery" setting for the current session.
   void setSessionSaveToGallery(bool saveToGallery) {
-    server.setState(
-      (oldState) => oldState?.copyWith(
-        session: oldState.session?.copyWith(
-          saveToGallery: saveToGallery,
-        ),
-      ),
-    );
+    server.setState((oldState) => oldState?.copyWith(session: oldState.session?.copyWith(saveToGallery: saveToGallery)));
   }
 
   /// In addition to [closeSession], this method also
@@ -805,11 +757,7 @@ class ReceiveController {
       return;
     }
 
-    server.setState(
-      (oldState) => oldState?.copyWith(
-        session: null,
-      ),
-    );
+    server.setState((oldState) => oldState?.copyWith(session: null));
     server.ref.notifier(progressProvider).removeSession(sessionId);
   }
 }
@@ -826,12 +774,11 @@ void _cancelBySender(ServerUtils server) {
     Routerino.context.popUntil(ReceivePage);
   }
 
-  server.setState((oldState) => oldState?.copyWith(
-        session: oldState.session?.copyWith(
-          status: SessionStatus.canceledBySender,
-          endTime: DateTime.now().millisecondsSinceEpoch,
-        ),
-      ));
+  server.setState(
+    (oldState) => oldState?.copyWith(
+      session: oldState.session?.copyWith(status: SessionStatus.canceledBySender, endTime: DateTime.now().millisecondsSinceEpoch),
+    ),
+  );
 }
 
 extension on ReceiveSessionState {
@@ -843,15 +790,8 @@ extension on ReceiveSessionState {
     required String? errorMessage,
   }) {
     return copyWith(
-      files: {...files}..update(
-          fileId,
-          (file) => file.copyWith(
-            status: status,
-            path: path,
-            savedToGallery: savedToGallery,
-            errorMessage: errorMessage,
-          ),
-        ),
+      files: {...files}
+        ..update(fileId, (file) => file.copyWith(status: status, path: path, savedToGallery: savedToGallery, errorMessage: errorMessage)),
     );
   }
 }

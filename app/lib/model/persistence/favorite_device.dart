@@ -27,20 +27,8 @@ class FavoriteDevice with FavoriteDeviceMappable {
     this.customAlias = false,
   });
 
-  factory FavoriteDevice.fromValues({
-    required String fingerprint,
-    required String ip,
-    required int port,
-    required String alias,
-  }) {
-    return FavoriteDevice(
-      id: _uuid.v1(),
-      fingerprint: fingerprint,
-      ip: ip,
-      port: port,
-      alias: alias,
-      customAlias: false,
-    );
+  factory FavoriteDevice.fromValues({required String fingerprint, required String ip, required int port, required String alias}) {
+    return FavoriteDevice(id: _uuid.v1(), fingerprint: fingerprint, ip: ip, port: port, alias: alias, customAlias: false);
   }
 
   static const fromJson = FavoriteDeviceMapper.fromJson;

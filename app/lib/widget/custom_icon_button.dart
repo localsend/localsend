@@ -5,11 +5,7 @@ class CustomIconButton extends StatelessWidget {
   final VoidCallback? onPressed;
   final Widget child;
 
-  const CustomIconButton({
-    required this.onPressed,
-    required this.child,
-    super.key,
-  });
+  const CustomIconButton({required this.onPressed, required this.child, super.key});
 
   @override
   Widget build(BuildContext context) {

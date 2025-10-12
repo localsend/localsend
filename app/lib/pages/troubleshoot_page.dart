@@ -44,22 +44,13 @@ class TroubleshootPage extends StatelessWidget {
             secondaryButton: _FixButton(
               label: t.troubleshootPage.firewall.openFirewall,
               onTapMap: {
-                TargetPlatform.windows: _CommandFixAction(
-                  adminPrivileges: false,
-                  commands: ['wf'],
-                ),
+                TargetPlatform.windows: _CommandFixAction(adminPrivileges: false, commands: ['wf']),
                 TargetPlatform.macOS: _NativeFixAction(() => macos_channel.openFirewallSettings()),
               },
             ),
           ),
-          _TroubleshootItem(
-            symptomText: t.troubleshootPage.noDiscovery.symptom,
-            solutionText: t.troubleshootPage.noDiscovery.solution,
-          ),
-          _TroubleshootItem(
-            symptomText: t.troubleshootPage.noConnection.symptom,
-            solutionText: t.troubleshootPage.noConnection.solution,
-          ),
+          _TroubleshootItem(symptomText: t.troubleshootPage.noDiscovery.symptom, solutionText: t.troubleshootPage.noDiscovery.solution),
+          _TroubleshootItem(symptomText: t.troubleshootPage.noConnection.symptom, solutionText: t.troubleshootPage.noConnection.solution),
         ],
       ),
     );
@@ -72,12 +63,7 @@ class _TroubleshootItem extends StatefulWidget {
   final _FixButton? primaryButton;
   final _FixButton? secondaryButton;
 
-  const _TroubleshootItem({
-    required this.symptomText,
-    required this.solutionText,
-    this.primaryButton,
-    this.secondaryButton,
-  });
+  const _TroubleshootItem({required this.symptomText, required this.solutionText, this.primaryButton, this.secondaryButton});
 
   @override
   State<_TroubleshootItem> createState() => _TroubleshootItemState();
@@ -106,10 +92,7 @@ class _TroubleshootItemState extends State<_TroubleshootItem> {
                   runSpacing: 10,
                   children: [
                     widget.primaryButton!,
-                    if (widget.secondaryButton != null) ...[
-                      const SizedBox(width: 10),
-                      widget.secondaryButton!,
-                    ],
+                    if (widget.secondaryButton != null) ...[const SizedBox(width: 10), widget.secondaryButton!],
                     if (widget.primaryButton!.onTap?.commands != null) ...[
                       const SizedBox(width: 10),
                       CustomIconButton(
@@ -152,10 +135,7 @@ class _FixButton extends StatelessWidget {
   final Map<TargetPlatform, _FixAction> onTapMap;
   final _FixAction? onTap;
 
-  _FixButton({
-    required this.label,
-    required this.onTapMap,
-  }) : onTap = onTapMap[defaultTargetPlatform];
+  _FixButton({required this.label, required this.onTapMap}) : onTap = onTapMap[defaultTargetPlatform];
 
   @override
   Widget build(BuildContext context) {
@@ -191,10 +171,7 @@ class _CommandFixAction extends _FixAction {
   @override
   final List<String> commands;
 
-  _CommandFixAction({
-    required this.adminPrivileges,
-    required this.commands,
-  });
+  _CommandFixAction({required this.adminPrivileges, required this.commands});
 
   @override
   void runFix() async {

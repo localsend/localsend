@@ -9,10 +9,7 @@ class HttpClientCollection {
   final RhttpClient discovery;
   final RhttpClient longLiving;
 
-  HttpClientCollection({
-    required this.discovery,
-    required this.longLiving,
-  });
+  HttpClientCollection({required this.discovery, required this.longLiving});
 }
 
 /// Provides a dio having a specific timeout.

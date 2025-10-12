@@ -8,9 +8,5 @@ class CachedApkProviderParam with CachedApkProviderParamMappable {
   final bool onlyAppsWithLaunchIntent;
   bool selectMultipleApps;
 
-  CachedApkProviderParam({
-    required this.includeSystemApps,
-    required this.onlyAppsWithLaunchIntent,
-    this.selectMultipleApps = false,
-  });
+  CachedApkProviderParam({required this.includeSystemApps, required this.onlyAppsWithLaunchIntent, this.selectMultipleApps = false});
 }

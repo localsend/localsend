@@ -9,10 +9,5 @@ class ApkProviderParam with ApkProviderParamMappable {
   final bool onlyAppsWithLaunchIntent;
   bool selectMultipleApps;
 
-  ApkProviderParam({
-    required this.query,
-    required this.includeSystemApps,
-    required this.onlyAppsWithLaunchIntent,
-    this.selectMultipleApps = false,
-  });
+  ApkProviderParam({required this.query, required this.includeSystemApps, required this.onlyAppsWithLaunchIntent, this.selectMultipleApps = false});
 }

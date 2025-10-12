@@ -22,19 +22,16 @@ Future<void> main(List<String> args) async {
   try {
     container = await preInit(args);
   } catch (e, stackTrace) {
-    showInitErrorApp(
-      error: e,
-      stackTrace: stackTrace,
-    );
+    showInitErrorApp(error: e, stackTrace: stackTrace);
     return;
   }
 
-  runApp(RefenaScope.withContainer(
-    container: container,
-    child: TranslationProvider(
-      child: const LocalSendApp(),
+  runApp(
+    RefenaScope.withContainer(
+      container: container,
+      child: TranslationProvider(child: const LocalSendApp()),
     ),
-  ));
+  );
 }
 
 class LocalSendApp extends StatelessWidget {
@@ -73,12 +70,7 @@ class LocalSendApp extends StatelessWidget {
               darkTheme: getTheme(colorMode, Brightness.dark, dynamicColors),
               themeMode: colorMode == ColorMode.oled ? ThemeMode.dark : themeMode,
               navigatorKey: Routerino.navigatorKey,
-              home: RouterinoHome(
-                builder: () => const HomePage(
-                  initialTab: HomeTab.receive,
-                  appStart: true,
-                ),
-              ),
+              home: RouterinoHome(builder: () => const HomePage(initialTab: HomeTab.receive, appStart: true)),
             ),
           ),
         ),

@@ -11,11 +11,7 @@ class ZoomDialog extends StatelessWidget {
   final bool listenIncomingWebSendRequests;
   final String? pin;
 
-  const ZoomDialog({
-    required this.label,
-    this.listenIncomingWebSendRequests = false,
-    this.pin,
-  });
+  const ZoomDialog({required this.label, this.listenIncomingWebSendRequests = false, this.pin});
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +35,11 @@ class ZoomDialog extends StatelessWidget {
             child: FittedBox(
               fit: BoxFit.fill,
               clipBehavior: Clip.antiAlias,
-              child: Text(label, textAlign: TextAlign.center, style: TextStyle(fontSize: fontSize)),
+              child: Text(
+                label,
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: fontSize),
+              ),
             ),
           ),
           const SizedBox(height: 10),
@@ -72,12 +72,7 @@ class ZoomDialog extends StatelessWidget {
             ),
         ],
       ),
-      actions: [
-        TextButton(
-          onPressed: () => context.pop(),
-          child: Text(t.general.close),
-        )
-      ],
+      actions: [TextButton(onPressed: () => context.pop(), child: Text(t.general.close))],
     );
   }
 }

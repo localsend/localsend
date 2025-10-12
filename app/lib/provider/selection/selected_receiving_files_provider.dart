@@ -32,10 +32,7 @@ class SelectedReceivingFilesNotifier extends Notifier<Map<String, String>> {
   }
 
   void select(FileDto file) {
-    state = {
-      ...state,
-      file.id: file.fileName,
-    };
+    state = {...state, file.id: file.fileName};
   }
 
   void rename(String fileId, String fileName) {
@@ -43,27 +40,23 @@ class SelectedReceivingFilesNotifier extends Notifier<Map<String, String>> {
   }
 
   void applyRandom() {
-    state = {
-      for (final entry in state.entries) entry.key: entry.value.withFileNameKeepExtension(_uuid.v4()),
-    };
+    state = {for (final entry in state.entries) entry.key: entry.value.withFileNameKeepExtension(_uuid.v4())};
   }
 
-  void applyCounter({
-    required String prefix,
-    required bool padZero,
-    required bool sortFirst,
-  }) {
+  void applyCounter({required String prefix, required bool padZero, required bool sortFirst}) {
     final files = state.entries.toList();
     if (sortFirst) {
       files.sort((a, b) => a.value.compareTo(b.value));
     }
     final maxKeyStringLength = files.length.toString().length;
-    state = Map.fromEntries(files.mapIndexed((index, element) {
-      String number = (index + 1).toString();
-      if (padZero) {
-        number.padLeft(maxKeyStringLength, '0');
-      }
-      return MapEntry(element.key, element.value.withFileNameKeepExtension('$prefix$number'));
-    }));
+    state = Map.fromEntries(
+      files.mapIndexed((index, element) {
+        String number = (index + 1).toString();
+        if (padZero) {
+          number.padLeft(maxKeyStringLength, '0');
+        }
+        return MapEntry(element.key, element.value.withFileNameKeepExtension('$prefix$number'));
+      }),
+    );
   }
 }

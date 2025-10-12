@@ -8,14 +8,7 @@ import 'package:localsend_app/rust/frb_generated.dart';
 
 // These types are ignored because they are neither used by any `pub` functions nor (for structs and enums) marked `#[frb(unignore)]`: `PrepareUploadRequestDto`, `PrepareUploadResponseDto`, `ProtocolType`, `RegisterDto`, `RegisterResponseDto`
 
-enum DeviceType {
-  mobile,
-  desktop,
-  web,
-  headless,
-  server,
-  ;
-}
+enum DeviceType { mobile, desktop, web, headless, server }
 
 class FileDto {
   final String id;
@@ -26,25 +19,10 @@ class FileDto {
   final String? preview;
   final FileMetadata? metadata;
 
-  const FileDto({
-    required this.id,
-    required this.fileName,
-    required this.size,
-    required this.fileType,
-    this.sha256,
-    this.preview,
-    this.metadata,
-  });
+  const FileDto({required this.id, required this.fileName, required this.size, required this.fileType, this.sha256, this.preview, this.metadata});
 
   @override
-  int get hashCode =>
-      id.hashCode ^
-      fileName.hashCode ^
-      size.hashCode ^
-      fileType.hashCode ^
-      sha256.hashCode ^
-      preview.hashCode ^
-      metadata.hashCode;
+  int get hashCode => id.hashCode ^ fileName.hashCode ^ size.hashCode ^ fileType.hashCode ^ sha256.hashCode ^ preview.hashCode ^ metadata.hashCode;
 
   @override
   bool operator ==(Object other) =>
@@ -64,19 +42,12 @@ class FileMetadata {
   final String? modified;
   final String? accessed;
 
-  const FileMetadata({
-    this.modified,
-    this.accessed,
-  });
+  const FileMetadata({this.modified, this.accessed});
 
   @override
   int get hashCode => modified.hashCode ^ accessed.hashCode;
 
   @override
   bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is FileMetadata &&
-          runtimeType == other.runtimeType &&
-          modified == other.modified &&
-          accessed == other.accessed;
+      identical(this, other) || other is FileMetadata && runtimeType == other.runtimeType && modified == other.modified && accessed == other.accessed;
 }

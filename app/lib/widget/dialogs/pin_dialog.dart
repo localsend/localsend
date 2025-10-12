@@ -10,13 +10,7 @@ class PinDialog extends StatefulWidget {
   final bool obscureText;
   final bool generateRandom;
 
-  const PinDialog({
-    this.pin,
-    required this.obscureText,
-    this.showInvalidPin = false,
-    this.generateRandom = false,
-    super.key,
-  });
+  const PinDialog({this.pin, required this.obscureText, this.showInvalidPin = false, this.generateRandom = false, super.key});
 
   @override
   State<PinDialog> createState() => _PinDialogState();
@@ -47,22 +41,13 @@ class _PinDialogState extends State<PinDialog> {
           if (widget.showInvalidPin)
             Padding(
               padding: const EdgeInsets.only(top: 8),
-              child: Text(
-                t.web.invalidPin,
-                style: TextStyle(color: Theme.of(context).colorScheme.warning),
-              ),
+              child: Text(t.web.invalidPin, style: TextStyle(color: Theme.of(context).colorScheme.warning)),
             ),
         ],
       ),
       actions: [
-        TextButton(
-          onPressed: () => context.pop(),
-          child: Text(t.general.cancel),
-        ),
-        FilledButton(
-          onPressed: () => context.pop(_textController.text),
-          child: Text(t.general.confirm),
-        ),
+        TextButton(onPressed: () => context.pop(), child: Text(t.general.cancel)),
+        FilledButton(onPressed: () => context.pop(_textController.text), child: Text(t.general.confirm)),
       ],
     );
   }

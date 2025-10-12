@@ -10,12 +10,7 @@ class NoPermissionDialog extends StatelessWidget {
     return AlertDialog(
       title: Text(t.dialogs.noPermission.title),
       content: Text(t.dialogs.noPermission.content),
-      actions: [
-        TextButton(
-          onPressed: () => context.pop(),
-          child: Text(t.general.close),
-        )
-      ],
+      actions: [TextButton(onPressed: () => context.pop(), child: Text(t.general.close))],
     );
   }
 }

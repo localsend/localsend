@@ -37,11 +37,7 @@ Future<void> saveFile({
 
     if (documentUri != null || destinationPath.startsWith('content://')) {
       _logger.info('Using SAF to save file to ${documentUri ?? destinationPath} as $name');
-      safInfo = await _saf.startWriteStream(
-        documentUri ?? destinationPath,
-        name,
-        lookupMimeType(name) ?? (isImage ? 'image/*' : '*/*'),
-      );
+      safInfo = await _saf.startWriteStream(documentUri ?? destinationPath, name, lookupMimeType(name) ?? (isImage ? 'image/*' : '*/*'));
     } else {
       final sdCardPath = getSdCardPath(destinationPath);
       if (sdCardPath != null) {

@@ -9,10 +9,7 @@ import 'package:window_manager/window_manager.dart';
 final _logger = Logger('Init');
 
 /// Shows an alternative app if the initialization failed.
-void showInitErrorApp({
-  required Object error,
-  required StackTrace stackTrace,
-}) async {
+void showInitErrorApp({required Object error, required StackTrace stackTrace}) async {
   _logger.severe('Error during init', error, stackTrace);
 
   if (checkPlatformIsDesktop()) {
@@ -20,12 +17,11 @@ void showInitErrorApp({
     await WindowManager.instance.show();
   }
 
-  runApp(RefenaScope(
-    child: _ErrorApp(
-      error: error,
-      stackTrace: stackTrace,
+  runApp(
+    RefenaScope(
+      child: _ErrorApp(error: error, stackTrace: stackTrace),
     ),
-  ));
+  );
 
   await showFromTray();
 }
@@ -34,10 +30,7 @@ class _ErrorApp extends StatefulWidget {
   final Object error;
   final StackTrace stackTrace;
 
-  const _ErrorApp({
-    required this.error,
-    required this.stackTrace,
-  });
+  const _ErrorApp({required this.error, required this.stackTrace});
 
   @override
   State<_ErrorApp> createState() => _ErrorAppState();
@@ -70,9 +63,7 @@ class _ErrorAppState extends State<_ErrorApp> {
           readOnly: true,
           decoration: const InputDecoration(
             contentPadding: EdgeInsets.all(10),
-            border: OutlineInputBorder(
-              borderSide: BorderSide(),
-            ),
+            border: OutlineInputBorder(borderSide: BorderSide()),
           ),
         ),
       ),

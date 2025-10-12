@@ -8,12 +8,7 @@ class AnimatedOpacityCrossFade extends StatefulWidget {
   final Widget firstChild;
   final Widget secondChild;
 
-  const AnimatedOpacityCrossFade({
-    required this.crossFadeState,
-    required this.durationMillis,
-    required this.firstChild,
-    required this.secondChild,
-  });
+  const AnimatedOpacityCrossFade({required this.crossFadeState, required this.durationMillis, required this.firstChild, required this.secondChild});
 
   @override
   State<AnimatedOpacityCrossFade> createState() => _AnimatedOpacityCrossFadeState();

@@ -11,14 +11,7 @@ StoredSecurityContext generateSecurityContext([AsymmetricKeyPair? keyPair]) {
   keyPair ??= CryptoUtils.generateRSAKeyPair();
   final privateKey = keyPair.privateKey as RSAPrivateKey;
   final publicKey = keyPair.publicKey as RSAPublicKey;
-  final dn = {
-    'CN': 'LocalSend User',
-    'O': '',
-    'OU': '',
-    'L': '',
-    'S': '',
-    'C': '',
-  };
+  final dn = {'CN': 'LocalSend User', 'O': '', 'OU': '', 'L': '', 'S': '', 'C': ''};
   final csr = X509Utils.generateRsaCsrPem(dn, privateKey, publicKey);
   final certificate = X509Utils.generateSelfSignedCertificate(keyPair.privateKey, csr, 365 * 10);
 
@@ -40,10 +33,7 @@ String calculateHashOfCertificate(String certificate) {
   final der = base64Decode(pemContent);
 
   // Calculate hash
-  return CryptoUtils.getHash(
-    Uint8List.fromList(der),
-    algorithmName: 'SHA-256',
-  );
+  return CryptoUtils.getHash(Uint8List.fromList(der), algorithmName: 'SHA-256');
 }
 
 String extractPublicKeyFromCertificate(String certificate) {
@@ -55,7 +45,8 @@ String extractPublicKeyFromCertificate(String certificate) {
 String _hexToSpkiPem(String hexBytes) {
   final publicBytes = hex.decode(hexBytes);
   final publicBase64 = base64Encode(publicBytes);
-  final temp = '''-----BEGIN PUBLIC KEY-----
+  final temp =
+      '''-----BEGIN PUBLIC KEY-----
 $publicBase64
 -----END PUBLIC KEY-----''';
   return X509Utils.fixPem(temp);
@@ -63,9 +54,6 @@ $publicBase64
 
 /// Verifies a certificate with a public key.
 /// Throws an exception if the certificate is invalid.
-Future<void> verifyCertificate({
-  required String cert,
-  required String publicKey,
-}) async {
+Future<void> verifyCertificate({required String cert, required String publicKey}) async {
   await rust.verifyCert(cert: cert, publicKey: publicKey);
 }

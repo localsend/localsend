@@ -7,20 +7,15 @@ import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 import 'package:localsend_app/rust/frb_generated.dart';
 
 Future<void> verifyCert({required String cert, required String publicKey}) =>
-    RustLib.instance.api
-        .crateApiCryptoVerifyCert(cert: cert, publicKey: publicKey);
+    RustLib.instance.api.crateApiCryptoVerifyCert(cert: cert, publicKey: publicKey);
 
-Future<KeyPair> generateKeyPair() =>
-    RustLib.instance.api.crateApiCryptoGenerateKeyPair();
+Future<KeyPair> generateKeyPair() => RustLib.instance.api.crateApiCryptoGenerateKeyPair();
 
 class KeyPair {
   final String privateKey;
   final String publicKey;
 
-  const KeyPair({
-    required this.privateKey,
-    required this.publicKey,
-  });
+  const KeyPair({required this.privateKey, required this.publicKey});
 
   @override
   int get hashCode => privateKey.hashCode ^ publicKey.hashCode;
@@ -28,8 +23,5 @@ class KeyPair {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is KeyPair &&
-          runtimeType == other.runtimeType &&
-          privateKey == other.privateKey &&
-          publicKey == other.publicKey;
+      other is KeyPair && runtimeType == other.runtimeType && privateKey == other.privateKey && publicKey == other.publicKey;
 }

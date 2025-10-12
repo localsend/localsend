@@ -11,10 +11,7 @@ class FileNameInputDialog extends StatefulWidget {
   final String originalName;
   final String initialName;
 
-  const FileNameInputDialog({
-    required this.originalName,
-    required this.initialName,
-  });
+  const FileNameInputDialog({required this.originalName, required this.initialName});
 
   @override
   State<FileNameInputDialog> createState() => _FileNameInputDialogState();
@@ -88,20 +85,13 @@ class _FileNameInputDialogState extends State<FileNameInputDialog> {
           ),
           const SizedBox(height: 5),
           Visibility(
-              visible: _errorMessage.isNotEmpty,
-              child: Text(
-                _errorMessage,
-                style: TextStyle(
-                  color: Theme.of(context).colorScheme.warning,
-                ),
-              )),
+            visible: _errorMessage.isNotEmpty,
+            child: Text(_errorMessage, style: TextStyle(color: Theme.of(context).colorScheme.warning)),
+          ),
         ],
       ),
       actions: [
-        TextButton(
-          onPressed: () => context.pop(),
-          child: Text(t.general.cancel),
-        ),
+        TextButton(onPressed: () => context.pop(), child: Text(t.general.cancel)),
         ElevatedButton(
           style: ElevatedButton.styleFrom(
             backgroundColor: Theme.of(context).colorScheme.primary,

@@ -8,13 +8,7 @@ final _logger = Logger('CmdHelper');
 Future<void> runWindowsCommandAsAdmin(List<String> commands) async {
   try {
     final joinedCommands = commands.join(' & ');
-    await Process.run(
-      'powershell',
-      [
-        '-Command',
-        "Start-Process -Verb RunAs cmd.exe -Args '/c', '$joinedCommands & echo. & pause'",
-      ],
-    );
+    await Process.run('powershell', ['-Command', "Start-Process -Verb RunAs cmd.exe -Args '/c', '$joinedCommands & echo. & pause'"]);
   } catch (e) {
     _logger.warning('Could not run command as admin', e);
   }

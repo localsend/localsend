@@ -14,15 +14,8 @@ class CancelSessionDialog extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          TextButton(
-            onPressed: () => context.pop(false),
-            child: Text(t.general.continueStr),
-          ),
-          ElevatedButton.icon(
-            onPressed: () => context.pop(true),
-            icon: const Icon(Icons.close),
-            label: Text(t.general.cancel),
-          ),
+          TextButton(onPressed: () => context.pop(false), child: Text(t.general.continueStr)),
+          ElevatedButton.icon(onPressed: () => context.pop(true), icon: const Icon(Icons.close), label: Text(t.general.cancel)),
         ],
       ),
     );

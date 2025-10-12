@@ -11,12 +11,7 @@ class TextFieldWithActions extends StatefulWidget {
   final ValueChanged<String> onChanged;
   final List<Widget> actions;
 
-  const TextFieldWithActions({
-    required this.name,
-    required this.controller,
-    required this.onChanged,
-    required this.actions,
-  });
+  const TextFieldWithActions({required this.name, required this.controller, required this.onChanged, required this.actions});
 
   @override
   State<TextFieldWithActions> createState() => _TextFieldWithActionsState();
@@ -41,10 +36,7 @@ class _TextFieldWithActionsState extends State<TextFieldWithActions> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   // Display actions inside the dialog
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: widget.actions,
-                  ),
+                  Row(mainAxisAlignment: MainAxisAlignment.start, children: widget.actions),
                   const SizedBox(height: 10),
                   TextFormField(
                     controller: widget.controller,
@@ -71,11 +63,7 @@ class _TextFieldWithActionsState extends State<TextFieldWithActions> {
       },
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 5),
-        child: Text(
-          widget.controller.text,
-          style: Theme.of(context).textTheme.titleMedium,
-          overflow: TextOverflow.ellipsis,
-        ),
+        child: Text(widget.controller.text, style: Theme.of(context).textTheme.titleMedium, overflow: TextOverflow.ellipsis),
       ),
     );
   }

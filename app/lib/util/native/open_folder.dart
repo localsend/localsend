@@ -8,10 +8,7 @@ import 'package:open_filex/open_filex.dart';
 final _logger = Logger('OpenFolder');
 
 /// Opens the folder and optionally selects the file in the folder.
-Future<void> openFolder({
-  required String folderPath,
-  String? fileName,
-}) async {
+Future<void> openFolder({required String folderPath, String? fileName}) async {
   if (folderPath.startsWith('content://')) {
     await android_channel.openContentUri(uri: folderPath);
     return;

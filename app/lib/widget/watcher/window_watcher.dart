@@ -15,10 +15,7 @@ final _logger = Logger('WindowWatcher');
 class WindowWatcher extends StatefulWidget {
   final Widget child;
 
-  const WindowWatcher({
-    required this.child,
-    super.key,
-  });
+  const WindowWatcher({required this.child, super.key});
 
   @override
   State<WindowWatcher> createState() => _WindowWatcherState();

@@ -12,11 +12,7 @@ final purchaseProvider = ReduxProvider<PurchaseService, PurchaseState>((ref) {
 
 class PurchaseService extends ReduxNotifier<PurchaseState> {
   @override
-  PurchaseState init() => const PurchaseState(
-        prices: {},
-        purchases: {},
-        pending: false,
-      );
+  PurchaseState init() => const PurchaseState(prices: {}, purchases: {}, pending: false);
 }
 
 class InitPurchaseStream extends AsyncReduxAction<PurchaseService, PurchaseState> {
@@ -72,9 +68,7 @@ class FetchPricesAction extends AsyncReduxAction<PurchaseService, PurchaseState>
       }
       priceMap[item] = product.price;
     }
-    return state.copyWith(
-      prices: priceMap,
-    );
+    return state.copyWith(prices: priceMap);
   }
 }
 
@@ -126,12 +120,7 @@ class AddPurchaseAction extends ReduxAction<PurchaseService, PurchaseState> {
 
   @override
   PurchaseState reduce() {
-    return state.copyWith(
-      purchases: {
-        ...state.purchases,
-        item,
-      },
-    );
+    return state.copyWith(purchases: {...state.purchases, item});
   }
 }
 
@@ -160,10 +149,7 @@ class PurchaseRestoreAction extends AsyncReduxAction<PurchaseService, PurchaseSt
 /// Only used for testing.
 class PurchaseResetAction extends ReduxAction<PurchaseService, PurchaseState> {
   @override
-  PurchaseState reduce() => state.copyWith(
-        purchases: {},
-        pending: false,
-      );
+  PurchaseState reduce() => state.copyWith(purchases: {}, pending: false);
 }
 
 /// Initiate the purchase flow for a product.
@@ -182,9 +168,7 @@ class PurchaseAction extends AsyncReduxAction<PurchaseService, PurchaseState> {
     }
 
     // TODO: Handle changing subscriptions if subscriptions would be added
-    await InAppPurchase.instance.buyNonConsumable(
-      purchaseParam: PurchaseParam(productDetails: productDetails),
-    );
+    await InAppPurchase.instance.buyNonConsumable(purchaseParam: PurchaseParam(productDetails: productDetails));
     return state;
   }
 

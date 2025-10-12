@@ -46,11 +46,7 @@ Future<void> _clear(RootIsolateToken token) async {
           })
         : Future.value(),
     checkPlatform([TargetPlatform.iOS])
-        ? PathProviderFoundation()
-            .getContainerPath(
-            appGroupIdentifier: 'group.org.localsend.localsendApp',
-          )
-            .then((directoryPath) async {
+        ? PathProviderFoundation().getContainerPath(appGroupIdentifier: 'group.org.localsend.localsendApp').then((directoryPath) async {
             if (directoryPath == null) {
               _logger.warning('Failed to get app group directory');
               return;

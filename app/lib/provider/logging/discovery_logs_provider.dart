@@ -19,10 +19,7 @@ class DiscoveryLogger extends Notifier<List<LogEntry>> {
 
   void addLog(String log) {
     _logger.info(log);
-    state = [
-      ...state,
-      LogEntry(timestamp: DateTime.now(), log: log),
-    ].take(200).toList();
+    state = [...state, LogEntry(timestamp: DateTime.now(), log: log)].take(200).toList();
   }
 
   void clear() {

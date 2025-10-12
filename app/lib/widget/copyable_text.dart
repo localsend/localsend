@@ -7,11 +7,7 @@ class CopyableText extends StatelessWidget {
   final String name;
   final String? value;
 
-  const CopyableText({
-    this.prefix,
-    required this.name,
-    required this.value,
-  });
+  const CopyableText({this.prefix, required this.name, required this.value});
 
   @override
   Widget build(BuildContext context) {

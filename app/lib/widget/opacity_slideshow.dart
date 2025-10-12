@@ -10,13 +10,7 @@ class OpacitySlideshow extends StatefulWidget {
   final int switchDurationMillis;
   final bool running;
 
-  const OpacitySlideshow({
-    required this.children,
-    required this.durationMillis,
-    this.switchDurationMillis = 300,
-    this.running = true,
-    super.key,
-  });
+  const OpacitySlideshow({required this.children, required this.durationMillis, this.switchDurationMillis = 300, this.running = true, super.key});
 
   @override
   State<OpacitySlideshow> createState() => _OpacitySlideshowState();

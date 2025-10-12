@@ -8,8 +8,5 @@ String generateRandomAlias() {
   final fruits = t.aliasGenerator.fruits;
 
   // The combination of both is locale dependent too.
-  return t.aliasGenerator.combination(
-    adjective: adj[random.nextInt(adj.length)],
-    fruit: fruits[random.nextInt(fruits.length)],
-  );
+  return t.aliasGenerator.combination(adjective: adj[random.nextInt(adj.length)], fruit: fruits[random.nextInt(fruits.length)]);
 }

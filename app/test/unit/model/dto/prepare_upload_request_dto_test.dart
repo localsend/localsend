@@ -14,20 +14,10 @@ void main() {
   group('parse PrepareUploadRequestDto', () {
     test('should parse valid enums', () {
       final dto = {
-        'info': {
-          'alias': 'Nice Banana',
-          'deviceModel': 'Samsung',
-          'deviceType': 'mobile',
-        },
+        'info': {'alias': 'Nice Banana', 'deviceModel': 'Samsung', 'deviceType': 'mobile'},
         'files': {
-          'some id': {
-            'id': 'some id',
-            'fileName': 'another image.jpg',
-            'size': 1234,
-            'fileType': 'image',
-            'preview': '*preview data*',
-          }
-        }
+          'some id': {'id': 'some id', 'fileName': 'another image.jpg', 'size': 1234, 'fileType': 'image', 'preview': '*preview data*'},
+        },
       };
       final parsed = PrepareUploadRequestDto.fromJson(dto);
       expect(parsed.info.deviceType, DeviceType.mobile);
@@ -36,11 +26,7 @@ void main() {
     });
 
     test('Should fallback deviceType (simple)', () {
-      final dto = {
-        'alias': 'Nice Banana',
-        'deviceModel': 'Samsung',
-        'deviceType': 'invalidType',
-      };
+      final dto = {'alias': 'Nice Banana', 'deviceModel': 'Samsung', 'deviceType': 'invalidType'};
 
       final parsed = InfoRegisterDto.fromJson(dto);
       expect(parsed.deviceType, DeviceType.desktop);
@@ -48,20 +34,10 @@ void main() {
 
     test('should fallback deviceType', () {
       final dto = {
-        'info': {
-          'alias': 'Nice Banana',
-          'deviceModel': 'Samsung',
-          'deviceType': 'invalidType',
-        },
+        'info': {'alias': 'Nice Banana', 'deviceModel': 'Samsung', 'deviceType': 'invalidType'},
         'files': {
-          'some id': {
-            'id': 'some id',
-            'fileName': 'another image.jpg',
-            'size': 1234,
-            'fileType': 'image',
-            'preview': '*preview data*',
-          }
-        }
+          'some id': {'id': 'some id', 'fileName': 'another image.jpg', 'size': 1234, 'fileType': 'image', 'preview': '*preview data*'},
+        },
       };
       final parsed = PrepareUploadRequestDto.fromJson(dto);
       expect(parsed.info.deviceType, DeviceType.desktop);
@@ -71,20 +47,10 @@ void main() {
 
     test('should fallback fileType', () {
       final dto = {
-        'info': {
-          'alias': 'Nice Banana',
-          'deviceModel': 'Samsung',
-          'deviceType': 'mobile',
-        },
+        'info': {'alias': 'Nice Banana', 'deviceModel': 'Samsung', 'deviceType': 'mobile'},
         'files': {
-          'some id': {
-            'id': 'some id',
-            'fileName': 'another image.jpg',
-            'size': 1234,
-            'fileType': 'superBigImage',
-            'preview': '*preview data*',
-          }
-        }
+          'some id': {'id': 'some id', 'fileName': 'another image.jpg', 'size': 1234, 'fileType': 'superBigImage', 'preview': '*preview data*'},
+        },
       };
       final parsed = PrepareUploadRequestDto.fromJson(dto);
       expect(parsed.info.deviceType, DeviceType.mobile);
@@ -94,20 +60,10 @@ void main() {
 
     test('should parse mime type', () {
       final dto = {
-        'info': {
-          'alias': 'Nice Banana',
-          'deviceModel': 'Samsung',
-          'deviceType': 'mobile',
-        },
+        'info': {'alias': 'Nice Banana', 'deviceModel': 'Samsung', 'deviceType': 'mobile'},
         'files': {
-          'some id': {
-            'id': 'some id',
-            'fileName': 'another image.jpg',
-            'size': 1234,
-            'fileType': 'image/jpeg',
-            'preview': '*preview data*',
-          }
-        }
+          'some id': {'id': 'some id', 'fileName': 'another image.jpg', 'size': 1234, 'fileType': 'image/jpeg', 'preview': '*preview data*'},
+        },
       };
       final parsed = PrepareUploadRequestDto.fromJson(dto);
       expect(parsed.info.deviceType, DeviceType.mobile);
@@ -117,19 +73,10 @@ void main() {
 
     test('should parse apk mime type', () {
       final dto = {
-        'info': {
-          'alias': 'Nice Banana',
-          'deviceModel': 'Samsung',
-          'deviceType': 'mobile',
-        },
+        'info': {'alias': 'Nice Banana', 'deviceModel': 'Samsung', 'deviceType': 'mobile'},
         'files': {
-          'some id': {
-            'id': 'some id',
-            'fileName': 'myApk.apk',
-            'size': 1234,
-            'fileType': 'application/vnd.android.package-archive',
-          }
-        }
+          'some id': {'id': 'some id', 'fileName': 'myApk.apk', 'size': 1234, 'fileType': 'application/vnd.android.package-archive'},
+        },
       };
       final parsed = PrepareUploadRequestDto.fromJson(dto);
       expect(parsed.info.deviceType, DeviceType.mobile);
@@ -205,10 +152,7 @@ void main() {
             hash: '*hash*',
             preview: '*preview data*',
             legacy: false,
-            metadata: FileMetadata(
-              lastModified: DateTime.utc(2020),
-              lastAccessed: DateTime.utc(2021),
-            ),
+            metadata: FileMetadata(lastModified: DateTime.utc(2020), lastAccessed: DateTime.utc(2021)),
           ),
         },
       );
@@ -218,20 +162,14 @@ void main() {
       expect(serialized['files'].length, 2);
       expect(serialized['files']['some id']['fileType'], 'image/jpeg');
       expect(serialized['files']['some id 2']['fileType'], 'application/vnd.android.package-archive');
-      expect(serialized['files']['some id 2']['metadata'], {
-        'modified': '2020-01-01T00:00:00.000Z',
-        'accessed': '2021-01-01T00:00:00.000Z',
-      });
+      expect(serialized['files']['some id 2']['metadata'], {'modified': '2020-01-01T00:00:00.000Z', 'accessed': '2021-01-01T00:00:00.000Z'});
     });
   });
 
   test('PrepareUploadResponseDto', () {
     final parsed = PrepareUploadResponseDto.fromJson({
       'sessionId': 'some session id',
-      'files': {
-        'some id': 'some url',
-        'some id 2': 'some url 2',
-      },
+      'files': {'some id': 'some url', 'some id 2': 'some url 2'},
     });
 
     expect(parsed.sessionId, 'some session id');

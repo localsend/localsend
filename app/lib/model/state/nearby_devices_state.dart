@@ -14,12 +14,7 @@ class NearbyDevicesState with NearbyDevicesStateMappable {
   /// We do not trust the fingerprint, so we allow multiple devices with the same fingerprint.
   final Map<String, Set<Device>> signalingDevices;
 
-  const NearbyDevicesState({
-    required this.runningFavoriteScan,
-    required this.runningIps,
-    required this.devices,
-    required this.signalingDevices,
-  });
+  const NearbyDevicesState({required this.runningFavoriteScan, required this.runningIps, required this.devices, required this.signalingDevices});
 
   Map<String, Device> get allDevices {
     final Map<String, Device> allDevices = {};
@@ -51,10 +46,7 @@ extension on Device {
       deviceModel: deviceModel,
       deviceType: deviceType,
       download: download,
-      discoveryMethods: {
-        ...discoveryMethods,
-        ...other.discoveryMethods,
-      },
+      discoveryMethods: {...discoveryMethods, ...other.discoveryMethods},
     );
   }
 }

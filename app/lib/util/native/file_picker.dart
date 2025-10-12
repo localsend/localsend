@@ -68,13 +68,7 @@ enum FilePickerOption {
     if (checkPlatform([TargetPlatform.iOS])) {
       // On iOS, picking from media is most common.
       // The file app is very limited.
-      return [
-        FilePickerOption.media,
-        FilePickerOption.text,
-        FilePickerOption.clipboard,
-        FilePickerOption.file,
-        FilePickerOption.folder,
-      ];
+      return [FilePickerOption.media, FilePickerOption.text, FilePickerOption.clipboard, FilePickerOption.file, FilePickerOption.folder];
     } else if (checkPlatform([TargetPlatform.android])) {
       // On android, the file app is most powerful.
       // It actually also allows to pick media files.
@@ -88,12 +82,7 @@ enum FilePickerOption {
       ];
     } else {
       // Desktop
-      return [
-        FilePickerOption.file,
-        FilePickerOption.folder,
-        FilePickerOption.text,
-        FilePickerOption.clipboard,
-      ];
+      return [FilePickerOption.file, FilePickerOption.folder, FilePickerOption.text, FilePickerOption.clipboard];
     }
   }
 }
@@ -102,10 +91,7 @@ class PickFileAction extends AsyncGlobalAction {
   final FilePickerOption option;
   final BuildContext context;
 
-  PickFileAction({
-    required this.option,
-    required this.context,
-  });
+  PickFileAction({required this.option, required this.context});
 
   @override
   Future<void> reduce() async {
@@ -146,27 +132,17 @@ Future<void> _pickFiles(BuildContext context, Ref ref) async {
   if (checkPlatform([TargetPlatform.android])) {
     // On android, the files are copied to the cache which takes some time.
     // ignore: unawaited_futures
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (_) => const LoadingDialog(),
-    );
+    showDialog(context: context, barrierDismissible: false, builder: (_) => const LoadingDialog());
   }
   try {
     if (defaultTargetPlatform == TargetPlatform.android) {
       final result = await android_channel.pickFilesAndroid();
       if (result != null) {
-        await ref.redux(selectedSendingFilesProvider).dispatchAsync(AddFilesAction(
-              files: result,
-              converter: CrossFileConverters.convertFileInfo,
-            ));
+        await ref.redux(selectedSendingFilesProvider).dispatchAsync(AddFilesAction(files: result, converter: CrossFileConverters.convertFileInfo));
       }
     } else {
       final result = await openFiles();
-      await ref.redux(selectedSendingFilesProvider).dispatchAsync(AddFilesAction(
-            files: result,
-            converter: CrossFileConverters.convertXFile,
-          ));
+      await ref.redux(selectedSendingFilesProvider).dispatchAsync(AddFilesAction(files: result, converter: CrossFileConverters.convertXFile));
     }
   } catch (e) {
     if (e is PlatformException && e.code == 'CANCELED') {
@@ -198,11 +174,7 @@ Future<void> _pickFolder(BuildContext context, Ref ref) async {
   }
 
   // ignore: unawaited_futures
-  showDialog(
-    context: context,
-    barrierDismissible: false,
-    builder: (_) => const LoadingDialog(),
-  );
+  showDialog(context: context, barrierDismissible: false, builder: (_) => const LoadingDialog());
   await sleepAsync(200); // Wait for the dialog to be shown
   try {
     if (defaultTargetPlatform == TargetPlatform.android && (ref.read(deviceInfoProvider).androidSdkInt ?? 0) >= android_channel.contentUriMinSdk) {
@@ -236,12 +208,7 @@ Future<void> _pickFolder(BuildContext context, Ref ref) async {
 Future<void> _pickMedia(BuildContext context, Ref ref) async {
   if (checkPlatform([TargetPlatform.android])) {
     await PhotoManager.requestPermissionExtend(
-      requestOption: const PermissionRequestOption(
-        androidPermission: AndroidPermission(
-          type: RequestType.common,
-          mediaLocation: true,
-        ),
-      ),
+      requestOption: const PermissionRequestOption(androidPermission: AndroidPermission(type: RequestType.common, mediaLocation: true)),
     );
   }
 
@@ -261,10 +228,7 @@ Future<void> _pickMedia(BuildContext context, Ref ref) async {
   });
 
   if (result != null) {
-    await ref.redux(selectedSendingFilesProvider).dispatchAsync(AddFilesAction(
-          files: result,
-          converter: CrossFileConverters.convertAssetEntity,
-        ));
+    await ref.redux(selectedSendingFilesProvider).dispatchAsync(AddFilesAction(files: result, converter: CrossFileConverters.convertAssetEntity));
   }
 }
 
@@ -302,17 +266,15 @@ Future<void> _pickClipboard(BuildContext context, Ref ref) async {
     final now = DateTime.now();
     final fileName =
         'clipboard_${now.year}-${now.month.twoDigitString}-${now.day.twoDigitString}_${now.hour.twoDigitString}-${now.minute.twoDigitString}.$imageType';
-    ref.redux(selectedSendingFilesProvider).dispatch(AddBinaryAction(
-          bytes: currImage,
-          fileType: FileType.image,
-          fileName: fileName,
-        ));
+    ref.redux(selectedSendingFilesProvider).dispatch(AddBinaryAction(bytes: currImage, fileType: FileType.image, fileName: fileName));
     return;
   }
 
   final List<String> files = await Pasteboard.files();
   if (files.isNotEmpty) {
-    await ref.redux(selectedSendingFilesProvider).dispatchAsync(
+    await ref
+        .redux(selectedSendingFilesProvider)
+        .dispatchAsync(
           AddFilesAction(
             files: files.map((e) => XFile(e)).toList(),
             converter: (file) async {
@@ -341,9 +303,7 @@ Future<void> _pickClipboard(BuildContext context, Ref ref) async {
     return;
   }
 
-  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-    content: Text(t.general.noItemInClipboard),
-  ));
+  ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(t.general.noItemInClipboard)));
 }
 
 Future<void> _pickApp(BuildContext context) async {

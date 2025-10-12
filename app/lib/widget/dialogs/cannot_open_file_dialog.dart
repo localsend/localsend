@@ -25,10 +25,7 @@ class CannotOpenFileDialog extends StatelessWidget {
                 },
                 child: Text(t.receiveHistoryPage.entryActions.deleteFromHistory),
               ),
-            TextButton(
-              onPressed: () => context.pop(),
-              child: Text(t.general.close),
-            )
+            TextButton(onPressed: () => context.pop(), child: Text(t.general.close)),
           ],
         ),
       );
@@ -43,10 +40,7 @@ class CannotOpenFileDialog extends StatelessWidget {
       title: t.dialogs.cannotOpenFile.title,
       description: t.dialogs.cannotOpenFile.content(file: path),
       child: Center(
-        child: ElevatedButton(
-          onPressed: () => context.popUntilRoot(),
-          child: Text(t.general.close),
-        ),
+        child: ElevatedButton(onPressed: () => context.popUntilRoot(), child: Text(t.general.close)),
       ),
     );
   }

@@ -16,26 +16,12 @@ class OpenFileDialog extends StatefulWidget {
   final FileType fileType;
   final bool openGallery;
 
-  const OpenFileDialog({
-    super.key,
-    required this.filePath,
-    required this.fileType,
-    required this.openGallery,
-  });
+  const OpenFileDialog({super.key, required this.filePath, required this.fileType, required this.openGallery});
 
-  static Future<void> open(
-    BuildContext context, {
-    required String filePath,
-    required FileType fileType,
-    required bool openGallery,
-  }) async {
+  static Future<void> open(BuildContext context, {required String filePath, required FileType fileType, required bool openGallery}) async {
     await showDialog(
       context: context,
-      builder: (context) => OpenFileDialog(
-        filePath: filePath,
-        fileType: fileType,
-        openGallery: openGallery,
-      ),
+      builder: (context) => OpenFileDialog(filePath: filePath, fileType: fileType, openGallery: openGallery),
     );
   }
 
@@ -89,10 +75,7 @@ class _OpenFileDialogState extends State<OpenFileDialog> {
         ),
         if (!widget.openGallery)
           TextButton(
-            onPressed: () async => await openFolder(
-              folderPath: File(widget.filePath).parent.path,
-              fileName: path.basename(widget.filePath),
-            ),
+            onPressed: () async => await openFolder(folderPath: File(widget.filePath).parent.path, fileName: path.basename(widget.filePath)),
             child: Text(t.receiveHistoryPage.entryActions.showInFolder),
           ),
         TextButton(

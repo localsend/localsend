@@ -22,20 +22,10 @@ class FileInfoDialog extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Table(
-                columnWidths: const {
-                  0: IntrinsicColumnWidth(),
-                  1: IntrinsicColumnWidth(),
-                  2: IntrinsicColumnWidth(),
-                },
+                columnWidths: const {0: IntrinsicColumnWidth(), 1: IntrinsicColumnWidth(), 2: IntrinsicColumnWidth()},
                 children: [
                   if (!entry.isMessage) ...[
-                    TableRow(
-                      children: [
-                        Text(t.dialogs.fileInfo.fileName, maxLines: 1),
-                        const SizedBox(width: 10),
-                        SelectableText(entry.fileName),
-                      ],
-                    ),
+                    TableRow(children: [Text(t.dialogs.fileInfo.fileName, maxLines: 1), const SizedBox(width: 10), SelectableText(entry.fileName)]),
                     TableRow(
                       children: [
                         Text(t.dialogs.fileInfo.path),
@@ -44,44 +34,17 @@ class FileInfoDialog extends StatelessWidget {
                       ],
                     ),
                   ],
-                  TableRow(
-                    children: [
-                      Text(t.dialogs.fileInfo.size),
-                      const SizedBox(width: 10),
-                      SelectableText(entry.fileSize.asReadableFileSize),
-                    ],
-                  ),
-                  TableRow(
-                    children: [
-                      Text(t.dialogs.fileInfo.sender),
-                      const SizedBox(width: 10),
-                      SelectableText(entry.senderAlias),
-                    ],
-                  ),
-                  TableRow(
-                    children: [
-                      Text(t.dialogs.fileInfo.time),
-                      const SizedBox(width: 10),
-                      SelectableText(entry.timestampString),
-                    ],
-                  ),
+                  TableRow(children: [Text(t.dialogs.fileInfo.size), const SizedBox(width: 10), SelectableText(entry.fileSize.asReadableFileSize)]),
+                  TableRow(children: [Text(t.dialogs.fileInfo.sender), const SizedBox(width: 10), SelectableText(entry.senderAlias)]),
+                  TableRow(children: [Text(t.dialogs.fileInfo.time), const SizedBox(width: 10), SelectableText(entry.timestampString)]),
                 ],
               ),
-              if (entry.isMessage)
-                Padding(
-                  padding: const EdgeInsets.only(top: 10),
-                  child: SelectableText(entry.fileName),
-                ),
+              if (entry.isMessage) Padding(padding: const EdgeInsets.only(top: 10), child: SelectableText(entry.fileName)),
             ],
           ),
         ),
       ),
-      actions: [
-        TextButton(
-          onPressed: () => context.pop(),
-          child: Text(t.general.close),
-        ),
-      ],
+      actions: [TextButton(onPressed: () => context.pop(), child: Text(t.general.close))],
     );
   }
 }

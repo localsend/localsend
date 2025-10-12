@@ -5,11 +5,7 @@ class CustomBottomSheet extends StatelessWidget {
   final String title;
   final String? description;
   final Widget child;
-  const CustomBottomSheet({
-    required this.title,
-    required this.description,
-    required this.child,
-  });
+  const CustomBottomSheet({required this.title, required this.description, required this.child});
 
   @override
   Widget build(BuildContext context) {

@@ -13,28 +13,14 @@ class SendModeHelpDialog extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _SendModeItem(
-            mode: t.sendTab.sendModes.single,
-            explanation: t.dialogs.sendModeHelp.single,
-          ),
+          _SendModeItem(mode: t.sendTab.sendModes.single, explanation: t.dialogs.sendModeHelp.single),
           const SizedBox(height: 10),
-          _SendModeItem(
-            mode: t.sendTab.sendModes.multiple,
-            explanation: t.dialogs.sendModeHelp.multiple,
-          ),
+          _SendModeItem(mode: t.sendTab.sendModes.multiple, explanation: t.dialogs.sendModeHelp.multiple),
           const SizedBox(height: 10),
-          _SendModeItem(
-            mode: t.sendTab.sendModes.link,
-            explanation: t.dialogs.sendModeHelp.link,
-          ),
+          _SendModeItem(mode: t.sendTab.sendModes.link, explanation: t.dialogs.sendModeHelp.link),
         ],
       ),
-      actions: [
-        TextButton(
-          onPressed: () => context.pop(),
-          child: Text(t.general.close),
-        )
-      ],
+      actions: [TextButton(onPressed: () => context.pop(), child: Text(t.general.close))],
     );
   }
 }
@@ -42,10 +28,7 @@ class SendModeHelpDialog extends StatelessWidget {
 class _SendModeItem extends StatelessWidget {
   final String mode;
   final String explanation;
-  const _SendModeItem({
-    required this.mode,
-    required this.explanation,
-  });
+  const _SendModeItem({required this.mode, required this.explanation});
 
   @override
   Widget build(BuildContext context) {

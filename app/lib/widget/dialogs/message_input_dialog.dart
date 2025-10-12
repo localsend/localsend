@@ -30,17 +30,9 @@ class _MessageInputDialogState extends State<MessageInputDialog> {
   Widget build(BuildContext context) {
     return AlertDialog(
       title: Text(t.dialogs.messageInput.title),
-      content: TextFormField(
-        controller: _textController,
-        keyboardType: TextInputType.multiline,
-        maxLines: null,
-        autofocus: true,
-      ),
+      content: TextFormField(controller: _textController, keyboardType: TextInputType.multiline, maxLines: null, autofocus: true),
       actions: [
-        TextButton(
-          onPressed: () => context.pop(),
-          child: Text(t.general.cancel),
-        ),
+        TextButton(onPressed: () => context.pop(), child: Text(t.general.cancel)),
         ElevatedButton(
           style: ElevatedButton.styleFrom(
             backgroundColor: Theme.of(context).colorScheme.primary,

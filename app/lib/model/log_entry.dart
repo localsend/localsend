@@ -7,10 +7,7 @@ class LogEntry with LogEntryMappable {
   final DateTime timestamp;
   final String log;
 
-  const LogEntry({
-    required this.timestamp,
-    required this.log,
-  });
+  const LogEntry({required this.timestamp, required this.log});
 
   @override
   String toString() {

@@ -46,7 +46,7 @@ ThemeData getTheme(ColorMode colorMode, Brightness brightness, DynamicColors? dy
       AppLocale.ko => 'Noto Sans CJK KR',
       AppLocale.zhCn => 'Noto Sans CJK SC',
       AppLocale.zhHk || AppLocale.zhTw => 'Noto Sans CJK TC',
-      _ => 'Noto Sans', 
+      _ => 'Noto Sans',
     };
   } else {
     fontFamily = null;
@@ -56,9 +56,7 @@ ThemeData getTheme(ColorMode colorMode, Brightness brightness, DynamicColors? dy
     colorScheme: colorScheme,
     useMaterial3: true,
     navigationBarTheme: colorScheme.brightness == Brightness.dark
-        ? NavigationBarThemeData(
-            iconTheme: WidgetStateProperty.all(const IconThemeData(color: Colors.white)),
-          )
+        ? NavigationBarThemeData(iconTheme: WidgetStateProperty.all(const IconThemeData(color: Colors.white)))
         : null,
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
@@ -75,9 +73,7 @@ ThemeData getTheme(ColorMode colorMode, Brightness brightness, DynamicColors? dy
       ),
     ),
     textButtonTheme: TextButtonThemeData(
-      style: TextButton.styleFrom(
-        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8 + desktopPaddingFix),
-      ),
+      style: TextButton.styleFrom(padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8 + desktopPaddingFix)),
     ),
     fontFamily: fontFamily,
   );
@@ -97,18 +93,22 @@ Future<void> updateSystemOverlayStyleWithBrightness(Brightness brightness) async
 
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge); // ignore: unawaited_futures
 
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      statusBarColor: Colors.transparent,
-      statusBarIconBrightness: brightness == Brightness.light ? Brightness.dark : Brightness.light,
-      systemNavigationBarColor: edgeToEdge ? Colors.transparent : (darkMode ? Colors.black : Colors.white),
-      systemNavigationBarContrastEnforced: false,
-      systemNavigationBarIconBrightness: darkMode ? Brightness.light : Brightness.dark,
-    ));
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        statusBarIconBrightness: brightness == Brightness.light ? Brightness.dark : Brightness.light,
+        systemNavigationBarColor: edgeToEdge ? Colors.transparent : (darkMode ? Colors.black : Colors.white),
+        systemNavigationBarContrastEnforced: false,
+        systemNavigationBarIconBrightness: darkMode ? Brightness.light : Brightness.dark,
+      ),
+    );
   } else {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      statusBarBrightness: brightness, // iOS
-      statusBarColor: Colors.transparent, // Not relevant to this issue
-    ));
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(
+        statusBarBrightness: brightness, // iOS
+        statusBarColor: Colors.transparent, // Not relevant to this issue
+      ),
+    );
   }
 }
 
@@ -138,17 +138,12 @@ extension InputDecorationThemeExt on InputDecorationThemeData {
 }
 
 ColorScheme _determineColorScheme(ColorMode mode, Brightness brightness, DynamicColors? dynamicColors) {
-  final defaultColorScheme = ColorScheme.fromSeed(
-    seedColor: Colors.teal,
-    brightness: brightness,
-  );
+  final defaultColorScheme = ColorScheme.fromSeed(seedColor: Colors.teal, brightness: brightness);
 
   final colorScheme = switch (mode) {
     ColorMode.system => brightness == Brightness.light ? dynamicColors?.light : dynamicColors?.dark,
     ColorMode.localsend => null,
-    ColorMode.oled => (dynamicColors?.dark ?? defaultColorScheme).copyWith(
-        surface: Colors.black,
-      ),
+    ColorMode.oled => (dynamicColors?.dark ?? defaultColorScheme).copyWith(surface: Colors.black),
     ColorMode.yaru => throw 'Should reach here',
   };
 
@@ -173,9 +168,7 @@ ThemeData _getYaruTheme(Brightness brightness) {
 
   return baseTheme.copyWith(
     navigationBarTheme: colorScheme.brightness == Brightness.dark
-        ? NavigationBarThemeData(
-            iconTheme: WidgetStateProperty.all(const IconThemeData(color: Colors.white)),
-          )
+        ? NavigationBarThemeData(iconTheme: WidgetStateProperty.all(const IconThemeData(color: Colors.white)))
         : null,
     inputDecorationTheme: InputDecorationTheme(
       filled: true,

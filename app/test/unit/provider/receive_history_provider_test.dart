@@ -16,23 +16,23 @@ void main() {
   });
 
   test('Should add an entry', () async {
-    final service = ReduxNotifier.test(
-      redux: ReceiveHistoryService(persistenceService),
-    );
+    final service = ReduxNotifier.test(redux: ReceiveHistoryService(persistenceService));
 
     final entry = _createEntry('1');
 
-    await service.dispatchAsync(AddHistoryEntryAction(
-      entryId: entry.id,
-      fileName: entry.fileName,
-      fileType: entry.fileType,
-      path: entry.path,
-      savedToGallery: entry.savedToGallery,
-      isMessage: entry.isMessage,
-      fileSize: entry.fileSize,
-      senderAlias: entry.senderAlias,
-      timestamp: entry.timestamp,
-    ));
+    await service.dispatchAsync(
+      AddHistoryEntryAction(
+        entryId: entry.id,
+        fileName: entry.fileName,
+        fileType: entry.fileType,
+        path: entry.path,
+        savedToGallery: entry.savedToGallery,
+        isMessage: entry.isMessage,
+        fileSize: entry.fileSize,
+        senderAlias: entry.senderAlias,
+        timestamp: entry.timestamp,
+      ),
+    );
 
     expect(service.state, [entry]);
     verify(persistenceService.setReceiveHistory([entry]));
@@ -41,23 +41,23 @@ void main() {
   test('Should not add an entry if disabled', () async {
     when(persistenceService.isSaveToHistory()).thenReturn(false);
 
-    final service = ReduxNotifier.test(
-      redux: ReceiveHistoryService(persistenceService),
-    );
+    final service = ReduxNotifier.test(redux: ReceiveHistoryService(persistenceService));
 
     final entry = _createEntry('1');
 
-    await service.dispatchAsync(AddHistoryEntryAction(
-      entryId: entry.id,
-      fileName: entry.fileName,
-      fileType: entry.fileType,
-      path: entry.path,
-      savedToGallery: entry.savedToGallery,
-      isMessage: entry.isMessage,
-      fileSize: entry.fileSize,
-      senderAlias: entry.senderAlias,
-      timestamp: entry.timestamp,
-    ));
+    await service.dispatchAsync(
+      AddHistoryEntryAction(
+        entryId: entry.id,
+        fileName: entry.fileName,
+        fileType: entry.fileType,
+        path: entry.path,
+        savedToGallery: entry.savedToGallery,
+        isMessage: entry.isMessage,
+        fileSize: entry.fileSize,
+        senderAlias: entry.senderAlias,
+        timestamp: entry.timestamp,
+      ),
+    );
 
     expect(service.state, []);
     verifyNever(persistenceService.setReceiveHistory(any));
@@ -75,17 +75,19 @@ void main() {
 
     final entry = _createEntry('AAA');
 
-    await service.dispatchAsync(AddHistoryEntryAction(
-      entryId: entry.id,
-      fileName: entry.fileName,
-      fileType: entry.fileType,
-      path: entry.path,
-      savedToGallery: entry.savedToGallery,
-      isMessage: entry.isMessage,
-      fileSize: entry.fileSize,
-      senderAlias: entry.senderAlias,
-      timestamp: entry.timestamp,
-    ));
+    await service.dispatchAsync(
+      AddHistoryEntryAction(
+        entryId: entry.id,
+        fileName: entry.fileName,
+        fileType: entry.fileType,
+        path: entry.path,
+        savedToGallery: entry.savedToGallery,
+        isMessage: entry.isMessage,
+        fileSize: entry.fileSize,
+        senderAlias: entry.senderAlias,
+        timestamp: entry.timestamp,
+      ),
+    );
 
     expect(service.state.length, 30);
     expect(service.state.first, entry);
@@ -97,11 +99,7 @@ void main() {
   test('Should remove an entry', () async {
     final service = ReduxNotifier.test(
       redux: ReceiveHistoryService(persistenceService),
-      initialState: [
-        _createEntry('1'),
-        _createEntry('2'),
-        _createEntry('3'),
-      ],
+      initialState: [_createEntry('1'), _createEntry('2'), _createEntry('3')],
     );
 
     expect(service.state.length, 3);
@@ -109,24 +107,14 @@ void main() {
     await service.dispatchAsync(RemoveHistoryEntryAction('2'));
 
     expect(service.state.length, 2);
-    expect(service.state, [
-      _createEntry('1'),
-      _createEntry('3'),
-    ]);
-    verify(persistenceService.setReceiveHistory([
-      _createEntry('1'),
-      _createEntry('3'),
-    ]));
+    expect(service.state, [_createEntry('1'), _createEntry('3')]);
+    verify(persistenceService.setReceiveHistory([_createEntry('1'), _createEntry('3')]));
   });
 
   test('Should not remove an entry if not found', () async {
     final service = ReduxNotifier.test(
       redux: ReceiveHistoryService(persistenceService),
-      initialState: [
-        _createEntry('1'),
-        _createEntry('2'),
-        _createEntry('3'),
-      ],
+      initialState: [_createEntry('1'), _createEntry('2'), _createEntry('3')],
     );
 
     expect(service.state.length, 3);
@@ -134,22 +122,14 @@ void main() {
     await service.dispatchAsync(RemoveHistoryEntryAction('4'));
 
     expect(service.state.length, 3);
-    expect(service.state, [
-      _createEntry('1'),
-      _createEntry('2'),
-      _createEntry('3'),
-    ]);
+    expect(service.state, [_createEntry('1'), _createEntry('2'), _createEntry('3')]);
     verifyNever(persistenceService.setReceiveHistory(any));
   });
 
   test('Should remove all entries', () async {
     final service = ReduxNotifier.test(
       redux: ReceiveHistoryService(persistenceService),
-      initialState: [
-        _createEntry('1'),
-        _createEntry('2'),
-        _createEntry('3'),
-      ],
+      initialState: [_createEntry('1'), _createEntry('2'), _createEntry('3')],
     );
 
     expect(service.state.length, 3);

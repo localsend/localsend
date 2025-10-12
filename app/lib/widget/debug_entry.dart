@@ -7,10 +7,7 @@ class DebugEntry extends StatelessWidget {
   final String name;
   final String? value;
 
-  const DebugEntry({
-    required this.name,
-    required this.value,
-  });
+  const DebugEntry({required this.name, required this.value});
 
   @override
   Widget build(BuildContext context) {
@@ -19,10 +16,7 @@ class DebugEntry extends StatelessWidget {
       children: [
         const SizedBox(height: 20),
         Text(name, style: headerStyle),
-        CopyableText(
-          name: name,
-          value: value,
-        ),
+        CopyableText(name: name, value: value),
       ],
     );
   }

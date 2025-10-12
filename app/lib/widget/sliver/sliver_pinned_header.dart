@@ -10,10 +10,7 @@ class SliverPinnedHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return SliverPersistentHeader(
       pinned: true,
-      delegate: _SliverPersistentHeaderDelegate(
-        height: height,
-        child: child,
-      ),
+      delegate: _SliverPersistentHeaderDelegate(height: height, child: child),
     );
   }
 }
@@ -22,10 +19,7 @@ class _SliverPersistentHeaderDelegate extends SliverPersistentHeaderDelegate {
   final double height;
   final Widget child;
 
-  _SliverPersistentHeaderDelegate({
-    required this.height,
-    required this.child,
-  });
+  _SliverPersistentHeaderDelegate({required this.height, required this.child});
 
   @override
   double get minExtent => height;

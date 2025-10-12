@@ -25,10 +25,7 @@ class _ApkPickerPageState extends State<ApkPickerPage> with Refena {
   final List<Application> _selectedApps = [];
 
   Future<void> _pickApp(Application app) async {
-    await ref.redux(selectedSendingFilesProvider).dispatchAsync(AddFilesAction(
-          files: [app],
-          converter: CrossFileConverters.convertApplication,
-        ));
+    await ref.redux(selectedSendingFilesProvider).dispatchAsync(AddFilesAction(files: [app], converter: CrossFileConverters.convertApplication));
 
     if (mounted) {
       context.pop();
@@ -39,10 +36,7 @@ class _ApkPickerPageState extends State<ApkPickerPage> with Refena {
     // ignore: discarded_futures
 
     for (Application app in apps) {
-      await ref.redux(selectedSendingFilesProvider).dispatchAsync(AddFilesAction(
-            files: [app],
-            converter: CrossFileConverters.convertApplication,
-          ));
+      await ref.redux(selectedSendingFilesProvider).dispatchAsync(AddFilesAction(files: [app], converter: CrossFileConverters.convertApplication));
     }
 
     if (mounted) {
@@ -76,29 +70,28 @@ class _ApkPickerPageState extends State<ApkPickerPage> with Refena {
       appBar: AppBar(
         title: Text(t.apkPickerPage.title),
         actions: [
-          PopupMenuButton(itemBuilder: (context) {
-            return [
-              CheckedPopupMenuItem<int>(
-                value: 0,
-                checked: !apkParams.includeSystemApps,
-                child: Text(t.apkPickerPage.excludeSystemApps),
-              ),
-              CheckedPopupMenuItem<int>(
-                value: 1,
-                checked: apkParams.onlyAppsWithLaunchIntent,
-                child: Text(t.apkPickerPage.excludeAppsWithoutLaunchIntent),
-              ),
-            ];
-          }, onSelected: (value) {
-            switch (value) {
-              case 0:
-                ref.notifier(apkSearchParamProvider).setState((old) => old.copyWith(includeSystemApps: !old.includeSystemApps));
-                break;
-              case 1:
-                ref.notifier(apkSearchParamProvider).setState((old) => old.copyWith(onlyAppsWithLaunchIntent: !old.onlyAppsWithLaunchIntent));
-                break;
-            }
-          }),
+          PopupMenuButton(
+            itemBuilder: (context) {
+              return [
+                CheckedPopupMenuItem<int>(value: 0, checked: !apkParams.includeSystemApps, child: Text(t.apkPickerPage.excludeSystemApps)),
+                CheckedPopupMenuItem<int>(
+                  value: 1,
+                  checked: apkParams.onlyAppsWithLaunchIntent,
+                  child: Text(t.apkPickerPage.excludeAppsWithoutLaunchIntent),
+                ),
+              ];
+            },
+            onSelected: (value) {
+              switch (value) {
+                case 0:
+                  ref.notifier(apkSearchParamProvider).setState((old) => old.copyWith(includeSystemApps: !old.includeSystemApps));
+                  break;
+                case 1:
+                  ref.notifier(apkSearchParamProvider).setState((old) => old.copyWith(onlyAppsWithLaunchIntent: !old.onlyAppsWithLaunchIntent));
+                  break;
+              }
+            },
+          ),
         ],
       ),
       floatingActionButton: (_selectedApps.isEmpty)
@@ -118,9 +111,7 @@ class _ApkPickerPageState extends State<ApkPickerPage> with Refena {
         tabletPadding: const EdgeInsets.symmetric(horizontal: 15),
         child: CustomScrollView(
           slivers: [
-            const SliverToBoxAdapter(
-              child: SizedBox(height: 10),
-            ),
+            const SliverToBoxAdapter(child: SizedBox(height: 10)),
             SliverPinnedHeader(
               height: 80,
               child: Padding(
@@ -178,95 +169,67 @@ class _ApkPickerPageState extends State<ApkPickerPage> with Refena {
                 ],
               ),
             ),
-            const SliverToBoxAdapter(
-              child: SizedBox(height: 10),
-            ),
+            const SliverToBoxAdapter(child: SizedBox(height: 10)),
             apkAsync.when(
               data: (appList) {
                 return SliverList(
-                  delegate: SliverChildBuilderDelegate(
-                    childCount: appList.length,
-                    (context, index) {
-                      final app = appList[index];
-                      final thumbnail = (app as ApplicationWithIcon).icon;
+                  delegate: SliverChildBuilderDelegate(childCount: appList.length, (context, index) {
+                    final app = appList[index];
+                    final thumbnail = (app as ApplicationWithIcon).icon;
 
-                      return Padding(
-                        padding: const EdgeInsets.only(bottom: 10),
-                        child: InkWell(
-                          onTap: () async => (apkParams.selectMultipleApps) ? _appSelection(app) : _pickApp(app),
-                          customBorder: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: Row(
-                            children: [
-                              MemoryThumbnail(
-                                bytes: thumbnail,
-                                size: 60,
-                                fileType: FileType.apk,
+                    return Padding(
+                      padding: const EdgeInsets.only(bottom: 10),
+                      child: InkWell(
+                        onTap: () async => (apkParams.selectMultipleApps) ? _appSelection(app) : _pickApp(app),
+                        customBorder: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                        child: Row(
+                          children: [
+                            MemoryThumbnail(bytes: thumbnail, size: 60, fileType: FileType.apk),
+                            const SizedBox(width: 10),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(app.appName, maxLines: 1, overflow: TextOverflow.fade, softWrap: false),
+                                  Consumer(
+                                    builder: (context, ref) {
+                                      final appSize = ref.watch(apkSizeProvider(app.apkFilePath));
+                                      final appSizeString = appSize.maybeWhen(data: (size) => '${size.asReadableFileSize} • ', orElse: () => '');
+                                      return Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            '$appSizeString${app.versionName != null ? 'v${app.versionName}' : ''}',
+                                            style: Theme.of(context).textTheme.bodySmall,
+                                          ),
+                                          Text(app.packageName, style: Theme.of(context).textTheme.bodySmall),
+                                        ],
+                                      );
+                                    },
+                                  ),
+                                ],
                               ),
-                              const SizedBox(width: 10),
-                              Expanded(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      app.appName,
-                                      maxLines: 1,
-                                      overflow: TextOverflow.fade,
-                                      softWrap: false,
-                                    ),
-                                    Consumer(
-                                      builder: (context, ref) {
-                                        final appSize = ref.watch(apkSizeProvider(app.apkFilePath));
-                                        final appSizeString = appSize.maybeWhen(
-                                          data: (size) => '${size.asReadableFileSize} • ',
-                                          orElse: () => '',
-                                        );
-                                        return Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              '$appSizeString${app.versionName != null ? 'v${app.versionName}' : ''}',
-                                              style: Theme.of(context).textTheme.bodySmall,
-                                            ),
-                                            Text(
-                                              app.packageName,
-                                              style: Theme.of(context).textTheme.bodySmall,
-                                            ),
-                                          ],
-                                        );
-                                      },
-                                    ),
-                                  ],
-                                ),
+                            ),
+                            if (apkParams.selectMultipleApps)
+                              Icon(
+                                _selectedApps.contains(app) ? Icons.check_circle : Icons.radio_button_unchecked,
+                                color: _selectedApps.contains(app) ? Theme.of(context).iconTheme.color : Colors.grey,
                               ),
-                              if (apkParams.selectMultipleApps)
-                                Icon(
-                                  _selectedApps.contains(app) ? Icons.check_circle : Icons.radio_button_unchecked,
-                                  color: _selectedApps.contains(app) ? Theme.of(context).iconTheme.color : Colors.grey,
-                                )
-                            ],
-                          ),
+                          ],
                         ),
-                      );
-                    },
-                  ),
+                      ),
+                    );
+                  }),
                 );
               },
               error: (e, st) {
                 return SliverToBoxAdapter(child: Text('Error: $e\n$st'));
               },
               loading: () {
-                return const SliverToBoxAdapter(
-                  child: Center(
-                    child: CircularProgressIndicator(),
-                  ),
-                );
+                return const SliverToBoxAdapter(child: Center(child: CircularProgressIndicator()));
               },
             ),
-            SliverToBoxAdapter(
-              child: SizedBox(height: getNavBarPadding(context) + 50),
-            ),
+            SliverToBoxAdapter(child: SizedBox(height: getNavBarPadding(context) + 50)),
           ],
         ),
       ),

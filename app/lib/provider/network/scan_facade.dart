@@ -62,9 +62,7 @@ class StartSmartScan extends AsyncGlobalAction {
 class StartLegacySubnetScan extends AsyncGlobalAction {
   final List<String> subnets;
 
-  StartLegacySubnetScan({
-    required this.subnets,
-  });
+  StartLegacySubnetScan({required this.subnets});
 
   @override
   Future<void> reduce() async {

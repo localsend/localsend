@@ -13,28 +13,14 @@ class RhttpWrapper implements CustomHttpClient {
   }
 
   @override
-  Future<String> get({
-    required String uri,
-    required Map<String, String> query,
-  }) async {
-    final response = await _client.get(
-      uri,
-      query: query,
-    );
+  Future<String> get({required String uri, required Map<String, String> query}) async {
+    final response = await _client.get(uri, query: query);
     return response.body;
   }
 
   @override
-  Future<String> post({
-    required String uri,
-    Map<String, String> query = const {},
-    required Map<String, dynamic> json,
-  }) async {
-    final response = await _client.post(
-      uri,
-      query: query,
-      body: HttpBody.json(json),
-    );
+  Future<String> post({required String uri, Map<String, String> query = const {}, required Map<String, dynamic> json}) async {
+    final response = await _client.post(uri, query: query, body: HttpBody.json(json));
     return response.body;
   }
 
@@ -55,10 +41,7 @@ class RhttpWrapper implements CustomHttpClient {
       url: uri,
       query: query,
       headers: HttpHeaders.rawMap(headers),
-      body: HttpBody.stream(
-        stream,
-        length: int.parse(headers['Content-Length']!),
-      ),
+      body: HttpBody.stream(stream, length: int.parse(headers['Content-Length']!)),
       onSendProgress: (curr, total) {
         onSendProgress(curr / total);
       },
@@ -70,15 +53,10 @@ class RhttpWrapper implements CustomHttpClient {
 RhttpClient createRhttpClient(Duration timeout, StoredSecurityContext securityContext, {Interceptor? interceptor}) {
   return RhttpClient.createSync(
     settings: ClientSettings(
-      timeoutSettings: TimeoutSettings(
-        timeout: timeout,
-      ),
+      timeoutSettings: TimeoutSettings(timeout: timeout),
       tlsSettings: TlsSettings(
         verifyCertificates: false,
-        clientCertificate: ClientCertificate(
-          certificate: securityContext.certificate,
-          privateKey: securityContext.privateKey,
-        ),
+        clientCertificate: ClientCertificate(certificate: securityContext.certificate, privateKey: securityContext.privateKey),
       ),
     ),
     interceptors: interceptor != null ? [interceptor] : [],

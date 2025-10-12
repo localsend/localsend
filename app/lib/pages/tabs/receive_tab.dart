@@ -17,11 +17,7 @@ import 'package:localsend_app/widget/rotating_widget.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 import 'package:routerino/routerino.dart';
 
-enum _QuickSaveMode {
-  off,
-  favorites,
-  on,
-}
+enum _QuickSaveMode { off, favorites, on }
 
 class ReceiveTab extends StatelessWidget {
   const ReceiveTab();
@@ -50,15 +46,17 @@ class ReceiveTab extends StatelessWidget {
                         InitialFadeTransition(
                           duration: const Duration(milliseconds: 300),
                           delay: const Duration(milliseconds: 200),
-                          child: Consumer(builder: (context, ref) {
-                            final animations = ref.watch(animationProvider);
-                            final activeTab = ref.watch(homePageControllerProvider.select((state) => state.currentTab));
-                            return RotatingWidget(
-                              duration: const Duration(seconds: 15),
-                              spinning: vm.serverState != null && animations && activeTab == HomeTab.receive,
-                              child: const LocalSendLogo(withText: false),
-                            );
-                          }),
+                          child: Consumer(
+                            builder: (context, ref) {
+                              final animations = ref.watch(animationProvider);
+                              final activeTab = ref.watch(homePageControllerProvider.select((state) => state.currentTab));
+                              return RotatingWidget(
+                                duration: const Duration(seconds: 15),
+                                spinning: vm.serverState != null && animations && activeTab == HomeTab.receive,
+                                child: const LocalSendLogo(withText: false),
+                              );
+                            },
+                          ),
                         ),
                         FittedBox(
                           fit: BoxFit.scaleDown,
@@ -111,18 +109,9 @@ class ReceiveTab extends StatelessWidget {
                               if (vm.quickSaveSettings) _QuickSaveMode.on,
                             },
                             segments: [
-                              ButtonSegment(
-                                value: _QuickSaveMode.off,
-                                label: Text(t.receiveTab.quickSave.off),
-                              ),
-                              ButtonSegment(
-                                value: _QuickSaveMode.favorites,
-                                label: Text(t.receiveTab.quickSave.favorites),
-                              ),
-                              ButtonSegment(
-                                value: _QuickSaveMode.on,
-                                label: Text(t.receiveTab.quickSave.on),
-                              ),
+                              ButtonSegment(value: _QuickSaveMode.off, label: Text(t.receiveTab.quickSave.off)),
+                              ButtonSegment(value: _QuickSaveMode.favorites, label: Text(t.receiveTab.quickSave.favorites)),
+                              ButtonSegment(value: _QuickSaveMode.on, label: Text(t.receiveTab.quickSave.on)),
                             ],
                           ),
                         ],
@@ -136,11 +125,7 @@ class ReceiveTab extends StatelessWidget {
           ),
         ),
         _InfoBox(vm),
-        _CornerButtons(
-          showAdvanced: vm.showAdvanced,
-          showHistoryButton: vm.showHistoryButton,
-          toggleAdvanced: vm.toggleAdvanced,
-        ),
+        _CornerButtons(showAdvanced: vm.showAdvanced, showHistoryButton: vm.showHistoryButton, toggleAdvanced: vm.toggleAdvanced),
       ],
     );
   }
@@ -151,11 +136,7 @@ class _CornerButtons extends StatelessWidget {
   final bool showHistoryButton;
   final Future<void> Function() toggleAdvanced;
 
-  const _CornerButtons({
-    required this.showAdvanced,
-    required this.showHistoryButton,
-    required this.toggleAdvanced,
-  });
+  const _CornerButtons({required this.showAdvanced, required this.showHistoryButton, required this.toggleAdvanced});
 
   @override
   Widget build(BuildContext context) {
@@ -177,11 +158,7 @@ class _CornerButtons extends StatelessWidget {
                   child: const Icon(Icons.history),
                 ),
               ),
-            CustomIconButton(
-              key: const ValueKey('info-btn'),
-              onPressed: toggleAdvanced,
-              child: const Icon(Icons.info),
-            ),
+            CustomIconButton(key: const ValueKey('info-btn'), onPressed: toggleAdvanced, child: const Icon(Icons.info)),
           ],
         ),
       ),
@@ -208,20 +185,13 @@ class _InfoBox extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.all(15),
               child: Table(
-                columnWidths: const {
-                  0: IntrinsicColumnWidth(),
-                  1: IntrinsicColumnWidth(),
-                  2: IntrinsicColumnWidth(),
-                },
+                columnWidths: const {0: IntrinsicColumnWidth(), 1: IntrinsicColumnWidth(), 2: IntrinsicColumnWidth()},
                 children: [
                   TableRow(
                     children: [
                       Text(t.receiveTab.infoBox.alias),
                       const SizedBox(width: 10),
-                      Padding(
-                        padding: const EdgeInsets.only(right: 30),
-                        child: SelectableText(vm.serverState?.alias ?? '-'),
-                      ),
+                      Padding(padding: const EdgeInsets.only(right: 30), child: SelectableText(vm.serverState?.alias ?? '-')),
                     ],
                   ),
                   TableRow(
@@ -230,19 +200,12 @@ class _InfoBox extends StatelessWidget {
                       const SizedBox(width: 10),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          if (vm.localIps.isEmpty) Text(t.general.unknown),
-                          ...vm.localIps.map((ip) => SelectableText(ip)),
-                        ],
+                        children: [if (vm.localIps.isEmpty) Text(t.general.unknown), ...vm.localIps.map((ip) => SelectableText(ip))],
                       ),
                     ],
                   ),
                   TableRow(
-                    children: [
-                      Text(t.receiveTab.infoBox.port),
-                      const SizedBox(width: 10),
-                      SelectableText(vm.serverState?.port.toString() ?? '-'),
-                    ],
+                    children: [Text(t.receiveTab.infoBox.port), const SizedBox(width: 10), SelectableText(vm.serverState?.port.toString() ?? '-')],
                   ),
                 ],
               ),

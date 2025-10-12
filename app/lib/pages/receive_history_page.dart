@@ -51,12 +51,7 @@ class ReceiveHistoryPage extends StatelessWidget {
     Dispatcher<ReceiveHistoryService, List<ReceiveHistoryEntry>> dispatcher,
   ) async {
     if (entry.path != null) {
-      await openFile(
-        context,
-        entry.fileType,
-        entry.path!,
-        onDeleteTap: () => dispatcher.dispatchAsync(RemoveHistoryEntryAction(entry.id)),
-      );
+      await openFile(context, entry.fileType, entry.path!, onDeleteTap: () => dispatcher.dispatchAsync(RemoveHistoryEntryAction(entry.id)));
     }
   }
 
@@ -97,10 +92,7 @@ class ReceiveHistoryPage extends StatelessWidget {
                   onPressed: entries.isEmpty
                       ? null
                       : () async {
-                          final result = await showDialog(
-                            context: context,
-                            builder: (_) => const HistoryClearDialog(),
-                          );
+                          final result = await showDialog(context: context, builder: (_) => const HistoryClearDialog());
 
                           if (context.mounted && result == true) {
                             await context.redux(receiveHistoryProvider).dispatchAsync(RemoveAllHistoryEntriesAction());
@@ -166,23 +158,14 @@ class ReceiveHistoryPage extends StatelessWidget {
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      FilePathThumbnail(
-                        path: entry.path,
-                        fileType: entry.fileType,
-                      ),
+                      FilePathThumbnail(path: entry.path, fileType: entry.fileType),
                       const SizedBox(width: 10),
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             const SizedBox(height: 3),
-                            Text(
-                              entry.fileName,
-                              style: const TextStyle(fontSize: 16),
-                              maxLines: 1,
-                              overflow: TextOverflow.fade,
-                              softWrap: false,
-                            ),
+                            Text(entry.fileName, style: const TextStyle(fontSize: 16), maxLines: 1, overflow: TextOverflow.fade, softWrap: false),
                             Text(
                               '${entry.timestampString} - ${entry.fileSize.asReadableFileSize} - ${entry.senderAlias}',
                               maxLines: 1,
@@ -202,10 +185,7 @@ class ReceiveHistoryPage extends StatelessWidget {
                               break;
                             case _EntryOption.showInFolder:
                               if (entry.path != null) {
-                                await openFolder(
-                                  folderPath: File(entry.path!).parent.path,
-                                  fileName: path.basename(entry.path!),
-                                );
+                                await openFolder(folderPath: File(entry.path!).parent.path, fileName: path.basename(entry.path!));
                               }
                               break;
                             case _EntryOption.info:
@@ -223,10 +203,7 @@ class ReceiveHistoryPage extends StatelessWidget {
                         },
                         itemBuilder: (BuildContext context) {
                           return (entry.path != null ? _optionsAll : _optionsWithoutOpen).map((e) {
-                            return PopupMenuItem<_EntryOption>(
-                              value: e,
-                              child: Text(e.label),
-                            );
+                            return PopupMenuItem<_EntryOption>(value: e, child: Text(e.label));
                           }).toList();
                         },
                       ),

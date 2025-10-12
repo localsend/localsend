@@ -25,22 +25,10 @@ class SecurityDebugPage extends StatelessWidget {
               ),
             ],
           ),
-          DebugEntry(
-            name: 'Certificate SHA-256 (fingerprint)',
-            value: securityContext.certificateHash,
-          ),
-          DebugEntry(
-            name: 'Certificate',
-            value: securityContext.certificate,
-          ),
-          DebugEntry(
-            name: 'Private Key',
-            value: securityContext.privateKey,
-          ),
-          DebugEntry(
-            name: 'Public Key',
-            value: securityContext.publicKey,
-          ),
+          DebugEntry(name: 'Certificate SHA-256 (fingerprint)', value: securityContext.certificateHash),
+          DebugEntry(name: 'Certificate', value: securityContext.certificate),
+          DebugEntry(name: 'Private Key', value: securityContext.privateKey),
+          DebugEntry(name: 'Public Key', value: securityContext.publicKey),
         ],
       ),
     );

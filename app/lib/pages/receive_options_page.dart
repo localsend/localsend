@@ -24,16 +24,12 @@ class ReceiveOptionsPage extends StatelessWidget {
     final ref = context.ref;
     final receiveSession = ref.watch(serverProvider.select((s) => s?.session));
     if (receiveSession == null) {
-      return Scaffold(
-        body: Container(),
-      );
+      return Scaffold(body: Container());
     }
     final selectState = ref.watch(selectedReceivingFilesProvider);
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(t.receiveOptionsPage.title),
-      ),
+      appBar: AppBar(title: Text(t.receiveOptionsPage.title)),
       body: ResponsiveListView(
         padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
         children: [
@@ -75,10 +71,7 @@ class ReceiveOptionsPage extends StatelessWidget {
                           alignment: Alignment.center,
                           child: ConstrainedBox(
                             constraints: const BoxConstraints(minWidth: 80),
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 10),
-                              child: Text(b ? t.general.on : t.general.off),
-                            ),
+                            child: Padding(padding: const EdgeInsets.symmetric(horizontal: 10), child: Text(b ? t.general.on : t.general.off)),
                           ),
                         );
                       }).toList(),
@@ -89,7 +82,7 @@ class ReceiveOptionsPage extends StatelessWidget {
                       Expanded(
                         child: Text(t.receiveOptionsPage.saveToGalleryOff, style: const TextStyle(color: Colors.grey)),
                       ),
-                    ]
+                    ],
                   ],
                 ),
               ],
@@ -141,10 +134,11 @@ class ReceiveOptionsPage extends StatelessWidget {
                         Text(
                           '${!selectState.containsKey(file.id) ? t.general.skipped : (selectState[file.id] == file.fileName ? t.general.unchanged : t.general.renamed)} - ${file.size.asReadableFileSize}',
                           style: TextStyle(
-                              color: !selectState.containsKey(file.id)
-                                  ? Colors.grey
-                                  : (selectState[file.id] == file.fileName ? Theme.of(context).colorScheme.onSecondaryContainer : Colors.orange)),
-                        )
+                            color: !selectState.containsKey(file.id)
+                                ? Colors.grey
+                                : (selectState[file.id] == file.fileName ? Theme.of(context).colorScheme.onSecondaryContainer : Colors.orange),
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -157,10 +151,7 @@ class ReceiveOptionsPage extends StatelessWidget {
                             : () async {
                                 final result = await showDialog<String>(
                                   context: context,
-                                  builder: (_) => FileNameInputDialog(
-                                    originalName: file.fileName,
-                                    initialName: selectState[file.id]!,
-                                  ),
+                                  builder: (_) => FileNameInputDialog(originalName: file.fileName, initialName: selectState[file.id]!),
                                 );
                                 if (result != null) {
                                   ref.notifier(selectedReceivingFilesProvider).rename(file.id, result);

@@ -6,10 +6,7 @@ class DynamicColors {
   final ColorScheme light;
   final ColorScheme dark;
 
-  const DynamicColors({
-    required this.light,
-    required this.dark,
-  });
+  const DynamicColors({required this.light, required this.dark});
 }
 
 final dynamicColorsProvider = Provider<DynamicColors?>((ref) => throw 'not initialized');
@@ -36,14 +33,8 @@ Future<DynamicColors?> getDynamicColors() async {
     if (accentColor != null) {
       debugPrint('dynamic_color: Accent color detected.');
       return DynamicColors(
-        light: ColorScheme.fromSeed(
-          seedColor: accentColor,
-          brightness: Brightness.light,
-        ),
-        dark: ColorScheme.fromSeed(
-          seedColor: accentColor,
-          brightness: Brightness.dark,
-        ),
+        light: ColorScheme.fromSeed(seedColor: accentColor, brightness: Brightness.light),
+        dark: ColorScheme.fromSeed(seedColor: accentColor, brightness: Brightness.dark),
       );
     }
   } catch (e) {

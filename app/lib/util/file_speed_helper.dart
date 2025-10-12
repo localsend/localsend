@@ -5,19 +5,12 @@ const _secondsPerMinute = 60;
 const _secondsPerHour = 3600;
 const _secondsPerDay = 86400;
 
-int getFileSpeed({
-  required int start,
-  required int end,
-  required int bytes,
-}) {
+int getFileSpeed({required int start, required int end, required int bytes}) {
   final deltaTime = end - start;
   return (_millisecondsPerSecond * bytes) ~/ deltaTime;
 }
 
-String getRemainingTime({
-  required int bytesPerSeconds,
-  required int remainingBytes,
-}) {
+String getRemainingTime({required int bytesPerSeconds, required int remainingBytes}) {
   if (bytesPerSeconds == 0) {
     return remainingBytes == 0 ? t.progressPage.remainingTime.seconds(n: 0, ss: '00') : '∞';
   }
@@ -43,9 +36,6 @@ String getRemainingTime({
   }
 }
 
-int _getRemainingTime({
-  required int bytesPerSeconds,
-  required int remainingBytes,
-}) {
+int _getRemainingTime({required int bytesPerSeconds, required int remainingBytes}) {
   return remainingBytes ~/ bytesPerSeconds;
 }

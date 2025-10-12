@@ -7,8 +7,5 @@ class NetworkState with NetworkStateMappable {
   final List<String> localIps;
   final bool initialized;
 
-  const NetworkState({
-    required this.localIps,
-    required this.initialized,
-  });
+  const NetworkState({required this.localIps, required this.initialized});
 }

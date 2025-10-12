@@ -51,11 +51,7 @@ class _WebSendPageState extends State<WebSendPage> with Refena {
     });
     await sleepAsync(500);
     try {
-      await ref.notifier(serverProvider).restartServer(
-            alias: settings.alias,
-            port: settings.port,
-            https: _encrypted,
-          );
+      await ref.notifier(serverProvider).restartServer(alias: settings.alias, port: settings.port, https: _encrypted);
       await ref.notifier(serverProvider).initializeWebSend(widget.files);
       if (beforeAutoAccept != null) {
         ref.notifier(serverProvider).setWebSendAutoAccept(beforeAutoAccept);
@@ -121,13 +117,9 @@ class _WebSendPageState extends State<WebSendPage> with Refena {
                   ] else if (_initializedError != null) ...[
                     const Icon(Icons.error_outline, size: 48, color: Colors.red),
                     const SizedBox(height: 10),
-                    Center(
-                      child: Text(t.webSharePage.error, style: Theme.of(context).textTheme.titleLarge),
-                    ),
+                    Center(child: Text(t.webSharePage.error, style: Theme.of(context).textTheme.titleLarge)),
                     const SizedBox(height: 10),
-                    Center(
-                      child: SelectableText(_initializedError!, style: Theme.of(context).textTheme.bodyMedium),
-                    ),
+                    Center(child: SelectableText(_initializedError!, style: Theme.of(context).textTheme.bodyMedium)),
                   ],
                 ],
               );
@@ -159,10 +151,7 @@ class _WebSendPageState extends State<WebSendPage> with Refena {
                             padding: const EdgeInsets.all(5),
                             child: Row(
                               children: [
-                                SelectableText(
-                                  url,
-                                  style: Theme.of(context).textTheme.bodyMedium,
-                                ),
+                                SelectableText(url, style: Theme.of(context).textTheme.bodyMedium),
                                 const SizedBox(width: 5),
                                 InkWell(
                                   onTap: () async {
@@ -180,12 +169,8 @@ class _WebSendPageState extends State<WebSendPage> with Refena {
                                   onTap: () async {
                                     await showDialog(
                                       context: context,
-                                      builder: (_) => QrDialog(
-                                        data: urlWithPin,
-                                        label: url,
-                                        listenIncomingWebSendRequests: true,
-                                        pin: webSendState.pin,
-                                      ),
+                                      builder: (_) =>
+                                          QrDialog(data: urlWithPin, label: url, listenIncomingWebSendRequests: true, pin: webSendState.pin),
                                     );
                                   },
                                   child: const Padding(
@@ -197,17 +182,10 @@ class _WebSendPageState extends State<WebSendPage> with Refena {
                                   onTap: () async {
                                     await showDialog(
                                       context: context,
-                                      builder: (_) => ZoomDialog(
-                                        label: url,
-                                        pin: webSendState.pin,
-                                        listenIncomingWebSendRequests: true,
-                                      ),
+                                      builder: (_) => ZoomDialog(label: url, pin: webSendState.pin, listenIncomingWebSendRequests: true),
                                     );
                                   },
-                                  child: const Padding(
-                                    padding: EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-                                    child: Icon(Icons.tv, size: 16),
-                                  ),
+                                  child: const Padding(padding: EdgeInsets.symmetric(horizontal: 8, vertical: 2), child: Icon(Icons.tv, size: 16)),
                                 ),
                               ],
                             ),
@@ -220,11 +198,7 @@ class _WebSendPageState extends State<WebSendPage> with Refena {
                 const SizedBox(height: 20),
                 Text(t.webSharePage.requests, style: Theme.of(context).textTheme.titleMedium),
                 const SizedBox(height: 10),
-                if (webSendState.sessions.isEmpty)
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 30),
-                    child: Text(t.webSharePage.noRequests),
-                  ),
+                if (webSendState.sessions.isEmpty) Padding(padding: const EdgeInsets.only(bottom: 30), child: Text(t.webSharePage.noRequests)),
                 ...webSendState.sessions.entries.map((entry) {
                   final session = entry.value;
                   return Padding(
@@ -241,8 +215,8 @@ class _WebSendPageState extends State<WebSendPage> with Refena {
                                   Text(
                                     session.deviceInfo,
                                     style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                                          color: session.responseHandler != null ? Theme.of(context).colorScheme.warning : null,
-                                        ),
+                                      color: session.responseHandler != null ? Theme.of(context).colorScheme.warning : null,
+                                    ),
                                   ),
                                   const SizedBox(height: 5),
                                   Text(session.ip, style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: Colors.grey)),
@@ -254,18 +228,14 @@ class _WebSendPageState extends State<WebSendPage> with Refena {
                                 onPressed: () {
                                   ref.notifier(serverProvider).declineWebSendRequest(session.sessionId);
                                 },
-                                style: TextButton.styleFrom(
-                                  foregroundColor: Theme.of(context).colorScheme.onSurface,
-                                ),
+                                style: TextButton.styleFrom(foregroundColor: Theme.of(context).colorScheme.onSurface),
                                 child: const Icon(Icons.close),
                               ),
                               TextButton(
                                 onPressed: () {
                                   ref.notifier(serverProvider).acceptWebSendRequest(session.sessionId);
                                 },
-                                style: TextButton.styleFrom(
-                                  foregroundColor: Theme.of(context).colorScheme.onSurface,
-                                ),
+                                style: TextButton.styleFrom(foregroundColor: Theme.of(context).colorScheme.onSurface),
                                 child: const Icon(Icons.check_circle),
                               ),
                             ] else
@@ -273,9 +243,7 @@ class _WebSendPageState extends State<WebSendPage> with Refena {
                                 padding: const EdgeInsets.symmetric(horizontal: 20),
                                 child: Text(
                                   t.general.accepted,
-                                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                                        color: Theme.of(context).colorScheme.onSecondaryContainer,
-                                      ),
+                                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: Theme.of(context).colorScheme.onSecondaryContainer),
                                 ),
                               ),
                           ],
@@ -329,10 +297,7 @@ class _WebSendPageState extends State<WebSendPage> with Refena {
                         } else {
                           final String? newPin = await showDialog<String>(
                             context: context,
-                            builder: (_) => const PinDialog(
-                              obscureText: false,
-                              generateRandom: true,
-                            ),
+                            builder: (_) => const PinDialog(obscureText: false, generateRandom: true),
                           );
 
                           if (newPin != null && newPin.isNotEmpty) {

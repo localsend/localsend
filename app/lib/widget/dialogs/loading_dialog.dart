@@ -5,11 +5,6 @@ class LoadingDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const PopScope(
-      canPop: false,
-      child: Center(
-        child: CircularProgressIndicator(),
-      ),
-    );
+    return const PopScope(canPop: false, child: Center(child: CircularProgressIndicator()));
   }
 }

@@ -40,12 +40,5 @@ final donationPageVmProvider = ViewProvider<DonationPageVm>((ref) {
 /// This is a noop version of the original view model.
 /// Used to compile the FOSS version of the app by removing the original provider above.
 final donationPageNoopVmProvider = ViewProvider<DonationPageVm>((ref) {
-  return DonationPageVm(
-    platformSupportPayment: false,
-    prices: {},
-    purchased: {},
-    pending: false,
-    purchase: (_) {},
-    restore: () {},
-  );
+  return DonationPageVm(platformSupportPayment: false, prices: {}, purchased: {}, pending: false, purchase: (_) {}, restore: () {});
 });

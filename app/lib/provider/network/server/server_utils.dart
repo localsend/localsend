@@ -18,10 +18,5 @@ class ServerUtils {
   /// Updates the server state.
   void Function(ServerState? Function(ServerState? oldState) builder) setState;
 
-  ServerUtils({
-    required this.refFunc,
-    required this.getState,
-    required this.getStateOrNull,
-    required this.setState,
-  });
+  ServerUtils({required this.refFunc, required this.getState, required this.getStateOrNull, required this.setState});
 }

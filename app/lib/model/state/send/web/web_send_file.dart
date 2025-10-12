@@ -11,10 +11,5 @@ class WebSendFile with WebSendFileMappable {
   final String? path; // android, iOS, desktop
   final List<int>? bytes; // web
 
-  const WebSendFile({
-    required this.file,
-    required this.asset,
-    required this.path,
-    required this.bytes,
-  });
+  const WebSendFile({required this.file, required this.asset, required this.path, required this.bytes});
 }

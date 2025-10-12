@@ -5,10 +5,7 @@ class ColumnListView extends StatelessWidget {
   final CrossAxisAlignment crossAxisAlignment;
   final List<Widget> children;
 
-  const ColumnListView({
-    required this.children,
-    this.crossAxisAlignment = CrossAxisAlignment.center,
-  });
+  const ColumnListView({required this.children, this.crossAxisAlignment = CrossAxisAlignment.center});
 
   @override
   Widget build(BuildContext context) {
@@ -16,15 +13,9 @@ class ColumnListView extends StatelessWidget {
       builder: (context, constraints) {
         return SingleChildScrollView(
           child: ConstrainedBox(
-            constraints: BoxConstraints(
-              minHeight: constraints.maxHeight,
-            ),
+            constraints: BoxConstraints(minHeight: constraints.maxHeight),
             child: IntrinsicHeight(
-              child: Column(
-                crossAxisAlignment: crossAxisAlignment,
-                mainAxisSize: MainAxisSize.min,
-                children: children,
-              ),
+              child: Column(crossAxisAlignment: crossAxisAlignment, mainAxisSize: MainAxisSize.min, children: children),
             ),
           ),
         );

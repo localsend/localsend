@@ -11,12 +11,7 @@ class BigButton extends StatelessWidget {
   final bool filled;
   final VoidCallback onTap;
 
-  const BigButton({
-    required this.icon,
-    required this.label,
-    required this.filled,
-    required this.onTap,
-  });
+  const BigButton({required this.icon, required this.label, required this.filled, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -30,9 +25,7 @@ class BigButton extends StatelessWidget {
         style: ElevatedButton.styleFrom(
           backgroundColor: filled ? colorScheme.primary : colorScheme.secondaryContainerIfDark,
           foregroundColor: filled ? colorScheme.onPrimary : colorScheme.onSecondaryContainerIfDark,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
-          ),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
           padding: EdgeInsets.only(left: 2, right: 2, top: 10 + desktopPaddingFix, bottom: 8 + desktopPaddingFix),
         ),
         onPressed: onTap,
@@ -41,10 +34,7 @@ class BigButton extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Icon(icon),
-            FittedBox(
-              alignment: Alignment.bottomCenter,
-              child: Text(label, maxLines: 1),
-            ),
+            FittedBox(alignment: Alignment.bottomCenter, child: Text(label, maxLines: 1)),
           ],
         ),
       ),

@@ -14,12 +14,7 @@ class QuickSaveFromFavoritesNotice extends StatelessWidget {
         builder: (_) => AlertDialog(
           title: Text(t.dialogs.quickSaveFromFavoritesNotice.title),
           content: Text(t.dialogs.quickSaveFromFavoritesNotice.content.join('\n')),
-          actions: [
-            TextButton(
-              onPressed: () => context.pop(),
-              child: Text(t.general.close),
-            )
-          ],
+          actions: [TextButton(onPressed: () => context.pop(), child: Text(t.general.close))],
         ),
       );
     } else {
@@ -33,10 +28,7 @@ class QuickSaveFromFavoritesNotice extends StatelessWidget {
       title: t.dialogs.quickSaveFromFavoritesNotice.title,
       description: t.dialogs.quickSaveFromFavoritesNotice.content.join('\n'),
       child: Center(
-        child: ElevatedButton(
-          onPressed: () => context.popUntilRoot(),
-          child: Text(t.general.close),
-        ),
+        child: ElevatedButton(onPressed: () => context.popUntilRoot(), child: Text(t.general.close)),
       ),
     );
   }

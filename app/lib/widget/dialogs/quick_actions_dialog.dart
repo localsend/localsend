@@ -85,10 +85,7 @@ class _QuickActionsDialogState extends State<QuickActionsDialog> with Refena {
             tapTargetSize: MaterialTapTargetSize.shrinkWrap,
             constraints: const BoxConstraints(minWidth: 0, minHeight: 0),
             children: _QuickAction.values.map((mode) {
-              return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                child: Text(mode.label),
-              );
+              return Padding(padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5), child: Text(mode.label));
             }).toList(),
           ),
           const SizedBox(height: 10),
@@ -106,11 +103,9 @@ class _QuickActionsDialogState extends State<QuickActionsDialog> with Refena {
             ),
             const SizedBox(height: 5),
             Visibility(
-                visible: !_isValid,
-                child: Text(
-                  t.sanitization.invalid,
-                  style: TextStyle(color: Theme.of(context).colorScheme.warning),
-                )),
+              visible: !_isValid,
+              child: Text(t.sanitization.invalid, style: TextStyle(color: Theme.of(context).colorScheme.warning)),
+            ),
             const SizedBox(height: 10),
             LabeledCheckbox(
               label: t.dialogs.quickActions.padZero,
@@ -138,10 +133,7 @@ class _QuickActionsDialogState extends State<QuickActionsDialog> with Refena {
         ],
       ),
       actions: [
-        TextButton(
-          onPressed: () => context.pop(),
-          child: Text(t.general.cancel),
-        ),
+        TextButton(onPressed: () => context.pop(), child: Text(t.general.cancel)),
         ElevatedButton(
           style: ElevatedButton.styleFrom(
             backgroundColor: Theme.of(context).colorScheme.primary,
@@ -153,11 +145,7 @@ class _QuickActionsDialogState extends State<QuickActionsDialog> with Refena {
                 if (!_isValid) {
                   return;
                 }
-                ref.notifier(selectedReceivingFilesProvider).applyCounter(
-                      prefix: _prefix,
-                      padZero: _padZero,
-                      sortFirst: _sortBeforehand,
-                    );
+                ref.notifier(selectedReceivingFilesProvider).applyCounter(prefix: _prefix, padZero: _padZero, sortFirst: _sortBeforehand);
                 break;
               case _QuickAction.random:
                 ref.notifier(selectedReceivingFilesProvider).applyRandom();

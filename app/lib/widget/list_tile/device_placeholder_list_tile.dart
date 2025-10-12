@@ -14,13 +14,7 @@ class DevicePlaceholderListTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final animations = context.ref.watch(animationProvider);
     return CustomListTile(
-      icon: OpacitySlideshow(
-        durationMillis: 3000,
-        running: animations,
-        children: [
-          ...DeviceType.values.map((d) => Icon(d.icon, size: 46)),
-        ],
-      ),
+      icon: OpacitySlideshow(durationMillis: 3000, running: animations, children: [...DeviceType.values.map((d) => Icon(d.icon, size: 46))]),
       title: const Visibility(
         visible: false,
         maintainSize: true,

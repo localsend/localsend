@@ -43,11 +43,6 @@ class _InitialSlideTransitionState extends State<InitialSlideTransition> {
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedSlide(
-      offset: _offset,
-      curve: widget.curve,
-      duration: widget.duration,
-      child: widget.child,
-    );
+    return AnimatedSlide(offset: _offset, curve: widget.curve, duration: widget.duration, child: widget.child);
   }
 }

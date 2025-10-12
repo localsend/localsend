@@ -13,21 +13,20 @@ class SendIgnore {
     // return fileName == _ignoreFileName;
   }
 
-  void loadIgnoreContent({
-    required String? parentPath,
-    required List<String> ignoreContents,
-  }) {
-    _globs.addAll(ignoreContents.map((line) {
-      if (line.startsWith('/')) {
-        return Glob('$parentPath$line');
-      } else {
-        if (parentPath == null) {
-          return Glob(line);
+  void loadIgnoreContent({required String? parentPath, required List<String> ignoreContents}) {
+    _globs.addAll(
+      ignoreContents.map((line) {
+        if (line.startsWith('/')) {
+          return Glob('$parentPath$line');
         } else {
-          return Glob('$parentPath/**/$line');
+          if (parentPath == null) {
+            return Glob(line);
+          } else {
+            return Glob('$parentPath/**/$line');
+          }
         }
-      }
-    }));
+      }),
+    );
   }
 
   bool isIgnored(String relativePath) {

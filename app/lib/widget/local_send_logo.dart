@@ -9,14 +9,8 @@ class LocalSendLogo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final logo = ColorFiltered(
-      colorFilter: ColorFilter.mode(
-        Theme.of(context).colorScheme.primary,
-        BlendMode.srcATop,
-      ),
-      child: Assets.img.logo512.image(
-        width: 200,
-        height: 200,
-      ),
+      colorFilter: ColorFilter.mode(Theme.of(context).colorScheme.primary, BlendMode.srcATop),
+      child: Assets.img.logo512.image(width: 200, height: 200),
     );
 
     if (withText) {

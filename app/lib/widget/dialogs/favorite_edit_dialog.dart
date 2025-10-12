@@ -16,10 +16,7 @@ class FavoriteEditDialog extends StatefulWidget {
   final FavoriteDevice? favorite;
   final Device? prefilledDevice;
 
-  const FavoriteEditDialog({
-    this.favorite,
-    this.prefilledDevice,
-  });
+  const FavoriteEditDialog({this.favorite, this.prefilledDevice});
 
   @override
   State<FavoriteEditDialog> createState() => _FavoriteEditDialogState();
@@ -67,38 +64,23 @@ class _FavoriteEditDialogState extends State<FavoriteEditDialog> with Refena {
             const SizedBox(height: 5),
             TextFormField(
               controller: _aliasController,
-              decoration: InputDecoration(
-                hintText: t.dialogs.favoriteEditDialog.auto,
-              ),
+              decoration: InputDecoration(hintText: t.dialogs.favoriteEditDialog.auto),
               enabled: !_fetching,
             ),
             const SizedBox(height: 16),
             Text(t.dialogs.favoriteEditDialog.ip),
             const SizedBox(height: 5),
-            TextFormField(
-              controller: _ipController,
-              autofocus: widget.favorite == null && widget.prefilledDevice == null,
-              enabled: !_fetching,
-            ),
+            TextFormField(controller: _ipController, autofocus: widget.favorite == null && widget.prefilledDevice == null, enabled: !_fetching),
             const SizedBox(height: 16),
             Text(t.dialogs.favoriteEditDialog.port),
             const SizedBox(height: 5),
-            TextFormField(
-              controller: _portController,
-              enabled: !_fetching,
-              keyboardType: TextInputType.number,
-            ),
+            TextFormField(controller: _portController, enabled: !_fetching, keyboardType: TextInputType.number),
             if (widget.favorite != null) ...[
               const SizedBox(height: 16),
               TextButton.icon(
-                style: TextButton.styleFrom(
-                  foregroundColor: Theme.of(context).colorScheme.warning,
-                ),
+                style: TextButton.styleFrom(foregroundColor: Theme.of(context).colorScheme.warning),
                 onPressed: () async {
-                  final result = await showDialog<bool>(
-                    context: context,
-                    builder: (_) => FavoriteDeleteDialog(widget.favorite!),
-                  );
+                  final result = await showDialog<bool>(context: context, builder: (_) => FavoriteDeleteDialog(widget.favorite!));
 
                   if (context.mounted && result == true) {
                     await context.ref.redux(favoritesProvider).dispatchAsync(RemoveFavoriteAction(deviceFingerprint: widget.favorite!.fingerprint));
@@ -139,10 +121,7 @@ class _FavoriteEditDialogState extends State<FavoriteEditDialog> with Refena {
         ),
       ),
       actions: [
-        TextButton(
-          onPressed: () => context.pop(),
-          child: Text(t.general.cancel),
-        ),
+        TextButton(onPressed: () => context.pop(), child: Text(t.general.cancel)),
         FilledButton(
           onPressed: _fetching
               ? null
@@ -163,12 +142,18 @@ class _FavoriteEditDialogState extends State<FavoriteEditDialog> with Refena {
                       return;
                     }
 
-                    await ref.redux(favoritesProvider).dispatchAsync(UpdateFavoriteAction(existingFavorite.copyWith(
-                          ip: _ipController.text,
-                          port: int.parse(_portController.text),
-                          alias: trimmedNewAlias,
-                          customAlias: existingFavorite.customAlias || trimmedNewAlias != existingFavorite.alias,
-                        )));
+                    await ref
+                        .redux(favoritesProvider)
+                        .dispatchAsync(
+                          UpdateFavoriteAction(
+                            existingFavorite.copyWith(
+                              ip: _ipController.text,
+                              port: int.parse(_portController.text),
+                              alias: trimmedNewAlias,
+                              customAlias: existingFavorite.customAlias || trimmedNewAlias != existingFavorite.alias,
+                            ),
+                          ),
+                        );
                   } else {
                     // Add new favorite
                     final ip = _ipController.text;
@@ -179,20 +164,24 @@ class _FavoriteEditDialogState extends State<FavoriteEditDialog> with Refena {
                     });
 
                     try {
-                      final result = await ref.redux(parentIsolateProvider).dispatchAsyncTakeResult(IsolateTargetHttpDiscoveryAction(
-                            ip: ip,
-                            port: port,
-                            https: https,
-                          ));
+                      final result = await ref
+                          .redux(parentIsolateProvider)
+                          .dispatchAsyncTakeResult(IsolateTargetHttpDiscoveryAction(ip: ip, port: port, https: https));
 
                       final name = _aliasController.text.trim();
 
-                      await ref.redux(favoritesProvider).dispatchAsync(AddFavoriteAction(FavoriteDevice.fromValues(
-                            fingerprint: result.fingerprint,
-                            ip: _ipController.text,
-                            port: int.parse(_portController.text),
-                            alias: name.isEmpty ? result.alias : name,
-                          )));
+                      await ref
+                          .redux(favoritesProvider)
+                          .dispatchAsync(
+                            AddFavoriteAction(
+                              FavoriteDevice.fromValues(
+                                fingerprint: result.fingerprint,
+                                ip: _ipController.text,
+                                port: int.parse(_portController.text),
+                                alias: name.isEmpty ? result.alias : name,
+                              ),
+                            ),
+                          );
 
                       if (context.mounted) {
                         context.pop();

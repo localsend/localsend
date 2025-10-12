@@ -53,8 +53,5 @@ class SendingTask {
   final int isolateIndex;
   final int taskId;
 
-  SendingTask({
-    required this.isolateIndex,
-    required this.taskId,
-  });
+  SendingTask({required this.isolateIndex, required this.taskId});
 }

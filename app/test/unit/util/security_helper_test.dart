@@ -17,22 +17,12 @@ void main() {
       const publicExponent = '65537';
 
       final keyPair = AsymmetricKeyPair(
-        RSAPublicKey(
-          BigInt.parse(modulus),
-          BigInt.parse(publicExponent),
-        ),
-        RSAPrivateKey(
-          BigInt.parse(modulus),
-          BigInt.parse(privateExponent),
-          BigInt.parse(privateP),
-          BigInt.parse(privateQ),
-        ),
+        RSAPublicKey(BigInt.parse(modulus), BigInt.parse(publicExponent)),
+        RSAPrivateKey(BigInt.parse(modulus), BigInt.parse(privateExponent), BigInt.parse(privateP), BigInt.parse(privateQ)),
       );
 
       final context = generateSecurityContext(keyPair);
-      expect(
-        context.privateKey,
-        '''-----BEGIN RSA PRIVATE KEY-----
+      expect(context.privateKey, '''-----BEGIN RSA PRIVATE KEY-----
 MIIEpAIBAAKCAQEAi9uDMYRn63SZtEPGRogZGdu5XXBAoQeMO60mycoinqLKDWyZ
 dpMo+XWY3wYVhoAyxgzDOcPjIf+Uq1oEy/0K4WwfpbK8SCy851qgYkfMCT9D9mFv
 XwWoULJCUHFF7f947ArDE1nmuK1nNx2RodN2wJCXyzPjw0jn06bwGeg0EqfUC8wv
@@ -58,12 +48,9 @@ wP4qVKYwh4cMuQhrJz5SqeWjx39ZpPP538VQsonExiPVPp/8Au1jlq5UQ9tR2PK1
 3KT+oQKBgQCkmNd8ZHKBoIbG3oV0T4f4IFk8424QD5hQX7Zmb7gxwnCgQScOPBM/
 tk4v/rwNoiO9EUW4w4zZZIlvcFJu38+9pPX+rTFxGh6TZ6aRvw7962m2RBmqgYcq
 IWwwBbDLI6KuU/iqqvk/1syLDHqeaCdDqTmmyoaKKa7kUhkZkhIlLw==
------END RSA PRIVATE KEY-----''',
-      );
+-----END RSA PRIVATE KEY-----''');
 
-      expect(
-        context.publicKey,
-        '''-----BEGIN PUBLIC KEY-----
+      expect(context.publicKey, '''-----BEGIN PUBLIC KEY-----
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAi9uDMYRn63SZtEPGRogZ
 Gdu5XXBAoQeMO60mycoinqLKDWyZdpMo+XWY3wYVhoAyxgzDOcPjIf+Uq1oEy/0K
 4WwfpbK8SCy851qgYkfMCT9D9mFvXwWoULJCUHFF7f947ArDE1nmuK1nNx2RodN2
@@ -71,8 +58,7 @@ wJCXyzPjw0jn06bwGeg0EqfUC8wvW4FTZ6t1tErzmRqRdMUWuCJwsk1IMbDbFePh
 iK5jecOBG0RVVWLuw+TkuX8TUgrpIktH2+qEM1KdLyAMnL71hx2wMvE+lDKFKK9p
 37zXK8omjl+VgTC8ocjGeYDDsl43ZtW09V0pb7Vz2FM8b7BgM06kvJl48PIe5puY
 bQIDAQAB
------END PUBLIC KEY-----''',
-      );
+-----END PUBLIC KEY-----''');
     });
   });
 

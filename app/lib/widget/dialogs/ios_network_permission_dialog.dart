@@ -15,10 +15,7 @@ class IosLocalNetworkDialog extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          TextButton(
-            onPressed: () => context.pop(),
-            child: Text(t.general.close),
-          ),
+          TextButton(onPressed: () => context.pop(), child: Text(t.general.close)),
           ElevatedButton.icon(
             onPressed: () async => SystemSettings.app(),
             icon: const Icon(Icons.settings),

@@ -57,11 +57,7 @@ Future<DeviceInfoResult> getDeviceInfo() async {
     }
   }
 
-  return DeviceInfoResult(
-    deviceType: deviceType,
-    deviceModel: deviceModel,
-    androidSdkInt: androidSdkInt,
-  );
+  return DeviceInfoResult(deviceType: deviceType, deviceModel: deviceModel, androidSdkInt: androidSdkInt);
 }
 
 extension on BrowserName {

@@ -21,9 +21,6 @@ class AddLastDeviceAction extends ReduxAction<LastDevicesService, List<Device>> 
 
   @override
   List<Device> reduce() {
-    return {
-      device,
-      ...state,
-    }.take(5).toList();
+    return {device, ...state}.take(5).toList();
   }
 }

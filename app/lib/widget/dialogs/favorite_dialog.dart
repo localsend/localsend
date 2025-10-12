@@ -31,11 +31,9 @@ class _FavoritesDialogState extends State<FavoritesDialog> with Refena {
     final https = ref.read(settingsProvider).https;
 
     try {
-      final result = await ref.redux(parentIsolateProvider).dispatchAsyncTakeResult(IsolateTargetHttpDiscoveryAction(
-            ip: favorite.ip,
-            port: favorite.port,
-            https: https,
-          ));
+      final result = await ref
+          .redux(parentIsolateProvider)
+          .dispatchAsyncTakeResult(IsolateTargetHttpDiscoveryAction(ip: favorite.ip, port: favorite.port, https: https));
 
       if (mounted) {
         context.pop(result);
@@ -49,7 +47,10 @@ class _FavoritesDialogState extends State<FavoritesDialog> with Refena {
   }
 
   Future<void> _showDeviceDialog([FavoriteDevice? favorite]) async {
-    await showDialog(context: context, builder: (_) => FavoriteEditDialog(favorite: favorite));
+    await showDialog(
+      context: context,
+      builder: (_) => FavoriteEditDialog(favorite: favorite),
+    );
   }
 
   @override
@@ -62,11 +63,7 @@ class _FavoritesDialogState extends State<FavoritesDialog> with Refena {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          if (favorites.isEmpty)
-            Text(
-              t.dialogs.favoriteDialog.noFavorites,
-              style: const TextStyle(color: Colors.grey),
-            ),
+          if (favorites.isEmpty) Text(t.dialogs.favoriteDialog.noFavorites, style: const TextStyle(color: Colors.grey)),
           for (final favorite in favorites)
             Row(
               children: [
@@ -74,10 +71,7 @@ class _FavoritesDialogState extends State<FavoritesDialog> with Refena {
                   child: TextButton(
                     style: TextButton.styleFrom(foregroundColor: Theme.of(context).colorScheme.onSurface),
                     onPressed: _fetching ? null : () async => await _checkConnectionToDevice(favorite),
-                    child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text('${favorite.alias}\n(${favorite.ip})'),
-                    ),
+                    child: Align(alignment: Alignment.centerLeft, child: Text('${favorite.alias}\n(${favorite.ip})')),
                   ),
                 ),
                 TextButton(
@@ -114,14 +108,8 @@ class _FavoritesDialogState extends State<FavoritesDialog> with Refena {
         ],
       ),
       actions: [
-        TextButton(
-          onPressed: () => context.pop(),
-          child: Text(t.general.cancel),
-        ),
-        FilledButton(
-          onPressed: _showDeviceDialog,
-          child: Text(t.dialogs.favoriteDialog.addFavorite),
-        ),
+        TextButton(onPressed: () => context.pop(), child: Text(t.general.cancel)),
+        FilledButton(onPressed: _showDeviceDialog, child: Text(t.dialogs.favoriteDialog.addFavorite)),
       ],
     );
   }

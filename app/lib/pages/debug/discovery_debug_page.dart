@@ -23,29 +23,22 @@ class DiscoveryDebugPage extends StatelessWidget {
         children: [
           Row(
             children: [
-              ElevatedButton(
-                onPressed: () => ref.redux(nearbyDevicesProvider).dispatch(StartMulticastScan()),
-                child: const Text('Announce'),
-              ),
+              ElevatedButton(onPressed: () => ref.redux(nearbyDevicesProvider).dispatch(StartMulticastScan()), child: const Text('Announce')),
               const SizedBox(width: 20),
-              ElevatedButton(
-                onPressed: () => ref.notifier(discoveryLoggerProvider).clear(),
-                child: const Text('Clear'),
-              ),
+              ElevatedButton(onPressed: () => ref.notifier(discoveryLoggerProvider).clear(), child: const Text('Clear')),
             ],
           ),
           const SizedBox(height: 20),
-          ...logs.map((log) => CopyableText(
-                prefix: TextSpan(
-                  text: '[${_dateFormat.format(log.timestamp)}] ',
-                  style: const TextStyle(
-                    color: Colors.green,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                name: log.log,
-                value: log.log,
-              )),
+          ...logs.map(
+            (log) => CopyableText(
+              prefix: TextSpan(
+                text: '[${_dateFormat.format(log.timestamp)}] ',
+                style: const TextStyle(color: Colors.green, fontWeight: FontWeight.bold),
+              ),
+              name: log.log,
+              value: log.log,
+            ),
+          ),
         ],
       ),
     );

@@ -35,10 +35,7 @@ class AddMessageAction extends ReduxAction<SelectedSendingFilesNotifier, List<Cr
   final String message;
   final int? index;
 
-  AddMessageAction({
-    required this.message,
-    this.index,
-  });
+  AddMessageAction({required this.message, this.index});
 
   @override
   List<CrossFile> reduce() {
@@ -55,9 +52,7 @@ class AddMessageAction extends ReduxAction<SelectedSendingFilesNotifier, List<Cr
       lastAccessed: null,
     );
 
-    return List.unmodifiable([
-      ...state,
-    ]..insert(index ?? state.length, file));
+    return List.unmodifiable([...state]..insert(index ?? state.length, file));
   }
 }
 
@@ -66,10 +61,7 @@ class UpdateMessageAction extends ReduxAction<SelectedSendingFilesNotifier, List
   final String message;
   final int index;
 
-  UpdateMessageAction({
-    required this.message,
-    required this.index,
-  });
+  UpdateMessageAction({required this.message, required this.index});
 
   @override
   List<CrossFile> reduce() {
@@ -86,11 +78,7 @@ class AddBinaryAction extends ReduxAction<SelectedSendingFilesNotifier, List<Cro
   final FileType fileType;
   final String fileName;
 
-  AddBinaryAction({
-    required this.bytes,
-    required this.fileType,
-    required this.fileName,
-  });
+  AddBinaryAction({required this.bytes, required this.fileType, required this.fileName});
 
   @override
   List<CrossFile> reduce() {
@@ -106,10 +94,7 @@ class AddBinaryAction extends ReduxAction<SelectedSendingFilesNotifier, List<Cro
       lastAccessed: null,
     );
 
-    return List.unmodifiable([
-      ...state,
-      file,
-    ]);
+    return List.unmodifiable([...state, file]);
   }
 }
 
@@ -118,10 +103,7 @@ class AddFilesAction<T> extends AsyncReduxAction<SelectedSendingFilesNotifier, L
   final Iterable<T> files;
   final Future<CrossFile> Function(T) converter;
 
-  AddFilesAction({
-    required this.files,
-    required this.converter,
-  });
+  AddFilesAction({required this.files, required this.converter});
 
   @override
   Future<List<CrossFile>> reduce() async {
@@ -136,10 +118,7 @@ class AddFilesAction<T> extends AsyncReduxAction<SelectedSendingFilesNotifier, L
         newFiles.add(crossFile);
       }
     }
-    return List.unmodifiable([
-      ...state,
-      ...newFiles,
-    ]);
+    return List.unmodifiable([...state, ...newFiles]);
   }
 }
 
@@ -192,10 +171,7 @@ class AddDirectoryAction extends AsyncReduxAction<SelectedSendingFilesNotifier, 
       }
     }
 
-    return List.unmodifiable([
-      ...state,
-      ...newFiles,
-    ]);
+    return List.unmodifiable([...state, ...newFiles]);
   }
 }
 
@@ -252,10 +228,7 @@ class AddAndroidDirectoryAction extends AsyncReduxAction<SelectedSendingFilesNot
       }
     }
 
-    return List.unmodifiable([
-      ...state,
-      ...newFiles,
-    ]);
+    return List.unmodifiable([...state, ...newFiles]);
   }
 }
 
@@ -302,10 +275,12 @@ class LoadSelectionFromArgsAction extends AsyncReduxActionWithResult<SelectedSen
         if (message != null && message.trim().isNotEmpty) {
           dispatch(AddMessageAction(message: message));
         }
-        await dispatchAsync(AddFilesAction(
-              files: payload.attachments?.where((a) => a != null).cast<SharedAttachment>() ?? <SharedAttachment>[],
-              converter: CrossFileConverters.convertSharedAttachment,
-            ));
+        await dispatchAsync(
+          AddFilesAction(
+            files: payload.attachments?.where((a) => a != null).cast<SharedAttachment>() ?? <SharedAttachment>[],
+            converter: CrossFileConverters.convertSharedAttachment,
+          ),
+        );
         filesAdded = true;
         continue;
       }
@@ -317,10 +292,7 @@ class LoadSelectionFromArgsAction extends AsyncReduxActionWithResult<SelectedSen
       final directory = Directory(arg);
 
       if (file.existsSync()) {
-        await dispatchAsync(AddFilesAction(
-          files: [file],
-          converter: CrossFileConverters.convertFile,
-        ));
+        await dispatchAsync(AddFilesAction(files: [file], converter: CrossFileConverters.convertFile));
         filesAdded = true;
       } else if (directory.existsSync()) {
         await dispatchAsync(AddDirectoryAction(arg));

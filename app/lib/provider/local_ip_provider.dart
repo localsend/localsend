@@ -14,9 +14,7 @@ import 'package:refena_flutter/refena_flutter.dart';
 final _logger = Logger('NetworkInfo');
 
 final localIpProvider = ReduxProvider<LocalIpService, NetworkState>((ref) {
-  return LocalIpService(
-    ref.notifier(settingsProvider),
-  );
+  return LocalIpService(ref.notifier(settingsProvider));
 });
 
 StreamSubscription? _subscription;
@@ -28,10 +26,7 @@ class LocalIpService extends ReduxNotifier<NetworkState> {
 
   @override
   NetworkState init() {
-    return const NetworkState(
-      localIps: [],
-      initialized: false,
-    );
+    return const NetworkState(localIps: [], initialized: false);
   }
 
   @override
@@ -79,10 +74,7 @@ class FetchLocalIpAction extends AsyncReduxAction<LocalIpService, NetworkState> 
   }
 }
 
-Future<List<String>> _getIp({
-  required List<String>? whitelist,
-  required List<String>? blacklist,
-}) async {
+Future<List<String>> _getIp({required List<String>? whitelist, required List<String>? blacklist}) async {
   final info = plugin.NetworkInfo();
   String? ip;
   try {
@@ -91,10 +83,7 @@ Future<List<String>> _getIp({
     _logger.warning('Failed to get wifi IP', e);
   }
 
-  final nativeResult = (await getNetworkInterfaces(
-    whitelist: whitelist,
-    blacklist: blacklist,
-  ))
+  final nativeResult = (await getNetworkInterfaces(whitelist: whitelist, blacklist: blacklist))
       .map((interface) => interface.addresses.map((a) => a.address).toList())
       .expand((ip) => ip)
       .where((ip) => !ip.contains(':')) // ignore IPv6 for now

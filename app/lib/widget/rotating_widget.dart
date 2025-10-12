@@ -7,13 +7,7 @@ class RotatingWidget extends StatefulWidget {
   final bool reverse;
   final Widget child;
 
-  const RotatingWidget({
-    required this.duration,
-    this.spinning = true,
-    this.reverse = false,
-    required this.child,
-    super.key,
-  });
+  const RotatingWidget({required this.duration, this.spinning = true, this.reverse = false, required this.child, super.key});
 
   @override
   State<RotatingWidget> createState() => RotatingWidgetState();
@@ -60,9 +54,6 @@ class RotatingWidgetState extends State<RotatingWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Transform.rotate(
-      angle: _angle,
-      child: widget.child,
-    );
+    return Transform.rotate(angle: _angle, child: widget.child);
   }
 }

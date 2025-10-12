@@ -32,11 +32,7 @@ class SendController {
   SendController(this.server);
 
   /// Installs all routes for receiving files.
-  void installRoutes({
-    required SimpleServerRouteBuilder router,
-    required String alias,
-    required String fingerprint,
-  }) {
+  void installRoutes({required SimpleServerRouteBuilder router, required String alias, required String fingerprint}) {
     router.get('/', (HttpRequest request) async {
       final state = server.getState();
       if (state.webSendState == null) {
@@ -64,16 +60,19 @@ class SendController {
         return await request.respondJson(403, message: 'Web send not initialized.');
       }
 
-      return await request.respondJson(200, body: {
-        'waiting': t.web.waiting,
-        'enterPin': t.web.enterPin,
-        'invalidPin': t.web.invalidPin,
-        'tooManyAttempts': t.web.tooManyAttempts,
-        'rejected': t.web.rejected,
-        'files': t.web.files,
-        'fileName': t.web.fileName,
-        'size': t.web.size,
-      });
+      return await request.respondJson(
+        200,
+        body: {
+          'waiting': t.web.waiting,
+          'enterPin': t.web.enterPin,
+          'invalidPin': t.web.invalidPin,
+          'tooManyAttempts': t.web.tooManyAttempts,
+          'rejected': t.web.rejected,
+          'files': t.web.files,
+          'fileName': t.web.fileName,
+          'size': t.web.size,
+        },
+      );
     });
 
     router.post(ApiRoute.prepareDownload.v2, (HttpRequest request) async {
@@ -89,30 +88,25 @@ class SendController {
         final session = server.getState().webSendState?.sessions[requestSessionId];
         if (session != null && session.responseHandler == null && session.ip == request.ip) {
           final deviceInfo = server.ref.read(deviceInfoProvider);
-          return await request.respondJson(200,
-              body: ReceiveRequestResponseDto(
-                info: InfoDto(
-                  alias: alias,
-                  version: protocolVersion,
-                  deviceModel: deviceInfo.deviceModel,
-                  deviceType: deviceInfo.deviceType,
-                  fingerprint: fingerprint,
-                  download: true,
-                ),
-                sessionId: session.sessionId,
-                files: {
-                  for (final entry in state.webSendState!.files.entries) entry.key: entry.value.file,
-                },
-              ).toJson());
+          return await request.respondJson(
+            200,
+            body: ReceiveRequestResponseDto(
+              info: InfoDto(
+                alias: alias,
+                version: protocolVersion,
+                deviceModel: deviceInfo.deviceModel,
+                deviceType: deviceInfo.deviceType,
+                fingerprint: fingerprint,
+                download: true,
+              ),
+              sessionId: session.sessionId,
+              files: {for (final entry in state.webSendState!.files.entries) entry.key: entry.value.file},
+            ).toJson(),
+          );
         }
       }
 
-      final pinCorrect = await checkPin(
-        server: server,
-        pin: state.webSendState!.pin,
-        pinAttempts: state.webSendState!.pinAttempts,
-        request: request,
-      );
+      final pinCorrect = await checkPin(server: server, pin: state.webSendState!.pin, pinAttempts: state.webSendState!.pinAttempts, request: request);
       if (!pinCorrect) {
         return;
       }
@@ -124,12 +118,7 @@ class SendController {
           webSendState: oldState.webSendState!.copyWith(
             sessions: {
               ...oldState.webSendState!.sessions,
-              sessionId: WebSendSession(
-                sessionId: sessionId,
-                responseHandler: streamController,
-                ip: request.ip,
-                deviceInfo: request.deviceInfo,
-              ),
+              sessionId: WebSendSession(sessionId: sessionId, responseHandler: streamController, ip: request.ip, deviceInfo: request.deviceInfo),
             },
           ),
         ),
@@ -164,21 +153,21 @@ class SendController {
         ),
       );
       final deviceInfo = server.ref.read(deviceInfoProvider);
-      return await request.respondJson(200,
-          body: ReceiveRequestResponseDto(
-            info: InfoDto(
-              alias: alias,
-              version: protocolVersion,
-              deviceModel: deviceInfo.deviceModel,
-              deviceType: deviceInfo.deviceType,
-              fingerprint: fingerprint,
-              download: true,
-            ),
-            sessionId: sessionId,
-            files: {
-              for (final entry in state.webSendState!.files.entries) entry.key: entry.value.file,
-            },
-          ).toJson());
+      return await request.respondJson(
+        200,
+        body: ReceiveRequestResponseDto(
+          info: InfoDto(
+            alias: alias,
+            version: protocolVersion,
+            deviceModel: deviceInfo.deviceModel,
+            deviceType: deviceInfo.deviceType,
+            fingerprint: fingerprint,
+            download: true,
+          ),
+          sessionId: sessionId,
+          files: {for (final entry in state.webSendState!.files.entries) entry.key: entry.value.file},
+        ).toJson(),
+      );
     });
 
     router.get(ApiRoute.download.v2, (HttpRequest request) async {
@@ -244,44 +233,41 @@ class SendController {
   Future<void> initializeWebSend({required List<CrossFile> files}) async {
     final webSendState = WebSendState(
       sessions: {},
-      files: Map.fromEntries(await Future.wait(files.map((file) async {
-        final id = _uuid.v4();
-        return MapEntry(
-          id,
-          WebSendFile(
-            file: FileDto(
-              id: id,
-              fileName: file.name,
-              size: file.size,
-              fileType: file.fileType,
-              hash: null,
-              preview: files.first.fileType == FileType.text && files.first.bytes != null
-                  ? utf8.decode(files.first.bytes!) // send simple message by embedding it into the preview
-                  : null,
-              metadata: file.lastModified != null || file.lastAccessed != null
-                  ? FileMetadata(
-                      lastModified: file.lastModified,
-                      lastAccessed: file.lastAccessed,
-                    )
-                  : null,
-              legacy: false,
-            ),
-            asset: file.asset,
-            path: file.path,
-            bytes: file.bytes,
-          ),
-        );
-      }))),
+      files: Map.fromEntries(
+        await Future.wait(
+          files.map((file) async {
+            final id = _uuid.v4();
+            return MapEntry(
+              id,
+              WebSendFile(
+                file: FileDto(
+                  id: id,
+                  fileName: file.name,
+                  size: file.size,
+                  fileType: file.fileType,
+                  hash: null,
+                  preview: files.first.fileType == FileType.text && files.first.bytes != null
+                      ? utf8.decode(files.first.bytes!) // send simple message by embedding it into the preview
+                      : null,
+                  metadata: file.lastModified != null || file.lastAccessed != null
+                      ? FileMetadata(lastModified: file.lastModified, lastAccessed: file.lastAccessed)
+                      : null,
+                  legacy: false,
+                ),
+                asset: file.asset,
+                path: file.path,
+                bytes: file.bytes,
+              ),
+            );
+          }),
+        ),
+      ),
       autoAccept: server.ref.read(settingsProvider).shareViaLinkAutoAccept,
       pin: null,
       pinAttempts: {},
     );
 
-    server.setState(
-      (oldState) => oldState?.copyWith(
-        webSendState: webSendState,
-      ),
-    );
+    server.setState((oldState) => oldState?.copyWith(webSendState: webSendState));
   }
 
   void acceptRequest(String sessionId) {
@@ -304,15 +290,7 @@ class SendController {
 }
 
 extension on WebSendState {
-  WebSendState updateSession({
-    required String sessionId,
-    required WebSendSession Function(WebSendSession oldSession) update,
-  }) {
-    return copyWith(
-      sessions: {...sessions}..update(
-          sessionId,
-          (session) => update(session),
-        ),
-    );
+  WebSendState updateSession({required String sessionId, required WebSendSession Function(WebSendSession oldSession) update}) {
+    return copyWith(sessions: {...sessions}..update(sessionId, (session) => update(session)));
   }
 }

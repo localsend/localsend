@@ -14,12 +14,7 @@ class EncryptionDisabledNotice extends StatelessWidget {
         builder: (_) => AlertDialog(
           title: Text(t.dialogs.encryptionDisabledNotice.title),
           content: Text(t.dialogs.encryptionDisabledNotice.content),
-          actions: [
-            TextButton(
-              onPressed: () => context.pop(),
-              child: Text(t.general.close),
-            )
-          ],
+          actions: [TextButton(onPressed: () => context.pop(), child: Text(t.general.close))],
         ),
       );
     } else {
@@ -33,10 +28,7 @@ class EncryptionDisabledNotice extends StatelessWidget {
       title: t.dialogs.encryptionDisabledNotice.title,
       description: t.dialogs.encryptionDisabledNotice.content,
       child: Center(
-        child: ElevatedButton(
-          onPressed: () => context.popUntilRoot(),
-          child: Text(t.general.close),
-        ),
+        child: ElevatedButton(onPressed: () => context.popUntilRoot(), child: Text(t.general.close)),
       ),
     );
   }

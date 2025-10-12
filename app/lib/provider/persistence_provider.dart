@@ -102,9 +102,7 @@ class PersistenceService {
 
   PersistenceService._(this._prefs, this.isFirstAppStart);
 
-  static Future<PersistenceService> initialize({
-    required bool supportsDynamicColors,
-  }) async {
+  static Future<PersistenceService> initialize({required bool supportsDynamicColors}) async {
     SharedPreferences prefs;
 
     final portableStore = SharedPreferencesPortable();
@@ -507,10 +505,7 @@ class PersistenceService {
       return null;
     }
 
-    return WindowDimensions(
-      position: position,
-      size: size,
-    );
+    return WindowDimensions(position: position, size: size);
   }
 
   Future<void> setSaveWindowPlacement(bool savePlacement) async {

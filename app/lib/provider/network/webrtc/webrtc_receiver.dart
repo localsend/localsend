@@ -51,23 +51,17 @@ class WebRTCReceiveService extends ReduxNotifier<WebRTCReceiveState> {
     required SettingsState settings,
     required List<FavoriteDevice> favorites,
     required StoredSecurityContext key,
-  })  : _signalingServer = signalingServer,
-        _stunServers = stunServers,
-        _connection = connection,
-        _offer = offer,
-        _settings = settings,
-        _favorites = favorites,
-        _key = key;
+  }) : _signalingServer = signalingServer,
+       _stunServers = stunServers,
+       _connection = connection,
+       _offer = offer,
+       _settings = settings,
+       _favorites = favorites,
+       _key = key;
 
   @override
   WebRTCReceiveState init() {
-    return WebRTCReceiveState(
-      connection: _connection,
-      offer: _offer,
-      status: null,
-      controller: null,
-      sessionState: null,
-    );
+    return WebRTCReceiveState(connection: _connection, offer: _offer, status: null, controller: null, sessionState: null);
   }
 }
 
@@ -84,9 +78,7 @@ class AcceptOfferAction extends AsyncReduxAction<WebRTCReceiveService, WebRTCRec
       dispatch(_SetStatusAction(status));
     });
 
-    return state.copyWith(
-      controller: controller,
-    );
+    return state.copyWith(controller: controller);
   }
 
   @override
@@ -135,9 +127,7 @@ class _AcceptOfferAction extends AsyncReduxAction<WebRTCReceiveService, WebRTCRe
     // ignore: unawaited_futures, use_build_context_synchronously
     Routerino.context.push(() => ReceivePage(vm));
 
-    return state.copyWith(
-      controller: controller,
-    );
+    return state.copyWith(controller: controller);
   }
 }
 
@@ -187,9 +177,7 @@ class _SetStatusAction extends ReduxAction<WebRTCReceiveService, WebRTCReceiveSt
 
   @override
   WebRTCReceiveState reduce() {
-    return state.copyWith(
-      status: status,
-    );
+    return state.copyWith(status: status);
   }
 }
 
@@ -210,9 +198,6 @@ extension on FileDto {
 
 extension on FileMetadata {
   dart_model.FileMetadata toFileMetadata() {
-    return dart_model.FileMetadata(
-      lastModified: DateTime.tryParse(modified ?? ''),
-      lastAccessed: DateTime.tryParse(accessed ?? ''),
-    );
+    return dart_model.FileMetadata(lastModified: DateTime.tryParse(modified ?? ''), lastAccessed: DateTime.tryParse(accessed ?? ''));
   }
 }

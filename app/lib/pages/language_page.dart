@@ -32,10 +32,7 @@ class _LanguagePageState extends State<LanguagePage> {
       body: ResponsiveListView(
         padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
         children: [
-          ...[
-            null,
-            ...AppLocale.values,
-          ].map((locale) {
+          ...[null, ...AppLocale.values].map((locale) {
             return ListTile(
               onTap: () async {
                 await context.ref.notifier(settingsProvider).setLocale(locale);
@@ -47,13 +44,8 @@ class _LanguagePageState extends State<LanguagePage> {
               },
               title: Row(
                 children: [
-                  Flexible(
-                    child: Text(locale?.humanName ?? t.settingsTab.general.languageOptions.system),
-                  ),
-                  if (locale == activeLocale) ...[
-                    const SizedBox(width: 10),
-                    const Icon(Icons.check_circle, color: Colors.green),
-                  ],
+                  Flexible(child: Text(locale?.humanName ?? t.settingsTab.general.languageOptions.system)),
+                  if (locale == activeLocale) ...[const SizedBox(width: 10), const Icon(Icons.check_circle, color: Colors.green)],
                 ],
               ),
             );

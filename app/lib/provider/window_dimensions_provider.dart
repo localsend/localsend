@@ -8,10 +8,7 @@ class WindowDimensions {
   final Offset position;
   final Size size;
 
-  WindowDimensions({
-    required this.position,
-    required this.size,
-  });
+  WindowDimensions({required this.position, required this.size});
 }
 
 final windowDimensionProvider = Provider<WindowDimensionsController>((ref) {
@@ -66,10 +63,7 @@ class WindowDimensionsController {
     return checkX && checkY;
   }
 
-  Future<void> storeDimensions({
-    required Offset windowOffset,
-    required Size windowSize,
-  }) async {
+  Future<void> storeDimensions({required Offset windowOffset, required Size windowSize}) async {
     if (await isInScreenBounds(windowOffset)) {
       await _service.setWindowOffsetX(windowOffset.dx);
       await _service.setWindowOffsetY(windowOffset.dy);

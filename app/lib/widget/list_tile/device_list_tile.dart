@@ -19,15 +19,7 @@ class DeviceListTile extends StatelessWidget {
   final VoidCallback? onTap;
   final VoidCallback? onFavoriteTap;
 
-  const DeviceListTile({
-    required this.device,
-    this.isFavorite = false,
-    this.nameOverride,
-    this.info,
-    this.progress,
-    this.onTap,
-    this.onFavoriteTap,
-  });
+  const DeviceListTile({required this.device, this.isFavorite = false, this.nameOverride, this.info, this.progress, this.onTap, this.onFavoriteTap});
 
   @override
   Widget build(BuildContext context) {
@@ -35,12 +27,7 @@ class DeviceListTile extends StatelessWidget {
     return CustomListTile(
       icon: Icon(device.deviceType.icon, size: 46),
       title: Text(nameOverride ?? device.alias, style: const TextStyle(fontSize: 20)),
-      trailing: onFavoriteTap != null
-          ? IconButton(
-              icon: Icon(isFavorite ? Icons.favorite : Icons.favorite_border),
-              onPressed: onFavoriteTap,
-            )
-          : null,
+      trailing: onFavoriteTap != null ? IconButton(icon: Icon(isFavorite ? Icons.favorite : Icons.favorite_border), onPressed: onFavoriteTap) : null,
       subTitle: Wrap(
         runSpacing: 10,
         spacing: 10,
@@ -54,17 +41,9 @@ class DeviceListTile extends StatelessWidget {
             )
           else ...[
             if (device.ip != null)
-              DeviceBadge(
-                backgroundColor: badgeColor,
-                foregroundColor: Theme.of(context).colorScheme.onSecondaryContainer,
-                label: 'LAN • HTTP',
-              )
+              DeviceBadge(backgroundColor: badgeColor, foregroundColor: Theme.of(context).colorScheme.onSecondaryContainer, label: 'LAN • HTTP')
             else
-              DeviceBadge(
-                backgroundColor: badgeColor,
-                foregroundColor: Theme.of(context).colorScheme.onSecondaryContainer,
-                label: 'WebRTC',
-              ),
+              DeviceBadge(backgroundColor: badgeColor, foregroundColor: Theme.of(context).colorScheme.onSecondaryContainer, label: 'WebRTC'),
             if (device.deviceModel != null)
               DeviceBadge(
                 backgroundColor: badgeColor,

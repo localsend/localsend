@@ -12,12 +12,7 @@ class ErrorDialog extends StatelessWidget {
     return AlertDialog(
       title: Text(t.dialogs.errorDialog.title),
       content: SelectableText(error),
-      actions: [
-        TextButton(
-          onPressed: () => context.pop(),
-          child: Text(t.general.close),
-        )
-      ],
+      actions: [TextButton(onPressed: () => context.pop(), child: Text(t.general.close))],
     );
   }
 }

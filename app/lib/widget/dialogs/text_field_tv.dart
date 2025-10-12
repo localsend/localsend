@@ -13,12 +13,7 @@ class TextFieldTv extends StatefulWidget {
   final ValueChanged<String>? onChanged;
   final VoidCallback? onDelete;
 
-  const TextFieldTv({
-    required this.name,
-    required this.controller,
-    this.onChanged,
-    this.onDelete,
-  });
+  const TextFieldTv({required this.name, required this.controller, this.onChanged, this.onDelete});
 
   @override
   State<TextFieldTv> createState() => _TextFieldTvState();
@@ -57,7 +52,7 @@ class _TextFieldTvState extends State<TextFieldTv> with Refena {
                     ),
                     onPressed: () => context.pop(),
                     child: Text(t.general.confirm),
-                  )
+                  ),
                 ],
               );
             },

@@ -67,11 +67,9 @@ class _AddressInputDialogState extends State<AddressInputDialog> with Refena {
       for (final ip in candidates)
         () async {
           try {
-            final device = await ref.redux(parentIsolateProvider).dispatchAsyncTakeResult(IsolateTargetHttpDiscoveryAction(
-                  ip: ip,
-                  port: port,
-                  https: https,
-                ));
+            final device = await ref
+                .redux(parentIsolateProvider)
+                .dispatchAsyncTakeResult(IsolateTargetHttpDiscoveryAction(ip: ip, port: port, https: https));
             foundDevice = device;
             deviceCompleter.complete();
             return device;
@@ -86,10 +84,7 @@ class _AddressInputDialogState extends State<AddressInputDialog> with Refena {
     // - a device is found
     // - all candidates are checked
     try {
-      await Future.any([
-        deviceCompleter.future,
-        Future.wait(futures),
-      ]);
+      await Future.any([deviceCompleter.future, Future.wait(futures)]);
     } catch (_) {}
 
     if (!mounted) {
@@ -133,10 +128,7 @@ class _AddressInputDialogState extends State<AddressInputDialog> with Refena {
             tapTargetSize: MaterialTapTargetSize.shrinkWrap,
             constraints: const BoxConstraints(minWidth: 0, minHeight: 0),
             children: _InputMode.values.map((mode) {
-              return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                child: Text(mode.label),
-              );
+              return Padding(padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5), child: Text(mode.label));
             }).toList(),
           ),
           const SizedBox(height: 15),
@@ -145,9 +137,7 @@ class _AddressInputDialogState extends State<AddressInputDialog> with Refena {
             autofocus: true,
             enabled: !_fetching,
             keyboardType: _mode == _InputMode.hashtag ? TextInputType.number : TextInputType.text,
-            decoration: InputDecoration(
-              prefixText: _mode == _InputMode.hashtag ? '# ' : 'IP: ',
-            ),
+            decoration: InputDecoration(prefixText: _mode == _InputMode.hashtag ? '# ' : 'IP: '),
             onChanged: (s) {
               setState(() => _input = s);
             },
@@ -155,47 +145,36 @@ class _AddressInputDialogState extends State<AddressInputDialog> with Refena {
           ),
           const SizedBox(height: 10),
           if (_mode == _InputMode.hashtag) ...[
-            Text(
-              '${t.general.example}: 123',
-              style: const TextStyle(color: Colors.grey),
-            ),
+            Text('${t.general.example}: 123', style: const TextStyle(color: Colors.grey)),
             if (localIps.length <= 1)
               Text(
                 '${t.dialogs.addressInput.ip}: ${localIps.firstOrNull?.ipPrefix ?? '192.168.2'}.$_input',
                 style: const TextStyle(color: Colors.grey),
               )
             else ...[
-              Text(
-                '${t.dialogs.addressInput.ip}:',
-                style: const TextStyle(color: Colors.grey),
-              ),
-              for (final ip in localIps)
-                Text(
-                  '- ${ip.ipPrefix}.$_input',
-                  style: const TextStyle(color: Colors.grey),
-                ),
+              Text('${t.dialogs.addressInput.ip}:', style: const TextStyle(color: Colors.grey)),
+              for (final ip in localIps) Text('- ${ip.ipPrefix}.$_input', style: const TextStyle(color: Colors.grey)),
             ],
           ] else ...[
             if (lastDevices.isEmpty)
-              Text(
-                '${t.general.example}: ${localIps.firstOrNull?.ipPrefix ?? '192.168.2'}.123',
-                style: const TextStyle(color: Colors.grey),
-              )
+              Text('${t.general.example}: ${localIps.firstOrNull?.ipPrefix ?? '192.168.2'}.123', style: const TextStyle(color: Colors.grey))
             else
               Text.rich(
                 TextSpan(
                   children: [
                     TextSpan(text: t.dialogs.addressInput.recentlyUsed),
-                    ...lastDevices.mapIndexed((index, device) {
-                      return [
-                        if (index != 0) const TextSpan(text: ', '),
-                        TextSpan(
-                          text: device.ip,
-                          style: TextStyle(color: Theme.of(context).colorScheme.primary),
-                          recognizer: TapGestureRecognizer()..onTap = () async => _submit(localIps, settings.port, device.ip),
-                        )
-                      ];
-                    }).expand((e) => e),
+                    ...lastDevices
+                        .mapIndexed((index, device) {
+                          return [
+                            if (index != 0) const TextSpan(text: ', '),
+                            TextSpan(
+                              text: device.ip,
+                              style: TextStyle(color: Theme.of(context).colorScheme.primary),
+                              recognizer: TapGestureRecognizer()..onTap = () async => _submit(localIps, settings.port, device.ip),
+                            ),
+                          ];
+                        })
+                        .expand((e) => e),
                   ],
                 ),
               ),
@@ -227,14 +206,8 @@ class _AddressInputDialogState extends State<AddressInputDialog> with Refena {
         ],
       ),
       actions: [
-        TextButton(
-          onPressed: () => context.pop(),
-          child: Text(t.general.cancel),
-        ),
-        FilledButton(
-          onPressed: _fetching ? null : () async => _submit(localIps, settings.port),
-          child: Text(t.general.confirm),
-        ),
+        TextButton(onPressed: () => context.pop(), child: Text(t.general.cancel)),
+        FilledButton(onPressed: _fetching ? null : () async => _submit(localIps, settings.port), child: Text(t.general.confirm)),
       ],
     );
   }

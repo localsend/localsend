@@ -41,10 +41,7 @@ void main() {
   });
 }
 
-Device _target({
-  required String version,
-  required bool https,
-}) {
+Device _target({required String version, required bool https}) {
   return Device(
     signalingId: null,
     ip: '0.0.0.0',

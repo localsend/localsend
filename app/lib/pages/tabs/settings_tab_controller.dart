@@ -50,12 +50,12 @@ class SettingsTabController extends ReduxNotifier<SettingsTabVm> {
     required LocalIpService localIpService,
     required DeviceInfoResult initialDeviceInfo,
     required bool supportsDynamicColors,
-  })  : _settingsService = settingsService,
-        _serverService = serverNotifier,
-        _isolateController = isolateController,
-        _localIpService = localIpService,
-        _initialDeviceInfo = initialDeviceInfo,
-        _supportsDynamicColors = supportsDynamicColors;
+  }) : _settingsService = settingsService,
+       _serverService = serverNotifier,
+       _isolateController = isolateController,
+       _localIpService = localIpService,
+       _initialDeviceInfo = initialDeviceInfo,
+       _supportsDynamicColors = supportsDynamicColors;
 
   @override
   SettingsTabVm init() {
@@ -177,22 +177,14 @@ class _SettingsTabInitAction extends AsyncReduxAction<SettingsTabController, Set
     final autoStartEnabled = await isAutoStartEnabled();
     final autoStartHidden = await isAutoStartHidden();
     final showInContextMenu = await isContextMenuEnabled();
-    return state.copyWith(
-      autoStart: autoStartEnabled,
-      autoStartLaunchHidden: autoStartHidden,
-      showInContextMenu: showInContextMenu,
-    );
+    return state.copyWith(autoStart: autoStartEnabled, autoStartLaunchHidden: autoStartHidden, showInContextMenu: showInContextMenu);
   }
 }
 
 class _SettingsTabWatchAction extends WatchAction<SettingsTabController, SettingsTabVm> {
   @override
   SettingsTabVm reduce() {
-    return state.copyWith(
-      settings: ref.watch(settingsProvider),
-      serverState: ref.watch(serverProvider),
-      deviceInfo: ref.watch(deviceInfoProvider),
-    );
+    return state.copyWith(settings: ref.watch(settingsProvider), serverState: ref.watch(serverProvider), deviceInfo: ref.watch(deviceInfoProvider));
   }
 }
 

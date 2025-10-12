@@ -44,22 +44,12 @@ Future<bool> getSystemAnimationsStatusAndroid() async {
   return await _methodChannel.invokeMethod('isAnimationsEnabled') ?? true;
 }
 
-Future<void> createDirectory({
-  required String documentUri,
-  required String directoryName,
-}) async {
+Future<void> createDirectory({required String documentUri, required String directoryName}) async {
   _logger.info('Creating directory "$directoryName" in $documentUri');
-  await _methodChannel.invokeMethod('createDirectory', {
-    'documentUri': documentUri,
-    'directoryName': directoryName,
-  });
+  await _methodChannel.invokeMethod('createDirectory', {'documentUri': documentUri, 'directoryName': directoryName});
 }
 
-Future<void> createMissingDirectoriesAndroid({
-  required String parentUri,
-  required String fileName,
-  required Set<String> createdDirectories,
-}) async {
+Future<void> createMissingDirectoriesAndroid({required String parentUri, required String fileName, required Set<String> createdDirectories}) async {
   final parts = fileName.split('/');
   for (int i = 0; i < parts.length - 1; i++) {
     final subDirPath = parts.sublist(0, i + 1).join('/');
@@ -68,23 +58,16 @@ Future<void> createMissingDirectoriesAndroid({
     }
 
     await createDirectory(
-      documentUri: ContentUriHelper.convertTreeUriToDocumentUri(
-        treeUri: parentUri,
-        suffix: i == 0 ? null : parts.sublist(0, i).join('/'),
-      ),
+      documentUri: ContentUriHelper.convertTreeUriToDocumentUri(treeUri: parentUri, suffix: i == 0 ? null : parts.sublist(0, i).join('/')),
       directoryName: parts[i],
     );
     createdDirectories.add(subDirPath);
   }
 }
 
-Future<void> openContentUri({
-  required String uri,
-}) async {
+Future<void> openContentUri({required String uri}) async {
   _logger.info('Opening content URI: $uri');
-  await _methodChannel.invokeMethod('openContentUri', {
-    'uri': uri,
-  });
+  await _methodChannel.invokeMethod('openContentUri', {'uri': uri});
 }
 
 Future<void> openGallery() async {
@@ -97,10 +80,7 @@ class PickDirectoryResult with PickDirectoryResultMappable {
   final String directoryUri;
   final List<FileInfo> files;
 
-  PickDirectoryResult({
-    required this.directoryUri,
-    required this.files,
-  });
+  PickDirectoryResult({required this.directoryUri, required this.files});
 }
 
 @MappableClass()
@@ -110,10 +90,5 @@ class FileInfo with FileInfoMappable {
   final String uri;
   final int lastModified;
 
-  FileInfo({
-    required this.name,
-    required this.size,
-    required this.uri,
-    required this.lastModified,
-  });
+  FileInfo({required this.name, required this.size, required this.uri, required this.lastModified});
 }

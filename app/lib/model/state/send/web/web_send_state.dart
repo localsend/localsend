@@ -12,13 +12,7 @@ class WebSendState with WebSendStateMappable {
   final String? pin;
   final Map<String, int> pinAttempts; // IP address -> attempts (will be reset on session end)
 
-  const WebSendState({
-    required this.sessions,
-    required this.files,
-    required this.autoAccept,
-    required this.pin,
-    required this.pinAttempts,
-  });
+  const WebSendState({required this.sessions, required this.files, required this.autoAccept, required this.pin, required this.pinAttempts});
 
   @override
   String toString() {

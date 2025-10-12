@@ -13,10 +13,7 @@ import 'package:window_manager/window_manager.dart';
 
 final _logger = Logger('TrayHelper');
 
-enum TrayEntry {
-  open,
-  close,
-}
+enum TrayEntry { open, close }
 
 Future<void> initTray() async {
   if (!checkPlatformHasTray()) {
@@ -43,14 +40,8 @@ Future<void> initTray() async {
     }
 
     final items = [
-      tm.MenuItem(
-        key: TrayEntry.open.name,
-        label: t.tray.open,
-      ),
-      tm.MenuItem(
-        key: TrayEntry.close.name,
-        label: defaultTargetPlatform == TargetPlatform.windows ? t.tray.closeWindows : t.tray.close,
-      ),
+      tm.MenuItem(key: TrayEntry.open.name, label: t.tray.open),
+      tm.MenuItem(key: TrayEntry.close.name, label: defaultTargetPlatform == TargetPlatform.windows ? t.tray.closeWindows : t.tray.close),
     ];
     await tm.trayManager.setContextMenu(tm.Menu(items: items));
     // No Linux implementation for setToolTip available as of tray_manager 0.2.2

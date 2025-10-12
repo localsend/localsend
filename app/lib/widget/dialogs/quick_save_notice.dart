@@ -14,12 +14,7 @@ class QuickSaveNotice extends StatelessWidget {
         builder: (_) => AlertDialog(
           title: Text(t.dialogs.quickSaveNotice.title),
           content: Text(t.dialogs.quickSaveNotice.content),
-          actions: [
-            TextButton(
-              onPressed: () => context.pop(),
-              child: Text(t.general.close),
-            )
-          ],
+          actions: [TextButton(onPressed: () => context.pop(), child: Text(t.general.close))],
         ),
       );
     } else {
@@ -33,10 +28,7 @@ class QuickSaveNotice extends StatelessWidget {
       title: t.dialogs.quickSaveNotice.title,
       description: t.dialogs.quickSaveNotice.content,
       child: Center(
-        child: ElevatedButton(
-          onPressed: () => context.popUntilRoot(),
-          child: Text(t.general.close),
-        ),
+        child: ElevatedButton(onPressed: () => context.popUntilRoot(), child: Text(t.general.close)),
       ),
     );
   }

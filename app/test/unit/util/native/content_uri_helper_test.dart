@@ -4,10 +4,7 @@ import 'package:test/test.dart';
 void main() {
   group('getPathFromTreeUri', () {
     test('should return the root folder path from the content uri', () {
-      expect(
-        ContentUriHelper.getPathFromTreeUri('content://com.android.externalstorage.documents/tree/primary%3ADocuments'),
-        'primary:Documents',
-      );
+      expect(ContentUriHelper.getPathFromTreeUri('content://com.android.externalstorage.documents/tree/primary%3ADocuments'), 'primary:Documents');
     });
 
     test('should return the folder path from the content uri', () {
@@ -18,33 +15,21 @@ void main() {
     });
 
     test('should return folder path from content uri in SD card', () {
-      expect(
-        ContentUriHelper.getPathFromTreeUri('content://com.android.externalstorage.documents/tree/1234-5678:Documents'),
-        '1234-5678:Documents',
-      );
+      expect(ContentUriHelper.getPathFromTreeUri('content://com.android.externalstorage.documents/tree/1234-5678:Documents'), '1234-5678:Documents');
     });
   });
 
   group('getEntityNameFromPath', () {
     test('should return the entity name from the path', () {
-      expect(
-        ContentUriHelper.getEntityNameFromPath('primary:Documents'),
-        'Documents',
-      );
+      expect(ContentUriHelper.getEntityNameFromPath('primary:Documents'), 'Documents');
     });
 
     test('should return the entity name from the path with a folder', () {
-      expect(
-        ContentUriHelper.getEntityNameFromPath('primary:Documents/Office Lens'),
-        'Office Lens',
-      );
+      expect(ContentUriHelper.getEntityNameFromPath('primary:Documents/Office Lens'), 'Office Lens');
     });
 
     test('should return the entity name from the path with a folder in SD card', () {
-      expect(
-        ContentUriHelper.getEntityNameFromPath('1234-5678:Documents/Office Lens'),
-        'Office Lens',
-      );
+      expect(ContentUriHelper.getEntityNameFromPath('1234-5678:Documents/Office Lens'), 'Office Lens');
     });
   });
 
@@ -110,7 +95,9 @@ void main() {
     test('should return the document uri from the tree uri with a folder', () {
       expect(
         ContentUriHelper.convertTreeUriToDocumentUri(
-            treeUri: 'content://com.android.externalstorage.documents/tree/primary%3ALocalSend', suffix: 'subFolder'),
+          treeUri: 'content://com.android.externalstorage.documents/tree/primary%3ALocalSend',
+          suffix: 'subFolder',
+        ),
         'content://com.android.externalstorage.documents/tree/primary%3ALocalSend/document/primary%3ALocalSend%2FsubFolder',
       );
     });

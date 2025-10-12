@@ -6,12 +6,7 @@ class InitialFadeTransition extends StatefulWidget {
   final Duration duration;
   final Duration delay;
 
-  const InitialFadeTransition({
-    required this.child,
-    required this.duration,
-    this.delay = Duration.zero,
-    super.key,
-  });
+  const InitialFadeTransition({required this.child, required this.duration, this.delay = Duration.zero, super.key});
 
   @override
   State<InitialFadeTransition> createState() => _InitialFadeTransitionState();
@@ -36,10 +31,6 @@ class _InitialFadeTransitionState extends State<InitialFadeTransition> {
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedOpacity(
-      opacity: _opacity,
-      duration: widget.duration,
-      child: widget.child,
-    );
+    return AnimatedOpacity(opacity: _opacity, duration: widget.duration, child: widget.child);
   }
 }

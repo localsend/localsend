@@ -60,10 +60,7 @@ class ContentUriHelper {
   /// content://com.android.externalstorage.documents/tree/primary%3ALocalSend/document/primary%3ALocalSend
   /// or
   /// content://com.android.externalstorage.documents/tree/primary%3ALocalSend/document/primary%3ALocalSend%2FsubFolder
-  static String convertTreeUriToDocumentUri({
-    required String treeUri,
-    String? suffix,
-  }) {
+  static String convertTreeUriToDocumentUri({required String treeUri, String? suffix}) {
     final index = treeUri.indexOf('/tree/');
     final treePath = treeUri.substring(index + 6);
 

@@ -11,10 +11,5 @@ class WebSendSession with WebSendSessionMappable {
   final String ip;
   final String deviceInfo; // parsed from userAgent
 
-  const WebSendSession({
-    required this.sessionId,
-    required this.responseHandler,
-    required this.ip,
-    required this.deviceInfo,
-  });
+  const WebSendSession({required this.sessionId, required this.responseHandler, required this.ip, required this.deviceInfo});
 }

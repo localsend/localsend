@@ -9,12 +9,7 @@ class CustomDropdownButton<T> extends StatelessWidget {
   final ValueChanged<T>? onChanged;
   final bool expanded;
 
-  const CustomDropdownButton({
-    required this.value,
-    required this.items,
-    this.onChanged,
-    this.expanded = true,
-  });
+  const CustomDropdownButton({required this.value, required this.items, this.onChanged, this.expanded = true});
 
   @override
   Widget build(BuildContext context) {

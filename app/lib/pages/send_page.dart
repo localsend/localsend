@@ -24,11 +24,7 @@ class SendPage extends StatefulWidget {
   final bool closeSessionOnClose;
   final String sessionId;
 
-  const SendPage({
-    required this.showAppBar,
-    required this.closeSessionOnClose,
-    required this.sessionId,
-  });
+  const SendPage({required this.showAppBar, required this.closeSessionOnClose, required this.sessionId});
 
   @override
   State<SendPage> createState() => _SendPageState();
@@ -61,18 +57,19 @@ class _SendPageState extends State<SendPage> with Refena {
 
   @override
   Widget build(BuildContext context) {
-    final sendState = ref.watch(sendProvider.select((state) => state[widget.sessionId]), listener: (prev, next) {
-      final prevStatus = prev[widget.sessionId]?.status;
-      final nextStatus = next[widget.sessionId]?.status;
-      if (prevStatus != nextStatus) {
-        // ignore: discarded_futures
-        TaskbarHelper.visualizeStatus(nextStatus);
-      }
-    });
+    final sendState = ref.watch(
+      sendProvider.select((state) => state[widget.sessionId]),
+      listener: (prev, next) {
+        final prevStatus = prev[widget.sessionId]?.status;
+        final nextStatus = next[widget.sessionId]?.status;
+        if (prevStatus != nextStatus) {
+          // ignore: discarded_futures
+          TaskbarHelper.visualizeStatus(nextStatus);
+        }
+      },
+    );
     if (sendState == null && _myDevice == null && _targetDevice == null) {
-      return Scaffold(
-        body: Container(),
-      );
+      return Scaffold(body: Container());
     }
     final myDevice = ref.watch(deviceFullInfoProvider);
     final targetDevice = sendState?.target ?? _targetDevice!;
@@ -102,9 +99,7 @@ class _SendPageState extends State<SendPage> with Refena {
                           InitialSlideTransition(
                             origin: const Offset(0, -1),
                             duration: const Duration(milliseconds: 400),
-                            child: DeviceListTile(
-                              device: myDevice,
-                            ),
+                            child: DeviceListTile(device: myDevice),
                           ),
                           const SizedBox(height: 20),
                           const InitialFadeTransition(
@@ -115,10 +110,7 @@ class _SendPageState extends State<SendPage> with Refena {
                           const SizedBox(height: 20),
                           Hero(
                             tag: 'device-${targetDevice.ip}',
-                            child: DeviceListTile(
-                              device: targetDevice,
-                              nameOverride: targetFavoriteEntry?.alias,
-                            ),
+                            child: DeviceListTile(device: targetDevice, nameOverride: targetFavoriteEntry?.alias),
                           ),
                         ],
                       ),
@@ -131,53 +123,51 @@ class _SendPageState extends State<SendPage> with Refena {
                           children: [
                             switch (sendState.status) {
                               SessionStatus.waiting => Padding(
-                                  padding: const EdgeInsets.only(bottom: 20),
-                                  child: Text(t.sendPage.waiting, textAlign: TextAlign.center),
-                                ),
+                                padding: const EdgeInsets.only(bottom: 20),
+                                child: Text(t.sendPage.waiting, textAlign: TextAlign.center),
+                              ),
                               SessionStatus.declined => Padding(
-                                  padding: const EdgeInsets.only(bottom: 20),
-                                  child: Text(
-                                    t.sendPage.rejected,
-                                    style: TextStyle(color: Theme.of(context).colorScheme.warning),
-                                    textAlign: TextAlign.center,
-                                  ),
+                                padding: const EdgeInsets.only(bottom: 20),
+                                child: Text(
+                                  t.sendPage.rejected,
+                                  style: TextStyle(color: Theme.of(context).colorScheme.warning),
+                                  textAlign: TextAlign.center,
                                 ),
+                              ),
                               SessionStatus.tooManyAttempts => Padding(
-                                  padding: const EdgeInsets.only(bottom: 20),
-                                  child: Text(
-                                    t.sendPage.tooManyAttempts,
-                                    style: TextStyle(color: Theme.of(context).colorScheme.warning),
-                                    textAlign: TextAlign.center,
-                                  ),
+                                padding: const EdgeInsets.only(bottom: 20),
+                                child: Text(
+                                  t.sendPage.tooManyAttempts,
+                                  style: TextStyle(color: Theme.of(context).colorScheme.warning),
+                                  textAlign: TextAlign.center,
                                 ),
+                              ),
                               SessionStatus.recipientBusy => Padding(
-                                  padding: const EdgeInsets.only(bottom: 20),
-                                  child: Text(
-                                    t.sendPage.busy,
-                                    style: TextStyle(color: Theme.of(context).colorScheme.warning),
-                                    textAlign: TextAlign.center,
-                                  ),
+                                padding: const EdgeInsets.only(bottom: 20),
+                                child: Text(
+                                  t.sendPage.busy,
+                                  style: TextStyle(color: Theme.of(context).colorScheme.warning),
+                                  textAlign: TextAlign.center,
                                 ),
+                              ),
                               SessionStatus.finishedWithErrors => Padding(
-                                  padding: const EdgeInsets.only(bottom: 20),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(t.general.error, style: TextStyle(color: Theme.of(context).colorScheme.warning)),
-                                      if (sendState.errorMessage != null)
-                                        TextButton(
-                                          style: TextButton.styleFrom(
-                                            foregroundColor: Theme.of(context).colorScheme.warning,
-                                          ),
-                                          onPressed: () async => showDialog(
-                                            context: context,
-                                            builder: (_) => ErrorDialog(error: sendState.errorMessage!),
-                                          ),
-                                          child: const Icon(Icons.info),
+                                padding: const EdgeInsets.only(bottom: 20),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(t.general.error, style: TextStyle(color: Theme.of(context).colorScheme.warning)),
+                                    if (sendState.errorMessage != null)
+                                      TextButton(
+                                        style: TextButton.styleFrom(foregroundColor: Theme.of(context).colorScheme.warning),
+                                        onPressed: () async => showDialog(
+                                          context: context,
+                                          builder: (_) => ErrorDialog(error: sendState.errorMessage!),
                                         ),
-                                    ],
-                                  ),
+                                        child: const Icon(Icons.info),
+                                      ),
+                                  ],
                                 ),
+                              ),
                               _ => const SizedBox(),
                             },
                             Center(

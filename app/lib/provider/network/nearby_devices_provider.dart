@@ -31,17 +31,12 @@ class NearbyDevicesService extends ReduxNotifier<NearbyDevicesState> {
     required IsolateController isolateController,
     required FavoritesService favoriteService,
     required DiscoveryLogger discoveryLogs,
-  })  : _discoveryLogger = discoveryLogs,
-        _isolateController = isolateController,
-        _favoriteService = favoriteService;
+  }) : _discoveryLogger = discoveryLogs,
+       _isolateController = isolateController,
+       _favoriteService = favoriteService;
 
   @override
-  NearbyDevicesState init() => const NearbyDevicesState(
-        runningFavoriteScan: false,
-        runningIps: {},
-        devices: {},
-        signalingDevices: {},
-      );
+  NearbyDevicesState init() => const NearbyDevicesState(runningFavoriteScan: false, runningIps: {}, devices: {}, signalingDevices: {});
 }
 
 /// Binds the UDP port and listens for incoming announcements.
@@ -61,9 +56,7 @@ class StartMulticastListener extends AsyncReduxAction<NearbyDevicesService, Near
 class ClearFoundDevicesAction extends ReduxAction<NearbyDevicesService, NearbyDevicesState> {
   @override
   NearbyDevicesState reduce() {
-    return state.copyWith(
-      devices: {},
-    );
+    return state.copyWith(devices: {});
   }
 }
 
@@ -88,9 +81,7 @@ class RegisterDeviceAction extends AsyncReduxAction<NearbyDevicesService, Nearby
     } else {
       await Future.microtask(() {});
     }
-    return state.copyWith(
-      devices: {...state.devices}..update(device.ip!, (_) => device, ifAbsent: () => device),
-    );
+    return state.copyWith(devices: {...state.devices}..update(device.ip!, (_) => device, ifAbsent: () => device));
   }
 }
 
@@ -109,12 +100,7 @@ class RegisterSignalingDeviceAction extends ReduxAction<NearbyDevicesService, Ne
     }
     existingDevices.add(device);
 
-    return state.copyWith(
-      signalingDevices: {
-        ...state.signalingDevices,
-        device.fingerprint: existingDevices,
-      },
-    );
+    return state.copyWith(signalingDevices: {...state.signalingDevices, device.fingerprint: existingDevices});
   }
 }
 
@@ -150,11 +136,7 @@ class StartLegacyScan extends AsyncReduxAction<NearbyDevicesService, NearbyDevic
   final String localIp;
   final bool https;
 
-  StartLegacyScan({
-    required this.port,
-    required this.localIp,
-    required this.https,
-  });
+  StartLegacyScan({required this.port, required this.localIp, required this.https});
 
   @override
   Future<NearbyDevicesState> reduce() async {
@@ -166,20 +148,16 @@ class StartLegacyScan extends AsyncReduxAction<NearbyDevicesService, NearbyDevic
 
     dispatch(_SetRunningIpsAction({...state.runningIps, localIp}));
 
-    final stream = external(notifier._isolateController).dispatchTakeResult(IsolateInterfaceHttpDiscoveryAction(
-      networkInterface: localIp,
-      port: port,
-      https: https,
-    ));
+    final stream = external(
+      notifier._isolateController,
+    ).dispatchTakeResult(IsolateInterfaceHttpDiscoveryAction(networkInterface: localIp, port: port, https: https));
 
     await for (final device in stream) {
       notifier._discoveryLogger.addLog('[DISCOVER/TCP] ${device.alias} (${device.ip}, model: ${device.deviceModel})');
       await dispatchAsync(RegisterDeviceAction(device));
     }
 
-    return state.copyWith(
-      runningIps: state.runningIps.where((ip) => ip != localIp).toSet(),
-    );
+    return state.copyWith(runningIps: state.runningIps.where((ip) => ip != localIp).toSet());
   }
 }
 
@@ -187,10 +165,7 @@ class StartFavoriteScan extends AsyncReduxAction<NearbyDevicesService, NearbyDev
   final List<FavoriteDevice> devices;
   final bool https;
 
-  StartFavoriteScan({
-    required this.devices,
-    required this.https,
-  });
+  StartFavoriteScan({required this.devices, required this.https});
 
   @override
   Future<NearbyDevicesState> reduce() async {
@@ -199,19 +174,16 @@ class StartFavoriteScan extends AsyncReduxAction<NearbyDevicesService, NearbyDev
     }
     dispatch(_SetRunningFavoriteScanAction(true));
 
-    final stream = external(notifier._isolateController).dispatchTakeResult(IsolateFavoriteHttpDiscoveryAction(
-      favorites: devices.map((e) => (e.ip, e.port)).toList(),
-      https: https,
-    ));
+    final stream = external(
+      notifier._isolateController,
+    ).dispatchTakeResult(IsolateFavoriteHttpDiscoveryAction(favorites: devices.map((e) => (e.ip, e.port)).toList(), https: https));
 
     await for (final device in stream) {
       notifier._discoveryLogger.addLog('[DISCOVER/TCP] ${device.alias} (${device.ip}, model: ${device.deviceModel})');
       await dispatchAsync(RegisterDeviceAction(device));
     }
 
-    return state.copyWith(
-      runningFavoriteScan: false,
-    );
+    return state.copyWith(runningFavoriteScan: false);
   }
 }
 
@@ -222,9 +194,7 @@ class _SetRunningIpsAction extends ReduxAction<NearbyDevicesService, NearbyDevic
 
   @override
   NearbyDevicesState reduce() {
-    return state.copyWith(
-      runningIps: runningIps,
-    );
+    return state.copyWith(runningIps: runningIps);
   }
 }
 
@@ -235,8 +205,6 @@ class _SetRunningFavoriteScanAction extends ReduxAction<NearbyDevicesService, Ne
 
   @override
   NearbyDevicesState reduce() {
-    return state.copyWith(
-      runningFavoriteScan: running,
-    );
+    return state.copyWith(runningFavoriteScan: running);
   }
 }

@@ -33,24 +33,15 @@ class HorizontalClipListView extends StatelessWidget {
         return SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: outerHorizontalPadding,
-              vertical: outerVerticalPadding,
-            ),
+            padding: EdgeInsets.symmetric(horizontal: outerHorizontalPadding, vertical: outerVerticalPadding),
             child: Row(
               children: [
                 for (int i = 0; i < children.length; i++)
                   i == children.length - 1
-                      ? SizedBox(
-                          width: childWidth,
-                          child: children[i],
-                        )
+                      ? SizedBox(width: childWidth, child: children[i])
                       : Padding(
                           padding: EdgeInsetsDirectional.only(end: childPadding),
-                          child: SizedBox(
-                            width: childWidth,
-                            child: children[i],
-                          ),
+                          child: SizedBox(width: childWidth, child: children[i]),
                         ),
               ],
             ),

@@ -28,35 +28,13 @@ class DebugPage extends StatelessWidget {
       body: ListView(
         padding: const EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 30),
         children: [
-          DebugEntry(
-            name: 'Debug Mode',
-            value: kDebugMode.toString(),
-          ),
-          DebugEntry(
-            name: 'Portable Mode',
-            value: portableMode ? 'true' : 'false',
-          ),
-          DebugEntry(
-            name: 'Executable Path',
-            value: Platform.resolvedExecutable,
-          ),
-          DebugEntry(
-            name: 'Working Directory',
-            value: Directory.current.path,
-          ),
-          if (store is SharedPreferencesFile)
-            DebugEntry(
-              name: 'Settings Path',
-              value: store.getPath(),
-            ),
-          DebugEntry(
-            name: 'App Arguments',
-            value: appArguments.isEmpty ? null : appArguments.map((e) => '"$e"').join(' '),
-          ),
-          DebugEntry(
-            name: 'Dart SDK',
-            value: Platform.version,
-          ),
+          DebugEntry(name: 'Debug Mode', value: kDebugMode.toString()),
+          DebugEntry(name: 'Portable Mode', value: portableMode ? 'true' : 'false'),
+          DebugEntry(name: 'Executable Path', value: Platform.resolvedExecutable),
+          DebugEntry(name: 'Working Directory', value: Directory.current.path),
+          if (store is SharedPreferencesFile) DebugEntry(name: 'Settings Path', value: store.getPath()),
+          DebugEntry(name: 'App Arguments', value: appArguments.isEmpty ? null : appArguments.map((e) => '"$e"').join(' ')),
+          DebugEntry(name: 'Dart SDK', value: Platform.version),
           const SizedBox(height: 20),
           const Text('More', style: DebugEntry.headerStyle),
           const SizedBox(height: 5),
@@ -64,27 +42,11 @@ class DebugPage extends StatelessWidget {
             spacing: 10,
             runSpacing: 10,
             children: [
-              FilledButton(
-                onPressed: () async => context.push(() => const SecurityDebugPage()),
-                child: const Text('Security'),
-              ),
-              FilledButton(
-                onPressed: () async => context.push(() => const DiscoveryDebugPage()),
-                child: const Text('Discovery'),
-              ),
-              FilledButton(
-                onPressed: () async => context.push(() => const HttpLogsPage()),
-                child: const Text('HTTP Logs'),
-              ),
-              if (kDebugMode)
-                FilledButton(
-                  onPressed: () async => context.push(() => const RefenaTracingPage()),
-                  child: const Text('Refena Tracing'),
-                ),
-              FilledButton(
-                onPressed: () async => await context.ref.read(persistenceProvider).clear(),
-                child: const Text('Clear settings'),
-              ),
+              FilledButton(onPressed: () async => context.push(() => const SecurityDebugPage()), child: const Text('Security')),
+              FilledButton(onPressed: () async => context.push(() => const DiscoveryDebugPage()), child: const Text('Discovery')),
+              FilledButton(onPressed: () async => context.push(() => const HttpLogsPage()), child: const Text('HTTP Logs')),
+              if (kDebugMode) FilledButton(onPressed: () async => context.push(() => const RefenaTracingPage()), child: const Text('Refena Tracing')),
+              FilledButton(onPressed: () async => await context.ref.read(persistenceProvider).clear(), child: const Text('Clear settings')),
             ],
           ),
         ],

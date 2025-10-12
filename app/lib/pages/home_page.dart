@@ -44,11 +44,7 @@ class HomePage extends StatefulWidget {
   /// because the first init clears the cache
   final bool appStart;
 
-  const HomePage({
-    required this.initialTab,
-    required this.appStart,
-    super.key,
-  });
+  const HomePage({required this.initialTab, required this.appStart, super.key});
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -89,10 +85,9 @@ class _HomePageState extends State<HomePage> with Refena {
           await ref.redux(selectedSendingFilesProvider).dispatchAsync(AddDirectoryAction(event.files.first.path));
         } else {
           // user dropped one or more files
-          await ref.redux(selectedSendingFilesProvider).dispatchAsync(AddFilesAction(
-                files: event.files,
-                converter: CrossFileConverters.convertXFile,
-              ));
+          await ref
+              .redux(selectedSendingFilesProvider)
+              .dispatchAsync(AddFilesAction(files: event.files, converter: CrossFileConverters.convertXFile));
         }
         vm.changeTab(HomeTab.send);
       },
@@ -114,7 +109,7 @@ class _HomePageState extends State<HomePage> with Refena {
                                 children: [
                                   checkPlatform([TargetPlatform.macOS])
                                       ? // considered adding some extra space so it looks more natural
-                                      SizedBox(height: 40)
+                                        SizedBox(height: 40)
                                       : SizedBox(height: 20),
                                   const Text(
                                     'LocalSend',
@@ -125,25 +120,14 @@ class _HomePageState extends State<HomePage> with Refena {
                                 ],
                               )
                             : checkPlatform([TargetPlatform.macOS])
-                                ? SizedBox(
-                                    height: 20,
-                                  )
-                                : null,
+                            ? SizedBox(height: 20)
+                            : null,
                         destinations: HomeTab.values.map((tab) {
-                          return NavigationRailDestination(
-                            icon: Icon(tab.icon),
-                            label: Text(tab.label),
-                          );
+                          return NavigationRailDestination(icon: Icon(tab.icon), label: Text(tab.label));
                         }).toList(),
                       ),
                       // makes the top draggable
-                      Positioned(
-                        top: 0,
-                        left: 0,
-                        right: 0,
-                        height: 40,
-                        child: MoveWindow(),
-                      ),
+                      Positioned(top: 0, left: 0, right: 0, height: 40, child: MoveWindow()),
                     ],
                   ),
                 Expanded(
@@ -161,9 +145,7 @@ class _HomePageState extends State<HomePage> with Refena {
                       if (_dragAndDropIndicator)
                         Container(
                           width: double.infinity,
-                          decoration: BoxDecoration(
-                            color: Theme.of(context).scaffoldBackgroundColor,
-                          ),
+                          decoration: BoxDecoration(color: Theme.of(context).scaffoldBackgroundColor),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [

@@ -23,12 +23,7 @@ class NotAvailableOnPlatformDialog extends StatelessWidget {
           }),
         ],
       ),
-      actions: [
-        TextButton(
-          onPressed: () => context.pop(),
-          child: Text(t.general.close),
-        )
-      ],
+      actions: [TextButton(onPressed: () => context.pop(), child: Text(t.general.close))],
     );
   }
 }

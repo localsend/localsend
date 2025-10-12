@@ -20,25 +20,19 @@ class HttpLogsPage extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
         children: [
           Row(
-            children: [
-              ElevatedButton(
-                onPressed: () => context.ref.notifier(httpLogsProvider).clear(),
-                child: const Text('Clear'),
-              ),
-            ],
+            children: [ElevatedButton(onPressed: () => context.ref.notifier(httpLogsProvider).clear(), child: const Text('Clear'))],
           ),
           const SizedBox(height: 20),
-          ...logs.map((log) => CopyableText(
-                prefix: TextSpan(
-                  text: '[${_dateFormat.format(log.timestamp)}] ',
-                  style: const TextStyle(
-                    color: Colors.green,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                name: log.log,
-                value: log.log,
-              )),
+          ...logs.map(
+            (log) => CopyableText(
+              prefix: TextSpan(
+                text: '[${_dateFormat.format(log.timestamp)}] ',
+                style: const TextStyle(color: Colors.green, fontWeight: FontWeight.bold),
+              ),
+              name: log.log,
+              value: log.log,
+            ),
+          ),
         ],
       ),
     );

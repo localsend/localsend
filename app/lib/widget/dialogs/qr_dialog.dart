@@ -13,12 +13,7 @@ class QrDialog extends StatelessWidget {
   final bool listenIncomingWebSendRequests;
   final String? pin;
 
-  const QrDialog({
-    required this.data,
-    this.label,
-    this.listenIncomingWebSendRequests = false,
-    this.pin,
-  });
+  const QrDialog({required this.data, this.label, this.listenIncomingWebSendRequests = false, this.pin});
 
   @override
   Widget build(BuildContext context) {
@@ -42,12 +37,7 @@ class QrDialog extends StatelessWidget {
               child: PrettyQrView.data(
                 errorCorrectLevel: QrErrorCorrectLevel.Q,
                 data: data,
-                decoration: PrettyQrDecoration(
-                  shape: PrettyQrSmoothSymbol(
-                    roundFactor: 0,
-                    color: Theme.of(context).colorScheme.onSurface,
-                  ),
-                ),
+                decoration: PrettyQrDecoration(shape: PrettyQrSmoothSymbol(roundFactor: 0, color: Theme.of(context).colorScheme.onSurface)),
               ),
             ),
           ),
@@ -74,23 +64,11 @@ class QrDialog extends StatelessWidget {
           if (pin != null)
             Padding(
               padding: const EdgeInsets.only(top: 10),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Icon(Icons.vpn_key),
-                  const SizedBox(width: 5),
-                  Text(pin!),
-                ],
-              ),
+              child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [const Icon(Icons.vpn_key), const SizedBox(width: 5), Text(pin!)]),
             ),
         ],
       ),
-      actions: [
-        TextButton(
-          onPressed: () => context.pop(),
-          child: Text(t.general.close),
-        )
-      ],
+      actions: [TextButton(onPressed: () => context.pop(), child: Text(t.general.close))],
     );
   }
 }

@@ -8,15 +8,9 @@ import 'package:localsend_app/util/user_agent_analyzer.dart';
 class SimpleServer {
   final HttpServer _server;
 
-  SimpleServer.start({
-    required HttpServer server,
-    required SimpleServerRouteBuilder routes,
-  }) : _server = server {
+  SimpleServer.start({required HttpServer server, required SimpleServerRouteBuilder routes}) : _server = server {
     _server.listen((request) async {
-      final handler = routes._routes[Route(
-        HttpMethod.values.firstWhere((e) => e.methodName == request.method),
-        request.uri.path,
-      )];
+      final handler = routes._routes[Route(HttpMethod.values.firstWhere((e) => e.methodName == request.method), request.uri.path)];
 
       if (handler != null) {
         handler.call(request);
@@ -38,8 +32,7 @@ typedef HttpRequestHandler = void Function(HttpRequest request);
 
 enum HttpMethod {
   get('GET'),
-  post('POST'),
-  ;
+  post('POST');
 
   const HttpMethod(this.methodName);
 
@@ -67,10 +60,7 @@ class SimpleServerRouteBuilder {
   final Map<Route, HttpRequestHandler> _routes = {};
 
   void addRoute(HttpMethod method, String path, HttpRequestHandler handler) {
-    _routes[Route(
-      method,
-      path,
-    )] = handler;
+    _routes[Route(method, path)] = handler;
   }
 
   void get(String path, HttpRequestHandler handler) {

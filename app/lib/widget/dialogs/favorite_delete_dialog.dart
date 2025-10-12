@@ -14,14 +14,8 @@ class FavoriteDeleteDialog extends StatelessWidget {
       title: Text(t.dialogs.favoriteDeleteDialog.title),
       content: Text(t.dialogs.favoriteDeleteDialog.content(name: favorite.alias)),
       actions: [
-        TextButton(
-          onPressed: () => context.pop(),
-          child: Text(t.general.cancel),
-        ),
-        FilledButton(
-          onPressed: () => context.pop(true),
-          child: Text(t.general.delete),
-        ),
+        TextButton(onPressed: () => context.pop(), child: Text(t.general.cancel)),
+        FilledButton(onPressed: () => context.pop(true), child: Text(t.general.delete)),
       ],
     );
   }

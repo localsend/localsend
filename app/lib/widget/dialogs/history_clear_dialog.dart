@@ -11,14 +11,8 @@ class HistoryClearDialog extends StatelessWidget {
       title: Text(t.dialogs.historyClearDialog.title),
       content: Text(t.dialogs.historyClearDialog.content),
       actions: [
-        TextButton(
-          onPressed: () => context.pop(),
-          child: Text(t.general.cancel),
-        ),
-        FilledButton(
-          onPressed: () => context.pop(true),
-          child: Text(t.general.delete),
-        ),
+        TextButton(onPressed: () => context.pop(), child: Text(t.general.cancel)),
+        FilledButton(onPressed: () => context.pop(true), child: Text(t.general.delete)),
       ],
     );
   }

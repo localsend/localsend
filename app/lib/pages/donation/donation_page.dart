@@ -29,12 +29,7 @@ class DonationPage extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 children: [
                   const SizedBox(height: 50),
-                  Center(
-                    child: Text(
-                      t.donationPage.info,
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
+                  Center(child: Text(t.donationPage.info, textAlign: TextAlign.center)),
                   const SizedBox(height: 50),
                   if (vm.purchased.isNotEmpty)
                     Padding(
@@ -53,9 +48,7 @@ class DonationPage extends StatelessWidget {
               if (vm.pending)
                 Container(
                   color: Colors.black.withValues(alpha: 0.1),
-                  child: const Center(
-                    child: CircularProgressIndicator(),
-                  ),
+                  child: const Center(child: CircularProgressIndicator()),
                 ),
             ],
           ),
@@ -85,11 +78,7 @@ class _StoreDonation extends StatelessWidget {
           );
         }),
         const SizedBox(height: 20),
-        TextButton.icon(
-          onPressed: vm.restore,
-          icon: const Icon(Icons.restore),
-          label: Text(t.donationPage.restore),
-        ),
+        TextButton.icon(onPressed: vm.restore, icon: const Icon(Icons.restore), label: Text(t.donationPage.restore)),
       ],
     );
   }
