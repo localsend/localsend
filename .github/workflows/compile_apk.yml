@@ -69,7 +69,7 @@ jobs:
           override: ${{ env.RUST_VERSION }}
 
       - name: Install OpenSSL
-        run: sudo apt-get update && sudo apt-get install -y libssl-dev
+        run: sudo apt-get update && sudo apt-get install -y libssl-dev pkg-config
 
       - name: Dependencies
         working-directory: ${{ env.APK_BUILD_DIR }}/app
