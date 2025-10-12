@@ -71,19 +71,13 @@ jobs:
       - name: Install OpenSSL
         run: sudo apt-get update && sudo apt-get install -y libssl-dev pkg-config
 
-      - name: Get Openssl path
-        run: |
-          echo "OpenSSL path: $(pkg-config --variable=prefix openssl)"
-          echo "OpenSSL include dir: $(pkg-config --cflags-only-I openssl)"
-          echo "OpenSSL lib dir: $(pkg-config --libs-only-L openssl)"
-
       - name: Dependencies
         working-directory: ${{ env.APK_BUILD_DIR }}/app
         run: flutter pub get
 
       - name: Build APK
         working-directory: ${{ env.APK_BUILD_DIR }}/app
-        run: flutter build apk --split-per-abi
+        run: OPENSSL_DIR=/usr flutter build apk --split-per-abi
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
