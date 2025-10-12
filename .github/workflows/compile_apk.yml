@@ -68,6 +68,9 @@ jobs:
           toolchain: stable
           override: ${{ env.RUST_VERSION }}
 
+      - name: Install OpenSSL
+        run: sudo apt-get update && sudo apt-get install -y libssl-dev
+
       - name: Dependencies
         working-directory: ${{ env.APK_BUILD_DIR }}/app
         run: flutter pub get
