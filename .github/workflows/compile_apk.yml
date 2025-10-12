@@ -77,7 +77,7 @@ jobs:
 
       - name: Build APK
         working-directory: ${{ env.APK_BUILD_DIR }}/app
-        run: OPENSSL_DIR=/usr flutter build apk --split-per-abi
+        run: OPENSSL_DIR=/usr/include/openssl flutter build apk --split-per-abi
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
