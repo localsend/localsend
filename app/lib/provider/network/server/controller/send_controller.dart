@@ -207,10 +207,12 @@ class SendController {
       request.response
         ..statusCode = 200
         ..headers.set('content-type', 'application/octet-stream')
-        ..headers.set('content-disposition', 'attachment; filename="${Uri.encodeComponent(fileName)}"')
-        ..headers.set('content-length', '${file.file.size}');
+        ..headers.set('content-disposition', 'attachment; filename="${Uri.encodeComponent(fileName)}"');
 
-      if (file.bytes != null) {
+      final isInlineContent = file.bytes != null; // text message, clipboard content
+      if (isInlineContent) {
+        request.response.headers.set('content-length', '${file.bytes!.length}');
+
         final byteStream = Stream.fromIterable([file.bytes!]);
         final (streamController, subscription) = byteStream.digested();
 
@@ -222,10 +224,13 @@ class SendController {
         });
       } else {
         final path = file.path!;
-        final tmpfile = File(file.path!);
-        request.response.headers.set('content-length', '${tmpfile.lengthSync()}');
+        final isContentUri = path.startsWith('content://');
 
-        final fileStream = path.startsWith('content://') ? UriContent().getContentStream(Uri.parse(file.path!)) : tmpfile.openRead();
+        // Read file size at download time, since the file could have changed since it was selected (#2359, #2043)
+        final fileSize = isContentUri ? await UriContent().getContentLength(Uri.parse(path)) : File(path).lengthSync();
+        request.response.headers.set('content-length', '$fileSize');
+
+        final fileStream = isContentUri ? UriContent().getContentStream(Uri.parse(path)) : File(path).openRead();
         final (streamController, subscription) = fileStream.digested();
 
         await request.response.addStream(streamController.stream).then((_) {
