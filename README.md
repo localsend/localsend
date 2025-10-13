@@ -85,6 +85,9 @@ It is recommended to download the app either from an app store or from a package
 
 Read more about [distribution channels][].
 
+> [!CAUTION]
+> **Unofficial MSIX preview:** you can try builds from the latest commits at [localsend.ob-buff.dev](https://localsend.ob-buff.dev/). Stability is not guaranteed and all custom code tweaks are listed on that site.
+
 [windows store]: https://www.microsoft.com/store/apps/9NCB4Z0TZ6RR
 [app store]: https://apps.apple.com/us/app/localsend/id1661733229
 [play store]: https://play.google.com/store/apps/details?id=org.localsend.localsend_app
