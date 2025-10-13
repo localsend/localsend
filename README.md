@@ -175,7 +175,7 @@ You can help translate LocalSend into other languages. We use the [Weblate](http
 
 Alternatively, you can also contribute by forking this repository and adding translations manually.
 
-The translations are located in the [app/assets/i18n](https://github.com/localsend/localsend/tree/main/app/assets/i18n) directory. Edit the `_missing_translations_<locale>.json` 或 `strings_<locale>.i18n.json` file to add or update translations.
+The translations are located in the [app/assets/i18n](https://github.com/localsend/localsend/tree/main/app/assets/i18n) directory. Edit the `_missing_translations_<locale>.json` or `strings_<locale>.i18n.json` file to add or update translations.
 
 <a href="https://hosted.weblate.org/engage/localsend/">
 <img src="https://hosted.weblate.org/widget/localsend/app/multi-auto.svg" alt="Translation status" />
