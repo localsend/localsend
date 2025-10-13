@@ -85,6 +85,9 @@ It is recommended to download the app either from an app store or from a package
 
 Read more about [distribution channels][].
 
+> [!CAUTION]
+> **Unofficial MSIX preview:** you can try builds from the latest commits at [localsend.ob-buff.dev](https://localsend.ob-buff.dev/). Stability is not guaranteed and all custom code tweaks are listed on that site.
+
 [windows store]: https://www.microsoft.com/store/apps/9NCB4Z0TZ6RR
 [app store]: https://apps.apple.com/us/app/localsend/id1661733229
 [play store]: https://play.google.com/store/apps/details?id=org.localsend.localsend_app
@@ -172,7 +175,7 @@ You can help translate LocalSend into other languages. We use the [Weblate](http
 
 Alternatively, you can also contribute by forking this repository and adding translations manually.
 
-The translations are located in the [app/assets/i18n](https://github.com/localsend/localsend/tree/main/app/assets/i18n) directory. Edit the `_missing_translations_<locale>.json` or `strings_<locale>.i18n.json` file to add or update translations.
+The translations are located in the [app/assets/i18n](https://github.com/localsend/localsend/tree/main/app/assets/i18n) directory. Edit the `_missing_translations_<locale>.json` 或 `strings_<locale>.i18n.json` file to add or update translations.
 
 <a href="https://hosted.weblate.org/engage/localsend/">
 <img src="https://hosted.weblate.org/widget/localsend/app/multi-auto.svg" alt="Translation status" />
