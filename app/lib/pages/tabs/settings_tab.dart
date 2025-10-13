@@ -661,7 +661,7 @@ class _BooleanEntry extends StatelessWidget {
                 value: value,
                 onChanged: onChanged,
                 activeTrackColor: theme.colorScheme.primary,
-                activeColor: theme.colorScheme.onPrimary,
+                activeThumbColor: theme.colorScheme.onPrimary,
                 inactiveThumbColor: theme.colorScheme.outline,
                 inactiveTrackColor: theme.colorScheme.surface,
               ),

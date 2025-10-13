@@ -6,8 +6,8 @@ publish_to: "none"
 version: 1.17.0+58
 
 environment:
-  flutter: ">=3.24.0"
-  sdk: ">=3.5.0 <4.0.0"
+  flutter: ^3.25.0
+  sdk: ^3.9.0
 
 dependencies:
   basic_utils: 5.7.0
@@ -17,11 +17,11 @@ dependencies:
     path: ../common
   connectivity_plus: 6.1.0
   convert: 3.1.2
-  dart_mappable: 4.3.0
+  dart_mappable: 4.6.0
   desktop_drop: 0.5.0
   device_apps: 2.2.0
   device_info_plus: 11.1.1
-  dynamic_color: 1.7.0
+  dynamic_color: 1.8.1
   file_picker: 8.1.4
   file_selector: 1.0.3
   flutter:
@@ -31,10 +31,10 @@ dependencies:
     sdk: flutter
   flutter_markdown: 0.7.4+2
   flutter_rust_bridge: 2.11.1
-  freezed_annotation: 2.4.4
+  freezed_annotation: 3.1.0
   gal: 2.3.0
   glob: ^2.1.2
-  image: 4.3.0
+  image: 4.5.4
   image_picker: 1.1.2
   in_app_purchase: 3.2.0 # [FOSS_REMOVE]
   intl: ^0.20.2 # allow newer versions, so it can compile with newer Flutter versions
@@ -67,33 +67,37 @@ dependencies:
   share_handler: 0.0.22
   shared_preferences: 2.5.2
   shared_preferences_platform_interface: any
-  shared_storage: 0.8.1
-  slang: 4.5.0
-  slang_flutter: 4.5.0
+  slang: 4.9.0
+  slang_flutter: 4.9.0
   system_settings_2: 3.0.1
   tray_manager: 0.2.4
-  uri_content: 2.2.0
+  uri_content: 3.1.1
   url_launcher: 6.3.1
   uuid: 4.5.1
   wakelock_plus: 1.2.8
-  wechat_assets_picker: 9.5.0
+  wechat_assets_picker: 9.8.0
   win32_registry: 1.1.5
-  window_manager: 0.4.3
+  window_manager: 0.5.1
   windows_taskbar: 1.1.2
-  yaru: 8.1.0
+  yaru: 8.3.0
 
 dev_dependencies:
-  build_runner: 2.4.13
-  dart_mappable_builder: 4.3.0
-  flutter_gen_runner: 5.8.0
+  build_runner: 2.7.1
+  dart_mappable_builder: 4.6.0
+  flutter_gen_runner: 5.12.0
   flutter_lints: 5.0.0
-  freezed: 2.5.7
-  mockito: 5.4.4
+  freezed: 3.2.3
+  mockito: 5.5.0
   refena_inspector: 2.1.0
-  slang_build_runner: 4.5.0
-  test: ^1.24.8
+  slang_build_runner: 4.9.0
+  test: ^1.26.2
 
 dependency_overrides:
+  device_apps:
+    # Migrate to another maintained package to fetch installed apps on Android
+    git:
+      url: https://github.com/Tienisto/device_apps.git
+      ref: 5dc7956d938541254d2e175766b3b84ea38bb85b
   pasteboard:
     # This is temporary workaround, wait upstream for update
     git:

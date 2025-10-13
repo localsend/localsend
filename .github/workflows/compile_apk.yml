@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
 
 env:
-  FLUTTER_VERSION: "3.32.8"
+  FLUTTER_VERSION: "3.35.6"
   RUST_VERSION: "1.84.1"
   APK_BUILD_DIR: "/tmp/build"
 

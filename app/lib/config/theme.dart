@@ -133,7 +133,7 @@ extension ColorSchemeExt on ColorScheme {
   }
 }
 
-extension InputDecorationThemeExt on InputDecorationTheme {
+extension InputDecorationThemeExt on InputDecorationThemeData {
   BorderRadius get borderRadius => _borderRadius;
 }
 
@@ -168,6 +168,8 @@ ThemeData _getYaruTheme(Brightness brightness) {
     borderSide: BorderSide(color: colorScheme.secondaryContainer),
     borderRadius: _borderRadius,
   );
+
+  InputDecorationThemeData;
 
   return baseTheme.copyWith(
     navigationBarTheme: colorScheme.brightness == Brightness.dark
