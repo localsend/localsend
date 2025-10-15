@@ -124,73 +124,8 @@ LocalSendの改善に興味のある方からの貢献を歓迎します。貢�
 
 詳細については、[貢献ガイド](https://github.com/localsend/localsend/blob/main/CONTRIBUTING.md)を参照してください。
 
-## ビルド
 
-これらのコマンドはメンテナ専用です。
 
-### Android
-
-従来のAPK
-
-```bash
-flutter build apk
-```
-
-Google Play用のAppBundle
-
-```bash
-flutter build appbundle
-```
-
-### iOS
-
-```bash
-flutter build ipa
-```
-
-### macOS
-
-```bash
-flutter build macos
-```
-
-### Windows
-
-**従来の**
-
-```bash
-flutter build windows
-```
-
-**ローカルMSIXアプリ**
-
-```bash
-flutter pub run msix:create
-```
-
-**ストア対応**
-
-```bash
-flutter pub run msix:create --store
-```
-
-### Linux
-
-**従来の**
-
-```bash
-flutter build linux
-```
-
-**AppImage**
-
-```bash
-appimage-builder --recipe AppImageBuilder.yml
-```
-
-**Snap**
-
-プルリクエストを自由に開いてください。試すための`snap`ブランチがあります。
 
 ## 貢献者
 

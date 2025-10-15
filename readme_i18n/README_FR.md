@@ -152,73 +152,8 @@ Vous pouvez aider à traduire cette application dans d'autres langues !
 
 Pour plus d'informations, veuillez vous référer au [guide du contributeur](https://github.com/localsend/localsend/blob/main/CONTRIBUTING.md).
 
-## Building
 
-Ces commandes sont destinées aux mainteneurs uniquement.
 
-### Android
-
-APK traditionnel
-
-```bash
-flutter build apk
-```
-
-AppBundle pour Google Play
-
-```bash
-flutter build appbundle
-```
-
-### iOS
-
-```bash
-flutter build ipa
-```
-
-### macOS
-
-```bash
-flutter build macos
-```
-
-### Windows
-
-**Traditionnel**
-
-```bash
-flutter build windows
-```
-
-**Application MSIX locale**
-
-```bash
-flutter pub run msix:create
-```
-
-**Compatible Windows Store**
-
-```bash
-flutter pub run msix:create --store
-```
-
-### Linux
-
-**Traditionnel**
-
-```bash
-flutter build linux
-```
-
-**AppImage**
-
-```bash
-appimage-builder --recipe AppImageBuilder.yml
-```
-
-**Snap**
-
-Instructions dans [snap/README.md](https://github.com/localsend/snap/blob/main/README.md)
 
 ## Contributeurs
 

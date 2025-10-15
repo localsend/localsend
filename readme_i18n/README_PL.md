@@ -152,76 +152,13 @@ Możesz pomóc tłumaczyć tę aplikację na inne języki!
 
 Więcej informacji można znaleźć w [przewodniku dla współtwórców](https://github.com/localsend/localsend/blob/main/CONTRIBUTING.md).
 
-## Budowanie
+## Rozwiązywanie problemów
 
-Te polecenia są przeznaczone wyłącznie dla osób odpowiedzialnych za utrzymanie projektu.
+| Problem              | Platforma (Wysyłanie) | Platforma (Odbiór) | Rozwiązanie                                                                                                                             |
+|----------------------|-----------------------|--------------------|-----------------------------------------------------------------------------------------------------------------------------------------|
+| Urządzenie niewidoczne | Dowolna               | Dowolna            | Upewnij się, że wyłączono izolację AP na routerze. Jeśli jest włączona, połączenia między urządzeniami są zabronione.                   |
+| Urządzenie niewidoczne | Dowolna               | Windows            | Upewnij się, że skonfigurowałeś sieć jako sieć "prywatną". Windows może być bardziej restrykcyjny, gdy sieć jest skonfigurowana jako publiczna. |
+| Urządzenie niewidoczne | macOS, iOS            | Dowolna            | Możesz spróbować przełączyć uprawnienie "Sieć lokalna" w "Prywatność" w ustawieniach systemu operacyjnego.                              |
+| Za niska prędkość    | Dowolna               | Dowolna            | Użyj 5 GHz; Wyłącz szyfrowanie na obu urządzeniach                                                                                      |
+| Za niska prędkość    | Dowolna               | Android            | Znany problem. https://github.com/flutter-cavalry/saf_stream/issues/4                                                                   |
 
-### Android
-
-Tradycyjny APK
-
-```bash
-flutter build apk
-```
-
-AppBundle dla Google Play
-
-```bash
-flutter build appbundle
-```
-
-### iOS
-
-```bash
-flutter build ipa
-```
-
-### macOS
-
-```bash
-flutter build macos
-```
-
-### Windows
-
-**Tradycyjny**
-
-```bash
-flutter build windows
-```
-
-**Lokalna aplikacja MSIX**
-
-```bash
-flutter pub run msix:create
-```
-
-**Gotowa dla Sklepu**
-
-```bash
-flutter pub run msix:create --store
-```
-
-### Linux
-
-**Tradycyjny**
-
-```bash
-flutter build linux
-```
-
-**AppImage**
-
-```bash
-appimage-builder --recipe AppImageBuilder.yml
-```
-
-**Snap**
-
-Zachęcamy do otwarcia pull requesta. Do dyspozycji istnieje gałąź `snap`.
-
-## Współtwórcy
-
-<a href="https://github.com/localsend/localsend/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=localsend/localsend"  alt="Localsend Contributors"/>
-</a>

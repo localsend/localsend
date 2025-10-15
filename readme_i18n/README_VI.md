@@ -151,73 +151,7 @@ Bạn có thể giúp dịch ứng dụng này sang các ngôn ngữ khác!
 
 Để biết thêm thông tin, xem [hướng dẫn đóng góp](https://github.com/localsend/localsend/blob/main/CONTRIBUTING.md).
 
-## Xây dựng
 
-Các lệnh này chỉ dành cho người bảo trì.
-
-### Android
-
-Traditional APK
-
-```bash
-flutter build apk
-```
-
-AppBundle for Google Play
-
-```bash
-flutter build appbundle
-```
-
-### iOS
-
-```bash
-flutter build ipa
-```
-
-### macOS
-
-```bash
-flutter build macos
-```
-
-### Windows
-
-**Traditional**
-
-```bash
-flutter build windows
-```
-
-**Local MSIX App**
-
-```bash
-flutter pub run msix:create
-```
-
-**Store ready**
-
-```bash
-flutter pub run msix:create --store
-```
-
-### Linux
-
-**Traditional**
-
-```bash
-flutter build linux
-```
-
-**AppImage**
-
-```bash
-appimage-builder --recipe AppImageBuilder.yml
-```
-
-**Snap**
-
-Hãy thoải mái mở một yêu cầu kéo. có một `snap`nhánh để chơi.
 
 ## Contributors
 

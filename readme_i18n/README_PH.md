@@ -152,73 +152,8 @@ Maaari kang makatulong na isalin ang app sa iba pang mga wika!
 
 Para sa karagdagang impormasyon, tingnan ang [contributing guide](https://github.com/localsend/localsend/blob/main/CONTRIBUTING.md).
 
-## Pagbuo
 
-Ang mga command na ito ay inilaan lamang para sa mga maintainers.
 
-### Android
-
-Tradisyonal na APK
-
-```bash
-flutter build apk
-```
-
-AppBundle para sa Google Play
-
-```bash
-flutter build appbundle
-```
-
-### iOS
-
-```bash
-flutter build ipa
-```
-
-### macOS
-
-```bash
-flutter build macos
-```
-
-### Windows
-
-**Tradisyonal**
-
-```bash
-flutter build windows
-```
-
-**Local MSIX App**
-
-```bash
-flutter pub run msix:create
-```
-
-**Store ready**
-
-```bash
-flutter pub run msix:create --store
-```
-
-### Linux
-
-**Tradisyonal**
-
-```bash
-flutter build linux
-```
-
-**AppImage**
-
-```bash
-appimage-builder --recipe AppImageBuilder.yml
-```
-
-**Snap**
-
-Malugod na mag-bukas ng pull request. Mayroong `snap` branch na maaari mong subukan.
 
 ## Mga Kontribyutor
 

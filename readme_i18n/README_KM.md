@@ -154,71 +154,7 @@ LocalSend ប្រើ Protocol ទំនាក់ទំនងសុវត្ថ
 
 ## ការស្ថាបនាបង្កើតកម្មវិធី
 
-ពាក្យបញ្ជាទាំងនេះគឺសម្រាប់តែអ្នកជួលជុលកម្មវិធីប៉ុណ្ណោះ។
 
-### Android
-
-ប្រភេទ APK
-
-```bash
-flutter build apk
-```
-
-ប្រភេទ AppBundle សម្រាប់ Google Play
-
-```bash
-flutter build appbundle
-```
-
-### iOS
-
-```bash
-flutter build ipa
-```
-
-### macOS
-
-```bash
-flutter build macos
-```
-
-### Windows
-
-**Traditional**
-
-```bash
-flutter build windows
-```
-
-**Local MSIX App**
-
-```bash
-flutter pub run msix:create
-```
-
-**Store ready**
-
-```bash
-flutter pub run msix:create --store
-```
-
-### Linux
-
-**Traditional**
-
-```bash
-flutter build linux
-```
-
-**AppImage**
-
-```bash
-appimage-builder --recipe AppImageBuilder.yml
-```
-
-**Snap**
-
-របៀបណែនាំនៅក្នុង [localsend/snap/README.md](https://github.com/localsend/snap/blob/main/README.md)
 
 ## អ្នកចូលរួមចំណែក
 

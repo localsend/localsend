@@ -161,73 +161,8 @@ LocalSend یک برنامه چندسکویی است که امکان ارتباط
 
 برای اطلاعات بیشتر، به [راهنمای مشارکت](https://github.com/localsend/localsend/blob/main/CONTRIBUTING.md) مراجعه کنید.
 
-## ساخت
 
-این دستورات فقط برای مدیران و نگهدارندگان پروژه هستند.
 
-### اندروید
-
-Traditional APK
-
-```bash
-flutter build apk
-```
-
-AppBundle برای Google Play
-
-```bash
-flutter build appbundle
-```
-
-### iOS
-
-```bash
-flutter build ipa
-```
-
-### macOS
-
-```bash
-flutter build macos
-```
-
-### ویندوز
-
-**Traditional**
-
-```bash
-flutter build windows
-```
-
-**Local MSIX App**
-
-```bash
-flutter pub run msix:create
-```
-
-**Store ready**
-
-```bash
-flutter pub run msix:create --store
-```
-
-### لینوکس
-
-**Traditional**
-
-```bash
-flutter build linux
-```
-
-**AppImage**
-
-```bash
-appimage-builder --recipe AppImageBuilder.yml
-```
-
-**Snap**
-
-آموزش در [localsend/snap/README.md](https://github.com/localsend/snap/blob/main/README.md)
 
 ## مشارکت کنندگان
 
