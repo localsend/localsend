@@ -281,6 +281,7 @@ class TranslationsProgressPageEn {
   String get titleReceiving => 'Receiving files';
   String get savedToGallery => 'Saved in Photos';
   late final TranslationsProgressPageTotalEn total = TranslationsProgressPageTotalEn.internal(_root);
+  late final TranslationsProgressPageRemainingTimeEn remainingTime = TranslationsProgressPageRemainingTimeEn.internal(_root);
 }
 
 // Path: webSharePage
@@ -761,6 +762,23 @@ class TranslationsProgressPageTotalEn {
   String count({required Object curr, required Object n}) => 'Files: ${curr} / ${n}';
   String size({required Object curr, required Object n}) => 'Size: ${curr} / ${n}';
   String speed({required Object speed}) => 'Speed: ${speed}/s';
+}
+
+// Path: progressPage.remainingTime
+class TranslationsProgressPageRemainingTimeEn {
+  TranslationsProgressPageRemainingTimeEn.internal(this._root);
+
+  final Translations _root; // ignore: unused_field
+
+  // Translations
+  String seconds({required Object n, required Object ss}) => '${n}:${ss}';
+  String minutes({required Object n, required Object ss}) => '${n}:${ss}';
+
+  /// Use 'h' for hours abbreviation and 'm' for minutes
+  String hours({required Object h, required Object m}) => '${h}h ${m}m';
+
+  /// Use 'd' for days, 'h' for hours, and 'm' for minutes
+  String days({required Object d, required Object h, required Object m}) => '${d}d ${h}h ${m}m';
 }
 
 // Path: dialogs.addFile
