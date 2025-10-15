@@ -11,20 +11,6 @@ enum DockIcon: CaseIterable {
     case success
 }
 
-extension LaunchAtLogin {
-    /**
-     Whether the app was launched at login (i.e. as login items).
-     - Important: This property must only be checked in `NSApplicationDelegate#applicationDidFinishLaunching` method, otherwise the `NSAppleEventManager.shared().currentAppleEvent` will be `nil`.
-     - Source: https://stackoverflow.com/a/19890943
-     - Note: When we drop macOS 12 support and move to LaunchAtLogin-Modern package, this extension should be removed as it's already included - https://github.com/sindresorhus/LaunchAtLogin-Modern/blob/a04ec1c363be3627734f6dad757d82f5d4fa8fcc/Sources/LaunchAtLogin/LaunchAtLogin.swift#L34-L44
-     */
-    public static var wasLaunchedAtLogin: Bool {
-        guard let event = NSAppleEventManager.shared().currentAppleEvent else { return false }
-        return (event.eventID == kAEOpenApplication)
-        && (event.paramDescriptor(forKeyword: keyAEPropData)?.enumCodeValue == keyAELaunchedAsLogInItem)
-    }
-}
-
 @main
 class AppDelegate: FlutterAppDelegate {
     private var statusItem: NSStatusItem?
@@ -80,7 +66,6 @@ class AppDelegate: FlutterAppDelegate {
             NSApplication.shared.applicationIconImage = NSImage(named: "AppIconWithSuccessMark")!
         }
     }
-    
     
     private func setupStatusBarItem(i18n: [String: String]) {
         statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
@@ -199,6 +184,9 @@ class AppDelegate: FlutterAppDelegate {
             result(isLaunchedAsLoginItem)
         case "isReduceMotionEnabled":
             result(NSWorkspace.shared.accessibilityDisplayShouldReduceMotion)
+        case "openFirewallSettings":
+            openFirewallSettings()
+            result(nil)
         default:
             result(FlutterMethodNotImplemented)
         }
