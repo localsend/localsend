@@ -147,9 +147,9 @@ Accogliamo con piacere i contributi di chiunque sia interessato a migliorare Loc
 
 ### Traduzione
 
-È possibile contribuire traducendo LocalSend in altre lingue. Per la gestione delle traduzioni utilizziamo la piattaforma [Weblate](https://hosted.weblate.org/projects/localsend/app).
+È possibile contribuire traducendo LocalSend in altre lingue. **Metodo consigliato**: Utilizza la piattaforma [Weblate](https://hosted.weblate.org/projects/localsend/app) per gestire le traduzioni.
 
-In alternativa, è possibile contribuire anche creando un fork di questa repository, aggiungendo manualmente le traduzioni.
+**In alternativa**: È anche possibile contribuire creando un fork di questa repository e aggiungendo manualmente le traduzioni.
 
 Le traduzioni si trovano nella cartella [app/assets/i18n](https://github.com/localsend/localsend/tree/main/app/assets/i18n). Modificare il file `_missing_translations_<locale>.json` o `strings_<locale>.i18n.json` per aggiungere o aggiornare le traduzioni.
 

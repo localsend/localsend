@@ -139,9 +139,9 @@ Damos la bienvenida a contribuciones de cualquier persona interesada en mejorar 
 
 ### Traducción
 
-Puedes ayudar a traducir LocalSend a otros idiomas. Usamos la plataforma [Weblate](https://hosted.weblate.org/projects/localsend/app) para gestionar las traducciones.
+Puedes ayudar a traducir LocalSend a otros idiomas. **Forma recomendada**: Usa la plataforma [Weblate](https://hosted.weblate.org/projects/localsend/app) para gestionar las traducciones.
 
-Alternativamente, también puedes contribuir haciendo un fork a este repositorio y añadiendo traducciones manualmente.
+**Alternativamente**: También puedes contribuir haciendo un fork a este repositorio y añadiendo traducciones manualmente.
 
 Las traducciones se encuentran en el directorio [app/assets/i18n](https://github.com/localsend/localsend/tree/main/app/assets/i18n). Edita el archivo `_missing_translations_<locale>.json` o `strings_<locale>.i18n.json` para añadir o actualizar traducciones.
 

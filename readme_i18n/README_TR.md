@@ -139,14 +139,14 @@ LocalSend'i geliştirmekle ilgilenen herkesten katkı bekliyoruz. Katkıda bulun
 
 ### Çeviri
 
-LocalSend'i diğer dillere çevirmeye yardımcı olabilirsiniz. Çevirileri yönetmek için Weblate platformunu kullanıyoruz.
+LocalSend'i diğer dillere çevirmeye yardımcı olabilirsiniz! **Önerilen yöntem**: Çevirileri yönetmek için [Weblate](https://hosted.weblate.org/projects/localsend/app) platformunu kullanın.
 
-Alternatif olarak, bu repoyu fork'layarak ve çevirileri manuel olarak ekleyerek de katkıda bulunabilirsiniz.
+**Alternatif**: Bu depoyu fork'layarak ve çevirileri manuel olarak ekleyerek de katkıda bulunabilirsiniz.
 
-Çeviriler, [app/assets/i18n](https://github.com/localsend/localsend/tree/main/app/assets/i18n) dizininde bulunmaktadır. Çeviri eklemek veya güncellemek için `_missing_translations_<locale>.json` veya `strings_<locale>.i18n.json` dosyasını düzenleyebilirsiniz.
+Çeviriler [app/assets/i18n](https://github.com/localsend/localsend/tree/main/app/assets/i18n) dizininde bulunmaktadır. Çeviri eklemek veya güncellemek için `_missing_translations_<locale>.json` veya `strings_<locale>.i18n.json` dosyasını düzenleyebilirsiniz.
 
 <a href="https://hosted.weblate.org/engage/localsend/">
-<img src="https://hosted.weblate.org/widget/localsend/app/multi-auto.svg" alt="Translation status" />
+<img src="https://hosted.weblate.org/widget/localsend/app/multi-auto.svg" alt="Çeviri durumu" />
 </a>
 
 **_Take note:_ `@` ile süslenmiş alanlar çevrilmek için değildir; bu alanlar uygulamada herhangi bir şekilde kullanılmaz, yalnızca dosya hakkında bilgi veren veya çevirmen için bağlam sağlayan bilgilendirici metinlerdir.**

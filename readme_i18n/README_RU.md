@@ -142,14 +142,14 @@ LocalSend использует безопасный протокол связи,
 
 ### Перевод
 
-Вы можете помочь перевести LocalSend на другие языки. Мы используем платформу [Weblate](https://hosted.weblate.org/projects/localsend/app) для управления переводами.
+Вы можете помочь перевести LocalSend на другие языки. **Рекомендуемый способ**: Используйте платформу [Weblate](https://hosted.weblate.org/projects/localsend/app) для управления переводами.
 
-Кроме того, вы также можете внести свой вклад, создав ответвление этого репозитория и добавив переводы вручную.
+**Альтернативный способ**: Вы также можете внести свой вклад, создав ответвление этого репозитория и добавив переводы вручную.
 
 Переводы находятся в директории [app/assets/i18n](https://github.com/localsend/localsend/tree/main/app/assets/i18n). Отредактируйте файл `_missing_translations_<locale>.json` или файл `strings_<locale>.i18n.json`, чтобы добавить или обновить переводы.
 
 <a href="https://hosted.weblate.org/engage/localsend/">
-<img src="https://hosted.weblate.org/widget/localsend/app/multi-auto.svg" alt="Translation status" />
+<img src="https://hosted.weblate.org/widget/localsend/app/multi-auto.svg" alt="Статус перевода" />
 </a>
 
 **_Обратите внимание:_ Поля, содержащие `@`, не предназначены для перевода; они никак не используются в приложении, поскольку являются лишь информативным текстом о файле или для предоставления контекста переводчику.**
