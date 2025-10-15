@@ -67,6 +67,8 @@ PODS:
     - FlutterMacOS
   - rhttp (0.0.1):
     - Flutter
+  - rust_lib_localsend_app (0.0.1):
+    - Flutter
   - SDWebImage (5.20.0):
     - SDWebImage/Core (= 5.20.0)
   - SDWebImage/Core (5.20.0)
@@ -111,6 +113,7 @@ DEPENDENCIES:
   - permission_handler_apple (from `.symlinks/plugins/permission_handler_apple/ios`)
   - photo_manager (from `.symlinks/plugins/photo_manager/ios`)
   - rhttp (from `.symlinks/plugins/rhttp/ios`)
+  - rust_lib_localsend_app (from `.symlinks/plugins/rust_lib_localsend_app/ios`)
   - share_handler_ios (from `.symlinks/plugins/share_handler_ios/ios`)
   - share_handler_ios_models (from `.symlinks/plugins/share_handler_ios/ios/Models`)
   - shared_preferences_foundation (from `.symlinks/plugins/shared_preferences_foundation/darwin`)
@@ -160,6 +163,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/photo_manager/ios"
   rhttp:
     :path: ".symlinks/plugins/rhttp/ios"
+  rust_lib_localsend_app:
+    :path: ".symlinks/plugins/rust_lib_localsend_app/ios"
   share_handler_ios:
     :path: ".symlinks/plugins/share_handler_ios/ios"
   share_handler_ios_models:
@@ -178,34 +183,35 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/wakelock_plus/ios"
 
 SPEC CHECKSUMS:
-  connectivity_plus: 4c41c08fc6d7c91f63bc7aec70ffe3730b04f563
-  device_info_plus: bf2e3232933866d73fe290f2942f2156cdd10342
+  connectivity_plus: b21496ab28d1324eb59885d888a4d83b98531f01
+  device_info_plus: 21fcca2080fbcd348be798aa36c3e5ed849eefbe
   DKImagePickerController: 946cec48c7873164274ecc4624d19e3da4c1ef3c
   DKPhotoGallery: b3834fecb755ee09a593d7c9e389d8b5d6deed60
-  file_picker: 09aa5ec1ab24135ccd7a1621c46c84134bfd6655
-  file_selector_ios: f0670c1064a8c8450e38145d8043160105d0b97c
+  file_picker: 9b3292d7c8bc68c8a7bf8eb78f730e49c8efc517
+  file_selector_ios: f92e583d43608aebc2e4a18daac30b8902845502
   Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
-  gal: 61e868295d28fe67ffa297fae6dacebf56fd53e1
-  image_picker_ios: c560581cceedb403a6ff17f2f816d7fea1421fc1
-  in_app_purchase_storekit: 8c3b0b3eb1b0f04efbff401c3de6266d4258d433
-  network_info_plus: 6613d9d7cdeb0e6f366ed4dbe4b3c51c52d567a9
-  open_filex: 6e26e659846ec990262224a12ef1c528bb4edbe4
-  package_info_plus: c0502532a26c7662a62a356cebe2692ec5fe4ec4
-  pasteboard: 982969ebaa7c78af3e6cc7761e8f5e77565d9ce0
-  path_provider_foundation: 2b6b4c569c0fb62ec74538f866245ac84301af46
-  permission_handler_apple: 9878588469a2b0d0fc1e048d9f43605f92e6cec2
-  photo_manager: ff695c7a1dd5bc379974953a2b5c0a293f7c4c8a
-  rhttp: 367a8162e63311c6dde543169b591cc04454dcd6
+  gal: 44e5b10dbd347c8247a2851acee6c1fbe282c1d3
+  image_picker_ios: 7fe1ff8e34c1790d6fff70a32484959f563a928a
+  in_app_purchase_storekit: e126ef1b89e4a9fdf07e28f005f82632b4609437
+  network_info_plus: cf61925ab5205dce05a4f0895989afdb6aade5fc
+  open_filex: 432f3cd11432da3e39f47fcc0df2b1603854eff1
+  package_info_plus: af8e2ca6888548050f16fa2f1938db7b5a5df499
+  pasteboard: 49088aeb6119d51f976a421db60d8e1ab079b63c
+  path_provider_foundation: 080d55be775b7414fd5a5ef3ac137b97b097e564
+  permission_handler_apple: 4ed2196e43d0651e8ff7ca3483a069d469701f2d
+  photo_manager: d2fbcc0f2d82458700ee6256a15018210a81d413
+  rhttp: 359daed992674fc912552df3106bfbc746bcc929
+  rust_lib_localsend_app: e74fed7b12bd94b7fb63a29f9b6afdde78f6a0a7
   SDWebImage: 73c6079366fea25fa4bb9640d5fb58f0893facd8
-  share_handler_ios: 6dd3a4ac5ca0d955274aec712ba0ecdcaf583e7c
+  share_handler_ios: e2244e990f826b2c8eaa291ac3831569438ba0fb
   share_handler_ios_models: fc638c9b4330dc7f082586c92aee9dfa0b87b871
-  shared_preferences_foundation: fcdcbc04712aee1108ac7fda236f363274528f78
+  shared_preferences_foundation: 9e1978ff2562383bd5676f64ec4e9aa8fa06a6f7
   SwiftyGif: 706c60cf65fa2bc5ee0313beece843c8eb8194d4
-  system_settings: 8f5cdbfa72c677fc8d665b863bcc20d393d87e9d
-  uri_content: cfb4388dc7ba5fd8face872f4a953db1ccdf88e9
-  url_launcher_ios: 5334b05cef931de560670eeae103fd3e431ac3fe
-  video_player_avfoundation: 7c6c11d8470e1675df7397027218274b6d2360b3
-  wakelock_plus: 78ec7c5b202cab7761af8e2b2b3d0671be6c4ae1
+  system_settings: 0afa5deab4239f6b9325f54aba2d3b0932bcf23d
+  uri_content: cba39376d2ebd341479b12c62af01ac5f5ff4a23
+  url_launcher_ios: 694010445543906933d732453a59da0a173ae33d
+  video_player_avfoundation: 2cef49524dd1f16c5300b9cd6efd9611ce03639b
+  wakelock_plus: fd58c82b1388f4afe3fe8aa2c856503a262a5b03
 
 PODFILE CHECKSUM: 246d7132974b3d318257419d9c394e57ebbf12e8
 

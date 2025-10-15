@@ -3,6 +3,7 @@
 #
 
 list(APPEND FLUTTER_PLUGIN_LIST
+  bitsdojo_window_windows
   connectivity_plus
   desktop_drop
   dynamic_color
@@ -21,6 +22,7 @@ list(APPEND FLUTTER_PLUGIN_LIST
 
 list(APPEND FLUTTER_FFI_PLUGIN_LIST
   rhttp
+  rust_lib_localsend_app
 )
 
 set(PLUGIN_BUNDLED_LIBRARIES)

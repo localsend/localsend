@@ -5,6 +5,7 @@ import 'package:localsend_app/pages/donation/donation_page_vm.dart';
 // [FOSS_REMOVE_START]
 import 'package:localsend_app/provider/purchase_provider.dart';
 // [FOSS_REMOVE_END]
+import 'package:localsend_app/widget/custom_basic_appbar.dart';
 import 'package:localsend_app/widget/responsive_list_view.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -15,15 +16,13 @@ class DonationPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder(
-      provider: donationPageVmProvider,
+      provider: (ref) => donationPageVmProvider,
       // [FOSS_REMOVE_START]
       init: (context) => context.redux(purchaseProvider).dispatchAsync(FetchPricesAndPurchasesAction()), // ignore: discarded_futures
       // [FOSS_REMOVE_END]
       builder: (context, vm) {
         return Scaffold(
-          appBar: AppBar(
-            title: Text(t.donationPage.title),
-          ),
+          appBar: basicLocalSendAppbar(t.donationPage.title),
           body: Stack(
             children: [
               ResponsiveListView(
@@ -53,7 +52,7 @@ class DonationPage extends StatelessWidget {
               ),
               if (vm.pending)
                 Container(
-                  color: Colors.black.withOpacity(0.1),
+                  color: Colors.black.withValues(alpha: 0.1),
                   child: const Center(
                     child: CircularProgressIndicator(),
                   ),

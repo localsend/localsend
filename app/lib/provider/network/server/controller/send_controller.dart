@@ -215,7 +215,9 @@ class SendController {
         final (streamController, subscription) = byteStream.digested();
 
         await request.response.addStream(streamController.stream).then((_) {
+          // ignore: discarded_futures
           request.response.close();
+          // ignore: discarded_futures
           subscription.cancel();
         });
       } else {
@@ -227,8 +229,8 @@ class SendController {
         final (streamController, subscription) = fileStream.digested();
 
         await request.response.addStream(streamController.stream).then((_) {
-          request.response.close();
-          subscription.cancel();
+          request.response.close(); // ignore: discarded_futures
+          subscription.cancel(); // ignore: discarded_futures
         });
       }
     });

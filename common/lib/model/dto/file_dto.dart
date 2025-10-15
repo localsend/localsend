@@ -73,19 +73,7 @@ class FileDtoMapper extends SimpleMapper<FileDto> {
     final FileType fileType;
     if (rawFileType.contains('/')) {
       // parse mime
-      if (rawFileType.startsWith('image/')) {
-        fileType = FileType.image;
-      } else if (rawFileType.startsWith('video/')) {
-        fileType = FileType.video;
-      } else if (rawFileType == 'application/pdf') {
-        fileType = FileType.pdf;
-      } else if (rawFileType.startsWith('text/')) {
-        fileType = FileType.text;
-      } else if (rawFileType == 'application/vnd.android.package-archive') {
-        fileType = FileType.apk;
-      } else {
-        fileType = FileType.other;
-      }
+      fileType = decodeFromMime(rawFileType);
     } else {
       // parse legacy enum to internal internal enum
       fileType = FileType.values.firstWhereOrNull((e) => e.name == rawFileType) ?? FileType.other;
@@ -117,5 +105,21 @@ class FileDtoMapper extends SimpleMapper<FileDto> {
       if (self.preview != null) 'preview': self.preview,
       if (self.metadata != null) 'metadata': self.metadata!.toJson(),
     };
+  }
+}
+
+FileType decodeFromMime(String mime) {
+  if (mime.startsWith('image/')) {
+    return FileType.image;
+  } else if (mime.startsWith('video/')) {
+    return FileType.video;
+  } else if (mime == 'application/pdf') {
+    return FileType.pdf;
+  } else if (mime.startsWith('text/')) {
+    return FileType.text;
+  } else if (mime == 'application/vnd.android.package-archive') {
+    return FileType.apk;
+  } else {
+    return FileType.other;
   }
 }

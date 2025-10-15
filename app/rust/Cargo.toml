@@ -1,0 +1,17 @@
+[package]
+name = "rust_lib_localsend_app"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib", "staticlib"]
+
+[dependencies]
+anyhow = "1.0.95"
+bytes = "1.9.0"
+flutter_rust_bridge = { version = "=2.11.1", features = ["uuid"] }
+localsend = { path = "../../core", features = ["full"] }
+tokio = { version = "1.43.0", features = ["full"] }
+tracing = "0.1.41"
+tracing-subscriber = { version = "0.3.19" }
+uuid = { version = "1.11.1", features = ["v4"] }

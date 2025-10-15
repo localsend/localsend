@@ -4,13 +4,13 @@ on:
   workflow_dispatch:
 
 env:
-  FLUTTER_VERSION: "3.24.5"
+  FLUTTER_VERSION: "3.35.6"
   RUST_VERSION: "1.84.1"
   APK_BUILD_DIR: "/tmp/build"
 
 jobs:
   build:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     outputs:
       version: ${{ steps.get_version.outputs.version }}
 
@@ -91,7 +91,7 @@ jobs:
 
   build_tar_x86_64:
     needs: build
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
 
     steps:
       - uses: actions/checkout@v4
@@ -170,7 +170,7 @@ jobs:
 
   build_deb_x86_64:
     needs: build
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
 
     steps:
       - uses: actions/checkout@v4
@@ -270,7 +270,7 @@ jobs:
 
   build_appimage_x86_64:
     needs: build
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
 
     steps:
       - uses: actions/checkout@v4
@@ -386,7 +386,7 @@ jobs:
       - build_deb_arm_64
       - build_appimage_x86_64
       - build_windows_zip_x86_64
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
 
     steps:
       - uses: actions/checkout@v4

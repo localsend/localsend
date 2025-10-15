@@ -35,7 +35,7 @@ class HttpTargetDiscoveryService {
         'fingerprint': _fingerprint,
       });
       final dto = InfoDtoMapper.deserialize(response);
-      return dto.toDevice(ip, port, https);
+      return dto.toDevice(ip, port, https, HttpDiscovery(ip: ip));
     } catch (e) {
       onError?.call(url, e);
       return null;

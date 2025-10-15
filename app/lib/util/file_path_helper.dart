@@ -63,6 +63,7 @@ extension FilePathStringExt on String {
       case 'png':
       case 'gif':
       case 'svg':
+      case 'dng':
         return FileType.image;
       case 'mp4':
       case 'mov':

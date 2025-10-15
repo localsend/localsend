@@ -268,7 +268,7 @@ Stream<R> _sendTaskAndListenStream<R, T>({
     data: task,
   );
 
-  // ignore: unawaited_futures
+  // ignore: discarded_futures
   Future.microtask(() {
     connection.sendToIsolate(SendToIsolateData<IsolateTask<T>>(
       syncState: null,
