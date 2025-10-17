@@ -14,14 +14,14 @@ class TranslationsTr extends Translations {
   /// You can call this constructor and build your own translation instance of this locale.
   /// Constructing via the enum [AppLocale.build] is preferred.
   TranslationsTr({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
-      : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-        $meta = TranslationMetadata(
-          locale: AppLocale.tr,
-          overrides: overrides ?? {},
-          cardinalResolver: cardinalResolver,
-          ordinalResolver: ordinalResolver,
-        ),
-        super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+    : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
+      $meta = TranslationMetadata(
+        locale: AppLocale.tr,
+        overrides: overrides ?? {},
+        cardinalResolver: cardinalResolver,
+        ordinalResolver: ordinalResolver,
+      ),
+      super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
 
   /// Metadata for the translations of <tr>.
   @override
@@ -84,9 +84,7 @@ class TranslationsTr extends Translations {
 
 // Path: general
 class _TranslationsGeneralTr extends TranslationsGeneralEn {
-  _TranslationsGeneralTr._(TranslationsTr root)
-      : this._root = root,
-        super.internal(root);
+  _TranslationsGeneralTr._(TranslationsTr root) : this._root = root, super.internal(root);
 
   final TranslationsTr _root; // ignore: unused_field
 
@@ -171,9 +169,7 @@ class _TranslationsGeneralTr extends TranslationsGeneralEn {
 
 // Path: receiveTab
 class _TranslationsReceiveTabTr extends TranslationsReceiveTabEn {
-  _TranslationsReceiveTabTr._(TranslationsTr root)
-      : this._root = root,
-        super.internal(root);
+  _TranslationsReceiveTabTr._(TranslationsTr root) : this._root = root, super.internal(root);
 
   final TranslationsTr _root; // ignore: unused_field
 
@@ -188,9 +184,7 @@ class _TranslationsReceiveTabTr extends TranslationsReceiveTabEn {
 
 // Path: sendTab
 class _TranslationsSendTabTr extends TranslationsSendTabEn {
-  _TranslationsSendTabTr._(TranslationsTr root)
-      : this._root = root,
-        super.internal(root);
+  _TranslationsSendTabTr._(TranslationsTr root) : this._root = root, super.internal(root);
 
   final TranslationsTr _root; // ignore: unused_field
 
@@ -225,9 +219,7 @@ class _TranslationsSendTabTr extends TranslationsSendTabEn {
 
 // Path: settingsTab
 class _TranslationsSettingsTabTr extends TranslationsSettingsTabEn {
-  _TranslationsSettingsTabTr._(TranslationsTr root)
-      : this._root = root,
-        super.internal(root);
+  _TranslationsSettingsTabTr._(TranslationsTr root) : this._root = root, super.internal(root);
 
   final TranslationsTr _root; // ignore: unused_field
 
@@ -250,9 +242,7 @@ class _TranslationsSettingsTabTr extends TranslationsSettingsTabEn {
 
 // Path: troubleshootPage
 class _TranslationsTroubleshootPageTr extends TranslationsTroubleshootPageEn {
-  _TranslationsTroubleshootPageTr._(TranslationsTr root)
-      : this._root = root,
-        super.internal(root);
+  _TranslationsTroubleshootPageTr._(TranslationsTr root) : this._root = root, super.internal(root);
 
   final TranslationsTr _root; // ignore: unused_field
 
@@ -275,9 +265,7 @@ class _TranslationsTroubleshootPageTr extends TranslationsTroubleshootPageEn {
 
 // Path: receiveHistoryPage
 class _TranslationsReceiveHistoryPageTr extends TranslationsReceiveHistoryPageEn {
-  _TranslationsReceiveHistoryPageTr._(TranslationsTr root)
-      : this._root = root,
-        super.internal(root);
+  _TranslationsReceiveHistoryPageTr._(TranslationsTr root) : this._root = root, super.internal(root);
 
   final TranslationsTr _root; // ignore: unused_field
 
@@ -296,9 +284,7 @@ class _TranslationsReceiveHistoryPageTr extends TranslationsReceiveHistoryPageEn
 
 // Path: apkPickerPage
 class _TranslationsApkPickerPageTr extends TranslationsApkPickerPageEn {
-  _TranslationsApkPickerPageTr._(TranslationsTr root)
-      : this._root = root,
-        super.internal(root);
+  _TranslationsApkPickerPageTr._(TranslationsTr root) : this._root = root, super.internal(root);
 
   final TranslationsTr _root; // ignore: unused_field
 
@@ -315,9 +301,7 @@ class _TranslationsApkPickerPageTr extends TranslationsApkPickerPageEn {
 
 // Path: selectedFilesPage
 class _TranslationsSelectedFilesPageTr extends TranslationsSelectedFilesPageEn {
-  _TranslationsSelectedFilesPageTr._(TranslationsTr root)
-      : this._root = root,
-        super.internal(root);
+  _TranslationsSelectedFilesPageTr._(TranslationsTr root) : this._root = root, super.internal(root);
 
   final TranslationsTr _root; // ignore: unused_field
 
@@ -328,19 +312,17 @@ class _TranslationsSelectedFilesPageTr extends TranslationsSelectedFilesPageEn {
 
 // Path: receivePage
 class _TranslationsReceivePageTr extends TranslationsReceivePageEn {
-  _TranslationsReceivePageTr._(TranslationsTr root)
-      : this._root = root,
-        super.internal(root);
+  _TranslationsReceivePageTr._(TranslationsTr root) : this._root = root, super.internal(root);
 
   final TranslationsTr _root; // ignore: unused_field
 
   // Translations
   @override
   String subTitle({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('tr'))(
-        n,
-        one: 'sana bir dosya göndermek istiyor',
-        other: 'sana ${n} tane dosya göndermek istiyor',
-      );
+    n,
+    one: 'sana bir dosya göndermek istiyor',
+    other: 'sana ${n} tane dosya göndermek istiyor',
+  );
   @override
   String get subTitleMessage => 'bir mesaj gönderdi:';
   @override
@@ -351,9 +333,7 @@ class _TranslationsReceivePageTr extends TranslationsReceivePageEn {
 
 // Path: receiveOptionsPage
 class _TranslationsReceiveOptionsPageTr extends TranslationsReceiveOptionsPageEn {
-  _TranslationsReceiveOptionsPageTr._(TranslationsTr root)
-      : this._root = root,
-        super.internal(root);
+  _TranslationsReceiveOptionsPageTr._(TranslationsTr root) : this._root = root, super.internal(root);
 
   final TranslationsTr _root; // ignore: unused_field
 
@@ -372,9 +352,7 @@ class _TranslationsReceiveOptionsPageTr extends TranslationsReceiveOptionsPageEn
 
 // Path: sendPage
 class _TranslationsSendPageTr extends TranslationsSendPageEn {
-  _TranslationsSendPageTr._(TranslationsTr root)
-      : this._root = root,
-        super.internal(root);
+  _TranslationsSendPageTr._(TranslationsTr root) : this._root = root, super.internal(root);
 
   final TranslationsTr _root; // ignore: unused_field
 
@@ -391,9 +369,7 @@ class _TranslationsSendPageTr extends TranslationsSendPageEn {
 
 // Path: progressPage
 class _TranslationsProgressPageTr extends TranslationsProgressPageEn {
-  _TranslationsProgressPageTr._(TranslationsTr root)
-      : this._root = root,
-        super.internal(root);
+  _TranslationsProgressPageTr._(TranslationsTr root) : this._root = root, super.internal(root);
 
   final TranslationsTr _root; // ignore: unused_field
 
@@ -410,9 +386,7 @@ class _TranslationsProgressPageTr extends TranslationsProgressPageEn {
 
 // Path: webSharePage
 class _TranslationsWebSharePageTr extends TranslationsWebSharePageEn {
-  _TranslationsWebSharePageTr._(TranslationsTr root)
-      : this._root = root,
-        super.internal(root);
+  _TranslationsWebSharePageTr._(TranslationsTr root) : this._root = root, super.internal(root);
 
   final TranslationsTr _root; // ignore: unused_field
 
@@ -427,10 +401,10 @@ class _TranslationsWebSharePageTr extends TranslationsWebSharePageEn {
   String get error => 'Sunucuyu başlatırken bir hata oluştu.';
   @override
   String openLink({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('tr'))(
-        n,
-        one: 'Bu bağlantıyı tarayıcıda açın:',
-        other: 'Bu bağlantılardan birini tarayıcıda açın:',
-      );
+    n,
+    one: 'Bu bağlantıyı tarayıcıda açın:',
+    other: 'Bu bağlantılardan birini tarayıcıda açın:',
+  );
   @override
   String get requests => 'İstekler';
   @override
@@ -451,9 +425,7 @@ class _TranslationsWebSharePageTr extends TranslationsWebSharePageEn {
 
 // Path: aboutPage
 class _TranslationsAboutPageTr extends TranslationsAboutPageEn {
-  _TranslationsAboutPageTr._(TranslationsTr root)
-      : this._root = root,
-        super.internal(root);
+  _TranslationsAboutPageTr._(TranslationsTr root) : this._root = root, super.internal(root);
 
   final TranslationsTr _root; // ignore: unused_field
 
@@ -462,9 +434,9 @@ class _TranslationsAboutPageTr extends TranslationsAboutPageEn {
   String get title => 'LocalSend hakkında';
   @override
   List<String> get description => [
-        'LocalSend, internet bağlantısına ihtiyaç duymadan yerel ağınız üzerinden yakınınızdaki cihazlarla dosya ve mesajlarınızı güvenli bir şekilde paylaşmanıza olanak tanıyan özgür ve açık kaynaklı bir uygulamadır.',
-        'Bu uygulama Android, iOS, macOS, Windows ve Linux\'ta mevcuttur. Tüm indirme seçeneklerini resmi ana sayfada bulabilirsiniz.',
-      ];
+    'LocalSend, internet bağlantısına ihtiyaç duymadan yerel ağınız üzerinden yakınınızdaki cihazlarla dosya ve mesajlarınızı güvenli bir şekilde paylaşmanıza olanak tanıyan özgür ve açık kaynaklı bir uygulamadır.',
+    'Bu uygulama Android, iOS, macOS, Windows ve Linux\'ta mevcuttur. Tüm indirme seçeneklerini resmi ana sayfada bulabilirsiniz.',
+  ];
   @override
   String get author => 'Yazar';
   @override
@@ -477,9 +449,7 @@ class _TranslationsAboutPageTr extends TranslationsAboutPageEn {
 
 // Path: donationPage
 class _TranslationsDonationPageTr extends TranslationsDonationPageEn {
-  _TranslationsDonationPageTr._(TranslationsTr root)
-      : this._root = root,
-        super.internal(root);
+  _TranslationsDonationPageTr._(TranslationsTr root) : this._root = root, super.internal(root);
 
   final TranslationsTr _root; // ignore: unused_field
 
@@ -499,9 +469,7 @@ class _TranslationsDonationPageTr extends TranslationsDonationPageEn {
 
 // Path: changelogPage
 class _TranslationsChangelogPageTr extends TranslationsChangelogPageEn {
-  _TranslationsChangelogPageTr._(TranslationsTr root)
-      : this._root = root,
-        super.internal(root);
+  _TranslationsChangelogPageTr._(TranslationsTr root) : this._root = root, super.internal(root);
 
   final TranslationsTr _root; // ignore: unused_field
 
@@ -512,9 +480,7 @@ class _TranslationsChangelogPageTr extends TranslationsChangelogPageEn {
 
 // Path: aliasGenerator
 class _TranslationsAliasGeneratorTr extends TranslationsAliasGeneratorEn {
-  _TranslationsAliasGeneratorTr._(TranslationsTr root)
-      : this._root = root,
-        super.internal(root);
+  _TranslationsAliasGeneratorTr._(TranslationsTr root) : this._root = root, super.internal(root);
 
   final TranslationsTr _root; // ignore: unused_field
 
@@ -523,9 +489,7 @@ class _TranslationsAliasGeneratorTr extends TranslationsAliasGeneratorEn {
 
 // Path: dialogs
 class _TranslationsDialogsTr extends TranslationsDialogsEn {
-  _TranslationsDialogsTr._(TranslationsTr root)
-      : this._root = root,
-        super.internal(root);
+  _TranslationsDialogsTr._(TranslationsTr root) : this._root = root, super.internal(root);
 
   final TranslationsTr _root; // ignore: unused_field
 
@@ -582,9 +546,7 @@ class _TranslationsDialogsTr extends TranslationsDialogsEn {
 
 // Path: sanitization
 class _TranslationsSanitizationTr extends TranslationsSanitizationEn {
-  _TranslationsSanitizationTr._(TranslationsTr root)
-      : this._root = root,
-        super.internal(root);
+  _TranslationsSanitizationTr._(TranslationsTr root) : this._root = root, super.internal(root);
 
   final TranslationsTr _root; // ignore: unused_field
 
@@ -597,9 +559,7 @@ class _TranslationsSanitizationTr extends TranslationsSanitizationEn {
 
 // Path: tray
 class _TranslationsTrayTr extends TranslationsTrayEn {
-  _TranslationsTrayTr._(TranslationsTr root)
-      : this._root = root,
-        super.internal(root);
+  _TranslationsTrayTr._(TranslationsTr root) : this._root = root, super.internal(root);
 
   final TranslationsTr _root; // ignore: unused_field
 
@@ -614,9 +574,7 @@ class _TranslationsTrayTr extends TranslationsTrayEn {
 
 // Path: web
 class _TranslationsWebTr extends TranslationsWebEn {
-  _TranslationsWebTr._(TranslationsTr root)
-      : this._root = root,
-        super.internal(root);
+  _TranslationsWebTr._(TranslationsTr root) : this._root = root, super.internal(root);
 
   final TranslationsTr _root; // ignore: unused_field
 
@@ -641,9 +599,7 @@ class _TranslationsWebTr extends TranslationsWebEn {
 
 // Path: assetPicker
 class _TranslationsAssetPickerTr extends TranslationsAssetPickerEn {
-  _TranslationsAssetPickerTr._(TranslationsTr root)
-      : this._root = root,
-        super.internal(root);
+  _TranslationsAssetPickerTr._(TranslationsTr root) : this._root = root, super.internal(root);
 
   final TranslationsTr _root; // ignore: unused_field
 
@@ -709,9 +665,7 @@ class _TranslationsAssetPickerTr extends TranslationsAssetPickerEn {
 
 // Path: networkInterfacesPage
 class _TranslationsNetworkInterfacesPageTr extends TranslationsNetworkInterfacesPageEn {
-  _TranslationsNetworkInterfacesPageTr._(TranslationsTr root)
-      : this._root = root,
-        super.internal(root);
+  _TranslationsNetworkInterfacesPageTr._(TranslationsTr root) : this._root = root, super.internal(root);
 
   final TranslationsTr _root; // ignore: unused_field
 
@@ -728,9 +682,7 @@ class _TranslationsNetworkInterfacesPageTr extends TranslationsNetworkInterfaces
 
 // Path: receiveTab.infoBox
 class _TranslationsReceiveTabInfoBoxTr extends TranslationsReceiveTabInfoBoxEn {
-  _TranslationsReceiveTabInfoBoxTr._(TranslationsTr root)
-      : this._root = root,
-        super.internal(root);
+  _TranslationsReceiveTabInfoBoxTr._(TranslationsTr root) : this._root = root, super.internal(root);
 
   final TranslationsTr _root; // ignore: unused_field
 
@@ -745,9 +697,7 @@ class _TranslationsReceiveTabInfoBoxTr extends TranslationsReceiveTabInfoBoxEn {
 
 // Path: receiveTab.quickSave
 class _TranslationsReceiveTabQuickSaveTr extends TranslationsReceiveTabQuickSaveEn {
-  _TranslationsReceiveTabQuickSaveTr._(TranslationsTr root)
-      : this._root = root,
-        super.internal(root);
+  _TranslationsReceiveTabQuickSaveTr._(TranslationsTr root) : this._root = root, super.internal(root);
 
   final TranslationsTr _root; // ignore: unused_field
 
@@ -762,9 +712,7 @@ class _TranslationsReceiveTabQuickSaveTr extends TranslationsReceiveTabQuickSave
 
 // Path: sendTab.selection
 class _TranslationsSendTabSelectionTr extends TranslationsSendTabSelectionEn {
-  _TranslationsSendTabSelectionTr._(TranslationsTr root)
-      : this._root = root,
-        super.internal(root);
+  _TranslationsSendTabSelectionTr._(TranslationsTr root) : this._root = root, super.internal(root);
 
   final TranslationsTr _root; // ignore: unused_field
 
@@ -779,9 +727,7 @@ class _TranslationsSendTabSelectionTr extends TranslationsSendTabSelectionEn {
 
 // Path: sendTab.picker
 class _TranslationsSendTabPickerTr extends TranslationsSendTabPickerEn {
-  _TranslationsSendTabPickerTr._(TranslationsTr root)
-      : this._root = root,
-        super.internal(root);
+  _TranslationsSendTabPickerTr._(TranslationsTr root) : this._root = root, super.internal(root);
 
   final TranslationsTr _root; // ignore: unused_field
 
@@ -802,9 +748,7 @@ class _TranslationsSendTabPickerTr extends TranslationsSendTabPickerEn {
 
 // Path: sendTab.sendModes
 class _TranslationsSendTabSendModesTr extends TranslationsSendTabSendModesEn {
-  _TranslationsSendTabSendModesTr._(TranslationsTr root)
-      : this._root = root,
-        super.internal(root);
+  _TranslationsSendTabSendModesTr._(TranslationsTr root) : this._root = root, super.internal(root);
 
   final TranslationsTr _root; // ignore: unused_field
 
@@ -819,9 +763,7 @@ class _TranslationsSendTabSendModesTr extends TranslationsSendTabSendModesEn {
 
 // Path: settingsTab.general
 class _TranslationsSettingsTabGeneralTr extends TranslationsSettingsTabGeneralEn {
-  _TranslationsSettingsTabGeneralTr._(TranslationsTr root)
-      : this._root = root,
-        super.internal(root);
+  _TranslationsSettingsTabGeneralTr._(TranslationsTr root) : this._root = root, super.internal(root);
 
   final TranslationsTr _root; // ignore: unused_field
 
@@ -858,9 +800,7 @@ class _TranslationsSettingsTabGeneralTr extends TranslationsSettingsTabGeneralEn
 
 // Path: settingsTab.receive
 class _TranslationsSettingsTabReceiveTr extends TranslationsSettingsTabReceiveEn {
-  _TranslationsSettingsTabReceiveTr._(TranslationsTr root)
-      : this._root = root,
-        super.internal(root);
+  _TranslationsSettingsTabReceiveTr._(TranslationsTr root) : this._root = root, super.internal(root);
 
   final TranslationsTr _root; // ignore: unused_field
 
@@ -885,9 +825,7 @@ class _TranslationsSettingsTabReceiveTr extends TranslationsSettingsTabReceiveEn
 
 // Path: settingsTab.send
 class _TranslationsSettingsTabSendTr extends TranslationsSettingsTabSendEn {
-  _TranslationsSettingsTabSendTr._(TranslationsTr root)
-      : this._root = root,
-        super.internal(root);
+  _TranslationsSettingsTabSendTr._(TranslationsTr root) : this._root = root, super.internal(root);
 
   final TranslationsTr _root; // ignore: unused_field
 
@@ -900,9 +838,7 @@ class _TranslationsSettingsTabSendTr extends TranslationsSettingsTabSendEn {
 
 // Path: settingsTab.network
 class _TranslationsSettingsTabNetworkTr extends TranslationsSettingsTabNetworkEn {
-  _TranslationsSettingsTabNetworkTr._(TranslationsTr root)
-      : this._root = root,
-        super.internal(root);
+  _TranslationsSettingsTabNetworkTr._(TranslationsTr root) : this._root = root, super.internal(root);
 
   final TranslationsTr _root; // ignore: unused_field
 
@@ -945,9 +881,7 @@ class _TranslationsSettingsTabNetworkTr extends TranslationsSettingsTabNetworkEn
 
 // Path: settingsTab.other
 class _TranslationsSettingsTabOtherTr extends TranslationsSettingsTabOtherEn {
-  _TranslationsSettingsTabOtherTr._(TranslationsTr root)
-      : this._root = root,
-        super.internal(root);
+  _TranslationsSettingsTabOtherTr._(TranslationsTr root) : this._root = root, super.internal(root);
 
   final TranslationsTr _root; // ignore: unused_field
 
@@ -966,9 +900,7 @@ class _TranslationsSettingsTabOtherTr extends TranslationsSettingsTabOtherEn {
 
 // Path: troubleshootPage.firewall
 class _TranslationsTroubleshootPageFirewallTr extends TranslationsTroubleshootPageFirewallEn {
-  _TranslationsTroubleshootPageFirewallTr._(TranslationsTr root)
-      : this._root = root,
-        super.internal(root);
+  _TranslationsTroubleshootPageFirewallTr._(TranslationsTr root) : this._root = root, super.internal(root);
 
   final TranslationsTr _root; // ignore: unused_field
 
@@ -979,14 +911,12 @@ class _TranslationsTroubleshootPageFirewallTr extends TranslationsTroubleshootPa
   String solution({required Object port}) =>
       'Bu büyük olasılıkla bir güvenlik duvarı sorunudur. Port ${port} \'da gelen bağlantılara (UDP ve TCP) izin vererek bunu çözebilirsiniz.';
   @override
-  String get openFirewall => 'Güvenlik Duvarını Aç';
+  String get openFirewallSettings => 'Güvenlik Duvarını Aç';
 }
 
 // Path: troubleshootPage.noDiscovery
 class _TranslationsTroubleshootPageNoDiscoveryTr extends TranslationsTroubleshootPageNoDiscoveryEn {
-  _TranslationsTroubleshootPageNoDiscoveryTr._(TranslationsTr root)
-      : this._root = root,
-        super.internal(root);
+  _TranslationsTroubleshootPageNoDiscoveryTr._(TranslationsTr root) : this._root = root, super.internal(root);
 
   final TranslationsTr _root; // ignore: unused_field
 
@@ -1000,9 +930,7 @@ class _TranslationsTroubleshootPageNoDiscoveryTr extends TranslationsTroubleshoo
 
 // Path: troubleshootPage.noConnection
 class _TranslationsTroubleshootPageNoConnectionTr extends TranslationsTroubleshootPageNoConnectionEn {
-  _TranslationsTroubleshootPageNoConnectionTr._(TranslationsTr root)
-      : this._root = root,
-        super.internal(root);
+  _TranslationsTroubleshootPageNoConnectionTr._(TranslationsTr root) : this._root = root, super.internal(root);
 
   final TranslationsTr _root; // ignore: unused_field
 
@@ -1016,9 +944,7 @@ class _TranslationsTroubleshootPageNoConnectionTr extends TranslationsTroublesho
 
 // Path: receiveHistoryPage.entryActions
 class _TranslationsReceiveHistoryPageEntryActionsTr extends TranslationsReceiveHistoryPageEntryActionsEn {
-  _TranslationsReceiveHistoryPageEntryActionsTr._(TranslationsTr root)
-      : this._root = root,
-        super.internal(root);
+  _TranslationsReceiveHistoryPageEntryActionsTr._(TranslationsTr root) : this._root = root, super.internal(root);
 
   final TranslationsTr _root; // ignore: unused_field
 
@@ -1035,9 +961,7 @@ class _TranslationsReceiveHistoryPageEntryActionsTr extends TranslationsReceiveH
 
 // Path: progressPage.total
 class _TranslationsProgressPageTotalTr extends TranslationsProgressPageTotalEn {
-  _TranslationsProgressPageTotalTr._(TranslationsTr root)
-      : this._root = root,
-        super.internal(root);
+  _TranslationsProgressPageTotalTr._(TranslationsTr root) : this._root = root, super.internal(root);
 
   final TranslationsTr _root; // ignore: unused_field
 
@@ -1054,9 +978,7 @@ class _TranslationsProgressPageTotalTr extends TranslationsProgressPageTotalEn {
 
 // Path: dialogs.addFile
 class _TranslationsDialogsAddFileTr extends TranslationsDialogsAddFileEn {
-  _TranslationsDialogsAddFileTr._(TranslationsTr root)
-      : this._root = root,
-        super.internal(root);
+  _TranslationsDialogsAddFileTr._(TranslationsTr root) : this._root = root, super.internal(root);
 
   final TranslationsTr _root; // ignore: unused_field
 
@@ -1069,9 +991,7 @@ class _TranslationsDialogsAddFileTr extends TranslationsDialogsAddFileEn {
 
 // Path: dialogs.addressInput
 class _TranslationsDialogsAddressInputTr extends TranslationsDialogsAddressInputEn {
-  _TranslationsDialogsAddressInputTr._(TranslationsTr root)
-      : this._root = root,
-        super.internal(root);
+  _TranslationsDialogsAddressInputTr._(TranslationsTr root) : this._root = root, super.internal(root);
 
   final TranslationsTr _root; // ignore: unused_field
 
@@ -1088,9 +1008,7 @@ class _TranslationsDialogsAddressInputTr extends TranslationsDialogsAddressInput
 
 // Path: dialogs.cancelSession
 class _TranslationsDialogsCancelSessionTr extends TranslationsDialogsCancelSessionEn {
-  _TranslationsDialogsCancelSessionTr._(TranslationsTr root)
-      : this._root = root,
-        super.internal(root);
+  _TranslationsDialogsCancelSessionTr._(TranslationsTr root) : this._root = root, super.internal(root);
 
   final TranslationsTr _root; // ignore: unused_field
 
@@ -1103,9 +1021,7 @@ class _TranslationsDialogsCancelSessionTr extends TranslationsDialogsCancelSessi
 
 // Path: dialogs.cannotOpenFile
 class _TranslationsDialogsCannotOpenFileTr extends TranslationsDialogsCannotOpenFileEn {
-  _TranslationsDialogsCannotOpenFileTr._(TranslationsTr root)
-      : this._root = root,
-        super.internal(root);
+  _TranslationsDialogsCannotOpenFileTr._(TranslationsTr root) : this._root = root, super.internal(root);
 
   final TranslationsTr _root; // ignore: unused_field
 
@@ -1118,9 +1034,7 @@ class _TranslationsDialogsCannotOpenFileTr extends TranslationsDialogsCannotOpen
 
 // Path: dialogs.encryptionDisabledNotice
 class _TranslationsDialogsEncryptionDisabledNoticeTr extends TranslationsDialogsEncryptionDisabledNoticeEn {
-  _TranslationsDialogsEncryptionDisabledNoticeTr._(TranslationsTr root)
-      : this._root = root,
-        super.internal(root);
+  _TranslationsDialogsEncryptionDisabledNoticeTr._(TranslationsTr root) : this._root = root, super.internal(root);
 
   final TranslationsTr _root; // ignore: unused_field
 
@@ -1134,9 +1048,7 @@ class _TranslationsDialogsEncryptionDisabledNoticeTr extends TranslationsDialogs
 
 // Path: dialogs.errorDialog
 class _TranslationsDialogsErrorDialogTr extends TranslationsDialogsErrorDialogEn {
-  _TranslationsDialogsErrorDialogTr._(TranslationsTr root)
-      : this._root = root,
-        super.internal(root);
+  _TranslationsDialogsErrorDialogTr._(TranslationsTr root) : this._root = root, super.internal(root);
 
   final TranslationsTr _root; // ignore: unused_field
 
@@ -1147,9 +1059,7 @@ class _TranslationsDialogsErrorDialogTr extends TranslationsDialogsErrorDialogEn
 
 // Path: dialogs.favoriteDialog
 class _TranslationsDialogsFavoriteDialogTr extends TranslationsDialogsFavoriteDialogEn {
-  _TranslationsDialogsFavoriteDialogTr._(TranslationsTr root)
-      : this._root = root,
-        super.internal(root);
+  _TranslationsDialogsFavoriteDialogTr._(TranslationsTr root) : this._root = root, super.internal(root);
 
   final TranslationsTr _root; // ignore: unused_field
 
@@ -1164,9 +1074,7 @@ class _TranslationsDialogsFavoriteDialogTr extends TranslationsDialogsFavoriteDi
 
 // Path: dialogs.favoriteDeleteDialog
 class _TranslationsDialogsFavoriteDeleteDialogTr extends TranslationsDialogsFavoriteDeleteDialogEn {
-  _TranslationsDialogsFavoriteDeleteDialogTr._(TranslationsTr root)
-      : this._root = root,
-        super.internal(root);
+  _TranslationsDialogsFavoriteDeleteDialogTr._(TranslationsTr root) : this._root = root, super.internal(root);
 
   final TranslationsTr _root; // ignore: unused_field
 
@@ -1179,9 +1087,7 @@ class _TranslationsDialogsFavoriteDeleteDialogTr extends TranslationsDialogsFavo
 
 // Path: dialogs.favoriteEditDialog
 class _TranslationsDialogsFavoriteEditDialogTr extends TranslationsDialogsFavoriteEditDialogEn {
-  _TranslationsDialogsFavoriteEditDialogTr._(TranslationsTr root)
-      : this._root = root,
-        super.internal(root);
+  _TranslationsDialogsFavoriteEditDialogTr._(TranslationsTr root) : this._root = root, super.internal(root);
 
   final TranslationsTr _root; // ignore: unused_field
 
@@ -1202,9 +1108,7 @@ class _TranslationsDialogsFavoriteEditDialogTr extends TranslationsDialogsFavori
 
 // Path: dialogs.fileInfo
 class _TranslationsDialogsFileInfoTr extends TranslationsDialogsFileInfoEn {
-  _TranslationsDialogsFileInfoTr._(TranslationsTr root)
-      : this._root = root,
-        super.internal(root);
+  _TranslationsDialogsFileInfoTr._(TranslationsTr root) : this._root = root, super.internal(root);
 
   final TranslationsTr _root; // ignore: unused_field
 
@@ -1225,9 +1129,7 @@ class _TranslationsDialogsFileInfoTr extends TranslationsDialogsFileInfoEn {
 
 // Path: dialogs.fileNameInput
 class _TranslationsDialogsFileNameInputTr extends TranslationsDialogsFileNameInputEn {
-  _TranslationsDialogsFileNameInputTr._(TranslationsTr root)
-      : this._root = root,
-        super.internal(root);
+  _TranslationsDialogsFileNameInputTr._(TranslationsTr root) : this._root = root, super.internal(root);
 
   final TranslationsTr _root; // ignore: unused_field
 
@@ -1240,9 +1142,7 @@ class _TranslationsDialogsFileNameInputTr extends TranslationsDialogsFileNameInp
 
 // Path: dialogs.historyClearDialog
 class _TranslationsDialogsHistoryClearDialogTr extends TranslationsDialogsHistoryClearDialogEn {
-  _TranslationsDialogsHistoryClearDialogTr._(TranslationsTr root)
-      : this._root = root,
-        super.internal(root);
+  _TranslationsDialogsHistoryClearDialogTr._(TranslationsTr root) : this._root = root, super.internal(root);
 
   final TranslationsTr _root; // ignore: unused_field
 
@@ -1255,9 +1155,7 @@ class _TranslationsDialogsHistoryClearDialogTr extends TranslationsDialogsHistor
 
 // Path: dialogs.localNetworkUnauthorized
 class _TranslationsDialogsLocalNetworkUnauthorizedTr extends TranslationsDialogsLocalNetworkUnauthorizedEn {
-  _TranslationsDialogsLocalNetworkUnauthorizedTr._(TranslationsTr root)
-      : this._root = root,
-        super.internal(root);
+  _TranslationsDialogsLocalNetworkUnauthorizedTr._(TranslationsTr root) : this._root = root, super.internal(root);
 
   final TranslationsTr _root; // ignore: unused_field
 
@@ -1272,9 +1170,7 @@ class _TranslationsDialogsLocalNetworkUnauthorizedTr extends TranslationsDialogs
 
 // Path: dialogs.messageInput
 class _TranslationsDialogsMessageInputTr extends TranslationsDialogsMessageInputEn {
-  _TranslationsDialogsMessageInputTr._(TranslationsTr root)
-      : this._root = root,
-        super.internal(root);
+  _TranslationsDialogsMessageInputTr._(TranslationsTr root) : this._root = root, super.internal(root);
 
   final TranslationsTr _root; // ignore: unused_field
 
@@ -1287,9 +1183,7 @@ class _TranslationsDialogsMessageInputTr extends TranslationsDialogsMessageInput
 
 // Path: dialogs.noFiles
 class _TranslationsDialogsNoFilesTr extends TranslationsDialogsNoFilesEn {
-  _TranslationsDialogsNoFilesTr._(TranslationsTr root)
-      : this._root = root,
-        super.internal(root);
+  _TranslationsDialogsNoFilesTr._(TranslationsTr root) : this._root = root, super.internal(root);
 
   final TranslationsTr _root; // ignore: unused_field
 
@@ -1302,9 +1196,7 @@ class _TranslationsDialogsNoFilesTr extends TranslationsDialogsNoFilesEn {
 
 // Path: dialogs.noPermission
 class _TranslationsDialogsNoPermissionTr extends TranslationsDialogsNoPermissionEn {
-  _TranslationsDialogsNoPermissionTr._(TranslationsTr root)
-      : this._root = root,
-        super.internal(root);
+  _TranslationsDialogsNoPermissionTr._(TranslationsTr root) : this._root = root, super.internal(root);
 
   final TranslationsTr _root; // ignore: unused_field
 
@@ -1317,9 +1209,7 @@ class _TranslationsDialogsNoPermissionTr extends TranslationsDialogsNoPermission
 
 // Path: dialogs.notAvailableOnPlatform
 class _TranslationsDialogsNotAvailableOnPlatformTr extends TranslationsDialogsNotAvailableOnPlatformEn {
-  _TranslationsDialogsNotAvailableOnPlatformTr._(TranslationsTr root)
-      : this._root = root,
-        super.internal(root);
+  _TranslationsDialogsNotAvailableOnPlatformTr._(TranslationsTr root) : this._root = root, super.internal(root);
 
   final TranslationsTr _root; // ignore: unused_field
 
@@ -1332,9 +1222,7 @@ class _TranslationsDialogsNotAvailableOnPlatformTr extends TranslationsDialogsNo
 
 // Path: dialogs.qr
 class _TranslationsDialogsQrTr extends TranslationsDialogsQrEn {
-  _TranslationsDialogsQrTr._(TranslationsTr root)
-      : this._root = root,
-        super.internal(root);
+  _TranslationsDialogsQrTr._(TranslationsTr root) : this._root = root, super.internal(root);
 
   final TranslationsTr _root; // ignore: unused_field
 
@@ -1345,9 +1233,7 @@ class _TranslationsDialogsQrTr extends TranslationsDialogsQrEn {
 
 // Path: dialogs.quickActions
 class _TranslationsDialogsQuickActionsTr extends TranslationsDialogsQuickActionsEn {
-  _TranslationsDialogsQuickActionsTr._(TranslationsTr root)
-      : this._root = root,
-        super.internal(root);
+  _TranslationsDialogsQuickActionsTr._(TranslationsTr root) : this._root = root, super.internal(root);
 
   final TranslationsTr _root; // ignore: unused_field
 
@@ -1368,9 +1254,7 @@ class _TranslationsDialogsQuickActionsTr extends TranslationsDialogsQuickActions
 
 // Path: dialogs.quickSaveNotice
 class _TranslationsDialogsQuickSaveNoticeTr extends TranslationsDialogsQuickSaveNoticeEn {
-  _TranslationsDialogsQuickSaveNoticeTr._(TranslationsTr root)
-      : this._root = root,
-        super.internal(root);
+  _TranslationsDialogsQuickSaveNoticeTr._(TranslationsTr root) : this._root = root, super.internal(root);
 
   final TranslationsTr _root; // ignore: unused_field
 
@@ -1384,9 +1268,7 @@ class _TranslationsDialogsQuickSaveNoticeTr extends TranslationsDialogsQuickSave
 
 // Path: dialogs.pin
 class _TranslationsDialogsPinTr extends TranslationsDialogsPinEn {
-  _TranslationsDialogsPinTr._(TranslationsTr root)
-      : this._root = root,
-        super.internal(root);
+  _TranslationsDialogsPinTr._(TranslationsTr root) : this._root = root, super.internal(root);
 
   final TranslationsTr _root; // ignore: unused_field
 
@@ -1397,9 +1279,7 @@ class _TranslationsDialogsPinTr extends TranslationsDialogsPinEn {
 
 // Path: dialogs.sendModeHelp
 class _TranslationsDialogsSendModeHelpTr extends TranslationsDialogsSendModeHelpEn {
-  _TranslationsDialogsSendModeHelpTr._(TranslationsTr root)
-      : this._root = root,
-        super.internal(root);
+  _TranslationsDialogsSendModeHelpTr._(TranslationsTr root) : this._root = root, super.internal(root);
 
   final TranslationsTr _root; // ignore: unused_field
 
@@ -1416,9 +1296,7 @@ class _TranslationsDialogsSendModeHelpTr extends TranslationsDialogsSendModeHelp
 
 // Path: dialogs.zoom
 class _TranslationsDialogsZoomTr extends TranslationsDialogsZoomEn {
-  _TranslationsDialogsZoomTr._(TranslationsTr root)
-      : this._root = root,
-        super.internal(root);
+  _TranslationsDialogsZoomTr._(TranslationsTr root) : this._root = root, super.internal(root);
 
   final TranslationsTr _root; // ignore: unused_field
 
@@ -1429,9 +1307,7 @@ class _TranslationsDialogsZoomTr extends TranslationsDialogsZoomEn {
 
 // Path: dialogs.openFile
 class _TranslationsDialogsOpenFileTr extends TranslationsDialogsOpenFileEn {
-  _TranslationsDialogsOpenFileTr._(TranslationsTr root)
-      : this._root = root,
-        super.internal(root);
+  _TranslationsDialogsOpenFileTr._(TranslationsTr root) : this._root = root, super.internal(root);
 
   final TranslationsTr _root; // ignore: unused_field
 
@@ -1444,9 +1320,7 @@ class _TranslationsDialogsOpenFileTr extends TranslationsDialogsOpenFileEn {
 
 // Path: settingsTab.general.brightnessOptions
 class _TranslationsSettingsTabGeneralBrightnessOptionsTr extends TranslationsSettingsTabGeneralBrightnessOptionsEn {
-  _TranslationsSettingsTabGeneralBrightnessOptionsTr._(TranslationsTr root)
-      : this._root = root,
-        super.internal(root);
+  _TranslationsSettingsTabGeneralBrightnessOptionsTr._(TranslationsTr root) : this._root = root, super.internal(root);
 
   final TranslationsTr _root; // ignore: unused_field
 
@@ -1461,9 +1335,7 @@ class _TranslationsSettingsTabGeneralBrightnessOptionsTr extends TranslationsSet
 
 // Path: settingsTab.general.colorOptions
 class _TranslationsSettingsTabGeneralColorOptionsTr extends TranslationsSettingsTabGeneralColorOptionsEn {
-  _TranslationsSettingsTabGeneralColorOptionsTr._(TranslationsTr root)
-      : this._root = root,
-        super.internal(root);
+  _TranslationsSettingsTabGeneralColorOptionsTr._(TranslationsTr root) : this._root = root, super.internal(root);
 
   final TranslationsTr _root; // ignore: unused_field
 
@@ -1476,9 +1348,7 @@ class _TranslationsSettingsTabGeneralColorOptionsTr extends TranslationsSettings
 
 // Path: settingsTab.general.languageOptions
 class _TranslationsSettingsTabGeneralLanguageOptionsTr extends TranslationsSettingsTabGeneralLanguageOptionsEn {
-  _TranslationsSettingsTabGeneralLanguageOptionsTr._(TranslationsTr root)
-      : this._root = root,
-        super.internal(root);
+  _TranslationsSettingsTabGeneralLanguageOptionsTr._(TranslationsTr root) : this._root = root, super.internal(root);
 
   final TranslationsTr _root; // ignore: unused_field
 
@@ -1489,9 +1359,7 @@ class _TranslationsSettingsTabGeneralLanguageOptionsTr extends TranslationsSetti
 
 // Path: settingsTab.network.networkOptions
 class _TranslationsSettingsTabNetworkNetworkOptionsTr extends TranslationsSettingsTabNetworkNetworkOptionsEn {
-  _TranslationsSettingsTabNetworkNetworkOptionsTr._(TranslationsTr root)
-      : this._root = root,
-        super.internal(root);
+  _TranslationsSettingsTabNetworkNetworkOptionsTr._(TranslationsTr root) : this._root = root, super.internal(root);
 
   final TranslationsTr _root; // ignore: unused_field
 
@@ -1502,9 +1370,7 @@ class _TranslationsSettingsTabNetworkNetworkOptionsTr extends TranslationsSettin
 
 // Path: progressPage.total.title
 class _TranslationsProgressPageTotalTitleTr extends TranslationsProgressPageTotalTitleEn {
-  _TranslationsProgressPageTotalTitleTr._(TranslationsTr root)
-      : this._root = root,
-        super.internal(root);
+  _TranslationsProgressPageTotalTitleTr._(TranslationsTr root) : this._root = root, super.internal(root);
 
   final TranslationsTr _root; // ignore: unused_field
 

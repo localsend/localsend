@@ -14,14 +14,14 @@ class TranslationsAz extends Translations {
   /// You can call this constructor and build your own translation instance of this locale.
   /// Constructing via the enum [AppLocale.build] is preferred.
   TranslationsAz({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
-      : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-        $meta = TranslationMetadata(
-          locale: AppLocale.az,
-          overrides: overrides ?? {},
-          cardinalResolver: cardinalResolver,
-          ordinalResolver: ordinalResolver,
-        ),
-        super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+    : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
+      $meta = TranslationMetadata(
+        locale: AppLocale.az,
+        overrides: overrides ?? {},
+        cardinalResolver: cardinalResolver,
+        ordinalResolver: ordinalResolver,
+      ),
+      super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
 
   /// Metadata for the translations of <az>.
   @override
@@ -46,9 +46,7 @@ class TranslationsAz extends Translations {
 
 // Path: general
 class _TranslationsGeneralAz extends TranslationsGeneralEn {
-  _TranslationsGeneralAz._(TranslationsAz root)
-      : this._root = root,
-        super.internal(root);
+  _TranslationsGeneralAz._(TranslationsAz root) : this._root = root, super.internal(root);
 
   final TranslationsAz _root; // ignore: unused_field
 
@@ -133,9 +131,7 @@ class _TranslationsGeneralAz extends TranslationsGeneralEn {
 
 // Path: receiveTab
 class _TranslationsReceiveTabAz extends TranslationsReceiveTabEn {
-  _TranslationsReceiveTabAz._(TranslationsAz root)
-      : this._root = root,
-        super.internal(root);
+  _TranslationsReceiveTabAz._(TranslationsAz root) : this._root = root, super.internal(root);
 
   final TranslationsAz _root; // ignore: unused_field
 
@@ -150,9 +146,7 @@ class _TranslationsReceiveTabAz extends TranslationsReceiveTabEn {
 
 // Path: sendTab
 class _TranslationsSendTabAz extends TranslationsSendTabEn {
-  _TranslationsSendTabAz._(TranslationsAz root)
-      : this._root = root,
-        super.internal(root);
+  _TranslationsSendTabAz._(TranslationsAz root) : this._root = root, super.internal(root);
 
   final TranslationsAz _root; // ignore: unused_field
 
@@ -187,9 +181,7 @@ class _TranslationsSendTabAz extends TranslationsSendTabEn {
 
 // Path: settingsTab
 class _TranslationsSettingsTabAz extends TranslationsSettingsTabEn {
-  _TranslationsSettingsTabAz._(TranslationsAz root)
-      : this._root = root,
-        super.internal(root);
+  _TranslationsSettingsTabAz._(TranslationsAz root) : this._root = root, super.internal(root);
 
   final TranslationsAz _root; // ignore: unused_field
 
@@ -204,9 +196,7 @@ class _TranslationsSettingsTabAz extends TranslationsSettingsTabEn {
 
 // Path: receiveTab.infoBox
 class _TranslationsReceiveTabInfoBoxAz extends TranslationsReceiveTabInfoBoxEn {
-  _TranslationsReceiveTabInfoBoxAz._(TranslationsAz root)
-      : this._root = root,
-        super.internal(root);
+  _TranslationsReceiveTabInfoBoxAz._(TranslationsAz root) : this._root = root, super.internal(root);
 
   final TranslationsAz _root; // ignore: unused_field
 
@@ -221,9 +211,7 @@ class _TranslationsReceiveTabInfoBoxAz extends TranslationsReceiveTabInfoBoxEn {
 
 // Path: receiveTab.quickSave
 class _TranslationsReceiveTabQuickSaveAz extends TranslationsReceiveTabQuickSaveEn {
-  _TranslationsReceiveTabQuickSaveAz._(TranslationsAz root)
-      : this._root = root,
-        super.internal(root);
+  _TranslationsReceiveTabQuickSaveAz._(TranslationsAz root) : this._root = root, super.internal(root);
 
   final TranslationsAz _root; // ignore: unused_field
 
@@ -238,9 +226,7 @@ class _TranslationsReceiveTabQuickSaveAz extends TranslationsReceiveTabQuickSave
 
 // Path: sendTab.selection
 class _TranslationsSendTabSelectionAz extends TranslationsSendTabSelectionEn {
-  _TranslationsSendTabSelectionAz._(TranslationsAz root)
-      : this._root = root,
-        super.internal(root);
+  _TranslationsSendTabSelectionAz._(TranslationsAz root) : this._root = root, super.internal(root);
 
   final TranslationsAz _root; // ignore: unused_field
 
@@ -255,9 +241,7 @@ class _TranslationsSendTabSelectionAz extends TranslationsSendTabSelectionEn {
 
 // Path: sendTab.picker
 class _TranslationsSendTabPickerAz extends TranslationsSendTabPickerEn {
-  _TranslationsSendTabPickerAz._(TranslationsAz root)
-      : this._root = root,
-        super.internal(root);
+  _TranslationsSendTabPickerAz._(TranslationsAz root) : this._root = root, super.internal(root);
 
   final TranslationsAz _root; // ignore: unused_field
 
@@ -278,9 +262,7 @@ class _TranslationsSendTabPickerAz extends TranslationsSendTabPickerEn {
 
 // Path: sendTab.sendModes
 class _TranslationsSendTabSendModesAz extends TranslationsSendTabSendModesEn {
-  _TranslationsSendTabSendModesAz._(TranslationsAz root)
-      : this._root = root,
-        super.internal(root);
+  _TranslationsSendTabSendModesAz._(TranslationsAz root) : this._root = root, super.internal(root);
 
   final TranslationsAz _root; // ignore: unused_field
 
@@ -295,9 +277,7 @@ class _TranslationsSendTabSendModesAz extends TranslationsSendTabSendModesEn {
 
 // Path: settingsTab.general
 class _TranslationsSettingsTabGeneralAz extends TranslationsSettingsTabGeneralEn {
-  _TranslationsSettingsTabGeneralAz._(TranslationsAz root)
-      : this._root = root,
-        super.internal(root);
+  _TranslationsSettingsTabGeneralAz._(TranslationsAz root) : this._root = root, super.internal(root);
 
   final TranslationsAz _root; // ignore: unused_field
 
@@ -334,9 +314,7 @@ class _TranslationsSettingsTabGeneralAz extends TranslationsSettingsTabGeneralEn
 
 // Path: settingsTab.receive
 class _TranslationsSettingsTabReceiveAz extends TranslationsSettingsTabReceiveEn {
-  _TranslationsSettingsTabReceiveAz._(TranslationsAz root)
-      : this._root = root,
-        super.internal(root);
+  _TranslationsSettingsTabReceiveAz._(TranslationsAz root) : this._root = root, super.internal(root);
 
   final TranslationsAz _root; // ignore: unused_field
 
@@ -353,9 +331,7 @@ class _TranslationsSettingsTabReceiveAz extends TranslationsSettingsTabReceiveEn
 
 // Path: settingsTab.general.brightnessOptions
 class _TranslationsSettingsTabGeneralBrightnessOptionsAz extends TranslationsSettingsTabGeneralBrightnessOptionsEn {
-  _TranslationsSettingsTabGeneralBrightnessOptionsAz._(TranslationsAz root)
-      : this._root = root,
-        super.internal(root);
+  _TranslationsSettingsTabGeneralBrightnessOptionsAz._(TranslationsAz root) : this._root = root, super.internal(root);
 
   final TranslationsAz _root; // ignore: unused_field
 
@@ -370,9 +346,7 @@ class _TranslationsSettingsTabGeneralBrightnessOptionsAz extends TranslationsSet
 
 // Path: settingsTab.general.colorOptions
 class _TranslationsSettingsTabGeneralColorOptionsAz extends TranslationsSettingsTabGeneralColorOptionsEn {
-  _TranslationsSettingsTabGeneralColorOptionsAz._(TranslationsAz root)
-      : this._root = root,
-        super.internal(root);
+  _TranslationsSettingsTabGeneralColorOptionsAz._(TranslationsAz root) : this._root = root, super.internal(root);
 
   final TranslationsAz _root; // ignore: unused_field
 
@@ -385,9 +359,7 @@ class _TranslationsSettingsTabGeneralColorOptionsAz extends TranslationsSettings
 
 // Path: settingsTab.general.languageOptions
 class _TranslationsSettingsTabGeneralLanguageOptionsAz extends TranslationsSettingsTabGeneralLanguageOptionsEn {
-  _TranslationsSettingsTabGeneralLanguageOptionsAz._(TranslationsAz root)
-      : this._root = root,
-        super.internal(root);
+  _TranslationsSettingsTabGeneralLanguageOptionsAz._(TranslationsAz root) : this._root = root, super.internal(root);
 
   final TranslationsAz _root; // ignore: unused_field
 
