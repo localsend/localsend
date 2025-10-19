@@ -13,21 +13,33 @@ final _listEq = const ListEquality().equals;
 
 final settingsProvider = NotifierProvider<SettingsService, SettingsState>((ref) {
   return SettingsService(ref.read(persistenceProvider));
-}, onChanged: (_, next, ref) {
+}, onChanged: (previous, next, ref) {
   final syncState = ref.read(parentIsolateProvider).syncState;
-  if (_listEq(syncState.networkWhitelist, next.networkWhitelist) &&
-      _listEq(syncState.networkBlacklist, next.networkBlacklist) &&
-      syncState.multicastGroup == next.multicastGroup &&
-      syncState.discoveryTimeout == next.discoveryTimeout) {
-    return;
+  
+  // sync network settings if changed
+  if (!_listEq(syncState.networkWhitelist, next.networkWhitelist) ||
+      !_listEq(syncState.networkBlacklist, next.networkBlacklist) ||
+      syncState.multicastGroup != next.multicastGroup ||
+      syncState.discoveryTimeout != next.discoveryTimeout) {
+    ref.redux(parentIsolateProvider).dispatch(IsolateSyncSettingsAction(
+          networkWhitelist: next.networkWhitelist,
+          networkBlacklist: next.networkBlacklist,
+          multicastGroup: next.multicastGroup,
+          discoveryTimeout: next.discoveryTimeout,
+        ));
   }
-
-  ref.redux(parentIsolateProvider).dispatch(IsolateSyncSettingsAction(
-        networkWhitelist: next.networkWhitelist,
-        networkBlacklist: next.networkBlacklist,
-        multicastGroup: next.multicastGroup,
-        discoveryTimeout: next.discoveryTimeout,
-      ));
+  
+  // sync alias change to discovery isolate if alias changed
+  if (previous.alias != next.alias) {
+    // use current sync state values for port/protocol since server inherits from settings
+    ref.redux(parentIsolateProvider).dispatch(IsolateSyncServerStateAction(
+      alias: next.alias,
+      port: syncState.port,
+      protocol: syncState.protocol,
+      serverRunning: syncState.serverRunning,
+      download: syncState.download,
+    ));
+  }
 });
 
 class SettingsService extends PureNotifier<SettingsState> {
@@ -70,6 +82,7 @@ class SettingsService extends PureNotifier<SettingsState> {
     state = state.copyWith(
       alias: alias,
     );
+    // alias sync to isolate is now handled by settingsProvider.onChanged
   }
 
   Future<void> setTheme(ThemeMode theme) async {
