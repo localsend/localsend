@@ -61,7 +61,6 @@ class StartMulticastListener extends AsyncReduxAction<NearbyDevicesService, Near
 class ClearFoundDevicesAction extends ReduxAction<NearbyDevicesService, NearbyDevicesState> {
   @override
   NearbyDevicesState reduce() {
-    // debug: log device count
     notifier._discoveryLogger.addLog('[CLEAR] Clearing ${state.devices.length} found devices');
     return state.copyWith(
       devices: {},
@@ -83,24 +82,19 @@ class RegisterDeviceAction extends AsyncReduxAction<NearbyDevicesService, Nearby
   Future<NearbyDevicesState> reduce() async {
     assert(device.ip?.isNotEmpty ?? false, 'IP must not be empty');
 
-    // check favorites
     final favoriteDevice = notifier._favoriteService.state.firstWhereOrNull((e) => e.fingerprint == device.fingerprint);
     
     if (favoriteDevice != null && !favoriteDevice.customAlias) {
-      // update favorite name
       notifier._discoveryLogger.addLog('[REGISTER] Updating favorite "${favoriteDevice.alias}" to "${device.alias}" (${device.ip})');
       await external(notifier._favoriteService).dispatchAsync(UpdateFavoriteAction(favoriteDevice.copyWith(alias: device.alias)));
     } else if (favoriteDevice != null && favoriteDevice.customAlias) {
-      // keep custom name
       notifier._discoveryLogger.addLog('[REGISTER] Device "${device.alias}" (${device.ip}) has custom favorite alias "${favoriteDevice.alias}", keeping custom name');
       await Future.microtask(() {});
     } else {
-      // not a favorite
       notifier._discoveryLogger.addLog('[REGISTER] Device "${device.alias}" (${device.ip}) is not a favorite');
       await Future.microtask(() {});
     }
     
-    // update device list
     return state.copyWith(
       devices: {...state.devices}..update(device.ip!, (_) => device, ifAbsent: () => device),
     );
@@ -151,9 +145,7 @@ class UnregisterSignalingDeviceAction extends ReduxAction<NearbyDevicesService, 
 class StartMulticastScan extends ReduxAction<NearbyDevicesService, NearbyDevicesState> {
   @override
   NearbyDevicesState reduce() {
-    // broadcast to discover devices
     external(notifier._isolateController).dispatch(IsolateSendMulticastAnnouncementAction());
-    // log scan start
     notifier._discoveryLogger.addLog('[SCAN] Multicast announcement sent');
     return state;
   }
@@ -175,7 +167,6 @@ class StartLegacyScan extends AsyncReduxAction<NearbyDevicesService, NearbyDevic
   @override
   Future<NearbyDevicesState> reduce() async {
     if (state.runningIps.contains(localIp)) {
-      // already running for the same localIp
       await Future.microtask(() {});
       return state;
     }
