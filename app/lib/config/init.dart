@@ -128,7 +128,7 @@ Future<RefenaContainer> preInit(List<String> args) async {
     } else if (defaultTargetPlatform == TargetPlatform.macOS) {
       startHidden = await isLaunchedAsLoginItem() && await getLaunchAtLoginMinimized();
     }
-    
+
     doWhenWindowReady(() {
       if (startHidden) {
         unawaited(hideToTray());
