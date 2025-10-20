@@ -202,7 +202,7 @@ For more information, see the [contributing guide](https://github.com/localsend/
 
 ## Building
 
-These commands are intended for maintainers only.
+These commands are intended for maintainers only. Make sure to run them from the `app` directory.
 
 ### Android
 

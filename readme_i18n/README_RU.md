@@ -142,14 +142,14 @@ LocalSend использует безопасный протокол связи,
 
 ### Перевод
 
-Вы можете помочь перевести LocalSend на другие языки. Мы используем платформу [Weblate](https://hosted.weblate.org/projects/localsend/app) для управления переводами.
+Вы можете помочь перевести LocalSend на другие языки. **Рекомендуемый способ**: Используйте платформу [Weblate](https://hosted.weblate.org/projects/localsend/app) для управления переводами.
 
-Кроме того, вы также можете внести свой вклад, создав ответвление этого репозитория и добавив переводы вручную.
+**Альтернативный способ**: Вы также можете внести свой вклад, создав ответвление этого репозитория и добавив переводы вручную.
 
 Переводы находятся в директории [app/assets/i18n](https://github.com/localsend/localsend/tree/main/app/assets/i18n). Отредактируйте файл `_missing_translations_<locale>.json` или файл `strings_<locale>.i18n.json`, чтобы добавить или обновить переводы.
 
 <a href="https://hosted.weblate.org/engage/localsend/">
-<img src="https://hosted.weblate.org/widget/localsend/app/multi-auto.svg" alt="Translation status" />
+<img src="https://hosted.weblate.org/widget/localsend/app/multi-auto.svg" alt="Статус перевода" />
 </a>
 
 **_Обратите внимание:_ Поля, содержащие `@`, не предназначены для перевода; они никак не используются в приложении, поскольку являются лишь информативным текстом о файле или для предоставления контекста переводчику.**
@@ -171,76 +171,3 @@ LocalSend использует безопасный протокол связи,
 | Скорость слишком низкая    | Любая                | Любая                 | Используйте Wi-Fi 5 ГГц; Выключите шифрование на обоих устройствах.                                                                            |
 | Скорость слишком низкая    | Любая                | Android               | Известная проблема. https://github.com/flutter-cavalry/saf_stream/issues/4                                                                     |
 
-## Сборка (построение) приложения
-
-Эти команды предназначены только для майнтейнеров (разработчиков).
-
-### Android
-
-Классический пакет APK
-
-```bash
-flutter build apk
-```
-
-AppBundle для Google Play
-
-```bash
-flutter build appbundle
-```
-
-### iOS
-
-```bash
-flutter build ipa
-```
-
-### macOS
-
-```bash
-flutter build macos
-```
-
-### Windows
-
-**Классический пакет**
-
-```bash
-flutter build windows
-```
-
-**Локальный пакет формата MSIX**
-
-```bash
-flutter pub run msix:create
-```
-
-**Для магазина приложений**
-
-```bash
-flutter pub run msix:create --store
-```
-
-### Linux
-
-**Классический пакет**
-
-```bash
-flutter build linux
-```
-
-**AppImage**
-
-```bash
-appimage-builder --recipe AppImageBuilder.yml
-```
-
-**Snap**
-
-Инструкции расположены в [localsend/snap/README.md](https://github.com/localsend/snap/blob/main/README.md)
-
-## Участники
-
-<a href="https://github.com/localsend/localsend/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=localsend/localsend"  alt="Localsend Contributors"/>
-</a>
