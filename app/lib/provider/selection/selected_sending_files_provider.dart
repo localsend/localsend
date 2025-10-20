@@ -303,9 +303,9 @@ class LoadSelectionFromArgsAction extends AsyncReduxActionWithResult<SelectedSen
           dispatch(AddMessageAction(message: message));
         }
         await dispatchAsync(AddFilesAction(
-              files: payload.attachments?.where((a) => a != null).cast<SharedAttachment>() ?? <SharedAttachment>[],
-              converter: CrossFileConverters.convertSharedAttachment,
-            ));
+          files: payload.attachments?.where((a) => a != null).cast<SharedAttachment>() ?? <SharedAttachment>[],
+          converter: CrossFileConverters.convertSharedAttachment,
+        ));
         filesAdded = true;
         continue;
       }

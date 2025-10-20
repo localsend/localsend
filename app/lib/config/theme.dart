@@ -46,7 +46,7 @@ ThemeData getTheme(ColorMode colorMode, Brightness brightness, DynamicColors? dy
       AppLocale.ko => 'Noto Sans CJK KR',
       AppLocale.zhCn => 'Noto Sans CJK SC',
       AppLocale.zhHk || AppLocale.zhTw => 'Noto Sans CJK TC',
-      _ => 'Noto Sans', 
+      _ => 'Noto Sans',
     };
   } else {
     fontFamily = null;

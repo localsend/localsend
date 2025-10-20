@@ -29,7 +29,7 @@ class ShortcutWatcher extends StatelessWidget {
         if (checkPlatform([TargetPlatform.macOS])) LogicalKeySet(LogicalKeyboardKey.meta, LogicalKeyboardKey.keyW): _CloseWindowIntent(),
         // Add Control+, to open settings for macOS
         if (checkPlatform([TargetPlatform.macOS])) LogicalKeySet(LogicalKeyboardKey.meta, LogicalKeyboardKey.comma): _OpenSettingsIntent(),
-        
+
         LogicalKeySet(LogicalKeyboardKey.escape): _PopPageIntent(),
 
         // Control+V and Command+V
