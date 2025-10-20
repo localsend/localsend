@@ -6,6 +6,7 @@ import 'package:legalize/legalize.dart';
 import 'package:localsend_app/util/file_path_helper.dart';
 import 'package:localsend_app/util/native/channel/android_channel.dart' as android_channel;
 import 'package:localsend_app/util/native/content_uri_helper.dart';
+import 'package:localsend_app/util/native/directories.dart';
 import 'package:logging/logging.dart';
 import 'package:mime/mime.dart';
 import 'package:path/path.dart' as p;
@@ -16,51 +17,72 @@ final _logger = Logger('FileSaver');
 
 final _saf = SafStream();
 
-/// Saves the data [stream] to the [destinationPath].
-/// [onProgress] will be called on every 100 ms.
-Future<void> saveFile({
-  required String destinationPath,
-  required String? documentUri,
-  required String name,
+/// Saves file from [stream] to [destinationDirectory] with [fileName].
+///
+/// When [saveToGallery] is true:
+/// - Saves to cache directory first, then transfers to OS gallery (Photos/Videos)
+/// - If format is unsupported (see https://github.com/natsuk4ze/gal/wiki/Formats),
+///   moves the cached file to [destinationDirectory] as fallback
+///
+/// [onProgress] is called every 100ms with the number of bytes saved.
+///
+/// Returns (savedToGallery, filePath):
+/// - savedToGallery: true if saved to gallery, false if saved to directory
+/// - filePath: absolute path to file (null when saved to gallery)
+///
+/// Throws [GalException] for permission or I/O errors (file will be deleted on error)
+Future<(bool, String?)> saveFile({
+  required String destinationDirectory,
+  required String fileName,
   required bool saveToGallery,
   required bool isImage,
   required Stream<Uint8List> stream,
-  required int? androidSdkInt,
-  required DateTime? lastModified,
-  required DateTime? lastAccessed,
-  required void Function(int savedBytes) onProgress,
+  required void Function(int) onProgress,
+  required Set<String> createdDirectories,
+  int? androidSdkInt,
+  DateTime? lastModified,
+  DateTime? lastAccessed,
 }) async {
+  final parentDirectory = saveToGallery ? await getCacheDirectory() : destinationDirectory;
+
+  final (destinationPath, documentUri, finalName) = await digestFilePathAndPrepareDirectory(
+    parentDirectory: parentDirectory,
+    fileName: fileName,
+    createdDirectories: createdDirectories,
+  );
+
+  // When saveToGallery is enabled, cache directory is used so SAF is not needed
   if (!saveToGallery && androidSdkInt != null) {
-    // Use SAF to save the file
-    // When saveToGallery is enabled, the destination is always the app's cache directory so we don't need to use SAF
     SafWriteStreamInfo? safInfo;
 
     if (documentUri != null || destinationPath.startsWith('content://')) {
-      _logger.info('Using SAF to save file to ${documentUri ?? destinationPath} as $name');
+      _logger.info('Using SAF to save file to ${documentUri ?? destinationPath} as $finalName');
       safInfo = await _saf.startWriteStream(
         documentUri ?? destinationPath,
-        name,
-        lookupMimeType(name) ?? (isImage ? 'image/*' : '*/*'),
+        finalName,
+        lookupMimeType(finalName) ?? (isImage ? 'image/*' : '*/*'),
       );
     } else {
       final sdCardPath = getSdCardPath(destinationPath);
       if (sdCardPath != null) {
-        // Use Android SAF to save the file to the SD card
         final uriString = ContentUriHelper.encodeTreeUri(sdCardPath.path.parentPath());
         _logger.info('Using SAF to save file to $uriString');
         safInfo = await _saf.startWriteStream(
           'content://com.android.externalstorage.documents/tree/${sdCardPath.sdCardId}:$uriString',
-          name,
-          lookupMimeType(name) ?? (isImage ? 'image/*' : '*/*'),
+          finalName,
+          lookupMimeType(finalName) ?? (isImage ? 'image/*' : '*/*'),
         );
       }
     }
 
     if (safInfo != null) {
       final sessionID = safInfo.session;
-      await _saveFile(
+      return await _saveFile(
         destinationPath: destinationPath,
         saveToGallery: saveToGallery,
+        destinationDirectory: destinationDirectory,
+        fileName: fileName,
+        createdDirectories: createdDirectories,
         isImage: isImage,
         stream: stream,
         onProgress: onProgress,
@@ -73,15 +95,17 @@ Future<void> saveFile({
           await _saf.endWriteStream(sessionID);
         },
       );
-      return;
     }
   }
 
   final file = File(destinationPath);
   final sink = file.openWrite();
-  await _saveFile(
+  return await _saveFile(
     destinationPath: destinationPath,
     saveToGallery: saveToGallery,
+    destinationDirectory: destinationDirectory,
+    fileName: fileName,
+    createdDirectories: createdDirectories,
     isImage: isImage,
     stream: stream,
     onProgress: onProgress,
@@ -104,12 +128,15 @@ Future<void> saveFile({
   );
 }
 
-Future<void> _saveFile({
+Future<(bool, String?)> _saveFile({
   required String destinationPath,
   required bool saveToGallery,
+  required String destinationDirectory,
+  required String fileName,
+  required Set<String> createdDirectories,
   required bool isImage,
   required Stream<Uint8List> stream,
-  required void Function(int savedBytes) onProgress,
+  required void Function(int) onProgress,
   required void Function(Uint8List data)? write,
   required Future<void> Function(Uint8List data)? writeAsync,
   required Future<void> Function()? flush,
@@ -143,11 +170,32 @@ Future<void> _saveFile({
     await close();
 
     if (saveToGallery) {
-      isImage ? await Gal.putImage(destinationPath) : await Gal.putVideo(destinationPath);
-      await File(destinationPath).delete();
+      try {
+        isImage ? await Gal.putImage(destinationPath) : await Gal.putVideo(destinationPath);
+        await File(destinationPath).delete();
+        onProgress(savedBytes);
+        return (true, null);
+      } on GalException catch (e) {
+        if (e.type == GalExceptionType.notSupportedFormat) {
+          _logger.info('File format not supported by gallery, moving to destination directory');
+
+          final (fallbackPath, _, _) = await digestFilePathAndPrepareDirectory(
+            parentDirectory: destinationDirectory,
+            fileName: fileName,
+            createdDirectories: createdDirectories,
+          );
+
+          _logger.info('Moving file from $destinationPath to $fallbackPath');
+          await File(destinationPath).rename(fallbackPath);
+          onProgress(savedBytes);
+          return (false, fallbackPath);
+        }
+        rethrow;
+      }
     }
 
     onProgress(savedBytes); // always emit final event
+    return (false, destinationPath); // Saved to destination (not gallery)
   } catch (_) {
     try {
       await close();
