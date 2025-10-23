@@ -17,6 +17,9 @@ analyzer:
     - lib/**.freezed.dart
     - submodules/**
 
+formatter:
+  trailing_commas: preserve
+
 linter:
   rules:
     use_key_in_widget_constructors: false
