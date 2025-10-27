@@ -15,7 +15,8 @@ Future<bool> enableAutoStart({required bool startHidden}) async {
     final packageInfo = await PackageInfo.fromPlatform();
     switch (defaultTargetPlatform) {
       case TargetPlatform.linux:
-        String contents = '''
+        String contents =
+            '''
 [Desktop Entry]
 Type=Application
 Name=${packageInfo.appName}
@@ -35,11 +36,13 @@ Terminal=false
         await setLaunchAtLoginMinimized(startHidden);
         return true;
       case TargetPlatform.windows:
-        _getWindowsRegistryKey().createValue(RegistryValue(
-          _windowsRegistryKeyValue,
-          RegistryValueType.string,
-          '"${Platform.resolvedExecutable}"${startHidden ? ' $startHiddenFlag' : ''}',
-        ));
+        _getWindowsRegistryKey().createValue(
+          RegistryValue(
+            _windowsRegistryKeyValue,
+            RegistryValueType.string,
+            '"${Platform.resolvedExecutable}"${startHidden ? ' $startHiddenFlag' : ''}',
+          ),
+        );
         return true;
       default:
         return false;

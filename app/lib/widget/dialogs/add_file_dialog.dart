@@ -36,16 +36,18 @@ class AddFileDialog extends StatelessWidget {
                 context.pop();
               },
               child: Text(t.general.close),
-            )
+            ),
           ],
         ),
       );
     } else {
-      await context.pushBottomSheet(() => CustomBottomSheet(
-            title: t.dialogs.addFile.title,
-            description: t.dialogs.addFile.content,
-            child: AddFileDialog(options: options),
-          ));
+      await context.pushBottomSheet(
+        () => CustomBottomSheet(
+          title: t.dialogs.addFile.title,
+          description: t.dialogs.addFile.content,
+          child: AddFileDialog(options: options),
+        ),
+      );
     }
   }
 

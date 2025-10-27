@@ -110,7 +110,9 @@ void main() {
     test('should return the document uri from the tree uri with a folder', () {
       expect(
         ContentUriHelper.convertTreeUriToDocumentUri(
-            treeUri: 'content://com.android.externalstorage.documents/tree/primary%3ALocalSend', suffix: 'subFolder'),
+          treeUri: 'content://com.android.externalstorage.documents/tree/primary%3ALocalSend',
+          suffix: 'subFolder',
+        ),
         'content://com.android.externalstorage.documents/tree/primary%3ALocalSend/document/primary%3ALocalSend%2FsubFolder',
       );
     });

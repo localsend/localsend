@@ -18,11 +18,15 @@ final apkProvider = ViewProvider<AsyncValue<List<Application>>>((ref) {
   final param = ref.watch(apkSearchParamProvider);
 
   return ref
-      .watch(_apkProvider(CachedApkProviderParam(
-        includeSystemApps: param.includeSystemApps,
-        onlyAppsWithLaunchIntent: param.onlyAppsWithLaunchIntent,
-        selectMultipleApps: param.selectMultipleApps,
-      )))
+      .watch(
+        _apkProvider(
+          CachedApkProviderParam(
+            includeSystemApps: param.includeSystemApps,
+            onlyAppsWithLaunchIntent: param.onlyAppsWithLaunchIntent,
+            selectMultipleApps: param.selectMultipleApps,
+          ),
+        ),
+      )
       .maybeWhen(
         data: (apps) {
           final query = param.query.trim().toLowerCase();

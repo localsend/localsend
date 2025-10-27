@@ -13,10 +13,11 @@ class SimpleServer {
     required SimpleServerRouteBuilder routes,
   }) : _server = server {
     _server.listen((request) async {
-      final handler = routes._routes[Route(
-        HttpMethod.values.firstWhere((e) => e.methodName == request.method),
-        request.uri.path,
-      )];
+      final handler =
+          routes._routes[Route(
+            HttpMethod.values.firstWhere((e) => e.methodName == request.method),
+            request.uri.path,
+          )];
 
       if (handler != null) {
         handler.call(request);
@@ -38,8 +39,7 @@ typedef HttpRequestHandler = void Function(HttpRequest request);
 
 enum HttpMethod {
   get('GET'),
-  post('POST'),
-  ;
+  post('POST');
 
   const HttpMethod(this.methodName);
 
@@ -68,9 +68,10 @@ class SimpleServerRouteBuilder {
 
   void addRoute(HttpMethod method, String path, HttpRequestHandler handler) {
     _routes[Route(
-      method,
-      path,
-    )] = handler;
+          method,
+          path,
+        )] =
+        handler;
   }
 
   void get(String path, HttpRequestHandler handler) {

@@ -19,8 +19,8 @@ class ResponsiveListView extends StatelessWidget {
     EdgeInsets? tabletPadding,
     required Widget this.child,
     super.key,
-  })  : desktopPadding = tabletPadding ?? const EdgeInsets.symmetric(horizontal: 10, vertical: 30),
-        children = null;
+  }) : desktopPadding = tabletPadding ?? const EdgeInsets.symmetric(horizontal: 10, vertical: 30),
+       children = null;
 
   const ResponsiveListView({
     this.maxWidth = defaultMaxWidth,
@@ -29,8 +29,8 @@ class ResponsiveListView extends StatelessWidget {
     EdgeInsets? tabletPadding,
     required List<Widget> this.children,
     super.key,
-  })  : desktopPadding = tabletPadding ?? const EdgeInsets.symmetric(horizontal: 10, vertical: 30),
-        child = null;
+  }) : desktopPadding = tabletPadding ?? const EdgeInsets.symmetric(horizontal: 10, vertical: 30),
+       child = null;
 
   @override
   Widget build(BuildContext context) {

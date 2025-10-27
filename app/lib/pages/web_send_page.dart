@@ -51,7 +51,9 @@ class _WebSendPageState extends State<WebSendPage> with Refena {
     });
     await sleepAsync(500);
     try {
-      await ref.notifier(serverProvider).restartServer(
+      await ref
+          .notifier(serverProvider)
+          .restartServer(
             alias: settings.alias,
             port: settings.port,
             https: _encrypted,
@@ -241,8 +243,8 @@ class _WebSendPageState extends State<WebSendPage> with Refena {
                                   Text(
                                     session.deviceInfo,
                                     style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                                          color: session.responseHandler != null ? Theme.of(context).colorScheme.warning : null,
-                                        ),
+                                      color: session.responseHandler != null ? Theme.of(context).colorScheme.warning : null,
+                                    ),
                                   ),
                                   const SizedBox(height: 5),
                                   Text(session.ip, style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: Colors.grey)),
@@ -274,8 +276,8 @@ class _WebSendPageState extends State<WebSendPage> with Refena {
                                 child: Text(
                                   t.general.accepted,
                                   style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                                        color: Theme.of(context).colorScheme.onSecondaryContainer,
-                                      ),
+                                    color: Theme.of(context).colorScheme.onSecondaryContainer,
+                                  ),
                                 ),
                               ),
                           ],

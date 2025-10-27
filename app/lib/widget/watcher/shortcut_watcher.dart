@@ -29,7 +29,7 @@ class ShortcutWatcher extends StatelessWidget {
         if (checkPlatform([TargetPlatform.macOS])) LogicalKeySet(LogicalKeyboardKey.meta, LogicalKeyboardKey.keyW): _CloseWindowIntent(),
         // Add Control+, to open settings for macOS
         if (checkPlatform([TargetPlatform.macOS])) LogicalKeySet(LogicalKeyboardKey.meta, LogicalKeyboardKey.comma): _OpenSettingsIntent(),
-        
+
         LogicalKeySet(LogicalKeyboardKey.escape): _PopPageIntent(),
 
         // Control+V and Command+V
@@ -40,13 +40,15 @@ class ShortcutWatcher extends StatelessWidget {
         actions: {
           _ExitAppIntent: CallbackAction(onInvoke: (_) => exit(0)),
           _PopPageIntent: CallbackAction(onInvoke: (_) async => Navigator.of(Routerino.context).maybePop()),
-          _PasteIntent: CallbackAction(onInvoke: (_) async {
-            await context.global.dispatchAsync(PickFileAction(option: FilePickerOption.clipboard, context: context));
-            if (context.mounted) {
-              context.redux(homePageControllerProvider).dispatch(ChangeTabAction(HomeTab.send));
-            }
-            return null;
-          }),
+          _PasteIntent: CallbackAction(
+            onInvoke: (_) async {
+              await context.global.dispatchAsync(PickFileAction(option: FilePickerOption.clipboard, context: context));
+              if (context.mounted) {
+                context.redux(homePageControllerProvider).dispatch(ChangeTabAction(HomeTab.send));
+              }
+              return null;
+            },
+          ),
           _CloseWindowIntent: CallbackAction<_CloseWindowIntent>(
             onInvoke: (_) async {
               if (_isFakeMetaKey()) {
@@ -57,10 +59,12 @@ class ShortcutWatcher extends StatelessWidget {
               return null;
             },
           ),
-          _OpenSettingsIntent: CallbackAction(onInvoke: (_) async {
-            context.redux(homePageControllerProvider).dispatch(ChangeTabAction(HomeTab.settings));
-            return null;
-          }),
+          _OpenSettingsIntent: CallbackAction(
+            onInvoke: (_) async {
+              context.redux(homePageControllerProvider).dispatch(ChangeTabAction(HomeTab.settings));
+              return null;
+            },
+          ),
         },
         child: child,
       ),

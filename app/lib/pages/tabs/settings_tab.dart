@@ -48,7 +48,8 @@ class SettingsTab extends StatelessWidget {
           children: [
             Padding(
               padding: EdgeInsets.only(
-                  right: MediaQuery.of(context).padding.right), // So camera or 3-button navigation doesn't interfere on the right, rest is handled
+                right: MediaQuery.of(context).padding.right,
+              ), // So camera or 3-button navigation doesn't interfere on the right, rest is handled
               child: ResponsiveListView(
                 padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 40),
                 children: [
@@ -268,7 +269,8 @@ class SettingsTab extends StatelessWidget {
                     title: t.settingsTab.network.title,
                     children: [
                       AnimatedCrossFade(
-                        crossFadeState: vm.serverState != null &&
+                        crossFadeState:
+                            vm.serverState != null &&
                                 (vm.serverState!.alias != vm.settings.alias ||
                                     vm.serverState!.port != vm.settings.port ||
                                     vm.serverState!.https != vm.settings.https)
@@ -545,7 +547,9 @@ class SettingsTab extends StatelessWidget {
                   const SizedBox(height: 20),
                   const LocalSendLogo(withText: true),
                   const SizedBox(height: 5),
-                  ref.watch(versionProvider).maybeWhen(
+                  ref
+                      .watch(versionProvider)
+                      .maybeWhen(
                         data: (version) => Text(
                           'Version: $version',
                           textAlign: TextAlign.center,
@@ -594,7 +598,7 @@ class SettingsTab extends StatelessWidget {
                   ),
                 ),
               ),
-            )
+            ),
           ],
         );
       },

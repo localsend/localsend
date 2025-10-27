@@ -21,8 +21,7 @@ class LogEntryMapper extends ClassMapperBase<LogEntry> {
   final String id = 'LogEntry';
 
   static DateTime _$timestamp(LogEntry v) => v.timestamp;
-  static const Field<LogEntry, DateTime> _f$timestamp =
-      Field('timestamp', _$timestamp);
+  static const Field<LogEntry, DateTime> _f$timestamp = Field('timestamp', _$timestamp);
   static String _$log(LogEntry v) => v.log;
   static const Field<LogEntry, String> _f$log = Field('log', _$log);
 
@@ -50,17 +49,14 @@ class LogEntryMapper extends ClassMapperBase<LogEntry> {
 
 mixin LogEntryMappable {
   String serialize() {
-    return LogEntryMapper.ensureInitialized()
-        .encodeJson<LogEntry>(this as LogEntry);
+    return LogEntryMapper.ensureInitialized().encodeJson<LogEntry>(this as LogEntry);
   }
 
   Map<String, dynamic> toJson() {
-    return LogEntryMapper.ensureInitialized()
-        .encodeMap<LogEntry>(this as LogEntry);
+    return LogEntryMapper.ensureInitialized().encodeMap<LogEntry>(this as LogEntry);
   }
 
-  LogEntryCopyWith<LogEntry, LogEntry, LogEntry> get copyWith =>
-      _LogEntryCopyWithImpl(this as LogEntry, $identity, $identity);
+  LogEntryCopyWith<LogEntry, LogEntry, LogEntry> get copyWith => _LogEntryCopyWithImpl(this as LogEntry, $identity, $identity);
   @override
   String toString() {
     return LogEntryMapper.ensureInitialized().stringifyValue(this as LogEntry);
@@ -68,8 +64,7 @@ mixin LogEntryMappable {
 
   @override
   bool operator ==(Object other) {
-    return LogEntryMapper.ensureInitialized()
-        .equalsValue(this as LogEntry, other);
+    return LogEntryMapper.ensureInitialized().equalsValue(this as LogEntry, other);
   }
 
   @override
@@ -79,36 +74,28 @@ mixin LogEntryMappable {
 }
 
 extension LogEntryValueCopy<$R, $Out> on ObjectCopyWith<$R, LogEntry, $Out> {
-  LogEntryCopyWith<$R, LogEntry, $Out> get $asLogEntry =>
-      $base.as((v, t, t2) => _LogEntryCopyWithImpl(v, t, t2));
+  LogEntryCopyWith<$R, LogEntry, $Out> get $asLogEntry => $base.as((v, t, t2) => _LogEntryCopyWithImpl(v, t, t2));
 }
 
-abstract class LogEntryCopyWith<$R, $In extends LogEntry, $Out>
-    implements ClassCopyWith<$R, $In, $Out> {
+abstract class LogEntryCopyWith<$R, $In extends LogEntry, $Out> implements ClassCopyWith<$R, $In, $Out> {
   $R call({DateTime? timestamp, String? log});
   LogEntryCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
 
-class _LogEntryCopyWithImpl<$R, $Out>
-    extends ClassCopyWithBase<$R, LogEntry, $Out>
-    implements LogEntryCopyWith<$R, LogEntry, $Out> {
+class _LogEntryCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, LogEntry, $Out> implements LogEntryCopyWith<$R, LogEntry, $Out> {
   _LogEntryCopyWithImpl(super.value, super.then, super.then2);
 
   @override
-  late final ClassMapperBase<LogEntry> $mapper =
-      LogEntryMapper.ensureInitialized();
+  late final ClassMapperBase<LogEntry> $mapper = LogEntryMapper.ensureInitialized();
   @override
-  $R call({DateTime? timestamp, String? log}) => $apply(FieldCopyWithData({
-        if (timestamp != null) #timestamp: timestamp,
-        if (log != null) #log: log
-      }));
+  $R call({DateTime? timestamp, String? log}) =>
+      $apply(FieldCopyWithData({if (timestamp != null) #timestamp: timestamp, if (log != null) #log: log}));
   @override
   LogEntry $make(CopyWithData data) => LogEntry(
-      timestamp: data.get(#timestamp, or: $value.timestamp),
-      log: data.get(#log, or: $value.log));
+    timestamp: data.get(#timestamp, or: $value.timestamp),
+    log: data.get(#log, or: $value.log),
+  );
 
   @override
-  LogEntryCopyWith<$R2, LogEntry, $Out2> $chain<$R2, $Out2>(
-          Then<$Out2, $R2> t) =>
-      _LogEntryCopyWithImpl($value, $cast, t);
+  LogEntryCopyWith<$R2, LogEntry, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t) => _LogEntryCopyWithImpl($value, $cast, t);
 }

@@ -128,7 +128,7 @@ Future<RefenaContainer> preInit(List<String> args) async {
     } else if (defaultTargetPlatform == TargetPlatform.macOS) {
       startHidden = await isLaunchedAsLoginItem() && await getLaunchAtLoginMinimized();
     }
-    
+
     doWhenWindowReady(() {
       if (startHidden) {
         unawaited(hideToTray());
@@ -158,35 +158,41 @@ Future<RefenaContainer> preInit(List<String> args) async {
   );
 
   // initialize multi-threading
-  container.set(parentIsolateProvider.overrideWithNotifier((ref) {
-    final settings = ref.read(settingsProvider);
-    return IsolateController(
-      initialState: ParentIsolateState.initial(
-        SyncState(
-          init: () async {
-            await Rhttp.init();
-          },
-          rootIsolateToken: RootIsolateToken.instance!,
-          httpClientFactory: RhttpWrapper.create,
-          securityContext: persistenceService.getSecurityContext(),
-          deviceInfo: ref.read(deviceInfoProvider),
-          alias: settings.alias,
-          port: settings.port,
-          networkWhitelist: settings.networkWhitelist,
-          networkBlacklist: settings.networkBlacklist,
-          protocol: settings.https ? ProtocolType.https : ProtocolType.http,
-          multicastGroup: settings.multicastGroup,
-          discoveryTimeout: settings.discoveryTimeout,
-          serverRunning: true,
-          download: false,
+  container.set(
+    parentIsolateProvider.overrideWithNotifier((ref) {
+      final settings = ref.read(settingsProvider);
+      return IsolateController(
+        initialState: ParentIsolateState.initial(
+          SyncState(
+            init: () async {
+              await Rhttp.init();
+            },
+            rootIsolateToken: RootIsolateToken.instance!,
+            httpClientFactory: RhttpWrapper.create,
+            securityContext: persistenceService.getSecurityContext(),
+            deviceInfo: ref.read(deviceInfoProvider),
+            alias: settings.alias,
+            port: settings.port,
+            networkWhitelist: settings.networkWhitelist,
+            networkBlacklist: settings.networkBlacklist,
+            protocol: settings.https ? ProtocolType.https : ProtocolType.http,
+            multicastGroup: settings.multicastGroup,
+            discoveryTimeout: settings.discoveryTimeout,
+            serverRunning: true,
+            download: false,
+          ),
         ),
-      ),
-    );
-  }));
+      );
+    }),
+  );
 
-  await container.redux(parentIsolateProvider).dispatchAsync(IsolateSetupAction(
-        uriContentStreamResolver: AndroidUriContentStreamResolver(),
-      ));
+  await container
+      .redux(parentIsolateProvider)
+      .dispatchAsync(
+        IsolateSetupAction(
+          uriContentStreamResolver: AndroidUriContentStreamResolver(),
+        ),
+      );
 
   return container;
 }
@@ -225,9 +231,11 @@ Future<void> postInit(BuildContext context, Ref ref, bool appStart) async {
     if (defaultTargetPlatform == TargetPlatform.macOS) {
       // handle dropped files
       pendingFilesStream.listen((files) async {
-        await ref.global.dispatchAsync(_HandleAppStartArgumentsAction(
-          args: files,
-        ));
+        await ref.global.dispatchAsync(
+          _HandleAppStartArgumentsAction(
+            args: files,
+          ),
+        );
       });
 
       // handle dropped strings
@@ -241,9 +249,11 @@ Future<void> postInit(BuildContext context, Ref ref, bool appStart) async {
       await setupMethodCallHandler();
     } else {
       final args = ref.read(appArgumentsProvider);
-      await ref.global.dispatchAsync(_HandleAppStartArgumentsAction(
-        args: args,
-      ));
+      await ref.global.dispatchAsync(
+        _HandleAppStartArgumentsAction(
+          args: args,
+        ),
+      );
     }
   }
 
@@ -257,17 +267,21 @@ Future<void> postInit(BuildContext context, Ref ref, bool appStart) async {
       if (initialSharedPayload != null) {
         hasInitialShare = true;
         // ignore: unawaited_futures
-        ref.global.dispatchAsync(_HandleShareIntentAction(
-          payload: initialSharedPayload,
-        ));
+        ref.global.dispatchAsync(
+          _HandleShareIntentAction(
+            payload: initialSharedPayload,
+          ),
+        );
       }
     }
 
     _sharedMediaSubscription?.cancel(); // ignore: unawaited_futures
     _sharedMediaSubscription = shareHandler.sharedMediaStream.listen((SharedMedia payload) async {
-      await ref.global.dispatchAsync(_HandleShareIntentAction(
-        payload: payload,
-      ));
+      await ref.global.dispatchAsync(
+        _HandleShareIntentAction(
+          payload: payload,
+        ),
+      );
     });
   }
 
@@ -298,10 +312,14 @@ class _HandleShareIntentAction extends AsyncGlobalAction {
     if (message != null && message.trim().isNotEmpty) {
       ref.redux(selectedSendingFilesProvider).dispatch(AddMessageAction(message: message));
     }
-    await ref.redux(selectedSendingFilesProvider).dispatchAsync(AddFilesAction(
-          files: payload.attachments?.where((a) => a != null).cast<SharedAttachment>() ?? <SharedAttachment>[],
-          converter: CrossFileConverters.convertSharedAttachment,
-        ));
+    await ref
+        .redux(selectedSendingFilesProvider)
+        .dispatchAsync(
+          AddFilesAction(
+            files: payload.attachments?.where((a) => a != null).cast<SharedAttachment>() ?? <SharedAttachment>[],
+            converter: CrossFileConverters.convertSharedAttachment,
+          ),
+        );
 
     ref.redux(homePageControllerProvider).dispatch(ChangeTabAction(HomeTab.send));
   }

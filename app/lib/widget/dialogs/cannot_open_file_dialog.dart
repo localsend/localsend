@@ -28,7 +28,7 @@ class CannotOpenFileDialog extends StatelessWidget {
             TextButton(
               onPressed: () => context.pop(),
               child: Text(t.general.close),
-            )
+            ),
           ],
         ),
       );

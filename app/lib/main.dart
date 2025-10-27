@@ -29,12 +29,14 @@ Future<void> main(List<String> args) async {
     return;
   }
 
-  runApp(RefenaScope.withContainer(
-    container: container,
-    child: TranslationProvider(
-      child: const LocalSendApp(),
+  runApp(
+    RefenaScope.withContainer(
+      container: container,
+      child: TranslationProvider(
+        child: const LocalSendApp(),
+      ),
     ),
-  ));
+  );
 }
 
 class LocalSendApp extends StatelessWidget {

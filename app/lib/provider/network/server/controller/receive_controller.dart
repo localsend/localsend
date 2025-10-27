@@ -280,17 +280,21 @@ class ReceiveController {
       final message = server.getState().session?.message;
       if (message != null) {
         // Message already received
-        await server.ref.redux(receiveHistoryProvider).dispatchAsync(AddHistoryEntryAction(
-              entryId: const Uuid().v4(),
-              fileName: message,
-              fileType: FileType.text,
-              path: null,
-              savedToGallery: false,
-              isMessage: true,
-              fileSize: utf8.encode(message).length,
-              senderAlias: server.getState().session!.senderAlias,
-              timestamp: DateTime.now().toUtc(),
-            ));
+        await server.ref
+            .redux(receiveHistoryProvider)
+            .dispatchAsync(
+              AddHistoryEntryAction(
+                entryId: const Uuid().v4(),
+                fileName: message,
+                fileType: FileType.text,
+                path: null,
+                savedToGallery: false,
+                isMessage: true,
+                fileSize: utf8.encode(message).length,
+                senderAlias: server.getState().session!.senderAlias,
+                timestamp: DateTime.now().toUtc(),
+              ),
+            );
       }
 
       final receiveProvider = ViewProvider((ref) {
@@ -389,11 +393,13 @@ class ReceiveController {
 
     if (quickSave) {
       // ignore: use_build_context_synchronously, unawaited_futures
-      Routerino.context.pushImmediately(() => ProgressPage(
-            showAppBar: false,
-            closeSessionOnClose: true,
-            sessionId: sessionId,
-          ));
+      Routerino.context.pushImmediately(
+        () => ProgressPage(
+          showAppBar: false,
+          closeSessionOnClose: true,
+          sessionId: sessionId,
+        ),
+      );
     }
 
     final files = {
@@ -418,11 +424,13 @@ class ReceiveController {
     }
 
     if (v2) {
-      return await request.respondJson(200,
-          body: PrepareUploadResponseDto(
-            sessionId: sessionId,
-            files: files.cast(),
-          ).toJson());
+      return await request.respondJson(
+        200,
+        body: PrepareUploadResponseDto(
+          sessionId: sessionId,
+          files: files.cast(),
+        ).toJson(),
+      );
     }
 
     return await request.respondJson(200, body: files);
@@ -474,7 +482,8 @@ class ReceiveController {
     server.setState(
       (oldState) => oldState?.copyWith(
         session: receiveState.copyWith(
-          files: {...receiveState.files}..update(
+          files: {...receiveState.files}
+            ..update(
               fileId,
               (_) => receivingFile.copyWith(
                 status: FileStatus.sending,
@@ -512,7 +521,9 @@ class ReceiveController {
         lastAccessed: receivingFile.file.metadata?.lastAccessed,
         onProgress: (savedBytes) {
           if (receivingFile.file.size != 0) {
-            server.ref.notifier(progressProvider).setProgress(
+            server.ref
+                .notifier(progressProvider)
+                .setProgress(
                   sessionId: receiveState.sessionId,
                   fileId: fileId,
                   progress: savedBytes / receivingFile.file.size,
@@ -536,17 +547,21 @@ class ReceiveController {
       );
 
       // Track it in history
-      await server.ref.redux(receiveHistoryProvider).dispatchAsync(AddHistoryEntryAction(
-            entryId: fileId,
-            fileName: receivingFile.desiredName!,
-            fileType: receivingFile.file.fileType,
-            path: saveToGallery ? null : destinationPath,
-            savedToGallery: saveToGallery,
-            isMessage: false,
-            fileSize: receivingFile.file.size,
-            senderAlias: receiveState.senderAlias,
-            timestamp: DateTime.now().toUtc(),
-          ));
+      await server.ref
+          .redux(receiveHistoryProvider)
+          .dispatchAsync(
+            AddHistoryEntryAction(
+              entryId: fileId,
+              fileName: receivingFile.desiredName!,
+              fileType: receivingFile.file.fileType,
+              path: saveToGallery ? null : destinationPath,
+              savedToGallery: saveToGallery,
+              isMessage: false,
+              fileSize: receivingFile.file.size,
+              senderAlias: receiveState.senderAlias,
+              timestamp: DateTime.now().toUtc(),
+            ),
+          );
 
       _logger.info('Saved ${receivingFile.file.fileName}.');
     } catch (e, st) {
@@ -564,7 +579,9 @@ class ReceiveController {
       _logger.severe('Failed to save file', e, st);
     }
 
-    server.ref.notifier(progressProvider).setProgress(
+    server.ref
+        .notifier(progressProvider)
+        .setProgress(
           sessionId: receiveState.sessionId,
           fileId: fileId,
           progress: 1,
@@ -694,7 +711,9 @@ class ReceiveController {
         return await request.respondJson(403, message: 'No permission');
       }
 
-      server.ref.notifier(sendProvider).cancelSessionByReceiver(
+      server.ref
+          .notifier(sendProvider)
+          .cancelSessionByReceiver(
             sendState.sessionId,
           );
       return await request.respondJson(200);
@@ -826,12 +845,14 @@ void _cancelBySender(ServerUtils server) {
     Routerino.context.popUntil(ReceivePage);
   }
 
-  server.setState((oldState) => oldState?.copyWith(
-        session: oldState.session?.copyWith(
-          status: SessionStatus.canceledBySender,
-          endTime: DateTime.now().millisecondsSinceEpoch,
-        ),
-      ));
+  server.setState(
+    (oldState) => oldState?.copyWith(
+      session: oldState.session?.copyWith(
+        status: SessionStatus.canceledBySender,
+        endTime: DateTime.now().millisecondsSinceEpoch,
+      ),
+    ),
+  );
 }
 
 extension on ReceiveSessionState {
@@ -843,7 +864,8 @@ extension on ReceiveSessionState {
     required String? errorMessage,
   }) {
     return copyWith(
-      files: {...files}..update(
+      files: {...files}
+        ..update(
           fileId,
           (file) => file.copyWith(
             status: status,

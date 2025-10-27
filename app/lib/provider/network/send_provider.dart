@@ -72,38 +72,42 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
       background: background,
       status: SessionStatus.waiting,
       target: target,
-      files: Map.fromEntries(await Future.wait(files.map((file) async {
-        final id = _uuid.v4();
-        return MapEntry(
-          id,
-          SendingFile(
-            file: FileDto(
-              id: id,
-              fileName: file.name,
-              size: file.size,
-              fileType: file.fileType,
-              hash: null,
-              preview: files.length == 1 && files.first.fileType == FileType.text && files.first.bytes != null
-                  ? utf8.decode(files.first.bytes!) // send simple message by embedding it into the preview
-                  : null,
-              metadata: file.lastModified != null || file.lastAccessed != null
-                  ? FileMetadata(
-                      lastModified: file.lastModified,
-                      lastAccessed: file.lastAccessed,
-                    )
-                  : null,
-              legacy: target.version == '1.0',
-            ),
-            status: FileStatus.queue,
-            token: null,
-            thumbnail: file.thumbnail,
-            asset: file.asset,
-            path: file.path,
-            bytes: file.bytes,
-            errorMessage: null,
-          ),
-        );
-      }))),
+      files: Map.fromEntries(
+        await Future.wait(
+          files.map((file) async {
+            final id = _uuid.v4();
+            return MapEntry(
+              id,
+              SendingFile(
+                file: FileDto(
+                  id: id,
+                  fileName: file.name,
+                  size: file.size,
+                  fileType: file.fileType,
+                  hash: null,
+                  preview: files.length == 1 && files.first.fileType == FileType.text && files.first.bytes != null
+                      ? utf8.decode(files.first.bytes!) // send simple message by embedding it into the preview
+                      : null,
+                  metadata: file.lastModified != null || file.lastAccessed != null
+                      ? FileMetadata(
+                          lastModified: file.lastModified,
+                          lastAccessed: file.lastAccessed,
+                        )
+                      : null,
+                  legacy: target.version == '1.0',
+                ),
+                status: FileStatus.queue,
+                token: null,
+                thumbnail: file.thumbnail,
+                asset: file.asset,
+                path: file.path,
+                bytes: file.bytes,
+                errorMessage: null,
+              ),
+            );
+          }),
+        ),
+      ),
       startTime: null,
       endTime: null,
       sendingTasks: [],
@@ -430,33 +434,41 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
       state: (s) => s?.withFileStatus(file.file.id, FileStatus.sending, null),
     );
 
-    final taskResult = ref.redux(parentIsolateProvider).dispatchTakeResult(IsolateHttpUploadAction(
-          isolateIndex: isolateIndex,
-          remoteSessionId: remoteSessionId,
-          remoteFileToken: token,
-          fileId: file.file.id,
-          filePath: file.path,
-          fileBytes: file.bytes,
-          mime: file.file.lookupMime(),
-          fileSize: file.file.size,
-          device: target,
-        ));
+    final taskResult = ref
+        .redux(parentIsolateProvider)
+        .dispatchTakeResult(
+          IsolateHttpUploadAction(
+            isolateIndex: isolateIndex,
+            remoteSessionId: remoteSessionId,
+            remoteFileToken: token,
+            fileId: file.file.id,
+            filePath: file.path,
+            fileBytes: file.bytes,
+            mime: file.file.lookupMime(),
+            fileSize: file.file.size,
+            device: target,
+          ),
+        );
 
     String? fileError;
     try {
       state = state.updateSession(
         sessionId: sessionId,
-        state: (s) => s?.copyWith(sendingTasks: [
-          ...?s.sendingTasks,
-          SendingTask(
-            isolateIndex: isolateIndex,
-            taskId: taskResult.taskId,
-          ),
-        ]),
+        state: (s) => s?.copyWith(
+          sendingTasks: [
+            ...?s.sendingTasks,
+            SendingTask(
+              isolateIndex: isolateIndex,
+              taskId: taskResult.taskId,
+            ),
+          ],
+        ),
       );
 
       await for (final progress in taskResult.progress) {
-        ref.notifier(progressProvider).setProgress(
+        ref
+            .notifier(progressProvider)
+            .setProgress(
               sessionId: sessionId,
               fileId: file.file.id,
               progress: progress,
@@ -464,7 +476,9 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
       }
 
       // set progress to 100% when successfully finished
-      ref.notifier(progressProvider).setProgress(
+      ref
+          .notifier(progressProvider)
+          .setProgress(
             sessionId: sessionId,
             fileId: file.file.id,
             progress: 1,
@@ -476,7 +490,8 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
       state = state.updateSession(
         sessionId: sessionId,
         state: (s) => s?.copyWith(
-            sendingTasks: s.sendingTasks?.where((task) => !(task.isolateIndex == isolateIndex && task.taskId == taskResult.taskId)).toList()),
+          sendingTasks: s.sendingTasks?.where((task) => !(task.isolateIndex == isolateIndex && task.taskId == taskResult.taskId)).toList(),
+        ),
       );
     }
 
@@ -539,10 +554,14 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
 
   void _cancelRunningRequests(SendSessionState state) {
     for (final task in state.sendingTasks ?? <SendingTask>[]) {
-      ref.redux(parentIsolateProvider).dispatch(IsolateHttpUploadCancelAction(
-            isolateIndex: task.isolateIndex,
-            taskId: task.taskId,
-          ));
+      ref
+          .redux(parentIsolateProvider)
+          .dispatch(
+            IsolateHttpUploadCancelAction(
+              isolateIndex: task.isolateIndex,
+              taskId: task.taskId,
+            ),
+          );
     }
   }
 
@@ -565,7 +584,10 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
   }
 
   void setBackground(String sessionId, bool background) {
-    state = state.updateSession(sessionId: sessionId, state: (s) => s?.copyWith(background: background));
+    state = state.updateSession(
+      sessionId: sessionId,
+      state: (s) => s?.copyWith(background: background),
+    );
   }
 }
 
@@ -594,7 +616,8 @@ extension on Map<String, SendSessionState> {
 extension on SendSessionState {
   SendSessionState withFileStatus(String fileId, FileStatus status, String? errorMessage) {
     return copyWith(
-      files: {...files}..update(
+      files: {...files}
+        ..update(
           fileId,
           (file) => file.copyWith(
             status: status,

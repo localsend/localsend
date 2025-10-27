@@ -23,8 +23,7 @@ class WebSendFileMapper extends ClassMapperBase<WebSendFile> {
   static FileDto _$file(WebSendFile v) => v.file;
   static const Field<WebSendFile, FileDto> _f$file = Field('file', _$file);
   static AssetEntity? _$asset(WebSendFile v) => v.asset;
-  static const Field<WebSendFile, AssetEntity> _f$asset =
-      Field('asset', _$asset);
+  static const Field<WebSendFile, AssetEntity> _f$asset = Field('asset', _$asset);
   static String? _$path(WebSendFile v) => v.path;
   static const Field<WebSendFile, String> _f$path = Field('path', _$path);
   static List<int>? _$bytes(WebSendFile v) => v.bytes;
@@ -39,11 +38,7 @@ class WebSendFileMapper extends ClassMapperBase<WebSendFile> {
   };
 
   static WebSendFile _instantiate(DecodingData data) {
-    return WebSendFile(
-        file: data.dec(_f$file),
-        asset: data.dec(_f$asset),
-        path: data.dec(_f$path),
-        bytes: data.dec(_f$bytes));
+    return WebSendFile(file: data.dec(_f$file), asset: data.dec(_f$asset), path: data.dec(_f$path), bytes: data.dec(_f$bytes));
   }
 
   @override
@@ -60,27 +55,22 @@ class WebSendFileMapper extends ClassMapperBase<WebSendFile> {
 
 mixin WebSendFileMappable {
   String serialize() {
-    return WebSendFileMapper.ensureInitialized()
-        .encodeJson<WebSendFile>(this as WebSendFile);
+    return WebSendFileMapper.ensureInitialized().encodeJson<WebSendFile>(this as WebSendFile);
   }
 
   Map<String, dynamic> toJson() {
-    return WebSendFileMapper.ensureInitialized()
-        .encodeMap<WebSendFile>(this as WebSendFile);
+    return WebSendFileMapper.ensureInitialized().encodeMap<WebSendFile>(this as WebSendFile);
   }
 
-  WebSendFileCopyWith<WebSendFile, WebSendFile, WebSendFile> get copyWith =>
-      _WebSendFileCopyWithImpl(this as WebSendFile, $identity, $identity);
+  WebSendFileCopyWith<WebSendFile, WebSendFile, WebSendFile> get copyWith => _WebSendFileCopyWithImpl(this as WebSendFile, $identity, $identity);
   @override
   String toString() {
-    return WebSendFileMapper.ensureInitialized()
-        .stringifyValue(this as WebSendFile);
+    return WebSendFileMapper.ensureInitialized().stringifyValue(this as WebSendFile);
   }
 
   @override
   bool operator ==(Object other) {
-    return WebSendFileMapper.ensureInitialized()
-        .equalsValue(this as WebSendFile, other);
+    return WebSendFileMapper.ensureInitialized().equalsValue(this as WebSendFile, other);
   }
 
   @override
@@ -89,54 +79,41 @@ mixin WebSendFileMappable {
   }
 }
 
-extension WebSendFileValueCopy<$R, $Out>
-    on ObjectCopyWith<$R, WebSendFile, $Out> {
-  WebSendFileCopyWith<$R, WebSendFile, $Out> get $asWebSendFile =>
-      $base.as((v, t, t2) => _WebSendFileCopyWithImpl(v, t, t2));
+extension WebSendFileValueCopy<$R, $Out> on ObjectCopyWith<$R, WebSendFile, $Out> {
+  WebSendFileCopyWith<$R, WebSendFile, $Out> get $asWebSendFile => $base.as((v, t, t2) => _WebSendFileCopyWithImpl(v, t, t2));
 }
 
-abstract class WebSendFileCopyWith<$R, $In extends WebSendFile, $Out>
-    implements ClassCopyWith<$R, $In, $Out> {
+abstract class WebSendFileCopyWith<$R, $In extends WebSendFile, $Out> implements ClassCopyWith<$R, $In, $Out> {
   ListCopyWith<$R, int, ObjectCopyWith<$R, int, int>>? get bytes;
   $R call({FileDto? file, AssetEntity? asset, String? path, List<int>? bytes});
   WebSendFileCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
 
-class _WebSendFileCopyWithImpl<$R, $Out>
-    extends ClassCopyWithBase<$R, WebSendFile, $Out>
-    implements WebSendFileCopyWith<$R, WebSendFile, $Out> {
+class _WebSendFileCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, WebSendFile, $Out> implements WebSendFileCopyWith<$R, WebSendFile, $Out> {
   _WebSendFileCopyWithImpl(super.value, super.then, super.then2);
 
   @override
-  late final ClassMapperBase<WebSendFile> $mapper =
-      WebSendFileMapper.ensureInitialized();
+  late final ClassMapperBase<WebSendFile> $mapper = WebSendFileMapper.ensureInitialized();
   @override
   ListCopyWith<$R, int, ObjectCopyWith<$R, int, int>>? get bytes =>
-      $value.bytes != null
-          ? ListCopyWith($value.bytes!,
-              (v, t) => ObjectCopyWith(v, $identity, t), (v) => call(bytes: v))
-          : null;
+      $value.bytes != null ? ListCopyWith($value.bytes!, (v, t) => ObjectCopyWith(v, $identity, t), (v) => call(bytes: v)) : null;
   @override
-  $R call(
-          {FileDto? file,
-          Object? asset = $none,
-          Object? path = $none,
-          Object? bytes = $none}) =>
-      $apply(FieldCopyWithData({
-        if (file != null) #file: file,
-        if (asset != $none) #asset: asset,
-        if (path != $none) #path: path,
-        if (bytes != $none) #bytes: bytes
-      }));
+  $R call({FileDto? file, Object? asset = $none, Object? path = $none, Object? bytes = $none}) => $apply(
+    FieldCopyWithData({
+      if (file != null) #file: file,
+      if (asset != $none) #asset: asset,
+      if (path != $none) #path: path,
+      if (bytes != $none) #bytes: bytes,
+    }),
+  );
   @override
   WebSendFile $make(CopyWithData data) => WebSendFile(
-      file: data.get(#file, or: $value.file),
-      asset: data.get(#asset, or: $value.asset),
-      path: data.get(#path, or: $value.path),
-      bytes: data.get(#bytes, or: $value.bytes));
+    file: data.get(#file, or: $value.file),
+    asset: data.get(#asset, or: $value.asset),
+    path: data.get(#path, or: $value.path),
+    bytes: data.get(#bytes, or: $value.bytes),
+  );
 
   @override
-  WebSendFileCopyWith<$R2, WebSendFile, $Out2> $chain<$R2, $Out2>(
-          Then<$Out2, $R2> t) =>
-      _WebSendFileCopyWithImpl($value, $cast, t);
+  WebSendFileCopyWith<$R2, WebSendFile, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t) => _WebSendFileCopyWithImpl($value, $cast, t);
 }

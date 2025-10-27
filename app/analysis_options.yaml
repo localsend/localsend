@@ -19,6 +19,7 @@ analyzer:
 
 formatter:
   trailing_commas: preserve
+  page_width: 150
 
 linter:
   rules:

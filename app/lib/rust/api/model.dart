@@ -14,7 +14,6 @@ enum DeviceType {
   web,
   headless,
   server,
-  ;
 }
 
 class FileDto {
@@ -37,14 +36,7 @@ class FileDto {
   });
 
   @override
-  int get hashCode =>
-      id.hashCode ^
-      fileName.hashCode ^
-      size.hashCode ^
-      fileType.hashCode ^
-      sha256.hashCode ^
-      preview.hashCode ^
-      metadata.hashCode;
+  int get hashCode => id.hashCode ^ fileName.hashCode ^ size.hashCode ^ fileType.hashCode ^ sha256.hashCode ^ preview.hashCode ^ metadata.hashCode;
 
   @override
   bool operator ==(Object other) =>
@@ -74,9 +66,5 @@ class FileMetadata {
 
   @override
   bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is FileMetadata &&
-          runtimeType == other.runtimeType &&
-          modified == other.modified &&
-          accessed == other.accessed;
+      identical(this, other) || other is FileMetadata && runtimeType == other.runtimeType && modified == other.modified && accessed == other.accessed;
 }

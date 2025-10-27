@@ -11,7 +11,8 @@ Future<bool> enableContextMenu() async {
   }
 
   try {
-    final String script = '''
+    final String script =
+        '''
 \$TargetPath = "${Platform.resolvedExecutable}"
 \$ShortcutFile = "${_getWindowsFilePath(_windowsFileName)}"
 \$WScriptShell = New-Object -ComObject WScript.Shell

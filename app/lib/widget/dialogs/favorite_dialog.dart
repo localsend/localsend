@@ -31,11 +31,15 @@ class _FavoritesDialogState extends State<FavoritesDialog> with Refena {
     final https = ref.read(settingsProvider).https;
 
     try {
-      final result = await ref.redux(parentIsolateProvider).dispatchAsyncTakeResult(IsolateTargetHttpDiscoveryAction(
-            ip: favorite.ip,
-            port: favorite.port,
-            https: https,
-          ));
+      final result = await ref
+          .redux(parentIsolateProvider)
+          .dispatchAsyncTakeResult(
+            IsolateTargetHttpDiscoveryAction(
+              ip: favorite.ip,
+              port: favorite.port,
+              https: https,
+            ),
+          );
 
       if (mounted) {
         context.pop(result);
@@ -49,7 +53,10 @@ class _FavoritesDialogState extends State<FavoritesDialog> with Refena {
   }
 
   Future<void> _showDeviceDialog([FavoriteDevice? favorite]) async {
-    await showDialog(context: context, builder: (_) => FavoriteEditDialog(favorite: favorite));
+    await showDialog(
+      context: context,
+      builder: (_) => FavoriteEditDialog(favorite: favorite),
+    );
   }
 
   @override

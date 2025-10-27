@@ -89,7 +89,7 @@ class ReceiveOptionsPage extends StatelessWidget {
                       Expanded(
                         child: Text(t.receiveOptionsPage.saveToGalleryOff, style: const TextStyle(color: Colors.grey)),
                       ),
-                    ]
+                    ],
                   ],
                 ),
               ],
@@ -141,10 +141,11 @@ class ReceiveOptionsPage extends StatelessWidget {
                         Text(
                           '${!selectState.containsKey(file.id) ? t.general.skipped : (selectState[file.id] == file.fileName ? t.general.unchanged : t.general.renamed)} - ${file.size.asReadableFileSize}',
                           style: TextStyle(
-                              color: !selectState.containsKey(file.id)
-                                  ? Colors.grey
-                                  : (selectState[file.id] == file.fileName ? Theme.of(context).colorScheme.onSecondaryContainer : Colors.orange)),
-                        )
+                            color: !selectState.containsKey(file.id)
+                                ? Colors.grey
+                                : (selectState[file.id] == file.fileName ? Theme.of(context).colorScheme.onSecondaryContainer : Colors.orange),
+                          ),
+                        ),
                       ],
                     ),
                   ),

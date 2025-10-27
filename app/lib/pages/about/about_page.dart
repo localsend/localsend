@@ -47,17 +47,21 @@ class AboutPage extends StatelessWidget {
           Text(t.aboutPage.description.join('\n\n')),
           const SizedBox(height: 20),
           Text(t.aboutPage.author, style: const TextStyle(fontWeight: FontWeight.bold)),
-          Text.rich(_buildContributor(
-            label: 'Tien Do Nam (@Tienisto)',
-            primaryColor: primaryColor,
-          )),
+          Text.rich(
+            _buildContributor(
+              label: 'Tien Do Nam (@Tienisto)',
+              primaryColor: primaryColor,
+            ),
+          ),
           const SizedBox(height: 20),
           Text(t.aboutPage.contributors, style: const TextStyle(fontWeight: FontWeight.bold)),
           ..._contributors.map((contributor) {
-            return Text.rich(_buildContributor(
-              label: contributor,
-              primaryColor: primaryColor,
-            ));
+            return Text.rich(
+              _buildContributor(
+                label: contributor,
+                primaryColor: primaryColor,
+              ),
+            );
           }),
           const SizedBox(height: 20),
           Text(t.aboutPage.packagers, style: const TextStyle(fontWeight: FontWeight.bold)),

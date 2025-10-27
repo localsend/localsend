@@ -22,17 +22,19 @@ void main() {
 
     final entry = _createEntry('1');
 
-    await service.dispatchAsync(AddHistoryEntryAction(
-      entryId: entry.id,
-      fileName: entry.fileName,
-      fileType: entry.fileType,
-      path: entry.path,
-      savedToGallery: entry.savedToGallery,
-      isMessage: entry.isMessage,
-      fileSize: entry.fileSize,
-      senderAlias: entry.senderAlias,
-      timestamp: entry.timestamp,
-    ));
+    await service.dispatchAsync(
+      AddHistoryEntryAction(
+        entryId: entry.id,
+        fileName: entry.fileName,
+        fileType: entry.fileType,
+        path: entry.path,
+        savedToGallery: entry.savedToGallery,
+        isMessage: entry.isMessage,
+        fileSize: entry.fileSize,
+        senderAlias: entry.senderAlias,
+        timestamp: entry.timestamp,
+      ),
+    );
 
     expect(service.state, [entry]);
     verify(persistenceService.setReceiveHistory([entry]));
@@ -47,17 +49,19 @@ void main() {
 
     final entry = _createEntry('1');
 
-    await service.dispatchAsync(AddHistoryEntryAction(
-      entryId: entry.id,
-      fileName: entry.fileName,
-      fileType: entry.fileType,
-      path: entry.path,
-      savedToGallery: entry.savedToGallery,
-      isMessage: entry.isMessage,
-      fileSize: entry.fileSize,
-      senderAlias: entry.senderAlias,
-      timestamp: entry.timestamp,
-    ));
+    await service.dispatchAsync(
+      AddHistoryEntryAction(
+        entryId: entry.id,
+        fileName: entry.fileName,
+        fileType: entry.fileType,
+        path: entry.path,
+        savedToGallery: entry.savedToGallery,
+        isMessage: entry.isMessage,
+        fileSize: entry.fileSize,
+        senderAlias: entry.senderAlias,
+        timestamp: entry.timestamp,
+      ),
+    );
 
     expect(service.state, []);
     verifyNever(persistenceService.setReceiveHistory(any));
@@ -75,17 +79,19 @@ void main() {
 
     final entry = _createEntry('AAA');
 
-    await service.dispatchAsync(AddHistoryEntryAction(
-      entryId: entry.id,
-      fileName: entry.fileName,
-      fileType: entry.fileType,
-      path: entry.path,
-      savedToGallery: entry.savedToGallery,
-      isMessage: entry.isMessage,
-      fileSize: entry.fileSize,
-      senderAlias: entry.senderAlias,
-      timestamp: entry.timestamp,
-    ));
+    await service.dispatchAsync(
+      AddHistoryEntryAction(
+        entryId: entry.id,
+        fileName: entry.fileName,
+        fileType: entry.fileType,
+        path: entry.path,
+        savedToGallery: entry.savedToGallery,
+        isMessage: entry.isMessage,
+        fileSize: entry.fileSize,
+        senderAlias: entry.senderAlias,
+        timestamp: entry.timestamp,
+      ),
+    );
 
     expect(service.state.length, 30);
     expect(service.state.first, entry);
@@ -113,10 +119,12 @@ void main() {
       _createEntry('1'),
       _createEntry('3'),
     ]);
-    verify(persistenceService.setReceiveHistory([
-      _createEntry('1'),
-      _createEntry('3'),
-    ]));
+    verify(
+      persistenceService.setReceiveHistory([
+        _createEntry('1'),
+        _createEntry('3'),
+      ]),
+    );
   });
 
   test('Should not remove an entry if not found', () async {

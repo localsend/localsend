@@ -55,9 +55,11 @@ class AddMessageAction extends ReduxAction<SelectedSendingFilesNotifier, List<Cr
       lastAccessed: null,
     );
 
-    return List.unmodifiable([
-      ...state,
-    ]..insert(index ?? state.length, file));
+    return List.unmodifiable(
+      [
+        ...state,
+      ]..insert(index ?? state.length, file),
+    );
   }
 }
 
@@ -302,10 +304,12 @@ class LoadSelectionFromArgsAction extends AsyncReduxActionWithResult<SelectedSen
         if (message != null && message.trim().isNotEmpty) {
           dispatch(AddMessageAction(message: message));
         }
-        await dispatchAsync(AddFilesAction(
-              files: payload.attachments?.where((a) => a != null).cast<SharedAttachment>() ?? <SharedAttachment>[],
-              converter: CrossFileConverters.convertSharedAttachment,
-            ));
+        await dispatchAsync(
+          AddFilesAction(
+            files: payload.attachments?.where((a) => a != null).cast<SharedAttachment>() ?? <SharedAttachment>[],
+            converter: CrossFileConverters.convertSharedAttachment,
+          ),
+        );
         filesAdded = true;
         continue;
       }
@@ -317,10 +321,12 @@ class LoadSelectionFromArgsAction extends AsyncReduxActionWithResult<SelectedSen
       final directory = Directory(arg);
 
       if (file.existsSync()) {
-        await dispatchAsync(AddFilesAction(
-          files: [file],
-          converter: CrossFileConverters.convertFile,
-        ));
+        await dispatchAsync(
+          AddFilesAction(
+            files: [file],
+            converter: CrossFileConverters.convertFile,
+          ),
+        );
         filesAdded = true;
       } else if (directory.existsSync()) {
         await dispatchAsync(AddDirectoryAction(arg));
