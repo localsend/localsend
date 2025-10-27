@@ -495,30 +495,19 @@ class ReceiveController {
       ),
     );
     final fileType = receivingFile.file.fileType;
-    final saveToGallery = receiveState.saveToGallery && (fileType == FileType.image || fileType == FileType.video);
+    final shouldSaveToGallery = receiveState.saveToGallery && (fileType == FileType.image || fileType == FileType.video);
 
-    String? outerDestinationPath;
+    String? filePath;
+    bool savedToGallery = false;
     try {
-      final (destinationPath, documentUri, finalName) = await digestFilePathAndPrepareDirectory(
-        parentDirectory: saveToGallery ? receiveState.cacheDirectory : receiveState.destinationDirectory,
+      _logger.info('Saving ${receivingFile.file.fileName}');
+
+      (savedToGallery, filePath) = await saveFile(
+        destinationDirectory: receiveState.destinationDirectory,
         fileName: receivingFile.desiredName!,
-        createdDirectories: receiveState.createdDirectories,
-      );
-
-      outerDestinationPath = destinationPath;
-
-      _logger.info('Saving ${receivingFile.file.fileName} to $destinationPath');
-
-      await saveFile(
-        destinationPath: destinationPath,
-        documentUri: documentUri,
-        name: finalName,
-        saveToGallery: saveToGallery,
+        saveToGallery: shouldSaveToGallery,
         isImage: fileType == FileType.image,
         stream: request,
-        androidSdkInt: server.ref.read(deviceInfoProvider).androidSdkInt,
-        lastModified: receivingFile.file.metadata?.lastModified,
-        lastAccessed: receivingFile.file.metadata?.lastAccessed,
         onProgress: (savedBytes) {
           if (receivingFile.file.size != 0) {
             server.ref
@@ -530,6 +519,10 @@ class ReceiveController {
                 );
           }
         },
+        lastModified: receivingFile.file.metadata?.lastModified,
+        lastAccessed: receivingFile.file.metadata?.lastAccessed,
+        androidSdkInt: server.ref.read(deviceInfoProvider).androidSdkInt,
+        createdDirectories: receiveState.createdDirectories,
       );
       if (server.getState().session == null || !allowedStates.contains(server.getState().session!.status)) {
         return await request.respondJson(500, message: 'Server is in invalid state');
@@ -539,8 +532,8 @@ class ReceiveController {
           session: oldState.session?.fileFinished(
             fileId: fileId,
             status: FileStatus.finished,
-            path: saveToGallery ? null : destinationPath,
-            savedToGallery: saveToGallery,
+            path: filePath,
+            savedToGallery: savedToGallery,
             errorMessage: null,
           ),
         ),
@@ -554,8 +547,8 @@ class ReceiveController {
               entryId: fileId,
               fileName: receivingFile.desiredName!,
               fileType: receivingFile.file.fileType,
-              path: saveToGallery ? null : destinationPath,
-              savedToGallery: saveToGallery,
+              path: filePath,
+              savedToGallery: savedToGallery,
               isMessage: false,
               fileSize: receivingFile.file.size,
               senderAlias: receiveState.senderAlias,
@@ -622,13 +615,13 @@ class ReceiveController {
           Routerino.context.pushRootImmediately(() => const HomePage(initialTab: HomeTab.receive, appStart: false));
 
           // open the dialog to open file instantly
-          if (outerDestinationPath != null && outerDestinationPath.isNotEmpty) {
+          if (filePath != null && filePath.isNotEmpty) {
             // ignore: discarded_futures
             OpenFileDialog.open(
               Routerino.context, // ignore: use_build_context_synchronously
-              filePath: outerDestinationPath,
+              filePath: filePath,
               fileType: fileType,
-              openGallery: saveToGallery,
+              openGallery: savedToGallery,
             );
           }
         });
