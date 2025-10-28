@@ -13,7 +13,7 @@
 - fix(macos): prevent Dock icon from briefly appearing during autostart when "Start hidden" is enabled (@ShlomoCode, https://github.com/localsend/localsend/pull/2449)
 - feat(macos): enable Dock icon text-drop even when the app is not running (@ShlomoCode, https://github.com/localsend/localsend/pull/2712)
 - feat(macos): borderless window design (@ReallLucky, https://github.com/localsend/localsend/pull/2416)
-- feat(macos): add Hardened Runtime to Mac App Store version as well to improve security (@ShlomoCode, https://github.com/localsend/localsend/pull/2716)
+- feat(macos): enable Hardened Runtime for the Mac App Store version as well to improve security (@ShlomoCode, https://github.com/localsend/localsend/pull/2716)
 - fix(macos): Dock icon drag-and-drop and Share Extension working again (@ShlomoCode, https://github.com/localsend/localsend/pull/2711)
 - fix(android): files not downloading when using "Share via link" (@ShlomoCode, https://github.com/localsend/localsend/pull/2756)
 - fix(ios, android): prevent transfer error by saving unsupported media formats to folder instead of gallery (@ShlomoCode, https://github.com/localsend/localsend/pull/2766)
