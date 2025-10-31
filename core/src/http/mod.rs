@@ -1,9 +1,9 @@
-use serde::{Deserialize, Serialize};
 use thiserror::Error;
 
 pub mod client;
-pub mod server;
 pub mod dto;
+pub mod server;
+pub mod state;
 
 #[derive(Debug, Error)]
 #[error("{status};{message:?}")]

@@ -1,6 +1,4 @@
-use crate::model::discovery::RegisterDto;
 use serde::{Deserialize, Serialize};
-use std::collections::HashMap;
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
@@ -23,18 +21,4 @@ pub struct FileMetadata {
     pub modified: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub accessed: Option<String>,
-}
-
-#[derive(Debug, Clone, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
-pub struct PrepareUploadRequestDto {
-    pub info: RegisterDto,
-    pub files: HashMap<String, FileDto>,
-}
-
-#[derive(Debug, Clone, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
-pub struct PrepareUploadResponseDto {
-    pub session_id: String,
-    pub files: HashMap<String, String>,
 }
