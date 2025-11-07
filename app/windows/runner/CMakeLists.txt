@@ -11,11 +11,15 @@ add_executable(${BINARY_NAME} WIN32
   "main.cpp"
   "utils.cpp"
   "win32_window.cpp"
-  "winrt_ext.cpp"
   "${FLUTTER_MANAGED_DIR}/generated_plugin_registrant.cc"
   "Runner.rc"
   "runner.exe.manifest"
 )
+
+# Create a separate static library for winrt_ext.cpp to avoid exception handling conflicts
+add_library(winrt_support STATIC "winrt_ext.cpp")
+target_compile_options(winrt_support PRIVATE /EHsc)
+target_link_libraries(winrt_support PRIVATE "WindowsApp.lib")
 
 # Apply the standard set of build settings. This can be removed for applications
 # that need different build settings.
@@ -35,6 +39,7 @@ target_compile_definitions(${BINARY_NAME} PRIVATE "NOMINMAX")
 # dependencies here.
 target_link_libraries(${BINARY_NAME} PRIVATE flutter flutter_wrapper_app)
 target_link_libraries(${BINARY_NAME} PRIVATE "dwmapi.lib")
+target_link_libraries(${BINARY_NAME} PRIVATE winrt_support)
 target_include_directories(${BINARY_NAME} PRIVATE "${CMAKE_SOURCE_DIR}")
 
 # Run the Flutter tool portions of the build. This must not be removed.
