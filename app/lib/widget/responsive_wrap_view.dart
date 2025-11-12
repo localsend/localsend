@@ -24,7 +24,6 @@ class ResponsiveWrapView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Apply the outer padding first
     return Padding(
       padding: EdgeInsets.symmetric(
         horizontal: outerHorizontalPadding,
