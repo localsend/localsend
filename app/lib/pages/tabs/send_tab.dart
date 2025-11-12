@@ -25,7 +25,7 @@ import 'package:localsend_app/widget/custom_icon_button.dart';
 import 'package:localsend_app/widget/dialogs/add_file_dialog.dart';
 import 'package:localsend_app/widget/dialogs/send_mode_help_dialog.dart';
 import 'package:localsend_app/widget/file_thumbnail.dart';
-import 'package:localsend_app/widget/horizontal_clip_list_view.dart';
+import 'package:localsend_app/widget/responsive_wrap_view.dart';
 import 'package:localsend_app/widget/list_tile/device_list_tile.dart';
 import 'package:localsend_app/widget/list_tile/device_placeholder_list_tile.dart';
 import 'package:localsend_app/widget/opacity_slideshow.dart';
@@ -64,7 +64,7 @@ class SendTab extends StatelessWidget {
                       style: Theme.of(context).textTheme.titleMedium,
                     ),
                   ),
-                  HorizontalClipListView(
+                  ResponsiveWrapView(
                     outerHorizontalPadding: 15,
                     outerVerticalPadding: 10,
                     childPadding: 10,
