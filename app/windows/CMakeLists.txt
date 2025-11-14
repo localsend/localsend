@@ -74,12 +74,29 @@ set(INSTALL_BUNDLE_LIB_DIR "${CMAKE_INSTALL_PREFIX}")
 install(TARGETS ${BINARY_NAME} RUNTIME DESTINATION "${CMAKE_INSTALL_PREFIX}"
   COMPONENT Runtime)
 
+# Install MSVC runtime dependencies
+# Find and copy MSVC runtime DLLs
+set(CMAKE_INSTALL_SYSTEM_RUNTIME_LIBS_SKIP TRUE)
+include(InstallRequiredSystemLibraries)
+if(CMAKE_INSTALL_SYSTEM_RUNTIME_LIBS)
+  install(FILES ${CMAKE_INSTALL_SYSTEM_RUNTIME_LIBS}
+    DESTINATION "${CMAKE_INSTALL_PREFIX}"
+    COMPONENT Runtime)
+endif()
+
 install(FILES
   "${BINARY_NAME}.exe.manifest"
-  "localsend_msix_helper.msix"
-  "install_msix_helper.ps1"
   DESTINATION "${CMAKE_INSTALL_PREFIX}"
   COMPONENT Runtime)
+
+# Install MSIX helper files only if they exist
+if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/localsend_msix_helper.msix")
+  install(FILES "localsend_msix_helper.msix" DESTINATION "${CMAKE_INSTALL_PREFIX}" COMPONENT Runtime)
+endif()
+
+if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/install_msix_helper.ps1")
+  install(FILES "install_msix_helper.ps1" DESTINATION "${CMAKE_INSTALL_PREFIX}" COMPONENT Runtime)
+endif()
 
 install(FILES "${FLUTTER_ICU_DATA_FILE}" DESTINATION "${INSTALL_BUNDLE_DATA_DIR}"
   COMPONENT Runtime)
