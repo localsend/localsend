@@ -22,9 +22,9 @@
     "finished": "Sonlandırıldı",
     "hide": "Gizle",
     "off": "Kapalı",
-    "offline": "Çevrim dışı",
+    "offline": "Çevrimdışı",
     "on": "Açık",
-    "online": "Çevrim içi",
+    "online": "Çevrimiçi",
     "open": "Aç",
     "queue": "Sıra",
     "quickSave": "Hızlı kaydetme",
@@ -81,7 +81,7 @@
       "link": "Link üzerinden paylaşın"
     },
     "sendModeHelp": "Açıklama",
-    "help": "Lütfen hedef cihaz ile aynı wifi ağında olduğunuzdan emin olun.",
+    "help": "Lütfen hedef cihaz ile aynı Wi-Fi ağında olduğunuzdan emin olun.",
     "placeItems": "Paylaşmak istediğiniz dosyayı yerleştiriniz."
   },
   "settingsTab": {
@@ -172,7 +172,7 @@
     },
     "noConnection": {
       "symptom": "Her iki cihaz da birbirini keşfedemez ve dosya paylaşamazlar.",
-      "solution": "Sorun her iki tarafta da var mı? O zaman her iki cihazın da aynı WiFi ağında olduğundan ve aynı yapılandırmayı (bağlantı noktası, çoklu yayın adresi, şifreleme) paylaştığından emin olmanız gerekir. WiFi, katılımcılar arasında iletişime izin vermeyebilir. Bu durumda, bu seçenek yönlendiricide etkinleştirilmelidir."
+      "solution": "Sorun her iki tarafta da var mı? O zaman her iki cihazın da aynı Wi-Fi ağında olduğundan ve aynı yapılandırmayı (bağlantı noktası, çoklu yayın adresi, şifreleme) paylaştığından emin olmanız gerekir. Wi-Fi, katılımcılar arasında iletişime izin vermeyebilir. Bu durumda, bu seçenek yönlendiricide etkinleştirilmelidir."
     }
   },
   "receiveHistoryPage": {
