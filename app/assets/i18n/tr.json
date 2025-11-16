@@ -119,7 +119,8 @@
       "destination": "Hedef klasör",
       "downloads": "(İndirilenler)",
       "saveToGallery": "Medyayı galeriye kaydet",
-      "saveToHistory": "Geçmişe kaydet"
+      "saveToHistory": "Geçmişe kaydet",
+      "quickSaveFromFavorites": "@:general.quickSaveFromFavorites"
     },
     "send": {
       "title": "Gönder",
@@ -140,7 +141,8 @@
       "multicastGroupWarning": "Özel çoklu yayın adresini kullandığınız için diğer cihazlar tarafından algılanamayabilirsiniz.(varsayılan: {defaultMulticast})",
       "network": "Ağ",
       "networkOptions": {
-        "all": "Tümü"
+        "all": "Tümü",
+        "filtered": "Filtrelenmiş"
       },
       "useSystemName": "Sistem adını kullan",
       "generateRandomAlias": "Rastgele takma ad oluştur"
@@ -384,6 +386,14 @@
     "openFile": {
       "title": "Dosya Aç",
       "content": "Alınan dosyayı açmak istiyor musunuz?"
+    },
+    "quickSaveFromFavoritesNotice": {
+      "title": "@:general.quickSaveFromFavorites",
+      "content": [
+        "Dosya istekleri artık sık kullanılanlar listenizdeki cihazlardan otomatik olarak kabul edilmektedir.",
+        "Uyarı! Şu anda bu tamamen güvenli değildir, çünkü favoriler listenizdeki herhangi bir cihazın parmak izine sahip bir bilgisayar korsanı size sınırlama olmaksızın dosya gönderebilir.",
+        "Ancak, bu seçenek yerel ağdaki tüm kullanıcıların size sınırlama olmaksızın dosya göndermesine izin vermekten daha güvenlidir."
+      ]
     }
   },
   "sanitization": {
@@ -441,6 +451,7 @@
     "title": "Ağ Arayüzleri",
     "preview": "Önizle",
     "whitelist": "Beyaz liste",
-    "blacklist": "Kara liste"
+    "blacklist": "Kara liste",
+    "info": "Varsayılan olarak, LocalSend mevcut tüm ağ arayüzlerini kullanır. İstenmeyen ağları buradan hariç tutabilirsiniz. Değişiklikleri uygulamak için sunucuyu yeniden başlatmanız gerekir."
   }
 }
