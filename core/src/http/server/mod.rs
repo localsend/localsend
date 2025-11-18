@@ -6,6 +6,7 @@ mod error;
 use crate::crypto::cert::public_key_from_cert_der;
 use crate::http::dto::ErrorResponse;
 use crate::http::server::client_cert_verifier::CustomClientCertVerifier;
+use crate::http::server::controller::web::WebPageState;
 use crate::http::server::error::AppError;
 use crate::http::state::ClientInfo;
 use bytes::Bytes;
@@ -24,7 +25,6 @@ use std::num::NonZeroUsize;
 use std::ops::Deref;
 use std::sync::Arc;
 use tokio::sync::{oneshot, Mutex};
-use crate::http::server::controller::web::WebPageState;
 
 #[derive(Clone)]
 struct AppState {
@@ -67,6 +67,7 @@ impl LsHttpServer {
         port: u16,
         tls_config: Option<TlsConfig>,
         info: ClientInfo,
+        legacy_enabled: bool,
     ) -> anyhow::Result<LsHttpServer> {
         let ipv4_socket_addr = SocketAddr::new(Ipv4Addr::UNSPECIFIED.into(), port);
         let ipv6_socket_addr = SocketAddr::new(Ipv6Addr::UNSPECIFIED.into(), port);
@@ -79,11 +80,11 @@ impl LsHttpServer {
             let state = state.clone();
             async move {
                 tokio::select! {
-                    _ = start_server_with_addr(ipv4_socket_addr, tls_config.clone(), state.clone()) => {
+                    _ = start_server_with_addr(ipv4_socket_addr, tls_config.clone(), state.clone(), legacy_enabled) => {
                         tracing::info!("Server stopped on: {}", ipv4_socket_addr);
                     }
                     _ = async {
-                        if start_server_with_addr(ipv6_socket_addr, tls_config, state).await.is_err() {
+                        if start_server_with_addr(ipv6_socket_addr, tls_config, state, legacy_enabled).await.is_err() {
                             tracing::warn!("Failed to start server on: {}", ipv6_socket_addr);
 
                             // Keep the future running forever, so we continue using "ipv4 only" even if ipv6 fails.
@@ -124,6 +125,7 @@ async fn start_server_with_addr(
     socket_addr: SocketAddr,
     tls_config: Option<TlsConfig>,
     app_state: AppState,
+    legacy_enabled: bool,
 ) -> anyhow::Result<()> {
     let _ = rustls::crypto::ring::default_provider().install_default();
 
@@ -177,7 +179,7 @@ async fn start_server_with_addr(
                                 req.extensions_mut()
                                     .insert::<RequestClientInfo>(client_info.clone());
                                 req.extensions_mut().insert::<AppState>(app_state.clone());
-                                handle_request(req)
+                                handle_request(req, legacy_enabled)
                             }),
                         )
                         .await
@@ -194,7 +196,7 @@ async fn start_server_with_addr(
                                     },
                                 );
                                 req.extensions_mut().insert::<AppState>(app_state.clone());
-                                handle_request(req)
+                                handle_request(req, legacy_enabled)
                             }),
                         )
                         .await
@@ -251,19 +253,24 @@ impl RequestClientInfo {
     }
 }
 
-async fn handle_request(req: Request<Incoming>) -> Result<Response<Full<Bytes>>, hyper::Error> {
-    Ok(handle_request_inner(req).await.unwrap_or_else(|err| {
-        tracing::error!("Error handling request: {err:?}");
-        JsonResponse {
-            status: err.status,
-            body: ErrorResponse {
-                message: err
-                    .message
-                    .unwrap_or_else(|| "Internal Server Error".to_string()),
-            },
-        }
-        .into_response()
-    }))
+async fn handle_request(
+    req: Request<Incoming>,
+    legacy_enabled: bool,
+) -> Result<Response<Full<Bytes>>, hyper::Error> {
+    Ok(handle_request_inner(req, legacy_enabled)
+        .await
+        .unwrap_or_else(|err| {
+            tracing::error!("Error handling request: {err:?}");
+            JsonResponse {
+                status: err.status,
+                body: ErrorResponse {
+                    message: err
+                        .message
+                        .unwrap_or_else(|| "Internal Server Error".to_string()),
+                },
+            }
+            .into_response()
+        }))
 }
 
 struct JsonResponse<T: Serialize> {
@@ -291,6 +298,7 @@ impl<T: Serialize> JsonResponse<T> {
 
 async fn handle_request_inner(
     mut req: Request<Incoming>,
+    legacy_enabled: bool,
 ) -> Result<Response<Full<Bytes>>, AppError> {
     let Some(state) = req.extensions_mut().remove::<AppState>() else {
         return Err(AppError::status(StatusCode::INTERNAL_SERVER_ERROR, None));
@@ -301,6 +309,50 @@ async fn handle_request_inner(
     };
 
     match (req.method(), req.uri().path()) {
+        (&Method::POST, "/api/localsend/v2/register") => {
+            if !legacy_enabled {
+                return Err(AppError::status(StatusCode::NOT_FOUND, None));
+            }
+
+            Ok(
+                controller::v2::register(req.into_body(), state, client_info)
+                    .await?
+                    .into_response(),
+            )
+        }
+        (&Method::POST, "/api/localsend/v2/prepare-upload") => {
+            if !legacy_enabled {
+                return Err(AppError::status(StatusCode::NOT_FOUND, None));
+            }
+
+            Ok(
+                controller::v2::register(req.into_body(), state, client_info)
+                    .await?
+                    .into_response(),
+            )
+        }
+        (&Method::POST, "/api/localsend/v2/upload") => {
+            if !legacy_enabled {
+                return Err(AppError::status(StatusCode::NOT_FOUND, None));
+            }
+
+            Ok(
+                controller::v2::register(req.into_body(), state, client_info)
+                    .await?
+                    .into_response(),
+            )
+        }
+        (&Method::POST, "/api/localsend/v2/cancel") => {
+            if !legacy_enabled {
+                return Err(AppError::status(StatusCode::NOT_FOUND, None));
+            }
+
+            Ok(
+                controller::v2::register(req.into_body(), state, client_info)
+                    .await?
+                    .into_response(),
+            )
+        }
         (&Method::POST, "/api/localsend/v3/nonce") => {
             Ok(
                 controller::v3::nonce_exchange(req.into_body(), state, client_info)

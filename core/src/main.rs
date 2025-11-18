@@ -6,6 +6,7 @@ mod webrtc;
 
 use crate::crypto::token;
 use crate::http::client::LsHttpClient;
+use crate::http::dto::{PrepareUploadRequestDto, ProtocolType, RegisterDto};
 use crate::http::server::TlsConfig;
 use crate::model::discovery::DeviceType;
 use crate::webrtc::signaling::{ClientInfo, WsServerMessage};
@@ -19,7 +20,6 @@ use tokio::io;
 use tokio::io::{AsyncReadExt, AsyncWriteExt};
 use tokio::sync::{mpsc, oneshot};
 use tracing::Level;
-use crate::http::dto::{PrepareUploadRequestDto, ProtocolType, RegisterDto};
 
 #[tokio::main]
 #[cfg(feature = "full")]
@@ -141,6 +141,7 @@ async fn server_test() -> Result<()> {
             private_key: PRIVATE_KEY.to_string(),
         }),
         client_info,
+        true,
     )
     .await?;
     tokio::time::sleep(std::time::Duration::from_secs(u64::MAX)).await;
@@ -151,11 +152,9 @@ async fn server_test() -> Result<()> {
 async fn client_test() -> Result<()> {
     let client = LsHttpClient::try_new(PRIVATE_KEY, CERT)?;
 
-    let nonce = client.nonce(
-        &ProtocolType::Https,
-        "localhost",
-        53317,
-    ).await?;
+    let nonce = client
+        .nonce(&ProtocolType::Https, "localhost", 53317)
+        .await?;
 
     println!("Received Nonce: {}", nonce);
 
