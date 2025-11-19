@@ -134,7 +134,10 @@ async fn server_test() -> Result<()> {
         device_type: None,
         token: "456".to_string(),
     };
-    let server = http::server::LsHttpServer::start_with_port(
+
+    let (stop_tx, stop_rx) = oneshot::channel::<()>();
+
+    http::server::start_with_port(
         53317,
         Some(TlsConfig {
             cert: CERT.to_string(),
@@ -142,10 +145,13 @@ async fn server_test() -> Result<()> {
         }),
         client_info,
         true,
+        stop_rx,
     )
     .await?;
+
     tokio::time::sleep(std::time::Duration::from_secs(u64::MAX)).await;
-    server.stop().await?;
+
+    let _ = stop_tx.send(());
     Ok(())
 }
 

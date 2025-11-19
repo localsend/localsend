@@ -56,63 +56,40 @@ impl AppState {
     }
 }
 
-pub struct LsHttpServer {
-    state: AppState,
-    stop_tx: Arc<Mutex<Option<oneshot::Sender<()>>>>,
-}
+/// Binds the server to the specified port on both IPv4 and IPv6 addresses.
+pub async fn start_with_port(
+    port: u16,
+    tls_config: Option<TlsConfig>,
+    info: ClientInfo,
+    legacy_enabled: bool,
+    stop_rx: oneshot::Receiver<()>,
+) -> anyhow::Result<()> {
+    let ipv4_socket_addr = SocketAddr::new(Ipv4Addr::UNSPECIFIED.into(), port);
+    let ipv6_socket_addr = SocketAddr::new(Ipv6Addr::UNSPECIFIED.into(), port);
+    let info = Arc::new(Mutex::new(info));
+    let state = AppState::new(info.clone());
 
-impl LsHttpServer {
-    /// Binds the server to the specified port on both IPv4 and IPv6 addresses.
-    pub async fn start_with_port(
-        port: u16,
-        tls_config: Option<TlsConfig>,
-        info: ClientInfo,
-        legacy_enabled: bool,
-    ) -> anyhow::Result<LsHttpServer> {
-        let ipv4_socket_addr = SocketAddr::new(Ipv4Addr::UNSPECIFIED.into(), port);
-        let ipv6_socket_addr = SocketAddr::new(Ipv6Addr::UNSPECIFIED.into(), port);
-        let info = Arc::new(Mutex::new(info));
-        let state = AppState::new(info.clone());
-
-        let (stop_tx, stop_rx) = oneshot::channel::<()>();
-
-        tokio::spawn({
-            let state = state.clone();
-            async move {
-                tokio::select! {
-                    _ = start_server_with_addr(ipv4_socket_addr, tls_config.clone(), state.clone(), legacy_enabled) => {
-                        tracing::info!("Server stopped on: {}", ipv4_socket_addr);
-                    }
-                    _ = async {
-                        if start_server_with_addr(ipv6_socket_addr, tls_config, state, legacy_enabled).await.is_err() {
-                            tracing::warn!("Failed to start server on: {}", ipv6_socket_addr);
-
-                            // Keep the future running forever, so we continue using "ipv4 only" even if ipv6 fails.
-                            tokio::time::sleep(std::time::Duration::from_secs(u64::MAX)).await;
-                        }
-                    } => {}
-                    _ = stop_rx => {}
+    tokio::spawn({
+        let state = state.clone();
+        async move {
+            tokio::select! {
+                _ = start_server_with_addr(ipv4_socket_addr, tls_config.clone(), state.clone(), legacy_enabled) => {
+                    tracing::info!("Server stopped on: {}", ipv4_socket_addr);
                 }
+                _ = async {
+                    if start_server_with_addr(ipv6_socket_addr, tls_config, state, legacy_enabled).await.is_err() {
+                        tracing::warn!("Failed to start server on: {}", ipv6_socket_addr);
+
+                        // Keep the future running forever, so we continue using "ipv4 only" even if ipv6 fails.
+                        tokio::time::sleep(std::time::Duration::from_secs(u64::MAX)).await;
+                    }
+                } => {}
+                _ = stop_rx => {}
             }
-        });
-
-        Ok(LsHttpServer {
-            state,
-            stop_tx: Arc::new(Mutex::new(Some(stop_tx))),
-        })
-    }
-
-    pub async fn stop(&self) -> anyhow::Result<()> {
-        let mut stop_tx = self.stop_tx.lock().await;
-
-        if let Some(stop_tx) = stop_tx.take() {
-            stop_tx
-                .send(())
-                .map_err(|_| anyhow::anyhow!("Failed to send stop signal"))?;
         }
+    });
 
-        Ok(())
-    }
+    Ok(())
 }
 
 #[derive(Clone, Debug)]
