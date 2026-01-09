@@ -37,11 +37,21 @@ LocalSend, internet bağlantısına ihtiyaç duymadan, yerel ağ üzerinden yak�
 
 LocalSend, cihazlar arasında güvenli iletişim sağlamak için REST API ve HTTPS şifrelemesi kullanan, çoklu platform desteğine sahip bir uygulamadır. Diğer mesajlaşma uygulamalarının dış sunuculara bağımlı olmasının aksine, LocalSend internet bağlantısına veya üçüncü taraf sunuculara ihtiyaç duymaz; bu da yerel iletişim için hızlı ve güvenilir bir çözüm sunar.
 
+## Sponsorlar
+
+Tarayıcı testleri:
+
+<a href="https://www.lambdatest.com/" target="_blank">
+    <img src="https://www.lambdatest.com/blue-logo.png" style="vertical-align: middle;" width="250" height="45" />
+</a>
+
 ## Ekran Görüntüleri
 
 <img src="https://localsend.org/img/screenshot-iphone.webp" alt="iPhone screenshot" height="300"/> <img src="https://localsend.org/img/screenshot-pc.webp" alt="PC screenshot" height="300"/>
 
 ## İndir
+
+[![Packaging status](https://repology.org/badge/tiny-repos/localsend.svg)](https://repology.org/project/localsend/versions)
 
 Uygulamayı, otomatik güncelleme özelliği olmadığı için bir uygulama mağazasından veya bir paket yöneticisinden indirmeniz önerilir.
 
@@ -56,6 +66,8 @@ Uygulamayı, otomatik güncelleme özelliği olmadığı için bir uygulama mağ
 |                         |                         | [AppImage][latest] |                |               |            |
 
 Hakkında daha fazla bilgi edinin [distribution channels][].
+
+> [!DİKKAT] > **Resmî olmayan MSIX önizlemesi:** [localsend.ob-buff.dev](https://localsend.ob-buff.dev/) adresinde en son commit’lerden alınmış derlemeleri deneyebilirsiniz. Kararlılık garanti edilmez ve yapılan tüm özel kod düzenlemeleri bu sitede listelenmiştir.
 
 [windows store]: https://www.microsoft.com/store/apps/9NCB4Z0TZ6RR
 [app store]: https://apps.apple.com/us/app/localsend/id1661733229
@@ -149,7 +161,7 @@ LocalSend'i diğer dillere çevirmeye yardımcı olabilirsiniz! **Önerilen yön
 <img src="https://hosted.weblate.org/widget/localsend/app/multi-auto.svg" alt="Çeviri durumu" />
 </a>
 
-**_Take note:_ `@` ile süslenmiş alanlar çevrilmek için değildir; bu alanlar uygulamada herhangi bir şekilde kullanılmaz, yalnızca dosya hakkında bilgi veren veya çevirmen için bağlam sağlayan bilgilendirici metinlerdir.**
+**_Not:_ `@` ile süslenmiş alanlar çevrilmek için değildir; bu alanlar uygulamada herhangi bir şekilde kullanılmaz, yalnızca dosya hakkında bilgi veren veya çevirmen için bağlam sağlayan bilgilendirici metinlerdir.**
 
 ### Hata Düzeltmeleri ve İyileştirmeler
 
@@ -168,3 +180,76 @@ Daha fazla bilgi için [katkı sağlama kılavuzuna](https://github.com/localsen
 | Hız çok yavaş    | Herhangi bir platform | Herhangi bir platform | 5 Ghz kullanın; her iki cihazda da şifrelemeyi devre dışı bırakın.                                                                     |
 | Hız çok yavaş    | Herhangi bir platform | Android               | Bilinen bir sorun. https://github.com/flutter-cavalry/saf_stream/issues/4                                                              |
 
+## Derleme
+
+Bu komutlar yalnızca geliştiriciler (maintainers) içindir. Komutları `app` dizini içinden çalıştırdığınızdan emin olun.
+
+### Android
+
+Geleneksel APK
+
+```bash
+flutter build apk
+```
+
+Google Play için AppBundle
+
+```bash
+flutter build appbundle
+```
+
+### iOS
+
+```bash
+flutter build ipa
+```
+
+### macOS
+
+```bash
+flutter build macos
+```
+
+### Windows
+
+**Geleneksel**
+
+```bash
+flutter build windows
+```
+
+**Yerel MSIX Uygulaması**
+
+```bash
+flutter pub run msix:create
+```
+
+**Mağaza için hazır**
+
+```bash
+flutter pub run msix:create --store
+```
+
+### Linux
+
+**Geleneksel**
+
+```bash
+flutter build linux
+```
+
+**AppImage**
+
+```bash
+appimage-builder --recipe AppImageBuilder.yml
+```
+
+**Snap**
+
+Talimatlar [localsend/snap/README.md](https://github.com/localsend/snap/blob/main/README.md)
+
+## Katkıda Bulunanlar
+
+<a href="https://github.com/localsend/localsend/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=localsend/localsend"  alt="Localsend Katkıda Bulunanlar"/>
+</a>
