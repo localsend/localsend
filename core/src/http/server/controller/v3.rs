@@ -1,10 +1,11 @@
+use crate::http::dto::{NonceRequest, NonceResponse, RegisterDto, RegisterResponseDto};
+use crate::http::server::collect_to_json::CollectToJson;
+use crate::http::server::error::AppError;
+use crate::http::server::response::JsonResponse;
+use crate::http::server::{AppState, RequestClientInfo};
+use crate::{crypto, util};
 use hyper::body::Incoming;
 use hyper::StatusCode;
-use crate::http::dto::{NonceRequest, NonceResponse, RegisterDto, RegisterResponseDto};
-use crate::http::server::{AppState, RequestClientInfo, JsonResponse};
-use crate::http::server::error::AppError;
-use crate::{crypto, util};
-use crate::http::server::collect_to_json::CollectToJson;
 
 pub(crate) async fn nonce_exchange(
     body: Incoming,
@@ -15,18 +16,12 @@ pub(crate) async fn nonce_exchange(
 
     let nonce = util::base64::decode(&payload.nonce).map_err(|_| {
         tracing::warn!("Failed to decode nonce from base64");
-        AppError::status(
-            StatusCode::BAD_REQUEST,
-            Some("Invalid nonce format".to_string()),
-        )
+        AppError::BadRequest("Invalid nonce format".to_string())
     })?;
 
     if !crypto::nonce::validate_nonce(&nonce) {
         tracing::warn!("Invalid nonce received");
-        return Err(AppError::status(
-            StatusCode::BAD_REQUEST,
-            Some("Invalid nonce".to_string()),
-        ));
+        return Err(AppError::BadRequest("Invalid nonce".to_string()));
     }
 
     // Save the nonce

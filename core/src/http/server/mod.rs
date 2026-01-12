@@ -2,9 +2,9 @@ mod client_cert_verifier;
 mod collect_to_json;
 mod controller;
 mod error;
+mod response;
 
 use crate::crypto::cert::public_key_from_cert_der;
-use crate::http::dto::ErrorResponse;
 use crate::http::server::client_cert_verifier::CustomClientCertVerifier;
 use crate::http::server::controller::web::WebPageState;
 use crate::http::server::error::AppError;
@@ -12,13 +12,12 @@ use crate::http::state::ClientInfo;
 use bytes::Bytes;
 use http_body_util::Full;
 use hyper::body::Incoming;
-use hyper::{http, Method, Request, Response, StatusCode};
+use hyper::{Method, Request, Response, StatusCode};
 use hyper_util::rt::{TokioExecutor, TokioIo};
 use hyper_util::server::conn::auto::Builder;
 use lru::LruCache;
 use rustls::pki_types::pem::PemObject;
 use rustls::pki_types::{CertificateDer, PrivateKeyDer};
-use serde::Serialize;
 use std::fmt::Debug;
 use std::net::{IpAddr, Ipv4Addr, Ipv6Addr, SocketAddr};
 use std::num::NonZeroUsize;
@@ -238,39 +237,8 @@ async fn handle_request(
         .await
         .unwrap_or_else(|err| {
             tracing::error!("Error handling request: {err:?}");
-            JsonResponse {
-                status: err.status,
-                body: ErrorResponse {
-                    message: err
-                        .message
-                        .unwrap_or_else(|| "Internal Server Error".to_string()),
-                },
-            }
-            .into_response()
+            err.to_response()
         }))
-}
-
-struct JsonResponse<T: Serialize> {
-    status: StatusCode,
-    body: T,
-}
-
-impl<T: Serialize> JsonResponse<T> {
-    fn into_response(self) -> Response<Full<Bytes>> {
-        let mut response = Response::new(Full::default());
-        *response.status_mut() = self.status;
-
-        response.headers_mut().insert(
-            http::header::CONTENT_TYPE,
-            http::HeaderValue::from_static("application/json"),
-        );
-
-        *response.body_mut() = Full::from(Bytes::from(
-            serde_json::to_string(&self.body).unwrap_or_else(|_| "{}".to_string()),
-        ));
-
-        response
-    }
 }
 
 async fn handle_request_inner(
@@ -278,17 +246,17 @@ async fn handle_request_inner(
     legacy_enabled: bool,
 ) -> Result<Response<Full<Bytes>>, AppError> {
     let Some(state) = req.extensions_mut().remove::<AppState>() else {
-        return Err(AppError::status(StatusCode::INTERNAL_SERVER_ERROR, None));
+        return Err(AppError::Status(StatusCode::INTERNAL_SERVER_ERROR));
     };
 
     let Some(client_info) = req.extensions_mut().remove::<RequestClientInfo>() else {
-        return Err(AppError::status(StatusCode::INTERNAL_SERVER_ERROR, None));
+        return Err(AppError::Status(StatusCode::INTERNAL_SERVER_ERROR));
     };
 
     match (req.method(), req.uri().path()) {
         (&Method::POST, "/api/localsend/v2/register") => {
             if !legacy_enabled {
-                return Err(AppError::status(StatusCode::NOT_FOUND, None));
+                return Err(AppError::Status(StatusCode::NOT_FOUND));
             }
 
             Ok(
@@ -299,7 +267,7 @@ async fn handle_request_inner(
         }
         (&Method::POST, "/api/localsend/v2/prepare-upload") => {
             if !legacy_enabled {
-                return Err(AppError::status(StatusCode::NOT_FOUND, None));
+                return Err(AppError::Status(StatusCode::NOT_FOUND));
             }
 
             Ok(
@@ -310,7 +278,7 @@ async fn handle_request_inner(
         }
         (&Method::POST, "/api/localsend/v2/upload") => {
             if !legacy_enabled {
-                return Err(AppError::status(StatusCode::NOT_FOUND, None));
+                return Err(AppError::Status(StatusCode::NOT_FOUND));
             }
 
             Ok(
@@ -321,7 +289,7 @@ async fn handle_request_inner(
         }
         (&Method::POST, "/api/localsend/v2/cancel") => {
             if !legacy_enabled {
-                return Err(AppError::status(StatusCode::NOT_FOUND, None));
+                return Err(AppError::Status(StatusCode::NOT_FOUND));
             }
 
             Ok(
