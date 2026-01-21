@@ -15,7 +15,7 @@ jobs:
       version: ${{ steps.get_version.outputs.version }}
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Get version from pubspec.yaml
         id: get_version
@@ -29,7 +29,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Remove proprietary dependencies
         run: sh scripts/remove_proprietary_dependencies.sh
@@ -52,7 +52,7 @@ jobs:
         run: mkdir secrets && echo $ENCODED_STRING | base64 -di > secrets/android-keystore.jks
 
       - name: Set up JDK 17
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@v5
         with:
           distribution: 'temurin'
           java-version: '17'
@@ -77,7 +77,7 @@ jobs:
         run: flutter build apk --split-per-abi
 
       - name: Upload APK
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: apk-result
           path: |
