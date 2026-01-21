@@ -40,6 +40,14 @@ ThemeData getTheme(ColorMode colorMode, Brightness brightness, DynamicColors? dy
       AppLocale.zhHk || AppLocale.zhTw => 'Microsoft JhengHei UI',
       _ => 'Segoe UI Variable Display',
     };
+  } else if (checkPlatform([TargetPlatform.linux])) {
+    fontFamily = switch (LocaleSettings.currentLocale) {
+      AppLocale.ja => 'Noto Sans CJK JP',
+      AppLocale.ko => 'Noto Sans CJK KR',
+      AppLocale.zhCn => 'Noto Sans CJK SC',
+      AppLocale.zhHk || AppLocale.zhTw => 'Noto Sans CJK TC',
+      _ => 'Noto Sans',
+    };
   } else {
     fontFamily = null;
   }
@@ -89,18 +97,22 @@ Future<void> updateSystemOverlayStyleWithBrightness(Brightness brightness) async
 
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge); // ignore: unawaited_futures
 
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      statusBarColor: Colors.transparent,
-      statusBarIconBrightness: brightness == Brightness.light ? Brightness.dark : Brightness.light,
-      systemNavigationBarColor: edgeToEdge ? Colors.transparent : (darkMode ? Colors.black : Colors.white),
-      systemNavigationBarContrastEnforced: false,
-      systemNavigationBarIconBrightness: darkMode ? Brightness.light : Brightness.dark,
-    ));
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        statusBarIconBrightness: brightness == Brightness.light ? Brightness.dark : Brightness.light,
+        systemNavigationBarColor: edgeToEdge ? Colors.transparent : (darkMode ? Colors.black : Colors.white),
+        systemNavigationBarContrastEnforced: false,
+        systemNavigationBarIconBrightness: darkMode ? Brightness.light : Brightness.dark,
+      ),
+    );
   } else {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      statusBarBrightness: brightness, // iOS
-      statusBarColor: Colors.transparent, // Not relevant to this issue
-    ));
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(
+        statusBarBrightness: brightness, // iOS
+        statusBarColor: Colors.transparent, // Not relevant to this issue
+      ),
+    );
   }
 }
 
@@ -125,7 +137,7 @@ extension ColorSchemeExt on ColorScheme {
   }
 }
 
-extension InputDecorationThemeExt on InputDecorationTheme {
+extension InputDecorationThemeExt on InputDecorationThemeData {
   BorderRadius get borderRadius => _borderRadius;
 }
 
@@ -139,8 +151,8 @@ ColorScheme _determineColorScheme(ColorMode mode, Brightness brightness, Dynamic
     ColorMode.system => brightness == Brightness.light ? dynamicColors?.light : dynamicColors?.dark,
     ColorMode.localsend => null,
     ColorMode.oled => (dynamicColors?.dark ?? defaultColorScheme).copyWith(
-        surface: Colors.black,
-      ),
+      surface: Colors.black,
+    ),
     ColorMode.yaru => throw 'Should reach here',
   };
 
@@ -160,6 +172,8 @@ ThemeData _getYaruTheme(Brightness brightness) {
     borderSide: BorderSide(color: colorScheme.secondaryContainer),
     borderRadius: _borderRadius,
   );
+
+  InputDecorationThemeData;
 
   return baseTheme.copyWith(
     navigationBarTheme: colorScheme.brightness == Brightness.dark

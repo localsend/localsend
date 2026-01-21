@@ -11,20 +11,6 @@ enum DockIcon: CaseIterable {
     case success
 }
 
-extension LaunchAtLogin {
-    /**
-     Whether the app was launched at login (i.e. as login items).
-     - Important: This property must only be checked in `NSApplicationDelegate#applicationDidFinishLaunching` method, otherwise the `NSAppleEventManager.shared().currentAppleEvent` will be `nil`.
-     - Source: https://stackoverflow.com/a/19890943
-     - Note: When we drop macOS 12 support and move to LaunchAtLogin-Modern package, this extension should be removed as it's already included - https://github.com/sindresorhus/LaunchAtLogin-Modern/blob/a04ec1c363be3627734f6dad757d82f5d4fa8fcc/Sources/LaunchAtLogin/LaunchAtLogin.swift#L34-L44
-     */
-    public static var wasLaunchedAtLogin: Bool {
-        guard let event = NSAppleEventManager.shared().currentAppleEvent else { return false }
-        return (event.eventID == kAEOpenApplication)
-        && (event.paramDescriptor(forKeyword: keyAEPropData)?.enumCodeValue == keyAELaunchedAsLogInItem)
-    }
-}
-
 @main
 class AppDelegate: FlutterAppDelegate {
     private var statusItem: NSStatusItem?
@@ -32,6 +18,10 @@ class AppDelegate: FlutterAppDelegate {
     private var pendingFilesObservation: Defaults.Observation?
     private var pendingStringsObservation: Defaults.Observation?
     private var isLaunchedAsLoginItem: Bool?
+    
+    override func applicationSupportsSecureRestorableState(_ app: NSApplication) -> Bool {
+        return true
+    }
     
     override func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
         // LocalSend handles the close event manually
@@ -43,7 +33,7 @@ class AppDelegate: FlutterAppDelegate {
         channel = FlutterMethodChannel(name: "main-delegate-channel", binaryMessenger: controller.engine.binaryMessenger)
         channel?.setMethodCallHandler(handleFlutterCall)
         
-        self.setupDockIconTextDropEventListener()
+        NSApplication.shared.servicesProvider = self
         
         let localsendBrandColor = NSColor(red: 0, green: 0.392, blue: 0.353, alpha: 0.8) // #00645a
         DockProgress.style = .squircle(color: localsendBrandColor)
@@ -79,17 +69,6 @@ class AppDelegate: FlutterAppDelegate {
         case .success:
             NSApplication.shared.applicationIconImage = NSImage(named: "AppIconWithSuccessMark")!
         }
-    }
-    
-    private func setupDockIconTextDropEventListener() {
-        let appleEventManager = NSAppleEventManager.shared()
-        
-        appleEventManager.setEventHandler(
-            self,
-            andSelector: #selector(handleOpenContentsEvent(_:withReplyEvent:)),
-            forEventClass: AEEventClass(kCoreEventClass),
-            andEventID: AEEventID(kAEOpenContents)
-        )
     }
     
     private func setupStatusBarItem(i18n: [String: String]) {
@@ -209,6 +188,9 @@ class AppDelegate: FlutterAppDelegate {
             result(isLaunchedAsLoginItem)
         case "isReduceMotionEnabled":
             result(NSWorkspace.shared.accessibilityDisplayShouldReduceMotion)
+        case "openFirewallSettings":
+            openFirewallSettings()
+            result(nil)
         default:
             result(FlutterMethodNotImplemented)
         }
@@ -264,12 +246,23 @@ class AppDelegate: FlutterAppDelegate {
             }
         }
     }
-    // END: handle opened files
-    
-    /// Handle **text** dropped onto the Dock icon
-    @objc func handleOpenContentsEvent(_ event: NSAppleEventDescriptor, withReplyEvent replyEvent: NSAppleEventDescriptor) {
-        if let string = event.paramDescriptor(forKeyword: AEKeyword(keyDirectObject))?.stringValue {
-            Defaults[.pendingStrings].append(string)
+
+    override func application(_ application: NSApplication, open urls: [URL]) {
+        for url in urls {
+            if url.isFileURL {
+                if let fileBookmark = createBookmarkForFile(at: url) {
+                    Defaults[.pendingFiles].append(fileBookmark)
+                }
+            } else {
+                Defaults[.pendingStrings].append(url.absoluteString)
+            }
         }
+    }
+    // END: handle opened files
+
+    /// Also handles text dropped on the Dock icon
+    @objc func handleSendTextService(_ pasteboard: NSPasteboard, userData: String, error: NSErrorPointer) {
+        guard let string = pasteboard.string(forType: .string) else { return }
+        Defaults[.pendingStrings].append(string)
     }
 }

@@ -51,6 +51,8 @@ pub fn public_key_from_cert_pem(cert: String) -> anyhow::Result<String> {
     public_key_from_cert(parsed_cert)
 }
 
+/// Extracts the public key from the certificate which is in DER format.
+/// Encodes the public key in PEM format.
 pub fn public_key_from_cert_der(cert: &[u8]) -> anyhow::Result<String> {
     let (_, parsed_cert) = X509Certificate::from_der(&cert)?;
     public_key_from_cert(parsed_cert)

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/widget/dialogs/custom_bottom_sheet.dart';
 import 'package:routerino/routerino.dart';
-import 'package:system_settings/system_settings.dart';
+import 'package:system_settings_2/system_settings_2.dart';
 
 class IosLocalNetworkDialog extends StatelessWidget {
   const IosLocalNetworkDialog({super.key});

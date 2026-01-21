@@ -26,8 +26,8 @@ void main() {
             'size': 1234,
             'fileType': 'image',
             'preview': '*preview data*',
-          }
-        }
+          },
+        },
       };
       final parsed = PrepareUploadRequestDto.fromJson(dto);
       expect(parsed.info.deviceType, DeviceType.mobile);
@@ -60,8 +60,8 @@ void main() {
             'size': 1234,
             'fileType': 'image',
             'preview': '*preview data*',
-          }
-        }
+          },
+        },
       };
       final parsed = PrepareUploadRequestDto.fromJson(dto);
       expect(parsed.info.deviceType, DeviceType.desktop);
@@ -83,8 +83,8 @@ void main() {
             'size': 1234,
             'fileType': 'superBigImage',
             'preview': '*preview data*',
-          }
-        }
+          },
+        },
       };
       final parsed = PrepareUploadRequestDto.fromJson(dto);
       expect(parsed.info.deviceType, DeviceType.mobile);
@@ -106,8 +106,8 @@ void main() {
             'size': 1234,
             'fileType': 'image/jpeg',
             'preview': '*preview data*',
-          }
-        }
+          },
+        },
       };
       final parsed = PrepareUploadRequestDto.fromJson(dto);
       expect(parsed.info.deviceType, DeviceType.mobile);
@@ -128,8 +128,8 @@ void main() {
             'fileName': 'myApk.apk',
             'size': 1234,
             'fileType': 'application/vnd.android.package-archive',
-          }
-        }
+          },
+        },
       };
       final parsed = PrepareUploadRequestDto.fromJson(dto);
       expect(parsed.info.deviceType, DeviceType.mobile);

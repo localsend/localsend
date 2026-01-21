@@ -51,13 +51,13 @@ class WebRTCReceiveService extends ReduxNotifier<WebRTCReceiveState> {
     required SettingsState settings,
     required List<FavoriteDevice> favorites,
     required StoredSecurityContext key,
-  })  : _signalingServer = signalingServer,
-        _stunServers = stunServers,
-        _connection = connection,
-        _offer = offer,
-        _settings = settings,
-        _favorites = favorites,
-        _key = key;
+  }) : _signalingServer = signalingServer,
+       _stunServers = stunServers,
+       _connection = connection,
+       _offer = offer,
+       _settings = settings,
+       _favorites = favorites,
+       _key = key;
 
   @override
   WebRTCReceiveState init() {

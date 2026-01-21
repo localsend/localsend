@@ -5,9 +5,9 @@
 [ci-badge]: https://github.com/localsend/localsend/actions/workflows/ci.yml/badge.svg
 [ci-workflow]: https://github.com/localsend/localsend/actions/workflows/ci.yml
 
-[Trang chủ][homepage]•[Discord][discord]•[GitHub][github]•[Codeberg][codeberg]
+[Trang chủ][homepage] • [Discord][discord] • [GitHub][github] • [Codeberg][codeberg]
 
-[English (Default)](/README.md) • [Español](README_ES.md) • [فارسی](README_FA.md) • [Filipino](README_PH.md) • [Français](README_FR.md) • [Indonesia](README_ID.md) • [Italiano](README_IT.md) • [日本語](README_JA.md) • [ភាសាខ្មែរ](README_KM.md) • [한국어](README_KO.md) • [Polski](README_PL.md) • [Portugês Brasil](README_PT_BR.md) • [Русский](README_RU.md) • [ภาษาไทย](README_TH.md) • [Turkish](README_TR.md) • [Українська](README_UK.md) • [Tiếng Việt](README_VI.md) • [中文](README_ZH.md)
+[English (Default)](/README.md) • [Español](README_ES.md) • [فارسی](README_FA.md) • [Filipino](README_PH.md) • [Français](README_FR.md) • [Indonesia](README_ID.md) • [Italiano](README_IT.md) • [日本語](README_JA.md) • [ភាសាខ្មែរ](README_KM.md) • [한국어](README_KO.md) • [Polski](README_PL.md) • [Português Brasil](README_PT_BR.md) • [Русский](README_RU.md) • [ภาษาไทย](README_TH.md) • [Turkish](README_TR.md) • [Українська](README_UK.md) • [Tiếng Việt](README_VI.md) • [中文](README_ZH.md)
 
 [homepage]: https://localsend.org
 [discord]: https://discord.gg/GSRWmQNP87
@@ -37,7 +37,7 @@ LocalSend là một ứng dụng đa nền tảng cho phép liên lạc an toàn
 
 ## Ảnh chụp màn hình
 
-<img src="https://localsend.org/img/screenshot-iphone.webp" alt="iPhone screenshot" height="300"/><img src="https://localsend.org/img/screenshot-pc.webp" alt="PC screenshot" height="300"/>
+<img src="https://localsend.org/img/screenshot-iphone.webp" alt="iPhone screenshot" height="300"/> <img src="https://localsend.org/img/screenshot-pc.webp" alt="PC screenshot" height="300"/>
 
 ## Tải xuống
 
@@ -70,6 +70,16 @@ Bạn nên tải xuống ứng dụng từ cửa hàng ứng dụng hoặc từ 
 [aur]: https://aur.archlinux.org/packages/localsend-bin
 [latest]: https://github.com/localsend/localsend/releases/latest
 [distribution channels]: https://github.com/localsend/localsend/blob/main/CONTRIBUTING.md#distribution
+
+**Khả năng tương thích**
+
+| Nền tảng | Phiên bản tối thiểu | Ghi chú                                                                                                                     |
+|----------|---------------------|-----------------------------------------------------------------------------------------------------------------------------|
+| Android  | 5.0                 | -                                                                                                                           |
+| iOS      | 12.0                | -                                                                                                                           |
+| macOS    | 11 Big Sur          | Sử dụng OpenCore Legacy Patcher 2.0.2 (Xem [#1005](https://github.com/localsend/localsend/issues/1005#issuecomment-2449899384)) |
+| Windows  | 10                  | Phiên bản cuối cùng hỗ trợ Windows 7 là v1.15.4. Có thể có các bản backport của các phiên bản mới hơn cho Windows 7 trong tương lai. |
+| Linux    | N.A.                | Phụ thuộc: Gnome: `xdg-desktop-portal` và `xdg-desktop-portal-gtk`, KDE: `xdg-desktop-portal` và `xdg-desktop-portal-kde`  |
 
 ## Cài đặt
 
@@ -114,7 +124,7 @@ LocalSend sử dụng giao thức liên lạc an toàn cho phép các thiết b�
 4.  Chạy `flutter pub get` để tải xuống các phần phụ thuộc
 5.  Chạy `flutter run` để khởi động ứng dụng
 
-> [!GHI CHÚ]LocalSend hiện yêu cầu phiên bản Flutter cũ hơn (được chỉ định trong [.fvmrc](.fvmrc))
+> [!GHI CHÚ] LocalSend hiện yêu cầu phiên bản Flutter cũ hơn (được chỉ định trong [.fvmrc](.fvmrc))
 > và do đó, các sự cố xây dựng có thể xảy ra do sự không khớp giữa phiên bản Flutter được cài đặt và yêu cầu (toàn hệ thống).  
 > Để phát triển nhất quán hơn, LocalSend sử dụng [fvm](https://fvm.app)để quản lý phiên bản Flutter của dự án.
 > Sau khi cài đặt `fvm`, chạy `fvm flutter` thay vì `flutter`.
@@ -125,22 +135,15 @@ Chúng tôi hoan nghênh sự đóng góp từ bất kỳ ai quan tâm đến vi
 
 ### Dịch thuật
 
-Bạn có thể giúp dịch ứng dụng này sang các ngôn ngữ khác!
+Bạn có thể giúp dịch LocalSend sang các ngôn ngữ khác! **Cách được khuyến nghị**: Sử dụng platform [Weblate](https://hosted.weblate.org/projects/localsend/app) để quản lý bản dịch.
 
-1.  `Fork` repository này.
-2.  Chọn một
-    - Thêm bản dịch còn thiếu trong các ngôn ngữ hiện có: Chỉ cập nhật `_missing_translations_<locale>.json` TRONG [app/assets/i18n][i18n]
-    - Sửa các bản dịch hiện có: Cập nhật `strings_<locale>.i18n.json` TRONG [app/assets/i18n][i18n]
-    - Thêm ngôn ngữ mới: Tạo một tệp mới; xem thêm: [mã địa phương](https://saimana.com/list-of-country-locale-code/).
-3.  Tùy chọn: Chạy lại ứng dụng này
-    1.  Chạy `cd app` để vào thư mục ứng dụng.
-    2.  Hãy chắc chắn rằng bạn có [chạy](#getting-started) ứng dụng này một lần.
-    3.  Cập nhật bản dịch qua `flutter pub run slang`
-    4.  Chạy ứng dụng qua `flutter run`
-    5.  Mở một yêu cầu kéo
+**Cách khác**: Bạn cũng có thể đóng góp bằng cách fork repository này và thêm bản dịch theo cách thủ công.
 
-[i18n]: https://github.com/localsend/localsend/tree/main/app/assets/i18n
-[locale codes]: https://saimana.com/list-of-country-locale-code/
+Bản dịch nằm trong thư mục [app/assets/i18n](https://github.com/localsend/localsend/tree/main/app/assets/i18n). Chỉnh sửa tệp `_missing_translations_<locale>.json` hoặc `strings_<locale>.i18n.json` để thêm hoặc cập nhật bản dịch.
+
+<a href="https://hosted.weblate.org/engage/localsend/">
+<img src="https://hosted.weblate.org/widget/localsend/app/multi-auto.svg" alt="Trạng thái dịch" />
+</a>
 
 **_Hãy lưu ý:_ Phần bắt đầu bằng `@` không có nghĩa là cần được dịch; chúng không được sử dụng trong ứng dụng dưới bất kỳ hình thức nào mà chỉ đơn thuần là văn bản cung cấp thông tin về tệp hoặc cung cấp ngữ cảnh cho người dịch.**
 
@@ -151,73 +154,15 @@ Bạn có thể giúp dịch ứng dụng này sang các ngôn ngữ khác!
 
 Để biết thêm thông tin, xem [hướng dẫn đóng góp](https://github.com/localsend/localsend/blob/main/CONTRIBUTING.md).
 
-## Xây dựng
+## Khắc phục sự cố
 
-Các lệnh này chỉ dành cho người bảo trì.
-
-### Android
-
-Traditional APK
-
-```bash
-flutter build apk
-```
-
-AppBundle for Google Play
-
-```bash
-flutter build appbundle
-```
-
-### iOS
-
-```bash
-flutter build ipa
-```
-
-### macOS
-
-```bash
-flutter build macos
-```
-
-### Windows
-
-**Traditional**
-
-```bash
-flutter build windows
-```
-
-**Local MSIX App**
-
-```bash
-flutter pub run msix:create
-```
-
-**Store ready**
-
-```bash
-flutter pub run msix:create --store
-```
-
-### Linux
-
-**Traditional**
-
-```bash
-flutter build linux
-```
-
-**AppImage**
-
-```bash
-appimage-builder --recipe AppImageBuilder.yml
-```
-
-**Snap**
-
-Hãy thoải mái mở một yêu cầu kéo. có một `snap`nhánh để chơi.
+| Vấn đề             | Nền tảng (Gửi) | Nền tảng (Nhận) | Giải pháp                                                                                                                               |
+|--------------------|----------------|-----------------|-----------------------------------------------------------------------------------------------------------------------------------------|
+| Thiết bị không hiển thị | Bất kỳ         | Bất kỳ          | Hãy chắc chắn tắt AP-Isolation trên bộ định tuyến của bạn. Nếu nó được bật, các kết nối giữa các thiết bị bị cấm.                       |
+| Thiết bị không hiển thị | Bất kỳ         | Windows         | Hãy chắc chắn cấu hình mạng của bạn là mạng "riêng tư". Windows có thể hạn chế hơn khi mạng được cấu hình là công khai.                 |
+| Thiết bị không hiển thị | macOS, iOS     | Bất kỳ          | Bạn có thể thử chuyển đổi quyền "Mạng cục bộ" trong "Quyền riêng tư" trong cài đặt hệ điều hành.                                        |
+| Tốc độ quá chậm    | Bất kỳ         | Bất kỳ          | Sử dụng 5 GHz; Tắt mã hóa trên cả hai thiết bị                                                                                          |
+| Tốc độ quá chậm    | Bất kỳ         | Android         | Vấn đề đã biết. https://github.com/flutter-cavalry/saf_stream/issues/4                                                                 |
 
 ## Contributors
 

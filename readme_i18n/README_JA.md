@@ -7,7 +7,7 @@
 
 [ホームページ][homepage] • [Discord][discord] • [GitHub][github] • [Codeberg][codeberg]
 
-[English (Default)](/README.md) • [Español](README_ES.md) • [فارسی](README_FA.md) • [Filipino](README_PH.md) • [Français](README_FR.md) • [Indonesia](README_ID.md) • [Italiano](README_IT.md) • [日本語](README_JA.md) • [ភាសាខ្មែរ](README_KM.md) • [한국어](README_KO.md) • [Polski](README_PL.md) • [Portugês Brasil](README_PT_BR.md) • [Русский](README_RU.md) • [ภาษาไทย](README_TH.md) • [Turkish](README_TR.md) • [Українська](README_UK.md) • [Tiếng Việt](README_VI.md) • [中文](README_ZH.md)
+[English (Default)](/README.md) • [Español](README_ES.md) • [فارسی](README_FA.md) • [Filipino](README_PH.md) • [Français](README_FR.md) • [Indonesia](README_ID.md) • [Italiano](README_IT.md) • [日本語](README_JA.md) • [ភាសាខ្មែរ](README_KM.md) • [한국어](README_KO.md) • [Polski](README_PL.md) • [Português Brasil](README_PT_BR.md) • [Русский](README_RU.md) • [ภาษาไทย](README_TH.md) • [Turkish](README_TR.md) • [Українська](README_UK.md) • [Tiếng Việt](README_VI.md) • [中文](README_ZH.md)
 
 [homepage]: https://localsend.org
 [discord]: https://discord.gg/GSRWmQNP87
@@ -71,6 +71,16 @@ LocalSendは、REST APIとHTTPS暗号化を使用してデバイス間の安全�
 [latest]: https://github.com/localsend/localsend/releases/latest
 [distribution channels]: https://github.com/localsend/localsend/blob/main/CONTRIBUTING.md#distribution
 
+**互換性**
+
+| プラットフォーム | 最小バージョン | 備考                                                                                                                        |
+|----------|-----------------|-----------------------------------------------------------------------------------------------------------------------------|
+| Android  | 5.0             | -                                                                                                                           |
+| iOS      | 12.0            | -                                                                                                                           |
+| macOS    | 11 Big Sur      | OpenCore Legacy Patcher 2.0.2を使用してください（[#1005](https://github.com/localsend/localsend/issues/1005#issuecomment-2449899384)を参照） |
+| Windows  | 10              | Windows 7をサポートする最後のバージョンはv1.15.4です。将来、Windows 7用の新しいバージョンのバックポートがある可能性があります。   |
+| Linux    | N.A.            | 依存関係: Gnome: `xdg-desktop-portal` および `xdg-desktop-portal-gtk`, KDE: `xdg-desktop-portal` および `xdg-desktop-portal-kde` |
+
 ## 仕組み
 
 LocalSendは、デバイスがREST APIを使用して通信できる安全な通信プロトコルを使用しています。すべてのデータはHTTPSで安全に送信され、TLS/SSL証明書は各デバイスで動的に生成され、最大限のセキュリティを確保します。
@@ -98,22 +108,15 @@ LocalSendの改善に興味のある方からの貢献を歓迎します。貢�
 
 ### 翻訳
 
-このアプリを他の言語に翻訳するのを手伝ってください！
+LocalSendを他の言語に翻訳するのをお手伝いください！**推奨される方法**: [Weblate](https://hosted.weblate.org/projects/localsend/app)プラットフォームを使用して翻訳を管理してください。
 
-1. このリポジトリをフォークします。
-2. 1つ選択します。
-   - 既存の言語で欠けている翻訳を追加する：[app/assets/i18n][i18n]の`_missing_translations_<locale>.json`を更新するだけです。
-   - 既存の翻訳を修正する：[app/assets/i18n][i18n]の`strings_<locale>.i18n.json`を更新します。
-   - 新しい言語を追加する：新しいファイルを作成します；[言語コード][locale codes]も参照してください。
-3. オプション：このアプリを再実行します。
-   1. `cd app`を実行してappディレクトリに入ります。
-   2. このアプリを一度[実行](#始め方)したことを確認します。
-   3. `flutter pub run slang`を実行して翻訳を更新します。
-   4. `flutter run`を実行してアプリを起動します。
-   5. プルリクエストを開きます。
+**別の方法**: このリポジトリをフォークして翻訳を手動で追加することもできます。
 
-[i18n]: https://github.com/localsend/localsend/tree/main/app/assets/i18n
-[locale codes]: https://saimana.com/list-of-country-locale-code/
+翻訳は[app/assets/i18n](https://github.com/localsend/localsend/tree/main/app/assets/i18n)ディレクトリにあります。翻訳を追加または更新するには、`_missing_translations_<locale>.json`または`strings_<locale>.i18n.json`ファイルを編集してください。
+
+<a href="https://hosted.weblate.org/engage/localsend/">
+<img src="https://hosted.weblate.org/widget/localsend/app/multi-auto.svg" alt="翻訳ステータス" />
+</a>
 
 **_注意：_ `@`で装飾されたフィールドは翻訳のためのものではありません；それらはアプリで使用されていない情報テキストであり、翻訳者に文脈を提供するためのものです。**
 
@@ -124,73 +127,16 @@ LocalSendの改善に興味のある方からの貢献を歓迎します。貢�
 
 詳細については、[貢献ガイド](https://github.com/localsend/localsend/blob/main/CONTRIBUTING.md)を参照してください。
 
-## ビルド
+## トラブルシューティング
 
-これらのコマンドはメンテナ専用です。
+| 問題              | プラットフォーム（送信） | プラットフォーム（受信） | 解決策                                                                                                                                |
+|--------------------|--------------------|----------------------|-----------------------------------------------------------------------------------------------------------------------------------------|
+| デバイスが表示されない | すべて                | すべて                  | ルーターでAP-Isolationを無効にしてください。有効になっている場合、デバイス間の接続が禁止されます。                          |
+| デバイスが表示されない | すべて                | Windows              | ネットワークを「プライベート」ネットワークとして構成してください。ネットワークがパブリックとして構成されている場合、Windowsはより制限的になる可能性があります。 |
+| デバイスが表示されない | macOS, iOS         | すべて                  | OS設定の「プライバシー」の下にある「ローカルネットワーク」権限を切り替えてみてください。                                                |
+| 速度が遅すぎる     | すべて                | すべて                  | 5 GHzを使用してください；両方のデバイスで暗号化を無効にしてください                                                                                           |
+| 速度が遅すぎる     | すべて                | Android              | 既知の問題。https://github.com/flutter-cavalry/saf_stream/issues/4                                                                     |
 
-### Android
-
-従来のAPK
-
-```bash
-flutter build apk
-```
-
-Google Play用のAppBundle
-
-```bash
-flutter build appbundle
-```
-
-### iOS
-
-```bash
-flutter build ipa
-```
-
-### macOS
-
-```bash
-flutter build macos
-```
-
-### Windows
-
-**従来の**
-
-```bash
-flutter build windows
-```
-
-**ローカルMSIXアプリ**
-
-```bash
-flutter pub run msix:create
-```
-
-**ストア対応**
-
-```bash
-flutter pub run msix:create --store
-```
-
-### Linux
-
-**従来の**
-
-```bash
-flutter build linux
-```
-
-**AppImage**
-
-```bash
-appimage-builder --recipe AppImageBuilder.yml
-```
-
-**Snap**
-
-プルリクエストを自由に開いてください。試すための`snap`ブランチがあります。
 
 ## 貢献者
 

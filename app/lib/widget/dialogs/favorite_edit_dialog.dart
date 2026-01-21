@@ -163,12 +163,18 @@ class _FavoriteEditDialogState extends State<FavoriteEditDialog> with Refena {
                       return;
                     }
 
-                    await ref.redux(favoritesProvider).dispatchAsync(UpdateFavoriteAction(existingFavorite.copyWith(
-                          ip: _ipController.text,
-                          port: int.parse(_portController.text),
-                          alias: trimmedNewAlias,
-                          customAlias: existingFavorite.customAlias || trimmedNewAlias != existingFavorite.alias,
-                        )));
+                    await ref
+                        .redux(favoritesProvider)
+                        .dispatchAsync(
+                          UpdateFavoriteAction(
+                            existingFavorite.copyWith(
+                              ip: _ipController.text,
+                              port: int.parse(_portController.text),
+                              alias: trimmedNewAlias,
+                              customAlias: existingFavorite.customAlias || trimmedNewAlias != existingFavorite.alias,
+                            ),
+                          ),
+                        );
                   } else {
                     // Add new favorite
                     final ip = _ipController.text;
@@ -179,20 +185,30 @@ class _FavoriteEditDialogState extends State<FavoriteEditDialog> with Refena {
                     });
 
                     try {
-                      final result = await ref.redux(parentIsolateProvider).dispatchAsyncTakeResult(IsolateTargetHttpDiscoveryAction(
-                            ip: ip,
-                            port: port,
-                            https: https,
-                          ));
+                      final result = await ref
+                          .redux(parentIsolateProvider)
+                          .dispatchAsyncTakeResult(
+                            IsolateTargetHttpDiscoveryAction(
+                              ip: ip,
+                              port: port,
+                              https: https,
+                            ),
+                          );
 
                       final name = _aliasController.text.trim();
 
-                      await ref.redux(favoritesProvider).dispatchAsync(AddFavoriteAction(FavoriteDevice.fromValues(
-                            fingerprint: result.fingerprint,
-                            ip: _ipController.text,
-                            port: int.parse(_portController.text),
-                            alias: name.isEmpty ? result.alias : name,
-                          )));
+                      await ref
+                          .redux(favoritesProvider)
+                          .dispatchAsync(
+                            AddFavoriteAction(
+                              FavoriteDevice.fromValues(
+                                fingerprint: result.fingerprint,
+                                ip: _ipController.text,
+                                port: int.parse(_portController.text),
+                                alias: name.isEmpty ? result.alias : name,
+                              ),
+                            ),
+                          );
 
                       if (context.mounted) {
                         context.pop();

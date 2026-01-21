@@ -25,10 +25,14 @@ class _ApkPickerPageState extends State<ApkPickerPage> with Refena {
   final List<Application> _selectedApps = [];
 
   Future<void> _pickApp(Application app) async {
-    await ref.redux(selectedSendingFilesProvider).dispatchAsync(AddFilesAction(
-          files: [app],
-          converter: CrossFileConverters.convertApplication,
-        ));
+    await ref
+        .redux(selectedSendingFilesProvider)
+        .dispatchAsync(
+          AddFilesAction(
+            files: [app],
+            converter: CrossFileConverters.convertApplication,
+          ),
+        );
 
     if (mounted) {
       context.pop();
@@ -39,10 +43,14 @@ class _ApkPickerPageState extends State<ApkPickerPage> with Refena {
     // ignore: discarded_futures
 
     for (Application app in apps) {
-      await ref.redux(selectedSendingFilesProvider).dispatchAsync(AddFilesAction(
-            files: [app],
-            converter: CrossFileConverters.convertApplication,
-          ));
+      await ref
+          .redux(selectedSendingFilesProvider)
+          .dispatchAsync(
+            AddFilesAction(
+              files: [app],
+              converter: CrossFileConverters.convertApplication,
+            ),
+          );
     }
 
     if (mounted) {
@@ -76,29 +84,32 @@ class _ApkPickerPageState extends State<ApkPickerPage> with Refena {
       appBar: AppBar(
         title: Text(t.apkPickerPage.title),
         actions: [
-          PopupMenuButton(itemBuilder: (context) {
-            return [
-              CheckedPopupMenuItem<int>(
-                value: 0,
-                checked: !apkParams.includeSystemApps,
-                child: Text(t.apkPickerPage.excludeSystemApps),
-              ),
-              CheckedPopupMenuItem<int>(
-                value: 1,
-                checked: apkParams.onlyAppsWithLaunchIntent,
-                child: Text(t.apkPickerPage.excludeAppsWithoutLaunchIntent),
-              ),
-            ];
-          }, onSelected: (value) {
-            switch (value) {
-              case 0:
-                ref.notifier(apkSearchParamProvider).setState((old) => old.copyWith(includeSystemApps: !old.includeSystemApps));
-                break;
-              case 1:
-                ref.notifier(apkSearchParamProvider).setState((old) => old.copyWith(onlyAppsWithLaunchIntent: !old.onlyAppsWithLaunchIntent));
-                break;
-            }
-          }),
+          PopupMenuButton(
+            itemBuilder: (context) {
+              return [
+                CheckedPopupMenuItem<int>(
+                  value: 0,
+                  checked: !apkParams.includeSystemApps,
+                  child: Text(t.apkPickerPage.excludeSystemApps),
+                ),
+                CheckedPopupMenuItem<int>(
+                  value: 1,
+                  checked: apkParams.onlyAppsWithLaunchIntent,
+                  child: Text(t.apkPickerPage.excludeAppsWithoutLaunchIntent),
+                ),
+              ];
+            },
+            onSelected: (value) {
+              switch (value) {
+                case 0:
+                  ref.notifier(apkSearchParamProvider).setState((old) => old.copyWith(includeSystemApps: !old.includeSystemApps));
+                  break;
+                case 1:
+                  ref.notifier(apkSearchParamProvider).setState((old) => old.copyWith(onlyAppsWithLaunchIntent: !old.onlyAppsWithLaunchIntent));
+                  break;
+              }
+            },
+          ),
         ],
       ),
       floatingActionButton: (_selectedApps.isEmpty)
@@ -169,7 +180,7 @@ class _ApkPickerPageState extends State<ApkPickerPage> with Refena {
                           });
                         },
                         activeTrackColor: Theme.of(context).colorScheme.primary,
-                        activeColor: Theme.of(context).colorScheme.onPrimary,
+                        activeThumbColor: Theme.of(context).colorScheme.onPrimary,
                         inactiveThumbColor: Theme.of(context).colorScheme.outline,
                         inactiveTrackColor: Theme.of(context).colorScheme.surface,
                       ),
@@ -244,7 +255,7 @@ class _ApkPickerPageState extends State<ApkPickerPage> with Refena {
                                 Icon(
                                   _selectedApps.contains(app) ? Icons.check_circle : Icons.radio_button_unchecked,
                                   color: _selectedApps.contains(app) ? Theme.of(context).iconTheme.color : Colors.grey,
-                                )
+                                ),
                             ],
                           ),
                         ),

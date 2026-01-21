@@ -4,19 +4,21 @@ title: "bug: "
 labels: [bug]
 body:
   - type: checkboxes
-    id: duplication
+    id: confirm
     attributes:
-      label: ⠀
+      label: Read [this](https://github.com/localsend/localsend/issues/528) before anything
       options:
-        - label: This issue is not duplicated with any other open or closed issues
-          required: true
+        - label: I have read it.
+        - label: Issues not fitting are closed.
 
   - type: checkboxes
-    id: latest
+    id: duplication
     attributes:
-      label: ⠀
+      label: "Make sure about:"
       options:
-        - label: I am using the latest version from the release
+        - label: This issue is not duplicated with any other open or closed issues.
+          required: true
+        - label: I am using the latest version from the release.
           required: true
 
   - type: textarea
@@ -47,12 +49,12 @@ body:
       label: Reproduction
       description: Steps to reproduce the bug
       placeholder: |
-        1. Turn on "What" in "What settings"
+        1. Turn on "..." in "... settings"
         2. Restart the app
         3. Crash
         /
-        1. Transfer a "What" file is What size takes What long
-        2. Observe What
+        1. Transfer a "..." file is ... size takes ... long
+        2. Observe ...
         3. Crash
     validations:
       required: true
@@ -88,6 +90,6 @@ body:
       label: Additional context
       description: Add any other context about the problem here
       placeholder: |
-        Crash report or other helpful information
+        Crash report or any helpful information.
     validations:
       required: false

@@ -93,10 +93,14 @@ class _SetupSignalingConnection extends AsyncGlobalAction {
       onConnection: (c) {
         connection = c;
 
-        ref.redux(signalingProvider).dispatch(_SetConnectionAction(
-              signalingServer: signalingServer,
-              connection: c,
-            ));
+        ref
+            .redux(signalingProvider)
+            .dispatch(
+              _SetConnectionAction(
+                signalingServer: signalingServer,
+                connection: c,
+              ),
+            );
       },
     );
 
@@ -105,21 +109,33 @@ class _SetupSignalingConnection extends AsyncGlobalAction {
         switch (message) {
           case WsServerMessage_Hello():
             for (final d in message.peers) {
-              ref.redux(nearbyDevicesProvider).dispatch(RegisterSignalingDeviceAction(
-                    d.toDevice(signalingServer),
-                  ));
+              ref
+                  .redux(nearbyDevicesProvider)
+                  .dispatch(
+                    RegisterSignalingDeviceAction(
+                      d.toDevice(signalingServer),
+                    ),
+                  );
             }
             break;
           case WsServerMessage_Join(peer: final peer):
           case WsServerMessage_Update(peer: final peer):
-            ref.redux(nearbyDevicesProvider).dispatch(RegisterSignalingDeviceAction(
-                  peer.toDevice(signalingServer),
-                ));
+            ref
+                .redux(nearbyDevicesProvider)
+                .dispatch(
+                  RegisterSignalingDeviceAction(
+                    peer.toDevice(signalingServer),
+                  ),
+                );
             break;
           case WsServerMessage_Left():
-            ref.redux(nearbyDevicesProvider).dispatch(UnregisterSignalingDeviceAction(
-                  message.peerId.uuid,
-                ));
+            ref
+                .redux(nearbyDevicesProvider)
+                .dispatch(
+                  UnregisterSignalingDeviceAction(
+                    message.peerId.uuid,
+                  ),
+                );
             break;
           case WsServerMessage_Offer():
             final provider = ReduxProvider<WebRTCReceiveService, WebRTCReceiveState>((ref) {

@@ -4,33 +4,33 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-anyhow = "1.0.98"
+anyhow = "1.0.100"
 base64 = "0.22.1"
 bytes = "1.9.1"
-ed25519-dalek = { version = "2.1.1", features = ["pem", "rand_core"], optional = true }
-flate2 = { version = "1.1.2", optional = true }
+ed25519-dalek = { version = "2.2.0", features = ["pem", "rand_core"], optional = true }
+flate2 = { version = "1.1.4", optional = true }
 futures-util = { version = "0.3.31", features = ["sink"] }
 http-body-util = { version = "0.1.3", optional = true }
-hyper = { version = "1.6.0", optional = true }
-hyper-util = { version = "0.1.15", features = ["server"], optional = true }
-lru = "0.16.0"
-pem = { version = "3.0.5", optional = true }
-reqwest = { version = "0.12.22", features = ["json", "rustls-tls-webpki-roots-no-provider", "stream"], optional = true }
+hyper = { version = "1.7.0", optional = true }
+hyper-util = { version = "0.1.17", features = ["server"], optional = true }
+lru = "0.16.1"
+pem = { version = "3.0.6", optional = true }
+reqwest = { version = "0.12.23", features = ["charset", "http2", "system-proxy", "json", "rustls-tls-webpki-roots-no-provider", "stream"], default-features = false, optional = true }
 rand = "0.9.1"
 rsa = { version = "0.9.7", optional = true }
-rustls = { version = "0.23.29", default-features = false, features = ["ring", "tls12", "std"], optional = true }
-serde = { version = "1.0.219", features = ["derive"] }
-serde_json = "1.0.140"
+rustls = { version = "0.23.32", default-features = false, features = ["ring", "tls12", "std"], optional = true }
+serde = { version = "1.0.228", features = ["derive"] }
+serde_json = "1.0.145"
 sha2 = { version = "0.10.9", optional = true }
-thiserror = "2.0.12"
+thiserror = "2.0.17"
 tokio = { version = "1.46.1", features = ["full"] }
-tokio-rustls = { version = "0.26.2", default-features = false, features = ["ring", "tls12"], optional = true }
+tokio-rustls = { version = "0.26.4", default-features = false, features = ["ring", "tls12"], optional = true }
 tokio-stream = "0.1.7"
-tokio-tungstenite = { version = "0.27.0", features = ["rustls-tls-webpki-roots"], optional = true }
+tokio-tungstenite = { version = "0.28.0", features = ["rustls-tls-webpki-roots"], optional = true }
 tracing = "0.1.41"
-tracing-subscriber = { version = "0.3.19" }
-tungstenite = "0.27.0"
-uuid = { version = "1.17.0", features = ["serde", "v4"] }
+tracing-subscriber = { version = "0.3.20" }
+tungstenite = "0.28.0"
+uuid = { version = "1.18.1", features = ["serde", "v4"] }
 webrtc = { version = "0.13.0", optional = true }
 x509-parser = { version = "0.17.0", features = ["verify"], optional = true }
 

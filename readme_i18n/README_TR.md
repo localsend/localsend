@@ -7,7 +7,7 @@
 
 [Ana Sayfa][homepage] • [Discord][discord] • [GitHub][github] • [Codeberg][codeberg]
 
-[English (Default)](/README.md) • [Español](README_ES.md) • [فارسی](README_FA.md) • [Filipino](README_PH.md) • [Français](README_FR.md) • [Indonesia](README_ID.md) • [Italiano](README_IT.md) • [日本語](README_JA.md) • [ភាសាខ្មែរ](README_KM.md) • [한국어](README_KO.md) • [Polski](README_PL.md) • [Portugês Brasil](README_PT_BR.md) • [Русский](README_RU.md) • [ภาษาไทย](README_TH.md) • [Turkish](README_TR.md) • [Українська](README_UK.md) • [Tiếng Việt](README_VI.md) • [中文](README_ZH.md)
+[English (Default)](/README.md) • [Español](README_ES.md) • [فارسی](README_FA.md) • [Filipino](README_PH.md) • [Français](README_FR.md) • [Indonesia](README_ID.md) • [Italiano](README_IT.md) • [日本語](README_JA.md) • [ភាសាខ្មែរ](README_KM.md) • [한국어](README_KO.md) • [Polski](README_PL.md) • [Português Brasil](README_PT_BR.md) • [Русский](README_RU.md) • [ภาษาไทย](README_TH.md) • [Turkish](README_TR.md) • [Українська](README_UK.md) • [Tiếng Việt](README_VI.md) • [中文](README_ZH.md)
 
 [homepage]: https://localsend.org
 [discord]: https://discord.gg/GSRWmQNP87
@@ -139,14 +139,14 @@ LocalSend'i geliştirmekle ilgilenen herkesten katkı bekliyoruz. Katkıda bulun
 
 ### Çeviri
 
-LocalSend'i diğer dillere çevirmeye yardımcı olabilirsiniz. Çevirileri yönetmek için Weblate platformunu kullanıyoruz.
+LocalSend'i diğer dillere çevirmeye yardımcı olabilirsiniz! **Önerilen yöntem**: Çevirileri yönetmek için [Weblate](https://hosted.weblate.org/projects/localsend/app) platformunu kullanın.
 
-Alternatif olarak, bu repoyu fork'layarak ve çevirileri manuel olarak ekleyerek de katkıda bulunabilirsiniz.
+**Alternatif**: Bu depoyu fork'layarak ve çevirileri manuel olarak ekleyerek de katkıda bulunabilirsiniz.
 
-Çeviriler, [app/assets/i18n](https://github.com/localsend/localsend/tree/main/app/assets/i18n) dizininde bulunmaktadır. Çeviri eklemek veya güncellemek için `_missing_translations_<locale>.json` veya `strings_<locale>.i18n.json` dosyasını düzenleyebilirsiniz.
+Çeviriler [app/assets/i18n](https://github.com/localsend/localsend/tree/main/app/assets/i18n) dizininde bulunmaktadır. Çeviri eklemek veya güncellemek için `_missing_translations_<locale>.json` veya `strings_<locale>.i18n.json` dosyasını düzenleyebilirsiniz.
 
 <a href="https://hosted.weblate.org/engage/localsend/">
-<img src="https://hosted.weblate.org/widget/localsend/app/multi-auto.svg" alt="Translation status" />
+<img src="https://hosted.weblate.org/widget/localsend/app/multi-auto.svg" alt="Çeviri durumu" />
 </a>
 
 **_Take note:_ `@` ile süslenmiş alanlar çevrilmek için değildir; bu alanlar uygulamada herhangi bir şekilde kullanılmaz, yalnızca dosya hakkında bilgi veren veya çevirmen için bağlam sağlayan bilgilendirici metinlerdir.**
@@ -168,76 +168,3 @@ Daha fazla bilgi için [katkı sağlama kılavuzuna](https://github.com/localsen
 | Hız çok yavaş    | Herhangi bir platform | Herhangi bir platform | 5 Ghz kullanın; her iki cihazda da şifrelemeyi devre dışı bırakın.                                                                     |
 | Hız çok yavaş    | Herhangi bir platform | Android               | Bilinen bir sorun. https://github.com/flutter-cavalry/saf_stream/issues/4                                                              |
 
-## Derleme
-
-Bu komutlar yalnızca geliştirenler için tasarlanmıştır.
-
-### Android
-
-Geleneksel APK
-
-```bash
-flutter build apk
-```
-
-Google Play için AppBundle
-
-```bash
-flutter build appbundle
-```
-
-### iOS
-
-```bash
-flutter build ipa
-```
-
-### macOS
-
-```bash
-flutter build macos
-```
-
-### Windows
-
-**Geleneksel**
-
-```bash
-flutter build windows
-```
-
-**Yerel MSIX Uygulaması**
-
-```bash
-flutter pub run msix:create
-```
-
-**Mağaza hazır**
-
-```bash
-flutter pub run msix:create --store
-```
-
-### Linux
-
-**Geleneksel**
-
-```bash
-flutter build linux
-```
-
-**AppImage**
-
-```bash
-appimage-builder --recipe AppImageBuilder.yml
-```
-
-**Snap**
-
-Talimatlar için [localsend/snap/README.md](https://github.com/localsend/snap/blob/main/README.md) dosyasına bakın.
-
-## Katkıda Bulunanlar
-
-<a href="https://github.com/localsend/localsend/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=localsend/localsend"  alt="Localsend Contributors"/>
-</a>

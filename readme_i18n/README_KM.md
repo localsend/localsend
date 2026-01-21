@@ -7,7 +7,7 @@
 
 [ទំព័រដើម][homepage] • [Discord][discord] • [GitHub][github] • [Codeberg][codeberg]
 
-[English (Default)](/README.md) • [Español](README_ES.md) • [فارسی](README_FA.md) • [Filipino](README_PH.md) • [Français](README_FR.md) • [Indonesia](README_ID.md) • [Italiano](README_IT.md) • [日本語](README_JA.md) • [ភាសាខ្មែរ](README_KM.md) • [한국어](README_KO.md) • [Polski](README_PL.md) • [Portugês Brasil](README_PT_BR.md) • [Русский](README_RU.md) • [ภาษาไทย](README_TH.md) • [Turkish](README_TR.md) • [Українська](README_UK.md) • [Tiếng Việt](README_VI.md) • [中文](README_ZH.md)
+[English (Default)](/README.md) • [Español](README_ES.md) • [فارسی](README_FA.md) • [Filipino](README_PH.md) • [Français](README_FR.md) • [Indonesia](README_ID.md) • [Italiano](README_IT.md) • [日本語](README_JA.md) • [ភាសាខ្មែរ](README_KM.md) • [한국어](README_KO.md) • [Polski](README_PL.md) • [Português Brasil](README_PT_BR.md) • [Русский](README_RU.md) • [ภาษาไทย](README_TH.md) • [Turkish](README_TR.md) • [Українська](README_UK.md) • [Tiếng Việt](README_VI.md) • [中文](README_ZH.md)
 
 [homepage]: https://localsend.org
 [discord]: https://discord.gg/GSRWmQNP87
@@ -71,6 +71,16 @@ LocalSend គឺជាកម្មវិធីដែលដំណើរការ�
 [latest]: https://github.com/localsend/localsend/releases/latest
 [distribution channels]: https://github.com/localsend/localsend/blob/main/CONTRIBUTING.md#distribution
 
+**ភាពឆបគ្នា**
+
+| Platform | កំណែអប្បបរមា | ចំណាំ                                                                                                                        |
+|----------|-----------------|-----------------------------------------------------------------------------------------------------------------------------|
+| Android  | 5.0             | -                                                                                                                           |
+| iOS      | 12.0            | -                                                                                                                           |
+| macOS    | 11 Big Sur      | ប្រើ OpenCore Legacy Patcher 2.0.2 (សូមមើល [#1005](https://github.com/localsend/localsend/issues/1005#issuecomment-2449899384)) |
+| Windows  | 10              | កំណែចុងក្រោយដែលគាំទ្រ Windows 7 គឺ v1.15.4។ ប្រហែលជាមានកំណែថ្មីជាងសម្រាប់ Windows 7 នៅពេលអនាគត។   |
+| Linux    | N.A.            | ភាពអាស្រ័យ: Gnome: `xdg-desktop-portal` និង `xdg-desktop-portal-gtk`, KDE: `xdg-desktop-portal` និង `xdg-desktop-portal-kde` |
+
 ## របៀបរៀបចំតម្លើង
 
 ក្នុងករណីភាគច្រើន LocalSend គួរតែដំណើរការដោយរលូន និងឥតមានបញ្ហា។ ទោះជាយ៉ាងណាក៏ដោយ ប្រសិនបើអ្នកមានបញ្ហាក្នុងការផ្ញើ ឬទទួលឯកសារ អ្នកប្រហែលជាត្រូវកំណត់រចនាសម្ព័ន្ធ Firewall របស់អ្នក ដើម្បីអនុញ្ញាតឱ្យ LocalSend អាចទំនាក់ទំនងនៅលើបណ្តាញមូលដ្ឋានរបស់អ្នក។
@@ -126,24 +136,17 @@ LocalSend ប្រើ Protocol ទំនាក់ទំនងសុវត្ថ
 
 ### ការបកប្រែ
 
-អ្នកអាចជួយបកប្រែកម្មវិធីនេះទៅជាភាសាផ្សេងៗទៀត!
+អ្នកអាចជួយបកប្រែ LocalSend ទៅជាភាសាផ្សេងទៀត! **វិធីដែលបានណែនាំ**: ប្រើប្ល័តហ្វោម [Weblate](https://hosted.weblate.org/projects/localsend/app) ដើម្បីគ្រប់គ្រងការបកប្រែ។
 
-1. Fork repository មួយនេះជាមុនសិន។
-2. ជ្រើសរើសមួយក្នុងចំណោមជម្រើសខាងក្រោម៖
- - បន្ថែមការបកប្រែដែលបាត់នៅក្នុងភាសាដែលមានស្រាប់៖ ធ្វើបច្ចុប្បន្នភាពតែ `_missing_translations_<locale>.json` នៅក្នុង [app/assets/i18n][i18n]
- - ជួសជុលការបកប្រែដែលមានស្រាប់៖ ធ្វើបច្ចុប្បន្នភាព `strings_<locale>.i18n.json` នៅក្នុង [app/assets/i18n][i18n]
- - បន្ថែមភាសាថ្មី៖ បង្កើតឯកសារថ្មី; សូមមើលផងដែរនូវ៖ [កូដក្នុងស្រុក][]។
-3. ជម្រើសផ្សេងទៀត៖ ដំណើរការកម្មវិធីនេះឡើងវិញ
- 1. ដំណើរការ `c app` ដើម្បីចូល app directory ។
- 2. សូមប្រាកដថាអ្នកបាន [បើកដំណើរការ](#getting-started) កម្មវិធីនេះម្តងហើយ។
- 3. ធ្វើបច្ចុប្បន្នភាពការបកប្រែតាមរយៈ 'flutter pub run slang'
- 4. ដំណើរការកម្មវិធីតាមរយៈ 'flutter run'
- 5. បើកសំណើ pull request
+**ជម្រើសមួយទៀត**: អ្នកក៏អាចរួមចំណែកដោយ Fork មាន repository នេះ ហើយបន្ថែមការបកប្រែដោយដៃ។
 
-[i18n]: https://github.com/localsend/localsend/tree/main/app/assets/i18n
-[locale codes]: https://saimana.com/list-of-country-locale-code/
+ការបកប្រែស្ថិតនៅក្នុងថត [app/assets/i18n](https://github.com/localsend/localsend/tree/main/app/assets/i18n)។ កែសម្រួលឯកសារ `_missing_translations_<locale>.json` ឬ `strings_<locale>.i18n.json` ដើម្បីបន្ថែម ឬធ្វើបច្ចុប្បន្នភាពការបកប្រែ។
 
-** _ ចំណាំ៖_ កន្លែងដែលដាក់ភ្ជាប់ដោយ `@` នៅពីមុខ មិនត្រូវបកប្រែទេ។ ពួកវាមិនត្រូវបានប្រើនៅក្នុងកម្មវិធីតាមមធ្យោបាយណាមួយឡើយ ដោយគ្រាន់តែជាអត្ថបទផ្តល់ព័ត៌មានអំពីឯកសារ ឬផ្តល់បរិបទដល់អ្នកបកប្រែប៉ុណ្ណោះ។**
+<a href="https://hosted.weblate.org/engage/localsend/">
+<img src="https://hosted.weblate.org/widget/localsend/app/multi-auto.svg" alt="ស្ថានភាពបកប្រែ" />
+</a>
+
+**_ចំណាំ:_ កន្លែងដែលដាក់ភ្ជាប់ដោយ `@` នៅពីមុខ មិនត្រូវបកប្រែទេ។ ពួកវាមិនត្រូវបានប្រើនៅក្នុងកម្មវិធីតាមធ្យោបាយណាមួយឡើយ ដោយគ្រាន់តែជាអត្ថបទផ្តល់ព័ត៌មានអំពីឯកសារ ឬផ្តល់បរិបទដល់អ្នកបកប្រែ។**
 
 ### ជួសជុលបញ្ហា និងកែសម្រួល
 
@@ -152,73 +155,16 @@ LocalSend ប្រើ Protocol ទំនាក់ទំនងសុវត្ថ
 
 សម្រាប់ព័ត៌មានបន្ថែម, សូមមើល [ការណែនាំស្តីពីការរួមចំណែក](https://github.com/localsend/localsend/blob/main/CONTRIBUTING.md).
 
-## ការស្ថាបនាបង្កើតកម្មវិធី
+## ការដោះស្រាយបញ្ហា
 
-ពាក្យបញ្ជាទាំងនេះគឺសម្រាប់តែអ្នកជួលជុលកម្មវិធីប៉ុណ្ណោះ។
+| បញ្ហា              | Platform (ផ្ញើ) | Platform (ទទួល) | ដំណោះស្រាយ                                                                                                                                |
+|--------------------|--------------------|----------------------|-----------------------------------------------------------------------------------------------------------------------------------------|
+| មិនឃើញឧបករណ៍ | ណាមួយក៏បាន                | ណាមួយក៏បាន                  | ត្រូវប្រាកដថាបានបិទ AP-Isolation នៅលើ router របស់អ្នក។ ប្រសិនបើវាបានបើក ការតភ្ជាប់រវាងឧបករណ៍ត្រូវបានហាមឃាត់។                          |
+| មិនឃើញឧបករណ៍ | ណាមួយក៏បាន                | Windows              | ត្រូវប្រាកដថាបានកំណត់បណ្តាញរបស់អ្នកជាបណ្តាញ "ឯកជន"។ Windows អាចនឹងមានការរឹតបន្តឹងជាងនេះនៅពេលបណ្តាញត្រូវបានកំណត់ជាសាធារណៈ។ |
+| មិនឃើញឧបករណ៍ | macOS, iOS         | ណាមួយក៏បាន                  | អ្នកអាចសាកល្បងប្តូរការអនុញ្ញាត "Local Network" នៅក្រោម "Privacy" នៅក្នុងការកំណត់ OS។                                                |
+| ល្បឿនយឺតពេក     | ណាមួយក៏បាន                | ណាមួយក៏បាន                  | ប្រើ 5 Ghz; បិទការអ៊ិនគ្រីបនៅលើឧបករណ៍ទាំងពីរ                                                                                           |
+| ល្បឿនយឺតពេក     | ណាមួយក៏បាន                | Android              | បញ្ហាដែលត្រូវបានដឹង។ https://github.com/flutter-cavalry/saf_stream/issues/4                                                                     |
 
-### Android
-
-ប្រភេទ APK
-
-```bash
-flutter build apk
-```
-
-ប្រភេទ AppBundle សម្រាប់ Google Play
-
-```bash
-flutter build appbundle
-```
-
-### iOS
-
-```bash
-flutter build ipa
-```
-
-### macOS
-
-```bash
-flutter build macos
-```
-
-### Windows
-
-**Traditional**
-
-```bash
-flutter build windows
-```
-
-**Local MSIX App**
-
-```bash
-flutter pub run msix:create
-```
-
-**Store ready**
-
-```bash
-flutter pub run msix:create --store
-```
-
-### Linux
-
-**Traditional**
-
-```bash
-flutter build linux
-```
-
-**AppImage**
-
-```bash
-appimage-builder --recipe AppImageBuilder.yml
-```
-
-**Snap**
-
-របៀបណែនាំនៅក្នុង [localsend/snap/README.md](https://github.com/localsend/snap/blob/main/README.md)
 
 ## អ្នកចូលរួមចំណែក
 

@@ -58,12 +58,14 @@ class SelectedReceivingFilesNotifier extends Notifier<Map<String, String>> {
       files.sort((a, b) => a.value.compareTo(b.value));
     }
     final maxKeyStringLength = files.length.toString().length;
-    state = Map.fromEntries(files.mapIndexed((index, element) {
-      String number = (index + 1).toString();
-      if (padZero) {
-        number.padLeft(maxKeyStringLength, '0');
-      }
-      return MapEntry(element.key, element.value.withFileNameKeepExtension('$prefix$number'));
-    }));
+    state = Map.fromEntries(
+      files.mapIndexed((index, element) {
+        String number = (index + 1).toString();
+        if (padZero) {
+          number.padLeft(maxKeyStringLength, '0');
+        }
+        return MapEntry(element.key, element.value.withFileNameKeepExtension('$prefix$number'));
+      }),
+    );
   }
 }

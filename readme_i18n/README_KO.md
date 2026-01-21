@@ -10,7 +10,7 @@
 
 [홈페이지][homepage] • [Discord][discord] • [GitHub][github] • [Codeberg][codeberg]
 
-[English (Default)](/README.md) • [Español](README_ES.md) • [فارسی](README_FA.md) • [Filipino](README_PH.md) • [Français](README_FR.md) • [Indonesia](README_ID.md) • [Italiano](README_IT.md) • [日本語](README_JA.md) • [ភាសាខ្មែរ](README_KM.md) • [한국어](README_KO.md) • [Polski](README_PL.md) • [Portugês Brasil](README_PT_BR.md) • [Русский](README_RU.md) • [ภาษาไทย](README_TH.md) • [Turkish](README_TR.md) • [Українська](README_UK.md) • [Tiếng Việt](README_VI.md) • [中文](README_ZH.md)
+[English (Default)](/README.md) • [Español](README_ES.md) • [فارسی](README_FA.md) • [Filipino](README_PH.md) • [Français](README_FR.md) • [Indonesia](README_ID.md) • [Italiano](README_IT.md) • [日本語](README_JA.md) • [ភាសាខ្មែរ](README_KM.md) • [한국어](README_KO.md) • [Polski](README_PL.md) • [Português Brasil](README_PT_BR.md) • [Русский](README_RU.md) • [ภาษาไทย](README_TH.md) • [Turkish](README_TR.md) • [Українська](README_UK.md) • [Tiếng Việt](README_VI.md) • [中文](README_ZH.md)
 
 [homepage]: https://localsend.org
 [discord]: https://discord.gg/GSRWmQNP87
@@ -159,73 +159,15 @@ LocalSend를 다양한 언어로 번역하는데 도움을 주실 수 있습니�
 
 더 많은 정보가 필요하시다면, [기여 가이드](https://github.com/localsend/localsend/blob/main/CONTRIBUTING.md)를 확인하시기 바랍니다.
 
-## 빌드
+## 문제 해결
 
-해당 명령어는 오로지 maintainer들을 위한 명령어들입니다.
-
-### Android
-
-Traditional APK
-
-```bash
-flutter build apk
-```
-
-AppBundle for Google Play
-
-```bash
-flutter build appbundle
-```
-
-### iOS
-
-```bash
-flutter build ipa
-```
-
-### macOS
-
-```bash
-flutter build macos
-```
-
-### Windows
-
-**Traditional**
-
-```bash
-flutter build windows
-```
-
-**Local MSIX App**
-
-```bash
-flutter pub run msix:create
-```
-
-**Store ready**
-
-```bash
-flutter pub run msix:create --store
-```
-
-### Linux
-
-**Traditional**
-
-```bash
-flutter build linux
-```
-
-**AppImage**
-
-```bash
-appimage-builder --recipe AppImageBuilder.yml
-```
-
-**Snap**
-
-Instructions in [localsend/snap/README.md](https://github.com/localsend/snap/blob/main/README.md)
+| 문제              | 플랫폼 (전송) | 플랫폼 (수신) | 해결 방법                                                                                                                                |
+|--------------------|--------------------|----------------------|-----------------------------------------------------------------------------------------------------------------------------------------|
+| 장치가 보이지 않음 | 모두                | 모두                  | 라우터에서 AP-Isolation을 비활성화했는지 확인하세요. 활성화되어 있으면 장치 간 연결이 금지됩니다.                          |
+| 장치가 보이지 않음 | 모두                | Windows              | 네트워크를 "개인" 네트워크로 구성했는지 확인하세요. 네트워크가 공용으로 구성되어 있으면 Windows가 더 제한적일 수 있습니다. |
+| 장치가 보이지 않음 | macOS, iOS         | 모두                  | OS 설정의 "개인 정보 보호"에서 "로컬 네트워크" 권한을 전환해 보세요.                                                |
+| 속도가 너무 느림     | 모두                | 모두                  | 5 GHz 사용; 두 장치 모두에서 암호화 비활성화                                                                                           |
+| 속도가 너무 느림     | 모두                | Android              | 알려진 문제. https://github.com/flutter-cavalry/saf_stream/issues/4                                                                     |
 
 ## 기여자
 

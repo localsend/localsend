@@ -1,8 +1,9 @@
 mod url;
 
-use crate::http::{dto, StatusCodeError};
-use crate::model::discovery::{ProtocolType, RegisterDto, RegisterResponseDto};
-use crate::model::transfer::{PrepareUploadRequestDto, PrepareUploadResponseDto};
+use crate::http;
+use crate::http::client::url::{ApiVersion, TargetUrl};
+use crate::http::dto::ProtocolType;
+use crate::http::StatusCodeError;
 use crate::{crypto, util};
 use futures_util::StreamExt;
 use lru::LruCache;
@@ -12,7 +13,6 @@ use std::num::NonZeroUsize;
 use std::sync::Arc;
 use tokio::sync::{mpsc, Mutex};
 use tokio_stream::wrappers::ReceiverStream;
-use crate::http::client::url::{ApiVersion, TargetUrl};
 
 const BASE_PATH: &str = "/api/localsend/v3";
 
@@ -33,7 +33,7 @@ pub struct RegisterResult {
     pub public_key: Option<String>,
 
     /// The response body from the register request.
-    pub body: RegisterResponseDto,
+    pub body: http::dto::RegisterResponseDto,
 }
 
 impl LsHttpClient {
@@ -73,19 +73,22 @@ impl LsHttpClient {
         let generated_nonce = crypto::nonce::generate_nonce();
         let generated_nonce_base64 = util::base64::encode(&generated_nonce);
 
-        let request_body = dto::NonceRequest {
+        let request_body = http::dto::NonceRequest {
             nonce: generated_nonce_base64,
         };
 
         let res = self
             .client
-            .post(TargetUrl {
-                version: ApiVersion::V3,
-                protocol: protocol.clone(),
-                host: ip.to_string(),
-                port,
-                path: "/nonce",
-            }.to_string())
+            .post(
+                TargetUrl {
+                    version: ApiVersion::V3,
+                    protocol: protocol.clone(),
+                    host: ip.to_string(),
+                    port,
+                    path: "/nonce",
+                }
+                .to_string(),
+            )
             .body(serde_json::to_string(&request_body)?)
             .send()
             .await?;
@@ -94,8 +97,8 @@ impl LsHttpClient {
             return Err(status_code_error_from_res(res).await?);
         }
 
-        let remote_key = to_remote_key(&res, protocol == &ProtocolType::Https, None)?;
-        let body = res.json::<dto::NonceResponse>().await?;
+        let remote_key = to_identifier(&res, protocol == &ProtocolType::Https, None)?;
+        let body = res.json::<http::dto::NonceResponse>().await?;
 
         // Save the response nonce and our generated nonce
         let response_nonce = util::base64::decode(&body.nonce)?;
@@ -125,7 +128,7 @@ impl LsHttpClient {
         protocol: &ProtocolType,
         ip: &str,
         port: u16,
-        payload: RegisterDto,
+        payload: http::dto::RegisterDto,
     ) -> anyhow::Result<RegisterResult> {
         let res = self
             .client
@@ -145,7 +148,7 @@ impl LsHttpClient {
             _ => None,
         };
 
-        let body = res.json::<RegisterResponseDto>().await?;
+        let body = res.json::<http::dto::RegisterResponseDto>().await?;
 
         Ok(RegisterResult { public_key, body })
     }
@@ -156,8 +159,8 @@ impl LsHttpClient {
         ip: &str,
         port: u16,
         public_key: Option<String>,
-        payload: PrepareUploadRequestDto,
-    ) -> anyhow::Result<PrepareUploadResponseDto> {
+        payload: http::dto::PrepareUploadRequestDto,
+    ) -> anyhow::Result<http::dto::PrepareUploadResponseDto> {
         let res = self
             .client
             .post(format!(
@@ -179,7 +182,7 @@ impl LsHttpClient {
             return Err(status_code_error_from_res(res).await?);
         }
 
-        let body = res.json::<PrepareUploadResponseDto>().await?;
+        let body = res.json::<http::dto::PrepareUploadResponseDto>().await?;
 
         Ok(body)
     }
@@ -266,12 +269,17 @@ async fn status_code_error_from_res(response: Response) -> anyhow::Result<anyhow
     }))
 }
 
-fn to_remote_key(response: &Response, require_cert: bool, public_key: Option<String>) -> anyhow::Result<String> {
+fn to_identifier(
+    response: &Response,
+    require_cert: bool,
+    public_key: Option<String>,
+) -> anyhow::Result<String> {
     match require_cert {
         true => verify_cert_from_res(response, public_key),
-        false => response.remote_addr().map(|addr| addr.ip().to_string()).ok_or_else(|| {
-            anyhow::anyhow!("Remote address not found in response")
-        }),
+        false => response
+            .remote_addr()
+            .map(|addr| addr.ip().to_string())
+            .ok_or_else(|| anyhow::anyhow!("Remote address not found in response")),
     }
 }
 

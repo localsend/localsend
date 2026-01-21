@@ -13,7 +13,7 @@
 
 [Sito web][sito web] • [Discord][discord] • [GitHub][github] • [Codeberg][codeberg]
 
-[English (Default)](/README.md) • [Español](README_ES.md) • [فارسی](README_FA.md) • [Filipino](README_PH.md) • [Français](README_FR.md) • [Indonesia](README_ID.md) • [Italiano](README_IT.md) • [日本語](README_JA.md) • [ភាសាខ្មែរ](README_KM.md) • [한국어](README_KO.md) • [Polski](README_PL.md) • [Portugês Brasil](README_PT_BR.md) • [Русский](README_RU.md) • [ภาษาไทย](README_TH.md) • [Türkçe](README_TR.md) • [Українська](README_UK.md) • [Tiếng Việt](README_VI.md) • [中文](README_ZH.md)
+[English (Default)](/README.md) • [Español](README_ES.md) • [فارسی](README_FA.md) • [Filipino](README_PH.md) • [Français](README_FR.md) • [Indonesia](README_ID.md) • [Italiano](README_IT.md) • [日本語](README_JA.md) • [ភាសាខ្មែរ](README_KM.md) • [한국어](README_KO.md) • [Polski](README_PL.md) • [Português Brasil](README_PT_BR.md) • [Русский](README_RU.md) • [ภาษาไทย](README_TH.md) • [Türkçe](README_TR.md) • [Українська](README_UK.md) • [Tiếng Việt](README_VI.md) • [中文](README_ZH.md)
 
 [sito web]: https://localsend.org
 [discord]: https://discord.gg/GSRWmQNP87
@@ -147,9 +147,9 @@ Accogliamo con piacere i contributi di chiunque sia interessato a migliorare Loc
 
 ### Traduzione
 
-È possibile contribuire traducendo LocalSend in altre lingue. Per la gestione delle traduzioni utilizziamo la piattaforma [Weblate](https://hosted.weblate.org/projects/localsend/app).
+È possibile contribuire traducendo LocalSend in altre lingue. **Metodo consigliato**: Utilizza la piattaforma [Weblate](https://hosted.weblate.org/projects/localsend/app) per gestire le traduzioni.
 
-In alternativa, è possibile contribuire anche creando un fork di questa repository, aggiungendo manualmente le traduzioni.
+**In alternativa**: È anche possibile contribuire creando un fork di questa repository e aggiungendo manualmente le traduzioni.
 
 Le traduzioni si trovano nella cartella [app/assets/i18n](https://github.com/localsend/localsend/tree/main/app/assets/i18n). Modificare il file `_missing_translations_<locale>.json` o `strings_<locale>.i18n.json` per aggiungere o aggiornare le traduzioni.
 
@@ -175,74 +175,6 @@ Per più informazioni, vedi la [guida ai contributi](https://github.com/localsen
 | Dispositivo non visibile | macOS, iOS          | Qualsiasi               | Si può provare a disattivare l'autorizzazione "Rete locale" in "Privacy" nelle impostazioni del sistema operativo.                      |
 | Velocità troppo lenta    | Qualsiasi           | Qualsiasi               | Utilizzare 5 Ghz; disabilitare la crittografia su entrambi i dispositivi                                                                |
 | Velocità troppo lenta    | Qualsiasi           | Android                 | Problema noto. https://github.com/flutter-cavalry/saf_stream/issues/4                                                                   |
-
-## Compilazione
-
-Questi comandi sono destinati solo ai manutentori.
-
-### Android
-
-APK tradizionale
-
-```bash
-flutter build apk
-```
-
-AppBundle per Google Play
-
-```bash
-flutter build appbundle
-```
-
-### iOS
-
-```bash
-flutter build ipa
-```
-
-### macOS
-
-```bash
-flutter build macos
-```
-
-### Windows
-
-**Tradizionale**
-
-```bash
-flutter build windows
-```
-
-**App locale MSIX**
-
-```bash
-flutter pub run msix:create
-```
-
-**Pronto per lo store**
-
-```bash
-flutter pub run msix:create --store
-```
-
-### Linux
-
-**Tradizionale**
-
-```bash
-flutter build linux
-```
-
-**AppImage**
-
-```bash
-appimage-builder --recipe AppImageBuilder.yml
-```
-
-**Snap**
-
-Istruzioni su [localsend/snap/README.md](https://github.com/localsend/snap/blob/main/README.md)
 
 ## Contributori
 

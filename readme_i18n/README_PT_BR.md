@@ -7,7 +7,7 @@
 
 [Homepage][homepage] • [Discord][discord] • [GitHub][github] • [Codeberg][codeberg]
 
-[English (Default)](/README.md) • [Español](README_ES.md) • [فارسی](README_FA.md) • [Filipino](README_PH.md) • [Français](README_FR.md) • [Indonesia](README_ID.md) • [Italiano](README_IT.md) • [日本語](README_JA.md) • [ភាសាខ្មែរ](README_KM.md) • [한국어](README_KO.md) • [Polski](README_PL.md) • [Portugês Brasil](README_PT_BR.md) • [Русский](README_RU.md) • [ภาษาไทย](README_TH.md) • [Turkish](README_TR.md) • [Українська](README_UK.md) • [Tiếng Việt](README_VI.md) • [中文](README_ZH.md)
+[English (Default)](/README.md) • [Español](README_ES.md) • [فارسی](README_FA.md) • [Filipino](README_PH.md) • [Français](README_FR.md) • [Indonesia](README_ID.md) • [Italiano](README_IT.md) • [日本語](README_JA.md) • [ភាសាខ្មែរ](README_KM.md) • [한국어](README_KO.md) • [Polski](README_PL.md) • [Português Brasil](README_PT_BR.md) • [Русский](README_RU.md) • [ภาษาไทย](README_TH.md) • [Turkish](README_TR.md) • [Українська](README_UK.md) • [Tiếng Việt](README_VI.md) • [中文](README_ZH.md)
 
 [homepage]: https://localsend.org
 [discord]: https://discord.gg/GSRWmQNP87
@@ -144,9 +144,9 @@ Agradecemos as contribuições de todos que estão interessados em ajudar a melh
 
 ### Tradução
 
-Você pode ajudar a traduzir o LocalSend para outros idiomas. Usamos a plataforma [Weblate](https://hosted.weblate.org/projects/localsend/app) para gerenciar as traduções.
+Você pode ajudar a traduzir o LocalSend para outros idiomas. **Forma recomendada**: Use a plataforma [Weblate](https://hosted.weblate.org/projects/localsend/app) para gerenciar as traduções.
 
-Alternativamente, você também pode contribuir fazendo um fork deste repositório e adicionando as traduções manualmente.
+**Alternativamente**: Você também pode contribuir fazendo um fork deste repositório e adicionando as traduções manualmente.
 
 As traduções estão localizadas no diretório [app/assets/i18n](https://github.com/localsend/localsend/tree/main/app/assets/i18n). Edite o arquivo `_missing_translations_<locale>.json` ou `strings_<locale>.i18n.json` para adicionar ou atualizar traduções.
 
@@ -174,76 +174,3 @@ Para mais informações, consulte o [guia de contribuição](https://github.com/
 | Velocidade muito lenta | Qualquer           | Qualquer                 | Use 5 Ghz; desative a criptografia em ambos os dispositivos.                                                                            |
 | Velocidade muito lenta | Qualquer           | Android                  | Problema conhecido. https://github.com/flutter-cavalry/saf_stream/issues/4                                                               |
 
-## Compilando
-
-Este comandos são destinados apenas para mantenedores.
-
-### Android
-
-APK convencional
-
-```bash
-flutter build apk
-```
-
-AppBundle para o Google Play
-
-```bash
-flutter build appbundle
-```
-
-### iOS
-
-```bash
-flutter build ipa
-```
-
-### macOS
-
-```bash
-flutter build macos
-```
-
-### Windows
-
-**Convencional**
-
-```bash
-flutter build windows
-```
-
-**Aplicativo MSIX local**
-
-```bash
-flutter pub run msix:create
-```
-
-**Pronto para a loja**
-
-```bash
-flutter pub run msix:create --store
-```
-
-### Linux
-
-**Convencional**
-
-```bash
-flutter build linux
-```
-
-**AppImage**
-
-```bash
-appimage-builder --recipe AppImageBuilder.yml
-```
-
-**Snap**
-
-Sinta-se livre para abrir um pull request. Há a branch `snap` para brincar.
-
-## Contribuidores
-
-<a href="https://github.com/localsend/localsend/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=localsend/localsend"  alt="Localsend Contributors"/>
-</a>

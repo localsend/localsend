@@ -13,7 +13,7 @@
 
 [主页][homepage] • [Discord][discord] • [GitHub][github] • [Codeberg][codeberg]
 
-[English (Default)](/README.md) • [Español](README_ES.md) • [فارسی](README_FA.md) • [Filipino](README_PH.md) • [Français](README_FR.md) • [Indonesia](README_ID.md) • [Italiano](README_IT.md) • [日本語](README_JA.md) • [ភាសាខ្មែរ](README_KM.md) • [한국어](README_KO.md) • [Polski](README_PL.md) • [Portugês Brasil](README_PT_BR.md) • [Русский](README_RU.md) • [ภาษาไทย](README_TH.md) • [Turkish](README_TR.md) • [Українська](README_UK.md) • [Tiếng Việt](README_VI.md) • [中文](README_ZH.md)
+[English (Default)](/README.md) • [Español](README_ES.md) • [فارسی](README_FA.md) • [Filipino](README_PH.md) • [Français](README_FR.md) • [Indonesia](README_ID.md) • [Italiano](README_IT.md) • [日本語](README_JA.md) • [ភាសាខ្មែរ](README_KM.md) • [한국어](README_KO.md) • [Polski](README_PL.md) • [Português Brasil](README_PT_BR.md) • [Русский](README_RU.md) • [ภาษาไทย](README_TH.md) • [Turkish](README_TR.md) • [Українська](README_UK.md) • [Tiếng Việt](README_VI.md) • [中文](README_ZH.md)
 
 > 注意：中文文档更新可能不够及时，请以英文文档为准。
 
@@ -175,74 +175,6 @@ LocalSend 使用安全通信协议，允许设备通过 REST API 进行通信。
 | 设备不可见 | macOS, iOS     | 任何            | 尝试在系统设置中的“隐私”下切换“本地网络”权限。                               |
 | 速度太慢   | 任何           | 任何            | 使用 5 Ghz 频段；关闭发送和接收端设备的数据加密。                            |
 | 速度太慢   | 任何           | 安卓            | 已知的问题。见 https://github.com/flutter-cavalry/saf_stream/issues/4       |
-
-## 构建
-
-这些命令仅供维护者使用。
-
-### Android
-
-传统 APK
-
-```bash
-flutter build apk
-```
-
-Google Play 的 AppBundle
-
-```bash
-flutter build appbundle
-```
-
-### iOS
-
-```bash
-flutter build ipa
-```
-
-### macOS
-
-```bash
-flutter build macos
-```
-
-### Windows
-
-**传统**
-
-```bash
-flutter build windows
-```
-
-**本地 MSIX 应用**
-
-```bash
-flutter pub run msix:create
-```
-
-**微软商店分发包**
-
-```bash
-flutter pub run msix:create --store
-```
-
-### Linux
-
-**传统**
-
-```bash
-flutter build linux
-```
-
-**AppImage**
-
-```bash
-appimage-builder --recipe AppImageBuilder.yml
-```
-
-**Snap**
-
-使用说明：[localsend/snap/README.md](https://github.com/localsend/snap/blob/main/README.md)
 
 ## 贡献者
 

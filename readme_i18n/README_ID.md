@@ -7,7 +7,7 @@
 
 [Homepage][homepage] • [Discord][discord] • [GitHub][github] • [Codeberg][codeberg]
 
-[English (Default)](/README.md) • [Español](README_ES.md) • [فارسی](README_FA.md) • [Filipino](README_PH.md) • [Français](README_FR.md) • [Indonesia](README_ID.md) • [Italiano](README_IT.md) • [日本語](README_JA.md) • [ភាសាខ្មែរ](README_KM.md) • [한국어](README_KO.md) • [Polski](README_PL.md) • [Portugês Brasil](README_PT_BR.md) • [Русский](README_RU.md) • [ภาษาไทย](README_TH.md) • [Turkish](README_TR.md) • [Українська](README_UK.md) • [Tiếng Việt](README_VI.md) • [中文](README_ZH.md)
+[English (Default)](/README.md) • [Español](README_ES.md) • [فارسی](README_FA.md) • [Filipino](README_PH.md) • [Français](README_FR.md) • [Indonesia](README_ID.md) • [Italiano](README_IT.md) • [日本語](README_JA.md) • [ភាសាខ្មែរ](README_KM.md) • [한국어](README_KO.md) • [Polski](README_PL.md) • [Português Brasil](README_PT_BR.md) • [Русский](README_RU.md) • [ภาษาไทย](README_TH.md) • [Turkish](README_TR.md) • [Українська](README_UK.md) • [Tiếng Việt](README_VI.md) • [中文](README_ZH.md)
 
 [homepage]: https://localsend.org
 [discord]: https://discord.gg/GSRWmQNP87
@@ -71,6 +71,16 @@ Read more about [distribution channels][].
 [latest]: https://github.com/localsend/localsend/releases/latest
 [distribution channels]: https://github.com/localsend/localsend/blob/main/CONTRIBUTING.md#distribution
 
+**Kompatibilitas**
+
+| Platform | Versi Minimum | Catatan                                                                                                                     |
+|----------|---------------|-----------------------------------------------------------------------------------------------------------------------------|
+| Android  | 5.0           | -                                                                                                                           |
+| iOS      | 12.0          | -                                                                                                                           |
+| macOS    | 11 Big Sur    | Gunakan OpenCore Legacy Patcher 2.0.2 (Lihat [#1005](https://github.com/localsend/localsend/issues/1005#issuecomment-2449899384)) |
+| Windows  | 10            | Versi terakhir yang mendukung Windows 7 adalah v1.15.4. Mungkin ada backport versi lebih baru untuk Windows 7 di masa depan. |
+| Linux    | N.A.          | Dependensi: Gnome: `xdg-desktop-portal` dan `xdg-desktop-portal-gtk`, KDE: `xdg-desktop-portal` dan `xdg-desktop-portal-kde` |
+
 ## Setup
 
 Dalam kebanyakan kasus, LocalSend seharusnya berfungsi langsung tanpa konfigurasi. Namun, jika Anda mengalami masalah dalam mengirim atau menerima file, Anda mungkin perlu mengonfigurasi firewall Anda untuk mengizinkan LocalSend berkomunikasi melalui jaringan lokal Anda.
@@ -86,9 +96,9 @@ Pastikan juga untuk menonaktifkan AP isolation di router Anda. Fitur ini biasany
 
 (Diperkenalkan pada v1.13.0)
 
-Buat file bernama settings.json yang terletak di direktori yang sama dengan file eksekusi aplikasi. File ini bisa dibiarkan kosong. Aplikasi akan menggunakan file ini untuk menyimpan pengaturan daripada lokasi default.
+Buat file bernama `settings.json` yang terletak di direktori yang sama dengan file eksekusi aplikasi. File ini bisa dibiarkan kosong. Aplikasi akan menggunakan file ini untuk menyimpan pengaturan daripada lokasi default.
 
-**Start hidden**
+**Mulai tersembunyi**
 
 (Diperbarui pada v1.15.0)
 
@@ -101,10 +111,6 @@ Pada versi v1.14.0 dan sebelumnya, aplikasi dimulai dalam mode tersembunyi jika 
 LocalSend menggunakan protokol komunikasi yang aman, memungkinkan perangkat untuk berkomunikasi satu sama lain menggunakan REST API. Semua data dikirim dengan aman melalui HTTPS, dan sertifikat TLS/SSL dihasilkan secara langsung di setiap perangkat, memastikan keamanan maksimum.
 
 Untuk informasi lebih lanjut tentang Protokol LocalSend, lihat [dokumentasi](https://github.com/localsend/protocol).
-
-Berikut terjemahan bagian **Getting Started**, **Contributing**, dan **Building** dari laman README:
-
----
 
 ## Memulai
 
@@ -127,22 +133,15 @@ Kami menerima kontribusi dari siapa pun yang tertarik untuk membantu meningkatka
 
 ### Terjemahan
 
-Anda bisa membantu menerjemahkan aplikasi ini ke bahasa lain!
+Anda dapat membantu menerjemahkan LocalSend ke bahasa lain! **Cara yang direkomendasikan**: Gunakan platform [Weblate](https://hosted.weblate.org/projects/localsend/app) untuk mengelola terjemahan.
 
-1. Fork repositori ini
-2. Pilih salah satu:
-   - Menambahkan terjemahan yang hilang dalam bahasa yang ada: Hanya perbarui `_missing_translations_<locale>.json` di [app/assets/i18n][i18n]
-   - Memperbaiki terjemahan yang sudah ada: Perbarui `strings_<locale>.i18n.json` di [app/assets/i18n][i18n]
-   - Menambahkan bahasa baru: Buat file baru; lihat juga: [kode lokal][].
-3. Opsional: Jalankan ulang aplikasi ini
-   1. Jalankan `cd app` untuk masuk ke direktori aplikasi.
-   2. Pastikan Anda sudah [menjalankan](#memulai) aplikasi ini sekali.
-   3. Perbarui terjemahan melalui `flutter pub run slang`
-   4. Jalankan aplikasi melalui `flutter run`
-   5. Buka pull request
+**Alternatif**: Anda juga dapat berkontribusi dengan mem-fork repository ini dan menambahkan terjemahan secara manual.
 
-[i18n]: https://github.com/localsend/localsend/tree/main/app/assets/i18n  
-[kode lokal]: https://saimana.com/list-of-country-locale-code/
+Terjemahan terletak di direktori [app/assets/i18n](https://github.com/localsend/localsend/tree/main/app/assets/i18n). Edit file `_missing_translations_<locale>.json` atau `strings_<locale>.i18n.json` untuk menambah atau memperbarui terjemahan.
+
+<a href="https://hosted.weblate.org/engage/localsend/">
+<img src="https://hosted.weblate.org/widget/localsend/app/multi-auto.svg" alt="Status terjemahan" />
+</a>
 
 **_Catatan:_ Bidang yang dihiasi dengan `@` tidak dimaksudkan untuk diterjemahkan; mereka tidak digunakan dalam aplikasi dan hanya bersifat informatif untuk memberikan konteks kepada penerjemah.**
 
@@ -153,80 +152,13 @@ Anda bisa membantu menerjemahkan aplikasi ini ke bahasa lain!
 
 Untuk informasi lebih lanjut, lihat [panduan kontribusi](https://github.com/localsend/localsend/blob/main/CONTRIBUTING.md).
 
-## Membangun
+## Pemecahan Masalah
 
-Perintah ini ditujukan untuk pemelihara saja.
+| Masalah              | Platform (Pengirim) | Platform (Penerima) | Solusi                                                                                                                                  |
+|----------------------|---------------------|---------------------|-----------------------------------------------------------------------------------------------------------------------------------------|
+| Perangkat tidak terlihat | Semua               | Semua               | Pastikan untuk menonaktifkan AP-Isolation pada router Anda. Jika diaktifkan, koneksi antar perangkat akan dilarang.                     |
+| Perangkat tidak terlihat | Semua               | Windows             | Pastikan untuk mengonfigurasi jaringan Anda sebagai jaringan "pribadi". Windows mungkin lebih ketat saat jaringan dikonfigurasi sebagai publik. |
+| Perangkat tidak terlihat | macOS, iOS          | Semua               | Anda dapat mencoba mengaktifkan/menonaktifkan izin "Local Network" di bawah "Privacy" di pengaturan OS.                                 |
+| Kecepatan terlalu lambat | Semua               | Semua               | Gunakan 5 GHz; Nonaktifkan enkripsi pada kedua perangkat                                                                                |
+| Kecepatan terlalu lambat | Semua               | Android             | Masalah yang diketahui. https://github.com/flutter-cavalry/saf_stream/issues/4                                                          |
 
-### Android
-
-APK Tradisional
-
-```bash
-flutter build apk
-```
-
-AppBundle untuk Google Play
-
-```bash
-flutter build appbundle
-```
-
-### iOS
-
-```bash
-flutter build ipa
-```
-
-### macOS
-
-```bash
-flutter build macos
-```
-
-### Windows
-
-**Tradisional**
-
-```bash
-flutter build windows
-```
-
-**Aplikasi MSIX Lokal**
-
-```bash
-flutter pub run msix:create
-```
-
-**Siap untuk Store**
-
-```bash
-flutter pub run msix:create --store
-```
-
-### Linux
-
-**Tradisional**
-
-```bash
-flutter build linux
-```
-
-**AppImage**
-
-```bash
-appimage-builder --recipe AppImageBuilder.yml
-```
-
-**Snap**
-
-Silakan buka pull request. Ada cabang `snap` untuk eksperimen.
-
-## Kontributor
-
-<a href="https://github.com/localsend/localsend/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=localsend/localsend" alt="Kontributor LocalSend"/>
-</a>
-
---- 
-
-Jika ada penyesuaian yang diperlukan atau tambahan yang ingin disertakan, beri tahu saya!

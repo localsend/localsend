@@ -35,35 +35,41 @@ PreferredSizeWidget basicLocalSendAppbar(String title) {
       ? PreferredSize(
           preferredSize: const Size.fromHeight(kToolbarHeight),
           child: ClipRRect(
-              child: BackdropFilter(
-            filter: ImageFilter.blur(
-              sigmaX: 20.0,
-              sigmaY: 20.0,
-            ),
-            child: MoveWindow(
-              child: Container(
-                color: Colors.transparent,
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    // Padding space for macOS traffic lights
-                    if (!kIsWeb && Platform.isMacOS) const SizedBox(width: 60),
-                    // Originally leading Icon
-                    CustomBackButton(),
-                    // Center Title
-                    Expanded(
+            child: BackdropFilter(
+              filter: ImageFilter.blur(
+                sigmaX: 20.0,
+                sigmaY: 20.0,
+              ),
+              child: MoveWindow(
+                child: Container(
+                  color: Colors.transparent,
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      // Padding space for macOS traffic lights
+                      if (!kIsWeb && Platform.isMacOS) const SizedBox(width: 60),
+                      // Originally leading Icon
+                      CustomBackButton(),
+                      // Center Title
+                      Expanded(
                         child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Center(
-                        child: FittedBox(fit: BoxFit.scaleDown, child: Text(title, style: TextStyle(fontSize: 100, fontWeight: FontWeight.normal))),
+                          padding: const EdgeInsets.all(8.0),
+                          child: Center(
+                            child: FittedBox(
+                              fit: BoxFit.scaleDown,
+                              child: Text(title, style: TextStyle(fontSize: 100, fontWeight: FontWeight.normal)),
+                            ),
+                          ),
+                        ),
                       ),
-                    )),
-                    // For true centering of the icon since it shifted
-                    const SizedBox(width: 60),
-                  ],
+                      // For true centering of the icon since it shifted
+                      const SizedBox(width: 60),
+                    ],
+                  ),
                 ),
               ),
             ),
-          )))
+          ),
+        )
       : AppBar(title: Text(title));
 }

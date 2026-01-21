@@ -1,6 +1,5 @@
-use crate::crypto::nonce::{generate_nonce, validate_nonce};
-use crate::crypto::token;
-use crate::crypto::token::{generate_token_nonce, SigningTokenKey};
+use crate::crypto;
+use crate::crypto::token::{SigningTokenKey, VerifyingTokenKey};
 use crate::model::transfer::FileDto;
 use crate::util::base64;
 use crate::webrtc::signaling::{ManagedSignalingConnection, WsServerSdpMessage};
@@ -183,7 +182,7 @@ pub async fn send_offer(
     stun_servers: Vec<String>,
     target_id: Uuid,
     signing_key: SigningTokenKey,
-    expecting_public_key: Option<Box<dyn token::VerifyingTokenKey + Send>>,
+    expecting_public_key: Option<Box<dyn VerifyingTokenKey + Send>>,
     pin: Option<PinConfig>,
     files: Vec<FileDto>,
     status_tx: mpsc::Sender<RTCStatus>,
@@ -232,7 +231,7 @@ pub async fn send_offer(
 
             // Nonce exchange
             let nonce = {
-                let mut local_nonce = generate_nonce();
+                let mut local_nonce = crypto::nonce::generate_nonce();
                 data_channel
                     .send_text(&serde_json::to_string(&RTCNonceMessage {
                         nonce: base64::encode(&local_nonce),
@@ -250,7 +249,7 @@ pub async fn send_offer(
             tracing::debug!("Nonce exchanged. Exchanging token...");
 
             // Token exchange
-            let local_token = generate_token_nonce(&signing_key, &nonce)
+            let local_token = crypto::token::generate_token_nonce(&signing_key, &nonce)
                 .map_err(|e| anyhow::anyhow!("Failed to generate token: {e}"))?;
 
             data_channel
@@ -276,7 +275,11 @@ pub async fn send_offer(
             let remote_token = match &token_response {
                 RTCTokenResponse::Ok { token } | RTCTokenResponse::PinRequired { token } => {
                     if let Some(expecting_public_key) = expecting_public_key {
-                        if !token::verify_token_nonce(&*expecting_public_key, &token, &nonce) {
+                        if !crypto::token::verify_token_nonce(
+                            &*expecting_public_key,
+                            &token,
+                            &nonce,
+                        ) {
                             return Err(anyhow::anyhow!("Invalid token signature or nonce"));
                         }
                     }
@@ -405,10 +408,11 @@ pub async fn send_offer(
                 RTCFileListResponse::Pair { public_key } => {
                     tracing::debug!("Pair request received. Sending pair response...");
                     let signature_identifier =
-                        token::extract_signature_identifier(&remote_token)
+                        crypto::token::extract_signature_identifier(&remote_token)
                             .ok_or(anyhow::anyhow!("Failed to extract signature identifier"))?;
-                    let parsed_key = token::parse_public_key(&public_key, signature_identifier)?;
-                    if !token::verify_token_nonce(&*parsed_key, &remote_token, &nonce) {
+                    let parsed_key =
+                        crypto::token::parse_public_key(&public_key, signature_identifier)?;
+                    if !crypto::token::verify_token_nonce(&*parsed_key, &remote_token, &nonce) {
                         wait_buffer_empty(&data_channel).await;
                         data_channel
                             .send_text(&serde_json::to_string(&RTCPairResponse::InvalidSignature)?)
@@ -626,7 +630,7 @@ pub async fn accept_offer(
     stun_servers: Vec<String>,
     offer: &WsServerSdpMessage,
     signing_key: SigningTokenKey,
-    expecting_public_key: Option<Box<dyn token::VerifyingTokenKey + Send>>,
+    expecting_public_key: Option<Box<dyn VerifyingTokenKey + Send>>,
     pin: Option<PinConfig>,
     status_tx: mpsc::Sender<RTCStatus>,
     files_tx: oneshot::Sender<Vec<FileDto>>,
@@ -673,7 +677,7 @@ pub async fn accept_offer(
             let nonce = {
                 let mut remote_nonce = receive_nonce(&mut receive_rx).await?;
 
-                let mut local_nonce = generate_nonce();
+                let mut local_nonce = crypto::nonce::generate_nonce();
                 data_channel
                     .send_text(&serde_json::to_string(&RTCNonceMessage {
                         nonce: base64::encode(&local_nonce),
@@ -704,7 +708,8 @@ pub async fn accept_offer(
 
             if let Some(expecting_public_key) = expecting_public_key {
                 // Optionally, verify the token signature
-                if !token::verify_token_nonce(&*expecting_public_key, &remote_token, &nonce) {
+                if !crypto::token::verify_token_nonce(&*expecting_public_key, &remote_token, &nonce)
+                {
                     data_channel
                         .send_text(&serde_json::to_string(&RTCTokenResponse::InvalidSignature)?)
                         .await?;
@@ -715,7 +720,7 @@ pub async fn accept_offer(
             }
 
             {
-                let local_token = generate_token_nonce(&signing_key, &nonce)
+                let local_token = crypto::token::generate_token_nonce(&signing_key, &nonce)
                     .map_err(|e| anyhow::anyhow!("Failed to generate token: {e}"))?;
 
                 data_channel
@@ -1081,7 +1086,7 @@ async fn receive_nonce(receive_rx: &mut mpsc::Receiver<DataChannelMessage>) -> R
             let remote_nonce = base64::decode(&nonce_msg.nonce)
                 .map_err(|e| anyhow::anyhow!("Failed to decode remote nonce: {e}"))?;
 
-            if !validate_nonce(&remote_nonce) {
+            if !crypto::nonce::validate_nonce(&remote_nonce) {
                 return Err(anyhow::anyhow!("Invalid remote nonce"));
             }
 

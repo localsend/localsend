@@ -67,11 +67,15 @@ class _AddressInputDialogState extends State<AddressInputDialog> with Refena {
       for (final ip in candidates)
         () async {
           try {
-            final device = await ref.redux(parentIsolateProvider).dispatchAsyncTakeResult(IsolateTargetHttpDiscoveryAction(
-                  ip: ip,
-                  port: port,
-                  https: https,
-                ));
+            final device = await ref
+                .redux(parentIsolateProvider)
+                .dispatchAsyncTakeResult(
+                  IsolateTargetHttpDiscoveryAction(
+                    ip: ip,
+                    port: port,
+                    https: https,
+                  ),
+                );
             foundDevice = device;
             deviceCompleter.complete();
             return device;
@@ -186,16 +190,18 @@ class _AddressInputDialogState extends State<AddressInputDialog> with Refena {
                 TextSpan(
                   children: [
                     TextSpan(text: t.dialogs.addressInput.recentlyUsed),
-                    ...lastDevices.mapIndexed((index, device) {
-                      return [
-                        if (index != 0) const TextSpan(text: ', '),
-                        TextSpan(
-                          text: device.ip,
-                          style: TextStyle(color: Theme.of(context).colorScheme.primary),
-                          recognizer: TapGestureRecognizer()..onTap = () async => _submit(localIps, settings.port, device.ip),
-                        )
-                      ];
-                    }).expand((e) => e),
+                    ...lastDevices
+                        .mapIndexed((index, device) {
+                          return [
+                            if (index != 0) const TextSpan(text: ', '),
+                            TextSpan(
+                              text: device.ip,
+                              style: TextStyle(color: Theme.of(context).colorScheme.primary),
+                              recognizer: TapGestureRecognizer()..onTap = () async => _submit(localIps, settings.port, device.ip),
+                            ),
+                          ];
+                        })
+                        .expand((e) => e),
                   ],
                 ),
               ),

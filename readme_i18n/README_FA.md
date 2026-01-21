@@ -7,7 +7,7 @@
 
 [Homepage][homepage] • [Discord][discord] • [GitHub][github] • [Codeberg][codeberg]
 
-[English (Default)](/README.md) • [Español](README_ES.md) • [فارسی](README_FA.md) • [Filipino](README_PH.md) • [Français](README_FR.md) • [Indonesia](README_ID.md) • [Italiano](README_IT.md) • [日本語](README_JA.md) • [ភាសាខ្មែរ](README_KM.md) • [한국어](README_KO.md) • [Polski](README_PL.md) • [Portugês Brasil](README_PT_BR.md) • [Русский](README_RU.md) • [ภาษาไทย](README_TH.md) • [Turkish](README_TR.md) • [Українська](README_UK.md) • [Tiếng Việt](README_VI.md) • [中文](README_ZH.md)
+[English (Default)](/README.md) • [Español](README_ES.md) • [فارسی](README_FA.md) • [Filipino](README_PH.md) • [Français](README_FR.md) • [Indonesia](README_ID.md) • [Italiano](README_IT.md) • [日本語](README_JA.md) • [ភាសាខ្មែរ](README_KM.md) • [한국어](README_KO.md) • [Polski](README_PL.md) • [Português Brasil](README_PT_BR.md) • [Русский](README_RU.md) • [ภาษาไทย](README_TH.md) • [Turkish](README_TR.md) • [Українська](README_UK.md) • [Tiếng Việt](README_VI.md) • [中文](README_ZH.md)
 
 [homepage]: https://localsend.org
 [discord]: https://discord.gg/GSRWmQNP87
@@ -119,10 +119,11 @@ LocalSend یک برنامه چندسکویی است که امکان ارتباط
 برای کامپایل کردن LocalSend از سورس کد، مراحل زیر را دنبال کنید:
 
 1. فلاتر را به‌صورت [مستقیم](https://flutter.dev) یا با استفاده از [fvm](https://fvm.app) نصب کنید (به [نسخه مورد نیاز](.fvmrc) مراجعه کنید).
-2. مخزن `LocalSend‍‍` را کلون کنید.
-3. با دستور `cd app` وارد دایرکتوری برنامه شوید.
-4. دستور `flutter pub get` را برای دانلود وابستگی‌ها اجرا کنید.
-5. دستور `flutter run` را اجرا کنید تا برنامه شروع به کار کند.
+2. [Rust](https://www.rust-lang.org/tools/install) را نصب کنید.
+3. مخزن `LocalSend‍‍` را کلون کنید.
+4. با دستور `cd app` وارد دایرکتوری برنامه شوید.
+5. دستور `flutter pub get` را برای دانلود وابستگی‌ها اجرا کنید.
+6. دستور `flutter run` را اجرا کنید تا برنامه شروع به کار کند.
 
 > [!NOTE]
 > LocalSend لوکال‌سند در حال حاضر به نسخه‌ای قدیمی‌تر از فلاتر نیاز دارد ([مشخص شده در](.fvmrc) fvmrc) و بنابراین ممکن است مشکلاتی
@@ -135,24 +136,17 @@ LocalSend یک برنامه چندسکویی است که امکان ارتباط
 
 ### ترجمه
 
-می‌توانید به ترجمه این برنامه به زبان‌های دیگر کمک کنید!
+می‌توانید کمک کنید تا LocalSend را به زبان‌های دیگر ترجمه کنیم! **راه‌ی ترجیح‌داده شده**: از پلتفرم [Weblate](https://hosted.weblate.org/projects/localsend/app) برای مدیریت ترجمه‌ها استفاده کنید.
 
-1. این مخزن را فورک کنید.
-2. یکی از موارد زیر را انتخاب کنید:
-   - افزودن ترجمه‌های ناقص در زبان‌های موجود: فقط `_missing_translations_<locale>.json` را در [app/assets/i18n][i18n] به‌روزرسانی کنید.
-   - اصلاح ترجمه‌های موجود: فایل `strings_<locale>.i18n.json` را در [app/assets/i18n][i18n] به‌روزرسانی کنید.
-   - افزودن زبان‌های جدید: یک فایل جدید ایجاد کنید؛ به [کدهای محلی][] نیز مراجعه کنید.
-3. اختیاری: برنامه را دوباره اجرا کنید
-   1. با دستور `cd app` به دایرکتوری برنامه بروید.
-   2. اطمینان حاصل کنید که یک‌بار برنامه را [اجرا](#شروع به کار) کرده‌اید.
-   3. ترجمه‌ها را از طریق `flutter pub run slang` به‌روزرسانی کنید.
-   4. برنامه را با `flutter run` اجرا کنید.
-   5. یک درخواست pull باز کنید.
+**چاره دیگر**: این مخزن را فورک کنید و ترجمه‌ها را به‌صورت دستی اضافه کنید.
 
-[i18n]: https://github.com/localsend/localsend/tree/main/app/assets/i18n
-[locale codes]: https://saimana.com/list-of-country-locale-code/
+ترجمه‌ها در دایرکتوری [app/assets/i18n](https://github.com/localsend/localsend/tree/main/app/assets/i18n) قرار دارند. برای افزودن یا به‌روزرسانی ترجمه‌ها، فایل `_missing_translations_<locale>.json` یا `strings_<locale>.i18n.json` را ویرایش کنید.
 
-**توجه: فیلدهایی که با `@` شروع شده‌اند، نباید ترجمه شوند؛ این فیلدها در برنامه استفاده نمی‌شوند و فقط به‌عنوان متن اطلاعاتی درباره فایل یا برای ارائه زمینه به مترجم هستند..**
+<a href="https://hosted.weblate.org/engage/localsend/">
+<img src="https://hosted.weblate.org/widget/localsend/app/multi-auto.svg" alt="وضعیت ترجمه" />
+</a>
+
+**_توجه:_ فیلدهایی که با `@` شروع شده‌اند، نباید ترجمه شوند؛ این فیلدها در برنامه استفاده نمی‌شوند و فقط به‌عنوان متن اطلاعاتی درباره فایل یا برای ارائه زمینه به مترجم هستند.**
 
 ### رفع اشکالات و بهبودها
 
@@ -161,73 +155,16 @@ LocalSend یک برنامه چندسکویی است که امکان ارتباط
 
 برای اطلاعات بیشتر، به [راهنمای مشارکت](https://github.com/localsend/localsend/blob/main/CONTRIBUTING.md) مراجعه کنید.
 
-## ساخت
+## عیب‌یابی
 
-این دستورات فقط برای مدیران و نگهدارندگان پروژه هستند.
+| مشکل               | پلتفرم (ارسال) | پلتفرم (دریافت) | راه‌حل                                                                                                                                |
+|--------------------|----------------|------------------|---------------------------------------------------------------------------------------------------------------------------------------|
+| دستگاه قابل مشاهده نیست | هر پلتفرمی      | هر پلتفرمی       | مطمئن شوید که AP-Isolation را در روتر خود غیرفعال کرده‌اید. اگر فعال باشد، اتصال بین دستگاه‌ها ممنوع است.                          |
+| دستگاه قابل مشاهده نیست | هر پلتفرمی      | Windows          | مطمئن شوید که شبکه خود را به‌عنوان شبکه "خصوصی" پیکربندی کرده‌اید. ویندوز ممکن است هنگامی که شبکه به‌عنوان عمومی پیکربندی شده باشد، محدودتر باشد. |
+| دستگاه قابل مشاهده نیست | macOS, iOS     | هر پلتفرمی       | می‌توانید سعی کنید مجوز "Local Network" را در بخش "Privacy" در تنظیمات سیستم‌عامل تغییر دهید.                                        |
+| سرعت خیلی کند است  | هر پلتفرمی      | هر پلتفرمی       | از 5 Ghz استفاده کنید؛ رمزگذاری را در هر دو دستگاه غیرفعال کنید                                                                        |
+| سرعت خیلی کند است  | هر پلتفرمی      | Android          | مشکل شناخته‌شده. https://github.com/flutter-cavalry/saf_stream/issues/4                                                              |
 
-### اندروید
-
-Traditional APK
-
-```bash
-flutter build apk
-```
-
-AppBundle برای Google Play
-
-```bash
-flutter build appbundle
-```
-
-### iOS
-
-```bash
-flutter build ipa
-```
-
-### macOS
-
-```bash
-flutter build macos
-```
-
-### ویندوز
-
-**Traditional**
-
-```bash
-flutter build windows
-```
-
-**Local MSIX App**
-
-```bash
-flutter pub run msix:create
-```
-
-**Store ready**
-
-```bash
-flutter pub run msix:create --store
-```
-
-### لینوکس
-
-**Traditional**
-
-```bash
-flutter build linux
-```
-
-**AppImage**
-
-```bash
-appimage-builder --recipe AppImageBuilder.yml
-```
-
-**Snap**
-
-آموزش در [localsend/snap/README.md](https://github.com/localsend/snap/blob/main/README.md)
 
 ## مشارکت کنندگان
 

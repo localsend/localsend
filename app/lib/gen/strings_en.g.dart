@@ -19,13 +19,13 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
   /// You can call this constructor and build your own translation instance of this locale.
   /// Constructing via the enum [AppLocale.build] is preferred.
   Translations({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
-      : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-        $meta = TranslationMetadata(
-          locale: AppLocale.en,
-          overrides: overrides ?? {},
-          cardinalResolver: cardinalResolver,
-          ordinalResolver: ordinalResolver,
-        );
+    : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
+      $meta = TranslationMetadata(
+        locale: AppLocale.en,
+        overrides: overrides ?? {},
+        cardinalResolver: cardinalResolver,
+        ordinalResolver: ordinalResolver,
+      );
 
   /// Metadata for the translations of <en>.
   @override
@@ -233,11 +233,8 @@ class TranslationsReceivePageEn {
   final Translations _root; // ignore: unused_field
 
   // Translations
-  String subTitle({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(
-        n,
-        one: 'wants to send you a file',
-        other: 'wants to send you ${n} files',
-      );
+  String subTitle({required num n}) =>
+      (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n, one: 'wants to send you a file', other: 'wants to send you ${n} files');
   String get subTitleMessage => 'sent you a message:';
   String get subTitleLink => 'sent you a link:';
   String get canceled => 'The sender has canceled the request.';
@@ -281,6 +278,7 @@ class TranslationsProgressPageEn {
   String get titleReceiving => 'Receiving files';
   String get savedToGallery => 'Saved in Photos';
   late final TranslationsProgressPageTotalEn total = TranslationsProgressPageTotalEn.internal(_root);
+  late final TranslationsProgressPageRemainingTimeEn remainingTime = TranslationsProgressPageRemainingTimeEn.internal(_root);
 }
 
 // Path: webSharePage
@@ -295,10 +293,10 @@ class TranslationsWebSharePageEn {
   String get stopping => 'Stopping server…';
   String get error => 'An error occurred while starting the server.';
   String openLink({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(
-        n,
-        one: 'Open this link in your browser:',
-        other: 'Open one of these links in your browser:',
-      );
+    n,
+    one: 'Open this link in your browser:',
+    other: 'Open one of these links in your browser:',
+  );
   String get requests => 'Requests';
   String get noRequests => 'No requests yet.';
   String get encryption => _root.settingsTab.network.encryption;
@@ -318,9 +316,9 @@ class TranslationsAboutPageEn {
   // Translations
   String get title => 'About LocalSend';
   List<String> get description => [
-        'LocalSend is a free, open-source app that allows you to securely share files and messages with nearby devices over your local network without needing an internet connection.',
-        'This app is available on Android, iOS, macOS, Windows and Linux. You can find all download options on the official homepage.',
-      ];
+    'LocalSend is a free, open-source app that allows you to securely share files and messages with nearby devices over your local network without needing an internet connection.',
+    'This app is available on Android, iOS, macOS, Windows and Linux. You can find all download options on the official homepage.',
+  ];
   String get author => 'Author';
   String get contributors => 'Contributors';
   String get packagers => 'Packagers';
@@ -359,73 +357,73 @@ class TranslationsAliasGeneratorEn {
 
   // Translations
   List<String> get adjectives => [
-        'Adorable',
-        'Beautiful',
-        'Big',
-        'Bright',
-        'Clean',
-        'Clever',
-        'Cool',
-        'Cute',
-        'Cunning',
-        'Determined',
-        'Energetic',
-        'Efficient',
-        'Fantastic',
-        'Fast',
-        'Fine',
-        'Fresh',
-        'Good',
-        'Gorgeous',
-        'Great',
-        'Handsome',
-        'Hot',
-        'Kind',
-        'Lovely',
-        'Mystic',
-        'Neat',
-        'Nice',
-        'Patient',
-        'Pretty',
-        'Powerful',
-        'Rich',
-        'Secret',
-        'Smart',
-        'Solid',
-        'Special',
-        'Strategic',
-        'Strong',
-        'Tidy',
-        'Wise',
-      ];
+    'Adorable',
+    'Beautiful',
+    'Big',
+    'Bright',
+    'Clean',
+    'Clever',
+    'Cool',
+    'Cute',
+    'Cunning',
+    'Determined',
+    'Energetic',
+    'Efficient',
+    'Fantastic',
+    'Fast',
+    'Fine',
+    'Fresh',
+    'Good',
+    'Gorgeous',
+    'Great',
+    'Handsome',
+    'Hot',
+    'Kind',
+    'Lovely',
+    'Mystic',
+    'Neat',
+    'Nice',
+    'Patient',
+    'Pretty',
+    'Powerful',
+    'Rich',
+    'Secret',
+    'Smart',
+    'Solid',
+    'Special',
+    'Strategic',
+    'Strong',
+    'Tidy',
+    'Wise',
+  ];
   List<String> get fruits => [
-        'Apple',
-        'Avocado',
-        'Banana',
-        'Blackberry',
-        'Blueberry',
-        'Broccoli',
-        'Carrot',
-        'Cherry',
-        'Coconut',
-        'Grape',
-        'Lemon',
-        'Lettuce',
-        'Mango',
-        'Melon',
-        'Mushroom',
-        'Onion',
-        'Orange',
-        'Papaya',
-        'Peach',
-        'Pear',
-        'Pineapple',
-        'Potato',
-        'Pumpkin',
-        'Raspberry',
-        'Strawberry',
-        'Tomato',
-      ];
+    'Apple',
+    'Avocado',
+    'Banana',
+    'Blackberry',
+    'Blueberry',
+    'Broccoli',
+    'Carrot',
+    'Cherry',
+    'Coconut',
+    'Grape',
+    'Lemon',
+    'Lettuce',
+    'Mango',
+    'Melon',
+    'Mushroom',
+    'Onion',
+    'Orange',
+    'Papaya',
+    'Peach',
+    'Pear',
+    'Pineapple',
+    'Potato',
+    'Pumpkin',
+    'Raspberry',
+    'Strawberry',
+    'Tomato',
+  ];
 
   /// In some languages, the adjective must be last.
   String combination({required Object adjective, required Object fruit}) => '${adjective} ${fruit}';
@@ -763,6 +761,23 @@ class TranslationsProgressPageTotalEn {
   String speed({required Object speed}) => 'Speed: ${speed}/s';
 }
 
+// Path: progressPage.remainingTime
+class TranslationsProgressPageRemainingTimeEn {
+  TranslationsProgressPageRemainingTimeEn.internal(this._root);
+
+  final Translations _root; // ignore: unused_field
+
+  // Translations
+  String seconds({required Object n, required Object ss}) => '${n}:${ss}';
+  String minutes({required Object n, required Object ss}) => '${n}:${ss}';
+
+  /// Use 'h' for hours abbreviation and 'm' for minutes
+  String hours({required Object h, required Object m}) => '${h}h ${m}m';
+
+  /// Use 'd' for days, 'h' for hours, and 'm' for minutes
+  String days({required Object d, required Object h, required Object m}) => '${d}d ${h}h ${m}m';
+}
+
 // Path: dialogs.addFile
 class TranslationsDialogsAddFileEn {
   TranslationsDialogsAddFileEn.internal(this._root);
@@ -1018,10 +1033,10 @@ class TranslationsDialogsQuickSaveFromFavoritesNoticeEn {
   // Translations
   String get title => _root.general.quickSaveFromFavorites;
   List<String> get content => [
-        'File requests are now accepted automatically from devices in your favorites list.',
-        'Warning! Currently, this is not entirely secure, as a hacker who has the fingerprint of any device from your favorites list can send you files without restriction.',
-        'However, this option is still safer than allowing all users on the local network to send you files without restriction.',
-      ];
+    'File requests are now accepted automatically from devices in your favorites list.',
+    'Warning! Currently, this is not entirely secure, as a hacker who has the fingerprint of any device from your favorites list can send you files without restriction.',
+    'However, this option is still safer than allowing all users on the local network to send you files without restriction.',
+  ];
 }
 
 // Path: dialogs.pin

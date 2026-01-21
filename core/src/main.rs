@@ -6,9 +6,9 @@ mod webrtc;
 
 use crate::crypto::token;
 use crate::http::client::LsHttpClient;
+use crate::http::dto::{PrepareUploadRequestDto, ProtocolType, RegisterDto};
 use crate::http::server::TlsConfig;
-use crate::model::discovery::{DeviceType, ProtocolType, RegisterDto};
-use crate::model::transfer::PrepareUploadRequestDto;
+use crate::model::discovery::DeviceType;
 use crate::webrtc::signaling::{ClientInfo, WsServerMessage};
 use crate::webrtc::webrtc::{PinConfig, RTCFile, RTCFileError, RTCSendFileResponse, RTCStatus};
 use anyhow::Result;
@@ -127,27 +127,40 @@ MCowBQYDK2VwAyEAZmdXP230oqK92o65ra3XaF2F8r3+fK5DEBK4c40qVts=
 }
 
 async fn server_test() -> Result<()> {
-    let server = http::server::LsHttpServer::start_with_port(
+    let client_info = http::state::ClientInfo {
+        alias: "Server-Test".to_string(),
+        version: "1.2.3".to_string(),
+        device_model: None,
+        device_type: None,
+        token: "456".to_string(),
+    };
+
+    let (stop_tx, stop_rx) = oneshot::channel::<()>();
+
+    http::server::start_with_port(
         53317,
         Some(TlsConfig {
             cert: CERT.to_string(),
             private_key: PRIVATE_KEY.to_string(),
         }),
+        client_info,
+        true,
+        stop_rx,
     )
     .await?;
+
     tokio::time::sleep(std::time::Duration::from_secs(u64::MAX)).await;
-    server.stop().await?;
+
+    let _ = stop_tx.send(());
     Ok(())
 }
 
 async fn client_test() -> Result<()> {
     let client = LsHttpClient::try_new(PRIVATE_KEY, CERT)?;
 
-    let nonce = client.nonce(
-        &ProtocolType::Https,
-        "localhost",
-        53317,
-    ).await?;
+    let nonce = client
+        .nonce(&ProtocolType::Https, "localhost", 53317)
+        .await?;
 
     println!("Received Nonce: {}", nonce);
 
@@ -156,10 +169,10 @@ async fn client_test() -> Result<()> {
         version: "2.3".to_string(),
         device_model: Some("test".to_string()),
         device_type: Some(DeviceType::Headless),
-        fingerprint: "test".to_string(),
+        token: "test".to_string(),
         port: 53317,
         protocol: ProtocolType::Https,
-        download: false,
+        has_web_interface: false,
     };
 
     let response = client
@@ -179,7 +192,7 @@ async fn client_test() -> Result<()> {
         files: {
             let mut map = HashMap::new();
             let id = "test-123-id".to_string();
-            let file = crate::model::transfer::FileDto {
+            let file = model::transfer::FileDto {
                 id: id.clone(),
                 file_name: "test.mp4".to_string(),
                 size: 1000,

@@ -106,8 +106,10 @@ class SelectedFilesPage extends StatelessWidget {
                                     foregroundColor: Theme.of(context).colorScheme.onSurface,
                                   ),
                                   onPressed: () async {
-                                    final result =
-                                        await showDialog<String>(context: context, builder: (_) => MessageInputDialog(initialText: message));
+                                    final result = await showDialog<String>(
+                                      context: context,
+                                      builder: (_) => MessageInputDialog(initialText: message),
+                                    );
                                     if (result != null) {
                                       ref.redux(selectedSendingFilesProvider).dispatch(UpdateMessageAction(message: result, index: index));
                                     }

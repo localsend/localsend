@@ -76,7 +76,9 @@ final sendTabVmProvider = ViewProvider((ref) {
         builder: (_) => const AddressInputDialog(),
       );
       if (device != null && context.mounted) {
-        await ref.notifier(sendProvider).startSession(
+        await ref
+            .notifier(sendProvider)
+            .startSession(
               target: device,
               files: files,
               background: false,
@@ -95,7 +97,9 @@ final sendTabVmProvider = ViewProvider((ref) {
           return;
         }
 
-        await ref.notifier(sendProvider).startSession(
+        await ref
+            .notifier(sendProvider)
+            .startSession(
               target: device,
               files: files,
               background: false,
@@ -129,7 +133,10 @@ final sendTabVmProvider = ViewProvider((ref) {
           await ref.redux(favoritesProvider).dispatchAsync(RemoveFavoriteAction(deviceFingerprint: device.fingerprint));
         }
       } else {
-        await showDialog(context: context, builder: (_) => FavoriteEditDialog(prefilledDevice: device));
+        await showDialog(
+          context: context,
+          builder: (_) => FavoriteEditDialog(prefilledDevice: device),
+        );
       }
     },
     onTapDevice: (context, device) async {
@@ -138,7 +145,9 @@ final sendTabVmProvider = ViewProvider((ref) {
         return;
       }
 
-      await ref.notifier(sendProvider).startSession(
+      await ref
+          .notifier(sendProvider)
+          .startSession(
             target: device,
             files: selectedFiles,
             background: false,
@@ -174,7 +183,9 @@ final sendTabVmProvider = ViewProvider((ref) {
         ref.notifier(sendProvider).closeSession(session.sessionId);
       }
 
-      await ref.notifier(sendProvider).startSession(
+      await ref
+          .notifier(sendProvider)
+          .startSession(
             target: device,
             files: files,
             background: true,

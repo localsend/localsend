@@ -7,7 +7,7 @@
 
 [Site web][homepage] • [Discord][discord] • [GitHub][github] • [Codeberg][codeberg]
 
-[English (Default)](/README.md) • [Español](README_ES.md) • [فارسی](README_FA.md) • [Filipino](README_PH.md) • [Français](README_FR.md) • [Indonesia](README_ID.md) • [Italiano](README_IT.md) • [日本語](README_JA.md) • [ភាសាខ្មែរ](README_KM.md) • [한국어](README_KO.md) • [Polski](README_PL.md) • [Portugês Brasil](README_PT_BR.md) • [Русский](README_RU.md) • [ภาษาไทย](README_TH.md) • [Turkish](README_TR.md) • [Українська](README_UK.md) • [Tiếng Việt](README_VI.md) • [中文](README_ZH.md)
+[English (Default)](/README.md) • [Español](README_ES.md) • [فارسی](README_FA.md) • [Filipino](README_PH.md) • [Français](README_FR.md) • [Indonesia](README_ID.md) • [Italiano](README_IT.md) • [日本語](README_JA.md) • [ភាសាខ្មែរ](README_KM.md) • [한국어](README_KO.md) • [Polski](README_PL.md) • [Português Brasil](README_PT_BR.md) • [Русский](README_RU.md) • [ภาษาไทย](README_TH.md) • [Turkish](README_TR.md) • [Українська](README_UK.md) • [Tiếng Việt](README_VI.md) • [中文](README_ZH.md)
 
 [homepage]: https://localsend.org
 [discord]: https://discord.gg/GSRWmQNP87
@@ -71,6 +71,16 @@ En savoir plus à propos des [canaux de distribution][].
 [latest]: https://github.com/localsend/localsend/releases/latest
 [canaux de distribution]: https://github.com/localsend/localsend/blob/main/CONTRIBUTING.md#distribution
 
+**Compatibilité**
+
+| Plateforme | Version Minimale | Note                                                                                                                        |
+|------------|------------------|-----------------------------------------------------------------------------------------------------------------------------|
+| Android    | 5.0              | -                                                                                                                           |
+| iOS        | 12.0             | -                                                                                                                           |
+| macOS      | 11 Big Sur       | Utilisez OpenCore Legacy Patcher 2.0.2 (Voir [#1005](https://github.com/localsend/localsend/issues/1005#issuecomment-2449899384)) |
+| Windows    | 10               | La dernière version supportant Windows 7 est v1.15.4. Des backports de versions plus récentes pour Windows 7 pourraient être disponibles à l'avenir. |
+| Linux      | N.A.             | Dépendances : Gnome : `xdg-desktop-portal` et `xdg-desktop-portal-gtk`, KDE : `xdg-desktop-portal` et `xdg-desktop-portal-kde` |
+
 ## Informations additionnelles
 
 Dans la plupart des cas, LocalSend devrait fonctionner tel quel. Cependant, si vous rencontrez des problèmes lors de l'envoi ou la réception de fichiers, il se peut que vous deviez configurer votre pare-feu afin d'autoriser LocalSend à communiquer avec d'autres appareils sur votre réseau local.
@@ -126,22 +136,15 @@ Nous accueillons les contributions venant de quiconque étant intéressé pour a
 
 ### Traductions
 
-Vous pouvez aider à traduire cette application dans d'autres langues !
+Vous pouvez aider à traduire cette application dans d'autres langues ! **Méthode recommandée** : Utilisez la plateforme [Weblate](https://hosted.weblate.org/projects/localsend/app) pour gérer les traductions.
 
-1. Fork le repository
-2. Choisir entre
-   - Ajouter les traductions manquantes pour des langues existantes: Mettre à jour seulement `_missing_translations_<locale>.json` dans [app/assets/i18n][i18n]
-   - Corriger des traductions existantes: Mettre à jour `strings_<locale>.i18n.json` dans [app/assets/i18n][i18n]
-   - Ajouter une nouvelle langue: Créer un nouveau fichier dans [app/assets/i18n][i18n]; voir également les [codes régionaux][].
-3. Optionnel: Tester l'application avec les nouvelles traductions
-   1. Exécuter `cd app` pour entrer dans le dossier de l'application.
-   2. Valider que la [configuration](#configuration) a déjà été faite.
-   3. Mettre à jour les traductions en exécutant `flutter pub run slang`
-   4. Lancer l'application en exécutant `flutter run`
-   5. Ouvrir une pull request
+**Alternative** : Vous pouvez également contribuer en forking ce repository et en ajoutant les traductions manuellement.
 
-[i18n]: https://github.com/localsend/localsend/tree/main/app/assets/i18n
-[codes régionaux]: https://saimana.com/list-of-country-locale-code/
+Les traductions sont situées dans le répertoire [app/assets/i18n](https://github.com/localsend/localsend/tree/main/app/assets/i18n). Modifiez le fichier `_missing_translations_<locale>.json` ou `strings_<locale>.i18n.json` pour ajouter ou mettre à jour les traductions.
+
+<a href="https://hosted.weblate.org/engage/localsend/">
+<img src="https://hosted.weblate.org/widget/localsend/app/multi-auto.svg" alt="État des traductions" />
+</a>
 
 **_Nota Bene:_ Les textes précédés par un `@` ne doivent pas être traduit; ce ne sont pas des textes utilisés dans l'application mais des notes informatives pouvant aider les traducteurs.**
 
@@ -152,73 +155,16 @@ Vous pouvez aider à traduire cette application dans d'autres langues !
 
 Pour plus d'informations, veuillez vous référer au [guide du contributeur](https://github.com/localsend/localsend/blob/main/CONTRIBUTING.md).
 
-## Building
+## Dépannage
 
-Ces commandes sont destinées aux mainteneurs uniquement.
+| Problème                      | Plateforme (Envoi) | Plateforme (Réception) | Solution                                                                                                                                |
+|-------------------------------|--------------------|------------------------|-----------------------------------------------------------------------------------------------------------------------------------------|
+| Appareil non visible          | Toutes             | Toutes                 | Assurez-vous de désactiver l'isolation AP sur votre routeur. Si elle est activée, les connexions entre appareils sont interdites.        |
+| Appareil non visible          | Toutes             | Windows                | Assurez-vous de configurer votre réseau en tant que réseau "privé". Windows peut être plus restrictif lorsque le réseau est configuré comme public. |
+| Appareil non visible          | macOS, iOS         | Toutes                 | Vous pouvez essayer d'activer/désactiver l'autorisation "Réseau local" dans "Confidentialité" dans les paramètres de l'OS.               |
+| Vitesse trop lente            | Toutes             | Toutes                 | Utilisez la bande 5 GHz ; Désactivez le chiffrement sur les deux appareils                                                              |
+| Vitesse trop lente            | Toutes             | Android                | Problème connu. https://github.com/flutter-cavalry/saf_stream/issues/4                                                                  |
 
-### Android
-
-APK traditionnel
-
-```bash
-flutter build apk
-```
-
-AppBundle pour Google Play
-
-```bash
-flutter build appbundle
-```
-
-### iOS
-
-```bash
-flutter build ipa
-```
-
-### macOS
-
-```bash
-flutter build macos
-```
-
-### Windows
-
-**Traditionnel**
-
-```bash
-flutter build windows
-```
-
-**Application MSIX locale**
-
-```bash
-flutter pub run msix:create
-```
-
-**Compatible Windows Store**
-
-```bash
-flutter pub run msix:create --store
-```
-
-### Linux
-
-**Traditionnel**
-
-```bash
-flutter build linux
-```
-
-**AppImage**
-
-```bash
-appimage-builder --recipe AppImageBuilder.yml
-```
-
-**Snap**
-
-Instructions dans [snap/README.md](https://github.com/localsend/snap/blob/main/README.md)
 
 ## Contributeurs
 

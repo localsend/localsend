@@ -55,7 +55,8 @@ String extractPublicKeyFromCertificate(String certificate) {
 String _hexToSpkiPem(String hexBytes) {
   final publicBytes = hex.decode(hexBytes);
   final publicBase64 = base64Encode(publicBytes);
-  final temp = '''-----BEGIN PUBLIC KEY-----
+  final temp =
+      '''-----BEGIN PUBLIC KEY-----
 $publicBase64
 -----END PUBLIC KEY-----''';
   return X509Utils.fixPem(temp);

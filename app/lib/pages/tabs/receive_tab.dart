@@ -50,15 +50,17 @@ class ReceiveTab extends StatelessWidget {
                         InitialFadeTransition(
                           duration: const Duration(milliseconds: 300),
                           delay: const Duration(milliseconds: 200),
-                          child: Consumer(builder: (context, ref) {
-                            final animations = ref.watch(animationProvider);
-                            final activeTab = ref.watch(homePageControllerProvider.select((state) => state.currentTab));
-                            return RotatingWidget(
-                              duration: const Duration(seconds: 15),
-                              spinning: vm.serverState != null && animations && activeTab == HomeTab.receive,
-                              child: const LocalSendLogo(withText: false),
-                            );
-                          }),
+                          child: Consumer(
+                            builder: (context, ref) {
+                              final animations = ref.watch(animationProvider);
+                              final activeTab = ref.watch(homePageControllerProvider.select((state) => state.currentTab));
+                              return RotatingWidget(
+                                duration: const Duration(seconds: 15),
+                                spinning: vm.serverState != null && animations && activeTab == HomeTab.receive,
+                                child: const LocalSendLogo(withText: false),
+                              );
+                            },
+                          ),
                         ),
                         FittedBox(
                           fit: BoxFit.scaleDown,

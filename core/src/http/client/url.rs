@@ -1,4 +1,4 @@
-use crate::model::discovery::ProtocolType;
+use crate::http::dto::ProtocolType;
 use std::borrow::Cow;
 
 pub struct TargetUrl {

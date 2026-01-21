@@ -35,17 +35,19 @@ class DiscoveryDebugPage extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 20),
-          ...logs.map((log) => CopyableText(
-                prefix: TextSpan(
-                  text: '[${_dateFormat.format(log.timestamp)}] ',
-                  style: const TextStyle(
-                    color: Colors.green,
-                    fontWeight: FontWeight.bold,
-                  ),
+          ...logs.map(
+            (log) => CopyableText(
+              prefix: TextSpan(
+                text: '[${_dateFormat.format(log.timestamp)}] ',
+                style: const TextStyle(
+                  color: Colors.green,
+                  fontWeight: FontWeight.bold,
                 ),
-                name: log.log,
-                value: log.log,
-              )),
+              ),
+              name: log.log,
+              value: log.log,
+            ),
+          ),
         ],
       ),
     );

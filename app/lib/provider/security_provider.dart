@@ -6,11 +6,14 @@ import 'package:refena_flutter/refena_flutter.dart';
 
 /// This provider manages the [StoredSecurityContext].
 /// It contains all the security related data for HTTPS communication.
-final securityProvider = ReduxProvider<SecurityService, StoredSecurityContext>((ref) {
-  return SecurityService(ref.read(persistenceProvider));
-}, onChanged: (_, next, ref) {
-  ref.redux(parentIsolateProvider).dispatch(IsolateSyncSecurityContextAction(securityContext: next));
-});
+final securityProvider = ReduxProvider<SecurityService, StoredSecurityContext>(
+  (ref) {
+    return SecurityService(ref.read(persistenceProvider));
+  },
+  onChanged: (_, next, ref) {
+    ref.redux(parentIsolateProvider).dispatch(IsolateSyncSecurityContextAction(securityContext: next));
+  },
+);
 
 class SecurityService extends ReduxNotifier<StoredSecurityContext> {
   final PersistenceService _persistence;

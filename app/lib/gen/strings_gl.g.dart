@@ -14,14 +14,14 @@ class TranslationsGl extends Translations {
   /// You can call this constructor and build your own translation instance of this locale.
   /// Constructing via the enum [AppLocale.build] is preferred.
   TranslationsGl({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
-      : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-        $meta = TranslationMetadata(
-          locale: AppLocale.gl,
-          overrides: overrides ?? {},
-          cardinalResolver: cardinalResolver,
-          ordinalResolver: ordinalResolver,
-        ),
-        super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+    : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
+      $meta = TranslationMetadata(
+        locale: AppLocale.gl,
+        overrides: overrides ?? {},
+        cardinalResolver: cardinalResolver,
+        ordinalResolver: ordinalResolver,
+      ),
+      super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
 
   /// Metadata for the translations of <gl>.
   @override
@@ -46,9 +46,7 @@ class TranslationsGl extends Translations {
 
 // Path: general
 class _TranslationsGeneralGl extends TranslationsGeneralEn {
-  _TranslationsGeneralGl._(TranslationsGl root)
-      : this._root = root,
-        super.internal(root);
+  _TranslationsGeneralGl._(TranslationsGl root) : this._root = root, super.internal(root);
 
   final TranslationsGl _root; // ignore: unused_field
 
@@ -133,9 +131,7 @@ class _TranslationsGeneralGl extends TranslationsGeneralEn {
 
 // Path: receiveTab
 class _TranslationsReceiveTabGl extends TranslationsReceiveTabEn {
-  _TranslationsReceiveTabGl._(TranslationsGl root)
-      : this._root = root,
-        super.internal(root);
+  _TranslationsReceiveTabGl._(TranslationsGl root) : this._root = root, super.internal(root);
 
   final TranslationsGl _root; // ignore: unused_field
 
@@ -150,9 +146,7 @@ class _TranslationsReceiveTabGl extends TranslationsReceiveTabEn {
 
 // Path: sendTab
 class _TranslationsSendTabGl extends TranslationsSendTabEn {
-  _TranslationsSendTabGl._(TranslationsGl root)
-      : this._root = root,
-        super.internal(root);
+  _TranslationsSendTabGl._(TranslationsGl root) : this._root = root, super.internal(root);
 
   final TranslationsGl _root; // ignore: unused_field
 
@@ -187,9 +181,7 @@ class _TranslationsSendTabGl extends TranslationsSendTabEn {
 
 // Path: settingsTab
 class _TranslationsSettingsTabGl extends TranslationsSettingsTabEn {
-  _TranslationsSettingsTabGl._(TranslationsGl root)
-      : this._root = root,
-        super.internal(root);
+  _TranslationsSettingsTabGl._(TranslationsGl root) : this._root = root, super.internal(root);
 
   final TranslationsGl _root; // ignore: unused_field
 
@@ -202,9 +194,7 @@ class _TranslationsSettingsTabGl extends TranslationsSettingsTabEn {
 
 // Path: receiveTab.infoBox
 class _TranslationsReceiveTabInfoBoxGl extends TranslationsReceiveTabInfoBoxEn {
-  _TranslationsReceiveTabInfoBoxGl._(TranslationsGl root)
-      : this._root = root,
-        super.internal(root);
+  _TranslationsReceiveTabInfoBoxGl._(TranslationsGl root) : this._root = root, super.internal(root);
 
   final TranslationsGl _root; // ignore: unused_field
 
@@ -219,9 +209,7 @@ class _TranslationsReceiveTabInfoBoxGl extends TranslationsReceiveTabInfoBoxEn {
 
 // Path: receiveTab.quickSave
 class _TranslationsReceiveTabQuickSaveGl extends TranslationsReceiveTabQuickSaveEn {
-  _TranslationsReceiveTabQuickSaveGl._(TranslationsGl root)
-      : this._root = root,
-        super.internal(root);
+  _TranslationsReceiveTabQuickSaveGl._(TranslationsGl root) : this._root = root, super.internal(root);
 
   final TranslationsGl _root; // ignore: unused_field
 
@@ -236,9 +224,7 @@ class _TranslationsReceiveTabQuickSaveGl extends TranslationsReceiveTabQuickSave
 
 // Path: sendTab.selection
 class _TranslationsSendTabSelectionGl extends TranslationsSendTabSelectionEn {
-  _TranslationsSendTabSelectionGl._(TranslationsGl root)
-      : this._root = root,
-        super.internal(root);
+  _TranslationsSendTabSelectionGl._(TranslationsGl root) : this._root = root, super.internal(root);
 
   final TranslationsGl _root; // ignore: unused_field
 
@@ -253,9 +239,7 @@ class _TranslationsSendTabSelectionGl extends TranslationsSendTabSelectionEn {
 
 // Path: sendTab.picker
 class _TranslationsSendTabPickerGl extends TranslationsSendTabPickerEn {
-  _TranslationsSendTabPickerGl._(TranslationsGl root)
-      : this._root = root,
-        super.internal(root);
+  _TranslationsSendTabPickerGl._(TranslationsGl root) : this._root = root, super.internal(root);
 
   final TranslationsGl _root; // ignore: unused_field
 
@@ -276,9 +260,7 @@ class _TranslationsSendTabPickerGl extends TranslationsSendTabPickerEn {
 
 // Path: sendTab.sendModes
 class _TranslationsSendTabSendModesGl extends TranslationsSendTabSendModesEn {
-  _TranslationsSendTabSendModesGl._(TranslationsGl root)
-      : this._root = root,
-        super.internal(root);
+  _TranslationsSendTabSendModesGl._(TranslationsGl root) : this._root = root, super.internal(root);
 
   final TranslationsGl _root; // ignore: unused_field
 
@@ -293,9 +275,7 @@ class _TranslationsSendTabSendModesGl extends TranslationsSendTabSendModesEn {
 
 // Path: settingsTab.general
 class _TranslationsSettingsTabGeneralGl extends TranslationsSettingsTabGeneralEn {
-  _TranslationsSettingsTabGeneralGl._(TranslationsGl root)
-      : this._root = root,
-        super.internal(root);
+  _TranslationsSettingsTabGeneralGl._(TranslationsGl root) : this._root = root, super.internal(root);
 
   final TranslationsGl _root; // ignore: unused_field
 
@@ -324,9 +304,7 @@ class _TranslationsSettingsTabGeneralGl extends TranslationsSettingsTabGeneralEn
 
 // Path: settingsTab.general.brightnessOptions
 class _TranslationsSettingsTabGeneralBrightnessOptionsGl extends TranslationsSettingsTabGeneralBrightnessOptionsEn {
-  _TranslationsSettingsTabGeneralBrightnessOptionsGl._(TranslationsGl root)
-      : this._root = root,
-        super.internal(root);
+  _TranslationsSettingsTabGeneralBrightnessOptionsGl._(TranslationsGl root) : this._root = root, super.internal(root);
 
   final TranslationsGl _root; // ignore: unused_field
 
@@ -341,9 +319,7 @@ class _TranslationsSettingsTabGeneralBrightnessOptionsGl extends TranslationsSet
 
 // Path: settingsTab.general.colorOptions
 class _TranslationsSettingsTabGeneralColorOptionsGl extends TranslationsSettingsTabGeneralColorOptionsEn {
-  _TranslationsSettingsTabGeneralColorOptionsGl._(TranslationsGl root)
-      : this._root = root,
-        super.internal(root);
+  _TranslationsSettingsTabGeneralColorOptionsGl._(TranslationsGl root) : this._root = root, super.internal(root);
 
   final TranslationsGl _root; // ignore: unused_field
 
@@ -356,9 +332,7 @@ class _TranslationsSettingsTabGeneralColorOptionsGl extends TranslationsSettings
 
 // Path: settingsTab.general.languageOptions
 class _TranslationsSettingsTabGeneralLanguageOptionsGl extends TranslationsSettingsTabGeneralLanguageOptionsEn {
-  _TranslationsSettingsTabGeneralLanguageOptionsGl._(TranslationsGl root)
-      : this._root = root,
-        super.internal(root);
+  _TranslationsSettingsTabGeneralLanguageOptionsGl._(TranslationsGl root) : this._root = root, super.internal(root);
 
   final TranslationsGl _root; // ignore: unused_field
 

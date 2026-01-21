@@ -10,7 +10,7 @@
 
 [Домашня сторінка][homepage] • [Discord][discord] • [GitHub][github] • [Codeberg][codeberg]
 
-[English (Default)](/README.md) • [Español](README_ES.md) • [فارسی](README_FA.md) • [Filipino](README_PH.md) • [Français](README_FR.md) • [Indonesia](README_ID.md) • [Italiano](README_IT.md) • [日本語](README_JA.md) • [ភាសាខ្មែរ](README_KM.md) • [한국어](README_KO.md) • [Polski](README_PL.md) • [Portugês Brasil](README_PT_BR.md) • [Русский](README_RU.md) • [ภาษาไทย](README_TH.md) • [Turkish](README_TR.md) • [Українська](README_UK.md) • [Tiếng Việt](README_VI.md) • [中文](README_ZH.md)
+[English (Default)](/README.md) • [Español](README_ES.md) • [فارسی](README_FA.md) • [Filipino](README_PH.md) • [Français](README_FR.md) • [Indonesia](README_ID.md) • [Italiano](README_IT.md) • [日本語](README_JA.md) • [ភាសាខ្មែរ](README_KM.md) • [한국어](README_KO.md) • [Polski](README_PL.md) • [Português Brasil](README_PT_BR.md) • [Русский](README_RU.md) • [ภาษาไทย](README_TH.md) • [Turkish](README_TR.md) • [Українська](README_UK.md) • [Tiếng Việt](README_VI.md) • [中文](README_ZH.md)
 
 [homepage]: https://localsend.org
 [discord]: https://discord.gg/GSRWmQNP87
@@ -170,74 +170,6 @@ LocalSend використовує безпечний протокол зв'яз
 | Пристрій не відображається | macOS, iOS             | Будь-яка              | Ви можете спробувати повторно надати дозвіл для "Локальної мережі" в розділі "Конфіденційність" у налаштуваннях ОС.                               |
 | Швидкість занадто низька   | Будь-яка               | Будь-яка              | Використовуйте Wi-Fi 5 ГГц; Вимкніть шифрування на обох пристроях.                                                                                |
 | Швидкість занадто низька   | Будь-яка               | Android               | Відома проблема. https://github.com/flutter-cavalry/saf_stream/issues/4                                                                           |
-
-## Збірка (побудова) програми
-
-Ці команди призначені лише для майнтейнерів (розробників).
-
-### Android
-
-Класичний пакет APK
-
-```bash
-flutter build apk
-```
-
-AppBundle для Google Play
-
-```bash
-flutter build appbundle
-```
-
-### iOS
-
-```bash
-flutter build ipa
-```
-
-### macOS
-
-```bash
-flutter build macos
-```
-
-### Windows
-
-**Класичний пакет**
-
-```bash
-flutter build windows
-```
-
-**Локальний пакет формату MSIX**
-
-```bash
-flutter pub run msix:create
-```
-
-**Для магазину програм**
-
-```bash
-flutter pub run msix:create --store
-```
-
-### Linux
-
-**Класичний пакет**
-
-```bash
-flutter build linux
-```
-
-**AppImage**
-
-```bash
-appimage-builder --recipe AppImageBuilder.yml
-```
-
-**Snap**
-
-Інструкції розташовані в [localsend/snap/README.md](https://github.com/localsend/snap/blob/main/README.md)
 
 ## Учасники
 

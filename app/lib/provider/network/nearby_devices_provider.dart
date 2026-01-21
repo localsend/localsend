@@ -31,17 +31,17 @@ class NearbyDevicesService extends ReduxNotifier<NearbyDevicesState> {
     required IsolateController isolateController,
     required FavoritesService favoriteService,
     required DiscoveryLogger discoveryLogs,
-  })  : _discoveryLogger = discoveryLogs,
-        _isolateController = isolateController,
-        _favoriteService = favoriteService;
+  }) : _discoveryLogger = discoveryLogs,
+       _isolateController = isolateController,
+       _favoriteService = favoriteService;
 
   @override
   NearbyDevicesState init() => const NearbyDevicesState(
-        runningFavoriteScan: false,
-        runningIps: {},
-        devices: {},
-        signalingDevices: {},
-      );
+    runningFavoriteScan: false,
+    runningIps: {},
+    devices: {},
+    signalingDevices: {},
+  );
 }
 
 /// Binds the UDP port and listens for incoming announcements.
@@ -166,11 +166,13 @@ class StartLegacyScan extends AsyncReduxAction<NearbyDevicesService, NearbyDevic
 
     dispatch(_SetRunningIpsAction({...state.runningIps, localIp}));
 
-    final stream = external(notifier._isolateController).dispatchTakeResult(IsolateInterfaceHttpDiscoveryAction(
-      networkInterface: localIp,
-      port: port,
-      https: https,
-    ));
+    final stream = external(notifier._isolateController).dispatchTakeResult(
+      IsolateInterfaceHttpDiscoveryAction(
+        networkInterface: localIp,
+        port: port,
+        https: https,
+      ),
+    );
 
     await for (final device in stream) {
       notifier._discoveryLogger.addLog('[DISCOVER/TCP] ${device.alias} (${device.ip}, model: ${device.deviceModel})');
@@ -199,10 +201,12 @@ class StartFavoriteScan extends AsyncReduxAction<NearbyDevicesService, NearbyDev
     }
     dispatch(_SetRunningFavoriteScanAction(true));
 
-    final stream = external(notifier._isolateController).dispatchTakeResult(IsolateFavoriteHttpDiscoveryAction(
-      favorites: devices.map((e) => (e.ip, e.port)).toList(),
-      https: https,
-    ));
+    final stream = external(notifier._isolateController).dispatchTakeResult(
+      IsolateFavoriteHttpDiscoveryAction(
+        favorites: devices.map((e) => (e.ip, e.port)).toList(),
+        https: https,
+      ),
+    );
 
     await for (final device in stream) {
       notifier._discoveryLogger.addLog('[DISCOVER/TCP] ${device.alias} (${device.ip}, model: ${device.deviceModel})');

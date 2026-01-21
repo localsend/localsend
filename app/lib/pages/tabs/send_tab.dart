@@ -25,7 +25,7 @@ import 'package:localsend_app/widget/custom_icon_button.dart';
 import 'package:localsend_app/widget/dialogs/add_file_dialog.dart';
 import 'package:localsend_app/widget/dialogs/send_mode_help_dialog.dart';
 import 'package:localsend_app/widget/file_thumbnail.dart';
-import 'package:localsend_app/widget/horizontal_clip_list_view.dart';
+import 'package:localsend_app/widget/responsive_wrap_view.dart';
 import 'package:localsend_app/widget/list_tile/device_list_tile.dart';
 import 'package:localsend_app/widget/list_tile/device_placeholder_list_tile.dart';
 import 'package:localsend_app/widget/opacity_slideshow.dart';
@@ -64,7 +64,7 @@ class SendTab extends StatelessWidget {
                       style: Theme.of(context).textTheme.titleMedium,
                     ),
                   ),
-                  HorizontalClipListView(
+                  ResponsiveWrapView(
                     outerHorizontalPadding: 15,
                     outerVerticalPadding: 10,
                     childPadding: 10,
@@ -74,10 +74,12 @@ class SendTab extends StatelessWidget {
                         icon: option.icon,
                         label: option.label,
                         filled: false,
-                        onTap: () async => ref.global.dispatchAsync(PickFileAction(
-                          option: option,
-                          context: context,
-                        )),
+                        onTap: () async => ref.global.dispatchAsync(
+                          PickFileAction(
+                            option: option,
+                            context: context,
+                          ),
+                        ),
                       );
                     }).toList(),
                   ),
@@ -143,10 +145,12 @@ class SendTab extends StatelessWidget {
                                 onPressed: () async {
                                   if (_options.length == 1) {
                                     // open directly
-                                    await ref.global.dispatchAsync(PickFileAction(
-                                      option: _options.first,
-                                      context: context,
-                                    ));
+                                    await ref.global.dispatchAsync(
+                                      PickFileAction(
+                                        option: _options.first,
+                                        context: context,
+                                      ),
+                                    );
                                     return;
                                   }
                                   await AddFileDialog.open(
@@ -247,9 +251,17 @@ class SendTab extends StatelessWidget {
                         durationMillis: 6000,
                         running: animations,
                         children: [
-                          Text(t.sendTab.help, style: const TextStyle(color: Colors.grey), textAlign: TextAlign.center),
+                          Text(
+                            t.sendTab.help,
+                            style: const TextStyle(color: Colors.grey),
+                            textAlign: TextAlign.center,
+                          ),
                           if (checkPlatformCanReceiveShareIntent())
-                            Text(t.sendTab.shareIntentInfo, style: const TextStyle(color: Colors.grey), textAlign: TextAlign.center),
+                            Text(
+                              t.sendTab.shareIntentInfo,
+                              style: const TextStyle(color: Colors.grey),
+                              textAlign: TextAlign.center,
+                            ),
                         ],
                       );
                     },
@@ -534,7 +546,9 @@ class _MultiSendDeviceListTile extends StatelessWidget {
       final files = session.files.values.where((f) => f.token != null);
       final progressNotifier = ref.watch(progressProvider);
       final currBytes = files.fold<int>(
-          0, (prev, curr) => prev + ((progressNotifier.getProgress(sessionId: session.sessionId, fileId: curr.file.id) * curr.file.size).round()));
+        0,
+        (prev, curr) => prev + ((progressNotifier.getProgress(sessionId: session.sessionId, fileId: curr.file.id) * curr.file.size).round()),
+      );
       final totalBytes = files.fold<int>(0, (prev, curr) => prev + curr.file.size);
       progress = totalBytes == 0 ? 0 : currBytes / totalBytes;
     } else {
