@@ -319,6 +319,7 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
   }
 
   Future<void> _sendLoop(Ref ref, String sessionId, Device target, Map<String, SendingFile> files) async {
+    _logger.info('Transfer started (send) sessionId=$sessionId files=${files.length}');
     state = state.updateSession(
       sessionId: sessionId,
       state: (s) => s?.copyWith(startTime: DateTime.now().millisecondsSinceEpoch),
@@ -360,13 +361,13 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
     }
 
     if (state[sessionId]!.status != SessionStatus.sending) {
-      _logger.info('Transfer was canceled.');
+      _logger.info('Transfer ended early (send) sessionId=$sessionId status=${sessionState.status}');
     } else {
       final hasError = sessionState.files.values.any((file) => file.status == FileStatus.failed);
       if (!hasError && sessionState.background == true) {
         // close session because everything is fine and it is in background
         closeSession(sessionId);
-        _logger.info('Transfer finished and session removed.');
+        _logger.info('Transfer finished and session removed (send) sessionId=$sessionId');
       } else {
         // keep session alive when there are errors or currently in foreground
         state = state.updateSession(
@@ -378,9 +379,9 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
         );
 
         if (hasError) {
-          _logger.info('Transfer finished with errors.');
+          _logger.info('Transfer finished with errors (send) sessionId=$sessionId');
         } else {
-          _logger.info('Transfer finished successfully.');
+          _logger.info('Transfer finished successfully (send) sessionId=$sessionId');
         }
       }
     }
@@ -517,6 +518,7 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
     if (sessionState == null) {
       return;
     }
+    _logger.info('Transfer canceled by sender (send) sessionId=$sessionId');
     final remoteSessionId = sessionState.remoteSessionId;
 
     _cancelRunningRequests(sessionState);
@@ -541,6 +543,7 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
     if (sessionState == null) {
       return;
     }
+    _logger.info('Transfer canceled by receiver (send) sessionId=$sessionId');
     _cancelRunningRequests(sessionState);
 
     state = state.updateSession(
