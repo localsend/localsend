@@ -233,11 +233,13 @@ Future<void> _pickFolder(BuildContext context, Ref ref) async {
     }
 
     _logger.warning('Failed to pick directory', e);
-    // ignore: use_build_context_synchronously
-    await showDialog(context: context, builder: (_) => const NoPermissionDialog());
+    if (context.mounted) {
+      await showDialog(context: context, builder: (_) => const NoPermissionDialog());
+    }
   } finally {
-    // ignore: use_build_context_synchronously
-    Routerino.context.popUntilRoot(); // remove loading dialog
+    if (context.mounted) {
+      Routerino.context.popUntilRoot(); // remove loading dialog
+    }
   }
 }
 
@@ -253,8 +255,11 @@ Future<void> _pickMedia(BuildContext context, Ref ref) async {
     );
   }
 
+  if (!context.mounted) {
+    return;
+  }
+
   final oldBrightness = Theme.of(context).brightness;
-  // ignore: use_build_context_synchronously
   final List<AssetEntity>? result = await AssetPicker.pickAssets(
     context,
     pickerConfig: const AssetPickerConfig(maxAssets: 999, textDelegate: TranslatedAssetPickerTextDelegate()),
