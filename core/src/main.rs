@@ -28,6 +28,8 @@ async fn main() -> Result<()> {
         .with_max_level(Level::DEBUG)
         .init();
 
+    webrtc_test().await?;
+
     let a = tokio::spawn(async move {
         let _ = server_test().await;
     });
