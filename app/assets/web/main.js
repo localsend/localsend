@@ -129,7 +129,7 @@ function handleFilesDisplay(files, sessionId) {
     var file = files[fileKeys[i]];
     html += '<a class="file-item" href="' + BASE_URL + '/download?sessionId=' + encodeURIComponent(sessionId) + '&fileId=' + encodeURIComponent(fileKeys[i]) + '">' +
         '<div class="file-index-cell">' + (i + 1) + '</div>' +
-        '<div class="file-name-cell">' + file.fileName + '</div>' +
+        '<div class="file-name-cell">' + escapeHtml(file.fileName) + '</div>' +
         '<div class="file-size-cell">' + formatBytes(file.size) + '</div>' +
         '</a>';
   }
@@ -139,6 +139,20 @@ function handleFilesDisplay(files, sessionId) {
   } else {
     document.getElementById('file-list').innerHTML = html;
   }
+}
+
+function escapeHtml(text) {
+  if (text === null || text === undefined) {
+    return '';
+  }
+  var map = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#039;'
+  };
+  return String(text).replace(/[&<>"']/g, function(m) { return map[m]; });
 }
 
 function formatBytes(bytes) {
