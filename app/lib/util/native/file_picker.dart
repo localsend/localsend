@@ -253,9 +253,10 @@ Future<void> _pickMedia(BuildContext context, Ref ref) async {
     );
   }
 
-  final oldBrightness = Theme.of(context).brightness;
   // ignore: use_build_context_synchronously
+  final oldBrightness = Theme.of(context).brightness;
   final List<AssetEntity>? result = await AssetPicker.pickAssets(
+    // ignore: use_build_context_synchronously
     context,
     pickerConfig: const AssetPickerConfig(maxAssets: 999, textDelegate: TranslatedAssetPickerTextDelegate()),
   );
