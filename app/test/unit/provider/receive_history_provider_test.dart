@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:common/model/file_type.dart';
 import 'package:localsend_app/model/persistence/receive_history_entry.dart';
 import 'package:localsend_app/provider/receive_history_provider.dart';
@@ -166,6 +168,70 @@ void main() {
 
     expect(service.state.length, 0);
     verify(persistenceService.setReceiveHistory([]));
+  });
+
+  test('Should not lose entries when adding concurrently', () async {
+    final firstPersistStarted = Completer<void>();
+    final allowFirstPersist = Completer<void>();
+
+    List<ReceiveHistoryEntry>? lastPersisted;
+    var callCount = 0;
+    when(persistenceService.setReceiveHistory(any)).thenAnswer((invocation) {
+      callCount++;
+      lastPersisted = invocation.positionalArguments.first as List<ReceiveHistoryEntry>;
+
+      if (callCount == 1) {
+        firstPersistStarted.complete();
+        return allowFirstPersist.future;
+      }
+      return Future.value();
+    });
+
+    final service = ReduxNotifier.test(
+      redux: ReceiveHistoryService(persistenceService),
+    );
+
+    final entry1 = _createEntry('1');
+    final entry2 = _createEntry('2');
+
+    final future1 = service.dispatchAsync(
+      AddHistoryEntryAction(
+        entryId: entry1.id,
+        fileName: entry1.fileName,
+        fileType: entry1.fileType,
+        path: entry1.path,
+        savedToGallery: entry1.savedToGallery,
+        isMessage: entry1.isMessage,
+        fileSize: entry1.fileSize,
+        senderAlias: entry1.senderAlias,
+        timestamp: entry1.timestamp,
+      ),
+    );
+
+    // Ensure the first action is blocked in persistence, then start the second action.
+    // A broken implementation may compute both updates on the same pre-transition state
+    // and lose one entry.
+    await firstPersistStarted.future;
+
+    final future2 = service.dispatchAsync(
+      AddHistoryEntryAction(
+        entryId: entry2.id,
+        fileName: entry2.fileName,
+        fileType: entry2.fileType,
+        path: entry2.path,
+        savedToGallery: entry2.savedToGallery,
+        isMessage: entry2.isMessage,
+        fileSize: entry2.fileSize,
+        senderAlias: entry2.senderAlias,
+        timestamp: entry2.timestamp,
+      ),
+    );
+
+    allowFirstPersist.complete();
+    await Future.wait([future1, future2]);
+
+    expect(service.state, [entry2, entry1]);
+    expect(lastPersisted, [entry2, entry1]);
   });
 }
 
