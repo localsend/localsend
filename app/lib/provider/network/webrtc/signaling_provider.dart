@@ -75,8 +75,6 @@ class _SetupSignalingConnection extends AsyncGlobalAction {
   Future<void> reduce() async {
     final settings = ref.read(settingsProvider);
     final deviceInfo = ref.read(deviceInfoProvider);
-    // commented because it isn't used
-    //final security = ref.read(securityProvider);
 
     // TODO: Use persistent key
     final key = await crypto.generateKeyPair();

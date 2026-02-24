@@ -36,9 +36,6 @@ class WebRTCReceiveService extends ReduxNotifier<WebRTCReceiveState> {
   final List<String> _stunServers;
   final LsSignalingConnection _connection;
   final WsServerSdpMessage _offer;
-  // commented because it isn't used
-  // final SettingsState _settings;
-  // final List<FavoriteDevice> _favorites;
   final StoredSecurityContext _key;
 
   WebRTCReceiveService({
@@ -53,8 +50,6 @@ class WebRTCReceiveService extends ReduxNotifier<WebRTCReceiveState> {
        _stunServers = stunServers,
        _connection = connection,
        _offer = offer,
-       //  _settings = settings,
-       //  _favorites = favorites,
        _key = key;
 
   @override
