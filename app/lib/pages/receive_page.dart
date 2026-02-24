@@ -18,6 +18,7 @@ import 'package:localsend_app/util/ip_helper.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_app/util/native/taskbar_helper.dart';
 import 'package:localsend_app/util/ui/snackbar.dart';
+import 'package:localsend_app/util/url_helper.dart';
 import 'package:localsend_app/widget/device_bage.dart';
 import 'package:localsend_app/widget/responsive_list_view.dart';
 import 'package:refena_flutter/refena_flutter.dart';
@@ -46,7 +47,7 @@ class ReceivePageVm {
     required this.onAccept,
     required this.onDecline,
     required this.onClose,
-  }) : isLink = message != null && (Uri.tryParse(message)?.isAbsolute ?? false);
+  }) : isLink = message != null && isUrl(message!);
 }
 
 class ReceivePage extends StatefulWidget {
