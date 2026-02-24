@@ -1,12 +1,9 @@
-import 'package:collection/collection.dart';
 import 'package:common/model/dto/file_dto.dart' as dart_model;
-import 'package:common/model/file_status.dart';
 import 'package:common/model/session_status.dart';
 import 'package:common/model/stored_security_context.dart';
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:localsend_app/model/persistence/favorite_device.dart';
 import 'package:localsend_app/model/state/server/receive_session_state.dart';
-import 'package:localsend_app/model/state/server/receiving_file.dart';
 import 'package:localsend_app/model/state/settings_state.dart';
 import 'package:localsend_app/pages/receive_page.dart';
 import 'package:localsend_app/provider/network/webrtc/signaling_provider.dart';
@@ -39,8 +36,6 @@ class WebRTCReceiveService extends ReduxNotifier<WebRTCReceiveState> {
   final List<String> _stunServers;
   final LsSignalingConnection _connection;
   final WsServerSdpMessage _offer;
-  final SettingsState _settings;
-  final List<FavoriteDevice> _favorites;
   final StoredSecurityContext _key;
 
   WebRTCReceiveService({
@@ -55,8 +50,6 @@ class WebRTCReceiveService extends ReduxNotifier<WebRTCReceiveState> {
        _stunServers = stunServers,
        _connection = connection,
        _offer = offer,
-       _settings = settings,
-       _favorites = favorites,
        _key = key;
 
   @override

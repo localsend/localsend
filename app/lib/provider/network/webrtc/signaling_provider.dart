@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:common/constants.dart';
 import 'package:common/model/device.dart';
 import 'package:dart_mappable/dart_mappable.dart';
+import 'package:flutter/foundation.dart';
 import 'package:localsend_app/provider/device_info_provider.dart';
 import 'package:localsend_app/provider/favorites_provider.dart';
 import 'package:localsend_app/provider/network/nearby_devices_provider.dart';
@@ -74,11 +75,12 @@ class _SetupSignalingConnection extends AsyncGlobalAction {
   Future<void> reduce() async {
     final settings = ref.read(settingsProvider);
     final deviceInfo = ref.read(deviceInfoProvider);
-    final security = ref.read(securityProvider);
 
     // TODO: Use persistent key
     final key = await crypto.generateKeyPair();
-    print('private key: ${key.privateKey}');
+    if (kDebugMode) {
+      print('private key: ${key.privateKey}');
+    }
 
     LsSignalingConnection? connection;
     final stream = connect(

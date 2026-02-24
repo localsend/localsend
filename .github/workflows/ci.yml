@@ -15,13 +15,17 @@ jobs:
 
     steps:
       - uses: actions/checkout@v6
-      - uses: subosito/flutter-action@v2
+      - name: Setup Flutter SDK
+        uses: flutter-actions/setup-flutter@v4
         with:
-          flutter-version: ${{ env.FLUTTER_VERSION }}
+          version: ${{ env.FLUTTER_VERSION }}
           channel: "stable"
 
       - name: Dependencies (app)
         working-directory: app
+        run: flutter pub get
+      - name: Dependencies (cargokit - rust_builder)
+        working-directory: app/rust_builder/cargokit/build_tool
         run: flutter pub get
       - name: Remove gen directory (app)
         working-directory: app
@@ -42,13 +46,17 @@ jobs:
 
     steps:
       - uses: actions/checkout@v6
-      - uses: subosito/flutter-action@v2
+      - name: Setup Flutter SDK
+        uses: flutter-actions/setup-flutter@v4
         with:
-          flutter-version: ${{ env.FLUTTER_VERSION }}
+          version: ${{ env.FLUTTER_VERSION }}
           channel: "stable"
 
       - name: Dependencies (app)
         working-directory: app
+        run: flutter pub get
+      - name: Dependencies (cargokit - rust_builder)
+        working-directory: app/rust_builder/cargokit/build_tool
         run: flutter pub get
       - name: Analyze (app)
         working-directory: app
@@ -94,3 +102,4 @@ jobs:
           else
             echo "Versions match."
           fi
+
