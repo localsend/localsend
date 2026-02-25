@@ -14,7 +14,7 @@
     "copiedToClipboard": "Копирано в клипборда",
     "decline": "Откажи",
     "done": "Готово",
-    "delete": "Изтрий",
+    "delete": "Изтриване",
     "edit": "Редактирай",
     "error": "Грешка",
     "example": "Пример",
@@ -150,7 +150,7 @@
     "other": {
       "title": "Други",
       "support": "Поддръжка на LocalSend",
-      "donate": "Дарете",
+      "donate": "Дарение",
       "privacyPolicy": "Политика за поверителност",
       "termsOfUse": "Условия за ползване"
     },
@@ -178,13 +178,13 @@
   "receiveHistoryPage": {
     "title": "История",
     "openFolder": "Отвори папка",
-    "deleteHistory": "Изтрий историята",
+    "deleteHistory": "Изтриване на историята",
     "empty": "Историята е празна.",
     "entryActions": {
       "open": "Отвори файл",
       "showInFolder": "Покажи в папка",
       "info": "Информация",
-      "deleteFromHistory": "Изтрий от историята"
+      "deleteFromHistory": "Изтриване от историята"
     }
   },
   "apkPickerPage": {
@@ -194,21 +194,21 @@
     "apps": "{n} Приложения"
   },
   "selectedFilesPage": {
-    "deleteAll": "Изтрий всички"
+    "deleteAll": "Изтриване на всички"
   },
   "receivePage": {
     "subTitle": {
       "one": "иска да ви изпрати файл",
       "other": "иска да ви изпрати {n} файлове"
     },
-    "subTitleMessage": "ти изпрати съобщение:",
-    "subTitleLink": "ти изпрати връзка:",
+    "subTitleMessage": "Ви изпрати съобщение:",
+    "subTitleLink": "Ви изпрати връзка:",
     "canceled": "Подателят е отменил заявката."
   },
   "receiveOptionsPage": {
     "title": "Опции",
     "destination": "@:settingsTab.receive.destination",
-    "appDirectory": "(LocalSend папка)",
+    "appDirectory": "(папка на LocalSend)",
     "saveToGallery": "@:settingsTab.receive.saveToGallery",
     "saveToGalleryOff": "Изключва се автоматично, защото има папки."
   },
@@ -232,6 +232,14 @@
       "count": "Файлове: {curr} / {n}",
       "size": "Размер: {curr} / {n}",
       "speed": "Скорост: {speed}/s"
+    },
+    "remainingTime": {
+      "seconds": "{n}:{ss}",
+      "minutes": "{n}:{ss}",
+      "hours": "{h}ч {m}мин",
+      "days": "{d}д {h}ч {m}мин",
+      "@hours": "Използвайте „h“ като съкращение за часове и „m“ за минути",
+      "@days": "Използвайте „d“ за дни, „h“ за часове и „m“ за минути"
     }
   },
   "webSharePage": {
@@ -264,9 +272,9 @@
     "translators": "Преводачи"
   },
   "donationPage": {
-    "title": "Дарете",
+    "title": "Дарение",
     "info": "LocalSend е безплатен, с отворен код и без никакви реклами. Ако харесвате приложението, можете да подкрепите разработката с дарение.",
-    "donate": "Дарете {amount}",
+    "donate": "Дарение {amount}",
     "thanks": "Благодаря много!",
     "restore": "Възстановяване на покупка"
   },
@@ -341,7 +349,7 @@
     },
     "localNetworkUnauthorized": {
       "title": "@:dialogs.noPermission.title",
-      "description": "LocalSend не може да намери други устройства, без да има разрешение за сканиране на локалната мрежа. Моля, дайте това разрешение в настройките.",
+      "description": "LocalSend не може да намери други устройства без разрешение за сканиране на локалната мрежа. Моля, предоставете това разрешение в настройките.",
       "gotoSettings": "Настройки"
     },
     "messageInput": {
@@ -354,7 +362,7 @@
     },
     "noPermission": {
       "title": "Няма разрешение",
-      "content": "Не сте предоставили необходимите разрешения. Моля, дайте ги в настройките."
+      "content": "Не сте предоставили необходимите разрешения. Моля, предоставете ги в настройките."
     },
     "notAvailableOnPlatform": {
       "title": "Не е налична",

@@ -232,6 +232,14 @@
       "count": "文件：{curr} / {n}",
       "size": "大小：{curr} / {n}",
       "speed": "速度：{speed}/s"
+    },
+    "remainingTime": {
+      "hours": "{h}h {m}m",
+      "days": "{d}d {h}h {m}m",
+      "@hours": "使用'h'作为小时缩写，使用'm'作为分钟缩写",
+      "@days": "使用'd'作为天缩写，使用'h'作为小时缩写，使用'm'作为分钟缩写",
+      "seconds": "{n}:{ss}",
+      "minutes": "{n}:{ss}"
     }
   },
   "webSharePage": {

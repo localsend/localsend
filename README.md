@@ -1,3 +1,15 @@
+<div align="center">
+  <sup>Special thanks to:</sup>
+  <br><br>
+  <a href="https://go.warp.dev/localsend" target="_blank">
+    <img alt="Warp sponsorship" width="300" src="https://github.com/user-attachments/assets/c7f141e7-9751-407d-bb0e-d6f2c487b34f">
+    <br>
+    <b>Warp, the intelligent terminal</b>
+    <br>
+    <sup>Available for macOS, Linux and Windows</sup>
+  </a>
+</div>
+
 # LocalSend
 
 [![CI status][ci-badge]][ci-workflow]

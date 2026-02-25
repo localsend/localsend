@@ -1,5 +1,5 @@
 {
-  "locale": "Gujarati",
+  "locale": "અંગ્રેજી",
   "appName": "LocalSend",
   "general": {
     "accept": "સ્વીકારો",
@@ -9,7 +9,7 @@
     "cancel": "રદ કરો",
     "close": "બંધ કરો",
     "confirm": "પુષ્ટિ કરો",
-    "continueStr": "ચાલુ રાખો",
+    "continueStr": "આગળ વધો",
     "copy": "કૉપિ કરો",
     "copiedToClipboard": "ક્લિપબોર્ડ પર કૉપિ થયું",
     "decline": "અસ્વીકારો",
@@ -38,7 +38,8 @@
     "save": "સેવ કરો",
     "unchanged": "બદલાયું નથી",
     "unknown": "અજ્ઞાત",
-    "noItemInClipboard": "ક્લિપબોર્ડમાં કોઈ વસ્તુ નથી"
+    "noItemInClipboard": "ક્લિપબોર્ડમાં કોઈ વસ્તુ નથી",
+    "quickSaveFromFavorites": "\"મનપસંદ\" માટે ક્વિક સેવ કરો"
   },
   "receiveTab": {
     "title": "પ્રાપ્ત કરો",
@@ -46,6 +47,11 @@
       "ip": "IP:",
       "port": "પોર્ટ:",
       "alias": "ડિવાઇસનું નામ:"
+    },
+    "quickSave": {
+      "favorites": "મનપસંદ",
+      "off": "@:general.off",
+      "on": "@:general.on"
     }
   },
   "sendTab": {
@@ -75,7 +81,8 @@
     },
     "sendModeHelp": "સમજાણ",
     "help": "મહેરબાની કરીને ખાતરી કરો કે ઇચ્છિત લક્ષ્ય પણ તે જ Wi-Fi નેટવર્ક પર છે.",
-    "placeItems": "શેર કરવા માટે વસ્તુઓ મૂકો."
+    "placeItems": "શેર કરવા માટે વસ્તુઓ મૂકો.",
+    "manualSending": "મૈન્યુલ મોકલવું"
   },
   "settingsTab": {
     "title": "સેટિંગ્સ",
@@ -100,7 +107,9 @@
       "minimizeToTray": "બંધ કરો: ટ્રે/મેનુ બારમાં મિનિમાઇઝ",
       "launchAtStartup": "લૉગિન પછી સ્વયંચાલિત શરૂઆત",
       "launchMinimized": "સ્વયંચાલિત શરૂઆત: છુપાવેલી સ્થિતિમાં શરૂ કરો",
-      "animations": "એનિમેશન"
+      "animations": "એનિમેશન",
+      "saveWindowPlacementWindows": "બહાર નીકળ્યા પછી વિન્ડો ની જગ્યા સાચવો",
+      "showInContextMenu": "કૉટેક્સ્ટ મેન્યુ માં LocalSend દેખાડો"
     },
     "receive": {
       "title": "સ્વીકારો",
@@ -109,7 +118,9 @@
       "destination": "સ્થળ",
       "downloads": "(ડાઉનલોડ્સ)",
       "saveToGallery": "મીડિયા ગેલેરીમાં સેવ કરો",
-      "saveToHistory": "ઇતિહાસમાં સેવ કરો"
+      "saveToHistory": "ઇતિહાસમાં સેવ કરો",
+      "quickSaveFromFavorites": "@:general.quickSaveFromFavorites",
+      "requirePin": "@:webSharePage.requirePin"
     },
     "send": {
       "title": "મોકલો",
@@ -127,7 +138,14 @@
       "portWarning": "તમે કસ્ટમ પોર્ટનો ઉપયોગ કરી રહ્યા છો તેથી તમે અન્ય ડિવાઇસ દ્વારા શોધી શકાય નહીં. (મૂળભૂત: {defaultPort})",
       "encryption": "એન્ક્રિપ્શન",
       "multicastGroup": "મલ્ટીકાસ્ટ",
-      "multicastGroupWarning": "તમે કસ્ટમ મલ્ટીકાસ્ટ સરનામાનો ઉપયોગ કરી રહ્યા છો તેથી તમે અન્ય ડિવાઇસ દ્વારા શોધી શકાય નહીં. (મૂળભૂત: {defaultMulticast})"
+      "multicastGroupWarning": "તમે કસ્ટમ મલ્ટીકાસ્ટ સરનામાનો ઉપયોગ કરી રહ્યા છો તેથી તમે અન્ય ડિવાઇસ દ્વારા શોધી શકાય નહીં. (મૂળભૂત: {defaultMulticast})",
+      "network": "નૅટવર્ક",
+      "networkOptions": {
+        "all": "બધા",
+        "filtered": "છાણેલા"
+      },
+      "useSystemName": "સિસ્ટમ નામ વાપરો",
+      "generateRandomAlias": "રેનડમ ઉપનામ બનાવો"
     },
     "other": {
       "title": "અન્ય",
@@ -151,6 +169,10 @@
     "noConnection": {
       "symptom": "બંને ડિવાઇસ એકબીજાને શોધી શકતા નથી કે ફાઈલો શેર કરી શકતા નથી.",
       "solution": "શું સમસ્યા બંને બાજુ છે? જો આવું હોય, તો તમને ખાતરી કરવી જોઈએ કે બંને ડિવાઇસ એ જ Wi-Fi નેટવર્ક પર છે અને એ જ રૂપરેખા (પોર્ટ, મલ્ટીકાસ્ટ સરનામું, એન્ક્રિપ્શન) શેર કરે છે. નેટવર્ક ભાગ લેનારા વચ્ચે સંવાદિતા મંજૂરી ન આપી શકે. આ કિસ્સામાં, આ વિકલ્પને રાઉટરમાં સક્રિય કરવો પડશે."
+    },
+    "noDiscovery": {
+      "symptom": "આ ડિવાઇસ બીજા ડિવાઇસ ને શોધી નથી શકતો.",
+      "solution": "પક્કું કરો કે તમારા બધા ડિવાઇસ એજ વાઈફાઈ પર છે એંડ એજ કૉંફઈગુરેશન (પોર્ટ, મલ્ટીકાષ્ટ એડ્રેસ, એનક્રિપશન) છે. તમે જોયતા ડિવાઇસ નું આઇપી એડ્રેસ લખવનો પ્રયાસ કરી શકો છો. અગર આ કામ કયરૂ તોહ તમે આ ડિવાઇસ ને તમારા મનપસંદ માં જોડી શકો છો જેનાથી, ભવિષ્ય માં એ એની મેતે શોધી લેસે."
     }
   },
   "receiveHistoryPage": {
@@ -161,7 +183,8 @@
     "entryActions": {
       "open": "ફાઇલ ખોલો",
       "info": "માહિતી",
-      "deleteFromHistory": "ઇતિહાસમાંથી ડિલીટ કરો"
+      "deleteFromHistory": "ઇતિહાસમાંથી ડિલીટ કરો",
+      "showInFolder": "ફોલ્ડર માં બતાવો"
     }
   },
   "apkPickerPage": {
@@ -192,7 +215,8 @@
   "sendPage": {
     "waiting": "પ્રતિસાદની રાહ જોવામાં આવી રહી છે...",
     "rejected": "પ્રાપ્તકર્તાએ વિનંતી અસ્વીકાર કરી છે.",
-    "busy": "પ્રાપ્તકર્તા બીજી વિનંતી સાથે વ્યસ્ત છે."
+    "busy": "પ્રાપ્તકર્તા બીજી વિનંતી સાથે વ્યસ્ત છે.",
+    "tooManyAttempts": "@:વેબ.બહુ_બધા_પ્રયાસ"
   },
   "progressPage": {
     "titleSending": "ફાઈલો મોકલી રહ્યા છે",
@@ -208,6 +232,14 @@
       "count": "ફાઈલો: {curr} / {n}",
       "size": "કદ: {curr} / {n}",
       "speed": "ગતિ: {speed}/s"
+    },
+    "remainingTime": {
+      "days": "{d}દિ {h}ક {m}મિ",
+      "@hours": "નાનું કરી ને 'ક' કલાક માટે અને 'મિ' મિનિટ માટે વાપરો",
+      "@days": "નાનું કરી ને 'દિ' દિવસ માટે, 'ક' કલાક માટે અને 'મિ' મિનિટ માટે વાપરો",
+      "seconds": "{n}:{ss}",
+      "minutes": "{n}:{ss}",
+      "hours": "{h}ક {m}મિ"
     }
   },
   "webSharePage": {
@@ -224,7 +256,9 @@
     "encryption": "@:settingsTab.network.encryption",
     "autoAccept": "સ્વયંસંચાલિત રીતે વિનંતિઓ સ્વીકારો",
     "encryptionHint": "લોકલસેન્ડ એ સ્વ-સાઇન્ડ સર્ટિફિકેટનો ઉપયોગ કરે છે. તમારે તેને તમારા બ્રાઉઝરમાં સ્વીકારવું પડશે.",
-    "pendingRequests": "બાકી વિનંતિઓ: {n}"
+    "pendingRequests": "બાકી વિનંતિઓ: {n}",
+    "requirePin": "પિન જોયશે",
+    "pinHint": "પિન \"{pin}\" છે"
   },
   "aboutPage": {
     "title": "લોકલસેન્ડ વિશે",
@@ -234,7 +268,8 @@
     ],
     "author": "લેખક",
     "contributors": "યોગદાનકર્તાઓ",
-    "translators": "અનુવાદકો"
+    "translators": "અનુવાદકો",
+    "packagers": "પૅકેજકરતાં"
   },
   "donationPage": {
     "title": "દાન આપો",
@@ -422,6 +457,21 @@
     },
     "zoom": {
       "title": "URL"
+    },
+    "openFile": {
+      "title": "ફાઇલ ખોલો",
+      "content": "પ્રાપ્ત થઈલી ફાઇલ ખોલવી છે?"
+    },
+    "quickSaveFromFavoritesNotice": {
+      "title": "@:general.quickSaveFromFavorites",
+      "content": [
+        "તમારા મનપસંદ સૂચી માં હોય એ ડિવાઇસ ના ફાઇલ અનુરોધ એની મેતે સ્વીકાર કરી લેશે.",
+        "ચેતવણી! હમણાં, આ પૂર્ણ રૂપ થઈ સુરક્ષિત નથી, કારણ કે તમારા મનપસંદ સૂચી માંથી કોઈ ભી ડિવાઇસ નું ફિંગરપ્રિન્ટ કોઈ હેકર પાસે હસે તો એ તમને ફાઇલ બીના તમારા મંજૂરી મોકલી સકશે.",
+        "જોકે, બીના મંજૂરી બધા જે લોકલ નેટવર્ક પર હોય એના પાસ થી ફાઇલ લેવા કરતા આ વિકલ્પ વધારે સુરક્ષિત છે."
+      ]
+    },
+    "pin": {
+      "title": "પિન નાખો"
     }
   },
   "sanitization": {
@@ -431,14 +481,18 @@
   "tray": {
     "@info": "Apple માર્ગદર્શિકાઓ 'બંધ' શબ્દના વપરાશ વિશે ખૂબ કડક છે.",
     "open": "@:general.open",
-    "close": "LocalSend બંધ કરો"
+    "close": "LocalSend બંધ કરો",
+    "closeWindows": "બહાર નિકડો"
   },
   "web": {
     "waiting": "@:sendPage.waiting",
     "rejected": "નકારી કાઢ્યું",
     "files": "ફાઈલો",
     "fileName": "ફાઈલનું નામ",
-    "size": "માપ"
+    "size": "માપ",
+    "enterPin": "પિન નાખો",
+    "invalidPin": "પિન ગલત છે",
+    "tooManyAttempts": "બહુ બધા પ્રયાસ કરી દીધા"
   },
   "assetPicker": {
     "@info": "Android અને iPhone માટે મીડિયા પસંદગી સાધન માટેના અનુવાદો",
@@ -470,5 +524,12 @@
     "sActionUseCameraHint": "કૅમેરા વાપરો",
     "sNameDurationLabel": "અવધિ",
     "sUnitAssetCountLabel": "ગણતરી"
+  },
+  "networkInterfacesPage": {
+    "preview": "પ્રીવ્યૂ",
+    "whitelist": "જોયતીસૂચી",
+    "blacklist": "નજોયતીસૂચી",
+    "title": "નેટવર્ક ઇન્ટરફેસ",
+    "info": "ડિફૌલ્ટ રૂપે, LocalSend બધા ઉપલબ્ધ નેટવર્ક ઇન્ટરફેસ વાપરશે. તમે અહી નજોયતા નેટવર્ક ને કાઢી શકો છો. બદલાવ જોયા માટે તમને સર્વર ને ફરી ચાલુ કરવું પડસે."
   }
 }

@@ -232,6 +232,14 @@
       "count": "Fájl: {curr} / {n}",
       "size": "Méret: {curr} / {n}",
       "speed": "Sebesség: {speed}/s"
+    },
+    "remainingTime": {
+      "seconds": "{n}:{ss}",
+      "minutes": "{n}:{ss}",
+      "hours": "{h}h {m}m",
+      "days": "{d}d {h}h {m}m",
+      "@hours": "Az órák rövidítéséhez használja a 'h' betűt, a percekhez pedig az 'm' betűt",
+      "@days": "A naphoz  a 'd', az órához a 'h', a percekhez az 'm' betűt használja"
     }
   },
   "webSharePage": {

@@ -49,9 +49,9 @@
       "alias": "Takma isminiz:"
     },
     "quickSave": {
-      "off": "@:general.off",
+      "off": "@:genel.kapalı",
       "favorites": "Favoriler",
-      "on": "@:general.on"
+      "on": "@:genel.açık"
     }
   },
   "sendTab": {
@@ -119,7 +119,8 @@
       "destination": "Hedef klasör",
       "downloads": "(İndirilenler)",
       "saveToGallery": "Medyayı galeriye kaydet",
-      "saveToHistory": "Geçmişe kaydet"
+      "saveToHistory": "Geçmişe kaydet",
+      "quickSaveFromFavorites": "@:genel.FavorilerdenHızlıKaydet"
     },
     "send": {
       "title": "Gönder",
@@ -140,7 +141,8 @@
       "multicastGroupWarning": "Özel çoklu yayın adresini kullandığınız için diğer cihazlar tarafından algılanamayabilirsiniz.(varsayılan: {defaultMulticast})",
       "network": "Ağ",
       "networkOptions": {
-        "all": "Tümü"
+        "all": "Tümü",
+        "filtered": "Filtrelenmiş"
       },
       "useSystemName": "Sistem adını kullan",
       "generateRandomAlias": "Rastgele takma ad oluştur"
@@ -230,6 +232,14 @@
       "count": "Dosyalar: {curr} / {n}",
       "size": "Boyut: {curr} / {n}",
       "speed": "Hız: {speed}/s"
+    },
+    "remainingTime": {
+      "seconds": "{n}:{ss}",
+      "@days": "Günler için 'g', saatler için 's' ve dakikalar için 'd' kullanın",
+      "@hours": "Saat kısaltması için 's', dakika kısaltması için 'd' kullanın",
+      "minutes": "{n}:{ss}",
+      "hours": "{h}s {m}d",
+      "days": "{d}g {h}s {m}d"
     }
   },
   "webSharePage": {
@@ -384,6 +394,14 @@
     "openFile": {
       "title": "Dosya Aç",
       "content": "Alınan dosyayı açmak istiyor musunuz?"
+    },
+    "quickSaveFromFavoritesNotice": {
+      "content": [
+        "Favoriler listenizdeki cihazların paylaşım istekleri otomatik olarak kabul edilecektir.",
+        "Uyarı! Şu an, bu tamamen güvenli değildir çünkü favoriler listenizdeki herhangi bir cihazın parmak izine sahip olan hackerlar sınırlama olmadan size dosyalar gönderebilir.",
+        "Ancak, bu seçenek yinede ağdaki tüm kullanıcıların size sınırlandırma olmadan dosya göndermesine izin vermekten daha güvenlidir."
+      ],
+      "title": "@:genel.FavorilerdenHızlıKaydet"
     }
   },
   "sanitization": {
@@ -441,6 +459,7 @@
     "title": "Ağ Arayüzleri",
     "preview": "Önizle",
     "whitelist": "Beyaz liste",
-    "blacklist": "Kara liste"
+    "blacklist": "Kara liste",
+    "info": "Varsayılan olarak, LocalSend mevcut olan tüm ağları kullanır. Burada istenmeyen ağları engelleyebilirsiniz. Değişikliklerin uygulanması için sunucuyu yeniden başlatmanız gerekir."
   }
 }

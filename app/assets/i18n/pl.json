@@ -232,6 +232,14 @@
       "count": "Pliki: {curr} / {n}",
       "size": "Wielkość: {curr} / {n}",
       "speed": "Prędkość: {speed}/s"
+    },
+    "remainingTime": {
+      "seconds": "{n}:{ss}",
+      "minutes": "{n}:{ss}",
+      "hours": "{h}h {m}m",
+      "days": "{d}d {h}h {m}m",
+      "@hours": "Użyj „h” w przypadku skrótu godzin i „m” w przypadku minut",
+      "@days": "Uży „d” w przypadku dni, „h” w przypadku godzin i „m” w przypadku minut"
     }
   },
   "webSharePage": {

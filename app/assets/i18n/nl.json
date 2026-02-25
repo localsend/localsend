@@ -103,8 +103,8 @@
       "languageOptions": {
         "system": "Systeem"
       },
-      "saveWindowPlacement": "Afsluiten: vensterindeling behouden",
-      "saveWindowPlacementWindows": "Afsluiten: vensterindeling behouden",
+      "saveWindowPlacement": "Vensterpositie na beëindigen opslaan",
+      "saveWindowPlacementWindows": "Vensterpositie na afsluiten opslaan",
       "minimizeToTray": "Sluiten: minimaliseren naar systeemvak/menubalk",
       "launchAtStartup": "Automatisch starten na aanmelden",
       "launchMinimized": "Automatisch starten: verborgen",
@@ -232,6 +232,14 @@
       "count": "Bestanden: {curr} / {n}",
       "size": "Grootte: {curr} / {n}",
       "speed": "Snelheid: {speed}/s"
+    },
+    "remainingTime": {
+      "seconds": "{n}:{ss}",
+      "minutes": "{n}:{ss}",
+      "hours": "{h}h {m}m",
+      "days": "{d}d {h}h {m}m",
+      "@hours": "Gebruik 'h' als afkorting voor uren en 'm' voor minuten",
+      "@days": "Gebruik 'd' voor dagen, 'h' voor uren en 'm' voor minuten"
     }
   },
   "webSharePage": {
