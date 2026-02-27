@@ -52,7 +52,7 @@ pub enum ProtocolType {
 }
 
 impl ProtocolType {
-    pub fn as_str(&self) -> &str {
+    pub fn as_str(&self) -> &'static str {
         match self {
             ProtocolType::Http => "http",
             ProtocolType::Https => "https",
