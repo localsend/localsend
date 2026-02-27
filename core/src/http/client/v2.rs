@@ -4,7 +4,6 @@ use crate::http::dto_v2::{
     PrepareUploadResponseDtoV2, ProtocolTypeV2, RegisterDtoV2, RegisterResponseDtoV2,
 };
 use crate::http::StatusCodeError;
-use crate::crypto;
 use futures_util::StreamExt;
 use reqwest::{Response, StatusCode};
 use serde::{Deserialize, Serialize};
@@ -120,7 +119,7 @@ impl LsHttpClientV2 {
         }
 
         let public_key = match protocol {
-            ProtocolTypeV2::Https => Some(verify_cert_from_res(&res, None)?),
+            ProtocolTypeV2::Https => Some(super::verify_cert_from_res(&res, None)?),
             _ => None,
         };
 
@@ -186,7 +185,7 @@ impl LsHttpClientV2 {
             .await?;
 
         if let Some(public_key) = public_key {
-            verify_cert_from_res(&res, Some(public_key))?;
+            super::verify_cert_from_res(&res, Some(public_key))?;
         }
 
         if res.status() == StatusCode::NO_CONTENT {
@@ -514,23 +513,6 @@ async fn status_code_error_from_res(response: Response) -> anyhow::Result<anyhow
     }))
 }
 
-/// Verifies the certificate from the response.
-/// Returns the public key extracted from the certificate.
-fn verify_cert_from_res(response: &Response, public_key: Option<String>) -> anyhow::Result<String> {
-    let tls_info_ext = response
-        .extensions()
-        .get::<reqwest::tls::TlsInfo>()
-        .ok_or_else(|| anyhow::anyhow!("TLS info not found"))?;
-    let cert = tls_info_ext
-        .peer_certificate()
-        .ok_or_else(|| anyhow::anyhow!("Certificate not found"))?;
-    let public_key = match public_key {
-        Some(public_key) => public_key.to_owned(),
-        None => crypto::cert::public_key_from_cert_der(cert)?,
-    };
-    crypto::cert::verify_cert_from_der(cert, Some(public_key.clone()))?;
-    Ok(public_key)
-}
 
 #[cfg(test)]
 mod tests {

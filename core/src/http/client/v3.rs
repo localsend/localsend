@@ -142,7 +142,7 @@ impl LsHttpClientV3 {
             .await?;
 
         let public_key = match protocol {
-            ProtocolType::Https => Some(verify_cert_from_res(&res, None)?),
+            ProtocolType::Https => Some(super::verify_cert_from_res(&res, None)?),
             _ => None,
         };
 
@@ -174,7 +174,7 @@ impl LsHttpClientV3 {
             .await?;
 
         if let Some(public_key) = public_key {
-            verify_cert_from_res(&res, Some(public_key))?;
+            super::verify_cert_from_res(&res, Some(public_key))?;
         }
 
         if res.status() != StatusCode::OK {
@@ -272,7 +272,7 @@ fn to_identifier(
     public_key: Option<String>,
 ) -> anyhow::Result<String> {
     match require_cert {
-        true => verify_cert_from_res(response, public_key),
+        true => super::verify_cert_from_res(response, public_key),
         false => response
             .remote_addr()
             .map(|addr| addr.ip().to_string())
@@ -280,20 +280,3 @@ fn to_identifier(
     }
 }
 
-/// Verifies the certificate from the response.
-/// Returns the public key extracted from the certificate.
-fn verify_cert_from_res(response: &Response, public_key: Option<String>) -> anyhow::Result<String> {
-    let tls_info_ext = response
-        .extensions()
-        .get::<reqwest::tls::TlsInfo>()
-        .ok_or_else(|| anyhow::anyhow!("TLS info not found"))?;
-    let cert = tls_info_ext
-        .peer_certificate()
-        .ok_or_else(|| anyhow::anyhow!("Certificate not found"))?;
-    let public_key = match public_key {
-        Some(public_key) => public_key.to_owned(),
-        None => crypto::cert::public_key_from_cert_der(cert)?,
-    };
-    crypto::cert::verify_cert_from_der(cert, Some(public_key.clone()))?;
-    Ok(public_key)
-}

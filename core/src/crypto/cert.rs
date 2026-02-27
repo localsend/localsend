@@ -4,14 +4,14 @@ use x509_parser::certificate::X509Certificate;
 use x509_parser::pem::Pem;
 use x509_parser::x509::SubjectPublicKeyInfo;
 
-pub fn verify_cert_from_pem(cert: String, public_key: Option<String>) -> anyhow::Result<()> {
+pub fn verify_cert_from_pem(cert: String, public_key: Option<&str>) -> anyhow::Result<()> {
     let (cert_pem, _) = Pem::read(Cursor::new(cert.into_bytes()))?;
     let parsed_cert: X509Certificate = cert_pem.parse_x509()?;
 
     verify_cert_from_cert(parsed_cert, public_key)
 }
 
-pub fn verify_cert_from_der(cert: &[u8], public_key: Option<String>) -> anyhow::Result<()> {
+pub fn verify_cert_from_der(cert: &[u8], public_key: Option<&str>) -> anyhow::Result<()> {
     let (_, parsed_cert) = X509Certificate::from_der(&cert)?;
 
     verify_cert_from_cert(parsed_cert, public_key)
@@ -21,7 +21,7 @@ pub fn verify_cert_from_der(cert: &[u8], public_key: Option<String>) -> anyhow::
 /// - according to the signature
 /// - according to the time validity
 /// - according to the public key (if provided)
-fn verify_cert_from_cert(cert: X509Certificate, public_key: Option<String>) -> anyhow::Result<()> {
+fn verify_cert_from_cert(cert: X509Certificate, public_key: Option<&str>) -> anyhow::Result<()> {
     if !cert.validity.is_valid() {
         return Err(anyhow::anyhow!("Time validity error"));
     }
@@ -29,7 +29,7 @@ fn verify_cert_from_cert(cert: X509Certificate, public_key: Option<String>) -> a
     if let Some(public_key) = public_key {
         let cert_public_key = cert.tbs_certificate.subject_pki.parsed()?;
 
-        let (public_key_pem, _) = Pem::read(Cursor::new(public_key.into_bytes()))?;
+        let (public_key_pem, _) = Pem::read(Cursor::new(public_key.as_bytes()))?;
         let (_, public_key_spki) = SubjectPublicKeyInfo::from_der(&public_key_pem.contents)?;
         let expected_public_key = public_key_spki.parsed()?;
 
@@ -103,7 +103,7 @@ VRus1zGVD8IVpIdPMyz01WJyS7M0fWaHXKWo+Bo=
 -----END CERTIFICATE-----"
             .to_string();
         assert_eq!(
-            verify_cert_from_pem(cert, Some(PUBLIC_KEY.to_owned())).map_err(|e| e.to_string()),
+            verify_cert_from_pem(cert, Some(PUBLIC_KEY)).map_err(|e| e.to_string()),
             Ok(())
         );
 
@@ -128,7 +128,7 @@ VRus1zGVD8IVpIdPMyz01WJySwAAAAAAAAAAAAA=
 -----END CERTIFICATE-----"
             .to_string();
         assert_eq!(
-            verify_cert_from_pem(cert_invalid_signature, Some(PUBLIC_KEY.to_owned()))
+            verify_cert_from_pem(cert_invalid_signature, Some(PUBLIC_KEY))
                 .map_err(|e| e.to_string()),
             Err("signature verification error".to_string())
         );
@@ -154,7 +154,7 @@ eVVihnrJ3sdk7nnreAYMse/OipyufRyZ9t3WU8A=
 -----END CERTIFICATE-----"
             .to_string();
         assert_eq!(
-            verify_cert_from_pem(cert_invalid_public_key, Some(PUBLIC_KEY.to_owned()))
+            verify_cert_from_pem(cert_invalid_public_key, Some(PUBLIC_KEY))
                 .map_err(|e| e.to_string()),
             Err("Public key mismatch".to_string())
         );
@@ -180,7 +180,7 @@ nidU/qXQvBJ7NPUkXXgbcgqxK735iijOqQHmKts=
 -----END CERTIFICATE-----"
             .to_string();
         assert_eq!(
-            verify_cert_from_pem(cert_expired, Some(PUBLIC_KEY.to_owned()))
+            verify_cert_from_pem(cert_expired, Some(PUBLIC_KEY))
                 .map_err(|e| e.to_string()),
             Err("Time validity error".to_string())
         );
