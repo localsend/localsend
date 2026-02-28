@@ -1,5 +1,6 @@
 #include <flutter/dart_project.h>
 #include <flutter/flutter_view_controller.h>
+#include <vector>
 #include <windows.h>
 
 #include "flutter_window.h"
@@ -20,8 +21,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE instance, _In_opt_ HINSTANCE prev,
 
   flutter::DartProject project(L"data");
 
-  std::vector<std::string> command_line_arguments =
-      GetCommandLineArguments();
+  std::vector<std::string> command_line_arguments = GetCommandLineArguments();
 
   if (IsRunningWithIdentity()) {
     winrt::hstring share_arg = GetSharedMedia();
@@ -29,6 +29,10 @@ int APIENTRY wWinMain(_In_ HINSTANCE instance, _In_opt_ HINSTANCE prev,
       printf("share: %ls\n", share_arg.c_str());
       command_line_arguments.push_back("--share");
       command_line_arguments.push_back(Utf8FromUtf16(share_arg.c_str()));
+    }
+    auto protocol_args = GetProtocolArgs();
+    for (const auto &arg : protocol_args) {
+      command_line_arguments.push_back(Utf8FromUtf16(arg.c_str()));
     }
   }
 
