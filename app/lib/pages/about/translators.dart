@@ -46,6 +46,9 @@ const _translators = <AppLocale, List<String>>{
   AppLocale.hu: [
     '@gidano',
   ],
+  AppLocale.hy: [
+    '@VachaganGrigoryan',
+  ],
   AppLocale.it: [
     'Francesco Marastoni (@Francesco146)',
     'Dario Landucci (@LandOfDar)',
