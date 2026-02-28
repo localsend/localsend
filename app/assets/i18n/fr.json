@@ -208,7 +208,7 @@
   "receiveOptionsPage": {
     "title": "Options",
     "destination": "@:settingsTab.receive.destination",
-    "appDirectory": "(LocalSend folder)",
+    "appDirectory": "(dossier LocalSend)",
     "saveToGallery": "@:settingsTab.receive.saveToGallery",
     "saveToGalleryOff": "Désactivé automatiquement car des dossiers sont présents."
   },
@@ -232,6 +232,14 @@
       "count": "Fichiers : {curr} / {n}",
       "size": "Taille : {curr} / {n}",
       "speed": "Vitesse : {speed}/s"
+    },
+    "remainingTime": {
+      "@hours": "Utilisez « h » pour l'abréviation des heures et « m » pour les minutes",
+      "@days": "Utilisez « j » pour les jours, « h » pour les heures et « m » pour les minutes",
+      "seconds": "{n}:{ss}",
+      "minutes": "{n} :{ss}",
+      "hours": "{h}h {m}min",
+      "days": "{d}j {h}h {m}min"
     }
   },
   "webSharePage": {

@@ -1,5 +1,5 @@
 {
-  "locale": "Bahasa Melayu",
+  "locale": "Bahasa Inggeris",
   "appName": "LocalSend",
   "general": {
     "accept": "Terima",
@@ -11,31 +11,31 @@
     "confirm": "Sahkan",
     "continueStr": "Teruskan",
     "copy": "Salin",
-    "copiedToClipboard": "Disalin ke papan keratan",
+    "copiedToClipboard": "Disalin ke Papan Keratan",
     "decline": "Tolak",
     "done": "Selesai",
     "delete": "Padam",
-    "edit": "Edit",
+    "edit": "Sunting",
     "error": "Ralat",
     "example": "Contoh",
-    "files": "Fail",
-    "finished": "Selesai",
+    "files": "Fail-fail",
+    "finished": "Telah selesai",
     "hide": "Sembunyi",
-    "off": "Mati",
+    "off": "Tutup",
     "offline": "Luar talian",
-    "on": "Hidup",
+    "on": "Buka",
     "online": "Dalam talian",
     "open": "Buka",
     "queue": "Baris gilir",
-    "quickSave": "Simpan Cepat",
-    "quickSaveFromFavorites": "Simpan Cepat dari \"Kegemaran\"",
+    "quickSave": "Simpan Pantas",
+    "quickSaveFromFavorites": "Simpan Pantas untuk \"Kegemaran\"",
     "renamed": "Dinamakan semula",
-    "reset": "Set semula",
+    "reset": "Buat asal perubahan",
     "restart": "Mula semula",
     "settings": "Tetapan",
     "skipped": "Dilangkau",
     "start": "Mula",
-    "stop": "Berhenti",
+    "stop": "Henti",
     "save": "Simpan",
     "unchanged": "Tidak berubah",
     "unknown": "Tidak diketahui",
@@ -47,6 +47,11 @@
       "ip": "IP:",
       "port": "Port:",
       "alias": "Nama peranti:"
+    },
+    "quickSave": {
+      "favorites": "Kegemaran",
+      "off": "@:general.off",
+      "on": "@:general.on"
     }
   },
   "sendTab": {
@@ -103,7 +108,8 @@
       "launchAtStartup": "Mula automatik selepas log masuk",
       "launchMinimized": "Mula automatik: Mula tersembunyi",
       "showInContextMenu": "Tunjukkan LocalSend dalam menu konteks",
-      "animations": "Animasi"
+      "animations": "Animasi",
+      "saveWindowPlacementWindows": "Simpan kedudukan tetingkap selepas keluar"
     },
     "receive": {
       "title": "Terima",
@@ -134,7 +140,12 @@
       "portWarning": "Anda mungkin tidak dapat dikesan oleh peranti lain kerana anda menggunakan port tersuai. (lalai: {defaultPort})",
       "encryption": "Penyulitan",
       "multicastGroup": "Multicast",
-      "multicastGroupWarning": "Anda mungkin tidak dapat dikesan oleh peranti lain kerana anda menggunakan alamat multicast tersuai. (lalai: {defaultMulticast})"
+      "multicastGroupWarning": "Anda mungkin tidak dapat dikesan oleh peranti lain kerana anda menggunakan alamat multicast tersuai. (lalai: {defaultMulticast})",
+      "network": "Rangkaian",
+      "networkOptions": {
+        "all": "Semua",
+        "filtered": "Ditapis"
+      }
     },
     "other": {
       "title": "Lain-lain",
@@ -202,9 +213,10 @@
     "saveToGalleryOff": "Dimatikan secara automatik kerana terdapat folder."
   },
   "sendPage": {
-    "waiting": "Menunggu respons...",
+    "waiting": "Menunggu respons…",
     "rejected": "Penerima telah menolak permintaan.",
-    "busy": "Penerima sibuk dengan permintaan lain."
+    "busy": "Penerima sibuk dengan permintaan lain.",
+    "tooManyAttempts": "@:web.tooManyAttempts"
   },
   "progressPage": {
     "titleSending": "Menghantar fail",
@@ -224,12 +236,12 @@
   },
   "webSharePage": {
     "title": "Kongsi melalui pautan",
-    "loading": "Memulakan pelayan...",
-    "stopping": "Menghentikan pelayan...",
-    "error": "Ralat berlaku semasa memulakan pelayan.",
+    "loading": "Memulakan pelayan…",
+    "stopping": "Menghentikan pelayan…",
+    "error": "Ralat telah berlaku ketika memulakan pelayan.",
     "openLink": {
       "one": "Buka pautan ini dalam pelayar anda:",
-      "other": "Buka salah satu pautan ini dalam pelayar anda:"
+      "other": "Buka salah satu daripada pautan ini dalam pelayar anda:"
     },
     "requests": "Permintaan",
     "noRequests": "Tiada permintaan lagi.",
@@ -237,17 +249,19 @@
     "autoAccept": "Terima permintaan secara automatik",
     "requirePin": "Memerlukan PIN",
     "pinHint": "PIN ialah \"{pin}\"",
-    "pendingRequests": "Permintaan menunggu: {n}"
+    "pendingRequests": "Permintaan yang masih belum selesai: {n}",
+    "encryptionHint": "LocalSend menggunakan sijil yang ditandatangani sendiri. Anda perlu menerimanya di pelayar anda."
   },
   "aboutPage": {
-    "title": "Mengenai LocalSend",
+    "title": "Tentang LocalSend",
     "description": [
-      "LocalSend adalah aplikasi percuma dan sumber terbuka yang membolehkan anda berkongsi fail dan mesej dengan selamat dengan peranti berdekatan melalui rangkaian tempatan anda tanpa memerlukan sambungan internet.",
-      "Aplikasi ini tersedia di Android, iOS, macOS, Windows dan Linux. Anda boleh mencari semua pilihan muat turun di laman web rasmi."
+      "LocalSend adalah aplikasi percuma dan sumber terbuka yang membolehkan anda berkongsi fail dan mesej secara selamat dan terjamin dengan peranti berdekatan yang berada dalam rangkaian tempatan anda tanpa memerlukan sebarang sambungan internet.",
+      "Aplikasi ini tersedia di Android, iOS, macOS, Windows dan Linux. Anda boleh mencari semua pilihan untuk memuat turun di laman web rasmi."
     ],
     "author": "Pengarang",
     "contributors": "Penyumbang",
-    "translators": "Penterjemah"
+    "translators": "Penterjemah",
+    "packagers": "Pembungkus"
   },
   "donationPage": {
     "title": "Derma",
@@ -326,7 +340,8 @@
       "Tomato"
     ],
     "combination": "{fruit} yang {adjective}",
-    "@combination": "Dalam bahasa Melayu, kata sifat biasanya diletakkan selepas kata nama."
+    "@combination": "Dalam bahasa Melayu, kata sifat biasanya diletakkan selepas kata nama.",
+    "@info": "Penempatan berbeza mungkin mempunyai perkataan yang berbeza, dan tidak sepadan 1:1"
   },
   "dialogs": {
     "addFile": {
@@ -424,7 +439,12 @@
       "content": "Permintaan fail kini diterima secara automatik. Sila ambil perhatian bahawa semua orang dalam rangkaian tempatan boleh menghantar fail kepada anda."
     },
     "quickSaveFromFavoritesNotice": {
-      "title": "@:general.quickSaveFromFavorites"
+      "title": "@:general.quickSaveFromFavorites",
+      "content": [
+        "Permintaan fail kini diterima secara automatik daripada peranti-peranti yang dalam senarai kegemaran anda.",
+        "Amaran! Pada waktu sekarang, ini tidak terjamin sepenuhnya, kerana penggodam yang mempunyai cap jari mana-mana peranti daripada senarai kegemaran anda boleh menghantar fail kepada anda tanpa sekatan.",
+        "Walau bagaimanapun, pilihan ini tetap lebih selamat daripada membenarkan semua pengguna dalam rangkaian tempatan menghantar fail kepada anda tanpa sekatan."
+      ]
     },
     "pin": {
       "title": "Masukkan PIN"
@@ -437,6 +457,10 @@
     },
     "zoom": {
       "title": "URL"
+    },
+    "openFile": {
+      "title": "Buka fail",
+      "content": "Adakah anda mahu untuk membuka fail yang diterima?"
     }
   },
   "sanitization": {
@@ -446,19 +470,23 @@
   "tray": {
     "open": "@:general.open",
     "close": "Keluar LocalSend",
-    "closeWindows": "Keluar"
+    "closeWindows": "Keluar",
+    "@info": "Garis Panduan Apple sangat ketat tentang perkataan \"tutup\"."
   },
   "web": {
     "waiting": "@:sendPage.waiting",
     "rejected": "Ditolak",
     "files": "Fail",
     "fileName": "Nama fail",
-    "size": "Saiz"
+    "size": "Saiz",
+    "enterPin": "Masukkan PIN",
+    "invalidPin": "PIN Tidak Sah",
+    "tooManyAttempts": "Terlalu banyak percubaan"
   },
   "assetPicker": {
     "confirm": "Sahkan",
     "cancel": "Batal",
-    "edit": "Edit",
+    "edit": "Sunting",
     "gifIndicator": "GIF",
     "loadFailed": "Gagal dimuat",
     "original": "Asal",
@@ -483,6 +511,14 @@
     "sActionSwitchPathLabel": "tukar laluan",
     "sActionUseCameraHint": "guna kamera",
     "sNameDurationLabel": "tempoh",
-    "sUnitAssetCountLabel": "kiraan"
+    "sUnitAssetCountLabel": "kiraan",
+    "@info": "Terjemahan untuk alat pemilihan Media untuk Android dan iPhone"
+  },
+  "networkInterfacesPage": {
+    "info": "Secara lalai, LocalSend menggunakan semua antara muka rangkaian tersedia. Anda boleh memulaukan rangkaian yang tidak diingini. Anda perlu mula semula pelayan untuk mengenakan perubahan.",
+    "title": "Antara Muka Rangkaian",
+    "preview": "Pratonton",
+    "whitelist": "Senarai Putih",
+    "blacklist": "Senarai Hitam"
   }
 }

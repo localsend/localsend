@@ -207,15 +207,15 @@
   },
   "receiveOptionsPage": {
     "title": "Pilihan",
-    "destination": "@:settingsTab.receive.destination",
+    "destination": "@:settingstab.receive.destination",
     "appDirectory": "(folder LocalSend)",
-    "saveToGallery": "@:settingsTab.receive.saveToGallery",
+    "saveToGallery": "@:settingstab.receive.saveToGallery",
     "saveToGalleryOff": "Dimatikan secara otomatis karena ada direktori."
   },
   "sendPage": {
     "waiting": "Menunggu tanggapan…",
     "rejected": "Penerima menolak permintaan.",
-    "tooManyAttempts": "@:web.tooManyAttempts",
+    "tooManyAttempts": "@:web.toomanyAttempts",
     "busy": "Penerima sedang sibuk dengan permintaan lain."
   },
   "progressPage": {
@@ -245,7 +245,7 @@
     },
     "requests": "Permintaan",
     "noRequests": "Belum ada permintaan.",
-    "encryption": "@:settingsTab.network.encryption",
+    "encryption": "@:settingstab.network.encryption",
     "autoAccept": "Terima permintaan secara otomatis",
     "requirePin": "Memerlukan PIN",
     "pinHint": "PIN-nya adalah \"{pin}\"",
@@ -372,11 +372,11 @@
       "random": "Acak"
     },
     "quickSaveNotice": {
-      "title": "@:general.quickSave",
+      "title": "@:general.QuickSave",
       "content": "Semua permintaan akan langsung diterima. Harap berhati-hati bahwa semua orang di jaringan lokal dapat mengirim berkas."
     },
     "quickSaveFromFavoritesNotice": {
-      "title": "@:general.quickSaveFromFavorites",
+      "title": "@:general.quickSavefromFavorites",
       "content": [
         "Permintaan berkas sekarang diterima secara otomatis dari perangkat di daftar favorit Anda.",
         "Peringatan! Saat ini, pilihan ini tidak sepenuhnya aman karena peretas yang memiliki sidik jari perangkat apa pun dari daftar favorit Anda dapat mengirimi Anda berkas tanpa pembatasan.",

@@ -207,16 +207,16 @@
   },
   "receiveOptionsPage": {
     "title": "Επιλογές",
-    "destination": "@:settingsTab.receive.destination",
     "appDirectory": "(Φάκελος LocalSend)",
-    "saveToGallery": "@:settingsTab.receive.saveToGallery",
-    "saveToGalleryOff": "Απενεργοποιήθηκε αυτόματα επειδή υπάρχουν κατάλογοι."
+    "saveToGalleryOff": "Απενεργοποιήθηκε αυτόματα επειδή υπάρχουν κατάλογοι.",
+    "destination": "@:settingsTab.receive.destination",
+    "saveToGallery": "@:settingsTab.receive.saveToGallery"
   },
   "sendPage": {
     "waiting": "Αναμονή για απάντηση…",
     "rejected": "Ο παραλήπτης απέρριψε το αίτημα.",
-    "tooManyAttempts": "@:web.tooManyAttempts",
-    "busy": "Ο παραλήπτης είναι απασχολημένος με άλλο αίτημα."
+    "busy": "Ο παραλήπτης είναι απασχολημένος με άλλο αίτημα.",
+    "tooManyAttempts": "@:web.tooManyAttempts"
   },
   "progressPage": {
     "titleSending": "Γίνεται αποστολή αρχείων",
@@ -245,12 +245,12 @@
     },
     "requests": "Αιτήματα",
     "noRequests": "Κανένα αίτμηα ακόμα.",
-    "encryption": "@:settingsTab.network.encryption",
     "autoAccept": "Αυτόματη αποδοχή αιτημάτων",
     "requirePin": "Απαίτηση PIN",
     "pinHint": "Το PIN είναι \"{pin}\"",
     "encryptionHint": "Το LocalSend χρησιμοποιεί αυτο-υπογεγραμμένο πιστοποιητικό. Χρειάζεται να το αποθεχτείτε στον φυλλομετρητή.",
-    "pendingRequests": "Αναμονή αιτημάτων: {n}"
+    "pendingRequests": "Αναμονή αιτημάτων: {n}",
+    "encryption": "@:settingsTab.network.encryption"
   },
   "aboutPage": {
     "title": "Σχετικά με το LocalSend",
@@ -274,7 +274,7 @@
     "title": "Καταγραφή αλλαγών"
   },
   "aliasGenerator(ignoreMissing, ignoreGpt)": {
-    "@info": "Different locales may have different words, it may not match 1:1",
+    "@info": "Διαφορετικές τοποθεσίες μπορεί να έχουν διαφορετικές λέξεις, μπορεί να μην ταιριάζουν 1:1",
     "adjectives": [
       "Λατρευτό",
       "Πανεμορφο",
@@ -357,9 +357,9 @@
     },
     "addressInput": {
       "title": "Εισαγωγή διεύθυνσης",
-      "hashtag": "Hashtag",
       "ip": "Διεύθυνση IP",
-      "recentlyUsed": "Χρησιμοποιήθηκε πρόσφατα: "
+      "recentlyUsed": "Χρησιμοποιήθηκε πρόσφατα: ",
+      "hashtag": "Χάσταγκ"
     },
     "cancelSession": {
       "title": "Ακύρωση της μεταφοράς του αρχείου",
@@ -411,11 +411,11 @@
     },
     "localNetworkUnauthorized": {
       "title": "@:dialogs.noPermission.title",
-      "description": "LocalSend can't find other devices without having the permission to scan the local network. Please grant this permission in the settings.",
+      "description": "Το LocalSend δεν μπορεί να βρει άλλες συσκευές χωρίς την άδεια σάρωσης του τοπικού δικτύου. Παρακαλείστε να παραχωρήσετε αυτό το δικαίωμα στις ρυθμίσεις.",
       "gotoSettings": "Ρυθμίσεις"
     },
     "messageInput": {
-      "title": "Τύπος μηνύματος",
+      "title": "Πληκτρολογήστε το μήνυμα",
       "multiline": "Πολλαπλών γραμμών"
     },
     "noFiles": {
@@ -442,16 +442,16 @@
       "random": "Τυχαία"
     },
     "quickSaveNotice": {
-      "title": "@:general.quickSave",
-      "content": "Τα αιτήματα αρχείων γίνονται αυτόματα δεκτά. Έχετε υπόψη σας ότι όλοι στο τοπικό δίκτυο μπορούν να σας στείλουν αρχεία."
+      "content": "Τα αιτήματα αρχείων γίνονται αυτόματα δεκτά. Έχετε υπόψη σας ότι όλοι στο τοπικό δίκτυο μπορούν να σας στείλουν αρχεία.",
+      "title": "@:general.quickSave"
     },
     "quickSaveFromFavoritesNotice": {
-      "title": "@:general.quickSaveFromFavorites",
       "content": [
         "Τα αιτήματα αρχείων γίνονται τώρα αυτόματα αποδεκτά από τις συσκευές της λίστας των αγαπημένων σας.",
         "Προειδοποίηση! Επί του παρόντος, αυτό δεν είναι απολύτως ασφαλές, ένας χάκερ που έχει το δακτυλικό αποτύπωμα οποιασδήποτε συσκευής από τη λίστα των αγαπημένων σας μπορεί να σας στείλει αρχεία χωρίς περιορισμό.",
         "Ωστόσο, αυτή η επιλογή είναι ακόμα πιο ασφαλής από το να επιτρέπεται σε όλους τους χρήστες στο τοπικό δίκτυο να σας στείλουν αρχεία χωρίς περιορισμό."
-      ]
+      ],
+      "title": "@:general.quickSaveFromFavorites"
     },
     "pin": {
       "title": "Εισαγωγή PIN"

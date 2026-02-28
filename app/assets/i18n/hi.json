@@ -1,6 +1,6 @@
 {
-  "locale": "Hindi",
-  "appName": "LocalSend",
+  "locale": "अंग्रेज़ी",
+  "appName": "स्थानीय भेजें (फाइल भेजो)",
   "general": {
     "accept": "स्वीकार करें",
     "accepted": "स्वीकृत",
@@ -28,7 +28,7 @@
     "open": "खोलें",
     "queue": "कतार",
     "quickSave": "त्वरित सहेजें",
-    "quickSaveFromFavorites": "\"पसंदीदा\" के लिए त्वरित सहेजें।",
+    "quickSaveFromFavorites": "\"पसंदीदा\" के लिए त्वरित सहेजें",
     "renamed": "नाम बदला गया",
     "reset": "रीसेट करें",
     "restart": "पुनः प्रारंभ करें",
@@ -39,7 +39,7 @@
     "save": "सहेजें",
     "unchanged": "अपरिवर्तित",
     "unknown": "अज्ञात",
-    "noItemInClipboard": "क्लिपबोर्ड में कोई आइटम नहीं"
+    "noItemInClipboard": "क्लिपबोर्ड में कोई आइटम नहीं है।"
   },
   "receiveTab": {
     "title": "प्राप्त करें",
@@ -104,7 +104,7 @@
         "system": "सिस्टम"
       },
       "saveWindowPlacement": "बंद करें: विंडो प्लेसमेंट सहेजें",
-      "saveWindowPlacementWindows": "बाहर निकलने के बाद विंडो की स्थिति सहेजें।",
+      "saveWindowPlacementWindows": "बाहर निकलने के बाद विंडो की स्थिति सहेजें",
       "minimizeToTray": "बंद करें: ट्रे/मेनू बार में मिनिमाइज करें",
       "launchAtStartup": "लॉगिन के बाद ऑटोस्टार्ट",
       "launchMinimized": "ऑटोस्टार्ट: छुपा हुआ प्रारंभ करें",
@@ -207,15 +207,15 @@
   },
   "receiveOptionsPage": {
     "title": "विकल्प",
-    "destination": "@:settingsTab.receive.destination",
+    "destination": "@ : सेटिंग्सटैब.रिसीव.डेस्टिनेशन",
     "appDirectory": "(LocalSend फ़ोल्डर)",
-    "saveToGallery": "@:settingsTab.receive.saveToGallery",
+    "saveToGallery": "@ : सेटिंग्सटैब.रिसीव.सेव टू गैलरी",
     "saveToGalleryOff": "स्वचालित रूप से बंद कर दिया गया क्योंकि वहाँ निर्देशिकाएँ हैं।"
   },
   "sendPage": {
-    "waiting": "प्रतिक्रिया का इंतजार कर रहे हैं...",
+    "waiting": "प्रतिक्रिया का इंतजार कर रहे हैं ||",
     "rejected": "प्राप्तकर्ता ने अनुरोध अस्वीकार कर दिया।",
-    "tooManyAttempts": "@:web.tooManyAttempts",
+    "tooManyAttempts": "@ : वेब. बहुत अधिक प्रयास",
     "busy": "प्राप्तकर्ता किसी अन्य अनुरोध में व्यस्त है।"
   },
   "progressPage": {
@@ -236,8 +236,8 @@
   },
   "webSharePage": {
     "title": "लिंक के माध्यम से साझा करें",
-    "loading": "सर्वर शुरू हो रहा है...",
-    "stopping": "सर्वर बंद हो रहा है...",
+    "loading": "सर्वर प्रारंभ हो रहा है ||",
+    "stopping": "सर्वर बंद हो रहा है ||",
     "error": "सर्वर शुरू करते समय एक त्रुटि हुई।",
     "openLink": {
       "one": "अपने ब्राउज़र में इस लिंक को खोलें:",
@@ -245,7 +245,7 @@
     },
     "requests": "अनुरोध",
     "noRequests": "अभी तक कोई अनुरोध नहीं।",
-    "encryption": "@:settingsTab.network.encryption",
+    "encryption": "@ : सेटिंग्स टैब . नेटवर्क . एन्क्रिप्शन",
     "autoAccept": "अनुरोधों को स्वचालित रूप से स्वीकार करें",
     "requirePin": "पिन आवश्यक है",
     "pinHint": "पिन \"{pin}\" है",
@@ -267,14 +267,14 @@
     "title": "दान करें",
     "info": "LocalSend मुफ्त, ओपन-सोर्स और बिना किसी विज्ञापन के है। यदि आपको ऐप पसंद है, तो आप विकास का समर्थन दान करके कर सकते हैं।",
     "donate": "दान करें {amount}",
-    "thanks": "बहुत बहुत धन्यवाद!",
+    "thanks": "आपका हार्दिक धन्यवाद!",
     "restore": "खरीदारी पुनर्स्थापित करें"
   },
   "changelogPage": {
     "title": "परिवर्तन सूची"
   },
   "aliasGenerator(ignoreMissing, ignoreGpt)": {
-    "@info": "Different locales may have different words, it may not match 1:1",
+    "@info": "अलग-अलग स्थानों में अलग-अलग शब्द हो सकते हैं, यह 1:1 से मेल नहीं खा सकता",
     "adjectives": [
       "प्यारा",
       "सुंदर",
@@ -442,11 +442,11 @@
       "random": "यादृच्छिक"
     },
     "quickSaveNotice": {
-      "title": "@:general.quickSave",
+      "title": "@:सामान्य.जल्दी सहेजें",
       "content": "फ़ाइल अनुरोध स्वचालित रूप से स्वीकार कर लिए जाते हैं। ध्यान दें कि स्थानीय नेटवर्क पर सभी लोग आपको फ़ाइलें भेज सकते हैं।"
     },
     "quickSaveFromFavoritesNotice": {
-      "title": "@:general.quickSaveFromFavorites",
+      "title": "@ : सामान्य .जल्दी पसंदीदा से सहेजें",
       "content": [
         "अब आपके पसंदीदा सूची में शामिल डिवाइसों से फ़ाइल अनुरोध स्वतः स्वीकार किए जाएंगे।",
         "चेतावनी! वर्तमान में, यह पूरी तरह से सुरक्षित नहीं है, क्योंकि कोई हैकर जो आपकी पसंदीदा सूची में शामिल किसी भी डिवाइस का फ़िंगरप्रिंट प्राप्त कर लेता है, वह बिना किसी प्रतिबंध के आपको फ़ाइलें भेज सकता है।",
@@ -487,7 +487,7 @@
     "size": "आकार"
   },
   "assetPicker": {
-    "@info": "Translations for the Media selection tool for Android and iPhone",
+    "@info": "एंड्रॉयड और आईफोन के लिए मीडिया चयन उपकरण हेतु अनुवाद।",
     "confirm": "पुष्ट करें",
     "cancel": "रद्द करें",
     "edit": "संपादित करें",

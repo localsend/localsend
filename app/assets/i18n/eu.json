@@ -38,7 +38,8 @@
     "save": "Gorde",
     "unchanged": "Aldaketarik gabe",
     "unknown": "Ezezaguna",
-    "noItemInClipboard": "Elementua ez dago arbeletan"
+    "noItemInClipboard": "Arbela hutsik dago.",
+    "quickSaveFromFavorites": "“Gogokoetan” gorde"
   },
   "receiveTab": {
     "title": "Eskuratu",
@@ -46,6 +47,11 @@
       "ip": "IP:",
       "port": "Portua:",
       "alias": "Aliasa:"
+    },
+    "quickSave": {
+      "off": "@:general.off",
+      "on": "@:general.on",
+      "favorites": "Gogokoak"
     }
   },
   "sendTab": {
@@ -71,11 +77,12 @@
     "sendModes": {
       "single": "Hartzaile bakarra",
       "multiple": "Hartzaile anitz",
-      "link": "Lotura elkarbanatu"
+      "link": "URL bidez partekatu"
     },
     "sendModeHelp": "Azalpena",
     "help": "Ziurtatu zaitez aukeratutako hartzailea zure Wi-Fi sare berean dagoela.",
-    "placeItems": "Aukeratu elkarbanatzeko elementuak."
+    "placeItems": "Aukeratu elkarbanatzeko elementuak.",
+    "manualSending": "Eskuzko bidalketa"
   },
   "settingsTab": {
     "title": "Ezarpenak",
@@ -100,7 +107,9 @@
       "minimizeToTray": "Itxi: txikitu lehioa",
       "launchAtStartup": "Hasieratze automatikoa",
       "launchMinimized": "Hasieratze automatikoa: hasi txikituta",
-      "animations": "Animazioak"
+      "animations": "Animazioak",
+      "saveWindowPlacementWindows": "Irteeran leihoaren kokapena gorde",
+      "showInContextMenu": "Erakutsi LocalSend testuinguru menuan"
     },
     "receive": {
       "title": "Eskuratu",
@@ -108,11 +117,14 @@
       "destination": "Hartzailea",
       "downloads": "(Deskargak)",
       "saveToGallery": "Gorde galerian",
-      "saveToHistory": "Gorde historialean"
+      "saveToHistory": "Gorde historialean",
+      "quickSaveFromFavorites": "@:general.quickSaveFromFavorites",
+      "requirePin": "@:webSharePage.requirePin",
+      "autoFinish": "Automatikoki amaitu"
     },
     "network": {
       "title": "Gorria",
-      "needRestart": "Berrabiarazi zerbitzaria aldaketak aplikatzeko.",
+      "needRestart": "Berrabiarazi zerbitzaria aldaketak aplikatzeko!",
       "server": "Zerbitzaria",
       "alias": "Aliasa",
       "deviceType": "Gailu mota",
@@ -121,9 +133,28 @@
       "portWarning": "Portu berezi bat erabiltzen ari zarenez, agian ez zara beste gailuentzat ikusgarri izango (Lehenetsitako portua: {defaultPort})",
       "encryption": "Zifratzea",
       "multicastGroup": "Multicast",
-      "multicastGroupWarning": "Multicast helbide berezi bat erabiltzen ari zarenez, agian ez zara beste gailuentzat ikusgarri izango. (Lehenetsitako multicast helbidea: {defaultMulticast})"
+      "multicastGroupWarning": "Multicast helbide berezi bat erabiltzen ari zarenez, agian ez zara beste gailuentzat ikusgarri izango. (Lehenetsitako multicast helbidea: {defaultMulticast})",
+      "discoveryTimeout": "Aurkikuntza denbora muga",
+      "useSystemName": "Erabili sistemaren izena",
+      "generateRandomAlias": "Ausazko \"alias\" sortu",
+      "networkOptions": {
+        "all": "Guztiak",
+        "filtered": "Iragazita"
+      },
+      "network": "Sarea"
     },
-    "advancedSettings": "Ezarpen aurreratuak"
+    "advancedSettings": "Ezarpen aurreratuak",
+    "send": {
+      "title": "Bidali",
+      "shareViaLinkAutoAccept": "Eskaerak automatikoki onartu “URL bidez partekatu” moduan"
+    },
+    "other": {
+      "title": "Besteak",
+      "support": "LocalSend Lagundu",
+      "donate": "Dohaintza egin",
+      "privacyPolicy": "Pribatutasun politika",
+      "termsOfUse": "Erabilera baldintzak"
+    }
   },
   "troubleshootPage": {
     "title": "Konpondu arazoak",
@@ -136,8 +167,12 @@
       "openFirewall": "Ireki Suhesia"
     },
     "noConnection": {
-      "symptom": "Hartzaile eta bidaltzaileak ez dute elkar ikusten eta ezin diote fitxategiak elkarri bidali",
-      "solution": "Bi aldeetan dago arazoa? Ziurtatu Wi-Fi sare berdinean kokatuta daudela eta konfigurazio bera elkarbanatzen dutela (portua, multicast helbidea, zifratua). Arazoa Wi-Fi sareak partaideen arteko konexioak mugatzea ere izan liteke. Horrela bada, routerrean aukera hau aktibatu"
+      "symptom": "Hartzaile eta bidaltzaileak ez dute elkar ikusten eta ezin diote fitxategiak elkarri bidali.",
+      "solution": "Bi aldeetan dago arazoa? Ziurtatu Wi-Fi sare berdinean kokatuta daudela eta konfigurazio bera elkarbanatzen dutela (portua, multicast helbidea, zifratua). Arazoa Wi-Fi sareak partaideen arteko konexioak mugatzea ere izan liteke. Horrela bada, routerrean aukera hau aktibatu."
+    },
+    "noDiscovery": {
+      "symptom": "Gailu honek ezin ditu beste gailurik aurkitu.",
+      "solution": "Ziurtatu gailu guztiak Wi-Fi sare berean daudela eta konfigurazio bera partekatzen dutela (atea, helbide multikasta, kodeketa). Helburuko gailuaren IP helbidea eskuz idatz dezakezu. Horrek balio badu, gehitu gailu hori gogokoetan, etorkizunean automatikoki aurkitu dadin."
     }
   },
   "receiveHistoryPage": {
@@ -361,5 +396,11 @@
     "sActionUseCameraHint": "erabaili kamera",
     "sNameDurationLabel": "iraupena",
     "sUnitAssetCountLabel": "kontaketa"
+  },
+  "sanitization": {
+    "invalid": "Fitxategiaren izena karaktere baliogabeak ditu"
+  },
+  "networkInterfacesPage": {
+    "title": "Sare interfazeak"
   }
 }

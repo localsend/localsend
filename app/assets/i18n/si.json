@@ -140,7 +140,12 @@
       "portWarning": "ඔබ custom port එකක් භාවිතා කරන්නේ නම්, වෙනත් උපාංග වලට ඔබව හඳුනා ගත නොහැක. (default: {defaultPort})",
       "encryption": "කේතනය",
       "multicastGroup": "Multicast ලිපිනය",
-      "multicastGroupWarning": "ඔබ custom multicast ලිපිනයක් භාවිතා කරන්නේ නම්, වෙනත් උපාංග වලට ඔබව හඳුනා ගත නොහැක. (default: {defaultMulticast})"
+      "multicastGroupWarning": "ඔබ custom multicast ලිපිනයක් භාවිතා කරන්නේ නම්, වෙනත් උපාංග වලට ඔබව හඳුනා ගත නොහැක. (default: {defaultMulticast})",
+      "network": "ජාලය",
+      "networkOptions": {
+        "all": "සියල්ල",
+        "filtered": "වර්ග කළ"
+      }
     },
     "other": {
       "title": "වෙනත්",
@@ -441,5 +446,12 @@
     "sActionUseCameraHint": "කැමරාව භාවිතා කරන්න",
     "sNameDurationLabel": "කාලසීමාව",
     "sUnitAssetCountLabel": "ගණන"
+  },
+  "networkInterfacesPage": {
+    "info": "සාමාන්‍යයෙන් LocalSend ඔබගේ පවතින සියලු ජාල මුහුණත් භාවිතා කරයි. ඔබට අනවශ්‍ය මුහුණතක් වේ නම් එය මෙතනින් ඉවත් කළ හැක. ඔබ සිදු කරන වෙනස්කම් ක්‍රියාත්මක වීමට නම් server එක restart කළ යුතුය.",
+    "title": "ජාල අතුරුමුහුණත්",
+    "preview": "පෙනෙන අයුරු",
+    "whitelist": "අවසර ලත් ලැයිස්තුව",
+    "blacklist": "අවහිර කල ලැයිස්තුව"
   }
 }

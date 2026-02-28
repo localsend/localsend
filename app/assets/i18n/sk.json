@@ -232,6 +232,14 @@
       "count": "Súbory: {curr} / {n}",
       "size": "Veľkosť: {curr} / {n}",
       "speed": "Rýchlosť: {speed}/s"
+    },
+    "remainingTime": {
+      "seconds": "{n}:{ss}",
+      "minutes": "{n}:{ss}",
+      "hours": "{h}h {m}m",
+      "days": "{d}d {h}h {m}m",
+      "@hours": "Použiť „h“ pre skratku hodín a „m“ pre minúty",
+      "@days": "Použiť „d“ pre dni, „h“ pre hodiny a „m“ pre minúty"
     }
   },
   "webSharePage": {
