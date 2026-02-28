@@ -70,7 +70,7 @@ dependencies:
   slang: 4.9.0
   slang_flutter: 4.9.0
   system_settings_2: 3.0.1
-  tray_manager: 0.2.4
+  tray_manager: 0.5.2
   uri_content: 3.1.1
   url_launcher: 6.3.1
   uuid: 4.5.1

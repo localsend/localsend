@@ -13,7 +13,7 @@ After you have installed [Flutter](https://flutter.dev), then you can start this
 ```shell
 cd app
 flutter pub get
-flutter pub run build_runner build -d
+dart run build_runner build -d
 flutter run
 ```
 
