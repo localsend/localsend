@@ -13,21 +13,30 @@ import 'strings.g.dart';
 class TranslationsMn extends Translations {
   /// You can call this constructor and build your own translation instance of this locale.
   /// Constructing via the enum [AppLocale.build] is preferred.
-  TranslationsMn({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
-    : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-      $meta = TranslationMetadata(
-        locale: AppLocale.mn,
-        overrides: overrides ?? {},
-        cardinalResolver: cardinalResolver,
-        ordinalResolver: ordinalResolver,
-      ),
-      super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+  TranslationsMn({
+    Map<String, Node>? overrides,
+    PluralResolver? cardinalResolver,
+    PluralResolver? ordinalResolver,
+    TranslationMetadata<AppLocale, Translations>? meta,
+  }) : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
+       $meta =
+           meta ??
+           TranslationMetadata(
+             locale: AppLocale.mn,
+             overrides: overrides ?? {},
+             cardinalResolver: cardinalResolver,
+             ordinalResolver: ordinalResolver,
+           ),
+       super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
 
   /// Metadata for the translations of <mn>.
   @override
   final TranslationMetadata<AppLocale, Translations> $meta;
 
   late final TranslationsMn _root = this; // ignore: unused_field
+
+  @override
+  TranslationsMn $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => TranslationsMn(meta: meta ?? this.$meta);
 
   // Translations
   @override
@@ -66,8 +75,6 @@ class TranslationsMn extends Translations {
   late final _TranslationsDonationPageMn donationPage = _TranslationsDonationPageMn._(_root);
   @override
   late final _TranslationsChangelogPageMn changelogPage = _TranslationsChangelogPageMn._(_root);
-  @override
-  late final _TranslationsAliasGeneratorMn aliasGenerator = _TranslationsAliasGeneratorMn._(_root);
 }
 
 // Path: general
@@ -454,15 +461,6 @@ class _TranslationsChangelogPageMn extends TranslationsChangelogPageEn {
   String get title => 'Шинэчлэлт';
 }
 
-// Path: aliasGenerator
-class _TranslationsAliasGeneratorMn extends TranslationsAliasGeneratorEn {
-  _TranslationsAliasGeneratorMn._(TranslationsMn root) : this._root = root, super.internal(root);
-
-  final TranslationsMn _root; // ignore: unused_field
-
-  // Translations
-}
-
 // Path: receiveTab.infoBox
 class _TranslationsReceiveTabInfoBoxMn extends TranslationsReceiveTabInfoBoxEn {
   _TranslationsReceiveTabInfoBoxMn._(TranslationsMn root) : this._root = root, super.internal(root);
@@ -688,7 +686,7 @@ class _TranslationsTroubleshootPageFirewallMn extends TranslationsTroubleshootPa
   String solution({required Object port}) =>
       'Энэ нь ихэвчлэн firewall-н асуудл байдаг. Та ${port} дээр ирж буй холболтыг (UDP ба TCP) зөвшөөрч шийдвэрлэх боломжтой.';
   @override
-  String get openFirewallSettings => 'Firewall-г нээх';
+  String get openFirewall => 'Firewall-г нээх';
 }
 
 // Path: troubleshootPage.noDiscovery
