@@ -1,0 +1,535 @@
+{
+  "locale": "Latviešu",
+  "appName": "LocalSend",
+  "general": {
+    "accept": "Pieņemt",
+    "accepted": "Pieņemts",
+    "add": "Pievienot",
+    "advanced": "Papildu",
+    "cancel": "Atcelt",
+    "close": "Aizvērt",
+    "confirm": "Apstiprināt",
+    "continueStr": "Turpināt",
+    "copy": "Kopēt",
+    "copiedToClipboard": "Nokopēts starpliktuvē",
+    "decline": "Noraidīt",
+    "done": "Pabeigts",
+    "delete": "Dzēst",
+    "edit": "Rediģēt",
+    "error": "Kļūda",
+    "example": "Piemērs",
+    "files": "Faili",
+    "finished": "Pabeigts",
+    "hide": "Paslēpt",
+    "off": "Izslēgts",
+    "offline": "Bezsaistē",
+    "on": "Ieslēgts",
+    "online": "Tiešsaistē",
+    "open": "Atvērt",
+    "queue": "Rinda",
+    "quickSave": "Ātrā saglabāšana",
+    "quickSaveFromFavorites": "Ātrā saglabāšana no \"Izlases\"",
+    "renamed": "Pārdēvēts",
+    "reset": "Atsaukt izmaiņas",
+    "restart": "Restartēt",
+    "settings": "Iestatījumi",
+    "skipped": "Izlaists",
+    "start": "Sākt",
+    "stop": "Apturēt",
+    "save": "Saglabāt",
+    "unchanged": "Nemainīts",
+    "unknown": "Nezināms",
+    "noItemInClipboard": "Starpliktuvē nav vienumu."
+  },
+  "receiveTab": {
+    "title": "Saņemt",
+    "infoBox": {
+      "ip": "IP:",
+      "port": "Ports:",
+      "alias": "Ierīces nosaukums:"
+    },
+    "quickSave": {
+      "off": "@:general.off",
+      "favorites": "Izlase",
+      "on": "@:general.on"
+    }
+  },
+  "sendTab": {
+    "title": "Sūtīt",
+    "selection": {
+      "title": "Atlase",
+      "files": "Faili: {files}",
+      "size": "Izmērs: {size}"
+    },
+    "picker": {
+      "file": "Fails",
+      "folder": "Mape",
+      "media": "Multivide",
+      "text": "Teksts",
+      "app": "Lietotne",
+      "clipboard": "Ielīmēt"
+    },
+    "shareIntentInfo": "Varat arī izmantot sava mobilā ierīces funkciju \"Kopīgot\", lai vieglāk atlasītu failus.",
+    "nearbyDevices": "Tuvumā esošas ierīces",
+    "thisDevice": "Šī ierīce",
+    "scan": "Meklēt ierīces",
+    "manualSending": "Manuāla sūtīšana",
+    "sendMode": "Sūtīšanas režīms",
+    "sendModes": {
+      "single": "Viens saņēmējs",
+      "multiple": "Vairāki saņēmēji",
+      "link": "Kopīgot, izmantojot saiti"
+    },
+    "sendModeHelp": "Skaidrojums",
+    "help": "Lūdzu, pārliecinieties, ka vēlamais mērķis arī atrodas tajā pašā Wi-Fi tīklā.",
+    "placeItems": "Ievietojiet vienumus, ko kopīgot."
+  },
+  "settingsTab": {
+    "title": "Iestatījumi",
+    "general": {
+      "title": "Vispārīgi",
+      "brightness": "Motīvs",
+      "brightnessOptions": {
+        "system": "Sistēmas",
+        "dark": "Tumšs",
+        "light": "Gaišs"
+      },
+      "color": "Krāsa",
+      "colorOptions": {
+        "system": "Sistēmas",
+        "oled": "OLED"
+      },
+      "language": "Valoda",
+      "languageOptions": {
+        "system": "Sistēmas"
+      },
+      "saveWindowPlacement": "Saglabāt loga pozīciju pēc aizvēršanas",
+      "saveWindowPlacementWindows": "Saglabāt loga pozīciju pēc iziešanas",
+      "minimizeToTray": "Minimizēt uz sistēmas joslu/izvēlni, aizverot",
+      "launchAtStartup": "Automātiska palaišana pēc pieteikšanās",
+      "launchMinimized": "Automātiskā palaišana: sākt paslēptu",
+      "showInContextMenu": "Rādīt LocalSend konteksta izvēlnē",
+      "animations": "Animācijas"
+    },
+    "receive": {
+      "title": "Saņemt",
+      "quickSave": "@:general.quickSave",
+      "quickSaveFromFavorites": "@:general.quickSaveFromFavorites",
+      "requirePin": "@:webSharePage.requirePin",
+      "autoFinish": "Automātiski pabeigt",
+      "destination": "Saglabāt mapē",
+      "downloads": "(Lejupielādes)",
+      "saveToGallery": "Saglabāt multividi galerijā",
+      "saveToHistory": "Saglabāt vēsturē"
+    },
+    "send": {
+      "title": "Sūtīt",
+      "shareViaLinkAutoAccept": "Automātiski pieņemt pieprasījumus režīmā \"Kopīgot, izmantojot saiti\""
+    },
+    "network": {
+      "title": "Tīkls",
+      "needRestart": "Restartējiet serveri, lai lietotu iestatījumus!",
+      "server": "Serveris",
+      "alias": "Ierīces nosaukums",
+      "deviceType": "Ierīces tips",
+      "deviceModel": "Ierīces modelis",
+      "port": "Ports",
+      "network": "Tīkls",
+      "networkOptions": {
+        "all": "Visi",
+        "filtered": "Filtrēts"
+      },
+      "discoveryTimeout": "Atklāšanas taimauts",
+      "useSystemName": "Lietot sistēmas nosaukumu",
+      "generateRandomAlias": "Ģenerēt nejaušu pseidonīmu",
+      "portWarning": "Citas ierīces, iespējams, nevarēs jūs atklāt, jo izmantojat pielāgotu portu. (noklusējuma: {defaultPort})",
+      "encryption": "Šifrēšana",
+      "multicastGroup": "Multicast adrese",
+      "multicastGroupWarning": "Citas ierīces, iespējams, nevarēs jūs atklāt, jo izmantojat pielāgotu multicast adresi. (noklusējuma: {defaultMulticast})"
+    },
+    "other": {
+      "title": "Cits",
+      "support": "Atbalstīt LocalSend",
+      "donate": "Ziedot",
+      "privacyPolicy": "Privātuma politika",
+      "termsOfUse": "Lietošanas noteikumi"
+    },
+    "advancedSettings": "Papildu iestatījumi"
+  },
+  "troubleshootPage": {
+    "title": "Problēmu novēršana",
+    "subTitle": "Vai lietotne nedarbojas, kā paredzēts? Šeit varat atrast dažus bieži sastopamus problēmu risinājumus.",
+    "solution": "Risinājums:",
+    "fixButton": "Labot automātiski",
+    "firewall": {
+      "symptom": "Šī ierīce var sūtīt failus citām ierīcēm, bet citas ierīces nevar sūtīt failus šai ierīcei.",
+      "solution": "Visticamāk, tas ir ugunsmūra jautājums. Varat to atrisināt, atļaujot ienākošos savienojumus (UDP un TCP) portā {port}.",
+      "openFirewall": "Atvērt ugunsmūri"
+    },
+    "noDiscovery": {
+      "symptom": "Šī ierīce nevar atklāt citas ierīces.",
+      "solution": "Lūdzu, pārliecinieties, ka visas ierīces ir vienā Wi-Fi tīklā un kopīgo vienu un to pašu konfigurāciju (ports, multicast adrese, šifrēšana). Varat mēģināt manuāli ievadīt mērķa ierīces IP adresi. Ja tas darbojas, apsveriet šīs ierīces pievienošanu izlasei, lai tā varētu tikt automātiski atklāta nākotnē."
+    },
+    "noConnection": {
+      "symptom": "Abas ierīces nevar atklāt viena otru, ne arī kopīgot failus.",
+      "solution": "Vai problēma pastāv abās pusēs? Ja tā, jums jāpārliecinās, ka abas ierīces ir vienā Wi-Fi tīklā un kopīgo vienu un to pašu konfigurāciju (ports, multicast adrese, šifrēšana). Wi-Fi tīkls, iespējams, neatļauj komunikāciju starp dalībniekiem piekļuves punkta (AP) izolācijas dēļ. Šajā gadījumā šī opcija jāatspējo uz maršrutētāja."
+    }
+  },
+  "networkInterfacesPage": {
+    "title": "Tīkla interfeisi",
+    "info": "Pēc noklusējuma LocalSend izmanto visus pieejamos tīkla interfeisus. Šeit varat izslēgt nevēlamos tīklus. Jums jārestartē serveris, lai lietotu izmaiņas.",
+    "preview": "Priekšskatījums",
+    "whitelist": "Baltais saraksts",
+    "blacklist": "Melnais saraksts"
+  },
+  "receiveHistoryPage": {
+    "title": "Vēsture",
+    "openFolder": "Atvērt mapi",
+    "deleteHistory": "Dzēst vēsturi",
+    "empty": "Vēsture ir tukša.",
+    "entryActions": {
+      "open": "Atvērt failu",
+      "showInFolder": "Rādīt mapē",
+      "info": "Informācija",
+      "deleteFromHistory": "Dzēst no vēstures"
+    }
+  },
+  "apkPickerPage": {
+    "title": "Lietotnes (APK)",
+    "excludeSystemApps": "Izslēgt sistēmas lietotnes",
+    "excludeAppsWithoutLaunchIntent": "Izslēgt nelaidējamas lietotnes",
+    "apps": "{n} lietotnes"
+  },
+  "selectedFilesPage": {
+    "deleteAll": "Dzēst visu"
+  },
+  "receivePage": {
+    "subTitle": {
+      "one": "vēlas jums nosūtīt failu",
+      "other": "vēlas jums nosūtīt {n} failus"
+    },
+    "subTitleMessage": "nosūtīja jums ziņojumu:",
+    "subTitleLink": "nosūtīja jums saiti:",
+    "canceled": "Sūtītājs ir atcēlis pieprasījumu."
+  },
+  "receiveOptionsPage": {
+    "title": "Opcijas",
+    "destination": "@:settingsTab.receive.destination",
+    "appDirectory": "(LocalSend mape)",
+    "saveToGallery": "@:settingsTab.receive.saveToGallery",
+    "saveToGalleryOff": "Automātiski izslēgts, jo ir mapes."
+  },
+  "sendPage": {
+    "waiting": "Gaida atbildi…",
+    "rejected": "Saņēmējs ir noraidījis pieprasījumu.",
+    "tooManyAttempts": "@:web.tooManyAttempts",
+    "busy": "Saņēmējs ir aizņemts ar citu pieprasījumu."
+  },
+  "progressPage": {
+    "titleSending": "Failu sūtīšana",
+    "titleReceiving": "Failu saņemšana",
+    "savedToGallery": "Saglabāts galerijā",
+    "total": {
+      "title": {
+        "sending": "Kopējais progress ({time})",
+        "finishedError": "Pabeigts ar kļūdu",
+        "canceledSender": "Atcēlis sūtītājs",
+        "canceledReceiver": "Atcēlis saņēmējs"
+      },
+      "count": "Faili: {curr} / {n}",
+      "size": "Izmērs: {curr} / {n}",
+      "speed": "Ātrums: {speed}/s"
+    },
+    "remainingTime": {
+      "seconds": "{n}:{ss}",
+      "minutes": "{n}:{ss}",
+      "hours": "{h}st {m}min",
+      "days": "{d}d {h}st {m}min",
+      "@hours": "Izmantojiet 'st' stundu saīsinājumam un 'min' minūtēm",
+      "@days": "Izmantojiet 'd' dienām, 'st' stundām un 'min' minūtēm"
+    }
+  },
+  "webSharePage": {
+    "title": "Kopīgot, izmantojot saiti",
+    "loading": "Servera palaišana…",
+    "stopping": "Servera apturēšana…",
+    "error": "Palaižot serveri, radās kļūda.",
+    "openLink": {
+      "one": "Atveriet šo saiti pārlūkprogrammā:",
+      "other": "Atveriet vienu no šīm saitēm pārlūkprogrammā:"
+    },
+    "requests": "Pieprasījumi",
+    "noRequests": "Vēl nav pieprasījumu.",
+    "encryption": "@:settingsTab.network.encryption",
+    "autoAccept": "Automātiski pieņemt pieprasījumus",
+    "requirePin": "Pieprasīt PIN",
+    "pinHint": "PIN ir \"{pin}\"",
+    "encryptionHint": "LocalSend izmanto pašparakstītu sertifikātu. Jums tas jāpieņem savā pārlūkprogrammā.",
+    "pendingRequests": "Gaidošie pieprasījumi: {n}"
+  },
+  "aboutPage": {
+    "title": "Par LocalSend",
+    "description": [
+      "LocalSend ir bezmaksas atvērtā koda lietotne, kas ļauj droši kopīgot failus un ziņojumus ar tuvumā esošām ierīcēm, izmantojot lokālo tīklu, bez interneta savienojuma.",
+      "Šī lietotne ir pieejama Android, iOS, macOS, Windows un Linux. Visas lejupielādes opcijas varat atrast oficiālajā mājaslapā."
+    ],
+    "author": "Autors",
+    "contributors": "Līdzdalībnieki",
+    "packagers": "Iepakotāji",
+    "translators": "Tulkotāji"
+  },
+  "donationPage": {
+    "title": "Ziedot",
+    "info": "LocalSend ir bezmaksas, atvērtā koda un bez jebkādām reklāmām. Ja jums patīk lietotne, varat atbalstīt tās attīstību ar ziedojumu.",
+    "donate": "Ziedot {amount}",
+    "thanks": "Liels paldies!",
+    "restore": "Atjaunot pirkumu"
+  },
+  "changelogPage": {
+    "title": "Izmaiņu žurnāls"
+  },
+  "aliasGenerator(ignoreMissing, ignoreGpt)": {
+    "@info": "Dažādām lokālēm var būt dažādi vārdi, tās var nesakrist 1:1",
+    "adjectives": [
+      "Apburošs",
+      "Skaists",
+      "Liels",
+      "Spožs",
+      "Tīrs",
+      "Gudrs",
+      "Forši",
+      "Jauki",
+      "Viltīgs",
+      "Apņēmīgs",
+      "Enerģisks",
+      "Efektīvs",
+      "Fantastisks",
+      "Ātrs",
+      "Labs",
+      "Svaigs",
+      "Labvēlīgs",
+      "Brīnišķīgs",
+      "Lielisks",
+      "Izskatīgs",
+      "Karsts",
+      "Laipns",
+      "Mīļš",
+      "Mistisks",
+      "Kārtīgs",
+      "Jauki",
+      "Pacietīgs",
+      "Skaists",
+      "Spēcīgs",
+      "Bagāts",
+      "Slepens",
+      "Viedrs",
+      "Ciets",
+      "Īpašs",
+      "Stratēģisks",
+      "Spēcīgs",
+      "Sakopts",
+      "Gudrs"
+    ],
+    "fruits": [
+      "Ābols",
+      "Avokado",
+      "Banāns",
+      "Kazene",
+      "Mellene",
+      "Brokoļi",
+      "Burkāns",
+      "Ķirsis",
+      "Kokosrieksts",
+      "Vīnoga",
+      "Citrons",
+      "Salāti",
+      "Mango",
+      "Melone",
+      "Sēne",
+      "Sīpols",
+      "Apelsīns",
+      "Papaija",
+      "Persiks",
+      "Bumbieris",
+      "Ananāss",
+      "Kartupelis",
+      "Ķirbis",
+      "Avene",
+      "Zemene",
+      "Tomāts"
+    ],
+    "combination": "{adjective} {fruit}",
+    "@combination": "Dažās valodās īpašības vārdam jābūt pēdējam."
+  },
+  "dialogs": {
+    "addFile": {
+      "title": "Pievienot atlasei",
+      "content": "Ko vēlaties pievienot?"
+    },
+    "openFile": {
+      "title": "Atvērt failu",
+      "content": "Vai vēlaties atvērt saņemto failu?"
+    },
+    "addressInput": {
+      "title": "Ievadiet adresi",
+      "hashtag": "Tēmturis",
+      "ip": "IP adrese",
+      "recentlyUsed": "Nesen izmantots: "
+    },
+    "cancelSession": {
+      "title": "Atcelt failu pārsūtīšanu",
+      "content": "Vai tiešām vēlaties atcelt failu pārsūtīšanu?"
+    },
+    "cannotOpenFile": {
+      "title": "Nevar atvērt failu",
+      "content": "Nevarēja atvērt \"{file}\". Vai šis fails ir pārvietots, pārdēvēts vai izdzēsts?"
+    },
+    "encryptionDisabledNotice": {
+      "title": "Šifrēšana atspējota",
+      "content": "Komunikācija tagad notiek, izmantojot nešifrētu HTTP protokolu. Lai izmantotu HTTPS protokolu, vēlreiz iespējojiet šifrēšanu."
+    },
+    "errorDialog": {
+      "title": "@:general.error"
+    },
+    "favoriteDialog": {
+      "title": "Izlase",
+      "noFavorites": "Vēl nav izlases ierīču.",
+      "addFavorite": "Pievienot"
+    },
+    "favoriteDeleteDialog": {
+      "title": "Dzēst no izlases",
+      "content": "Vai tiešām vēlaties dzēst no izlases \"{name}\"?"
+    },
+    "favoriteEditDialog": {
+      "titleAdd": "Pievienot izlasei",
+      "titleEdit": "Iestatījumi",
+      "name": "Ierīces nosaukums",
+      "auto": "(automātiski)",
+      "ip": "IP adrese",
+      "port": "Ports"
+    },
+    "fileInfo": {
+      "title": "Faila informācija",
+      "fileName": "Faila nosaukums:",
+      "path": "Ceļš:",
+      "size": "Izmērs:",
+      "sender": "Sūtītājs:",
+      "time": "Laiks:"
+    },
+    "fileNameInput": {
+      "title": "Ievadiet faila nosaukumu",
+      "original": "Oriģināls: {original}"
+    },
+    "historyClearDialog": {
+      "title": "Notīrīt vēsturi",
+      "content": "Vai tiešām vēlaties dzēst visu vēsturi?"
+    },
+    "localNetworkUnauthorized": {
+      "title": "@:dialogs.noPermission.title",
+      "description": "LocalSend nevar atrast citas ierīces bez atļaujas skenēt lokālo tīklu. Lūdzu, piešķiriet šo atļauju iestatījumos.",
+      "gotoSettings": "Iestatījumi"
+    },
+    "messageInput": {
+      "title": "Ierakstiet ziņojumu",
+      "multiline": "Vairākas rindas"
+    },
+    "noFiles": {
+      "title": "Nav atlasītu failu",
+      "content": "Lūdzu, atlasiet vismaz vienu failu."
+    },
+    "noPermission": {
+      "title": "Nav atļaujas",
+      "content": "Jūs neesat piešķīris nepieciešamās atļaujas. Lūdzu, piešķiriet tās iestatījumos."
+    },
+    "notAvailableOnPlatform": {
+      "title": "Nav pieejams",
+      "content": "Šī funkcija ir pieejama tikai šeit:"
+    },
+    "qr": {
+      "title": "QR kods"
+    },
+    "quickActions": {
+      "title": "Ātrās darbības",
+      "counter": "Skaitītājs",
+      "prefix": "Prefikss",
+      "padZero": "Papildināt ar nullēm",
+      "sortBeforeCount": "Iepriekš kārtot alfabētiski (A-Ž)",
+      "random": "Nejaušs"
+    },
+    "quickSaveNotice": {
+      "title": "@:general.quickSave",
+      "content": "Failu pieprasījumi tagad tiek pieņemti automātiski. Ņemiet vērā, ka ikviens lokālajā tīklā var jums sūtīt failus."
+    },
+    "quickSaveFromFavoritesNotice": {
+      "title": "@:general.quickSaveFromFavorites",
+      "content": [
+        "Failu pieprasījumi tagad tiek automātiski pieņemti no ierīcēm jūsu izlases sarakstā.",
+        "Brīdinājums! Pašlaik tas nav pilnīgi drošs, jo uzbrucējs, kam ir jebkuras ierīces no jūsu izlases saraksta pirkstu nospiedums, var jums sūtīt failus bez ierobežojumiem.",
+        "Tomēr šī opcija joprojām ir drošāka nekā atļaut visiem lietotājiem lokālajā tīklā sūtīt jums failus bez ierobežojumiem."
+      ]
+    },
+    "pin": {
+      "title": "Ievadiet PIN"
+    },
+    "sendModeHelp": {
+      "title": "Sūtīšanas režīmi",
+      "single": "Sūta failus vienam saņēmējam. Atlase tiks notīrīta pēc failu pārsūtīšanas pabeigšanas.",
+      "multiple": "Sūta failus vairākiem saņēmējiem. Atlase netiks notīrīta pēc failu pārsūtīšanas pabeigšanas.",
+      "link": "Saņēmēji, kuriem nav instalēta LocalSend, var lejupielādēt atlasītos failus, atverot saiti savā pārlūkprogrammā."
+    },
+    "zoom": {
+      "title": "URL"
+    }
+  },
+  "sanitization": {
+    "empty": "Faila nosaukums nevar būt tukšs",
+    "invalid": "Faila nosaukumā ir nederīgas rakstzīmes"
+  },
+  "tray": {
+    "@info": "Apple vadlīnijas ir ļoti stingras attiecībā uz \"aizvērt\" formulējumu.",
+    "open": "@:general.open",
+    "close": "Iziet no LocalSend",
+    "closeWindows": "Iziet"
+  },
+  "web": {
+    "waiting": "@:sendPage.waiting",
+    "enterPin": "Ievadiet PIN",
+    "invalidPin": "Nederīgs PIN",
+    "tooManyAttempts": "Pārāk daudz mēģinājumu",
+    "rejected": "Noraidīts",
+    "files": "Faili",
+    "fileName": "Faila nosaukums",
+    "size": "Izmērs"
+  },
+  "assetPicker": {
+    "@info": "Tulkojumi multivides atlases rīkam Android un iPhone",
+    "confirm": "Apstiprināt",
+    "cancel": "Atcelt",
+    "edit": "Rediģēt",
+    "gifIndicator": "GIF",
+    "loadFailed": "Ielāde neizdevās",
+    "original": "Oriģināls",
+    "preview": "Priekšskatījums",
+    "select": "Atlasīt",
+    "emptyList": "Tukšs saraksts",
+    "unSupportedAssetType": "Neatbalstīts faila tips.",
+    "unableToAccessAll": "Nevar piekļūt visiem ierīces failiem",
+    "viewingLimitedAssetsTip": "Skatīt tikai failus un albumus, kuriem lietotne var piekļūt.",
+    "changeAccessibleLimitedAssets": "Noklikšķiniet, lai atjauninātu pieejamos failus",
+    "accessAllTip": "Lietotne var piekļūt tikai dažiem ierīces failiem. Dodieties uz sistēmas iestatījumiem un atļaujiet lietotnei piekļūt visiem multivides failiem ierīcē.",
+    "goToSystemSettings": "Doties uz sistēmas iestatījumiem",
+    "accessLimitedAssets": "Turpināt ar ierobežotu piekļuvi",
+    "accessiblePathName": "Pieejami faili",
+    "sTypeAudioLabel": "Audio",
+    "sTypeImageLabel": "Attēls",
+    "sTypeVideoLabel": "Video",
+    "sTypeOtherLabel": "Citi multivides faili",
+    "sActionPlayHint": "atskaņot",
+    "sActionPreviewHint": "priekšskatījums",
+    "sActionSelectHint": "atlasīt",
+    "sActionSwitchPathLabel": "mainīt ceļu",
+    "sActionUseCameraHint": "izmantot kameru",
+    "sNameDurationLabel": "ilgums",
+    "sUnitAssetCountLabel": "skaits"
+  }
+}
