@@ -8,7 +8,7 @@ pub mod state;
 
 #[derive(Debug, Error)]
 #[error("{status};{message:?}")]
-pub(crate) struct StatusCodeError {
+pub struct StatusCodeError {
     status: u16,
     message: Option<String>,
 }

@@ -154,6 +154,11 @@ pub struct PrepareUploadResponseDtoV2 {
     pub files: HashMap<String, String>,
 }
 
+pub struct PrepareUploadResultV2 {
+    pub status_code: u16,
+    pub response: PrepareUploadResponseDtoV2,
+}
+
 /// Prepare download response DTO for v2.1 protocol (Download API).
 ///
 /// Response from POST /api/localsend/v2/prepare-download.

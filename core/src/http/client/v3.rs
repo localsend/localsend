@@ -1,12 +1,11 @@
+use super::{ClientError, ResponseExt};
 use crate::http;
 use crate::http::client::url::{ApiVersion, TargetUrl};
 use crate::http::dto::ProtocolType;
-use crate::http::StatusCodeError;
 use crate::{crypto, util};
 use futures_util::StreamExt;
 use lru::LruCache;
 use reqwest::{Response, StatusCode};
-use serde::{Deserialize, Serialize};
 use std::num::NonZeroUsize;
 use std::sync::Arc;
 use tokio::sync::{mpsc, Mutex};
@@ -33,23 +32,9 @@ pub struct RegisterResult {
 }
 
 impl LsHttpClientV3 {
-    pub fn try_new(private_key: &str, cert: &str) -> anyhow::Result<Self> {
-        let _ = rustls::crypto::ring::default_provider().install_default();
-
-        let identity = {
-            let pem = &[cert.as_bytes(), "\n".as_bytes(), private_key.as_bytes()].concat();
-            reqwest::Identity::from_pem(pem)?
-        };
-
-        let client = reqwest::Client::builder()
-            .use_rustls_tls()
-            .danger_accept_invalid_certs(true)
-            .tls_info(true)
-            .identity(identity)
-            .build()?;
-
+    pub fn try_new(private_key: &str, cert: &str) -> Result<Self, ClientError> {
         Ok(Self {
-            client,
+            client: super::create_reqwest_client(private_key, cert)?,
             received_nonce_map: Arc::new(Mutex::new(LruCache::new(
                 NonZeroUsize::new(200).unwrap(),
             ))),
@@ -64,7 +49,7 @@ impl LsHttpClientV3 {
         protocol: &ProtocolType,
         ip: &str,
         port: u16,
-    ) -> anyhow::Result<String> {
+    ) -> Result<String, ClientError> {
         // Generate nonce to send to server
         let generated_nonce = crypto::nonce::generate_nonce();
         let generated_nonce_base64 = util::base64::encode(&generated_nonce);
@@ -91,14 +76,14 @@ impl LsHttpClientV3 {
             .await?;
 
         if res.status() != StatusCode::OK {
-            return Err(status_code_error_from_res(res).await?);
+            return res.into_error().await;
         }
 
         let remote_key = to_identifier(&res, protocol == &ProtocolType::Https, None)?;
         let body = res.json::<http::dto::NonceResponse>().await?;
 
         // Save the response nonce and our generated nonce
-        let response_nonce = util::base64::decode(&body.nonce)?;
+        let response_nonce = util::base64::decode(&body.nonce).map_err(|e| anyhow::anyhow!(e))?;
 
         let mut received_nonce_map = self.received_nonce_map.lock().await;
         received_nonce_map.put(remote_key.clone(), response_nonce);
@@ -126,17 +111,20 @@ impl LsHttpClientV3 {
         ip: &str,
         port: u16,
         payload: http::dto::RegisterDto,
-    ) -> anyhow::Result<RegisterResult> {
+    ) -> Result<RegisterResult, ClientError> {
         let res = self
             .client
-            .post(TargetUrl {
-                version: ApiVersion::V3,
-                protocol: protocol.as_str(),
-                host: ip.to_string(),
-                port,
-                path: "/register",
-                params: &[],
-            }.to_string())
+            .post(
+                TargetUrl {
+                    version: ApiVersion::V3,
+                    protocol: protocol.as_str(),
+                    host: ip.to_string(),
+                    port,
+                    path: "/register",
+                    params: &[],
+                }
+                .to_string(),
+            )
             .body(serde_json::to_string(&payload)?)
             .send()
             .await?;
@@ -158,17 +146,20 @@ impl LsHttpClientV3 {
         port: u16,
         public_key: Option<String>,
         payload: http::dto::PrepareUploadRequestDto,
-    ) -> anyhow::Result<http::dto::PrepareUploadResponseDto> {
+    ) -> Result<http::dto::PrepareUploadResponseDto, ClientError> {
         let res = self
             .client
-            .post(TargetUrl {
-                version: ApiVersion::V3,
-                protocol: protocol.as_str(),
-                host: ip.to_string(),
-                port,
-                path: "/prepare-upload",
-                params: &[],
-            }.to_string())
+            .post(
+                TargetUrl {
+                    version: ApiVersion::V3,
+                    protocol: protocol.as_str(),
+                    host: ip.to_string(),
+                    port,
+                    path: "/prepare-upload",
+                    params: &[],
+                }
+                .to_string(),
+            )
             .body(serde_json::to_string(&payload)?)
             .send()
             .await?;
@@ -178,7 +169,7 @@ impl LsHttpClientV3 {
         }
 
         if res.status() != StatusCode::OK {
-            return Err(status_code_error_from_res(res).await?);
+            return res.into_error().await;
         }
 
         let body = res.json::<http::dto::PrepareUploadResponseDto>().await?;
@@ -196,17 +187,24 @@ impl LsHttpClientV3 {
         file_id: String,
         token: String,
         binary: mpsc::Receiver<Vec<u8>>,
-    ) -> anyhow::Result<()> {
+    ) -> Result<(), ClientError> {
         let res = self
             .client
-            .post(TargetUrl {
-                version: ApiVersion::V3,
-                protocol: protocol.as_str(),
-                host: ip.to_string(),
-                port,
-                path: "/upload",
-                params: &[("sessionId", &session_id), ("fileId", &file_id), ("token", &token)],
-            }.to_string())
+            .post(
+                TargetUrl {
+                    version: ApiVersion::V3,
+                    protocol: protocol.as_str(),
+                    host: ip.to_string(),
+                    port,
+                    path: "/upload",
+                    params: &[
+                        ("sessionId", &session_id),
+                        ("fileId", &file_id),
+                        ("token", &token),
+                    ],
+                }
+                .to_string(),
+            )
             .body({
                 let stream = ReceiverStream::new(binary).map(Ok::<Vec<u8>, anyhow::Error>);
                 reqwest::Body::wrap_stream(stream)
@@ -215,7 +213,7 @@ impl LsHttpClientV3 {
             .await?;
 
         if res.status() != StatusCode::OK {
-            return Err(status_code_error_from_res(res).await?);
+            return res.into_error().await;
         }
 
         Ok(())
@@ -227,16 +225,19 @@ impl LsHttpClientV3 {
         ip: &str,
         port: u16,
         session_id: String,
-    ) -> anyhow::Result<()> {
+    ) -> Result<(), ClientError> {
         self.client
-            .post(TargetUrl {
-                version: ApiVersion::V3,
-                protocol: protocol.as_str(),
-                host: ip.to_string(),
-                port,
-                path: "/cancel",
-                params: &[("sessionId", &session_id)],
-            }.to_string())
+            .post(
+                TargetUrl {
+                    version: ApiVersion::V3,
+                    protocol: protocol.as_str(),
+                    host: ip.to_string(),
+                    port,
+                    path: "/cancel",
+                    params: &[("sessionId", &session_id)],
+                }
+                .to_string(),
+            )
             .send()
             .await?;
 
@@ -244,39 +245,17 @@ impl LsHttpClientV3 {
     }
 }
 
-#[derive(Serialize, Deserialize)]
-struct ErrorResponse {
-    message: String,
-}
-
-async fn status_code_error_from_res(response: Response) -> anyhow::Result<anyhow::Error> {
-    let status = response.status().as_u16();
-    let body = response.text().await?;
-    let body = match serde_json::from_str::<ErrorResponse>(&body) {
-        Ok(error) => error.message,
-        Err(_) => body,
-    };
-
-    Ok(anyhow::Error::new(StatusCodeError {
-        status,
-        message: match body {
-            _ if body.is_empty() => None,
-            _ => Some(body),
-        },
-    }))
-}
-
 fn to_identifier(
     response: &Response,
     require_cert: bool,
     public_key: Option<String>,
-) -> anyhow::Result<String> {
+) -> Result<String, ClientError> {
     match require_cert {
-        true => super::verify_cert_from_res(response, public_key),
+        true => Ok(super::verify_cert_from_res(response, public_key)?),
         false => response
             .remote_addr()
             .map(|addr| addr.ip().to_string())
-            .ok_or_else(|| anyhow::anyhow!("Remote address not found in response")),
+            .ok_or_else(|| anyhow::anyhow!("Remote address not found in response"))
+            .map_err(ClientError::Other),
     }
 }
-

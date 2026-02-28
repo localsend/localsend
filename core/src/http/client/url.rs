@@ -46,3 +46,50 @@ impl<'a> TargetUrl<'a> {
         }
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::{ApiVersion, TargetUrl};
+
+    #[test]
+    fn test_build_url_ipv4() {
+        let url = TargetUrl {
+            version: ApiVersion::V2,
+            protocol: "https",
+            host: "192.168.1.1".to_string(),
+            port: 53317,
+            path: "/register",
+            params: &[],
+        }
+        .to_string();
+        assert_eq!(url, "https://192.168.1.1:53317/api/localsend/v2/register");
+    }
+
+    #[test]
+    fn test_build_url_ipv6() {
+        let url = TargetUrl {
+            version: ApiVersion::V2,
+            protocol: "https",
+            host: "::1".to_string(),
+            port: 53317,
+            path: "/register",
+            params: &[],
+        }
+        .to_string();
+        assert_eq!(url, "https://[::1]:53317/api/localsend/v2/register");
+    }
+
+    #[test]
+    fn test_build_url_http() {
+        let url = TargetUrl {
+            version: ApiVersion::V2,
+            protocol: "http",
+            host: "192.168.1.1".to_string(),
+            port: 53317,
+            path: "/info",
+            params: &[],
+        }
+        .to_string();
+        assert_eq!(url, "http://192.168.1.1:53317/api/localsend/v2/info");
+    }
+}

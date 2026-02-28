@@ -1,12 +1,8 @@
+use super::{ClientError, ResponseExt};
 use crate::http::client::url::{ApiVersion, TargetUrl};
-use crate::http::dto_v2::{
-    InfoResponseDtoV2, PrepareDownloadResponseDtoV2, PrepareUploadRequestDtoV2,
-    PrepareUploadResponseDtoV2, ProtocolTypeV2, RegisterDtoV2, RegisterResponseDtoV2,
-};
-use crate::http::StatusCodeError;
+use crate::http::dto_v2::{InfoResponseDtoV2, PrepareDownloadResponseDtoV2, PrepareUploadRequestDtoV2, PrepareUploadResponseDtoV2, PrepareUploadResultV2, ProtocolTypeV2, RegisterDtoV2, RegisterResponseDtoV2};
 use futures_util::StreamExt;
 use reqwest::{Response, StatusCode};
-use serde::{Deserialize, Serialize};
 use tokio::io::AsyncWriteExt;
 use tokio::sync::mpsc;
 use tokio_stream::wrappers::ReceiverStream;
@@ -36,30 +32,16 @@ impl LsHttpClientV2 {
     ///
     /// # Returns
     /// A new client instance or an error if TLS setup fails.
-    pub fn try_new(private_key: &str, cert: &str) -> anyhow::Result<Self> {
-        let _ = rustls::crypto::ring::default_provider().install_default();
-
-        let identity = {
-            let pem = &[cert.as_bytes(), "\n".as_bytes(), private_key.as_bytes()].concat();
-            reqwest::Identity::from_pem(pem)?
-        };
-
-        let client = reqwest::Client::builder()
-            .use_rustls_tls()
-            .danger_accept_invalid_certs(true)
-            .tls_info(true)
-            .identity(identity)
-            .build()?;
-
+    pub fn try_new(private_key: &str, cert: &str) -> Result<Self, ClientError> {
         Ok(Self {
-            client,
+            client: super::create_reqwest_client(private_key, cert)?,
         })
     }
 
     /// Creates a new HTTP client without TLS client certificate.
     ///
     /// Use this for HTTP-only connections or when client authentication is not needed.
-    pub fn try_new_without_cert() -> anyhow::Result<Self> {
+    pub fn try_new_without_cert() -> Result<Self, ClientError> {
         let _ = rustls::crypto::ring::default_provider().install_default();
 
         let client = reqwest::Client::builder()
@@ -68,21 +50,7 @@ impl LsHttpClientV2 {
             .tls_info(true)
             .build()?;
 
-        Ok(Self {
-            client,
-        })
-    }
-
-    fn url(&self, protocol: &ProtocolTypeV2, ip: &str, port: u16, path: &'static str) -> String {
-        TargetUrl {
-            version: ApiVersion::V2,
-            protocol: protocol.as_str(),
-            host: ip.to_string(),
-            port,
-            path,
-            params: &[],
-        }
-        .to_string()
+        Ok(Self { client })
     }
 
     /// Registers with another device for discovery.
@@ -103,8 +71,16 @@ impl LsHttpClientV2 {
         ip: &str,
         port: u16,
         payload: RegisterDtoV2,
-    ) -> anyhow::Result<RegisterResultV2> {
-        let url = self.url(protocol, ip, port, "/register");
+    ) -> Result<RegisterResultV2, ClientError> {
+        let url = TargetUrl {
+            version: ApiVersion::V2,
+            protocol: protocol.as_str(),
+            host: ip.to_string(),
+            port,
+            path: "/register",
+            params: &[],
+        }
+        .to_string();
 
         let res = self
             .client
@@ -115,7 +91,7 @@ impl LsHttpClientV2 {
             .await?;
 
         if res.status() != StatusCode::OK {
-            return Err(status_code_error_from_res(res).await?);
+            return res.into_error().await;
         }
 
         let public_key = match protocol {
@@ -146,7 +122,7 @@ impl LsHttpClientV2 {
     /// Session ID and accepted file tokens, or an error.
     ///
     /// # Errors
-    /// * 204 - No file transfer needed (all files already exist)
+    /// * 204 - No file transfer needed (e.g. text-only transfer)
     /// * 400 - Invalid body
     /// * 401 - PIN required or invalid
     /// * 403 - Rejected by user
@@ -161,7 +137,7 @@ impl LsHttpClientV2 {
         public_key: Option<String>,
         payload: PrepareUploadRequestDtoV2,
         pin: Option<&str>,
-    ) -> anyhow::Result<PrepareUploadResponseDtoV2> {
+    ) -> Result<PrepareUploadResultV2, ClientError> {
         let pin_params: &[(&'static str, &str)] = match &pin {
             Some(pin) => &[("pin", pin)],
             None => &[],
@@ -188,21 +164,18 @@ impl LsHttpClientV2 {
             super::verify_cert_from_res(&res, Some(public_key))?;
         }
 
-        if res.status() == StatusCode::NO_CONTENT {
-            // 204 - No file transfer needed
-            return Ok(PrepareUploadResponseDtoV2 {
-                session_id: String::new(),
-                files: std::collections::HashMap::new(),
-            });
-        }
+        let status = res.status();
 
-        if res.status() != StatusCode::OK {
-            return Err(status_code_error_from_res(res).await?);
+        if status.as_u16() >= 400 {
+            return res.into_error().await;
         }
 
         let body = res.json::<PrepareUploadResponseDtoV2>().await?;
 
-        Ok(body)
+        Ok(PrepareUploadResultV2 {
+            status_code: status.as_u16(),
+            response: body,
+        })
     }
 
     /// Uploads a file to the receiver.
@@ -235,14 +208,18 @@ impl LsHttpClientV2 {
         file_id: &str,
         token: &str,
         binary: mpsc::Receiver<Vec<u8>>,
-    ) -> anyhow::Result<()> {
+    ) -> Result<(), ClientError> {
         let url = TargetUrl {
             version: ApiVersion::V2,
             protocol: protocol.as_str(),
             host: ip.to_string(),
             port,
             path: "/upload",
-            params: &[("sessionId", session_id), ("fileId", file_id), ("token", token)],
+            params: &[
+                ("sessionId", session_id),
+                ("fileId", file_id),
+                ("token", token),
+            ],
         }
         .to_string();
 
@@ -252,39 +229,7 @@ impl LsHttpClientV2 {
         let res = self.client.post(&url).body(body).send().await?;
 
         if res.status() != StatusCode::OK {
-            return Err(status_code_error_from_res(res).await?);
-        }
-
-        Ok(())
-    }
-
-    /// Uploads a file from bytes.
-    ///
-    /// Convenience method that wraps upload() for simple byte array uploads.
-    pub async fn upload_bytes(
-        &self,
-        protocol: &ProtocolTypeV2,
-        ip: &str,
-        port: u16,
-        session_id: &str,
-        file_id: &str,
-        token: &str,
-        data: Vec<u8>,
-    ) -> anyhow::Result<()> {
-        let url = TargetUrl {
-            version: ApiVersion::V2,
-            protocol: protocol.as_str(),
-            host: ip.to_string(),
-            port,
-            path: "/upload",
-            params: &[("sessionId", session_id), ("fileId", file_id), ("token", token)],
-        }
-        .to_string();
-
-        let res = self.client.post(&url).body(data).send().await?;
-
-        if res.status() != StatusCode::OK {
-            return Err(status_code_error_from_res(res).await?);
+            return res.into_error().await;
         }
 
         Ok(())
@@ -305,7 +250,7 @@ impl LsHttpClientV2 {
         ip: &str,
         port: u16,
         session_id: &str,
-    ) -> anyhow::Result<()> {
+    ) -> Result<(), ClientError> {
         let url = TargetUrl {
             version: ApiVersion::V2,
             protocol: protocol.as_str(),
@@ -339,13 +284,21 @@ impl LsHttpClientV2 {
         protocol: &ProtocolTypeV2,
         ip: &str,
         port: u16,
-    ) -> anyhow::Result<InfoResponseDtoV2> {
-        let url = self.url(protocol, ip, port, "/info");
+    ) -> Result<InfoResponseDtoV2, ClientError> {
+        let url = TargetUrl {
+            version: ApiVersion::V2,
+            protocol: protocol.as_str(),
+            host: ip.to_string(),
+            port,
+            path: "/info",
+            params: &[],
+        }
+        .to_string();
 
         let res = self.client.get(&url).send().await?;
 
         if res.status() != StatusCode::OK {
-            return Err(status_code_error_from_res(res).await?);
+            return res.into_error().await;
         }
 
         let body = res.json::<InfoResponseDtoV2>().await?;
@@ -382,7 +335,7 @@ impl LsHttpClientV2 {
         port: u16,
         session_id: Option<&str>,
         pin: Option<&str>,
-    ) -> anyhow::Result<PrepareDownloadResponseDtoV2> {
+    ) -> Result<PrepareDownloadResponseDtoV2, ClientError> {
         let mut params: Vec<(&'static str, &str)> = Vec::new();
         if let Some(session_id) = session_id {
             params.push(("sessionId", session_id));
@@ -403,7 +356,7 @@ impl LsHttpClientV2 {
         let res = self.client.post(&url).send().await?;
 
         if res.status() != StatusCode::OK {
-            return Err(status_code_error_from_res(res).await?);
+            return res.into_error().await;
         }
 
         let body = res.json::<PrepareDownloadResponseDtoV2>().await?;
@@ -433,7 +386,7 @@ impl LsHttpClientV2 {
         port: u16,
         session_id: &str,
         file_id: &str,
-    ) -> anyhow::Result<Response> {
+    ) -> Result<Response, ClientError> {
         let url = TargetUrl {
             version: ApiVersion::V2,
             protocol: protocol.as_str(),
@@ -447,7 +400,7 @@ impl LsHttpClientV2 {
         let res = self.client.get(&url).send().await?;
 
         if res.status() != StatusCode::OK {
-            return Err(status_code_error_from_res(res).await?);
+            return res.into_error().await;
         }
 
         Ok(res)
@@ -473,8 +426,10 @@ impl LsHttpClientV2 {
         session_id: &str,
         file_id: &str,
         writer: &mut W,
-    ) -> anyhow::Result<u64> {
-        let response = self.download(protocol, ip, port, session_id, file_id).await?;
+    ) -> Result<u64, ClientError> {
+        let response = self
+            .download(protocol, ip, port, session_id, file_id)
+            .await?;
 
         let mut stream = response.bytes_stream();
         let mut total_bytes = 0u64;
@@ -488,54 +443,5 @@ impl LsHttpClientV2 {
         writer.flush().await?;
 
         Ok(total_bytes)
-    }
-}
-
-#[derive(Serialize, Deserialize)]
-struct ErrorResponse {
-    message: String,
-}
-
-async fn status_code_error_from_res(response: Response) -> anyhow::Result<anyhow::Error> {
-    let status = response.status().as_u16();
-    let body = response.text().await?;
-    let body = match serde_json::from_str::<ErrorResponse>(&body) {
-        Ok(error) => error.message,
-        Err(_) => body,
-    };
-
-    Ok(anyhow::Error::new(StatusCodeError {
-        status,
-        message: match body {
-            _ if body.is_empty() => None,
-            _ => Some(body),
-        },
-    }))
-}
-
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn test_build_url_ipv4() {
-        let client = LsHttpClientV2::try_new_without_cert().unwrap();
-        let url = client.url(&ProtocolTypeV2::Https, "192.168.1.1", 53317, "/register");
-        assert_eq!(url, "https://192.168.1.1:53317/api/localsend/v2/register");
-    }
-
-    #[test]
-    fn test_build_url_ipv6() {
-        let client = LsHttpClientV2::try_new_without_cert().unwrap();
-        let url = client.url(&ProtocolTypeV2::Https, "::1", 53317, "/register");
-        assert_eq!(url, "https://[::1]:53317/api/localsend/v2/register");
-    }
-
-    #[test]
-    fn test_build_url_http() {
-        let client = LsHttpClientV2::try_new_without_cert().unwrap();
-        let url = client.url(&ProtocolTypeV2::Http, "192.168.1.1", 53317, "/info");
-        assert_eq!(url, "http://192.168.1.1:53317/api/localsend/v2/info");
     }
 }
