@@ -27,13 +27,13 @@
     "online": "Çevrim içi",
     "open": "Aç",
     "queue": "Sıra",
-    "quickSave": "Hızlı kaydetme",
+    "quickSave": "Hızlı kaydet",
     "quickSaveFromFavorites": "Favoriler",
     "renamed": "Yeniden adlandırıldı",
     "reset": "Sıfırla",
     "restart": "Yeniden başlat",
     "settings": "Ayarlar",
-    "skipped": "Geçildi",
+    "skipped": "Atlandı",
     "start": "Başlat",
     "stop": "Durdur",
     "save": "Kaydet",
@@ -67,13 +67,13 @@
       "media": "Medya",
       "text": "Metin",
       "app": "Uygulama",
-      "clipboard": "Yapıştır"
+      "clipboard": "Panodan Yapıştır"
     },
     "shareIntentInfo": "Dosyalarınızı daha kolay seçmek için cihazınızın \"Paylaş\" özelliğini kullanabilirsiniz.",
     "nearbyDevices": "Yakınınızdaki cihazlar",
     "thisDevice": "Cihazınız",
     "scan": "Cihazları tara",
-    "manualSending": "Manuel Gönderme",
+    "manualSending": "El ile Gönderme",
     "sendMode": "Gönderme Modu",
     "sendModes": {
       "single": "Tek alıcı",
@@ -81,8 +81,8 @@
       "link": "Link üzerinden paylaşın"
     },
     "sendModeHelp": "Açıklama",
-    "help": "Lütfen hedef cihaz ile aynı wifi ağında olduğunuzdan emin olun.",
-    "placeItems": "Paylaşmak istediğiniz dosyayı yerleştiriniz."
+    "help": "Lütfen hedef cihaz ile aynı Wi-Fi ağında olduğunuzdan emin olun.",
+    "placeItems": "Paylaşmak istediğiniz dosyayı yerleştirin."
   },
   "settingsTab": {
     "title": "Ayarlar",
@@ -108,7 +108,7 @@
       "minimizeToTray": "Çıkış: Simge durumuna küçült",
       "launchAtStartup": "Giriş yapıldıktan sonra otomatik başlat",
       "launchMinimized": "Otomatik başlatma: Gizli Başlatma",
-      "showInContextMenu": "LocalSend'i bağlam menüsünde göster",
+      "showInContextMenu": "LocalSend'i bağlam (sağ tık) menüsünde göster",
       "animations": "Animasyonlar"
     },
     "receive": {
@@ -127,7 +127,7 @@
     },
     "network": {
       "title": "Ağ",
-      "needRestart": "Ayarları uygulamak için sunucuyu yeniden başlatınız!",
+      "needRestart": "Ayarları uygulamak için sunucuyu yeniden başlatın.",
       "server": "Sunucu",
       "alias": "Takma isminiz",
       "deviceType": "Cihaz tipi",
@@ -160,17 +160,17 @@
     "solution": "Çözüm:",
     "fixButton": "Otomatik olarak düzelt",
     "firewall": {
-      "symptom": "Bu uygulama diğer cihazlara dosya gönderebilir, ancak diğer cihazlar bu cihaza dosya gönderemez.",
-      "solution": "Bu büyük olasılıkla bir güvenlik duvarı sorunudur. Port {port} 'da gelen bağlantılara (UDP ve TCP) izin vererek bunu çözebilirsiniz.",
+      "symptom": "Bu uygulama diğer cihazlara dosya gönderebiliyor, ancak diğer cihazlar bu cihaza dosya gönderemiyor.",
+      "solution": "Bu büyük olasılıkla bir güvenlik duvarı sorunudur. Port {port} 'da gelen bağlantılara (UDP ve TCP) izin vererek bunu çözebilirsiniz. Güvenlik duvarı ayarlarınızı kontrol edin",
       "openFirewall": "Güvenlik Duvarını Aç"
     },
     "noDiscovery": {
-      "symptom": "Bu cihaz diğer cihazları keşfedemez.",
+      "symptom": "Bu cihaz diğer cihazları keşfedemiyor.",
       "solution": "Lütfen tüm cihazların aynı Wi-Fi ağında olduğundan ve aynı yapılandırmayı (bağlantı noktası, çok noktaya yayın adresi, şifreleme) paylaştığından emin olun. Hedef cihazın IP adresini manuel olarak yazmayı deneyebilirsiniz. Bu işe yararsa, gelecekte otomatik olarak keşfedilebilmesi için bu cihazı favorilere eklemeyi düşünün."
     },
     "noConnection": {
-      "symptom": "Her iki cihaz da birbirini keşfedemez ve dosya paylaşamazlar.",
-      "solution": "Sorun her iki tarafta da var mı? O zaman her iki cihazın da aynı WiFi ağında olduğundan ve aynı yapılandırmayı (bağlantı noktası, çoklu yayın adresi, şifreleme) paylaştığından emin olmanız gerekir. WiFi, katılımcılar arasında iletişime izin vermeyebilir. Bu durumda, bu seçenek yönlendiricide etkinleştirilmelidir."
+      "symptom": "Her iki cihaz da birbirini keşfedemiyor ve dosya paylaşamıyorlar.",
+      "solution": "Sorun her iki tarafta da var mı? O zaman her iki cihazın da aynı WiFi ağında olduğundan ve aynı yapılandırmayı (bağlantı noktası, çoklu yayın adresi, şifreleme) paylaştığından emin olmanız gerekir. Wi-Fi ağınız, katılımcılar arasında iletişime izin vermeyebilir. Bu durumda, bu seçenek yönlendiricide (genellikle modeminizde) etkinleştirilmelidir."
     }
   },
   "receiveHistoryPage": {
@@ -233,13 +233,13 @@
     }
   },
   "webSharePage": {
-    "title": "Link üzerinden paylaşın",
+    "title": "Link üzerinden paylaş",
     "loading": "Sunucu başlıyor…",
     "stopping": "Sunucu durduruluyor…",
     "error": "Sunucuyu başlatırken bir hata oluştu.",
     "openLink": {
-      "one": "Bu bağlantıyı tarayıcıda açın:",
-      "other": "Bu bağlantılardan birini tarayıcıda açın:"
+      "one": "Bu bağlantıyı tarayıcıda aç:",
+      "other": "Bu bağlantılardan birini tarayıcıda aç:"
     },
     "requests": "İstekler",
     "noRequests": "Henüz istek yok.",
@@ -277,7 +277,7 @@
   "dialogs": {
     "addFile": {
       "title": "Seçime ekle",
-      "content": "Ne eklemek istiyorsunuz ?"
+      "content": "Ne eklemek istiyorsunuz?"
     },
     "addressInput": {
       "title": "Adresi giriniz",
@@ -348,7 +348,7 @@
     },
     "noPermission": {
       "title": "İzin yok",
-      "content": "Gerekli izinleri vermediniz. Lütfen ayarlardan izinleri verin."
+      "content": "Gerekli izinleri vermediniz. Lütfen uygulama ayarlarından gerekli izinleri verin."
     },
     "notAvailableOnPlatform": {
       "title": "Müsait değil",
@@ -367,7 +367,7 @@
     },
     "quickSaveNotice": {
       "title": "@:general.quickSave",
-      "content": "Dosya gönderim istekleri otomatik olarak gerçekleşir. Yerel ağınızdaki herkesin size dosya gönderebileceğinin farkında olunuz."
+      "content": "Dosya gönderim istekleri otomatik olarak gerçekleşir. Yerel ağınızdaki herkesin size dosya gönderebileceğinin farkında olun."
     },
     "pin": {
       "title": "PIN girin"
@@ -400,7 +400,7 @@
     "waiting": "@:sendPage.waiting",
     "enterPin": "PIN girin",
     "invalidPin": "Geçersiz PIN",
-    "tooManyAttempts": "Çok fazla deneme",
+    "tooManyAttempts": "Çok fazla yanlış deneme",
     "rejected": "Reddedildi",
     "files": "Dosyalar",
     "fileName": "Dosya adı",
@@ -418,7 +418,7 @@
     "select": "Seç",
     "emptyList": "Boş liste",
     "unSupportedAssetType": "Desteklenmeyen dosya türü.",
-    "unableToAccessAll": "Cihazdaki tüm dosyalara erişilemiyor",
+    "unableToAccessAll": "Cihazdaki tüm dosyalara erişilemiyor.",
     "viewingLimitedAssetsTip": "Yalnızca uygulamanın erişilebilir dosyalarını ve albümlerini görüntüleyin.",
     "changeAccessibleLimitedAssets": "Erişilebilir dosyaları güncellemek için tıklayın",
     "accessAllTip": "Uygulama yalnızca cihazdaki bazı dosyalara erişebilir. Sistem ayarlarına gidin ve uygulamanın cihazdaki tüm medyalara erişmesine izin verin.",
@@ -429,13 +429,13 @@
     "sTypeImageLabel": "Görüntü",
     "sTypeVideoLabel": "Video",
     "sTypeOtherLabel": "Diğer medya",
-    "sActionPlayHint": "oynat",
+    "sActionPlayHint": "Oynat",
     "sActionPreviewHint": "Ön izleme",
-    "sActionSelectHint": "seç",
-    "sActionSwitchPathLabel": "dosya uzantısını değiştir",
+    "sActionSelectHint": "Seç",
+    "sActionSwitchPathLabel": "Dosya uzantısını değiştir",
     "sActionUseCameraHint": "Kamera kullan",
-    "sNameDurationLabel": "süre",
-    "sUnitAssetCountLabel": "sayım"
+    "sNameDurationLabel": "Süre",
+    "sUnitAssetCountLabel": "Sayım"
   },
   "networkInterfacesPage": {
     "title": "Ağ Arayüzleri",
