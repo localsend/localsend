@@ -32,7 +32,7 @@ dependencies:
   flutter_markdown: 0.7.4+2
   flutter_rust_bridge: 2.11.1
   freezed_annotation: 3.1.0
-  gal: 2.3.0
+  gal: 2.3.2
   glob: ^2.1.2
   image: 4.5.4
   image_picker: 1.1.2
