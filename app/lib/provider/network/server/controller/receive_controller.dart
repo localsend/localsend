@@ -40,6 +40,7 @@ import 'package:localsend_app/provider/selection/selected_sending_files_provider
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/util/native/directories.dart';
 import 'package:localsend_app/util/native/file_saver.dart';
+import 'package:localsend_app/util/native/pick_directory_path.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_app/util/native/tray_helper.dart';
 import 'package:localsend_app/util/simple_server.dart';
@@ -60,6 +61,156 @@ class ReceiveController {
   final ServerUtils server;
 
   ReceiveController(this.server);
+
+  bool _isMissingDestinationError(Object error, String destinationDir) {
+    if (destinationDir.startsWith('content://')) {
+      //SAF/content URIs won't behave like normal folders; treat separately
+      return false;
+    }
+
+    if (error is FileSystemException) {
+      final msg = (error.message).toLowerCase();
+      final path = (error.path ?? '').toLowerCase();
+      final dest = destinationDir.toLowerCase();
+
+      //covers common cases: "No such file or directory" / missing parent
+      if (msg.contains('no such file') || msg.contains('cannot open') || msg.contains('not found')) {
+        return true;
+      }
+
+      //if the failing path is within the destination directory, it's a strong hint
+      if (path.isNotEmpty && dest.isNotEmpty && path.startsWith(dest)) {
+        return true;
+      }
+    }
+
+    //fallback for string errors that come from other places
+    final text = error.toString().toLowerCase();
+    return text.contains('no such file') || text.contains('file not found');
+  }
+
+  Future<void> _showMissingDestinationDuringTransferDialog({
+    required String destinationDir,
+  }) async {
+    //best effort UI; don't crash if no context
+    BuildContext ctx;
+    try {
+      ctx = Routerino.context;
+    } catch (_) {
+      return;
+    }
+
+    Future<void> goHome() async {
+      // ignore: use_build_context_synchronously
+      Routerino.context.pushRootImmediately(() => const HomePage(initialTab: HomeTab.receive, appStart: false));
+    }
+
+    await showDialog<void>(
+      context: ctx,
+      barrierDismissible: false,
+      builder: (dialogContext) {
+        return AlertDialog(
+          title: const Text('Destination folder missing'),
+          content: Text(
+            'The destination folder disappeared while receiving files:\n\n$destinationDir\n\n'
+                'Choose what you want to do next. Then retry transfer.',
+          ),
+          actions: [
+            TextButton(
+              onPressed: () async {
+                Navigator.of(dialogContext).pop();
+
+                //try to recreate the folder
+                try {
+                  await Directory(destinationDir).create(recursive: true);
+                } catch (e) {
+                  //if creation fails, show a follow-up error
+                  try {
+                    // ignore: use_build_context_synchronously
+                    await showDialog<void>(
+                      context: Routerino.context,
+                      builder: (_) => AlertDialog(
+                        title: const Text('Could not create folder'),
+                        content: Text('Failed to create:\n\n$destinationDir\n\nError: $e'),
+                        actions: [
+                          TextButton(
+                            onPressed: () => Navigator.of(Routerino.context).pop(),
+                            child: const Text('OK'),
+                          ),
+                        ],
+                      ),
+                    );
+                  } catch (_) {}
+                }
+              },
+              child: const Text('Create folder'),
+            ),
+            TextButton(
+              onPressed: () async {
+                Navigator.of(dialogContext).pop();
+
+                final newDir = await pickDirectoryPath();
+                if (newDir != null && newDir.isNotEmpty) {
+                  //for future transfers
+                  await server.ref.notifier(settingsProvider).setDestination(newDir);
+
+                  //apply immediately to the current session, doesn't matter session gets reset anyway
+                  setSessionDestinationDir(newDir);
+                }
+              },
+              child: const Text('Change folder'),
+            ),
+            TextButton(
+              onPressed: () async {
+                Navigator.of(dialogContext).pop();
+                cancelSession();
+                await goHome();
+              },
+              child: const Text('Go to Home'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Future<void> _showReceiveErrorDialog(String title, String message, {Future<void> Function()? onOk}) async {
+    //some UI feedback, if there's no active UI context, it just won't show
+    try {
+      final ctx = Routerino.navigatorKey.currentContext;
+      if (ctx == null) {
+        return;
+      }
+
+      // ignore: use_build_context_synchronously, unawaited_futures
+      await showDialog<void>(
+        context: ctx,
+        useRootNavigator: true,
+        builder: (context) => AlertDialog(
+          title: Text(title),
+          content: Text(message),
+          actions: [
+            TextButton(
+              onPressed: () async {
+                Navigator.of(context).pop();
+
+                if (onOk != null) {
+                  try {
+                    await onOk();
+                  } catch (_) {
+                    //ignore
+                  }
+                }
+              },
+              child: const Text('OK'),
+            ),
+          ],
+        ),
+      );
+    } catch (_) {
+      //ignore if UI is not available
+    }
+  }
 
   /// Installs all routes for receiving files.
   void installRoutes({
@@ -220,7 +371,8 @@ class ReceiveController {
     }
 
     final settings = server.ref.read(settingsProvider);
-    final destinationDir = settings.destination ?? await getDefaultDestinationDirectory();
+    final String? customDestination = settings.destination;
+    final destinationDir = customDestination ?? await getDefaultDestinationDirectory();
     final cacheDir = await getCacheDirectory();
     final sessionId = _uuid.v4();
 
@@ -362,6 +514,59 @@ class ReceiveController {
       return await request.respondJson(204);
     }
 
+    //user accepted: validate custom destination folder (if set) before sending starts
+    if (customDestination != null) {
+      Future<void> goHome() async {
+        // ignore: use_build_context_synchronously
+        Routerino.context.pushRootImmediately(() => const HomePage(initialTab: HomeTab.receive, appStart: false));
+      }
+      try {
+        final dir = Directory(destinationDir);
+        final exists = await dir.exists();
+        if (!exists) {
+          _logger.warning('Custom destination directory does not exist: $destinationDir');
+
+          Future<void> goHomeAndClose() async {
+            closeSession();
+            // ignore: use_build_context_synchronously
+            Routerino.context.pushRootImmediately(() => const HomePage(initialTab: HomeTab.receive, appStart: false));
+            //send receiver back to home screen
+          }
+
+          _showReceiveErrorDialog(
+            'Invalid destination folder',
+            'The selected destination folder does not exist:\n$destinationDir\n\nPlease update it in Settings → Receive → Save to folder',
+            onOk: goHomeAndClose,
+          );
+
+          return await request.respondJson(
+            400,
+            message: 'Selected destination folder for the Receive device does not exist. Please change it in settings.',
+          );
+        }
+      } catch (e) {
+        _logger.warning('Failed to validate custom destination directory: $destinationDir', e);
+
+        Future<void> goHomeAndClose() async {
+          closeSession();
+          // ignore: use_build_context_synchronously
+          Routerino.context.pushRootImmediately(() => const HomePage(initialTab: HomeTab.receive, appStart: false));
+          //send receiver back to home screen
+        }
+
+        _showReceiveErrorDialog(
+          'Destination folder not accessible',
+          'LocalSend cannot access the selected destination folder:\n$destinationDir\n\nPlease choose a different folder in Settings → Receive → Save to folder',
+          onOk: goHomeAndClose,
+        );
+
+        return await request.respondJson(
+          400,
+          message: 'Selected destination folder for the Receive device does not exist. Please change it in settings.',
+        );
+      }
+    }
+
     server.setState(
       (oldState) {
         final receiveState = oldState!.session!;
@@ -499,6 +704,13 @@ class ReceiveController {
 
     String? filePath;
     bool savedToGallery = false;
+
+    bool destinationMissing = false;
+    String? destinationErrorForSender;
+
+    final destinationDir = receiveState.destinationDirectory;
+    final destExistsCheckStopwatch = Stopwatch()..start();
+
     try {
       _logger.info('Saving ${receivingFile.file.fileName}');
 
@@ -509,6 +721,18 @@ class ReceiveController {
         isImage: fileType == FileType.image,
         stream: request,
         onProgress: (savedBytes) {
+          //abort if destination folder disappears mid-transfer (custom folder case)
+          //check at most ~2x/sec to keep it cheap
+          if (!shouldSaveToGallery && !destinationDir.startsWith('content://')) {
+            if (destExistsCheckStopwatch.elapsedMilliseconds >= 500) {
+              destExistsCheckStopwatch.reset();
+              final exists = Directory(destinationDir).existsSync();
+              if (!exists) {
+                throw FileSystemException('Destination directory missing during transfer', destinationDir);
+              }
+            }
+          }
+
           if (receivingFile.file.size != 0) {
             server.ref
                 .notifier(progressProvider)
@@ -558,6 +782,17 @@ class ReceiveController {
 
       _logger.info('Saved ${receivingFile.file.fileName}.');
     } catch (e, st) {
+      destinationMissing = _isMissingDestinationError(e, destinationDir) ||
+          (e is FileSystemException && (e.message.toLowerCase().contains('destination directory missing')));
+
+      if (destinationMissing) {
+        destinationErrorForSender =
+        'Recipient destination folder was deleted during transfer. Receiver must recreate it or choose another folder, then retry.';
+
+        // ignore: unawaited_futures
+        _showMissingDestinationDuringTransferDialog(destinationDir: destinationDir);
+      }
+
       server.setState(
         (oldState) => oldState?.copyWith(
           session: oldState.session?.fileFinished(
@@ -629,9 +864,17 @@ class ReceiveController {
       _logger.info('Received all files.');
     }
 
-    return server.getState().session?.files[fileId]?.status == FileStatus.finished
-        ? await request.respondJson(200)
-        : await request.respondJson(500, message: 'Could not save file. Check receiving device for more information.');
+    //if this upload failed, send a specific error to the sender when we know why
+    //Note: this message is only visible to sender if HTTP response can be delivered, which currently it can't
+    final statusNow = server.getState().session?.files[fileId]?.status;
+    if (statusNow != FileStatus.finished) {
+      if (destinationMissing && destinationErrorForSender != null) {
+        return await request.respondJson(500, message: destinationErrorForSender!);
+      }
+      return await request.respondJson(500, message: 'Could not save file. Check receiving device for more information.');
+    }
+
+    return await request.respondJson(200);
   }
 
   Future<void> _cancelHandler({
