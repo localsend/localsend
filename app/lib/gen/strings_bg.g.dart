@@ -13,21 +13,30 @@ import 'strings.g.dart';
 class TranslationsBg extends Translations {
   /// You can call this constructor and build your own translation instance of this locale.
   /// Constructing via the enum [AppLocale.build] is preferred.
-  TranslationsBg({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
-    : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-      $meta = TranslationMetadata(
-        locale: AppLocale.bg,
-        overrides: overrides ?? {},
-        cardinalResolver: cardinalResolver,
-        ordinalResolver: ordinalResolver,
-      ),
-      super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+  TranslationsBg({
+    Map<String, Node>? overrides,
+    PluralResolver? cardinalResolver,
+    PluralResolver? ordinalResolver,
+    TranslationMetadata<AppLocale, Translations>? meta,
+  }) : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
+       $meta =
+           meta ??
+           TranslationMetadata(
+             locale: AppLocale.bg,
+             overrides: overrides ?? {},
+             cardinalResolver: cardinalResolver,
+             ordinalResolver: ordinalResolver,
+           ),
+       super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
 
   /// Metadata for the translations of <bg>.
   @override
   final TranslationMetadata<AppLocale, Translations> $meta;
 
   late final TranslationsBg _root = this; // ignore: unused_field
+
+  @override
+  TranslationsBg $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => TranslationsBg(meta: meta ?? this.$meta);
 
   // Translations
   @override
@@ -66,8 +75,6 @@ class TranslationsBg extends Translations {
   late final _TranslationsDonationPageBg donationPage = _TranslationsDonationPageBg._(_root);
   @override
   late final _TranslationsChangelogPageBg changelogPage = _TranslationsChangelogPageBg._(_root);
-  @override
-  late final _TranslationsAliasGeneratorBg aliasGenerator = _TranslationsAliasGeneratorBg._(_root);
   @override
   late final _TranslationsDialogsBg dialogs = _TranslationsDialogsBg._(_root);
   @override
@@ -473,15 +480,6 @@ class _TranslationsChangelogPageBg extends TranslationsChangelogPageEn {
   // Translations
   @override
   String get title => 'Дневник на промените';
-}
-
-// Path: aliasGenerator
-class _TranslationsAliasGeneratorBg extends TranslationsAliasGeneratorEn {
-  _TranslationsAliasGeneratorBg._(TranslationsBg root) : this._root = root, super.internal(root);
-
-  final TranslationsBg _root; // ignore: unused_field
-
-  // Translations
 }
 
 // Path: dialogs
@@ -918,7 +916,7 @@ class _TranslationsTroubleshootPageFirewallBg extends TranslationsTroubleshootPa
   String solution({required Object port}) =>
       'Това най-вероятно е проблем със защитната стена. Можете да разрешите това, като разрешите входящи връзки (UDP и TCP) на порт ${port}.';
   @override
-  String get openFirewallSettings => 'Отворете защитната стена';
+  String get openFirewall => 'Отворете защитната стена';
 }
 
 // Path: troubleshootPage.noDiscovery

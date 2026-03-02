@@ -13,21 +13,30 @@ import 'strings.g.dart';
 class TranslationsEu extends Translations {
   /// You can call this constructor and build your own translation instance of this locale.
   /// Constructing via the enum [AppLocale.build] is preferred.
-  TranslationsEu({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
-    : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-      $meta = TranslationMetadata(
-        locale: AppLocale.eu,
-        overrides: overrides ?? {},
-        cardinalResolver: cardinalResolver,
-        ordinalResolver: ordinalResolver,
-      ),
-      super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+  TranslationsEu({
+    Map<String, Node>? overrides,
+    PluralResolver? cardinalResolver,
+    PluralResolver? ordinalResolver,
+    TranslationMetadata<AppLocale, Translations>? meta,
+  }) : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
+       $meta =
+           meta ??
+           TranslationMetadata(
+             locale: AppLocale.eu,
+             overrides: overrides ?? {},
+             cardinalResolver: cardinalResolver,
+             ordinalResolver: ordinalResolver,
+           ),
+       super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
 
   /// Metadata for the translations of <eu>.
   @override
   final TranslationMetadata<AppLocale, Translations> $meta;
 
   late final TranslationsEu _root = this; // ignore: unused_field
+
+  @override
+  TranslationsEu $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => TranslationsEu(meta: meta ?? this.$meta);
 
   // Translations
   @override
@@ -64,8 +73,6 @@ class TranslationsEu extends Translations {
   late final _TranslationsAboutPageEu aboutPage = _TranslationsAboutPageEu._(_root);
   @override
   late final _TranslationsChangelogPageEu changelogPage = _TranslationsChangelogPageEu._(_root);
-  @override
-  late final _TranslationsAliasGeneratorEu aliasGenerator = _TranslationsAliasGeneratorEu._(_root);
   @override
   late final _TranslationsDialogsEu dialogs = _TranslationsDialogsEu._(_root);
   @override
@@ -419,15 +426,6 @@ class _TranslationsChangelogPageEu extends TranslationsChangelogPageEn {
   String get title => 'Aldaketak';
 }
 
-// Path: aliasGenerator
-class _TranslationsAliasGeneratorEu extends TranslationsAliasGeneratorEn {
-  _TranslationsAliasGeneratorEu._(TranslationsEu root) : this._root = root, super.internal(root);
-
-  final TranslationsEu _root; // ignore: unused_field
-
-  // Translations
-}
-
 // Path: dialogs
 class _TranslationsDialogsEu extends TranslationsDialogsEn {
   _TranslationsDialogsEu._(TranslationsEu root) : this._root = root, super.internal(root);
@@ -742,7 +740,7 @@ class _TranslationsTroubleshootPageFirewallEu extends TranslationsTroubleshootPa
   String solution({required Object port}) =>
       'Suhesiarekin erlazionatutako arazo bat izen liteke. ${port} portura sarrerako konexioak (UDP eta TCP) onartuz konpon dezakezu.';
   @override
-  String get openFirewallSettings => 'Ireki Suhesia';
+  String get openFirewall => 'Ireki Suhesia';
 }
 
 // Path: troubleshootPage.noConnection

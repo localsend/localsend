@@ -13,21 +13,30 @@ import 'strings.g.dart';
 class TranslationsPtPt extends Translations {
   /// You can call this constructor and build your own translation instance of this locale.
   /// Constructing via the enum [AppLocale.build] is preferred.
-  TranslationsPtPt({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
-    : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-      $meta = TranslationMetadata(
-        locale: AppLocale.ptPt,
-        overrides: overrides ?? {},
-        cardinalResolver: cardinalResolver,
-        ordinalResolver: ordinalResolver,
-      ),
-      super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+  TranslationsPtPt({
+    Map<String, Node>? overrides,
+    PluralResolver? cardinalResolver,
+    PluralResolver? ordinalResolver,
+    TranslationMetadata<AppLocale, Translations>? meta,
+  }) : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
+       $meta =
+           meta ??
+           TranslationMetadata(
+             locale: AppLocale.ptPt,
+             overrides: overrides ?? {},
+             cardinalResolver: cardinalResolver,
+             ordinalResolver: ordinalResolver,
+           ),
+       super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
 
   /// Metadata for the translations of <pt-PT>.
   @override
   final TranslationMetadata<AppLocale, Translations> $meta;
 
   late final TranslationsPtPt _root = this; // ignore: unused_field
+
+  @override
+  TranslationsPtPt $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => TranslationsPtPt(meta: meta ?? this.$meta);
 
   // Translations
   @override
@@ -910,7 +919,7 @@ class _TranslationsTroubleshootPageFirewallPtPt extends TranslationsTroubleshoot
   String solution({required Object port}) =>
       'Provavelmente isto trata-se de um problema da firewall. Pode resolver este problema ao permitir ligações recebidas (UDP e TCP) na porta ${port}.';
   @override
-  String get openFirewallSettings => 'Abrir a Firewall';
+  String get openFirewall => 'Abrir a Firewall';
 }
 
 // Path: troubleshootPage.noConnection

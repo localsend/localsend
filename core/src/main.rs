@@ -161,7 +161,7 @@ async fn client_test() -> Result<()> {
     let client = LsHttpClientV3::try_new(PRIVATE_KEY, CERT)?;
 
     let nonce = client
-        .nonce(&ProtocolType::Https, "localhost", 53317)
+        .nonce(ProtocolType::Https, "localhost", 53317)
         .await?;
 
     println!("Received Nonce: {}", nonce);
@@ -179,7 +179,7 @@ async fn client_test() -> Result<()> {
 
     let response = client
         .register(
-            &ProtocolType::Https,
+            ProtocolType::Https,
             "localhost",
             53317,
             register_dto.clone(),
@@ -210,15 +210,15 @@ async fn client_test() -> Result<()> {
 
     let prepare_upload_response = client
         .prepare_upload(
-            &ProtocolType::Https,
+            ProtocolType::Https,
             "localhost",
             53317,
-            response.public_key,
+            None,
             prepare_upload_dto,
         )
         .await?;
 
-    println!("Prepare Upload Response: {:?}", prepare_upload_response);
+    println!("Prepare Upload Response: {:?}", prepare_upload_response.response);
 
     Ok(())
 }

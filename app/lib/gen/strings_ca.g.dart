@@ -13,21 +13,30 @@ import 'strings.g.dart';
 class TranslationsCa extends Translations {
   /// You can call this constructor and build your own translation instance of this locale.
   /// Constructing via the enum [AppLocale.build] is preferred.
-  TranslationsCa({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
-    : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-      $meta = TranslationMetadata(
-        locale: AppLocale.ca,
-        overrides: overrides ?? {},
-        cardinalResolver: cardinalResolver,
-        ordinalResolver: ordinalResolver,
-      ),
-      super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+  TranslationsCa({
+    Map<String, Node>? overrides,
+    PluralResolver? cardinalResolver,
+    PluralResolver? ordinalResolver,
+    TranslationMetadata<AppLocale, Translations>? meta,
+  }) : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
+       $meta =
+           meta ??
+           TranslationMetadata(
+             locale: AppLocale.ca,
+             overrides: overrides ?? {},
+             cardinalResolver: cardinalResolver,
+             ordinalResolver: ordinalResolver,
+           ),
+       super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
 
   /// Metadata for the translations of <ca>.
   @override
   final TranslationMetadata<AppLocale, Translations> $meta;
 
   late final TranslationsCa _root = this; // ignore: unused_field
+
+  @override
+  TranslationsCa $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => TranslationsCa(meta: meta ?? this.$meta);
 
   // Translations
   @override
@@ -947,7 +956,7 @@ class _TranslationsTroubleshootPageFirewallCa extends TranslationsTroubleshootPa
   String solution({required Object port}) =>
       'El més provable és que sigui un problema del tallafocs. Pot solucionar-ho permetent les connexiions entrants (UDP I TCP) al port ${port}.';
   @override
-  String get openFirewallSettings => 'Obrir Tallafocs';
+  String get openFirewall => 'Obrir Tallafocs';
 }
 
 // Path: troubleshootPage.noDiscovery

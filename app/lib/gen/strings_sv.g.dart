@@ -13,21 +13,30 @@ import 'strings.g.dart';
 class TranslationsSv extends Translations {
   /// You can call this constructor and build your own translation instance of this locale.
   /// Constructing via the enum [AppLocale.build] is preferred.
-  TranslationsSv({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
-    : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-      $meta = TranslationMetadata(
-        locale: AppLocale.sv,
-        overrides: overrides ?? {},
-        cardinalResolver: cardinalResolver,
-        ordinalResolver: ordinalResolver,
-      ),
-      super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+  TranslationsSv({
+    Map<String, Node>? overrides,
+    PluralResolver? cardinalResolver,
+    PluralResolver? ordinalResolver,
+    TranslationMetadata<AppLocale, Translations>? meta,
+  }) : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
+       $meta =
+           meta ??
+           TranslationMetadata(
+             locale: AppLocale.sv,
+             overrides: overrides ?? {},
+             cardinalResolver: cardinalResolver,
+             ordinalResolver: ordinalResolver,
+           ),
+       super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
 
   /// Metadata for the translations of <sv>.
   @override
   final TranslationMetadata<AppLocale, Translations> $meta;
 
   late final TranslationsSv _root = this; // ignore: unused_field
+
+  @override
+  TranslationsSv $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => TranslationsSv(meta: meta ?? this.$meta);
 
   // Translations
   @override
@@ -994,7 +1003,7 @@ class _TranslationsTroubleshootPageFirewallSv extends TranslationsTroubleshootPa
   String solution({required Object port}) =>
       'Detta är troligtvis ett brandväggsproblem. Du kan lösa det genom att tillåta inkommande anslutningar (UDP och TCP) på port ${port}.';
   @override
-  String get openFirewallSettings => 'Öppna brandväggen';
+  String get openFirewall => 'Öppna brandväggen';
 }
 
 // Path: troubleshootPage.noDiscovery

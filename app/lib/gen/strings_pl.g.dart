@@ -13,21 +13,30 @@ import 'strings.g.dart';
 class TranslationsPl extends Translations {
   /// You can call this constructor and build your own translation instance of this locale.
   /// Constructing via the enum [AppLocale.build] is preferred.
-  TranslationsPl({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
-    : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-      $meta = TranslationMetadata(
-        locale: AppLocale.pl,
-        overrides: overrides ?? {},
-        cardinalResolver: cardinalResolver,
-        ordinalResolver: ordinalResolver,
-      ),
-      super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+  TranslationsPl({
+    Map<String, Node>? overrides,
+    PluralResolver? cardinalResolver,
+    PluralResolver? ordinalResolver,
+    TranslationMetadata<AppLocale, Translations>? meta,
+  }) : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
+       $meta =
+           meta ??
+           TranslationMetadata(
+             locale: AppLocale.pl,
+             overrides: overrides ?? {},
+             cardinalResolver: cardinalResolver,
+             ordinalResolver: ordinalResolver,
+           ),
+       super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
 
   /// Metadata for the translations of <pl>.
   @override
   final TranslationMetadata<AppLocale, Translations> $meta;
 
   late final TranslationsPl _root = this; // ignore: unused_field
+
+  @override
+  TranslationsPl $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => TranslationsPl(meta: meta ?? this.$meta);
 
   // Translations
   @override
@@ -66,8 +75,6 @@ class TranslationsPl extends Translations {
   late final _TranslationsDonationPagePl donationPage = _TranslationsDonationPagePl._(_root);
   @override
   late final _TranslationsChangelogPagePl changelogPage = _TranslationsChangelogPagePl._(_root);
-  @override
-  late final _TranslationsAliasGeneratorPl aliasGenerator = _TranslationsAliasGeneratorPl._(_root);
   @override
   late final _TranslationsDialogsPl dialogs = _TranslationsDialogsPl._(_root);
   @override
@@ -473,15 +480,6 @@ class _TranslationsChangelogPagePl extends TranslationsChangelogPageEn {
   // Translations
   @override
   String get title => 'Dziennik zmian';
-}
-
-// Path: aliasGenerator
-class _TranslationsAliasGeneratorPl extends TranslationsAliasGeneratorEn {
-  _TranslationsAliasGeneratorPl._(TranslationsPl root) : this._root = root, super.internal(root);
-
-  final TranslationsPl _root; // ignore: unused_field
-
-  // Translations
 }
 
 // Path: dialogs
@@ -917,7 +915,7 @@ class _TranslationsTroubleshootPageFirewallPl extends TranslationsTroubleshootPa
   String solution({required Object port}) =>
       'Prawdopodobnie jest to problem z zaporą. Możesz go rozwiązać, zezwalając na przychodzące połączenia (UDP i TCP) na porcie ${port}.';
   @override
-  String get openFirewallSettings => 'Otwórz zaporę';
+  String get openFirewall => 'Otwórz zaporę';
 }
 
 // Path: troubleshootPage.noDiscovery

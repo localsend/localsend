@@ -13,21 +13,30 @@ import 'strings.g.dart';
 class TranslationsSl extends Translations {
   /// You can call this constructor and build your own translation instance of this locale.
   /// Constructing via the enum [AppLocale.build] is preferred.
-  TranslationsSl({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
-    : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-      $meta = TranslationMetadata(
-        locale: AppLocale.sl,
-        overrides: overrides ?? {},
-        cardinalResolver: cardinalResolver,
-        ordinalResolver: ordinalResolver,
-      ),
-      super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+  TranslationsSl({
+    Map<String, Node>? overrides,
+    PluralResolver? cardinalResolver,
+    PluralResolver? ordinalResolver,
+    TranslationMetadata<AppLocale, Translations>? meta,
+  }) : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
+       $meta =
+           meta ??
+           TranslationMetadata(
+             locale: AppLocale.sl,
+             overrides: overrides ?? {},
+             cardinalResolver: cardinalResolver,
+             ordinalResolver: ordinalResolver,
+           ),
+       super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
 
   /// Metadata for the translations of <sl>.
   @override
   final TranslationMetadata<AppLocale, Translations> $meta;
 
   late final TranslationsSl _root = this; // ignore: unused_field
+
+  @override
+  TranslationsSl $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => TranslationsSl(meta: meta ?? this.$meta);
 
   // Translations
   @override
@@ -944,7 +953,7 @@ class _TranslationsTroubleshootPageFirewallSl extends TranslationsTroubleshootPa
   @override
   String solution({required Object port}) => 'Verjetno gre za težavo z požarnim zidom. Dovoli dohodne povezave (UDP in TCP) na vrata ${port}.';
   @override
-  String get openFirewallSettings => 'Odpri požarni zid';
+  String get openFirewall => 'Odpri požarni zid';
 }
 
 // Path: troubleshootPage.noDiscovery

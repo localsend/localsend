@@ -13,21 +13,30 @@ import 'strings.g.dart';
 class TranslationsFilPh extends Translations {
   /// You can call this constructor and build your own translation instance of this locale.
   /// Constructing via the enum [AppLocale.build] is preferred.
-  TranslationsFilPh({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
-    : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-      $meta = TranslationMetadata(
-        locale: AppLocale.filPh,
-        overrides: overrides ?? {},
-        cardinalResolver: cardinalResolver,
-        ordinalResolver: ordinalResolver,
-      ),
-      super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+  TranslationsFilPh({
+    Map<String, Node>? overrides,
+    PluralResolver? cardinalResolver,
+    PluralResolver? ordinalResolver,
+    TranslationMetadata<AppLocale, Translations>? meta,
+  }) : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
+       $meta =
+           meta ??
+           TranslationMetadata(
+             locale: AppLocale.filPh,
+             overrides: overrides ?? {},
+             cardinalResolver: cardinalResolver,
+             ordinalResolver: ordinalResolver,
+           ),
+       super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
 
   /// Metadata for the translations of <fil-PH>.
   @override
   final TranslationMetadata<AppLocale, Translations> $meta;
 
   late final TranslationsFilPh _root = this; // ignore: unused_field
+
+  @override
+  TranslationsFilPh $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => TranslationsFilPh(meta: meta ?? this.$meta);
 
   // Translations
   @override
@@ -994,7 +1003,7 @@ class _TranslationsTroubleshootPageFirewallFilPh extends TranslationsTroubleshoo
   String solution({required Object port}) =>
       'Ito ay kadalasang isyu sa firewall. Maaari mong maayos ito sa pamamagitan nang pag-allow ng mga incoming connections (UDP at TCP) sa port ${port}.';
   @override
-  String get openFirewallSettings => 'Buksan ang Firewall';
+  String get openFirewall => 'Buksan ang Firewall';
 }
 
 // Path: troubleshootPage.noDiscovery

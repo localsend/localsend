@@ -13,21 +13,30 @@ import 'strings.g.dart';
 class TranslationsFa extends Translations {
   /// You can call this constructor and build your own translation instance of this locale.
   /// Constructing via the enum [AppLocale.build] is preferred.
-  TranslationsFa({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
-    : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-      $meta = TranslationMetadata(
-        locale: AppLocale.fa,
-        overrides: overrides ?? {},
-        cardinalResolver: cardinalResolver,
-        ordinalResolver: ordinalResolver,
-      ),
-      super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+  TranslationsFa({
+    Map<String, Node>? overrides,
+    PluralResolver? cardinalResolver,
+    PluralResolver? ordinalResolver,
+    TranslationMetadata<AppLocale, Translations>? meta,
+  }) : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
+       $meta =
+           meta ??
+           TranslationMetadata(
+             locale: AppLocale.fa,
+             overrides: overrides ?? {},
+             cardinalResolver: cardinalResolver,
+             ordinalResolver: ordinalResolver,
+           ),
+       super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
 
   /// Metadata for the translations of <fa>.
   @override
   final TranslationMetadata<AppLocale, Translations> $meta;
 
   late final TranslationsFa _root = this; // ignore: unused_field
+
+  @override
+  TranslationsFa $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => TranslationsFa(meta: meta ?? this.$meta);
 
   // Translations
   @override
@@ -992,7 +1001,7 @@ class _TranslationsTroubleshootPageFirewallFa extends TranslationsTroubleshootPa
   String solution({required Object port}) =>
       'این مشکل به احتمال زیاد مربوط به تنظیمات فایروال است. شما می‌توانید با دادن مجوز به اتصالات ورودی این مشکل را حل کنید (UDP و TCP) در پورت ${port}';
   @override
-  String get openFirewallSettings => 'بازکردن فایروال';
+  String get openFirewall => 'بازکردن فایروال';
 }
 
 // Path: troubleshootPage.noDiscovery

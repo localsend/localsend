@@ -13,21 +13,30 @@ import 'strings.g.dart';
 class TranslationsId extends Translations {
   /// You can call this constructor and build your own translation instance of this locale.
   /// Constructing via the enum [AppLocale.build] is preferred.
-  TranslationsId({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
-    : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-      $meta = TranslationMetadata(
-        locale: AppLocale.id,
-        overrides: overrides ?? {},
-        cardinalResolver: cardinalResolver,
-        ordinalResolver: ordinalResolver,
-      ),
-      super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+  TranslationsId({
+    Map<String, Node>? overrides,
+    PluralResolver? cardinalResolver,
+    PluralResolver? ordinalResolver,
+    TranslationMetadata<AppLocale, Translations>? meta,
+  }) : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
+       $meta =
+           meta ??
+           TranslationMetadata(
+             locale: AppLocale.id,
+             overrides: overrides ?? {},
+             cardinalResolver: cardinalResolver,
+             ordinalResolver: ordinalResolver,
+           ),
+       super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
 
   /// Metadata for the translations of <id>.
   @override
   final TranslationMetadata<AppLocale, Translations> $meta;
 
   late final TranslationsId _root = this; // ignore: unused_field
+
+  @override
+  TranslationsId $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => TranslationsId(meta: meta ?? this.$meta);
 
   // Translations
   @override
@@ -66,8 +75,6 @@ class TranslationsId extends Translations {
   late final _TranslationsDonationPageId donationPage = _TranslationsDonationPageId._(_root);
   @override
   late final _TranslationsChangelogPageId changelogPage = _TranslationsChangelogPageId._(_root);
-  @override
-  late final _TranslationsAliasGeneratorId aliasGenerator = _TranslationsAliasGeneratorId._(_root);
   @override
   late final _TranslationsDialogsId dialogs = _TranslationsDialogsId._(_root);
   @override
@@ -476,15 +483,6 @@ class _TranslationsChangelogPageId extends TranslationsChangelogPageEn {
   // Translations
   @override
   String get title => 'Catatan Perubahan';
-}
-
-// Path: aliasGenerator
-class _TranslationsAliasGeneratorId extends TranslationsAliasGeneratorEn {
-  _TranslationsAliasGeneratorId._(TranslationsId root) : this._root = root, super.internal(root);
-
-  final TranslationsId _root; // ignore: unused_field
-
-  // Translations
 }
 
 // Path: dialogs
@@ -920,7 +918,7 @@ class _TranslationsTroubleshootPageFirewallId extends TranslationsTroubleshootPa
   String solution({required Object port}) =>
       'Hal ini kemungkinan merupakan masalah tembok api (firewall). Anda dapat memperbaiki masalah ini dengan memperbolehkan koneksi masuk (UDP dan TCP) pada porta ${port}.';
   @override
-  String get openFirewallSettings => 'Buka Tembok Api';
+  String get openFirewall => 'Buka Tembok Api';
 }
 
 // Path: troubleshootPage.noDiscovery

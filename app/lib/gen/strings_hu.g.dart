@@ -13,21 +13,30 @@ import 'strings.g.dart';
 class TranslationsHu extends Translations {
   /// You can call this constructor and build your own translation instance of this locale.
   /// Constructing via the enum [AppLocale.build] is preferred.
-  TranslationsHu({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
-    : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-      $meta = TranslationMetadata(
-        locale: AppLocale.hu,
-        overrides: overrides ?? {},
-        cardinalResolver: cardinalResolver,
-        ordinalResolver: ordinalResolver,
-      ),
-      super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+  TranslationsHu({
+    Map<String, Node>? overrides,
+    PluralResolver? cardinalResolver,
+    PluralResolver? ordinalResolver,
+    TranslationMetadata<AppLocale, Translations>? meta,
+  }) : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
+       $meta =
+           meta ??
+           TranslationMetadata(
+             locale: AppLocale.hu,
+             overrides: overrides ?? {},
+             cardinalResolver: cardinalResolver,
+             ordinalResolver: ordinalResolver,
+           ),
+       super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
 
   /// Metadata for the translations of <hu>.
   @override
   final TranslationMetadata<AppLocale, Translations> $meta;
 
   late final TranslationsHu _root = this; // ignore: unused_field
+
+  @override
+  TranslationsHu $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => TranslationsHu(meta: meta ?? this.$meta);
 
   // Translations
   @override
@@ -66,8 +75,6 @@ class TranslationsHu extends Translations {
   late final _TranslationsDonationPageHu donationPage = _TranslationsDonationPageHu._(_root);
   @override
   late final _TranslationsChangelogPageHu changelogPage = _TranslationsChangelogPageHu._(_root);
-  @override
-  late final _TranslationsAliasGeneratorHu aliasGenerator = _TranslationsAliasGeneratorHu._(_root);
   @override
   late final _TranslationsDialogsHu dialogs = _TranslationsDialogsHu._(_root);
   @override
@@ -473,15 +480,6 @@ class _TranslationsChangelogPageHu extends TranslationsChangelogPageEn {
   // Translations
   @override
   String get title => 'Változásnapló';
-}
-
-// Path: aliasGenerator
-class _TranslationsAliasGeneratorHu extends TranslationsAliasGeneratorEn {
-  _TranslationsAliasGeneratorHu._(TranslationsHu root) : this._root = root, super.internal(root);
-
-  final TranslationsHu _root; // ignore: unused_field
-
-  // Translations
 }
 
 // Path: dialogs
@@ -917,7 +915,7 @@ class _TranslationsTroubleshootPageFirewallHu extends TranslationsTroubleshootPa
   String solution({required Object port}) =>
       'Ez valószínűleg tűzfal probléma. Ezt úgy oldhatja meg, hogy engedélyezi a bejövő kapcsolatokat (UDP és TCP) a ${port} porton.';
   @override
-  String get openFirewallSettings => 'Tűzfal megnyitás';
+  String get openFirewall => 'Tűzfal megnyitás';
 }
 
 // Path: troubleshootPage.noDiscovery

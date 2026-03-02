@@ -13,21 +13,30 @@ import 'strings.g.dart';
 class TranslationsRu extends Translations {
   /// You can call this constructor and build your own translation instance of this locale.
   /// Constructing via the enum [AppLocale.build] is preferred.
-  TranslationsRu({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
-    : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-      $meta = TranslationMetadata(
-        locale: AppLocale.ru,
-        overrides: overrides ?? {},
-        cardinalResolver: cardinalResolver,
-        ordinalResolver: ordinalResolver,
-      ),
-      super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+  TranslationsRu({
+    Map<String, Node>? overrides,
+    PluralResolver? cardinalResolver,
+    PluralResolver? ordinalResolver,
+    TranslationMetadata<AppLocale, Translations>? meta,
+  }) : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
+       $meta =
+           meta ??
+           TranslationMetadata(
+             locale: AppLocale.ru,
+             overrides: overrides ?? {},
+             cardinalResolver: cardinalResolver,
+             ordinalResolver: ordinalResolver,
+           ),
+       super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
 
   /// Metadata for the translations of <ru>.
   @override
   final TranslationMetadata<AppLocale, Translations> $meta;
 
   late final TranslationsRu _root = this; // ignore: unused_field
+
+  @override
+  TranslationsRu $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => TranslationsRu(meta: meta ?? this.$meta);
 
   // Translations
   @override
@@ -66,8 +75,6 @@ class TranslationsRu extends Translations {
   late final _TranslationsDonationPageRu donationPage = _TranslationsDonationPageRu._(_root);
   @override
   late final _TranslationsChangelogPageRu changelogPage = _TranslationsChangelogPageRu._(_root);
-  @override
-  late final _TranslationsAliasGeneratorRu aliasGenerator = _TranslationsAliasGeneratorRu._(_root);
   @override
   late final _TranslationsDialogsRu dialogs = _TranslationsDialogsRu._(_root);
   @override
@@ -476,15 +483,6 @@ class _TranslationsChangelogPageRu extends TranslationsChangelogPageEn {
   // Translations
   @override
   String get title => 'История изменений';
-}
-
-// Path: aliasGenerator
-class _TranslationsAliasGeneratorRu extends TranslationsAliasGeneratorEn {
-  _TranslationsAliasGeneratorRu._(TranslationsRu root) : this._root = root, super.internal(root);
-
-  final TranslationsRu _root; // ignore: unused_field
-
-  // Translations
 }
 
 // Path: dialogs
@@ -921,7 +919,7 @@ class _TranslationsTroubleshootPageFirewallRu extends TranslationsTroubleshootPa
   String solution({required Object port}) =>
       'Скорее всего, это проблема брандмауэра. Вы можете решить эту проблему, разрешив входящие соединения (UDP и TCP) для порта ${port}.';
   @override
-  String get openFirewallSettings => 'Открыть брандмауэр';
+  String get openFirewall => 'Открыть брандмауэр';
 }
 
 // Path: troubleshootPage.noDiscovery

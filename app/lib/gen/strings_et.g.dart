@@ -13,21 +13,30 @@ import 'strings.g.dart';
 class TranslationsEt extends Translations {
   /// You can call this constructor and build your own translation instance of this locale.
   /// Constructing via the enum [AppLocale.build] is preferred.
-  TranslationsEt({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
-    : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-      $meta = TranslationMetadata(
-        locale: AppLocale.et,
-        overrides: overrides ?? {},
-        cardinalResolver: cardinalResolver,
-        ordinalResolver: ordinalResolver,
-      ),
-      super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+  TranslationsEt({
+    Map<String, Node>? overrides,
+    PluralResolver? cardinalResolver,
+    PluralResolver? ordinalResolver,
+    TranslationMetadata<AppLocale, Translations>? meta,
+  }) : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
+       $meta =
+           meta ??
+           TranslationMetadata(
+             locale: AppLocale.et,
+             overrides: overrides ?? {},
+             cardinalResolver: cardinalResolver,
+             ordinalResolver: ordinalResolver,
+           ),
+       super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
 
   /// Metadata for the translations of <et>.
   @override
   final TranslationMetadata<AppLocale, Translations> $meta;
 
   late final TranslationsEt _root = this; // ignore: unused_field
+
+  @override
+  TranslationsEt $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => TranslationsEt(meta: meta ?? this.$meta);
 
   // Translations
   @override
@@ -66,8 +75,6 @@ class TranslationsEt extends Translations {
   late final _TranslationsDonationPageEt donationPage = _TranslationsDonationPageEt._(_root);
   @override
   late final _TranslationsChangelogPageEt changelogPage = _TranslationsChangelogPageEt._(_root);
-  @override
-  late final _TranslationsAliasGeneratorEt aliasGenerator = _TranslationsAliasGeneratorEt._(_root);
   @override
   late final _TranslationsDialogsEt dialogs = _TranslationsDialogsEt._(_root);
   @override
@@ -473,15 +480,6 @@ class _TranslationsChangelogPageEt extends TranslationsChangelogPageEn {
   // Translations
   @override
   String get title => 'Muudatuste logi';
-}
-
-// Path: aliasGenerator
-class _TranslationsAliasGeneratorEt extends TranslationsAliasGeneratorEn {
-  _TranslationsAliasGeneratorEt._(TranslationsEt root) : this._root = root, super.internal(root);
-
-  final TranslationsEt _root; // ignore: unused_field
-
-  // Translations
 }
 
 // Path: dialogs
@@ -917,7 +915,7 @@ class _TranslationsTroubleshootPageFirewallEt extends TranslationsTroubleshootPa
   String solution({required Object port}) =>
       'Tõenäoliselt on see seotud tulemüüriga. Olukorra võid lahendada lubades sisenevad (UDP ja TCP) ühendused pordis ${port}.';
   @override
-  String get openFirewallSettings => 'Ava tulemüüri seadistused';
+  String get openFirewall => 'Ava tulemüüri seadistused';
 }
 
 // Path: troubleshootPage.noDiscovery

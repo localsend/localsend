@@ -13,21 +13,30 @@ import 'strings.g.dart';
 class TranslationsKo extends Translations {
   /// You can call this constructor and build your own translation instance of this locale.
   /// Constructing via the enum [AppLocale.build] is preferred.
-  TranslationsKo({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
-    : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-      $meta = TranslationMetadata(
-        locale: AppLocale.ko,
-        overrides: overrides ?? {},
-        cardinalResolver: cardinalResolver,
-        ordinalResolver: ordinalResolver,
-      ),
-      super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+  TranslationsKo({
+    Map<String, Node>? overrides,
+    PluralResolver? cardinalResolver,
+    PluralResolver? ordinalResolver,
+    TranslationMetadata<AppLocale, Translations>? meta,
+  }) : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
+       $meta =
+           meta ??
+           TranslationMetadata(
+             locale: AppLocale.ko,
+             overrides: overrides ?? {},
+             cardinalResolver: cardinalResolver,
+             ordinalResolver: ordinalResolver,
+           ),
+       super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
 
   /// Metadata for the translations of <ko>.
   @override
   final TranslationMetadata<AppLocale, Translations> $meta;
 
   late final TranslationsKo _root = this; // ignore: unused_field
+
+  @override
+  TranslationsKo $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => TranslationsKo(meta: meta ?? this.$meta);
 
   // Translations
   @override
@@ -68,8 +77,6 @@ class TranslationsKo extends Translations {
   late final _TranslationsDonationPageKo donationPage = _TranslationsDonationPageKo._(_root);
   @override
   late final _TranslationsChangelogPageKo changelogPage = _TranslationsChangelogPageKo._(_root);
-  @override
-  late final _TranslationsAliasGeneratorKo aliasGenerator = _TranslationsAliasGeneratorKo._(_root);
   @override
   late final _TranslationsDialogsKo dialogs = _TranslationsDialogsKo._(_root);
   @override
@@ -490,15 +497,6 @@ class _TranslationsChangelogPageKo extends TranslationsChangelogPageEn {
   String get title => '변경사항';
 }
 
-// Path: aliasGenerator
-class _TranslationsAliasGeneratorKo extends TranslationsAliasGeneratorEn {
-  _TranslationsAliasGeneratorKo._(TranslationsKo root) : this._root = root, super.internal(root);
-
-  final TranslationsKo _root; // ignore: unused_field
-
-  // Translations
-}
-
 // Path: dialogs
 class _TranslationsDialogsKo extends TranslationsDialogsEn {
   _TranslationsDialogsKo._(TranslationsKo root) : this._root = root, super.internal(root);
@@ -908,7 +906,7 @@ class _TranslationsTroubleshootPageFirewallKo extends TranslationsTroubleshootPa
   @override
   String solution({required Object port}) => '방화벽 설정으로 인한 문제일 가능성이 높습니다. ${port} 포트로 들어오는 연결(UDP 및 TCP)을 허용하여 이 문제를 해결할 수 있습니다.';
   @override
-  String get openFirewallSettings => '방화벽 열기';
+  String get openFirewall => '방화벽 열기';
 }
 
 // Path: troubleshootPage.noDiscovery

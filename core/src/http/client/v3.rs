@@ -1,4 +1,4 @@
-use super::{ClientError, ResponseExt};
+use super::{ClientError, ResponseExt, ResultWithPublicKey};
 use crate::http;
 use crate::http::client::url::{ApiVersion, TargetUrl};
 use crate::http::dto::ProtocolType;
@@ -21,16 +21,6 @@ pub struct LsHttpClientV3 {
     generated_nonce_map: Arc<Mutex<LruCache<String, Vec<u8>>>>,
 }
 
-pub struct RegisterResult {
-    /// The public key extracted from the certificate.
-    /// Encoded in PEM format.
-    /// Only available in HTTPS.
-    pub public_key: Option<String>,
-
-    /// The response body from the register request.
-    pub body: http::dto::RegisterResponseDto,
-}
-
 impl LsHttpClientV3 {
     pub fn try_new(private_key: &str, cert: &str) -> Result<Self, ClientError> {
         Ok(Self {
@@ -46,7 +36,7 @@ impl LsHttpClientV3 {
 
     pub async fn nonce(
         &self,
-        protocol: &ProtocolType,
+        protocol: ProtocolType,
         ip: &str,
         port: u16,
     ) -> Result<String, ClientError> {
@@ -79,7 +69,7 @@ impl LsHttpClientV3 {
             return res.into_error().await;
         }
 
-        let remote_key = to_identifier(&res, protocol == &ProtocolType::Https, None)?;
+        let remote_key = to_identifier(&res, protocol == ProtocolType::Https, None)?;
         let body = res.json::<http::dto::NonceResponse>().await?;
 
         // Save the response nonce and our generated nonce
@@ -107,11 +97,11 @@ impl LsHttpClientV3 {
 
     pub async fn register(
         &self,
-        protocol: &ProtocolType,
+        protocol: ProtocolType,
         ip: &str,
         port: u16,
         payload: http::dto::RegisterDto,
-    ) -> Result<RegisterResult, ClientError> {
+    ) -> Result<ResultWithPublicKey<http::dto::RegisterResponseDto>, ClientError> {
         let res = self
             .client
             .post(
@@ -136,17 +126,17 @@ impl LsHttpClientV3 {
 
         let body = res.json::<http::dto::RegisterResponseDto>().await?;
 
-        Ok(RegisterResult { public_key, body })
+        Ok(ResultWithPublicKey { public_key, body })
     }
 
     pub async fn prepare_upload(
         &self,
-        protocol: &ProtocolType,
+        protocol: ProtocolType,
         ip: &str,
         port: u16,
         public_key: Option<String>,
         payload: http::dto::PrepareUploadRequestDto,
-    ) -> Result<http::dto::PrepareUploadResponseDto, ClientError> {
+    ) -> Result<http::dto::PrepareUploadResult, ClientError> {
         let res = self
             .client
             .post(
@@ -164,28 +154,34 @@ impl LsHttpClientV3 {
             .send()
             .await?;
 
-        if let Some(public_key) = public_key {
-            super::verify_cert_from_res(&res, Some(public_key))?;
+        if protocol == ProtocolType::Https {
+            super::verify_cert_from_res(&res, public_key)?;
         }
 
-        if res.status() != StatusCode::OK {
+        let status = res.status();
+
+        if status.as_u16() >= 400 {
             return res.into_error().await;
         }
 
-        let body = res.json::<http::dto::PrepareUploadResponseDto>().await?;
+        let response = res.json::<http::dto::PrepareUploadResponseDto>().await?;
 
-        Ok(body)
+        Ok(http::dto::PrepareUploadResult {
+            status_code: status.as_u16(),
+            response,
+        })
     }
 
     /// Uploads a file to the server.
     pub async fn upload(
         &self,
-        protocol: &ProtocolType,
+        protocol: ProtocolType,
         ip: &str,
         port: u16,
-        session_id: String,
-        file_id: String,
-        token: String,
+        public_key: Option<String>,
+        session_id: &str,
+        file_id: &str,
+        token: &str,
         binary: mpsc::Receiver<Vec<u8>>,
     ) -> Result<(), ClientError> {
         let res = self
@@ -212,6 +208,10 @@ impl LsHttpClientV3 {
             .send()
             .await?;
 
+        if protocol == ProtocolType::Https {
+            super::verify_cert_from_res(&res, public_key)?;
+        }
+
         if res.status() != StatusCode::OK {
             return res.into_error().await;
         }
@@ -221,10 +221,10 @@ impl LsHttpClientV3 {
 
     pub async fn cancel(
         &self,
-        protocol: &ProtocolType,
+        protocol: ProtocolType,
         ip: &str,
         port: u16,
-        session_id: String,
+        session_id: &str,
     ) -> Result<(), ClientError> {
         self.client
             .post(
@@ -234,7 +234,7 @@ impl LsHttpClientV3 {
                     host: ip.to_string(),
                     port,
                     path: "/cancel",
-                    params: &[("sessionId", &session_id)],
+                    params: &[("sessionId", session_id)],
                 }
                 .to_string(),
             )

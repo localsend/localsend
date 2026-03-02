@@ -13,21 +13,30 @@ import 'strings.g.dart';
 class TranslationsKm extends Translations {
   /// You can call this constructor and build your own translation instance of this locale.
   /// Constructing via the enum [AppLocale.build] is preferred.
-  TranslationsKm({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
-    : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-      $meta = TranslationMetadata(
-        locale: AppLocale.km,
-        overrides: overrides ?? {},
-        cardinalResolver: cardinalResolver,
-        ordinalResolver: ordinalResolver,
-      ),
-      super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+  TranslationsKm({
+    Map<String, Node>? overrides,
+    PluralResolver? cardinalResolver,
+    PluralResolver? ordinalResolver,
+    TranslationMetadata<AppLocale, Translations>? meta,
+  }) : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
+       $meta =
+           meta ??
+           TranslationMetadata(
+             locale: AppLocale.km,
+             overrides: overrides ?? {},
+             cardinalResolver: cardinalResolver,
+             ordinalResolver: ordinalResolver,
+           ),
+       super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
 
   /// Metadata for the translations of <km>.
   @override
   final TranslationMetadata<AppLocale, Translations> $meta;
 
   late final TranslationsKm _root = this; // ignore: unused_field
+
+  @override
+  TranslationsKm $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => TranslationsKm(meta: meta ?? this.$meta);
 
   // Translations
   @override
@@ -965,7 +974,7 @@ class _TranslationsTroubleshootPageFirewallKm extends TranslationsTroubleshootPa
   String solution({required Object port}) =>
       'នេះទំនងជាបញ្ហារបស់ Firewall ។ អ្នកអាចដោះស្រាយវាបានដោយអនុញ្ញាតឱ្យមានការតភ្ជាប់ចូល (UDP និង TCP) តាមរយៈច្រក ${port}។';
   @override
-  String get openFirewallSettings => 'បើក Firewall';
+  String get openFirewall => 'បើក Firewall';
 }
 
 // Path: troubleshootPage.noDiscovery

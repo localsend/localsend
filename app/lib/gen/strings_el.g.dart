@@ -13,21 +13,30 @@ import 'strings.g.dart';
 class TranslationsEl extends Translations {
   /// You can call this constructor and build your own translation instance of this locale.
   /// Constructing via the enum [AppLocale.build] is preferred.
-  TranslationsEl({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
-    : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-      $meta = TranslationMetadata(
-        locale: AppLocale.el,
-        overrides: overrides ?? {},
-        cardinalResolver: cardinalResolver,
-        ordinalResolver: ordinalResolver,
-      ),
-      super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+  TranslationsEl({
+    Map<String, Node>? overrides,
+    PluralResolver? cardinalResolver,
+    PluralResolver? ordinalResolver,
+    TranslationMetadata<AppLocale, Translations>? meta,
+  }) : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
+       $meta =
+           meta ??
+           TranslationMetadata(
+             locale: AppLocale.el,
+             overrides: overrides ?? {},
+             cardinalResolver: cardinalResolver,
+             ordinalResolver: ordinalResolver,
+           ),
+       super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
 
   /// Metadata for the translations of <el>.
   @override
   final TranslationMetadata<AppLocale, Translations> $meta;
 
   late final TranslationsEl _root = this; // ignore: unused_field
+
+  @override
+  TranslationsEl $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => TranslationsEl(meta: meta ?? this.$meta);
 
   // Translations
   @override
@@ -996,7 +1005,7 @@ class _TranslationsTroubleshootPageFirewallEl extends TranslationsTroubleshootPa
   String solution({required Object port}) =>
       'Αυτό είναι πιθανότατα ένα ζήτημα του τείχους προστασίας. Μπορείτε να το λύσετε επιτρέποντας τις εισερχόμενες συνδέσεις (UDP και TCP) στη θύρα ${port}.';
   @override
-  String get openFirewallSettings => 'Άνοιγμα Τείχους Προστασίας';
+  String get openFirewall => 'Άνοιγμα Τείχους Προστασίας';
 }
 
 // Path: troubleshootPage.noDiscovery

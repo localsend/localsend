@@ -13,21 +13,30 @@ import 'strings.g.dart';
 class TranslationsZhTw extends Translations {
   /// You can call this constructor and build your own translation instance of this locale.
   /// Constructing via the enum [AppLocale.build] is preferred.
-  TranslationsZhTw({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
-    : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-      $meta = TranslationMetadata(
-        locale: AppLocale.zhTw,
-        overrides: overrides ?? {},
-        cardinalResolver: cardinalResolver,
-        ordinalResolver: ordinalResolver,
-      ),
-      super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+  TranslationsZhTw({
+    Map<String, Node>? overrides,
+    PluralResolver? cardinalResolver,
+    PluralResolver? ordinalResolver,
+    TranslationMetadata<AppLocale, Translations>? meta,
+  }) : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
+       $meta =
+           meta ??
+           TranslationMetadata(
+             locale: AppLocale.zhTw,
+             overrides: overrides ?? {},
+             cardinalResolver: cardinalResolver,
+             ordinalResolver: ordinalResolver,
+           ),
+       super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
 
   /// Metadata for the translations of <zh-TW>.
   @override
   final TranslationMetadata<AppLocale, Translations> $meta;
 
   late final TranslationsZhTw _root = this; // ignore: unused_field
+
+  @override
+  TranslationsZhTw $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => TranslationsZhTw(meta: meta ?? this.$meta);
 
   // Translations
   @override
@@ -66,8 +75,6 @@ class TranslationsZhTw extends Translations {
   late final _TranslationsDonationPageZhTw donationPage = _TranslationsDonationPageZhTw._(_root);
   @override
   late final _TranslationsChangelogPageZhTw changelogPage = _TranslationsChangelogPageZhTw._(_root);
-  @override
-  late final _TranslationsAliasGeneratorZhTw aliasGenerator = _TranslationsAliasGeneratorZhTw._(_root);
   @override
   late final _TranslationsDialogsZhTw dialogs = _TranslationsDialogsZhTw._(_root);
   @override
@@ -468,15 +475,6 @@ class _TranslationsChangelogPageZhTw extends TranslationsChangelogPageEn {
   // Translations
   @override
   String get title => '變更記錄';
-}
-
-// Path: aliasGenerator
-class _TranslationsAliasGeneratorZhTw extends TranslationsAliasGeneratorEn {
-  _TranslationsAliasGeneratorZhTw._(TranslationsZhTw root) : this._root = root, super.internal(root);
-
-  final TranslationsZhTw _root; // ignore: unused_field
-
-  // Translations
 }
 
 // Path: dialogs
@@ -906,7 +904,7 @@ class _TranslationsTroubleshootPageFirewallZhTw extends TranslationsTroubleshoot
   @override
   String solution({required Object port}) => '這很可能是防火牆問題。您可以透過允許通訊埠 ${port} 上的連入連線 (UDP 和 TCP) 以解決此問題。';
   @override
-  String get openFirewallSettings => '開啟防火牆';
+  String get openFirewall => '開啟防火牆';
 }
 
 // Path: troubleshootPage.noDiscovery

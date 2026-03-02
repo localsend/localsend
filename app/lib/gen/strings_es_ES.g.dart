@@ -13,21 +13,30 @@ import 'strings.g.dart';
 class TranslationsEsEs extends Translations {
   /// You can call this constructor and build your own translation instance of this locale.
   /// Constructing via the enum [AppLocale.build] is preferred.
-  TranslationsEsEs({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
-    : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-      $meta = TranslationMetadata(
-        locale: AppLocale.esEs,
-        overrides: overrides ?? {},
-        cardinalResolver: cardinalResolver,
-        ordinalResolver: ordinalResolver,
-      ),
-      super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+  TranslationsEsEs({
+    Map<String, Node>? overrides,
+    PluralResolver? cardinalResolver,
+    PluralResolver? ordinalResolver,
+    TranslationMetadata<AppLocale, Translations>? meta,
+  }) : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
+       $meta =
+           meta ??
+           TranslationMetadata(
+             locale: AppLocale.esEs,
+             overrides: overrides ?? {},
+             cardinalResolver: cardinalResolver,
+             ordinalResolver: ordinalResolver,
+           ),
+       super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
 
   /// Metadata for the translations of <es-ES>.
   @override
   final TranslationMetadata<AppLocale, Translations> $meta;
 
   late final TranslationsEsEs _root = this; // ignore: unused_field
+
+  @override
+  TranslationsEsEs $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => TranslationsEsEs(meta: meta ?? this.$meta);
 
   // Translations
   @override
@@ -66,8 +75,6 @@ class TranslationsEsEs extends Translations {
   late final _TranslationsDonationPageEsEs donationPage = _TranslationsDonationPageEsEs._(_root);
   @override
   late final _TranslationsChangelogPageEsEs changelogPage = _TranslationsChangelogPageEsEs._(_root);
-  @override
-  late final _TranslationsAliasGeneratorEsEs aliasGenerator = _TranslationsAliasGeneratorEsEs._(_root);
   @override
   late final _TranslationsDialogsEsEs dialogs = _TranslationsDialogsEsEs._(_root);
   @override
@@ -473,15 +480,6 @@ class _TranslationsChangelogPageEsEs extends TranslationsChangelogPageEn {
   // Translations
   @override
   String get title => 'Registro de cambios';
-}
-
-// Path: aliasGenerator
-class _TranslationsAliasGeneratorEsEs extends TranslationsAliasGeneratorEn {
-  _TranslationsAliasGeneratorEsEs._(TranslationsEsEs root) : this._root = root, super.internal(root);
-
-  final TranslationsEsEs _root; // ignore: unused_field
-
-  // Translations
 }
 
 // Path: dialogs
@@ -916,7 +914,7 @@ class _TranslationsTroubleshootPageFirewallEsEs extends TranslationsTroubleshoot
   String solution({required Object port}) =>
       'Lo más probable es que se trate de un problema con el firewall, puedes solucionarlo permitiendo las conexiones entrantes (UDP y TCP) en el puerto ${port}.';
   @override
-  String get openFirewallSettings => 'Abrir Firewall';
+  String get openFirewall => 'Abrir Firewall';
 }
 
 // Path: troubleshootPage.noDiscovery

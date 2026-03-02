@@ -13,21 +13,30 @@ import 'strings.g.dart';
 class TranslationsGu extends Translations {
   /// You can call this constructor and build your own translation instance of this locale.
   /// Constructing via the enum [AppLocale.build] is preferred.
-  TranslationsGu({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
-    : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-      $meta = TranslationMetadata(
-        locale: AppLocale.gu,
-        overrides: overrides ?? {},
-        cardinalResolver: cardinalResolver,
-        ordinalResolver: ordinalResolver,
-      ),
-      super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+  TranslationsGu({
+    Map<String, Node>? overrides,
+    PluralResolver? cardinalResolver,
+    PluralResolver? ordinalResolver,
+    TranslationMetadata<AppLocale, Translations>? meta,
+  }) : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
+       $meta =
+           meta ??
+           TranslationMetadata(
+             locale: AppLocale.gu,
+             overrides: overrides ?? {},
+             cardinalResolver: cardinalResolver,
+             ordinalResolver: ordinalResolver,
+           ),
+       super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
 
   /// Metadata for the translations of <gu>.
   @override
   final TranslationMetadata<AppLocale, Translations> $meta;
 
   late final TranslationsGu _root = this; // ignore: unused_field
+
+  @override
+  TranslationsGu $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => TranslationsGu(meta: meta ?? this.$meta);
 
   // Translations
   @override
@@ -904,7 +913,7 @@ class _TranslationsTroubleshootPageFirewallGu extends TranslationsTroubleshootPa
   String solution({required Object port}) =>
       'આ મોટાભાગે ફાયરવોલનો પ્રશ્ન છે. તમે ${port} પોર્ટ પર આવનારી કનેક્શન્સ (UDP અને TCP) ને મંજૂરી આપીને આ ઉકેલી શકો છો.';
   @override
-  String get openFirewallSettings => 'ફાયરવોલ ખોલો';
+  String get openFirewall => 'ફાયરવોલ ખોલો';
 }
 
 // Path: troubleshootPage.noConnection

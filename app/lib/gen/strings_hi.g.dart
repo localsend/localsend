@@ -13,21 +13,30 @@ import 'strings.g.dart';
 class TranslationsHi extends Translations {
   /// You can call this constructor and build your own translation instance of this locale.
   /// Constructing via the enum [AppLocale.build] is preferred.
-  TranslationsHi({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
-    : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-      $meta = TranslationMetadata(
-        locale: AppLocale.hi,
-        overrides: overrides ?? {},
-        cardinalResolver: cardinalResolver,
-        ordinalResolver: ordinalResolver,
-      ),
-      super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+  TranslationsHi({
+    Map<String, Node>? overrides,
+    PluralResolver? cardinalResolver,
+    PluralResolver? ordinalResolver,
+    TranslationMetadata<AppLocale, Translations>? meta,
+  }) : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
+       $meta =
+           meta ??
+           TranslationMetadata(
+             locale: AppLocale.hi,
+             overrides: overrides ?? {},
+             cardinalResolver: cardinalResolver,
+             ordinalResolver: ordinalResolver,
+           ),
+       super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
 
   /// Metadata for the translations of <hi>.
   @override
   final TranslationMetadata<AppLocale, Translations> $meta;
 
   late final TranslationsHi _root = this; // ignore: unused_field
+
+  @override
+  TranslationsHi $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => TranslationsHi(meta: meta ?? this.$meta);
 
   // Translations
   @override
@@ -993,7 +1002,7 @@ class _TranslationsTroubleshootPageFirewallHi extends TranslationsTroubleshootPa
   String solution({required Object port}) =>
       'यह संभवतः फ़ायरवॉल समस्या है। आप इसे पोर्ट ${port} पर आने वाले कनेक्शनों (UDP और TCP) को अनुमति देकर हल कर सकते हैं।';
   @override
-  String get openFirewallSettings => 'फायरवॉल खोलें';
+  String get openFirewall => 'फायरवॉल खोलें';
 }
 
 // Path: troubleshootPage.noDiscovery

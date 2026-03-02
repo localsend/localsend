@@ -13,21 +13,30 @@ import 'strings.g.dart';
 class TranslationsVi extends Translations {
   /// You can call this constructor and build your own translation instance of this locale.
   /// Constructing via the enum [AppLocale.build] is preferred.
-  TranslationsVi({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
-    : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-      $meta = TranslationMetadata(
-        locale: AppLocale.vi,
-        overrides: overrides ?? {},
-        cardinalResolver: cardinalResolver,
-        ordinalResolver: ordinalResolver,
-      ),
-      super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+  TranslationsVi({
+    Map<String, Node>? overrides,
+    PluralResolver? cardinalResolver,
+    PluralResolver? ordinalResolver,
+    TranslationMetadata<AppLocale, Translations>? meta,
+  }) : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
+       $meta =
+           meta ??
+           TranslationMetadata(
+             locale: AppLocale.vi,
+             overrides: overrides ?? {},
+             cardinalResolver: cardinalResolver,
+             ordinalResolver: ordinalResolver,
+           ),
+       super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
 
   /// Metadata for the translations of <vi>.
   @override
   final TranslationMetadata<AppLocale, Translations> $meta;
 
   late final TranslationsVi _root = this; // ignore: unused_field
+
+  @override
+  TranslationsVi $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => TranslationsVi(meta: meta ?? this.$meta);
 
   // Translations
   @override
@@ -66,8 +75,6 @@ class TranslationsVi extends Translations {
   late final _TranslationsDonationPageVi donationPage = _TranslationsDonationPageVi._(_root);
   @override
   late final _TranslationsChangelogPageVi changelogPage = _TranslationsChangelogPageVi._(_root);
-  @override
-  late final _TranslationsAliasGeneratorVi aliasGenerator = _TranslationsAliasGeneratorVi._(_root);
   @override
   late final _TranslationsDialogsVi dialogs = _TranslationsDialogsVi._(_root);
   @override
@@ -474,15 +481,6 @@ class _TranslationsChangelogPageVi extends TranslationsChangelogPageEn {
   // Translations
   @override
   String get title => 'Changelog';
-}
-
-// Path: aliasGenerator
-class _TranslationsAliasGeneratorVi extends TranslationsAliasGeneratorEn {
-  _TranslationsAliasGeneratorVi._(TranslationsVi root) : this._root = root, super.internal(root);
-
-  final TranslationsVi _root; // ignore: unused_field
-
-  // Translations
 }
 
 // Path: dialogs
@@ -894,7 +892,7 @@ class _TranslationsTroubleshootPageFirewallVi extends TranslationsTroubleshootPa
   String solution({required Object port}) =>
       'Có vẻ như đây là một vấn đề với tường lửa (firewall). Bạn có thể khắc phục bằng cách chấp thuận các kết nối đến (UDP và TCP) trên port ${port}.';
   @override
-  String get openFirewallSettings => 'Mở tường lửa(Firewall)';
+  String get openFirewall => 'Mở tường lửa(Firewall)';
 }
 
 // Path: troubleshootPage.noDiscovery

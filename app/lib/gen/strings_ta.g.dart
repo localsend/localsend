@@ -13,21 +13,30 @@ import 'strings.g.dart';
 class TranslationsTa extends Translations {
   /// You can call this constructor and build your own translation instance of this locale.
   /// Constructing via the enum [AppLocale.build] is preferred.
-  TranslationsTa({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
-    : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-      $meta = TranslationMetadata(
-        locale: AppLocale.ta,
-        overrides: overrides ?? {},
-        cardinalResolver: cardinalResolver,
-        ordinalResolver: ordinalResolver,
-      ),
-      super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+  TranslationsTa({
+    Map<String, Node>? overrides,
+    PluralResolver? cardinalResolver,
+    PluralResolver? ordinalResolver,
+    TranslationMetadata<AppLocale, Translations>? meta,
+  }) : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
+       $meta =
+           meta ??
+           TranslationMetadata(
+             locale: AppLocale.ta,
+             overrides: overrides ?? {},
+             cardinalResolver: cardinalResolver,
+             ordinalResolver: ordinalResolver,
+           ),
+       super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
 
   /// Metadata for the translations of <ta>.
   @override
   final TranslationMetadata<AppLocale, Translations> $meta;
 
   late final TranslationsTa _root = this; // ignore: unused_field
+
+  @override
+  TranslationsTa $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => TranslationsTa(meta: meta ?? this.$meta);
 
   // Translations
   @override
@@ -994,7 +1003,7 @@ class _TranslationsTroubleshootPageFirewallTa extends TranslationsTroubleshootPa
   String solution({required Object port}) =>
       'இது பொதுவாக ஒரு ஃபயர்வால் பிரச்சனை ஆகும். ${port} போர்ட் மீது உள்வரும் இணைப்புகளை (UDP மற்றும் TCP) அனுமதிப்பதன் மூலம் இதை சரி செய்யலாம்.';
   @override
-  String get openFirewallSettings => 'ஃபயர்வால் திறக்கவும்';
+  String get openFirewall => 'ஃபயர்வால் திறக்கவும்';
 }
 
 // Path: troubleshootPage.noDiscovery

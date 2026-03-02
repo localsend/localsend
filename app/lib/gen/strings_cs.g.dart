@@ -13,21 +13,30 @@ import 'strings.g.dart';
 class TranslationsCs extends Translations {
   /// You can call this constructor and build your own translation instance of this locale.
   /// Constructing via the enum [AppLocale.build] is preferred.
-  TranslationsCs({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
-    : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-      $meta = TranslationMetadata(
-        locale: AppLocale.cs,
-        overrides: overrides ?? {},
-        cardinalResolver: cardinalResolver,
-        ordinalResolver: ordinalResolver,
-      ),
-      super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+  TranslationsCs({
+    Map<String, Node>? overrides,
+    PluralResolver? cardinalResolver,
+    PluralResolver? ordinalResolver,
+    TranslationMetadata<AppLocale, Translations>? meta,
+  }) : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
+       $meta =
+           meta ??
+           TranslationMetadata(
+             locale: AppLocale.cs,
+             overrides: overrides ?? {},
+             cardinalResolver: cardinalResolver,
+             ordinalResolver: ordinalResolver,
+           ),
+       super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
 
   /// Metadata for the translations of <cs>.
   @override
   final TranslationMetadata<AppLocale, Translations> $meta;
 
   late final TranslationsCs _root = this; // ignore: unused_field
+
+  @override
+  TranslationsCs $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => TranslationsCs(meta: meta ?? this.$meta);
 
   // Translations
   @override
@@ -68,8 +77,6 @@ class TranslationsCs extends Translations {
   late final _TranslationsDonationPageCs donationPage = _TranslationsDonationPageCs._(_root);
   @override
   late final _TranslationsChangelogPageCs changelogPage = _TranslationsChangelogPageCs._(_root);
-  @override
-  late final _TranslationsAliasGeneratorCs aliasGenerator = _TranslationsAliasGeneratorCs._(_root);
   @override
   late final _TranslationsDialogsCs dialogs = _TranslationsDialogsCs._(_root);
   @override
@@ -497,15 +504,6 @@ class _TranslationsChangelogPageCs extends TranslationsChangelogPageEn {
   String get title => 'Seznam změn';
 }
 
-// Path: aliasGenerator
-class _TranslationsAliasGeneratorCs extends TranslationsAliasGeneratorEn {
-  _TranslationsAliasGeneratorCs._(TranslationsCs root) : this._root = root, super.internal(root);
-
-  final TranslationsCs _root; // ignore: unused_field
-
-  // Translations
-}
-
 // Path: dialogs
 class _TranslationsDialogsCs extends TranslationsDialogsEn {
   _TranslationsDialogsCs._(TranslationsCs root) : this._root = root, super.internal(root);
@@ -919,7 +917,7 @@ class _TranslationsTroubleshootPageFirewallCs extends TranslationsTroubleshootPa
   String solution({required Object port}) =>
       'S největší pravděpodobností se jedná o problém s firewallem. Můžete to vyřešit povolením příchozích připojení (UDP a TCP) na portu ${port}.';
   @override
-  String get openFirewallSettings => 'Otevřít bránu firewall';
+  String get openFirewall => 'Otevřít bránu firewall';
 }
 
 // Path: troubleshootPage.noDiscovery

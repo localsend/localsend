@@ -13,21 +13,30 @@ import 'strings.g.dart';
 class TranslationsTr extends Translations {
   /// You can call this constructor and build your own translation instance of this locale.
   /// Constructing via the enum [AppLocale.build] is preferred.
-  TranslationsTr({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
-    : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-      $meta = TranslationMetadata(
-        locale: AppLocale.tr,
-        overrides: overrides ?? {},
-        cardinalResolver: cardinalResolver,
-        ordinalResolver: ordinalResolver,
-      ),
-      super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+  TranslationsTr({
+    Map<String, Node>? overrides,
+    PluralResolver? cardinalResolver,
+    PluralResolver? ordinalResolver,
+    TranslationMetadata<AppLocale, Translations>? meta,
+  }) : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
+       $meta =
+           meta ??
+           TranslationMetadata(
+             locale: AppLocale.tr,
+             overrides: overrides ?? {},
+             cardinalResolver: cardinalResolver,
+             ordinalResolver: ordinalResolver,
+           ),
+       super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
 
   /// Metadata for the translations of <tr>.
   @override
   final TranslationMetadata<AppLocale, Translations> $meta;
 
   late final TranslationsTr _root = this; // ignore: unused_field
+
+  @override
+  TranslationsTr $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => TranslationsTr(meta: meta ?? this.$meta);
 
   // Translations
   @override
@@ -66,8 +75,6 @@ class TranslationsTr extends Translations {
   late final _TranslationsDonationPageTr donationPage = _TranslationsDonationPageTr._(_root);
   @override
   late final _TranslationsChangelogPageTr changelogPage = _TranslationsChangelogPageTr._(_root);
-  @override
-  late final _TranslationsAliasGeneratorTr aliasGenerator = _TranslationsAliasGeneratorTr._(_root);
   @override
   late final _TranslationsDialogsTr dialogs = _TranslationsDialogsTr._(_root);
   @override
@@ -476,15 +483,6 @@ class _TranslationsChangelogPageTr extends TranslationsChangelogPageEn {
   // Translations
   @override
   String get title => 'Değişiklik günlüğü';
-}
-
-// Path: aliasGenerator
-class _TranslationsAliasGeneratorTr extends TranslationsAliasGeneratorEn {
-  _TranslationsAliasGeneratorTr._(TranslationsTr root) : this._root = root, super.internal(root);
-
-  final TranslationsTr _root; // ignore: unused_field
-
-  // Translations
 }
 
 // Path: dialogs
@@ -911,7 +909,7 @@ class _TranslationsTroubleshootPageFirewallTr extends TranslationsTroubleshootPa
   String solution({required Object port}) =>
       'Bu büyük olasılıkla bir güvenlik duvarı sorunudur. Port ${port} \'da gelen bağlantılara (UDP ve TCP) izin vererek bunu çözebilirsiniz.';
   @override
-  String get openFirewallSettings => 'Güvenlik Duvarını Aç';
+  String get openFirewall => 'Güvenlik Duvarını Aç';
 }
 
 // Path: troubleshootPage.noDiscovery

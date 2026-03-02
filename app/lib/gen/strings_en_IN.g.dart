@@ -13,21 +13,30 @@ import 'strings.g.dart';
 class TranslationsEnIn extends Translations {
   /// You can call this constructor and build your own translation instance of this locale.
   /// Constructing via the enum [AppLocale.build] is preferred.
-  TranslationsEnIn({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
-    : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-      $meta = TranslationMetadata(
-        locale: AppLocale.enIn,
-        overrides: overrides ?? {},
-        cardinalResolver: cardinalResolver,
-        ordinalResolver: ordinalResolver,
-      ),
-      super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+  TranslationsEnIn({
+    Map<String, Node>? overrides,
+    PluralResolver? cardinalResolver,
+    PluralResolver? ordinalResolver,
+    TranslationMetadata<AppLocale, Translations>? meta,
+  }) : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
+       $meta =
+           meta ??
+           TranslationMetadata(
+             locale: AppLocale.enIn,
+             overrides: overrides ?? {},
+             cardinalResolver: cardinalResolver,
+             ordinalResolver: ordinalResolver,
+           ),
+       super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
 
   /// Metadata for the translations of <en-IN>.
   @override
   final TranslationMetadata<AppLocale, Translations> $meta;
 
   late final TranslationsEnIn _root = this; // ignore: unused_field
+
+  @override
+  TranslationsEnIn $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => TranslationsEnIn(meta: meta ?? this.$meta);
 
   // Translations
   @override
@@ -989,7 +998,7 @@ class _TranslationsTroubleshootPageFirewallEnIn extends TranslationsTroubleshoot
   String solution({required Object port}) =>
       'This is most likely a firewall issue. You can solve this by allowing incoming connections (UDP and TCP) on port ${port}.';
   @override
-  String get openFirewallSettings => 'Open Firewall Settings';
+  String get openFirewall => 'Open Firewall';
 }
 
 // Path: troubleshootPage.noDiscovery

@@ -13,21 +13,30 @@ import 'strings.g.dart';
 class TranslationsSi extends Translations {
   /// You can call this constructor and build your own translation instance of this locale.
   /// Constructing via the enum [AppLocale.build] is preferred.
-  TranslationsSi({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
-    : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-      $meta = TranslationMetadata(
-        locale: AppLocale.si,
-        overrides: overrides ?? {},
-        cardinalResolver: cardinalResolver,
-        ordinalResolver: ordinalResolver,
-      ),
-      super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+  TranslationsSi({
+    Map<String, Node>? overrides,
+    PluralResolver? cardinalResolver,
+    PluralResolver? ordinalResolver,
+    TranslationMetadata<AppLocale, Translations>? meta,
+  }) : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
+       $meta =
+           meta ??
+           TranslationMetadata(
+             locale: AppLocale.si,
+             overrides: overrides ?? {},
+             cardinalResolver: cardinalResolver,
+             ordinalResolver: ordinalResolver,
+           ),
+       super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
 
   /// Metadata for the translations of <si>.
   @override
   final TranslationMetadata<AppLocale, Translations> $meta;
 
   late final TranslationsSi _root = this; // ignore: unused_field
+
+  @override
+  TranslationsSi $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => TranslationsSi(meta: meta ?? this.$meta);
 
   // Translations
   @override
@@ -66,8 +75,6 @@ class TranslationsSi extends Translations {
   late final _TranslationsDonationPageSi donationPage = _TranslationsDonationPageSi._(_root);
   @override
   late final _TranslationsChangelogPageSi changelogPage = _TranslationsChangelogPageSi._(_root);
-  @override
-  late final _TranslationsAliasGeneratorSi aliasGenerator = _TranslationsAliasGeneratorSi._(_root);
   @override
   late final _TranslationsDialogsSi dialogs = _TranslationsDialogsSi._(_root);
   @override
@@ -472,15 +479,6 @@ class _TranslationsChangelogPageSi extends TranslationsChangelogPageEn {
   // Translations
   @override
   String get title => 'වෙනස්කම් ලේඛනය';
-}
-
-// Path: aliasGenerator
-class _TranslationsAliasGeneratorSi extends TranslationsAliasGeneratorEn {
-  _TranslationsAliasGeneratorSi._(TranslationsSi root) : this._root = root, super.internal(root);
-
-  final TranslationsSi _root; // ignore: unused_field
-
-  // Translations
 }
 
 // Path: dialogs
@@ -892,7 +890,7 @@ class _TranslationsTroubleshootPageFirewallSi extends TranslationsTroubleshootPa
   String solution({required Object port}) =>
       'මෙය බොහෝවිට firewall සම්බන්ධ ගැටලුවක් විය හැක. විසඳීමට port ${port} එක සඳහා \'Allow Incoming Connections" (TCP සහ UDP) ලබා දෙන්න.';
   @override
-  String get openFirewallSettings => 'Firewall විවෘත කරන්න';
+  String get openFirewall => 'Firewall විවෘත කරන්න';
 }
 
 // Path: troubleshootPage.noDiscovery

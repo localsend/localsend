@@ -13,21 +13,30 @@ import 'strings.g.dart';
 class TranslationsNe extends Translations {
   /// You can call this constructor and build your own translation instance of this locale.
   /// Constructing via the enum [AppLocale.build] is preferred.
-  TranslationsNe({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
-    : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-      $meta = TranslationMetadata(
-        locale: AppLocale.ne,
-        overrides: overrides ?? {},
-        cardinalResolver: cardinalResolver,
-        ordinalResolver: ordinalResolver,
-      ),
-      super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+  TranslationsNe({
+    Map<String, Node>? overrides,
+    PluralResolver? cardinalResolver,
+    PluralResolver? ordinalResolver,
+    TranslationMetadata<AppLocale, Translations>? meta,
+  }) : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
+       $meta =
+           meta ??
+           TranslationMetadata(
+             locale: AppLocale.ne,
+             overrides: overrides ?? {},
+             cardinalResolver: cardinalResolver,
+             ordinalResolver: ordinalResolver,
+           ),
+       super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
 
   /// Metadata for the translations of <ne>.
   @override
   final TranslationMetadata<AppLocale, Translations> $meta;
 
   late final TranslationsNe _root = this; // ignore: unused_field
+
+  @override
+  TranslationsNe $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => TranslationsNe(meta: meta ?? this.$meta);
 
   // Translations
   @override
@@ -990,7 +999,7 @@ class _TranslationsTroubleshootPageFirewallNe extends TranslationsTroubleshootPa
   String solution({required Object port}) =>
       'यो सम्भवतः फायरवाल समस्या हो। तपाईंले पोर्ट ${port} मा आगमन जडानहरू (UDP र TCP) लाई अनुमति दिएर यो समाधान गर्न सक्नुहुन्छ।';
   @override
-  String get openFirewallSettings => 'फायरवाल खोल्नुहोस्';
+  String get openFirewall => 'फायरवाल खोल्नुहोस्';
 }
 
 // Path: troubleshootPage.noConnection

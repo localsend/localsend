@@ -13,21 +13,30 @@ import 'strings.g.dart';
 class TranslationsSk extends Translations {
   /// You can call this constructor and build your own translation instance of this locale.
   /// Constructing via the enum [AppLocale.build] is preferred.
-  TranslationsSk({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
-    : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-      $meta = TranslationMetadata(
-        locale: AppLocale.sk,
-        overrides: overrides ?? {},
-        cardinalResolver: cardinalResolver,
-        ordinalResolver: ordinalResolver,
-      ),
-      super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+  TranslationsSk({
+    Map<String, Node>? overrides,
+    PluralResolver? cardinalResolver,
+    PluralResolver? ordinalResolver,
+    TranslationMetadata<AppLocale, Translations>? meta,
+  }) : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
+       $meta =
+           meta ??
+           TranslationMetadata(
+             locale: AppLocale.sk,
+             overrides: overrides ?? {},
+             cardinalResolver: cardinalResolver,
+             ordinalResolver: ordinalResolver,
+           ),
+       super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
 
   /// Metadata for the translations of <sk>.
   @override
   final TranslationMetadata<AppLocale, Translations> $meta;
 
   late final TranslationsSk _root = this; // ignore: unused_field
+
+  @override
+  TranslationsSk $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => TranslationsSk(meta: meta ?? this.$meta);
 
   // Translations
   @override
@@ -990,7 +999,7 @@ class _TranslationsTroubleshootPageFirewallSk extends TranslationsTroubleshootPa
   String solution({required Object port}) =>
       'S najväčšou pravdepodobnosťou ide o problém brány firewall. Môžete to vyriešiť povolením prichádzajúcich spojení (UDP a TCP) na porte ${port}.';
   @override
-  String get openFirewallSettings => 'Otvoriť firewall';
+  String get openFirewall => 'Otvoriť firewall';
 }
 
 // Path: troubleshootPage.noDiscovery
