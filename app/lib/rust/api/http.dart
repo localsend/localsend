@@ -30,11 +30,12 @@ abstract class RsHttpClient implements RustOpaqueInterface {
     required String sessionId,
   });
 
-  Future<ResultWithPublicKeyPrepareUploadResponseDto> prepareUpload({
+  Future<PrepareUploadResult> prepareUpload({
     required ProtocolType protocol,
     required String ip,
     required int port,
     required PrepareUploadRequestDto payload,
+    String? publicKey,
     String? pin,
   });
 
@@ -49,6 +50,7 @@ abstract class RsHttpClient implements RustOpaqueInterface {
     required ProtocolType protocol,
     required String ip,
     required int port,
+    String? publicKey,
     required String sessionId,
     required String fileId,
     required String token,
@@ -61,25 +63,22 @@ enum LsHttpClientVersion {
   v3,
 }
 
-class ResultWithPublicKeyPrepareUploadResponseDto {
-  final String? publicKey;
-  final PrepareUploadResponseDto body;
+class PrepareUploadResult {
+  final int statusCode;
+  final PrepareUploadResponseDto response;
 
-  const ResultWithPublicKeyPrepareUploadResponseDto({
-    this.publicKey,
-    required this.body,
+  const PrepareUploadResult({
+    required this.statusCode,
+    required this.response,
   });
 
   @override
-  int get hashCode => publicKey.hashCode ^ body.hashCode;
+  int get hashCode => statusCode.hashCode ^ response.hashCode;
 
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is ResultWithPublicKeyPrepareUploadResponseDto &&
-          runtimeType == other.runtimeType &&
-          publicKey == other.publicKey &&
-          body == other.body;
+      other is PrepareUploadResult && runtimeType == other.runtimeType && statusCode == other.statusCode && response == other.response;
 }
 
 class ResultWithPublicKeyRegisterResponseDto {
@@ -97,8 +96,5 @@ class ResultWithPublicKeyRegisterResponseDto {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is ResultWithPublicKeyRegisterResponseDto &&
-          runtimeType == other.runtimeType &&
-          publicKey == other.publicKey &&
-          body == other.body;
+      other is ResultWithPublicKeyRegisterResponseDto && runtimeType == other.runtimeType && publicKey == other.publicKey && body == other.body;
 }

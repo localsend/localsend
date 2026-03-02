@@ -11,8 +11,7 @@ import 'package:flutter/material.dart' as _i8;
 import 'package:localsend_app/gen/strings.g.dart' as _i10;
 import 'package:localsend_app/model/persistence/color_mode.dart' as _i9;
 import 'package:localsend_app/model/persistence/favorite_device.dart' as _i6;
-import 'package:localsend_app/model/persistence/receive_history_entry.dart'
-    as _i5;
+import 'package:localsend_app/model/persistence/receive_history_entry.dart' as _i5;
 import 'package:localsend_app/model/send_mode.dart' as _i11;
 import 'package:localsend_app/provider/persistence_provider.dart' as _i3;
 import 'package:mockito/mockito.dart' as _i1;
@@ -33,17 +32,14 @@ import 'package:shared_preferences/shared_preferences.dart' as _i13;
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
 
-class _FakeStoredSecurityContext_0 extends _i1.SmartFake
-    implements _i2.StoredSecurityContext {
-  _FakeStoredSecurityContext_0(Object parent, Invocation parentInvocation)
-    : super(parent, parentInvocation);
+class _FakeStoredSecurityContext_0 extends _i1.SmartFake implements _i2.StoredSecurityContext {
+  _FakeStoredSecurityContext_0(Object parent, Invocation parentInvocation) : super(parent, parentInvocation);
 }
 
 /// A class which mocks [PersistenceService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockPersistenceService extends _i1.Mock
-    implements _i3.PersistenceService {
+class MockPersistenceService extends _i1.Mock implements _i3.PersistenceService {
   @override
   bool get isFirstAppStart =>
       (super.noSuchMethod(

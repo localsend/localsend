@@ -66,9 +66,7 @@ impl LsHttpClient {
     ) -> Result<ResultWithPublicKey<http::dto::RegisterResponseDto>, ClientError> {
         match self {
             LsHttpClient::V2(client) => {
-                let result = client
-                    .register(protocol.into(), ip, port, payload.into())
-                    .await?;
+                let result = client.register(protocol, ip, port, payload.into()).await?;
                 Ok(ResultWithPublicKey {
                     public_key: result.public_key,
                     body: result.body.into(),
@@ -83,20 +81,22 @@ impl LsHttpClient {
         protocol: http::dto::ProtocolType,
         ip: &str,
         port: u16,
+        public_key: Option<String>,
         payload: http::dto::PrepareUploadRequestDto,
         pin: Option<&str>,
-    ) -> Result<ResultWithPublicKey<http::dto::PrepareUploadResponseDto>, ClientError> {
+    ) -> Result<http::dto::PrepareUploadResult, ClientError> {
         match self {
             LsHttpClient::V2(client) => {
                 let result = client
-                    .prepare_upload(protocol.into(), ip, port, payload.into(), pin)
+                    .prepare_upload(protocol, ip, port, public_key, payload.into(), pin)
                     .await?;
-                Ok(ResultWithPublicKey {
-                    public_key: result.public_key,
-                    body: result.body.response.into(),
-                })
+                Ok(result.into())
             }
-            LsHttpClient::V3(client) => client.prepare_upload(protocol, ip, port, payload).await,
+            LsHttpClient::V3(client) => {
+                client
+                    .prepare_upload(protocol, ip, port, public_key, payload)
+                    .await
+            }
         }
     }
 
@@ -105,6 +105,7 @@ impl LsHttpClient {
         protocol: http::dto::ProtocolType,
         ip: &str,
         port: u16,
+        public_key: Option<String>,
         session_id: &str,
         file_id: &str,
         token: &str,
@@ -114,19 +115,15 @@ impl LsHttpClient {
             LsHttpClient::V2(client) => {
                 client
                     .upload(
-                        protocol.into(),
-                        ip,
-                        port,
-                        session_id,
-                        file_id,
-                        token,
-                        binary,
+                        protocol, ip, port, public_key, session_id, file_id, token, binary,
                     )
                     .await
             }
             LsHttpClient::V3(client) => {
                 client
-                    .upload(protocol, ip, port, session_id, file_id, token, binary)
+                    .upload(
+                        protocol, ip, port, public_key, session_id, file_id, token, binary,
+                    )
                     .await
             }
         }
@@ -140,7 +137,7 @@ impl LsHttpClient {
         session_id: &str,
     ) -> Result<(), ClientError> {
         match self {
-            LsHttpClient::V2(client) => client.cancel(protocol.into(), ip, port, session_id).await,
+            LsHttpClient::V2(client) => client.cancel(protocol, ip, port, session_id).await,
             LsHttpClient::V3(client) => client.cancel(protocol, ip, port, session_id).await,
         }
     }

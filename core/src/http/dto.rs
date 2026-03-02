@@ -131,11 +131,25 @@ impl From<PrepareUploadRequestDto> for PrepareUploadRequestDtoV2 {
     }
 }
 
+pub struct PrepareUploadResult {
+    pub status_code: u16,
+    pub response: PrepareUploadResponseDto,
+}
+
 impl From<PrepareUploadResponseDtoV2> for PrepareUploadResponseDto {
     fn from(v2: PrepareUploadResponseDtoV2) -> Self {
         PrepareUploadResponseDto {
             session_id: v2.session_id,
             files: v2.files,
+        }
+    }
+}
+
+impl From<crate::http::dto_v2::PrepareUploadResultV2> for PrepareUploadResult {
+    fn from(v2: crate::http::dto_v2::PrepareUploadResultV2) -> Self {
+        PrepareUploadResult {
+            status_code: v2.status_code,
+            response: v2.response.into(),
         }
     }
 }

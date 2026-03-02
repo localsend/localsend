@@ -1,13 +1,12 @@
 use crate::api::stream;
 use flutter_rust_bridge::frb;
-pub use localsend::http::client::ClientError;
-pub use localsend::http::client::LsHttpClientVersion;
-pub use localsend::http::client::ResultWithPublicKey;
-pub use localsend::http::dto::PrepareUploadRequestDto;
-pub use localsend::http::dto::PrepareUploadResponseDto;
-pub use localsend::http::dto::ProtocolType;
-pub use localsend::http::dto::RegisterDto;
-pub use localsend::http::dto::RegisterResponseDto;
+use localsend::http::{
+    client::{ClientError, LsHttpClientVersion},
+    dto::{
+        PrepareUploadRequestDto, PrepareUploadResponseDto, PrepareUploadResult, ProtocolType,
+        RegisterDto, RegisterResponseDto,
+    },
+};
 
 pub struct RsHttpClient {
     inner: localsend::http::client::LsHttpClient,
@@ -45,17 +44,15 @@ impl RsHttpClient {
         ip: &str,
         port: u16,
         payload: PrepareUploadRequestDto,
+        public_key: Option<String>,
         pin: Option<String>,
-    ) -> Result<ResultWithPublicKeyPrepareUploadResponseDto, ClientError> {
+    ) -> Result<PrepareUploadResult, ClientError> {
         let response = self
             .inner
-            .prepare_upload(protocol, ip, port, payload, pin.as_deref())
+            .prepare_upload(protocol, ip, port, public_key, payload, pin.as_deref())
             .await?;
 
-        Ok(ResultWithPublicKeyPrepareUploadResponseDto {
-            public_key: response.public_key,
-            body: response.body,
-        })
+        Ok(response)
     }
 
     pub async fn upload(
@@ -63,6 +60,7 @@ impl RsHttpClient {
         protocol: ProtocolType,
         ip: &str,
         port: u16,
+        public_key: Option<String>,
         session_id: &str,
         file_id: &str,
         token: &str,
@@ -73,6 +71,7 @@ impl RsHttpClient {
                 protocol,
                 ip,
                 port,
+                public_key,
                 session_id,
                 file_id,
                 token,
@@ -102,12 +101,13 @@ pub enum _LsHttpClientVersion {
     V3,
 }
 
+#[frb(mirror(PrepareUploadResult))]
+pub struct _PrepareUploadResult {
+    pub status_code: u16,
+    pub response: PrepareUploadResponseDto,
+}
+
 pub struct ResultWithPublicKeyRegisterResponseDto {
     pub public_key: Option<String>,
     pub body: RegisterResponseDto,
-}
-
-pub struct ResultWithPublicKeyPrepareUploadResponseDto {
-    pub public_key: Option<String>,
-    pub body: PrepareUploadResponseDto,
 }

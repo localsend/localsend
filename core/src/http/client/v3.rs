@@ -134,8 +134,9 @@ impl LsHttpClientV3 {
         protocol: ProtocolType,
         ip: &str,
         port: u16,
+        public_key: Option<String>,
         payload: http::dto::PrepareUploadRequestDto,
-    ) -> Result<ResultWithPublicKey<http::dto::PrepareUploadResponseDto>, ClientError> {
+    ) -> Result<http::dto::PrepareUploadResult, ClientError> {
         let res = self
             .client
             .post(
@@ -153,18 +154,22 @@ impl LsHttpClientV3 {
             .send()
             .await?;
 
-        let public_key = match protocol {
-            ProtocolType::Https => Some(super::verify_cert_from_res(&res, None)?),
-            _ => None,
-        };
+        if protocol == ProtocolType::Https {
+            super::verify_cert_from_res(&res, public_key)?;
+        }
 
-        if res.status() != StatusCode::OK {
+        let status = res.status();
+
+        if status.as_u16() >= 400 {
             return res.into_error().await;
         }
 
-        let body = res.json::<http::dto::PrepareUploadResponseDto>().await?;
+        let response = res.json::<http::dto::PrepareUploadResponseDto>().await?;
 
-        Ok(ResultWithPublicKey { public_key, body })
+        Ok(http::dto::PrepareUploadResult {
+            status_code: status.as_u16(),
+            response,
+        })
     }
 
     /// Uploads a file to the server.
@@ -173,6 +178,7 @@ impl LsHttpClientV3 {
         protocol: ProtocolType,
         ip: &str,
         port: u16,
+        public_key: Option<String>,
         session_id: &str,
         file_id: &str,
         token: &str,
@@ -201,6 +207,10 @@ impl LsHttpClientV3 {
             })
             .send()
             .await?;
+
+        if protocol == ProtocolType::Https {
+            super::verify_cert_from_res(&res, public_key)?;
+        }
 
         if res.status() != StatusCode::OK {
             return res.into_error().await;

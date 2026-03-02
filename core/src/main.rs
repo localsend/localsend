@@ -213,11 +213,12 @@ async fn client_test() -> Result<()> {
             ProtocolType::Https,
             "localhost",
             53317,
+            None,
             prepare_upload_dto,
         )
         .await?;
 
-    println!("Prepare Upload Response: {:?}", prepare_upload_response.body);
+    println!("Prepare Upload Response: {:?}", prepare_upload_response.response);
 
     Ok(())
 }

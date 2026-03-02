@@ -404,6 +404,7 @@ fn wire__crate__api__http__RsHttpClient_prepare_upload_impl(
             let api_port = <u16>::sse_decode(&mut deserializer);
             let api_payload =
                 <crate::api::model::PrepareUploadRequestDto>::sse_decode(&mut deserializer);
+            let api_public_key = <Option<String>>::sse_decode(&mut deserializer);
             let api_pin = <Option<String>>::sse_decode(&mut deserializer);
             deserializer.end();
             move |context| async move {
@@ -432,6 +433,7 @@ fn wire__crate__api__http__RsHttpClient_prepare_upload_impl(
                             &api_ip,
                             api_port,
                             api_payload,
+                            api_public_key,
                             api_pin,
                         )
                         .await?;
@@ -537,6 +539,7 @@ fn wire__crate__api__http__RsHttpClient_upload_impl(
             let api_protocol = <crate::api::model::ProtocolType>::sse_decode(&mut deserializer);
             let api_ip = <String>::sse_decode(&mut deserializer);
             let api_port = <u16>::sse_decode(&mut deserializer);
+            let api_public_key = <Option<String>>::sse_decode(&mut deserializer);
             let api_session_id = <String>::sse_decode(&mut deserializer);
             let api_file_id = <String>::sse_decode(&mut deserializer);
             let api_token = <String>::sse_decode(&mut deserializer);
@@ -567,6 +570,7 @@ fn wire__crate__api__http__RsHttpClient_upload_impl(
                             api_protocol,
                             &api_ip,
                             api_port,
+                            api_public_key,
                             &api_session_id,
                             &api_file_id,
                             &api_token,
@@ -1799,6 +1803,11 @@ const _: fn() = || {
         let _: std::collections::HashMap<String, String> = PrepareUploadResponseDto.files;
     }
     {
+        let PrepareUploadResult = None::<crate::api::http::PrepareUploadResult>.unwrap();
+        let _: u16 = PrepareUploadResult.status_code;
+        let _: crate::api::model::PrepareUploadResponseDto = PrepareUploadResult.response;
+    }
+    {
         let RegisterDto = None::<crate::api::model::RegisterDto>.unwrap();
         let _: String = RegisterDto.alias;
         let _: String = RegisterDto.version;
@@ -2540,6 +2549,19 @@ impl SseDecode for crate::api::model::PrepareUploadResponseDto {
     }
 }
 
+impl SseDecode for crate::api::http::PrepareUploadResult {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut var_statusCode = <u16>::sse_decode(deserializer);
+        let mut var_response =
+            <crate::api::model::PrepareUploadResponseDto>::sse_decode(deserializer);
+        return crate::api::http::PrepareUploadResult {
+            status_code: var_statusCode,
+            response: var_response,
+        };
+    }
+}
+
 impl SseDecode for crate::api::webrtc::ProposingClientInfo {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
@@ -2635,18 +2657,6 @@ impl SseDecode for crate::api::model::RegisterResponseDto {
             device_type: var_deviceType,
             token: var_token,
             has_web_interface: var_hasWebInterface,
-        };
-    }
-}
-
-impl SseDecode for crate::api::http::ResultWithPublicKeyPrepareUploadResponseDto {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
-        let mut var_publicKey = <Option<String>>::sse_decode(deserializer);
-        let mut var_body = <crate::api::model::PrepareUploadResponseDto>::sse_decode(deserializer);
-        return crate::api::http::ResultWithPublicKeyPrepareUploadResponseDto {
-            public_key: var_publicKey,
-            body: var_body,
         };
     }
 }
@@ -3375,6 +3385,27 @@ impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<crate::api::model::PrepareUplo
     }
 }
 // Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for FrbWrapper<crate::api::http::PrepareUploadResult> {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        [
+            self.0.status_code.into_into_dart().into_dart(),
+            self.0.response.into_into_dart().into_dart(),
+        ]
+        .into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for FrbWrapper<crate::api::http::PrepareUploadResult>
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<crate::api::http::PrepareUploadResult>>
+    for crate::api::http::PrepareUploadResult
+{
+    fn into_into_dart(self) -> FrbWrapper<crate::api::http::PrepareUploadResult> {
+        self.into()
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
 impl flutter_rust_bridge::IntoDart for crate::api::webrtc::ProposingClientInfo {
     fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
         [
@@ -3468,30 +3499,6 @@ impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<crate::api::model::RegisterRes
 {
     fn into_into_dart(self) -> FrbWrapper<crate::api::model::RegisterResponseDto> {
         self.into()
-    }
-}
-// Codec=Dco (DartCObject based), see doc to use other codecs
-impl flutter_rust_bridge::IntoDart
-    for crate::api::http::ResultWithPublicKeyPrepareUploadResponseDto
-{
-    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
-        [
-            self.public_key.into_into_dart().into_dart(),
-            self.body.into_into_dart().into_dart(),
-        ]
-        .into_dart()
-    }
-}
-impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
-    for crate::api::http::ResultWithPublicKeyPrepareUploadResponseDto
-{
-}
-impl
-    flutter_rust_bridge::IntoIntoDart<crate::api::http::ResultWithPublicKeyPrepareUploadResponseDto>
-    for crate::api::http::ResultWithPublicKeyPrepareUploadResponseDto
-{
-    fn into_into_dart(self) -> crate::api::http::ResultWithPublicKeyPrepareUploadResponseDto {
-        self
     }
 }
 // Codec=Dco (DartCObject based), see doc to use other codecs
@@ -4189,6 +4196,14 @@ impl SseEncode for crate::api::model::PrepareUploadResponseDto {
     }
 }
 
+impl SseEncode for crate::api::http::PrepareUploadResult {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <u16>::sse_encode(self.status_code, serializer);
+        <crate::api::model::PrepareUploadResponseDto>::sse_encode(self.response, serializer);
+    }
+}
+
 impl SseEncode for crate::api::webrtc::ProposingClientInfo {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
@@ -4262,14 +4277,6 @@ impl SseEncode for crate::api::model::RegisterResponseDto {
         <Option<crate::api::model::DeviceType>>::sse_encode(self.device_type, serializer);
         <String>::sse_encode(self.token, serializer);
         <bool>::sse_encode(self.has_web_interface, serializer);
-    }
-}
-
-impl SseEncode for crate::api::http::ResultWithPublicKeyPrepareUploadResponseDto {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
-        <Option<String>>::sse_encode(self.public_key, serializer);
-        <crate::api::model::PrepareUploadResponseDto>::sse_encode(self.body, serializer);
     }
 }
 

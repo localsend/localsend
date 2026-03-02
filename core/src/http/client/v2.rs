@@ -2,7 +2,7 @@ use super::{ClientError, ResponseExt, ResultWithPublicKey};
 use crate::http::client::url::{ApiVersion, TargetUrl};
 use crate::http::dto_v2::{
     InfoResponseDtoV2, PrepareDownloadResponseDtoV2, PrepareUploadRequestDtoV2,
-    PrepareUploadResponseDtoV2, PrepareUploadResultV2, ProtocolTypeV2, RegisterDtoV2,
+    PrepareUploadResponseDtoV2, PrepareUploadResultV2, RegisterDtoV2,
     RegisterResponseDtoV2,
 };
 use futures_util::StreamExt;
@@ -10,6 +10,7 @@ use reqwest::{Response, StatusCode};
 use tokio::io::AsyncWriteExt;
 use tokio::sync::mpsc;
 use tokio_stream::wrappers::ReceiverStream;
+use crate::http::dto::ProtocolType;
 
 /// HTTP client for LocalSend Protocol v2.1.
 pub struct LsHttpClientV2 {
@@ -60,7 +61,7 @@ impl LsHttpClientV2 {
     /// Registration result containing the remote device info and optional public key.
     pub async fn register(
         &self,
-        protocol: ProtocolTypeV2,
+        protocol: ProtocolType,
         ip: &str,
         port: u16,
         payload: RegisterDtoV2,
@@ -88,7 +89,7 @@ impl LsHttpClientV2 {
         }
 
         let public_key = match protocol {
-            ProtocolTypeV2::Https => Some(super::verify_cert_from_res(&res, None)?),
+            ProtocolType::Https => Some(super::verify_cert_from_res(&res, None)?),
             _ => None,
         };
 
@@ -124,12 +125,13 @@ impl LsHttpClientV2 {
     /// * 500 - Unknown error
     pub async fn prepare_upload(
         &self,
-        protocol: ProtocolTypeV2,
+        protocol: ProtocolType,
         ip: &str,
         port: u16,
+        public_key: Option<String>,
         payload: PrepareUploadRequestDtoV2,
         pin: Option<&str>,
-    ) -> Result<ResultWithPublicKey<PrepareUploadResultV2>, ClientError> {
+    ) -> Result<PrepareUploadResultV2, ClientError> {
         let pin_params: &[(&'static str, &str)] = match &pin {
             Some(pin) => &[("pin", pin)],
             None => &[],
@@ -152,10 +154,9 @@ impl LsHttpClientV2 {
             .send()
             .await?;
 
-        let public_key = match protocol {
-            ProtocolTypeV2::Https => Some(super::verify_cert_from_res(&res, None)?),
-            _ => None,
-        };
+        if protocol == ProtocolType::Https {
+            super::verify_cert_from_res(&res, public_key)?;
+        }
 
         let status = res.status();
 
@@ -165,12 +166,9 @@ impl LsHttpClientV2 {
 
         let body = res.json::<PrepareUploadResponseDtoV2>().await?;
 
-        Ok(ResultWithPublicKey {
-            public_key,
-            body: PrepareUploadResultV2 {
-                status_code: status.as_u16(),
-                response: body,
-            },
+        Ok(PrepareUploadResultV2 {
+            status_code: status.as_u16(),
+            response: body,
         })
     }
 
@@ -197,9 +195,10 @@ impl LsHttpClientV2 {
     /// * 500 - Unknown error
     pub async fn upload(
         &self,
-        protocol: ProtocolTypeV2,
+        protocol: ProtocolType,
         ip: &str,
         port: u16,
+        public_key: Option<String>,
         session_id: &str,
         file_id: &str,
         token: &str,
@@ -224,6 +223,10 @@ impl LsHttpClientV2 {
 
         let res = self.client.post(&url).body(body).send().await?;
 
+        if protocol == ProtocolType::Https {
+            super::verify_cert_from_res(&res, public_key)?;
+        }
+
         if res.status() != StatusCode::OK {
             return res.into_error().await;
         }
@@ -242,7 +245,7 @@ impl LsHttpClientV2 {
     /// * `session_id` - Session ID to cancel
     pub async fn cancel(
         &self,
-        protocol: ProtocolTypeV2,
+        protocol: ProtocolType,
         ip: &str,
         port: u16,
         session_id: &str,
@@ -277,7 +280,7 @@ impl LsHttpClientV2 {
     /// Device information including alias, version, device type, fingerprint, etc.
     pub async fn info(
         &self,
-        protocol: ProtocolTypeV2,
+        protocol: ProtocolType,
         ip: &str,
         port: u16,
     ) -> Result<InfoResponseDtoV2, ClientError> {
@@ -326,7 +329,7 @@ impl LsHttpClientV2 {
     /// * 500 - Unknown error
     pub async fn prepare_download(
         &self,
-        protocol: ProtocolTypeV2,
+        protocol: ProtocolType,
         ip: &str,
         port: u16,
         session_id: Option<&str>,
@@ -377,7 +380,7 @@ impl LsHttpClientV2 {
     /// Response containing the file data stream.
     pub async fn download(
         &self,
-        protocol: ProtocolTypeV2,
+        protocol: ProtocolType,
         ip: &str,
         port: u16,
         session_id: &str,
@@ -416,7 +419,7 @@ impl LsHttpClientV2 {
     /// Total bytes written.
     pub async fn download_to_writer<W: tokio::io::AsyncWrite + Unpin>(
         &self,
-        protocol: ProtocolTypeV2,
+        protocol: ProtocolType,
         ip: &str,
         port: u16,
         session_id: &str,

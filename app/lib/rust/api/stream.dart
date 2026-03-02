@@ -6,8 +6,7 @@
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 import 'package:localsend_app/rust/frb_generated.dart';
 
-Future<(Dart2RustStreamSink, Dart2RustStreamReceiver)> createStream() =>
-    RustLib.instance.api.crateApiStreamCreateStream();
+Future<(Dart2RustStreamSink, Dart2RustStreamReceiver)> createStream() => RustLib.instance.api.crateApiStreamCreateStream();
 
 // Rust type: RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<Dart2RustStreamReceiver>>
 abstract class Dart2RustStreamReceiver implements RustOpaqueInterface {}
