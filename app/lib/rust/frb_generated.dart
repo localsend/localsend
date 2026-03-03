@@ -225,7 +225,7 @@ abstract class RustLibApi extends BaseApi {
     required FutureOr<void> Function(LsSignalingConnection) onConnection,
   });
 
-  Future<RsHttpClient> crateApiHttpCreateClient({
+  RsHttpClient crateApiHttpCreateClient({
     required String privateKey,
     required String cert,
     required LsHttpClientVersion version,
@@ -241,12 +241,6 @@ abstract class RustLibApi extends BaseApi {
     required String cert,
     required String publicKey,
   });
-
-  RustArcIncrementStrongCountFnType get rust_arc_increment_strong_count_ClientError;
-
-  RustArcDecrementStrongCountFnType get rust_arc_decrement_strong_count_ClientError;
-
-  CrossPlatformFinalizerArg get rust_arc_decrement_strong_count_ClientErrorPtr;
 
   RustArcIncrementStrongCountFnType get rust_arc_increment_strong_count_Dart2RustStreamReceiver;
 
@@ -536,7 +530,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
         },
         codec: SseCodec(
           decodeSuccessData: sse_decode_unit,
-          decodeErrorData: sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerClientError,
+          decodeErrorData: sse_decode_rs_http_client_error,
         ),
         constMeta: kCrateApiHttpRsHttpClientCancelConstMeta,
         argValues: [that, protocol, ip, port, sessionId],
@@ -586,7 +580,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
         },
         codec: SseCodec(
           decodeSuccessData: sse_decode_prepare_upload_result,
-          decodeErrorData: sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerClientError,
+          decodeErrorData: sse_decode_rs_http_client_error,
         ),
         constMeta: kCrateApiHttpRsHttpClientPrepareUploadConstMeta,
         argValues: [that, protocol, ip, port, payload, publicKey, pin],
@@ -637,7 +631,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
         },
         codec: SseCodec(
           decodeSuccessData: sse_decode_result_with_public_key_register_response_dto,
-          decodeErrorData: sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerClientError,
+          decodeErrorData: sse_decode_rs_http_client_error,
         ),
         constMeta: kCrateApiHttpRsHttpClientRegisterConstMeta,
         argValues: [that, protocol, ip, port, payload],
@@ -691,7 +685,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
         },
         codec: SseCodec(
           decodeSuccessData: sse_decode_unit,
-          decodeErrorData: sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerClientError,
+          decodeErrorData: sse_decode_rs_http_client_error,
         ),
         constMeta: kCrateApiHttpRsHttpClientUploadConstMeta,
         argValues: [
@@ -1377,28 +1371,23 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   );
 
   @override
-  Future<RsHttpClient> crateApiHttpCreateClient({
+  RsHttpClient crateApiHttpCreateClient({
     required String privateKey,
     required String cert,
     required LsHttpClientVersion version,
   }) {
-    return handler.executeNormal(
-      NormalTask(
-        callFfi: (port_) {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
           final serializer = SseSerializer(generalizedFrbRustBinding);
           sse_encode_String(privateKey, serializer);
           sse_encode_String(cert, serializer);
           sse_encode_ls_http_client_version(version, serializer);
-          pdeCallFfi(
-            generalizedFrbRustBinding,
-            serializer,
-            funcId: 26,
-            port: port_,
-          );
+          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 26)!;
         },
         codec: SseCodec(
           decodeSuccessData: sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsHttpClient,
-          decodeErrorData: sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerClientError,
+          decodeErrorData: sse_decode_rs_http_client_error,
         ),
         constMeta: kCrateApiHttpCreateClientConstMeta,
         argValues: [privateKey, cert, version],
@@ -1571,12 +1560,6 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
     };
   }
 
-  RustArcIncrementStrongCountFnType get rust_arc_increment_strong_count_ClientError =>
-      wire.rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerClientError;
-
-  RustArcDecrementStrongCountFnType get rust_arc_decrement_strong_count_ClientError =>
-      wire.rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerClientError;
-
   RustArcIncrementStrongCountFnType get rust_arc_increment_strong_count_Dart2RustStreamReceiver =>
       wire.rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDart2RustStreamReceiver;
 
@@ -1629,14 +1612,6 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   AnyhowException dco_decode_AnyhowException(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return AnyhowException(raw as String);
-  }
-
-  @protected
-  ClientError dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerClientError(
-    dynamic raw,
-  ) {
-    // Codec=Dco (DartCObject based), see doc to use other codecs
-    return ClientErrorImpl.frbInternalDcoDecode(raw as List<dynamic>);
   }
 
   @protected
@@ -1802,14 +1777,6 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
         raw,
       ).map((e) => MapEntry(e.$1, e.$2)),
     );
-  }
-
-  @protected
-  ClientError dco_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerClientError(
-    dynamic raw,
-  ) {
-    // Codec=Dco (DartCObject based), see doc to use other codecs
-    return ClientErrorImpl.frbInternalDcoDecode(raw as List<dynamic>);
   }
 
   @protected
@@ -1984,6 +1951,14 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   ) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return dco_decode_prepare_upload_request_dto(raw);
+  }
+
+  @protected
+  PrepareUploadResponseDto dco_decode_box_autoadd_prepare_upload_response_dto(
+    dynamic raw,
+  ) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return dco_decode_prepare_upload_response_dto(raw);
   }
 
   @protected
@@ -2191,6 +2166,12 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  PrepareUploadResponseDto? dco_decode_opt_box_autoadd_prepare_upload_response_dto(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return raw == null ? null : dco_decode_box_autoadd_prepare_upload_response_dto(raw);
+  }
+
+  @protected
   PinConfig dco_decode_pin_config(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     final arr = raw as List<dynamic>;
@@ -2230,7 +2211,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
     if (arr.length != 2) throw Exception('unexpected arr length: expect 2 but see ${arr.length}');
     return PrepareUploadResult(
       statusCode: dco_decode_u_16(arr[0]),
-      response: dco_decode_prepare_upload_response_dto(arr[1]),
+      response: dco_decode_opt_box_autoadd_prepare_upload_response_dto(arr[1]),
     );
   }
 
@@ -2340,6 +2321,36 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       publicKey: dco_decode_opt_String(arr[0]),
       body: dco_decode_register_response_dto(arr[1]),
     );
+  }
+
+  @protected
+  RsHttpClientError dco_decode_rs_http_client_error(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    switch (raw[0]) {
+      case 0:
+        return RsHttpClientError_StatusCode(
+          status: dco_decode_u_16(raw[1]),
+          message: dco_decode_opt_String(raw[2]),
+        );
+      case 1:
+        return RsHttpClientError_Reqwest(
+          dco_decode_String(raw[1]),
+        );
+      case 2:
+        return RsHttpClientError_Json(
+          dco_decode_String(raw[1]),
+        );
+      case 3:
+        return RsHttpClientError_Io(
+          dco_decode_String(raw[1]),
+        );
+      case 4:
+        return RsHttpClientError_Other(
+          dco_decode_String(raw[1]),
+        );
+      default:
+        throw Exception('unreachable');
+    }
   }
 
   @protected
@@ -2477,17 +2488,6 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
     // Codec=Sse (Serialization based), see doc to use other codecs
     var inner = sse_decode_String(deserializer);
     return AnyhowException(inner);
-  }
-
-  @protected
-  ClientError sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerClientError(
-    SseDeserializer deserializer,
-  ) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    return ClientErrorImpl.frbInternalSseDecode(
-      sse_decode_usize(deserializer),
-      sse_decode_i_32(deserializer),
-    );
   }
 
   @protected
@@ -2689,17 +2689,6 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
     // Codec=Sse (Serialization based), see doc to use other codecs
     var inner = sse_decode_list_record_string_file_dto(deserializer);
     return Map.fromEntries(inner.map((e) => MapEntry(e.$1, e.$2)));
-  }
-
-  @protected
-  ClientError sse_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerClientError(
-    SseDeserializer deserializer,
-  ) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    return ClientErrorImpl.frbInternalSseDecode(
-      sse_decode_usize(deserializer),
-      sse_decode_i_32(deserializer),
-    );
   }
 
   @protected
@@ -2905,6 +2894,14 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   ) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     return (sse_decode_prepare_upload_request_dto(deserializer));
+  }
+
+  @protected
+  PrepareUploadResponseDto sse_decode_box_autoadd_prepare_upload_response_dto(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return (sse_decode_prepare_upload_response_dto(deserializer));
   }
 
   @protected
@@ -3194,6 +3191,19 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  PrepareUploadResponseDto? sse_decode_opt_box_autoadd_prepare_upload_response_dto(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    if (sse_decode_bool(deserializer)) {
+      return (sse_decode_box_autoadd_prepare_upload_response_dto(deserializer));
+    } else {
+      return null;
+    }
+  }
+
+  @protected
   PinConfig sse_decode_pin_config(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     var var_pin = sse_decode_String(deserializer);
@@ -3227,7 +3237,9 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   ) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     var var_statusCode = sse_decode_u_16(deserializer);
-    var var_response = sse_decode_prepare_upload_response_dto(deserializer);
+    var var_response = sse_decode_opt_box_autoadd_prepare_upload_response_dto(
+      deserializer,
+    );
     return PrepareUploadResult(
       statusCode: var_statusCode,
       response: var_response,
@@ -3348,6 +3360,38 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       publicKey: var_publicKey,
       body: var_body,
     );
+  }
+
+  @protected
+  RsHttpClientError sse_decode_rs_http_client_error(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    var tag_ = sse_decode_i_32(deserializer);
+    switch (tag_) {
+      case 0:
+        var var_status = sse_decode_u_16(deserializer);
+        var var_message = sse_decode_opt_String(deserializer);
+        return RsHttpClientError_StatusCode(
+          status: var_status,
+          message: var_message,
+        );
+      case 1:
+        var var_field0 = sse_decode_String(deserializer);
+        return RsHttpClientError_Reqwest(var_field0);
+      case 2:
+        var var_field0 = sse_decode_String(deserializer);
+        return RsHttpClientError_Json(var_field0);
+      case 3:
+        var var_field0 = sse_decode_String(deserializer);
+        return RsHttpClientError_Io(var_field0);
+      case 4:
+        var var_field0 = sse_decode_String(deserializer);
+        return RsHttpClientError_Other(var_field0);
+      default:
+        throw UnimplementedError('');
+    }
   }
 
   @protected
@@ -3489,18 +3533,6 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   ) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_String(self.message, serializer);
-  }
-
-  @protected
-  void sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerClientError(
-    ClientError self,
-    SseSerializer serializer,
-  ) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    sse_encode_usize(
-      (self as ClientErrorImpl).frbInternalSseEncode(move: true),
-      serializer,
-    );
   }
 
   @protected
@@ -3745,18 +3777,6 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_list_record_string_file_dto(
       self.entries.map((e) => (e.key, e.value)).toList(),
-      serializer,
-    );
-  }
-
-  @protected
-  void sse_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerClientError(
-    ClientError self,
-    SseSerializer serializer,
-  ) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    sse_encode_usize(
-      (self as ClientErrorImpl).frbInternalSseEncode(move: null),
       serializer,
     );
   }
@@ -4030,6 +4050,15 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  void sse_encode_box_autoadd_prepare_upload_response_dto(
+    PrepareUploadResponseDto self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_prepare_upload_response_dto(self, serializer);
+  }
+
+  @protected
   void sse_encode_box_autoadd_proposing_client_info(
     ProposingClientInfo self,
     SseSerializer serializer,
@@ -4291,6 +4320,19 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  void sse_encode_opt_box_autoadd_prepare_upload_response_dto(
+    PrepareUploadResponseDto? self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    sse_encode_bool(self != null, serializer);
+    if (self != null) {
+      sse_encode_box_autoadd_prepare_upload_response_dto(self, serializer);
+    }
+  }
+
+  @protected
   void sse_encode_pin_config(PinConfig self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_String(self.pin, serializer);
@@ -4324,7 +4366,10 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   ) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_u_16(self.statusCode, serializer);
-    sse_encode_prepare_upload_response_dto(self.response, serializer);
+    sse_encode_opt_box_autoadd_prepare_upload_response_dto(
+      self.response,
+      serializer,
+    );
   }
 
   @protected
@@ -4417,6 +4462,35 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_opt_String(self.publicKey, serializer);
     sse_encode_register_response_dto(self.body, serializer);
+  }
+
+  @protected
+  void sse_encode_rs_http_client_error(
+    RsHttpClientError self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    switch (self) {
+      case RsHttpClientError_StatusCode(
+        status: final status,
+        message: final message,
+      ):
+        sse_encode_i_32(0, serializer);
+        sse_encode_u_16(status, serializer);
+        sse_encode_opt_String(message, serializer);
+      case RsHttpClientError_Reqwest(field0: final field0):
+        sse_encode_i_32(1, serializer);
+        sse_encode_String(field0, serializer);
+      case RsHttpClientError_Json(field0: final field0):
+        sse_encode_i_32(2, serializer);
+        sse_encode_String(field0, serializer);
+      case RsHttpClientError_Io(field0: final field0):
+        sse_encode_i_32(3, serializer);
+        sse_encode_String(field0, serializer);
+      case RsHttpClientError_Other(field0: final field0):
+        sse_encode_i_32(4, serializer);
+        sse_encode_String(field0, serializer);
+    }
   }
 
   @protected
@@ -4532,21 +4606,6 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
     sse_encode_String(self.sessionId, serializer);
     sse_encode_String(self.sdp, serializer);
   }
-}
-
-@sealed
-class ClientErrorImpl extends RustOpaque implements ClientError {
-  // Not to be used by end users
-  ClientErrorImpl.frbInternalDcoDecode(List<dynamic> wire) : super.frbInternalDcoDecode(wire, _kStaticData);
-
-  // Not to be used by end users
-  ClientErrorImpl.frbInternalSseDecode(BigInt ptr, int externalSizeOnNative) : super.frbInternalSseDecode(ptr, externalSizeOnNative, _kStaticData);
-
-  static final _kStaticData = RustArcStaticData(
-    rustArcIncrementStrongCount: RustLib.instance.api.rust_arc_increment_strong_count_ClientError,
-    rustArcDecrementStrongCount: RustLib.instance.api.rust_arc_decrement_strong_count_ClientError,
-    rustArcDecrementStrongCountPtr: RustLib.instance.api.rust_arc_decrement_strong_count_ClientErrorPtr,
-  );
 }
 
 @sealed

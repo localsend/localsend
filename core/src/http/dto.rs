@@ -133,7 +133,7 @@ impl From<PrepareUploadRequestDto> for PrepareUploadRequestDtoV2 {
 
 pub struct PrepareUploadResult {
     pub status_code: u16,
-    pub response: PrepareUploadResponseDto,
+    pub response: Option<PrepareUploadResponseDto>,
 }
 
 impl From<PrepareUploadResponseDtoV2> for PrepareUploadResponseDto {
@@ -149,7 +149,7 @@ impl From<crate::http::dto_v2::PrepareUploadResultV2> for PrepareUploadResult {
     fn from(v2: crate::http::dto_v2::PrepareUploadResultV2) -> Self {
         PrepareUploadResult {
             status_code: v2.status_code,
-            response: v2.response.into(),
+            response: v2.response.map(|r| r.into()),
         }
     }
 }

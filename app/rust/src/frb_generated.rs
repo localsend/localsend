@@ -339,7 +339,7 @@ fn wire__crate__api__http__RsHttpClient_cancel_impl(
             let api_session_id = <String>::sse_decode(&mut deserializer);
             deserializer.end();
             move |context| async move {
-                transform_result_sse::<_, ClientError>(
+                transform_result_sse::<_, crate::api::http::RsHttpClientError>(
                     (move || async move {
                         let mut api_that_guard = None;
                         let decode_indices_ =
@@ -408,7 +408,7 @@ fn wire__crate__api__http__RsHttpClient_prepare_upload_impl(
             let api_pin = <Option<String>>::sse_decode(&mut deserializer);
             deserializer.end();
             move |context| async move {
-                transform_result_sse::<_, ClientError>(
+                transform_result_sse::<_, crate::api::http::RsHttpClientError>(
                     (move || async move {
                         let mut api_that_guard = None;
                         let decode_indices_ =
@@ -476,7 +476,7 @@ fn wire__crate__api__http__RsHttpClient_register_impl(
             let api_payload = <crate::api::model::RegisterDto>::sse_decode(&mut deserializer);
             deserializer.end();
             move |context| async move {
-                transform_result_sse::<_, ClientError>(
+                transform_result_sse::<_, crate::api::http::RsHttpClientError>(
                     (move || async move {
                         let mut api_that_guard = None;
                         let decode_indices_ =
@@ -546,7 +546,7 @@ fn wire__crate__api__http__RsHttpClient_upload_impl(
             let api_binary = <Dart2RustStreamReceiver>::sse_decode(&mut deserializer);
             deserializer.end();
             move |context| async move {
-                transform_result_sse::<_, ClientError>(
+                transform_result_sse::<_, crate::api::http::RsHttpClientError>(
                     (move || async move {
                         let mut api_that_guard = None;
                         let decode_indices_ =
@@ -1577,16 +1577,15 @@ let api_on_connection = decode_DartFn_Inputs_Auto_Owned_RustOpaque_flutter_rust_
                 } })
 }
 fn wire__crate__api__http__create_client_impl(
-    port_: flutter_rust_bridge::for_generated::MessagePort,
     ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
     rust_vec_len_: i32,
     data_len_: i32,
-) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::SseCodec, _, _>(
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartSse {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::SseCodec, _>(
         flutter_rust_bridge::for_generated::TaskInfo {
             debug_name: "create_client",
-            port: Some(port_),
-            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
         },
         move || {
             let message = unsafe {
@@ -1603,13 +1602,11 @@ fn wire__crate__api__http__create_client_impl(
             let api_version =
                 <crate::api::http::LsHttpClientVersion>::sse_decode(&mut deserializer);
             deserializer.end();
-            move |context| {
-                transform_result_sse::<_, ClientError>((move || {
-                    let output_ok =
-                        crate::api::http::create_client(api_private_key, api_cert, api_version)?;
-                    Ok(output_ok)
-                })())
-            }
+            transform_result_sse::<_, crate::api::http::RsHttpClientError>((move || {
+                let output_ok =
+                    crate::api::http::create_client(api_private_key, api_cert, api_version)?;
+                Ok(output_ok)
+            })())
         },
     )
 }
@@ -1805,7 +1802,7 @@ const _: fn() = || {
     {
         let PrepareUploadResult = None::<crate::api::http::PrepareUploadResult>.unwrap();
         let _: u16 = PrepareUploadResult.status_code;
-        let _: crate::api::model::PrepareUploadResponseDto = PrepareUploadResult.response;
+        let _: Option<crate::api::model::PrepareUploadResponseDto> = PrepareUploadResult.response;
     }
     {
         let RegisterDto = None::<crate::api::model::RegisterDto>.unwrap();
@@ -1917,9 +1914,6 @@ fn decode_DartFn_Inputs_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRu
     }
 }
 flutter_rust_bridge::frb_generated_moi_arc_impl_value!(
-    flutter_rust_bridge::for_generated::RustAutoOpaqueInner<ClientError>
-);
-flutter_rust_bridge::frb_generated_moi_arc_impl_value!(
     flutter_rust_bridge::for_generated::RustAutoOpaqueInner<Dart2RustStreamReceiver>
 );
 flutter_rust_bridge::frb_generated_moi_arc_impl_value!(
@@ -1951,16 +1945,6 @@ impl SseDecode for flutter_rust_bridge::for_generated::anyhow::Error {
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
         let mut inner = <String>::sse_decode(deserializer);
         return flutter_rust_bridge::for_generated::anyhow::anyhow!("{}", inner);
-    }
-}
-
-impl SseDecode for ClientError {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
-        let mut inner = <RustOpaqueMoi<
-            flutter_rust_bridge::for_generated::RustAutoOpaqueInner<ClientError>,
-        >>::sse_decode(deserializer);
-        return flutter_rust_bridge::for_generated::rust_auto_opaque_decode_owned(inner);
     }
 }
 
@@ -2065,16 +2049,6 @@ impl SseDecode for std::collections::HashMap<String, crate::api::model::FileDto>
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
         let mut inner = <Vec<(String, crate::api::model::FileDto)>>::sse_decode(deserializer);
         return inner.into_iter().collect();
-    }
-}
-
-impl SseDecode
-    for RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<ClientError>>
-{
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
-        let mut inner = <usize>::sse_decode(deserializer);
-        return decode_rust_opaque_moi(inner);
     }
 }
 
@@ -2510,6 +2484,19 @@ impl SseDecode for Option<crate::api::webrtc::PinConfig> {
     }
 }
 
+impl SseDecode for Option<crate::api::model::PrepareUploadResponseDto> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        if (<bool>::sse_decode(deserializer)) {
+            return Some(<crate::api::model::PrepareUploadResponseDto>::sse_decode(
+                deserializer,
+            ));
+        } else {
+            return None;
+        }
+    }
+}
+
 impl SseDecode for crate::api::webrtc::PinConfig {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
@@ -2554,7 +2541,7 @@ impl SseDecode for crate::api::http::PrepareUploadResult {
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
         let mut var_statusCode = <u16>::sse_decode(deserializer);
         let mut var_response =
-            <crate::api::model::PrepareUploadResponseDto>::sse_decode(deserializer);
+            <Option<crate::api::model::PrepareUploadResponseDto>>::sse_decode(deserializer);
         return crate::api::http::PrepareUploadResult {
             status_code: var_statusCode,
             response: var_response,
@@ -2670,6 +2657,42 @@ impl SseDecode for crate::api::http::ResultWithPublicKeyRegisterResponseDto {
             public_key: var_publicKey,
             body: var_body,
         };
+    }
+}
+
+impl SseDecode for crate::api::http::RsHttpClientError {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut tag_ = <i32>::sse_decode(deserializer);
+        match tag_ {
+            0 => {
+                let mut var_status = <u16>::sse_decode(deserializer);
+                let mut var_message = <Option<String>>::sse_decode(deserializer);
+                return crate::api::http::RsHttpClientError::StatusCode {
+                    status: var_status,
+                    message: var_message,
+                };
+            }
+            1 => {
+                let mut var_field0 = <String>::sse_decode(deserializer);
+                return crate::api::http::RsHttpClientError::Reqwest(var_field0);
+            }
+            2 => {
+                let mut var_field0 = <String>::sse_decode(deserializer);
+                return crate::api::http::RsHttpClientError::Json(var_field0);
+            }
+            3 => {
+                let mut var_field0 = <String>::sse_decode(deserializer);
+                return crate::api::http::RsHttpClientError::Io(var_field0);
+            }
+            4 => {
+                let mut var_field0 = <String>::sse_decode(deserializer);
+                return crate::api::http::RsHttpClientError::Other(var_field0);
+            }
+            _ => {
+                unimplemented!("");
+            }
+        }
     }
 }
 
@@ -2965,7 +2988,6 @@ fn pde_ffi_dispatcher_primary_impl(
             data_len,
         ),
         25 => wire__crate__api__webrtc__connect_impl(port, ptr, rust_vec_len, data_len),
-        26 => wire__crate__api__http__create_client_impl(port, ptr, rust_vec_len, data_len),
         27 => wire__crate__api__stream__create_stream_impl(port, ptr, rust_vec_len, data_len),
         28 => {
             wire__crate__api__logging__enable_debug_logging_impl(port, ptr, rust_vec_len, data_len)
@@ -2984,26 +3006,12 @@ fn pde_ffi_dispatcher_sync_impl(
 ) -> flutter_rust_bridge::for_generated::WireSyncRust2DartSse {
     // Codec=Pde (Serialization + dispatch), see doc to use other codecs
     match func_id {
+        26 => wire__crate__api__http__create_client_impl(ptr, rust_vec_len, data_len),
         _ => unreachable!(),
     }
 }
 
 // Section: rust2dart
-
-// Codec=Dco (DartCObject based), see doc to use other codecs
-impl flutter_rust_bridge::IntoDart for FrbWrapper<ClientError> {
-    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
-        flutter_rust_bridge::for_generated::rust_auto_opaque_encode::<_, MoiArc<_>>(self.0)
-            .into_dart()
-    }
-}
-impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive for FrbWrapper<ClientError> {}
-
-impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<ClientError>> for ClientError {
-    fn into_into_dart(self) -> FrbWrapper<ClientError> {
-        self.into()
-    }
-}
 
 // Codec=Dco (DartCObject based), see doc to use other codecs
 impl flutter_rust_bridge::IntoDart for FrbWrapper<Dart2RustStreamReceiver> {
@@ -3523,6 +3531,45 @@ impl flutter_rust_bridge::IntoIntoDart<crate::api::http::ResultWithPublicKeyRegi
     }
 }
 // Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for crate::api::http::RsHttpClientError {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        match self {
+            crate::api::http::RsHttpClientError::StatusCode { status, message } => [
+                0.into_dart(),
+                status.into_into_dart().into_dart(),
+                message.into_into_dart().into_dart(),
+            ]
+            .into_dart(),
+            crate::api::http::RsHttpClientError::Reqwest(field0) => {
+                [1.into_dart(), field0.into_into_dart().into_dart()].into_dart()
+            }
+            crate::api::http::RsHttpClientError::Json(field0) => {
+                [2.into_dart(), field0.into_into_dart().into_dart()].into_dart()
+            }
+            crate::api::http::RsHttpClientError::Io(field0) => {
+                [3.into_dart(), field0.into_into_dart().into_dart()].into_dart()
+            }
+            crate::api::http::RsHttpClientError::Other(field0) => {
+                [4.into_dart(), field0.into_into_dart().into_dart()].into_dart()
+            }
+            _ => {
+                unimplemented!("");
+            }
+        }
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for crate::api::http::RsHttpClientError
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<crate::api::http::RsHttpClientError>
+    for crate::api::http::RsHttpClientError
+{
+    fn into_into_dart(self) -> crate::api::http::RsHttpClientError {
+        self
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
 impl flutter_rust_bridge::IntoDart for FrbWrapper<crate::api::webrtc::RTCFileError> {
     fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
         [
@@ -3671,13 +3718,6 @@ impl SseEncode for flutter_rust_bridge::for_generated::anyhow::Error {
     }
 }
 
-impl SseEncode for ClientError {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
-        <RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<ClientError>>>::sse_encode(flutter_rust_bridge::for_generated::rust_auto_opaque_encode::<_, MoiArc<_>>(self), serializer);
-    }
-}
-
 impl SseEncode for Dart2RustStreamReceiver {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
@@ -3770,17 +3810,6 @@ impl SseEncode for std::collections::HashMap<String, crate::api::model::FileDto>
             self.into_iter().collect(),
             serializer,
         );
-    }
-}
-
-impl SseEncode
-    for RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<ClientError>>
-{
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
-        let (ptr, size) = self.sse_encode_raw();
-        <usize>::sse_encode(ptr, serializer);
-        <i32>::sse_encode(size, serializer);
     }
 }
 
@@ -4170,6 +4199,16 @@ impl SseEncode for Option<crate::api::webrtc::PinConfig> {
     }
 }
 
+impl SseEncode for Option<crate::api::model::PrepareUploadResponseDto> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <bool>::sse_encode(self.is_some(), serializer);
+        if let Some(value) = self {
+            <crate::api::model::PrepareUploadResponseDto>::sse_encode(value, serializer);
+        }
+    }
+}
+
 impl SseEncode for crate::api::webrtc::PinConfig {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
@@ -4200,7 +4239,10 @@ impl SseEncode for crate::api::http::PrepareUploadResult {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
         <u16>::sse_encode(self.status_code, serializer);
-        <crate::api::model::PrepareUploadResponseDto>::sse_encode(self.response, serializer);
+        <Option<crate::api::model::PrepareUploadResponseDto>>::sse_encode(
+            self.response,
+            serializer,
+        );
     }
 }
 
@@ -4285,6 +4327,38 @@ impl SseEncode for crate::api::http::ResultWithPublicKeyRegisterResponseDto {
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
         <Option<String>>::sse_encode(self.public_key, serializer);
         <crate::api::model::RegisterResponseDto>::sse_encode(self.body, serializer);
+    }
+}
+
+impl SseEncode for crate::api::http::RsHttpClientError {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        match self {
+            crate::api::http::RsHttpClientError::StatusCode { status, message } => {
+                <i32>::sse_encode(0, serializer);
+                <u16>::sse_encode(status, serializer);
+                <Option<String>>::sse_encode(message, serializer);
+            }
+            crate::api::http::RsHttpClientError::Reqwest(field0) => {
+                <i32>::sse_encode(1, serializer);
+                <String>::sse_encode(field0, serializer);
+            }
+            crate::api::http::RsHttpClientError::Json(field0) => {
+                <i32>::sse_encode(2, serializer);
+                <String>::sse_encode(field0, serializer);
+            }
+            crate::api::http::RsHttpClientError::Io(field0) => {
+                <i32>::sse_encode(3, serializer);
+                <String>::sse_encode(field0, serializer);
+            }
+            crate::api::http::RsHttpClientError::Other(field0) => {
+                <i32>::sse_encode(4, serializer);
+                <String>::sse_encode(field0, serializer);
+            }
+            _ => {
+                unimplemented!("");
+            }
+        }
     }
 }
 
@@ -4448,20 +4522,6 @@ mod io {
     flutter_rust_bridge::frb_generated_boilerplate_io!();
 
     #[unsafe(no_mangle)]
-    pub extern "C" fn frbgen_localsend_app_rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerClientError(
-        ptr: *const std::ffi::c_void,
-    ) {
-        MoiArc::<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<ClientError>>::increment_strong_count(ptr as _);
-    }
-
-    #[unsafe(no_mangle)]
-    pub extern "C" fn frbgen_localsend_app_rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerClientError(
-        ptr: *const std::ffi::c_void,
-    ) {
-        MoiArc::<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<ClientError>>::decrement_strong_count(ptr as _);
-    }
-
-    #[unsafe(no_mangle)]
     pub extern "C" fn frbgen_localsend_app_rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDart2RustStreamReceiver(
         ptr: *const std::ffi::c_void,
     ) {
@@ -4599,20 +4659,6 @@ mod web {
     // Section: boilerplate
 
     flutter_rust_bridge::frb_generated_boilerplate_web!();
-
-    #[wasm_bindgen]
-    pub fn rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerClientError(
-        ptr: *const std::ffi::c_void,
-    ) {
-        MoiArc::<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<ClientError>>::increment_strong_count(ptr as _);
-    }
-
-    #[wasm_bindgen]
-    pub fn rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerClientError(
-        ptr: *const std::ffi::c_void,
-    ) {
-        MoiArc::<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<ClientError>>::decrement_strong_count(ptr as _);
-    }
 
     #[wasm_bindgen]
     pub fn rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDart2RustStreamReceiver(

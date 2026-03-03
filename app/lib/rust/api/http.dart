@@ -4,11 +4,16 @@
 // ignore_for_file: invalid_use_of_internal_member, unused_import, unnecessary_import
 
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
+import 'package:freezed_annotation/freezed_annotation.dart' hide protected;
 import 'package:localsend_app/rust/api/model.dart';
 import 'package:localsend_app/rust/api/stream.dart';
 import 'package:localsend_app/rust/frb_generated.dart';
 
-Future<RsHttpClient> createClient({
+part 'http.freezed.dart';
+
+// These function are ignored because they are on traits that is not defined in current crate (put an empty `#[frb]` on it to unignore): `from`
+
+RsHttpClient createClient({
   required String privateKey,
   required String cert,
   required LsHttpClientVersion version,
@@ -17,9 +22,6 @@ Future<RsHttpClient> createClient({
   cert: cert,
   version: version,
 );
-
-// Rust type: RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<ClientError>>
-abstract class ClientError implements RustOpaqueInterface {}
 
 // Rust type: RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<RsHttpClient>>
 abstract class RsHttpClient implements RustOpaqueInterface {
@@ -65,11 +67,11 @@ enum LsHttpClientVersion {
 
 class PrepareUploadResult {
   final int statusCode;
-  final PrepareUploadResponseDto response;
+  final PrepareUploadResponseDto? response;
 
   const PrepareUploadResult({
     required this.statusCode,
-    required this.response,
+    this.response,
   });
 
   @override
@@ -97,4 +99,26 @@ class ResultWithPublicKeyRegisterResponseDto {
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is ResultWithPublicKeyRegisterResponseDto && runtimeType == other.runtimeType && publicKey == other.publicKey && body == other.body;
+}
+
+@freezed
+sealed class RsHttpClientError with _$RsHttpClientError implements FrbException {
+  const RsHttpClientError._();
+
+  const factory RsHttpClientError.statusCode({
+    required int status,
+    String? message,
+  }) = RsHttpClientError_StatusCode;
+  const factory RsHttpClientError.reqwest(
+    String field0,
+  ) = RsHttpClientError_Reqwest;
+  const factory RsHttpClientError.json(
+    String field0,
+  ) = RsHttpClientError_Json;
+  const factory RsHttpClientError.io(
+    String field0,
+  ) = RsHttpClientError_Io;
+  const factory RsHttpClientError.other(
+    String field0,
+  ) = RsHttpClientError_Other;
 }

@@ -1,16 +1,15 @@
 use super::{ClientError, ResponseExt, ResultWithPublicKey};
 use crate::http::client::url::{ApiVersion, TargetUrl};
+use crate::http::dto::ProtocolType;
 use crate::http::dto_v2::{
     InfoResponseDtoV2, PrepareDownloadResponseDtoV2, PrepareUploadRequestDtoV2,
-    PrepareUploadResponseDtoV2, PrepareUploadResultV2, RegisterDtoV2,
-    RegisterResponseDtoV2,
+    PrepareUploadResponseDtoV2, PrepareUploadResultV2, RegisterDtoV2, RegisterResponseDtoV2,
 };
 use futures_util::StreamExt;
 use reqwest::{Response, StatusCode};
 use tokio::io::AsyncWriteExt;
 use tokio::sync::mpsc;
 use tokio_stream::wrappers::ReceiverStream;
-use crate::http::dto::ProtocolType;
 
 /// HTTP client for LocalSend Protocol v2.1.
 pub struct LsHttpClientV2 {
@@ -164,11 +163,18 @@ impl LsHttpClientV2 {
             return res.into_error().await;
         }
 
+        if status == StatusCode::NO_CONTENT {
+            return Ok(PrepareUploadResultV2 {
+                status_code: status.as_u16(),
+                response: None,
+            });
+        }
+
         let body = res.json::<PrepareUploadResponseDtoV2>().await?;
 
         Ok(PrepareUploadResultV2 {
             status_code: status.as_u16(),
-            response: body,
+            response: Some(body),
         })
     }
 

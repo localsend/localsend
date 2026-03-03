@@ -9,6 +9,6 @@ pub mod state;
 #[derive(Debug, Error)]
 #[error("{status};{message:?}")]
 pub struct StatusCodeError {
-    status: u16,
-    message: Option<String>,
+    pub status: u16,
+    pub message: Option<String>,
 }

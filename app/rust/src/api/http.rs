@@ -1,23 +1,23 @@
 use crate::api::stream;
 use flutter_rust_bridge::frb;
-use localsend::http::{
-    client::{ClientError, LsHttpClientVersion},
-    dto::{
-        PrepareUploadRequestDto, PrepareUploadResponseDto, PrepareUploadResult, ProtocolType,
-        RegisterDto, RegisterResponseDto,
-    },
+pub use localsend::http::client::{ClientError, LsHttpClientVersion};
+pub use localsend::http::dto::{
+    PrepareUploadRequestDto, PrepareUploadResponseDto, PrepareUploadResult, ProtocolType,
+    RegisterDto, RegisterResponseDto,
 };
 
 pub struct RsHttpClient {
     inner: localsend::http::client::LsHttpClient,
 }
 
+#[frb(sync)]
 pub fn create_client(
     private_key: String,
     cert: String,
     version: LsHttpClientVersion,
-) -> Result<RsHttpClient, ClientError> {
-    let inner = localsend::http::client::LsHttpClient::new(&private_key, &cert, version)?;
+) -> Result<RsHttpClient, RsHttpClientError> {
+    let inner = localsend::http::client::LsHttpClient::new(&private_key, &cert, version)
+        .map_err(RsHttpClientError::from)?;
 
     Ok(RsHttpClient { inner })
 }
@@ -29,8 +29,12 @@ impl RsHttpClient {
         ip: &str,
         port: u16,
         payload: RegisterDto,
-    ) -> Result<ResultWithPublicKeyRegisterResponseDto, ClientError> {
-        let response = self.inner.register(protocol, ip, port, payload).await?;
+    ) -> Result<ResultWithPublicKeyRegisterResponseDto, RsHttpClientError> {
+        let response = self
+            .inner
+            .register(protocol, ip, port, payload)
+            .await
+            .map_err(RsHttpClientError::from)?;
 
         Ok(ResultWithPublicKeyRegisterResponseDto {
             public_key: response.public_key,
@@ -46,11 +50,12 @@ impl RsHttpClient {
         payload: PrepareUploadRequestDto,
         public_key: Option<String>,
         pin: Option<String>,
-    ) -> Result<PrepareUploadResult, ClientError> {
+    ) -> Result<PrepareUploadResult, RsHttpClientError> {
         let response = self
             .inner
             .prepare_upload(protocol, ip, port, public_key, payload, pin.as_deref())
-            .await?;
+            .await
+            .map_err(RsHttpClientError::from)?;
 
         Ok(response)
     }
@@ -65,7 +70,7 @@ impl RsHttpClient {
         file_id: &str,
         token: &str,
         binary: stream::Dart2RustStreamReceiver,
-    ) -> Result<(), ClientError> {
+    ) -> Result<(), RsHttpClientError> {
         self.inner
             .upload(
                 protocol,
@@ -77,7 +82,8 @@ impl RsHttpClient {
                 token,
                 binary.receiver,
             )
-            .await?;
+            .await
+            .map_err(RsHttpClientError::from)?;
 
         Ok(())
     }
@@ -88,10 +94,39 @@ impl RsHttpClient {
         ip: &str,
         port: u16,
         session_id: &str,
-    ) -> Result<(), ClientError> {
-        self.inner.cancel(protocol, ip, port, session_id).await?;
+    ) -> Result<(), RsHttpClientError> {
+        self.inner
+            .cancel(protocol, ip, port, session_id)
+            .await
+            .map_err(RsHttpClientError::from)?;
 
         Ok(())
+    }
+}
+
+pub enum RsHttpClientError {
+    StatusCode {
+        status: u16,
+        message: Option<String>,
+    },
+    Reqwest(String),
+    Json(String),
+    Io(String),
+    Other(String),
+}
+
+impl From<ClientError> for RsHttpClientError {
+    fn from(e: ClientError) -> Self {
+        match e {
+            ClientError::StatusCode(e) => RsHttpClientError::StatusCode {
+                status: e.status,
+                message: e.message,
+            },
+            ClientError::Reqwest(e) => RsHttpClientError::Reqwest(e.to_string()),
+            ClientError::Json(e) => RsHttpClientError::Json(e.to_string()),
+            ClientError::Io(e) => RsHttpClientError::Io(e.to_string()),
+            ClientError::Other(e) => RsHttpClientError::Other(e.to_string()),
+        }
     }
 }
 
@@ -104,7 +139,7 @@ pub enum _LsHttpClientVersion {
 #[frb(mirror(PrepareUploadResult))]
 pub struct _PrepareUploadResult {
     pub status_code: u16,
-    pub response: PrepareUploadResponseDto,
+    pub response: Option<PrepareUploadResponseDto>,
 }
 
 pub struct ResultWithPublicKeyRegisterResponseDto {

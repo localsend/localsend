@@ -195,7 +195,6 @@ extension on FileDto {
       fileType: dart_model.decodeFromMime(fileType),
       hash: null,
       preview: preview,
-      legacy: false,
       metadata: metadata?.toFileMetadata(),
     );
   }

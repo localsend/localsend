@@ -150,39 +150,6 @@ void main() {
       download: false,
     );
 
-    test('should serialize in legacy mode', () {
-      const dto = PrepareUploadRequestDto(
-        info: info,
-        files: {
-          'some id': FileDto(
-            id: 'some id',
-            fileName: 'another image.jpg',
-            size: 1234,
-            fileType: FileType.image,
-            hash: '*hash*',
-            preview: '*preview data*',
-            legacy: true,
-            metadata: null,
-          ),
-          'some id 2': FileDto(
-            id: 'some id 2',
-            fileName: 'my apk.apk',
-            size: 1234,
-            fileType: FileType.apk,
-            hash: '*hash*',
-            preview: '*preview data*',
-            legacy: true,
-            metadata: null,
-          ),
-        },
-      );
-      final serialized = dto.toJson();
-      expect(serialized['info']['deviceType'], 'mobile');
-      expect(serialized['files'].length, 2);
-      expect(serialized['files']['some id']['fileType'], 'image');
-      expect(serialized['files']['some id 2']['fileType'], 'apk');
-    });
-
     test('should serialize in mime mode', () {
       final dto = PrepareUploadRequestDto(
         info: info,
@@ -194,7 +161,6 @@ void main() {
             fileType: FileType.image,
             hash: '*hash*',
             preview: '*preview data*',
-            legacy: false,
             metadata: null,
           ),
           'some id 2': FileDto(
@@ -204,7 +170,6 @@ void main() {
             fileType: FileType.apk,
             hash: '*hash*',
             preview: '*preview data*',
-            legacy: false,
             metadata: FileMetadata(
               lastModified: DateTime.utc(2020),
               lastAccessed: DateTime.utc(2021),

@@ -156,7 +156,7 @@ pub struct PrepareUploadResponseDtoV2 {
 
 pub struct PrepareUploadResultV2 {
     pub status_code: u16,
-    pub response: PrepareUploadResponseDtoV2,
+    pub response: Option<PrepareUploadResponseDtoV2>,
 }
 
 /// Prepare download response DTO for v2.1 protocol (Download API).

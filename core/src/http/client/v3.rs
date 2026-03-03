@@ -164,11 +164,18 @@ impl LsHttpClientV3 {
             return res.into_error().await;
         }
 
-        let response = res.json::<http::dto::PrepareUploadResponseDto>().await?;
+        if status == StatusCode::NO_CONTENT {
+            return Ok(http::dto::PrepareUploadResult {
+                status_code: status.as_u16(),
+                response: None,
+            });
+        }
+
+        let body = res.json::<http::dto::PrepareUploadResponseDto>().await?;
 
         Ok(http::dto::PrepareUploadResult {
             status_code: status.as_u16(),
-            response,
+            response: Some(body),
         })
     }
 
