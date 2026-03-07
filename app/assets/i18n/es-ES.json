@@ -88,7 +88,7 @@
     "title": "Ajustes",
     "general": {
       "title": "General",
-      "brightness": "Luminosidad",
+      "brightness": "Tema",
       "brightnessOptions": {
         "system": "Sistema",
         "dark": "Oscuro",
