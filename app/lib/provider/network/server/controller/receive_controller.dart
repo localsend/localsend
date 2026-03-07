@@ -479,6 +479,7 @@ class ReceiveController {
       return await request.respondJson(403, message: 'Invalid token');
     }
 
+    _logger.info('Transfer started (receive) sessionId=${receiveState.sessionId} fileId=$fileId');
     // begin of actual file transfer
     server.setState(
       (oldState) => oldState?.copyWith(
@@ -627,7 +628,7 @@ class ReceiveController {
           }
         });
       }
-      _logger.info('Received all files.');
+      _logger.info('Transfer finished successfully (receive) sessionId=${session.sessionId}');
     }
 
     return server.getState().session?.files[fileId]?.status == FileStatus.finished
@@ -797,6 +798,7 @@ class ReceiveController {
       // the server is not running
       return;
     }
+    _logger.info('Transfer canceled by receiver (receive) sessionId=${session.sessionId}');
 
     // notify sender
     final target = session.sender;
@@ -841,6 +843,7 @@ void _cancelBySender(ServerUtils server) {
   if (receiveSession == null) {
     return;
   }
+  _logger.info('Transfer canceled by sender (receive) sessionId=${receiveSession.sessionId}');
 
   if (receiveSession.status == SessionStatus.waiting) {
     // received cancel during accept/decline
