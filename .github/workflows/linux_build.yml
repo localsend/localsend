@@ -34,7 +34,7 @@ jobs:
 
       - name: Build generated files
         working-directory: app
-        run: flutter pub run build_runner build -d
+        run: dart run build_runner build -d
 
       - name: Upload updated lib files with generated code
         uses: actions/upload-artifact@v6
