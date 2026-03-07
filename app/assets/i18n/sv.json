@@ -232,6 +232,14 @@
       "count": "Filer: {curr} / {n}",
       "size": "Storlek: {curr} / {n}",
       "speed": "Hastighet: {speed}/s"
+    },
+    "remainingTime": {
+      "seconds": "{n}:{ss}",
+      "minutes": "{n}:{ss}",
+      "hours": "{h}h {m}m",
+      "days": "{d}d {h}h {m}m",
+      "@hours": "Använd \"h\" som förkortning för timmar och \"m\" för minuter",
+      "@days": "Använd \"d\" för dagar, \"h\" för timmar och \"m\" för minuter"
     }
   },
   "webSharePage": {

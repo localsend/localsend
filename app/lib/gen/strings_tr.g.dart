@@ -13,21 +13,30 @@ import 'strings.g.dart';
 class TranslationsTr extends Translations {
   /// You can call this constructor and build your own translation instance of this locale.
   /// Constructing via the enum [AppLocale.build] is preferred.
-  TranslationsTr({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
-    : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-      $meta = TranslationMetadata(
-        locale: AppLocale.tr,
-        overrides: overrides ?? {},
-        cardinalResolver: cardinalResolver,
-        ordinalResolver: ordinalResolver,
-      ),
-      super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+  TranslationsTr({
+    Map<String, Node>? overrides,
+    PluralResolver? cardinalResolver,
+    PluralResolver? ordinalResolver,
+    TranslationMetadata<AppLocale, Translations>? meta,
+  }) : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
+       $meta =
+           meta ??
+           TranslationMetadata(
+             locale: AppLocale.tr,
+             overrides: overrides ?? {},
+             cardinalResolver: cardinalResolver,
+             ordinalResolver: ordinalResolver,
+           ),
+       super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
 
   /// Metadata for the translations of <tr>.
   @override
   final TranslationMetadata<AppLocale, Translations> $meta;
 
   late final TranslationsTr _root = this; // ignore: unused_field
+
+  @override
+  TranslationsTr $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => TranslationsTr(meta: meta ?? this.$meta);
 
   // Translations
   @override
@@ -66,8 +75,6 @@ class TranslationsTr extends Translations {
   late final _TranslationsDonationPageTr donationPage = _TranslationsDonationPageTr._(_root);
   @override
   late final _TranslationsChangelogPageTr changelogPage = _TranslationsChangelogPageTr._(_root);
-  @override
-  late final _TranslationsAliasGeneratorTr aliasGenerator = _TranslationsAliasGeneratorTr._(_root);
   @override
   late final _TranslationsDialogsTr dialogs = _TranslationsDialogsTr._(_root);
   @override
@@ -382,6 +389,8 @@ class _TranslationsProgressPageTr extends TranslationsProgressPageEn {
   String get savedToGallery => 'Galeriye kaydedildi';
   @override
   late final _TranslationsProgressPageTotalTr total = _TranslationsProgressPageTotalTr._(_root);
+  @override
+  late final _TranslationsProgressPageRemainingTimeTr remainingTime = _TranslationsProgressPageRemainingTimeTr._(_root);
 }
 
 // Path: webSharePage
@@ -478,15 +487,6 @@ class _TranslationsChangelogPageTr extends TranslationsChangelogPageEn {
   String get title => 'Değişiklik günlüğü';
 }
 
-// Path: aliasGenerator
-class _TranslationsAliasGeneratorTr extends TranslationsAliasGeneratorEn {
-  _TranslationsAliasGeneratorTr._(TranslationsTr root) : this._root = root, super.internal(root);
-
-  final TranslationsTr _root; // ignore: unused_field
-
-  // Translations
-}
-
 // Path: dialogs
 class _TranslationsDialogsTr extends TranslationsDialogsEn {
   _TranslationsDialogsTr._(TranslationsTr root) : this._root = root, super.internal(root);
@@ -542,6 +542,10 @@ class _TranslationsDialogsTr extends TranslationsDialogsEn {
   late final _TranslationsDialogsZoomTr zoom = _TranslationsDialogsZoomTr._(_root);
   @override
   late final _TranslationsDialogsOpenFileTr openFile = _TranslationsDialogsOpenFileTr._(_root);
+  @override
+  late final _TranslationsDialogsQuickSaveFromFavoritesNoticeTr quickSaveFromFavoritesNotice = _TranslationsDialogsQuickSaveFromFavoritesNoticeTr._(
+    _root,
+  );
 }
 
 // Path: sanitization
@@ -678,6 +682,9 @@ class _TranslationsNetworkInterfacesPageTr extends TranslationsNetworkInterfaces
   String get whitelist => 'Beyaz liste';
   @override
   String get blacklist => 'Kara liste';
+  @override
+  String get info =>
+      'Varsayılan olarak, LocalSend mevcut olan tüm ağları kullanır. Burada istenmeyen ağları engelleyebilirsiniz. Değişikliklerin uygulanması için sunucuyu yeniden başlatmanız gerekir.';
 }
 
 // Path: receiveTab.infoBox
@@ -821,6 +828,8 @@ class _TranslationsSettingsTabReceiveTr extends TranslationsSettingsTabReceiveEn
   String get saveToGallery => 'Medyayı galeriye kaydet';
   @override
   String get saveToHistory => 'Geçmişe kaydet';
+  @override
+  String get quickSaveFromFavorites => _root.general.quickSaveFromFavorites;
 }
 
 // Path: settingsTab.send
@@ -911,7 +920,7 @@ class _TranslationsTroubleshootPageFirewallTr extends TranslationsTroubleshootPa
   String solution({required Object port}) =>
       'Bu büyük olasılıkla bir güvenlik duvarı sorunudur. Port ${port} \'da gelen bağlantılara (UDP ve TCP) izin vererek bunu çözebilirsiniz.';
   @override
-  String get openFirewallSettings => 'Güvenlik Duvarını Aç';
+  String get openFirewall => 'Güvenlik Duvarını Aç';
 }
 
 // Path: troubleshootPage.noDiscovery
@@ -974,6 +983,27 @@ class _TranslationsProgressPageTotalTr extends TranslationsProgressPageTotalEn {
   String size({required Object curr, required Object n}) => 'Boyut: ${curr} / ${n}';
   @override
   String speed({required Object speed}) => 'Hız: ${speed}/s';
+}
+
+// Path: progressPage.remainingTime
+class _TranslationsProgressPageRemainingTimeTr extends TranslationsProgressPageRemainingTimeEn {
+  _TranslationsProgressPageRemainingTimeTr._(TranslationsTr root) : this._root = root, super.internal(root);
+
+  final TranslationsTr _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String seconds({required Object n, required Object ss}) => '${n}:${ss}';
+  @override
+  String minutes({required Object n, required Object ss}) => '${n}:${ss}';
+
+  /// Saat kısaltması için 's', dakika kısaltması için 'd' kullanın
+  @override
+  String hours({required Object h, required Object m}) => '${h}s ${m}d';
+
+  /// Günler için 'g', saatler için 's' ve dakikalar için 'd' kullanın
+  @override
+  String days({required Object d, required Object h, required Object m}) => '${d}g ${h}s ${m}d';
 }
 
 // Path: dialogs.addFile
@@ -1318,6 +1348,23 @@ class _TranslationsDialogsOpenFileTr extends TranslationsDialogsOpenFileEn {
   String get content => 'Alınan dosyayı açmak istiyor musunuz?';
 }
 
+// Path: dialogs.quickSaveFromFavoritesNotice
+class _TranslationsDialogsQuickSaveFromFavoritesNoticeTr extends TranslationsDialogsQuickSaveFromFavoritesNoticeEn {
+  _TranslationsDialogsQuickSaveFromFavoritesNoticeTr._(TranslationsTr root) : this._root = root, super.internal(root);
+
+  final TranslationsTr _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => _root.general.quickSaveFromFavorites;
+  @override
+  List<String> get content => [
+    'Favoriler listenizdeki cihazların paylaşım istekleri otomatik olarak kabul edilecektir.',
+    'Uyarı! Şu an, bu tamamen güvenli değildir çünkü favoriler listenizdeki herhangi bir cihazın parmak izine sahip olan hackerlar sınırlama olmadan size dosyalar gönderebilir.',
+    'Ancak, bu seçenek yinede ağdaki tüm kullanıcıların size sınırlandırma olmadan dosya göndermesine izin vermekten daha güvenlidir.',
+  ];
+}
+
 // Path: settingsTab.general.brightnessOptions
 class _TranslationsSettingsTabGeneralBrightnessOptionsTr extends TranslationsSettingsTabGeneralBrightnessOptionsEn {
   _TranslationsSettingsTabGeneralBrightnessOptionsTr._(TranslationsTr root) : this._root = root, super.internal(root);
@@ -1366,6 +1413,8 @@ class _TranslationsSettingsTabNetworkNetworkOptionsTr extends TranslationsSettin
   // Translations
   @override
   String get all => 'Tümü';
+  @override
+  String get filtered => 'Filtrelenmiş';
 }
 
 // Path: progressPage.total.title

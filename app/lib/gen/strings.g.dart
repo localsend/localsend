@@ -4,7 +4,7 @@
 /// To regenerate, run: `dart run slang`
 ///
 /// Locales: 53
-/// Strings: 16912 (319 per locale)
+/// Strings: 17825 (336 per locale)
 
 // coverage:ignore-file
 // ignore_for_file: type=lint, unused_import
@@ -144,278 +144,710 @@ enum AppLocale with BaseAppLocale<AppLocale, Translations> {
   final String? countryCode;
 
   @override
-  Future<Translations> build({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver}) async {
+  Future<Translations> build({
+    Map<String, Node>? overrides,
+    PluralResolver? cardinalResolver,
+    PluralResolver? ordinalResolver,
+  }) async {
     switch (this) {
       case AppLocale.en:
-        return TranslationsEn(overrides: overrides, cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+        return TranslationsEn(
+          overrides: overrides,
+          cardinalResolver: cardinalResolver,
+          ordinalResolver: ordinalResolver,
+        );
       case AppLocale.ar:
         await l_ar.loadLibrary();
-        return l_ar.TranslationsAr(overrides: overrides, cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+        return l_ar.TranslationsAr(
+          overrides: overrides,
+          cardinalResolver: cardinalResolver,
+          ordinalResolver: ordinalResolver,
+        );
       case AppLocale.az:
         await l_az.loadLibrary();
-        return l_az.TranslationsAz(overrides: overrides, cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+        return l_az.TranslationsAz(
+          overrides: overrides,
+          cardinalResolver: cardinalResolver,
+          ordinalResolver: ordinalResolver,
+        );
       case AppLocale.bg:
         await l_bg.loadLibrary();
-        return l_bg.TranslationsBg(overrides: overrides, cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+        return l_bg.TranslationsBg(
+          overrides: overrides,
+          cardinalResolver: cardinalResolver,
+          ordinalResolver: ordinalResolver,
+        );
       case AppLocale.bn:
         await l_bn.loadLibrary();
-        return l_bn.TranslationsBn(overrides: overrides, cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+        return l_bn.TranslationsBn(
+          overrides: overrides,
+          cardinalResolver: cardinalResolver,
+          ordinalResolver: ordinalResolver,
+        );
       case AppLocale.ca:
         await l_ca.loadLibrary();
-        return l_ca.TranslationsCa(overrides: overrides, cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+        return l_ca.TranslationsCa(
+          overrides: overrides,
+          cardinalResolver: cardinalResolver,
+          ordinalResolver: ordinalResolver,
+        );
       case AppLocale.cs:
         await l_cs.loadLibrary();
-        return l_cs.TranslationsCs(overrides: overrides, cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+        return l_cs.TranslationsCs(
+          overrides: overrides,
+          cardinalResolver: cardinalResolver,
+          ordinalResolver: ordinalResolver,
+        );
       case AppLocale.da:
         await l_da.loadLibrary();
-        return l_da.TranslationsDa(overrides: overrides, cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+        return l_da.TranslationsDa(
+          overrides: overrides,
+          cardinalResolver: cardinalResolver,
+          ordinalResolver: ordinalResolver,
+        );
       case AppLocale.de:
         await l_de.loadLibrary();
-        return l_de.TranslationsDe(overrides: overrides, cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+        return l_de.TranslationsDe(
+          overrides: overrides,
+          cardinalResolver: cardinalResolver,
+          ordinalResolver: ordinalResolver,
+        );
       case AppLocale.el:
         await l_el.loadLibrary();
-        return l_el.TranslationsEl(overrides: overrides, cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+        return l_el.TranslationsEl(
+          overrides: overrides,
+          cardinalResolver: cardinalResolver,
+          ordinalResolver: ordinalResolver,
+        );
       case AppLocale.enIn:
         await l_en_IN.loadLibrary();
-        return l_en_IN.TranslationsEnIn(overrides: overrides, cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+        return l_en_IN.TranslationsEnIn(
+          overrides: overrides,
+          cardinalResolver: cardinalResolver,
+          ordinalResolver: ordinalResolver,
+        );
       case AppLocale.esEs:
         await l_es_ES.loadLibrary();
-        return l_es_ES.TranslationsEsEs(overrides: overrides, cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+        return l_es_ES.TranslationsEsEs(
+          overrides: overrides,
+          cardinalResolver: cardinalResolver,
+          ordinalResolver: ordinalResolver,
+        );
       case AppLocale.et:
         await l_et.loadLibrary();
-        return l_et.TranslationsEt(overrides: overrides, cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+        return l_et.TranslationsEt(
+          overrides: overrides,
+          cardinalResolver: cardinalResolver,
+          ordinalResolver: ordinalResolver,
+        );
       case AppLocale.eu:
         await l_eu.loadLibrary();
-        return l_eu.TranslationsEu(overrides: overrides, cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+        return l_eu.TranslationsEu(
+          overrides: overrides,
+          cardinalResolver: cardinalResolver,
+          ordinalResolver: ordinalResolver,
+        );
       case AppLocale.fa:
         await l_fa.loadLibrary();
-        return l_fa.TranslationsFa(overrides: overrides, cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+        return l_fa.TranslationsFa(
+          overrides: overrides,
+          cardinalResolver: cardinalResolver,
+          ordinalResolver: ordinalResolver,
+        );
       case AppLocale.fi:
         await l_fi.loadLibrary();
-        return l_fi.TranslationsFi(overrides: overrides, cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+        return l_fi.TranslationsFi(
+          overrides: overrides,
+          cardinalResolver: cardinalResolver,
+          ordinalResolver: ordinalResolver,
+        );
       case AppLocale.filPh:
         await l_fil_PH.loadLibrary();
-        return l_fil_PH.TranslationsFilPh(overrides: overrides, cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+        return l_fil_PH.TranslationsFilPh(
+          overrides: overrides,
+          cardinalResolver: cardinalResolver,
+          ordinalResolver: ordinalResolver,
+        );
       case AppLocale.fr:
         await l_fr.loadLibrary();
-        return l_fr.TranslationsFr(overrides: overrides, cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+        return l_fr.TranslationsFr(
+          overrides: overrides,
+          cardinalResolver: cardinalResolver,
+          ordinalResolver: ordinalResolver,
+        );
       case AppLocale.gl:
         await l_gl.loadLibrary();
-        return l_gl.TranslationsGl(overrides: overrides, cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+        return l_gl.TranslationsGl(
+          overrides: overrides,
+          cardinalResolver: cardinalResolver,
+          ordinalResolver: ordinalResolver,
+        );
       case AppLocale.gu:
         await l_gu.loadLibrary();
-        return l_gu.TranslationsGu(overrides: overrides, cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+        return l_gu.TranslationsGu(
+          overrides: overrides,
+          cardinalResolver: cardinalResolver,
+          ordinalResolver: ordinalResolver,
+        );
       case AppLocale.he:
         await l_he.loadLibrary();
-        return l_he.TranslationsHe(overrides: overrides, cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+        return l_he.TranslationsHe(
+          overrides: overrides,
+          cardinalResolver: cardinalResolver,
+          ordinalResolver: ordinalResolver,
+        );
       case AppLocale.hi:
         await l_hi.loadLibrary();
-        return l_hi.TranslationsHi(overrides: overrides, cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+        return l_hi.TranslationsHi(
+          overrides: overrides,
+          cardinalResolver: cardinalResolver,
+          ordinalResolver: ordinalResolver,
+        );
       case AppLocale.hu:
         await l_hu.loadLibrary();
-        return l_hu.TranslationsHu(overrides: overrides, cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+        return l_hu.TranslationsHu(
+          overrides: overrides,
+          cardinalResolver: cardinalResolver,
+          ordinalResolver: ordinalResolver,
+        );
       case AppLocale.id:
         await l_id.loadLibrary();
-        return l_id.TranslationsId(overrides: overrides, cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+        return l_id.TranslationsId(
+          overrides: overrides,
+          cardinalResolver: cardinalResolver,
+          ordinalResolver: ordinalResolver,
+        );
       case AppLocale.it:
         await l_it.loadLibrary();
-        return l_it.TranslationsIt(overrides: overrides, cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+        return l_it.TranslationsIt(
+          overrides: overrides,
+          cardinalResolver: cardinalResolver,
+          ordinalResolver: ordinalResolver,
+        );
       case AppLocale.ja:
         await l_ja.loadLibrary();
-        return l_ja.TranslationsJa(overrides: overrides, cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+        return l_ja.TranslationsJa(
+          overrides: overrides,
+          cardinalResolver: cardinalResolver,
+          ordinalResolver: ordinalResolver,
+        );
       case AppLocale.km:
         await l_km.loadLibrary();
-        return l_km.TranslationsKm(overrides: overrides, cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+        return l_km.TranslationsKm(
+          overrides: overrides,
+          cardinalResolver: cardinalResolver,
+          ordinalResolver: ordinalResolver,
+        );
       case AppLocale.ko:
         await l_ko.loadLibrary();
-        return l_ko.TranslationsKo(overrides: overrides, cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+        return l_ko.TranslationsKo(
+          overrides: overrides,
+          cardinalResolver: cardinalResolver,
+          ordinalResolver: ordinalResolver,
+        );
       case AppLocale.ml:
         await l_ml.loadLibrary();
-        return l_ml.TranslationsMl(overrides: overrides, cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+        return l_ml.TranslationsMl(
+          overrides: overrides,
+          cardinalResolver: cardinalResolver,
+          ordinalResolver: ordinalResolver,
+        );
       case AppLocale.mn:
         await l_mn.loadLibrary();
-        return l_mn.TranslationsMn(overrides: overrides, cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+        return l_mn.TranslationsMn(
+          overrides: overrides,
+          cardinalResolver: cardinalResolver,
+          ordinalResolver: ordinalResolver,
+        );
       case AppLocale.ms:
         await l_ms.loadLibrary();
-        return l_ms.TranslationsMs(overrides: overrides, cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+        return l_ms.TranslationsMs(
+          overrides: overrides,
+          cardinalResolver: cardinalResolver,
+          ordinalResolver: ordinalResolver,
+        );
       case AppLocale.ne:
         await l_ne.loadLibrary();
-        return l_ne.TranslationsNe(overrides: overrides, cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+        return l_ne.TranslationsNe(
+          overrides: overrides,
+          cardinalResolver: cardinalResolver,
+          ordinalResolver: ordinalResolver,
+        );
       case AppLocale.nl:
         await l_nl.loadLibrary();
-        return l_nl.TranslationsNl(overrides: overrides, cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+        return l_nl.TranslationsNl(
+          overrides: overrides,
+          cardinalResolver: cardinalResolver,
+          ordinalResolver: ordinalResolver,
+        );
       case AppLocale.pl:
         await l_pl.loadLibrary();
-        return l_pl.TranslationsPl(overrides: overrides, cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+        return l_pl.TranslationsPl(
+          overrides: overrides,
+          cardinalResolver: cardinalResolver,
+          ordinalResolver: ordinalResolver,
+        );
       case AppLocale.ptBr:
         await l_pt_BR.loadLibrary();
-        return l_pt_BR.TranslationsPtBr(overrides: overrides, cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+        return l_pt_BR.TranslationsPtBr(
+          overrides: overrides,
+          cardinalResolver: cardinalResolver,
+          ordinalResolver: ordinalResolver,
+        );
       case AppLocale.ptPt:
         await l_pt_PT.loadLibrary();
-        return l_pt_PT.TranslationsPtPt(overrides: overrides, cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+        return l_pt_PT.TranslationsPtPt(
+          overrides: overrides,
+          cardinalResolver: cardinalResolver,
+          ordinalResolver: ordinalResolver,
+        );
       case AppLocale.ro:
         await l_ro.loadLibrary();
-        return l_ro.TranslationsRo(overrides: overrides, cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+        return l_ro.TranslationsRo(
+          overrides: overrides,
+          cardinalResolver: cardinalResolver,
+          ordinalResolver: ordinalResolver,
+        );
       case AppLocale.ru:
         await l_ru.loadLibrary();
-        return l_ru.TranslationsRu(overrides: overrides, cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+        return l_ru.TranslationsRu(
+          overrides: overrides,
+          cardinalResolver: cardinalResolver,
+          ordinalResolver: ordinalResolver,
+        );
       case AppLocale.si:
         await l_si.loadLibrary();
-        return l_si.TranslationsSi(overrides: overrides, cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+        return l_si.TranslationsSi(
+          overrides: overrides,
+          cardinalResolver: cardinalResolver,
+          ordinalResolver: ordinalResolver,
+        );
       case AppLocale.sk:
         await l_sk.loadLibrary();
-        return l_sk.TranslationsSk(overrides: overrides, cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+        return l_sk.TranslationsSk(
+          overrides: overrides,
+          cardinalResolver: cardinalResolver,
+          ordinalResolver: ordinalResolver,
+        );
       case AppLocale.sl:
         await l_sl.loadLibrary();
-        return l_sl.TranslationsSl(overrides: overrides, cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+        return l_sl.TranslationsSl(
+          overrides: overrides,
+          cardinalResolver: cardinalResolver,
+          ordinalResolver: ordinalResolver,
+        );
       case AppLocale.sr:
         await l_sr.loadLibrary();
-        return l_sr.TranslationsSr(overrides: overrides, cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+        return l_sr.TranslationsSr(
+          overrides: overrides,
+          cardinalResolver: cardinalResolver,
+          ordinalResolver: ordinalResolver,
+        );
       case AppLocale.srCyrl:
         await l_sr_Cyrl.loadLibrary();
-        return l_sr_Cyrl.TranslationsSrCyrl(overrides: overrides, cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+        return l_sr_Cyrl.TranslationsSrCyrl(
+          overrides: overrides,
+          cardinalResolver: cardinalResolver,
+          ordinalResolver: ordinalResolver,
+        );
       case AppLocale.sv:
         await l_sv.loadLibrary();
-        return l_sv.TranslationsSv(overrides: overrides, cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+        return l_sv.TranslationsSv(
+          overrides: overrides,
+          cardinalResolver: cardinalResolver,
+          ordinalResolver: ordinalResolver,
+        );
       case AppLocale.ta:
         await l_ta.loadLibrary();
-        return l_ta.TranslationsTa(overrides: overrides, cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+        return l_ta.TranslationsTa(
+          overrides: overrides,
+          cardinalResolver: cardinalResolver,
+          ordinalResolver: ordinalResolver,
+        );
       case AppLocale.th:
         await l_th.loadLibrary();
-        return l_th.TranslationsTh(overrides: overrides, cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+        return l_th.TranslationsTh(
+          overrides: overrides,
+          cardinalResolver: cardinalResolver,
+          ordinalResolver: ordinalResolver,
+        );
       case AppLocale.tr:
         await l_tr.loadLibrary();
-        return l_tr.TranslationsTr(overrides: overrides, cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+        return l_tr.TranslationsTr(
+          overrides: overrides,
+          cardinalResolver: cardinalResolver,
+          ordinalResolver: ordinalResolver,
+        );
       case AppLocale.uk:
         await l_uk.loadLibrary();
-        return l_uk.TranslationsUk(overrides: overrides, cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+        return l_uk.TranslationsUk(
+          overrides: overrides,
+          cardinalResolver: cardinalResolver,
+          ordinalResolver: ordinalResolver,
+        );
       case AppLocale.ur:
         await l_ur.loadLibrary();
-        return l_ur.TranslationsUr(overrides: overrides, cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+        return l_ur.TranslationsUr(
+          overrides: overrides,
+          cardinalResolver: cardinalResolver,
+          ordinalResolver: ordinalResolver,
+        );
       case AppLocale.vi:
         await l_vi.loadLibrary();
-        return l_vi.TranslationsVi(overrides: overrides, cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+        return l_vi.TranslationsVi(
+          overrides: overrides,
+          cardinalResolver: cardinalResolver,
+          ordinalResolver: ordinalResolver,
+        );
       case AppLocale.zhCn:
         await l_zh_CN.loadLibrary();
-        return l_zh_CN.TranslationsZhCn(overrides: overrides, cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+        return l_zh_CN.TranslationsZhCn(
+          overrides: overrides,
+          cardinalResolver: cardinalResolver,
+          ordinalResolver: ordinalResolver,
+        );
       case AppLocale.zhHk:
         await l_zh_HK.loadLibrary();
-        return l_zh_HK.TranslationsZhHk(overrides: overrides, cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+        return l_zh_HK.TranslationsZhHk(
+          overrides: overrides,
+          cardinalResolver: cardinalResolver,
+          ordinalResolver: ordinalResolver,
+        );
       case AppLocale.zhTw:
         await l_zh_TW.loadLibrary();
-        return l_zh_TW.TranslationsZhTw(overrides: overrides, cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+        return l_zh_TW.TranslationsZhTw(
+          overrides: overrides,
+          cardinalResolver: cardinalResolver,
+          ordinalResolver: ordinalResolver,
+        );
     }
   }
 
   @override
-  Translations buildSync({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver}) {
+  Translations buildSync({
+    Map<String, Node>? overrides,
+    PluralResolver? cardinalResolver,
+    PluralResolver? ordinalResolver,
+  }) {
     switch (this) {
       case AppLocale.en:
-        return TranslationsEn(overrides: overrides, cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+        return TranslationsEn(
+          overrides: overrides,
+          cardinalResolver: cardinalResolver,
+          ordinalResolver: ordinalResolver,
+        );
       case AppLocale.ar:
-        return l_ar.TranslationsAr(overrides: overrides, cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+        return l_ar.TranslationsAr(
+          overrides: overrides,
+          cardinalResolver: cardinalResolver,
+          ordinalResolver: ordinalResolver,
+        );
       case AppLocale.az:
-        return l_az.TranslationsAz(overrides: overrides, cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+        return l_az.TranslationsAz(
+          overrides: overrides,
+          cardinalResolver: cardinalResolver,
+          ordinalResolver: ordinalResolver,
+        );
       case AppLocale.bg:
-        return l_bg.TranslationsBg(overrides: overrides, cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+        return l_bg.TranslationsBg(
+          overrides: overrides,
+          cardinalResolver: cardinalResolver,
+          ordinalResolver: ordinalResolver,
+        );
       case AppLocale.bn:
-        return l_bn.TranslationsBn(overrides: overrides, cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+        return l_bn.TranslationsBn(
+          overrides: overrides,
+          cardinalResolver: cardinalResolver,
+          ordinalResolver: ordinalResolver,
+        );
       case AppLocale.ca:
-        return l_ca.TranslationsCa(overrides: overrides, cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+        return l_ca.TranslationsCa(
+          overrides: overrides,
+          cardinalResolver: cardinalResolver,
+          ordinalResolver: ordinalResolver,
+        );
       case AppLocale.cs:
-        return l_cs.TranslationsCs(overrides: overrides, cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+        return l_cs.TranslationsCs(
+          overrides: overrides,
+          cardinalResolver: cardinalResolver,
+          ordinalResolver: ordinalResolver,
+        );
       case AppLocale.da:
-        return l_da.TranslationsDa(overrides: overrides, cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+        return l_da.TranslationsDa(
+          overrides: overrides,
+          cardinalResolver: cardinalResolver,
+          ordinalResolver: ordinalResolver,
+        );
       case AppLocale.de:
-        return l_de.TranslationsDe(overrides: overrides, cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+        return l_de.TranslationsDe(
+          overrides: overrides,
+          cardinalResolver: cardinalResolver,
+          ordinalResolver: ordinalResolver,
+        );
       case AppLocale.el:
-        return l_el.TranslationsEl(overrides: overrides, cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+        return l_el.TranslationsEl(
+          overrides: overrides,
+          cardinalResolver: cardinalResolver,
+          ordinalResolver: ordinalResolver,
+        );
       case AppLocale.enIn:
-        return l_en_IN.TranslationsEnIn(overrides: overrides, cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+        return l_en_IN.TranslationsEnIn(
+          overrides: overrides,
+          cardinalResolver: cardinalResolver,
+          ordinalResolver: ordinalResolver,
+        );
       case AppLocale.esEs:
-        return l_es_ES.TranslationsEsEs(overrides: overrides, cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+        return l_es_ES.TranslationsEsEs(
+          overrides: overrides,
+          cardinalResolver: cardinalResolver,
+          ordinalResolver: ordinalResolver,
+        );
       case AppLocale.et:
-        return l_et.TranslationsEt(overrides: overrides, cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+        return l_et.TranslationsEt(
+          overrides: overrides,
+          cardinalResolver: cardinalResolver,
+          ordinalResolver: ordinalResolver,
+        );
       case AppLocale.eu:
-        return l_eu.TranslationsEu(overrides: overrides, cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+        return l_eu.TranslationsEu(
+          overrides: overrides,
+          cardinalResolver: cardinalResolver,
+          ordinalResolver: ordinalResolver,
+        );
       case AppLocale.fa:
-        return l_fa.TranslationsFa(overrides: overrides, cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+        return l_fa.TranslationsFa(
+          overrides: overrides,
+          cardinalResolver: cardinalResolver,
+          ordinalResolver: ordinalResolver,
+        );
       case AppLocale.fi:
-        return l_fi.TranslationsFi(overrides: overrides, cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+        return l_fi.TranslationsFi(
+          overrides: overrides,
+          cardinalResolver: cardinalResolver,
+          ordinalResolver: ordinalResolver,
+        );
       case AppLocale.filPh:
-        return l_fil_PH.TranslationsFilPh(overrides: overrides, cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+        return l_fil_PH.TranslationsFilPh(
+          overrides: overrides,
+          cardinalResolver: cardinalResolver,
+          ordinalResolver: ordinalResolver,
+        );
       case AppLocale.fr:
-        return l_fr.TranslationsFr(overrides: overrides, cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+        return l_fr.TranslationsFr(
+          overrides: overrides,
+          cardinalResolver: cardinalResolver,
+          ordinalResolver: ordinalResolver,
+        );
       case AppLocale.gl:
-        return l_gl.TranslationsGl(overrides: overrides, cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+        return l_gl.TranslationsGl(
+          overrides: overrides,
+          cardinalResolver: cardinalResolver,
+          ordinalResolver: ordinalResolver,
+        );
       case AppLocale.gu:
-        return l_gu.TranslationsGu(overrides: overrides, cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+        return l_gu.TranslationsGu(
+          overrides: overrides,
+          cardinalResolver: cardinalResolver,
+          ordinalResolver: ordinalResolver,
+        );
       case AppLocale.he:
-        return l_he.TranslationsHe(overrides: overrides, cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+        return l_he.TranslationsHe(
+          overrides: overrides,
+          cardinalResolver: cardinalResolver,
+          ordinalResolver: ordinalResolver,
+        );
       case AppLocale.hi:
-        return l_hi.TranslationsHi(overrides: overrides, cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+        return l_hi.TranslationsHi(
+          overrides: overrides,
+          cardinalResolver: cardinalResolver,
+          ordinalResolver: ordinalResolver,
+        );
       case AppLocale.hu:
-        return l_hu.TranslationsHu(overrides: overrides, cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+        return l_hu.TranslationsHu(
+          overrides: overrides,
+          cardinalResolver: cardinalResolver,
+          ordinalResolver: ordinalResolver,
+        );
       case AppLocale.id:
-        return l_id.TranslationsId(overrides: overrides, cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+        return l_id.TranslationsId(
+          overrides: overrides,
+          cardinalResolver: cardinalResolver,
+          ordinalResolver: ordinalResolver,
+        );
       case AppLocale.it:
-        return l_it.TranslationsIt(overrides: overrides, cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+        return l_it.TranslationsIt(
+          overrides: overrides,
+          cardinalResolver: cardinalResolver,
+          ordinalResolver: ordinalResolver,
+        );
       case AppLocale.ja:
-        return l_ja.TranslationsJa(overrides: overrides, cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+        return l_ja.TranslationsJa(
+          overrides: overrides,
+          cardinalResolver: cardinalResolver,
+          ordinalResolver: ordinalResolver,
+        );
       case AppLocale.km:
-        return l_km.TranslationsKm(overrides: overrides, cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+        return l_km.TranslationsKm(
+          overrides: overrides,
+          cardinalResolver: cardinalResolver,
+          ordinalResolver: ordinalResolver,
+        );
       case AppLocale.ko:
-        return l_ko.TranslationsKo(overrides: overrides, cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+        return l_ko.TranslationsKo(
+          overrides: overrides,
+          cardinalResolver: cardinalResolver,
+          ordinalResolver: ordinalResolver,
+        );
       case AppLocale.ml:
-        return l_ml.TranslationsMl(overrides: overrides, cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+        return l_ml.TranslationsMl(
+          overrides: overrides,
+          cardinalResolver: cardinalResolver,
+          ordinalResolver: ordinalResolver,
+        );
       case AppLocale.mn:
-        return l_mn.TranslationsMn(overrides: overrides, cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+        return l_mn.TranslationsMn(
+          overrides: overrides,
+          cardinalResolver: cardinalResolver,
+          ordinalResolver: ordinalResolver,
+        );
       case AppLocale.ms:
-        return l_ms.TranslationsMs(overrides: overrides, cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+        return l_ms.TranslationsMs(
+          overrides: overrides,
+          cardinalResolver: cardinalResolver,
+          ordinalResolver: ordinalResolver,
+        );
       case AppLocale.ne:
-        return l_ne.TranslationsNe(overrides: overrides, cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+        return l_ne.TranslationsNe(
+          overrides: overrides,
+          cardinalResolver: cardinalResolver,
+          ordinalResolver: ordinalResolver,
+        );
       case AppLocale.nl:
-        return l_nl.TranslationsNl(overrides: overrides, cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+        return l_nl.TranslationsNl(
+          overrides: overrides,
+          cardinalResolver: cardinalResolver,
+          ordinalResolver: ordinalResolver,
+        );
       case AppLocale.pl:
-        return l_pl.TranslationsPl(overrides: overrides, cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+        return l_pl.TranslationsPl(
+          overrides: overrides,
+          cardinalResolver: cardinalResolver,
+          ordinalResolver: ordinalResolver,
+        );
       case AppLocale.ptBr:
-        return l_pt_BR.TranslationsPtBr(overrides: overrides, cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+        return l_pt_BR.TranslationsPtBr(
+          overrides: overrides,
+          cardinalResolver: cardinalResolver,
+          ordinalResolver: ordinalResolver,
+        );
       case AppLocale.ptPt:
-        return l_pt_PT.TranslationsPtPt(overrides: overrides, cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+        return l_pt_PT.TranslationsPtPt(
+          overrides: overrides,
+          cardinalResolver: cardinalResolver,
+          ordinalResolver: ordinalResolver,
+        );
       case AppLocale.ro:
-        return l_ro.TranslationsRo(overrides: overrides, cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+        return l_ro.TranslationsRo(
+          overrides: overrides,
+          cardinalResolver: cardinalResolver,
+          ordinalResolver: ordinalResolver,
+        );
       case AppLocale.ru:
-        return l_ru.TranslationsRu(overrides: overrides, cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+        return l_ru.TranslationsRu(
+          overrides: overrides,
+          cardinalResolver: cardinalResolver,
+          ordinalResolver: ordinalResolver,
+        );
       case AppLocale.si:
-        return l_si.TranslationsSi(overrides: overrides, cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+        return l_si.TranslationsSi(
+          overrides: overrides,
+          cardinalResolver: cardinalResolver,
+          ordinalResolver: ordinalResolver,
+        );
       case AppLocale.sk:
-        return l_sk.TranslationsSk(overrides: overrides, cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+        return l_sk.TranslationsSk(
+          overrides: overrides,
+          cardinalResolver: cardinalResolver,
+          ordinalResolver: ordinalResolver,
+        );
       case AppLocale.sl:
-        return l_sl.TranslationsSl(overrides: overrides, cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+        return l_sl.TranslationsSl(
+          overrides: overrides,
+          cardinalResolver: cardinalResolver,
+          ordinalResolver: ordinalResolver,
+        );
       case AppLocale.sr:
-        return l_sr.TranslationsSr(overrides: overrides, cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+        return l_sr.TranslationsSr(
+          overrides: overrides,
+          cardinalResolver: cardinalResolver,
+          ordinalResolver: ordinalResolver,
+        );
       case AppLocale.srCyrl:
-        return l_sr_Cyrl.TranslationsSrCyrl(overrides: overrides, cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+        return l_sr_Cyrl.TranslationsSrCyrl(
+          overrides: overrides,
+          cardinalResolver: cardinalResolver,
+          ordinalResolver: ordinalResolver,
+        );
       case AppLocale.sv:
-        return l_sv.TranslationsSv(overrides: overrides, cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+        return l_sv.TranslationsSv(
+          overrides: overrides,
+          cardinalResolver: cardinalResolver,
+          ordinalResolver: ordinalResolver,
+        );
       case AppLocale.ta:
-        return l_ta.TranslationsTa(overrides: overrides, cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+        return l_ta.TranslationsTa(
+          overrides: overrides,
+          cardinalResolver: cardinalResolver,
+          ordinalResolver: ordinalResolver,
+        );
       case AppLocale.th:
-        return l_th.TranslationsTh(overrides: overrides, cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+        return l_th.TranslationsTh(
+          overrides: overrides,
+          cardinalResolver: cardinalResolver,
+          ordinalResolver: ordinalResolver,
+        );
       case AppLocale.tr:
-        return l_tr.TranslationsTr(overrides: overrides, cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+        return l_tr.TranslationsTr(
+          overrides: overrides,
+          cardinalResolver: cardinalResolver,
+          ordinalResolver: ordinalResolver,
+        );
       case AppLocale.uk:
-        return l_uk.TranslationsUk(overrides: overrides, cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+        return l_uk.TranslationsUk(
+          overrides: overrides,
+          cardinalResolver: cardinalResolver,
+          ordinalResolver: ordinalResolver,
+        );
       case AppLocale.ur:
-        return l_ur.TranslationsUr(overrides: overrides, cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+        return l_ur.TranslationsUr(
+          overrides: overrides,
+          cardinalResolver: cardinalResolver,
+          ordinalResolver: ordinalResolver,
+        );
       case AppLocale.vi:
-        return l_vi.TranslationsVi(overrides: overrides, cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+        return l_vi.TranslationsVi(
+          overrides: overrides,
+          cardinalResolver: cardinalResolver,
+          ordinalResolver: ordinalResolver,
+        );
       case AppLocale.zhCn:
-        return l_zh_CN.TranslationsZhCn(overrides: overrides, cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+        return l_zh_CN.TranslationsZhCn(
+          overrides: overrides,
+          cardinalResolver: cardinalResolver,
+          ordinalResolver: ordinalResolver,
+        );
       case AppLocale.zhHk:
-        return l_zh_HK.TranslationsZhHk(overrides: overrides, cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+        return l_zh_HK.TranslationsZhHk(
+          overrides: overrides,
+          cardinalResolver: cardinalResolver,
+          ordinalResolver: ordinalResolver,
+        );
       case AppLocale.zhTw:
-        return l_zh_TW.TranslationsZhTw(overrides: overrides, cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+        return l_zh_TW.TranslationsZhTw(
+          overrides: overrides,
+          cardinalResolver: cardinalResolver,
+          ordinalResolver: ordinalResolver,
+        );
     }
   }
 
@@ -464,7 +896,11 @@ extension BuildContextTranslationsExtension on BuildContext {
 
 /// Manages all translation instances and the current locale
 class LocaleSettings extends BaseFlutterLocaleSettings<AppLocale, Translations> {
-  LocaleSettings._() : super(utils: AppLocaleUtils.instance, lazy: true);
+  LocaleSettings._()
+    : super(
+        utils: AppLocaleUtils.instance,
+        lazy: true,
+      );
 
   static final instance = LocaleSettings._();
 
@@ -477,7 +913,12 @@ class LocaleSettings extends BaseFlutterLocaleSettings<AppLocale, Translations> 
       instance.setLocaleRaw(rawLocale, listenToDeviceLocale: listenToDeviceLocale);
   static Future<AppLocale> useDeviceLocale() => instance.useDeviceLocale();
   static Future<void> setPluralResolver({String? language, AppLocale? locale, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver}) =>
-      instance.setPluralResolver(language: language, locale: locale, cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+      instance.setPluralResolver(
+        language: language,
+        locale: locale,
+        cardinalResolver: cardinalResolver,
+        ordinalResolver: ordinalResolver,
+      );
 
   // synchronous versions
   static AppLocale setLocaleSync(AppLocale locale, {bool? listenToDeviceLocale = false}) =>
@@ -486,12 +927,21 @@ class LocaleSettings extends BaseFlutterLocaleSettings<AppLocale, Translations> 
       instance.setLocaleRawSync(rawLocale, listenToDeviceLocale: listenToDeviceLocale);
   static AppLocale useDeviceLocaleSync() => instance.useDeviceLocaleSync();
   static void setPluralResolverSync({String? language, AppLocale? locale, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver}) =>
-      instance.setPluralResolverSync(language: language, locale: locale, cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+      instance.setPluralResolverSync(
+        language: language,
+        locale: locale,
+        cardinalResolver: cardinalResolver,
+        ordinalResolver: ordinalResolver,
+      );
 }
 
 /// Provides utility functions without any side effects.
 class AppLocaleUtils extends BaseAppLocaleUtils<AppLocale, Translations> {
-  AppLocaleUtils._() : super(baseLocale: AppLocale.en, locales: AppLocale.values);
+  AppLocaleUtils._()
+    : super(
+        baseLocale: AppLocale.en,
+        locales: AppLocale.values,
+      );
 
   static final instance = AppLocaleUtils._();
 

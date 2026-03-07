@@ -13,21 +13,30 @@ import 'strings.g.dart';
 class TranslationsNl extends Translations {
   /// You can call this constructor and build your own translation instance of this locale.
   /// Constructing via the enum [AppLocale.build] is preferred.
-  TranslationsNl({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
-    : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-      $meta = TranslationMetadata(
-        locale: AppLocale.nl,
-        overrides: overrides ?? {},
-        cardinalResolver: cardinalResolver,
-        ordinalResolver: ordinalResolver,
-      ),
-      super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+  TranslationsNl({
+    Map<String, Node>? overrides,
+    PluralResolver? cardinalResolver,
+    PluralResolver? ordinalResolver,
+    TranslationMetadata<AppLocale, Translations>? meta,
+  }) : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
+       $meta =
+           meta ??
+           TranslationMetadata(
+             locale: AppLocale.nl,
+             overrides: overrides ?? {},
+             cardinalResolver: cardinalResolver,
+             ordinalResolver: ordinalResolver,
+           ),
+       super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
 
   /// Metadata for the translations of <nl>.
   @override
   final TranslationMetadata<AppLocale, Translations> $meta;
 
   late final TranslationsNl _root = this; // ignore: unused_field
+
+  @override
+  TranslationsNl $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => TranslationsNl(meta: meta ?? this.$meta);
 
   // Translations
   @override
@@ -66,8 +75,6 @@ class TranslationsNl extends Translations {
   late final _TranslationsDonationPageNl donationPage = _TranslationsDonationPageNl._(_root);
   @override
   late final _TranslationsChangelogPageNl changelogPage = _TranslationsChangelogPageNl._(_root);
-  @override
-  late final _TranslationsAliasGeneratorNl aliasGenerator = _TranslationsAliasGeneratorNl._(_root);
   @override
   late final _TranslationsDialogsNl dialogs = _TranslationsDialogsNl._(_root);
   @override
@@ -382,6 +389,8 @@ class _TranslationsProgressPageNl extends TranslationsProgressPageEn {
   String get savedToGallery => 'Opgeslagen in galerij';
   @override
   late final _TranslationsProgressPageTotalNl total = _TranslationsProgressPageTotalNl._(_root);
+  @override
+  late final _TranslationsProgressPageRemainingTimeNl remainingTime = _TranslationsProgressPageRemainingTimeNl._(_root);
 }
 
 // Path: webSharePage
@@ -476,15 +485,6 @@ class _TranslationsChangelogPageNl extends TranslationsChangelogPageEn {
   // Translations
   @override
   String get title => 'Wijzigingenoverzicht';
-}
-
-// Path: aliasGenerator
-class _TranslationsAliasGeneratorNl extends TranslationsAliasGeneratorEn {
-  _TranslationsAliasGeneratorNl._(TranslationsNl root) : this._root = root, super.internal(root);
-
-  final TranslationsNl _root; // ignore: unused_field
-
-  // Translations
 }
 
 // Path: dialogs
@@ -790,9 +790,9 @@ class _TranslationsSettingsTabGeneralNl extends TranslationsSettingsTabGeneralEn
   @override
   late final _TranslationsSettingsTabGeneralLanguageOptionsNl languageOptions = _TranslationsSettingsTabGeneralLanguageOptionsNl._(_root);
   @override
-  String get saveWindowPlacement => 'Afsluiten: vensterindeling behouden';
+  String get saveWindowPlacement => 'Vensterpositie na beëindigen opslaan';
   @override
-  String get saveWindowPlacementWindows => 'Afsluiten: vensterindeling behouden';
+  String get saveWindowPlacementWindows => 'Vensterpositie na afsluiten opslaan';
   @override
   String get minimizeToTray => 'Sluiten: minimaliseren naar systeemvak/menubalk';
   @override
@@ -921,7 +921,7 @@ class _TranslationsTroubleshootPageFirewallNl extends TranslationsTroubleshootPa
   String solution({required Object port}) =>
       'Dit is hoogstwaarschijnlijk een firewallprobleem. Je kunt dit oplossen door inkomende verbindingen (UDP en TCP) op poort ${port} toe te staan.';
   @override
-  String get openFirewallSettings => 'Firewall openen';
+  String get openFirewall => 'Firewall openen';
 }
 
 // Path: troubleshootPage.noDiscovery
@@ -984,6 +984,27 @@ class _TranslationsProgressPageTotalNl extends TranslationsProgressPageTotalEn {
   String size({required Object curr, required Object n}) => 'Grootte: ${curr} / ${n}';
   @override
   String speed({required Object speed}) => 'Snelheid: ${speed}/s';
+}
+
+// Path: progressPage.remainingTime
+class _TranslationsProgressPageRemainingTimeNl extends TranslationsProgressPageRemainingTimeEn {
+  _TranslationsProgressPageRemainingTimeNl._(TranslationsNl root) : this._root = root, super.internal(root);
+
+  final TranslationsNl _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String seconds({required Object n, required Object ss}) => '${n}:${ss}';
+  @override
+  String minutes({required Object n, required Object ss}) => '${n}:${ss}';
+
+  /// Gebruik 'h' als afkorting voor uren en 'm' voor minuten
+  @override
+  String hours({required Object h, required Object m}) => '${h}h ${m}m';
+
+  /// Gebruik 'd' voor dagen, 'h' voor uren en 'm' voor minuten
+  @override
+  String days({required Object d, required Object h, required Object m}) => '${d}d ${h}h ${m}m';
 }
 
 // Path: dialogs.addFile

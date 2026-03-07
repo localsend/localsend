@@ -13,21 +13,30 @@ import 'strings.g.dart';
 class TranslationsZhCn extends Translations {
   /// You can call this constructor and build your own translation instance of this locale.
   /// Constructing via the enum [AppLocale.build] is preferred.
-  TranslationsZhCn({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
-    : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-      $meta = TranslationMetadata(
-        locale: AppLocale.zhCn,
-        overrides: overrides ?? {},
-        cardinalResolver: cardinalResolver,
-        ordinalResolver: ordinalResolver,
-      ),
-      super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+  TranslationsZhCn({
+    Map<String, Node>? overrides,
+    PluralResolver? cardinalResolver,
+    PluralResolver? ordinalResolver,
+    TranslationMetadata<AppLocale, Translations>? meta,
+  }) : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
+       $meta =
+           meta ??
+           TranslationMetadata(
+             locale: AppLocale.zhCn,
+             overrides: overrides ?? {},
+             cardinalResolver: cardinalResolver,
+             ordinalResolver: ordinalResolver,
+           ),
+       super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
 
   /// Metadata for the translations of <zh-CN>.
   @override
   final TranslationMetadata<AppLocale, Translations> $meta;
 
   late final TranslationsZhCn _root = this; // ignore: unused_field
+
+  @override
+  TranslationsZhCn $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => TranslationsZhCn(meta: meta ?? this.$meta);
 
   // Translations
   @override
@@ -318,8 +327,11 @@ class _TranslationsReceivePageZhCn extends TranslationsReceivePageEn {
 
   // Translations
   @override
-  String subTitle({required num n}) =>
-      (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('zh'))(n, one: '想要发送给你一个文件', other: '想要发送给你 ${n} 个文件');
+  String subTitle({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('zh'))(
+    n,
+    one: '想要发送给你一个文件',
+    other: '想要发送给你 ${n} 个文件',
+  );
   @override
   String get subTitleMessage => '发送给你了一条消息：';
   @override
@@ -379,6 +391,8 @@ class _TranslationsProgressPageZhCn extends TranslationsProgressPageEn {
   String get savedToGallery => '已保存到相册';
   @override
   late final _TranslationsProgressPageTotalZhCn total = _TranslationsProgressPageTotalZhCn._(_root);
+  @override
+  late final _TranslationsProgressPageRemainingTimeZhCn remainingTime = _TranslationsProgressPageRemainingTimeZhCn._(_root);
 }
 
 // Path: webSharePage
@@ -397,8 +411,11 @@ class _TranslationsWebSharePageZhCn extends TranslationsWebSharePageEn {
   @override
   String get error => '在启动服务器过程中发生了错误。';
   @override
-  String openLink({required num n}) =>
-      (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('zh'))(n, one: '在浏览器中打开链接：', other: '在浏览器中打开其中一个链接：');
+  String openLink({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('zh'))(
+    n,
+    one: '在浏览器中打开链接：',
+    other: '在浏览器中打开其中一个链接：',
+  );
   @override
   String get requests => '请求';
   @override
@@ -979,7 +996,7 @@ class _TranslationsTroubleshootPageFirewallZhCn extends TranslationsTroubleshoot
   @override
   String solution({required Object port}) => '这最可能是由防火墙规则设定引起的。你可以通过在端口 ${port} 上允许（UDP 和 TCP 的）传入请求来解决这个问题。';
   @override
-  String get openFirewallSettings => '打开防火墙';
+  String get openFirewall => '打开防火墙';
 }
 
 // Path: troubleshootPage.noDiscovery
@@ -1040,6 +1057,28 @@ class _TranslationsProgressPageTotalZhCn extends TranslationsProgressPageTotalEn
   String size({required Object curr, required Object n}) => '大小：${curr} / ${n}';
   @override
   String speed({required Object speed}) => '速度：${speed}/s';
+}
+
+// Path: progressPage.remainingTime
+class _TranslationsProgressPageRemainingTimeZhCn extends TranslationsProgressPageRemainingTimeEn {
+  _TranslationsProgressPageRemainingTimeZhCn._(TranslationsZhCn root) : this._root = root, super.internal(root);
+
+  final TranslationsZhCn _root; // ignore: unused_field
+
+  // Translations
+
+  /// 使用'h'作为小时缩写，使用'm'作为分钟缩写
+  @override
+  String hours({required Object h, required Object m}) => '${h}h ${m}m';
+
+  /// 使用'd'作为天缩写，使用'h'作为小时缩写，使用'm'作为分钟缩写
+  @override
+  String days({required Object d, required Object h, required Object m}) => '${d}d ${h}h ${m}m';
+
+  @override
+  String seconds({required Object n, required Object ss}) => '${n}:${ss}';
+  @override
+  String minutes({required Object n, required Object ss}) => '${n}:${ss}';
 }
 
 // Path: dialogs.addFile
@@ -1353,7 +1392,11 @@ class _TranslationsDialogsQuickSaveFromFavoritesNoticeZhCn extends TranslationsD
   @override
   String get title => _root.general.quickSaveFromFavorites;
   @override
-  List<String> get content => ['当前会自动接受收藏夹中设备的文件请求。', '警告：这目前并非绝对安全，知道您收藏夹列表中的设备指纹被黑客窃取，其仍可以向您发送文件。', '但是，此选项比“允许任何设备”更安全。'];
+  List<String> get content => [
+    '当前会自动接受收藏夹中设备的文件请求。',
+    '警告：这目前并非绝对安全，知道您收藏夹列表中的设备指纹被黑客窃取，其仍可以向您发送文件。',
+    '但是，此选项比“允许任何设备”更安全。',
+  ];
 }
 
 // Path: dialogs.pin

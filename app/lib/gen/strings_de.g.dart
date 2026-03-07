@@ -13,21 +13,30 @@ import 'strings.g.dart';
 class TranslationsDe extends Translations {
   /// You can call this constructor and build your own translation instance of this locale.
   /// Constructing via the enum [AppLocale.build] is preferred.
-  TranslationsDe({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
-    : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-      $meta = TranslationMetadata(
-        locale: AppLocale.de,
-        overrides: overrides ?? {},
-        cardinalResolver: cardinalResolver,
-        ordinalResolver: ordinalResolver,
-      ),
-      super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+  TranslationsDe({
+    Map<String, Node>? overrides,
+    PluralResolver? cardinalResolver,
+    PluralResolver? ordinalResolver,
+    TranslationMetadata<AppLocale, Translations>? meta,
+  }) : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
+       $meta =
+           meta ??
+           TranslationMetadata(
+             locale: AppLocale.de,
+             overrides: overrides ?? {},
+             cardinalResolver: cardinalResolver,
+             ordinalResolver: ordinalResolver,
+           ),
+       super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
 
   /// Metadata for the translations of <de>.
   @override
   final TranslationMetadata<AppLocale, Translations> $meta;
 
   late final TranslationsDe _root = this; // ignore: unused_field
+
+  @override
+  TranslationsDe $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => TranslationsDe(meta: meta ?? this.$meta);
 
   // Translations
   @override
@@ -68,8 +77,6 @@ class TranslationsDe extends Translations {
   late final _TranslationsDonationPageDe donationPage = _TranslationsDonationPageDe._(_root);
   @override
   late final _TranslationsChangelogPageDe changelogPage = _TranslationsChangelogPageDe._(_root);
-  @override
-  late final _TranslationsAliasGeneratorDe aliasGenerator = _TranslationsAliasGeneratorDe._(_root);
   @override
   late final _TranslationsDialogsDe dialogs = _TranslationsDialogsDe._(_root);
   @override
@@ -402,6 +409,8 @@ class _TranslationsProgressPageDe extends TranslationsProgressPageEn {
   String get savedToGallery => 'in Fotos gespeichert';
   @override
   late final _TranslationsProgressPageTotalDe total = _TranslationsProgressPageTotalDe._(_root);
+  @override
+  late final _TranslationsProgressPageRemainingTimeDe remainingTime = _TranslationsProgressPageRemainingTimeDe._(_root);
 }
 
 // Path: webSharePage
@@ -496,15 +505,6 @@ class _TranslationsChangelogPageDe extends TranslationsChangelogPageEn {
   // Translations
   @override
   String get title => 'Änderungsprotokoll';
-}
-
-// Path: aliasGenerator
-class _TranslationsAliasGeneratorDe extends TranslationsAliasGeneratorEn {
-  _TranslationsAliasGeneratorDe._(TranslationsDe root) : this._root = root, super.internal(root);
-
-  final TranslationsDe _root; // ignore: unused_field
-
-  // Translations
 }
 
 // Path: dialogs
@@ -920,7 +920,7 @@ class _TranslationsTroubleshootPageFirewallDe extends TranslationsTroubleshootPa
   String solution({required Object port}) =>
       'Dies ist höchstwahrscheinlich ein Firewall-Problem. Du kannst es lösen, indem du eingehende Verbindungen (UDP und TCP) auf Port ${port} zulässt.';
   @override
-  String get openFirewallSettings => 'Firewall öffnen';
+  String get openFirewall => 'Firewall öffnen';
 }
 
 // Path: troubleshootPage.noDiscovery
@@ -983,6 +983,27 @@ class _TranslationsProgressPageTotalDe extends TranslationsProgressPageTotalEn {
   String size({required Object curr, required Object n}) => 'Größe: ${curr} / ${n}';
   @override
   String speed({required Object speed}) => 'Geschwindigkeit: ${speed}/s';
+}
+
+// Path: progressPage.remainingTime
+class _TranslationsProgressPageRemainingTimeDe extends TranslationsProgressPageRemainingTimeEn {
+  _TranslationsProgressPageRemainingTimeDe._(TranslationsDe root) : this._root = root, super.internal(root);
+
+  final TranslationsDe _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String seconds({required Object n, required Object ss}) => '${n}:${ss}';
+  @override
+  String minutes({required Object n, required Object ss}) => '${n}:${ss}';
+
+  /// Benutze 'h' als Abkürzung für Stunden und 'm' für Minuten
+  @override
+  String hours({required Object h, required Object m}) => '${h}h ${m}m';
+
+  /// Benutze 'd' für Tage, 'h' für Stunden und 'm' für Minuten
+  @override
+  String days({required Object d, required Object h, required Object m}) => '${d}d ${h}h ${m}m';
 }
 
 // Path: dialogs.addFile

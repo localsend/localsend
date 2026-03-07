@@ -13,21 +13,30 @@ import 'strings.g.dart';
 class TranslationsNe extends Translations {
   /// You can call this constructor and build your own translation instance of this locale.
   /// Constructing via the enum [AppLocale.build] is preferred.
-  TranslationsNe({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
-    : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-      $meta = TranslationMetadata(
-        locale: AppLocale.ne,
-        overrides: overrides ?? {},
-        cardinalResolver: cardinalResolver,
-        ordinalResolver: ordinalResolver,
-      ),
-      super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+  TranslationsNe({
+    Map<String, Node>? overrides,
+    PluralResolver? cardinalResolver,
+    PluralResolver? ordinalResolver,
+    TranslationMetadata<AppLocale, Translations>? meta,
+  }) : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
+       $meta =
+           meta ??
+           TranslationMetadata(
+             locale: AppLocale.ne,
+             overrides: overrides ?? {},
+             cardinalResolver: cardinalResolver,
+             ordinalResolver: ordinalResolver,
+           ),
+       super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
 
   /// Metadata for the translations of <ne>.
   @override
   final TranslationMetadata<AppLocale, Translations> $meta;
 
   late final TranslationsNe _root = this; // ignore: unused_field
+
+  @override
+  TranslationsNe $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => TranslationsNe(meta: meta ?? this.$meta);
 
   // Translations
   @override
@@ -140,17 +149,17 @@ class _TranslationsGeneralNe extends TranslationsGeneralEn {
   @override
   String get quickSave => 'छिटो सेव गर्नुहोस्';
   @override
-  String get renamed => 'पुन: नामाकरण गरियो';
+  String get renamed => 'नामाकरण गरियो';
   @override
-  String get reset => 'परिवर्तनहरू पूर्ववत गर्नुहोस्';
+  String get reset => 'फिर्ता लिनुहोस्';
   @override
-  String get restart => 'पुनः सुरु गर्नुहोस्';
+  String get restart => 'पुनः सुरु';
   @override
   String get settings => 'सेटिङहरू';
   @override
   String get skipped => 'छोडियो';
   @override
-  String get start => 'सुरु गर्नुहोस्';
+  String get start => 'सुरु';
   @override
   String get stop => 'रोक';
   @override
@@ -162,7 +171,9 @@ class _TranslationsGeneralNe extends TranslationsGeneralEn {
   @override
   String get delete => 'मेट्नुहोस्';
   @override
-  String get noItemInClipboard => 'क्लिपबोर्डमा कुनै वस्तुहरू छैनन्।';
+  String get noItemInClipboard => 'क्लिपबोर्ड खाली छ।';
+  @override
+  String get quickSaveFromFavorites => 'छिटो मनपर्नेमा राख्नुहोस्';
 }
 
 // Path: receiveTab
@@ -767,7 +778,7 @@ class _TranslationsReceiveTabInfoBoxNe extends TranslationsReceiveTabInfoBoxEn {
 
   // Translations
   @override
-  String get ip => 'IP:';
+  String get ip => 'आईपी :';
   @override
   String get port => 'पोर्ट:';
   @override
@@ -990,7 +1001,7 @@ class _TranslationsTroubleshootPageFirewallNe extends TranslationsTroubleshootPa
   String solution({required Object port}) =>
       'यो सम्भवतः फायरवाल समस्या हो। तपाईंले पोर्ट ${port} मा आगमन जडानहरू (UDP र TCP) लाई अनुमति दिएर यो समाधान गर्न सक्नुहुन्छ।';
   @override
-  String get openFirewallSettings => 'फायरवाल खोल्नुहोस्';
+  String get openFirewall => 'फायरवाल खोल्नुहोस्';
 }
 
 // Path: troubleshootPage.noConnection

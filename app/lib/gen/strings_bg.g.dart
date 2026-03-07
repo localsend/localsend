@@ -13,21 +13,30 @@ import 'strings.g.dart';
 class TranslationsBg extends Translations {
   /// You can call this constructor and build your own translation instance of this locale.
   /// Constructing via the enum [AppLocale.build] is preferred.
-  TranslationsBg({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
-    : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-      $meta = TranslationMetadata(
-        locale: AppLocale.bg,
-        overrides: overrides ?? {},
-        cardinalResolver: cardinalResolver,
-        ordinalResolver: ordinalResolver,
-      ),
-      super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+  TranslationsBg({
+    Map<String, Node>? overrides,
+    PluralResolver? cardinalResolver,
+    PluralResolver? ordinalResolver,
+    TranslationMetadata<AppLocale, Translations>? meta,
+  }) : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
+       $meta =
+           meta ??
+           TranslationMetadata(
+             locale: AppLocale.bg,
+             overrides: overrides ?? {},
+             cardinalResolver: cardinalResolver,
+             ordinalResolver: ordinalResolver,
+           ),
+       super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
 
   /// Metadata for the translations of <bg>.
   @override
   final TranslationMetadata<AppLocale, Translations> $meta;
 
   late final TranslationsBg _root = this; // ignore: unused_field
+
+  @override
+  TranslationsBg $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => TranslationsBg(meta: meta ?? this.$meta);
 
   // Translations
   @override
@@ -66,8 +75,6 @@ class TranslationsBg extends Translations {
   late final _TranslationsDonationPageBg donationPage = _TranslationsDonationPageBg._(_root);
   @override
   late final _TranslationsChangelogPageBg changelogPage = _TranslationsChangelogPageBg._(_root);
-  @override
-  late final _TranslationsAliasGeneratorBg aliasGenerator = _TranslationsAliasGeneratorBg._(_root);
   @override
   late final _TranslationsDialogsBg dialogs = _TranslationsDialogsBg._(_root);
   @override
@@ -114,7 +121,7 @@ class _TranslationsGeneralBg extends TranslationsGeneralEn {
   @override
   String get done => 'Готово';
   @override
-  String get delete => 'Изтрий';
+  String get delete => 'Изтриване';
   @override
   String get edit => 'Редактирай';
   @override
@@ -275,7 +282,7 @@ class _TranslationsReceiveHistoryPageBg extends TranslationsReceiveHistoryPageEn
   @override
   String get openFolder => 'Отвори папка';
   @override
-  String get deleteHistory => 'Изтрий историята';
+  String get deleteHistory => 'Изтриване на историята';
   @override
   String get empty => 'Историята е празна.';
   @override
@@ -307,7 +314,7 @@ class _TranslationsSelectedFilesPageBg extends TranslationsSelectedFilesPageEn {
 
   // Translations
   @override
-  String get deleteAll => 'Изтрий всички';
+  String get deleteAll => 'Изтриване на всички';
 }
 
 // Path: receivePage
@@ -318,12 +325,15 @@ class _TranslationsReceivePageBg extends TranslationsReceivePageEn {
 
   // Translations
   @override
-  String subTitle({required num n}) =>
-      (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('bg'))(n, one: 'иска да ви изпрати файл', other: 'иска да ви изпрати ${n} файлове');
+  String subTitle({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('bg'))(
+    n,
+    one: 'иска да ви изпрати файл',
+    other: 'иска да ви изпрати ${n} файлове',
+  );
   @override
-  String get subTitleMessage => 'ти изпрати съобщение:';
+  String get subTitleMessage => 'Ви изпрати съобщение:';
   @override
-  String get subTitleLink => 'ти изпрати връзка:';
+  String get subTitleLink => 'Ви изпрати връзка:';
   @override
   String get canceled => 'Подателят е отменил заявката.';
 }
@@ -340,7 +350,7 @@ class _TranslationsReceiveOptionsPageBg extends TranslationsReceiveOptionsPageEn
   @override
   String get destination => _root.settingsTab.receive.destination;
   @override
-  String get appDirectory => '(LocalSend папка)';
+  String get appDirectory => '(папка на LocalSend)';
   @override
   String get saveToGallery => _root.settingsTab.receive.saveToGallery;
   @override
@@ -379,6 +389,8 @@ class _TranslationsProgressPageBg extends TranslationsProgressPageEn {
   String get savedToGallery => 'Запазено в Снимки';
   @override
   late final _TranslationsProgressPageTotalBg total = _TranslationsProgressPageTotalBg._(_root);
+  @override
+  late final _TranslationsProgressPageRemainingTimeBg remainingTime = _TranslationsProgressPageRemainingTimeBg._(_root);
 }
 
 // Path: webSharePage
@@ -452,12 +464,12 @@ class _TranslationsDonationPageBg extends TranslationsDonationPageEn {
 
   // Translations
   @override
-  String get title => 'Дарете';
+  String get title => 'Дарение';
   @override
   String get info =>
       'LocalSend е безплатен, с отворен код и без никакви реклами. Ако харесвате приложението, можете да подкрепите разработката с дарение.';
   @override
-  String donate({required Object amount}) => 'Дарете ${amount}';
+  String donate({required Object amount}) => 'Дарение ${amount}';
   @override
   String get thanks => 'Благодаря много!';
   @override
@@ -473,15 +485,6 @@ class _TranslationsChangelogPageBg extends TranslationsChangelogPageEn {
   // Translations
   @override
   String get title => 'Дневник на промените';
-}
-
-// Path: aliasGenerator
-class _TranslationsAliasGeneratorBg extends TranslationsAliasGeneratorEn {
-  _TranslationsAliasGeneratorBg._(TranslationsBg root) : this._root = root, super.internal(root);
-
-  final TranslationsBg _root; // ignore: unused_field
-
-  // Translations
 }
 
 // Path: dialogs
@@ -897,7 +900,7 @@ class _TranslationsSettingsTabOtherBg extends TranslationsSettingsTabOtherEn {
   @override
   String get support => 'Поддръжка на LocalSend';
   @override
-  String get donate => 'Дарете';
+  String get donate => 'Дарение';
   @override
   String get privacyPolicy => 'Политика за поверителност';
   @override
@@ -918,7 +921,7 @@ class _TranslationsTroubleshootPageFirewallBg extends TranslationsTroubleshootPa
   String solution({required Object port}) =>
       'Това най-вероятно е проблем със защитната стена. Можете да разрешите това, като разрешите входящи връзки (UDP и TCP) на порт ${port}.';
   @override
-  String get openFirewallSettings => 'Отворете защитната стена';
+  String get openFirewall => 'Отворете защитната стена';
 }
 
 // Path: troubleshootPage.noDiscovery
@@ -963,7 +966,7 @@ class _TranslationsReceiveHistoryPageEntryActionsBg extends TranslationsReceiveH
   @override
   String get info => 'Информация';
   @override
-  String get deleteFromHistory => 'Изтрий от историята';
+  String get deleteFromHistory => 'Изтриване от историята';
 }
 
 // Path: progressPage.total
@@ -981,6 +984,27 @@ class _TranslationsProgressPageTotalBg extends TranslationsProgressPageTotalEn {
   String size({required Object curr, required Object n}) => 'Размер: ${curr} / ${n}';
   @override
   String speed({required Object speed}) => 'Скорост: ${speed}/s';
+}
+
+// Path: progressPage.remainingTime
+class _TranslationsProgressPageRemainingTimeBg extends TranslationsProgressPageRemainingTimeEn {
+  _TranslationsProgressPageRemainingTimeBg._(TranslationsBg root) : this._root = root, super.internal(root);
+
+  final TranslationsBg _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String seconds({required Object n, required Object ss}) => '${n}:${ss}';
+  @override
+  String minutes({required Object n, required Object ss}) => '${n}:${ss}';
+
+  /// Използвайте „h“ като съкращение за часове и „m“ за минути
+  @override
+  String hours({required Object h, required Object m}) => '${h}ч ${m}мин';
+
+  /// Използвайте „d“ за дни, „h“ за часове и „m“ за минути
+  @override
+  String days({required Object d, required Object h, required Object m}) => '${d}д ${h}ч ${m}мин';
 }
 
 // Path: dialogs.addFile
@@ -1184,7 +1208,7 @@ class _TranslationsDialogsLocalNetworkUnauthorizedBg extends TranslationsDialogs
   String get title => _root.dialogs.noPermission.title;
   @override
   String get description =>
-      'LocalSend не може да намери други устройства, без да има разрешение за сканиране на локалната мрежа. Моля, дайте това разрешение в настройките.';
+      'LocalSend не може да намери други устройства без разрешение за сканиране на локалната мрежа. Моля, предоставете това разрешение в настройките.';
   @override
   String get gotoSettings => 'Настройки';
 }
@@ -1225,7 +1249,7 @@ class _TranslationsDialogsNoPermissionBg extends TranslationsDialogsNoPermission
   @override
   String get title => 'Няма разрешение';
   @override
-  String get content => 'Не сте предоставили необходимите разрешения. Моля, дайте ги в настройките.';
+  String get content => 'Не сте предоставили необходимите разрешения. Моля, предоставете ги в настройките.';
 }
 
 // Path: dialogs.notAvailableOnPlatform

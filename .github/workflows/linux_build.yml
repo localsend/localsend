@@ -14,7 +14,7 @@ jobs:
       version: ${{ steps.get_version.outputs.version }}
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Get version from pubspec.yaml
         id: get_version
@@ -37,7 +37,7 @@ jobs:
         run: flutter pub run build_runner build -d
 
       - name: Upload updated lib files with generated code
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: lib-files
           path: ./app/lib/*
@@ -47,10 +47,10 @@ jobs:
     runs-on: ubuntu-24.04
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Download generated files
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v7
         with:
           name: lib-files
           path: app/lib
@@ -95,7 +95,7 @@ jobs:
           recipe: ./app/AppImageBuilder.yml
 
       - name: Upload AppImage file
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: appimage-result
           path: ./app/*.AppImage

@@ -72,7 +72,11 @@ Future<void> hideToTray() async {
   }
 
   // Disable animations
-  RefenaScope.defaultRef.notifier(sleepProvider).setState((_) => true);
+  try {
+    RefenaScope.defaultRef.notifier(sleepProvider).setState((_) => true);
+  } catch (e) {
+    _logger.warning('Failed to update sleep state (Refena not yet initialized)', e);
+  }
 }
 
 Future<void> showFromTray() async {
@@ -86,7 +90,11 @@ Future<void> showFromTray() async {
   }
 
   // Enable animations
-  RefenaScope.defaultRef.notifier(sleepProvider).setState((_) => false);
+  try {
+    RefenaScope.defaultRef.notifier(sleepProvider).setState((_) => false);
+  } catch (e) {
+    _logger.warning('Failed to update sleep state (Refena not yet initialized)', e);
+  }
 }
 
 Future<void> destroyTray() async {

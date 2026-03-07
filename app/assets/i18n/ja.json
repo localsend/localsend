@@ -140,7 +140,12 @@
       "portWarning": "ポートが変更されているため、このデバイスが他のデバイスから検出されなくなる場合があります。(デフォルト: {defaultPort})",
       "encryption": "暗号化",
       "multicastGroup": "マルチキャスト",
-      "multicastGroupWarning": "マルチキャストアドレスが変更されているため、他のデバイスから検出されなくなる場合があります。(デフォルト: {defaultMulticast})"
+      "multicastGroupWarning": "マルチキャストアドレスが変更されているため、他のデバイスから検出されなくなる場合があります。(デフォルト: {defaultMulticast})",
+      "network": "ネットワーク",
+      "networkOptions": {
+        "all": "すべて",
+        "filtered": "フィルター"
+      }
     },
     "other": {
       "title": "その他",
@@ -227,6 +232,10 @@
       "count": "ファイル: {curr} / {n}",
       "size": "サイズ: {curr} / {n}",
       "speed": "速度: {speed}/s"
+    },
+    "remainingTime": {
+      "@hours": "時間の略語には「h」、分の略語には「m」を使用します",
+      "@days": "日には「d」、時間には「h」、分には「m」を使用します"
     }
   },
   "webSharePage": {
@@ -441,5 +450,12 @@
     "sActionUseCameraHint": "カメラを使う",
     "sNameDurationLabel": "長さ",
     "sUnitAssetCountLabel": "個数"
+  },
+  "networkInterfacesPage": {
+    "preview": "プレビュー",
+    "blacklist": "ブラックリスト",
+    "whitelist": "ホワイトリスト",
+    "title": "ネットワークインターフェース",
+    "info": "デフォルトでは、LocalSend は利用可能なすべてのネットワークインターフェースを使用します。不要なネットワークを除外するには、ここで設定できます。変更を適用するには、サーバーを再起動する必要があります。"
   }
 }

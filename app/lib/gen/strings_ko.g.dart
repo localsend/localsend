@@ -13,21 +13,30 @@ import 'strings.g.dart';
 class TranslationsKo extends Translations {
   /// You can call this constructor and build your own translation instance of this locale.
   /// Constructing via the enum [AppLocale.build] is preferred.
-  TranslationsKo({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
-    : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-      $meta = TranslationMetadata(
-        locale: AppLocale.ko,
-        overrides: overrides ?? {},
-        cardinalResolver: cardinalResolver,
-        ordinalResolver: ordinalResolver,
-      ),
-      super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+  TranslationsKo({
+    Map<String, Node>? overrides,
+    PluralResolver? cardinalResolver,
+    PluralResolver? ordinalResolver,
+    TranslationMetadata<AppLocale, Translations>? meta,
+  }) : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
+       $meta =
+           meta ??
+           TranslationMetadata(
+             locale: AppLocale.ko,
+             overrides: overrides ?? {},
+             cardinalResolver: cardinalResolver,
+             ordinalResolver: ordinalResolver,
+           ),
+       super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
 
   /// Metadata for the translations of <ko>.
   @override
   final TranslationMetadata<AppLocale, Translations> $meta;
 
   late final TranslationsKo _root = this; // ignore: unused_field
+
+  @override
+  TranslationsKo $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => TranslationsKo(meta: meta ?? this.$meta);
 
   // Translations
   @override
@@ -68,8 +77,6 @@ class TranslationsKo extends Translations {
   late final _TranslationsDonationPageKo donationPage = _TranslationsDonationPageKo._(_root);
   @override
   late final _TranslationsChangelogPageKo changelogPage = _TranslationsChangelogPageKo._(_root);
-  @override
-  late final _TranslationsAliasGeneratorKo aliasGenerator = _TranslationsAliasGeneratorKo._(_root);
   @override
   late final _TranslationsDialogsKo dialogs = _TranslationsDialogsKo._(_root);
   @override
@@ -337,8 +344,11 @@ class _TranslationsReceivePageKo extends TranslationsReceivePageEn {
 
   // Translations
   @override
-  String subTitle({required num n}) =>
-      (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ko'))(n, one: '에서 파일을 보내려고 합니다', other: '에서 ${n}개의 파일을 보내려고 합니다');
+  String subTitle({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ko'))(
+    n,
+    one: '에서 파일을 보내려고 합니다',
+    other: '에서 ${n}개의 파일을 보내려고 합니다',
+  );
   @override
   String get subTitleMessage => '에서 메시지를 보냈습니다:';
   @override
@@ -416,8 +426,11 @@ class _TranslationsWebSharePageKo extends TranslationsWebSharePageEn {
   @override
   String get error => '서버를 시작하는 도중 오류가 발생했습니다.';
   @override
-  String openLink({required num n}) =>
-      (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ko'))(n, one: '해당 링크를 브라우저에서 여세요:', other: '해당 링크들 중 하나를 브라우저에서 여세요:');
+  String openLink({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ko'))(
+    n,
+    one: '해당 링크를 브라우저에서 여세요:',
+    other: '해당 링크들 중 하나를 브라우저에서 여세요:',
+  );
   @override
   String get requests => '요청';
   @override
@@ -488,15 +501,6 @@ class _TranslationsChangelogPageKo extends TranslationsChangelogPageEn {
   // Translations
   @override
   String get title => '변경사항';
-}
-
-// Path: aliasGenerator
-class _TranslationsAliasGeneratorKo extends TranslationsAliasGeneratorEn {
-  _TranslationsAliasGeneratorKo._(TranslationsKo root) : this._root = root, super.internal(root);
-
-  final TranslationsKo _root; // ignore: unused_field
-
-  // Translations
 }
 
 // Path: dialogs
@@ -908,7 +912,7 @@ class _TranslationsTroubleshootPageFirewallKo extends TranslationsTroubleshootPa
   @override
   String solution({required Object port}) => '방화벽 설정으로 인한 문제일 가능성이 높습니다. ${port} 포트로 들어오는 연결(UDP 및 TCP)을 허용하여 이 문제를 해결할 수 있습니다.';
   @override
-  String get openFirewallSettings => '방화벽 열기';
+  String get openFirewall => '방화벽 열기';
 }
 
 // Path: troubleshootPage.noDiscovery

@@ -13,21 +13,30 @@ import 'strings.g.dart';
 class TranslationsZhHk extends Translations {
   /// You can call this constructor and build your own translation instance of this locale.
   /// Constructing via the enum [AppLocale.build] is preferred.
-  TranslationsZhHk({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
-    : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-      $meta = TranslationMetadata(
-        locale: AppLocale.zhHk,
-        overrides: overrides ?? {},
-        cardinalResolver: cardinalResolver,
-        ordinalResolver: ordinalResolver,
-      ),
-      super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+  TranslationsZhHk({
+    Map<String, Node>? overrides,
+    PluralResolver? cardinalResolver,
+    PluralResolver? ordinalResolver,
+    TranslationMetadata<AppLocale, Translations>? meta,
+  }) : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
+       $meta =
+           meta ??
+           TranslationMetadata(
+             locale: AppLocale.zhHk,
+             overrides: overrides ?? {},
+             cardinalResolver: cardinalResolver,
+             ordinalResolver: ordinalResolver,
+           ),
+       super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
 
   /// Metadata for the translations of <zh-HK>.
   @override
   final TranslationMetadata<AppLocale, Translations> $meta;
 
   late final TranslationsZhHk _root = this; // ignore: unused_field
+
+  @override
+  TranslationsZhHk $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => TranslationsZhHk(meta: meta ?? this.$meta);
 
   // Translations
   @override
@@ -67,8 +76,6 @@ class TranslationsZhHk extends Translations {
   @override
   late final _TranslationsChangelogPageZhHk changelogPage = _TranslationsChangelogPageZhHk._(_root);
   @override
-  late final _TranslationsAliasGeneratorZhHk aliasGenerator = _TranslationsAliasGeneratorZhHk._(_root);
-  @override
   late final _TranslationsDialogsZhHk dialogs = _TranslationsDialogsZhHk._(_root);
   @override
   late final _TranslationsSanitizationZhHk sanitization = _TranslationsSanitizationZhHk._(_root);
@@ -78,6 +85,8 @@ class TranslationsZhHk extends Translations {
   late final _TranslationsWebZhHk web = _TranslationsWebZhHk._(_root);
   @override
   late final _TranslationsAssetPickerZhHk assetPicker = _TranslationsAssetPickerZhHk._(_root);
+  @override
+  late final _TranslationsNetworkInterfacesPageZhHk networkInterfacesPage = _TranslationsNetworkInterfacesPageZhHk._(_root);
 }
 
 // Path: general
@@ -162,7 +171,7 @@ class _TranslationsGeneralZhHk extends TranslationsGeneralEn {
   @override
   String get unknown => '未知';
   @override
-  String get noItemInClipboard => '剪貼簿冇嘢';
+  String get noItemInClipboard => '剪貼簿冇嘢.';
 }
 
 // Path: receiveTab
@@ -212,7 +221,7 @@ class _TranslationsSendTabZhHk extends TranslationsSendTabEn {
   @override
   String get help => '請確保目標裝置駁緊同一個 Wi‑Fi 網路。';
   @override
-  String get placeItems => '將要分享嘅檔案拉過嚟呢度';
+  String get placeItems => '將要分享嘅檔案拉過嚟呢度.';
 }
 
 // Path: settingsTab
@@ -275,7 +284,7 @@ class _TranslationsReceiveHistoryPageZhHk extends TranslationsReceiveHistoryPage
   @override
   String get deleteHistory => '清除記錄';
   @override
-  String get empty => '得個吉噃 :(';
+  String get empty => '得個吉噃 :(.';
   @override
   late final _TranslationsReceiveHistoryPageEntryActionsZhHk entryActions = _TranslationsReceiveHistoryPageEntryActionsZhHk._(_root);
 }
@@ -316,8 +325,11 @@ class _TranslationsReceivePageZhHk extends TranslationsReceivePageEn {
 
   // Translations
   @override
-  String subTitle({required num n}) =>
-      (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('zh'))(n, one: '想 send 1 個檔案畀你。', other: '想 send ${n} 個檔案畀你。');
+  String subTitle({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('zh'))(
+    n,
+    one: '想 send 1 個檔案畀你',
+    other: '想 send ${n} 個檔案畀你',
+  );
   @override
   String get subTitleMessage => 'send 咗條訊息畀你：';
   @override
@@ -342,7 +354,7 @@ class _TranslationsReceiveOptionsPageZhHk extends TranslationsReceiveOptionsPage
   @override
   String get saveToGallery => _root.settingsTab.receive.saveToGallery;
   @override
-  String get saveToGalleryOff => '因為有資料夾存在而自動閂咗';
+  String get saveToGalleryOff => '因為有資料夾存在而自動閂咗.';
 }
 
 // Path: sendPage
@@ -370,9 +382,9 @@ class _TranslationsProgressPageZhHk extends TranslationsProgressPageEn {
 
   // Translations
   @override
-  String get titleSending => 'Send 緊……';
+  String get titleSending => '正在傳送檔案';
   @override
-  String get titleReceiving => '接收緊……';
+  String get titleReceiving => '正在接收檔案';
   @override
   String get savedToGallery => '成功 save 咗落相簿';
   @override
@@ -395,12 +407,15 @@ class _TranslationsWebSharePageZhHk extends TranslationsWebSharePageEn {
   @override
   String get error => '開 server 嗰陣發生錯誤。';
   @override
-  String openLink({required num n}) =>
-      (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('zh'))(n, one: '喺瀏覽器開啟以下連結：', other: '喺瀏覽器開啟以下任何一個連結：');
+  String openLink({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('zh'))(
+    n,
+    one: '喺瀏覽器開啟以下連結：',
+    other: '喺瀏覽器開啟以下任何一個連結：',
+  );
   @override
   String get requests => '請求';
   @override
-  String get noRequests => '未有';
+  String get noRequests => '未有請求.';
   @override
   String get encryption => _root.settingsTab.network.encryption;
   @override
@@ -449,7 +464,7 @@ class _TranslationsDonationPageZhHk extends TranslationsDonationPageEn {
   @override
   String get title => _root.settingsTab.other.donate;
   @override
-  String get info => 'LocalSend 唔單只免費、開源，仲係冇廣告添㗎！如果你鍾意呢個 app，不妨捐款贊助我哋開發？';
+  String get info => 'LocalSend 唔單只免費、開源，仲係冇廣告添㗎！如果你鍾意呢個 app，不妨捐款贊助我哋開發.';
   @override
   String donate({required Object amount}) => '捐 ${amount}';
   @override
@@ -467,15 +482,6 @@ class _TranslationsChangelogPageZhHk extends TranslationsChangelogPageEn {
   // Translations
   @override
   String get title => '更新記錄';
-}
-
-// Path: aliasGenerator
-class _TranslationsAliasGeneratorZhHk extends TranslationsAliasGeneratorEn {
-  _TranslationsAliasGeneratorZhHk._(TranslationsZhHk root) : this._root = root, super.internal(root);
-
-  final TranslationsZhHk _root; // ignore: unused_field
-
-  // Translations
 }
 
 // Path: dialogs
@@ -546,9 +552,9 @@ class _TranslationsSanitizationZhHk extends TranslationsSanitizationEn {
 
   // Translations
   @override
-  String get empty => '檔案名稱唔可以係吉嘅。';
+  String get empty => '檔案名稱唔可以係吉嘅';
   @override
-  String get invalid => '檔案名稱唔可以包括唔用得嘅字元。';
+  String get invalid => '檔案名稱唔可以包括唔用得嘅字元';
 }
 
 // Path: tray
@@ -578,9 +584,9 @@ class _TranslationsWebZhHk extends TranslationsWebEn {
   @override
   String get enterPin => '輸入密碼';
   @override
-  String get invalidPin => '密碼無效。';
+  String get invalidPin => '密碼無效';
   @override
-  String get tooManyAttempts => '嘗試次數過多，請稍後再試。';
+  String get tooManyAttempts => '嘗試次數過多，請稍後再試';
   @override
   String get rejected => '已遭對方拒絕';
   @override
@@ -654,6 +660,25 @@ class _TranslationsAssetPickerZhHk extends TranslationsAssetPickerEn {
   String get sNameDurationLabel => '持續時間';
   @override
   String get sUnitAssetCountLabel => '數量';
+}
+
+// Path: networkInterfacesPage
+class _TranslationsNetworkInterfacesPageZhHk extends TranslationsNetworkInterfacesPageEn {
+  _TranslationsNetworkInterfacesPageZhHk._(TranslationsZhHk root) : this._root = root, super.internal(root);
+
+  final TranslationsZhHk _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get info => 'LocalSend 預設使用所有可用的網路介面。您可以在這裡排除不需要的網路。您需要重新啟動伺服器才能套用變更。';
+  @override
+  String get title => '網路介面';
+  @override
+  String get preview => '預覽';
+  @override
+  String get whitelist => '白名單';
+  @override
+  String get blacklist => '黑名單';
 }
 
 // Path: receiveTab.infoBox
@@ -824,7 +849,7 @@ class _TranslationsSettingsTabNetworkZhHk extends TranslationsSettingsTabNetwork
   @override
   String get title => '網路';
   @override
-  String get needRestart => '熄咗個 server 再開過，設定先會生效';
+  String get needRestart => '熄咗個 server 再開過，設定先會生效!';
   @override
   String get server => 'Server';
   @override
@@ -849,6 +874,10 @@ class _TranslationsSettingsTabNetworkZhHk extends TranslationsSettingsTabNetwork
   String get multicastGroup => '多播 IP 地址';
   @override
   String multicastGroupWarning({required Object defaultMulticast}) => '用自訂多播地址嘅話其他裝置有機會偵測唔到你。（預設：${defaultMulticast}）';
+  @override
+  String get network => '網絡';
+  @override
+  late final _TranslationsSettingsTabNetworkNetworkOptionsZhHk networkOptions = _TranslationsSettingsTabNetworkNetworkOptionsZhHk._(_root);
 }
 
 // Path: settingsTab.other
@@ -882,7 +911,7 @@ class _TranslationsTroubleshootPageFirewallZhHk extends TranslationsTroubleshoot
   @override
   String solution({required Object port}) => '應該係防火牆嘅問題，可以透過允許接受 port ${port} 嘅連線（UDP 同 TCP）嚟解決。';
   @override
-  String get openFirewallSettings => '開啟防火牆設定';
+  String get openFirewall => '開啟防火牆設定';
 }
 
 // Path: troubleshootPage.noDiscovery
@@ -956,7 +985,7 @@ class _TranslationsDialogsAddFileZhHk extends TranslationsDialogsAddFileEn {
   @override
   String get title => '將檔案加至選擇';
   @override
-  String get content => '揀選要加入嘅檔案';
+  String get content => '您想新增什麼檔案?';
 }
 
 // Path: dialogs.openFile
@@ -986,7 +1015,7 @@ class _TranslationsDialogsAddressInputZhHk extends TranslationsDialogsAddressInp
   @override
   String get ip => 'IP 地址';
   @override
-  String get recentlyUsed => '輸入記錄：';
+  String get recentlyUsed => '輸入記錄： ';
 }
 
 // Path: dialogs.cancelSession
@@ -1049,7 +1078,7 @@ class _TranslationsDialogsFavoriteDialogZhHk extends TranslationsDialogsFavorite
   @override
   String get title => '收藏';
   @override
-  String get noFavorites => '未收藏任何裝置';
+  String get noFavorites => '未收藏任何裝置.';
   @override
   String get addFavorite => _root.general.add;
 }
@@ -1257,7 +1286,11 @@ class _TranslationsDialogsQuickSaveFromFavoritesNoticeZhHk extends TranslationsD
   @override
   String get title => _root.general.quickSaveFromFavorites;
   @override
-  List<String> get content => ['自動接受來自已收藏裝置嘅檔案傳輸請求。', '警告：目前呢個選項並非絕對安全，因為只要黑客攞到你任何一部已收藏裝置嘅指紋，佢就可以無限制噉 send 嘢畀你。', '不過揀已收藏裝置點都安全過揀所有裝置嘅。'];
+  List<String> get content => [
+    '自動接受來自已收藏裝置嘅檔案傳輸請求。',
+    '警告：目前呢個選項並非絕對安全，因為只要黑客攞到你任何一部已收藏裝置嘅指紋，佢就可以無限制噉 send 嘢畀你。',
+    '不過揀已收藏裝置點都安全過揀所有裝置嘅。',
+  ];
 }
 
 // Path: dialogs.pin
@@ -1336,6 +1369,19 @@ class _TranslationsSettingsTabGeneralLanguageOptionsZhHk extends TranslationsSet
   // Translations
   @override
   String get system => '跟機';
+}
+
+// Path: settingsTab.network.networkOptions
+class _TranslationsSettingsTabNetworkNetworkOptionsZhHk extends TranslationsSettingsTabNetworkNetworkOptionsEn {
+  _TranslationsSettingsTabNetworkNetworkOptionsZhHk._(TranslationsZhHk root) : this._root = root, super.internal(root);
+
+  final TranslationsZhHk _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get all => '全部';
+  @override
+  String get filtered => '已過濾';
 }
 
 // Path: progressPage.total.title

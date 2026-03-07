@@ -13,7 +13,7 @@ jobs:
       version: ${{ steps.get_version.outputs.version }}
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Get version from pubspec.yaml
         id: get_version
@@ -28,7 +28,7 @@ jobs:
     runs-on: [self-hosted, linux, arm64]
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Install dependencies
         run: |
@@ -66,7 +66,7 @@ jobs:
           recipe: ./AppImageBuilder.yml
 
       - name: Upload AppImage file
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: appimage-arm-64-result
           path: ./*.AppImage

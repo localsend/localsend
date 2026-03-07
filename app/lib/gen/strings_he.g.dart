@@ -13,21 +13,30 @@ import 'strings.g.dart';
 class TranslationsHe extends Translations {
   /// You can call this constructor and build your own translation instance of this locale.
   /// Constructing via the enum [AppLocale.build] is preferred.
-  TranslationsHe({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
-    : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-      $meta = TranslationMetadata(
-        locale: AppLocale.he,
-        overrides: overrides ?? {},
-        cardinalResolver: cardinalResolver,
-        ordinalResolver: ordinalResolver,
-      ),
-      super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+  TranslationsHe({
+    Map<String, Node>? overrides,
+    PluralResolver? cardinalResolver,
+    PluralResolver? ordinalResolver,
+    TranslationMetadata<AppLocale, Translations>? meta,
+  }) : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
+       $meta =
+           meta ??
+           TranslationMetadata(
+             locale: AppLocale.he,
+             overrides: overrides ?? {},
+             cardinalResolver: cardinalResolver,
+             ordinalResolver: ordinalResolver,
+           ),
+       super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
 
   /// Metadata for the translations of <he>.
   @override
   final TranslationMetadata<AppLocale, Translations> $meta;
 
   late final TranslationsHe _root = this; // ignore: unused_field
+
+  @override
+  TranslationsHe $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => TranslationsHe(meta: meta ?? this.$meta);
 
   // Translations
   @override
@@ -66,8 +75,6 @@ class TranslationsHe extends Translations {
   late final _TranslationsDonationPageHe donationPage = _TranslationsDonationPageHe._(_root);
   @override
   late final _TranslationsChangelogPageHe changelogPage = _TranslationsChangelogPageHe._(_root);
-  @override
-  late final _TranslationsAliasGeneratorHe aliasGenerator = _TranslationsAliasGeneratorHe._(_root);
   @override
   late final _TranslationsDialogsHe dialogs = _TranslationsDialogsHe._(_root);
   @override
@@ -318,8 +325,11 @@ class _TranslationsReceivePageHe extends TranslationsReceivePageEn {
 
   // Translations
   @override
-  String subTitle({required num n}) =>
-      (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('he'))(n, one: 'רוצה לשלוח לך קובץ', other: 'רוצה לשלוח לך ${n} קבצים');
+  String subTitle({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('he'))(
+    n,
+    one: 'רוצה לשלוח לך קובץ',
+    other: 'רוצה לשלוח לך ${n} קבצים',
+  );
   @override
   String get subTitleMessage => 'שלח לך הודעה:';
   @override
@@ -397,8 +407,11 @@ class _TranslationsWebSharePageHe extends TranslationsWebSharePageEn {
   @override
   String get error => 'אירעה שגיאה בזמן הפעלת השרת.';
   @override
-  String openLink({required num n}) =>
-      (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('he'))(n, one: 'פתח את הקישור בדפדפן:', other: 'פתח את אחד מהקישורים האלו בדפדפן:');
+  String openLink({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('he'))(
+    n,
+    one: 'פתח את הקישור בדפדפן:',
+    other: 'פתח את אחד מהקישורים האלו בדפדפן:',
+  );
   @override
   String get requests => 'בקשות';
   @override
@@ -469,15 +482,6 @@ class _TranslationsChangelogPageHe extends TranslationsChangelogPageEn {
   // Translations
   @override
   String get title => 'יומן שינויים';
-}
-
-// Path: aliasGenerator
-class _TranslationsAliasGeneratorHe extends TranslationsAliasGeneratorEn {
-  _TranslationsAliasGeneratorHe._(TranslationsHe root) : this._root = root, super.internal(root);
-
-  final TranslationsHe _root; // ignore: unused_field
-
-  // Translations
 }
 
 // Path: dialogs
@@ -912,7 +916,7 @@ class _TranslationsTroubleshootPageFirewallHe extends TranslationsTroubleshootPa
   String solution({required Object port}) =>
       'כנראה זו בעיה של חומת אש. באפשרותך לפתור את הבעיה על ידי אפשור חיבורים נכנסים (UDP ו-TCP) ביציאה ${port}.';
   @override
-  String get openFirewallSettings => 'פתח את חומת האש';
+  String get openFirewall => 'פתח את חומת האש';
 }
 
 // Path: troubleshootPage.noDiscovery

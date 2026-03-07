@@ -13,15 +13,21 @@ import 'strings.g.dart';
 class TranslationsBn extends Translations {
   /// You can call this constructor and build your own translation instance of this locale.
   /// Constructing via the enum [AppLocale.build] is preferred.
-  TranslationsBn({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
-    : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-      $meta = TranslationMetadata(
-        locale: AppLocale.bn,
-        overrides: overrides ?? {},
-        cardinalResolver: cardinalResolver,
-        ordinalResolver: ordinalResolver,
-      ),
-      super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+  TranslationsBn({
+    Map<String, Node>? overrides,
+    PluralResolver? cardinalResolver,
+    PluralResolver? ordinalResolver,
+    TranslationMetadata<AppLocale, Translations>? meta,
+  }) : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
+       $meta =
+           meta ??
+           TranslationMetadata(
+             locale: AppLocale.bn,
+             overrides: overrides ?? {},
+             cardinalResolver: cardinalResolver,
+             ordinalResolver: ordinalResolver,
+           ),
+       super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
 
   /// Metadata for the translations of <bn>.
   @override
@@ -29,11 +35,14 @@ class TranslationsBn extends Translations {
 
   late final TranslationsBn _root = this; // ignore: unused_field
 
+  @override
+  TranslationsBn $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => TranslationsBn(meta: meta ?? this.$meta);
+
   // Translations
   @override
   String get locale => 'বাংলা';
   @override
-  String get appName => 'LocalSend';
+  String get appName => 'লোকালসেন্ড';
   @override
   late final _TranslationsGeneralBn general = _TranslationsGeneralBn._(_root);
   @override
@@ -164,7 +173,7 @@ class _TranslationsGeneralBn extends TranslationsGeneralEn {
   @override
   String get unknown => 'আননোন';
   @override
-  String get noItemInClipboard => 'ক্লিপবোর্ডে কোনো আইটেম নেই';
+  String get noItemInClipboard => 'ক্লিপবোর্ডে কোনো আইটেম নেই।';
 }
 
 // Path: receiveTab
@@ -196,7 +205,7 @@ class _TranslationsSendTabBn extends TranslationsSendTabEn {
   @override
   late final _TranslationsSendTabPickerBn picker = _TranslationsSendTabPickerBn._(_root);
   @override
-  String get shareIntentInfo => 'আরো সহজে ফাইল সিলেক্ট করার জন্য আপনার মোবাইলের "Share" ফিচারটি ব্যবহার করতে পারেন';
+  String get shareIntentInfo => 'আরো সহজে ফাইল সিলেক্ট করার জন্য আপনার মোবাইলের "Share" ফিচারটি ব্যবহার করতে পারেন।';
   @override
   String get nearbyDevices => 'কাছাকাছি থাকা ডিভাইস';
   @override
@@ -297,7 +306,7 @@ class _TranslationsReceiveHistoryPageBn extends TranslationsReceiveHistoryPageEn
   @override
   String get deleteHistory => 'হিস্ট্রি ক্লিয়ার করুন';
   @override
-  String get empty => 'হিস্ট্রি খালি';
+  String get empty => 'হিস্ট্রি খালি।';
   @override
   late final _TranslationsReceiveHistoryPageEntryActionsBn entryActions = _TranslationsReceiveHistoryPageEntryActionsBn._(_root);
 }
@@ -316,7 +325,7 @@ class _TranslationsApkPickerPageBn extends TranslationsApkPickerPageEn {
   @override
   String get excludeAppsWithoutLaunchIntent => 'অ-লঞ্চযোগ্য অ্যাপগুলি বাদ দিন';
   @override
-  String apps({required Object n}) => '${n} Apps';
+  String apps({required Object n}) => '${n} অ্যাপ্স';
 }
 
 // Path: selectedFilesPage
@@ -340,8 +349,8 @@ class _TranslationsReceivePageBn extends TranslationsReceivePageEn {
   @override
   String subTitle({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('bn'))(
     n,
-    one: 'আপনাকে একটি ফাইল পাঠাতে চায়।',
-    other: 'আপনাকে ${n}টি ফাইল পাঠাতে চায়।',
+    one: 'আপনাকে একটি ফাইল পাঠাতে চায়',
+    other: 'আপনাকে ${n}টি ফাইল পাঠাতে চায়',
   );
   @override
   String get subTitleMessage => 'আপনাকে একটি মেসেজ পাঠিয়েছে:';
@@ -378,7 +387,7 @@ class _TranslationsSendPageBn extends TranslationsSendPageEn {
 
   // Translations
   @override
-  String get waiting => 'রেস্পন্সের অপেক্ষায় ...';
+  String get waiting => 'রেস্পন্সের অপেক্ষায়…';
   @override
   String get rejected => 'রিসিভার রিকুয়েস্টটি ক্যানসেল করেছে।';
   @override
@@ -402,6 +411,8 @@ class _TranslationsProgressPageBn extends TranslationsProgressPageEn {
   String get savedToGallery => 'Photos এ সেভ করা হয়েছে';
   @override
   late final _TranslationsProgressPageTotalBn total = _TranslationsProgressPageTotalBn._(_root);
+  @override
+  late final _TranslationsProgressPageRemainingTimeBn remainingTime = _TranslationsProgressPageRemainingTimeBn._(_root);
 }
 
 // Path: webSharePage
@@ -414,9 +425,9 @@ class _TranslationsWebSharePageBn extends TranslationsWebSharePageEn {
   @override
   String get title => 'লিঙ্কের মাধ্যমে শেয়ার করুন';
   @override
-  String get loading => 'সার্ভার চালু করা হচ্ছে...';
+  String get loading => 'সার্ভার চালু করা হচ্ছে…';
   @override
-  String get stopping => 'সার্ভার বন্ধ করা হচ্ছে...';
+  String get stopping => 'সার্ভার বন্ধ করা হচ্ছে…';
   @override
   String get error => 'সার্ভার চালু করার সময় একটি সমস্যা হয়েছে৷';
   @override
@@ -723,7 +734,7 @@ class _TranslationsAssetPickerBn extends TranslationsAssetPickerEn {
   @override
   String get unSupportedAssetType => 'আনসাপোর্টেড ফাইল টাইপ.';
   @override
-  String get unableToAccessAll => 'ডিভাইসে সমস্ত ফাইল অ্যাক্সেস পাওয়া যায়নি৷';
+  String get unableToAccessAll => 'ডিভাইসে সমস্ত ফাইল অ্যাক্সেস পাওয়া যায়নি';
   @override
   String get viewingLimitedAssetsTip => 'শুধুমাত্র অ্যাপে অ্যাক্সেসযোগ্য ফাইল এবং অ্যালবাম দেখুন.';
   @override
@@ -994,7 +1005,7 @@ class _TranslationsTroubleshootPageFirewallBn extends TranslationsTroubleshootPa
   String solution({required Object port}) =>
       'এটি সম্ভবত একটি ফায়ারওয়াল সমস্যা। আপনি পোর্টে ইনকামিং কানেকশন (UDP এবং TCP) পারমিশন দিয়ে এটি ঠিক করতে পারেন ${port}.';
   @override
-  String get openFirewallSettings => 'ফায়ারওয়াল খুলুন';
+  String get openFirewall => 'ফায়ারওয়াল খুলুন';
 }
 
 // Path: troubleshootPage.noDiscovery
@@ -1005,7 +1016,7 @@ class _TranslationsTroubleshootPageNoDiscoveryBn extends TranslationsTroubleshoo
 
   // Translations
   @override
-  String get symptom => 'এই ডিভাইসটি অন্য ডিভাইস ডিসকভার করতে পারছে না';
+  String get symptom => 'এই ডিভাইসটি অন্য ডিভাইস খুঁজতে পারতেছে না।';
   @override
   String get solution =>
       'সব ডিভাইস একই ওয়াই-ফাই নেটওয়ার্কে আছে তা নিশ্চিত করুন এবং একই কনফিগারেশন ব্যাবহার করছে (পোর্ট, মাল্টিকাস্ট অ্যাড্রেস, এনক্রিপশন)। টার্গেট ডিভাইসের আইপি ম্যানুয়ালি টাইপ করতে পারেন। যদি এটা কাজ করে, তাহলে ভবিষ্যতে এই ডিভাইসটি অটোমেটিকালি ডিসকভার করা হবে, তা নিশ্চিত করতে এই ডিভাইসটি ফেভারিটে অ্যাড করুন।';
@@ -1057,6 +1068,28 @@ class _TranslationsProgressPageTotalBn extends TranslationsProgressPageTotalEn {
   String size({required Object curr, required Object n}) => 'সাইজ: ${curr} / ${n}';
   @override
   String speed({required Object speed}) => 'স্পীড: ${speed}/s';
+}
+
+// Path: progressPage.remainingTime
+class _TranslationsProgressPageRemainingTimeBn extends TranslationsProgressPageRemainingTimeEn {
+  _TranslationsProgressPageRemainingTimeBn._(TranslationsBn root) : this._root = root, super.internal(root);
+
+  final TranslationsBn _root; // ignore: unused_field
+
+  // Translations
+
+  /// ঘন্টার জন্য 'h' এবং মিনিটের জন্য 'm' ব্যবহার করুন
+  @override
+  String hours({required Object h, required Object m}) => '${h}ঘণ্টা ${m}মিনিট';
+
+  /// দিনের জন্য 'd', ঘন্টার জন্য 'h' এবং মিনিটের জন্য 'm' ব্যবহার করুন
+  @override
+  String days({required Object d, required Object h, required Object m}) => '${d}দিন ${h}ঘণ্টা ${m}মিনিট';
+
+  @override
+  String seconds({required Object n, required Object ss}) => '${n}:${ss}';
+  @override
+  String minutes({required Object n, required Object ss}) => '${n}:${ss}';
 }
 
 // Path: dialogs.addFile
@@ -1138,7 +1171,7 @@ class _TranslationsDialogsEncryptionDisabledNoticeBn extends TranslationsDialogs
   @override
   String get title => 'এনক্রিপশন বন্ধ করা হয়েছে';
   @override
-  String get content => 'এখন কমিউনিকেশন আনএনক্রিপ্টেড HTTP প্রটোকলের মাধ্যমে করা হচ্ছে। HTTPS ব্যবহার করার জন্য আবার এনক্রিপশন চালু করুন';
+  String get content => 'এখন কমিউনিকেশন আনএনক্রিপ্টেড HTTP প্রটোকলের মাধ্যমে করা হচ্ছে। HTTPS ব্যবহার করার জন্য আবার এনক্রিপশন চালু করুন।';
 }
 
 // Path: dialogs.errorDialog
@@ -1286,7 +1319,7 @@ class _TranslationsDialogsNoFilesBn extends TranslationsDialogsNoFilesEn {
   @override
   String get title => 'কোনো ফাইল সিলেক্ট করা হয়নি';
   @override
-  String get content => 'অন্তত একটি ফাইল সিলেক্ট করুন। ';
+  String get content => 'অন্তত একটি ফাইল সিলেক্ট করুন।';
 }
 
 // Path: dialogs.noPermission
@@ -1371,7 +1404,7 @@ class _TranslationsDialogsQuickSaveFromFavoritesNoticeBn extends TranslationsDia
   String get title => _root.general.quickSaveFromFavorites;
   @override
   List<String> get content => [
-    'আপনার ফেভারিট তালিকায় থাকা ডিভাইস থেকে ফাইল অটোমেটিক রিসিভ করা হয়',
+    'আপনার ফেভারিট তালিকায় থাকা ডিভাইস থেকে ফাইল অটোমেটিক রিসিভ করা হয়।',
     'সতর্কতা! বর্তমানে, এটা সম্পূর্ণভাবে নিরাপদ নয়, কোন হ্যাকারের কাছে আপনার ফেভারিট তালিকার কোনও ডিভাইসের ফিঙ্গারপ্রিন্ট থাকে তাহলে সে সীমাবদ্ধতা ছাড়াই আপনাকে ফাইল পাঠাতে পারে।',
     'তবে, এই অপশনটি এখনও লোকাল নেটওয়ার্কের ব্যবহারকারীদের কোনও সীমাবদ্ধতা ছাড়াই আপনাকে ফাইল পাঠাতে দেয়।',
   ];
@@ -1402,7 +1435,7 @@ class _TranslationsDialogsSendModeHelpBn extends TranslationsDialogsSendModeHelp
   @override
   String get multiple => 'একাধিক প্রাপককে ফাইল পাঠায়। নির্বাচন সাফ করা হবে না।';
   @override
-  String get link => 'যাদের LocalSend ইনস্টল করা নেই তারা ব্রাউজারে লিঙ্কটি খুলে  ফাইলগুলি ডাউনলোড করতে পারবেন।';
+  String get link => 'যাদের LocalSend ইনস্টল করা নেই তারা ব্রাউজারে লিঙ্কটি খুলে ফাইলগুলি ডাউনলোড করতে পারবেন।';
 }
 
 // Path: dialogs.zoom

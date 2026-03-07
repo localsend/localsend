@@ -6,8 +6,10 @@
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 import 'package:localsend_app/rust/frb_generated.dart';
 
-Future<void> verifyCert({required String cert, required String publicKey}) =>
-    RustLib.instance.api.crateApiCryptoVerifyCert(cert: cert, publicKey: publicKey);
+Future<void> verifyCert({required String cert, required String publicKey}) => RustLib.instance.api.crateApiCryptoVerifyCert(
+  cert: cert,
+  publicKey: publicKey,
+);
 
 Future<KeyPair> generateKeyPair() => RustLib.instance.api.crateApiCryptoGenerateKeyPair();
 

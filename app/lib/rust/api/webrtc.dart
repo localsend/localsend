@@ -18,7 +18,12 @@ Stream<WsServerMessage> connect({
   required ProposingClientInfo info,
   required String privateKey,
   required FutureOr<void> Function(LsSignalingConnection) onConnection,
-}) => RustLib.instance.api.crateApiWebrtcConnect(uri: uri, info: info, privateKey: privateKey, onConnection: onConnection);
+}) => RustLib.instance.api.crateApiWebrtcConnect(
+  uri: uri,
+  info: info,
+  privateKey: privateKey,
+  onConnection: onConnection,
+);
 
 // Rust type: RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<LsSignalingConnection>>
 abstract class LsSignalingConnection implements RustOpaqueInterface {

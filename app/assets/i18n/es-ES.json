@@ -73,7 +73,7 @@
     "nearbyDevices": "Dispositivos Cercanos",
     "thisDevice": "Este dispositivo",
     "scan": "Buscar dispositivos",
-    "manualSending": "Envío manual",
+    "manualSending": "Enviar manualmente",
     "sendMode": "Modo de envío",
     "sendModes": {
       "single": "Solo un destino",
@@ -81,7 +81,7 @@
       "link": "Compartir enlace"
     },
     "sendModeHelp": "Explicación",
-    "help": "Por favor asegúrese que el destino elegido esté en la misma red Wi-Fi.",
+    "help": "Por favor asegúrese que el dispositivo de destino esté en la misma red Wi-Fi.",
     "placeItems": "Selecciona elementos para compartir."
   },
   "settingsTab": {
@@ -124,7 +124,7 @@
     },
     "send": {
       "title": "Enviar",
-      "shareViaLinkAutoAccept": "Enviar enlace: Aceptar automáticamente"
+      "shareViaLinkAutoAccept": "Aceptar automáticamente solicitudes en el modo \"Compartir mediante enlace\""
     },
     "network": {
       "title": "Red",
@@ -188,10 +188,10 @@
     }
   },
   "apkPickerPage": {
-    "title": "Apps (APK)",
+    "title": "Aplicaciones (APK)",
     "excludeSystemApps": "Excluir apps de sistema",
     "excludeAppsWithoutLaunchIntent": "Excluir apps no ejecutables",
-    "apps": "{n} Apps"
+    "apps": "{n} Aplicaciones"
   },
   "selectedFilesPage": {
     "deleteAll": "Eliminar todo"
@@ -208,7 +208,7 @@
   "receiveOptionsPage": {
     "title": "Opciones",
     "destination": "@:settingsTab.receive.destination",
-    "appDirectory": "(carpeta @:appName)",
+    "appDirectory": "(Carpeta LocalSend)",
     "saveToGallery": "@:settingsTab.receive.saveToGallery",
     "saveToGalleryOff": "Desactivado automáticamente porque hay carpetas."
   },
@@ -232,6 +232,14 @@
       "count": "Archivos: {curr} / {n}",
       "size": "Tamaño: {curr} / {n}",
       "speed": "Velocidad: {speed}/s"
+    },
+    "remainingTime": {
+      "seconds": "{n}:{ss}",
+      "minutes": "{n}:{ss}",
+      "hours": "{h}h {m}m",
+      "days": "{d}d {h}h {m}m",
+      "@hours": "Usa «h» como abreviatura de horas y «m» para minutos",
+      "@days": "Usa «d» para días, «h» para horas y «m» para minutos"
     }
   },
   "webSharePage": {
@@ -287,7 +295,7 @@
     },
     "addressInput": {
       "title": "Introducir dirección",
-      "hashtag": "Hashtag",
+      "hashtag": "Etiqueta",
       "ip": "Dirección IP",
       "recentlyUsed": "Usados recientemente: "
     },
@@ -317,7 +325,7 @@
     },
     "favoriteEditDialog": {
       "titleAdd": "Agregar a favoritos",
-      "titleEdit": "Editar",
+      "titleEdit": "Ajustes",
       "name": "Alias",
       "auto": "(auto)",
       "ip": "Dirección IP",
@@ -439,7 +447,7 @@
     "sTypeImageLabel": "Imagen",
     "sTypeVideoLabel": "Video",
     "sTypeOtherLabel": "Otros medios",
-    "sActionPlayHint": "play",
+    "sActionPlayHint": "reproducir",
     "sActionPreviewHint": "vista previa",
     "sActionSelectHint": "selecccionar",
     "sActionSwitchPathLabel": "cambiar ruta",
@@ -448,10 +456,10 @@
     "sUnitAssetCountLabel": "conteo"
   },
   "networkInterfacesPage": {
-    "title": "Interfaces de red",
+    "title": "Interfaces de la red",
     "info": "De forma predeterminada, LocalSend utiliza todas las interfaces de red disponibles. Aquí puede desactivar las redes no deseadas. Debe reiniciar el servidor para aplicar los cambios.",
     "preview": "Vista previa",
-    "whitelist": "Lista de permitidos",
+    "whitelist": "Lista blanca",
     "blacklist": "Lista negra"
   }
 }

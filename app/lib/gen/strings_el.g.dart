@@ -13,21 +13,30 @@ import 'strings.g.dart';
 class TranslationsEl extends Translations {
   /// You can call this constructor and build your own translation instance of this locale.
   /// Constructing via the enum [AppLocale.build] is preferred.
-  TranslationsEl({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
-    : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-      $meta = TranslationMetadata(
-        locale: AppLocale.el,
-        overrides: overrides ?? {},
-        cardinalResolver: cardinalResolver,
-        ordinalResolver: ordinalResolver,
-      ),
-      super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+  TranslationsEl({
+    Map<String, Node>? overrides,
+    PluralResolver? cardinalResolver,
+    PluralResolver? ordinalResolver,
+    TranslationMetadata<AppLocale, Translations>? meta,
+  }) : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
+       $meta =
+           meta ??
+           TranslationMetadata(
+             locale: AppLocale.el,
+             overrides: overrides ?? {},
+             cardinalResolver: cardinalResolver,
+             ordinalResolver: ordinalResolver,
+           ),
+       super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
 
   /// Metadata for the translations of <el>.
   @override
   final TranslationMetadata<AppLocale, Translations> $meta;
 
   late final TranslationsEl _root = this; // ignore: unused_field
+
+  @override
+  TranslationsEl $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => TranslationsEl(meta: meta ?? this.$meta);
 
   // Translations
   @override
@@ -342,13 +351,13 @@ class _TranslationsReceiveOptionsPageEl extends TranslationsReceiveOptionsPageEn
   @override
   String get title => 'Επιλογές';
   @override
-  String get destination => _root.settingsTab.receive.destination;
-  @override
   String get appDirectory => '(Φάκελος LocalSend)';
   @override
-  String get saveToGallery => _root.settingsTab.receive.saveToGallery;
-  @override
   String get saveToGalleryOff => 'Απενεργοποιήθηκε αυτόματα επειδή υπάρχουν κατάλογοι.';
+  @override
+  String get destination => _root.settingsTab.receive.destination;
+  @override
+  String get saveToGallery => _root.settingsTab.receive.saveToGallery;
 }
 
 // Path: sendPage
@@ -363,9 +372,9 @@ class _TranslationsSendPageEl extends TranslationsSendPageEn {
   @override
   String get rejected => 'Ο παραλήπτης απέρριψε το αίτημα.';
   @override
-  String get tooManyAttempts => _root.web.tooManyAttempts;
-  @override
   String get busy => 'Ο παραλήπτης είναι απασχολημένος με άλλο αίτημα.';
+  @override
+  String get tooManyAttempts => _root.web.tooManyAttempts;
 }
 
 // Path: progressPage
@@ -411,8 +420,6 @@ class _TranslationsWebSharePageEl extends TranslationsWebSharePageEn {
   @override
   String get noRequests => 'Κανένα αίτμηα ακόμα.';
   @override
-  String get encryption => _root.settingsTab.network.encryption;
-  @override
   String get autoAccept => 'Αυτόματη αποδοχή αιτημάτων';
   @override
   String get requirePin => 'Απαίτηση PIN';
@@ -422,6 +429,8 @@ class _TranslationsWebSharePageEl extends TranslationsWebSharePageEn {
   String get encryptionHint => 'Το LocalSend χρησιμοποιεί αυτο-υπογεγραμμένο πιστοποιητικό. Χρειάζεται να το αποθεχτείτε στον φυλλομετρητή.';
   @override
   String pendingRequests({required Object n}) => 'Αναμονή αιτημάτων: ${n}';
+  @override
+  String get encryption => _root.settingsTab.network.encryption;
 }
 
 // Path: aboutPage
@@ -996,7 +1005,7 @@ class _TranslationsTroubleshootPageFirewallEl extends TranslationsTroubleshootPa
   String solution({required Object port}) =>
       'Αυτό είναι πιθανότατα ένα ζήτημα του τείχους προστασίας. Μπορείτε να το λύσετε επιτρέποντας τις εισερχόμενες συνδέσεις (UDP και TCP) στη θύρα ${port}.';
   @override
-  String get openFirewallSettings => 'Άνοιγμα Τείχους Προστασίας';
+  String get openFirewall => 'Άνοιγμα Τείχους Προστασίας';
 }
 
 // Path: troubleshootPage.noDiscovery
@@ -1097,11 +1106,11 @@ class _TranslationsDialogsAddressInputEl extends TranslationsDialogsAddressInput
   @override
   String get title => 'Εισαγωγή διεύθυνσης';
   @override
-  String get hashtag => 'Hashtag';
-  @override
   String get ip => 'Διεύθυνση IP';
   @override
   String get recentlyUsed => 'Χρησιμοποιήθηκε πρόσφατα: ';
+  @override
+  String get hashtag => 'Χάσταγκ';
 }
 
 // Path: dialogs.cancelSession
@@ -1262,7 +1271,7 @@ class _TranslationsDialogsLocalNetworkUnauthorizedEl extends TranslationsDialogs
   String get title => _root.dialogs.noPermission.title;
   @override
   String get description =>
-      'LocalSend can\'t find other devices without having the permission to scan the local network. Please grant this permission in the settings.';
+      'Το LocalSend δεν μπορεί να βρει άλλες συσκευές χωρίς την άδεια σάρωσης του τοπικού δικτύου. Παρακαλείστε να παραχωρήσετε αυτό το δικαίωμα στις ρυθμίσεις.';
   @override
   String get gotoSettings => 'Ρυθμίσεις';
 }
@@ -1275,7 +1284,7 @@ class _TranslationsDialogsMessageInputEl extends TranslationsDialogsMessageInput
 
   // Translations
   @override
-  String get title => 'Τύπος μηνύματος';
+  String get title => 'Πληκτρολογήστε το μήνυμα';
   @override
   String get multiline => 'Πολλαπλών γραμμών';
 }
@@ -1359,9 +1368,9 @@ class _TranslationsDialogsQuickSaveNoticeEl extends TranslationsDialogsQuickSave
 
   // Translations
   @override
-  String get title => _root.general.quickSave;
-  @override
   String get content => 'Τα αιτήματα αρχείων γίνονται αυτόματα δεκτά. Έχετε υπόψη σας ότι όλοι στο τοπικό δίκτυο μπορούν να σας στείλουν αρχεία.';
+  @override
+  String get title => _root.general.quickSave;
 }
 
 // Path: dialogs.quickSaveFromFavoritesNotice
@@ -1372,13 +1381,13 @@ class _TranslationsDialogsQuickSaveFromFavoritesNoticeEl extends TranslationsDia
 
   // Translations
   @override
-  String get title => _root.general.quickSaveFromFavorites;
-  @override
   List<String> get content => [
     'Τα αιτήματα αρχείων γίνονται τώρα αυτόματα αποδεκτά από τις συσκευές της λίστας των αγαπημένων σας.',
     'Προειδοποίηση! Επί του παρόντος, αυτό δεν είναι απολύτως ασφαλές, ένας χάκερ που έχει το δακτυλικό αποτύπωμα οποιασδήποτε συσκευής από τη λίστα των αγαπημένων σας μπορεί να σας στείλει αρχεία χωρίς περιορισμό.',
     'Ωστόσο, αυτή η επιλογή είναι ακόμα πιο ασφαλής από το να επιτρέπεται σε όλους τους χρήστες στο τοπικό δίκτυο να σας στείλουν αρχεία χωρίς περιορισμό.',
   ];
+  @override
+  String get title => _root.general.quickSaveFromFavorites;
 }
 
 // Path: dialogs.pin
