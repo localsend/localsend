@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:logging/logging.dart';
+
+final _logger = Logger('Lifecycle');
 
 class LifeCycleWatcher extends StatefulWidget {
   final Widget child;
@@ -30,6 +33,7 @@ class _LifeCycleWatcherState extends State<LifeCycleWatcher> with WidgetsBinding
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
+    _logger.info('App lifecycle changed: $state');
     widget.onChangedState(state);
   }
 }

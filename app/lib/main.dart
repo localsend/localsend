@@ -13,6 +13,7 @@ import 'package:localsend_app/util/ui/dynamic_colors.dart';
 import 'package:localsend_app/widget/watcher/life_cycle_watcher.dart';
 import 'package:localsend_app/widget/watcher/shortcut_watcher.dart';
 import 'package:localsend_app/widget/watcher/tray_watcher.dart';
+import 'package:localsend_app/widget/watcher/transfer_wakelock_watcher.dart';
 import 'package:localsend_app/widget/watcher/window_watcher.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 import 'package:routerino/routerino.dart';
@@ -64,21 +65,23 @@ class LocalSendApp extends StatelessWidget {
                 break;
             }
           },
-          child: ShortcutWatcher(
-            child: MaterialApp(
-              title: t.appName,
-              locale: TranslationProvider.of(context).flutterLocale,
-              supportedLocales: AppLocaleUtils.supportedLocales,
-              localizationsDelegates: GlobalMaterialLocalizations.delegates,
-              debugShowCheckedModeBanner: false,
-              theme: getTheme(colorMode, Brightness.light, dynamicColors),
-              darkTheme: getTheme(colorMode, Brightness.dark, dynamicColors),
-              themeMode: colorMode == ColorMode.oled ? ThemeMode.dark : themeMode,
-              navigatorKey: Routerino.navigatorKey,
-              home: RouterinoHome(
-                builder: () => const HomePage(
-                  initialTab: HomeTab.receive,
-                  appStart: true,
+          child: TransferWakelockWatcher(
+            child: ShortcutWatcher(
+              child: MaterialApp(
+                title: t.appName,
+                locale: TranslationProvider.of(context).flutterLocale,
+                supportedLocales: AppLocaleUtils.supportedLocales,
+                localizationsDelegates: GlobalMaterialLocalizations.delegates,
+                debugShowCheckedModeBanner: false,
+                theme: getTheme(colorMode, Brightness.light, dynamicColors),
+                darkTheme: getTheme(colorMode, Brightness.dark, dynamicColors),
+                themeMode: colorMode == ColorMode.oled ? ThemeMode.dark : themeMode,
+                navigatorKey: Routerino.navigatorKey,
+                home: RouterinoHome(
+                  builder: () => const HomePage(
+                    initialTab: HomeTab.receive,
+                    appStart: true,
+                  ),
                 ),
               ),
             ),
