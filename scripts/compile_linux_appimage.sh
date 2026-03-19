@@ -28,6 +28,10 @@ rm -rf appimage-build
 
 mkdir AppDir
 cp -r build/linux/x64/release/bundle/* AppDir
+
+APP_VERSION=$(grep '^version:' app/pubspec.yaml | sed 's/version: //; s/+.*//')
+sed -i "s/version: latest/version: $APP_VERSION/" scripts/appimage/AppImageBuilder_x86_64.yml
+
 appimage-builder
 sudo chmod +x LocalSend-latest-x86_64.AppImage
 
