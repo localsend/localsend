@@ -28,6 +28,7 @@
     "open": "Нээх",
     "queue": "Хүлээгдэж байгаа",
     "quickSave": "Шууд хадгалах",
+    "quickSaveFromFavorites": "\"Одод\"-ийн хурдан хадгалах",
     "renamed": "Дахин нэрлэсэн",
     "reset": "Өөрчлөлтүүдийг буцаах",
     "restart": "Дахин ачаалах",
@@ -113,6 +114,7 @@
     "receive": {
       "title": "Авах",
       "quickSave": "@:general.quickSave",
+      "quickSaveFromFavorites": "@:general.quickSaveFromFavorites",
       "requirePin": "@:webSharePage.requirePin",
       "autoFinish": "Авто-дуусгах",
       "destination": "Хавтаст хадгалах",
@@ -132,8 +134,14 @@
       "deviceType": "Төхөөрөмжийн төрөл",
       "deviceModel": "Төхөөрөмжийг модел",
       "port": "Порт",
+      "network": "Сүлжээ",
+      "networkOptions": {
+        "all": "Бүгд",
+        "filtered": "Шүүгдсэн"
+      },
       "discoveryTimeout": "Хайх хүчинтэй хугацаа",
       "useSystemName": "Системийн нэр ашиглах",
+      "generateRandomAlias": "Санамсаргүй түрээс үүсгэх",
       "portWarning": "Та өөр порт ашиглаж байгаа тул бусад төхөөрөмжинд олдохгүй байж магадгүй . (өгөгдмөл: {defaultPort})",
       "encryption": "Нууцлал",
       "multicastGroup": "Мультикаст хаяг",
@@ -166,6 +174,13 @@
       "symptom": "Төхөөрөмжүүд бие биенийгээ танихгүй, файл хуваалцаж чадахгүй байна.",
       "solution": "Хоёр талдаа ажиллахгүй байна уу? Хэрэв тийм бол хоёр төхөөрөмж ижил Wi-Fi сүлжээнд байгаа эсэхийг эсвэл ижил тохиргоотой (порт, multicast хаяг, шифрлэлт) байгаа эсэхийг шалгана уу. Wi-Fi сүлжээ эсвэл Acess Point (AP) төхөөрөмж хоорондын харилцааг хаасан байж магадгүй. Энэ тохиолдолд Wi-Fi төхөөрөмжийн тохиргоог өөрчлөнө үү."
     }
+  },
+  "networkInterfacesPage": {
+    "title": "Сүлжээний интерфейсүүд",
+    "info": "Анхны тохиолдолд LocalSend бүх боломжтой сүлжээний интерфейсүүдийг ашигладаг. Энд хүссэн сүлжээнүүдийг татваргаж болно. Өөрчлөлтийг хэрэгжүүлэхийн тулд серверийг дахин эхлүүлэх хэрэгтэй.",
+    "preview": "Урьдчилсан үзэх",
+    "whitelist": "Зөвшөөрөгдсөн жагсаалт",
+    "blacklist": "Хориглогдсон жагсаалт"
   },
   "receiveHistoryPage": {
     "title": "Түүх",
@@ -207,6 +222,7 @@
   "sendPage": {
     "waiting": "Хариу хүлээж байна…",
     "rejected": "Хүлээн авагч хүсэлтйиг татгалзлаа.",
+    "tooManyAttempts": "@:web.tooManyAttempts",
     "busy": "Хүлээн авагч өөр хүсэлт авсан тул завгүй байна."
   },
   "progressPage": {
@@ -227,6 +243,8 @@
   },
   "webSharePage": {
     "title": "Линкээр хуваалцах",
+    "loading": "Сервер эхлүүлж байна…",
+    "stopping": "Серверийг зогсоож байна…",
     "error": "Сервер асаахад алдаа гарлаа.",
     "openLink": {
       "one": "Энэ холбоосыг browser дээрээ нээнэ үү:",
@@ -234,6 +252,7 @@
     },
     "requests": "Хүсэлтүүд",
     "noRequests": "Одоогоор хүсэлт байхгүй байна.",
+    "encryption": "@:settingsTab.network.encryption",
     "autoAccept": "Хүсэлтийг автоматаар авах",
     "requirePin": "PIN код ашиглах",
     "pinHint": "PIN код: \"{pin}\"",
@@ -248,6 +267,7 @@
     ],
     "author": "Эзэмшигч",
     "contributors": "Хамт тусалсан",
+    "packagers": "Багцын бүтээгчид",
     "translators": "Орчуулагч нар"
   },
   "donationPage": {
@@ -262,5 +282,174 @@
   },
   "aliasGenerator(ignoreMissing, ignoreGpt)": {
     "@info": "Inherits from the English version"
+  },
+  "dialogs": {
+    "addFile": {
+      "title": "Сонголтод нэмэх",
+      "content": "Юу нэмэхийг хүсэж байна вэ?"
+    },
+    "openFile": {
+      "title": "Файл нээх",
+      "content": "Хүлээн авсан файлыг нээхийг хүсэж байна уу?"
+    },
+    "addressInput": {
+      "title": "Хаяг оруулах",
+      "hashtag": "Хэш тэмдэг",
+      "ip": "IP хаяг",
+      "recentlyUsed": "Сүүлд ашигласан: "
+    },
+    "cancelSession": {
+      "title": "Файлын шилжүүлэлтийг цуцлах",
+      "content": "Файлын шилжүүлэлтийг үнэхээр цуцлах уу?"
+    },
+    "cannotOpenFile": {
+      "title": "Файл нээх боломжгүй",
+      "content": "\"{file}\"-г нээх боломжгүй байна. Энэ файл нь зөөгдсөн, нэр нь өөрчлөгдсөн эсвэл устгагдсан уу?"
+    },
+    "encryptionDisabledNotice": {
+      "title": "Криптографчлал идэвхгүй болсон",
+      "content": "Одоо харилцаа нь криптографчлалгүй HTTP протокол ашиглан явагдаж байна. HTTPS протоколыг ашиглахын тулд криптографчлалыг дахин идэвхжүүлэх хэрэгтэй."
+    },
+    "errorDialog": {
+      "title": "@:general.error"
+    },
+    "favoriteDialog": {
+      "title": "Одод",
+      "noFavorites": "Одоогоор дуртай төхөөрөмж байхгүй.",
+      "addFavorite": "Нэмэх"
+    },
+    "favoriteDeleteDialog": {
+      "title": "Ододоос устгах",
+      "content": "\"{name}\"-г дуртай төхөөрөмжөөс үнэхээр устгах уу?"
+    },
+    "favoriteEditDialog": {
+      "titleAdd": "Ододод нэмэх",
+      "titleEdit": "Тохиргоо",
+      "name": "Төхөөрөмжийн нэр",
+      "auto": "(автоматаар)",
+      "ip": "IP хаяг",
+      "port": "Порт"
+    },
+    "fileInfo": {
+      "title": "Файлын мэдээлэл",
+      "fileName": "Файлын нэр:",
+      "path": "Зам:",
+      "size": "Хэмжээ:",
+      "sender": "Илгээгч:",
+      "time": "Цаг:"
+    },
+    "fileNameInput": {
+      "title": "Файлын нэр оруулах",
+      "original": "Анхны: {original}"
+    },
+    "historyClearDialog": {
+      "title": "Түүх цэвэрлэх",
+      "content": "Бүх түүхийг үнэхээр устгах уу?"
+    },
+    "localNetworkUnauthorized": {
+      "title": "@:dialogs.noPermission.title",
+      "description": "LocalSend нь бусад төхөөрөмжүүдийг олохын тулд орон нутгийн сүлжээг скан хийх зөвшөөрөлгүйгээр ажиллах боломжгүй. Энэ зөвшөөрлийг тохиргоонд олгоно уу.",
+      "gotoSettings": "Тохиргоо"
+    },
+    "messageInput": {
+      "title": "Мессеж бичих",
+      "multiline": "Олон мөр"
+    },
+    "noFiles": {
+      "title": "Файл сонгогдоогүй",
+      "content": "Дор хаяж нэг файл сонгоно уу."
+    },
+    "noPermission": {
+      "title": "Зөвшөөрөл байхгүй",
+      "content": "Шаардлагатай зөвшөөрлийг олгоогүй байна. Тохиргоонд олгоно уу."
+    },
+    "notAvailableOnPlatform": {
+      "title": "Боломжгүй",
+      "content": "Энэ функц зөвхөн дараах платформ дээр боломжтой:"
+    },
+    "qr": {
+      "title": "QR код"
+    },
+    "quickActions": {
+      "title": "Хурдан үйлдлүүд",
+      "counter": "Тоолуур",
+      "prefix": "Угтвар",
+      "padZero": "Тэгээр дүүргэх",
+      "sortBeforeCount": "Өмнөөс нь цагаан толгойн дараалал (A-Z)",
+      "random": "Санамсаргүй"
+    },
+    "quickSaveNotice": {
+      "title": "@:general.quickSave",
+      "content": "Файлын хүсэлтүүд одоо автоматаар хүлээн зөвшөөрөгдөж байна. Орон нутгийн сүлжээний хэн ч танд файл илгээж болно гэдгийг анхаарна уу."
+    },
+    "quickSaveFromFavoritesNotice": {
+      "title": "@:general.quickSaveFromFavorites",
+      "content": [
+        "Файлын хүсэлтүүд одоо таны дуртай төхөөрөмжүүдээс автоматаар хүлээн зөвшөөрөгдөж байна.",
+        "Анхаар! Одоогоор энэ нь бүрэн аюулгүй биш, учир нь таны дуртай төхөөрөмжүүдийн аль нэгний хурууны хээг мэдсэн хакер танд хязгааргүйгээр файл илгээж чадна.",
+        "Гэхдээ энэ сонголт нь орон нутгийн сүлжээний бүх хэрэглэгчдэд хязгааргүй файл илгээх зөвшөөрөл өгөхөөс илүү аюулгүй байдаг."
+      ]
+    },
+    "pin": {
+      "title": "PIN код оруулах"
+    },
+    "sendModeHelp": {
+      "title": "Илгээх горим",
+      "single": "Файлыг нэг хүлээн авагч руу илгээнэ. Файлын шилжүүлэлт дууссаны дараа сонголт цэвэрлэгдэнэ.",
+      "multiple": "Файлыг олон хүлээн авагчдад илгээнэ. Файлын шилжүүлэлт дууссаны дараа сонголт цэвэрлэгдэхгүй.",
+      "link": "LocalSend суулгаагүй хүлээн авагчид хөтөчөөрөө холбоос нээж сонгогдсон файлуудыг татаж авч чадна."
+    },
+    "zoom": {
+      "title": "URL"
+    }
+  },
+  "sanitization": {
+    "empty": "Файлын нэр хоосон байж болохгүй",
+    "invalid": "Файлын нэрт буруу тэмдэгт агуулагдаж байна"
+  },
+  "tray": {
+    "open": "@:general.open",
+    "close": "LocalSend-г гаргах",
+    "closeWindows": "Гарах"
+  },
+  "web": {
+    "waiting": "@:sendPage.waiting",
+    "enterPin": "PIN код оруулах",
+    "invalidPin": "Буруу PIN код",
+    "tooManyAttempts": "Хэт олон оролдлого",
+    "rejected": "Үзэгдээгүй",
+    "files": "Файлууд",
+    "fileName": "Файлын нэр",
+    "size": "Хэмжээ"
+  },
+  "assetPicker": {
+    "confirm": "Зөвшөөрөх",
+    "cancel": "Цуцлах",
+    "edit": "Засах",
+    "gifIndicator": "GIF",
+    "loadFailed": "Ачаалахад алдаа гарлаа",
+    "original": "Анхны",
+    "preview": "Урьдчилсан үзэх",
+    "select": "Сонгох",
+    "emptyList": "Хоосон жагсаалт",
+    "unSupportedAssetType": "Дэмжигдэхгүй файлын төрөл.",
+    "unableToAccessAll": "Төхөөрөмжийн бүх файлд хандах боломжгүй",
+    "viewingLimitedAssetsTip": "Зөвхөн апп-д хандах боломжтой файлуудыг харна.",
+    "changeAccessibleLimitedAssets": "Хандах боломжтой файлуудыг шинэчлэхийн тулд дарна уу",
+    "accessAllTip": "Апп нь төхөөрөмжийн зарим файлд хандах боломжтой. Системийн тохиргоон дээр апп-д төхөөрөмжийн бүх медиа файлд хандах зөвшөөрөл олгоно уу.",
+    "goToSystemSettings": "Системийн тохиргоон руу очих",
+    "accessLimitedAssets": "Хязгаарлагдмал хандалттай үргэлжлүүлэх",
+    "accessiblePathName": "Хандах боломжтой файлууд",
+    "sTypeAudioLabel": "Дуу",
+    "sTypeImageLabel": "Зураг",
+    "sTypeVideoLabel": "Видео",
+    "sTypeOtherLabel": "Бусад медиа",
+    "sActionPlayHint": "тоглуулах",
+    "sActionPreviewHint": "урьдчилсан үзэх",
+    "sActionSelectHint": "сонгох",
+    "sActionSwitchPathLabel": "зам өөрчлөх",
+    "sActionUseCameraHint": "камер ашиглах",
+    "sNameDurationLabel": "хэмжээ",
+    "sUnitAssetCountLabel": "тоо"
   }
 }
