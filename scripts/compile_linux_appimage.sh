@@ -20,7 +20,7 @@ alias flutter='submodules/flutter/bin/flutter'
 
 flutter clean
 flutter pub get
-flutter pub run build_runner build -d
+dart run build_runner build -d
 flutter build linux
 
 rm -rf AppDir

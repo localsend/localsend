@@ -29,7 +29,7 @@ You can help in translating this app to other languages!
 3. Optional: Re-run this app
    1. Run `cd app` to enter the app directory.
    2. Make sure you have [run](#run) this app once.
-   3. Update translations via `flutter pub run slang`
+   3. Update translations via `dart run slang`
    4. Run the app via `flutter run`
 4. Open a pull request
 
