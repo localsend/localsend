@@ -84,19 +84,19 @@ class _HomePageState extends State<HomePage> with Refena {
         });
       },
       onDragDone: (event) async {
-        if (event.files.length == 1 && Directory(event.files.first.path).existsSync()) {
-          // user dropped a directory
-          await ref.redux(selectedSendingFilesProvider).dispatchAsync(AddDirectoryAction(event.files.first.path));
-        } else {
-          // user dropped one or more files
-          await ref
-              .redux(selectedSendingFilesProvider)
-              .dispatchAsync(
-                AddFilesAction(
-                  files: event.files,
-                  converter: CrossFileConverters.convertXFile,
-                ),
-              );
+        for (final droppedItem in event.files) {
+          if (Directory(droppedItem.path).existsSync()) {
+            await ref.redux(selectedSendingFilesProvider).dispatchAsync(AddDirectoryAction(droppedItem.path));
+          } else {
+            await ref
+                .redux(selectedSendingFilesProvider)
+                .dispatchAsync(
+                  AddFilesAction(
+                    files: [droppedItem],
+                    converter: CrossFileConverters.convertXFile,
+                  ),
+                );
+          }
         }
         vm.changeTab(HomeTab.send);
       },
