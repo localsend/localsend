@@ -19,7 +19,7 @@
     "error": "Chyba",
     "example": "Příklad",
     "files": "Soubory",
-    "finished": "Hotovo",
+    "finished": "Dokončeno",
     "hide": "Skrýt",
     "off": "Vypnuto",
     "offline": "Offline",
@@ -39,7 +39,7 @@
     "save": "Uložit",
     "unchanged": "Nezměněno",
     "unknown": "Neznámý",
-    "noItemInClipboard": "Žádná položka ve schránce"
+    "noItemInClipboard": "Žádná položka ve schránce."
   },
   "receiveTab": {
     "title": "Příjmout",
@@ -124,7 +124,7 @@
     },
     "send": {
       "title": "Poslat",
-      "shareViaLinkAutoAccept": "Automaticky přijímat požadavky v režimu \"Sdílet přes odkaz\"."
+      "shareViaLinkAutoAccept": "Automaticky přijímat požadavky v režimu „Sdílet přes odkaz“"
     },
     "network": {
       "title": "Síť",
@@ -215,7 +215,7 @@
   "receiveOptionsPage": {
     "title": "Možnosti",
     "destination": "@:settingsTab.receive.destination",
-    "appDirectory": "(LocalSend folder)",
+    "appDirectory": "(složka LocalSend)",
     "saveToGallery": "@:settingsTab.receive.saveToGallery",
     "saveToGalleryOff": "Automaticky vypnuto, protože existují adresáře."
   },
@@ -239,6 +239,14 @@
       "count": "Soubory: {curr} / {n}",
       "size": "Velikost: {curr} / {n}",
       "speed": "Rychlost: {speed}/s"
+    },
+    "remainingTime": {
+      "seconds": "{n}:{ss}",
+      "minutes": "{n}:{ss}",
+      "hours": "{h}h {m}m",
+      "days": "{d}d {h}h {m}m",
+      "@hours": "Použijte zkratky „h“ pro hodiny a „m“ pro minuty",
+      "@days": "Použijte „d“ pro dny, „h“ pro hodiny a „m“ pro minuty"
     }
   },
   "webSharePage": {
