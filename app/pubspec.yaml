@@ -45,6 +45,7 @@ dependencies:
   # macos_dock_progress: 1.1.0
   mime: 1.0.6
   moform: 0.2.5
+  mutex: 3.1.0
   nanoid2: 2.0.1
   network_info_plus: 6.1.1
   open_dir: 0.0.2+1

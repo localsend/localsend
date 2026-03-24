@@ -997,6 +997,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.2.5"
+  mutex:
+    dependency: "direct main"
+    description:
+      name: mutex
+      sha256: "8827da25de792088eb33e572115a5eb0d61d61a3c01acbc8bcbe76ed78f1a1f2"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.1.0"
   nanoid2:
     dependency: "direct main"
     description:
