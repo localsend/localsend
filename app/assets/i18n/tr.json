@@ -73,8 +73,8 @@
     "nearbyDevices": "Yakınınızdaki cihazlar",
     "thisDevice": "Cihazınız",
     "scan": "Cihazları tara",
-    "manualSending": "Manuel Gönderme",
-    "sendMode": "Gönderme Modu",
+    "manualSending": "Manuel gönderme",
+    "sendMode": "Gönderme modu",
     "sendModes": {
       "single": "Tek alıcı",
       "multiple": "Birden fazla alıcı",
@@ -383,7 +383,7 @@
       "title": "PIN girin"
     },
     "sendModeHelp": {
-      "title": "Gönderme Modu",
+      "title": "Gönderme modları",
       "single": "Dosyaları bir alıcıya gönderir. Seçim, bitmiş dosya aktarımından sonra temizlenir.",
       "multiple": "Dosyaları birden çok alıcıya gönderir. Seçim temizlenmeyecektir.",
       "link": "LocalSend yüklü olmayan alıcılar, tarayıcılarındaki bağlantıyı açarak seçilen dosyaları indirebilir."
