@@ -30,7 +30,7 @@ jobs:
       - name: Install dependencies
         run: sudo dnf install -y clang cmake gtk3-devel ninja-build libappindicator-gtk3-devel jq findutils which git patchelf rpm-build
 
-      - uses: subosito/flutter-action@v2
+      - uses: subosito/flutter-action@1a449444c387b1966244ae4d4f8c696479add0b2 # v2
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
           channel: "stable"
