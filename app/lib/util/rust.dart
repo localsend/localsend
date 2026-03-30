@@ -20,6 +20,19 @@ extension DeviceExt on Device {
       true => rust_model.ProtocolType.https,
     };
   }
+
+  rust_model.RegisterDto toRegisterDto() {
+    return rust_model.RegisterDto(
+      alias: alias,
+      version: version,
+      deviceModel: deviceModel,
+      deviceType: deviceType.toRust(),
+      token: fingerprint,
+      port: port,
+      protocol: getProtocolType(),
+      hasWebInterface: download,
+    );
+  }
 }
 
 extension DeviceTypeExt on DeviceType {
@@ -49,6 +62,36 @@ extension FileDtoExt on FileDto {
               accessed: metadata!.lastAccessed?.toUtc().toIso8601String(),
             )
           : null,
+    );
+  }
+}
+
+extension RustDeviceTypeExt on rust_model.DeviceType {
+  DeviceType toDart() {
+    return switch (this) {
+      rust_model.DeviceType.mobile => DeviceType.mobile,
+      rust_model.DeviceType.desktop => DeviceType.desktop,
+      rust_model.DeviceType.web => DeviceType.web,
+      rust_model.DeviceType.headless => DeviceType.headless,
+      rust_model.DeviceType.server => DeviceType.server,
+    };
+  }
+}
+
+extension RegisterResponseDtoExt on rust_model.RegisterResponseDto {
+  Device toDevice(String ip, int port, bool https, DiscoveryMethod method) {
+    return Device(
+      signalingId: null,
+      ip: ip,
+      version: version,
+      port: port,
+      https: https,
+      fingerprint: token,
+      alias: alias,
+      deviceModel: deviceModel,
+      deviceType: deviceType?.toDart() ?? DeviceType.desktop,
+      download: hasWebInterface,
+      discoveryMethods: {method},
     );
   }
 }
