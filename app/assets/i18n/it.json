@@ -11,7 +11,7 @@
     "confirm": "Conferma",
     "continueStr": "Continua",
     "copy": "Copia",
-    "copiedToClipboard": "Copiato negli Appunti",
+    "copiedToClipboard": "Copiato negli appunti",
     "decline": "Rifiuta",
     "done": "Fatto",
     "delete": "Cancella",
@@ -30,7 +30,7 @@
     "quickSave": "Salvataggio rapido",
     "quickSaveFromFavorites": "Salvataggio rapido per \"Preferiti\"",
     "renamed": "Rinominato",
-    "reset": "Reset",
+    "reset": "Azzera",
     "restart": "Riavvia",
     "settings": "Impostazioni",
     "skipped": "Saltato",
@@ -39,7 +39,7 @@
     "save": "Salva",
     "unchanged": "Invariato",
     "unknown": "Sconosciuto",
-    "noItemInClipboard": "Nessun elemento negli Appunti."
+    "noItemInClipboard": "Nessun elemento negli appunti."
   },
   "receiveTab": {
     "title": "Ricevi",
@@ -172,7 +172,7 @@
     },
     "noConnection": {
       "symptom": "Entrambi i dispositivi non sono in grado di riconoscersi a vicenda né di condividere file.",
-      "solution": "Il problema si presenta da entrambi le parti? In tal caso, assicurati che i dispositivi siano sulla stessa rete Wi-Fi e condividano la stessa configurazione (porta, indirizzo multicast, crittografia). La rete Wi-Fi potrebbe non consentire la comunicazione tra i partecipanti (isolamento dell'Access Point). In questo caso, l'opzione deve essere abilitata sul router."
+      "solution": "Il problema si presenta su entrambi i dispositivi? In tal caso, assicurati che i dispositivi siano sulla stessa rete Wi-Fi e condividano la stessa configurazione (porta, indirizzo multicast, crittografia). La rete Wi-Fi potrebbe non consentire la comunicazione tra i partecipanti (isolamento dell'Access Point). In questo caso, l'opzione deve essere abilitata sul router."
     }
   },
   "receiveHistoryPage": {
