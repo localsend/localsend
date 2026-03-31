@@ -23,6 +23,7 @@
 - fix: text message content size calculation (@ew-sirenko, https://github.com/localsend/localsend/pull/2297)
 - fix(linux): add CJK font support for Chinese, Japanese, and Korean text (@Mr-Ebonycat, https://github.com/localsend/localsend/pull/2719)
 - fix: save DNG files to image gallery (@ShlomoCode, https://github.com/localsend/localsend/pull/2728)
+- fix: use decimal (SI) units for file sizes to match file manager displays (@navuxneeth, https://github.com/localsend/localsend/pull/2865)
 
 ## 1.17.0 (2025-02-19)
 
