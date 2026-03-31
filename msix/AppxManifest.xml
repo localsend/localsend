@@ -69,6 +69,11 @@
             <uap:DataFormat>StorageItems</uap:DataFormat>
           </uap:ShareTarget>
         </uap:Extension>
+        <uap:Extension Category="windows.protocol">
+          <uap:Protocol Name="localsend">
+            <uap:DisplayName>LocalSend</uap:DisplayName>
+          </uap:Protocol>
+        </uap:Extension>
       </Extensions>
     </Application>
   </Applications>
