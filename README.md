@@ -229,13 +229,13 @@ flutter build windows
 **Local MSIX App**
 
 ```bash
-flutter pub run msix:create
+dart run msix:create
 ```
 
 **Store ready**
 
 ```bash
-flutter pub run msix:create --store
+dart run msix:create --store
 ```
 
 ### Linux
