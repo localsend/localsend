@@ -11,7 +11,7 @@
     "confirm": "Confirmar",
     "continueStr": "Continuar",
     "copy": "Copiar",
-    "copiedToClipboard": "Copiado al Portapapeles",
+    "copiedToClipboard": "Copiado al portapapeles",
     "decline": "Rechazar",
     "done": "Hecho",
     "delete": "Eliminar",
@@ -28,7 +28,7 @@
     "open": "Abrir",
     "queue": "Cola",
     "quickSave": "Guardado rápido",
-    "quickSaveFromFavorites": "Guardado rápido en \"Favoritos\"",
+    "quickSaveFromFavorites": "Guardado rápido en «Favoritos»",
     "renamed": "Renombrado",
     "reset": "Deshacer cambios",
     "restart": "Reiniciar",
@@ -37,7 +37,7 @@
     "start": "Iniciar",
     "stop": "Detener",
     "save": "Guardar",
-    "unchanged": "Sin Cambios",
+    "unchanged": "Sin cambios",
     "unknown": "Desconocido",
     "noItemInClipboard": "No hay ningún elemento en el portapapeles."
   },
@@ -46,7 +46,7 @@
     "infoBox": {
       "ip": "IP:",
       "port": "Puerto:",
-      "alias": "Alias:"
+      "alias": "Nombre del dispositivo:"
     },
     "quickSave": {
       "off": "@:general.off",
@@ -64,13 +64,13 @@
     "picker": {
       "file": "Archivo",
       "folder": "Carpeta",
-      "media": "Medios",
+      "media": "Multimedia",
       "text": "Texto",
-      "app": "App",
+      "app": "Aplicación",
       "clipboard": "Pegar"
     },
-    "shareIntentInfo": "También puedes usar la opción \"Compartir\" de tu dispositivo para seleccionar archivos más fácilmente.",
-    "nearbyDevices": "Dispositivos Cercanos",
+    "shareIntentInfo": "También puedes usar la opción «Compartir» de tu dispositivo para seleccionar archivos más fácilmente.",
+    "nearbyDevices": "Dispositivos cercanos",
     "thisDevice": "Este dispositivo",
     "scan": "Buscar dispositivos",
     "manualSending": "Enviar manualmente",
@@ -81,14 +81,14 @@
       "link": "Compartir enlace"
     },
     "sendModeHelp": "Explicación",
-    "help": "Por favor asegúrese que el dispositivo de destino esté en la misma red Wi-Fi.",
+    "help": "Asegúrate de que el dispositivo de destino esté en la misma red Wi‑Fi.",
     "placeItems": "Selecciona elementos para compartir."
   },
   "settingsTab": {
     "title": "Ajustes",
     "general": {
       "title": "General",
-      "brightness": "Luminosidad",
+      "brightness": "Tema",
       "brightnessOptions": {
         "system": "Sistema",
         "dark": "Oscuro",
@@ -124,7 +124,7 @@
     },
     "send": {
       "title": "Enviar",
-      "shareViaLinkAutoAccept": "Aceptar automáticamente solicitudes en el modo \"Compartir mediante enlace\""
+      "shareViaLinkAutoAccept": "Aceptar automáticamente solicitudes en el modo «Compartir mediante enlace»"
     },
     "network": {
       "title": "Red",
@@ -256,7 +256,7 @@
     "encryption": "@:settingsTab.network.encryption",
     "autoAccept": "Aceptar solicitudes automáticamente",
     "requirePin": "Requerir PIN",
-    "pinHint": "El PIN es \"{pin}\"",
+    "pinHint": "El PIN es «{pin}»",
     "encryptionHint": "LocalSend utiliza un certificado autofirmado. Necesitas aceptarlo en el navegador.",
     "pendingRequests": "Solicitudes pendientes: {n}"
   },
@@ -305,7 +305,7 @@
     },
     "cannotOpenFile": {
       "title": "No se puede abrir el archivo",
-      "content": "No se ha podido abrir \"{file}\". ¿Es posible que el archivo se haya movido, renombrado o eliminado?"
+      "content": "No se ha podido abrir «{file}». ¿Se ha movido, renombrado o eliminado el archivo?"
     },
     "encryptionDisabledNotice": {
       "title": "Encriptación deshabilitada",
@@ -321,7 +321,7 @@
     },
     "favoriteDeleteDialog": {
       "title": "Eliminar de favoritos",
-      "content": "¿Realmente quieres borrar de favoritos \"{name}\"?"
+      "content": "¿Seguro que quieres borrar «{name}» de favoritos?"
     },
     "favoriteEditDialog": {
       "titleAdd": "Agregar a favoritos",
@@ -409,7 +409,7 @@
     "invalid": "El nombre del archivo contiene caracteres no válidos"
   },
   "tray": {
-    "@info": "Las directrices de Apple son muy estrictas en cuanto a la expresión 'cerrar'.",
+    "@info": "Las directrices de Apple son muy estrictas en cuanto a la expresión «cerrar».",
     "open": "@:general.open",
     "close": "Cerrar LocalSend",
     "closeWindows": "Cerrar"

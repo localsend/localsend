@@ -232,6 +232,10 @@
       "count": "Fajlova: {curr} / {n}",
       "size": "Veličina: {curr} / {n}",
       "speed": "Brzina: {speed}/s"
+    },
+    "remainingTime": {
+      "minutes": "{n}:{ss}",
+      "seconds": "{n}:{ss}"
     }
   },
   "webSharePage": {
