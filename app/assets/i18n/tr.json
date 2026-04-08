@@ -28,7 +28,7 @@
     "open": "Aç",
     "queue": "Sıra",
     "quickSave": "Hızlı kaydetme",
-    "quickSaveFromFavorites": "Favoriler",
+    "quickSaveFromFavorites": "\"Favoriler\" için Hızlı Kaydet",
     "renamed": "Yeniden adlandırıldı",
     "reset": "Sıfırla",
     "restart": "Yeniden başlat",
@@ -46,7 +46,7 @@
     "infoBox": {
       "ip": "IP:",
       "port": "Port:",
-      "alias": "Takma isminiz:"
+      "alias": "Cihaz adı:"
     },
     "quickSave": {
       "off": "@:general.off",
@@ -103,9 +103,9 @@
       "languageOptions": {
         "system": "Sistem dili"
       },
-      "saveWindowPlacement": "Çıkış: Burayı Kaydet",
+      "saveWindowPlacement": "Çıkıştan sonra pencere konumunu kaydet",
       "saveWindowPlacementWindows": "Çıkıştan sonra pencere konumunu kaydet",
-      "minimizeToTray": "Çıkış: Simge durumuna küçült",
+      "minimizeToTray": "Kapatırken sistem tepsisine/menü çubuğuna küçült",
       "launchAtStartup": "Giriş yapıldıktan sonra otomatik başlat",
       "launchMinimized": "Otomatik başlatma: Gizli Başlatma",
       "showInContextMenu": "LocalSend'i bağlam menüsünde göster",
@@ -114,13 +114,13 @@
     "receive": {
       "title": "Alım",
       "quickSave": "@:general.quickSave",
+      "quickSaveFromFavorites": "@:general.quickSaveFromFavorites",
       "requirePin": "@:webSharePage.requirePin",
       "autoFinish": "Otomatik bitir",
       "destination": "Hedef klasör",
       "downloads": "(İndirilenler)",
       "saveToGallery": "Medyayı galeriye kaydet",
-      "saveToHistory": "Geçmişe kaydet",
-      "quickSaveFromFavorites": "@:general.quickSaveFromFavorites"
+      "saveToHistory": "Geçmişe kaydet"
     },
     "send": {
       "title": "Gönder",
@@ -130,22 +130,22 @@
       "title": "Ağ",
       "needRestart": "Ayarları uygulamak için sunucuyu yeniden başlatınız!",
       "server": "Sunucu",
-      "alias": "Takma isminiz",
+      "alias": "Cihaz adı",
       "deviceType": "Cihaz tipi",
       "deviceModel": "Cihaz modeli",
       "port": "Port",
-      "discoveryTimeout": "Arama zaman aşımına uğradı",
-      "portWarning": "Kişiselleştirilmiş bir port kullanıyorsanız ağınızdaki diğer cihazlar tarafından bulunamayabilirsiniz. (varsayılan: {defaultPort})",
-      "encryption": "Şifreleme",
-      "multicastGroup": "Çoklu yayın",
-      "multicastGroupWarning": "Özel çoklu yayın adresini kullandığınız için diğer cihazlar tarafından algılanamayabilirsiniz.(varsayılan: {defaultMulticast})",
       "network": "Ağ",
       "networkOptions": {
         "all": "Tümü",
         "filtered": "Filtrelenmiş"
       },
+      "discoveryTimeout": "Arama zaman aşımına uğradı",
       "useSystemName": "Sistem adını kullan",
-      "generateRandomAlias": "Rastgele takma ad oluştur"
+      "generateRandomAlias": "Rastgele takma ad oluştur",
+      "portWarning": "Kişiselleştirilmiş bir port kullanıyorsanız ağınızdaki diğer cihazlar tarafından bulunamayabilirsiniz. (varsayılan: {defaultPort})",
+      "encryption": "Şifreleme",
+      "multicastGroup": "Çoklu yayın",
+      "multicastGroupWarning": "Özel çoklu yayın adresini kullandığınız için diğer cihazlar tarafından algılanamayabilirsiniz.(varsayılan: {defaultMulticast})"
     },
     "other": {
       "title": "Diğer",
@@ -175,9 +175,16 @@
       "solution": "Sorun her iki tarafta da var mı? O zaman her iki cihazın da aynı WiFi ağında olduğundan ve aynı yapılandırmayı (bağlantı noktası, çoklu yayın adresi, şifreleme) paylaştığından emin olmanız gerekir. WiFi, katılımcılar arasında iletişime izin vermeyebilir. Bu durumda, bu seçenek yönlendiricide etkinleştirilmelidir."
     }
   },
+  "networkInterfacesPage": {
+    "title": "Ağ Arayüzleri",
+    "info": "Varsayılan olarak, LocalSend mevcut olan tüm ağları kullanır. Burada istenmeyen ağları engelleyebilirsiniz. Değişikliklerin uygulanması için sunucuyu yeniden başlatmanız gerekir.",
+    "preview": "Önizle",
+    "whitelist": "Beyaz liste",
+    "blacklist": "Kara liste"
+  },
   "receiveHistoryPage": {
     "title": "Geçmiş",
-    "openFolder": "Dosyayı aç",
+    "openFolder": "Klasörü aç",
     "deleteHistory": "Geçmişi sil",
     "empty": "Geçmiş yok.",
     "entryActions": {
@@ -235,11 +242,11 @@
     },
     "remainingTime": {
       "seconds": "{n}:{ss}",
-      "@days": "Günler için 'g', saatler için 's' ve dakikalar için 'd' kullanın",
-      "@hours": "Saat kısaltması için 's', dakika kısaltması için 'd' kullanın",
       "minutes": "{n}:{ss}",
       "hours": "{h}s {m}d",
-      "days": "{d}g {h}s {m}d"
+      "days": "{d}g {h}s {m}d",
+      "@hours": "Saat kısaltması için 's', dakika kısaltması için 'd' kullanın",
+      "@days": "Günler için 'g', saatler için 's' ve dakikalar için 'd' kullanın"
     }
   },
   "webSharePage": {
@@ -289,6 +296,10 @@
       "title": "Seçime ekle",
       "content": "Ne eklemek istiyorsunuz ?"
     },
+    "openFile": {
+      "title": "Dosya Aç",
+      "content": "Alınan dosyayı açmak istiyor musunuz?"
+    },
     "addressInput": {
       "title": "Adresi giriniz",
       "hashtag": "Hashtag",
@@ -321,8 +332,8 @@
     },
     "favoriteEditDialog": {
       "titleAdd": "Favorilere ekle",
-      "titleEdit": "Düzenle",
-      "name": "Takma ad",
+      "titleEdit": "Ayarlar",
+      "name": "Cihaz adı",
       "auto": "(otomatik)",
       "ip": "IP Adresi",
       "port": "Port"
@@ -379,6 +390,14 @@
       "title": "@:general.quickSave",
       "content": "Dosya gönderim istekleri otomatik olarak gerçekleşir. Yerel ağınızdaki herkesin size dosya gönderebileceğinin farkında olunuz."
     },
+    "quickSaveFromFavoritesNotice": {
+      "title": "@:general.quickSaveFromFavorites",
+      "content": [
+        "Favoriler listenizdeki cihazların paylaşım istekleri otomatik olarak kabul edilecektir.",
+        "Uyarı! Şu an, bu tamamen güvenli değildir çünkü favoriler listenizdeki herhangi bir cihazın parmak izine sahip olan hackerlar sınırlama olmadan size dosyalar gönderebilir.",
+        "Ancak, bu seçenek yinede ağdaki tüm kullanıcıların size sınırlandırma olmadan dosya göndermesine izin vermekten daha güvenlidir."
+      ]
+    },
     "pin": {
       "title": "PIN girin"
     },
@@ -390,18 +409,6 @@
     },
     "zoom": {
       "title": "URL"
-    },
-    "openFile": {
-      "title": "Dosya Aç",
-      "content": "Alınan dosyayı açmak istiyor musunuz?"
-    },
-    "quickSaveFromFavoritesNotice": {
-      "title": "@:general.quickSaveFromFavorites",
-      "content": [
-        "Favoriler listenizdeki cihazların paylaşım istekleri otomatik olarak kabul edilecektir.",
-        "Uyarı! Şu an, bu tamamen güvenli değildir çünkü favoriler listenizdeki herhangi bir cihazın parmak izine sahip olan hackerlar sınırlama olmadan size dosyalar gönderebilir.",
-        "Ancak, bu seçenek yinede ağdaki tüm kullanıcıların size sınırlandırma olmadan dosya göndermesine izin vermekten daha güvenlidir."
-      ]
     }
   },
   "sanitization": {
@@ -426,7 +433,7 @@
   },
   "assetPicker": {
     "@info": "Translations for the Media selection tool for Android and Iphone",
-    "confirm": "Onay",
+    "confirm": "Onayla",
     "cancel": "İptal",
     "edit": "Düzenle",
     "gifIndicator": "GIF",
@@ -448,18 +455,11 @@
     "sTypeVideoLabel": "Video",
     "sTypeOtherLabel": "Diğer medya",
     "sActionPlayHint": "oynat",
-    "sActionPreviewHint": "Ön izleme",
+    "sActionPreviewHint": "ön izleme",
     "sActionSelectHint": "seç",
     "sActionSwitchPathLabel": "dosya uzantısını değiştir",
-    "sActionUseCameraHint": "Kamera kullan",
+    "sActionUseCameraHint": "kamera kullan",
     "sNameDurationLabel": "süre",
     "sUnitAssetCountLabel": "sayım"
-  },
-  "networkInterfacesPage": {
-    "title": "Ağ Arayüzleri",
-    "preview": "Önizle",
-    "whitelist": "Beyaz liste",
-    "blacklist": "Kara liste",
-    "info": "Varsayılan olarak, LocalSend mevcut olan tüm ağları kullanır. Burada istenmeyen ağları engelleyebilirsiniz. Değişikliklerin uygulanması için sunucuyu yeniden başlatmanız gerekir."
   }
 }
