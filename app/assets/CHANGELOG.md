@@ -1,5 +1,6 @@
 ## unreleased
 
+- feat: Add text chat for real-time messaging between nearby devices (https://github.com/localsend/localsend/issues/462)
 - feat(windows): add LocalSend to Windows Share Sheet (@chenxdust, https://github.com/localsend/localsend/pull/2555)
 - feat: enable starting text share via command line using `--text` or `-t` flags (@guilhermetiscoski, https://github.com/localsend/localsend/pull/2661)
 - feat(android): add quick settings tile for instant app launch (@Voltra, https://github.com/localsend/localsend/pull/2676)
