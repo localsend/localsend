@@ -84,6 +84,15 @@
     "help": "Please ensure that the desired target is also on the same Wi-Fi network.",
     "placeItems": "Place items to share."
   },
+  "chatTab": {
+    "title": "Chat",
+    "placeholder": "Type a message...",
+    "send": "Send",
+    "noMessages": "No messages yet",
+    "startChat": "Select a device to start chatting",
+    "messageFailed": "Failed to send message",
+    "chatWith": "Chat with {name}"
+  },
   "settingsTab": {
     "title": "Settings",
     "general": {
