@@ -52,6 +52,7 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
   late final TranslationsGeneralEn general = TranslationsGeneralEn.internal(_root);
   late final TranslationsReceiveTabEn receiveTab = TranslationsReceiveTabEn.internal(_root);
   late final TranslationsSendTabEn sendTab = TranslationsSendTabEn.internal(_root);
+  late final TranslationsChatTabEn chatTab = TranslationsChatTabEn.internal(_root);
   late final TranslationsSettingsTabEn settingsTab = TranslationsSettingsTabEn.internal(_root);
   late final TranslationsTroubleshootPageEn troubleshootPage = TranslationsTroubleshootPageEn.internal(_root);
   late final TranslationsNetworkInterfacesPageEn networkInterfacesPage = TranslationsNetworkInterfacesPageEn.internal(_root);
@@ -254,6 +255,36 @@ class TranslationsSendTabEn {
 
   /// en: 'Place items to share.'
   String get placeItems => 'Place items to share.';
+}
+
+// Path: chatTab
+class TranslationsChatTabEn {
+  TranslationsChatTabEn.internal(this._root);
+
+  final Translations _root; // ignore: unused_field
+
+  // Translations
+
+  /// en: 'Chat'
+  String get title => 'Chat';
+
+  /// en: 'Type a message...'
+  String get placeholder => 'Type a message...';
+
+  /// en: 'Send'
+  String get send => 'Send';
+
+  /// en: 'No messages yet'
+  String get noMessages => 'No messages yet';
+
+  /// en: 'Select a device to start chatting'
+  String get startChat => 'Select a device to start chatting';
+
+  /// en: 'Failed to send message'
+  String get messageFailed => 'Failed to send message';
+
+  /// en: 'Chat with {name}'
+  String chatWith({required String name}) => 'Chat with ${name}';
 }
 
 // Path: settingsTab

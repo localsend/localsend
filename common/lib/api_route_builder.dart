@@ -12,6 +12,7 @@ enum ApiRoute {
   show('show'),
   prepareDownload('prepare-download'),
   download('download'),
+  chat('chat'),
   ;
 
   const ApiRoute(String path, [String? legacy])
