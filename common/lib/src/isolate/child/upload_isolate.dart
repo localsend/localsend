@@ -65,6 +65,40 @@ abstract class UriContentStreamResolver {
 
 UriContentStreamResolver? _uriContentStreamResolver;
 
+@visibleForTesting
+Future<void> executeHttpUploadTask({
+  required int taskId,
+  required Map<int, CustomCancelToken> cancelTokens,
+  required Future<void> Function(CustomCancelToken cancelToken) upload,
+  required void Function(IsolateTaskStreamResult<double>) sendToMain,
+}) async {
+  final cancelToken = CustomCancelToken();
+  cancelTokens[taskId] = cancelToken;
+
+  try {
+    await upload(cancelToken);
+    sendToMain(IsolateTaskStreamResult.done(
+      id: taskId,
+    ));
+  } catch (e) {
+    sendToMain(IsolateTaskStreamResult.error(
+      id: taskId,
+      error: e.toString(),
+    ));
+  } finally {
+    cancelTokens.remove(taskId);
+  }
+}
+
+@visibleForTesting
+void cancelHttpUploadTask({
+  required int taskId,
+  required Map<int, CustomCancelToken> cancelTokens,
+}) {
+  final cancelToken = cancelTokens.remove(taskId);
+  cancelToken?.cancel();
+}
+
 @internal
 Future<void> setupHttpUploadIsolate(
   Stream<SendToIsolateData<IsolateTask<BaseHttpUploadTask>>> receiveFromMain,
@@ -90,9 +124,10 @@ Future<void> setupHttpUploadIsolate(
           uploadTask = task;
           break;
         case HttpUploadCancelTask task:
-          final cancelToken = ref.read(_cancelTokenProvider)[task.taskId];
-          cancelToken?.cancel();
-          ref.read(_cancelTokenProvider).remove(task.taskId);
+          cancelHttpUploadTask(
+            taskId: task.taskId,
+            cancelTokens: ref.read(_cancelTokenProvider),
+          );
           return;
       }
 
@@ -105,34 +140,29 @@ Future<void> setupHttpUploadIsolate(
       final (streamController, subscription) = fileStream?.digested() ?? (null, null);
 
       try {
-        final cancelToken = CustomCancelToken();
-        ref.read(_cancelTokenProvider).putIfAbsent(task.id, () => cancelToken);
-
-        await ref.read(httpUploadProvider).upload(
-              stream: streamController?.stream ?? Stream.fromIterable([uploadTask.fileBytes!]),
-              contentLength: uploadTask.fileSize,
-              contentType: uploadTask.mime,
-              target: uploadTask.device,
-              remoteSessionId: uploadTask.remoteSessionId,
-              fileId: uploadTask.fileId,
-              token: uploadTask.remoteFileToken,
-              onSendProgress: (progress) {
-                sendToMain(IsolateTaskStreamResult.event(
-                  id: task.id,
-                  data: progress,
-                ));
-              },
-              cancelToken: cancelToken,
-            );
-
-        sendToMain(IsolateTaskStreamResult.done(
-          id: task.id,
-        ));
-      } catch (e) {
-        sendToMain(IsolateTaskStreamResult.error(
-          id: task.id,
-          error: e.toString(),
-        ));
+        await executeHttpUploadTask(
+          taskId: task.id,
+          cancelTokens: ref.read(_cancelTokenProvider),
+          upload: (cancelToken) {
+            return ref.read(httpUploadProvider).upload(
+                  stream: streamController?.stream ?? Stream.fromIterable([uploadTask.fileBytes!]),
+                  contentLength: uploadTask.fileSize,
+                  contentType: uploadTask.mime,
+                  target: uploadTask.device,
+                  remoteSessionId: uploadTask.remoteSessionId,
+                  fileId: uploadTask.fileId,
+                  token: uploadTask.remoteFileToken,
+                  onSendProgress: (progress) {
+                    sendToMain(IsolateTaskStreamResult.event(
+                      id: task.id,
+                      data: progress,
+                    ));
+                  },
+                  cancelToken: cancelToken,
+                );
+          },
+          sendToMain: sendToMain,
+        );
       } finally {
         // Close the stream if it is still open
         // ignore: unawaited_futures

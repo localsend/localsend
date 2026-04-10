@@ -8,6 +8,7 @@ import 'package:common/src/isolate/dto/isolate_task.dart';
 import 'package:common/src/isolate/dto/isolate_task_result.dart';
 import 'package:common/src/isolate/dto/send_to_isolate_data.dart';
 import 'package:common/src/isolate/parent/parent_isolate_provider.dart';
+import 'package:common/src/isolate/parent/task_stream_adapter.dart';
 import 'package:common/src/util/id_provider.dart';
 import 'package:common/src/util/isolate_helper.dart';
 import 'package:refena/refena.dart';
@@ -235,22 +236,8 @@ Stream<R> _convertResponseToStream<R, T>({
   required int taskId,
   required IsolateConnector<IsolateTaskStreamResult<R>, SendToIsolateData<IsolateTask<T>>> connection,
 }) {
-  final controller = StreamController<R>();
-  late StreamSubscription subscription;
-  subscription = connection.receiveFromIsolate.listen((result) {
-    if (result.id == taskId) {
-      if (result.data != null) {
-        controller.add(result.data as R);
-      } else if (result.done) {
-        if (result.error != null) {
-          controller.addError(result.error!);
-        } else {
-          subscription.cancel(); // ignore: discarded_futures
-          controller.close(); // ignore: discarded_futures
-        }
-      }
-    }
-  });
-
-  return controller.stream;
+  return adaptIsolateTaskStream(
+    taskId: taskId,
+    connection: connection,
+  );
 }
