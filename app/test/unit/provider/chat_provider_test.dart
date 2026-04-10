@@ -1,5 +1,4 @@
 import 'package:common/model/dto/chat_message_dto.dart';
-import 'package:localsend_app/model/state/chat/chat_state.dart';
 import 'package:localsend_app/provider/network/chat_provider.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 import 'package:test/test.dart';
@@ -12,7 +11,7 @@ void main() {
   });
 
   tearDown(() {
-    ref.dispose();
+    ref.disposeContainer();
   });
 
   ChatMessageDto createDto({

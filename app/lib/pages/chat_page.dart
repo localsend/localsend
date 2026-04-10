@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:common/model/device.dart';
 import 'package:flutter/material.dart';
 import 'package:localsend_app/gen/strings.g.dart';
@@ -47,11 +49,11 @@ class _ChatPageState extends State<ChatPage> with Refena {
 
   void _scrollToBottom() {
     if (!_scrollController.hasClients) return;
-    _scrollController.animateTo(
+    unawaited(_scrollController.animateTo(
       _scrollController.position.maxScrollExtent,
       duration: const Duration(milliseconds: 200),
       curve: Curves.easeOut,
-    );
+    ));
   }
 
   Future<void> _sendMessage() async {

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:common/model/device.dart';
 import 'package:flutter/material.dart';
 import 'package:localsend_app/gen/strings.g.dart';
@@ -55,7 +57,7 @@ class ChatTab extends StatelessWidget {
                 )
               : null,
           onTap: () {
-            context.push(() => ChatPage(device: device));
+            unawaited(context.push(() => ChatPage(device: device)));
           },
         );
       },

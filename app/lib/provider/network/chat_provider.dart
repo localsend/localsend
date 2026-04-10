@@ -53,6 +53,7 @@ class ChatNotifier extends Notifier<ChatState> {
         fingerprint: [...existingMessages, message],
       },
       unreadCount: state.unreadCount + 1,
+      lastReadTimestamps: state.lastReadTimestamps,
     );
   }
 
@@ -79,6 +80,7 @@ class ChatNotifier extends Notifier<ChatState> {
         deviceFingerprint: [...existingMessages, message],
       },
       unreadCount: state.unreadCount,
+      lastReadTimestamps: state.lastReadTimestamps,
     );
   }
 
