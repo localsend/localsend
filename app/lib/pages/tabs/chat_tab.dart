@@ -14,7 +14,10 @@ class ChatTab extends StatelessWidget {
   Widget build(BuildContext context) {
     final nearbyDevicesState = context.watch(nearbyDevicesProvider);
     final chatState = context.watch(chatProvider);
-    final devices = nearbyDevicesState.devices.values.toList();
+
+    // Chat is only implemented on the v2 route, so v1.0 legacy peers cannot
+    // receive messages. Filter them out so users don't hit silent 404s.
+    final devices = nearbyDevicesState.devices.values.where((d) => d.version != '1.0').toList();
 
     if (devices.isEmpty) {
       return Center(
@@ -28,11 +31,29 @@ class ChatTab extends StatelessWidget {
         final device = devices[index];
         final messages = chatState.messages[device.fingerprint];
         final lastMessage = messages != null && messages.isNotEmpty ? messages.last.text : null;
+        final unread = chatState.unreadCountFor(device.fingerprint);
 
         return ListTile(
           leading: Icon(_deviceTypeIcon(device.deviceType)),
           title: Text(device.alias),
           subtitle: lastMessage != null ? Text(lastMessage, maxLines: 1, overflow: TextOverflow.ellipsis) : null,
+          trailing: unread > 0
+              ? Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).colorScheme.primary,
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Text(
+                    unread > 99 ? '99+' : unread.toString(),
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.onPrimary,
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                )
+              : null,
           onTap: () {
             context.push(() => ChatPage(device: device));
           },

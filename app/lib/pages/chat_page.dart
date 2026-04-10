@@ -1,6 +1,7 @@
 import 'package:common/model/device.dart';
 import 'package:flutter/material.dart';
 import 'package:localsend_app/gen/strings.g.dart';
+import 'package:localsend_app/model/state/chat/chat_message.dart';
 import 'package:localsend_app/provider/network/chat_provider.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 
@@ -17,6 +18,8 @@ class _ChatPageState extends State<ChatPage> with Refena {
   final _textController = TextEditingController();
   final _scrollController = ScrollController();
   bool _canSend = false;
+  bool _sending = false;
+  int _lastMessageCount = 0;
 
   @override
   void initState() {
@@ -43,24 +46,40 @@ class _ChatPageState extends State<ChatPage> with Refena {
   }
 
   void _scrollToBottom() {
-    if (_scrollController.hasClients) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        _scrollController.animateTo(
-          _scrollController.position.maxScrollExtent,
-          duration: const Duration(milliseconds: 200),
-          curve: Curves.easeOut,
-        );
-      });
-    }
+    if (!_scrollController.hasClients) return;
+    _scrollController.animateTo(
+      _scrollController.position.maxScrollExtent,
+      duration: const Duration(milliseconds: 200),
+      curve: Curves.easeOut,
+    );
   }
 
   Future<void> _sendMessage() async {
     final text = _textController.text.trim();
-    if (text.isEmpty) return;
+    if (text.isEmpty || _sending) return;
 
-    _textController.clear();
-    await ref.notifier(chatProvider).sendMessage(widget.device, text);
-    _scrollToBottom();
+    setState(() {
+      _sending = true;
+    });
+
+    try {
+      await ref.notifier(chatProvider).sendMessage(widget.device, text);
+      // Only clear the input once the message was successfully sent so the
+      // user can retry the same text after a network failure.
+      _textController.clear();
+    } catch (_) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(t.chatTab.messageFailed)),
+        );
+      }
+    } finally {
+      if (mounted) {
+        setState(() {
+          _sending = false;
+        });
+      }
+    }
   }
 
   String _formatTimestamp(int timestamp) {
@@ -70,14 +89,23 @@ class _ChatPageState extends State<ChatPage> with Refena {
 
   @override
   Widget build(BuildContext context) {
-    final chatState = context.watch(chatProvider);
-    final messages = chatState.messages[widget.device.fingerprint] ?? [];
+    // Only react to this device's conversation to avoid unnecessary rebuilds.
+    final messages = context.watch(
+          chatProvider.select((s) => s.messages[widget.device.fingerprint]),
+        ) ??
+        const <ChatMessage>[];
     final colorScheme = Theme.of(context).colorScheme;
 
-    // Scroll to bottom when messages change
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      _scrollToBottom();
-    });
+    // Only auto-scroll when the message list actually grew — otherwise a
+    // rebuild from unrelated state changes (e.g. typing in the text field)
+    // would yank the scroll position back to the bottom and the user could
+    // never read history.
+    if (messages.length != _lastMessageCount) {
+      _lastMessageCount = messages.length;
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        _scrollToBottom();
+      });
+    }
 
     return Scaffold(
       appBar: AppBar(
@@ -155,8 +183,14 @@ class _ChatPageState extends State<ChatPage> with Refena {
                   ),
                   const SizedBox(width: 8),
                   IconButton(
-                    onPressed: _canSend ? _sendMessage : null,
-                    icon: const Icon(Icons.send),
+                    onPressed: (_canSend && !_sending) ? _sendMessage : null,
+                    icon: _sending
+                        ? const SizedBox(
+                            width: 20,
+                            height: 20,
+                            child: CircularProgressIndicator(strokeWidth: 2),
+                          )
+                        : const Icon(Icons.send),
                   ),
                 ],
               ),

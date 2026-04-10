@@ -28,17 +28,22 @@ class ChatStateMapper extends ClassMapperBase<ChatState> {
   static int _$unreadCount(ChatState v) => v.unreadCount;
   static const Field<ChatState, int> _f$unreadCount =
       Field('unreadCount', _$unreadCount, opt: true, def: 0);
+  static Map<String, int> _$lastReadTimestamps(ChatState v) => v.lastReadTimestamps;
+  static const Field<ChatState, Map<String, int>> _f$lastReadTimestamps =
+      Field('lastReadTimestamps', _$lastReadTimestamps, opt: true, def: const {});
 
   @override
   final MappableFields<ChatState> fields = const {
     #messages: _f$messages,
     #unreadCount: _f$unreadCount,
+    #lastReadTimestamps: _f$lastReadTimestamps,
   };
 
   static ChatState _instantiate(DecodingData data) {
     return ChatState(
       messages: data.dec(_f$messages),
       unreadCount: data.dec(_f$unreadCount),
+      lastReadTimestamps: data.dec(_f$lastReadTimestamps),
     );
   }
 
@@ -88,7 +93,7 @@ extension ChatStateValueCopy<$R, $Out> on ObjectCopyWith<$R, ChatState, $Out> {
 
 abstract class ChatStateCopyWith<$R, $In extends ChatState, $Out> implements ClassCopyWith<$R, $In, $Out> {
   MapCopyWith<$R, String, List<ChatMessage>, ObjectCopyWith<$R, List<ChatMessage>, List<ChatMessage>>> get messages;
-  $R call({Map<String, List<ChatMessage>>? messages, int? unreadCount});
+  $R call({Map<String, List<ChatMessage>>? messages, int? unreadCount, Map<String, int>? lastReadTimestamps});
   ChatStateCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
 
@@ -102,14 +107,16 @@ class _ChatStateCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, ChatState, 
   MapCopyWith<$R, String, List<ChatMessage>, ObjectCopyWith<$R, List<ChatMessage>, List<ChatMessage>>> get messages =>
       MapCopyWith($value.messages, (v, t) => ObjectCopyWith(v, $identity, t), (v) => call(messages: v));
   @override
-  $R call({Map<String, List<ChatMessage>>? messages, int? unreadCount}) => $apply(FieldCopyWithData({
+  $R call({Map<String, List<ChatMessage>>? messages, int? unreadCount, Map<String, int>? lastReadTimestamps}) => $apply(FieldCopyWithData({
         if (messages != null) #messages: messages,
         if (unreadCount != null) #unreadCount: unreadCount,
+        if (lastReadTimestamps != null) #lastReadTimestamps: lastReadTimestamps,
       }));
   @override
   ChatState $make(CopyWithData data) => ChatState(
       messages: data.get(#messages, or: $value.messages),
-      unreadCount: data.get(#unreadCount, or: $value.unreadCount));
+      unreadCount: data.get(#unreadCount, or: $value.unreadCount),
+      lastReadTimestamps: data.get(#lastReadTimestamps, or: $value.lastReadTimestamps));
 
   @override
   ChatStateCopyWith<$R2, ChatState, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>

@@ -123,6 +123,7 @@ class ServerService extends Notifier<ServerState?> {
     );
     _chatController.installRoutes(
       router: router,
+      fingerprint: fingerprint,
     );
 
     _logger.info('Starting server...');
