@@ -42,6 +42,7 @@ import 'package:localsend_app/util/native/directories.dart';
 import 'package:localsend_app/util/native/file_saver.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_app/util/native/tray_helper.dart';
+import 'package:localsend_app/util/rust.dart';
 import 'package:localsend_app/util/simple_server.dart';
 import 'package:localsend_app/widget/dialogs/open_file_dialog.dart';
 import 'package:logging/logging.dart';
@@ -798,9 +799,18 @@ class ReceiveController {
     }
 
     // notify sender
+    final target = session.sender;
     try {
-      // ignore: unawaited_futures
-      server.ref.read(httpProvider).discovery.post(ApiRoute.cancel.target(session.sender, query: {'sessionId': session.sessionId}));
+      server.ref
+          .read(httpProvider)
+          .v2
+          // ignore: unawaited_futures
+          .cancel(
+            protocol: target.getProtocolType(),
+            ip: target.ip!,
+            port: target.port,
+            sessionId: session.sessionId,
+          );
     } catch (e) {
       _logger.warning('Failed to notify sender', e);
     }

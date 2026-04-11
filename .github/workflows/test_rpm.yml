@@ -13,7 +13,7 @@ jobs:
       version: ${{ steps.get_version.outputs.version }}
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Get version from pubspec.yaml
         id: get_version
@@ -25,7 +25,7 @@ jobs:
     runs-on: ubuntu-latest
     container: fedora:38
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Install dependencies
         run: sudo dnf install -y clang cmake gtk3-devel ninja-build libappindicator-gtk3-devel jq findutils which git patchelf rpm-build
@@ -75,7 +75,7 @@ jobs:
           fi
 
       - name: Upload rpm file
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: rpm-result
           path: ${{ steps.find_rpm.outputs.rpm_path }}

@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:common/model/device.dart';
 import 'package:common/src/isolate/child/http_scan_discovery_isolate.dart';
-import 'package:common/src/isolate/child/http_target_discovery_isolate.dart';
 import 'package:common/src/isolate/child/multicast_discovery_isolate.dart';
 import 'package:common/src/isolate/child/upload_isolate.dart';
 import 'package:common/src/isolate/dto/isolate_task.dart';
@@ -14,56 +13,6 @@ import 'package:common/src/util/isolate_helper.dart';
 import 'package:refena/refena.dart';
 
 final _idProvider = IdProvider();
-
-class IsolateTargetHttpDiscoveryAction extends AsyncReduxActionWithResult<IsolateController, ParentIsolateState, Device> {
-  final String ip;
-  final int port;
-  final bool https;
-
-  IsolateTargetHttpDiscoveryAction({
-    required this.ip,
-    required this.port,
-    required this.https,
-  });
-
-  @override
-  Future<(ParentIsolateState, Device)> reduce() async {
-    final connection = state.httpTargetDiscovery;
-    if (connection == null) {
-      throw StateError('httpTargetDiscovery is not initialized');
-    }
-
-    final task = IsolateTask(
-      id: _idProvider.getNextId(),
-      data: HttpTargetTask(
-        ip: ip,
-        port: port,
-        https: https,
-      ),
-    );
-
-    // ignore: unawaited_futures
-    Future.microtask(() {
-      connection.sendToIsolate(SendToIsolateData(
-        syncState: null,
-        data: task,
-      ));
-    });
-
-    await for (final result in connection.receiveFromIsolate) {
-      if (result.id == task.id) {
-        switch (result) {
-          case IsolateTaskSuccessResult<Device>():
-            return (state, result.data);
-          case IsolateTaskErrorResult<Device>():
-            throw result.error;
-        }
-      }
-    }
-
-    throw StateError('Unexpected end of stream');
-  }
-}
 
 class IsolateInterfaceHttpDiscoveryAction extends ReduxActionWithResult<IsolateController, ParentIsolateState, Stream<Device>> {
   final String networkInterface;

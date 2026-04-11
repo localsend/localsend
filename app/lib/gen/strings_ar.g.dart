@@ -13,21 +13,30 @@ import 'strings.g.dart';
 class TranslationsAr extends Translations {
   /// You can call this constructor and build your own translation instance of this locale.
   /// Constructing via the enum [AppLocale.build] is preferred.
-  TranslationsAr({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
-    : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-      $meta = TranslationMetadata(
-        locale: AppLocale.ar,
-        overrides: overrides ?? {},
-        cardinalResolver: cardinalResolver,
-        ordinalResolver: ordinalResolver,
-      ),
-      super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+  TranslationsAr({
+    Map<String, Node>? overrides,
+    PluralResolver? cardinalResolver,
+    PluralResolver? ordinalResolver,
+    TranslationMetadata<AppLocale, Translations>? meta,
+  }) : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
+       $meta =
+           meta ??
+           TranslationMetadata(
+             locale: AppLocale.ar,
+             overrides: overrides ?? {},
+             cardinalResolver: cardinalResolver,
+             ordinalResolver: ordinalResolver,
+           ),
+       super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
 
   /// Metadata for the translations of <ar>.
   @override
   final TranslationMetadata<AppLocale, Translations> $meta;
 
   late final TranslationsAr _root = this; // ignore: unused_field
+
+  @override
+  TranslationsAr $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => TranslationsAr(meta: meta ?? this.$meta);
 
   // Translations
   @override
@@ -90,7 +99,7 @@ class _TranslationsGeneralAr extends TranslationsGeneralEn {
 
   // Translations
   @override
-  String get accept => 'قبول';
+  String get accept => 'اقبل';
   @override
   String get accepted => 'قُبلت';
   @override
@@ -98,25 +107,25 @@ class _TranslationsGeneralAr extends TranslationsGeneralEn {
   @override
   String get advanced => 'متقدم';
   @override
-  String get cancel => 'إلغاء';
+  String get cancel => 'ألغِ';
   @override
-  String get close => 'إغلاق';
+  String get close => 'أغلِق';
   @override
-  String get confirm => 'تأكيد';
+  String get confirm => 'أكِّد';
   @override
   String get continueStr => 'أكمل';
   @override
-  String get copy => 'إنسخ';
+  String get copy => 'انسخ';
   @override
-  String get copiedToClipboard => 'نسخ إلى الحافظة';
+  String get copiedToClipboard => 'نُسخ إلى الحافظة';
   @override
   String get decline => 'ارفض';
   @override
-  String get done => 'انتهى';
+  String get done => 'تم';
   @override
-  String get delete => 'حذف';
+  String get delete => 'احذف';
   @override
-  String get edit => 'تعديل';
+  String get edit => 'عدِّل';
   @override
   String get error => 'خطأ';
   @override
@@ -126,7 +135,7 @@ class _TranslationsGeneralAr extends TranslationsGeneralEn {
   @override
   String get finished => 'انتهى';
   @override
-  String get hide => 'إخفاء';
+  String get hide => 'أخفِ';
   @override
   String get off => 'إيقاف';
   @override
@@ -136,13 +145,13 @@ class _TranslationsGeneralAr extends TranslationsGeneralEn {
   @override
   String get online => 'متصل بالانترنت';
   @override
-  String get open => 'مفتوح';
+  String get open => 'افتح';
   @override
-  String get queue => 'طابور';
+  String get queue => 'صفّ';
   @override
   String get quickSave => 'حفظ سريع';
   @override
-  String get quickSaveFromFavorites => 'حفظ سريع لـ "Favorites"';
+  String get quickSaveFromFavorites => 'حفظ سريع لـ "المفضلات"';
   @override
   String get renamed => 'اعادة تسمية';
   @override
@@ -212,7 +221,7 @@ class _TranslationsSendTabAr extends TranslationsSendTabEn {
   @override
   String get sendModeHelp => 'شرح';
   @override
-  String get help => 'يرجى التأكد من أن الهدف المطلوب موجود أيضًا في نفس شبكة wifi.';
+  String get help => 'يُرجى التأكد من أن الهدف المطلوب موجود أيضًا في نفس شبكة الواي فاي.';
   @override
   String get placeItems => 'ضع العناصر للمشاركة.';
 }
@@ -271,13 +280,13 @@ class _TranslationsReceiveHistoryPageAr extends TranslationsReceiveHistoryPageEn
 
   // Translations
   @override
-  String get title => 'السجل';
+  String get title => 'التاريخ';
   @override
-  String get openFolder => 'فتح المجلد';
+  String get openFolder => 'افتح المجلد';
   @override
-  String get deleteHistory => 'حذف السجل';
+  String get deleteHistory => 'احذف التاريخ';
   @override
-  String get empty => 'السجل فارغ.';
+  String get empty => 'التاريخ فارغ.';
   @override
   late final _TranslationsReceiveHistoryPageEntryActionsAr entryActions = _TranslationsReceiveHistoryPageEntryActionsAr._(_root);
 }
@@ -307,7 +316,7 @@ class _TranslationsSelectedFilesPageAr extends TranslationsSelectedFilesPageEn {
 
   // Translations
   @override
-  String get deleteAll => 'حذف الكل';
+  String get deleteAll => 'احذف الكل';
 }
 
 // Path: receivePage
@@ -318,14 +327,17 @@ class _TranslationsReceivePageAr extends TranslationsReceivePageEn {
 
   // Translations
   @override
-  String subTitle({required num n}) =>
-      (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ar'))(n, one: 'يريد أن يرسل لك ملف', other: 'يريد أن يرسل لك ${n} ملفات');
+  String subTitle({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ar'))(
+    n,
+    one: 'يريد أن يرسل لك ملف',
+    other: 'يريد أن يرسل لك ${n} ملفات',
+  );
   @override
   String get subTitleMessage => 'أرسل لك رسالة:';
   @override
   String get subTitleLink => 'أرسل لك ارتباط:';
   @override
-  String get canceled => 'ألغى المرسل الطلب.';
+  String get canceled => 'أُلغِيَ المرسل الطلب.';
 }
 
 // Path: receiveOptionsPage
@@ -340,11 +352,11 @@ class _TranslationsReceiveOptionsPageAr extends TranslationsReceiveOptionsPageEn
   @override
   String get destination => _root.settingsTab.receive.destination;
   @override
-  String get appDirectory => '(LocalSend folder)';
+  String get appDirectory => '(مجلد LocalSend)';
   @override
   String get saveToGallery => _root.settingsTab.receive.saveToGallery;
   @override
-  String get saveToGalleryOff => 'تم إيقافه تلقائيًا لوجود دلائل.';
+  String get saveToGalleryOff => 'تم إيقافه تلقائيًا لوجود مجلدات.';
 }
 
 // Path: sendPage
@@ -372,13 +384,15 @@ class _TranslationsProgressPageAr extends TranslationsProgressPageEn {
 
   // Translations
   @override
-  String get titleSending => 'يتم إرسال الملفات';
+  String get titleSending => 'جارِ إرسال الملفات';
   @override
-  String get titleReceiving => 'يتم استلام الملفات';
+  String get titleReceiving => 'جارِ استلام الملفات';
   @override
-  String get savedToGallery => 'تم الحفظ في الصور';
+  String get savedToGallery => 'حُفظ في الصور';
   @override
   late final _TranslationsProgressPageTotalAr total = _TranslationsProgressPageTotalAr._(_root);
+  @override
+  late final _TranslationsProgressPageRemainingTimeAr remainingTime = _TranslationsProgressPageRemainingTimeAr._(_root);
 }
 
 // Path: webSharePage
@@ -409,7 +423,7 @@ class _TranslationsWebSharePageAr extends TranslationsWebSharePageEn {
   @override
   String get encryption => _root.settingsTab.network.encryption;
   @override
-  String get autoAccept => 'قبول الطلبات تلقائيا';
+  String get autoAccept => 'قبول الطلبات تلقائيًا';
   @override
   String get requirePin => 'يتطلب رمز PIN';
   @override
@@ -439,7 +453,7 @@ class _TranslationsAboutPageAr extends TranslationsAboutPageEn {
   @override
   String get contributors => 'المساهمون';
   @override
-  String get packagers => 'الحزم';
+  String get packagers => 'محزمي التطبيقات';
   @override
   String get translators => 'المترجمون';
 }
@@ -471,7 +485,7 @@ class _TranslationsChangelogPageAr extends TranslationsChangelogPageEn {
 
   // Translations
   @override
-  String get title => 'التغييرات';
+  String get title => 'سجل التغييرات';
 }
 
 // Path: aliasGenerator
@@ -641,9 +655,9 @@ class _TranslationsTrayAr extends TranslationsTrayEn {
   @override
   String get open => _root.general.open;
   @override
-  String get close => 'أغلق LocalSend';
+  String get close => 'أنهِ LocalSend';
   @override
-  String get closeWindows => 'خروج';
+  String get closeWindows => 'اخرج';
 }
 
 // Path: web
@@ -662,7 +676,7 @@ class _TranslationsWebAr extends TranslationsWebEn {
   @override
   String get tooManyAttempts => 'محاولات كثيرة جدًا';
   @override
-  String get rejected => 'مرفوضة';
+  String get rejected => 'رُفض';
   @override
   String get files => 'الملفات';
   @override
@@ -679,11 +693,11 @@ class _TranslationsAssetPickerAr extends TranslationsAssetPickerEn {
 
   // Translations
   @override
-  String get confirm => 'تاكيد';
+  String get confirm => 'أكّد';
   @override
-  String get cancel => 'إلغاء';
+  String get cancel => 'ألغِ';
   @override
-  String get edit => 'تعديل';
+  String get edit => 'عدّل';
   @override
   String get gifIndicator => 'GIF';
   @override
@@ -693,24 +707,24 @@ class _TranslationsAssetPickerAr extends TranslationsAssetPickerEn {
   @override
   String get preview => 'معاينة';
   @override
-  String get select => 'تحديد';
+  String get select => 'حدّد';
   @override
   String get emptyList => 'القائمة فارغة';
   @override
-  String get unSupportedAssetType => 'نوع ملف غير مدعوم.';
+  String get unSupportedAssetType => 'نوع الملف غير مدعوم.';
   @override
   String get unableToAccessAll => 'لا يمكن الوصول إلى جميع الملفات الموجودة على الجهاز';
   @override
   String get viewingLimitedAssetsTip => 'إظهار الملفات والألبومات التي يمكن للتطبيق الوصول إليها فقط.';
   @override
-  String get changeAccessibleLimitedAssets => 'السماح بالوصول إلى ملفات إضافية';
+  String get changeAccessibleLimitedAssets => 'انقر لتحديث الملفات التي يمكن الوصول إليها';
   @override
   String get accessAllTip =>
-      'يمكن للتطبيق الوصول فقط إلى بعض الملفات على الجهاز. انتقل إلى إعدادات النظام واسمح للتطبيق بالوصول إلى جميع الوسائط على الجهاز.';
+      'يمكن للتطبيق الوصول فقط إلى بعض الملفات على الجهاز. اذهب إلى إعدادات النظام واسمح للتطبيق بالوصول إلى جميع الوسائط على الجهاز.';
   @override
-  String get goToSystemSettings => 'فتح إعدادات النظام';
+  String get goToSystemSettings => 'اذهب إلى إعدادات النظام';
   @override
-  String get accessLimitedAssets => 'الاستمرار مع صلاحيات محدوده';
+  String get accessLimitedAssets => 'استمر بوصول محدود';
   @override
   String get accessiblePathName => 'ملفات يمكن الوصول إليها';
   @override
@@ -720,15 +734,15 @@ class _TranslationsAssetPickerAr extends TranslationsAssetPickerEn {
   @override
   String get sTypeVideoLabel => 'فيديو';
   @override
-  String get sTypeOtherLabel => 'آخر';
+  String get sTypeOtherLabel => 'وسائط أخرى';
   @override
-  String get sActionPlayHint => 'شغّل';
+  String get sActionPlayHint => 'شغِّل';
   @override
   String get sActionPreviewHint => 'معاينة';
   @override
-  String get sActionSelectHint => 'تحديد';
+  String get sActionSelectHint => 'حدّد';
   @override
-  String get sActionSwitchPathLabel => 'تبديل المسار';
+  String get sActionSwitchPathLabel => 'غيّر المسار';
   @override
   String get sActionUseCameraHint => 'استخدم الكاميرا';
   @override
@@ -848,15 +862,15 @@ class _TranslationsSettingsTabGeneralAr extends TranslationsSettingsTabGeneralEn
   @override
   String get title => 'عام';
   @override
-  String get brightness => 'سمة';
+  String get brightness => 'السمة';
   @override
   late final _TranslationsSettingsTabGeneralBrightnessOptionsAr brightnessOptions = _TranslationsSettingsTabGeneralBrightnessOptionsAr._(_root);
   @override
-  String get color => 'لون';
+  String get color => 'اللون';
   @override
   late final _TranslationsSettingsTabGeneralColorOptionsAr colorOptions = _TranslationsSettingsTabGeneralColorOptionsAr._(_root);
   @override
-  String get language => 'لغة';
+  String get language => 'اللغة';
   @override
   late final _TranslationsSettingsTabGeneralLanguageOptionsAr languageOptions = _TranslationsSettingsTabGeneralLanguageOptionsAr._(_root);
   @override
@@ -893,7 +907,7 @@ class _TranslationsSettingsTabReceiveAr extends TranslationsSettingsTabReceiveEn
   @override
   String get autoFinish => 'إنهاء تلقائي';
   @override
-  String get destination => 'حفظ في';
+  String get destination => 'احفظ في المجلد';
   @override
   String get downloads => '(التنزيلات)';
   @override
@@ -946,7 +960,7 @@ class _TranslationsSettingsTabNetworkAr extends TranslationsSettingsTabNetworkEn
   String portWarning({required Object defaultPort}) =>
       'ربما لا يتم الكشف عنك من قبل الأجهزة الأخرى لأنك تستخدم منفذ مخصص. (الافتراضي: ${defaultPort})';
   @override
-  String get encryption => 'التشفير';
+  String get encryption => 'التعمية';
   @override
   String get multicastGroup => 'فرق البث المتعدد';
   @override
@@ -990,7 +1004,7 @@ class _TranslationsTroubleshootPageFirewallAr extends TranslationsTroubleshootPa
   String solution({required Object port}) =>
       'هذه المشكلة عادة ما تكون مشكلة في جدار الحماية. يمكنك حل هذه المشكلة عن طريق السماح بالاتصالات الواردة (UDP و TCP) على المنفذ ${port}.';
   @override
-  String get openFirewallSettings => 'افتح جدار الحماية';
+  String get openFirewall => 'افتح جدار الحماية';
 }
 
 // Path: troubleshootPage.noDiscovery
@@ -1004,7 +1018,7 @@ class _TranslationsTroubleshootPageNoDiscoveryAr extends TranslationsTroubleshoo
   String get symptom => 'هذا الجهاز لا يمكنه اكتشاف الأجهزة الأخرى.';
   @override
   String get solution =>
-      'يرجى التأكد من أن جميع الأجهزة متصلة بنفس شبكة Wi-Fi وتشارك نفس التكوين (المنفذ، عنوان البث المتعدد، التشفير). يمكنك محاولة كتابة عنوان IP للجهاز المستهدف يدويًا. إذا نجح ذلك، فكر في إضافة هذا الجهاز إلى قائمة المفضلة حتى يتم اكتشافه تلقائيًا في المستقبل.';
+      'يُرجى التأكد من أن جميع الأجهزة متصلة بنفس شبكة الواي فاي وتشارك نفس التكوين (المنفذ، عنوان البث المتعدد، التعمية). يمكنك محاولة كتابة عنوان IP للجهاز المستهدف يدويًا. إذا نجح ذلك، فكر في إضافة هذا الجهاز إلى قائمة المفضلات حتى يتم اكتشافه تلقائيًا في المستقبل.';
 }
 
 // Path: troubleshootPage.noConnection
@@ -1018,7 +1032,7 @@ class _TranslationsTroubleshootPageNoConnectionAr extends TranslationsTroublesho
   String get symptom => 'لا يمكن للجهازين اكتشاف بعضهما البعض ولا يمكنهما مشاركة الملفات.';
   @override
   String get solution =>
-      'هل المشكلة موجودة على الجانبين؟ في هذه الحالة ، يجب عليك التأكد من أن الجهازين في نفس شبكة الواي فاي ويشتركان في نفس التكوين (المنفذ وعنوان البث المتعدد والتشفير). قد لا يسمح الواي فاي بالاتصال بين المشاركين. في هذه الحالة ، يجب تمكين هذا الخيار على الجهاز التوجيه.';
+      'هل المشكلة موجودة على كِلا الجانبين؟ إذا كان الأمر كذلك، يجب التأكد من أن كِلا الجهازين متصلان بنفس شبكة الواي فاي ويشتركان في نفس الإعدادات (المنفذ، عنوان البث المتعدد، التعمية). قد تمنع شبكة الواي فاي الاتصال بين المشاركين بسبب عزل نقطة الوصول (AP Isolation). في هذه الحالة، يجب تعطيل هذا الخيار على الراوتر.';
 }
 
 // Path: receiveHistoryPage.entryActions
@@ -1029,13 +1043,13 @@ class _TranslationsReceiveHistoryPageEntryActionsAr extends TranslationsReceiveH
 
   // Translations
   @override
-  String get open => 'فتح الملف';
+  String get open => 'افتح الملف';
   @override
-  String get showInFolder => 'عرض في المجلد';
+  String get showInFolder => 'اعرض في المجلد';
   @override
   String get info => 'معلومات';
   @override
-  String get deleteFromHistory => 'حذف من السجل';
+  String get deleteFromHistory => 'احذف من التاريخ';
 }
 
 // Path: progressPage.total
@@ -1053,6 +1067,27 @@ class _TranslationsProgressPageTotalAr extends TranslationsProgressPageTotalEn {
   String size({required Object curr, required Object n}) => 'حجم: ${curr} / ${n}';
   @override
   String speed({required Object speed}) => 'سرعة: ${speed}/ثانية';
+}
+
+// Path: progressPage.remainingTime
+class _TranslationsProgressPageRemainingTimeAr extends TranslationsProgressPageRemainingTimeEn {
+  _TranslationsProgressPageRemainingTimeAr._(TranslationsAr root) : this._root = root, super.internal(root);
+
+  final TranslationsAr _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String seconds({required Object n, required Object ss}) => '${n}:${ss}';
+  @override
+  String minutes({required Object n, required Object ss}) => '${n}:${ss}';
+
+  /// استخدم 'س' لاختصار الساعات و'د' للدقائق
+  @override
+  String hours({required Object h, required Object m}) => '${h}س ${m}د';
+
+  /// استخدم 'ي' للأيام، و'س' للساعات، و'د' للدقائق
+  @override
+  String days({required Object d, required Object h, required Object m}) => '${d}ي ${h}س ${m}د';
 }
 
 // Path: dialogs.addFile
@@ -1078,7 +1113,7 @@ class _TranslationsDialogsOpenFileAr extends TranslationsDialogsOpenFileEn {
   @override
   String get title => 'افتح الملف';
   @override
-  String get content => 'هل تريد فتح الملف المستلم؟';
+  String get content => 'هل تريد فتح الملف المُستلم؟';
 }
 
 // Path: dialogs.addressInput
@@ -1095,7 +1130,7 @@ class _TranslationsDialogsAddressInputAr extends TranslationsDialogsAddressInput
   @override
   String get ip => 'عنوان IP';
   @override
-  String get recentlyUsed => 'تم استخدامها مؤخرًا: ';
+  String get recentlyUsed => 'المستخدمة حديثًا: ';
 }
 
 // Path: dialogs.cancelSession
@@ -1106,7 +1141,7 @@ class _TranslationsDialogsCancelSessionAr extends TranslationsDialogsCancelSessi
 
   // Translations
   @override
-  String get title => 'إلغاء نقل الملف';
+  String get title => 'ألغِ نقل الملف';
   @override
   String get content => 'هل تريد حقًا إلغاء نقل الملف؟';
 }
@@ -1121,7 +1156,7 @@ class _TranslationsDialogsCannotOpenFileAr extends TranslationsDialogsCannotOpen
   @override
   String get title => 'لا يمكن فتح الملف';
   @override
-  String content({required Object file}) => 'تعذر فتح "${file}". هل تم نقل هذا الملف أو إعادة تسميته أو حذفه؟';
+  String content({required Object file}) => 'تعذر فتح "${file}". هل نُقل هذا الملف أو إعادة تسميته أو حذفه؟';
 }
 
 // Path: dialogs.encryptionDisabledNotice
@@ -1132,9 +1167,9 @@ class _TranslationsDialogsEncryptionDisabledNoticeAr extends TranslationsDialogs
 
   // Translations
   @override
-  String get title => 'تم تعطيل التشفير';
+  String get title => 'التعمية مُعطّلة';
   @override
-  String get content => 'الاتصال يتم الآن عبر بروتوكول HTTP غير المشفر. لاستخدام HTTPS ، قم بتمكين التشفير مرة أخرى.';
+  String get content => 'الاتصال يتم الآن عبر بروتوكول HTTP غير المُعمّى. لاستخدام HTTPS، فعِّل التعمية مرة أخرى.';
 }
 
 // Path: dialogs.errorDialog
@@ -1156,11 +1191,11 @@ class _TranslationsDialogsFavoriteDialogAr extends TranslationsDialogsFavoriteDi
 
   // Translations
   @override
-  String get title => 'المفضلة';
+  String get title => 'المفضلات';
   @override
   String get noFavorites => 'لا توجد أجهزة مفضلة بعد.';
   @override
-  String get addFavorite => 'إضافة';
+  String get addFavorite => 'أضف';
 }
 
 // Path: dialogs.favoriteDeleteDialog
@@ -1171,9 +1206,9 @@ class _TranslationsDialogsFavoriteDeleteDialogAr extends TranslationsDialogsFavo
 
   // Translations
   @override
-  String get title => 'حذف من المفضلة';
+  String get title => 'احذف من المفضلات';
   @override
-  String content({required Object name}) => 'هل ترغب حقًا في حذف "${name}" من قائمة المفضلة؟';
+  String content({required Object name}) => 'هل ترغب حقًا في حذف "${name}" من المفضلات؟';
 }
 
 // Path: dialogs.favoriteEditDialog
@@ -1184,17 +1219,17 @@ class _TranslationsDialogsFavoriteEditDialogAr extends TranslationsDialogsFavori
 
   // Translations
   @override
-  String get titleAdd => 'إضافة إلى المفضلة';
+  String get titleAdd => 'أضف إلى المفضلات';
   @override
-  String get titleEdit => 'تعديل';
+  String get titleEdit => 'اﻹعدادات';
   @override
-  String get name => 'الاسم';
+  String get name => 'اسم الجهاز';
   @override
   String get auto => '(تلقائي)';
   @override
   String get ip => 'عنوان IP';
   @override
-  String get port => 'Port';
+  String get port => 'المنفذ';
 }
 
 // Path: dialogs.fileInfo
@@ -1239,9 +1274,9 @@ class _TranslationsDialogsHistoryClearDialogAr extends TranslationsDialogsHistor
 
   // Translations
   @override
-  String get title => 'محو السجل';
+  String get title => 'امسح التاريخ';
   @override
-  String get content => 'هل ترغب حقًا في محو السجل بالكامل؟';
+  String get content => 'هل ترغب حقًا في مسح التاريخ بالكامل؟';
 }
 
 // Path: dialogs.localNetworkUnauthorized
@@ -1254,7 +1289,7 @@ class _TranslationsDialogsLocalNetworkUnauthorizedAr extends TranslationsDialogs
   @override
   String get title => _root.dialogs.noPermission.title;
   @override
-  String get description => 'لا يمكن ل LocalSend العثور على الأجهزة الأخرى بدون الإذن بفحص الشبكة المحلية. يرجى منح هذا الإذن في الإعدادات.';
+  String get description => 'لا يمكن ل LocalSend العثور على الأجهزة الأخرى بدون الإذن بفحص الشبكة المحلية. يُرجى منح هذا الإذن في الإعدادات.';
   @override
   String get gotoSettings => 'الإعدادات';
 }
@@ -1295,7 +1330,7 @@ class _TranslationsDialogsNoPermissionAr extends TranslationsDialogsNoPermission
   @override
   String get title => 'بدون إذن';
   @override
-  String get content => 'لم تقم بمنح الأذونات اللازمة. يرجى منحها من الإعدادات.';
+  String get content => 'لم تمنح الأذونات اللازمة. يُرجى منحها في الإعدادات.';
 }
 
 // Path: dialogs.notAvailableOnPlatform
@@ -1319,7 +1354,7 @@ class _TranslationsDialogsQrAr extends TranslationsDialogsQrEn {
 
   // Translations
   @override
-  String get title => 'رمز الاستجابة السريعة';
+  String get title => 'رمز QR';
 }
 
 // Path: dialogs.quickActions
@@ -1336,9 +1371,9 @@ class _TranslationsDialogsQuickActionsAr extends TranslationsDialogsQuickActions
   @override
   String get prefix => 'بادئة';
   @override
-  String get padZero => 'بدأ مع أصفار';
+  String get padZero => 'احشو مع أصفار';
   @override
-  String get sortBeforeCount => 'قم بالفرز أبجديًا مسبقًا';
+  String get sortBeforeCount => 'افرز أبجديًا مسبقًا (أ-ي)';
   @override
   String get random => 'عشوائي';
 }
@@ -1367,8 +1402,8 @@ class _TranslationsDialogsQuickSaveFromFavoritesNoticeAr extends TranslationsDia
   String get title => _root.general.quickSaveFromFavorites;
   @override
   List<String> get content => [
-    'يتم الآن قبول طلبات الملفات تلقائيًا من الأجهزة الموجودة في قائمة المفضلة لديك.',
-    'تحذير! في الوقت الحالي، هذا ليس آمنًا تمامًا، حيث يمكن للمخترق الذي لديه بصمة أي جهاز من قائمة المفضلة لديك أن يرسل لك ملفات دون قيود.',
+    'يتم الآن قبول طلبات الملفات تلقائيًا من الأجهزة الموجودة في قائمة المفضلات لديك.',
+    'تحذير! في الوقت الحالي، هذا ليس آمنًا تمامًا، حيث يمكن للمخترق الذي لديه بصمة أي جهاز من قائمة المفضلات لديك أن يرسل لك ملفات دون قيود.',
     'ومع ذلك، يظل هذا الخيار أكثر أمانًا من السماح لجميع المستخدمين على الشبكة المحلية بإرسال الملفات إليك دون قيود.',
   ];
 }
@@ -1394,9 +1429,9 @@ class _TranslationsDialogsSendModeHelpAr extends TranslationsDialogsSendModeHelp
   @override
   String get title => 'أوضاع الإرسال';
   @override
-  String get single => 'يقوم بإرسال الملفات إلى مستلم واحد. ستتم مسح الاختيار بعد انتهاء نقل الملف.';
+  String get single => 'يقوم بإرسال الملفات إلى مستلم واحد. سيتم مسح الاختيار بعد انتهاء نقل الملف.';
   @override
-  String get multiple => 'يقوم بإرسال الملفات إلى مستلمين متعددين. لن يتم مسح الاختيار.';
+  String get multiple => 'يرسل الملفات إلى عدة مستلمين. لن يتم مسح التحديد بعد الانتهاء من نقل الملفات.';
   @override
   String get link => 'يمكن للمستلمين الذين لا يحتوون على LocalSend تنزيل الملفات المحددة عن طريق فتح الرابط في متصفحهم.';
 }
@@ -1409,7 +1444,7 @@ class _TranslationsDialogsZoomAr extends TranslationsDialogsZoomEn {
 
   // Translations
   @override
-  String get title => 'URL';
+  String get title => 'عنوان URL';
 }
 
 // Path: settingsTab.general.brightnessOptions
@@ -1422,9 +1457,9 @@ class _TranslationsSettingsTabGeneralBrightnessOptionsAr extends TranslationsSet
   @override
   String get system => 'نظام';
   @override
-  String get dark => 'داكن';
+  String get dark => 'داكنة';
   @override
-  String get light => 'فاتح';
+  String get light => 'فاتحة';
 }
 
 // Path: settingsTab.general.colorOptions
@@ -1448,7 +1483,7 @@ class _TranslationsSettingsTabGeneralLanguageOptionsAr extends TranslationsSetti
 
   // Translations
   @override
-  String get system => 'نظام';
+  String get system => 'النظام';
 }
 
 // Path: settingsTab.network.networkOptions
@@ -1476,7 +1511,7 @@ class _TranslationsProgressPageTotalTitleAr extends TranslationsProgressPageTota
   @override
   String get finishedError => 'انتهى مع وجود خطأ';
   @override
-  String get canceledSender => 'ألغي من قبل المرسل';
+  String get canceledSender => 'أُلغِيَ من قِبل المرسل';
   @override
-  String get canceledReceiver => 'ألغي من قبل المتلقي';
+  String get canceledReceiver => 'أُلغِيَ من قِبل المتلقي';
 }

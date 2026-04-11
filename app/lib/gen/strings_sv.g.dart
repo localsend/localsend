@@ -13,21 +13,30 @@ import 'strings.g.dart';
 class TranslationsSv extends Translations {
   /// You can call this constructor and build your own translation instance of this locale.
   /// Constructing via the enum [AppLocale.build] is preferred.
-  TranslationsSv({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
-    : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-      $meta = TranslationMetadata(
-        locale: AppLocale.sv,
-        overrides: overrides ?? {},
-        cardinalResolver: cardinalResolver,
-        ordinalResolver: ordinalResolver,
-      ),
-      super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+  TranslationsSv({
+    Map<String, Node>? overrides,
+    PluralResolver? cardinalResolver,
+    PluralResolver? ordinalResolver,
+    TranslationMetadata<AppLocale, Translations>? meta,
+  }) : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
+       $meta =
+           meta ??
+           TranslationMetadata(
+             locale: AppLocale.sv,
+             overrides: overrides ?? {},
+             cardinalResolver: cardinalResolver,
+             ordinalResolver: ordinalResolver,
+           ),
+       super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
 
   /// Metadata for the translations of <sv>.
   @override
   final TranslationMetadata<AppLocale, Translations> $meta;
 
   late final TranslationsSv _root = this; // ignore: unused_field
+
+  @override
+  TranslationsSv $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => TranslationsSv(meta: meta ?? this.$meta);
 
   // Translations
   @override
@@ -382,6 +391,8 @@ class _TranslationsProgressPageSv extends TranslationsProgressPageEn {
   String get savedToGallery => 'Sparat i Foton';
   @override
   late final _TranslationsProgressPageTotalSv total = _TranslationsProgressPageTotalSv._(_root);
+  @override
+  late final _TranslationsProgressPageRemainingTimeSv remainingTime = _TranslationsProgressPageRemainingTimeSv._(_root);
 }
 
 // Path: webSharePage
@@ -994,7 +1005,7 @@ class _TranslationsTroubleshootPageFirewallSv extends TranslationsTroubleshootPa
   String solution({required Object port}) =>
       'Detta är troligtvis ett brandväggsproblem. Du kan lösa det genom att tillåta inkommande anslutningar (UDP och TCP) på port ${port}.';
   @override
-  String get openFirewallSettings => 'Öppna brandväggen';
+  String get openFirewall => 'Öppna brandväggen';
 }
 
 // Path: troubleshootPage.noDiscovery
@@ -1057,6 +1068,27 @@ class _TranslationsProgressPageTotalSv extends TranslationsProgressPageTotalEn {
   String size({required Object curr, required Object n}) => 'Storlek: ${curr} / ${n}';
   @override
   String speed({required Object speed}) => 'Hastighet: ${speed}/s';
+}
+
+// Path: progressPage.remainingTime
+class _TranslationsProgressPageRemainingTimeSv extends TranslationsProgressPageRemainingTimeEn {
+  _TranslationsProgressPageRemainingTimeSv._(TranslationsSv root) : this._root = root, super.internal(root);
+
+  final TranslationsSv _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String seconds({required Object n, required Object ss}) => '${n}:${ss}';
+  @override
+  String minutes({required Object n, required Object ss}) => '${n}:${ss}';
+
+  /// Använd "h" som förkortning för timmar och "m" för minuter
+  @override
+  String hours({required Object h, required Object m}) => '${h}h ${m}m';
+
+  /// Använd "d" för dagar, "h" för timmar och "m" för minuter
+  @override
+  String days({required Object d, required Object h, required Object m}) => '${d}d ${h}h ${m}m';
 }
 
 // Path: dialogs.addFile

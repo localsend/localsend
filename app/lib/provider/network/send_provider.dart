@@ -2,14 +2,9 @@ import 'dart:async';
 import 'dart:collection';
 import 'dart:convert';
 
-import 'package:common/api_route_builder.dart';
 import 'package:common/isolate.dart';
 import 'package:common/model/device.dart';
 import 'package:common/model/dto/file_dto.dart';
-import 'package:common/model/dto/info_register_dto.dart';
-import 'package:common/model/dto/multicast_dto.dart';
-import 'package:common/model/dto/prepare_upload_request_dto.dart';
-import 'package:common/model/dto/prepare_upload_response_dto.dart';
 import 'package:common/model/file_status.dart';
 import 'package:common/model/file_type.dart';
 import 'package:common/model/session_status.dart';
@@ -27,6 +22,9 @@ import 'package:localsend_app/provider/http_provider.dart';
 import 'package:localsend_app/provider/progress_provider.dart';
 import 'package:localsend_app/provider/selection/selected_sending_files_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
+import 'package:localsend_app/rust/api/http.dart' as rust_http;
+import 'package:localsend_app/rust/api/model.dart' as rust_model;
+import 'package:localsend_app/util/rust.dart';
 import 'package:localsend_app/widget/dialogs/pin_dialog.dart';
 import 'package:logging/logging.dart';
 import 'package:refena_flutter/refena_flutter.dart';
@@ -62,8 +60,7 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
     required List<CrossFile> files,
     required bool background,
   }) async {
-    final client = ref.read(httpProvider).longLiving;
-    final cancelToken = CancelToken();
+    final client = ref.read(httpProvider).v2;
     final sessionId = _uuid.v4();
 
     final requestState = SendSessionState(
@@ -94,7 +91,6 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
                           lastAccessed: file.lastAccessed,
                         )
                       : null,
-                  legacy: target.version == '1.0',
                 ),
                 status: FileStatus.queue,
                 token: null,
@@ -115,19 +111,19 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
     );
 
     final originDevice = ref.read(deviceFullInfoProvider);
-    final requestDto = PrepareUploadRequestDto(
-      info: InfoRegisterDto(
+    final requestDto = rust_model.PrepareUploadRequestDto(
+      info: rust_model.RegisterDto(
         alias: originDevice.alias,
         version: originDevice.version,
         deviceModel: originDevice.deviceModel,
-        deviceType: originDevice.deviceType,
-        fingerprint: originDevice.fingerprint,
+        deviceType: originDevice.deviceType.toRust(),
+        token: originDevice.fingerprint,
         port: originDevice.port,
-        protocol: originDevice.https ? ProtocolType.https : ProtocolType.http,
-        download: originDevice.download,
+        protocol: originDevice.https ? rust_model.ProtocolType.https : rust_model.ProtocolType.http,
+        hasWebInterface: originDevice.download,
       ),
       files: {
-        for (final entry in requestState.files.entries) entry.key: entry.value.file,
+        for (final entry in requestState.files.entries) entry.key: entry.value.file.toRust(),
       },
     );
 
@@ -144,23 +140,24 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
       );
     }
 
-    HttpTextResponse? response;
+    rust_http.PrepareUploadResult? response;
     bool invalidPin;
     bool pinFirstAttempt = true;
     String? pin;
     do {
       invalidPin = false;
       try {
-        response = await client.post(
-          ApiRoute.prepareUpload.target(target),
-          query: {
-            if (pin != null) 'pin': pin,
-          },
-          body: HttpBody.json(requestDto.toJson()),
-          cancelToken: cancelToken,
+        response = await client.prepareUpload(
+          protocol: target.getProtocolType(),
+          ip: target.ip!,
+          port: target.port,
+          payload: requestDto,
+          // TODO
+          publicKey: null,
+          pin: pin,
         );
-      } on RhttpStatusCodeException catch (e) {
-        switch (e.statusCode) {
+      } on rust_http.RsHttpClientError_StatusCode catch (e) {
+        switch (e.status) {
           case 401:
             invalidPin = true;
 
@@ -238,33 +235,29 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
     }
 
     final Map<String, String> fileMap;
-    if (target.version == '1.0') {
-      fileMap = (response.bodyToJson as Map).cast<String, String>();
+    if (response.statusCode == 204) {
+      // Nothing selected
+      // Interpret this as "Read and close"
+      fileMap = {};
     } else {
-      if (response.statusCode == 204) {
-        // Nothing selected
-        // Interpret this as "Read and close"
-        fileMap = {};
-      } else {
-        try {
-          final responseDto = PrepareUploadResponseDto.fromJson(response.bodyToJson);
-          fileMap = responseDto.files;
-          state = state.updateSession(
-            sessionId: sessionId,
-            state: (s) => s?.copyWith(
-              remoteSessionId: responseDto.sessionId,
-            ),
-          );
-        } catch (e) {
-          state = state.updateSession(
-            sessionId: sessionId,
-            state: (s) => s?.copyWith(
-              status: SessionStatus.finishedWithErrors,
-              errorMessage: e.humanErrorMessage,
-            ),
-          );
-          return;
-        }
+      try {
+        fileMap = response.response!.files;
+        final sessionId = response.response!.sessionId;
+        state = state.updateSession(
+          sessionId: sessionId,
+          state: (s) => s?.copyWith(
+            remoteSessionId: sessionId,
+          ),
+        );
+      } catch (e) {
+        state = state.updateSession(
+          sessionId: sessionId,
+          state: (s) => s?.copyWith(
+            status: SessionStatus.finishedWithErrors,
+            errorMessage: e.humanErrorMessage,
+          ),
+        );
+        return;
       }
     }
 
@@ -521,13 +514,24 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
 
     _cancelRunningRequests(sessionState);
 
+    if (remoteSessionId == null) {
+      closeSession(sessionId);
+      return;
+    }
+
     // notify the receiver
+    final target = sessionState.target;
     try {
       ref
           .read(httpProvider)
-          .discovery
+          .v2
           // ignore: discarded_futures
-          .post(ApiRoute.cancel.target(sessionState.target, query: remoteSessionId != null ? {'sessionId': remoteSessionId} : null));
+          .cancel(
+            protocol: target.getProtocolType(),
+            ip: target.ip!,
+            port: target.port,
+            sessionId: remoteSessionId,
+          );
     } catch (e) {
       _logger.warning('Error while canceling session', e);
     }

@@ -443,7 +443,7 @@ mod tests {
     "alias": "Cute Apple",
     "version": "2.3",
     "deviceModel": "Dell",
-    "deviceType": "desktop",
+    "deviceType": "DESKTOP",
     "token": "123"
   },
   "peers": []
@@ -480,7 +480,7 @@ mod tests {
     "id": "00000000-0000-0000-0000-000000000000",
     "alias": "Cute Apple",
     "version": "2.3",
-    "deviceType": "desktop",
+    "deviceType": "DESKTOP",
     "token": "123"
   },
   "sessionId": "456",
@@ -515,7 +515,7 @@ mod tests {
     "alias": "Cute Apple",
     "version": "2.3",
     "deviceModel": "Dell",
-    "deviceType": "desktop",
+    "deviceType": "DESKTOP",
     "token": "123"
   }
 }"#

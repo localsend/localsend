@@ -39,7 +39,7 @@
     "save": "儲存",
     "unchanged": "冇改過",
     "unknown": "未知",
-    "noItemInClipboard": "剪貼簿冇嘢"
+    "noItemInClipboard": "剪貼簿冇嘢."
   },
   "receiveTab": {
     "title": "@:settingsTab.receive.title",
@@ -82,7 +82,7 @@
     },
     "sendModeHelp": "説明",
     "help": "請確保目標裝置駁緊同一個 Wi‑Fi 網路。",
-    "placeItems": "將要分享嘅檔案拉過嚟呢度"
+    "placeItems": "將要分享嘅檔案拉過嚟呢度."
   },
   "settingsTab": {
     "title": "@:general.settings",
@@ -129,7 +129,7 @@
     },
     "network": {
       "title": "網路",
-      "needRestart": "熄咗個 server 再開過，設定先會生效",
+      "needRestart": "熄咗個 server 再開過，設定先會生效!",
       "server": "Server",
       "alias": "名",
       "deviceType": "裝置類型",
@@ -141,7 +141,12 @@
       "portWarning": "改 port 嘅話其他裝置有機會偵測唔到你。（預設：{defaultPort}）",
       "encryption": "加密傳送",
       "multicastGroup": "多播 IP 地址",
-      "multicastGroupWarning": "用自訂多播地址嘅話其他裝置有機會偵測唔到你。（預設：{defaultMulticast}）"
+      "multicastGroupWarning": "用自訂多播地址嘅話其他裝置有機會偵測唔到你。（預設：{defaultMulticast}）",
+      "network": "網絡",
+      "networkOptions": {
+        "all": "全部",
+        "filtered": "已過濾"
+      }
     },
     "other": {
       "title": "其他",
@@ -175,7 +180,7 @@
     "title": "歷史記錄",
     "openFolder": "開啟資料夾",
     "deleteHistory": "清除記錄",
-    "empty": "得個吉噃 :(",
+    "empty": "得個吉噃 :(.",
     "entryActions": {
       "open": "@:dialogs.openFile.title",
       "showInFolder": "喺檔案瀏覽器顯示",
@@ -194,8 +199,8 @@
   },
   "receivePage": {
     "subTitle": {
-      "one": "想 send 1 個檔案畀你。",
-      "other": "想 send {n} 個檔案畀你。"
+      "one": "想 send 1 個檔案畀你",
+      "other": "想 send {n} 個檔案畀你"
     },
     "subTitleMessage": "send 咗條訊息畀你：",
     "subTitleLink": "send 咗條 link 畀你：",
@@ -206,7 +211,7 @@
     "destination": "@:settingsTab.receive.destination",
     "appDirectory": "（LocalSend 資料夾）",
     "saveToGallery": "@:settingsTab.receive.saveToGallery",
-    "saveToGalleryOff": "因為有資料夾存在而自動閂咗"
+    "saveToGalleryOff": "因為有資料夾存在而自動閂咗."
   },
   "sendPage": {
     "waiting": "等緊回應……",
@@ -215,8 +220,8 @@
     "busy": "對方忙緊另一個請求。"
   },
   "progressPage": {
-    "titleSending": "Send 緊……",
-    "titleReceiving": "接收緊……",
+    "titleSending": "正在傳送檔案",
+    "titleReceiving": "正在接收檔案",
     "savedToGallery": "成功 save 咗落相簿",
     "total": {
       "title": {
@@ -240,7 +245,7 @@
       "other": "喺瀏覽器開啟以下任何一個連結："
     },
     "requests": "請求",
-    "noRequests": "未有",
+    "noRequests": "未有請求.",
     "encryption": "@:settingsTab.network.encryption",
     "autoAccept": "自動接受請求",
     "requirePin": "需要密碼",
@@ -261,7 +266,7 @@
   },
   "donationPage": {
     "title": "@:settingsTab.other.donate",
-    "info": "LocalSend 唔單只免費、開源，仲係冇廣告添㗎！如果你鍾意呢個 app，不妨捐款贊助我哋開發？",
+    "info": "LocalSend 唔單只免費、開源，仲係冇廣告添㗎！如果你鍾意呢個 app，不妨捐款贊助我哋開發.",
     "donate": "捐 {amount}",
     "thanks": "多謝支持！",
     "restore": "還原 app 內購買"
@@ -275,7 +280,7 @@
   "dialogs": {
     "addFile": {
       "title": "將檔案加至選擇",
-      "content": "揀選要加入嘅檔案"
+      "content": "您想新增什麼檔案?"
     },
     "openFile": {
       "title": "開啟檔案",
@@ -285,7 +290,7 @@
       "title": "輸入地址",
       "hashtag": "Hashtag",
       "ip": "IP 地址",
-      "recentlyUsed": "輸入記錄："
+      "recentlyUsed": "輸入記錄： "
     },
     "cancelSession": {
       "title": "取消檔案傳輸",
@@ -304,7 +309,7 @@
     },
     "favoriteDialog": {
       "title": "收藏",
-      "noFavorites": "未收藏任何裝置",
+      "noFavorites": "未收藏任何裝置.",
       "addFavorite": "@:general.add"
     },
     "favoriteDeleteDialog": {
@@ -393,8 +398,8 @@
     }
   },
   "sanitization": {
-    "empty": "檔案名稱唔可以係吉嘅。",
-    "invalid": "檔案名稱唔可以包括唔用得嘅字元。"
+    "empty": "檔案名稱唔可以係吉嘅",
+    "invalid": "檔案名稱唔可以包括唔用得嘅字元"
   },
   "tray": {
     "@info": "Apple Guidelines are very strict about the 'close' wording.",
@@ -405,8 +410,8 @@
   "web": {
     "waiting": "@:sendPage.waiting",
     "enterPin": "輸入密碼",
-    "invalidPin": "密碼無效。",
-    "tooManyAttempts": "嘗試次數過多，請稍後再試。",
+    "invalidPin": "密碼無效",
+    "tooManyAttempts": "嘗試次數過多，請稍後再試",
     "rejected": "已遭對方拒絕",
     "files": "@:general.files",
     "fileName": "檔案名稱",
@@ -442,5 +447,12 @@
     "sActionUseCameraHint": "影相",
     "sNameDurationLabel": "持續時間",
     "sUnitAssetCountLabel": "數量"
+  },
+  "networkInterfacesPage": {
+    "info": "LocalSend 預設使用所有可用的網路介面。您可以在這裡排除不需要的網路。您需要重新啟動伺服器才能套用變更。",
+    "title": "網路介面",
+    "preview": "預覽",
+    "whitelist": "白名單",
+    "blacklist": "黑名單"
   }
 }

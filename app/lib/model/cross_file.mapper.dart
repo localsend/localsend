@@ -1,5 +1,6 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// dart format off
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, unnecessary_cast, override_on_non_overriding_member
 // ignore_for_file: strict_raw_type, inference_failure_on_untyped_parameter
@@ -24,11 +25,17 @@ class CrossFileMapper extends ClassMapperBase<CrossFile> {
   static String _$name(CrossFile v) => v.name;
   static const Field<CrossFile, String> _f$name = Field('name', _$name);
   static FileType _$fileType(CrossFile v) => v.fileType;
-  static const Field<CrossFile, FileType> _f$fileType = Field('fileType', _$fileType);
+  static const Field<CrossFile, FileType> _f$fileType = Field(
+    'fileType',
+    _$fileType,
+  );
   static int _$size(CrossFile v) => v.size;
   static const Field<CrossFile, int> _f$size = Field('size', _$size);
   static Uint8List? _$thumbnail(CrossFile v) => v.thumbnail;
-  static const Field<CrossFile, Uint8List> _f$thumbnail = Field('thumbnail', _$thumbnail);
+  static const Field<CrossFile, Uint8List> _f$thumbnail = Field(
+    'thumbnail',
+    _$thumbnail,
+  );
   static AssetEntity? _$asset(CrossFile v) => v.asset;
   static const Field<CrossFile, AssetEntity> _f$asset = Field('asset', _$asset);
   static String? _$path(CrossFile v) => v.path;
@@ -36,9 +43,15 @@ class CrossFileMapper extends ClassMapperBase<CrossFile> {
   static List<int>? _$bytes(CrossFile v) => v.bytes;
   static const Field<CrossFile, List<int>> _f$bytes = Field('bytes', _$bytes);
   static DateTime? _$lastModified(CrossFile v) => v.lastModified;
-  static const Field<CrossFile, DateTime> _f$lastModified = Field('lastModified', _$lastModified);
+  static const Field<CrossFile, DateTime> _f$lastModified = Field(
+    'lastModified',
+    _$lastModified,
+  );
   static DateTime? _$lastAccessed(CrossFile v) => v.lastAccessed;
-  static const Field<CrossFile, DateTime> _f$lastAccessed = Field('lastAccessed', _$lastAccessed);
+  static const Field<CrossFile, DateTime> _f$lastAccessed = Field(
+    'lastAccessed',
+    _$lastAccessed,
+  );
 
   @override
   final MappableFields<CrossFile> fields = const {
@@ -81,22 +94,36 @@ class CrossFileMapper extends ClassMapperBase<CrossFile> {
 
 mixin CrossFileMappable {
   String serialize() {
-    return CrossFileMapper.ensureInitialized().encodeJson<CrossFile>(this as CrossFile);
+    return CrossFileMapper.ensureInitialized().encodeJson<CrossFile>(
+      this as CrossFile,
+    );
   }
 
   Map<String, dynamic> toJson() {
-    return CrossFileMapper.ensureInitialized().encodeMap<CrossFile>(this as CrossFile);
+    return CrossFileMapper.ensureInitialized().encodeMap<CrossFile>(
+      this as CrossFile,
+    );
   }
 
-  CrossFileCopyWith<CrossFile, CrossFile, CrossFile> get copyWith => _CrossFileCopyWithImpl(this as CrossFile, $identity, $identity);
+  CrossFileCopyWith<CrossFile, CrossFile, CrossFile> get copyWith =>
+      _CrossFileCopyWithImpl<CrossFile, CrossFile>(
+        this as CrossFile,
+        $identity,
+        $identity,
+      );
   @override
   String toString() {
-    return CrossFileMapper.ensureInitialized().stringifyValue(this as CrossFile);
+    return CrossFileMapper.ensureInitialized().stringifyValue(
+      this as CrossFile,
+    );
   }
 
   @override
   bool operator ==(Object other) {
-    return CrossFileMapper.ensureInitialized().equalsValue(this as CrossFile, other);
+    return CrossFileMapper.ensureInitialized().equalsValue(
+      this as CrossFile,
+      other,
+    );
   }
 
   @override
@@ -106,10 +133,12 @@ mixin CrossFileMappable {
 }
 
 extension CrossFileValueCopy<$R, $Out> on ObjectCopyWith<$R, CrossFile, $Out> {
-  CrossFileCopyWith<$R, CrossFile, $Out> get $asCrossFile => $base.as((v, t, t2) => _CrossFileCopyWithImpl(v, t, t2));
+  CrossFileCopyWith<$R, CrossFile, $Out> get $asCrossFile =>
+      $base.as((v, t, t2) => _CrossFileCopyWithImpl<$R, $Out>(v, t, t2));
 }
 
-abstract class CrossFileCopyWith<$R, $In extends CrossFile, $Out> implements ClassCopyWith<$R, $In, $Out> {
+abstract class CrossFileCopyWith<$R, $In extends CrossFile, $Out>
+    implements ClassCopyWith<$R, $In, $Out> {
   ListCopyWith<$R, int, ObjectCopyWith<$R, int, int>>? get bytes;
   $R call({
     String? name,
@@ -125,14 +154,23 @@ abstract class CrossFileCopyWith<$R, $In extends CrossFile, $Out> implements Cla
   CrossFileCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
 
-class _CrossFileCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, CrossFile, $Out> implements CrossFileCopyWith<$R, CrossFile, $Out> {
+class _CrossFileCopyWithImpl<$R, $Out>
+    extends ClassCopyWithBase<$R, CrossFile, $Out>
+    implements CrossFileCopyWith<$R, CrossFile, $Out> {
   _CrossFileCopyWithImpl(super.value, super.then, super.then2);
 
   @override
-  late final ClassMapperBase<CrossFile> $mapper = CrossFileMapper.ensureInitialized();
+  late final ClassMapperBase<CrossFile> $mapper =
+      CrossFileMapper.ensureInitialized();
   @override
   ListCopyWith<$R, int, ObjectCopyWith<$R, int, int>>? get bytes =>
-      $value.bytes != null ? ListCopyWith($value.bytes!, (v, t) => ObjectCopyWith(v, $identity, t), (v) => call(bytes: v)) : null;
+      $value.bytes != null
+      ? ListCopyWith(
+          $value.bytes!,
+          (v, t) => ObjectCopyWith(v, $identity, t),
+          (v) => call(bytes: v),
+        )
+      : null;
   @override
   $R call({
     String? name,
@@ -171,5 +209,8 @@ class _CrossFileCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, CrossFile, 
   );
 
   @override
-  CrossFileCopyWith<$R2, CrossFile, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t) => _CrossFileCopyWithImpl($value, $cast, t);
+  CrossFileCopyWith<$R2, CrossFile, $Out2> $chain<$R2, $Out2>(
+    Then<$Out2, $R2> t,
+  ) => _CrossFileCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }
+

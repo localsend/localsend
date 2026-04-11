@@ -6,8 +6,6 @@
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 import 'package:localsend_app/rust/frb_generated.dart';
 
-// These types are ignored because they are neither used by any `pub` functions nor (for structs and enums) marked `#[frb(unignore)]`: `PrepareUploadRequestDto`, `PrepareUploadResponseDto`, `ProtocolType`, `RegisterDto`, `RegisterResponseDto`
-
 enum DeviceType {
   mobile,
   desktop,
@@ -67,4 +65,124 @@ class FileMetadata {
   @override
   bool operator ==(Object other) =>
       identical(this, other) || other is FileMetadata && runtimeType == other.runtimeType && modified == other.modified && accessed == other.accessed;
+}
+
+class PrepareUploadRequestDto {
+  final RegisterDto info;
+  final Map<String, FileDto> files;
+
+  const PrepareUploadRequestDto({
+    required this.info,
+    required this.files,
+  });
+
+  @override
+  int get hashCode => info.hashCode ^ files.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) || other is PrepareUploadRequestDto && runtimeType == other.runtimeType && info == other.info && files == other.files;
+}
+
+class PrepareUploadResponseDto {
+  final String sessionId;
+  final Map<String, String> files;
+
+  const PrepareUploadResponseDto({
+    required this.sessionId,
+    required this.files,
+  });
+
+  @override
+  int get hashCode => sessionId.hashCode ^ files.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is PrepareUploadResponseDto && runtimeType == other.runtimeType && sessionId == other.sessionId && files == other.files;
+}
+
+enum ProtocolType {
+  http,
+  https,
+}
+
+class RegisterDto {
+  final String alias;
+  final String version;
+  final String? deviceModel;
+  final DeviceType? deviceType;
+  final String token;
+  final int port;
+  final ProtocolType protocol;
+  final bool hasWebInterface;
+
+  const RegisterDto({
+    required this.alias,
+    required this.version,
+    this.deviceModel,
+    this.deviceType,
+    required this.token,
+    required this.port,
+    required this.protocol,
+    required this.hasWebInterface,
+  });
+
+  @override
+  int get hashCode =>
+      alias.hashCode ^
+      version.hashCode ^
+      deviceModel.hashCode ^
+      deviceType.hashCode ^
+      token.hashCode ^
+      port.hashCode ^
+      protocol.hashCode ^
+      hasWebInterface.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is RegisterDto &&
+          runtimeType == other.runtimeType &&
+          alias == other.alias &&
+          version == other.version &&
+          deviceModel == other.deviceModel &&
+          deviceType == other.deviceType &&
+          token == other.token &&
+          port == other.port &&
+          protocol == other.protocol &&
+          hasWebInterface == other.hasWebInterface;
+}
+
+class RegisterResponseDto {
+  final String alias;
+  final String version;
+  final String? deviceModel;
+  final DeviceType? deviceType;
+  final String token;
+  final bool hasWebInterface;
+
+  const RegisterResponseDto({
+    required this.alias,
+    required this.version,
+    this.deviceModel,
+    this.deviceType,
+    required this.token,
+    required this.hasWebInterface,
+  });
+
+  @override
+  int get hashCode => alias.hashCode ^ version.hashCode ^ deviceModel.hashCode ^ deviceType.hashCode ^ token.hashCode ^ hasWebInterface.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is RegisterResponseDto &&
+          runtimeType == other.runtimeType &&
+          alias == other.alias &&
+          version == other.version &&
+          deviceModel == other.deviceModel &&
+          deviceType == other.deviceType &&
+          token == other.token &&
+          hasWebInterface == other.hasWebInterface;
 }

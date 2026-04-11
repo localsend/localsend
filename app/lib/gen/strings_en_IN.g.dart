@@ -13,21 +13,30 @@ import 'strings.g.dart';
 class TranslationsEnIn extends Translations {
   /// You can call this constructor and build your own translation instance of this locale.
   /// Constructing via the enum [AppLocale.build] is preferred.
-  TranslationsEnIn({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
-    : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-      $meta = TranslationMetadata(
-        locale: AppLocale.enIn,
-        overrides: overrides ?? {},
-        cardinalResolver: cardinalResolver,
-        ordinalResolver: ordinalResolver,
-      ),
-      super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+  TranslationsEnIn({
+    Map<String, Node>? overrides,
+    PluralResolver? cardinalResolver,
+    PluralResolver? ordinalResolver,
+    TranslationMetadata<AppLocale, Translations>? meta,
+  }) : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
+       $meta =
+           meta ??
+           TranslationMetadata(
+             locale: AppLocale.enIn,
+             overrides: overrides ?? {},
+             cardinalResolver: cardinalResolver,
+             ordinalResolver: ordinalResolver,
+           ),
+       super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
 
   /// Metadata for the translations of <en-IN>.
   @override
   final TranslationMetadata<AppLocale, Translations> $meta;
 
   late final TranslationsEnIn _root = this; // ignore: unused_field
+
+  @override
+  TranslationsEnIn $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => TranslationsEnIn(meta: meta ?? this.$meta);
 
   // Translations
   @override
@@ -318,8 +327,11 @@ class _TranslationsReceivePageEnIn extends TranslationsReceivePageEn {
 
   // Translations
   @override
-  String subTitle({required num n}) =>
-      (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n, one: 'wants to send you a file', other: 'wants to send you ${n} files');
+  String subTitle({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(
+    n,
+    one: 'wants to send you a file',
+    other: 'wants to send you ${n} files',
+  );
   @override
   String get subTitleMessage => 'sent you a message:';
   @override
@@ -379,6 +391,8 @@ class _TranslationsProgressPageEnIn extends TranslationsProgressPageEn {
   String get savedToGallery => 'Saved in Photos';
   @override
   late final _TranslationsProgressPageTotalEnIn total = _TranslationsProgressPageTotalEnIn._(_root);
+  @override
+  late final _TranslationsProgressPageRemainingTimeEnIn remainingTime = _TranslationsProgressPageRemainingTimeEnIn._(_root);
 }
 
 // Path: webSharePage
@@ -989,7 +1003,7 @@ class _TranslationsTroubleshootPageFirewallEnIn extends TranslationsTroubleshoot
   String solution({required Object port}) =>
       'This is most likely a firewall issue. You can solve this by allowing incoming connections (UDP and TCP) on port ${port}.';
   @override
-  String get openFirewallSettings => 'Open Firewall Settings';
+  String get openFirewall => 'Open Firewall';
 }
 
 // Path: troubleshootPage.noDiscovery
@@ -1052,6 +1066,27 @@ class _TranslationsProgressPageTotalEnIn extends TranslationsProgressPageTotalEn
   String size({required Object curr, required Object n}) => 'Size: ${curr} / ${n}';
   @override
   String speed({required Object speed}) => 'Speed: ${speed}/s';
+}
+
+// Path: progressPage.remainingTime
+class _TranslationsProgressPageRemainingTimeEnIn extends TranslationsProgressPageRemainingTimeEn {
+  _TranslationsProgressPageRemainingTimeEnIn._(TranslationsEnIn root) : this._root = root, super.internal(root);
+
+  final TranslationsEnIn _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String seconds({required Object n, required Object ss}) => '${n}:${ss}';
+  @override
+  String minutes({required Object n, required Object ss}) => '${n}:${ss}';
+
+  /// Use 'h' for hours abbreviation and 'm' for minutes
+  @override
+  String hours({required Object h, required Object m}) => '${h}h ${m}m';
+
+  /// Use 'd' for days, 'h' for hours, and 'm' for minutes
+  @override
+  String days({required Object d, required Object h, required Object m}) => '${d}d ${h}h ${m}m';
 }
 
 // Path: dialogs.addFile

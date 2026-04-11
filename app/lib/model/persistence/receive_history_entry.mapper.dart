@@ -1,5 +1,6 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// dart format off
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, unnecessary_cast, override_on_non_overriding_member
 // ignore_for_file: strict_raw_type, inference_failure_on_untyped_parameter
@@ -24,21 +25,52 @@ class ReceiveHistoryEntryMapper extends ClassMapperBase<ReceiveHistoryEntry> {
   static String _$id(ReceiveHistoryEntry v) => v.id;
   static const Field<ReceiveHistoryEntry, String> _f$id = Field('id', _$id);
   static String _$fileName(ReceiveHistoryEntry v) => v.fileName;
-  static const Field<ReceiveHistoryEntry, String> _f$fileName = Field('fileName', _$fileName);
+  static const Field<ReceiveHistoryEntry, String> _f$fileName = Field(
+    'fileName',
+    _$fileName,
+  );
   static FileType _$fileType(ReceiveHistoryEntry v) => v.fileType;
-  static const Field<ReceiveHistoryEntry, FileType> _f$fileType = Field('fileType', _$fileType);
+  static const Field<ReceiveHistoryEntry, FileType> _f$fileType = Field(
+    'fileType',
+    _$fileType,
+  );
   static String? _$path(ReceiveHistoryEntry v) => v.path;
-  static const Field<ReceiveHistoryEntry, String> _f$path = Field('path', _$path);
+  static const Field<ReceiveHistoryEntry, String> _f$path = Field(
+    'path',
+    _$path,
+  );
   static bool _$savedToGallery(ReceiveHistoryEntry v) => v.savedToGallery;
-  static const Field<ReceiveHistoryEntry, bool> _f$savedToGallery = Field('savedToGallery', _$savedToGallery);
+  static const Field<ReceiveHistoryEntry, bool> _f$savedToGallery = Field(
+    'savedToGallery',
+    _$savedToGallery,
+  );
   static bool _$isMessage(ReceiveHistoryEntry v) => v.isMessage;
-  static const Field<ReceiveHistoryEntry, bool> _f$isMessage = Field('isMessage', _$isMessage, hook: IsMessageHook());
+  static const Field<ReceiveHistoryEntry, bool> _f$isMessage = Field(
+    'isMessage',
+    _$isMessage,
+    hook: IsMessageHook(),
+  );
   static int _$fileSize(ReceiveHistoryEntry v) => v.fileSize;
-  static const Field<ReceiveHistoryEntry, int> _f$fileSize = Field('fileSize', _$fileSize);
+  static const Field<ReceiveHistoryEntry, int> _f$fileSize = Field(
+    'fileSize',
+    _$fileSize,
+  );
   static String _$senderAlias(ReceiveHistoryEntry v) => v.senderAlias;
-  static const Field<ReceiveHistoryEntry, String> _f$senderAlias = Field('senderAlias', _$senderAlias);
+  static const Field<ReceiveHistoryEntry, String> _f$senderAlias = Field(
+    'senderAlias',
+    _$senderAlias,
+  );
   static DateTime _$timestamp(ReceiveHistoryEntry v) => v.timestamp;
-  static const Field<ReceiveHistoryEntry, DateTime> _f$timestamp = Field('timestamp', _$timestamp);
+  static const Field<ReceiveHistoryEntry, DateTime> _f$timestamp = Field(
+    'timestamp',
+    _$timestamp,
+  );
+  static String _$timestampString(ReceiveHistoryEntry v) => v.timestampString;
+  static const Field<ReceiveHistoryEntry, String> _f$timestampString = Field(
+    'timestampString',
+    _$timestampString,
+    mode: FieldMode.member,
+  );
 
   @override
   final MappableFields<ReceiveHistoryEntry> fields = const {
@@ -51,6 +83,7 @@ class ReceiveHistoryEntryMapper extends ClassMapperBase<ReceiveHistoryEntry> {
     #fileSize: _f$fileSize,
     #senderAlias: _f$senderAlias,
     #timestamp: _f$timestamp,
+    #timestampString: _f$timestampString,
   };
 
   static ReceiveHistoryEntry _instantiate(DecodingData data) {
@@ -81,37 +114,62 @@ class ReceiveHistoryEntryMapper extends ClassMapperBase<ReceiveHistoryEntry> {
 
 mixin ReceiveHistoryEntryMappable {
   String serialize() {
-    return ReceiveHistoryEntryMapper.ensureInitialized().encodeJson<ReceiveHistoryEntry>(this as ReceiveHistoryEntry);
+    return ReceiveHistoryEntryMapper.ensureInitialized()
+        .encodeJson<ReceiveHistoryEntry>(this as ReceiveHistoryEntry);
   }
 
   Map<String, dynamic> toJson() {
-    return ReceiveHistoryEntryMapper.ensureInitialized().encodeMap<ReceiveHistoryEntry>(this as ReceiveHistoryEntry);
+    return ReceiveHistoryEntryMapper.ensureInitialized()
+        .encodeMap<ReceiveHistoryEntry>(this as ReceiveHistoryEntry);
   }
 
-  ReceiveHistoryEntryCopyWith<ReceiveHistoryEntry, ReceiveHistoryEntry, ReceiveHistoryEntry> get copyWith =>
-      _ReceiveHistoryEntryCopyWithImpl(this as ReceiveHistoryEntry, $identity, $identity);
+  ReceiveHistoryEntryCopyWith<
+    ReceiveHistoryEntry,
+    ReceiveHistoryEntry,
+    ReceiveHistoryEntry
+  >
+  get copyWith =>
+      _ReceiveHistoryEntryCopyWithImpl<
+        ReceiveHistoryEntry,
+        ReceiveHistoryEntry
+      >(this as ReceiveHistoryEntry, $identity, $identity);
   @override
   String toString() {
-    return ReceiveHistoryEntryMapper.ensureInitialized().stringifyValue(this as ReceiveHistoryEntry);
+    return ReceiveHistoryEntryMapper.ensureInitialized().stringifyValue(
+      this as ReceiveHistoryEntry,
+    );
   }
 
   @override
   bool operator ==(Object other) {
-    return ReceiveHistoryEntryMapper.ensureInitialized().equalsValue(this as ReceiveHistoryEntry, other);
+    return ReceiveHistoryEntryMapper.ensureInitialized().equalsValue(
+      this as ReceiveHistoryEntry,
+      other,
+    );
   }
 
   @override
   int get hashCode {
-    return ReceiveHistoryEntryMapper.ensureInitialized().hashValue(this as ReceiveHistoryEntry);
+    return ReceiveHistoryEntryMapper.ensureInitialized().hashValue(
+      this as ReceiveHistoryEntry,
+    );
   }
 }
 
-extension ReceiveHistoryEntryValueCopy<$R, $Out> on ObjectCopyWith<$R, ReceiveHistoryEntry, $Out> {
-  ReceiveHistoryEntryCopyWith<$R, ReceiveHistoryEntry, $Out> get $asReceiveHistoryEntry =>
-      $base.as((v, t, t2) => _ReceiveHistoryEntryCopyWithImpl(v, t, t2));
+extension ReceiveHistoryEntryValueCopy<$R, $Out>
+    on ObjectCopyWith<$R, ReceiveHistoryEntry, $Out> {
+  ReceiveHistoryEntryCopyWith<$R, ReceiveHistoryEntry, $Out>
+  get $asReceiveHistoryEntry => $base.as(
+    (v, t, t2) => _ReceiveHistoryEntryCopyWithImpl<$R, $Out>(v, t, t2),
+  );
 }
 
-abstract class ReceiveHistoryEntryCopyWith<$R, $In extends ReceiveHistoryEntry, $Out> implements ClassCopyWith<$R, $In, $Out> {
+abstract class ReceiveHistoryEntryCopyWith<
+  $R,
+  $In extends ReceiveHistoryEntry,
+  $Out
+>
+    implements ClassCopyWith<$R, $In, $Out> {
   $R call({
     String? id,
     String? fileName,
@@ -123,15 +181,19 @@ abstract class ReceiveHistoryEntryCopyWith<$R, $In extends ReceiveHistoryEntry, 
     String? senderAlias,
     DateTime? timestamp,
   });
-  ReceiveHistoryEntryCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
+  ReceiveHistoryEntryCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
+    Then<$Out2, $R2> t,
+  );
 }
 
-class _ReceiveHistoryEntryCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, ReceiveHistoryEntry, $Out>
+class _ReceiveHistoryEntryCopyWithImpl<$R, $Out>
+    extends ClassCopyWithBase<$R, ReceiveHistoryEntry, $Out>
     implements ReceiveHistoryEntryCopyWith<$R, ReceiveHistoryEntry, $Out> {
   _ReceiveHistoryEntryCopyWithImpl(super.value, super.then, super.then2);
 
   @override
-  late final ClassMapperBase<ReceiveHistoryEntry> $mapper = ReceiveHistoryEntryMapper.ensureInitialized();
+  late final ClassMapperBase<ReceiveHistoryEntry> $mapper =
+      ReceiveHistoryEntryMapper.ensureInitialized();
   @override
   $R call({
     String? id,
@@ -170,6 +232,8 @@ class _ReceiveHistoryEntryCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, R
   );
 
   @override
-  ReceiveHistoryEntryCopyWith<$R2, ReceiveHistoryEntry, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>
-      _ReceiveHistoryEntryCopyWithImpl($value, $cast, t);
+  ReceiveHistoryEntryCopyWith<$R2, ReceiveHistoryEntry, $Out2>
+  $chain<$R2, $Out2>(Then<$Out2, $R2> t) =>
+      _ReceiveHistoryEntryCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }
+

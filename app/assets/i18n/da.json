@@ -2,16 +2,16 @@
   "locale": "Dansk",
   "appName": "LocalSend",
   "general": {
-    "accept": "Accepter",
+    "accept": "Acceptér",
     "accepted": "Accepteret",
     "add": "Tilføj",
     "advanced": "Avanceret",
     "cancel": "Afbryd",
     "close": "Luk",
     "confirm": "Bekræft",
-    "continueStr": "Videre",
-    "copy": "Kopier",
-    "copiedToClipboard": "Kopieret til udklipsholderen.",
+    "continueStr": "Fortsæt",
+    "copy": "Kopiér",
+    "copiedToClipboard": "Kopieret til udklipsholder",
     "decline": "Afvis",
     "done": "Færdig",
     "delete": "Slet",
@@ -19,40 +19,45 @@
     "error": "Fejl",
     "example": "Eksempel",
     "files": "Filer",
-    "finished": "Fuldendt",
+    "finished": "Fuldført",
     "hide": "Skjul",
     "off": "Fra",
     "offline": "Offline",
     "on": "Til",
     "online": "Online",
-    "open": "Åben",
+    "open": "Åbn",
     "queue": "Kø",
-    "quickSave": "Quick Save",
-    "quickSaveFromFavorites": "Quick Save til \"Favoritter\"",
+    "quickSave": "Gem hurtigt",
+    "quickSaveFromFavorites": "Gem hurtigt til \"Favoritter\"",
     "renamed": "Omdøbt",
-    "reset": "Nulstil",
+    "reset": "Fortryd ændringer",
     "restart": "Genstart",
     "settings": "Indstillinger",
     "skipped": "Sprunget over",
     "start": "Start",
     "stop": "Stop",
     "save": "Gem",
-    "unchanged": "Uforandret",
+    "unchanged": "Uændret",
     "unknown": "Ukendt",
-    "noItemInClipboard": "Intet element fundet i udklipsholderen."
+    "noItemInClipboard": "Ingen elementer i udklipsholder."
   },
   "receiveTab": {
     "title": "Modtag",
     "infoBox": {
       "ip": "IP:",
       "port": "Port:",
-      "alias": "Alias:"
+      "alias": "Enhedsnavn:"
+    },
+    "quickSave": {
+      "favorites": "Favoritter",
+      "off": "@:general.off",
+      "on": "@:general.on"
     }
   },
   "sendTab": {
     "title": "Send",
     "selection": {
-      "title": "Hvad vil du dele?",
+      "title": "Valg",
       "files": "Filer: {files}",
       "size": "Størrelse: {size}"
     },
@@ -62,22 +67,22 @@
       "media": "Medie",
       "text": "Tekst",
       "app": "App",
-      "clipboard": "Udklipsholder"
+      "clipboard": "Indsæt"
     },
-    "shareIntentInfo": "Du kan også benytte \"Dele\"-funktionen på din mobilentelefon, for lettere at kunne vælge filer.",
-    "nearbyDevices": "Enheder tæt på",
+    "shareIntentInfo": "Du kan også bruge din mobilenheds \"Del\"-funktion til nemmere at vælge filer.",
+    "nearbyDevices": "Enheder i nærheden",
     "thisDevice": "Denne enhed",
     "scan": "Søg efter enheder",
     "manualSending": "Manuel afsendelse",
-    "sendMode": "Sendemåde",
+    "sendMode": "Send-tilstand",
     "sendModes": {
       "single": "Enkel modtager",
       "multiple": "Flere modtagere",
       "link": "Del med link"
     },
     "sendModeHelp": "Forklaring",
-    "help": "Vær venligst sikker på, at den ønskede enhed også befinder sig på samme Wi-Fi-netværk.",
-    "placeItems": "Placer filer for at dele."
+    "help": "Sørg for, at den ønskede enhed er på det samme Wi-Fi-netværk.",
+    "placeItems": "Placer filer til deling."
   },
   "settingsTab": {
     "title": "Indstillinger",
@@ -98,11 +103,11 @@
       "languageOptions": {
         "system": "System"
       },
-      "saveWindowPlacement": "Afslut: Gem vindueposition.",
-      "saveWindowPlacementWindows": "Gem vinduesposition efter afslutning",
-      "minimizeToTray": "Afslut: minimer til dock/menubjælke",
-      "launchAtStartup": "Autostart ved login",
-      "launchMinimized": "Autostart: Skjult ved opstart",
+      "saveWindowPlacement": "Gem vinduesposition ved afslutning",
+      "saveWindowPlacementWindows": "Gem vinduesposition ved lukning",
+      "minimizeToTray": "Minimer til systembakken/menulinjen ved lukning",
+      "launchAtStartup": "Autostart efter login",
+      "launchMinimized": "Autostart: Start skjult",
       "showInContextMenu": "Vis LocalSend i kontekstmenu",
       "animations": "Animationer"
     },
@@ -111,29 +116,36 @@
       "quickSave": "@:general.quickSave",
       "quickSaveFromFavorites": "@:general.quickSaveFromFavorites",
       "requirePin": "@:webSharePage.requirePin",
-      "autoFinish": "Fuldend automatisk",
-      "destination": "Placering",
+      "autoFinish": "Auto-fuldfør",
+      "destination": "Gem til mappe",
       "downloads": "(Overførsler)",
-      "saveToGallery": "Gem medier i galleri",
-      "saveToHistory": "Gem i historik"
+      "saveToGallery": "Gem medier til galleri",
+      "saveToHistory": "Gem til historik"
     },
     "send": {
       "title": "Send",
-      "shareViaLinkAutoAccept": "Accepter automatisk anmodninger i \"Del med link\"-tilstand"
+      "shareViaLinkAutoAccept": "Acceptér automatisk anmodninger i \"Del med link\"-tilstand"
     },
     "network": {
       "title": "Netværk",
       "needRestart": "Genstart serveren for at anvende ændringerne!",
       "server": "Server",
-      "alias": "Alias",
+      "alias": "Enhedsnavn",
       "deviceType": "Enhedstype",
       "deviceModel": "Enhedsmodel",
       "port": "Port",
-      "discoveryTimeout": "Timeout for opdagelse",
-      "portWarning": "Hvis du bruger en brugerdefineret port, vil du muligvis ikke blive genkendt af andre enheder. (Standard: {defaultPort})",
+      "discoveryTimeout": "Timeout for søgning",
+      "portWarning": "Andre enheder registrerer dig muligvis ikke, da du bruger en brugerdefineret port (standard: {defaultPort}).",
       "encryption": "Kryptering",
-      "multicastGroup": "Multicast",
-      "multicastGroupWarning": "Du bliver muligvis ikke genkendt af andre enheder, fordi du bruger en brugerdefineret multicast-adresse. (Standard: {defaultMulticast})"
+      "multicastGroup": "Multicast-adresse",
+      "multicastGroupWarning": "Andre enheder registrerer dig muligvis ikke, da du bruger en brugerdefineret multicast-adresse (standard: {defaultMulticast}).",
+      "network": "Netværk",
+      "networkOptions": {
+        "all": "Alle",
+        "filtered": "Filtreret"
+      },
+      "useSystemName": "Brug systemnavn",
+      "generateRandomAlias": "Generér tilfældigt alias"
     },
     "other": {
       "title": "Andet",
@@ -145,40 +157,40 @@
     "advancedSettings": "Avancerede indstillinger"
   },
   "troubleshootPage": {
-    "title": "Fejlmelding",
-    "subTitle": "Virker appen ikke som forventet? Her finder du hyppigt brugte løsninger.",
+    "title": "Fejlsøgning",
+    "subTitle": "Fungerer appen ikke som forventet? Her finder du løsninger på almindelige problemer.",
     "solution": "Løsning:",
     "fixButton": "Løs automatisk",
     "firewall": {
-      "symptom": "Denne app kan sende filer til andre endheder, men ikke omvendt.",
-      "solution": "Dette er højst sandsynligt et Firewall-problem. Du kan løse det ved at tillade indgående forbindelser (UDP und TCP) på Port {port}.",
-      "openFirewall": "Åben firewall"
+      "symptom": "Denne enhed kan sende filer til andre enheder, men andre kan ikke sende til denne enhed.",
+      "solution": "Dette er sandsynligvis et firewall-problem. Løs det ved at tillade indgående forbindelser (UDP og TCP) på port {port}.",
+      "openFirewall": "Åbn firewall"
     },
     "noDiscovery": {
       "symptom": "Denne enhed kan ikke finde andre enheder.",
-      "solution": "Kontrollér venligst, at alle enheder er på det samme Wi-Fi-netværk og har samme konfiguration (port, multicast-adresse, kryptering). Du kan prøve at indtaste enhedens IP-adresse manuelt. Hvis dette virker, kan du overveje at tilføje denne enhed til favoritterne, så den automatisk kan blive opdaget i fremtiden."
+      "solution": "Sørg for, at alle enheder er på samme Wi-Fi-netværk og har den samme konfiguration (port, multicast-adresse, kryptering). Du kan prøve at indtaste den ønskede enheds IP-adresse manuelt. Hvis det virker, kan du føje enheden til favoritter, så den kan findes automatisk fremover."
     },
     "noConnection": {
       "symptom": "Begge enheder kan hverken se hinanden eller dele data.",
-      "solution": "Findes problemet på begge sider? I så fald skal du sikrer, at begge enheder er tilsluttet samme Wi-Fi-netværk og deler den samme konfiguration (Port, Multicast-adresse, kryptering). Det er muligt, at Wi-Fi-netværket ikke tillader forbindelser mellem enheder. I så fald skal denne indstilling slås til på routeren."
+      "solution": "Er problemet der på begge enheder? Hvis ja, skal du sikre, at begge er på samme Wi-Fi-netværk og har den samme konfiguration (port, multicast-adresse, kryptering). Det kan være, at Wi-Fi-netværket forhindrer kommunikation mellem enheder grundet Access Point (AP) Isolation. I så fald skal denne indstilling deaktiveres på routeren."
     }
   },
   "receiveHistoryPage": {
     "title": "Historik",
-    "openFolder": "Åben mappe",
+    "openFolder": "Åbn mappe",
     "deleteHistory": "Slet historik",
     "empty": "Historikken er tom.",
     "entryActions": {
-      "open": "Åben fil",
+      "open": "Åbn fil",
       "showInFolder": "Vis i mappe",
       "info": "Information",
-      "deleteFromHistory": "Slet fra historikken"
+      "deleteFromHistory": "Slet fra historik"
     }
   },
   "apkPickerPage": {
     "title": "Apps (APK)",
-    "excludeSystemApps": "Ekskluder System-apps",
-    "excludeAppsWithoutLaunchIntent": "Ekskluder Ikke-startbare Apps",
+    "excludeSystemApps": "Ekskluder systemapps",
+    "excludeAppsWithoutLaunchIntent": "Ekskluder ikke-startbare apps",
     "apps": "{n} Apps"
   },
   "selectedFilesPage": {
@@ -201,19 +213,19 @@
     "saveToGalleryOff": "Slået fra automatisk, fordi der er mapper."
   },
   "sendPage": {
-    "waiting": "Venter på svar...",
+    "waiting": "Venter på svar…",
     "rejected": "Modtageren har afvist delingen.",
     "tooManyAttempts": "@:web.tooManyAttempts",
     "busy": "Modtageren er optaget med en anden deling."
   },
   "progressPage": {
-    "titleSending": "Send filer",
-    "titleReceiving": "Modtag filer",
+    "titleSending": "Sender filer",
+    "titleReceiving": "Modtager filer",
     "savedToGallery": "Gemt i fotos",
     "total": {
       "title": {
         "sending": "Samlet tid ({time})",
-        "finishedError": "Fuldendt med fejl",
+        "finishedError": "Fuldført med fejl",
         "canceledSender": "Afbrudt af afsender",
         "canceledReceiver": "Afbrudt af modtager"
       },
@@ -224,12 +236,12 @@
   },
   "webSharePage": {
     "title": "Del med link",
-    "loading": "Start server...",
-    "stopping": "Stop server...",
+    "loading": "Starter server…",
+    "stopping": "Stopper server…",
     "error": "En fejl opstod, mens serveren blev startet.",
     "openLink": {
-      "one": "Åben dette link i browseren:",
-      "other": "Åben et af disse links i browseren:"
+      "one": "Åbn dette link i din browser:",
+      "other": "Åbn et af disse links i din browser:"
     },
     "requests": "Forespørgsler",
     "noRequests": "Ingen forespørgsler endnu.",
@@ -237,43 +249,43 @@
     "autoAccept": "Accepter automatisk anmodninger",
     "requirePin": "Kræv PIN-kode",
     "pinHint": "PIN-koden er \"{pin}\"",
-    "encryptionHint": "LocalSend benytter et selvsigneret certifikat. Det skal accepteres i browseren.",
-    "pendingRequests": "Ventende forespørgsler: {n}"
+    "encryptionHint": "LocalSend bruger et selvsigneret certifikat. Du skal acceptere det i din browser.",
+    "pendingRequests": "Afventende forespørgsler: {n}"
   },
   "aboutPage": {
     "title": "Om LocalSend",
     "description": [
-      "LocalSend er en gratis open-source app, som du kan bruge til sikkert at dele filer og beskeder med andre enheder i nærheden på dit lokale netværk, uden en internet forbindelse.",
-      "Appen findes til Android, iOS, macOS, Windows og Linux. Alle downloadmuligheder finder du på den officielle hjemmeside."
+      "LocalSend er en gratis, open source-app, der lader dig dele filer og beskeder sikkert med enheder i nærheden over dit lokale netværk uden behov for en internetforbindelse.",
+      "Appen er tilgængelig på Android, iOS, macOS, Windows og Linux. Du finder alle downloadmuligheder på den officielle hjemmeside."
     ],
     "author": "Skaber",
-    "contributors": "Medvirkende",
+    "contributors": "Bidragydere",
     "packagers": "Pakkere",
     "translators": "Oversættere"
   },
   "donationPage": {
     "title": "Donér",
-    "info": "LocalSend er gratis, open-source og reklamefri. Hvis du kan lide denne app, kan du støtte dens udvikling med en donation.",
+    "info": "LocalSend er gratis, open source og uden annoncer. Hvis du kan lide appen, kan du støtte udviklingen med en donation.",
     "donate": "Donér {amount}",
     "thanks": "Tusind tak for din støtte!",
-    "restore": "Genskab køb"
+    "restore": "Gendan køb"
   },
   "changelogPage": {
-    "title": "Ændringsbemærkninger"
+    "title": "Ændringslog"
   },
   "aliasGenerator(ignoreMissing, ignoreGpt)": {
-    "@info": "Inherits from the English version"
+    "@info": "Lokaliteter kan have forskellige ord og matcher ikke altid 1:1"
   },
   "dialogs": {
     "addFile": {
-      "title": "Tilføj til pakke",
+      "title": "Føj til valg",
       "content": "Hvad vil du tilføje?"
     },
     "addressInput": {
-      "title": "Skriv adresse",
+      "title": "Indtast adresse",
       "hashtag": "Hashtag",
       "ip": "IP-adresse",
-      "recentlyUsed": "Senest brugt:"
+      "recentlyUsed": "Senest brugt: "
     },
     "cancelSession": {
       "title": "Afbryd filoverførsel",
@@ -284,31 +296,31 @@
       "content": "Filen \"{file}\" kunne ikke åbnes. Er denne fil blevet flyttet, omdøbt eller slettet?"
     },
     "encryptionDisabledNotice": {
-      "title": "Kryptering slået fra",
-      "content": "Kommunikationen forløber nu over den ukrypterede HTTP-protokol. Aktiver kryptering for igen at benytte HTTPS."
+      "title": "Kryptering deaktiveret",
+      "content": "Kommunikationen sker nu via den ukrypterede HTTP-protokol. Aktivér kryptering igen for at bruge HTTPS."
     },
     "errorDialog": {
       "title": "@:general.error"
     },
     "favoriteDialog": {
       "title": "Favoritter",
-      "noFavorites": "Ingen favoritter indstillet.",
-      "addFavorite": "Ny"
+      "noFavorites": "Ingen favoritter endnu.",
+      "addFavorite": "Tilføj"
     },
     "favoriteDeleteDialog": {
       "title": "Slet favorit",
       "content": "Vil du virkelig slette \"{name}\"?"
     },
     "favoriteEditDialog": {
-      "titleAdd": "Tilføj favorit",
+      "titleAdd": "Føj til favoritter",
       "titleEdit": "Rediger favorit",
-      "name": "Navn",
+      "name": "Enhedsnavn",
       "auto": "(auto)",
-      "ip": "IP-addresse",
+      "ip": "IP-adresse",
       "port": "Port"
     },
     "fileInfo": {
-      "title": "Fil-information",
+      "title": "Filoplysninger",
       "fileName": "Filnavn:",
       "path": "Sti:",
       "size": "Størrelse:",
@@ -320,8 +332,8 @@
       "original": "Original: {original}"
     },
     "historyClearDialog": {
-      "title": "Slet historik",
-      "content": "Vil du virkelig slette historikken?"
+      "title": "Ryd historik",
+      "content": "Vil du virkelig slette hele historikken?"
     },
     "localNetworkUnauthorized": {
       "title": "@:dialogs.noPermission.title",
@@ -338,7 +350,7 @@
     },
     "noPermission": {
       "title": "Ingen tilladelse",
-      "content": "Du har ikke givet de tilstrækkelige tilladelser. Giv venligst tilladelse i systemindstillingerne."
+      "content": "Du har ikke givet de nødvendige tilladelser. Giv venligst tilladelse i systemindstillingerne."
     },
     "notAvailableOnPlatform": {
       "title": "Ikke tilgængelig",
@@ -348,42 +360,51 @@
       "title": "QR-kode"
     },
     "quickActions": {
-      "title": "Kvikhandlinger",
+      "title": "Hurtighandlinger",
       "counter": "Tæller",
       "prefix": "Præfiks",
       "padZero": "Fyld med nuller",
-      "sortBeforeCount": "Sorter alfabetisk på forhånd",
+      "sortBeforeCount": "Sortér alfabetisk på forhånd (A-Å)",
       "random": "Tilfældig"
     },
     "quickSaveNotice": {
       "title": "@:general.quickSave",
-      "content": "Filoverførsler bliver automatisk accepteret. Bemærk at alle på det lokale netværk kan sende dig filer."
+      "content": "Filoverførsler accepteres nu automatisk. Bemærk, at alle på det lokale netværk kan sende dig filer."
     },
     "quickSaveFromFavoritesNotice": {
-      "title": "@:general.quickSaveFromFavorites"
+      "title": "@:general.quickSaveFromFavorites",
+      "content": [
+        "Filoverførsler accepteres nu automatisk fra enheder på din favoritliste.",
+        "Advarsel! Dette er ikke helt sikkert, da hvis en hacker har fingeraftrykket på enhver enhed fra din favoritliste, kan de sende filer til dig uden restriktioner.",
+        "Denne mulighed er dog stadig sikrere end at tillade alle brugere på det lokale netværk at sende filer til dig uden restriktioner."
+      ]
     },
     "pin": {
       "title": "Indtast PIN-kode"
     },
     "sendModeHelp": {
-      "title": "Sendemåde",
-      "single": "Send filer til en modtager. Filvalget vil blive ryddet når filoverførslen er slut.",
-      "multiple": "Send filer til flere modtagere. Filvalget vil ikke blive ryddet.",
-      "link": "Modtagere, der ikke har LocalSend installeret, kan downloade de valgte filer i en browser."
+      "title": "Send-tilstande",
+      "single": "Sender filer til én modtager. Valget ryddes efter filoverførsel er færdig.",
+      "multiple": "Sender filer til flere modtager. Valget ryddes ikke efter filoverførsel er færdig.",
+      "link": "Modtagere, der ikke har LocalSend installeret, kan hente de valgte filer ved at åbne linket i deres browser."
     },
     "zoom": {
       "title": "URL"
+    },
+    "openFile": {
+      "title": "Åbn fil",
+      "content": "Vil du åbne den modtagne fil?"
     }
   },
   "sanitization": {
-    "empty": "Filnavn kan ikke være tomt",
+    "empty": "Filnavn må ikke være tomt",
     "invalid": "Filnavn indeholder ugyldige tegn"
   },
   "tray": {
-    "@info": "Apple Guidelines are very strict about the 'close' wording.",
+    "@info": "Apples retningslinjer er meget strenge angående ordet \"luk\".",
     "open": "@:general.open",
-    "close": "Luk LocalSend",
-    "closeWindows": "Afslut"
+    "close": "Afslut LocalSend",
+    "closeWindows": "Luk"
   },
   "web": {
     "waiting": "@:sendPage.waiting",
@@ -396,22 +417,22 @@
     "size": "Størrelse"
   },
   "assetPicker": {
-    "@info": "Translations for the Media selection tool for Android and Iphone",
+    "@info": "Oversættelser til medievalgværktøjet på Android og iPhone",
     "confirm": "Bekræft",
     "cancel": "Afbryd",
     "edit": "Rediger",
     "gifIndicator": "GIF",
-    "loadFailed": "Indlæsning slog fejl",
+    "loadFailed": "Indlæsning mislykkedes",
     "original": "Original",
     "preview": "Forhåndsvisning",
     "select": "Vælg",
     "emptyList": "Tom liste",
-    "unSupportedAssetType": "Formatet understøttes ikke.",
-    "unableToAccessAll": "Kan ikke tilgå alle filer på enheden.",
-    "viewingLimitedAssetsTip": "Vis kun filer og mapper tilgængelig for appen.",
+    "unSupportedAssetType": "Ikke-understøttet filtype.",
+    "unableToAccessAll": "Kan ikke tilgå alle filer på enheden",
+    "viewingLimitedAssetsTip": "Vis kun filer og mapper tilgængelige for appen.",
     "changeAccessibleLimitedAssets": "Klik for at opdatere tilgængelige filer",
-    "accessAllTip": "Appen kan kun tilgå nogle filer på enheden. Åben venligst systemindstillingerne og giv appen adgang til alle medier på enheden.",
-    "goToSystemSettings": "Gå til systemindstillingerne",
+    "accessAllTip": "Appen kan kun tilgå nogle filer på enheden. Gå til systemindstillingerne, og giv den adgang til alle medier på enheden.",
+    "goToSystemSettings": "Gå til systemindstillinger",
     "accessLimitedAssets": "Fortsæt med begrænset adgang",
     "accessiblePathName": "Tilgængelige filer",
     "sTypeAudioLabel": "Lyd",
@@ -421,9 +442,16 @@
     "sActionPlayHint": "Afspil",
     "sActionPreviewHint": "Forhåndsvisning",
     "sActionSelectHint": "Vælg",
-    "sActionSwitchPathLabel": "Ændr filens sti",
-    "sActionUseCameraHint": "Benyt kamera",
+    "sActionSwitchPathLabel": "Ændr filsti",
+    "sActionUseCameraHint": "Brug kamera",
     "sNameDurationLabel": "Varighed",
     "sUnitAssetCountLabel": "Antal"
+  },
+  "networkInterfacesPage": {
+    "title": "Netværksgrænseflader",
+    "info": "Som standard bruger LocalSend alle tilgængelige netværksgrænseflader. Du kan ekskludere uønskede netværk her. Du skal genstarte serveren for at anvende ændringerne.",
+    "preview": "Forhåndsvisning",
+    "whitelist": "Hvidliste",
+    "blacklist": "Sortliste"
   }
 }

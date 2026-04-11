@@ -24,7 +24,7 @@ git submodule update --init
 alias flutter='submodules/flutter/bin/flutter'
 flutter config --no-analytics
 flutter pub get
-flutter pub run build_runner build -d
+dart run build_runner build -d
 flutter build apk
 
 popd

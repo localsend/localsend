@@ -13,15 +13,21 @@ import 'strings.g.dart';
 class TranslationsMs extends Translations {
   /// You can call this constructor and build your own translation instance of this locale.
   /// Constructing via the enum [AppLocale.build] is preferred.
-  TranslationsMs({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
-    : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-      $meta = TranslationMetadata(
-        locale: AppLocale.ms,
-        overrides: overrides ?? {},
-        cardinalResolver: cardinalResolver,
-        ordinalResolver: ordinalResolver,
-      ),
-      super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+  TranslationsMs({
+    Map<String, Node>? overrides,
+    PluralResolver? cardinalResolver,
+    PluralResolver? ordinalResolver,
+    TranslationMetadata<AppLocale, Translations>? meta,
+  }) : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
+       $meta =
+           meta ??
+           TranslationMetadata(
+             locale: AppLocale.ms,
+             overrides: overrides ?? {},
+             cardinalResolver: cardinalResolver,
+             ordinalResolver: ordinalResolver,
+           ),
+       super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
 
   /// Metadata for the translations of <ms>.
   @override
@@ -29,9 +35,12 @@ class TranslationsMs extends Translations {
 
   late final TranslationsMs _root = this; // ignore: unused_field
 
+  @override
+  TranslationsMs $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => TranslationsMs(meta: meta ?? this.$meta);
+
   // Translations
   @override
-  String get locale => 'Bahasa Melayu';
+  String get locale => 'Bahasa Inggeris';
   @override
   String get appName => 'LocalSend';
   @override
@@ -78,6 +87,8 @@ class TranslationsMs extends Translations {
   late final _TranslationsWebMs web = _TranslationsWebMs._(_root);
   @override
   late final _TranslationsAssetPickerMs assetPicker = _TranslationsAssetPickerMs._(_root);
+  @override
+  late final _TranslationsNetworkInterfacesPageMs networkInterfacesPage = _TranslationsNetworkInterfacesPageMs._(_root);
 }
 
 // Path: general
@@ -106,7 +117,7 @@ class _TranslationsGeneralMs extends TranslationsGeneralEn {
   @override
   String get copy => 'Salin';
   @override
-  String get copiedToClipboard => 'Disalin ke papan keratan';
+  String get copiedToClipboard => 'Disalin ke Papan Keratan';
   @override
   String get decline => 'Tolak';
   @override
@@ -114,23 +125,23 @@ class _TranslationsGeneralMs extends TranslationsGeneralEn {
   @override
   String get delete => 'Padam';
   @override
-  String get edit => 'Edit';
+  String get edit => 'Sunting';
   @override
   String get error => 'Ralat';
   @override
   String get example => 'Contoh';
   @override
-  String get files => 'Fail';
+  String get files => 'Fail-fail';
   @override
-  String get finished => 'Selesai';
+  String get finished => 'Telah selesai';
   @override
   String get hide => 'Sembunyi';
   @override
-  String get off => 'Mati';
+  String get off => 'Tutup';
   @override
   String get offline => 'Luar talian';
   @override
-  String get on => 'Hidup';
+  String get on => 'Buka';
   @override
   String get online => 'Dalam talian';
   @override
@@ -138,13 +149,13 @@ class _TranslationsGeneralMs extends TranslationsGeneralEn {
   @override
   String get queue => 'Baris gilir';
   @override
-  String get quickSave => 'Simpan Cepat';
+  String get quickSave => 'Simpan Pantas';
   @override
-  String get quickSaveFromFavorites => 'Simpan Cepat dari "Kegemaran"';
+  String get quickSaveFromFavorites => 'Simpan Pantas untuk "Kegemaran"';
   @override
   String get renamed => 'Dinamakan semula';
   @override
-  String get reset => 'Set semula';
+  String get reset => 'Buat asal perubahan';
   @override
   String get restart => 'Mula semula';
   @override
@@ -154,7 +165,7 @@ class _TranslationsGeneralMs extends TranslationsGeneralEn {
   @override
   String get start => 'Mula';
   @override
-  String get stop => 'Berhenti';
+  String get stop => 'Henti';
   @override
   String get save => 'Simpan';
   @override
@@ -176,6 +187,8 @@ class _TranslationsReceiveTabMs extends TranslationsReceiveTabEn {
   String get title => 'Terima';
   @override
   late final _TranslationsReceiveTabInfoBoxMs infoBox = _TranslationsReceiveTabInfoBoxMs._(_root);
+  @override
+  late final _TranslationsReceiveTabQuickSaveMs quickSave = _TranslationsReceiveTabQuickSaveMs._(_root);
 }
 
 // Path: sendTab
@@ -354,11 +367,13 @@ class _TranslationsSendPageMs extends TranslationsSendPageEn {
 
   // Translations
   @override
-  String get waiting => 'Menunggu respons...';
+  String get waiting => 'Menunggu respons…';
   @override
   String get rejected => 'Penerima telah menolak permintaan.';
   @override
   String get busy => 'Penerima sibuk dengan permintaan lain.';
+  @override
+  String get tooManyAttempts => _root.web.tooManyAttempts;
 }
 
 // Path: progressPage
@@ -388,16 +403,16 @@ class _TranslationsWebSharePageMs extends TranslationsWebSharePageEn {
   @override
   String get title => 'Kongsi melalui pautan';
   @override
-  String get loading => 'Memulakan pelayan...';
+  String get loading => 'Memulakan pelayan…';
   @override
-  String get stopping => 'Menghentikan pelayan...';
+  String get stopping => 'Menghentikan pelayan…';
   @override
-  String get error => 'Ralat berlaku semasa memulakan pelayan.';
+  String get error => 'Ralat telah berlaku ketika memulakan pelayan.';
   @override
   String openLink({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ms'))(
     n,
     one: 'Buka pautan ini dalam pelayar anda:',
-    other: 'Buka salah satu pautan ini dalam pelayar anda:',
+    other: 'Buka salah satu daripada pautan ini dalam pelayar anda:',
   );
   @override
   String get requests => 'Permintaan';
@@ -412,7 +427,9 @@ class _TranslationsWebSharePageMs extends TranslationsWebSharePageEn {
   @override
   String pinHint({required Object pin}) => 'PIN ialah "${pin}"';
   @override
-  String pendingRequests({required Object n}) => 'Permintaan menunggu: ${n}';
+  String pendingRequests({required Object n}) => 'Permintaan yang masih belum selesai: ${n}';
+  @override
+  String get encryptionHint => 'LocalSend menggunakan sijil yang ditandatangani sendiri. Anda perlu menerimanya di pelayar anda.';
 }
 
 // Path: aboutPage
@@ -423,11 +440,11 @@ class _TranslationsAboutPageMs extends TranslationsAboutPageEn {
 
   // Translations
   @override
-  String get title => 'Mengenai LocalSend';
+  String get title => 'Tentang LocalSend';
   @override
   List<String> get description => [
-    'LocalSend adalah aplikasi percuma dan sumber terbuka yang membolehkan anda berkongsi fail dan mesej dengan selamat dengan peranti berdekatan melalui rangkaian tempatan anda tanpa memerlukan sambungan internet.',
-    'Aplikasi ini tersedia di Android, iOS, macOS, Windows dan Linux. Anda boleh mencari semua pilihan muat turun di laman web rasmi.',
+    'LocalSend adalah aplikasi percuma dan sumber terbuka yang membolehkan anda berkongsi fail dan mesej secara selamat dan terjamin dengan peranti berdekatan yang berada dalam rangkaian tempatan anda tanpa memerlukan sebarang sambungan internet.',
+    'Aplikasi ini tersedia di Android, iOS, macOS, Windows dan Linux. Anda boleh mencari semua pilihan untuk memuat turun di laman web rasmi.',
   ];
   @override
   String get author => 'Pengarang';
@@ -435,6 +452,8 @@ class _TranslationsAboutPageMs extends TranslationsAboutPageEn {
   String get contributors => 'Penyumbang';
   @override
   String get translators => 'Penterjemah';
+  @override
+  String get packagers => 'Pembungkus';
 }
 
 // Path: donationPage
@@ -605,6 +624,8 @@ class _TranslationsDialogsMs extends TranslationsDialogsEn {
   late final _TranslationsDialogsSendModeHelpMs sendModeHelp = _TranslationsDialogsSendModeHelpMs._(_root);
   @override
   late final _TranslationsDialogsZoomMs zoom = _TranslationsDialogsZoomMs._(_root);
+  @override
+  late final _TranslationsDialogsOpenFileMs openFile = _TranslationsDialogsOpenFileMs._(_root);
 }
 
 // Path: sanitization
@@ -652,6 +673,12 @@ class _TranslationsWebMs extends TranslationsWebEn {
   String get fileName => 'Nama fail';
   @override
   String get size => 'Saiz';
+  @override
+  String get enterPin => 'Masukkan PIN';
+  @override
+  String get invalidPin => 'PIN Tidak Sah';
+  @override
+  String get tooManyAttempts => 'Terlalu banyak percubaan';
 }
 
 // Path: assetPicker
@@ -666,7 +693,7 @@ class _TranslationsAssetPickerMs extends TranslationsAssetPickerEn {
   @override
   String get cancel => 'Batal';
   @override
-  String get edit => 'Edit';
+  String get edit => 'Sunting';
   @override
   String get gifIndicator => 'GIF';
   @override
@@ -720,6 +747,26 @@ class _TranslationsAssetPickerMs extends TranslationsAssetPickerEn {
   String get sUnitAssetCountLabel => 'kiraan';
 }
 
+// Path: networkInterfacesPage
+class _TranslationsNetworkInterfacesPageMs extends TranslationsNetworkInterfacesPageEn {
+  _TranslationsNetworkInterfacesPageMs._(TranslationsMs root) : this._root = root, super.internal(root);
+
+  final TranslationsMs _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get info =>
+      'Secara lalai, LocalSend menggunakan semua antara muka rangkaian tersedia. Anda boleh memulaukan rangkaian yang tidak diingini. Anda perlu mula semula pelayan untuk mengenakan perubahan.';
+  @override
+  String get title => 'Antara Muka Rangkaian';
+  @override
+  String get preview => 'Pratonton';
+  @override
+  String get whitelist => 'Senarai Putih';
+  @override
+  String get blacklist => 'Senarai Hitam';
+}
+
 // Path: receiveTab.infoBox
 class _TranslationsReceiveTabInfoBoxMs extends TranslationsReceiveTabInfoBoxEn {
   _TranslationsReceiveTabInfoBoxMs._(TranslationsMs root) : this._root = root, super.internal(root);
@@ -733,6 +780,21 @@ class _TranslationsReceiveTabInfoBoxMs extends TranslationsReceiveTabInfoBoxEn {
   String get port => 'Port:';
   @override
   String get alias => 'Nama peranti:';
+}
+
+// Path: receiveTab.quickSave
+class _TranslationsReceiveTabQuickSaveMs extends TranslationsReceiveTabQuickSaveEn {
+  _TranslationsReceiveTabQuickSaveMs._(TranslationsMs root) : this._root = root, super.internal(root);
+
+  final TranslationsMs _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get favorites => 'Kegemaran';
+  @override
+  String get off => _root.general.off;
+  @override
+  String get on => _root.general.on;
 }
 
 // Path: sendTab.selection
@@ -819,6 +881,8 @@ class _TranslationsSettingsTabGeneralMs extends TranslationsSettingsTabGeneralEn
   String get showInContextMenu => 'Tunjukkan LocalSend dalam menu konteks';
   @override
   String get animations => 'Animasi';
+  @override
+  String get saveWindowPlacementWindows => 'Simpan kedudukan tetingkap selepas keluar';
 }
 
 // Path: settingsTab.receive
@@ -898,6 +962,10 @@ class _TranslationsSettingsTabNetworkMs extends TranslationsSettingsTabNetworkEn
   @override
   String multicastGroupWarning({required Object defaultMulticast}) =>
       'Anda mungkin tidak dapat dikesan oleh peranti lain kerana anda menggunakan alamat multicast tersuai. (lalai: ${defaultMulticast})';
+  @override
+  String get network => 'Rangkaian';
+  @override
+  late final _TranslationsSettingsTabNetworkNetworkOptionsMs networkOptions = _TranslationsSettingsTabNetworkNetworkOptionsMs._(_root);
 }
 
 // Path: settingsTab.other
@@ -932,7 +1000,7 @@ class _TranslationsTroubleshootPageFirewallMs extends TranslationsTroubleshootPa
   String solution({required Object port}) =>
       'Ini kemungkinan besar adalah masalah firewall. Anda boleh menyelesaikannya dengan membenarkan sambungan masuk (UDP dan TCP) pada port ${port}.';
   @override
-  String get openFirewallSettings => 'Buka Firewall';
+  String get openFirewall => 'Buka Firewall';
 }
 
 // Path: troubleshootPage.noDiscovery
@@ -1297,6 +1365,12 @@ class _TranslationsDialogsQuickSaveFromFavoritesNoticeMs extends TranslationsDia
   // Translations
   @override
   String get title => _root.general.quickSaveFromFavorites;
+  @override
+  List<String> get content => [
+    'Permintaan fail kini diterima secara automatik daripada peranti-peranti yang dalam senarai kegemaran anda.',
+    'Amaran! Pada waktu sekarang, ini tidak terjamin sepenuhnya, kerana penggodam yang mempunyai cap jari mana-mana peranti daripada senarai kegemaran anda boleh menghantar fail kepada anda tanpa sekatan.',
+    'Walau bagaimanapun, pilihan ini tetap lebih selamat daripada membenarkan semua pengguna dalam rangkaian tempatan menghantar fail kepada anda tanpa sekatan.',
+  ];
 }
 
 // Path: dialogs.pin
@@ -1339,6 +1413,19 @@ class _TranslationsDialogsZoomMs extends TranslationsDialogsZoomEn {
   String get title => 'URL';
 }
 
+// Path: dialogs.openFile
+class _TranslationsDialogsOpenFileMs extends TranslationsDialogsOpenFileEn {
+  _TranslationsDialogsOpenFileMs._(TranslationsMs root) : this._root = root, super.internal(root);
+
+  final TranslationsMs _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Buka fail';
+  @override
+  String get content => 'Adakah anda mahu untuk membuka fail yang diterima?';
+}
+
 // Path: settingsTab.general.brightnessOptions
 class _TranslationsSettingsTabGeneralBrightnessOptionsMs extends TranslationsSettingsTabGeneralBrightnessOptionsEn {
   _TranslationsSettingsTabGeneralBrightnessOptionsMs._(TranslationsMs root) : this._root = root, super.internal(root);
@@ -1376,6 +1463,19 @@ class _TranslationsSettingsTabGeneralLanguageOptionsMs extends TranslationsSetti
   // Translations
   @override
   String get system => 'Sistem';
+}
+
+// Path: settingsTab.network.networkOptions
+class _TranslationsSettingsTabNetworkNetworkOptionsMs extends TranslationsSettingsTabNetworkNetworkOptionsEn {
+  _TranslationsSettingsTabNetworkNetworkOptionsMs._(TranslationsMs root) : this._root = root, super.internal(root);
+
+  final TranslationsMs _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get all => 'Semua';
+  @override
+  String get filtered => 'Ditapis';
 }
 
 // Path: progressPage.total.title

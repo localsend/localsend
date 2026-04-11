@@ -1,5 +1,5 @@
 {
-  "locale": "Tiếng Việt",
+  "locale": "Tiếng Anh",
   "appName": "LocalSend",
   "general": {
     "accept": "Đồng ý",
@@ -39,7 +39,7 @@
     "save": "Lưu",
     "unchanged": "Chưa thay đổi",
     "unknown": "Không rõ",
-    "noItemInClipboard": "Không có gì trong bộ nhớ tạm"
+    "noItemInClipboard": "Không có gì trong bộ nhớ tạm."
   },
   "receiveTab": {
     "title": "Nhận",
@@ -140,7 +140,12 @@
       "portWarning": "Các thiết bị khác có thể không nhận diện được thiết bị của bạn, vì bạn đang dùng port tuỳ chỉnh. (mặc định: {defaultPort})",
       "encryption": "Mã hoá",
       "multicastGroup": "Đa phương tiện",
-      "multicastGroupWarning": "Các thiết bị khác có thể không nhận diện được thiết bị của bạn, vì bạn đang dùng địa chỉ multicast tuỳ chỉnh. (mặc định: {defaultMulticast})"
+      "multicastGroupWarning": "Các thiết bị khác có thể không nhận diện được thiết bị của bạn, vì bạn đang dùng địa chỉ multicast tuỳ chỉnh. (mặc định: {defaultMulticast})",
+      "networkOptions": {
+        "all": "Tất cả",
+        "filtered": "Đã lọc"
+      },
+      "network": "Giao diện mạng"
     },
     "other": {
       "title": "Khác",
@@ -208,7 +213,7 @@
     "saveToGalleryOff": "Đã tự động tắt vì là thư mục."
   },
   "sendPage": {
-    "waiting": "Đang chờ phản hồi...",
+    "waiting": "Đang chờ phản hồi…",
     "rejected": "Người nhận đã từ chối yêu cầu.",
     "tooManyAttempts": "@:web.tooManyAttempts",
     "busy": "Người nhận đang bận xử lý một yêu cầu khác."
@@ -231,8 +236,8 @@
   },
   "webSharePage": {
     "title": "Chia sẻ qua liên kết",
-    "loading": "Đang khởi tạo server...",
-    "stopping": "Đang dừng server...",
+    "loading": "Đang khởi tạo server…",
+    "stopping": "Đang dừng server…",
     "error": "Một lỗi đã xảy ra khi khởi tạo server.",
     "openLink": {
       "one": "Mở liên kết trong trình duyệt:",
@@ -255,7 +260,7 @@
     ],
     "author": "Tác giả",
     "contributors": "Người đóng góp",
-    "packagers": "Công cụ đóng gói",
+    "packagers": "Người đóng gói",
     "translators": "Người dịch"
   },
   "donationPage": {
@@ -266,7 +271,7 @@
     "restore": "Khôi phục lịch sử ủng hộ"
   },
   "changelogPage": {
-    "title": "Changelog"
+    "title": "Lịch sử thay đổi"
   },
   "aliasGenerator(ignoreMissing, ignoreGpt)": {
     "@info": "Inherits from the English version"
@@ -441,5 +446,12 @@
     "sActionUseCameraHint": "dùng camera",
     "sNameDurationLabel": "thời lượng",
     "sUnitAssetCountLabel": "đếm"
+  },
+  "networkInterfacesPage": {
+    "info": "LocalSend mặc định sử dụng tất cả các giao diện mạng có sẵn. Bạn có thể loại trừ các mạng không mong muốn tại đây. Bạn cần khởi động lại server để áp dụng các thay đổi.",
+    "title": "Card mạng",
+    "preview": "Xem trước",
+    "whitelist": "Cho phép",
+    "blacklist": "Chặn"
   }
 }

@@ -1,15 +1,3 @@
-<div align="center">
-  <sup>Special thanks to:</sup>
-  <br><br>
-  <a href="https://go.warp.dev/localsend" target="_blank">
-    <img alt="Warp sponsorship" width="300" src="https://raw.githubusercontent.com/warpdotdev/brand-assets/refs/heads/main/Github/Sponsor/Warp-Github-LG-03.png">
-    <br>
-    <b>Warp, built for coding with multiple AI Agents.</b>
-    <br>
-    <sup>Available for macOS, Linux and Windows</sup>
-  </a>
-</div>
-
 # LocalSend
 
 [![CI status][ci-badge]][ci-workflow]
@@ -59,8 +47,8 @@ LocalSend is a cross-platform app that enables secure communication between devi
 
 Browser testing via
 
-<a href="https://www.lambdatest.com/" target="_blank">
-    <img src="https://www.lambdatest.com/blue-logo.png" style="vertical-align: middle;" width="250" height="45" />
+<a href="https://www.testmuai.com/?utm_medium=sponsor&utm_source=localsend" target="_blank">
+    <img src="https://localsend.org/img/sponsors/tesmu.svg" style="vertical-align: middle;" width="250" height="45" />
 </a>
 
 ## Screenshots

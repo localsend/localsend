@@ -13,21 +13,30 @@ import 'strings.g.dart';
 class TranslationsUk extends Translations {
   /// You can call this constructor and build your own translation instance of this locale.
   /// Constructing via the enum [AppLocale.build] is preferred.
-  TranslationsUk({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
-    : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-      $meta = TranslationMetadata(
-        locale: AppLocale.uk,
-        overrides: overrides ?? {},
-        cardinalResolver: cardinalResolver,
-        ordinalResolver: ordinalResolver,
-      ),
-      super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+  TranslationsUk({
+    Map<String, Node>? overrides,
+    PluralResolver? cardinalResolver,
+    PluralResolver? ordinalResolver,
+    TranslationMetadata<AppLocale, Translations>? meta,
+  }) : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
+       $meta =
+           meta ??
+           TranslationMetadata(
+             locale: AppLocale.uk,
+             overrides: overrides ?? {},
+             cardinalResolver: cardinalResolver,
+             ordinalResolver: ordinalResolver,
+           ),
+       super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
 
   /// Metadata for the translations of <uk>.
   @override
   final TranslationMetadata<AppLocale, Translations> $meta;
 
   late final TranslationsUk _root = this; // ignore: unused_field
+
+  @override
+  TranslationsUk $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => TranslationsUk(meta: meta ?? this.$meta);
 
   // Translations
   @override
@@ -66,8 +75,6 @@ class TranslationsUk extends Translations {
   late final _TranslationsDonationPageUk donationPage = _TranslationsDonationPageUk._(_root);
   @override
   late final _TranslationsChangelogPageUk changelogPage = _TranslationsChangelogPageUk._(_root);
-  @override
-  late final _TranslationsAliasGeneratorUk aliasGenerator = _TranslationsAliasGeneratorUk._(_root);
   @override
   late final _TranslationsDialogsUk dialogs = _TranslationsDialogsUk._(_root);
   @override
@@ -124,7 +131,7 @@ class _TranslationsGeneralUk extends TranslationsGeneralEn {
   @override
   String get files => 'Файли';
   @override
-  String get finished => 'Виконано';
+  String get finished => 'Завершено';
   @override
   String get hide => 'Приховати';
   @override
@@ -382,6 +389,8 @@ class _TranslationsProgressPageUk extends TranslationsProgressPageEn {
   String get savedToGallery => 'Збережено в галереї';
   @override
   late final _TranslationsProgressPageTotalUk total = _TranslationsProgressPageTotalUk._(_root);
+  @override
+  late final _TranslationsProgressPageRemainingTimeUk remainingTime = _TranslationsProgressPageRemainingTimeUk._(_root);
 }
 
 // Path: webSharePage
@@ -476,15 +485,6 @@ class _TranslationsChangelogPageUk extends TranslationsChangelogPageEn {
   // Translations
   @override
   String get title => 'Історія змін';
-}
-
-// Path: aliasGenerator
-class _TranslationsAliasGeneratorUk extends TranslationsAliasGeneratorEn {
-  _TranslationsAliasGeneratorUk._(TranslationsUk root) : this._root = root, super.internal(root);
-
-  final TranslationsUk _root; // ignore: unused_field
-
-  // Translations
 }
 
 // Path: dialogs
@@ -920,7 +920,7 @@ class _TranslationsTroubleshootPageFirewallUk extends TranslationsTroubleshootPa
   String solution({required Object port}) =>
       'Швидше за все, це проблема брандмауера. Ви можете вирішити дану проблему, дозволивши вхідні з\'єднання (UDP та TCP) для порта: ${port}.';
   @override
-  String get openFirewallSettings => 'Відкрити брандмауер';
+  String get openFirewall => 'Відкрити брандмауер';
 }
 
 // Path: troubleshootPage.noDiscovery
@@ -983,6 +983,27 @@ class _TranslationsProgressPageTotalUk extends TranslationsProgressPageTotalEn {
   String size({required Object curr, required Object n}) => 'Розмір: ${curr} / ${n}';
   @override
   String speed({required Object speed}) => 'Швидкість: ${speed}/s';
+}
+
+// Path: progressPage.remainingTime
+class _TranslationsProgressPageRemainingTimeUk extends TranslationsProgressPageRemainingTimeEn {
+  _TranslationsProgressPageRemainingTimeUk._(TranslationsUk root) : this._root = root, super.internal(root);
+
+  final TranslationsUk _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String seconds({required Object n, required Object ss}) => '${n}:${ss}';
+  @override
+  String minutes({required Object n, required Object ss}) => '${n}:${ss}';
+
+  /// Використовуйте «h» як скорочення для годин і «m» для хвилин
+  @override
+  String hours({required Object h, required Object m}) => '${h}h ${m}m';
+
+  /// Використовуйте «d» для днів, «h» для годин і «m» для хвилин
+  @override
+  String days({required Object d, required Object h, required Object m}) => '${d}d ${h}h ${m}m';
 }
 
 // Path: dialogs.addFile

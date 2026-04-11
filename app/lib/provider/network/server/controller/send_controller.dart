@@ -273,7 +273,6 @@ class SendController {
                           lastAccessed: file.lastAccessed,
                         )
                       : null,
-                  legacy: false,
                 ),
                 asset: file.asset,
                 path: file.path,

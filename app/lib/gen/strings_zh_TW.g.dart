@@ -13,21 +13,30 @@ import 'strings.g.dart';
 class TranslationsZhTw extends Translations {
   /// You can call this constructor and build your own translation instance of this locale.
   /// Constructing via the enum [AppLocale.build] is preferred.
-  TranslationsZhTw({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
-    : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-      $meta = TranslationMetadata(
-        locale: AppLocale.zhTw,
-        overrides: overrides ?? {},
-        cardinalResolver: cardinalResolver,
-        ordinalResolver: ordinalResolver,
-      ),
-      super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+  TranslationsZhTw({
+    Map<String, Node>? overrides,
+    PluralResolver? cardinalResolver,
+    PluralResolver? ordinalResolver,
+    TranslationMetadata<AppLocale, Translations>? meta,
+  }) : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
+       $meta =
+           meta ??
+           TranslationMetadata(
+             locale: AppLocale.zhTw,
+             overrides: overrides ?? {},
+             cardinalResolver: cardinalResolver,
+             ordinalResolver: ordinalResolver,
+           ),
+       super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
 
   /// Metadata for the translations of <zh-TW>.
   @override
   final TranslationMetadata<AppLocale, Translations> $meta;
 
   late final TranslationsZhTw _root = this; // ignore: unused_field
+
+  @override
+  TranslationsZhTw $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => TranslationsZhTw(meta: meta ?? this.$meta);
 
   // Translations
   @override
@@ -66,8 +75,6 @@ class TranslationsZhTw extends Translations {
   late final _TranslationsDonationPageZhTw donationPage = _TranslationsDonationPageZhTw._(_root);
   @override
   late final _TranslationsChangelogPageZhTw changelogPage = _TranslationsChangelogPageZhTw._(_root);
-  @override
-  late final _TranslationsAliasGeneratorZhTw aliasGenerator = _TranslationsAliasGeneratorZhTw._(_root);
   @override
   late final _TranslationsDialogsZhTw dialogs = _TranslationsDialogsZhTw._(_root);
   @override
@@ -318,7 +325,11 @@ class _TranslationsReceivePageZhTw extends TranslationsReceivePageEn {
 
   // Translations
   @override
-  String subTitle({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('zh'))(n, one: '要傳送一個檔案給您', other: '要傳送 ${n} 個檔案給您');
+  String subTitle({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('zh'))(
+    n,
+    one: '要傳送一個檔案給您',
+    other: '要傳送 ${n} 個檔案給您',
+  );
   @override
   String get subTitleMessage => '已傳送一則訊息給您：';
   @override
@@ -378,6 +389,8 @@ class _TranslationsProgressPageZhTw extends TranslationsProgressPageEn {
   String get savedToGallery => '已儲存至相簿';
   @override
   late final _TranslationsProgressPageTotalZhTw total = _TranslationsProgressPageTotalZhTw._(_root);
+  @override
+  late final _TranslationsProgressPageRemainingTimeZhTw remainingTime = _TranslationsProgressPageRemainingTimeZhTw._(_root);
 }
 
 // Path: webSharePage
@@ -396,8 +409,11 @@ class _TranslationsWebSharePageZhTw extends TranslationsWebSharePageEn {
   @override
   String get error => '啟動伺服器時發生錯誤。';
   @override
-  String openLink({required num n}) =>
-      (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('zh'))(n, one: '在瀏覽器開啟此連結：', other: '在瀏覽器中開啟其中一個連結：');
+  String openLink({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('zh'))(
+    n,
+    one: '在瀏覽器開啟此連結：',
+    other: '在瀏覽器中開啟其中一個連結：',
+  );
   @override
   String get requests => '要求';
   @override
@@ -450,7 +466,7 @@ class _TranslationsDonationPageZhTw extends TranslationsDonationPageEn {
   @override
   String get title => '贊助';
   @override
-  String get info => 'LocalSend 是免費、開源且沒有任何廣告的。如果您喜歡此應用程式，您可以透過捐贈來支持開發。';
+  String get info => 'LocalSend 是免費、開源且沒有任何廣告的。如果您喜歡此應用程式，可以透過捐贈來支持開發。';
   @override
   String donate({required Object amount}) => '贊助 ${amount}';
   @override
@@ -468,15 +484,6 @@ class _TranslationsChangelogPageZhTw extends TranslationsChangelogPageEn {
   // Translations
   @override
   String get title => '變更記錄';
-}
-
-// Path: aliasGenerator
-class _TranslationsAliasGeneratorZhTw extends TranslationsAliasGeneratorEn {
-  _TranslationsAliasGeneratorZhTw._(TranslationsZhTw root) : this._root = root, super.internal(root);
-
-  final TranslationsZhTw _root; // ignore: unused_field
-
-  // Translations
 }
 
 // Path: dialogs
@@ -688,7 +695,7 @@ class _TranslationsReceiveTabInfoBoxZhTw extends TranslationsReceiveTabInfoBoxEn
   @override
   String get port => '通訊埠：';
   @override
-  String get alias => '別名：';
+  String get alias => '裝置名稱：';
 }
 
 // Path: receiveTab.quickSave
@@ -848,7 +855,7 @@ class _TranslationsSettingsTabNetworkZhTw extends TranslationsSettingsTabNetwork
   @override
   String get server => '伺服器';
   @override
-  String get alias => '別名';
+  String get alias => '裝置名稱';
   @override
   String get deviceType => '裝置類型';
   @override
@@ -906,7 +913,7 @@ class _TranslationsTroubleshootPageFirewallZhTw extends TranslationsTroubleshoot
   @override
   String solution({required Object port}) => '這很可能是防火牆問題。您可以透過允許通訊埠 ${port} 上的連入連線 (UDP 和 TCP) 以解決此問題。';
   @override
-  String get openFirewallSettings => '開啟防火牆';
+  String get openFirewall => '開啟防火牆';
 }
 
 // Path: troubleshootPage.noDiscovery
@@ -969,6 +976,19 @@ class _TranslationsProgressPageTotalZhTw extends TranslationsProgressPageTotalEn
   String speed({required Object speed}) => '速度：${speed}/s';
 }
 
+// Path: progressPage.remainingTime
+class _TranslationsProgressPageRemainingTimeZhTw extends TranslationsProgressPageRemainingTimeEn {
+  _TranslationsProgressPageRemainingTimeZhTw._(TranslationsZhTw root) : this._root = root, super.internal(root);
+
+  final TranslationsZhTw _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String hours({required Object h, required Object m}) => '${h}小時 ${m}分鐘';
+  @override
+  String days({required Object d, required Object h, required Object m}) => '${d}天 ${h}小時 ${m}分鐘';
+}
+
 // Path: dialogs.addFile
 class _TranslationsDialogsAddFileZhTw extends TranslationsDialogsAddFileEn {
   _TranslationsDialogsAddFileZhTw._(TranslationsZhTw root) : this._root = root, super.internal(root);
@@ -1009,7 +1029,7 @@ class _TranslationsDialogsAddressInputZhTw extends TranslationsDialogsAddressInp
   @override
   String get ip => 'IP 位址';
   @override
-  String get recentlyUsed => '最近使用：';
+  String get recentlyUsed => '最近使用： ';
 }
 
 // Path: dialogs.cancelSession
@@ -1280,7 +1300,11 @@ class _TranslationsDialogsQuickSaveFromFavoritesNoticeZhTw extends TranslationsD
   @override
   String get title => _root.general.quickSaveFromFavorites;
   @override
-  List<String> get content => ['自動接受來自您最愛清單中裝置傳送的檔案。', '警告：目前這並非絕對安全，因為知道您最愛裝置指紋的駭客仍然可以向您傳送檔案。', '但仍然比允許任何裝置更安全。'];
+  List<String> get content => [
+    '自動接受來自您最愛清單中裝置傳送的檔案。',
+    '警告：目前這並非絕對安全，因為知道您最愛裝置指紋的駭客仍然可以向您傳送檔案。',
+    '但仍然比允許任何裝置更安全。',
+  ];
 }
 
 // Path: dialogs.pin

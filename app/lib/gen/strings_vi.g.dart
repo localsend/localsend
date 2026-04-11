@@ -13,15 +13,21 @@ import 'strings.g.dart';
 class TranslationsVi extends Translations {
   /// You can call this constructor and build your own translation instance of this locale.
   /// Constructing via the enum [AppLocale.build] is preferred.
-  TranslationsVi({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
-    : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-      $meta = TranslationMetadata(
-        locale: AppLocale.vi,
-        overrides: overrides ?? {},
-        cardinalResolver: cardinalResolver,
-        ordinalResolver: ordinalResolver,
-      ),
-      super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+  TranslationsVi({
+    Map<String, Node>? overrides,
+    PluralResolver? cardinalResolver,
+    PluralResolver? ordinalResolver,
+    TranslationMetadata<AppLocale, Translations>? meta,
+  }) : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
+       $meta =
+           meta ??
+           TranslationMetadata(
+             locale: AppLocale.vi,
+             overrides: overrides ?? {},
+             cardinalResolver: cardinalResolver,
+             ordinalResolver: ordinalResolver,
+           ),
+       super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
 
   /// Metadata for the translations of <vi>.
   @override
@@ -29,9 +35,12 @@ class TranslationsVi extends Translations {
 
   late final TranslationsVi _root = this; // ignore: unused_field
 
+  @override
+  TranslationsVi $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => TranslationsVi(meta: meta ?? this.$meta);
+
   // Translations
   @override
-  String get locale => 'Tiếng Việt';
+  String get locale => 'Tiếng Anh';
   @override
   String get appName => 'LocalSend';
   @override
@@ -67,8 +76,6 @@ class TranslationsVi extends Translations {
   @override
   late final _TranslationsChangelogPageVi changelogPage = _TranslationsChangelogPageVi._(_root);
   @override
-  late final _TranslationsAliasGeneratorVi aliasGenerator = _TranslationsAliasGeneratorVi._(_root);
-  @override
   late final _TranslationsDialogsVi dialogs = _TranslationsDialogsVi._(_root);
   @override
   late final _TranslationsSanitizationVi sanitization = _TranslationsSanitizationVi._(_root);
@@ -78,6 +85,8 @@ class TranslationsVi extends Translations {
   late final _TranslationsWebVi web = _TranslationsWebVi._(_root);
   @override
   late final _TranslationsAssetPickerVi assetPicker = _TranslationsAssetPickerVi._(_root);
+  @override
+  late final _TranslationsNetworkInterfacesPageVi networkInterfacesPage = _TranslationsNetworkInterfacesPageVi._(_root);
 }
 
 // Path: general
@@ -162,7 +171,7 @@ class _TranslationsGeneralVi extends TranslationsGeneralEn {
   @override
   String get unknown => 'Không rõ';
   @override
-  String get noItemInClipboard => 'Không có gì trong bộ nhớ tạm';
+  String get noItemInClipboard => 'Không có gì trong bộ nhớ tạm.';
 }
 
 // Path: receiveTab
@@ -356,7 +365,7 @@ class _TranslationsSendPageVi extends TranslationsSendPageEn {
 
   // Translations
   @override
-  String get waiting => 'Đang chờ phản hồi...';
+  String get waiting => 'Đang chờ phản hồi…';
   @override
   String get rejected => 'Người nhận đã từ chối yêu cầu.';
   @override
@@ -392,9 +401,9 @@ class _TranslationsWebSharePageVi extends TranslationsWebSharePageEn {
   @override
   String get title => 'Chia sẻ qua liên kết';
   @override
-  String get loading => 'Đang khởi tạo server...';
+  String get loading => 'Đang khởi tạo server…';
   @override
-  String get stopping => 'Đang dừng server...';
+  String get stopping => 'Đang dừng server…';
   @override
   String get error => 'Một lỗi đã xảy ra khi khởi tạo server.';
   @override
@@ -440,7 +449,7 @@ class _TranslationsAboutPageVi extends TranslationsAboutPageEn {
   @override
   String get contributors => 'Người đóng góp';
   @override
-  String get packagers => 'Công cụ đóng gói';
+  String get packagers => 'Người đóng gói';
   @override
   String get translators => 'Người dịch';
 }
@@ -473,16 +482,7 @@ class _TranslationsChangelogPageVi extends TranslationsChangelogPageEn {
 
   // Translations
   @override
-  String get title => 'Changelog';
-}
-
-// Path: aliasGenerator
-class _TranslationsAliasGeneratorVi extends TranslationsAliasGeneratorEn {
-  _TranslationsAliasGeneratorVi._(TranslationsVi root) : this._root = root, super.internal(root);
-
-  final TranslationsVi _root; // ignore: unused_field
-
-  // Translations
+  String get title => 'Lịch sử thay đổi';
 }
 
 // Path: dialogs
@@ -663,6 +663,26 @@ class _TranslationsAssetPickerVi extends TranslationsAssetPickerEn {
   String get sNameDurationLabel => 'thời lượng';
   @override
   String get sUnitAssetCountLabel => 'đếm';
+}
+
+// Path: networkInterfacesPage
+class _TranslationsNetworkInterfacesPageVi extends TranslationsNetworkInterfacesPageEn {
+  _TranslationsNetworkInterfacesPageVi._(TranslationsVi root) : this._root = root, super.internal(root);
+
+  final TranslationsVi _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get info =>
+      'LocalSend mặc định sử dụng tất cả các giao diện mạng có sẵn. Bạn có thể loại trừ các mạng không mong muốn tại đây. Bạn cần khởi động lại server để áp dụng các thay đổi.';
+  @override
+  String get title => 'Card mạng';
+  @override
+  String get preview => 'Xem trước';
+  @override
+  String get whitelist => 'Cho phép';
+  @override
+  String get blacklist => 'Chặn';
 }
 
 // Path: receiveTab.infoBox
@@ -860,6 +880,10 @@ class _TranslationsSettingsTabNetworkVi extends TranslationsSettingsTabNetworkEn
   @override
   String multicastGroupWarning({required Object defaultMulticast}) =>
       'Các thiết bị khác có thể không nhận diện được thiết bị của bạn, vì bạn đang dùng địa chỉ multicast tuỳ chỉnh. (mặc định: ${defaultMulticast})';
+  @override
+  late final _TranslationsSettingsTabNetworkNetworkOptionsVi networkOptions = _TranslationsSettingsTabNetworkNetworkOptionsVi._(_root);
+  @override
+  String get network => 'Giao diện mạng';
 }
 
 // Path: settingsTab.other
@@ -894,7 +918,7 @@ class _TranslationsTroubleshootPageFirewallVi extends TranslationsTroubleshootPa
   String solution({required Object port}) =>
       'Có vẻ như đây là một vấn đề với tường lửa (firewall). Bạn có thể khắc phục bằng cách chấp thuận các kết nối đến (UDP và TCP) trên port ${port}.';
   @override
-  String get openFirewallSettings => 'Mở tường lửa(Firewall)';
+  String get openFirewall => 'Mở tường lửa(Firewall)';
 }
 
 // Path: troubleshootPage.noDiscovery
@@ -1355,6 +1379,19 @@ class _TranslationsSettingsTabGeneralLanguageOptionsVi extends TranslationsSetti
   // Translations
   @override
   String get system => 'Hệ thống';
+}
+
+// Path: settingsTab.network.networkOptions
+class _TranslationsSettingsTabNetworkNetworkOptionsVi extends TranslationsSettingsTabNetworkNetworkOptionsEn {
+  _TranslationsSettingsTabNetworkNetworkOptionsVi._(TranslationsVi root) : this._root = root, super.internal(root);
+
+  final TranslationsVi _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get all => 'Tất cả';
+  @override
+  String get filtered => 'Đã lọc';
 }
 
 // Path: progressPage.total.title

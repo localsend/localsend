@@ -232,6 +232,14 @@
       "count": "File: {curr} / {n}",
       "size": "Dimensione: {curr} / {n}",
       "speed": "Velocità: {speed}/s"
+    },
+    "remainingTime": {
+      "hours": "{h}h {m}m",
+      "days": "{d}d {h}h {m}m",
+      "@hours": "Usa 'h' come abbreviazione per ore e 'm' per minuti",
+      "@days": "Usa 'd' per giorni, 'h' per ore, e 'm' per minuti",
+      "seconds": "{n}:{ss}",
+      "minutes": "{n}:{ss}"
     }
   },
   "webSharePage": {

@@ -207,9 +207,7 @@
   },
   "receiveOptionsPage": {
     "title": "Pilihan",
-    "destination": "@:settingsTab.receive.destination",
     "appDirectory": "(folder LocalSend)",
-    "saveToGallery": "@:settingsTab.receive.saveToGallery",
     "saveToGalleryOff": "Dimatikan secara otomatis karena ada direktori."
   },
   "sendPage": {

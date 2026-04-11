@@ -13,21 +13,30 @@ import 'strings.g.dart';
 class TranslationsFi extends Translations {
   /// You can call this constructor and build your own translation instance of this locale.
   /// Constructing via the enum [AppLocale.build] is preferred.
-  TranslationsFi({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
-    : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-      $meta = TranslationMetadata(
-        locale: AppLocale.fi,
-        overrides: overrides ?? {},
-        cardinalResolver: cardinalResolver,
-        ordinalResolver: ordinalResolver,
-      ),
-      super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+  TranslationsFi({
+    Map<String, Node>? overrides,
+    PluralResolver? cardinalResolver,
+    PluralResolver? ordinalResolver,
+    TranslationMetadata<AppLocale, Translations>? meta,
+  }) : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
+       $meta =
+           meta ??
+           TranslationMetadata(
+             locale: AppLocale.fi,
+             overrides: overrides ?? {},
+             cardinalResolver: cardinalResolver,
+             ordinalResolver: ordinalResolver,
+           ),
+       super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
 
   /// Metadata for the translations of <fi>.
   @override
   final TranslationMetadata<AppLocale, Translations> $meta;
 
   late final TranslationsFi _root = this; // ignore: unused_field
+
+  @override
+  TranslationsFi $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => TranslationsFi(meta: meta ?? this.$meta);
 
   // Translations
   @override
@@ -78,6 +87,8 @@ class TranslationsFi extends Translations {
   late final _TranslationsWebFi web = _TranslationsWebFi._(_root);
   @override
   late final _TranslationsAssetPickerFi assetPicker = _TranslationsAssetPickerFi._(_root);
+  @override
+  late final _TranslationsNetworkInterfacesPageFi networkInterfacesPage = _TranslationsNetworkInterfacesPageFi._(_root);
 }
 
 // Path: general
@@ -162,7 +173,7 @@ class _TranslationsGeneralFi extends TranslationsGeneralEn {
   @override
   String get unknown => 'Tuntematon';
   @override
-  String get noItemInClipboard => 'Leikepöydällä ei ole mitään';
+  String get noItemInClipboard => 'Leikepöydällä ei ole mitään.';
 }
 
 // Path: receiveTab
@@ -173,7 +184,7 @@ class _TranslationsReceiveTabFi extends TranslationsReceiveTabEn {
 
   // Translations
   @override
-  String get title => 'Ota Vastaan';
+  String get title => 'Ota vastaan';
   @override
   late final _TranslationsReceiveTabInfoBoxFi infoBox = _TranslationsReceiveTabInfoBoxFi._(_root);
   @override
@@ -212,7 +223,7 @@ class _TranslationsSendTabFi extends TranslationsSendTabEn {
   @override
   String get help => 'Varmista, että haluttu kohde on myös samassa Wi-Fi-verkossa.';
   @override
-  String get placeItems => 'Lissä tiedostot tähän, jakaaksesi ne.';
+  String get placeItems => 'Lisää tiedostot tähän, jotta voit lähettää ne.';
 }
 
 // Path: settingsTab
@@ -273,7 +284,7 @@ class _TranslationsReceiveHistoryPageFi extends TranslationsReceiveHistoryPageEn
   @override
   String get openFolder => 'Avaa kansio';
   @override
-  String get deleteHistory => 'Poista historia';
+  String get deleteHistory => 'Tyhjennä historia';
   @override
   String get empty => 'Historia on tyhjä.';
   @override
@@ -318,8 +329,8 @@ class _TranslationsReceivePageFi extends TranslationsReceivePageEn {
   @override
   String subTitle({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('fi'))(
     n,
-    one: 'haluaa lähettää sinulle tiedoston',
-    other: 'haluaa lähettää sinulle ${n} tiedostoa',
+    one: 'on lähettämässä sinulle tiedostoa',
+    other: 'on lähettämässä sinulle ${n} tiedostoa',
   );
   @override
   String get subTitleMessage => 'lähetti sinulle viestin:';
@@ -339,13 +350,13 @@ class _TranslationsReceiveOptionsPageFi extends TranslationsReceiveOptionsPageEn
   @override
   String get title => 'Asetukset';
   @override
-  String get destination => _root.settingsTab.receive.destination;
+  String get destination => 'Vastaanottoasetukset';
   @override
   String get appDirectory => '(LocalSend-kansio)';
   @override
-  String get saveToGallery => _root.settingsTab.receive.saveToGallery;
+  String get saveToGallery => 'Tallenna galleriaan';
   @override
-  String get saveToGalleryOff => 'Poistettu käytöstä automaattisesti, koska hakemistoja on olemassa.';
+  String get saveToGalleryOff => 'Poistettu käytöstä automaattisesti, koska lähetetyissä tiedostoissa on kansioita.';
 }
 
 // Path: sendPage
@@ -358,9 +369,11 @@ class _TranslationsSendPageFi extends TranslationsSendPageEn {
   @override
   String get waiting => 'Odotetaan vastausta...';
   @override
-  String get rejected => 'Vastaanottaja on hylännyt pyynnön.';
+  String get rejected => 'Vastaanottaja on peruuttanut pyynnön.';
   @override
-  String get busy => 'Vastaanottaja käsittelee toista pyyntöä.';
+  String get busy => 'Vastaanottaja vastaanottaa toista pyyntöä.';
+  @override
+  String get tooManyAttempts => 'Liian monta yritystä';
 }
 
 // Path: progressPage
@@ -378,6 +391,8 @@ class _TranslationsProgressPageFi extends TranslationsProgressPageEn {
   String get savedToGallery => 'Tallennettu Kuvat-kansioon';
   @override
   late final _TranslationsProgressPageTotalFi total = _TranslationsProgressPageTotalFi._(_root);
+  @override
+  late final _TranslationsProgressPageRemainingTimeFi remainingTime = _TranslationsProgressPageRemainingTimeFi._(_root);
 }
 
 // Path: webSharePage
@@ -390,9 +405,9 @@ class _TranslationsWebSharePageFi extends TranslationsWebSharePageEn {
   @override
   String get title => 'Jaa linkin kautta';
   @override
-  String get loading => 'Palvelimen käynnistys...';
+  String get loading => 'Käynnistetään palvelinta…';
   @override
-  String get stopping => 'Palvelimen pysäytys...';
+  String get stopping => 'Pysäytetään palvelinta…';
   @override
   String get error => 'Palvelimen käynnistyksessä tapahtui virhe.';
   @override
@@ -402,15 +417,15 @@ class _TranslationsWebSharePageFi extends TranslationsWebSharePageEn {
     other: 'Avaa jokin näistä linkeistä selaimessasi:',
   );
   @override
-  String get requests => 'Pyyntöjä';
+  String get requests => 'Pyynnöt';
   @override
   String get noRequests => 'Ei pyyntöjä vielä.';
   @override
-  String get encryption => _root.settingsTab.network.encryption;
+  String get encryption => 'Verkon salaus';
   @override
   String get autoAccept => 'Hyväksy pyynnöt automaattisesti';
   @override
-  String get requirePin => 'Vaadi PIN';
+  String get requirePin => 'Vaadi PIN-koodi';
   @override
   String pinHint({required Object pin}) => 'PIN-koodi on "${pin}"';
   @override
@@ -430,8 +445,8 @@ class _TranslationsAboutPageFi extends TranslationsAboutPageEn {
   String get title => 'Tietoja LocalSendista';
   @override
   List<String> get description => [
-    'LocalSend on ilmainen, avoimen lähdekoodin sovellus, jonka avulla voit turvallisesti jakaa tiedostoja ja viestejä läheisten laitteiden kanssa paikallisverkossasi ilman internet-yhteyttä.',
-    'Tämä sovellus on saatavilla Androidille, iOS:lle, macOS:lle, Windowsille ja Linuxille. Kaikki latausvaihtoehdot löytyvät virallisilta kotisivuilta.',
+    'LocalSend on ilmainen, avoimen lähdekoodin sovellus, jonka avulla voit turvallisesti jakaa tiedostoja ja lähettää viestejä läheisten laitteiden kanssa paikallisessa verkossasi ilman internet-yhteyttä.',
+    'LocalSend on saatavilla Androidille, iOS:lle, Linuxille, macOS:lle ja Windowsille. Kaikki latausvaihtoehdot löytyvät virallisilta kotisivuilta.',
   ];
   @override
   String get author => 'Tekijä';
@@ -454,11 +469,11 @@ class _TranslationsDonationPageFi extends TranslationsDonationPageEn {
   String get title => 'Lahjoita';
   @override
   String get info =>
-      'LocalSend on ilmainen, avoimen lähdekoodin sovellus ilman mainoksia. Jos pidät sovelluksesta, voit tukea kehitystä lahjoituksella.';
+      'LocalSend on ilmainen, avoimen lähdekoodin sovellus ilman mainoksia. Voit tukea projektia lahjoituksella, jos pidät sovelluksesta.';
   @override
   String donate({required Object amount}) => 'Lahjoita ${amount}';
   @override
-  String get thanks => 'Suurkiitokset!';
+  String get thanks => 'Suuret kiitokset!';
   @override
   String get restore => 'Palauta ostos';
 }
@@ -744,6 +759,26 @@ class _TranslationsAssetPickerFi extends TranslationsAssetPickerEn {
   String get sUnitAssetCountLabel => 'määrä';
 }
 
+// Path: networkInterfacesPage
+class _TranslationsNetworkInterfacesPageFi extends TranslationsNetworkInterfacesPageEn {
+  _TranslationsNetworkInterfacesPageFi._(TranslationsFi root) : this._root = root, super.internal(root);
+
+  final TranslationsFi _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Verkkokäyttöliittymät';
+  @override
+  String get info =>
+      'Oletuksena LocalSend käyttää kaikkia saatavilla olevia verkkoliitäntöjä. Voit sulkea pois verkkoliitännät, joita et halua. Sinun tulee uudelleenkäynnistää LocalSend ottaaksesi muutokset käyttöön.';
+  @override
+  String get preview => 'Esikatselu';
+  @override
+  String get whitelist => 'Sallittujen lista';
+  @override
+  String get blacklist => 'Estettyjen lista';
+}
+
 // Path: receiveTab.infoBox
 class _TranslationsReceiveTabInfoBoxFi extends TranslationsReceiveTabInfoBoxEn {
   _TranslationsReceiveTabInfoBoxFi._(TranslationsFi root) : this._root = root, super.internal(root);
@@ -752,7 +787,7 @@ class _TranslationsReceiveTabInfoBoxFi extends TranslationsReceiveTabInfoBoxEn {
 
   // Translations
   @override
-  String get ip => 'IP:';
+  String get ip => 'IP-osoite:';
   @override
   String get port => 'Portti:';
   @override
@@ -768,6 +803,10 @@ class _TranslationsReceiveTabQuickSaveFi extends TranslationsReceiveTabQuickSave
   // Translations
   @override
   String get favorites => 'Suosikit';
+  @override
+  String get off => _root.general.off;
+  @override
+  String get on => _root.general.on;
 }
 
 // Path: sendTab.selection
@@ -868,7 +907,7 @@ class _TranslationsSettingsTabReceiveFi extends TranslationsSettingsTabReceiveEn
   @override
   String get title => 'Vastaanotto';
   @override
-  String get quickSave => _root.general.quickSave;
+  String get quickSave => 'Automaattinen tallennus';
   @override
   String get autoFinish => 'Automaattinen lopetus';
   @override
@@ -879,6 +918,10 @@ class _TranslationsSettingsTabReceiveFi extends TranslationsSettingsTabReceiveEn
   String get saveToGallery => 'Tallenna media galleriaan';
   @override
   String get saveToHistory => 'Tallenna historiaan';
+  @override
+  String get quickSaveFromFavorites => 'Automaattinen tallennus suosikeista';
+  @override
+  String get requirePin => 'Kiinnitä';
 }
 
 // Path: settingsTab.send
@@ -904,7 +947,7 @@ class _TranslationsSettingsTabNetworkFi extends TranslationsSettingsTabNetworkEn
   @override
   String get title => 'Verkko';
   @override
-  String get needRestart => 'Uudelleenkäynnistä palvelin ottaaksesi asetukset käyttöön!';
+  String get needRestart => 'Käynnistä LocalSend uudelleen saadaksesi muutokset käyttöön!';
   @override
   String get server => 'Palvelin';
   @override
@@ -931,6 +974,10 @@ class _TranslationsSettingsTabNetworkFi extends TranslationsSettingsTabNetworkEn
   @override
   String multicastGroupWarning({required Object defaultMulticast}) =>
       'Sinua ei ehkä havaita muiden laitteiden toimesta, koska käytät mukautettua multicast-osoitetta. (oletus: ${defaultMulticast})';
+  @override
+  late final _TranslationsSettingsTabNetworkNetworkOptionsFi networkOptions = _TranslationsSettingsTabNetworkNetworkOptionsFi._(_root);
+  @override
+  String get network => 'Verkko';
 }
 
 // Path: settingsTab.other
@@ -961,12 +1008,12 @@ class _TranslationsTroubleshootPageFirewallFi extends TranslationsTroubleshootPa
   // Translations
   @override
   String get symptom =>
-      'Tämä sovellus voi lähettää tiedostoja muihin laitteisiin; mutta muut laitteet eivät voi lähettää tiedostoja tähän laitteeseen.';
+      'Tämä sovellus voi lähettää tiedostoja muihin laitteisiin, mutta muut laitteet eivät voi lähettää tiedostoja tähän laitteeseen.';
   @override
   String solution({required Object port}) =>
       'Tämä on todennäköisesti palomuuriongelma. Voit ratkaista tämän sallimalla saapuvat yhteydet (UDP ja TCP) porttiin ${port}.';
   @override
-  String get openFirewallSettings => 'Avaa palomuuri';
+  String get openFirewall => 'Avaa palomuuri';
 }
 
 // Path: troubleshootPage.noDiscovery
@@ -1024,11 +1071,32 @@ class _TranslationsProgressPageTotalFi extends TranslationsProgressPageTotalEn {
   @override
   late final _TranslationsProgressPageTotalTitleFi title = _TranslationsProgressPageTotalTitleFi._(_root);
   @override
-  String count({required Object curr, required Object n}) => 'Tiedostoja: ${curr} / ${n}';
+  String count({required Object curr, required Object n}) => 'Tiedostot: ${curr} / ${n}';
   @override
   String size({required Object curr, required Object n}) => 'Koko: ${curr} / ${n}';
   @override
   String speed({required Object speed}) => 'Nopeus: ${speed}/s';
+}
+
+// Path: progressPage.remainingTime
+class _TranslationsProgressPageRemainingTimeFi extends TranslationsProgressPageRemainingTimeEn {
+  _TranslationsProgressPageRemainingTimeFi._(TranslationsFi root) : this._root = root, super.internal(root);
+
+  final TranslationsFi _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String seconds({required Object n, required Object ss}) => '${n}:${ss}';
+  @override
+  String minutes({required Object n, required Object ss}) => '${n}:${ss}';
+
+  /// Käytä 'h' tuntien lyhenteenä ja 'm' minuuttien
+  @override
+  String hours({required Object h, required Object m}) => '${h}t ${m}m';
+
+  /// Käytä 'pv' päiville, 'h' tunneille ja 'm' minuuteille
+  @override
+  String days({required Object d, required Object h, required Object m}) => '${d}pv ${h}t ${m}m';
 }
 
 // Path: dialogs.addFile
@@ -1345,6 +1413,8 @@ class _TranslationsDialogsQuickSaveFromFavoritesNoticeFi extends TranslationsDia
     'Varoitus! Tällä hetkellä tämä ei ole täysin turvallista, koska hakkeri, jolla on minkä tahansa suosikkiluettelosi laitteen sormenjälki, voi lähettää sinulle tiedostoja ilman rajoituksia.',
     'Tämä vaihtoehto on kuitenkin turvallisempi kuin sallia kaikkien paikallisverkon käyttäjien lähettää sinulle tiedostoja ilman rajoituksia.',
   ];
+  @override
+  String get title => _root.general.quickSaveFromFavorites;
 }
 
 // Path: dialogs.pin
@@ -1425,6 +1495,19 @@ class _TranslationsSettingsTabGeneralLanguageOptionsFi extends TranslationsSetti
   String get system => 'Järjestelmä';
 }
 
+// Path: settingsTab.network.networkOptions
+class _TranslationsSettingsTabNetworkNetworkOptionsFi extends TranslationsSettingsTabNetworkNetworkOptionsEn {
+  _TranslationsSettingsTabNetworkNetworkOptionsFi._(TranslationsFi root) : this._root = root, super.internal(root);
+
+  final TranslationsFi _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get all => 'Kaikki';
+  @override
+  String get filtered => 'Suodatettu';
+}
+
 // Path: progressPage.total.title
 class _TranslationsProgressPageTotalTitleFi extends TranslationsProgressPageTotalTitleEn {
   _TranslationsProgressPageTotalTitleFi._(TranslationsFi root) : this._root = root, super.internal(root);
@@ -1433,7 +1516,7 @@ class _TranslationsProgressPageTotalTitleFi extends TranslationsProgressPageTota
 
   // Translations
   @override
-  String sending({required Object time}) => 'Edistyminen yhteensä (${time})';
+  String sending({required Object time}) => 'Lähetysprosessi (${time})';
   @override
   String get finishedError => 'Päättynyt virheellä';
   @override

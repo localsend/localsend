@@ -1,5 +1,6 @@
 #include "my_application.h"
 
+#include <cstddef>
 #include <flutter_linux/flutter_linux.h>
 #ifdef GDK_WINDOWING_X11
 #include <gdk/gdkx.h>
@@ -23,6 +24,17 @@ static void my_application_activate(GApplication* application) {
   GtkWindow* window =
       GTK_WINDOW(gtk_application_window_new(GTK_APPLICATION(application)));
 
+  // Check if --hidden is present in arguments
+  bool start_hidden = false;
+  if (self->dart_entrypoint_arguments != nullptr) {
+    for (int i = 0; self->dart_entrypoint_arguments[i] != nullptr; i++) {
+      if (strcmp(self->dart_entrypoint_arguments[i], "--hidden") == 0) {
+        start_hidden = true;
+        break;
+      }
+    }
+  }
+
   // If have GTK_CSD in env and it is equal to 1 then add the gtk header bar
   // to always use client side decorations
   const char* GTK_CSD = getenv("GTK_CSD");
@@ -37,7 +49,14 @@ static void my_application_activate(GApplication* application) {
   }
 
   gtk_window_set_default_size(window, 400, 500);
-  gtk_widget_show(GTK_WIDGET(window));
+
+  if (!start_hidden) {
+    gtk_widget_show(GTK_WIDGET(window));
+  } else {
+    // Realize the window so plugins (like tray) can initialize, 
+    // but don't map it to the screen.
+    gtk_widget_realize(GTK_WIDGET(window));
+  }
 
   g_autoptr(FlDartProject) project = fl_dart_project_new();
   fl_dart_project_set_dart_entrypoint_arguments(project, self->dart_entrypoint_arguments);
@@ -48,7 +67,9 @@ static void my_application_activate(GApplication* application) {
 
   fl_register_plugins(FL_PLUGIN_REGISTRY(view));
 
-  gtk_widget_grab_focus(GTK_WIDGET(view));
+  if (!start_hidden) {
+    gtk_widget_grab_focus(GTK_WIDGET(view));
+  }
 }
 
 // Implements GApplication::local_command_line.

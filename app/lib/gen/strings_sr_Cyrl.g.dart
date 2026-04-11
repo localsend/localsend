@@ -13,21 +13,30 @@ import 'strings.g.dart';
 class TranslationsSrCyrl extends Translations {
   /// You can call this constructor and build your own translation instance of this locale.
   /// Constructing via the enum [AppLocale.build] is preferred.
-  TranslationsSrCyrl({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
-    : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-      $meta = TranslationMetadata(
-        locale: AppLocale.srCyrl,
-        overrides: overrides ?? {},
-        cardinalResolver: cardinalResolver,
-        ordinalResolver: ordinalResolver,
-      ),
-      super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+  TranslationsSrCyrl({
+    Map<String, Node>? overrides,
+    PluralResolver? cardinalResolver,
+    PluralResolver? ordinalResolver,
+    TranslationMetadata<AppLocale, Translations>? meta,
+  }) : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
+       $meta =
+           meta ??
+           TranslationMetadata(
+             locale: AppLocale.srCyrl,
+             overrides: overrides ?? {},
+             cardinalResolver: cardinalResolver,
+             ordinalResolver: ordinalResolver,
+           ),
+       super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
 
   /// Metadata for the translations of <sr-Cyrl>.
   @override
   final TranslationMetadata<AppLocale, Translations> $meta;
 
   late final TranslationsSrCyrl _root = this; // ignore: unused_field
+
+  @override
+  TranslationsSrCyrl $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => TranslationsSrCyrl(meta: meta ?? this.$meta);
 
   // Translations
   @override
@@ -318,8 +327,11 @@ class _TranslationsReceivePageSrCyrl extends TranslationsReceivePageEn {
 
   // Translations
   @override
-  String subTitle({required num n}) =>
-      (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('sr'))(n, one: 'жели да вам пошаље фајл', other: 'жели да вам пошаље ${n} фајлова');
+  String subTitle({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('sr'))(
+    n,
+    one: 'жели да вам пошаље фајл',
+    other: 'жели да вам пошаље ${n} фајлова',
+  );
   @override
   String get subTitleMessage => 'послао вам је поруку:';
   @override
@@ -995,7 +1007,7 @@ class _TranslationsTroubleshootPageFirewallSrCyrl extends TranslationsTroublesho
   String solution({required Object port}) =>
       'Ово је највероватније проблем са заштитним зидом. Ово можете решити тако што ћете дозволити долазне везе (UDP и TCP) на порту ${port}.';
   @override
-  String get openFirewallSettings => 'Отвори заштитни зид';
+  String get openFirewall => 'Отвори заштитни зид';
 }
 
 // Path: troubleshootPage.noDiscovery

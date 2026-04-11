@@ -13,21 +13,30 @@ import 'strings.g.dart';
 class TranslationsPtBr extends Translations {
   /// You can call this constructor and build your own translation instance of this locale.
   /// Constructing via the enum [AppLocale.build] is preferred.
-  TranslationsPtBr({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
-    : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-      $meta = TranslationMetadata(
-        locale: AppLocale.ptBr,
-        overrides: overrides ?? {},
-        cardinalResolver: cardinalResolver,
-        ordinalResolver: ordinalResolver,
-      ),
-      super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+  TranslationsPtBr({
+    Map<String, Node>? overrides,
+    PluralResolver? cardinalResolver,
+    PluralResolver? ordinalResolver,
+    TranslationMetadata<AppLocale, Translations>? meta,
+  }) : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
+       $meta =
+           meta ??
+           TranslationMetadata(
+             locale: AppLocale.ptBr,
+             overrides: overrides ?? {},
+             cardinalResolver: cardinalResolver,
+             ordinalResolver: ordinalResolver,
+           ),
+       super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
 
   /// Metadata for the translations of <pt-BR>.
   @override
   final TranslationMetadata<AppLocale, Translations> $meta;
 
   late final TranslationsPtBr _root = this; // ignore: unused_field
+
+  @override
+  TranslationsPtBr $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => TranslationsPtBr(meta: meta ?? this.$meta);
 
   // Translations
   @override
@@ -108,13 +117,13 @@ class _TranslationsGeneralPtBr extends TranslationsGeneralEn {
   @override
   String get copy => 'Copiar';
   @override
-  String get copiedToClipboard => 'Copiado para a Área de Transferência';
+  String get copiedToClipboard => 'Copiado pra área de transferência';
   @override
-  String get decline => 'Rejeitar';
+  String get decline => 'Recusar';
   @override
-  String get done => 'Completo';
+  String get done => 'Pronto';
   @override
-  String get delete => 'Excluir';
+  String get delete => 'Apagar';
   @override
   String get edit => 'Editar';
   @override
@@ -128,25 +137,25 @@ class _TranslationsGeneralPtBr extends TranslationsGeneralEn {
   @override
   String get hide => 'Ocultar';
   @override
-  String get off => 'Desabilitado';
+  String get off => 'Desativado';
   @override
-  String get offline => 'Offline';
+  String get offline => 'Off-line';
   @override
-  String get on => 'Habilitado';
+  String get on => 'Ativado';
   @override
-  String get online => 'Online';
+  String get online => 'On-line';
   @override
   String get open => 'Abrir';
   @override
   String get queue => 'Fila';
   @override
-  String get quickSave => 'Salvamento Rápido';
+  String get quickSave => 'Salvar rápido';
   @override
-  String get quickSaveFromFavorites => 'salvar rapidamente dos "Favoritos"';
+  String get quickSaveFromFavorites => 'Salvar rápido para "Favoritos"';
   @override
   String get renamed => 'Renomeado';
   @override
-  String get reset => 'Redefinir';
+  String get reset => 'Desfazer alterações';
   @override
   String get restart => 'Reiniciar';
   @override
@@ -154,7 +163,7 @@ class _TranslationsGeneralPtBr extends TranslationsGeneralEn {
   @override
   String get skipped => 'Pulado';
   @override
-  String get start => 'Começar';
+  String get start => 'Iniciar';
   @override
   String get stop => 'Parar';
   @override
@@ -199,7 +208,7 @@ class _TranslationsSendTabPtBr extends TranslationsSendTabEn {
   String get shareIntentInfo =>
       'Você também pode usar o recurso "Compartilhar" do seu dispositivo móvel para selecionar arquivos com mais facilidade.';
   @override
-  String get nearbyDevices => 'Dispositivos próximos';
+  String get nearbyDevices => 'Dispositivos por perto';
   @override
   String get thisDevice => 'Este dispositivo';
   @override
@@ -213,9 +222,9 @@ class _TranslationsSendTabPtBr extends TranslationsSendTabEn {
   @override
   String get sendModeHelp => 'Explicação';
   @override
-  String get help => 'Por favor, certifique-se de que ambos os dispositivos estejam na mesma rede Wi-Fi.';
+  String get help => 'Certifique-se de que ambos os dispositivos estão na mesma rede Wi-Fi.';
   @override
-  String get placeItems => 'Coloque os itens para compartilhar.';
+  String get placeItems => 'Insira os itens que quer compartilhar.';
 }
 
 // Path: settingsTab
@@ -249,9 +258,9 @@ class _TranslationsTroubleshootPagePtBr extends TranslationsTroubleshootPageEn {
 
   // Translations
   @override
-  String get title => 'Diagnostique problemas';
+  String get title => 'Resolução de problemas';
   @override
-  String get subTitle => 'Este aplicativo não está funcionando como esperado? Aqui você pode encontrar soluções comuns.';
+  String get subTitle => 'Este aplicativo não está funcionando como esperado? Aqui você pode encontrar soluções para problemas comuns.';
   @override
   String get solution => 'Solução:';
   @override
@@ -276,7 +285,7 @@ class _TranslationsReceiveHistoryPagePtBr extends TranslationsReceiveHistoryPage
   @override
   String get openFolder => 'Abrir pasta';
   @override
-  String get deleteHistory => 'Excluir histórico';
+  String get deleteHistory => 'Apagar histórico';
   @override
   String get empty => 'O histórico está vazio.';
   @override
@@ -293,11 +302,11 @@ class _TranslationsApkPickerPagePtBr extends TranslationsApkPickerPageEn {
   @override
   String get title => 'Aplicativos (APK)';
   @override
-  String get excludeSystemApps => 'Ocultar aplicativos do sistema';
+  String get excludeSystemApps => 'Excluir aplicativos do sistema';
   @override
-  String get excludeAppsWithoutLaunchIntent => 'Ocultar aplicativos não executáveis';
+  String get excludeAppsWithoutLaunchIntent => 'Excluir aplicativos não executáveis';
   @override
-  String apps({required Object n}) => '${n} Aplicativos';
+  String apps({required Object n}) => '${n} aplicativos';
 }
 
 // Path: selectedFilesPage
@@ -308,7 +317,7 @@ class _TranslationsSelectedFilesPagePtBr extends TranslationsSelectedFilesPageEn
 
   // Translations
   @override
-  String get deleteAll => 'Remover tudo';
+  String get deleteAll => 'Apagar tudo';
 }
 
 // Path: receivePage
@@ -319,12 +328,15 @@ class _TranslationsReceivePagePtBr extends TranslationsReceivePageEn {
 
   // Translations
   @override
-  String subTitle({required num n}) =>
-      (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('pt'))(n, one: 'quer enviar um arquivo', other: 'quer enviar ${n} arquivos');
+  String subTitle({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('pt'))(
+    n,
+    one: 'quer te enviar um arquivo',
+    other: 'quer te enviar ${n} arquivos',
+  );
   @override
-  String get subTitleMessage => 'enviou uma mensagem:';
+  String get subTitleMessage => 'te enviou uma mensagem:';
   @override
-  String get subTitleLink => 'enviou um link:';
+  String get subTitleLink => 'te enviou um link:';
   @override
   String get canceled => 'O remetente cancelou a solicitação.';
 }
@@ -341,11 +353,11 @@ class _TranslationsReceiveOptionsPagePtBr extends TranslationsReceiveOptionsPage
   @override
   String get destination => _root.settingsTab.receive.destination;
   @override
-  String get appDirectory => '(pasta LocalSend)';
+  String get appDirectory => '(pasta do LocalSend)';
   @override
   String get saveToGallery => _root.settingsTab.receive.saveToGallery;
   @override
-  String get saveToGalleryOff => 'Opção desligada automaticamente pois uma pasta está sendo transferida.';
+  String get saveToGalleryOff => 'Desativada automaticamente pois há pastas.';
 }
 
 // Path: sendPage
@@ -362,7 +374,7 @@ class _TranslationsSendPagePtBr extends TranslationsSendPageEn {
   @override
   String get tooManyAttempts => _root.web.tooManyAttempts;
   @override
-  String get busy => 'O destinatário está ocupado com outra solicitação de transferência.';
+  String get busy => 'O destinatário está ocupado com outra solicitação.';
 }
 
 // Path: progressPage
@@ -380,6 +392,8 @@ class _TranslationsProgressPagePtBr extends TranslationsProgressPageEn {
   String get savedToGallery => 'Salvo na Galeria';
   @override
   late final _TranslationsProgressPageTotalPtBr total = _TranslationsProgressPageTotalPtBr._(_root);
+  @override
+  late final _TranslationsProgressPageRemainingTimePtBr remainingTime = _TranslationsProgressPageRemainingTimePtBr._(_root);
 }
 
 // Path: webSharePage
@@ -390,18 +404,18 @@ class _TranslationsWebSharePagePtBr extends TranslationsWebSharePageEn {
 
   // Translations
   @override
-  String get title => 'Compartilhe via link';
+  String get title => 'Compartilhar via link';
   @override
   String get loading => 'Iniciando o servidor…';
   @override
   String get stopping => 'Parando o servidor…';
   @override
-  String get error => 'Um erro ocorreu enquanto o servidor tentava iniciar.';
+  String get error => 'Ocorreu um erro ao iniciar o servidor.';
   @override
   String openLink({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('pt'))(
     n,
-    one: 'Abra este link no navegador:',
-    other: 'Abra um desses links no navegador:',
+    one: 'Abra este link no seu navegador:',
+    other: 'Abra um destes links no seu navegador:',
   );
   @override
   String get requests => 'Solicitações';
@@ -410,13 +424,13 @@ class _TranslationsWebSharePagePtBr extends TranslationsWebSharePageEn {
   @override
   String get encryption => _root.settingsTab.network.encryption;
   @override
-  String get autoAccept => 'Aceitar pedidos automaticamente';
+  String get autoAccept => 'Aceitar solicitações automaticamente';
   @override
   String get requirePin => 'Solicitar PIN';
   @override
   String pinHint({required Object pin}) => 'O PIN é "${pin}"';
   @override
-  String get encryptionHint => 'LocalSend utiliza um certificado autoassinado. Você precisa aceitá-lo no navegador.';
+  String get encryptionHint => 'O LocalSend utiliza um certificado autoassinado. Você precisa aceitá-lo no seu navegador.';
   @override
   String pendingRequests({required Object n}) => 'Solicitações pendentes: ${n}';
 }
@@ -429,10 +443,10 @@ class _TranslationsAboutPagePtBr extends TranslationsAboutPageEn {
 
   // Translations
   @override
-  String get title => 'Sobre LocalSend';
+  String get title => 'Sobre o LocalSend';
   @override
   List<String> get description => [
-    'LocalSend é um aplicativo gratuito e de código aberto que permite compartilhar arquivos e mensagens de forma segura com dispositivos próximos através da sua rede local, sem a necessidade de uma conexão com a internet.',
+    'O LocalSend é um aplicativo gratuito, de código aberto, que permite compartilhar arquivos e mensagens com dispositivos próximos através da sua rede local, sem a necessidade de uma conexão à internet.',
     'Este aplicativo está disponível para Android, iOS, macOS, Windows e Linux. Você pode encontrar todas as opções de download na página oficial.',
   ];
   @override
@@ -453,10 +467,10 @@ class _TranslationsDonationPagePtBr extends TranslationsDonationPageEn {
 
   // Translations
   @override
-  String get title => 'Doar';
+  String get title => 'Doe';
   @override
   String get info =>
-      'LocalSend é gratuito, de código aberto e sem nenhum anúncio. Se tu curte o app, então considere apoiar o desenvolvimento com uma doação.';
+      'O LocalSend é gratuito, de código aberto e não tem anúncios. Se tu curte o app, então pense em apoiar o desenvolvimento com uma doação.';
   @override
   String donate({required Object amount}) => 'Doar ${amount}';
   @override
@@ -473,7 +487,7 @@ class _TranslationsChangelogPagePtBr extends TranslationsChangelogPageEn {
 
   // Translations
   @override
-  String get title => 'Histórico de alterações';
+  String get title => 'Registro de alterações';
 }
 
 // Path: aliasGenerator
@@ -632,7 +646,7 @@ class _TranslationsTrayPtBr extends TranslationsTrayEn {
   @override
   String get open => _root.general.open;
   @override
-  String get close => 'Fechar LocalSend';
+  String get close => 'Sair do LocalSend';
   @override
   String get closeWindows => 'Sair';
 }
@@ -653,7 +667,7 @@ class _TranslationsWebPtBr extends TranslationsWebEn {
   @override
   String get tooManyAttempts => 'Muitas tentativas';
   @override
-  String get rejected => 'Conexão Rejeitada';
+  String get rejected => 'Recusado';
   @override
   String get files => 'Arquivos';
   @override
@@ -680,17 +694,17 @@ class _TranslationsAssetPickerPtBr extends TranslationsAssetPickerEn {
   @override
   String get loadFailed => 'Falha ao carregar';
   @override
-  String get original => 'Original';
+  String get original => 'Origem';
   @override
-  String get preview => 'Prévia';
+  String get preview => 'Pré-visualização';
   @override
   String get select => 'Selecionar';
   @override
-  String get emptyList => 'Lista Vazia';
+  String get emptyList => 'Lista vazia';
   @override
-  String get unSupportedAssetType => 'Este tipo de arquivo não é suportado.';
+  String get unSupportedAssetType => 'Não há suporte para o tipo de arquivo.';
   @override
-  String get unableToAccessAll => 'Incapaz de acessar todos os arquivos do dispositivo';
+  String get unableToAccessAll => 'Não é possível acessar todos os arquivos do dispositivo';
   @override
   String get viewingLimitedAssetsTip => 'Somente visualizar arquivos e álbuns acessíveis ao aplicativo.';
   @override
@@ -699,7 +713,7 @@ class _TranslationsAssetPickerPtBr extends TranslationsAssetPickerEn {
   String get accessAllTip =>
       'O aplicativo só pode acessar alguns arquivos no dispositivo. Vá às configurações do sistema e permita que o aplicativo acesse todas as mídias do dispositivo.';
   @override
-  String get goToSystemSettings => 'Ir para configurações do sistema';
+  String get goToSystemSettings => 'Ir pras configurações do sistema';
   @override
   String get accessLimitedAssets => 'Continuar com acesso limitado';
   @override
@@ -715,17 +729,17 @@ class _TranslationsAssetPickerPtBr extends TranslationsAssetPickerEn {
   @override
   String get sActionPlayHint => 'reproduzir';
   @override
-  String get sActionPreviewHint => 'prévia';
+  String get sActionPreviewHint => 'pré-visualizar';
   @override
   String get sActionSelectHint => 'selecionar';
   @override
   String get sActionSwitchPathLabel => 'mudar o caminho';
   @override
-  String get sActionUseCameraHint => 'use a câmera';
+  String get sActionUseCameraHint => 'usar a câmera';
   @override
   String get sNameDurationLabel => 'duração';
   @override
-  String get sUnitAssetCountLabel => 'Total';
+  String get sUnitAssetCountLabel => 'contagem';
 }
 
 // Path: networkInterfacesPage
@@ -736,14 +750,14 @@ class _TranslationsNetworkInterfacesPagePtBr extends TranslationsNetworkInterfac
 
   // Translations
   @override
-  String get whitelist => 'Lista branca';
+  String get whitelist => 'Lista de permissão';
   @override
-  String get blacklist => 'Lista negra';
+  String get blacklist => 'Lista de bloqueio';
   @override
   String get info =>
       'Por padrão, o LocalSend utiliza todas as interfaces de rede disponíveis. Você pode excluir as redes indesejadas aqui. É necessário reiniciar o servidor para aplicar as alterações.';
   @override
-  String get preview => 'Anterior';
+  String get preview => 'Pré-visualização';
   @override
   String get title => 'Interfaces de rede';
 }
@@ -760,7 +774,7 @@ class _TranslationsReceiveTabInfoBoxPtBr extends TranslationsReceiveTabInfoBoxEn
   @override
   String get port => 'Porta:';
   @override
-  String get alias => 'Nome:';
+  String get alias => 'Nome do dispositivo:';
 }
 
 // Path: receiveTab.quickSave
@@ -824,9 +838,9 @@ class _TranslationsSendTabSendModesPtBr extends TranslationsSendTabSendModesEn {
   @override
   String get single => 'Único destinatário';
   @override
-  String get multiple => 'Múltiplos destinatários';
+  String get multiple => 'Vários destinatários';
   @override
-  String get link => 'Compartilhe via link';
+  String get link => 'Compartilhar via link';
 }
 
 // Path: settingsTab.general
@@ -857,7 +871,7 @@ class _TranslationsSettingsTabGeneralPtBr extends TranslationsSettingsTabGeneral
   @override
   String get minimizeToTray => 'Minimizar para a bandeja ao fechar';
   @override
-  String get launchAtStartup => 'Abrir automaticamente após o login';
+  String get launchAtStartup => 'Abrir junto com o usuário';
   @override
   String get launchMinimized => 'Início automático: Abrir minimizado';
   @override
@@ -874,21 +888,21 @@ class _TranslationsSettingsTabReceivePtBr extends TranslationsSettingsTabReceive
 
   // Translations
   @override
-  String get title => 'Recebimento';
+  String get title => 'Recepção';
   @override
   String get quickSave => _root.general.quickSave;
   @override
-  String get quickSaveFromFavorites => 'Salvar rapidamente dos "Favoritos"';
+  String get quickSaveFromFavorites => _root.general.quickSaveFromFavorites;
   @override
   String get requirePin => _root.webSharePage.requirePin;
   @override
-  String get autoFinish => 'Concluir Automaticamente';
+  String get autoFinish => 'Concluir automaticamente';
   @override
-  String get destination => 'Destino';
+  String get destination => 'Pasta de destino';
   @override
   String get downloads => '(Downloads)';
   @override
-  String get saveToGallery => 'Salvar mídia na Galeria';
+  String get saveToGallery => 'Salvar mídia na galeria';
   @override
   String get saveToHistory => 'Salvar no histórico';
 }
@@ -901,9 +915,9 @@ class _TranslationsSettingsTabSendPtBr extends TranslationsSettingsTabSendEn {
 
   // Translations
   @override
-  String get title => 'Enviar';
+  String get title => 'Envio';
   @override
-  String get shareViaLinkAutoAccept => 'Aceitar automaticamente pedidos no modo "Compartilhar por link"';
+  String get shareViaLinkAutoAccept => 'Aceitar solicitações por link automaticamente';
 }
 
 // Path: settingsTab.network
@@ -920,9 +934,9 @@ class _TranslationsSettingsTabNetworkPtBr extends TranslationsSettingsTabNetwork
   @override
   String get server => 'Servidor';
   @override
-  String get alias => 'Nome';
+  String get alias => 'Nome do dispositivo';
   @override
-  String get deviceType => 'Tipo de dispositivo';
+  String get deviceType => 'Tipo do dispositivo';
   @override
   String get deviceModel => 'Modelo do dispositivo';
   @override
@@ -939,10 +953,10 @@ class _TranslationsSettingsTabNetworkPtBr extends TranslationsSettingsTabNetwork
   @override
   String get encryption => 'Criptografia';
   @override
-  String get multicastGroup => 'Multicast';
+  String get multicastGroup => 'Endereço de multicast';
   @override
   String multicastGroupWarning({required Object defaultMulticast}) =>
-      'Você pode estar indetectável para outros dispositivos por estar usando um endereço multicast customizado. (Padrão: ${defaultMulticast})';
+      'Você pode estar indetectável para outros dispositivos por estar usando um endereço de multicast customizado. (Padrão: ${defaultMulticast})';
   @override
   String get network => 'Rede';
   @override
@@ -957,15 +971,15 @@ class _TranslationsSettingsTabOtherPtBr extends TranslationsSettingsTabOtherEn {
 
   // Translations
   @override
-  String get title => 'Outros';
+  String get title => 'Outras';
   @override
-  String get support => 'Suporte o LocalSend';
+  String get support => 'Apoiar o LocalSend';
   @override
   String get donate => 'Doar';
   @override
-  String get privacyPolicy => 'Política de Privacidade';
+  String get privacyPolicy => 'Política de privacidade';
   @override
-  String get termsOfUse => 'Termos de Uso';
+  String get termsOfUse => 'Termos de uso';
 }
 
 // Path: troubleshootPage.firewall
@@ -980,9 +994,9 @@ class _TranslationsTroubleshootPageFirewallPtBr extends TranslationsTroubleshoot
       'Este aplicativo pode enviar arquivos para outros dispositivos, mas outros dispositivos não podem enviar arquivos para este dispositivo.';
   @override
   String solution({required Object port}) =>
-      'Provavelmente isto se trata de um problema de firewall. Você pode resolver esse problema permitindo conexões recebidas (UDP e TCP) na porta ${port}.';
+      'Provavelmente isto se trata de um problema de firewall. Você pode resolver esse problema permitindo conexões (UDP e TCP) recebidas na porta ${port}.';
   @override
-  String get openFirewallSettings => 'Abrir o Firewall';
+  String get openFirewall => 'Abrir Firewall';
 }
 
 // Path: troubleshootPage.noDiscovery
@@ -993,10 +1007,10 @@ class _TranslationsTroubleshootPageNoDiscoveryPtBr extends TranslationsTroublesh
 
   // Translations
   @override
-  String get symptom => 'Este dispositivo não consegue descobrir outros dispositivos.';
+  String get symptom => 'Este dispositivo não consegue encontrar outros dispositivos.';
   @override
   String get solution =>
-      'Certifique-se de que todos os dispositivos estão na mesma rede Wi-Fi e compartilham as mesmas configurações (porta, endereço multicast, criptografia). Você pode tentar digitar o endereço IP do dispositivo de destino manualmente. Se isto funcionar, considere adicionar este dispositivo aos favoritos, assim ele será descoberto automaticamente no futuro.';
+      'Certifique-se de que todos os dispositivos estão na mesma rede Wi-Fi e utilizam as mesmas configurações (porta, endereço de multicast, criptografia). Você pode tentar digitar o endereço IP do outro dispositivo manualmente. Se isto funcionar, considere adicionar este dispositivo aos favoritos, assim ele será descoberto automaticamente no futuro.';
 }
 
 // Path: troubleshootPage.noConnection
@@ -1007,10 +1021,10 @@ class _TranslationsTroubleshootPageNoConnectionPtBr extends TranslationsTroubles
 
   // Translations
   @override
-  String get symptom => 'Ambos os dispositivos não se detectam nem podem compartilhar arquivos entre si.';
+  String get symptom => 'Ambos os dispositivos não se encontram nem podem compartilhar arquivos entre si.';
   @override
   String get solution =>
-      'O problema existe em ambos os lados? Então você precisa ter certeza de que os dispositivos estão na mesma rede Wi-Fi e possuem a mesma configuração (porta, endereço multicast, criptografia). A rede Wi-Fi pode não permitir a comunicação entre os participantes. Neste caso, esta opção deve ser habilitada no roteador.';
+      'O problema acontece em ambos? Então você precisa ter certeza de que os dispositivos estão na mesma rede Wi-Fi e utilizam as mesmas configurações (porta, endereço de multicast, criptografia). A rede Wi-Fi pode não permitir a comunicação entre os participantes devido à isolação de ponto de acesso (AP). Neste caso, esta opção deve ser desativada no roteador.';
 }
 
 // Path: receiveHistoryPage.entryActions
@@ -1027,7 +1041,7 @@ class _TranslationsReceiveHistoryPageEntryActionsPtBr extends TranslationsReceiv
   @override
   String get info => 'Informações';
   @override
-  String get deleteFromHistory => 'Remover do histórico';
+  String get deleteFromHistory => 'Apagar do histórico';
 }
 
 // Path: progressPage.total
@@ -1045,6 +1059,27 @@ class _TranslationsProgressPageTotalPtBr extends TranslationsProgressPageTotalEn
   String size({required Object curr, required Object n}) => 'Tamanho: ${curr} / ${n}';
   @override
   String speed({required Object speed}) => 'Velocidade: ${speed}/s';
+}
+
+// Path: progressPage.remainingTime
+class _TranslationsProgressPageRemainingTimePtBr extends TranslationsProgressPageRemainingTimeEn {
+  _TranslationsProgressPageRemainingTimePtBr._(TranslationsPtBr root) : this._root = root, super.internal(root);
+
+  final TranslationsPtBr _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String seconds({required Object n, required Object ss}) => '${n}:${ss}';
+  @override
+  String minutes({required Object n, required Object ss}) => '${n}:${ss}';
+
+  /// Use 'h' para abreviar horas e 'm' para minutos
+  @override
+  String hours({required Object h, required Object m}) => '${h}h ${m}m';
+
+  /// Use 'd' para dias, 'h' para horas e 'm' para minutos
+  @override
+  String days({required Object d, required Object h, required Object m}) => '${d}d ${h}h ${m}m';
 }
 
 // Path: dialogs.addFile
@@ -1083,11 +1118,11 @@ class _TranslationsDialogsAddressInputPtBr extends TranslationsDialogsAddressInp
   @override
   String get title => 'Digite o endereço';
   @override
-  String get hashtag => 'Hashtag';
+  String get hashtag => 'Jogo da velha';
   @override
-  String get ip => 'Endereço IP';
+  String get ip => 'Endereço de IP';
   @override
-  String get recentlyUsed => 'Recém conectado: ';
+  String get recentlyUsed => 'Usado recentemente: ';
 }
 
 // Path: dialogs.cancelSession
@@ -1100,7 +1135,7 @@ class _TranslationsDialogsCancelSessionPtBr extends TranslationsDialogsCancelSes
   @override
   String get title => 'Cancelar transferência de arquivos';
   @override
-  String get content => 'Você realmente quer cancelar a transferência de arquivos?';
+  String get content => 'Você quer mesmo cancelar a transferência de arquivos?';
 }
 
 // Path: dialogs.cannotOpenFile
@@ -1113,7 +1148,7 @@ class _TranslationsDialogsCannotOpenFilePtBr extends TranslationsDialogsCannotOp
   @override
   String get title => 'Não foi possível abrir o arquivo';
   @override
-  String content({required Object file}) => 'Não foi possível abrir "${file}". O arquivo foi movido, renomeado ou excluído?';
+  String content({required Object file}) => 'Não foi possível abrir "${file}". Por acaso, o arquivo foi movido, renomeado ou excluído?';
 }
 
 // Path: dialogs.encryptionDisabledNotice
@@ -1126,7 +1161,7 @@ class _TranslationsDialogsEncryptionDisabledNoticePtBr extends TranslationsDialo
   @override
   String get title => 'Criptografia desativada';
   @override
-  String get content => 'A comunicação agora ocorre via protocolo HTTP não criptografado. Para usar HTTPS, ative a criptografia novamente.';
+  String get content => 'A comunicação agora ocorre via protocolo HTTP sem criptografia. Para usar o HTTPS, ative a criptografia novamente.';
 }
 
 // Path: dialogs.errorDialog
@@ -1163,9 +1198,9 @@ class _TranslationsDialogsFavoriteDeleteDialogPtBr extends TranslationsDialogsFa
 
   // Translations
   @override
-  String get title => 'Excluir favorito';
+  String get title => 'Apagar dos favoritos';
   @override
-  String content({required Object name}) => 'Você realmente deseja excluir "${name}" dos favoritos?';
+  String content({required Object name}) => 'Você quer mesmo apagar "${name}" dos favoritos?';
 }
 
 // Path: dialogs.favoriteEditDialog
@@ -1178,13 +1213,13 @@ class _TranslationsDialogsFavoriteEditDialogPtBr extends TranslationsDialogsFavo
   @override
   String get titleAdd => 'Adicionar aos favoritos';
   @override
-  String get titleEdit => 'Editar';
+  String get titleEdit => 'Configurações';
   @override
-  String get name => 'Apelido';
+  String get name => 'Nome do dispositivo';
   @override
-  String get auto => '(auto)';
+  String get auto => '(auto.)';
   @override
-  String get ip => 'Endereço IP';
+  String get ip => 'Endereço de IP';
   @override
   String get port => 'Porta';
 }
@@ -1207,7 +1242,7 @@ class _TranslationsDialogsFileInfoPtBr extends TranslationsDialogsFileInfoEn {
   @override
   String get sender => 'Remetente:';
   @override
-  String get time => 'Data:';
+  String get time => 'Horário:';
 }
 
 // Path: dialogs.fileNameInput
@@ -1233,7 +1268,7 @@ class _TranslationsDialogsHistoryClearDialogPtBr extends TranslationsDialogsHist
   @override
   String get title => 'Limpar histórico';
   @override
-  String get content => 'Você realmente deseja excluir todo o histórico?';
+  String get content => 'Você quer mesmo apagar todo o histórico?';
 }
 
 // Path: dialogs.localNetworkUnauthorized
@@ -1247,7 +1282,7 @@ class _TranslationsDialogsLocalNetworkUnauthorizedPtBr extends TranslationsDialo
   String get title => _root.dialogs.noPermission.title;
   @override
   String get description =>
-      'O LocalSend não consegue encontrar outros dispositivos sem ter a permissão para escanear a rede local. Por favor, conceda esta permissão nas configurações.';
+      'O LocalSend não consegue encontrar outros dispositivos sem ter a permissão para escanear a rede local. Conceda esta permissão nas configurações.';
   @override
   String get gotoSettings => 'Configurações';
 }
@@ -1262,7 +1297,7 @@ class _TranslationsDialogsMessageInputPtBr extends TranslationsDialogsMessageInp
   @override
   String get title => 'Digite a mensagem';
   @override
-  String get multiline => 'Múltiplas linhas';
+  String get multiline => 'Várias linhas';
 }
 
 // Path: dialogs.noFiles
@@ -1275,7 +1310,7 @@ class _TranslationsDialogsNoFilesPtBr extends TranslationsDialogsNoFilesEn {
   @override
   String get title => 'Nenhum arquivo selecionado';
   @override
-  String get content => 'Por favor, selecione ao menos um arquivo.';
+  String get content => 'Selecione pelo menos um arquivo.';
 }
 
 // Path: dialogs.noPermission
@@ -1299,9 +1334,9 @@ class _TranslationsDialogsNotAvailableOnPlatformPtBr extends TranslationsDialogs
 
   // Translations
   @override
-  String get title => 'Indisponível';
+  String get title => 'Não disponível';
   @override
-  String get content => 'Essa função está disponível somente no:';
+  String get content => 'Este recurso só está disponível no:';
 }
 
 // Path: dialogs.qr
@@ -1312,7 +1347,7 @@ class _TranslationsDialogsQrPtBr extends TranslationsDialogsQrEn {
 
   // Translations
   @override
-  String get title => 'QR Code';
+  String get title => 'Código QR';
 }
 
 // Path: dialogs.quickActions
@@ -1323,7 +1358,7 @@ class _TranslationsDialogsQuickActionsPtBr extends TranslationsDialogsQuickActio
 
   // Translations
   @override
-  String get title => 'Ações Rápidas';
+  String get title => 'Ações rápidas';
   @override
   String get counter => 'Contador';
   @override
@@ -1347,7 +1382,7 @@ class _TranslationsDialogsQuickSaveNoticePtBr extends TranslationsDialogsQuickSa
   String get title => _root.general.quickSave;
   @override
   String get content =>
-      'Solicitações de arquivos são aceitas automaticamente. Tenha em mente que qualquer pessoa na rede local pode enviar arquivos para você.';
+      'Agora, as solicitações de arquivos são aceitas automaticamente. Tenha em mente que qualquer pessoa na rede local pode enviar arquivos para você.';
 }
 
 // Path: dialogs.quickSaveFromFavoritesNotice
@@ -1361,9 +1396,9 @@ class _TranslationsDialogsQuickSaveFromFavoritesNoticePtBr extends TranslationsD
   String get title => 'Salvar rapidamento dos "Favoritos"';
   @override
   List<String> get content => [
-    'Requisições de arquivo agora são aceitas automaticamente de dispositivos da sua lista de favoritos.',
-    'Atenção! Atualmente, esta opção não é totalmente segura pois um hacker que saiba a identificação dos seus dispositivos favoritos ainda pode te enviar arquivos sem restrições.',
-    'De qualquer forma, esta opção ainda é mais segura que permitir qualquer dispositivo.',
+    'Agora, as solicitações de arquivos vindas de dispositivos na sua lista de favoritos são aceitas automaticamente.',
+    'Atenção! Atualmente, esta opção não é totalmente segura pois um hacker que saiba a identificação dos seus dispositivos favoritos pode te enviar arquivos sem restrições.',
+    'De qualquer forma, esta opção ainda é mais segura que permitir qualquer dispositivo na sua rede local envie arquivos sem restrições.',
   ];
 }
 
@@ -1390,7 +1425,7 @@ class _TranslationsDialogsSendModeHelpPtBr extends TranslationsDialogsSendModeHe
   @override
   String get single => 'Envia arquivos para um destinatário. A seleção será apagada após a conclusão da transferência dos arquivos.';
   @override
-  String get multiple => 'Envia arquivos para múltiplos destinatários. A seleção não será apagada.';
+  String get multiple => 'Envia arquivos para vários destinatários. A seleção não será apagada.';
   @override
   String get link =>
       'Os destinatários que não têm o LocalSend instalado podem baixar os arquivos selecionados abrindo o link fornecido no navegador.';
@@ -1454,9 +1489,9 @@ class _TranslationsSettingsTabNetworkNetworkOptionsPtBr extends TranslationsSett
 
   // Translations
   @override
-  String get all => 'Todos';
+  String get all => 'Todas';
   @override
-  String get filtered => 'Filtrado';
+  String get filtered => 'Filtradas';
 }
 
 // Path: progressPage.total.title
@@ -1469,7 +1504,7 @@ class _TranslationsProgressPageTotalTitlePtBr extends TranslationsProgressPageTo
   @override
   String sending({required Object time}) => 'Progresso total (${time})';
   @override
-  String get finishedError => 'Terminado com erro';
+  String get finishedError => 'Concluiu com erro';
   @override
   String get canceledSender => 'Cancelado pelo remetente';
   @override

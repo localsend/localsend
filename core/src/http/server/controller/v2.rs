@@ -1,9 +1,10 @@
-use hyper::body::Incoming;
-use hyper::StatusCode;
 use crate::http::dto::{RegisterDto, RegisterResponseDto};
-use crate::http::server::{AppState, JsonResponse, RequestClientInfo};
 use crate::http::server::collect_to_json::CollectToJson;
 use crate::http::server::error::AppError;
+use crate::http::server::response::JsonResponse;
+use crate::http::server::{AppState, RequestClientInfo};
+use hyper::body::Incoming;
+use hyper::StatusCode;
 
 pub(crate) async fn register(
     body: Incoming,

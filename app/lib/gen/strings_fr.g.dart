@@ -13,21 +13,30 @@ import 'strings.g.dart';
 class TranslationsFr extends Translations {
   /// You can call this constructor and build your own translation instance of this locale.
   /// Constructing via the enum [AppLocale.build] is preferred.
-  TranslationsFr({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
-    : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-      $meta = TranslationMetadata(
-        locale: AppLocale.fr,
-        overrides: overrides ?? {},
-        cardinalResolver: cardinalResolver,
-        ordinalResolver: ordinalResolver,
-      ),
-      super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+  TranslationsFr({
+    Map<String, Node>? overrides,
+    PluralResolver? cardinalResolver,
+    PluralResolver? ordinalResolver,
+    TranslationMetadata<AppLocale, Translations>? meta,
+  }) : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
+       $meta =
+           meta ??
+           TranslationMetadata(
+             locale: AppLocale.fr,
+             overrides: overrides ?? {},
+             cardinalResolver: cardinalResolver,
+             ordinalResolver: ordinalResolver,
+           ),
+       super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
 
   /// Metadata for the translations of <fr>.
   @override
   final TranslationMetadata<AppLocale, Translations> $meta;
 
   late final TranslationsFr _root = this; // ignore: unused_field
+
+  @override
+  TranslationsFr $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => TranslationsFr(meta: meta ?? this.$meta);
 
   // Translations
   @override
@@ -66,8 +75,6 @@ class TranslationsFr extends Translations {
   late final _TranslationsDonationPageFr donationPage = _TranslationsDonationPageFr._(_root);
   @override
   late final _TranslationsChangelogPageFr changelogPage = _TranslationsChangelogPageFr._(_root);
-  @override
-  late final _TranslationsAliasGeneratorFr aliasGenerator = _TranslationsAliasGeneratorFr._(_root);
   @override
   late final _TranslationsDialogsFr dialogs = _TranslationsDialogsFr._(_root);
   @override
@@ -344,7 +351,7 @@ class _TranslationsReceiveOptionsPageFr extends TranslationsReceiveOptionsPageEn
   @override
   String get destination => _root.settingsTab.receive.destination;
   @override
-  String get appDirectory => '(LocalSend folder)';
+  String get appDirectory => '(dossier LocalSend)';
   @override
   String get saveToGallery => _root.settingsTab.receive.saveToGallery;
   @override
@@ -383,6 +390,8 @@ class _TranslationsProgressPageFr extends TranslationsProgressPageEn {
   String get savedToGallery => 'Sauvegardé dans la Galerie';
   @override
   late final _TranslationsProgressPageTotalFr total = _TranslationsProgressPageTotalFr._(_root);
+  @override
+  late final _TranslationsProgressPageRemainingTimeFr remainingTime = _TranslationsProgressPageRemainingTimeFr._(_root);
 }
 
 // Path: webSharePage
@@ -477,15 +486,6 @@ class _TranslationsChangelogPageFr extends TranslationsChangelogPageEn {
   // Translations
   @override
   String get title => 'Historique des mises à jour';
-}
-
-// Path: aliasGenerator
-class _TranslationsAliasGeneratorFr extends TranslationsAliasGeneratorEn {
-  _TranslationsAliasGeneratorFr._(TranslationsFr root) : this._root = root, super.internal(root);
-
-  final TranslationsFr _root; // ignore: unused_field
-
-  // Translations
 }
 
 // Path: dialogs
@@ -921,7 +921,7 @@ class _TranslationsTroubleshootPageFirewallFr extends TranslationsTroubleshootPa
   String solution({required Object port}) =>
       'Il se peut que votre pare-feu bloque la réception de fichiers. Pour corriger ce problème, il est nécessaire d\'autoriser les connections entrantes (UDP et TCP) sur le port ${port}.';
   @override
-  String get openFirewallSettings => 'Ouvrir le pare-feu';
+  String get openFirewall => 'Ouvrir le pare-feu';
 }
 
 // Path: troubleshootPage.noDiscovery
@@ -984,6 +984,27 @@ class _TranslationsProgressPageTotalFr extends TranslationsProgressPageTotalEn {
   String size({required Object curr, required Object n}) => 'Taille : ${curr} / ${n}';
   @override
   String speed({required Object speed}) => 'Vitesse : ${speed}/s';
+}
+
+// Path: progressPage.remainingTime
+class _TranslationsProgressPageRemainingTimeFr extends TranslationsProgressPageRemainingTimeEn {
+  _TranslationsProgressPageRemainingTimeFr._(TranslationsFr root) : this._root = root, super.internal(root);
+
+  final TranslationsFr _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String seconds({required Object n, required Object ss}) => '${n}:${ss}';
+  @override
+  String minutes({required Object n, required Object ss}) => '${n} :${ss}';
+
+  /// Utilisez « h » pour l'abréviation des heures et « m » pour les minutes
+  @override
+  String hours({required Object h, required Object m}) => '${h}h ${m}min';
+
+  /// Utilisez « j » pour les jours, « h » pour les heures et « m » pour les minutes
+  @override
+  String days({required Object d, required Object h, required Object m}) => '${d}j ${h}h ${m}min';
 }
 
 // Path: dialogs.addFile

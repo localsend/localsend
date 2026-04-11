@@ -13,21 +13,30 @@ import 'strings.g.dart';
 class TranslationsKm extends Translations {
   /// You can call this constructor and build your own translation instance of this locale.
   /// Constructing via the enum [AppLocale.build] is preferred.
-  TranslationsKm({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
-    : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-      $meta = TranslationMetadata(
-        locale: AppLocale.km,
-        overrides: overrides ?? {},
-        cardinalResolver: cardinalResolver,
-        ordinalResolver: ordinalResolver,
-      ),
-      super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+  TranslationsKm({
+    Map<String, Node>? overrides,
+    PluralResolver? cardinalResolver,
+    PluralResolver? ordinalResolver,
+    TranslationMetadata<AppLocale, Translations>? meta,
+  }) : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
+       $meta =
+           meta ??
+           TranslationMetadata(
+             locale: AppLocale.km,
+             overrides: overrides ?? {},
+             cardinalResolver: cardinalResolver,
+             ordinalResolver: ordinalResolver,
+           ),
+       super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
 
   /// Metadata for the translations of <km>.
   @override
   final TranslationMetadata<AppLocale, Translations> $meta;
 
   late final TranslationsKm _root = this; // ignore: unused_field
+
+  @override
+  TranslationsKm $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => TranslationsKm(meta: meta ?? this.$meta);
 
   // Translations
   @override
@@ -106,7 +115,7 @@ class _TranslationsGeneralKm extends TranslationsGeneralEn {
   @override
   String get copy => 'ចម្លង';
   @override
-  String get copiedToClipboard => 'បានចម្លង';
+  String get copiedToClipboard => 'បានចម្លងទៅឃ្លីបប៊ត';
   @override
   String get decline => 'បដិសេធ';
   @override
@@ -128,7 +137,7 @@ class _TranslationsGeneralKm extends TranslationsGeneralEn {
   @override
   String get off => 'បិទ';
   @override
-  String get offline => 'បិទអនឡាញ';
+  String get offline => 'អហ្វឡាញ';
   @override
   String get on => 'បើក';
   @override
@@ -144,7 +153,7 @@ class _TranslationsGeneralKm extends TranslationsGeneralEn {
   @override
   String get renamed => 'បានកែឈ្មោះ';
   @override
-  String get reset => 'កំណត់ឡើងវិញ';
+  String get reset => 'អាន់ឌូផ្លាស់ប្ដូរ';
   @override
   String get restart => 'ចាប់ផ្តើមឡើងវិញ';
   @override
@@ -162,7 +171,7 @@ class _TranslationsGeneralKm extends TranslationsGeneralEn {
   @override
   String get unknown => 'មិនស្គាល់';
   @override
-  String get noItemInClipboard => 'មិនមានរបស់នៅក្នុងក្តារចម្លង';
+  String get noItemInClipboard => 'មិនមានធាតុនៅក្នុងឃ្លីបប៊ត។';
 }
 
 // Path: receiveTab
@@ -194,7 +203,7 @@ class _TranslationsSendTabKm extends TranslationsSendTabEn {
   @override
   late final _TranslationsSendTabPickerKm picker = _TranslationsSendTabPickerKm._(_root);
   @override
-  String get shareIntentInfo => 'អ្នកក៏អាចប្រើប្រាស់មុខងារ "ចែករំលេក" ក្នុងទូរស័ព្ទដៃរបស់អ្នកដើម្បីរើសឯកសារបានកាន់តែងាយស្រួល។';
+  String get shareIntentInfo => 'អ្នកក៏អាចប្រើប្រាស់មុខងារ "ចែករំលេក" ក្នុងទូរសព្ទចល័តរបស់អ្នក ដើម្បីរើសឯកសារឱ្យកាន់តែងាយស្រួល។';
   @override
   String get nearbyDevices => 'ឧបករណ៍ដែលនៅជិតនេះ';
   @override
@@ -212,7 +221,7 @@ class _TranslationsSendTabKm extends TranslationsSendTabEn {
   @override
   String get help => 'សូមប្រាកដថាទីតាំងដែលអ្នកចង់ផ្ញើគឺត្រូវតែភ្ជាប់បណ្តាញ Wi-Fi តែមួយដូចគ្នា។';
   @override
-  String get placeItems => 'ដាក់របស់ដែលត្រូវចែករំលែក';
+  String get placeItems => 'ដាក់ធាតុដែលត្រូវចែករំលែក។';
 }
 
 // Path: settingsTab
@@ -316,8 +325,11 @@ class _TranslationsReceivePageKm extends TranslationsReceivePageEn {
 
   // Translations
   @override
-  String subTitle({required num n}) =>
-      (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('km'))(n, one: 'ចង់ផ្ញើឯកសារមួយឲ្យមកអ្នក។', other: 'ចង់ផ្ញើឯកសារ ${n} ឲ្យមកអ្នក។');
+  String subTitle({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('km'))(
+    n,
+    one: 'ចង់ផ្ញើឯកសារមួយឲ្យមកអ្នក។',
+    other: 'ចង់ផ្ញើឯកសារ ${n} ឲ្យមកអ្នក។',
+  );
   @override
   String get subTitleMessage => 'បានផ្ញើសារមួយមកអ្នក:';
   @override
@@ -744,11 +756,11 @@ class _TranslationsReceiveTabInfoBoxKm extends TranslationsReceiveTabInfoBoxEn {
 
   // Translations
   @override
-  String get ip => 'IP:';
+  String get ip => 'អាយភី៖';
   @override
-  String get port => 'ផត:';
+  String get port => 'ច្រក៖';
   @override
-  String get alias => 'ឈ្មោះដទៃ:';
+  String get alias => 'ឈ្មោះឧបករណ៍៖';
 }
 
 // Path: receiveTab.quickSave
@@ -776,9 +788,9 @@ class _TranslationsSendTabSelectionKm extends TranslationsSendTabSelectionEn {
   @override
   String get title => 'ការជ្រើសរើស';
   @override
-  String files({required Object files}) => 'ឯកសារ: ${files}';
+  String files({required Object files}) => 'ឯកសារ៖ ${files}';
   @override
-  String size({required Object size}) => 'ទំហំ: ${size}';
+  String size({required Object size}) => 'ទំហំ៖ ${size}';
 }
 
 // Path: sendTab.picker
@@ -825,7 +837,7 @@ class _TranslationsSettingsTabGeneralKm extends TranslationsSettingsTabGeneralEn
 
   // Translations
   @override
-  String get title => 'ទូទៅ';
+  String get title => 'ទិដ្ឋភាពទូទៅ';
   @override
   String get brightness => 'ស្បែកកម្មវិធី';
   @override
@@ -839,7 +851,7 @@ class _TranslationsSettingsTabGeneralKm extends TranslationsSettingsTabGeneralEn
   @override
   late final _TranslationsSettingsTabGeneralLanguageOptionsKm languageOptions = _TranslationsSettingsTabGeneralLanguageOptionsKm._(_root);
   @override
-  String get saveWindowPlacement => 'ចាកចេញ: រក្សាទុកផ្ទាំង Window';
+  String get saveWindowPlacement => 'រក្សាទុកផ្ទាំងវីនដូ ក្រោយពេលចាកចេញ';
   @override
   String get saveWindowPlacementWindows => 'រក្សាទុកទីតាំងផ្ទាំងអេក្រង់នៅដដែលបន្ទាប់ពីចាកចេញ';
   @override
@@ -872,7 +884,7 @@ class _TranslationsSettingsTabReceiveKm extends TranslationsSettingsTabReceiveEn
   @override
   String get autoFinish => 'បញ្ចប់ដោយស្វ័យប្រវត្តិ';
   @override
-  String get destination => 'ទិសដៅ';
+  String get destination => 'រក្សាទុកនៅឯថត';
   @override
   String get downloads => '(ទាញយក)';
   @override
@@ -914,7 +926,7 @@ class _TranslationsSettingsTabNetworkKm extends TranslationsSettingsTabNetworkEn
   @override
   String get deviceModel => 'ម៉ូឌែលរបស់ឧបករណ៍';
   @override
-  String get port => 'ផត';
+  String get port => 'ច្រក';
   @override
   String get discoveryTimeout => 'ថេរវេលាក្នុងការស្វែងរក';
   @override
@@ -927,10 +939,14 @@ class _TranslationsSettingsTabNetworkKm extends TranslationsSettingsTabNetworkEn
   @override
   String get encryption => 'ការការពារទិន្នន័យ';
   @override
-  String get multicastGroup => 'ពហុផ្សាយ';
+  String get multicastGroup => 'អាសយដ្ឋានពហុផ្សាយ';
   @override
   String multicastGroupWarning({required Object defaultMulticast}) =>
       'អ្នកប្រហែលជាមិនត្រូវបានរកឃើញដោយឧបករណ៍ផ្សេងទៀតទេ ដោយសារតែអ្នកកំពុងប្រើអាសយដ្ឋានពហុផ្សាយដែលបង្កើតផ្ទាល់ខ្លួន។ (ច្រកដើម: ${defaultMulticast})';
+  @override
+  String get network => 'បណ្តាញ';
+  @override
+  late final _TranslationsSettingsTabNetworkNetworkOptionsKm networkOptions = _TranslationsSettingsTabNetworkNetworkOptionsKm._(_root);
 }
 
 // Path: settingsTab.other
@@ -965,7 +981,7 @@ class _TranslationsTroubleshootPageFirewallKm extends TranslationsTroubleshootPa
   String solution({required Object port}) =>
       'នេះទំនងជាបញ្ហារបស់ Firewall ។ អ្នកអាចដោះស្រាយវាបានដោយអនុញ្ញាតឱ្យមានការតភ្ជាប់ចូល (UDP និង TCP) តាមរយៈច្រក ${port}។';
   @override
-  String get openFirewallSettings => 'បើក Firewall';
+  String get openFirewall => 'បើក Firewall';
 }
 
 // Path: troubleshootPage.noDiscovery
@@ -1427,6 +1443,19 @@ class _TranslationsSettingsTabGeneralLanguageOptionsKm extends TranslationsSetti
   // Translations
   @override
   String get system => 'តាមប្រព័ន្ធ';
+}
+
+// Path: settingsTab.network.networkOptions
+class _TranslationsSettingsTabNetworkNetworkOptionsKm extends TranslationsSettingsTabNetworkNetworkOptionsEn {
+  _TranslationsSettingsTabNetworkNetworkOptionsKm._(TranslationsKm root) : this._root = root, super.internal(root);
+
+  final TranslationsKm _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get all => 'ទាំងអស់';
+  @override
+  String get filtered => 'បានតម្រង';
 }
 
 // Path: progressPage.total.title

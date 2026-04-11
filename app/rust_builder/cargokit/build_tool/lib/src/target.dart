@@ -47,6 +47,10 @@ class Target {
       flutter: 'windows-x64',
     ),
     Target(
+      rust: 'aarch64-pc-windows-msvc',
+      flutter: 'windows-arm64',
+    ),
+    Target(
       rust: 'x86_64-unknown-linux-gnu',
       flutter: 'linux-x64',
     ),

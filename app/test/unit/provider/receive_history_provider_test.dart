@@ -1,4 +1,5 @@
 import 'package:common/model/file_type.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:localsend_app/model/persistence/receive_history_entry.dart';
 import 'package:localsend_app/provider/receive_history_provider.dart';
 import 'package:mockito/mockito.dart';
@@ -9,6 +10,10 @@ import '../../mocks.mocks.dart';
 
 void main() {
   late MockPersistenceService persistenceService;
+
+  setUpAll(() async {
+    await initializeDateFormatting();
+  });
 
   setUp(() {
     persistenceService = MockPersistenceService();

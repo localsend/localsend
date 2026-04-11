@@ -1,291 +1,175 @@
 mod url;
+pub mod v2;
+pub mod v3;
 
-use crate::http;
-use crate::http::client::url::{ApiVersion, TargetUrl};
-use crate::http::dto::ProtocolType;
+pub use v2::LsHttpClientV2;
+pub use v3::LsHttpClientV3;
+
 use crate::http::StatusCodeError;
-use crate::{crypto, util};
-use futures_util::StreamExt;
-use lru::LruCache;
-use reqwest::{Response, StatusCode};
+use crate::{crypto, http};
+use reqwest::Response;
 use serde::{Deserialize, Serialize};
-use std::num::NonZeroUsize;
-use std::sync::Arc;
-use tokio::sync::{mpsc, Mutex};
-use tokio_stream::wrappers::ReceiverStream;
+use thiserror::Error;
 
-const BASE_PATH: &str = "/api/localsend/v3";
-
-pub struct LsHttpClient {
-    client: reqwest::Client,
-
-    /// Maps client identifiers to nonces that have been received from remote.
-    received_nonce_map: Arc<Mutex<LruCache<String, Vec<u8>>>>,
-
-    /// Maps client identifiers to nonces that are expected to be received from remote.
-    generated_nonce_map: Arc<Mutex<LruCache<String, Vec<u8>>>>,
+pub enum LsHttpClient {
+    V2(LsHttpClientV2),
+    V3(LsHttpClientV3),
 }
 
-pub struct RegisterResult {
-    /// The public key extracted from the certificate.
-    /// Encoded in PEM format.
-    /// Only available in HTTPS.
-    pub public_key: Option<String>,
+pub enum LsHttpClientVersion {
+    V2,
+    V3,
+}
 
-    /// The response body from the register request.
-    pub body: http::dto::RegisterResponseDto,
+#[derive(Debug, Error)]
+pub enum ClientError {
+    #[error(transparent)]
+    StatusCode(StatusCodeError),
+
+    #[error(transparent)]
+    Reqwest(#[from] reqwest::Error),
+
+    #[error(transparent)]
+    Json(#[from] serde_json::Error),
+
+    #[error(transparent)]
+    Io(#[from] std::io::Error),
+
+    #[error(transparent)]
+    Other(#[from] anyhow::Error),
 }
 
 impl LsHttpClient {
-    pub fn try_new(private_key: &str, cert: &str) -> anyhow::Result<Self> {
-        let _ = rustls::crypto::ring::default_provider().install_default();
-
-        let identity = {
-            let pem = &[cert.as_bytes(), "\n".as_bytes(), private_key.as_bytes()].concat();
-            reqwest::Identity::from_pem(pem)?
+    pub fn new(
+        private_key: &str,
+        cert: &str,
+        version: LsHttpClientVersion,
+    ) -> Result<LsHttpClient, ClientError> {
+        let client = match version {
+            LsHttpClientVersion::V2 => {
+                LsHttpClient::V2(LsHttpClientV2::try_new(&private_key, &cert)?)
+            }
+            LsHttpClientVersion::V3 => {
+                LsHttpClient::V3(LsHttpClientV3::try_new(&private_key, &cert)?)
+            }
         };
 
-        let client = reqwest::Client::builder()
-            .use_rustls_tls()
-            .danger_accept_invalid_certs(true)
-            .tls_info(true)
-            .identity(identity)
-            .build()?;
-
-        Ok(Self {
-            client,
-            received_nonce_map: Arc::new(Mutex::new(LruCache::new(
-                NonZeroUsize::new(200).unwrap(),
-            ))),
-            generated_nonce_map: Arc::new(Mutex::new(LruCache::new(
-                NonZeroUsize::new(200).unwrap(),
-            ))),
-        })
-    }
-
-    pub async fn nonce(
-        &self,
-        protocol: &ProtocolType,
-        ip: &str,
-        port: u16,
-    ) -> anyhow::Result<String> {
-        // Generate nonce to send to server
-        let generated_nonce = crypto::nonce::generate_nonce();
-        let generated_nonce_base64 = util::base64::encode(&generated_nonce);
-
-        let request_body = http::dto::NonceRequest {
-            nonce: generated_nonce_base64,
-        };
-
-        let res = self
-            .client
-            .post(
-                TargetUrl {
-                    version: ApiVersion::V3,
-                    protocol: protocol.clone(),
-                    host: ip.to_string(),
-                    port,
-                    path: "/nonce",
-                }
-                .to_string(),
-            )
-            .body(serde_json::to_string(&request_body)?)
-            .send()
-            .await?;
-
-        if res.status() != StatusCode::OK {
-            return Err(status_code_error_from_res(res).await?);
-        }
-
-        let remote_key = to_identifier(&res, protocol == &ProtocolType::Https, None)?;
-        let body = res.json::<http::dto::NonceResponse>().await?;
-
-        // Save the response nonce and our generated nonce
-        let response_nonce = util::base64::decode(&body.nonce)?;
-
-        let mut received_nonce_map = self.received_nonce_map.lock().await;
-        received_nonce_map.put(remote_key.clone(), response_nonce);
-
-        let mut generated_nonce_map = self.generated_nonce_map.lock().await;
-        generated_nonce_map.put(remote_key.clone(), generated_nonce);
-
-        tracing::info!("Nonce exchange successful for server: {ip} (ID: {remote_key})");
-
-        tracing::debug!(
-            "Received map: {:?}",
-            received_nonce_map.get(&remote_key).unwrap()
-        );
-        tracing::debug!(
-            "Generated map: {:?}",
-            generated_nonce_map.get(&remote_key).unwrap()
-        );
-
-        Ok(body.nonce)
+        Ok(client)
     }
 
     pub async fn register(
         &self,
-        protocol: &ProtocolType,
+        protocol: http::dto::ProtocolType,
         ip: &str,
         port: u16,
         payload: http::dto::RegisterDto,
-    ) -> anyhow::Result<RegisterResult> {
-        let res = self
-            .client
-            .post(format!(
-                "{}://{}:{}{}/register",
-                protocol.as_str(),
-                ip,
-                port,
-                BASE_PATH
-            ))
-            .body(serde_json::to_string(&payload)?)
-            .send()
-            .await?;
-
-        let public_key = match protocol {
-            ProtocolType::Https => Some(verify_cert_from_res(&res, None)?),
-            _ => None,
-        };
-
-        let body = res.json::<http::dto::RegisterResponseDto>().await?;
-
-        Ok(RegisterResult { public_key, body })
+    ) -> Result<ResultWithPublicKey<http::dto::RegisterResponseDto>, ClientError> {
+        match self {
+            LsHttpClient::V2(client) => {
+                let result = client.register(protocol, ip, port, payload.into()).await?;
+                Ok(ResultWithPublicKey {
+                    public_key: result.public_key,
+                    body: result.body.into(),
+                })
+            }
+            LsHttpClient::V3(client) => client.register(protocol, ip, port, payload).await,
+        }
     }
 
     pub async fn prepare_upload(
         &self,
-        protocol: &ProtocolType,
+        protocol: http::dto::ProtocolType,
         ip: &str,
         port: u16,
         public_key: Option<String>,
         payload: http::dto::PrepareUploadRequestDto,
-    ) -> anyhow::Result<http::dto::PrepareUploadResponseDto> {
-        let res = self
-            .client
-            .post(format!(
-                "{}://{}:{}{}/prepare-upload",
-                protocol.as_str(),
-                ip,
-                port,
-                BASE_PATH
-            ))
-            .body(serde_json::to_string(&payload)?)
-            .send()
-            .await?;
-
-        if let Some(public_key) = public_key {
-            verify_cert_from_res(&res, Some(public_key))?;
+        pin: Option<&str>,
+    ) -> Result<http::dto::PrepareUploadResult, ClientError> {
+        match self {
+            LsHttpClient::V2(client) => {
+                let result = client
+                    .prepare_upload(protocol, ip, port, public_key, payload.into(), pin)
+                    .await?;
+                Ok(result.into())
+            }
+            LsHttpClient::V3(client) => {
+                client
+                    .prepare_upload(protocol, ip, port, public_key, payload)
+                    .await
+            }
         }
-
-        if res.status() != StatusCode::OK {
-            return Err(status_code_error_from_res(res).await?);
-        }
-
-        let body = res.json::<http::dto::PrepareUploadResponseDto>().await?;
-
-        Ok(body)
     }
 
-    /// Uploads a file to the server.
     pub async fn upload(
         &self,
-        protocol: &ProtocolType,
+        protocol: http::dto::ProtocolType,
         ip: &str,
         port: u16,
-        session_id: String,
-        file_id: String,
-        token: String,
-        binary: mpsc::Receiver<Vec<u8>>,
-    ) -> anyhow::Result<()> {
-        let res = self
-            .client
-            .post(format!(
-                "{}://{}:{}{}/upload?sessionId={}&fileId={}&token={}",
-                protocol.as_str(),
-                ip,
-                port,
-                BASE_PATH,
-                session_id,
-                file_id,
-                token
-            ))
-            .body({
-                let stream = ReceiverStream::new(binary).map(Ok::<Vec<u8>, anyhow::Error>);
-                reqwest::Body::wrap_stream(stream)
-            })
-            .send()
-            .await?;
-
-        if res.status() != StatusCode::OK {
-            return Err(status_code_error_from_res(res).await?);
+        public_key: Option<String>,
+        session_id: &str,
+        file_id: &str,
+        token: &str,
+        binary: tokio::sync::mpsc::Receiver<Vec<u8>>,
+    ) -> Result<(), ClientError> {
+        match self {
+            LsHttpClient::V2(client) => {
+                client
+                    .upload(
+                        protocol, ip, port, public_key, session_id, file_id, token, binary,
+                    )
+                    .await
+            }
+            LsHttpClient::V3(client) => {
+                client
+                    .upload(
+                        protocol, ip, port, public_key, session_id, file_id, token, binary,
+                    )
+                    .await
+            }
         }
-
-        Ok(())
     }
 
     pub async fn cancel(
         &self,
-        protocol: &ProtocolType,
+        protocol: http::dto::ProtocolType,
         ip: &str,
         port: u16,
-        session_id: String,
-    ) -> anyhow::Result<()> {
-        self.client
-            .post(format!(
-                "{}://{}:{}{}/cancel?sessionId={}",
-                protocol.as_str(),
-                ip,
-                port,
-                BASE_PATH,
-                session_id
-            ))
-            .send()
-            .await?;
-
-        Ok(())
+        session_id: &str,
+    ) -> Result<(), ClientError> {
+        match self {
+            LsHttpClient::V2(client) => client.cancel(protocol, ip, port, session_id).await,
+            LsHttpClient::V3(client) => client.cancel(protocol, ip, port, session_id).await,
+        }
     }
 }
 
-#[derive(Serialize, Deserialize)]
-struct ErrorResponse {
-    message: String,
-}
+pub(super) fn create_reqwest_client(
+    private_key: &str,
+    cert: &str,
+) -> Result<reqwest::Client, ClientError> {
+    let _ = rustls::crypto::ring::default_provider().install_default();
 
-async fn status_code_error_from_res(response: Response) -> anyhow::Result<anyhow::Error> {
-    let status = response.status().as_u16();
-    let body = response.text().await?;
-    let body = match serde_json::from_str::<ErrorResponse>(&body) {
-        Ok(error) => error.message,
-        Err(_) => body,
+    let identity = {
+        let pem = &[cert.as_bytes(), "\n".as_bytes(), private_key.as_bytes()].concat();
+        reqwest::Identity::from_pem(pem)?
     };
 
-    Ok(anyhow::Error::new(StatusCodeError {
-        status,
-        message: match body {
-            _ if body.is_empty() => None,
-            _ => Some(body),
-        },
-    }))
-}
+    let client = reqwest::Client::builder()
+        .use_rustls_tls()
+        .danger_accept_invalid_certs(true)
+        .tls_info(true)
+        .identity(identity)
+        .build()?;
 
-fn to_identifier(
-    response: &Response,
-    require_cert: bool,
-    public_key: Option<String>,
-) -> anyhow::Result<String> {
-    match require_cert {
-        true => verify_cert_from_res(response, public_key),
-        false => response
-            .remote_addr()
-            .map(|addr| addr.ip().to_string())
-            .ok_or_else(|| anyhow::anyhow!("Remote address not found in response")),
-    }
+    Ok(client)
 }
 
 /// Verifies the certificate from the response.
 /// Returns the public key extracted from the certificate.
-fn verify_cert_from_res(response: &Response, public_key: Option<String>) -> anyhow::Result<String> {
+pub(super) fn verify_cert_from_res(
+    response: &Response,
+    public_key: Option<String>,
+) -> anyhow::Result<String> {
     let tls_info_ext = response
         .extensions()
         .get::<reqwest::tls::TlsInfo>()
@@ -293,10 +177,48 @@ fn verify_cert_from_res(response: &Response, public_key: Option<String>) -> anyh
     let cert = tls_info_ext
         .peer_certificate()
         .ok_or_else(|| anyhow::anyhow!("Certificate not found"))?;
+    crypto::cert::verify_cert_from_der(cert, public_key.as_deref())?;
     let public_key = match public_key {
-        Some(public_key) => public_key.to_owned(),
+        Some(public_key) => public_key,
         None => crypto::cert::public_key_from_cert_der(cert)?,
     };
-    crypto::cert::verify_cert_from_der(cert, Some(public_key.clone()))?;
     Ok(public_key)
+}
+
+#[derive(Serialize, Deserialize)]
+struct ErrorResponse {
+    message: String,
+}
+
+pub struct ResultWithPublicKey<T> {
+    /// The public key extracted from the certificate.
+    /// Encoded in PEM format.
+    /// Only available in HTTPS mode.
+    pub public_key: Option<String>,
+
+    /// The response body.
+    pub body: T,
+}
+
+pub(super) trait ResponseExt {
+    async fn into_error<T>(self) -> Result<T, ClientError>;
+}
+
+impl ResponseExt for Response {
+    async fn into_error<T>(self) -> Result<T, ClientError> {
+        let status = self.status().as_u16();
+        let body = self.text().await.unwrap_or_default();
+        let message = match serde_json::from_str::<ErrorResponse>(&body) {
+            Ok(error) => error.message,
+            Err(_) => body,
+        };
+        Err(ClientError::StatusCode(StatusCodeError {
+            status,
+            message: if message.is_empty() {
+                None
+            } else {
+                Some(message)
+            },
+        }))
+    }
 }

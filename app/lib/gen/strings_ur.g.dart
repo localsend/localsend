@@ -13,21 +13,30 @@ import 'strings.g.dart';
 class TranslationsUr extends Translations {
   /// You can call this constructor and build your own translation instance of this locale.
   /// Constructing via the enum [AppLocale.build] is preferred.
-  TranslationsUr({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
-    : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-      $meta = TranslationMetadata(
-        locale: AppLocale.ur,
-        overrides: overrides ?? {},
-        cardinalResolver: cardinalResolver,
-        ordinalResolver: ordinalResolver,
-      ),
-      super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+  TranslationsUr({
+    Map<String, Node>? overrides,
+    PluralResolver? cardinalResolver,
+    PluralResolver? ordinalResolver,
+    TranslationMetadata<AppLocale, Translations>? meta,
+  }) : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
+       $meta =
+           meta ??
+           TranslationMetadata(
+             locale: AppLocale.ur,
+             overrides: overrides ?? {},
+             cardinalResolver: cardinalResolver,
+             ordinalResolver: ordinalResolver,
+           ),
+       super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
 
   /// Metadata for the translations of <ur>.
   @override
   final TranslationMetadata<AppLocale, Translations> $meta;
 
   late final TranslationsUr _root = this; // ignore: unused_field
+
+  @override
+  TranslationsUr $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => TranslationsUr(meta: meta ?? this.$meta);
 
   // Translations
   @override
@@ -66,8 +75,6 @@ class TranslationsUr extends Translations {
   late final _TranslationsDonationPageUr donationPage = _TranslationsDonationPageUr._(_root);
   @override
   late final _TranslationsChangelogPageUr changelogPage = _TranslationsChangelogPageUr._(_root);
-  @override
-  late final _TranslationsAliasGeneratorUr aliasGenerator = _TranslationsAliasGeneratorUr._(_root);
   @override
   late final _TranslationsDialogsUr dialogs = _TranslationsDialogsUr._(_root);
   @override
@@ -472,15 +479,6 @@ class _TranslationsChangelogPageUr extends TranslationsChangelogPageEn {
   String get title => 'چینج لاگ';
 }
 
-// Path: aliasGenerator
-class _TranslationsAliasGeneratorUr extends TranslationsAliasGeneratorEn {
-  _TranslationsAliasGeneratorUr._(TranslationsUr root) : this._root = root, super.internal(root);
-
-  final TranslationsUr _root; // ignore: unused_field
-
-  // Translations
-}
-
 // Path: dialogs
 class _TranslationsDialogsUr extends TranslationsDialogsEn {
   _TranslationsDialogsUr._(TranslationsUr root) : this._root = root, super.internal(root);
@@ -863,7 +861,7 @@ class _TranslationsTroubleshootPageFirewallUr extends TranslationsTroubleshootPa
   String solution({required Object port}) =>
       'یہ ممکنہ طور پر فائر وال کا مسئلہ ہے۔ آپ اسے پورٹ ${port} پر آنے والے کنکشنز (UDP اور TCP) کی اجازت دے کر حل کر سکتے ہیں۔';
   @override
-  String get openFirewallSettings => 'فائر وال کھولیں';
+  String get openFirewall => 'فائر وال کھولیں';
 }
 
 // Path: troubleshootPage.noDiscovery

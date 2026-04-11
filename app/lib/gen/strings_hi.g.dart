@@ -13,15 +13,21 @@ import 'strings.g.dart';
 class TranslationsHi extends Translations {
   /// You can call this constructor and build your own translation instance of this locale.
   /// Constructing via the enum [AppLocale.build] is preferred.
-  TranslationsHi({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
-    : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-      $meta = TranslationMetadata(
-        locale: AppLocale.hi,
-        overrides: overrides ?? {},
-        cardinalResolver: cardinalResolver,
-        ordinalResolver: ordinalResolver,
-      ),
-      super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+  TranslationsHi({
+    Map<String, Node>? overrides,
+    PluralResolver? cardinalResolver,
+    PluralResolver? ordinalResolver,
+    TranslationMetadata<AppLocale, Translations>? meta,
+  }) : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
+       $meta =
+           meta ??
+           TranslationMetadata(
+             locale: AppLocale.hi,
+             overrides: overrides ?? {},
+             cardinalResolver: cardinalResolver,
+             ordinalResolver: ordinalResolver,
+           ),
+       super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
 
   /// Metadata for the translations of <hi>.
   @override
@@ -29,11 +35,14 @@ class TranslationsHi extends Translations {
 
   late final TranslationsHi _root = this; // ignore: unused_field
 
+  @override
+  TranslationsHi $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => TranslationsHi(meta: meta ?? this.$meta);
+
   // Translations
   @override
-  String get locale => 'Hindi';
+  String get locale => 'अंग्रेज़ी';
   @override
-  String get appName => 'LocalSend';
+  String get appName => 'स्थानीय भेजें (फाइल भेजो)';
   @override
   late final _TranslationsGeneralHi general = _TranslationsGeneralHi._(_root);
   @override
@@ -142,7 +151,7 @@ class _TranslationsGeneralHi extends TranslationsGeneralEn {
   @override
   String get quickSave => 'त्वरित सहेजें';
   @override
-  String get quickSaveFromFavorites => '"पसंदीदा" के लिए त्वरित सहेजें।';
+  String get quickSaveFromFavorites => '"पसंदीदा" के लिए त्वरित सहेजें';
   @override
   String get renamed => 'नाम बदला गया';
   @override
@@ -164,7 +173,7 @@ class _TranslationsGeneralHi extends TranslationsGeneralEn {
   @override
   String get unknown => 'अज्ञात';
   @override
-  String get noItemInClipboard => 'क्लिपबोर्ड में कोई आइटम नहीं';
+  String get noItemInClipboard => 'क्लिपबोर्ड में कोई आइटम नहीं है।';
 }
 
 // Path: receiveTab
@@ -341,11 +350,11 @@ class _TranslationsReceiveOptionsPageHi extends TranslationsReceiveOptionsPageEn
   @override
   String get title => 'विकल्प';
   @override
-  String get destination => _root.settingsTab.receive.destination;
+  String get destination => '@ : सेटिंग्सटैब.रिसीव.डेस्टिनेशन';
   @override
   String get appDirectory => '(LocalSend फ़ोल्डर)';
   @override
-  String get saveToGallery => _root.settingsTab.receive.saveToGallery;
+  String get saveToGallery => '@ : सेटिंग्सटैब.रिसीव.सेव टू गैलरी';
   @override
   String get saveToGalleryOff => 'स्वचालित रूप से बंद कर दिया गया क्योंकि वहाँ निर्देशिकाएँ हैं।';
 }
@@ -358,11 +367,11 @@ class _TranslationsSendPageHi extends TranslationsSendPageEn {
 
   // Translations
   @override
-  String get waiting => 'प्रतिक्रिया का इंतजार कर रहे हैं...';
+  String get waiting => 'प्रतिक्रिया का इंतजार कर रहे हैं ||';
   @override
   String get rejected => 'प्राप्तकर्ता ने अनुरोध अस्वीकार कर दिया।';
   @override
-  String get tooManyAttempts => _root.web.tooManyAttempts;
+  String get tooManyAttempts => '@ : वेब. बहुत अधिक प्रयास';
   @override
   String get busy => 'प्राप्तकर्ता किसी अन्य अनुरोध में व्यस्त है।';
 }
@@ -394,9 +403,9 @@ class _TranslationsWebSharePageHi extends TranslationsWebSharePageEn {
   @override
   String get title => 'लिंक के माध्यम से साझा करें';
   @override
-  String get loading => 'सर्वर शुरू हो रहा है...';
+  String get loading => 'सर्वर प्रारंभ हो रहा है ||';
   @override
-  String get stopping => 'सर्वर बंद हो रहा है...';
+  String get stopping => 'सर्वर बंद हो रहा है ||';
   @override
   String get error => 'सर्वर शुरू करते समय एक त्रुटि हुई।';
   @override
@@ -410,7 +419,7 @@ class _TranslationsWebSharePageHi extends TranslationsWebSharePageEn {
   @override
   String get noRequests => 'अभी तक कोई अनुरोध नहीं।';
   @override
-  String get encryption => _root.settingsTab.network.encryption;
+  String get encryption => '@ : सेटिंग्स टैब . नेटवर्क . एन्क्रिप्शन';
   @override
   String get autoAccept => 'अनुरोधों को स्वचालित रूप से स्वीकार करें';
   @override
@@ -461,7 +470,7 @@ class _TranslationsDonationPageHi extends TranslationsDonationPageEn {
   @override
   String donate({required Object amount}) => 'दान करें ${amount}';
   @override
-  String get thanks => 'बहुत बहुत धन्यवाद!';
+  String get thanks => 'आपका हार्दिक धन्यवाद!';
   @override
   String get restore => 'खरीदारी पुनर्स्थापित करें';
 }
@@ -865,7 +874,7 @@ class _TranslationsSettingsTabGeneralHi extends TranslationsSettingsTabGeneralEn
   @override
   String get saveWindowPlacement => 'बंद करें: विंडो प्लेसमेंट सहेजें';
   @override
-  String get saveWindowPlacementWindows => 'बाहर निकलने के बाद विंडो की स्थिति सहेजें।';
+  String get saveWindowPlacementWindows => 'बाहर निकलने के बाद विंडो की स्थिति सहेजें';
   @override
   String get minimizeToTray => 'बंद करें: ट्रे/मेनू बार में मिनिमाइज करें';
   @override
@@ -993,7 +1002,7 @@ class _TranslationsTroubleshootPageFirewallHi extends TranslationsTroubleshootPa
   String solution({required Object port}) =>
       'यह संभवतः फ़ायरवॉल समस्या है। आप इसे पोर्ट ${port} पर आने वाले कनेक्शनों (UDP और TCP) को अनुमति देकर हल कर सकते हैं।';
   @override
-  String get openFirewallSettings => 'फायरवॉल खोलें';
+  String get openFirewall => 'फायरवॉल खोलें';
 }
 
 // Path: troubleshootPage.noDiscovery
@@ -1356,7 +1365,7 @@ class _TranslationsDialogsQuickSaveNoticeHi extends TranslationsDialogsQuickSave
 
   // Translations
   @override
-  String get title => _root.general.quickSave;
+  String get title => '@:सामान्य.जल्दी सहेजें';
   @override
   String get content => 'फ़ाइल अनुरोध स्वचालित रूप से स्वीकार कर लिए जाते हैं। ध्यान दें कि स्थानीय नेटवर्क पर सभी लोग आपको फ़ाइलें भेज सकते हैं।';
 }
@@ -1369,7 +1378,7 @@ class _TranslationsDialogsQuickSaveFromFavoritesNoticeHi extends TranslationsDia
 
   // Translations
   @override
-  String get title => _root.general.quickSaveFromFavorites;
+  String get title => '@ : सामान्य .जल्दी पसंदीदा से सहेजें';
   @override
   List<String> get content => [
     'अब आपके पसंदीदा सूची में शामिल डिवाइसों से फ़ाइल अनुरोध स्वतः स्वीकार किए जाएंगे।',

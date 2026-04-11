@@ -11,7 +11,7 @@
     "confirm": "បញ្ជាក់",
     "continueStr": "បន្ត",
     "copy": "ចម្លង",
-    "copiedToClipboard": "បានចម្លង",
+    "copiedToClipboard": "បានចម្លងទៅឃ្លីបប៊ត",
     "decline": "បដិសេធ",
     "done": "រួចរាល់",
     "delete": "លុប",
@@ -22,7 +22,7 @@
     "finished": "រួចរាល់ហើយ",
     "hide": "លាក់",
     "off": "បិទ",
-    "offline": "បិទអនឡាញ",
+    "offline": "អហ្វឡាញ",
     "on": "បើក",
     "online": "អនឡាញ",
     "open": "បើក",
@@ -30,7 +30,7 @@
     "quickSave": "រក្សាទុករហ័ស",
     "quickSaveFromFavorites": "រក្សាទុករហ័សសម្រាប់ \"ឧបករណ៍សំណព្វ\"",
     "renamed": "បានកែឈ្មោះ",
-    "reset": "កំណត់ឡើងវិញ",
+    "reset": "អាន់ឌូផ្លាស់ប្ដូរ",
     "restart": "ចាប់ផ្តើមឡើងវិញ",
     "settings": "ការកំណត់",
     "skipped": "រំលង",
@@ -39,14 +39,14 @@
     "save": "រក្សាទុក",
     "unchanged": "មិនបានផ្លាស់ប្តូរ",
     "unknown": "មិនស្គាល់",
-    "noItemInClipboard": "មិនមានរបស់នៅក្នុងក្តារចម្លង"
+    "noItemInClipboard": "មិនមានធាតុនៅក្នុងឃ្លីបប៊ត។"
   },
   "receiveTab": {
     "title": "ការទទួល",
     "infoBox": {
-      "ip": "IP:",
-      "port": "ផត:",
-      "alias": "ឈ្មោះដទៃ:"
+      "ip": "អាយភី៖",
+      "port": "ច្រក៖",
+      "alias": "ឈ្មោះឧបករណ៍៖"
     },
     "quickSave": {
       "off": "@:general.off",
@@ -58,8 +58,8 @@
     "title": "ការផ្ញើ",
     "selection": {
       "title": "ការជ្រើសរើស",
-      "files": "ឯកសារ: {files}",
-      "size": "ទំហំ: {size}"
+      "files": "ឯកសារ៖ {files}",
+      "size": "ទំហំ៖ {size}"
     },
     "picker": {
       "file": "ឯកសារ",
@@ -69,7 +69,7 @@
       "app": "កម្មវិធី",
       "clipboard": "បិទភ្ជាប់"
     },
-    "shareIntentInfo": "អ្នកក៏អាចប្រើប្រាស់មុខងារ \"ចែករំលេក\" ក្នុងទូរស័ព្ទដៃរបស់អ្នកដើម្បីរើសឯកសារបានកាន់តែងាយស្រួល។",
+    "shareIntentInfo": "អ្នកក៏អាចប្រើប្រាស់មុខងារ \"ចែករំលេក\" ក្នុងទូរសព្ទចល័តរបស់អ្នក ដើម្បីរើសឯកសារឱ្យកាន់តែងាយស្រួល។",
     "nearbyDevices": "ឧបករណ៍ដែលនៅជិតនេះ",
     "thisDevice": "ឧបករណ៍នេះ",
     "scan": "កំពុងរកមើលឧបករណ៍",
@@ -82,12 +82,12 @@
     },
     "sendModeHelp": "ការពន្យល់",
     "help": "សូមប្រាកដថាទីតាំងដែលអ្នកចង់ផ្ញើគឺត្រូវតែភ្ជាប់បណ្តាញ Wi-Fi តែមួយដូចគ្នា។",
-    "placeItems": "ដាក់របស់ដែលត្រូវចែករំលែក"
+    "placeItems": "ដាក់ធាតុដែលត្រូវចែករំលែក។"
   },
   "settingsTab": {
     "title": "ការកំណត់",
     "general": {
-      "title": "ទូទៅ",
+      "title": "ទិដ្ឋភាពទូទៅ",
       "brightness": "ស្បែកកម្មវិធី",
       "brightnessOptions": {
         "system": "តាមប្រព័ន្ធ",
@@ -103,7 +103,7 @@
       "languageOptions": {
         "system": "តាមប្រព័ន្ធ"
       },
-      "saveWindowPlacement": "ចាកចេញ: រក្សាទុកផ្ទាំង Window",
+      "saveWindowPlacement": "រក្សាទុកផ្ទាំងវីនដូ ក្រោយពេលចាកចេញ",
       "saveWindowPlacementWindows": "រក្សាទុកទីតាំងផ្ទាំងអេក្រង់នៅដដែលបន្ទាប់ពីចាកចេញ",
       "minimizeToTray": "ចាកចេញ: បង្រួមអប្បបរមាទៅរបារម៉ឺនុយ",
       "launchAtStartup": "ចាប់ផ្តើមដោយស្វ័យប្រវត្តិបន្ទាប់ពីចូលគណនី",
@@ -117,7 +117,7 @@
       "quickSaveFromFavorites": "@:general.quickSaveFromFavorites",
       "requirePin": "@:webSharePage.requirePin",
       "autoFinish": "បញ្ចប់ដោយស្វ័យប្រវត្តិ",
-      "destination": "ទិសដៅ",
+      "destination": "រក្សាទុកនៅឯថត",
       "downloads": "(ទាញយក)",
       "saveToGallery": "រក្សាទុកទៅកាន់កម្មវិធីវិចិត្រសាល",
       "saveToHistory": "រក្សាទុកទៅកាន់ប្រវត្តិ"
@@ -133,14 +133,19 @@
       "alias": "ឈ្មោះផ្សេងទៀត",
       "deviceType": "ប្រភេទឧបករណ៍",
       "deviceModel": "ម៉ូឌែលរបស់ឧបករណ៍",
-      "port": "ផត",
+      "port": "ច្រក",
       "discoveryTimeout": "ថេរវេលាក្នុងការស្វែងរក",
       "useSystemName": "ប្រើប្រាស់ឈ្មោះរបស់ប្រព័ន្ធ",
       "generateRandomAlias": "បង្កើតឈ្មោះដទៃដោយដៃចៃដន្យ",
       "portWarning": "អ្នកប្រហែលជាមិនត្រូវបានរកឃើញដោយឧបករណ៍ផ្សេងទៀតទេ ដោយសារតែអ្នកកំពុងប្រើច្រកដែលបង្កើតផ្ទាល់ខ្លួន។ (ច្រកដើម: {defaultPort})",
       "encryption": "ការការពារទិន្នន័យ",
-      "multicastGroup": "ពហុផ្សាយ",
-      "multicastGroupWarning": "អ្នកប្រហែលជាមិនត្រូវបានរកឃើញដោយឧបករណ៍ផ្សេងទៀតទេ ដោយសារតែអ្នកកំពុងប្រើអាសយដ្ឋានពហុផ្សាយដែលបង្កើតផ្ទាល់ខ្លួន។ (ច្រកដើម: {defaultMulticast})"
+      "multicastGroup": "អាសយដ្ឋានពហុផ្សាយ",
+      "multicastGroupWarning": "អ្នកប្រហែលជាមិនត្រូវបានរកឃើញដោយឧបករណ៍ផ្សេងទៀតទេ ដោយសារតែអ្នកកំពុងប្រើអាសយដ្ឋានពហុផ្សាយដែលបង្កើតផ្ទាល់ខ្លួន។ (ច្រកដើម: {defaultMulticast})",
+      "network": "បណ្តាញ",
+      "networkOptions": {
+        "all": "ទាំងអស់",
+        "filtered": "បានតម្រង"
+      }
     },
     "other": {
       "title": "ផ្សេងៗ",

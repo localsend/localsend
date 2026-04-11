@@ -29,10 +29,6 @@ class FileDto {
   final String? preview;
   final FileMetadata? metadata;
 
-  /// This is only used internally to determine if fileType is a mime type or a legacy enum.
-  /// It is not serialized.
-  final bool legacy;
-
   const FileDto({
     required this.id,
     required this.fileName,
@@ -40,7 +36,6 @@ class FileDto {
     required this.fileType,
     required this.hash,
     required this.preview,
-    required this.legacy,
     required this.metadata,
   });
 
@@ -56,11 +51,10 @@ class FileDto {
           size == other.size &&
           fileType == other.fileType &&
           hash == other.hash &&
-          preview == other.preview &&
-          legacy == other.legacy;
+          preview == other.preview;
 
   @override
-  int get hashCode => Object.hash(id, fileName, size, fileType, hash, preview, legacy);
+  int get hashCode => Object.hash(id, fileName, size, fileType, hash, preview);
 }
 
 class FileDtoMapper extends SimpleMapper<FileDto> {
@@ -86,7 +80,6 @@ class FileDtoMapper extends SimpleMapper<FileDto> {
       fileType: fileType,
       hash: map['hash'] as String?,
       preview: map['preview'] as String?,
-      legacy: false,
       metadata: switch (map['metadata']) {
         Map<String, dynamic> metadata => FileMetadataMapper.fromJson(metadata),
         _ => null,
@@ -100,7 +93,7 @@ class FileDtoMapper extends SimpleMapper<FileDto> {
       'id': self.id,
       'fileName': self.fileName,
       'size': self.size,
-      'fileType': self.legacy ? self.fileType.name : self.lookupMime(),
+      'fileType': self.lookupMime(),
       if (self.hash != null) 'hash': self.hash,
       if (self.preview != null) 'preview': self.preview,
       if (self.metadata != null) 'metadata': self.metadata!.toJson(),

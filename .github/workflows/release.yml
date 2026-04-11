@@ -15,7 +15,7 @@ jobs:
       version: ${{ steps.get_version.outputs.version }}
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Get version from pubspec.yaml
         id: get_version
@@ -29,7 +29,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Remove proprietary dependencies
         run: sh scripts/remove_proprietary_dependencies.sh
@@ -52,7 +52,7 @@ jobs:
         run: mkdir secrets && echo $ENCODED_STRING | base64 -di > secrets/android-keystore.jks
 
       - name: Set up JDK 17
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@v5
         with:
           distribution: 'temurin'
           java-version: '17'
@@ -81,7 +81,7 @@ jobs:
         run: flutter build apk --split-per-abi
 
       - name: Upload APK
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: apk-result
           path: |
@@ -94,7 +94,7 @@ jobs:
     runs-on: ubuntu-24.04
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Install dependencies
         run: |
@@ -130,7 +130,7 @@ jobs:
           tar -czvf ../../../../../result.tar.gz *
 
       - name: Upload tar.gz archive
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: tar-gz-x86-64-result
           path: ./app/*.tar.gz
@@ -142,7 +142,7 @@ jobs:
     runs-on: [ self-hosted, linux, arm64 ]
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Install dependencies
         run: |
@@ -163,7 +163,7 @@ jobs:
           tar -czvf ../../../../../result.tar.gz *
 
       - name: Upload tar.gz archive
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: tar-gz-arm-64-result
           path: ./app/*.tar.gz
@@ -173,7 +173,7 @@ jobs:
     runs-on: ubuntu-24.04
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Install dependencies
         run: |
@@ -221,7 +221,7 @@ jobs:
           fi
 
       - name: Upload deb file
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: deb-x86-64-result
           path: ${{ steps.find_deb.outputs.deb_path }}
@@ -233,7 +233,7 @@ jobs:
     runs-on: [ self-hosted, linux, arm64 ]
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Install dependencies
         run: |
@@ -263,7 +263,7 @@ jobs:
           fi
 
       - name: Upload deb file
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: deb-arm-64-result
           path: ${{ steps.find_deb.outputs.deb_path }}
@@ -273,7 +273,7 @@ jobs:
     runs-on: ubuntu-24.04
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Install dependencies
         run: |
@@ -326,7 +326,7 @@ jobs:
           recipe: ./AppImageBuilder.yml
 
       - name: Upload AppImage file
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: appimage-x86-64-result
           path: ./*.AppImage
@@ -340,7 +340,7 @@ jobs:
         run: git config --system core.longpaths true
 
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - uses: subosito/flutter-action@v2
         with:
@@ -371,7 +371,7 @@ jobs:
         run: Compress-Archive -Path build/windows/x64/runner/Release/* -DestinationPath LocalSend.zip
 
       - name: Upload zip
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: windows-zip-x86-64-result
           path: app/LocalSend.zip
@@ -389,7 +389,7 @@ jobs:
     runs-on: ubuntu-24.04
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Draft release
         id: draft_release
@@ -402,7 +402,7 @@ jobs:
 
       # APK
       - name: Download apk file
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v7
         with:
           name: apk-result
           path: apk-result
@@ -442,7 +442,7 @@ jobs:
 
       # TAR.GZ (x86_64)
       - name: Download tar.gz file
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v7
         with:
           name: tar-gz-x86-64-result
           path: tar-gz-x86-64-result
@@ -465,7 +465,7 @@ jobs:
 
       # TAR.GZ (arm_64)
       - name: Download tar.gz file
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v7
         with:
           name: tar-gz-arm-64-result
           path: tar-gz-arm-64-result
@@ -488,7 +488,7 @@ jobs:
 
       # DEB (x86_64)
       - name: Download deb file
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v7
         with:
           name: deb-x86-64-result
           path: deb-x86-64-result
@@ -508,7 +508,7 @@ jobs:
 
       # DEB (arm_64)
       - name: Download deb file
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v7
         with:
           name: deb-arm-64-result
           path: deb-arm-64-result
@@ -528,7 +528,7 @@ jobs:
 
       # APPIMAGE (x86_64)
       - name: Download AppImage file
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v7
         with:
           name: appimage-x86-64-result
           path: appimage-x86-64-result
@@ -556,7 +556,7 @@ jobs:
 
       # WINDOWS ZIP (x86_64)
       - name: Download windows zip file
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v7
         with:
           name: windows-zip-x86-64-result
           path: windows-zip-x86-64-result

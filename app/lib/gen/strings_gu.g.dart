@@ -13,15 +13,21 @@ import 'strings.g.dart';
 class TranslationsGu extends Translations {
   /// You can call this constructor and build your own translation instance of this locale.
   /// Constructing via the enum [AppLocale.build] is preferred.
-  TranslationsGu({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
-    : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-      $meta = TranslationMetadata(
-        locale: AppLocale.gu,
-        overrides: overrides ?? {},
-        cardinalResolver: cardinalResolver,
-        ordinalResolver: ordinalResolver,
-      ),
-      super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
+  TranslationsGu({
+    Map<String, Node>? overrides,
+    PluralResolver? cardinalResolver,
+    PluralResolver? ordinalResolver,
+    TranslationMetadata<AppLocale, Translations>? meta,
+  }) : assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
+       $meta =
+           meta ??
+           TranslationMetadata(
+             locale: AppLocale.gu,
+             overrides: overrides ?? {},
+             cardinalResolver: cardinalResolver,
+             ordinalResolver: ordinalResolver,
+           ),
+       super(cardinalResolver: cardinalResolver, ordinalResolver: ordinalResolver);
 
   /// Metadata for the translations of <gu>.
   @override
@@ -29,9 +35,12 @@ class TranslationsGu extends Translations {
 
   late final TranslationsGu _root = this; // ignore: unused_field
 
+  @override
+  TranslationsGu $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => TranslationsGu(meta: meta ?? this.$meta);
+
   // Translations
   @override
-  String get locale => 'Gujarati';
+  String get locale => 'અંગ્રેજી';
   @override
   String get appName => 'LocalSend';
   @override
@@ -78,6 +87,8 @@ class TranslationsGu extends Translations {
   late final _TranslationsWebGu web = _TranslationsWebGu._(_root);
   @override
   late final _TranslationsAssetPickerGu assetPicker = _TranslationsAssetPickerGu._(_root);
+  @override
+  late final _TranslationsNetworkInterfacesPageGu networkInterfacesPage = _TranslationsNetworkInterfacesPageGu._(_root);
 }
 
 // Path: general
@@ -102,7 +113,7 @@ class _TranslationsGeneralGu extends TranslationsGeneralEn {
   @override
   String get confirm => 'પુષ્ટિ કરો';
   @override
-  String get continueStr => 'ચાલુ રાખો';
+  String get continueStr => 'આગળ વધો';
   @override
   String get copy => 'કૉપિ કરો';
   @override
@@ -161,6 +172,8 @@ class _TranslationsGeneralGu extends TranslationsGeneralEn {
   String get unknown => 'અજ્ઞાત';
   @override
   String get noItemInClipboard => 'ક્લિપબોર્ડમાં કોઈ વસ્તુ નથી';
+  @override
+  String get quickSaveFromFavorites => '"મનપસંદ" માટે ક્વિક સેવ કરો';
 }
 
 // Path: receiveTab
@@ -174,6 +187,8 @@ class _TranslationsReceiveTabGu extends TranslationsReceiveTabEn {
   String get title => 'પ્રાપ્ત કરો';
   @override
   late final _TranslationsReceiveTabInfoBoxGu infoBox = _TranslationsReceiveTabInfoBoxGu._(_root);
+  @override
+  late final _TranslationsReceiveTabQuickSaveGu quickSave = _TranslationsReceiveTabQuickSaveGu._(_root);
 }
 
 // Path: sendTab
@@ -207,6 +222,8 @@ class _TranslationsSendTabGu extends TranslationsSendTabEn {
   String get help => 'મહેરબાની કરીને ખાતરી કરો કે ઇચ્છિત લક્ષ્ય પણ તે જ Wi-Fi નેટવર્ક પર છે.';
   @override
   String get placeItems => 'શેર કરવા માટે વસ્તુઓ મૂકો.';
+  @override
+  String get manualSending => 'મૈન્યુલ મોકલવું';
 }
 
 // Path: settingsTab
@@ -251,6 +268,8 @@ class _TranslationsTroubleshootPageGu extends TranslationsTroubleshootPageEn {
   late final _TranslationsTroubleshootPageFirewallGu firewall = _TranslationsTroubleshootPageFirewallGu._(_root);
   @override
   late final _TranslationsTroubleshootPageNoConnectionGu noConnection = _TranslationsTroubleshootPageNoConnectionGu._(_root);
+  @override
+  late final _TranslationsTroubleshootPageNoDiscoveryGu noDiscovery = _TranslationsTroubleshootPageNoDiscoveryGu._(_root);
 }
 
 // Path: receiveHistoryPage
@@ -308,8 +327,11 @@ class _TranslationsReceivePageGu extends TranslationsReceivePageEn {
 
   // Translations
   @override
-  String subTitle({required num n}) =>
-      (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('gu'))(n, one: 'તમે ફાઇલ મોકલવા માંગે છે', other: 'તમે ${n} ફાઇલો મોકલવા માંગે છે');
+  String subTitle({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('gu'))(
+    n,
+    one: 'તમે ફાઇલ મોકલવા માંગે છે',
+    other: 'તમે ${n} ફાઇલો મોકલવા માંગે છે',
+  );
   @override
   String get subTitleMessage => 'તમે સંદેશો મોકલ્યો:';
   @override
@@ -350,6 +372,8 @@ class _TranslationsSendPageGu extends TranslationsSendPageEn {
   String get rejected => 'પ્રાપ્તકર્તાએ વિનંતી અસ્વીકાર કરી છે.';
   @override
   String get busy => 'પ્રાપ્તકર્તા બીજી વિનંતી સાથે વ્યસ્ત છે.';
+  @override
+  String get tooManyAttempts => '@:વેબ.બહુ_બધા_પ્રયાસ';
 }
 
 // Path: progressPage
@@ -367,6 +391,8 @@ class _TranslationsProgressPageGu extends TranslationsProgressPageEn {
   String get savedToGallery => 'ફોટોઝ માં સાચવ્યું';
   @override
   late final _TranslationsProgressPageTotalGu total = _TranslationsProgressPageTotalGu._(_root);
+  @override
+  late final _TranslationsProgressPageRemainingTimeGu remainingTime = _TranslationsProgressPageRemainingTimeGu._(_root);
 }
 
 // Path: webSharePage
@@ -402,6 +428,10 @@ class _TranslationsWebSharePageGu extends TranslationsWebSharePageEn {
   String get encryptionHint => 'લોકલસેન્ડ એ સ્વ-સાઇન્ડ સર્ટિફિકેટનો ઉપયોગ કરે છે. તમારે તેને તમારા બ્રાઉઝરમાં સ્વીકારવું પડશે.';
   @override
   String pendingRequests({required Object n}) => 'બાકી વિનંતિઓ: ${n}';
+  @override
+  String get requirePin => 'પિન જોયશે';
+  @override
+  String pinHint({required Object pin}) => 'પિન "${pin}" છે';
 }
 
 // Path: aboutPage
@@ -424,6 +454,8 @@ class _TranslationsAboutPageGu extends TranslationsAboutPageEn {
   String get contributors => 'યોગદાનકર્તાઓ';
   @override
   String get translators => 'અનુવાદકો';
+  @override
+  String get packagers => 'પૅકેજકરતાં';
 }
 
 // Path: donationPage
@@ -590,6 +622,14 @@ class _TranslationsDialogsGu extends TranslationsDialogsEn {
   late final _TranslationsDialogsSendModeHelpGu sendModeHelp = _TranslationsDialogsSendModeHelpGu._(_root);
   @override
   late final _TranslationsDialogsZoomGu zoom = _TranslationsDialogsZoomGu._(_root);
+  @override
+  late final _TranslationsDialogsOpenFileGu openFile = _TranslationsDialogsOpenFileGu._(_root);
+  @override
+  late final _TranslationsDialogsQuickSaveFromFavoritesNoticeGu quickSaveFromFavoritesNotice = _TranslationsDialogsQuickSaveFromFavoritesNoticeGu._(
+    _root,
+  );
+  @override
+  late final _TranslationsDialogsPinGu pin = _TranslationsDialogsPinGu._(_root);
 }
 
 // Path: sanitization
@@ -616,6 +656,8 @@ class _TranslationsTrayGu extends TranslationsTrayEn {
   String get open => _root.general.open;
   @override
   String get close => 'LocalSend બંધ કરો';
+  @override
+  String get closeWindows => 'બહાર નિકડો';
 }
 
 // Path: web
@@ -635,6 +677,12 @@ class _TranslationsWebGu extends TranslationsWebEn {
   String get fileName => 'ફાઈલનું નામ';
   @override
   String get size => 'માપ';
+  @override
+  String get enterPin => 'પિન નાખો';
+  @override
+  String get invalidPin => 'પિન ગલત છે';
+  @override
+  String get tooManyAttempts => 'બહુ બધા પ્રયાસ કરી દીધા';
 }
 
 // Path: assetPicker
@@ -702,6 +750,26 @@ class _TranslationsAssetPickerGu extends TranslationsAssetPickerEn {
   String get sUnitAssetCountLabel => 'ગણતરી';
 }
 
+// Path: networkInterfacesPage
+class _TranslationsNetworkInterfacesPageGu extends TranslationsNetworkInterfacesPageEn {
+  _TranslationsNetworkInterfacesPageGu._(TranslationsGu root) : this._root = root, super.internal(root);
+
+  final TranslationsGu _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get preview => 'પ્રીવ્યૂ';
+  @override
+  String get whitelist => 'જોયતીસૂચી';
+  @override
+  String get blacklist => 'નજોયતીસૂચી';
+  @override
+  String get title => 'નેટવર્ક ઇન્ટરફેસ';
+  @override
+  String get info =>
+      'ડિફૌલ્ટ રૂપે, LocalSend બધા ઉપલબ્ધ નેટવર્ક ઇન્ટરફેસ વાપરશે. તમે અહી નજોયતા નેટવર્ક ને કાઢી શકો છો. બદલાવ જોયા માટે તમને સર્વર ને ફરી ચાલુ કરવું પડસે.';
+}
+
 // Path: receiveTab.infoBox
 class _TranslationsReceiveTabInfoBoxGu extends TranslationsReceiveTabInfoBoxEn {
   _TranslationsReceiveTabInfoBoxGu._(TranslationsGu root) : this._root = root, super.internal(root);
@@ -715,6 +783,21 @@ class _TranslationsReceiveTabInfoBoxGu extends TranslationsReceiveTabInfoBoxEn {
   String get port => 'પોર્ટ:';
   @override
   String get alias => 'ડિવાઇસનું નામ:';
+}
+
+// Path: receiveTab.quickSave
+class _TranslationsReceiveTabQuickSaveGu extends TranslationsReceiveTabQuickSaveEn {
+  _TranslationsReceiveTabQuickSaveGu._(TranslationsGu root) : this._root = root, super.internal(root);
+
+  final TranslationsGu _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get favorites => 'મનપસંદ';
+  @override
+  String get off => _root.general.off;
+  @override
+  String get on => _root.general.on;
 }
 
 // Path: sendTab.selection
@@ -799,6 +882,10 @@ class _TranslationsSettingsTabGeneralGu extends TranslationsSettingsTabGeneralEn
   String get launchMinimized => 'સ્વયંચાલિત શરૂઆત: છુપાવેલી સ્થિતિમાં શરૂ કરો';
   @override
   String get animations => 'એનિમેશન';
+  @override
+  String get saveWindowPlacementWindows => 'બહાર નીકળ્યા પછી વિન્ડો ની જગ્યા સાચવો';
+  @override
+  String get showInContextMenu => 'કૉટેક્સ્ટ મેન્યુ માં LocalSend દેખાડો';
 }
 
 // Path: settingsTab.receive
@@ -822,6 +909,10 @@ class _TranslationsSettingsTabReceiveGu extends TranslationsSettingsTabReceiveEn
   String get saveToGallery => 'મીડિયા ગેલેરીમાં સેવ કરો';
   @override
   String get saveToHistory => 'ઇતિહાસમાં સેવ કરો';
+  @override
+  String get quickSaveFromFavorites => _root.general.quickSaveFromFavorites;
+  @override
+  String get requirePin => _root.webSharePage.requirePin;
 }
 
 // Path: settingsTab.send
@@ -870,6 +961,14 @@ class _TranslationsSettingsTabNetworkGu extends TranslationsSettingsTabNetworkEn
   @override
   String multicastGroupWarning({required Object defaultMulticast}) =>
       'તમે કસ્ટમ મલ્ટીકાસ્ટ સરનામાનો ઉપયોગ કરી રહ્યા છો તેથી તમે અન્ય ડિવાઇસ દ્વારા શોધી શકાય નહીં. (મૂળભૂત: ${defaultMulticast})';
+  @override
+  String get network => 'નૅટવર્ક';
+  @override
+  late final _TranslationsSettingsTabNetworkNetworkOptionsGu networkOptions = _TranslationsSettingsTabNetworkNetworkOptionsGu._(_root);
+  @override
+  String get useSystemName => 'સિસ્ટમ નામ વાપરો';
+  @override
+  String get generateRandomAlias => 'રેનડમ ઉપનામ બનાવો';
 }
 
 // Path: settingsTab.other
@@ -904,7 +1003,7 @@ class _TranslationsTroubleshootPageFirewallGu extends TranslationsTroubleshootPa
   String solution({required Object port}) =>
       'આ મોટાભાગે ફાયરવોલનો પ્રશ્ન છે. તમે ${port} પોર્ટ પર આવનારી કનેક્શન્સ (UDP અને TCP) ને મંજૂરી આપીને આ ઉકેલી શકો છો.';
   @override
-  String get openFirewallSettings => 'ફાયરવોલ ખોલો';
+  String get openFirewall => 'ફાયરવોલ ખોલો';
 }
 
 // Path: troubleshootPage.noConnection
@@ -921,6 +1020,20 @@ class _TranslationsTroubleshootPageNoConnectionGu extends TranslationsTroublesho
       'શું સમસ્યા બંને બાજુ છે? જો આવું હોય, તો તમને ખાતરી કરવી જોઈએ કે બંને ડિવાઇસ એ જ Wi-Fi નેટવર્ક પર છે અને એ જ રૂપરેખા (પોર્ટ, મલ્ટીકાસ્ટ સરનામું, એન્ક્રિપ્શન) શેર કરે છે. નેટવર્ક ભાગ લેનારા વચ્ચે સંવાદિતા મંજૂરી ન આપી શકે. આ કિસ્સામાં, આ વિકલ્પને રાઉટરમાં સક્રિય કરવો પડશે.';
 }
 
+// Path: troubleshootPage.noDiscovery
+class _TranslationsTroubleshootPageNoDiscoveryGu extends TranslationsTroubleshootPageNoDiscoveryEn {
+  _TranslationsTroubleshootPageNoDiscoveryGu._(TranslationsGu root) : this._root = root, super.internal(root);
+
+  final TranslationsGu _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get symptom => 'આ ડિવાઇસ બીજા ડિવાઇસ ને શોધી નથી શકતો.';
+  @override
+  String get solution =>
+      'પક્કું કરો કે તમારા બધા ડિવાઇસ એજ વાઈફાઈ પર છે એંડ એજ કૉંફઈગુરેશન (પોર્ટ, મલ્ટીકાષ્ટ એડ્રેસ, એનક્રિપશન) છે. તમે જોયતા ડિવાઇસ નું આઇપી એડ્રેસ લખવનો પ્રયાસ કરી શકો છો. અગર આ કામ કયરૂ તોહ તમે આ ડિવાઇસ ને તમારા મનપસંદ માં જોડી શકો છો જેનાથી, ભવિષ્ય માં એ એની મેતે શોધી લેસે.';
+}
+
 // Path: receiveHistoryPage.entryActions
 class _TranslationsReceiveHistoryPageEntryActionsGu extends TranslationsReceiveHistoryPageEntryActionsEn {
   _TranslationsReceiveHistoryPageEntryActionsGu._(TranslationsGu root) : this._root = root, super.internal(root);
@@ -934,6 +1047,8 @@ class _TranslationsReceiveHistoryPageEntryActionsGu extends TranslationsReceiveH
   String get info => 'માહિતી';
   @override
   String get deleteFromHistory => 'ઇતિહાસમાંથી ડિલીટ કરો';
+  @override
+  String get showInFolder => 'ફોલ્ડર માં બતાવો';
 }
 
 // Path: progressPage.total
@@ -951,6 +1066,28 @@ class _TranslationsProgressPageTotalGu extends TranslationsProgressPageTotalEn {
   String size({required Object curr, required Object n}) => 'કદ: ${curr} / ${n}';
   @override
   String speed({required Object speed}) => 'ગતિ: ${speed}/s';
+}
+
+// Path: progressPage.remainingTime
+class _TranslationsProgressPageRemainingTimeGu extends TranslationsProgressPageRemainingTimeEn {
+  _TranslationsProgressPageRemainingTimeGu._(TranslationsGu root) : this._root = root, super.internal(root);
+
+  final TranslationsGu _root; // ignore: unused_field
+
+  // Translations
+
+  /// નાનું કરી ને 'દિ' દિવસ માટે, 'ક' કલાક માટે અને 'મિ' મિનિટ માટે વાપરો
+  @override
+  String days({required Object d, required Object h, required Object m}) => '${d}દિ ${h}ક ${m}મિ';
+
+  @override
+  String seconds({required Object n, required Object ss}) => '${n}:${ss}';
+  @override
+  String minutes({required Object n, required Object ss}) => '${n}:${ss}';
+
+  /// નાનું કરી ને 'ક' કલાક માટે અને 'મિ' મિનિટ માટે વાપરો
+  @override
+  String hours({required Object h, required Object m}) => '${h}ક ${m}મિ';
 }
 
 // Path: dialogs.addFile
@@ -1269,6 +1406,47 @@ class _TranslationsDialogsZoomGu extends TranslationsDialogsZoomEn {
   String get title => 'URL';
 }
 
+// Path: dialogs.openFile
+class _TranslationsDialogsOpenFileGu extends TranslationsDialogsOpenFileEn {
+  _TranslationsDialogsOpenFileGu._(TranslationsGu root) : this._root = root, super.internal(root);
+
+  final TranslationsGu _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'ફાઇલ ખોલો';
+  @override
+  String get content => 'પ્રાપ્ત થઈલી ફાઇલ ખોલવી છે?';
+}
+
+// Path: dialogs.quickSaveFromFavoritesNotice
+class _TranslationsDialogsQuickSaveFromFavoritesNoticeGu extends TranslationsDialogsQuickSaveFromFavoritesNoticeEn {
+  _TranslationsDialogsQuickSaveFromFavoritesNoticeGu._(TranslationsGu root) : this._root = root, super.internal(root);
+
+  final TranslationsGu _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => _root.general.quickSaveFromFavorites;
+  @override
+  List<String> get content => [
+    'તમારા મનપસંદ સૂચી માં હોય એ ડિવાઇસ ના ફાઇલ અનુરોધ એની મેતે સ્વીકાર કરી લેશે.',
+    'ચેતવણી! હમણાં, આ પૂર્ણ રૂપ થઈ સુરક્ષિત નથી, કારણ કે તમારા મનપસંદ સૂચી માંથી કોઈ ભી ડિવાઇસ નું ફિંગરપ્રિન્ટ કોઈ હેકર પાસે હસે તો એ તમને ફાઇલ બીના તમારા મંજૂરી મોકલી સકશે.',
+    'જોકે, બીના મંજૂરી બધા જે લોકલ નેટવર્ક પર હોય એના પાસ થી ફાઇલ લેવા કરતા આ વિકલ્પ વધારે સુરક્ષિત છે.',
+  ];
+}
+
+// Path: dialogs.pin
+class _TranslationsDialogsPinGu extends TranslationsDialogsPinEn {
+  _TranslationsDialogsPinGu._(TranslationsGu root) : this._root = root, super.internal(root);
+
+  final TranslationsGu _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'પિન નાખો';
+}
+
 // Path: settingsTab.general.brightnessOptions
 class _TranslationsSettingsTabGeneralBrightnessOptionsGu extends TranslationsSettingsTabGeneralBrightnessOptionsEn {
   _TranslationsSettingsTabGeneralBrightnessOptionsGu._(TranslationsGu root) : this._root = root, super.internal(root);
@@ -1306,6 +1484,19 @@ class _TranslationsSettingsTabGeneralLanguageOptionsGu extends TranslationsSetti
   // Translations
   @override
   String get system => 'સિસ્ટમ';
+}
+
+// Path: settingsTab.network.networkOptions
+class _TranslationsSettingsTabNetworkNetworkOptionsGu extends TranslationsSettingsTabNetworkNetworkOptionsEn {
+  _TranslationsSettingsTabNetworkNetworkOptionsGu._(TranslationsGu root) : this._root = root, super.internal(root);
+
+  final TranslationsGu _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get all => 'બધા';
+  @override
+  String get filtered => 'છાણેલા';
 }
 
 // Path: progressPage.total.title

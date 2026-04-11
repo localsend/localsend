@@ -26,7 +26,7 @@
     "on": "Sees",
     "online": "Võrgus",
     "open": "Ava",
-    "queue": "Järjekord",
+    "queue": "Järjekorras",
     "quickSave": "Kiirsalvestus",
     "quickSaveFromFavorites": "Kiirsalvestamine „Lemmikutelt“",
     "renamed": "Nimi on muudetud",
@@ -151,7 +151,7 @@
       "title": "Muu teave",
       "support": "Toeta LocalSendi",
       "donate": "Toeta rahaliselt",
-      "privacyPolicy": "Privaatsuspoliitika",
+      "privacyPolicy": "Andmekaitsepõhimõtted",
       "termsOfUse": "Kasutustingimused"
     },
     "advancedSettings": "Täiendavad seadistused"
@@ -232,6 +232,14 @@
       "count": "Faile: {curr} / {n}",
       "size": "Andmemaht: {curr} / {n}",
       "speed": "Kiirus: {speed}/s"
+    },
+    "remainingTime": {
+      "seconds": "{n}:{ss}",
+      "minutes": "{n}:{ss}",
+      "hours": "{h} t {m} min",
+      "days": "{d} pv {h} t {m} min",
+      "@hours": "Kasuta „h“ tunni lühendina ja „m“ minutite jaoks",
+      "@days": "Kasuta „d“ päeva, lühendina „h“ tunni lühendina ja „m“ minutite jaoks"
     }
   },
   "webSharePage": {
