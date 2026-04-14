@@ -232,6 +232,14 @@
       "count": "फाइलें: {curr}/{n}",
       "size": "आकार: {curr}/{n}",
       "speed": "गति: {speed}/सेकंड"
+    },
+    "remainingTime": {
+      "seconds": "{n}:{ss}",
+      "minutes": "{n}:{ss}",
+      "hours": "{h}h {m}m",
+      "days": "{d}d {h}h {m}m",
+      "@hours": "घंटों के लिए 'h' और मिनटों के लिए 'm' का प्रयोग करें।",
+      "@days": "दिनों के लिए 'd', घंटों के लिए 'h' और मिनटों के लिए 'm' का प्रयोग करें।"
     }
   },
   "webSharePage": {
