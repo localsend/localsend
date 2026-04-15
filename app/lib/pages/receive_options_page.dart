@@ -47,7 +47,12 @@ class ReceiveOptionsPage extends StatelessWidget {
                     onPressed: () async {
                       final directory = await pickDirectoryPath();
                       if (directory != null) {
-                        ref.notifier(serverProvider).setSessionDestinationDir(directory);
+                        final success = await ref.notifier(serverProvider).setSessionDestinationDir(directory);
+                        if (!success && context.mounted) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text(t.receiveOptionsPage.invalidDestination)),
+                          );
+                        }
                       }
                     },
                     child: const Icon(Icons.edit),

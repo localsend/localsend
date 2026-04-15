@@ -183,8 +183,9 @@ class ServerService extends Notifier<ServerState?> {
   }
 
   /// Updates the destination directory for the current session.
-  void setSessionDestinationDir(String destinationDirectory) {
-    _receiveController.setSessionDestinationDir(destinationDirectory);
+  /// Returns false if the directory does not exist and could not be created.
+  Future<bool> setSessionDestinationDir(String destinationDirectory) {
+    return _receiveController.setSessionDestinationDir(destinationDirectory);
   }
 
   /// Updates the save to gallery setting for the current session.

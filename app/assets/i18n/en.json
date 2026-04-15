@@ -217,7 +217,8 @@
     "destination": "@:settingsTab.receive.destination",
     "appDirectory": "(LocalSend folder)",
     "saveToGallery": "@:settingsTab.receive.saveToGallery",
-    "saveToGalleryOff": "Turned off automatically because there are folders."
+    "saveToGalleryOff": "Turned off automatically because there are folders.",
+    "invalidDestination": "The selected folder does not exist and could not be created."
   },
   "sendPage": {
     "waiting": "Waiting for response…",

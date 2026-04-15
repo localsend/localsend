@@ -430,6 +430,9 @@ class TranslationsReceiveOptionsPageEn {
 
   /// en: 'Turned off automatically because there are folders.'
   String get saveToGalleryOff => 'Turned off automatically because there are folders.';
+
+  /// en: 'The selected folder does not exist and could not be created.'
+  String get invalidDestination => 'The selected folder does not exist and could not be created.';
 }
 
 // Path: sendPage

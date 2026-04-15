@@ -35,3 +35,23 @@ Future<String> getDefaultDestinationDirectory() async {
 Future<String> getCacheDirectory() async {
   return (await path.getTemporaryDirectory()).path;
 }
+
+/// Ensures the given [directoryPath] exists on disk.
+/// Creates it (with parents) if missing.
+/// Returns true if the directory exists after this call, false if creation failed.
+/// Skips validation for Android content:// URIs.
+Future<bool> ensureDirectoryExists(String directoryPath) async {
+  if (directoryPath.startsWith('content://')) {
+    return true;
+  }
+  final dir = Directory(directoryPath);
+  if (await dir.exists()) {
+    return true;
+  }
+  try {
+    await dir.create(recursive: true);
+    return true;
+  } catch (_) {
+    return false;
+  }
+}
