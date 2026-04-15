@@ -51,10 +51,12 @@ class ReceiveHistoryPage extends StatelessWidget {
     Dispatcher<ReceiveHistoryService, List<ReceiveHistoryEntry>> dispatcher,
   ) async {
     if (entry.path != null) {
+      final destination = context.read(settingsProvider).destination ?? await getDefaultDestinationDirectory();
       await openFile(
         context,
         entry.fileType,
         entry.path!,
+        destinationDirectory: destination,
         onDeleteTap: () => dispatcher.dispatchAsync(RemoveHistoryEntryAction(entry.id)),
       );
     }

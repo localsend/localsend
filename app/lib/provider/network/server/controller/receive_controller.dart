@@ -222,6 +222,12 @@ class ReceiveController {
 
     final settings = server.ref.read(settingsProvider);
     final destinationDir = settings.destination ?? await getDefaultDestinationDirectory();
+
+    if (!await ensureDirectoryExists(destinationDir)) {
+      _logger.severe('Destination directory does not exist and could not be created: $destinationDir');
+      return await request.respondJson(500, message: 'Destination directory does not exist and could not be created: $destinationDir');
+    }
+
     final cacheDir = await getCacheDirectory();
     final sessionId = _uuid.v4();
 
@@ -525,6 +531,11 @@ class ReceiveController {
         androidSdkInt: server.ref.read(deviceInfoProvider).androidSdkInt,
         createdDirectories: receiveState.createdDirectories,
       );
+      // Resolve sandbox portal paths (Flatpak/Snap) to host filesystem paths
+      if (filePath != null && checkPlatformIsLinuxSandbox()) {
+        filePath = resolvePortalPath(filePath, receiveState.destinationDirectory);
+      }
+
       if (server.getState().session == null || !allowedStates.contains(server.getState().session!.status)) {
         return await request.respondJson(500, message: 'Server is in invalid state');
       }
@@ -767,14 +778,21 @@ class ReceiveController {
   }
 
   /// Updates the destination directory for the current session.
-  void setSessionDestinationDir(String destinationDirectory) {
+  /// Ensures the directory exists before updating.
+  Future<bool> setSessionDestinationDir(String destinationDirectory) async {
+    final normalizedPath = destinationDirectory.replaceAll('\\', '/');
+    if (!await ensureDirectoryExists(normalizedPath)) {
+      _logger.warning('Could not set session destination, directory does not exist: $normalizedPath');
+      return false;
+    }
     server.setState(
       (oldState) => oldState?.copyWith(
         session: oldState.session?.copyWith(
-          destinationDirectory: destinationDirectory.replaceAll('\\', '/'),
+          destinationDirectory: normalizedPath,
         ),
       ),
     );
+    return true;
   }
 
   /// Updates the "saveToGallery" setting for the current session.
