@@ -259,6 +259,35 @@ Future<(String, String?, String)> digestFilePathAndPrepareDirectory({
   return (destinationPath, null, p.basename(destinationPath));
 }
 
+final _portalPathRegex = RegExp(r'^/run/user/\d+/doc/[a-f0-9]+/(.+)$');
+
+/// Resolves an XDG Document Portal path to a real host path.
+/// Portal paths (e.g. /run/user/1000/doc/<hash>/filename) are temporary sandbox
+/// mounts used by Flatpak/Snap that may not persist across sessions.
+///
+/// Falls back to [originalPath] if the resolved path doesn't exist.
+String resolvePortalPath(String originalPath, String destinationDirectory) {
+  final match = _portalPathRegex.firstMatch(originalPath);
+  if (match == null) {
+    return originalPath;
+  }
+
+  final relativePath = match.group(1)!;
+  final resolvedPath = p.join(destinationDirectory, relativePath);
+  if (File(resolvedPath).existsSync()) {
+    return resolvedPath;
+  }
+
+  // Try just the basename in case nested structure differs
+  final baseName = p.basename(originalPath);
+  final fallbackPath = p.join(destinationDirectory, baseName);
+  if (File(fallbackPath).existsSync()) {
+    return fallbackPath;
+  }
+
+  return originalPath;
+}
+
 final _sdCardPathRegex = RegExp(r'^/storage/([A-Fa-f0-9]{4}-[A-Fa-f0-9]{4})/(.*)$');
 
 class SdCardPath {

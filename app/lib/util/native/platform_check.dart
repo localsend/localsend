@@ -1,4 +1,4 @@
-import 'dart:io' show Platform;
+import 'dart:io' show File, Platform;
 import 'package:flutter/foundation.dart';
 
 bool checkPlatform(List<TargetPlatform> platforms, {bool web = false}) {
@@ -58,4 +58,19 @@ bool checkPlatformIsNotWaylandDesktop() {
 /// This platform supports payment (in-app purchase)
 bool checkPlatformSupportPayment() {
   return checkPlatform([TargetPlatform.android, TargetPlatform.iOS, TargetPlatform.macOS]);
+}
+
+/// Whether the app is running inside a Flatpak sandbox
+bool checkPlatformIsFlatpak() {
+  return Platform.isLinux && File('/.flatpak-info').existsSync();
+}
+
+/// Whether the app is running inside a Snap sandbox
+bool checkPlatformIsSnap() {
+  return Platform.isLinux && Platform.environment.containsKey('SNAP');
+}
+
+/// Whether the app is running in any Linux sandbox (Flatpak or Snap)
+bool checkPlatformIsLinuxSandbox() {
+  return checkPlatformIsFlatpak() || checkPlatformIsSnap();
 }
