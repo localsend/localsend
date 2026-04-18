@@ -57,31 +57,65 @@ class SendTab extends StatelessWidget {
               children: [
                 const SizedBox(height: 20),
                 if (vm.selectedFiles.isEmpty) ...[
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: _horizontalPadding),
-                    child: Text(
-                      t.sendTab.selection.title,
-                      style: Theme.of(context).textTheme.titleMedium,
+                  Card(
+                    margin: const EdgeInsets.only(
+                      bottom: 10,
+                      left: _horizontalPadding,
+                      right: _horizontalPadding,
                     ),
-                  ),
-                  ResponsiveWrapView(
-                    outerHorizontalPadding: 15,
-                    outerVerticalPadding: 10,
-                    childPadding: 10,
-                    minChildWidth: buttonWidth,
-                    children: _options.map((option) {
-                      return BigButton(
-                        icon: option.icon,
-                        label: option.label,
-                        filled: false,
-                        onTap: () async => ref.global.dispatchAsync(
-                          PickFileAction(
-                            option: option,
-                            context: context,
+                    child: Padding(
+                      padding: const EdgeInsetsDirectional.only(
+                        start: 15,
+                        top: 10,
+                        bottom: 15,
+                        end: 15,
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          // Title row (same style as selected state)
+                          Row(
+                            children: [
+                              Text(
+                                t.sendTab.selection.title,
+                                style: Theme.of(context).textTheme.titleMedium,
+                              ),
+                            ],
                           ),
-                        ),
-                      );
-                    }).toList(),
+
+                          const SizedBox(height: 10),
+
+                          // Description (optional but nice UX)
+                          Text(
+                            "No files selected",
+                            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                              color: Colors.grey,
+                            ),
+                          ),
+
+                          const SizedBox(height: 15),
+
+                          // CTA button
+                          Align(
+                            alignment: Alignment.centerRight,
+                            child: ElevatedButton.icon(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Theme.of(context).colorScheme.primary,
+                                foregroundColor: Theme.of(context).colorScheme.onPrimary,
+                              ),
+                              onPressed: () async {
+                                await AddFileDialog.open(
+                                  context: context,
+                                  options: _options,
+                                );
+                              },
+                              icon: const Icon(Icons.upload_file),
+                              label: const Text("Select Files"),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
                 ] else ...[
                   Card(
@@ -233,14 +267,6 @@ class SendTab extends StatelessWidget {
                   );
                 }),
                 const SizedBox(height: 10),
-                Center(
-                  child: TextButton(
-                    onPressed: () async {
-                      await context.push(() => const TroubleshootPage());
-                    },
-                    child: Text(t.troubleshootPage.title),
-                  ),
-                ),
                 const SizedBox(height: 20),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: _horizontalPadding),
@@ -270,6 +296,20 @@ class SendTab extends StatelessWidget {
                 const SizedBox(height: 50),
               ],
             ),
+
+            Align(
+              alignment: Alignment.bottomRight,
+              child: Padding(
+                padding: const EdgeInsets.all(20),
+                child: CustomIconButton(
+                  onPressed: () async {
+                    await context.push(() => const TroubleshootPage());
+                  },
+                  child: const Icon(Icons.help_outline),
+                ),
+              ),
+            ),
+
             // make the top draggable on Desktop
             checkPlatform([TargetPlatform.macOS])
                 ? SizedBox(height: 50, child: MoveWindow())
