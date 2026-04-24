@@ -131,11 +131,13 @@ Future<RefenaContainer> preInit(List<String> args) async {
 
     doWhenWindowReady(() {
       if (startHidden) {
-        unawaited(hideToTray());
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          unawaited(hideToTray());
+        });
       } else {
         unawaited(showFromTray());
       }
-    });
+        });
 
     if (defaultTargetPlatform == TargetPlatform.macOS) {
       await setupStatusBar();
@@ -236,7 +238,7 @@ Future<void> postInit(BuildContext context, Ref ref, bool appStart) async {
             args: files,
           ),
         );
-      });
+          });
 
       // handle dropped strings
       pendingStringsStream.listen((pendingStrings) {
@@ -244,7 +246,7 @@ Future<void> postInit(BuildContext context, Ref ref, bool appStart) async {
           ref.redux(selectedSendingFilesProvider).dispatch(AddMessageAction(message: string));
         }
         ref.redux(homePageControllerProvider).dispatch(ChangeTabAction(HomeTab.send));
-      });
+          });
 
       await setupMethodCallHandler();
     } else {
@@ -282,7 +284,7 @@ Future<void> postInit(BuildContext context, Ref ref, bool appStart) async {
           payload: payload,
         ),
       );
-    });
+        });
   }
 
   if (appStart && !hasInitialShare && (checkPlatformWithGallery() || checkPlatformCanReceiveShareIntent())) {
