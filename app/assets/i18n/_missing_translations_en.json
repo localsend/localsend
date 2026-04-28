@@ -1,0 +1,17 @@
+{
+  "settingsTab": {
+    "receive": {
+      "postReceiveHook": "Post-receive Hook",
+      "postReceiveHookEnable": "Enable post-receive hook",
+      "postReceiveHookCommand": "Hook command",
+      "postReceiveHookVariables": "Available environment variables:",
+      "postReceiveHookVarPath": "Full path to saved file",
+      "postReceiveHookVarName": "Original file name from sender",
+      "postReceiveHookVarAlias": "Sender device alias",
+      "postReceiveHookVarSize": "File size in bytes",
+      "postReceiveHookVarType": "File type (image, video, etc.)",
+      "postReceiveHookVarGallery": "Whether saved to gallery (true/false)",
+      "postReceiveHookWarning": "Warning: Commands run with app privileges. Only use trusted scripts."
+    }
+  }
+}
