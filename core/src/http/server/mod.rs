@@ -144,7 +144,7 @@ async fn start_server_with_addr(
                                 .deref()
                                 .deref()
                                 .peer_certificates()
-                                .map(|cert| cert.get(0).unwrap().to_vec()),
+                                .and_then(|certs| certs.first().map(|c| c.as_ref().to_vec())),
                         }
                     };
 
