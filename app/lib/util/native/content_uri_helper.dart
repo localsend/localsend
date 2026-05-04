@@ -65,6 +65,9 @@ class ContentUriHelper {
     String? suffix,
   }) {
     final index = treeUri.indexOf('/tree/');
+    if (index == -1) {
+      return treeUri;
+    }
     final treePath = treeUri.substring(index + 6);
 
     if (suffix == null) {
