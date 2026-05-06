@@ -242,32 +242,51 @@ Future<void> _pickFolder(BuildContext context, Ref ref) async {
 }
 
 Future<void> _pickMedia(BuildContext context, Ref ref) async {
-  if (checkPlatform([TargetPlatform.android])) {
-    await PhotoManager.requestPermissionExtend(
-      requestOption: const PermissionRequestOption(
-        androidPermission: AndroidPermission(
-          type: RequestType.common,
-          mediaLocation: true,
-        ),
-      ),
-    );
-  }
+  final permissionRequestOption = checkPlatform([TargetPlatform.android])
+      ? const PermissionRequestOption(
+          androidPermission: AndroidPermission(
+            type: RequestType.common,
+            mediaLocation: true,
+          ),
+        )
+      : const PermissionRequestOption();
 
+  final permissionState = await PhotoManager.requestPermissionExtend(
+    requestOption: permissionRequestOption,
+  );
   if (!context.mounted) return;
 
-  final oldBrightness = Theme.of(context).brightness;
-  final List<AssetEntity>? result = await AssetPicker.pickAssets(
-    context,
-    pickerConfig: const AssetPickerConfig(maxAssets: 999, textDelegate: TranslatedAssetPickerTextDelegate()),
-  );
+  if (!permissionState.hasAccess) {
+    await _showMediaPermissionDialog(context);
+    return;
+  }
 
-  WidgetsBinding.instance.addPostFrameCallback((_) async {
-    // restore brightness for Android
-    await sleepAsync(500);
-    if (context.mounted) {
-      await updateSystemOverlayStyleWithBrightness(oldBrightness);
+  final oldBrightness = Theme.of(context).brightness;
+  final List<AssetEntity>? result;
+  try {
+    result = await AssetPicker.pickAssets(
+      context,
+      pickerConfig: const AssetPickerConfig(maxAssets: 999, textDelegate: TranslatedAssetPickerTextDelegate()),
+      permissionRequestOption: permissionRequestOption,
+    );
+  } on StateError catch (e) {
+    if (e.message.startsWith('Permission state error')) {
+      if (context.mounted) {
+        await _showMediaPermissionDialog(context);
+      }
+      _logger.warning('Media permission denied', e);
+      return;
     }
-  });
+    rethrow;
+  } finally {
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      // restore brightness for Android
+      await sleepAsync(500);
+      if (context.mounted) {
+        await updateSystemOverlayStyleWithBrightness(oldBrightness);
+      }
+    });
+  }
 
   if (result != null) {
     await ref
@@ -279,6 +298,15 @@ Future<void> _pickMedia(BuildContext context, Ref ref) async {
           ),
         );
   }
+}
+
+Future<void> _showMediaPermissionDialog(BuildContext context) {
+  final additionalContent = checkPlatform([TargetPlatform.iOS]) ? 'iOS: Ajustes > Fotos > Todas las fotos.' : null;
+
+  return showDialog(
+    context: context,
+    builder: (_) => NoPermissionDialog(additionalContent: additionalContent),
+  );
 }
 
 Future<void> _pickText(BuildContext context, Ref ref) async {
