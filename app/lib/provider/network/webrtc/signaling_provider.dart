@@ -7,6 +7,7 @@ import 'package:common/model/device.dart';
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:localsend_app/constants/remote_config.dart';
+import 'package:localsend_app/model/webrtc/ice_server_config.dart';
 import 'package:localsend_app/provider/device_info_provider.dart';
 import 'package:localsend_app/provider/favorites_provider.dart';
 import 'package:localsend_app/provider/network/nearby_devices_provider.dart';
@@ -26,14 +27,14 @@ class SignalingState with SignalingStateMappable {
   final bool enabled;
   final String? roomSecret;
   final List<String> signalingServers;
-  final List<String> stunServers;
+  final List<IceServerConfig> iceServers;
   final Map<String, LsSignalingConnection> connections;
 
   SignalingState({
     required this.enabled,
     required this.roomSecret,
     required this.signalingServers,
-    required this.stunServers,
+    required this.iceServers,
     required this.connections,
   });
 }
@@ -55,7 +56,11 @@ class SignalingService extends ReduxNotifier<SignalingState> {
       enabled: _persistence.isRemoteDiscoveryEnabled(),
       roomSecret: _persistence.getRemoteRoomSecret(),
       signalingServers: _persistence.getSignalingServers() ?? defaultSignalingServers,
-      stunServers: _persistence.getStunServers() ?? defaultStunServers,
+      iceServers: buildIceServers(
+        urls: _persistence.getStunServers() ?? defaultStunServers,
+        turnUsername: _persistence.getTurnUsername(),
+        turnCredential: _persistence.getTurnCredential(),
+      ),
       connections: {},
     );
   }
@@ -154,7 +159,7 @@ class _SetupSignalingConnection extends AsyncGlobalAction {
               return WebRTCReceiveService(
                 ref: ref,
                 signalingServer: signalingServer,
-                stunServers: ref.read(signalingProvider).stunServers,
+                iceServers: ref.read(signalingProvider).iceServers,
                 connection: connection!,
                 offer: message.field0,
                 settings: ref.read(settingsProvider),

@@ -15,6 +15,7 @@ import 'package:localsend_app/model/cross_file.dart';
 import 'package:localsend_app/model/send_mode.dart';
 import 'package:localsend_app/model/state/send/send_session_state.dart';
 import 'package:localsend_app/model/state/send/sending_file.dart';
+import 'package:localsend_app/model/webrtc/ice_server_config.dart';
 import 'package:localsend_app/pages/home_page.dart';
 import 'package:localsend_app/pages/progress_page.dart';
 import 'package:localsend_app/pages/send_page.dart';
@@ -343,8 +344,10 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
       return;
     }
 
+    final iceServers = ref.read(signalingProvider).iceServers;
     final controller = await connection.sendOffer(
-      stunServers: ref.read(signalingProvider).stunServers,
+      // TODO(Task 5): pass structured ICE servers after the Rust bridge model exists.
+      stunServers: iceServers.toRustStunServers(),
       // ignore: experimental_member_use
       target: UuidValue.withValidation(signalingId),
       privateKey: ref.read(securityProvider).privateKey,
@@ -759,6 +762,12 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
       sessionId: sessionId,
       state: (s) => s?.copyWith(background: background),
     );
+  }
+}
+
+extension on List<IceServerConfig> {
+  List<String> toRustStunServers() {
+    return expand((server) => server.urls).toList(growable: false);
   }
 }
 

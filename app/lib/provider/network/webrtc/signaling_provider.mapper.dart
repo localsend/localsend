@@ -37,11 +37,9 @@ class SignalingStateMapper extends ClassMapperBase<SignalingState> {
     'signalingServers',
     _$signalingServers,
   );
-  static List<String> _$stunServers(SignalingState v) => v.stunServers;
-  static const Field<SignalingState, List<String>> _f$stunServers = Field(
-    'stunServers',
-    _$stunServers,
-  );
+  static List<IceServerConfig> _$iceServers(SignalingState v) => v.iceServers;
+  static const Field<SignalingState, List<IceServerConfig>> _f$iceServers =
+      Field('iceServers', _$iceServers);
   static Map<String, LsSignalingConnection> _$connections(SignalingState v) =>
       v.connections;
   static const Field<SignalingState, Map<String, LsSignalingConnection>>
@@ -52,7 +50,7 @@ class SignalingStateMapper extends ClassMapperBase<SignalingState> {
     #enabled: _f$enabled,
     #roomSecret: _f$roomSecret,
     #signalingServers: _f$signalingServers,
-    #stunServers: _f$stunServers,
+    #iceServers: _f$iceServers,
     #connections: _f$connections,
   };
 
@@ -61,7 +59,7 @@ class SignalingStateMapper extends ClassMapperBase<SignalingState> {
       enabled: data.dec(_f$enabled),
       roomSecret: data.dec(_f$roomSecret),
       signalingServers: data.dec(_f$signalingServers),
-      stunServers: data.dec(_f$stunServers),
+      iceServers: data.dec(_f$iceServers),
       connections: data.dec(_f$connections),
     );
   }
@@ -130,7 +128,12 @@ abstract class SignalingStateCopyWith<$R, $In extends SignalingState, $Out>
     implements ClassCopyWith<$R, $In, $Out> {
   ListCopyWith<$R, String, ObjectCopyWith<$R, String, String>>
   get signalingServers;
-  ListCopyWith<$R, String, ObjectCopyWith<$R, String, String>> get stunServers;
+  ListCopyWith<
+    $R,
+    IceServerConfig,
+    ObjectCopyWith<$R, IceServerConfig, IceServerConfig>
+  >
+  get iceServers;
   MapCopyWith<
     $R,
     String,
@@ -142,7 +145,7 @@ abstract class SignalingStateCopyWith<$R, $In extends SignalingState, $Out>
     bool? enabled,
     String? roomSecret,
     List<String>? signalingServers,
-    List<String>? stunServers,
+    List<IceServerConfig>? iceServers,
     Map<String, LsSignalingConnection>? connections,
   });
   SignalingStateCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
@@ -166,11 +169,15 @@ class _SignalingStateCopyWithImpl<$R, $Out>
     (v) => call(signalingServers: v),
   );
   @override
-  ListCopyWith<$R, String, ObjectCopyWith<$R, String, String>>
-  get stunServers => ListCopyWith(
-    $value.stunServers,
+  ListCopyWith<
+    $R,
+    IceServerConfig,
+    ObjectCopyWith<$R, IceServerConfig, IceServerConfig>
+  >
+  get iceServers => ListCopyWith(
+    $value.iceServers,
     (v, t) => ObjectCopyWith(v, $identity, t),
-    (v) => call(stunServers: v),
+    (v) => call(iceServers: v),
   );
   @override
   MapCopyWith<
@@ -189,14 +196,14 @@ class _SignalingStateCopyWithImpl<$R, $Out>
     bool? enabled,
     Object? roomSecret = $none,
     List<String>? signalingServers,
-    List<String>? stunServers,
+    List<IceServerConfig>? iceServers,
     Map<String, LsSignalingConnection>? connections,
   }) => $apply(
     FieldCopyWithData({
       if (enabled != null) #enabled: enabled,
       if (roomSecret != $none) #roomSecret: roomSecret,
       if (signalingServers != null) #signalingServers: signalingServers,
-      if (stunServers != null) #stunServers: stunServers,
+      if (iceServers != null) #iceServers: iceServers,
       if (connections != null) #connections: connections,
     }),
   );
@@ -205,7 +212,7 @@ class _SignalingStateCopyWithImpl<$R, $Out>
     enabled: data.get(#enabled, or: $value.enabled),
     roomSecret: data.get(#roomSecret, or: $value.roomSecret),
     signalingServers: data.get(#signalingServers, or: $value.signalingServers),
-    stunServers: data.get(#stunServers, or: $value.stunServers),
+    iceServers: data.get(#iceServers, or: $value.iceServers),
     connections: data.get(#connections, or: $value.connections),
   );
 

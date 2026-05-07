@@ -9,6 +9,7 @@ import 'package:localsend_app/model/persistence/favorite_device.dart';
 import 'package:localsend_app/model/state/server/receive_session_state.dart';
 import 'package:localsend_app/model/state/server/receiving_file.dart';
 import 'package:localsend_app/model/state/settings_state.dart';
+import 'package:localsend_app/model/webrtc/ice_server_config.dart';
 import 'package:localsend_app/pages/progress_page.dart';
 import 'package:localsend_app/pages/receive_page.dart';
 import 'package:localsend_app/provider/device_info_provider.dart';
@@ -49,7 +50,7 @@ class WebRTCReceiveState with WebRTCReceiveStateMappable {
 class WebRTCReceiveService extends ReduxNotifier<WebRTCReceiveState> {
   final Ref _ref;
   final String _signalingServer;
-  final List<String> _stunServers;
+  final List<IceServerConfig> _iceServers;
   final LsSignalingConnection _connection;
   final WsServerSdpMessage _offer;
   final SettingsState _settings;
@@ -59,7 +60,7 @@ class WebRTCReceiveService extends ReduxNotifier<WebRTCReceiveState> {
   WebRTCReceiveService({
     required Ref ref,
     required String signalingServer,
-    required List<String> stunServers,
+    required List<IceServerConfig> iceServers,
     required LsSignalingConnection connection,
     required WsServerSdpMessage offer,
     required SettingsState settings,
@@ -67,7 +68,7 @@ class WebRTCReceiveService extends ReduxNotifier<WebRTCReceiveState> {
     required StoredSecurityContext key,
   }) : _ref = ref,
        _signalingServer = signalingServer,
-       _stunServers = stunServers,
+       _iceServers = iceServers,
        _connection = connection,
        _offer = offer,
        _settings = settings,
@@ -90,7 +91,8 @@ class AcceptOfferAction extends AsyncReduxAction<WebRTCReceiveService, WebRTCRec
   @override
   Future<WebRTCReceiveState> reduce() async {
     final controller = await state.connection.acceptOffer(
-      stunServers: notifier._stunServers,
+      // TODO(Task 5): pass structured ICE servers after the Rust bridge model exists.
+      stunServers: notifier._iceServers.toRustStunServers(),
       offer: state.offer,
       privateKey: notifier._key.privateKey,
     );
@@ -106,6 +108,12 @@ class AcceptOfferAction extends AsyncReduxAction<WebRTCReceiveService, WebRTCRec
   void after() {
     // ignore: discarded_futures
     dispatchAsync(_AcceptOfferAction());
+  }
+}
+
+extension on List<IceServerConfig> {
+  List<String> toRustStunServers() {
+    return expand((server) => server.urls).toList(growable: false);
   }
 }
 
