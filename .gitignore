@@ -10,3 +10,6 @@
 
 # FVM Version Cache
 .fvm/
+
+# Local development worktrees
+.worktrees/
