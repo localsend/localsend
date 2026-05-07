@@ -1,6 +1,6 @@
 import 'package:common/api_route_builder.dart';
 import 'package:common/model/device.dart';
-import 'package:test/test.dart';
+import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   group('ApiRoute server urls', () {

@@ -21,6 +21,16 @@ class SignalingStateMapper extends ClassMapperBase<SignalingState> {
   @override
   final String id = 'SignalingState';
 
+  static bool _$enabled(SignalingState v) => v.enabled;
+  static const Field<SignalingState, bool> _f$enabled = Field(
+    'enabled',
+    _$enabled,
+  );
+  static String? _$roomSecret(SignalingState v) => v.roomSecret;
+  static const Field<SignalingState, String> _f$roomSecret = Field(
+    'roomSecret',
+    _$roomSecret,
+  );
   static List<String> _$signalingServers(SignalingState v) =>
       v.signalingServers;
   static const Field<SignalingState, List<String>> _f$signalingServers = Field(
@@ -39,6 +49,8 @@ class SignalingStateMapper extends ClassMapperBase<SignalingState> {
 
   @override
   final MappableFields<SignalingState> fields = const {
+    #enabled: _f$enabled,
+    #roomSecret: _f$roomSecret,
     #signalingServers: _f$signalingServers,
     #stunServers: _f$stunServers,
     #connections: _f$connections,
@@ -46,6 +58,8 @@ class SignalingStateMapper extends ClassMapperBase<SignalingState> {
 
   static SignalingState _instantiate(DecodingData data) {
     return SignalingState(
+      enabled: data.dec(_f$enabled),
+      roomSecret: data.dec(_f$roomSecret),
       signalingServers: data.dec(_f$signalingServers),
       stunServers: data.dec(_f$stunServers),
       connections: data.dec(_f$connections),
@@ -125,6 +139,8 @@ abstract class SignalingStateCopyWith<$R, $In extends SignalingState, $Out>
   >
   get connections;
   $R call({
+    bool? enabled,
+    String? roomSecret,
     List<String>? signalingServers,
     List<String>? stunServers,
     Map<String, LsSignalingConnection>? connections,
@@ -170,11 +186,15 @@ class _SignalingStateCopyWithImpl<$R, $Out>
   );
   @override
   $R call({
+    bool? enabled,
+    Object? roomSecret = $none,
     List<String>? signalingServers,
     List<String>? stunServers,
     Map<String, LsSignalingConnection>? connections,
   }) => $apply(
     FieldCopyWithData({
+      if (enabled != null) #enabled: enabled,
+      if (roomSecret != $none) #roomSecret: roomSecret,
       if (signalingServers != null) #signalingServers: signalingServers,
       if (stunServers != null) #stunServers: stunServers,
       if (connections != null) #connections: connections,
@@ -182,6 +202,8 @@ class _SignalingStateCopyWithImpl<$R, $Out>
   );
   @override
   SignalingState $make(CopyWithData data) => SignalingState(
+    enabled: data.get(#enabled, or: $value.enabled),
+    roomSecret: data.get(#roomSecret, or: $value.roomSecret),
     signalingServers: data.get(#signalingServers, or: $value.signalingServers),
     stunServers: data.get(#stunServers, or: $value.stunServers),
     connections: data.get(#connections, or: $value.connections),

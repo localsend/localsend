@@ -325,11 +325,8 @@ class _TranslationsReceivePageJa extends TranslationsReceivePageEn {
 
   // Translations
   @override
-  String subTitle({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ja'))(
-    n,
-    one: 'がファイルを送信しようとしています。',
-    other: 'が ${n} 件のファイルを送信しようとしています。',
-  );
+  String subTitle({required num n}) =>
+      (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ja'))(n, one: 'がファイルを送信しようとしています。', other: 'が ${n} 件のファイルを送信しようとしています。');
   @override
   String get subTitleMessage => 'がメッセージを送信しました:';
   @override
@@ -407,11 +404,8 @@ class _TranslationsWebSharePageJa extends TranslationsWebSharePageEn {
   @override
   String get error => 'サーバーの起動中にエラーが発生しました。';
   @override
-  String openLink({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ja'))(
-    n,
-    one: 'このリンクをブラウザーで開いてください:',
-    other: 'これらのリンクのいずれかをブラウザーで開いてください:',
-  );
+  String openLink({required num n}) =>
+      (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ja'))(n, one: 'このリンクをブラウザーで開いてください:', other: 'これらのリンクのいずれかをブラウザーで開いてください:');
   @override
   String get requests => 'リクエスト';
   @override

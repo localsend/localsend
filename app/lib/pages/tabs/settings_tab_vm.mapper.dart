@@ -51,6 +51,27 @@ class SettingsTabVmMapper extends ClassMapperBase<SettingsTabVm> {
       v.multicastController;
   static const Field<SettingsTabVm, TextEditingController>
   _f$multicastController = Field('multicastController', _$multicastController);
+  static TextEditingController _$signalingServersController(SettingsTabVm v) =>
+      v.signalingServersController;
+  static const Field<SettingsTabVm, TextEditingController>
+  _f$signalingServersController = Field(
+    'signalingServersController',
+    _$signalingServersController,
+  );
+  static TextEditingController _$stunServersController(SettingsTabVm v) =>
+      v.stunServersController;
+  static const Field<SettingsTabVm, TextEditingController>
+  _f$stunServersController = Field(
+    'stunServersController',
+    _$stunServersController,
+  );
+  static TextEditingController _$remoteRoomSecretController(SettingsTabVm v) =>
+      v.remoteRoomSecretController;
+  static const Field<SettingsTabVm, TextEditingController>
+  _f$remoteRoomSecretController = Field(
+    'remoteRoomSecretController',
+    _$remoteRoomSecretController,
+  );
   static SettingsState _$settings(SettingsTabVm v) => v.settings;
   static const Field<SettingsTabVm, SettingsState> _f$settings = Field(
     'settings',
@@ -187,6 +208,9 @@ class SettingsTabVmMapper extends ClassMapperBase<SettingsTabVm> {
     #portController: _f$portController,
     #timeoutController: _f$timeoutController,
     #multicastController: _f$multicastController,
+    #signalingServersController: _f$signalingServersController,
+    #stunServersController: _f$stunServersController,
+    #remoteRoomSecretController: _f$remoteRoomSecretController,
     #settings: _f$settings,
     #serverState: _f$serverState,
     #deviceInfo: _f$deviceInfo,
@@ -215,6 +239,9 @@ class SettingsTabVmMapper extends ClassMapperBase<SettingsTabVm> {
       portController: data.dec(_f$portController),
       timeoutController: data.dec(_f$timeoutController),
       multicastController: data.dec(_f$multicastController),
+      signalingServersController: data.dec(_f$signalingServersController),
+      stunServersController: data.dec(_f$stunServersController),
+      remoteRoomSecretController: data.dec(_f$remoteRoomSecretController),
       settings: data.dec(_f$settings),
       serverState: data.dec(_f$serverState),
       deviceInfo: data.dec(_f$deviceInfo),
@@ -308,6 +335,9 @@ abstract class SettingsTabVmCopyWith<$R, $In extends SettingsTabVm, $Out>
     TextEditingController? portController,
     TextEditingController? timeoutController,
     TextEditingController? multicastController,
+    TextEditingController? signalingServersController,
+    TextEditingController? stunServersController,
+    TextEditingController? remoteRoomSecretController,
     SettingsState? settings,
     ServerState? serverState,
     DeviceInfoResult? deviceInfo,
@@ -358,6 +388,9 @@ class _SettingsTabVmCopyWithImpl<$R, $Out>
     TextEditingController? portController,
     TextEditingController? timeoutController,
     TextEditingController? multicastController,
+    TextEditingController? signalingServersController,
+    TextEditingController? stunServersController,
+    TextEditingController? remoteRoomSecretController,
     SettingsState? settings,
     Object? serverState = $none,
     DeviceInfoResult? deviceInfo,
@@ -385,6 +418,12 @@ class _SettingsTabVmCopyWithImpl<$R, $Out>
       if (timeoutController != null) #timeoutController: timeoutController,
       if (multicastController != null)
         #multicastController: multicastController,
+      if (signalingServersController != null)
+        #signalingServersController: signalingServersController,
+      if (stunServersController != null)
+        #stunServersController: stunServersController,
+      if (remoteRoomSecretController != null)
+        #remoteRoomSecretController: remoteRoomSecretController,
       if (settings != null) #settings: settings,
       if (serverState != $none) #serverState: serverState,
       if (deviceInfo != null) #deviceInfo: deviceInfo,
@@ -423,6 +462,18 @@ class _SettingsTabVmCopyWithImpl<$R, $Out>
     multicastController: data.get(
       #multicastController,
       or: $value.multicastController,
+    ),
+    signalingServersController: data.get(
+      #signalingServersController,
+      or: $value.signalingServersController,
+    ),
+    stunServersController: data.get(
+      #stunServersController,
+      or: $value.stunServersController,
+    ),
+    remoteRoomSecretController: data.get(
+      #remoteRoomSecretController,
+      or: $value.remoteRoomSecretController,
     ),
     settings: data.get(#settings, or: $value.settings),
     serverState: data.get(#serverState, or: $value.serverState),

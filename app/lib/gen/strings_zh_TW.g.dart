@@ -325,11 +325,7 @@ class _TranslationsReceivePageZhTw extends TranslationsReceivePageEn {
 
   // Translations
   @override
-  String subTitle({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('zh'))(
-    n,
-    one: '要傳送一個檔案給您',
-    other: '要傳送 ${n} 個檔案給您',
-  );
+  String subTitle({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('zh'))(n, one: '要傳送一個檔案給您', other: '要傳送 ${n} 個檔案給您');
   @override
   String get subTitleMessage => '已傳送一則訊息給您：';
   @override
@@ -409,11 +405,8 @@ class _TranslationsWebSharePageZhTw extends TranslationsWebSharePageEn {
   @override
   String get error => '啟動伺服器時發生錯誤。';
   @override
-  String openLink({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('zh'))(
-    n,
-    one: '在瀏覽器開啟此連結：',
-    other: '在瀏覽器中開啟其中一個連結：',
-  );
+  String openLink({required num n}) =>
+      (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('zh'))(n, one: '在瀏覽器開啟此連結：', other: '在瀏覽器中開啟其中一個連結：');
   @override
   String get requests => '要求';
   @override
@@ -1300,11 +1293,7 @@ class _TranslationsDialogsQuickSaveFromFavoritesNoticeZhTw extends TranslationsD
   @override
   String get title => _root.general.quickSaveFromFavorites;
   @override
-  List<String> get content => [
-    '自動接受來自您最愛清單中裝置傳送的檔案。',
-    '警告：目前這並非絕對安全，因為知道您最愛裝置指紋的駭客仍然可以向您傳送檔案。',
-    '但仍然比允許任何裝置更安全。',
-  ];
+  List<String> get content => ['自動接受來自您最愛清單中裝置傳送的檔案。', '警告：目前這並非絕對安全，因為知道您最愛裝置指紋的駭客仍然可以向您傳送檔案。', '但仍然比允許任何裝置更安全。'];
 }
 
 // Path: dialogs.pin

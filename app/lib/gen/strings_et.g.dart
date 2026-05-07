@@ -325,11 +325,8 @@ class _TranslationsReceivePageEt extends TranslationsReceivePageEn {
 
   // Translations
   @override
-  String subTitle({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('et'))(
-    n,
-    one: 'soovib sulle saata faili',
-    other: 'soovib sulle saata ${n} faili',
-  );
+  String subTitle({required num n}) =>
+      (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('et'))(n, one: 'soovib sulle saata faili', other: 'soovib sulle saata ${n} faili');
   @override
   String get subTitleMessage => 'saatis sulle sõnumi:';
   @override

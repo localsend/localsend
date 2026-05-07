@@ -325,11 +325,8 @@ class _TranslationsReceivePageHe extends TranslationsReceivePageEn {
 
   // Translations
   @override
-  String subTitle({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('he'))(
-    n,
-    one: 'רוצה לשלוח לך קובץ',
-    other: 'רוצה לשלוח לך ${n} קבצים',
-  );
+  String subTitle({required num n}) =>
+      (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('he'))(n, one: 'רוצה לשלוח לך קובץ', other: 'רוצה לשלוח לך ${n} קבצים');
   @override
   String get subTitleMessage => 'שלח לך הודעה:';
   @override
@@ -407,11 +404,8 @@ class _TranslationsWebSharePageHe extends TranslationsWebSharePageEn {
   @override
   String get error => 'אירעה שגיאה בזמן הפעלת השרת.';
   @override
-  String openLink({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('he'))(
-    n,
-    one: 'פתח את הקישור בדפדפן:',
-    other: 'פתח את אחד מהקישורים האלו בדפדפן:',
-  );
+  String openLink({required num n}) =>
+      (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('he'))(n, one: 'פתח את הקישור בדפדפן:', other: 'פתח את אחד מהקישורים האלו בדפדפן:');
   @override
   String get requests => 'בקשות';
   @override

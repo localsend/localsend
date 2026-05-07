@@ -345,11 +345,8 @@ class _TranslationsReceivePageGl extends TranslationsReceivePageEn {
 
   // Translations
   @override
-  String subTitle({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('gl'))(
-    n,
-    one: 'quere enviarte un ficheiro',
-    other: 'quere enviarte ${n} ficheiros',
-  );
+  String subTitle({required num n}) =>
+      (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('gl'))(n, one: 'quere enviarte un ficheiro', other: 'quere enviarte ${n} ficheiros');
   @override
   String get subTitleMessage => 'envioute unha mensaxe:';
   @override

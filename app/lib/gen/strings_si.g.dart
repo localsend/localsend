@@ -325,11 +325,8 @@ class _TranslationsReceivePageSi extends TranslationsReceivePageEn {
 
   // Translations
   @override
-  String subTitle({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('si'))(
-    n,
-    one: 'ඔබට ගොනුවක් එවීමට කැමතියි',
-    other: 'ඔබට ගොනු ${n} එවීමට කැමතියි',
-  );
+  String subTitle({required num n}) =>
+      (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('si'))(n, one: 'ඔබට ගොනුවක් එවීමට කැමතියි', other: 'ඔබට ගොනු ${n} එවීමට කැමතියි');
   @override
   String get subTitleMessage => 'ඔබට පණිවිඩයක් එවා ඇත:';
   @override

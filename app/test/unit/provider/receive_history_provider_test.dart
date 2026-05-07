@@ -4,7 +4,7 @@ import 'package:localsend_app/model/persistence/receive_history_entry.dart';
 import 'package:localsend_app/provider/receive_history_provider.dart';
 import 'package:mockito/mockito.dart';
 import 'package:refena_flutter/refena_flutter.dart';
-import 'package:test/test.dart';
+import 'package:flutter_test/flutter_test.dart';
 
 import '../../mocks.mocks.dart';
 

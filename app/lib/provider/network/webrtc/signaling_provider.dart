@@ -1,5 +1,7 @@
 import 'dart:async';
+import 'dart:convert';
 
+import 'package:basic_utils/basic_utils.dart';
 import 'package:common/constants.dart';
 import 'package:common/model/device.dart';
 import 'package:dart_mappable/dart_mappable.dart';
@@ -20,33 +22,37 @@ part 'signaling_provider.mapper.dart';
 
 @MappableClass()
 class SignalingState with SignalingStateMappable {
+  final bool enabled;
+  final String? roomSecret;
   final List<String> signalingServers;
   final List<String> stunServers;
   final Map<String, LsSignalingConnection> connections;
 
   SignalingState({
+    required this.enabled,
+    required this.roomSecret,
     required this.signalingServers,
     required this.stunServers,
     required this.connections,
   });
 }
 
-final signalingProvider = ReduxProvider<SignalingService, SignalingState>((ref) {
-  return SignalingService(
-    persistence: ref.read(persistenceProvider),
-  );
+final signalingProvider = ReduxProvider<SignalingService, SignalingState>((
+  ref,
+) {
+  return SignalingService(persistence: ref.read(persistenceProvider));
 });
 
 class SignalingService extends ReduxNotifier<SignalingState> {
   final PersistenceService _persistence;
 
-  SignalingService({
-    required PersistenceService persistence,
-  }) : _persistence = persistence;
+  SignalingService({required PersistenceService persistence}) : _persistence = persistence;
 
   @override
   SignalingState init() {
     return SignalingState(
+      enabled: _persistence.isRemoteDiscoveryEnabled(),
+      roomSecret: _persistence.getRemoteRoomSecret(),
       signalingServers: _persistence.getSignalingServers() ?? ['wss://public.localsend.org/v1/ws'],
       stunServers: _persistence.getStunServers() ?? ['stun:stun.localsend.org:5349'],
       connections: {},
@@ -57,9 +63,18 @@ class SignalingService extends ReduxNotifier<SignalingState> {
 class SetupSignalingConnection extends ReduxAction<SignalingService, SignalingState> with GlobalActions {
   @override
   SignalingState reduce() {
+    if (!state.enabled || state.roomSecret == null || state.roomSecret!.isEmpty) {
+      return state;
+    }
+
     for (final signalingServer in state.signalingServers) {
       // ignore: discarded_futures
-      global.dispatchAsync(_SetupSignalingConnection(signalingServer: signalingServer));
+      global.dispatchAsync(
+        _SetupSignalingConnection(
+          signalingServer: signalingServer,
+          roomSecret: state.roomSecret!,
+        ),
+      );
     }
     return state;
   }
@@ -68,8 +83,12 @@ class SetupSignalingConnection extends ReduxAction<SignalingService, SignalingSt
 /// Starts an endless running action.
 class _SetupSignalingConnection extends AsyncGlobalAction {
   final String signalingServer;
+  final String roomSecret;
 
-  _SetupSignalingConnection({required this.signalingServer});
+  _SetupSignalingConnection({
+    required this.signalingServer,
+    required this.roomSecret,
+  });
 
   @override
   Future<void> reduce() async {
@@ -84,7 +103,7 @@ class _SetupSignalingConnection extends AsyncGlobalAction {
 
     LsSignalingConnection? connection;
     final stream = connect(
-      uri: 'wss://public.localsend.org/v1/ws',
+      uri: _signalingUriWithRoom(signalingServer, roomSecret),
       info: ProposingClientInfo(
         alias: settings.alias,
         version: protocolVersion,
@@ -114,9 +133,7 @@ class _SetupSignalingConnection extends AsyncGlobalAction {
               ref
                   .redux(nearbyDevicesProvider)
                   .dispatch(
-                    RegisterSignalingDeviceAction(
-                      d.toDevice(signalingServer),
-                    ),
+                    RegisterSignalingDeviceAction(d.toDevice(signalingServer)),
                   );
             }
             break;
@@ -125,23 +142,16 @@ class _SetupSignalingConnection extends AsyncGlobalAction {
             ref
                 .redux(nearbyDevicesProvider)
                 .dispatch(
-                  RegisterSignalingDeviceAction(
-                    peer.toDevice(signalingServer),
-                  ),
+                  RegisterSignalingDeviceAction(peer.toDevice(signalingServer)),
                 );
             break;
           case WsServerMessage_Left():
-            ref
-                .redux(nearbyDevicesProvider)
-                .dispatch(
-                  UnregisterSignalingDeviceAction(
-                    message.peerId.uuid,
-                  ),
-                );
+            ref.redux(nearbyDevicesProvider).dispatch(UnregisterSignalingDeviceAction(message.peerId.uuid));
             break;
           case WsServerMessage_Offer():
             final provider = ReduxProvider<WebRTCReceiveService, WebRTCReceiveState>((ref) {
               return WebRTCReceiveService(
+                ref: ref,
                 signalingServer: signalingServer,
                 stunServers: ref.read(signalingProvider).stunServers,
                 connection: connection!,
@@ -166,6 +176,15 @@ class _SetupSignalingConnection extends AsyncGlobalAction {
   }
 }
 
+String _signalingUriWithRoom(String signalingServer, String roomSecret) {
+  final room = CryptoUtils.getHash(
+    Uint8List.fromList(utf8.encode(roomSecret)),
+    algorithmName: 'SHA-256',
+  ).toLowerCase();
+  final uri = Uri.parse(signalingServer);
+  return uri.replace(queryParameters: {...uri.queryParameters, 'room': room}).toString();
+}
+
 class _SetConnectionAction extends ReduxAction<SignalingService, SignalingState> {
   final String signalingServer;
   final LsSignalingConnection connection;
@@ -178,10 +197,7 @@ class _SetConnectionAction extends ReduxAction<SignalingService, SignalingState>
   @override
   SignalingState reduce() {
     return state.copyWith(
-      connections: {
-        ...state.connections,
-        signalingServer: connection,
-      },
+      connections: {...state.connections, signalingServer: connection},
     );
   }
 }
@@ -215,11 +231,7 @@ extension ClientInfoExt on ClientInfo {
       deviceModel: deviceModel,
       deviceType: deviceType?.toDeviceType() ?? DeviceType.desktop,
       download: false,
-      discoveryMethods: {
-        SignalingDiscovery(
-          signalingServer: signalingServer,
-        ),
-      },
+      discoveryMethods: {SignalingDiscovery(signalingServer: signalingServer)},
     );
   }
 }

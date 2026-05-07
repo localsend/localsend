@@ -1,6 +1,6 @@
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:localsend_app/gen/strings.g.dart';
-import 'package:test/test.dart';
+import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   group('i18n', () {

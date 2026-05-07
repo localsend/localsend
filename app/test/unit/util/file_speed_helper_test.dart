@@ -1,5 +1,5 @@
 import 'package:localsend_app/util/file_speed_helper.dart';
-import 'package:test/test.dart';
+import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   group('getRemainingTime', () {

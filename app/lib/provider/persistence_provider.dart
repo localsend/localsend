@@ -50,6 +50,8 @@ const _securityContext = 'ls_security_context';
 // WebRTC
 const _signalingServers = 'ls_signaling_servers';
 const _stunServers = 'ls_stun_servers';
+const _remoteDiscoveryEnabled = 'ls_remote_discovery_enabled';
+const _remoteRoomSecret = 'ls_remote_room_secret';
 
 // Received file history
 const _receiveHistory = 'ls_receive_history';
@@ -109,7 +111,12 @@ class PersistenceService {
 
     final portableStore = SharedPreferencesPortable();
     bool usingLegacyStore = false;
-    if (checkPlatform(const [TargetPlatform.windows, TargetPlatform.linux, TargetPlatform.macOS]) && portableStore.exists()) {
+    if (checkPlatform(const [
+          TargetPlatform.windows,
+          TargetPlatform.linux,
+          TargetPlatform.macOS,
+        ]) &&
+        portableStore.exists()) {
       _logger.info('Using portable settings.');
       SharedPreferencesStorePlatform.instance = portableStore;
     } else if (defaultTargetPlatform == TargetPlatform.windows) {
@@ -119,16 +126,25 @@ class PersistenceService {
         SharedPreferencesStorePlatform.instance = legacyStore;
         usingLegacyStore = true;
       } else {
-        SharedPreferencesStorePlatform.instance = SharedPreferencesFile(filePath: _windowsFile);
+        SharedPreferencesStorePlatform.instance = SharedPreferencesFile(
+          filePath: _windowsFile,
+        );
       }
     }
 
     final bool isFirstAppStart;
-    final existingVersion = (await SharedPreferencesStorePlatform.instance.getAll())['flutter.$_version'] as int?;
+    final existingVersion =
+        (await SharedPreferencesStorePlatform.instance
+                .getAll())['flutter.$_version']
+            as int?;
     _logger.info('Existing version: $existingVersion');
     if (existingVersion == null && !usingLegacyStore) {
       isFirstAppStart = true;
-      await SharedPreferencesStorePlatform.instance.setValue('Int', 'flutter.$_version', _latestVersion);
+      await SharedPreferencesStorePlatform.instance.setValue(
+        'Int',
+        'flutter.$_version',
+        _latestVersion,
+      );
     } else {
       isFirstAppStart = false;
       final fromVersion = existingVersion ?? 1;
@@ -141,7 +157,10 @@ class PersistenceService {
       prefs = await SharedPreferences.getInstance();
     } catch (e) {
       if (checkPlatform([TargetPlatform.windows])) {
-        _logger.info('Could not initialize SharedPreferences, trying to delete corrupted settings file', e);
+        _logger.info(
+          'Could not initialize SharedPreferences, trying to delete corrupted settings file',
+          e,
+        );
         File(_windowsFile).deleteSync();
         prefs = await SharedPreferences.getInstance();
       } else {
@@ -166,13 +185,18 @@ class PersistenceService {
     }
 
     if (prefs.getString(_securityContext) == null) {
-      await prefs.setString(_securityContext, jsonEncode(generateSecurityContext()));
+      await prefs.setString(
+        _securityContext,
+        jsonEncode(generateSecurityContext()),
+      );
     }
 
     if (isFirstAppStart) {
       final systemAnimations = await getSystemAnimationsStatus();
       if (!systemAnimations) {
-        _logger.info('System animations are disabled, disabling animations in the app.');
+        _logger.info(
+          'System animations are disabled, disabling animations in the app.',
+        );
         await prefs.setBool(_enableAnimations, false);
       }
     }
@@ -181,8 +205,12 @@ class PersistenceService {
       await _initColorSetting(prefs, supportsDynamicColors);
     } else {
       // fix when device does not support dynamic colors
-      final supported = supportsDynamicColors ? ColorMode.values : ColorMode.values.where((e) => e != ColorMode.system);
-      final colorMode = supported.firstWhereOrNull((color) => color.name == prefs.getString(_colorKey));
+      final supported = supportsDynamicColors
+          ? ColorMode.values
+          : ColorMode.values.where((e) => e != ColorMode.system);
+      final colorMode = supported.firstWhereOrNull(
+        (color) => color.name == prefs.getString(_colorKey),
+      );
       if (colorMode == null) {
         await _initColorSetting(prefs, supportsDynamicColors);
       }
@@ -194,17 +222,24 @@ class PersistenceService {
     if (prefs.getBool(launchAtStartupLegacyKey) == true) {
       _logger.info('Enable auto start on legacy settings');
       await prefs.remove(launchAtStartupLegacyKey);
-      await enableAutoStart(startHidden: prefs.getBool(launchMinimizedLegacyKey) == true);
+      await enableAutoStart(
+        startHidden: prefs.getBool(launchMinimizedLegacyKey) == true,
+      );
       await prefs.remove(launchMinimizedLegacyKey);
     }
 
     return PersistenceService._(prefs, isFirstAppStart);
   }
 
-  static Future<void> _initColorSetting(SharedPreferences prefs, bool supportsDynamicColors) async {
+  static Future<void> _initColorSetting(
+    SharedPreferences prefs,
+    bool supportsDynamicColors,
+  ) async {
     await prefs.setString(
       _colorKey,
-      checkPlatform([TargetPlatform.android]) && supportsDynamicColors ? ColorMode.system.name : ColorMode.localsend.name,
+      checkPlatform([TargetPlatform.android]) && supportsDynamicColors
+          ? ColorMode.system.name
+          : ColorMode.localsend.name,
     );
   }
 
@@ -247,23 +282,51 @@ class PersistenceService {
     await _prefs.setString(_stunServers, jsonEncode(servers));
   }
 
+  bool isRemoteDiscoveryEnabled() {
+    return _prefs.getBool(_remoteDiscoveryEnabled) ?? false;
+  }
+
+  Future<void> setRemoteDiscoveryEnabled(bool enabled) async {
+    await _prefs.setBool(_remoteDiscoveryEnabled, enabled);
+  }
+
+  String? getRemoteRoomSecret() {
+    return _prefs.getString(_remoteRoomSecret);
+  }
+
+  Future<void> setRemoteRoomSecret(String? secret) async {
+    if (secret == null || secret.isEmpty) {
+      await _prefs.remove(_remoteRoomSecret);
+    } else {
+      await _prefs.setString(_remoteRoomSecret, secret);
+    }
+  }
+
   List<ReceiveHistoryEntry> getReceiveHistory() {
     final historyRaw = _prefs.getStringList(_receiveHistory) ?? [];
-    return historyRaw.map((entry) => ReceiveHistoryEntry.fromJson(jsonDecode(entry))).toList();
+    return historyRaw
+        .map((entry) => ReceiveHistoryEntry.fromJson(jsonDecode(entry)))
+        .toList();
   }
 
   Future<void> setReceiveHistory(List<ReceiveHistoryEntry> entries) async {
-    final historyRaw = entries.map((entry) => jsonEncode(entry.toJson())).toList();
+    final historyRaw = entries
+        .map((entry) => jsonEncode(entry.toJson()))
+        .toList();
     await _prefs.setStringList(_receiveHistory, historyRaw);
   }
 
   List<FavoriteDevice> getFavorites() {
     final favoritesRaw = _prefs.getStringList(_favorites) ?? [];
-    return favoritesRaw.map((entry) => FavoriteDevice.fromJson(jsonDecode(entry))).toList();
+    return favoritesRaw
+        .map((entry) => FavoriteDevice.fromJson(jsonDecode(entry)))
+        .toList();
   }
 
   Future<void> setFavorites(List<FavoriteDevice> entries) async {
-    final favoritesRaw = entries.map((entry) => jsonEncode(entry.toJson())).toList();
+    final favoritesRaw = entries
+        .map((entry) => jsonEncode(entry.toJson()))
+        .toList();
     await _prefs.setStringList(_favorites, favoritesRaw);
   }
 
@@ -284,7 +347,8 @@ class PersistenceService {
     if (value == null) {
       return ThemeMode.system;
     }
-    return ThemeMode.values.firstWhereOrNull((theme) => theme.name == value) ?? ThemeMode.system;
+    return ThemeMode.values.firstWhereOrNull((theme) => theme.name == value) ??
+        ThemeMode.system;
   }
 
   Future<void> setTheme(ThemeMode theme) async {
@@ -296,7 +360,8 @@ class PersistenceService {
     if (value == null) {
       return ColorMode.system;
     }
-    return ColorMode.values.firstWhereOrNull((color) => color.name == value) ?? ColorMode.system;
+    return ColorMode.values.firstWhereOrNull((color) => color.name == value) ??
+        ColorMode.system;
   }
 
   Future<void> setColorMode(ColorMode color) async {
@@ -308,7 +373,9 @@ class PersistenceService {
     if (value == null) {
       return null;
     }
-    return AppLocale.values.firstWhereOrNull((locale) => locale.languageTag == value);
+    return AppLocale.values.firstWhereOrNull(
+      (locale) => locale.languageTag == value,
+    );
   }
 
   Future<void> setLocale(AppLocale? locale) async {
@@ -464,7 +531,10 @@ class PersistenceService {
   }
 
   SendMode getSendMode() {
-    return SendMode.values.firstWhereOrNull((m) => m.name == _prefs.getString(_sendMode)) ?? SendMode.single;
+    return SendMode.values.firstWhereOrNull(
+          (m) => m.name == _prefs.getString(_sendMode),
+        ) ??
+        SendMode.single;
   }
 
   Future<void> setSendMode(SendMode mode) async {
@@ -507,10 +577,7 @@ class PersistenceService {
       return null;
     }
 
-    return WindowDimensions(
-      position: position,
-      size: size,
-    );
+    return WindowDimensions(position: position, size: size);
   }
 
   Future<void> setSaveWindowPlacement(bool savePlacement) async {
@@ -531,7 +598,9 @@ class PersistenceService {
   }
 
   DeviceType? getDeviceType() {
-    return DeviceType.values.firstWhereOrNull((m) => m.name == _prefs.getString(_deviceType));
+    return DeviceType.values.firstWhereOrNull(
+      (m) => m.name == _prefs.getString(_deviceType),
+    );
   }
 
   Future<void> setDeviceType(DeviceType deviceType) async {

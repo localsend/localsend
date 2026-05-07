@@ -1,5 +1,5 @@
 import 'package:localsend_app/provider/local_ip_provider.dart';
-import 'package:test/test.dart';
+import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   group('rankIpAddresses', () {

@@ -6,7 +6,7 @@ import 'package:common/model/dto/prepare_upload_request_dto.dart';
 import 'package:common/model/dto/prepare_upload_response_dto.dart';
 import 'package:common/model/file_type.dart';
 import 'package:dart_mappable/dart_mappable.dart';
-import 'package:test/test.dart';
+import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   MapperContainer.globals.use(const FileDtoMapper());
