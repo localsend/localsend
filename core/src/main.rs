@@ -10,7 +10,9 @@ use crate::http::dto::{PrepareUploadRequestDto, ProtocolType, RegisterDto};
 use crate::http::server::TlsConfig;
 use crate::model::discovery::DeviceType;
 use crate::webrtc::signaling::{ClientInfo, WsServerMessage};
-use crate::webrtc::webrtc::{PinConfig, RTCFile, RTCFileError, RTCSendFileResponse, RTCStatus};
+use crate::webrtc::webrtc::{
+    IceServerConfig, PinConfig, RTCFile, RTCFileError, RTCSendFileResponse, RTCStatus,
+};
 use anyhow::Result;
 use bytes::Bytes;
 use std::collections::{HashMap, HashSet};
@@ -218,7 +220,10 @@ async fn client_test() -> Result<()> {
         )
         .await?;
 
-    println!("Prepare Upload Response: {:?}", prepare_upload_response.response);
+    println!(
+        "Prepare Upload Response: {:?}",
+        prepare_upload_response.response
+    );
 
     Ok(())
 }
@@ -239,14 +244,18 @@ async fn webrtc_test() -> Result<()> {
     let managed_connection = Arc::new(managed_connection);
 
     while let Some(message) = rx.recv().await {
-        let stun_servers = vec!["stun:stun.l.google.com:19302".to_string()];
+        let ice_servers = vec![IceServerConfig {
+            urls: vec!["stun:stun.l.google.com:19302".to_string()],
+            username: None,
+            credential: None,
+        }];
         match message {
             WsServerMessage::Join { peer } => {
-                send_handler(managed_connection.clone(), stun_servers, peer).await;
+                send_handler(managed_connection.clone(), ice_servers, peer).await;
                 return Ok(());
             }
             WsServerMessage::Offer(offer) => {
-                receive_handler(managed_connection.clone(), stun_servers, offer).await;
+                receive_handler(managed_connection.clone(), ice_servers, offer).await;
             }
             _ => {}
         }
@@ -257,7 +266,7 @@ async fn webrtc_test() -> Result<()> {
 
 async fn send_handler(
     connection: Arc<webrtc::signaling::ManagedSignalingConnection>,
-    stun_servers: Vec<String>,
+    ice_servers: Vec<IceServerConfig>,
     peer: ClientInfo,
 ) {
     tracing::info!("Joined: {peer:?}");
@@ -283,7 +292,7 @@ async fn send_handler(
         async move {
             webrtc::webrtc::send_offer(
                 &connection,
-                stun_servers,
+                ice_servers,
                 peer.id,
                 token::generate_key(),
                 None,
@@ -377,7 +386,7 @@ async fn send_handler(
 
 async fn receive_handler(
     connection: Arc<webrtc::signaling::ManagedSignalingConnection>,
-    stun_servers: Vec<String>,
+    ice_servers: Vec<IceServerConfig>,
     offer: webrtc::signaling::WsServerSdpMessage,
 ) {
     tracing::info!("Offer: {offer:?}");
@@ -392,7 +401,7 @@ async fn receive_handler(
     let receive_task = tokio::spawn(async move {
         webrtc::webrtc::accept_offer(
             &connection,
-            stun_servers,
+            ice_servers,
             &offer,
             token::generate_key(),
             None,

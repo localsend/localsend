@@ -115,6 +115,13 @@ pub struct RTCFile {
     pub binary_rx: mpsc::Receiver<Bytes>,
 }
 
+#[derive(Clone, Debug)]
+pub struct IceServerConfig {
+    pub urls: Vec<String>,
+    pub username: Option<String>,
+    pub credential: Option<String>,
+}
+
 #[derive(Debug)]
 struct RTCFileState {
     file_id: String,
@@ -179,7 +186,7 @@ const CHANNEL_LABEL: &str = "data";
 
 pub async fn send_offer(
     signaling: &ManagedSignalingConnection,
-    stun_servers: Vec<String>,
+    ice_servers: Vec<IceServerConfig>,
     target_id: Uuid,
     signing_key: SigningTokenKey,
     expecting_public_key: Option<Box<dyn VerifyingTokenKey + Send>>,
@@ -192,7 +199,7 @@ pub async fn send_offer(
     pair_tx: oneshot::Sender<oneshot::Sender<bool>>,
     mut sending_rx: mpsc::Receiver<RTCFile>,
 ) -> Result<()> {
-    let (peer_connection, mut done_rx) = create_peer_connection(stun_servers).await?;
+    let (peer_connection, mut done_rx) = create_peer_connection(ice_servers).await?;
 
     let data_channel = peer_connection
         .create_data_channel(
@@ -627,7 +634,7 @@ pub async fn send_offer(
 
 pub async fn accept_offer(
     signaling: &ManagedSignalingConnection,
-    stun_servers: Vec<String>,
+    ice_servers: Vec<IceServerConfig>,
     offer: &WsServerSdpMessage,
     signing_key: SigningTokenKey,
     expecting_public_key: Option<Box<dyn VerifyingTokenKey + Send>>,
@@ -640,7 +647,7 @@ pub async fn accept_offer(
     receiving_tx: mpsc::Sender<RTCFile>,
     mut user_error_tx: mpsc::Receiver<RTCSendFileResponse>,
 ) -> Result<()> {
-    let (peer_connection, mut done_rx) = create_peer_connection(stun_servers).await?;
+    let (peer_connection, mut done_rx) = create_peer_connection(ice_servers).await?;
 
     let (data_channel_tx, mut data_channel_rx) = mpsc::channel::<Arc<RTCDataChannel>>(1);
 
@@ -1049,15 +1056,12 @@ pub async fn accept_offer(
 }
 
 async fn create_peer_connection(
-    stun: Vec<String>,
+    ice_servers: Vec<IceServerConfig>,
 ) -> Result<(Arc<RTCPeerConnection>, mpsc::Receiver<()>)> {
     let api = APIBuilder::new().build();
 
     let config = RTCConfiguration {
-        ice_servers: vec![RTCIceServer {
-            urls: stun,
-            ..Default::default()
-        }],
+        ice_servers: build_rtc_ice_servers(ice_servers),
         ..Default::default()
     };
 
@@ -1073,6 +1077,18 @@ async fn create_peer_connection(
     }));
 
     Ok((Arc::new(peer_connection), done_rx))
+}
+
+fn build_rtc_ice_servers(ice_servers: Vec<IceServerConfig>) -> Vec<RTCIceServer> {
+    ice_servers
+        .into_iter()
+        .map(|server| RTCIceServer {
+            urls: server.urls,
+            username: server.username.unwrap_or_default(),
+            credential: server.credential.unwrap_or_default(),
+            ..Default::default()
+        })
+        .collect()
 }
 
 async fn receive_nonce(receive_rx: &mut mpsc::Receiver<DataChannelMessage>) -> Result<Vec<u8>> {
@@ -1402,5 +1418,22 @@ mod tests {
         let decoded: RTCFileListResponse = serde_json::from_str(&encoded).unwrap();
 
         assert_eq!(response, decoded);
+    }
+
+    #[test]
+    fn builds_rtc_ice_servers_with_turn_credentials() {
+        let ice_servers = build_rtc_ice_servers(vec![IceServerConfig {
+            urls: vec!["turn:turn.example.com:3478?transport=udp".to_string()],
+            username: Some("user".to_string()),
+            credential: Some("secret".to_string()),
+        }]);
+
+        assert_eq!(ice_servers.len(), 1);
+        assert_eq!(
+            ice_servers[0].urls,
+            vec!["turn:turn.example.com:3478?transport=udp".to_string()]
+        );
+        assert_eq!(ice_servers[0].username, "user");
+        assert_eq!(ice_servers[0].credential, "secret");
     }
 }

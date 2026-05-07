@@ -1,6 +1,6 @@
 use crate::frb_generated::StreamSink;
 use bytes::Bytes;
-use flutter_rust_bridge::{DartFnFuture, frb};
+use flutter_rust_bridge::{frb, DartFnFuture};
 use localsend::crypto::token::SigningTokenKey;
 use localsend::model::discovery::DeviceType;
 use localsend::model::transfer::FileDto;
@@ -14,7 +14,7 @@ pub use localsend::webrtc::webrtc::{
 use std::collections::HashSet;
 use std::sync::Arc;
 use std::time::Duration;
-use tokio::sync::{Mutex, mpsc, oneshot};
+use tokio::sync::{mpsc, oneshot, Mutex};
 use tokio::time;
 use uuid::Uuid;
 
@@ -29,6 +29,16 @@ pub struct IceServerConfig {
     pub urls: Vec<String>,
     pub username: Option<String>,
     pub credential: Option<String>,
+}
+
+impl From<IceServerConfig> for localsend::webrtc::webrtc::IceServerConfig {
+    fn from(value: IceServerConfig) -> Self {
+        Self {
+            urls: value.urls,
+            username: value.username,
+            credential: value.credential,
+        }
+    }
 }
 
 impl ProposingClientInfo {
@@ -116,16 +126,12 @@ impl LsSignalingConnection {
             None => None,
         };
 
-        // TODO(Task 6): forward credentials once core WebRTC accepts structured ICE servers.
-        let stun_servers = ice_servers
-            .into_iter()
-            .flat_map(|server| server.urls)
-            .collect();
+        let ice_servers = ice_servers.into_iter().map(Into::into).collect();
 
         tokio::spawn(async move {
             let result = localsend::webrtc::webrtc::send_offer(
                 &managed_connection,
-                stun_servers,
+                ice_servers,
                 target,
                 signing_key,
                 expecting_public_key,
@@ -201,16 +207,12 @@ impl LsSignalingConnection {
             None => None,
         };
 
-        // TODO(Task 6): forward credentials once core WebRTC accepts structured ICE servers.
-        let stun_servers = ice_servers
-            .into_iter()
-            .flat_map(|server| server.urls)
-            .collect();
+        let ice_servers = ice_servers.into_iter().map(Into::into).collect();
 
         tokio::spawn(async move {
             let result = localsend::webrtc::webrtc::accept_offer(
                 &managed_connection,
-                stun_servers,
+                ice_servers,
                 &offer,
                 signing_key,
                 expecting_public_key,
