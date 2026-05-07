@@ -17,7 +17,7 @@ import 'package:localsend_app/provider/security_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/rust/api/crypto.dart' as crypto;
 import 'package:localsend_app/rust/api/model.dart' as rust;
-import 'package:localsend_app/rust/api/webrtc.dart';
+import 'package:localsend_app/rust/api/webrtc.dart' as rust_webrtc;
 import 'package:refena_flutter/refena_flutter.dart';
 
 part 'signaling_provider.mapper.dart';
@@ -28,7 +28,7 @@ class SignalingState with SignalingStateMappable {
   final String? roomSecret;
   final List<String> signalingServers;
   final List<IceServerConfig> iceServers;
-  final Map<String, LsSignalingConnection> connections;
+  final Map<String, rust_webrtc.LsSignalingConnection> connections;
 
   SignalingState({
     required this.enabled,
@@ -107,10 +107,10 @@ class _SetupSignalingConnection extends AsyncGlobalAction {
       print('private key: ${key.privateKey}');
     }
 
-    LsSignalingConnection? connection;
-    final stream = connect(
+    rust_webrtc.LsSignalingConnection? connection;
+    final stream = rust_webrtc.connect(
       uri: _signalingUriWithRoom(signalingServer, roomSecret),
-      info: ProposingClientInfo(
+      info: rust_webrtc.ProposingClientInfo(
         alias: settings.alias,
         version: protocolVersion,
         deviceModel: deviceInfo.deviceModel,
@@ -134,7 +134,7 @@ class _SetupSignalingConnection extends AsyncGlobalAction {
     try {
       await for (final message in stream) {
         switch (message) {
-          case WsServerMessage_Hello():
+          case rust_webrtc.WsServerMessage_Hello():
             for (final d in message.peers) {
               ref
                   .redux(nearbyDevicesProvider)
@@ -143,18 +143,18 @@ class _SetupSignalingConnection extends AsyncGlobalAction {
                   );
             }
             break;
-          case WsServerMessage_Join(peer: final peer):
-          case WsServerMessage_Update(peer: final peer):
+          case rust_webrtc.WsServerMessage_Join(peer: final peer):
+          case rust_webrtc.WsServerMessage_Update(peer: final peer):
             ref
                 .redux(nearbyDevicesProvider)
                 .dispatch(
                   RegisterSignalingDeviceAction(peer.toDevice(signalingServer)),
                 );
             break;
-          case WsServerMessage_Left():
+          case rust_webrtc.WsServerMessage_Left():
             ref.redux(nearbyDevicesProvider).dispatch(UnregisterSignalingDeviceAction(message.peerId.uuid));
             break;
-          case WsServerMessage_Offer():
+          case rust_webrtc.WsServerMessage_Offer():
             final provider = ReduxProvider<WebRTCReceiveService, WebRTCReceiveState>((ref) {
               return WebRTCReceiveService(
                 ref: ref,
@@ -170,8 +170,8 @@ class _SetupSignalingConnection extends AsyncGlobalAction {
 
             await ref.redux(provider).dispatchAsync(AcceptOfferAction());
             break;
-          case WsServerMessage_Answer():
-          case WsServerMessage_Error():
+          case rust_webrtc.WsServerMessage_Answer():
+          case rust_webrtc.WsServerMessage_Error():
         }
       }
     } finally {
@@ -193,7 +193,7 @@ String _signalingUriWithRoom(String signalingServer, String roomSecret) {
 
 class _SetConnectionAction extends ReduxAction<SignalingService, SignalingState> {
   final String signalingServer;
-  final LsSignalingConnection connection;
+  final rust_webrtc.LsSignalingConnection connection;
 
   _SetConnectionAction({
     required this.signalingServer,
@@ -224,7 +224,7 @@ class _RemoveConnectionAction extends ReduxAction<SignalingService, SignalingSta
   }
 }
 
-extension ClientInfoExt on ClientInfo {
+extension ClientInfoExt on rust_webrtc.ClientInfo {
   Device toDevice(String signalingServer) {
     return Device(
       signalingId: id.uuid,

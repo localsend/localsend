@@ -88,7 +88,7 @@ abstract class RustLibApi extends BaseApi {
 
   Future<RtcReceiveController> crateApiWebrtcLsSignalingConnectionAcceptOffer({
     required LsSignalingConnection that,
-    required List<String> stunServers,
+    required List<IceServerConfig> iceServers,
     required WsServerSdpMessage offer,
     required String privateKey,
     ExpectingPublicKey? expectingPublicKey,
@@ -97,7 +97,7 @@ abstract class RustLibApi extends BaseApi {
 
   Future<RtcSendController> crateApiWebrtcLsSignalingConnectionSendOffer({
     required LsSignalingConnection that,
-    required List<String> stunServers,
+    required List<IceServerConfig> iceServers,
     required UuidValue target,
     required String privateKey,
     ExpectingPublicKey? expectingPublicKey,
@@ -339,7 +339,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   @override
   Future<RtcReceiveController> crateApiWebrtcLsSignalingConnectionAcceptOffer({
     required LsSignalingConnection that,
-    required List<String> stunServers,
+    required List<IceServerConfig> iceServers,
     required WsServerSdpMessage offer,
     required String privateKey,
     ExpectingPublicKey? expectingPublicKey,
@@ -353,7 +353,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
             that,
             serializer,
           );
-          sse_encode_list_String(stunServers, serializer);
+          sse_encode_list_ice_server_config(iceServers, serializer);
           sse_encode_box_autoadd_ws_server_sdp_message(offer, serializer);
           sse_encode_String(privateKey, serializer);
           sse_encode_opt_box_autoadd_expecting_public_key(
@@ -375,7 +375,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
         constMeta: kCrateApiWebrtcLsSignalingConnectionAcceptOfferConstMeta,
         argValues: [
           that,
-          stunServers,
+          iceServers,
           offer,
           privateKey,
           expectingPublicKey,
@@ -390,7 +390,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
     debugName: 'LsSignalingConnection_accept_offer',
     argNames: [
       'that',
-      'stunServers',
+      'iceServers',
       'offer',
       'privateKey',
       'expectingPublicKey',
@@ -401,7 +401,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   @override
   Future<RtcSendController> crateApiWebrtcLsSignalingConnectionSendOffer({
     required LsSignalingConnection that,
-    required List<String> stunServers,
+    required List<IceServerConfig> iceServers,
     required UuidValue target,
     required String privateKey,
     ExpectingPublicKey? expectingPublicKey,
@@ -416,7 +416,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
             that,
             serializer,
           );
-          sse_encode_list_String(stunServers, serializer);
+          sse_encode_list_ice_server_config(iceServers, serializer);
           sse_encode_Uuid(target, serializer);
           sse_encode_String(privateKey, serializer);
           sse_encode_opt_box_autoadd_expecting_public_key(
@@ -439,7 +439,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
         constMeta: kCrateApiWebrtcLsSignalingConnectionSendOfferConstMeta,
         argValues: [
           that,
-          stunServers,
+          iceServers,
           target,
           privateKey,
           expectingPublicKey,
@@ -455,7 +455,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
     debugName: 'LsSignalingConnection_send_offer',
     argNames: [
       'that',
-      'stunServers',
+      'iceServers',
       'target',
       'privateKey',
       'expectingPublicKey',
@@ -2069,6 +2069,18 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  IceServerConfig dco_decode_ice_server_config(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 3) throw Exception('unexpected arr length: expect 3 but see ${arr.length}');
+    return IceServerConfig(
+      urls: dco_decode_list_String(arr[0]),
+      username: dco_decode_opt_String(arr[1]),
+      credential: dco_decode_opt_String(arr[2]),
+    );
+  }
+
+  @protected
   PlatformInt64 dco_decode_isize(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return dcoDecodeI64(raw);
@@ -2101,6 +2113,12 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   List<FileDto> dco_decode_list_file_dto(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return (raw as List<dynamic>).map(dco_decode_file_dto).toList();
+  }
+
+  @protected
+  List<IceServerConfig> dco_decode_list_ice_server_config(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return (raw as List<dynamic>).map(dco_decode_ice_server_config).toList();
   }
 
   @protected
@@ -3027,6 +3045,19 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  IceServerConfig sse_decode_ice_server_config(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_urls = sse_decode_list_String(deserializer);
+    var var_username = sse_decode_opt_String(deserializer);
+    var var_credential = sse_decode_opt_String(deserializer);
+    return IceServerConfig(
+      urls: var_urls,
+      username: var_username,
+      credential: var_credential,
+    );
+  }
+
+  @protected
   PlatformInt64 sse_decode_isize(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     return deserializer.buffer.getPlatformInt64();
@@ -3072,6 +3103,20 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
     var ans_ = <FileDto>[];
     for (var idx_ = 0; idx_ < len_; ++idx_) {
       ans_.add(sse_decode_file_dto(deserializer));
+    }
+    return ans_;
+  }
+
+  @protected
+  List<IceServerConfig> sse_decode_list_ice_server_config(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    var len_ = sse_decode_i_32(deserializer);
+    var ans_ = <IceServerConfig>[];
+    for (var idx_ = 0; idx_ < len_; ++idx_) {
+      ans_.add(sse_decode_ice_server_config(deserializer));
     }
     return ans_;
   }
@@ -4160,6 +4205,17 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  void sse_encode_ice_server_config(
+    IceServerConfig self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_list_String(self.urls, serializer);
+    sse_encode_opt_String(self.username, serializer);
+    sse_encode_opt_String(self.credential, serializer);
+  }
+
+  @protected
   void sse_encode_isize(PlatformInt64 self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     serializer.buffer.putPlatformInt64(self);
@@ -4199,6 +4255,18 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
     sse_encode_i_32(self.length, serializer);
     for (final item in self) {
       sse_encode_file_dto(item, serializer);
+    }
+  }
+
+  @protected
+  void sse_encode_list_ice_server_config(
+    List<IceServerConfig> self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_i_32(self.length, serializer);
+    for (final item in self) {
+      sse_encode_ice_server_config(item, serializer);
     }
   }
 
@@ -4664,14 +4732,14 @@ class LsSignalingConnectionImpl extends RustOpaque implements LsSignalingConnect
   );
 
   Future<RtcReceiveController> acceptOffer({
-    required List<String> stunServers,
+    required List<IceServerConfig> iceServers,
     required WsServerSdpMessage offer,
     required String privateKey,
     ExpectingPublicKey? expectingPublicKey,
     PinConfig? pin,
   }) => RustLib.instance.api.crateApiWebrtcLsSignalingConnectionAcceptOffer(
     that: this,
-    stunServers: stunServers,
+    iceServers: iceServers,
     offer: offer,
     privateKey: privateKey,
     expectingPublicKey: expectingPublicKey,
@@ -4679,7 +4747,7 @@ class LsSignalingConnectionImpl extends RustOpaque implements LsSignalingConnect
   );
 
   Future<RtcSendController> sendOffer({
-    required List<String> stunServers,
+    required List<IceServerConfig> iceServers,
     required UuidValue target,
     required String privateKey,
     ExpectingPublicKey? expectingPublicKey,
@@ -4687,7 +4755,7 @@ class LsSignalingConnectionImpl extends RustOpaque implements LsSignalingConnect
     required List<FileDto> files,
   }) => RustLib.instance.api.crateApiWebrtcLsSignalingConnectionSendOffer(
     that: this,
-    stunServers: stunServers,
+    iceServers: iceServers,
     target: target,
     privateKey: privateKey,
     expectingPublicKey: expectingPublicKey,

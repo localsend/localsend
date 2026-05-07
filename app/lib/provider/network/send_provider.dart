@@ -344,10 +344,8 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
       return;
     }
 
-    final iceServers = ref.read(signalingProvider).iceServers;
     final controller = await connection.sendOffer(
-      // TODO(Task 5): pass structured ICE servers after the Rust bridge model exists.
-      stunServers: iceServers.toRustStunServers(),
+      iceServers: ref.read(signalingProvider).iceServers.map((server) => server.toRust()).toList(),
       // ignore: experimental_member_use
       target: UuidValue.withValidation(signalingId),
       privateKey: ref.read(securityProvider).privateKey,
@@ -765,9 +763,13 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
   }
 }
 
-extension on List<IceServerConfig> {
-  List<String> toRustStunServers() {
-    return expand((server) => server.urls).toList(growable: false);
+extension on IceServerConfig {
+  rust_webrtc.IceServerConfig toRust() {
+    return rust_webrtc.IceServerConfig(
+      urls: urls,
+      username: username,
+      credential: credential,
+    );
   }
 }
 

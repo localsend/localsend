@@ -18,7 +18,7 @@ import 'package:localsend_app/provider/progress_provider.dart';
 import 'package:localsend_app/provider/receive_history_provider.dart';
 import 'package:localsend_app/provider/selection/selected_receiving_files_provider.dart';
 import 'package:localsend_app/rust/api/model.dart';
-import 'package:localsend_app/rust/api/webrtc.dart';
+import 'package:localsend_app/rust/api/webrtc.dart' as rust_webrtc;
 import 'package:localsend_app/util/native/directories.dart';
 import 'package:localsend_app/util/native/file_saver.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
@@ -32,10 +32,10 @@ final _logger = Logger('WebRTCReceive');
 
 @MappableClass()
 class WebRTCReceiveState with WebRTCReceiveStateMappable {
-  final LsSignalingConnection connection;
-  final WsServerSdpMessage offer;
-  final RTCStatus? status;
-  final RtcReceiveController? controller;
+  final rust_webrtc.LsSignalingConnection connection;
+  final rust_webrtc.WsServerSdpMessage offer;
+  final rust_webrtc.RTCStatus? status;
+  final rust_webrtc.RtcReceiveController? controller;
   final ReceiveSessionState? sessionState;
 
   const WebRTCReceiveState({
@@ -51,8 +51,8 @@ class WebRTCReceiveService extends ReduxNotifier<WebRTCReceiveState> {
   final Ref _ref;
   final String _signalingServer;
   final List<IceServerConfig> _iceServers;
-  final LsSignalingConnection _connection;
-  final WsServerSdpMessage _offer;
+  final rust_webrtc.LsSignalingConnection _connection;
+  final rust_webrtc.WsServerSdpMessage _offer;
   final SettingsState _settings;
   final List<FavoriteDevice> _favorites;
   final StoredSecurityContext _key;
@@ -61,8 +61,8 @@ class WebRTCReceiveService extends ReduxNotifier<WebRTCReceiveState> {
     required Ref ref,
     required String signalingServer,
     required List<IceServerConfig> iceServers,
-    required LsSignalingConnection connection,
-    required WsServerSdpMessage offer,
+    required rust_webrtc.LsSignalingConnection connection,
+    required rust_webrtc.WsServerSdpMessage offer,
     required SettingsState settings,
     required List<FavoriteDevice> favorites,
     required StoredSecurityContext key,
@@ -91,8 +91,7 @@ class AcceptOfferAction extends AsyncReduxAction<WebRTCReceiveService, WebRTCRec
   @override
   Future<WebRTCReceiveState> reduce() async {
     final controller = await state.connection.acceptOffer(
-      // TODO(Task 5): pass structured ICE servers after the Rust bridge model exists.
-      stunServers: notifier._iceServers.toRustStunServers(),
+      iceServers: notifier._iceServers.map((server) => server.toRust()).toList(),
       offer: state.offer,
       privateKey: notifier._key.privateKey,
     );
@@ -111,9 +110,13 @@ class AcceptOfferAction extends AsyncReduxAction<WebRTCReceiveService, WebRTCRec
   }
 }
 
-extension on List<IceServerConfig> {
-  List<String> toRustStunServers() {
-    return expand((server) => server.urls).toList(growable: false);
+extension on IceServerConfig {
+  rust_webrtc.IceServerConfig toRust() {
+    return rust_webrtc.IceServerConfig(
+      urls: urls,
+      username: username,
+      credential: credential,
+    );
   }
 }
 
@@ -202,7 +205,7 @@ class _AcceptOfferAction extends AsyncReduxAction<WebRTCReceiveService, WebRTCRe
 }
 
 class _SetStatusAction extends ReduxAction<WebRTCReceiveService, WebRTCReceiveState> {
-  final RTCStatus status;
+  final rust_webrtc.RTCStatus status;
 
   _SetStatusAction(this.status);
 
@@ -315,15 +318,15 @@ class _ReceiveFilesAction extends AsyncReduxAction<WebRTCReceiveService, WebRTCR
   }
 
   Future<void> _receiveFile(
-    RtcReceiveController controller,
-    RtcFileReceiver receiver,
+    rust_webrtc.RtcReceiveController controller,
+    rust_webrtc.RtcFileReceiver receiver,
   ) async {
     final fileId = await receiver.getFileId();
     final session = state.sessionState;
     final receivingFile = session?.files[fileId];
     if (session == null || receivingFile == null) {
       await controller.sendFileStatus(
-        status: RTCSendFileResponse(
+        status: rust_webrtc.RTCSendFileResponse(
           id: fileId,
           success: false,
           error: 'Unknown file',
@@ -397,7 +400,7 @@ class _ReceiveFilesAction extends AsyncReduxAction<WebRTCReceiveService, WebRTCR
     );
 
     await controller.sendFileStatus(
-      status: RTCSendFileResponse(
+      status: rust_webrtc.RTCSendFileResponse(
         id: fileId,
         success: fileError == null,
         error: fileError,
@@ -468,18 +471,18 @@ extension on FileDto {
   }
 }
 
-extension on RTCStatus? {
+extension on rust_webrtc.RTCStatus? {
   SessionStatus toSessionStatus() {
     return switch (this) {
       null => SessionStatus.waiting,
-      RTCStatus_SdpExchanged() => SessionStatus.waiting,
-      RTCStatus_Connected() => SessionStatus.waiting,
-      RTCStatus_PinRequired() => SessionStatus.waiting,
-      RTCStatus_TooManyAttempts() => SessionStatus.tooManyAttempts,
-      RTCStatus_Declined() => SessionStatus.declined,
-      RTCStatus_Sending() => SessionStatus.sending,
-      RTCStatus_Finished() => SessionStatus.finished,
-      RTCStatus_Error() => SessionStatus.finishedWithErrors,
+      rust_webrtc.RTCStatus_SdpExchanged() => SessionStatus.waiting,
+      rust_webrtc.RTCStatus_Connected() => SessionStatus.waiting,
+      rust_webrtc.RTCStatus_PinRequired() => SessionStatus.waiting,
+      rust_webrtc.RTCStatus_TooManyAttempts() => SessionStatus.tooManyAttempts,
+      rust_webrtc.RTCStatus_Declined() => SessionStatus.declined,
+      rust_webrtc.RTCStatus_Sending() => SessionStatus.sending,
+      rust_webrtc.RTCStatus_Finished() => SessionStatus.finished,
+      rust_webrtc.RTCStatus_Error() => SessionStatus.finishedWithErrors,
     };
   }
 }

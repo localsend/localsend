@@ -29,7 +29,7 @@ use crate::api::http::*;
 use crate::api::stream::*;
 use crate::api::webrtc::*;
 use flutter_rust_bridge::for_generated::byteorder::{NativeEndian, ReadBytesExt, WriteBytesExt};
-use flutter_rust_bridge::for_generated::{transform_result_dco, Lifetimeable, Lockable};
+use flutter_rust_bridge::for_generated::{Lifetimeable, Lockable, transform_result_dco};
 use flutter_rust_bridge::{Handler, IntoIntoDart};
 
 // Section: boilerplate
@@ -133,7 +133,8 @@ fn wire__crate__api__webrtc__LsSignalingConnection_accept_offer_impl(
             let api_that = <RustOpaqueMoi<
                 flutter_rust_bridge::for_generated::RustAutoOpaqueInner<LsSignalingConnection>,
             >>::sse_decode(&mut deserializer);
-            let api_stun_servers = <Vec<String>>::sse_decode(&mut deserializer);
+            let api_ice_servers =
+                <Vec<crate::api::webrtc::IceServerConfig>>::sse_decode(&mut deserializer);
             let api_offer = <crate::api::webrtc::WsServerSdpMessage>::sse_decode(&mut deserializer);
             let api_private_key = <String>::sse_decode(&mut deserializer);
             let api_expecting_public_key =
@@ -162,7 +163,7 @@ fn wire__crate__api__webrtc__LsSignalingConnection_accept_offer_impl(
                         let api_that_guard = api_that_guard.unwrap();
                         let output_ok = crate::api::webrtc::LsSignalingConnection::accept_offer(
                             &*api_that_guard,
-                            api_stun_servers,
+                            api_ice_servers,
                             api_offer,
                             &api_private_key,
                             api_expecting_public_key,
@@ -202,7 +203,8 @@ fn wire__crate__api__webrtc__LsSignalingConnection_send_offer_impl(
             let api_that = <RustOpaqueMoi<
                 flutter_rust_bridge::for_generated::RustAutoOpaqueInner<LsSignalingConnection>,
             >>::sse_decode(&mut deserializer);
-            let api_stun_servers = <Vec<String>>::sse_decode(&mut deserializer);
+            let api_ice_servers =
+                <Vec<crate::api::webrtc::IceServerConfig>>::sse_decode(&mut deserializer);
             let api_target = <uuid::Uuid>::sse_decode(&mut deserializer);
             let api_private_key = <String>::sse_decode(&mut deserializer);
             let api_expecting_public_key =
@@ -232,7 +234,7 @@ fn wire__crate__api__webrtc__LsSignalingConnection_send_offer_impl(
                         let api_that_guard = api_that_guard.unwrap();
                         let output_ok = crate::api::webrtc::LsSignalingConnection::send_offer(
                             &*api_that_guard,
-                            api_stun_servers,
+                            api_ice_servers,
                             api_target,
                             &api_private_key,
                             api_expecting_public_key,
@@ -2322,6 +2324,20 @@ impl SseDecode for i32 {
     }
 }
 
+impl SseDecode for crate::api::webrtc::IceServerConfig {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut var_urls = <Vec<String>>::sse_decode(deserializer);
+        let mut var_username = <Option<String>>::sse_decode(deserializer);
+        let mut var_credential = <Option<String>>::sse_decode(deserializer);
+        return crate::api::webrtc::IceServerConfig {
+            urls: var_urls,
+            username: var_username,
+            credential: var_credential,
+        };
+    }
+}
+
 impl SseDecode for isize {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
@@ -2372,6 +2388,20 @@ impl SseDecode for Vec<crate::api::model::FileDto> {
         let mut ans_ = vec![];
         for idx_ in 0..len_ {
             ans_.push(<crate::api::model::FileDto>::sse_decode(deserializer));
+        }
+        return ans_;
+    }
+}
+
+impl SseDecode for Vec<crate::api::webrtc::IceServerConfig> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut len_ = <i32>::sse_decode(deserializer);
+        let mut ans_ = vec![];
+        for idx_ in 0..len_ {
+            ans_.push(<crate::api::webrtc::IceServerConfig>::sse_decode(
+                deserializer,
+            ));
         }
         return ans_;
     }
@@ -3291,6 +3321,28 @@ impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<crate::api::model::FileMetadat
     }
 }
 // Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for crate::api::webrtc::IceServerConfig {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        [
+            self.urls.into_into_dart().into_dart(),
+            self.username.into_into_dart().into_dart(),
+            self.credential.into_into_dart().into_dart(),
+        ]
+        .into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for crate::api::webrtc::IceServerConfig
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<crate::api::webrtc::IceServerConfig>
+    for crate::api::webrtc::IceServerConfig
+{
+    fn into_into_dart(self) -> crate::api::webrtc::IceServerConfig {
+        self
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
 impl flutter_rust_bridge::IntoDart for crate::api::crypto::KeyPair {
     fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
         [
@@ -4055,6 +4107,15 @@ impl SseEncode for i32 {
     }
 }
 
+impl SseEncode for crate::api::webrtc::IceServerConfig {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <Vec<String>>::sse_encode(self.urls, serializer);
+        <Option<String>>::sse_encode(self.username, serializer);
+        <Option<String>>::sse_encode(self.credential, serializer);
+    }
+}
+
 impl SseEncode for isize {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
@@ -4099,6 +4160,16 @@ impl SseEncode for Vec<crate::api::model::FileDto> {
         <i32>::sse_encode(self.len() as _, serializer);
         for item in self {
             <crate::api::model::FileDto>::sse_encode(item, serializer);
+        }
+    }
+}
+
+impl SseEncode for Vec<crate::api::webrtc::IceServerConfig> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <i32>::sse_encode(self.len() as _, serializer);
+        for item in self {
+            <crate::api::webrtc::IceServerConfig>::sse_encode(item, serializer);
         }
     }
 }
@@ -4514,7 +4585,7 @@ mod io {
     use flutter_rust_bridge::for_generated::byteorder::{
         NativeEndian, ReadBytesExt, WriteBytesExt,
     };
-    use flutter_rust_bridge::for_generated::{transform_result_dco, Lifetimeable, Lockable};
+    use flutter_rust_bridge::for_generated::{Lifetimeable, Lockable, transform_result_dco};
     use flutter_rust_bridge::{Handler, IntoIntoDart};
 
     // Section: boilerplate
@@ -4653,7 +4724,7 @@ mod web {
     };
     use flutter_rust_bridge::for_generated::wasm_bindgen;
     use flutter_rust_bridge::for_generated::wasm_bindgen::prelude::*;
-    use flutter_rust_bridge::for_generated::{transform_result_dco, Lifetimeable, Lockable};
+    use flutter_rust_bridge::for_generated::{Lifetimeable, Lockable, transform_result_dco};
     use flutter_rust_bridge::{Handler, IntoIntoDart};
 
     // Section: boilerplate

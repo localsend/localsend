@@ -28,7 +28,7 @@ Stream<WsServerMessage> connect({
 // Rust type: RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<LsSignalingConnection>>
 abstract class LsSignalingConnection implements RustOpaqueInterface {
   Future<RtcReceiveController> acceptOffer({
-    required List<String> stunServers,
+    required List<IceServerConfig> iceServers,
     required WsServerSdpMessage offer,
     required String privateKey,
     ExpectingPublicKey? expectingPublicKey,
@@ -36,7 +36,7 @@ abstract class LsSignalingConnection implements RustOpaqueInterface {
   });
 
   Future<RtcSendController> sendOffer({
-    required List<String> stunServers,
+    required List<IceServerConfig> iceServers,
     required UuidValue target,
     required String privateKey,
     ExpectingPublicKey? expectingPublicKey,
@@ -171,6 +171,30 @@ class ExpectingPublicKey {
   @override
   bool operator ==(Object other) =>
       identical(this, other) || other is ExpectingPublicKey && runtimeType == other.runtimeType && publicKey == other.publicKey && kind == other.kind;
+}
+
+class IceServerConfig {
+  final List<String> urls;
+  final String? username;
+  final String? credential;
+
+  const IceServerConfig({
+    required this.urls,
+    this.username,
+    this.credential,
+  });
+
+  @override
+  int get hashCode => urls.hashCode ^ username.hashCode ^ credential.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is IceServerConfig &&
+          runtimeType == other.runtimeType &&
+          urls == other.urls &&
+          username == other.username &&
+          credential == other.credential;
 }
 
 class PinConfig {

@@ -40,9 +40,13 @@ class SignalingStateMapper extends ClassMapperBase<SignalingState> {
   static List<IceServerConfig> _$iceServers(SignalingState v) => v.iceServers;
   static const Field<SignalingState, List<IceServerConfig>> _f$iceServers =
       Field('iceServers', _$iceServers);
-  static Map<String, LsSignalingConnection> _$connections(SignalingState v) =>
-      v.connections;
-  static const Field<SignalingState, Map<String, LsSignalingConnection>>
+  static Map<String, rust_webrtc.LsSignalingConnection> _$connections(
+    SignalingState v,
+  ) => v.connections;
+  static const Field<
+    SignalingState,
+    Map<String, rust_webrtc.LsSignalingConnection>
+  >
   _f$connections = Field('connections', _$connections);
 
   @override
@@ -137,8 +141,12 @@ abstract class SignalingStateCopyWith<$R, $In extends SignalingState, $Out>
   MapCopyWith<
     $R,
     String,
-    LsSignalingConnection,
-    ObjectCopyWith<$R, LsSignalingConnection, LsSignalingConnection>
+    rust_webrtc.LsSignalingConnection,
+    ObjectCopyWith<
+      $R,
+      rust_webrtc.LsSignalingConnection,
+      rust_webrtc.LsSignalingConnection
+    >
   >
   get connections;
   $R call({
@@ -146,7 +154,7 @@ abstract class SignalingStateCopyWith<$R, $In extends SignalingState, $Out>
     String? roomSecret,
     List<String>? signalingServers,
     List<IceServerConfig>? iceServers,
-    Map<String, LsSignalingConnection>? connections,
+    Map<String, rust_webrtc.LsSignalingConnection>? connections,
   });
   SignalingStateCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
     Then<$Out2, $R2> t,
@@ -183,8 +191,12 @@ class _SignalingStateCopyWithImpl<$R, $Out>
   MapCopyWith<
     $R,
     String,
-    LsSignalingConnection,
-    ObjectCopyWith<$R, LsSignalingConnection, LsSignalingConnection>
+    rust_webrtc.LsSignalingConnection,
+    ObjectCopyWith<
+      $R,
+      rust_webrtc.LsSignalingConnection,
+      rust_webrtc.LsSignalingConnection
+    >
   >
   get connections => MapCopyWith(
     $value.connections,
@@ -197,7 +209,7 @@ class _SignalingStateCopyWithImpl<$R, $Out>
     Object? roomSecret = $none,
     List<String>? signalingServers,
     List<IceServerConfig>? iceServers,
-    Map<String, LsSignalingConnection>? connections,
+    Map<String, rust_webrtc.LsSignalingConnection>? connections,
   }) => $apply(
     FieldCopyWithData({
       if (enabled != null) #enabled: enabled,

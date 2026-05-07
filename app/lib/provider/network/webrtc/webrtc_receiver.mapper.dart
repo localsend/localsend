@@ -22,24 +22,21 @@ class WebRTCReceiveStateMapper extends ClassMapperBase<WebRTCReceiveState> {
   @override
   final String id = 'WebRTCReceiveState';
 
-  static LsSignalingConnection _$connection(WebRTCReceiveState v) =>
+  static rust_webrtc.LsSignalingConnection _$connection(WebRTCReceiveState v) =>
       v.connection;
-  static const Field<WebRTCReceiveState, LsSignalingConnection> _f$connection =
-      Field('connection', _$connection);
-  static WsServerSdpMessage _$offer(WebRTCReceiveState v) => v.offer;
-  static const Field<WebRTCReceiveState, WsServerSdpMessage> _f$offer = Field(
-    'offer',
-    _$offer,
-  );
-  static RTCStatus? _$status(WebRTCReceiveState v) => v.status;
-  static const Field<WebRTCReceiveState, RTCStatus> _f$status = Field(
-    'status',
-    _$status,
-  );
-  static RtcReceiveController? _$controller(WebRTCReceiveState v) =>
+  static const Field<WebRTCReceiveState, rust_webrtc.LsSignalingConnection>
+  _f$connection = Field('connection', _$connection);
+  static rust_webrtc.WsServerSdpMessage _$offer(WebRTCReceiveState v) =>
+      v.offer;
+  static const Field<WebRTCReceiveState, rust_webrtc.WsServerSdpMessage>
+  _f$offer = Field('offer', _$offer);
+  static rust_webrtc.RTCStatus? _$status(WebRTCReceiveState v) => v.status;
+  static const Field<WebRTCReceiveState, rust_webrtc.RTCStatus> _f$status =
+      Field('status', _$status);
+  static rust_webrtc.RtcReceiveController? _$controller(WebRTCReceiveState v) =>
       v.controller;
-  static const Field<WebRTCReceiveState, RtcReceiveController> _f$controller =
-      Field('controller', _$controller);
+  static const Field<WebRTCReceiveState, rust_webrtc.RtcReceiveController>
+  _f$controller = Field('controller', _$controller);
   static ReceiveSessionState? _$sessionState(WebRTCReceiveState v) =>
       v.sessionState;
   static const Field<WebRTCReceiveState, ReceiveSessionState> _f$sessionState =
@@ -138,10 +135,10 @@ abstract class WebRTCReceiveStateCopyWith<
   ReceiveSessionStateCopyWith<$R, ReceiveSessionState, ReceiveSessionState>?
   get sessionState;
   $R call({
-    LsSignalingConnection? connection,
-    WsServerSdpMessage? offer,
-    RTCStatus? status,
-    RtcReceiveController? controller,
+    rust_webrtc.LsSignalingConnection? connection,
+    rust_webrtc.WsServerSdpMessage? offer,
+    rust_webrtc.RTCStatus? status,
+    rust_webrtc.RtcReceiveController? controller,
     ReceiveSessionState? sessionState,
   });
   WebRTCReceiveStateCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
@@ -163,8 +160,8 @@ class _WebRTCReceiveStateCopyWithImpl<$R, $Out>
       $value.sessionState?.copyWith.$chain((v) => call(sessionState: v));
   @override
   $R call({
-    LsSignalingConnection? connection,
-    WsServerSdpMessage? offer,
+    rust_webrtc.LsSignalingConnection? connection,
+    rust_webrtc.WsServerSdpMessage? offer,
     Object? status = $none,
     Object? controller = $none,
     Object? sessionState = $none,
