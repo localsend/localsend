@@ -65,6 +65,20 @@ class SettingsTabVmMapper extends ClassMapperBase<SettingsTabVm> {
     'stunServersController',
     _$stunServersController,
   );
+  static TextEditingController _$turnUsernameController(SettingsTabVm v) =>
+      v.turnUsernameController;
+  static const Field<SettingsTabVm, TextEditingController>
+  _f$turnUsernameController = Field(
+    'turnUsernameController',
+    _$turnUsernameController,
+  );
+  static TextEditingController _$turnCredentialController(SettingsTabVm v) =>
+      v.turnCredentialController;
+  static const Field<SettingsTabVm, TextEditingController>
+  _f$turnCredentialController = Field(
+    'turnCredentialController',
+    _$turnCredentialController,
+  );
   static TextEditingController _$remoteRoomSecretController(SettingsTabVm v) =>
       v.remoteRoomSecretController;
   static const Field<SettingsTabVm, TextEditingController>
@@ -210,6 +224,8 @@ class SettingsTabVmMapper extends ClassMapperBase<SettingsTabVm> {
     #multicastController: _f$multicastController,
     #signalingServersController: _f$signalingServersController,
     #stunServersController: _f$stunServersController,
+    #turnUsernameController: _f$turnUsernameController,
+    #turnCredentialController: _f$turnCredentialController,
     #remoteRoomSecretController: _f$remoteRoomSecretController,
     #settings: _f$settings,
     #serverState: _f$serverState,
@@ -241,6 +257,8 @@ class SettingsTabVmMapper extends ClassMapperBase<SettingsTabVm> {
       multicastController: data.dec(_f$multicastController),
       signalingServersController: data.dec(_f$signalingServersController),
       stunServersController: data.dec(_f$stunServersController),
+      turnUsernameController: data.dec(_f$turnUsernameController),
+      turnCredentialController: data.dec(_f$turnCredentialController),
       remoteRoomSecretController: data.dec(_f$remoteRoomSecretController),
       settings: data.dec(_f$settings),
       serverState: data.dec(_f$serverState),
@@ -337,6 +355,8 @@ abstract class SettingsTabVmCopyWith<$R, $In extends SettingsTabVm, $Out>
     TextEditingController? multicastController,
     TextEditingController? signalingServersController,
     TextEditingController? stunServersController,
+    TextEditingController? turnUsernameController,
+    TextEditingController? turnCredentialController,
     TextEditingController? remoteRoomSecretController,
     SettingsState? settings,
     ServerState? serverState,
@@ -390,6 +410,8 @@ class _SettingsTabVmCopyWithImpl<$R, $Out>
     TextEditingController? multicastController,
     TextEditingController? signalingServersController,
     TextEditingController? stunServersController,
+    TextEditingController? turnUsernameController,
+    TextEditingController? turnCredentialController,
     TextEditingController? remoteRoomSecretController,
     SettingsState? settings,
     Object? serverState = $none,
@@ -422,6 +444,10 @@ class _SettingsTabVmCopyWithImpl<$R, $Out>
         #signalingServersController: signalingServersController,
       if (stunServersController != null)
         #stunServersController: stunServersController,
+      if (turnUsernameController != null)
+        #turnUsernameController: turnUsernameController,
+      if (turnCredentialController != null)
+        #turnCredentialController: turnCredentialController,
       if (remoteRoomSecretController != null)
         #remoteRoomSecretController: remoteRoomSecretController,
       if (settings != null) #settings: settings,
@@ -470,6 +496,14 @@ class _SettingsTabVmCopyWithImpl<$R, $Out>
     stunServersController: data.get(
       #stunServersController,
       or: $value.stunServersController,
+    ),
+    turnUsernameController: data.get(
+      #turnUsernameController,
+      or: $value.turnUsernameController,
+    ),
+    turnCredentialController: data.get(
+      #turnCredentialController,
+      or: $value.turnCredentialController,
     ),
     remoteRoomSecretController: data.get(
       #remoteRoomSecretController,

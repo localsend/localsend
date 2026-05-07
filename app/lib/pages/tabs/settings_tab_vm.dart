@@ -17,6 +17,8 @@ class SettingsTabVm with SettingsTabVmMappable {
   final TextEditingController multicastController;
   final TextEditingController signalingServersController;
   final TextEditingController stunServersController;
+  final TextEditingController turnUsernameController;
+  final TextEditingController turnCredentialController;
   final TextEditingController remoteRoomSecretController;
 
   final SettingsState settings;
@@ -47,6 +49,8 @@ class SettingsTabVm with SettingsTabVmMappable {
     required this.multicastController,
     required this.signalingServersController,
     required this.stunServersController,
+    required this.turnUsernameController,
+    required this.turnCredentialController,
     required this.remoteRoomSecretController,
     required this.settings,
     required this.serverState,
