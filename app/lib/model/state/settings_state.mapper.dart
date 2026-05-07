@@ -158,6 +158,16 @@ class SettingsStateMapper extends ClassMapperBase<SettingsState> {
     'remoteRoomSecret',
     _$remoteRoomSecret,
   );
+  static String? _$turnUsername(SettingsState v) => v.turnUsername;
+  static const Field<SettingsState, String> _f$turnUsername = Field(
+    'turnUsername',
+    _$turnUsername,
+  );
+  static String? _$turnCredential(SettingsState v) => v.turnCredential;
+  static const Field<SettingsState, String> _f$turnCredential = Field(
+    'turnCredential',
+    _$turnCredential,
+  );
 
   @override
   final MappableFields<SettingsState> fields = const {
@@ -189,6 +199,8 @@ class SettingsStateMapper extends ClassMapperBase<SettingsState> {
     #advancedSettings: _f$advancedSettings,
     #remoteDiscoveryEnabled: _f$remoteDiscoveryEnabled,
     #remoteRoomSecret: _f$remoteRoomSecret,
+    #turnUsername: _f$turnUsername,
+    #turnCredential: _f$turnCredential,
   };
 
   static SettingsState _instantiate(DecodingData data) {
@@ -221,6 +233,8 @@ class SettingsStateMapper extends ClassMapperBase<SettingsState> {
       advancedSettings: data.dec(_f$advancedSettings),
       remoteDiscoveryEnabled: data.dec(_f$remoteDiscoveryEnabled),
       remoteRoomSecret: data.dec(_f$remoteRoomSecret),
+      turnUsername: data.dec(_f$turnUsername),
+      turnCredential: data.dec(_f$turnCredential),
     );
   }
 
@@ -319,6 +333,8 @@ abstract class SettingsStateCopyWith<$R, $In extends SettingsState, $Out>
     bool? advancedSettings,
     bool? remoteDiscoveryEnabled,
     String? remoteRoomSecret,
+    String? turnUsername,
+    String? turnCredential,
   });
   SettingsStateCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
@@ -379,6 +395,8 @@ class _SettingsStateCopyWithImpl<$R, $Out>
     bool? advancedSettings,
     bool? remoteDiscoveryEnabled,
     Object? remoteRoomSecret = $none,
+    Object? turnUsername = $none,
+    Object? turnCredential = $none,
   }) => $apply(
     FieldCopyWithData({
       if (showToken != null) #showToken: showToken,
@@ -413,6 +431,8 @@ class _SettingsStateCopyWithImpl<$R, $Out>
       if (remoteDiscoveryEnabled != null)
         #remoteDiscoveryEnabled: remoteDiscoveryEnabled,
       if (remoteRoomSecret != $none) #remoteRoomSecret: remoteRoomSecret,
+      if (turnUsername != $none) #turnUsername: turnUsername,
+      if (turnCredential != $none) #turnCredential: turnCredential,
     }),
   );
   @override
@@ -457,6 +477,8 @@ class _SettingsStateCopyWithImpl<$R, $Out>
       or: $value.remoteDiscoveryEnabled,
     ),
     remoteRoomSecret: data.get(#remoteRoomSecret, or: $value.remoteRoomSecret),
+    turnUsername: data.get(#turnUsername, or: $value.turnUsername),
+    turnCredential: data.get(#turnCredential, or: $value.turnCredential),
   );
 
   @override

@@ -105,6 +105,24 @@ class MockPersistenceService extends _i1.Mock
           as _i4.Future<void>);
 
   @override
+  _i4.Future<void> setTurnUsername(String? username) =>
+      (super.noSuchMethod(
+            Invocation.method(#setTurnUsername, [username]),
+            returnValue: _i4.Future<void>.value(),
+            returnValueForMissingStub: _i4.Future<void>.value(),
+          )
+          as _i4.Future<void>);
+
+  @override
+  _i4.Future<void> setTurnCredential(String? credential) =>
+      (super.noSuchMethod(
+            Invocation.method(#setTurnCredential, [credential]),
+            returnValue: _i4.Future<void>.value(),
+            returnValueForMissingStub: _i4.Future<void>.value(),
+          )
+          as _i4.Future<void>);
+
+  @override
   bool isRemoteDiscoveryEnabled() =>
       (super.noSuchMethod(
             Invocation.method(#isRemoteDiscoveryEnabled, []),

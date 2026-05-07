@@ -73,6 +73,8 @@ class SettingsService extends PureNotifier<SettingsState> {
     advancedSettings: _persistence.getAdvancedSettingsEnabled(),
     remoteDiscoveryEnabled: _persistence.isRemoteDiscoveryEnabled(),
     remoteRoomSecret: _persistence.getRemoteRoomSecret(),
+    turnUsername: _persistence.getTurnUsername(),
+    turnCredential: _persistence.getTurnCredential(),
   );
 
   Future<void> setAlias(String alias) async {
@@ -215,6 +217,18 @@ class SettingsService extends PureNotifier<SettingsState> {
 
   Future<void> setStunServers(List<String> servers) async {
     await _persistence.setStunServers(servers);
+  }
+
+  Future<void> setTurnUsername(String? username) async {
+    final normalized = username == null || username.trim().isEmpty ? null : username.trim();
+    await _persistence.setTurnUsername(normalized);
+    state = state.copyWith(turnUsername: normalized);
+  }
+
+  Future<void> setTurnCredential(String? credential) async {
+    final normalized = credential == null || credential.trim().isEmpty ? null : credential.trim();
+    await _persistence.setTurnCredential(normalized);
+    state = state.copyWith(turnCredential: normalized);
   }
 
   Future<void> setRemoteDiscoveryEnabled(bool enabled) async {

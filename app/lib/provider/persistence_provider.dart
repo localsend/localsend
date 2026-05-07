@@ -50,6 +50,8 @@ const _securityContext = 'ls_security_context';
 // WebRTC
 const _signalingServers = 'ls_signaling_servers';
 const _stunServers = 'ls_stun_servers';
+const _turnUsername = 'ls_turn_username';
+const _turnCredential = 'ls_turn_credential';
 const _remoteDiscoveryEnabled = 'ls_remote_discovery_enabled';
 const _remoteRoomSecret = 'ls_remote_room_secret';
 
@@ -133,10 +135,7 @@ class PersistenceService {
     }
 
     final bool isFirstAppStart;
-    final existingVersion =
-        (await SharedPreferencesStorePlatform.instance
-                .getAll())['flutter.$_version']
-            as int?;
+    final existingVersion = (await SharedPreferencesStorePlatform.instance.getAll())['flutter.$_version'] as int?;
     _logger.info('Existing version: $existingVersion');
     if (existingVersion == null && !usingLegacyStore) {
       isFirstAppStart = true;
@@ -205,9 +204,7 @@ class PersistenceService {
       await _initColorSetting(prefs, supportsDynamicColors);
     } else {
       // fix when device does not support dynamic colors
-      final supported = supportsDynamicColors
-          ? ColorMode.values
-          : ColorMode.values.where((e) => e != ColorMode.system);
+      final supported = supportsDynamicColors ? ColorMode.values : ColorMode.values.where((e) => e != ColorMode.system);
       final colorMode = supported.firstWhereOrNull(
         (color) => color.name == prefs.getString(_colorKey),
       );
@@ -237,9 +234,7 @@ class PersistenceService {
   ) async {
     await prefs.setString(
       _colorKey,
-      checkPlatform([TargetPlatform.android]) && supportsDynamicColors
-          ? ColorMode.system.name
-          : ColorMode.localsend.name,
+      checkPlatform([TargetPlatform.android]) && supportsDynamicColors ? ColorMode.system.name : ColorMode.localsend.name,
     );
   }
 
@@ -282,6 +277,30 @@ class PersistenceService {
     await _prefs.setString(_stunServers, jsonEncode(servers));
   }
 
+  String? getTurnUsername() {
+    return _prefs.getString(_turnUsername);
+  }
+
+  Future<void> setTurnUsername(String? username) async {
+    if (username == null || username.isEmpty) {
+      await _prefs.remove(_turnUsername);
+    } else {
+      await _prefs.setString(_turnUsername, username);
+    }
+  }
+
+  String? getTurnCredential() {
+    return _prefs.getString(_turnCredential);
+  }
+
+  Future<void> setTurnCredential(String? credential) async {
+    if (credential == null || credential.isEmpty) {
+      await _prefs.remove(_turnCredential);
+    } else {
+      await _prefs.setString(_turnCredential, credential);
+    }
+  }
+
   bool isRemoteDiscoveryEnabled() {
     return _prefs.getBool(_remoteDiscoveryEnabled) ?? false;
   }
@@ -304,29 +323,21 @@ class PersistenceService {
 
   List<ReceiveHistoryEntry> getReceiveHistory() {
     final historyRaw = _prefs.getStringList(_receiveHistory) ?? [];
-    return historyRaw
-        .map((entry) => ReceiveHistoryEntry.fromJson(jsonDecode(entry)))
-        .toList();
+    return historyRaw.map((entry) => ReceiveHistoryEntry.fromJson(jsonDecode(entry))).toList();
   }
 
   Future<void> setReceiveHistory(List<ReceiveHistoryEntry> entries) async {
-    final historyRaw = entries
-        .map((entry) => jsonEncode(entry.toJson()))
-        .toList();
+    final historyRaw = entries.map((entry) => jsonEncode(entry.toJson())).toList();
     await _prefs.setStringList(_receiveHistory, historyRaw);
   }
 
   List<FavoriteDevice> getFavorites() {
     final favoritesRaw = _prefs.getStringList(_favorites) ?? [];
-    return favoritesRaw
-        .map((entry) => FavoriteDevice.fromJson(jsonDecode(entry)))
-        .toList();
+    return favoritesRaw.map((entry) => FavoriteDevice.fromJson(jsonDecode(entry))).toList();
   }
 
   Future<void> setFavorites(List<FavoriteDevice> entries) async {
-    final favoritesRaw = entries
-        .map((entry) => jsonEncode(entry.toJson()))
-        .toList();
+    final favoritesRaw = entries.map((entry) => jsonEncode(entry.toJson())).toList();
     await _prefs.setStringList(_favorites, favoritesRaw);
   }
 
@@ -347,8 +358,7 @@ class PersistenceService {
     if (value == null) {
       return ThemeMode.system;
     }
-    return ThemeMode.values.firstWhereOrNull((theme) => theme.name == value) ??
-        ThemeMode.system;
+    return ThemeMode.values.firstWhereOrNull((theme) => theme.name == value) ?? ThemeMode.system;
   }
 
   Future<void> setTheme(ThemeMode theme) async {
@@ -360,8 +370,7 @@ class PersistenceService {
     if (value == null) {
       return ColorMode.system;
     }
-    return ColorMode.values.firstWhereOrNull((color) => color.name == value) ??
-        ColorMode.system;
+    return ColorMode.values.firstWhereOrNull((color) => color.name == value) ?? ColorMode.system;
   }
 
   Future<void> setColorMode(ColorMode color) async {
