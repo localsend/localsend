@@ -2,6 +2,7 @@ import 'package:collection/collection.dart';
 import 'package:common/isolate.dart';
 import 'package:common/model/device.dart';
 import 'package:flutter/material.dart';
+import 'package:localsend_app/constants/remote_config.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/model/persistence/color_mode.dart';
 import 'package:localsend_app/model/send_mode.dart';
@@ -201,8 +202,7 @@ class SettingsService extends PureNotifier<SettingsState> {
   }
 
   List<String> getSignalingServers() {
-    return _persistence.getSignalingServers() ??
-        ['wss://public.localsend.org/v1/ws'];
+    return _persistence.getSignalingServers() ?? defaultSignalingServers;
   }
 
   Future<void> setSignalingServers(List<String> servers) async {
@@ -210,7 +210,7 @@ class SettingsService extends PureNotifier<SettingsState> {
   }
 
   List<String> getStunServers() {
-    return _persistence.getStunServers() ?? ['stun:stun.localsend.org:5349'];
+    return _persistence.getStunServers() ?? defaultStunServers;
   }
 
   Future<void> setStunServers(List<String> servers) async {

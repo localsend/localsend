@@ -232,7 +232,7 @@ async fn webrtc_test() -> Result<()> {
         token: "test".to_string(),
     };
     let connection =
-        webrtc::signaling::SignalingConnection::connect("wss://public.localsend.org/v1/ws", &info)
+        webrtc::signaling::SignalingConnection::connect("wss://localsend.tely/v1/ws", &info)
             .await?;
 
     let (managed_connection, mut rx) = connection.start_listener();

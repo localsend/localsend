@@ -6,6 +6,7 @@ import 'package:common/constants.dart';
 import 'package:common/model/device.dart';
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:flutter/foundation.dart';
+import 'package:localsend_app/constants/remote_config.dart';
 import 'package:localsend_app/provider/device_info_provider.dart';
 import 'package:localsend_app/provider/favorites_provider.dart';
 import 'package:localsend_app/provider/network/nearby_devices_provider.dart';
@@ -53,8 +54,8 @@ class SignalingService extends ReduxNotifier<SignalingState> {
     return SignalingState(
       enabled: _persistence.isRemoteDiscoveryEnabled(),
       roomSecret: _persistence.getRemoteRoomSecret(),
-      signalingServers: _persistence.getSignalingServers() ?? ['wss://public.localsend.org/v1/ws'],
-      stunServers: _persistence.getStunServers() ?? ['stun:stun.localsend.org:5349'],
+      signalingServers: _persistence.getSignalingServers() ?? defaultSignalingServers,
+      stunServers: _persistence.getStunServers() ?? defaultStunServers,
       connections: {},
     );
   }
