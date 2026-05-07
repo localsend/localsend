@@ -192,7 +192,7 @@ impl SignalingConnection {
         info: &ClientInfoWithoutId,
     ) -> Result<SignalingConnection> {
         let encoded_info = base64::encode(&serde_json::to_string(info)?);
-        let uri = format!("{}?d={}", uri.into(), encoded_info);
+        let uri = append_query_param(&uri.into(), "d", &encoded_info);
 
         tracing::debug!("Connecting to the signaling server at {uri}");
 
@@ -331,6 +331,11 @@ impl SignalingConnection {
     }
 }
 
+fn append_query_param(uri: &str, key: &str, value: &str) -> String {
+    let separator = if uri.contains('?') { '&' } else { '?' };
+    format!("{uri}{separator}{key}={value}")
+}
+
 type AnswerCallback = Box<dyn FnOnce(WsServerSdpMessage) + Send + Sync>;
 
 pub struct ManagedSignalingConnection {
@@ -417,6 +422,22 @@ async fn send_answer(
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn append_query_param_uses_question_mark_without_existing_query() {
+        assert_eq!(
+            append_query_param("wss://example.com/v1/ws", "d", "abc"),
+            "wss://example.com/v1/ws?d=abc"
+        );
+    }
+
+    #[test]
+    fn append_query_param_uses_ampersand_with_existing_query() {
+        assert_eq!(
+            append_query_param("wss://example.com/v1/ws?room=123", "d", "abc"),
+            "wss://example.com/v1/ws?room=123&d=abc"
+        );
+    }
 
     #[test]
     fn ws_server_hello_message_encoding() {

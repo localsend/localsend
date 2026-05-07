@@ -39,6 +39,10 @@ static MAX_REQUESTS: LazyLock<u32> = LazyLock::new(|| {
 pub struct WsQuery {
     /// `PeerRegisterDto` encoded as base64.
     pub d: String,
+
+    /// Optional room identifier. Clients should send a hash of their room
+    /// secret, not the secret itself.
+    pub room: Option<String>,
 }
 
 pub async fn ws_handler(
@@ -78,10 +82,24 @@ pub async fn ws_handler(
             state.tx_map,
             state.request_count_map,
             socket,
-            get_ip_group(ip),
+            get_group(ip, payload.room),
             peer_info,
         )
     }))
+}
+
+fn get_group(ip: IpAddr, room: Option<String>) -> String {
+    match room {
+        Some(room) if is_valid_room(&room) => format!("room:{room}"),
+        _ => format!("ip:{}", get_ip_group(ip)),
+    }
+}
+
+fn is_valid_room(room: &str) -> bool {
+    (16..=128).contains(&room.len())
+        && room
+            .bytes()
+            .all(|b| b.is_ascii_alphanumeric() || b == b'-' || b == b'_')
 }
 
 /// The websocket context (one per connected device) is handled here.
@@ -366,4 +384,25 @@ async fn protect_ddos_request_count(
     }
     *count += 1;
     Ok(())
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn room_group_accepts_url_safe_hashes() {
+        let ip = IpAddr::from_str("1.2.3.4").unwrap();
+        assert_eq!(
+            get_group(ip, Some("abcdefghijklmnopqrstuvwxyz123456".to_string())),
+            "room:abcdefghijklmnopqrstuvwxyz123456"
+        );
+    }
+
+    #[test]
+    fn room_group_falls_back_to_ip_group_when_invalid() {
+        let ip = IpAddr::from_str("1.2.3.4").unwrap();
+        assert_eq!(get_group(ip, Some("short".to_string())), "ip:1.2.3.4");
+        assert_eq!(get_group(ip, Some("contains/slash/that/is/invalid".to_string())), "ip:1.2.3.4");
+    }
 }
