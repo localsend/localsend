@@ -344,8 +344,16 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
       return;
     }
 
+    final settings = ref.read(settingsProvider);
+    final iceServers = buildCurrentIceServers(
+      fallbackUrls: ref.read(signalingProvider).iceServers.expand((server) => server.urls).toList(),
+      currentUrls: ref.notifier(settingsProvider).getStunServers(),
+      turnUsername: settings.turnUsername,
+      turnCredential: settings.turnCredential,
+    );
+
     final controller = await connection.sendOffer(
-      iceServers: ref.read(signalingProvider).iceServers.map((server) => server.toRust()).toList(),
+      iceServers: iceServers.map((server) => server.toRust()).toList(),
       // ignore: experimental_member_use
       target: UuidValue.withValidation(signalingId),
       privateKey: ref.read(securityProvider).privateKey,

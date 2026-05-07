@@ -1,4 +1,5 @@
 import 'package:common/model/device.dart';
+import 'package:localsend_app/model/webrtc/ice_server_config.dart';
 import 'package:localsend_app/provider/network/send_provider.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -22,6 +23,25 @@ void main() {
       );
 
       expect(findTargetSignalingServer(device), isNull);
+    });
+  });
+
+  group('buildCurrentIceServers', () {
+    test('uses the latest urls and turn credentials from settings', () {
+      final result = buildCurrentIceServers(
+        fallbackUrls: ['stun:old.example.com:3478'],
+        currentUrls: ['turn:turn.example.com:3478?transport=udp'],
+        turnUsername: 'user',
+        turnCredential: 'secret',
+      );
+
+      expect(result, [
+        const IceServerConfig(
+          urls: ['turn:turn.example.com:3478?transport=udp'],
+          username: 'user',
+          credential: 'secret',
+        ),
+      ]);
     });
   });
 }

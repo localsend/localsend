@@ -156,10 +156,18 @@ class _SetupSignalingConnection extends AsyncGlobalAction {
             break;
           case rust_webrtc.WsServerMessage_Offer():
             final provider = ReduxProvider<WebRTCReceiveService, WebRTCReceiveState>((ref) {
+              final settings = ref.read(settingsProvider);
+              final iceServers = buildCurrentIceServers(
+                fallbackUrls: ref.read(signalingProvider).iceServers.expand((server) => server.urls).toList(),
+                currentUrls: ref.notifier(settingsProvider).getStunServers(),
+                turnUsername: settings.turnUsername,
+                turnCredential: settings.turnCredential,
+              );
+
               return WebRTCReceiveService(
                 ref: ref,
                 signalingServer: signalingServer,
-                iceServers: ref.read(signalingProvider).iceServers,
+                iceServers: iceServers,
                 connection: connection!,
                 offer: message.field0,
                 settings: ref.read(settingsProvider),

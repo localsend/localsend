@@ -35,6 +35,22 @@ void main() {
       ]);
     });
 
+    test('adds credentials to turns servers', () {
+      final result = buildIceServers(
+        urls: ['turns:turn.example.com:5349?transport=tcp'],
+        turnUsername: 'user',
+        turnCredential: 'secret',
+      );
+
+      expect(result, [
+        const IceServerConfig(
+          urls: ['turns:turn.example.com:5349?transport=tcp'],
+          username: 'user',
+          credential: 'secret',
+        ),
+      ]);
+    });
+
     test('omits credentials when username or credential is empty', () {
       final result = buildIceServers(
         urls: ['turn:turn.example.com:3478?transport=udp'],

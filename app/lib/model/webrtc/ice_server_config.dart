@@ -37,11 +37,28 @@ List<IceServerConfig> buildIceServers({
       .map(
         (url) => IceServerConfig(
           urls: [url],
-          username: hasTurnCredentials && url.startsWith('turn:') ? username : null,
-          credential: hasTurnCredentials && url.startsWith('turn:') ? credential : null,
+          username: hasTurnCredentials && _isTurnUrl(url) ? username : null,
+          credential: hasTurnCredentials && _isTurnUrl(url) ? credential : null,
         ),
       )
       .toList(growable: false);
+}
+
+List<IceServerConfig> buildCurrentIceServers({
+  required List<String> fallbackUrls,
+  required List<String> currentUrls,
+  required String? turnUsername,
+  required String? turnCredential,
+}) {
+  return buildIceServers(
+    urls: currentUrls.isEmpty ? fallbackUrls : currentUrls,
+    turnUsername: turnUsername,
+    turnCredential: turnCredential,
+  );
+}
+
+bool _isTurnUrl(String url) {
+  return url.startsWith('turn:') || url.startsWith('turns:');
 }
 
 bool _listEquals(List<String> a, List<String> b) {
