@@ -120,7 +120,9 @@
       "destination": "Save to folder",
       "downloads": "(Downloads)",
       "saveToGallery": "Save media to gallery",
-      "saveToHistory": "Save to history"
+      "saveToHistory": "Save to history",
+      "overwriteDuplicateFiles": "Overwrite duplicate files",
+      "skipDuplicateFiles": "Skip duplicate filesaaa"
     },
     "send": {
       "title": "Send",
