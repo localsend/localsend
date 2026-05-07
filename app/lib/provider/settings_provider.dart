@@ -244,15 +244,31 @@ class SettingsService extends PureNotifier<SettingsState> {
 
   Future<void> setSkipDuplicateFiles(bool skipDuplicateFiles) async {
     await _persistence.setSkipDuplicateFiles(skipDuplicateFiles);
+    
+    bool overwriteDuplicateFiles = state.overwriteDuplicateFiles;
+    if (skipDuplicateFiles && overwriteDuplicateFiles) {
+      overwriteDuplicateFiles = false;
+      await _persistence.setOverwriteDuplicateFiles(false);
+    }
+    
     state = state.copyWith(
       skipDuplicateFiles: skipDuplicateFiles,
+      overwriteDuplicateFiles: overwriteDuplicateFiles,
     );
   }
 
   Future<void> setOverwriteDuplicateFiles(bool overwriteDuplicateFiles) async {
     await _persistence.setOverwriteDuplicateFiles(overwriteDuplicateFiles);
+    
+    bool skipDuplicateFiles = state.skipDuplicateFiles;
+    if (overwriteDuplicateFiles && skipDuplicateFiles) {
+      skipDuplicateFiles = false;
+      await _persistence.setSkipDuplicateFiles(false);
+    }
+    
     state = state.copyWith(
       overwriteDuplicateFiles: overwriteDuplicateFiles,
+      skipDuplicateFiles: skipDuplicateFiles,
     );
   }
 
