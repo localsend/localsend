@@ -76,3 +76,82 @@ server {
   }
 }
 ```
+
+## TURN Relay
+
+The signaling server only coordinates peers. Cross-network WebRTC file transfer may require a TURN relay when direct peer-to-peer connectivity through STUN is not enough.
+
+Example coturn settings:
+
+```text
+listening-port=3478
+min-port=49152
+max-port=65535
+fingerprint
+lt-cred-mech
+realm=localsend.telyra.top
+user=localsend:CHANGE_ME_STRONG_PASSWORD
+no-multicast-peers
+no-cli
+```
+
+If coturn runs behind NAT, also configure `external-ip=<public-ip>/<private-ip>` so relayed candidates advertise the reachable public address.
+
+TURN credentials authorize use of your relay. Use a strong unique password, do not commit real credentials, and rotate the password if it is exposed. For shared or public deployments, prefer short-lived or managed TURN credentials.
+
+Open firewall ports:
+
+```bash
+sudo ufw allow 3478/tcp
+sudo ufw allow 3478/udp
+sudo ufw allow 49152:65535/udp
+```
+
+Client settings:
+
+```text
+ICE servers:
+stun:stun.localsend.org:5349
+turn:localsend.telyra.top:3478?transport=udp
+turn:localsend.telyra.top:3478?transport=tcp
+
+TURN username:
+localsend
+
+TURN password:
+CHANGE_ME_STRONG_PASSWORD
+```
+
+## Verification
+
+The TURN support implementation was verified with:
+
+```bash
+cd app
+dart run build_runner build --delete-conflicting-outputs
+flutter test
+flutter analyze --no-fatal-warnings --no-fatal-infos lib test
+```
+
+Results:
+
+- `build_runner`: passed
+- `flutter test`: passed, 63 tests
+- focused Flutter analyzer: passed with existing non-fatal warnings/infos
+
+Rust checks:
+
+```bash
+cd core
+cargo check --all-features
+
+cd ../app/rust
+cargo check
+```
+
+Results:
+
+- `core` full-feature check: passed with warnings
+- `app/rust` check: passed with warnings
+
+Manual cross-network device testing still requires a deployed TURN server and two clients configured with the same signaling room and TURN credentials.
