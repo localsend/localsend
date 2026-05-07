@@ -362,7 +362,21 @@ class PersistenceService {
   bool getShareViaLinkAutoAccept() {
     return _prefs.getBool(_shareViaLinkAutoAccept) ?? false;
   }
+  bool getOverwriteDuplicateFiles() {
+    return _prefs.getBool('overwriteDuplicateFiles') ?? false;
+  }
 
+  Future<void> setOverwriteDuplicateFiles(bool overwriteDuplicateFiles) async {
+    await _prefs.setBool('overwriteDuplicateFiles', overwriteDuplicateFiles);
+  }
+
+  bool getSkipDuplicateFiles() {
+    return _prefs.getBool('skipDuplicateFiles') ?? false;
+  }
+
+  Future<void> setSkipDuplicateFiles(bool skipDuplicateFiles) async {
+    await _prefs.setBool('skipDuplicateFiles', skipDuplicateFiles);
+  }
   Future<void> setShareViaLinkAutoAccept(bool shareViaLinkAutoAccept) async {
     await _prefs.setBool(_shareViaLinkAutoAccept, shareViaLinkAutoAccept);
   }

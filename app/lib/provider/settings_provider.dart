@@ -67,6 +67,8 @@ class SettingsService extends PureNotifier<SettingsState> {
     enableAnimations: _persistence.getEnableAnimations(),
     deviceType: _persistence.getDeviceType(),
     deviceModel: _persistence.getDeviceModel(),
+    overwriteDuplicateFiles: _persistence.getOverwriteDuplicateFiles(),
+    skipDuplicateFiles: _persistence.getSkipDuplicateFiles(),
     shareViaLinkAutoAccept: _persistence.getShareViaLinkAutoAccept(),
     discoveryTimeout: _persistence.getDiscoveryTimeout(),
     advancedSettings: _persistence.getAdvancedSettingsEnabled(),
@@ -237,6 +239,20 @@ class SettingsService extends PureNotifier<SettingsState> {
     await _persistence.setDeviceModel(deviceModel);
     state = state.copyWith(
       deviceModel: deviceModel,
+    );
+  }
+
+  Future<void> setSkipDuplicateFiles(bool skipDuplicateFiles) async {
+    await _persistence.setSkipDuplicateFiles(skipDuplicateFiles);
+    state = state.copyWith(
+      skipDuplicateFiles: skipDuplicateFiles,
+    );
+  }
+
+  Future<void> setOverwriteDuplicateFiles(bool overwriteDuplicateFiles) async {
+    await _persistence.setOverwriteDuplicateFiles(overwriteDuplicateFiles);
+    state = state.copyWith(
+      overwriteDuplicateFiles: overwriteDuplicateFiles,
     );
   }
 

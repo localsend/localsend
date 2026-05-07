@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:collection/collection.dart';
 import 'package:common/model/dto/file_dto.dart';
 import 'package:localsend_app/util/file_path_helper.dart';
+import 'package:path/path.dart' as p;
 import 'package:refena_flutter/refena_flutter.dart';
 import 'package:uuid/uuid.dart';
 
@@ -19,6 +22,28 @@ class SelectedReceivingFilesNotifier extends Notifier<Map<String, String>> {
   @override
   Map<String, String> init() {
     return {};
+  }
+
+  void initFiles({
+    required List<FileDto> files,
+    required String destinationDir,
+    required bool skipDuplicateFiles,
+  }) {
+    final Map<String, String> map = {};
+    for (final f in files) {
+      if (skipDuplicateFiles) {
+        bool exists = false;
+        try {
+          exists = File(p.join(destinationDir, f.fileName)).existsSync();
+        } catch (_) {}
+        if (!exists) {
+          map[f.id] = f.fileName;
+        }
+      } else {
+        map[f.id] = f.fileName;
+      }
+    }
+    state = map;
   }
 
   void setFiles(List<FileDto> files) {

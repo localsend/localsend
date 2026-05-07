@@ -39,6 +39,7 @@ Future<(bool, String?)> saveFile({
   required Stream<Uint8List> stream,
   required void Function(int) onProgress,
   required Set<String> createdDirectories,
+  bool overwriteDuplicateFiles = false,
   int? androidSdkInt,
   DateTime? lastModified,
   DateTime? lastAccessed,
@@ -49,6 +50,7 @@ Future<(bool, String?)> saveFile({
     parentDirectory: parentDirectory,
     fileName: fileName,
     createdDirectories: createdDirectories,
+    overwriteDuplicateFiles: overwriteDuplicateFiles,
   );
 
   // When saveToGallery is enabled, cache directory is used so SAF is not needed
@@ -212,6 +214,7 @@ Future<(String, String?, String)> digestFilePathAndPrepareDirectory({
   required String parentDirectory,
   required String fileName,
   required Set<String> createdDirectories,
+  bool overwriteDuplicateFiles = false,
 }) async {
   if (parentDirectory.startsWith('content://')) {
     final String documentUri;
@@ -251,11 +254,15 @@ Future<(String, String?, String)> digestFilePathAndPrepareDirectory({
   }
 
   String destinationPath;
-  int counter = 1;
-  do {
-    destinationPath = counter == 1 ? p.join(dir, actualFileName) : p.join(dir, actualFileName.withCount(counter));
-    counter++;
-  } while (await File(destinationPath).exists());
+  if (overwriteDuplicateFiles) {
+    destinationPath = p.join(dir, actualFileName);
+  } else {
+    int counter = 1;
+    do {
+      destinationPath = counter == 1 ? p.join(dir, actualFileName) : p.join(dir, actualFileName.withCount(counter));
+      counter++;
+    } while (await File(destinationPath).exists());
+  }
   return (destinationPath, null, p.basename(destinationPath));
 }
 

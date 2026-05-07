@@ -250,6 +250,20 @@ class SettingsTab extends StatelessWidget {
                           await ref.notifier(settingsProvider).setSaveToHistory(b);
                         },
                       ),
+                      _BooleanEntry(
+                        label: 'Overwrite duplicate files',
+                        value: vm.settings.overwriteDuplicateFiles,
+                        onChanged: (b) async {
+                          await ref.notifier(settingsProvider).setOverwriteDuplicateFiles(b);
+                        },
+                      ),
+                      _BooleanEntry(
+                        label: 'Skip duplicate files',
+                        value: vm.settings.skipDuplicateFiles,
+                        onChanged: (b) async {
+                          await ref.notifier(settingsProvider).setSkipDuplicateFiles(b);
+                        },
+                      ),
                     ],
                   ),
                   if (vm.advanced)

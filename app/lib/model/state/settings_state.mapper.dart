@@ -131,6 +131,17 @@ class SettingsStateMapper extends ClassMapperBase<SettingsState> {
     'deviceModel',
     _$deviceModel,
   );
+  static bool _$overwriteDuplicateFiles(SettingsState v) =>
+      v.overwriteDuplicateFiles;
+  static const Field<SettingsState, bool> _f$overwriteDuplicateFiles = Field(
+    'overwriteDuplicateFiles',
+    _$overwriteDuplicateFiles,
+  );
+  static bool _$skipDuplicateFiles(SettingsState v) => v.skipDuplicateFiles;
+  static const Field<SettingsState, bool> _f$skipDuplicateFiles = Field(
+    'skipDuplicateFiles',
+    _$skipDuplicateFiles,
+  );
   static bool _$shareViaLinkAutoAccept(SettingsState v) =>
       v.shareViaLinkAutoAccept;
   static const Field<SettingsState, bool> _f$shareViaLinkAutoAccept = Field(
@@ -173,6 +184,8 @@ class SettingsStateMapper extends ClassMapperBase<SettingsState> {
     #enableAnimations: _f$enableAnimations,
     #deviceType: _f$deviceType,
     #deviceModel: _f$deviceModel,
+    #overwriteDuplicateFiles: _f$overwriteDuplicateFiles,
+    #skipDuplicateFiles: _f$skipDuplicateFiles,
     #shareViaLinkAutoAccept: _f$shareViaLinkAutoAccept,
     #discoveryTimeout: _f$discoveryTimeout,
     #advancedSettings: _f$advancedSettings,
@@ -203,6 +216,8 @@ class SettingsStateMapper extends ClassMapperBase<SettingsState> {
       enableAnimations: data.dec(_f$enableAnimations),
       deviceType: data.dec(_f$deviceType),
       deviceModel: data.dec(_f$deviceModel),
+      overwriteDuplicateFiles: data.dec(_f$overwriteDuplicateFiles),
+      skipDuplicateFiles: data.dec(_f$skipDuplicateFiles),
       shareViaLinkAutoAccept: data.dec(_f$shareViaLinkAutoAccept),
       discoveryTimeout: data.dec(_f$discoveryTimeout),
       advancedSettings: data.dec(_f$advancedSettings),
@@ -299,6 +314,8 @@ abstract class SettingsStateCopyWith<$R, $In extends SettingsState, $Out>
     bool? enableAnimations,
     DeviceType? deviceType,
     String? deviceModel,
+    bool? overwriteDuplicateFiles,
+    bool? skipDuplicateFiles,
     bool? shareViaLinkAutoAccept,
     int? discoveryTimeout,
     bool? advancedSettings,
@@ -357,6 +374,8 @@ class _SettingsStateCopyWithImpl<$R, $Out>
     bool? enableAnimations,
     Object? deviceType = $none,
     Object? deviceModel = $none,
+    bool? overwriteDuplicateFiles,
+    bool? skipDuplicateFiles,
     bool? shareViaLinkAutoAccept,
     int? discoveryTimeout,
     bool? advancedSettings,
@@ -387,6 +406,9 @@ class _SettingsStateCopyWithImpl<$R, $Out>
       if (enableAnimations != null) #enableAnimations: enableAnimations,
       if (deviceType != $none) #deviceType: deviceType,
       if (deviceModel != $none) #deviceModel: deviceModel,
+      if (overwriteDuplicateFiles != null)
+        #overwriteDuplicateFiles: overwriteDuplicateFiles,
+      if (skipDuplicateFiles != null) #skipDuplicateFiles: skipDuplicateFiles,
       if (shareViaLinkAutoAccept != null)
         #shareViaLinkAutoAccept: shareViaLinkAutoAccept,
       if (discoveryTimeout != null) #discoveryTimeout: discoveryTimeout,
@@ -424,6 +446,14 @@ class _SettingsStateCopyWithImpl<$R, $Out>
     enableAnimations: data.get(#enableAnimations, or: $value.enableAnimations),
     deviceType: data.get(#deviceType, or: $value.deviceType),
     deviceModel: data.get(#deviceModel, or: $value.deviceModel),
+    overwriteDuplicateFiles: data.get(
+      #overwriteDuplicateFiles,
+      or: $value.overwriteDuplicateFiles,
+    ),
+    skipDuplicateFiles: data.get(
+      #skipDuplicateFiles,
+      or: $value.skipDuplicateFiles,
+    ),
     shareViaLinkAutoAccept: data.get(
       #shareViaLinkAutoAccept,
       or: $value.shareViaLinkAutoAccept,

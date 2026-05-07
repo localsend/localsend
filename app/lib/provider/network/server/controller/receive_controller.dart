@@ -46,6 +46,7 @@ import 'package:localsend_app/util/rust.dart';
 import 'package:localsend_app/util/simple_server.dart';
 import 'package:localsend_app/widget/dialogs/open_file_dialog.dart';
 import 'package:logging/logging.dart';
+import 'package:path/path.dart' as path;
 import 'package:permission_handler/permission_handler.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 import 'package:routerino/routerino.dart';
@@ -270,9 +271,21 @@ class ReceiveController {
     final Map<String, String>? selection;
     if (quickSave) {
       // accept all files
-      selection = {
-        for (final f in dto.files.values) f.id: f.fileName,
-      };
+      final map = <String, String>{};
+      for (final f in dto.files.values) {
+        if (settings.skipDuplicateFiles) {
+          bool exists = false;
+          try {
+            exists = File(path.join(destinationDir, f.fileName)).existsSync();
+          } catch (_) {}
+          if (!exists) {
+            map[f.id] = f.fileName;
+          }
+        } else {
+          map[f.id] = f.fileName;
+        }
+      }
+      selection = map;
     } else {
       if (checkPlatformHasTray() && (await windowManager.isMinimized() || !(await windowManager.isVisible()) || !(await windowManager.isFocused()))) {
         await showFromTray();
@@ -509,6 +522,7 @@ class ReceiveController {
         saveToGallery: shouldSaveToGallery,
         isImage: fileType == FileType.image,
         stream: request,
+        overwriteDuplicateFiles: server.ref.read(settingsProvider).overwriteDuplicateFiles,
         onProgress: (savedBytes) {
           if (receivingFile.file.size != 0) {
             server.ref
