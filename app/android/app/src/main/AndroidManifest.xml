@@ -26,6 +26,7 @@
         android:banner="@drawable/banner"
         android:icon="@mipmap/ic_launcher"
         android:requestLegacyExternalStorage="true"
+        android:memtagMode="async"
     >
 
         <!-- localsend: prevent multiple instances by android:launchMode="singleTask" -->
