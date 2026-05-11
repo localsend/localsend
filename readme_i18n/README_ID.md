@@ -17,7 +17,7 @@
 LocalSend adalah aplikasi gratis dan sumber terbuka yang memungkinkan Anda berbagi file dan pesan dengan aman ke perangkat terdekat melalui jaringan lokal tanpa memerlukan koneksi internet.
 
 - [Tentang](#tentang)
-- [Screenshots](#screenshots)
+- [Tangkapan Layar](#tangkapan-layar)
 - [Unduh](#unduh)
 - [Cara Kerja](#cara-kerja)
 - [Memulai](#memulai)
@@ -35,7 +35,7 @@ LocalSend adalah aplikasi gratis dan sumber terbuka yang memungkinkan Anda berba
 
 LocalSend adalah aplikasi lintas platform yang memungkinkan komunikasi aman antar perangkat menggunakan REST API dan enkripsi HTTPS. Berbeda dengan aplikasi pesan lainnya yang mengandalkan server eksternal, LocalSend tidak memerlukan koneksi internet atau server pihak ketiga, menjadikannya solusi yang cepat dan andal untuk komunikasi lokal.
 
-## Screenshots
+## Tangkapan Layar
 
 <img src="https://localsend.org/img/screenshot-iphone.webp" alt="iPhone screenshot" height="300"/> <img src="https://localsend.org/img/screenshot-pc.webp" alt="PC screenshot" height="300"/>
 
@@ -53,7 +53,7 @@ Disarankan untuk mengunduh aplikasi ini melalui toko aplikasi atau manajer paket
 |                         |                         | [DEB][latest]      |                |               |            |
 |                         |                         | [AppImage][latest] |                |               |            |
 
-Read more about [distribution channels][].
+ Baca lebih banyak tentang [saluran distribusi][].
 
 [windows store]: https://www.microsoft.com/store/apps/9NCB4Z0TZ6RR
 [app store]: https://apps.apple.com/us/app/localsend/id1661733229
