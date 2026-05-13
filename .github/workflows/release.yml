@@ -268,6 +268,95 @@ jobs:
           name: deb-arm-64-result
           path: ${{ steps.find_deb.outputs.deb_path }}
 
+  build_rpm_x86_64:
+    needs: build
+    runs-on: ubuntu-24.04
+    container: fedora:44
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Install dependencies
+        run: dnf install -y clang cmake gtk3-devel ninja-build libappindicator-gtk3-devel jq findutils which git patchelf rpm-build
+
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: "stable"
+
+      - name: Configure safe directory for Git
+        run: git config --global --add safe.directory "$FLUTTER_ROOT"
+
+      - name: Install Rust
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          override: ${{ env.RUST_VERSION }}
+
+      - name: Check rust-toolchain.toml
+        working-directory: app
+        run: rustup show
+
+      - name: Enable dart_distributor
+        run: dart pub global activate flutter_distributor
+
+      # flutter_app_packager 0.6.5 has two bugs that prevent the rpm build from
+      # succeeding on modern Fedora:
+      #
+      # 1. rpm 4.20 (Fedora 41+) runs %install from a new
+      #    %{_builddir}/%{name}-%{version}-build/ subdirectory. The generated
+      #    spec uses relative paths like cp -r %{name}/* that were written
+      #    against the old layout where %install's CWD was BUILD/ itself, so the
+      #    cp now looks one level too deep and fails with "No such file or
+      #    directory". The fix is to prefix each copy source with ../ to reach
+      #    the real BUILD/ parent. (The obvious alternative,
+      #    %{_builddir}/%{name}/*, does not work because %{_builddir} itself was
+      #    redefined in rpm 4.20 to include the -build subdir.)
+      #
+      # 2. flutter_app_packager runs patchelf --set-rpath '$ORIGIN' on plugin
+      #    .so files, but gates it on the rpath containing "/home" (a workaround
+      #    for a specific flutter issue, see flutter/flutter#65400).
+      #    GitHub-hosted runners check out under /__w/..., so the gate never
+      #    triggers and the .so files ship with build-tree rpaths. rpm's
+      #    check-rpaths then rejects the package with "ERROR 0002: invalid
+      #    runpath". The fix is to always run patchelf regardless of the
+      #    original rpath.
+      #
+      # After editing the sources, re-activate flutter_distributor so its AOT
+      # snapshot is rebuilt against the patched dependency.
+      - name: Patch flutter_app_packager for rpm 4.20 and rpath fix
+        run: |
+          F=$(find $HOME/.pub-cache/hosted/pub.dev/flutter_app_packager-*/lib/src/makers/rpm/make_rpm_config.dart | head -1)
+          G=$(find $HOME/.pub-cache/hosted/pub.dev/flutter_app_packager-*/lib/src/makers/rpm/app_package_maker_rpm.dart | head -1)
+          sed -i "s|cp -r %{name}/\*|cp -r ../%{name}/*|; s|cp -r %{name}\.desktop|cp -r ../%{name}.desktop|; s|cp -r %{name}\.png|cp -r ../%{name}.png|; s|cp -r %{name}\*\.xml|cp -r ../%{name}*.xml|" "$F"
+          sed -i "s|if (processResult.stdout.toString().contains(.*/home.*)) {|if (true) {|" "$G"
+          dart pub global deactivate flutter_distributor
+          dart pub global activate flutter_distributor
+
+      - name: Build rpm package
+        working-directory: app
+        run: flutter_distributor package --platform linux --targets rpm
+
+      - name: Find rpm file
+        id: find_rpm
+        run: |
+          VERSION=${{ needs.build.outputs.version }}
+          RPM_PATH=$(find app/dist -name "localsend_app-$VERSION*-linux.rpm")
+          echo "rpm_path=$RPM_PATH" >> $GITHUB_OUTPUT
+
+      - name: Check if rpm file exists
+        id: check_file
+        run: |
+          if [[ ! -f "${{ steps.find_rpm.outputs.rpm_path }}" ]]; then
+            echo "File not found: ${{ steps.find_rpm.outputs.rpm_path }}"
+            exit 1
+          fi
+
+      - name: Upload rpm file
+        uses: actions/upload-artifact@v6
+        with:
+          name: rpm-x86-64-result
+          path: ${{ steps.find_rpm.outputs.rpm_path }}
+
   build_appimage_x86_64:
     needs: build
     runs-on: ubuntu-24.04
@@ -384,6 +473,7 @@ jobs:
       - build_tar_arm_64
       - build_deb_x86_64
       - build_deb_arm_64
+      - build_rpm_x86_64
       - build_appimage_x86_64
       - build_windows_zip_x86_64
     runs-on: ubuntu-24.04
@@ -525,6 +615,26 @@ jobs:
           asset_path: result.deb
           asset_name: LocalSend-${{ needs.build.outputs.version }}-linux-arm-64.deb
           asset_content_type: application/vnd.debian.binary-package
+
+      # RPM (x86_64)
+      - name: Download rpm file
+        uses: actions/download-artifact@v7
+        with:
+          name: rpm-x86-64-result
+          path: rpm-x86-64-result
+
+      - name: Copy rpm file to root
+        run: cp rpm-x86-64-result/*.rpm result.rpm
+
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.draft_release.outputs.upload_url }}
+          asset_path: result.rpm
+          asset_name: LocalSend-${{ needs.build.outputs.version }}-linux-x86-64.rpm
+          asset_content_type: application/x-rpm
 
       # APPIMAGE (x86_64)
       - name: Download AppImage file
