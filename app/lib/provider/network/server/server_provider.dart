@@ -122,23 +122,59 @@ class ServerService extends Notifier<ServerState?> {
 
     _logger.info('Starting server...');
 
-    final HttpServer httpServer;
-    if (https) {
-      final securityContext = ref.read(securityProvider);
-      httpServer = await HttpServer.bindSecure(
-        '0.0.0.0',
-        port,
-        SecurityContext()
-          ..usePrivateKeyBytes(securityContext.privateKey.codeUnits)
-          ..useCertificateChainBytes(securityContext.certificate.codeUnits),
-      );
-      _logger.info('Server started. (Port: $port, HTTPS only)');
-    } else {
-      httpServer = await HttpServer.bind(
-        '0.0.0.0',
-        port,
-      );
-      _logger.info('Server started. (Port: $port, HTTP only)');
+    late HttpServer httpServer;
+    int actualPort = port;
+    try {
+      if (https) {
+        final securityContext = ref.read(securityProvider);
+        httpServer = await HttpServer.bindSecure(
+          '0.0.0.0',
+          port,
+          SecurityContext()
+            ..usePrivateKeyBytes(securityContext.privateKey.codeUnits)
+            ..useCertificateChainBytes(securityContext.certificate.codeUnits),
+        );
+        _logger.info('Server started. (Port: $port, HTTPS only)');
+      } else {
+        httpServer = await HttpServer.bind(
+          '0.0.0.0',
+          port,
+        );
+        _logger.info('Server started. (Port: $port, HTTP only)');
+      }
+    } on SocketException catch (e) {
+      // Port is already in use (common on multi-profile Android devices)
+      if (e.osError?.errorCode == 98 || e.message.contains('Address already in use')) {
+        _logger.warning('Port $port is already in use. Attempting to find an available port...');
+        
+        // Try to bind to port 0 to let the OS assign an available port
+        try {
+          if (https) {
+            final securityContext = ref.read(securityProvider);
+            httpServer = await HttpServer.bindSecure(
+              '0.0.0.0',
+              0,  // Let OS choose an available port
+              SecurityContext()
+                ..usePrivateKeyBytes(securityContext.privateKey.codeUnits)
+                ..useCertificateChainBytes(securityContext.certificate.codeUnits),
+            );
+            actualPort = httpServer.port;
+            _logger.info('Server started on fallback port $actualPort. (HTTPS only)');
+          } else {
+            httpServer = await HttpServer.bind(
+              '0.0.0.0',
+              0,  // Let OS choose an available port
+            );
+            actualPort = httpServer.port;
+            _logger.info('Server started on fallback port $actualPort. (HTTP only)');
+          }
+        } catch (fallbackError) {
+          _logger.severe('Failed to start server on fallback port: $fallbackError');
+          rethrow;
+        }
+      } else {
+        rethrow;
+      }
     }
 
     final server = SimpleServer.start(server: httpServer, routes: router);
@@ -146,7 +182,7 @@ class ServerService extends Notifier<ServerState?> {
     final newServerState = ServerState(
       httpServer: server,
       alias: alias,
-      port: port,
+      port: actualPort,  // Use the actual port (might be different if fallback was used)
       https: https,
       session: null,
       webSendState: null,
