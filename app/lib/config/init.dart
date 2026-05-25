@@ -218,6 +218,16 @@ Future<void> postInit(BuildContext context, Ref ref, bool appStart) async {
       context.showSnackBar(e.toString());
     }
   }
+  final args = ref.read(appArgumentsProvider);
+  if (checkPlatform([TargetPlatform.linux]) && args.contains('--hidden')) {
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      try {
+        await hideToTray();
+      } catch (e) {
+        _logger.warning('hideToTray failed: $e');
+      }
+    });
+  }
 
   try {
     ref.redux(nearbyDevicesProvider).dispatchAsync(StartMulticastListener()); // ignore: unawaited_futures
