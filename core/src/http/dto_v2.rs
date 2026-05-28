@@ -238,7 +238,7 @@ mod tests {
             "alias": "Secret Banana",
             "version": "2.0",
             "deviceModel": "Windows",
-            "deviceType": "DESKTOP",
+            "deviceType": "desktop",
             "fingerprint": "random string",
             "port": 53317,
             "protocol": "https",
