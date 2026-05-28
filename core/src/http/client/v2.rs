@@ -65,36 +65,39 @@ impl LsHttpClientV2 {
         port: u16,
         payload: RegisterDtoV2,
     ) -> Result<ResultWithPublicKey<RegisterResponseDtoV2>, ClientError> {
-        let url = TargetUrl {
-            version: ApiVersion::V2,
-            protocol: protocol.as_str(),
-            host: ip.to_string(),
-            port,
-            path: "/register",
-            params: &[],
-        }
-        .to_string();
+        super::with_cert_capture(async move {
+            let url = TargetUrl {
+                version: ApiVersion::V2,
+                protocol: protocol.as_str(),
+                host: ip.to_string(),
+                port,
+                path: "/register",
+                params: &[],
+            }
+            .to_string();
 
-        let res = self
-            .client
-            .post(&url)
-            .header("Content-Type", "application/json")
-            .body(serde_json::to_string(&payload)?)
-            .send()
-            .await?;
+            let res = self
+                .client
+                .post(&url)
+                .header("Content-Type", "application/json")
+                .body(serde_json::to_string(&payload)?)
+                .send()
+                .await?;
 
-        if res.status() != StatusCode::OK {
-            return res.into_error().await;
-        }
+            if res.status() != StatusCode::OK {
+                return res.into_error().await;
+            }
 
-        let public_key = match protocol {
-            ProtocolType::Https => Some(super::verify_cert_from_res(&res, None)?),
-            _ => None,
-        };
+            let public_key = match protocol {
+                ProtocolType::Https => Some(super::verify_cert_from_res(&res, None)?),
+                _ => None,
+            };
 
-        let body = res.json::<RegisterResponseDtoV2>().await?;
+            let body = res.json::<RegisterResponseDtoV2>().await?;
 
-        Ok(ResultWithPublicKey { public_key, body })
+            Ok(ResultWithPublicKey { public_key, body })
+        })
+        .await
     }
 
     /// Prepares a file upload session with the receiver.
@@ -131,51 +134,54 @@ impl LsHttpClientV2 {
         payload: PrepareUploadRequestDtoV2,
         pin: Option<&str>,
     ) -> Result<PrepareUploadResultV2, ClientError> {
-        let pin_params: &[(&'static str, &str)] = match &pin {
-            Some(pin) => &[("pin", pin)],
-            None => &[],
-        };
-        let url = TargetUrl {
-            version: ApiVersion::V2,
-            protocol: protocol.as_str(),
-            host: ip.to_string(),
-            port,
-            path: "/prepare-upload",
-            params: pin_params,
-        }
-        .to_string();
+        super::with_cert_capture(async move {
+            let pin_params: &[(&'static str, &str)] = match &pin {
+                Some(pin) => &[("pin", pin)],
+                None => &[],
+            };
+            let url = TargetUrl {
+                version: ApiVersion::V2,
+                protocol: protocol.as_str(),
+                host: ip.to_string(),
+                port,
+                path: "/prepare-upload",
+                params: pin_params,
+            }
+            .to_string();
 
-        let res = self
-            .client
-            .post(&url)
-            .header("Content-Type", "application/json")
-            .body(serde_json::to_string(&payload)?)
-            .send()
-            .await?;
+            let res = self
+                .client
+                .post(&url)
+                .header("Content-Type", "application/json")
+                .body(serde_json::to_string(&payload)?)
+                .send()
+                .await?;
 
-        if protocol == ProtocolType::Https {
-            super::verify_cert_from_res(&res, public_key)?;
-        }
+            if protocol == ProtocolType::Https {
+                super::verify_cert_from_res(&res, public_key)?;
+            }
 
-        let status = res.status();
+            let status = res.status();
 
-        if status.as_u16() >= 400 {
-            return res.into_error().await;
-        }
+            if status.as_u16() >= 400 {
+                return res.into_error().await;
+            }
 
-        if status == StatusCode::NO_CONTENT {
-            return Ok(PrepareUploadResultV2 {
+            if status == StatusCode::NO_CONTENT {
+                return Ok(PrepareUploadResultV2 {
+                    status_code: status.as_u16(),
+                    response: None,
+                });
+            }
+
+            let body = res.json::<PrepareUploadResponseDtoV2>().await?;
+
+            Ok(PrepareUploadResultV2 {
                 status_code: status.as_u16(),
-                response: None,
-            });
-        }
-
-        let body = res.json::<PrepareUploadResponseDtoV2>().await?;
-
-        Ok(PrepareUploadResultV2 {
-            status_code: status.as_u16(),
-            response: Some(body),
+                response: Some(body),
+            })
         })
+        .await
     }
 
     /// Uploads a file to the receiver.
@@ -210,34 +216,37 @@ impl LsHttpClientV2 {
         token: &str,
         binary: mpsc::Receiver<Vec<u8>>,
     ) -> Result<(), ClientError> {
-        let url = TargetUrl {
-            version: ApiVersion::V2,
-            protocol: protocol.as_str(),
-            host: ip.to_string(),
-            port,
-            path: "/upload",
-            params: &[
-                ("sessionId", session_id),
-                ("fileId", file_id),
-                ("token", token),
-            ],
-        }
-        .to_string();
+        super::with_cert_capture(async move {
+            let url = TargetUrl {
+                version: ApiVersion::V2,
+                protocol: protocol.as_str(),
+                host: ip.to_string(),
+                port,
+                path: "/upload",
+                params: &[
+                    ("sessionId", session_id),
+                    ("fileId", file_id),
+                    ("token", token),
+                ],
+            }
+            .to_string();
 
-        let stream = ReceiverStream::new(binary).map(Ok::<Vec<u8>, anyhow::Error>);
-        let body = reqwest::Body::wrap_stream(stream);
+            let stream = ReceiverStream::new(binary).map(Ok::<Vec<u8>, anyhow::Error>);
+            let body = reqwest::Body::wrap_stream(stream);
 
-        let res = self.client.post(&url).body(body).send().await?;
+            let res = self.client.post(&url).body(body).send().await?;
 
-        if protocol == ProtocolType::Https {
-            super::verify_cert_from_res(&res, public_key)?;
-        }
+            if protocol == ProtocolType::Https {
+                super::verify_cert_from_res(&res, public_key)?;
+            }
 
-        if res.status() != StatusCode::OK {
-            return res.into_error().await;
-        }
+            if res.status() != StatusCode::OK {
+                return res.into_error().await;
+            }
 
-        Ok(())
+            Ok(())
+        })
+        .await
     }
 
     /// Cancels an ongoing file transfer session.

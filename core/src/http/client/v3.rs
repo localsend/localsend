@@ -40,59 +40,63 @@ impl LsHttpClientV3 {
         ip: &str,
         port: u16,
     ) -> Result<String, ClientError> {
-        // Generate nonce to send to server
-        let generated_nonce = crypto::nonce::generate_nonce();
-        let generated_nonce_base64 = util::base64::encode(&generated_nonce);
+        super::with_cert_capture(async move {
+            // Generate nonce to send to server
+            let generated_nonce = crypto::nonce::generate_nonce();
+            let generated_nonce_base64 = util::base64::encode(&generated_nonce);
 
-        let request_body = http::dto::NonceRequest {
-            nonce: generated_nonce_base64,
-        };
+            let request_body = http::dto::NonceRequest {
+                nonce: generated_nonce_base64,
+            };
 
-        let res = self
-            .client
-            .post(
-                TargetUrl {
-                    version: ApiVersion::V3,
-                    protocol: protocol.as_str(),
-                    host: ip.to_string(),
-                    port,
-                    path: "/nonce",
-                    params: &[],
-                }
-                .to_string(),
-            )
-            .body(serde_json::to_string(&request_body)?)
-            .send()
-            .await?;
+            let res = self
+                .client
+                .post(
+                    TargetUrl {
+                        version: ApiVersion::V3,
+                        protocol: protocol.as_str(),
+                        host: ip.to_string(),
+                        port,
+                        path: "/nonce",
+                        params: &[],
+                    }
+                    .to_string(),
+                )
+                .body(serde_json::to_string(&request_body)?)
+                .send()
+                .await?;
 
-        if res.status() != StatusCode::OK {
-            return res.into_error().await;
-        }
+            if res.status() != StatusCode::OK {
+                return res.into_error().await;
+            }
 
-        let remote_key = to_identifier(&res, protocol == ProtocolType::Https, None)?;
-        let body = res.json::<http::dto::NonceResponse>().await?;
+            let remote_key = to_identifier(&res, protocol == ProtocolType::Https, None)?;
+            let body = res.json::<http::dto::NonceResponse>().await?;
 
-        // Save the response nonce and our generated nonce
-        let response_nonce = util::base64::decode(&body.nonce).map_err(|e| anyhow::anyhow!(e))?;
+            // Save the response nonce and our generated nonce
+            let response_nonce =
+                util::base64::decode(&body.nonce).map_err(|e| anyhow::anyhow!(e))?;
 
-        let mut received_nonce_map = self.received_nonce_map.lock().await;
-        received_nonce_map.put(remote_key.clone(), response_nonce);
+            let mut received_nonce_map = self.received_nonce_map.lock().await;
+            received_nonce_map.put(remote_key.clone(), response_nonce);
 
-        let mut generated_nonce_map = self.generated_nonce_map.lock().await;
-        generated_nonce_map.put(remote_key.clone(), generated_nonce);
+            let mut generated_nonce_map = self.generated_nonce_map.lock().await;
+            generated_nonce_map.put(remote_key.clone(), generated_nonce);
 
-        tracing::info!("Nonce exchange successful for server: {ip} (ID: {remote_key})");
+            tracing::info!("Nonce exchange successful for server: {ip} (ID: {remote_key})");
 
-        tracing::debug!(
-            "Received map: {:?}",
-            received_nonce_map.get(&remote_key).unwrap()
-        );
-        tracing::debug!(
-            "Generated map: {:?}",
-            generated_nonce_map.get(&remote_key).unwrap()
-        );
+            tracing::debug!(
+                "Received map: {:?}",
+                received_nonce_map.get(&remote_key).unwrap()
+            );
+            tracing::debug!(
+                "Generated map: {:?}",
+                generated_nonce_map.get(&remote_key).unwrap()
+            );
 
-        Ok(body.nonce)
+            Ok(body.nonce)
+        })
+        .await
     }
 
     pub async fn register(
@@ -102,31 +106,34 @@ impl LsHttpClientV3 {
         port: u16,
         payload: http::dto::RegisterDto,
     ) -> Result<ResultWithPublicKey<http::dto::RegisterResponseDto>, ClientError> {
-        let res = self
-            .client
-            .post(
-                TargetUrl {
-                    version: ApiVersion::V3,
-                    protocol: protocol.as_str(),
-                    host: ip.to_string(),
-                    port,
-                    path: "/register",
-                    params: &[],
-                }
-                .to_string(),
-            )
-            .body(serde_json::to_string(&payload)?)
-            .send()
-            .await?;
+        super::with_cert_capture(async move {
+            let res = self
+                .client
+                .post(
+                    TargetUrl {
+                        version: ApiVersion::V3,
+                        protocol: protocol.as_str(),
+                        host: ip.to_string(),
+                        port,
+                        path: "/register",
+                        params: &[],
+                    }
+                    .to_string(),
+                )
+                .body(serde_json::to_string(&payload)?)
+                .send()
+                .await?;
 
-        let public_key = match protocol {
-            ProtocolType::Https => Some(super::verify_cert_from_res(&res, None)?),
-            _ => None,
-        };
+            let public_key = match protocol {
+                ProtocolType::Https => Some(super::verify_cert_from_res(&res, None)?),
+                _ => None,
+            };
 
-        let body = res.json::<http::dto::RegisterResponseDto>().await?;
+            let body = res.json::<http::dto::RegisterResponseDto>().await?;
 
-        Ok(ResultWithPublicKey { public_key, body })
+            Ok(ResultWithPublicKey { public_key, body })
+        })
+        .await
     }
 
     pub async fn prepare_upload(
@@ -137,46 +144,49 @@ impl LsHttpClientV3 {
         public_key: Option<String>,
         payload: http::dto::PrepareUploadRequestDto,
     ) -> Result<http::dto::PrepareUploadResult, ClientError> {
-        let res = self
-            .client
-            .post(
-                TargetUrl {
-                    version: ApiVersion::V3,
-                    protocol: protocol.as_str(),
-                    host: ip.to_string(),
-                    port,
-                    path: "/prepare-upload",
-                    params: &[],
-                }
-                .to_string(),
-            )
-            .body(serde_json::to_string(&payload)?)
-            .send()
-            .await?;
+        super::with_cert_capture(async move {
+            let res = self
+                .client
+                .post(
+                    TargetUrl {
+                        version: ApiVersion::V3,
+                        protocol: protocol.as_str(),
+                        host: ip.to_string(),
+                        port,
+                        path: "/prepare-upload",
+                        params: &[],
+                    }
+                    .to_string(),
+                )
+                .body(serde_json::to_string(&payload)?)
+                .send()
+                .await?;
 
-        if protocol == ProtocolType::Https {
-            super::verify_cert_from_res(&res, public_key)?;
-        }
+            if protocol == ProtocolType::Https {
+                super::verify_cert_from_res(&res, public_key)?;
+            }
 
-        let status = res.status();
+            let status = res.status();
 
-        if status.as_u16() >= 400 {
-            return res.into_error().await;
-        }
+            if status.as_u16() >= 400 {
+                return res.into_error().await;
+            }
 
-        if status == StatusCode::NO_CONTENT {
-            return Ok(http::dto::PrepareUploadResult {
+            if status == StatusCode::NO_CONTENT {
+                return Ok(http::dto::PrepareUploadResult {
+                    status_code: status.as_u16(),
+                    response: None,
+                });
+            }
+
+            let body = res.json::<http::dto::PrepareUploadResponseDto>().await?;
+
+            Ok(http::dto::PrepareUploadResult {
                 status_code: status.as_u16(),
-                response: None,
-            });
-        }
-
-        let body = res.json::<http::dto::PrepareUploadResponseDto>().await?;
-
-        Ok(http::dto::PrepareUploadResult {
-            status_code: status.as_u16(),
-            response: Some(body),
+                response: Some(body),
+            })
         })
+        .await
     }
 
     /// Uploads a file to the server.
@@ -191,39 +201,42 @@ impl LsHttpClientV3 {
         token: &str,
         binary: mpsc::Receiver<Vec<u8>>,
     ) -> Result<(), ClientError> {
-        let res = self
-            .client
-            .post(
-                TargetUrl {
-                    version: ApiVersion::V3,
-                    protocol: protocol.as_str(),
-                    host: ip.to_string(),
-                    port,
-                    path: "/upload",
-                    params: &[
-                        ("sessionId", &session_id),
-                        ("fileId", &file_id),
-                        ("token", &token),
-                    ],
-                }
-                .to_string(),
-            )
-            .body({
-                let stream = ReceiverStream::new(binary).map(Ok::<Vec<u8>, anyhow::Error>);
-                reqwest::Body::wrap_stream(stream)
-            })
-            .send()
-            .await?;
+        super::with_cert_capture(async move {
+            let res = self
+                .client
+                .post(
+                    TargetUrl {
+                        version: ApiVersion::V3,
+                        protocol: protocol.as_str(),
+                        host: ip.to_string(),
+                        port,
+                        path: "/upload",
+                        params: &[
+                            ("sessionId", &session_id),
+                            ("fileId", &file_id),
+                            ("token", &token),
+                        ],
+                    }
+                    .to_string(),
+                )
+                .body({
+                    let stream = ReceiverStream::new(binary).map(Ok::<Vec<u8>, anyhow::Error>);
+                    reqwest::Body::wrap_stream(stream)
+                })
+                .send()
+                .await?;
 
-        if protocol == ProtocolType::Https {
-            super::verify_cert_from_res(&res, public_key)?;
-        }
+            if protocol == ProtocolType::Https {
+                super::verify_cert_from_res(&res, public_key)?;
+            }
 
-        if res.status() != StatusCode::OK {
-            return res.into_error().await;
-        }
+            if res.status() != StatusCode::OK {
+                return res.into_error().await;
+            }
 
-        Ok(())
+            Ok(())
+        })
+        .await
     }
 
     pub async fn cancel(
