@@ -6,6 +6,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:localsend_app/model/cross_file.dart';
 import 'package:localsend_app/util/file_type_ext.dart';
+import 'package:localsend_app/util/native/apk_icon_extractor.dart';
 import 'package:localsend_app/util/native/exe_icon_extractor.dart';
 import 'package:uri_content/uri_content.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
@@ -94,7 +95,7 @@ class FilePathThumbnail extends StatefulWidget {
 
 class _FilePathThumbnailState extends State<FilePathThumbnail> {
   Uint8List? _exeIconBytes;
-  bool _loading = false;
+  int _requestId = 0;
 
   @override
   void initState() {
@@ -106,8 +107,7 @@ class _FilePathThumbnailState extends State<FilePathThumbnail> {
   void didUpdateWidget(covariant FilePathThumbnail oldWidget) {
     super.didUpdateWidget(oldWidget);
 
-    if (oldWidget.path != widget.path ||
-        oldWidget.fileType != widget.fileType) {
+    if (oldWidget.path != widget.path || oldWidget.fileType != widget.fileType) {
       _exeIconBytes = null;
       _initializeExtraction();
     }
@@ -116,24 +116,32 @@ class _FilePathThumbnailState extends State<FilePathThumbnail> {
   Future<void> _initializeExtraction() async {
     final path = widget.path;
 
-    if (path == null) return;
-    if (!path.toLowerCase().endsWith('.exe')) return;
-    if (_loading) return;
+    if (path == null || !Platform.isWindows) return;
 
-    if (!Platform.isWindows) return;
-
-    _loading = true;
+    final requestId = ++_requestId;
 
     try {
-      final bytes = await ExecutableIconExtractor.extract(path);
+      Uint8List? bytes;
 
-      if (!mounted) return;
+      // Resolve invalid path in  history entries because it mixes forward slashes (/) and backslashes (\):
+      // (e.g. C:/Users/Username/Downloads\Document.pdf)
+      final resolvedPath = path.replaceAll('/', r'\');
+
+      if (widget.fileType == FileType.apk) {
+        bytes = await ApkIconExtractor.extract(resolvedPath);
+      } else {
+        bytes = await ExecutableIconExtractor.extract(resolvedPath);
+      }
+
+      if (!mounted || requestId != _requestId) {
+        return; // stale result
+      }
 
       setState(() {
         _exeIconBytes = bytes;
       });
-    } finally {
-      _loading = false;
+    } catch (e) {
+      // handle error if needed
     }
   }
 
@@ -160,8 +168,7 @@ class _FilePathThumbnailState extends State<FilePathThumbnail> {
           errorBuilder: (_, __, ___) => _fallbackIcon(),
         );
       }
-    }
-    else if (path != null && path.toLowerCase().endsWith('.exe')) {
+    } else if (path != null) {
       if (_exeIconBytes != null) {
         thumbnail = Padding(
           padding: const EdgeInsets.all(50.0), //make similar visibility of APK file
@@ -173,9 +180,7 @@ class _FilePathThumbnailState extends State<FilePathThumbnail> {
       } else {
         thumbnail = _fallbackIcon();
       }
-    }
-
-    else {
+    } else {
       thumbnail = _fallbackIcon();
     }
 

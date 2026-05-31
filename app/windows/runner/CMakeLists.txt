@@ -12,11 +12,26 @@ add_executable(${BINARY_NAME} WIN32
   "utils.cpp"
   "win32_window.cpp"
   "winrt_ext.cpp"
+  "miniz/miniz.cpp"
+  "apk_icon_extractor.cpp"
   "exe_icon_extractor.cpp"
   "${FLUTTER_MANAGED_DIR}/generated_plugin_registrant.cc"
   "Runner.rc"
   "runner.exe.manifest"
 )
+
+# Copy defined executable files (aapt2.exe)
+# https://developer.android.com/tools/aapt2
+file(GLOB CUSTOM_EXES
+        "${CMAKE_CURRENT_SOURCE_DIR}/../extras/*.exe"
+)
+foreach(EXE ${CUSTOM_EXES})
+    add_custom_command(TARGET ${BINARY_NAME} POST_BUILD
+            COMMAND ${CMAKE_COMMAND} -E copy_if_different
+            "${EXE}"
+            "$<TARGET_FILE_DIR:${BINARY_NAME}>"
+    )
+endforeach()
 
 # Apply the standard set of build settings. This can be removed for applications
 # that need different build settings.
