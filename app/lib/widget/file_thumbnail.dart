@@ -6,6 +6,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:localsend_app/model/cross_file.dart';
 import 'package:localsend_app/util/file_type_ext.dart';
+import 'package:localsend_app/util/native/exe_icon_extractor.dart';
 import 'package:uri_content/uri_content.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 
@@ -77,48 +78,117 @@ class AssetThumbnail extends StatelessWidget {
   }
 }
 
-class FilePathThumbnail extends StatelessWidget {
+class FilePathThumbnail extends StatefulWidget {
   final String? path;
   final FileType fileType;
 
   const FilePathThumbnail({
+    super.key,
     required this.path,
     required this.fileType,
   });
 
   @override
+  State<FilePathThumbnail> createState() => _FilePathThumbnailState();
+}
+
+class _FilePathThumbnailState extends State<FilePathThumbnail> {
+  Uint8List? _exeIconBytes;
+  bool _loading = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _initializeExtraction();
+  }
+
+  @override
+  void didUpdateWidget(covariant FilePathThumbnail oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    if (oldWidget.path != widget.path ||
+        oldWidget.fileType != widget.fileType) {
+      _exeIconBytes = null;
+      _initializeExtraction();
+    }
+  }
+
+  Future<void> _initializeExtraction() async {
+    final path = widget.path;
+
+    if (path == null) return;
+    if (!path.toLowerCase().endsWith('.exe')) return;
+    if (_loading) return;
+
+    if (!Platform.isWindows) return;
+
+    _loading = true;
+
+    try {
+      final bytes = await ExecutableIconExtractor.extract(path);
+
+      if (!mounted) return;
+
+      setState(() {
+        _exeIconBytes = bytes;
+      });
+    } finally {
+      _loading = false;
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final Widget? thumbnail;
-    if (path != null && fileType == FileType.image) {
-      if (path!.startsWith('content://')) {
+    final path = widget.path;
+
+    Widget? thumbnail;
+
+    if (path != null && widget.fileType == FileType.image) {
+      if (path.startsWith('content://')) {
         thumbnail = Image(
           image: ResizeImage.resizeIfNeeded(
             64,
             null,
-            _ContentUriImage(Uri.parse(path!)),
+            _ContentUriImage(Uri.parse(path)),
           ),
-          errorBuilder: (_, __, ___) => Padding(
-            padding: const EdgeInsets.all(10),
-            child: Icon(fileType.icon, size: 32),
-          ),
+          errorBuilder: (_, __, ___) => _fallbackIcon(),
         );
       } else {
         thumbnail = Image.file(
-          File(path!),
+          File(path),
           cacheWidth: 64, // reduce memory with low cached size; do not set cacheHeight because the image must keep its ratio
-          errorBuilder: (_, __, ___) => Padding(
-            padding: const EdgeInsets.all(10),
-            child: Icon(fileType.icon, size: 32),
-          ),
+          errorBuilder: (_, __, ___) => _fallbackIcon(),
         );
       }
-    } else {
-      thumbnail = null;
+    }
+    else if (path != null && path.toLowerCase().endsWith('.exe')) {
+      if (_exeIconBytes != null) {
+        thumbnail = Padding(
+          padding: const EdgeInsets.all(50.0), //make similar visibility of APK file
+          child: Image.memory(
+            _exeIconBytes!,
+            fit: BoxFit.contain,
+          ),
+        );
+      } else {
+        thumbnail = _fallbackIcon();
+      }
+    }
+
+    else {
+      thumbnail = _fallbackIcon();
     }
 
     return _Thumbnail(
       thumbnail: thumbnail,
-      icon: fileType.icon,
+      icon: widget.fileType.icon,
+    );
+  }
+
+  Widget _fallbackIcon() {
+    return Padding(
+      padding: const EdgeInsets.all(10),
+      child: Icon(widget.fileType.icon, size: 32),
     );
   }
 }
