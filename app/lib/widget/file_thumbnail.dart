@@ -6,6 +6,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:localsend_app/model/cross_file.dart';
 import 'package:localsend_app/util/file_type_ext.dart';
+import 'package:localsend_app/util/native/apk_icon_extractor.dart';
+import 'package:localsend_app/util/native/exe_icon_extractor.dart';
 import 'package:uri_content/uri_content.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 
@@ -77,48 +79,121 @@ class AssetThumbnail extends StatelessWidget {
   }
 }
 
-class FilePathThumbnail extends StatelessWidget {
+class FilePathThumbnail extends StatefulWidget {
   final String? path;
   final FileType fileType;
 
   const FilePathThumbnail({
+    super.key,
     required this.path,
     required this.fileType,
   });
 
   @override
+  State<FilePathThumbnail> createState() => _FilePathThumbnailState();
+}
+
+class _FilePathThumbnailState extends State<FilePathThumbnail> {
+  Uint8List? _exeIconBytes;
+  int _requestId = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _initializeExtraction();
+  }
+
+  @override
+  void didUpdateWidget(covariant FilePathThumbnail oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    if (oldWidget.path != widget.path || oldWidget.fileType != widget.fileType) {
+      _exeIconBytes = null;
+      _initializeExtraction();
+    }
+  }
+
+  Future<void> _initializeExtraction() async {
+    final path = widget.path;
+
+    if (path == null || !Platform.isWindows) return;
+
+    final requestId = ++_requestId;
+
+    try {
+      Uint8List? bytes;
+
+      // Resolve invalid path in  history entries because it mixes forward slashes (/) and backslashes (\):
+      // (e.g. C:/Users/Username/Downloads\Document.pdf)
+      final resolvedPath = path.replaceAll('/', r'\');
+
+      if (widget.fileType == FileType.apk) {
+        bytes = await ApkIconExtractor.extract(resolvedPath);
+      } else {
+        bytes = await ExecutableIconExtractor.extract(resolvedPath);
+      }
+
+      if (!mounted || requestId != _requestId) {
+        return; // stale result
+      }
+
+      setState(() {
+        _exeIconBytes = bytes;
+      });
+    } catch (e) {
+      // handle error if needed
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final Widget? thumbnail;
-    if (path != null && fileType == FileType.image) {
-      if (path!.startsWith('content://')) {
+    final path = widget.path;
+
+    Widget? thumbnail;
+
+    if (path != null && widget.fileType == FileType.image) {
+      if (path.startsWith('content://')) {
         thumbnail = Image(
           image: ResizeImage.resizeIfNeeded(
             64,
             null,
-            _ContentUriImage(Uri.parse(path!)),
+            _ContentUriImage(Uri.parse(path)),
           ),
-          errorBuilder: (_, __, ___) => Padding(
-            padding: const EdgeInsets.all(10),
-            child: Icon(fileType.icon, size: 32),
-          ),
+          errorBuilder: (_, __, ___) => _fallbackIcon(),
         );
       } else {
         thumbnail = Image.file(
-          File(path!),
+          File(path),
           cacheWidth: 64, // reduce memory with low cached size; do not set cacheHeight because the image must keep its ratio
-          errorBuilder: (_, __, ___) => Padding(
-            padding: const EdgeInsets.all(10),
-            child: Icon(fileType.icon, size: 32),
-          ),
+          errorBuilder: (_, __, ___) => _fallbackIcon(),
         );
       }
+    } else if (path != null) {
+      if (_exeIconBytes != null) {
+        thumbnail = Padding(
+          padding: const EdgeInsets.all(50.0), //make similar visibility of APK file
+          child: Image.memory(
+            _exeIconBytes!,
+            fit: BoxFit.contain,
+          ),
+        );
+      } else {
+        thumbnail = _fallbackIcon();
+      }
     } else {
-      thumbnail = null;
+      thumbnail = _fallbackIcon();
     }
 
     return _Thumbnail(
       thumbnail: thumbnail,
-      icon: fileType.icon,
+      icon: widget.fileType.icon,
+    );
+  }
+
+  Widget _fallbackIcon() {
+    return Padding(
+      padding: const EdgeInsets.all(10),
+      child: Icon(widget.fileType.icon, size: 32),
     );
   }
 }
