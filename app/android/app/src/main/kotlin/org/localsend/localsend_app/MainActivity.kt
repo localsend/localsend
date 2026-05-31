@@ -7,7 +7,9 @@ import android.content.Intent
 import android.database.Cursor
 import android.net.Uri
 import android.provider.DocumentsContract
+import android.provider.OpenableColumns
 import android.provider.Settings
+import android.util.Log
 import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.plugin.common.MethodCall
@@ -18,6 +20,7 @@ private const val CHANNEL = "org.localsend.localsend_app/localsend"
 private const val REQUEST_CODE_PICK_DIRECTORY = 1
 private const val REQUEST_CODE_PICK_DIRECTORY_PATH = 2
 private const val REQUEST_CODE_PICK_FILE = 3
+private const val TAG = "MainActivity"
 
 class MainActivity : FlutterActivity() {
     private var pendingResult: MethodChannel.Result? = null
@@ -124,7 +127,7 @@ class MainActivity : FlutterActivity() {
                 val takeFlags: Int =
                     data.flags and (Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
                 if (uri != null) {
-                    contentResolver.takePersistableUriPermission(uri, takeFlags)
+                    takePersistableUriPermissionIfPossible(uri, takeFlags)
 
                     val files = mutableListOf<FileInfo>()
                     listFiles(uri, files)
@@ -142,7 +145,7 @@ class MainActivity : FlutterActivity() {
                 val takeFlags: Int =
                     data.flags and (Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
                 if (uri != null) {
-                    contentResolver.takePersistableUriPermission(uri, takeFlags)
+                    takePersistableUriPermissionIfPossible(uri, takeFlags)
                     pendingResult?.success(uri.toString())
                     pendingResult = null
                 } else {
@@ -174,26 +177,92 @@ class MainActivity : FlutterActivity() {
 
                 val resultList = mutableListOf<FileInfo>()
                 for (uri in uriList) {
-                    contentResolver.takePersistableUriPermission(uri, takeFlags)
-                    val documentFile = FastDocumentFile.fromDocumentUri(this, uri)
-                    if (documentFile == null) {
+                    takePersistableUriPermissionIfPossible(uri, takeFlags)
+                    val fileInfo = resolveFileInfo(uri)
+                    if (fileInfo == null) {
                         pendingResult?.error("Error", "Failed to access file", null)
                         return
                     }
-                    resultList.add(
-                        FileInfo(
-                            name = documentFile.name,
-                            size = documentFile.size,
-                            uri = uri.toString(),
-                            lastModified = documentFile.lastModified,
-                        )
-                    )
+                    resultList.add(fileInfo)
                 }
 
                 pendingResult?.success(resultList.map { it.toMap() })
                 pendingResult = null
             }
         }
+    }
+
+    private fun takePersistableUriPermissionIfPossible(uri: Uri, takeFlags: Int) {
+        if (takeFlags == 0) {
+            return
+        }
+
+        try {
+            contentResolver.takePersistableUriPermission(uri, takeFlags)
+        } catch (e: SecurityException) {
+            // Some Android file providers only grant temporary access.
+            Log.w(TAG, "Persistable permission was not granted for $uri. Falling back to temporary access.", e)
+        } catch (e: IllegalArgumentException) {
+            Log.w(TAG, "Persistable permission is not supported for $uri.", e)
+        }
+    }
+
+    private fun resolveFileInfo(uri: Uri): FileInfo? {
+        val documentFile = FastDocumentFile.fromDocumentUri(this, uri)
+        if (documentFile != null) {
+            return FileInfo(
+                name = documentFile.name,
+                size = documentFile.size,
+                uri = uri.toString(),
+                lastModified = documentFile.lastModified,
+            )
+        }
+
+        var cursor: Cursor? = null
+        try {
+            cursor = contentResolver.query(
+                uri,
+                arrayOf(
+                    OpenableColumns.DISPLAY_NAME,
+                    OpenableColumns.SIZE,
+                    DocumentsContract.Document.COLUMN_LAST_MODIFIED,
+                ),
+                null,
+                null,
+                null,
+            )
+
+            if (cursor != null && cursor.moveToFirst()) {
+                val nameIndex = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME)
+                val sizeIndex = cursor.getColumnIndex(OpenableColumns.SIZE)
+                val lastModifiedIndex = cursor.getColumnIndex(DocumentsContract.Document.COLUMN_LAST_MODIFIED)
+
+                val displayName = if (nameIndex != -1) cursor.getString(nameIndex) else uri.lastPathSegment
+                if (displayName.isNullOrBlank()) {
+                    return null
+                }
+
+                val size = if (sizeIndex != -1 && !cursor.isNull(sizeIndex)) cursor.getLong(sizeIndex) else 0L
+                val lastModified = if (lastModifiedIndex != -1 && !cursor.isNull(lastModifiedIndex)) {
+                    cursor.getLong(lastModifiedIndex)
+                } else {
+                    0L
+                }
+
+                return FileInfo(
+                    name = displayName,
+                    size = size,
+                    uri = uri.toString(),
+                    lastModified = lastModified,
+                )
+            }
+        } catch (e: Exception) {
+            Log.w(TAG, "Failed to resolve file info for $uri", e)
+        } finally {
+            cursor?.close()
+        }
+
+        return null
     }
 
     private fun listFiles(uri: Uri, files: MutableList<FileInfo>) {
