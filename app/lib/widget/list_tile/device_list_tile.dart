@@ -56,7 +56,7 @@ class DeviceListTile extends StatelessWidget {
               DeviceBadge(
                 backgroundColor: badgeColor,
                 foregroundColor: Theme.of(context).colorScheme.onSecondaryContainer,
-                label: 'LAN • HTTP',
+                label: device.supportsQuic ? 'LAN • QUIC' : 'LAN • HTTP',
               )
             else
               DeviceBadge(

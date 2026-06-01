@@ -9,6 +9,7 @@ import 'package:localsend_app/pages/web_send_page.dart';
 import 'package:localsend_app/provider/favorites_provider.dart';
 import 'package:localsend_app/provider/local_ip_provider.dart';
 import 'package:localsend_app/provider/network/nearby_devices_provider.dart';
+import 'package:localsend_app/provider/network/quic/quic_send_provider.dart';
 import 'package:localsend_app/provider/network/scan_facade.dart';
 import 'package:localsend_app/provider/network/send_provider.dart';
 import 'package:localsend_app/provider/selection/selected_sending_files_provider.dart';
@@ -145,29 +146,54 @@ final sendTabVmProvider = ViewProvider((ref) {
         return;
       }
 
-      await ref
-          .notifier(sendProvider)
-          .startSession(
-            target: device,
-            files: selectedFiles,
-            background: false,
-          );
+      // Prefer QUIC if both devices support it
+      if (device.supportsQuic && device.ip != null) {
+        await ref
+            .notifier(quicSendProvider)
+            .startSession(
+              target: device,
+              files: selectedFiles,
+              background: false,
+            );
+      } else {
+        await ref
+            .notifier(sendProvider)
+            .startSession(
+              target: device,
+              files: selectedFiles,
+              background: false,
+            );
+      }
     },
     onTapDeviceMultiSend: (context, device) async {
-      final session = ref.read(sendProvider).values.firstWhereOrNull((s) => s.target.ip == device.ip);
+      // Check both HTTP and QUIC sessions for existing transfers
+      final session =
+          ref.read(sendProvider).values.firstWhereOrNull((s) => s.target.ip == device.ip) ??
+          ref.read(quicSendProvider).values.firstWhereOrNull((s) => s.target.ip == device.ip);
       if (session != null) {
         if (session.status == SessionStatus.waiting) {
-          ref.notifier(sendProvider).setBackground(session.sessionId, false);
+          // Determine which provider owns this session
+          final isQuic = ref.read(quicSendProvider).containsKey(session.sessionId);
+          if (!isQuic) {
+            ref.notifier(sendProvider).setBackground(session.sessionId, false);
+          }
           await context.push(
             () => SendPage(showAppBar: true, closeSessionOnClose: false, sessionId: session.sessionId),
             transition: RouterinoTransition.fade(),
           );
-          ref.notifier(sendProvider).setBackground(session.sessionId, true);
+          if (!isQuic) {
+            ref.notifier(sendProvider).setBackground(session.sessionId, true);
+          }
           return;
         } else if (session.status == SessionStatus.sending || session.status == SessionStatus.finishedWithErrors) {
-          ref.notifier(sendProvider).setBackground(session.sessionId, false);
+          final isQuic = ref.read(quicSendProvider).containsKey(session.sessionId);
+          if (!isQuic) {
+            ref.notifier(sendProvider).setBackground(session.sessionId, false);
+          }
           await context.push(() => ProgressPage(showAppBar: true, closeSessionOnClose: false, sessionId: session.sessionId));
-          ref.notifier(sendProvider).setBackground(session.sessionId, true);
+          if (!isQuic) {
+            ref.notifier(sendProvider).setBackground(session.sessionId, true);
+          }
           return;
         }
       }
@@ -180,16 +206,32 @@ final sendTabVmProvider = ViewProvider((ref) {
 
       if (session != null) {
         // close old session
-        ref.notifier(sendProvider).closeSession(session.sessionId);
+        final isQuic = ref.read(quicSendProvider).containsKey(session.sessionId);
+        if (isQuic) {
+          ref.notifier(quicSendProvider).closeSession(session.sessionId);
+        } else {
+          ref.notifier(sendProvider).closeSession(session.sessionId);
+        }
       }
 
-      await ref
-          .notifier(sendProvider)
-          .startSession(
-            target: device,
-            files: files,
-            background: true,
-          );
+      // Prefer QUIC if both devices support it
+      if (device.supportsQuic && device.ip != null) {
+        await ref
+            .notifier(quicSendProvider)
+            .startSession(
+              target: device,
+              files: files,
+              background: true,
+            );
+      } else {
+        await ref
+            .notifier(sendProvider)
+            .startSession(
+              target: device,
+              files: files,
+              background: true,
+            );
+      }
     },
   );
 });

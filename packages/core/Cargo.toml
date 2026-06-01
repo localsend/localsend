@@ -15,6 +15,8 @@ http-body-util = { version = "0.1.3", optional = true }
 hyper = { version = "1.8.1", optional = true }
 hyper-util = { version = "0.1.19", features = ["server"], optional = true }
 lru = "0.16.3"
+memmap2 = { version = "0.9", optional = true }
+quinn = { version = "0.11", default-features = false, features = ["rustls", "tls-rustls"], optional = true }
 pem = { version = "3.0.6", optional = true }
 percent-encoding = { version = "2.3", optional = true }
 reqwest = { version = "0.13.1", features = ["charset", "http2", "system-proxy", "json", "rustls-no-provider", "stream", "webpki-roots"], default-features = false, optional = true }
@@ -44,4 +46,5 @@ crypto = ["ed25519-dalek", "rsa", "sha2"]
 http = ["crypto", "form_urlencoded", "http-body-util", "hyper", "hyper-util", "pem", "percent-encoding", "reqwest", "rustls", "socket2", "tokio-rustls", "tokio-util", "x509-parser"]
 webrtc-signaling = ["tokio-tungstenite"]
 webrtc = ["crypto", "flate2", "dep:webrtc", "webrtc-signaling", "x509-parser"]
-full = ["crypto", "http", "webrtc"]
+quic = ["dep:memmap2", "dep:quinn"]
+full = ["crypto", "http", "quic", "webrtc"]

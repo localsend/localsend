@@ -102,6 +102,7 @@ class SendController {
                 deviceType: deviceInfo.deviceType,
                 fingerprint: fingerprint,
                 download: true,
+                supportsQuic: true,
               ),
               sessionId: session.sessionId,
               files: {
@@ -179,6 +180,7 @@ class SendController {
             deviceType: deviceInfo.deviceType,
             fingerprint: fingerprint,
             download: true,
+            supportsQuic: true,
           ),
           sessionId: sessionId,
           files: {
