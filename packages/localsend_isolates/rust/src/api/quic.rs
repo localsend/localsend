@@ -27,15 +27,30 @@ pub async fn quic_server_start(
 }
 
 /// Accept an incoming connection and perform the Hello handshake.
-/// Returns an RsQuicReceiveTransfer handle.
-pub async fn quic_server_accept(server: &RsQuicServer) -> Result<RsQuicReceiveTransfer, String> {
+/// Returns an RsQuicReceiveTransfer handle and the sender's info as JSON:
+/// `{ "version": "3.0", "alias": "...", "fingerprint": "..." }`
+pub async fn quic_server_accept(
+    server: &RsQuicServer,
+    server_alias: String,
+    server_fingerprint: String,
+) -> Result<(RsQuicReceiveTransfer, String), String> {
     let (conn, _remote) = server.inner.accept().await.map_err(|e: anyhow::Error| e.to_string())?;
-    let transfer = IncomingTransfer::accept(conn)
+    let (transfer, sender_info) = IncomingTransfer::accept(conn, &server_alias, &server_fingerprint)
         .await
         .map_err(|e: anyhow::Error| e.to_string())?;
-    Ok(RsQuicReceiveTransfer {
-        inner: tokio::sync::Mutex::new(Some(transfer)),
-    })
+
+    let info_json = localsend::serde_json::json!({
+        "version": sender_info.version,
+        "alias": sender_info.alias,
+        "fingerprint": sender_info.fingerprint,
+    });
+
+    Ok((
+        RsQuicReceiveTransfer {
+            inner: tokio::sync::Mutex::new(Some(transfer)),
+        },
+        localsend::serde_json::to_string(&info_json).map_err(|e| e.to_string())?,
+    ))
 }
 
 /// Get the local address the QUIC server is bound to.

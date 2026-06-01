@@ -63,6 +63,13 @@ impl QuicServer {
     }
 }
 
+/// Sender information extracted from the Hello handshake.
+pub struct SenderInfo {
+    pub version: String,
+    pub alias: String,
+    pub fingerprint: String,
+}
+
 /// State machine for an incoming transfer (receiver side).
 pub struct IncomingTransfer {
     conn: Connection,
@@ -71,8 +78,10 @@ pub struct IncomingTransfer {
 }
 
 impl IncomingTransfer {
+
     /// Accept the control stream (bidi stream 0) and perform the Hello handshake.
-    pub async fn accept(conn: Connection) -> Result<Self> {
+    /// Returns the transfer handle and the sender's info.
+    pub async fn accept(conn: Connection, server_alias: &str, server_fingerprint: &str) -> Result<(Self, SenderInfo)> {
         let (control_send, control_recv) = conn.accept_bi().await?;
 
         let mut transfer = Self {
@@ -94,13 +103,13 @@ impl IncomingTransfer {
             &mut transfer.control_send,
             &ControlMessage::Hello {
                 version: "3.0".into(),
-                alias: String::new(),
-                fingerprint: String::new(),
+                alias: server_alias.to_string(),
+                fingerprint: server_fingerprint.to_string(),
             },
         )
         .await?;
 
-        Ok(transfer)
+        Ok((transfer, SenderInfo { version, alias, fingerprint }))
     }
 
     /// Wait for the sender to send a PrepareUpload message.

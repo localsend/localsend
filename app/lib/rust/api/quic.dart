@@ -19,10 +19,17 @@ Future<RsQuicServer> quicServerStart({
 );
 
 /// Accept an incoming connection and perform the Hello handshake.
-/// Returns an RsQuicReceiveTransfer handle.
-Future<RsQuicReceiveTransfer> quicServerAccept({
+/// Returns an RsQuicReceiveTransfer handle and the sender's info as JSON:
+/// `{ "version": "3.0", "alias": "...", "fingerprint": "..." }`
+Future<(RsQuicReceiveTransfer, String)> quicServerAccept({
   required RsQuicServer server,
-}) => RustLib.instance.api.crateApiQuicQuicServerAccept(server: server);
+  required String serverAlias,
+  required String serverFingerprint,
+}) => RustLib.instance.api.crateApiQuicQuicServerAccept(
+  server: server,
+  serverAlias: serverAlias,
+  serverFingerprint: serverFingerprint,
+);
 
 /// Get the local address the QUIC server is bound to.
 Future<String> quicServerLocalAddr({required RsQuicServer server}) => RustLib.instance.api.crateApiQuicQuicServerLocalAddr(server: server);

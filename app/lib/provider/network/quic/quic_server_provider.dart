@@ -13,6 +13,7 @@ import 'package:localsend_app/model/state/server/receive_session_state.dart';
 import 'package:localsend_app/model/state/server/receiving_file.dart';
 import 'package:localsend_app/pages/progress_page.dart';
 import 'package:localsend_app/pages/receive_page.dart';
+import 'package:localsend_app/provider/device_info_provider.dart';
 import 'package:localsend_app/provider/favorites_provider.dart';
 import 'package:localsend_app/provider/progress_provider.dart';
 import 'package:localsend_app/provider/receive_history_provider.dart';
@@ -107,14 +108,20 @@ class QuicServerService extends Notifier<QuicServerState?> {
 
   /// Background loop that accepts incoming QUIC connections.
   void _acceptLoop(quic.RsQuicServer server) async {
+    final securityContext = ref.read(securityProvider);
+    final originDevice = ref.read(deviceFullInfoProvider);
     while (true) {
       try {
-        final transfer = await quic.quicServerAccept(server: server);
+        final (transfer, senderInfoJson) = await quic.quicServerAccept(
+          server: server,
+          serverAlias: originDevice.alias,
+          serverFingerprint: securityContext.certificateHash,
+        );
 
         // If the current state has been disposed, stop the loop.
         if (state == null) break;
 
-        _handleIncomingTransfer(transfer);
+        _handleIncomingTransfer(transfer, senderInfoJson);
       } catch (e) {
         if (state == null) break; // server stopped
         _logger.warning('Error accepting QUIC connection', e);
@@ -123,13 +130,27 @@ class QuicServerService extends Notifier<QuicServerState?> {
   }
 
   /// Handles a single incoming QUIC transfer.
-  void _handleIncomingTransfer(quic.RsQuicReceiveTransfer transfer) async {
+  void _handleIncomingTransfer(quic.RsQuicReceiveTransfer transfer, String senderInfoJson) async {
+    try {
+      await _handleIncomingTransferInner(transfer, senderInfoJson);
+    } catch (e, st) {
+      _logger.warning('Error handling QUIC transfer', e, st);
+      // Try to decline if something went wrong before accept
+      try {
+        await quic.quicDecline(transfer: transfer);
+      } catch (_) {}
+    }
+  }
+
+  Future<void> _handleIncomingTransferInner(quic.RsQuicReceiveTransfer transfer, String senderInfoJson) async {
     // Check if already in a session (synchronous check before any await)
     if (state?.session != null) {
       _logger.info('Already in a session, declining QUIC transfer');
       await quic.quicDecline(transfer: transfer);
       return;
     }
+
+    _logger.info('Receiving file list via QUIC...');
 
     // Receive the file list (JSON-encoded map of fileId -> FileDto JSON)
     final filesJson = await quic.quicReceiveFileList(transfer: transfer);
@@ -176,17 +197,28 @@ class QuicServerService extends Notifier<QuicServerState?> {
 
     _logger.info('QUIC session $sessionId: ${receivingFiles.length} files from sender');
 
+    // Parse sender info from the Hello handshake.
+    String senderAlias = 'QUIC Sender';
+    String senderFingerprint = '';
+    String senderVersion = protocolVersion;
+    try {
+      final info = jsonDecode(senderInfoJson) as Map<String, dynamic>;
+      senderAlias = info['alias'] as String? ?? senderAlias;
+      senderFingerprint = info['fingerprint'] as String? ?? senderFingerprint;
+      senderVersion = info['version'] as String? ?? senderVersion;
+    } catch (e) {
+      _logger.warning('Failed to parse sender info from QUIC handshake', e);
+    }
+
     // Create a sender device from the handshake info.
-    // The QUIC handshake provides alias and fingerprint.
-    // We'll construct a minimal Device.
     final sender = Device(
       signalingId: null,
       ip: null, // QUIC doesn't expose IP directly through FFI yet
-      version: protocolVersion,
+      version: senderVersion,
       port: state!.port,
       https: true,
-      fingerprint: '', // filled during handshake
-      alias: 'QUIC Sender',
+      fingerprint: senderFingerprint,
+      alias: senderAlias,
       deviceModel: null,
       deviceType: DeviceType.desktop,
       download: false,
