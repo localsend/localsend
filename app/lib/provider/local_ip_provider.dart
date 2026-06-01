@@ -4,8 +4,10 @@ import 'package:collection/collection.dart';
 import 'package:common/util/network_interfaces.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/foundation.dart';
+import 'package:localsend_app/model/local_interface_info.dart';
 import 'package:localsend_app/model/state/network_state.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
+import 'package:localsend_app/rust/api/network.dart' as rust_net;
 import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:logging/logging.dart';
 import 'package:network_info_plus/network_info_plus.dart' as plugin;
@@ -29,7 +31,7 @@ class LocalIpService extends ReduxNotifier<NetworkState> {
   @override
   NetworkState init() {
     return const NetworkState(
-      localIps: [],
+      localInterfaces: [],
       initialized: false,
     );
   }
@@ -69,11 +71,30 @@ class InitLocalIpAction extends ReduxAction<LocalIpService, NetworkState> {
 class FetchLocalIpAction extends AsyncReduxAction<LocalIpService, NetworkState> {
   @override
   Future<NetworkState> reduce() async {
+    final rankedIps = await _getIp(
+      whitelist: notifier._settingsService.state.networkWhitelist,
+      blacklist: notifier._settingsService.state.networkBlacklist,
+    );
+
+    // Look up subnet prefix lengths via the Rust binding (uses getifaddrs /
+    // GetAdaptersAddresses, so Ethernet/VPN/etc. all have masks). If the call
+    // fails for any reason, default to /16 — the same scope today's wide-scan
+    // already covered.
+    Map<String, int> prefixByIp = const {};
+    try {
+      final rustResult = await rust_net.listLocalInterfaces();
+      prefixByIp = {for (final i in rustResult) i.ip: i.prefixLength};
+    } catch (e) {
+      _logger.warning('Failed to read local interface prefixes from Rust', e);
+    }
+
+    final interfaces = [
+      for (final ip in rankedIps)
+        LocalInterfaceInfo(ip: ip, prefixLength: prefixByIp[ip] ?? 16),
+    ];
+
     return NetworkState(
-      localIps: await _getIp(
-        whitelist: notifier._settingsService.state.networkWhitelist,
-        blacklist: notifier._settingsService.state.networkBlacklist,
-      ),
+      localInterfaces: interfaces,
       initialized: true,
     );
   }

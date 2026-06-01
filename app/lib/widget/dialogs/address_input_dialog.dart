@@ -6,6 +6,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:localsend_app/config/theme.dart';
 import 'package:localsend_app/gen/strings.g.dart';
+import 'package:localsend_app/model/local_interface_info.dart';
 import 'package:localsend_app/provider/device_info_provider.dart';
 import 'package:localsend_app/provider/http_provider.dart';
 import 'package:localsend_app/provider/last_devices.provider.dart';
@@ -13,9 +14,12 @@ import 'package:localsend_app/provider/local_ip_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/rust/api/model.dart';
 import 'package:localsend_app/util/rust.dart';
+import 'package:localsend_app/util/two_direction_scanner.dart';
 import 'package:localsend_app/widget/dialogs/error_dialog.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 import 'package:routerino/routerino.dart';
+
+const int _kWideScanWorkers = 32;
 
 enum _InputMode {
   hashtag,
@@ -45,61 +49,115 @@ class _AddressInputDialogState extends State<AddressInputDialog> with Refena {
   bool _fetching = false;
   String? _error;
 
-  Future<void> _submit(List<String> localIps, int port, [String? candidate]) async {
-    final List<String> candidates;
+  TwoDirectionScanner? _scan;
+  final List<String> _triedIps = [];
+  bool _triedExpanded = false;
+  Timer? _rebuildTimer;
+
+  @override
+  void dispose() {
+    _rebuildTimer?.cancel();
+    super.dispose();
+  }
+
+  /// Coalesces rapid worker-completion notifications into ~20 Hz UI updates.
+  void _scheduleRebuild() {
+    if (_rebuildTimer != null) return;
+    _rebuildTimer = Timer(const Duration(milliseconds: 50), () {
+      _rebuildTimer = null;
+      if (mounted) setState(() {});
+    });
+  }
+
+  Future<void> _submit(List<LocalInterfaceInfo> localInterfaces, int port, [String? candidate]) async {
     final String input = _input.trim();
+    final List<String> narrowCandidates;
     if (candidate != null) {
-      candidates = [candidate];
+      narrowCandidates = [candidate];
     } else if (_mode == _InputMode.ip) {
-      candidates = [input];
+      narrowCandidates = [input];
     } else {
-      candidates = localIps.map((ip) => '${ip.ipPrefix}.$input').toList();
+      narrowCandidates = localInterfaces.map((i) => '${i.ip.ipPrefix}.$input').toList();
     }
 
     setState(() {
       _fetching = true;
+      _triedIps.clear();
+      _scan = null;
     });
 
     final https = ref.read(settingsProvider).https;
+    final payload = ref.read(deviceFullInfoProvider).toRegisterDto();
 
     final deviceCompleter = Completer<void>();
     Device? foundDevice;
     String? error;
 
-    final payload = ref.read(deviceFullInfoProvider).toRegisterDto();
+    Future<void> tryIp(String ip) async {
+      if (deviceCompleter.isCompleted) return;
+      try {
+        final response = await ref
+            .read(httpProvider)
+            .v2
+            .register(
+              protocol: https ? ProtocolType.https : ProtocolType.http,
+              ip: ip,
+              port: port,
+              payload: payload,
+            );
+        if (deviceCompleter.isCompleted) return;
+        foundDevice = response.body.toDevice(ip, port, https, HttpDiscovery(ip: ip));
+        deviceCompleter.complete();
+      } catch (e) {
+        error ??= e.toString();
+      }
+    }
 
-    final List<Future<void>> futures = [
-      for (final ip in candidates)
-        () async {
+    /// Fires a register attempt and records the IP in the tried list.
+    Future<void> tryIpTracked(String ip) async {
+      await tryIp(ip);
+      _triedIps.insert(0, ip);
+      _scheduleRebuild();
+    }
+
+    final narrowFuture = Future.wait([for (final ip in narrowCandidates) tryIpTracked(ip)]);
+
+    Future<void> wideFuture = Future<void>.value();
+    final isHashtagSearch = candidate == null && _mode == _InputMode.hashtag;
+    if (isHashtagSearch) {
+      final queues = buildWideQueues(localInterfaces, input, exclude: narrowCandidates.toSet());
+      final scanner = TwoDirectionScanner(down: queues.down, up: queues.up)..start();
+      setState(() => _scan = scanner);
+
+      final alloc = allocateWorkers(_kWideScanWorkers, scanner.downTotal, scanner.upTotal);
+
+      Future<void> worker(ScanDirection origin) async {
+        while (!deviceCompleter.isCompleted) {
+          final item = scanner.popNext(origin);
+          if (item == null) return;
           try {
-            final response = await ref
-                .read(httpProvider)
-                .v2
-                .register(
-                  protocol: https ? ProtocolType.https : ProtocolType.http,
-                  ip: ip,
-                  port: port,
-                  payload: payload,
-                );
-
-            foundDevice = response.body.toDevice(ip, port, https, HttpDiscovery(ip: ip));
-            deviceCompleter.complete();
-          } catch (e) {
-            error = e.toString();
-            rethrow;
+            await tryIp(item.ip);
+          } finally {
+            scanner.markDone(item);
+            _triedIps.insert(0, item.ip);
+            _scheduleRebuild();
           }
-        }(),
-    ];
+        }
+      }
+
+      wideFuture = Future.wait([
+        for (var i = 0; i < alloc.down; i++) worker(ScanDirection.down),
+        for (var i = 0; i < alloc.up; i++) worker(ScanDirection.up),
+      ]);
+    }
 
     // Wait until,
     // - a device is found
-    // - all candidates are checked
-    try {
-      await Future.any([
-        deviceCompleter.future,
-        Future.wait(futures),
-      ]);
-    } catch (_) {}
+    // - both narrow and wide phases have settled
+    await Future.any([
+      deviceCompleter.future,
+      Future.wait([narrowFuture, wideFuture]),
+    ]);
 
     if (!mounted) {
       return;
@@ -112,13 +170,15 @@ class _AddressInputDialogState extends State<AddressInputDialog> with Refena {
       setState(() {
         _fetching = false;
         _error = error;
+        _scan = null;
+        _triedIps.sort(_compareIpv4);
       });
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    final localIps = (ref.watch(localIpProvider.select((info) => info.localIps))).uniqueIpPrefix;
+    final localInterfaces = ref.watch(localIpProvider.select((info) => info.localInterfaces)).uniqueByIpPrefix;
     final settings = ref.watch(settingsProvider);
     final lastDevices = ref.watch(lastDevicesProvider);
 
@@ -160,7 +220,7 @@ class _AddressInputDialogState extends State<AddressInputDialog> with Refena {
             onChanged: (s) {
               setState(() => _input = s);
             },
-            onFieldSubmitted: (s) async => _submit(localIps, settings.port),
+            onFieldSubmitted: (s) async => _submit(localInterfaces, settings.port),
           ),
           const SizedBox(height: 10),
           if (_mode == _InputMode.hashtag) ...[
@@ -168,9 +228,9 @@ class _AddressInputDialogState extends State<AddressInputDialog> with Refena {
               '${t.general.example}: 123',
               style: const TextStyle(color: Colors.grey),
             ),
-            if (localIps.length <= 1)
+            if (localInterfaces.length <= 1)
               Text(
-                '${t.dialogs.addressInput.ip}: ${localIps.firstOrNull?.ipPrefix ?? '192.168.2'}.$_input',
+                '${t.dialogs.addressInput.ip}: ${_candidateLabel(localInterfaces.firstOrNull, _input)}',
                 style: const TextStyle(color: Colors.grey),
               )
             else ...[
@@ -178,16 +238,16 @@ class _AddressInputDialogState extends State<AddressInputDialog> with Refena {
                 '${t.dialogs.addressInput.ip}:',
                 style: const TextStyle(color: Colors.grey),
               ),
-              for (final ip in localIps)
+              for (final iface in localInterfaces)
                 Text(
-                  '- ${ip.ipPrefix}.$_input',
+                  '- ${_candidateLabel(iface, _input)}',
                   style: const TextStyle(color: Colors.grey),
                 ),
             ],
           ] else ...[
             if (lastDevices.isEmpty)
               Text(
-                '${t.general.example}: ${localIps.firstOrNull?.ipPrefix ?? '192.168.2'}.123',
+                '${t.general.example}: ${localInterfaces.firstOrNull?.ip.ipPrefix ?? '192.168.2'}.123',
                 style: const TextStyle(color: Colors.grey),
               )
             else
@@ -202,7 +262,7 @@ class _AddressInputDialogState extends State<AddressInputDialog> with Refena {
                             TextSpan(
                               text: device.ip,
                               style: TextStyle(color: Theme.of(context).colorScheme.primary),
-                              recognizer: TapGestureRecognizer()..onTap = () async => _submit(localIps, settings.port, device.ip),
+                              recognizer: TapGestureRecognizer()..onTap = () async => _submit(localInterfaces, settings.port, device.ip),
                             ),
                           ];
                         })
@@ -210,6 +270,20 @@ class _AddressInputDialogState extends State<AddressInputDialog> with Refena {
                   ],
                 ),
               ),
+          ],
+          if (_fetching && _scan != null) ...[
+            const SizedBox(height: 14),
+            _ProgressRow(direction: ScanDirection.down, scanner: _scan!),
+            const SizedBox(height: 6),
+            _ProgressRow(direction: ScanDirection.up, scanner: _scan!),
+          ],
+          if (_triedIps.isNotEmpty) ...[
+            const SizedBox(height: 4),
+            _TriedIpsDisclosure(
+              ips: _triedIps,
+              expanded: _triedExpanded,
+              onToggle: (v) => setState(() => _triedExpanded = v),
+            ),
           ],
           if (_error != null)
             Padding(
@@ -243,10 +317,132 @@ class _AddressInputDialogState extends State<AddressInputDialog> with Refena {
           child: Text(t.general.cancel),
         ),
         FilledButton(
-          onPressed: _fetching ? null : () async => _submit(localIps, settings.port),
+          onPressed: _fetching ? null : () async => _submit(localInterfaces, settings.port),
           child: Text(t.general.confirm),
         ),
       ],
+    );
+  }
+}
+
+class _ProgressRow extends StatelessWidget {
+  final ScanDirection direction;
+  final TwoDirectionScanner scanner;
+  const _ProgressRow({required this.direction, required this.scanner});
+
+  @override
+  Widget build(BuildContext context) {
+    final isDown = direction == ScanDirection.down;
+    final done = isDown ? scanner.downDone : scanner.upDone;
+    final total = isDown ? scanner.downTotal : scanner.upTotal;
+    final eta = scanner.etaFor(direction);
+    final hasItems = total > 0;
+    final value = hasItems ? (done / total).clamp(0.0, 1.0) : 1.0;
+    final style = TextStyle(fontSize: 12, color: Colors.grey.shade600);
+    return Row(
+      children: [
+        Icon(
+          isDown ? Icons.arrow_downward : Icons.arrow_upward,
+          size: 14,
+          color: Colors.grey.shade600,
+        ),
+        const SizedBox(width: 6),
+        Expanded(
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(3),
+            child: LinearProgressIndicator(
+              value: value,
+              minHeight: 6,
+            ),
+          ),
+        ),
+        const SizedBox(width: 8),
+        SizedBox(
+          width: 56,
+          child: Text(
+            hasItems ? '$done/$total' : '—',
+            style: style,
+            textAlign: TextAlign.right,
+          ),
+        ),
+        const SizedBox(width: 4),
+        SizedBox(
+          width: 48,
+          child: Text(
+            eta != null ? '~${_formatEta(eta)}' : '—',
+            style: style,
+            textAlign: TextAlign.right,
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+String _formatEta(Duration d) {
+  if (d.inSeconds < 60) return '${d.inSeconds}s';
+  return '${(d.inSeconds / 60).floor()}m';
+}
+
+/// Renders a candidate-IP hint like `10.67.149.X /21 (subnet 144-151)`. The
+/// `/N` and subnet range expose the detected prefix so the user can confirm
+/// `if-addrs` actually picked it up — a fallback /16 surfaces as `(subnet
+/// 0-255)`.
+String _candidateLabel(LocalInterfaceInfo? iface, String input) {
+  if (iface == null) return '192.168.2.$input';
+  final base = '${iface.ip.ipPrefix}.$input';
+  final octets = iface.ip.split('.');
+  if (octets.length != 4) return base;
+  final c = int.tryParse(octets[2]);
+  if (c == null) return base;
+  final bounds = subnetBoundsForThirdOctet(c, iface.prefixLength);
+  final range = bounds.min == bounds.max ? '${bounds.min}' : '${bounds.min}-${bounds.max}';
+  return '$base /${iface.prefixLength} (subnet $range)';
+}
+
+int _compareIpv4(String a, String b) {
+  final pa = a.split('.');
+  final pb = b.split('.');
+  final n = pa.length < pb.length ? pa.length : pb.length;
+  for (var i = 0; i < n; i++) {
+    final ai = int.tryParse(pa[i]) ?? 0;
+    final bi = int.tryParse(pb[i]) ?? 0;
+    if (ai != bi) return ai.compareTo(bi);
+  }
+  return pa.length.compareTo(pb.length);
+}
+
+class _TriedIpsDisclosure extends StatelessWidget {
+  final List<String> ips;
+  final bool expanded;
+  final ValueChanged<bool> onToggle;
+  const _TriedIpsDisclosure({required this.ips, required this.expanded, required this.onToggle});
+
+  @override
+  Widget build(BuildContext context) {
+    return Theme(
+      data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
+      child: ExpansionTile(
+        title: Text('Tried IPs (${ips.length})', style: const TextStyle(fontSize: 13)),
+        initiallyExpanded: expanded,
+        onExpansionChanged: onToggle,
+        tilePadding: EdgeInsets.zero,
+        childrenPadding: EdgeInsets.zero,
+        children: [
+          ConstrainedBox(
+            constraints: const BoxConstraints(maxHeight: 160),
+            child: Scrollbar(
+              child: ListView.builder(
+                itemCount: ips.length,
+                itemBuilder: (_, i) => Text(
+                  ips[i],
+                  style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
@@ -257,9 +453,11 @@ extension on String {
   }
 }
 
-extension on List<String> {
-  List<String> get uniqueIpPrefix {
+extension on List<LocalInterfaceInfo> {
+  /// Deduplicates by the leading three octets of each IP — multiple addresses
+  /// on the same `/24` collapse to the first seen.
+  List<LocalInterfaceInfo> get uniqueByIpPrefix {
     final seen = <String>{};
-    return where((s) => seen.add(s.ipPrefix)).toList();
+    return where((i) => seen.add(i.ip.ipPrefix)).toList();
   }
 }

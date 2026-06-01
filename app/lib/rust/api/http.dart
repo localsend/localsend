@@ -80,7 +80,10 @@ class PrepareUploadResult {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is PrepareUploadResult && runtimeType == other.runtimeType && statusCode == other.statusCode && response == other.response;
+      other is PrepareUploadResult &&
+          runtimeType == other.runtimeType &&
+          statusCode == other.statusCode &&
+          response == other.response;
 }
 
 class ResultWithPublicKeyRegisterResponseDto {
@@ -98,11 +101,16 @@ class ResultWithPublicKeyRegisterResponseDto {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is ResultWithPublicKeyRegisterResponseDto && runtimeType == other.runtimeType && publicKey == other.publicKey && body == other.body;
+      other is ResultWithPublicKeyRegisterResponseDto &&
+          runtimeType == other.runtimeType &&
+          publicKey == other.publicKey &&
+          body == other.body;
 }
 
 @freezed
-sealed class RsHttpClientError with _$RsHttpClientError implements FrbException {
+sealed class RsHttpClientError
+    with _$RsHttpClientError
+    implements FrbException {
   const RsHttpClientError._();
 
   const factory RsHttpClientError.statusCode({

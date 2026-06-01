@@ -6,4 +6,5 @@
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 import 'package:localsend_app/rust/frb_generated.dart';
 
-Future<void> enableDebugLogging() => RustLib.instance.api.crateApiLoggingEnableDebugLogging();
+Future<void> enableDebugLogging() =>
+    RustLib.instance.api.crateApiLoggingEnableDebugLogging();

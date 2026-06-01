@@ -40,7 +40,7 @@ flutter_rust_bridge::frb_generated_boilerplate!(
     default_rust_auto_opaque = RustAutoOpaqueMoi,
 );
 pub(crate) const FLUTTER_RUST_BRIDGE_CODEGEN_VERSION: &str = "2.11.1";
-pub(crate) const FLUTTER_RUST_BRIDGE_CODEGEN_CONTENT_HASH: i32 = -137920352;
+pub(crate) const FLUTTER_RUST_BRIDGE_CODEGEN_CONTENT_HASH: i32 = -1234246346;
 
 // Section: executor
 
@@ -1710,6 +1710,39 @@ fn wire__crate__api__crypto__generate_key_pair_impl(
         },
     )
 }
+fn wire__crate__api__network__list_local_interfaces_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
+    rust_vec_len_: i32,
+    data_len_: i32,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::SseCodec, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "list_local_interfaces",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let message = unsafe {
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
+                    ptr_,
+                    rust_vec_len_,
+                    data_len_,
+                )
+            };
+            let mut deserializer =
+                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            deserializer.end();
+            move |context| {
+                transform_result_sse::<_, ()>((move || {
+                    let output_ok =
+                        Result::<_, ()>::Ok(crate::api::network::list_local_interfaces())?;
+                    Ok(output_ok)
+                })())
+            }
+        },
+    )
+}
 fn wire__crate__api__crypto__verify_cert_impl(
     port_: flutter_rust_bridge::for_generated::MessagePort,
     ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
@@ -2377,6 +2410,20 @@ impl SseDecode for Vec<crate::api::model::FileDto> {
     }
 }
 
+impl SseDecode for Vec<crate::api::network::LocalInterface> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut len_ = <i32>::sse_decode(deserializer);
+        let mut ans_ = vec![];
+        for idx_ in 0..len_ {
+            ans_.push(<crate::api::network::LocalInterface>::sse_decode(
+                deserializer,
+            ));
+        }
+        return ans_;
+    }
+}
+
 impl SseDecode for Vec<u8> {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
@@ -2412,6 +2459,18 @@ impl SseDecode for Vec<(String, String)> {
             ans_.push(<(String, String)>::sse_decode(deserializer));
         }
         return ans_;
+    }
+}
+
+impl SseDecode for crate::api::network::LocalInterface {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut var_ip = <String>::sse_decode(deserializer);
+        let mut var_prefixLength = <u8>::sse_decode(deserializer);
+        return crate::api::network::LocalInterface {
+            ip: var_ip,
+            prefix_length: var_prefixLength,
+        };
     }
 }
 
@@ -2993,7 +3052,10 @@ fn pde_ffi_dispatcher_primary_impl(
             wire__crate__api__logging__enable_debug_logging_impl(port, ptr, rust_vec_len, data_len)
         }
         29 => wire__crate__api__crypto__generate_key_pair_impl(port, ptr, rust_vec_len, data_len),
-        30 => wire__crate__api__crypto__verify_cert_impl(port, ptr, rust_vec_len, data_len),
+        30 => {
+            wire__crate__api__network__list_local_interfaces_impl(port, ptr, rust_vec_len, data_len)
+        }
+        31 => wire__crate__api__crypto__verify_cert_impl(port, ptr, rust_vec_len, data_len),
         _ => unreachable!(),
     }
 }
@@ -3305,6 +3367,27 @@ impl flutter_rust_bridge::IntoIntoDart<crate::api::crypto::KeyPair>
     for crate::api::crypto::KeyPair
 {
     fn into_into_dart(self) -> crate::api::crypto::KeyPair {
+        self
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for crate::api::network::LocalInterface {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        [
+            self.ip.into_into_dart().into_dart(),
+            self.prefix_length.into_into_dart().into_dart(),
+        ]
+        .into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for crate::api::network::LocalInterface
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<crate::api::network::LocalInterface>
+    for crate::api::network::LocalInterface
+{
+    fn into_into_dart(self) -> crate::api::network::LocalInterface {
         self
     }
 }
@@ -4103,6 +4186,16 @@ impl SseEncode for Vec<crate::api::model::FileDto> {
     }
 }
 
+impl SseEncode for Vec<crate::api::network::LocalInterface> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <i32>::sse_encode(self.len() as _, serializer);
+        for item in self {
+            <crate::api::network::LocalInterface>::sse_encode(item, serializer);
+        }
+    }
+}
+
 impl SseEncode for Vec<u8> {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
@@ -4130,6 +4223,14 @@ impl SseEncode for Vec<(String, String)> {
         for item in self {
             <(String, String)>::sse_encode(item, serializer);
         }
+    }
+}
+
+impl SseEncode for crate::api::network::LocalInterface {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <String>::sse_encode(self.ip, serializer);
+        <u8>::sse_encode(self.prefix_length, serializer);
     }
 }
 

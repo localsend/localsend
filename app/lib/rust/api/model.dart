@@ -34,7 +34,14 @@ class FileDto {
   });
 
   @override
-  int get hashCode => id.hashCode ^ fileName.hashCode ^ size.hashCode ^ fileType.hashCode ^ sha256.hashCode ^ preview.hashCode ^ metadata.hashCode;
+  int get hashCode =>
+      id.hashCode ^
+      fileName.hashCode ^
+      size.hashCode ^
+      fileType.hashCode ^
+      sha256.hashCode ^
+      preview.hashCode ^
+      metadata.hashCode;
 
   @override
   bool operator ==(Object other) =>
@@ -64,7 +71,11 @@ class FileMetadata {
 
   @override
   bool operator ==(Object other) =>
-      identical(this, other) || other is FileMetadata && runtimeType == other.runtimeType && modified == other.modified && accessed == other.accessed;
+      identical(this, other) ||
+      other is FileMetadata &&
+          runtimeType == other.runtimeType &&
+          modified == other.modified &&
+          accessed == other.accessed;
 }
 
 class PrepareUploadRequestDto {
@@ -81,7 +92,11 @@ class PrepareUploadRequestDto {
 
   @override
   bool operator ==(Object other) =>
-      identical(this, other) || other is PrepareUploadRequestDto && runtimeType == other.runtimeType && info == other.info && files == other.files;
+      identical(this, other) ||
+      other is PrepareUploadRequestDto &&
+          runtimeType == other.runtimeType &&
+          info == other.info &&
+          files == other.files;
 }
 
 class PrepareUploadResponseDto {
@@ -99,7 +114,10 @@ class PrepareUploadResponseDto {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is PrepareUploadResponseDto && runtimeType == other.runtimeType && sessionId == other.sessionId && files == other.files;
+      other is PrepareUploadResponseDto &&
+          runtimeType == other.runtimeType &&
+          sessionId == other.sessionId &&
+          files == other.files;
 }
 
 enum ProtocolType {
@@ -172,7 +190,13 @@ class RegisterResponseDto {
   });
 
   @override
-  int get hashCode => alias.hashCode ^ version.hashCode ^ deviceModel.hashCode ^ deviceType.hashCode ^ token.hashCode ^ hasWebInterface.hashCode;
+  int get hashCode =>
+      alias.hashCode ^
+      version.hashCode ^
+      deviceModel.hashCode ^
+      deviceType.hashCode ^
+      token.hashCode ^
+      hasWebInterface.hashCode;
 
   @override
   bool operator ==(Object other) =>

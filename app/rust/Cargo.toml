@@ -10,6 +10,7 @@ crate-type = ["cdylib", "staticlib"]
 anyhow = "1.0"
 bytes = "1.9"
 flutter_rust_bridge = { version = "=2.11.1", features = ["uuid"] }
+if-addrs = "0.13"
 localsend = { path = "../../core", features = ["full"] }
 tokio = { version = "1.49", features = ["full"] }
 tracing = "0.1.44"
