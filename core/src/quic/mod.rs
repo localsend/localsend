@@ -7,6 +7,8 @@ pub use client::{QuicClient, OutgoingTransfer};
 pub use codec::{ControlMessage, FileHeader, FileAck};
 
 use anyhow::Result;
+pub use quinn::{RecvStream, SendStream};
+pub use memmap2;
 use quinn::VarInt;
 use quinn::rustls::pki_types::pem::PemObject;
 use quinn::rustls::pki_types::{CertificateDer, PrivateKeyDer};

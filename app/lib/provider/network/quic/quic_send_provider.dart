@@ -19,7 +19,6 @@ import 'package:localsend_app/provider/security_provider.dart';
 import 'package:localsend_app/provider/selection/selected_sending_files_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/rust/api/quic.dart' as quic;
-import 'package:localsend_app/rust/api/stream.dart';
 import 'package:logging/logging.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 import 'package:routerino/routerino.dart';
@@ -263,59 +262,58 @@ class QuicSendService extends Notifier<Map<String, SendSessionState>> {
         }
 
         if (file.path != null && !file.path!.startsWith('content://')) {
-          // Use mmap for real file paths (not Android content:// URIs)
-          await quic.quicSendFileMmap(
+          // Chunked mmap send — each FFI call is short (8 MiB), no FRB deadlock.
+          await quic.quicSendFileMmapStart(
             transfer: transfer,
             filePath: file.path!,
             fileId: file.file.id,
             token: file.token!,
           );
+
+          bool eof = false;
+          while (!eof) {
+            final chunkResult = await quic.quicSendFileMmapChunk(transfer: transfer);
+            final chunkMap = jsonDecode(chunkResult) as Map<String, dynamic>;
+            eof = chunkMap['eof'] as bool;
+          }
+
+          await quic.quicSendFileFinish(transfer: transfer);
         } else if (file.path != null && file.path!.startsWith('content://')) {
-          // Android SAF content URI — stream through Dart since Rust
-          // cannot open content:// URIs directly.
-          // Use uri_content package to read the SAF stream.
-          final (sink, receiver) = await createStream();
-
-          final streamFuture = () async {
-            final input = await UriContent().getContentStream(Uri.parse(file.path!));
-            await for (final chunk in input) {
-              await sink.add(data: Uint8List.fromList(chunk));
-            }
-          }();
-
-          final uploadFuture = quic.quicSendFileStream(
+          // Android SAF content URI — read via uri_content, push chunks.
+          await quic.quicSendFileStart(
             transfer: transfer,
             fileId: file.file.id,
             token: file.token!,
-            data: receiver,
           );
 
-          await Future.wait([streamFuture, uploadFuture]);
+          final input = await UriContent().getContentStream(Uri.parse(file.path!));
+          await for (final chunk in input) {
+            await quic.quicSendFileWriteChunk(
+              transfer: transfer,
+              data: Uint8List.fromList(chunk),
+            );
+          }
+
+          await quic.quicSendFileFinish(transfer: transfer);
         } else if (file.bytes != null) {
-          // Use stream for in-memory bytes
-          final (sink, receiver) = await createStream();
-
-          // Push bytes to the stream in the background
-          final streamFuture = () async {
-            await sink.add(data: file.bytes!);
-          }();
-
-          final uploadFuture = quic.quicSendFileStream(
+          // In-memory bytes — push as a single chunk.
+          await quic.quicSendFileStart(
             transfer: transfer,
             fileId: file.file.id,
             token: file.token!,
-            data: receiver,
           );
 
-          await Future.wait([streamFuture, uploadFuture]);
+          await quic.quicSendFileWriteChunk(
+            transfer: transfer,
+            data: file.bytes!,
+          );
+
+          await quic.quicSendFileFinish(transfer: transfer);
         }
 
         // Stop progress polling
         progressTimer?.cancel();
 
-        // Wait for receiver ACK
-        final ack = await quic.quicWaitFileAck(transfer: transfer);
-        _logger.info('File ACK received: $ack');
 
         ref
             .notifier(progressProvider)

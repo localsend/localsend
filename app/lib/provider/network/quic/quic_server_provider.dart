@@ -437,18 +437,38 @@ class QuicServerService extends Notifier<QuicServerState?> {
           },
         );
 
-        // Receive the file: Rust accepts the next uni stream, reads the
-        // header, drains all bytes to disk, and returns the result.
-        final resultJson = await quic.quicReceiveFileToPath(
+        // Receive the file using chunked API to avoid FRB SSE timeout.
+        // Step 1: accept uni stream, read header, open output file.
+        final startJson = await quic.quicReceiveFileStart(
           transfer: transfer,
           outputPath: actualOutputPath,
+        );
+        // startJson contains fileId and token for reference if needed.
+        jsonDecode(startJson); // validate JSON
+
+        // Step 2: read chunks in a loop. Each FFI call is short (bounded
+        // by maxBytes), so FRB never times out.
+        const chunkSize = 8 * 1024 * 1024; // 8 MiB per chunk
+        bool eof = false;
+        while (!eof) {
+          final chunkJson = await quic.quicReceiveFileReadChunk(
+            transfer: transfer,
+            maxBytes: BigInt.from(chunkSize),
+          );
+          final chunkMap = jsonDecode(chunkJson) as Map<String, dynamic>;
+          eof = chunkMap['eof'] as bool;
+        }
+
+        // Step 3: flush writer, send ACK, clean up.
+        final finishJson = await quic.quicReceiveFileFinish(
+          transfer: transfer,
         );
 
         // Stop progress polling
         progressTimer.cancel();
 
-        final resultMap = jsonDecode(resultJson) as Map<String, dynamic>;
-        final bytesWritten = resultMap['bytesWritten'] as int;
+        final resultMap = jsonDecode(finishJson) as Map<String, dynamic>;
+        final bytesWritten = (resultMap['bytesWritten'] as num).toInt();
 
         _logger.info('Received $bytesWritten bytes for $finalName');
 
@@ -496,6 +516,7 @@ class QuicServerService extends Notifier<QuicServerState?> {
           }
         }
 
+        // ACK is already sent inside quicReceiveFileFinish (avoids FRB timeout).
 
         // Update progress
         ref

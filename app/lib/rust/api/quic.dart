@@ -4,8 +4,9 @@
 // ignore_for_file: invalid_use_of_internal_member, unused_import, unnecessary_import
 
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
-import 'package:localsend_app/rust/api/stream.dart';
 import 'package:localsend_app/rust/frb_generated.dart';
+
+// These types are ignored because they are neither used by any `pub` functions nor (for structs and enums) marked `#[frb(unignore)]`: `FileReceiverState`, `FileSenderKind`, `FileSenderState`
 
 /// Start a QUIC server on the given port with PEM cert/key.
 Future<RsQuicServer> quicServerStart({
@@ -53,20 +54,39 @@ Future<void> quicAcceptFiles({
 /// Decline the transfer.
 Future<void> quicDecline({required RsQuicReceiveTransfer transfer}) => RustLib.instance.api.crateApiQuicQuicDecline(transfer: transfer);
 
-/// Receive the next file, write it to `output_path`, and send an ACK
-/// on the control stream — all in **one** FFI call.
+/// Step 1 of chunked receive: accept the next uni stream, read the file
+/// header, and open the output file.  Returns JSON:
+/// `{ "fileId": "...", "token": "..." }`.
 ///
-/// This avoids FRB SSE-channel timeouts between a long receive and a
-/// subsequent `quic_ack_file` call.
-///
-/// Returns a JSON object: `{ "fileId": "...", "bytesWritten": 1234, "ackSent": true }`.
-Future<String> quicReceiveFileToPath({
+/// The stream + writer are stashed inside the transfer struct so that
+/// subsequent `quic_receive_file_read_chunk` calls can pull data
+/// without re-acquiring the transfer mutex.
+Future<String> quicReceiveFileStart({
   required RsQuicReceiveTransfer transfer,
   required String outputPath,
-}) => RustLib.instance.api.crateApiQuicQuicReceiveFileToPath(
+}) => RustLib.instance.api.crateApiQuicQuicReceiveFileStart(
   transfer: transfer,
   outputPath: outputPath,
 );
+
+/// Step 2 of chunked receive: read up to `max_bytes` from the QUIC stream
+/// and write to the output file.  Returns JSON:
+/// `{ "bytesRead": 1234, "totalSoFar": 5678, "eof": false }`.
+///
+/// Each call is short (bounded by `max_bytes`), so FRB never times out.
+Future<String> quicReceiveFileReadChunk({
+  required RsQuicReceiveTransfer transfer,
+  required BigInt maxBytes,
+}) => RustLib.instance.api.crateApiQuicQuicReceiveFileReadChunk(
+  transfer: transfer,
+  maxBytes: maxBytes,
+);
+
+/// Step 3 of chunked receive: flush the writer, send ACK, and clean up.
+/// Returns JSON: `{ "fileId": "...", "bytesWritten": 1234, "ackSent": true }`.
+Future<String> quicReceiveFileFinish({
+  required RsQuicReceiveTransfer transfer,
+}) => RustLib.instance.api.crateApiQuicQuicReceiveFileFinish(transfer: transfer);
 
 /// Acknowledge a received file on the control stream.
 /// If `error` is `None`, success is reported. Otherwise, the error message is sent.
@@ -108,35 +128,48 @@ Future<String?> quicPrepareUpload({
   filesJson: filesJson,
 );
 
-/// Send a file using memory-mapped I/O (high-performance path).
-/// Updates `bytes_progress` as chunks are sent.
-Future<void> quicSendFileMmap({
+/// Step 1 (mmap): Open uni stream, send header, mmap the file.
+/// Returns JSON: { "fileSize": 1234 }.
+Future<String> quicSendFileMmapStart({
   required RsQuicSendTransfer transfer,
   required String filePath,
   required String fileId,
   required String token,
-}) => RustLib.instance.api.crateApiQuicQuicSendFileMmap(
+}) => RustLib.instance.api.crateApiQuicQuicSendFileMmapStart(
   transfer: transfer,
   filePath: filePath,
   fileId: fileId,
   token: token,
 );
 
-/// Send a file from a Dart stream (fallback for Android SAF, etc).
-Future<void> quicSendFileStream({
+/// Step 2 (mmap): Write the next chunk from the mmap to the QUIC stream.
+/// Returns JSON: { "bytesSent": 1234, "totalSoFar": 5678, "eof": false }.
+Future<String> quicSendFileMmapChunk({required RsQuicSendTransfer transfer}) =>
+    RustLib.instance.api.crateApiQuicQuicSendFileMmapChunk(transfer: transfer);
+
+/// Step 1 (stream): Open uni stream, send header.
+/// Dart will push chunks via `quic_send_file_write_chunk`.
+Future<void> quicSendFileStart({
   required RsQuicSendTransfer transfer,
   required String fileId,
   required String token,
-  required Dart2RustStreamReceiver data,
-}) => RustLib.instance.api.crateApiQuicQuicSendFileStream(
+}) => RustLib.instance.api.crateApiQuicQuicSendFileStart(
   transfer: transfer,
   fileId: fileId,
   token: token,
+);
+
+/// Step 2 (stream): Write a chunk of data from Dart to the QUIC stream.
+Future<void> quicSendFileWriteChunk({
+  required RsQuicSendTransfer transfer,
+  required List<int> data,
+}) => RustLib.instance.api.crateApiQuicQuicSendFileWriteChunk(
+  transfer: transfer,
   data: data,
 );
 
-/// Wait for the receiver to acknowledge the last file.
-Future<String> quicWaitFileAck({required RsQuicSendTransfer transfer}) => RustLib.instance.api.crateApiQuicQuicWaitFileAck(transfer: transfer);
+/// Step 3 (both): Finish the uni stream (send FIN).
+Future<void> quicSendFileFinish({required RsQuicSendTransfer transfer}) => RustLib.instance.api.crateApiQuicQuicSendFileFinish(transfer: transfer);
 
 /// Cancel the transfer.
 Future<void> quicCancel({
