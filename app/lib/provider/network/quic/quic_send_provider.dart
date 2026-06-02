@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:typed_data';
 
 import 'package:common/model/device.dart';
 import 'package:common/model/dto/file_dto.dart';
@@ -22,6 +23,7 @@ import 'package:localsend_app/rust/api/stream.dart';
 import 'package:logging/logging.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 import 'package:routerino/routerino.dart';
+import 'package:uri_content/uri_content.dart';
 import 'package:uuid/uuid.dart';
 
 const _uuid = Uuid();
@@ -242,7 +244,7 @@ class QuicSendService extends Notifier<Map<String, SendSessionState>> {
         // Start progress polling timer — reads atomic counter from Rust.
         final fileSize = file.file.size;
         Timer? progressTimer;
-        if (file.path != null) {
+        if (file.path != null && !file.path!.startsWith('content://')) {
           progressTimer = Timer.periodic(
             const Duration(milliseconds: 200),
             (_) async {
@@ -260,14 +262,35 @@ class QuicSendService extends Notifier<Map<String, SendSessionState>> {
           );
         }
 
-        if (file.path != null) {
-          // Use mmap for file path
+        if (file.path != null && !file.path!.startsWith('content://')) {
+          // Use mmap for real file paths (not Android content:// URIs)
           await quic.quicSendFileMmap(
             transfer: transfer,
             filePath: file.path!,
             fileId: file.file.id,
             token: file.token!,
           );
+        } else if (file.path != null && file.path!.startsWith('content://')) {
+          // Android SAF content URI — stream through Dart since Rust
+          // cannot open content:// URIs directly.
+          // Use uri_content package to read the SAF stream.
+          final (sink, receiver) = await createStream();
+
+          final streamFuture = () async {
+            final input = await UriContent().getContentStream(Uri.parse(file.path!));
+            await for (final chunk in input) {
+              await sink.add(data: Uint8List.fromList(chunk));
+            }
+          }();
+
+          final uploadFuture = quic.quicSendFileStream(
+            transfer: transfer,
+            fileId: file.file.id,
+            token: file.token!,
+            data: receiver,
+          );
+
+          await Future.wait([streamFuture, uploadFuture]);
         } else if (file.bytes != null) {
           // Use stream for in-memory bytes
           final (sink, receiver) = await createStream();
