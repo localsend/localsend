@@ -7,6 +7,7 @@ pub use client::{QuicClient, OutgoingTransfer};
 pub use codec::{ControlMessage, FileHeader, FileAck};
 
 use anyhow::Result;
+use quinn::VarInt;
 use quinn::rustls::pki_types::pem::PemObject;
 use quinn::rustls::pki_types::{CertificateDer, PrivateKeyDer};
 use std::sync::Arc;
@@ -20,6 +21,10 @@ pub const DEFAULT_QUIC_PORT: u16 = 53317;
 
 /// Maximum number of simultaneous file streams per connection.
 const MAX_STREAMS: u32 = 100;
+
+/// Chunk size for mmap'd file sends (8 MiB). Fewer allocations + fewer
+/// await points than 1 MiB, while still keeping per-chunk memory bounded.
+pub const SEND_CHUNK_SIZE: usize = 8 * 1024 * 1024;
 
 // -- TLS configuration ------------------------------------------------
 
@@ -43,6 +48,14 @@ fn build_server_config(
     let mut transport = quinn::TransportConfig::default();
     transport.max_concurrent_uni_streams(MAX_STREAMS.into());
     transport.max_concurrent_bidi_streams(1u32.into());
+    // Allow receiving large files — 256 MiB windows.
+    let window = VarInt::from_u32(256 * 1024 * 1024);
+    transport.stream_receive_window(window);
+    transport.receive_window(window);
+    // Keep connection alive during long transfers.
+    transport.max_idle_timeout(Some(
+        quinn::IdleTimeout::try_from(std::time::Duration::from_secs(30)).unwrap(),
+    ));
     quic_config.transport_config(Arc::new(transport));
 
     Ok(quic_config)
@@ -77,7 +90,16 @@ fn build_client_config(
     tls_config.alpn_protocols = ALPN_LOCALSEND.iter().map(|p| p.to_vec()).collect();
 
     let quic_client_config = quinn::crypto::rustls::QuicClientConfig::try_from(tls_config)?;
-    Ok(quinn::ClientConfig::new(Arc::new(quic_client_config)))
+    let mut quic_config = quinn::ClientConfig::new(Arc::new(quic_client_config));
+    let mut transport = quinn::TransportConfig::default();
+    let window = VarInt::from_u32(256 * 1024 * 1024);
+    transport.stream_receive_window(window);
+    transport.receive_window(window);
+    transport.max_idle_timeout(Some(
+        quinn::IdleTimeout::try_from(std::time::Duration::from_secs(30)).unwrap(),
+    ));
+    quic_config.transport_config(Arc::new(transport));
+    Ok(quic_config)
 }
 
 mod danger {

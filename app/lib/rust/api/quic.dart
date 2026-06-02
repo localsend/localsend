@@ -53,13 +53,13 @@ Future<void> quicAcceptFiles({
 /// Decline the transfer.
 Future<void> quicDecline({required RsQuicReceiveTransfer transfer}) => RustLib.instance.api.crateApiQuicQuicDecline(transfer: transfer);
 
-/// Receive the next file and write it to `output_path`.
+/// Receive the next file, write it to `output_path`, and send an ACK
+/// on the control stream — all in **one** FFI call.
 ///
-/// Blocks until the sender opens a new unidirectional stream for the next
-/// file. Reads the `FileHeader` (file_id, token), then drains all
-/// bytes into the file at `output_path`.
+/// This avoids FRB SSE-channel timeouts between a long receive and a
+/// subsequent `quic_ack_file` call.
 ///
-/// Returns a JSON object: `{ "fileId": "...", "token": "...", "bytesWritten": 1234 }`.
+/// Returns a JSON object: `{ "fileId": "...", "bytesWritten": 1234, "ackSent": true }`.
 Future<String> quicReceiveFileToPath({
   required RsQuicReceiveTransfer transfer,
   required String outputPath,
@@ -109,6 +109,7 @@ Future<String?> quicPrepareUpload({
 );
 
 /// Send a file using memory-mapped I/O (high-performance path).
+/// Updates `bytes_progress` as chunks are sent.
 Future<void> quicSendFileMmap({
   required RsQuicSendTransfer transfer,
   required String filePath,
@@ -148,6 +149,17 @@ Future<void> quicCancel({
 
 /// Signal graceful completion.
 Future<void> quicDone({required RsQuicSendTransfer transfer}) => RustLib.instance.api.crateApiQuicQuicDone(transfer: transfer);
+
+/// Get the number of bytes sent so far for the current file.
+/// This reads an atomic counter — no mutex lock needed.
+Future<BigInt> quicGetSendProgress({required RsQuicSendTransfer transfer}) =>
+    RustLib.instance.api.crateApiQuicQuicGetSendProgress(transfer: transfer);
+
+/// Get the number of bytes received so far for the current file.
+/// This reads an atomic counter — no mutex lock needed.
+Future<BigInt> quicGetReceiveProgress({
+  required RsQuicReceiveTransfer transfer,
+}) => RustLib.instance.api.crateApiQuicQuicGetReceiveProgress(transfer: transfer);
 
 // Rust type: RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<RsQuicClient>>
 abstract class RsQuicClient implements RustOpaqueInterface {}

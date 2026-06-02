@@ -6,6 +6,7 @@ use std::collections::HashMap;
 use std::io::Write;
 use std::net::SocketAddr;
 use std::path::Path;
+use std::sync::atomic::{AtomicU64, Ordering};
 
 // ─── Server (receiver side) ──────────────────────────────────────────
 
@@ -48,6 +49,7 @@ pub async fn quic_server_accept(
     Ok((
         RsQuicReceiveTransfer {
             inner: tokio::sync::Mutex::new(Some(transfer)),
+            bytes_progress: AtomicU64::new(0),
         },
         localsend::serde_json::to_string(&info_json).map_err(|e| e.to_string())?,
     ))
@@ -65,8 +67,11 @@ pub async fn quic_server_local_addr(server: &RsQuicServer) -> Result<String, Str
 // ─── Receiver transfer state ─────────────────────────────────────────
 
 /// Thread-safe wrapper for the incoming transfer state machine.
+/// `bytes_progress` tracks bytes received for the current file (readable
+/// from Dart without locking the mutex).
 pub struct RsQuicReceiveTransfer {
     inner: tokio::sync::Mutex<Option<IncomingTransfer>>,
+    bytes_progress: AtomicU64,
 }
 
 /// Receive the file list from the sender.
@@ -100,17 +105,20 @@ pub async fn quic_decline(transfer: &RsQuicReceiveTransfer) -> Result<(), String
     t.decline().await.map_err(|e: anyhow::Error| e.to_string())
 }
 
-/// Receive the next file and write it to `output_path`.
+/// Receive the next file, write it to `output_path`, and send an ACK
+/// on the control stream — all in **one** FFI call.
 ///
-/// Blocks until the sender opens a new unidirectional stream for the next
-/// file. Reads the `FileHeader` (file_id, token), then drains all
-/// bytes into the file at `output_path`.
+/// This avoids FRB SSE-channel timeouts between a long receive and a
+/// subsequent `quic_ack_file` call.
 ///
-/// Returns a JSON object: `{ "fileId": "...", "token": "...", "bytesWritten": 1234 }`.
+/// Returns a JSON object: `{ "fileId": "...", "bytesWritten": 1234, "ackSent": true }`.
 pub async fn quic_receive_file_to_path(
     transfer: &RsQuicReceiveTransfer,
     output_path: String,
 ) -> Result<String, String> {
+    // Reset progress counter for this file.
+    transfer.bytes_progress.store(0, Ordering::Relaxed);
+
     let mut guard = transfer.inner.lock().await;
     let t = guard.as_mut().ok_or("transfer already consumed")?;
 
@@ -128,12 +136,14 @@ pub async fn quic_receive_file_to_path(
         std::fs::create_dir_all(parent).map_err(|e| e.to_string())?;
     }
 
-    // Drain the stream to the file.
+    // Drain the stream to the file, updating the progress counter.
     let file = std::fs::File::create(&output_path).map_err(|e| e.to_string())?;
     let mut writer = std::io::BufWriter::new(file);
+    let progress = &transfer.bytes_progress;
 
     let bytes_written = IncomingTransfer::drain_file_stream(&mut stream, |chunk| {
         writer.write_all(&chunk).map_err(|e| anyhow::anyhow!(e.to_string()))?;
+        progress.fetch_add(chunk.len() as u64, Ordering::Relaxed);
         Ok(())
     })
     .await
@@ -143,10 +153,23 @@ pub async fn quic_receive_file_to_path(
 
     tracing::info!("Received {} bytes for file {}", bytes_written, header.file_id);
 
+    // Send ACK on the control stream while we still hold the lock.
+    // This avoids a second FFI call that could fail due to FRB timeout.
+    let ack = localsend::quic::FileAck {
+        file_id: header.file_id.clone(),
+        success: true,
+        error: None,
+    };
+    match t.ack_file(ack).await {
+        Ok(()) => tracing::debug!("ACK sent for file {}", header.file_id),
+        Err(e) => tracing::warn!("Failed to send ACK for file {}: {}", header.file_id, e),
+    }
+
     let result = localsend::serde_json::json!({
         "fileId": header.file_id,
         "token": header.token,
         "bytesWritten": bytes_written,
+        "ackSent": true,
     });
     Ok(result.to_string())
 }
@@ -184,8 +207,11 @@ pub async fn quic_client_new(server_cert_pem: Option<String>) -> Result<RsQuicCl
 }
 
 /// Wrapper for the outgoing transfer state machine.
+/// `bytes_progress` tracks bytes sent for the current file (readable
+/// from Dart without locking the mutex).
 pub struct RsQuicSendTransfer {
     inner: tokio::sync::Mutex<Option<OutgoingTransfer>>,
+    bytes_progress: AtomicU64,
 }
 
 /// Connect to a QUIC receiver and perform the Hello handshake.
@@ -203,6 +229,7 @@ pub async fn quic_client_connect(
         .map_err(|e: anyhow::Error| e.to_string())?;
     Ok(RsQuicSendTransfer {
         inner: tokio::sync::Mutex::new(Some(transfer)),
+        bytes_progress: AtomicU64::new(0),
     })
 }
 
@@ -230,15 +257,21 @@ pub async fn quic_prepare_upload(
 }
 
 /// Send a file using memory-mapped I/O (high-performance path).
+/// Updates `bytes_progress` as chunks are sent.
 pub async fn quic_send_file_mmap(
     transfer: &RsQuicSendTransfer,
     file_path: String,
     file_id: &str,
     token: &str,
 ) -> Result<(), String> {
+    // Reset progress counter for this file.
+    transfer.bytes_progress.store(0, Ordering::Relaxed);
+
     let guard = transfer.inner.lock().await;
     let t = guard.as_ref().ok_or("transfer already consumed")?;
-    t.send_file_mmap(Path::new(&file_path), file_id, token)
+    t.send_file_mmap_with_progress(
+        Path::new(&file_path), file_id, token, Some(&transfer.bytes_progress),
+    )
         .await
         .map_err(|e: anyhow::Error| e.to_string())
 }
@@ -277,4 +310,18 @@ pub async fn quic_done(transfer: &RsQuicSendTransfer) -> Result<(), String> {
     let mut guard = transfer.inner.lock().await;
     let t = guard.as_mut().ok_or("transfer already consumed")?;
     t.done().await.map_err(|e: anyhow::Error| e.to_string())
+}
+
+// ─── Progress tracking ─────────────────────────────────────────────
+
+/// Get the number of bytes sent so far for the current file.
+/// This reads an atomic counter — no mutex lock needed.
+pub fn quic_get_send_progress(transfer: &RsQuicSendTransfer) -> u64 {
+    transfer.bytes_progress.load(Ordering::Relaxed)
+}
+
+/// Get the number of bytes received so far for the current file.
+/// This reads an atomic counter — no mutex lock needed.
+pub fn quic_get_receive_progress(transfer: &RsQuicReceiveTransfer) -> u64 {
+    transfer.bytes_progress.load(Ordering::Relaxed)
 }

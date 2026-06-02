@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:common/model/device.dart';
@@ -238,6 +239,27 @@ class QuicSendService extends Notifier<Map<String, SendSessionState>> {
       );
 
       try {
+        // Start progress polling timer — reads atomic counter from Rust.
+        final fileSize = file.file.size;
+        Timer? progressTimer;
+        if (file.path != null) {
+          progressTimer = Timer.periodic(
+            const Duration(milliseconds: 200),
+            (_) async {
+              final bytes = await quic.quicGetSendProgress(transfer: transfer!);
+              if (fileSize > 0) {
+                ref
+                    .notifier(progressProvider)
+                    .setProgress(
+                      sessionId: sessionId,
+                      fileId: file.file.id,
+                      progress: bytes.toDouble() / fileSize,
+                    );
+              }
+            },
+          );
+        }
+
         if (file.path != null) {
           // Use mmap for file path
           await quic.quicSendFileMmap(
@@ -264,6 +286,9 @@ class QuicSendService extends Notifier<Map<String, SendSessionState>> {
 
           await Future.wait([streamFuture, uploadFuture]);
         }
+
+        // Stop progress polling
+        progressTimer?.cancel();
 
         // Wait for receiver ACK
         final ack = await quic.quicWaitFileAck(transfer: transfer);

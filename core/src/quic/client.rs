@@ -129,14 +129,24 @@ impl OutgoingTransfer {
     /// Send a single file using memory-mapped I/O.
     ///
     /// Opens a new unidirectional QUIC stream, writes the file header,
-    /// then streams the entire file via `write_chunk`. This is the core
-    /// optimization: no manual chunking, no `mpsc` channel bridging,
-    /// zero-copy from the kernel page cache through to Quinn's send buffer.
+    /// then sends the mmap'd data in chunks using `write_all` (zero-copy
+    /// from the mmap slice into Quinn's send buffer).
     pub async fn send_file_mmap(
         &self,
         file_path: &Path,
         file_id: &str,
         token: &str,
+    ) -> Result<()> {
+        self.send_file_mmap_with_progress(file_path, file_id, token, None).await
+    }
+
+    /// Same as `send_file_mmap` but updates `progress` after each chunk.
+    pub async fn send_file_mmap_with_progress(
+        &self,
+        file_path: &Path,
+        file_id: &str,
+        token: &str,
+        progress: Option<&std::sync::atomic::AtomicU64>,
     ) -> Result<()> {
         let file = std::fs::File::open(file_path)?;
         let metadata = file.metadata()?;
@@ -159,10 +169,20 @@ impl OutgoingTransfer {
         };
         codec::write_frame(&mut stream, &header).await?;
 
-        // Send the entire mmap'd file in one write_chunk call.
-        // Quinn internally handles segmentation, congestion control,
-        // and retransmission -- no manual 16 KiB chunking needed.
-        stream.write_chunk(Bytes::copy_from_slice(&mmap)).await?;
+        // Send the mmap'd file in chunks. `write_all` copies from the mmap
+        // slice directly into Quinn's send buffer — no intermediate `Bytes`
+        // allocation per chunk.
+        let chunk_size = super::SEND_CHUNK_SIZE;
+        let mut offset = 0;
+        while offset < mmap.len() {
+            let end = (offset + chunk_size).min(mmap.len());
+            stream.write_all(&mmap[offset..end]).await?;
+            offset = end;
+            if let Some(p) = progress {
+                p.store(offset as u64, std::sync::atomic::Ordering::Relaxed);
+            }
+        }
+        drop(mmap); // release the mapping
         stream.finish()?;
 
         tracing::debug!("File {} sent successfully", file_id);

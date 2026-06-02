@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:common/constants.dart';
 import 'package:common/model/device.dart';
@@ -22,17 +23,21 @@ import 'package:localsend_app/provider/security_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/rust/api/quic.dart' as quic;
 import 'package:localsend_app/util/native/directories.dart';
+import 'package:localsend_app/util/native/file_saver.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_app/util/native/tray_helper.dart';
 import 'package:logging/logging.dart';
+import 'package:mime/mime.dart';
 import 'package:path/path.dart' as p;
 import 'package:refena_flutter/refena_flutter.dart';
+import 'package:saf_stream/saf_stream.dart';
 import 'package:routerino/routerino.dart';
 import 'package:uuid/uuid.dart';
 import 'package:window_manager/window_manager.dart';
 
 const _uuid = Uuid();
 final _logger = Logger('QuicServer');
+final _saf = SafStream();
 
 /// State for the QUIC server.
 class QuicServerState {
@@ -389,25 +394,86 @@ class QuicServerService extends Notifier<QuicServerState?> {
         // When saving to gallery, write to cache first so the file can be
         // deleted cleanly after the gallery import.
         final outputDir = shouldSaveToGallery ? state!.session!.cacheDirectory : receiveState.destinationDirectory;
-        final outputPath = '$outputDir/${file.desiredName}';
+
+        // Use the same path digestion as HTTP: handles name collisions,
+        // filename legalization, subdirectory creation, and content:// URIs.
+        final (resolvedPath, documentUri, finalName) = await digestFilePathAndPrepareDirectory(
+          parentDirectory: outputDir,
+          fileName: file.desiredName!,
+          createdDirectories: state!.session!.createdDirectories,
+        );
 
         // Validate path is within the expected directory (prevent traversal)
-        if (!p.isWithin(outputDir, outputPath)) {
+        if (!p.isWithin(outputDir, resolvedPath) && !resolvedPath.startsWith('content://')) {
           throw 'Path traversal detected: ${file.desiredName}';
         }
+
+        // For content:// URIs (SAF on Android), write to temp file first,
+        // then copy via SAF.
+        String actualOutputPath = resolvedPath;
+        bool needsSafCopy = resolvedPath.startsWith('content://') || documentUri != null;
+
+        if (needsSafCopy) {
+          // Write to cache first, then copy via SAF
+          actualOutputPath = '${state!.session!.cacheDirectory}/$finalName';
+        }
+
+        // Start progress polling timer — reads atomic counter from Rust.
+        final fileSize = file.file.size;
+        Timer? progressTimer;
+        progressTimer = Timer.periodic(
+          const Duration(milliseconds: 200),
+          (_) async {
+            final bytes = await quic.quicGetReceiveProgress(transfer: transfer);
+            if (fileSize > 0) {
+              ref
+                  .notifier(progressProvider)
+                  .setProgress(
+                    sessionId: sessionId,
+                    fileId: entry.key,
+                    progress: bytes.toDouble() / fileSize,
+                  );
+            }
+          },
+        );
 
         // Receive the file: Rust accepts the next uni stream, reads the
         // header, drains all bytes to disk, and returns the result.
         final resultJson = await quic.quicReceiveFileToPath(
           transfer: transfer,
-          outputPath: outputPath,
+          outputPath: actualOutputPath,
         );
+
+        // Stop progress polling
+        progressTimer.cancel();
+
         final resultMap = jsonDecode(resultJson) as Map<String, dynamic>;
         final bytesWritten = resultMap['bytesWritten'] as int;
 
-        _logger.info('Received $bytesWritten bytes for ${file.desiredName}');
+        _logger.info('Received $bytesWritten bytes for $finalName');
 
-        filePath = outputPath;
+        // If SAF copy is needed, stream from cache to the content URI in chunks.
+        if (needsSafCopy) {
+          final safPath = documentUri ?? resolvedPath;
+          _logger.info('Copying to SAF: $safPath as $finalName');
+          final tempFile = File(actualOutputPath);
+
+          final safSession = await _saf.startWriteStream(
+            safPath,
+            finalName,
+            lookupMimeType(finalName) ?? '*/*',
+          );
+          // Stream in chunks to avoid loading the entire file into RAM.
+          final input = tempFile.openRead();
+          await for (final chunk in input) {
+            await _saf.writeChunk(safSession.session, Uint8List.fromList(chunk));
+          }
+          await _saf.endWriteStream(safSession.session);
+          await tempFile.delete();
+          filePath = resolvedPath; // keep the content URI for reference
+        } else {
+          filePath = actualOutputPath;
+        }
 
         // Save to gallery if requested (mobile only)
         if (shouldSaveToGallery) {
@@ -421,7 +487,7 @@ class QuicServerService extends Notifier<QuicServerState?> {
               _logger.info('Format not supported by gallery, keeping file in destination');
               // Move from cache to destination directory
               final destPath = '${receiveState.destinationDirectory}/${file.desiredName}';
-              await File(outputPath).rename(destPath);
+              await File(actualOutputPath).rename(destPath);
               filePath = destPath;
               savedToGallery = false;
             } else {
@@ -430,12 +496,6 @@ class QuicServerService extends Notifier<QuicServerState?> {
           }
         }
 
-        // Send success ACK back to the sender on the control stream
-        await quic.quicAckFile(
-          transfer: transfer,
-          fileId: entry.key,
-          error: null,
-        );
 
         // Update progress
         ref
@@ -544,6 +604,20 @@ class QuicServerService extends Notifier<QuicServerState?> {
     if (sessionId == null) return;
     state = state!.copyWith(clearSession: true);
     ref.notifier(progressProvider).removeSession(sessionId);
+  }
+
+  /// Cancels the current session (marks as canceled).
+  void cancelSession() {
+    final session = state?.session;
+    if (session == null) return;
+    state = state!.copyWith(
+      session: session.copyWith(status: SessionStatus.canceledByReceiver),
+    );
+    final streamController = session.responseHandler;
+    if (streamController != null && !streamController.isClosed) {
+      streamController.add(null);
+      streamController.close();
+    }
   }
 
   /// Stops the QUIC server.
