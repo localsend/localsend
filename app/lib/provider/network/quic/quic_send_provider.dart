@@ -221,92 +221,177 @@ class QuicSendService extends Notifier<Map<String, SendSessionState>> {
       ),
     );
 
-    // Send files sequentially via QUIC
-    for (final entry in updatedFiles.entries) {
-      final file = entry.value;
-      if (file.status == FileStatus.skipped || file.token == null) continue;
+    // Send files via QUIC — parallel when multiple path-based files,
+    // sequential for single files or mixed (path + bytes) scenarios.
+    final pathFiles = updatedFiles.entries
+        .where((e) => e.value.status != FileStatus.skipped && e.value.token != null && e.value.path != null)
+        .toList();
+    final bytesFiles = updatedFiles.entries
+        .where((e) => e.value.status != FileStatus.skipped && e.value.token != null && e.value.path == null && e.value.bytes != null)
+        .toList();
 
-      final currentStatus = state[sessionId]?.status;
-      if (currentStatus != SessionStatus.sending && currentStatus != SessionStatus.finishedWithErrors) {
-        break;
+    if (pathFiles.length >= 2 && bytesFiles.isEmpty) {
+      // ─── Parallel path: 2+ file-path files ────────────────────────────
+      _logger.info('Sending ${pathFiles.length} files in parallel via QUIC');
+
+      // Mark all as sending
+      for (final entry in pathFiles) {
+        state = _updateSession(
+          sessionId,
+          (s) => s?.withFileStatus(entry.value.file.id, FileStatus.sending, null),
+        );
       }
 
-      _logger.info('Sending file via QUIC: ${file.file.fileName}');
-      state = _updateSession(
-        sessionId,
-        (s) => s?.withFileStatus(file.file.id, FileStatus.sending, null),
-      );
-
-      try {
-        // Start progress polling timer — reads atomic counter from Rust.
-        final fileSize = file.file.size;
-        Timer? progressTimer;
-        if (file.path != null && !file.path!.startsWith('content://')) {
-          progressTimer = Timer.periodic(
-            const Duration(milliseconds: 200),
-            (_) async {
-              final bytes = await quic.quicGetSendProgress(transfer: transfer!);
-              if (fileSize > 0) {
+      // Start per-file progress polling
+      final progressTimer = Timer.periodic(
+        const Duration(milliseconds: 200),
+        (_) async {
+          try {
+            final progressJson = await quic.quicGetParallelSendProgress(transfer: transfer!);
+            final progressMap = jsonDecode(progressJson) as Map<String, dynamic>;
+            for (final entry in progressMap.entries) {
+              final file = state[sessionId]?.files[entry.key];
+              if (file != null && file.file.size > 0) {
                 ref
                     .notifier(progressProvider)
                     .setProgress(
                       sessionId: sessionId,
-                      fileId: file.file.id,
-                      progress: bytes.toDouble() / fileSize,
+                      fileId: entry.key,
+                      progress: (entry.value as num).toDouble() / file.file.size,
                     );
               }
-            },
-          );
-        }
+            }
+          } catch (_) {}
+        },
+      );
 
-        if (file.path != null) {
-          // Regular file paths AND Android content:// URIs — single FFI call.
-          // On Android, Rust opens content:// URIs via JNI SAF (mmap from fd).
-          // No Dart2RustStreamReceiver, no FRB deadlock, zero-copy.
-          await quic.quicSendFileMmap(
-            transfer: transfer,
-            filePath: file.path!,
-            fileId: file.file.id,
-            token: file.token!,
-          );
-        } else if (file.bytes != null) {
-          // In-memory bytes — push as a single chunk.
-          await quic.quicSendFileStart(
-            transfer: transfer,
-            fileId: file.file.id,
-            token: file.token!,
-          );
+      try {
+        final filesList = pathFiles
+            .map(
+              (e) => {
+                'filePath': e.value.path!,
+                'fileId': e.key,
+                'token': e.value.token!,
+              },
+            )
+            .toList();
 
-          await quic.quicSendFileWriteChunk(
-            transfer: transfer,
-            data: file.bytes!,
-          );
-
-          await quic.quicSendFileFinish(transfer: transfer);
-        }
-
-        // Stop progress polling
-        progressTimer?.cancel();
-
-
-        ref
-            .notifier(progressProvider)
-            .setProgress(
-              sessionId: sessionId,
-              fileId: file.file.id,
-              progress: 1,
-            );
-
-        state = _updateSession(
-          sessionId,
-          (s) => s?.withFileStatus(file.file.id, FileStatus.finished, null),
+        await quic.quicSendFilesParallel(
+          transfer: transfer!,
+          filesJson: jsonEncode(filesList),
         );
+
+        progressTimer.cancel();
+
+        // Mark all as finished
+        for (final entry in pathFiles) {
+          ref
+              .notifier(progressProvider)
+              .setProgress(
+                sessionId: sessionId,
+                fileId: entry.key,
+                progress: 1,
+              );
+          state = _updateSession(
+            sessionId,
+            (s) => s?.withFileStatus(entry.value.file.id, FileStatus.finished, null),
+          );
+        }
       } catch (e, st) {
-        _logger.warning('Failed to send file via QUIC: ${file.file.fileName}', e, st);
+        progressTimer.cancel();
+        _logger.warning('Parallel QUIC send failed', e, st);
+        // Mark all in-progress files as failed
+        for (final entry in pathFiles) {
+          final current = state[sessionId]?.files[entry.key];
+          if (current?.status == FileStatus.sending) {
+            state = _updateSession(
+              sessionId,
+              (s) => s?.withFileStatus(entry.value.file.id, FileStatus.failed, e.toString()),
+            );
+          }
+        }
+      }
+    } else {
+      // ─── Sequential path: single file, or mixed path+bytes ─────────────
+      final allFiles = [...pathFiles, ...bytesFiles];
+      for (final entry in allFiles) {
+        final file = entry.value;
+        if (file.status == FileStatus.skipped || file.token == null) continue;
+
+        final currentStatus = state[sessionId]?.status;
+        if (currentStatus != SessionStatus.sending && currentStatus != SessionStatus.finishedWithErrors) {
+          break;
+        }
+
+        _logger.info('Sending file via QUIC: ${file.file.fileName}');
         state = _updateSession(
           sessionId,
-          (s) => s?.withFileStatus(file.file.id, FileStatus.failed, e.toString()),
+          (s) => s?.withFileStatus(file.file.id, FileStatus.sending, null),
         );
+
+        try {
+          // Start progress polling timer — reads atomic counter from Rust.
+          final fileSize = file.file.size;
+          Timer? progressTimer;
+          if (file.path != null) {
+            progressTimer = Timer.periodic(
+              const Duration(milliseconds: 200),
+              (_) async {
+                final bytes = await quic.quicGetSendProgress(transfer: transfer!);
+                if (fileSize > 0) {
+                  ref
+                      .notifier(progressProvider)
+                      .setProgress(
+                        sessionId: sessionId,
+                        fileId: file.file.id,
+                        progress: bytes.toDouble() / fileSize,
+                      );
+                }
+              },
+            );
+          }
+
+          if (file.path != null) {
+            await quic.quicSendFileMmap(
+              transfer: transfer!,
+              filePath: file.path!,
+              fileId: file.file.id,
+              token: file.token!,
+            );
+          } else if (file.bytes != null) {
+            await quic.quicSendFileStart(
+              transfer: transfer!,
+              fileId: file.file.id,
+              token: file.token!,
+            );
+            await quic.quicSendFileWriteChunk(
+              transfer: transfer!,
+              data: file.bytes!,
+            );
+            await quic.quicSendFileFinish(transfer: transfer!);
+          }
+
+          progressTimer?.cancel();
+
+          ref
+              .notifier(progressProvider)
+              .setProgress(
+                sessionId: sessionId,
+                fileId: file.file.id,
+                progress: 1,
+              );
+
+          state = _updateSession(
+            sessionId,
+            (s) => s?.withFileStatus(file.file.id, FileStatus.finished, null),
+          );
+        } catch (e, st) {
+          _logger.warning('Failed to send file via QUIC: ${file.file.fileName}', e, st);
+          state = _updateSession(
+            sessionId,
+            (s) => s?.withFileStatus(file.file.id, FileStatus.failed, e.toString()),
+          );
+        }
       }
     }
 

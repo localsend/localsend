@@ -370,217 +370,339 @@ class QuicServerService extends Notifier<QuicServerState?> {
       );
     }
 
-    // Receive each file
+    // Receive files via QUIC — parallel when 2+ simple file-path writes,
+    // sequential for single files or when gallery/SAF post-processing needed.
     final receiveState = state!.session!;
-    for (final entry in updatedFiles.entries) {
+    final receivableFiles = updatedFiles.entries.where((e) => e.value.status != FileStatus.skipped && e.value.token != null).toList();
+
+    // Pre-compute output paths and flags for all files
+    final filePrep = <String, _FilePrep>{};
+    bool anyNeedsSafCopy = false;
+    bool anySaveToGallery = false;
+    for (final entry in receivableFiles) {
       final file = entry.value;
-      if (file.status == FileStatus.skipped || file.token == null) continue;
+      final fileType = file.file.fileType;
+      final shouldSaveToGallery = receiveState.saveToGallery && (fileType == FileType.image || fileType == FileType.video);
+      if (shouldSaveToGallery) anySaveToGallery = true;
 
-      _logger.info('Receiving file via QUIC: ${file.desiredName}');
-
-      state = state!.copyWith(
-        session: state!.session!.copyWith(
-          files: {...state!.session!.files}..update(entry.key, (_) => file.copyWith(status: FileStatus.sending)),
-          startTime: state!.session!.startTime ?? DateTime.now().millisecondsSinceEpoch,
-        ),
+      final outputDir = shouldSaveToGallery ? receiveState.cacheDirectory : receiveState.destinationDirectory;
+      final (resolvedPath, documentUri, finalName) = await digestFilePathAndPrepareDirectory(
+        parentDirectory: outputDir,
+        fileName: file.desiredName!,
+        createdDirectories: receiveState.createdDirectories,
       );
 
-      final fileType = file.file.fileType;
-      final shouldSaveToGallery = state!.session!.saveToGallery && (fileType == FileType.image || fileType == FileType.video);
+      if (!p.isWithin(outputDir, resolvedPath) && !resolvedPath.startsWith('content://')) {
+        throw 'Path traversal detected: ${file.desiredName}';
+      }
 
-      String? filePath;
-      bool savedToGallery = false;
-      try {
-        // When saving to gallery, write to cache first so the file can be
-        // deleted cleanly after the gallery import.
-        final outputDir = shouldSaveToGallery ? state!.session!.cacheDirectory : receiveState.destinationDirectory;
+      final needsSafCopy = resolvedPath.startsWith('content://') || documentUri != null;
+      if (needsSafCopy) anyNeedsSafCopy = true;
 
-        // Use the same path digestion as HTTP: handles name collisions,
-        // filename legalization, subdirectory creation, and content:// URIs.
-        final (resolvedPath, documentUri, finalName) = await digestFilePathAndPrepareDirectory(
-          parentDirectory: outputDir,
-          fileName: file.desiredName!,
-          createdDirectories: state!.session!.createdDirectories,
-        );
+      String actualOutputPath = resolvedPath;
+      if (needsSafCopy) {
+        actualOutputPath = '${receiveState.cacheDirectory}/$finalName';
+      }
 
-        // Validate path is within the expected directory (prevent traversal)
-        if (!p.isWithin(outputDir, resolvedPath) && !resolvedPath.startsWith('content://')) {
-          throw 'Path traversal detected: ${file.desiredName}';
-        }
+      filePrep[entry.key] = _FilePrep(
+        file: file,
+        resolvedPath: resolvedPath,
+        documentUri: documentUri,
+        finalName: finalName,
+        actualOutputPath: actualOutputPath,
+        needsSafCopy: needsSafCopy,
+        shouldSaveToGallery: shouldSaveToGallery,
+        outputDir: outputDir,
+      );
+    }
 
-        // For content:// URIs (SAF on Android), write to temp file first,
-        // then copy via SAF.
-        String actualOutputPath = resolvedPath;
-        bool needsSafCopy = resolvedPath.startsWith('content://') || documentUri != null;
+    // Update state: mark all as sending
+    state = state!.copyWith(
+      session: state!.session!.copyWith(
+        files: {...state!.session!.files}
+          ..updateAll((key, f) {
+            final prep = filePrep[key];
+            if (prep != null) return f.copyWith(status: FileStatus.sending);
+            return f;
+          }),
+        startTime: state!.session!.startTime ?? DateTime.now().millisecondsSinceEpoch,
+      ),
+    );
 
-        if (needsSafCopy) {
-          // Write to cache first, then copy via SAF
-          actualOutputPath = '${state!.session!.cacheDirectory}/$finalName';
-        }
+    if (receivableFiles.length >= 2 && !anyNeedsSafCopy && !anySaveToGallery) {
+      // ─── Parallel receive path ─────────────────────────────────────────
+      _logger.info('Receiving ${receivableFiles.length} files in parallel via QUIC');
 
-        // Start progress polling timer — reads atomic counter from Rust.
-        final fileSize = file.file.size;
-        Timer? progressTimer;
-        progressTimer = Timer.periodic(
-          const Duration(milliseconds: 200),
-          (_) async {
-            final bytes = await quic.quicGetReceiveProgress(transfer: transfer);
-            if (fileSize > 0) {
-              ref
-                  .notifier(progressProvider)
-                  .setProgress(
-                    sessionId: sessionId,
-                    fileId: entry.key,
-                    progress: bytes.toDouble() / fileSize,
-                  );
+      // Per-file progress polling
+      final progressTimer = Timer.periodic(
+        const Duration(milliseconds: 200),
+        (_) async {
+          try {
+            final progressJson = await quic.quicGetParallelReceiveProgress(transfer: transfer);
+            final progressMap = jsonDecode(progressJson) as Map<String, dynamic>;
+            for (final entry in progressMap.entries) {
+              final file = state!.session!.files[entry.key];
+              if (file != null && file.file.size > 0) {
+                ref
+                    .notifier(progressProvider)
+                    .setProgress(
+                      sessionId: sessionId,
+                      fileId: entry.key,
+                      progress: (entry.value as num).toDouble() / file.file.size,
+                    );
+              }
             }
-          },
-        );
+          } catch (_) {}
+        },
+      );
 
-        // Receive the file using chunked API to avoid FRB SSE timeout.
-        // Step 1: accept uni stream, read header, open output file.
-        final startJson = await quic.quicReceiveFileStart(
+      try {
+        final filesList = filePrep.entries
+            .map(
+              (e) => {
+                'fileId': e.key,
+                'outputPath': e.value.actualOutputPath,
+              },
+            )
+            .toList();
+
+        final resultJson = await quic.quicReceiveFilesParallel(
           transfer: transfer,
-          outputPath: actualOutputPath,
-        );
-        // startJson contains fileId and token for reference if needed.
-        jsonDecode(startJson); // validate JSON
-
-        // Step 2: read chunks in a loop. Each FFI call is short (bounded
-        // by maxBytes), so FRB never times out.
-        const chunkSize = 64 * 1024 * 1024; // 64 MiB per chunk
-        bool eof = false;
-        while (!eof) {
-          final chunkJson = await quic.quicReceiveFileReadChunk(
-            transfer: transfer,
-            maxBytes: BigInt.from(chunkSize),
-          );
-          final chunkMap = jsonDecode(chunkJson) as Map<String, dynamic>;
-          eof = chunkMap['eof'] as bool;
-        }
-
-        // Step 3: flush writer, send ACK, clean up.
-        final finishJson = await quic.quicReceiveFileFinish(
-          transfer: transfer,
+          filesJson: jsonEncode(filesList),
         );
 
-        // Stop progress polling
         progressTimer.cancel();
 
-        final resultMap = jsonDecode(finishJson) as Map<String, dynamic>;
-        final bytesWritten = (resultMap['bytesWritten'] as num).toInt();
+        final resultMap = jsonDecode(resultJson) as Map<String, dynamic>;
+        final succeeded = (resultMap['succeeded'] as List).cast<String>();
+        final failed = (resultMap['failed'] as List).cast<String>();
 
-        _logger.info('Received $bytesWritten bytes for $finalName');
-
-        // If SAF copy is needed, stream from cache to the content URI in chunks.
-        if (needsSafCopy) {
-          final safPath = documentUri ?? resolvedPath;
-          _logger.info('Copying to SAF: $safPath as $finalName');
-          final tempFile = File(actualOutputPath);
-
-          final safSession = await _saf.startWriteStream(
-            safPath,
-            finalName,
-            lookupMimeType(finalName) ?? '*/*',
+        // Mark succeeded files
+        for (final fileId in succeeded) {
+          final prep = filePrep[fileId]!;
+          ref
+              .notifier(progressProvider)
+              .setProgress(
+                sessionId: sessionId,
+                fileId: fileId,
+                progress: 1,
+              );
+          state = state!.copyWith(
+            session: _fileFinished(
+              state!.session!,
+              fileId: fileId,
+              status: FileStatus.finished,
+              path: prep.actualOutputPath,
+              savedToGallery: false,
+              errorMessage: null,
+            ),
           );
-          // Stream in chunks to avoid loading the entire file into RAM.
-          final input = tempFile.openRead();
-          await for (final chunk in input) {
-            await _saf.writeChunk(safSession.session, Uint8List.fromList(chunk));
-          }
-          await _saf.endWriteStream(safSession.session);
-          await tempFile.delete();
-          filePath = resolvedPath; // keep the content URI for reference
-        } else {
-          filePath = actualOutputPath;
+          await ref
+              .redux(receiveHistoryProvider)
+              .dispatchAsync(
+                AddHistoryEntryAction(
+                  entryId: fileId,
+                  fileName: prep.file.desiredName!,
+                  fileType: prep.file.file.fileType,
+                  path: prep.actualOutputPath,
+                  savedToGallery: false,
+                  isMessage: false,
+                  fileSize: prep.file.file.size,
+                  senderAlias: state!.session!.senderAlias,
+                  timestamp: DateTime.now().toUtc(),
+                ),
+              );
         }
 
-        // Save to gallery if requested (mobile only)
-        if (shouldSaveToGallery) {
-          try {
-            fileType == FileType.image ? await Gal.putImage(filePath) : await Gal.putVideo(filePath);
-            await File(filePath).delete();
-            savedToGallery = true;
-            filePath = null; // no longer at this path
-          } on GalException catch (e) {
-            if (e.type == GalExceptionType.notSupportedFormat) {
-              _logger.info('Format not supported by gallery, keeping file in destination');
-              // Move from cache to destination directory
-              final destPath = '${receiveState.destinationDirectory}/${file.desiredName}';
-              await File(actualOutputPath).rename(destPath);
-              filePath = destPath;
-              savedToGallery = false;
-            } else {
-              rethrow;
-            }
-          }
+        // Mark failed files
+        for (final fileId in failed) {
+          state = state!.copyWith(
+            session: _fileFinished(
+              state!.session!,
+              fileId: fileId,
+              status: FileStatus.failed,
+              path: null,
+              savedToGallery: false,
+              errorMessage: 'Parallel receive failed',
+            ),
+          );
         }
 
-        // ACK is already sent inside quicReceiveFileFinish (avoids FRB timeout).
-
-        // Update progress
-        ref
-            .notifier(progressProvider)
-            .setProgress(
-              sessionId: sessionId,
-              fileId: entry.key,
-              progress: 1,
-            );
-
-        // Mark as finished
-        state = state!.copyWith(
-          session: _fileFinished(
-            state!.session!,
-            fileId: entry.key,
-            status: FileStatus.finished,
-            path: filePath,
-            savedToGallery: savedToGallery,
-            errorMessage: null,
-          ),
-        );
-
-        // Track in receive history
-        await ref
-            .redux(receiveHistoryProvider)
-            .dispatchAsync(
-              AddHistoryEntryAction(
-                entryId: entry.key,
-                fileName: file.desiredName!,
-                fileType: file.file.fileType,
-                path: filePath,
-                savedToGallery: savedToGallery,
-                isMessage: false,
-                fileSize: file.file.size,
-                senderAlias: state!.session!.senderAlias,
-                timestamp: DateTime.now().toUtc(),
+        _logger.info('Parallel receive done: ${succeeded.length} ok, ${failed.length} failed');
+      } catch (e, st) {
+        progressTimer.cancel();
+        _logger.severe('Parallel QUIC receive failed', e, st);
+        for (final entry in filePrep.entries) {
+          final current = state!.session!.files[entry.key];
+          if (current?.status == FileStatus.sending) {
+            state = state!.copyWith(
+              session: _fileFinished(
+                state!.session!,
+                fileId: entry.key,
+                status: FileStatus.failed,
+                path: null,
+                savedToGallery: false,
+                errorMessage: e.toString(),
               ),
             );
-
-        _logger.info('Received file via QUIC: ${file.desiredName}');
-      } catch (e, st) {
-        _logger.severe('Failed to receive file via QUIC: ${file.desiredName}', e, st);
-
-        // Send error ACK to sender
-        try {
-          await quic.quicAckFile(
-            transfer: transfer,
-            fileId: entry.key,
-            error: e.toString(),
-          );
-        } catch (_) {
-          // best-effort ACK
+          }
         }
+      }
+    } else {
+      // ─── Sequential receive path (single file, or gallery/SAF needed) ───
+      for (final entry in receivableFiles) {
+        final prep = filePrep[entry.key]!;
+        final file = prep.file;
 
-        state = state!.copyWith(
-          session: _fileFinished(
-            state!.session!,
-            fileId: entry.key,
-            status: FileStatus.failed,
-            path: null,
-            savedToGallery: false,
-            errorMessage: e.toString(),
-          ),
-        );
+        _logger.info('Receiving file via QUIC: ${file.desiredName}');
+
+        String? filePath;
+        bool savedToGallery = false;
+        try {
+          // Start progress polling timer
+          final fileSize = file.file.size;
+          Timer? progressTimer;
+          progressTimer = Timer.periodic(
+            const Duration(milliseconds: 200),
+            (_) async {
+              final bytes = await quic.quicGetReceiveProgress(transfer: transfer);
+              if (fileSize > 0) {
+                ref
+                    .notifier(progressProvider)
+                    .setProgress(
+                      sessionId: sessionId,
+                      fileId: entry.key,
+                      progress: bytes.toDouble() / fileSize,
+                    );
+              }
+            },
+          );
+
+          // Chunked receive
+          final startJson = await quic.quicReceiveFileStart(
+            transfer: transfer,
+            outputPath: prep.actualOutputPath,
+          );
+          jsonDecode(startJson);
+
+          const chunkSize = 64 * 1024 * 1024;
+          bool eof = false;
+          while (!eof) {
+            final chunkJson = await quic.quicReceiveFileReadChunk(
+              transfer: transfer,
+              maxBytes: BigInt.from(chunkSize),
+            );
+            final chunkMap = jsonDecode(chunkJson) as Map<String, dynamic>;
+            eof = chunkMap['eof'] as bool;
+          }
+
+          final finishJson = await quic.quicReceiveFileFinish(
+            transfer: transfer,
+          );
+          progressTimer.cancel();
+
+          final resultMap = jsonDecode(finishJson) as Map<String, dynamic>;
+          final bytesWritten = (resultMap['bytesWritten'] as num).toInt();
+          _logger.info('Received $bytesWritten bytes for ${prep.finalName}');
+
+          // SAF copy if needed
+          if (prep.needsSafCopy) {
+            final safPath = prep.documentUri ?? prep.resolvedPath;
+            _logger.info('Copying to SAF: $safPath as ${prep.finalName}');
+            final tempFile = File(prep.actualOutputPath);
+            final safSession = await _saf.startWriteStream(
+              safPath,
+              prep.finalName,
+              lookupMimeType(prep.finalName) ?? '*/*',
+            );
+            final input = tempFile.openRead();
+            await for (final chunk in input) {
+              await _saf.writeChunk(safSession.session, Uint8List.fromList(chunk));
+            }
+            await _saf.endWriteStream(safSession.session);
+            await tempFile.delete();
+            filePath = prep.resolvedPath;
+          } else {
+            filePath = prep.actualOutputPath;
+          }
+
+          // Gallery save if needed
+          if (prep.shouldSaveToGallery) {
+            try {
+              file.file.fileType == FileType.image ? await Gal.putImage(filePath) : await Gal.putVideo(filePath);
+              await File(filePath).delete();
+              savedToGallery = true;
+              filePath = null;
+            } on GalException catch (e) {
+              if (e.type == GalExceptionType.notSupportedFormat) {
+                _logger.info('Format not supported by gallery, keeping file');
+                final destPath = '${prep.outputDir}/${file.desiredName}';
+                await File(prep.actualOutputPath).rename(destPath);
+                filePath = destPath;
+                savedToGallery = false;
+              } else {
+                rethrow;
+              }
+            }
+          }
+
+          ref
+              .notifier(progressProvider)
+              .setProgress(
+                sessionId: sessionId,
+                fileId: entry.key,
+                progress: 1,
+              );
+
+          state = state!.copyWith(
+            session: _fileFinished(
+              state!.session!,
+              fileId: entry.key,
+              status: FileStatus.finished,
+              path: filePath,
+              savedToGallery: savedToGallery,
+              errorMessage: null,
+            ),
+          );
+
+          await ref
+              .redux(receiveHistoryProvider)
+              .dispatchAsync(
+                AddHistoryEntryAction(
+                  entryId: entry.key,
+                  fileName: file.desiredName!,
+                  fileType: file.file.fileType,
+                  path: filePath,
+                  savedToGallery: savedToGallery,
+                  isMessage: false,
+                  fileSize: file.file.size,
+                  senderAlias: state!.session!.senderAlias,
+                  timestamp: DateTime.now().toUtc(),
+                ),
+              );
+
+          _logger.info('Received file via QUIC: ${file.desiredName}');
+        } catch (e, st) {
+          _logger.severe('Failed to receive file via QUIC: ${file.desiredName}', e, st);
+          try {
+            await quic.quicAckFile(
+              transfer: transfer,
+              fileId: entry.key,
+              error: e.toString(),
+            );
+          } catch (_) {}
+
+          state = state!.copyWith(
+            session: _fileFinished(
+              state!.session!,
+              fileId: entry.key,
+              status: FileStatus.failed,
+              path: null,
+              savedToGallery: false,
+              errorMessage: e.toString(),
+            ),
+          );
+        }
       }
     }
 
@@ -671,4 +793,27 @@ ReceiveSessionState _fileFinished(
         ),
       ),
   );
+}
+
+/// Pre-computed per-file info for receive path planning.
+class _FilePrep {
+  final ReceivingFile file;
+  final String resolvedPath;
+  final String? documentUri;
+  final String finalName;
+  final String actualOutputPath;
+  final bool needsSafCopy;
+  final bool shouldSaveToGallery;
+  final String outputDir;
+
+  const _FilePrep({
+    required this.file,
+    required this.resolvedPath,
+    required this.documentUri,
+    required this.finalName,
+    required this.actualOutputPath,
+    required this.needsSafCopy,
+    required this.shouldSaveToGallery,
+    required this.outputDir,
+  });
 }

@@ -6,7 +6,8 @@
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 import 'package:localsend_app/rust/frb_generated.dart';
 
-// These types are ignored because they are neither used by any `pub` functions nor (for structs and enums) marked `#[frb(unignore)]`: `FileReceiverState`, `FileSenderKind`, `FileSenderState`
+// These functions are ignored because they are not marked as `pub`: `open_file_or_uri`
+// These types are ignored because they are neither used by any `pub` functions nor (for structs and enums) marked `#[frb(unignore)]`: `FileReceiverState`, `FileSenderState`
 
 /// Start a QUIC server on the given port with PEM cert/key.
 Future<RsQuicServer> quicServerStart({
@@ -129,9 +130,10 @@ Future<String?> quicPrepareUpload({
 );
 
 /// Send a file using memory-mapped I/O in a **single** FFI call.
-/// Safe from the Dart2RustStreamReceiver deadlock because all data
-/// stays in Rust — no Dart stream involvement.
-/// This is the high-performance path for regular file paths.
+///
+/// Handles both regular file paths and Android `content://` URIs.
+/// On Android, SAF content URIs are resolved via JNI
+/// (`ContentResolver.openFileDescriptor`) to a raw fd, then mmap'd.
 Future<void> quicSendFileMmap({
   required RsQuicSendTransfer transfer,
   required String filePath,
@@ -143,25 +145,6 @@ Future<void> quicSendFileMmap({
   fileId: fileId,
   token: token,
 );
-
-/// Step 1 (mmap): Open uni stream, send header, mmap the file.
-/// Returns JSON: { "fileSize": 1234 }.
-Future<String> quicSendFileMmapStart({
-  required RsQuicSendTransfer transfer,
-  required String filePath,
-  required String fileId,
-  required String token,
-}) => RustLib.instance.api.crateApiQuicQuicSendFileMmapStart(
-  transfer: transfer,
-  filePath: filePath,
-  fileId: fileId,
-  token: token,
-);
-
-/// Step 2 (mmap): Write the next chunk from the mmap to the QUIC stream.
-/// Returns JSON: { "bytesSent": 1234, "totalSoFar": 5678, "eof": false }.
-Future<String> quicSendFileMmapChunk({required RsQuicSendTransfer transfer}) =>
-    RustLib.instance.api.crateApiQuicQuicSendFileMmapChunk(transfer: transfer);
 
 /// Step 1 (stream): Open uni stream, send header.
 /// Dart will push chunks via `quic_send_file_write_chunk`.
@@ -199,16 +182,67 @@ Future<void> quicCancel({
 /// Signal graceful completion.
 Future<void> quicDone({required RsQuicSendTransfer transfer}) => RustLib.instance.api.crateApiQuicQuicDone(transfer: transfer);
 
-/// Get the number of bytes sent so far for the current file.
+/// Get the total number of bytes sent so far across all files.
 /// This reads an atomic counter — no mutex lock needed.
 Future<BigInt> quicGetSendProgress({required RsQuicSendTransfer transfer}) =>
     RustLib.instance.api.crateApiQuicQuicGetSendProgress(transfer: transfer);
 
-/// Get the number of bytes received so far for the current file.
+/// Get the total number of bytes received so far across all files.
 /// This reads an atomic counter — no mutex lock needed.
 Future<BigInt> quicGetReceiveProgress({
   required RsQuicReceiveTransfer transfer,
 }) => RustLib.instance.api.crateApiQuicQuicGetReceiveProgress(transfer: transfer);
+
+/// Get per-file send progress for a parallel transfer.
+/// Returns JSON: `{ "fileId1": 1234, "fileId2": 5678 }`
+Future<String> quicGetParallelSendProgress({
+  required RsQuicSendTransfer transfer,
+}) => RustLib.instance.api.crateApiQuicQuicGetParallelSendProgress(
+  transfer: transfer,
+);
+
+/// Get per-file receive progress for a parallel transfer.
+/// Returns JSON: `{ "fileId1": 1234, "fileId2": 5678 }`
+Future<String> quicGetParallelReceiveProgress({
+  required RsQuicReceiveTransfer transfer,
+}) => RustLib.instance.api.crateApiQuicQuicGetParallelReceiveProgress(
+  transfer: transfer,
+);
+
+/// Send multiple files in parallel over independent QUIC uni streams.
+///
+/// Each file gets its own uni stream; Quinn multiplexes them at the
+/// transport level (no head-of-line blocking between files).
+///
+/// `files_json`: `[{"filePath":"…","fileId":"…","token":"…"}, …]`
+///
+/// For single files, prefer `quic_send_file_mmap` — no task overhead.
+Future<void> quicSendFilesParallel({
+  required RsQuicSendTransfer transfer,
+  required String filesJson,
+}) => RustLib.instance.api.crateApiQuicQuicSendFilesParallel(
+  transfer: transfer,
+  filesJson: filesJson,
+);
+
+/// Receive multiple files in parallel from independent QUIC uni streams.
+///
+/// Spawns one Tokio task per expected file. Each task accepts the next
+/// available uni stream, reads the `FileHeader`, and writes data to the
+/// corresponding output path. ACKs are sent after all tasks complete.
+///
+/// `files_json`: `[{"fileId":"…","outputPath":"…"}, …]`
+///
+/// Returns JSON: `{ "succeeded": ["id1", "id2"], "failed": ["id3"] }`
+///
+/// For single files, prefer `quic_receive_file_start/read_chunk/finish`.
+Future<String> quicReceiveFilesParallel({
+  required RsQuicReceiveTransfer transfer,
+  required String filesJson,
+}) => RustLib.instance.api.crateApiQuicQuicReceiveFilesParallel(
+  transfer: transfer,
+  filesJson: filesJson,
+);
 
 // Rust type: RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<RsQuicClient>>
 abstract class RsQuicClient implements RustOpaqueInterface {}
