@@ -128,6 +128,22 @@ Future<String?> quicPrepareUpload({
   filesJson: filesJson,
 );
 
+/// Send a file using memory-mapped I/O in a **single** FFI call.
+/// Safe from the Dart2RustStreamReceiver deadlock because all data
+/// stays in Rust — no Dart stream involvement.
+/// This is the high-performance path for regular file paths.
+Future<void> quicSendFileMmap({
+  required RsQuicSendTransfer transfer,
+  required String filePath,
+  required String fileId,
+  required String token,
+}) => RustLib.instance.api.crateApiQuicQuicSendFileMmap(
+  transfer: transfer,
+  filePath: filePath,
+  fileId: fileId,
+  token: token,
+);
+
 /// Step 1 (mmap): Open uni stream, send header, mmap the file.
 /// Returns JSON: { "fileSize": 1234 }.
 Future<String> quicSendFileMmapStart({

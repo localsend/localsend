@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:typed_data';
 
 import 'package:common/model/device.dart';
 import 'package:common/model/dto/file_dto.dart';
@@ -22,7 +21,6 @@ import 'package:localsend_app/rust/api/quic.dart' as quic;
 import 'package:logging/logging.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 import 'package:routerino/routerino.dart';
-import 'package:uri_content/uri_content.dart';
 import 'package:uuid/uuid.dart';
 
 const _uuid = Uuid();
@@ -261,40 +259,16 @@ class QuicSendService extends Notifier<Map<String, SendSessionState>> {
           );
         }
 
-        if (file.path != null && !file.path!.startsWith('content://')) {
-          // Chunked mmap send — each FFI call is short (8 MiB), no FRB deadlock.
-          await quic.quicSendFileMmapStart(
+        if (file.path != null) {
+          // Regular file paths AND Android content:// URIs — single FFI call.
+          // On Android, Rust opens content:// URIs via JNI SAF (mmap from fd).
+          // No Dart2RustStreamReceiver, no FRB deadlock, zero-copy.
+          await quic.quicSendFileMmap(
             transfer: transfer,
             filePath: file.path!,
             fileId: file.file.id,
             token: file.token!,
           );
-
-          bool eof = false;
-          while (!eof) {
-            final chunkResult = await quic.quicSendFileMmapChunk(transfer: transfer);
-            final chunkMap = jsonDecode(chunkResult) as Map<String, dynamic>;
-            eof = chunkMap['eof'] as bool;
-          }
-
-          await quic.quicSendFileFinish(transfer: transfer);
-        } else if (file.path != null && file.path!.startsWith('content://')) {
-          // Android SAF content URI — read via uri_content, push chunks.
-          await quic.quicSendFileStart(
-            transfer: transfer,
-            fileId: file.file.id,
-            token: file.token!,
-          );
-
-          final input = await UriContent().getContentStream(Uri.parse(file.path!));
-          await for (final chunk in input) {
-            await quic.quicSendFileWriteChunk(
-              transfer: transfer,
-              data: Uint8List.fromList(chunk),
-            );
-          }
-
-          await quic.quicSendFileFinish(transfer: transfer);
         } else if (file.bytes != null) {
           // In-memory bytes — push as a single chunk.
           await quic.quicSendFileStart(

@@ -23,6 +23,13 @@ private const val REQUEST_CODE_PICK_FILE = 3
 class MainActivity : FlutterActivity() {
     private var pendingResult: MethodChannel.Result? = null
 
+    /**
+     * Initialize the Rust JNI layer. Called from [configureFlutterEngine] after
+     * loading the native library via the JVM (so that `external` functions are
+     * resolved and the Rust side can capture the `JavaVM*` pointer).
+     */
+    private external fun initializeRustJni()
+
     // Overriding the static methods we need from the Java class, as described
     // in the documentation of `FlutterActivity.NewEngineIntentBuilder`
     companion object {
@@ -37,6 +44,13 @@ class MainActivity : FlutterActivity() {
 
     override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
         super.configureFlutterEngine(flutterEngine)
+
+        // Register our Rust .so with the JVM so that native methods (like
+        // initializeRustJni) are resolved.  The library may already be loaded
+        // by the Dart FFI layer; in that case this is a no-op (the JVM just
+        // registers the already-loaded library).
+        System.loadLibrary("rust_lib_localsend_app")
+        initializeRustJni()
         MethodChannel(
             flutterEngine.dartExecutor.binaryMessenger,
             CHANNEL

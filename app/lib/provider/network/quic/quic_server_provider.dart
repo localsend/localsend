@@ -448,7 +448,7 @@ class QuicServerService extends Notifier<QuicServerState?> {
 
         // Step 2: read chunks in a loop. Each FFI call is short (bounded
         // by maxBytes), so FRB never times out.
-        const chunkSize = 8 * 1024 * 1024; // 8 MiB per chunk
+        const chunkSize = 64 * 1024 * 1024; // 64 MiB per chunk
         bool eof = false;
         while (!eof) {
           final chunkJson = await quic.quicReceiveFileReadChunk(

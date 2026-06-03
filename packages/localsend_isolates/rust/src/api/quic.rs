@@ -1,14 +1,34 @@
-use crate::api::stream;
 pub use localsend::quic::{ControlMessage, FileAck, FileHeader, OutgoingTransfer};
 
-use localsend::quic::{QuicClient, QuicServer, IncomingTransfer, RecvStream, SendStream, memmap2};
-use std::io::Write as IoWrite;
-use tokio::io::AsyncWriteExt;
+use localsend::quic::{IncomingTransfer, QuicClient, QuicServer, RecvStream, SendStream, memmap2};
 use std::collections::HashMap;
 use std::io::Write;
 use std::net::SocketAddr;
 use std::path::Path;
 use std::sync::atomic::{AtomicU64, Ordering};
+
+// ─── Cross-platform file opener ──────────────────────────────────────
+
+/// Open a file from a path or Android `content://` URI.
+///
+/// - Regular paths: `std::fs::File::open`
+/// - `content://` URIs: Android SAF via JNI (only on `target_os = "android"`)
+fn open_file_or_uri(path: &str) -> Result<std::fs::File, String> {
+    if path.starts_with("content://") {
+        #[cfg(target_os = "android")]
+        {
+            crate::api::saf::open_content_uri(path)
+        }
+        #[cfg(not(target_os = "android"))]
+        {
+            Err(format!(
+                "content:// URIs are only supported on Android, got: {path}"
+            ))
+        }
+    } else {
+        std::fs::File::open(Path::new(path)).map_err(|e| e.to_string())
+    }
+}
 
 // ─── Server (receiver side) ──────────────────────────────────────────
 
@@ -37,10 +57,15 @@ pub async fn quic_server_accept(
     server_alias: String,
     server_fingerprint: String,
 ) -> Result<(RsQuicReceiveTransfer, String), String> {
-    let (conn, _remote) = server.inner.accept().await.map_err(|e: anyhow::Error| e.to_string())?;
-    let (transfer, sender_info) = IncomingTransfer::accept(conn, &server_alias, &server_fingerprint)
+    let (conn, _remote) = server
+        .inner
+        .accept()
         .await
         .map_err(|e: anyhow::Error| e.to_string())?;
+    let (transfer, sender_info) =
+        IncomingTransfer::accept(conn, &server_alias, &server_fingerprint)
+            .await
+            .map_err(|e: anyhow::Error| e.to_string())?;
 
     let info_json = localsend::serde_json::json!({
         "version": sender_info.version,
@@ -92,7 +117,10 @@ pub struct RsQuicReceiveTransfer {
 pub async fn quic_receive_file_list(transfer: &RsQuicReceiveTransfer) -> Result<String, String> {
     let mut guard = transfer.inner.lock().await;
     let t = guard.as_mut().ok_or("transfer already consumed")?;
-    let files = t.receive_file_list().await.map_err(|e: anyhow::Error| e.to_string())?;
+    let files = t
+        .receive_file_list()
+        .await
+        .map_err(|e: anyhow::Error| e.to_string())?;
     localsend::serde_json::to_string(&files).map_err(|e| e.to_string())
 }
 
@@ -136,7 +164,10 @@ pub async fn quic_receive_file_start(
     let (header, stream) = {
         let mut guard = transfer.inner.lock().await;
         let t = guard.as_mut().ok_or("transfer already consumed")?;
-        let (header, stream) = t.receive_file().await.map_err(|e: anyhow::Error| e.to_string())?;
+        let (header, stream) = t
+            .receive_file()
+            .await
+            .map_err(|e: anyhow::Error| e.to_string())?;
         (header, stream)
     };
     // Transfer mutex released here — sender can keep sending data
@@ -184,14 +215,24 @@ pub async fn quic_receive_file_read_chunk(
     let state = guard.as_mut().ok_or("no file receiver active")?;
 
     let mut buf = vec![0u8; max_bytes as usize];
-    let n: usize = match state.stream.read(&mut buf).await.map_err(|e| e.to_string())? {
+    let n: usize = match state
+        .stream
+        .read(&mut buf)
+        .await
+        .map_err(|e| e.to_string())?
+    {
         Some(n) => n,
         None => 0,
     };
 
     if n > 0 {
-        state.writer.write_all(&buf[..n]).map_err(|e| e.to_string())?;
-        transfer.bytes_progress.fetch_add(n as u64, Ordering::Relaxed);
+        state
+            .writer
+            .write_all(&buf[..n])
+            .map_err(|e| e.to_string())?;
+        transfer
+            .bytes_progress
+            .fetch_add(n as u64, Ordering::Relaxed);
     }
 
     let total = transfer.bytes_progress.load(Ordering::Relaxed);
@@ -207,15 +248,16 @@ pub async fn quic_receive_file_read_chunk(
 
 /// Step 3 of chunked receive: flush the writer, send ACK, and clean up.
 /// Returns JSON: `{ "fileId": "...", "bytesWritten": 1234, "ackSent": true }`.
-pub async fn quic_receive_file_finish(
-    transfer: &RsQuicReceiveTransfer,
-) -> Result<String, String> {
+pub async fn quic_receive_file_finish(transfer: &RsQuicReceiveTransfer) -> Result<String, String> {
     // Take the file receiver state.
     let mut file_guard = transfer.file_receiver.lock().await;
     let mut state = file_guard.take().ok_or("no file receiver active")?;
 
     // Flush the writer.
-    state.writer.flush().map_err(|e: std::io::Error| e.to_string())?;
+    state
+        .writer
+        .flush()
+        .map_err(|e: std::io::Error| e.to_string())?;
     drop(state.writer);
 
     let bytes_written = transfer.bytes_progress.load(Ordering::Relaxed);
@@ -262,7 +304,9 @@ pub async fn quic_ack_file(
         success: error.is_none(),
         error,
     };
-    t.ack_file(ack).await.map_err(|e: anyhow::Error| e.to_string())
+    t.ack_file(ack)
+        .await
+        .map_err(|e: anyhow::Error| e.to_string())
 }
 
 // ─── Client (sender side) ────────────────────────────────────────────
@@ -314,7 +358,9 @@ pub async fn quic_client_connect(
     alias: &str,
     fingerprint: &str,
 ) -> Result<RsQuicSendTransfer, String> {
-    let socket_addr: SocketAddr = addr.parse().map_err(|e: std::net::AddrParseError| e.to_string())?;
+    let socket_addr: SocketAddr = addr
+        .parse()
+        .map_err(|e: std::net::AddrParseError| e.to_string())?;
     let transfer = client
         .inner
         .connect(socket_addr, alias, fingerprint)
@@ -338,7 +384,11 @@ pub async fn quic_prepare_upload(
     let files: HashMap<String, localsend::model::transfer::FileDto> =
         localsend::serde_json::from_str(&files_json).map_err(|e| e.to_string())?;
 
-    match t.prepare_upload(files).await.map_err(|e: anyhow::Error| e.to_string())? {
+    match t
+        .prepare_upload(files)
+        .await
+        .map_err(|e: anyhow::Error| e.to_string())?
+    {
         Some((session_id, file_tokens)) => {
             let result = localsend::serde_json::json!({
                 "sessionId": session_id,
@@ -348,6 +398,58 @@ pub async fn quic_prepare_upload(
         }
         None => Ok(None),
     }
+}
+
+/// Send a file using memory-mapped I/O in a **single** FFI call.
+///
+/// Handles both regular file paths and Android `content://` URIs.
+/// On Android, SAF content URIs are resolved via JNI
+/// (`ContentResolver.openFileDescriptor`) to a raw fd, then mmap'd.
+pub async fn quic_send_file_mmap(
+    transfer: &RsQuicSendTransfer,
+    file_path: String,
+    file_id: &str,
+    token: &str,
+) -> Result<(), String> {
+    transfer.bytes_progress.store(0, Ordering::Relaxed);
+
+    // Open uni stream + send header — short lock on transfer mutex.
+    let mut uni = {
+        let guard = transfer.inner.lock().await;
+        let t = guard.as_ref().ok_or("transfer already consumed")?;
+        t.connection().open_uni().await.map_err(|e| e.to_string())?
+    };
+
+    let header = FileHeader {
+        file_id: file_id.to_string(),
+        token: token.to_string(),
+    };
+    let header_json = localsend::serde_json::to_vec(&header).map_err(|e| e.to_string())?;
+    let len_bytes = (header_json.len() as u32).to_be_bytes();
+    uni.write_all(&len_bytes).await.map_err(|e| e.to_string())?;
+    uni.write_all(&header_json)
+        .await
+        .map_err(|e| e.to_string())?;
+
+    // Open the file — content:// URIs on Android go through JNI SAF.
+    let file = open_file_or_uri(&file_path)?;
+    let mmap = unsafe { memmap2::Mmap::map(&file).map_err(|e| e.to_string())? };
+
+    let chunk_size = localsend::quic::SEND_CHUNK_SIZE;
+    let mut offset = 0;
+    while offset < mmap.len() {
+        let end = (offset + chunk_size).min(mmap.len());
+        uni.write_all(&mmap[offset..end])
+            .await
+            .map_err(|e| e.to_string())?;
+        offset = end;
+        transfer
+            .bytes_progress
+            .store(offset as u64, Ordering::Relaxed);
+    }
+
+    uni.finish().map_err(|e| e.to_string())?;
+    Ok(())
 }
 
 /// Step 1 (mmap): Open uni stream, send header, mmap the file.
@@ -360,20 +462,24 @@ pub async fn quic_send_file_mmap_start(
 ) -> Result<String, String> {
     transfer.bytes_progress.store(0, Ordering::Relaxed);
 
-    let (mut uni, conn) = {
+    let mut uni = {
         let guard = transfer.inner.lock().await;
         let t = guard.as_ref().ok_or("transfer already consumed")?;
         let conn = t.connection().clone();
-        let uni = conn.open_uni().await.map_err(|e| e.to_string())?;
-        (uni, conn)
+        conn.open_uni().await.map_err(|e| e.to_string())?
     };
     // Transfer mutex released here — short lock.
 
-    let header = FileHeader { file_id: file_id.to_string(), token: token.to_string() };
+    let header = FileHeader {
+        file_id: file_id.to_string(),
+        token: token.to_string(),
+    };
     let header_json = localsend::serde_json::to_vec(&header).map_err(|e| e.to_string())?;
     let len_bytes = (header_json.len() as u32).to_be_bytes();
     uni.write_all(&len_bytes).await.map_err(|e| e.to_string())?;
-    uni.write_all(&header_json).await.map_err(|e| e.to_string())?;
+    uni.write_all(&header_json)
+        .await
+        .map_err(|e| e.to_string())?;
 
     let file = std::fs::File::open(Path::new(&file_path)).map_err(|e| e.to_string())?;
     let metadata = file.metadata().map_err(|e| e.to_string())?;
@@ -382,7 +488,11 @@ pub async fn quic_send_file_mmap_start(
     let file_size = metadata.len();
     *transfer.file_sender.lock().await = Some(FileSenderState {
         stream: uni,
-        kind: FileSenderKind::Mmap { mmap, offset: 0, _file: file },
+        kind: FileSenderKind::Mmap {
+            mmap,
+            offset: 0,
+            _file: file,
+        },
     });
 
     let result = localsend::serde_json::json!({ "fileSize": file_size });
@@ -391,16 +501,13 @@ pub async fn quic_send_file_mmap_start(
 
 /// Step 2 (mmap): Write the next chunk from the mmap to the QUIC stream.
 /// Returns JSON: { "bytesSent": 1234, "totalSoFar": 5678, "eof": false }.
-pub async fn quic_send_file_mmap_chunk(
-    transfer: &RsQuicSendTransfer,
-) -> Result<String, String> {
+pub async fn quic_send_file_mmap_chunk(transfer: &RsQuicSendTransfer) -> Result<String, String> {
     let mut guard = transfer.file_sender.lock().await;
     let state = guard.as_mut().ok_or("no file sender active")?;
 
-    let (offset, mmap_len, chunk_size) = match &mut state.kind {
+    let (_, mmap_len, chunk_size) = match &mut state.kind {
         FileSenderKind::Mmap { mmap, offset, .. } => {
-            let cs = localsend::quic::SEND_CHUNK_SIZE
-                .min(mmap.len().saturating_sub(*offset));
+            let cs = localsend::quic::SEND_CHUNK_SIZE.min(mmap.len().saturating_sub(*offset));
             (*offset, mmap.len(), cs)
         }
         _ => return Err("expected mmap sender".to_string()),
@@ -421,7 +528,11 @@ pub async fn quic_send_file_mmap_chunk(
         _ => unreachable!(),
     };
 
-    state.stream.write_all(data).await.map_err(|e| e.to_string())?;
+    state
+        .stream
+        .write_all(data)
+        .await
+        .map_err(|e| e.to_string())?;
     transfer.bytes_progress.store(end as u64, Ordering::Relaxed);
 
     let eof = end >= mmap_len;
@@ -448,11 +559,16 @@ pub async fn quic_send_file_start(
         t.connection().open_uni().await.map_err(|e| e.to_string())?
     };
 
-    let header = FileHeader { file_id: file_id.to_string(), token: token.to_string() };
+    let header = FileHeader {
+        file_id: file_id.to_string(),
+        token: token.to_string(),
+    };
     let header_json = localsend::serde_json::to_vec(&header).map_err(|e| e.to_string())?;
     let len_bytes = (header_json.len() as u32).to_be_bytes();
     uni.write_all(&len_bytes).await.map_err(|e| e.to_string())?;
-    uni.write_all(&header_json).await.map_err(|e| e.to_string())?;
+    uni.write_all(&header_json)
+        .await
+        .map_err(|e| e.to_string())?;
 
     *transfer.file_sender.lock().await = Some(FileSenderState {
         stream: uni,
@@ -468,15 +584,19 @@ pub async fn quic_send_file_write_chunk(
 ) -> Result<(), String> {
     let mut guard = transfer.file_sender.lock().await;
     let state = guard.as_mut().ok_or("no file sender active")?;
-    state.stream.write_all(&data).await.map_err(|e| e.to_string())?;
-    transfer.bytes_progress.fetch_add(data.len() as u64, Ordering::Relaxed);
+    state
+        .stream
+        .write_all(&data)
+        .await
+        .map_err(|e| e.to_string())?;
+    transfer
+        .bytes_progress
+        .fetch_add(data.len() as u64, Ordering::Relaxed);
     Ok(())
 }
 
 /// Step 3 (both): Finish the uni stream (send FIN).
-pub async fn quic_send_file_finish(
-    transfer: &RsQuicSendTransfer,
-) -> Result<(), String> {
+pub async fn quic_send_file_finish(transfer: &RsQuicSendTransfer) -> Result<(), String> {
     let mut guard = transfer.file_sender.lock().await;
     let mut state = guard.take().ok_or("no file sender active")?;
     state.stream.finish().map_err(|e| e.to_string())?;
@@ -487,7 +607,9 @@ pub async fn quic_send_file_finish(
 pub async fn quic_cancel(transfer: &RsQuicSendTransfer, session_id: &str) -> Result<(), String> {
     let mut guard = transfer.inner.lock().await;
     let t = guard.as_mut().ok_or("transfer already consumed")?;
-    t.cancel(session_id).await.map_err(|e: anyhow::Error| e.to_string())
+    t.cancel(session_id)
+        .await
+        .map_err(|e: anyhow::Error| e.to_string())
 }
 
 /// Signal graceful completion.

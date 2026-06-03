@@ -26,7 +26,7 @@ const MAX_STREAMS: u32 = 100;
 
 /// Chunk size for mmap'd file sends (8 MiB). Fewer allocations + fewer
 /// await points than 1 MiB, while still keeping per-chunk memory bounded.
-pub const SEND_CHUNK_SIZE: usize = 8 * 1024 * 1024;
+pub const SEND_CHUNK_SIZE: usize = 64 * 1024 * 1024;
 
 // -- TLS configuration ------------------------------------------------
 
