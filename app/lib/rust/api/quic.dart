@@ -6,8 +6,9 @@
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 import 'package:localsend_app/rust/frb_generated.dart';
 
-// These functions are ignored because they are not marked as `pub`: `open_file_or_uri`
-// These types are ignored because they are neither used by any `pub` functions nor (for structs and enums) marked `#[frb(unignore)]`: `FileReceiverState`, `FileSenderState`
+// These functions are ignored because they are not marked as `pub`: `new`, `open_file_or_uri`
+// These types are ignored because they are neither used by any `pub` functions nor (for structs and enums) marked `#[frb(unignore)]`: `FileSenderState`, `MmapChunk`
+// These function are ignored because they are on traits that is not defined in current crate (put an empty `#[frb]` on it to unignore): `as_ref`
 
 /// Start a QUIC server on the given port with PEM cert/key.
 Future<RsQuicServer> quicServerStart({
@@ -55,40 +56,6 @@ Future<void> quicAcceptFiles({
 /// Decline the transfer.
 Future<void> quicDecline({required RsQuicReceiveTransfer transfer}) => RustLib.instance.api.crateApiQuicQuicDecline(transfer: transfer);
 
-/// Step 1 of chunked receive: accept the next uni stream, read the file
-/// header, and open the output file.  Returns JSON:
-/// `{ "fileId": "...", "token": "..." }`.
-///
-/// The stream + writer are stashed inside the transfer struct so that
-/// subsequent `quic_receive_file_read_chunk` calls can pull data
-/// without re-acquiring the transfer mutex.
-Future<String> quicReceiveFileStart({
-  required RsQuicReceiveTransfer transfer,
-  required String outputPath,
-}) => RustLib.instance.api.crateApiQuicQuicReceiveFileStart(
-  transfer: transfer,
-  outputPath: outputPath,
-);
-
-/// Step 2 of chunked receive: read up to `max_bytes` from the QUIC stream
-/// and write to the output file.  Returns JSON:
-/// `{ "bytesRead": 1234, "totalSoFar": 5678, "eof": false }`.
-///
-/// Each call is short (bounded by `max_bytes`), so FRB never times out.
-Future<String> quicReceiveFileReadChunk({
-  required RsQuicReceiveTransfer transfer,
-  required BigInt maxBytes,
-}) => RustLib.instance.api.crateApiQuicQuicReceiveFileReadChunk(
-  transfer: transfer,
-  maxBytes: maxBytes,
-);
-
-/// Step 3 of chunked receive: flush the writer, send ACK, and clean up.
-/// Returns JSON: `{ "fileId": "...", "bytesWritten": 1234, "ackSent": true }`.
-Future<String> quicReceiveFileFinish({
-  required RsQuicReceiveTransfer transfer,
-}) => RustLib.instance.api.crateApiQuicQuicReceiveFileFinish(transfer: transfer);
-
 /// Acknowledge a received file on the control stream.
 /// If `error` is `None`, success is reported. Otherwise, the error message is sent.
 Future<void> quicAckFile({
@@ -99,6 +66,18 @@ Future<void> quicAckFile({
   transfer: transfer,
   fileId: fileId,
   error: error,
+);
+
+/// Accepts the next uni stream, reads the file header, then drains all data
+/// to disk using Quinn's `read_chunk` (zero-copy from Quinn's recv buffer).
+/// Progress is tracked via the atomic counter, polled from Dart via timer.
+/// Returns JSON: `{ "fileId": "...", "token": "...", "bytesWritten": 1234, "ackSent": true }`.
+Future<String> quicReceiveFileFull({
+  required RsQuicReceiveTransfer transfer,
+  required String outputPath,
+}) => RustLib.instance.api.crateApiQuicQuicReceiveFileFull(
+  transfer: transfer,
+  outputPath: outputPath,
 );
 
 /// Create a new QUIC client.

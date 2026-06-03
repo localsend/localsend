@@ -1,6 +1,7 @@
 pub use localsend::quic::{ControlMessage, FileAck, FileHeader, OutgoingTransfer};
 
-use localsend::quic::{IncomingTransfer, QuicClient, QuicServer, RecvStream, SendStream, memmap2};
+use localsend::quic::{IncomingTransfer, QuicClient, QuicServer, SendStream, memmap2};
+use bytes::Bytes;
 use std::collections::HashMap;
 use std::io::Write;
 use std::net::SocketAddr;
@@ -10,6 +11,37 @@ use std::sync::atomic::{AtomicU64, Ordering};
 #[allow(unused_imports)] // used by read_exact in quic_receive_files_parallel
 use tokio::io::AsyncReadExt;
 use tokio::task::JoinSet;
+
+// ─── Zero-copy mmap chunk ───────────────────────────────────────────
+
+/// A slice of an mmap'd file.  Holds an `Arc<Mmap>` so the underlying
+/// pages stay alive until Quinn finishes transmitting.  Implements
+/// `AsRef<[u8]>` so `Bytes::from_owner()` can create a zero-copy `Bytes`
+/// that Quinn sends directly from the mmap pages — no userspace memcpy.
+struct MmapChunk {
+    _mmap: Arc<memmap2::Mmap>,
+    ptr: *const u8,
+    len: usize,
+}
+
+// Safety: MmapChunk only reads from mmap pages backed by the Arc<Mmap>,
+// which is Send + Sync.  The raw pointer is derived from the mmap slice
+// and is valid as long as the Arc is alive.
+unsafe impl Send for MmapChunk {}
+
+impl MmapChunk {
+    fn new(mmap: Arc<memmap2::Mmap>, offset: usize, len: usize) -> Self {
+        assert!(offset + len <= mmap.len());
+        let ptr = unsafe { mmap.as_ptr().add(offset) };
+        Self { _mmap: mmap, ptr, len }
+    }
+}
+
+impl AsRef<[u8]> for MmapChunk {
+    fn as_ref(&self) -> &[u8] {
+        unsafe { std::slice::from_raw_parts(self.ptr, self.len) }
+    }
+}
 
 // ─── Cross-platform file opener ──────────────────────────────────────
 
@@ -80,7 +112,6 @@ pub async fn quic_server_accept(
     Ok((
         RsQuicReceiveTransfer {
             inner: tokio::sync::Mutex::new(Some(transfer)),
-            file_receiver: tokio::sync::Mutex::new(None),
             bytes_progress: Arc::new(AtomicU64::new(0)),
             per_file_progress: std::sync::Mutex::new(HashMap::new()),
         },
@@ -99,23 +130,20 @@ pub async fn quic_server_local_addr(server: &RsQuicServer) -> Result<String, Str
 
 // ─── Receiver transfer state ─────────────────────────────────────────
 
-/// State held open between receive_file_start / read_chunk / finish calls.
-struct FileReceiverState {
-    stream: RecvStream,
-    writer: std::io::BufWriter<std::fs::File>,
-    file_id: String,
-    _token: String,
-    _output_path: String,
-}
-
 /// Thread-safe wrapper for the incoming transfer state machine.
 /// `bytes_progress` tracks total bytes received (readable from Dart
 /// without locking the mutex).  `per_file_progress` tracks per-file
 /// progress for parallel receives.
 pub struct RsQuicReceiveTransfer {
     inner: tokio::sync::Mutex<Option<IncomingTransfer>>,
-    file_receiver: tokio::sync::Mutex<Option<FileReceiverState>>,
     bytes_progress: Arc<AtomicU64>,
+    /// Per-file progress counters for parallel receives.
+    ///
+    /// SAFETY: Uses `std::sync::Mutex` (not tokio) because every lock
+    /// site performs only trivial operations — HashMap reads, Arc clones,
+    /// AtomicU64 loads — **never** `.await`.  This avoids the overhead of
+    /// an async mutex for what is always a <1µs critical section.
+    /// Do NOT add `.await` inside a lock guard.
     per_file_progress: std::sync::Mutex<HashMap<String, Arc<AtomicU64>>>,
 }
 
@@ -153,14 +181,33 @@ pub async fn quic_decline(transfer: &RsQuicReceiveTransfer) -> Result<(), String
     t.decline().await.map_err(|e: anyhow::Error| e.to_string())
 }
 
-/// Step 1 of chunked receive: accept the next uni stream, read the file
-/// header, and open the output file.  Returns JSON:
-/// `{ "fileId": "...", "token": "..." }`.
+/// Acknowledge a received file on the control stream.
+/// If `error` is `None`, success is reported. Otherwise, the error message is sent.
+pub async fn quic_ack_file(
+    transfer: &RsQuicReceiveTransfer,
+    file_id: String,
+    error: Option<String>,
+) -> Result<(), String> {
+    let mut guard = transfer.inner.lock().await;
+    let t = guard.as_mut().ok_or("transfer already consumed")?;
+    let ack = FileAck {
+        file_id,
+        success: error.is_none(),
+        error,
+    };
+    t.ack_file(ack)
+        .await
+        .map_err(|e: anyhow::Error| e.to_string())
+}
+
+/// Receive a single file entirely in Rust using zero-copy I/O.
 ///
-/// The stream + writer are stashed inside the transfer struct so that
-/// subsequent `quic_receive_file_read_chunk` calls can pull data
-/// without re-acquiring the transfer mutex.
-pub async fn quic_receive_file_start(
+/// Accepts the next uni stream, reads the file header, then drains all data
+/// to disk using Quinn's `read_chunk` (zero-copy from Quinn's recv buffer).
+/// Progress is tracked via the atomic counter, polled from Dart via timer.
+///
+/// Returns JSON: `{ "fileId": "...", "token": "...", "bytesWritten": 1234, "ackSent": true }`.
+pub async fn quic_receive_file_full(
     transfer: &RsQuicReceiveTransfer,
     output_path: String,
 ) -> Result<String, String> {
@@ -168,7 +215,7 @@ pub async fn quic_receive_file_start(
     transfer.bytes_progress.store(0, Ordering::Relaxed);
 
     // Accept the uni stream and read the header (needs transfer mutex).
-    let (header, stream) = {
+    let (header, mut stream) = {
         let mut guard = transfer.inner.lock().await;
         let t = guard.as_mut().ok_or("transfer already consumed")?;
         let (header, stream) = t
@@ -177,8 +224,7 @@ pub async fn quic_receive_file_start(
             .map_err(|e: anyhow::Error| e.to_string())?;
         (header, stream)
     };
-    // Transfer mutex released here — sender can keep sending data
-    // while we stash the receiver state.
+    // Transfer mutex released here.
 
     tracing::info!("Receiving file {} -> {}", header.file_id, output_path);
 
@@ -188,87 +234,34 @@ pub async fn quic_receive_file_start(
     }
 
     let file = std::fs::File::create(&output_path).map_err(|e| e.to_string())?;
-    let writer = std::io::BufWriter::new(file);
+    let mut writer = std::io::BufWriter::with_capacity(1024 * 1024, file);
 
-    let file_id = header.file_id.clone();
-    let token = header.token.clone();
-
-    // Stash the stream + writer for subsequent chunk reads.
-    *transfer.file_receiver.lock().await = Some(FileReceiverState {
-        stream,
-        writer,
-        file_id: header.file_id,
-        _token: header.token,
-        _output_path: output_path,
-    });
-
-    let result = localsend::serde_json::json!({
-        "fileId": file_id,
-        "token": token,
-    });
-    Ok(result.to_string())
-}
-
-/// Step 2 of chunked receive: read up to `max_bytes` from the QUIC stream
-/// and write to the output file.  Returns JSON:
-/// `{ "bytesRead": 1234, "totalSoFar": 5678, "eof": false }`.
-///
-/// Each call is short (bounded by `max_bytes`), so FRB never times out.
-pub async fn quic_receive_file_read_chunk(
-    transfer: &RsQuicReceiveTransfer,
-    max_bytes: u64,
-) -> Result<String, String> {
-    let mut guard = transfer.file_receiver.lock().await;
-    let state = guard.as_mut().ok_or("no file receiver active")?;
-
-    let mut buf = vec![0u8; max_bytes as usize];
-    let n: usize = match state
-        .stream
-        .read(&mut buf)
-        .await
-        .map_err(|e| e.to_string())?
-    {
-        Some(n) => n,
-        None => 0,
-    };
-
-    if n > 0 {
-        state
-            .writer
-            .write_all(&buf[..n])
-            .map_err(|e| e.to_string())?;
-        transfer
-            .bytes_progress
-            .fetch_add(n as u64, Ordering::Relaxed);
+    // Zero-copy receive loop: read_chunk returns Bytes directly from
+    // Quinn's internal recv buffer — no intermediate allocation or memcpy.
+    loop {
+        match stream
+            .read_chunk(usize::MAX, true)
+            .await
+            .map_err(|e| e.to_string())?
+        {
+            Some(chunk) => {
+                let n = chunk.bytes.len() as u64;
+                writer
+                    .write_all(&chunk.bytes)
+                    .map_err(|e| e.to_string())?;
+                transfer
+                    .bytes_progress
+                    .fetch_add(n, Ordering::Relaxed);
+            }
+            None => break, // stream FIN
+        }
     }
 
-    let total = transfer.bytes_progress.load(Ordering::Relaxed);
-    let eof = n == 0; // stream FIN received
-
-    let result = localsend::serde_json::json!({
-        "bytesRead": n,
-        "totalSoFar": total,
-        "eof": eof,
-    });
-    Ok(result.to_string())
-}
-
-/// Step 3 of chunked receive: flush the writer, send ACK, and clean up.
-/// Returns JSON: `{ "fileId": "...", "bytesWritten": 1234, "ackSent": true }`.
-pub async fn quic_receive_file_finish(transfer: &RsQuicReceiveTransfer) -> Result<String, String> {
-    // Take the file receiver state.
-    let mut file_guard = transfer.file_receiver.lock().await;
-    let mut state = file_guard.take().ok_or("no file receiver active")?;
-
-    // Flush the writer.
-    state
-        .writer
-        .flush()
-        .map_err(|e: std::io::Error| e.to_string())?;
-    drop(state.writer);
+    writer.flush().map_err(|e| e.to_string())?;
+    drop(writer);
 
     let bytes_written = transfer.bytes_progress.load(Ordering::Relaxed);
-    let file_id = state.file_id.clone();
+    let FileHeader { file_id, token } = header;
 
     tracing::info!("Received {} bytes for file {}", bytes_written, file_id);
 
@@ -291,29 +284,11 @@ pub async fn quic_receive_file_finish(transfer: &RsQuicReceiveTransfer) -> Resul
 
     let result = localsend::serde_json::json!({
         "fileId": file_id,
+        "token": token,
         "bytesWritten": bytes_written,
         "ackSent": true,
     });
     Ok(result.to_string())
-}
-
-/// Acknowledge a received file on the control stream.
-/// If `error` is `None`, success is reported. Otherwise, the error message is sent.
-pub async fn quic_ack_file(
-    transfer: &RsQuicReceiveTransfer,
-    file_id: String,
-    error: Option<String>,
-) -> Result<(), String> {
-    let mut guard = transfer.inner.lock().await;
-    let t = guard.as_mut().ok_or("transfer already consumed")?;
-    let ack = FileAck {
-        file_id,
-        success: error.is_none(),
-        error,
-    };
-    t.ack_file(ack)
-        .await
-        .map_err(|e: anyhow::Error| e.to_string())
 }
 
 // ─── Client (sender side) ────────────────────────────────────────────
@@ -344,6 +319,12 @@ pub struct RsQuicSendTransfer {
     inner: tokio::sync::Mutex<Option<OutgoingTransfer>>,
     file_sender: tokio::sync::Mutex<Option<FileSenderState>>,
     bytes_progress: Arc<AtomicU64>,
+    /// Per-file progress counters for parallel sends.
+    ///
+    /// SAFETY: Uses `std::sync::Mutex` (not tokio) because every lock
+    /// site performs only trivial operations — HashMap reads, Arc clones,
+    /// AtomicU64 loads — **never** `.await`.  Do NOT add `.await` inside
+    /// a lock guard.
     per_file_progress: std::sync::Mutex<HashMap<String, Arc<AtomicU64>>>,
 }
 
@@ -430,15 +411,19 @@ pub async fn quic_send_file_mmap(
 
     // Open the file — content:// URIs on Android go through JNI SAF.
     let file = open_file_or_uri(&file_path)?;
-    let mmap = unsafe { memmap2::Mmap::map(&file).map_err(|e| e.to_string())? };
+    let mmap = Arc::new(unsafe { memmap2::Mmap::map(&file).map_err(|e| e.to_string())? });
 
+    // Zero-copy send: each chunk creates a Bytes that references the mmap
+    // pages directly via Bytes::from_owner(MmapChunk).  Quinn's
+    // write_chunk sends from those pages — no userspace memcpy at all.
     let chunk_size = localsend::quic::SEND_CHUNK_SIZE;
     let mut offset = 0;
     while offset < mmap.len() {
         let end = (offset + chunk_size).min(mmap.len());
-        uni.write_all(&mmap[offset..end])
-            .await
-            .map_err(|e| e.to_string())?;
+        let len = end - offset;
+        let chunk = MmapChunk::new(mmap.clone(), offset, len);
+        let bytes = Bytes::from_owner(chunk);
+        uni.write_chunk(bytes).await.map_err(|e| e.to_string())?;
         offset = end;
         transfer
             .bytes_progress
@@ -641,21 +626,21 @@ pub async fn quic_send_files_parallel(
 
             // Open and mmap file (handles content:// on Android)
             let raw_file = open_file_or_uri(&file_path)?;
-            let mmap = unsafe { memmap2::Mmap::map(&raw_file).map_err(|e| e.to_string())? };
+            let mmap = Arc::new(unsafe { memmap2::Mmap::map(&raw_file).map_err(|e| e.to_string())? });
             drop(raw_file); // mmap holds a kernel reference, not the userspace File
 
-            // Send data in chunks, updating both per-file and total progress
+            // Zero-copy send via write_chunk(Bytes::from_owner(MmapChunk))
             let chunk_size = localsend::quic::SEND_CHUNK_SIZE;
             let mut offset = 0;
             while offset < mmap.len() {
                 let end = (offset + chunk_size).min(mmap.len());
-                let sent = (end - offset) as u64;
-                uni.write_all(&mmap[offset..end])
-                    .await
-                    .map_err(|e| e.to_string())?;
+                let len = end - offset;
+                let chunk = MmapChunk::new(mmap.clone(), offset, len);
+                let bytes = Bytes::from_owner(chunk);
+                uni.write_chunk(bytes).await.map_err(|e| e.to_string())?;
                 offset = end;
-                file_progress.fetch_add(sent, Ordering::Relaxed);
-                total_progress.fetch_add(sent, Ordering::Relaxed);
+                file_progress.fetch_add(len as u64, Ordering::Relaxed);
+                total_progress.fetch_add(len as u64, Ordering::Relaxed);
             }
 
             uni.finish().map_err(|e| e.to_string())?;
@@ -792,19 +777,19 @@ pub async fn quic_receive_files_parallel(
             }
 
             let file = std::fs::File::create(&output_path).map_err(|e| e.to_string())?;
-            let mut writer = std::io::BufWriter::new(file);
+            let mut writer = std::io::BufWriter::with_capacity(1024 * 1024, file);
 
-            // Read data in chunks
-            let mut buf = vec![0u8; localsend::quic::SEND_CHUNK_SIZE];
+            // Zero-copy receive: read_chunk returns Bytes directly from
+            // Quinn's recv buffer — no intermediate allocation or memcpy.
             loop {
-                let n = match stream.read(&mut buf).await.map_err(|e| e.to_string())? {
-                    Some(n) => n,
+                match stream.read_chunk(usize::MAX, true).await.map_err(|e| e.to_string())? {
+                    Some(chunk) => {
+                        let n = chunk.bytes.len() as u64;
+                        writer.write_all(&chunk.bytes).map_err(|e| e.to_string())?;
+                        file_progress.fetch_add(n, Ordering::Relaxed);
+                        total_progress.fetch_add(n, Ordering::Relaxed);
+                    }
                     None => break, // stream FIN
-                };
-                if n > 0 {
-                    writer.write_all(&buf[..n]).map_err(|e| e.to_string())?;
-                    file_progress.fetch_add(n as u64, Ordering::Relaxed);
-                    total_progress.fetch_add(n as u64, Ordering::Relaxed);
                 }
             }
 

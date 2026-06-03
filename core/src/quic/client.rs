@@ -24,7 +24,13 @@ impl QuicClient {
     pub fn new(server_cert_pem: Option<String>) -> Result<Self> {
         let client_config = build_client_config(server_cert_pem.as_deref())?;
 
-        let mut endpoint = Endpoint::client("[::]:0".parse()?)?;
+        let socket = crate::quic::bind_udp_socket("[::]:0".parse()?)?;
+        let mut endpoint = quinn::Endpoint::new(
+            quinn::EndpointConfig::default(),
+            None,
+            socket,
+            quinn::default_runtime().ok_or_else(|| anyhow::anyhow!("no async runtime found"))?,
+        )?;
         endpoint.set_default_client_config(client_config);
 
         Ok(Self { endpoint })

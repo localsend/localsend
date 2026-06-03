@@ -24,7 +24,14 @@ impl QuicServer {
     ) -> Result<Self> {
         let config = build_server_config(&cert_pem, &key_pem)?;
         let addr = SocketAddr::from(([0, 0, 0, 0], port));
-        let endpoint = Endpoint::server(config, addr)?;
+        
+        let socket = crate::quic::bind_udp_socket(addr)?;
+        let endpoint = quinn::Endpoint::new(
+            quinn::EndpointConfig::default(),
+            Some(config),
+            socket,
+            quinn::default_runtime().ok_or_else(|| anyhow::anyhow!("no async runtime found"))?,
+        )?;
         tracing::info!("QUIC server listening on UDP {addr}");
 
         Ok(Self {

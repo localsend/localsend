@@ -578,30 +578,13 @@ class QuicServerService extends Notifier<QuicServerState?> {
             },
           );
 
-          // Chunked receive
-          final startJson = await quic.quicReceiveFileStart(
+          final resultJson = await quic.quicReceiveFileFull(
             transfer: transfer,
             outputPath: prep.actualOutputPath,
           );
-          jsonDecode(startJson);
-
-          const chunkSize = 64 * 1024 * 1024;
-          bool eof = false;
-          while (!eof) {
-            final chunkJson = await quic.quicReceiveFileReadChunk(
-              transfer: transfer,
-              maxBytes: BigInt.from(chunkSize),
-            );
-            final chunkMap = jsonDecode(chunkJson) as Map<String, dynamic>;
-            eof = chunkMap['eof'] as bool;
-          }
-
-          final finishJson = await quic.quicReceiveFileFinish(
-            transfer: transfer,
-          );
           progressTimer.cancel();
 
-          final resultMap = jsonDecode(finishJson) as Map<String, dynamic>;
+          final resultMap = jsonDecode(resultJson) as Map<String, dynamic>;
           final bytesWritten = (resultMap['bytesWritten'] as num).toInt();
           _logger.info('Received $bytesWritten bytes for ${prep.finalName}');
 
