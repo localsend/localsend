@@ -1,7 +1,7 @@
 pub use localsend::quic::{ControlMessage, FileAck, FileHeader, OutgoingTransfer};
 
-use localsend::quic::{IncomingTransfer, QuicClient, QuicServer, SendStream, memmap2};
 use bytes::Bytes;
+use localsend::quic::{IncomingTransfer, QuicClient, QuicServer, memmap2};
 use std::collections::HashMap;
 use std::io::Write;
 use std::net::SocketAddr;
@@ -33,7 +33,11 @@ impl MmapChunk {
     fn new(mmap: Arc<memmap2::Mmap>, offset: usize, len: usize) -> Self {
         assert!(offset + len <= mmap.len());
         let ptr = unsafe { mmap.as_ptr().add(offset) };
-        Self { _mmap: mmap, ptr, len }
+        Self {
+            _mmap: mmap,
+            ptr,
+            len,
+        }
     }
 }
 
@@ -109,11 +113,14 @@ pub async fn quic_server_accept(
         "fingerprint": sender_info.fingerprint,
     });
 
+    let (cancel_tx, cancel_rx) = tokio::sync::watch::channel(false);
     Ok((
         RsQuicReceiveTransfer {
             inner: tokio::sync::Mutex::new(Some(transfer)),
             bytes_progress: Arc::new(AtomicU64::new(0)),
             per_file_progress: std::sync::Mutex::new(HashMap::new()),
+            cancel_tx,
+            cancel_rx,
         },
         localsend::serde_json::to_string(&info_json).map_err(|e| e.to_string())?,
     ))
@@ -145,6 +152,12 @@ pub struct RsQuicReceiveTransfer {
     /// an async mutex for what is always a <1µs critical section.
     /// Do NOT add `.await` inside a lock guard.
     per_file_progress: std::sync::Mutex<HashMap<String, Arc<AtomicU64>>>,
+    /// Cancel channel.  When Dart calls `quic_receive_cancel`, this is
+    /// set to `true`.  In-flight receive tasks check this via
+    /// `tokio::select!` and abort immediately.
+    cancel_tx: tokio::sync::watch::Sender<bool>,
+    /// Cloneable receiver for cancel-aware tasks.
+    cancel_rx: tokio::sync::watch::Receiver<bool>,
 }
 
 /// Receive the file list from the sender.
@@ -200,6 +213,39 @@ pub async fn quic_ack_file(
         .map_err(|e: anyhow::Error| e.to_string())
 }
 
+/// Cancel an in-progress receive.
+///
+/// Sends a `Cancel` control frame to the sender AND signals all
+/// in-flight receive tasks to abort via the cancel channel.
+/// The Quinn connection is then closed to reset any remaining streams.
+pub async fn quic_receive_cancel(
+    transfer: &RsQuicReceiveTransfer,
+    session_id: &str,
+) -> Result<(), String> {
+    // Signal in-flight tasks to stop.
+    let _ = transfer.cancel_tx.send(true);
+
+    // Send the cancel control frame (best-effort).
+    let cancel_result = {
+        let mut guard = transfer.inner.lock().await;
+        if let Some(t) = guard.as_mut() {
+            t.cancel(session_id).await
+        } else {
+            Ok(())
+        }
+    };
+
+    // Close the connection — resets all in-flight streams.
+    {
+        let mut guard = transfer.inner.lock().await;
+        if let Some(mut t) = guard.take() {
+            t.close_connection();
+        }
+    }
+
+    cancel_result.map_err(|e: anyhow::Error| e.to_string())
+}
+
 /// Receive a single file entirely in Rust using zero-copy I/O.
 ///
 /// Accepts the next uni stream, reads the file header, then drains all data
@@ -207,7 +253,7 @@ pub async fn quic_ack_file(
 /// Progress is tracked via the atomic counter, polled from Dart via timer.
 ///
 /// Returns JSON: `{ "fileId": "...", "token": "...", "bytesWritten": 1234, "ackSent": true }`.
-pub async fn quic_receive_file_full(
+pub async fn quic_receive_single_file(
     transfer: &RsQuicReceiveTransfer,
     output_path: String,
 ) -> Result<String, String> {
@@ -236,29 +282,42 @@ pub async fn quic_receive_file_full(
     let file = std::fs::File::create(&output_path).map_err(|e| e.to_string())?;
     let mut writer = std::io::BufWriter::with_capacity(1024 * 1024, file);
 
-    // Zero-copy receive loop: read_chunk returns Bytes directly from
-    // Quinn's internal recv buffer — no intermediate allocation or memcpy.
+    // Cancel-aware zero-copy receive loop.  Uses `tokio::select!` to
+    // abort when the cancel channel is signaled (Dart called cancel).
+    let mut cancel_rx = transfer.cancel_rx.clone();
+    let mut cancelled = false;
     loop {
-        match stream
-            .read_chunk(usize::MAX, true)
-            .await
-            .map_err(|e| e.to_string())?
-        {
-            Some(chunk) => {
-                let n = chunk.bytes.len() as u64;
-                writer
-                    .write_all(&chunk.bytes)
-                    .map_err(|e| e.to_string())?;
-                transfer
-                    .bytes_progress
-                    .fetch_add(n, Ordering::Relaxed);
+        tokio::select! {
+            chunk_result = stream.read_chunk(usize::MAX, true) => {
+                match chunk_result.map_err(|e| e.to_string())? {
+                    Some(chunk) => {
+                        let n = chunk.bytes.len() as u64;
+                        writer
+                            .write_all(&chunk.bytes)
+                            .map_err(|e| e.to_string())?;
+                        transfer
+                            .bytes_progress
+                            .fetch_add(n, Ordering::Relaxed);
+                    }
+                    None => break, // stream FIN
+                }
             }
-            None => break, // stream FIN
+            _ = cancel_rx.changed() => {
+                if *cancel_rx.borrow() {
+                    tracing::info!("Receive cancelled for file {}", header.file_id);
+                    cancelled = true;
+                    break;
+                }
+            }
         }
     }
 
     writer.flush().map_err(|e| e.to_string())?;
     drop(writer);
+
+    if cancelled {
+        return Err("transfer cancelled".to_string());
+    }
 
     let bytes_written = transfer.bytes_progress.load(Ordering::Relaxed);
     let FileHeader { file_id, token } = header;
@@ -306,26 +365,23 @@ pub async fn quic_client_new(server_cert_pem: Option<String>) -> Result<RsQuicCl
     Ok(RsQuicClient { inner: client })
 }
 
-/// State held open between send_file_start / write_chunk / finish calls.
-struct FileSenderState {
-    stream: SendStream,
-}
-
 /// Wrapper for the outgoing transfer state machine.
 /// `bytes_progress` tracks total bytes sent (readable from Dart
 /// without locking the mutex).  `per_file_progress` tracks per-file
 /// progress for parallel sends.
 pub struct RsQuicSendTransfer {
     inner: tokio::sync::Mutex<Option<OutgoingTransfer>>,
-    file_sender: tokio::sync::Mutex<Option<FileSenderState>>,
     bytes_progress: Arc<AtomicU64>,
     /// Per-file progress counters for parallel sends.
     ///
     /// SAFETY: Uses `std::sync::Mutex` (not tokio) because every lock
     /// site performs only trivial operations — HashMap reads, Arc clones,
-    /// AtomicU64 loads — **never** `.await`.  Do NOT add `.await` inside
-    /// a lock guard.
+    /// AtomicU64 loads — **never** `.await` inside a lock guard.
     per_file_progress: std::sync::Mutex<HashMap<String, Arc<AtomicU64>>>,
+    /// Cancel channel.  When Dart calls `quic_cancel`, this is set to
+    /// `true`.  In-flight send tasks check via `tokio::select!` and abort.
+    cancel_tx: tokio::sync::watch::Sender<bool>,
+    cancel_rx: tokio::sync::watch::Receiver<bool>,
 }
 
 /// Connect to a QUIC receiver and perform the Hello handshake.
@@ -343,11 +399,13 @@ pub async fn quic_client_connect(
         .connect(socket_addr, alias, fingerprint)
         .await
         .map_err(|e: anyhow::Error| e.to_string())?;
+    let (cancel_tx, cancel_rx) = tokio::sync::watch::channel(false);
     Ok(RsQuicSendTransfer {
         inner: tokio::sync::Mutex::new(Some(transfer)),
-        file_sender: tokio::sync::Mutex::new(None),
         bytes_progress: Arc::new(AtomicU64::new(0)),
         per_file_progress: std::sync::Mutex::new(HashMap::new()),
+        cancel_tx,
+        cancel_rx,
     })
 }
 
@@ -383,7 +441,7 @@ pub async fn quic_prepare_upload(
 /// Handles both regular file paths and Android `content://` URIs.
 /// On Android, SAF content URIs are resolved via JNI
 /// (`ContentResolver.openFileDescriptor`) to a raw fd, then mmap'd.
-pub async fn quic_send_file_mmap(
+pub async fn quic_send_single_file(
     transfer: &RsQuicSendTransfer,
     file_path: String,
     file_id: &str,
@@ -413,17 +471,36 @@ pub async fn quic_send_file_mmap(
     let file = open_file_or_uri(&file_path)?;
     let mmap = Arc::new(unsafe { memmap2::Mmap::map(&file).map_err(|e| e.to_string())? });
 
-    // Zero-copy send: each chunk creates a Bytes that references the mmap
-    // pages directly via Bytes::from_owner(MmapChunk).  Quinn's
-    // write_chunk sends from those pages — no userspace memcpy at all.
+    // Cancel-aware zero-copy send: each chunk creates a Bytes that
+    // references the mmap pages directly via Bytes::from_owner(MmapChunk).
+    // Quinn's write_chunk sends from those pages — no userspace memcpy.
     let chunk_size = localsend::quic::SEND_CHUNK_SIZE;
     let mut offset = 0;
+    let mut cancel_rx = transfer.cancel_rx.clone();
     while offset < mmap.len() {
+        // Check cancel flag before each chunk.
+        if *cancel_rx.borrow() {
+            tracing::info!("Single-file send cancelled at offset {offset}");
+            return Err("transfer cancelled".to_string());
+        }
+
         let end = (offset + chunk_size).min(mmap.len());
         let len = end - offset;
         let chunk = MmapChunk::new(mmap.clone(), offset, len);
         let bytes = Bytes::from_owner(chunk);
-        uni.write_chunk(bytes).await.map_err(|e| e.to_string())?;
+
+        tokio::select! {
+            result = uni.write_chunk(bytes) => {
+                result.map_err(|e| e.to_string())?;
+            }
+            _ = cancel_rx.changed() => {
+                if *cancel_rx.borrow() {
+                    tracing::info!("Single-file send cancelled during write at offset {offset}");
+                    return Err("transfer cancelled".to_string());
+                }
+            }
+        }
+
         offset = end;
         transfer
             .bytes_progress
@@ -434,10 +511,11 @@ pub async fn quic_send_file_mmap(
     Ok(())
 }
 
-/// Step 1 (stream): Open uni stream, send header.
-/// Dart will push chunks via `quic_send_file_write_chunk`.
-pub async fn quic_send_file_start(
+/// Send in-memory bytes as a file.  Opens a dedicated uni stream,
+/// sends the file header, writes all data, and sends FIN — single call.
+pub async fn quic_send_bytes(
     transfer: &RsQuicSendTransfer,
+    data: Vec<u8>,
     file_id: &str,
     token: &str,
 ) -> Result<(), String> {
@@ -460,43 +538,56 @@ pub async fn quic_send_file_start(
         .await
         .map_err(|e| e.to_string())?;
 
-    *transfer.file_sender.lock().await = Some(FileSenderState { stream: uni });
-    Ok(())
-}
+    let total = data.len() as u64;
+    let mut cancel_rx = transfer.cancel_rx.clone();
 
-/// Step 2 (stream): Write a chunk of data from Dart to the QUIC stream.
-pub async fn quic_send_file_write_chunk(
-    transfer: &RsQuicSendTransfer,
-    data: Vec<u8>,
-) -> Result<(), String> {
-    let mut guard = transfer.file_sender.lock().await;
-    let state = guard.as_mut().ok_or("no file sender active")?;
-    state
-        .stream
-        .write_all(&data)
-        .await
-        .map_err(|e| e.to_string())?;
-    transfer
-        .bytes_progress
-        .fetch_add(data.len() as u64, Ordering::Relaxed);
-    Ok(())
-}
+    tokio::select! {
+        result = uni.write_all(&data) => {
+            result.map_err(|e| e.to_string())?;
+        }
+        _ = cancel_rx.changed() => {
+            if *cancel_rx.borrow() {
+                tracing::info!("Bytes send cancelled for file {file_id}");
+                return Err("transfer cancelled".to_string());
+            }
+        }
+    }
 
-/// Step 3 (both): Finish the uni stream (send FIN).
-pub async fn quic_send_file_finish(transfer: &RsQuicSendTransfer) -> Result<(), String> {
-    let mut guard = transfer.file_sender.lock().await;
-    let mut state = guard.take().ok_or("no file sender active")?;
-    state.stream.finish().map_err(|e| e.to_string())?;
+    transfer.bytes_progress.store(total, Ordering::Relaxed);
+    uni.finish().map_err(|e| e.to_string())?;
     Ok(())
 }
 
 /// Cancel the transfer.
+///
+/// Sends a `Cancel` control frame to the receiver AND signals all
+/// in-flight send tasks to abort via the cancel channel.  The Quinn
+/// connection is then closed, which resets any remaining streams.
 pub async fn quic_cancel(transfer: &RsQuicSendTransfer, session_id: &str) -> Result<(), String> {
-    let mut guard = transfer.inner.lock().await;
-    let t = guard.as_mut().ok_or("transfer already consumed")?;
-    t.cancel(session_id)
-        .await
-        .map_err(|e: anyhow::Error| e.to_string())
+    // Signal in-flight tasks to stop.
+    let _ = transfer.cancel_tx.send(true);
+
+    // Send the cancel control frame (best-effort — connection may
+    // already be closing).
+    let cancel_result = {
+        let mut guard = transfer.inner.lock().await;
+        if let Some(t) = guard.as_mut() {
+            t.cancel(session_id).await
+        } else {
+            Ok(())
+        }
+    };
+
+    // Close the connection — this resets all in-flight streams,
+    // causing any remaining reads/writes to fail immediately.
+    {
+        let mut guard = transfer.inner.lock().await;
+        if let Some(mut t) = guard.take() {
+            t.close_connection();
+        }
+    }
+
+    cancel_result.map_err(|e: anyhow::Error| e.to_string())
 }
 
 /// Signal graceful completion.
@@ -551,7 +642,7 @@ pub fn quic_get_parallel_receive_progress(transfer: &RsQuicReceiveTransfer) -> S
 ///
 /// `files_json`: `[{"filePath":"…","fileId":"…","token":"…"}, …]`
 ///
-/// For single files, prefer `quic_send_file_mmap` — no task overhead.
+/// For single files, prefer `quic_send_single_file` — no task overhead.
 pub async fn quic_send_files_parallel(
     transfer: &RsQuicSendTransfer,
     files_json: String,
@@ -590,6 +681,7 @@ pub async fn quic_send_files_parallel(
     };
 
     let total_progress = transfer.bytes_progress.clone();
+    let mut cancel_rx = transfer.cancel_rx.clone();
 
     // Spawn one task per file
     let mut set = JoinSet::new();
@@ -607,6 +699,7 @@ pub async fn quic_send_files_parallel(
             .ok_or("fileId not in progress map")?
             .clone();
         let total_progress = total_progress.clone();
+        let mut task_cancel_rx = cancel_rx.clone();
 
         set.spawn(async move {
             // Open dedicated uni stream
@@ -626,15 +719,23 @@ pub async fn quic_send_files_parallel(
 
             // Open and mmap file (handles content:// on Android)
             let raw_file = open_file_or_uri(&file_path)?;
-            let mmap = Arc::new(unsafe { memmap2::Mmap::map(&raw_file).map_err(|e| e.to_string())? });
+            let mmap =
+                Arc::new(unsafe { memmap2::Mmap::map(&raw_file).map_err(|e| e.to_string())? });
             drop(raw_file); // mmap holds a kernel reference, not the userspace File
 
-            // Zero-copy send via write_chunk(Bytes::from_owner(MmapChunk))
+            // Cancel-aware zero-copy send loop.
             let chunk_size = localsend::quic::SEND_CHUNK_SIZE;
             let mut offset = 0;
             while offset < mmap.len() {
                 let end = (offset + chunk_size).min(mmap.len());
                 let len = end - offset;
+
+                // Check cancel before sending each chunk.
+                if *task_cancel_rx.borrow() {
+                    tracing::info!("Parallel send cancelled for file {file_id}");
+                    return Err("transfer cancelled".to_string());
+                }
+
                 let chunk = MmapChunk::new(mmap.clone(), offset, len);
                 let bytes = Bytes::from_owner(chunk);
                 uni.write_chunk(bytes).await.map_err(|e| e.to_string())?;
@@ -727,6 +828,7 @@ pub async fn quic_receive_files_parallel(
     };
 
     let total_progress = transfer.bytes_progress.clone();
+    let mut cancel_rx = transfer.cancel_rx.clone();
 
     // Spawn one task per expected file
     let mut set = JoinSet::new();
@@ -735,6 +837,7 @@ pub async fn quic_receive_files_parallel(
         let files_map = files_map.clone();
         let progress_arcs = progress_arcs.clone();
         let total_progress = total_progress.clone();
+        let mut task_cancel_rx = cancel_rx.clone();
 
         set.spawn(async move {
             // Accept next available uni stream
@@ -779,21 +882,36 @@ pub async fn quic_receive_files_parallel(
             let file = std::fs::File::create(&output_path).map_err(|e| e.to_string())?;
             let mut writer = std::io::BufWriter::with_capacity(1024 * 1024, file);
 
-            // Zero-copy receive: read_chunk returns Bytes directly from
-            // Quinn's recv buffer — no intermediate allocation or memcpy.
+            // Cancel-aware zero-copy receive loop.
+            let mut cancelled = false;
             loop {
-                match stream.read_chunk(usize::MAX, true).await.map_err(|e| e.to_string())? {
-                    Some(chunk) => {
-                        let n = chunk.bytes.len() as u64;
-                        writer.write_all(&chunk.bytes).map_err(|e| e.to_string())?;
-                        file_progress.fetch_add(n, Ordering::Relaxed);
-                        total_progress.fetch_add(n, Ordering::Relaxed);
+                tokio::select! {
+                    chunk_result = stream.read_chunk(usize::MAX, true) => {
+                        match chunk_result.map_err(|e| e.to_string())? {
+                            Some(chunk) => {
+                                let n = chunk.bytes.len() as u64;
+                                writer.write_all(&chunk.bytes).map_err(|e| e.to_string())?;
+                                file_progress.fetch_add(n, Ordering::Relaxed);
+                                total_progress.fetch_add(n, Ordering::Relaxed);
+                            }
+                            None => break, // stream FIN
+                        }
                     }
-                    None => break, // stream FIN
+                    _ = task_cancel_rx.changed() => {
+                        if *task_cancel_rx.borrow() {
+                            tracing::info!("Parallel receive cancelled for file {file_id}");
+                            cancelled = true;
+                            break;
+                        }
+                    }
                 }
             }
 
             writer.flush().map_err(|e| e.to_string())?;
+
+            if cancelled {
+                return Err("transfer cancelled".to_string());
+            }
 
             Ok::<String, String>(file_id)
         });

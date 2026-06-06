@@ -48,22 +48,29 @@ class QuicServerState {
   /// Active receive session (if any).
   final ReceiveSessionState? session;
 
+  /// Active receive transfer handle (if any) — used for cancel.
+  final quic.RsQuicReceiveTransfer? transfer;
+
   const QuicServerState({
     required this.server,
     required this.port,
     required this.localAddr,
     this.session,
+    this.transfer,
   });
 
   QuicServerState copyWith({
     ReceiveSessionState? session,
+    quic.RsQuicReceiveTransfer? transfer,
     bool clearSession = false,
+    bool clearTransfer = false,
   }) {
     return QuicServerState(
       server: server,
       port: port,
       localAddr: localAddr,
       session: clearSession ? null : (session ?? this.session),
+      transfer: clearTransfer ? null : (transfer ?? this.transfer),
     );
   }
 }
@@ -248,6 +255,7 @@ class QuicServerService extends Notifier<QuicServerState?> {
         createdDirectories: {},
         responseHandler: streamController,
       ),
+      transfer: transfer,
     );
 
     // Quick-save or show receive page
@@ -550,6 +558,8 @@ class QuicServerService extends Notifier<QuicServerState?> {
       }
     } else {
       // ─── Sequential receive path (single file, or gallery/SAF needed) ───
+      // Uses quic_receive_file_full: single FFI call, no Dart↔Rust
+      // round-trips during transfer.  Progress polled via atomic counter.
       for (final entry in receivableFiles) {
         final prep = filePrep[entry.key]!;
         final file = prep.file;
@@ -558,10 +568,10 @@ class QuicServerService extends Notifier<QuicServerState?> {
 
         String? filePath;
         bool savedToGallery = false;
+        Timer? progressTimer;
         try {
-          // Start progress polling timer
+          // Start progress polling timer — reads the atomic counter.
           final fileSize = file.file.size;
-          Timer? progressTimer;
           progressTimer = Timer.periodic(
             const Duration(milliseconds: 200),
             (_) async {
@@ -578,7 +588,9 @@ class QuicServerService extends Notifier<QuicServerState?> {
             },
           );
 
-          final resultJson = await quic.quicReceiveFileFull(
+          // Single-call receive: accept stream → read header → write to
+          // disk via read_chunk → send ACK.  All in Rust, zero-copy.
+          final resultJson = await quic.quicReceiveSingleFile(
             transfer: transfer,
             outputPath: prep.actualOutputPath,
           );
@@ -666,6 +678,7 @@ class QuicServerService extends Notifier<QuicServerState?> {
 
           _logger.info('Received file via QUIC: ${file.desiredName}');
         } catch (e, st) {
+          progressTimer?.cancel();
           _logger.severe('Failed to receive file via QUIC: ${file.desiredName}', e, st);
           try {
             await quic.quicAckFile(
@@ -728,12 +741,12 @@ class QuicServerService extends Notifier<QuicServerState?> {
   void closeSession() {
     final sessionId = state?.session?.sessionId;
     if (sessionId == null) return;
-    state = state!.copyWith(clearSession: true);
+    state = state!.copyWith(clearSession: true, clearTransfer: true);
     ref.notifier(progressProvider).removeSession(sessionId);
   }
 
-  /// Cancels the current session (marks as canceled).
-  void cancelSession() {
+  /// Cancels the current session, signals the sender, and closes the connection.
+  Future<void> cancelSession() async {
     final session = state?.session;
     if (session == null) return;
     state = state!.copyWith(
@@ -743,6 +756,20 @@ class QuicServerService extends Notifier<QuicServerState?> {
     if (streamController != null && !streamController.isClosed) {
       streamController.add(null);
       streamController.close();
+    }
+
+    // Signal the Rust side to abort in-flight I/O, send Cancel frame,
+    // and close the QUIC connection.
+    final transfer = state?.transfer;
+    if (transfer != null) {
+      try {
+        await quic.quicReceiveCancel(
+          transfer: transfer,
+          sessionId: session.sessionId,
+        );
+      } catch (e) {
+        _logger.warning('Failed to cancel QUIC receive: $e');
+      }
     }
   }
 

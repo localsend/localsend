@@ -11,6 +11,7 @@ import 'package:localsend_app/provider/network/send_provider.dart';
 import 'package:localsend_app/provider/network/quic/quic_server_provider.dart';
 import 'package:localsend_app/provider/network/quic/quic_send_provider.dart';
 import 'package:localsend_app/provider/network/server/server_provider.dart';
+import 'package:localsend_app/provider/network/transfer/transfer_dispatcher.dart';
 import 'package:localsend_app/provider/progress_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/util/file_size_helper.dart';
@@ -75,12 +76,10 @@ class _ProgressPageState extends State<ProgressPage> with Refena {
 
       // Periodically call WakelockPlus.enable() to keep the screen awake
       _wakelockPlusTimer = Timer.periodic(const Duration(seconds: 30), (timer) {
+        final dispatcher = ref.read(transferDispatcherProvider);
         final finished =
-            ref.read(serverProvider)?.session?.files.values.map((e) => e.status).isFinishedOrSkipped ??
-            ref.read(quicServerProvider)?.session?.files.values.map((e) => e.status).isFinishedOrSkipped ??
-            (ref.read(sendProvider)[widget.sessionId] ?? ref.read(quicSendProvider)[widget.sessionId])?.files.values
-                .map((e) => e.status)
-                .isFinishedOrSkipped ??
+            dispatcher.receiveSession?.files.values.map((e) => e.status).isFinishedOrSkipped ??
+            dispatcher.session(widget.sessionId)?.files.values.map((e) => e.status).isFinishedOrSkipped ??
             true;
         if (finished) {
           timer.cancel();
@@ -97,11 +96,8 @@ class _ProgressPageState extends State<ProgressPage> with Refena {
       if (ref.read(settingsProvider).autoFinish) {
         _finishTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
           final finished =
-              ref.read(serverProvider)?.session?.files.values.map((e) => e.status).isFinishedOrSkipped ??
-              ref.read(quicServerProvider)?.session?.files.values.map((e) => e.status).isFinishedOrSkipped ??
-              (ref.read(sendProvider)[widget.sessionId] ?? ref.read(quicSendProvider)[widget.sessionId])?.files.values
-                  .map((e) => e.status)
-                  .isFinishedOrSkipped ??
+              ref.read(transferDispatcherProvider).receiveSession?.files.values.map((e) => e.status).isFinishedOrSkipped ??
+              ref.read(transferDispatcherProvider).session(widget.sessionId)?.files.values.map((e) => e.status).isFinishedOrSkipped ??
               true;
           if (finished) {
             if (_finishCounter == 1) {
@@ -117,14 +113,15 @@ class _ProgressPageState extends State<ProgressPage> with Refena {
       }
 
       setState(() {
-        final receiveSession = ref.read(serverProvider)?.session ?? ref.read(quicServerProvider)?.session;
+        final dispatcher = ref.read(transferDispatcherProvider);
+        final receiveSession = dispatcher.receiveSession;
         if (receiveSession != null) {
           _files = receiveSession.files.values.map((f) => f.file).toList();
 
           // We previously used f.token != null here, but this may not work on very fast networks.
           _selectedFiles = receiveSession.files.values.where((f) => f.status != FileStatus.skipped).map((f) => f.file.id).toSet();
         } else {
-          final sendSession = ref.read(sendProvider)[widget.sessionId] ?? ref.read(quicSendProvider)[widget.sessionId];
+          final sendSession = dispatcher.session(widget.sessionId);
           if (sendSession != null) {
             _files = sendSession.files.values.map((f) => f.file).toList();
             _selectedFiles = sendSession.files.values.where((f) => f.status != FileStatus.skipped).map((f) => f.file.id).toSet();
@@ -137,8 +134,9 @@ class _ProgressPageState extends State<ProgressPage> with Refena {
   }
 
   void _exit({required bool closeSession}) async {
-    final receiveSession = ref.read(serverProvider.select((s) => s?.session)) ?? ref.read(quicServerProvider.select((s) => s?.session));
-    final sendSession = ref.read(sendProvider)[widget.sessionId] ?? ref.read(quicSendProvider)[widget.sessionId];
+    final dispatcher = ref.read(transferDispatcherProvider);
+    final receiveSession = dispatcher.receiveSession;
+    final sendSession = dispatcher.session(widget.sessionId);
     final SessionStatus? status = receiveSession?.status ?? sendSession?.status;
     final keepSession = !closeSession && (status == SessionStatus.sending || status == SessionStatus.finishedWithErrors);
     final result = status == null || keepSession || await _askCancelConfirmation(status);
@@ -155,34 +153,21 @@ class _ProgressPageState extends State<ProgressPage> with Refena {
       false => true,
     };
     if (result) {
-      final httpReceiveSession = ref.read(serverProvider)?.session;
-      final quicReceiveSession = ref.read(quicServerProvider)?.session;
-      final sendState = ref.read(sendProvider)[widget.sessionId];
-      final quicSendState = ref.read(quicSendProvider)[widget.sessionId];
+      final dispatcher = ref.read(transferDispatcherProvider);
+      final receiveSession = dispatcher.receiveSession;
+      final sendSession = dispatcher.session(widget.sessionId);
 
-      if (httpReceiveSession != null) {
-        if (httpReceiveSession.status == SessionStatus.sending) {
-          ref.notifier(serverProvider).cancelSession();
+      if (receiveSession != null) {
+        if (receiveSession.status == SessionStatus.sending) {
+          await dispatcher.cancelReceiveSession();
         } else {
-          ref.notifier(serverProvider).closeSession();
+          dispatcher.closeReceiveSession();
         }
-      } else if (quicReceiveSession != null) {
-        if (quicReceiveSession.status == SessionStatus.sending) {
-          ref.notifier(quicServerProvider).cancelSession();
+      } else if (sendSession != null) {
+        if (sendSession.status == SessionStatus.sending) {
+          await dispatcher.cancelSession(widget.sessionId);
         } else {
-          ref.notifier(quicServerProvider).closeSession();
-        }
-      } else if (quicSendState != null) {
-        if (quicSendState.status == SessionStatus.sending) {
-          ref.notifier(quicSendProvider).cancelSession(widget.sessionId);
-        } else {
-          ref.notifier(quicSendProvider).closeSession(widget.sessionId);
-        }
-      } else if (sendState != null) {
-        if (sendState.status == SessionStatus.sending) {
-          ref.notifier(sendProvider).cancelSession(widget.sessionId);
-        } else {
-          ref.notifier(sendProvider).closeSession(widget.sessionId);
+          dispatcher.closeSession(widget.sessionId);
         }
       }
     }
@@ -209,7 +194,9 @@ class _ProgressPageState extends State<ProgressPage> with Refena {
     );
 
     final receiveSession = ref.watch(serverProvider.select((s) => s?.session)) ?? ref.watch(quicServerProvider.select((s) => s?.session));
-    final sendSession = ref.watch(sendProvider)[widget.sessionId] ?? ref.watch(quicSendProvider)[widget.sessionId];
+    final httpSend = ref.watch(sendProvider)[widget.sessionId];
+    final quicSend = ref.watch(quicSendProvider)[widget.sessionId];
+    final sendSession = httpSend ?? quicSend;
 
     final SessionState? commonSessionState = receiveSession ?? sendSession;
 
@@ -432,7 +419,9 @@ class _ProgressPageState extends State<ProgressPage> with Refena {
                             ],
                           ),
                         ),
-                        if (sendSession != null && fileStatus == FileStatus.failed)
+                        if (sendSession != null &&
+                            fileStatus == FileStatus.failed &&
+                            ref.read(transferDispatcherProvider).isHttpSendSession(widget.sessionId))
                           IconButton(
                             icon: const Icon(Icons.refresh),
                             onPressed: () async {

@@ -1,18 +1,17 @@
+mod client;
 mod codec;
 mod server;
-mod client;
 
-pub use server::{QuicServer, IncomingTransfer};
-pub use client::{QuicClient, OutgoingTransfer};
-pub use codec::{ControlMessage, FileHeader, FileAck};
+pub use client::{OutgoingTransfer, QuicClient};
+pub use codec::{ControlMessage, FileAck, FileHeader};
+pub use server::{IncomingTransfer, QuicServer};
 
 use anyhow::Result;
-pub use quinn::{RecvStream, SendStream};
 pub use memmap2;
-use quinn::VarInt;
-use quinn::congestion::BbrConfig;
 use quinn::rustls::pki_types::pem::PemObject;
 use quinn::rustls::pki_types::{CertificateDer, PrivateKeyDer};
+use quinn::VarInt;
+pub use quinn::{RecvStream, SendStream};
 use std::sync::Arc;
 
 /// ALPN protocol identifier for LocalSend QUIC.
@@ -43,7 +42,11 @@ const SEND_WINDOW: u64 = 256 * 1024 * 1024;
 /// We increase them to 7MB to match Quinn's performance guidelines.
 pub(crate) fn bind_udp_socket(addr: std::net::SocketAddr) -> Result<std::net::UdpSocket> {
     let socket = socket2::Socket::new(
-        if addr.is_ipv4() { socket2::Domain::IPV4 } else { socket2::Domain::IPV6 },
+        if addr.is_ipv4() {
+            socket2::Domain::IPV4
+        } else {
+            socket2::Domain::IPV6
+        },
         socket2::Type::DGRAM,
         Some(socket2::Protocol::UDP),
     )?;
@@ -60,18 +63,28 @@ pub(crate) fn bind_udp_socket(addr: std::net::SocketAddr) -> Result<std::net::Ud
     let _ = socket.set_recv_buffer_size(buf_size);
     let _ = socket.set_send_buffer_size(buf_size);
 
+    // DSCP AF41 (0x88) — signals "high-throughput, low-latency" to
+    // routers and WiFi APs that support 802.11e/WMM QoS.  Best-effort;
+    // not all OSes or networks honor it, but it costs nothing to set.
+    // (socket2 0.6 only exposes set_tos_v4; IPv6 TCLASS not yet wrapped.)
+    if addr.is_ipv4() {
+        let _ = socket.set_tos_v4(0x88);
+    }
+
+    // SO_PRIORITY on Linux — local kernel transmit queue priority (0–7).
+    // Helps when the machine is doing other network I/O concurrently.
+    #[cfg(target_os = "linux")]
+    let _ = socket.set_priority(6);
+
     Ok(socket.into())
 }
 
 // -- TLS configuration ------------------------------------------------
 
 /// Build a Quinn server config from the existing PEM cert/key format.
-fn build_server_config(
-    cert_pem: &str,
-    key_pem: &str,
-) -> Result<quinn::ServerConfig> {
-    let certs = CertificateDer::pem_slice_iter(cert_pem.as_bytes())
-        .collect::<Result<Vec<_>, _>>()?;
+fn build_server_config(cert_pem: &str, key_pem: &str) -> Result<quinn::ServerConfig> {
+    let certs =
+        CertificateDer::pem_slice_iter(cert_pem.as_bytes()).collect::<Result<Vec<_>, _>>()?;
     let key = PrivateKeyDer::from_pem_slice(key_pem.as_bytes())?;
 
     let mut tls_config = quinn::rustls::ServerConfig::builder()
@@ -89,10 +102,11 @@ fn build_server_config(
     let window = VarInt::from_u32(256 * 1024 * 1024);
     transport.stream_receive_window(window);
     transport.receive_window(window);
-    // Keep connection alive during long transfers.
+    // Keep connection alive during long transfers and backgrounding.
     transport.max_idle_timeout(Some(
-        quinn::IdleTimeout::try_from(std::time::Duration::from_secs(30)).unwrap(),
+        quinn::IdleTimeout::try_from(std::time::Duration::from_secs(60)).unwrap(),
     ));
+    transport.keep_alive_interval(Some(std::time::Duration::from_secs(10)));
 
     // Sender-side window (how much data we're willing to have in-flight).
     transport.send_window(SEND_WINDOW);
@@ -104,9 +118,7 @@ fn build_server_config(
     Ok(quic_config)
 }
 
-fn build_client_config(
-    server_cert_pem: Option<&str>,
-) -> Result<quinn::ClientConfig> {
+fn build_client_config(server_cert_pem: Option<&str>) -> Result<quinn::ClientConfig> {
     let mut roots = quinn::rustls::RootCertStore::empty();
 
     if let Some(cert_pem) = server_cert_pem {
@@ -139,8 +151,9 @@ fn build_client_config(
     transport.stream_receive_window(window);
     transport.receive_window(window);
     transport.max_idle_timeout(Some(
-        quinn::IdleTimeout::try_from(std::time::Duration::from_secs(30)).unwrap(),
+        quinn::IdleTimeout::try_from(std::time::Duration::from_secs(60)).unwrap(),
     ));
+    transport.keep_alive_interval(Some(std::time::Duration::from_secs(10)));
 
     // Sender-side window — must be >= receiver's receive_window for full throughput.
     transport.send_window(SEND_WINDOW);

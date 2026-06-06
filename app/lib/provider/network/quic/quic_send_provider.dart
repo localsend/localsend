@@ -33,6 +33,9 @@ final quicSendProvider = NotifierProvider<QuicSendService, Map<String, SendSessi
 );
 
 class QuicSendService extends Notifier<Map<String, SendSessionState>> {
+  // Active transfers keyed by sessionId — used for cancel/close.
+  final Map<String, quic.RsQuicSendTransfer> _transfers = {};
+
   @override
   Map<String, SendSessionState> init() => {};
 
@@ -122,8 +125,8 @@ class QuicSendService extends Notifier<Map<String, SendSessionState>> {
       );
 
       _logger.info('QUIC connected to $addr');
+      _transfers[sessionId] = transfer;
     } catch (e) {
-      _logger.warning('Failed to connect via QUIC', e);
       state = _updateSession(
         sessionId,
         (s) => s?.copyWith(
@@ -329,10 +332,10 @@ class QuicSendService extends Notifier<Map<String, SendSessionState>> {
           (s) => s?.withFileStatus(file.file.id, FileStatus.sending, null),
         );
 
+        Timer? progressTimer;
         try {
           // Start progress polling timer — reads atomic counter from Rust.
           final fileSize = file.file.size;
-          Timer? progressTimer;
           if (file.path != null) {
             progressTimer = Timer.periodic(
               const Duration(milliseconds: 200),
@@ -352,23 +355,19 @@ class QuicSendService extends Notifier<Map<String, SendSessionState>> {
           }
 
           if (file.path != null) {
-            await quic.quicSendFileMmap(
+            await quic.quicSendSingleFile(
               transfer: transfer!,
               filePath: file.path!,
               fileId: file.file.id,
               token: file.token!,
             );
           } else if (file.bytes != null) {
-            await quic.quicSendFileStart(
+            await quic.quicSendBytes(
               transfer: transfer!,
+              data: file.bytes!,
               fileId: file.file.id,
               token: file.token!,
             );
-            await quic.quicSendFileWriteChunk(
-              transfer: transfer!,
-              data: file.bytes!,
-            );
-            await quic.quicSendFileFinish(transfer: transfer!);
           }
 
           progressTimer?.cancel();
@@ -386,6 +385,7 @@ class QuicSendService extends Notifier<Map<String, SendSessionState>> {
             (s) => s?.withFileStatus(file.file.id, FileStatus.finished, null),
           );
         } catch (e, st) {
+          progressTimer?.cancel();
           _logger.warning('Failed to send file via QUIC: ${file.file.fileName}', e, st);
           state = _updateSession(
             sessionId,
@@ -414,16 +414,19 @@ class QuicSendService extends Notifier<Map<String, SendSessionState>> {
       _logger.info('QUIC send session $sessionId finished');
     }
 
-    // Signal done
-    try {
-      await quic.quicDone(transfer: transfer);
-    } catch (e) {
-      _logger.warning('Failed to send QUIC done signal', e);
+    // Signal done — only if session wasn't canceled or already errored.
+    final finalState = state[sessionId];
+    if (finalState != null && finalState.status != SessionStatus.canceledBySender && finalState.status != SessionStatus.canceledByReceiver) {
+      try {
+        await quic.quicDone(transfer: transfer);
+      } catch (e) {
+        _logger.warning('Failed to send QUIC done signal', e);
+      }
     }
   }
 
-  /// Cancels the session and sends cancel to the receiver.
-  void cancelSession(String sessionId) {
+  /// Cancels the session, signals the receiver, and closes the connection.
+  Future<void> cancelSession(String sessionId) async {
     final sessionState = state[sessionId];
     if (sessionState == null) return;
 
@@ -434,6 +437,21 @@ class QuicSendService extends Notifier<Map<String, SendSessionState>> {
         endTime: DateTime.now().millisecondsSinceEpoch,
       ),
     );
+
+    // Signal the Rust side to abort in-flight I/O, send Cancel frame,
+    // and close the QUIC connection.
+    final transfer = _transfers[sessionId];
+    if (transfer != null) {
+      try {
+        await quic.quicCancel(
+          transfer: transfer,
+          sessionId: sessionState.remoteSessionId ?? sessionId,
+        );
+      } catch (e) {
+        _logger.warning('Failed to cancel QUIC transfer: $e');
+      }
+      _transfers.remove(sessionId);
+    }
   }
 
   /// Closes and removes the session.
@@ -441,6 +459,7 @@ class QuicSendService extends Notifier<Map<String, SendSessionState>> {
     final sessionState = state[sessionId];
     if (sessionState == null) return;
     ref.notifier(progressProvider).removeSession(sessionId);
+    _transfers.remove(sessionId);
     state = {...state}..remove(sessionId);
 
     if (sessionState.status == SessionStatus.finished && ref.read(settingsProvider).sendMode == SendMode.single) {
@@ -449,6 +468,7 @@ class QuicSendService extends Notifier<Map<String, SendSessionState>> {
   }
 
   void clearAllSessions() {
+    _transfers.clear();
     state = {};
     ref.notifier(progressProvider).removeAllSessions();
   }

@@ -180,6 +180,25 @@ impl IncomingTransfer {
         codec::write_frame(&mut self.control_send, &ControlMessage::FileAck(ack)).await
     }
 
+    /// Cancel the transfer. Sends a Cancel frame to the sender so it
+    /// stops sending data. The sender should abort in-flight streams.
+    pub async fn cancel(&mut self, session_id: &str) -> Result<()> {
+        tracing::info!("Sending cancel for session {session_id}");
+        codec::write_frame(
+            &mut self.control_send,
+            &ControlMessage::Cancel {
+                session_id: session_id.to_string(),
+            },
+        )
+        .await
+    }
+
+    /// Close the QUIC connection entirely. This implicitly resets all
+    /// in-flight streams (sender gets RST_STREAM / connection error).
+    pub fn close_connection(&mut self) {
+        self.conn.close(0u32.into(), b"cancelled");
+    }
+
     /// Read file data from a recv stream into a writer callback.
     ///
     /// The caller provides a callback that writes chunks to the destination

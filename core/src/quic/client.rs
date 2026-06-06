@@ -254,4 +254,40 @@ impl OutgoingTransfer {
     pub fn connection(&self) -> &Connection {
         &self.conn
     }
+
+    /// Close the QUIC connection entirely.  This implicitly resets all
+    /// in-flight streams (receiver gets RST_STREAM / connection error).
+    pub fn close_connection(&mut self) {
+        self.conn.close(0u32.into(), b"cancelled");
+    }
+}
+
+impl crate::transfer::TransferSession for OutgoingTransfer {
+    async fn prepare_upload(
+        &mut self,
+        files: HashMap<String, crate::model::transfer::FileDto>,
+    ) -> anyhow::Result<Option<crate::transfer::AcceptedFiles>> {
+        let res = OutgoingTransfer::prepare_upload(self, files).await?;
+        Ok(res.map(|(session_id, accepted_files)| crate::transfer::AcceptedFiles {
+            session_id,
+            files: accepted_files,
+        }))
+    }
+
+    async fn send_file(
+        &mut self,
+        file_id: &str,
+        file_path: &Path,
+        token: &str,
+    ) -> anyhow::Result<()> {
+        self.send_file_mmap(file_path, file_id, token).await
+    }
+
+    async fn cancel(&mut self, session_id: &str) -> anyhow::Result<()> {
+        OutgoingTransfer::cancel(self, session_id).await
+    }
+
+    async fn finish(&mut self) -> anyhow::Result<()> {
+        self.done().await
+    }
 }

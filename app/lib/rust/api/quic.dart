@@ -7,7 +7,7 @@ import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 import 'package:localsend_app/rust/frb_generated.dart';
 
 // These functions are ignored because they are not marked as `pub`: `new`, `open_file_or_uri`
-// These types are ignored because they are neither used by any `pub` functions nor (for structs and enums) marked `#[frb(unignore)]`: `FileSenderState`, `MmapChunk`
+// These types are ignored because they are neither used by any `pub` functions nor (for structs and enums) marked `#[frb(unignore)]`: `MmapChunk`
 // These function are ignored because they are on traits that is not defined in current crate (put an empty `#[frb]` on it to unignore): `as_ref`
 
 /// Start a QUIC server on the given port with PEM cert/key.
@@ -68,14 +68,30 @@ Future<void> quicAckFile({
   error: error,
 );
 
+/// Cancel an in-progress receive.
+///
+/// Sends a `Cancel` control frame to the sender AND signals all
+/// in-flight receive tasks to abort via the cancel channel.
+/// The Quinn connection is then closed to reset any remaining streams.
+Future<void> quicReceiveCancel({
+  required RsQuicReceiveTransfer transfer,
+  required String sessionId,
+}) => RustLib.instance.api.crateApiQuicQuicReceiveCancel(
+  transfer: transfer,
+  sessionId: sessionId,
+);
+
+/// Receive a single file entirely in Rust using zero-copy I/O.
+///
 /// Accepts the next uni stream, reads the file header, then drains all data
 /// to disk using Quinn's `read_chunk` (zero-copy from Quinn's recv buffer).
 /// Progress is tracked via the atomic counter, polled from Dart via timer.
+///
 /// Returns JSON: `{ "fileId": "...", "token": "...", "bytesWritten": 1234, "ackSent": true }`.
-Future<String> quicReceiveFileFull({
+Future<String> quicReceiveSingleFile({
   required RsQuicReceiveTransfer transfer,
   required String outputPath,
-}) => RustLib.instance.api.crateApiQuicQuicReceiveFileFull(
+}) => RustLib.instance.api.crateApiQuicQuicReceiveSingleFile(
   transfer: transfer,
   outputPath: outputPath,
 );
@@ -113,43 +129,37 @@ Future<String?> quicPrepareUpload({
 /// Handles both regular file paths and Android `content://` URIs.
 /// On Android, SAF content URIs are resolved via JNI
 /// (`ContentResolver.openFileDescriptor`) to a raw fd, then mmap'd.
-Future<void> quicSendFileMmap({
+Future<void> quicSendSingleFile({
   required RsQuicSendTransfer transfer,
   required String filePath,
   required String fileId,
   required String token,
-}) => RustLib.instance.api.crateApiQuicQuicSendFileMmap(
+}) => RustLib.instance.api.crateApiQuicQuicSendSingleFile(
   transfer: transfer,
   filePath: filePath,
   fileId: fileId,
   token: token,
 );
 
-/// Step 1 (stream): Open uni stream, send header.
-/// Dart will push chunks via `quic_send_file_write_chunk`.
-Future<void> quicSendFileStart({
+/// Send in-memory bytes as a file.  Opens a dedicated uni stream,
+/// sends the file header, writes all data, and sends FIN — single call.
+Future<void> quicSendBytes({
   required RsQuicSendTransfer transfer,
+  required List<int> data,
   required String fileId,
   required String token,
-}) => RustLib.instance.api.crateApiQuicQuicSendFileStart(
+}) => RustLib.instance.api.crateApiQuicQuicSendBytes(
   transfer: transfer,
+  data: data,
   fileId: fileId,
   token: token,
 );
 
-/// Step 2 (stream): Write a chunk of data from Dart to the QUIC stream.
-Future<void> quicSendFileWriteChunk({
-  required RsQuicSendTransfer transfer,
-  required List<int> data,
-}) => RustLib.instance.api.crateApiQuicQuicSendFileWriteChunk(
-  transfer: transfer,
-  data: data,
-);
-
-/// Step 3 (both): Finish the uni stream (send FIN).
-Future<void> quicSendFileFinish({required RsQuicSendTransfer transfer}) => RustLib.instance.api.crateApiQuicQuicSendFileFinish(transfer: transfer);
-
 /// Cancel the transfer.
+///
+/// Sends a `Cancel` control frame to the receiver AND signals all
+/// in-flight send tasks to abort via the cancel channel.  The Quinn
+/// connection is then closed, which resets any remaining streams.
 Future<void> quicCancel({
   required RsQuicSendTransfer transfer,
   required String sessionId,
@@ -195,7 +205,7 @@ Future<String> quicGetParallelReceiveProgress({
 ///
 /// `files_json`: `[{"filePath":"…","fileId":"…","token":"…"}, …]`
 ///
-/// For single files, prefer `quic_send_file_mmap` — no task overhead.
+/// For single files, prefer `quic_send_single_file` — no task overhead.
 Future<void> quicSendFilesParallel({
   required RsQuicSendTransfer transfer,
   required String filesJson,
