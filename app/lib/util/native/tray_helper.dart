@@ -24,7 +24,7 @@ Future<void> initTray() async {
   }
   try {
     if (checkPlatform([TargetPlatform.windows])) {
-      await tm.trayManager.setIcon(Assets.img.logo);
+      await tm.trayManager.setIcon('app_icon.ico');
     } else if (checkPlatform([TargetPlatform.macOS])) {
       // The menu bar icon will created in AppDelegate.swift
       return;
