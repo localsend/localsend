@@ -195,6 +195,9 @@ class TranslationsGeneralEn {
 
   /// en: 'No items in Clipboard.'
   String get noItemInClipboard => 'No items in Clipboard.';
+
+  /// en: 'Port {port} is already in use. LocalSend started on port {port} instead.'
+  String portInUseFallback({required Object port}) => 'Port ${port} is already in use. LocalSend started on port ${port} instead.';
 }
 
 // Path: receiveTab
