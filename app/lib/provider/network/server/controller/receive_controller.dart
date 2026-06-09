@@ -42,6 +42,7 @@ import 'package:localsend_app/util/native/directories.dart';
 import 'package:localsend_app/util/native/file_saver.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_app/util/native/tray_helper.dart';
+import 'package:localsend_app/util/file_path_helper.dart';
 import 'package:localsend_app/util/rust.dart';
 import 'package:localsend_app/util/simple_server.dart';
 import 'package:localsend_app/widget/dialogs/open_file_dialog.dart';
@@ -270,9 +271,18 @@ class ReceiveController {
     final Map<String, String>? selection;
     if (quickSave) {
       // accept all files
-      selection = {
-        for (final f in dto.files.values) f.id: f.fileName,
-      };
+      selection = {};
+      final savedNames = <String>{};
+      for (final f in dto.files.values) {
+        String name = f.fileName;
+        int counter = 1;
+        while (savedNames.contains(name)) {
+          counter++;
+          name = f.fileName.withCount(counter);
+        }
+        savedNames.add(name);
+        selection[f.id] = name;
+      }
     } else {
       if (checkPlatformHasTray() && (await windowManager.isMinimized() || !(await windowManager.isVisible()) || !(await windowManager.isFocused()))) {
         await showFromTray();
