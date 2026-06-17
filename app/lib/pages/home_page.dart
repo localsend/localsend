@@ -151,33 +151,35 @@ class _HomePageState extends State<HomePage> with Refena {
                     ],
                   ),
                 Expanded(
-                  child: Stack(
-                    children: [
-                      PageView(
-                        controller: vm.controller,
-                        physics: const NeverScrollableScrollPhysics(),
-                        children: const [
-                          SafeArea(child: ReceiveTab()),
-                          SafeArea(child: SendTab()),
-                          SettingsTab(),
-                        ],
-                      ),
-                      if (_dragAndDropIndicator)
-                        Container(
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                            color: Theme.of(context).scaffoldBackgroundColor,
-                          ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              const Icon(Icons.file_download, size: 128),
-                              const SizedBox(height: 30),
-                              Text(t.sendTab.placeItems, style: Theme.of(context).textTheme.titleLarge),
-                            ],
-                          ),
+                  child: RepaintBoundary(
+                    child: Stack(
+                      children: [
+                        PageView(
+                          controller: vm.controller,
+                          physics: const NeverScrollableScrollPhysics(),
+                          children: const [
+                            RepaintBoundary(child: SafeArea(child: ReceiveTab())),
+                            RepaintBoundary(child: SafeArea(child: SendTab())),
+                            RepaintBoundary(child: SettingsTab()),
+                          ],
                         ),
-                    ],
+                        if (_dragAndDropIndicator)
+                          Container(
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                              color: Theme.of(context).scaffoldBackgroundColor,
+                            ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Icon(Icons.file_download, size: 128),
+                                const SizedBox(height: 30),
+                                Text(t.sendTab.placeItems, style: Theme.of(context).textTheme.titleLarge),
+                              ],
+                            ),
+                          ),
+                      ],
+                    ),
                   ),
                 ),
               ],
