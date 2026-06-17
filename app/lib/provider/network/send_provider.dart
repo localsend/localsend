@@ -458,14 +458,21 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
         ),
       );
 
+      double lastSentProgress = -1;
+      int lastProgressTime = 0;
       await for (final progress in taskResult.progress) {
-        ref
-            .notifier(progressProvider)
-            .setProgress(
-              sessionId: sessionId,
-              fileId: file.file.id,
-              progress: progress,
-            );
+        final now = DateTime.now().millisecondsSinceEpoch;
+        if (progress - lastSentProgress >= 0.01 || now - lastProgressTime >= 200) {
+          lastSentProgress = progress;
+          lastProgressTime = now;
+          ref
+              .notifier(progressProvider)
+              .setProgress(
+                sessionId: sessionId,
+                fileId: file.file.id,
+                progress: progress,
+              );
+        }
       }
 
       // set progress to 100% when successfully finished

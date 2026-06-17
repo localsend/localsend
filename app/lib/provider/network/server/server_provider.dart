@@ -123,22 +123,36 @@ class ServerService extends Notifier<ServerState?> {
     _logger.info('Starting server...');
 
     final HttpServer httpServer;
-    if (https) {
-      final securityContext = ref.read(securityProvider);
-      httpServer = await HttpServer.bindSecure(
-        '0.0.0.0',
-        port,
-        SecurityContext()
-          ..usePrivateKeyBytes(securityContext.privateKey.codeUnits)
-          ..useCertificateChainBytes(securityContext.certificate.codeUnits),
-      );
-      _logger.info('Server started. (Port: $port, HTTPS only)');
-    } else {
-      httpServer = await HttpServer.bind(
-        '0.0.0.0',
-        port,
-      );
-      _logger.info('Server started. (Port: $port, HTTP only)');
+    try {
+      if (https) {
+        final securityContext = ref.read(securityProvider);
+        httpServer = await HttpServer.bindSecure(
+          '0.0.0.0',
+          port,
+          SecurityContext()
+            ..usePrivateKeyBytes(securityContext.privateKey.codeUnits)
+            ..useCertificateChainBytes(securityContext.certificate.codeUnits),
+        );
+        _logger.info('Server started. (Port: $port, HTTPS only)');
+      } else {
+        httpServer = await HttpServer.bind(
+          '0.0.0.0',
+          port,
+        );
+        _logger.info('Server started. (Port: $port, HTTP only)');
+      }
+    } on SocketException catch (e) {
+      _logger.severe('Failed to bind to port $port: $e');
+      if (e.osError?.message?.toLowerCase().contains('permission') == true ||
+          e.osError?.errorCode == 10013) {
+        // Common on Windows when Hyper-V or another service reserves the port
+        _logger.severe('Port $port is blocked. Try a different port in Settings > Network.');
+      } else if (e.osError?.errorCode == 10048 || e.osError?.errorCode == 98) {
+        // WSAEADDRINUSE (10048) on Windows, EADDRINUSE (98) on Linux
+        _logger.severe('Port $port is already in use by another application.');
+      }
+      state = null;
+      return null;
     }
 
     final server = SimpleServer.start(server: httpServer, routes: router);

@@ -14,7 +14,7 @@ import 'package:refena/refena.dart';
 
 part 'parent_isolate_provider.mapper.dart';
 
-const _uploadIsolateCount = 2;
+const _uploadIsolateCount = 4;
 
 /// Holds the state of the parent isolate that is visible in the main Flutter isolate.
 /// The [ParentIsolateState.syncState] is synchronized with all child isolates.

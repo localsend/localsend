@@ -8,7 +8,6 @@ import 'package:common/src/isolate/dto/isolate_task.dart';
 import 'package:common/src/isolate/dto/isolate_task_result.dart';
 import 'package:common/src/isolate/dto/send_to_isolate_data.dart';
 import 'package:common/src/task/upload/http_upload.dart';
-import 'package:common/util/stream.dart';
 import 'package:meta/meta.dart';
 import 'package:refena/refena.dart';
 
@@ -96,20 +95,18 @@ Future<void> setupHttpUploadIsolate(
           return;
       }
 
-      final Stream<List<int>>? fileStream = uploadTask.filePath != null
+      final fileStream = uploadTask.filePath != null
           ? _uriContentStreamResolver != null && uploadTask.filePath!.startsWith('content://')
               ? _uriContentStreamResolver!.resolve(Uri.parse(uploadTask.filePath!))
               : File(uploadTask.filePath!).openRead()
           : null;
-
-      final (streamController, subscription) = fileStream?.digested() ?? (null, null);
 
       try {
         final cancelToken = CustomCancelToken();
         ref.read(_cancelTokenProvider).putIfAbsent(task.id, () => cancelToken);
 
         await ref.read(httpUploadProvider).upload(
-              stream: streamController?.stream ?? Stream.fromIterable([uploadTask.fileBytes!]),
+              stream: fileStream ?? Stream.fromIterable([uploadTask.fileBytes!]),
               contentLength: uploadTask.fileSize,
               contentType: uploadTask.mime,
               target: uploadTask.device,
@@ -133,14 +130,6 @@ Future<void> setupHttpUploadIsolate(
           id: task.id,
           error: e.toString(),
         ));
-      } finally {
-        // Close the stream if it is still open
-        // ignore: unawaited_futures
-        streamController?.close();
-
-        // Cancel the subscription if it is still open
-        // ignore: unawaited_futures
-        subscription?.cancel();
       }
     },
   );
