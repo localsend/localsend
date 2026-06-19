@@ -1057,9 +1057,9 @@ class _TranslationsDialogsCancelSessionEt extends TranslationsDialogsCancelSessi
 
   // Translations
   @override
-  String get title => 'Katkesta failide edastamine';
+  String get title => 'Katkesta failiedastus';
   @override
-  String get content => 'Kas sa kindlasti soovid katkestada failide edastamise?';
+  String get content => 'Kas soovid failiedastuse katkestada?';
 }
 
 // Path: dialogs.cannotOpenFile

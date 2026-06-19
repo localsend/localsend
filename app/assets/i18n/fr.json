@@ -301,7 +301,7 @@
     },
     "cancelSession": {
       "title": "Annuler le transfert de fichiers",
-      "content": "Voulez-vous vraiment annuler le transfert de fichiers ?"
+      "content": "Voulez-vous annuler le transfert de fichiers ?"
     },
     "cannotOpenFile": {
       "title": "Ne peut pas ouvrir le fichier",

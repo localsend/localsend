@@ -348,8 +348,8 @@
       "recentlyUsed": "Nedavno uporabljeno: "
     },
     "cancelSession": {
-      "title": "Prekliči prenos datotek",
-      "content": "Ali res želite preklicati prenos datotek?"
+      "title": "Prekini prenos datotek",
+      "content": "Ali želite prekiniti prenos datotek?"
     },
     "cannotOpenFile": {
       "title": "Ne morem odpreti datoteke",

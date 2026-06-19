@@ -300,8 +300,8 @@
       "recentlyUsed": "Ostatnio używane: "
     },
     "cancelSession": {
-      "title": "Anuluj transfer plików",
-      "content": "Czy na pewno chcesz anulować transfer plików?"
+      "title": "Anuluj przesyłanie plików",
+      "content": "Czy chcesz anulować przesyłanie plików?"
     },
     "cannotOpenFile": {
       "title": "Nie można otworzyć pliku",

@@ -1060,7 +1060,7 @@ class _TranslationsDialogsCancelSessionFr extends TranslationsDialogsCancelSessi
   @override
   String get title => 'Annuler le transfert de fichiers';
   @override
-  String get content => 'Voulez-vous vraiment annuler le transfert de fichiers ?';
+  String get content => 'Voulez-vous annuler le transfert de fichiers ?';
 }
 
 // Path: dialogs.cannotOpenFile

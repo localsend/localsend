@@ -1058,9 +1058,9 @@ class _TranslationsDialogsCancelSessionNl extends TranslationsDialogsCancelSessi
 
   // Translations
   @override
-  String get title => 'Bestandsoverdracht annuleren';
+  String get title => 'Bestandsoverdracht afbreken';
   @override
-  String get content => 'Wil je de bestandsoverdracht annuleren?';
+  String get content => 'Wilt u de bestandsoverdracht afbreken?';
 }
 
 // Path: dialogs.cannotOpenFile

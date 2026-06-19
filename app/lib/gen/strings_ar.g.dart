@@ -1141,9 +1141,9 @@ class _TranslationsDialogsCancelSessionAr extends TranslationsDialogsCancelSessi
 
   // Translations
   @override
-  String get title => 'ألغِ نقل الملف';
+  String get title => 'إلغاء نقل الملفات';
   @override
-  String get content => 'هل تريد حقًا إلغاء نقل الملف؟';
+  String get content => 'هل تريد إلغاء نقل الملفات؟';
 }
 
 // Path: dialogs.cannotOpenFile

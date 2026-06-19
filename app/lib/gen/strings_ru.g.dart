@@ -1058,9 +1058,9 @@ class _TranslationsDialogsCancelSessionRu extends TranslationsDialogsCancelSessi
 
   // Translations
   @override
-  String get title => 'Отменить отправку файлов';
+  String get title => 'Прервать передачу файлов';
   @override
-  String get content => 'Вы действительно хотите отменить отправку файлов?';
+  String get content => 'Вы хотите прервать передачу файлов?';
 }
 
 // Path: dialogs.cannotOpenFile

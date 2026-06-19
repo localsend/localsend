@@ -1123,9 +1123,9 @@ class _TranslationsDialogsCancelSessionSrCyrl extends TranslationsDialogsCancelS
 
   // Translations
   @override
-  String get title => 'Откажите пренос фајлова';
+  String get title => 'Прекини пренос датотека';
   @override
-  String get content => 'Желите ли заиста да откажете пренос фајлова?';
+  String get content => 'Да ли желите да прекинете пренос датотека?';
 }
 
 // Path: dialogs.cannotOpenFile

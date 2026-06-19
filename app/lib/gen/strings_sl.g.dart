@@ -1059,9 +1059,9 @@ class _TranslationsDialogsCancelSessionSl extends TranslationsDialogsCancelSessi
 
   // Translations
   @override
-  String get title => 'Prekliči prenos datotek';
+  String get title => 'Prekini prenos datotek';
   @override
-  String get content => 'Ali res želite preklicati prenos datotek?';
+  String get content => 'Ali želite prekiniti prenos datotek?';
 }
 
 // Path: dialogs.cannotOpenFile

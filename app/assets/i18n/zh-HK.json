@@ -293,8 +293,8 @@
       "recentlyUsed": "輸入記錄： "
     },
     "cancelSession": {
-      "title": "取消檔案傳輸",
-      "content": "你係咪要放棄傳輸檔案？"
+      "title": "終止檔案傳輸",
+      "content": "您想要終止檔案傳輸嗎？"
     },
     "cannotOpenFile": {
       "title": "無法開啟檔案",

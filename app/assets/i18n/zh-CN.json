@@ -369,8 +369,8 @@
       "recentlyUsed": "最近使用： "
     },
     "cancelSession": {
-      "title": "取消文件传输",
-      "content": "要取消文件传输吗？"
+      "title": "终止文件传输",
+      "content": "您要终止文件传输吗？"
     },
     "cannotOpenFile": {
       "title": "无法打开文件",

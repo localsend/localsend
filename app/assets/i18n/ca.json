@@ -358,8 +358,8 @@
       "recentlyUsed": "Utilitzades recentment: "
     },
     "cancelSession": {
-      "title": "Cancel·la la transferència de fitxers",
-      "content": "Segur que voleu cancel·lar la transferència dels fitxers?"
+      "title": "Avorta la transferència de fitxers",
+      "content": "Vols avortar la transferència de fitxers?"
     },
     "cannotOpenFile": {
       "title": "No es pot obrir el fitxer",

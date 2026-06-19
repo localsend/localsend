@@ -289,7 +289,7 @@
     },
     "cancelSession": {
       "title": "Afbryd filoverførsel",
-      "content": "Vil du virkelig afbryde filoverførslen?"
+      "content": "Vil du afbryde filoverførslen?"
     },
     "cannotOpenFile": {
       "title": "Kan ikke åbne filen",

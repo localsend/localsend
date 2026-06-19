@@ -267,8 +267,8 @@
       "recentlyUsed": "Duela gutxi erabilitakoak: "
     },
     "cancelSession": {
-      "title": "Bertan behera utzi fitxategi bidalketa",
-      "content": "¿Benetan nahi duzu bertan behera utzi fitxategi bidalketa?"
+      "title": "Abortatu fitxategi-transferentzia",
+      "content": "Fitxategi-transferentzia abortatu nahi duzu?"
     },
     "cannotOpenFile": {
       "title": "Ezin da fitxategia ireki",

@@ -371,7 +371,7 @@
     },
     "cancelSession": {
       "title": "Avbryt filöverföring",
-      "content": "Vill du verkligen avbryta filöverföringen?"
+      "content": "Vill du avbryta filöverföringen?"
     },
     "cannotOpenFile": {
       "title": "Kan inte öppna fil",

@@ -1030,9 +1030,9 @@ class _TranslationsDialogsCancelSessionId extends TranslationsDialogsCancelSessi
 
   // Translations
   @override
-  String get title => 'Batalkan pentransferan berkas';
+  String get title => 'Batalkan transfer file';
   @override
-  String get content => 'Anda yakin ingin membatalkan pengiriman berkas?';
+  String get content => 'Apakah Anda ingin mematalkan transfer file?';
 }
 
 // Path: dialogs.cannotOpenFile

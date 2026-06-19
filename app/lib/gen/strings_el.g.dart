@@ -1121,9 +1121,9 @@ class _TranslationsDialogsCancelSessionEl extends TranslationsDialogsCancelSessi
 
   // Translations
   @override
-  String get title => 'Ακύρωση της μεταφοράς του αρχείου';
+  String get title => 'Ακύρωση μεταφοράς αρχείων';
   @override
-  String get content => 'Θέλετε σίγουρα να ακυρωθεί η μεταφορά του αρχείου?';
+  String get content => 'Θέλετε να ακυρώσετε τη μεταφορά αρχείων;';
 }
 
 // Path: dialogs.cannotOpenFile

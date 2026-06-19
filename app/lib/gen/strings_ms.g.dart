@@ -1105,7 +1105,7 @@ class _TranslationsDialogsCancelSessionMs extends TranslationsDialogsCancelSessi
   @override
   String get title => 'Batalkan pemindahan fail';
   @override
-  String get content => 'Adakah anda benar-benar mahu membatalkan pemindahan fail?';
+  String get content => 'Adakah anda mahu membatalkan pemindahan fail?';
 }
 
 // Path: dialogs.cannotOpenFile

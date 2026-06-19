@@ -362,8 +362,8 @@
       "recentlyUsed": "Nedavno korišćeno: "
     },
     "cancelSession": {
-      "title": "Otkažite prenos fajlova",
-      "content": "Želite li zaista da otkažete prenos fajlova?"
+      "title": "Prekini prenos datoteka",
+      "content": "Da li želite da prekinete prenos datoteka?"
     },
     "cannotOpenFile": {
       "title": "Nije moguće otvoriti fajl",

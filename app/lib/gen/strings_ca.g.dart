@@ -1107,9 +1107,9 @@ class _TranslationsDialogsCancelSessionCa extends TranslationsDialogsCancelSessi
 
   // Translations
   @override
-  String get title => 'Cancel·la la transferència de fitxers';
+  String get title => 'Avorta la transferència de fitxers';
   @override
-  String get content => 'Segur que voleu cancel·lar la transferència dels fitxers?';
+  String get content => 'Vols avortar la transferència de fitxers?';
 }
 
 // Path: dialogs.cannotOpenFile

@@ -1033,9 +1033,9 @@ class _TranslationsDialogsCancelSessionGl extends TranslationsDialogsCancelSessi
 
   // Translations
   @override
-  String get title => 'Cancelar a transferencia de ficheiros';
+  String get title => 'Abortar a transferencia de ficheiros';
   @override
-  String get content => 'Realmente queres cancelar a transferencia de ficheiros?';
+  String get content => 'Queres abortar a transferencia de ficheiros?';
 }
 
 // Path: dialogs.cannotOpenFile

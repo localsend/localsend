@@ -1022,7 +1022,7 @@ class _TranslationsDialogsCancelSessionDa extends TranslationsDialogsCancelSessi
   @override
   String get title => 'Afbryd filoverførsel';
   @override
-  String get content => 'Vil du virkelig afbryde filoverførslen?';
+  String get content => 'Vil du afbryde filoverførslen?';
 }
 
 // Path: dialogs.cannotOpenFile

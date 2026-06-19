@@ -1117,9 +1117,9 @@ class _TranslationsDialogsCancelSessionRo extends TranslationsDialogsCancelSessi
 
   // Translations
   @override
-  String get title => 'Anulează trimiterea fișierelor';
+  String get title => 'Anulează transferul de fișiere';
   @override
-  String get content => 'Chiar vrei să anulezi transferul fișierelor?';
+  String get content => 'Doriți să anulați transferul de fișiere?';
 }
 
 // Path: dialogs.cannotOpenFile

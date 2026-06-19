@@ -1035,9 +1035,9 @@ class _TranslationsDialogsCancelSessionSi extends TranslationsDialogsCancelSessi
 
   // Translations
   @override
-  String get title => 'ගොනු මාරු අවලංගු කරන්න';
+  String get title => 'ගොනු හුවමාරුව අත්හිටුවන්න';
   @override
-  String get content => 'ඔබට ඇත්තටම ගොනු හුවමාරුව අවලංගු කිරීමට අවශ්‍යද?';
+  String get content => 'ඔබට ගොනු හුවමාරුව අත්හිටුවීමට අවශ්‍යද?';
 }
 
 // Path: dialogs.cannotOpenFile

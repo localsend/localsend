@@ -1144,7 +1144,7 @@ class _TranslationsDialogsCancelSessionSv extends TranslationsDialogsCancelSessi
   @override
   String get title => 'Avbryt filöverföring';
   @override
-  String get content => 'Vill du verkligen avbryta filöverföringen?';
+  String get content => 'Vill du avbryta filöverföringen?';
 }
 
 // Path: dialogs.cannotOpenFile

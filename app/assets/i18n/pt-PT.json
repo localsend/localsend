@@ -369,8 +369,8 @@
       "recentlyUsed": "Recém ligado: "
     },
     "cancelSession": {
-      "title": "Cancelar transferência de ficheiros",
-      "content": "Cancelar a transferência de ficheiros?"
+      "title": "Abortar transferência de ficheiros",
+      "content": "Deseja abortar a transferência de ficheiros?"
     },
     "cannotOpenFile": {
       "title": "Não foi possível abrir o ficheiro",

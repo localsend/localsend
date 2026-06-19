@@ -296,8 +296,8 @@
       "recentlyUsed": "最近使用したアドレス: "
     },
     "cancelSession": {
-      "title": "ファイル転送をキャンセル",
-      "content": "本当にファイル転送をキャンセルしますか？"
+      "title": "ファイル転送の中止",
+      "content": "ファイル転送を中止しますか？"
     },
     "cannotOpenFile": {
       "title": "ファイルを開けません",

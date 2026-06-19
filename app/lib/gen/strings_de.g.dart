@@ -1059,7 +1059,7 @@ class _TranslationsDialogsCancelSessionDe extends TranslationsDialogsCancelSessi
   @override
   String get title => 'Dateiübertragung abbrechen';
   @override
-  String get content => 'Möchtest du wirklich die Dateiübertragung abbrechen?';
+  String get content => 'Möchten Sie die Dateiübertragung abbrechen?';
 }
 
 // Path: dialogs.cannotOpenFile

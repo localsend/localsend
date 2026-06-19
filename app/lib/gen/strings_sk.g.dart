@@ -1143,7 +1143,7 @@ class _TranslationsDialogsCancelSessionSk extends TranslationsDialogsCancelSessi
   @override
   String get title => 'Zrušiť prenos súborov';
   @override
-  String get content => 'Naozaj chcete zrušiť prenos súborov?';
+  String get content => 'Chcete zrušiť prenos súborov?';
 }
 
 // Path: dialogs.cannotOpenFile

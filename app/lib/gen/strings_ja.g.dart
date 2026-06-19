@@ -1028,9 +1028,9 @@ class _TranslationsDialogsCancelSessionJa extends TranslationsDialogsCancelSessi
 
   // Translations
   @override
-  String get title => 'ファイル転送をキャンセル';
+  String get title => 'ファイル転送の中止';
   @override
-  String get content => '本当にファイル転送をキャンセルしますか？';
+  String get content => 'ファイル転送を中止しますか？';
 }
 
 // Path: dialogs.cannotOpenFile

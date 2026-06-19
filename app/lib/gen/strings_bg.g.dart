@@ -1058,9 +1058,9 @@ class _TranslationsDialogsCancelSessionBg extends TranslationsDialogsCancelSessi
 
   // Translations
   @override
-  String get title => 'Отмени прехвърлянето на файлове';
+  String get title => 'Прекратяване на трансфера';
   @override
-  String get content => 'Наистина ли искате да отмените прехвърлянето на файлове?';
+  String get content => 'Искате ли да прекратите трансфера на файлове?';
 }
 
 // Path: dialogs.cannotOpenFile

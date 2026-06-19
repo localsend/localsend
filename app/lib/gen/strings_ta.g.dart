@@ -1119,9 +1119,9 @@ class _TranslationsDialogsCancelSessionTa extends TranslationsDialogsCancelSessi
 
   // Translations
   @override
-  String get title => 'கோப்புகள் பரிமாற்றத்தை ரத்து செய்யவும்';
+  String get title => 'கோப்பு பரிமாற்றத்தை ரத்துசெய்';
   @override
-  String get content => 'நீங்கள் உண்மையிலேயே கோப்புகள் பரிமாற்றத்தை ரத்து செய்ய விரும்புகிறீர்களா?';
+  String get content => 'கோப்பு பரிமாற்றத்தை ரத்து செய்ய விரும்புகிறீர்களா?';
 }
 
 // Path: dialogs.cannotOpenFile

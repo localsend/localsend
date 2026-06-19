@@ -1139,9 +1139,9 @@ class _TranslationsDialogsCancelSessionAz extends TranslationsDialogsCancelSessi
 
   // Translations
   @override
-  String get title => 'Fayl transferini ləğv et';
+  String get title => 'Fayl ötürülməsini ləğv et';
   @override
-  String get content => 'Siz həqiqətən faylların transferini ləğv etmək istəyirsiniz?';
+  String get content => 'Fayl ötürülməsini ləğv etmək istəyirsiniz?';
 }
 
 // Path: dialogs.cannotOpenFile

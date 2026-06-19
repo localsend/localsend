@@ -1059,7 +1059,7 @@ class _TranslationsDialogsCancelSessionHu extends TranslationsDialogsCancelSessi
   @override
   String get title => 'Fájlátvitel megszakítása';
   @override
-  String get content => 'Valóban meg akarja szakítani a fájlátvitelt?';
+  String get content => 'Meg szeretné szakítani a fájlátvitelt?';
 }
 
 // Path: dialogs.cannotOpenFile

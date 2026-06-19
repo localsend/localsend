@@ -308,7 +308,7 @@
     },
     "cancelSession": {
       "title": "Dateiübertragung abbrechen",
-      "content": "Möchtest du wirklich die Dateiübertragung abbrechen?"
+      "content": "Möchten Sie die Dateiübertragung abbrechen?"
     },
     "cannotOpenFile": {
       "title": "Öffnen fehlgeschlagen",
