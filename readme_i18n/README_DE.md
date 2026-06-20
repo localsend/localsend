@@ -20,7 +20,7 @@
 [github]: https://github.com/localsend/localsend
 [codeberg]: https://codeberg.org/localsend/localsend
 
-LocalSend ist eine freie, open-source app das dir ermöglicht sicher Daten und Nachrichten mit Geräten in der Nähe über das lokale Netzwerk ohne Internet Verbindung zu senden.
+LocalSend ist eine freie Open-Source-App, die dir ermöglicht, sicher Daten und Nachrichten an Geräte in der Nähe über das lokale Netzwerk ohne Internetverbindung zu senden.
 
 - [Über](#über)
 - [Sponsors](#sponsors)
@@ -41,7 +41,8 @@ LocalSend ist eine freie, open-source app das dir ermöglicht sicher Daten und N
 
 ## Über
 
-LocalSend ist eine Platform übergreifende App das dir Erlaubt eine sichere Verbindung zwischen Geräten mithilfe einer REST API und HTTPS verschlüsselung zu haben. Im Gegensatz zu anderen Messaging-Apps die externe Server benötigen, braucht LocalSend keine Internet Verbindung oder andere third-party, was es zu einere schnellen und zuverlässige Lösung ist für lokale Komminikation.
+LocalSend ist eine plattformübergreifende App, die dir erlaubt, eine sichere Verbindung zwischen Geräten mithilfe einer REST API und HTTPS-Verschlüsselung herzustellen. Im Gegensatz zu anderen Messaging-Apps, die externe Server benötigen, braucht LocalSend keine Internetverbindung
+oder andere Drittanbieter, was es zu einer schnellen und zuverlässigen Lösung für lokale Kommunikation macht.
 
 ## Sponsors
 
@@ -59,7 +60,7 @@ Browser testing via
 
 [![Packaging status](https://repology.org/badge/tiny-repos/localsend.svg)](https://repology.org/project/localsend/versions)
 
-Es ist empfohlen die App über einen App-Store oder einen package manager zu installieren da die App keinen auto-updater hat
+Es wird empfohlen, die App über einen App-Store oder einen Paketmanager zu installieren, da die App keinen Auto-Updater hat.
 
 | Windows                 | macOS                   | Linux              | Android        | iOS           | Fire OS    |
 |-------------------------|-------------------------|--------------------|----------------|---------------|------------|
@@ -71,7 +72,7 @@ Es ist empfohlen die App über einen App-Store oder einen package manager zu ins
 |                         |                         | [DEB][latest]      |                |               |            |
 |                         |                         | [AppImage][latest] |                |               |            |
 
-Lies mehr über die [Vertriebskanäle](). 
+Lies mehr über die [Vertriebskanäle]().
 
 > [!CAUTION]
 > **Inoffizielle MSIX preview:** Du kannst Builds aus den neuesten Commits unter [localsend.ob-buff.dev](https://localsend.ob-buff.dev/) ausprobieren. Die Stabilität wird nicht garantiert, und alle individuellen Code-Anpassungen sind auf dieser Seite aufgelistet.
@@ -104,15 +105,14 @@ Lies mehr über die [Vertriebskanäle]().
 
 ## Setup
 
-In den meisten Fällen funktioniert Localsend ohne Einstellung. Fall es aber fehler gibt beim senden oder empfangen von Datien, musst du möglicherweise die Firewall anpassen damit LocalSend über das lokale Netzwerk kommunizieren kann.
+In den meisten Fällen funktioniert LocalSend ohne Einstellungen. Falls esaber Fehler beim Senden oder Empfangen von Dateien gibt, musst du möglicherweise die Firewall anpassen, damit LocalSend über das lokale Netzwerk kommunizieren kann.
 
 | Verkehrs Typ | Protocol | Port  | Action |
 |--------------|----------|-------|--------|
 | Eingang      | TCP, UDP | 53317 | Allow  |
 | Ausgang      | TCP, UDP | Jeder | Allow  |
 
-Stelle auch sicher das `AP-isolotation` bei deinem Router deaktiviert ist. Normalerweise ist dies Standardmäßig deaktiviert aber manche Router haben aber dies aktiviert (besonders bei Gäste-WLAN):
-Siehe [troubleshooting](#troubleshooting) für mehr Informationen.
+Stelle auch sicher, dass `AP-Isolation` bei deinem Router deaktiviert ist. Normalerweise ist dies standardmäßig deaktiviert, aber manche Router haben dies aktiviert (besonders bei Gäste-WLAN). Siehe [Fehlerbehebung](#fehlerbehebung) für weitere Informationen.
 
 **Portabler Modus**
 
@@ -126,55 +126,54 @@ Die App wird diese Datei verwenden, um dort die Einstellungen zu speichern ansta
 
 (Aktualisiert in v1.15.0)
 
-Um die App versteckt (nur im tray) zu start, nutze die `--hidden` option (Beispiel: `localsend_app.exe --hidden`). 
-In v1.14.0 und früher, muss die `autostart` option angegeben und in den Einstellungen aktiviert sein. 
+Um die App versteckt (nur im Tray) zu starten, nutze die `--hidden` Option (Beispiel: `localsend_app.exe --hidden`). In v1.14.0 und früher musste die `autostart` Option angegeben und in den Einstellungen aktiviert sein.
 
 ## Wie es funktioniert
 
-LocalSend nutzt eine sicheres Kommunitcation protocal das es erlaubt Geräten über eine REST API zu kommuniziert, Alle Informationen werden sicher über HTTPS, die TLS/SSL Zertifkaten werden währenddessen auf jedem Gerät generiert, was maximale Sicherheit ermöglicht
+LocalSend nutzt ein sicheres Kommunikationsprotokoll, das es Geräten erlaubt, über eine REST API zu kommunizieren. Alle Informationen werden sicher über HTTPS übertragen, wobei die TLS/SSL-Zertifikate auf jedem Gerät generiert werden, was maximale Sicherheit ermöglicht.
 
 Für mehr Informationen über das LocalSend Protocol, siehe [Dokumentation](https://github.com/localsend/protocol).
 
 ## Erste Schritte
 
-Um LocalSend direkt vom Source code zu kompiliere, folge folgenden Schritten:
+Um LocalSend direkt vom Sourcecode zu kompilieren, folge folgenden Schritten:
 
-1. Installiere Flutter [direkt](https://flutter.dev) oder [fvm](https://fvm.app) (siehe [version benötigt](/.fvmrc))
-2. Installiere [Rust](https://www.rust-lang.org/tools/install)
-3. Clone die `LocalSend` repository
-4. Führe `cd app` aus um in ins App-Verzeichnis zu gelangen 
-5. Führe `flutter pub get` aus um die Abhängikeiten zu installieren to download dependencies
-6. Führe `flutter run` aus um die App zu starten
+1.  Installiere Flutter [direkt](https://flutter.dev) oder [fvm](https://fvm.app) (siehe [version benötigt](/.fvmrc))
+2.  Installiere [Rust](https://www.rust-lang.org/tools/install)
+3.  Klone das `LocalSend` Repository
+4.  Führe `cd app` aus, um in das App-Verzeichnis zu gelangen
+5.  Führe `flutter pub get` aus, um die Abhängigkeiten zu installieren
+6.  Führe `flutter run` aus, um die App zu starten
 
-> [!NOTE]
-> LocalSend benötigt aktuelle eine ältere Flutter version (festgelegt in [.fvmrc](/.fvmrc))
-> und kann somit build probleme versuchen wenn eine andere Flutter (System weite) version verwendet wird.
-> Um Emtwicklung etwas einheitlicher zu machen, nutzt LocalSend [fvm](https://fvm.app) um die Flutter version zu verwalten. 
-> After installeation von `fvm`, nutze `fvm flutter` anstatt `flutter`.  
+> [!NOTE] LocalSend benötigt aktuell eine ältere Flutter-Version
+> (festgelegt in [.fvmrc](/.fvmrc)) und kann somit Build-Probleme
+> verursachen, wenn eine andere (systemweite) Flutter-Version verwendet
+> wird. Um die Entwicklung etwas einheitlicher zu machen, nutzt LocalSend
+> [fvm](https://fvm.app), um die Flutter-Version zu verwalten. Nach der
+> Installation von `fvm`, nutze `fvm flutter` anstatt `flutter`.
 
 ## Mitwirken
 
-Wir begrüßen Mitwirkungen von jedem der interessiert ist LocalSend zu verbessern. Wenn Du einen Beitrag leisten möchten, gibt es verschiedene Möglichkeiten, sich zu engagieren:
+Wir begrüßen Mitwirkungen von jedem, der interessiert ist, LocalSend zu verbessern. Wenn du einen Beitrag leisten möchtest, gibt es verschiedene Möglichkeiten, dich zu engagieren:
 
 ### Übersetzungen
 
-Du kannst helfen LocalSend in andere Sprachen zu übersetzen. Wir nutzen [Weblate](https://hosted.weblate.org/projects/localsend/app) zum Verwalten von Übersetzungen
+Du kannst helfen, LocalSend in andere Sprachen zu übersetzen. Wir nutzen [Weblate](https://hosted.weblate.org/projects/localsend/app) zum Verwalten von Übersetzungen.
 
-Alternativ kannst du auch die diese Repo forken und manuell die Übersetzungen hinzufügen.
+Alternativ kannst du auch dieses Repo forken und die Übersetzungen manuell hinzufügen.
 
-Die Übersetzungen sind im [app/assets/i18n](https://github.com/localsend/localsend/tree/main/app/assets/i18n) Verzeichnis. Bearbeite die `_missing_translations_<locale>.json` or `strings_<locale>.i18n.json` Datei um Übersetzungen hinzufügen oder bearbeiten.
+Die Übersetzungen befinden sich im[app/assets/i18n](https://github.com/localsend/localsend/tree/main/app/assets/i18n)Verzeichnis. Bearbeite die `_missing_translations_<locale>.json`- oder`strings_<locale>.i18n.json`-Datei, um Übersetzungen hinzuzufügen oder zu bearbeiten.
 
 <a href="https://hosted.weblate.org/engage/localsend/">
 <img src="https://hosted.weblate.org/widget/localsend/app/multi-auto.svg" alt="Translation status" />
 </a>
 
-
-**_Beachte:_ Felder mit einem `@` sind nicht gedacht übersetzt zu werden; Sie werden in der App in keiner Weise verwendet; es handelt sich lediglich um informativen Text zur Datei oder um Informationen, die dem Übersetzer den Kontext verdeutlichen sollen.**
+***Beachte:* Felder mit einem `@` sind nicht zur Übersetzung gedacht; sie werden in der App in keiner Weise verwendet. Es handelt sich lediglich um informativen Text zur Datei oder um Informationen, die dem Übersetzer den Kontext verdeutlichen sollen.**
 
 ### Bug-fixes und Verbesserungen
 
-- **Bug-Fixes:** Wenn du einen Bug findest, erstelle bitte einen pull-request mit einer klaren Beschreibung was der Fehler ist und im besten fall wie man diesen behebt.
-- **Verbesserung:** Du hast eine Idee wie man LocalSend verbessern könnte? Dann erstelle bitte ein Issue um diskutieren zu können warunm und ob diese Verbesserung gebraucht wird
+- **Bug-Fixes:** Wenn du einen Bug findest, erstelle bitte einen Pull-Request mit einer klaren Beschreibung, was der Fehler ist, und im besten Fall, wie man ihn behebt.
+- **Verbesserung:** Du hast eine Idee, wie man LocalSend verbessern könnte? Dann erstelle bitte ein Issue, um diskutieren zu können, warum und ob diese Verbesserung gebraucht wird.
 
 Für mehr Informationen siehe [Leitfaden für Mitwirkende](/CONTRIBUTING.md)
 
@@ -190,7 +189,7 @@ Für mehr Informationen siehe [Leitfaden für Mitwirkende](/CONTRIBUTING.md)
 
 ## Bauen
 
-Diese Befehle sind nur für Mitwirkende gedacht. Stell sicher das diese von dem `app` Verzeichnis ausgeführt werden
+Diese Befehle sind nur für Mitwirkende gedacht. Stelle sicher, dass diese aus dem `app`-Verzeichnis ausgeführt werden.
 
 ### Android
 
