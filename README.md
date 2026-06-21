@@ -188,6 +188,12 @@ For more information, see the [contributing guide](https://github.com/localsend/
 | Speed too slow     | Any                | Any                  | Use 5 Ghz; Disable encryption on both devices                                                                                           |
 | Speed too slow     | Any                | Android              | Known issue. https://github.com/flutter-cavalry/saf_stream/issues/4                                                                     |
 
+If devices are still not discovered automatically:
+
+- On Linux, allow incoming TCP and UDP on port `53317`. For example, with `ufw`: `sudo ufw allow 53317`. With `firewalld`: `sudo firewall-cmd --permanent --add-port=53317/tcp`, `sudo firewall-cmd --permanent --add-port=53317/udp`, then `sudo firewall-cmd --reload`.
+- If a VPN is active, allow local/LAN traffic or temporarily disable the VPN to test discovery. Some VPNs block local network connections by default.
+- Use manual sending to enter the receiver's IP address directly. If that works, add the device to favorites so LocalSend can check it directly in the future.
+
 ## Building
 
 These commands are intended for maintainers only. Make sure to run them from the `app` directory.
