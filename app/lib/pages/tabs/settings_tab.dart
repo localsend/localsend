@@ -56,6 +56,7 @@ class SettingsTab extends StatelessWidget {
                   SizedBox(height: 30 + MediaQuery.of(context).padding.top),
                   _SettingsSection(
                     title: t.settingsTab.general.title,
+                    icon: Icons.settings,
                     children: [
                       _SettingsEntry(
                         label: t.settingsTab.general.brightness,
@@ -151,6 +152,7 @@ class SettingsTab extends StatelessWidget {
                   ),
                   _SettingsSection(
                     title: t.settingsTab.receive.title,
+                    icon: Icons.wifi,
                     children: [
                       _BooleanEntry(
                         label: t.settingsTab.receive.quickSave,
@@ -196,46 +198,6 @@ class SettingsTab extends StatelessWidget {
                           }
                         },
                       ),
-                      if (checkPlatformWithFileSystem())
-                        _SettingsEntry(
-                          label: t.settingsTab.receive.destination,
-                          child: TextButton(
-                            style: TextButton.styleFrom(
-                              backgroundColor: Theme.of(context).inputDecorationTheme.fillColor,
-                              shape: RoundedRectangleBorder(borderRadius: Theme.of(context).inputDecorationTheme.borderRadius),
-                              foregroundColor: Theme.of(context).colorScheme.onSurface,
-                            ),
-                            onPressed: () async {
-                              if (vm.settings.destination != null) {
-                                await ref.notifier(settingsProvider).setDestination(null);
-                                if (defaultTargetPlatform == TargetPlatform.macOS) {
-                                  await removeExistingDestinationAccess();
-                                }
-                                return;
-                              }
-
-                              final directory = await pickDirectoryPath();
-                              if (directory != null) {
-                                if (defaultTargetPlatform == TargetPlatform.macOS) {
-                                  await persistDestinationFolderAccess(directory);
-                                }
-                                await ref.notifier(settingsProvider).setDestination(directory);
-                              }
-                            },
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 5),
-                              child: Text(vm.settings.destination ?? t.settingsTab.receive.downloads, style: Theme.of(context).textTheme.titleMedium),
-                            ),
-                          ),
-                        ),
-                      if (checkPlatformWithGallery())
-                        _BooleanEntry(
-                          label: t.settingsTab.receive.saveToGallery,
-                          value: vm.settings.saveToGallery,
-                          onChanged: (b) async {
-                            await ref.notifier(settingsProvider).setSaveToGallery(b);
-                          },
-                        ),
                       _BooleanEntry(
                         label: t.settingsTab.receive.autoFinish,
                         value: vm.settings.autoFinish,
@@ -252,9 +214,168 @@ class SettingsTab extends StatelessWidget {
                       ),
                     ],
                   ),
+                  _SettingsSection(
+                    title: t.settingsTab.save.title,
+                    icon: Icons.save,
+                    children: [
+                      if (checkPlatformWithGallery())
+                        _BooleanEntry(
+                          label: t.settingsTab.receive.saveToGallery,
+                          value: vm.settings.saveToGallery,
+                          onChanged: (b) async {
+                            await ref.notifier(settingsProvider).setSaveToGallery(b);
+                          },
+                        ),
+                      if (checkPlatformWithFileSystem()) 
+                      _BooleanEntry(
+                        label: t.settingsTab.save.saveLocation,
+                        value: vm.settings.saveLocationBasedOnFileType,
+                        onChanged: (b) async {
+                          await ref.notifier(settingsProvider).setSaveLocationBasedOnFileType(b);
+                        },
+                      ),
+                      _SettingsEntry(
+                        label: t.settingsTab.save.defaultLocation,
+                        child: TextButton(
+                          style: TextButton.styleFrom(
+                            backgroundColor: Theme.of(context).inputDecorationTheme.fillColor,
+                            shape: RoundedRectangleBorder(borderRadius: Theme.of(context).inputDecorationTheme.borderRadius),
+                            foregroundColor: Theme.of(context).colorScheme.onSurface,
+                          ),
+                          onPressed: () async {
+                            if (vm.settings.destination != null) {
+                              await ref.notifier(settingsProvider).setDestination(null);
+                              if (defaultTargetPlatform == TargetPlatform.macOS) {
+                                await removeExistingDestinationAccess();
+                              }
+                              return;
+                            }
+
+                            final directory = await pickDirectoryPath();
+                            if (directory != null) {
+                              if (defaultTargetPlatform == TargetPlatform.macOS) {
+                                await persistDestinationFolderAccess(directory);
+                              }
+                              await ref.notifier(settingsProvider).setDestination(directory);
+                            }
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 5),
+                            child: Text(vm.settings.destination ?? t.settingsTab.receive.downloads, style: Theme.of(context).textTheme.titleMedium),
+                          ),
+                        ),
+                      ),
+                      if (vm.settings.saveLocationBasedOnFileType)
+                        _SettingsEntry(
+                          label: t.settingsTab.save.documentsLocation,
+                          child: TextButton(
+                            style: TextButton.styleFrom(
+                              backgroundColor: Theme.of(context).inputDecorationTheme.fillColor,
+                              shape: RoundedRectangleBorder(borderRadius: Theme.of(context).inputDecorationTheme.borderRadius),
+                              foregroundColor: Theme.of(context).colorScheme.onSurface,
+                            ),
+                            onPressed: () async {
+                              if (vm.settings.documentsDestination != null) {
+                                await ref.notifier(settingsProvider).setDocumentsDestination(null);
+                                if (defaultTargetPlatform == TargetPlatform.macOS) {
+                                  await removeExistingDestinationAccess();
+                                }
+                                return;
+                              }
+
+                              final directory = await pickDirectoryPath();
+                              if (directory != null) {
+                                if (defaultTargetPlatform == TargetPlatform.macOS) {
+                                  await persistDestinationFolderAccess(directory);
+                                }
+                                await ref.notifier(settingsProvider).setDocumentsDestination(directory);
+                              }
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 5),
+                              child: Text(
+                                vm.settings.documentsDestination ?? t.settingsTab.receive.downloads,
+                                style: Theme.of(context).textTheme.titleMedium,
+                              ),
+                            ),
+                          ),
+                        ),
+                      if (vm.settings.saveLocationBasedOnFileType)
+                        _SettingsEntry(
+                          label: t.settingsTab.save.mediaLocation,
+                          child: TextButton(
+                            style: TextButton.styleFrom(
+                              backgroundColor: Theme.of(context).inputDecorationTheme.fillColor,
+                              shape: RoundedRectangleBorder(borderRadius: Theme.of(context).inputDecorationTheme.borderRadius),
+                              foregroundColor: Theme.of(context).colorScheme.onSurface,
+                            ),
+                            onPressed: () async {
+                              if (vm.settings.mediaDestination != null) {
+                                await ref.notifier(settingsProvider).setMediaDestination(null);
+                                if (defaultTargetPlatform == TargetPlatform.macOS) {
+                                  await removeExistingDestinationAccess();
+                                }
+                                return;
+                              }
+
+                              final directory = await pickDirectoryPath();
+                              if (directory != null) {
+                                if (defaultTargetPlatform == TargetPlatform.macOS) {
+                                  await persistDestinationFolderAccess(directory);
+                                }
+                                await ref.notifier(settingsProvider).setMediaDestination(directory);
+                              }
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 5),
+                              child: Text(
+                                vm.settings.mediaDestination ?? t.settingsTab.receive.downloads,
+                                style: Theme.of(context).textTheme.titleMedium,
+                              ),
+                            ),
+                          ),
+                        ),
+                      if (vm.settings.saveLocationBasedOnFileType)
+                        _SettingsEntry(
+                          label: t.settingsTab.save.musicLocation,
+                          child: TextButton(
+                            style: TextButton.styleFrom(
+                              backgroundColor: Theme.of(context).inputDecorationTheme.fillColor,
+                              shape: RoundedRectangleBorder(borderRadius: Theme.of(context).inputDecorationTheme.borderRadius),
+                              foregroundColor: Theme.of(context).colorScheme.onSurface,
+                            ),
+                            onPressed: () async {
+                              if (vm.settings.musicDestination != null) {
+                                await ref.notifier(settingsProvider).setMusicDestination(null);
+                                if (defaultTargetPlatform == TargetPlatform.macOS) {
+                                  await removeExistingDestinationAccess();
+                                }
+                                return;
+                              }
+
+                              final directory = await pickDirectoryPath();
+                              if (directory != null) {
+                                if (defaultTargetPlatform == TargetPlatform.macOS) {
+                                  await persistDestinationFolderAccess(directory);
+                                }
+                                await ref.notifier(settingsProvider).setMusicDestination(directory);
+                              }
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 5),
+                              child: Text(
+                                vm.settings.musicDestination ?? t.settingsTab.receive.downloads,
+                                style: Theme.of(context).textTheme.titleMedium,
+                              ),
+                            ),
+                          ),
+                        ),
+                    ],
+                  ),
                   if (vm.advanced)
                     _SettingsSection(
                       title: t.settingsTab.send.title,
+                      icon: Icons.send,
                       children: [
                         _BooleanEntry(
                           label: t.settingsTab.send.shareViaLinkAutoAccept,
@@ -267,6 +388,7 @@ class SettingsTab extends StatelessWidget {
                     ),
                   _SettingsSection(
                     title: t.settingsTab.network.title,
+                    icon: Icons.account_tree_outlined,
                     children: [
                       AnimatedCrossFade(
                         crossFadeState:
@@ -490,6 +612,7 @@ class SettingsTab extends StatelessWidget {
                   ),
                   _SettingsSection(
                     title: t.settingsTab.other.title,
+                    icon: Icons.more_horiz,
                     padding: const EdgeInsets.only(bottom: 0),
                     children: [
                       _ButtonEntry(
@@ -715,11 +838,13 @@ class _ButtonEntry extends StatelessWidget {
 
 class _SettingsSection extends StatelessWidget {
   final String title;
+  final IconData? icon;
   final List<Widget> children;
   final EdgeInsets padding;
 
   const _SettingsSection({
     required this.title,
+    this.icon,
     required this.children,
     this.padding = const EdgeInsets.only(bottom: 15),
   });
@@ -734,7 +859,15 @@ class _SettingsSection extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(title, style: Theme.of(context).textTheme.titleMedium),
+              Row(
+                children: [
+                  Text(title, style: Theme.of(context).textTheme.titleMedium),
+                  if (icon != null) ...[
+                    const SizedBox(width: 8),
+                    Icon(icon),
+                  ],
+                ],
+              ),
               const SizedBox(height: 10),
               ...children,
             ],
