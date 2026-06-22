@@ -70,6 +70,10 @@ class SettingsService extends PureNotifier<SettingsState> {
     shareViaLinkAutoAccept: _persistence.getShareViaLinkAutoAccept(),
     discoveryTimeout: _persistence.getDiscoveryTimeout(),
     advancedSettings: _persistence.getAdvancedSettingsEnabled(),
+    saveLocationBasedOnFileType: _persistence.isSaveLocationBasedOnFileType(),
+    documentsDestination: _persistence.getDocumentsDestination(),
+    mediaDestination: _persistence.getMediaDestination(),
+    musicDestination: _persistence.getMusicDestination(),
   );
 
   Future<void> setAlias(String alias) async {
@@ -146,6 +150,27 @@ class SettingsService extends PureNotifier<SettingsState> {
     await _persistence.setDestination(destination);
     state = state.copyWith(
       destination: destination,
+    );
+  }
+
+  Future<void> setDocumentsDestination(String? destination) async {
+    await _persistence.setDocumentsDestination(destination);
+    state = state.copyWith(
+      documentsDestination: destination,
+    );
+  }
+
+  Future<void> setMediaDestination(String? destination) async {
+    await _persistence.setMediaDestination(destination);
+    state = state.copyWith(
+      mediaDestination: destination,
+    );
+  }
+
+  Future<void> setMusicDestination(String? destination) async {
+    await _persistence.setMusicDestination(destination);
+    state = state.copyWith(
+      musicDestination: destination,
     );
   }
 
@@ -245,6 +270,14 @@ class SettingsService extends PureNotifier<SettingsState> {
 
     state = state.copyWith(
       shareViaLinkAutoAccept: shareViaLinkAutoAccept,
+    );
+  }
+
+  Future<void> setSaveLocationBasedOnFileType(bool saveLocationBasedOnFileType) async {
+    await _persistence.setSaveLocationBasedOnFileType(saveLocationBasedOnFileType);
+
+    state = state.copyWith(
+      saveLocationBasedOnFileType: saveLocationBasedOnFileType,
     );
   }
 }

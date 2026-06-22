@@ -147,6 +147,26 @@ class SettingsStateMapper extends ClassMapperBase<SettingsState> {
     'advancedSettings',
     _$advancedSettings,
   );
+  static bool _$saveLocationBasedOnFileType(SettingsState v) =>
+      v.saveLocationBasedOnFileType;
+  static const Field<SettingsState, bool> _f$saveLocationBasedOnFileType =
+      Field('saveLocationBasedOnFileType', _$saveLocationBasedOnFileType);
+  static String? _$documentsDestination(SettingsState v) =>
+      v.documentsDestination;
+  static const Field<SettingsState, String> _f$documentsDestination = Field(
+    'documentsDestination',
+    _$documentsDestination,
+  );
+  static String? _$mediaDestination(SettingsState v) => v.mediaDestination;
+  static const Field<SettingsState, String> _f$mediaDestination = Field(
+    'mediaDestination',
+    _$mediaDestination,
+  );
+  static String? _$musicDestination(SettingsState v) => v.musicDestination;
+  static const Field<SettingsState, String> _f$musicDestination = Field(
+    'musicDestination',
+    _$musicDestination,
+  );
 
   @override
   final MappableFields<SettingsState> fields = const {
@@ -176,6 +196,10 @@ class SettingsStateMapper extends ClassMapperBase<SettingsState> {
     #shareViaLinkAutoAccept: _f$shareViaLinkAutoAccept,
     #discoveryTimeout: _f$discoveryTimeout,
     #advancedSettings: _f$advancedSettings,
+    #saveLocationBasedOnFileType: _f$saveLocationBasedOnFileType,
+    #documentsDestination: _f$documentsDestination,
+    #mediaDestination: _f$mediaDestination,
+    #musicDestination: _f$musicDestination,
   };
 
   static SettingsState _instantiate(DecodingData data) {
@@ -206,6 +230,10 @@ class SettingsStateMapper extends ClassMapperBase<SettingsState> {
       shareViaLinkAutoAccept: data.dec(_f$shareViaLinkAutoAccept),
       discoveryTimeout: data.dec(_f$discoveryTimeout),
       advancedSettings: data.dec(_f$advancedSettings),
+      saveLocationBasedOnFileType: data.dec(_f$saveLocationBasedOnFileType),
+      documentsDestination: data.dec(_f$documentsDestination),
+      mediaDestination: data.dec(_f$mediaDestination),
+      musicDestination: data.dec(_f$musicDestination),
     );
   }
 
@@ -302,6 +330,10 @@ abstract class SettingsStateCopyWith<$R, $In extends SettingsState, $Out>
     bool? shareViaLinkAutoAccept,
     int? discoveryTimeout,
     bool? advancedSettings,
+    bool? saveLocationBasedOnFileType,
+    String? documentsDestination,
+    String? mediaDestination,
+    String? musicDestination,
   });
   SettingsStateCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
@@ -360,6 +392,10 @@ class _SettingsStateCopyWithImpl<$R, $Out>
     bool? shareViaLinkAutoAccept,
     int? discoveryTimeout,
     bool? advancedSettings,
+    bool? saveLocationBasedOnFileType,
+    Object? documentsDestination = $none,
+    Object? mediaDestination = $none,
+    Object? musicDestination = $none,
   }) => $apply(
     FieldCopyWithData({
       if (showToken != null) #showToken: showToken,
@@ -391,6 +427,12 @@ class _SettingsStateCopyWithImpl<$R, $Out>
         #shareViaLinkAutoAccept: shareViaLinkAutoAccept,
       if (discoveryTimeout != null) #discoveryTimeout: discoveryTimeout,
       if (advancedSettings != null) #advancedSettings: advancedSettings,
+      if (saveLocationBasedOnFileType != null)
+        #saveLocationBasedOnFileType: saveLocationBasedOnFileType,
+      if (documentsDestination != $none)
+        #documentsDestination: documentsDestination,
+      if (mediaDestination != $none) #mediaDestination: mediaDestination,
+      if (musicDestination != $none) #musicDestination: musicDestination,
     }),
   );
   @override
@@ -430,6 +472,16 @@ class _SettingsStateCopyWithImpl<$R, $Out>
     ),
     discoveryTimeout: data.get(#discoveryTimeout, or: $value.discoveryTimeout),
     advancedSettings: data.get(#advancedSettings, or: $value.advancedSettings),
+    saveLocationBasedOnFileType: data.get(
+      #saveLocationBasedOnFileType,
+      or: $value.saveLocationBasedOnFileType,
+    ),
+    documentsDestination: data.get(
+      #documentsDestination,
+      or: $value.documentsDestination,
+    ),
+    mediaDestination: data.get(#mediaDestination, or: $value.mediaDestination),
+    musicDestination: data.get(#musicDestination, or: $value.musicDestination),
   );
 
   @override

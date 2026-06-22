@@ -221,7 +221,8 @@ class ReceiveController {
     }
 
     final settings = server.ref.read(settingsProvider);
-    final destinationDir = settings.destination ?? await getDefaultDestinationDirectory();
+    var fileType = request.headers.contentType?.mimeType;
+    final destinationDir = settings.destination ?? await getDefaultDestinationDirectory(fileMimeTypel: fileType);
     final cacheDir = await getCacheDirectory();
     final sessionId = _uuid.v4();
 

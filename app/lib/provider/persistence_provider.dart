@@ -64,6 +64,11 @@ const _windowWidth = 'ls_window_width';
 const _windowHeight = 'ls_window_height';
 const _saveWindowPlacement = 'ls_save_window_placement';
 
+// Multiple save destinations based on file type
+const _documentsDestination = 'ls_documents_destination';
+const _mediaDestination = 'ls_media_destination';
+const _musicDestination = 'ls_music_destination';
+
 // Settings
 const _showToken = 'ls_show_token';
 const _aliasKey = 'ls_alias';
@@ -89,6 +94,7 @@ const _enableAnimations = 'ls_enable_animations';
 const _deviceType = 'ls_device_type';
 const _deviceModel = 'ls_device_model';
 const _shareViaLinkAutoAccept = 'ls_share_via_link_auto_accept';
+const _saveLocationBasedOnFileType = 'ls_save_location_based_on_file_type';
 const _advancedSettingsKey = 'ls_advanced_settings';
 
 final persistenceProvider = Provider<PersistenceService>((ref) {
@@ -387,6 +393,42 @@ class PersistenceService {
     }
   }
 
+  String? getDocumentsDestination() {
+    return _prefs.getString(_documentsDestination);
+  }
+
+  Future<void> setDocumentsDestination(String? destination) async {
+    if (destination == null) {
+      await _prefs.remove(_documentsDestination);
+    } else {
+      await _prefs.setString(_documentsDestination, destination);
+    }
+  }
+
+  String? getMediaDestination() {
+    return _prefs.getString(_mediaDestination);
+  }
+
+  Future<void> setMediaDestination(String? destination) async {
+    if (destination == null) {
+      await _prefs.remove(_mediaDestination);
+    } else {
+      await _prefs.setString(_mediaDestination, destination);
+    }
+  }
+
+  String? getMusicDestination() {
+    return _prefs.getString(_musicDestination);
+  }
+
+  Future<void> setMusicDestination(String? destination) async {
+    if (destination == null) {
+      await _prefs.remove(_musicDestination);
+    } else {
+      await _prefs.setString(_musicDestination, destination);
+    }
+  }
+
   bool isSaveToGallery() {
     return _prefs.getBool(_saveToGallery) ?? true;
   }
@@ -425,6 +467,14 @@ class PersistenceService {
 
   Future<void> setQuickSaveFromFavorites(bool quickSaveFromFavorites) async {
     await _prefs.setBool(_quickSaveFromFavorites, quickSaveFromFavorites);
+  }
+
+  Future<void> setSaveLocationBasedOnFileType(bool saveLocationBasedOnFileType) async {
+    await _prefs.setBool(_saveLocationBasedOnFileType, saveLocationBasedOnFileType);
+  }
+
+  bool isSaveLocationBasedOnFileType() {
+    return _prefs.getBool(_saveLocationBasedOnFileType) ?? false;
   }
 
   String? getReceivePin() {
