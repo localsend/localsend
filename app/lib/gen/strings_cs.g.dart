@@ -238,6 +238,8 @@ class _TranslationsSettingsTabCs extends TranslationsSettingsTabEn {
   @override
   late final _TranslationsSettingsTabReceiveCs receive = _TranslationsSettingsTabReceiveCs._(_root);
   @override
+  late final _TranslationsSettingsTabSaveCs save = _TranslationsSettingsTabSaveCs._(_root);
+  @override
   late final _TranslationsSettingsTabSendCs send = _TranslationsSettingsTabSendCs._(_root);
   @override
   late final _TranslationsSettingsTabNetworkCs network = _TranslationsSettingsTabNetworkCs._(_root);
@@ -375,6 +377,8 @@ class _TranslationsReceiveOptionsPageCs extends TranslationsReceiveOptionsPageEn
   String get saveToGallery => _root.settingsTab.receive.saveToGallery;
   @override
   String get saveToGalleryOff => 'Automaticky vypnuto, protože existují adresáře.';
+  @override
+  String get editDirectoryInSettings => 'Složka pro ukladání je určena automaticky podle typu souboru.';
 }
 
 // Path: sendPage
@@ -405,6 +409,10 @@ class _TranslationsProgressPageCs extends TranslationsProgressPageEn {
   String get titleSending => 'Odesílání souborů';
   @override
   String get titleReceiving => 'Přijímání souborů';
+  @override
+  String get titleSent => 'Soubory odeslány';
+  @override
+  String get titleReceived => 'Soubory přijaty';
   @override
   String get savedToGallery => 'Uloženo ve Fotkách';
   @override
@@ -827,6 +835,27 @@ class _TranslationsSettingsTabReceiveCs extends TranslationsSettingsTabReceiveEn
   String get saveToGallery => 'Uložit média do galerie';
   @override
   String get saveToHistory => 'Uložit do historie';
+}
+
+// Path: settingsTab.save
+class _TranslationsSettingsTabSaveCs extends TranslationsSettingsTabSaveEn {
+  _TranslationsSettingsTabSaveCs._(TranslationsCs root) : this._root = root, super.internal(root);
+
+  final TranslationsCs _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Ukládání';
+  @override
+  String get saveLocation => 'Rozdílné umístění pro různé typy souborů.';
+  @override
+  String get defaultLocation => 'Výchozí';
+  @override
+  String get documentsLocation => 'Dokumenty';
+  @override
+  String get mediaLocation => 'Obrázky a videa';
+  @override
+  String get musicLocation => 'Hudba';
 }
 
 // Path: settingsTab.send

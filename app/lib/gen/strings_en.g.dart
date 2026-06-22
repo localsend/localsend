@@ -269,6 +269,7 @@ class TranslationsSettingsTabEn {
 
   late final TranslationsSettingsTabGeneralEn general = TranslationsSettingsTabGeneralEn.internal(_root);
   late final TranslationsSettingsTabReceiveEn receive = TranslationsSettingsTabReceiveEn.internal(_root);
+  late final TranslationsSettingsTabSaveEn save = TranslationsSettingsTabSaveEn.internal(_root);
   late final TranslationsSettingsTabSendEn send = TranslationsSettingsTabSendEn.internal(_root);
   late final TranslationsSettingsTabNetworkEn network = TranslationsSettingsTabNetworkEn.internal(_root);
   late final TranslationsSettingsTabOtherEn other = TranslationsSettingsTabOtherEn.internal(_root);
@@ -430,6 +431,9 @@ class TranslationsReceiveOptionsPageEn {
 
   /// en: 'Turned off automatically because there are folders.'
   String get saveToGalleryOff => 'Turned off automatically because there are folders.';
+
+  /// en: 'The save location is determined by the file type.'
+  String get editDirectoryInSettings => 'The save location is determined by the file type.';
 }
 
 // Path: sendPage
@@ -466,6 +470,12 @@ class TranslationsProgressPageEn {
 
   /// en: 'Receiving files'
   String get titleReceiving => 'Receiving files';
+
+  /// en: 'Files sent'
+  String get titleSent => 'Files sent';
+
+  /// en: 'Files received'
+  String get titleReceived => 'Files received';
 
   /// en: 'Saved in Photos'
   String get savedToGallery => 'Saved in Photos';
@@ -1049,6 +1059,33 @@ class TranslationsSettingsTabReceiveEn {
 
   /// en: 'Save to history'
   String get saveToHistory => 'Save to history';
+}
+
+// Path: settingsTab.save
+class TranslationsSettingsTabSaveEn {
+  TranslationsSettingsTabSaveEn.internal(this._root);
+
+  final Translations _root; // ignore: unused_field
+
+  // Translations
+
+  /// en: 'Save'
+  String get title => 'Save';
+
+  /// en: 'Different save locations based on file type'
+  String get saveLocation => 'Different save locations based on file type';
+
+  /// en: 'Default'
+  String get defaultLocation => 'Default';
+
+  /// en: 'Documents'
+  String get documentsLocation => 'Documents';
+
+  /// en: 'Images and Videos'
+  String get mediaLocation => 'Images and Videos';
+
+  /// en: 'Music'
+  String get musicLocation => 'Music';
 }
 
 // Path: settingsTab.send

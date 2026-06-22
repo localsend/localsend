@@ -122,6 +122,14 @@
       "saveToGallery": "Medien in die Galerie speichern",
       "saveToHistory": "In Verlauf speichern"
     },
+     "save": {
+      "title": "Speichern",
+      "saveLocation": "Unterschiedliche Speicherorte basierend auf dem Dateityp",
+      "defaultLocation": "Standard",
+      "documentsLocation": "Dokumente",
+      "mediaLocation": "Bilder und Videos",
+      "musicLocation": "Musik"
+    },
     "send": {
       "title": "Senden",
       "shareViaLinkAutoAccept": "Link teilen: Autom. akzeptieren"
@@ -217,7 +225,8 @@
     "destination": "@:settingsTab.receive.destination",
     "appDirectory": "(LocalSend-Ordner)",
     "saveToGallery": "@:settingsTab.receive.saveToGallery",
-    "saveToGalleryOff": "Aufgrund von Ordnern automatisch ausgeschaltet."
+    "saveToGalleryOff": "Aufgrund von Ordnern automatisch ausgeschaltet.",
+    "editDirectoryInSettings": "Der Speicherort hängt vom Dateityp ab."
   },
   "sendPage": {
     "waiting": "Warte auf Antwort…",
@@ -228,6 +237,8 @@
   "progressPage": {
     "titleSending": "Sende Dateien",
     "titleReceiving": "Empfange Dateien",
+    "titleSent": "Gesendete Dateien",
+    "titleReceived": "Eingegangene Dateien",
     "savedToGallery": "in Fotos gespeichert",
     "total": {
       "title": {

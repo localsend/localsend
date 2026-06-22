@@ -238,6 +238,8 @@ class _TranslationsSettingsTabDe extends TranslationsSettingsTabEn {
   @override
   late final _TranslationsSettingsTabReceiveDe receive = _TranslationsSettingsTabReceiveDe._(_root);
   @override
+  late final _TranslationsSettingsTabSaveDe save = _TranslationsSettingsTabSaveDe._(_root);
+  @override
   late final _TranslationsSettingsTabSendDe send = _TranslationsSettingsTabSendDe._(_root);
   @override
   late final _TranslationsSettingsTabNetworkDe network = _TranslationsSettingsTabNetworkDe._(_root);
@@ -375,6 +377,8 @@ class _TranslationsReceiveOptionsPageDe extends TranslationsReceiveOptionsPageEn
   String get saveToGallery => _root.settingsTab.receive.saveToGallery;
   @override
   String get saveToGalleryOff => 'Aufgrund von Ordnern automatisch ausgeschaltet.';
+  @override
+  String get editDirectoryInSettings => 'Der Speicherort hängt vom Dateityp ab.';
 }
 
 // Path: sendPage
@@ -405,6 +409,10 @@ class _TranslationsProgressPageDe extends TranslationsProgressPageEn {
   String get titleSending => 'Sende Dateien';
   @override
   String get titleReceiving => 'Empfange Dateien';
+  @override
+  String get titleSent => 'Gesendete Dateien';
+  @override
+  String get titleReceived => 'Eingegangene Dateien';
   @override
   String get savedToGallery => 'in Fotos gespeichert';
   @override
@@ -830,6 +838,27 @@ class _TranslationsSettingsTabReceiveDe extends TranslationsSettingsTabReceiveEn
   String get saveToGallery => 'Medien in die Galerie speichern';
   @override
   String get saveToHistory => 'In Verlauf speichern';
+}
+
+// Path: settingsTab.save
+class _TranslationsSettingsTabSaveDe extends TranslationsSettingsTabSaveEn {
+  _TranslationsSettingsTabSaveDe._(TranslationsDe root) : this._root = root, super.internal(root);
+
+  final TranslationsDe _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Speichern';
+  @override
+  String get saveLocation => 'Unterschiedliche Speicherorte basierend auf dem Dateityp';
+  @override
+  String get defaultLocation => 'Standard';
+  @override
+  String get documentsLocation => 'Dokumente';
+  @override
+  String get mediaLocation => 'Bilder und Videos';
+  @override
+  String get musicLocation => 'Musik';
 }
 
 // Path: settingsTab.send

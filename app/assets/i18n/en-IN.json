@@ -122,6 +122,14 @@
       "saveToGallery": "Save media to gallery",
       "saveToHistory": "Save to history"
     },
+    "save": {
+      "title": "Save",
+      "saveLocation": "Different save locations based on file type",
+      "defaultLocation": "Default",
+      "documentsLocation": "Documents",
+      "mediaLocation": "Images and Videos",
+      "musicLocation": "Music"
+    },
     "send": {
       "title": "Send",
       "shareViaLinkAutoAccept": "Share via link: Auto accept"
@@ -210,7 +218,8 @@
     "destination": "@:settingsTab.receive.destination",
     "appDirectory": "(LocalSend folder)",
     "saveToGallery": "@:settingsTab.receive.saveToGallery",
-    "saveToGalleryOff": "Turned off automatically because there are directories."
+    "saveToGalleryOff": "Turned off automatically because there are folders.",
+    "editDirectoryInSettings": "The save location is determined by the file type."
   },
   "sendPage": {
     "waiting": "Waiting for response…",
@@ -221,6 +230,8 @@
   "progressPage": {
     "titleSending": "Sending files",
     "titleReceiving": "Receiving files",
+    "titleSent": "Files sent",
+    "titleReceived": "Files received",
     "savedToGallery": "Saved in Photos",
     "total": {
       "title": {

@@ -122,6 +122,14 @@
       "saveToGallery": "Uložit média do galerie",
       "saveToHistory": "Uložit do historie"
     },
+    "save": {
+      "title": "Ukládání",
+      "saveLocation": "Rozdílné umístění pro různé typy souborů.",
+      "defaultLocation": "Výchozí",
+      "documentsLocation": "Dokumenty",
+      "mediaLocation": "Obrázky a videa",
+      "musicLocation": "Hudba"
+    },
     "send": {
       "title": "Poslat",
       "shareViaLinkAutoAccept": "Automaticky přijímat požadavky v režimu \"Sdílet přes odkaz\"."
@@ -217,7 +225,8 @@
     "destination": "@:settingsTab.receive.destination",
     "appDirectory": "(LocalSend folder)",
     "saveToGallery": "@:settingsTab.receive.saveToGallery",
-    "saveToGalleryOff": "Automaticky vypnuto, protože existují adresáře."
+    "saveToGalleryOff": "Automaticky vypnuto, protože existují adresáře.",
+    "editDirectoryInSettings": "Složka pro ukladání je určena automaticky podle typu souboru."
   },
   "sendPage": {
     "waiting": "Čekání na odpověď...",
@@ -228,6 +237,8 @@
   "progressPage": {
     "titleSending": "Odesílání souborů",
     "titleReceiving": "Přijímání souborů",
+    "titleSent": "Soubory odeslány",
+    "titleReceived": "Soubory přijaty",
     "savedToGallery": "Uloženo ve Fotkách",
     "total": {
       "title": {
