@@ -30,6 +30,14 @@ class HttpFavoriteScanTask implements HttpScanTask {
   });
 }
 
+class HttpTargetScanTask implements HttpScanTask {
+  final List<HttpDiscoveryTarget> targets;
+
+  HttpTargetScanTask({
+    required this.targets,
+  });
+}
+
 @internal
 Future<void> setupHttpScanDiscoveryIsolate(
   Stream<SendToIsolateData<IsolateTask<HttpScanTask>>> receiveFromMain,
@@ -51,6 +59,9 @@ Future<void> setupHttpScanDiscoveryIsolate(
         HttpFavoriteScanTask data => ref.read(httpScanDiscoveryProvider).getFavoriteStream(
               devices: data.favorites,
               https: data.https,
+            ),
+        HttpTargetScanTask data => ref.read(httpScanDiscoveryProvider).getTargetStream(
+              targets: data.targets,
             ),
       };
       await for (final device in stream) {

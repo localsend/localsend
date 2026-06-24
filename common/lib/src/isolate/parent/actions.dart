@@ -8,6 +8,7 @@ import 'package:common/src/isolate/dto/isolate_task.dart';
 import 'package:common/src/isolate/dto/isolate_task_result.dart';
 import 'package:common/src/isolate/dto/send_to_isolate_data.dart';
 import 'package:common/src/isolate/parent/parent_isolate_provider.dart';
+import 'package:common/src/task/discovery/http_scan_discovery.dart';
 import 'package:common/src/util/id_provider.dart';
 import 'package:common/src/util/isolate_helper.dart';
 import 'package:refena/refena.dart';
@@ -67,6 +68,34 @@ class IsolateFavoriteHttpDiscoveryAction extends ReduxActionWithResult<IsolateCo
     final task = HttpFavoriteScanTask(
       favorites: favorites,
       https: https,
+    );
+
+    return (
+      state,
+      _sendTaskAndListenStream(
+        task: task,
+        connection: connection,
+      )
+    );
+  }
+}
+
+class IsolateTargetHttpDiscoveryAction extends ReduxActionWithResult<IsolateController, ParentIsolateState, Stream<Device>> {
+  final List<HttpDiscoveryTarget> targets;
+
+  IsolateTargetHttpDiscoveryAction({
+    required this.targets,
+  });
+
+  @override
+  (ParentIsolateState, Stream<Device>) reduce() {
+    final connection = state.httpScanDiscovery;
+    if (connection == null) {
+      throw StateError('httpScanDiscovery is not initialized');
+    }
+
+    final task = HttpTargetScanTask(
+      targets: targets,
     );
 
     return (

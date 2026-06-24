@@ -69,6 +69,9 @@ class SettingsService extends PureNotifier<SettingsState> {
     deviceModel: _persistence.getDeviceModel(),
     shareViaLinkAutoAccept: _persistence.getShareViaLinkAutoAccept(),
     discoveryTimeout: _persistence.getDiscoveryTimeout(),
+    crossSubnetScan: _persistence.getCrossSubnetScan(),
+    crossSubnetScanDepth: _persistence.getCrossSubnetScanDepth(),
+    customSubnetScanRanges: _persistence.getCustomSubnetScanRanges(),
     advancedSettings: _persistence.getAdvancedSettingsEnabled(),
   );
 
@@ -139,6 +142,27 @@ class SettingsService extends PureNotifier<SettingsState> {
     await _persistence.setMulticastGroup(group);
     state = state.copyWith(
       multicastGroup: group,
+    );
+  }
+
+  Future<void> setCrossSubnetScan(bool enabled) async {
+    await _persistence.setCrossSubnetScan(enabled);
+    state = state.copyWith(
+      crossSubnetScan: enabled,
+    );
+  }
+
+  Future<void> setCrossSubnetScanDepth(int depth) async {
+    await _persistence.setCrossSubnetScanDepth(depth);
+    state = state.copyWith(
+      crossSubnetScanDepth: depth,
+    );
+  }
+
+  Future<void> setCustomSubnetScanRanges(List<String> ranges) async {
+    await _persistence.setCustomSubnetScanRanges(ranges);
+    state = state.copyWith(
+      customSubnetScanRanges: ranges,
     );
   }
 
