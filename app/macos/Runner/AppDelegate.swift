@@ -18,6 +18,9 @@ class AppDelegate: FlutterAppDelegate {
     private var pendingFilesObservation: Defaults.Observation?
     private var pendingStringsObservation: Defaults.Observation?
     private var isLaunchedAsLoginItem: Bool?
+    private var statusBarI18n: [String: String]?
+    private var statusBarRecreateAttempted = false
+    private static let statusItemAutosaveName = "org.localsend.localsend_app.status-item"
     
     override func applicationSupportsSecureRestorableState(_ app: NSApplication) -> Bool {
         return true
@@ -47,6 +50,10 @@ class AppDelegate: FlutterAppDelegate {
         showLocalSendFromMenuBar()
         return false
     }
+
+    override func applicationDidBecomeActive(_ notification: Notification) {
+        ensureStatusBarVisible()
+    }
     
     private func setupPendingItemsObservation() {
         self.pendingFilesObservation = Defaults.observe(.pendingFiles) { change in
@@ -71,36 +78,105 @@ class AppDelegate: FlutterAppDelegate {
         }
     }
     
-    private func setupStatusBarItem(i18n: [String: String]) {
-        statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
-        if let button = statusItem?.button {
-            let image = NSImage(named: "StatusBarItemIcon")
-            image!.size = NSSize(width: 18, height: 18)
-            image!.isTemplate = true
-            button.image = image
-            
-            let menu = NSMenu()
-            
-            let openString = i18n["open"]!
-            let openItem = NSMenuItem(title: openString, action: #selector(showLocalSendFromMenuBar), keyEquivalent: "o")
-            menu.addItem(openItem)
-            
-            let quitString = i18n["quit"]!
-            let quitItem = NSMenuItem(title: quitString, action: #selector(quitApp), keyEquivalent: "q")
-            menu.addItem(quitItem)
-            
-            statusItem?.menu = menu
-            
-            let dragView = ContentDropView(frame: button.bounds)
-            button.addSubview(dragView)
-            
-            dragView.translatesAutoresizingMaskIntoConstraints = false
-            NSLayoutConstraint.activate([
-                dragView.topAnchor.constraint(equalTo: button.topAnchor),
-                dragView.leadingAnchor.constraint(equalTo: button.leadingAnchor),
-                dragView.trailingAnchor.constraint(equalTo: button.trailingAnchor),
-                dragView.bottomAnchor.constraint(equalTo: button.bottomAnchor)
-            ])
+    private func removeStatusBarItem() {
+        if let item = statusItem {
+            NSStatusBar.system.removeStatusItem(item)
+            statusItem = nil
+        }
+    }
+
+    private func configureStatusBarButton(_ button: NSStatusBarButton, i18n: [String: String]) {
+        let image = NSImage(named: "StatusBarItemIcon")
+        image!.size = NSSize(width: 18, height: 18)
+        image!.isTemplate = true
+        button.image = image
+
+        let menu = NSMenu()
+
+        let openString = i18n["open"]!
+        let openItem = NSMenuItem(title: openString, action: #selector(showLocalSendFromMenuBar), keyEquivalent: "o")
+        menu.addItem(openItem)
+
+        let quitString = i18n["quit"]!
+        let quitItem = NSMenuItem(title: quitString, action: #selector(quitApp), keyEquivalent: "q")
+        menu.addItem(quitItem)
+
+        statusItem?.menu = menu
+
+        button.subviews.forEach { $0.removeFromSuperview() }
+
+        let dragView = ContentDropView(frame: button.bounds)
+        button.addSubview(dragView)
+
+        dragView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            dragView.topAnchor.constraint(equalTo: button.topAnchor),
+            dragView.leadingAnchor.constraint(equalTo: button.leadingAnchor),
+            dragView.trailingAnchor.constraint(equalTo: button.trailingAnchor),
+            dragView.bottomAnchor.constraint(equalTo: button.bottomAnchor)
+        ])
+    }
+
+    private func setupStatusBarItem(i18n: [String: String], forceNewIdentity: Bool = false) {
+        statusBarI18n = i18n
+        removeStatusBarItem()
+
+        let item = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
+        if forceNewIdentity {
+            item.autosaveName = NSStatusItem.AutoSaveName("\(Self.statusItemAutosaveName).\(UUID().uuidString)")
+        } else {
+            item.autosaveName = NSStatusItem.AutoSaveName(Self.statusItemAutosaveName)
+        }
+        item.isVisible = true
+        statusItem = item
+
+        if let button = item.button {
+            configureStatusBarButton(button, i18n: i18n)
+        }
+
+        scheduleStatusBarVisibilityCheck()
+    }
+
+    private func scheduleStatusBarVisibilityCheck() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) { [weak self] in
+            self?.ensureStatusBarVisible()
+        }
+    }
+
+    private func isStatusBarItemActuallyVisible() -> Bool {
+        guard let item = statusItem, item.isVisible else { return false }
+        guard let button = item.button else { return false }
+
+        // On macOS Tahoe, Control Center may keep isVisible=true while placing the item off-screen.
+        if let window = button.window {
+            if window.screen == nil {
+                return false
+            }
+            if window.frame.origin.y < 0 {
+                return false
+            }
+        }
+
+        return true
+    }
+
+    private func ensureStatusBarVisible() {
+        guard let i18n = statusBarI18n else { return }
+
+        if statusItem == nil {
+            setupStatusBarItem(i18n: i18n)
+            return
+        }
+
+        if isStatusBarItemActuallyVisible() {
+            return
+        }
+
+        // macOS Control Center can hide removed menu bar items until they are recreated.
+        // Try once with a fresh autosave identity before giving up.
+        if !statusBarRecreateAttempted {
+            statusBarRecreateAttempted = true
+            setupStatusBarItem(i18n: i18n, forceNewIdentity: true)
         }
     }
     
@@ -145,8 +221,12 @@ class AppDelegate: FlutterAppDelegate {
             result(nil)
         case "setupStatusBar":
             let i18n = call.arguments as! [String: String]
+            statusBarRecreateAttempted = false
             setupStatusBarItem(i18n: i18n)
             result(nil)
+        case "ensureStatusBarVisible":
+            ensureStatusBarVisible()
+            result(isStatusBarItemActuallyVisible())
         case "removeDestinationFolderAccess":
             removeExistingDestinationAccess()
             result(nil)

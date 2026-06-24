@@ -1,12 +1,15 @@
 import 'package:collection/collection.dart';
 import 'package:common/isolate.dart';
 import 'package:common/model/device.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/model/persistence/color_mode.dart';
 import 'package:localsend_app/model/send_mode.dart';
 import 'package:localsend_app/model/state/settings_state.dart';
 import 'package:localsend_app/provider/persistence_provider.dart';
+import 'package:localsend_app/util/native/macos_channel.dart';
+import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 
 final _listEq = const ListEquality().equals;
@@ -196,6 +199,9 @@ class SettingsService extends PureNotifier<SettingsState> {
     state = state.copyWith(
       minimizeToTray: minimizeToTray,
     );
+    if (checkPlatform([TargetPlatform.macOS])) {
+      await setupStatusBar();
+    }
   }
 
   Future<void> setHttps(bool https) async {

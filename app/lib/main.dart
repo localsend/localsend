@@ -9,6 +9,8 @@ import 'package:localsend_app/model/persistence/color_mode.dart';
 import 'package:localsend_app/pages/home_page.dart';
 import 'package:localsend_app/provider/local_ip_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
+import 'package:localsend_app/util/native/macos_channel.dart';
+import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_app/util/ui/dynamic_colors.dart';
 import 'package:localsend_app/widget/watcher/life_cycle_watcher.dart';
 import 'package:localsend_app/widget/watcher/shortcut_watcher.dart';
@@ -54,6 +56,10 @@ class LocalSendApp extends StatelessWidget {
             switch (state) {
               case AppLifecycleState.resumed:
                 ref.redux(localIpProvider).dispatch(InitLocalIpAction());
+                if (checkPlatform([TargetPlatform.macOS])) {
+                  // ignore: discarded_futures
+                  ensureStatusBarVisible();
+                }
                 break;
               case AppLifecycleState.detached:
                 // The main isolate is only exited when all child isolates are exited.
