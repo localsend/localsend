@@ -43,6 +43,7 @@ extension DeviceTypeExt on DeviceType {
       DeviceType.web => rust_model.DeviceType.web,
       DeviceType.headless => rust_model.DeviceType.headless,
       DeviceType.server => rust_model.DeviceType.server,
+      DeviceType.smartwatch => rust_model.DeviceType.smartwatch,
     };
   }
 }
@@ -74,6 +75,7 @@ extension RustDeviceTypeExt on rust_model.DeviceType {
       rust_model.DeviceType.web => DeviceType.web,
       rust_model.DeviceType.headless => DeviceType.headless,
       rust_model.DeviceType.server => DeviceType.server,
+      rust_model.DeviceType.smartwatch => DeviceType.smartwatch,
     };
   }
 }

@@ -2264,7 +2264,7 @@ impl SseDecode for crate::api::model::DeviceType {
             2 => crate::api::model::DeviceType::Web,
             3 => crate::api::model::DeviceType::Headless,
             4 => crate::api::model::DeviceType::Server,
-            _ => unreachable!("Invalid variant for DeviceType: {}", inner),
+            5 => crate::api::model::DeviceType::Smartwatch,
         };
     }
 }
@@ -3207,7 +3207,7 @@ impl flutter_rust_bridge::IntoDart for FrbWrapper<crate::api::model::DeviceType>
             crate::api::model::DeviceType::Web => 2.into_dart(),
             crate::api::model::DeviceType::Headless => 3.into_dart(),
             crate::api::model::DeviceType::Server => 4.into_dart(),
-            _ => unreachable!(),
+            crate::api::model::DeviceType::Smartwatch => 5.into_dart(),
         }
     }
 }
@@ -4010,9 +4010,7 @@ impl SseEncode for crate::api::model::DeviceType {
                 crate::api::model::DeviceType::Web => 2,
                 crate::api::model::DeviceType::Headless => 3,
                 crate::api::model::DeviceType::Server => 4,
-                _ => {
-                    unimplemented!("");
-                }
+                crate::api::model::DeviceType::Smartwatch => 5,
             },
             serializer,
         );

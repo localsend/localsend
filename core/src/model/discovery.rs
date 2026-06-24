@@ -8,4 +8,5 @@ pub enum DeviceType {
     Web,
     Headless,
     Server,
+    Smartwatch,
 }

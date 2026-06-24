@@ -232,6 +232,7 @@ extension on rust.DeviceType {
       rust.DeviceType.web => DeviceType.web,
       rust.DeviceType.headless => DeviceType.headless,
       rust.DeviceType.server => DeviceType.server,
+      rust.DeviceType.smartwatch => DeviceType.smartwatch,
     };
   }
 }
@@ -244,6 +245,7 @@ extension on DeviceType {
       DeviceType.web => rust.DeviceType.web,
       DeviceType.headless => rust.DeviceType.headless,
       DeviceType.server => rust.DeviceType.server,
+      DeviceType.smartwatch => rust.DeviceType.smartwatch,
     };
   }
 }

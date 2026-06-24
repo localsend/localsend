@@ -9,6 +9,7 @@ enum DeviceType {
   web,
   headless,
   server,
+  smartwatch,
 }
 
 @MappableClass()

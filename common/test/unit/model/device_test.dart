@@ -57,4 +57,9 @@ void main() {
     expect(set, contains(SignalingDiscovery(signalingServer: 'sa')));
     expect(set, contains(SignalingDiscovery(signalingServer: 'sb')));
   });
+
+  test('Should serialize and deserialize smartwatch device type', () {
+    expect(DeviceType.smartwatch.toValue(), 'smartwatch');
+    expect(DeviceTypeMapper.fromValue('smartwatch'), DeviceType.smartwatch);
+  });
 }

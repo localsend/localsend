@@ -21,37 +21,32 @@ Future<DeviceInfoResult> getDeviceInfo() async {
   } else {
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
-      case TargetPlatform.iOS:
-        deviceType = DeviceType.mobile;
-        break;
-      case TargetPlatform.linux:
-      case TargetPlatform.macOS:
-      case TargetPlatform.windows:
-      case TargetPlatform.fuchsia:
-        deviceType = DeviceType.desktop;
-        break;
-    }
-
-    switch (defaultTargetPlatform) {
-      case TargetPlatform.android:
         final deviceInfo = await plugin.androidInfo;
+        deviceType = deviceInfo.systemFeatures.contains('android.hardware.type.watch')
+            ? DeviceType.smartwatch
+            : DeviceType.mobile;
         deviceModel = deviceInfo.brand.toCase(CaseStyle.pascal);
         androidSdkInt = deviceInfo.version.sdkInt;
         break;
       case TargetPlatform.iOS:
+        deviceType = DeviceType.mobile;
         final deviceInfo = await plugin.iosInfo;
         deviceModel = deviceInfo.localizedModel;
         break;
       case TargetPlatform.linux:
+        deviceType = DeviceType.desktop;
         deviceModel = 'Linux';
         break;
       case TargetPlatform.macOS:
+        deviceType = DeviceType.desktop;
         deviceModel = 'macOS';
         break;
       case TargetPlatform.windows:
+        deviceType = DeviceType.desktop;
         deviceModel = 'Windows';
         break;
       case TargetPlatform.fuchsia:
+        deviceType = DeviceType.desktop;
         deviceModel = 'Fuchsia';
         break;
     }

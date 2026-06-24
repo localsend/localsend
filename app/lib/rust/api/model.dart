@@ -12,6 +12,7 @@ enum DeviceType {
   web,
   headless,
   server,
+  smartwatch,
 }
 
 class FileDto {
