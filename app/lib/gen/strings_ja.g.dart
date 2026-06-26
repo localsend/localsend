@@ -673,13 +673,13 @@ class _TranslationsNetworkInterfacesPageJa extends TranslationsNetworkInterfaces
   @override
   String get preview => 'プレビュー';
   @override
-  String get blacklist => 'ブラックリスト';
+  String get blacklist => '除外リスト';
   @override
-  String get whitelist => 'ホワイトリスト';
+  String get whitelist => '許可リスト';
   @override
   String get title => 'ネットワークインターフェース';
   @override
-  String get info => 'デフォルトでは、LocalSend は利用可能なすべてのネットワークインターフェースを使用します。不要なネットワークを除外するには、ここで設定できます。変更を適用するには、サーバーを再起動する必要があります。';
+  String get info => 'デフォルトでは、LocalSend は利用可能なすべてのネットワークインターフェースを使用します。不要なネットワークはここで除外できます。変更を適用するには、サーバーの再起動が必要です。';
 }
 
 // Path: receiveTab.infoBox
@@ -1383,7 +1383,7 @@ class _TranslationsSettingsTabNetworkNetworkOptionsJa extends TranslationsSettin
   @override
   String get all => 'すべて';
   @override
-  String get filtered => 'フィルター';
+  String get filtered => 'フィルター済み';
 }
 
 // Path: progressPage.total.title
