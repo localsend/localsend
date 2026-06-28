@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:common/model/device.dart';
+import 'package:common/model/file_type.dart';
 import 'package:common/model/session_status.dart';
 import 'package:flutter/material.dart';
 import 'package:localsend_app/config/theme.dart';
@@ -10,10 +11,12 @@ import 'package:localsend_app/pages/receive_page.dart';
 import 'package:localsend_app/provider/receive_history_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/util/file_size_helper.dart';
+import 'package:localsend_app/util/native/clipboard.dart';
 import 'package:localsend_app/util/native/directories.dart';
 import 'package:localsend_app/util/native/open_file.dart';
 import 'package:localsend_app/util/native/open_folder.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
+import 'package:localsend_app/util/ui/snackbar.dart';
 import 'package:localsend_app/widget/custom_basic_appbar.dart';
 import 'package:localsend_app/widget/dialogs/file_info_dialog.dart';
 import 'package:localsend_app/widget/dialogs/history_clear_dialog.dart';
@@ -27,7 +30,8 @@ enum _EntryOption {
   open,
   showInFolder,
   info,
-  delete;
+  delete,
+  copy;
 
   String get label {
     return switch (this) {
@@ -35,12 +39,28 @@ enum _EntryOption {
       _EntryOption.showInFolder => t.receiveHistoryPage.entryActions.showInFolder,
       _EntryOption.info => t.receiveHistoryPage.entryActions.info,
       _EntryOption.delete => t.receiveHistoryPage.entryActions.deleteFromHistory,
+      _EntryOption.copy => t.receiveHistoryPage.entryActions.copy,
     };
   }
 }
 
-const _optionsAll = _EntryOption.values;
-final _optionsWithoutOpen = [_EntryOption.info, _EntryOption.delete];
+List<_EntryOption> _optionsFor(ReceiveHistoryEntry entry, bool isDesktop) {
+  if (entry.path == null) {
+    return const [_EntryOption.info, _EntryOption.delete];
+  }
+  final canCopy = canCopyImageToClipboard(
+    path: entry.path,
+    fileType: entry.fileType,
+    isDesktop: isDesktop,
+  );
+  return [
+    _EntryOption.open,
+    _EntryOption.showInFolder,
+    if (canCopy) _EntryOption.copy,
+    _EntryOption.info,
+    _EntryOption.delete,
+  ];
+}
 
 class ReceiveHistoryPage extends StatelessWidget {
   const ReceiveHistoryPage({super.key});
@@ -63,6 +83,7 @@ class ReceiveHistoryPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final entries = context.watch(receiveHistoryProvider);
+    final isDesktop = checkPlatformIsDesktop();
     return Scaffold(
       appBar: basicLocalSendAppbar(t.receiveHistoryPage.title),
       body: ResponsiveListView(
@@ -219,10 +240,16 @@ class ReceiveHistoryPage extends StatelessWidget {
                               // ignore: use_build_context_synchronously
                               await context.redux(receiveHistoryProvider).dispatchAsync(RemoveHistoryEntryAction(entry.id));
                               break;
+                            case _EntryOption.copy:
+                              final ok = await copyImageToClipboard(entry.path!);
+                              if (ok) {
+                                context.showSnackBar(t.general.copiedToClipboard);
+                              }
+                              break;
                           }
                         },
                         itemBuilder: (BuildContext context) {
-                          return (entry.path != null ? _optionsAll : _optionsWithoutOpen).map((e) {
+                          return _optionsFor(entry, isDesktop).map((e) {
                             return PopupMenuItem<_EntryOption>(
                               value: e,
                               child: Text(e.label),

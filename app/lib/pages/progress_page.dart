@@ -4,6 +4,7 @@ import 'dart:typed_data';
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:common/model/dto/file_dto.dart';
 import 'package:common/model/file_status.dart';
+import 'package:common/model/file_type.dart';
 import 'package:common/model/session_status.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -16,11 +17,13 @@ import 'package:localsend_app/provider/progress_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/util/file_size_helper.dart';
 import 'package:localsend_app/util/file_speed_helper.dart';
+import 'package:localsend_app/util/native/clipboard.dart';
 import 'package:localsend_app/util/native/open_file.dart';
 import 'package:localsend_app/util/native/open_folder.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_app/util/native/taskbar_helper.dart';
 import 'package:localsend_app/util/ui/nav_bar_padding.dart';
+import 'package:localsend_app/util/ui/snackbar.dart';
 import 'package:localsend_app/widget/custom_basic_appbar.dart';
 import 'package:localsend_app/widget/custom_progress_bar.dart';
 import 'package:localsend_app/widget/dialogs/cancel_session_dialog.dart';
@@ -422,6 +425,21 @@ class _ProgressPageState extends State<ProgressPage> with Refena {
                                     file: sendSession.files[file.id]!,
                                     isRetry: true,
                                   );
+                            },
+                          ),
+                        if (filePath != null &&
+                            file.fileType == FileType.image &&
+                            fileStatus == FileStatus.finished &&
+                            receiveSession != null &&
+                            checkPlatformIsDesktop())
+                          IconButton(
+                            icon: const Icon(Icons.copy),
+                            tooltip: t.general.copy,
+                            onPressed: () async {
+                              final ok = await copyImageToClipboard(filePath!);
+                              if (ok && mounted) {
+                                context.showSnackBar(t.general.copiedToClipboard);
+                              }
                             },
                           ),
                       ],

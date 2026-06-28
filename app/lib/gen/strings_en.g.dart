@@ -1218,6 +1218,9 @@ class TranslationsReceiveHistoryPageEntryActionsEn {
 
   /// en: 'Delete from history'
   String get deleteFromHistory => 'Delete from history';
+
+  /// en: 'Copy image to clipboard'
+  String get copy => 'Copy image to clipboard';
 }
 
 // Path: progressPage.total

@@ -191,7 +191,8 @@
       "open": "Open file",
       "showInFolder": "Show in folder",
       "info": "Information",
-      "deleteFromHistory": "Delete from history"
+      "deleteFromHistory": "Delete from history",
+      "copy": "Copy image to clipboard"
     }
   },
   "apkPickerPage": {
