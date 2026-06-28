@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:common/model/device.dart';
-import 'package:common/model/file_type.dart';
 import 'package:common/model/session_status.dart';
 import 'package:flutter/material.dart';
 import 'package:localsend_app/config/theme.dart';
@@ -243,6 +242,7 @@ class ReceiveHistoryPage extends StatelessWidget {
                             case _EntryOption.copy:
                               final ok = await copyImageToClipboard(entry.path!);
                               if (ok) {
+                                // ignore: use_build_context_synchronously
                                 context.showSnackBar(t.general.copiedToClipboard);
                               }
                               break;

@@ -1,6 +1,6 @@
 import 'package:common/model/file_type.dart';
-import 'package:flutter_test/flutter_test.dart';
 import 'package:localsend_app/util/native/clipboard.dart';
+import 'package:test/test.dart';
 
 void main() {
   group('canCopyImageToClipboard', () {

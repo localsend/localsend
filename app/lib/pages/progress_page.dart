@@ -437,7 +437,7 @@ class _ProgressPageState extends State<ProgressPage> with Refena {
                             tooltip: t.general.copy,
                             onPressed: () async {
                               final ok = await copyImageToClipboard(filePath!);
-                              if (ok && mounted) {
+                              if (ok && context.mounted) {
                                 context.showSnackBar(t.general.copiedToClipboard);
                               }
                             },
