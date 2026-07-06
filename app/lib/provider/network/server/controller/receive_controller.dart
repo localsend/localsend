@@ -221,8 +221,7 @@ class ReceiveController {
     }
 
     final settings = server.ref.read(settingsProvider);
-    var fileType = request.headers.contentType?.mimeType;
-    final destinationDir = settings.destination ?? await getDefaultDestinationDirectory(fileMimeTypel: fileType);
+    final destinationDir = settings.destination ?? await getDefaultDestinationDirectory();
     final cacheDir = await getCacheDirectory();
     final sessionId = _uuid.v4();
 
@@ -498,6 +497,17 @@ class ReceiveController {
     );
     final fileType = receivingFile.file.fileType;
     final shouldSaveToGallery = receiveState.saveToGallery && (fileType == FileType.image || fileType == FileType.video);
+
+    if (server.ref.read(settingsProvider).saveLocationBasedOnFileType) {
+      final destinationDir = await getDestionationDirectoryByFileType(receivingFile.file.fileName, server.ref.read(settingsProvider));
+      server.setState(
+        (oldState) => oldState?.copyWith(
+          session: oldState.session?.copyWith(
+            destinationDirectory: destinationDir,
+          ),
+        ),
+      );
+    }
 
     String? filePath;
     bool savedToGallery = false;
