@@ -325,11 +325,8 @@ class _TranslationsReceivePageKm extends TranslationsReceivePageEn {
 
   // Translations
   @override
-  String subTitle({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('km'))(
-    n,
-    one: 'ចង់ផ្ញើឯកសារមួយឲ្យមកអ្នក។',
-    other: 'ចង់ផ្ញើឯកសារ ${n} ឲ្យមកអ្នក។',
-  );
+  String subTitle({required num n}) =>
+      (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('km'))(n, one: 'ចង់ផ្ញើឯកសារមួយឲ្យមកអ្នក។', other: 'ចង់ផ្ញើឯកសារ ${n} ឲ្យមកអ្នក។');
   @override
   String get subTitleMessage => 'បានផ្ញើសារមួយមកអ្នក:';
   @override

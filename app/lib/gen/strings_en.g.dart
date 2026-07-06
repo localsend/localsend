@@ -392,11 +392,8 @@ class TranslationsReceivePageEn {
   // Translations
 
   /// en: '(one) {wants to send you a file} (other) {wants to send you {n} files}'
-  String subTitle({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(
-    n,
-    one: 'wants to send you a file',
-    other: 'wants to send you ${n} files',
-  );
+  String subTitle({required num n}) =>
+      (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(n, one: 'wants to send you a file', other: 'wants to send you ${n} files');
 
   /// en: 'sent you a message:'
   String get subTitleMessage => 'sent you a message:';
@@ -681,6 +678,7 @@ class TranslationsDialogsEn {
 
   // Translations
   late final TranslationsDialogsAddFileEn addFile = TranslationsDialogsAddFileEn.internal(_root);
+  late final TranslationsDialogsResetKeysEn resetKeys = TranslationsDialogsResetKeysEn.internal(_root);
   late final TranslationsDialogsOpenFileEn openFile = TranslationsDialogsOpenFileEn.internal(_root);
   late final TranslationsDialogsAddressInputEn addressInput = TranslationsDialogsAddressInputEn.internal(_root);
   late final TranslationsDialogsCancelSessionEn cancelSession = TranslationsDialogsCancelSessionEn.internal(_root);
@@ -1113,6 +1111,15 @@ class TranslationsSettingsTabNetworkEn {
   String portWarning({required Object defaultPort}) =>
       'You might not be detected by other devices because you are using a custom port. (default: ${defaultPort})';
 
+  /// en: 'Security keys'
+  String get securityKeys => 'Security keys';
+
+  /// en: 'Reset keys'
+  String get resetKeys => 'Reset keys';
+
+  /// en: 'Keys reset. Restart the server to apply the new keys.'
+  String get resetKeysSuccess => 'Keys reset. Restart the server to apply the new keys.';
+
   /// en: 'Encryption'
   String get encryption => 'Encryption';
 
@@ -1277,6 +1284,21 @@ class TranslationsDialogsAddFileEn {
 
   /// en: 'What do you want to add?'
   String get content => 'What do you want to add?';
+}
+
+// Path: dialogs.resetKeys
+class TranslationsDialogsResetKeysEn {
+  TranslationsDialogsResetKeysEn.internal(this._root);
+
+  final Translations _root; // ignore: unused_field
+
+  // Translations
+
+  /// en: 'Reset keys?'
+  String get title => 'Reset keys?';
+
+  /// en: 'This will generate a new self-verification identity for this device. Other devices may need to rediscover this device.'
+  String get content => 'This will generate a new self-verification identity for this device. Other devices may need to rediscover this device.';
 }
 
 // Path: dialogs.openFile

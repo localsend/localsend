@@ -327,11 +327,8 @@ class _TranslationsReceivePageGu extends TranslationsReceivePageEn {
 
   // Translations
   @override
-  String subTitle({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('gu'))(
-    n,
-    one: 'તમે ફાઇલ મોકલવા માંગે છે',
-    other: 'તમે ${n} ફાઇલો મોકલવા માંગે છે',
-  );
+  String subTitle({required num n}) =>
+      (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('gu'))(n, one: 'તમે ફાઇલ મોકલવા માંગે છે', other: 'તમે ${n} ફાઇલો મોકલવા માંગે છે');
   @override
   String get subTitleMessage => 'તમે સંદેશો મોકલ્યો:';
   @override

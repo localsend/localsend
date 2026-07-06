@@ -325,11 +325,8 @@ class _TranslationsReceivePageDa extends TranslationsReceivePageEn {
 
   // Translations
   @override
-  String subTitle({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('da'))(
-    n,
-    one: 'vil sende dig en fil',
-    other: 'vil sende dig ${n} filer',
-  );
+  String subTitle({required num n}) =>
+      (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('da'))(n, one: 'vil sende dig en fil', other: 'vil sende dig ${n} filer');
   @override
   String get subTitleMessage => 'sendte dig en besked:';
   @override

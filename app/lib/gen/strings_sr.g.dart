@@ -327,11 +327,8 @@ class _TranslationsReceivePageSr extends TranslationsReceivePageEn {
 
   // Translations
   @override
-  String subTitle({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('sr'))(
-    n,
-    one: 'želi da vam pošalje fajl',
-    other: 'želi da vam pošalje ${n} fajlova',
-  );
+  String subTitle({required num n}) =>
+      (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('sr'))(n, one: 'želi da vam pošalje fajl', other: 'želi da vam pošalje ${n} fajlova');
   @override
   String get subTitleMessage => 'poslao vam je poruku:';
   @override

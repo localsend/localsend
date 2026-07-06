@@ -15,12 +15,14 @@ import 'package:localsend_app/pages/language_page.dart';
 import 'package:localsend_app/pages/settings/network_interfaces_page.dart';
 import 'package:localsend_app/pages/tabs/settings_tab_controller.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
+import 'package:localsend_app/provider/security_provider.dart';
 import 'package:localsend_app/provider/version_provider.dart';
 import 'package:localsend_app/util/alias_generator.dart';
 import 'package:localsend_app/util/device_type_ext.dart';
 import 'package:localsend_app/util/native/macos_channel.dart';
 import 'package:localsend_app/util/native/pick_directory_path.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
+import 'package:localsend_app/util/ui/snackbar.dart';
 import 'package:localsend_app/widget/custom_dropdown_button.dart';
 import 'package:localsend_app/widget/dialogs/encryption_disabled_notice.dart';
 import 'package:localsend_app/widget/dialogs/pin_dialog.dart';
@@ -446,6 +448,37 @@ class SettingsTab extends StatelessWidget {
                             await ref.notifier(settingsProvider).setHttps(b);
                             if (old && !b && context.mounted) {
                               await EncryptionDisabledNotice.open(context);
+                            }
+                          },
+                        ),
+                      if (vm.advanced)
+                        _ButtonEntry(
+                          label: t.settingsTab.network.securityKeys,
+                          buttonLabel: t.settingsTab.network.resetKeys,
+                          onTap: () async {
+                            final confirmed = await showDialog<bool>(
+                              context: context,
+                              builder: (_) => AlertDialog(
+                                title: Text(t.dialogs.resetKeys.title),
+                                content: Text(t.dialogs.resetKeys.content),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () => context.pop(false),
+                                    child: Text(t.general.cancel),
+                                  ),
+                                  FilledButton(
+                                    onPressed: () => context.pop(true),
+                                    child: Text(t.settingsTab.network.resetKeys),
+                                  ),
+                                ],
+                              ),
+                            );
+                            if (confirmed != true || !context.mounted) {
+                              return;
+                            }
+                            await ref.redux(securityProvider).dispatchAsync(ResetSecurityContextAction());
+                            if (context.mounted) {
+                              context.showSnackBar(t.settingsTab.network.resetKeysSuccess);
                             }
                           },
                         ),

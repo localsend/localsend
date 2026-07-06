@@ -344,11 +344,8 @@ class _TranslationsReceivePageKo extends TranslationsReceivePageEn {
 
   // Translations
   @override
-  String subTitle({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ko'))(
-    n,
-    one: '에서 파일을 보내려고 합니다',
-    other: '에서 ${n}개의 파일을 보내려고 합니다',
-  );
+  String subTitle({required num n}) =>
+      (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ko'))(n, one: '에서 파일을 보내려고 합니다', other: '에서 ${n}개의 파일을 보내려고 합니다');
   @override
   String get subTitleMessage => '에서 메시지를 보냈습니다:';
   @override
@@ -426,11 +423,8 @@ class _TranslationsWebSharePageKo extends TranslationsWebSharePageEn {
   @override
   String get error => '서버를 시작하는 도중 오류가 발생했습니다.';
   @override
-  String openLink({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ko'))(
-    n,
-    one: '해당 링크를 브라우저에서 여세요:',
-    other: '해당 링크들 중 하나를 브라우저에서 여세요:',
-  );
+  String openLink({required num n}) =>
+      (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ko'))(n, one: '해당 링크를 브라우저에서 여세요:', other: '해당 링크들 중 하나를 브라우저에서 여세요:');
   @override
   String get requests => '요청';
   @override

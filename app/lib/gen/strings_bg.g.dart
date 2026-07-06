@@ -325,11 +325,8 @@ class _TranslationsReceivePageBg extends TranslationsReceivePageEn {
 
   // Translations
   @override
-  String subTitle({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('bg'))(
-    n,
-    one: 'иска да ви изпрати файл',
-    other: 'иска да ви изпрати ${n} файлове',
-  );
+  String subTitle({required num n}) =>
+      (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('bg'))(n, one: 'иска да ви изпрати файл', other: 'иска да ви изпрати ${n} файлове');
   @override
   String get subTitleMessage => 'Ви изпрати съобщение:';
   @override

@@ -328,11 +328,8 @@ class _TranslationsReceivePageCa extends TranslationsReceivePageEn {
 
   // Translations
   @override
-  String subTitle({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ca'))(
-    n,
-    one: 'vol enviar-vos un fitxer',
-    other: 'vol enviar-vos ${n} fitxers',
-  );
+  String subTitle({required num n}) =>
+      (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ca'))(n, one: 'vol enviar-vos un fitxer', other: 'vol enviar-vos ${n} fitxers');
   @override
   String get subTitleMessage => 'us ha enviat un missatge:';
   @override
