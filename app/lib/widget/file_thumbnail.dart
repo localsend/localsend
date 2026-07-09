@@ -97,7 +97,7 @@ class FilePathThumbnail extends StatelessWidget {
             null,
             _ContentUriImage(Uri.parse(path!)),
           ),
-          errorBuilder: (_, __, ___) => Padding(
+          errorBuilder: (_, _, _) => Padding(
             padding: const EdgeInsets.all(10),
             child: Icon(fileType.icon, size: 32),
           ),
@@ -106,7 +106,7 @@ class FilePathThumbnail extends StatelessWidget {
         thumbnail = Image.file(
           File(path!),
           cacheWidth: 64, // reduce memory with low cached size; do not set cacheHeight because the image must keep its ratio
-          errorBuilder: (_, __, ___) => Padding(
+          errorBuilder: (_, _, _) => Padding(
             padding: const EdgeInsets.all(10),
             child: Icon(fileType.icon, size: 32),
           ),
@@ -142,7 +142,7 @@ class MemoryThumbnail extends StatelessWidget {
         padding: fileType == FileType.apk ? const EdgeInsets.all(50) : EdgeInsets.zero,
         child: Image.memory(
           bytes!,
-          errorBuilder: (_, __, ___) => Padding(
+          errorBuilder: (_, _, _) => Padding(
             padding: const EdgeInsets.all(10),
             child: Icon(fileType.icon, size: 32),
           ),

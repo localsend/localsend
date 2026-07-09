@@ -8,9 +8,10 @@ import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 import 'package:slang/generated.dart';
 import 'strings.g.dart';
+import 'strings_sr.g.dart';
 
 // Path: <root>
-class TranslationsSrCyrl extends Translations {
+class TranslationsSrCyrl extends TranslationsSr with BaseTranslations<AppLocale, Translations> {
   /// You can call this constructor and build your own translation instance of this locale.
   /// Constructing via the enum [AppLocale.build] is preferred.
   TranslationsSrCyrl({
@@ -44,56 +45,56 @@ class TranslationsSrCyrl extends Translations {
   @override
   String get appName => 'LocalSend';
   @override
-  late final _TranslationsGeneralSrCyrl general = _TranslationsGeneralSrCyrl._(_root);
+  late final _Translations$general$sr_Cyrl general = _Translations$general$sr_Cyrl._(_root);
   @override
-  late final _TranslationsReceiveTabSrCyrl receiveTab = _TranslationsReceiveTabSrCyrl._(_root);
+  late final _Translations$receiveTab$sr_Cyrl receiveTab = _Translations$receiveTab$sr_Cyrl._(_root);
   @override
-  late final _TranslationsSendTabSrCyrl sendTab = _TranslationsSendTabSrCyrl._(_root);
+  late final _Translations$sendTab$sr_Cyrl sendTab = _Translations$sendTab$sr_Cyrl._(_root);
   @override
-  late final _TranslationsSettingsTabSrCyrl settingsTab = _TranslationsSettingsTabSrCyrl._(_root);
+  late final _Translations$settingsTab$sr_Cyrl settingsTab = _Translations$settingsTab$sr_Cyrl._(_root);
   @override
-  late final _TranslationsTroubleshootPageSrCyrl troubleshootPage = _TranslationsTroubleshootPageSrCyrl._(_root);
+  late final _Translations$troubleshootPage$sr_Cyrl troubleshootPage = _Translations$troubleshootPage$sr_Cyrl._(_root);
   @override
-  late final _TranslationsReceiveHistoryPageSrCyrl receiveHistoryPage = _TranslationsReceiveHistoryPageSrCyrl._(_root);
+  late final _Translations$receiveHistoryPage$sr_Cyrl receiveHistoryPage = _Translations$receiveHistoryPage$sr_Cyrl._(_root);
   @override
-  late final _TranslationsApkPickerPageSrCyrl apkPickerPage = _TranslationsApkPickerPageSrCyrl._(_root);
+  late final _Translations$apkPickerPage$sr_Cyrl apkPickerPage = _Translations$apkPickerPage$sr_Cyrl._(_root);
   @override
-  late final _TranslationsSelectedFilesPageSrCyrl selectedFilesPage = _TranslationsSelectedFilesPageSrCyrl._(_root);
+  late final _Translations$selectedFilesPage$sr_Cyrl selectedFilesPage = _Translations$selectedFilesPage$sr_Cyrl._(_root);
   @override
-  late final _TranslationsReceivePageSrCyrl receivePage = _TranslationsReceivePageSrCyrl._(_root);
+  late final _Translations$receivePage$sr_Cyrl receivePage = _Translations$receivePage$sr_Cyrl._(_root);
   @override
-  late final _TranslationsReceiveOptionsPageSrCyrl receiveOptionsPage = _TranslationsReceiveOptionsPageSrCyrl._(_root);
+  late final _Translations$receiveOptionsPage$sr_Cyrl receiveOptionsPage = _Translations$receiveOptionsPage$sr_Cyrl._(_root);
   @override
-  late final _TranslationsSendPageSrCyrl sendPage = _TranslationsSendPageSrCyrl._(_root);
+  late final _Translations$sendPage$sr_Cyrl sendPage = _Translations$sendPage$sr_Cyrl._(_root);
   @override
-  late final _TranslationsProgressPageSrCyrl progressPage = _TranslationsProgressPageSrCyrl._(_root);
+  late final _Translations$progressPage$sr_Cyrl progressPage = _Translations$progressPage$sr_Cyrl._(_root);
   @override
-  late final _TranslationsWebSharePageSrCyrl webSharePage = _TranslationsWebSharePageSrCyrl._(_root);
+  late final _Translations$webSharePage$sr_Cyrl webSharePage = _Translations$webSharePage$sr_Cyrl._(_root);
   @override
-  late final _TranslationsAboutPageSrCyrl aboutPage = _TranslationsAboutPageSrCyrl._(_root);
+  late final _Translations$aboutPage$sr_Cyrl aboutPage = _Translations$aboutPage$sr_Cyrl._(_root);
   @override
-  late final _TranslationsDonationPageSrCyrl donationPage = _TranslationsDonationPageSrCyrl._(_root);
+  late final _Translations$donationPage$sr_Cyrl donationPage = _Translations$donationPage$sr_Cyrl._(_root);
   @override
-  late final _TranslationsChangelogPageSrCyrl changelogPage = _TranslationsChangelogPageSrCyrl._(_root);
+  late final _Translations$changelogPage$sr_Cyrl changelogPage = _Translations$changelogPage$sr_Cyrl._(_root);
   @override
-  late final _TranslationsAliasGeneratorSrCyrl aliasGenerator = _TranslationsAliasGeneratorSrCyrl._(_root);
+  late final _Translations$aliasGenerator$sr_Cyrl aliasGenerator = _Translations$aliasGenerator$sr_Cyrl._(_root);
   @override
-  late final _TranslationsDialogsSrCyrl dialogs = _TranslationsDialogsSrCyrl._(_root);
+  late final _Translations$dialogs$sr_Cyrl dialogs = _Translations$dialogs$sr_Cyrl._(_root);
   @override
-  late final _TranslationsSanitizationSrCyrl sanitization = _TranslationsSanitizationSrCyrl._(_root);
+  late final _Translations$sanitization$sr_Cyrl sanitization = _Translations$sanitization$sr_Cyrl._(_root);
   @override
-  late final _TranslationsTraySrCyrl tray = _TranslationsTraySrCyrl._(_root);
+  late final _Translations$tray$sr_Cyrl tray = _Translations$tray$sr_Cyrl._(_root);
   @override
-  late final _TranslationsWebSrCyrl web = _TranslationsWebSrCyrl._(_root);
+  late final _Translations$web$sr_Cyrl web = _Translations$web$sr_Cyrl._(_root);
   @override
-  late final _TranslationsAssetPickerSrCyrl assetPicker = _TranslationsAssetPickerSrCyrl._(_root);
+  late final _Translations$assetPicker$sr_Cyrl assetPicker = _Translations$assetPicker$sr_Cyrl._(_root);
   @override
-  late final _TranslationsNetworkInterfacesPageSrCyrl networkInterfacesPage = _TranslationsNetworkInterfacesPageSrCyrl._(_root);
+  late final _Translations$networkInterfacesPage$sr_Cyrl networkInterfacesPage = _Translations$networkInterfacesPage$sr_Cyrl._(_root);
 }
 
 // Path: general
-class _TranslationsGeneralSrCyrl extends TranslationsGeneralEn {
-  _TranslationsGeneralSrCyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
+class _Translations$general$sr_Cyrl extends Translations$general$sr {
+  _Translations$general$sr_Cyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
 
   final TranslationsSrCyrl _root; // ignore: unused_field
 
@@ -177,8 +178,8 @@ class _TranslationsGeneralSrCyrl extends TranslationsGeneralEn {
 }
 
 // Path: receiveTab
-class _TranslationsReceiveTabSrCyrl extends TranslationsReceiveTabEn {
-  _TranslationsReceiveTabSrCyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
+class _Translations$receiveTab$sr_Cyrl extends Translations$receiveTab$sr {
+  _Translations$receiveTab$sr_Cyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
 
   final TranslationsSrCyrl _root; // ignore: unused_field
 
@@ -186,14 +187,14 @@ class _TranslationsReceiveTabSrCyrl extends TranslationsReceiveTabEn {
   @override
   String get title => 'Примање';
   @override
-  late final _TranslationsReceiveTabInfoBoxSrCyrl infoBox = _TranslationsReceiveTabInfoBoxSrCyrl._(_root);
+  late final _Translations$receiveTab$infoBox$sr_Cyrl infoBox = _Translations$receiveTab$infoBox$sr_Cyrl._(_root);
   @override
-  late final _TranslationsReceiveTabQuickSaveSrCyrl quickSave = _TranslationsReceiveTabQuickSaveSrCyrl._(_root);
+  late final _Translations$receiveTab$quickSave$sr_Cyrl quickSave = _Translations$receiveTab$quickSave$sr_Cyrl._(_root);
 }
 
 // Path: sendTab
-class _TranslationsSendTabSrCyrl extends TranslationsSendTabEn {
-  _TranslationsSendTabSrCyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
+class _Translations$sendTab$sr_Cyrl extends Translations$sendTab$sr {
+  _Translations$sendTab$sr_Cyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
 
   final TranslationsSrCyrl _root; // ignore: unused_field
 
@@ -201,9 +202,9 @@ class _TranslationsSendTabSrCyrl extends TranslationsSendTabEn {
   @override
   String get title => 'Слање';
   @override
-  late final _TranslationsSendTabSelectionSrCyrl selection = _TranslationsSendTabSelectionSrCyrl._(_root);
+  late final _Translations$sendTab$selection$sr_Cyrl selection = _Translations$sendTab$selection$sr_Cyrl._(_root);
   @override
-  late final _TranslationsSendTabPickerSrCyrl picker = _TranslationsSendTabPickerSrCyrl._(_root);
+  late final _Translations$sendTab$picker$sr_Cyrl picker = _Translations$sendTab$picker$sr_Cyrl._(_root);
   @override
   String get shareIntentInfo => 'Такође, можете да користите функцију „Дели“ на свом мобилном уређају да бисте лакше бирали фајлове.';
   @override
@@ -217,7 +218,7 @@ class _TranslationsSendTabSrCyrl extends TranslationsSendTabEn {
   @override
   String get sendMode => 'Режим слања';
   @override
-  late final _TranslationsSendTabSendModesSrCyrl sendModes = _TranslationsSendTabSendModesSrCyrl._(_root);
+  late final _Translations$sendTab$sendModes$sr_Cyrl sendModes = _Translations$sendTab$sendModes$sr_Cyrl._(_root);
   @override
   String get sendModeHelp => 'Објашњење';
   @override
@@ -227,8 +228,8 @@ class _TranslationsSendTabSrCyrl extends TranslationsSendTabEn {
 }
 
 // Path: settingsTab
-class _TranslationsSettingsTabSrCyrl extends TranslationsSettingsTabEn {
-  _TranslationsSettingsTabSrCyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
+class _Translations$settingsTab$sr_Cyrl extends Translations$settingsTab$sr {
+  _Translations$settingsTab$sr_Cyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
 
   final TranslationsSrCyrl _root; // ignore: unused_field
 
@@ -236,22 +237,22 @@ class _TranslationsSettingsTabSrCyrl extends TranslationsSettingsTabEn {
   @override
   String get title => 'Подешавања';
   @override
-  late final _TranslationsSettingsTabGeneralSrCyrl general = _TranslationsSettingsTabGeneralSrCyrl._(_root);
+  late final _Translations$settingsTab$general$sr_Cyrl general = _Translations$settingsTab$general$sr_Cyrl._(_root);
   @override
-  late final _TranslationsSettingsTabReceiveSrCyrl receive = _TranslationsSettingsTabReceiveSrCyrl._(_root);
+  late final _Translations$settingsTab$receive$sr_Cyrl receive = _Translations$settingsTab$receive$sr_Cyrl._(_root);
   @override
-  late final _TranslationsSettingsTabSendSrCyrl send = _TranslationsSettingsTabSendSrCyrl._(_root);
+  late final _Translations$settingsTab$send$sr_Cyrl send = _Translations$settingsTab$send$sr_Cyrl._(_root);
   @override
-  late final _TranslationsSettingsTabNetworkSrCyrl network = _TranslationsSettingsTabNetworkSrCyrl._(_root);
+  late final _Translations$settingsTab$network$sr_Cyrl network = _Translations$settingsTab$network$sr_Cyrl._(_root);
   @override
-  late final _TranslationsSettingsTabOtherSrCyrl other = _TranslationsSettingsTabOtherSrCyrl._(_root);
+  late final _Translations$settingsTab$other$sr_Cyrl other = _Translations$settingsTab$other$sr_Cyrl._(_root);
   @override
   String get advancedSettings => 'Напредна подешавања';
 }
 
 // Path: troubleshootPage
-class _TranslationsTroubleshootPageSrCyrl extends TranslationsTroubleshootPageEn {
-  _TranslationsTroubleshootPageSrCyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
+class _Translations$troubleshootPage$sr_Cyrl extends Translations$troubleshootPage$sr {
+  _Translations$troubleshootPage$sr_Cyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
 
   final TranslationsSrCyrl _root; // ignore: unused_field
 
@@ -265,16 +266,16 @@ class _TranslationsTroubleshootPageSrCyrl extends TranslationsTroubleshootPageEn
   @override
   String get fixButton => 'Поправи аутоматски';
   @override
-  late final _TranslationsTroubleshootPageFirewallSrCyrl firewall = _TranslationsTroubleshootPageFirewallSrCyrl._(_root);
+  late final _Translations$troubleshootPage$firewall$sr_Cyrl firewall = _Translations$troubleshootPage$firewall$sr_Cyrl._(_root);
   @override
-  late final _TranslationsTroubleshootPageNoDiscoverySrCyrl noDiscovery = _TranslationsTroubleshootPageNoDiscoverySrCyrl._(_root);
+  late final _Translations$troubleshootPage$noDiscovery$sr_Cyrl noDiscovery = _Translations$troubleshootPage$noDiscovery$sr_Cyrl._(_root);
   @override
-  late final _TranslationsTroubleshootPageNoConnectionSrCyrl noConnection = _TranslationsTroubleshootPageNoConnectionSrCyrl._(_root);
+  late final _Translations$troubleshootPage$noConnection$sr_Cyrl noConnection = _Translations$troubleshootPage$noConnection$sr_Cyrl._(_root);
 }
 
 // Path: receiveHistoryPage
-class _TranslationsReceiveHistoryPageSrCyrl extends TranslationsReceiveHistoryPageEn {
-  _TranslationsReceiveHistoryPageSrCyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
+class _Translations$receiveHistoryPage$sr_Cyrl extends Translations$receiveHistoryPage$sr {
+  _Translations$receiveHistoryPage$sr_Cyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
 
   final TranslationsSrCyrl _root; // ignore: unused_field
 
@@ -288,12 +289,12 @@ class _TranslationsReceiveHistoryPageSrCyrl extends TranslationsReceiveHistoryPa
   @override
   String get empty => 'Историја је празна.';
   @override
-  late final _TranslationsReceiveHistoryPageEntryActionsSrCyrl entryActions = _TranslationsReceiveHistoryPageEntryActionsSrCyrl._(_root);
+  late final _Translations$receiveHistoryPage$entryActions$sr_Cyrl entryActions = _Translations$receiveHistoryPage$entryActions$sr_Cyrl._(_root);
 }
 
 // Path: apkPickerPage
-class _TranslationsApkPickerPageSrCyrl extends TranslationsApkPickerPageEn {
-  _TranslationsApkPickerPageSrCyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
+class _Translations$apkPickerPage$sr_Cyrl extends Translations$apkPickerPage$sr {
+  _Translations$apkPickerPage$sr_Cyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
 
   final TranslationsSrCyrl _root; // ignore: unused_field
 
@@ -309,8 +310,8 @@ class _TranslationsApkPickerPageSrCyrl extends TranslationsApkPickerPageEn {
 }
 
 // Path: selectedFilesPage
-class _TranslationsSelectedFilesPageSrCyrl extends TranslationsSelectedFilesPageEn {
-  _TranslationsSelectedFilesPageSrCyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
+class _Translations$selectedFilesPage$sr_Cyrl extends Translations$selectedFilesPage$sr {
+  _Translations$selectedFilesPage$sr_Cyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
 
   final TranslationsSrCyrl _root; // ignore: unused_field
 
@@ -320,8 +321,8 @@ class _TranslationsSelectedFilesPageSrCyrl extends TranslationsSelectedFilesPage
 }
 
 // Path: receivePage
-class _TranslationsReceivePageSrCyrl extends TranslationsReceivePageEn {
-  _TranslationsReceivePageSrCyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
+class _Translations$receivePage$sr_Cyrl extends Translations$receivePage$sr {
+  _Translations$receivePage$sr_Cyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
 
   final TranslationsSrCyrl _root; // ignore: unused_field
 
@@ -341,8 +342,8 @@ class _TranslationsReceivePageSrCyrl extends TranslationsReceivePageEn {
 }
 
 // Path: receiveOptionsPage
-class _TranslationsReceiveOptionsPageSrCyrl extends TranslationsReceiveOptionsPageEn {
-  _TranslationsReceiveOptionsPageSrCyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
+class _Translations$receiveOptionsPage$sr_Cyrl extends Translations$receiveOptionsPage$sr {
+  _Translations$receiveOptionsPage$sr_Cyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
 
   final TranslationsSrCyrl _root; // ignore: unused_field
 
@@ -360,8 +361,8 @@ class _TranslationsReceiveOptionsPageSrCyrl extends TranslationsReceiveOptionsPa
 }
 
 // Path: sendPage
-class _TranslationsSendPageSrCyrl extends TranslationsSendPageEn {
-  _TranslationsSendPageSrCyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
+class _Translations$sendPage$sr_Cyrl extends Translations$sendPage$sr {
+  _Translations$sendPage$sr_Cyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
 
   final TranslationsSrCyrl _root; // ignore: unused_field
 
@@ -377,8 +378,8 @@ class _TranslationsSendPageSrCyrl extends TranslationsSendPageEn {
 }
 
 // Path: progressPage
-class _TranslationsProgressPageSrCyrl extends TranslationsProgressPageEn {
-  _TranslationsProgressPageSrCyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
+class _Translations$progressPage$sr_Cyrl extends Translations$progressPage$sr {
+  _Translations$progressPage$sr_Cyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
 
   final TranslationsSrCyrl _root; // ignore: unused_field
 
@@ -390,12 +391,12 @@ class _TranslationsProgressPageSrCyrl extends TranslationsProgressPageEn {
   @override
   String get savedToGallery => 'Сачувано у галерији';
   @override
-  late final _TranslationsProgressPageTotalSrCyrl total = _TranslationsProgressPageTotalSrCyrl._(_root);
+  late final _Translations$progressPage$total$sr_Cyrl total = _Translations$progressPage$total$sr_Cyrl._(_root);
 }
 
 // Path: webSharePage
-class _TranslationsWebSharePageSrCyrl extends TranslationsWebSharePageEn {
-  _TranslationsWebSharePageSrCyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
+class _Translations$webSharePage$sr_Cyrl extends Translations$webSharePage$sr {
+  _Translations$webSharePage$sr_Cyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
 
   final TranslationsSrCyrl _root; // ignore: unused_field
 
@@ -433,8 +434,8 @@ class _TranslationsWebSharePageSrCyrl extends TranslationsWebSharePageEn {
 }
 
 // Path: aboutPage
-class _TranslationsAboutPageSrCyrl extends TranslationsAboutPageEn {
-  _TranslationsAboutPageSrCyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
+class _Translations$aboutPage$sr_Cyrl extends Translations$aboutPage$sr {
+  _Translations$aboutPage$sr_Cyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
 
   final TranslationsSrCyrl _root; // ignore: unused_field
 
@@ -457,8 +458,8 @@ class _TranslationsAboutPageSrCyrl extends TranslationsAboutPageEn {
 }
 
 // Path: donationPage
-class _TranslationsDonationPageSrCyrl extends TranslationsDonationPageEn {
-  _TranslationsDonationPageSrCyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
+class _Translations$donationPage$sr_Cyrl extends Translations$donationPage$sr {
+  _Translations$donationPage$sr_Cyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
 
   final TranslationsSrCyrl _root; // ignore: unused_field
 
@@ -476,8 +477,8 @@ class _TranslationsDonationPageSrCyrl extends TranslationsDonationPageEn {
 }
 
 // Path: changelogPage
-class _TranslationsChangelogPageSrCyrl extends TranslationsChangelogPageEn {
-  _TranslationsChangelogPageSrCyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
+class _Translations$changelogPage$sr_Cyrl extends Translations$changelogPage$sr {
+  _Translations$changelogPage$sr_Cyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
 
   final TranslationsSrCyrl _root; // ignore: unused_field
 
@@ -487,8 +488,8 @@ class _TranslationsChangelogPageSrCyrl extends TranslationsChangelogPageEn {
 }
 
 // Path: aliasGenerator
-class _TranslationsAliasGeneratorSrCyrl extends TranslationsAliasGeneratorEn {
-  _TranslationsAliasGeneratorSrCyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
+class _Translations$aliasGenerator$sr_Cyrl extends Translations$aliasGenerator$sr {
+  _Translations$aliasGenerator$sr_Cyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
 
   final TranslationsSrCyrl _root; // ignore: unused_field
 
@@ -570,72 +571,72 @@ class _TranslationsAliasGeneratorSrCyrl extends TranslationsAliasGeneratorEn {
 }
 
 // Path: dialogs
-class _TranslationsDialogsSrCyrl extends TranslationsDialogsEn {
-  _TranslationsDialogsSrCyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
+class _Translations$dialogs$sr_Cyrl extends Translations$dialogs$sr {
+  _Translations$dialogs$sr_Cyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
 
   final TranslationsSrCyrl _root; // ignore: unused_field
 
   // Translations
   @override
-  late final _TranslationsDialogsAddFileSrCyrl addFile = _TranslationsDialogsAddFileSrCyrl._(_root);
+  late final _Translations$dialogs$addFile$sr_Cyrl addFile = _Translations$dialogs$addFile$sr_Cyrl._(_root);
   @override
-  late final _TranslationsDialogsOpenFileSrCyrl openFile = _TranslationsDialogsOpenFileSrCyrl._(_root);
+  late final _Translations$dialogs$openFile$sr_Cyrl openFile = _Translations$dialogs$openFile$sr_Cyrl._(_root);
   @override
-  late final _TranslationsDialogsAddressInputSrCyrl addressInput = _TranslationsDialogsAddressInputSrCyrl._(_root);
+  late final _Translations$dialogs$addressInput$sr_Cyrl addressInput = _Translations$dialogs$addressInput$sr_Cyrl._(_root);
   @override
-  late final _TranslationsDialogsCancelSessionSrCyrl cancelSession = _TranslationsDialogsCancelSessionSrCyrl._(_root);
+  late final _Translations$dialogs$cancelSession$sr_Cyrl cancelSession = _Translations$dialogs$cancelSession$sr_Cyrl._(_root);
   @override
-  late final _TranslationsDialogsCannotOpenFileSrCyrl cannotOpenFile = _TranslationsDialogsCannotOpenFileSrCyrl._(_root);
+  late final _Translations$dialogs$cannotOpenFile$sr_Cyrl cannotOpenFile = _Translations$dialogs$cannotOpenFile$sr_Cyrl._(_root);
   @override
-  late final _TranslationsDialogsEncryptionDisabledNoticeSrCyrl encryptionDisabledNotice = _TranslationsDialogsEncryptionDisabledNoticeSrCyrl._(
+  late final _Translations$dialogs$encryptionDisabledNotice$sr_Cyrl encryptionDisabledNotice =
+      _Translations$dialogs$encryptionDisabledNotice$sr_Cyrl._(_root);
+  @override
+  late final _Translations$dialogs$errorDialog$sr_Cyrl errorDialog = _Translations$dialogs$errorDialog$sr_Cyrl._(_root);
+  @override
+  late final _Translations$dialogs$favoriteDialog$sr_Cyrl favoriteDialog = _Translations$dialogs$favoriteDialog$sr_Cyrl._(_root);
+  @override
+  late final _Translations$dialogs$favoriteDeleteDialog$sr_Cyrl favoriteDeleteDialog = _Translations$dialogs$favoriteDeleteDialog$sr_Cyrl._(_root);
+  @override
+  late final _Translations$dialogs$favoriteEditDialog$sr_Cyrl favoriteEditDialog = _Translations$dialogs$favoriteEditDialog$sr_Cyrl._(_root);
+  @override
+  late final _Translations$dialogs$fileInfo$sr_Cyrl fileInfo = _Translations$dialogs$fileInfo$sr_Cyrl._(_root);
+  @override
+  late final _Translations$dialogs$fileNameInput$sr_Cyrl fileNameInput = _Translations$dialogs$fileNameInput$sr_Cyrl._(_root);
+  @override
+  late final _Translations$dialogs$historyClearDialog$sr_Cyrl historyClearDialog = _Translations$dialogs$historyClearDialog$sr_Cyrl._(_root);
+  @override
+  late final _Translations$dialogs$localNetworkUnauthorized$sr_Cyrl localNetworkUnauthorized =
+      _Translations$dialogs$localNetworkUnauthorized$sr_Cyrl._(_root);
+  @override
+  late final _Translations$dialogs$messageInput$sr_Cyrl messageInput = _Translations$dialogs$messageInput$sr_Cyrl._(_root);
+  @override
+  late final _Translations$dialogs$noFiles$sr_Cyrl noFiles = _Translations$dialogs$noFiles$sr_Cyrl._(_root);
+  @override
+  late final _Translations$dialogs$noPermission$sr_Cyrl noPermission = _Translations$dialogs$noPermission$sr_Cyrl._(_root);
+  @override
+  late final _Translations$dialogs$notAvailableOnPlatform$sr_Cyrl notAvailableOnPlatform = _Translations$dialogs$notAvailableOnPlatform$sr_Cyrl._(
     _root,
   );
   @override
-  late final _TranslationsDialogsErrorDialogSrCyrl errorDialog = _TranslationsDialogsErrorDialogSrCyrl._(_root);
+  late final _Translations$dialogs$qr$sr_Cyrl qr = _Translations$dialogs$qr$sr_Cyrl._(_root);
   @override
-  late final _TranslationsDialogsFavoriteDialogSrCyrl favoriteDialog = _TranslationsDialogsFavoriteDialogSrCyrl._(_root);
+  late final _Translations$dialogs$quickActions$sr_Cyrl quickActions = _Translations$dialogs$quickActions$sr_Cyrl._(_root);
   @override
-  late final _TranslationsDialogsFavoriteDeleteDialogSrCyrl favoriteDeleteDialog = _TranslationsDialogsFavoriteDeleteDialogSrCyrl._(_root);
+  late final _Translations$dialogs$quickSaveNotice$sr_Cyrl quickSaveNotice = _Translations$dialogs$quickSaveNotice$sr_Cyrl._(_root);
   @override
-  late final _TranslationsDialogsFavoriteEditDialogSrCyrl favoriteEditDialog = _TranslationsDialogsFavoriteEditDialogSrCyrl._(_root);
+  late final _Translations$dialogs$quickSaveFromFavoritesNotice$sr_Cyrl quickSaveFromFavoritesNotice =
+      _Translations$dialogs$quickSaveFromFavoritesNotice$sr_Cyrl._(_root);
   @override
-  late final _TranslationsDialogsFileInfoSrCyrl fileInfo = _TranslationsDialogsFileInfoSrCyrl._(_root);
+  late final _Translations$dialogs$pin$sr_Cyrl pin = _Translations$dialogs$pin$sr_Cyrl._(_root);
   @override
-  late final _TranslationsDialogsFileNameInputSrCyrl fileNameInput = _TranslationsDialogsFileNameInputSrCyrl._(_root);
+  late final _Translations$dialogs$sendModeHelp$sr_Cyrl sendModeHelp = _Translations$dialogs$sendModeHelp$sr_Cyrl._(_root);
   @override
-  late final _TranslationsDialogsHistoryClearDialogSrCyrl historyClearDialog = _TranslationsDialogsHistoryClearDialogSrCyrl._(_root);
-  @override
-  late final _TranslationsDialogsLocalNetworkUnauthorizedSrCyrl localNetworkUnauthorized = _TranslationsDialogsLocalNetworkUnauthorizedSrCyrl._(
-    _root,
-  );
-  @override
-  late final _TranslationsDialogsMessageInputSrCyrl messageInput = _TranslationsDialogsMessageInputSrCyrl._(_root);
-  @override
-  late final _TranslationsDialogsNoFilesSrCyrl noFiles = _TranslationsDialogsNoFilesSrCyrl._(_root);
-  @override
-  late final _TranslationsDialogsNoPermissionSrCyrl noPermission = _TranslationsDialogsNoPermissionSrCyrl._(_root);
-  @override
-  late final _TranslationsDialogsNotAvailableOnPlatformSrCyrl notAvailableOnPlatform = _TranslationsDialogsNotAvailableOnPlatformSrCyrl._(_root);
-  @override
-  late final _TranslationsDialogsQrSrCyrl qr = _TranslationsDialogsQrSrCyrl._(_root);
-  @override
-  late final _TranslationsDialogsQuickActionsSrCyrl quickActions = _TranslationsDialogsQuickActionsSrCyrl._(_root);
-  @override
-  late final _TranslationsDialogsQuickSaveNoticeSrCyrl quickSaveNotice = _TranslationsDialogsQuickSaveNoticeSrCyrl._(_root);
-  @override
-  late final _TranslationsDialogsQuickSaveFromFavoritesNoticeSrCyrl quickSaveFromFavoritesNotice =
-      _TranslationsDialogsQuickSaveFromFavoritesNoticeSrCyrl._(_root);
-  @override
-  late final _TranslationsDialogsPinSrCyrl pin = _TranslationsDialogsPinSrCyrl._(_root);
-  @override
-  late final _TranslationsDialogsSendModeHelpSrCyrl sendModeHelp = _TranslationsDialogsSendModeHelpSrCyrl._(_root);
-  @override
-  late final _TranslationsDialogsZoomSrCyrl zoom = _TranslationsDialogsZoomSrCyrl._(_root);
+  late final _Translations$dialogs$zoom$sr_Cyrl zoom = _Translations$dialogs$zoom$sr_Cyrl._(_root);
 }
 
 // Path: sanitization
-class _TranslationsSanitizationSrCyrl extends TranslationsSanitizationEn {
-  _TranslationsSanitizationSrCyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
+class _Translations$sanitization$sr_Cyrl extends Translations$sanitization$sr {
+  _Translations$sanitization$sr_Cyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
 
   final TranslationsSrCyrl _root; // ignore: unused_field
 
@@ -647,8 +648,8 @@ class _TranslationsSanitizationSrCyrl extends TranslationsSanitizationEn {
 }
 
 // Path: tray
-class _TranslationsTraySrCyrl extends TranslationsTrayEn {
-  _TranslationsTraySrCyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
+class _Translations$tray$sr_Cyrl extends Translations$tray$sr {
+  _Translations$tray$sr_Cyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
 
   final TranslationsSrCyrl _root; // ignore: unused_field
 
@@ -662,8 +663,8 @@ class _TranslationsTraySrCyrl extends TranslationsTrayEn {
 }
 
 // Path: web
-class _TranslationsWebSrCyrl extends TranslationsWebEn {
-  _TranslationsWebSrCyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
+class _Translations$web$sr_Cyrl extends Translations$web$sr {
+  _Translations$web$sr_Cyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
 
   final TranslationsSrCyrl _root; // ignore: unused_field
 
@@ -687,8 +688,8 @@ class _TranslationsWebSrCyrl extends TranslationsWebEn {
 }
 
 // Path: assetPicker
-class _TranslationsAssetPickerSrCyrl extends TranslationsAssetPickerEn {
-  _TranslationsAssetPickerSrCyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
+class _Translations$assetPicker$sr_Cyrl extends Translations$assetPicker$sr {
+  _Translations$assetPicker$sr_Cyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
 
   final TranslationsSrCyrl _root; // ignore: unused_field
 
@@ -753,8 +754,8 @@ class _TranslationsAssetPickerSrCyrl extends TranslationsAssetPickerEn {
 }
 
 // Path: networkInterfacesPage
-class _TranslationsNetworkInterfacesPageSrCyrl extends TranslationsNetworkInterfacesPageEn {
-  _TranslationsNetworkInterfacesPageSrCyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
+class _Translations$networkInterfacesPage$sr_Cyrl extends Translations$networkInterfacesPage$sr {
+  _Translations$networkInterfacesPage$sr_Cyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
 
   final TranslationsSrCyrl _root; // ignore: unused_field
 
@@ -773,8 +774,8 @@ class _TranslationsNetworkInterfacesPageSrCyrl extends TranslationsNetworkInterf
 }
 
 // Path: receiveTab.infoBox
-class _TranslationsReceiveTabInfoBoxSrCyrl extends TranslationsReceiveTabInfoBoxEn {
-  _TranslationsReceiveTabInfoBoxSrCyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
+class _Translations$receiveTab$infoBox$sr_Cyrl extends Translations$receiveTab$infoBox$sr {
+  _Translations$receiveTab$infoBox$sr_Cyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
 
   final TranslationsSrCyrl _root; // ignore: unused_field
 
@@ -788,8 +789,8 @@ class _TranslationsReceiveTabInfoBoxSrCyrl extends TranslationsReceiveTabInfoBox
 }
 
 // Path: receiveTab.quickSave
-class _TranslationsReceiveTabQuickSaveSrCyrl extends TranslationsReceiveTabQuickSaveEn {
-  _TranslationsReceiveTabQuickSaveSrCyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
+class _Translations$receiveTab$quickSave$sr_Cyrl extends Translations$receiveTab$quickSave$sr {
+  _Translations$receiveTab$quickSave$sr_Cyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
 
   final TranslationsSrCyrl _root; // ignore: unused_field
 
@@ -803,8 +804,8 @@ class _TranslationsReceiveTabQuickSaveSrCyrl extends TranslationsReceiveTabQuick
 }
 
 // Path: sendTab.selection
-class _TranslationsSendTabSelectionSrCyrl extends TranslationsSendTabSelectionEn {
-  _TranslationsSendTabSelectionSrCyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
+class _Translations$sendTab$selection$sr_Cyrl extends Translations$sendTab$selection$sr {
+  _Translations$sendTab$selection$sr_Cyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
 
   final TranslationsSrCyrl _root; // ignore: unused_field
 
@@ -818,8 +819,8 @@ class _TranslationsSendTabSelectionSrCyrl extends TranslationsSendTabSelectionEn
 }
 
 // Path: sendTab.picker
-class _TranslationsSendTabPickerSrCyrl extends TranslationsSendTabPickerEn {
-  _TranslationsSendTabPickerSrCyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
+class _Translations$sendTab$picker$sr_Cyrl extends Translations$sendTab$picker$sr {
+  _Translations$sendTab$picker$sr_Cyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
 
   final TranslationsSrCyrl _root; // ignore: unused_field
 
@@ -839,8 +840,8 @@ class _TranslationsSendTabPickerSrCyrl extends TranslationsSendTabPickerEn {
 }
 
 // Path: sendTab.sendModes
-class _TranslationsSendTabSendModesSrCyrl extends TranslationsSendTabSendModesEn {
-  _TranslationsSendTabSendModesSrCyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
+class _Translations$sendTab$sendModes$sr_Cyrl extends Translations$sendTab$sendModes$sr {
+  _Translations$sendTab$sendModes$sr_Cyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
 
   final TranslationsSrCyrl _root; // ignore: unused_field
 
@@ -854,8 +855,8 @@ class _TranslationsSendTabSendModesSrCyrl extends TranslationsSendTabSendModesEn
 }
 
 // Path: settingsTab.general
-class _TranslationsSettingsTabGeneralSrCyrl extends TranslationsSettingsTabGeneralEn {
-  _TranslationsSettingsTabGeneralSrCyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
+class _Translations$settingsTab$general$sr_Cyrl extends Translations$settingsTab$general$sr {
+  _Translations$settingsTab$general$sr_Cyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
 
   final TranslationsSrCyrl _root; // ignore: unused_field
 
@@ -865,17 +866,18 @@ class _TranslationsSettingsTabGeneralSrCyrl extends TranslationsSettingsTabGener
   @override
   String get brightness => 'Тема';
   @override
-  late final _TranslationsSettingsTabGeneralBrightnessOptionsSrCyrl brightnessOptions = _TranslationsSettingsTabGeneralBrightnessOptionsSrCyrl._(
-    _root,
-  );
+  late final _Translations$settingsTab$general$brightnessOptions$sr_Cyrl brightnessOptions =
+      _Translations$settingsTab$general$brightnessOptions$sr_Cyrl._(_root);
   @override
   String get color => 'Боја';
   @override
-  late final _TranslationsSettingsTabGeneralColorOptionsSrCyrl colorOptions = _TranslationsSettingsTabGeneralColorOptionsSrCyrl._(_root);
+  late final _Translations$settingsTab$general$colorOptions$sr_Cyrl colorOptions = _Translations$settingsTab$general$colorOptions$sr_Cyrl._(_root);
   @override
   String get language => 'Језик';
   @override
-  late final _TranslationsSettingsTabGeneralLanguageOptionsSrCyrl languageOptions = _TranslationsSettingsTabGeneralLanguageOptionsSrCyrl._(_root);
+  late final _Translations$settingsTab$general$languageOptions$sr_Cyrl languageOptions = _Translations$settingsTab$general$languageOptions$sr_Cyrl._(
+    _root,
+  );
   @override
   String get saveWindowPlacement => 'Сачувај положај прозора након напуштања';
   @override
@@ -893,8 +895,8 @@ class _TranslationsSettingsTabGeneralSrCyrl extends TranslationsSettingsTabGener
 }
 
 // Path: settingsTab.receive
-class _TranslationsSettingsTabReceiveSrCyrl extends TranslationsSettingsTabReceiveEn {
-  _TranslationsSettingsTabReceiveSrCyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
+class _Translations$settingsTab$receive$sr_Cyrl extends Translations$settingsTab$receive$sr {
+  _Translations$settingsTab$receive$sr_Cyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
 
   final TranslationsSrCyrl _root; // ignore: unused_field
 
@@ -920,8 +922,8 @@ class _TranslationsSettingsTabReceiveSrCyrl extends TranslationsSettingsTabRecei
 }
 
 // Path: settingsTab.send
-class _TranslationsSettingsTabSendSrCyrl extends TranslationsSettingsTabSendEn {
-  _TranslationsSettingsTabSendSrCyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
+class _Translations$settingsTab$send$sr_Cyrl extends Translations$settingsTab$send$sr {
+  _Translations$settingsTab$send$sr_Cyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
 
   final TranslationsSrCyrl _root; // ignore: unused_field
 
@@ -933,8 +935,8 @@ class _TranslationsSettingsTabSendSrCyrl extends TranslationsSettingsTabSendEn {
 }
 
 // Path: settingsTab.network
-class _TranslationsSettingsTabNetworkSrCyrl extends TranslationsSettingsTabNetworkEn {
-  _TranslationsSettingsTabNetworkSrCyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
+class _Translations$settingsTab$network$sr_Cyrl extends Translations$settingsTab$network$sr {
+  _Translations$settingsTab$network$sr_Cyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
 
   final TranslationsSrCyrl _root; // ignore: unused_field
 
@@ -972,12 +974,14 @@ class _TranslationsSettingsTabNetworkSrCyrl extends TranslationsSettingsTabNetwo
   @override
   String get network => 'Мрежа';
   @override
-  late final _TranslationsSettingsTabNetworkNetworkOptionsSrCyrl networkOptions = _TranslationsSettingsTabNetworkNetworkOptionsSrCyrl._(_root);
+  late final _Translations$settingsTab$network$networkOptions$sr_Cyrl networkOptions = _Translations$settingsTab$network$networkOptions$sr_Cyrl._(
+    _root,
+  );
 }
 
 // Path: settingsTab.other
-class _TranslationsSettingsTabOtherSrCyrl extends TranslationsSettingsTabOtherEn {
-  _TranslationsSettingsTabOtherSrCyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
+class _Translations$settingsTab$other$sr_Cyrl extends Translations$settingsTab$other$sr {
+  _Translations$settingsTab$other$sr_Cyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
 
   final TranslationsSrCyrl _root; // ignore: unused_field
 
@@ -995,8 +999,8 @@ class _TranslationsSettingsTabOtherSrCyrl extends TranslationsSettingsTabOtherEn
 }
 
 // Path: troubleshootPage.firewall
-class _TranslationsTroubleshootPageFirewallSrCyrl extends TranslationsTroubleshootPageFirewallEn {
-  _TranslationsTroubleshootPageFirewallSrCyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
+class _Translations$troubleshootPage$firewall$sr_Cyrl extends Translations$troubleshootPage$firewall$sr {
+  _Translations$troubleshootPage$firewall$sr_Cyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
 
   final TranslationsSrCyrl _root; // ignore: unused_field
 
@@ -1011,8 +1015,8 @@ class _TranslationsTroubleshootPageFirewallSrCyrl extends TranslationsTroublesho
 }
 
 // Path: troubleshootPage.noDiscovery
-class _TranslationsTroubleshootPageNoDiscoverySrCyrl extends TranslationsTroubleshootPageNoDiscoveryEn {
-  _TranslationsTroubleshootPageNoDiscoverySrCyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
+class _Translations$troubleshootPage$noDiscovery$sr_Cyrl extends Translations$troubleshootPage$noDiscovery$sr {
+  _Translations$troubleshootPage$noDiscovery$sr_Cyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
 
   final TranslationsSrCyrl _root; // ignore: unused_field
 
@@ -1025,8 +1029,8 @@ class _TranslationsTroubleshootPageNoDiscoverySrCyrl extends TranslationsTrouble
 }
 
 // Path: troubleshootPage.noConnection
-class _TranslationsTroubleshootPageNoConnectionSrCyrl extends TranslationsTroubleshootPageNoConnectionEn {
-  _TranslationsTroubleshootPageNoConnectionSrCyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
+class _Translations$troubleshootPage$noConnection$sr_Cyrl extends Translations$troubleshootPage$noConnection$sr {
+  _Translations$troubleshootPage$noConnection$sr_Cyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
 
   final TranslationsSrCyrl _root; // ignore: unused_field
 
@@ -1039,8 +1043,8 @@ class _TranslationsTroubleshootPageNoConnectionSrCyrl extends TranslationsTroubl
 }
 
 // Path: receiveHistoryPage.entryActions
-class _TranslationsReceiveHistoryPageEntryActionsSrCyrl extends TranslationsReceiveHistoryPageEntryActionsEn {
-  _TranslationsReceiveHistoryPageEntryActionsSrCyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
+class _Translations$receiveHistoryPage$entryActions$sr_Cyrl extends Translations$receiveHistoryPage$entryActions$sr {
+  _Translations$receiveHistoryPage$entryActions$sr_Cyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
 
   final TranslationsSrCyrl _root; // ignore: unused_field
 
@@ -1056,14 +1060,14 @@ class _TranslationsReceiveHistoryPageEntryActionsSrCyrl extends TranslationsRece
 }
 
 // Path: progressPage.total
-class _TranslationsProgressPageTotalSrCyrl extends TranslationsProgressPageTotalEn {
-  _TranslationsProgressPageTotalSrCyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
+class _Translations$progressPage$total$sr_Cyrl extends Translations$progressPage$total$sr {
+  _Translations$progressPage$total$sr_Cyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
 
   final TranslationsSrCyrl _root; // ignore: unused_field
 
   // Translations
   @override
-  late final _TranslationsProgressPageTotalTitleSrCyrl title = _TranslationsProgressPageTotalTitleSrCyrl._(_root);
+  late final _Translations$progressPage$total$title$sr_Cyrl title = _Translations$progressPage$total$title$sr_Cyrl._(_root);
   @override
   String count({required Object curr, required Object n}) => 'Фајлова: ${curr} / ${n}';
   @override
@@ -1073,8 +1077,8 @@ class _TranslationsProgressPageTotalSrCyrl extends TranslationsProgressPageTotal
 }
 
 // Path: dialogs.addFile
-class _TranslationsDialogsAddFileSrCyrl extends TranslationsDialogsAddFileEn {
-  _TranslationsDialogsAddFileSrCyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
+class _Translations$dialogs$addFile$sr_Cyrl extends Translations$dialogs$addFile$sr {
+  _Translations$dialogs$addFile$sr_Cyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
 
   final TranslationsSrCyrl _root; // ignore: unused_field
 
@@ -1086,8 +1090,8 @@ class _TranslationsDialogsAddFileSrCyrl extends TranslationsDialogsAddFileEn {
 }
 
 // Path: dialogs.openFile
-class _TranslationsDialogsOpenFileSrCyrl extends TranslationsDialogsOpenFileEn {
-  _TranslationsDialogsOpenFileSrCyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
+class _Translations$dialogs$openFile$sr_Cyrl extends Translations$dialogs$openFile$sr {
+  _Translations$dialogs$openFile$sr_Cyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
 
   final TranslationsSrCyrl _root; // ignore: unused_field
 
@@ -1099,8 +1103,8 @@ class _TranslationsDialogsOpenFileSrCyrl extends TranslationsDialogsOpenFileEn {
 }
 
 // Path: dialogs.addressInput
-class _TranslationsDialogsAddressInputSrCyrl extends TranslationsDialogsAddressInputEn {
-  _TranslationsDialogsAddressInputSrCyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
+class _Translations$dialogs$addressInput$sr_Cyrl extends Translations$dialogs$addressInput$sr {
+  _Translations$dialogs$addressInput$sr_Cyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
 
   final TranslationsSrCyrl _root; // ignore: unused_field
 
@@ -1116,8 +1120,8 @@ class _TranslationsDialogsAddressInputSrCyrl extends TranslationsDialogsAddressI
 }
 
 // Path: dialogs.cancelSession
-class _TranslationsDialogsCancelSessionSrCyrl extends TranslationsDialogsCancelSessionEn {
-  _TranslationsDialogsCancelSessionSrCyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
+class _Translations$dialogs$cancelSession$sr_Cyrl extends Translations$dialogs$cancelSession$sr {
+  _Translations$dialogs$cancelSession$sr_Cyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
 
   final TranslationsSrCyrl _root; // ignore: unused_field
 
@@ -1129,8 +1133,8 @@ class _TranslationsDialogsCancelSessionSrCyrl extends TranslationsDialogsCancelS
 }
 
 // Path: dialogs.cannotOpenFile
-class _TranslationsDialogsCannotOpenFileSrCyrl extends TranslationsDialogsCannotOpenFileEn {
-  _TranslationsDialogsCannotOpenFileSrCyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
+class _Translations$dialogs$cannotOpenFile$sr_Cyrl extends Translations$dialogs$cannotOpenFile$sr {
+  _Translations$dialogs$cannotOpenFile$sr_Cyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
 
   final TranslationsSrCyrl _root; // ignore: unused_field
 
@@ -1142,8 +1146,8 @@ class _TranslationsDialogsCannotOpenFileSrCyrl extends TranslationsDialogsCannot
 }
 
 // Path: dialogs.encryptionDisabledNotice
-class _TranslationsDialogsEncryptionDisabledNoticeSrCyrl extends TranslationsDialogsEncryptionDisabledNoticeEn {
-  _TranslationsDialogsEncryptionDisabledNoticeSrCyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
+class _Translations$dialogs$encryptionDisabledNotice$sr_Cyrl extends Translations$dialogs$encryptionDisabledNotice$sr {
+  _Translations$dialogs$encryptionDisabledNotice$sr_Cyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
 
   final TranslationsSrCyrl _root; // ignore: unused_field
 
@@ -1156,8 +1160,8 @@ class _TranslationsDialogsEncryptionDisabledNoticeSrCyrl extends TranslationsDia
 }
 
 // Path: dialogs.errorDialog
-class _TranslationsDialogsErrorDialogSrCyrl extends TranslationsDialogsErrorDialogEn {
-  _TranslationsDialogsErrorDialogSrCyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
+class _Translations$dialogs$errorDialog$sr_Cyrl extends Translations$dialogs$errorDialog$sr {
+  _Translations$dialogs$errorDialog$sr_Cyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
 
   final TranslationsSrCyrl _root; // ignore: unused_field
 
@@ -1167,8 +1171,8 @@ class _TranslationsDialogsErrorDialogSrCyrl extends TranslationsDialogsErrorDial
 }
 
 // Path: dialogs.favoriteDialog
-class _TranslationsDialogsFavoriteDialogSrCyrl extends TranslationsDialogsFavoriteDialogEn {
-  _TranslationsDialogsFavoriteDialogSrCyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
+class _Translations$dialogs$favoriteDialog$sr_Cyrl extends Translations$dialogs$favoriteDialog$sr {
+  _Translations$dialogs$favoriteDialog$sr_Cyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
 
   final TranslationsSrCyrl _root; // ignore: unused_field
 
@@ -1182,8 +1186,8 @@ class _TranslationsDialogsFavoriteDialogSrCyrl extends TranslationsDialogsFavori
 }
 
 // Path: dialogs.favoriteDeleteDialog
-class _TranslationsDialogsFavoriteDeleteDialogSrCyrl extends TranslationsDialogsFavoriteDeleteDialogEn {
-  _TranslationsDialogsFavoriteDeleteDialogSrCyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
+class _Translations$dialogs$favoriteDeleteDialog$sr_Cyrl extends Translations$dialogs$favoriteDeleteDialog$sr {
+  _Translations$dialogs$favoriteDeleteDialog$sr_Cyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
 
   final TranslationsSrCyrl _root; // ignore: unused_field
 
@@ -1195,8 +1199,8 @@ class _TranslationsDialogsFavoriteDeleteDialogSrCyrl extends TranslationsDialogs
 }
 
 // Path: dialogs.favoriteEditDialog
-class _TranslationsDialogsFavoriteEditDialogSrCyrl extends TranslationsDialogsFavoriteEditDialogEn {
-  _TranslationsDialogsFavoriteEditDialogSrCyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
+class _Translations$dialogs$favoriteEditDialog$sr_Cyrl extends Translations$dialogs$favoriteEditDialog$sr {
+  _Translations$dialogs$favoriteEditDialog$sr_Cyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
 
   final TranslationsSrCyrl _root; // ignore: unused_field
 
@@ -1216,8 +1220,8 @@ class _TranslationsDialogsFavoriteEditDialogSrCyrl extends TranslationsDialogsFa
 }
 
 // Path: dialogs.fileInfo
-class _TranslationsDialogsFileInfoSrCyrl extends TranslationsDialogsFileInfoEn {
-  _TranslationsDialogsFileInfoSrCyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
+class _Translations$dialogs$fileInfo$sr_Cyrl extends Translations$dialogs$fileInfo$sr {
+  _Translations$dialogs$fileInfo$sr_Cyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
 
   final TranslationsSrCyrl _root; // ignore: unused_field
 
@@ -1237,8 +1241,8 @@ class _TranslationsDialogsFileInfoSrCyrl extends TranslationsDialogsFileInfoEn {
 }
 
 // Path: dialogs.fileNameInput
-class _TranslationsDialogsFileNameInputSrCyrl extends TranslationsDialogsFileNameInputEn {
-  _TranslationsDialogsFileNameInputSrCyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
+class _Translations$dialogs$fileNameInput$sr_Cyrl extends Translations$dialogs$fileNameInput$sr {
+  _Translations$dialogs$fileNameInput$sr_Cyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
 
   final TranslationsSrCyrl _root; // ignore: unused_field
 
@@ -1250,8 +1254,8 @@ class _TranslationsDialogsFileNameInputSrCyrl extends TranslationsDialogsFileNam
 }
 
 // Path: dialogs.historyClearDialog
-class _TranslationsDialogsHistoryClearDialogSrCyrl extends TranslationsDialogsHistoryClearDialogEn {
-  _TranslationsDialogsHistoryClearDialogSrCyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
+class _Translations$dialogs$historyClearDialog$sr_Cyrl extends Translations$dialogs$historyClearDialog$sr {
+  _Translations$dialogs$historyClearDialog$sr_Cyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
 
   final TranslationsSrCyrl _root; // ignore: unused_field
 
@@ -1263,8 +1267,8 @@ class _TranslationsDialogsHistoryClearDialogSrCyrl extends TranslationsDialogsHi
 }
 
 // Path: dialogs.localNetworkUnauthorized
-class _TranslationsDialogsLocalNetworkUnauthorizedSrCyrl extends TranslationsDialogsLocalNetworkUnauthorizedEn {
-  _TranslationsDialogsLocalNetworkUnauthorizedSrCyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
+class _Translations$dialogs$localNetworkUnauthorized$sr_Cyrl extends Translations$dialogs$localNetworkUnauthorized$sr {
+  _Translations$dialogs$localNetworkUnauthorized$sr_Cyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
 
   final TranslationsSrCyrl _root; // ignore: unused_field
 
@@ -1278,8 +1282,8 @@ class _TranslationsDialogsLocalNetworkUnauthorizedSrCyrl extends TranslationsDia
 }
 
 // Path: dialogs.messageInput
-class _TranslationsDialogsMessageInputSrCyrl extends TranslationsDialogsMessageInputEn {
-  _TranslationsDialogsMessageInputSrCyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
+class _Translations$dialogs$messageInput$sr_Cyrl extends Translations$dialogs$messageInput$sr {
+  _Translations$dialogs$messageInput$sr_Cyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
 
   final TranslationsSrCyrl _root; // ignore: unused_field
 
@@ -1291,8 +1295,8 @@ class _TranslationsDialogsMessageInputSrCyrl extends TranslationsDialogsMessageI
 }
 
 // Path: dialogs.noFiles
-class _TranslationsDialogsNoFilesSrCyrl extends TranslationsDialogsNoFilesEn {
-  _TranslationsDialogsNoFilesSrCyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
+class _Translations$dialogs$noFiles$sr_Cyrl extends Translations$dialogs$noFiles$sr {
+  _Translations$dialogs$noFiles$sr_Cyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
 
   final TranslationsSrCyrl _root; // ignore: unused_field
 
@@ -1304,8 +1308,8 @@ class _TranslationsDialogsNoFilesSrCyrl extends TranslationsDialogsNoFilesEn {
 }
 
 // Path: dialogs.noPermission
-class _TranslationsDialogsNoPermissionSrCyrl extends TranslationsDialogsNoPermissionEn {
-  _TranslationsDialogsNoPermissionSrCyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
+class _Translations$dialogs$noPermission$sr_Cyrl extends Translations$dialogs$noPermission$sr {
+  _Translations$dialogs$noPermission$sr_Cyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
 
   final TranslationsSrCyrl _root; // ignore: unused_field
 
@@ -1317,8 +1321,8 @@ class _TranslationsDialogsNoPermissionSrCyrl extends TranslationsDialogsNoPermis
 }
 
 // Path: dialogs.notAvailableOnPlatform
-class _TranslationsDialogsNotAvailableOnPlatformSrCyrl extends TranslationsDialogsNotAvailableOnPlatformEn {
-  _TranslationsDialogsNotAvailableOnPlatformSrCyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
+class _Translations$dialogs$notAvailableOnPlatform$sr_Cyrl extends Translations$dialogs$notAvailableOnPlatform$sr {
+  _Translations$dialogs$notAvailableOnPlatform$sr_Cyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
 
   final TranslationsSrCyrl _root; // ignore: unused_field
 
@@ -1330,8 +1334,8 @@ class _TranslationsDialogsNotAvailableOnPlatformSrCyrl extends TranslationsDialo
 }
 
 // Path: dialogs.qr
-class _TranslationsDialogsQrSrCyrl extends TranslationsDialogsQrEn {
-  _TranslationsDialogsQrSrCyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
+class _Translations$dialogs$qr$sr_Cyrl extends Translations$dialogs$qr$sr {
+  _Translations$dialogs$qr$sr_Cyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
 
   final TranslationsSrCyrl _root; // ignore: unused_field
 
@@ -1341,8 +1345,8 @@ class _TranslationsDialogsQrSrCyrl extends TranslationsDialogsQrEn {
 }
 
 // Path: dialogs.quickActions
-class _TranslationsDialogsQuickActionsSrCyrl extends TranslationsDialogsQuickActionsEn {
-  _TranslationsDialogsQuickActionsSrCyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
+class _Translations$dialogs$quickActions$sr_Cyrl extends Translations$dialogs$quickActions$sr {
+  _Translations$dialogs$quickActions$sr_Cyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
 
   final TranslationsSrCyrl _root; // ignore: unused_field
 
@@ -1362,8 +1366,8 @@ class _TranslationsDialogsQuickActionsSrCyrl extends TranslationsDialogsQuickAct
 }
 
 // Path: dialogs.quickSaveNotice
-class _TranslationsDialogsQuickSaveNoticeSrCyrl extends TranslationsDialogsQuickSaveNoticeEn {
-  _TranslationsDialogsQuickSaveNoticeSrCyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
+class _Translations$dialogs$quickSaveNotice$sr_Cyrl extends Translations$dialogs$quickSaveNotice$sr {
+  _Translations$dialogs$quickSaveNotice$sr_Cyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
 
   final TranslationsSrCyrl _root; // ignore: unused_field
 
@@ -1375,8 +1379,8 @@ class _TranslationsDialogsQuickSaveNoticeSrCyrl extends TranslationsDialogsQuick
 }
 
 // Path: dialogs.quickSaveFromFavoritesNotice
-class _TranslationsDialogsQuickSaveFromFavoritesNoticeSrCyrl extends TranslationsDialogsQuickSaveFromFavoritesNoticeEn {
-  _TranslationsDialogsQuickSaveFromFavoritesNoticeSrCyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
+class _Translations$dialogs$quickSaveFromFavoritesNotice$sr_Cyrl extends Translations$dialogs$quickSaveFromFavoritesNotice$sr {
+  _Translations$dialogs$quickSaveFromFavoritesNotice$sr_Cyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
 
   final TranslationsSrCyrl _root; // ignore: unused_field
 
@@ -1392,8 +1396,8 @@ class _TranslationsDialogsQuickSaveFromFavoritesNoticeSrCyrl extends Translation
 }
 
 // Path: dialogs.pin
-class _TranslationsDialogsPinSrCyrl extends TranslationsDialogsPinEn {
-  _TranslationsDialogsPinSrCyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
+class _Translations$dialogs$pin$sr_Cyrl extends Translations$dialogs$pin$sr {
+  _Translations$dialogs$pin$sr_Cyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
 
   final TranslationsSrCyrl _root; // ignore: unused_field
 
@@ -1403,8 +1407,8 @@ class _TranslationsDialogsPinSrCyrl extends TranslationsDialogsPinEn {
 }
 
 // Path: dialogs.sendModeHelp
-class _TranslationsDialogsSendModeHelpSrCyrl extends TranslationsDialogsSendModeHelpEn {
-  _TranslationsDialogsSendModeHelpSrCyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
+class _Translations$dialogs$sendModeHelp$sr_Cyrl extends Translations$dialogs$sendModeHelp$sr {
+  _Translations$dialogs$sendModeHelp$sr_Cyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
 
   final TranslationsSrCyrl _root; // ignore: unused_field
 
@@ -1420,8 +1424,8 @@ class _TranslationsDialogsSendModeHelpSrCyrl extends TranslationsDialogsSendMode
 }
 
 // Path: dialogs.zoom
-class _TranslationsDialogsZoomSrCyrl extends TranslationsDialogsZoomEn {
-  _TranslationsDialogsZoomSrCyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
+class _Translations$dialogs$zoom$sr_Cyrl extends Translations$dialogs$zoom$sr {
+  _Translations$dialogs$zoom$sr_Cyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
 
   final TranslationsSrCyrl _root; // ignore: unused_field
 
@@ -1431,8 +1435,8 @@ class _TranslationsDialogsZoomSrCyrl extends TranslationsDialogsZoomEn {
 }
 
 // Path: settingsTab.general.brightnessOptions
-class _TranslationsSettingsTabGeneralBrightnessOptionsSrCyrl extends TranslationsSettingsTabGeneralBrightnessOptionsEn {
-  _TranslationsSettingsTabGeneralBrightnessOptionsSrCyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
+class _Translations$settingsTab$general$brightnessOptions$sr_Cyrl extends Translations$settingsTab$general$brightnessOptions$sr {
+  _Translations$settingsTab$general$brightnessOptions$sr_Cyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
 
   final TranslationsSrCyrl _root; // ignore: unused_field
 
@@ -1446,8 +1450,8 @@ class _TranslationsSettingsTabGeneralBrightnessOptionsSrCyrl extends Translation
 }
 
 // Path: settingsTab.general.colorOptions
-class _TranslationsSettingsTabGeneralColorOptionsSrCyrl extends TranslationsSettingsTabGeneralColorOptionsEn {
-  _TranslationsSettingsTabGeneralColorOptionsSrCyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
+class _Translations$settingsTab$general$colorOptions$sr_Cyrl extends Translations$settingsTab$general$colorOptions$sr {
+  _Translations$settingsTab$general$colorOptions$sr_Cyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
 
   final TranslationsSrCyrl _root; // ignore: unused_field
 
@@ -1459,8 +1463,8 @@ class _TranslationsSettingsTabGeneralColorOptionsSrCyrl extends TranslationsSett
 }
 
 // Path: settingsTab.general.languageOptions
-class _TranslationsSettingsTabGeneralLanguageOptionsSrCyrl extends TranslationsSettingsTabGeneralLanguageOptionsEn {
-  _TranslationsSettingsTabGeneralLanguageOptionsSrCyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
+class _Translations$settingsTab$general$languageOptions$sr_Cyrl extends Translations$settingsTab$general$languageOptions$sr {
+  _Translations$settingsTab$general$languageOptions$sr_Cyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
 
   final TranslationsSrCyrl _root; // ignore: unused_field
 
@@ -1470,8 +1474,8 @@ class _TranslationsSettingsTabGeneralLanguageOptionsSrCyrl extends TranslationsS
 }
 
 // Path: settingsTab.network.networkOptions
-class _TranslationsSettingsTabNetworkNetworkOptionsSrCyrl extends TranslationsSettingsTabNetworkNetworkOptionsEn {
-  _TranslationsSettingsTabNetworkNetworkOptionsSrCyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
+class _Translations$settingsTab$network$networkOptions$sr_Cyrl extends Translations$settingsTab$network$networkOptions$sr {
+  _Translations$settingsTab$network$networkOptions$sr_Cyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
 
   final TranslationsSrCyrl _root; // ignore: unused_field
 
@@ -1483,8 +1487,8 @@ class _TranslationsSettingsTabNetworkNetworkOptionsSrCyrl extends TranslationsSe
 }
 
 // Path: progressPage.total.title
-class _TranslationsProgressPageTotalTitleSrCyrl extends TranslationsProgressPageTotalTitleEn {
-  _TranslationsProgressPageTotalTitleSrCyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
+class _Translations$progressPage$total$title$sr_Cyrl extends Translations$progressPage$total$title$sr {
+  _Translations$progressPage$total$title$sr_Cyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
 
   final TranslationsSrCyrl _root; // ignore: unused_field
 

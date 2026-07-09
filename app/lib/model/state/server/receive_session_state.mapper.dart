@@ -2,6 +2,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 // ignore_for_file: type=lint
+// ignore_for_file: invalid_use_of_protected_member
 // ignore_for_file: unused_element, unnecessary_cast, override_on_non_overriding_member
 // ignore_for_file: strict_raw_type, inference_failure_on_untyped_parameter
 
@@ -82,19 +83,6 @@ class ReceiveSessionStateMapper extends ClassMapperBase<ReceiveSessionState> {
     StreamController<Map<String, String>?>
   >
   _f$responseHandler = Field('responseHandler', _$responseHandler);
-  static String? _$message(ReceiveSessionState v) => v.message;
-  static const Field<ReceiveSessionState, String> _f$message = Field(
-    'message',
-    _$message,
-    mode: FieldMode.member,
-  );
-  static bool _$containsDirectories(ReceiveSessionState v) =>
-      v.containsDirectories;
-  static const Field<ReceiveSessionState, bool> _f$containsDirectories = Field(
-    'containsDirectories',
-    _$containsDirectories,
-    mode: FieldMode.member,
-  );
 
   @override
   final MappableFields<ReceiveSessionState> fields = const {
@@ -110,8 +98,6 @@ class ReceiveSessionStateMapper extends ClassMapperBase<ReceiveSessionState> {
     #saveToGallery: _f$saveToGallery,
     #createdDirectories: _f$createdDirectories,
     #responseHandler: _f$responseHandler,
-    #message: _f$message,
-    #containsDirectories: _f$containsDirectories,
   };
 
   static ReceiveSessionState _instantiate(DecodingData data) {

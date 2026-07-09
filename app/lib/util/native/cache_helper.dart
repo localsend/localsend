@@ -32,7 +32,7 @@ Future<void> _clear(RootIsolateToken token) async {
   BackgroundIsolateBinaryMessenger.ensureInitialized(token);
 
   final futures = (
-    FilePicker.platform.clearTemporaryFiles(),
+    FilePicker.clearTemporaryFiles(),
     PhotoManager.clearFileCache(),
     checkPlatform([TargetPlatform.iOS, TargetPlatform.android])
         ? getTemporaryDirectory().then((cacheDir) {
