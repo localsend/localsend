@@ -186,6 +186,7 @@ class _ProgressPageState extends State<ProgressPage> with Refena {
       (prev, curr) => prev + ((progressNotifier.getProgress(sessionId: widget.sessionId, fileId: curr.id) * curr.size).round()),
     );
 
+    final settings = ref.watch(settingsProvider);
     final receiveSession = ref.watch(serverProvider.select((s) => s?.session));
     final sendSession = ref.watch(sendProvider)[widget.sessionId];
 
@@ -208,7 +209,13 @@ class _ProgressPageState extends State<ProgressPage> with Refena {
       TaskbarHelper.visualizeStatus(status);
     }
 
-    final title = receiveSession != null ? t.progressPage.titleReceiving : t.progressPage.titleSending;
+    String title = '';
+    if (receiveSession != null) {
+      title = receiveSession.status == SessionStatus.sending ? t.progressPage.titleReceiving : t.progressPage.titleReceived;
+    } else if (sendSession != null) {
+      title = sendSession.status == SessionStatus.sending ? t.progressPage.titleSending : t.progressPage.titleSent;
+    }
+
     final startTime = commonSessionState.startTime;
     final endTime = commonSessionState.endTime;
     final int? speedInBytes;
@@ -262,7 +269,7 @@ class _ProgressPageState extends State<ProgressPage> with Refena {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(title, style: Theme.of(context).textTheme.titleLarge),
-                        if (checkPlatformWithFileSystem() && receiveSession != null)
+                        if (receiveSession != null && checkPlatformWithFileSystem() && !settings.saveLocationBasedOnFileType)
                           Padding(
                             padding: const EdgeInsets.only(bottom: 10),
                             child: Text.rich(
@@ -384,12 +391,40 @@ class _ProgressPageState extends State<ProgressPage> with Refena {
                               else
                                 Row(
                                   children: [
-                                    Flexible(
-                                      child: Text(
+                                    if (receiveSession != null && checkPlatformWithFileSystem() && settings.saveLocationBasedOnFileType)
+                                      Flexible(
+                                        child: Text.rich(
+                                          TextSpan(
+                                            children: [
+                                              TextSpan(
+                                                text: 'Saved in ',
+                                                style: const TextStyle(color: Colors.grey),
+                                              ),
+                                              TextSpan(
+                                                text: filePath?.substring(0, filePath.lastIndexOf('/') + 1) ?? receiveSession.destinationDirectory,
+                                                style: TextStyle(
+                                                  color: checkPlatform([TargetPlatform.iOS]) ? Colors.grey : Theme.of(context).colorScheme.primary,
+                                                ),
+                                                recognizer: !checkPlatform([TargetPlatform.iOS])
+                                                    ? (TapGestureRecognizer()
+                                                        ..onTap = () async {
+                                                          await openFolder(
+                                                            folderPath:
+                                                                filePath?.substring(0, filePath.lastIndexOf('/') + 1) ??
+                                                                receiveSession.destinationDirectory,
+                                                          );
+                                                        })
+                                                    : null,
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      )
+                                    else
+                                      Text(
                                         savedToGallery ? t.progressPage.savedToGallery : fileStatus.label,
                                         style: TextStyle(color: fileStatus.getColor(context), height: 1),
                                       ),
-                                    ),
                                     if (errorMessage != null) ...[
                                       const SizedBox(width: 5),
                                       InkWell(
