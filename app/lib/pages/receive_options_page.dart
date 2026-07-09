@@ -3,6 +3,7 @@ import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/pages/receive_page.dart';
 import 'package:localsend_app/provider/network/server/server_provider.dart';
 import 'package:localsend_app/provider/selection/selected_receiving_files_provider.dart';
+import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/util/file_size_helper.dart';
 import 'package:localsend_app/util/file_type_ext.dart';
 import 'package:localsend_app/util/native/pick_directory_path.dart';
@@ -23,6 +24,7 @@ class ReceiveOptionsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final ref = context.ref;
     final receiveSession = ref.watch(serverProvider.select((s) => s?.session));
+    final settings = ref.read(settingsProvider);
     if (receiveSession == null) {
       return Scaffold(
         body: Container(),
@@ -40,7 +42,7 @@ class ReceiveOptionsPage extends StatelessWidget {
           Row(
             children: [
               Text(t.receiveOptionsPage.destination, style: Theme.of(context).textTheme.titleLarge),
-              if (checkPlatformWithFileSystem())
+              if (checkPlatformWithFileSystem() && !settings.saveLocationBasedOnFileType)
                 Padding(
                   padding: const EdgeInsets.only(left: 10),
                   child: CustomIconButton(
@@ -56,7 +58,13 @@ class ReceiveOptionsPage extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 5),
-          Text(checkPlatformWithFileSystem() ? receiveSession.destinationDirectory : t.receiveOptionsPage.appDirectory),
+          Text(
+            checkPlatformWithFileSystem()
+                ? settings.saveLocationBasedOnFileType
+                      ? t.receiveOptionsPage.editDirectoryInSettings
+                      : receiveSession.destinationDirectory
+                : t.receiveOptionsPage.appDirectory,
+          ),
           if (checkPlatformWithGallery())
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
