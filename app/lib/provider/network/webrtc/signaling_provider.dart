@@ -14,9 +14,12 @@ import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/rust/api/crypto.dart' as crypto;
 import 'package:localsend_app/rust/api/model.dart' as rust;
 import 'package:localsend_app/rust/api/webrtc.dart';
+import 'package:logging/logging.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 
 part 'signaling_provider.mapper.dart';
+
+final _logger = Logger('Signaling');
 
 @MappableClass()
 class SignalingState with SignalingStateMappable {
@@ -162,6 +165,26 @@ class _SetupSignalingConnection extends AsyncGlobalAction {
       ref.redux(signalingProvider).dispatch(_RemoveConnectionAction(signalingServer: signalingServer));
     }
 
+    return state;
+  }
+}
+
+/// Sends the current client info to all connected signaling servers
+/// so that already connected peers are notified (e.g. when the alias changes).
+class UpdateClientInfoAction extends AsyncReduxAction<SignalingService, SignalingState> {
+  final ProposingClientInfo info;
+
+  UpdateClientInfoAction({required this.info});
+
+  @override
+  Future<SignalingState> reduce() async {
+    for (final entry in state.connections.entries) {
+      try {
+        await entry.value.updateInfo(info: info);
+      } catch (e) {
+        _logger.warning('Could not send client info to signaling server: ${entry.key}', e);
+      }
+    }
     return state;
   }
 }

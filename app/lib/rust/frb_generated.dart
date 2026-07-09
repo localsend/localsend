@@ -107,7 +107,7 @@ abstract class RustLibApi extends BaseApi {
 
   Future<void> crateApiWebrtcLsSignalingConnectionUpdateInfo({
     required LsSignalingConnection that,
-    required ClientInfoWithoutId info,
+    required ProposingClientInfo info,
   });
 
   Future<void> crateApiHttpRsHttpClientCancel({
@@ -467,7 +467,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   @override
   Future<void> crateApiWebrtcLsSignalingConnectionUpdateInfo({
     required LsSignalingConnection that,
-    required ClientInfoWithoutId info,
+    required ProposingClientInfo info,
   }) {
     return handler.executeNormal(
       NormalTask(
@@ -477,7 +477,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
             that,
             serializer,
           );
-          sse_encode_box_autoadd_client_info_without_id(info, serializer);
+          sse_encode_box_autoadd_proposing_client_info(info, serializer);
           pdeCallFfi(
             generalizedFrbRustBinding,
             serializer,
@@ -1914,14 +1914,6 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
-  ClientInfoWithoutId dco_decode_box_autoadd_client_info_without_id(
-    dynamic raw,
-  ) {
-    // Codec=Dco (DartCObject based), see doc to use other codecs
-    return dco_decode_client_info_without_id(raw);
-  }
-
-  @protected
   DeviceType dco_decode_box_autoadd_device_type(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return dco_decode_device_type(raw);
@@ -2001,20 +1993,6 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       deviceModel: dco_decode_opt_String(arr[3]),
       deviceType: dco_decode_opt_box_autoadd_device_type(arr[4]),
       token: dco_decode_String(arr[5]),
-    );
-  }
-
-  @protected
-  ClientInfoWithoutId dco_decode_client_info_without_id(dynamic raw) {
-    // Codec=Dco (DartCObject based), see doc to use other codecs
-    final arr = raw as List<dynamic>;
-    if (arr.length != 5) throw Exception('unexpected arr length: expect 5 but see ${arr.length}');
-    return ClientInfoWithoutId(
-      alias: dco_decode_String(arr[0]),
-      version: dco_decode_String(arr[1]),
-      deviceModel: dco_decode_opt_String(arr[2]),
-      deviceType: dco_decode_opt_box_autoadd_device_type(arr[3]),
-      token: dco_decode_String(arr[4]),
     );
   }
 
@@ -2853,14 +2831,6 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
-  ClientInfoWithoutId sse_decode_box_autoadd_client_info_without_id(
-    SseDeserializer deserializer,
-  ) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    return (sse_decode_client_info_without_id(deserializer));
-  }
-
-  @protected
   DeviceType sse_decode_box_autoadd_device_type(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     return (sse_decode_device_type(deserializer));
@@ -2947,25 +2917,6 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
     var var_token = sse_decode_String(deserializer);
     return ClientInfo(
       id: var_id,
-      alias: var_alias,
-      version: var_version,
-      deviceModel: var_deviceModel,
-      deviceType: var_deviceType,
-      token: var_token,
-    );
-  }
-
-  @protected
-  ClientInfoWithoutId sse_decode_client_info_without_id(
-    SseDeserializer deserializer,
-  ) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    var var_alias = sse_decode_String(deserializer);
-    var var_version = sse_decode_String(deserializer);
-    var var_deviceModel = sse_decode_opt_String(deserializer);
-    var var_deviceType = sse_decode_opt_box_autoadd_device_type(deserializer);
-    var var_token = sse_decode_String(deserializer);
-    return ClientInfoWithoutId(
       alias: var_alias,
       version: var_version,
       deviceModel: var_deviceModel,
@@ -3996,15 +3947,6 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
-  void sse_encode_box_autoadd_client_info_without_id(
-    ClientInfoWithoutId self,
-    SseSerializer serializer,
-  ) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    sse_encode_client_info_without_id(self, serializer);
-  }
-
-  @protected
   void sse_encode_box_autoadd_device_type(
     DeviceType self,
     SseSerializer serializer,
@@ -4098,19 +4040,6 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   void sse_encode_client_info(ClientInfo self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_Uuid(self.id, serializer);
-    sse_encode_String(self.alias, serializer);
-    sse_encode_String(self.version, serializer);
-    sse_encode_opt_String(self.deviceModel, serializer);
-    sse_encode_opt_box_autoadd_device_type(self.deviceType, serializer);
-    sse_encode_String(self.token, serializer);
-  }
-
-  @protected
-  void sse_encode_client_info_without_id(
-    ClientInfoWithoutId self,
-    SseSerializer serializer,
-  ) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_String(self.alias, serializer);
     sse_encode_String(self.version, serializer);
     sse_encode_opt_String(self.deviceModel, serializer);
@@ -4695,7 +4624,7 @@ class LsSignalingConnectionImpl extends RustOpaque implements LsSignalingConnect
     files: files,
   );
 
-  Future<void> updateInfo({required ClientInfoWithoutId info}) =>
+  Future<void> updateInfo({required ProposingClientInfo info}) =>
       RustLib.instance.api.crateApiWebrtcLsSignalingConnectionUpdateInfo(that: this, info: info);
 }
 

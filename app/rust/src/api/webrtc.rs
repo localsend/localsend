@@ -65,6 +65,7 @@ pub async fn connect(
     let (managed_connection, mut rx) = connection.start_listener();
     on_connection(LsSignalingConnection {
         inner: Arc::new(managed_connection),
+        signing_key: Arc::new(signing_key),
     })
     .await;
 
@@ -75,10 +76,12 @@ pub async fn connect(
 
 pub struct LsSignalingConnection {
     inner: Arc<ManagedSignalingConnection>,
+    signing_key: Arc<SigningTokenKey>,
 }
 
 impl LsSignalingConnection {
-    pub async fn update_info(&self, info: ClientInfoWithoutId) -> anyhow::Result<()> {
+    pub async fn update_info(&self, info: ProposingClientInfo) -> anyhow::Result<()> {
+        let info = info.sign(&self.signing_key)?;
         self.inner.send_update(info).await?;
         Ok(())
     }

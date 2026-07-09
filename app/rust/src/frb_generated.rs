@@ -273,7 +273,7 @@ fn wire__crate__api__webrtc__LsSignalingConnection_update_info_impl(
             let api_that = <RustOpaqueMoi<
                 flutter_rust_bridge::for_generated::RustAutoOpaqueInner<LsSignalingConnection>,
             >>::sse_decode(&mut deserializer);
-            let api_info = <crate::api::webrtc::ClientInfoWithoutId>::sse_decode(&mut deserializer);
+            let api_info = <crate::api::webrtc::ProposingClientInfo>::sse_decode(&mut deserializer);
             deserializer.end();
             move |context| async move {
                 transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>(
@@ -1761,14 +1761,6 @@ const _: fn() = || {
         let _: String = ClientInfo.token;
     }
     {
-        let ClientInfoWithoutId = None::<crate::api::webrtc::ClientInfoWithoutId>.unwrap();
-        let _: String = ClientInfoWithoutId.alias;
-        let _: String = ClientInfoWithoutId.version;
-        let _: Option<String> = ClientInfoWithoutId.device_model;
-        let _: Option<crate::api::model::DeviceType> = ClientInfoWithoutId.device_type;
-        let _: String = ClientInfoWithoutId.token;
-    }
-    {
         let FileDto = None::<crate::api::model::FileDto>.unwrap();
         let _: String = FileDto.id;
         let _: String = FileDto.file_name;
@@ -2227,24 +2219,6 @@ impl SseDecode for crate::api::webrtc::ClientInfo {
         let mut var_token = <String>::sse_decode(deserializer);
         return crate::api::webrtc::ClientInfo {
             id: var_id,
-            alias: var_alias,
-            version: var_version,
-            device_model: var_deviceModel,
-            device_type: var_deviceType,
-            token: var_token,
-        };
-    }
-}
-
-impl SseDecode for crate::api::webrtc::ClientInfoWithoutId {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
-        let mut var_alias = <String>::sse_decode(deserializer);
-        let mut var_version = <String>::sse_decode(deserializer);
-        let mut var_deviceModel = <Option<String>>::sse_decode(deserializer);
-        let mut var_deviceType = <Option<crate::api::model::DeviceType>>::sse_decode(deserializer);
-        let mut var_token = <String>::sse_decode(deserializer);
-        return crate::api::webrtc::ClientInfoWithoutId {
             alias: var_alias,
             version: var_version,
             device_model: var_deviceModel,
@@ -3175,30 +3149,6 @@ impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<crate::api::webrtc::ClientInfo
     }
 }
 // Codec=Dco (DartCObject based), see doc to use other codecs
-impl flutter_rust_bridge::IntoDart for FrbWrapper<crate::api::webrtc::ClientInfoWithoutId> {
-    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
-        [
-            self.0.alias.into_into_dart().into_dart(),
-            self.0.version.into_into_dart().into_dart(),
-            self.0.device_model.into_into_dart().into_dart(),
-            self.0.device_type.into_into_dart().into_dart(),
-            self.0.token.into_into_dart().into_dart(),
-        ]
-        .into_dart()
-    }
-}
-impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
-    for FrbWrapper<crate::api::webrtc::ClientInfoWithoutId>
-{
-}
-impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<crate::api::webrtc::ClientInfoWithoutId>>
-    for crate::api::webrtc::ClientInfoWithoutId
-{
-    fn into_into_dart(self) -> FrbWrapper<crate::api::webrtc::ClientInfoWithoutId> {
-        self.into()
-    }
-}
-// Codec=Dco (DartCObject based), see doc to use other codecs
 impl flutter_rust_bridge::IntoDart for FrbWrapper<crate::api::model::DeviceType> {
     fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
         match self.0 {
@@ -3981,17 +3931,6 @@ impl SseEncode for crate::api::webrtc::ClientInfo {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
         <uuid::Uuid>::sse_encode(self.id, serializer);
-        <String>::sse_encode(self.alias, serializer);
-        <String>::sse_encode(self.version, serializer);
-        <Option<String>>::sse_encode(self.device_model, serializer);
-        <Option<crate::api::model::DeviceType>>::sse_encode(self.device_type, serializer);
-        <String>::sse_encode(self.token, serializer);
-    }
-}
-
-impl SseEncode for crate::api::webrtc::ClientInfoWithoutId {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
         <String>::sse_encode(self.alias, serializer);
         <String>::sse_encode(self.version, serializer);
         <Option<String>>::sse_encode(self.device_model, serializer);

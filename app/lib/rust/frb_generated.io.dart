@@ -226,11 +226,6 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   ClientInfo dco_decode_box_autoadd_client_info(dynamic raw);
 
   @protected
-  ClientInfoWithoutId dco_decode_box_autoadd_client_info_without_id(
-    dynamic raw,
-  );
-
-  @protected
   DeviceType dco_decode_box_autoadd_device_type(dynamic raw);
 
   @protected
@@ -268,9 +263,6 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
 
   @protected
   ClientInfo dco_decode_client_info(dynamic raw);
-
-  @protected
-  ClientInfoWithoutId dco_decode_client_info_without_id(dynamic raw);
 
   @protected
   DeviceType dco_decode_device_type(dynamic raw);
@@ -586,11 +578,6 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   ClientInfo sse_decode_box_autoadd_client_info(SseDeserializer deserializer);
 
   @protected
-  ClientInfoWithoutId sse_decode_box_autoadd_client_info_without_id(
-    SseDeserializer deserializer,
-  );
-
-  @protected
   DeviceType sse_decode_box_autoadd_device_type(SseDeserializer deserializer);
 
   @protected
@@ -636,11 +623,6 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
 
   @protected
   ClientInfo sse_decode_client_info(SseDeserializer deserializer);
-
-  @protected
-  ClientInfoWithoutId sse_decode_client_info_without_id(
-    SseDeserializer deserializer,
-  );
 
   @protected
   DeviceType sse_decode_device_type(SseDeserializer deserializer);
@@ -1038,12 +1020,6 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   );
 
   @protected
-  void sse_encode_box_autoadd_client_info_without_id(
-    ClientInfoWithoutId self,
-    SseSerializer serializer,
-  );
-
-  @protected
   void sse_encode_box_autoadd_device_type(
     DeviceType self,
     SseSerializer serializer,
@@ -1105,12 +1081,6 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
 
   @protected
   void sse_encode_client_info(ClientInfo self, SseSerializer serializer);
-
-  @protected
-  void sse_encode_client_info_without_id(
-    ClientInfoWithoutId self,
-    SseSerializer serializer,
-  );
 
   @protected
   void sse_encode_device_type(DeviceType self, SseSerializer serializer);

@@ -12,6 +12,7 @@ import 'package:uuid/uuid.dart';
 part 'webrtc.freezed.dart';
 
 // These functions are ignored because they are not marked as `pub`: `sign`
+// These types are ignored because they are neither used by any `pub` functions nor (for structs and enums) marked `#[frb(unignore)]`: `ClientInfoWithoutId`
 
 Stream<WsServerMessage> connect({
   required String uri,
@@ -44,7 +45,7 @@ abstract class LsSignalingConnection implements RustOpaqueInterface {
     required List<FileDto> files,
   });
 
-  Future<void> updateInfo({required ClientInfoWithoutId info});
+  Future<void> updateInfo({required ProposingClientInfo info});
 }
 
 // Rust type: RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<RTCFileReceiver>>
@@ -117,36 +118,6 @@ class ClientInfo {
       other is ClientInfo &&
           runtimeType == other.runtimeType &&
           id == other.id &&
-          alias == other.alias &&
-          version == other.version &&
-          deviceModel == other.deviceModel &&
-          deviceType == other.deviceType &&
-          token == other.token;
-}
-
-class ClientInfoWithoutId {
-  final String alias;
-  final String version;
-  final String? deviceModel;
-  final DeviceType? deviceType;
-  final String token;
-
-  const ClientInfoWithoutId({
-    required this.alias,
-    required this.version,
-    this.deviceModel,
-    this.deviceType,
-    required this.token,
-  });
-
-  @override
-  int get hashCode => alias.hashCode ^ version.hashCode ^ deviceModel.hashCode ^ deviceType.hashCode ^ token.hashCode;
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is ClientInfoWithoutId &&
-          runtimeType == other.runtimeType &&
           alias == other.alias &&
           version == other.version &&
           deviceModel == other.deviceModel &&

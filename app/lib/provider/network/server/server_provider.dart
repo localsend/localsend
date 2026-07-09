@@ -6,12 +6,16 @@ import 'package:common/isolate.dart';
 import 'package:common/model/dto/multicast_dto.dart';
 import 'package:localsend_app/model/cross_file.dart';
 import 'package:localsend_app/model/state/server/server_state.dart';
+import 'package:localsend_app/provider/device_info_provider.dart';
 import 'package:localsend_app/provider/network/server/controller/receive_controller.dart';
 import 'package:localsend_app/provider/network/server/controller/send_controller.dart';
 import 'package:localsend_app/provider/network/server/server_utils.dart';
+import 'package:localsend_app/provider/network/webrtc/signaling_provider.dart';
 import 'package:localsend_app/provider/security_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
+import 'package:localsend_app/rust/api/webrtc.dart';
 import 'package:localsend_app/util/alias_generator.dart';
+import 'package:localsend_app/util/rust.dart';
 import 'package:localsend_app/util/simple_server.dart';
 import 'package:logging/logging.dart';
 import 'package:refena_flutter/refena_flutter.dart';
@@ -53,6 +57,26 @@ final serverProvider = NotifierProvider<ServerService, ServerState?>(
             download: syncStateNext.$5,
           ),
         );
+
+    if (syncStateNext.$1.isNotEmpty && syncStatePrev.$1 != syncStateNext.$1) {
+      // Multicast and HTTP discovery pick up the new alias from the sync state above,
+      // but peers connected to a signaling server would keep seeing the old alias
+      // until the app restarts, so the new alias is pushed explicitly.
+      final deviceInfo = ref.read(deviceInfoProvider);
+      ref
+          .redux(signalingProvider)
+          // ignore: discarded_futures
+          .dispatchAsync(
+            UpdateClientInfoAction(
+              info: ProposingClientInfo(
+                alias: syncStateNext.$1,
+                version: protocolVersion,
+                deviceModel: deviceInfo.deviceModel,
+                deviceType: deviceInfo.deviceType.toRust(),
+              ),
+            ),
+          );
+    }
   },
 );
 
