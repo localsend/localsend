@@ -40,11 +40,11 @@ class _FavoritesDialogState extends State<FavoritesDialog> with Refena {
           .read(httpProvider)
           .v2
           .register(
-        protocol: https ? ProtocolType.https : ProtocolType.http,
-        ip: favorite.ip,
-        port: favorite.port,
-        payload: payload,
-      );
+            protocol: https ? ProtocolType.https : ProtocolType.http,
+            ip: favorite.ip,
+            port: favorite.port,
+            payload: payload,
+          );
 
       final device = response.body.toDevice(favorite.ip, favorite.port, https, HttpDiscovery(ip: favorite.ip));
 

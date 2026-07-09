@@ -193,11 +193,11 @@ class _FavoriteEditDialogState extends State<FavoriteEditDialog> with Refena {
                           .read(httpProvider)
                           .v2
                           .register(
-                        protocol: https ? ProtocolType.https : ProtocolType.http,
-                        ip: ip,
-                        port: port,
-                        payload: payload,
-                      );
+                            protocol: https ? ProtocolType.https : ProtocolType.http,
+                            ip: ip,
+                            port: port,
+                            payload: payload,
+                          );
 
                       final name = _aliasController.text.trim();
 
