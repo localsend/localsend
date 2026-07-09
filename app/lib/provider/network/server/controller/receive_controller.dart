@@ -221,12 +221,35 @@ class ReceiveController {
     }
 
     final settings = server.ref.read(settingsProvider);
-    final destinationDir = settings.destination ?? await getDefaultDestinationDirectory();
+    final defaultDestinationDir = await getDefaultDestinationDirectory();
     final cacheDir = await getCacheDirectory();
     final sessionId = _uuid.v4();
 
+    final fileEntries = await Future.wait(
+      dto.files.values.map((file) async {
+        final destinationDir = settings.saveLocationBasedOnFileType
+            ? await getDestinationDirectoryByFileType(file.fileName, settings)
+            : defaultDestinationDir;
+        _logger.info('For ${file.fileName} specific  directiory is $destinationDir');
+
+        return MapEntry(
+          file.id,
+          ReceivingFile(
+            file: file,
+            status: FileStatus.queue,
+            token: null,
+            desiredName: null,
+            path: null,
+            destinationDir: destinationDir,
+            savedToGallery: false,
+            errorMessage: null,
+          ),
+        );
+      }),
+    );
+
     _logger.info('Session Id: $sessionId');
-    _logger.info('Destination Directory: $destinationDir');
+    _logger.info('Default destination Directory: $defaultDestinationDir');
 
     final streamController = StreamController<Map<String, String>?>();
     server.setState(
@@ -236,21 +259,10 @@ class ReceiveController {
           status: SessionStatus.waiting,
           sender: dto.info.toDevice(request.ip, port, https, null),
           senderAlias: server.ref.read(favoritesProvider).firstWhereOrNull((e) => e.fingerprint == dto.info.fingerprint)?.alias ?? dto.info.alias,
-          files: {
-            for (final file in dto.files.values)
-              file.id: ReceivingFile(
-                file: file,
-                status: FileStatus.queue,
-                token: null,
-                desiredName: null,
-                path: null,
-                savedToGallery: false,
-                errorMessage: null,
-              ),
-          },
+          files: Map.fromEntries(fileEntries),
           startTime: null,
           endTime: null,
-          destinationDirectory: destinationDir,
+          destinationDirectory: defaultDestinationDir,
           cacheDirectory: cacheDir,
           saveToGallery: checkPlatformWithGallery() && settings.saveToGallery && dto.files.values.every((f) => !f.fileName.contains('/')),
           createdDirectories: {},
@@ -380,6 +392,7 @@ class ReceiveController {
                     token: desiredName != null ? _uuid.v4() : null,
                     desiredName: desiredName,
                     path: null,
+                    destinationDir: fileEntries.firstWhere((file) => file.key == entry.file.id.toString()).value.destinationDir,
                     savedToGallery: false,
                     errorMessage: null,
                   ),
@@ -498,24 +511,13 @@ class ReceiveController {
     final fileType = receivingFile.file.fileType;
     final shouldSaveToGallery = receiveState.saveToGallery && (fileType == FileType.image || fileType == FileType.video);
 
-    if (server.ref.read(settingsProvider).saveLocationBasedOnFileType) {
-      final destinationDir = await getDestionationDirectoryByFileType(receivingFile.file.fileName, server.ref.read(settingsProvider));
-      server.setState(
-        (oldState) => oldState?.copyWith(
-          session: oldState.session?.copyWith(
-            destinationDirectory: destinationDir,
-          ),
-        ),
-      );
-    }
-
     String? filePath;
     bool savedToGallery = false;
     try {
       _logger.info('Saving ${receivingFile.file.fileName}');
 
       (savedToGallery, filePath) = await saveFile(
-        destinationDirectory: receiveState.destinationDirectory,
+        destinationDirectory: receivingFile.destinationDir ?? receiveState.destinationDirectory,
         fileName: receivingFile.desiredName!,
         saveToGallery: shouldSaveToGallery,
         isImage: fileType == FileType.image,
