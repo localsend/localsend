@@ -226,14 +226,14 @@ class SettingsTab extends StatelessWidget {
                             await ref.notifier(settingsProvider).setSaveToGallery(b);
                           },
                         ),
-                      if (checkPlatformWithFileSystem()) 
-                      _BooleanEntry(
-                        label: t.settingsTab.save.saveLocation,
-                        value: vm.settings.saveLocationBasedOnFileType,
-                        onChanged: (b) async {
-                          await ref.notifier(settingsProvider).setSaveLocationBasedOnFileType(b);
-                        },
-                      ),
+                      if (checkPlatformWithFileSystem())
+                        _BooleanEntry(
+                          label: t.settingsTab.save.saveLocation,
+                          value: vm.settings.saveLocationBasedOnFileType,
+                          onChanged: (b) async {
+                            await ref.notifier(settingsProvider).setSaveLocationBasedOnFileType(b);
+                          },
+                        ),
                       _SettingsEntry(
                         label: t.settingsTab.save.defaultLocation,
                         child: TextButton(
@@ -345,8 +345,8 @@ class SettingsTab extends StatelessWidget {
                               foregroundColor: Theme.of(context).colorScheme.onSurface,
                             ),
                             onPressed: () async {
-                              if (vm.settings.musicDestination != null) {
-                                await ref.notifier(settingsProvider).setMusicDestination(null);
+                              if (vm.settings.audioDestination != null) {
+                                await ref.notifier(settingsProvider).setAudioDestination(null);
                                 if (defaultTargetPlatform == TargetPlatform.macOS) {
                                   await removeExistingDestinationAccess();
                                 }
@@ -358,13 +358,13 @@ class SettingsTab extends StatelessWidget {
                                 if (defaultTargetPlatform == TargetPlatform.macOS) {
                                   await persistDestinationFolderAccess(directory);
                                 }
-                                await ref.notifier(settingsProvider).setMusicDestination(directory);
+                                await ref.notifier(settingsProvider).setAudioDestination(directory);
                               }
                             },
                             child: Padding(
                               padding: const EdgeInsets.symmetric(vertical: 5),
                               child: Text(
-                                vm.settings.musicDestination ?? t.settingsTab.receive.downloads,
+                                vm.settings.audioDestination ?? t.settingsTab.receive.downloads,
                                 style: Theme.of(context).textTheme.titleMedium,
                               ),
                             ),

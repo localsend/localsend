@@ -38,10 +38,10 @@ Future<String> getCacheDirectory() async {
   return (await path.getTemporaryDirectory()).path;
 }
 
-Future<String> getDestionationDirectoryByFileType(String fileName, SettingsState settings) async {
+Future<String> getDestinationDirectoryByFileType(String fileName, SettingsState settings) async {
   final defaultDestination = await getDefaultDestinationDirectory();
   final String? rawMime = lookupMimeType(fileName);
-  print('fileName: $fileName, rawMime: $rawMime');
+
   if (rawMime == null) {
     return settings.destination ?? defaultDestination;
   }
@@ -54,12 +54,10 @@ Future<String> getDestionationDirectoryByFileType(String fileName, SettingsState
 
   // other types has "correct" type in first part
   switch (rawMime.split('/').first) {
-    case 'text':
-      return settings.documentsDestination ?? defaultDestination;
     case 'image' || 'video':
       return settings.mediaDestination ?? defaultDestination;
     case 'audio':
-      return settings.destination ?? defaultDestination;
+      return settings.audioDestination ?? defaultDestination;
     default:
       return settings.destination ?? defaultDestination;
   }

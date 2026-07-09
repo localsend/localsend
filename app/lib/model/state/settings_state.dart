@@ -38,7 +38,7 @@ class SettingsState with SettingsStateMappable {
   final bool saveLocationBasedOnFileType; // whether to allow different save location based on file type
   final String? documentsDestination;
   final String? mediaDestination;
-  final String? musicDestination;
+  final String? audioDestination;
 
   const SettingsState({
     required this.showToken,
@@ -70,6 +70,6 @@ class SettingsState with SettingsStateMappable {
     required this.saveLocationBasedOnFileType,
     required this.documentsDestination,
     required this.mediaDestination,
-    required this.musicDestination,
+    required this.audioDestination,
   });
 }

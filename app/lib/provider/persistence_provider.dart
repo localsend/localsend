@@ -67,7 +67,7 @@ const _saveWindowPlacement = 'ls_save_window_placement';
 // Multiple save destinations based on file type
 const _documentsDestination = 'ls_documents_destination';
 const _mediaDestination = 'ls_media_destination';
-const _musicDestination = 'ls_music_destination';
+const _audioDestination = 'ls_audio_destination';
 
 // Settings
 const _showToken = 'ls_show_token';
@@ -417,15 +417,15 @@ class PersistenceService {
     }
   }
 
-  String? getMusicDestination() {
-    return _prefs.getString(_musicDestination);
+  String? getAudioDestination() {
+    return _prefs.getString(_audioDestination);
   }
 
-  Future<void> setMusicDestination(String? destination) async {
+  Future<void> setAudioDestination(String? destination) async {
     if (destination == null) {
-      await _prefs.remove(_musicDestination);
+      await _prefs.remove(_audioDestination);
     } else {
-      await _prefs.setString(_musicDestination, destination);
+      await _prefs.setString(_audioDestination, destination);
     }
   }
 

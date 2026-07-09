@@ -162,10 +162,10 @@ class SettingsStateMapper extends ClassMapperBase<SettingsState> {
     'mediaDestination',
     _$mediaDestination,
   );
-  static String? _$musicDestination(SettingsState v) => v.musicDestination;
-  static const Field<SettingsState, String> _f$musicDestination = Field(
-    'musicDestination',
-    _$musicDestination,
+  static String? _$audioDestination(SettingsState v) => v.audioDestination;
+  static const Field<SettingsState, String> _f$audioDestination = Field(
+    'audioDestination',
+    _$audioDestination,
   );
 
   @override
@@ -199,7 +199,7 @@ class SettingsStateMapper extends ClassMapperBase<SettingsState> {
     #saveLocationBasedOnFileType: _f$saveLocationBasedOnFileType,
     #documentsDestination: _f$documentsDestination,
     #mediaDestination: _f$mediaDestination,
-    #musicDestination: _f$musicDestination,
+    #audioDestination: _f$audioDestination,
   };
 
   static SettingsState _instantiate(DecodingData data) {
@@ -233,7 +233,7 @@ class SettingsStateMapper extends ClassMapperBase<SettingsState> {
       saveLocationBasedOnFileType: data.dec(_f$saveLocationBasedOnFileType),
       documentsDestination: data.dec(_f$documentsDestination),
       mediaDestination: data.dec(_f$mediaDestination),
-      musicDestination: data.dec(_f$musicDestination),
+      audioDestination: data.dec(_f$audioDestination),
     );
   }
 
@@ -333,7 +333,7 @@ abstract class SettingsStateCopyWith<$R, $In extends SettingsState, $Out>
     bool? saveLocationBasedOnFileType,
     String? documentsDestination,
     String? mediaDestination,
-    String? musicDestination,
+    String? audioDestination,
   });
   SettingsStateCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
@@ -395,7 +395,7 @@ class _SettingsStateCopyWithImpl<$R, $Out>
     bool? saveLocationBasedOnFileType,
     Object? documentsDestination = $none,
     Object? mediaDestination = $none,
-    Object? musicDestination = $none,
+    Object? audioDestination = $none,
   }) => $apply(
     FieldCopyWithData({
       if (showToken != null) #showToken: showToken,
@@ -432,7 +432,7 @@ class _SettingsStateCopyWithImpl<$R, $Out>
       if (documentsDestination != $none)
         #documentsDestination: documentsDestination,
       if (mediaDestination != $none) #mediaDestination: mediaDestination,
-      if (musicDestination != $none) #musicDestination: musicDestination,
+      if (audioDestination != $none) #audioDestination: audioDestination,
     }),
   );
   @override
@@ -481,7 +481,7 @@ class _SettingsStateCopyWithImpl<$R, $Out>
       or: $value.documentsDestination,
     ),
     mediaDestination: data.get(#mediaDestination, or: $value.mediaDestination),
-    musicDestination: data.get(#musicDestination, or: $value.musicDestination),
+    audioDestination: data.get(#audioDestination, or: $value.audioDestination),
   );
 
   @override

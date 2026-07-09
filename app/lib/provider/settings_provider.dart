@@ -73,7 +73,7 @@ class SettingsService extends PureNotifier<SettingsState> {
     saveLocationBasedOnFileType: _persistence.isSaveLocationBasedOnFileType(),
     documentsDestination: _persistence.getDocumentsDestination(),
     mediaDestination: _persistence.getMediaDestination(),
-    musicDestination: _persistence.getMusicDestination(),
+    audioDestination: _persistence.getAudioDestination(),
   );
 
   Future<void> setAlias(String alias) async {
@@ -167,10 +167,10 @@ class SettingsService extends PureNotifier<SettingsState> {
     );
   }
 
-  Future<void> setMusicDestination(String? destination) async {
-    await _persistence.setMusicDestination(destination);
+  Future<void> setAudioDestination(String? destination) async {
+    await _persistence.setAudioDestination(destination);
     state = state.copyWith(
-      musicDestination: destination,
+      audioDestination: destination,
     );
   }
 
