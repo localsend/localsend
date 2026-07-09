@@ -37,6 +37,11 @@ class ReceivingFileMapper extends ClassMapperBase<ReceivingFile> {
   );
   static String? _$path(ReceivingFile v) => v.path;
   static const Field<ReceivingFile, String> _f$path = Field('path', _$path);
+  static String? _$destinationDir(ReceivingFile v) => v.destinationDir;
+  static const Field<ReceivingFile, String> _f$destinationDir = Field(
+    'destinationDir',
+    _$destinationDir,
+  );
   static bool _$savedToGallery(ReceivingFile v) => v.savedToGallery;
   static const Field<ReceivingFile, bool> _f$savedToGallery = Field(
     'savedToGallery',
@@ -55,6 +60,7 @@ class ReceivingFileMapper extends ClassMapperBase<ReceivingFile> {
     #token: _f$token,
     #desiredName: _f$desiredName,
     #path: _f$path,
+    #destinationDir: _f$destinationDir,
     #savedToGallery: _f$savedToGallery,
     #errorMessage: _f$errorMessage,
   };
@@ -66,6 +72,7 @@ class ReceivingFileMapper extends ClassMapperBase<ReceivingFile> {
       token: data.dec(_f$token),
       desiredName: data.dec(_f$desiredName),
       path: data.dec(_f$path),
+      destinationDir: data.dec(_f$destinationDir),
       savedToGallery: data.dec(_f$savedToGallery),
       errorMessage: data.dec(_f$errorMessage),
     );
@@ -139,6 +146,7 @@ abstract class ReceivingFileCopyWith<$R, $In extends ReceivingFile, $Out>
     String? token,
     String? desiredName,
     String? path,
+    String? destinationDir,
     bool? savedToGallery,
     String? errorMessage,
   });
@@ -160,6 +168,7 @@ class _ReceivingFileCopyWithImpl<$R, $Out>
     Object? token = $none,
     Object? desiredName = $none,
     Object? path = $none,
+    Object? destinationDir = $none,
     bool? savedToGallery,
     Object? errorMessage = $none,
   }) => $apply(
@@ -169,6 +178,7 @@ class _ReceivingFileCopyWithImpl<$R, $Out>
       if (token != $none) #token: token,
       if (desiredName != $none) #desiredName: desiredName,
       if (path != $none) #path: path,
+      if (destinationDir != $none) #destinationDir: destinationDir,
       if (savedToGallery != null) #savedToGallery: savedToGallery,
       if (errorMessage != $none) #errorMessage: errorMessage,
     }),
@@ -180,6 +190,7 @@ class _ReceivingFileCopyWithImpl<$R, $Out>
     token: data.get(#token, or: $value.token),
     desiredName: data.get(#desiredName, or: $value.desiredName),
     path: data.get(#path, or: $value.path),
+    destinationDir: data.get(#destinationDir, or: $value.destinationDir),
     savedToGallery: data.get(#savedToGallery, or: $value.savedToGallery),
     errorMessage: data.get(#errorMessage, or: $value.errorMessage),
   );

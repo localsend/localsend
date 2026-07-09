@@ -11,6 +11,7 @@ class ReceivingFile with ReceivingFileMappable {
   final String? token;
   final String? desiredName; // not null when accepted
   final String? path; // when finished
+  final String? destinationDir;
   final bool savedToGallery; // when finished
   final String? errorMessage; // when status == failed
 
@@ -20,6 +21,7 @@ class ReceivingFile with ReceivingFileMappable {
     required this.token,
     required this.desiredName,
     required this.path,
+    required this.destinationDir,
     required this.savedToGallery,
     required this.errorMessage,
   });
