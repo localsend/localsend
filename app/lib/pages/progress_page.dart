@@ -58,6 +58,7 @@ class _ProgressPageState extends State<ProgressPage> with Refena {
   int _finishCounter = 3;
   Timer? _finishTimer;
   Timer? _wakelockPlusTimer;
+  Timer? _elapsedTimer;
 
   bool _advanced = false;
 
@@ -107,6 +108,26 @@ class _ProgressPageState extends State<ProgressPage> with Refena {
           }
         });
       }
+
+      _elapsedTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
+        final receiveSession = ref.read(serverProvider)?.session;
+        final sendSession = ref.read(sendProvider)[widget.sessionId];
+        final sessionState = receiveSession ?? sendSession;
+
+        if (!mounted) {
+          timer.cancel();
+          return;
+        }
+
+        if (sessionState?.startTime != null && sessionState?.endTime == null) {
+          setState(() {});
+        } else if (sessionState?.endTime != null) {
+          timer.cancel();
+          if (mounted) {
+            setState(() {});
+          }
+        }
+      });
 
       setState(() {
         final receiveSession = ref.read(serverProvider)?.session;
@@ -172,10 +193,33 @@ class _ProgressPageState extends State<ProgressPage> with Refena {
     super.dispose();
     _finishTimer?.cancel();
     _wakelockPlusTimer?.cancel();
+    _elapsedTimer?.cancel();
     TaskbarHelper.clearProgressBar(); // ignore: discarded_futures
     try {
       WakelockPlus.disable(); // ignore: discarded_futures
     } catch (_) {}
+  }
+
+  String? _formatElapsedTime(int? startTime, int? endTime) {
+    if (startTime == null) {
+      return null;
+    }
+
+    final elapsedMilliseconds = (endTime ?? DateTime.now().millisecondsSinceEpoch) - startTime;
+    if (elapsedMilliseconds < 0) {
+      return null;
+    }
+
+    final elapsed = Duration(milliseconds: elapsedMilliseconds);
+    final hours = elapsed.inHours;
+    final minutes = elapsed.inMinutes.remainder(60);
+    final seconds = elapsed.inSeconds.remainder(60);
+
+    if (hours > 0) {
+      return '${hours.toString().padLeft(2, '0')}:${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}';
+    }
+
+    return '${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}';
   }
 
   @override
@@ -211,6 +255,7 @@ class _ProgressPageState extends State<ProgressPage> with Refena {
     final title = receiveSession != null ? t.progressPage.titleReceiving : t.progressPage.titleSending;
     final startTime = commonSessionState.startTime;
     final endTime = commonSessionState.endTime;
+    final elapsedTime = _formatElapsedTime(startTime, endTime);
     final int? speedInBytes;
     if (startTime != null && currBytes >= 500 * 1024) {
       speedInBytes = getFileSpeed(start: startTime, end: endTime ?? DateTime.now().millisecondsSinceEpoch, bytes: currBytes);
@@ -377,8 +422,24 @@ class _ProgressPageState extends State<ProgressPage> with Refena {
                               if (fileStatus == FileStatus.sending)
                                 Padding(
                                   padding: const EdgeInsets.only(top: 5),
-                                  child: CustomProgressBar(
-                                    progress: progressNotifier.getProgress(sessionId: widget.sessionId, fileId: file.id),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      CustomProgressBar(
+                                        progress: progressNotifier.getProgress(sessionId: widget.sessionId, fileId: file.id),
+                                      ),
+                                      if (_advanced && elapsedTime != null)
+                                        Padding(
+                                          padding: const EdgeInsets.only(top: 5),
+                                          child: Text(
+                                            elapsedTime,
+                                            style: TextStyle(
+                                              color: Theme.of(context).colorScheme.secondary,
+                                              height: 1,
+                                            ),
+                                          ),
+                                        ),
+                                    ],
                                   ),
                                 )
                               else
@@ -443,9 +504,11 @@ class _ProgressPageState extends State<ProgressPage> with Refena {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Text(
-                            status.getLabel(
-                              remainingTime: _remainingTime ?? '-',
-                            ),
+                            _lastStatus == SessionStatus.finished
+                                ? status.getLabel(remainingTime: elapsedTime ?? '-')
+                                : status.getLabel(
+                                    remainingTime: _remainingTime ?? elapsedTime ?? '-',
+                                  ),
                             style: const TextStyle(fontSize: 20),
                           ),
                           const SizedBox(height: 5),
@@ -487,6 +550,12 @@ class _ProgressPageState extends State<ProgressPage> with Refena {
                                       t.progressPage.total.speed(
                                         speed: speedInBytes.asReadableFileSize,
                                       ),
+                                    ),
+                                  if (elapsedTime != null)
+                                    Text(
+                                      _lastStatus == SessionStatus.sending
+                                          ? t.progressPage.total.elapsedTime(time: elapsedTime)
+                                          : t.progressPage.total.transferTime(time: elapsedTime),
                                     ),
                                 ],
                               ),
@@ -581,7 +650,9 @@ extension on SessionStatus {
           time: remainingTime,
         );
       case SessionStatus.finished:
-        return t.general.finished;
+        return t.progressPage.total.title.finishedSuccess(
+          time: remainingTime,
+        );
       case SessionStatus.finishedWithErrors:
         return t.progressPage.total.title.finishedError;
       case SessionStatus.canceledBySender:
