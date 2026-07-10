@@ -1245,6 +1245,12 @@ class Translations$progressPage$total$en {
 
   /// en: 'Speed: {speed}/s'
   String speed({required Object speed}) => 'Speed: ${speed}/s';
+
+  /// en: 'Elapsed time: {time} min'
+  String elapsedTime({required Object time}) => 'Elapsed time: ${time} min';
+
+  /// en: 'Transfer time: {time} min'
+  String transferTime({required Object time}) => 'Transfer time: ${time} min';
 }
 
 // Path: progressPage.remainingTime
@@ -1763,6 +1769,9 @@ class Translations$progressPage$total$title$en {
 
   /// en: 'Total progress ({time})'
   String sending({required Object time}) => 'Total progress (${time})';
+
+  /// en: 'Finished in {time}'
+  String finishedSuccess({required Object time}) => 'Finished in ${time}';
 
   /// en: 'Finished with error'
   String get finishedError => 'Finished with error';

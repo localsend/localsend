@@ -981,6 +981,10 @@ class _Translations$progressPage$total$cs extends Translations$progressPage$tota
   String size({required Object curr, required Object n}) => 'Velikost: ${curr} / ${n}';
   @override
   String speed({required Object speed}) => 'Rychlost: ${speed}/s';
+  @override
+  String elapsedTime({required Object time}) => 'Uplynulý čas: ${time}';
+  @override
+  String transferTime({required Object time}) => 'Čas přenosu: ${time}';
 }
 
 // Path: dialogs.addFile
@@ -1402,6 +1406,8 @@ class _Translations$progressPage$total$title$cs extends Translations$progressPag
   // Translations
   @override
   String sending({required Object time}) => 'Celkový průběh (${time})';
+  @override
+  String finishedSuccess({required Object time}) => 'Dokončeno za ${time}';
   @override
   String get finishedError => 'Dokončeno s chybou';
   @override

@@ -232,13 +232,16 @@
     "total": {
       "title": {
         "sending": "Gesamtfortschritt ({time})",
+        "finishedSuccess": "In {time} abgeschlossen",
         "finishedError": "Abgeschlossen mit Fehler",
         "canceledSender": "Abgebrochen durch Absender",
         "canceledReceiver": "Abgebrochen durch Empfänger"
       },
       "count": "Dateien: {curr} / {n}",
       "size": "Größe: {curr} / {n}",
-      "speed": "Geschwindigkeit: {speed}/s"
+      "speed": "Geschwindigkeit: {speed}/s",
+      "elapsedTime": "Verstrichene Zeit: {time}",
+      "transferTime": "Transferzeit: {time}"
     },
     "remainingTime": {
       "@hours": "Benutze 'h' als Abkürzung für Stunden und 'm' für Minuten",
