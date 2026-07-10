@@ -231,7 +231,7 @@
     "savedToGallery": "Saved in Photos",
     "total": {
       "title": {
-        "sending": "Total progress ({time})",
+        "sending": "Total progress (remaining {time})",
         "finishedSuccess": "Finished in {time}",
         "finishedError": "Finished with error",
         "canceledSender": "Canceled by sender",

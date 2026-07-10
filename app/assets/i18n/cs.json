@@ -231,7 +231,7 @@
     "savedToGallery": "Uloženo ve Fotkách",
     "total": {
       "title": {
-        "sending": "Celkový průběh ({time})",
+        "sending": "Celkový průběh (zbývá {time})",
         "finishedSuccess": "Dokončeno za {time}",
         "finishedError": "Dokončeno s chybou",
         "canceledSender": "Zrušeno odesílatelem",

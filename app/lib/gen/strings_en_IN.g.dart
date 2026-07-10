@@ -1518,7 +1518,7 @@ class _Translations$progressPage$total$title$en_IN extends Translations$progress
 
   // Translations
   @override
-  String sending({required Object time}) => 'Total progress (${time})';
+  String sending({required Object time}) => 'Total progress (remaining ${time})';
   @override
   String finishedSuccess({required Object time}) => 'Finished in ${time}';
   @override

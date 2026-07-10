@@ -231,7 +231,7 @@
     "savedToGallery": "in Fotos gespeichert",
     "total": {
       "title": {
-        "sending": "Gesamtfortschritt ({time})",
+        "sending": "Gesamtfortschritt (verbleibende {time})",
         "finishedSuccess": "In {time} abgeschlossen",
         "finishedError": "Abgeschlossen mit Fehler",
         "canceledSender": "Abgebrochen durch Absender",

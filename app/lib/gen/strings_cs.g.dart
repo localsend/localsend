@@ -1405,7 +1405,7 @@ class _Translations$progressPage$total$title$cs extends Translations$progressPag
 
   // Translations
   @override
-  String sending({required Object time}) => 'Celkový průběh (${time})';
+  String sending({required Object time}) => 'Celkový průběh (zbývá ${time})';
   @override
   String finishedSuccess({required Object time}) => 'Dokončeno za ${time}';
   @override

@@ -1767,8 +1767,8 @@ class Translations$progressPage$total$title$en {
 
   // Translations
 
-  /// en: 'Total progress ({time})'
-  String sending({required Object time}) => 'Total progress (${time})';
+  /// en: 'Total progress (remaining {time})'
+  String sending({required Object time}) => 'Total progress (remaining ${time})';
 
   /// en: 'Finished in {time}'
   String finishedSuccess({required Object time}) => 'Finished in ${time}';
