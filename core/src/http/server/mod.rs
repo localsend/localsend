@@ -253,6 +253,19 @@ async fn handle_request_inner(
         return Err(AppError::Status(StatusCode::INTERNAL_SERVER_ERROR));
     };
 
+    let query_params: std::collections::HashMap<String, String> = req
+        .uri()
+        .query()
+        .map(|q| {
+            q.split('&')
+                .filter_map(|pair| {
+                    let mut parts = pair.splitn(2, '=');
+                    Some((parts.next()?.to_string(), parts.next()?.to_string()))
+                })
+                .collect()
+        })
+        .unwrap_or_default();
+
     match (req.method(), req.uri().path()) {
         (&Method::POST, "/api/localsend/v2/register") => {
             if !legacy_enabled {
@@ -271,7 +284,7 @@ async fn handle_request_inner(
             }
 
             Ok(
-                controller::v2::register(req.into_body(), state, client_info)
+                controller::v2::prepare_upload(req.into_body(), state, client_info)
                     .await?
                     .into_response(),
             )
@@ -281,11 +294,16 @@ async fn handle_request_inner(
                 return Err(AppError::Status(StatusCode::NOT_FOUND));
             }
 
-            Ok(
-                controller::v2::register(req.into_body(), state, client_info)
-                    .await?
-                    .into_response(),
+            Ok(controller::v2::upload(
+                req.into_body(),
+                state,
+                client_info,
+                query_params.get("sessionId").cloned(),
+                query_params.get("fileId").cloned(),
+                query_params.get("token").cloned(),
             )
+            .await?
+            .into_response())
         }
         (&Method::POST, "/api/localsend/v2/cancel") => {
             if !legacy_enabled {
@@ -293,9 +311,14 @@ async fn handle_request_inner(
             }
 
             Ok(
-                controller::v2::register(req.into_body(), state, client_info)
-                    .await?
-                    .into_response(),
+                controller::v2::cancel(
+                    req.into_body(),
+                    state,
+                    client_info,
+                    query_params.get("sessionId").cloned(),
+                )
+                .await?
+                .into_response(),
             )
         }
         (&Method::POST, "/api/localsend/v3/nonce") => {
