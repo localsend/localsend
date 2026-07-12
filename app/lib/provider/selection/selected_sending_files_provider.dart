@@ -3,6 +3,7 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:common/model/file_type.dart';
+import 'package:file_selector/file_selector.dart';
 import 'package:localsend_app/model/cross_file.dart';
 import 'package:localsend_app/util/file_path_helper.dart';
 import 'package:localsend_app/util/native/cache_helper.dart';
@@ -142,6 +143,87 @@ class AddFilesAction<T> extends AsyncReduxAction<SelectedSendingFilesNotifier, L
       ...state,
       ...newFiles,
     ]);
+  }
+}
+
+/// Adds files/directories to the list.
+class AddXFilesAction extends AsyncReduxAction<SelectedSendingFilesNotifier, List<CrossFile>> {
+  final Iterable<XFile> files;
+  final Future<CrossFile> Function(XFile) converter;
+
+  AddXFilesAction({
+    required this.files,
+    required this.converter,
+  });
+
+  @override
+  Future<List<CrossFile>> reduce() async {
+    final newFiles = <CrossFile>[];
+    final sendIgnore = SendIgnore();
+
+    for (final file in files) {
+      // we do it sequential because there are bugs
+      //  https://github.com/fluttercandies/flutter_photo_manager/issues/589
+      final dir = Directory(file.path);
+      if (await dir.exists()) {
+        await processDir(newFiles, dir, sendIgnore);
+      } else {
+        final crossFile = await converter(file);
+        await processFile(newFiles, crossFile);
+      }
+    }
+    return List.unmodifiable([
+      ...state,
+      ...newFiles,
+    ]);
+  }
+
+  Future processDir(List<CrossFile> files, Directory dir, SendIgnore sendIgnore) async {
+    final directoryPath = dir.path;
+    _logger.info('Reading files in $directoryPath');
+    final directoryName = p.basename(directoryPath);
+
+    await for (final entity in dir.list(recursive: true)) {
+      if (entity is! File) {
+        continue;
+      }
+
+      final innerRelative = p.relative(entity.path, from: directoryPath).replaceAll('\\', '/');
+      final relative = '$directoryName/$innerRelative';
+      if (sendIgnore.isIgnoreFile(p.basename(entity.path))) {
+        sendIgnore.loadIgnoreContent(
+          parentPath: innerRelative.contains('/') ? p.dirname(innerRelative) : null,
+          ignoreContents: await entity.readAsLines(),
+        );
+        _logger.info('Loaded ignore file: $innerRelative');
+        continue;
+      } else if (sendIgnore.isIgnored(innerRelative)) {
+        _logger.info('Ignored: $innerRelative');
+        continue;
+      }
+
+      _logger.info('Add file $relative');
+      final file = CrossFile(
+        name: relative,
+        fileType: relative.guessFileType(),
+        size: entity.lengthSync(),
+        thumbnail: null,
+        asset: null,
+        path: entity.path,
+        bytes: null,
+        lastModified: entity.lastModifiedSync().toUtc(),
+        lastAccessed: entity.lastAccessedSync().toUtc(),
+      );
+
+      await processFile(files, file);
+    }
+  }
+
+  Future processFile(List<CrossFile> files, CrossFile file) async {
+    final isAlreadySelect = state.any((element) => element.isSameFile(otherFile: file));
+    if (!isAlreadySelect) {
+      files.add(file);
+    }
   }
 }
 
