@@ -58,6 +58,25 @@ pub enum ServerEventV2 {
         result_tx: oneshot::Sender<Result<(), String>>,
     },
 
+    /// A web client requests to download the shared files
+    /// via `POST /api/localsend/v2/prepare-download`.
+    ///
+    /// The application must answer on `decision_tx`.
+    /// Dropping `decision_tx` results in a 500 response.
+    PrepareDownload {
+        /// The IP address of the web client.
+        ip: IpAddr,
+
+        /// The ID of the download session that is created when accepted.
+        session_id: String,
+
+        /// The `User-Agent` header of the web client.
+        user_agent: Option<String>,
+
+        /// Channel to send the decision (`true` to accept, `false` to decline).
+        decision_tx: oneshot::Sender<bool>,
+    },
+
     /// An upload session ended.
     SessionEnd {
         /// The session ID of the ended session.

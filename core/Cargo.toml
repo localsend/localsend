@@ -16,6 +16,7 @@ hyper = { version = "1.8.1", optional = true }
 hyper-util = { version = "0.1.19", features = ["server"], optional = true }
 lru = "0.16.3"
 pem = { version = "3.0.6", optional = true }
+percent-encoding = { version = "2.3", optional = true }
 reqwest = { version = "0.13.1", features = ["charset", "http2", "system-proxy", "json", "rustls-no-provider", "stream", "webpki-roots"], default-features = false, optional = true }
 rand = "0.9.1"
 rsa = { version = "0.9.8", optional = true }
@@ -39,7 +40,7 @@ x509-parser = { version = "0.18.0", features = ["verify"], optional = true }
 [features]
 default = []
 crypto = ["ed25519-dalek", "rsa", "sha2"]
-http = ["crypto", "form_urlencoded", "http-body-util", "hyper", "hyper-util", "pem", "reqwest", "rustls", "socket2", "tokio-rustls", "x509-parser"]
+http = ["crypto", "form_urlencoded", "http-body-util", "hyper", "hyper-util", "pem", "percent-encoding", "reqwest", "rustls", "socket2", "tokio-rustls", "x509-parser"]
 webrtc-signaling = ["tokio-tungstenite"]
 webrtc = ["crypto", "flate2", "dep:webrtc", "webrtc-signaling", "x509-parser"]
 full = ["crypto", "http", "webrtc"]

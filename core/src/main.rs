@@ -184,6 +184,15 @@ async fn server_test() -> Result<()> {
                         let _ = result_tx.send(Ok(()));
                     });
                 }
+                ServerEventV2::PrepareDownload {
+                    ip,
+                    session_id,
+                    decision_tx,
+                    ..
+                } => {
+                    tracing::info!("Prepare download from {ip} (session {session_id})");
+                    let _ = decision_tx.send(true);
+                }
                 ServerEventV2::SessionEnd { session_id, reason } => {
                     tracing::info!("Session {session_id} ended: {reason:?}");
                 }
@@ -201,6 +210,7 @@ async fn server_test() -> Result<()> {
         Some(ServerConfigV2 {
             pin: None,
             event_tx,
+            web_send: None,
         }),
         stop_rx,
     )

@@ -57,7 +57,7 @@ pub(crate) async fn register(
     let payload = body.collect_to_json::<RegisterDto>().await?;
 
     let info = state.info.lock().await.clone();
-    let has_web_interface = state.web.lock().await.is_some();
+    let has_web_interface = state.web.is_some();
 
     Ok(JsonResponse {
         status: StatusCode::OK,

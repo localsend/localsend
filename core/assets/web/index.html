@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LocalSend</title>
+    <style>
+        body {
+            font-family: sans-serif, system-ui;
+            margin: 0;
+            line-height: 1.5;
+            text-align: center;
+        }
+
+        a {
+            text-decoration: none;
+            color: #FFFFFF;
+        }
+
+        #file-list {
+            box-sizing: border-box;
+            width: 100%;
+            max-width: 1000px;
+            padding: 0 1em;
+            margin: 0 auto;
+            text-align: left;
+        }
+
+        .file-item {
+            display: table;
+            width: 100%;
+            padding: 0.5em 1em;
+            background-color: #00796B;
+            border-radius: 0.5em;
+            margin-bottom: 1em;
+            float: left;
+            box-sizing: border-box;
+        }
+
+        .file-item:hover {
+            background-color: #009688;
+        }
+
+        .file-name-cell, .file-size-cell, .file-index-cell {
+            display: table-cell;
+            vertical-align: middle;
+        }
+
+        .file-name-cell {
+            width: 100%;
+            padding: 0 0.5em;
+        }
+
+        .file-size-cell, .file-index-cell {
+            font-size: 0.8em;
+            white-space: nowrap;
+            color: #E0E0E0;
+        }
+
+        /* Two columns layout */
+        .file-item {
+            width: 100%;
+        }
+
+        @media screen and (min-width: 768px) {
+            #file-list.file-item {
+                width: 48%;
+                margin-right: 2%;
+            }
+            #file-list.file-item:nth-child(2n) {
+                margin-right: 0;
+            }
+        }
+
+        /* Single file mode */
+
+        #single-file {
+            box-sizing: border-box;
+            width: 100%;
+            text-align: left;
+            max-width: 400px;
+            padding: 0 1em;
+            margin: 0 auto;
+        }
+    </style>
+    <script src="main.js" defer></script>
+</head>
+<body>
+<noscript>
+    LocalSend requires JavaScript, which is currently disabled. Please enable it and try again.
+</noscript>
+
+<h1 style="padding: 0.5em">LocalSend</h1>
+<p id="status-text"></p>
+<div id="file-list"></div>
+<div id="single-file"></div>
+</body>
+</html>

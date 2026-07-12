@@ -3,23 +3,21 @@ use crate::http::dto_v2::{
     RegisterResponseDtoV2, PROTOCOL_VERSION_V2,
 };
 use crate::http::server::collect_to_json::CollectToJson;
+use crate::http::server::controller::check_pin;
 use crate::http::server::error::AppError;
 use crate::http::server::event::{PrepareUploadDecisionV2, ServerEventV2, SessionEndReasonV2};
 use crate::http::server::query::parse_query;
-use crate::http::server::response::JsonResponse;
+use crate::http::server::response::{empty_body, BoxedBody, JsonResponse};
 use crate::http::server::session::{FileStatusV2, SessionFileV2, SessionStateV2, UploadSessionV2};
 use crate::http::server::{AppState, RequestClientInfo, V2State};
 use bytes::Bytes;
-use http_body_util::{BodyExt, Full};
+use http_body_util::BodyExt;
 use hyper::body::Incoming;
 use hyper::{Request, Response, StatusCode};
 use std::collections::HashMap;
 use std::sync::Arc;
 use tokio::sync::{mpsc, oneshot};
 use uuid::Uuid;
-
-/// Maximum failed PIN attempts per IP before requests are blocked with 429.
-const MAX_PIN_ATTEMPTS: u32 = 3;
 
 /// Channel capacity for file upload chunks (provides backpressure).
 const UPLOAD_CHANNEL_CAPACITY: usize = 16;
@@ -42,7 +40,7 @@ pub(crate) async fn register(
     }
 
     let info = state.info.lock().await.clone();
-    let download = state.web.lock().await.is_some();
+    let download = state.web.is_some();
 
     Ok(JsonResponse {
         status: StatusCode::OK,
@@ -59,7 +57,7 @@ pub(crate) async fn register(
 
 pub(crate) async fn info(state: AppState) -> Result<JsonResponse<InfoResponseDtoV2>, AppError> {
     let info = state.info.lock().await.clone();
-    let download = state.web.lock().await.is_some();
+    let download = state.web.is_some();
 
     Ok(JsonResponse {
         status: StatusCode::OK,
@@ -78,11 +76,11 @@ pub(crate) async fn prepare_upload(
     req: Request<Incoming>,
     state: AppState,
     client_info: RequestClientInfo,
-) -> Result<Response<Full<Bytes>>, AppError> {
+) -> Result<Response<BoxedBody>, AppError> {
     let v2 = require_v2(&state)?;
     let query = parse_query(req.uri().query());
 
-    check_pin(&v2, &query, &client_info).await?;
+    check_pin(v2.pin.as_deref(), &v2.pin_attempts, &query, client_info.ip).await?;
 
     let payload = req
         .into_body()
@@ -151,7 +149,7 @@ pub(crate) async fn prepare_upload(
     if files.is_empty() {
         // Nothing to transfer.
         pending_guard.clear().await;
-        let mut res = Response::new(Full::default());
+        let mut res = Response::new(empty_body());
         *res.status_mut() = StatusCode::NO_CONTENT;
         return Ok(res);
     }
@@ -188,7 +186,7 @@ pub(crate) async fn upload(
     req: Request<Incoming>,
     state: AppState,
     client_info: RequestClientInfo,
-) -> Result<Response<Full<Bytes>>, AppError> {
+) -> Result<Response<BoxedBody>, AppError> {
     let v2 = require_v2(&state)?;
     let query = parse_query(req.uri().query());
 
@@ -284,7 +282,7 @@ pub(crate) async fn upload(
     upload_guard.finish(success).await;
 
     match success {
-        true => Ok(Response::new(Full::default())),
+        true => Ok(Response::new(empty_body())),
         false => Err(AppError::Status(StatusCode::INTERNAL_SERVER_ERROR)),
     }
 }
@@ -292,7 +290,7 @@ pub(crate) async fn upload(
 pub(crate) async fn cancel(
     req: Request<Incoming>,
     state: AppState,
-) -> Result<Response<Full<Bytes>>, AppError> {
+) -> Result<Response<BoxedBody>, AppError> {
     let v2 = require_v2(&state)?;
     let query = parse_query(req.uri().query());
 
@@ -320,7 +318,7 @@ pub(crate) async fn cancel(
         }
     }
 
-    Ok(Response::new(Full::default()))
+    Ok(Response::new(empty_body()))
 }
 
 fn require_v2(state: &AppState) -> Result<Arc<V2State>, AppError> {
@@ -335,43 +333,6 @@ fn invalid_token_error() -> AppError {
         StatusCode::FORBIDDEN,
         "Invalid token or IP address".to_string(),
     )
-}
-
-async fn check_pin(
-    v2: &Arc<V2State>,
-    query: &HashMap<String, String>,
-    client_info: &RequestClientInfo,
-) -> Result<(), AppError> {
-    let Some(required_pin) = &v2.pin else {
-        return Ok(());
-    };
-
-    let mut attempts = v2.pin_attempts.lock().await;
-    let count = attempts.get(&client_info.ip).copied().unwrap_or(0);
-    if count >= MAX_PIN_ATTEMPTS {
-        return Err(AppError::Message(
-            StatusCode::TOO_MANY_REQUESTS,
-            "Too many requests".to_string(),
-        ));
-    }
-
-    match query.get("pin") {
-        Some(pin) if pin == required_pin => {
-            attempts.pop(&client_info.ip);
-            Ok(())
-        }
-        Some(_) => {
-            attempts.put(client_info.ip, count + 1);
-            Err(AppError::Message(
-                StatusCode::UNAUTHORIZED,
-                "Invalid PIN".to_string(),
-            ))
-        }
-        None => Err(AppError::Message(
-            StatusCode::UNAUTHORIZED,
-            "PIN required".to_string(),
-        )),
-    }
 }
 
 /// Frees a claimed `Pending` session slot unless a session was created.

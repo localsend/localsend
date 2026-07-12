@@ -68,6 +68,7 @@ async fn start_test_server(pin: Option<String>, accept: bool) -> TestServer {
                     ServerEventV2::SessionEnd { session_id, reason } => {
                         session_ends.lock().await.push((session_id, reason));
                     }
+                    ServerEventV2::PrepareDownload { .. } => {}
                 }
             }
         }
@@ -85,7 +86,11 @@ async fn start_test_server(pin: Option<String>, accept: bool) -> TestServer {
             device_type: None,
             token: "server-fingerprint".to_string(),
         },
-        Some(ServerConfigV2 { pin, event_tx }),
+        Some(ServerConfigV2 {
+            pin,
+            event_tx,
+            web_send: None,
+        }),
         stop_rx,
     )
     .await

@@ -7,15 +7,18 @@ mod query;
 mod response;
 mod session;
 
+pub use crate::http::server::controller::web::{
+    WebSendConfig, WebSendFile, WebSendFileContent, WebSendI18n,
+};
+
 use crate::crypto::cert::public_key_from_cert_der;
 use crate::http::server::client_cert_verifier::CustomClientCertVerifier;
 use crate::http::server::controller::web::WebPageState;
 use crate::http::server::error::AppError;
 use crate::http::server::event::ServerEventV2;
+use crate::http::server::response::BoxedBody;
 use crate::http::server::session::SessionStateV2;
 use crate::http::state::ClientInfo;
-use bytes::Bytes;
-use http_body_util::Full;
 use hyper::body::Incoming;
 use hyper::{Method, Request, Response, StatusCode};
 use hyper_util::rt::{TokioExecutor, TokioIo};
@@ -37,6 +40,10 @@ pub struct ServerConfigV2 {
 
     /// Channel on which the server emits events that must be handled by the application.
     pub event_tx: mpsc::Sender<ServerEventV2>,
+
+    /// Configuration for web send (download API).
+    /// `None` disables the web page and download routes.
+    pub web_send: Option<WebSendConfig>,
 }
 
 /// Runtime state of the v2 protocol endpoints.
@@ -60,7 +67,7 @@ struct AppState {
     info: Arc<Mutex<ClientInfo>>,
 
     /// State for serving web pages.
-    web: Arc<Mutex<Option<WebPageState>>>,
+    web: Option<Arc<WebPageState>>,
 
     /// Maps client identifiers to nonces that have been received from remote.
     received_nonce_map: Arc<Mutex<LruCache<String, Vec<u8>>>>,
@@ -74,23 +81,31 @@ struct AppState {
 
 impl AppState {
     fn new(info: Arc<Mutex<ClientInfo>>, v2_config: Option<ServerConfigV2>) -> Self {
+        let (v2, web) = match v2_config {
+            Some(config) => (
+                Some(Arc::new(V2State {
+                    pin: config.pin,
+                    event_tx: config.event_tx.clone(),
+                    session: Mutex::new(None),
+                    pin_attempts: Mutex::new(LruCache::new(NonZeroUsize::new(200).unwrap())),
+                })),
+                config
+                    .web_send
+                    .map(|web_config| Arc::new(WebPageState::new(web_config, config.event_tx))),
+            ),
+            None => (None, None),
+        };
+
         Self {
             info,
-            web: Arc::new(Mutex::new(None)),
+            web,
             received_nonce_map: Arc::new(Mutex::new(LruCache::new(
                 NonZeroUsize::new(200).unwrap(),
             ))),
             generated_nonce_map: Arc::new(Mutex::new(LruCache::new(
                 NonZeroUsize::new(200).unwrap(),
             ))),
-            v2: v2_config.map(|config| {
-                Arc::new(V2State {
-                    pin: config.pin,
-                    event_tx: config.event_tx,
-                    session: Mutex::new(None),
-                    pin_attempts: Mutex::new(LruCache::new(NonZeroUsize::new(200).unwrap())),
-                })
-            }),
+            v2,
         }
     }
 }
@@ -294,7 +309,7 @@ impl RequestClientInfo {
     }
 }
 
-async fn handle_request(req: Request<Incoming>) -> Result<Response<Full<Bytes>>, hyper::Error> {
+async fn handle_request(req: Request<Incoming>) -> Result<Response<BoxedBody>, hyper::Error> {
     Ok(handle_request_inner(req).await.unwrap_or_else(|err| {
         tracing::error!("Error handling request: {err:?}");
         err.to_response()
@@ -303,7 +318,7 @@ async fn handle_request(req: Request<Incoming>) -> Result<Response<Full<Bytes>>,
 
 async fn handle_request_inner(
     mut req: Request<Incoming>,
-) -> Result<Response<Full<Bytes>>, AppError> {
+) -> Result<Response<BoxedBody>, AppError> {
     let Some(state) = req.extensions_mut().remove::<AppState>() else {
         return Err(AppError::Status(StatusCode::INTERNAL_SERVER_ERROR));
     };
@@ -315,6 +330,15 @@ async fn handle_request_inner(
     let v2_enabled = state.v2.is_some();
 
     match (req.method(), req.uri().path()) {
+        (&Method::GET, "/") => Ok(controller::web::index(&state)),
+        (&Method::GET, "/main.js") => Ok(controller::web::main_js(&state)),
+        (&Method::GET, "/i18n.json") => controller::web::i18n(&state),
+        (&Method::POST, "/api/localsend/v2/prepare-download") => {
+            controller::web::prepare_download(req, state, client_info).await
+        }
+        (&Method::GET, "/api/localsend/v2/download") => {
+            controller::web::download(req, state, client_info).await
+        }
         (&Method::POST, "/api/localsend/v2/register") => {
             if !v2_enabled {
                 return Err(AppError::Status(StatusCode::NOT_FOUND));
@@ -369,7 +393,7 @@ async fn handle_request_inner(
             )
         }
         _ => {
-            let mut res = Response::new(Full::default());
+            let mut res = Response::new(response::empty_body());
             *res.status_mut() = StatusCode::NOT_FOUND;
             Ok(res)
         }

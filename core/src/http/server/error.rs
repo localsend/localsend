@@ -1,7 +1,5 @@
 use crate::http::dto::ErrorResponse;
-use crate::http::server::response::JsonResponse;
-use bytes::Bytes;
-use http_body_util::Full;
+use crate::http::server::response::{BoxedBody, JsonResponse};
 use hyper::{Response, StatusCode};
 
 #[derive(Debug, thiserror::Error)]
@@ -20,7 +18,7 @@ pub enum AppError {
 }
 
 impl AppError {
-    pub(crate) fn to_response(self) -> Response<Full<Bytes>> {
+    pub(crate) fn to_response(self) -> Response<BoxedBody> {
         let json = match self {
             AppError::Hyper(_) => JsonResponse {
                 status: StatusCode::INTERNAL_SERVER_ERROR,
