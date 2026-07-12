@@ -1,3 +1,5 @@
+& 'C:\Program Files (x86)\Windows Kits\10\App Certification Kit\makeappx.exe' pack /o /d msix /nv /p app\windows\localsend_msix_helper.msix 
+
 cd app
 
 fvm flutter clean
