@@ -2,12 +2,17 @@ mod client_cert_verifier;
 mod collect_to_json;
 mod controller;
 mod error;
+pub mod event;
+mod query;
 mod response;
+mod session;
 
 use crate::crypto::cert::public_key_from_cert_der;
 use crate::http::server::client_cert_verifier::CustomClientCertVerifier;
 use crate::http::server::controller::web::WebPageState;
 use crate::http::server::error::AppError;
+use crate::http::server::event::ServerEventV2;
+use crate::http::server::session::SessionStateV2;
 use crate::http::state::ClientInfo;
 use bytes::Bytes;
 use http_body_util::Full;
@@ -23,7 +28,31 @@ use std::net::{IpAddr, Ipv4Addr, Ipv6Addr, SocketAddr};
 use std::num::NonZeroUsize;
 use std::ops::Deref;
 use std::sync::Arc;
-use tokio::sync::{oneshot, Mutex};
+use tokio::sync::{mpsc, oneshot, Mutex};
+
+/// Configuration for the v2 (legacy) protocol endpoints.
+pub struct ServerConfigV2 {
+    /// Optional PIN that senders must provide via the `pin` query parameter.
+    pub pin: Option<String>,
+
+    /// Channel on which the server emits events that must be handled by the application.
+    pub event_tx: mpsc::Sender<ServerEventV2>,
+}
+
+/// Runtime state of the v2 protocol endpoints.
+pub(crate) struct V2State {
+    /// Optional PIN required for prepare-upload requests.
+    pub(crate) pin: Option<String>,
+
+    /// Channel on which server events are emitted to the application.
+    pub(crate) event_tx: mpsc::Sender<ServerEventV2>,
+
+    /// The single upload session slot. Only one session can be active at a time.
+    pub(crate) session: Mutex<Option<SessionStateV2>>,
+
+    /// Maps client IPs to the number of failed PIN attempts.
+    pub(crate) pin_attempts: Mutex<LruCache<IpAddr, u32>>,
+}
 
 #[derive(Clone)]
 struct AppState {
@@ -38,10 +67,13 @@ struct AppState {
 
     /// Maps client identifiers to nonces that are expected to be received from remote.
     generated_nonce_map: Arc<Mutex<LruCache<String, Vec<u8>>>>,
+
+    /// State of the v2 protocol endpoints. `None` disables the v2 routes.
+    v2: Option<Arc<V2State>>,
 }
 
 impl AppState {
-    fn new(info: Arc<Mutex<ClientInfo>>) -> Self {
+    fn new(info: Arc<Mutex<ClientInfo>>, v2_config: Option<ServerConfigV2>) -> Self {
         Self {
             info,
             web: Arc::new(Mutex::new(None)),
@@ -51,6 +83,14 @@ impl AppState {
             generated_nonce_map: Arc::new(Mutex::new(LruCache::new(
                 NonZeroUsize::new(200).unwrap(),
             ))),
+            v2: v2_config.map(|config| {
+                Arc::new(V2State {
+                    pin: config.pin,
+                    event_tx: config.event_tx,
+                    session: Mutex::new(None),
+                    pin_attempts: Mutex::new(LruCache::new(NonZeroUsize::new(200).unwrap())),
+                })
+            }),
         }
     }
 }
@@ -60,28 +100,37 @@ pub async fn start_with_port(
     port: u16,
     tls_config: Option<TlsConfig>,
     info: ClientInfo,
-    legacy_enabled: bool,
+    v2_config: Option<ServerConfigV2>,
     stop_rx: oneshot::Receiver<()>,
 ) -> anyhow::Result<()> {
     let ipv4_socket_addr = SocketAddr::new(Ipv4Addr::UNSPECIFIED.into(), port);
     let ipv6_socket_addr = SocketAddr::new(Ipv6Addr::UNSPECIFIED.into(), port);
     let info = Arc::new(Mutex::new(info));
-    let state = AppState::new(info.clone());
+    let state = AppState::new(info.clone(), v2_config);
+
+    let ipv4_listener = tokio::net::TcpListener::bind(ipv4_socket_addr).await?;
+    let ipv6_listener = match bind_ipv6_only(ipv6_socket_addr) {
+        Ok(listener) => Some(listener),
+        Err(err) => {
+            tracing::warn!("Failed to start server on {}: {err:#}", ipv6_socket_addr);
+            None
+        }
+    };
 
     tokio::spawn({
         let state = state.clone();
         async move {
             tokio::select! {
-                _ = start_server_with_addr(ipv4_socket_addr, tls_config.clone(), state.clone(), legacy_enabled) => {
+                _ = start_server_with_listener(ipv4_listener, tls_config.clone(), state.clone()) => {
                     tracing::info!("Server stopped on: {}", ipv4_socket_addr);
                 }
                 _ = async {
-                    if start_server_with_addr(ipv6_socket_addr, tls_config, state, legacy_enabled).await.is_err() {
-                        tracing::warn!("Failed to start server on: {}", ipv6_socket_addr);
-
-                        // Keep the future running forever, so we continue using "ipv4 only" even if ipv6 fails.
-                        tokio::time::sleep(std::time::Duration::from_secs(u64::MAX)).await;
+                    if let Some(listener) = ipv6_listener {
+                        let _ = start_server_with_listener(listener, tls_config, state).await;
                     }
+
+                    // Keep the future running forever, so we continue using "ipv4 only" even if ipv6 fails.
+                    tokio::time::sleep(std::time::Duration::from_secs(u64::MAX)).await;
                 } => {}
                 _ = stop_rx => {}
             }
@@ -91,21 +140,37 @@ pub async fn start_with_port(
     Ok(())
 }
 
+/// Binds an IPv6 listener with `IPV6_V6ONLY` enabled.
+///
+/// Without this flag, some systems (e.g. macOS) bind IPv6 wildcard sockets in
+/// dual-stack mode, which conflicts with the separate IPv4 listener on the same port.
+fn bind_ipv6_only(socket_addr: SocketAddr) -> anyhow::Result<tokio::net::TcpListener> {
+    let socket = socket2::Socket::new(
+        socket2::Domain::IPV6,
+        socket2::Type::STREAM,
+        Some(socket2::Protocol::TCP),
+    )?;
+    socket.set_only_v6(true)?;
+    #[cfg(not(windows))]
+    socket.set_reuse_address(true)?;
+    socket.set_nonblocking(true)?;
+    socket.bind(&socket_addr.into())?;
+    socket.listen(1024)?;
+    Ok(tokio::net::TcpListener::from_std(socket.into())?)
+}
+
 #[derive(Clone, Debug)]
 pub struct TlsConfig {
     pub cert: String,
     pub private_key: String,
 }
 
-async fn start_server_with_addr(
-    socket_addr: SocketAddr,
+async fn start_server_with_listener(
+    incoming: tokio::net::TcpListener,
     tls_config: Option<TlsConfig>,
     app_state: AppState,
-    legacy_enabled: bool,
 ) -> anyhow::Result<()> {
     let _ = rustls::crypto::ring::default_provider().install_default();
-
-    let incoming = tokio::net::TcpListener::bind(socket_addr).await?;
 
     let tls_acceptor = match tls_config {
         Some(tls_config) => Some(create_tls_config(&tls_config).inspect_err(|err| {
@@ -116,7 +181,7 @@ async fn start_server_with_addr(
 
     tracing::info!(
         "Started server on {} (TLS: {})",
-        socket_addr,
+        incoming.local_addr()?,
         tls_acceptor.is_some()
     );
 
@@ -155,7 +220,7 @@ async fn start_server_with_addr(
                                 req.extensions_mut()
                                     .insert::<RequestClientInfo>(client_info.clone());
                                 req.extensions_mut().insert::<AppState>(app_state.clone());
-                                handle_request(req, legacy_enabled)
+                                handle_request(req)
                             }),
                         )
                         .await
@@ -172,7 +237,7 @@ async fn start_server_with_addr(
                                     },
                                 );
                                 req.extensions_mut().insert::<AppState>(app_state.clone());
-                                handle_request(req, legacy_enabled)
+                                handle_request(req)
                             }),
                         )
                         .await
@@ -229,21 +294,15 @@ impl RequestClientInfo {
     }
 }
 
-async fn handle_request(
-    req: Request<Incoming>,
-    legacy_enabled: bool,
-) -> Result<Response<Full<Bytes>>, hyper::Error> {
-    Ok(handle_request_inner(req, legacy_enabled)
-        .await
-        .unwrap_or_else(|err| {
-            tracing::error!("Error handling request: {err:?}");
-            err.to_response()
-        }))
+async fn handle_request(req: Request<Incoming>) -> Result<Response<Full<Bytes>>, hyper::Error> {
+    Ok(handle_request_inner(req).await.unwrap_or_else(|err| {
+        tracing::error!("Error handling request: {err:?}");
+        err.to_response()
+    }))
 }
 
 async fn handle_request_inner(
     mut req: Request<Incoming>,
-    legacy_enabled: bool,
 ) -> Result<Response<Full<Bytes>>, AppError> {
     let Some(state) = req.extensions_mut().remove::<AppState>() else {
         return Err(AppError::Status(StatusCode::INTERNAL_SERVER_ERROR));
@@ -253,9 +312,11 @@ async fn handle_request_inner(
         return Err(AppError::Status(StatusCode::INTERNAL_SERVER_ERROR));
     };
 
+    let v2_enabled = state.v2.is_some();
+
     match (req.method(), req.uri().path()) {
         (&Method::POST, "/api/localsend/v2/register") => {
-            if !legacy_enabled {
+            if !v2_enabled {
                 return Err(AppError::Status(StatusCode::NOT_FOUND));
             }
 
@@ -264,39 +325,34 @@ async fn handle_request_inner(
                     .await?
                     .into_response(),
             )
+        }
+        (&Method::GET, "/api/localsend/v2/info") => {
+            if !v2_enabled {
+                return Err(AppError::Status(StatusCode::NOT_FOUND));
+            }
+
+            Ok(controller::v2::info(state).await?.into_response())
         }
         (&Method::POST, "/api/localsend/v2/prepare-upload") => {
-            if !legacy_enabled {
+            if !v2_enabled {
                 return Err(AppError::Status(StatusCode::NOT_FOUND));
             }
 
-            Ok(
-                controller::v2::register(req.into_body(), state, client_info)
-                    .await?
-                    .into_response(),
-            )
+            controller::v2::prepare_upload(req, state, client_info).await
         }
         (&Method::POST, "/api/localsend/v2/upload") => {
-            if !legacy_enabled {
+            if !v2_enabled {
                 return Err(AppError::Status(StatusCode::NOT_FOUND));
             }
 
-            Ok(
-                controller::v2::register(req.into_body(), state, client_info)
-                    .await?
-                    .into_response(),
-            )
+            controller::v2::upload(req, state, client_info).await
         }
         (&Method::POST, "/api/localsend/v2/cancel") => {
-            if !legacy_enabled {
+            if !v2_enabled {
                 return Err(AppError::Status(StatusCode::NOT_FOUND));
             }
 
-            Ok(
-                controller::v2::register(req.into_body(), state, client_info)
-                    .await?
-                    .into_response(),
-            )
+            controller::v2::cancel(req, state).await
         }
         (&Method::POST, "/api/localsend/v3/nonce") => {
             Ok(

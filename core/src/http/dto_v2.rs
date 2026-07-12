@@ -3,6 +3,48 @@ use crate::model::transfer::FileDto;
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 
+/// The protocol version (major.minor) implemented by this crate for the v2 protocol.
+pub const PROTOCOL_VERSION_V2: &str = "2.1";
+
+/// Serde helpers for `DeviceType` in the v2 protocol.
+///
+/// The v2 protocol uses lowercase values (e.g. "desktop") on the wire.
+/// Unknown values fall back to `Desktop` as required by the protocol (section 7.1).
+pub(crate) mod device_type_v2 {
+    use crate::model::discovery::DeviceType;
+    use serde::{Deserialize, Deserializer, Serializer};
+
+    pub fn serialize<S: Serializer>(
+        value: &Option<DeviceType>,
+        serializer: S,
+    ) -> Result<S::Ok, S::Error> {
+        match value {
+            Some(device_type) => serializer.serialize_str(match device_type {
+                DeviceType::Mobile => "mobile",
+                DeviceType::Desktop => "desktop",
+                DeviceType::Web => "web",
+                DeviceType::Headless => "headless",
+                DeviceType::Server => "server",
+            }),
+            None => serializer.serialize_none(),
+        }
+    }
+
+    pub fn deserialize<'de, D: Deserializer<'de>>(
+        deserializer: D,
+    ) -> Result<Option<DeviceType>, D::Error> {
+        let value = Option::<String>::deserialize(deserializer)?;
+        Ok(value.map(|value| match value.to_lowercase().as_str() {
+            "mobile" => DeviceType::Mobile,
+            "desktop" => DeviceType::Desktop,
+            "web" => DeviceType::Web,
+            "headless" => DeviceType::Headless,
+            "server" => DeviceType::Server,
+            _ => DeviceType::Desktop,
+        }))
+    }
+}
+
 /// Protocol type for HTTP or HTTPS connections.
 #[derive(Clone, Debug, Deserialize, Eq, Serialize, PartialEq)]
 #[serde(rename_all = "lowercase")]
@@ -39,7 +81,11 @@ pub struct MulticastMessageV2 {
     pub device_model: Option<String>,
 
     /// Device type category. Optional.
-    #[serde(skip_serializing_if = "Option::is_none")]
+    #[serde(
+        default,
+        with = "device_type_v2",
+        skip_serializing_if = "Option::is_none"
+    )]
     pub device_type: Option<DeviceType>,
 
     /// Fingerprint for device identification.
@@ -79,7 +125,11 @@ pub struct RegisterDtoV2 {
     pub device_model: Option<String>,
 
     /// Device type category. Optional.
-    #[serde(skip_serializing_if = "Option::is_none")]
+    #[serde(
+        default,
+        with = "device_type_v2",
+        skip_serializing_if = "Option::is_none"
+    )]
     pub device_type: Option<DeviceType>,
 
     /// Fingerprint for device identification.
@@ -114,7 +164,11 @@ pub struct RegisterResponseDtoV2 {
     pub device_model: Option<String>,
 
     /// Device type category. Optional.
-    #[serde(skip_serializing_if = "Option::is_none")]
+    #[serde(
+        default,
+        with = "device_type_v2",
+        skip_serializing_if = "Option::is_none"
+    )]
     pub device_type: Option<DeviceType>,
 
     /// Fingerprint for device identification.
@@ -194,7 +248,11 @@ pub struct InfoResponseDtoV2 {
     pub device_model: Option<String>,
 
     /// Device type category. Optional.
-    #[serde(skip_serializing_if = "Option::is_none")]
+    #[serde(
+        default,
+        with = "device_type_v2",
+        skip_serializing_if = "Option::is_none"
+    )]
     pub device_type: Option<DeviceType>,
 
     /// Fingerprint for device identification.
@@ -230,6 +288,7 @@ mod tests {
         assert!(json.contains("\"announce\":true"));
         assert!(json.contains("\"download\":true"));
         assert!(json.contains("\"protocol\":\"https\""));
+        assert!(json.contains("\"deviceType\":\"mobile\""));
     }
 
     #[test]
@@ -238,7 +297,7 @@ mod tests {
             "alias": "Secret Banana",
             "version": "2.0",
             "deviceModel": "Windows",
-            "deviceType": "DESKTOP",
+            "deviceType": "desktop",
             "fingerprint": "random string",
             "port": 53317,
             "protocol": "https",
@@ -254,6 +313,22 @@ mod tests {
         assert_eq!(dto.port, 53317);
         assert_eq!(dto.protocol, ProtocolTypeV2::Https);
         assert!(dto.download);
+    }
+
+    #[test]
+    fn test_device_type_unknown_falls_back_to_desktop() {
+        // Unknown device types must fall back to desktop (protocol section 7.1).
+        let json = r#"{
+            "alias": "Test Device",
+            "version": "2.0",
+            "deviceType": "fridge",
+            "fingerprint": "abc123",
+            "port": 53317,
+            "protocol": "http"
+        }"#;
+
+        let dto: RegisterDtoV2 = serde_json::from_str(json).unwrap();
+        assert_eq!(dto.device_type, Some(DeviceType::Desktop));
     }
 
     #[test]

@@ -14,6 +14,9 @@ pub enum AppError {
 
     #[error("Invalid request: {0}")]
     BadRequest(String),
+
+    #[error("{0}: {1}")]
+    Message(StatusCode, String),
 }
 
 impl AppError {
@@ -33,6 +36,10 @@ impl AppError {
             },
             AppError::BadRequest(message) => JsonResponse {
                 status: StatusCode::BAD_REQUEST,
+                body: ErrorResponse { message },
+            },
+            AppError::Message(status, message) => JsonResponse {
+                status,
                 body: ErrorResponse { message },
             },
         };

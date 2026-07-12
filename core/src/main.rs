@@ -7,7 +7,8 @@ mod webrtc;
 use crate::crypto::token;
 use crate::http::client::LsHttpClientV3;
 use crate::http::dto::{PrepareUploadRequestDto, ProtocolType, RegisterDto};
-use crate::http::server::TlsConfig;
+use crate::http::server::event::{PrepareUploadDecisionV2, ServerEventV2};
+use crate::http::server::{ServerConfigV2, TlsConfig};
 use crate::model::discovery::DeviceType;
 use crate::webrtc::signaling::{ClientInfo, WsServerMessage};
 use crate::webrtc::webrtc::{PinConfig, RTCFile, RTCFileError, RTCSendFileResponse, RTCStatus};
@@ -138,6 +139,57 @@ async fn server_test() -> Result<()> {
     };
 
     let (stop_tx, stop_rx) = oneshot::channel::<()>();
+    let (event_tx, mut event_rx) = mpsc::channel::<ServerEventV2>(16);
+
+    tokio::spawn(async move {
+        while let Some(event) = event_rx.recv().await {
+            match event {
+                ServerEventV2::Register { ip, info } => {
+                    tracing::info!("Device registered from {ip}: {}", info.alias);
+                }
+                ServerEventV2::PrepareUpload {
+                    info,
+                    files,
+                    decision_tx,
+                    ..
+                } => {
+                    tracing::info!(
+                        "Prepare upload from {}: {} file(s)",
+                        info.alias,
+                        files.len()
+                    );
+
+                    // Accept all files.
+                    let _ = decision_tx.send(PrepareUploadDecisionV2::Accept(
+                        files.keys().cloned().collect(),
+                    ));
+                }
+                ServerEventV2::FileUpload {
+                    file,
+                    mut binary_rx,
+                    result_tx,
+                    ..
+                } => {
+                    tokio::spawn(async move {
+                        let mut received: u64 = 0;
+                        while let Some(chunk) = binary_rx.recv().await {
+                            received += chunk.len() as u64;
+                        }
+                        tracing::info!(
+                            "Received {}/{} bytes of {}",
+                            received,
+                            file.size,
+                            file.file_name
+                        );
+                        let _ = result_tx.send(Ok(()));
+                    });
+                }
+                ServerEventV2::SessionEnd { session_id, reason } => {
+                    tracing::info!("Session {session_id} ended: {reason:?}");
+                }
+            }
+        }
+    });
 
     http::server::start_with_port(
         53317,
@@ -146,7 +198,10 @@ async fn server_test() -> Result<()> {
             private_key: PRIVATE_KEY.to_string(),
         }),
         client_info,
-        true,
+        Some(ServerConfigV2 {
+            pin: None,
+            event_tx,
+        }),
         stop_rx,
     )
     .await?;
@@ -218,7 +273,10 @@ async fn client_test() -> Result<()> {
         )
         .await?;
 
-    println!("Prepare Upload Response: {:?}", prepare_upload_response.response);
+    println!(
+        "Prepare Upload Response: {:?}",
+        prepare_upload_response.response
+    );
 
     Ok(())
 }
