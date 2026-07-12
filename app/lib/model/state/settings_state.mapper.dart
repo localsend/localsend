@@ -143,6 +143,20 @@ class SettingsStateMapper extends ClassMapperBase<SettingsState> {
     'discoveryTimeout',
     _$discoveryTimeout,
   );
+  static bool _$crossSubnetScan(SettingsState v) => v.crossSubnetScan;
+  static const Field<SettingsState, bool> _f$crossSubnetScan = Field(
+    'crossSubnetScan',
+    _$crossSubnetScan,
+  );
+  static int _$crossSubnetScanDepth(SettingsState v) => v.crossSubnetScanDepth;
+  static const Field<SettingsState, int> _f$crossSubnetScanDepth = Field(
+    'crossSubnetScanDepth',
+    _$crossSubnetScanDepth,
+  );
+  static List<String> _$customSubnetScanRanges(SettingsState v) =>
+      v.customSubnetScanRanges;
+  static const Field<SettingsState, List<String>> _f$customSubnetScanRanges =
+      Field('customSubnetScanRanges', _$customSubnetScanRanges);
   static bool _$advancedSettings(SettingsState v) => v.advancedSettings;
   static const Field<SettingsState, bool> _f$advancedSettings = Field(
     'advancedSettings',
@@ -176,6 +190,9 @@ class SettingsStateMapper extends ClassMapperBase<SettingsState> {
     #deviceModel: _f$deviceModel,
     #shareViaLinkAutoAccept: _f$shareViaLinkAutoAccept,
     #discoveryTimeout: _f$discoveryTimeout,
+    #crossSubnetScan: _f$crossSubnetScan,
+    #crossSubnetScanDepth: _f$crossSubnetScanDepth,
+    #customSubnetScanRanges: _f$customSubnetScanRanges,
     #advancedSettings: _f$advancedSettings,
   };
 
@@ -206,6 +223,9 @@ class SettingsStateMapper extends ClassMapperBase<SettingsState> {
       deviceModel: data.dec(_f$deviceModel),
       shareViaLinkAutoAccept: data.dec(_f$shareViaLinkAutoAccept),
       discoveryTimeout: data.dec(_f$discoveryTimeout),
+      crossSubnetScan: data.dec(_f$crossSubnetScan),
+      crossSubnetScanDepth: data.dec(_f$crossSubnetScanDepth),
+      customSubnetScanRanges: data.dec(_f$customSubnetScanRanges),
       advancedSettings: data.dec(_f$advancedSettings),
     );
   }
@@ -276,6 +296,8 @@ abstract class SettingsStateCopyWith<$R, $In extends SettingsState, $Out>
   get networkWhitelist;
   ListCopyWith<$R, String, ObjectCopyWith<$R, String, String>>?
   get networkBlacklist;
+  ListCopyWith<$R, String, ObjectCopyWith<$R, String, String>>
+  get customSubnetScanRanges;
   $R call({
     String? showToken,
     String? alias,
@@ -302,6 +324,9 @@ abstract class SettingsStateCopyWith<$R, $In extends SettingsState, $Out>
     String? deviceModel,
     bool? shareViaLinkAutoAccept,
     int? discoveryTimeout,
+    bool? crossSubnetScan,
+    int? crossSubnetScanDepth,
+    List<String>? customSubnetScanRanges,
     bool? advancedSettings,
   });
   SettingsStateCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
@@ -334,6 +359,13 @@ class _SettingsStateCopyWithImpl<$R, $Out>
         )
       : null;
   @override
+  ListCopyWith<$R, String, ObjectCopyWith<$R, String, String>>
+  get customSubnetScanRanges => ListCopyWith(
+    $value.customSubnetScanRanges,
+    (v, t) => ObjectCopyWith(v, $identity, t),
+    (v) => call(customSubnetScanRanges: v),
+  );
+  @override
   $R call({
     String? showToken,
     String? alias,
@@ -360,6 +392,9 @@ class _SettingsStateCopyWithImpl<$R, $Out>
     Object? deviceModel = $none,
     bool? shareViaLinkAutoAccept,
     int? discoveryTimeout,
+    bool? crossSubnetScan,
+    int? crossSubnetScanDepth,
+    List<String>? customSubnetScanRanges,
     bool? advancedSettings,
   }) => $apply(
     FieldCopyWithData({
@@ -391,6 +426,11 @@ class _SettingsStateCopyWithImpl<$R, $Out>
       if (shareViaLinkAutoAccept != null)
         #shareViaLinkAutoAccept: shareViaLinkAutoAccept,
       if (discoveryTimeout != null) #discoveryTimeout: discoveryTimeout,
+      if (crossSubnetScan != null) #crossSubnetScan: crossSubnetScan,
+      if (crossSubnetScanDepth != null)
+        #crossSubnetScanDepth: crossSubnetScanDepth,
+      if (customSubnetScanRanges != null)
+        #customSubnetScanRanges: customSubnetScanRanges,
       if (advancedSettings != null) #advancedSettings: advancedSettings,
     }),
   );
@@ -430,6 +470,15 @@ class _SettingsStateCopyWithImpl<$R, $Out>
       or: $value.shareViaLinkAutoAccept,
     ),
     discoveryTimeout: data.get(#discoveryTimeout, or: $value.discoveryTimeout),
+    crossSubnetScan: data.get(#crossSubnetScan, or: $value.crossSubnetScan),
+    crossSubnetScanDepth: data.get(
+      #crossSubnetScanDepth,
+      or: $value.crossSubnetScanDepth,
+    ),
+    customSubnetScanRanges: data.get(
+      #customSubnetScanRanges,
+      or: $value.customSubnetScanRanges,
+    ),
     advancedSettings: data.get(#advancedSettings, or: $value.advancedSettings),
   );
 
@@ -438,4 +487,3 @@ class _SettingsStateCopyWithImpl<$R, $Out>
     Then<$Out2, $R2> t,
   ) => _SettingsStateCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }
-

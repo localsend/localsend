@@ -6,6 +6,7 @@ import 'package:common/model/device.dart';
 import 'package:localsend_app/model/persistence/favorite_device.dart';
 import 'package:localsend_app/model/state/nearby_devices_state.dart';
 import 'package:localsend_app/provider/favorites_provider.dart';
+import 'package:localsend_app/provider/known_peers_provider.dart';
 import 'package:localsend_app/provider/logging/discovery_logs_provider.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 
@@ -18,6 +19,7 @@ final nearbyDevicesProvider = ReduxProvider<NearbyDevicesService, NearbyDevicesS
   return NearbyDevicesService(
     isolateController: ref.notifier(parentIsolateProvider),
     favoriteService: ref.notifier(favoritesProvider),
+    knownPeersService: ref.notifier(knownPeersProvider),
     discoveryLogs: ref.notifier(discoveryLoggerProvider),
   );
 });
@@ -25,14 +27,17 @@ final nearbyDevicesProvider = ReduxProvider<NearbyDevicesService, NearbyDevicesS
 class NearbyDevicesService extends ReduxNotifier<NearbyDevicesState> {
   final IsolateController _isolateController;
   final FavoritesService _favoriteService;
+  final KnownPeersService _knownPeersService;
   final DiscoveryLogger _discoveryLogger;
 
   NearbyDevicesService({
     required IsolateController isolateController,
     required FavoritesService favoriteService,
+    required KnownPeersService knownPeersService,
     required DiscoveryLogger discoveryLogs,
   }) : _discoveryLogger = discoveryLogs,
        _isolateController = isolateController,
+       _knownPeersService = knownPeersService,
        _favoriteService = favoriteService;
 
   @override
@@ -88,6 +93,8 @@ class RegisterDeviceAction extends AsyncReduxAction<NearbyDevicesService, Nearby
     } else {
       await Future.microtask(() {});
     }
+    await external(notifier._knownPeersService).dispatchAsync(UpdateKnownPeerAction(device));
+    notifier._discoveryLogger.addLog('[KNOWN_PEERS] Cache update: ${device.alias} (${device.ip}:${device.port})');
     return state.copyWith(
       devices: {...state.devices}..update(device.ip!, (_) => device, ifAbsent: () => device),
     );
@@ -143,6 +150,81 @@ class StartMulticastScan extends ReduxAction<NearbyDevicesService, NearbyDevices
   }
 }
 
+class StartKnownPeersScan extends AsyncReduxAction<NearbyDevicesService, NearbyDevicesState> {
+  @override
+  Future<NearbyDevicesState> reduce() async {
+    final endpoints = notifier._knownPeersService.state.expand((peer) => peer.endpoints).toList();
+    if (endpoints.isEmpty) {
+      notifier._discoveryLogger.addLog('[KNOWN_PEERS] Cache miss: no remembered endpoints');
+      return state;
+    }
+
+    notifier._discoveryLogger.addLog('[KNOWN_PEERS] Cache hit: probing ${endpoints.length} remembered endpoints');
+    final targets = endpoints
+        .map((endpoint) => HttpDiscoveryTarget(
+              ip: endpoint.ip,
+              port: endpoint.port,
+              https: endpoint.https,
+            ))
+        .toList();
+    final stream = external(notifier._isolateController).dispatchTakeResult(
+      IsolateTargetHttpDiscoveryAction(targets: targets),
+    );
+    final foundKeys = <String>{};
+    await for (final device in stream) {
+      notifier._discoveryLogger.addLog('[DISCOVER/KNOWN] ${device.alias} (${device.ip}, model: ${device.deviceModel})');
+      if (device.ip != null) {
+        foundKeys.add(_targetKey(device.ip!, device.port, device.https));
+      }
+      await dispatchAsync(RegisterDeviceAction(device));
+    }
+
+    final failedKeys = endpoints.map((endpoint) => endpoint.key).where((key) => !foundKeys.contains(key)).toSet();
+    if (failedKeys.isNotEmpty) {
+      notifier._discoveryLogger.addLog('[KNOWN_PEERS] Cache miss: ${failedKeys.length} endpoints failed or timed out');
+      await external(notifier._knownPeersService).dispatchAsync(RecordKnownPeerFailuresAction(failedKeys));
+    }
+
+    return state;
+  }
+}
+
+class StartCrossSubnetScan extends AsyncReduxAction<NearbyDevicesService, NearbyDevicesState> {
+  final List<HttpDiscoveryTarget> targets;
+  final List<String> ranges;
+  final bool truncated;
+
+  StartCrossSubnetScan({
+    required this.targets,
+    required this.ranges,
+    required this.truncated,
+  });
+
+  @override
+  Future<NearbyDevicesState> reduce() async {
+    if (targets.isEmpty) {
+      notifier._discoveryLogger.addLog('[DISCOVER/CROSS_SUBNET] Skipped: no scan targets');
+      return state;
+    }
+
+    notifier._discoveryLogger.addLog(
+      '[DISCOVER/CROSS_SUBNET] Start scan: ${targets.length} targets in ${ranges.join(', ')}${truncated ? ' (truncated)' : ''}',
+    );
+    final stream = external(notifier._isolateController).dispatchTakeResult(
+      IsolateTargetHttpDiscoveryAction(targets: targets),
+    );
+    var found = 0;
+    await for (final device in stream) {
+      found++;
+      notifier._discoveryLogger.addLog('[DISCOVER/CROSS_SUBNET] ${device.alias} (${device.ip}, model: ${device.deviceModel})');
+      await dispatchAsync(RegisterDeviceAction(device));
+    }
+    notifier._discoveryLogger.addLog('[DISCOVER/CROSS_SUBNET] Finished scan: found $found devices');
+
+    return state;
+  }
+}
+
 /// Scans one particular subnet with traditional HTTP/TCP discovery.
 /// This method awaits until the scan is finished.
 class StartLegacyScan extends AsyncReduxAction<NearbyDevicesService, NearbyDevicesState> {
@@ -165,6 +247,7 @@ class StartLegacyScan extends AsyncReduxAction<NearbyDevicesService, NearbyDevic
     }
 
     dispatch(_SetRunningIpsAction({...state.runningIps, localIp}));
+    notifier._discoveryLogger.addLog('[DISCOVER/TCP] Start subnet scan: ${localIp.split('.').take(3).join('.')}.*:$port');
 
     final stream = external(notifier._isolateController).dispatchTakeResult(
       IsolateInterfaceHttpDiscoveryAction(
@@ -179,6 +262,7 @@ class StartLegacyScan extends AsyncReduxAction<NearbyDevicesService, NearbyDevic
       await dispatchAsync(RegisterDeviceAction(device));
     }
 
+    notifier._discoveryLogger.addLog('[DISCOVER/TCP] Finished subnet scan: ${localIp.split('.').take(3).join('.')}.*:$port');
     return state.copyWith(
       runningIps: state.runningIps.where((ip) => ip != localIp).toSet(),
     );
@@ -218,6 +302,8 @@ class StartFavoriteScan extends AsyncReduxAction<NearbyDevicesService, NearbyDev
     );
   }
 }
+
+String _targetKey(String ip, int port, bool https) => '$ip:$port:${https ? 'https' : 'http'}';
 
 class _SetRunningIpsAction extends ReduxAction<NearbyDevicesService, NearbyDevicesState> {
   final Set<String> runningIps;

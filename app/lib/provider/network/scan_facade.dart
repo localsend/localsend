@@ -1,6 +1,9 @@
 import 'dart:async';
 
+import 'package:common/constants.dart';
+import 'package:common/isolate.dart';
 import 'package:common/util/sleep.dart';
+import 'package:flutter/foundation.dart';
 import 'package:localsend_app/pages/home_page.dart';
 import 'package:localsend_app/pages/home_page_controller.dart';
 import 'package:localsend_app/provider/favorites_provider.dart';
@@ -27,10 +30,14 @@ class StartSmartScan extends AsyncGlobalAction {
     // Try performant Multicast/UDP method first
     ref.redux(nearbyDevicesProvider).dispatch(StartMulticastScan());
 
-    // At the same time, try to discover favorites
+    // At the same time, try to discover known peers and favorites
+    final nearbyDevices = ref.redux(nearbyDevicesProvider);
     final favorites = ref.read(favoritesProvider);
     final https = ref.read(settingsProvider).https;
-    await ref.redux(nearbyDevicesProvider).dispatchAsync(StartFavoriteScan(devices: favorites, https: https));
+    await Future.wait<void>([
+      nearbyDevices.dispatchAsync(StartKnownPeersScan()),
+      nearbyDevices.dispatchAsync(StartFavoriteScan(devices: favorites, https: https)),
+    ]);
 
     if (!forceLegacy) {
       // Wait a bit before trying the legacy method.
@@ -46,6 +53,7 @@ class StartSmartScan extends AsyncGlobalAction {
       final networkInterfaces = ref.read(localIpProvider).localIps.take(maxInterfaces).toList();
       if (networkInterfaces.isNotEmpty) {
         await dispatchAsync(StartLegacySubnetScan(subnets: networkInterfaces));
+        await _maybeStartCrossSubnetScan(networkInterfaces, forceLegacy: forceLegacy);
       }
     } else {
       if (!stillEmpty) {
@@ -55,6 +63,42 @@ class StartSmartScan extends AsyncGlobalAction {
         emitMessage('User left the send tab. No need to start legacy scan.');
       }
     }
+  }
+
+  Future<void> _maybeStartCrossSubnetScan(List<String> networkInterfaces, {required bool forceLegacy}) async {
+    final settings = ref.read(settingsProvider);
+    if (!settings.crossSubnetScan) {
+      emitMessage('Cross-subnet scan is disabled.');
+      return;
+    }
+
+    final stillInSendTab = ref.read(homePageControllerProvider).currentTab == HomeTab.send;
+    if (!stillInSendTab) {
+      emitMessage('User left the send tab. No need to start cross-subnet scan.');
+      return;
+    }
+
+    final hasCustomRanges = settings.customSubnetScanRanges.isNotEmpty;
+    final stillEmpty = ref.read(nearbyDevicesProvider).devices.isEmpty;
+    if (!forceLegacy && !stillEmpty && !hasCustomRanges) {
+      emitMessage('Already found devices. Skipping automatic neighbouring subnet scan.');
+      return;
+    }
+
+    final plan = buildCrossSubnetScanPlan(
+      localIps: networkInterfaces,
+      port: settings.port,
+      https: settings.https,
+      depth: settings.crossSubnetScanDepth,
+      customRanges: settings.customSubnetScanRanges,
+    );
+    await ref.redux(nearbyDevicesProvider).dispatchAsync(
+          StartCrossSubnetScan(
+            targets: plan.targets,
+            ranges: plan.ranges,
+            truncated: plan.truncated,
+          ),
+        );
   }
 }
 
@@ -79,4 +123,148 @@ class StartLegacySubnetScan extends AsyncGlobalAction {
       for (final subnet in subnets) ref.redux(nearbyDevicesProvider).dispatchAsync(StartLegacyScan(port: port, localIp: subnet, https: https)),
     ]);
   }
+}
+
+class CrossSubnetScanPlan {
+  final List<HttpDiscoveryTarget> targets;
+  final List<String> ranges;
+  final bool truncated;
+
+  const CrossSubnetScanPlan({
+    required this.targets,
+    required this.ranges,
+    required this.truncated,
+  });
+}
+
+@visibleForTesting
+CrossSubnetScanPlan buildCrossSubnetScanPlan({
+  required List<String> localIps,
+  required int port,
+  required bool https,
+  required int depth,
+  required List<String> customRanges,
+  int maxHosts = maxCrossSubnetScanHosts,
+}) {
+  final localIpSet = localIps.toSet();
+  final ranges = <String>[];
+  final ips = <String>{};
+  var truncated = false;
+
+  void addIp(String ip) {
+    if (ips.length >= maxHosts) {
+      truncated = true;
+      return;
+    }
+    if (!localIpSet.contains(ip)) {
+      ips.add(ip);
+    }
+  }
+
+  final safeDepth = depth.clamp(0, maxCrossSubnetScanDepth).toInt();
+  for (final localIp in localIps) {
+    final octets = _parseIpv4(localIp);
+    if (octets == null) {
+      continue;
+    }
+    for (var offset = 1; offset <= safeDepth; offset++) {
+      for (final thirdOctet in [octets[2] - offset, octets[2] + offset]) {
+        if (thirdOctet < 0 || thirdOctet > 255) {
+          continue;
+        }
+        final prefix = '${octets[0]}.${octets[1]}.$thirdOctet';
+        ranges.add('$prefix.0/24');
+        for (var host = 1; host <= 254; host++) {
+          addIp('$prefix.$host');
+        }
+      }
+    }
+  }
+
+  for (final range in customRanges) {
+    final expanded = _expandCidr(range, maxHosts - ips.length);
+    if (expanded == null) {
+      ranges.add('$range (invalid)');
+      continue;
+    }
+    ranges.add(range);
+    if (expanded.truncated) {
+      truncated = true;
+    }
+    for (final ip in expanded.ips) {
+      addIp(ip);
+    }
+  }
+
+  return CrossSubnetScanPlan(
+    targets: ips.map((ip) => HttpDiscoveryTarget(ip: ip, port: port, https: https)).toList(),
+    ranges: ranges,
+    truncated: truncated,
+  );
+}
+
+({List<String> ips, bool truncated})? _expandCidr(String cidr, int remainingHosts) {
+  if (remainingHosts <= 0) {
+    return (ips: const [], truncated: true);
+  }
+  final parts = cidr.trim().split('/');
+  if (parts.length != 2) {
+    return null;
+  }
+  final ip = _ipv4ToInt(parts[0]);
+  final prefix = int.tryParse(parts[1]);
+  if (ip == null || prefix == null || prefix < 0 || prefix > 32) {
+    return null;
+  }
+
+  final hostBits = 32 - prefix;
+  final mask = prefix == 0 ? 0 : (0xffffffff << hostBits) & 0xffffffff;
+  final network = ip & mask;
+  final broadcast = network | (~mask & 0xffffffff);
+  final first = prefix >= 31 ? network : network + 1;
+  final last = prefix >= 31 ? broadcast : broadcast - 1;
+  final ips = <String>[];
+  var truncated = false;
+  for (var current = first; current <= last; current++) {
+    if (ips.length >= remainingHosts) {
+      truncated = true;
+      break;
+    }
+    ips.add(_intToIpv4(current));
+  }
+
+  return (ips: ips, truncated: truncated);
+}
+
+int? _ipv4ToInt(String ip) {
+  final octets = _parseIpv4(ip);
+  if (octets == null) {
+    return null;
+  }
+  return (octets[0] << 24) | (octets[1] << 16) | (octets[2] << 8) | octets[3];
+}
+
+List<int>? _parseIpv4(String ip) {
+  final parts = ip.trim().split('.');
+  if (parts.length != 4) {
+    return null;
+  }
+  final octets = <int>[];
+  for (final part in parts) {
+    final value = int.tryParse(part);
+    if (value == null || value < 0 || value > 255) {
+      return null;
+    }
+    octets.add(value);
+  }
+  return octets;
+}
+
+String _intToIpv4(int value) {
+  return [
+    (value >> 24) & 0xff,
+    (value >> 16) & 0xff,
+    (value >> 8) & 0xff,
+    value & 0xff,
+  ].join('.');
 }

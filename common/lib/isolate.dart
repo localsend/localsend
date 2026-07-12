@@ -4,3 +4,4 @@ export 'package:common/src/isolate/child/upload_isolate.dart' show UriContentStr
 export 'package:common/src/isolate/parent/actions.dart';
 export 'package:common/src/isolate/parent/actions_sync.dart';
 export 'package:common/src/isolate/parent/parent_isolate_provider.dart';
+export 'package:common/src/task/discovery/http_scan_discovery.dart' show HttpDiscoveryTarget;

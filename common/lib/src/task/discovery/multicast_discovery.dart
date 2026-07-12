@@ -55,15 +55,25 @@ class MulticastService {
           }
 
           try {
-            final dto = MulticastDto.fromJson(jsonDecode(utf8.decode(datagram.data)));
+            _logger.info(
+              'Received UDP multicast packet from ${datagram.address.address}:${datagram.port} (${datagram.data.length} bytes)',
+            );
+            final dto = MulticastDto.fromJson(
+              jsonDecode(utf8.decode(datagram.data)),
+            );
             if (dto.fingerprint == syncState.securityContext.certificateHash) {
               return;
             }
 
             final ip = datagram.address.address;
-            final peer = dto.toDevice(ip, syncState.port, syncState.protocol == ProtocolType.https);
+            final peer = dto.toDevice(
+              ip,
+              syncState.port,
+              syncState.protocol == ProtocolType.https,
+            );
             streamController.add(peer);
-            if ((dto.announcement == true || dto.announce == true) && syncState.serverRunning) {
+            if ((dto.announcement == true || dto.announce == true) &&
+                syncState.serverRunning) {
               // only respond when server is running
               // ignore: discarded_futures
               _answerAnnouncement(peer);
@@ -115,15 +125,27 @@ class MulticastService {
     for (final wait in [100, 500, 2000]) {
       await sleepAsync(wait);
 
-      _logger.info('Announce via UDP');
       for (final socket in sockets) {
         try {
-          socket.socket.send(dto, InternetAddress(syncState.multicastGroup), syncState.port);
-          socket.socket.close();
+          _logger.info(
+            'Send UDP multicast announcement to ${syncState.multicastGroup}:${syncState.port} '
+            'from ${socket.interface.addresses.map((a) => a.address).join(',')}',
+          );
+          socket.socket.send(
+            dto,
+            InternetAddress(syncState.multicastGroup),
+            syncState.port,
+          );
         } catch (e) {
-          _logger.warning('Could not send multicast message', e);
+          _logger.warning(
+            'Could not send UDP multicast announcement to ${syncState.multicastGroup}:${syncState.port}',
+            e,
+          );
         }
       }
+    }
+    for (final socket in sockets) {
+      socket.socket.close();
     }
   }
 
@@ -131,11 +153,16 @@ class MulticastService {
   Future<void> _answerAnnouncement(Device peer) async {
     try {
       // Answer with TCP
-      await _ref.read(httpProvider).discovery.post(
+      await _ref
+          .read(httpProvider)
+          .discovery
+          .post(
             uri: ApiRoute.register.target(peer),
             json: _getRegisterDto().toJson(),
           );
-      _logger.info('Respond to announcement of ${peer.alias} (${peer.ip}, model: ${peer.deviceModel}) via TCP');
+      _logger.info(
+        'Respond to announcement of ${peer.alias} (${peer.ip}, model: ${peer.deviceModel}) via TCP',
+      );
     } catch (e) {
       // Fallback: Answer with UDP
       final syncState = _ref.read(syncProvider);
@@ -147,13 +174,26 @@ class MulticastService {
       final dto = _getMulticastDto(announcement: false);
       for (final socket in sockets) {
         try {
-          socket.socket.send(dto, InternetAddress(syncState.multicastGroup), syncState.port);
+          _logger.info(
+            'Send UDP multicast response to ${syncState.multicastGroup}:${syncState.port} '
+            'from ${socket.interface.addresses.map((a) => a.address).join(',')}',
+          );
+          socket.socket.send(
+            dto,
+            InternetAddress(syncState.multicastGroup),
+            syncState.port,
+          );
           socket.socket.close();
         } catch (e) {
-          _logger.warning('Could not send multicast message', e);
+          _logger.warning(
+            'Could not send UDP multicast response to ${syncState.multicastGroup}:${syncState.port}',
+            e,
+          );
         }
       }
-      _logger.info('Respond to announcement of ${peer.alias} (${peer.ip}, model: ${peer.deviceModel}) with UDP because TCP failed');
+      _logger.info(
+        'Respond to announcement of ${peer.alias} (${peer.ip}, model: ${peer.deviceModel}) with UDP because TCP failed',
+      );
     }
   }
 
@@ -210,8 +250,15 @@ Future<List<_SocketResult>> _getSockets({
   final sockets = <_SocketResult>[];
   for (final interface in interfaces) {
     try {
-      final socket = await RawDatagramSocket.bind(InternetAddress.anyIPv4, port ?? 0);
+      final socket = await RawDatagramSocket.bind(
+        InternetAddress.anyIPv4,
+        port ?? 0,
+      );
       socket.joinMulticast(InternetAddress(multicastGroup), interface);
+      _logger.info(
+        'Joined UDP multicast group $multicastGroup on ${interface.name} '
+        '(${interface.addresses.map((a) => a.address).join(',')}) using port ${port ?? 'auto'}',
+      );
       sockets.add(_SocketResult(interface, socket));
     } catch (e) {
       _logger.warning(

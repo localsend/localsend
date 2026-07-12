@@ -34,6 +34,9 @@ class SettingsState with SettingsStateMappable {
   final String? deviceModel;
   final bool shareViaLinkAutoAccept;
   final int discoveryTimeout;
+  final bool crossSubnetScan;
+  final int crossSubnetScanDepth;
+  final List<String> customSubnetScanRanges;
   final bool advancedSettings;
 
   const SettingsState({
@@ -62,6 +65,9 @@ class SettingsState with SettingsStateMappable {
     required this.deviceModel,
     required this.shareViaLinkAutoAccept,
     required this.discoveryTimeout,
+    required this.crossSubnetScan,
+    required this.crossSubnetScanDepth,
+    required this.customSubnetScanRanges,
     required this.advancedSettings,
   });
 }

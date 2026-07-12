@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/model/persistence/color_mode.dart';
 import 'package:localsend_app/model/persistence/favorite_device.dart';
+import 'package:localsend_app/model/persistence/known_peer.dart';
 import 'package:localsend_app/model/persistence/receive_history_entry.dart';
 import 'package:localsend_app/model/send_mode.dart';
 import 'package:localsend_app/provider/window_dimensions_provider.dart';
@@ -57,6 +58,9 @@ const _receiveHistory = 'ls_receive_history';
 // Favorites
 const _favorites = 'ls_favorites';
 
+// Known peers
+const _knownPeers = 'ls_known_peers';
+
 // App Window Offset and Size info
 const _windowOffsetX = 'ls_window_offset_x';
 const _windowOffsetY = 'ls_window_offset_y';
@@ -75,6 +79,9 @@ const _networkWhitelistKey = 'ls_network_whitelist';
 const _networkBlacklistKey = 'ls_network_blacklist';
 const _timeoutKey = 'ls_timeout';
 const _multicastGroupKey = 'ls_multicast_group';
+const _crossSubnetScanKey = 'ls_cross_subnet_scan';
+const _crossSubnetScanDepthKey = 'ls_cross_subnet_scan_depth';
+const _customSubnetScanRangesKey = 'ls_custom_subnet_scan_ranges';
 const _destinationKey = 'ls_destination';
 const _saveToGallery = 'ls_save_to_gallery';
 const _saveToHistory = 'ls_save_to_history';
@@ -267,6 +274,18 @@ class PersistenceService {
     await _prefs.setStringList(_favorites, favoritesRaw);
   }
 
+  List<KnownPeer> getKnownPeers() {
+    final peersRaw = _prefs.getStringList(_knownPeers) ?? [];
+    return peersRaw
+        .map((entry) => KnownPeer.fromJson((jsonDecode(entry) as Map).cast<String, dynamic>()))
+        .toList();
+  }
+
+  Future<void> setKnownPeers(List<KnownPeer> entries) async {
+    final peersRaw = entries.map((entry) => jsonEncode(entry.toJson())).toList();
+    await _prefs.setStringList(_knownPeers, peersRaw);
+  }
+
   String getShowToken() {
     return _prefs.getString(_showToken)!;
   }
@@ -373,6 +392,30 @@ class PersistenceService {
 
   Future<void> setMulticastGroup(String group) async {
     await _prefs.setString(_multicastGroupKey, group);
+  }
+
+  bool getCrossSubnetScan() {
+    return _prefs.getBool(_crossSubnetScanKey) ?? defaultCrossSubnetScan;
+  }
+
+  Future<void> setCrossSubnetScan(bool enabled) async {
+    await _prefs.setBool(_crossSubnetScanKey, enabled);
+  }
+
+  int getCrossSubnetScanDepth() {
+    return _prefs.getInt(_crossSubnetScanDepthKey) ?? defaultCrossSubnetScanDepth;
+  }
+
+  Future<void> setCrossSubnetScanDepth(int depth) async {
+    await _prefs.setInt(_crossSubnetScanDepthKey, depth);
+  }
+
+  List<String> getCustomSubnetScanRanges() {
+    return _prefs.getStringList(_customSubnetScanRangesKey) ?? const [];
+  }
+
+  Future<void> setCustomSubnetScanRanges(List<String> ranges) async {
+    await _prefs.setStringList(_customSubnetScanRangesKey, ranges);
   }
 
   String? getDestination() {
