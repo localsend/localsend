@@ -13,7 +13,7 @@
 
 [Laman Utama][laman utama] • [Discord][discord] • [GitHub][github] • [Codeberg][codeberg]
 
-[Bahasa Inggeris (Lalai)](/README.md) • [Bahasa Melayu](README_MS.md) • [Bahasa Sepanyol](README_ES.md) • [Bahasa Parsi](README_FA.md) • [Bahasa Filipino](README_PH.md) • [Bahasa Perancis](README_FR.md) • [Bahasa Indonesia](README_ID.md) • [Bahasa Itali](README_IT.md) • [Bahasa Jepun](README_JA.md) • [Bahasa Khmer](README_KM.md) • [Bahasa Korea](README_KO.md) • [Bahasa Poland](README_PL.md) • [Bahasa Portugis Brazil](README_PT_BR.md) • [Bahasa Rusia](README_RU.md) • [Bahasa Thai](README_TH.md) • [Bahasa Türkiye](README_TR.md) • [Bahasa Ukraine](README_UK.md) • [Bahasa Vietnam](README_VI.md) • [Bahasa Cina](README_ZH.md)
+[Bahasa Melayu](README_MS.md) • [English (Default)](/README.md) • [Deutsch](README_DE.md) • [Español](README_ES.md) • [Filipino](README_PH.md) • [Français](README_FR.md) • [Indonesia](README_ID.md) • [Italiano](README_IT.md) • [Polski](README_PL.md) • [Português Brasil](README_PT_BR.md) • [Tiếng Việt](README_VI.md) • [Türkçe](README_TR.md) • [Česky](README_CS.md) • [Русский](README_RU.md) • [Українська](README_UK.md) • [فارسی](README_FA.md) • [ภาษาไทย](README_TH.md) • [ភាសាខ្មែរ](README_KM.md) • [中文](README_ZH.md) • [日本語](README_JA.md) • [한국어](README_KO.md)
 
 [laman utama]: https://localsend.org
 [discord]: https://discord.gg/GSRWmQNP87
