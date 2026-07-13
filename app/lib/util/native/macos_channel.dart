@@ -14,6 +14,11 @@ Future<void> setupStatusBar() async {
   });
 }
 
+/// Re-creates the menu bar icon if macOS Control Center hid it.
+Future<bool> ensureStatusBarVisible() async {
+  return await _methodChannel.invokeMethod('ensureStatusBarVisible') ?? false;
+}
+
 Future<void> removeExistingDestinationAccess() async {
   await _methodChannel.invokeMethod('removeExistingDestinationAccess');
 }
