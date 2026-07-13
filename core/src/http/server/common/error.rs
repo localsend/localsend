@@ -1,5 +1,5 @@
 use crate::http::dto::ErrorResponse;
-use crate::http::server::response::{BoxedBody, JsonResponse};
+use crate::http::server::common::response::{BoxedBody, JsonResponse};
 use hyper::{Response, StatusCode};
 
 #[derive(Debug, thiserror::Error)]

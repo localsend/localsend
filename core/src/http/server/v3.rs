@@ -1,7 +1,7 @@
 use crate::http::dto::{NonceRequest, NonceResponse, RegisterDto, RegisterResponseDto};
-use crate::http::server::collect_to_json::CollectToJson;
-use crate::http::server::error::AppError;
-use crate::http::server::response::JsonResponse;
+use crate::http::server::common::collect_to_json::CollectToJson;
+use crate::http::server::common::error::AppError;
+use crate::http::server::common::response::JsonResponse;
 use crate::http::server::{AppState, RequestClientInfo};
 use crate::{crypto, util};
 use hyper::body::Incoming;

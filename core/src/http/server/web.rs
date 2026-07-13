@@ -1,8 +1,8 @@
 use crate::http::dto_v2::{InfoResponseDtoV2, PrepareDownloadResponseDtoV2, PROTOCOL_VERSION_V2};
-use crate::http::server::controller::check_pin;
-use crate::http::server::error::AppError;
-use crate::http::server::query::parse_query;
-use crate::http::server::response::{full_body, BoxedBody, JsonResponse};
+use crate::http::server::common::error::AppError;
+use crate::http::server::common::pin::check_pin;
+use crate::http::server::common::query::parse_query;
+use crate::http::server::common::response::{full_body, BoxedBody, JsonResponse};
 use crate::http::server::{AppState, RequestClientInfo};
 use crate::model::transfer::{FileContent, FileDto};
 use bytes::Bytes;
@@ -65,9 +65,9 @@ pub enum WebSendEvent {
     },
 }
 
-const INDEX_HTML: &str = include_str!("../../../../assets/web/index.html");
-const MAIN_JS: &str = include_str!("../../../../assets/web/main.js");
-const ERROR_403_HTML: &str = include_str!("../../../../assets/web/error-403.html");
+const INDEX_HTML: &str = include_str!("../../../assets/web/index.html");
+const MAIN_JS: &str = include_str!("../../../assets/web/main.js");
+const ERROR_403_HTML: &str = include_str!("../../../assets/web/error-403.html");
 
 /// Characters that are percent-encoded in the content-disposition file name.
 /// Matches the component encoding of RFC 2396 (letters, digits and marks are kept).
@@ -415,7 +415,7 @@ async fn file_list_response(
 }
 
 /// Streams application-provided chunks as a response body.
-fn receiver_stream_body(binary_rx: mpsc::Receiver<Vec<u8>>) -> BoxedBody {
+fn receiver_stream_body(binary_rx: mpsc::Receiver<Bytes>) -> BoxedBody {
     let stream = ReceiverStream::new(binary_rx)
         .map(|chunk| Ok::<_, std::io::Error>(Frame::data(Bytes::from(chunk))));
     StreamBody::new(stream).boxed()

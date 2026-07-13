@@ -1,3 +1,4 @@
+use bytes::Bytes;
 use serde::{Deserialize, Serialize};
 use std::path::PathBuf;
 use tokio::sync::mpsc;
@@ -14,7 +15,7 @@ const FILE_CHANNEL_CAPACITY: usize = 16;
 pub enum FileContent {
     /// A stream of binary chunks. The channel is closed once the file has been
     /// fully provided.
-    Stream(mpsc::Receiver<Vec<u8>>),
+    Stream(mpsc::Receiver<Bytes>),
 
     /// A path to a regular file the content is read from.
     Path(PathBuf),
@@ -30,7 +31,7 @@ impl FileContent {
     /// [`FileContent::Stream`] is returned as-is. For [`FileContent::Path`] and
     /// [`FileContent::Fd`], a background task reads the file and forwards the
     /// chunks; the channel is closed on EOF or on an I/O error.
-    pub fn into_receiver(self) -> mpsc::Receiver<Vec<u8>> {
+    pub fn into_receiver(self) -> mpsc::Receiver<Bytes> {
         match self {
             FileContent::Stream(rx) => rx,
             FileContent::Path(path) => {
@@ -64,15 +65,15 @@ impl FileContent {
 /// Reads `file` to EOF, forwarding chunks on `tx`.
 ///
 /// Stops early if the receiver is gone or a read error occurs.
-async fn read_file_into_sender(mut file: tokio::fs::File, tx: mpsc::Sender<Vec<u8>>) {
+async fn read_file_into_sender(mut file: tokio::fs::File, tx: mpsc::Sender<Bytes>) {
     use tokio::io::AsyncReadExt;
 
-    let mut buffer = vec![0u8; 64 * 1024];
+    let mut buffer = bytes::BytesMut::with_capacity(64 * 1024);
     loop {
-        match file.read(&mut buffer).await {
+        match file.read_buf(&mut buffer).await {
             Ok(0) => break,
-            Ok(n) => {
-                if tx.send(buffer[..n].to_vec()).await.is_err() {
+            Ok(_) => {
+                if tx.send(buffer.split().freeze()).await.is_err() {
                     break;
                 }
             }

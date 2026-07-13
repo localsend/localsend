@@ -1,23 +1,17 @@
-mod client_cert_verifier;
-mod collect_to_json;
-mod controller;
-mod error;
-mod query;
-mod response;
-mod session;
-
-pub use crate::http::server::controller::v2::{
-    FileUploadTargetV2, PrepareUploadDecisionV2, ServerEventV2, SessionEndReasonV2,
-};
-pub use crate::http::server::controller::web::{WebSendConfig, WebSendEvent, WebSendI18n};
+pub mod common;
+pub mod v2;
+pub mod v3;
+pub mod web;
 
 use crate::crypto::cert::public_key_from_cert_der;
-use crate::http::server::client_cert_verifier::CustomClientCertVerifier;
-use crate::http::server::controller::web::WebPageState;
-use crate::http::server::error::AppError;
-use crate::http::server::response::BoxedBody;
-use crate::http::server::session::SessionStateV2;
+use crate::http::server::v2::ServerEventV2;
+use crate::http::server::web::WebSendConfig;
 use crate::http::state::ClientInfo;
+use common::client_cert_verifier::CustomClientCertVerifier;
+use common::error::AppError;
+use common::response;
+use common::response::BoxedBody;
+use common::session::SessionStateV2;
 use hyper::body::Incoming;
 use hyper::{Method, Request, Response, StatusCode};
 use hyper_util::rt::{TokioExecutor, TokioIo};
@@ -31,6 +25,7 @@ use std::num::NonZeroUsize;
 use std::ops::Deref;
 use std::sync::Arc;
 use tokio::sync::{mpsc, oneshot, Mutex};
+use web::WebPageState;
 
 /// Configuration for the v2 (legacy) protocol endpoints.
 pub struct ServerConfigV2 {
@@ -57,7 +52,7 @@ pub(crate) struct V2State {
 }
 
 #[derive(Clone)]
-struct AppState {
+pub struct AppState {
     /// Information about server's device.
     info: Arc<Mutex<ClientInfo>>,
 
@@ -277,7 +272,7 @@ fn create_tls_config(tls_config: &TlsConfig) -> anyhow::Result<tokio_rustls::Tls
 }
 
 #[derive(Clone, Debug)]
-struct RequestClientInfo {
+pub struct RequestClientInfo {
     /// The IP address of the client.
     ip: IpAddr,
 
@@ -324,67 +319,61 @@ async fn handle_request_inner(mut req: Request<Incoming>) -> Result<Response<Box
     let v2_enabled = state.v2.is_some();
 
     match (req.method(), req.uri().path()) {
-        (&Method::GET, "/") => Ok(controller::web::index(&state)),
-        (&Method::GET, "/main.js") => Ok(controller::web::main_js(&state)),
-        (&Method::GET, "/i18n.json") => controller::web::i18n(&state),
+        (&Method::GET, "/") => Ok(web::index(&state)),
+        (&Method::GET, "/main.js") => Ok(web::main_js(&state)),
+        (&Method::GET, "/i18n.json") => web::i18n(&state),
         (&Method::POST, "/api/localsend/v2/prepare-download") => {
-            controller::web::prepare_download(req, state, client_info).await
+            web::prepare_download(req, state, client_info).await
         }
         (&Method::GET, "/api/localsend/v2/download") => {
-            controller::web::download(req, state, client_info).await
+            web::download(req, state, client_info).await
         }
         (&Method::POST, "/api/localsend/v2/register") => {
             if !v2_enabled {
                 return Err(AppError::Status(StatusCode::NOT_FOUND));
             }
 
-            Ok(
-                controller::v2::register(req.into_body(), state, client_info)
-                    .await?
-                    .into_response(),
-            )
+            Ok(v2::register(req.into_body(), state, client_info)
+                .await?
+                .into_response())
         }
         (&Method::GET, "/api/localsend/v2/info") => {
             if !v2_enabled {
                 return Err(AppError::Status(StatusCode::NOT_FOUND));
             }
 
-            Ok(controller::v2::info(state).await?.into_response())
+            Ok(v2::info(state).await?.into_response())
         }
         (&Method::POST, "/api/localsend/v2/prepare-upload") => {
             if !v2_enabled {
                 return Err(AppError::Status(StatusCode::NOT_FOUND));
             }
 
-            controller::v2::prepare_upload(req, state, client_info).await
+            v2::prepare_upload(req, state, client_info).await
         }
         (&Method::POST, "/api/localsend/v2/upload") => {
             if !v2_enabled {
                 return Err(AppError::Status(StatusCode::NOT_FOUND));
             }
 
-            controller::v2::upload(req, state, client_info).await
+            v2::upload(req, state, client_info).await
         }
         (&Method::POST, "/api/localsend/v2/cancel") => {
             if !v2_enabled {
                 return Err(AppError::Status(StatusCode::NOT_FOUND));
             }
 
-            controller::v2::cancel(req, state).await
+            v2::cancel(req, state).await
         }
         (&Method::POST, "/api/localsend/v3/nonce") => {
-            Ok(
-                controller::v3::nonce_exchange(req.into_body(), state, client_info)
-                    .await?
-                    .into_response(),
-            )
+            Ok(v3::nonce_exchange(req.into_body(), state, client_info)
+                .await?
+                .into_response())
         }
         (&Method::POST, "/api/localsend/v3/register") => {
-            Ok(
-                controller::v3::register(req.into_body(), state, client_info)
-                    .await?
-                    .into_response(),
-            )
+            Ok(v3::register(req.into_body(), state, client_info)
+                .await?
+                .into_response())
         }
         _ => {
             let mut res = Response::new(response::empty_body());

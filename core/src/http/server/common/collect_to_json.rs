@@ -1,4 +1,4 @@
-use crate::http::server::error::AppError;
+use crate::http::server::common::error::AppError;
 use http_body_util::BodyExt;
 use hyper::body::Incoming;
 use serde::de::DeserializeOwned;

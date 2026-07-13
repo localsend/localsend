@@ -3,6 +3,7 @@ use crate::http::client::url::{ApiVersion, TargetUrl};
 use crate::http::dto::ProtocolType;
 use crate::{crypto, util};
 use crate::{http, model};
+use bytes::Bytes;
 use futures_util::StreamExt;
 use lru::LruCache;
 use reqwest::{Response, StatusCode};
@@ -215,7 +216,7 @@ impl LsHttpClientV3 {
             )
             .body({
                 let stream =
-                    ReceiverStream::new(content.into_receiver()).map(Ok::<Vec<u8>, anyhow::Error>);
+                    ReceiverStream::new(content.into_receiver()).map(Ok::<Bytes, anyhow::Error>);
                 reqwest::Body::wrap_stream(stream)
             })
             .send();

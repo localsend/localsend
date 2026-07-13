@@ -6,6 +6,7 @@ use crate::http::dto_v2::{
     PrepareUploadResponseDtoV2, PrepareUploadResultV2, RegisterDtoV2, RegisterResponseDtoV2,
 };
 use crate::model;
+use bytes::Bytes;
 use futures_util::StreamExt;
 use reqwest::{Response, StatusCode};
 use tokio::io::AsyncWriteExt;
@@ -227,7 +228,7 @@ impl LsHttpClientV2 {
         }
         .to_string();
 
-        let stream = ReceiverStream::new(content.into_receiver()).map(Ok::<Vec<u8>, anyhow::Error>);
+        let stream = ReceiverStream::new(content.into_receiver()).map(Ok::<Bytes, anyhow::Error>);
         let body = reqwest::Body::wrap_stream(stream);
 
         let res = tokio::select! {

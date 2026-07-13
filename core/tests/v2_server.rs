@@ -1,12 +1,12 @@
 #![cfg(feature = "http")]
 
+use bytes::Bytes;
 use localsend::http::client::{ClientError, LsHttpClientV2};
 use localsend::http::dto::ProtocolType;
 use localsend::http::dto_v2::{PrepareUploadRequestDtoV2, ProtocolTypeV2, RegisterDtoV2};
+use localsend::http::server::common::save::FileUploadTarget;
+use localsend::http::server::v2::{PrepareUploadDecisionV2, ServerEventV2, SessionEndReasonV2};
 use localsend::http::server::{start_with_port, ServerConfigV2};
-use localsend::http::server::{
-    FileUploadTargetV2, PrepareUploadDecisionV2, ServerEventV2, SessionEndReasonV2,
-};
 use localsend::http::state::ClientInfo;
 use localsend::model::transfer::{FileContent, FileDto};
 use std::collections::HashMap;
@@ -69,7 +69,7 @@ async fn start_test_server(
                             None => {
                                 let (binary_tx, mut binary_rx) = mpsc::channel(16);
                                 let (result_tx, result_rx) = oneshot::channel();
-                                let _ = target_tx.send(FileUploadTargetV2::Stream {
+                                let _ = target_tx.send(FileUploadTarget::Stream {
                                     binary_tx,
                                     result_rx,
                                 });
@@ -85,7 +85,7 @@ async fn start_test_server(
                             Some(dir) => {
                                 let path = dir.join(&file_id);
                                 let (result_tx, result_rx) = oneshot::channel();
-                                let _ = target_tx.send(FileUploadTargetV2::Path {
+                                let _ = target_tx.send(FileUploadTarget::Path {
                                     path: path.clone(),
                                     result_tx,
                                 });
@@ -206,11 +206,11 @@ async fn upload_bytes(
     token: &str,
     bytes: &[u8],
 ) -> Result<(), ClientError> {
-    let (tx, rx) = mpsc::channel::<Vec<u8>>(4);
+    let (tx, rx) = mpsc::channel::<Bytes>(4);
     let chunks: Vec<Vec<u8>> = bytes.chunks(1024).map(|chunk| chunk.to_vec()).collect();
     tokio::spawn(async move {
         for chunk in chunks {
-            if tx.send(chunk).await.is_err() {
+            if tx.send(Bytes::from(chunk)).await.is_err() {
                 break;
             }
         }

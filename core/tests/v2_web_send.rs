@@ -3,8 +3,10 @@
 use bytes::Bytes;
 use localsend::http::client::{ClientError, LsHttpClientV2};
 use localsend::http::dto::ProtocolType;
-use localsend::http::server::{start_with_port, ServerConfigV2, WebSendConfig, WebSendI18n};
-use localsend::http::server::{ServerEventV2, WebSendEvent};
+use localsend::http::server::v2::ServerEventV2;
+use localsend::http::server::web::WebSendConfig;
+use localsend::http::server::web::{WebSendEvent, WebSendI18n};
+use localsend::http::server::{start_with_port, ServerConfigV2};
 use localsend::http::state::ClientInfo;
 use localsend::model::transfer::{FileContent, FileDto};
 use std::collections::HashMap;
@@ -34,10 +36,10 @@ enum TestFileContent {
 impl TestFileContent {
     /// Streams the content into `tx`, mimicking how an application would
     /// serve in-memory content or a file from disk.
-    async fn stream(self, tx: mpsc::Sender<Vec<u8>>) {
+    async fn stream(self, tx: mpsc::Sender<Bytes>) {
         match self {
             TestFileContent::Bytes(bytes) => {
-                let _ = tx.send(bytes.to_vec()).await;
+                let _ = tx.send(bytes).await;
             }
             TestFileContent::Path(path) => {
                 let mut file = tokio::fs::File::open(&path)
@@ -49,7 +51,11 @@ impl TestFileContent {
                     if bytes_read == 0 {
                         break; // EOF
                     }
-                    if tx.send(buffer[..bytes_read].to_vec()).await.is_err() {
+                    if tx
+                        .send(Bytes::copy_from_slice(&buffer[..bytes_read]))
+                        .await
+                        .is_err()
+                    {
                         break; // client disconnected
                     }
                 }
@@ -93,7 +99,7 @@ async fn start_test_server(
                             .expect("FileDownload for unknown file")
                             .clone();
                         tokio::spawn(async move {
-                            let (tx, rx) = mpsc::channel::<Vec<u8>>(16);
+                            let (tx, rx) = mpsc::channel::<Bytes>(16);
                             if content_tx.send(FileContent::Stream(rx)).is_err() {
                                 return;
                             }

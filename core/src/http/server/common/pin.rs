@@ -1,8 +1,4 @@
-pub(crate) mod v2;
-pub(crate) mod v3;
-pub(crate) mod web;
-
-use crate::http::server::error::AppError;
+use crate::http::server::common::error::AppError;
 use hyper::StatusCode;
 use lru::LruCache;
 use std::collections::HashMap;
