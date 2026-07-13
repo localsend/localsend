@@ -3,7 +3,7 @@ use crate::http::dto_v2::{
 };
 use crate::http::server::controller::check_pin;
 use crate::http::server::error::AppError;
-use crate::http::server::event::ServerEventV2;
+use crate::http::server::event::WebSendEvent;
 use crate::http::server::query::parse_query;
 use crate::http::server::response::{full_body, BoxedBody, JsonResponse};
 use crate::http::server::{AppState, RequestClientInfo};
@@ -48,6 +48,8 @@ const FILE_NAME_ENCODE_SET: &AsciiSet = &NON_ALPHANUMERIC
     .remove(b')');
 
 /// Configuration for web send (download API): files offered for download by web browsers.
+///
+/// Web send can be enabled independently of the v2/v3 protocol endpoints.
 pub struct WebSendConfig {
     /// The files offered for download, mapped by file ID.
     pub files: HashMap<String, WebSendFile>,
@@ -57,6 +59,9 @@ pub struct WebSendConfig {
 
     /// Translations for the web page, served via `/i18n.json`.
     pub i18n: WebSendI18n,
+
+    /// Channel on which the server emits events that must be handled by the application.
+    pub event_tx: mpsc::Sender<WebSendEvent>,
 }
 
 /// A file offered for download.
@@ -118,7 +123,7 @@ pub(crate) struct WebPageState {
     pub(crate) i18n: WebSendI18n,
 
     /// Channel on which server events are emitted to the application.
-    pub(crate) event_tx: mpsc::Sender<ServerEventV2>,
+    pub(crate) event_tx: mpsc::Sender<WebSendEvent>,
 
     /// Download sessions, keyed by session ID (the client's IP address).
     pub(crate) sessions: Mutex<HashMap<String, WebSendSession>>,
@@ -128,12 +133,12 @@ pub(crate) struct WebPageState {
 }
 
 impl WebPageState {
-    pub(crate) fn new(config: WebSendConfig, event_tx: mpsc::Sender<ServerEventV2>) -> Self {
+    pub(crate) fn new(config: WebSendConfig) -> Self {
         Self {
             files: config.files,
             pin: config.pin,
             i18n: config.i18n,
-            event_tx,
+            event_tx: config.event_tx,
             sessions: Mutex::new(HashMap::new()),
             pin_attempts: Mutex::new(LruCache::new(NonZeroUsize::new(200).unwrap())),
         }
@@ -225,7 +230,7 @@ pub(crate) async fn prepare_download(
     let mut pending_guard = PendingWebSessionGuard::new(web.clone(), session_id.clone());
 
     let (decision_tx, decision_rx) = oneshot::channel();
-    let event = ServerEventV2::PrepareDownload {
+    let event = WebSendEvent::PrepareDownload {
         ip: client_info.ip,
         session_id: session_id.clone(),
         user_agent,

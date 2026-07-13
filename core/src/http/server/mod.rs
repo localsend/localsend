@@ -40,10 +40,6 @@ pub struct ServerConfigV2 {
 
     /// Channel on which the server emits events that must be handled by the application.
     pub event_tx: mpsc::Sender<ServerEventV2>,
-
-    /// Configuration for web send (download API).
-    /// `None` disables the web page and download routes.
-    pub web_send: Option<WebSendConfig>,
 }
 
 /// Runtime state of the v2 protocol endpoints.
@@ -80,21 +76,21 @@ struct AppState {
 }
 
 impl AppState {
-    fn new(info: Arc<Mutex<ClientInfo>>, v2_config: Option<ServerConfigV2>) -> Self {
-        let (v2, web) = match v2_config {
-            Some(config) => (
-                Some(Arc::new(V2State {
-                    pin: config.pin,
-                    event_tx: config.event_tx.clone(),
-                    session: Mutex::new(None),
-                    pin_attempts: Mutex::new(LruCache::new(NonZeroUsize::new(200).unwrap())),
-                })),
-                config
-                    .web_send
-                    .map(|web_config| Arc::new(WebPageState::new(web_config, config.event_tx))),
-            ),
-            None => (None, None),
-        };
+    fn new(
+        info: Arc<Mutex<ClientInfo>>,
+        v2_config: Option<ServerConfigV2>,
+        web_send_config: Option<WebSendConfig>,
+    ) -> Self {
+        let v2 = v2_config.map(|config| {
+            Arc::new(V2State {
+                pin: config.pin,
+                event_tx: config.event_tx,
+                session: Mutex::new(None),
+                pin_attempts: Mutex::new(LruCache::new(NonZeroUsize::new(200).unwrap())),
+            })
+        });
+
+        let web = web_send_config.map(|config| Arc::new(WebPageState::new(config)));
 
         Self {
             info,
@@ -116,12 +112,13 @@ pub async fn start_with_port(
     tls_config: Option<TlsConfig>,
     info: ClientInfo,
     v2_config: Option<ServerConfigV2>,
+    web_send_config: Option<WebSendConfig>,
     stop_rx: oneshot::Receiver<()>,
 ) -> anyhow::Result<()> {
     let ipv4_socket_addr = SocketAddr::new(Ipv4Addr::UNSPECIFIED.into(), port);
     let ipv6_socket_addr = SocketAddr::new(Ipv6Addr::UNSPECIFIED.into(), port);
     let info = Arc::new(Mutex::new(info));
-    let state = AppState::new(info.clone(), v2_config);
+    let state = AppState::new(info.clone(), v2_config, web_send_config);
 
     let ipv4_listener = tokio::net::TcpListener::bind(ipv4_socket_addr).await?;
     let ipv6_listener = match bind_ipv6_only(ipv6_socket_addr) {

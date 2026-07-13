@@ -58,6 +58,20 @@ pub enum ServerEventV2 {
         result_tx: oneshot::Sender<Result<(), String>>,
     },
 
+    /// An upload session ended.
+    SessionEnd {
+        /// The session ID of the ended session.
+        session_id: String,
+
+        /// Why the session ended.
+        reason: SessionEndReasonV2,
+    },
+}
+
+/// Events emitted by the web send (download API) endpoints that must be handled
+/// by the application. Web send can be enabled independently of the v2 endpoints.
+#[derive(Debug)]
+pub enum WebSendEvent {
     /// A web client requests to download the shared files
     /// via `POST /api/localsend/v2/prepare-download`.
     ///
@@ -75,15 +89,6 @@ pub enum ServerEventV2 {
 
         /// Channel to send the decision (`true` to accept, `false` to decline).
         decision_tx: oneshot::Sender<bool>,
-    },
-
-    /// An upload session ended.
-    SessionEnd {
-        /// The session ID of the ended session.
-        session_id: String,
-
-        /// Why the session ended.
-        reason: SessionEndReasonV2,
     },
 }
 

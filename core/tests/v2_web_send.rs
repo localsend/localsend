@@ -3,7 +3,7 @@
 use bytes::Bytes;
 use localsend::http::client::{ClientError, LsHttpClientV2};
 use localsend::http::dto::ProtocolType;
-use localsend::http::server::event::ServerEventV2;
+use localsend::http::server::event::{ServerEventV2, WebSendEvent};
 use localsend::http::server::{
     start_with_port, ServerConfigV2, WebSendConfig, WebSendFile, WebSendFileContent, WebSendI18n,
 };
@@ -29,21 +29,32 @@ async fn start_test_server(web_send: Option<WebSendConfig>, accept: bool) -> Tes
     let port = free_port();
     let prepare_download_events = Arc::new(AtomicU32::new(0));
 
-    let (event_tx, mut event_rx) = tokio::sync::mpsc::channel::<ServerEventV2>(16);
+    // Web send emits its own event type, independent of the v2 protocol events.
+    let (web_event_tx, mut web_event_rx) = tokio::sync::mpsc::channel::<WebSendEvent>(16);
 
     tokio::spawn({
         let prepare_download_events = prepare_download_events.clone();
         async move {
-            while let Some(event) = event_rx.recv().await {
-                if let ServerEventV2::PrepareDownload { decision_tx, .. } = event {
-                    prepare_download_events.fetch_add(1, Ordering::SeqCst);
-                    let _ = decision_tx.send(accept);
-                }
+            while let Some(WebSendEvent::PrepareDownload { decision_tx, .. }) =
+                web_event_rx.recv().await
+            {
+                prepare_download_events.fetch_add(1, Ordering::SeqCst);
+                let _ = decision_tx.send(accept);
             }
         }
     });
 
+    // v2 stays enabled so the `/info` endpoint (which advertises `download`) can be
+    // exercised. Its event channel is unused by these tests.
+    let (v2_event_tx, _v2_event_rx) = tokio::sync::mpsc::channel::<ServerEventV2>(16);
+
     let (stop_tx, stop_rx) = oneshot::channel::<()>();
+
+    // Web send is configured independently of the v2 endpoints.
+    let web_send = web_send.map(|mut config| {
+        config.event_tx = web_event_tx;
+        config
+    });
 
     start_with_port(
         port,
@@ -57,9 +68,9 @@ async fn start_test_server(web_send: Option<WebSendConfig>, accept: bool) -> Tes
         },
         Some(ServerConfigV2 {
             pin: None,
-            event_tx,
-            web_send,
+            event_tx: v2_event_tx,
         }),
+        web_send,
         stop_rx,
     )
     .await
@@ -139,11 +150,16 @@ fn web_send_config(pin: Option<String>) -> (WebSendConfig, PathBuf, Vec<u8>) {
         ),
     ]);
 
+    // The event channel is a placeholder; `start_test_server` replaces it with
+    // the one whose receiver counts `PrepareDownload` events.
+    let (event_tx, _event_rx) = tokio::sync::mpsc::channel::<WebSendEvent>(16);
+
     (
         WebSendConfig {
             files,
             pin,
             i18n: WebSendI18n::default(),
+            event_tx,
         },
         disk_path,
         disk_content,
