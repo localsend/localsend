@@ -32,6 +32,7 @@ import 'package:localsend_app/provider/purchase_provider.dart';
 import 'package:localsend_app/provider/selection/selected_sending_files_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/provider/tv_provider.dart';
+import 'package:localsend_app/provider/watch_provider.dart';
 import 'package:localsend_app/provider/window_dimensions_provider.dart';
 import 'package:localsend_app/rust/api/logging.dart' as rust_logging;
 import 'package:localsend_app/rust/frb_generated.dart';
@@ -151,6 +152,7 @@ Future<RefenaContainer> preInit(List<String> args) async {
       deviceRawInfoProvider.overrideWithValue(await getDeviceInfo()),
       appArgumentsProvider.overrideWithValue(args),
       tvProvider.overrideWithValue(await checkIfTv()),
+      watchProvider.overrideWithValue(await checkIfWatch()),
       dynamicColorsProvider.overrideWithValue(dynamicColors),
       sleepProvider.overrideWithInitialState((ref) => startHidden),
     ],

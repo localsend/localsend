@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:localsend_app/config/theme.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/provider/tv_provider.dart';
+import 'package:localsend_app/provider/watch_provider.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 import 'package:routerino/routerino.dart';
 
@@ -28,8 +29,9 @@ class _TextFieldTvState extends State<TextFieldTv> with Refena {
   @override
   Widget build(BuildContext context) {
     final isTv = ref.watch(tvProvider);
+    final isWatch = ref.watch(watchProvider);
 
-    if (isTv) {
+    if (isTv || isWatch) {
       return TextButton(
         style: TextButton.styleFrom(
           backgroundColor: Theme.of(context).inputDecorationTheme.fillColor,

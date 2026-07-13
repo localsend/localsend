@@ -35,6 +35,7 @@ pub enum _DeviceType {
     Web,
     Headless,
     Server,
+    Smartwatch,
 }
 
 #[frb(mirror(ProtocolType))]

@@ -292,6 +292,42 @@ mod tests {
     }
 
     #[test]
+    fn test_register_dto_v2_smartwatch_deserialization() {
+        let json = r#"{
+            "alias": "Galaxy Watch",
+            "version": "2.0",
+            "deviceModel": "Samsung",
+            "deviceType": "SMARTWATCH",
+            "fingerprint": "random string",
+            "port": 53317,
+            "protocol": "https",
+            "download": false
+        }"#;
+
+        let dto: RegisterDtoV2 = serde_json::from_str(json).unwrap();
+        assert_eq!(dto.alias, "Galaxy Watch");
+        assert_eq!(dto.device_type, Some(DeviceType::Smartwatch));
+    }
+
+    #[test]
+    fn test_multicast_message_smartwatch_serialization() {
+        let msg = MulticastMessageV2 {
+            alias: "Pixel Watch".to_string(),
+            version: "2.1".to_string(),
+            device_model: Some("Google".to_string()),
+            device_type: Some(DeviceType::Smartwatch),
+            fingerprint: "random string".to_string(),
+            port: 53317,
+            protocol: ProtocolTypeV2::Https,
+            download: false,
+            announce: true,
+        };
+
+        let json = serde_json::to_string(&msg).unwrap();
+        assert!(json.contains("\"deviceType\":\"SMARTWATCH\""));
+    }
+
+    #[test]
     fn test_register_dto_v2_deserialization() {
         let json = r#"{
             "alias": "Secret Banana",

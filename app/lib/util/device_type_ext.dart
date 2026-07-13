@@ -9,6 +9,7 @@ extension DeviceTypeExt on DeviceType {
       DeviceType.web => Icons.language,
       DeviceType.headless => Icons.terminal,
       DeviceType.server => Icons.dns,
+      DeviceType.smartwatch => Icons.watch,
     };
   }
 }

@@ -35,6 +35,8 @@ class DeviceTypeMapper extends EnumMapper<DeviceType> {
         return DeviceType.headless;
       case 'server':
         return DeviceType.server;
+      case 'smartwatch':
+        return DeviceType.smartwatch;
       default:
         return DeviceType.values[1];
     }
@@ -53,6 +55,8 @@ class DeviceTypeMapper extends EnumMapper<DeviceType> {
         return 'headless';
       case DeviceType.server:
         return 'server';
+      case DeviceType.smartwatch:
+        return 'smartwatch';
     }
   }
 }
