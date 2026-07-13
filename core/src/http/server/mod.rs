@@ -2,18 +2,19 @@ mod client_cert_verifier;
 mod collect_to_json;
 mod controller;
 mod error;
-pub mod event;
 mod query;
 mod response;
 mod session;
 
-pub use crate::http::server::controller::web::{WebSendConfig, WebSendI18n};
+pub use crate::http::server::controller::v2::{
+    PrepareUploadDecisionV2, ServerEventV2, SessionEndReasonV2,
+};
+pub use crate::http::server::controller::web::{WebSendConfig, WebSendEvent, WebSendI18n};
 
 use crate::crypto::cert::public_key_from_cert_der;
 use crate::http::server::client_cert_verifier::CustomClientCertVerifier;
 use crate::http::server::controller::web::WebPageState;
 use crate::http::server::error::AppError;
-use crate::http::server::event::ServerEventV2;
 use crate::http::server::response::BoxedBody;
 use crate::http::server::session::SessionStateV2;
 use crate::http::state::ClientInfo;

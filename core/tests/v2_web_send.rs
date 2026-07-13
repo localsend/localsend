@@ -3,7 +3,7 @@
 use bytes::Bytes;
 use localsend::http::client::{ClientError, LsHttpClientV2};
 use localsend::http::dto::ProtocolType;
-use localsend::http::server::event::{ServerEventV2, WebSendEvent};
+use localsend::http::server::{ServerEventV2, WebSendEvent};
 use localsend::http::server::{start_with_port, ServerConfigV2, WebSendConfig, WebSendI18n};
 use localsend::http::state::ClientInfo;
 use localsend::model::transfer::FileDto;

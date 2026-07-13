@@ -7,7 +7,7 @@ mod webrtc;
 use crate::crypto::token;
 use crate::http::client::LsHttpClientV3;
 use crate::http::dto::{PrepareUploadRequestDto, ProtocolType, RegisterDto};
-use crate::http::server::event::{PrepareUploadDecisionV2, ServerEventV2};
+use crate::http::server::{PrepareUploadDecisionV2, ServerEventV2};
 use crate::http::server::{ServerConfigV2, TlsConfig};
 use crate::model::discovery::DeviceType;
 use crate::webrtc::signaling::{ClientInfo, WsServerMessage};

@@ -3,7 +3,7 @@
 use localsend::http::client::{ClientError, LsHttpClientV2};
 use localsend::http::dto::ProtocolType;
 use localsend::http::dto_v2::{PrepareUploadRequestDtoV2, ProtocolTypeV2, RegisterDtoV2};
-use localsend::http::server::event::{PrepareUploadDecisionV2, ServerEventV2, SessionEndReasonV2};
+use localsend::http::server::{PrepareUploadDecisionV2, ServerEventV2, SessionEndReasonV2};
 use localsend::http::server::{start_with_port, ServerConfigV2};
 use localsend::http::state::ClientInfo;
 use localsend::model::transfer::FileDto;

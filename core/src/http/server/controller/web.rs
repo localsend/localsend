@@ -3,7 +3,6 @@ use crate::http::dto_v2::{
 };
 use crate::http::server::controller::check_pin;
 use crate::http::server::error::AppError;
-use crate::http::server::event::WebSendEvent;
 use crate::http::server::query::parse_query;
 use crate::http::server::response::{full_body, BoxedBody, JsonResponse};
 use crate::http::server::{AppState, RequestClientInfo};
@@ -22,6 +21,51 @@ use std::sync::Arc;
 use tokio::sync::{mpsc, oneshot, Mutex};
 use tokio_stream::wrappers::ReceiverStream;
 use tokio_stream::StreamExt;
+
+/// Events emitted by the web send (download API) endpoints that must be handled
+/// by the application. Web send can be enabled independently of the v2 endpoints.
+#[derive(Debug)]
+pub enum WebSendEvent {
+    /// A web client requests to download the shared files
+    /// via `POST /api/localsend/v2/prepare-download`.
+    ///
+    /// The application must answer on `decision_tx`.
+    /// Dropping `decision_tx` results in a 500 response.
+    PrepareDownload {
+        /// The IP address of the web client.
+        ip: IpAddr,
+
+        /// The ID of the download session that is created when accepted.
+        session_id: String,
+
+        /// The `User-Agent` header of the web client.
+        user_agent: Option<String>,
+
+        /// Channel to send the decision (`true` to accept, `false` to decline).
+        decision_tx: oneshot::Sender<bool>,
+    },
+
+    /// An accepted web client downloads a file via `GET /api/localsend/v2/download`.
+    ///
+    /// The application must respond on `content_tx` with a channel receiving
+    /// the binary chunks of the file. The response body advertises `file.size`
+    /// bytes, so the application should send exactly that many bytes before
+    /// closing the channel (closing it earlier aborts the download).
+    /// Dropping `content_tx` results in a 500 response.
+    FileDownload {
+        /// The ID of the download session.
+        session_id: String,
+
+        /// The ID of the file being downloaded.
+        file_id: String,
+
+        /// The metadata of the file being downloaded.
+        file: FileDto,
+
+        /// Channel to provide the receiver on which the file content arrives.
+        content_tx: oneshot::Sender<mpsc::Receiver<Bytes>>,
+    },
+}
 
 const INDEX_HTML: &str = include_str!("../../../../assets/web/index.html");
 const MAIN_JS: &str = include_str!("../../../../assets/web/main.js");
