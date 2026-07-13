@@ -32,7 +32,7 @@ jobs:
         uses: actions/checkout@v6
 
       - name: Remove proprietary dependencies
-        run: sh scripts/remove_proprietary_dependencies.sh
+        run: sh support/scripts/remove_proprietary_dependencies.sh
 
       - name: Copy files to env.APK_BUILD_DIR
         run: |
@@ -318,7 +318,7 @@ jobs:
           cp app/assets/img/logo-256.png AppDir/usr/share/icons/hicolor/256x256/apps/localsend.png
 
       - name: Copy Recipe to correct location
-        run: cp scripts/appimage/AppImageBuilder_x86_64.yml AppImageBuilder.yml
+        run: cp support/build/appimage/AppImageBuilder_x86_64.yml AppImageBuilder.yml
 
       - name: Build AppImage
         uses: AppImageCrafters/build-appimage@57c3bc6963f870ce3be103117de5b5e33ffbaeb6
@@ -362,9 +362,9 @@ jobs:
       - name: Add DLL files
         working-directory: app
         run: |
-          Copy-Item ../scripts/windows/x64/msvcp140.dll build/windows/x64/runner/Release/
-          Copy-Item ../scripts/windows/x64/vcruntime140.dll build/windows/x64/runner/Release/
-          Copy-Item ../scripts/windows/x64/vcruntime140_1.dll build/windows/x64/runner/Release/
+          Copy-Item ../support/build/windows/x64/msvcp140.dll build/windows/x64/runner/Release/
+          Copy-Item ../support/build/windows/x64/vcruntime140.dll build/windows/x64/runner/Release/
+          Copy-Item ../support/build/windows/x64/vcruntime140_1.dll build/windows/x64/runner/Release/
 
       - name: Zip compiled files
         working-directory: app

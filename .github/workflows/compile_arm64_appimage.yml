@@ -58,7 +58,7 @@ jobs:
           cp app/assets/img/logo-256.png AppDir/usr/share/icons/hicolor/256x256/apps/localsend.png
 
       - name: Copy Recipe to correct location
-        run: cp scripts/appimage/AppImageBuilder_arm_64.yml AppImageBuilder.yml
+        run: cp support/build/appimage/AppImageBuilder_arm_64.yml AppImageBuilder.yml
 
       - name: Build AppImage
         uses: AppImageCrafters/build-appimage@57c3bc6963f870ce3be103117de5b5e33ffbaeb6

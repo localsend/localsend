@@ -90,7 +90,7 @@ jobs:
       - name: Extract version from Inno Setup configuration
         id: inno_version
         run: |
-          VERSION=$(grep '#define MyAppVersion ' scripts/compile_windows_exe-inno.iss | sed 's/#define MyAppVersion "//' | sed 's/"//')
+          VERSION=$(grep '#define MyAppVersion ' support/scripts/compile_windows_exe-inno.iss | sed 's/#define MyAppVersion "//' | sed 's/"//')
           echo "Inno Setup version is $VERSION"
           echo "inno_version=$VERSION" >> $GITHUB_ENV
 

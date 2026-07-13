@@ -23,7 +23,7 @@ rm -f LocalSend.dmg
 create-dmg \
   --volname "LocalSend" \
   --window-size 500 300 \
-  --background "../scripts/dmg/background.png" \
+  --background "../support/build/dmg/background.png" \
   --icon LocalSend.app 130 110 \
   --app-drop-link 360 110 \
   LocalSend.dmg \
