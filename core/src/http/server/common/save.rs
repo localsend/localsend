@@ -165,10 +165,15 @@ async fn write_file_from_receiver(
     let mut file = open.await?;
     let mut written: u64 = 0;
     while let Some(chunk) = rx.recv().await {
+        written += chunk.len() as u64;
+        if written > expected_size {
+            return Err(format!(
+                "Expected {expected_size} bytes, received at least {written}"
+            ));
+        }
         file.write_all(&chunk)
             .await
             .map_err(|e| format!("Failed to write file: {e}"))?;
-        written += chunk.len() as u64;
     }
     file.flush()
         .await
