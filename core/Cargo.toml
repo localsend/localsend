@@ -30,6 +30,7 @@ tokio = { version = "1.49.0", features = ["full"] }
 tokio-rustls = { version = "0.26.4", default-features = false, features = ["ring", "tls12"], optional = true }
 tokio-stream = "0.1.18"
 tokio-tungstenite = { version = "0.28.0", features = ["rustls-tls-webpki-roots"], optional = true }
+tokio-util = { version = "0.7.16", optional = true }
 tracing = "0.1.44"
 tracing-subscriber = { version = "0.3.20" }
 tungstenite = "0.28.0"
@@ -40,7 +41,7 @@ x509-parser = { version = "0.18.0", features = ["verify"], optional = true }
 [features]
 default = []
 crypto = ["ed25519-dalek", "rsa", "sha2"]
-http = ["crypto", "form_urlencoded", "http-body-util", "hyper", "hyper-util", "pem", "percent-encoding", "reqwest", "rustls", "socket2", "tokio-rustls", "x509-parser"]
+http = ["crypto", "form_urlencoded", "http-body-util", "hyper", "hyper-util", "pem", "percent-encoding", "reqwest", "rustls", "socket2", "tokio-rustls", "tokio-util", "x509-parser"]
 webrtc-signaling = ["tokio-tungstenite"]
 webrtc = ["crypto", "flate2", "dep:webrtc", "webrtc-signaling", "x509-parser"]
 full = ["crypto", "http", "webrtc"]

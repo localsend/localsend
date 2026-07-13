@@ -9,6 +9,7 @@ use futures_util::StreamExt;
 use reqwest::{Response, StatusCode};
 use tokio::io::AsyncWriteExt;
 use tokio::sync::mpsc;
+use tokio_util::sync::CancellationToken;
 use tokio_stream::wrappers::ReceiverStream;
 
 /// HTTP client for LocalSend Protocol v2.1.
@@ -193,6 +194,7 @@ impl LsHttpClientV2 {
     /// * `file_id` - File ID to upload
     /// * `token` - File-specific token from prepare_upload
     /// * `binary` - Channel receiving file chunks
+    /// * `cancel` - Cancellation token; cancelling it aborts the upload with [`ClientError::Cancelled`]
     ///
     /// # Errors
     /// * 400 - Missing parameters
@@ -209,6 +211,7 @@ impl LsHttpClientV2 {
         file_id: &str,
         token: &str,
         binary: mpsc::Receiver<Vec<u8>>,
+        cancel: CancellationToken,
     ) -> Result<(), ClientError> {
         let url = TargetUrl {
             version: ApiVersion::V2,
@@ -227,7 +230,10 @@ impl LsHttpClientV2 {
         let stream = ReceiverStream::new(binary).map(Ok::<Vec<u8>, anyhow::Error>);
         let body = reqwest::Body::wrap_stream(stream);
 
-        let res = self.client.post(&url).body(body).send().await?;
+        let res = tokio::select! {
+            res = self.client.post(&url).body(body).send() => res?,
+            _ = cancel.cancelled() => return Err(ClientError::Cancelled),
+        };
 
         if protocol == ProtocolType::Https {
             super::verify_cert_from_res(&res, public_key)?;

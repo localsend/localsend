@@ -10,6 +10,7 @@ use std::num::NonZeroUsize;
 use std::sync::Arc;
 use tokio::sync::{mpsc, Mutex};
 use tokio_stream::wrappers::ReceiverStream;
+use tokio_util::sync::CancellationToken;
 
 pub struct LsHttpClientV3 {
     client: reqwest::Client,
@@ -180,6 +181,9 @@ impl LsHttpClientV3 {
     }
 
     /// Uploads a file to the server.
+    ///
+    /// `cancel` is a cancellation token; cancelling it aborts the upload with
+    /// [`ClientError::Cancelled`].
     pub async fn upload(
         &self,
         protocol: ProtocolType,
@@ -190,8 +194,9 @@ impl LsHttpClientV3 {
         file_id: &str,
         token: &str,
         binary: mpsc::Receiver<Vec<u8>>,
+        cancel: CancellationToken,
     ) -> Result<(), ClientError> {
-        let res = self
+        let send = self
             .client
             .post(
                 TargetUrl {
@@ -212,8 +217,12 @@ impl LsHttpClientV3 {
                 let stream = ReceiverStream::new(binary).map(Ok::<Vec<u8>, anyhow::Error>);
                 reqwest::Body::wrap_stream(stream)
             })
-            .send()
-            .await?;
+            .send();
+
+        let res = tokio::select! {
+            res = send => res?,
+            _ = cancel.cancelled() => return Err(ClientError::Cancelled),
+        };
 
         if protocol == ProtocolType::Https {
             super::verify_cert_from_res(&res, public_key)?;
