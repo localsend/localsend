@@ -1,4 +1,5 @@
-import 'package:common/src/isolate/dto/isolate_task_result.dart';
+import 'package:typed_isolates/src/id_provider.dart';
+import 'package:typed_isolates/src/isolate_task_result.dart';
 
 /// A data structure that can be sent to an isolate.
 /// This is used to represent the following schemas:
@@ -15,7 +16,7 @@ class IsolateTask<T> {
   final T data;
 
   IsolateTask({
-    required this.id,
+    int? id,
     required this.data,
-  });
+  }) : id = id ?? IdProvider.instance.getNextId();
 }

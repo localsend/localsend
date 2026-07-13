@@ -13,6 +13,8 @@ dependencies:
   meta: ^1.9.1
   mime: ^2.0.0
   refena: ^3.1.0
+  typed_isolates:
+    path: ../packages/typed_isolates
 
 dev_dependencies:
   build_runner: ^2.4.7

@@ -4,13 +4,12 @@ import 'dart:typed_data';
 import 'package:common/isolate.dart';
 import 'package:common/model/device.dart';
 import 'package:common/src/isolate/child/main.dart';
-import 'package:common/src/isolate/dto/isolate_task.dart';
-import 'package:common/src/isolate/dto/isolate_task_result.dart';
 import 'package:common/src/isolate/dto/send_to_isolate_data.dart';
 import 'package:common/src/task/upload/http_upload.dart';
 import 'package:common/util/stream.dart';
 import 'package:meta/meta.dart';
 import 'package:refena/refena.dart';
+import 'package:typed_isolates/typed_isolates.dart';
 
 sealed class BaseHttpUploadTask {}
 

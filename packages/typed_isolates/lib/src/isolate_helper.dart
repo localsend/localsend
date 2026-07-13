@@ -25,46 +25,48 @@ class IsolateConnector<R, S> {
   }
 }
 
-/// A helper function to easier work with isolates.
-/// Starts an isolate and setups the [SendPort] and [ReceivePort] to communicate with it.
-///
-/// [R] is the type of the messages that the main isolate will **receive** from the spawned isolate.
-/// [S] is the type of the messages that the main isolate will **send** to the spawned isolate.
-/// [P] is the type of the parameter that is passed to the spawned isolate.
-Future<IsolateConnector<R, S>> startIsolate<R, S, P>({
-  required Future<void> Function(Stream<S> receiveFromMain, void Function(R) sendToMain, P param) task,
-  required P param,
-}) async {
-  final receivePort = ReceivePort();
-  final isolate = await Isolate.spawn(
-    (param) => _isolateRunner<R, S, P>(param),
-    _IsolateParam<R, S, P>(receivePort.sendPort, task, param),
-  );
+class TypedIsolates {
+  /// A helper function to easier work with isolates.
+  /// Starts an isolate and setups the [SendPort] and [ReceivePort] to communicate with it.
+  ///
+  /// [R] is the type of the messages that the main isolate will **receive** from the spawned isolate.
+  /// [S] is the type of the messages that the main isolate will **send** to the spawned isolate.
+  /// [P] is the type of the parameter that is passed to the spawned isolate.
+  static Future<IsolateConnector<R, S>> startIsolate<R, S, P>({
+    required Future<void> Function(Stream<S> receiveFromMain, void Function(R) sendToMain, P param) task,
+    required P param,
+  }) async {
+    final receivePort = ReceivePort();
+    final isolate = await Isolate.spawn(
+          (param) => _isolateRunner<R, S, P>(param),
+      _IsolateParam<R, S, P>(receivePort.sendPort, task, param),
+    );
 
-  final receiveFromIsolateController = StreamController<R>();
-  final sendToIsolateCompleter = Completer<SendPort>();
-  receivePort.listen((message) {
-    switch (message) {
-      case R():
-        receiveFromIsolateController.add(message);
-        break;
-      case SendPort():
-        sendToIsolateCompleter.complete(message);
-        break;
-      default:
-        print('Unexpected type when receiving message from isolate: "$message" that has type <${message.runtimeType}> but only <$R> is expected.');
-    }
-  });
-  final sendToIsolate = await sendToIsolateCompleter.future;
+    final receiveFromIsolateController = StreamController<R>();
+    final sendToIsolateCompleter = Completer<SendPort>();
+    receivePort.listen((message) {
+      switch (message) {
+        case R():
+          receiveFromIsolateController.add(message);
+          break;
+        case SendPort():
+          sendToIsolateCompleter.complete(message);
+          break;
+        default:
+          print('Unexpected type when receiving message from isolate: "$message" that has type <${message.runtimeType}> but only <$R> is expected.');
+      }
+    });
+    final sendToIsolate = await sendToIsolateCompleter.future;
 
-  // Callback to signal that the [SendPort] is ready
-  sendToIsolate.send(_SendToIsolateReceived());
+    // Callback to signal that the [SendPort] is ready
+    sendToIsolate.send(_SendToIsolateReceived());
 
-  return IsolateConnector._(
-    receiveFromIsolateController.stream.asBroadcastStream(),
-    sendToIsolate,
-    isolate,
-  );
+    return IsolateConnector._(
+      receiveFromIsolateController.stream.asBroadcastStream(),
+      sendToIsolate,
+      isolate,
+    );
+  }
 }
 
 class _IsolateParam<R, S, P> {

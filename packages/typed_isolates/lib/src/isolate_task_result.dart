@@ -1,4 +1,4 @@
-import 'package:common/src/isolate/dto/isolate_task.dart';
+import 'package:typed_isolates/src/isolate_task.dart';
 
 /// The response data structure from an [IsolateTask].
 sealed class IsolateTaskResult<T> {

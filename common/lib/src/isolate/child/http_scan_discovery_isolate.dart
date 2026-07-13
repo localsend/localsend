@@ -1,10 +1,9 @@
 import 'package:common/model/device.dart';
 import 'package:common/src/isolate/child/main.dart';
-import 'package:common/src/isolate/dto/isolate_task.dart';
-import 'package:common/src/isolate/dto/isolate_task_result.dart';
 import 'package:common/src/isolate/dto/send_to_isolate_data.dart';
 import 'package:common/src/task/discovery/http_scan_discovery.dart';
 import 'package:meta/meta.dart';
+import 'package:typed_isolates/typed_isolates.dart';
 
 sealed class HttpScanTask {}
 

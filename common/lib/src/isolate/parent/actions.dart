@@ -4,15 +4,11 @@ import 'package:common/model/device.dart';
 import 'package:common/src/isolate/child/http_scan_discovery_isolate.dart';
 import 'package:common/src/isolate/child/multicast_discovery_isolate.dart';
 import 'package:common/src/isolate/child/upload_isolate.dart';
-import 'package:common/src/isolate/dto/isolate_task.dart';
-import 'package:common/src/isolate/dto/isolate_task_result.dart';
 import 'package:common/src/isolate/dto/send_to_isolate_data.dart';
 import 'package:common/src/isolate/parent/parent_isolate_provider.dart';
-import 'package:common/src/util/id_provider.dart';
-import 'package:common/src/util/isolate_helper.dart';
 import 'package:refena/refena.dart';
-
-final _idProvider = IdProvider();
+import 'package:typed_isolates/id.dart';
+import 'package:typed_isolates/typed_isolates.dart';
 
 class IsolateInterfaceHttpDiscoveryAction extends ReduxActionWithResult<IsolateController, ParentIsolateState, Stream<Device>> {
   final String networkInterface;
@@ -40,9 +36,8 @@ class IsolateInterfaceHttpDiscoveryAction extends ReduxActionWithResult<IsolateC
 
     return (
       state,
-      _sendTaskAndListenStream(
+      connection.sendWrappedTaskAndListenStream(
         task: task,
-        connection: connection,
       )
     );
   }
@@ -71,9 +66,8 @@ class IsolateFavoriteHttpDiscoveryAction extends ReduxActionWithResult<IsolateCo
 
     return (
       state,
-      _sendTaskAndListenStream(
+      connection.sendWrappedTaskAndListenStream(
         task: task,
-        connection: connection,
       )
     );
   }
@@ -161,10 +155,9 @@ class IsolateHttpUploadAction extends ReduxActionWithResult<IsolateController, P
       device: device,
     );
 
-    final taskId = _idProvider.getNextId();
-    final progress = _sendTaskAndListenStream(
+    final taskId = IdProvider.instance.getNextId();
+    final progress = connection.sendWrappedTaskAndListenStream(
       task: task,
-      connection: connection,
       taskId: taskId,
     );
 
@@ -194,7 +187,6 @@ class IsolateHttpUploadCancelAction extends ReduxAction<IsolateController, Paren
     connection.sendToIsolate(SendToIsolateData(
       syncState: null,
       data: IsolateTask(
-        id: _idProvider.getNextId(),
         data: HttpUploadCancelTask(
           taskId: taskId,
         ),
@@ -205,52 +197,28 @@ class IsolateHttpUploadCancelAction extends ReduxAction<IsolateController, Paren
   }
 }
 
-/// Sends a task to the isolate
-/// and transforms [IsolateTaskStreamResult] into a proper stream making it easier to work with.
-Stream<R> _sendTaskAndListenStream<R, T>({
-  required T task,
-  required IsolateConnector<IsolateTaskStreamResult<R>, SendToIsolateData<IsolateTask<T>>> connection,
-  int? taskId,
-}) {
-  final wrappedTask = IsolateTask(
-    id: taskId ?? _idProvider.getNextId(),
-    data: task,
-  );
+/// Adds the [SendToIsolateData] envelope on top of the generic
+/// [IsolateTaskConnector.sendTaskAndListenStream] from `typed_isolates`.
+extension _WrappedTaskConnector<R, T> on IsolateConnector<IsolateTaskStreamResult<R>, SendToIsolateData<IsolateTask<T>>> {
+  /// Sends a [task] wrapped in a [SendToIsolateData] envelope and transforms
+  /// the responded [IsolateTaskStreamResult]s into a plain [Stream].
+  Stream<R> sendWrappedTaskAndListenStream({
+    required T task,
+    int? taskId,
+  }) {
+    final wrappedTask = IsolateTask(
+      id: taskId,
+      data: task,
+    );
 
-  // ignore: discarded_futures
-  Future.microtask(() {
-    connection.sendToIsolate(SendToIsolateData<IsolateTask<T>>(
-      syncState: null,
-      data: wrappedTask,
-    ));
-  });
+    // ignore: discarded_futures
+    Future.microtask(() {
+      sendToIsolate(SendToIsolateData(
+        syncState: null,
+        data: wrappedTask,
+      ));
+    });
 
-  return _convertResponseToStream<R, T>(
-    taskId: wrappedTask.id,
-    connection: connection,
-  );
-}
-
-Stream<R> _convertResponseToStream<R, T>({
-  required int taskId,
-  required IsolateConnector<IsolateTaskStreamResult<R>, SendToIsolateData<IsolateTask<T>>> connection,
-}) {
-  final controller = StreamController<R>();
-  late StreamSubscription subscription;
-  subscription = connection.receiveFromIsolate.listen((result) {
-    if (result.id == taskId) {
-      if (result.data != null) {
-        controller.add(result.data as R);
-      } else if (result.done) {
-        if (result.error != null) {
-          controller.addError(result.error!);
-        } else {
-          subscription.cancel(); // ignore: discarded_futures
-          controller.close(); // ignore: discarded_futures
-        }
-      }
-    }
-  });
-
-  return controller.stream;
+    return convertResponseToStream(taskId: wrappedTask.id);
+  }
 }

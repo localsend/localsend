@@ -1,5 +1,7 @@
 /// A simple class that provides an id.
 class IdProvider {
+  static IdProvider instance = IdProvider();
+
   int _id = 0;
 
   /// Returns the next id.

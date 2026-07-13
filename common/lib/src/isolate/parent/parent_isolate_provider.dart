@@ -4,13 +4,11 @@ import 'package:common/src/isolate/child/main.dart';
 import 'package:common/src/isolate/child/multicast_discovery_isolate.dart';
 import 'package:common/src/isolate/child/sync_provider.dart';
 import 'package:common/src/isolate/child/upload_isolate.dart';
-import 'package:common/src/isolate/dto/isolate_task.dart';
-import 'package:common/src/isolate/dto/isolate_task_result.dart';
 import 'package:common/src/isolate/dto/send_to_isolate_data.dart';
-import 'package:common/src/util/isolate_helper.dart';
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:logging/logging.dart';
 import 'package:refena/refena.dart';
+import 'package:typed_isolates/typed_isolates.dart';
 
 part 'parent_isolate_provider.mapper.dart';
 
@@ -74,7 +72,7 @@ class IsolateSetupAction extends AsyncReduxAction<IsolateController, ParentIsola
 
   @override
   Future<ParentIsolateState> reduce() async {
-    final httpScanDiscovery = await startIsolate<IsolateTaskStreamResult<Device>, SendToIsolateData<IsolateTask<HttpScanTask>>, InitialData>(
+    final httpScanDiscovery = await TypedIsolates.startIsolate<IsolateTaskStreamResult<Device>, SendToIsolateData<IsolateTask<HttpScanTask>>, InitialData>(
       task: setupHttpScanDiscoveryIsolate,
       param: InitialData(
         syncState: state.syncState,
@@ -82,7 +80,7 @@ class IsolateSetupAction extends AsyncReduxAction<IsolateController, ParentIsola
       ),
     );
 
-    final multicastDiscovery = await startIsolate<Device, SendToIsolateData<MulticastTask>, InitialData>(
+    final multicastDiscovery = await TypedIsolates.startIsolate<Device, SendToIsolateData<MulticastTask>, InitialData>(
       task: setupMulticastDiscoveryIsolate,
       param: InitialData(
         syncState: state.syncState,
@@ -93,7 +91,7 @@ class IsolateSetupAction extends AsyncReduxAction<IsolateController, ParentIsola
     final httpUploadIsolates = List.generate(
       _uploadIsolateCount,
       (index) async {
-        final httpUpload = await startIsolate<IsolateTaskStreamResult<double>, SendToIsolateData<IsolateTask<BaseHttpUploadTask>>, InitialData>(
+        final httpUpload = await TypedIsolates.startIsolate<IsolateTaskStreamResult<double>, SendToIsolateData<IsolateTask<BaseHttpUploadTask>>, InitialData>(
           task: setupHttpUploadIsolate,
           param: InitialData(
             syncState: state.syncState,

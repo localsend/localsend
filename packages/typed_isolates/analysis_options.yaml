@@ -1,0 +1,14 @@
+include: package:lints/recommended.yaml
+
+formatter:
+  trailing_commas: preserve
+  page_width: 150
+
+linter:
+  rules:
+    prefer_single_quotes: true
+    sort_pub_dependencies: true
+    always_use_package_imports: true
+    directives_ordering: true
+    unawaited_futures: true
+    discarded_futures: true
