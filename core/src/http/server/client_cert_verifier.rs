@@ -1,11 +1,11 @@
-use std::fmt::{Debug, Formatter};
-use std::sync::Arc;
-use rustls::pki_types::pem::PemObject;
-use rustls::{DigitallySignedStruct, DistinguishedName, Error, RootCertStore, SignatureScheme};
 use rustls::client::danger::HandshakeSignatureValid;
+use rustls::pki_types::pem::PemObject;
 use rustls::pki_types::{CertificateDer, UnixTime};
 use rustls::server::danger::{ClientCertVerified, ClientCertVerifier};
 use rustls::server::WebPkiClientVerifier;
+use rustls::{DigitallySignedStruct, DistinguishedName, Error, RootCertStore, SignatureScheme};
+use std::fmt::{Debug, Formatter};
+use std::sync::Arc;
 use x509_parser::nom::AsBytes;
 
 /// Enables client certificate verification.

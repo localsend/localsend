@@ -180,8 +180,7 @@ nidU/qXQvBJ7NPUkXXgbcgqxK735iijOqQHmKts=
 -----END CERTIFICATE-----"
             .to_string();
         assert_eq!(
-            verify_cert_from_pem(cert_expired, Some(PUBLIC_KEY))
-                .map_err(|e| e.to_string()),
+            verify_cert_from_pem(cert_expired, Some(PUBLIC_KEY)).map_err(|e| e.to_string()),
             Err("Time validity error".to_string())
         );
     }

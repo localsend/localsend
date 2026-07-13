@@ -1,12 +1,10 @@
-use crate::http::dto_v2::{
-    InfoResponseDtoV2, PrepareDownloadResponseDtoV2, PROTOCOL_VERSION_V2,
-};
+use crate::http::dto_v2::{InfoResponseDtoV2, PrepareDownloadResponseDtoV2, PROTOCOL_VERSION_V2};
 use crate::http::server::controller::check_pin;
 use crate::http::server::error::AppError;
 use crate::http::server::query::parse_query;
 use crate::http::server::response::{full_body, BoxedBody, JsonResponse};
 use crate::http::server::{AppState, RequestClientInfo};
-use crate::model::transfer::FileDto;
+use crate::model::transfer::{FileContent, FileDto};
 use bytes::Bytes;
 use http_body_util::{BodyExt, StreamBody};
 use hyper::body::{Frame, Incoming};
@@ -47,10 +45,10 @@ pub enum WebSendEvent {
 
     /// An accepted web client downloads a file via `GET /api/localsend/v2/download`.
     ///
-    /// The application must respond on `content_tx` with a channel receiving
-    /// the binary chunks of the file. The response body advertises `file.size`
-    /// bytes, so the application should send exactly that many bytes before
-    /// closing the channel (closing it earlier aborts the download).
+    /// The application must respond on `content_tx` with the file content. The
+    /// response body advertises `file.size` bytes, so the application should
+    /// provide exactly that many bytes before closing the stream (closing it
+    /// earlier aborts the download).
     /// Dropping `content_tx` results in a 500 response.
     FileDownload {
         /// The ID of the download session.
@@ -62,8 +60,8 @@ pub enum WebSendEvent {
         /// The metadata of the file being downloaded.
         file: FileDto,
 
-        /// Channel to provide the receiver on which the file content arrives.
-        content_tx: oneshot::Sender<mpsc::Receiver<Bytes>>,
+        /// Channel to provide the content of the file being downloaded.
+        content_tx: oneshot::Sender<FileContent>,
     },
 }
 
@@ -324,7 +322,7 @@ pub(crate) async fn download(
     };
 
     // The application provides the file content as a stream of bytes.
-    let (content_tx, content_rx) = oneshot::channel();
+    let (content_tx, content_rx) = oneshot::channel::<FileContent>();
     let event = WebSendEvent::FileDownload {
         session_id: session_id.clone(),
         file_id: file_id.clone(),
@@ -335,12 +333,12 @@ pub(crate) async fn download(
         return Err(AppError::Status(StatusCode::INTERNAL_SERVER_ERROR));
     }
 
-    let binary_rx = content_rx
+    let content = content_rx
         .await
         .map_err(|_| AppError::Status(StatusCode::INTERNAL_SERVER_ERROR))?;
 
     let size = file.size;
-    let body = receiver_stream_body(binary_rx);
+    let body = receiver_stream_body(content.into_receiver());
 
     // The file name may be inside directories.
     let file_name = file.file_name.replace('/', "-");
@@ -417,9 +415,9 @@ async fn file_list_response(
 }
 
 /// Streams application-provided chunks as a response body.
-fn receiver_stream_body(binary_rx: mpsc::Receiver<Bytes>) -> BoxedBody {
-    let stream =
-        ReceiverStream::new(binary_rx).map(|chunk| Ok::<_, std::io::Error>(Frame::data(chunk)));
+fn receiver_stream_body(binary_rx: mpsc::Receiver<Vec<u8>>) -> BoxedBody {
+    let stream = ReceiverStream::new(binary_rx)
+        .map(|chunk| Ok::<_, std::io::Error>(Frame::data(Bytes::from(chunk))));
     StreamBody::new(stream).boxed()
 }
 

@@ -7,7 +7,7 @@ mod webrtc;
 use crate::crypto::token;
 use crate::http::client::LsHttpClientV3;
 use crate::http::dto::{PrepareUploadRequestDto, ProtocolType, RegisterDto};
-use crate::http::server::{PrepareUploadDecisionV2, ServerEventV2};
+use crate::http::server::{FileUploadTargetV2, PrepareUploadDecisionV2, ServerEventV2};
 use crate::http::server::{ServerConfigV2, TlsConfig};
 use crate::model::discovery::DeviceType;
 use crate::webrtc::signaling::{ClientInfo, WsServerMessage};
@@ -165,11 +165,14 @@ async fn server_test() -> Result<()> {
                     ));
                 }
                 ServerEventV2::FileUpload {
-                    file,
-                    mut binary_rx,
-                    result_tx,
-                    ..
+                    file, target_tx, ..
                 } => {
+                    let (binary_tx, mut binary_rx) = mpsc::channel::<Bytes>(16);
+                    let (result_tx, result_rx) = oneshot::channel::<Result<(), String>>();
+                    let _ = target_tx.send(FileUploadTargetV2::Stream {
+                        binary_tx,
+                        result_rx,
+                    });
                     tokio::spawn(async move {
                         let mut received: u64 = 0;
                         while let Some(chunk) = binary_rx.recv().await {

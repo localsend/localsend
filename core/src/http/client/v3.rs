@@ -1,14 +1,14 @@
 use super::{ClientError, ResponseExt, ResultWithPublicKey};
-use crate::http;
 use crate::http::client::url::{ApiVersion, TargetUrl};
 use crate::http::dto::ProtocolType;
 use crate::{crypto, util};
+use crate::{http, model};
 use futures_util::StreamExt;
 use lru::LruCache;
 use reqwest::{Response, StatusCode};
 use std::num::NonZeroUsize;
 use std::sync::Arc;
-use tokio::sync::{mpsc, Mutex};
+use tokio::sync::Mutex;
 use tokio_stream::wrappers::ReceiverStream;
 use tokio_util::sync::CancellationToken;
 
@@ -193,7 +193,7 @@ impl LsHttpClientV3 {
         session_id: &str,
         file_id: &str,
         token: &str,
-        binary: mpsc::Receiver<Vec<u8>>,
+        content: model::transfer::FileContent,
         cancel: CancellationToken,
     ) -> Result<(), ClientError> {
         let send = self
@@ -214,7 +214,8 @@ impl LsHttpClientV3 {
                 .to_string(),
             )
             .body({
-                let stream = ReceiverStream::new(binary).map(Ok::<Vec<u8>, anyhow::Error>);
+                let stream =
+                    ReceiverStream::new(content.into_receiver()).map(Ok::<Vec<u8>, anyhow::Error>);
                 reqwest::Body::wrap_stream(stream)
             })
             .send();

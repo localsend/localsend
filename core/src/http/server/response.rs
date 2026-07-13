@@ -34,9 +34,8 @@ impl<T: Serialize> JsonResponse<T> {
             http::HeaderValue::from_static("application/json"),
         );
 
-        *response.body_mut() = full_body(
-            serde_json::to_string(&self.body).unwrap_or_else(|_| "{}".to_string()),
-        );
+        *response.body_mut() =
+            full_body(serde_json::to_string(&self.body).unwrap_or_else(|_| "{}".to_string()));
 
         response
     }

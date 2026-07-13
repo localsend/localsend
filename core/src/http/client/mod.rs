@@ -6,7 +6,7 @@ pub use v2::LsHttpClientV2;
 pub use v3::LsHttpClientV3;
 
 use crate::http::StatusCodeError;
-use crate::{crypto, http};
+use crate::{crypto, http, model};
 use reqwest::Response;
 use serde::{Deserialize, Serialize};
 use thiserror::Error;
@@ -112,21 +112,21 @@ impl LsHttpClient {
         session_id: &str,
         file_id: &str,
         token: &str,
-        binary: tokio::sync::mpsc::Receiver<Vec<u8>>,
+        content: model::transfer::FileContent,
         cancel: tokio_util::sync::CancellationToken,
     ) -> Result<(), ClientError> {
         match self {
             LsHttpClient::V2(client) => {
                 client
                     .upload(
-                        protocol, ip, port, public_key, session_id, file_id, token, binary, cancel,
+                        protocol, ip, port, public_key, session_id, file_id, token, content, cancel,
                     )
                     .await
             }
             LsHttpClient::V3(client) => {
                 client
                     .upload(
-                        protocol, ip, port, public_key, session_id, file_id, token, binary, cancel,
+                        protocol, ip, port, public_key, session_id, file_id, token, content, cancel,
                     )
                     .await
             }

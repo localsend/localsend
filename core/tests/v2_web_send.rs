@@ -3,10 +3,10 @@
 use bytes::Bytes;
 use localsend::http::client::{ClientError, LsHttpClientV2};
 use localsend::http::dto::ProtocolType;
-use localsend::http::server::{ServerEventV2, WebSendEvent};
 use localsend::http::server::{start_with_port, ServerConfigV2, WebSendConfig, WebSendI18n};
+use localsend::http::server::{ServerEventV2, WebSendEvent};
 use localsend::http::state::ClientInfo;
-use localsend::model::transfer::FileDto;
+use localsend::model::transfer::{FileContent, FileDto};
 use std::collections::HashMap;
 use std::net::IpAddr;
 use std::path::PathBuf;
@@ -34,10 +34,10 @@ enum TestFileContent {
 impl TestFileContent {
     /// Streams the content into `tx`, mimicking how an application would
     /// serve in-memory content or a file from disk.
-    async fn stream(self, tx: mpsc::Sender<Bytes>) {
+    async fn stream(self, tx: mpsc::Sender<Vec<u8>>) {
         match self {
             TestFileContent::Bytes(bytes) => {
-                let _ = tx.send(bytes).await;
+                let _ = tx.send(bytes.to_vec()).await;
             }
             TestFileContent::Path(path) => {
                 let mut file = tokio::fs::File::open(&path)
@@ -49,11 +49,7 @@ impl TestFileContent {
                     if bytes_read == 0 {
                         break; // EOF
                     }
-                    if tx
-                        .send(Bytes::copy_from_slice(&buffer[..bytes_read]))
-                        .await
-                        .is_err()
-                    {
+                    if tx.send(buffer[..bytes_read].to_vec()).await.is_err() {
                         break; // client disconnected
                     }
                 }
@@ -97,8 +93,8 @@ async fn start_test_server(
                             .expect("FileDownload for unknown file")
                             .clone();
                         tokio::spawn(async move {
-                            let (tx, rx) = mpsc::channel::<Bytes>(16);
-                            if content_tx.send(rx).is_err() {
+                            let (tx, rx) = mpsc::channel::<Vec<u8>>(16);
+                            if content_tx.send(FileContent::Stream(rx)).is_err() {
                                 return;
                             }
                             content.stream(tx).await;
@@ -203,7 +199,8 @@ fn web_send_config(
     Vec<u8>,
 ) {
     let disk_content: Vec<u8> = (0..100_000u32).map(|i| i as u8).collect();
-    let disk_path = std::env::temp_dir().join(format!("localsend-web-send-{}", uuid::Uuid::new_v4()));
+    let disk_path =
+        std::env::temp_dir().join(format!("localsend-web-send-{}", uuid::Uuid::new_v4()));
     std::fs::write(&disk_path, &disk_content).expect("Failed to write test file");
 
     // The config only carries the metadata; the content is streamed by the
@@ -283,10 +280,7 @@ async fn test_web_page() {
         .await
         .unwrap();
     assert_eq!(response.status().as_u16(), 200);
-    let i18n = response
-        .json::<HashMap<String, String>>()
-        .await
-        .unwrap();
+    let i18n = response.json::<HashMap<String, String>>().await.unwrap();
     assert_eq!(i18n["enterPin"], "Enter PIN");
     assert!(i18n.contains_key("waiting"));
 

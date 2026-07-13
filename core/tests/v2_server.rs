@@ -3,15 +3,19 @@
 use localsend::http::client::{ClientError, LsHttpClientV2};
 use localsend::http::dto::ProtocolType;
 use localsend::http::dto_v2::{PrepareUploadRequestDtoV2, ProtocolTypeV2, RegisterDtoV2};
-use localsend::http::server::{PrepareUploadDecisionV2, ServerEventV2, SessionEndReasonV2};
 use localsend::http::server::{start_with_port, ServerConfigV2};
+use localsend::http::server::{
+    FileUploadTargetV2, PrepareUploadDecisionV2, ServerEventV2, SessionEndReasonV2,
+};
 use localsend::http::state::ClientInfo;
-use localsend::model::transfer::FileDto;
+use localsend::model::transfer::{FileContent, FileDto};
 use std::collections::HashMap;
+use std::path::PathBuf;
 use std::sync::atomic::{AtomicU16, Ordering};
 use std::sync::Arc;
 use std::time::Duration;
 use tokio::sync::{mpsc, oneshot, Mutex};
+use tokio_util::sync::CancellationToken;
 
 struct TestServer {
     port: u16,
@@ -22,7 +26,15 @@ struct TestServer {
     _stop_tx: oneshot::Sender<()>,
 }
 
-async fn start_test_server(pin: Option<String>, accept: bool) -> TestServer {
+/// Starts a test server.
+///
+/// Uploads are received as a stream, or written by the server into `save_dir`
+/// when given. Either way, the content ends up in [`TestServer::received`].
+async fn start_test_server(
+    pin: Option<String>,
+    accept: bool,
+    save_dir: Option<PathBuf>,
+) -> TestServer {
     let _ = tracing_subscriber::fmt().with_test_writer().try_init();
     let port = free_port();
     let received: Arc<Mutex<HashMap<String, Vec<u8>>>> = Arc::new(Mutex::new(HashMap::new()));
@@ -50,20 +62,41 @@ async fn start_test_server(pin: Option<String>, accept: bool) -> TestServer {
                         let _ = decision_tx.send(decision);
                     }
                     ServerEventV2::FileUpload {
-                        file_id,
-                        mut binary_rx,
-                        result_tx,
-                        ..
+                        file_id, target_tx, ..
                     } => {
                         let received = received.clone();
-                        tokio::spawn(async move {
-                            let mut bytes = Vec::new();
-                            while let Some(chunk) = binary_rx.recv().await {
-                                bytes.extend_from_slice(&chunk);
+                        match &save_dir {
+                            None => {
+                                let (binary_tx, mut binary_rx) = mpsc::channel(16);
+                                let (result_tx, result_rx) = oneshot::channel();
+                                let _ = target_tx.send(FileUploadTargetV2::Stream {
+                                    binary_tx,
+                                    result_rx,
+                                });
+                                tokio::spawn(async move {
+                                    let mut bytes = Vec::new();
+                                    while let Some(chunk) = binary_rx.recv().await {
+                                        bytes.extend_from_slice(&chunk);
+                                    }
+                                    received.lock().await.insert(file_id, bytes);
+                                    let _ = result_tx.send(Ok(()));
+                                });
                             }
-                            received.lock().await.insert(file_id, bytes);
-                            let _ = result_tx.send(Ok(()));
-                        });
+                            Some(dir) => {
+                                let path = dir.join(&file_id);
+                                let (result_tx, result_rx) = oneshot::channel();
+                                let _ = target_tx.send(FileUploadTargetV2::Path {
+                                    path: path.clone(),
+                                    result_tx,
+                                });
+                                tokio::spawn(async move {
+                                    if let Ok(Ok(())) = result_rx.await {
+                                        let bytes = tokio::fs::read(&path).await.unwrap();
+                                        received.lock().await.insert(file_id, bytes);
+                                    }
+                                });
+                            }
+                        }
                     }
                     ServerEventV2::SessionEnd { session_id, reason } => {
                         session_ends.lock().await.push((session_id, reason));
@@ -85,10 +118,7 @@ async fn start_test_server(pin: Option<String>, accept: bool) -> TestServer {
             device_type: None,
             token: "server-fingerprint".to_string(),
         },
-        Some(ServerConfigV2 {
-            pin,
-            event_tx,
-        }),
+        Some(ServerConfigV2 { pin, event_tx }),
         None,
         stop_rx,
     )
@@ -195,7 +225,8 @@ async fn upload_bytes(
             session_id,
             file_id,
             token,
-            rx,
+            FileContent::Stream(rx),
+            CancellationToken::new(),
         )
         .await
 }
@@ -210,7 +241,7 @@ fn assert_status(result: Result<impl Sized, ClientError>, expected_status: u16) 
 
 #[tokio::test]
 async fn test_register_and_info() {
-    let server = start_test_server(None, true).await;
+    let server = start_test_server(None, true, None).await;
     let client = LsHttpClientV2::try_new_without_cert().unwrap();
 
     let response = client
@@ -231,7 +262,7 @@ async fn test_register_and_info() {
 
 #[tokio::test]
 async fn test_register_over_ipv6() {
-    let server = start_test_server(None, true).await;
+    let server = start_test_server(None, true, None).await;
     let client = LsHttpClientV2::try_new_without_cert().unwrap();
 
     let response = client
@@ -243,7 +274,7 @@ async fn test_register_over_ipv6() {
 
 #[tokio::test]
 async fn test_full_upload_flow() {
-    let server = start_test_server(None, true).await;
+    let server = start_test_server(None, true, None).await;
     let client = LsHttpClientV2::try_new_without_cert().unwrap();
 
     let file_a = file_dto("file-a", "a.bin", 100_000);
@@ -317,8 +348,73 @@ async fn test_full_upload_flow() {
 }
 
 #[tokio::test]
+async fn test_upload_saved_to_path_by_server() {
+    let save_dir = std::env::temp_dir().join(format!("localsend-test-{}", uuid::Uuid::new_v4()));
+    tokio::fs::create_dir_all(&save_dir).await.unwrap();
+
+    let server = start_test_server(None, true, Some(save_dir.clone())).await;
+    let client = LsHttpClientV2::try_new_without_cert().unwrap();
+
+    let file_a = file_dto("file-a", "a.bin", 100_000);
+    let file_b = file_dto("file-b", "b.bin", 5);
+
+    let result = client
+        .prepare_upload(
+            ProtocolType::Http,
+            "127.0.0.1",
+            server.port,
+            None,
+            prepare_upload_request(&[file_a.clone(), file_b.clone()]),
+            None,
+        )
+        .await
+        .unwrap();
+    let response = result.response.unwrap();
+
+    let bytes_a: Vec<u8> = (0..100_000u32).map(|i| i as u8).collect();
+    let bytes_b = b"hello".to_vec();
+
+    upload_bytes(
+        &client,
+        server.port,
+        &response.session_id,
+        "file-a",
+        &response.files["file-a"],
+        &bytes_a,
+    )
+    .await
+    .unwrap();
+
+    upload_bytes(
+        &client,
+        server.port,
+        &response.session_id,
+        "file-b",
+        &response.files["file-b"],
+        &bytes_b,
+    )
+    .await
+    .unwrap();
+
+    // The test harness reads the files back after the server reported the result.
+    tokio::time::sleep(Duration::from_millis(100)).await;
+    let received = server.received.lock().await;
+    assert_eq!(received["file-a"], bytes_a);
+    assert_eq!(received["file-b"], bytes_b);
+    drop(received);
+
+    let session_ends = server.session_ends.lock().await;
+    assert_eq!(
+        *session_ends,
+        vec![(response.session_id.clone(), SessionEndReasonV2::Finished)]
+    );
+
+    let _ = tokio::fs::remove_dir_all(&save_dir).await;
+}
+
+#[tokio::test]
 async fn test_upload_with_invalid_token() {
-    let server = start_test_server(None, true).await;
+    let server = start_test_server(None, true, None).await;
     let client = LsHttpClientV2::try_new_without_cert().unwrap();
 
     let file = file_dto("file-a", "a.bin", 5);
@@ -362,7 +458,7 @@ async fn test_upload_with_invalid_token() {
 
 #[tokio::test]
 async fn test_upload_missing_parameters() {
-    let server = start_test_server(None, true).await;
+    let server = start_test_server(None, true, None).await;
 
     let response = localsend::reqwest::Client::new()
         .post(format!(
@@ -378,7 +474,7 @@ async fn test_upload_missing_parameters() {
 
 #[tokio::test]
 async fn test_second_session_blocked_and_cancel() {
-    let server = start_test_server(None, true).await;
+    let server = start_test_server(None, true, None).await;
     let client = LsHttpClientV2::try_new_without_cert().unwrap();
 
     let file = file_dto("file-a", "a.bin", 5);
@@ -442,7 +538,7 @@ async fn test_second_session_blocked_and_cancel() {
 
 #[tokio::test]
 async fn test_prepare_upload_declined() {
-    let server = start_test_server(None, false).await;
+    let server = start_test_server(None, false, None).await;
     let client = LsHttpClientV2::try_new_without_cert().unwrap();
 
     let file = file_dto("file-a", "a.bin", 5);
@@ -474,7 +570,7 @@ async fn test_prepare_upload_declined() {
 
 #[tokio::test]
 async fn test_pin() {
-    let server = start_test_server(Some("123456".to_string()), true).await;
+    let server = start_test_server(Some("123456".to_string()), true, None).await;
     let client = LsHttpClientV2::try_new_without_cert().unwrap();
 
     let file = file_dto("file-a", "a.bin", 5);
@@ -521,7 +617,7 @@ async fn test_pin() {
 
 #[tokio::test]
 async fn test_pin_too_many_attempts() {
-    let server = start_test_server(Some("123456".to_string()), true).await;
+    let server = start_test_server(Some("123456".to_string()), true, None).await;
     let client = LsHttpClientV2::try_new_without_cert().unwrap();
 
     let file = file_dto("file-a", "a.bin", 5);

@@ -1,5 +1,5 @@
-use serde::{Deserialize, Serialize};
 use crate::model::discovery::DeviceType;
+use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, Deserialize, Eq, Serialize, PartialEq)]
 #[serde(rename_all = "camelCase")]

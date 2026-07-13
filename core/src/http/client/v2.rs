@@ -5,12 +5,12 @@ use crate::http::dto_v2::{
     InfoResponseDtoV2, PrepareDownloadResponseDtoV2, PrepareUploadRequestDtoV2,
     PrepareUploadResponseDtoV2, PrepareUploadResultV2, RegisterDtoV2, RegisterResponseDtoV2,
 };
+use crate::model;
 use futures_util::StreamExt;
 use reqwest::{Response, StatusCode};
 use tokio::io::AsyncWriteExt;
-use tokio::sync::mpsc;
-use tokio_util::sync::CancellationToken;
 use tokio_stream::wrappers::ReceiverStream;
+use tokio_util::sync::CancellationToken;
 
 /// HTTP client for LocalSend Protocol v2.1.
 pub struct LsHttpClientV2 {
@@ -193,7 +193,7 @@ impl LsHttpClientV2 {
     /// * `session_id` - Session ID from prepare_upload
     /// * `file_id` - File ID to upload
     /// * `token` - File-specific token from prepare_upload
-    /// * `binary` - Channel receiving file chunks
+    /// * `content` - The file content to upload (a chunk stream or a raw file descriptor)
     /// * `cancel` - Cancellation token; cancelling it aborts the upload with [`ClientError::Cancelled`]
     ///
     /// # Errors
@@ -210,7 +210,7 @@ impl LsHttpClientV2 {
         session_id: &str,
         file_id: &str,
         token: &str,
-        binary: mpsc::Receiver<Vec<u8>>,
+        content: model::transfer::FileContent,
         cancel: CancellationToken,
     ) -> Result<(), ClientError> {
         let url = TargetUrl {
@@ -227,7 +227,7 @@ impl LsHttpClientV2 {
         }
         .to_string();
 
-        let stream = ReceiverStream::new(binary).map(Ok::<Vec<u8>, anyhow::Error>);
+        let stream = ReceiverStream::new(content.into_receiver()).map(Ok::<Vec<u8>, anyhow::Error>);
         let body = reqwest::Body::wrap_stream(stream);
 
         let res = tokio::select! {
