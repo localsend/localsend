@@ -90,6 +90,27 @@ pub enum WebSendEvent {
         /// Channel to send the decision (`true` to accept, `false` to decline).
         decision_tx: oneshot::Sender<bool>,
     },
+
+    /// An accepted web client downloads a file via `GET /api/localsend/v2/download`.
+    ///
+    /// The application must respond on `content_tx` with a channel receiving
+    /// the binary chunks of the file. The response body advertises `file.size`
+    /// bytes, so the application should send exactly that many bytes before
+    /// closing the channel (closing it earlier aborts the download).
+    /// Dropping `content_tx` results in a 500 response.
+    FileDownload {
+        /// The ID of the download session.
+        session_id: String,
+
+        /// The ID of the file being downloaded.
+        file_id: String,
+
+        /// The metadata of the file being downloaded.
+        file: FileDto,
+
+        /// Channel to provide the receiver on which the file content arrives.
+        content_tx: oneshot::Sender<mpsc::Receiver<Bytes>>,
+    },
 }
 
 /// The application's decision for a prepare-upload request.

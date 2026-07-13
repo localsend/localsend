@@ -18,21 +18,14 @@ use serde::Serialize;
 use std::collections::HashMap;
 use std::net::IpAddr;
 use std::num::NonZeroUsize;
-use std::path::PathBuf;
 use std::sync::Arc;
-use tokio::io::AsyncReadExt;
 use tokio::sync::{mpsc, oneshot, Mutex};
 use tokio_stream::wrappers::ReceiverStream;
+use tokio_stream::StreamExt;
 
 const INDEX_HTML: &str = include_str!("../../../../assets/web/index.html");
 const MAIN_JS: &str = include_str!("../../../../assets/web/main.js");
 const ERROR_403_HTML: &str = include_str!("../../../../assets/web/error-403.html");
-
-/// Buffer size for reading files from disk during downloads.
-const DOWNLOAD_BUFFER_SIZE: usize = 64 * 1024;
-
-/// Channel capacity for file download chunks (provides backpressure).
-const DOWNLOAD_CHANNEL_CAPACITY: usize = 16;
 
 /// Characters that are percent-encoded in the content-disposition file name.
 /// Matches the component encoding of RFC 2396 (letters, digits and marks are kept).
@@ -51,8 +44,11 @@ const FILE_NAME_ENCODE_SET: &AsciiSet = &NON_ALPHANUMERIC
 ///
 /// Web send can be enabled independently of the v2/v3 protocol endpoints.
 pub struct WebSendConfig {
-    /// The files offered for download, mapped by file ID.
-    pub files: HashMap<String, WebSendFile>,
+    /// The metadata of the files offered for download, mapped by file ID.
+    ///
+    /// The content is requested from the application per download
+    /// via [`WebSendEvent::FileDownload`].
+    pub files: HashMap<String, FileDto>,
 
     /// Optional PIN that web clients must provide via the `pin` query parameter.
     pub pin: Option<String>,
@@ -62,24 +58,6 @@ pub struct WebSendConfig {
 
     /// Channel on which the server emits events that must be handled by the application.
     pub event_tx: mpsc::Sender<WebSendEvent>,
-}
-
-/// A file offered for download.
-pub struct WebSendFile {
-    /// The metadata of the file as presented to the web client.
-    pub dto: FileDto,
-
-    /// The content of the file.
-    pub content: WebSendFileContent,
-}
-
-/// The content source of a file offered for download.
-pub enum WebSendFileContent {
-    /// In-memory content (e.g. a text message or clipboard content).
-    Bytes(Bytes),
-
-    /// The content is read from the file system at download time.
-    Path(PathBuf),
 }
 
 /// Translations for the web page, served via `/i18n.json`.
@@ -113,8 +91,8 @@ impl Default for WebSendI18n {
 
 /// Runtime state of the web send (download API) endpoints.
 pub(crate) struct WebPageState {
-    /// The files offered for download, mapped by file ID.
-    pub(crate) files: HashMap<String, WebSendFile>,
+    /// The metadata of the files offered for download, mapped by file ID.
+    pub(crate) files: HashMap<String, FileDto>,
 
     /// Optional PIN required for prepare-download requests.
     pub(crate) pin: Option<String>,
@@ -301,28 +279,27 @@ pub(crate) async fn download(
         ));
     };
 
-    let (size, body) = match &file.content {
-        WebSendFileContent::Bytes(bytes) => (bytes.len() as u64, full_body(bytes.clone())),
-        WebSendFileContent::Path(path) => {
-            let file = tokio::fs::File::open(path).await.map_err(|err| {
-                tracing::warn!("Failed to open file {path:?}: {err:#}");
-                AppError::Status(StatusCode::INTERNAL_SERVER_ERROR)
-            })?;
-
-            // Read the size at download time since the file
-            // could have changed since it was selected.
-            let size = file
-                .metadata()
-                .await
-                .map_err(|_| AppError::Status(StatusCode::INTERNAL_SERVER_ERROR))?
-                .len();
-
-            (size, file_stream_body(file))
-        }
+    // The application provides the file content as a stream of bytes.
+    let (content_tx, content_rx) = oneshot::channel();
+    let event = WebSendEvent::FileDownload {
+        session_id: session_id.clone(),
+        file_id: file_id.clone(),
+        file: file.clone(),
+        content_tx,
     };
+    if web.event_tx.send(event).await.is_err() {
+        return Err(AppError::Status(StatusCode::INTERNAL_SERVER_ERROR));
+    }
+
+    let binary_rx = content_rx
+        .await
+        .map_err(|_| AppError::Status(StatusCode::INTERNAL_SERVER_ERROR))?;
+
+    let size = file.size;
+    let body = receiver_stream_body(binary_rx);
 
     // The file name may be inside directories.
-    let file_name = file.dto.file_name.replace('/', "-");
+    let file_name = file.file_name.replace('/', "-");
     let encoded_file_name = utf8_percent_encode(&file_name, FILE_NAME_ENCODE_SET);
 
     let mut response = Response::new(body);
@@ -389,40 +366,17 @@ async fn file_list_response(
                 download: true,
             },
             session_id,
-            files: web
-                .files
-                .iter()
-                .map(|(id, file)| (id.clone(), file.dto.clone()))
-                .collect(),
+            files: web.files.clone(),
         },
     }
     .into_response()
 }
 
-/// Streams a file from disk as a response body.
-fn file_stream_body(mut file: tokio::fs::File) -> BoxedBody {
-    let (tx, rx) = mpsc::channel::<Result<Frame<Bytes>, std::io::Error>>(DOWNLOAD_CHANNEL_CAPACITY);
-
-    tokio::spawn(async move {
-        let mut buffer = vec![0u8; DOWNLOAD_BUFFER_SIZE];
-        loop {
-            match file.read(&mut buffer).await {
-                Ok(0) => break, // EOF
-                Ok(bytes_read) => {
-                    let chunk = Bytes::copy_from_slice(&buffer[..bytes_read]);
-                    if tx.send(Ok(Frame::data(chunk))).await.is_err() {
-                        break; // client disconnected
-                    }
-                }
-                Err(err) => {
-                    let _ = tx.send(Err(err)).await;
-                    break;
-                }
-            }
-        }
-    });
-
-    StreamBody::new(ReceiverStream::new(rx)).boxed()
+/// Streams application-provided chunks as a response body.
+fn receiver_stream_body(binary_rx: mpsc::Receiver<Bytes>) -> BoxedBody {
+    let stream =
+        ReceiverStream::new(binary_rx).map(|chunk| Ok::<_, std::io::Error>(Frame::data(chunk)));
+    StreamBody::new(stream).boxed()
 }
 
 /// Removes a pending download session unless it was accepted.

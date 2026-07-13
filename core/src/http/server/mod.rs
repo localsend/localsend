@@ -7,9 +7,7 @@ mod query;
 mod response;
 mod session;
 
-pub use crate::http::server::controller::web::{
-    WebSendConfig, WebSendFile, WebSendFileContent, WebSendI18n,
-};
+pub use crate::http::server::controller::web::{WebSendConfig, WebSendI18n};
 
 use crate::crypto::cert::public_key_from_cert_der;
 use crate::http::server::client_cert_verifier::CustomClientCertVerifier;

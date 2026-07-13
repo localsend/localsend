@@ -4,9 +4,7 @@ use bytes::Bytes;
 use localsend::http::client::{ClientError, LsHttpClientV2};
 use localsend::http::dto::ProtocolType;
 use localsend::http::server::event::{ServerEventV2, WebSendEvent};
-use localsend::http::server::{
-    start_with_port, ServerConfigV2, WebSendConfig, WebSendFile, WebSendFileContent, WebSendI18n,
-};
+use localsend::http::server::{start_with_port, ServerConfigV2, WebSendConfig, WebSendI18n};
 use localsend::http::state::ClientInfo;
 use localsend::model::transfer::FileDto;
 use std::collections::HashMap;
@@ -15,7 +13,8 @@ use std::path::PathBuf;
 use std::sync::atomic::{AtomicU16, AtomicU32, Ordering};
 use std::sync::Arc;
 use std::time::Duration;
-use tokio::sync::oneshot;
+use tokio::io::AsyncReadExt;
+use tokio::sync::{mpsc, oneshot};
 
 struct TestServer {
     port: u16,
@@ -24,22 +23,88 @@ struct TestServer {
     _stop_tx: oneshot::Sender<()>,
 }
 
-async fn start_test_server(web_send: Option<WebSendConfig>, accept: bool) -> TestServer {
+/// The content sources backing the offered files, used by the test event
+/// handler to answer `FileDownload` events.
+#[derive(Clone)]
+enum TestFileContent {
+    Bytes(Bytes),
+    Path(PathBuf),
+}
+
+impl TestFileContent {
+    /// Streams the content into `tx`, mimicking how an application would
+    /// serve in-memory content or a file from disk.
+    async fn stream(self, tx: mpsc::Sender<Bytes>) {
+        match self {
+            TestFileContent::Bytes(bytes) => {
+                let _ = tx.send(bytes).await;
+            }
+            TestFileContent::Path(path) => {
+                let mut file = tokio::fs::File::open(&path)
+                    .await
+                    .expect("Failed to open test file");
+                let mut buffer = vec![0u8; 4096];
+                loop {
+                    let bytes_read = file.read(&mut buffer).await.expect("Failed to read");
+                    if bytes_read == 0 {
+                        break; // EOF
+                    }
+                    if tx
+                        .send(Bytes::copy_from_slice(&buffer[..bytes_read]))
+                        .await
+                        .is_err()
+                    {
+                        break; // client disconnected
+                    }
+                }
+            }
+        }
+    }
+}
+
+async fn start_test_server(
+    web_send: Option<(WebSendConfig, HashMap<String, TestFileContent>)>,
+    accept: bool,
+) -> TestServer {
     let _ = tracing_subscriber::fmt().with_test_writer().try_init();
     let port = free_port();
     let prepare_download_events = Arc::new(AtomicU32::new(0));
 
+    let (web_send, contents) = match web_send {
+        Some((config, contents)) => (Some(config), contents),
+        None => (None, HashMap::new()),
+    };
+
     // Web send emits its own event type, independent of the v2 protocol events.
-    let (web_event_tx, mut web_event_rx) = tokio::sync::mpsc::channel::<WebSendEvent>(16);
+    let (web_event_tx, mut web_event_rx) = mpsc::channel::<WebSendEvent>(16);
 
     tokio::spawn({
         let prepare_download_events = prepare_download_events.clone();
         async move {
-            while let Some(WebSendEvent::PrepareDownload { decision_tx, .. }) =
-                web_event_rx.recv().await
-            {
-                prepare_download_events.fetch_add(1, Ordering::SeqCst);
-                let _ = decision_tx.send(accept);
+            while let Some(event) = web_event_rx.recv().await {
+                match event {
+                    WebSendEvent::PrepareDownload { decision_tx, .. } => {
+                        prepare_download_events.fetch_add(1, Ordering::SeqCst);
+                        let _ = decision_tx.send(accept);
+                    }
+                    WebSendEvent::FileDownload {
+                        file_id,
+                        content_tx,
+                        ..
+                    } => {
+                        let content = contents
+                            .get(&file_id)
+                            .expect("FileDownload for unknown file")
+                            .clone();
+                        tokio::spawn(async move {
+                            let (tx, rx) = mpsc::channel::<Bytes>(16);
+                            if content_tx.send(rx).is_err() {
+                                return;
+                            }
+                            content.stream(tx).await;
+                        });
+                    }
+                }
             }
         }
     });
@@ -127,31 +192,46 @@ fn file_dto(id: &str, name: &str, size: u64) -> FileDto {
 
 /// Creates a web send config with an in-memory text file and a file on disk.
 ///
-/// Returns the config and the path of the file on disk (the caller should delete it).
-fn web_send_config(pin: Option<String>) -> (WebSendConfig, PathBuf, Vec<u8>) {
+/// Returns the config, the content sources for the test event handler and
+/// the path of the file on disk (the caller should delete it).
+fn web_send_config(
+    pin: Option<String>,
+) -> (
+    WebSendConfig,
+    HashMap<String, TestFileContent>,
+    PathBuf,
+    Vec<u8>,
+) {
     let disk_content: Vec<u8> = (0..100_000u32).map(|i| i as u8).collect();
     let disk_path = std::env::temp_dir().join(format!("localsend-web-send-{}", uuid::Uuid::new_v4()));
     std::fs::write(&disk_path, &disk_content).expect("Failed to write test file");
 
+    // The config only carries the metadata; the content is streamed by the
+    // test event handler when the server emits `FileDownload`.
     let files = HashMap::from([
         (
             "file-text".to_string(),
-            WebSendFile {
-                dto: file_dto("file-text", "message.txt", 5),
-                content: WebSendFileContent::Bytes(Bytes::from_static(b"hello")),
-            },
+            file_dto("file-text", "message.txt", 5),
         ),
         (
             "file-disk".to_string(),
-            WebSendFile {
-                dto: file_dto("file-disk", "dir/data.bin", disk_content.len() as u64),
-                content: WebSendFileContent::Path(disk_path.clone()),
-            },
+            file_dto("file-disk", "dir/data.bin", disk_content.len() as u64),
+        ),
+    ]);
+
+    let contents = HashMap::from([
+        (
+            "file-text".to_string(),
+            TestFileContent::Bytes(Bytes::from_static(b"hello")),
+        ),
+        (
+            "file-disk".to_string(),
+            TestFileContent::Path(disk_path.clone()),
         ),
     ]);
 
     // The event channel is a placeholder; `start_test_server` replaces it with
-    // the one whose receiver counts `PrepareDownload` events.
+    // the one whose receiver handles the web send events.
     let (event_tx, _event_rx) = tokio::sync::mpsc::channel::<WebSendEvent>(16);
 
     (
@@ -161,6 +241,7 @@ fn web_send_config(pin: Option<String>) -> (WebSendConfig, PathBuf, Vec<u8>) {
             i18n: WebSendI18n::default(),
             event_tx,
         },
+        contents,
         disk_path,
         disk_content,
     )
@@ -176,8 +257,8 @@ fn assert_status(result: Result<impl Sized, ClientError>, expected_status: u16) 
 
 #[tokio::test]
 async fn test_web_page() {
-    let (config, disk_path, _) = web_send_config(None);
-    let server = start_test_server(Some(config), true).await;
+    let (config, contents, disk_path, _) = web_send_config(None);
+    let server = start_test_server(Some((config, contents)), true).await;
     let client = localsend::reqwest::Client::new();
     let base_url = format!("http://127.0.0.1:{}", server.port);
 
@@ -246,8 +327,8 @@ async fn test_web_page_disabled() {
 
 #[tokio::test]
 async fn test_full_download_flow() {
-    let (config, disk_path, disk_content) = web_send_config(None);
-    let server = start_test_server(Some(config), true).await;
+    let (config, contents, disk_path, disk_content) = web_send_config(None);
+    let server = start_test_server(Some((config, contents)), true).await;
     let client = LsHttpClientV2::try_new_without_cert().unwrap();
 
     let response = client
@@ -318,8 +399,8 @@ async fn test_full_download_flow() {
 
 #[tokio::test]
 async fn test_prepare_download_rejected() {
-    let (config, disk_path, _) = web_send_config(None);
-    let server = start_test_server(Some(config), false).await;
+    let (config, contents, disk_path, _) = web_send_config(None);
+    let server = start_test_server(Some((config, contents)), false).await;
     let client = LsHttpClientV2::try_new_without_cert().unwrap();
 
     let result = client
@@ -345,8 +426,8 @@ async fn test_prepare_download_rejected() {
 
 #[tokio::test]
 async fn test_download_invalid_session() {
-    let (config, disk_path, _) = web_send_config(None);
-    let server = start_test_server(Some(config), true).await;
+    let (config, contents, disk_path, _) = web_send_config(None);
+    let server = start_test_server(Some((config, contents)), true).await;
     let client = LsHttpClientV2::try_new_without_cert().unwrap();
 
     let result = client
@@ -381,8 +462,8 @@ async fn test_download_invalid_session() {
 
 #[tokio::test]
 async fn test_pin() {
-    let (config, disk_path, _) = web_send_config(Some("123456".to_string()));
-    let server = start_test_server(Some(config), true).await;
+    let (config, contents, disk_path, _) = web_send_config(Some("123456".to_string()));
+    let server = start_test_server(Some((config, contents)), true).await;
     let client = LsHttpClientV2::try_new_without_cert().unwrap();
 
     // Missing PIN.
@@ -420,8 +501,8 @@ async fn test_pin() {
 
 #[tokio::test]
 async fn test_pin_too_many_attempts() {
-    let (config, disk_path, _) = web_send_config(Some("123456".to_string()));
-    let server = start_test_server(Some(config), true).await;
+    let (config, contents, disk_path, _) = web_send_config(Some("123456".to_string()));
+    let server = start_test_server(Some((config, contents)), true).await;
     let client = LsHttpClientV2::try_new_without_cert().unwrap();
 
     for _ in 0..3 {
