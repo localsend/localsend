@@ -47,7 +47,8 @@ bool isNetworkIgnoredRaw({
 /// - '123.123.124.*' -> '^123\.123\.124\.[^.]+$'
 /// - '1::1:*:3' -> '^1::1:[^.]+:3$'
 RegExp buildRegExpFromIpFilter(String ip) {
-  return RegExp('^${ip.replaceAll('.', '\\.').replaceAll('*', '[^.]+')}\$');
+  final pattern = ip.split('*').map(RegExp.escape).join('[^.]+');
+  return RegExp('^$pattern\$');
 }
 
 /// Returns true if the given IP should be ignored.
