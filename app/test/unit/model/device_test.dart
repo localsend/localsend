@@ -1,4 +1,4 @@
-import 'package:localsend_app/common/model/device.dart';
+import 'package:localsend_app/isolate/model/device.dart';
 import 'package:test/test.dart';
 
 void main() {

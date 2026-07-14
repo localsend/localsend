@@ -1,10 +1,10 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:localsend_app/common/model/device.dart';
-import 'package:localsend_app/common/model/session_status.dart';
 import 'package:localsend_app/config/theme.dart';
 import 'package:localsend_app/gen/strings.g.dart';
+import 'package:localsend_app/isolate/model/device.dart';
+import 'package:localsend_app/isolate/model/session_status.dart';
 import 'package:localsend_app/model/persistence/receive_history_entry.dart';
 import 'package:localsend_app/pages/receive_page.dart';
 import 'package:localsend_app/provider/receive_history_provider.dart';

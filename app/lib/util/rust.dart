@@ -1,6 +1,6 @@
-import 'package:localsend_app/common/model/device.dart';
-import 'package:localsend_app/common/model/dto/file_dto.dart';
-import 'package:localsend_app/common/model/dto/multicast_dto.dart';
+import 'package:localsend_app/isolate/model/device.dart';
+import 'package:localsend_app/isolate/model/dto/file_dto.dart';
+import 'package:localsend_app/isolate/model/dto/multicast_dto.dart';
 import 'package:localsend_app/rust/api/model.dart' as rust_model;
 import 'package:mime/mime.dart';
 

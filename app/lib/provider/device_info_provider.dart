@@ -1,8 +1,8 @@
 import 'package:collection/collection.dart';
-import 'package:localsend_app/common/constants.dart';
-import 'package:localsend_app/common/isolate.dart';
-import 'package:localsend_app/common/model/device.dart';
-import 'package:localsend_app/common/model/device_info_result.dart';
+import 'package:localsend_app/isolate/constants.dart';
+import 'package:localsend_app/isolate/isolate.dart';
+import 'package:localsend_app/isolate/model/device.dart';
+import 'package:localsend_app/isolate/model/device_info_result.dart';
 import 'package:localsend_app/provider/local_ip_provider.dart';
 import 'package:localsend_app/provider/network/server/server_provider.dart';
 import 'package:localsend_app/provider/security_provider.dart';

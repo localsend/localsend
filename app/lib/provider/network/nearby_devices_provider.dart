@@ -1,8 +1,8 @@
 import 'dart:async';
 
 import 'package:collection/collection.dart';
-import 'package:localsend_app/common/isolate.dart';
-import 'package:localsend_app/common/model/device.dart';
+import 'package:localsend_app/isolate/isolate.dart';
+import 'package:localsend_app/isolate/model/device.dart';
 import 'package:localsend_app/model/persistence/favorite_device.dart';
 import 'package:localsend_app/model/state/nearby_devices_state.dart';
 import 'package:localsend_app/provider/favorites_provider.dart';

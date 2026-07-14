@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:collection/collection.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/foundation.dart';
-import 'package:localsend_app/common/util/network_interfaces.dart';
+import 'package:localsend_app/isolate/util/network_interfaces.dart';
 import 'package:localsend_app/model/state/network_state.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/util/native/platform_check.dart';

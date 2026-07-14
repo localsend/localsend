@@ -1,11 +1,11 @@
 import 'package:dart_mappable/dart_mappable.dart';
-import 'package:localsend_app/common/model/device.dart';
-import 'package:localsend_app/common/model/dto/file_dto.dart';
-import 'package:localsend_app/common/model/dto/info_register_dto.dart';
-import 'package:localsend_app/common/model/dto/multicast_dto.dart';
-import 'package:localsend_app/common/model/dto/prepare_upload_request_dto.dart';
-import 'package:localsend_app/common/model/dto/prepare_upload_response_dto.dart';
-import 'package:localsend_app/common/model/file_type.dart';
+import 'package:localsend_app/isolate/model/device.dart';
+import 'package:localsend_app/isolate/model/dto/file_dto.dart';
+import 'package:localsend_app/isolate/model/dto/info_register_dto.dart';
+import 'package:localsend_app/isolate/model/dto/multicast_dto.dart';
+import 'package:localsend_app/isolate/model/dto/prepare_upload_request_dto.dart';
+import 'package:localsend_app/isolate/model/dto/prepare_upload_response_dto.dart';
+import 'package:localsend_app/isolate/model/file_type.dart';
 import 'package:test/test.dart';
 
 void main() {

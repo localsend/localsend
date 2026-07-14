@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:flutter/foundation.dart';
-import 'package:localsend_app/common/constants.dart';
-import 'package:localsend_app/common/model/device.dart';
+import 'package:localsend_app/isolate/constants.dart';
+import 'package:localsend_app/isolate/model/device.dart';
 import 'package:localsend_app/provider/device_info_provider.dart';
 import 'package:localsend_app/provider/favorites_provider.dart';
 import 'package:localsend_app/provider/network/nearby_devices_provider.dart';

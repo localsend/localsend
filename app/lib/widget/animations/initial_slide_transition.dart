@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:localsend_app/common/util/sleep.dart';
+import 'package:localsend_app/isolate/util/sleep.dart';
 
 class InitialSlideTransition extends StatefulWidget {
   final Widget child;

@@ -1,4 +1,4 @@
-import 'package:localsend_app/common/util/network_interfaces.dart';
+import 'package:localsend_app/isolate/util/network_interfaces.dart';
 import 'package:test/test.dart';
 
 void main() {
