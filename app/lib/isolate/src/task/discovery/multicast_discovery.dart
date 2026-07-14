@@ -2,15 +2,14 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:localsend_app/isolate/api_route_builder.dart';
 import 'package:localsend_app/isolate/constants.dart';
 import 'package:localsend_app/isolate/isolate.dart';
 import 'package:localsend_app/isolate/model/device.dart';
 import 'package:localsend_app/isolate/model/dto/multicast_dto.dart';
-import 'package:localsend_app/isolate/model/dto/register_dto.dart';
 import 'package:localsend_app/isolate/src/isolate/child/http_provider.dart';
 import 'package:localsend_app/isolate/util/network_interfaces.dart';
 import 'package:localsend_app/isolate/util/sleep.dart';
+import 'package:localsend_app/util/rust.dart';
 import 'package:logging/logging.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 
@@ -134,9 +133,11 @@ class MulticastService {
       await _ref
           .read(httpProvider)
           .discovery
-          .post(
-            uri: ApiRoute.register.target(peer),
-            json: _getRegisterDto().toJson(),
+          .register(
+            protocol: peer.getProtocolType(),
+            ip: peer.ip!,
+            port: peer.port,
+            payload: _ref.read(syncProvider).toRegisterDto(),
           );
       _logger.info('Respond to announcement of ${peer.alias} (${peer.ip}, model: ${peer.deviceModel}) via TCP');
     } catch (e) {
@@ -176,20 +177,6 @@ class MulticastService {
       announce: announcement,
     );
     return utf8.encode(jsonEncode(dto.toJson()));
-  }
-
-  RegisterDto _getRegisterDto() {
-    final syncState = _ref.read(syncProvider);
-    return RegisterDto(
-      alias: syncState.alias,
-      version: protocolVersion,
-      deviceModel: syncState.deviceInfo.deviceModel,
-      deviceType: syncState.deviceInfo.deviceType,
-      fingerprint: syncState.securityContext.certificateHash,
-      port: syncState.port,
-      protocol: syncState.protocol,
-      download: syncState.download,
-    );
   }
 }
 

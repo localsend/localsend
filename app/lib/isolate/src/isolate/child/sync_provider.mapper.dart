@@ -24,26 +24,10 @@ class SyncStateMapper extends ClassMapperBase<SyncState> {
   @override
   final String id = 'SyncState';
 
-  static Function _$init(SyncState v) => (v as dynamic).init as Function;
-  static dynamic _arg$init(f) => f<Future<void> Function()>();
-  static const Field<SyncState, Function> _f$init = Field(
-    'init',
-    _$init,
-    arg: _arg$init,
-  );
   static Object _$rootIsolateToken(SyncState v) => v.rootIsolateToken;
   static const Field<SyncState, Object> _f$rootIsolateToken = Field(
     'rootIsolateToken',
     _$rootIsolateToken,
-  );
-  static Function _$httpClientFactory(SyncState v) =>
-      (v as dynamic).httpClientFactory as Function;
-  static dynamic _arg$httpClientFactory(f) =>
-      f<CustomHttpClient Function(Duration, StoredSecurityContext)>();
-  static const Field<SyncState, Function> _f$httpClientFactory = Field(
-    'httpClientFactory',
-    _$httpClientFactory,
-    arg: _arg$httpClientFactory,
   );
   static StoredSecurityContext _$securityContext(SyncState v) =>
       v.securityContext;
@@ -96,9 +80,7 @@ class SyncStateMapper extends ClassMapperBase<SyncState> {
 
   @override
   final MappableFields<SyncState> fields = const {
-    #init: _f$init,
     #rootIsolateToken: _f$rootIsolateToken,
-    #httpClientFactory: _f$httpClientFactory,
     #securityContext: _f$securityContext,
     #deviceInfo: _f$deviceInfo,
     #alias: _f$alias,
@@ -114,9 +96,7 @@ class SyncStateMapper extends ClassMapperBase<SyncState> {
 
   static SyncState _instantiate(DecodingData data) {
     return SyncState(
-      init: data.dec(_f$init),
       rootIsolateToken: data.dec(_f$rootIsolateToken),
-      httpClientFactory: data.dec(_f$httpClientFactory),
       securityContext: data.dec(_f$securityContext),
       deviceInfo: data.dec(_f$deviceInfo),
       alias: data.dec(_f$alias),
@@ -201,10 +181,7 @@ abstract class SyncStateCopyWith<$R, $In extends SyncState, $Out>
   ListCopyWith<$R, String, ObjectCopyWith<$R, String, String>>?
   get networkBlacklist;
   $R call({
-    Future<void> Function()? init,
     Object? rootIsolateToken,
-    CustomHttpClient Function(Duration, StoredSecurityContext)?
-    httpClientFactory,
     StoredSecurityContext? securityContext,
     DeviceInfoResult? deviceInfo,
     String? alias,
@@ -256,10 +233,7 @@ class _SyncStateCopyWithImpl<$R, $Out>
       : null;
   @override
   $R call({
-    Future<void> Function()? init,
     Object? rootIsolateToken,
-    CustomHttpClient Function(Duration, StoredSecurityContext)?
-    httpClientFactory,
     StoredSecurityContext? securityContext,
     DeviceInfoResult? deviceInfo,
     String? alias,
@@ -273,9 +247,7 @@ class _SyncStateCopyWithImpl<$R, $Out>
     bool? download,
   }) => $apply(
     FieldCopyWithData({
-      if (init != null) #init: init,
       if (rootIsolateToken != null) #rootIsolateToken: rootIsolateToken,
-      if (httpClientFactory != null) #httpClientFactory: httpClientFactory,
       if (securityContext != null) #securityContext: securityContext,
       if (deviceInfo != null) #deviceInfo: deviceInfo,
       if (alias != null) #alias: alias,
@@ -291,12 +263,7 @@ class _SyncStateCopyWithImpl<$R, $Out>
   );
   @override
   SyncState $make(CopyWithData data) => SyncState(
-    init: data.get(#init, or: $value.init),
     rootIsolateToken: data.get(#rootIsolateToken, or: $value.rootIsolateToken),
-    httpClientFactory: data.get(
-      #httpClientFactory,
-      or: $value.httpClientFactory,
-    ),
     securityContext: data.get(#securityContext, or: $value.securityContext),
     deviceInfo: data.get(#deviceInfo, or: $value.deviceInfo),
     alias: data.get(#alias, or: $value.alias),

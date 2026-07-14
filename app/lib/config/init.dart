@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:bitsdojo_window/bitsdojo_window.dart';
@@ -43,12 +44,10 @@ import 'package:localsend_app/util/native/device_info_helper.dart';
 import 'package:localsend_app/util/native/macos_channel.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_app/util/native/tray_helper.dart';
-import 'package:localsend_app/util/rhttp.dart';
 import 'package:localsend_app/util/ui/dynamic_colors.dart';
 import 'package:localsend_app/util/ui/snackbar.dart';
 import 'package:logging/logging.dart';
 import 'package:refena_flutter/refena_flutter.dart';
-import 'package:rhttp/rhttp.dart';
 import 'package:share_handler/share_handler.dart';
 import 'package:window_manager/window_manager.dart';
 
@@ -71,8 +70,6 @@ Future<RefenaContainer> preInit(List<String> args) async {
     }
   }
 
-  await Rhttp.init();
-
   final dynamicColors = await getDynamicColors();
 
   final persistenceService = await PersistenceService.initialize(
@@ -90,25 +87,36 @@ Future<RefenaContainer> preInit(List<String> args) async {
     // Check if this app is already open and let it "show up".
     // If this is the case, then exit the current instance.
 
-    final client = createRhttpClient(const Duration(milliseconds: 100), persistenceService.getSecurityContext());
+    final client = HttpClient();
+    client.connectionTimeout = const Duration(milliseconds: 100);
+    client.badCertificateCallback = (cert, host, port) => true;
 
     try {
-      await client.post(
-        ApiRoute.show.targetRaw(
-          '127.0.0.1',
-          persistenceService.getPort(),
-          persistenceService.isHttps(),
-          peerProtocolVersion,
-        ),
-        query: {
-          'token': persistenceService.getShowToken(),
-        },
-        body: HttpBody.json({
-          'args': args,
-        }),
-      );
-      exit(0); // Another instance does exist because no error is thrown
-    } catch (_) {}
+      final uri =
+          Uri.parse(
+            ApiRoute.show.targetRaw(
+              '127.0.0.1',
+              persistenceService.getPort(),
+              persistenceService.isHttps(),
+              peerProtocolVersion,
+            ),
+          ).replace(
+            queryParameters: {
+              'token': persistenceService.getShowToken(),
+            },
+          );
+
+      final request = await client.postUrl(uri);
+      request.headers.contentType = ContentType.json;
+      request.write(jsonEncode({'args': args}));
+      final response = await request.close().timeout(const Duration(milliseconds: 500));
+      if (response.statusCode == 200) {
+        exit(0); // Another instance does exist
+      }
+    } catch (_) {
+    } finally {
+      client.close(force: true);
+    }
 
     // initialize tray AFTER i18n has been initialized
     try {
@@ -162,11 +170,7 @@ Future<RefenaContainer> preInit(List<String> args) async {
       return IsolateController(
         initialState: ParentIsolateState.initial(
           SyncState(
-            init: () async {
-              await Rhttp.init();
-            },
             rootIsolateToken: RootIsolateToken.instance!,
-            httpClientFactory: RhttpWrapper.create,
             securityContext: persistenceService.getSecurityContext(),
             deviceInfo: ref.read(deviceInfoProvider),
             alias: settings.alias,

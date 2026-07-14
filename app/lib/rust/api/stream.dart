@@ -14,4 +14,7 @@ abstract class Dart2RustStreamReceiver implements RustOpaqueInterface {}
 // Rust type: RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<Dart2RustStreamSink>>
 abstract class Dart2RustStreamSink implements RustOpaqueInterface {
   Future<void> add({required List<int> data});
+
+  /// Closes the stream, signaling the end of data to the Rust side.
+  void close();
 }

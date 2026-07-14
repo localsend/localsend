@@ -32,8 +32,6 @@ PODS:
   - photo_manager (3.10.0):
     - Flutter
     - FlutterMacOS
-  - rhttp (0.0.1):
-    - FlutterMacOS
   - rust_lib_localsend_app (0.0.1):
     - FlutterMacOS
   - screen_retriever_macos (0.0.1):
@@ -72,7 +70,6 @@ DEPENDENCIES:
   - package_info_plus (from `Flutter/ephemeral/.symlinks/plugins/package_info_plus/macos`)
   - pasteboard (from `Flutter/ephemeral/.symlinks/plugins/pasteboard/macos`)
   - photo_manager (from `Flutter/ephemeral/.symlinks/plugins/photo_manager/darwin`)
-  - rhttp (from `Flutter/ephemeral/.symlinks/plugins/rhttp/macos`)
   - rust_lib_localsend_app (from `Flutter/ephemeral/.symlinks/plugins/rust_lib_localsend_app/macos`)
   - screen_retriever_macos (from `Flutter/ephemeral/.symlinks/plugins/screen_retriever_macos/macos`)
   - shared_preferences_foundation (from `Flutter/ephemeral/.symlinks/plugins/shared_preferences_foundation/darwin`)
@@ -118,8 +115,6 @@ EXTERNAL SOURCES:
     :path: Flutter/ephemeral/.symlinks/plugins/pasteboard/macos
   photo_manager:
     :path: Flutter/ephemeral/.symlinks/plugins/photo_manager/darwin
-  rhttp:
-    :path: Flutter/ephemeral/.symlinks/plugins/rhttp/macos
   rust_lib_localsend_app:
     :path: Flutter/ephemeral/.symlinks/plugins/rust_lib_localsend_app/macos
   screen_retriever_macos:
@@ -156,7 +151,6 @@ SPEC CHECKSUMS:
   package_info_plus: f0052d280d17aa382b932f399edf32507174e870
   pasteboard: 278d8100149f940fb795d6b3a74f0720c890ecb7
   photo_manager: 93cc83778e33d5fd49dfd7e34b73f8f5a4f10aaf
-  rhttp: 08d791d6373089de796318f4cfb172cbcf34e78b
   rust_lib_localsend_app: 293779a82668308386129c9669c081d201d3e278
   screen_retriever_macos: c5508cc3c66ff0d4db650480cf0ab691e220d933
   shared_preferences_foundation: 7036424c3d8ec98dfe75ff1667cb0cd531ec82bb

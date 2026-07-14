@@ -128,7 +128,6 @@ class IsolateHttpUploadAction extends ReduxActionWithResult<IsolateController, P
   final String fileId;
   final String? filePath;
   final List<int>? fileBytes;
-  final String mime;
   final int fileSize;
   final Device device;
 
@@ -139,7 +138,6 @@ class IsolateHttpUploadAction extends ReduxActionWithResult<IsolateController, P
     required this.fileId,
     required this.filePath,
     required this.fileBytes,
-    required this.mime,
     required this.fileSize,
     required this.device,
   });
@@ -154,7 +152,6 @@ class IsolateHttpUploadAction extends ReduxActionWithResult<IsolateController, P
       fileId: fileId,
       filePath: filePath,
       fileBytes: fileBytes,
-      mime: mime,
       fileSize: fileSize,
       device: device,
     );

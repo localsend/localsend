@@ -56,7 +56,6 @@ dependencies:
   pretty_qr_code: 3.6.0
   refena_flutter: 3.2.1
   refena_inspector_client: 2.1.1
-  rhttp: 0.18.0
   routerino: 0.8.1
   rust_lib_localsend_app:
     path: rust_builder

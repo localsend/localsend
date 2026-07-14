@@ -24,9 +24,13 @@ pub struct LsHttpClientV3 {
 }
 
 impl LsHttpClientV3 {
-    pub fn try_new(private_key: &str, cert: &str) -> Result<Self, ClientError> {
+    pub fn try_new(
+        private_key: &str,
+        cert: &str,
+        timeout: Option<std::time::Duration>,
+    ) -> Result<Self, ClientError> {
         Ok(Self {
-            client: super::create_reqwest_client(private_key, cert)?,
+            client: super::create_reqwest_client(private_key, cert, timeout)?,
             received_nonce_map: Arc::new(Mutex::new(LruCache::new(
                 NonZeroUsize::new(200).unwrap(),
             ))),

@@ -24,12 +24,17 @@ impl LsHttpClientV2 {
     /// # Arguments
     /// * `private_key` - PEM-encoded private key for client certificate
     /// * `cert` - PEM-encoded certificate for client authentication
+    /// * `timeout` - Optional total request timeout (e.g. for discovery scans)
     ///
     /// # Returns
     /// A new client instance or an error if TLS setup fails.
-    pub fn try_new(private_key: &str, cert: &str) -> Result<Self, ClientError> {
+    pub fn try_new(
+        private_key: &str,
+        cert: &str,
+        timeout: Option<std::time::Duration>,
+    ) -> Result<Self, ClientError> {
         Ok(Self {
-            client: super::create_reqwest_client(private_key, cert)?,
+            client: super::create_reqwest_client(private_key, cert, timeout)?,
         })
     }
 

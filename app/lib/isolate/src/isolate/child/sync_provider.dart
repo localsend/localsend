@@ -2,7 +2,6 @@ import 'package:dart_mappable/dart_mappable.dart';
 import 'package:localsend_app/isolate/model/device_info_result.dart';
 import 'package:localsend_app/isolate/model/dto/multicast_dto.dart';
 import 'package:localsend_app/isolate/model/stored_security_context.dart';
-import 'package:localsend_app/isolate/src/isolate/child/http_provider.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 
 part 'sync_provider.mapper.dart';
@@ -11,9 +10,7 @@ part 'sync_provider.mapper.dart';
 /// In other words, the main isolate sends this state to the child isolate.
 @MappableClass()
 class SyncState with SyncStateMappable {
-  final Future<void> Function() init;
   final Object rootIsolateToken;
-  final CustomHttpClient Function(Duration timeout, StoredSecurityContext) httpClientFactory;
   final StoredSecurityContext securityContext;
   final DeviceInfoResult deviceInfo;
   final String alias;
@@ -28,9 +25,7 @@ class SyncState with SyncStateMappable {
   final bool download;
 
   SyncState({
-    required this.init,
     required this.rootIsolateToken,
-    required this.httpClientFactory,
     required this.securityContext,
     required this.deviceInfo,
     required this.alias,

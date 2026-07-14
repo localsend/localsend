@@ -218,7 +218,7 @@ async fn server_test() -> Result<()> {
 }
 
 async fn client_test() -> Result<()> {
-    let client = LsHttpClientV3::try_new(PRIVATE_KEY, CERT)?;
+    let client = LsHttpClientV3::try_new(PRIVATE_KEY, CERT, None)?;
 
     let nonce = client
         .nonce(ProtocolType::Https, "localhost", 53317)

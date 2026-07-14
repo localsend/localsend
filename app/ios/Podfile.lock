@@ -61,8 +61,6 @@ PODS:
   - photo_manager (3.10.0):
     - Flutter
     - FlutterMacOS
-  - rhttp (0.0.1):
-    - Flutter
   - rust_lib_localsend_app (0.0.1):
     - Flutter
   - SDWebImage (5.20.0):
@@ -107,7 +105,6 @@ DEPENDENCIES:
   - pasteboard (from `.symlinks/plugins/pasteboard/ios`)
   - permission_handler_apple (from `.symlinks/plugins/permission_handler_apple/ios`)
   - photo_manager (from `.symlinks/plugins/photo_manager/darwin`)
-  - rhttp (from `.symlinks/plugins/rhttp/ios`)
   - rust_lib_localsend_app (from `.symlinks/plugins/rust_lib_localsend_app/ios`)
   - share_handler_ios (from `.symlinks/plugins/share_handler_ios/ios`)
   - share_handler_ios_models (from `.symlinks/plugins/share_handler_ios/ios/Models`)
@@ -154,8 +151,6 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/permission_handler_apple/ios"
   photo_manager:
     :path: ".symlinks/plugins/photo_manager/darwin"
-  rhttp:
-    :path: ".symlinks/plugins/rhttp/ios"
   rust_lib_localsend_app:
     :path: ".symlinks/plugins/rust_lib_localsend_app/ios"
   share_handler_ios:
@@ -192,7 +187,6 @@ SPEC CHECKSUMS:
   pasteboard: 49088aeb6119d51f976a421db60d8e1ab079b63c
   permission_handler_apple: 92d754bbaa7361d436db2d6c3c1c2a0fdcec462e
   photo_manager: 93cc83778e33d5fd49dfd7e34b73f8f5a4f10aaf
-  rhttp: 359daed992674fc912552df3106bfbc746bcc929
   rust_lib_localsend_app: e74fed7b12bd94b7fb63a29f9b6afdde78f6a0a7
   SDWebImage: 73c6079366fea25fa4bb9640d5fb58f0893facd8
   share_handler_ios: e2244e990f826b2c8eaa291ac3831569438ba0fb

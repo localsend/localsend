@@ -47,13 +47,14 @@ impl LsHttpClient {
         private_key: &str,
         cert: &str,
         version: LsHttpClientVersion,
+        timeout: Option<std::time::Duration>,
     ) -> Result<LsHttpClient, ClientError> {
         let client = match version {
             LsHttpClientVersion::V2 => {
-                LsHttpClient::V2(LsHttpClientV2::try_new(&private_key, &cert)?)
+                LsHttpClient::V2(LsHttpClientV2::try_new(&private_key, &cert, timeout)?)
             }
             LsHttpClientVersion::V3 => {
-                LsHttpClient::V3(LsHttpClientV3::try_new(&private_key, &cert)?)
+                LsHttpClient::V3(LsHttpClientV3::try_new(&private_key, &cert, timeout)?)
             }
         };
 
@@ -150,6 +151,7 @@ impl LsHttpClient {
 pub(super) fn create_reqwest_client(
     private_key: &str,
     cert: &str,
+    timeout: Option<std::time::Duration>,
 ) -> Result<reqwest::Client, ClientError> {
     let _ = rustls::crypto::ring::default_provider().install_default();
 
@@ -158,12 +160,17 @@ pub(super) fn create_reqwest_client(
         reqwest::Identity::from_pem(pem)?
     };
 
-    let client = reqwest::Client::builder()
+    let mut builder = reqwest::Client::builder()
         .use_rustls_tls()
         .danger_accept_invalid_certs(true)
         .tls_info(true)
-        .identity(identity)
-        .build()?;
+        .identity(identity);
+
+    if let Some(timeout) = timeout {
+        builder = builder.timeout(timeout);
+    }
+
+    let client = builder.build()?;
 
     Ok(client)
 }

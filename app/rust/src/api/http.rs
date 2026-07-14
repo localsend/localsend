@@ -15,11 +15,35 @@ pub fn create_client(
     private_key: String,
     cert: String,
     version: LsHttpClientVersion,
+    timeout_ms: Option<u32>,
 ) -> Result<RsHttpClient, RsHttpClientError> {
-    let inner = localsend::http::client::LsHttpClient::new(&private_key, &cert, version)
-        .map_err(RsHttpClientError::from)?;
+    let inner = localsend::http::client::LsHttpClient::new(
+        &private_key,
+        &cert,
+        version,
+        timeout_ms.map(|ms| std::time::Duration::from_millis(ms as u64)),
+    )
+    .map_err(RsHttpClientError::from)?;
 
     Ok(RsHttpClient { inner })
+}
+
+pub struct RsCancellationToken {
+    inner: tokio_util::sync::CancellationToken,
+}
+
+#[frb(sync)]
+pub fn create_cancellation_token() -> RsCancellationToken {
+    RsCancellationToken {
+        inner: tokio_util::sync::CancellationToken::new(),
+    }
+}
+
+impl RsCancellationToken {
+    #[frb(sync)]
+    pub fn cancel(&self) {
+        self.inner.cancel();
+    }
 }
 
 impl RsHttpClient {
@@ -70,6 +94,7 @@ impl RsHttpClient {
         file_id: &str,
         token: &str,
         binary: stream::Dart2RustStreamReceiver,
+        cancel_token: &RsCancellationToken,
     ) -> Result<(), RsHttpClientError> {
         self.inner
             .upload(
@@ -81,7 +106,7 @@ impl RsHttpClient {
                 file_id,
                 token,
                 localsend::model::transfer::FileContent::Stream(binary.receiver),
-                tokio_util::sync::CancellationToken::new(),
+                cancel_token.inner.clone(),
             )
             .await
             .map_err(RsHttpClientError::from)?;

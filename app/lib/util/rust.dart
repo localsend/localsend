@@ -1,6 +1,9 @@
+import 'package:localsend_app/isolate/constants.dart';
 import 'package:localsend_app/isolate/model/device.dart';
 import 'package:localsend_app/isolate/model/dto/file_dto.dart';
 import 'package:localsend_app/isolate/model/dto/multicast_dto.dart';
+import 'package:localsend_app/isolate/src/isolate/child/sync_provider.dart';
+import 'package:localsend_app/rust/api/http.dart' as rust_http;
 import 'package:localsend_app/rust/api/model.dart' as rust_model;
 import 'package:mime/mime.dart';
 
@@ -74,6 +77,33 @@ extension RustDeviceTypeExt on rust_model.DeviceType {
       rust_model.DeviceType.web => DeviceType.web,
       rust_model.DeviceType.headless => DeviceType.headless,
       rust_model.DeviceType.server => DeviceType.server,
+    };
+  }
+}
+
+extension SyncStateToRegisterDtoExt on SyncState {
+  rust_model.RegisterDto toRegisterDto() {
+    return rust_model.RegisterDto(
+      alias: alias,
+      version: protocolVersion,
+      deviceModel: deviceInfo.deviceModel,
+      deviceType: deviceInfo.deviceType.toRust(),
+      token: securityContext.certificateHash,
+      port: port,
+      protocol: protocol.toRust(),
+      hasWebInterface: download,
+    );
+  }
+}
+
+extension HumanErrorMessageExt on Object {
+  /// Converts an error to a human-readable message,
+  /// showing the status code and server message if available.
+  String get humanErrorMessage {
+    final e = this;
+    return switch (e) {
+      rust_http.RsHttpClientError_StatusCode(:final status, :final message) when message != null => '[$status] $message',
+      _ => e.toString(),
     };
   }
 }

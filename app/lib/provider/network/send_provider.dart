@@ -28,7 +28,6 @@ import 'package:localsend_app/util/rust.dart';
 import 'package:localsend_app/widget/dialogs/pin_dialog.dart';
 import 'package:logging/logging.dart';
 import 'package:refena_flutter/refena_flutter.dart';
-import 'package:rhttp/rhttp.dart';
 import 'package:routerino/routerino.dart';
 import 'package:uri_content/uri_content.dart';
 import 'package:uuid/uuid.dart';
@@ -242,11 +241,11 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
     } else {
       try {
         fileMap = response.response!.files;
-        final sessionId = response.response!.sessionId;
+        final remoteSessionId = response.response!.sessionId;
         state = state.updateSession(
           sessionId: sessionId,
           state: (s) => s?.copyWith(
-            remoteSessionId: sessionId,
+            remoteSessionId: remoteSessionId,
           ),
         );
       } catch (e) {
@@ -437,7 +436,6 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
             fileId: file.file.id,
             filePath: file.path,
             fileBytes: file.bytes,
-            mime: file.file.lookupMime(),
             fileSize: file.file.size,
             device: target,
           ),
@@ -629,33 +627,5 @@ extension on SendSessionState {
           ),
         ),
     );
-  }
-}
-
-extension on Object {
-  String get humanErrorMessage {
-    final e = this;
-    final (statusCode, message) = switch (this) {
-      RhttpStatusCodeException(:final statusCode, :final body) => (statusCode, _parseErrorMessage(body)),
-      _ => (null, e.toString()),
-    };
-
-    if (statusCode != null && message != null) {
-      return '[$statusCode] $message';
-    }
-
-    return e.toString();
-  }
-}
-
-String? _parseErrorMessage(Object? body) {
-  if (body is! String) {
-    return null;
-  }
-
-  try {
-    return (jsonDecode(body) as Map)['message'];
-  } catch (_) {
-    return null;
   }
 }

@@ -17,11 +17,20 @@ RsHttpClient createClient({
   required String privateKey,
   required String cert,
   required LsHttpClientVersion version,
+  int? timeoutMs,
 }) => RustLib.instance.api.crateApiHttpCreateClient(
   privateKey: privateKey,
   cert: cert,
   version: version,
+  timeoutMs: timeoutMs,
 );
+
+RsCancellationToken createCancellationToken() => RustLib.instance.api.crateApiHttpCreateCancellationToken();
+
+// Rust type: RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<RsCancellationToken>>
+abstract class RsCancellationToken implements RustOpaqueInterface {
+  void cancel();
+}
 
 // Rust type: RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<RsHttpClient>>
 abstract class RsHttpClient implements RustOpaqueInterface {
@@ -57,6 +66,7 @@ abstract class RsHttpClient implements RustOpaqueInterface {
     required String fileId,
     required String token,
     required Dart2RustStreamReceiver binary,
+    required RsCancellationToken cancelToken,
   });
 }
 

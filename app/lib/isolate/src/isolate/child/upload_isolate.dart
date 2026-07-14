@@ -7,6 +7,8 @@ import 'package:localsend_app/isolate/src/isolate/child/main.dart';
 import 'package:localsend_app/isolate/src/isolate/dto/send_to_isolate_data.dart';
 import 'package:localsend_app/isolate/src/task/upload/http_upload.dart';
 import 'package:localsend_app/isolate/util/stream.dart';
+import 'package:localsend_app/rust/api/http.dart';
+import 'package:localsend_app/util/rust.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 import 'package:typed_isolates/typed_isolates.dart';
 
@@ -26,7 +28,6 @@ class HttpUploadTask implements BaseHttpUploadTask {
   final String fileId;
   final String? filePath;
   final List<int>? fileBytes;
-  final String mime;
   final int fileSize;
   final Device device;
 
@@ -36,7 +37,6 @@ class HttpUploadTask implements BaseHttpUploadTask {
     required this.fileId,
     required this.filePath,
     required this.fileBytes,
-    required this.mime,
     required this.fileSize,
     required this.device,
   });
@@ -50,7 +50,7 @@ class HttpUploadCancelTask implements BaseHttpUploadTask {
 
 /// Map of cancel tokens for each task.
 /// Task ID -> CancelToken
-final _cancelTokenProvider = Provider((ref) => <int, CustomCancelToken>{});
+final _cancelTokenProvider = Provider((ref) => <int, RsCancellationToken>{});
 
 abstract class UriContentStreamResolver {
   /// Separate initialization method to create instance in the child isolate.
@@ -102,7 +102,7 @@ Future<void> setupHttpUploadIsolate(
       final (streamController, subscription) = fileStream?.digested() ?? (null, null);
 
       try {
-        final cancelToken = CustomCancelToken();
+        final cancelToken = createCancellationToken();
         ref.read(_cancelTokenProvider).putIfAbsent(task.id, () => cancelToken);
 
         await ref
@@ -110,7 +110,6 @@ Future<void> setupHttpUploadIsolate(
             .upload(
               stream: streamController?.stream ?? Stream.fromIterable([uploadTask.fileBytes!]),
               contentLength: uploadTask.fileSize,
-              contentType: uploadTask.mime,
               target: uploadTask.device,
               remoteSessionId: uploadTask.remoteSessionId,
               fileId: uploadTask.fileId,
@@ -135,7 +134,7 @@ Future<void> setupHttpUploadIsolate(
         sendToMain(
           IsolateTaskStreamResult.error(
             id: task.id,
-            error: e.toString(),
+            error: e.humanErrorMessage,
           ),
         );
       } finally {
