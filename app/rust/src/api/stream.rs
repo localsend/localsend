@@ -1,11 +1,12 @@
+use bytes::Bytes;
 use tokio::sync::mpsc;
 
 pub struct Dart2RustStreamSink {
-    sender: mpsc::Sender<Vec<u8>>,
+    sender: mpsc::Sender<Bytes>,
 }
 
 pub struct Dart2RustStreamReceiver {
-    pub(crate) receiver: mpsc::Receiver<Vec<u8>>,
+    pub(crate) receiver: mpsc::Receiver<Bytes>,
 }
 
 pub fn create_stream() -> (Dart2RustStreamSink, Dart2RustStreamReceiver) {
@@ -21,7 +22,7 @@ pub fn create_stream() -> (Dart2RustStreamSink, Dart2RustStreamReceiver) {
 impl Dart2RustStreamSink {
     pub async fn add(&mut self, data: Vec<u8>) -> Result<(), String> {
         self.sender
-            .send(data)
+            .send(Bytes::from(data))
             .await
             .map_err(|_| "Failed to send data".to_string())
     }

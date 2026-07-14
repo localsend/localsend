@@ -80,7 +80,8 @@ impl RsHttpClient {
                 session_id,
                 file_id,
                 token,
-                binary.receiver,
+                localsend::model::transfer::FileContent::Stream(binary.receiver),
+                tokio_util::sync::CancellationToken::new(),
             )
             .await
             .map_err(RsHttpClientError::from)?;
@@ -126,6 +127,7 @@ impl From<ClientError> for RsHttpClientError {
             ClientError::Json(e) => RsHttpClientError::Json(e.to_string()),
             ClientError::Io(e) => RsHttpClientError::Io(e.to_string()),
             ClientError::Other(e) => RsHttpClientError::Other(e.to_string()),
+            ClientError::Cancelled => RsHttpClientError::Other("Upload cancelled".to_string()),
         }
     }
 }

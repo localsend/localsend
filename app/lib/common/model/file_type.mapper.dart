@@ -1,6 +1,8 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// dart format off
 // ignore_for_file: type=lint
+// ignore_for_file: invalid_use_of_protected_member
 // ignore_for_file: unused_element, unnecessary_cast, override_on_non_overriding_member
 // ignore_for_file: strict_raw_type, inference_failure_on_untyped_parameter
 
@@ -25,17 +27,17 @@ class FileTypeMapper extends EnumMapper<FileType> {
   @override
   FileType decode(dynamic value) {
     switch (value) {
-      case 'image':
+      case r'image':
         return FileType.image;
-      case 'video':
+      case r'video':
         return FileType.video;
-      case 'pdf':
+      case r'pdf':
         return FileType.pdf;
-      case 'text':
+      case r'text':
         return FileType.text;
-      case 'apk':
+      case r'apk':
         return FileType.apk;
-      case 'other':
+      case r'other':
         return FileType.other;
       default:
         return FileType.values[5];
@@ -46,17 +48,17 @@ class FileTypeMapper extends EnumMapper<FileType> {
   dynamic encode(FileType self) {
     switch (self) {
       case FileType.image:
-        return 'image';
+        return r'image';
       case FileType.video:
-        return 'video';
+        return r'video';
       case FileType.pdf:
-        return 'pdf';
+        return r'pdf';
       case FileType.text:
-        return 'text';
+        return r'text';
       case FileType.apk:
-        return 'apk';
+        return r'apk';
       case FileType.other:
-        return 'other';
+        return r'other';
     }
   }
 }
@@ -67,3 +69,4 @@ extension FileTypeMapperExtension on FileType {
     return MapperContainer.globals.toValue<FileType>(this) as String;
   }
 }
+

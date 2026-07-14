@@ -5,9 +5,9 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i4;
 
+import 'package:flutter/material.dart' as _i8;
 import 'package:localsend_app/common/model/device.dart' as _i12;
 import 'package:localsend_app/common/model/stored_security_context.dart' as _i2;
-import 'package:flutter/material.dart' as _i8;
 import 'package:localsend_app/gen/strings.g.dart' as _i10;
 import 'package:localsend_app/model/persistence/color_mode.dart' as _i9;
 import 'package:localsend_app/model/persistence/favorite_device.dart' as _i6;
