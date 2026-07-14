@@ -146,15 +146,17 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
     do {
       invalidPin = false;
       try {
-        response = await client.prepareUpload(
-          protocol: target.getProtocolType(),
-          ip: target.ip!,
-          port: target.port,
-          payload: requestDto,
-          // TODO
-          publicKey: null,
-          pin: pin,
-        );
+        response = await client
+            .prepareUpload(
+              protocol: target.getProtocolType(),
+              ip: target.ip!,
+              port: target.port,
+              payload: requestDto,
+              // TODO
+              publicKey: null,
+              pin: pin,
+            )
+            .timeout(httpRequestTimeout);
       } on rust_http.RsHttpClientError_StatusCode catch (e) {
         switch (e.status) {
           case 401:
@@ -456,7 +458,16 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
         ),
       );
 
-      await for (final progress in taskResult.progress) {
+      // Use an inactivity timeout (resets on every event) rather than an
+      // overall one, since large transfers can legitimately take many minutes
+      // but a stalled socket should not.
+      final progressStream = taskResult.progress.timeout(
+        uploadProgressInactivityTimeout,
+        onTimeout: (sink) => sink.addError(
+          TimeoutException('Upload stalled', uploadProgressInactivityTimeout),
+        ),
+      );
+      await for (final progress in progressStream) {
         ref
             .notifier(progressProvider)
             .setProgress(
@@ -520,16 +531,20 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
     // notify the receiver
     final target = sessionState.target;
     try {
+      // ignore: discarded_futures
       ref
           .read(httpProvider)
           .v2
-          // ignore: discarded_futures
           .cancel(
             protocol: target.getProtocolType(),
             ip: target.ip!,
             port: target.port,
             sessionId: remoteSessionId,
-          );
+          )
+          .timeout(httpFireAndForgetTimeout)
+          .catchError((Object e) {
+            _logger.warning('Error while canceling session', e);
+          });
     } catch (e) {
       _logger.warning('Error while canceling session', e);
     }
