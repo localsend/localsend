@@ -1,5 +1,5 @@
-import 'package:common/model/device.dart';
 import 'package:flutter/material.dart';
+import 'package:localsend_app/common/model/device.dart';
 
 extension DeviceTypeExt on DeviceType {
   IconData get icon {

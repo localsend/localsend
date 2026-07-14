@@ -1,7 +1,7 @@
-import 'package:common/model/dto/file_dto.dart' as dart_model;
-import 'package:common/model/session_status.dart';
-import 'package:common/model/stored_security_context.dart';
 import 'package:dart_mappable/dart_mappable.dart';
+import 'package:localsend_app/common/model/dto/file_dto.dart' as dart_model;
+import 'package:localsend_app/common/model/session_status.dart';
+import 'package:localsend_app/common/model/stored_security_context.dart';
 import 'package:localsend_app/model/persistence/favorite_device.dart';
 import 'package:localsend_app/model/state/server/receive_session_state.dart';
 import 'package:localsend_app/model/state/settings_state.dart';

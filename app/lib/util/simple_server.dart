@@ -39,7 +39,8 @@ typedef HttpRequestHandler = void Function(HttpRequest request);
 
 enum HttpMethod {
   get('GET'),
-  post('POST');
+  post('POST')
+  ;
 
   const HttpMethod(this.methodName);
 

@@ -1,4 +1,4 @@
-import 'package:common/model/device.dart';
+import 'package:localsend_app/common/model/device.dart';
 import 'package:localsend_app/provider/last_devices.provider.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 import 'package:test/test.dart';

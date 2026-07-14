@@ -1,5 +1,5 @@
-import 'package:common/model/file_type.dart';
 import 'package:flutter/material.dart';
+import 'package:localsend_app/common/model/file_type.dart';
 
 extension FileTypeExt on FileType {
   IconData get icon {

@@ -34,13 +34,6 @@ jobs:
         working-directory: app
         run: dart format --set-exit-if-changed lib test
 
-      - name: Dependencies (common)
-        working-directory: common
-        run: dart pub get
-      - name: Check format (common)
-        working-directory: common
-        run: dart format --set-exit-if-changed lib test
-
   test:
     runs-on: ubuntu-latest
 
@@ -64,16 +57,6 @@ jobs:
       - name: Test (app)
         working-directory: app
         run: flutter test
-
-      - name: Dependencies (common)
-        working-directory: common
-        run: dart pub get
-      - name: Analyze (common)
-        working-directory: common
-        run: dart analyze
-      - name: Test (common)
-        working-directory: common
-        run: dart test
 
   packaging:
     runs-on: ubuntu-latest

@@ -1,5 +1,5 @@
-import 'package:common/model/device.dart';
 import 'package:flutter/material.dart';
+import 'package:localsend_app/common/model/device.dart';
 import 'package:localsend_app/config/theme.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/model/persistence/favorite_device.dart';
@@ -193,11 +193,11 @@ class _FavoriteEditDialogState extends State<FavoriteEditDialog> with Refena {
                           .read(httpProvider)
                           .v2
                           .register(
-                        protocol: https ? ProtocolType.https : ProtocolType.http,
-                        ip: ip,
-                        port: port,
-                        payload: payload,
-                      );
+                            protocol: https ? ProtocolType.https : ProtocolType.http,
+                            ip: ip,
+                            port: port,
+                            payload: payload,
+                          );
 
                       final name = _aliasController.text.trim();
 

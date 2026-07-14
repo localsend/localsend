@@ -1,9 +1,9 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:common/constants.dart';
-import 'package:common/isolate.dart';
-import 'package:common/model/dto/multicast_dto.dart';
+import 'package:localsend_app/common/constants.dart';
+import 'package:localsend_app/common/isolate.dart';
+import 'package:localsend_app/common/model/dto/multicast_dto.dart';
 import 'package:localsend_app/model/cross_file.dart';
 import 'package:localsend_app/model/state/server/server_state.dart';
 import 'package:localsend_app/provider/network/server/controller/receive_controller.dart';

@@ -1,7 +1,7 @@
 import 'package:collection/collection.dart';
-import 'package:common/isolate.dart';
-import 'package:common/model/device.dart';
 import 'package:flutter/material.dart';
+import 'package:localsend_app/common/isolate.dart';
+import 'package:localsend_app/common/model/device.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/model/persistence/color_mode.dart';
 import 'package:localsend_app/model/send_mode.dart';

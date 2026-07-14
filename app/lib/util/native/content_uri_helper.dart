@@ -1,5 +1,5 @@
-import 'package:common/isolate.dart';
 import 'package:flutter/services.dart';
+import 'package:localsend_app/common/isolate.dart';
 import 'package:uri_content/uri_content.dart';
 
 class ContentUriHelper {

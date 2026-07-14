@@ -1,7 +1,7 @@
-import 'package:common/isolate.dart';
-import 'package:common/model/device_info_result.dart';
-import 'package:common/util/sleep.dart';
 import 'package:flutter/material.dart';
+import 'package:localsend_app/common/isolate.dart';
+import 'package:localsend_app/common/model/device_info_result.dart';
+import 'package:localsend_app/common/util/sleep.dart';
 import 'package:localsend_app/config/theme.dart';
 import 'package:localsend_app/model/persistence/color_mode.dart';
 import 'package:localsend_app/pages/language_page.dart';

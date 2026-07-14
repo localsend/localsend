@@ -249,13 +249,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.0"
-  common:
-    dependency: "direct main"
-    description:
-      path: "../common"
-      relative: true
-    source: path
-    version: "1.0.0"
   connectivity_plus:
     dependency: "direct main"
     description:
@@ -1779,6 +1772,13 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.4.0"
+  typed_isolates:
+    dependency: "direct main"
+    description:
+      path: "../packages/typed_isolates"
+      relative: true
+    source: path
+    version: "1.0.0"
   universal_platform:
     dependency: transitive
     description:

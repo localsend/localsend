@@ -1,6 +1,6 @@
-import 'package:common/model/file_type.dart';
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:intl/intl.dart';
+import 'package:localsend_app/common/model/file_type.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 
 part 'receive_history_entry.mapper.dart';

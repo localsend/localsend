@@ -1,5 +1,5 @@
-import 'package:common/isolate.dart';
-import 'package:common/model/stored_security_context.dart';
+import 'package:localsend_app/common/isolate.dart';
+import 'package:localsend_app/common/model/stored_security_context.dart';
 import 'package:localsend_app/provider/persistence_provider.dart';
 import 'package:localsend_app/util/security_helper.dart';
 import 'package:refena_flutter/refena_flutter.dart';

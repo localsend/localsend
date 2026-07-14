@@ -2,17 +2,17 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:bitsdojo_window/bitsdojo_window.dart';
-import 'package:common/api_route_builder.dart';
-import 'package:common/constants.dart';
-import 'package:common/isolate.dart';
-import 'package:common/model/dto/file_dto.dart';
-import 'package:common/model/dto/multicast_dto.dart';
-import 'package:common/util/logger.dart';
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_displaymode/flutter_displaymode.dart';
+import 'package:localsend_app/common/api_route_builder.dart';
+import 'package:localsend_app/common/constants.dart';
+import 'package:localsend_app/common/isolate.dart';
+import 'package:localsend_app/common/model/dto/file_dto.dart';
+import 'package:localsend_app/common/model/dto/multicast_dto.dart';
+import 'package:localsend_app/common/util/logger.dart';
 import 'package:localsend_app/config/refena.dart';
 import 'package:localsend_app/config/theme.dart';
 import 'package:localsend_app/pages/home_page.dart';
@@ -24,10 +24,8 @@ import 'package:localsend_app/provider/network/nearby_devices_provider.dart';
 import 'package:localsend_app/provider/network/server/server_provider.dart';
 import 'package:localsend_app/provider/network/webrtc/signaling_provider.dart';
 import 'package:localsend_app/provider/persistence_provider.dart';
-
 // [FOSS_REMOVE_START]
 import 'package:localsend_app/provider/purchase_provider.dart';
-
 // [FOSS_REMOVE_END]
 import 'package:localsend_app/provider/selection/selected_sending_files_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
