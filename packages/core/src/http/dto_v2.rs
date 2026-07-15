@@ -245,7 +245,10 @@ mod tests {
                     file_type: "image/png".to_string(),
                     sha256: None,
                     preview: None,
-                    metadata: None,
+                    metadata: Some(crate::model::transfer::FileMetadata {
+                        modified: Some("1970-01-01T00:00:00.123456789Z".to_string()),
+                        accessed: None,
+                    }),
                 },
             )]),
         };
@@ -254,5 +257,6 @@ mod tests {
         assert!(json.contains("\"info\""));
         assert!(json.contains("\"files\""));
         assert!(json.contains("\"fingerprint\":\"sender-fingerprint\""));
+        assert!(json.contains("\"modified\":\"1970-01-01T00:00:00.123456789Z\""));
     }
 }
