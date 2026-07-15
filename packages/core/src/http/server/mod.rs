@@ -1,9 +1,11 @@
 pub mod common;
+pub mod internal;
 pub mod v2;
 pub mod v3;
 pub mod web;
 
 use crate::crypto::cert::public_key_from_cert_der;
+use crate::http::server::internal::{InternalConfig, InternalState};
 use crate::http::server::v2::ServerEventV2;
 use crate::http::server::web::WebSendConfig;
 use crate::http::state::ClientInfo;
@@ -59,6 +61,9 @@ pub struct AppState {
     /// State for serving web pages.
     web: Option<Arc<WebPageState>>,
 
+    /// State for application-internal endpoints.
+    internal: Option<Arc<InternalState>>,
+
     /// Maps client identifiers to nonces that have been received from remote.
     received_nonce_map: Arc<Mutex<LruCache<String, Vec<u8>>>>,
 
@@ -72,6 +77,7 @@ pub struct AppState {
 impl AppState {
     fn new(
         info: Arc<Mutex<ClientInfo>>,
+        internal_config: Option<InternalConfig>,
         v2_config: Option<ServerConfigV2>,
         web_send_config: Option<WebSendConfig>,
     ) -> Self {
@@ -85,10 +91,12 @@ impl AppState {
         });
 
         let web = web_send_config.map(|config| Arc::new(WebPageState::new(config)));
+        let internal = internal_config.map(|config| Arc::new(InternalState::new(config)));
 
         Self {
             info,
             web,
+            internal,
             received_nonce_map: Arc::new(Mutex::new(LruCache::new(
                 NonZeroUsize::new(200).unwrap(),
             ))),
@@ -105,6 +113,7 @@ pub async fn start_with_port(
     port: u16,
     tls_config: Option<TlsConfig>,
     info: ClientInfo,
+    internal_config: Option<InternalConfig>,
     v2_config: Option<ServerConfigV2>,
     web_send_config: Option<WebSendConfig>,
     stop_rx: oneshot::Receiver<()>,
@@ -112,7 +121,7 @@ pub async fn start_with_port(
     let ipv4_socket_addr = SocketAddr::new(Ipv4Addr::UNSPECIFIED.into(), port);
     let ipv6_socket_addr = SocketAddr::new(Ipv6Addr::UNSPECIFIED.into(), port);
     let info = Arc::new(Mutex::new(info));
-    let state = AppState::new(info.clone(), v2_config, web_send_config);
+    let state = AppState::new(info.clone(), internal_config, v2_config, web_send_config);
 
     let ipv4_listener = tokio::net::TcpListener::bind(ipv4_socket_addr).await?;
     let ipv6_listener = match bind_ipv6_only(ipv6_socket_addr) {
@@ -365,6 +374,8 @@ async fn handle_request_inner(mut req: Request<Incoming>) -> Result<Response<Box
 
             v2::cancel(req, state).await
         }
+        // The versioned path is retained for compatibility, but this endpoint is internal.
+        (&Method::POST, "/api/localsend/v2/show") => internal::show(req, state).await,
         (&Method::POST, "/api/localsend/v3/nonce") => {
             Ok(v3::nonce_exchange(req.into_body(), state, client_info)
                 .await?

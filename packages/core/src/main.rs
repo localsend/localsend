@@ -8,6 +8,7 @@ use crate::crypto::token;
 use crate::http::client::LsHttpClientV3;
 use crate::http::dto::{PrepareUploadRequestDto, ProtocolType, RegisterDto};
 use crate::http::server::common::save::FileUploadTarget;
+use crate::http::server::internal::{InternalConfig, InternalEvent};
 use crate::http::server::v2::{PrepareUploadDecisionV2, ServerEventV2};
 use crate::http::server::{ServerConfigV2, TlsConfig};
 use crate::model::discovery::DeviceType;
@@ -140,7 +141,18 @@ async fn server_test() -> Result<()> {
     };
 
     let (stop_tx, stop_rx) = oneshot::channel::<()>();
+    let (internal_event_tx, mut internal_event_rx) = mpsc::channel::<InternalEvent>(16);
     let (event_tx, mut event_rx) = mpsc::channel::<ServerEventV2>(16);
+
+    tokio::spawn(async move {
+        while let Some(event) = internal_event_rx.recv().await {
+            match event {
+                InternalEvent::Show { args } => {
+                    tracing::info!("Show application with args: {args:?}");
+                }
+            }
+        }
+    });
 
     tokio::spawn(async move {
         while let Some(event) = event_rx.recv().await {
@@ -202,6 +214,10 @@ async fn server_test() -> Result<()> {
             private_key: PRIVATE_KEY.to_string(),
         }),
         client_info,
+        Some(InternalConfig {
+            show_token: "show-token".to_string(),
+            event_tx: internal_event_tx,
+        }),
         Some(ServerConfigV2 {
             pin: None,
             event_tx,

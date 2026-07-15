@@ -133,6 +133,7 @@ async fn start_test_server(
             device_type: None,
             token: "server-fingerprint".to_string(),
         },
+        None,
         Some(ServerConfigV2 {
             pin: None,
             event_tx: v2_event_tx,
