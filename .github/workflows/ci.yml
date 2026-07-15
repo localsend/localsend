@@ -10,6 +10,20 @@ env:
   FLUTTER_VERSION: "3.41.9"
 
 jobs:
+  rust:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v6
+      - name: Install Rust
+        run: rustup toolchain install 1.93.1 --profile minimal --component rustfmt,clippy
+      - name: Check format (MCP)
+        run: cargo +1.93.1 fmt --manifest-path cli/Cargo.toml --all -- --check
+      - name: Check (MCP)
+        run: cargo +1.93.1 clippy --manifest-path cli/Cargo.toml --all-targets
+      - name: Test (MCP)
+        run: cargo +1.93.1 test --manifest-path cli/Cargo.toml
+
   format:
     runs-on: ubuntu-latest
 
@@ -85,4 +99,3 @@ jobs:
           else
             echo "Versions match."
           fi
-

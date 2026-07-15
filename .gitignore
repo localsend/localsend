@@ -10,3 +10,6 @@
 
 # FVM Version Cache
 .fvm/
+
+# Rust build output
+/cli/target/

@@ -145,7 +145,7 @@ async fn server_test() -> Result<()> {
     tokio::spawn(async move {
         while let Some(event) = event_rx.recv().await {
             match event {
-                ServerEventV2::Register { ip, info } => {
+                ServerEventV2::Register { ip, info, .. } => {
                     tracing::info!("Device registered from {ip}: {}", info.alias);
                 }
                 ServerEventV2::PrepareUpload {

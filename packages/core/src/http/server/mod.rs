@@ -294,6 +294,15 @@ impl RequestClientInfo {
         }
     }
 
+    fn certificate_fingerprint(&self) -> Option<String> {
+        self.cert.as_ref().map(|cert| {
+            crate::crypto::hash::sha256(cert)
+                .iter()
+                .map(|byte| format!("{byte:02X}"))
+                .collect()
+        })
+    }
+
     fn identifier(&self) -> String {
         self.extract_public_key()
             .unwrap_or_else(|| self.ip.to_string())

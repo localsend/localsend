@@ -125,14 +125,21 @@ impl LsHttpClientV3 {
             .send()
             .await?;
 
-        let public_key = match protocol {
-            ProtocolType::Https => Some(super::verify_cert_from_res(&res, None)?),
-            _ => None,
+        let (public_key, certificate_fingerprint) = match protocol {
+            ProtocolType::Https => (
+                Some(super::verify_cert_from_res(&res, None)?),
+                Some(super::certificate_fingerprint_from_res(&res)?),
+            ),
+            _ => (None, None),
         };
 
         let body = res.json::<http::dto::RegisterResponseDto>().await?;
 
-        Ok(ResultWithPublicKey { public_key, body })
+        Ok(ResultWithPublicKey {
+            public_key,
+            certificate_fingerprint,
+            body,
+        })
     }
 
     pub async fn prepare_upload(

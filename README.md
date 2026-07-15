@@ -27,6 +27,7 @@ LocalSend is a free, open-source app that allows you to securely share files and
 - [Screenshots](#screenshots)
 - [Download](#download)
 - [How It Works](#how-it-works)
+- [Agent Integration (MCP)](#agent-integration-mcp)
 - [Getting Started](#getting-started)
 - [Contributing](#contributing)
   - [Translation](#translation)
@@ -135,6 +136,10 @@ On v1.14.0 and earlier, the app starts hidden if `autostart` flag is set, and th
 LocalSend uses a secure communication protocol that allows devices to communicate with each other using a REST API. All data is sent securely over HTTPS, and the TLS/SSL certificate is generated on the fly on each device, ensuring maximum security.
 
 For more information on the LocalSend Protocol, see the [documentation](https://github.com/localsend/protocol).
+
+## Agent Integration (MCP)
+
+The experimental [LocalSend MCP bridge](cli/README.md) lets AI agents discover, pair with, and securely exchange messages or files with LocalSend peers on another computer. It runs as a headless LocalSend peer and exposes stdio MCP tools, certificate-bound trust, allowed file roots, and a durable inbox.
 
 ## Getting Started
 

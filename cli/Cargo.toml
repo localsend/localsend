@@ -1,6 +1,31 @@
 [package]
-name = "cli"
+name = "localsend-mcp"
 version = "0.1.0"
 edition = "2024"
+description = "A local MCP bridge for sending data through LocalSend"
+license = "Apache-2.0"
 
 [dependencies]
+anyhow = "1.0"
+bytes = "1.11"
+clap = { version = "4.5", features = ["derive", "env"] }
+directories = "6.0"
+hostname = "0.4"
+if-addrs = "0.15"
+localsend = { path = "../packages/core", features = ["http"] }
+mime_guess = "2.0"
+rcgen = "0.14"
+rmcp = { version = "2.2", features = ["server", "transport-io"] }
+schemars = "1.2"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+sha2 = "0.10"
+socket2 = "0.6"
+tokio = { version = "1.49", features = ["full"] }
+tokio-util = "0.7"
+tracing = "0.1"
+tracing-subscriber = "0.3"
+uuid = { version = "1.20", features = ["v4"] }
+
+[dev-dependencies]
+tempfile = "3.24"

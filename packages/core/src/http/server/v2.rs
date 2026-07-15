@@ -29,6 +29,16 @@ pub enum ServerEventV2 {
         /// The IP address of the remote device.
         ip: IpAddr,
 
+        /// SHA-256 fingerprint of the presented client certificate.
+        ///
+        /// `None` when the request arrived over unencrypted HTTP.
+        certificate_fingerprint: Option<String>,
+
+        /// Public key extracted from the presented client certificate.
+        ///
+        /// `None` when the request arrived over unencrypted HTTP.
+        public_key: Option<String>,
+
         /// The device information sent by the remote device.
         info: RegisterDtoV2,
     },
@@ -40,6 +50,15 @@ pub enum ServerEventV2 {
     PrepareUpload {
         /// The IP address of the sender.
         ip: IpAddr,
+
+        /// SHA-256 fingerprint of the presented client certificate.
+        ///
+        /// Applications can compare this value with `info.fingerprint` before
+        /// automatically accepting a transfer from a trusted peer.
+        certificate_fingerprint: Option<String>,
+
+        /// Public key extracted from the presented client certificate.
+        public_key: Option<String>,
 
         /// The device information of the sender.
         info: RegisterDtoV2,
@@ -113,6 +132,8 @@ pub(crate) async fn register(
             .event_tx
             .send(ServerEventV2::Register {
                 ip: client_info.ip,
+                certificate_fingerprint: client_info.certificate_fingerprint(),
+                public_key: client_info.extract_public_key(),
                 info: payload,
             })
             .await;
@@ -188,6 +209,8 @@ pub(crate) async fn prepare_upload(
     let (decision_tx, decision_rx) = oneshot::channel();
     let event = ServerEventV2::PrepareUpload {
         ip: client_info.ip,
+        certificate_fingerprint: client_info.certificate_fingerprint(),
+        public_key: client_info.extract_public_key(),
         info: payload.info,
         files: payload.files.clone(),
         decision_tx,
