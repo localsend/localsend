@@ -6,6 +6,7 @@ import 'package:localsend_app/isolate/model/dto/multicast_dto.dart';
 import 'package:localsend_app/isolate/model/dto/prepare_upload_request_dto.dart';
 import 'package:localsend_app/isolate/model/dto/prepare_upload_response_dto.dart';
 import 'package:localsend_app/isolate/model/file_type.dart';
+import 'package:localsend_app/util/rust.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -136,6 +137,33 @@ void main() {
       expect(parsed.files.length, 1);
       expect(parsed.files.values.first.fileType, FileType.apk);
     });
+
+    test('should parse milliseconds in metadata timestamps', () {
+      final dto = {
+        'info': {
+          'alias': 'Nice Banana',
+          'deviceModel': 'Samsung',
+          'deviceType': 'mobile',
+        },
+        'files': {
+          'some id': {
+            'id': 'some id',
+            'fileName': 'video.mp4',
+            'size': 1234,
+            'fileType': 'video/mp4',
+            'metadata': {
+              'modified': '2019-09-12T12:02:45.123Z',
+            },
+          },
+        },
+      };
+
+      final parsed = PrepareUploadRequestDto.fromJson(dto);
+      expect(
+        parsed.files.values.first.metadata?.lastModified,
+        DateTime.utc(2019, 9, 12, 12, 2, 45, 123),
+      );
+    });
   });
 
   group('serialize PrepareUploadRequestDto', () {
@@ -187,6 +215,51 @@ void main() {
         'modified': '2020-01-01T00:00:00.000Z',
         'accessed': '2021-01-01T00:00:00.000Z',
       });
+    });
+
+    test('should preserve milliseconds in metadata timestamps', () {
+      final dto = PrepareUploadRequestDto(
+        info: info,
+        files: {
+          'some id': FileDto(
+            id: 'some id',
+            fileName: 'video.mp4',
+            size: 1234,
+            fileType: FileType.video,
+            hash: null,
+            preview: null,
+            metadata: FileMetadata(
+              lastModified: DateTime.utc(2019, 9, 12, 12, 2, 45, 123),
+              lastAccessed: null,
+            ),
+          ),
+        },
+      );
+
+      final serialized = dto.toJson();
+      expect(serialized['files']['some id']['metadata'], {
+        'modified': '2019-09-12T12:02:45.123Z',
+      });
+    });
+  });
+
+  group('convert FileDto to Rust model', () {
+    test('should preserve milliseconds in metadata timestamps', () {
+      final dto = FileDto(
+        id: 'some id',
+        fileName: 'video.mp4',
+        size: 1234,
+        fileType: FileType.video,
+        hash: null,
+        preview: null,
+        metadata: FileMetadata(
+          lastModified: DateTime.utc(2019, 9, 12, 12, 2, 45, 123),
+          lastAccessed: null,
+        ),
+      );
+
+      final converted = dto.toRust();
+      expect(converted.metadata?.modified, '2019-09-12T12:02:45.123Z');
     });
   });
 
