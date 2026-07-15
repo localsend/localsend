@@ -11,6 +11,7 @@ import 'package:localsend_app/rust/frb_generated.dart';
 
 part 'http.freezed.dart';
 
+// These functions are ignored because they are not marked as `pub`: `resolve_file_content`
 // These function are ignored because they are on traits that is not defined in current crate (put an empty `#[frb]` on it to unignore): `from`
 
 RsHttpClient createClient({
@@ -57,7 +58,7 @@ abstract class RsHttpClient implements RustOpaqueInterface {
     required RegisterDto payload,
   });
 
-  Future<void> upload({
+  Stream<double> upload({
     required ProtocolType protocol,
     required String ip,
     required int port,
@@ -65,7 +66,10 @@ abstract class RsHttpClient implements RustOpaqueInterface {
     required String sessionId,
     required String fileId,
     required String token,
-    required Dart2RustStreamReceiver binary,
+    Dart2RustStreamReceiver? binary,
+    String? path,
+    int? fileDescriptor,
+    required BigInt contentLength,
     required RsCancellationToken cancelToken,
   });
 }

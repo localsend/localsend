@@ -200,6 +200,7 @@ impl LsHttpClientV2 {
     /// * `file_id` - File ID to upload
     /// * `token` - File-specific token from prepare_upload
     /// * `content` - The file content to upload (a chunk stream or a raw file descriptor)
+    /// * `progress` - Called with the cumulative number of bytes read for the upload
     /// * `cancel` - Cancellation token; cancelling it aborts the upload with [`ClientError::Cancelled`]
     ///
     /// # Errors
@@ -217,6 +218,7 @@ impl LsHttpClientV2 {
         file_id: &str,
         token: &str,
         content: model::transfer::FileContent,
+        progress: impl Fn(u64) + Send + 'static,
         cancel: CancellationToken,
     ) -> Result<(), ClientError> {
         let url = TargetUrl {
@@ -233,7 +235,12 @@ impl LsHttpClientV2 {
         }
         .to_string();
 
-        let stream = ReceiverStream::new(content.into_receiver()).map(Ok::<Bytes, anyhow::Error>);
+        let mut sent = 0_u64;
+        let stream = ReceiverStream::new(content.into_receiver()).map(move |chunk| {
+            sent += chunk.len() as u64;
+            progress(sent);
+            Ok::<Bytes, anyhow::Error>(chunk)
+        });
         let body = reqwest::Body::wrap_stream(stream);
 
         let res = tokio::select! {

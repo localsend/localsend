@@ -16,7 +16,9 @@ class HttpUploadService {
   HttpUploadService(this._client);
 
   Future<void> upload({
-    required Stream<List<int>> stream,
+    required Stream<List<int>>? stream,
+    required String? path,
+    required int? fileDescriptor,
     required int contentLength,
     required Device target,
     required String? remoteSessionId,
@@ -25,25 +27,29 @@ class HttpUploadService {
     required void Function(double progress) onSendProgress,
     required RsCancellationToken cancelToken,
   }) async {
-    final (sink, receiver) = await createStream();
+    final (sink, receiver) = stream != null ? await createStream() : (null, null);
 
-    final uploadFuture = _client.upload(
-      protocol: target.getProtocolType(),
-      ip: target.ip!,
-      port: target.port,
-      publicKey: null,
-      sessionId: remoteSessionId ?? '',
-      fileId: fileId,
-      token: token,
-      binary: receiver,
-      cancelToken: cancelToken,
-    );
+    final uploadFuture = _client
+        .upload(
+          protocol: target.getProtocolType(),
+          ip: target.ip!,
+          port: target.port,
+          publicKey: null,
+          sessionId: remoteSessionId ?? '',
+          fileId: fileId,
+          token: token,
+          binary: receiver,
+          path: path,
+          fileDescriptor: fileDescriptor,
+          contentLength: BigInt.from(contentLength),
+          cancelToken: cancelToken,
+        )
+        .forEach(onSendProgress);
 
     try {
-      int sent = 0;
-      await for (final chunk in stream) {
+      await for (final chunk in stream ?? const Stream<List<int>>.empty()) {
         try {
-          await sink.add(data: chunk);
+          await sink!.add(data: chunk);
         } catch (_) {
           // The Rust side dropped the receiver, i.e. the upload request already
           // ended (e.g. rejected by the receiver or cancelled).
@@ -51,10 +57,8 @@ class HttpUploadService {
           await uploadFuture;
           rethrow;
         }
-        sent += chunk.length;
-        onSendProgress(sent / contentLength);
       }
-      sink.close();
+      sink?.close();
     } catch (e) {
       // The source stream failed, so the upload request must be aborted.
       // [e] is the root cause, thus the error of the upload request is swallowed.

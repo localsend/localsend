@@ -187,6 +187,8 @@ impl LsHttpClientV3 {
 
     /// Uploads a file to the server.
     ///
+    /// `progress` is called with the cumulative number of bytes read for the upload.
+    ///
     /// `cancel` is a cancellation token; cancelling it aborts the upload with
     /// [`ClientError::Cancelled`].
     pub async fn upload(
@@ -199,6 +201,7 @@ impl LsHttpClientV3 {
         file_id: &str,
         token: &str,
         content: model::transfer::FileContent,
+        progress: impl Fn(u64) + Send + 'static,
         cancel: CancellationToken,
     ) -> Result<(), ClientError> {
         let send = self
@@ -219,8 +222,12 @@ impl LsHttpClientV3 {
                 .to_string(),
             )
             .body({
-                let stream =
-                    ReceiverStream::new(content.into_receiver()).map(Ok::<Bytes, anyhow::Error>);
+                let mut sent = 0_u64;
+                let stream = ReceiverStream::new(content.into_receiver()).map(move |chunk| {
+                    sent += chunk.len() as u64;
+                    progress(sent);
+                    Ok::<Bytes, anyhow::Error>(chunk)
+                });
                 reqwest::Body::wrap_stream(stream)
             })
             .send();

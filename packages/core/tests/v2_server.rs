@@ -11,7 +11,7 @@ use localsend::http::state::ClientInfo;
 use localsend::model::transfer::{FileContent, FileDto};
 use std::collections::HashMap;
 use std::path::PathBuf;
-use std::sync::atomic::{AtomicU16, Ordering};
+use std::sync::atomic::{AtomicU16, AtomicU64, Ordering};
 use std::sync::Arc;
 use std::time::Duration;
 use tokio::sync::{mpsc, oneshot, Mutex};
@@ -209,6 +209,7 @@ async fn upload_bytes(
 ) -> Result<(), ClientError> {
     let (tx, rx) = mpsc::channel::<Bytes>(4);
     let chunks: Vec<Vec<u8>> = bytes.chunks(1024).map(|chunk| chunk.to_vec()).collect();
+    let sent = Arc::new(AtomicU64::new(0));
     tokio::spawn(async move {
         for chunk in chunks {
             if tx.send(Bytes::from(chunk)).await.is_err() {
@@ -217,7 +218,8 @@ async fn upload_bytes(
         }
     });
 
-    client
+    let progress = sent.clone();
+    let result = client
         .upload(
             ProtocolType::Http,
             "127.0.0.1",
@@ -227,9 +229,18 @@ async fn upload_bytes(
             file_id,
             token,
             FileContent::Stream(rx),
+            move |bytes_sent| {
+                progress.store(bytes_sent, Ordering::Relaxed);
+            },
             CancellationToken::new(),
         )
-        .await
+        .await;
+
+    if result.is_ok() {
+        assert_eq!(sent.load(Ordering::Relaxed), bytes.len() as u64);
+    }
+
+    result
 }
 
 fn assert_status(result: Result<impl Sized, ClientError>, expected_status: u16) {
