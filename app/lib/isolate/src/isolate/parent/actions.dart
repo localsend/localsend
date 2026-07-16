@@ -122,7 +122,6 @@ class IsolateHttpUploadActionResult {
 }
 
 class IsolateHttpUploadAction extends ReduxActionWithResult<IsolateController, ParentIsolateState, IsolateHttpUploadActionResult> {
-  final int isolateIndex;
   final String? remoteSessionId;
   final String remoteFileToken;
   final String fileId;
@@ -132,7 +131,6 @@ class IsolateHttpUploadAction extends ReduxActionWithResult<IsolateController, P
   final Device device;
 
   IsolateHttpUploadAction({
-    required this.isolateIndex,
     required this.remoteSessionId,
     required this.remoteFileToken,
     required this.fileId,
@@ -144,7 +142,10 @@ class IsolateHttpUploadAction extends ReduxActionWithResult<IsolateController, P
 
   @override
   (ParentIsolateState, IsolateHttpUploadActionResult) reduce() {
-    final connection = state.httpUpload[isolateIndex];
+    final connection = state.httpUpload;
+    if (connection == null) {
+      throw StateError('httpUpload is not initialized');
+    }
 
     final task = HttpUploadTask(
       remoteSessionId: remoteSessionId,
@@ -173,13 +174,11 @@ class IsolateHttpUploadAction extends ReduxActionWithResult<IsolateController, P
 }
 
 class IsolateHttpUploadFilesAction extends ReduxActionWithResult<IsolateController, ParentIsolateState, IsolateHttpUploadActionResult> {
-  final int isolateIndex;
   final String? remoteSessionId;
   final List<HttpUploadFile> files;
   final Device device;
 
   IsolateHttpUploadFilesAction({
-    required this.isolateIndex,
     required this.remoteSessionId,
     required this.files,
     required this.device,
@@ -187,7 +186,10 @@ class IsolateHttpUploadFilesAction extends ReduxActionWithResult<IsolateControll
 
   @override
   (ParentIsolateState, IsolateHttpUploadActionResult) reduce() {
-    final connection = state.httpUpload[isolateIndex];
+    final connection = state.httpUpload;
+    if (connection == null) {
+      throw StateError('httpUpload is not initialized');
+    }
     final taskId = IdProvider.instance.getNextId();
     final progress = connection.sendWrappedTaskAndListenStream(
       task: HttpUploadFilesTask(
@@ -209,17 +211,18 @@ class IsolateHttpUploadFilesAction extends ReduxActionWithResult<IsolateControll
 }
 
 class IsolateHttpUploadCancelAction extends ReduxAction<IsolateController, ParentIsolateState> {
-  final int isolateIndex;
   final int taskId;
 
   IsolateHttpUploadCancelAction({
-    required this.isolateIndex,
     required this.taskId,
   });
 
   @override
   ParentIsolateState reduce() {
-    final connection = state.httpUpload[isolateIndex];
+    final connection = state.httpUpload;
+    if (connection == null) {
+      throw StateError('httpUpload is not initialized');
+    }
 
     connection.sendToIsolate(
       SendToIsolateData(

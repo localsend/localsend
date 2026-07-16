@@ -418,7 +418,6 @@ class _ProgressPageState extends State<ProgressPage> with Refena {
                                   .notifier(sendProvider)
                                   .sendFile(
                                     sessionId: widget.sessionId,
-                                    isolateIndex: 0,
                                     file: sendSession.files[file.id]!,
                                     isRetry: true,
                                   );

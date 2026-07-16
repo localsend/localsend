@@ -12,8 +12,6 @@ import 'package:typed_isolates/typed_isolates.dart';
 
 part 'parent_isolate_provider.mapper.dart';
 
-const _uploadIsolateCount = 2;
-
 /// Holds the state of the parent isolate that is visible in the main Flutter isolate.
 /// The [ParentIsolateState.syncState] is synchronized with all child isolates.
 /// Additionally, holds the objects to communicate with the child isolates.
@@ -22,8 +20,7 @@ class ParentIsolateState with ParentIsolateStateMappable {
   final SyncState syncState;
   final IsolateConnector<IsolateTaskStreamResult<Device>, SendToIsolateData<IsolateTask<HttpScanTask>>>? httpScanDiscovery;
   final IsolateConnector<Device, SendToIsolateData<MulticastTask>>? multicastDiscovery;
-  final List<IsolateConnector<IsolateTaskStreamResult<double>, SendToIsolateData<IsolateTask<BaseHttpUploadTask>>>> httpUpload;
-  int get uploadIsolateCount => httpUpload.length;
+  final IsolateConnector<IsolateTaskStreamResult<double>, SendToIsolateData<IsolateTask<BaseHttpUploadTask>>>? httpUpload;
 
   ParentIsolateState({
     required this.syncState,
@@ -36,7 +33,7 @@ class ParentIsolateState with ParentIsolateStateMappable {
     syncState: syncState,
     httpScanDiscovery: null,
     multicastDiscovery: null,
-    httpUpload: [],
+    httpUpload: null,
   );
 
   @override
@@ -89,39 +86,31 @@ class IsolateSetupAction extends AsyncReduxAction<IsolateController, ParentIsola
       ),
     );
 
-    final httpUploadIsolates = List.generate(
-      _uploadIsolateCount,
-      (index) async {
-        final httpUpload =
-            await TypedIsolates.startIsolate<IsolateTaskStreamResult<double>, SendToIsolateData<IsolateTask<BaseHttpUploadTask>>, InitialData>(
-              task: setupHttpUploadIsolate,
-              param: InitialData(
-                syncState: state.syncState,
-                logLevel: Logger.root.level,
-              ),
-            );
+    final httpUpload =
+        await TypedIsolates.startIsolate<IsolateTaskStreamResult<double>, SendToIsolateData<IsolateTask<BaseHttpUploadTask>>, InitialData>(
+          task: setupHttpUploadIsolate,
+          param: InitialData(
+            syncState: state.syncState,
+            logLevel: Logger.root.level,
+          ),
+        );
 
-        if (uriContentStreamResolver != null) {
-          httpUpload.sendToIsolate(
-            SendToIsolateData(
-              syncState: null,
-              data: IsolateTask(
-                id: -1,
-                data: HttpUploadSetContentStreamResolverTask(resolver: uriContentStreamResolver!),
-              ),
-            ),
-          );
-        }
-
-        return httpUpload;
-      },
-      growable: false,
-    );
+    if (uriContentStreamResolver != null) {
+      httpUpload.sendToIsolate(
+        SendToIsolateData(
+          syncState: null,
+          data: IsolateTask(
+            id: -1,
+            data: HttpUploadSetContentStreamResolverTask(resolver: uriContentStreamResolver!),
+          ),
+        ),
+      );
+    }
 
     return state.copyWith(
       httpScanDiscovery: httpScanDiscovery,
       multicastDiscovery: multicastDiscovery,
-      httpUpload: await Future.wait(httpUploadIsolates),
+      httpUpload: httpUpload,
     );
   }
 }
@@ -131,9 +120,7 @@ class IsolateDisposeAction extends ReduxAction<IsolateController, ParentIsolateS
   ParentIsolateState reduce() {
     state.httpScanDiscovery?.isolate.kill();
     state.multicastDiscovery?.isolate.kill();
-    for (final httpUpload in state.httpUpload) {
-      httpUpload.isolate.kill();
-    }
+    state.httpUpload?.isolate.kill();
     return state;
   }
 }

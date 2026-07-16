@@ -49,20 +49,16 @@ class ParentIsolateStateMapper extends ClassMapperBase<ParentIsolateState> {
     IsolateConnector<Device, SendToIsolateData<MulticastTask>>
   >
   _f$multicastDiscovery = Field('multicastDiscovery', _$multicastDiscovery);
-  static List<
-    IsolateConnector<
-      IsolateTaskStreamResult<double>,
-      SendToIsolateData<IsolateTask<BaseHttpUploadTask>>
-    >
-  >
+  static IsolateConnector<
+    IsolateTaskStreamResult<double>,
+    SendToIsolateData<IsolateTask<BaseHttpUploadTask>>
+  >?
   _$httpUpload(ParentIsolateState v) => v.httpUpload;
   static const Field<
     ParentIsolateState,
-    List<
-      IsolateConnector<
-        IsolateTaskStreamResult<double>,
-        SendToIsolateData<IsolateTask<BaseHttpUploadTask>>
-      >
+    IsolateConnector<
+      IsolateTaskStreamResult<double>,
+      SendToIsolateData<IsolateTask<BaseHttpUploadTask>>
     >
   >
   _f$httpUpload = Field('httpUpload', _$httpUpload);
@@ -156,25 +152,6 @@ abstract class ParentIsolateStateCopyWith<
 >
     implements ClassCopyWith<$R, $In, $Out> {
   SyncStateCopyWith<$R, SyncState, SyncState> get syncState;
-  ListCopyWith<
-    $R,
-    IsolateConnector<
-      IsolateTaskStreamResult<double>,
-      SendToIsolateData<IsolateTask<BaseHttpUploadTask>>
-    >,
-    ObjectCopyWith<
-      $R,
-      IsolateConnector<
-        IsolateTaskStreamResult<double>,
-        SendToIsolateData<IsolateTask<BaseHttpUploadTask>>
-      >,
-      IsolateConnector<
-        IsolateTaskStreamResult<double>,
-        SendToIsolateData<IsolateTask<BaseHttpUploadTask>>
-      >
-    >
-  >
-  get httpUpload;
   $R call({
     SyncState? syncState,
     IsolateConnector<
@@ -184,11 +161,9 @@ abstract class ParentIsolateStateCopyWith<
     httpScanDiscovery,
     IsolateConnector<Device, SendToIsolateData<MulticastTask>>?
     multicastDiscovery,
-    List<
-      IsolateConnector<
-        IsolateTaskStreamResult<double>,
-        SendToIsolateData<IsolateTask<BaseHttpUploadTask>>
-      >
+    IsolateConnector<
+      IsolateTaskStreamResult<double>,
+      SendToIsolateData<IsolateTask<BaseHttpUploadTask>>
     >?
     httpUpload,
   });
@@ -209,47 +184,17 @@ class _ParentIsolateStateCopyWithImpl<$R, $Out>
   SyncStateCopyWith<$R, SyncState, SyncState> get syncState =>
       $value.syncState.copyWith.$chain((v) => call(syncState: v));
   @override
-  ListCopyWith<
-    $R,
-    IsolateConnector<
-      IsolateTaskStreamResult<double>,
-      SendToIsolateData<IsolateTask<BaseHttpUploadTask>>
-    >,
-    ObjectCopyWith<
-      $R,
-      IsolateConnector<
-        IsolateTaskStreamResult<double>,
-        SendToIsolateData<IsolateTask<BaseHttpUploadTask>>
-      >,
-      IsolateConnector<
-        IsolateTaskStreamResult<double>,
-        SendToIsolateData<IsolateTask<BaseHttpUploadTask>>
-      >
-    >
-  >
-  get httpUpload => ListCopyWith(
-    $value.httpUpload,
-    (v, t) => ObjectCopyWith(v, $identity, t),
-    (v) => call(httpUpload: v),
-  );
-  @override
   $R call({
     SyncState? syncState,
     Object? httpScanDiscovery = $none,
     Object? multicastDiscovery = $none,
-    List<
-      IsolateConnector<
-        IsolateTaskStreamResult<double>,
-        SendToIsolateData<IsolateTask<BaseHttpUploadTask>>
-      >
-    >?
-    httpUpload,
+    Object? httpUpload = $none,
   }) => $apply(
     FieldCopyWithData({
       if (syncState != null) #syncState: syncState,
       if (httpScanDiscovery != $none) #httpScanDiscovery: httpScanDiscovery,
       if (multicastDiscovery != $none) #multicastDiscovery: multicastDiscovery,
-      if (httpUpload != null) #httpUpload: httpUpload,
+      if (httpUpload != $none) #httpUpload: httpUpload,
     }),
   );
   @override
