@@ -147,16 +147,38 @@ ColorScheme _determineColorScheme(ColorMode mode, Brightness brightness, Dynamic
     brightness: brightness,
   );
 
-  final colorScheme = switch (mode) {
-    ColorMode.system => brightness == Brightness.light ? dynamicColors?.light : dynamicColors?.dark,
-    ColorMode.localsend => null,
-    ColorMode.oled => (dynamicColors?.dark ?? defaultColorScheme).copyWith(
-      surface: Colors.black,
-    ),
+  final seedColor = switch (mode) {
+    ColorMode.system => null,
+    ColorMode.localsend => Colors.teal,
+    ColorMode.oled => Colors.teal,
     ColorMode.yaru => throw 'Should reach here',
+    ColorMode.pink => const Color(0xFFEC407A),
+    ColorMode.purple => const Color(0xFFAB47BC),
+    ColorMode.blue => const Color(0xFF1E88E5),
+    ColorMode.orange => const Color(0xFFFFA726),
+    ColorMode.red => const Color(0xFFE53935),
   };
 
-  return colorScheme ?? defaultColorScheme;
+  if (mode == ColorMode.system) {
+    return (brightness == Brightness.light ? dynamicColors?.light : dynamicColors?.dark) ?? defaultColorScheme;
+  }
+
+  if (mode == ColorMode.oled) {
+    final colorScheme = ColorScheme.fromSeed(
+      seedColor: seedColor!,
+      brightness: brightness,
+    );
+    return colorScheme.copyWith(surface: Colors.black);
+  }
+
+  if (seedColor != null) {
+    return ColorScheme.fromSeed(
+      seedColor: seedColor,
+      brightness: brightness,
+    );
+  }
+
+  return defaultColorScheme;
 }
 
 ThemeData _getYaruTheme(Brightness brightness) {
