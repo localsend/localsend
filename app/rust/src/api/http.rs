@@ -108,7 +108,7 @@ impl RsHttpClient {
             let is_final = sent >= content_length;
             if !is_final {
                 if let Some(last) = last_emit.get() {
-                    if now.duration_since(last) < std::time::Duration::from_millis(50) {
+                    if now.duration_since(last) < std::time::Duration::from_millis(20) {
                         return;
                     }
                 }
