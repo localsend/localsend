@@ -22,9 +22,18 @@ class SelectedReceivingFilesNotifier extends Notifier<Map<String, String>> {
   }
 
   void setFiles(List<FileDto> files) {
-    state = {
-      for (final f in files) f.id: f.fileName, // by default, accept all files and take their original name
-    };
+    final savedNames = <String>{};
+    state = {};
+    for (final f in files) {
+      String name = f.fileName;
+      int counter = 1;
+      while (savedNames.contains(name)) {
+        counter++;
+        name = f.fileName.withCount(counter);
+      }
+      savedNames.add(name);
+      state[f.id] = name;
+    }
   }
 
   void unselect(String fileId) {
