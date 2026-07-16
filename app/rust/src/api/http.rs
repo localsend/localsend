@@ -102,7 +102,18 @@ impl RsHttpClient {
         cancel_token: &RsCancellationToken,
     ) -> Result<(), RsHttpClientError> {
         let content = resolve_file_content(binary, path, file_descriptor)?;
+        let last_emit = std::cell::Cell::new(None::<std::time::Instant>);
         let progress = move |sent| {
+            let now = std::time::Instant::now();
+            let is_final = sent >= content_length;
+            if !is_final {
+                if let Some(last) = last_emit.get() {
+                    if now.duration_since(last) < std::time::Duration::from_millis(50) {
+                        return;
+                    }
+                }
+            }
+            last_emit.set(Some(now));
             let progress = if content_length == 0 {
                 1.0
             } else {
