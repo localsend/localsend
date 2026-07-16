@@ -5,12 +5,9 @@ use crate::http::dto_v2::{
     InfoResponseDtoV2, PrepareDownloadResponseDtoV2, PrepareUploadRequestDtoV2,
     PrepareUploadResponseDtoV2, PrepareUploadResultV2, RegisterDtoV2, RegisterResponseDtoV2,
 };
-use crate::model;
-use bytes::Bytes;
 use futures_util::StreamExt;
 use reqwest::{Response, StatusCode};
 use tokio::io::AsyncWriteExt;
-use tokio_stream::wrappers::ReceiverStream;
 use tokio_util::sync::CancellationToken;
 
 /// HTTP client for LocalSend Protocol v2.1.
@@ -199,8 +196,7 @@ impl LsHttpClientV2 {
     /// * `session_id` - Session ID from prepare_upload
     /// * `file_id` - File ID to upload
     /// * `token` - File-specific token from prepare_upload
-    /// * `content` - The file content to upload (a chunk stream or a raw file descriptor)
-    /// * `progress` - Called with the cumulative number of bytes read for the upload
+    /// * `body` - The streaming request body carrying the file content
     /// * `cancel` - Cancellation token; cancelling it aborts the upload with [`ClientError::Cancelled`]
     ///
     /// # Errors
@@ -217,8 +213,7 @@ impl LsHttpClientV2 {
         session_id: &str,
         file_id: &str,
         token: &str,
-        content: model::transfer::FileContent,
-        progress: impl Fn(u64) + Send + 'static,
+        body: reqwest::Body,
         cancel: CancellationToken,
     ) -> Result<(), ClientError> {
         let url = TargetUrl {
@@ -234,14 +229,6 @@ impl LsHttpClientV2 {
             ],
         }
         .to_string();
-
-        let mut sent = 0_u64;
-        let stream = ReceiverStream::new(content.into_receiver()).map(move |chunk| {
-            sent += chunk.len() as u64;
-            progress(sent);
-            Ok::<Bytes, anyhow::Error>(chunk)
-        });
-        let body = reqwest::Body::wrap_stream(stream);
 
         let res = tokio::select! {
             res = self.client.post(&url).body(body).send() => res?,

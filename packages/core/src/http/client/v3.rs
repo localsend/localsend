@@ -1,16 +1,13 @@
 use super::{ClientError, ResponseExt, ResultWithPublicKey};
 use crate::http::client::url::{ApiVersion, TargetUrl};
 use crate::http::dto::ProtocolType;
+use crate::http;
 use crate::{crypto, util};
-use crate::{http, model};
-use bytes::Bytes;
-use futures_util::StreamExt;
 use lru::LruCache;
 use reqwest::{Response, StatusCode};
 use std::num::NonZeroUsize;
 use std::sync::Arc;
 use tokio::sync::Mutex;
-use tokio_stream::wrappers::ReceiverStream;
 use tokio_util::sync::CancellationToken;
 
 pub struct LsHttpClientV3 {
@@ -187,7 +184,7 @@ impl LsHttpClientV3 {
 
     /// Uploads a file to the server.
     ///
-    /// `progress` is called with the cumulative number of bytes read for the upload.
+    /// `body` is the streaming request body carrying the file content.
     ///
     /// `cancel` is a cancellation token; cancelling it aborts the upload with
     /// [`ClientError::Cancelled`].
@@ -200,8 +197,7 @@ impl LsHttpClientV3 {
         session_id: &str,
         file_id: &str,
         token: &str,
-        content: model::transfer::FileContent,
-        progress: impl Fn(u64) + Send + 'static,
+        body: reqwest::Body,
         cancel: CancellationToken,
     ) -> Result<(), ClientError> {
         let send = self
@@ -221,15 +217,7 @@ impl LsHttpClientV3 {
                 }
                 .to_string(),
             )
-            .body({
-                let mut sent = 0_u64;
-                let stream = ReceiverStream::new(content.into_receiver()).map(move |chunk| {
-                    sent += chunk.len() as u64;
-                    progress(sent);
-                    Ok::<Bytes, anyhow::Error>(chunk)
-                });
-                reqwest::Body::wrap_stream(stream)
-            })
+            .body(body)
             .send();
 
         let res = tokio::select! {
