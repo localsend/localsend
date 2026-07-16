@@ -33,8 +33,12 @@ impl FileContent {
     /// chunks; the channel is closed on EOF or on an I/O error.
     pub fn into_receiver(self) -> mpsc::Receiver<Bytes> {
         match self {
-            FileContent::Stream(rx) => rx,
+            FileContent::Stream(rx) => {
+                tracing::info!("Reading file content via byte stream from application");
+                rx
+            },
             FileContent::Path(path) => {
+                tracing::info!("Reading file content from path: {}", path.display());
                 let (tx, rx) = mpsc::channel(FILE_CHANNEL_CAPACITY);
                 tokio::spawn(async move {
                     match tokio::fs::File::open(&path).await {
@@ -50,6 +54,7 @@ impl FileContent {
             FileContent::Fd(fd) => {
                 use std::os::fd::FromRawFd;
 
+                tracing::info!("Reading file content from file descriptor: {fd}");
                 let (tx, rx) = mpsc::channel(FILE_CHANNEL_CAPACITY);
                 // SAFETY: the descriptor is owned by this transfer; wrapping it in
                 // a File transfers that ownership so it is closed once reading finishes.
@@ -69,10 +74,12 @@ async fn read_file_into_sender(mut file: tokio::fs::File, tx: mpsc::Sender<Bytes
     use tokio::io::AsyncReadExt;
 
     let mut buffer = bytes::BytesMut::with_capacity(64 * 1024);
+    let mut total: u64 = 0;
     loop {
         match file.read_buf(&mut buffer).await {
             Ok(0) => break,
-            Ok(_) => {
+            Ok(n) => {
+                total += n as u64;
                 if tx.send(buffer.split().freeze()).await.is_err() {
                     break;
                 }
@@ -83,6 +90,7 @@ async fn read_file_into_sender(mut file: tokio::fs::File, tx: mpsc::Sender<Bytes
             }
         }
     }
+    tracing::info!("Finished reading file content ({total} bytes)");
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]

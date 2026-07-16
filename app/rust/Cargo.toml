@@ -16,3 +16,6 @@ tokio-util = "0.7.16"
 tracing = "0.1.44"
 tracing-subscriber = { version = "0.3.22" }
 uuid = { version = "1.11.1", features = ["v4"] }
+
+[target.'cfg(target_os = "android")'.dependencies]
+tracing-android = "0.2"
