@@ -11,6 +11,7 @@ int getFileSpeed({
   required int bytes,
 }) {
   final deltaTime = end - start;
+  if (deltaTime <= 0) return 0;
   return (_millisecondsPerSecond * bytes) ~/ deltaTime;
 }
 
@@ -18,7 +19,7 @@ String getRemainingTime({
   required int bytesPerSeconds,
   required int remainingBytes,
 }) {
-  if (bytesPerSeconds == 0) {
+  if (bytesPerSeconds <= 0) {
     return remainingBytes == 0 ? t.progressPage.remainingTime.seconds(n: 0, ss: '00') : '∞';
   }
 
