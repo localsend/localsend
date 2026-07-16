@@ -20,7 +20,7 @@ class ParentIsolateState with ParentIsolateStateMappable {
   final SyncState syncState;
   final IsolateConnector<IsolateTaskStreamResult<Device>, SendToIsolateData<IsolateTask<HttpScanTask>>>? httpScanDiscovery;
   final IsolateConnector<Device, SendToIsolateData<MulticastTask>>? multicastDiscovery;
-  final IsolateConnector<IsolateTaskStreamResult<double>, SendToIsolateData<IsolateTask<BaseHttpUploadTask>>>? httpUpload;
+  final IsolateConnector<IsolateTaskStreamResult<HttpUploadEvent>, SendToIsolateData<IsolateTask<BaseHttpUploadTask>>>? httpUpload;
 
   ParentIsolateState({
     required this.syncState,
@@ -87,7 +87,7 @@ class IsolateSetupAction extends AsyncReduxAction<IsolateController, ParentIsola
     );
 
     final httpUpload =
-        await TypedIsolates.startIsolate<IsolateTaskStreamResult<double>, SendToIsolateData<IsolateTask<BaseHttpUploadTask>>, InitialData>(
+        await TypedIsolates.startIsolate<IsolateTaskStreamResult<HttpUploadEvent>, SendToIsolateData<IsolateTask<BaseHttpUploadTask>>, InitialData>(
           task: setupHttpUploadIsolate,
           param: InitialData(
             syncState: state.syncState,

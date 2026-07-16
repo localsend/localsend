@@ -50,14 +50,14 @@ class ParentIsolateStateMapper extends ClassMapperBase<ParentIsolateState> {
   >
   _f$multicastDiscovery = Field('multicastDiscovery', _$multicastDiscovery);
   static IsolateConnector<
-    IsolateTaskStreamResult<double>,
+    IsolateTaskStreamResult<HttpUploadEvent>,
     SendToIsolateData<IsolateTask<BaseHttpUploadTask>>
   >?
   _$httpUpload(ParentIsolateState v) => v.httpUpload;
   static const Field<
     ParentIsolateState,
     IsolateConnector<
-      IsolateTaskStreamResult<double>,
+      IsolateTaskStreamResult<HttpUploadEvent>,
       SendToIsolateData<IsolateTask<BaseHttpUploadTask>>
     >
   >
@@ -162,7 +162,7 @@ abstract class ParentIsolateStateCopyWith<
     IsolateConnector<Device, SendToIsolateData<MulticastTask>>?
     multicastDiscovery,
     IsolateConnector<
-      IsolateTaskStreamResult<double>,
+      IsolateTaskStreamResult<HttpUploadEvent>,
       SendToIsolateData<IsolateTask<BaseHttpUploadTask>>
     >?
     httpUpload,

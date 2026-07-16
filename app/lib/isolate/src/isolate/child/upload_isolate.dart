@@ -21,26 +21,6 @@ class HttpUploadSetContentStreamResolverTask implements BaseHttpUploadTask {
   });
 }
 
-class HttpUploadTask implements BaseHttpUploadTask {
-  final String? remoteSessionId;
-  final String remoteFileToken;
-  final String fileId;
-  final String? filePath;
-  final List<int>? fileBytes;
-  final int fileSize;
-  final Device device;
-
-  HttpUploadTask({
-    required this.remoteSessionId,
-    required this.remoteFileToken,
-    required this.fileId,
-    required this.filePath,
-    required this.fileBytes,
-    required this.fileSize,
-    required this.device,
-  });
-}
-
 class HttpUploadFile {
   final String remoteFileToken;
   final String fileId;
@@ -80,6 +60,44 @@ class HttpUploadCancelTask implements BaseHttpUploadTask {
   HttpUploadCancelTask({required this.taskId});
 }
 
+/// A message sent from the upload isolate to the main isolate
+/// reporting the state of a single file of a [HttpUploadFilesTask].
+sealed class HttpUploadEvent {
+  final String fileId;
+
+  HttpUploadEvent({required this.fileId});
+}
+
+/// The upload of the file has started.
+class HttpUploadFileStartedEvent extends HttpUploadEvent {
+  HttpUploadFileStartedEvent({required super.fileId});
+}
+
+/// The upload progress of the file in the range [0, 1].
+class HttpUploadFileProgressEvent extends HttpUploadEvent {
+  final double progress;
+
+  HttpUploadFileProgressEvent({
+    required super.fileId,
+    required this.progress,
+  });
+}
+
+/// The file has been uploaded successfully.
+class HttpUploadFileFinishedEvent extends HttpUploadEvent {
+  HttpUploadFileFinishedEvent({required super.fileId});
+}
+
+/// The upload of the file has failed. The next file is still uploaded.
+class HttpUploadFileFailedEvent extends HttpUploadEvent {
+  final String error;
+
+  HttpUploadFileFailedEvent({
+    required super.fileId,
+    required this.error,
+  });
+}
+
 /// Map of cancel tokens for each task.
 /// Task ID -> CancelToken
 final _cancelTokenProvider = Provider((ref) => <int, RsCancellationToken>{});
@@ -95,7 +113,7 @@ abstract class UriContentStreamResolver {
 
 Future<void> setupHttpUploadIsolate(
   Stream<SendToIsolateData<IsolateTask<BaseHttpUploadTask>>> receiveFromMain,
-  void Function(IsolateTaskStreamResult<double>) sendToMain,
+  void Function(IsolateTaskStreamResult<HttpUploadEvent>) sendToMain,
   InitialData initialData,
 ) async {
   await setupChildIsolateHelper(
@@ -104,9 +122,7 @@ Future<void> setupHttpUploadIsolate(
     sendToMain: sendToMain,
     initialData: initialData,
     handler: (ref, task) async {
-      final String? remoteSessionId;
-      final List<HttpUploadFile> files;
-      final Device device;
+      final HttpUploadFilesTask uploadTask;
       switch (task.data) {
         case HttpUploadSetContentStreamResolverTask task:
           final rootIsolateToken = ref.read(syncProvider).rootIsolateToken;
@@ -114,23 +130,8 @@ Future<void> setupHttpUploadIsolate(
             rootIsolateToken: rootIsolateToken,
           );
           return;
-        case HttpUploadTask task:
-          remoteSessionId = task.remoteSessionId;
-          files = [
-            HttpUploadFile(
-              remoteFileToken: task.remoteFileToken,
-              fileId: task.fileId,
-              filePath: task.filePath,
-              fileBytes: task.fileBytes,
-              fileSize: task.fileSize,
-            ),
-          ];
-          device = task.device;
-          break;
         case HttpUploadFilesTask task:
-          remoteSessionId = task.remoteSessionId;
-          files = task.files;
-          device = task.device;
+          uploadTask = task;
           break;
         case HttpUploadCancelTask task:
           final cancelToken = ref.read(_cancelTokenProvider)[task.taskId];
@@ -139,53 +140,74 @@ Future<void> setupHttpUploadIsolate(
           return;
       }
 
+      final cancelToken = createCancellationToken();
+      ref.read(_cancelTokenProvider).putIfAbsent(task.id, () => cancelToken);
       try {
-        final cancelToken = createCancellationToken();
-        ref.read(_cancelTokenProvider).putIfAbsent(task.id, () => cancelToken);
-        final totalSize = files.fold<int>(0, (sum, file) => sum + file.fileSize);
-        var completedSize = 0;
+        for (final file in uploadTask.files) {
+          sendToMain(
+            IsolateTaskStreamResult.event(
+              id: task.id,
+              data: HttpUploadFileStartedEvent(fileId: file.fileId),
+            ),
+          );
 
-        for (final file in files) {
-          final filePath = file.filePath;
-          final isContentUri = filePath?.startsWith('content://') ?? false;
-          final fileDescriptor = isContentUri ? await getFileDescriptorAndroid(uri: filePath!) : null;
+          try {
+            final filePath = file.filePath;
+            final isContentUri = filePath?.startsWith('content://') ?? false;
+            final fileDescriptor = isContentUri ? await getFileDescriptorAndroid(uri: filePath!) : null;
 
-          await ref
-              .read(httpUploadProvider)
-              .upload(
-                stream: filePath == null && file.fileBytes != null ? Stream.value(file.fileBytes!) : null,
-                path: !isContentUri ? filePath : null,
-                fileDescriptor: fileDescriptor,
-                contentLength: file.fileSize,
-                target: device,
-                remoteSessionId: remoteSessionId,
-                fileId: file.fileId,
-                token: file.remoteFileToken,
-                onSendProgress: (progress) {
-                  final totalProgress = totalSize == 0 ? 1.0 : (completedSize + progress * file.fileSize) / totalSize;
-                  sendToMain(
-                    IsolateTaskStreamResult.event(
-                      id: task.id,
-                      data: totalProgress,
-                    ),
-                  );
-                },
-                cancelToken: cancelToken,
-              );
+            await ref
+                .read(httpUploadProvider)
+                .upload(
+                  stream: filePath == null && file.fileBytes != null ? Stream.value(file.fileBytes!) : null,
+                  path: !isContentUri ? filePath : null,
+                  fileDescriptor: fileDescriptor,
+                  contentLength: file.fileSize,
+                  target: uploadTask.device,
+                  remoteSessionId: uploadTask.remoteSessionId,
+                  fileId: file.fileId,
+                  token: file.remoteFileToken,
+                  onSendProgress: (progress) {
+                    sendToMain(
+                      IsolateTaskStreamResult.event(
+                        id: task.id,
+                        data: HttpUploadFileProgressEvent(
+                          fileId: file.fileId,
+                          progress: progress,
+                        ),
+                      ),
+                    );
+                  },
+                  cancelToken: cancelToken,
+                );
 
-          completedSize += file.fileSize;
+            sendToMain(
+              IsolateTaskStreamResult.event(
+                id: task.id,
+                data: HttpUploadFileFinishedEvent(fileId: file.fileId),
+              ),
+            );
+          } catch (e) {
+            sendToMain(
+              IsolateTaskStreamResult.event(
+                id: task.id,
+                data: HttpUploadFileFailedEvent(
+                  fileId: file.fileId,
+                  error: e.humanErrorMessage,
+                ),
+              ),
+            );
+          }
+
+          if (!ref.read(_cancelTokenProvider).containsKey(task.id)) {
+            // the task was canceled, do not upload the remaining files
+            break;
+          }
         }
 
         sendToMain(
           IsolateTaskStreamResult.done(
             id: task.id,
-          ),
-        );
-      } catch (e) {
-        sendToMain(
-          IsolateTaskStreamResult.error(
-            id: task.id,
-            error: e.humanErrorMessage,
           ),
         );
       } finally {

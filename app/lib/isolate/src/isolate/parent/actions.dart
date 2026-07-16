@@ -113,64 +113,12 @@ class IsolateSendMulticastRestartListenerAction extends ReduxAction<IsolateContr
 
 class IsolateHttpUploadActionResult {
   final int taskId;
-  final Stream<double> progress;
+  final Stream<HttpUploadEvent> events;
 
   IsolateHttpUploadActionResult({
     required this.taskId,
-    required this.progress,
+    required this.events,
   });
-}
-
-class IsolateHttpUploadAction extends ReduxActionWithResult<IsolateController, ParentIsolateState, IsolateHttpUploadActionResult> {
-  final String? remoteSessionId;
-  final String remoteFileToken;
-  final String fileId;
-  final String? filePath;
-  final List<int>? fileBytes;
-  final int fileSize;
-  final Device device;
-
-  IsolateHttpUploadAction({
-    required this.remoteSessionId,
-    required this.remoteFileToken,
-    required this.fileId,
-    required this.filePath,
-    required this.fileBytes,
-    required this.fileSize,
-    required this.device,
-  });
-
-  @override
-  (ParentIsolateState, IsolateHttpUploadActionResult) reduce() {
-    final connection = state.httpUpload;
-    if (connection == null) {
-      throw StateError('httpUpload is not initialized');
-    }
-
-    final task = HttpUploadTask(
-      remoteSessionId: remoteSessionId,
-      remoteFileToken: remoteFileToken,
-      fileId: fileId,
-      filePath: filePath,
-      fileBytes: fileBytes,
-      fileSize: fileSize,
-      device: device,
-    );
-
-    final taskId = IdProvider.instance.getNextId();
-    final progress = connection.sendWrappedTaskAndListenStream(
-      task: task,
-      taskId: taskId,
-    );
-
-    return (
-      state,
-      IsolateHttpUploadActionResult(
-        taskId: taskId,
-        progress: progress,
-      ),
-    );
-  }
 }
 
 class IsolateHttpUploadFilesAction extends ReduxActionWithResult<IsolateController, ParentIsolateState, IsolateHttpUploadActionResult> {
@@ -191,7 +139,7 @@ class IsolateHttpUploadFilesAction extends ReduxActionWithResult<IsolateControll
       throw StateError('httpUpload is not initialized');
     }
     final taskId = IdProvider.instance.getNextId();
-    final progress = connection.sendWrappedTaskAndListenStream(
+    final events = connection.sendWrappedTaskAndListenStream(
       task: HttpUploadFilesTask(
         remoteSessionId: remoteSessionId,
         files: files,
@@ -204,7 +152,7 @@ class IsolateHttpUploadFilesAction extends ReduxActionWithResult<IsolateControll
       state,
       IsolateHttpUploadActionResult(
         taskId: taskId,
-        progress: progress,
+        events: events,
       ),
     );
   }
