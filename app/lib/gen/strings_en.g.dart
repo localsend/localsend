@@ -1057,6 +1057,12 @@ class Translations$settingsTab$receive$en {
 
   /// en: 'Save to history'
   String get saveToHistory => 'Save to history';
+
+  /// en: 'Overwrite duplicate files'
+  String get overwriteDuplicateFiles => 'Overwrite duplicate files';
+
+  /// en: 'Skip duplicate files'
+  String get skipDuplicateFiles => 'Skip duplicate files';
 }
 
 // Path: settingsTab.send

@@ -10,6 +10,7 @@ import 'package:localsend_app/isolate/model/session_status.dart';
 import 'package:localsend_app/model/persistence/color_mode.dart';
 import 'package:localsend_app/pages/receive_options_page.dart';
 import 'package:localsend_app/provider/favorites_provider.dart';
+import 'package:localsend_app/provider/network/server/server_provider.dart';
 import 'package:localsend_app/provider/selection/selected_receiving_files_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/util/device_type_ext.dart';
@@ -84,7 +85,17 @@ class _ReceivePageState extends State<ReceivePage> with Refena {
     return ViewModelBuilder(
       provider: (ref) => widget.vm,
       onFirstFrame: (context, vm) {
-        ref.notifier(selectedReceivingFilesProvider).setFiles(vm.files);
+        final settings = ref.read(settingsProvider);
+        final destinationDir = ref.read(serverProvider)?.session?.destinationDirectory;
+        if (destinationDir != null) {
+          ref.notifier(selectedReceivingFilesProvider).initFiles(
+            files: vm.files,
+            destinationDir: destinationDir,
+            skipDuplicateFiles: settings.skipDuplicateFiles,
+          );
+        } else {
+          ref.notifier(selectedReceivingFilesProvider).setFiles(vm.files);
+        }
       },
       dispose: (ref) {
         ref.dispose(widget.vm);

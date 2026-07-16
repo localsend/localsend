@@ -67,6 +67,8 @@ class SettingsService extends PureNotifier<SettingsState> {
     enableAnimations: _persistence.getEnableAnimations(),
     deviceType: _persistence.getDeviceType(),
     deviceModel: _persistence.getDeviceModel(),
+    overwriteDuplicateFiles: _persistence.getOverwriteDuplicateFiles(),
+    skipDuplicateFiles: _persistence.getSkipDuplicateFiles(),
     shareViaLinkAutoAccept: _persistence.getShareViaLinkAutoAccept(),
     discoveryTimeout: _persistence.getDiscoveryTimeout(),
     advancedSettings: _persistence.getAdvancedSettingsEnabled(),
@@ -237,6 +239,36 @@ class SettingsService extends PureNotifier<SettingsState> {
     await _persistence.setDeviceModel(deviceModel);
     state = state.copyWith(
       deviceModel: deviceModel,
+    );
+  }
+
+  Future<void> setSkipDuplicateFiles(bool skipDuplicateFiles) async {
+    await _persistence.setSkipDuplicateFiles(skipDuplicateFiles);
+    
+    bool overwriteDuplicateFiles = state.overwriteDuplicateFiles;
+    if (skipDuplicateFiles && overwriteDuplicateFiles) {
+      overwriteDuplicateFiles = false;
+      await _persistence.setOverwriteDuplicateFiles(false);
+    }
+    
+    state = state.copyWith(
+      skipDuplicateFiles: skipDuplicateFiles,
+      overwriteDuplicateFiles: overwriteDuplicateFiles,
+    );
+  }
+
+  Future<void> setOverwriteDuplicateFiles(bool overwriteDuplicateFiles) async {
+    await _persistence.setOverwriteDuplicateFiles(overwriteDuplicateFiles);
+    
+    bool skipDuplicateFiles = state.skipDuplicateFiles;
+    if (overwriteDuplicateFiles && skipDuplicateFiles) {
+      skipDuplicateFiles = false;
+      await _persistence.setSkipDuplicateFiles(false);
+    }
+    
+    state = state.copyWith(
+      overwriteDuplicateFiles: overwriteDuplicateFiles,
+      skipDuplicateFiles: skipDuplicateFiles,
     );
   }
 

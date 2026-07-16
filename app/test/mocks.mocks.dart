@@ -11,7 +11,8 @@ import 'package:localsend_app/isolate/model/device.dart' as _i12;
 import 'package:localsend_app/isolate/model/stored_security_context.dart' as _i2;
 import 'package:localsend_app/model/persistence/color_mode.dart' as _i9;
 import 'package:localsend_app/model/persistence/favorite_device.dart' as _i6;
-import 'package:localsend_app/model/persistence/receive_history_entry.dart' as _i5;
+import 'package:localsend_app/model/persistence/receive_history_entry.dart'
+    as _i5;
 import 'package:localsend_app/model/send_mode.dart' as _i11;
 import 'package:localsend_app/provider/persistence_provider.dart' as _i3;
 import 'package:mockito/mockito.dart' as _i1;
@@ -33,14 +34,17 @@ import 'package:shared_preferences/shared_preferences.dart' as _i13;
 // ignore_for_file: subtype_of_sealed_class
 // ignore_for_file: invalid_use_of_internal_member
 
-class _FakeStoredSecurityContext_0 extends _i1.SmartFake implements _i2.StoredSecurityContext {
-  _FakeStoredSecurityContext_0(Object parent, Invocation parentInvocation) : super(parent, parentInvocation);
+class _FakeStoredSecurityContext_0 extends _i1.SmartFake
+    implements _i2.StoredSecurityContext {
+  _FakeStoredSecurityContext_0(Object parent, Invocation parentInvocation)
+    : super(parent, parentInvocation);
 }
 
 /// A class which mocks [PersistenceService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockPersistenceService extends _i1.Mock implements _i3.PersistenceService {
+class MockPersistenceService extends _i1.Mock
+    implements _i3.PersistenceService {
   @override
   bool get isFirstAppStart =>
       (super.noSuchMethod(
@@ -283,6 +287,44 @@ class MockPersistenceService extends _i1.Mock implements _i3.PersistenceService 
             returnValueForMissingStub: false,
           )
           as bool);
+
+  @override
+  bool getOverwriteDuplicateFiles() =>
+      (super.noSuchMethod(
+            Invocation.method(#getOverwriteDuplicateFiles, []),
+            returnValue: false,
+            returnValueForMissingStub: false,
+          )
+          as bool);
+
+  @override
+  _i4.Future<void> setOverwriteDuplicateFiles(bool? overwriteDuplicateFiles) =>
+      (super.noSuchMethod(
+            Invocation.method(#setOverwriteDuplicateFiles, [
+              overwriteDuplicateFiles,
+            ]),
+            returnValue: _i4.Future<void>.value(),
+            returnValueForMissingStub: _i4.Future<void>.value(),
+          )
+          as _i4.Future<void>);
+
+  @override
+  bool getSkipDuplicateFiles() =>
+      (super.noSuchMethod(
+            Invocation.method(#getSkipDuplicateFiles, []),
+            returnValue: false,
+            returnValueForMissingStub: false,
+          )
+          as bool);
+
+  @override
+  _i4.Future<void> setSkipDuplicateFiles(bool? skipDuplicateFiles) =>
+      (super.noSuchMethod(
+            Invocation.method(#setSkipDuplicateFiles, [skipDuplicateFiles]),
+            returnValue: _i4.Future<void>.value(),
+            returnValueForMissingStub: _i4.Future<void>.value(),
+          )
+          as _i4.Future<void>);
 
   @override
   _i4.Future<void> setShareViaLinkAutoAccept(bool? shareViaLinkAutoAccept) =>
