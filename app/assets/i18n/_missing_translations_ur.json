@@ -4,12 +4,12 @@
     "After editing this file, you can run 'dart run slang apply --locale=ur' to quickly apply the newly added translations."
   ],
   "general": {
-    "quickSaveFromFavorites": "Quick Save for \"Favorites\""
+    "quickSaveFromFavorites": "پسندیدہ کے لیے فوری محفوظ"
   },
   "receiveTab": {
     "quickSave": {
       "off": "@:general.off",
-      "favorites": "Favorites",
+      "favorites": "پسندیدہ",
       "on": "@:general.on"
     }
   },
@@ -18,33 +18,33 @@
       "quickSaveFromFavorites": "@:general.quickSaveFromFavorites"
     },
     "network": {
-      "network": "Network",
+      "network": "نیٹ ورک",
       "networkOptions": {
-        "all": "All",
-        "filtered": "Filtered"
+        "all": "سب",
+        "filtered": "فلٹر شدہ"
       },
-      "useSystemName": "Use system name",
-      "generateRandomAlias": "Generate random alias"
+      "useSystemName": "سسٹم کا نام استعمال کریں",
+      "generateRandomAlias": "بے ترتیب عرف بنائیں"
     }
   },
   "networkInterfacesPage": {
-    "title": "Network Interfaces",
-    "info": "By default, LocalSend uses all available network interfaces. You can exclude unwanted networks here. You need to restart the server to apply the changes.",
-    "preview": "Preview",
-    "whitelist": "Whitelist",
-    "blacklist": "Blacklist"
+    "title": "نیٹ ورک انٹرفیسز",
+    "info": "بطور ڈیفالٹ، LocalSend تمام دستیاب نیٹ ورک انٹرفیسز استعمال کرتا ہے۔ آپ یہاں ناپسندیدہ نیٹ ورکس کو خارج کر سکتے ہیں۔ تبدیلیاں لاگو کرنے کے لیے سرور کو دوبارہ شروع کرنا ہوگا۔",
+    "preview": "پیش نظارہ",
+    "whitelist": "وائٹ لسٹ",
+    "blacklist": "بلیک لسٹ"
   },
   "dialogs": {
     "openFile": {
-      "title": "Open file",
-      "content": "Do you want to open the received file?"
+      "title": "فائل کھولیں",
+      "content": "کیا آپ موصول شدہ فائل کھولنا چاہتے ہیں؟"
     },
     "quickSaveFromFavoritesNotice": {
       "title": "@:general.quickSaveFromFavorites",
       "content": [
-        "File requests are now accepted automatically from devices in your favorites list.",
-        "Warning! Currently, this is not entirely secure, as a hacker who has the fingerprint of any device from your favorites list can send you files without restriction.",
-        "However, this option is still safer than allowing all users on the local network to send you files without restriction."
+        "فائل کی درخواستیں اب آپ کی پسندیدہ فہرست میں موجود آلات سے خود بخود قبول ہو جاتی ہیں۔",
+        "انتباہ! فی الحال، یہ مکمل طور پر محفوظ نہیں ہے، کیونکہ کوئی ہیکر جس کے پاس آپ کی پسندیدہ فہرست میں موجود کسی بھی آلے کا فنگر پرنٹ ہو، وہ آپ کو بغیر کسی پابندی کے فائلیں بھیج سکتا ہے۔",
+        "تاہم، یہ آپشن مقامی نیٹ ورک پر موجود تمام صارفین کو بغیر کسی پابندی کے فائلیں بھیجنے کی اجازت دینے سے زیادہ محفوظ ہے۔"
       ]
     }
   }
