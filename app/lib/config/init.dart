@@ -34,6 +34,7 @@ import 'package:localsend_app/provider/tv_provider.dart';
 import 'package:localsend_app/provider/window_dimensions_provider.dart';
 import 'package:localsend_app/rust/api/logging.dart' as rust_logging;
 import 'package:localsend_app/rust/frb_generated.dart';
+import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/util/i18n.dart';
 import 'package:localsend_app/util/native/autostart_helper.dart';
 import 'package:localsend_app/util/native/cache_helper.dart';
@@ -214,7 +215,14 @@ Future<void> postInit(BuildContext context, Ref ref, bool appStart) async {
   }
 
   try {
-    await ref.notifier(serverProvider).startServerFromSettings();
+    final settings = ref.read(settingsProvider);
+    final serverState = await ref.notifier(serverProvider).startServerFromSettings();
+    // If the server bound to a different port than configured (e.g. because the
+    // default port was already occupied by Google Drive or another app), inform
+    // the user so they are not confused about the port shown in the Receive tab.
+    if (serverState != null && serverState.port != settings.port && context.mounted) {
+      context.showSnackBar(t.general.portInUseFallback(port: serverState.port));
+    }
   } catch (e) {
     if (context.mounted) {
       context.showSnackBar(e.toString());

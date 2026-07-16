@@ -18,6 +18,9 @@ import 'package:refena_flutter/refena_flutter.dart';
 
 final _logger = Logger('Server');
 
+/// Maximum number of consecutive ports to try when the configured port is in use.
+const _maxPortRetries = 10;
+
 /// This provider runs the server and provides the current server state.
 /// It is a singleton provider, so only one server can be running at a time.
 /// The server state is null if the server is not running.
@@ -85,6 +88,9 @@ class ServerService extends Notifier<ServerState?> {
   }
 
   /// Starts the server.
+  ///
+  /// If [port] is already in use, the server will automatically try up to
+  /// [_maxPortRetries] consecutive ports before giving up.
   Future<ServerState?> startServer({
     required String alias,
     required int port,
@@ -104,12 +110,58 @@ class ServerService extends Notifier<ServerState?> {
       port = defaultPort;
     }
 
+    _logger.info('Starting server...');
+
+    // Try to bind to the requested port, falling back to the next available
+    // port if the current one is already in use (e.g. occupied by Google Drive).
+    HttpServer? httpServer;
+    int actualPort = port;
+    for (int attempt = 0; attempt < _maxPortRetries; attempt++) {
+      try {
+        if (https) {
+          final securityContext = ref.read(securityProvider);
+          httpServer = await HttpServer.bindSecure(
+            '0.0.0.0',
+            actualPort,
+            SecurityContext()
+              ..usePrivateKeyBytes(securityContext.privateKey.codeUnits)
+              ..useCertificateChainBytes(securityContext.certificate.codeUnits),
+          );
+        } else {
+          httpServer = await HttpServer.bind('0.0.0.0', actualPort);
+        }
+        // Bind succeeded — exit the retry loop.
+        break;
+      } on SocketException catch (e) {
+        _logger.warning('Cannot bind to port $actualPort: $e');
+        if (attempt < _maxPortRetries - 1) {
+          actualPort++;
+          _logger.info('Retrying on port $actualPort...');
+        } else {
+          // All retries exhausted — propagate the original error.
+          rethrow;
+        }
+      }
+    }
+
+    if (https) {
+      _logger.info('Server started. (Port: $actualPort, HTTPS only)');
+    } else {
+      _logger.info('Server started. (Port: $actualPort, HTTP only)');
+    }
+
+    if (actualPort != port) {
+      _logger.warning('Configured port $port was in use. Bound to fallback port $actualPort.');
+    }
+
+    // Install routes AFTER we know the actual bound port so that all
+    // request-handler closures capture the correct port value.
     final router = SimpleServerRouteBuilder();
     final fingerprint = ref.read(securityProvider).certificateHash;
     _receiveController.installRoutes(
       router: router,
       alias: alias,
-      port: port,
+      port: actualPort,
       https: https,
       fingerprint: fingerprint,
       showToken: ref.read(settingsProvider).showToken,
@@ -120,33 +172,12 @@ class ServerService extends Notifier<ServerState?> {
       fingerprint: fingerprint,
     );
 
-    _logger.info('Starting server...');
-
-    final HttpServer httpServer;
-    if (https) {
-      final securityContext = ref.read(securityProvider);
-      httpServer = await HttpServer.bindSecure(
-        '0.0.0.0',
-        port,
-        SecurityContext()
-          ..usePrivateKeyBytes(securityContext.privateKey.codeUnits)
-          ..useCertificateChainBytes(securityContext.certificate.codeUnits),
-      );
-      _logger.info('Server started. (Port: $port, HTTPS only)');
-    } else {
-      httpServer = await HttpServer.bind(
-        '0.0.0.0',
-        port,
-      );
-      _logger.info('Server started. (Port: $port, HTTP only)');
-    }
-
-    final server = SimpleServer.start(server: httpServer, routes: router);
+    final server = SimpleServer.start(server: httpServer!, routes: router);
 
     final newServerState = ServerState(
       httpServer: server,
       alias: alias,
-      port: port,
+      port: actualPort,
       https: https,
       session: null,
       webSendState: null,

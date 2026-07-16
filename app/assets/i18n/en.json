@@ -39,7 +39,8 @@
     "save": "Save",
     "unchanged": "Unchanged",
     "unknown": "Unknown",
-    "noItemInClipboard": "No items in Clipboard."
+    "noItemInClipboard": "No items in Clipboard.",
+    "portInUseFallback": "Port {port} is already in use. LocalSend started on port {port} instead."
   },
   "receiveTab": {
     "title": "Receive",
