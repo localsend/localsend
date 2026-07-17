@@ -264,6 +264,16 @@ class SettingsTab extends StatelessWidget {
                             await ref.notifier(settingsProvider).setShareViaLinkAutoAccept(b);
                           },
                         ),
+                        _SliderEntry(
+                          label: '上传并发数（同时上传的文件数，推荐 4-8）',
+                          value: vm.settings.uploadConcurrency.toDouble(),
+                          min: 1,
+                          max: 16,
+                          divisions: 15,
+                          onChanged: (value) async {
+                            await ref.notifier(settingsProvider).setUploadConcurrency(value.round());
+                          },
+                        ),
                       ],
                     ),
                   _SettingsSection(
@@ -709,6 +719,54 @@ class _ButtonEntry extends StatelessWidget {
             textAlign: TextAlign.center,
           ),
         ),
+      ),
+    );
+  }
+}
+
+/// A specialized version of [_SettingsEntry] for slider values.
+class _SliderEntry extends StatelessWidget {
+  final String label;
+  final double value;
+  final double min;
+  final double max;
+  final int divisions;
+  final ValueChanged<double> onChanged;
+
+  const _SliderEntry({
+    required this.label,
+    required this.value,
+    required this.min,
+    required this.max,
+    required this.divisions,
+    required this.onChanged,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 15),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Expanded(
+                child: Text(label),
+              ),
+              const SizedBox(width: 10),
+              Text('${value.round()}', style: Theme.of(context).textTheme.titleMedium),
+            ],
+          ),
+          Slider(
+            value: value,
+            min: min,
+            max: max,
+            divisions: divisions,
+            label: '${value.round()}',
+            onChanged: onChanged,
+          ),
+        ],
       ),
     );
   }

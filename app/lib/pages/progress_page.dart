@@ -10,6 +10,7 @@ import 'package:localsend_app/isolate/model/dto/file_dto.dart';
 import 'package:localsend_app/isolate/model/file_status.dart';
 import 'package:localsend_app/isolate/model/session_status.dart';
 import 'package:localsend_app/model/state/server/receive_session_state.dart';
+import 'package:localsend_app/model/state/send/send_session_state.dart';
 import 'package:localsend_app/provider/network/send_provider.dart';
 import 'package:localsend_app/provider/network/server/server_provider.dart';
 import 'package:localsend_app/provider/progress_provider.dart';
@@ -26,6 +27,9 @@ import 'package:localsend_app/widget/custom_progress_bar.dart';
 import 'package:localsend_app/widget/dialogs/cancel_session_dialog.dart';
 import 'package:localsend_app/widget/dialogs/error_dialog.dart';
 import 'package:localsend_app/widget/file_thumbnail.dart';
+import 'package:localsend_app/widget/folder_tree_view.dart';
+import 'package:localsend_app/model/cross_file.dart';
+import 'package:localsend_app/isolate/model/file_type.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 import 'package:routerino/routerino.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
@@ -60,6 +64,7 @@ class _ProgressPageState extends State<ProgressPage> with Refena {
   Timer? _wakelockPlusTimer;
 
   bool _advanced = false;
+  bool _showTreeView = true; // Default to tree view
 
   @override
   void initState() {
@@ -241,194 +246,9 @@ class _ProgressPageState extends State<ProgressPage> with Refena {
         appBar: widget.showAppBar ? basicLocalSendAppbar(title) : null,
         body: Stack(
           children: [
-            ListView.builder(
-              padding: EdgeInsets.only(
-                top: MediaQuery.of(context).padding.top + 20,
-                bottom: 150 + getNavBarPadding(context),
-                left: 15,
-                right: 30,
-              ),
-              itemCount: _files.length + 2,
-              itemBuilder: (context, index) {
-                if (index == 0) {
-                  // title
-                  if (widget.showAppBar) {
-                    return Container();
-                  }
-
-                  return Padding(
-                    padding: const EdgeInsets.only(bottom: 5),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(title, style: Theme.of(context).textTheme.titleLarge),
-                        if (checkPlatformWithFileSystem() && receiveSession != null)
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 10),
-                            child: Text.rich(
-                              TextSpan(
-                                children: [
-                                  TextSpan(
-                                    text: '${t.settingsTab.receive.destination}: ',
-                                    style: const TextStyle(color: Colors.grey),
-                                  ),
-                                  TextSpan(
-                                    text: receiveSession.destinationDirectory,
-                                    style: TextStyle(
-                                      color: checkPlatform([TargetPlatform.iOS]) ? Colors.grey : Theme.of(context).colorScheme.primary,
-                                    ),
-                                    recognizer: checkPlatform([TargetPlatform.iOS])
-                                        ? null
-                                        : (TapGestureRecognizer()
-                                            ..onTap = () async {
-                                              await openFolder(folderPath: receiveSession.destinationDirectory);
-                                            }),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                      ],
-                    ),
-                  );
-                }
-
-                if (index == 1) {
-                  // error card
-                  final errorMessage = sendSession?.errorMessage;
-                  if (errorMessage == null) {
-                    return Container();
-                  }
-
-                  return SelectableText(errorMessage, style: TextStyle(color: Theme.of(context).colorScheme.warning));
-                }
-
-                final file = _files[index - 2];
-                final String fileName = receiveSession?.files[file.id]?.desiredName ?? file.fileName;
-
-                final fileStatus = fileStatusMap[file.id]!;
-                final savedToGallery = receiveSession?.files[file.id]?.savedToGallery ?? false;
-
-                final String? filePath;
-                if (receiveSession != null && fileStatus == FileStatus.finished && !savedToGallery) {
-                  filePath = receiveSession.files[file.id]!.path;
-                } else if (sendSession != null) {
-                  filePath = sendSession.files[file.id]!.path;
-                } else {
-                  filePath = null;
-                }
-
-                final String? errorMessage;
-                if (receiveSession != null) {
-                  errorMessage = receiveSession.files[file.id]!.errorMessage;
-                } else if (sendSession != null) {
-                  errorMessage = sendSession.files[file.id]!.errorMessage;
-                } else {
-                  errorMessage = null;
-                }
-
-                final Uint8List? thumbnail;
-                final AssetEntity? asset;
-                if (sendSession != null) {
-                  thumbnail = sendSession.files[file.id]!.thumbnail;
-                  asset = sendSession.files[file.id]!.asset;
-                } else {
-                  thumbnail = null;
-                  asset = null;
-                }
-
-                return Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 5),
-                  child: InkWell(
-                    splashColor: Colors.transparent,
-                    splashFactory: NoSplash.splashFactory,
-                    highlightColor: Colors.transparent,
-                    hoverColor: Colors.transparent,
-                    onTap: filePath != null && receiveSession != null ? () async => openFile(context, file.fileType, filePath!) : null,
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        SmartFileThumbnail(
-                          bytes: thumbnail,
-                          asset: asset,
-                          path: filePath,
-                          fileType: file.fileType,
-                        ),
-                        const SizedBox(width: 10),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                children: [
-                                  Flexible(
-                                    child: Text(
-                                      fileName,
-                                      style: const TextStyle(fontSize: 16, height: 1),
-                                      maxLines: 1,
-                                      overflow: TextOverflow.fade,
-                                      softWrap: false,
-                                    ),
-                                  ),
-                                  Text(' (${file.size.asReadableFileSize})', style: const TextStyle(fontSize: 16, height: 1)),
-                                ],
-                              ),
-                              const SizedBox(height: 5),
-                              if (fileStatus == FileStatus.sending)
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 5),
-                                  child: CustomProgressBar(
-                                    progress: progressNotifier.getProgress(sessionId: widget.sessionId, fileId: file.id),
-                                  ),
-                                )
-                              else
-                                Row(
-                                  children: [
-                                    Flexible(
-                                      child: Text(
-                                        savedToGallery ? t.progressPage.savedToGallery : fileStatus.label,
-                                        style: TextStyle(color: fileStatus.getColor(context), height: 1),
-                                      ),
-                                    ),
-                                    if (errorMessage != null) ...[
-                                      const SizedBox(width: 5),
-                                      InkWell(
-                                        onTap: () async {
-                                          await showDialog(
-                                            context: context,
-                                            builder: (_) => ErrorDialog(error: errorMessage!),
-                                          );
-                                        },
-                                        child: Padding(
-                                          padding: const EdgeInsets.symmetric(horizontal: 5),
-                                          child: Icon(Icons.info, color: Theme.of(context).colorScheme.warning, size: 20),
-                                        ),
-                                      ),
-                                    ],
-                                  ],
-                                ),
-                            ],
-                          ),
-                        ),
-                        if (sendSession != null && fileStatus == FileStatus.failed)
-                          IconButton(
-                            icon: const Icon(Icons.refresh),
-                            onPressed: () async {
-                              await ref
-                                  .notifier(sendProvider)
-                                  .sendFile(
-                                    sessionId: widget.sessionId,
-                                    file: sendSession.files[file.id]!,
-                                    isRetry: true,
-                                  );
-                            },
-                          ),
-                      ],
-                    ),
-                  ),
-                );
-              },
-            ),
+            _showTreeView
+                ? _buildTreeView(context, title, receiveSession, sendSession, fileStatusMap, progressNotifier)
+                : _buildFlatView(context, title, receiveSession, sendSession, fileStatusMap, progressNotifier),
             SafeArea(
               child: Align(
                 alignment: Alignment.bottomCenter,
@@ -498,6 +318,14 @@ class _ProgressPageState extends State<ProgressPage> with Refena {
                               TextButton.icon(
                                 style: TextButton.styleFrom(foregroundColor: Theme.of(context).colorScheme.onSurface),
                                 onPressed: () {
+                                  setState(() => _showTreeView = !_showTreeView);
+                                },
+                                icon: Icon(_showTreeView ? Icons.view_list : Icons.folder),
+                                label: Text(_showTreeView ? 'Flat' : 'Tree'),
+                              ),
+                              TextButton.icon(
+                                style: TextButton.styleFrom(foregroundColor: Theme.of(context).colorScheme.onSurface),
+                                onPressed: () {
                                   setState(() => _advanced = !_advanced);
                                 },
                                 icon: const Icon(Icons.info),
@@ -536,6 +364,277 @@ class _ProgressPageState extends State<ProgressPage> with Refena {
           ],
         ),
       ),
+    );
+  }
+
+  Widget _buildTreeView(
+    BuildContext context,
+    String title,
+    ReceiveSessionState? receiveSession,
+    SendSessionState? sendSession,
+    Map<String, FileStatus> fileStatusMap,
+    ProgressNotifier progressNotifier,
+  ) {
+    // Convert FileDto to CrossFile for the tree view
+    final crossFiles = _files.map((f) => CrossFile(
+      name: receiveSession?.files[f.id]?.desiredName ?? f.fileName,
+      fileType: f.fileType,
+      size: f.size,
+      thumbnail: null,
+      asset: null,
+      path: null,
+      bytes: null,
+      lastModified: null,
+      lastAccessed: null,
+    )).toList();
+
+    return ListView(
+      padding: EdgeInsets.only(
+        top: MediaQuery.of(context).padding.top + 20,
+        bottom: 150 + getNavBarPadding(context),
+        left: 15,
+        right: 30,
+      ),
+      children: [
+        if (!widget.showAppBar)
+          Padding(
+            padding: const EdgeInsets.only(bottom: 5),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(title, style: Theme.of(context).textTheme.titleLarge),
+                if (checkPlatformWithFileSystem() && receiveSession != null)
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 10),
+                    child: Text.rich(
+                      TextSpan(
+                        children: [
+                          TextSpan(
+                            text: '${t.settingsTab.receive.destination}: ',
+                            style: const TextStyle(color: Colors.grey),
+                          ),
+                          TextSpan(
+                            text: receiveSession.destinationDirectory,
+                            style: TextStyle(
+                              color: checkPlatform([TargetPlatform.iOS]) ? Colors.grey : Theme.of(context).colorScheme.primary,
+                            ),
+                            recognizer: checkPlatform([TargetPlatform.iOS])
+                                ? null
+                                : (TapGestureRecognizer()
+                                    ..onTap = () async {
+                                      await openFolder(folderPath: receiveSession.destinationDirectory);
+                                    }),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+              ],
+            ),
+          ),
+        FolderTreeView(
+          files: crossFiles,
+        ),
+      ],
+    );
+  }
+
+  Widget _buildFlatView(
+    BuildContext context,
+    String title,
+    ReceiveSessionState? receiveSession,
+    SendSessionState? sendSession,
+    Map<String, FileStatus> fileStatusMap,
+    ProgressNotifier progressNotifier,
+  ) {
+    return ListView.builder(
+      padding: EdgeInsets.only(
+        top: MediaQuery.of(context).padding.top + 20,
+        bottom: 150 + getNavBarPadding(context),
+        left: 15,
+        right: 30,
+      ),
+      itemCount: _files.length + 2,
+      itemBuilder: (context, index) {
+        if (index == 0) {
+          // title
+          if (widget.showAppBar) {
+            return Container();
+          }
+
+          return Padding(
+            padding: const EdgeInsets.only(bottom: 5),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(title, style: Theme.of(context).textTheme.titleLarge),
+                if (checkPlatformWithFileSystem() && receiveSession != null)
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 10),
+                    child: Text.rich(
+                      TextSpan(
+                        children: [
+                          TextSpan(
+                            text: '${t.settingsTab.receive.destination}: ',
+                            style: const TextStyle(color: Colors.grey),
+                          ),
+                          TextSpan(
+                            text: receiveSession.destinationDirectory,
+                            style: TextStyle(
+                              color: checkPlatform([TargetPlatform.iOS]) ? Colors.grey : Theme.of(context).colorScheme.primary,
+                            ),
+                            recognizer: checkPlatform([TargetPlatform.iOS])
+                                ? null
+                                : (TapGestureRecognizer()
+                                    ..onTap = () async {
+                                      await openFolder(folderPath: receiveSession.destinationDirectory);
+                                    }),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+              ],
+            ),
+          );
+        }
+
+        if (index == 1) {
+          // error card
+          final errorMessage = sendSession?.errorMessage;
+          if (errorMessage == null) {
+            return Container();
+          }
+
+          return SelectableText(errorMessage, style: TextStyle(color: Theme.of(context).colorScheme.warning));
+        }
+
+        final file = _files[index - 2];
+        final String fileName = receiveSession?.files[file.id]?.desiredName ?? file.fileName;
+
+        final fileStatus = fileStatusMap[file.id]!;
+        final savedToGallery = receiveSession?.files[file.id]?.savedToGallery ?? false;
+
+        final String? filePath;
+        if (receiveSession != null && fileStatus == FileStatus.finished && !savedToGallery) {
+          filePath = receiveSession.files[file.id]!.path;
+        } else if (sendSession != null) {
+          filePath = sendSession.files[file.id]!.path;
+        } else {
+          filePath = null;
+        }
+
+        final String? errorMessage;
+        if (receiveSession != null) {
+          errorMessage = receiveSession.files[file.id]!.errorMessage;
+        } else if (sendSession != null) {
+          errorMessage = sendSession.files[file.id]!.errorMessage;
+        } else {
+          errorMessage = null;
+        }
+
+        final Uint8List? thumbnail;
+        final AssetEntity? asset;
+        if (sendSession != null) {
+          thumbnail = sendSession.files[file.id]!.thumbnail;
+          asset = sendSession.files[file.id]!.asset;
+        } else {
+          thumbnail = null;
+          asset = null;
+        }
+
+        return Padding(
+          padding: const EdgeInsets.symmetric(vertical: 5),
+          child: InkWell(
+            splashColor: Colors.transparent,
+            splashFactory: NoSplash.splashFactory,
+            highlightColor: Colors.transparent,
+            hoverColor: Colors.transparent,
+            onTap: filePath != null && receiveSession != null ? () async => openFile(context, file.fileType, filePath!) : null,
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SmartFileThumbnail(
+                  bytes: thumbnail,
+                  asset: asset,
+                  path: filePath,
+                  fileType: file.fileType,
+                ),
+                const SizedBox(width: 10),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Flexible(
+                            child: Text(
+                              fileName,
+                              style: const TextStyle(fontSize: 16, height: 1),
+                              maxLines: 1,
+                              overflow: TextOverflow.fade,
+                              softWrap: false,
+                            ),
+                          ),
+                          Text(' (${file.size.asReadableFileSize})', style: const TextStyle(fontSize: 16, height: 1)),
+                        ],
+                      ),
+                      const SizedBox(height: 5),
+                      if (fileStatus == FileStatus.sending)
+                        Padding(
+                          padding: const EdgeInsets.only(top: 5),
+                          child: CustomProgressBar(
+                            progress: progressNotifier.getProgress(sessionId: widget.sessionId, fileId: file.id),
+                          ),
+                        )
+                      else
+                        Row(
+                          children: [
+                            Flexible(
+                              child: Text(
+                                savedToGallery ? t.progressPage.savedToGallery : fileStatus.label,
+                                style: TextStyle(color: fileStatus.getColor(context), height: 1),
+                              ),
+                            ),
+                            if (errorMessage != null) ...[
+                              const SizedBox(width: 5),
+                              InkWell(
+                                onTap: () async {
+                                  await showDialog(
+                                    context: context,
+                                    builder: (_) => ErrorDialog(error: errorMessage!),
+                                  );
+                                },
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 5),
+                                  child: Icon(Icons.info, color: Theme.of(context).colorScheme.warning, size: 20),
+                                ),
+                              ),
+                            ],
+                          ],
+                        ),
+                    ],
+                  ),
+                ),
+                if (sendSession != null && fileStatus == FileStatus.failed)
+                  IconButton(
+                    icon: const Icon(Icons.refresh),
+                    onPressed: () async {
+                      await ref
+                          .notifier(sendProvider)
+                          .sendFile(
+                            sessionId: widget.sessionId,
+                            isolateIndex: 0,
+                            file: sendSession.files[file.id]!,
+                            isRetry: true,
+                          );
+                    },
+                  ),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 }
