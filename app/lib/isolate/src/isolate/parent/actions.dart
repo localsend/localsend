@@ -7,6 +7,7 @@ import 'package:localsend_app/isolate/src/isolate/child/server_isolate.dart';
 import 'package:localsend_app/isolate/src/isolate/child/upload_isolate.dart';
 import 'package:localsend_app/isolate/src/isolate/dto/send_to_isolate_data.dart';
 import 'package:localsend_app/isolate/src/isolate/parent/parent_isolate_provider.dart';
+import 'package:localsend_app/rust/api/server.dart' show WebSendParams;
 import 'package:refena_flutter/refena_flutter.dart';
 import 'package:typed_isolates/id.dart';
 import 'package:typed_isolates/typed_isolates.dart';
@@ -193,8 +194,18 @@ class IsolateHttpUploadCancelAction extends ReduxAction<IsolateController, Paren
 class IsolateHttpServerStartAction extends ReduxActionWithResult<IsolateController, ParentIsolateState, Stream<HttpServerEvent>> {
   final String? pin;
 
+  /// Enables web send (download API) so web browsers can download the offered files.
+  /// `null` disables web send.
+  final WebSendParams? webSend;
+
+  /// Enables the internal `show` endpoint, guarded by this token, that lets another
+  /// application instance request this one to show itself. `null` disables it.
+  final String? showToken;
+
   IsolateHttpServerStartAction({
     required this.pin,
+    required this.webSend,
+    required this.showToken,
   });
 
   @override
@@ -209,6 +220,8 @@ class IsolateHttpServerStartAction extends ReduxActionWithResult<IsolateControll
       connection.sendWrappedTaskAndListenStream(
         task: HttpServerStartTask(
           pin: pin,
+          webSend: webSend,
+          showToken: showToken,
         ),
       ),
     );
@@ -315,6 +328,81 @@ class IsolateHttpServerFileUploadTargetAction extends ReduxActionWithResult<Isol
     }
 
     throw HttpServerFileUploadException('The server isolate did not report a result');
+  }
+}
+
+/// Answers a pending [HttpServerWebPrepareDownloadEvent].
+class IsolateHttpServerPrepareDownloadDecisionAction extends ReduxAction<IsolateController, ParentIsolateState> {
+  final String sessionId;
+
+  /// `true` accepts the download request, `false` declines it.
+  final bool accept;
+
+  IsolateHttpServerPrepareDownloadDecisionAction({
+    required this.sessionId,
+    required this.accept,
+  });
+
+  @override
+  ParentIsolateState reduce() {
+    final connection = state.httpServer;
+    if (connection == null) {
+      throw StateError('httpServer is not initialized');
+    }
+
+    connection.sendToIsolate(
+      SendToIsolateData(
+        syncState: null,
+        data: IsolateTask(
+          data: HttpServerPrepareDownloadDecisionTask(
+            sessionId: sessionId,
+            accept: accept,
+          ),
+        ),
+      ),
+    );
+
+    return state;
+  }
+}
+
+/// Answers a pending [HttpServerWebFileDownloadEvent] with the source the file
+/// content should be read from (either a [path] or a readable [fileDescriptor]).
+class IsolateHttpServerFileDownloadTargetAction extends ReduxAction<IsolateController, ParentIsolateState> {
+  final String sessionId;
+  final String fileId;
+  final String? path;
+  final int? fileDescriptor;
+
+  IsolateHttpServerFileDownloadTargetAction({
+    required this.sessionId,
+    required this.fileId,
+    required this.path,
+    required this.fileDescriptor,
+  });
+
+  @override
+  ParentIsolateState reduce() {
+    final connection = state.httpServer;
+    if (connection == null) {
+      throw StateError('httpServer is not initialized');
+    }
+
+    connection.sendToIsolate(
+      SendToIsolateData(
+        syncState: null,
+        data: IsolateTask(
+          data: HttpServerFileDownloadTargetTask(
+            sessionId: sessionId,
+            fileId: fileId,
+            path: path,
+            fileDescriptor: fileDescriptor,
+          ),
+        ),
+      ),
+    );
+
+    return state;
   }
 }
 

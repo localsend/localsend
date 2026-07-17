@@ -55,14 +55,17 @@ extension RsServerEventPatterns on RsServerEvent {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( RsServerEvent_Register value)?  register,TResult Function( RsServerEvent_PrepareUpload value)?  prepareUpload,TResult Function( RsServerEvent_FileUpload value)?  fileUpload,TResult Function( RsServerEvent_SessionEnd value)?  sessionEnd,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( RsServerEvent_Register value)?  register,TResult Function( RsServerEvent_PrepareUpload value)?  prepareUpload,TResult Function( RsServerEvent_FileUpload value)?  fileUpload,TResult Function( RsServerEvent_SessionEnd value)?  sessionEnd,TResult Function( RsServerEvent_WebPrepareDownload value)?  webPrepareDownload,TResult Function( RsServerEvent_WebFileDownload value)?  webFileDownload,TResult Function( RsServerEvent_Show value)?  show_,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
 case RsServerEvent_Register() when register != null:
 return register(_that);case RsServerEvent_PrepareUpload() when prepareUpload != null:
 return prepareUpload(_that);case RsServerEvent_FileUpload() when fileUpload != null:
 return fileUpload(_that);case RsServerEvent_SessionEnd() when sessionEnd != null:
-return sessionEnd(_that);case _:
+return sessionEnd(_that);case RsServerEvent_WebPrepareDownload() when webPrepareDownload != null:
+return webPrepareDownload(_that);case RsServerEvent_WebFileDownload() when webFileDownload != null:
+return webFileDownload(_that);case RsServerEvent_Show() when show_ != null:
+return show_(_that);case _:
   return orElse();
 
 }
@@ -80,14 +83,17 @@ return sessionEnd(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( RsServerEvent_Register value)  register,required TResult Function( RsServerEvent_PrepareUpload value)  prepareUpload,required TResult Function( RsServerEvent_FileUpload value)  fileUpload,required TResult Function( RsServerEvent_SessionEnd value)  sessionEnd,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( RsServerEvent_Register value)  register,required TResult Function( RsServerEvent_PrepareUpload value)  prepareUpload,required TResult Function( RsServerEvent_FileUpload value)  fileUpload,required TResult Function( RsServerEvent_SessionEnd value)  sessionEnd,required TResult Function( RsServerEvent_WebPrepareDownload value)  webPrepareDownload,required TResult Function( RsServerEvent_WebFileDownload value)  webFileDownload,required TResult Function( RsServerEvent_Show value)  show_,}){
 final _that = this;
 switch (_that) {
 case RsServerEvent_Register():
 return register(_that);case RsServerEvent_PrepareUpload():
 return prepareUpload(_that);case RsServerEvent_FileUpload():
 return fileUpload(_that);case RsServerEvent_SessionEnd():
-return sessionEnd(_that);}
+return sessionEnd(_that);case RsServerEvent_WebPrepareDownload():
+return webPrepareDownload(_that);case RsServerEvent_WebFileDownload():
+return webFileDownload(_that);case RsServerEvent_Show():
+return show_(_that);}
 }
 /// A variant of `map` that fallback to returning `null`.
 ///
@@ -101,14 +107,17 @@ return sessionEnd(_that);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( RsServerEvent_Register value)?  register,TResult? Function( RsServerEvent_PrepareUpload value)?  prepareUpload,TResult? Function( RsServerEvent_FileUpload value)?  fileUpload,TResult? Function( RsServerEvent_SessionEnd value)?  sessionEnd,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( RsServerEvent_Register value)?  register,TResult? Function( RsServerEvent_PrepareUpload value)?  prepareUpload,TResult? Function( RsServerEvent_FileUpload value)?  fileUpload,TResult? Function( RsServerEvent_SessionEnd value)?  sessionEnd,TResult? Function( RsServerEvent_WebPrepareDownload value)?  webPrepareDownload,TResult? Function( RsServerEvent_WebFileDownload value)?  webFileDownload,TResult? Function( RsServerEvent_Show value)?  show_,}){
 final _that = this;
 switch (_that) {
 case RsServerEvent_Register() when register != null:
 return register(_that);case RsServerEvent_PrepareUpload() when prepareUpload != null:
 return prepareUpload(_that);case RsServerEvent_FileUpload() when fileUpload != null:
 return fileUpload(_that);case RsServerEvent_SessionEnd() when sessionEnd != null:
-return sessionEnd(_that);case _:
+return sessionEnd(_that);case RsServerEvent_WebPrepareDownload() when webPrepareDownload != null:
+return webPrepareDownload(_that);case RsServerEvent_WebFileDownload() when webFileDownload != null:
+return webFileDownload(_that);case RsServerEvent_Show() when show_ != null:
+return show_(_that);case _:
   return null;
 
 }
@@ -125,13 +134,16 @@ return sessionEnd(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( String ip,  RegisterDtoV2 info)?  register,TResult Function( String ip,  RegisterDtoV2 info,  Map<String, FileDto> files)?  prepareUpload,TResult Function( String sessionId,  String fileId,  FileDto file)?  fileUpload,TResult Function( String sessionId,  SessionEndReasonV2 reason)?  sessionEnd,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( String ip,  RegisterDtoV2 info)?  register,TResult Function( String ip,  RegisterDtoV2 info,  Map<String, FileDto> files)?  prepareUpload,TResult Function( String sessionId,  String fileId,  FileDto file)?  fileUpload,TResult Function( String sessionId,  SessionEndReasonV2 reason)?  sessionEnd,TResult Function( String ip,  String sessionId,  String? userAgent)?  webPrepareDownload,TResult Function( String sessionId,  String fileId,  FileDto file)?  webFileDownload,TResult Function( List<String> args)?  show_,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case RsServerEvent_Register() when register != null:
 return register(_that.ip,_that.info);case RsServerEvent_PrepareUpload() when prepareUpload != null:
 return prepareUpload(_that.ip,_that.info,_that.files);case RsServerEvent_FileUpload() when fileUpload != null:
 return fileUpload(_that.sessionId,_that.fileId,_that.file);case RsServerEvent_SessionEnd() when sessionEnd != null:
-return sessionEnd(_that.sessionId,_that.reason);case _:
+return sessionEnd(_that.sessionId,_that.reason);case RsServerEvent_WebPrepareDownload() when webPrepareDownload != null:
+return webPrepareDownload(_that.ip,_that.sessionId,_that.userAgent);case RsServerEvent_WebFileDownload() when webFileDownload != null:
+return webFileDownload(_that.sessionId,_that.fileId,_that.file);case RsServerEvent_Show() when show_ != null:
+return show_(_that.args);case _:
   return orElse();
 
 }
@@ -149,13 +161,16 @@ return sessionEnd(_that.sessionId,_that.reason);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( String ip,  RegisterDtoV2 info)  register,required TResult Function( String ip,  RegisterDtoV2 info,  Map<String, FileDto> files)  prepareUpload,required TResult Function( String sessionId,  String fileId,  FileDto file)  fileUpload,required TResult Function( String sessionId,  SessionEndReasonV2 reason)  sessionEnd,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( String ip,  RegisterDtoV2 info)  register,required TResult Function( String ip,  RegisterDtoV2 info,  Map<String, FileDto> files)  prepareUpload,required TResult Function( String sessionId,  String fileId,  FileDto file)  fileUpload,required TResult Function( String sessionId,  SessionEndReasonV2 reason)  sessionEnd,required TResult Function( String ip,  String sessionId,  String? userAgent)  webPrepareDownload,required TResult Function( String sessionId,  String fileId,  FileDto file)  webFileDownload,required TResult Function( List<String> args)  show_,}) {final _that = this;
 switch (_that) {
 case RsServerEvent_Register():
 return register(_that.ip,_that.info);case RsServerEvent_PrepareUpload():
 return prepareUpload(_that.ip,_that.info,_that.files);case RsServerEvent_FileUpload():
 return fileUpload(_that.sessionId,_that.fileId,_that.file);case RsServerEvent_SessionEnd():
-return sessionEnd(_that.sessionId,_that.reason);}
+return sessionEnd(_that.sessionId,_that.reason);case RsServerEvent_WebPrepareDownload():
+return webPrepareDownload(_that.ip,_that.sessionId,_that.userAgent);case RsServerEvent_WebFileDownload():
+return webFileDownload(_that.sessionId,_that.fileId,_that.file);case RsServerEvent_Show():
+return show_(_that.args);}
 }
 /// A variant of `when` that fallback to returning `null`
 ///
@@ -169,13 +184,16 @@ return sessionEnd(_that.sessionId,_that.reason);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( String ip,  RegisterDtoV2 info)?  register,TResult? Function( String ip,  RegisterDtoV2 info,  Map<String, FileDto> files)?  prepareUpload,TResult? Function( String sessionId,  String fileId,  FileDto file)?  fileUpload,TResult? Function( String sessionId,  SessionEndReasonV2 reason)?  sessionEnd,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( String ip,  RegisterDtoV2 info)?  register,TResult? Function( String ip,  RegisterDtoV2 info,  Map<String, FileDto> files)?  prepareUpload,TResult? Function( String sessionId,  String fileId,  FileDto file)?  fileUpload,TResult? Function( String sessionId,  SessionEndReasonV2 reason)?  sessionEnd,TResult? Function( String ip,  String sessionId,  String? userAgent)?  webPrepareDownload,TResult? Function( String sessionId,  String fileId,  FileDto file)?  webFileDownload,TResult? Function( List<String> args)?  show_,}) {final _that = this;
 switch (_that) {
 case RsServerEvent_Register() when register != null:
 return register(_that.ip,_that.info);case RsServerEvent_PrepareUpload() when prepareUpload != null:
 return prepareUpload(_that.ip,_that.info,_that.files);case RsServerEvent_FileUpload() when fileUpload != null:
 return fileUpload(_that.sessionId,_that.fileId,_that.file);case RsServerEvent_SessionEnd() when sessionEnd != null:
-return sessionEnd(_that.sessionId,_that.reason);case _:
+return sessionEnd(_that.sessionId,_that.reason);case RsServerEvent_WebPrepareDownload() when webPrepareDownload != null:
+return webPrepareDownload(_that.ip,_that.sessionId,_that.userAgent);case RsServerEvent_WebFileDownload() when webFileDownload != null:
+return webFileDownload(_that.sessionId,_that.fileId,_that.file);case RsServerEvent_Show() when show_ != null:
+return show_(_that.args);case _:
   return null;
 
 }
@@ -459,6 +477,220 @@ class _$RsServerEvent_SessionEndCopyWithImpl<$Res>
 sessionId: null == sessionId ? _self.sessionId : sessionId // ignore: cast_nullable_to_non_nullable
 as String,reason: null == reason ? _self.reason : reason // ignore: cast_nullable_to_non_nullable
 as SessionEndReasonV2,
+  ));
+}
+
+
+}
+
+/// @nodoc
+
+
+class RsServerEvent_WebPrepareDownload extends RsServerEvent {
+  const RsServerEvent_WebPrepareDownload({required this.ip, required this.sessionId, this.userAgent}): super._();
+  
+
+ final  String ip;
+ final  String sessionId;
+ final  String? userAgent;
+
+/// Create a copy of RsServerEvent
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$RsServerEvent_WebPrepareDownloadCopyWith<RsServerEvent_WebPrepareDownload> get copyWith => _$RsServerEvent_WebPrepareDownloadCopyWithImpl<RsServerEvent_WebPrepareDownload>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is RsServerEvent_WebPrepareDownload&&(identical(other.ip, ip) || other.ip == ip)&&(identical(other.sessionId, sessionId) || other.sessionId == sessionId)&&(identical(other.userAgent, userAgent) || other.userAgent == userAgent));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,ip,sessionId,userAgent);
+
+@override
+String toString() {
+  return 'RsServerEvent.webPrepareDownload(ip: $ip, sessionId: $sessionId, userAgent: $userAgent)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $RsServerEvent_WebPrepareDownloadCopyWith<$Res> implements $RsServerEventCopyWith<$Res> {
+  factory $RsServerEvent_WebPrepareDownloadCopyWith(RsServerEvent_WebPrepareDownload value, $Res Function(RsServerEvent_WebPrepareDownload) _then) = _$RsServerEvent_WebPrepareDownloadCopyWithImpl;
+@useResult
+$Res call({
+ String ip, String sessionId, String? userAgent
+});
+
+
+
+
+}
+/// @nodoc
+class _$RsServerEvent_WebPrepareDownloadCopyWithImpl<$Res>
+    implements $RsServerEvent_WebPrepareDownloadCopyWith<$Res> {
+  _$RsServerEvent_WebPrepareDownloadCopyWithImpl(this._self, this._then);
+
+  final RsServerEvent_WebPrepareDownload _self;
+  final $Res Function(RsServerEvent_WebPrepareDownload) _then;
+
+/// Create a copy of RsServerEvent
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? ip = null,Object? sessionId = null,Object? userAgent = freezed,}) {
+  return _then(RsServerEvent_WebPrepareDownload(
+ip: null == ip ? _self.ip : ip // ignore: cast_nullable_to_non_nullable
+as String,sessionId: null == sessionId ? _self.sessionId : sessionId // ignore: cast_nullable_to_non_nullable
+as String,userAgent: freezed == userAgent ? _self.userAgent : userAgent // ignore: cast_nullable_to_non_nullable
+as String?,
+  ));
+}
+
+
+}
+
+/// @nodoc
+
+
+class RsServerEvent_WebFileDownload extends RsServerEvent {
+  const RsServerEvent_WebFileDownload({required this.sessionId, required this.fileId, required this.file}): super._();
+  
+
+ final  String sessionId;
+ final  String fileId;
+ final  FileDto file;
+
+/// Create a copy of RsServerEvent
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$RsServerEvent_WebFileDownloadCopyWith<RsServerEvent_WebFileDownload> get copyWith => _$RsServerEvent_WebFileDownloadCopyWithImpl<RsServerEvent_WebFileDownload>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is RsServerEvent_WebFileDownload&&(identical(other.sessionId, sessionId) || other.sessionId == sessionId)&&(identical(other.fileId, fileId) || other.fileId == fileId)&&(identical(other.file, file) || other.file == file));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,sessionId,fileId,file);
+
+@override
+String toString() {
+  return 'RsServerEvent.webFileDownload(sessionId: $sessionId, fileId: $fileId, file: $file)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $RsServerEvent_WebFileDownloadCopyWith<$Res> implements $RsServerEventCopyWith<$Res> {
+  factory $RsServerEvent_WebFileDownloadCopyWith(RsServerEvent_WebFileDownload value, $Res Function(RsServerEvent_WebFileDownload) _then) = _$RsServerEvent_WebFileDownloadCopyWithImpl;
+@useResult
+$Res call({
+ String sessionId, String fileId, FileDto file
+});
+
+
+
+
+}
+/// @nodoc
+class _$RsServerEvent_WebFileDownloadCopyWithImpl<$Res>
+    implements $RsServerEvent_WebFileDownloadCopyWith<$Res> {
+  _$RsServerEvent_WebFileDownloadCopyWithImpl(this._self, this._then);
+
+  final RsServerEvent_WebFileDownload _self;
+  final $Res Function(RsServerEvent_WebFileDownload) _then;
+
+/// Create a copy of RsServerEvent
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? sessionId = null,Object? fileId = null,Object? file = null,}) {
+  return _then(RsServerEvent_WebFileDownload(
+sessionId: null == sessionId ? _self.sessionId : sessionId // ignore: cast_nullable_to_non_nullable
+as String,fileId: null == fileId ? _self.fileId : fileId // ignore: cast_nullable_to_non_nullable
+as String,file: null == file ? _self.file : file // ignore: cast_nullable_to_non_nullable
+as FileDto,
+  ));
+}
+
+
+}
+
+/// @nodoc
+
+
+class RsServerEvent_Show extends RsServerEvent {
+  const RsServerEvent_Show({required final  List<String> args}): _args = args,super._();
+  
+
+/// Command-line arguments forwarded by the other application instance.
+ final  List<String> _args;
+/// Command-line arguments forwarded by the other application instance.
+ List<String> get args {
+  if (_args is EqualUnmodifiableListView) return _args;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_args);
+}
+
+
+/// Create a copy of RsServerEvent
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$RsServerEvent_ShowCopyWith<RsServerEvent_Show> get copyWith => _$RsServerEvent_ShowCopyWithImpl<RsServerEvent_Show>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is RsServerEvent_Show&&const DeepCollectionEquality().equals(other._args, _args));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_args));
+
+@override
+String toString() {
+  return 'RsServerEvent.show_(args: $args)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $RsServerEvent_ShowCopyWith<$Res> implements $RsServerEventCopyWith<$Res> {
+  factory $RsServerEvent_ShowCopyWith(RsServerEvent_Show value, $Res Function(RsServerEvent_Show) _then) = _$RsServerEvent_ShowCopyWithImpl;
+@useResult
+$Res call({
+ List<String> args
+});
+
+
+
+
+}
+/// @nodoc
+class _$RsServerEvent_ShowCopyWithImpl<$Res>
+    implements $RsServerEvent_ShowCopyWith<$Res> {
+  _$RsServerEvent_ShowCopyWithImpl(this._self, this._then);
+
+  final RsServerEvent_Show _self;
+  final $Res Function(RsServerEvent_Show) _then;
+
+/// Create a copy of RsServerEvent
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? args = null,}) {
+  return _then(RsServerEvent_Show(
+args: null == args ? _self._args : args // ignore: cast_nullable_to_non_nullable
+as List<String>,
   ));
 }
 

@@ -1,6 +1,7 @@
 #![cfg(feature = "http")]
 
 use bytes::Bytes;
+use futures_util::StreamExt;
 use localsend::http::client::{ClientError, LsHttpClientV2};
 use localsend::http::dto::ProtocolType;
 use localsend::http::dto_v2::{PrepareUploadRequestDtoV2, ProtocolTypeV2, RegisterDtoV2};
@@ -14,7 +15,6 @@ use std::path::PathBuf;
 use std::sync::atomic::{AtomicU16, AtomicU64, Ordering};
 use std::sync::Arc;
 use std::time::Duration;
-use futures_util::StreamExt;
 use tokio::sync::{mpsc, oneshot, Mutex};
 use tokio_stream::wrappers::ReceiverStream;
 use tokio_util::sync::CancellationToken;
@@ -223,12 +223,11 @@ async fn upload_bytes(
     // The caller now owns building the request body; track cumulative bytes
     // sent so the progress assertion below still holds.
     let progress = sent.clone();
-    let body = localsend::reqwest::Body::wrap_stream(ReceiverStream::new(rx).map(
-        move |chunk: Bytes| {
+    let body =
+        localsend::reqwest::Body::wrap_stream(ReceiverStream::new(rx).map(move |chunk: Bytes| {
             progress.fetch_add(chunk.len() as u64, Ordering::Relaxed);
             Ok::<Bytes, std::io::Error>(chunk)
-        },
-    ));
+        }));
     let result = client
         .upload(
             ProtocolType::Http,

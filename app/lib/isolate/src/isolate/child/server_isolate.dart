@@ -20,8 +20,18 @@ class HttpServerStartTask implements BaseHttpServerTask {
   /// Optional PIN that senders must provide to start an upload session.
   final String? pin;
 
+  /// Enables web send (download API) so web browsers can download the offered files.
+  /// `null` disables web send.
+  final WebSendParams? webSend;
+
+  /// Enables the internal `show` endpoint, guarded by this token, that lets another
+  /// application instance request this one to show itself. `null` disables it.
+  final String? showToken;
+
   HttpServerStartTask({
     required this.pin,
+    required this.webSend,
+    required this.showToken,
   });
 }
 
@@ -52,6 +62,37 @@ class HttpServerFileUploadTargetTask implements BaseHttpServerTask {
   final int? fileDescriptor;
 
   HttpServerFileUploadTargetTask({
+    required this.sessionId,
+    required this.fileId,
+    required this.path,
+    required this.fileDescriptor,
+  });
+}
+
+/// Answers a pending [HttpServerWebPrepareDownloadEvent].
+class HttpServerPrepareDownloadDecisionTask implements BaseHttpServerTask {
+  final String sessionId;
+
+  /// `true` accepts the download request, `false` declines it.
+  final bool accept;
+
+  HttpServerPrepareDownloadDecisionTask({
+    required this.sessionId,
+    required this.accept,
+  });
+}
+
+/// Answers a pending [HttpServerWebFileDownloadEvent] with the source the file
+/// content should be read from: either a file [path] or a readable [fileDescriptor] (Android).
+///
+/// The file is read and streamed by the Rust server itself.
+class HttpServerFileDownloadTargetTask implements BaseHttpServerTask {
+  final String sessionId;
+  final String fileId;
+  final String? path;
+  final int? fileDescriptor;
+
+  HttpServerFileDownloadTargetTask({
     required this.sessionId,
     required this.fileId,
     required this.path,
@@ -127,6 +168,44 @@ class HttpServerSessionEndEvent extends HttpServerEvent {
   });
 }
 
+/// A web client requests to download the shared files.
+/// Must be answered with a [HttpServerPrepareDownloadDecisionTask].
+class HttpServerWebPrepareDownloadEvent extends HttpServerEvent {
+  final String ip;
+  final String sessionId;
+  final String? userAgent;
+
+  HttpServerWebPrepareDownloadEvent({
+    required this.ip,
+    required this.sessionId,
+    required this.userAgent,
+  });
+}
+
+/// A web client downloads an offered file.
+/// Must be answered with a [HttpServerFileDownloadTargetTask].
+class HttpServerWebFileDownloadEvent extends HttpServerEvent {
+  final String sessionId;
+  final String fileId;
+  final FileDto file;
+
+  HttpServerWebFileDownloadEvent({
+    required this.sessionId,
+    required this.fileId,
+    required this.file,
+  });
+}
+
+/// Another application instance requested the running application to show itself.
+class HttpServerShowEvent extends HttpServerEvent {
+  /// Command-line arguments forwarded by the other application instance.
+  final List<String> args;
+
+  HttpServerShowEvent({
+    required this.args,
+  });
+}
+
 Future<void> setupHttpServerIsolate(
   Stream<SendToIsolateData<IsolateTask<BaseHttpServerTask>>> receiveFromMain,
   void Function(IsolateTaskStreamResult<HttpServerEvent>) sendToMain,
@@ -157,6 +236,8 @@ Future<void> setupHttpServerIsolate(
                 deviceType: syncState.deviceInfo.deviceType.toRust(),
                 fingerprint: syncState.securityContext.certificateHash,
                 pin: startTask.pin,
+                webSend: startTask.webSend,
+                showToken: startTask.showToken,
               );
 
           try {
@@ -180,6 +261,17 @@ Future<void> setupHttpServerIsolate(
                       sessionId: sessionId,
                       reason: reason,
                     ),
+                    RsServerEvent_WebPrepareDownload(:final ip, :final sessionId, :final userAgent) => HttpServerWebPrepareDownloadEvent(
+                      ip: ip,
+                      sessionId: sessionId,
+                      userAgent: userAgent,
+                    ),
+                    RsServerEvent_WebFileDownload(:final sessionId, :final fileId, :final file) => HttpServerWebFileDownloadEvent(
+                      sessionId: sessionId,
+                      fileId: fileId,
+                      file: file,
+                    ),
+                    RsServerEvent_Show(:final args) => HttpServerShowEvent(args: args),
                   },
                 ),
               );
@@ -228,6 +320,24 @@ Future<void> setupHttpServerIsolate(
               id: task.id,
             ),
           );
+          return;
+        case HttpServerPrepareDownloadDecisionTask decisionTask:
+          await ref
+              .read(httpServerProvider)
+              .respondPrepareDownload(
+                sessionId: decisionTask.sessionId,
+                accept: decisionTask.accept,
+              );
+          return;
+        case HttpServerFileDownloadTargetTask targetTask:
+          await ref
+              .read(httpServerProvider)
+              .respondFileDownload(
+                sessionId: targetTask.sessionId,
+                fileId: targetTask.fileId,
+                path: targetTask.path,
+                fileDescriptor: targetTask.fileDescriptor,
+              );
           return;
       }
     },

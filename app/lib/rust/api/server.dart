@@ -10,10 +10,17 @@ import 'package:localsend_app/rust/frb_generated.dart';
 
 part 'server.freezed.dart';
 
-// These functions are ignored because they are not marked as `pub`: `resolve_upload_target`
+// These functions are ignored because they are not marked as `pub`: `handle_server_event`, `handle_web_event`, `recv_opt`, `resolve_file_content`, `resolve_upload_target`
 
 /// Starts the HTTP server on the given port (IPv4 and IPv6).
 /// The server runs until [RsHttpServer::stop] is called.
+///
+/// Passing [web_send] additionally enables the web send (download API) so that
+/// web browsers can download the offered files.
+///
+/// Passing [show_token] enables the internal `show` endpoint that lets another
+/// application instance request this one to show itself (emitted as
+/// [RsServerEvent::Show]). The token guards the endpoint against other clients.
 ///
 /// Events are received by listening to [RsHttpServer::listen].
 Future<RsHttpServer> startServer({
@@ -25,6 +32,8 @@ Future<RsHttpServer> startServer({
   DeviceType? deviceType,
   required String fingerprint,
   String? pin,
+  WebSendParams? webSend,
+  String? showToken,
 }) => RustLib.instance.api.crateApiServerStartServer(
   port: port,
   tls: tls,
@@ -34,18 +43,34 @@ Future<RsHttpServer> startServer({
   deviceType: deviceType,
   fingerprint: fingerprint,
   pin: pin,
+  webSend: webSend,
+  showToken: showToken,
 );
 
 // Rust type: RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<RsHttpServer>>
 abstract class RsHttpServer implements RustOpaqueInterface {
   /// Emits server events until the server is stopped.
   /// Can only be listened to once.
+  ///
+  /// The v2 protocol, the web send (download API), and the internal endpoint
+  /// events are all emitted on the same stream.
   Stream<RsServerEvent> listen();
+
+  /// Answers the pending [RsServerEvent::WebFileDownload] event with the source
+  /// the file content should be read from (either a path or a file descriptor).
+  ///
+  /// The server reads the content and streams it to the web client.
+  Future<void> respondFileDownload({required String sessionId, required String fileId, String? path, int? fileDescriptor});
 
   /// Answers the pending [RsServerEvent::FileUpload] event with the target
   /// the file should be saved to (either a path or a file descriptor)
   /// and waits until the file has been received completely.
   Future<void> respondFileUpload({required String sessionId, required String fileId, String? path, int? fileDescriptor});
+
+  /// Answers the pending [RsServerEvent::WebPrepareDownload] event.
+  ///
+  /// Passing `true` accepts the download request, `false` declines it.
+  Future<void> respondPrepareDownload({required String sessionId, required bool accept});
 
   /// Answers the pending [RsServerEvent::PrepareUpload] event.
   ///
@@ -138,6 +163,31 @@ sealed class RsServerEvent with _$RsServerEvent {
     required String sessionId,
     required SessionEndReasonV2 reason,
   }) = RsServerEvent_SessionEnd;
+
+  /// A web client requests to download the shared files via `POST /api/localsend/v2/prepare-download`.
+  ///
+  /// Must be answered with [RsHttpServer::respond_prepare_download].
+  const factory RsServerEvent.webPrepareDownload({
+    required String ip,
+    required String sessionId,
+    String? userAgent,
+  }) = RsServerEvent_WebPrepareDownload;
+
+  /// A web client downloads an offered file via `GET /api/localsend/v2/download`.
+  ///
+  /// Must be answered with [RsHttpServer::respond_file_download].
+  const factory RsServerEvent.webFileDownload({
+    required String sessionId,
+    required String fileId,
+    required FileDto file,
+  }) = RsServerEvent_WebFileDownload;
+
+  /// Another application instance requested the running application to show itself
+  /// via `POST /api/localsend/v2/show`.
+  const factory RsServerEvent.show_({
+    /// Command-line arguments forwarded by the other application instance.
+    required List<String> args,
+  }) = RsServerEvent_Show;
 }
 
 enum SessionEndReasonV2 {
@@ -160,4 +210,81 @@ class TlsConfig {
   @override
   bool operator ==(Object other) =>
       identical(this, other) || other is TlsConfig && runtimeType == other.runtimeType && cert == other.cert && privateKey == other.privateKey;
+}
+
+class WebSendI18n {
+  final String waiting;
+  final String enterPin;
+  final String invalidPin;
+  final String tooManyAttempts;
+  final String rejected;
+  final String files;
+  final String fileName;
+  final String size;
+
+  const WebSendI18n({
+    required this.waiting,
+    required this.enterPin,
+    required this.invalidPin,
+    required this.tooManyAttempts,
+    required this.rejected,
+    required this.files,
+    required this.fileName,
+    required this.size,
+  });
+
+  @override
+  int get hashCode =>
+      waiting.hashCode ^
+      enterPin.hashCode ^
+      invalidPin.hashCode ^
+      tooManyAttempts.hashCode ^
+      rejected.hashCode ^
+      files.hashCode ^
+      fileName.hashCode ^
+      size.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is WebSendI18n &&
+          runtimeType == other.runtimeType &&
+          waiting == other.waiting &&
+          enterPin == other.enterPin &&
+          invalidPin == other.invalidPin &&
+          tooManyAttempts == other.tooManyAttempts &&
+          rejected == other.rejected &&
+          files == other.files &&
+          fileName == other.fileName &&
+          size == other.size;
+}
+
+/// Configuration for web send: files offered for download by web browsers.
+///
+/// Web send can be enabled independently of the v2 protocol endpoints. When
+/// omitted, the download API responds with 403 and only the v2 endpoints run.
+class WebSendParams {
+  /// The metadata of the files offered for download, mapped by file ID.
+  /// The content is requested per download via [RsServerEvent::WebFileDownload].
+  final Map<String, FileDto> files;
+
+  /// Optional PIN that web clients must provide via the `pin` query parameter.
+  final String? pin;
+
+  /// Translations for the web page, served via `/i18n.json`.
+  final WebSendI18n i18N;
+
+  const WebSendParams({
+    required this.files,
+    this.pin,
+    required this.i18N,
+  });
+
+  @override
+  int get hashCode => files.hashCode ^ pin.hashCode ^ i18N.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is WebSendParams && runtimeType == other.runtimeType && files == other.files && pin == other.pin && i18N == other.i18N;
 }

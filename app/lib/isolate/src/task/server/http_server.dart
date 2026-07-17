@@ -22,6 +22,8 @@ class HttpServerService {
     required DeviceType? deviceType,
     required String fingerprint,
     required String? pin,
+    required WebSendParams? webSend,
+    required String? showToken,
   }) async {
     if (_server != null) {
       throw StateError('Server already running');
@@ -36,6 +38,8 @@ class HttpServerService {
       deviceType: deviceType,
       fingerprint: fingerprint,
       pin: pin,
+      webSend: webSend,
+      showToken: showToken,
     );
     _server = server;
     return server.listen();
@@ -56,6 +60,28 @@ class HttpServerService {
     required int? fileDescriptor,
   }) async {
     await _requireServer().respondFileUpload(
+      sessionId: sessionId,
+      fileId: fileId,
+      path: path,
+      fileDescriptor: fileDescriptor,
+    );
+  }
+
+  /// Answers a pending web prepare-download request.
+  /// [accept] grants the download; `false` declines it.
+  Future<void> respondPrepareDownload({required String sessionId, required bool accept}) async {
+    await _requireServer().respondPrepareDownload(sessionId: sessionId, accept: accept);
+  }
+
+  /// Answers a pending web file download with the source the file content should be
+  /// read from (either a [path] or a [fileDescriptor]). The server streams the content.
+  Future<void> respondFileDownload({
+    required String sessionId,
+    required String fileId,
+    required String? path,
+    required int? fileDescriptor,
+  }) async {
+    await _requireServer().respondFileDownload(
       sessionId: sessionId,
       fileId: fileId,
       path: path,
