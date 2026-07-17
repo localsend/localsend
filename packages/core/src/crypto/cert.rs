@@ -45,12 +45,6 @@ fn verify_cert_from_cert(cert: X509Certificate, public_key: Option<&str>) -> any
     Ok(())
 }
 
-pub fn public_key_from_cert_pem(cert: String) -> anyhow::Result<String> {
-    let (cert_pem, _) = Pem::read(Cursor::new(cert.into_bytes()))?;
-    let parsed_cert: X509Certificate = cert_pem.parse_x509()?;
-    public_key_from_cert(parsed_cert)
-}
-
 /// Extracts the public key from the certificate which is in DER format.
 /// Encodes the public key in PEM format.
 pub fn public_key_from_cert_der(cert: &[u8]) -> anyhow::Result<String> {
