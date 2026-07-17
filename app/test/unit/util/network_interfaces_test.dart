@@ -46,4 +46,18 @@ void main() {
     expect(ignored('3.3.3.4'), true);
     expect(ignored('4.3.3.3'), false);
   });
+
+  test('Should treat regular expression syntax as literal text', () {
+    final filter = buildRegExpFromIpFilter('10.0.0.(');
+
+    expect(filter.hasMatch('10.0.0.1'), false);
+    expect(filter.hasMatch('10.0.0.('), true);
+  });
+
+  test('Should preserve wildcard matching while escaping surrounding text', () {
+    final filter = buildRegExpFromIpFilter(r'10.0.$.*');
+
+    expect(filter.hasMatch(r'10.0.$.42'), true);
+    expect(filter.hasMatch('10.0.1.42'), false);
+  });
 }
