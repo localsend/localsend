@@ -82,6 +82,7 @@ const _quickSave = 'ls_quick_save';
 const _quickSaveFromFavorites = 'ls_quick_save_from_favorites';
 const _receivePin = 'ls_receive_pin';
 const _autoFinish = 'ls_auto_finish';
+const _autoCopyToClipboard = 'ls_auto_copy_to_clipboard';
 const _minimizeToTray = 'ls_minimize_to_tray';
 const _https = 'ls_https';
 const _sendMode = 'ls_send_mode';
@@ -445,6 +446,14 @@ class PersistenceService {
 
   Future<void> setAutoFinish(bool autoFinish) async {
     await _prefs.setBool(_autoFinish, autoFinish);
+  }
+
+  bool isAutoCopyToClipboard() {
+    return _prefs.getBool(_autoCopyToClipboard) ?? false;
+  }
+
+  Future<void> setAutoCopyToClipboard(bool autoCopyToClipboard) async {
+    await _prefs.setBool(_autoCopyToClipboard, autoCopyToClipboard);
   }
 
   bool isMinimizeToTray() {

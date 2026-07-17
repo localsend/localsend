@@ -15,6 +15,7 @@ import 'package:localsend_app/pages/donation/donation_page.dart';
 import 'package:localsend_app/pages/language_page.dart';
 import 'package:localsend_app/pages/settings/network_interfaces_page.dart';
 import 'package:localsend_app/pages/tabs/settings_tab_controller.dart';
+import 'package:localsend_app/provider/auto_copy_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/provider/version_provider.dart';
 import 'package:localsend_app/util/alias_generator.dart';
@@ -242,6 +243,13 @@ class SettingsTab extends StatelessWidget {
                         value: vm.settings.autoFinish,
                         onChanged: (b) async {
                           await ref.notifier(settingsProvider).setAutoFinish(b);
+                        },
+                      ),
+                      _BooleanEntry(
+                        label: t.settingsTab.receive.autoCopyToClipboard,
+                        value: ref.watch(autoCopyToClipboardProvider),
+                        onChanged: (b) async {
+                          await ref.notifier(autoCopyToClipboardProvider).set(b);
                         },
                       ),
                       _BooleanEntry(
