@@ -1,5 +1,5 @@
-import 'package:localsend_app/isolate/util/sleep.dart';
-import 'package:localsend_app/isolate/util/task_runner.dart';
+import 'package:localsend_isolates/util/sleep.dart';
+import 'package:localsend_isolates/util/task_runner.dart';
 import 'package:test/test.dart';
 
 void main() {

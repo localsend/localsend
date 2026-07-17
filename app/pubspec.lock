@@ -565,7 +565,7 @@ packages:
     source: hosted
     version: "2.0.35"
   flutter_rust_bridge:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: flutter_rust_bridge
       sha256: e87d6b9ee934dcd24a128ccb2bd91905d2d5fe5c06245d6a8f5477d4907a437a
@@ -910,6 +910,13 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.3.0"
+  localsend_isolates:
+    dependency: "direct main"
+    description:
+      path: "../packages/localsend_isolates"
+      relative: true
+    source: path
+    version: "0.0.1"
   logging:
     dependency: "direct main"
     description:
@@ -1401,9 +1408,9 @@ packages:
     source: hosted
     version: "0.8.1"
   rust_lib_localsend_app:
-    dependency: "direct main"
+    dependency: transitive
     description:
-      path: rust_builder
+      path: "../packages/localsend_isolates/rust_builder"
       relative: true
     source: path
     version: "0.0.1"
@@ -1757,7 +1764,7 @@ packages:
     source: hosted
     version: "1.4.0"
   typed_isolates:
-    dependency: "direct main"
+    dependency: transitive
     description:
       path: "../packages/typed_isolates"
       relative: true

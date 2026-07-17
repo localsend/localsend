@@ -1,0 +1,24 @@
+[package]
+name = "rust_lib_localsend_app"
+version = "0.1.0"
+edition = "2024"
+
+[lib]
+crate-type = ["cdylib", "staticlib"]
+
+[lints.rust]
+unexpected_cfgs = { level = "warn", check-cfg = ['cfg(frb_expand)'] }
+
+[dependencies]
+anyhow = "1.0"
+bytes = "1.9"
+flutter_rust_bridge = { version = "=2.12.0", features = ["uuid"] }
+localsend = { path = "../../core", features = ["full"] }
+tokio = { version = "1.49", features = ["full"] }
+tokio-util = "0.7.16"
+tracing = "0.1.44"
+tracing-subscriber = { version = "0.3.22" }
+uuid = { version = "1.11.1", features = ["v4"] }
+
+[target.'cfg(target_os = "android")'.dependencies]
+tracing-android = "0.2"

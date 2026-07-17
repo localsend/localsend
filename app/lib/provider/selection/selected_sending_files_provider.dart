@@ -2,7 +2,6 @@ import 'dart:convert' show jsonDecode, utf8;
 import 'dart:io';
 import 'dart:typed_data';
 
-import 'package:localsend_app/isolate/model/file_type.dart';
 import 'package:localsend_app/model/cross_file.dart';
 import 'package:localsend_app/util/file_path_helper.dart';
 import 'package:localsend_app/util/native/cache_helper.dart';
@@ -10,6 +9,7 @@ import 'package:localsend_app/util/native/channel/android_channel.dart' as andro
 import 'package:localsend_app/util/native/content_uri_helper.dart';
 import 'package:localsend_app/util/native/cross_file_converters.dart';
 import 'package:localsend_app/util/send_ignore.dart';
+import 'package:localsend_isolates/model/file_type.dart';
 import 'package:logging/logging.dart';
 import 'package:path/path.dart' as p;
 import 'package:refena_flutter/refena_flutter.dart';

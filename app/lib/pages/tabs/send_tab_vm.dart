@@ -1,7 +1,5 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
-import 'package:localsend_app/isolate/model/device.dart';
-import 'package:localsend_app/isolate/model/session_status.dart';
 import 'package:localsend_app/model/cross_file.dart';
 import 'package:localsend_app/model/persistence/favorite_device.dart';
 import 'package:localsend_app/model/send_mode.dart';
@@ -21,6 +19,8 @@ import 'package:localsend_app/widget/dialogs/favorite_delete_dialog.dart';
 import 'package:localsend_app/widget/dialogs/favorite_dialog.dart';
 import 'package:localsend_app/widget/dialogs/favorite_edit_dialog.dart';
 import 'package:localsend_app/widget/dialogs/no_files_dialog.dart';
+import 'package:localsend_isolates/model/device.dart';
+import 'package:localsend_isolates/model/session_status.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 import 'package:routerino/routerino.dart';
 

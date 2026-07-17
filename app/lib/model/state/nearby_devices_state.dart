@@ -1,5 +1,5 @@
 import 'package:dart_mappable/dart_mappable.dart';
-import 'package:localsend_app/isolate/model/device.dart';
+import 'package:localsend_isolates/model/device.dart';
 
 part 'nearby_devices_state.mapper.dart';
 

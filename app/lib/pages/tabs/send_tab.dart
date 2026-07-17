@@ -3,8 +3,6 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:localsend_app/config/theme.dart';
 import 'package:localsend_app/gen/strings.g.dart';
-import 'package:localsend_app/isolate/model/device.dart';
-import 'package:localsend_app/isolate/model/session_status.dart';
 import 'package:localsend_app/model/send_mode.dart';
 import 'package:localsend_app/pages/selected_files_page.dart';
 import 'package:localsend_app/pages/tabs/send_tab_vm.dart';
@@ -32,6 +30,8 @@ import 'package:localsend_app/widget/responsive_builder.dart';
 import 'package:localsend_app/widget/responsive_list_view.dart';
 import 'package:localsend_app/widget/responsive_wrap_view.dart';
 import 'package:localsend_app/widget/rotating_widget.dart';
+import 'package:localsend_isolates/model/device.dart';
+import 'package:localsend_isolates/model/session_status.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 import 'package:routerino/routerino.dart';
 

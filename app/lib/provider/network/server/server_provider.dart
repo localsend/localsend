@@ -1,9 +1,6 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:localsend_app/isolate/constants.dart';
-import 'package:localsend_app/isolate/isolate.dart';
-import 'package:localsend_app/isolate/model/dto/multicast_dto.dart';
 import 'package:localsend_app/model/cross_file.dart';
 import 'package:localsend_app/model/state/server/server_state.dart';
 import 'package:localsend_app/provider/network/server/controller/receive_controller.dart';
@@ -13,6 +10,9 @@ import 'package:localsend_app/provider/security_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/util/alias_generator.dart';
 import 'package:localsend_app/util/simple_server.dart';
+import 'package:localsend_isolates/constants.dart';
+import 'package:localsend_isolates/isolate.dart';
+import 'package:localsend_isolates/model/dto/multicast_dto.dart';
 import 'package:logging/logging.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 

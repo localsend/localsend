@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:localsend_app/config/theme.dart';
 import 'package:localsend_app/gen/strings.g.dart';
-import 'package:localsend_app/isolate/util/sleep.dart';
 import 'package:localsend_app/model/cross_file.dart';
 import 'package:localsend_app/provider/local_ip_provider.dart';
 import 'package:localsend_app/provider/network/server/server_provider.dart';
@@ -14,6 +13,7 @@ import 'package:localsend_app/widget/dialogs/pin_dialog.dart';
 import 'package:localsend_app/widget/dialogs/qr_dialog.dart';
 import 'package:localsend_app/widget/dialogs/zoom_dialog.dart';
 import 'package:localsend_app/widget/responsive_list_view.dart';
+import 'package:localsend_isolates/util/sleep.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 import 'package:routerino/routerino.dart';
 
