@@ -1,7 +1,7 @@
 use super::{ClientError, ResponseExt, ResultWithPublicKey};
+use crate::http;
 use crate::http::client::url::{ApiVersion, TargetUrl};
 use crate::http::dto::ProtocolType;
-use crate::http;
 use crate::{crypto, util};
 use lru::LruCache;
 use reqwest::{Response, StatusCode};

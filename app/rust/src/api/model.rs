@@ -1,9 +1,10 @@
 use flutter_rust_bridge::frb;
-pub use localsend::http::dto::{ProtocolType, RegisterDto, RegisterResponseDto, PrepareUploadRequestDto, PrepareUploadResponseDto};
-pub use localsend::model::discovery::{DeviceType};
-pub use localsend::model::transfer::{
-    FileDto, FileMetadata
+pub use localsend::http::dto::{
+    PrepareUploadRequestDto, PrepareUploadResponseDto, ProtocolType, RegisterDto,
+    RegisterResponseDto,
 };
+pub use localsend::model::discovery::DeviceType;
+pub use localsend::model::transfer::{FileDto, FileMetadata};
 use std::collections::HashMap;
 
 #[frb(mirror(RegisterDto))]

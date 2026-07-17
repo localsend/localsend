@@ -36,7 +36,7 @@ impl FileContent {
             FileContent::Stream(rx) => {
                 tracing::info!("Reading file content via byte stream from application");
                 rx
-            },
+            }
             FileContent::Path(path) => {
                 tracing::info!("Reading file content from path: {}", path.display());
                 let (tx, rx) = mpsc::channel(FILE_CHANNEL_CAPACITY);

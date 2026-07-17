@@ -7,12 +7,10 @@ pub fn generate_key_pair() -> anyhow::Result<KeyPair> {
     let private_key = localsend::crypto::token::export_private_key(&signing_key)?;
     let public_key = localsend::crypto::token::export_public_key(&signing_key)?;
 
-    Ok(
-        KeyPair {
-            private_key: private_key.to_string(),
-            public_key,
-        }
-    )
+    Ok(KeyPair {
+        private_key: private_key.to_string(),
+        public_key,
+    })
 }
 
 pub struct KeyPair {

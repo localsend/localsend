@@ -14,17 +14,8 @@ part 'http.freezed.dart';
 // These functions are ignored because they are not marked as `pub`: `resolve_file_content`
 // These function are ignored because they are on traits that is not defined in current crate (put an empty `#[frb]` on it to unignore): `from`
 
-RsHttpClient createClient({
-  required String privateKey,
-  required String cert,
-  required LsHttpClientVersion version,
-  int? timeoutMs,
-}) => RustLib.instance.api.crateApiHttpCreateClient(
-  privateKey: privateKey,
-  cert: cert,
-  version: version,
-  timeoutMs: timeoutMs,
-);
+RsHttpClient createClient({required String privateKey, required String cert, required LsHttpClientVersion version, int? timeoutMs}) =>
+    RustLib.instance.api.crateApiHttpCreateClient(privateKey: privateKey, cert: cert, version: version, timeoutMs: timeoutMs);
 
 RsCancellationToken createCancellationToken() => RustLib.instance.api.crateApiHttpCreateCancellationToken();
 
@@ -35,12 +26,7 @@ abstract class RsCancellationToken implements RustOpaqueInterface {
 
 // Rust type: RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<RsHttpClient>>
 abstract class RsHttpClient implements RustOpaqueInterface {
-  Future<void> cancel({
-    required ProtocolType protocol,
-    required String ip,
-    required int port,
-    required String sessionId,
-  });
+  Future<void> cancel({required ProtocolType protocol, required String ip, required int port, required String sessionId});
 
   Future<PrepareUploadResult> prepareUpload({
     required ProtocolType protocol,

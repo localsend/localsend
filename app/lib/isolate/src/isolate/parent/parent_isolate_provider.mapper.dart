@@ -62,6 +62,19 @@ class ParentIsolateStateMapper extends ClassMapperBase<ParentIsolateState> {
     >
   >
   _f$httpUpload = Field('httpUpload', _$httpUpload);
+  static IsolateConnector<
+    IsolateTaskStreamResult<HttpServerEvent>,
+    SendToIsolateData<IsolateTask<BaseHttpServerTask>>
+  >?
+  _$httpServer(ParentIsolateState v) => v.httpServer;
+  static const Field<
+    ParentIsolateState,
+    IsolateConnector<
+      IsolateTaskStreamResult<HttpServerEvent>,
+      SendToIsolateData<IsolateTask<BaseHttpServerTask>>
+    >
+  >
+  _f$httpServer = Field('httpServer', _$httpServer);
 
   @override
   final MappableFields<ParentIsolateState> fields = const {
@@ -69,6 +82,7 @@ class ParentIsolateStateMapper extends ClassMapperBase<ParentIsolateState> {
     #httpScanDiscovery: _f$httpScanDiscovery,
     #multicastDiscovery: _f$multicastDiscovery,
     #httpUpload: _f$httpUpload,
+    #httpServer: _f$httpServer,
   };
 
   static ParentIsolateState _instantiate(DecodingData data) {
@@ -77,6 +91,7 @@ class ParentIsolateStateMapper extends ClassMapperBase<ParentIsolateState> {
       httpScanDiscovery: data.dec(_f$httpScanDiscovery),
       multicastDiscovery: data.dec(_f$multicastDiscovery),
       httpUpload: data.dec(_f$httpUpload),
+      httpServer: data.dec(_f$httpServer),
     );
   }
 
@@ -166,6 +181,11 @@ abstract class ParentIsolateStateCopyWith<
       SendToIsolateData<IsolateTask<BaseHttpUploadTask>>
     >?
     httpUpload,
+    IsolateConnector<
+      IsolateTaskStreamResult<HttpServerEvent>,
+      SendToIsolateData<IsolateTask<BaseHttpServerTask>>
+    >?
+    httpServer,
   });
   ParentIsolateStateCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
     Then<$Out2, $R2> t,
@@ -189,12 +209,14 @@ class _ParentIsolateStateCopyWithImpl<$R, $Out>
     Object? httpScanDiscovery = $none,
     Object? multicastDiscovery = $none,
     Object? httpUpload = $none,
+    Object? httpServer = $none,
   }) => $apply(
     FieldCopyWithData({
       if (syncState != null) #syncState: syncState,
       if (httpScanDiscovery != $none) #httpScanDiscovery: httpScanDiscovery,
       if (multicastDiscovery != $none) #multicastDiscovery: multicastDiscovery,
       if (httpUpload != $none) #httpUpload: httpUpload,
+      if (httpServer != $none) #httpServer: httpServer,
     }),
   );
   @override
@@ -209,6 +231,7 @@ class _ParentIsolateStateCopyWithImpl<$R, $Out>
       or: $value.multicastDiscovery,
     ),
     httpUpload: data.get(#httpUpload, or: $value.httpUpload),
+    httpServer: data.get(#httpServer, or: $value.httpServer),
   );
 
   @override

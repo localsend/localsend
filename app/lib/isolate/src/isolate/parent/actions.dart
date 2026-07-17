@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:localsend_app/isolate/model/device.dart';
 import 'package:localsend_app/isolate/src/isolate/child/http_scan_discovery_isolate.dart';
 import 'package:localsend_app/isolate/src/isolate/child/multicast_discovery_isolate.dart';
+import 'package:localsend_app/isolate/src/isolate/child/server_isolate.dart';
 import 'package:localsend_app/isolate/src/isolate/child/upload_isolate.dart';
 import 'package:localsend_app/isolate/src/isolate/dto/send_to_isolate_data.dart';
 import 'package:localsend_app/isolate/src/isolate/parent/parent_isolate_provider.dart';
@@ -185,6 +186,146 @@ class IsolateHttpUploadCancelAction extends ReduxAction<IsolateController, Paren
 
     return state;
   }
+}
+
+/// Starts the HTTP server and returns the stream of server events.
+/// The stream ends when the server is stopped via [IsolateHttpServerStopAction].
+class IsolateHttpServerStartAction extends ReduxActionWithResult<IsolateController, ParentIsolateState, Stream<HttpServerEvent>> {
+  final String? pin;
+
+  IsolateHttpServerStartAction({
+    required this.pin,
+  });
+
+  @override
+  (ParentIsolateState, Stream<HttpServerEvent>) reduce() {
+    final connection = state.httpServer;
+    if (connection == null) {
+      throw StateError('httpServer is not initialized');
+    }
+
+    return (
+      state,
+      connection.sendWrappedTaskAndListenStream(
+        task: HttpServerStartTask(
+          pin: pin,
+        ),
+      ),
+    );
+  }
+}
+
+class IsolateHttpServerStopAction extends ReduxAction<IsolateController, ParentIsolateState> {
+  @override
+  ParentIsolateState reduce() {
+    final connection = state.httpServer;
+    if (connection == null) {
+      throw StateError('httpServer is not initialized');
+    }
+
+    connection.sendToIsolate(
+      SendToIsolateData(
+        syncState: null,
+        data: IsolateTask(
+          data: HttpServerStopTask(),
+        ),
+      ),
+    );
+
+    return state;
+  }
+}
+
+/// Answers a pending [HttpServerPrepareUploadEvent].
+class IsolateHttpServerPrepareUploadDecisionAction extends ReduxAction<IsolateController, ParentIsolateState> {
+  /// The file IDs to accept (a subset of the offered files).
+  /// `null` declines the request.
+  final List<String>? acceptedFileIds;
+
+  IsolateHttpServerPrepareUploadDecisionAction({
+    required this.acceptedFileIds,
+  });
+
+  @override
+  ParentIsolateState reduce() {
+    final connection = state.httpServer;
+    if (connection == null) {
+      throw StateError('httpServer is not initialized');
+    }
+
+    connection.sendToIsolate(
+      SendToIsolateData(
+        syncState: null,
+        data: IsolateTask(
+          data: HttpServerPrepareUploadDecisionTask(
+            acceptedFileIds: acceptedFileIds,
+          ),
+        ),
+      ),
+    );
+
+    return state;
+  }
+}
+
+/// Answers a pending [HttpServerFileUploadEvent] with the target the file
+/// should be saved to (either a [path] or a writable [fileDescriptor]).
+/// The returned future completes when the file has been received completely
+/// and throws if saving the file failed.
+class IsolateHttpServerFileUploadTargetAction extends ReduxActionWithResult<IsolateController, ParentIsolateState, Future<void>> {
+  final String sessionId;
+  final String fileId;
+  final String? path;
+  final int? fileDescriptor;
+
+  IsolateHttpServerFileUploadTargetAction({
+    required this.sessionId,
+    required this.fileId,
+    required this.path,
+    required this.fileDescriptor,
+  });
+
+  @override
+  (ParentIsolateState, Future<void>) reduce() {
+    final connection = state.httpServer;
+    if (connection == null) {
+      throw StateError('httpServer is not initialized');
+    }
+
+    final events = connection.sendWrappedTaskAndListenStream(
+      task: HttpServerFileUploadTargetTask(
+        sessionId: sessionId,
+        fileId: fileId,
+        path: path,
+        fileDescriptor: fileDescriptor,
+      ),
+    );
+
+    return (state, _awaitResult(events));
+  }
+
+  Future<void> _awaitResult(Stream<HttpServerEvent> events) async {
+    await for (final event in events) {
+      if (event case HttpServerFileUploadResultEvent(:final error)) {
+        if (error != null) {
+          throw HttpServerFileUploadException(error);
+        }
+        return;
+      }
+    }
+
+    throw HttpServerFileUploadException('The server isolate did not report a result');
+  }
+}
+
+/// Saving a file received by the HTTP server failed.
+class HttpServerFileUploadException implements Exception {
+  final String message;
+
+  HttpServerFileUploadException(this.message);
+
+  @override
+  String toString() => message;
 }
 
 /// Adds the [SendToIsolateData] envelope on top of the generic

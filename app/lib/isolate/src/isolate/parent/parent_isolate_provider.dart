@@ -3,6 +3,7 @@ import 'package:localsend_app/isolate/model/device.dart';
 import 'package:localsend_app/isolate/src/isolate/child/http_scan_discovery_isolate.dart';
 import 'package:localsend_app/isolate/src/isolate/child/main.dart';
 import 'package:localsend_app/isolate/src/isolate/child/multicast_discovery_isolate.dart';
+import 'package:localsend_app/isolate/src/isolate/child/server_isolate.dart';
 import 'package:localsend_app/isolate/src/isolate/child/sync_provider.dart';
 import 'package:localsend_app/isolate/src/isolate/child/upload_isolate.dart';
 import 'package:localsend_app/isolate/src/isolate/dto/send_to_isolate_data.dart';
@@ -21,12 +22,14 @@ class ParentIsolateState with ParentIsolateStateMappable {
   final IsolateConnector<IsolateTaskStreamResult<Device>, SendToIsolateData<IsolateTask<HttpScanTask>>>? httpScanDiscovery;
   final IsolateConnector<Device, SendToIsolateData<MulticastTask>>? multicastDiscovery;
   final IsolateConnector<IsolateTaskStreamResult<HttpUploadEvent>, SendToIsolateData<IsolateTask<BaseHttpUploadTask>>>? httpUpload;
+  final IsolateConnector<IsolateTaskStreamResult<HttpServerEvent>, SendToIsolateData<IsolateTask<BaseHttpServerTask>>>? httpServer;
 
   ParentIsolateState({
     required this.syncState,
     required this.httpScanDiscovery,
     required this.multicastDiscovery,
     required this.httpUpload,
+    required this.httpServer,
   });
 
   static ParentIsolateState initial(SyncState syncState) => ParentIsolateState(
@@ -34,6 +37,7 @@ class ParentIsolateState with ParentIsolateStateMappable {
     httpScanDiscovery: null,
     multicastDiscovery: null,
     httpUpload: null,
+    httpServer: null,
   );
 
   @override
@@ -95,6 +99,15 @@ class IsolateSetupAction extends AsyncReduxAction<IsolateController, ParentIsola
           ),
         );
 
+    final httpServer =
+        await TypedIsolates.startIsolate<IsolateTaskStreamResult<HttpServerEvent>, SendToIsolateData<IsolateTask<BaseHttpServerTask>>, InitialData>(
+          task: setupHttpServerIsolate,
+          param: InitialData(
+            syncState: state.syncState,
+            logLevel: Logger.root.level,
+          ),
+        );
+
     if (uriContentStreamResolver != null) {
       httpUpload.sendToIsolate(
         SendToIsolateData(
@@ -111,6 +124,7 @@ class IsolateSetupAction extends AsyncReduxAction<IsolateController, ParentIsola
       httpScanDiscovery: httpScanDiscovery,
       multicastDiscovery: multicastDiscovery,
       httpUpload: httpUpload,
+      httpServer: httpServer,
     );
   }
 }
@@ -121,6 +135,7 @@ class IsolateDisposeAction extends ReduxAction<IsolateController, ParentIsolateS
     state.httpScanDiscovery?.isolate.kill();
     state.multicastDiscovery?.isolate.kill();
     state.httpUpload?.isolate.kill();
+    state.httpServer?.isolate.kill();
     return state;
   }
 }

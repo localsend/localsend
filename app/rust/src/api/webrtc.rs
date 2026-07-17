@@ -1,6 +1,6 @@
 use crate::frb_generated::StreamSink;
 use bytes::Bytes;
-use flutter_rust_bridge::{frb, DartFnFuture};
+use flutter_rust_bridge::{DartFnFuture, frb};
 use localsend::crypto::token::SigningTokenKey;
 use localsend::model::discovery::DeviceType;
 use localsend::model::transfer::FileDto;
@@ -14,7 +14,7 @@ pub use localsend::webrtc::webrtc::{
 use std::collections::HashSet;
 use std::sync::Arc;
 use std::time::Duration;
-use tokio::sync::{mpsc, oneshot, Mutex};
+use tokio::sync::{Mutex, mpsc, oneshot};
 use tokio::time;
 use uuid::Uuid;
 
