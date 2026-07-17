@@ -6,7 +6,10 @@ import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart' show Clipboard, ClipboardData;
 import 'package:localsend_app/isolate/api_route_builder.dart';
+import 'package:localsend_app/provider/auto_copy_provider.dart';
+import 'package:localsend_app/util/native/clipboard.dart';
 import 'package:localsend_app/isolate/constants.dart';
 import 'package:localsend_app/isolate/model/device.dart';
 import 'package:localsend_app/isolate/model/dto/info_dto.dart';
@@ -267,35 +270,46 @@ class ReceiveController {
         quickSave = true;
       }
     }
+    final message = server.getState().session?.message;
+    if (message != null) {
+      // Message already received
+      await server.ref
+          .redux(receiveHistoryProvider)
+          .dispatchAsync(
+            AddHistoryEntryAction(
+              entryId: const Uuid().v4(),
+              fileName: message,
+              fileType: FileType.text,
+              path: null,
+              savedToGallery: false,
+              isMessage: true,
+              fileSize: utf8.encode(message).length,
+              senderAlias: server.getState().session!.senderAlias,
+              timestamp: DateTime.now().toUtc(),
+            ),
+          );
+
+      if (server.ref.read(autoCopyToClipboardProvider)) {
+        unawaited(Clipboard.setData(ClipboardData(text: message)));
+        showDesktopNotification('LocalSend', 'Copied to clipboard');
+      }
+    }
     final Map<String, String>? selection;
     if (quickSave) {
       // accept all files
       selection = {
         for (final f in dto.files.values) f.id: f.fileName,
       };
+    } else if (server.ref.read(autoCopyToClipboardProvider)) {
+      // auto-accept when auto-copy is enabled
+      selection = message != null
+          ? {}
+          : {
+              for (final f in dto.files.values) f.id: f.fileName,
+            };
     } else {
       if (checkPlatformHasTray() && (await windowManager.isMinimized() || !(await windowManager.isVisible()) || !(await windowManager.isFocused()))) {
         await showFromTray();
-      }
-
-      final message = server.getState().session?.message;
-      if (message != null) {
-        // Message already received
-        await server.ref
-            .redux(receiveHistoryProvider)
-            .dispatchAsync(
-              AddHistoryEntryAction(
-                entryId: const Uuid().v4(),
-                fileName: message,
-                fileType: FileType.text,
-                path: null,
-                savedToGallery: false,
-                isMessage: true,
-                fileSize: utf8.encode(message).length,
-                senderAlias: server.getState().session!.senderAlias,
-                timestamp: DateTime.now().toUtc(),
-              ),
-            );
       }
 
       final receiveProvider = ViewProvider((ref) {
@@ -558,6 +572,16 @@ class ReceiveController {
           );
 
       _logger.info('Saved ${receivingFile.file.fileName}.');
+
+      if (fileType == FileType.image && filePath != null) {
+        if (server.ref.read(autoCopyToClipboardProvider)) {
+          unawaited(copyImageToClipboard(filePath));
+          showDesktopNotification(
+            'LocalSend',
+            '${receivingFile.desiredName} — Copied to clipboard',
+          );
+        }
+      }
     } catch (e, st) {
       server.setState(
         (oldState) => oldState?.copyWith(
@@ -606,7 +630,8 @@ class ReceiveController {
           quickSave = true;
         }
       }
-      if (quickSave) {
+      final autoCopy = server.ref.read(autoCopyToClipboardProvider);
+      if (quickSave || autoCopy) {
         // close the session **after** return of the response
         Future.delayed(Duration.zero, () {
           closeSession();
