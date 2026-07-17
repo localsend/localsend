@@ -1,5 +1,4 @@
-import 'dart:typed_data';
-
+import 'package:flutter/services.dart';
 import 'package:localsend_app/isolate/isolate.dart';
 import 'package:localsend_app/isolate/model/device.dart';
 import 'package:localsend_app/isolate/src/isolate/child/main.dart';
@@ -12,14 +11,6 @@ import 'package:refena_flutter/refena_flutter.dart';
 import 'package:typed_isolates/typed_isolates.dart';
 
 sealed class BaseHttpUploadTask {}
-
-class HttpUploadSetContentStreamResolverTask implements BaseHttpUploadTask {
-  final UriContentStreamResolver resolver;
-
-  HttpUploadSetContentStreamResolverTask({
-    required this.resolver,
-  });
-}
 
 class HttpUploadFile {
   final String remoteFileToken;
@@ -102,15 +93,6 @@ class HttpUploadFileFailedEvent extends HttpUploadEvent {
 /// Task ID -> CancelToken
 final _cancelTokenProvider = Provider((ref) => <int, RsCancellationToken>{});
 
-abstract class UriContentStreamResolver {
-  /// Separate initialization method to create instance in the child isolate.
-  /// Cannot reference the RootIsolateToken class because it is not part of Dart.
-  void init({required Object? rootIsolateToken});
-
-  /// Resolves the content stream for the given URI.
-  Stream<Uint8List> resolve(Uri uri);
-}
-
 Future<void> setupHttpUploadIsolate(
   Stream<SendToIsolateData<IsolateTask<BaseHttpUploadTask>>> receiveFromMain,
   void Function(IsolateTaskStreamResult<HttpUploadEvent>) sendToMain,
@@ -121,15 +103,16 @@ Future<void> setupHttpUploadIsolate(
     receiveFromMain: receiveFromMain,
     sendToMain: sendToMain,
     initialData: initialData,
+    init: (ref) async {
+      // Initialize the platform method channel so getFileDescriptorAndroid
+      // (used to resolve "content://" files) works inside this isolate.
+      BackgroundIsolateBinaryMessenger.ensureInitialized(
+        ref.read(syncProvider).rootIsolateToken as RootIsolateToken,
+      );
+    },
     handler: (ref, task) async {
       final HttpUploadFilesTask uploadTask;
       switch (task.data) {
-        case HttpUploadSetContentStreamResolverTask task:
-          final rootIsolateToken = ref.read(syncProvider).rootIsolateToken;
-          task.resolver.init(
-            rootIsolateToken: rootIsolateToken,
-          );
-          return;
         case HttpUploadFilesTask task:
           uploadTask = task;
           break;

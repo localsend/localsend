@@ -64,13 +64,6 @@ class IsolateController extends ReduxNotifier<ParentIsolateState> {
 /// Starts the required isolates.
 /// Should be called by the main isolate.
 class IsolateSetupAction extends AsyncReduxAction<IsolateController, ParentIsolateState> {
-  /// If provided, file paths starting with "content://" will be resolved using this resolver.
-  final UriContentStreamResolver? uriContentStreamResolver;
-
-  IsolateSetupAction({
-    required this.uriContentStreamResolver,
-  });
-
   @override
   Future<ParentIsolateState> reduce() async {
     final httpScanDiscovery =
@@ -107,18 +100,6 @@ class IsolateSetupAction extends AsyncReduxAction<IsolateController, ParentIsola
             logLevel: Logger.root.level,
           ),
         );
-
-    if (uriContentStreamResolver != null) {
-      httpUpload.sendToIsolate(
-        SendToIsolateData(
-          syncState: null,
-          data: IsolateTask(
-            id: -1,
-            data: HttpUploadSetContentStreamResolverTask(resolver: uriContentStreamResolver!),
-          ),
-        ),
-      );
-    }
 
     return state.copyWith(
       httpScanDiscovery: httpScanDiscovery,

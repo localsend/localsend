@@ -14,8 +14,7 @@ export 'package:localsend_app/isolate/src/isolate/child/upload_isolate.dart'
         HttpUploadFileFailedEvent,
         HttpUploadFileFinishedEvent,
         HttpUploadFileProgressEvent,
-        HttpUploadFileStartedEvent,
-        UriContentStreamResolver;
+        HttpUploadFileStartedEvent;
 export 'package:localsend_app/isolate/src/isolate/parent/actions.dart';
 export 'package:localsend_app/isolate/src/isolate/parent/actions_sync.dart';
 export 'package:localsend_app/isolate/src/isolate/parent/parent_isolate_provider.dart';

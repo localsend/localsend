@@ -37,7 +37,6 @@ import 'package:localsend_app/rust/frb_generated.dart';
 import 'package:localsend_app/util/i18n.dart';
 import 'package:localsend_app/util/native/autostart_helper.dart';
 import 'package:localsend_app/util/native/cache_helper.dart';
-import 'package:localsend_app/util/native/content_uri_helper.dart';
 import 'package:localsend_app/util/native/context_menu_helper.dart';
 import 'package:localsend_app/util/native/cross_file_converters.dart';
 import 'package:localsend_app/util/native/device_info_helper.dart';
@@ -188,13 +187,7 @@ Future<RefenaContainer> preInit(List<String> args) async {
     }),
   );
 
-  await container
-      .redux(parentIsolateProvider)
-      .dispatchAsync(
-        IsolateSetupAction(
-          uriContentStreamResolver: AndroidUriContentStreamResolver(),
-        ),
-      );
+  await container.redux(parentIsolateProvider).dispatchAsync(IsolateSetupAction());
 
   return container;
 }
