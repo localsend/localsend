@@ -367,7 +367,10 @@ mod tests {
                     file_type: "image/png".to_string(),
                     sha256: None,
                     preview: None,
-                    metadata: None,
+                    metadata: Some(crate::model::transfer::FileMetadata {
+                        modified: Some("2019-09-12T12:02:45.123Z".to_string()),
+                        accessed: None,
+                    }),
                 },
             )]),
         };
@@ -376,5 +379,6 @@ mod tests {
         assert!(json.contains("\"info\""));
         assert!(json.contains("\"files\""));
         assert!(json.contains("\"fingerprint\":\"sender-fingerprint\""));
+        assert!(json.contains("\"modified\":\"2019-09-12T12:02:45.123Z\""));
     }
 }
