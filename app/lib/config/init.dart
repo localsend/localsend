@@ -189,6 +189,22 @@ Future<RefenaContainer> preInit(List<String> args) async {
 
   await container.redux(parentIsolateProvider).dispatchAsync(IsolateSetupAction());
 
+  // Start the receive server here instead of relying solely on postInit(),
+  // which runs from HomePage.initState. When the app launches hidden to the
+  // tray (e.g. autostart with --hidden), the home page is never built, so
+  // postInit() never fires and the HTTP server stays down while multicast
+  // discovery (started in the isolate above) is up. This makes the device
+  // appear discoverable but unable to actually receive files until the window
+  // is opened once. startServer() guards against double-start, so the later
+  // postInit() call becomes a no-op.
+  if (checkPlatformIsDesktop()) {
+    try {
+      await container.notifier(serverProvider).startServerFromSettings();
+    } catch (e) {
+      _logger.warning('Starting server during init failed', e);
+    }
+  }
+
   return container;
 }
 
