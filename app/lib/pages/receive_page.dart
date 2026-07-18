@@ -60,6 +60,13 @@ class ReceivePage extends StatefulWidget {
 
 class _ReceivePageState extends State<ReceivePage> with Refena {
   bool _showFullIp = false;
+  final _focusNode = FocusNode();
+
+  @override
+  void dispose() {
+    _focusNode.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -85,6 +92,7 @@ class _ReceivePageState extends State<ReceivePage> with Refena {
       provider: (ref) => widget.vm,
       onFirstFrame: (context, vm) {
         ref.notifier(selectedReceivingFilesProvider).setFiles(vm.files);
+        _focusNode.requestFocus();
       },
       dispose: (ref) {
         ref.dispose(widget.vm);
@@ -98,9 +106,26 @@ class _ReceivePageState extends State<ReceivePage> with Refena {
             }
           },
           canPop: true,
-          child: Scaffold(
-            body: SafeArea(
-              child: Center(
+          child: Focus(
+            focusNode: _focusNode,
+            autofocus: true,
+            onKeyEvent: (node, event) {
+              if (checkPlatformIsDesktop() &&
+                  event is KeyDownEvent &&
+                  (event.logicalKey == LogicalKeyboardKey.enter || event.logicalKey == LogicalKeyboardKey.numpadEnter) &&
+                  vm.status == SessionStatus.waiting &&
+                  vm.message == null) {
+                final selectedFiles = ref.read(selectedReceivingFilesProvider);
+                if (selectedFiles.isNotEmpty) {
+                  vm.onAccept();
+                  return KeyEventResult.handled;
+                }
+              }
+              return KeyEventResult.ignored;
+            },
+            child: Scaffold(
+              body: SafeArea(
+                child: Center(
                 child: ConstrainedBox(
                   constraints: const BoxConstraints(maxWidth: ResponsiveListView.defaultMaxWidth),
                   child: Builder(
@@ -245,8 +270,9 @@ class _ReceivePageState extends State<ReceivePage> with Refena {
               ),
             ),
           ),
-        );
-      },
+        ),
+      );
+    },
     );
   }
 }
