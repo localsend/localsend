@@ -8,6 +8,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_displaymode/flutter_displaymode.dart';
+import 'package:local_notifier/local_notifier.dart';
 import 'package:localsend_app/config/refena.dart';
 import 'package:localsend_app/config/theme.dart';
 import 'package:localsend_app/pages/home_page.dart';
@@ -124,6 +125,14 @@ Future<RefenaContainer> preInit(List<String> args) async {
       _logger.warning('Initializing tray failed: $e');
     }
 
+    // initialize desktop notifications (used e.g. to signal received files
+    // when the window is hidden)
+    try {
+      await localNotifier.setup(appName: 'LocalSend');
+    } catch (e) {
+      _logger.warning('Initializing desktop notifications failed: $e');
+    }
+
     // initialize size and position
     await WindowManager.instance.ensureInitialized();
     await WindowDimensionsController(persistenceService).initDimensionsConfiguration();
@@ -188,6 +197,22 @@ Future<RefenaContainer> preInit(List<String> args) async {
   );
 
   await container.redux(parentIsolateProvider).dispatchAsync(IsolateSetupAction());
+
+  // Start the receive server here instead of relying solely on postInit(),
+  // which runs from HomePage.initState. When the app launches hidden to the
+  // tray (e.g. autostart with --hidden), the home page is never built, so
+  // postInit() never fires and the HTTP server stays down while multicast
+  // discovery (started in the isolate above) is up. This makes the device
+  // appear discoverable but unable to actually receive files until the window
+  // is opened once. startServer() guards against double-start, so the later
+  // postInit() call becomes a no-op.
+  if (checkPlatformIsDesktop()) {
+    try {
+      await container.notifier(serverProvider).startServerFromSettings();
+    } catch (e) {
+      _logger.warning('Starting server during init failed', e);
+    }
+  }
 
   return container;
 }

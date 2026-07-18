@@ -62,6 +62,7 @@ class Translations with BaseTranslations<AppLocale, Translations> {
   late final Translations$receiveOptionsPage$en receiveOptionsPage = Translations$receiveOptionsPage$en.internal(_root);
   late final Translations$sendPage$en sendPage = Translations$sendPage$en.internal(_root);
   late final Translations$progressPage$en progressPage = Translations$progressPage$en.internal(_root);
+  late final Translations$receiveNotification$en receiveNotification = Translations$receiveNotification$en.internal(_root);
   late final Translations$webSharePage$en webSharePage = Translations$webSharePage$en.internal(_root);
   late final Translations$aboutPage$en aboutPage = Translations$aboutPage$en.internal(_root);
   late final Translations$donationPage$en donationPage = Translations$donationPage$en.internal(_root);
@@ -472,6 +473,29 @@ class Translations$progressPage$en {
 
   late final Translations$progressPage$total$en total = Translations$progressPage$total$en.internal(_root);
   late final Translations$progressPage$remainingTime$en remainingTime = Translations$progressPage$remainingTime$en.internal(_root);
+}
+
+// Path: receiveNotification
+class Translations$receiveNotification$en {
+  Translations$receiveNotification$en.internal(this._root);
+
+  final Translations _root; // ignore: unused_field
+
+  // Translations
+
+  /// en: '(one) {File received} (other) {Files received}'
+  String title({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(
+    n,
+    one: 'File received',
+    other: 'Files received',
+  );
+
+  /// en: '(one) {{alias} sent you a file} (other) {{alias} sent you {n} files}'
+  String body({required num n, required Object alias}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(
+    n,
+    one: '${alias} sent you a file',
+    other: '${alias} sent you ${n} files',
+  );
 }
 
 // Path: webSharePage

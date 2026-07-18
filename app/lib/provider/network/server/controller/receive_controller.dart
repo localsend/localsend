@@ -6,6 +6,7 @@ import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/model/state/send/send_session_state.dart';
 import 'package:localsend_app/model/state/server/receive_session_state.dart';
 import 'package:localsend_app/model/state/server/receiving_file.dart';
@@ -29,6 +30,8 @@ import 'package:localsend_app/provider/selection/selected_sending_files_provider
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/util/native/directories.dart';
 import 'package:localsend_app/util/native/file_saver.dart';
+import 'package:localsend_app/util/native/notification_helper.dart';
+import 'package:localsend_app/util/native/open_folder.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_app/util/native/tray_helper.dart';
 import 'package:localsend_app/util/simple_server.dart';
@@ -627,6 +630,22 @@ class ReceiveController {
           }
         });
       }
+      // Notify the user that files were received. Especially important when the
+      // window is hidden (e.g. started in the tray), where there is otherwise no
+      // visible feedback that a transfer completed.
+      final finishedFiles = session.files.values.where((f) => f.status == FileStatus.finished).toList();
+      if (finishedFiles.isNotEmpty) {
+        final destinationDirectory = session.destinationDirectory;
+        final highlightFileName = finishedFiles.length == 1 ? finishedFiles.first.path?.split(Platform.pathSeparator).last : null;
+        unawaited(showDesktopNotification(
+          title: t.receiveNotification.title(n: finishedFiles.length),
+          body: t.receiveNotification.body(n: finishedFiles.length, alias: session.sender.alias),
+          // Clicking the notification (or its action button) reveals the received file(s) in the file manager.
+          actionLabel: t.receiveHistoryPage.openFolder,
+          onAction: () => unawaited(openFolder(folderPath: destinationDirectory, fileName: highlightFileName)),
+        ));
+      }
+
       _logger.info('Received all files.');
     }
 
