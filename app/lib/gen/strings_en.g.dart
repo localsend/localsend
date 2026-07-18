@@ -195,6 +195,12 @@ class Translations$general$en {
 
   /// en: 'No items in Clipboard.'
   String get noItemInClipboard => 'No items in Clipboard.';
+
+  /// en: 'Abort'
+  String get abort => 'Abort';
+
+  /// en: 'Transfer'
+  String get transfer => 'Transfer';
 }
 
 // Path: receiveTab
@@ -1331,11 +1337,11 @@ class Translations$dialogs$cancelSession$en {
 
   // Translations
 
-  /// en: 'Cancel files transfer'
-  String get title => 'Cancel files transfer';
+  /// en: 'Abort file transfer'
+  String get title => 'Abort file transfer';
 
-  /// en: 'Do you really want to cancel the files transfer?'
-  String get content => 'Do you really want to cancel the files transfer?';
+  /// en: 'Do you want to abort the file transfer?'
+  String get content => 'Do you want to abort the file transfer?';
 }
 
 // Path: dialogs.cannotOpenFile

@@ -360,8 +360,8 @@
       "recentlyUsed": "Folosit recent: "
     },
     "cancelSession": {
-      "title": "Anulează trimiterea fișierelor",
-      "content": "Chiar vrei să anulezi transferul fișierelor?"
+      "title": "Anulează transferul de fișiere",
+      "content": "Doriți să anulați transferul de fișiere?"
     },
     "cannotOpenFile": {
       "title": "Nu se poate deschide fișierul",

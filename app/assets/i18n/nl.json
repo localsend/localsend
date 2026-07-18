@@ -300,8 +300,8 @@
       "recentlyUsed": "Onlangs gebruikt: "
     },
     "cancelSession": {
-      "title": "Bestandsoverdracht annuleren",
-      "content": "Wil je de bestandsoverdracht annuleren?"
+      "title": "Bestandsoverdracht afbreken",
+      "content": "Wilt u de bestandsoverdracht afbreken?"
     },
     "cannotOpenFile": {
       "title": "Kan bestand niet openen",

@@ -290,8 +290,8 @@
       "recentlyUsed": "Baru saja digunakan: "
     },
     "cancelSession": {
-      "title": "Batalkan pentransferan berkas",
-      "content": "Anda yakin ingin membatalkan pengiriman berkas?"
+      "title": "Batalkan transfer file",
+      "content": "Apakah Anda ingin mematalkan transfer file?"
     },
     "cannotOpenFile": {
       "title": "Tidak dapat membuka berkas",

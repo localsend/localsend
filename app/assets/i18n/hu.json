@@ -301,7 +301,7 @@
     },
     "cancelSession": {
       "title": "Fájlátvitel megszakítása",
-      "content": "Valóban meg akarja szakítani a fájlátvitelt?"
+      "content": "Meg szeretné szakítani a fájlátvitelt?"
     },
     "cannotOpenFile": {
       "title": "A fájl nem nyitható meg",

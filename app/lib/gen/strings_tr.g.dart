@@ -1047,7 +1047,7 @@ class _Translations$dialogs$cancelSession$tr extends Translations$dialogs$cancel
   @override
   String get title => 'Dosya transferini iptal et';
   @override
-  String get content => 'Gerçekten dosya transferini iptal etmek istiyor musunuz?';
+  String get content => 'Dosya transferini iptal etmek istiyor musunuz?';
 }
 
 // Path: dialogs.cannotOpenFile

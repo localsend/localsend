@@ -1130,9 +1130,9 @@ class _Translations$dialogs$cancelSession$fil_PH extends Translations$dialogs$ca
 
   // Translations
   @override
-  String get title => 'Kanselahin ang pagpapadala ng file';
+  String get title => 'I-abort ang paglipat ng file';
   @override
-  String get content => 'Gusto mo ba talagang kanselahin ang pagpapadala ng file?';
+  String get content => 'Gusto mo bang i-abort ang paglipat ng file?';
 }
 
 // Path: dialogs.cannotOpenFile

@@ -369,8 +369,8 @@
       "recentlyUsed": "Recently used: "
     },
     "cancelSession": {
-      "title": "Kanselahin ang pagpapadala ng file",
-      "content": "Gusto mo ba talagang kanselahin ang pagpapadala ng file?"
+      "title": "I-abort ang paglipat ng file",
+      "content": "Gusto mo bang i-abort ang paglipat ng file?"
     },
     "cannotOpenFile": {
       "title": "Hindi mabuksan ang file",

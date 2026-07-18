@@ -1121,9 +1121,9 @@ class _Translations$dialogs$cancelSession$fa extends Translations$dialogs$cancel
 
   // Translations
   @override
-  String get title => '‌‌لغو انتقال فایل';
+  String get title => 'لغو انتقال فایل';
   @override
-  String get content => 'واقعاً می‌خواهید انتقال فایل را لغو کنید؟';
+  String get content => 'آیا می‌خواهید انتقال فایل را لغو کنید؟';
 }
 
 // Path: dialogs.cannotOpenFile

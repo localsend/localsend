@@ -1141,9 +1141,9 @@ class Translations$dialogs$cancelSession$zh_CN extends Translations$dialogs$canc
 
   // Translations
   @override
-  String get title => '取消文件传输';
+  String get title => '终止文件传输';
   @override
-  String get content => '要取消文件传输吗？';
+  String get content => '您要终止文件传输吗？';
 }
 
 // Path: dialogs.cannotOpenFile

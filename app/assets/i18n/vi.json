@@ -292,8 +292,8 @@
       "recentlyUsed": "Sử dụng gần đây: "
     },
     "cancelSession": {
-      "title": "Dừng gửi tập tin",
-      "content": "Bạn có thực sự muống dừng quá trình gửi tập tin?"
+      "title": "Hủy chuyển tập tin",
+      "content": "Bạn có muốn hủy chuyển tập tin không?"
     },
     "cannotOpenFile": {
       "title": "Không thể mở tập tin",

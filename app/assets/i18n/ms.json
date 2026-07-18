@@ -356,7 +356,7 @@
     },
     "cancelSession": {
       "title": "Batalkan pemindahan fail",
-      "content": "Adakah anda benar-benar mahu membatalkan pemindahan fail?"
+      "content": "Adakah anda mahu membatalkan pemindahan fail?"
     },
     "cannotOpenFile": {
       "title": "Tidak dapat membuka fail",

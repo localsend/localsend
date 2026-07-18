@@ -1144,7 +1144,7 @@ class _Translations$dialogs$cancelSession$sk extends Translations$dialogs$cancel
   @override
   String get title => 'Zrušiť prenos súborov';
   @override
-  String get content => 'Naozaj chcete zrušiť prenos súborov?';
+  String get content => 'Chcete zrušiť prenos súborov?';
 }
 
 // Path: dialogs.cannotOpenFile

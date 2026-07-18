@@ -1035,9 +1035,9 @@ class _Translations$dialogs$cancelSession$vi extends Translations$dialogs$cancel
 
   // Translations
   @override
-  String get title => 'Dừng gửi tập tin';
+  String get title => 'Hủy chuyển tập tin';
   @override
-  String get content => 'Bạn có thực sự muống dừng quá trình gửi tập tin?';
+  String get content => 'Bạn có muốn hủy chuyển tập tin không?';
 }
 
 // Path: dialogs.cannotOpenFile

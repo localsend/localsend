@@ -946,9 +946,9 @@ class _Translations$dialogs$cancelSession$eu extends Translations$dialogs$cancel
 
   // Translations
   @override
-  String get title => 'Bertan behera utzi fitxategi bidalketa';
+  String get title => 'Abortatu fitxategi-transferentzia';
   @override
-  String get content => '¿Benetan nahi duzu bertan behera utzi fitxategi bidalketa?';
+  String get content => 'Fitxategi-transferentzia abortatu nahi duzu?';
 }
 
 // Path: dialogs.cannotOpenFile

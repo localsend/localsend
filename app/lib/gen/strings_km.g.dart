@@ -1100,7 +1100,7 @@ class _Translations$dialogs$cancelSession$km extends Translations$dialogs$cancel
   @override
   String get title => 'បោះបង់ការផ្ទេរឯកសារ';
   @override
-  String get content => 'តើអ្នកពិតជាចង់បោះបង់ការផ្ទេរឯកសារមែនទេ?';
+  String get content => 'តើអ្នកចង់បោះបង់ការផ្ទេរឯកសារមែនទេ?';
 }
 
 // Path: dialogs.cannotOpenFile

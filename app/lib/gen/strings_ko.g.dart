@@ -1029,9 +1029,9 @@ class _Translations$dialogs$cancelSession$ko extends Translations$dialogs$cancel
 
   // Translations
   @override
-  String get title => '파일 전송 취소';
+  String get title => '파일 전송 중단';
   @override
-  String get content => '정말로 파일 전송을 취소할까요?';
+  String get content => '파일 전송을 중단하시겠습니까?';
 }
 
 // Path: dialogs.cannotOpenFile

@@ -300,8 +300,8 @@
       "recentlyUsed": "Usato di recente: "
     },
     "cancelSession": {
-      "title": "Interrompi trasferimento",
-      "content": "Sei sicuro di voler interrompere il trasferimento?"
+      "title": "Annulla trasferimento file",
+      "content": "Vuoi annullare il trasferimento dei file?"
     },
     "cannotOpenFile": {
       "title": "Impossibile aprire il file",

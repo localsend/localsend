@@ -1058,9 +1058,9 @@ class _Translations$dialogs$cancelSession$uk extends Translations$dialogs$cancel
 
   // Translations
   @override
-  String get title => 'Скасувати надсилання файлів';
+  String get title => 'Перервати передачу файлів';
   @override
-  String get content => 'Ви справді хочете скасувати надсилання файлів?';
+  String get content => 'Бажаєте перервати передачу файлів?';
 }
 
 // Path: dialogs.cannotOpenFile

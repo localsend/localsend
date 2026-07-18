@@ -174,6 +174,8 @@ class _Translations$general$en_IN extends Translations$general$en {
   String get unknown => 'Unknown';
   @override
   String get noItemInClipboard => 'No items in Clipboard.';
+  @override
+  String get abort => 'Abort';
 }
 
 // Path: receiveTab
@@ -1147,9 +1149,9 @@ class _Translations$dialogs$cancelSession$en_IN extends Translations$dialogs$can
 
   // Translations
   @override
-  String get title => 'Cancel file transfer';
+  String get title => 'Abort file transfer';
   @override
-  String get content => 'Do you really want to cancel the file transfer?';
+  String get content => 'Do you want to abort the file transfer?';
 }
 
 // Path: dialogs.cannotOpenFile

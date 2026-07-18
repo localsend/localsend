@@ -297,7 +297,7 @@
     },
     "cancelSession": {
       "title": "Dosya transferini iptal et",
-      "content": "Gerçekten dosya transferini iptal etmek istiyor musunuz?"
+      "content": "Dosya transferini iptal etmek istiyor musunuz?"
     },
     "cannotOpenFile": {
       "title": "Dosya açılamadı",

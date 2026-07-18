@@ -1058,9 +1058,9 @@ class _Translations$dialogs$cancelSession$pl extends Translations$dialogs$cancel
 
   // Translations
   @override
-  String get title => 'Anuluj transfer plików';
+  String get title => 'Anuluj przesyłanie plików';
   @override
-  String get content => 'Czy na pewno chcesz anulować transfer plików?';
+  String get content => 'Czy chcesz anulować przesyłanie plików?';
 }
 
 // Path: dialogs.cannotOpenFile

@@ -1125,9 +1125,9 @@ class Translations$dialogs$cancelSession$sr extends Translations$dialogs$cancelS
 
   // Translations
   @override
-  String get title => 'Otkažite prenos fajlova';
+  String get title => 'Prekini prenos datoteka';
   @override
-  String get content => 'Želite li zaista da otkažete prenos fajlova?';
+  String get content => 'Da li želite da prekinete prenos datoteka?';
 }
 
 // Path: dialogs.cannotOpenFile

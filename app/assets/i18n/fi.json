@@ -377,8 +377,8 @@
       "recentlyUsed": "Äskettäin käytetty: "
     },
     "cancelSession": {
-      "title": "Peruuta tiedostonsiirto",
-      "content": "Haluatko varmasti peruuttaa tiedostonsiirron?"
+      "title": "Keskeytä tiedostonsiirto",
+      "content": "Haluatko keskeyttää tiedostonsiirron?"
     },
     "cannotOpenFile": {
       "title": "Tiedostoa ei voi avata",

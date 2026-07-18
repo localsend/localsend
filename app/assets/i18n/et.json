@@ -300,8 +300,8 @@
       "recentlyUsed": "Hiljuti kasutatud: "
     },
     "cancelSession": {
-      "title": "Katkesta failide edastamine",
-      "content": "Kas sa kindlasti soovid katkestada failide edastamise?"
+      "title": "Katkesta failiedastus",
+      "content": "Kas soovid failiedastuse katkestada?"
     },
     "cannotOpenFile": {
       "title": "Faili avamine ei õnnestu",

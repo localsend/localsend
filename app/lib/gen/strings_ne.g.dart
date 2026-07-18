@@ -1107,7 +1107,7 @@ class _Translations$dialogs$cancelSession$ne extends Translations$dialogs$cancel
   @override
   String get title => 'फाइल स्थानान्तरण रद्द गर्नुहोस्';
   @override
-  String get content => 'के तपाइँ साँच्चै फाइल स्थानान्तरण रद्द गर्न चाहनुहुन्छ?';
+  String get content => 'के तपाईं फाइल स्थानान्तरण रद्द गर्न चाहनुहुन्छ?';
 }
 
 // Path: dialogs.cannotOpenFile

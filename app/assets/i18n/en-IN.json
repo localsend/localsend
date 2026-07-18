@@ -39,7 +39,8 @@
     "save": "Save",
     "unchanged": "Unchanged",
     "unknown": "Unknown",
-    "noItemInClipboard": "No items in Clipboard."
+    "noItemInClipboard": "No items in Clipboard.",
+    "abort": "Abort"
   },
   "receiveTab": {
     "title": "Receive",
@@ -370,8 +371,8 @@
       "recentlyUsed": "Recently used: "
     },
     "cancelSession": {
-      "title": "Cancel file transfer",
-      "content": "Do you really want to cancel the file transfer?"
+      "title": "Abort file transfer",
+      "content": "Do you want to abort the file transfer?"
     },
     "cannotOpenFile": {
       "title": "Cannot open file",

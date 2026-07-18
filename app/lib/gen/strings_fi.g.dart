@@ -1151,9 +1151,9 @@ class _Translations$dialogs$cancelSession$fi extends Translations$dialogs$cancel
 
   // Translations
   @override
-  String get title => 'Peruuta tiedostonsiirto';
+  String get title => 'Keskeytä tiedostonsiirto';
   @override
-  String get content => 'Haluatko varmasti peruuttaa tiedostonsiirron?';
+  String get content => 'Haluatko keskeyttää tiedostonsiirron?';
 }
 
 // Path: dialogs.cannotOpenFile

@@ -239,8 +239,8 @@
       "title": "Engadir á selección"
     },
     "cancelSession": {
-      "title": "Cancelar a transferencia de ficheiros",
-      "content": "Realmente queres cancelar a transferencia de ficheiros?"
+      "title": "Abortar a transferencia de ficheiros",
+      "content": "Queres abortar a transferencia de ficheiros?"
     },
     "cannotOpenFile": {
       "content": "Non se puido abrir \"{file}\". Moveuse, renomeouse ou eliminouse este ficheiro?",

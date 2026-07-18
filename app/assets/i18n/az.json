@@ -241,8 +241,8 @@
       "recentlyUsed": "Son istifadə olunan: "
     },
     "cancelSession": {
-      "title": "Fayl transferini ləğv et",
-      "content": "Siz həqiqətən faylların transferini ləğv etmək istəyirsiniz?"
+      "title": "Fayl ötürülməsini ləğv et",
+      "content": "Fayl ötürülməsini ləğv etmək istəyirsiniz?"
     },
     "cannotOpenFile": {
       "title": "Faylı açmaq mümkün olmadı",

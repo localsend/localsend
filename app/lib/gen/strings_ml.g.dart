@@ -1028,7 +1028,7 @@ class _Translations$dialogs$cancelSession$ml extends Translations$dialogs$cancel
   @override
   String get title => 'ഫയൽ കൈമാറ്റം റദ്ദാക്കുക';
   @override
-  String get content => 'നിങ്ങൾക്കു തീർച്ചയായും ഫയലുകളുടെ കൈമാറ്റം റദ്ദാക്കണമോ?';
+  String get content => 'നിങ്ങൾക്ക് ഫയൽ കൈമാറ്റം റദ്ദാക്കണോ?';
 }
 
 // Path: dialogs.cannotOpenFile

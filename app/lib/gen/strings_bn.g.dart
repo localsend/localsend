@@ -1144,9 +1144,9 @@ class _Translations$dialogs$cancelSession$bn extends Translations$dialogs$cancel
 
   // Translations
   @override
-  String get title => 'ফাইল ট্রান্সফার ক্যানসেল করুন';
+  String get title => 'ফাইল স্থানান্তর বাতিল করুন';
   @override
-  String get content => 'আপনি কি ফাইল ট্রান্সফার ক্যানসেল করতে চান?';
+  String get content => 'আপনি কি फाइल স্থানান্তর বাতিল করতে চান?';
 }
 
 // Path: dialogs.cannotOpenFile

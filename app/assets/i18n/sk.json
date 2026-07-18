@@ -371,7 +371,7 @@
     },
     "cancelSession": {
       "title": "Zrušiť prenos súborov",
-      "content": "Naozaj chcete zrušiť prenos súborov?"
+      "content": "Chcete zrušiť prenos súborov?"
     },
     "cannotOpenFile": {
       "title": "Nie je možné otvoriť súbor",
