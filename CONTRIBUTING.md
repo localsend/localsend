@@ -153,16 +153,16 @@ buildTypes {
 
 ### Bump Flutter
 
-Suppose we want to update flutter to `3.7.8` (see https://github.com/localsend/localsend/commit/7b95a7a5600db2742a9e05b956d0415d871239d5):
+Suppose we want to update flutter to `3.41.9`:
 
-1. Update flutter from fvm: `fvm use 3.7.8`
+1. Update flutter from fvm: `fvm use 3.41.9`
 2. Update flutter from submodule:
    1. `git submodule update --init`
-   2. `cd submodules/flutter`
+   2. `cd support/submodules/flutter`
    3. `git fetch`
-   4. `git checkout 3.7.8`
-   5. `cd ../..`
-   6. `git add submodules/flutter`
+   4. `git checkout 3.41.9`
+   5. `cd ../../..`
+   6. `git add support/submodules/flutter`
 3. Update flutter constraints:
    1. In CI: `.github/workflows/ci.yml`
    2. In pubspec: `pubspec.yaml`
