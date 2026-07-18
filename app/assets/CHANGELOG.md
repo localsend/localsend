@@ -1,7 +1,7 @@
 ## unreleased
 
-- fix(desktop): start the receive server when launching hidden to the tray so files can be received without opening the window first (@davidboulay, https://github.com/localsend/localsend/pull/XXXX)
-- feat(desktop): show a native notification when files are received, with an "Open folder" action to reveal them (@davidboulay, https://github.com/localsend/localsend/pull/XXXX)
+- fix(desktop): start the receive server when launching hidden to the tray so files can be received without opening the window first (@davidboulay, https://github.com/localsend/localsend/pull/3196)
+- feat(desktop): show a native notification when files are received, with an "Open folder" action to reveal them (@davidboulay, https://github.com/localsend/localsend/pull/3196)
 - feat(windows): add LocalSend to Windows Share Sheet (@chenxdust, https://github.com/localsend/localsend/pull/2555)
 - feat: enable starting text share via command line using `--text` or `-t` flags (@guilhermetiscoski, https://github.com/localsend/localsend/pull/2661)
 - feat(android): add quick settings tile for instant app launch (@Voltra, https://github.com/localsend/localsend/pull/2676)
