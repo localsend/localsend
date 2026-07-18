@@ -13,7 +13,7 @@ jobs:
       version: ${{ steps.get_version.outputs.version }}
 
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
 
       - name: Get version from pubspec.yaml
         id: get_version
@@ -30,7 +30,7 @@ jobs:
         run: git config --system core.longpaths true
 
       - name: Checkout repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - uses: subosito/flutter-action@v2
         with:
