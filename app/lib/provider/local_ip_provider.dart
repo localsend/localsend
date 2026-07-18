@@ -83,12 +83,16 @@ Future<List<String>> _getIp({
   required List<String>? whitelist,
   required List<String>? blacklist,
 }) async {
-  final info = plugin.NetworkInfo();
   String? ip;
-  try {
-    ip = await info.getWifiIP();
-  } catch (e) {
-    _logger.warning('Failed to get wifi IP', e);
+  if (!checkPlatform([TargetPlatform.windows])) {
+    // network_info_plus depends on wlanapi.dll on Windows, which may not be
+    // available on Windows Server. Use native interfaces only on Windows.
+    final info = plugin.NetworkInfo();
+    try {
+      ip = await info.getWifiIP();
+    } catch (e) {
+      _logger.warning('Failed to get wifi IP', e);
+    }
   }
 
   final nativeResult =
