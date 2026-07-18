@@ -231,14 +231,17 @@
     "savedToGallery": "Uloženo ve Fotkách",
     "total": {
       "title": {
-        "sending": "Celkový průběh ({time})",
+        "sending": "Celkový průběh (zbývá {time})",
+        "finishedSuccess": "Dokončeno za {time}",
         "finishedError": "Dokončeno s chybou",
         "canceledSender": "Zrušeno odesílatelem",
         "canceledReceiver": "Zrušeno příjemcem"
       },
       "count": "Soubory: {curr} / {n}",
       "size": "Velikost: {curr} / {n}",
-      "speed": "Rychlost: {speed}/s"
+      "speed": "Rychlost: {speed}/s",
+      "elapsedTime": "Uplynulý čas: {time}",
+      "transferTime": "Čas přenosu: {time}"
     }
   },
   "webSharePage": {

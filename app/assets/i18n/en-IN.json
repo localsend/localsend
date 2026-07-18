@@ -224,14 +224,17 @@
     "savedToGallery": "Saved in Photos",
     "total": {
       "title": {
-        "sending": "Total progress ({time})",
+        "sending": "Total progress (remaining {time})",
+        "finishedSuccess": "Finished in {time}",
         "finishedError": "Finished with error",
         "canceledSender": "Cancelled by sender",
         "canceledReceiver": "Cancelled by receiver"
       },
       "count": "Files: {curr} / {n}",
       "size": "Size: {curr} / {n}",
-      "speed": "Speed: {speed}/s"
+      "speed": "Speed: {speed}/s",
+      "elapsedTime": "Elapsed time: {time}",
+      "transferTime": "Transfer time: {time}"
     },
     "remainingTime": {
       "seconds": "{n}:{ss}",

@@ -984,6 +984,10 @@ class _Translations$progressPage$total$de extends Translations$progressPage$tota
   String size({required Object curr, required Object n}) => 'Größe: ${curr} / ${n}';
   @override
   String speed({required Object speed}) => 'Geschwindigkeit: ${speed}/s';
+  @override
+  String elapsedTime({required Object time}) => 'Verstrichene Zeit: ${time}';
+  @override
+  String transferTime({required Object time}) => 'Transferzeit: ${time}';
 }
 
 // Path: progressPage.remainingTime
@@ -1428,7 +1432,9 @@ class _Translations$progressPage$total$title$de extends Translations$progressPag
 
   // Translations
   @override
-  String sending({required Object time}) => 'Gesamtfortschritt (${time})';
+  String sending({required Object time}) => 'Gesamtfortschritt (verbleibende ${time})';
+  @override
+  String finishedSuccess({required Object time}) => 'In ${time} abgeschlossen';
   @override
   String get finishedError => 'Abgeschlossen mit Fehler';
   @override
