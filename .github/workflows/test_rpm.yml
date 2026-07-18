@@ -75,7 +75,7 @@ jobs:
           fi
 
       - name: Upload rpm file
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: rpm-result
           path: ${{ steps.find_rpm.outputs.rpm_path }}

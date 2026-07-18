@@ -81,7 +81,7 @@ jobs:
         run: flutter build apk --split-per-abi
 
       - name: Upload APK
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: apk-result
           path: |
@@ -130,7 +130,7 @@ jobs:
           tar -czvf ../../../../../result.tar.gz *
 
       - name: Upload tar.gz archive
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: tar-gz-x86-64-result
           path: ./app/*.tar.gz
@@ -163,7 +163,7 @@ jobs:
           tar -czvf ../../../../../result.tar.gz *
 
       - name: Upload tar.gz archive
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: tar-gz-arm-64-result
           path: ./app/*.tar.gz
@@ -221,7 +221,7 @@ jobs:
           fi
 
       - name: Upload deb file
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: deb-x86-64-result
           path: ${{ steps.find_deb.outputs.deb_path }}
@@ -263,7 +263,7 @@ jobs:
           fi
 
       - name: Upload deb file
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: deb-arm-64-result
           path: ${{ steps.find_deb.outputs.deb_path }}
@@ -326,7 +326,7 @@ jobs:
           recipe: ./AppImageBuilder.yml
 
       - name: Upload AppImage file
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: appimage-x86-64-result
           path: ./*.AppImage
@@ -371,7 +371,7 @@ jobs:
         run: Compress-Archive -Path build/windows/x64/runner/Release/* -DestinationPath LocalSend.zip
 
       - name: Upload zip
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: windows-zip-x86-64-result
           path: app/LocalSend.zip
