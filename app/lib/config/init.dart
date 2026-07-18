@@ -8,6 +8,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_displaymode/flutter_displaymode.dart';
+import 'package:local_notifier/local_notifier.dart';
 import 'package:localsend_app/config/refena.dart';
 import 'package:localsend_app/config/theme.dart';
 import 'package:localsend_app/pages/home_page.dart';
@@ -122,6 +123,14 @@ Future<RefenaContainer> preInit(List<String> args) async {
       await initTray();
     } catch (e) {
       _logger.warning('Initializing tray failed: $e');
+    }
+
+    // initialize desktop notifications (used e.g. to signal received files
+    // when the window is hidden)
+    try {
+      await localNotifier.setup(appName: 'LocalSend');
+    } catch (e) {
+      _logger.warning('Initializing desktop notifications failed: $e');
     }
 
     // initialize size and position

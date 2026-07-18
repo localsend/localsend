@@ -910,6 +910,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.3.0"
+  local_notifier:
+    dependency: "direct main"
+    description:
+      name: local_notifier
+      sha256: f6cfc933c6fbc961f4e52b5c880f68e41b2d3cd29aad557cc654fd211093a025
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.1.6"
   localsend_isolates:
     dependency: "direct main"
     description:

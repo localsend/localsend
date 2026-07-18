@@ -8,6 +8,7 @@ list(APPEND FLUTTER_PLUGIN_LIST
   dynamic_color
   file_selector_linux
   gtk
+  local_notifier
   open_dir_linux
   pasteboard
   screen_retriever_linux

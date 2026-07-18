@@ -249,6 +249,16 @@
       "@days": "Use 'd' for days, 'h' for hours, and 'm' for minutes"
     }
   },
+  "receiveNotification": {
+    "title": {
+      "one": "File received",
+      "other": "Files received"
+    },
+    "body": {
+      "one": "{alias} sent you a file",
+      "other": "{alias} sent you {n} files"
+    }
+  },
   "webSharePage": {
     "title": "Share via link",
     "loading": "Starting server…",

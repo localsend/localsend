@@ -37,6 +37,7 @@ dependencies:
   intl: ^0.20.2 # allow newer versions, so it can compile with newer Flutter versions
   legalize: 1.2.2
   local_hero: 0.3.0
+  local_notifier: 0.1.6
   localsend_isolates:
     path: ../packages/localsend_isolates
   logging: 1.3.0
