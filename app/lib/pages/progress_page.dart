@@ -7,9 +7,9 @@ import 'package:flutter/material.dart';
 import 'package:localsend_app/config/theme.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/model/state/server/receive_session_state.dart';
-import 'package:localsend_app/provider/network/send_provider.dart';
-import 'package:localsend_app/provider/network/quic/quic_server_provider.dart';
 import 'package:localsend_app/provider/network/quic/quic_send_provider.dart';
+import 'package:localsend_app/provider/network/quic/quic_server_provider.dart';
+import 'package:localsend_app/provider/network/send_provider.dart';
 import 'package:localsend_app/provider/network/server/server_provider.dart';
 import 'package:localsend_app/provider/network/transfer/transfer_dispatcher.dart';
 import 'package:localsend_app/provider/progress_provider.dart';
@@ -315,36 +315,32 @@ class _ProgressPageState extends State<ProgressPage> with Refena {
                 final file = _files[index - 2];
                 final String fileName = receiveSession?.files[file.id]?.desiredName ?? file.fileName;
 
-                final fileStatus = fileStatusMap[file.id]!;
+                final fileStatus = fileStatusMap[file.id] ?? FileStatus.queue;
                 final savedToGallery = receiveSession?.files[file.id]?.savedToGallery ?? false;
+
+                final receiveSendingFile = receiveSession?.files[file.id];
+                final sendSendingFile = sendSession?.files[file.id];
 
                 final String? filePath;
                 if (receiveSession != null && fileStatus == FileStatus.finished && !savedToGallery) {
-                  filePath = receiveSession.files[file.id]!.path;
+                  filePath = receiveSendingFile?.path;
                 } else if (sendSession != null) {
-                  filePath = sendSession.files[file.id]!.path;
+                  filePath = sendSendingFile?.path;
                 } else {
                   filePath = null;
                 }
 
                 final String? errorMessage;
                 if (receiveSession != null) {
-                  errorMessage = receiveSession.files[file.id]!.errorMessage;
+                  errorMessage = receiveSendingFile?.errorMessage;
                 } else if (sendSession != null) {
-                  errorMessage = sendSession.files[file.id]!.errorMessage;
+                  errorMessage = sendSendingFile?.errorMessage;
                 } else {
                   errorMessage = null;
                 }
 
-                final Uint8List? thumbnail;
-                final AssetEntity? asset;
-                if (sendSession != null) {
-                  thumbnail = sendSession.files[file.id]!.thumbnail;
-                  asset = sendSession.files[file.id]!.asset;
-                } else {
-                  thumbnail = null;
-                  asset = null;
-                }
+                final Uint8List? thumbnail = sendSendingFile?.thumbnail;
+                final AssetEntity? asset = sendSendingFile?.asset;
 
                 return Padding(
                   padding: const EdgeInsets.symmetric(vertical: 5),
