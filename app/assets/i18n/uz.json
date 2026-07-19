@@ -1,0 +1,535 @@
+{
+  "locale": "Oʻzbekcha",
+  "appName": "LocalSend",
+  "general": {
+    "accept": "Qabul qilish",
+    "accepted": "Qabul qilingan",
+    "add": "Qoʻshmoq",
+    "advanced": "Ilgʻor",
+    "cancel": "Bekor qilish",
+    "close": "Yopish",
+    "confirm": "Tasdiqlash",
+    "continueStr": "Davom etish",
+    "copy": "Nusxalash",
+    "copiedToClipboard": "Bufferga nusxalandi",
+    "decline": "Rad etish",
+    "done": "Tayyor",
+    "delete": "Oʻchirish",
+    "edit": "Tahrirlash",
+    "error": "Xatolik",
+    "example": "Namuna",
+    "files": "Fayllar",
+    "finished": "Yakunlangan",
+    "hide": "Yashiqmoq",
+    "off": "Oʻchiq",
+    "offline": "Oflayn",
+    "on": "Yoniq",
+    "online": "Onlayn",
+    "open": "Ochiq",
+    "queue": "Navbat",
+    "quickSave": "Tezkoq saqlash",
+    "quickSaveFromFavorites": "\"Saralanganlar\" uchun tezkor saqlash",
+    "renamed": "Qayta nomlangan",
+    "reset": "Oʻzgarishlarni qaytarish",
+    "restart": "Qayta yuklash",
+    "settings": "Sozlamalar",
+    "skipped": "Tashlab ketilgan",
+    "start": "Boshlash",
+    "stop": "Toʻxtash",
+    "save": "Saqlash",
+    "unchanged": "oʻzgarmagan",
+    "unknown": "Nomaʼlum",
+    "noItemInClipboard": "Bufferda hech narsa yoʻq"
+  },
+  "receiveTab": {
+    "title": "Qabul qilish",
+    "infoBox": {
+      "ip": "IP:",
+      "port": "Port:",
+      "alias": "Qurilma nomi:"
+    },
+    "quickSave": {
+      "off": "@:general.off",
+      "favorites": "Saralanganlar",
+      "on": "@:general.on"
+    }
+  },
+  "sendTab": {
+    "title": "Yuborish",
+    "selection": {
+      "title": "Tanlab olish",
+      "files": "Fayllar: {files}",
+      "size": "Hajmi: {size}"
+    },
+    "picker": {
+      "file": "Fayl",
+      "folder": "Jild",
+      "media": "Media",
+      "text": "Matn",
+      "app": "Ilova",
+      "clipboard": "Joylash"
+    },
+    "shareIntentInfo": "Fayllarni oson tanlash uchun mobil qurilmangizdagi \\\"Ulashish\\\" funksiyasidan ham foydalanishingiz mumkin.",
+    "nearbyDevices": "Yaqin atrofdagi qurilmalar",
+    "thisDevice": "Ushbu qurilma",
+    "scan": "Qurilmalarni qidirish",
+    "manualSending": "Qoʻlda yuborish",
+    "sendMode": "Yuborish rejimi",
+    "sendModes": {
+      "single": "Yagona qabul qiluvchi",
+      "multiple": "Bir nechta qabul qiluvchilar",
+      "link": "Havola orqali ulashish"
+    },
+    "sendModeHelp": "Izoh",
+    "help": "Kerakli quilma ham bitta Wi-Fi tarmoqqa ulanganini tekshiring.",
+    "placeItems": "Ulashish uchun narsalarni joylang."
+  },
+  "settingsTab": {
+    "title": "Sozlamalar",
+    "general": {
+      "title": "Umumiy",
+      "brightness": "Mavzu",
+      "brightnessOptions": {
+        "system": "Tizim",
+        "dark": "Tungi",
+        "light": "Kunduzgi"
+      },
+      "color": "Rang",
+      "colorOptions": {
+        "system": "Tizim",
+        "oled": "OLED"
+      },
+      "language": "Til",
+      "languageOptions": {
+        "system": "Tizim"
+      },
+      "saveWindowPlacement": "Chiqishdan keyin oyna holatini saqlash",
+      "saveWindowPlacementWindows": "Chiqishdan keyin oyna holatini saqlash",
+      "minimizeToTray": "Yopilganda Tizim/Menyu panelini minimallashtirish",
+      "launchAtStartup": "Kirilgandan keyin avtomatik ishga tushirish",
+      "launchMinimized": "Avtomatik ishga tushirish: Yashirin ishga tushirish",
+      "showInContextMenu": "Kontekst menyusida LocalSend koʻrsatish",
+      "animations": "Animatsiyalar"
+    },
+    "receive": {
+      "title": "Qabul qilish",
+      "quickSave": "@:general.quickSave",
+      "quickSaveFromFavorites": "@:general.quickSaveFromFavorites",
+      "requirePin": "@:webSharePage.requirePin",
+      "autoFinish": "Avtomatik yakunlash",
+      "destination": "Jildga saqlash",
+      "downloads": "(Yuklanmalar)",
+      "saveToGallery": "Media fayllarni galereyaga saqlash",
+      "saveToHistory": "Tarixni saqlash"
+    },
+    "send": {
+      "title": "Yuborish",
+      "shareViaLinkAutoAccept": "\"Havola orqali ulashish\" rejimida soʻrovlarni avtomatik qabul qilish"
+    },
+    "network": {
+      "title": "Tarmoq",
+      "needRestart": "Sozlamalarni qoʻllash uchun serverni qayta ishga tushiring!",
+      "server": "Server",
+      "alias": "Qurilma nomi",
+      "deviceType": "Qurilma turi",
+      "deviceModel": "Qurilma modeli",
+      "port": "Port",
+      "network": "Tarmoq",
+      "networkOptions": {
+        "all": "Barchasi",
+        "filtered": "Filtrlangan"
+      },
+      "discoveryTimeout": "Aniqlash muddati tugashi",
+      "useSystemName": "Tizim nomidan foydalanish",
+      "generateRandomAlias": "Tasodifiy taxalluslarni yaratish",
+      "portWarning": "Boshqa qurilmalar tomonidan aniqlanmasligingiz mumkin, chunki siz maxsus portdan foydalanmoqdasiz. (standart: {defaultPort})",
+      "encryption": "Shifrlash",
+      "multicastGroup": "Multikast manzil",
+      "multicastGroupWarning": "Boshqa qurilmalar tomonidan aniqlanmasligingiz mumkin, chunki siz maxsus multicast manzilidan foydalanyapsiz. (standart: {defaultMulticast})"
+    },
+    "other": {
+      "title": "Boshqa",
+      "support": "LocalSendni qoʻllab-quvvatlash",
+      "donate": "Xayriya qilish",
+      "privacyPolicy": "Maxfiylik siyosati",
+      "termsOfUse": "Foydalanish shartlari"
+    },
+    "advancedSettings": "Kengaytirilgan sozlamalar"
+  },
+  "troubleshootPage": {
+    "title": "Nosozlikni tuzatish",
+    "subTitle": "Ilova kutilganidek ishlamayaptimi? Bu yerda siz muammolarning umumiy yechimlarini topishingiz mumkin.",
+    "solution": "Yechim:",
+    "fixButton": "Avtomatik tuzatish",
+    "firewall": {
+      "symptom": "Bu qurilma fayllarni boshqa qurilmalarga yuborishi mumkin, lekin boshqa qurilmalar bu qurilmaga fayl yubora olmaydi.",
+      "solution": "Bu firewall muammosi boʻlishi mumkin. Buni {port} portida kiruvchi ulanishlarga (UDP va TCP) ruxsat berish orqali hal qilishingiz mumkin.",
+      "openFirewall": "Firewallni ochish"
+    },
+    "noDiscovery": {
+      "symptom": "Bu qurilma boshqa qurilmalarni aniqlay olmaydi.",
+      "solution": "Barcha qurilmalar bitta Wi-Fi tarmoqqa ulanganini tekshiring va bir xil konfiguratsiyani (port, multicast manzil, shifrlash) ulashing. Moʻljaldagi qurilmaning IP manzilini qoʻlda terib koʻrishingiz mumkin. Agar bu ish bersa, kelgusida avtomatik aniqlanishi uchun ushbu qurilmani saralanganlarga kiriting."
+    },
+    "noConnection": {
+      "symptom": "Ikkala qurilma ham bir-birini topa olmaydi yoki fayllarni ulasha olmaydi.",
+      "solution": "Muammo ikkala tomonda ham mavjudmi? Agar shunday boʻlsa, ikkala qurilma ham bitta Wi-Fi tarmoqqa ulanganini va bir xil konfiguratsiya (port, multicast manzil, shifrlash) mavjudligini tekshiring. Wi-Fi tarmogʻi kirish nuqtasi (AP) izolyatsiyasi tufayli ishtirokchilar orasida muloqot qilishga ruxsat bermasligi mumkin. Bunday holda, ushbu parametr routerda faolsizlantirilishi kerak."
+    }
+  },
+  "networkInterfacesPage": {
+    "title": "Tarmoq interfeyslari",
+    "info": "Standart holatda, LocalSend barcha mavjud tarmoq interfeyslaridan foydalanadi. Bu yerda keraksiz tarmoqlarni istisno qilishingiz mumkin. Oʻzgarishlarni qoʻllamoq uchun serverni qayta ishga tushirishingiz kerak.",
+    "preview": "Koʻrib chiqish",
+    "whitelist": "Oq roʻyxat",
+    "blacklist": "Qora roʻyxat"
+  },
+  "receiveHistoryPage": {
+    "title": "Tarix",
+    "openFolder": "Jildni ochish",
+    "deleteHistory": "Tarixni tozalash",
+    "empty": "Tarix boʻsh.",
+    "entryActions": {
+      "open": "Faylni ochish",
+      "showInFolder": "Jildda koʻrsatish",
+      "info": "Maʼlumot",
+      "deleteFromHistory": "Tarixdan oʻchirish"
+    }
+  },
+  "apkPickerPage": {
+    "title": "Ilovalar (APK)",
+    "excludeSystemApps": "Tizim ilovalarini istisno qilish",
+    "excludeAppsWithoutLaunchIntent": "Ishga tushmaydigan ilovalarni istisno qilish",
+    "apps": "{n} Ilovalar"
+  },
+  "selectedFilesPage": {
+    "deleteAll": "Barchasini oʻchirish"
+  },
+  "receivePage": {
+    "subTitle": {
+      "one": "sizga fayl yubormoqchi",
+      "other": "sizga {n} ta fayl yubormoqchi"
+    },
+    "subTitleMessage": "sizga xabar yubordi:",
+    "subTitleLink": "sizga havola yubordi:",
+    "canceled": "Yuboruvchi soʻrovni bekor qildi."
+  },
+  "receiveOptionsPage": {
+    "title": "Parametrlar",
+    "destination": "@:settingsTab.receive.destination",
+    "appDirectory": "(LocalSend folder)",
+    "saveToGallery": "@:settingsTab.receive.saveToGallery",
+    "saveToGalleryOff": "Jildlar borligi sababli avtomatik faolsizlantirildi."
+  },
+  "sendPage": {
+    "waiting": "Javob kutilmoqda…",
+    "rejected": "Qabul qiluvchi soʻrovni rad etdi.",
+    "tooManyAttempts": "@:web.tooManyAttempts",
+    "busy": "Qabul qiluvchi boshqa soʻrov bilan band."
+  },
+  "progressPage": {
+    "titleSending": "Fayllarni yuborish",
+    "titleReceiving": "Fayllarni qabul qilish",
+    "savedToGallery": "Suratlarga saqlandi",
+    "total": {
+      "title": {
+        "sending": "Jami jarayon ({time})",
+        "finishedError": "Xatolik bilan yakunlandi",
+        "canceledSender": "Yuboruvchi tomonidan bekor qilindi",
+        "canceledReceiver": "Qabul qiluvchi tomonidan bekor qilindi"
+      },
+      "count": "Fayllar: {curr} / {n}",
+      "size": "Hajmi: {curr} / {n}",
+      "speed": "Tezlik: {speed}/s"
+    },
+    "remainingTime": {
+      "seconds": "{n}:{ss}",
+      "minutes": "{n}:{ss}",
+      "hours": "{h}h {m}m",
+      "days": "{d}d {h}h {m}m",
+      "@hours": "Soat qisqartmasi uchun 'h' va daqiqa qisqartmasi uchun 'm' ishlating",
+      "@days": "'d' ni kunlar uchun, 'h' ni soatlar uchun va 'm' ni daqiqalar uchun ishlating"
+    }
+  },
+  "webSharePage": {
+    "title": "Havola orqali ulashish",
+    "loading": "Server ishga tushirilmoqda…",
+    "stopping": "Server toʻxtatilmoqda…",
+    "error": "Serverni ishga tushirishda xatolik yuz berdi.",
+    "openLink": {
+      "one": "Bu havolani brauzeringizda oching:",
+      "other": "Brauzerda ushbu havolalardan birini oching:"
+    },
+    "requests": "Soʻrovlar",
+    "noRequests": "Hozircha hech qanday soʻrov yoʻq.",
+    "encryption": "@:settingsTab.network.encryption",
+    "autoAccept": "Soʻrovlarni avtomatik qabul qilish",
+    "requirePin": "PIN kod talab qilish",
+    "pinHint": "PIN kod \"{pin}\"",
+    "encryptionHint": "LocalSend oʻzi imzolagan sertifikatdan foydalanadi. Uni brauzeringizda qabul qilishingiz kerak.",
+    "pendingRequests": "Kutilayotgan soʻrovlar: {n}"
+  },
+  "aboutPage": {
+    "title": "LocalSend haqida",
+    "description": [
+      "LocalSend - bu bepul, ochiq kodli ilova boʻlib, u sizga Internetga ulanmasdan mahalliy tarmogʻingiz orqali yaqin-atrofdagi qurilmalarga fayllar va xabarlarni xavfsiz ulashish imkonini beradi.",
+      "Ushbu ilova Android, iOS, macOS, Windows va Linux tizimlarida mavjud. Barcha yuklab olish variantlarini rasmiy bosh sahifada topishingiz mumkin."
+    ],
+    "author": "Muallif",
+    "contributors": "Hissa qoʻshuvchilar",
+    "packagers": "Paket menejerga yuklovchilar",
+    "translators": "Tarjimonlar"
+  },
+  "donationPage": {
+    "title": "Xayriya qilish",
+    "info": "LocalSend bepul, ochiq kodli va hech qanday reklamasiz. Agar ilova sizga yoqsa, ishlab chiqishni xayriya bilan qoʻllab-quvvatlashingiz mumkin.",
+    "donate": "Xayriya {amount}",
+    "thanks": "Katta rahmat!",
+    "restore": "Xaridni tiklash"
+  },
+  "changelogPage": {
+    "title": "Oʻzgarishlar jurnali"
+  },
+  "aliasGenerator(ignoreMissing, ignoreGpt)": {
+    "@info": "Turli joylarda soʻzlar turlicha boʻlishi mumkin, 1:1 ga mos kelmasligi mumkin",
+    "adjectives": [
+      "Maftunkor",
+      "Chiroyli",
+      "Katta",
+      "Yorqin",
+      "Toza",
+      "Ziyrak",
+      "Juda zoʻr",
+      "Yoqimtoy",
+      "Makkor",
+      "Qatʼiy",
+      "Sergʻayrat",
+      "Unumli",
+      "gʻaroyib",
+      "Tez",
+      "Ajoyib",
+      "Barra",
+      "Yaxshi",
+      "Goʻzal",
+      "Zoʻr",
+      "Kelishgan",
+      "Qaynoq",
+      "Mehribon",
+      "Sevimli",
+      "Sirli",
+      "Orasta",
+      "Zoʻr",
+      "Sabrli",
+      "Yoqimli",
+      "Qudratli",
+      "Boy",
+      "Sirli",
+      "Aqlli",
+      "Qattiq",
+      "Maxsus",
+      "Strategik",
+      "Kuchli",
+      "Ozoda",
+      "Dono"
+    ],
+    "fruits": [
+      "Olma",
+      "Avakado",
+      "Banan",
+      "Maymunjon",
+      "Qoragʻat",
+      "Brokkli",
+      "Sabzi",
+      "Gilos",
+      "Kakos",
+      "Uzum",
+      "Limon",
+      "Salat bargi",
+      "Mango",
+      "Qovun",
+      "Qoʻziqorin",
+      "Piyoz",
+      "Apelsin",
+      "Papaya",
+      "Shaftoli",
+      "Nok",
+      "Ananas",
+      "Kartoshka",
+      "Qovoq",
+      "Malina",
+      "Qulupnay",
+      "Pamidor"
+    ],
+    "combination": "{adjective} {fruit}",
+    "@combination": "Baʼzi tillarda sifat oxirida kelishi kerak."
+  },
+  "dialogs": {
+    "addFile": {
+      "title": "Tanlovga kiritish",
+      "content": "Nima qoʻshmoqchisiz?"
+    },
+    "openFile": {
+      "title": "Faylni ochish",
+      "content": "Qabul qilingan faylni ochmoqchimisiz?"
+    },
+    "addressInput": {
+      "title": "Manzilni kiriting",
+      "hashtag": "Hashtag",
+      "ip": "IP Manzil",
+      "recentlyUsed": "Yaqinda ishlatilgan: "
+    },
+    "cancelSession": {
+      "title": "Fayllarni uzatishni bekor qilish",
+      "content": "Haqiqatan ham fayllar uzatilishini bekor qilmoqchimisiz?"
+    },
+    "cannotOpenFile": {
+      "title": "Faylni ochib boʻlmadi",
+      "content": "\"{fayl}\" ochilmadi. Bu fayl koʻchirilganmi, qayta nomlanganmi yoki oʻchirib tashlanganmi?"
+    },
+    "encryptionDisabledNotice": {
+      "title": "Shifrlash faolsizlantirildi",
+      "content": "Endi aloqa shifrlanmagan HTTP protokoli orqali amalga oshiriladi. HTTPS protokolidan foydalanish uchun shifrlashni qayta yoqing."
+    },
+    "errorDialog": {
+      "title": "@:general.error"
+    },
+    "favoriteDialog": {
+      "title": "Saralanganlar",
+      "noFavorites": "Hali hech qanday saralangan qurilma topilmadi.",
+      "addFavorite": "Qo'shish"
+    },
+    "favoriteDeleteDialog": {
+      "title": "Saralanganlardan oʻchirish",
+      "content": "\"{name}\" saralanganlardan oʻchirib tashlansinmi?"
+    },
+    "favoriteEditDialog": {
+      "titleAdd": "Saralanganlarga kiritish",
+      "titleEdit": "Sozlamalar",
+      "name": "Qurilma nomi",
+      "auto": "(auto)",
+      "ip": "IP Manzil",
+      "port": "Port"
+    },
+    "fileInfo": {
+      "title": "Fayl haqida maʼlumot",
+      "fileName": "Fayl nomi:",
+      "path": "Iz:",
+      "size": "Hajmi:",
+      "sender": "Joʻnatuvchi:",
+      "time": "Vaqti:"
+    },
+    "fileNameInput": {
+      "title": "Fayl nomini kirit",
+      "original": "Asl: {original}"
+    },
+    "historyClearDialog": {
+      "title": "Tarixni tozalash",
+      "content": "Rostdan ham butun tarixni oʻchirib tashlamoqchimisiz?"
+    },
+    "localNetworkUnauthorized": {
+      "title": "@:dialogs.noPermission.title",
+      "description": "LocalSend mahalliy tarmoqni skanerlash ruxsatisiz boshqa qurilmalarni topa olmaydi. Sozlamalarda ushbu ruxsatni bering.",
+      "gotoSettings": "Sozlamalar"
+    },
+    "messageInput": {
+      "title": "Xabar yozish",
+      "multiline": "Koʻp qatorli"
+    },
+    "noFiles": {
+      "title": "Hech narsa topilmadi",
+      "content": "Kamida bitta faylni tanlang."
+    },
+    "noPermission": {
+      "title": "Ruxsat yoʻq",
+      "content": "Siz kerakli ruxsatlarni bermagansiz. Ularni sozlamalarda bering."
+    },
+    "notAvailableOnPlatform": {
+      "title": "Mavjud emas",
+      "content": "Bu funksiya faqat quyidagilarda ishlaydi:"
+    },
+    "qr": {
+      "title": "QR Kod"
+    },
+    "quickActions": {
+      "title": "Tezkor amallar",
+      "counter": "Hisoblagich",
+      "prefix": "Old qoʻshimcha",
+      "padZero": "Nollar bilan toʻldirish",
+      "sortBeforeCount": "Oldindan alifbo tartibida saralash (A-Z)",
+      "random": "Tasodifiy"
+    },
+    "quickSaveNotice": {
+      "title": "@:general.quickSave",
+      "content": "Fayl soʻrovlari endi avtomatik qabul qilinadi. Yodda tuting, lokal tarmoqdagi har kim sizga fayllarni yuborishi mumkin."
+    },
+    "quickSaveFromFavoritesNotice": {
+      "title": "@:general.quickSaveFromFavorites",
+      "content": [
+        "Endi fayl soʻrovlari saralanganlar roʻyxatidagi qurilmalardan avtomatik qabul qilinadi.",
+        "Ogohlantirish! Hozircha bu toʻliq xavfsiz emas, chunki saralanganlar roʻyxatingizdagi istalgan qurilmaning barmoq iziga ega boʻlgan xaker sizga fayllarni cheklovsiz yuborishi mumkin.",
+        "Biroq, bu variant mahalliy tarmoqdagi barcha foydalanuvchilarga sizga fayllarni cheklovsiz yuborishga ruxsat berishdan koʻra xavfsizroqdir."
+      ]
+    },
+    "pin": {
+      "title": "PIN kodni kiriting"
+    },
+    "sendModeHelp": {
+      "title": "Yuborish rejimlari",
+      "single": "Fayllarni bitta qabul qiluvchiga yuboradi. Fayllarni uzatish yakunlangach, tanlanganlar tozalanadi.",
+      "multiple": "Fayllarni bir nechta qabul qiluvchiga yuboradi. Tayyor fayllar uzatilganidan keyin tanlov tozalanmaydi.",
+      "link": "LocalSend oʻrnatilmagan qabul qiluvchilar oʻz brauzerida havolani ochib, tanlangan fayllarni yuklab olishlari mumkin."
+    },
+    "zoom": {
+      "title": "URL"
+    }
+  },
+  "sanitization": {
+    "empty": "Fayl nomini kiritish shart",
+    "invalid": "Fayl nomida yaroqsiz belgilar mavjud"
+  },
+  "tray": {
+    "@info": "Apple yoʻriqnomalari \"close\" iboralarga nisbatan juda qatʼiy.",
+    "open": "@:general.open",
+    "close": "LocalSenddan chiqish",
+    "closeWindows": "Chiqish"
+  },
+  "web": {
+    "waiting": "@:sendPage.waiting",
+    "enterPin": "PIN kodni kiriting",
+    "invalidPin": "Xato PIN kod",
+    "tooManyAttempts": "Juda koʻp marta urinildi",
+    "rejected": "Rad etilgan",
+    "files": "Fayllar",
+    "fileName": "Fayl nomi",
+    "size": "Hajmi"
+  },
+  "assetPicker": {
+    "@info": "Android va iPhone uchun media tanlash vositasi uchun tarjimalar",
+    "confirm": "Tasdiqlash",
+    "cancel": "Bekor qilish",
+    "edit": "Tahrirlash",
+    "gifIndicator": "GIF",
+    "loadFailed": "Yuklanmadi",
+    "original": "Asos",
+    "preview": "Razm solish",
+    "select": "Tanlash",
+    "emptyList": "Boʻsh roʻyxat",
+    "unSupportedAssetType": "Fayl turi qabul qilinmaydi.",
+    "unableToAccessAll": "Qurilmadagi barcha fayllarga kirish imkonsiz",
+    "viewingLimitedAssetsTip": "Faqat ilovaga kirish mumkin boʻlgan fayl va albomlarni koʻrish.",
+    "changeAccessibleLimitedAssets": "Mavjud fayllarni yangilash uchun bosing",
+    "accessAllTip": "Ilova faqat qurilmadagi ayrim fayllarga kira oladi. Tizim sozlamalariga kiring va ilovaning qurilmadagi barcha media fayllarga kirishiga ruxsat bering.",
+    "goToSystemSettings": "Tizim sozlamalarini ochish",
+    "accessLimitedAssets": "Cheklangan ruxsat bilan davom etish",
+    "accessiblePathName": "Kirish mumkin boʻlgan fayllar",
+    "sTypeAudioLabel": "Audio",
+    "sTypeImageLabel": "Rasm",
+    "sTypeVideoLabel": "Video",
+    "sTypeOtherLabel": "Boshqa media",
+    "sActionPlayHint": "oʻynash",
+    "sActionPreviewHint": "razm solish",
+    "sActionSelectHint": "tanlash",
+    "sActionSwitchPathLabel": "izni oʻzgartirish",
+    "sActionUseCameraHint": "kameradan foydalanish",
+    "sNameDurationLabel": "davomiylik",
+    "sUnitAssetCountLabel": "sanoq"
+  }
+}
