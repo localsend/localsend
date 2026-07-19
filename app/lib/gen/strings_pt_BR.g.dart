@@ -328,11 +328,8 @@ class Translations$receivePage$pt_BR extends Translations$receivePage$en {
 
   // Translations
   @override
-  String subTitle({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('pt'))(
-    n,
-    one: 'quer te enviar um arquivo',
-    other: 'quer te enviar ${n} arquivos',
-  );
+  String subTitle({required num n}) =>
+      (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('pt'))(n, one: 'quer te enviar um arquivo', other: 'quer te enviar ${n} arquivos');
   @override
   String get subTitleMessage => 'te enviou uma mensagem:';
   @override

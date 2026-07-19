@@ -143,6 +143,9 @@
       "useSystemName": "Use system name",
       "generateRandomAlias": "Generate random alias",
       "portWarning": "You might not be detected by other devices because you are using a custom port. (default: {defaultPort})",
+      "securityKeys": "Security keys",
+      "resetKeys": "Reset keys",
+      "resetKeysSuccess": "Keys reset. Restart the server to apply the new keys.",
       "encryption": "Encryption",
       "multicastGroup": "Multicast address",
       "multicastGroupWarning": "You might not be detected by other devices because you are using a custom multicast address. (default: {defaultMulticast})"
@@ -365,6 +368,10 @@
     "addFile": {
       "title": "Add to selection",
       "content": "What do you want to add?"
+    },
+    "resetKeys": {
+      "title": "Reset keys?",
+      "content": "This will generate a new self-verification identity for this device. Other devices may need to rediscover this device."
     },
     "openFile": {
       "title": "Open file",

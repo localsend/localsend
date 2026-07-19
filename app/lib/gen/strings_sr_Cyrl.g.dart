@@ -328,11 +328,8 @@ class _Translations$receivePage$sr_Cyrl extends Translations$receivePage$sr {
 
   // Translations
   @override
-  String subTitle({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('sr'))(
-    n,
-    one: 'жели да вам пошаље фајл',
-    other: 'жели да вам пошаље ${n} фајлова',
-  );
+  String subTitle({required num n}) =>
+      (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('sr'))(n, one: 'жели да вам пошаље фајл', other: 'жели да вам пошаље ${n} фајлова');
   @override
   String get subTitleMessage => 'послао вам је поруку:';
   @override

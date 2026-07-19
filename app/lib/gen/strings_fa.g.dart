@@ -409,11 +409,8 @@ class _Translations$webSharePage$fa extends Translations$webSharePage$en {
   @override
   String get error => 'هنگام راه‌اندازی سرور خطایی رخ داد.';
   @override
-  String openLink({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('fa'))(
-    n,
-    one: 'باز کردن لینک در مرورگر:',
-    other: 'باز کردن لینک‌ها در مرورگر:',
-  );
+  String openLink({required num n}) =>
+      (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('fa'))(n, one: 'باز کردن لینک در مرورگر:', other: 'باز کردن لینک‌ها در مرورگر:');
   @override
   String get requests => 'درخواست‌ها';
   @override
