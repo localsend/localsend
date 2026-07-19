@@ -28,7 +28,7 @@
     "open": "開啟",
     "queue": "佇列",
     "quickSave": "自動儲存",
-    "quickSaveFromFavorites": "自動儲存來自已收藏裝置嘅檔案",
+    "quickSaveFromFavorites": "自動儲存已收藏裝置 send 過嚟嘅檔案",
     "renamed": "改咗名",
     "reset": "重設",
     "restart": "重新啟動",
@@ -39,7 +39,7 @@
     "save": "儲存",
     "unchanged": "冇改過",
     "unknown": "未知",
-    "noItemInClipboard": "剪貼簿冇嘢."
+    "noItemInClipboard": "剪貼簿冇嘢。"
   },
   "receiveTab": {
     "title": "@:settingsTab.receive.title",
@@ -49,9 +49,9 @@
       "alias": "名："
     },
     "quickSave": {
-      "off": "關閉",
-      "favorites": "僅來自已收藏裝置嘅檔案",
-      "on": "來自所有裝置嘅檔案"
+      "off": "@:general.off",
+      "favorites": "已收藏裝置",
+      "on": "@:general.on"
     }
   },
   "sendTab": {
@@ -81,8 +81,8 @@
       "link": "用 link 分享"
     },
     "sendModeHelp": "説明",
-    "help": "請確保目標裝置駁緊同一個 Wi‑Fi 網路。",
-    "placeItems": "將要分享嘅檔案拉過嚟呢度."
+    "help": "請確保目標裝置駁緊同一個 Wi‑Fi 網絡。",
+    "placeItems": "將要分享嘅檔案拉過嚟呢度。"
   },
   "settingsTab": {
     "title": "@:general.settings",
@@ -128,15 +128,15 @@
       "@info": "Translating to 接收 rather than 接受 is intentional to reflect the actual usage."
     },
     "network": {
-      "title": "網路",
-      "needRestart": "熄咗個 server 再開過，設定先會生效!",
+      "title": "網絡",
+      "needRestart": "熄咗個 server 再開過，設定先會生效！",
       "server": "Server",
       "alias": "名",
       "deviceType": "裝置類型",
       "deviceModel": "裝置型號",
       "port": "Port",
       "discoveryTimeout": "裝置搜尋逾時",
-      "useSystemName": "使用系統名稱",
+      "useSystemName": "用系統名稱",
       "generateRandomAlias": "求其改個名",
       "portWarning": "改 port 嘅話其他裝置有機會偵測唔到你。（預設：{defaultPort}）",
       "encryption": "加密傳送",
@@ -145,7 +145,7 @@
       "network": "網絡",
       "networkOptions": {
         "all": "全部",
-        "filtered": "已過濾"
+        "filtered": "已篩選"
       }
     },
     "other": {
@@ -169,18 +169,25 @@
     },
     "noDiscovery": {
       "symptom": "呢部機偵測唔到其他裝置。",
-      "solution": "請確保所有裝置都駁緊同一個 Wi‑Fi 網路同用緊相同嘅設定（port、多播 IP 地址同有冇開加密傳送）。你亦都可以試下人手輸入目標裝置嘅 IP 地址。如果 work 嘅話可以選擇收藏呢部裝置，噉樣日後就會自動偵測到佢，毋須重新輸入。"
+      "solution": "請確保所有裝置都駁緊同一個 Wi‑Fi 網絡同用緊相同嘅設定（port、多播 IP 地址同有冇開加密傳送）。你亦都可以試下人手輸入目標裝置嘅 IP 地址。如果噉樣 work，就可以收藏呢部裝置，等佢日後可以自動偵測到，唔使再輸入。"
     },
     "noConnection": {
       "symptom": "兩部裝置都偵測唔到同 send 唔到嘢畀對方。",
-      "solution": "如果兩邊都發生同樣嘅情況，你要 check 清楚兩邊係咪駁緊同一個 Wi‑Fi 網路同用緊相同嘅設定（port、多播 IP 地址同有冇開加密傳送）。亦可能係個 Wi‑Fi 唔畀裝置之間通訊，呢種情況下要喺 router 嗰邊熄咗「接入點 (AP) 隔離」模式至得。"
+      "solution": "如果兩邊都發生同樣嘅情況，你要 check 清楚兩邊係咪駁緊同一個 Wi‑Fi 網絡同用緊相同嘅設定（port、多播 IP 地址同有冇開加密傳送）。亦可能係個 Wi‑Fi 唔畀裝置之間通訊，呢種情況下要喺 router 嗰邊熄咗「接入點 (AP) 隔離」模式至得。"
     }
+  },
+  "networkInterfacesPage": {
+    "title": "網絡介面",
+    "info": "LocalSend 預設會用晒所有可用嘅網絡介面。你可以喺呢度排除唔需要嘅網絡。改完之後要熄咗個 server 再開過先會生效。",
+    "preview": "預覽",
+    "whitelist": "白名單",
+    "blacklist": "黑名單"
   },
   "receiveHistoryPage": {
     "title": "歷史記錄",
     "openFolder": "開啟資料夾",
     "deleteHistory": "清除記錄",
-    "empty": "得個吉噃 :(.",
+    "empty": "得個吉噃 :(",
     "entryActions": {
       "open": "@:dialogs.openFile.title",
       "showInFolder": "喺檔案瀏覽器顯示",
@@ -211,7 +218,7 @@
     "destination": "@:settingsTab.receive.destination",
     "appDirectory": "（LocalSend 資料夾）",
     "saveToGallery": "@:settingsTab.receive.saveToGallery",
-    "saveToGalleryOff": "因為有資料夾存在而自動閂咗."
+    "saveToGalleryOff": "有資料夾存在，所以自動閂咗。"
   },
   "sendPage": {
     "waiting": "等緊回應……",
@@ -220,8 +227,8 @@
     "busy": "對方忙緊另一個請求。"
   },
   "progressPage": {
-    "titleSending": "正在傳送檔案",
-    "titleReceiving": "正在接收檔案",
+    "titleSending": "Send 緊……",
+    "titleReceiving": "接收緊……",
     "savedToGallery": "成功 save 咗落相簿",
     "total": {
       "title": {
@@ -233,6 +240,14 @@
       "count": "檔案：{curr} / {n}",
       "size": "大細：{curr} / {n}",
       "speed": "速度：{speed}/s"
+    },
+    "remainingTime": {
+      "seconds": "{n}:{ss}",
+      "minutes": "{n}:{ss}",
+      "hours": "{h} 個鐘頭 {m} 分鐘",
+      "days": "{d} 日 {h} 個鐘頭 {m} 分鐘",
+      "@hours": "用「h」表示小時，「m」表示分鐘",
+      "@days": "用「d」表示日數，「h」表示小時，「m」表示分鐘"
     }
   },
   "webSharePage": {
@@ -245,7 +260,7 @@
       "other": "喺瀏覽器開啟以下任何一個連結："
     },
     "requests": "請求",
-    "noRequests": "未有請求.",
+    "noRequests": "未有任何請求。",
     "encryption": "@:settingsTab.network.encryption",
     "autoAccept": "自動接受請求",
     "requirePin": "需要密碼",
@@ -256,7 +271,7 @@
   "aboutPage": {
     "title": "關於 LocalSend",
     "description": [
-      "LocalSend 係一款免費嘅開源應用程式，佢可以透過區域網路幫你安全噉將檔案同訊息分享畀附近嘅裝置，全程無需互聯網連線。",
+      "LocalSend 係一款免費嘅開源應用程式，佢可以透過區域網絡幫你安全噉將檔案同訊息分享畀附近嘅裝置，全程無需互聯網連線。",
       "呢個 app 喺 Android、iOS、macOS、Windows 同 Linux 都用得㗎。你可以喺我哋嘅網站揾到呢個 app 所有平台嘅版本同其他下載方式。"
     ],
     "author": "作者",
@@ -266,7 +281,7 @@
   },
   "donationPage": {
     "title": "@:settingsTab.other.donate",
-    "info": "LocalSend 唔單只免費、開源，仲係冇廣告添㗎！如果你鍾意呢個 app，不妨捐款贊助我哋開發.",
+    "info": "LocalSend 唔單只免費、開源，仲係冇廣告添㗎！如果你鍾意呢個 app，不妨捐款贊助我哋開發？",
     "donate": "捐 {amount}",
     "thanks": "多謝支持！",
     "restore": "還原 app 內購買"
@@ -280,7 +295,7 @@
   "dialogs": {
     "addFile": {
       "title": "將檔案加至選擇",
-      "content": "您想新增什麼檔案?"
+      "content": "想加入咩檔案？"
     },
     "openFile": {
       "title": "開啟檔案",
@@ -290,7 +305,7 @@
       "title": "輸入地址",
       "hashtag": "Hashtag",
       "ip": "IP 地址",
-      "recentlyUsed": "輸入記錄： "
+      "recentlyUsed": "輸入記錄："
     },
     "cancelSession": {
       "title": "取消檔案傳輸",
@@ -309,7 +324,7 @@
     },
     "favoriteDialog": {
       "title": "收藏",
-      "noFavorites": "未收藏任何裝置.",
+      "noFavorites": "未收藏任何裝置。",
       "addFavorite": "@:general.add"
     },
     "favoriteDeleteDialog": {
@@ -342,7 +357,7 @@
     },
     "localNetworkUnauthorized": {
       "title": "@:dialogs.noPermission.title",
-      "description": "喺冇權掃描區域網路嘅情況下 LocalSend 唔會偵測到其他裝置。麻煩你喺系統設定開返呢個權限。",
+      "description": "喺冇權掃描區域網絡嘅情況下 LocalSend 唔會偵測到其他裝置。麻煩你喺系統設定開返呢個權限。",
       "gotoSettings": "開啟系統設定"
     },
     "messageInput": {
@@ -374,14 +389,14 @@
     },
     "quickSaveNotice": {
       "title": "@:general.quickSave",
-      "content": "自動接受所有檔案傳輸請求。留意返，噉樣會令呢個網路嘅所有人都 send 得嘢畀你。"
+      "content": "自動接受所有檔案傳輸請求。留意返，噉樣會令呢個網絡嘅所有人都 send 得嘢畀你。"
     },
     "quickSaveFromFavoritesNotice": {
       "title": "@:general.quickSaveFromFavorites",
       "content": [
-        "自動接受來自已收藏裝置嘅檔案傳輸請求。",
-        "警告：目前呢個選項並非絕對安全，因為只要黑客攞到你任何一部已收藏裝置嘅指紋，佢就可以無限制噉 send 嘢畀你。",
-        "不過揀已收藏裝置點都安全過揀所有裝置嘅。"
+        "自動接受已收藏裝置嘅檔案傳輸請求。",
+        "警告：呢個選項目前並非絕對安全，黑客只要攞到你任何一部已收藏裝置嘅指紋，就可以無限制噉 send 嘢畀你。",
+        "不過，揀已收藏裝置點都安全過揀所有裝置嘅。"
       ]
     },
     "pin": {
@@ -398,8 +413,8 @@
     }
   },
   "sanitization": {
-    "empty": "檔案名稱唔可以係吉嘅",
-    "invalid": "檔案名稱唔可以包括唔用得嘅字元"
+    "empty": "檔案名稱唔可以係吉嘅。",
+    "invalid": "檔案名稱唔可以包括唔用得嘅字元。"
   },
   "tray": {
     "@info": "Apple Guidelines are very strict about the 'close' wording.",
@@ -447,12 +462,5 @@
     "sActionUseCameraHint": "影相",
     "sNameDurationLabel": "持續時間",
     "sUnitAssetCountLabel": "數量"
-  },
-  "networkInterfacesPage": {
-    "info": "LocalSend 預設使用所有可用的網路介面。您可以在這裡排除不需要的網路。您需要重新啟動伺服器才能套用變更。",
-    "title": "網路介面",
-    "preview": "預覽",
-    "whitelist": "白名單",
-    "blacklist": "黑名單"
   }
 }
