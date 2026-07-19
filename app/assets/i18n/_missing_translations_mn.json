@@ -4,206 +4,206 @@
     "After editing this file, you can run 'dart run slang apply --locale=mn' to quickly apply the newly added translations."
   ],
   "general": {
-    "quickSaveFromFavorites": "Quick Save for \"Favorites\""
+    "quickSaveFromFavorites": "\"Одод\"-ийн хурдан хадгалах"
   },
   "settingsTab": {
     "receive": {
       "quickSaveFromFavorites": "@:general.quickSaveFromFavorites"
     },
     "network": {
-      "network": "Network",
+      "network": "Сүлжээ",
       "networkOptions": {
-        "all": "All",
-        "filtered": "Filtered"
+        "all": "Бүгд",
+        "filtered": "Шүүгдсэн"
       },
-      "generateRandomAlias": "Generate random alias"
+      "generateRandomAlias": "Санамсаргүй түрээс үүсгэх"
     }
   },
   "networkInterfacesPage": {
-    "title": "Network Interfaces",
-    "info": "By default, LocalSend uses all available network interfaces. You can exclude unwanted networks here. You need to restart the server to apply the changes.",
-    "preview": "Preview",
-    "whitelist": "Whitelist",
-    "blacklist": "Blacklist"
+    "title": "Сүлжээний интерфейсүүд",
+    "info": "Анхны тохиолдолд LocalSend бүх боломжтой сүлжээний интерфейсүүдийг ашигладаг. Энд хүссэн сүлжээнүүдийг татваргаж болно. Өөрчлөлтийг хэрэгжүүлэхийн тулд серверийг дахин эхлүүлэх хэрэгтэй.",
+    "preview": "Урьдчилсан үзэх",
+    "whitelist": "Зөвшөөрөгдсөн жагсаалт",
+    "blacklist": "Хориглогдсон жагсаалт"
   },
   "sendPage": {
     "tooManyAttempts": "@:web.tooManyAttempts"
   },
   "webSharePage": {
-    "loading": "Starting server…",
-    "stopping": "Stopping server…",
+    "loading": "Сервер эхлүүлж байна…",
+    "stopping": "Серверийг зогсоож байна…",
     "encryption": "@:settingsTab.network.encryption"
   },
   "aboutPage": {
-    "packagers": "Packagers"
+    "packagers": "Багцын бүтээгчид"
   },
   "dialogs": {
     "addFile": {
-      "title": "Add to selection",
-      "content": "What do you want to add?"
+      "title": "Сонголтод нэмэх",
+      "content": "Юу нэмэхийг хүсэж байна вэ?"
     },
     "openFile": {
-      "title": "Open file",
-      "content": "Do you want to open the received file?"
+      "title": "Файл нээх",
+      "content": "Хүлээн авсан файлыг нээхийг хүсэж байна уу?"
     },
     "addressInput": {
-      "title": "Enter address",
-      "hashtag": "Hashtag",
-      "ip": "IP Address",
-      "recentlyUsed": "Recently used: "
+      "title": "Хаяг оруулах",
+      "hashtag": "Хэш тэмдэг",
+      "ip": "IP хаяг",
+      "recentlyUsed": "Сүүлд ашигласан: "
     },
     "cancelSession": {
-      "title": "Cancel files transfer",
-      "content": "Do you really want to cancel the files transfer?"
+      "title": "Файлын шилжүүлэлтийг цуцлах",
+      "content": "Файлын шилжүүлэлтийг үнэхээр цуцлах уу?"
     },
     "cannotOpenFile": {
-      "title": "Cannot open file",
-      "content": "Could not open \"{file}\". Has this file been moved, renamed or deleted?"
+      "title": "Файл нээх боломжгүй",
+      "content": "\"{file}\"-г нээх боломжгүй байна. Энэ файл нь зөөгдсөн, нэр нь өөрчлөгдсөн эсвэл устгагдсан уу?"
     },
     "encryptionDisabledNotice": {
-      "title": "Encryption disabled",
-      "content": "Communication now takes place via the unencrypted HTTP protocol. To use HTTPS protocol, enable encryption again."
+      "title": "Криптографчлал идэвхгүй болсон",
+      "content": "Одоо харилцаа нь криптографчлалгүй HTTP протокол ашиглан явагдаж байна. HTTPS протоколыг ашиглахын тулд криптографчлалыг дахин идэвхжүүлэх хэрэгтэй."
     },
     "errorDialog": {
       "title": "@:general.error"
     },
     "favoriteDialog": {
-      "title": "Favorites",
-      "noFavorites": "No favorite devices yet.",
-      "addFavorite": "Add"
+      "title": "Одод",
+      "noFavorites": "Одоогоор дуртай төхөөрөмж байхгүй.",
+      "addFavorite": "Нэмэх"
     },
     "favoriteDeleteDialog": {
-      "title": "Delete from favorites",
-      "content": "Do you really want to delete from favorites \"{name}\"?"
+      "title": "Ододоос устгах",
+      "content": "\"{name}\"-г дуртай төхөөрөмжөөс үнэхээр устгах уу?"
     },
     "favoriteEditDialog": {
-      "titleAdd": "Add to favorites",
-      "titleEdit": "Settings",
-      "name": "Device name",
-      "auto": "(auto)",
-      "ip": "IP Address",
-      "port": "Port"
+      "titleAdd": "Ододод нэмэх",
+      "titleEdit": "Тохиргоо",
+      "name": "Төхөөрөмжийн нэр",
+      "auto": "(автоматаар)",
+      "ip": "IP хаяг",
+      "port": "Порт"
     },
     "fileInfo": {
-      "title": "File information",
-      "fileName": "File name:",
-      "path": "Path:",
-      "size": "Size:",
-      "sender": "Sender:",
-      "time": "Time:"
+      "title": "Файлын мэдээлэл",
+      "fileName": "Файлын нэр:",
+      "path": "Зам:",
+      "size": "Хэмжээ:",
+      "sender": "Илгээгч:",
+      "time": "Цаг:"
     },
     "fileNameInput": {
-      "title": "Enter file name",
-      "original": "Original: {original}"
+      "title": "Файлын нэр оруулах",
+      "original": "Анхны: {original}"
     },
     "historyClearDialog": {
-      "title": "Clear history",
-      "content": "Do you really want to delete the entire history?"
+      "title": "Түүх цэвэрлэх",
+      "content": "Бүх түүхийг үнэхээр устгах уу?"
     },
     "localNetworkUnauthorized": {
       "title": "@:dialogs.noPermission.title",
-      "description": "LocalSend can't find other devices without having the permission to scan the local network. Please grant this permission in the settings.",
-      "gotoSettings": "Settings"
+      "description": "LocalSend нь бусад төхөөрөмжүүдийг олохын тулд орон нутгийн сүлжээг скан хийх зөвшөөрөлгүйгээр ажиллах боломжгүй. Энэ зөвшөөрлийг тохиргоонд олгоно уу.",
+      "gotoSettings": "Тохиргоо"
     },
     "messageInput": {
-      "title": "Type message",
-      "multiline": "Multiline"
+      "title": "Мессеж бичих",
+      "multiline": "Олон мөр"
     },
     "noFiles": {
-      "title": "No files selected",
-      "content": "Please select at least one file."
+      "title": "Файл сонгогдоогүй",
+      "content": "Дор хаяж нэг файл сонгоно уу."
     },
     "noPermission": {
-      "title": "No permission",
-      "content": "You have not granted the necessary permissions. Please grant them in the settings."
+      "title": "Зөвшөөрөл байхгүй",
+      "content": "Шаардлагатай зөвшөөрлийг олгоогүй байна. Тохиргоонд олгоно уу."
     },
     "notAvailableOnPlatform": {
-      "title": "Not available",
-      "content": "This feature is only available on:"
+      "title": "Боломжгүй",
+      "content": "Энэ функц зөвхөн дараах платформ дээр боломжтой:"
     },
     "qr": {
-      "title": "QR Code"
+      "title": "QR код"
     },
     "quickActions": {
-      "title": "Quick Actions",
-      "counter": "Counter",
-      "prefix": "Prefix",
-      "padZero": "Pad with zeros",
-      "sortBeforeCount": "Sort alphabetically beforehand (A-Z)",
-      "random": "Random"
+      "title": "Хурдан үйлдлүүд",
+      "counter": "Тоолуур",
+      "prefix": "Угтвар",
+      "padZero": "Тэгээр дүүргэх",
+      "sortBeforeCount": "Өмнөөс нь цагаан толгойн дараалал (A-Z)",
+      "random": "Санамсаргүй"
     },
     "quickSaveNotice": {
       "title": "@:general.quickSave",
-      "content": "File requests are now accepted automatically. Be aware that everyone on the local network can send you files."
+      "content": "Файлын хүсэлтүүд одоо автоматаар хүлээн зөвшөөрөгдөж байна. Орон нутгийн сүлжээний хэн ч танд файл илгээж болно гэдгийг анхаарна уу."
     },
     "quickSaveFromFavoritesNotice": {
       "title": "@:general.quickSaveFromFavorites",
       "content": [
-        "File requests are now accepted automatically from devices in your favorites list.",
-        "Warning! Currently, this is not entirely secure, as a hacker who has the fingerprint of any device from your favorites list can send you files without restriction.",
-        "However, this option is still safer than allowing all users on the local network to send you files without restriction."
+        "Файлын хүсэлтүүд одоо таны дуртай төхөөрөмжүүдээс автоматаар хүлээн зөвшөөрөгдөж байна.",
+        "Анхаар! Одоогоор энэ нь бүрэн аюулгүй биш, учир нь таны дуртай төхөөрөмжүүдийн аль нэгний хурууны хээг мэдсэн хакер танд хязгааргүйгээр файл илгээж чадна.",
+        "Гэхдээ энэ сонголт нь орон нутгийн сүлжээний бүх хэрэглэгчдэд хязгааргүй файл илгээх зөвшөөрөл өгөхөөс илүү аюулгүй байдаг."
       ]
     },
     "pin": {
-      "title": "Enter PIN"
+      "title": "PIN код оруулах"
     },
     "sendModeHelp": {
-      "title": "Send modes",
-      "single": "Sends files to one recipient. Selection will be cleared after finished files transfer.",
-      "multiple": "Sends files to multiple recipients. Selection will not be cleared after finished files transfer.",
-      "link": "Recipients who do not have LocalSend installed can download the selected files by opening the link in their browser."
+      "title": "Илгээх горим",
+      "single": "Файлыг нэг хүлээн авагч руу илгээнэ. Файлын шилжүүлэлт дууссаны дараа сонголт цэвэрлэгдэнэ.",
+      "multiple": "Файлыг олон хүлээн авагчдад илгээнэ. Файлын шилжүүлэлт дууссаны дараа сонголт цэвэрлэгдэхгүй.",
+      "link": "LocalSend суулгаагүй хүлээн авагчид хөтөчөөрөө холбоос нээж сонгогдсон файлуудыг татаж авч чадна."
     },
     "zoom": {
       "title": "URL"
     }
   },
   "sanitization": {
-    "empty": "Filename cannot be empty",
-    "invalid": "Filename contains invalid characters"
+    "empty": "Файлын нэр хоосон байж болохгүй",
+    "invalid": "Файлын нэрт буруу тэмдэгт агуулагдаж байна"
   },
   "tray": {
     "open": "@:general.open",
-    "close": "Quit LocalSend",
-    "closeWindows": "Exit"
+    "close": "LocalSend-г гаргах",
+    "closeWindows": "Гарах"
   },
   "web": {
     "waiting": "@:sendPage.waiting",
-    "enterPin": "Enter PIN",
-    "invalidPin": "Invalid PIN",
-    "tooManyAttempts": "Too many attempts",
-    "rejected": "Rejected",
-    "files": "Files",
-    "fileName": "File name",
-    "size": "Size"
+    "enterPin": "PIN код оруулах",
+    "invalidPin": "Буруу PIN код",
+    "tooManyAttempts": "Хэт олон оролдлого",
+    "rejected": "Үзэгдээгүй",
+    "files": "Файлууд",
+    "fileName": "Файлын нэр",
+    "size": "Хэмжээ"
   },
   "assetPicker": {
-    "confirm": "Confirm",
-    "cancel": "Cancel",
-    "edit": "Edit",
+    "confirm": "Зөвшөөрөх",
+    "cancel": "Цуцлах",
+    "edit": "Засах",
     "gifIndicator": "GIF",
-    "loadFailed": "Load failed",
-    "original": "Origin",
-    "preview": "Preview",
-    "select": "Select",
-    "emptyList": "Empty list",
-    "unSupportedAssetType": "Unsupported file type.",
-    "unableToAccessAll": "Unable to access all files on the device",
-    "viewingLimitedAssetsTip": "Only view files and albums accessible to the app.",
-    "changeAccessibleLimitedAssets": "Click to update accessible files",
-    "accessAllTip": "App can only access some files on the device. Go to system settings and allow the app to access all media on the device.",
-    "goToSystemSettings": "Go to system settings",
-    "accessLimitedAssets": "Continue with limited access",
-    "accessiblePathName": "Accessible files",
-    "sTypeAudioLabel": "Audio",
-    "sTypeImageLabel": "Image",
-    "sTypeVideoLabel": "Video",
-    "sTypeOtherLabel": "Other media",
-    "sActionPlayHint": "play",
-    "sActionPreviewHint": "preview",
-    "sActionSelectHint": "select",
-    "sActionSwitchPathLabel": "change path",
-    "sActionUseCameraHint": "use camera",
-    "sNameDurationLabel": "duration",
-    "sUnitAssetCountLabel": "count"
+    "loadFailed": "Ачаалахад алдаа гарлаа",
+    "original": "Анхны",
+    "preview": "Урьдчилсан үзэх",
+    "select": "Сонгох",
+    "emptyList": "Хоосон жагсаалт",
+    "unSupportedAssetType": "Дэмжигдэхгүй файлын төрөл.",
+    "unableToAccessAll": "Төхөөрөмжийн бүх файлд хандах боломжгүй",
+    "viewingLimitedAssetsTip": "Зөвхөн апп-д хандах боломжтой файлуудыг харна.",
+    "changeAccessibleLimitedAssets": "Хандах боломжтой файлуудыг шинэчлэхийн тулд дарна уу",
+    "accessAllTip": "Апп нь төхөөрөмжийн зарим файлд хандах боломжтой. Системийн тохиргоон дээр апп-д төхөөрөмжийн бүх медиа файлд хандах зөвшөөрөл олгоно уу.",
+    "goToSystemSettings": "Системийн тохиргоон руу очих",
+    "accessLimitedAssets": "Хязгаарлагдмал хандалттай үргэлжлүүлэх",
+    "accessiblePathName": "Хандах боломжтой файлууд",
+    "sTypeAudioLabel": "Дуу",
+    "sTypeImageLabel": "Зураг",
+    "sTypeVideoLabel": "Видео",
+    "sTypeOtherLabel": "Бусад медиа",
+    "sActionPlayHint": "тоглуулах",
+    "sActionPreviewHint": "урьдчилсан үзэх",
+    "sActionSelectHint": "сонгох",
+    "sActionSwitchPathLabel": "зам өөрчлөх",
+    "sActionUseCameraHint": "камер ашиглах",
+    "sNameDurationLabel": "хэмжээ",
+    "sUnitAssetCountLabel": "тоо"
   }
 }
