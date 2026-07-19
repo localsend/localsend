@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
-import 'dart:typed_data';
 
 import 'package:gal/gal.dart';
 import 'package:localsend_app/model/state/server/receive_session_state.dart';
@@ -27,17 +26,14 @@ import 'package:localsend_isolates/model/file_type.dart';
 import 'package:localsend_isolates/model/session_status.dart';
 import 'package:localsend_isolates/rust/api/quic.dart' as quic;
 import 'package:logging/logging.dart';
-import 'package:mime/mime.dart';
 import 'package:path/path.dart' as p;
 import 'package:refena_flutter/refena_flutter.dart';
 import 'package:routerino/routerino.dart';
-import 'package:saf_stream/saf_stream.dart';
 import 'package:uuid/uuid.dart';
 import 'package:window_manager/window_manager.dart';
 
 const _uuid = Uuid();
 final _logger = Logger('QuicServer');
-final _saf = SafStream();
 
 /// State for the QUIC server.
 class QuicServerState {
@@ -385,12 +381,10 @@ class QuicServerService extends Notifier<QuicServerState?> {
 
     // Pre-compute output paths and flags for all files
     final filePrep = <String, _FilePrep>{};
-    bool anySaveToGallery = false;
     for (final entry in receivableFiles) {
       final file = entry.value;
       final fileType = file.file.fileType;
       final shouldSaveToGallery = receiveState.saveToGallery && (fileType == FileType.image || fileType == FileType.video);
-      if (shouldSaveToGallery) anySaveToGallery = true;
 
       final outputDir = shouldSaveToGallery ? receiveState.cacheDirectory : receiveState.destinationDirectory;
       final (resolvedPath, documentUri, finalName) = await digestFilePathAndPrepareDirectory(
@@ -502,7 +496,7 @@ class QuicServerService extends Notifier<QuicServerState?> {
           bool savedToGallery = false;
 
           // Gallery save if needed
-          if (prep.shouldSaveToGallery && filePath != null) {
+          if (prep.shouldSaveToGallery) {
             try {
               prep.file.file.fileType == FileType.image ? await Gal.putImage(filePath) : await Gal.putVideo(filePath);
               await File(filePath).delete();
