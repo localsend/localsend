@@ -237,13 +237,19 @@ class QuicSendService extends Notifier<Map<String, SendSessionState>> {
       // ─── Parallel path: 2+ file-path files ────────────────────────────
       _logger.info('Sending ${pathFiles.length} files in parallel via QUIC');
 
-      // Mark all as sending
-      for (final entry in pathFiles) {
-        state = _updateSession(
-          sessionId,
-          (s) => s?.withFileStatus(entry.value.file.id, FileStatus.sending, null),
-        );
-      }
+      // Mark all as sending (single batched state update to avoid
+      // N separate state → watcher notifications for large file sets).
+      state = _updateSession(sessionId, (s) {
+        if (s == null) return null;
+        final newFiles = <String, SendingFile>{...s.files};
+        for (final entry in pathFiles) {
+          newFiles[entry.value.file.id] = newFiles[entry.value.file.id]!.copyWith(
+            status: FileStatus.sending,
+            errorMessage: null,
+          );
+        }
+        return s.copyWith(files: newFiles);
+      });
 
       // Start per-file progress polling
       final progressTimer = Timer.periodic(

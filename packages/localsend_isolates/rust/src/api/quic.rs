@@ -10,6 +10,7 @@ use std::sync::Arc;
 use std::sync::atomic::{AtomicU64, Ordering};
 #[allow(unused_imports)] // used by read_exact in quic_receive_files_parallel
 use tokio::io::AsyncReadExt;
+use tokio::sync::Semaphore;
 use tokio::task::JoinSet;
 
 // ─── Zero-copy mmap chunk ───────────────────────────────────────────
@@ -683,6 +684,11 @@ pub async fn quic_send_files_parallel(
     let total_progress = transfer.bytes_progress.clone();
     let mut cancel_rx = transfer.cancel_rx.clone();
 
+    // Limit concurrent file I/O to avoid overwhelming the OS with
+    // many simultaneous file opens + mmaps when transferring large
+    // file sets (each mmap reserves virtual address space).
+    let file_io_semaphore = Arc::new(Semaphore::new(16));
+
     // Spawn one task per file
     let mut set = JoinSet::new();
     for f in files {
@@ -700,6 +706,7 @@ pub async fn quic_send_files_parallel(
             .clone();
         let total_progress = total_progress.clone();
         let mut task_cancel_rx = cancel_rx.clone();
+        let file_io = file_io_semaphore.clone();
 
         set.spawn(async move {
             // Open dedicated uni stream
@@ -717,11 +724,17 @@ pub async fn quic_send_files_parallel(
                 .await
                 .map_err(|e| e.to_string())?;
 
+            // Limit concurrent file I/O — acquire permit before opening
+            // the file + mmap to avoid overwhelming the OS with hundreds
+            // of simultaneous opens and virtual-memory reservations.
+            let _permit = file_io.acquire().await.map_err(|e| e.to_string())?;
+
             // Open and mmap file (handles content:// on Android)
             let raw_file = open_file_or_uri(&file_path)?;
             let mmap =
                 Arc::new(unsafe { memmap2::Mmap::map(&raw_file).map_err(|e| e.to_string())? });
             drop(raw_file); // mmap holds a kernel reference, not the userspace File
+            drop(_permit); // release — data transfer below is async
 
             // Cancel-aware zero-copy send loop.
             let chunk_size = localsend::quic::SEND_CHUNK_SIZE;
