@@ -451,13 +451,30 @@ class QuicServerService extends Notifier<QuicServerState?> {
             for (final entry in progressMap.entries) {
               final file = state!.session!.files[entry.key];
               if (file != null && file.file.size > 0) {
+                final progress = (entry.value as num).toDouble() / file.file.size;
                 ref
                     .notifier(progressProvider)
                     .setProgress(
                       sessionId: sessionId,
                       fileId: entry.key,
-                      progress: (entry.value as num).toDouble() / file.file.size,
+                      progress: progress,
                     );
+                // Mark individual files as finished as they complete,
+                // so the UI file counter updates incrementally.
+                // The actual file path will be patched in by the
+                // post-parallel completion handler below.
+                if (progress >= 1.0 && file.status != FileStatus.finished) {
+                  state = state!.copyWith(
+                    session: _fileFinished(
+                      state!.session!,
+                      fileId: entry.key,
+                      status: FileStatus.finished,
+                      path: null,
+                      savedToGallery: false,
+                      errorMessage: null,
+                    ),
+                  );
+                }
               }
             }
           } catch (_) {}

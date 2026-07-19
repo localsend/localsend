@@ -255,13 +255,22 @@ class QuicSendService extends Notifier<Map<String, SendSessionState>> {
             for (final entry in progressMap.entries) {
               final file = state[sessionId]?.files[entry.key];
               if (file != null && file.file.size > 0) {
+                final progress = (entry.value as num).toDouble() / file.file.size;
                 ref
                     .notifier(progressProvider)
                     .setProgress(
                       sessionId: sessionId,
                       fileId: entry.key,
-                      progress: (entry.value as num).toDouble() / file.file.size,
+                      progress: progress,
                     );
+                // Mark individual files as finished as they complete,
+                // so the UI file counter updates incrementally.
+                if (progress >= 1.0 && file.status != FileStatus.finished) {
+                  state = _updateSession(
+                    sessionId,
+                    (s) => s?.withFileStatus(entry.key, FileStatus.finished, null),
+                  );
+                }
               }
             }
           } catch (_) {}
