@@ -504,9 +504,7 @@ class QuicServerService extends Notifier<QuicServerState?> {
           // Gallery save if needed
           if (prep.shouldSaveToGallery && filePath != null) {
             try {
-              prep.file.file.fileType == FileType.image
-                  ? await Gal.putImage(filePath)
-                  : await Gal.putVideo(filePath);
+              prep.file.file.fileType == FileType.image ? await Gal.putImage(filePath) : await Gal.putVideo(filePath);
               await File(filePath).delete();
               savedToGallery = true;
               filePath = null;
