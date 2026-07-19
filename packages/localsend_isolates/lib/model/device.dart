@@ -37,7 +37,8 @@ class SignalingDiscovery extends DiscoveryMethod with SignalingDiscoveryMappable
 
 enum TransmissionMethod {
   http('HTTP'),
-  webrtc('WebRTC')
+  webrtc('WebRTC'),
+  quic('QUIC')
   ;
 
   final String label;
@@ -65,6 +66,7 @@ class Device with DeviceMappable {
   final DeviceType deviceType;
   final bool download;
   final Set<DiscoveryMethod> discoveryMethods;
+  final bool supportsQuic;
 
   Set<TransmissionMethod> get transmissionMethods {
     bool http = false;
@@ -85,6 +87,9 @@ class Device with DeviceMappable {
     if (webrtc) {
       methods.add(TransmissionMethod.webrtc);
     }
+    if (supportsQuic) {
+      methods.add(TransmissionMethod.quic);
+    }
 
     return methods;
   }
@@ -101,6 +106,7 @@ class Device with DeviceMappable {
     required this.deviceType,
     required this.download,
     required this.discoveryMethods,
+    this.supportsQuic = false,
   });
 
   static const empty = Device(
@@ -115,5 +121,6 @@ class Device with DeviceMappable {
     deviceType: DeviceType.desktop,
     download: false,
     discoveryMethods: {},
+    supportsQuic: false,
   );
 }

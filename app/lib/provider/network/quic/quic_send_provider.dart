@@ -1,10 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:common/model/device.dart';
-import 'package:common/model/dto/file_dto.dart';
-import 'package:common/model/file_status.dart';
-import 'package:common/model/session_status.dart';
 import 'package:localsend_app/model/cross_file.dart';
 import 'package:localsend_app/model/send_mode.dart';
 import 'package:localsend_app/model/state/send/send_session_state.dart';
@@ -17,7 +13,11 @@ import 'package:localsend_app/provider/progress_provider.dart';
 import 'package:localsend_app/provider/security_provider.dart';
 import 'package:localsend_app/provider/selection/selected_sending_files_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
-import 'package:localsend_app/rust/api/quic.dart' as quic;
+import 'package:localsend_isolates/model/device.dart';
+import 'package:localsend_isolates/model/dto/file_dto.dart';
+import 'package:localsend_isolates/model/file_status.dart';
+import 'package:localsend_isolates/model/session_status.dart';
+import 'package:localsend_isolates/rust/api/quic.dart' as quic;
 import 'package:logging/logging.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 import 'package:routerino/routerino.dart';

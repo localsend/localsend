@@ -175,6 +175,7 @@ class MulticastService {
       download: syncState.download,
       announcement: announcement,
       announce: announcement,
+      supportsQuic: true,
     );
     return utf8.encode(jsonEncode(dto.toJson()));
   }

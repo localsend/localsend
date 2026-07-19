@@ -17,6 +17,7 @@ pub struct _RegisterDto {
     pub port: u16,
     pub protocol: ProtocolType,
     pub has_web_interface: bool,
+    pub supports_quic: bool,
 }
 
 #[frb(mirror(RegisterResponseDto))]
@@ -27,6 +28,7 @@ pub struct _RegisterResponseDto {
     pub device_type: Option<DeviceType>,
     pub token: String,
     pub has_web_interface: bool,
+    pub supports_quic: bool,
 }
 
 #[frb(mirror(DeviceType))]

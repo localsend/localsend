@@ -116,6 +116,7 @@ class RegisterDto {
   final int port;
   final ProtocolType protocol;
   final bool hasWebInterface;
+  final bool supportsQuic;
 
   const RegisterDto({
     required this.alias,
@@ -126,6 +127,7 @@ class RegisterDto {
     required this.port,
     required this.protocol,
     required this.hasWebInterface,
+    required this.supportsQuic,
   });
 
   @override
@@ -137,7 +139,8 @@ class RegisterDto {
       token.hashCode ^
       port.hashCode ^
       protocol.hashCode ^
-      hasWebInterface.hashCode;
+      hasWebInterface.hashCode ^
+      supportsQuic.hashCode;
 
   @override
   bool operator ==(Object other) =>
@@ -151,7 +154,8 @@ class RegisterDto {
           token == other.token &&
           port == other.port &&
           protocol == other.protocol &&
-          hasWebInterface == other.hasWebInterface;
+          hasWebInterface == other.hasWebInterface &&
+          supportsQuic == other.supportsQuic;
 }
 
 class RegisterResponseDto {
@@ -161,6 +165,7 @@ class RegisterResponseDto {
   final DeviceType? deviceType;
   final String token;
   final bool hasWebInterface;
+  final bool supportsQuic;
 
   const RegisterResponseDto({
     required this.alias,
@@ -169,10 +174,18 @@ class RegisterResponseDto {
     this.deviceType,
     required this.token,
     required this.hasWebInterface,
+    required this.supportsQuic,
   });
 
   @override
-  int get hashCode => alias.hashCode ^ version.hashCode ^ deviceModel.hashCode ^ deviceType.hashCode ^ token.hashCode ^ hasWebInterface.hashCode;
+  int get hashCode =>
+      alias.hashCode ^
+      version.hashCode ^
+      deviceModel.hashCode ^
+      deviceType.hashCode ^
+      token.hashCode ^
+      hasWebInterface.hashCode ^
+      supportsQuic.hashCode;
 
   @override
   bool operator ==(Object other) =>
@@ -184,5 +197,6 @@ class RegisterResponseDto {
           deviceModel == other.deviceModel &&
           deviceType == other.deviceType &&
           token == other.token &&
-          hasWebInterface == other.hasWebInterface;
+          hasWebInterface == other.hasWebInterface &&
+          supportsQuic == other.supportsQuic;
 }

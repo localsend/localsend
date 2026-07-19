@@ -535,6 +535,13 @@ class DeviceMapper extends ClassMapperBase<Device> {
     'discoveryMethods',
     _$discoveryMethods,
   );
+  static bool _$supportsQuic(Device v) => v.supportsQuic;
+  static const Field<Device, bool> _f$supportsQuic = Field(
+    'supportsQuic',
+    _$supportsQuic,
+    opt: true,
+    def: false,
+  );
 
   @override
   final MappableFields<Device> fields = const {
@@ -549,6 +556,7 @@ class DeviceMapper extends ClassMapperBase<Device> {
     #deviceType: _f$deviceType,
     #download: _f$download,
     #discoveryMethods: _f$discoveryMethods,
+    #supportsQuic: _f$supportsQuic,
   };
 
   static Device _instantiate(DecodingData data) {
@@ -564,6 +572,7 @@ class DeviceMapper extends ClassMapperBase<Device> {
       deviceType: data.dec(_f$deviceType),
       download: data.dec(_f$download),
       discoveryMethods: data.dec(_f$discoveryMethods),
+      supportsQuic: data.dec(_f$supportsQuic),
     );
   }
 
@@ -625,6 +634,7 @@ abstract class DeviceCopyWith<$R, $In extends Device, $Out>
     DeviceType? deviceType,
     bool? download,
     Set<DiscoveryMethod>? discoveryMethods,
+    bool? supportsQuic,
   });
   DeviceCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
@@ -648,6 +658,7 @@ class _DeviceCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, Device, $Out>
     DeviceType? deviceType,
     bool? download,
     Set<DiscoveryMethod>? discoveryMethods,
+    bool? supportsQuic,
   }) => $apply(
     FieldCopyWithData({
       if (signalingId != $none) #signalingId: signalingId,
@@ -661,6 +672,7 @@ class _DeviceCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, Device, $Out>
       if (deviceType != null) #deviceType: deviceType,
       if (download != null) #download: download,
       if (discoveryMethods != null) #discoveryMethods: discoveryMethods,
+      if (supportsQuic != null) #supportsQuic: supportsQuic,
     }),
   );
   @override
@@ -676,6 +688,7 @@ class _DeviceCopyWithImpl<$R, $Out> extends ClassCopyWithBase<$R, Device, $Out>
     deviceType: data.get(#deviceType, or: $value.deviceType),
     download: data.get(#download, or: $value.download),
     discoveryMethods: data.get(#discoveryMethods, or: $value.discoveryMethods),
+    supportsQuic: data.get(#supportsQuic, or: $value.supportsQuic),
   );
 
   @override

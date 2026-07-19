@@ -46,6 +46,9 @@ pub struct RegisterDto {
 
     #[serde(default, skip_serializing_if = "is_default")]
     pub has_web_interface: bool,
+
+    #[serde(default, skip_serializing_if = "is_default")]
+    pub supports_quic: bool,
 }
 
 #[derive(Clone, Debug, Deserialize, Eq, Serialize, PartialEq)]
@@ -106,6 +109,9 @@ pub struct RegisterResponseDto {
 
     #[serde(default, skip_serializing_if = "is_default")]
     pub has_web_interface: bool,
+
+    #[serde(default, skip_serializing_if = "is_default")]
+    pub supports_quic: bool,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -163,6 +169,7 @@ impl From<RegisterResponseDtoV2> for RegisterResponseDto {
             device_type: v2.device_type,
             token: v2.fingerprint,
             has_web_interface: v2.download,
+            supports_quic: false,
         }
     }
 }

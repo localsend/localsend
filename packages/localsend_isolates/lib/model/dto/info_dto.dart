@@ -12,6 +12,7 @@ class InfoDto with InfoDtoMappable {
   final DeviceType? deviceType;
   final String? fingerprint; // v2
   final bool? download; // v2
+  final bool? supportsQuic; // v2
 
   const InfoDto({
     required this.alias,
@@ -20,6 +21,7 @@ class InfoDto with InfoDtoMappable {
     required this.deviceType,
     required this.fingerprint,
     required this.download,
+    this.supportsQuic,
   });
 
   static const fromJson = InfoDtoMapper.fromJson;
@@ -41,6 +43,7 @@ extension InfoToDeviceExt on InfoDto {
       deviceType: deviceType ?? DeviceType.desktop,
       download: download ?? false,
       discoveryMethods: {method},
+      supportsQuic: supportsQuic ?? false,
     );
   }
 }

@@ -21,4 +21,5 @@ tracing-subscriber = { version = "0.3.22" }
 uuid = { version = "1.11.1", features = ["v4"] }
 
 [target.'cfg(target_os = "android")'.dependencies]
+jni = "0.21"
 tracing-android = "0.2"
