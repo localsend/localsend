@@ -204,8 +204,8 @@ class QuicSendService extends Notifier<Map<String, SendSessionState>> {
 
     // Navigate to progress page
     if (!background) {
-      // ignore: use_build_context_synchronously
-      await Routerino.context.pushAndRemoveUntil(
+      // ignore: use_build_context_synchronously, unawaited_futures
+      Routerino.context.pushAndRemoveUntil(
         removeUntil: HomePage,
         transition: RouterinoTransition.fade(),
         builder: () => ProgressPage(
