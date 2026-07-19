@@ -71,6 +71,27 @@ fn open_file_or_uri(path: &str) -> Result<std::fs::File, String> {
     }
 }
 
+/// Create a file for writing from a path or Android `content://` URI.
+///
+/// - Regular paths: `std::fs::File::create`
+/// - `content://` URIs: Android SAF via JNI (only on `target_os = "android"`)
+fn create_file_or_uri(path: &str) -> Result<std::fs::File, String> {
+    if path.starts_with("content://") {
+        #[cfg(target_os = "android")]
+        {
+            crate::api::saf::create_content_uri(path)
+        }
+        #[cfg(not(target_os = "android"))]
+        {
+            Err(format!(
+                "content:// URIs are only supported on Android, got: {path}"
+            ))
+        }
+    } else {
+        std::fs::File::create(Path::new(path)).map_err(|e| e.to_string())
+    }
+}
+
 // ─── Server (receiver side) ──────────────────────────────────────────
 
 /// Wrapper around the core QuicServer for FFI.
@@ -280,7 +301,7 @@ pub async fn quic_receive_single_file(
         std::fs::create_dir_all(parent).map_err(|e| e.to_string())?;
     }
 
-    let file = std::fs::File::create(&output_path).map_err(|e| e.to_string())?;
+    let file = create_file_or_uri(&output_path)?;
     let mut writer = std::io::BufWriter::with_capacity(1024 * 1024, file);
 
     // Cancel-aware zero-copy receive loop.  Uses `tokio::select!` to
@@ -892,7 +913,7 @@ pub async fn quic_receive_files_parallel(
                 std::fs::create_dir_all(parent).map_err(|e| e.to_string())?;
             }
 
-            let file = std::fs::File::create(&output_path).map_err(|e| e.to_string())?;
+            let file = create_file_or_uri(&output_path).map_err(|e| e.to_string())?;
             let mut writer = std::io::BufWriter::with_capacity(1024 * 1024, file);
 
             // Cancel-aware zero-copy receive loop.

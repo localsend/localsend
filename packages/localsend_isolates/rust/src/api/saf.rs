@@ -123,6 +123,76 @@ pub fn open_content_uri(uri: &str) -> Result<File, String> {
     Ok(unsafe { File::from_raw_fd(fd) })
 }
 
+/// Open a `content://` URI for **writing** via Android's ContentResolver.
+///
+/// Uses mode `"w"` (truncate). The URI must point to an already-created
+/// document (e.g. via `createDocument` on the Dart side).  Returns a
+/// [`File`] backed by the ParcelFileDescriptor obtained from SAF.
+pub fn create_content_uri(uri: &str) -> Result<File, String> {
+    let vm = get_java_vm()?;
+    let mut env = vm
+        .attach_current_thread()
+        .map_err(|e| format!("JNI: failed to attach thread: {e}"))?;
+
+    let context = get_application_context(&mut env)?;
+
+    // context.getContentResolver()
+    let content_resolver = env
+        .call_method(
+            &context,
+            "getContentResolver",
+            "()Landroid/content/ContentResolver;",
+            &[],
+        )
+        .map_err(|e| format!("JNI: getContentResolver: {e}"))?
+        .l()
+        .map_err(|e| format!("JNI: getContentResolver returned non-object: {e}"))?;
+
+    // Uri.parse(uri)
+    let uri_str = env
+        .new_string(uri)
+        .map_err(|e| format!("JNI: new_string: {e}"))?;
+    let uri_obj = env
+        .call_static_method(
+            "android/net/Uri",
+            "parse",
+            "(Ljava/lang/String;)Landroid/net/Uri;",
+            &[JValueGen::Object(&uri_str)],
+        )
+        .map_err(|e| format!("JNI: Uri.parse: {e}"))?
+        .l()
+        .map_err(|e| format!("JNI: Uri.parse returned non-object: {e}"))?;
+
+    // contentResolver.openFileDescriptor(uri, "w")
+    let mode_str = env
+        .new_string("w")
+        .map_err(|e| format!("JNI: new_string: {e}"))?;
+    let parcel_fd = env
+        .call_method(
+            &content_resolver,
+            "openFileDescriptor",
+            "(Landroid/net/Uri;Ljava/lang/String;)Landroid/os/ParcelFileDescriptor;",
+            &[JValueGen::Object(&uri_obj), JValueGen::Object(&mode_str)],
+        )
+        .map_err(|e| format!("JNI: openFileDescriptor({uri}): {e}"))?
+        .l()
+        .map_err(|e| format!("JNI: openFileDescriptor returned non-object: {e}"))?;
+
+    // parcelFd.detachFd()
+    let fd = env
+        .call_method(&parcel_fd, "detachFd", "()I", &[])
+        .map_err(|e| format!("JNI: detachFd: {e}"))?
+        .i()
+        .map_err(|e| format!("JNI: detachFd returned non-int: {e}"))?;
+
+    if fd < 0 {
+        return Err(format!("JNI: detachFd returned invalid fd: {fd}"));
+    }
+
+    // SAFETY: detachFd transfers ownership of the fd to us.
+    Ok(unsafe { File::from_raw_fd(fd) })
+}
+
 // ─── Helpers ────────────────────────────────────────────────────────
 
 /// Obtain the Android Application context via

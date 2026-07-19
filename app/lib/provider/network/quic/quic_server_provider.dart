@@ -385,7 +385,6 @@ class QuicServerService extends Notifier<QuicServerState?> {
 
     // Pre-compute output paths and flags for all files
     final filePrep = <String, _FilePrep>{};
-    bool anyNeedsSafCopy = false;
     bool anySaveToGallery = false;
     for (final entry in receivableFiles) {
       final file = entry.value;
@@ -404,13 +403,7 @@ class QuicServerService extends Notifier<QuicServerState?> {
         throw 'Path traversal detected: ${file.desiredName}';
       }
 
-      final needsSafCopy = resolvedPath.startsWith('content://') || documentUri != null;
-      if (needsSafCopy) anyNeedsSafCopy = true;
-
-      String actualOutputPath = resolvedPath;
-      if (needsSafCopy) {
-        actualOutputPath = '${receiveState.cacheDirectory}/$finalName';
-      }
+      final actualOutputPath = resolvedPath;
 
       filePrep[entry.key] = _FilePrep(
         file: file,
@@ -418,7 +411,6 @@ class QuicServerService extends Notifier<QuicServerState?> {
         documentUri: documentUri,
         finalName: finalName,
         actualOutputPath: actualOutputPath,
-        needsSafCopy: needsSafCopy,
         shouldSaveToGallery: shouldSaveToGallery,
         outputDir: outputDir,
       );
@@ -437,7 +429,7 @@ class QuicServerService extends Notifier<QuicServerState?> {
       ),
     );
 
-    if (receivableFiles.length >= 2 && !anyNeedsSafCopy && !anySaveToGallery) {
+    if (receivableFiles.length >= 2) {
       // ─── Parallel receive path ─────────────────────────────────────────
       _logger.info('Receiving ${receivableFiles.length} files in parallel via QUIC');
 
@@ -502,9 +494,35 @@ class QuicServerService extends Notifier<QuicServerState?> {
         final succeeded = (resultMap['succeeded'] as List).cast<String>();
         final failed = (resultMap['failed'] as List).cast<String>();
 
-        // Mark succeeded files
+        // Process succeeded files: SAF copy + gallery save + mark finished
         for (final fileId in succeeded) {
           final prep = filePrep[fileId]!;
+
+          String? filePath = prep.actualOutputPath;
+          bool savedToGallery = false;
+
+          // Gallery save if needed
+          if (prep.shouldSaveToGallery && filePath != null) {
+            try {
+              prep.file.file.fileType == FileType.image
+                  ? await Gal.putImage(filePath)
+                  : await Gal.putVideo(filePath);
+              await File(filePath).delete();
+              savedToGallery = true;
+              filePath = null;
+            } on GalException catch (e) {
+              if (e.type == GalExceptionType.notSupportedFormat) {
+                _logger.info('Format not supported by gallery, keeping file');
+                final destPath = '${prep.outputDir}/${prep.file.desiredName}';
+                await File(prep.actualOutputPath).rename(destPath);
+                filePath = destPath;
+                savedToGallery = false;
+              } else {
+                rethrow;
+              }
+            }
+          }
+
           ref
               .notifier(progressProvider)
               .setProgress(
@@ -512,16 +530,18 @@ class QuicServerService extends Notifier<QuicServerState?> {
                 fileId: fileId,
                 progress: 1,
               );
+
           state = state!.copyWith(
             session: _fileFinished(
               state!.session!,
               fileId: fileId,
               status: FileStatus.finished,
-              path: prep.actualOutputPath,
-              savedToGallery: false,
+              path: filePath,
+              savedToGallery: savedToGallery,
               errorMessage: null,
             ),
           );
+
           await ref
               .redux(receiveHistoryProvider)
               .dispatchAsync(
@@ -529,8 +549,8 @@ class QuicServerService extends Notifier<QuicServerState?> {
                   entryId: fileId,
                   fileName: prep.file.desiredName!,
                   fileType: prep.file.file.fileType,
-                  path: prep.actualOutputPath,
-                  savedToGallery: false,
+                  path: filePath,
+                  savedToGallery: savedToGallery,
                   isMessage: false,
                   fileSize: prep.file.file.size,
                   senderAlias: state!.session!.senderAlias,
@@ -617,26 +637,9 @@ class QuicServerService extends Notifier<QuicServerState?> {
           final bytesWritten = (resultMap['bytesWritten'] as num).toInt();
           _logger.info('Received $bytesWritten bytes for ${prep.finalName}');
 
-          // SAF copy if needed
-          if (prep.needsSafCopy) {
-            final safPath = prep.documentUri ?? prep.resolvedPath;
-            _logger.info('Copying to SAF: $safPath as ${prep.finalName}');
-            final tempFile = File(prep.actualOutputPath);
-            final safSession = await _saf.startWriteStream(
-              safPath,
-              prep.finalName,
-              lookupMimeType(prep.finalName) ?? '*/*',
-            );
-            final input = tempFile.openRead();
-            await for (final chunk in input) {
-              await _saf.writeChunk(safSession.session, Uint8List.fromList(chunk));
-            }
-            await _saf.endWriteStream(safSession.session);
-            await tempFile.delete();
-            filePath = prep.resolvedPath;
-          } else {
-            filePath = prep.actualOutputPath;
-          }
+          // File is already at its final destination (Rust writes directly
+          // to SAF content:// URIs or regular paths).
+          filePath = prep.actualOutputPath;
 
           // Gallery save if needed
           if (prep.shouldSaveToGallery) {
@@ -829,7 +832,6 @@ class _FilePrep {
   final String? documentUri;
   final String finalName;
   final String actualOutputPath;
-  final bool needsSafCopy;
   final bool shouldSaveToGallery;
   final String outputDir;
 
@@ -839,7 +841,6 @@ class _FilePrep {
     required this.documentUri,
     required this.finalName,
     required this.actualOutputPath,
-    required this.needsSafCopy,
     required this.shouldSaveToGallery,
     required this.outputDir,
   });
