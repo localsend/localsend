@@ -1,4 +1,5 @@
-import 'package:localsend_isolates/model/device.dart';
+import 'dart:async';
+
 import 'package:localsend_app/model/cross_file.dart';
 import 'package:localsend_app/model/state/send/send_session_state.dart';
 import 'package:localsend_app/model/state/server/receive_session_state.dart';
@@ -7,6 +8,7 @@ import 'package:localsend_app/provider/network/quic/quic_server_provider.dart';
 import 'package:localsend_app/provider/network/send_provider.dart';
 import 'package:localsend_app/provider/network/server/server_provider.dart';
 import 'package:localsend_app/provider/network/transfer/transfer_service.dart';
+import 'package:localsend_isolates/model/device.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 
 /// Merged view of all send sessions across all transports.
@@ -243,7 +245,7 @@ class _QuicTransferService implements TransferService {
   void cancelSessionByReceiver(String sessionId) {
     // QUIC doesn't have a separate cancelByReceiver yet — treat as cancel.
     // Fire-and-forget since the caller (HTTP cancel-by-receiver handler) is void.
-    _ref.notifier(quicSendProvider).cancelSession(sessionId);
+    unawaited(_ref.notifier(quicSendProvider).cancelSession(sessionId));
   }
 
   @override

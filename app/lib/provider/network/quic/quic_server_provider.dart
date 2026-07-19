@@ -12,9 +12,13 @@ import 'package:localsend_app/provider/device_info_provider.dart';
 import 'package:localsend_app/provider/favorites_provider.dart';
 import 'package:localsend_app/provider/progress_provider.dart';
 import 'package:localsend_app/provider/receive_history_provider.dart';
-import 'package:localsend_app/provider/selection/selected_receiving_files_provider.dart';
 import 'package:localsend_app/provider/security_provider.dart';
+import 'package:localsend_app/provider/selection/selected_receiving_files_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
+import 'package:localsend_app/util/native/directories.dart';
+import 'package:localsend_app/util/native/file_saver.dart';
+import 'package:localsend_app/util/native/platform_check.dart';
+import 'package:localsend_app/util/native/tray_helper.dart';
 import 'package:localsend_isolates/constants.dart';
 import 'package:localsend_isolates/model/device.dart';
 import 'package:localsend_isolates/model/dto/file_dto.dart';
@@ -22,16 +26,12 @@ import 'package:localsend_isolates/model/file_status.dart';
 import 'package:localsend_isolates/model/file_type.dart';
 import 'package:localsend_isolates/model/session_status.dart';
 import 'package:localsend_isolates/rust/api/quic.dart' as quic;
-import 'package:localsend_app/util/native/directories.dart';
-import 'package:localsend_app/util/native/file_saver.dart';
-import 'package:localsend_app/util/native/platform_check.dart';
-import 'package:localsend_app/util/native/tray_helper.dart';
 import 'package:logging/logging.dart';
 import 'package:mime/mime.dart';
 import 'package:path/path.dart' as p;
 import 'package:refena_flutter/refena_flutter.dart';
-import 'package:saf_stream/saf_stream.dart';
 import 'package:routerino/routerino.dart';
+import 'package:saf_stream/saf_stream.dart';
 import 'package:uuid/uuid.dart';
 import 'package:window_manager/window_manager.dart';
 
@@ -743,7 +743,7 @@ class QuicServerService extends Notifier<QuicServerState?> {
     final controller = state?.session?.responseHandler;
     if (controller == null || controller.isClosed) return;
     controller.add(fileNameMap);
-    controller.close();
+    unawaited(controller.close());
   }
 
   /// Declines the current file request.
@@ -751,7 +751,7 @@ class QuicServerService extends Notifier<QuicServerState?> {
     final controller = state?.session?.responseHandler;
     if (controller == null || controller.isClosed) return;
     controller.add(null);
-    controller.close();
+    unawaited(controller.close());
   }
 
   /// Closes the current session.
@@ -772,7 +772,7 @@ class QuicServerService extends Notifier<QuicServerState?> {
     final streamController = session.responseHandler;
     if (streamController != null && !streamController.isClosed) {
       streamController.add(null);
-      streamController.close();
+      unawaited(streamController.close());
     }
 
     // Signal the Rust side to abort in-flight I/O, send Cancel frame,

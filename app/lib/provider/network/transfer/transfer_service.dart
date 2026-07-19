@@ -1,6 +1,6 @@
-import 'package:localsend_isolates/model/device.dart';
 import 'package:localsend_app/model/cross_file.dart';
 import 'package:localsend_app/model/state/send/send_session_state.dart';
+import 'package:localsend_isolates/model/device.dart';
 
 /// Abstract interface for a send-side transfer transport.
 ///

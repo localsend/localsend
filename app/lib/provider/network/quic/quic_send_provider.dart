@@ -204,7 +204,8 @@ class QuicSendService extends Notifier<Map<String, SendSessionState>> {
 
     // Navigate to progress page
     if (!background) {
-      Routerino.context.pushAndRemoveUntil(
+      // ignore: use_build_context_synchronously
+      await Routerino.context.pushAndRemoveUntil(
         removeUntil: HomePage,
         transition: RouterinoTransition.fade(),
         builder: () => ProgressPage(
@@ -295,7 +296,7 @@ class QuicSendService extends Notifier<Map<String, SendSessionState>> {
             .toList();
 
         await quic.quicSendFilesParallel(
-          transfer: transfer!,
+          transfer: transfer,
           filesJson: jsonEncode(filesList),
         );
 
@@ -371,14 +372,14 @@ class QuicSendService extends Notifier<Map<String, SendSessionState>> {
 
           if (file.path != null) {
             await quic.quicSendSingleFile(
-              transfer: transfer!,
+              transfer: transfer,
               filePath: file.path!,
               fileId: file.file.id,
               token: file.token!,
             );
           } else if (file.bytes != null) {
             await quic.quicSendBytes(
-              transfer: transfer!,
+              transfer: transfer,
               data: file.bytes!,
               fileId: file.file.id,
               token: file.token!,
