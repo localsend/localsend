@@ -52,19 +52,40 @@ class HttpServerService {
   }
 
   /// Answers a pending file upload with the target the file should be saved to
-  /// (either a [path] or a [fileDescriptor]) and waits until the file has been received completely.
-  Future<void> respondFileUpload({
+  /// (either a [path] or a [fileDescriptor]).
+  ///
+  /// The returned stream emits the progress (fraction of [fileSize]) while the
+  /// file is being received and closes once the file has been received
+  /// completely (or errors when saving failed).
+  Stream<double> respondFileUpload({
     required String sessionId,
     required String fileId,
     required String? path,
     required int? fileDescriptor,
-  }) async {
-    await _requireServer().respondFileUpload(
+    required int fileSize,
+  }) {
+    return _requireServer().respondFileUpload(
       sessionId: sessionId,
       fileId: fileId,
       path: path,
       fileDescriptor: fileDescriptor,
+      fileSize: BigInt.from(fileSize),
     );
+  }
+
+  /// Rejects a pending file upload, e.g. because no save target could be
+  /// prepared. The upload request fails with an error response and the file is
+  /// marked as failed; the session itself continues.
+  /// Does nothing if the upload was already answered via [respondFileUpload].
+  Future<void> rejectFileUpload({required String sessionId, required String fileId}) async {
+    await _requireServer().rejectFileUpload(sessionId: sessionId, fileId: fileId);
+  }
+
+  /// Cancels the active upload session. Uploads that are already in progress
+  /// still run to completion, but new upload requests are rejected and a new
+  /// session can be created. No session-end event is emitted.
+  Future<void> cancelSession({required String sessionId}) async {
+    await _requireServer().cancelSession(sessionId: sessionId);
   }
 
   /// Answers a pending web prepare-download request.
@@ -89,7 +110,15 @@ class HttpServerService {
     );
   }
 
+  /// Rejects a pending web file download, e.g. because no content source could
+  /// be resolved. The download request fails with an error response.
+  /// Does nothing if the download was already answered via [respondFileDownload].
+  Future<void> rejectFileDownload({required String sessionId, required String fileId}) async {
+    await _requireServer().rejectFileDownload(sessionId: sessionId, fileId: fileId);
+  }
+
   /// Stops the server. The event stream returned by [start] will end.
+  /// Completes once the port is released and can be bound again.
   Future<void> stop() async {
     final server = _server;
     _server = null;

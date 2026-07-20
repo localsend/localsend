@@ -90,6 +90,7 @@ async fn start_test_server(
                                 let _ = target_tx.send(FileUploadTarget::Path {
                                     path: path.clone(),
                                     result_tx,
+                                    progress_tx: None,
                                 });
                                 tokio::spawn(async move {
                                     if let Ok(Ok(())) = result_rx.await {
@@ -103,6 +104,8 @@ async fn start_test_server(
                     ServerEventV2::SessionEnd { session_id, reason } => {
                         session_ends.lock().await.push((session_id, reason));
                     }
+                    ServerEventV2::PrepareUploadAborted { .. } => {}
+                    ServerEventV2::CancelReceived { .. } => {}
                 }
             }
         }

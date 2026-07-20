@@ -131,6 +131,18 @@ class _PublishSyncStateAction extends ReduxAction<IsolateController, ParentIsola
         data: null,
       ),
     );
+    state.httpUpload?.sendToIsolate(
+      SendToIsolateData(
+        syncState: syncState,
+        data: null,
+      ),
+    );
+    state.httpServer?.sendToIsolate(
+      SendToIsolateData(
+        syncState: syncState,
+        data: null,
+      ),
+    );
 
     return state.copyWith(
       syncState: syncState,

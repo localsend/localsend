@@ -25,6 +25,8 @@ pub enum RsServerEvent {
 
     /// A sender requests to upload files via `POST /api/localsend/v2/prepare-upload`.
     PrepareUpload {
+        /// The session ID the upload session will have when the request is accepted.
+        session_id: String,
         ip: String,
         info: RegisterDtoV2,
         files: HashMap<String, FileDto>,
@@ -42,6 +44,18 @@ pub enum RsServerEvent {
         session_id: String,
         reason: SessionEndReasonV2,
     },
+
+    /// A prepare-upload request was aborted before a session was created,
+    /// e.g. the sender disconnected while the application was still deciding.
+    /// The [RsServerEvent::PrepareUpload] with the same session ID
+    /// no longer needs to be answered.
+    PrepareUploadAborted { session_id: String },
+
+    /// `POST /api/localsend/v2/cancel` was received for a session this server
+    /// does not manage: the remote device cancels a transfer this application
+    /// is currently *sending* to it. The application must verify that [ip]
+    /// matches the target of the send session before cancelling it.
+    CancelReceived { ip: String, session_id: String },
 
     /// A web client requests to download the shared files via `POST /api/localsend/v2/prepare-download`.
     ///
@@ -70,9 +84,10 @@ pub enum RsServerEvent {
 }
 
 pub struct RsHttpServer {
+    handle: localsend::http::server::ServerHandle,
     event_rx: Mutex<Option<mpsc::Receiver<ServerEventV2>>>,
     stop_tx: Mutex<Option<oneshot::Sender<()>>>,
-    pending_decision: Mutex<Option<oneshot::Sender<PrepareUploadDecisionV2>>>,
+    pending_decision: Mutex<Option<(String, oneshot::Sender<PrepareUploadDecisionV2>)>>,
     pending_uploads: Mutex<HashMap<(String, String), oneshot::Sender<FileUploadTarget>>>,
     web_event_rx: Mutex<Option<mpsc::Receiver<WebSendEvent>>>,
     pending_download_decisions: Mutex<HashMap<String, oneshot::Sender<bool>>>,
@@ -148,7 +163,7 @@ pub async fn start_server(
         None => (None, None),
     };
 
-    localsend::http::server::start_with_port(
+    let handle = localsend::http::server::start_with_port(
         port,
         tls,
         ClientInfo {
@@ -166,6 +181,7 @@ pub async fn start_server(
     .await?;
 
     Ok(RsHttpServer {
+        handle,
         event_rx: Mutex::new(Some(event_rx)),
         stop_tx: Mutex::new(Some(stop_tx)),
         pending_decision: Mutex::new(None),
@@ -231,13 +247,15 @@ impl RsHttpServer {
                 });
             }
             ServerEventV2::PrepareUpload {
+                session_id,
                 ip,
                 info,
                 files,
                 decision_tx,
             } => {
-                *self.pending_decision.lock().await = Some(decision_tx);
+                *self.pending_decision.lock().await = Some((session_id.clone(), decision_tx));
                 let _ = sink.add(RsServerEvent::PrepareUpload {
+                    session_id,
                     ip: ip.to_string(),
                     info,
                     files,
@@ -266,6 +284,24 @@ impl RsHttpServer {
                     .await
                     .retain(|(sid, _), _| sid != &session_id);
                 let _ = sink.add(RsServerEvent::SessionEnd { session_id, reason });
+            }
+            ServerEventV2::PrepareUploadAborted { session_id } => {
+                // Drop the stale decision responder (the request already ended).
+                // A newer prepare-upload request may already hold the slot;
+                // only clear it if it still belongs to the aborted request.
+                {
+                    let mut pending = self.pending_decision.lock().await;
+                    if pending.as_ref().is_some_and(|(sid, _)| sid == &session_id) {
+                        *pending = None;
+                    }
+                }
+                let _ = sink.add(RsServerEvent::PrepareUploadAborted { session_id });
+            }
+            ServerEventV2::CancelReceived { ip, session_id } => {
+                let _ = sink.add(RsServerEvent::CancelReceived {
+                    ip: ip.to_string(),
+                    session_id,
+                });
             }
         }
     }
@@ -315,7 +351,7 @@ impl RsHttpServer {
         &self,
         accepted_file_ids: Option<Vec<String>>,
     ) -> anyhow::Result<()> {
-        let Some(decision_tx) = self.pending_decision.lock().await.take() else {
+        let Some((_, decision_tx)) = self.pending_decision.lock().await.take() else {
             return Err(anyhow::anyhow!("No pending prepare-upload request"));
         };
 
@@ -334,12 +370,17 @@ impl RsHttpServer {
     /// Answers the pending [RsServerEvent::FileUpload] event with the target
     /// the file should be saved to (either a path or a file descriptor)
     /// and waits until the file has been received completely.
+    ///
+    /// The progress (fraction of [file_size]) is emitted on [sink]
+    /// while the file is being received.
     pub async fn respond_file_upload(
         &self,
+        sink: StreamSink<f64>,
         session_id: String,
         file_id: String,
         path: Option<String>,
         file_descriptor: Option<i32>,
+        file_size: u64,
     ) -> anyhow::Result<()> {
         let Some(target_tx) = self
             .pending_uploads
@@ -350,8 +391,31 @@ impl RsHttpServer {
             return Err(anyhow::anyhow!("No pending file upload for this file"));
         };
 
+        let (progress_tx, mut progress_rx) = mpsc::channel::<u64>(16);
+        tokio::spawn(async move {
+            let mut last_emit = None::<std::time::Instant>;
+            while let Some(written) = progress_rx.recv().await {
+                let now = std::time::Instant::now();
+                let is_final = written >= file_size;
+                if !is_final {
+                    if let Some(last) = last_emit {
+                        if now.duration_since(last) < std::time::Duration::from_millis(20) {
+                            continue;
+                        }
+                    }
+                }
+                last_emit = Some(now);
+                let progress = if file_size == 0 {
+                    1.0
+                } else {
+                    (written as f64 / file_size as f64).min(1.0)
+                };
+                let _ = sink.add(progress);
+            }
+        });
+
         let (result_tx, result_rx) = oneshot::channel::<Result<(), String>>();
-        let target = resolve_upload_target(path, file_descriptor, result_tx)?;
+        let target = resolve_upload_target(path, file_descriptor, result_tx, progress_tx)?;
 
         target_tx
             .send(target)
@@ -362,6 +426,19 @@ impl RsHttpServer {
             Ok(Err(err)) => Err(anyhow::anyhow!(err)),
             Err(_) => Err(anyhow::anyhow!("Upload request aborted")),
         }
+    }
+
+    /// Rejects the pending [RsServerEvent::FileUpload] event, e.g. because
+    /// the application failed to prepare a save target for the file.
+    ///
+    /// The upload request fails with an error response and the file is marked
+    /// as failed. Does nothing if the upload was already answered.
+    pub async fn reject_file_upload(&self, session_id: String, file_id: String) {
+        // Dropping the responder fails the request waiting for the target.
+        self.pending_uploads
+            .lock()
+            .await
+            .remove(&(session_id, file_id));
     }
 
     /// Answers the pending [RsServerEvent::WebPrepareDownload] event.
@@ -417,10 +494,43 @@ impl RsHttpServer {
         Ok(())
     }
 
+    /// Rejects the pending [RsServerEvent::WebFileDownload] event, e.g. because
+    /// the application failed to resolve a source for the file content.
+    ///
+    /// The download request fails with an error response.
+    /// Does nothing if the download was already answered.
+    pub async fn reject_file_download(&self, session_id: String, file_id: String) {
+        // Dropping the responder fails the request waiting for the content.
+        self.pending_downloads
+            .lock()
+            .await
+            .remove(&(session_id, file_id));
+    }
+
+    /// Cancels the active upload session, e.g. because the user aborted the
+    /// transfer on the receiving side.
+    ///
+    /// Uploads that are already in progress still run to completion, but new
+    /// upload requests are rejected and a new session can be created.
+    /// No [RsServerEvent::SessionEnd] is emitted: the application initiated
+    /// the cancellation itself.
+    pub async fn cancel_session(&self, session_id: String) {
+        self.handle.cancel_v2_session(&session_id).await;
+
+        // Drop unanswered upload responders of this session so their requests
+        // fail instead of waiting for a target forever.
+        self.pending_uploads
+            .lock()
+            .await
+            .retain(|(sid, _), _| sid != &session_id);
+    }
+
     /// Stops the server.
+    /// Returns after the listeners are closed, so the port can be bound again.
     pub async fn stop(&self) {
         if let Some(stop_tx) = self.stop_tx.lock().await.take() {
             let _ = stop_tx.send(());
+            self.handle.wait_stopped().await;
         }
     }
 }
@@ -438,11 +548,13 @@ fn resolve_upload_target(
     path: Option<String>,
     file_descriptor: Option<i32>,
     result_tx: oneshot::Sender<Result<(), String>>,
+    progress_tx: mpsc::Sender<u64>,
 ) -> anyhow::Result<FileUploadTarget> {
     match (path, file_descriptor) {
         (Some(path), None) => Ok(FileUploadTarget::Path {
             path: path.into(),
             result_tx,
+            progress_tx: Some(progress_tx),
         }),
         (None, Some(file_descriptor)) => {
             #[cfg(target_os = "android")]
@@ -450,11 +562,12 @@ fn resolve_upload_target(
                 Ok(FileUploadTarget::Fd {
                     fd: file_descriptor,
                     result_tx,
+                    progress_tx: Some(progress_tx),
                 })
             }
             #[cfg(not(target_os = "android"))]
             {
-                let _ = (file_descriptor, result_tx);
+                let _ = (file_descriptor, result_tx, progress_tx);
                 Err(anyhow::anyhow!(
                     "File descriptors are only supported on Android"
                 ))

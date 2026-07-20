@@ -49,12 +49,35 @@ Future<RsHttpServer> startServer({
 
 // Rust type: RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<RsHttpServer>>
 abstract class RsHttpServer implements RustOpaqueInterface {
+  /// Cancels the active upload session, e.g. because the user aborted the
+  /// transfer on the receiving side.
+  ///
+  /// Uploads that are already in progress still run to completion, but new
+  /// upload requests are rejected and a new session can be created.
+  /// No [RsServerEvent::SessionEnd] is emitted: the application initiated
+  /// the cancellation itself.
+  Future<void> cancelSession({required String sessionId});
+
   /// Emits server events until the server is stopped.
   /// Can only be listened to once.
   ///
   /// The v2 protocol, the web send (download API), and the internal endpoint
   /// events are all emitted on the same stream.
   Stream<RsServerEvent> listen();
+
+  /// Rejects the pending [RsServerEvent::WebFileDownload] event, e.g. because
+  /// the application failed to resolve a source for the file content.
+  ///
+  /// The download request fails with an error response.
+  /// Does nothing if the download was already answered.
+  Future<void> rejectFileDownload({required String sessionId, required String fileId});
+
+  /// Rejects the pending [RsServerEvent::FileUpload] event, e.g. because
+  /// the application failed to prepare a save target for the file.
+  ///
+  /// The upload request fails with an error response and the file is marked
+  /// as failed. Does nothing if the upload was already answered.
+  Future<void> rejectFileUpload({required String sessionId, required String fileId});
 
   /// Answers the pending [RsServerEvent::WebFileDownload] event with the source
   /// the file content should be read from (either a path or a file descriptor).
@@ -65,7 +88,10 @@ abstract class RsHttpServer implements RustOpaqueInterface {
   /// Answers the pending [RsServerEvent::FileUpload] event with the target
   /// the file should be saved to (either a path or a file descriptor)
   /// and waits until the file has been received completely.
-  Future<void> respondFileUpload({required String sessionId, required String fileId, String? path, int? fileDescriptor});
+  ///
+  /// The progress (fraction of [file_size]) is emitted on [sink]
+  /// while the file is being received.
+  Stream<double> respondFileUpload({required String sessionId, required String fileId, String? path, int? fileDescriptor, required BigInt fileSize});
 
   /// Answers the pending [RsServerEvent::WebPrepareDownload] event.
   ///
@@ -79,6 +105,7 @@ abstract class RsHttpServer implements RustOpaqueInterface {
   Future<void> respondPrepareUpload({List<String>? acceptedFileIds});
 
   /// Stops the server.
+  /// Returns after the listeners are closed, so the port can be bound again.
   Future<void> stop();
 }
 
@@ -146,6 +173,8 @@ sealed class RsServerEvent with _$RsServerEvent {
 
   /// A sender requests to upload files via `POST /api/localsend/v2/prepare-upload`.
   const factory RsServerEvent.prepareUpload({
+    /// The session ID the upload session will have when the request is accepted.
+    required String sessionId,
     required String ip,
     required RegisterDtoV2 info,
     required Map<String, FileDto> files,
@@ -163,6 +192,23 @@ sealed class RsServerEvent with _$RsServerEvent {
     required String sessionId,
     required SessionEndReasonV2 reason,
   }) = RsServerEvent_SessionEnd;
+
+  /// A prepare-upload request was aborted before a session was created,
+  /// e.g. the sender disconnected while the application was still deciding.
+  /// The [RsServerEvent::PrepareUpload] with the same session ID
+  /// no longer needs to be answered.
+  const factory RsServerEvent.prepareUploadAborted({
+    required String sessionId,
+  }) = RsServerEvent_PrepareUploadAborted;
+
+  /// `POST /api/localsend/v2/cancel` was received for a session this server
+  /// does not manage: the remote device cancels a transfer this application
+  /// is currently *sending* to it. The application must verify that [ip]
+  /// matches the target of the send session before cancelling it.
+  const factory RsServerEvent.cancelReceived({
+    required String ip,
+    required String sessionId,
+  }) = RsServerEvent_CancelReceived;
 
   /// A web client requests to download the shared files via `POST /api/localsend/v2/prepare-download`.
   ///

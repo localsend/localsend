@@ -228,22 +228,21 @@ class IsolateHttpServerStartAction extends ReduxActionWithResult<IsolateControll
   }
 }
 
-class IsolateHttpServerStopAction extends ReduxAction<IsolateController, ParentIsolateState> {
+/// Stops the HTTP server.
+/// Completes once the server has released the port, so the port can be bound again.
+class IsolateHttpServerStopAction extends AsyncReduxAction<IsolateController, ParentIsolateState> {
   @override
-  ParentIsolateState reduce() {
+  Future<ParentIsolateState> reduce() async {
     final connection = state.httpServer;
     if (connection == null) {
       throw StateError('httpServer is not initialized');
     }
 
-    connection.sendToIsolate(
-      SendToIsolateData(
-        syncState: null,
-        data: IsolateTask(
-          data: HttpServerStopTask(),
-        ),
-      ),
-    );
+    await connection
+        .sendWrappedTaskAndListenStream(
+          task: HttpServerStopTask(),
+        )
+        .drain<void>();
 
     return state;
   }
@@ -283,6 +282,7 @@ class IsolateHttpServerPrepareUploadDecisionAction extends ReduxAction<IsolateCo
 
 /// Answers a pending [HttpServerFileUploadEvent] with the target the file
 /// should be saved to (either a [path] or a writable [fileDescriptor]).
+/// [onProgress] is called with the progress (0.0 to 1.0) while the file is being received.
 /// The returned future completes when the file has been received completely
 /// and throws if saving the file failed.
 class IsolateHttpServerFileUploadTargetAction extends ReduxActionWithResult<IsolateController, ParentIsolateState, Future<void>> {
@@ -290,12 +290,16 @@ class IsolateHttpServerFileUploadTargetAction extends ReduxActionWithResult<Isol
   final String fileId;
   final String? path;
   final int? fileDescriptor;
+  final int fileSize;
+  final void Function(double progress)? onProgress;
 
   IsolateHttpServerFileUploadTargetAction({
     required this.sessionId,
     required this.fileId,
     required this.path,
     required this.fileDescriptor,
+    required this.fileSize,
+    required this.onProgress,
   });
 
   @override
@@ -311,6 +315,7 @@ class IsolateHttpServerFileUploadTargetAction extends ReduxActionWithResult<Isol
         fileId: fileId,
         path: path,
         fileDescriptor: fileDescriptor,
+        fileSize: fileSize,
       ),
     );
 
@@ -319,15 +324,89 @@ class IsolateHttpServerFileUploadTargetAction extends ReduxActionWithResult<Isol
 
   Future<void> _awaitResult(Stream<HttpServerEvent> events) async {
     await for (final event in events) {
-      if (event case HttpServerFileUploadResultEvent(:final error)) {
-        if (error != null) {
-          throw HttpServerFileUploadException(error);
-        }
-        return;
+      switch (event) {
+        case HttpServerFileUploadProgressEvent(:final progress):
+          onProgress?.call(progress);
+        case HttpServerFileUploadResultEvent(:final error):
+          if (error != null) {
+            throw HttpServerFileUploadException(error);
+          }
+          return;
+        default:
+          break;
       }
     }
 
     throw HttpServerFileUploadException('The server isolate did not report a result');
+  }
+}
+
+/// Rejects a pending [HttpServerFileUploadEvent], e.g. because preparing the
+/// save target for the file failed. The sender receives an error response for
+/// this file and the session itself continues.
+/// Does nothing if the upload was already answered with a
+/// [IsolateHttpServerFileUploadTargetAction].
+class IsolateHttpServerRejectFileUploadAction extends ReduxAction<IsolateController, ParentIsolateState> {
+  final String sessionId;
+  final String fileId;
+
+  IsolateHttpServerRejectFileUploadAction({
+    required this.sessionId,
+    required this.fileId,
+  });
+
+  @override
+  ParentIsolateState reduce() {
+    final connection = state.httpServer;
+    if (connection == null) {
+      throw StateError('httpServer is not initialized');
+    }
+
+    connection.sendToIsolate(
+      SendToIsolateData(
+        syncState: null,
+        data: IsolateTask(
+          data: HttpServerRejectFileUploadTask(
+            sessionId: sessionId,
+            fileId: fileId,
+          ),
+        ),
+      ),
+    );
+
+    return state;
+  }
+}
+
+/// Cancels the active upload session of the HTTP server, e.g. because the
+/// user aborted the transfer on the receiving side.
+/// No [HttpServerSessionEndEvent] is emitted.
+class IsolateHttpServerCancelSessionAction extends ReduxAction<IsolateController, ParentIsolateState> {
+  final String sessionId;
+
+  IsolateHttpServerCancelSessionAction({
+    required this.sessionId,
+  });
+
+  @override
+  ParentIsolateState reduce() {
+    final connection = state.httpServer;
+    if (connection == null) {
+      throw StateError('httpServer is not initialized');
+    }
+
+    connection.sendToIsolate(
+      SendToIsolateData(
+        syncState: null,
+        data: IsolateTask(
+          data: HttpServerCancelSessionTask(
+            sessionId: sessionId,
+          ),
+        ),
+      ),
+    );
+
+    return state;
   }
 }
 
@@ -397,6 +476,43 @@ class IsolateHttpServerFileDownloadTargetAction extends ReduxAction<IsolateContr
             fileId: fileId,
             path: path,
             fileDescriptor: fileDescriptor,
+          ),
+        ),
+      ),
+    );
+
+    return state;
+  }
+}
+
+/// Rejects a pending [HttpServerWebFileDownloadEvent], e.g. because no source
+/// for the file content could be resolved. The web client receives an error
+/// response for this file.
+/// Does nothing if the download was already answered with a
+/// [IsolateHttpServerFileDownloadTargetAction].
+class IsolateHttpServerRejectFileDownloadAction extends ReduxAction<IsolateController, ParentIsolateState> {
+  final String sessionId;
+  final String fileId;
+
+  IsolateHttpServerRejectFileDownloadAction({
+    required this.sessionId,
+    required this.fileId,
+  });
+
+  @override
+  ParentIsolateState reduce() {
+    final connection = state.httpServer;
+    if (connection == null) {
+      throw StateError('httpServer is not initialized');
+    }
+
+    connection.sendToIsolate(
+      SendToIsolateData(
+        syncState: null,
+        data: IsolateTask(
+          data: HttpServerRejectFileDownloadTask(
+            sessionId: sessionId,
+            fileId: fileId,
           ),
         ),
       ),
