@@ -141,6 +141,7 @@ class ReceiveController {
       deviceType: deviceInfo.deviceType,
       fingerprint: fingerprint,
       download: server.getState().webSendState != null,
+      supportsQuic: true,
     );
 
     return await request.respondJson(200, body: dto.toJson());
@@ -181,6 +182,7 @@ class ReceiveController {
       deviceType: deviceInfo.deviceType,
       fingerprint: fingerprint,
       download: server.getState().webSendState != null,
+      supportsQuic: true,
     );
 
     return await request.respondJson(200, body: responseDto.toJson());

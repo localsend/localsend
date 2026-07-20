@@ -55,6 +55,7 @@ extension on Device {
         ...discoveryMethods,
         ...other.discoveryMethods,
       },
+      supportsQuic: supportsQuic || other.supportsQuic,
     );
   }
 }

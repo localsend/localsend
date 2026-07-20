@@ -16,6 +16,7 @@ import 'package:localsend_app/provider/animation_provider.dart';
 import 'package:localsend_app/provider/app_arguments_provider.dart';
 import 'package:localsend_app/provider/device_info_provider.dart';
 import 'package:localsend_app/provider/network/nearby_devices_provider.dart';
+import 'package:localsend_app/provider/network/quic/quic_server_provider.dart';
 import 'package:localsend_app/provider/network/server/server_provider.dart';
 import 'package:localsend_app/provider/network/webrtc/signaling_provider.dart';
 import 'package:localsend_app/provider/persistence_provider.dart';
@@ -212,6 +213,16 @@ Future<void> postInit(BuildContext context, Ref ref, bool appStart) async {
     if (context.mounted) {
       context.showSnackBar(e.toString());
     }
+  }
+
+  // Start the QUIC server alongside the HTTP server
+  // Use port+1 to avoid conflicting with multicast UDP on the same port.
+  try {
+    final settings = ref.read(settingsProvider);
+    await ref.notifier(quicServerProvider).startServer(port: settings.port + 1);
+  } catch (e) {
+    _logger.warning('Starting QUIC server failed', e);
+    // Non-fatal: HTTP server still works
   }
 
   try {

@@ -44,6 +44,12 @@ class InfoDtoMapper extends ClassMapperBase<InfoDto> {
   );
   static bool? _$download(InfoDto v) => v.download;
   static const Field<InfoDto, bool> _f$download = Field('download', _$download);
+  static bool? _$supportsQuic(InfoDto v) => v.supportsQuic;
+  static const Field<InfoDto, bool> _f$supportsQuic = Field(
+    'supportsQuic',
+    _$supportsQuic,
+    opt: true,
+  );
 
   @override
   final MappableFields<InfoDto> fields = const {
@@ -53,6 +59,7 @@ class InfoDtoMapper extends ClassMapperBase<InfoDto> {
     #deviceType: _f$deviceType,
     #fingerprint: _f$fingerprint,
     #download: _f$download,
+    #supportsQuic: _f$supportsQuic,
   };
 
   static InfoDto _instantiate(DecodingData data) {
@@ -63,6 +70,7 @@ class InfoDtoMapper extends ClassMapperBase<InfoDto> {
       deviceType: data.dec(_f$deviceType),
       fingerprint: data.dec(_f$fingerprint),
       download: data.dec(_f$download),
+      supportsQuic: data.dec(_f$supportsQuic),
     );
   }
 
@@ -130,6 +138,7 @@ abstract class InfoDtoCopyWith<$R, $In extends InfoDto, $Out>
     DeviceType? deviceType,
     String? fingerprint,
     bool? download,
+    bool? supportsQuic,
   });
   InfoDtoCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
@@ -150,6 +159,7 @@ class _InfoDtoCopyWithImpl<$R, $Out>
     Object? deviceType = $none,
     Object? fingerprint = $none,
     Object? download = $none,
+    Object? supportsQuic = $none,
   }) => $apply(
     FieldCopyWithData({
       if (alias != null) #alias: alias,
@@ -158,6 +168,7 @@ class _InfoDtoCopyWithImpl<$R, $Out>
       if (deviceType != $none) #deviceType: deviceType,
       if (fingerprint != $none) #fingerprint: fingerprint,
       if (download != $none) #download: download,
+      if (supportsQuic != $none) #supportsQuic: supportsQuic,
     }),
   );
   @override
@@ -168,6 +179,7 @@ class _InfoDtoCopyWithImpl<$R, $Out>
     deviceType: data.get(#deviceType, or: $value.deviceType),
     fingerprint: data.get(#fingerprint, or: $value.fingerprint),
     download: data.get(#download, or: $value.download),
+    supportsQuic: data.get(#supportsQuic, or: $value.supportsQuic),
   );
 
   @override

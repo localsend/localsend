@@ -34,6 +34,7 @@ extension DeviceExt on Device {
       port: port,
       protocol: getProtocolType(),
       hasWebInterface: download,
+      supportsQuic: true,
     );
   }
 }
@@ -92,6 +93,7 @@ extension SyncStateToRegisterDtoExt on SyncState {
       port: port,
       protocol: protocol.toRust(),
       hasWebInterface: download,
+      supportsQuic: true,
     );
   }
 }
@@ -122,6 +124,7 @@ extension RegisterResponseDtoExt on rust_model.RegisterResponseDto {
       deviceType: deviceType?.toDart() ?? DeviceType.desktop,
       download: hasWebInterface,
       discoveryMethods: {method},
+      supportsQuic: supportsQuic,
     );
   }
 }

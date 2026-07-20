@@ -3,9 +3,11 @@ pub mod crypto;
 #[cfg(feature = "http")]
 pub mod http;
 pub mod model;
+#[cfg(feature = "quic")]
+pub mod quic;
 pub(crate) mod util;
 pub mod webrtc;
-
+pub mod transfer;
 #[cfg(feature = "http")]
 pub use reqwest;
 pub use serde_json;

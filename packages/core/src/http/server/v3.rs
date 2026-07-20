@@ -70,6 +70,7 @@ pub(crate) async fn register(
             device_type: info.device_type,
             token: info.token,
             has_web_interface,
+            supports_quic: true,
         },
     })
 }

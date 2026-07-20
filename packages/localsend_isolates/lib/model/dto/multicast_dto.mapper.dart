@@ -114,6 +114,12 @@ class MulticastDtoMapper extends ClassMapperBase<MulticastDto> {
     'announce',
     _$announce,
   );
+  static bool? _$supportsQuic(MulticastDto v) => v.supportsQuic;
+  static const Field<MulticastDto, bool> _f$supportsQuic = Field(
+    'supportsQuic',
+    _$supportsQuic,
+    opt: true,
+  );
 
   @override
   final MappableFields<MulticastDto> fields = const {
@@ -127,6 +133,7 @@ class MulticastDtoMapper extends ClassMapperBase<MulticastDto> {
     #download: _f$download,
     #announcement: _f$announcement,
     #announce: _f$announce,
+    #supportsQuic: _f$supportsQuic,
   };
 
   static MulticastDto _instantiate(DecodingData data) {
@@ -141,6 +148,7 @@ class MulticastDtoMapper extends ClassMapperBase<MulticastDto> {
       download: data.dec(_f$download),
       announcement: data.dec(_f$announcement),
       announce: data.dec(_f$announce),
+      supportsQuic: data.dec(_f$supportsQuic),
     );
   }
 
@@ -217,6 +225,7 @@ abstract class MulticastDtoCopyWith<$R, $In extends MulticastDto, $Out>
     bool? download,
     bool? announcement,
     bool? announce,
+    bool? supportsQuic,
   });
   MulticastDtoCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
@@ -241,6 +250,7 @@ class _MulticastDtoCopyWithImpl<$R, $Out>
     Object? download = $none,
     Object? announcement = $none,
     Object? announce = $none,
+    Object? supportsQuic = $none,
   }) => $apply(
     FieldCopyWithData({
       if (alias != null) #alias: alias,
@@ -253,6 +263,7 @@ class _MulticastDtoCopyWithImpl<$R, $Out>
       if (download != $none) #download: download,
       if (announcement != $none) #announcement: announcement,
       if (announce != $none) #announce: announce,
+      if (supportsQuic != $none) #supportsQuic: supportsQuic,
     }),
   );
   @override
@@ -267,6 +278,7 @@ class _MulticastDtoCopyWithImpl<$R, $Out>
     download: data.get(#download, or: $value.download),
     announcement: data.get(#announcement, or: $value.announcement),
     announce: data.get(#announce, or: $value.announce),
+    supportsQuic: data.get(#supportsQuic, or: $value.supportsQuic),
   );
 
   @override

@@ -12,6 +12,7 @@ import 'package:localsend_isolates/rust/api/crypto.dart';
 import 'package:localsend_isolates/rust/api/http.dart';
 import 'package:localsend_isolates/rust/api/logging.dart';
 import 'package:localsend_isolates/rust/api/model.dart';
+import 'package:localsend_isolates/rust/api/quic.dart';
 import 'package:localsend_isolates/rust/api/server.dart';
 import 'package:localsend_isolates/rust/api/stream.dart';
 import 'package:localsend_isolates/rust/api/webrtc.dart';
@@ -56,6 +57,18 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   CrossPlatformFinalizerArg get rust_arc_decrement_strong_count_RsHttpServerPtr =>
       wire._rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsHttpServerPtr;
 
+  CrossPlatformFinalizerArg get rust_arc_decrement_strong_count_RsQuicClientPtr =>
+      wire._rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicClientPtr;
+
+  CrossPlatformFinalizerArg get rust_arc_decrement_strong_count_RsQuicReceiveTransferPtr =>
+      wire._rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicReceiveTransferPtr;
+
+  CrossPlatformFinalizerArg get rust_arc_decrement_strong_count_RsQuicSendTransferPtr =>
+      wire._rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicSendTransferPtr;
+
+  CrossPlatformFinalizerArg get rust_arc_decrement_strong_count_RsQuicServerPtr =>
+      wire._rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicServerPtr;
+
   @protected
   AnyhowException dco_decode_AnyhowException(dynamic raw);
 
@@ -90,6 +103,18 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   RsHttpServer dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsHttpServer(dynamic raw);
 
   @protected
+  RsQuicClient dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicClient(dynamic raw);
+
+  @protected
+  RsQuicReceiveTransfer dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicReceiveTransfer(dynamic raw);
+
+  @protected
+  RsQuicSendTransfer dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicSendTransfer(dynamic raw);
+
+  @protected
+  RsQuicServer dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicServer(dynamic raw);
+
+  @protected
   Dart2RustStreamSink dco_decode_Auto_RefMut_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDart2RustStreamSink(dynamic raw);
 
   @protected
@@ -118,6 +143,18 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
 
   @protected
   RsHttpServer dco_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsHttpServer(dynamic raw);
+
+  @protected
+  RsQuicClient dco_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicClient(dynamic raw);
+
+  @protected
+  RsQuicReceiveTransfer dco_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicReceiveTransfer(dynamic raw);
+
+  @protected
+  RsQuicSendTransfer dco_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicSendTransfer(dynamic raw);
+
+  @protected
+  RsQuicServer dco_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicServer(dynamic raw);
 
   @protected
   FutureOr<void> Function(LsSignalingConnection)
@@ -163,6 +200,18 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
 
   @protected
   RsHttpServer dco_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsHttpServer(dynamic raw);
+
+  @protected
+  RsQuicClient dco_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicClient(dynamic raw);
+
+  @protected
+  RsQuicReceiveTransfer dco_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicReceiveTransfer(dynamic raw);
+
+  @protected
+  RsQuicSendTransfer dco_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicSendTransfer(dynamic raw);
+
+  @protected
+  RsQuicServer dco_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicServer(dynamic raw);
 
   @protected
   Set<String> dco_decode_Set_String_None(dynamic raw);
@@ -377,6 +426,10 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   );
 
   @protected
+  (RsQuicReceiveTransfer, String)
+  dco_decode_record_auto_owned_rust_opaque_flutter_rust_bridgefor_generated_rust_auto_opaque_inner_rs_quic_receive_transfer_string(dynamic raw);
+
+  @protected
   (String, FileDto) dco_decode_record_string_file_dto(dynamic raw);
 
   @protected
@@ -491,6 +544,22 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   RsHttpServer sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsHttpServer(SseDeserializer deserializer);
 
   @protected
+  RsQuicClient sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicClient(SseDeserializer deserializer);
+
+  @protected
+  RsQuicReceiveTransfer sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicReceiveTransfer(
+    SseDeserializer deserializer,
+  );
+
+  @protected
+  RsQuicSendTransfer sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicSendTransfer(
+    SseDeserializer deserializer,
+  );
+
+  @protected
+  RsQuicServer sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicServer(SseDeserializer deserializer);
+
+  @protected
   Dart2RustStreamSink sse_decode_Auto_RefMut_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDart2RustStreamSink(
     SseDeserializer deserializer,
   );
@@ -529,6 +598,22 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
 
   @protected
   RsHttpServer sse_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsHttpServer(SseDeserializer deserializer);
+
+  @protected
+  RsQuicClient sse_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicClient(SseDeserializer deserializer);
+
+  @protected
+  RsQuicReceiveTransfer sse_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicReceiveTransfer(
+    SseDeserializer deserializer,
+  );
+
+  @protected
+  RsQuicSendTransfer sse_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicSendTransfer(
+    SseDeserializer deserializer,
+  );
+
+  @protected
+  RsQuicServer sse_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicServer(SseDeserializer deserializer);
 
   @protected
   Object sse_decode_DartOpaque(SseDeserializer deserializer);
@@ -570,6 +655,18 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
 
   @protected
   RsHttpServer sse_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsHttpServer(SseDeserializer deserializer);
+
+  @protected
+  RsQuicClient sse_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicClient(SseDeserializer deserializer);
+
+  @protected
+  RsQuicReceiveTransfer sse_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicReceiveTransfer(SseDeserializer deserializer);
+
+  @protected
+  RsQuicSendTransfer sse_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicSendTransfer(SseDeserializer deserializer);
+
+  @protected
+  RsQuicServer sse_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicServer(SseDeserializer deserializer);
 
   @protected
   Set<String> sse_decode_Set_String_None(SseDeserializer deserializer);
@@ -786,6 +883,12 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   );
 
   @protected
+  (RsQuicReceiveTransfer, String)
+  sse_decode_record_auto_owned_rust_opaque_flutter_rust_bridgefor_generated_rust_auto_opaque_inner_rs_quic_receive_transfer_string(
+    SseDeserializer deserializer,
+  );
+
+  @protected
   (String, FileDto) sse_decode_record_string_file_dto(SseDeserializer deserializer);
 
   @protected
@@ -912,6 +1015,24 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   void sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsHttpServer(RsHttpServer self, SseSerializer serializer);
 
   @protected
+  void sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicClient(RsQuicClient self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicReceiveTransfer(
+    RsQuicReceiveTransfer self,
+    SseSerializer serializer,
+  );
+
+  @protected
+  void sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicSendTransfer(
+    RsQuicSendTransfer self,
+    SseSerializer serializer,
+  );
+
+  @protected
+  void sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicServer(RsQuicServer self, SseSerializer serializer);
+
+  @protected
   void sse_encode_Auto_RefMut_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDart2RustStreamSink(
     Dart2RustStreamSink self,
     SseSerializer serializer,
@@ -961,6 +1082,24 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
 
   @protected
   void sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsHttpServer(RsHttpServer self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicClient(RsQuicClient self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicReceiveTransfer(
+    RsQuicReceiveTransfer self,
+    SseSerializer serializer,
+  );
+
+  @protected
+  void sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicSendTransfer(
+    RsQuicSendTransfer self,
+    SseSerializer serializer,
+  );
+
+  @protected
+  void sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicServer(RsQuicServer self, SseSerializer serializer);
 
   @protected
   void
@@ -1022,6 +1161,21 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
 
   @protected
   void sse_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsHttpServer(RsHttpServer self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicClient(RsQuicClient self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicReceiveTransfer(
+    RsQuicReceiveTransfer self,
+    SseSerializer serializer,
+  );
+
+  @protected
+  void sse_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicSendTransfer(RsQuicSendTransfer self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicServer(RsQuicServer self, SseSerializer serializer);
 
   @protected
   void sse_encode_Set_String_None(Set<String> self, SseSerializer serializer);
@@ -1237,6 +1391,12 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   void
   sse_encode_record_auto_owned_rust_opaque_flutter_rust_bridgefor_generated_rust_auto_opaque_inner_dart_2_rust_stream_sink_auto_owned_rust_opaque_flutter_rust_bridgefor_generated_rust_auto_opaque_inner_dart_2_rust_stream_receiver(
     (Dart2RustStreamSink, Dart2RustStreamReceiver) self,
+    SseSerializer serializer,
+  );
+
+  @protected
+  void sse_encode_record_auto_owned_rust_opaque_flutter_rust_bridgefor_generated_rust_auto_opaque_inner_rs_quic_receive_transfer_string(
+    (RsQuicReceiveTransfer, String) self,
     SseSerializer serializer,
   );
 
@@ -1639,5 +1799,133 @@ class RustLibWire implements BaseWire {
       );
   late final _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsHttpServer =
       _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsHttpServerPtr
+          .asFunction<void Function(ffi.Pointer<ffi.Void>)>();
+
+  void rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicClient(
+    ffi.Pointer<ffi.Void> ptr,
+  ) {
+    return _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicClient(
+      ptr,
+    );
+  }
+
+  late final _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicClientPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
+        'frbgen_localsend_isolates_rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicClient',
+      );
+  late final _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicClient =
+      _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicClientPtr
+          .asFunction<void Function(ffi.Pointer<ffi.Void>)>();
+
+  void rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicClient(
+    ffi.Pointer<ffi.Void> ptr,
+  ) {
+    return _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicClient(
+      ptr,
+    );
+  }
+
+  late final _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicClientPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
+        'frbgen_localsend_isolates_rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicClient',
+      );
+  late final _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicClient =
+      _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicClientPtr
+          .asFunction<void Function(ffi.Pointer<ffi.Void>)>();
+
+  void rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicReceiveTransfer(
+    ffi.Pointer<ffi.Void> ptr,
+  ) {
+    return _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicReceiveTransfer(
+      ptr,
+    );
+  }
+
+  late final _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicReceiveTransferPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
+        'frbgen_localsend_isolates_rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicReceiveTransfer',
+      );
+  late final _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicReceiveTransfer =
+      _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicReceiveTransferPtr
+          .asFunction<void Function(ffi.Pointer<ffi.Void>)>();
+
+  void rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicReceiveTransfer(
+    ffi.Pointer<ffi.Void> ptr,
+  ) {
+    return _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicReceiveTransfer(
+      ptr,
+    );
+  }
+
+  late final _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicReceiveTransferPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
+        'frbgen_localsend_isolates_rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicReceiveTransfer',
+      );
+  late final _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicReceiveTransfer =
+      _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicReceiveTransferPtr
+          .asFunction<void Function(ffi.Pointer<ffi.Void>)>();
+
+  void rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicSendTransfer(
+    ffi.Pointer<ffi.Void> ptr,
+  ) {
+    return _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicSendTransfer(
+      ptr,
+    );
+  }
+
+  late final _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicSendTransferPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
+        'frbgen_localsend_isolates_rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicSendTransfer',
+      );
+  late final _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicSendTransfer =
+      _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicSendTransferPtr
+          .asFunction<void Function(ffi.Pointer<ffi.Void>)>();
+
+  void rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicSendTransfer(
+    ffi.Pointer<ffi.Void> ptr,
+  ) {
+    return _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicSendTransfer(
+      ptr,
+    );
+  }
+
+  late final _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicSendTransferPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
+        'frbgen_localsend_isolates_rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicSendTransfer',
+      );
+  late final _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicSendTransfer =
+      _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicSendTransferPtr
+          .asFunction<void Function(ffi.Pointer<ffi.Void>)>();
+
+  void rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicServer(
+    ffi.Pointer<ffi.Void> ptr,
+  ) {
+    return _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicServer(
+      ptr,
+    );
+  }
+
+  late final _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicServerPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
+        'frbgen_localsend_isolates_rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicServer',
+      );
+  late final _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicServer =
+      _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicServerPtr
+          .asFunction<void Function(ffi.Pointer<ffi.Void>)>();
+
+  void rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicServer(
+    ffi.Pointer<ffi.Void> ptr,
+  ) {
+    return _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicServer(
+      ptr,
+    );
+  }
+
+  late final _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicServerPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
+        'frbgen_localsend_isolates_rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicServer',
+      );
+  late final _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicServer =
+      _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicServerPtr
           .asFunction<void Function(ffi.Pointer<ffi.Void>)>();
 }

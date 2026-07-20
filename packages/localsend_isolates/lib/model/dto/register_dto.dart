@@ -15,6 +15,7 @@ class RegisterDto with RegisterDtoMappable {
   final int? port; // v2
   final ProtocolType? protocol; // v2
   final bool? download; // v2
+  final bool? supportsQuic; // v2
 
   const RegisterDto({
     required this.alias,
@@ -25,6 +26,7 @@ class RegisterDto with RegisterDtoMappable {
     required this.port,
     required this.protocol,
     required this.download,
+    this.supportsQuic,
   });
 
   static const fromJson = RegisterDtoMapper.fromJson;
@@ -44,6 +46,7 @@ extension RegisterDtoExt on RegisterDto {
       deviceType: deviceType ?? DeviceType.desktop,
       download: download ?? false,
       discoveryMethods: {method},
+      supportsQuic: supportsQuic ?? false,
     );
   }
 }

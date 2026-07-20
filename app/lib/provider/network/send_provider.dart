@@ -119,6 +119,7 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
         port: originDevice.port,
         protocol: originDevice.https ? rust_model.ProtocolType.https : rust_model.ProtocolType.http,
         hasWebInterface: originDevice.download,
+        supportsQuic: true,
       ),
       files: {
         for (final entry in requestState.files.entries) entry.key: entry.value.file.toRust(),

@@ -1,0 +1,293 @@
+use super::codec::{self, ControlMessage, FileAck, FileHeader};
+use super::build_client_config;
+
+use anyhow::Result;
+use bytes::Bytes;
+use memmap2::Mmap;
+use quinn::{Connection, Endpoint};
+use std::collections::HashMap;
+use std::net::SocketAddr;
+use std::path::Path;
+use tracing;
+
+/// QUIC client that connects to a receiver for file sending.
+pub struct QuicClient {
+    endpoint: Endpoint,
+}
+
+impl QuicClient {
+    /// Create a new client endpoint.
+    ///
+    /// If `server_cert_pem` is provided, only that specific certificate
+    /// will be trusted (fingerprint-based trust, same as the HTTP path).
+    /// If not provided, any self-signed cert is accepted (first connection).
+    pub fn new(server_cert_pem: Option<String>) -> Result<Self> {
+        let client_config = build_client_config(server_cert_pem.as_deref())?;
+
+        let socket = crate::quic::bind_udp_socket("[::]:0".parse()?)?;
+        let mut endpoint = quinn::Endpoint::new(
+            quinn::EndpointConfig::default(),
+            None,
+            socket,
+            quinn::default_runtime().ok_or_else(|| anyhow::anyhow!("no async runtime found"))?,
+        )?;
+        endpoint.set_default_client_config(client_config);
+
+        Ok(Self { endpoint })
+    }
+
+    /// Connect to a QUIC receiver and perform the Hello handshake.
+    pub async fn connect(
+        &self,
+        addr: SocketAddr,
+        alias: &str,
+        fingerprint: &str,
+    ) -> Result<OutgoingTransfer> {
+        let conn = self.endpoint.connect(addr, "localsend")?.await?;
+
+        tracing::info!("QUIC connected to {addr}");
+
+        // Open bidi stream 0 = control channel.
+        let (mut control_send, mut control_recv) = conn.open_bi().await?;
+
+        // Send our hello.
+        codec::write_frame(
+            &mut control_send,
+            &ControlMessage::Hello {
+                version: "3.0".into(),
+                alias: alias.to_string(),
+                fingerprint: fingerprint.to_string(),
+            },
+        )
+        .await?;
+
+        // Wait for receiver's hello.
+        let response = codec::read_frame::<ControlMessage>(&mut control_recv).await?;
+        let ControlMessage::Hello { version, alias: remote_alias, fingerprint: remote_fp } = response else {
+            anyhow::bail!("expected Hello from receiver, got a different message type");
+        };
+
+        tracing::info!(
+            "QUIC handshake complete with {remote_alias} (version={version}, fp={remote_fp})"
+        );
+
+        Ok(OutgoingTransfer {
+            conn,
+            control_send,
+            control_recv,
+        })
+    }
+}
+
+/// State machine for an outgoing transfer (sender side).
+pub struct OutgoingTransfer {
+    conn: Connection,
+    control_send: quinn::SendStream,
+    control_recv: quinn::RecvStream,
+}
+
+impl OutgoingTransfer {
+    /// Send a nonce for the v3-style nonce exchange.
+    /// Returns the receiver's nonce.
+    pub async fn send_nonce(&mut self, nonce: &str) -> Result<String> {
+        codec::write_frame(
+            &mut self.control_send,
+            &ControlMessage::NonceExchange {
+                nonce: nonce.to_string(),
+            },
+        )
+        .await?;
+
+        let response = codec::read_frame::<ControlMessage>(&mut self.control_recv).await?;
+        match response {
+            ControlMessage::NonceExchange { nonce: remote_nonce } => Ok(remote_nonce),
+            other => anyhow::bail!("expected NonceExchange, got {:?}", other),
+        }
+    }
+
+    /// Send the file list (replaces POST /prepare-upload).
+    ///
+    /// Returns the accepted file tokens, or None if the receiver declined.
+    pub async fn prepare_upload(
+        &mut self,
+        files: HashMap<String, crate::model::transfer::FileDto>,
+    ) -> Result<Option<(String, HashMap<String, String>)>> {
+        codec::write_frame(
+            &mut self.control_send,
+            &ControlMessage::PrepareUpload { files },
+        )
+        .await?;
+
+        let response = codec::read_frame::<ControlMessage>(&mut self.control_recv).await?;
+        match response {
+            ControlMessage::PrepareUploadAccept { session_id, files } => {
+                tracing::info!("Transfer accepted, session={session_id}, {} files", files.len());
+                Ok(Some((session_id, files)))
+            }
+            ControlMessage::PrepareUploadDecline => {
+                tracing::info!("Transfer declined by receiver");
+                Ok(None)
+            }
+            other => anyhow::bail!("expected PrepareUpload response, got {:?}", other),
+        }
+    }
+
+    /// Send a single file using memory-mapped I/O.
+    ///
+    /// Opens a new unidirectional QUIC stream, writes the file header,
+    /// then sends the mmap'd data in chunks using `write_all` (zero-copy
+    /// from the mmap slice into Quinn's send buffer).
+    pub async fn send_file_mmap(
+        &self,
+        file_path: &Path,
+        file_id: &str,
+        token: &str,
+    ) -> Result<()> {
+        self.send_file_mmap_with_progress(file_path, file_id, token, None).await
+    }
+
+    /// Same as `send_file_mmap` but updates `progress` after each chunk.
+    pub async fn send_file_mmap_with_progress(
+        &self,
+        file_path: &Path,
+        file_id: &str,
+        token: &str,
+        progress: Option<&std::sync::atomic::AtomicU64>,
+    ) -> Result<()> {
+        let file = std::fs::File::open(file_path)?;
+        let metadata = file.metadata()?;
+        let mmap = unsafe { Mmap::map(&file)? };
+
+        tracing::debug!(
+            "Sending file {} ({}, {} bytes) via mmap+QUIC",
+            file_id,
+            file_path.display(),
+            metadata.len(),
+        );
+
+        // Open a fresh unidirectional stream for this file.
+        let mut stream = self.conn.open_uni().await?;
+
+        // Write the file header as a framed message.
+        let header = FileHeader {
+            file_id: file_id.to_string(),
+            token: token.to_string(),
+        };
+        codec::write_frame(&mut stream, &header).await?;
+
+        // Send the mmap'd file in chunks. `write_all` copies from the mmap
+        // slice directly into Quinn's send buffer — no intermediate `Bytes`
+        // allocation per chunk.
+        let chunk_size = super::SEND_CHUNK_SIZE;
+        let mut offset = 0;
+        while offset < mmap.len() {
+            let end = (offset + chunk_size).min(mmap.len());
+            stream.write_all(&mmap[offset..end]).await?;
+            offset = end;
+            if let Some(p) = progress {
+                p.store(offset as u64, std::sync::atomic::Ordering::Relaxed);
+            }
+        }
+        drop(mmap); // release the mapping
+        stream.finish()?;
+
+        tracing::debug!("File {} sent successfully", file_id);
+        Ok(())
+    }
+
+    /// Send a file from a stream (non-mmap fallback for Android SAF, etc).
+    ///
+    /// Reads chunks from the provided receiver and writes them to the
+    /// QUIC stream. This is the fallback when memory mapping isn't
+    /// possible (e.g., Android scoped storage, files in assets).
+    pub async fn send_file_stream(
+        &self,
+        file_id: &str,
+        token: &str,
+        mut data_rx: tokio::sync::mpsc::Receiver<Vec<u8>>,
+    ) -> Result<()> {
+        let mut stream = self.conn.open_uni().await?;
+
+        let header = FileHeader {
+            file_id: file_id.to_string(),
+            token: token.to_string(),
+        };
+        codec::write_frame(&mut stream, &header).await?;
+
+        while let Some(chunk) = data_rx.recv().await {
+            stream.write_chunk(Bytes::from(chunk)).await?;
+        }
+
+        stream.finish()?;
+        Ok(())
+    }
+
+    /// Wait for the receiver to acknowledge a file.
+    pub async fn wait_file_ack(&mut self) -> Result<FileAck> {
+        let msg = codec::read_frame::<ControlMessage>(&mut self.control_recv).await?;
+        match msg {
+            ControlMessage::FileAck(ack) => Ok(ack),
+            ControlMessage::Cancel { session_id } => {
+                anyhow::bail!("transfer cancelled by receiver (session={session_id})");
+            }
+            other => anyhow::bail!("expected FileAck, got {:?}", other),
+        }
+    }
+
+    /// Cancel the transfer.
+    pub async fn cancel(&mut self, session_id: &str) -> Result<()> {
+        codec::write_frame(
+            &mut self.control_send,
+            &ControlMessage::Cancel {
+                session_id: session_id.to_string(),
+            },
+        )
+        .await
+    }
+
+    /// Signal graceful completion.
+    pub async fn done(&mut self) -> Result<()> {
+        codec::write_frame(&mut self.control_send, &ControlMessage::Done).await
+    }
+
+    /// Get the underlying connection.
+    pub fn connection(&self) -> &Connection {
+        &self.conn
+    }
+
+    /// Close the QUIC connection entirely.  This implicitly resets all
+    /// in-flight streams (receiver gets RST_STREAM / connection error).
+    pub fn close_connection(&mut self) {
+        self.conn.close(0u32.into(), b"cancelled");
+    }
+}
+
+impl crate::transfer::TransferSession for OutgoingTransfer {
+    async fn prepare_upload(
+        &mut self,
+        files: HashMap<String, crate::model::transfer::FileDto>,
+    ) -> anyhow::Result<Option<crate::transfer::AcceptedFiles>> {
+        let res = OutgoingTransfer::prepare_upload(self, files).await?;
+        Ok(res.map(|(session_id, accepted_files)| crate::transfer::AcceptedFiles {
+            session_id,
+            files: accepted_files,
+        }))
+    }
+
+    async fn send_file(
+        &mut self,
+        file_id: &str,
+        file_path: &Path,
+        token: &str,
+    ) -> anyhow::Result<()> {
+        self.send_file_mmap(file_path, file_id, token).await
+    }
+
+    async fn cancel(&mut self, session_id: &str) -> anyhow::Result<()> {
+        OutgoingTransfer::cancel(self, session_id).await
+    }
+
+    async fn finish(&mut self) -> anyhow::Result<()> {
+        self.done().await
+    }
+}

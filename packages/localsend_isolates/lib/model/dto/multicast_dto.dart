@@ -19,6 +19,7 @@ class MulticastDto with MulticastDtoMappable {
   final bool? download; // v2
   final bool? announcement; // v1
   final bool? announce; // v2
+  final bool? supportsQuic; // v2
 
   const MulticastDto({
     required this.alias,
@@ -31,6 +32,7 @@ class MulticastDto with MulticastDtoMappable {
     required this.download,
     required this.announcement,
     required this.announce,
+    this.supportsQuic,
   });
 
   static const fromJson = MulticastDtoMapper.fromJson;
@@ -50,6 +52,7 @@ extension MulticastDtoToDeviceExt on MulticastDto {
       deviceType: deviceType ?? DeviceType.desktop,
       download: download ?? false,
       discoveryMethods: {MulticastDiscovery()},
+      supportsQuic: supportsQuic ?? false,
     );
   }
 }

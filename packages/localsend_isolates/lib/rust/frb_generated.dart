@@ -11,6 +11,7 @@ import 'package:localsend_isolates/rust/api/crypto.dart';
 import 'package:localsend_isolates/rust/api/http.dart';
 import 'package:localsend_isolates/rust/api/logging.dart';
 import 'package:localsend_isolates/rust/api/model.dart';
+import 'package:localsend_isolates/rust/api/quic.dart';
 import 'package:localsend_isolates/rust/api/server.dart';
 import 'package:localsend_isolates/rust/api/stream.dart';
 import 'package:localsend_isolates/rust/api/webrtc.dart';
@@ -72,7 +73,7 @@ class RustLib extends BaseEntrypoint<RustLibApi, RustLibApiImpl, RustLibWire> {
   String get codegenVersion => '2.12.0';
 
   @override
-  int get rustContentHash => -1029282510;
+  int get rustContentHash => -298991524;
 
   static const kDefaultExternalLibraryLoaderConfig = ExternalLibraryLoaderConfig(
     stem: 'rust_lib_localsend_app',
@@ -225,6 +226,69 @@ abstract class RustLibApi extends BaseApi {
 
   Future<KeyPair> crateApiCryptoGenerateKeyPair();
 
+  Future<void> crateApiQuicQuicAcceptFiles({required RsQuicReceiveTransfer transfer, required String sessionId, required String fileTokensJson});
+
+  Future<void> crateApiQuicQuicAckFile({required RsQuicReceiveTransfer transfer, required String fileId, String? error});
+
+  Future<void> crateApiQuicQuicCancel({required RsQuicSendTransfer transfer, required String sessionId});
+
+  Future<RsQuicSendTransfer> crateApiQuicQuicClientConnect({
+    required RsQuicClient client,
+    required String addr,
+    required String alias,
+    required String fingerprint,
+  });
+
+  Future<RsQuicClient> crateApiQuicQuicClientNew({String? serverCertPem});
+
+  Future<void> crateApiQuicQuicDecline({required RsQuicReceiveTransfer transfer});
+
+  Future<void> crateApiQuicQuicDone({required RsQuicSendTransfer transfer});
+
+  Future<String> crateApiQuicQuicGetParallelReceiveProgress({required RsQuicReceiveTransfer transfer});
+
+  Future<String> crateApiQuicQuicGetParallelSendProgress({required RsQuicSendTransfer transfer});
+
+  Future<BigInt> crateApiQuicQuicGetReceiveProgress({required RsQuicReceiveTransfer transfer});
+
+  Future<BigInt> crateApiQuicQuicGetSendProgress({required RsQuicSendTransfer transfer});
+
+  Future<String?> crateApiQuicQuicPrepareUpload({required RsQuicSendTransfer transfer, required String filesJson});
+
+  Future<void> crateApiQuicQuicReceiveCancel({required RsQuicReceiveTransfer transfer, required String sessionId});
+
+  Future<String> crateApiQuicQuicReceiveFileList({required RsQuicReceiveTransfer transfer});
+
+  Future<String> crateApiQuicQuicReceiveFilesParallel({required RsQuicReceiveTransfer transfer, required String filesJson});
+
+  Future<String> crateApiQuicQuicReceiveSingleFile({required RsQuicReceiveTransfer transfer, required String outputPath});
+
+  Future<void> crateApiQuicQuicSendBytes({
+    required RsQuicSendTransfer transfer,
+    required List<int> data,
+    required String fileId,
+    required String token,
+  });
+
+  Future<void> crateApiQuicQuicSendFilesParallel({required RsQuicSendTransfer transfer, required String filesJson});
+
+  Future<void> crateApiQuicQuicSendSingleFile({
+    required RsQuicSendTransfer transfer,
+    required String filePath,
+    required String fileId,
+    required String token,
+  });
+
+  Future<(RsQuicReceiveTransfer, String)> crateApiQuicQuicServerAccept({
+    required RsQuicServer server,
+    required String serverAlias,
+    required String serverFingerprint,
+  });
+
+  Future<String> crateApiQuicQuicServerLocalAddr({required RsQuicServer server});
+
+  Future<RsQuicServer> crateApiQuicQuicServerStart({required int port, required String certPem, required String keyPem});
+
   Future<RsHttpServer> crateApiServerStartServer({
     required int port,
     TlsConfig? tls,
@@ -299,6 +363,30 @@ abstract class RustLibApi extends BaseApi {
   RustArcDecrementStrongCountFnType get rust_arc_decrement_strong_count_RsHttpServer;
 
   CrossPlatformFinalizerArg get rust_arc_decrement_strong_count_RsHttpServerPtr;
+
+  RustArcIncrementStrongCountFnType get rust_arc_increment_strong_count_RsQuicClient;
+
+  RustArcDecrementStrongCountFnType get rust_arc_decrement_strong_count_RsQuicClient;
+
+  CrossPlatformFinalizerArg get rust_arc_decrement_strong_count_RsQuicClientPtr;
+
+  RustArcIncrementStrongCountFnType get rust_arc_increment_strong_count_RsQuicReceiveTransfer;
+
+  RustArcDecrementStrongCountFnType get rust_arc_decrement_strong_count_RsQuicReceiveTransfer;
+
+  CrossPlatformFinalizerArg get rust_arc_decrement_strong_count_RsQuicReceiveTransferPtr;
+
+  RustArcIncrementStrongCountFnType get rust_arc_increment_strong_count_RsQuicSendTransfer;
+
+  RustArcDecrementStrongCountFnType get rust_arc_decrement_strong_count_RsQuicSendTransfer;
+
+  CrossPlatformFinalizerArg get rust_arc_decrement_strong_count_RsQuicSendTransferPtr;
+
+  RustArcIncrementStrongCountFnType get rust_arc_increment_strong_count_RsQuicServer;
+
+  RustArcDecrementStrongCountFnType get rust_arc_decrement_strong_count_RsQuicServer;
+
+  CrossPlatformFinalizerArg get rust_arc_decrement_strong_count_RsQuicServerPtr;
 }
 
 class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
@@ -1451,6 +1539,599 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   );
 
   @override
+  Future<void> crateApiQuicQuicAcceptFiles({required RsQuicReceiveTransfer transfer, required String sessionId, required String fileTokensJson}) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicReceiveTransfer(transfer, serializer);
+          sse_encode_String(sessionId, serializer);
+          sse_encode_String(fileTokensJson, serializer);
+          pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 39, port: port_);
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_unit,
+          decodeErrorData: sse_decode_String,
+        ),
+        constMeta: kCrateApiQuicQuicAcceptFilesConstMeta,
+        argValues: [transfer, sessionId, fileTokensJson],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kCrateApiQuicQuicAcceptFilesConstMeta => const TaskConstMeta(
+    debugName: 'quic_accept_files',
+    argNames: ['transfer', 'sessionId', 'fileTokensJson'],
+  );
+
+  @override
+  Future<void> crateApiQuicQuicAckFile({required RsQuicReceiveTransfer transfer, required String fileId, String? error}) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicReceiveTransfer(transfer, serializer);
+          sse_encode_String(fileId, serializer);
+          sse_encode_opt_String(error, serializer);
+          pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 40, port: port_);
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_unit,
+          decodeErrorData: sse_decode_String,
+        ),
+        constMeta: kCrateApiQuicQuicAckFileConstMeta,
+        argValues: [transfer, fileId, error],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kCrateApiQuicQuicAckFileConstMeta => const TaskConstMeta(
+    debugName: 'quic_ack_file',
+    argNames: ['transfer', 'fileId', 'error'],
+  );
+
+  @override
+  Future<void> crateApiQuicQuicCancel({required RsQuicSendTransfer transfer, required String sessionId}) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicSendTransfer(transfer, serializer);
+          sse_encode_String(sessionId, serializer);
+          pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 41, port: port_);
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_unit,
+          decodeErrorData: sse_decode_String,
+        ),
+        constMeta: kCrateApiQuicQuicCancelConstMeta,
+        argValues: [transfer, sessionId],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kCrateApiQuicQuicCancelConstMeta => const TaskConstMeta(
+    debugName: 'quic_cancel',
+    argNames: ['transfer', 'sessionId'],
+  );
+
+  @override
+  Future<RsQuicSendTransfer> crateApiQuicQuicClientConnect({
+    required RsQuicClient client,
+    required String addr,
+    required String alias,
+    required String fingerprint,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicClient(client, serializer);
+          sse_encode_String(addr, serializer);
+          sse_encode_String(alias, serializer);
+          sse_encode_String(fingerprint, serializer);
+          pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 42, port: port_);
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicSendTransfer,
+          decodeErrorData: sse_decode_String,
+        ),
+        constMeta: kCrateApiQuicQuicClientConnectConstMeta,
+        argValues: [client, addr, alias, fingerprint],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kCrateApiQuicQuicClientConnectConstMeta => const TaskConstMeta(
+    debugName: 'quic_client_connect',
+    argNames: ['client', 'addr', 'alias', 'fingerprint'],
+  );
+
+  @override
+  Future<RsQuicClient> crateApiQuicQuicClientNew({String? serverCertPem}) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_opt_String(serverCertPem, serializer);
+          pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 43, port: port_);
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicClient,
+          decodeErrorData: sse_decode_String,
+        ),
+        constMeta: kCrateApiQuicQuicClientNewConstMeta,
+        argValues: [serverCertPem],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kCrateApiQuicQuicClientNewConstMeta => const TaskConstMeta(
+    debugName: 'quic_client_new',
+    argNames: ['serverCertPem'],
+  );
+
+  @override
+  Future<void> crateApiQuicQuicDecline({required RsQuicReceiveTransfer transfer}) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicReceiveTransfer(transfer, serializer);
+          pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 44, port: port_);
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_unit,
+          decodeErrorData: sse_decode_String,
+        ),
+        constMeta: kCrateApiQuicQuicDeclineConstMeta,
+        argValues: [transfer],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kCrateApiQuicQuicDeclineConstMeta => const TaskConstMeta(
+    debugName: 'quic_decline',
+    argNames: ['transfer'],
+  );
+
+  @override
+  Future<void> crateApiQuicQuicDone({required RsQuicSendTransfer transfer}) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicSendTransfer(transfer, serializer);
+          pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 45, port: port_);
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_unit,
+          decodeErrorData: sse_decode_String,
+        ),
+        constMeta: kCrateApiQuicQuicDoneConstMeta,
+        argValues: [transfer],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kCrateApiQuicQuicDoneConstMeta => const TaskConstMeta(
+    debugName: 'quic_done',
+    argNames: ['transfer'],
+  );
+
+  @override
+  Future<String> crateApiQuicQuicGetParallelReceiveProgress({required RsQuicReceiveTransfer transfer}) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicReceiveTransfer(transfer, serializer);
+          pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 46, port: port_);
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_String,
+          decodeErrorData: null,
+        ),
+        constMeta: kCrateApiQuicQuicGetParallelReceiveProgressConstMeta,
+        argValues: [transfer],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kCrateApiQuicQuicGetParallelReceiveProgressConstMeta => const TaskConstMeta(
+    debugName: 'quic_get_parallel_receive_progress',
+    argNames: ['transfer'],
+  );
+
+  @override
+  Future<String> crateApiQuicQuicGetParallelSendProgress({required RsQuicSendTransfer transfer}) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicSendTransfer(transfer, serializer);
+          pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 47, port: port_);
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_String,
+          decodeErrorData: null,
+        ),
+        constMeta: kCrateApiQuicQuicGetParallelSendProgressConstMeta,
+        argValues: [transfer],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kCrateApiQuicQuicGetParallelSendProgressConstMeta => const TaskConstMeta(
+    debugName: 'quic_get_parallel_send_progress',
+    argNames: ['transfer'],
+  );
+
+  @override
+  Future<BigInt> crateApiQuicQuicGetReceiveProgress({required RsQuicReceiveTransfer transfer}) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicReceiveTransfer(transfer, serializer);
+          pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 48, port: port_);
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_u_64,
+          decodeErrorData: null,
+        ),
+        constMeta: kCrateApiQuicQuicGetReceiveProgressConstMeta,
+        argValues: [transfer],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kCrateApiQuicQuicGetReceiveProgressConstMeta => const TaskConstMeta(
+    debugName: 'quic_get_receive_progress',
+    argNames: ['transfer'],
+  );
+
+  @override
+  Future<BigInt> crateApiQuicQuicGetSendProgress({required RsQuicSendTransfer transfer}) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicSendTransfer(transfer, serializer);
+          pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 49, port: port_);
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_u_64,
+          decodeErrorData: null,
+        ),
+        constMeta: kCrateApiQuicQuicGetSendProgressConstMeta,
+        argValues: [transfer],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kCrateApiQuicQuicGetSendProgressConstMeta => const TaskConstMeta(
+    debugName: 'quic_get_send_progress',
+    argNames: ['transfer'],
+  );
+
+  @override
+  Future<String?> crateApiQuicQuicPrepareUpload({required RsQuicSendTransfer transfer, required String filesJson}) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicSendTransfer(transfer, serializer);
+          sse_encode_String(filesJson, serializer);
+          pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 50, port: port_);
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_opt_String,
+          decodeErrorData: sse_decode_String,
+        ),
+        constMeta: kCrateApiQuicQuicPrepareUploadConstMeta,
+        argValues: [transfer, filesJson],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kCrateApiQuicQuicPrepareUploadConstMeta => const TaskConstMeta(
+    debugName: 'quic_prepare_upload',
+    argNames: ['transfer', 'filesJson'],
+  );
+
+  @override
+  Future<void> crateApiQuicQuicReceiveCancel({required RsQuicReceiveTransfer transfer, required String sessionId}) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicReceiveTransfer(transfer, serializer);
+          sse_encode_String(sessionId, serializer);
+          pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 51, port: port_);
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_unit,
+          decodeErrorData: sse_decode_String,
+        ),
+        constMeta: kCrateApiQuicQuicReceiveCancelConstMeta,
+        argValues: [transfer, sessionId],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kCrateApiQuicQuicReceiveCancelConstMeta => const TaskConstMeta(
+    debugName: 'quic_receive_cancel',
+    argNames: ['transfer', 'sessionId'],
+  );
+
+  @override
+  Future<String> crateApiQuicQuicReceiveFileList({required RsQuicReceiveTransfer transfer}) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicReceiveTransfer(transfer, serializer);
+          pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 52, port: port_);
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_String,
+          decodeErrorData: sse_decode_String,
+        ),
+        constMeta: kCrateApiQuicQuicReceiveFileListConstMeta,
+        argValues: [transfer],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kCrateApiQuicQuicReceiveFileListConstMeta => const TaskConstMeta(
+    debugName: 'quic_receive_file_list',
+    argNames: ['transfer'],
+  );
+
+  @override
+  Future<String> crateApiQuicQuicReceiveFilesParallel({required RsQuicReceiveTransfer transfer, required String filesJson}) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicReceiveTransfer(transfer, serializer);
+          sse_encode_String(filesJson, serializer);
+          pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 53, port: port_);
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_String,
+          decodeErrorData: sse_decode_String,
+        ),
+        constMeta: kCrateApiQuicQuicReceiveFilesParallelConstMeta,
+        argValues: [transfer, filesJson],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kCrateApiQuicQuicReceiveFilesParallelConstMeta => const TaskConstMeta(
+    debugName: 'quic_receive_files_parallel',
+    argNames: ['transfer', 'filesJson'],
+  );
+
+  @override
+  Future<String> crateApiQuicQuicReceiveSingleFile({required RsQuicReceiveTransfer transfer, required String outputPath}) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicReceiveTransfer(transfer, serializer);
+          sse_encode_String(outputPath, serializer);
+          pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 54, port: port_);
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_String,
+          decodeErrorData: sse_decode_String,
+        ),
+        constMeta: kCrateApiQuicQuicReceiveSingleFileConstMeta,
+        argValues: [transfer, outputPath],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kCrateApiQuicQuicReceiveSingleFileConstMeta => const TaskConstMeta(
+    debugName: 'quic_receive_single_file',
+    argNames: ['transfer', 'outputPath'],
+  );
+
+  @override
+  Future<void> crateApiQuicQuicSendBytes({
+    required RsQuicSendTransfer transfer,
+    required List<int> data,
+    required String fileId,
+    required String token,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicSendTransfer(transfer, serializer);
+          sse_encode_list_prim_u_8_loose(data, serializer);
+          sse_encode_String(fileId, serializer);
+          sse_encode_String(token, serializer);
+          pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 55, port: port_);
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_unit,
+          decodeErrorData: sse_decode_String,
+        ),
+        constMeta: kCrateApiQuicQuicSendBytesConstMeta,
+        argValues: [transfer, data, fileId, token],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kCrateApiQuicQuicSendBytesConstMeta => const TaskConstMeta(
+    debugName: 'quic_send_bytes',
+    argNames: ['transfer', 'data', 'fileId', 'token'],
+  );
+
+  @override
+  Future<void> crateApiQuicQuicSendFilesParallel({required RsQuicSendTransfer transfer, required String filesJson}) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicSendTransfer(transfer, serializer);
+          sse_encode_String(filesJson, serializer);
+          pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 56, port: port_);
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_unit,
+          decodeErrorData: sse_decode_String,
+        ),
+        constMeta: kCrateApiQuicQuicSendFilesParallelConstMeta,
+        argValues: [transfer, filesJson],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kCrateApiQuicQuicSendFilesParallelConstMeta => const TaskConstMeta(
+    debugName: 'quic_send_files_parallel',
+    argNames: ['transfer', 'filesJson'],
+  );
+
+  @override
+  Future<void> crateApiQuicQuicSendSingleFile({
+    required RsQuicSendTransfer transfer,
+    required String filePath,
+    required String fileId,
+    required String token,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicSendTransfer(transfer, serializer);
+          sse_encode_String(filePath, serializer);
+          sse_encode_String(fileId, serializer);
+          sse_encode_String(token, serializer);
+          pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 57, port: port_);
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_unit,
+          decodeErrorData: sse_decode_String,
+        ),
+        constMeta: kCrateApiQuicQuicSendSingleFileConstMeta,
+        argValues: [transfer, filePath, fileId, token],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kCrateApiQuicQuicSendSingleFileConstMeta => const TaskConstMeta(
+    debugName: 'quic_send_single_file',
+    argNames: ['transfer', 'filePath', 'fileId', 'token'],
+  );
+
+  @override
+  Future<(RsQuicReceiveTransfer, String)> crateApiQuicQuicServerAccept({
+    required RsQuicServer server,
+    required String serverAlias,
+    required String serverFingerprint,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicServer(server, serializer);
+          sse_encode_String(serverAlias, serializer);
+          sse_encode_String(serverFingerprint, serializer);
+          pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 58, port: port_);
+        },
+        codec: SseCodec(
+          decodeSuccessData:
+              sse_decode_record_auto_owned_rust_opaque_flutter_rust_bridgefor_generated_rust_auto_opaque_inner_rs_quic_receive_transfer_string,
+          decodeErrorData: sse_decode_String,
+        ),
+        constMeta: kCrateApiQuicQuicServerAcceptConstMeta,
+        argValues: [server, serverAlias, serverFingerprint],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kCrateApiQuicQuicServerAcceptConstMeta => const TaskConstMeta(
+    debugName: 'quic_server_accept',
+    argNames: ['server', 'serverAlias', 'serverFingerprint'],
+  );
+
+  @override
+  Future<String> crateApiQuicQuicServerLocalAddr({required RsQuicServer server}) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicServer(server, serializer);
+          pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 59, port: port_);
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_String,
+          decodeErrorData: sse_decode_String,
+        ),
+        constMeta: kCrateApiQuicQuicServerLocalAddrConstMeta,
+        argValues: [server],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kCrateApiQuicQuicServerLocalAddrConstMeta => const TaskConstMeta(
+    debugName: 'quic_server_local_addr',
+    argNames: ['server'],
+  );
+
+  @override
+  Future<RsQuicServer> crateApiQuicQuicServerStart({required int port, required String certPem, required String keyPem}) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_u_16(port, serializer);
+          sse_encode_String(certPem, serializer);
+          sse_encode_String(keyPem, serializer);
+          pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 60, port: port_);
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicServer,
+          decodeErrorData: sse_decode_String,
+        ),
+        constMeta: kCrateApiQuicQuicServerStartConstMeta,
+        argValues: [port, certPem, keyPem],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kCrateApiQuicQuicServerStartConstMeta => const TaskConstMeta(
+    debugName: 'quic_server_start',
+    argNames: ['port', 'certPem', 'keyPem'],
+  );
+
+  @override
   Future<RsHttpServer> crateApiServerStartServer({
     required int port,
     TlsConfig? tls,
@@ -1477,7 +2158,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           sse_encode_opt_String(pin, serializer);
           sse_encode_opt_box_autoadd_web_send_params(webSend, serializer);
           sse_encode_opt_String(showToken, serializer);
-          pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 39, port: port_);
+          pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 61, port: port_);
         },
         codec: SseCodec(
           decodeSuccessData: sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsHttpServer,
@@ -1503,7 +2184,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           final serializer = SseSerializer(generalizedFrbRustBinding);
           sse_encode_String(cert, serializer);
           sse_encode_String(publicKey, serializer);
-          pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 40, port: port_);
+          pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 62, port: port_);
         },
         codec: SseCodec(
           decodeSuccessData: sse_decode_unit,
@@ -1611,6 +2292,30 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   RustArcDecrementStrongCountFnType get rust_arc_decrement_strong_count_RsHttpServer =>
       wire.rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsHttpServer;
 
+  RustArcIncrementStrongCountFnType get rust_arc_increment_strong_count_RsQuicClient =>
+      wire.rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicClient;
+
+  RustArcDecrementStrongCountFnType get rust_arc_decrement_strong_count_RsQuicClient =>
+      wire.rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicClient;
+
+  RustArcIncrementStrongCountFnType get rust_arc_increment_strong_count_RsQuicReceiveTransfer =>
+      wire.rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicReceiveTransfer;
+
+  RustArcDecrementStrongCountFnType get rust_arc_decrement_strong_count_RsQuicReceiveTransfer =>
+      wire.rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicReceiveTransfer;
+
+  RustArcIncrementStrongCountFnType get rust_arc_increment_strong_count_RsQuicSendTransfer =>
+      wire.rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicSendTransfer;
+
+  RustArcDecrementStrongCountFnType get rust_arc_decrement_strong_count_RsQuicSendTransfer =>
+      wire.rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicSendTransfer;
+
+  RustArcIncrementStrongCountFnType get rust_arc_increment_strong_count_RsQuicServer =>
+      wire.rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicServer;
+
+  RustArcDecrementStrongCountFnType get rust_arc_decrement_strong_count_RsQuicServer =>
+      wire.rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicServer;
+
   @protected
   AnyhowException dco_decode_AnyhowException(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
@@ -1678,6 +2383,30 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  RsQuicClient dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicClient(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return RsQuicClientImpl.frbInternalDcoDecode(raw as List<dynamic>);
+  }
+
+  @protected
+  RsQuicReceiveTransfer dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicReceiveTransfer(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return RsQuicReceiveTransferImpl.frbInternalDcoDecode(raw as List<dynamic>);
+  }
+
+  @protected
+  RsQuicSendTransfer dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicSendTransfer(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return RsQuicSendTransferImpl.frbInternalDcoDecode(raw as List<dynamic>);
+  }
+
+  @protected
+  RsQuicServer dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicServer(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return RsQuicServerImpl.frbInternalDcoDecode(raw as List<dynamic>);
+  }
+
+  @protected
   Dart2RustStreamSink dco_decode_Auto_RefMut_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDart2RustStreamSink(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return Dart2RustStreamSinkImpl.frbInternalDcoDecode(raw as List<dynamic>);
@@ -1735,6 +2464,30 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   RsHttpServer dco_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsHttpServer(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return RsHttpServerImpl.frbInternalDcoDecode(raw as List<dynamic>);
+  }
+
+  @protected
+  RsQuicClient dco_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicClient(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return RsQuicClientImpl.frbInternalDcoDecode(raw as List<dynamic>);
+  }
+
+  @protected
+  RsQuicReceiveTransfer dco_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicReceiveTransfer(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return RsQuicReceiveTransferImpl.frbInternalDcoDecode(raw as List<dynamic>);
+  }
+
+  @protected
+  RsQuicSendTransfer dco_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicSendTransfer(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return RsQuicSendTransferImpl.frbInternalDcoDecode(raw as List<dynamic>);
+  }
+
+  @protected
+  RsQuicServer dco_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicServer(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return RsQuicServerImpl.frbInternalDcoDecode(raw as List<dynamic>);
   }
 
   @protected
@@ -1822,6 +2575,30 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   RsHttpServer dco_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsHttpServer(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return RsHttpServerImpl.frbInternalDcoDecode(raw as List<dynamic>);
+  }
+
+  @protected
+  RsQuicClient dco_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicClient(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return RsQuicClientImpl.frbInternalDcoDecode(raw as List<dynamic>);
+  }
+
+  @protected
+  RsQuicReceiveTransfer dco_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicReceiveTransfer(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return RsQuicReceiveTransferImpl.frbInternalDcoDecode(raw as List<dynamic>);
+  }
+
+  @protected
+  RsQuicSendTransfer dco_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicSendTransfer(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return RsQuicSendTransferImpl.frbInternalDcoDecode(raw as List<dynamic>);
+  }
+
+  @protected
+  RsQuicServer dco_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicServer(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return RsQuicServerImpl.frbInternalDcoDecode(raw as List<dynamic>);
   }
 
   @protected
@@ -2319,6 +3096,20 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  (RsQuicReceiveTransfer, String)
+  dco_decode_record_auto_owned_rust_opaque_flutter_rust_bridgefor_generated_rust_auto_opaque_inner_rs_quic_receive_transfer_string(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 2) {
+      throw Exception('Expected 2 elements, got ${arr.length}');
+    }
+    return (
+      dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicReceiveTransfer(arr[0]),
+      dco_decode_String(arr[1]),
+    );
+  }
+
+  @protected
   (String, FileDto) dco_decode_record_string_file_dto(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     final arr = raw as List<dynamic>;
@@ -2348,7 +3139,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   RegisterDto dco_decode_register_dto(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     final arr = raw as List<dynamic>;
-    if (arr.length != 8) throw Exception('unexpected arr length: expect 8 but see ${arr.length}');
+    if (arr.length != 9) throw Exception('unexpected arr length: expect 9 but see ${arr.length}');
     return RegisterDto(
       alias: dco_decode_String(arr[0]),
       version: dco_decode_String(arr[1]),
@@ -2358,6 +3149,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       port: dco_decode_u_16(arr[5]),
       protocol: dco_decode_protocol_type(arr[6]),
       hasWebInterface: dco_decode_bool(arr[7]),
+      supportsQuic: dco_decode_bool(arr[8]),
     );
   }
 
@@ -2382,7 +3174,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   RegisterResponseDto dco_decode_register_response_dto(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     final arr = raw as List<dynamic>;
-    if (arr.length != 6) throw Exception('unexpected arr length: expect 6 but see ${arr.length}');
+    if (arr.length != 7) throw Exception('unexpected arr length: expect 7 but see ${arr.length}');
     return RegisterResponseDto(
       alias: dco_decode_String(arr[0]),
       version: dco_decode_String(arr[1]),
@@ -2390,6 +3182,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       deviceType: dco_decode_opt_box_autoadd_device_type(arr[3]),
       token: dco_decode_String(arr[4]),
       hasWebInterface: dco_decode_bool(arr[5]),
+      supportsQuic: dco_decode_bool(arr[6]),
     );
   }
 
@@ -2743,6 +3536,34 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  RsQuicClient sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicClient(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return RsQuicClientImpl.frbInternalSseDecode(sse_decode_usize(deserializer), sse_decode_i_32(deserializer));
+  }
+
+  @protected
+  RsQuicReceiveTransfer sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicReceiveTransfer(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return RsQuicReceiveTransferImpl.frbInternalSseDecode(sse_decode_usize(deserializer), sse_decode_i_32(deserializer));
+  }
+
+  @protected
+  RsQuicSendTransfer sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicSendTransfer(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return RsQuicSendTransferImpl.frbInternalSseDecode(sse_decode_usize(deserializer), sse_decode_i_32(deserializer));
+  }
+
+  @protected
+  RsQuicServer sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicServer(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return RsQuicServerImpl.frbInternalSseDecode(sse_decode_usize(deserializer), sse_decode_i_32(deserializer));
+  }
+
+  @protected
   Dart2RustStreamSink sse_decode_Auto_RefMut_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDart2RustStreamSink(
     SseDeserializer deserializer,
   ) {
@@ -2812,6 +3633,34 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   RsHttpServer sse_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsHttpServer(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     return RsHttpServerImpl.frbInternalSseDecode(sse_decode_usize(deserializer), sse_decode_i_32(deserializer));
+  }
+
+  @protected
+  RsQuicClient sse_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicClient(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return RsQuicClientImpl.frbInternalSseDecode(sse_decode_usize(deserializer), sse_decode_i_32(deserializer));
+  }
+
+  @protected
+  RsQuicReceiveTransfer sse_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicReceiveTransfer(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return RsQuicReceiveTransferImpl.frbInternalSseDecode(sse_decode_usize(deserializer), sse_decode_i_32(deserializer));
+  }
+
+  @protected
+  RsQuicSendTransfer sse_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicSendTransfer(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return RsQuicSendTransferImpl.frbInternalSseDecode(sse_decode_usize(deserializer), sse_decode_i_32(deserializer));
+  }
+
+  @protected
+  RsQuicServer sse_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicServer(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return RsQuicServerImpl.frbInternalSseDecode(sse_decode_usize(deserializer), sse_decode_i_32(deserializer));
   }
 
   @protected
@@ -2895,6 +3744,30 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   RsHttpServer sse_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsHttpServer(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     return RsHttpServerImpl.frbInternalSseDecode(sse_decode_usize(deserializer), sse_decode_i_32(deserializer));
+  }
+
+  @protected
+  RsQuicClient sse_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicClient(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return RsQuicClientImpl.frbInternalSseDecode(sse_decode_usize(deserializer), sse_decode_i_32(deserializer));
+  }
+
+  @protected
+  RsQuicReceiveTransfer sse_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicReceiveTransfer(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return RsQuicReceiveTransferImpl.frbInternalSseDecode(sse_decode_usize(deserializer), sse_decode_i_32(deserializer));
+  }
+
+  @protected
+  RsQuicSendTransfer sse_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicSendTransfer(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return RsQuicSendTransferImpl.frbInternalSseDecode(sse_decode_usize(deserializer), sse_decode_i_32(deserializer));
+  }
+
+  @protected
+  RsQuicServer sse_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicServer(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return RsQuicServerImpl.frbInternalSseDecode(sse_decode_usize(deserializer), sse_decode_i_32(deserializer));
   }
 
   @protected
@@ -3461,6 +4334,17 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  (RsQuicReceiveTransfer, String)
+  sse_decode_record_auto_owned_rust_opaque_flutter_rust_bridgefor_generated_rust_auto_opaque_inner_rs_quic_receive_transfer_string(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_field0 = sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicReceiveTransfer(deserializer);
+    var var_field1 = sse_decode_String(deserializer);
+    return (var_field0, var_field1);
+  }
+
+  @protected
   (String, FileDto) sse_decode_record_string_file_dto(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     var var_field0 = sse_decode_String(deserializer);
@@ -3487,6 +4371,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
     var var_port = sse_decode_u_16(deserializer);
     var var_protocol = sse_decode_protocol_type(deserializer);
     var var_hasWebInterface = sse_decode_bool(deserializer);
+    var var_supportsQuic = sse_decode_bool(deserializer);
     return RegisterDto(
       alias: var_alias,
       version: var_version,
@@ -3496,6 +4381,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       port: var_port,
       protocol: var_protocol,
       hasWebInterface: var_hasWebInterface,
+      supportsQuic: var_supportsQuic,
     );
   }
 
@@ -3531,6 +4417,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
     var var_deviceType = sse_decode_opt_box_autoadd_device_type(deserializer);
     var var_token = sse_decode_String(deserializer);
     var var_hasWebInterface = sse_decode_bool(deserializer);
+    var var_supportsQuic = sse_decode_bool(deserializer);
     return RegisterResponseDto(
       alias: var_alias,
       version: var_version,
@@ -3538,6 +4425,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       deviceType: var_deviceType,
       token: var_token,
       hasWebInterface: var_hasWebInterface,
+      supportsQuic: var_supportsQuic,
     );
   }
 
@@ -3878,6 +4766,36 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  void sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicClient(RsQuicClient self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_usize((self as RsQuicClientImpl).frbInternalSseEncode(move: true), serializer);
+  }
+
+  @protected
+  void sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicReceiveTransfer(
+    RsQuicReceiveTransfer self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_usize((self as RsQuicReceiveTransferImpl).frbInternalSseEncode(move: true), serializer);
+  }
+
+  @protected
+  void sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicSendTransfer(
+    RsQuicSendTransfer self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_usize((self as RsQuicSendTransferImpl).frbInternalSseEncode(move: true), serializer);
+  }
+
+  @protected
+  void sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicServer(RsQuicServer self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_usize((self as RsQuicServerImpl).frbInternalSseEncode(move: true), serializer);
+  }
+
+  @protected
   void sse_encode_Auto_RefMut_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDart2RustStreamSink(
     Dart2RustStreamSink self,
     SseSerializer serializer,
@@ -3956,6 +4874,36 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   void sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsHttpServer(RsHttpServer self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_usize((self as RsHttpServerImpl).frbInternalSseEncode(move: false), serializer);
+  }
+
+  @protected
+  void sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicClient(RsQuicClient self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_usize((self as RsQuicClientImpl).frbInternalSseEncode(move: false), serializer);
+  }
+
+  @protected
+  void sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicReceiveTransfer(
+    RsQuicReceiveTransfer self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_usize((self as RsQuicReceiveTransferImpl).frbInternalSseEncode(move: false), serializer);
+  }
+
+  @protected
+  void sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicSendTransfer(
+    RsQuicSendTransfer self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_usize((self as RsQuicSendTransferImpl).frbInternalSseEncode(move: false), serializer);
+  }
+
+  @protected
+  void sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicServer(RsQuicServer self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_usize((self as RsQuicServerImpl).frbInternalSseEncode(move: false), serializer);
   }
 
   @protected
@@ -4067,6 +5015,36 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   void sse_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsHttpServer(RsHttpServer self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_usize((self as RsHttpServerImpl).frbInternalSseEncode(move: null), serializer);
+  }
+
+  @protected
+  void sse_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicClient(RsQuicClient self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_usize((self as RsQuicClientImpl).frbInternalSseEncode(move: null), serializer);
+  }
+
+  @protected
+  void sse_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicReceiveTransfer(
+    RsQuicReceiveTransfer self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_usize((self as RsQuicReceiveTransferImpl).frbInternalSseEncode(move: null), serializer);
+  }
+
+  @protected
+  void sse_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicSendTransfer(
+    RsQuicSendTransfer self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_usize((self as RsQuicSendTransferImpl).frbInternalSseEncode(move: null), serializer);
+  }
+
+  @protected
+  void sse_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicServer(RsQuicServer self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_usize((self as RsQuicServerImpl).frbInternalSseEncode(move: null), serializer);
   }
 
   @protected
@@ -4638,6 +5616,16 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  void sse_encode_record_auto_owned_rust_opaque_flutter_rust_bridgefor_generated_rust_auto_opaque_inner_rs_quic_receive_transfer_string(
+    (RsQuicReceiveTransfer, String) self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsQuicReceiveTransfer(self.$1, serializer);
+    sse_encode_String(self.$2, serializer);
+  }
+
+  @protected
   void sse_encode_record_string_file_dto((String, FileDto) self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_String(self.$1, serializer);
@@ -4662,6 +5650,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
     sse_encode_u_16(self.port, serializer);
     sse_encode_protocol_type(self.protocol, serializer);
     sse_encode_bool(self.hasWebInterface, serializer);
+    sse_encode_bool(self.supportsQuic, serializer);
   }
 
   @protected
@@ -4686,6 +5675,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
     sse_encode_opt_box_autoadd_device_type(self.deviceType, serializer);
     sse_encode_String(self.token, serializer);
     sse_encode_bool(self.hasWebInterface, serializer);
+    sse_encode_bool(self.supportsQuic, serializer);
   }
 
   @protected
@@ -5135,6 +6125,68 @@ class RsHttpServerImpl extends RustOpaque implements RsHttpServer {
   /// Stops the server.
   Future<void> stop() => RustLib.instance.api.crateApiServerRsHttpServerStop(
     that: this,
+  );
+}
+
+@sealed
+class RsQuicClientImpl extends RustOpaque implements RsQuicClient {
+  // Not to be used by end users
+  RsQuicClientImpl.frbInternalDcoDecode(List<dynamic> wire) : super.frbInternalDcoDecode(wire, _kStaticData);
+
+  // Not to be used by end users
+  RsQuicClientImpl.frbInternalSseDecode(BigInt ptr, int externalSizeOnNative) : super.frbInternalSseDecode(ptr, externalSizeOnNative, _kStaticData);
+
+  static final _kStaticData = RustArcStaticData(
+    rustArcIncrementStrongCount: RustLib.instance.api.rust_arc_increment_strong_count_RsQuicClient,
+    rustArcDecrementStrongCount: RustLib.instance.api.rust_arc_decrement_strong_count_RsQuicClient,
+    rustArcDecrementStrongCountPtr: RustLib.instance.api.rust_arc_decrement_strong_count_RsQuicClientPtr,
+  );
+}
+
+@sealed
+class RsQuicReceiveTransferImpl extends RustOpaque implements RsQuicReceiveTransfer {
+  // Not to be used by end users
+  RsQuicReceiveTransferImpl.frbInternalDcoDecode(List<dynamic> wire) : super.frbInternalDcoDecode(wire, _kStaticData);
+
+  // Not to be used by end users
+  RsQuicReceiveTransferImpl.frbInternalSseDecode(BigInt ptr, int externalSizeOnNative)
+    : super.frbInternalSseDecode(ptr, externalSizeOnNative, _kStaticData);
+
+  static final _kStaticData = RustArcStaticData(
+    rustArcIncrementStrongCount: RustLib.instance.api.rust_arc_increment_strong_count_RsQuicReceiveTransfer,
+    rustArcDecrementStrongCount: RustLib.instance.api.rust_arc_decrement_strong_count_RsQuicReceiveTransfer,
+    rustArcDecrementStrongCountPtr: RustLib.instance.api.rust_arc_decrement_strong_count_RsQuicReceiveTransferPtr,
+  );
+}
+
+@sealed
+class RsQuicSendTransferImpl extends RustOpaque implements RsQuicSendTransfer {
+  // Not to be used by end users
+  RsQuicSendTransferImpl.frbInternalDcoDecode(List<dynamic> wire) : super.frbInternalDcoDecode(wire, _kStaticData);
+
+  // Not to be used by end users
+  RsQuicSendTransferImpl.frbInternalSseDecode(BigInt ptr, int externalSizeOnNative)
+    : super.frbInternalSseDecode(ptr, externalSizeOnNative, _kStaticData);
+
+  static final _kStaticData = RustArcStaticData(
+    rustArcIncrementStrongCount: RustLib.instance.api.rust_arc_increment_strong_count_RsQuicSendTransfer,
+    rustArcDecrementStrongCount: RustLib.instance.api.rust_arc_decrement_strong_count_RsQuicSendTransfer,
+    rustArcDecrementStrongCountPtr: RustLib.instance.api.rust_arc_decrement_strong_count_RsQuicSendTransferPtr,
+  );
+}
+
+@sealed
+class RsQuicServerImpl extends RustOpaque implements RsQuicServer {
+  // Not to be used by end users
+  RsQuicServerImpl.frbInternalDcoDecode(List<dynamic> wire) : super.frbInternalDcoDecode(wire, _kStaticData);
+
+  // Not to be used by end users
+  RsQuicServerImpl.frbInternalSseDecode(BigInt ptr, int externalSizeOnNative) : super.frbInternalSseDecode(ptr, externalSizeOnNative, _kStaticData);
+
+  static final _kStaticData = RustArcStaticData(
+    rustArcIncrementStrongCount: RustLib.instance.api.rust_arc_increment_strong_count_RsQuicServer,
+    rustArcDecrementStrongCount: RustLib.instance.api.rust_arc_decrement_strong_count_RsQuicServer,
+    rustArcDecrementStrongCountPtr: RustLib.instance.api.rust_arc_decrement_strong_count_RsQuicServerPtr,
   );
 }
 

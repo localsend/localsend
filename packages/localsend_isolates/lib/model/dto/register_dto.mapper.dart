@@ -58,6 +58,12 @@ class RegisterDtoMapper extends ClassMapperBase<RegisterDto> {
     'download',
     _$download,
   );
+  static bool? _$supportsQuic(RegisterDto v) => v.supportsQuic;
+  static const Field<RegisterDto, bool> _f$supportsQuic = Field(
+    'supportsQuic',
+    _$supportsQuic,
+    opt: true,
+  );
 
   @override
   final MappableFields<RegisterDto> fields = const {
@@ -69,6 +75,7 @@ class RegisterDtoMapper extends ClassMapperBase<RegisterDto> {
     #port: _f$port,
     #protocol: _f$protocol,
     #download: _f$download,
+    #supportsQuic: _f$supportsQuic,
   };
 
   static RegisterDto _instantiate(DecodingData data) {
@@ -81,6 +88,7 @@ class RegisterDtoMapper extends ClassMapperBase<RegisterDto> {
       port: data.dec(_f$port),
       protocol: data.dec(_f$protocol),
       download: data.dec(_f$download),
+      supportsQuic: data.dec(_f$supportsQuic),
     );
   }
 
@@ -153,6 +161,7 @@ abstract class RegisterDtoCopyWith<$R, $In extends RegisterDto, $Out>
     int? port,
     ProtocolType? protocol,
     bool? download,
+    bool? supportsQuic,
   });
   RegisterDtoCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
@@ -175,6 +184,7 @@ class _RegisterDtoCopyWithImpl<$R, $Out>
     Object? port = $none,
     Object? protocol = $none,
     Object? download = $none,
+    Object? supportsQuic = $none,
   }) => $apply(
     FieldCopyWithData({
       if (alias != null) #alias: alias,
@@ -185,6 +195,7 @@ class _RegisterDtoCopyWithImpl<$R, $Out>
       if (port != $none) #port: port,
       if (protocol != $none) #protocol: protocol,
       if (download != $none) #download: download,
+      if (supportsQuic != $none) #supportsQuic: supportsQuic,
     }),
   );
   @override
@@ -197,6 +208,7 @@ class _RegisterDtoCopyWithImpl<$R, $Out>
     port: data.get(#port, or: $value.port),
     protocol: data.get(#protocol, or: $value.protocol),
     download: data.get(#download, or: $value.download),
+    supportsQuic: data.get(#supportsQuic, or: $value.supportsQuic),
   );
 
   @override
