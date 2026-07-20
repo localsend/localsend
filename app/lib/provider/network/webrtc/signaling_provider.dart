@@ -84,7 +84,7 @@ class _SetupSignalingConnection extends AsyncGlobalAction {
 
     LsSignalingConnection? connection;
     final stream = connect(
-      uri: 'wss://public.localsend.org/v1/ws',
+      uri: signalingServer,
       info: ProposingClientInfo(
         alias: settings.alias,
         version: protocolVersion,
