@@ -5,18 +5,18 @@
   ],
   "settingsTab": {
     "network": {
-      "network": "Network",
+      "network": "ネットワーク",
       "networkOptions": {
-        "all": "All",
-        "filtered": "Filtered"
+        "all": "すべて",
+        "filtered": "フィルター済み"
       }
     }
   },
   "networkInterfacesPage": {
-    "title": "Network Interfaces",
-    "info": "By default, LocalSend uses all available network interfaces. You can exclude unwanted networks here. You need to restart the server to apply the changes.",
-    "preview": "Preview",
-    "whitelist": "Whitelist",
-    "blacklist": "Blacklist"
+    "title": "ネットワークインターフェース",
+    "info": "デフォルトでは、LocalSend は利用可能なすべてのネットワークインターフェースを使用します。不要なネットワークはここで除外できます。変更を適用するには、サーバーの再起動が必要です。",
+    "preview": "プレビュー",
+    "whitelist": "許可リスト",
+    "blacklist": "除外リスト"
   }
 }
