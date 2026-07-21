@@ -4,7 +4,7 @@ pub mod v2;
 pub mod v3;
 pub mod web;
 
-use crate::crypto::cert::public_key_from_cert_der;
+use crate::crypto::cert::{fingerprint_from_cert_der, public_key_from_cert_der};
 use crate::http::server::internal::{InternalConfig, InternalState};
 use crate::http::server::v2::ServerEventV2;
 use crate::http::server::web::WebSendConfig;
@@ -367,6 +367,13 @@ pub struct RequestClientInfo {
 }
 
 impl RequestClientInfo {
+    /// The SHA-256 fingerprint (uppercase hex) of the client certificate
+    /// verified during the mTLS handshake.
+    /// `None` when the server runs without TLS.
+    fn cert_fingerprint(&self) -> Option<String> {
+        self.cert.as_deref().map(fingerprint_from_cert_der)
+    }
+
     fn extract_public_key(&self) -> Option<String> {
         match &self.cert {
             Some(cert) => match public_key_from_cert_der(cert) {

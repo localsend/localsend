@@ -3704,6 +3704,7 @@ impl SseDecode for crate::api::server::RsServerEvent {
                 let mut var_sessionId = <String>::sse_decode(deserializer);
                 let mut var_ip = <String>::sse_decode(deserializer);
                 let mut var_info = <crate::api::server::RegisterDtoV2>::sse_decode(deserializer);
+                let mut var_certFingerprint = <Option<String>>::sse_decode(deserializer);
                 let mut var_files =
                     <std::collections::HashMap<String, crate::api::model::FileDto>>::sse_decode(
                         deserializer,
@@ -3712,6 +3713,7 @@ impl SseDecode for crate::api::server::RsServerEvent {
                     session_id: var_sessionId,
                     ip: var_ip,
                     info: var_info,
+                    cert_fingerprint: var_certFingerprint,
                     files: var_files,
                 };
             }
@@ -4867,12 +4869,14 @@ impl flutter_rust_bridge::IntoDart for crate::api::server::RsServerEvent {
                 session_id,
                 ip,
                 info,
+                cert_fingerprint,
                 files,
             } => [
                 1.into_dart(),
                 session_id.into_into_dart().into_dart(),
                 ip.into_into_dart().into_dart(),
                 info.into_into_dart().into_dart(),
+                cert_fingerprint.into_into_dart().into_dart(),
                 files.into_into_dart().into_dart(),
             ]
             .into_dart(),
@@ -5990,12 +5994,14 @@ impl SseEncode for crate::api::server::RsServerEvent {
                 session_id,
                 ip,
                 info,
+                cert_fingerprint,
                 files,
             } => {
                 <i32>::sse_encode(1, serializer);
                 <String>::sse_encode(session_id, serializer);
                 <String>::sse_encode(ip, serializer);
                 <crate::api::server::RegisterDtoV2>::sse_encode(info, serializer);
+                <Option<String>>::sse_encode(cert_fingerprint, serializer);
                 <std::collections::HashMap<String, crate::api::model::FileDto>>::sse_encode(
                     files, serializer,
                 );

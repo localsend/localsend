@@ -166,6 +166,10 @@ sealed class RsServerEvent with _$RsServerEvent {
   const RsServerEvent._();
 
   /// A device registered itself via `POST /api/localsend/v2/register`.
+  ///
+  /// On TLS, this event is only emitted when `info.fingerprint` matches the
+  /// fingerprint of the client certificate verified during the mTLS
+  /// handshake, so the fingerprint cannot be spoofed.
   const factory RsServerEvent.register({
     required String ip,
     required RegisterDtoV2 info,
@@ -177,6 +181,12 @@ sealed class RsServerEvent with _$RsServerEvent {
     required String sessionId,
     required String ip,
     required RegisterDtoV2 info,
+
+    /// The SHA-256 fingerprint (uppercase hex) of the sender's client
+    /// certificate verified during the mTLS handshake. Unlike
+    /// `info.fingerprint`, this value cannot be spoofed.
+    /// `None` when the server runs without TLS.
+    String? certFingerprint,
     required Map<String, FileDto> files,
   }) = RsServerEvent_PrepareUpload;
 

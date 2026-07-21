@@ -21,6 +21,10 @@ use tokio::sync::{Mutex, mpsc, oneshot};
 /// and [RsServerEvent::FileUpload] with [RsHttpServer::respond_file_upload].
 pub enum RsServerEvent {
     /// A device registered itself via `POST /api/localsend/v2/register`.
+    ///
+    /// On TLS, this event is only emitted when `info.fingerprint` matches the
+    /// fingerprint of the client certificate verified during the mTLS
+    /// handshake, so the fingerprint cannot be spoofed.
     Register { ip: String, info: RegisterDtoV2 },
 
     /// A sender requests to upload files via `POST /api/localsend/v2/prepare-upload`.
@@ -29,6 +33,11 @@ pub enum RsServerEvent {
         session_id: String,
         ip: String,
         info: RegisterDtoV2,
+        /// The SHA-256 fingerprint (uppercase hex) of the sender's client
+        /// certificate verified during the mTLS handshake. Unlike
+        /// `info.fingerprint`, this value cannot be spoofed.
+        /// `None` when the server runs without TLS.
+        cert_fingerprint: Option<String>,
         files: HashMap<String, FileDto>,
     },
 
@@ -250,6 +259,7 @@ impl RsHttpServer {
                 session_id,
                 ip,
                 info,
+                cert_fingerprint,
                 files,
                 decision_tx,
             } => {
@@ -258,6 +268,7 @@ impl RsHttpServer {
                     session_id,
                     ip: ip.to_string(),
                     info,
+                    cert_fingerprint,
                     files,
                 });
             }

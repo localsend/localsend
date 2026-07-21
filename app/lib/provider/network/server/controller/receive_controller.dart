@@ -83,6 +83,11 @@ class ReceiveController {
       for (final entry in event.files.entries) entry.key: entry.value.toDart(),
     };
 
+    // The fingerprint of the sender's mTLS certificate cannot be spoofed, unlike the
+    // self-reported fingerprint in the JSON payload which is only used as fallback
+    // when encryption is disabled.
+    final senderFingerprint = event.certFingerprint ?? event.info.fingerprint;
+
     _logger.info('Session Id: $sessionId');
     _logger.info('Destination Directory: $destinationDir');
 
@@ -91,8 +96,8 @@ class ReceiveController {
         session: ReceiveSessionState(
           sessionId: sessionId,
           status: SessionStatus.waiting,
-          sender: event.info.toDevice(event.ip, null),
-          senderAlias: server.ref.read(favoritesProvider).firstWhereOrNull((e) => e.fingerprint == event.info.fingerprint)?.alias ?? event.info.alias,
+          sender: event.info.toDevice(event.ip, null).copyWith(fingerprint: senderFingerprint),
+          senderAlias: server.ref.read(favoritesProvider).firstWhereOrNull((e) => e.fingerprint == senderFingerprint)?.alias ?? event.info.alias,
           files: {
             for (final file in files.values)
               file.id: ReceivingFile(
@@ -118,7 +123,7 @@ class ReceiveController {
     bool quickSave = settings.quickSave && server.getState().session?.message == null;
     final quickSaveFromFavorites = settings.quickSaveFromFavorites && server.getState().session?.message == null;
     if (quickSaveFromFavorites) {
-      final bool isFavorite = server.ref.read(favoritesProvider).any((e) => e.fingerprint == event.info.fingerprint);
+      final bool isFavorite = server.ref.read(favoritesProvider).any((e) => e.fingerprint == senderFingerprint);
       if (isFavorite) {
         quickSave = true;
       }
@@ -357,9 +362,7 @@ class ReceiveController {
       // (e.g. preparing the save target failed), the Rust server is still
       // waiting for it and the sender's request would hang forever.
       // Rejecting fails the request; a no-op if the target was already sent.
-      server.ref
-          .redux(parentIsolateProvider)
-          .dispatch(IsolateHttpServerRejectFileUploadAction(sessionId: event.sessionId, fileId: fileId));
+      server.ref.redux(parentIsolateProvider).dispatch(IsolateHttpServerRejectFileUploadAction(sessionId: event.sessionId, fileId: fileId));
     }
 
     server.ref

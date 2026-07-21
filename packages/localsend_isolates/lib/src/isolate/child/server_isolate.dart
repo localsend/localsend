@@ -156,6 +156,10 @@ sealed class HttpServerEvent {}
 class HttpServerStartedEvent extends HttpServerEvent {}
 
 /// A device registered itself on this server.
+///
+/// On TLS, this event is only emitted when [RegisterDtoV2.fingerprint] matches
+/// the fingerprint of the client certificate verified during the mTLS
+/// handshake, so the fingerprint cannot be spoofed.
 class HttpServerRegisterEvent extends HttpServerEvent {
   final String ip;
   final RegisterDtoV2 info;
@@ -173,12 +177,20 @@ class HttpServerPrepareUploadEvent extends HttpServerEvent {
   final String sessionId;
   final String ip;
   final RegisterDtoV2 info;
+
+  /// The SHA-256 fingerprint (uppercase hex) of the sender's client
+  /// certificate verified during the mTLS handshake. Unlike
+  /// [RegisterDtoV2.fingerprint], this value cannot be spoofed.
+  /// `null` when the server runs without TLS.
+  final String? certFingerprint;
+
   final Map<String, FileDto> files;
 
   HttpServerPrepareUploadEvent({
     required this.sessionId,
     required this.ip,
     required this.info,
+    required this.certFingerprint,
     required this.files,
   });
 }
@@ -359,12 +371,14 @@ Future<void> setupHttpServerIsolate(
                   id: task.id,
                   data: switch (event) {
                     RsServerEvent_Register(:final ip, :final info) => HttpServerRegisterEvent(ip: ip, info: info),
-                    RsServerEvent_PrepareUpload(:final sessionId, :final ip, :final info, :final files) => HttpServerPrepareUploadEvent(
-                      sessionId: sessionId,
-                      ip: ip,
-                      info: info,
-                      files: files,
-                    ),
+                    RsServerEvent_PrepareUpload(:final sessionId, :final ip, :final info, :final certFingerprint, :final files) =>
+                      HttpServerPrepareUploadEvent(
+                        sessionId: sessionId,
+                        ip: ip,
+                        info: info,
+                        certFingerprint: certFingerprint,
+                        files: files,
+                      ),
                     RsServerEvent_FileUpload(:final sessionId, :final fileId, :final file) => HttpServerFileUploadEvent(
                       sessionId: sessionId,
                       fileId: fileId,

@@ -138,9 +138,7 @@ class SendController {
     } catch (e, st) {
       _logger.severe('Failed to resolve source for web send file ${event.fileId}', e, st);
       // Unblock the web client's request waiting for the content source.
-      server.ref
-          .redux(parentIsolateProvider)
-          .dispatch(IsolateHttpServerRejectFileDownloadAction(sessionId: event.sessionId, fileId: event.fileId));
+      server.ref.redux(parentIsolateProvider).dispatch(IsolateHttpServerRejectFileDownloadAction(sessionId: event.sessionId, fileId: event.fileId));
       return;
     }
 

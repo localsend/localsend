@@ -25,6 +25,10 @@ use uuid::Uuid;
 #[derive(Debug)]
 pub enum ServerEventV2 {
     /// A device registered itself via `POST /api/localsend/v2/register`.
+    ///
+    /// On TLS, this event is only emitted when `info.fingerprint` matches the
+    /// SHA-256 fingerprint of the client certificate verified during the mTLS
+    /// handshake, so the fingerprint cannot be spoofed.
     Register {
         /// The IP address of the remote device.
         ip: IpAddr,
@@ -48,6 +52,12 @@ pub enum ServerEventV2 {
 
         /// The device information of the sender.
         info: RegisterDtoV2,
+
+        /// The SHA-256 fingerprint (uppercase hex) of the sender's client
+        /// certificate verified during the mTLS handshake. Unlike
+        /// `info.fingerprint`, this value cannot be spoofed.
+        /// `None` when the server runs without TLS.
+        cert_fingerprint: Option<String>,
 
         /// The offered files, mapped by file ID.
         files: HashMap<String, FileDto>,
@@ -137,14 +147,28 @@ pub(crate) async fn register(
 ) -> Result<JsonResponse<RegisterResponseDtoV2>, AppError> {
     let payload = body.collect_to_json::<RegisterDtoV2>().await?;
 
+    // On TLS, only trust registrations whose claimed fingerprint is proven
+    // by the client certificate of the mTLS handshake.
+    let fingerprint_valid = match client_info.cert_fingerprint() {
+        Some(cert_fingerprint) => payload.fingerprint.to_ascii_uppercase() == cert_fingerprint,
+        None => true,
+    };
+
     if let Some(v2) = &state.v2 {
-        let _ = v2
-            .event_tx
-            .send(ServerEventV2::Register {
-                ip: client_info.ip,
-                info: payload,
-            })
-            .await;
+        if fingerprint_valid {
+            let _ = v2
+                .event_tx
+                .send(ServerEventV2::Register {
+                    ip: client_info.ip,
+                    info: payload,
+                })
+                .await;
+        } else {
+            tracing::warn!(
+                "Ignoring register from {}: claimed fingerprint does not match the client certificate",
+                client_info.ip
+            );
+        }
     }
 
     let info = state.info.lock().await.clone();
@@ -221,6 +245,7 @@ pub(crate) async fn prepare_upload(
         session_id: session_id.clone(),
         ip: client_info.ip,
         info: payload.info,
+        cert_fingerprint: client_info.cert_fingerprint(),
         files: payload.files.clone(),
         decision_tx,
     };
@@ -375,8 +400,7 @@ pub(crate) async fn cancel(
             let mut slot = v2.session.lock().await;
             match slot.as_ref() {
                 Some(SessionStateV2::Active(session))
-                    if session.session_id == *session_id
-                        && session.sender_ip == client_info.ip =>
+                    if session.session_id == *session_id && session.sender_ip == client_info.ip =>
                 {
                     *slot = None;
                     true

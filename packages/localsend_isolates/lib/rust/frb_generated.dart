@@ -2542,7 +2542,8 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           sessionId: dco_decode_String(raw[1]),
           ip: dco_decode_String(raw[2]),
           info: dco_decode_box_autoadd_register_dto_v_2(raw[3]),
-          files: dco_decode_Map_String_file_dto_None(raw[4]),
+          certFingerprint: dco_decode_opt_String(raw[4]),
+          files: dco_decode_Map_String_file_dto_None(raw[5]),
         );
       case 2:
         return RsServerEvent_FileUpload(
@@ -3694,8 +3695,15 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
         var var_sessionId = sse_decode_String(deserializer);
         var var_ip = sse_decode_String(deserializer);
         var var_info = sse_decode_box_autoadd_register_dto_v_2(deserializer);
+        var var_certFingerprint = sse_decode_opt_String(deserializer);
         var var_files = sse_decode_Map_String_file_dto_None(deserializer);
-        return RsServerEvent_PrepareUpload(sessionId: var_sessionId, ip: var_ip, info: var_info, files: var_files);
+        return RsServerEvent_PrepareUpload(
+          sessionId: var_sessionId,
+          ip: var_ip,
+          info: var_info,
+          certFingerprint: var_certFingerprint,
+          files: var_files,
+        );
       case 2:
         var var_sessionId = sse_decode_String(deserializer);
         var var_fileId = sse_decode_String(deserializer);
@@ -4838,11 +4846,18 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
         sse_encode_i_32(0, serializer);
         sse_encode_String(ip, serializer);
         sse_encode_box_autoadd_register_dto_v_2(info, serializer);
-      case RsServerEvent_PrepareUpload(sessionId: final sessionId, ip: final ip, info: final info, files: final files):
+      case RsServerEvent_PrepareUpload(
+        sessionId: final sessionId,
+        ip: final ip,
+        info: final info,
+        certFingerprint: final certFingerprint,
+        files: final files,
+      ):
         sse_encode_i_32(1, serializer);
         sse_encode_String(sessionId, serializer);
         sse_encode_String(ip, serializer);
         sse_encode_box_autoadd_register_dto_v_2(info, serializer);
+        sse_encode_opt_String(certFingerprint, serializer);
         sse_encode_Map_String_file_dto_None(files, serializer);
       case RsServerEvent_FileUpload(sessionId: final sessionId, fileId: final fileId, file: final file):
         sse_encode_i_32(2, serializer);
