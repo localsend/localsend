@@ -39,6 +39,7 @@ import 'package:localsend_app/provider/selection/selected_receiving_files_provid
 import 'package:localsend_app/provider/selection/selected_sending_files_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/util/native/directories.dart';
+import 'package:localsend_app/util/native/duplicate_file_checker.dart';
 import 'package:localsend_app/util/native/file_saver.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_app/util/native/tray_helper.dart';
@@ -227,6 +228,21 @@ class ReceiveController {
 
     _logger.info('Session Id: $sessionId');
     _logger.info('Destination Directory: $destinationDir');
+    final alreadyExistingFileIds = <String>{};
+    for (final file in dto.files.values) {
+      final exists = await fileLikelyAlreadyExists(
+        destinationDirectory: destinationDir,
+        relativeFileName: file.fileName,
+        expectedSize: file.size,
+        expectedLastModified: file.metadata?.lastModified,
+      );
+      if (exists) {
+        alreadyExistingFileIds.add(file.id);
+      }
+    }
+    if (alreadyExistingFileIds.isNotEmpty) {
+      _logger.info('Skipping ${alreadyExistingFileIds.length} file(s) that already exist at the destination');
+    }
 
     final streamController = StreamController<Map<String, String>?>();
     server.setState(
@@ -271,7 +287,8 @@ class ReceiveController {
     if (quickSave) {
       // accept all files
       selection = {
-        for (final f in dto.files.values) f.id: f.fileName,
+        for (final f in dto.files.values)
+          if (!alreadyExistingFileIds.contains(f.id)) f.id: f.fileName,
       };
     } else {
       if (checkPlatformHasTray() && (await windowManager.isMinimized() || !(await windowManager.isVisible()) || !(await windowManager.isFocused()))) {
@@ -305,6 +322,7 @@ class ReceiveController {
           sender: session?.sender ?? Device.empty,
           showSenderInfo: true,
           files: session?.files.values.map((f) => f.file).toList() ?? [],
+          alreadyExistingFileIds: alreadyExistingFileIds,
           message: message,
           onAccept: () async {
             if (message != null) {

@@ -94,6 +94,9 @@ class Translations$general$en {
   /// en: 'Advanced'
   String get advanced => 'Advanced';
 
+  /// en: 'Already exists'
+  String get alreadyExists => 'Already exists';
+
   /// en: 'Cancel'
   String get cancel => 'Cancel';
 
