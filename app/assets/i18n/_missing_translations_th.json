@@ -4,12 +4,12 @@
     "After editing this file, you can run 'dart run slang apply --locale=th' to quickly apply the newly added translations."
   ],
   "general": {
-    "quickSaveFromFavorites": "Quick Save for \"Favorites\""
+    "quickSaveFromFavorites": "บันทึกด่วนจากอุปกรณ์รายการโปรด"
   },
   "receiveTab": {
     "quickSave": {
       "off": "@:general.off",
-      "favorites": "Favorites",
+      "favorites": "เฉพาะอุปกรณ์รายการโปรด",
       "on": "@:general.on"
     }
   },
@@ -24,37 +24,37 @@
       "quickSaveFromFavorites": "@:general.quickSaveFromFavorites"
     },
     "network": {
-      "network": "Network",
+      "network": "กลุ่มเครือข่าย",
       "networkOptions": {
-        "all": "All",
-        "filtered": "Filtered"
+        "all": "ทั้งหมด",
+        "filtered": "เฉพาะที่กรองไว้"
       },
       "useSystemName": "Use system name",
       "generateRandomAlias": "Generate random alias"
     }
   },
   "networkInterfacesPage": {
-    "title": "Network Interfaces",
-    "info": "By default, LocalSend uses all available network interfaces. You can exclude unwanted networks here. You need to restart the server to apply the changes.",
-    "preview": "Preview",
-    "whitelist": "Whitelist",
-    "blacklist": "Blacklist"
+    "title": "การเชื่อมต่อเครือข่าย",
+    "info": "โดยปกติ LocalSend จะใช้เครือข่ายทั้งหมดที่มีอยู่ คุณสามารถเลือกเครือข่ายที่ไม่ต้องการออกได้ที่นี่ โดยจะต้องรีสตาร์ทเซิร์ฟเวอร์เพื่อบังคับใช้การเปลี่ยนแปลง",
+    "preview": "ตัวอย่าง",
+    "whitelist": "รายการที่อนุญาต",
+    "blacklist": "รายการที่ไม่อนุญาต"
   },
   "dialogs": {
     "openFile": {
-      "title": "Open file",
-      "content": "Do you want to open the received file?"
+      "title": "เปิดไฟล์",
+      "content": "คุณต้องการเปิดไฟล์ที่ได้รับมาหรือไม่?"
     },
     "quickSaveFromFavoritesNotice": {
       "title": "@:general.quickSaveFromFavorites",
       "content": [
-        "File requests are now accepted automatically from devices in your favorites list.",
-        "Warning! Currently, this is not entirely secure, as a hacker who has the fingerprint of any device from your favorites list can send you files without restriction.",
-        "However, this option is still safer than allowing all users on the local network to send you files without restriction."
+        "ระบบจะยอมรับคำขอส่งไฟล์โดยอัตโนมัติจากอุปกรณ์ที่อยู่ในรายการโปรดของคุณ",
+        "คำเตือน! ในปัจจุบัน ตัวเลือกนี้ยังไม่ปลอดภัยอย่างสมบูรณ์ เนื่องจากอาจจะมีผู้ไม่หวังดีที่มีรหัสระบุตัวตนของอุปกรณ์ในรายการโปรดของคุณ สามารถส่งไฟล์มาให้คุณได้โดยไม่มีข้อจำกัด",
+        "อย่างไรก็ตาม ตัวเลือกนี้ยังคงปลอดภัยกว่าการอนุญาตให้ผู้ใช้ทั้งหมดในเครือข่ายส่วนตัวของคุณส่งไฟล์มาให้คุณได้โดยไม่มีข้อจำกัด"
       ]
     }
   },
   "tray": {
-    "closeWindows": "Exit"
+    "closeWindows": "ออก"
   }
 }
