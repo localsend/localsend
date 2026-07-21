@@ -16,15 +16,19 @@ final _logger = Logger('NetworkInfo');
 final localIpProvider = ReduxProvider<LocalIpService, NetworkState>((ref) {
   return LocalIpService(
     ref.notifier(settingsProvider),
+    connectivityChangesFactory: () => Connectivity().onConnectivityChanged,
   );
 });
 
-StreamSubscription? _subscription;
-
 class LocalIpService extends ReduxNotifier<NetworkState> {
   final SettingsService _settingsService;
+  final Stream<List<ConnectivityResult>> Function() _connectivityChangesFactory;
+  StreamSubscription<List<ConnectivityResult>>? _connectivitySubscription;
 
-  LocalIpService(this._settingsService);
+  LocalIpService(
+    this._settingsService, {
+    required Stream<List<ConnectivityResult>> Function() connectivityChangesFactory,
+  }) : _connectivityChangesFactory = connectivityChangesFactory;
 
   @override
   NetworkState init() {
@@ -36,24 +40,25 @@ class LocalIpService extends ReduxNotifier<NetworkState> {
 
   @override
   get initialAction => InitLocalIpAction();
+
+  @override
+  void dispose() {
+    unawaited(_connectivitySubscription?.cancel());
+    super.dispose();
+  }
 }
 
 /// Fetches the local IP address and registers a listener to update the IP address
 class InitLocalIpAction extends ReduxAction<LocalIpService, NetworkState> {
   @override
   NetworkState reduce() {
-    if (!kIsWeb) {
-      // ignore: discarded_futures
-      _subscription?.cancel();
-
-      if (checkPlatform([TargetPlatform.windows])) {
-        // https://github.com/localsend/localsend/issues/12
-        // https://github.com/localsend/localsend/issues/78
-      } else {
-        _subscription = Connectivity().onConnectivityChanged.listen((_) async {
-          await dispatchAsync(FetchLocalIpAction());
-        });
-      }
+    // connectivity_plus is not used on Windows:
+    // https://github.com/localsend/localsend/issues/12
+    // https://github.com/localsend/localsend/issues/78
+    if (!kIsWeb && !checkPlatform([TargetPlatform.windows])) {
+      notifier._connectivitySubscription ??= notifier._connectivityChangesFactory().listen((_) async {
+        await dispatchAsync(FetchLocalIpAction());
+      });
     }
 
     return state;
