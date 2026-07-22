@@ -118,6 +118,7 @@ class _AcceptOfferAction extends AsyncReduxAction<WebRTCReceiveService, WebRTCRe
         sender: state.offer.peer.toDevice(notifier._signalingServer),
         showSenderInfo: true,
         files: convertedFiles,
+        alreadyExistingFileIds: const {},
         message: files.length == 1 && files[0].fileType.startsWith('text/') ? files[0].preview : null,
         onAccept: () {},
         onDecline: () {},
