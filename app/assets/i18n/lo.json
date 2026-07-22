@@ -1,0 +1,529 @@
+{
+  "locale": "ລາວ",
+  "appName": "LocalSend",
+  "general": {
+    "accept": "ຍອມຮັບ",
+    "accepted": "ຍອມຮັບແລ້ວ",
+    "add": "ເພີ່ມ",
+    "advanced": "ຂັ້ນສູງ",
+    "cancel": "ຍົກເລີກ",
+    "close": "ປິດ",
+    "confirm": "ຢືນຢັນ",
+    "continueStr": "ສືບຕໍ່",
+    "copy": "ສຳເນົາ",
+    "copiedToClipboard": "ສຳເນົາໃສ່ຄລິບບອດແລ້ວ",
+    "decline": "ປະຕິເສດ",
+    "done": "ຮຽບຮ້ອຍ",
+    "delete": "ລຶບ",
+    "edit": "ແກ້ໄຂ",
+    "error": "ຂໍ້ຜິດພາດ",
+    "example": "ຕົວຢ່າງ",
+    "files": "ໄຟລ໌",
+    "finished": "ສຳເລັດ",
+    "hide": "ເຊື່ອງ",
+    "off": "ປິດ",
+    "offline": "ອອບໄລນ໌",
+    "on": "ເປີດ",
+    "online": "ອອນໄລນ໌",
+    "open": "ເປີດ",
+    "queue": "ຄິວ",
+    "quickSave": "ບັນທຶກດ່ວນ",
+    "quickSaveFromFavorites": "ບັນທຶກດ່ວນສຳລັບ \"ລາຍການໂປຣດ\"",
+    "renamed": "ປ່ຽນຊື່ແລ້ວ",
+    "reset": "ຍົກເລີກການປ່ຽນແປງ",
+    "restart": "ເລີ່ມໃໝ່",
+    "settings": "ການຕັ້ງຄ່າ",
+    "skipped": "ຂ້າມແລ້ວ",
+    "start": "ເລີ່ມ",
+    "stop": "ຢຸດ",
+    "save": "ບັນທຶກ",
+    "unchanged": "ບໍ່ປ່ຽນແປງ",
+    "unknown": "ບໍ່ຮູ້ຈັກ",
+    "noItemInClipboard": "ບໍ່ມີລາຍການໃນຄລິບບອດ."
+  },
+  "receiveTab": {
+    "title": "ຮັບ",
+    "infoBox": {
+      "ip": "IP:",
+      "port": "ພອດ:",
+      "alias": "ຊື່ອຸປະກອນ:"
+    },
+    "quickSave": {
+      "off": "@:general.off",
+      "favorites": "ລາຍການໂປຣດ",
+      "on": "@:general.on"
+    }
+  },
+  "sendTab": {
+    "title": "ສົ່ງ",
+    "selection": {
+      "title": "ການເລືອກ",
+      "files": "ໄຟລ໌: {files}",
+      "size": "ຂະໜາດ: {size}"
+    },
+    "picker": {
+      "file": "ໄຟລ໌",
+      "folder": "ໂຟລເດີ",
+      "media": "ມີເດຍ",
+      "text": "ຂໍ້ຄວາມ",
+      "app": "ແອັບ",
+      "clipboard": "ວາງ"
+    },
+    "shareIntentInfo": "ທ່ານຍັງສາມາດໃຊ້ຄຸນສົມບັດ \"ແບ່ງປັນ\" ຂອງອຸປະກອນມືຖືຂອງທ່ານ ເພື່ອເລືອກໄຟລ໌ໄດ້ງ່າຍຂຶ້ນ.",
+    "nearbyDevices": "ອຸປະກອນໃກ້ຄຽງ",
+    "thisDevice": "ອຸປະກອນນີ້",
+    "scan": "ຄົ້ນຫາອຸປະກອນ",
+    "manualSending": "ສົ່ງດ້ວຍຕົນເອງ",
+    "sendMode": "ໂໝດການສົ່ງ",
+    "sendModes": {
+      "single": "ຜູ້ຮັບຄົນດຽວ",
+      "multiple": "ຜູ້ຮັບຫຼາຍຄົນ",
+      "link": "ແບ່ງປັນຜ່ານລິ້ງ"
+    },
+    "sendModeHelp": "ຄຳອະທິບາຍ",
+    "help": "ກະລຸນາໝັ້ນໃຈວ່າເປົ້າໝາຍທີ່ຕ້ອງການຢູ່ໃນເຄືອຂ່າຍ Wi-Fi ດຽວກັນ.",
+    "placeItems": "ວາງລາຍການເພື່ອແບ່ງປັນ."
+  },
+  "settingsTab": {
+    "title": "ການຕັ້ງຄ່າ",
+    "general": {
+      "title": "ທົ່ວໄປ",
+      "brightness": "ຮູບແບບ",
+      "brightnessOptions": {
+        "system": "ລະບົບ",
+        "dark": "ມືດ",
+        "light": "ແຈ້ງ"
+      },
+      "color": "ສີ",
+      "colorOptions": {
+        "system": "ລະບົບ",
+        "oled": "OLED"
+      },
+      "language": "ພາສາ",
+      "languageOptions": {
+        "system": "ລະບົບ"
+      },
+      "saveWindowPlacement": "ບັນທຶກຕຳແໜ່ງໜ້າຕ່າງຫຼັງອອກຈາກໂປຣແກຣມ",
+      "saveWindowPlacementWindows": "ບັນທຶກຕຳແໜ່ງໜ້າຕ່າງຫຼັງອອກ",
+      "minimizeToTray": "ຫຍໍ້ລົງໃສ່ System Tray/Menu Bar ເມື່ອປິດ",
+      "launchAtStartup": "ເປີດອັດຕະໂນມັດຫຼັງເຂົ້າສູ່ລະບົບ",
+      "launchMinimized": "ເປີດອັດຕະໂນມັດ: ເລີ່ມແບບເຊື່ອງ",
+      "showInContextMenu": "ສະແດງ LocalSend ໃນເມນູຄລິກຂວາ",
+      "animations": "ອະນິເມຊັນ"
+    },
+    "receive": {
+      "title": "ຮັບ",
+      "quickSave": "@:general.quickSave",
+      "quickSaveFromFavorites": "@:general.quickSaveFromFavorites",
+      "requirePin": "@:webSharePage.requirePin",
+      "autoFinish": "ສຳເລັດອັດຕະໂນມັດ",
+      "destination": "ບັນທຶກໄປໃສ່ໂຟລເດີ",
+      "downloads": "(ດາວໂຫຼດ)",
+      "saveToGallery": "ບັນທຶກມີເດຍໃສ່ແກລເລີຣີ",
+      "saveToHistory": "ບັນທຶກໃສ່ປະຫວັດ"
+    },
+    "send": {
+      "title": "ສົ່ງ",
+      "shareViaLinkAutoAccept": "ຍອມຮັບຄຳຂໍອັດຕະໂນມັດໃນໂໝດ \"ແບ່ງປັນຜ່ານລິ້ງ\""
+    },
+    "network": {
+      "title": "ເຄືອຂ່າຍ",
+      "needRestart": "ເລີ່ມເຊີບເວີໃໝ່ເພື່ອນຳໃຊ້ການຕັ້ງຄ່າ!",
+      "server": "ເຊີບເວີ",
+      "alias": "ຊື່ອຸປະກອນ",
+      "deviceType": "ປະເພດອຸປະກອນ",
+      "deviceModel": "ລຸ້ນອຸປະກອນ",
+      "port": "ພອດ",
+      "network": "ເຄືອຂ່າຍ",
+      "networkOptions": {
+        "all": "ທັງໝົດ",
+        "filtered": "ກັ່ນຕອງແລ້ວ"
+      },
+      "discoveryTimeout": "ໝົດເວລາການຄົ້ນຫາ",
+      "useSystemName": "ໃຊ້ຊື່ລະບົບ",
+      "generateRandomAlias": "ສ້າງຊື່ແບບສຸ່ມ",
+      "portWarning": "ທ່ານອາດຈະບໍ່ຖືກກວດພົບໂດຍອຸປະກອນອື່ນ ເພາະທ່ານໃຊ້ພອດແບບກຳນົດເອງ. (ຄ່າເລີ່ມຕົ້ນ: {defaultPort})",
+      "encryption": "ການເຂົ້າລະຫັດ",
+      "multicastGroup": "ທີ່ຢູ່ multicast",
+      "multicastGroupWarning": "ທ່ານອາດຈະບໍ່ຖືກກວດພົບໂດຍອຸປະກອນອື່ນ ເພາະທ່ານໃຊ້ທີ່ຢູ່ multicast ແບບກຳນົດເອງ. (ຄ່າເລີ່ມຕົ້ນ: {defaultMulticast})"
+    },
+    "other": {
+      "title": "ອື່ນໆ",
+      "support": "ສະໜັບສະໜູນ LocalSend",
+      "donate": "ບໍລິຈາກ",
+      "privacyPolicy": "ນະໂຍບາຍຄວາມເປັນສ່ວນຕົວ",
+      "termsOfUse": "ເງື່ອນໄຂການໃຊ້ງານ"
+    },
+    "advancedSettings": "ການຕັ້ງຄ່າຂັ້ນສູງ"
+  },
+  "troubleshootPage": {
+    "title": "ແກ້ໄຂບັນຫາ",
+    "subTitle": "ແອັບບໍ່ເຮັດວຽກຕາມທີ່ຄາດຫວັງບໍ? ຢູ່ນີ້ທ່ານສາມາດຊອກຫາວິທີແກ້ໄຂບັນຫາທົ່ວໄປໄດ້.",
+    "solution": "ວິທີແກ້ໄຂ:",
+    "fixButton": "ແກ້ໄຂອັດຕະໂນມັດ",
+    "firewall": {
+      "symptom": "ອຸປະກອນນີ້ສາມາດສົ່ງໄຟລ໌ໄປຫາອຸປະກອນອື່ນໄດ້ ແຕ່ອຸປະກອນອື່ນບໍ່ສາມາດສົ່ງໄຟລ໌ມາຫາອຸປະກອນນີ້ໄດ້.",
+      "solution": "ນີ້ອາດເປັນບັນຫາໄຟວໍ. ທ່ານສາມາດແກ້ໄຂໄດ້ໂດຍການອະນຸຍາດການເຊື່ອມຕໍ່ຂາເຂົ້າ (UDP ແລະ TCP) ຢູ່ພອດ {port}.",
+      "openFirewall": "ເປີດໄຟວໍ"
+    },
+    "noDiscovery": {
+      "symptom": "ອຸປະກອນນີ້ບໍ່ສາມາດຄົ້ນພົບອຸປະກອນອື່ນໄດ້.",
+      "solution": "ກະລຸນາໝັ້ນໃຈວ່າອຸປະກອນທັງໝົດຢູ່ໃນເຄືອຂ່າຍ Wi-Fi ດຽວກັນ ແລະ ໃຊ້ການຕັ້ງຄ່າດຽວກັນ (ພອດ, ທີ່ຢູ່ multicast, ການເຂົ້າລະຫັດ). ທ່ານສາມາດລອງພິມທີ່ຢູ່ IP ຂອງອຸປະກອນເປົ້າໝາຍດ້ວຍຕົນເອງ. ຖ້າວິທີນີ້ໃຊ້ໄດ້ ໃຫ້ພິຈາລະນາເພີ່ມອຸປະກອນນີ້ໃສ່ລາຍການໂປຣດ ເພື່ອໃຫ້ຖືກຄົ້ນພົບອັດຕະໂນມັດໃນອະນາຄົດ."
+    },
+    "noConnection": {
+      "symptom": "ອຸປະກອນທັງສອງບໍ່ສາມາດຄົ້ນພົບກັນ ແລະ ບໍ່ສາມາດແບ່ງປັນໄຟລ໌ໄດ້.",
+      "solution": "ບັນຫາເກີດຂຶ້ນທັງສອງຝ່າຍບໍ? ຖ້າແມ່ນ ທ່ານຕ້ອງໝັ້ນໃຈວ່າອຸປະກອນທັງສອງຢູ່ໃນເຄືອຂ່າຍ Wi-Fi ດຽວກັນ ແລະ ໃຊ້ການຕັ້ງຄ່າດຽວກັນ (ພອດ, ທີ່ຢູ່ multicast, ການເຂົ້າລະຫັດ). ເຄືອຂ່າຍ Wi-Fi ອາດບໍ່ອະນຸຍາດການສື່ສານລະຫວ່າງຜູ້ໃຊ້ ເນື່ອງຈາກການແຍກ Access Point (AP). ໃນກໍລະນີນີ້ ຕ້ອງປິດຕົວເລືອກນີ້ຢູ່ເຣົາເຕີ."
+    }
+  },
+  "networkInterfacesPage": {
+    "title": "ອິນເຕີເຟສເຄືອຂ່າຍ",
+    "info": "ໂດຍຄ່າເລີ່ມຕົ້ນ LocalSend ໃຊ້ອິນເຕີເຟສເຄືອຂ່າຍທັງໝົດທີ່ມີ. ທ່ານສາມາດຍົກເວັ້ນເຄືອຂ່າຍທີ່ບໍ່ຕ້ອງການໄດ້ຢູ່ນີ້. ທ່ານຕ້ອງເລີ່ມເຊີບເວີໃໝ່ເພື່ອນຳໃຊ້ການປ່ຽນແປງ.",
+    "preview": "ຕົວຢ່າງ",
+    "whitelist": "ບັນຊີຂາວ",
+    "blacklist": "ບັນຊີດຳ"
+  },
+  "receiveHistoryPage": {
+    "title": "ປະຫວັດ",
+    "openFolder": "ເປີດໂຟລເດີ",
+    "deleteHistory": "ລຶບປະຫວັດ",
+    "empty": "ປະຫວັດວ່າງເປົ່າ.",
+    "entryActions": {
+      "open": "ເປີດໄຟລ໌",
+      "showInFolder": "ສະແດງໃນໂຟລເດີ",
+      "info": "ຂໍ້ມູນ",
+      "deleteFromHistory": "ລຶບອອກຈາກປະຫວັດ"
+    }
+  },
+  "apkPickerPage": {
+    "title": "ແອັບ (APK)",
+    "excludeSystemApps": "ຍົກເວັ້ນແອັບຂອງລະບົບ",
+    "excludeAppsWithoutLaunchIntent": "ຍົກເວັ້ນແອັບທີ່ເປີດບໍ່ໄດ້",
+    "apps": "{n} ແອັບ"
+  },
+  "selectedFilesPage": {
+    "deleteAll": "ລຶບທັງໝົດ"
+  },
+  "receivePage": {
+    "subTitle": {
+      "one": "ຕ້ອງການສົ່ງໄຟລ໌ໃຫ້ທ່ານ",
+      "other": "ຕ້ອງການສົ່ງໄຟລ໌ {n} ໄຟລ໌ໃຫ້ທ່ານ"
+    },
+    "subTitleMessage": "ສົ່ງຂໍ້ຄວາມໃຫ້ທ່ານ:",
+    "subTitleLink": "ສົ່ງລິ້ງໃຫ້ທ່ານ:",
+    "canceled": "ຜູ້ສົ່ງໄດ້ຍົກເລີກຄຳຂໍ."
+  },
+  "receiveOptionsPage": {
+    "title": "ຕົວເລືອກ",
+    "destination": "@:settingsTab.receive.destination",
+    "appDirectory": "(ໂຟລເດີ LocalSend)",
+    "saveToGallery": "@:settingsTab.receive.saveToGallery",
+    "saveToGalleryOff": "ປິດອັດຕະໂນມັດເພາະມີໂຟລເດີ."
+  },
+  "sendPage": {
+    "waiting": "ກຳລັງລໍຖ້າການຕອບກັບ…",
+    "rejected": "ຜູ້ຮັບໄດ້ປະຕິເສດຄຳຂໍ.",
+    "tooManyAttempts": "@:web.tooManyAttempts",
+    "busy": "ຜູ້ຮັບກຳລັງຫຍຸ້ງກັບຄຳຂໍອື່ນ."
+  },
+  "progressPage": {
+    "titleSending": "ກຳລັງສົ່ງໄຟລ໌",
+    "titleReceiving": "ກຳລັງຮັບໄຟລ໌",
+    "savedToGallery": "ບັນທຶກໃນ Photos",
+    "total": {
+      "title": {
+        "sending": "ຄວາມຄືບໜ້າທັງໝົດ ({time})",
+        "finishedError": "ສຳເລັດພ້ອມຂໍ້ຜິດພາດ",
+        "canceledSender": "ຍົກເລີກໂດຍຜູ້ສົ່ງ",
+        "canceledReceiver": "ຍົກເລີກໂດຍຜູ້ຮັບ"
+      },
+      "count": "ໄຟລ໌: {curr} / {n}",
+      "size": "ຂະໜາດ: {curr} / {n}",
+      "speed": "ຄວາມໄວ: {speed}/s"
+    },
+    "remainingTime": {
+      "seconds": "{n}:{ss}",
+      "minutes": "{n}:{ss}",
+      "hours": "{h}ຊມ {m}ນທ",
+      "days": "{d}ມື້ {h}ຊມ {m}ນທ"
+    }
+  },
+  "webSharePage": {
+    "title": "ແບ່ງປັນຜ່ານລິ້ງ",
+    "loading": "ກຳລັງເລີ່ມເຊີບເວີ…",
+    "stopping": "ກຳລັງຢຸດເຊີບເວີ…",
+    "error": "ເກີດຂໍ້ຜິດພາດໃນຂະນະເລີ່ມເຊີບເວີ.",
+    "openLink": {
+      "one": "ເປີດລິ້ງນີ້ໃນບຣາວເຊີຂອງທ່ານ:",
+      "other": "ເປີດໜຶ່ງໃນລິ້ງເຫຼົ່ານີ້ໃນບຣາວເຊີຂອງທ່ານ:"
+    },
+    "requests": "ຄຳຂໍ",
+    "noRequests": "ຍັງບໍ່ມີຄຳຂໍ.",
+    "encryption": "@:settingsTab.network.encryption",
+    "autoAccept": "ຍອມຮັບຄຳຂໍອັດຕະໂນມັດ",
+    "requirePin": "ຕ້ອງໃຊ້ PIN",
+    "pinHint": "PIN ຄື \"{pin}\"",
+    "encryptionHint": "LocalSend ໃຊ້ໃບຮັບຮອງທີ່ເຊັນດ້ວຍຕົນເອງ. ທ່ານຕ້ອງຍອມຮັບມັນຢູ່ໃນບຣາວເຊີຂອງທ່ານ.",
+    "pendingRequests": "ຄຳຂໍທີ່ລໍຖ້າ: {n}"
+  },
+  "aboutPage": {
+    "title": "ກ່ຽວກັບ LocalSend",
+    "description": [
+      "LocalSend ເປັນແອັບຟຣີແບບໂອເພັນຊອດ ທີ່ໃຫ້ທ່ານແບ່ງປັນໄຟລ໌ ແລະ ຂໍ້ຄວາມກັບອຸປະກອນໃກ້ຄຽງຜ່ານເຄືອຂ່າຍທ້ອງຖິ່ນຂອງທ່ານໄດ້ຢ່າງປອດໄພ ໂດຍບໍ່ຈຳເປັນຕ້ອງມີການເຊື່ອມຕໍ່ອິນເຕີເນັດ.",
+      "ແອັບນີ້ມີໃຫ້ໃຊ້ໃນ Android, iOS, macOS, Windows ແລະ Linux. ທ່ານສາມາດຊອກຫາທາງເລືອກການດາວໂຫຼດທັງໝົດໄດ້ຢູ່ໜ້າຫຼັກຢ່າງເປັນທາງການ."
+    ],
+    "author": "ຜູ້ຂຽນ",
+    "contributors": "ຜູ້ປະກອບສ່ວນ",
+    "packagers": "ຜູ້ຈັດແພັກເກັດ",
+    "translators": "ຜູ້ແປພາສາ"
+  },
+  "donationPage": {
+    "title": "ບໍລິຈາກ",
+    "info": "LocalSend ຟຣີ, ໂອເພັນຊອດ ແລະ ບໍ່ມີໂຄສະນາ. ຖ້າທ່ານມັກແອັບນີ້ ທ່ານສາມາດສະໜັບສະໜູນການພັດທະນາດ້ວຍການບໍລິຈາກ.",
+    "donate": "ບໍລິຈາກ {amount}",
+    "thanks": "ຂອບໃຈຫຼາຍໆ!",
+    "restore": "ກູ້ຄືນການຊື້"
+  },
+  "changelogPage": {
+    "title": "ບັນທຶກການປ່ຽນແປງ"
+  },
+  "aliasGenerator(ignoreMissing, ignoreGpt)": {
+    "adjectives": [
+      "ໜ້າຮັກ",
+      "ສວຍງາມ",
+      "ໃຫຍ່",
+      "ສະຫວ່າງ",
+      "ສະອາດ",
+      "ສະຫຼາດ",
+      "ເທ່",
+      "ໜ້າເອັນດູ",
+      "ຫຼັກແຫຼມ",
+      "ມຸ່ງໝັ້ນ",
+      "ກະຕືລືລົ້ນ",
+      "ມີປະສິດທິພາບ",
+      "ມະຫັດສະຈັນ",
+      "ໄວ",
+      "ດີ",
+      "ສົດ",
+      "ດີງາມ",
+      "ງົດງາມ",
+      "ຍອດຢ້ຽມ",
+      "ຫຼໍ່",
+      "ຮ້ອນ",
+      "ໃຈດີ",
+      "ຮັກແພງ",
+      "ລຶກລັບ",
+      "ເປັນລະບຽບ",
+      "ອ່ອນໂຍນ",
+      "ອົດທົນ",
+      "ສວຍ",
+      "ຊົງພະລັງ",
+      "ຮັ່ງມີ",
+      "ລັບ",
+      "ຫົວດີ",
+      "ໜັກແໜ້ນ",
+      "ພິເສດ",
+      "ມີຍຸດທະສາດ",
+      "ແຂງແຮງ",
+      "ຮຽບຮ້ອຍ",
+      "ມີປັນຍາ"
+    ],
+    "fruits": [
+      "ໝາກແອບເປີ້ນ",
+      "ໝາກອາໂວກາໂດ",
+      "ໝາກກ້ວຍ",
+      "ໝາກແບລກເບີຣີ",
+      "ໝາກບລູເບີຣີ",
+      "ບຣັອກໂຄລີ",
+      "ໝາກກາລົດ",
+      "ໝາກເຊີຣີ",
+      "ໝາກພ້າວ",
+      "ໝາກອະງຸ່ນ",
+      "ໝາກນາວ",
+      "ຜັກສະຫຼັດ",
+      "ໝາກມ່ວງ",
+      "ໝາກໂມ",
+      "ເຫັດ",
+      "ຫົວຜັກບົ່ວ",
+      "ໝາກກ້ຽງ",
+      "ໝາກຫຸ່ງ",
+      "ໝາກພີດ",
+      "ໝາກແພຣ໌",
+      "ໝາກນັດ",
+      "ມັນຝຣັ່ງ",
+      "ໝາກອຶ",
+      "ໝາກຣາສເບີຣີ",
+      "ໝາກສະຕໍເບີຣີ",
+      "ໝາກເລ່ນ"
+    ],
+    "combination": "{fruit} {adjective}"
+  },
+  "dialogs": {
+    "addFile": {
+      "title": "ເພີ່ມໃສ່ການເລືອກ",
+      "content": "ທ່ານຕ້ອງການເພີ່ມຫຍັງ?"
+    },
+    "openFile": {
+      "title": "ເປີດໄຟລ໌",
+      "content": "ທ່ານຕ້ອງການເປີດໄຟລ໌ທີ່ໄດ້ຮັບບໍ?"
+    },
+    "addressInput": {
+      "title": "ໃສ່ທີ່ຢູ່",
+      "hashtag": "ແຮັຊແທັກ",
+      "ip": "ທີ່ຢູ່ IP",
+      "recentlyUsed": "ໃຊ້ຫຼ້າສຸດ: "
+    },
+    "cancelSession": {
+      "title": "ຍົກເລີກການໂອນໄຟລ໌",
+      "content": "ທ່ານຕ້ອງການຍົກເລີກການໂອນໄຟລ໌ແທ້ບໍ?"
+    },
+    "cannotOpenFile": {
+      "title": "ບໍ່ສາມາດເປີດໄຟລ໌",
+      "content": "ບໍ່ສາມາດເປີດ \"{file}\". ໄຟລ໌ນີ້ຖືກຍ້າຍ, ປ່ຽນຊື່ ຫຼື ລຶບໄປແລ້ວບໍ?"
+    },
+    "encryptionDisabledNotice": {
+      "title": "ປິດການເຂົ້າລະຫັດແລ້ວ",
+      "content": "ຕອນນີ້ການສື່ສານເກີດຂຶ້ນຜ່ານໂປຣໂຕຄໍ HTTP ທີ່ບໍ່ໄດ້ເຂົ້າລະຫັດ. ເພື່ອໃຊ້ໂປຣໂຕຄໍ HTTPS ໃຫ້ເປີດການເຂົ້າລະຫັດອີກຄັ້ງ."
+    },
+    "errorDialog": {
+      "title": "@:general.error"
+    },
+    "favoriteDialog": {
+      "title": "ລາຍການໂປຣດ",
+      "noFavorites": "ຍັງບໍ່ມີອຸປະກອນໂປຣດ.",
+      "addFavorite": "ເພີ່ມ"
+    },
+    "favoriteDeleteDialog": {
+      "title": "ລຶບອອກຈາກລາຍການໂປຣດ",
+      "content": "ທ່ານຕ້ອງການລຶບ \"{name}\" ອອກຈາກລາຍການໂປຣດແທ້ບໍ?"
+    },
+    "favoriteEditDialog": {
+      "titleAdd": "ເພີ່ມໃສ່ລາຍການໂປຣດ",
+      "titleEdit": "ການຕັ້ງຄ່າ",
+      "name": "ຊື່ອຸປະກອນ",
+      "auto": "(ອັດຕະໂນມັດ)",
+      "ip": "ທີ່ຢູ່ IP",
+      "port": "ພອດ"
+    },
+    "fileInfo": {
+      "title": "ຂໍ້ມູນໄຟລ໌",
+      "fileName": "ຊື່ໄຟລ໌:",
+      "path": "ເສັ້ນທາງ:",
+      "size": "ຂະໜາດ:",
+      "sender": "ຜູ້ສົ່ງ:",
+      "time": "ເວລາ:"
+    },
+    "fileNameInput": {
+      "title": "ໃສ່ຊື່ໄຟລ໌",
+      "original": "ຕົ້ນສະບັບ: {original}"
+    },
+    "historyClearDialog": {
+      "title": "ລ້າງປະຫວັດ",
+      "content": "ທ່ານຕ້ອງການລຶບປະຫວັດທັງໝົດແທ້ບໍ?"
+    },
+    "localNetworkUnauthorized": {
+      "title": "@:dialogs.noPermission.title",
+      "description": "LocalSend ບໍ່ສາມາດຄົ້ນຫາອຸປະກອນອື່ນໄດ້ ຫາກບໍ່ໄດ້ຮັບອະນຸຍາດໃຫ້ສະແກນເຄືອຂ່າຍທ້ອງຖິ່ນ. ກະລຸນາອະນຸຍາດສິດນີ້ໃນການຕັ້ງຄ່າ.",
+      "gotoSettings": "ການຕັ້ງຄ່າ"
+    },
+    "messageInput": {
+      "title": "ພິມຂໍ້ຄວາມ",
+      "multiline": "ຫຼາຍແຖວ"
+    },
+    "noFiles": {
+      "title": "ບໍ່ໄດ້ເລືອກໄຟລ໌",
+      "content": "ກະລຸນາເລືອກຢ່າງໜ້ອຍໜຶ່ງໄຟລ໌."
+    },
+    "noPermission": {
+      "title": "ບໍ່ມີສິດ",
+      "content": "ທ່ານຍັງບໍ່ໄດ້ໃຫ້ສິດທີ່ຈຳເປັນ. ກະລຸນາໃຫ້ສິດໃນການຕັ້ງຄ່າ."
+    },
+    "notAvailableOnPlatform": {
+      "title": "ບໍ່ສາມາດໃຊ້ໄດ້",
+      "content": "ຄຸນສົມບັດນີ້ໃຊ້ໄດ້ສະເພາະໃນ:"
+    },
+    "qr": {
+      "title": "QR ໂຄດ"
+    },
+    "quickActions": {
+      "title": "ຄຳສັ່ງດ່ວນ",
+      "counter": "ຕົວນັບ",
+      "prefix": "ຄຳນຳໜ້າ",
+      "padZero": "ເຕີມດ້ວຍເລກສູນ",
+      "sortBeforeCount": "ຮຽງລຳດັບຕົວອັກສອນກ່ອນ (A-Z)",
+      "random": "ສຸ່ມ"
+    },
+    "quickSaveNotice": {
+      "title": "@:general.quickSave",
+      "content": "ຕອນນີ້ຄຳຂໍໄຟລ໌ຈະຖືກຍອມຮັບອັດຕະໂນມັດ. ໂປຣດຮັບຮູ້ວ່າທຸກຄົນໃນເຄືອຂ່າຍທ້ອງຖິ່ນສາມາດສົ່ງໄຟລ໌ໃຫ້ທ່ານໄດ້."
+    },
+    "quickSaveFromFavoritesNotice": {
+      "title": "@:general.quickSaveFromFavorites",
+      "content": [
+        "ຕອນນີ້ຄຳຂໍໄຟລ໌ຈະຖືກຍອມຮັບອັດຕະໂນມັດຈາກອຸປະກອນໃນລາຍການໂປຣດຂອງທ່ານ.",
+        "ຄຳເຕືອນ! ປັດຈຸບັນນີ້ບໍ່ປອດໄພທັງໝົດ ເນື່ອງຈາກແຮັກເກີທີ່ມີລາຍນິ້ວມື (fingerprint) ຂອງອຸປະກອນໃດໜຶ່ງຈາກລາຍການໂປຣດຂອງທ່ານ ສາມາດສົ່ງໄຟລ໌ໃຫ້ທ່ານໄດ້ໂດຍບໍ່ມີຂໍ້ຈຳກັດ.",
+        "ຢ່າງໃດກໍຕາມ ຕົວເລືອກນີ້ຍັງປອດໄພກວ່າການອະນຸຍາດໃຫ້ຜູ້ໃຊ້ທັງໝົດໃນເຄືອຂ່າຍທ້ອງຖິ່ນສົ່ງໄຟລ໌ໃຫ້ທ່ານໄດ້ໂດຍບໍ່ມີຂໍ້ຈຳກັດ."
+      ]
+    },
+    "pin": {
+      "title": "ໃສ່ PIN"
+    },
+    "sendModeHelp": {
+      "title": "ໂໝດການສົ່ງ",
+      "single": "ສົ່ງໄຟລ໌ໃຫ້ຜູ້ຮັບຄົນດຽວ. ການເລືອກຈະຖືກລ້າງຫຼັງຈາກການໂອນໄຟລ໌ສຳເລັດ.",
+      "multiple": "ສົ່ງໄຟລ໌ໃຫ້ຜູ້ຮັບຫຼາຍຄົນ. ການເລືອກຈະບໍ່ຖືກລ້າງຫຼັງຈາກການໂອນໄຟລ໌ສຳເລັດ.",
+      "link": "ຜູ້ຮັບທີ່ບໍ່ໄດ້ຕິດຕັ້ງ LocalSend ສາມາດດາວໂຫຼດໄຟລ໌ທີ່ເລືອກໄດ້ ໂດຍການເປີດລິ້ງໃນບຣາວເຊີ."
+    },
+    "zoom": {
+      "title": "URL"
+    }
+  },
+  "sanitization": {
+    "empty": "ຊື່ໄຟລ໌ຫ້າມວ່າງເປົ່າ",
+    "invalid": "ຊື່ໄຟລ໌ມີຕົວອັກສອນທີ່ບໍ່ຖືກຕ້ອງ"
+  },
+  "tray": {
+    "open": "@:general.open",
+    "close": "ອອກຈາກ LocalSend",
+    "closeWindows": "ອອກ"
+  },
+  "web": {
+    "waiting": "@:sendPage.waiting",
+    "enterPin": "ໃສ່ PIN",
+    "invalidPin": "PIN ບໍ່ຖືກຕ້ອງ",
+    "tooManyAttempts": "ພະຍາຍາມຫຼາຍເກີນໄປ",
+    "rejected": "ຖືກປະຕິເສດ",
+    "files": "ໄຟລ໌",
+    "fileName": "ຊື່ໄຟລ໌",
+    "size": "ຂະໜາດ"
+  },
+  "assetPicker": {
+    "confirm": "ຢືນຢັນ",
+    "cancel": "ຍົກເລີກ",
+    "edit": "ແກ້ໄຂ",
+    "gifIndicator": "GIF",
+    "loadFailed": "ໂຫຼດລົ້ມແຫຼວ",
+    "original": "ຕົ້ນສະບັບ",
+    "preview": "ຕົວຢ່າງ",
+    "select": "ເລືອກ",
+    "emptyList": "ລາຍການວ່າງເປົ່າ",
+    "unSupportedAssetType": "ບໍ່ຮອງຮັບປະເພດໄຟລ໌ນີ້.",
+    "unableToAccessAll": "ບໍ່ສາມາດເຂົ້າເຖິງໄຟລ໌ທັງໝົດໃນອຸປະກອນ",
+    "viewingLimitedAssetsTip": "ເບິ່ງໄດ້ສະເພາະໄຟລ໌ ແລະ ອານບໍ້ (album) ທີ່ແອັບເຂົ້າເຖິງໄດ້ເທົ່ານັ້ນ.",
+    "changeAccessibleLimitedAssets": "ຄລິກເພື່ອອັບເດດໄຟລ໌ທີ່ເຂົ້າເຖິງໄດ້",
+    "accessAllTip": "ແອັບເຂົ້າເຖິງໄດ້ພຽງບາງໄຟລ໌ໃນອຸປະກອນເທົ່ານັ້ນ. ໃຫ້ໄປທີ່ການຕັ້ງຄ່າລະບົບ ແລ້ວອະນຸຍາດໃຫ້ແອັບເຂົ້າເຖິງມີເດຍທັງໝົດໃນອຸປະກອນ.",
+    "goToSystemSettings": "ໄປທີ່ການຕັ້ງຄ່າລະບົບ",
+    "accessLimitedAssets": "ສືບຕໍ່ດ້ວຍການເຂົ້າເຖິງແບບຈຳກັດ",
+    "accessiblePathName": "ໄຟລ໌ທີ່ເຂົ້າເຖິງໄດ້",
+    "sTypeAudioLabel": "ສຽງ",
+    "sTypeImageLabel": "ຮູບພາບ",
+    "sTypeVideoLabel": "ວິດີໂອ",
+    "sTypeOtherLabel": "ມີເດຍອື່ນໆ",
+    "sActionPlayHint": "ຫຼິ້ນ",
+    "sActionPreviewHint": "ຕົວຢ່າງ",
+    "sActionSelectHint": "ເລືອກ",
+    "sActionSwitchPathLabel": "ປ່ຽນເສັ້ນທາງ",
+    "sActionUseCameraHint": "ໃຊ້ກ້ອງ",
+    "sNameDurationLabel": "ໄລຍະເວລາ",
+    "sUnitAssetCountLabel": "ຈຳນວນ"
+  }
+}

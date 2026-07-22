@@ -251,4 +251,17 @@ mod tests {
         let verified = verify_token_timestamp(&*key.to_verifying_key(), &fingerprint);
         assert!(verified);
     }
+
+    #[test]
+    fn test_export_and_parse_public_key() {
+        let key = generate_key();
+        let pem = export_public_key(&key).unwrap();
+
+        // The exported public key can be parsed back and verifies a signature
+        // produced by the corresponding private key.
+        let public_key = parse_public_key(&pem, "ed25519").unwrap();
+        let data = b"hello world";
+        let signature = key.inner.sign(data);
+        assert!(public_key.verify(data, signature.to_vec().as_ref()).is_ok());
+    }
 }

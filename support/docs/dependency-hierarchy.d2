@@ -1,0 +1,116 @@
+# Render with:
+# d2 --theme 4 --dark-theme 200 --layout elk --pad 32 support/docs/dependency-hierarchy.d2 support/docs/dependency-hierarchy.svg
+
+direction: down
+
+classes: {
+  card: {
+    shape: text
+  }
+}
+
+consumers: "" {
+  direction: right
+  style: {
+    border-radius: 16
+    stroke-dash: 4
+  }
+
+  app: ||md
+    <table>
+      <tr>
+        <td style="width:100%"><h6 style="margin:0;font-size:1em;color:inherit">App</h6></td>
+        <td align="right" style="white-space:nowrap">Dart/Flutter</td>
+      </tr>
+      <tr>
+        <td colspan="2">/app/</td>
+      </tr>
+      <tr>
+        <td colspan="2">Cross-platform App</td>
+      </tr>
+    </table>
+  || {
+    class: card
+  }
+
+  cli: ||md
+    <table>
+      <tr>
+        <td style="width:100%"><h6 style="margin:0;font-size:1em;color:inherit">CLI</h6></td>
+        <td align="right" style="white-space:nowrap">Rust</td>
+      </tr>
+      <tr>
+        <td colspan="2">/cli/</td>
+      </tr>
+      <tr>
+        <td colspan="2">Command line interface</td>
+      </tr>
+    </table>
+  || {
+    class: card
+  }
+
+  server: ||md
+    <table>
+      <tr>
+        <td style="width:100%"><h6 style="margin:0;font-size:1em;color:inherit">Server</h6></td>
+        <td align="right" style="white-space:nowrap">Rust</td>
+      </tr>
+      <tr>
+        <td colspan="2">/server/</td>
+      </tr>
+      <tr>
+        <td colspan="2">WebRTC signaling server</td>
+      </tr>
+    </table>
+  || {
+    class: card
+  }
+}
+
+localsend_isolates: ||md
+  <table>
+    <tr>
+      <td style="width:100%"><h6 style="margin:0;font-size:1em;color:inherit">LocalSend Isolates</h6></td>
+      <td align="right" style="white-space:nowrap">Dart + Rust</td>
+    </tr>
+    <tr>
+      <td colspan="2">/packages/localsend_isolates/</td>
+    </tr>
+    <tr>
+      <td colspan="2">Background thread and Rust bindings</td>
+    </tr>
+  </table>
+|| {
+  class: card
+}
+
+core: ||md
+  <table>
+    <tr>
+      <td style="width:100%"><h6 style="margin:0;font-size:1em;color:inherit">Core</h6></td>
+      <td align="right" style="white-space:nowrap">Rust</td>
+    </tr>
+    <tr>
+      <td colspan="2">/packages/core/</td>
+    </tr>
+    <tr>
+      <td colspan="2">Library implementing the LocalSend protocol</td>
+    </tr>
+  </table>
+|| {
+  class: card
+}
+
+core_hub: "" {
+  shape: circle
+  width: 1
+  height: 1
+  style.opacity: 0
+}
+
+consumers.app -> localsend_isolates
+consumers.cli -- core_hub
+consumers.server -- core_hub
+localsend_isolates -- core_hub
+core_hub -> core

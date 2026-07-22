@@ -30,7 +30,7 @@ tokio = { version = "1.49.0", features = ["full"] }
 tokio-rustls = { version = "0.26.4", default-features = false, features = ["ring", "tls12"], optional = true }
 tokio-stream = "0.1.18"
 tokio-tungstenite = { version = "0.28.0", features = ["rustls-tls-webpki-roots"], optional = true }
-tokio-util = { version = "0.7.16", optional = true }
+tokio-util = { version = "0.7.16", features = ["rt"], optional = true }
 tracing = "0.1.44"
 tracing-subscriber = { version = "0.3.20" }
 tungstenite = "0.28.0"

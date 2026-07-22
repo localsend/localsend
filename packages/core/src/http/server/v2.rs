@@ -25,6 +25,10 @@ use uuid::Uuid;
 #[derive(Debug)]
 pub enum ServerEventV2 {
     /// A device registered itself via `POST /api/localsend/v2/register`.
+    ///
+    /// On TLS, this event is only emitted when `info.fingerprint` matches the
+    /// SHA-256 fingerprint of the client certificate verified during the mTLS
+    /// handshake, so the fingerprint cannot be spoofed.
     Register {
         /// The IP address of the remote device.
         ip: IpAddr,
@@ -38,11 +42,22 @@ pub enum ServerEventV2 {
     /// The application must answer on `decision_tx`.
     /// Dropping `decision_tx` results in a 500 response.
     PrepareUpload {
+        /// The session ID the upload session will have when the request is
+        /// accepted. Pre-generated so the application can track the session
+        /// consistently from the start.
+        session_id: String,
+
         /// The IP address of the sender.
         ip: IpAddr,
 
         /// The device information of the sender.
         info: RegisterDtoV2,
+
+        /// The SHA-256 fingerprint (uppercase hex) of the sender's client
+        /// certificate verified during the mTLS handshake. Unlike
+        /// `info.fingerprint`, this value cannot be spoofed.
+        /// `None` when the server runs without TLS.
+        cert_fingerprint: Option<String>,
 
         /// The offered files, mapped by file ID.
         files: HashMap<String, FileDto>,
@@ -78,6 +93,30 @@ pub enum ServerEventV2 {
         /// Why the session ended.
         reason: SessionEndReasonV2,
     },
+
+    /// A prepare-upload request was aborted before a session was created,
+    /// e.g. the sender disconnected while the application was still deciding.
+    /// The `decision_tx` of the [ServerEventV2::PrepareUpload] with the same
+    /// session ID is dead; answering it has no effect.
+    PrepareUploadAborted {
+        /// The session ID of the aborted prepare-upload request.
+        session_id: String,
+    },
+
+    /// `POST /api/localsend/v2/cancel` was received for a session this server
+    /// does not manage. This happens when the remote device cancels a transfer
+    /// that this application is currently *sending* to it: the session ID is
+    /// the one issued by the remote device during prepare-upload.
+    ///
+    /// The application must verify that `ip` matches the target of the
+    /// send session before cancelling it.
+    CancelReceived {
+        /// The IP address of the remote device requesting the cancellation.
+        ip: IpAddr,
+
+        /// The session ID as known by the remote device.
+        session_id: String,
+    },
 }
 
 /// The application's decision for a prepare-upload request.
@@ -108,14 +147,28 @@ pub(crate) async fn register(
 ) -> Result<JsonResponse<RegisterResponseDtoV2>, AppError> {
     let payload = body.collect_to_json::<RegisterDtoV2>().await?;
 
+    // On TLS, only trust registrations whose claimed fingerprint is proven
+    // by the client certificate of the mTLS handshake.
+    let fingerprint_valid = match client_info.cert_fingerprint() {
+        Some(cert_fingerprint) => payload.fingerprint.to_ascii_uppercase() == cert_fingerprint,
+        None => true,
+    };
+
     if let Some(v2) = &state.v2 {
-        let _ = v2
-            .event_tx
-            .send(ServerEventV2::Register {
-                ip: client_info.ip,
-                info: payload,
-            })
-            .await;
+        if fingerprint_valid {
+            let _ = v2
+                .event_tx
+                .send(ServerEventV2::Register {
+                    ip: client_info.ip,
+                    info: payload,
+                })
+                .await;
+        } else {
+            tracing::warn!(
+                "Ignoring register from {}: claimed fingerprint does not match the client certificate",
+                client_info.ip
+            );
+        }
     }
 
     let info = state.info.lock().await.clone();
@@ -182,13 +235,17 @@ pub(crate) async fn prepare_upload(
         *slot = Some(SessionStateV2::Pending);
     }
 
+    let session_id = Uuid::new_v4().to_string();
+
     // Frees the slot again if this request is aborted before a session is created.
-    let mut pending_guard = PendingSessionGuard::new(v2.clone());
+    let mut pending_guard = PendingSessionGuard::new(v2.clone(), session_id.clone());
 
     let (decision_tx, decision_rx) = oneshot::channel();
     let event = ServerEventV2::PrepareUpload {
+        session_id: session_id.clone(),
         ip: client_info.ip,
         info: payload.info,
+        cert_fingerprint: client_info.cert_fingerprint(),
         files: payload.files.clone(),
         decision_tx,
     };
@@ -233,7 +290,6 @@ pub(crate) async fn prepare_upload(
         return Ok(res);
     }
 
-    let session_id = Uuid::new_v4().to_string();
     let tokens: HashMap<String, String> = files
         .iter()
         .map(|(id, file)| (id.clone(), file.token.clone()))
@@ -334,6 +390,7 @@ pub(crate) async fn upload(
 pub(crate) async fn cancel(
     req: Request<Incoming>,
     state: AppState,
+    client_info: RequestClientInfo,
 ) -> Result<Response<BoxedBody>, AppError> {
     let v2 = require_v2(&state)?;
     let query = parse_query(req.uri().query());
@@ -342,7 +399,9 @@ pub(crate) async fn cancel(
         let cancelled = {
             let mut slot = v2.session.lock().await;
             match slot.as_ref() {
-                Some(SessionStateV2::Active(session)) if session.session_id == *session_id => {
+                Some(SessionStateV2::Active(session))
+                    if session.session_id == *session_id && session.sender_ip == client_info.ip =>
+                {
                     *slot = None;
                     true
                 }
@@ -357,6 +416,16 @@ pub(crate) async fn cancel(
                 .send(ServerEventV2::SessionEnd {
                     session_id: session_id.clone(),
                     reason: SessionEndReasonV2::Cancelled,
+                })
+                .await;
+        } else {
+            // Not one of our upload sessions: the remote device may be
+            // cancelling a transfer this application is sending to it.
+            let _ = v2
+                .event_tx
+                .send(ServerEventV2::CancelReceived {
+                    ip: client_info.ip,
+                    session_id: session_id.clone(),
                 })
                 .await;
         }
@@ -386,12 +455,17 @@ fn invalid_token_error() -> AppError {
 /// while the application was still deciding).
 struct PendingSessionGuard {
     v2: Arc<V2State>,
+    session_id: String,
     armed: bool,
 }
 
 impl PendingSessionGuard {
-    fn new(v2: Arc<V2State>) -> Self {
-        Self { v2, armed: true }
+    fn new(v2: Arc<V2State>, session_id: String) -> Self {
+        Self {
+            v2,
+            session_id,
+            armed: true,
+        }
     }
 
     /// Disarms the guard after the pending slot was replaced by an active session.
@@ -412,8 +486,15 @@ impl Drop for PendingSessionGuard {
             return;
         }
         let v2 = self.v2.clone();
+        let session_id = std::mem::take(&mut self.session_id);
         tokio::spawn(async move {
             clear_pending_session(&v2).await;
+            // The application may still be waiting for a decision; tell it
+            // that answering is pointless now.
+            let _ = v2
+                .event_tx
+                .send(ServerEventV2::PrepareUploadAborted { session_id })
+                .await;
         });
     }
 }

@@ -6,8 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:localsend_app/config/theme.dart';
 import 'package:localsend_app/gen/strings.g.dart';
-import 'package:localsend_app/isolate/model/file_type.dart';
-import 'package:localsend_app/isolate/util/sleep.dart';
 import 'package:localsend_app/model/cross_file.dart';
 import 'package:localsend_app/pages/apk_picker_page.dart';
 import 'package:localsend_app/provider/device_info_provider.dart';
@@ -23,6 +21,8 @@ import 'package:localsend_app/util/ui/asset_picker_translated_text_delegate.dart
 import 'package:localsend_app/widget/dialogs/loading_dialog.dart';
 import 'package:localsend_app/widget/dialogs/message_input_dialog.dart';
 import 'package:localsend_app/widget/dialogs/no_permission_dialog.dart';
+import 'package:localsend_isolates/model/file_type.dart';
+import 'package:localsend_isolates/util/sleep.dart';
 import 'package:logging/logging.dart';
 import 'package:pasteboard/pasteboard.dart';
 import 'package:permission_handler/permission_handler.dart';

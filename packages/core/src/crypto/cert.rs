@@ -45,10 +45,13 @@ fn verify_cert_from_cert(cert: X509Certificate, public_key: Option<&str>) -> any
     Ok(())
 }
 
-pub fn public_key_from_cert_pem(cert: String) -> anyhow::Result<String> {
-    let (cert_pem, _) = Pem::read(Cursor::new(cert.into_bytes()))?;
-    let parsed_cert: X509Certificate = cert_pem.parse_x509()?;
-    public_key_from_cert(parsed_cert)
+/// Computes the SHA-256 fingerprint of a certificate in DER format.
+/// Encoded as uppercase hex, the format used for LocalSend fingerprints.
+pub fn fingerprint_from_cert_der(cert: &[u8]) -> String {
+    crate::crypto::hash::sha256(cert)
+        .iter()
+        .map(|byte| format!("{byte:02X}"))
+        .collect()
 }
 
 /// Extracts the public key from the certificate which is in DER format.
@@ -80,9 +83,7 @@ iK5jecOBG0RVVWLuw+TkuX8TUgrpIktH2+qEM1KdLyAMnL71hx2wMvE+lDKFKK9p
 bQIDAQAB
 -----END PUBLIC KEY-----";
 
-    #[test]
-    fn test_verify_cert() {
-        let cert = "-----BEGIN CERTIFICATE-----
+    static CERT: &str = "-----BEGIN CERTIFICATE-----
 MIIDGTCCAgGgAwIBAgIBATANBgkqhkiG9w0BAQsFADBQMRcwFQYDVQQDEw5Mb2Nh
 bFNlbmQgVXNlcjEJMAcGA1UEChMAMQkwBwYDVQQLEwAxCTAHBgNVBAcTADEJMAcG
 A1UECBMAMQkwBwYDVQQGEwAwHhcNMjUwMjA5MDAwMzE0WhcNMzUwMjA3MDAwMzE0
@@ -100,10 +101,12 @@ bfSiFW4hXWp75grVO8xfML7ZcWMlhKrOsOMUGiy1qs3qsyJ3w7B2Tz78HhXGO5dd
 jyPmZarhixKO92UpEvKGxjO0E/3UUNUzxKTAAgFfhKpuwHUgIijM/EppZtA8OcSh
 fEztiV0xKfcPVx4d6dqRt/NMElK1Ivw2vUuxTymphZkkFOzht9m73/kyKaeFp8Ij
 VRus1zGVD8IVpIdPMyz01WJyS7M0fWaHXKWo+Bo=
------END CERTIFICATE-----"
-            .to_string();
+-----END CERTIFICATE-----";
+
+    #[test]
+    fn test_verify_cert() {
         assert_eq!(
-            verify_cert_from_pem(cert, Some(PUBLIC_KEY)).map_err(|e| e.to_string()),
+            verify_cert_from_pem(CERT.to_string(), Some(PUBLIC_KEY)).map_err(|e| e.to_string()),
             Ok(())
         );
 
@@ -182,6 +185,16 @@ nidU/qXQvBJ7NPUkXXgbcgqxK735iijOqQHmKts=
         assert_eq!(
             verify_cert_from_pem(cert_expired, Some(PUBLIC_KEY)).map_err(|e| e.to_string()),
             Err("Time validity error".to_string())
+        );
+    }
+
+    #[test]
+    fn test_fingerprint_from_cert_der() {
+        let (cert_pem, _) = Pem::read(Cursor::new(CERT.as_bytes().to_vec())).unwrap();
+        assert_eq!(
+            fingerprint_from_cert_der(&cert_pem.contents),
+            // Must match the Dart side: uppercase hex SHA-256 of the DER bytes.
+            "4BADDE53A7F7CDEEED93189FD898E02BF6B4806CA4C05DE0ACE08319B86552FA"
         );
     }
 }

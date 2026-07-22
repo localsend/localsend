@@ -59,7 +59,7 @@ class ZoomDialog extends StatelessWidget {
           if (listenIncomingWebSendRequests && webSendState != null)
             Builder(
               builder: (context) {
-                final pending = webSendState?.sessions.values.fold<int>(0, (prev, curr) => prev + (curr.responseHandler != null ? 1 : 0)) ?? 0;
+                final pending = webSendState?.sessions.values.fold<int>(0, (prev, curr) => prev + (curr.pending ? 1 : 0)) ?? 0;
                 if (pending != 0) {
                   return Padding(
                     padding: const EdgeInsets.only(top: 5),

@@ -119,6 +119,7 @@ pub struct RTCFile {
 struct RTCFileState {
     file_id: String,
     size: u64,
+    received: u64,
     binary_tx: mpsc::Sender<Bytes>,
 }
 
@@ -965,6 +966,7 @@ pub async fn accept_offer(
                     file_state = Some(RTCFileState {
                         file_id: header.id.clone(),
                         size,
+                        received: 0,
                         binary_tx: tx,
                     });
 
@@ -978,6 +980,26 @@ pub async fn accept_offer(
                     // publish binary data
                     match &mut file_state {
                         Some(state) => {
+                            state.received = state.received + msg.data.len() as u64;
+                            if state.received > state.size {
+                                // Sender transmitted more bytes than declared. Interrupt early
+                                // to avoid writing a corrupt/oversized file.
+                                let _ = error_tx
+                                    .send(RTCFileError {
+                                        file_id: state.file_id.clone(),
+                                        error: format!(
+                                            "Received more bytes than expected (expected {}, got {})",
+                                            state.size, state.received
+                                        ),
+                                    })
+                                    .await;
+
+                                // Drop the state so the app-side receiver is closed and no
+                                // further binaries for this file are forwarded.
+                                file_state = None;
+                                continue;
+                            }
+
                             state.binary_tx.send(msg.data).await?;
                         }
                         None => {

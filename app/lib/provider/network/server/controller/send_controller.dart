@@ -1,260 +1,56 @@
-import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:localsend_app/gen/assets.gen.dart';
-import 'package:localsend_app/gen/strings.g.dart';
-import 'package:localsend_app/isolate/api_route_builder.dart';
-import 'package:localsend_app/isolate/constants.dart';
-import 'package:localsend_app/isolate/model/dto/file_dto.dart';
-import 'package:localsend_app/isolate/model/dto/info_dto.dart';
-import 'package:localsend_app/isolate/model/dto/receive_request_response_dto.dart';
-import 'package:localsend_app/isolate/model/file_type.dart';
-import 'package:localsend_app/isolate/util/stream.dart';
 import 'package:localsend_app/model/cross_file.dart';
 import 'package:localsend_app/model/state/send/web/web_send_file.dart';
 import 'package:localsend_app/model/state/send/web/web_send_session.dart';
 import 'package:localsend_app/model/state/send/web/web_send_state.dart';
-import 'package:localsend_app/provider/device_info_provider.dart';
-import 'package:localsend_app/provider/network/server/controller/common.dart';
 import 'package:localsend_app/provider/network/server/server_utils.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
-import 'package:localsend_app/util/simple_server.dart';
-import 'package:uri_content/uri_content.dart';
+import 'package:localsend_app/util/native/directories.dart';
+import 'package:localsend_app/util/user_agent_analyzer.dart';
+import 'package:localsend_isolates/isolate.dart';
+import 'package:localsend_isolates/model/dto/file_dto.dart';
+import 'package:localsend_isolates/model/file_type.dart';
+import 'package:localsend_isolates/util/android_channel.dart' as isolate_android_channel;
+import 'package:logging/logging.dart';
+import 'package:path/path.dart' as p;
 import 'package:uuid/uuid.dart';
 
 const _uuid = Uuid();
 
-/// Handles all requests for sending files.
+final _logger = Logger('WebSendController');
+
+/// Handles all server events for web send (sending files to web browsers).
+/// The web page and the downloads themselves are served by the Rust server
+/// which emits the events handled here.
 class SendController {
   final ServerUtils server;
 
   SendController(this.server);
 
-  /// Installs all routes for receiving files.
-  void installRoutes({
-    required SimpleServerRouteBuilder router,
-    required String alias,
-    required String fingerprint,
-  }) {
-    router.get('/', (HttpRequest request) async {
-      final state = server.getState();
-      if (state.webSendState == null) {
-        // There is no web send state
-        return await request.respondAsset(403, Assets.web.error403);
-      }
+  /// Builds the [WebSendState] for the given [files].
+  /// Files that only exist in memory (e.g. text messages) are materialized
+  /// to the cache directory so the Rust server can stream them.
+  Future<WebSendState> buildWebSendState({required List<CrossFile> files}) async {
+    final currentWebSendState = server.getStateOrNull()?.webSendState;
 
-      return await request.respondAsset(200, Assets.web.index);
-    });
-
-    router.get('/main.js', (HttpRequest request) async {
-      final state = server.getState();
-      if (state.webSendState == null) {
-        // There is no web send state
-        return await request.respondAsset(403, Assets.web.error403);
-      }
-
-      return await request.respondAsset(200, Assets.web.main, 'text/javascript; charset=utf-8');
-    });
-
-    router.get('/i18n.json', (HttpRequest request) async {
-      final state = server.getState();
-      if (state.webSendState == null) {
-        // There is no web send state
-        return await request.respondJson(403, message: 'Web send not initialized.');
-      }
-
-      return await request.respondJson(
-        200,
-        body: {
-          'waiting': t.web.waiting,
-          'enterPin': t.web.enterPin,
-          'invalidPin': t.web.invalidPin,
-          'tooManyAttempts': t.web.tooManyAttempts,
-          'rejected': t.web.rejected,
-          'files': t.web.files,
-          'fileName': t.web.fileName,
-          'size': t.web.size,
-        },
-      );
-    });
-
-    router.post(ApiRoute.prepareDownload.v2, (HttpRequest request) async {
-      final state = server.getState();
-      if (state.webSendState == null) {
-        // There is no web send state
-        return request.respondJson(403, message: 'Web send not initialized.');
-      }
-
-      final requestSessionId = request.uri.queryParameters['sessionId'];
-      if (requestSessionId != null) {
-        // Check if the user already has permission
-        final session = server.getState().webSendState?.sessions[requestSessionId];
-        if (session != null && session.responseHandler == null && session.ip == request.ip) {
-          final deviceInfo = server.ref.read(deviceInfoProvider);
-          return await request.respondJson(
-            200,
-            body: ReceiveRequestResponseDto(
-              info: InfoDto(
-                alias: alias,
-                version: protocolVersion,
-                deviceModel: deviceInfo.deviceModel,
-                deviceType: deviceInfo.deviceType,
-                fingerprint: fingerprint,
-                download: true,
-              ),
-              sessionId: session.sessionId,
-              files: {
-                for (final entry in state.webSendState!.files.entries) entry.key: entry.value.file,
-              },
-            ).toJson(),
-          );
-        }
-      }
-
-      final pinCorrect = await checkPin(
-        server: server,
-        pin: state.webSendState!.pin,
-        pinAttempts: state.webSendState!.pinAttempts,
-        request: request,
-      );
-      if (!pinCorrect) {
-        return;
-      }
-
-      final streamController = StreamController<bool>();
-      final sessionId = request.ip;
-      server.setState(
-        (oldState) => oldState!.copyWith(
-          webSendState: oldState.webSendState!.copyWith(
-            sessions: {
-              ...oldState.webSendState!.sessions,
-              sessionId: WebSendSession(
-                sessionId: sessionId,
-                responseHandler: streamController,
-                ip: request.ip,
-                deviceInfo: request.deviceInfo,
-              ),
-            },
-          ),
-        ),
-      );
-
-      final accepted = state.webSendState?.autoAccept == true || await streamController.stream.first;
-      if (!accepted) {
-        // user rejected the file transfer
-        server.setState(
-          (oldState) => oldState!.copyWith(
-            webSendState: oldState.webSendState!.copyWith(
-              sessions: {
-                for (final entry in oldState.webSendState!.sessions.entries)
-                  if (entry.key != sessionId) entry.key: entry.value, // remove session
-              },
-            ),
-          ),
-        );
-        return await request.respondJson(403, message: 'File transfer rejected.');
-      }
-
-      server.setState(
-        (oldState) => oldState!.copyWith(
-          webSendState: oldState.webSendState!.updateSession(
-            sessionId: sessionId,
-            update: (oldSession) {
-              return oldSession.copyWith(
-                responseHandler: null, // this indicates that the session is active
-              );
-            },
-          ),
-        ),
-      );
-      final deviceInfo = server.ref.read(deviceInfoProvider);
-      return await request.respondJson(
-        200,
-        body: ReceiveRequestResponseDto(
-          info: InfoDto(
-            alias: alias,
-            version: protocolVersion,
-            deviceModel: deviceInfo.deviceModel,
-            deviceType: deviceInfo.deviceType,
-            fingerprint: fingerprint,
-            download: true,
-          ),
-          sessionId: sessionId,
-          files: {
-            for (final entry in state.webSendState!.files.entries) entry.key: entry.value.file,
-          },
-        ).toJson(),
-      );
-    });
-
-    router.get(ApiRoute.download.v2, (HttpRequest request) async {
-      final sessionId = request.uri.queryParameters['sessionId'];
-      if (sessionId == null) {
-        return await request.respondJson(400, message: 'Missing sessionId.');
-      }
-
-      final session = server.getState().webSendState?.sessions[sessionId];
-      if (session == null || session.responseHandler != null || session.ip != request.ip) {
-        return await request.respondJson(403, message: 'Invalid sessionId.');
-      }
-
-      final fileId = request.uri.queryParameters['fileId'];
-      if (fileId == null) {
-        return await request.respondJson(400, message: 'Missing fileId.');
-      }
-
-      final file = server.getState().webSendState?.files[fileId];
-      if (file == null) {
-        return await request.respondJson(403, message: 'Invalid fileId.');
-      }
-
-      final fileName = file.file.fileName.replaceAll('/', '-'); // File name may be inside directories
-
-      request.response
-        ..statusCode = 200
-        ..headers.set('content-type', 'application/octet-stream')
-        ..headers.set('content-disposition', 'attachment; filename="${Uri.encodeComponent(fileName)}"');
-
-      final isInlineContent = file.bytes != null; // text message, clipboard content
-      if (isInlineContent) {
-        request.response.headers.set('content-length', '${file.bytes!.length}');
-
-        final byteStream = Stream.fromIterable([file.bytes!]);
-        final (streamController, subscription) = byteStream.digested();
-
-        await request.response.addStream(streamController.stream).then((_) {
-          // ignore: discarded_futures
-          request.response.close();
-          // ignore: discarded_futures
-          subscription.cancel();
-        });
-      } else {
-        final path = file.path!;
-        final isContentUri = path.startsWith('content://');
-
-        // Read file size at download time, since the file could have changed since it was selected (#2359, #2043)
-        final fileSize = isContentUri ? await UriContent().getContentLength(Uri.parse(path)) : File(path).lengthSync();
-        request.response.headers.set('content-length', '$fileSize');
-
-        final fileStream = isContentUri ? UriContent().getContentStream(Uri.parse(path)) : File(path).openRead();
-        final (streamController, subscription) = fileStream.digested();
-
-        await request.response.addStream(streamController.stream).then((_) {
-          request.response.close(); // ignore: discarded_futures
-          subscription.cancel(); // ignore: discarded_futures
-        });
-      }
-    });
-  }
-
-  Future<void> initializeWebSend({required List<CrossFile> files}) async {
-    final webSendState = WebSendState(
+    return WebSendState(
       sessions: {},
       files: Map.fromEntries(
         await Future.wait(
           files.map((file) async {
             final id = _uuid.v4();
+
+            String? path = file.path;
+            if (path == null && file.bytes != null) {
+              // The Rust server streams file content from disk, so in-memory
+              // bytes (text messages, clipboard content) are written to a temp file.
+              final tempPath = p.join(await getCacheDirectory(), 'web-send-$id');
+              await File(tempPath).writeAsBytes(file.bytes!);
+              path = tempPath;
+            }
+
             return MapEntry(
               id,
               WebSendFile(
@@ -275,41 +71,145 @@ class SendController {
                       : null,
                 ),
                 asset: file.asset,
-                path: file.path,
+                path: path,
                 bytes: file.bytes,
               ),
             );
           }),
         ),
       ),
-      autoAccept: server.ref.read(settingsProvider).shareViaLinkAutoAccept,
-      pin: null,
-      pinAttempts: {},
-    );
-
-    server.setState(
-      (oldState) => oldState?.copyWith(
-        webSendState: webSendState,
-      ),
+      autoAccept: currentWebSendState?.autoAccept ?? server.ref.read(settingsProvider).shareViaLinkAutoAccept,
+      pin: currentWebSendState?.pin,
     );
   }
 
-  void acceptRequest(String sessionId) {
-    _respondRequest(sessionId, true);
-  }
-
-  void declineRequest(String sessionId) {
-    _respondRequest(sessionId, false);
-  }
-
-  void _respondRequest(String sessionId, bool accepted) {
-    final controller = server.getState().webSendState?.sessions[sessionId]?.responseHandler;
-    if (controller == null) {
+  /// A web client requests to download the shared files.
+  /// The Rust server already checked the PIN and handles repeated visits of
+  /// accepted sessions itself.
+  void onPrepareDownload(HttpServerWebPrepareDownloadEvent event) {
+    final webSendState = server.getStateOrNull()?.webSendState;
+    if (webSendState == null) {
+      // should not happen: web send events are only emitted when web send was configured
+      server.ref.redux(parentIsolateProvider).dispatch(IsolateHttpServerPrepareDownloadDecisionAction(sessionId: event.sessionId, accept: false));
       return;
     }
 
-    controller.add(accepted);
-    controller.close(); // ignore: discarded_futures
+    server.setState(
+      (oldState) => oldState!.copyWith(
+        webSendState: oldState.webSendState!.copyWith(
+          sessions: {
+            ...oldState.webSendState!.sessions,
+            event.sessionId: WebSendSession(
+              sessionId: event.sessionId,
+              pending: true,
+              ip: event.ip,
+              deviceInfo: parseDeviceInfoFromUserAgent(event.userAgent),
+            ),
+          },
+        ),
+      ),
+    );
+
+    if (webSendState.autoAccept) {
+      acceptRequest(event.sessionId);
+    }
+  }
+
+  /// A web client downloads an offered file.
+  /// The Rust server already validated the session; it streams the content
+  /// from the source resolved here.
+  Future<void> onFileDownload(HttpServerWebFileDownloadEvent event) async {
+    final String? filePath;
+    final int? fileDescriptor;
+    try {
+      final path = server.getStateOrNull()?.webSendState?.files[event.fileId]?.path;
+      if (path == null) {
+        // should not happen: the Rust server only emits events for offered files
+        throw StateError('No path for web send file ${event.fileId}');
+      }
+
+      if (path.startsWith('content://')) {
+        filePath = null;
+        fileDescriptor = await isolate_android_channel.getFileDescriptorAndroid(uri: path);
+      } else {
+        filePath = path;
+        fileDescriptor = null;
+      }
+    } catch (e, st) {
+      _logger.severe('Failed to resolve source for web send file ${event.fileId}', e, st);
+      // Unblock the web client's request waiting for the content source.
+      server.ref.redux(parentIsolateProvider).dispatch(IsolateHttpServerRejectFileDownloadAction(sessionId: event.sessionId, fileId: event.fileId));
+      return;
+    }
+
+    server.ref
+        .redux(parentIsolateProvider)
+        .dispatch(
+          IsolateHttpServerFileDownloadTargetAction(
+            sessionId: event.sessionId,
+            fileId: event.fileId,
+            path: filePath,
+            fileDescriptor: fileDescriptor,
+          ),
+        );
+  }
+
+  void acceptRequest(String sessionId) {
+    final session = server.getStateOrNull()?.webSendState?.sessions[sessionId];
+    if (session == null || !session.pending) {
+      return;
+    }
+
+    server.setState(
+      (oldState) => oldState!.copyWith(
+        webSendState: oldState.webSendState!.updateSession(
+          sessionId: sessionId,
+          update: (oldSession) => oldSession.copyWith(pending: false),
+        ),
+      ),
+    );
+
+    server.ref.redux(parentIsolateProvider).dispatch(IsolateHttpServerPrepareDownloadDecisionAction(sessionId: sessionId, accept: true));
+  }
+
+  void declineRequest(String sessionId) {
+    final session = server.getStateOrNull()?.webSendState?.sessions[sessionId];
+    if (session == null || !session.pending) {
+      return;
+    }
+
+    server.setState(
+      (oldState) => oldState!.copyWith(
+        webSendState: oldState.webSendState!.copyWith(
+          sessions: {
+            for (final entry in oldState.webSendState!.sessions.entries)
+              if (entry.key != sessionId) entry.key: entry.value, // remove session
+          },
+        ),
+      ),
+    );
+
+    server.ref.redux(parentIsolateProvider).dispatch(IsolateHttpServerPrepareDownloadDecisionAction(sessionId: sessionId, accept: false));
+  }
+}
+
+/// Parses a human-readable device description from a user agent.
+String parseDeviceInfoFromUserAgent(String? userAgent) {
+  if (userAgent == null) {
+    return 'Unknown';
+  }
+
+  final userAgentAnalyzer = UserAgentAnalyzer();
+  final browser = userAgentAnalyzer.getBrowser(userAgent);
+  final os = userAgentAnalyzer.getOS(userAgent);
+  if (browser != null && os != null) {
+    return '$browser ($os)';
+  } else if (browser != null) {
+    return browser;
+  } else if (os != null) {
+    return os;
+  } else {
+    return 'Unknown';
   }
 }
 

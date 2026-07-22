@@ -4,7 +4,7 @@ pub mod v2;
 pub mod v3;
 pub mod web;
 
-use crate::crypto::cert::public_key_from_cert_der;
+use crate::crypto::cert::{fingerprint_from_cert_der, public_key_from_cert_der};
 use crate::http::server::internal::{InternalConfig, InternalState};
 use crate::http::server::v2::ServerEventV2;
 use crate::http::server::web::WebSendConfig;
@@ -27,6 +27,8 @@ use std::num::NonZeroUsize;
 use std::ops::Deref;
 use std::sync::Arc;
 use tokio::sync::{mpsc, oneshot, Mutex};
+use tokio_util::sync::CancellationToken;
+use tokio_util::task::TaskTracker;
 use web::WebPageState;
 
 /// Configuration for the v2 (legacy) protocol endpoints.
@@ -108,6 +110,51 @@ impl AppState {
     }
 }
 
+/// A handle to a running server for interactions initiated by the application
+/// (as opposed to the event channels which are driven by incoming requests).
+pub struct ServerHandle {
+    v2: Option<Arc<V2State>>,
+
+    /// The task running the accept loops. Completes after a stop has been
+    /// requested, the listeners have been dropped and all connections have
+    /// been closed.
+    task: Mutex<Option<tokio::task::JoinHandle<()>>>,
+}
+
+impl ServerHandle {
+    /// Waits until the server task has terminated, the listeners are closed
+    /// and all connections have been dropped, so that the port can be bound again.
+    /// Must be called after requesting a stop via the stop channel.
+    pub async fn wait_stopped(&self) {
+        if let Some(task) = self.task.lock().await.take() {
+            let _ = task.await;
+        }
+    }
+
+    /// Cancels the active v2 upload session if it matches `session_id`,
+    /// e.g. because the user aborted the transfer on the receiving side.
+    ///
+    /// Uploads that are already in progress still run to completion, but new
+    /// upload requests are rejected and a new session can be created.
+    /// No [ServerEventV2::SessionEnd] is emitted: the application initiated
+    /// the cancellation itself.
+    ///
+    /// Returns `true` when a session was cancelled.
+    pub async fn cancel_v2_session(&self, session_id: &str) -> bool {
+        let Some(v2) = &self.v2 else {
+            return false;
+        };
+        let mut slot = v2.session.lock().await;
+        match slot.as_ref() {
+            Some(SessionStateV2::Active(session)) if session.session_id == session_id => {
+                *slot = None;
+                true
+            }
+            _ => false,
+        }
+    }
+}
+
 /// Binds the server to the specified port on both IPv4 and IPv6 addresses.
 pub async fn start_with_port(
     port: u16,
@@ -117,7 +164,7 @@ pub async fn start_with_port(
     v2_config: Option<ServerConfigV2>,
     web_send_config: Option<WebSendConfig>,
     stop_rx: oneshot::Receiver<()>,
-) -> anyhow::Result<()> {
+) -> anyhow::Result<ServerHandle> {
     let ipv4_socket_addr = SocketAddr::new(Ipv4Addr::UNSPECIFIED.into(), port);
     let ipv6_socket_addr = SocketAddr::new(Ipv6Addr::UNSPECIFIED.into(), port);
     let info = Arc::new(Mutex::new(info));
@@ -132,16 +179,21 @@ pub async fn start_with_port(
         }
     };
 
-    tokio::spawn({
+    let cancel = CancellationToken::new();
+    let connections = TaskTracker::new();
+
+    let task = tokio::spawn({
         let state = state.clone();
+        let cancel = cancel.clone();
+        let connections = connections.clone();
         async move {
             tokio::select! {
-                _ = start_server_with_listener(ipv4_listener, tls_config.clone(), state.clone()) => {
+                _ = start_server_with_listener(ipv4_listener, tls_config.clone(), state.clone(), cancel.clone(), connections.clone()) => {
                     tracing::info!("Server stopped on: {}", ipv4_socket_addr);
                 }
                 _ = async {
                     if let Some(listener) = ipv6_listener {
-                        let _ = start_server_with_listener(listener, tls_config, state).await;
+                        let _ = start_server_with_listener(listener, tls_config, state, cancel.clone(), connections.clone()).await;
                     }
 
                     // Keep the future running forever, so we continue using "ipv4 only" even if ipv6 fails.
@@ -149,10 +201,19 @@ pub async fn start_with_port(
                 } => {}
                 _ = stop_rx => {}
             }
+
+            // Hard-drop connections that are still being served, so that no
+            // client keeps talking to the stopped server.
+            cancel.cancel();
+            connections.close();
+            connections.wait().await;
         }
     });
 
-    Ok(())
+    Ok(ServerHandle {
+        v2: state.v2.clone(),
+        task: Mutex::new(Some(task)),
+    })
 }
 
 /// Binds an IPv6 listener with `IPV6_V6ONLY` enabled.
@@ -184,6 +245,8 @@ async fn start_server_with_listener(
     incoming: tokio::net::TcpListener,
     tls_config: Option<TlsConfig>,
     app_state: AppState,
+    cancel: CancellationToken,
+    connections: TaskTracker,
 ) -> anyhow::Result<()> {
     let _ = rustls::crypto::ring::default_provider().install_default();
 
@@ -205,64 +268,78 @@ async fn start_server_with_listener(
 
         let tls_acceptor = tls_acceptor.clone();
         let app_state = app_state.clone();
-        tokio::spawn(async move {
-            let res = match tls_acceptor {
-                Some(tls_acceptor) => {
-                    let tls_stream = match tls_acceptor.accept(tcp_stream).await {
-                        Ok(tls_stream) => tls_stream,
-                        Err(err) => {
-                            tracing::warn!("TLS handshake error: {err:#}");
-                            return;
-                        }
-                    };
+        let cancel = cancel.clone();
+        connections.spawn(async move {
+            let serve = serve_connection(tcp_stream, remote_addr, tls_acceptor, app_state);
+            tokio::select! {
+                _ = serve => {}
+                // Hard-drop the connection when the server is stopped.
+                _ = cancel.cancelled() => {}
+            }
+        });
+    }
+}
 
-                    let client_info = {
-                        let (_, server_connection) = tls_stream.get_ref();
-                        RequestClientInfo {
-                            ip: remote_addr.ip(),
-                            cert: server_connection
-                                .deref()
-                                .deref()
-                                .peer_certificates()
-                                .map(|cert| cert.get(0).unwrap().to_vec()),
-                        }
-                    };
-
-                    Builder::new(TokioExecutor::new())
-                        .serve_connection(
-                            TokioIo::new(tls_stream),
-                            hyper::service::service_fn(move |mut req: Request<Incoming>| {
-                                req.extensions_mut()
-                                    .insert::<RequestClientInfo>(client_info.clone());
-                                req.extensions_mut().insert::<AppState>(app_state.clone());
-                                handle_request(req)
-                            }),
-                        )
-                        .await
-                }
-                None => {
-                    Builder::new(TokioExecutor::new())
-                        .serve_connection(
-                            TokioIo::new(tcp_stream),
-                            hyper::service::service_fn(move |mut req: Request<Incoming>| {
-                                req.extensions_mut().insert::<RequestClientInfo>(
-                                    RequestClientInfo {
-                                        ip: remote_addr.ip(),
-                                        cert: None,
-                                    },
-                                );
-                                req.extensions_mut().insert::<AppState>(app_state.clone());
-                                handle_request(req)
-                            }),
-                        )
-                        .await
+async fn serve_connection(
+    tcp_stream: tokio::net::TcpStream,
+    remote_addr: SocketAddr,
+    tls_acceptor: Option<tokio_rustls::TlsAcceptor>,
+    app_state: AppState,
+) {
+    let res = match tls_acceptor {
+        Some(tls_acceptor) => {
+            let tls_stream = match tls_acceptor.accept(tcp_stream).await {
+                Ok(tls_stream) => tls_stream,
+                Err(err) => {
+                    tracing::warn!("TLS handshake error: {err:#}");
+                    return;
                 }
             };
 
-            if let Err(err) = res {
-                tracing::warn!("Failed to serve connection: {err:#}");
-            }
-        });
+            let client_info = {
+                let (_, server_connection) = tls_stream.get_ref();
+                RequestClientInfo {
+                    ip: remote_addr.ip(),
+                    cert: server_connection
+                        .deref()
+                        .deref()
+                        .peer_certificates()
+                        .map(|cert| cert.get(0).unwrap().to_vec()),
+                }
+            };
+
+            Builder::new(TokioExecutor::new())
+                .serve_connection(
+                    TokioIo::new(tls_stream),
+                    hyper::service::service_fn(move |mut req: Request<Incoming>| {
+                        req.extensions_mut()
+                            .insert::<RequestClientInfo>(client_info.clone());
+                        req.extensions_mut().insert::<AppState>(app_state.clone());
+                        handle_request(req)
+                    }),
+                )
+                .await
+        }
+        None => {
+            Builder::new(TokioExecutor::new())
+                .serve_connection(
+                    TokioIo::new(tcp_stream),
+                    hyper::service::service_fn(move |mut req: Request<Incoming>| {
+                        req.extensions_mut()
+                            .insert::<RequestClientInfo>(RequestClientInfo {
+                                ip: remote_addr.ip(),
+                                cert: None,
+                            });
+                        req.extensions_mut().insert::<AppState>(app_state.clone());
+                        handle_request(req)
+                    }),
+                )
+                .await
+        }
+    };
+
+    if let Err(err) = res {
+        tracing::warn!("Failed to serve connection: {err:#}");
     }
 }
 
@@ -290,6 +367,13 @@ pub struct RequestClientInfo {
 }
 
 impl RequestClientInfo {
+    /// The SHA-256 fingerprint (uppercase hex) of the client certificate
+    /// verified during the mTLS handshake.
+    /// `None` when the server runs without TLS.
+    fn cert_fingerprint(&self) -> Option<String> {
+        self.cert.as_deref().map(fingerprint_from_cert_der)
+    }
+
     fn extract_public_key(&self) -> Option<String> {
         match &self.cert {
             Some(cert) => match public_key_from_cert_der(cert) {
@@ -372,7 +456,7 @@ async fn handle_request_inner(mut req: Request<Incoming>) -> Result<Response<Box
                 return Err(AppError::Status(StatusCode::NOT_FOUND));
             }
 
-            v2::cancel(req, state).await
+            v2::cancel(req, state, client_info).await
         }
         // The versioned path is retained for compatibility, but this endpoint is internal.
         (&Method::POST, "/api/localsend/v2/show") => internal::show(req, state).await,

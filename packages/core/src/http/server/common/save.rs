@@ -35,6 +35,10 @@ pub enum FileUploadTarget {
 
         /// Channel on which the server reports whether the file was saved successfully.
         result_tx: oneshot::Sender<Result<(), String>>,
+
+        /// Optional channel on which the server reports the number of bytes
+        /// written so far. Events are dropped when the channel is full.
+        progress_tx: Option<mpsc::Sender<u64>>,
     },
 
     /// The server writes the file to this raw file descriptor (Android only)
@@ -47,6 +51,10 @@ pub enum FileUploadTarget {
 
         /// Channel on which the server reports whether the file was saved successfully.
         result_tx: oneshot::Sender<Result<(), String>>,
+
+        /// Optional channel on which the server reports the number of bytes
+        /// written so far. Events are dropped when the channel is full.
+        progress_tx: Option<mpsc::Sender<u64>>,
     },
 }
 
@@ -61,7 +69,11 @@ pub(crate) async fn save_req_to_target(
             binary_tx,
             result_rx,
         } => (binary_tx, result_rx),
-        FileUploadTarget::Path { path, result_tx } => spawn_file_writer(
+        FileUploadTarget::Path {
+            path,
+            result_tx,
+            progress_tx,
+        } => spawn_file_writer(
             async move {
                 tokio::fs::File::create(&path)
                     .await
@@ -69,9 +81,14 @@ pub(crate) async fn save_req_to_target(
             },
             file_size,
             result_tx,
+            progress_tx,
         ),
         #[cfg(target_os = "android")]
-        FileUploadTarget::Fd { fd, result_tx } => spawn_file_writer(
+        FileUploadTarget::Fd {
+            fd,
+            result_tx,
+            progress_tx,
+        } => spawn_file_writer(
             async move {
                 use std::os::fd::FromRawFd;
 
@@ -82,6 +99,7 @@ pub(crate) async fn save_req_to_target(
             },
             file_size,
             result_tx,
+            progress_tx,
         ),
     };
 
@@ -136,12 +154,14 @@ fn spawn_file_writer(
     open: impl Future<Output = Result<tokio::fs::File, String>> + Send + 'static,
     expected_size: u64,
     result_tx: oneshot::Sender<Result<(), String>>,
+    progress_tx: Option<mpsc::Sender<u64>>,
 ) -> (mpsc::Sender<Bytes>, oneshot::Receiver<Result<(), String>>) {
     let (binary_tx, mut binary_rx) = mpsc::channel::<Bytes>(UPLOAD_CHANNEL_CAPACITY);
     let (internal_tx, internal_rx) = oneshot::channel::<Result<(), String>>();
 
     tokio::spawn(async move {
-        let result = write_file_from_receiver(open, expected_size, &mut binary_rx).await;
+        let result =
+            write_file_from_receiver(open, expected_size, &mut binary_rx, progress_tx).await;
         // Unblock the request handler if it is still sending chunks.
         binary_rx.close();
         let _ = result_tx.send(result.clone());
@@ -159,6 +179,7 @@ async fn write_file_from_receiver(
     open: impl Future<Output = Result<tokio::fs::File, String>>,
     expected_size: u64,
     rx: &mut mpsc::Receiver<Bytes>,
+    progress_tx: Option<mpsc::Sender<u64>>,
 ) -> Result<(), String> {
     use tokio::io::AsyncWriteExt;
 
@@ -174,6 +195,10 @@ async fn write_file_from_receiver(
         file.write_all(&chunk)
             .await
             .map_err(|e| format!("Failed to write file: {e}"))?;
+        if let Some(progress_tx) = &progress_tx {
+            // Progress is best-effort: drop the event when the consumer lags.
+            let _ = progress_tx.try_send(written);
+        }
     }
     file.flush()
         .await

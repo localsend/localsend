@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:localsend_app/config/theme.dart';
 import 'package:localsend_app/gen/strings.g.dart';
-import 'package:localsend_app/isolate/util/sleep.dart';
 import 'package:localsend_app/model/cross_file.dart';
 import 'package:localsend_app/provider/local_ip_provider.dart';
 import 'package:localsend_app/provider/network/server/server_provider.dart';
@@ -14,6 +13,7 @@ import 'package:localsend_app/widget/dialogs/pin_dialog.dart';
 import 'package:localsend_app/widget/dialogs/qr_dialog.dart';
 import 'package:localsend_app/widget/dialogs/zoom_dialog.dart';
 import 'package:localsend_app/widget/responsive_list_view.dart';
+import 'package:localsend_isolates/util/sleep.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 import 'package:routerino/routerino.dart';
 
@@ -43,7 +43,6 @@ class _WebSendPageState extends State<WebSendPage> with Refena {
 
   void _init({required bool encrypted}) async {
     final settings = ref.read(settingsProvider);
-    final (beforeAutoAccept, beforePin) = ref.read(serverProvider.select((state) => (state?.webSendState?.autoAccept, state?.webSendState?.pin)));
     setState(() {
       _stateEnum = _ServerState.initializing;
       _encrypted = encrypted;
@@ -51,18 +50,15 @@ class _WebSendPageState extends State<WebSendPage> with Refena {
     });
     await sleepAsync(500);
     try {
+      // The auto accept setting and the pin of a previous web send state are kept.
       await ref
           .notifier(serverProvider)
-          .restartServer(
+          .restartServerWithWebSend(
             alias: settings.alias,
             port: settings.port,
             https: _encrypted,
+            files: widget.files,
           );
-      await ref.notifier(serverProvider).initializeWebSend(widget.files);
-      if (beforeAutoAccept != null) {
-        ref.notifier(serverProvider).setWebSendAutoAccept(beforeAutoAccept);
-      }
-      ref.notifier(serverProvider).setWebSendPin(beforePin);
       setState(() {
         _stateEnum = _ServerState.running;
       });
@@ -135,8 +131,12 @@ class _WebSendPageState extends State<WebSendPage> with Refena {
               );
             }
 
-            final serverState = context.watch(serverProvider)!;
-            final webSendState = serverState.webSendState!;
+            final serverState = context.watch(serverProvider);
+            final webSendState = serverState?.webSendState;
+            if (serverState == null || webSendState == null) {
+              // the server is restarting (e.g. because the pin changed)
+              return const Center(child: CircularProgressIndicator());
+            }
             final networkState = context.watch(localIpProvider);
 
             return ResponsiveListView(
@@ -243,7 +243,7 @@ class _WebSendPageState extends State<WebSendPage> with Refena {
                                   Text(
                                     session.deviceInfo,
                                     style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                                      color: session.responseHandler != null ? Theme.of(context).colorScheme.warning : null,
+                                      color: session.pending ? Theme.of(context).colorScheme.warning : null,
                                     ),
                                   ),
                                   const SizedBox(height: 5),
@@ -251,7 +251,7 @@ class _WebSendPageState extends State<WebSendPage> with Refena {
                                 ],
                               ),
                             ),
-                            if (session.responseHandler != null) ...[
+                            if (session.pending) ...[
                               TextButton(
                                 onPressed: () {
                                   ref.notifier(serverProvider).declineWebSendRequest(session.sessionId);
@@ -327,7 +327,7 @@ class _WebSendPageState extends State<WebSendPage> with Refena {
                       onChanged: (value) async {
                         final currentPIN = webSendState.pin;
                         if (currentPIN != null) {
-                          ref.notifier(serverProvider).setWebSendPin(null);
+                          await ref.notifier(serverProvider).setWebSendPin(null);
                         } else {
                           final String? newPin = await showDialog<String>(
                             context: context,
@@ -338,7 +338,7 @@ class _WebSendPageState extends State<WebSendPage> with Refena {
                           );
 
                           if (newPin != null && newPin.isNotEmpty) {
-                            ref.notifier(serverProvider).setWebSendPin(newPin);
+                            await ref.notifier(serverProvider).setWebSendPin(newPin);
                           }
                         }
                       },

@@ -1,6 +1,7 @@
 #![cfg(feature = "http")]
 
 use bytes::Bytes;
+use futures_util::StreamExt;
 use localsend::http::client::{ClientError, LsHttpClientV2};
 use localsend::http::dto::ProtocolType;
 use localsend::http::dto_v2::{PrepareUploadRequestDtoV2, ProtocolTypeV2, RegisterDtoV2};
@@ -8,13 +9,14 @@ use localsend::http::server::common::save::FileUploadTarget;
 use localsend::http::server::v2::{PrepareUploadDecisionV2, ServerEventV2, SessionEndReasonV2};
 use localsend::http::server::{start_with_port, ServerConfigV2};
 use localsend::http::state::ClientInfo;
-use localsend::model::transfer::{FileContent, FileDto};
+use localsend::model::transfer::FileDto;
 use std::collections::HashMap;
 use std::path::PathBuf;
 use std::sync::atomic::{AtomicU16, AtomicU64, Ordering};
 use std::sync::Arc;
 use std::time::Duration;
 use tokio::sync::{mpsc, oneshot, Mutex};
+use tokio_stream::wrappers::ReceiverStream;
 use tokio_util::sync::CancellationToken;
 
 struct TestServer {
@@ -88,6 +90,7 @@ async fn start_test_server(
                                 let _ = target_tx.send(FileUploadTarget::Path {
                                     path: path.clone(),
                                     result_tx,
+                                    progress_tx: None,
                                 });
                                 tokio::spawn(async move {
                                     if let Ok(Ok(())) = result_rx.await {
@@ -101,6 +104,8 @@ async fn start_test_server(
                     ServerEventV2::SessionEnd { session_id, reason } => {
                         session_ends.lock().await.push((session_id, reason));
                     }
+                    ServerEventV2::PrepareUploadAborted { .. } => {}
+                    ServerEventV2::CancelReceived { .. } => {}
                 }
             }
         }
@@ -218,7 +223,14 @@ async fn upload_bytes(
         }
     });
 
+    // The caller now owns building the request body; track cumulative bytes
+    // sent so the progress assertion below still holds.
     let progress = sent.clone();
+    let body =
+        localsend::reqwest::Body::wrap_stream(ReceiverStream::new(rx).map(move |chunk: Bytes| {
+            progress.fetch_add(chunk.len() as u64, Ordering::Relaxed);
+            Ok::<Bytes, std::io::Error>(chunk)
+        }));
     let result = client
         .upload(
             ProtocolType::Http,
@@ -228,10 +240,7 @@ async fn upload_bytes(
             session_id,
             file_id,
             token,
-            FileContent::Stream(rx),
-            move |bytes_sent| {
-                progress.store(bytes_sent, Ordering::Relaxed);
-            },
+            body,
             CancellationToken::new(),
         )
         .await;

@@ -1,8 +1,8 @@
 import 'dart:typed_data';
 
 import 'package:dart_mappable/dart_mappable.dart';
-import 'package:localsend_app/isolate/model/dto/file_dto.dart';
-import 'package:localsend_app/isolate/model/file_status.dart';
+import 'package:localsend_isolates/model/dto/file_dto.dart';
+import 'package:localsend_isolates/model/file_status.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 
 part 'sending_file.mapper.dart';

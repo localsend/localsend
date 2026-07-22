@@ -24,11 +24,6 @@ class ServerStateMapper extends ClassMapperBase<ServerState> {
   @override
   final String id = 'ServerState';
 
-  static SimpleServer _$httpServer(ServerState v) => v.httpServer;
-  static const Field<ServerState, SimpleServer> _f$httpServer = Field(
-    'httpServer',
-    _$httpServer,
-  );
   static String _$alias(ServerState v) => v.alias;
   static const Field<ServerState, String> _f$alias = Field('alias', _$alias);
   static int _$port(ServerState v) => v.port;
@@ -45,32 +40,23 @@ class ServerStateMapper extends ClassMapperBase<ServerState> {
     'webSendState',
     _$webSendState,
   );
-  static Map<String, int> _$pinAttempts(ServerState v) => v.pinAttempts;
-  static const Field<ServerState, Map<String, int>> _f$pinAttempts = Field(
-    'pinAttempts',
-    _$pinAttempts,
-  );
 
   @override
   final MappableFields<ServerState> fields = const {
-    #httpServer: _f$httpServer,
     #alias: _f$alias,
     #port: _f$port,
     #https: _f$https,
     #session: _f$session,
     #webSendState: _f$webSendState,
-    #pinAttempts: _f$pinAttempts,
   };
 
   static ServerState _instantiate(DecodingData data) {
     return ServerState(
-      httpServer: data.dec(_f$httpServer),
       alias: data.dec(_f$alias),
       port: data.dec(_f$port),
       https: data.dec(_f$https),
       session: data.dec(_f$session),
       webSendState: data.dec(_f$webSendState),
-      pinAttempts: data.dec(_f$pinAttempts),
     );
   }
 
@@ -137,15 +123,12 @@ abstract class ServerStateCopyWith<$R, $In extends ServerState, $Out>
   ReceiveSessionStateCopyWith<$R, ReceiveSessionState, ReceiveSessionState>?
   get session;
   WebSendStateCopyWith<$R, WebSendState, WebSendState>? get webSendState;
-  MapCopyWith<$R, String, int, ObjectCopyWith<$R, int, int>> get pinAttempts;
   $R call({
-    SimpleServer? httpServer,
     String? alias,
     int? port,
     bool? https,
     ReceiveSessionState? session,
     WebSendState? webSendState,
-    Map<String, int>? pinAttempts,
   });
   ServerStateCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
@@ -165,41 +148,28 @@ class _ServerStateCopyWithImpl<$R, $Out>
   WebSendStateCopyWith<$R, WebSendState, WebSendState>? get webSendState =>
       $value.webSendState?.copyWith.$chain((v) => call(webSendState: v));
   @override
-  MapCopyWith<$R, String, int, ObjectCopyWith<$R, int, int>> get pinAttempts =>
-      MapCopyWith(
-        $value.pinAttempts,
-        (v, t) => ObjectCopyWith(v, $identity, t),
-        (v) => call(pinAttempts: v),
-      );
-  @override
   $R call({
-    SimpleServer? httpServer,
     String? alias,
     int? port,
     bool? https,
     Object? session = $none,
     Object? webSendState = $none,
-    Map<String, int>? pinAttempts,
   }) => $apply(
     FieldCopyWithData({
-      if (httpServer != null) #httpServer: httpServer,
       if (alias != null) #alias: alias,
       if (port != null) #port: port,
       if (https != null) #https: https,
       if (session != $none) #session: session,
       if (webSendState != $none) #webSendState: webSendState,
-      if (pinAttempts != null) #pinAttempts: pinAttempts,
     }),
   );
   @override
   ServerState $make(CopyWithData data) => ServerState(
-    httpServer: data.get(#httpServer, or: $value.httpServer),
     alias: data.get(#alias, or: $value.alias),
     port: data.get(#port, or: $value.port),
     https: data.get(#https, or: $value.https),
     session: data.get(#session, or: $value.session),
     webSendState: data.get(#webSendState, or: $value.webSendState),
-    pinAttempts: data.get(#pinAttempts, or: $value.pinAttempts),
   );
 
   @override

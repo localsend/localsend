@@ -1,7 +1,7 @@
 import 'package:intl/date_symbol_data_local.dart';
-import 'package:localsend_app/isolate/model/file_type.dart';
 import 'package:localsend_app/model/persistence/receive_history_entry.dart';
 import 'package:localsend_app/provider/receive_history_provider.dart';
+import 'package:localsend_isolates/model/file_type.dart';
 import 'package:mockito/mockito.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 import 'package:test/test.dart';

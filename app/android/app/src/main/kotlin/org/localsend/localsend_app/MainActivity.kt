@@ -61,6 +61,8 @@ class MainActivity : FlutterActivity() {
 
                 "getFileDescriptor" -> handleGetFileDescriptor(call, result)
 
+                "createFile" -> handleCreateFile(call, result)
+
                 "openContentUri" -> {
                     openUri(context, call.argument<String>("uri")!!)
                     result.success(null)
@@ -114,6 +116,63 @@ class MainActivity : FlutterActivity() {
             result.error("PERMISSION_DENIED", e.message ?: "Permission denied for content URI", null)
         } catch (e: Exception) {
             result.error("OPEN_FAILED", e.message ?: "Failed to open content URI", null)
+        }
+    }
+
+    /// Creates a new file inside a SAF directory and opens it for writing.
+    ///
+    /// Returns the URI of the created document (Android may rename the file on
+    /// collisions) and an owned writable file descriptor. The descriptor must be
+    /// closed by the native consumer it is passed to.
+    private fun handleCreateFile(call: MethodCall, result: MethodChannel.Result) {
+        val parentUriString = call.argument<String>("parentUri")
+        val fileName = call.argument<String>("fileName")
+        val mimeType = call.argument<String>("mimeType") ?: "application/octet-stream"
+        if (parentUriString == null || fileName == null) {
+            result.error("INVALID_ARGUMENT", "Missing parentUri or fileName", null)
+            return
+        }
+
+        try {
+            val parentUri = Uri.parse(parentUriString)
+
+            // A pure tree URI (content://…/tree/X) must be converted to its
+            // document form before it can be used as a parent document.
+            val segments = parentUri.pathSegments
+            val parentDocumentUri = if (segments.size == 2 && segments[0] == "tree") {
+                DocumentsContract.buildDocumentUriUsingTree(
+                    parentUri,
+                    DocumentsContract.getTreeDocumentId(parentUri)
+                )
+            } else {
+                parentUri
+            }
+
+            val documentUri =
+                DocumentsContract.createDocument(contentResolver, parentDocumentUri, mimeType, fileName)
+            if (documentUri == null) {
+                result.error("CREATE_FAILED", "Could not create $fileName in $parentUriString", null)
+                return
+            }
+
+            val parcelFileDescriptor = contentResolver.openFileDescriptor(documentUri, "w")
+            if (parcelFileDescriptor == null) {
+                result.error("OPEN_FAILED", "The content provider did not return a file descriptor", null)
+                return
+            }
+
+            parcelFileDescriptor.use {
+                result.success(
+                    mapOf(
+                        "uri" to documentUri.toString(),
+                        "fd" to it.detachFd(),
+                    )
+                )
+            }
+        } catch (e: SecurityException) {
+            result.error("PERMISSION_DENIED", e.message ?: "Permission denied for content URI", null)
+        } catch (e: Exception) {
+            result.error("CREATE_FAILED", e.message ?: "Failed to create file", null)
         }
     }
 
