@@ -46,12 +46,12 @@
     "infoBox": {
       "ip": "آی‌پی:",
       "port": "پورت:",
-      "alias": "نام کوتاه:"
+      "alias": "نام کوتاه دستگاه:"
     },
     "quickSave": {
-      "off": "@:general.off",
+      "off": "خاموش ذخیره سریع",
       "favorites": "‌موردعلاقه‌ها",
-      "on": "@:general.on"
+      "on": "روشن کردن ذخیره سریع"
     }
   },
   "sendTab": {
@@ -113,9 +113,9 @@
     },
     "receive": {
       "title": "دریافت",
-      "quickSave": "@:general.quickSave",
-      "quickSaveFromFavorites": "@:general.quickSaveFromFavorites",
-      "requirePin": "@:webSharePage.requirePin",
+      "quickSave": "ذخیره سریع مقصد",
+      "quickSaveFromFavorites": "ذخیره سریع از علاقه مندی ها",
+      "requirePin": "نیاز به رمز",
       "autoFinish": "پایان خودکار",
       "destination": "مقصد",
       "downloads": "(دانلودها)",
@@ -168,7 +168,7 @@
     },
     "noDiscovery": {
       "symptom": "این دستگاه نمی‌تواند دستگاه‌های دیگر را پیدا کند.",
-      "solution": "مطمئن شوید که هر دو دستگاه به یک شبکه وای‌فای متصل هستند و پیکربندی یکسانی دارند (پورت، آدرس چندپخشی، رمزنگاری). سعی کنید آدرس آی‌پی دستگاه مورد نظر را به صورت دستی تایپ کنید. اگر جواب داد، این دستگاه را به موارد موردعلاقه اضافه کنید تا در آینده به طور خودکار کشف شود."
+      "solution": "لطفاً اطمینان حاصل کنید که همه دستگاه‌ها به یک شبکه وای‌فای متصل هستند و تنظیمات یکسانی (پورت، آدرس مالتی‌کست، رمزنگاری) دارند. می‌توانید آدرس IP دستگاه مقصد را به‌صورت دستی وارد کنید. اگر این روش کارساز بود، آن دستگاه را به لیست علاقه‌مندی‌ها اضافه کنید تا در آینده به‌طور خودکار شناسایی شود."
     },
     "noConnection": {
       "symptom": "هر دو دستگاه نمی‌توانند یکدیگر را پیدا کرده و پرونده‌ها را هم‌رسانی کنند.",
@@ -207,15 +207,15 @@
   },
   "receiveOptionsPage": {
     "title": "گزینه‌ها",
-    "destination": "@:settingsTab.receive.destination",
+    "destination": "مقصد دریافت",
     "appDirectory": "(پوشه لوکال‌سند)",
-    "saveToGallery": "@:settingsTab.receive.saveToGallery",
+    "saveToGallery": "ذخیره در گالری",
     "saveToGalleryOff": "به دلیل وجود پوشه‌ها به طور خودکار خاموش می‌شود."
   },
   "sendPage": {
     "waiting": "در انتظار پاسخ…",
     "rejected": "گیرنده درخواست را رد کرد.",
-    "tooManyAttempts": "@:web.tooManyAttempts",
+    "tooManyAttempts": "تلاش‌های بیش از حد",
     "busy": "گیرنده با درخواست دیگری مشغول است."
   },
   "progressPage": {
@@ -232,6 +232,14 @@
       "count": "فایل‌ها: {curr} / {n}",
       "size": "حجم: {curr} / {n}",
       "speed": "سرعت: {speed}/s"
+    },
+    "remainingTime": {
+      "seconds": "{n}:{ss}",
+      "minutes": "زمان باقی مانده",
+      "hours": "زمان باقی مانده",
+      "days": "زمان باقی مانده (روز)",
+      "@hours": "چند ساعت",
+      "@days": "چند روز"
     }
   },
   "webSharePage": {
@@ -245,7 +253,7 @@
     },
     "requests": "درخواست‌ها",
     "noRequests": "هنوز درخواستی وجود ندارد.",
-    "encryption": "@:settingsTab.network.encryption",
+    "encryption": "رمزنگاری شبکه",
     "autoAccept": "درخواست‌ها به طور خودکار پذیرفته می‌شوند",
     "requirePin": "نیاز به پین",
     "pinHint": "پین \"{pin}\" می‌باشد",
@@ -374,7 +382,7 @@
       "content": "اکنون ارتباط از طریق پروتکل HTTP رمزنگاری نشده صورت می‌گیرد. برای استفاده از HTTPS، رمزنگاری را دوباره فعال کنید."
     },
     "errorDialog": {
-      "title": "@:general.error"
+      "title": "خطایی رخ داد"
     },
     "favoriteDialog": {
       "title": "علاقه‌مندی‌ها",
@@ -410,7 +418,7 @@
       "content": "واقعاً می‌خواهید کل تاریخچه را حذف کنید؟"
     },
     "localNetworkUnauthorized": {
-      "title": "@:dialogs.noPermission.title",
+      "title": "دسترسی مجاز نیست",
       "description": "لوکال‌سند نمی‌تواند دستگاه‌های دیگر را بدون داشتن مجوز اسکن شبکه محلی پیدا کند. لطفاً این مجوز را در تنظیمات به برنامه بدهید.",
       "gotoSettings": "تنظیمات"
     },
@@ -442,11 +450,11 @@
       "random": "تصادفی"
     },
     "quickSaveNotice": {
-      "title": "@:general.quickSave",
+      "title": "ذخیره سریع",
       "content": "درخواست‌ها به صورت خودکار پذیرفته می‌شوند. توجه داشته باشید که همه افراد در شبکه محلی می‌توانند برای شما پرونده ارسال کنند."
     },
     "quickSaveFromFavoritesNotice": {
-      "title": "@:general.quickSaveFromFavorites",
+      "title": "ذخیرهٔ سریع از علاقه‌مندی‌ها",
       "content": [
         "درخواست‌ها به طور خودکار از دستگاه‌های موجود در فهرست موردعلاقه‌ها پذیرفته می‌شود.",
         "هشدار: این روش در حال حاضر کاملاً ایمن نیست، زیرا در صورت دسترسی هکر به دستگاه‌های موجود در فهرست موردعلاقه‌ها، می‌تواند بدون محدودیت برای شما پرونده ارسال کند.",
@@ -471,13 +479,13 @@
     "invalid": "نام فایل حاوی کاراکترهای نامعتبر است"
   },
   "tray": {
-    "@info": "Apple Guidelines are very strict about the 'close' wording.",
-    "open": "@:general.open",
+    "@info": "دستورالعمل‌های اپل دربارهٔ استفاده از عبارت «بستن» بسیار سخت‌گیرانه هستند.",
+    "open": "باز",
     "close": "خروج از لوکال‌سند",
     "closeWindows": "خروج"
   },
   "web": {
-    "waiting": "@:sendPage.waiting",
+    "waiting": "در حال انتظار",
     "enterPin": "پین را وارد کنید",
     "invalidPin": "پین اشتباه است",
     "tooManyAttempts": "تلاش‌های بیش از اندازه",
@@ -487,7 +495,7 @@
     "size": "حجم"
   },
   "assetPicker": {
-    "@info": "Translations for the Media selection tool for Android and Iphone",
+    "@info": "ترجمه‌های ابزار انتخاب رسانه برای اندروید و آیفون",
     "confirm": "تایید",
     "cancel": "لغو",
     "edit": "ویرایش",
