@@ -13,7 +13,16 @@ fun openUri(context: Context, uriStr: String) {
 
     println("Inferred type: $type")
 
-    intent.setDataAndType(uri, type)
+    // Handle folder directory separately
+    if (type == DocumentsContract.Document.MIME_TYPE_DIR) {
+        val treeId = DocumentsContract.getTreeDocumentId(uri)
+        val browseUri = DocumentsContract.buildDocumentUriUsingTree(uri, treeId)
+
+        intent.setDataAndType(browseUri, type)
+    } else {
+        intent.setDataAndType(uri, type)
+    }
+
     intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
     context.startActivity(intent)
 }

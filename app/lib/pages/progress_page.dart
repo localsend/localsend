@@ -16,6 +16,7 @@ import 'package:localsend_app/provider/progress_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/util/file_size_helper.dart';
 import 'package:localsend_app/util/file_speed_helper.dart';
+import 'package:localsend_app/util/native/content_uri_helper.dart';
 import 'package:localsend_app/util/native/open_file.dart';
 import 'package:localsend_app/util/native/open_folder.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
@@ -273,7 +274,9 @@ class _ProgressPageState extends State<ProgressPage> with Refena {
                                     style: const TextStyle(color: Colors.grey),
                                   ),
                                   TextSpan(
-                                    text: receiveSession.destinationDirectory,
+                                    text: ContentUriHelper.isTreeURI(receiveSession.destinationDirectory)
+                                        ? (ContentUriHelper.getDisplayPathFromTreeUri(receiveSession.destinationDirectory))
+                                        : (receiveSession.destinationDirectory),
                                     style: TextStyle(
                                       color: checkPlatform([TargetPlatform.iOS]) ? Colors.grey : Theme.of(context).colorScheme.primary,
                                     ),
