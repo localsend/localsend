@@ -1,4 +1,13 @@
 class ContentUriHelper {
+  /// Checks uri in this format:
+  /// content://com.android.externalstorage.documents/tree/primary%3ADocuments
+  static bool isTreeURI(String? uri) {
+    if (uri == null || uri.startsWith('content') == false) return false;
+
+    final index = uri.indexOf('/tree/');
+    return (index != -1);
+  }
+  
   /// Converts
   /// content://com.android.externalstorage.documents/tree/primary%3ADocuments
   /// to primary:Documents
@@ -9,6 +18,15 @@ class ContentUriHelper {
     }
 
     return Uri.decodeComponent(uri.substring(index + 6));
+  }
+
+  /// Converts
+  /// content://com.android.externalstorage.documents/tree/primary%3ADocuments%2Fsubfolder
+  /// to Documents/subfolder
+  static String? getDisplayPathFromTreeUri(String uri) {
+    String? path = getPathFromTreeUri(uri);
+    // Remove `primary:` prefix
+    return path?.substring(8);
   }
 
   /// Converts
