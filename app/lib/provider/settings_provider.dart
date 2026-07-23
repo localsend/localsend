@@ -165,8 +165,12 @@ class SettingsService extends PureNotifier<SettingsState> {
 
   Future<void> setQuickSave(bool quickSave) async {
     await _persistence.setQuickSave(quickSave);
+    if (quickSave) {
+      await _persistence.setQuickSaveFromFavorites(false);
+    }
     state = state.copyWith(
       quickSave: quickSave,
+      quickSaveFromFavorites: quickSave ? false : state.quickSaveFromFavorites,
     );
   }
 

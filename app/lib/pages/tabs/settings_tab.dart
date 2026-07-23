@@ -167,6 +167,7 @@ class SettingsTab extends StatelessWidget {
                       ),
                       _BooleanEntry(
                         label: t.settingsTab.receive.quickSaveFromFavorites,
+                        enabled: !vm.settings.quickSave,
                         value: vm.settings.quickSaveFromFavorites,
                         onChanged: (b) async {
                           final old = vm.settings.quickSaveFromFavorites;
@@ -643,12 +644,14 @@ class _SettingsEntry extends StatelessWidget {
 class _BooleanEntry extends StatelessWidget {
   final String label;
   final bool value;
+  final bool enabled;
   final ValueChanged<bool> onChanged;
 
   const _BooleanEntry({
     required this.label,
     required this.value,
     required this.onChanged,
+    this.enabled = true,
   });
 
   @override
@@ -670,7 +673,7 @@ class _BooleanEntry extends StatelessWidget {
             child: Center(
               child: Switch(
                 value: value,
-                onChanged: onChanged,
+                onChanged: enabled ? onChanged : null,
                 activeTrackColor: theme.colorScheme.primary,
                 activeThumbColor: theme.colorScheme.onPrimary,
                 inactiveThumbColor: theme.colorScheme.outline,
