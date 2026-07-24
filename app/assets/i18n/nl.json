@@ -236,8 +236,8 @@
     "remainingTime": {
       "seconds": "{n}:{ss}",
       "minutes": "{n}:{ss}",
-      "hours": "{h}h {m}m",
-      "days": "{d}d {h}h {m}m",
+      "hours": "{h}u {m}m",
+      "days": "{d}d {h}u {m}m",
       "@hours": "Gebruik 'h' als afkorting voor uren en 'm' voor minuten",
       "@days": "Gebruik 'd' voor dagen, 'h' voor uren en 'm' voor minuten"
     }
@@ -434,7 +434,7 @@
     "original": "Herkomst",
     "preview": "Voorbeeld",
     "select": "Selecteren",
-    "emptyList": "Lege lijst",
+    "emptyList": "Lijst is leeg",
     "unSupportedAssetType": "Niet-ondersteund bestandstype.",
     "unableToAccessAll": "Geen toegang tot alle bestanden op het apparaat",
     "viewingLimitedAssetsTip": "De app heeft beperkte toegang tot bestanden.",
@@ -456,9 +456,9 @@
     "sUnitAssetCountLabel": "aantal"
   },
   "networkInterfacesPage": {
-    "preview": "Voorvertoning",
+    "preview": "Voorbeeld",
     "title": "Netwerkinterfaces",
-    "info": "Standaard gebruikt LocalSend alle beschikbare netwerkinterfaces. U kunt hier ongewenste netwerken uitsluiten. U moet de server opnieuw opstarten om de wijzigingen toe te passen.",
+    "info": "Standaard gebruikt LocalSend alle beschikbare netwerkinterfaces. Je kunt hier ongewenste netwerken uitsluiten. Je moet de server opnieuw opstarten om de wijzigingen toe te passen.",
     "whitelist": "Whitelist",
     "blacklist": "Blacklist"
   }

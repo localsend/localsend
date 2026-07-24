@@ -239,6 +239,14 @@
       "count": "파일: {curr} / {n}",
       "size": "크기: {curr} / {n}",
       "speed": "속도: {speed}/초"
+    },
+    "remainingTime": {
+      "seconds": "{n}:{ss}",
+      "minutes": "{n}:{ss}",
+      "hours": "{h}시간 {m}분",
+      "days": "{d}일 {h}시간 {m}분",
+      "@hours": "'h'로 시간을, 'm'으로 분을 나타냅니다",
+      "@days": "'d'로 일수를, 'h'로 시간을, 'm'으로 분을 나타냅니다"
     }
   },
   "webSharePage": {
