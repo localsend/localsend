@@ -2,6 +2,12 @@
 
 LocalSend is an open-source project, and we welcome contributions from anyone who is interested in helping improve the app. Whether you're a developer, a translator, or a documentation writer, there are many ways to get involved.
 
+LocalSend disallows AI generated contributions unless:
+
+- they are bug fixes or
+- very small or
+- you prove your expertise in your field
+
 ## Getting Started
 
 If you're interested in contributing code to LocalSend, you'll need to follow these steps:
