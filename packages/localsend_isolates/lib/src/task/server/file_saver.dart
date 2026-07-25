@@ -2,10 +2,9 @@ import 'dart:io';
 
 import 'package:gal/gal.dart';
 import 'package:legalize/legalize.dart';
-import 'package:localsend_app/util/file_path_helper.dart';
-import 'package:localsend_app/util/native/channel/android_channel.dart' as android_channel;
-import 'package:localsend_app/util/native/content_uri_helper.dart';
-import 'package:localsend_app/util/native/directories.dart';
+import 'package:localsend_isolates/util/android_channel.dart' as android_channel;
+import 'package:localsend_isolates/util/content_uri_helper.dart';
+import 'package:localsend_isolates/util/file_path_helper.dart';
 import 'package:logging/logging.dart';
 import 'package:mime/mime.dart';
 import 'package:path/path.dart' as p;
@@ -35,21 +34,23 @@ class FileSaveTarget {
 
 /// Prepares the destination for an incoming file with [fileName].
 ///
-/// When [saveToGallery] is true, the file is first written to the cache
-/// directory; call [saveCachedFileToGallery] after the file has been written.
+/// When [saveToGallery] is true, the file is first written to the
+/// [cacheDirectory]; call [saveCachedFileToGallery] after the file has been
+/// written.
 ///
 /// On Android, destinations that cannot be written directly (SAF content URIs
 /// and SD cards) are created via the Storage Access Framework and a writable
 /// file descriptor is returned instead of a path.
 Future<FileSaveTarget> prepareFileSaveTarget({
   required String destinationDirectory,
+  required String cacheDirectory,
   required String fileName,
   required bool saveToGallery,
   required bool isImage,
   required Set<String> createdDirectories,
   int? androidSdkInt,
 }) async {
-  final parentDirectory = saveToGallery ? await getCacheDirectory() : destinationDirectory;
+  final parentDirectory = saveToGallery ? cacheDirectory : destinationDirectory;
 
   final (destinationPath, documentUri, finalName) = await digestFilePathAndPrepareDirectory(
     parentDirectory: parentDirectory,

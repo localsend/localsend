@@ -607,7 +607,7 @@ packages:
     source: hosted
     version: "4.0.0"
   gal:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: gal
       sha256: "969598f986789127fd407a750413249e1352116d4c2be66e81837ffeeaafdfee"

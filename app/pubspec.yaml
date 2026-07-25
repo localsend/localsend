@@ -29,7 +29,6 @@ dependencies:
     sdk: flutter
   flutter_markdown: 0.7.7+1
   freezed_annotation: 3.1.0
-  gal: 2.3.2
   glob: 2.1.3
   image: 4.8.0
   image_picker: 1.2.3

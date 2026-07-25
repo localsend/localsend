@@ -296,12 +296,12 @@ class ServerService extends Notifier<ServerState?> {
         // ignore: discarded_futures
         _receiveController.onPrepareUpload(event);
       case HttpServerFileUploadEvent():
-        // ignore: discarded_futures
         _receiveController.onFileUpload(event);
       case HttpServerFileUploadProgressEvent():
+        _receiveController.onFileUploadProgress(event);
       case HttpServerFileUploadResultEvent():
-        // emitted on the stream of the file upload target task, not here
-        break;
+        // ignore: discarded_futures
+        _receiveController.onFileUploadResult(event);
       case HttpServerSessionEndEvent():
         _receiveController.onSessionEnd(event);
       case HttpServerPrepareUploadAbortedEvent():
