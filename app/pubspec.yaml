@@ -11,7 +11,6 @@ environment:
 
 dependencies:
   basic_utils: 5.8.2
-  bitsdojo_window: ^0.1.6
   collection: ^1.17.2 # allow newer versions, so it can compile with newer Flutter versions
   connectivity_plus: 7.2.0
   convert: 3.1.2

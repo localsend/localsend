@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
-import 'package:bitsdojo_window/bitsdojo_window.dart';
+
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
@@ -137,13 +137,11 @@ Future<RefenaContainer> preInit(List<String> args) async {
       startHidden = await isLaunchedAsLoginItem() && await getLaunchAtLoginMinimized();
     }
 
-    doWhenWindowReady(() {
-      if (startHidden) {
-        unawaited(hideToTray());
-      } else {
-        unawaited(showFromTray());
-      }
-    });
+    if (startHidden) {
+      unawaited(hideToTray());
+    } else {
+      unawaited(showFromTray());
+    }
 
     if (defaultTargetPlatform == TargetPlatform.macOS) {
       await setupStatusBar();
