@@ -49,8 +49,8 @@
       "alias": "Nama peranti:"
     },
     "quickSave": {
-      "favorites": "Kegemaran",
       "off": "@:general.off",
+      "favorites": "Kegemaran",
       "on": "@:general.on"
     }
   },
@@ -104,12 +104,12 @@
         "system": "Sistem"
       },
       "saveWindowPlacement": "Simpan kedudukan tetingkap selepas keluar",
+      "saveWindowPlacementWindows": "Simpan kedudukan tetingkap selepas keluar",
       "minimizeToTray": "Minimumkan ke dulang sistem/menu bar apabila menutup",
       "launchAtStartup": "Mula automatik selepas log masuk",
       "launchMinimized": "Mula automatik: Mula tersembunyi",
       "showInContextMenu": "Tunjukkan LocalSend dalam menu konteks",
-      "animations": "Animasi",
-      "saveWindowPlacementWindows": "Simpan kedudukan tetingkap selepas keluar"
+      "animations": "Animasi"
     },
     "receive": {
       "title": "Terima",
@@ -134,18 +134,18 @@
       "deviceType": "Jenis peranti",
       "deviceModel": "Model peranti",
       "port": "Port",
+      "network": "Rangkaian",
+      "networkOptions": {
+        "all": "Semua",
+        "filtered": "Ditapis"
+      },
       "discoveryTimeout": "Tamat Masa Penemuan",
       "useSystemName": "Gunakan nama sistem",
       "generateRandomAlias": "Jana alias rawak",
       "portWarning": "Anda mungkin tidak dapat dikesan oleh peranti lain kerana anda menggunakan port tersuai. (lalai: {defaultPort})",
       "encryption": "Penyulitan",
       "multicastGroup": "Multicast",
-      "multicastGroupWarning": "Anda mungkin tidak dapat dikesan oleh peranti lain kerana anda menggunakan alamat multicast tersuai. (lalai: {defaultMulticast})",
-      "network": "Rangkaian",
-      "networkOptions": {
-        "all": "Semua",
-        "filtered": "Ditapis"
-      }
+      "multicastGroupWarning": "Anda mungkin tidak dapat dikesan oleh peranti lain kerana anda menggunakan alamat multicast tersuai. (lalai: {defaultMulticast})"
     },
     "other": {
       "title": "Lain-lain",
@@ -174,6 +174,13 @@
       "symptom": "Kedua-dua peranti tidak dapat menemui satu sama lain atau tidak dapat berkongsi fail.",
       "solution": "Adakah masalah wujud di kedua-dua belah pihak? Jika ya, anda perlu memastikan bahawa kedua-dua peranti berada dalam rangkaian Wi-Fi yang sama dan berkongsi konfigurasi yang sama (port, alamat multicast, penyulitan). Rangkaian Wi-Fi mungkin tidak membenarkan komunikasi antara peserta (pengasingan AP). Dalam kes ini, pilihan ini mesti diaktifkan pada penghala."
     }
+  },
+  "networkInterfacesPage": {
+    "title": "Antara Muka Rangkaian",
+    "info": "Secara lalai, LocalSend menggunakan semua antara muka rangkaian tersedia. Anda boleh memulaukan rangkaian yang tidak diingini. Anda perlu mula semula pelayan untuk mengenakan perubahan.",
+    "preview": "Pratonton",
+    "whitelist": "Senarai Putih",
+    "blacklist": "Senarai Hitam"
   },
   "receiveHistoryPage": {
     "title": "Sejarah",
@@ -215,8 +222,8 @@
   "sendPage": {
     "waiting": "Menunggu respons…",
     "rejected": "Penerima telah menolak permintaan.",
-    "busy": "Penerima sibuk dengan permintaan lain.",
-    "tooManyAttempts": "@:web.tooManyAttempts"
+    "tooManyAttempts": "@:web.tooManyAttempts",
+    "busy": "Penerima sibuk dengan permintaan lain."
   },
   "progressPage": {
     "titleSending": "Menghantar fail",
@@ -249,8 +256,8 @@
     "autoAccept": "Terima permintaan secara automatik",
     "requirePin": "Memerlukan PIN",
     "pinHint": "PIN ialah \"{pin}\"",
-    "pendingRequests": "Permintaan yang masih belum selesai: {n}",
-    "encryptionHint": "LocalSend menggunakan sijil yang ditandatangani sendiri. Anda perlu menerimanya di pelayar anda."
+    "encryptionHint": "LocalSend menggunakan sijil yang ditandatangani sendiri. Anda perlu menerimanya di pelayar anda.",
+    "pendingRequests": "Permintaan yang masih belum selesai: {n}"
   },
   "aboutPage": {
     "title": "Tentang LocalSend",
@@ -260,8 +267,8 @@
     ],
     "author": "Pengarang",
     "contributors": "Penyumbang",
-    "translators": "Penterjemah",
-    "packagers": "Pembungkus"
+    "packagers": "Pembungkus",
+    "translators": "Penterjemah"
   },
   "donationPage": {
     "title": "Derma",
@@ -274,6 +281,7 @@
     "title": "Log perubahan"
   },
   "aliasGenerator(ignoreMissing, ignoreGpt)": {
+    "@info": "Penempatan berbeza mungkin mempunyai perkataan yang berbeza, dan tidak sepadan 1:1",
     "adjectives": [
       "Comel",
       "Cantik",
@@ -340,13 +348,16 @@
       "Tomato"
     ],
     "combination": "{fruit} yang {adjective}",
-    "@combination": "Dalam bahasa Melayu, kata sifat biasanya diletakkan selepas kata nama.",
-    "@info": "Penempatan berbeza mungkin mempunyai perkataan yang berbeza, dan tidak sepadan 1:1"
+    "@combination": "Dalam bahasa Melayu, kata sifat biasanya diletakkan selepas kata nama."
   },
   "dialogs": {
     "addFile": {
       "title": "Tambah ke pilihan",
       "content": "Apa yang anda ingin tambah?"
+    },
+    "openFile": {
+      "title": "Buka fail",
+      "content": "Adakah anda mahu untuk membuka fail yang diterima?"
     },
     "addressInput": {
       "title": "Masukkan alamat",
@@ -441,9 +452,7 @@
     "quickSaveFromFavoritesNotice": {
       "title": "@:general.quickSaveFromFavorites",
       "content": [
-        "Permintaan fail kini diterima secara automatik daripada peranti-peranti yang dalam senarai kegemaran anda.",
-        "Amaran! Pada waktu sekarang, ini tidak terjamin sepenuhnya, kerana penggodam yang mempunyai cap jari mana-mana peranti daripada senarai kegemaran anda boleh menghantar fail kepada anda tanpa sekatan.",
-        "Walau bagaimanapun, pilihan ini tetap lebih selamat daripada membenarkan semua pengguna dalam rangkaian tempatan menghantar fail kepada anda tanpa sekatan."
+        "Permintaan fail kini diterima secara automatik daripada peranti-peranti yang dalam senarai kegemaran anda."
       ]
     },
     "pin": {
@@ -457,10 +466,6 @@
     },
     "zoom": {
       "title": "URL"
-    },
-    "openFile": {
-      "title": "Buka fail",
-      "content": "Adakah anda mahu untuk membuka fail yang diterima?"
     }
   },
   "sanitization": {
@@ -468,22 +473,23 @@
     "invalid": "Nama fail mengandungi aksara yang tidak sah"
   },
   "tray": {
+    "@info": "Garis Panduan Apple sangat ketat tentang perkataan \"tutup\".",
     "open": "@:general.open",
     "close": "Keluar LocalSend",
-    "closeWindows": "Keluar",
-    "@info": "Garis Panduan Apple sangat ketat tentang perkataan \"tutup\"."
+    "closeWindows": "Keluar"
   },
   "web": {
     "waiting": "@:sendPage.waiting",
+    "enterPin": "Masukkan PIN",
+    "invalidPin": "PIN Tidak Sah",
+    "tooManyAttempts": "Terlalu banyak percubaan",
     "rejected": "Ditolak",
     "files": "Fail",
     "fileName": "Nama fail",
-    "size": "Saiz",
-    "enterPin": "Masukkan PIN",
-    "invalidPin": "PIN Tidak Sah",
-    "tooManyAttempts": "Terlalu banyak percubaan"
+    "size": "Saiz"
   },
   "assetPicker": {
+    "@info": "Terjemahan untuk alat pemilihan Media untuk Android dan iPhone",
     "confirm": "Sahkan",
     "cancel": "Batal",
     "edit": "Sunting",
@@ -511,14 +517,6 @@
     "sActionSwitchPathLabel": "tukar laluan",
     "sActionUseCameraHint": "guna kamera",
     "sNameDurationLabel": "tempoh",
-    "sUnitAssetCountLabel": "kiraan",
-    "@info": "Terjemahan untuk alat pemilihan Media untuk Android dan iPhone"
-  },
-  "networkInterfacesPage": {
-    "info": "Secara lalai, LocalSend menggunakan semua antara muka rangkaian tersedia. Anda boleh memulaukan rangkaian yang tidak diingini. Anda perlu mula semula pelayan untuk mengenakan perubahan.",
-    "title": "Antara Muka Rangkaian",
-    "preview": "Pratonton",
-    "whitelist": "Senarai Putih",
-    "blacklist": "Senarai Hitam"
+    "sUnitAssetCountLabel": "kiraan"
   }
 }

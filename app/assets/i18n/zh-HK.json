@@ -135,18 +135,18 @@
       "deviceType": "裝置類型",
       "deviceModel": "裝置型號",
       "port": "Port",
+      "network": "網絡",
+      "networkOptions": {
+        "all": "全部",
+        "filtered": "已過濾"
+      },
       "discoveryTimeout": "裝置搜尋逾時",
       "useSystemName": "使用系統名稱",
       "generateRandomAlias": "求其改個名",
       "portWarning": "改 port 嘅話其他裝置有機會偵測唔到你。（預設：{defaultPort}）",
       "encryption": "加密傳送",
       "multicastGroup": "多播 IP 地址",
-      "multicastGroupWarning": "用自訂多播地址嘅話其他裝置有機會偵測唔到你。（預設：{defaultMulticast}）",
-      "network": "網絡",
-      "networkOptions": {
-        "all": "全部",
-        "filtered": "已過濾"
-      }
+      "multicastGroupWarning": "用自訂多播地址嘅話其他裝置有機會偵測唔到你。（預設：{defaultMulticast}）"
     },
     "other": {
       "title": "其他",
@@ -175,6 +175,13 @@
       "symptom": "兩部裝置都偵測唔到同 send 唔到嘢畀對方。",
       "solution": "如果兩邊都發生同樣嘅情況，你要 check 清楚兩邊係咪駁緊同一個 Wi‑Fi 網路同用緊相同嘅設定（port、多播 IP 地址同有冇開加密傳送）。亦可能係個 Wi‑Fi 唔畀裝置之間通訊，呢種情況下要喺 router 嗰邊熄咗「接入點 (AP) 隔離」模式至得。"
     }
+  },
+  "networkInterfacesPage": {
+    "title": "網路介面",
+    "info": "LocalSend 預設使用所有可用的網路介面。您可以在這裡排除不需要的網路。您需要重新啟動伺服器才能套用變更。",
+    "preview": "預覽",
+    "whitelist": "白名單",
+    "blacklist": "黑名單"
   },
   "receiveHistoryPage": {
     "title": "歷史記錄",
@@ -379,9 +386,7 @@
     "quickSaveFromFavoritesNotice": {
       "title": "@:general.quickSaveFromFavorites",
       "content": [
-        "自動接受來自已收藏裝置嘅檔案傳輸請求。",
-        "警告：目前呢個選項並非絕對安全，因為只要黑客攞到你任何一部已收藏裝置嘅指紋，佢就可以無限制噉 send 嘢畀你。",
-        "不過揀已收藏裝置點都安全過揀所有裝置嘅。"
+        "自動接受來自已收藏裝置嘅檔案傳輸請求。"
       ]
     },
     "pin": {
@@ -447,12 +452,5 @@
     "sActionUseCameraHint": "影相",
     "sNameDurationLabel": "持續時間",
     "sUnitAssetCountLabel": "數量"
-  },
-  "networkInterfacesPage": {
-    "info": "LocalSend 預設使用所有可用的網路介面。您可以在這裡排除不需要的網路。您需要重新啟動伺服器才能套用變更。",
-    "title": "網路介面",
-    "preview": "預覽",
-    "whitelist": "白名單",
-    "blacklist": "黑名單"
   }
 }

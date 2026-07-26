@@ -3,59 +3,12 @@
     "Here are translations that exist in <en> but not in <eu>.",
     "After editing this file, you can run 'dart run slang apply --locale=eu' to quickly apply the newly added translations."
   ],
-  "general": {
-    "quickSaveFromFavorites": "Quick Save for \"Favorites\""
-  },
-  "receiveTab": {
-    "quickSave": {
-      "off": "@:general.off",
-      "favorites": "Favorites",
-      "on": "@:general.on"
-    }
-  },
-  "sendTab": {
-    "manualSending": "Manual sending"
-  },
   "settingsTab": {
-    "general": {
-      "saveWindowPlacementWindows": "Save window position after exit",
-      "showInContextMenu": "Show LocalSend in context menu"
-    },
     "receive": {
-      "quickSaveFromFavorites": "@:general.quickSaveFromFavorites",
-      "requirePin": "@:webSharePage.requirePin",
-      "autoFinish": "Auto Finish"
-    },
-    "send": {
-      "title": "Send",
-      "shareViaLinkAutoAccept": "Automatically accept requests in \"Share via link\" mode"
-    },
-    "network": {
-      "network": "Network",
-      "networkOptions": {
-        "all": "All",
-        "filtered": "Filtered"
-      },
-      "discoveryTimeout": "Discovery Timeout",
-      "useSystemName": "Use system name",
-      "generateRandomAlias": "Generate random alias"
-    },
-    "other": {
-      "title": "Other",
-      "support": "Support LocalSend",
-      "donate": "Donate",
-      "privacyPolicy": "Privacy Policy",
-      "termsOfUse": "Terms of Use"
-    }
-  },
-  "troubleshootPage": {
-    "noDiscovery": {
-      "symptom": "This device cannot discover other devices.",
-      "solution": "Please make sure that all devices are on the same Wi-Fi network and share the same configuration (port, multicast address, encryption). You can try to type the IP address of the target device manually. If this works, consider adding this device to the favorites so it can be automatically discovered in the future."
+      "requirePin": "@:webSharePage.requirePin"
     }
   },
   "networkInterfacesPage": {
-    "title": "Network Interfaces",
     "info": "By default, LocalSend uses all available network interfaces. You can exclude unwanted networks here. You need to restart the server to apply the changes.",
     "preview": "Preview",
     "whitelist": "Whitelist",
@@ -68,6 +21,14 @@
   },
   "sendPage": {
     "tooManyAttempts": "@:web.tooManyAttempts"
+  },
+  "progressPage": {
+    "remainingTime": {
+      "seconds": "{n}:{ss}",
+      "minutes": "{n}:{ss}",
+      "hours": "{h}h {m}m",
+      "days": "{d}d {h}h {m}m"
+    }
   },
   "webSharePage": {
     "autoAccept": "Automatically accept requests",
@@ -103,9 +64,7 @@
     "quickSaveFromFavoritesNotice": {
       "title": "@:general.quickSaveFromFavorites",
       "content": [
-        "File requests are now accepted automatically from devices in your favorites list.",
-        "Warning! Currently, this is not entirely secure, as a hacker who has the fingerprint of any device from your favorites list can send you files without restriction.",
-        "However, this option is still safer than allowing all users on the local network to send you files without restriction."
+        "File requests are now accepted automatically from devices in your favorites list."
       ]
     },
     "pin": {
@@ -116,8 +75,7 @@
     }
   },
   "sanitization": {
-    "empty": "Filename cannot be empty",
-    "invalid": "Filename contains invalid characters"
+    "empty": "Filename cannot be empty"
   },
   "tray": {
     "closeWindows": "Exit"

@@ -134,18 +134,18 @@
       "deviceType": "Seadme tüüp",
       "deviceModel": "Seadme mudel",
       "port": "Kasutatav port",
+      "network": "Võrk",
+      "networkOptions": {
+        "all": "Kõik",
+        "filtered": "Filtreeritud"
+      },
       "discoveryTimeout": "Leitavuse aegumine",
       "useSystemName": "Kasuta süsteemset nime",
       "generateRandomAlias": "Loo juhuslik nimi",
       "portWarning": "Kuna kasutad endamääratud porti, siis muud seadmed ei pruugi seda seadet leida. (vaikimisi: {defaultPort})",
       "encryption": "Krüptimine",
       "multicastGroup": "Multiedastuse aadress",
-      "multicastGroupWarning": "Kuna kasutad endamääratud multiedastuse aadressi, siis muud seadmed ei pruugi seda seadet leida. (vaikimisi: {defaultMulticast})",
-      "networkOptions": {
-        "filtered": "Filtreeritud",
-        "all": "Kõik"
-      },
-      "network": "Võrk"
+      "multicastGroupWarning": "Kuna kasutad endamääratud multiedastuse aadressi, siis muud seadmed ei pruugi seda seadet leida. (vaikimisi: {defaultMulticast})"
     },
     "other": {
       "title": "Muu teave",
@@ -174,6 +174,13 @@
       "symptom": "Mõlemad seadmed ei suuda üksteist leida ega jagada faile.",
       "solution": "Kas identne probleem on mõlemas seadmes? Kui nii, siis palun kontrolli, et mõlemad seadmed asuvad samas WiFi võrgus ning kasutavad samu seadistusi (port, multiedastuse aadress ja krüptimine). Aga samas on võimalik, et WiFi võrk on seadistatud nii, et kõik seadmed on üksteisest isoleeritud. Sel juhul küsi abi võrgu haldajalt, kes saab ruuteris teha vajalikud muudatused."
     }
+  },
+  "networkInterfacesPage": {
+    "title": "Võrguliidesed",
+    "info": "Vaikimisi kasutab LocalSend kõiki võrguliideseid. Kui sul on vaja, siis saad mittesoovitud võrgud siinkohal välistada ning muudatuste jõustumine eeldab serverikomponendi uuesti käivitamist.",
+    "preview": "Eelvaade",
+    "whitelist": "Lubatud loend",
+    "blacklist": "Keelatud loend"
   },
   "receiveHistoryPage": {
     "title": "Ajalugu",
@@ -386,9 +393,7 @@
     "quickSaveFromFavoritesNotice": {
       "title": "@:general.quickSaveFromFavorites",
       "content": [
-        "Failipäringutega nõustume nüüd automaatselt vaid nende seadmete puhul, mis on lemmikuks märgitud.",
-        "Hoiatus! Kui kohtvõrgus tegutsev võimalik pahatahtlik osapool saaks kätte sinul lemmikuks märgitud seadmete võtmed ja sõrmejäljed, siis saaks sulle piiranguteta faile saata ja seega pole lahendus hetkel täiesti turvaline.",
-        "Aga siiski on see valik turvalisem, kui lubada kõigil sinu kohtvõrgu kasutajatel saata sulle faile ilma igasuguste piiranguteta."
+        "Failipäringutega nõustume nüüd automaatselt vaid nende seadmete puhul, mis on lemmikuks märgitud."
       ]
     },
     "pin": {
@@ -454,12 +459,5 @@
     "sActionUseCameraHint": "kasuta kaamerat",
     "sNameDurationLabel": "kestus",
     "sUnitAssetCountLabel": "kogus"
-  },
-  "networkInterfacesPage": {
-    "title": "Võrguliidesed",
-    "preview": "Eelvaade",
-    "whitelist": "Lubatud loend",
-    "blacklist": "Keelatud loend",
-    "info": "Vaikimisi kasutab LocalSend kõiki võrguliideseid. Kui sul on vaja, siis saad mittesoovitud võrgud siinkohal välistada ning muudatuste jõustumine eeldab serverikomponendi uuesti käivitamist."
   }
 }

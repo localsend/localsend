@@ -54,6 +54,8 @@ class TranslationsRu extends Translations with BaseTranslations<AppLocale, Trans
   @override
   late final _Translations$troubleshootPage$ru troubleshootPage = _Translations$troubleshootPage$ru._(_root);
   @override
+  late final _Translations$networkInterfacesPage$ru networkInterfacesPage = _Translations$networkInterfacesPage$ru._(_root);
+  @override
   late final _Translations$receiveHistoryPage$ru receiveHistoryPage = _Translations$receiveHistoryPage$ru._(_root);
   @override
   late final _Translations$apkPickerPage$ru apkPickerPage = _Translations$apkPickerPage$ru._(_root);
@@ -85,8 +87,6 @@ class TranslationsRu extends Translations with BaseTranslations<AppLocale, Trans
   late final _Translations$web$ru web = _Translations$web$ru._(_root);
   @override
   late final _Translations$assetPicker$ru assetPicker = _Translations$assetPicker$ru._(_root);
-  @override
-  late final _Translations$networkInterfacesPage$ru networkInterfacesPage = _Translations$networkInterfacesPage$ru._(_root);
 }
 
 // Path: general
@@ -268,6 +268,26 @@ class _Translations$troubleshootPage$ru extends Translations$troubleshootPage$en
   late final _Translations$troubleshootPage$noDiscovery$ru noDiscovery = _Translations$troubleshootPage$noDiscovery$ru._(_root);
   @override
   late final _Translations$troubleshootPage$noConnection$ru noConnection = _Translations$troubleshootPage$noConnection$ru._(_root);
+}
+
+// Path: networkInterfacesPage
+class _Translations$networkInterfacesPage$ru extends Translations$networkInterfacesPage$en {
+  _Translations$networkInterfacesPage$ru._(TranslationsRu root) : this._root = root, super.internal(root);
+
+  final TranslationsRu _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Сетевые интерфейсы';
+  @override
+  String get info =>
+      'По умолчанию, LocalSend использует все доступные сетевые интерфейсы. Вы можете исключить нежелательные сети здесь. Необходимо перезапустить сервер для применения изменений.';
+  @override
+  String get preview => 'Предосмотр';
+  @override
+  String get whitelist => 'Белый список';
+  @override
+  String get blacklist => 'Черный список';
 }
 
 // Path: receiveHistoryPage
@@ -666,26 +686,6 @@ class _Translations$assetPicker$ru extends Translations$assetPicker$en {
   String get sUnitAssetCountLabel => 'количество';
 }
 
-// Path: networkInterfacesPage
-class _Translations$networkInterfacesPage$ru extends Translations$networkInterfacesPage$en {
-  _Translations$networkInterfacesPage$ru._(TranslationsRu root) : this._root = root, super.internal(root);
-
-  final TranslationsRu _root; // ignore: unused_field
-
-  // Translations
-  @override
-  String get title => 'Сетевые интерфейсы';
-  @override
-  String get preview => 'Предосмотр';
-  @override
-  String get whitelist => 'Белый список';
-  @override
-  String get blacklist => 'Черный список';
-  @override
-  String get info =>
-      'По умолчанию, LocalSend использует все доступные сетевые интерфейсы. Вы можете исключить нежелательные сети здесь. Необходимо перезапустить сервер для применения изменений.';
-}
-
 // Path: receiveTab.infoBox
 class _Translations$receiveTab$infoBox$ru extends Translations$receiveTab$infoBox$en {
   _Translations$receiveTab$infoBox$ru._(TranslationsRu root) : this._root = root, super.internal(root);
@@ -868,6 +868,10 @@ class _Translations$settingsTab$network$ru extends Translations$settingsTab$netw
   @override
   String get port => 'Порт';
   @override
+  String get network => 'Сеть';
+  @override
+  late final _Translations$settingsTab$network$networkOptions$ru networkOptions = _Translations$settingsTab$network$networkOptions$ru._(_root);
+  @override
   String get discoveryTimeout => 'Тайм-аут поиска';
   @override
   String get useSystemName => 'Использовать системное имя';
@@ -883,10 +887,6 @@ class _Translations$settingsTab$network$ru extends Translations$settingsTab$netw
   @override
   String multicastGroupWarning({required Object defaultMulticast}) =>
       'Другие устройства могут вас не найти, поскольку вы используете другой, собственный адрес мультивещания. (default: ${defaultMulticast})';
-  @override
-  String get network => 'Сеть';
-  @override
-  late final _Translations$settingsTab$network$networkOptions$ru networkOptions = _Translations$settingsTab$network$networkOptions$ru._(_root);
 }
 
 // Path: settingsTab.other
@@ -1323,8 +1323,6 @@ class _Translations$dialogs$quickSaveFromFavoritesNotice$ru extends Translations
   @override
   List<String> get content => [
     'Запросы на получение файлов теперь принимаются автоматически от устройств из вашего списка избранных.',
-    'Предупреждение! На данный момент, это не совсем безопасно, поскольку хакер, имеющий отпечаток пальца любого устройства из вашего списка избранных, может беспрепятственно отправлять вам файлы.',
-    'Однако, этот вариант все равно безопаснее, чем разрешить всем пользователям локальной сети беспрепятственно отправлять вам файлы.',
   ];
 }
 

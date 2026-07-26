@@ -54,6 +54,8 @@ class TranslationsCa extends Translations with BaseTranslations<AppLocale, Trans
   @override
   late final _Translations$troubleshootPage$ca troubleshootPage = _Translations$troubleshootPage$ca._(_root);
   @override
+  late final _Translations$networkInterfacesPage$ca networkInterfacesPage = _Translations$networkInterfacesPage$ca._(_root);
+  @override
   late final _Translations$receiveHistoryPage$ca receiveHistoryPage = _Translations$receiveHistoryPage$ca._(_root);
   @override
   late final _Translations$apkPickerPage$ca apkPickerPage = _Translations$apkPickerPage$ca._(_root);
@@ -87,8 +89,6 @@ class TranslationsCa extends Translations with BaseTranslations<AppLocale, Trans
   late final _Translations$web$ca web = _Translations$web$ca._(_root);
   @override
   late final _Translations$assetPicker$ca assetPicker = _Translations$assetPicker$ca._(_root);
-  @override
-  late final _Translations$networkInterfacesPage$ca networkInterfacesPage = _Translations$networkInterfacesPage$ca._(_root);
 }
 
 // Path: general
@@ -271,6 +271,26 @@ class _Translations$troubleshootPage$ca extends Translations$troubleshootPage$en
   late final _Translations$troubleshootPage$noDiscovery$ca noDiscovery = _Translations$troubleshootPage$noDiscovery$ca._(_root);
   @override
   late final _Translations$troubleshootPage$noConnection$ca noConnection = _Translations$troubleshootPage$noConnection$ca._(_root);
+}
+
+// Path: networkInterfacesPage
+class _Translations$networkInterfacesPage$ca extends Translations$networkInterfacesPage$en {
+  _Translations$networkInterfacesPage$ca._(TranslationsCa root) : this._root = root, super.internal(root);
+
+  final TranslationsCa _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Interfícies de xarxa';
+  @override
+  String get info =>
+      'De manera predefinida, el LocalSend utilitza totes les interfícies de xarxa disponibles. Podeu excloure les xarxes no desitjades aquí. Cal que reinicieu el servidor per a aplicar els canvis.';
+  @override
+  String get preview => 'Previsualitza';
+  @override
+  String get whitelist => 'Llista de permeses';
+  @override
+  String get blacklist => 'Llista de denegades';
 }
 
 // Path: receiveHistoryPage
@@ -581,6 +601,8 @@ class _Translations$dialogs$ca extends Translations$dialogs$en {
   @override
   late final _Translations$dialogs$addFile$ca addFile = _Translations$dialogs$addFile$ca._(_root);
   @override
+  late final _Translations$dialogs$openFile$ca openFile = _Translations$dialogs$openFile$ca._(_root);
+  @override
   late final _Translations$dialogs$addressInput$ca addressInput = _Translations$dialogs$addressInput$ca._(_root);
   @override
   late final _Translations$dialogs$cancelSession$ca cancelSession = _Translations$dialogs$cancelSession$ca._(_root);
@@ -627,8 +649,6 @@ class _Translations$dialogs$ca extends Translations$dialogs$en {
   late final _Translations$dialogs$sendModeHelp$ca sendModeHelp = _Translations$dialogs$sendModeHelp$ca._(_root);
   @override
   late final _Translations$dialogs$zoom$ca zoom = _Translations$dialogs$zoom$ca._(_root);
-  @override
-  late final _Translations$dialogs$openFile$ca openFile = _Translations$dialogs$openFile$ca._(_root);
 }
 
 // Path: sanitization
@@ -748,26 +768,6 @@ class _Translations$assetPicker$ca extends Translations$assetPicker$en {
   String get sNameDurationLabel => 'duració';
   @override
   String get sUnitAssetCountLabel => 'compte';
-}
-
-// Path: networkInterfacesPage
-class _Translations$networkInterfacesPage$ca extends Translations$networkInterfacesPage$en {
-  _Translations$networkInterfacesPage$ca._(TranslationsCa root) : this._root = root, super.internal(root);
-
-  final TranslationsCa _root; // ignore: unused_field
-
-  // Translations
-  @override
-  String get title => 'Interfícies de xarxa';
-  @override
-  String get info =>
-      'De manera predefinida, el LocalSend utilitza totes les interfícies de xarxa disponibles. Podeu excloure les xarxes no desitjades aquí. Cal que reinicieu el servidor per a aplicar els canvis.';
-  @override
-  String get preview => 'Previsualitza';
-  @override
-  String get blacklist => 'Llista de denegades';
-  @override
-  String get whitelist => 'Llista de permeses';
 }
 
 // Path: receiveTab.infoBox
@@ -952,6 +952,10 @@ class _Translations$settingsTab$network$ca extends Translations$settingsTab$netw
   @override
   String get port => 'Port';
   @override
+  String get network => 'Xarxa';
+  @override
+  late final _Translations$settingsTab$network$networkOptions$ca networkOptions = _Translations$settingsTab$network$networkOptions$ca._(_root);
+  @override
   String get discoveryTimeout => 'Temps d\'espera de descobriment';
   @override
   String get useSystemName => 'Utilitza el nom del sistema';
@@ -967,10 +971,6 @@ class _Translations$settingsTab$network$ca extends Translations$settingsTab$netw
   @override
   String multicastGroupWarning({required Object defaultMulticast}) =>
       'Altres dispositius podrien no detectar-vos perquè utilitzeu una adreça multicast personalitzada. (predefinida: ${defaultMulticast})';
-  @override
-  String get network => 'Xarxa';
-  @override
-  late final _Translations$settingsTab$network$networkOptions$ca networkOptions = _Translations$settingsTab$network$networkOptions$ca._(_root);
 }
 
 // Path: settingsTab.other
@@ -1081,6 +1081,19 @@ class _Translations$dialogs$addFile$ca extends Translations$dialogs$addFile$en {
   String get title => 'Afegeix-ho a la selecció';
   @override
   String get content => 'Què voleu afegir?';
+}
+
+// Path: dialogs.openFile
+class _Translations$dialogs$openFile$ca extends Translations$dialogs$openFile$en {
+  _Translations$dialogs$openFile$ca._(TranslationsCa root) : this._root = root, super.internal(root);
+
+  final TranslationsCa _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Obre el fitxer';
+  @override
+  String get content => 'Voleu obrir el fitxer rebut?';
 }
 
 // Path: dialogs.addressInput
@@ -1372,8 +1385,6 @@ class _Translations$dialogs$quickSaveFromFavoritesNotice$ca extends Translations
   @override
   List<String> get content => [
     'Les sol·licituds de fitxers s\'accepten automàticament dels dispositius de la llista de preferits.',
-    'Atenció! Actualment, això no és del tot segur, un hacker que tingués les emprentes de qualsevol del dispositiu de la llista de preferits podria enviar-vos fitxers sense restriccions.',
-    'No obstant això, aquesta opció encara és més segura que permetre que tothom a la xarxa local us enviï fitxers sense restriccions.',
   ];
 }
 
@@ -1415,19 +1426,6 @@ class _Translations$dialogs$zoom$ca extends Translations$dialogs$zoom$en {
   // Translations
   @override
   String get title => 'URL';
-}
-
-// Path: dialogs.openFile
-class _Translations$dialogs$openFile$ca extends Translations$dialogs$openFile$en {
-  _Translations$dialogs$openFile$ca._(TranslationsCa root) : this._root = root, super.internal(root);
-
-  final TranslationsCa _root; // ignore: unused_field
-
-  // Translations
-  @override
-  String get title => 'Obre el fitxer';
-  @override
-  String get content => 'Voleu obrir el fitxer rebut?';
 }
 
 // Path: settingsTab.general.brightnessOptions

@@ -134,18 +134,18 @@
       "deviceType": "Enhetstyp",
       "deviceModel": "Enhetsmodell",
       "port": "Port",
+      "network": "Nätverk",
+      "networkOptions": {
+        "all": "Alla",
+        "filtered": "Filtrerad"
+      },
       "discoveryTimeout": "Tidsgräns för enhetssökning",
       "useSystemName": "Använd systemnamn",
       "generateRandomAlias": "Skapa slumpmässigt enhetsnamn",
       "portWarning": "Andra enheter kanske inte hittar dig eftersom du använder en anpassad port. (Standard: {defaultPort})",
       "encryption": "Kryptering",
       "multicastGroup": "Multicast-adress",
-      "multicastGroupWarning": "Andra enheter kanske inte hittar dig eftersom du använder en anpassad multicast-adress. (Standard: {defaultMulticast})",
-      "network": "Nätverk",
-      "networkOptions": {
-        "all": "Alla",
-        "filtered": "Filtrerad"
-      }
+      "multicastGroupWarning": "Andra enheter kanske inte hittar dig eftersom du använder en anpassad multicast-adress. (Standard: {defaultMulticast})"
     },
     "other": {
       "title": "Övrigt",
@@ -174,6 +174,13 @@
       "symptom": "Enheterna kan varken hitta varandra eller dela filer.",
       "solution": "Om problemet finns på båda enheterna ska du kontrollera att de är anslutna till samma Wi-Fi-nätverk och använder samma konfiguration för port, multicast-adress och kryptering. Nätverket kan blockera kommunikation mellan enheter på grund av AP-isolering. I så fall måste AP-isolering inaktiveras i routern."
     }
+  },
+  "networkInterfacesPage": {
+    "title": "Nätverksgränssnitt",
+    "info": "Som standard använder LocalSend alla tillgängliga nätverksgränssnitt. Du kan utesluta oönskade nätverk här. Starta om servern för att tillämpa ändringarna.",
+    "preview": "Förhandsvisning",
+    "whitelist": "Tillåtelselista",
+    "blacklist": "Blockeringslista"
   },
   "receiveHistoryPage": {
     "title": "Historik",
@@ -456,9 +463,7 @@
     "quickSaveFromFavoritesNotice": {
       "title": "@:general.quickSaveFromFavorites",
       "content": [
-        "Filförfrågningar accepteras nu automatiskt från enheter i din favoritlista.",
-        "Varning! Detta är för närvarande inte helt säkert, eftersom en angripare som känner till fingeravtrycket för någon enhet i favoritlistan kan skicka filer till dig utan begränsning.",
-        "Detta alternativ är dock fortfarande säkrare än att låta alla användare på det lokala nätverket skicka filer till dig utan begränsningar."
+        "Filförfrågningar accepteras nu automatiskt från enheter i din favoritlista."
       ]
     },
     "pin": {
@@ -524,12 +529,5 @@
     "sActionUseCameraHint": "använd kameran",
     "sNameDurationLabel": "längd",
     "sUnitAssetCountLabel": "antal"
-  },
-  "networkInterfacesPage": {
-    "title": "Nätverksgränssnitt",
-    "info": "Som standard använder LocalSend alla tillgängliga nätverksgränssnitt. Du kan utesluta oönskade nätverk här. Starta om servern för att tillämpa ändringarna.",
-    "preview": "Förhandsvisning",
-    "whitelist": "Tillåtelselista",
-    "blacklist": "Blockeringslista"
   }
 }

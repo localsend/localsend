@@ -54,6 +54,8 @@ class TranslationsTh extends Translations with BaseTranslations<AppLocale, Trans
   @override
   late final _Translations$troubleshootPage$th troubleshootPage = _Translations$troubleshootPage$th._(_root);
   @override
+  late final _Translations$networkInterfacesPage$th networkInterfacesPage = _Translations$networkInterfacesPage$th._(_root);
+  @override
   late final _Translations$receiveHistoryPage$th receiveHistoryPage = _Translations$receiveHistoryPage$th._(_root);
   @override
   late final _Translations$apkPickerPage$th apkPickerPage = _Translations$apkPickerPage$th._(_root);
@@ -87,8 +89,6 @@ class TranslationsTh extends Translations with BaseTranslations<AppLocale, Trans
   late final _Translations$web$th web = _Translations$web$th._(_root);
   @override
   late final _Translations$assetPicker$th assetPicker = _Translations$assetPicker$th._(_root);
-  @override
-  late final _Translations$networkInterfacesPage$th networkInterfacesPage = _Translations$networkInterfacesPage$th._(_root);
 }
 
 // Path: general
@@ -151,6 +151,8 @@ class _Translations$general$th extends Translations$general$en {
   @override
   String get quickSave => 'บันทึกด่วน';
   @override
+  String get quickSaveFromFavorites => 'เซฟด่วน สำหรับ "รายการโปรด"';
+  @override
   String get renamed => 'เปลี่ยนชื่อแล้ว';
   @override
   String get reset => 'เลิกทำการเปลี่ยนแปลง';
@@ -172,8 +174,6 @@ class _Translations$general$th extends Translations$general$en {
   String get unknown => 'ไม่รู้จัก';
   @override
   String get noItemInClipboard => 'ไม่มีรายการใดในคลิปบอร์ด';
-  @override
-  String get quickSaveFromFavorites => 'เซฟด่วน สำหรับ "รายการโปรด"';
 }
 
 // Path: receiveTab
@@ -213,6 +213,8 @@ class _Translations$sendTab$th extends Translations$sendTab$en {
   @override
   String get scan => 'กำลังค้นหาอุปกรณ์ภายในเครือข่าย';
   @override
+  String get manualSending => 'ส่งด้วยตัวเอง';
+  @override
   String get sendMode => 'โหมดการส่ง';
   @override
   late final _Translations$sendTab$sendModes$th sendModes = _Translations$sendTab$sendModes$th._(_root);
@@ -222,8 +224,6 @@ class _Translations$sendTab$th extends Translations$sendTab$en {
   String get help => 'โปรดตรวจสอบให้แน่ใจว่าอุปกรณ์เป้าหมายเชื่อมต่ออยู่ภายในเครือข่าย WiFi เดียวกันแล้ว';
   @override
   String get placeItems => 'วางไฟล์ที่ต้องการแชร์';
-  @override
-  String get manualSending => 'ส่งด้วยตัวเอง';
 }
 
 // Path: settingsTab
@@ -270,6 +270,26 @@ class _Translations$troubleshootPage$th extends Translations$troubleshootPage$en
   late final _Translations$troubleshootPage$noDiscovery$th noDiscovery = _Translations$troubleshootPage$noDiscovery$th._(_root);
   @override
   late final _Translations$troubleshootPage$noConnection$th noConnection = _Translations$troubleshootPage$noConnection$th._(_root);
+}
+
+// Path: networkInterfacesPage
+class _Translations$networkInterfacesPage$th extends Translations$networkInterfacesPage$en {
+  _Translations$networkInterfacesPage$th._(TranslationsTh root) : this._root = root, super.internal(root);
+
+  final TranslationsTh _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'อินเทอร์เฟซเครือข่าย';
+  @override
+  String get info =>
+      'ตามค่าเริ่มต้น LocalSend จะใช้อินเทอร์เฟซเครือข่ายที่มีอยู่ทั้งหมด คุณสามารถยกเว้นเครือข่ายที่ไม่ต้องการได้ที่นี่ คุณต้องรีสตาร์ทเซิร์ฟเวอร์เพื่อใช้การเปลี่ยนแปลง';
+  @override
+  String get preview => 'ดูตัวอย่าง';
+  @override
+  String get whitelist => 'ไวท์ลิสต์';
+  @override
+  String get blacklist => 'บัญชีดำ';
 }
 
 // Path: receiveHistoryPage
@@ -581,6 +601,8 @@ class _Translations$dialogs$th extends Translations$dialogs$en {
   @override
   late final _Translations$dialogs$addFile$th addFile = _Translations$dialogs$addFile$th._(_root);
   @override
+  late final _Translations$dialogs$openFile$th openFile = _Translations$dialogs$openFile$th._(_root);
+  @override
   late final _Translations$dialogs$addressInput$th addressInput = _Translations$dialogs$addressInput$th._(_root);
   @override
   late final _Translations$dialogs$cancelSession$th cancelSession = _Translations$dialogs$cancelSession$th._(_root);
@@ -619,16 +641,14 @@ class _Translations$dialogs$th extends Translations$dialogs$en {
   @override
   late final _Translations$dialogs$quickSaveNotice$th quickSaveNotice = _Translations$dialogs$quickSaveNotice$th._(_root);
   @override
+  late final _Translations$dialogs$quickSaveFromFavoritesNotice$th quickSaveFromFavoritesNotice =
+      _Translations$dialogs$quickSaveFromFavoritesNotice$th._(_root);
+  @override
   late final _Translations$dialogs$pin$th pin = _Translations$dialogs$pin$th._(_root);
   @override
   late final _Translations$dialogs$sendModeHelp$th sendModeHelp = _Translations$dialogs$sendModeHelp$th._(_root);
   @override
   late final _Translations$dialogs$zoom$th zoom = _Translations$dialogs$zoom$th._(_root);
-  @override
-  late final _Translations$dialogs$quickSaveFromFavoritesNotice$th quickSaveFromFavoritesNotice =
-      _Translations$dialogs$quickSaveFromFavoritesNotice$th._(_root);
-  @override
-  late final _Translations$dialogs$openFile$th openFile = _Translations$dialogs$openFile$th._(_root);
 }
 
 // Path: sanitization
@@ -750,26 +770,6 @@ class _Translations$assetPicker$th extends Translations$assetPicker$en {
   String get sUnitAssetCountLabel => 'จำนวน';
 }
 
-// Path: networkInterfacesPage
-class _Translations$networkInterfacesPage$th extends Translations$networkInterfacesPage$en {
-  _Translations$networkInterfacesPage$th._(TranslationsTh root) : this._root = root, super.internal(root);
-
-  final TranslationsTh _root; // ignore: unused_field
-
-  // Translations
-  @override
-  String get title => 'อินเทอร์เฟซเครือข่าย';
-  @override
-  String get info =>
-      'ตามค่าเริ่มต้น LocalSend จะใช้อินเทอร์เฟซเครือข่ายที่มีอยู่ทั้งหมด คุณสามารถยกเว้นเครือข่ายที่ไม่ต้องการได้ที่นี่ คุณต้องรีสตาร์ทเซิร์ฟเวอร์เพื่อใช้การเปลี่ยนแปลง';
-  @override
-  String get whitelist => 'ไวท์ลิสต์';
-  @override
-  String get blacklist => 'บัญชีดำ';
-  @override
-  String get preview => 'ดูตัวอย่าง';
-}
-
 // Path: receiveTab.infoBox
 class _Translations$receiveTab$infoBox$th extends Translations$receiveTab$infoBox$en {
   _Translations$receiveTab$infoBox$th._(TranslationsTh root) : this._root = root, super.internal(root);
@@ -793,9 +793,9 @@ class _Translations$receiveTab$quickSave$th extends Translations$receiveTab$quic
 
   // Translations
   @override
-  String get favorites => 'รายการโปรด';
-  @override
   String get off => 'บันทึกอย่างรวดเร็ว';
+  @override
+  String get favorites => 'รายการโปรด';
   @override
   String get on => _root.general.on;
 }
@@ -877,6 +877,8 @@ class _Translations$settingsTab$general$th extends Translations$settingsTab$gene
   @override
   String get saveWindowPlacement => 'ออก: บันทึกตำแหน่งหน้าต่างของโปรแกรม';
   @override
+  String get saveWindowPlacementWindows => 'บันทึกตำแหน่งหน้าต่างหลังจากออก';
+  @override
   String get minimizeToTray => 'ย่อแอปไปยัง System Tray/แถบเมนูเมื่อปิดโปรแกรม';
   @override
   String get launchAtStartup => 'เริ่มอัตโนมัติหลังจากเข้าสู่ระบบ';
@@ -886,8 +888,6 @@ class _Translations$settingsTab$general$th extends Translations$settingsTab$gene
   String get showInContextMenu => 'แสดง LocalSend ในเมนูคลิกขวา';
   @override
   String get animations => 'ภาพเคลื่อนไหว';
-  @override
-  String get saveWindowPlacementWindows => 'บันทึกตำแหน่งหน้าต่างหลังจากออก';
 }
 
 // Path: settingsTab.receive
@@ -902,6 +902,8 @@ class _Translations$settingsTab$receive$th extends Translations$settingsTab$rece
   @override
   String get quickSave => _root.general.quickSave;
   @override
+  String get quickSaveFromFavorites => 'บันทึกอย่างรวดเร็วจากรายการโปรด';
+  @override
   String get requirePin => _root.webSharePage.requirePin;
   @override
   String get autoFinish => 'ดำเนินการให้เสร็จสิ้นโดยอัตโนมัติ';
@@ -913,8 +915,6 @@ class _Translations$settingsTab$receive$th extends Translations$settingsTab$rece
   String get saveToGallery => 'บันทึกมีเดียลงในแกลอรี่';
   @override
   String get saveToHistory => 'บันทึกลงในประวัติย้อนหลัง';
-  @override
-  String get quickSaveFromFavorites => 'บันทึกอย่างรวดเร็วจากรายการโปรด';
 }
 
 // Path: settingsTab.send
@@ -952,7 +952,15 @@ class _Translations$settingsTab$network$th extends Translations$settingsTab$netw
   @override
   String get port => 'พอร์ต';
   @override
+  String get network => 'เครือข่าย';
+  @override
+  late final _Translations$settingsTab$network$networkOptions$th networkOptions = _Translations$settingsTab$network$networkOptions$th._(_root);
+  @override
   String get discoveryTimeout => 'สิ้นสุดเวลาสำหรับการค้นหาอุปกรณ์ในเครือข่าย';
+  @override
+  String get useSystemName => 'ใช้ชื่อในระบบ';
+  @override
+  String get generateRandomAlias => 'สุ่มนามแฝง';
   @override
   String portWarning({required Object defaultPort}) =>
       'อุปกรณ์เครื่องอื่นอาจจะไม่สามารถค้นหาอุปกรณ์เครื่องนี้เจอในเครื่อข่ายได้เนื่องจากคุณแก้ไขพอร์ตเป็นหมายเลขอื่น (default: ${defaultPort})';
@@ -963,14 +971,6 @@ class _Translations$settingsTab$network$th extends Translations$settingsTab$netw
   @override
   String multicastGroupWarning({required Object defaultMulticast}) =>
       'อุปกรณ์เครื่องอื่นอาจจะไม่สามารถค้นหาอุปกรณ์เครื่องนี้เจอในเครื่อข่ายได้เนื่องจากคุณกำหนดที่อยู่มัลติคาสต์ใหม่ด้วยตนเอง (default: ${defaultMulticast})';
-  @override
-  String get network => 'เครือข่าย';
-  @override
-  late final _Translations$settingsTab$network$networkOptions$th networkOptions = _Translations$settingsTab$network$networkOptions$th._(_root);
-  @override
-  String get useSystemName => 'ใช้ชื่อในระบบ';
-  @override
-  String get generateRandomAlias => 'สุ่มนามแฝง';
 }
 
 // Path: settingsTab.other
@@ -1081,6 +1081,19 @@ class _Translations$dialogs$addFile$th extends Translations$dialogs$addFile$en {
   String get title => 'เพิ่มไปยังส่วนที่เลือกไว้';
   @override
   String get content => 'คุณต้องการจะเพิ่มไฟล์ใด?';
+}
+
+// Path: dialogs.openFile
+class _Translations$dialogs$openFile$th extends Translations$dialogs$openFile$en {
+  _Translations$dialogs$openFile$th._(TranslationsTh root) : this._root = root, super.internal(root);
+
+  final TranslationsTh _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'เปิดไฟล์';
+  @override
+  String get content => 'ต้องการเปิดไฟล์ที่ได้รับหรือไม่?';
 }
 
 // Path: dialogs.addressInput
@@ -1361,6 +1374,21 @@ class _Translations$dialogs$quickSaveNotice$th extends Translations$dialogs$quic
       'การตอบรับคำขอรับไฟล์จากอุปกรณ์อื่นจะเป็นไปโดยอัตโนมัติ โปรดทราบว่าทุกคนในเครือข่ายที่อุปกรณ์นี้เชื่อมต่ออยู่จะสามารถส่งไฟล์ถึงคุณได้';
 }
 
+// Path: dialogs.quickSaveFromFavoritesNotice
+class _Translations$dialogs$quickSaveFromFavoritesNotice$th extends Translations$dialogs$quickSaveFromFavoritesNotice$en {
+  _Translations$dialogs$quickSaveFromFavoritesNotice$th._(TranslationsTh root) : this._root = root, super.internal(root);
+
+  final TranslationsTh _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'บันทึกอย่างรวดเร็วจากรายการโปรด';
+  @override
+  List<String> get content => [
+    'คำขอไฟล์ได้รับการยอมรับโดยอัตโนมัติจากอุปกรณ์ในรายการโปรดของคุณแล้ว',
+  ];
+}
+
 // Path: dialogs.pin
 class _Translations$dialogs$pin$th extends Translations$dialogs$pin$en {
   _Translations$dialogs$pin$th._(TranslationsTh root) : this._root = root, super.internal(root);
@@ -1398,36 +1426,6 @@ class _Translations$dialogs$zoom$th extends Translations$dialogs$zoom$en {
   // Translations
   @override
   String get title => 'URL';
-}
-
-// Path: dialogs.quickSaveFromFavoritesNotice
-class _Translations$dialogs$quickSaveFromFavoritesNotice$th extends Translations$dialogs$quickSaveFromFavoritesNotice$en {
-  _Translations$dialogs$quickSaveFromFavoritesNotice$th._(TranslationsTh root) : this._root = root, super.internal(root);
-
-  final TranslationsTh _root; // ignore: unused_field
-
-  // Translations
-  @override
-  List<String> get content => [
-    'คำขอไฟล์ได้รับการยอมรับโดยอัตโนมัติจากอุปกรณ์ในรายการโปรดของคุณแล้ว',
-    'คำเตือน! ในขณะนี้ระบบยังไม่ปลอดภัยอย่างสมบูรณ์ เนื่องจากแฮกเกอร์ที่มีลายนิ้วมือดิจิทัลของอุปกรณ์ใดๆ จากรายการโปรดของคุณสามารถส่งไฟล์ถึงคุณได้โดยไม่มีข้อจำกัด',
-    'อย่างไรก็ตาม ตัวเลือกนี้ยังปลอดภัยกว่าการอนุญาตให้ผู้ใช้ทั้งหมดบนเครือข่ายท้องถิ่นส่งไฟล์ถึงคุณโดยไม่มีข้อจำกัด',
-  ];
-  @override
-  String get title => 'บันทึกอย่างรวดเร็วจากรายการโปรด';
-}
-
-// Path: dialogs.openFile
-class _Translations$dialogs$openFile$th extends Translations$dialogs$openFile$en {
-  _Translations$dialogs$openFile$th._(TranslationsTh root) : this._root = root, super.internal(root);
-
-  final TranslationsTh _root; // ignore: unused_field
-
-  // Translations
-  @override
-  String get title => 'เปิดไฟล์';
-  @override
-  String get content => 'ต้องการเปิดไฟล์ที่ได้รับหรือไม่?';
 }
 
 // Path: settingsTab.general.brightnessOptions

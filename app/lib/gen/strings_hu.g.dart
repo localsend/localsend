@@ -54,6 +54,8 @@ class TranslationsHu extends Translations with BaseTranslations<AppLocale, Trans
   @override
   late final _Translations$troubleshootPage$hu troubleshootPage = _Translations$troubleshootPage$hu._(_root);
   @override
+  late final _Translations$networkInterfacesPage$hu networkInterfacesPage = _Translations$networkInterfacesPage$hu._(_root);
+  @override
   late final _Translations$receiveHistoryPage$hu receiveHistoryPage = _Translations$receiveHistoryPage$hu._(_root);
   @override
   late final _Translations$apkPickerPage$hu apkPickerPage = _Translations$apkPickerPage$hu._(_root);
@@ -85,8 +87,6 @@ class TranslationsHu extends Translations with BaseTranslations<AppLocale, Trans
   late final _Translations$web$hu web = _Translations$web$hu._(_root);
   @override
   late final _Translations$assetPicker$hu assetPicker = _Translations$assetPicker$hu._(_root);
-  @override
-  late final _Translations$networkInterfacesPage$hu networkInterfacesPage = _Translations$networkInterfacesPage$hu._(_root);
 }
 
 // Path: general
@@ -268,6 +268,26 @@ class _Translations$troubleshootPage$hu extends Translations$troubleshootPage$en
   late final _Translations$troubleshootPage$noDiscovery$hu noDiscovery = _Translations$troubleshootPage$noDiscovery$hu._(_root);
   @override
   late final _Translations$troubleshootPage$noConnection$hu noConnection = _Translations$troubleshootPage$noConnection$hu._(_root);
+}
+
+// Path: networkInterfacesPage
+class _Translations$networkInterfacesPage$hu extends Translations$networkInterfacesPage$en {
+  _Translations$networkInterfacesPage$hu._(TranslationsHu root) : this._root = root, super.internal(root);
+
+  final TranslationsHu _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Hálózati interfészek';
+  @override
+  String get info =>
+      'Alapértelmezésként a LocalSend az összes rendelkezésre álló hálózati interfészt használja. Itt kizárhatja a nem kívánt hálózatokat. A módosítások alkalmazásához újra kell indítania a kiszolgálót.';
+  @override
+  String get preview => 'Előnézet';
+  @override
+  String get whitelist => 'Fehérlista';
+  @override
+  String get blacklist => 'Tiltólista';
 }
 
 // Path: receiveHistoryPage
@@ -666,26 +686,6 @@ class _Translations$assetPicker$hu extends Translations$assetPicker$en {
   String get sUnitAssetCountLabel => 'számol';
 }
 
-// Path: networkInterfacesPage
-class _Translations$networkInterfacesPage$hu extends Translations$networkInterfacesPage$en {
-  _Translations$networkInterfacesPage$hu._(TranslationsHu root) : this._root = root, super.internal(root);
-
-  final TranslationsHu _root; // ignore: unused_field
-
-  // Translations
-  @override
-  String get title => 'Hálózati interfészek';
-  @override
-  String get info =>
-      'Alapértelmezésként a LocalSend az összes rendelkezésre álló hálózati interfészt használja. Itt kizárhatja a nem kívánt hálózatokat. A módosítások alkalmazásához újra kell indítania a kiszolgálót.';
-  @override
-  String get preview => 'Előnézet';
-  @override
-  String get whitelist => 'Fehérlista';
-  @override
-  String get blacklist => 'Tiltólista';
-}
-
 // Path: receiveTab.infoBox
 class _Translations$receiveTab$infoBox$hu extends Translations$receiveTab$infoBox$en {
   _Translations$receiveTab$infoBox$hu._(TranslationsHu root) : this._root = root, super.internal(root);
@@ -868,6 +868,10 @@ class _Translations$settingsTab$network$hu extends Translations$settingsTab$netw
   @override
   String get port => 'Port';
   @override
+  String get network => 'Hálózat';
+  @override
+  late final _Translations$settingsTab$network$networkOptions$hu networkOptions = _Translations$settingsTab$network$networkOptions$hu._(_root);
+  @override
   String get discoveryTimeout => 'Felfedezési időtúllépés';
   @override
   String get useSystemName => 'Rendszernév használata';
@@ -883,10 +887,6 @@ class _Translations$settingsTab$network$hu extends Translations$settingsTab$netw
   @override
   String multicastGroupWarning({required Object defaultMulticast}) =>
       'Előfordulhat, hogy más eszközök nem észlelik eszközét, mert egyéni multicast címet használ. (alapérték: ${defaultMulticast})';
-  @override
-  String get network => 'Hálózat';
-  @override
-  late final _Translations$settingsTab$network$networkOptions$hu networkOptions = _Translations$settingsTab$network$networkOptions$hu._(_root);
 }
 
 // Path: settingsTab.other
@@ -1322,8 +1322,6 @@ class _Translations$dialogs$quickSaveFromFavoritesNotice$hu extends Translations
   @override
   List<String> get content => [
     'A fájlkérések auto. elfogadása mostantól a kedvencek listáján szereplő eszközökről.',
-    'Figyelmeztetés: Ez jelenleg nem teljesen biztonságos, mert egy hacker, aki ismeri a kedvenc eszközeinek ujjlenyomatát, még mindig küldhet fájlokat.',
-    'Ez a lehetőség azonban még mindig biztonságosabb, mint bármely eszköz engedélyezése.',
   ];
 }
 

@@ -285,9 +285,9 @@ class _Translations$networkInterfacesPage$de extends Translations$networkInterfa
   @override
   String get preview => 'Vorschau';
   @override
-  String get whitelist => 'Whitelist';
+  String get whitelist => 'Zulassungsliste';
   @override
-  String get blacklist => 'Blacklist';
+  String get blacklist => 'Sperrliste';
 }
 
 // Path: receiveHistoryPage
@@ -650,7 +650,7 @@ class _Translations$assetPicker$de extends Translations$assetPicker$en {
   @override
   String get unableToAccessAll => 'Zugriff nicht möglich';
   @override
-  String get viewingLimitedAssetsTip => 'Zeige nur Dateien und Alben an, auf die die App zugreifen kann.';
+  String get viewingLimitedAssetsTip => 'Nur Dateien und Alben anzeigen, auf die die App zugreifen kann.';
   @override
   String get changeAccessibleLimitedAssets => 'Tippen, um erlaubte Dateien zu aktualisieren';
   @override
@@ -1285,7 +1285,7 @@ class _Translations$dialogs$quickActions$de extends Translations$dialogs$quickAc
 
   // Translations
   @override
-  String get title => 'Quick Actions';
+  String get title => 'Schnellaktionen';
   @override
   String get counter => 'Zähler';
   @override
@@ -1323,8 +1323,6 @@ class _Translations$dialogs$quickSaveFromFavoritesNotice$de extends Translations
   @override
   List<String> get content => [
     'Dateianfragen werden jetzt automatisch von Geräten in deiner Favoritenliste akzeptiert.',
-    'Warnung: Dies ist derzeit nicht vollständig sicher, da ein Hacker, der den Fingerabdruck der Geräte in deiner Favoritenliste kennt, dir immer noch Dateien senden kann.',
-    'Diese Option ist jedoch immer noch sicherer als die Erlaubnis für jedes Gerät.',
   ];
 }
 

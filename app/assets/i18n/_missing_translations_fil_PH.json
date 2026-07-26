@@ -2,5 +2,13 @@
   "@@info": [
     "Here are translations that exist in <en> but not in <fil-PH>.",
     "After editing this file, you can run 'dart run slang apply --locale=fil-PH' to quickly apply the newly added translations."
-  ]
+  ],
+  "progressPage": {
+    "remainingTime": {
+      "seconds": "{n}:{ss}",
+      "minutes": "{n}:{ss}",
+      "hours": "{h}h {m}m",
+      "days": "{d}d {h}h {m}m"
+    }
+  }
 }

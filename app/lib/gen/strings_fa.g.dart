@@ -54,6 +54,8 @@ class TranslationsFa extends Translations with BaseTranslations<AppLocale, Trans
   @override
   late final _Translations$troubleshootPage$fa troubleshootPage = _Translations$troubleshootPage$fa._(_root);
   @override
+  late final _Translations$networkInterfacesPage$fa networkInterfacesPage = _Translations$networkInterfacesPage$fa._(_root);
+  @override
   late final _Translations$receiveHistoryPage$fa receiveHistoryPage = _Translations$receiveHistoryPage$fa._(_root);
   @override
   late final _Translations$apkPickerPage$fa apkPickerPage = _Translations$apkPickerPage$fa._(_root);
@@ -87,8 +89,6 @@ class TranslationsFa extends Translations with BaseTranslations<AppLocale, Trans
   late final _Translations$web$fa web = _Translations$web$fa._(_root);
   @override
   late final _Translations$assetPicker$fa assetPicker = _Translations$assetPicker$fa._(_root);
-  @override
-  late final _Translations$networkInterfacesPage$fa networkInterfacesPage = _Translations$networkInterfacesPage$fa._(_root);
 }
 
 // Path: general
@@ -272,6 +272,26 @@ class _Translations$troubleshootPage$fa extends Translations$troubleshootPage$en
   late final _Translations$troubleshootPage$noConnection$fa noConnection = _Translations$troubleshootPage$noConnection$fa._(_root);
 }
 
+// Path: networkInterfacesPage
+class _Translations$networkInterfacesPage$fa extends Translations$networkInterfacesPage$en {
+  _Translations$networkInterfacesPage$fa._(TranslationsFa root) : this._root = root, super.internal(root);
+
+  final TranslationsFa _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'رابط‌های شبکه';
+  @override
+  String get info =>
+      'به طور پیش فرض، LocalSend از تمام رابط های شبکه موجود استفاده می کند. در اینجا می توانید شبکه های ناخواسته را حذف کنید. برای اعمال تغییرات باید سرور را ریستارت کنید.';
+  @override
+  String get preview => 'پیشنمایش';
+  @override
+  String get whitelist => 'لیست سفید';
+  @override
+  String get blacklist => 'لیست سیاه';
+}
+
 // Path: receiveHistoryPage
 class _Translations$receiveHistoryPage$fa extends Translations$receiveHistoryPage$en {
   _Translations$receiveHistoryPage$fa._(TranslationsFa root) : this._root = root, super.internal(root);
@@ -350,11 +370,11 @@ class _Translations$receiveOptionsPage$fa extends Translations$receiveOptionsPag
   @override
   String get title => 'گزینه‌ها';
   @override
-  String get destination => _root.settingsTab.receive.destination;
+  String get destination => 'مقصد دریافت';
   @override
   String get appDirectory => '(پوشه لوکال‌سند)';
   @override
-  String get saveToGallery => _root.settingsTab.receive.saveToGallery;
+  String get saveToGallery => 'ذخیره در گالری';
   @override
   String get saveToGalleryOff => 'به دلیل وجود پوشه‌ها به طور خودکار خاموش می‌شود.';
 }
@@ -371,7 +391,7 @@ class _Translations$sendPage$fa extends Translations$sendPage$en {
   @override
   String get rejected => 'گیرنده درخواست را رد کرد.';
   @override
-  String get tooManyAttempts => _root.web.tooManyAttempts;
+  String get tooManyAttempts => 'تلاش‌های بیش از حد';
   @override
   String get busy => 'گیرنده با درخواست دیگری مشغول است.';
 }
@@ -391,6 +411,8 @@ class _Translations$progressPage$fa extends Translations$progressPage$en {
   String get savedToGallery => 'در تصاویر ذخیره شد';
   @override
   late final _Translations$progressPage$total$fa total = _Translations$progressPage$total$fa._(_root);
+  @override
+  late final _Translations$progressPage$remainingTime$fa remainingTime = _Translations$progressPage$remainingTime$fa._(_root);
 }
 
 // Path: webSharePage
@@ -419,7 +441,7 @@ class _Translations$webSharePage$fa extends Translations$webSharePage$en {
   @override
   String get noRequests => 'هنوز درخواستی وجود ندارد.';
   @override
-  String get encryption => _root.settingsTab.network.encryption;
+  String get encryption => 'رمزنگاری شبکه';
   @override
   String get autoAccept => 'درخواست‌ها به طور خودکار پذیرفته می‌شوند';
   @override
@@ -666,7 +688,7 @@ class _Translations$web$fa extends Translations$web$en {
 
   // Translations
   @override
-  String get waiting => _root.sendPage.waiting;
+  String get waiting => 'در حال انتظار';
   @override
   String get enterPin => 'پین را وارد کنید';
   @override
@@ -749,26 +771,6 @@ class _Translations$assetPicker$fa extends Translations$assetPicker$en {
   String get sUnitAssetCountLabel => 'شمردن';
 }
 
-// Path: networkInterfacesPage
-class _Translations$networkInterfacesPage$fa extends Translations$networkInterfacesPage$en {
-  _Translations$networkInterfacesPage$fa._(TranslationsFa root) : this._root = root, super.internal(root);
-
-  final TranslationsFa _root; // ignore: unused_field
-
-  // Translations
-  @override
-  String get title => 'رابط‌های شبکه';
-  @override
-  String get info =>
-      'به طور پیش فرض، LocalSend از تمام رابط های شبکه موجود استفاده می کند. در اینجا می توانید شبکه های ناخواسته را حذف کنید. برای اعمال تغییرات باید سرور را ریستارت کنید.';
-  @override
-  String get preview => 'پیشنمایش';
-  @override
-  String get whitelist => 'لیست سفید';
-  @override
-  String get blacklist => 'لیست سیاه';
-}
-
 // Path: receiveTab.infoBox
 class _Translations$receiveTab$infoBox$fa extends Translations$receiveTab$infoBox$en {
   _Translations$receiveTab$infoBox$fa._(TranslationsFa root) : this._root = root, super.internal(root);
@@ -781,7 +783,7 @@ class _Translations$receiveTab$infoBox$fa extends Translations$receiveTab$infoBo
   @override
   String get port => 'پورت:';
   @override
-  String get alias => 'نام کوتاه:';
+  String get alias => 'نام کوتاه دستگاه:';
 }
 
 // Path: receiveTab.quickSave
@@ -903,7 +905,7 @@ class _Translations$settingsTab$receive$fa extends Translations$settingsTab$rece
   @override
   String get quickSaveFromFavorites => _root.general.quickSaveFromFavorites;
   @override
-  String get requirePin => _root.webSharePage.requirePin;
+  String get requirePin => 'نیاز به رمز';
   @override
   String get autoFinish => 'پایان خودکار';
   @override
@@ -951,6 +953,10 @@ class _Translations$settingsTab$network$fa extends Translations$settingsTab$netw
   @override
   String get port => 'پورت';
   @override
+  String get network => 'شبکه';
+  @override
+  late final _Translations$settingsTab$network$networkOptions$fa networkOptions = _Translations$settingsTab$network$networkOptions$fa._(_root);
+  @override
   String get discoveryTimeout => 'مدت کاوش';
   @override
   String get useSystemName => 'استفاده از نام سیستم';
@@ -966,10 +972,6 @@ class _Translations$settingsTab$network$fa extends Translations$settingsTab$netw
   @override
   String multicastGroupWarning({required Object defaultMulticast}) =>
       'ممکن است به دلیل استفاده از چندپخشی سفارشی، دستگاه‌های دیگر شما را شناسایی نکنند (پیشفرض: ${defaultMulticast})';
-  @override
-  String get network => 'شبکه';
-  @override
-  late final _Translations$settingsTab$network$networkOptions$fa networkOptions = _Translations$settingsTab$network$networkOptions$fa._(_root);
 }
 
 // Path: settingsTab.other
@@ -1019,7 +1021,7 @@ class _Translations$troubleshootPage$noDiscovery$fa extends Translations$trouble
   String get symptom => 'این دستگاه نمی‌تواند دستگاه‌های دیگر را پیدا کند.';
   @override
   String get solution =>
-      'مطمئن شوید که هر دو دستگاه به یک شبکه وای‌فای متصل هستند و پیکربندی یکسانی دارند (پورت، آدرس چندپخشی، رمزنگاری). سعی کنید آدرس آی‌پی دستگاه مورد نظر را به صورت دستی تایپ کنید. اگر جواب داد، این دستگاه را به موارد موردعلاقه اضافه کنید تا در آینده به طور خودکار کشف شود.';
+      'لطفاً اطمینان حاصل کنید که همه دستگاه‌ها به یک شبکه وای‌فای متصل هستند و تنظیمات یکسانی (پورت، آدرس مالتی‌کست، رمزنگاری) دارند. می‌توانید آدرس IP دستگاه مقصد را به‌صورت دستی وارد کنید. اگر این روش کارساز بود، آن دستگاه را به لیست علاقه‌مندی‌ها اضافه کنید تا در آینده به‌طور خودکار شناسایی شود.';
 }
 
 // Path: troubleshootPage.noConnection
@@ -1068,6 +1070,27 @@ class _Translations$progressPage$total$fa extends Translations$progressPage$tota
   String size({required Object curr, required Object n}) => 'حجم: ${curr} / ${n}';
   @override
   String speed({required Object speed}) => 'سرعت: ${speed}/s';
+}
+
+// Path: progressPage.remainingTime
+class _Translations$progressPage$remainingTime$fa extends Translations$progressPage$remainingTime$en {
+  _Translations$progressPage$remainingTime$fa._(TranslationsFa root) : this._root = root, super.internal(root);
+
+  final TranslationsFa _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String seconds({required Object n, required Object ss}) => '${n}:${ss}';
+  @override
+  String minutes({required Object n, required Object ss}) => '${n}:${ss}';
+
+  /// از «س» به عنوان مخفف ساعت و از «د» برای دقیقه استفاده کنید
+  @override
+  String hours({required Object h, required Object m}) => '${h}س ${m}د';
+
+  /// از «ر» برای روز، «س» برای ساعت و «د» برای دقیقه استفاده کنید
+  @override
+  String days({required Object d, required Object h, required Object m}) => '${d}ر ${h}س ${m}د';
 }
 
 // Path: dialogs.addFile
@@ -1160,7 +1183,7 @@ class _Translations$dialogs$errorDialog$fa extends Translations$dialogs$errorDia
 
   // Translations
   @override
-  String get title => _root.general.error;
+  String get title => 'خطایی رخ داد';
 }
 
 // Path: dialogs.favoriteDialog
@@ -1267,7 +1290,7 @@ class _Translations$dialogs$localNetworkUnauthorized$fa extends Translations$dia
 
   // Translations
   @override
-  String get title => _root.dialogs.noPermission.title;
+  String get title => 'دسترسی مجاز نیست';
   @override
   String get description =>
       'لوکال‌سند نمی‌تواند دستگاه‌های دیگر را بدون داشتن مجوز اسکن شبکه محلی پیدا کند. لطفاً این مجوز را در تنظیمات به برنامه بدهید.';
@@ -1367,7 +1390,7 @@ class _Translations$dialogs$quickSaveNotice$fa extends Translations$dialogs$quic
 
   // Translations
   @override
-  String get title => _root.general.quickSave;
+  String get title => 'ذخیره سریع';
   @override
   String get content => 'درخواست‌ها به صورت خودکار پذیرفته می‌شوند. توجه داشته باشید که همه افراد در شبکه محلی می‌توانند برای شما پرونده ارسال کنند.';
 }
@@ -1380,12 +1403,10 @@ class _Translations$dialogs$quickSaveFromFavoritesNotice$fa extends Translations
 
   // Translations
   @override
-  String get title => _root.general.quickSaveFromFavorites;
+  String get title => 'ذخیرهٔ سریع از علاقه‌مندی‌ها';
   @override
   List<String> get content => [
     'درخواست‌ها به طور خودکار از دستگاه‌های موجود در فهرست موردعلاقه‌ها پذیرفته می‌شود.',
-    'هشدار: این روش در حال حاضر کاملاً ایمن نیست، زیرا در صورت دسترسی هکر به دستگاه‌های موجود در فهرست موردعلاقه‌ها، می‌تواند بدون محدودیت برای شما پرونده ارسال کند.',
-    'با این حال، این گزینه هنوز هم ایمن‌تر از اجازه دادن به همه کاربران در شبکه محلی برای ارسال پرونده بدون محدودیت است.',
   ];
 }
 

@@ -134,18 +134,18 @@
       "deviceType": "Eszköz típusa",
       "deviceModel": "Eszköz modell",
       "port": "Port",
+      "network": "Hálózat",
+      "networkOptions": {
+        "all": "Mindegyik",
+        "filtered": "Szűrt"
+      },
       "discoveryTimeout": "Felfedezési időtúllépés",
       "useSystemName": "Rendszernév használata",
       "generateRandomAlias": "Véletlenszerű álnév generálás",
       "portWarning": "Előfordulhat, hogy más eszközök nem észlelik eszközét, mert egyéni portot használ. (alapértelmezett: {defaultPort})",
       "encryption": "Titkosítás",
       "multicastGroup": "Multicast",
-      "multicastGroupWarning": "Előfordulhat, hogy más eszközök nem észlelik eszközét, mert egyéni multicast címet használ. (alapérték: {defaultMulticast})",
-      "network": "Hálózat",
-      "networkOptions": {
-        "all": "Mindegyik",
-        "filtered": "Szűrt"
-      }
+      "multicastGroupWarning": "Előfordulhat, hogy más eszközök nem észlelik eszközét, mert egyéni multicast címet használ. (alapérték: {defaultMulticast})"
     },
     "other": {
       "title": "Egyéb",
@@ -174,6 +174,13 @@
       "symptom": "A két eszköz nem tudja felismerni egymást, és nem tud fájlokat megosztani.",
       "solution": "A probléma mindkét oldalon létezik? Akkor meg kell győződnie arról, hogy mindkét eszköz ugyanabban a wifi hálózatban van, és ugyanazt a konfigurációt használja (port, multicast cím, titkosítás). Előfordulhat, hogy a Wifi nem teszi lehetővé a résztvevők közötti kommunikációt. Ebben az esetben ezt az opciót engedélyezni kell a routeren.."
     }
+  },
+  "networkInterfacesPage": {
+    "title": "Hálózati interfészek",
+    "info": "Alapértelmezésként a LocalSend az összes rendelkezésre álló hálózati interfészt használja. Itt kizárhatja a nem kívánt hálózatokat. A módosítások alkalmazásához újra kell indítania a kiszolgálót.",
+    "preview": "Előnézet",
+    "whitelist": "Fehérlista",
+    "blacklist": "Tiltólista"
   },
   "receiveHistoryPage": {
     "title": "Előzmény",
@@ -386,9 +393,7 @@
     "quickSaveFromFavoritesNotice": {
       "title": "@:general.quickSaveFromFavorites",
       "content": [
-        "A fájlkérések auto. elfogadása mostantól a kedvencek listáján szereplő eszközökről.",
-        "Figyelmeztetés: Ez jelenleg nem teljesen biztonságos, mert egy hacker, aki ismeri a kedvenc eszközeinek ujjlenyomatát, még mindig küldhet fájlokat.",
-        "Ez a lehetőség azonban még mindig biztonságosabb, mint bármely eszköz engedélyezése."
+        "A fájlkérések auto. elfogadása mostantól a kedvencek listáján szereplő eszközökről."
       ]
     },
     "pin": {
@@ -454,12 +459,5 @@
     "sActionUseCameraHint": "használjon kamerát",
     "sNameDurationLabel": "időtartam",
     "sUnitAssetCountLabel": "számol"
-  },
-  "networkInterfacesPage": {
-    "title": "Hálózati interfészek",
-    "info": "Alapértelmezésként a LocalSend az összes rendelkezésre álló hálózati interfészt használja. Itt kizárhatja a nem kívánt hálózatokat. A módosítások alkalmazásához újra kell indítania a kiszolgálót.",
-    "preview": "Előnézet",
-    "whitelist": "Fehérlista",
-    "blacklist": "Tiltólista"
   }
 }

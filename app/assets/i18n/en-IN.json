@@ -134,18 +134,18 @@
       "deviceType": "Device type",
       "deviceModel": "Device model",
       "port": "Port",
+      "network": "Network",
+      "networkOptions": {
+        "all": "All",
+        "filtered": "Filtered"
+      },
       "discoveryTimeout": "Discovery Timeout",
       "useSystemName": "Use system name",
       "generateRandomAlias": "Generate random alias",
       "portWarning": "You might not be detected by other devices because you are using a custom port. (default: {defaultPort})",
       "encryption": "Encryption",
       "multicastGroup": "Multicast",
-      "multicastGroupWarning": "You might not be detected by other devices because you are using a custom multicast address. (default: {defaultMulticast})",
-      "network": "Network",
-      "networkOptions": {
-        "all": "All",
-        "filtered": "Filtered"
-      }
+      "multicastGroupWarning": "You might not be detected by other devices because you are using a custom multicast address. (default: {defaultMulticast})"
     },
     "other": {
       "title": "Other",
@@ -174,6 +174,13 @@
       "symptom": "Both devices cannot discover each other nor can they share files.",
       "solution": "Does the problem exist on both sides? If so, you need to make sure that both devices are on the same Wi-Fi network and share the same configuration (port, multicast address, encryption). The network may not allow communication between participants. In this case, this option must be enabled on the router."
     }
+  },
+  "networkInterfacesPage": {
+    "title": "Network Interfaces",
+    "info": "By default, LocalSend uses all available network interfaces. You can exclude unwanted networks here. You need to restart the server to apply the changes.",
+    "preview": "Preview",
+    "whitelist": "Whitelist",
+    "blacklist": "Blacklist"
   },
   "receiveHistoryPage": {
     "title": "History",
@@ -456,9 +463,7 @@
     "quickSaveFromFavoritesNotice": {
       "title": "@:general.quickSaveFromFavorites",
       "content": [
-        "File requests are now accepted automatically from devices in your favourites list.",
-        "Warning! Currently, this is not entirely secure, as a hacker who has the fingerprint of any device from your favourites list can send you files without restriction.",
-        "However, this option is still safer than allowing all users on the local network to send you files without restriction."
+        "File requests are now accepted automatically from devices in your favourites list."
       ]
     },
     "pin": {
@@ -524,12 +529,5 @@
     "sActionUseCameraHint": "use camera",
     "sNameDurationLabel": "duration",
     "sUnitAssetCountLabel": "count"
-  },
-  "networkInterfacesPage": {
-    "preview": "Preview",
-    "info": "By default, LocalSend uses all available network interfaces. You can exclude unwanted networks here. You need to restart the server to apply the changes.",
-    "whitelist": "Whitelist",
-    "blacklist": "Blacklist",
-    "title": "Network Interfaces"
   }
 }

@@ -54,6 +54,8 @@ class TranslationsPtBr extends Translations with BaseTranslations<AppLocale, Tra
   @override
   late final Translations$troubleshootPage$pt_BR troubleshootPage = Translations$troubleshootPage$pt_BR.internal(_root);
   @override
+  late final Translations$networkInterfacesPage$pt_BR networkInterfacesPage = Translations$networkInterfacesPage$pt_BR.internal(_root);
+  @override
   late final Translations$receiveHistoryPage$pt_BR receiveHistoryPage = Translations$receiveHistoryPage$pt_BR.internal(_root);
   @override
   late final Translations$apkPickerPage$pt_BR apkPickerPage = Translations$apkPickerPage$pt_BR.internal(_root);
@@ -87,8 +89,6 @@ class TranslationsPtBr extends Translations with BaseTranslations<AppLocale, Tra
   late final Translations$web$pt_BR web = Translations$web$pt_BR.internal(_root);
   @override
   late final Translations$assetPicker$pt_BR assetPicker = Translations$assetPicker$pt_BR.internal(_root);
-  @override
-  late final Translations$networkInterfacesPage$pt_BR networkInterfacesPage = Translations$networkInterfacesPage$pt_BR.internal(_root);
 }
 
 // Path: general
@@ -271,6 +271,26 @@ class Translations$troubleshootPage$pt_BR extends Translations$troubleshootPage$
   late final Translations$troubleshootPage$noDiscovery$pt_BR noDiscovery = Translations$troubleshootPage$noDiscovery$pt_BR.internal(_root);
   @override
   late final Translations$troubleshootPage$noConnection$pt_BR noConnection = Translations$troubleshootPage$noConnection$pt_BR.internal(_root);
+}
+
+// Path: networkInterfacesPage
+class Translations$networkInterfacesPage$pt_BR extends Translations$networkInterfacesPage$en {
+  Translations$networkInterfacesPage$pt_BR.internal(TranslationsPtBr root) : this._root = root, super.internal(root);
+
+  final TranslationsPtBr _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Interfaces de rede';
+  @override
+  String get info =>
+      'Por padrão, o LocalSend utiliza todas as interfaces de rede disponíveis. Você pode excluir as redes indesejadas aqui. É necessário reiniciar o servidor para aplicar as alterações.';
+  @override
+  String get preview => 'Pré-visualização';
+  @override
+  String get whitelist => 'Lista de permissão';
+  @override
+  String get blacklist => 'Lista de bloqueio';
 }
 
 // Path: receiveHistoryPage
@@ -746,26 +766,6 @@ class Translations$assetPicker$pt_BR extends Translations$assetPicker$en {
   String get sUnitAssetCountLabel => 'contagem';
 }
 
-// Path: networkInterfacesPage
-class Translations$networkInterfacesPage$pt_BR extends Translations$networkInterfacesPage$en {
-  Translations$networkInterfacesPage$pt_BR.internal(TranslationsPtBr root) : this._root = root, super.internal(root);
-
-  final TranslationsPtBr _root; // ignore: unused_field
-
-  // Translations
-  @override
-  String get whitelist => 'Lista de permissão';
-  @override
-  String get blacklist => 'Lista de bloqueio';
-  @override
-  String get info =>
-      'Por padrão, o LocalSend utiliza todas as interfaces de rede disponíveis. Você pode excluir as redes indesejadas aqui. É necessário reiniciar o servidor para aplicar as alterações.';
-  @override
-  String get preview => 'Pré-visualização';
-  @override
-  String get title => 'Interfaces de rede';
-}
-
 // Path: receiveTab.infoBox
 class Translations$receiveTab$infoBox$pt_BR extends Translations$receiveTab$infoBox$en {
   Translations$receiveTab$infoBox$pt_BR.internal(TranslationsPtBr root) : this._root = root, super.internal(root);
@@ -949,6 +949,12 @@ class Translations$settingsTab$network$pt_BR extends Translations$settingsTab$ne
   @override
   String get port => 'Porta';
   @override
+  String get network => 'Rede';
+  @override
+  late final Translations$settingsTab$network$networkOptions$pt_BR networkOptions = Translations$settingsTab$network$networkOptions$pt_BR.internal(
+    _root,
+  );
+  @override
   String get discoveryTimeout => 'Tempo limite de descoberta';
   @override
   String get useSystemName => 'Usar nome do sistema';
@@ -964,12 +970,6 @@ class Translations$settingsTab$network$pt_BR extends Translations$settingsTab$ne
   @override
   String multicastGroupWarning({required Object defaultMulticast}) =>
       'Você pode estar indetectável para outros dispositivos por estar usando um endereço de multicast customizado. (Padrão: ${defaultMulticast})';
-  @override
-  String get network => 'Rede';
-  @override
-  late final Translations$settingsTab$network$networkOptions$pt_BR networkOptions = Translations$settingsTab$network$networkOptions$pt_BR.internal(
-    _root,
-  );
 }
 
 // Path: settingsTab.other
@@ -1406,8 +1406,6 @@ class Translations$dialogs$quickSaveFromFavoritesNotice$pt_BR extends Translatio
   @override
   List<String> get content => [
     'Agora, as solicitações de arquivos vindas de dispositivos na sua lista de favoritos são aceitas automaticamente.',
-    'Atenção! Atualmente, esta opção não é totalmente segura pois um hacker que saiba a identificação dos seus dispositivos favoritos pode te enviar arquivos sem restrições.',
-    'De qualquer forma, esta opção ainda é mais segura que permitir qualquer dispositivo na sua rede local envie arquivos sem restrições.',
   ];
 }
 

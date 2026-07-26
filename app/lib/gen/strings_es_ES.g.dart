@@ -54,6 +54,8 @@ class TranslationsEsEs extends Translations with BaseTranslations<AppLocale, Tra
   @override
   late final _Translations$troubleshootPage$es_ES troubleshootPage = _Translations$troubleshootPage$es_ES._(_root);
   @override
+  late final _Translations$networkInterfacesPage$es_ES networkInterfacesPage = _Translations$networkInterfacesPage$es_ES._(_root);
+  @override
   late final _Translations$receiveHistoryPage$es_ES receiveHistoryPage = _Translations$receiveHistoryPage$es_ES._(_root);
   @override
   late final _Translations$apkPickerPage$es_ES apkPickerPage = _Translations$apkPickerPage$es_ES._(_root);
@@ -85,8 +87,6 @@ class TranslationsEsEs extends Translations with BaseTranslations<AppLocale, Tra
   late final _Translations$web$es_ES web = _Translations$web$es_ES._(_root);
   @override
   late final _Translations$assetPicker$es_ES assetPicker = _Translations$assetPicker$es_ES._(_root);
-  @override
-  late final _Translations$networkInterfacesPage$es_ES networkInterfacesPage = _Translations$networkInterfacesPage$es_ES._(_root);
 }
 
 // Path: general
@@ -268,6 +268,26 @@ class _Translations$troubleshootPage$es_ES extends Translations$troubleshootPage
   late final _Translations$troubleshootPage$noDiscovery$es_ES noDiscovery = _Translations$troubleshootPage$noDiscovery$es_ES._(_root);
   @override
   late final _Translations$troubleshootPage$noConnection$es_ES noConnection = _Translations$troubleshootPage$noConnection$es_ES._(_root);
+}
+
+// Path: networkInterfacesPage
+class _Translations$networkInterfacesPage$es_ES extends Translations$networkInterfacesPage$en {
+  _Translations$networkInterfacesPage$es_ES._(TranslationsEsEs root) : this._root = root, super.internal(root);
+
+  final TranslationsEsEs _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Interfaces de la red';
+  @override
+  String get info =>
+      'De forma predeterminada, LocalSend utiliza todas las interfaces de red disponibles. Aquí puede desactivar las redes no deseadas. Debe reiniciar el servidor para aplicar los cambios.';
+  @override
+  String get preview => 'Vista previa';
+  @override
+  String get whitelist => 'Lista blanca';
+  @override
+  String get blacklist => 'Lista negra';
 }
 
 // Path: receiveHistoryPage
@@ -670,26 +690,6 @@ class _Translations$assetPicker$es_ES extends Translations$assetPicker$en {
   String get sUnitAssetCountLabel => 'conteo';
 }
 
-// Path: networkInterfacesPage
-class _Translations$networkInterfacesPage$es_ES extends Translations$networkInterfacesPage$en {
-  _Translations$networkInterfacesPage$es_ES._(TranslationsEsEs root) : this._root = root, super.internal(root);
-
-  final TranslationsEsEs _root; // ignore: unused_field
-
-  // Translations
-  @override
-  String get title => 'Interfaces de la red';
-  @override
-  String get info =>
-      'De forma predeterminada, LocalSend utiliza todas las interfaces de red disponibles. Aquí puede desactivar las redes no deseadas. Debe reiniciar el servidor para aplicar los cambios.';
-  @override
-  String get preview => 'Vista previa';
-  @override
-  String get whitelist => 'Lista blanca';
-  @override
-  String get blacklist => 'Lista negra';
-}
-
 // Path: receiveTab.infoBox
 class _Translations$receiveTab$infoBox$es_ES extends Translations$receiveTab$infoBox$en {
   _Translations$receiveTab$infoBox$es_ES._(TranslationsEsEs root) : this._root = root, super.internal(root);
@@ -873,6 +873,10 @@ class _Translations$settingsTab$network$es_ES extends Translations$settingsTab$n
   @override
   String get port => 'Puerto';
   @override
+  String get network => 'Red';
+  @override
+  late final _Translations$settingsTab$network$networkOptions$es_ES networkOptions = _Translations$settingsTab$network$networkOptions$es_ES._(_root);
+  @override
   String get discoveryTimeout => 'Tiempo de espera para Detección';
   @override
   String get useSystemName => 'Usar el nombre del sistema';
@@ -888,10 +892,6 @@ class _Translations$settingsTab$network$es_ES extends Translations$settingsTab$n
   @override
   String multicastGroupWarning({required Object defaultMulticast}) =>
       'Es posible que no seas visible para otros dispositivos porque estás utilizando una dirección multicast personalizada. (Dirección multicast por defecto: ${defaultMulticast})';
-  @override
-  String get network => 'Red';
-  @override
-  late final _Translations$settingsTab$network$networkOptions$es_ES networkOptions = _Translations$settingsTab$network$networkOptions$es_ES._(_root);
 }
 
 // Path: settingsTab.other
@@ -1328,8 +1328,6 @@ class _Translations$dialogs$quickSaveFromFavoritesNotice$es_ES extends Translati
   @override
   List<String> get content => [
     'Se aceptarán automáticamente los archivos recibidos de los dispositivos incluidos en su lista de favoritos.',
-    'Advertencia: esta opción no es completamente segura, cualquiera que conozca la huella digital de sus dispositivos favoritos aún puede enviarle archivos.',
-    'Sin embargo, esta opción sigue siendo más segura que permitir que todos los usuarios en la red local te envíen archivos sin restricción.',
   ];
 }
 

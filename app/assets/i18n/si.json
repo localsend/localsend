@@ -134,18 +134,18 @@
       "deviceType": "උපාංගයේ වර් ගය",
       "deviceModel": "උපාංගයේ ආකෘතිය",
       "port": "Port",
+      "network": "ජාලය",
+      "networkOptions": {
+        "all": "සියල්ල",
+        "filtered": "වර්ග කළ"
+      },
       "discoveryTimeout": "සොයා ගැනීමේ කාලසීමාව",
       "useSystemName": "පද්ධති නම භාවිතා කරන්න",
       "generateRandomAlias": "අහඹු නමක් ජනනය කරන්න",
       "portWarning": "ඔබ custom port එකක් භාවිතා කරන්නේ නම්, වෙනත් උපාංග වලට ඔබව හඳුනා ගත නොහැක. (default: {defaultPort})",
       "encryption": "කේතනය",
       "multicastGroup": "Multicast ලිපිනය",
-      "multicastGroupWarning": "ඔබ custom multicast ලිපිනයක් භාවිතා කරන්නේ නම්, වෙනත් උපාංග වලට ඔබව හඳුනා ගත නොහැක. (default: {defaultMulticast})",
-      "network": "ජාලය",
-      "networkOptions": {
-        "all": "සියල්ල",
-        "filtered": "වර්ග කළ"
-      }
+      "multicastGroupWarning": "ඔබ custom multicast ලිපිනයක් භාවිතා කරන්නේ නම්, වෙනත් උපාංග වලට ඔබව හඳුනා ගත නොහැක. (default: {defaultMulticast})"
     },
     "other": {
       "title": "වෙනත්",
@@ -174,6 +174,13 @@
       "symptom": "දෙපාර්ශ්වයටම එකිනෙකාගේ උපාංග හඳුනාගැනීම හෝ ගොනු බෙදාගැනීම කළ නොහැක.",
       "solution": "ගැටලුව දෙපාර්ශවයේම තිබේ ද? එසේ නම්, දෙපාර්ශවයේම උපාංග එකම Wi-Fi ජාලයක ඇති බවත්, එකම configuration (port, multicast address, encryption) එකක් ඇති බවත් තහවුරු කරගන්න. Access Point (AP) Isolation මඟින් Wi-Fi ජාලය තුළ සහභාගීවන්නන් අතර සන්නිවේදනය වාරණය විය හැක. එවැනි අවස්තාවක, මෙම විකල්පය (AP Isolation) රවුටරයේ අක්‍රීය කළ යුතුය."
     }
+  },
+  "networkInterfacesPage": {
+    "title": "ජාල අතුරුමුහුණත්",
+    "info": "සාමාන්‍යයෙන් LocalSend ඔබගේ පවතින සියලු ජාල මුහුණත් භාවිතා කරයි. ඔබට අනවශ්‍ය මුහුණතක් වේ නම් එය මෙතනින් ඉවත් කළ හැක. ඔබ සිදු කරන වෙනස්කම් ක්‍රියාත්මක වීමට නම් server එක restart කළ යුතුය.",
+    "preview": "පෙනෙන අයුරු",
+    "whitelist": "අවසර ලත් ලැයිස්තුව",
+    "blacklist": "අවහිර කල ලැයිස්තුව"
   },
   "receiveHistoryPage": {
     "title": "ඉතිහාසය",
@@ -378,9 +385,7 @@
     "quickSaveFromFavoritesNotice": {
       "title": "@:general.quickSaveFromFavorites",
       "content": [
-        "ඔබගේ ප්‍රියතම ලැයිස්තුවේ ඇති උපාංගවලින් ලැබෙන ගොනු ඉල්ලීම් දැන් ස්වයංක්‍රීයව පිළිගනු ලැබේ.",
-        "අවවාදයයි! දැනට, මෙය සම්පූර්ණයෙන්ම ආරක්ෂිත නැත, ඔබේ ප්‍රියතම ලැයිස්තුවේ ඇති ඕනෑම උපාංගයක ඇඟිලි සලකුණක් සහිත හැකර්වරයෙකුට (Hacker) කිසිඳු සීමාවකින් තොරව ඔබ වෙත ගොනු එවිය හැක.",
-        "කෙසේ වෙතත්, මෙම විකල්පය ජාලයේ සියලුම පරිශීලකයින්ට කිසිඳු සීමාවකින් තොරව ගොනු එවීමට ඉඩ දීමට වඩා ආරක්ෂිත වේ."
+        "ඔබගේ ප්‍රියතම ලැයිස්තුවේ ඇති උපාංගවලින් ලැබෙන ගොනු ඉල්ලීම් දැන් ස්වයංක්‍රීයව පිළිගනු ලැබේ."
       ]
     },
     "pin": {
@@ -446,12 +451,5 @@
     "sActionUseCameraHint": "කැමරාව භාවිතා කරන්න",
     "sNameDurationLabel": "කාලසීමාව",
     "sUnitAssetCountLabel": "ගණන"
-  },
-  "networkInterfacesPage": {
-    "info": "සාමාන්‍යයෙන් LocalSend ඔබගේ පවතින සියලු ජාල මුහුණත් භාවිතා කරයි. ඔබට අනවශ්‍ය මුහුණතක් වේ නම් එය මෙතනින් ඉවත් කළ හැක. ඔබ සිදු කරන වෙනස්කම් ක්‍රියාත්මක වීමට නම් server එක restart කළ යුතුය.",
-    "title": "ජාල අතුරුමුහුණත්",
-    "preview": "පෙනෙන අයුරු",
-    "whitelist": "අවසර ලත් ලැයිස්තුව",
-    "blacklist": "අවහිර කල ලැයිස්තුව"
   }
 }

@@ -54,6 +54,8 @@ class TranslationsSk extends Translations with BaseTranslations<AppLocale, Trans
   @override
   late final _Translations$troubleshootPage$sk troubleshootPage = _Translations$troubleshootPage$sk._(_root);
   @override
+  late final _Translations$networkInterfacesPage$sk networkInterfacesPage = _Translations$networkInterfacesPage$sk._(_root);
+  @override
   late final _Translations$receiveHistoryPage$sk receiveHistoryPage = _Translations$receiveHistoryPage$sk._(_root);
   @override
   late final _Translations$apkPickerPage$sk apkPickerPage = _Translations$apkPickerPage$sk._(_root);
@@ -87,8 +89,6 @@ class TranslationsSk extends Translations with BaseTranslations<AppLocale, Trans
   late final _Translations$web$sk web = _Translations$web$sk._(_root);
   @override
   late final _Translations$assetPicker$sk assetPicker = _Translations$assetPicker$sk._(_root);
-  @override
-  late final _Translations$networkInterfacesPage$sk networkInterfacesPage = _Translations$networkInterfacesPage$sk._(_root);
 }
 
 // Path: general
@@ -270,6 +270,26 @@ class _Translations$troubleshootPage$sk extends Translations$troubleshootPage$en
   late final _Translations$troubleshootPage$noDiscovery$sk noDiscovery = _Translations$troubleshootPage$noDiscovery$sk._(_root);
   @override
   late final _Translations$troubleshootPage$noConnection$sk noConnection = _Translations$troubleshootPage$noConnection$sk._(_root);
+}
+
+// Path: networkInterfacesPage
+class _Translations$networkInterfacesPage$sk extends Translations$networkInterfacesPage$en {
+  _Translations$networkInterfacesPage$sk._(TranslationsSk root) : this._root = root, super.internal(root);
+
+  final TranslationsSk _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Sieťové rozhrania';
+  @override
+  String get info =>
+      'V predvolenom nastavení LocalSend používa všetky dostupné sieťové rozhrania. Nežiaduce siete tu môžete vylúčiť. Na uplatnenie zmien je potrebné reštartovať server.';
+  @override
+  String get preview => 'Náhľad';
+  @override
+  String get whitelist => 'Zoznam povolených';
+  @override
+  String get blacklist => 'Zoznam zakázaných';
 }
 
 // Path: receiveHistoryPage
@@ -750,26 +770,6 @@ class _Translations$assetPicker$sk extends Translations$assetPicker$en {
   String get sUnitAssetCountLabel => 'počet';
 }
 
-// Path: networkInterfacesPage
-class _Translations$networkInterfacesPage$sk extends Translations$networkInterfacesPage$en {
-  _Translations$networkInterfacesPage$sk._(TranslationsSk root) : this._root = root, super.internal(root);
-
-  final TranslationsSk _root; // ignore: unused_field
-
-  // Translations
-  @override
-  String get info =>
-      'V predvolenom nastavení LocalSend používa všetky dostupné sieťové rozhrania. Nežiaduce siete tu môžete vylúčiť. Na uplatnenie zmien je potrebné reštartovať server.';
-  @override
-  String get preview => 'Náhľad';
-  @override
-  String get blacklist => 'Zoznam zakázaných';
-  @override
-  String get title => 'Sieťové rozhrania';
-  @override
-  String get whitelist => 'Zoznam povolených';
-}
-
 // Path: receiveTab.infoBox
 class _Translations$receiveTab$infoBox$sk extends Translations$receiveTab$infoBox$en {
   _Translations$receiveTab$infoBox$sk._(TranslationsSk root) : this._root = root, super.internal(root);
@@ -952,6 +952,10 @@ class _Translations$settingsTab$network$sk extends Translations$settingsTab$netw
   @override
   String get port => 'Port';
   @override
+  String get network => 'Sieť';
+  @override
+  late final _Translations$settingsTab$network$networkOptions$sk networkOptions = _Translations$settingsTab$network$networkOptions$sk._(_root);
+  @override
   String get discoveryTimeout => 'Časový limit hľadania';
   @override
   String get useSystemName => 'Použiť systémové meno';
@@ -967,10 +971,6 @@ class _Translations$settingsTab$network$sk extends Translations$settingsTab$netw
   @override
   String multicastGroupWarning({required Object defaultMulticast}) =>
       'Iné zariadenia vás nemusia rozpoznať, pretože používate vlastnú multicast adresu. (predvolené: ${defaultMulticast})';
-  @override
-  String get network => 'Sieť';
-  @override
-  late final _Translations$settingsTab$network$networkOptions$sk networkOptions = _Translations$settingsTab$network$networkOptions$sk._(_root);
 }
 
 // Path: settingsTab.other
@@ -1405,8 +1405,6 @@ class _Translations$dialogs$quickSaveFromFavoritesNotice$sk extends Translations
   @override
   List<String> get content => [
     'Žiadosti o súbory sa teraz automaticky prijímajú zo zariadení vo vašom zozname obľúbených.',
-    'Varovanie! V súčasnosti to nie je úplne bezpečné, pretože hacker, ktorý má odtlačok prsta akéhokoľvek zariadenia zo zoznamu obľúbených, vám môže posielať súbory bez obmedzenia.',
-    'Táto možnosť je však stále bezpečnejšia ako povoliť všetkým používateľom v miestnej sieti posielať súbory bez obmedzenia.',
   ];
 }
 

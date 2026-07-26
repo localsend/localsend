@@ -54,6 +54,8 @@ class TranslationsJa extends Translations with BaseTranslations<AppLocale, Trans
   @override
   late final _Translations$troubleshootPage$ja troubleshootPage = _Translations$troubleshootPage$ja._(_root);
   @override
+  late final _Translations$networkInterfacesPage$ja networkInterfacesPage = _Translations$networkInterfacesPage$ja._(_root);
+  @override
   late final _Translations$receiveHistoryPage$ja receiveHistoryPage = _Translations$receiveHistoryPage$ja._(_root);
   @override
   late final _Translations$apkPickerPage$ja apkPickerPage = _Translations$apkPickerPage$ja._(_root);
@@ -85,8 +87,6 @@ class TranslationsJa extends Translations with BaseTranslations<AppLocale, Trans
   late final _Translations$web$ja web = _Translations$web$ja._(_root);
   @override
   late final _Translations$assetPicker$ja assetPicker = _Translations$assetPicker$ja._(_root);
-  @override
-  late final _Translations$networkInterfacesPage$ja networkInterfacesPage = _Translations$networkInterfacesPage$ja._(_root);
 }
 
 // Path: general
@@ -268,6 +268,25 @@ class _Translations$troubleshootPage$ja extends Translations$troubleshootPage$en
   late final _Translations$troubleshootPage$noDiscovery$ja noDiscovery = _Translations$troubleshootPage$noDiscovery$ja._(_root);
   @override
   late final _Translations$troubleshootPage$noConnection$ja noConnection = _Translations$troubleshootPage$noConnection$ja._(_root);
+}
+
+// Path: networkInterfacesPage
+class _Translations$networkInterfacesPage$ja extends Translations$networkInterfacesPage$en {
+  _Translations$networkInterfacesPage$ja._(TranslationsJa root) : this._root = root, super.internal(root);
+
+  final TranslationsJa _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'ネットワークインターフェース';
+  @override
+  String get info => 'デフォルトでは、LocalSend は利用可能なすべてのネットワークインターフェースを使用します。不要なネットワークを除外するには、ここで設定できます。変更を適用するには、サーバーを再起動する必要があります。';
+  @override
+  String get preview => 'プレビュー';
+  @override
+  String get whitelist => 'ホワイトリスト';
+  @override
+  String get blacklist => 'ブラックリスト';
 }
 
 // Path: receiveHistoryPage
@@ -662,25 +681,6 @@ class _Translations$assetPicker$ja extends Translations$assetPicker$en {
   String get sUnitAssetCountLabel => '個数';
 }
 
-// Path: networkInterfacesPage
-class _Translations$networkInterfacesPage$ja extends Translations$networkInterfacesPage$en {
-  _Translations$networkInterfacesPage$ja._(TranslationsJa root) : this._root = root, super.internal(root);
-
-  final TranslationsJa _root; // ignore: unused_field
-
-  // Translations
-  @override
-  String get preview => 'プレビュー';
-  @override
-  String get blacklist => 'ブラックリスト';
-  @override
-  String get whitelist => 'ホワイトリスト';
-  @override
-  String get title => 'ネットワークインターフェース';
-  @override
-  String get info => 'デフォルトでは、LocalSend は利用可能なすべてのネットワークインターフェースを使用します。不要なネットワークを除外するには、ここで設定できます。変更を適用するには、サーバーを再起動する必要があります。';
-}
-
 // Path: receiveTab.infoBox
 class _Translations$receiveTab$infoBox$ja extends Translations$receiveTab$infoBox$en {
   _Translations$receiveTab$infoBox$ja._(TranslationsJa root) : this._root = root, super.internal(root);
@@ -863,6 +863,10 @@ class _Translations$settingsTab$network$ja extends Translations$settingsTab$netw
   @override
   String get port => 'ポート';
   @override
+  String get network => 'ネットワーク';
+  @override
+  late final _Translations$settingsTab$network$networkOptions$ja networkOptions = _Translations$settingsTab$network$networkOptions$ja._(_root);
+  @override
   String get discoveryTimeout => '探索がタイムアウトしました';
   @override
   String get useSystemName => 'システム名を使用';
@@ -876,10 +880,6 @@ class _Translations$settingsTab$network$ja extends Translations$settingsTab$netw
   String get multicastGroup => 'マルチキャスト';
   @override
   String multicastGroupWarning({required Object defaultMulticast}) => 'マルチキャストアドレスが変更されているため、他のデバイスから検出されなくなる場合があります。(デフォルト: ${defaultMulticast})';
-  @override
-  String get network => 'ネットワーク';
-  @override
-  late final _Translations$settingsTab$network$networkOptions$ja networkOptions = _Translations$settingsTab$network$networkOptions$ja._(_root);
 }
 
 // Path: settingsTab.other
@@ -1291,8 +1291,6 @@ class _Translations$dialogs$quickSaveFromFavoritesNotice$ja extends Translations
   @override
   List<String> get content => [
     'お気に入りリストにあるデバイスからのファイルリクエストを自動的に受け入れます。',
-    '警告 現時点では、お気に入りリストのデバイスと一致するフィンガープリントがあればハッカーが無制限にファイルを送信できてしまうため、この設定は完全に安全とは言えません。',
-    'ですが、この設定はローカルネットワーク上のすべてのユーザーに無制限のファイル送信を許可するよりはまだ安全です。',
   ];
 }
 

@@ -134,18 +134,18 @@
       "deviceType": "Tip uređaja",
       "deviceModel": "Model uređaja",
       "port": "Port",
+      "network": "Mreža",
+      "networkOptions": {
+        "all": "Sve",
+        "filtered": "Filtrirana"
+      },
       "discoveryTimeout": "Otkrivanje je isteklo",
       "useSystemName": "Koristi sistemski naziv",
       "generateRandomAlias": "Generiši nasumični pseudonim",
       "portWarning": "Drugi uređaji vas možda neće otkriti, jer koristite prilagođeni port. (podrazumevani: {defaultPort})",
       "encryption": "Šifrovanje",
       "multicastGroup": "Adresa višesmernog emitovanja",
-      "multicastGroupWarning": "Drugi uređaji vas možda neće otkriti, jer koristite prilagođenu adresu višesmernog emitovanja. (podrazumevana: {defaultMulticast})",
-      "network": "Mreža",
-      "networkOptions": {
-        "filtered": "Filtrirana",
-        "all": "Sve"
-      }
+      "multicastGroupWarning": "Drugi uređaji vas možda neće otkriti, jer koristite prilagođenu adresu višesmernog emitovanja. (podrazumevana: {defaultMulticast})"
     },
     "other": {
       "title": "Ostalo",
@@ -174,6 +174,13 @@
       "symptom": "Oba uređaja ne mogu da otkriju jedan drugog niti mogu da dele fajlove.",
       "solution": "Da li problem postoji na obe strane? Ako je tako, potrebno je da se uverite da su oba uređaja na istoj Wi-Fi mreži i da imaju istu konfiguraciju (port, adresa višesmernog emitovanja, šifrovanje). Wi-Fi mreža možda neće dozvoliti komunikaciju između učesnika zbog izolacije pristupne tačke (AP). U ovom slučaju, ova opcija mora biti onemogućena na ruteru."
     }
+  },
+  "networkInterfacesPage": {
+    "title": "Mrežni interfejsi",
+    "info": "Podrazumevano, LocalSend koristi sve dostupne mrežne interfejse. Ovde možete izuzeti neželjene mreže. Morate restartovati server da bi se primenile promene.",
+    "preview": "Pregled",
+    "whitelist": "Bela lista",
+    "blacklist": "Crna lista"
   },
   "receiveHistoryPage": {
     "title": "Istorija",
@@ -448,9 +455,7 @@
     "quickSaveFromFavoritesNotice": {
       "title": "@:general.quickSaveFromFavorites",
       "content": [
-        "Zahtevi za fajlove se sada automatski prihvataju sa uređaja koji su na vašoj listi omiljenih.",
-        "Upozorenje! Trenutno, ovo nije potpuno bezbedno, jer haker koji ima otisak prsta bilo kog uređaja sa vaše liste omiljenih može da vam šalje fajlove bez ograničenja.",
-        "Ipak, ova opcija je i dalje bezbednija od dopuštanja svim korisnicima na lokalnoj mreži da vam šalju fajlove bez ograničenja."
+        "Zahtevi za fajlove se sada automatski prihvataju sa uređaja koji su na vašoj listi omiljenih."
       ]
     },
     "pin": {
@@ -516,12 +521,5 @@
     "sActionUseCameraHint": "koristi kameru",
     "sNameDurationLabel": "trajanje",
     "sUnitAssetCountLabel": "broj"
-  },
-  "networkInterfacesPage": {
-    "title": "Mrežni interfejsi",
-    "preview": "Pregled",
-    "whitelist": "Bela lista",
-    "blacklist": "Crna lista",
-    "info": "Podrazumevano, LocalSend koristi sve dostupne mrežne interfejse. Ovde možete izuzeti neželjene mreže. Morate restartovati server da bi se primenile promene."
   }
 }

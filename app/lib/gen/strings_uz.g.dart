@@ -1319,8 +1319,6 @@ class _Translations$dialogs$quickSaveFromFavoritesNotice$uz extends Translations
   @override
   List<String> get content => [
     'Fayl soʻrovlari endi sevimlilar roʻyxatidagi qurilmalardan avtomatik qabul qilinadi.',
-    'Ogohlantirish! Hozircha bu toʻliq xavfsiz emas, chunki sevimlilar roʻyxatingizdagi biror qurilmaning barmoq iziga ega boʻlgan xaker sizga cheklovsiz fayllar yuborishi mumkin.',
-    'Shunga qaramay, bu variant mahalliy tarmoqdagi barcha foydalanuvchilarga cheklovsiz fayllar yuborishga ruxsat berishdan koʻra xavfsizroqdir.',
   ];
 }
 

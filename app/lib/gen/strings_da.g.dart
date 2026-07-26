@@ -54,6 +54,8 @@ class TranslationsDa extends Translations with BaseTranslations<AppLocale, Trans
   @override
   late final _Translations$troubleshootPage$da troubleshootPage = _Translations$troubleshootPage$da._(_root);
   @override
+  late final _Translations$networkInterfacesPage$da networkInterfacesPage = _Translations$networkInterfacesPage$da._(_root);
+  @override
   late final _Translations$receiveHistoryPage$da receiveHistoryPage = _Translations$receiveHistoryPage$da._(_root);
   @override
   late final _Translations$apkPickerPage$da apkPickerPage = _Translations$apkPickerPage$da._(_root);
@@ -85,8 +87,6 @@ class TranslationsDa extends Translations with BaseTranslations<AppLocale, Trans
   late final _Translations$web$da web = _Translations$web$da._(_root);
   @override
   late final _Translations$assetPicker$da assetPicker = _Translations$assetPicker$da._(_root);
-  @override
-  late final _Translations$networkInterfacesPage$da networkInterfacesPage = _Translations$networkInterfacesPage$da._(_root);
 }
 
 // Path: general
@@ -268,6 +268,26 @@ class _Translations$troubleshootPage$da extends Translations$troubleshootPage$en
   late final _Translations$troubleshootPage$noDiscovery$da noDiscovery = _Translations$troubleshootPage$noDiscovery$da._(_root);
   @override
   late final _Translations$troubleshootPage$noConnection$da noConnection = _Translations$troubleshootPage$noConnection$da._(_root);
+}
+
+// Path: networkInterfacesPage
+class _Translations$networkInterfacesPage$da extends Translations$networkInterfacesPage$en {
+  _Translations$networkInterfacesPage$da._(TranslationsDa root) : this._root = root, super.internal(root);
+
+  final TranslationsDa _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Netværksgrænseflader';
+  @override
+  String get info =>
+      'Som standard bruger LocalSend alle tilgængelige netværksgrænseflader. Du kan ekskludere uønskede netværk her. Du skal genstarte serveren for at anvende ændringerne.';
+  @override
+  String get preview => 'Forhåndsvisning';
+  @override
+  String get whitelist => 'Hvidliste';
+  @override
+  String get blacklist => 'Sortliste';
 }
 
 // Path: receiveHistoryPage
@@ -494,6 +514,8 @@ class _Translations$dialogs$da extends Translations$dialogs$en {
   @override
   late final _Translations$dialogs$addFile$da addFile = _Translations$dialogs$addFile$da._(_root);
   @override
+  late final _Translations$dialogs$openFile$da openFile = _Translations$dialogs$openFile$da._(_root);
+  @override
   late final _Translations$dialogs$addressInput$da addressInput = _Translations$dialogs$addressInput$da._(_root);
   @override
   late final _Translations$dialogs$cancelSession$da cancelSession = _Translations$dialogs$cancelSession$da._(_root);
@@ -540,8 +562,6 @@ class _Translations$dialogs$da extends Translations$dialogs$en {
   late final _Translations$dialogs$sendModeHelp$da sendModeHelp = _Translations$dialogs$sendModeHelp$da._(_root);
   @override
   late final _Translations$dialogs$zoom$da zoom = _Translations$dialogs$zoom$da._(_root);
-  @override
-  late final _Translations$dialogs$openFile$da openFile = _Translations$dialogs$openFile$da._(_root);
 }
 
 // Path: sanitization
@@ -663,26 +683,6 @@ class _Translations$assetPicker$da extends Translations$assetPicker$en {
   String get sUnitAssetCountLabel => 'Antal';
 }
 
-// Path: networkInterfacesPage
-class _Translations$networkInterfacesPage$da extends Translations$networkInterfacesPage$en {
-  _Translations$networkInterfacesPage$da._(TranslationsDa root) : this._root = root, super.internal(root);
-
-  final TranslationsDa _root; // ignore: unused_field
-
-  // Translations
-  @override
-  String get title => 'Netværksgrænseflader';
-  @override
-  String get info =>
-      'Som standard bruger LocalSend alle tilgængelige netværksgrænseflader. Du kan ekskludere uønskede netværk her. Du skal genstarte serveren for at anvende ændringerne.';
-  @override
-  String get preview => 'Forhåndsvisning';
-  @override
-  String get whitelist => 'Hvidliste';
-  @override
-  String get blacklist => 'Sortliste';
-}
-
 // Path: receiveTab.infoBox
 class _Translations$receiveTab$infoBox$da extends Translations$receiveTab$infoBox$en {
   _Translations$receiveTab$infoBox$da._(TranslationsDa root) : this._root = root, super.internal(root);
@@ -706,9 +706,9 @@ class _Translations$receiveTab$quickSave$da extends Translations$receiveTab$quic
 
   // Translations
   @override
-  String get favorites => 'Favoritter';
-  @override
   String get off => _root.general.off;
+  @override
+  String get favorites => 'Favoritter';
   @override
   String get on => _root.general.on;
 }
@@ -865,7 +865,15 @@ class _Translations$settingsTab$network$da extends Translations$settingsTab$netw
   @override
   String get port => 'Port';
   @override
+  String get network => 'Netværk';
+  @override
+  late final _Translations$settingsTab$network$networkOptions$da networkOptions = _Translations$settingsTab$network$networkOptions$da._(_root);
+  @override
   String get discoveryTimeout => 'Timeout for søgning';
+  @override
+  String get useSystemName => 'Brug systemnavn';
+  @override
+  String get generateRandomAlias => 'Generér tilfældigt alias';
   @override
   String portWarning({required Object defaultPort}) =>
       'Andre enheder registrerer dig muligvis ikke, da du bruger en brugerdefineret port (standard: ${defaultPort}).';
@@ -876,14 +884,6 @@ class _Translations$settingsTab$network$da extends Translations$settingsTab$netw
   @override
   String multicastGroupWarning({required Object defaultMulticast}) =>
       'Andre enheder registrerer dig muligvis ikke, da du bruger en brugerdefineret multicast-adresse (standard: ${defaultMulticast}).';
-  @override
-  String get network => 'Netværk';
-  @override
-  late final _Translations$settingsTab$network$networkOptions$da networkOptions = _Translations$settingsTab$network$networkOptions$da._(_root);
-  @override
-  String get useSystemName => 'Brug systemnavn';
-  @override
-  String get generateRandomAlias => 'Generér tilfældigt alias';
 }
 
 // Path: settingsTab.other
@@ -994,6 +994,19 @@ class _Translations$dialogs$addFile$da extends Translations$dialogs$addFile$en {
   String get title => 'Føj til valg';
   @override
   String get content => 'Hvad vil du tilføje?';
+}
+
+// Path: dialogs.openFile
+class _Translations$dialogs$openFile$da extends Translations$dialogs$openFile$en {
+  _Translations$dialogs$openFile$da._(TranslationsDa root) : this._root = root, super.internal(root);
+
+  final TranslationsDa _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Åbn fil';
+  @override
+  String get content => 'Vil du åbne den modtagne fil?';
 }
 
 // Path: dialogs.addressInput
@@ -1284,8 +1297,6 @@ class _Translations$dialogs$quickSaveFromFavoritesNotice$da extends Translations
   @override
   List<String> get content => [
     'Filoverførsler accepteres nu automatisk fra enheder på din favoritliste.',
-    'Advarsel! Dette er ikke helt sikkert, da hvis en hacker har fingeraftrykket på enhver enhed fra din favoritliste, kan de sende filer til dig uden restriktioner.',
-    'Denne mulighed er dog stadig sikrere end at tillade alle brugere på det lokale netværk at sende filer til dig uden restriktioner.',
   ];
 }
 
@@ -1326,19 +1337,6 @@ class _Translations$dialogs$zoom$da extends Translations$dialogs$zoom$en {
   // Translations
   @override
   String get title => 'URL';
-}
-
-// Path: dialogs.openFile
-class _Translations$dialogs$openFile$da extends Translations$dialogs$openFile$en {
-  _Translations$dialogs$openFile$da._(TranslationsDa root) : this._root = root, super.internal(root);
-
-  final TranslationsDa _root; // ignore: unused_field
-
-  // Translations
-  @override
-  String get title => 'Åbn fil';
-  @override
-  String get content => 'Vil du åbne den modtagne fil?';
 }
 
 // Path: settingsTab.general.brightnessOptions

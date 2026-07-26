@@ -54,6 +54,8 @@ class TranslationsRo extends Translations with BaseTranslations<AppLocale, Trans
   @override
   late final _Translations$troubleshootPage$ro troubleshootPage = _Translations$troubleshootPage$ro._(_root);
   @override
+  late final _Translations$networkInterfacesPage$ro networkInterfacesPage = _Translations$networkInterfacesPage$ro._(_root);
+  @override
   late final _Translations$receiveHistoryPage$ro receiveHistoryPage = _Translations$receiveHistoryPage$ro._(_root);
   @override
   late final _Translations$apkPickerPage$ro apkPickerPage = _Translations$apkPickerPage$ro._(_root);
@@ -87,8 +89,6 @@ class TranslationsRo extends Translations with BaseTranslations<AppLocale, Trans
   late final _Translations$web$ro web = _Translations$web$ro._(_root);
   @override
   late final _Translations$assetPicker$ro assetPicker = _Translations$assetPicker$ro._(_root);
-  @override
-  late final _Translations$networkInterfacesPage$ro networkInterfacesPage = _Translations$networkInterfacesPage$ro._(_root);
 }
 
 // Path: general
@@ -270,6 +270,26 @@ class _Translations$troubleshootPage$ro extends Translations$troubleshootPage$en
   late final _Translations$troubleshootPage$noDiscovery$ro noDiscovery = _Translations$troubleshootPage$noDiscovery$ro._(_root);
   @override
   late final _Translations$troubleshootPage$noConnection$ro noConnection = _Translations$troubleshootPage$noConnection$ro._(_root);
+}
+
+// Path: networkInterfacesPage
+class _Translations$networkInterfacesPage$ro extends Translations$networkInterfacesPage$en {
+  _Translations$networkInterfacesPage$ro._(TranslationsRo root) : this._root = root, super.internal(root);
+
+  final TranslationsRo _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Interfețe de rețea';
+  @override
+  String get info =>
+      'În mod implicit, LocalSend folosește toate interfețele de rețea disponibile. Poți exclude rețelele nedorite aici. Trebuie să repornești serverul pentru a aplica modificările.';
+  @override
+  String get preview => 'Previzualizare';
+  @override
+  String get whitelist => 'Lista albă';
+  @override
+  String get blacklist => 'Lista neagră';
 }
 
 // Path: receiveHistoryPage
@@ -746,26 +766,6 @@ class _Translations$assetPicker$ro extends Translations$assetPicker$en {
   String get sUnitAssetCountLabel => 'cantitate';
 }
 
-// Path: networkInterfacesPage
-class _Translations$networkInterfacesPage$ro extends Translations$networkInterfacesPage$en {
-  _Translations$networkInterfacesPage$ro._(TranslationsRo root) : this._root = root, super.internal(root);
-
-  final TranslationsRo _root; // ignore: unused_field
-
-  // Translations
-  @override
-  String get title => 'Interfețe de rețea';
-  @override
-  String get info =>
-      'În mod implicit, LocalSend folosește toate interfețele de rețea disponibile. Poți exclude rețelele nedorite aici. Trebuie să repornești serverul pentru a aplica modificările.';
-  @override
-  String get preview => 'Previzualizare';
-  @override
-  String get whitelist => 'Lista albă';
-  @override
-  String get blacklist => 'Lista neagră';
-}
-
 // Path: receiveTab.infoBox
 class _Translations$receiveTab$infoBox$ro extends Translations$receiveTab$infoBox$en {
   _Translations$receiveTab$infoBox$ro._(TranslationsRo root) : this._root = root, super.internal(root);
@@ -948,6 +948,10 @@ class _Translations$settingsTab$network$ro extends Translations$settingsTab$netw
   @override
   String get port => 'Port';
   @override
+  String get network => 'Rețea';
+  @override
+  late final _Translations$settingsTab$network$networkOptions$ro networkOptions = _Translations$settingsTab$network$networkOptions$ro._(_root);
+  @override
   String get discoveryTimeout => 'Expirare descoperire';
   @override
   String get useSystemName => 'Folosește numele sistemului';
@@ -963,10 +967,6 @@ class _Translations$settingsTab$network$ro extends Translations$settingsTab$netw
   @override
   String multicastGroupWarning({required Object defaultMulticast}) =>
       'Este posibil să nu fii detectat de alte dispozitive pentru că folosești o adresă multicast personalizată. (implicit: ${defaultMulticast})';
-  @override
-  late final _Translations$settingsTab$network$networkOptions$ro networkOptions = _Translations$settingsTab$network$networkOptions$ro._(_root);
-  @override
-  String get network => 'Rețea';
 }
 
 // Path: settingsTab.other
@@ -1381,8 +1381,6 @@ class _Translations$dialogs$quickSaveFromFavoritesNotice$ro extends Translations
   @override
   List<String> get content => [
     'Cererile de fișiere sunt acum acceptate automat de la dispozitivele din lista dispozitivelor favorite.',
-    'Atenție! În prezent, aceasta nu este complet securizată, deoarece un hacker care are amprente pe oricare dintre dispozitivele din lista ta de favorite poate trimite fișiere fără restricții.',
-    'Oricum ar fi, această opțiune este mult mai sigură decât să permiți utilizatorilor din rețeaua locală să trimită fișiere fără restricții.',
   ];
 }
 

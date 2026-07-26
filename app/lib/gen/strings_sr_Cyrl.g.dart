@@ -55,6 +55,8 @@ class TranslationsSrCyrl extends TranslationsSr with BaseTranslations<AppLocale,
   @override
   late final _Translations$troubleshootPage$sr_Cyrl troubleshootPage = _Translations$troubleshootPage$sr_Cyrl._(_root);
   @override
+  late final _Translations$networkInterfacesPage$sr_Cyrl networkInterfacesPage = _Translations$networkInterfacesPage$sr_Cyrl._(_root);
+  @override
   late final _Translations$receiveHistoryPage$sr_Cyrl receiveHistoryPage = _Translations$receiveHistoryPage$sr_Cyrl._(_root);
   @override
   late final _Translations$apkPickerPage$sr_Cyrl apkPickerPage = _Translations$apkPickerPage$sr_Cyrl._(_root);
@@ -88,8 +90,6 @@ class TranslationsSrCyrl extends TranslationsSr with BaseTranslations<AppLocale,
   late final _Translations$web$sr_Cyrl web = _Translations$web$sr_Cyrl._(_root);
   @override
   late final _Translations$assetPicker$sr_Cyrl assetPicker = _Translations$assetPicker$sr_Cyrl._(_root);
-  @override
-  late final _Translations$networkInterfacesPage$sr_Cyrl networkInterfacesPage = _Translations$networkInterfacesPage$sr_Cyrl._(_root);
 }
 
 // Path: general
@@ -271,6 +271,26 @@ class _Translations$troubleshootPage$sr_Cyrl extends Translations$troubleshootPa
   late final _Translations$troubleshootPage$noDiscovery$sr_Cyrl noDiscovery = _Translations$troubleshootPage$noDiscovery$sr_Cyrl._(_root);
   @override
   late final _Translations$troubleshootPage$noConnection$sr_Cyrl noConnection = _Translations$troubleshootPage$noConnection$sr_Cyrl._(_root);
+}
+
+// Path: networkInterfacesPage
+class _Translations$networkInterfacesPage$sr_Cyrl extends Translations$networkInterfacesPage$sr {
+  _Translations$networkInterfacesPage$sr_Cyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
+
+  final TranslationsSrCyrl _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Мрежни интерфејси';
+  @override
+  String get info =>
+      'Подразумевано, LocalSend користи све доступне мрежне интерфејсе. Овде можете изузети нежељене мреже. Морате рестартовати сервер да би се примениле промене.';
+  @override
+  String get preview => 'Преглед';
+  @override
+  String get whitelist => 'Бела листа';
+  @override
+  String get blacklist => 'Црна листа';
 }
 
 // Path: receiveHistoryPage
@@ -753,26 +773,6 @@ class _Translations$assetPicker$sr_Cyrl extends Translations$assetPicker$sr {
   String get sUnitAssetCountLabel => 'број';
 }
 
-// Path: networkInterfacesPage
-class _Translations$networkInterfacesPage$sr_Cyrl extends Translations$networkInterfacesPage$sr {
-  _Translations$networkInterfacesPage$sr_Cyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
-
-  final TranslationsSrCyrl _root; // ignore: unused_field
-
-  // Translations
-  @override
-  String get title => 'Мрежни интерфејси';
-  @override
-  String get preview => 'Преглед';
-  @override
-  String get whitelist => 'Бела листа';
-  @override
-  String get blacklist => 'Црна листа';
-  @override
-  String get info =>
-      'Подразумевано, LocalSend користи све доступне мрежне интерфејсе. Овде можете изузети нежељене мреже. Морате рестартовати сервер да би се примениле промене.';
-}
-
 // Path: receiveTab.infoBox
 class _Translations$receiveTab$infoBox$sr_Cyrl extends Translations$receiveTab$infoBox$sr {
   _Translations$receiveTab$infoBox$sr_Cyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
@@ -956,6 +956,12 @@ class _Translations$settingsTab$network$sr_Cyrl extends Translations$settingsTab
   @override
   String get port => 'Порт';
   @override
+  String get network => 'Мрежа';
+  @override
+  late final _Translations$settingsTab$network$networkOptions$sr_Cyrl networkOptions = _Translations$settingsTab$network$networkOptions$sr_Cyrl._(
+    _root,
+  );
+  @override
   String get discoveryTimeout => 'Откривање је истекло';
   @override
   String get useSystemName => 'Користи системски назив';
@@ -971,12 +977,6 @@ class _Translations$settingsTab$network$sr_Cyrl extends Translations$settingsTab
   @override
   String multicastGroupWarning({required Object defaultMulticast}) =>
       'Други уређаји вас можда неће открити, јер користите прилагођену адресу вишесмерног емитовања. (подразумевана: ${defaultMulticast})';
-  @override
-  String get network => 'Мрежа';
-  @override
-  late final _Translations$settingsTab$network$networkOptions$sr_Cyrl networkOptions = _Translations$settingsTab$network$networkOptions$sr_Cyrl._(
-    _root,
-  );
 }
 
 // Path: settingsTab.other
@@ -1390,8 +1390,6 @@ class _Translations$dialogs$quickSaveFromFavoritesNotice$sr_Cyrl extends Transla
   @override
   List<String> get content => [
     'Захтеви за фајлове се сада аутоматски прихватају са уређаја који су на вашој листи омиљених.',
-    'Упозорење! Тренутно, ово није потпуно безбедно, јер хакер који има отисак прста било ког уређаја са ваше листе омиљених може да вам шаље фајлове без ограничења.',
-    'Ипак, ова опција је и даље безбеднија од допуштања свим корисницима на локалној мрежи да вам шаљу фајлове без ограничења.',
   ];
 }
 

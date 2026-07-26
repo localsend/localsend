@@ -28,6 +28,7 @@
     "open": "Abrir",
     "queue": "Fila",
     "quickSave": "Guardar rápido",
+    "quickSaveFromFavorites": "Gravar rapidamente dos \"Favoritos\"",
     "renamed": "Renomeado",
     "reset": "Repor",
     "restart": "Reiniciar",
@@ -38,8 +39,7 @@
     "save": "Guardar",
     "unchanged": "Inalterado",
     "unknown": "Desconhecido",
-    "noItemInClipboard": "Nenhum item na área de transferência.",
-    "quickSaveFromFavorites": "Gravar rapidamente dos \"Favoritos\""
+    "noItemInClipboard": "Nenhum item na área de transferência."
   },
   "receiveTab": {
     "title": "Receber",
@@ -73,6 +73,7 @@
     "nearbyDevices": "Dispositivos próximos",
     "thisDevice": "Este dispositivo",
     "scan": "Procurar dispositivos",
+    "manualSending": "Envio manual",
     "sendMode": "Modo de envio",
     "sendModes": {
       "single": "Único destinatário",
@@ -81,8 +82,7 @@
     },
     "sendModeHelp": "Explicação",
     "help": "Certifique-se de que ambos os dispositivos estejam na mesma rede Wi-Fi.",
-    "placeItems": "Coloque os itens para partilhar.",
-    "manualSending": "Envio manual"
+    "placeItems": "Coloque os itens para partilhar."
   },
   "settingsTab": {
     "title": "Definições",
@@ -104,23 +104,23 @@
         "system": "Sistema"
       },
       "saveWindowPlacement": "Guardar a posição da janela ao fechar",
+      "saveWindowPlacementWindows": "Gravar posição da janela ao sair",
       "minimizeToTray": "Minimizar para a área de notificação ao fechar",
       "launchAtStartup": "Abrir automaticamente após iniciar sessão",
       "launchMinimized": "Início automático: Abrir minimizado",
-      "animations": "Animações",
-      "saveWindowPlacementWindows": "Gravar posição da janela ao sair",
-      "showInContextMenu": "Mostrar LocalSend no menu de contexto"
+      "showInContextMenu": "Mostrar LocalSend no menu de contexto",
+      "animations": "Animações"
     },
     "receive": {
       "title": "Recepção",
       "quickSave": "@:general.quickSave",
+      "quickSaveFromFavorites": "Gravar rapidamente dos \"Favoritos\"",
+      "requirePin": "@:webSharePage.requirePin",
       "autoFinish": "Concluir automaticamente",
       "destination": "Destino",
       "downloads": "(Descargas)",
       "saveToGallery": "Guardar na galeria",
-      "saveToHistory": "Guardar no histórico",
-      "quickSaveFromFavorites": "Gravar rapidamente dos \"Favoritos\"",
-      "requirePin": "@:webSharePage.requirePin"
+      "saveToHistory": "Guardar no histórico"
     },
     "send": {
       "title": "Enviar",
@@ -134,18 +134,18 @@
       "deviceType": "Tipo de dispositivo",
       "deviceModel": "Modelo do dispositivo",
       "port": "Porta",
-      "discoveryTimeout": "Tempo limite de deteção",
-      "portWarning": "Pode estar indetectável para outros dispositivos por estar a usar uma porta personalizada. (Padrão: {defaultPort})",
-      "encryption": "Encriptação",
-      "multicastGroup": "Multicast",
-      "multicastGroupWarning": "Pode estar indetectável para outros dispositivos por estar a usar um endereço multicast personalizado. (Padrão: {defaultMulticast})",
-      "generateRandomAlias": "Gerar apelido aleatório",
       "network": "Rede",
       "networkOptions": {
         "all": "Todos",
         "filtered": "Filtrado"
       },
-      "useSystemName": "Usar nome do sistema"
+      "discoveryTimeout": "Tempo limite de deteção",
+      "useSystemName": "Usar nome do sistema",
+      "generateRandomAlias": "Gerar apelido aleatório",
+      "portWarning": "Pode estar indetectável para outros dispositivos por estar a usar uma porta personalizada. (Padrão: {defaultPort})",
+      "encryption": "Encriptação",
+      "multicastGroup": "Multicast",
+      "multicastGroupWarning": "Pode estar indetectável para outros dispositivos por estar a usar um endereço multicast personalizado. (Padrão: {defaultMulticast})"
     },
     "other": {
       "title": "Outros",
@@ -166,14 +166,21 @@
       "solution": "Provavelmente isto trata-se de um problema da firewall. Pode resolver este problema ao permitir ligações recebidas (UDP e TCP) na porta {port}.",
       "openFirewall": "Abrir a Firewall"
     },
-    "noConnection": {
-      "symptom": "Ambos os dispositivos não se detectam nem podem partilhar ficheiros entre si.",
-      "solution": "O problema existe em ambos os lados? Então precisa de ter a certeza de que os dispositivos estão na mesma rede Wi-Fi e possuem a mesma configuração (porta, endereço multicast, encriptação). A rede Wi-Fi pode não permitir a comunicação entre os participantes. Neste caso, esta opção deve ser ativada no router."
-    },
     "noDiscovery": {
       "symptom": "Este dispositivo não consegue descobrir outros dispositivos.",
       "solution": "Certifique-se de que todos os dispositivos estão na mesma rede Wi-Fi e partilham as mesmas configurações (porta, endereço multicast, criptografia). Pode tentar digitar o endereço IP do dispositivo de destino manualmente. Se isto funcionar, considere adicionar este dispositivo aos favoritos, assim ele será descoberto automaticamente no futuro."
+    },
+    "noConnection": {
+      "symptom": "Ambos os dispositivos não se detectam nem podem partilhar ficheiros entre si.",
+      "solution": "O problema existe em ambos os lados? Então precisa de ter a certeza de que os dispositivos estão na mesma rede Wi-Fi e possuem a mesma configuração (porta, endereço multicast, encriptação). A rede Wi-Fi pode não permitir a comunicação entre os participantes. Neste caso, esta opção deve ser ativada no router."
     }
+  },
+  "networkInterfacesPage": {
+    "title": "Interfaces de rede",
+    "info": "Por padrão, o LocalSend utiliza todas as interfaces de rede disponíveis. Pode excluir as redes indesejadas aqui. É necessário reiniciar o servidor para aplicar as alterações.",
+    "preview": "Anterior",
+    "whitelist": "Lista branca",
+    "blacklist": "Lista negra"
   },
   "receiveHistoryPage": {
     "title": "Histórico",
@@ -182,9 +189,9 @@
     "empty": "O histórico está vazio.",
     "entryActions": {
       "open": "Abrir ficheiro",
+      "showInFolder": "Mostrar na pasta",
       "info": "Informação",
-      "deleteFromHistory": "Remover do histórico",
-      "showInFolder": "Mostrar na pasta"
+      "deleteFromHistory": "Remover do histórico"
     }
   },
   "apkPickerPage": {
@@ -215,8 +222,8 @@
   "sendPage": {
     "waiting": "A aguardar resposta…",
     "rejected": "O destinatário rejeitou o pedido.",
-    "busy": "O destinatário está ocupado com outro pedido de transferência.",
-    "tooManyAttempts": "@:web.tooManyAttempts"
+    "tooManyAttempts": "@:web.tooManyAttempts",
+    "busy": "O destinatário está ocupado com outro pedido de transferência."
   },
   "progressPage": {
     "titleSending": "A enviar ficheiros",
@@ -255,10 +262,10 @@
     "noRequests": "Nenhum pedido ainda.",
     "encryption": "@:settingsTab.network.encryption",
     "autoAccept": "Aceitar pedidos automaticamente",
-    "encryptionHint": "O LocalSend utiliza um certificado assinado automaticamente. Precisa de aceitá-lo no navegador.",
-    "pendingRequests": "Pedidos pendentes: {n}",
     "requirePin": "Solicitar PIN",
-    "pinHint": "O PIN é \"{pin}\""
+    "pinHint": "O PIN é \"{pin}\"",
+    "encryptionHint": "O LocalSend utiliza um certificado assinado automaticamente. Precisa de aceitá-lo no navegador.",
+    "pendingRequests": "Pedidos pendentes: {n}"
   },
   "aboutPage": {
     "title": "Acerca do LocalSend",
@@ -268,8 +275,8 @@
     ],
     "author": "Autor",
     "contributors": "Contribuidores",
-    "translators": "Tradutores",
-    "packagers": "Empacotadores"
+    "packagers": "Empacotadores",
+    "translators": "Tradutores"
   },
   "donationPage": {
     "title": "Doar",
@@ -362,6 +369,10 @@
       "title": "Adicionar à seleção",
       "content": "O que quer adicionar?"
     },
+    "openFile": {
+      "title": "Abrir ficheiro",
+      "content": "Quer abrir o ficheiro recebido?"
+    },
     "addressInput": {
       "title": "Digite o endereço",
       "hashtag": "Hashtag",
@@ -452,6 +463,15 @@
       "title": "@:general.quickSave",
       "content": "Pedidos de ficheiros são aceites automaticamente. Tenha em atenção que todas as pessoas na rede local podem enviar-lhe ficheiros."
     },
+    "quickSaveFromFavoritesNotice": {
+      "title": "Gravar rapidamento dos \"Favoritos\"",
+      "content": [
+        "Requisições de ficheiro agora são aceitas automaticamente de dispositivos da sua lista de favoritos."
+      ]
+    },
+    "pin": {
+      "title": "Digite o PIN"
+    },
     "sendModeHelp": {
       "title": "Modos de envio",
       "single": "Envia ficheiros para um destinatário. A seleção será apagada após a conclusão da transferência dos ficheiros.",
@@ -460,21 +480,6 @@
     },
     "zoom": {
       "title": "URL"
-    },
-    "quickSaveFromFavoritesNotice": {
-      "content": [
-        "Requisições de ficheiro agora são aceitas automaticamente de dispositivos da sua lista de favoritos.",
-        "Atenção! Atualmente, esta opção não é totalmente segura pois um hacker que saiba a identificação dos seus dispositivos favoritos ainda pode te enviar ficheiros sem restrições.",
-        "De qualquer forma, esta opção ainda é mais segura que permitir qualquer dispositivo."
-      ],
-      "title": "Gravar rapidamento dos \"Favoritos\""
-    },
-    "openFile": {
-      "title": "Abrir ficheiro",
-      "content": "Quer abrir o ficheiro recebido?"
-    },
-    "pin": {
-      "title": "Digite o PIN"
     }
   },
   "sanitization": {
@@ -489,13 +494,13 @@
   },
   "web": {
     "waiting": "@:sendPage.waiting",
+    "enterPin": "Digite o PIN",
+    "invalidPin": "PIN inválido",
+    "tooManyAttempts": "Muitas tentativas",
     "rejected": "Ligação rejeitada",
     "files": "Ficheiros",
     "fileName": "Nome do ficheiro",
-    "size": "Tamanho",
-    "enterPin": "Digite o PIN",
-    "invalidPin": "PIN inválido",
-    "tooManyAttempts": "Muitas tentativas"
+    "size": "Tamanho"
   },
   "assetPicker": {
     "@info": "Translations for the Media selection tool for Android and Iphone",
@@ -527,12 +532,5 @@
     "sActionUseCameraHint": "use a câmara",
     "sNameDurationLabel": "duração",
     "sUnitAssetCountLabel": "total"
-  },
-  "networkInterfacesPage": {
-    "title": "Interfaces de rede",
-    "info": "Por padrão, o LocalSend utiliza todas as interfaces de rede disponíveis. Pode excluir as redes indesejadas aqui. É necessário reiniciar o servidor para aplicar as alterações.",
-    "preview": "Anterior",
-    "whitelist": "Lista branca",
-    "blacklist": "Lista negra"
   }
 }

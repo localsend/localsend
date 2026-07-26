@@ -134,18 +134,18 @@
       "deviceType": "Tipo di dispositivo",
       "deviceModel": "Modello del dispositivo",
       "port": "Porta",
+      "network": "Rete",
+      "networkOptions": {
+        "all": "Tutto",
+        "filtered": "Filtrato"
+      },
       "discoveryTimeout": "Timeout di rilevamento",
       "useSystemName": "Usa il nome di sistema",
       "generateRandomAlias": "Genera un alias casuale",
       "portWarning": "Potresti non essere rilevato da altri dispositivi perché stai utilizzando una porta personalizzata. (predefinita: {defaultPort})",
       "encryption": "Crittografia",
       "multicastGroup": "Indirizzo Multicast",
-      "multicastGroupWarning": "Potresti non essere rilevato dagli altri dispositivi perché stai utilizzando un indirizzo multicast personalizzato. (predefinito: {defaultMulticast})",
-      "network": "Rete",
-      "networkOptions": {
-        "all": "Tutto",
-        "filtered": "Filtrato"
-      }
+      "multicastGroupWarning": "Potresti non essere rilevato dagli altri dispositivi perché stai utilizzando un indirizzo multicast personalizzato. (predefinito: {defaultMulticast})"
     },
     "other": {
       "title": "Altro",
@@ -174,6 +174,13 @@
       "symptom": "Entrambi i dispositivi non sono in grado di riconoscersi a vicenda né di condividere file.",
       "solution": "Il problema si presenta da entrambi le parti? In tal caso, assicurati che i dispositivi siano sulla stessa rete Wi-Fi e condividano la stessa configurazione (porta, indirizzo multicast, crittografia). La rete Wi-Fi potrebbe non consentire la comunicazione tra i partecipanti (isolamento dell'Access Point). In questo caso, l'opzione deve essere abilitata sul router."
     }
+  },
+  "networkInterfacesPage": {
+    "title": "Interfacce di rete",
+    "info": "Per impostazione predefinita, LocalSend utilizza tutte le interfacce di rete disponibili. È possibile escludere le reti indesiderate. È necessario riavviare il server per applicare le modifiche.",
+    "preview": "Anteprima",
+    "whitelist": "Whitelist",
+    "blacklist": "Blacklist"
   },
   "receiveHistoryPage": {
     "title": "Cronologia",
@@ -234,12 +241,12 @@
       "speed": "Velocità: {speed}/s"
     },
     "remainingTime": {
+      "seconds": "{n}:{ss}",
+      "minutes": "{n}:{ss}",
       "hours": "{h}h {m}m",
       "days": "{d}d {h}h {m}m",
       "@hours": "Usa 'h' come abbreviazione per ore e 'm' per minuti",
-      "@days": "Usa 'd' per giorni, 'h' per ore, e 'm' per minuti",
-      "seconds": "{n}:{ss}",
-      "minutes": "{n}:{ss}"
+      "@days": "Usa 'd' per giorni, 'h' per ore, e 'm' per minuti"
     }
   },
   "webSharePage": {
@@ -386,9 +393,7 @@
     "quickSaveFromFavoritesNotice": {
       "title": "@:general.quickSaveFromFavorites",
       "content": [
-        "Ora le richieste di file vengono accettate automaticamente dai dispositivi presenti nell'elenco dei preferiti.",
-        "Attenzione! Al momento, questa soluzione non è del tutto sicura, poiché un hacker che possiede l'impronta digitale di un qualsiasi dispositivo presente nella tua lista dei preferiti può inviarti file senza restrizioni.",
-        "Tuttavia, questa opzione è comunque più sicura rispetto al consentire a tutti gli utenti della rete locale di inviarti file senza restrizioni."
+        "Ora le richieste di file vengono accettate automaticamente dai dispositivi presenti nell'elenco dei preferiti."
       ]
     },
     "pin": {
@@ -454,12 +459,5 @@
     "sActionUseCameraHint": "usa fotocamera",
     "sNameDurationLabel": "durata",
     "sUnitAssetCountLabel": "conteggio"
-  },
-  "networkInterfacesPage": {
-    "title": "Interfacce di rete",
-    "info": "Per impostazione predefinita, LocalSend utilizza tutte le interfacce di rete disponibili. È possibile escludere le reti indesiderate. È necessario riavviare il server per applicare le modifiche.",
-    "preview": "Anteprima",
-    "whitelist": "Whitelist",
-    "blacklist": "Blacklist"
   }
 }

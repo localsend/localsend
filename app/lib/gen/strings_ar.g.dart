@@ -54,6 +54,8 @@ class TranslationsAr extends Translations with BaseTranslations<AppLocale, Trans
   @override
   late final _Translations$troubleshootPage$ar troubleshootPage = _Translations$troubleshootPage$ar._(_root);
   @override
+  late final _Translations$networkInterfacesPage$ar networkInterfacesPage = _Translations$networkInterfacesPage$ar._(_root);
+  @override
   late final _Translations$receiveHistoryPage$ar receiveHistoryPage = _Translations$receiveHistoryPage$ar._(_root);
   @override
   late final _Translations$apkPickerPage$ar apkPickerPage = _Translations$apkPickerPage$ar._(_root);
@@ -87,8 +89,6 @@ class TranslationsAr extends Translations with BaseTranslations<AppLocale, Trans
   late final _Translations$web$ar web = _Translations$web$ar._(_root);
   @override
   late final _Translations$assetPicker$ar assetPicker = _Translations$assetPicker$ar._(_root);
-  @override
-  late final _Translations$networkInterfacesPage$ar networkInterfacesPage = _Translations$networkInterfacesPage$ar._(_root);
 }
 
 // Path: general
@@ -270,6 +270,26 @@ class _Translations$troubleshootPage$ar extends Translations$troubleshootPage$en
   late final _Translations$troubleshootPage$noDiscovery$ar noDiscovery = _Translations$troubleshootPage$noDiscovery$ar._(_root);
   @override
   late final _Translations$troubleshootPage$noConnection$ar noConnection = _Translations$troubleshootPage$noConnection$ar._(_root);
+}
+
+// Path: networkInterfacesPage
+class _Translations$networkInterfacesPage$ar extends Translations$networkInterfacesPage$en {
+  _Translations$networkInterfacesPage$ar._(TranslationsAr root) : this._root = root, super.internal(root);
+
+  final TranslationsAr _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'واجهات الشبكة';
+  @override
+  String get info =>
+      'بشكل افتراضي، يستخدم LocalSend جميع واجهات الشبكة المتاحة. يمكنك استبعاد الشبكات غير المرغوب فيها هنا. تحتاج إلى إعادة تشغيل الخادم لتطبيق التغييرات.';
+  @override
+  String get preview => 'معاينة';
+  @override
+  String get whitelist => 'القائمة البيضاء';
+  @override
+  String get blacklist => 'القائمة السوداء';
 }
 
 // Path: receiveHistoryPage
@@ -750,26 +770,6 @@ class _Translations$assetPicker$ar extends Translations$assetPicker$en {
   String get sUnitAssetCountLabel => 'عدد';
 }
 
-// Path: networkInterfacesPage
-class _Translations$networkInterfacesPage$ar extends Translations$networkInterfacesPage$en {
-  _Translations$networkInterfacesPage$ar._(TranslationsAr root) : this._root = root, super.internal(root);
-
-  final TranslationsAr _root; // ignore: unused_field
-
-  // Translations
-  @override
-  String get whitelist => 'القائمة البيضاء';
-  @override
-  String get title => 'واجهات الشبكة';
-  @override
-  String get blacklist => 'القائمة السوداء';
-  @override
-  String get info =>
-      'بشكل افتراضي، يستخدم LocalSend جميع واجهات الشبكة المتاحة. يمكنك استبعاد الشبكات غير المرغوب فيها هنا. تحتاج إلى إعادة تشغيل الخادم لتطبيق التغييرات.';
-  @override
-  String get preview => 'معاينة';
-}
-
 // Path: receiveTab.infoBox
 class _Translations$receiveTab$infoBox$ar extends Translations$receiveTab$infoBox$en {
   _Translations$receiveTab$infoBox$ar._(TranslationsAr root) : this._root = root, super.internal(root);
@@ -952,6 +952,10 @@ class _Translations$settingsTab$network$ar extends Translations$settingsTab$netw
   @override
   String get port => 'منفذ';
   @override
+  String get network => 'الشبكة';
+  @override
+  late final _Translations$settingsTab$network$networkOptions$ar networkOptions = _Translations$settingsTab$network$networkOptions$ar._(_root);
+  @override
   String get discoveryTimeout => 'مهلة الاكتشاف';
   @override
   String get useSystemName => 'استخدم اسم النظام';
@@ -967,10 +971,6 @@ class _Translations$settingsTab$network$ar extends Translations$settingsTab$netw
   @override
   String multicastGroupWarning({required Object defaultMulticast}) =>
       'ربما لا يتم الكشف عنك من قبل الأجهزة الأخرى لأنك تستخدم عنوان بث متعدد مخصص. (الافتراضي: ${defaultMulticast})';
-  @override
-  late final _Translations$settingsTab$network$networkOptions$ar networkOptions = _Translations$settingsTab$network$networkOptions$ar._(_root);
-  @override
-  String get network => 'الشبكة';
 }
 
 // Path: settingsTab.other
@@ -1404,8 +1404,6 @@ class _Translations$dialogs$quickSaveFromFavoritesNotice$ar extends Translations
   @override
   List<String> get content => [
     'يتم الآن قبول طلبات الملفات تلقائيًا من الأجهزة الموجودة في قائمة المفضلات لديك.',
-    'تحذير! في الوقت الحالي، هذا ليس آمنًا تمامًا، حيث يمكن للمخترق الذي لديه بصمة أي جهاز من قائمة المفضلات لديك أن يرسل لك ملفات دون قيود.',
-    'ومع ذلك، يظل هذا الخيار أكثر أمانًا من السماح لجميع المستخدمين على الشبكة المحلية بإرسال الملفات إليك دون قيود.',
   ];
 }
 
@@ -1495,9 +1493,9 @@ class _Translations$settingsTab$network$networkOptions$ar extends Translations$s
 
   // Translations
   @override
-  String get filtered => 'مُصفاة';
-  @override
   String get all => 'الكل';
+  @override
+  String get filtered => 'مُصفاة';
 }
 
 // Path: progressPage.total.title

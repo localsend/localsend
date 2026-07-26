@@ -134,18 +134,18 @@
       "deviceType": "Typ zariadenia",
       "deviceModel": "Model zariadenia",
       "port": "Port",
+      "network": "Sieť",
+      "networkOptions": {
+        "all": "Všetky",
+        "filtered": "Filtrované"
+      },
       "discoveryTimeout": "Časový limit hľadania",
       "useSystemName": "Použiť systémové meno",
       "generateRandomAlias": "Generovať náhodnú prezývku",
       "portWarning": "Iné zariadenia vás nemusia rozpoznať, pretože používate vlastný port. (predvolené: {defaultPort})",
       "encryption": "Šifrovanie",
       "multicastGroup": "Multicast adresa",
-      "multicastGroupWarning": "Iné zariadenia vás nemusia rozpoznať, pretože používate vlastnú multicast adresu. (predvolené: {defaultMulticast})",
-      "network": "Sieť",
-      "networkOptions": {
-        "all": "Všetky",
-        "filtered": "Filtrované"
-      }
+      "multicastGroupWarning": "Iné zariadenia vás nemusia rozpoznať, pretože používate vlastnú multicast adresu. (predvolené: {defaultMulticast})"
     },
     "other": {
       "title": "Iné",
@@ -174,6 +174,13 @@
       "symptom": "Obe zariadenia sa nedokážu navzájom nájsť ani nemôžu zdieľať súbory.",
       "solution": "Existuje problém na oboch stranách? Ak áno, musíte sa uistiť, že sú obe zariadenia v rovnakej Wi-Fi sieti a majú rovnakú konfiguráciu (port, multicastovú adresu, šifrovanie). Sieť Wi-Fi nemusí umožňovať komunikáciu medzi účastníkmi (izolácia prístupového bodu). V takom prípade musí byť táto možnosť povolená na smerovači."
     }
+  },
+  "networkInterfacesPage": {
+    "title": "Sieťové rozhrania",
+    "info": "V predvolenom nastavení LocalSend používa všetky dostupné sieťové rozhrania. Nežiaduce siete tu môžete vylúčiť. Na uplatnenie zmien je potrebné reštartovať server.",
+    "preview": "Náhľad",
+    "whitelist": "Zoznam povolených",
+    "blacklist": "Zoznam zakázaných"
   },
   "receiveHistoryPage": {
     "title": "História",
@@ -456,9 +463,7 @@
     "quickSaveFromFavoritesNotice": {
       "title": "@:general.quickSaveFromFavorites",
       "content": [
-        "Žiadosti o súbory sa teraz automaticky prijímajú zo zariadení vo vašom zozname obľúbených.",
-        "Varovanie! V súčasnosti to nie je úplne bezpečné, pretože hacker, ktorý má odtlačok prsta akéhokoľvek zariadenia zo zoznamu obľúbených, vám môže posielať súbory bez obmedzenia.",
-        "Táto možnosť je však stále bezpečnejšia ako povoliť všetkým používateľom v miestnej sieti posielať súbory bez obmedzenia."
+        "Žiadosti o súbory sa teraz automaticky prijímajú zo zariadení vo vašom zozname obľúbených."
       ]
     },
     "pin": {
@@ -524,12 +529,5 @@
     "sActionUseCameraHint": "použiť fotoaparát",
     "sNameDurationLabel": "trvanie",
     "sUnitAssetCountLabel": "počet"
-  },
-  "networkInterfacesPage": {
-    "info": "V predvolenom nastavení LocalSend používa všetky dostupné sieťové rozhrania. Nežiaduce siete tu môžete vylúčiť. Na uplatnenie zmien je potrebné reštartovať server.",
-    "preview": "Náhľad",
-    "blacklist": "Zoznam zakázaných",
-    "title": "Sieťové rozhrania",
-    "whitelist": "Zoznam povolených"
   }
 }

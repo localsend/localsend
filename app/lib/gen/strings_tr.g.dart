@@ -54,6 +54,8 @@ class TranslationsTr extends Translations with BaseTranslations<AppLocale, Trans
   @override
   late final _Translations$troubleshootPage$tr troubleshootPage = _Translations$troubleshootPage$tr._(_root);
   @override
+  late final _Translations$networkInterfacesPage$tr networkInterfacesPage = _Translations$networkInterfacesPage$tr._(_root);
+  @override
   late final _Translations$receiveHistoryPage$tr receiveHistoryPage = _Translations$receiveHistoryPage$tr._(_root);
   @override
   late final _Translations$apkPickerPage$tr apkPickerPage = _Translations$apkPickerPage$tr._(_root);
@@ -85,8 +87,6 @@ class TranslationsTr extends Translations with BaseTranslations<AppLocale, Trans
   late final _Translations$web$tr web = _Translations$web$tr._(_root);
   @override
   late final _Translations$assetPicker$tr assetPicker = _Translations$assetPicker$tr._(_root);
-  @override
-  late final _Translations$networkInterfacesPage$tr networkInterfacesPage = _Translations$networkInterfacesPage$tr._(_root);
 }
 
 // Path: general
@@ -268,6 +268,26 @@ class _Translations$troubleshootPage$tr extends Translations$troubleshootPage$en
   late final _Translations$troubleshootPage$noDiscovery$tr noDiscovery = _Translations$troubleshootPage$noDiscovery$tr._(_root);
   @override
   late final _Translations$troubleshootPage$noConnection$tr noConnection = _Translations$troubleshootPage$noConnection$tr._(_root);
+}
+
+// Path: networkInterfacesPage
+class _Translations$networkInterfacesPage$tr extends Translations$networkInterfacesPage$en {
+  _Translations$networkInterfacesPage$tr._(TranslationsTr root) : this._root = root, super.internal(root);
+
+  final TranslationsTr _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Ağ Arayüzleri';
+  @override
+  String get info =>
+      'Varsayılan olarak, LocalSend mevcut olan tüm ağları kullanır. Burada istenmeyen ağları engelleyebilirsiniz. Değişikliklerin uygulanması için sunucuyu yeniden başlatmanız gerekir.';
+  @override
+  String get preview => 'Önizle';
+  @override
+  String get whitelist => 'Beyaz liste';
+  @override
+  String get blacklist => 'Kara liste';
 }
 
 // Path: receiveHistoryPage
@@ -497,6 +517,8 @@ class _Translations$dialogs$tr extends Translations$dialogs$en {
   @override
   late final _Translations$dialogs$addFile$tr addFile = _Translations$dialogs$addFile$tr._(_root);
   @override
+  late final _Translations$dialogs$openFile$tr openFile = _Translations$dialogs$openFile$tr._(_root);
+  @override
   late final _Translations$dialogs$addressInput$tr addressInput = _Translations$dialogs$addressInput$tr._(_root);
   @override
   late final _Translations$dialogs$cancelSession$tr cancelSession = _Translations$dialogs$cancelSession$tr._(_root);
@@ -535,16 +557,14 @@ class _Translations$dialogs$tr extends Translations$dialogs$en {
   @override
   late final _Translations$dialogs$quickSaveNotice$tr quickSaveNotice = _Translations$dialogs$quickSaveNotice$tr._(_root);
   @override
+  late final _Translations$dialogs$quickSaveFromFavoritesNotice$tr quickSaveFromFavoritesNotice =
+      _Translations$dialogs$quickSaveFromFavoritesNotice$tr._(_root);
+  @override
   late final _Translations$dialogs$pin$tr pin = _Translations$dialogs$pin$tr._(_root);
   @override
   late final _Translations$dialogs$sendModeHelp$tr sendModeHelp = _Translations$dialogs$sendModeHelp$tr._(_root);
   @override
   late final _Translations$dialogs$zoom$tr zoom = _Translations$dialogs$zoom$tr._(_root);
-  @override
-  late final _Translations$dialogs$openFile$tr openFile = _Translations$dialogs$openFile$tr._(_root);
-  @override
-  late final _Translations$dialogs$quickSaveFromFavoritesNotice$tr quickSaveFromFavoritesNotice =
-      _Translations$dialogs$quickSaveFromFavoritesNotice$tr._(_root);
 }
 
 // Path: sanitization
@@ -664,26 +684,6 @@ class _Translations$assetPicker$tr extends Translations$assetPicker$en {
   String get sNameDurationLabel => 'süre';
   @override
   String get sUnitAssetCountLabel => 'sayım';
-}
-
-// Path: networkInterfacesPage
-class _Translations$networkInterfacesPage$tr extends Translations$networkInterfacesPage$en {
-  _Translations$networkInterfacesPage$tr._(TranslationsTr root) : this._root = root, super.internal(root);
-
-  final TranslationsTr _root; // ignore: unused_field
-
-  // Translations
-  @override
-  String get title => 'Ağ Arayüzleri';
-  @override
-  String get preview => 'Önizle';
-  @override
-  String get whitelist => 'Beyaz liste';
-  @override
-  String get blacklist => 'Kara liste';
-  @override
-  String get info =>
-      'Varsayılan olarak, LocalSend mevcut olan tüm ağları kullanır. Burada istenmeyen ağları engelleyebilirsiniz. Değişikliklerin uygulanması için sunucuyu yeniden başlatmanız gerekir.';
 }
 
 // Path: receiveTab.infoBox
@@ -818,6 +818,8 @@ class _Translations$settingsTab$receive$tr extends Translations$settingsTab$rece
   @override
   String get quickSave => _root.general.quickSave;
   @override
+  String get quickSaveFromFavorites => _root.general.quickSaveFromFavorites;
+  @override
   String get requirePin => _root.webSharePage.requirePin;
   @override
   String get autoFinish => 'Otomatik bitir';
@@ -829,8 +831,6 @@ class _Translations$settingsTab$receive$tr extends Translations$settingsTab$rece
   String get saveToGallery => 'Medyayı galeriye kaydet';
   @override
   String get saveToHistory => 'Geçmişe kaydet';
-  @override
-  String get quickSaveFromFavorites => _root.general.quickSaveFromFavorites;
 }
 
 // Path: settingsTab.send
@@ -868,7 +868,15 @@ class _Translations$settingsTab$network$tr extends Translations$settingsTab$netw
   @override
   String get port => 'Port';
   @override
+  String get network => 'Ağ';
+  @override
+  late final _Translations$settingsTab$network$networkOptions$tr networkOptions = _Translations$settingsTab$network$networkOptions$tr._(_root);
+  @override
   String get discoveryTimeout => 'Arama zaman aşımına uğradı';
+  @override
+  String get useSystemName => 'Sistem adını kullan';
+  @override
+  String get generateRandomAlias => 'Rastgele takma ad oluştur';
   @override
   String portWarning({required Object defaultPort}) =>
       'Kişiselleştirilmiş bir port kullanıyorsanız ağınızdaki diğer cihazlar tarafından bulunamayabilirsiniz. (varsayılan: ${defaultPort})';
@@ -879,14 +887,6 @@ class _Translations$settingsTab$network$tr extends Translations$settingsTab$netw
   @override
   String multicastGroupWarning({required Object defaultMulticast}) =>
       'Özel çoklu yayın adresini kullandığınız için diğer cihazlar tarafından algılanamayabilirsiniz.(varsayılan: ${defaultMulticast})';
-  @override
-  String get network => 'Ağ';
-  @override
-  late final _Translations$settingsTab$network$networkOptions$tr networkOptions = _Translations$settingsTab$network$networkOptions$tr._(_root);
-  @override
-  String get useSystemName => 'Sistem adını kullan';
-  @override
-  String get generateRandomAlias => 'Rastgele takma ad oluştur';
 }
 
 // Path: settingsTab.other
@@ -1018,6 +1018,19 @@ class _Translations$dialogs$addFile$tr extends Translations$dialogs$addFile$en {
   String get title => 'Seçime ekle';
   @override
   String get content => 'Ne eklemek istiyorsunuz ?';
+}
+
+// Path: dialogs.openFile
+class _Translations$dialogs$openFile$tr extends Translations$dialogs$openFile$en {
+  _Translations$dialogs$openFile$tr._(TranslationsTr root) : this._root = root, super.internal(root);
+
+  final TranslationsTr _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Dosya Aç';
+  @override
+  String get content => 'Alınan dosyayı açmak istiyor musunuz?';
 }
 
 // Path: dialogs.addressInput
@@ -1297,6 +1310,21 @@ class _Translations$dialogs$quickSaveNotice$tr extends Translations$dialogs$quic
       'Dosya gönderim istekleri otomatik olarak gerçekleşir. Yerel ağınızdaki herkesin size dosya gönderebileceğinin farkında olunuz.';
 }
 
+// Path: dialogs.quickSaveFromFavoritesNotice
+class _Translations$dialogs$quickSaveFromFavoritesNotice$tr extends Translations$dialogs$quickSaveFromFavoritesNotice$en {
+  _Translations$dialogs$quickSaveFromFavoritesNotice$tr._(TranslationsTr root) : this._root = root, super.internal(root);
+
+  final TranslationsTr _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => _root.general.quickSaveFromFavorites;
+  @override
+  List<String> get content => [
+    'Favoriler listenizdeki cihazların paylaşım istekleri otomatik olarak kabul edilecektir.',
+  ];
+}
+
 // Path: dialogs.pin
 class _Translations$dialogs$pin$tr extends Translations$dialogs$pin$en {
   _Translations$dialogs$pin$tr._(TranslationsTr root) : this._root = root, super.internal(root);
@@ -1334,36 +1362,6 @@ class _Translations$dialogs$zoom$tr extends Translations$dialogs$zoom$en {
   // Translations
   @override
   String get title => 'URL';
-}
-
-// Path: dialogs.openFile
-class _Translations$dialogs$openFile$tr extends Translations$dialogs$openFile$en {
-  _Translations$dialogs$openFile$tr._(TranslationsTr root) : this._root = root, super.internal(root);
-
-  final TranslationsTr _root; // ignore: unused_field
-
-  // Translations
-  @override
-  String get title => 'Dosya Aç';
-  @override
-  String get content => 'Alınan dosyayı açmak istiyor musunuz?';
-}
-
-// Path: dialogs.quickSaveFromFavoritesNotice
-class _Translations$dialogs$quickSaveFromFavoritesNotice$tr extends Translations$dialogs$quickSaveFromFavoritesNotice$en {
-  _Translations$dialogs$quickSaveFromFavoritesNotice$tr._(TranslationsTr root) : this._root = root, super.internal(root);
-
-  final TranslationsTr _root; // ignore: unused_field
-
-  // Translations
-  @override
-  String get title => _root.general.quickSaveFromFavorites;
-  @override
-  List<String> get content => [
-    'Favoriler listenizdeki cihazların paylaşım istekleri otomatik olarak kabul edilecektir.',
-    'Uyarı! Şu an, bu tamamen güvenli değildir çünkü favoriler listenizdeki herhangi bir cihazın parmak izine sahip olan hackerlar sınırlama olmadan size dosyalar gönderebilir.',
-    'Ancak, bu seçenek yinede ağdaki tüm kullanıcıların size sınırlandırma olmadan dosya göndermesine izin vermekten daha güvenlidir.',
-  ];
 }
 
 // Path: settingsTab.general.brightnessOptions

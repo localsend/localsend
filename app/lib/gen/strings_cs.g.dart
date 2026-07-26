@@ -1297,8 +1297,6 @@ class _Translations$dialogs$quickSaveFromFavoritesNotice$cs extends Translations
   @override
   List<String> get content => [
     'Žádosti o soubory jsou nyní přijímány automaticky ze zařízení ve vašem seznamu oblíbených.',
-    'Upozornění: V současné době to není zcela bezpečné, protože hacker, který zná vaše oblíbené zařízení, vám stále může posílat soubory.',
-    'Tato možnost je však stále bezpečnější než povolení libovolného zařízení.',
   ];
 }
 

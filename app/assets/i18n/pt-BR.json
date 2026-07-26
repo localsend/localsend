@@ -134,18 +134,18 @@
       "deviceType": "Tipo do dispositivo",
       "deviceModel": "Modelo do dispositivo",
       "port": "Porta",
+      "network": "Rede",
+      "networkOptions": {
+        "all": "Todas",
+        "filtered": "Filtradas"
+      },
       "discoveryTimeout": "Tempo limite de descoberta",
       "useSystemName": "Usar nome do sistema",
       "generateRandomAlias": "Gerar apelido aleatório",
       "portWarning": "Você pode estar indetectável para outros dispositivos por estar usando uma porta customizada. (Padrão: {defaultPort})",
       "encryption": "Criptografia",
       "multicastGroup": "Endereço de multicast",
-      "multicastGroupWarning": "Você pode estar indetectável para outros dispositivos por estar usando um endereço de multicast customizado. (Padrão: {defaultMulticast})",
-      "network": "Rede",
-      "networkOptions": {
-        "all": "Todas",
-        "filtered": "Filtradas"
-      }
+      "multicastGroupWarning": "Você pode estar indetectável para outros dispositivos por estar usando um endereço de multicast customizado. (Padrão: {defaultMulticast})"
     },
     "other": {
       "title": "Outras",
@@ -174,6 +174,13 @@
       "symptom": "Ambos os dispositivos não se encontram nem podem compartilhar arquivos entre si.",
       "solution": "O problema acontece em ambos? Então você precisa ter certeza de que os dispositivos estão na mesma rede Wi-Fi e utilizam as mesmas configurações (porta, endereço de multicast, criptografia). A rede Wi-Fi pode não permitir a comunicação entre os participantes devido à isolação de ponto de acesso (AP). Neste caso, esta opção deve ser desativada no roteador."
     }
+  },
+  "networkInterfacesPage": {
+    "title": "Interfaces de rede",
+    "info": "Por padrão, o LocalSend utiliza todas as interfaces de rede disponíveis. Você pode excluir as redes indesejadas aqui. É necessário reiniciar o servidor para aplicar as alterações.",
+    "preview": "Pré-visualização",
+    "whitelist": "Lista de permissão",
+    "blacklist": "Lista de bloqueio"
   },
   "receiveHistoryPage": {
     "title": "Histórico",
@@ -446,9 +453,7 @@
     "quickSaveFromFavoritesNotice": {
       "title": "Salvar rapidamento dos \"Favoritos\"",
       "content": [
-        "Agora, as solicitações de arquivos vindas de dispositivos na sua lista de favoritos são aceitas automaticamente.",
-        "Atenção! Atualmente, esta opção não é totalmente segura pois um hacker que saiba a identificação dos seus dispositivos favoritos pode te enviar arquivos sem restrições.",
-        "De qualquer forma, esta opção ainda é mais segura que permitir qualquer dispositivo na sua rede local envie arquivos sem restrições."
+        "Agora, as solicitações de arquivos vindas de dispositivos na sua lista de favoritos são aceitas automaticamente."
       ]
     },
     "pin": {
@@ -514,12 +519,5 @@
     "sActionUseCameraHint": "usar a câmera",
     "sNameDurationLabel": "duração",
     "sUnitAssetCountLabel": "contagem"
-  },
-  "networkInterfacesPage": {
-    "whitelist": "Lista de permissão",
-    "blacklist": "Lista de bloqueio",
-    "info": "Por padrão, o LocalSend utiliza todas as interfaces de rede disponíveis. Você pode excluir as redes indesejadas aqui. É necessário reiniciar o servidor para aplicar as alterações.",
-    "preview": "Pré-visualização",
-    "title": "Interfaces de rede"
   }
 }

@@ -54,11 +54,11 @@ class TranslationsGl extends Translations with BaseTranslations<AppLocale, Trans
   @override
   late final _Translations$troubleshootPage$gl troubleshootPage = _Translations$troubleshootPage$gl._(_root);
   @override
-  late final _Translations$apkPickerPage$gl apkPickerPage = _Translations$apkPickerPage$gl._(_root);
-  @override
   late final _Translations$networkInterfacesPage$gl networkInterfacesPage = _Translations$networkInterfacesPage$gl._(_root);
   @override
   late final _Translations$receiveHistoryPage$gl receiveHistoryPage = _Translations$receiveHistoryPage$gl._(_root);
+  @override
+  late final _Translations$apkPickerPage$gl apkPickerPage = _Translations$apkPickerPage$gl._(_root);
   @override
   late final _Translations$selectedFilesPage$gl selectedFilesPage = _Translations$selectedFilesPage$gl._(_root);
   @override
@@ -66,23 +66,23 @@ class TranslationsGl extends Translations with BaseTranslations<AppLocale, Trans
   @override
   late final _Translations$receiveOptionsPage$gl receiveOptionsPage = _Translations$receiveOptionsPage$gl._(_root);
   @override
-  late final _Translations$dialogs$gl dialogs = _Translations$dialogs$gl._(_root);
-  @override
-  late final _Translations$webSharePage$gl webSharePage = _Translations$webSharePage$gl._(_root);
+  late final _Translations$sendPage$gl sendPage = _Translations$sendPage$gl._(_root);
   @override
   late final _Translations$progressPage$gl progressPage = _Translations$progressPage$gl._(_root);
   @override
-  late final _Translations$aboutPage$gl aboutPage = _Translations$aboutPage$gl._(_root);
+  late final _Translations$webSharePage$gl webSharePage = _Translations$webSharePage$gl._(_root);
   @override
-  late final _Translations$sendPage$gl sendPage = _Translations$sendPage$gl._(_root);
+  late final _Translations$aboutPage$gl aboutPage = _Translations$aboutPage$gl._(_root);
   @override
   late final _Translations$donationPage$gl donationPage = _Translations$donationPage$gl._(_root);
   @override
   late final _Translations$changelogPage$gl changelogPage = _Translations$changelogPage$gl._(_root);
   @override
-  late final _Translations$tray$gl tray = _Translations$tray$gl._(_root);
+  late final _Translations$dialogs$gl dialogs = _Translations$dialogs$gl._(_root);
   @override
   late final _Translations$sanitization$gl sanitization = _Translations$sanitization$gl._(_root);
+  @override
+  late final _Translations$tray$gl tray = _Translations$tray$gl._(_root);
   @override
   late final _Translations$web$gl web = _Translations$web$gl._(_root);
   @override
@@ -238,9 +238,9 @@ class _Translations$settingsTab$gl extends Translations$settingsTab$en {
   @override
   late final _Translations$settingsTab$receive$gl receive = _Translations$settingsTab$receive$gl._(_root);
   @override
-  late final _Translations$settingsTab$network$gl network = _Translations$settingsTab$network$gl._(_root);
-  @override
   late final _Translations$settingsTab$send$gl send = _Translations$settingsTab$send$gl._(_root);
+  @override
+  late final _Translations$settingsTab$network$gl network = _Translations$settingsTab$network$gl._(_root);
   @override
   late final _Translations$settingsTab$other$gl other = _Translations$settingsTab$other$gl._(_root);
   @override
@@ -255,12 +255,6 @@ class _Translations$troubleshootPage$gl extends Translations$troubleshootPage$en
 
   // Translations
   @override
-  late final _Translations$troubleshootPage$noDiscovery$gl noDiscovery = _Translations$troubleshootPage$noDiscovery$gl._(_root);
-  @override
-  late final _Translations$troubleshootPage$firewall$gl firewall = _Translations$troubleshootPage$firewall$gl._(_root);
-  @override
-  late final _Translations$troubleshootPage$noConnection$gl noConnection = _Translations$troubleshootPage$noConnection$gl._(_root);
-  @override
   String get title => 'Solucionar problemas';
   @override
   String get subTitle => 'A aplicación non funciona segundo o esperado? Aquó podes atopar algunhas solucións comúns aos problemas.';
@@ -268,6 +262,51 @@ class _Translations$troubleshootPage$gl extends Translations$troubleshootPage$en
   String get solution => 'Solución:';
   @override
   String get fixButton => 'Corrixir automáticamente';
+  @override
+  late final _Translations$troubleshootPage$firewall$gl firewall = _Translations$troubleshootPage$firewall$gl._(_root);
+  @override
+  late final _Translations$troubleshootPage$noDiscovery$gl noDiscovery = _Translations$troubleshootPage$noDiscovery$gl._(_root);
+  @override
+  late final _Translations$troubleshootPage$noConnection$gl noConnection = _Translations$troubleshootPage$noConnection$gl._(_root);
+}
+
+// Path: networkInterfacesPage
+class _Translations$networkInterfacesPage$gl extends Translations$networkInterfacesPage$en {
+  _Translations$networkInterfacesPage$gl._(TranslationsGl root) : this._root = root, super.internal(root);
+
+  final TranslationsGl _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Interfaces de rede';
+  @override
+  String get info =>
+      'Por defecto, LocalSend emprega todas as interfaces de rede dispoñíbeis. Eiquí podes desactivar as redes non desexadas. Tes que reiniciar o servidor para aplicar os cambios.';
+  @override
+  String get preview => 'Vista previa';
+  @override
+  String get whitelist => 'Lista de permitidos';
+  @override
+  String get blacklist => 'Lista negra';
+}
+
+// Path: receiveHistoryPage
+class _Translations$receiveHistoryPage$gl extends Translations$receiveHistoryPage$en {
+  _Translations$receiveHistoryPage$gl._(TranslationsGl root) : this._root = root, super.internal(root);
+
+  final TranslationsGl _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Historial';
+  @override
+  String get openFolder => 'Abrir cartafol';
+  @override
+  String get deleteHistory => 'Borrar historial';
+  @override
+  String get empty => 'O historial está vacío.';
+  @override
+  late final _Translations$receiveHistoryPage$entryActions$gl entryActions = _Translations$receiveHistoryPage$entryActions$gl._(_root);
 }
 
 // Path: apkPickerPage
@@ -285,45 +324,6 @@ class _Translations$apkPickerPage$gl extends Translations$apkPickerPage$en {
   String get excludeAppsWithoutLaunchIntent => 'Excluír aplicacións non executábels';
   @override
   String apps({required Object n}) => '${n} Aplicacións';
-}
-
-// Path: networkInterfacesPage
-class _Translations$networkInterfacesPage$gl extends Translations$networkInterfacesPage$en {
-  _Translations$networkInterfacesPage$gl._(TranslationsGl root) : this._root = root, super.internal(root);
-
-  final TranslationsGl _root; // ignore: unused_field
-
-  // Translations
-  @override
-  String get preview => 'Vista previa';
-  @override
-  String get title => 'Interfaces de rede';
-  @override
-  String get whitelist => 'Lista de permitidos';
-  @override
-  String get blacklist => 'Lista negra';
-  @override
-  String get info =>
-      'Por defecto, LocalSend emprega todas as interfaces de rede dispoñíbeis. Eiquí podes desactivar as redes non desexadas. Tes que reiniciar o servidor para aplicar os cambios.';
-}
-
-// Path: receiveHistoryPage
-class _Translations$receiveHistoryPage$gl extends Translations$receiveHistoryPage$en {
-  _Translations$receiveHistoryPage$gl._(TranslationsGl root) : this._root = root, super.internal(root);
-
-  final TranslationsGl _root; // ignore: unused_field
-
-  // Translations
-  @override
-  String get title => 'Historial';
-  @override
-  String get empty => 'O historial está vacío.';
-  @override
-  String get openFolder => 'Abrir cartafol';
-  @override
-  String get deleteHistory => 'Borrar historial';
-  @override
-  late final _Translations$receiveHistoryPage$entryActions$gl entryActions = _Translations$receiveHistoryPage$entryActions$gl._(_root);
 }
 
 // Path: selectedFilesPage
@@ -377,148 +377,6 @@ class _Translations$receiveOptionsPage$gl extends Translations$receiveOptionsPag
   String get saveToGalleryOff => 'Desactivado automáticamente porque hai cartafois.';
 }
 
-// Path: dialogs
-class _Translations$dialogs$gl extends Translations$dialogs$en {
-  _Translations$dialogs$gl._(TranslationsGl root) : this._root = root, super.internal(root);
-
-  final TranslationsGl _root; // ignore: unused_field
-
-  // Translations
-  @override
-  late final _Translations$dialogs$encryptionDisabledNotice$gl encryptionDisabledNotice = _Translations$dialogs$encryptionDisabledNotice$gl._(_root);
-  @override
-  late final _Translations$dialogs$openFile$gl openFile = _Translations$dialogs$openFile$gl._(_root);
-  @override
-  late final _Translations$dialogs$addressInput$gl addressInput = _Translations$dialogs$addressInput$gl._(_root);
-  @override
-  late final _Translations$dialogs$addFile$gl addFile = _Translations$dialogs$addFile$gl._(_root);
-  @override
-  late final _Translations$dialogs$cancelSession$gl cancelSession = _Translations$dialogs$cancelSession$gl._(_root);
-  @override
-  late final _Translations$dialogs$cannotOpenFile$gl cannotOpenFile = _Translations$dialogs$cannotOpenFile$gl._(_root);
-  @override
-  late final _Translations$dialogs$favoriteDialog$gl favoriteDialog = _Translations$dialogs$favoriteDialog$gl._(_root);
-  @override
-  late final _Translations$dialogs$errorDialog$gl errorDialog = _Translations$dialogs$errorDialog$gl._(_root);
-  @override
-  late final _Translations$dialogs$favoriteDeleteDialog$gl favoriteDeleteDialog = _Translations$dialogs$favoriteDeleteDialog$gl._(_root);
-  @override
-  late final _Translations$dialogs$favoriteEditDialog$gl favoriteEditDialog = _Translations$dialogs$favoriteEditDialog$gl._(_root);
-  @override
-  late final _Translations$dialogs$fileInfo$gl fileInfo = _Translations$dialogs$fileInfo$gl._(_root);
-  @override
-  late final _Translations$dialogs$fileNameInput$gl fileNameInput = _Translations$dialogs$fileNameInput$gl._(_root);
-  @override
-  late final _Translations$dialogs$historyClearDialog$gl historyClearDialog = _Translations$dialogs$historyClearDialog$gl._(_root);
-  @override
-  late final _Translations$dialogs$noPermission$gl noPermission = _Translations$dialogs$noPermission$gl._(_root);
-  @override
-  late final _Translations$dialogs$noFiles$gl noFiles = _Translations$dialogs$noFiles$gl._(_root);
-  @override
-  late final _Translations$dialogs$localNetworkUnauthorized$gl localNetworkUnauthorized = _Translations$dialogs$localNetworkUnauthorized$gl._(_root);
-  @override
-  late final _Translations$dialogs$messageInput$gl messageInput = _Translations$dialogs$messageInput$gl._(_root);
-  @override
-  late final _Translations$dialogs$notAvailableOnPlatform$gl notAvailableOnPlatform = _Translations$dialogs$notAvailableOnPlatform$gl._(_root);
-  @override
-  late final _Translations$dialogs$qr$gl qr = _Translations$dialogs$qr$gl._(_root);
-  @override
-  late final _Translations$dialogs$quickActions$gl quickActions = _Translations$dialogs$quickActions$gl._(_root);
-  @override
-  late final _Translations$dialogs$quickSaveNotice$gl quickSaveNotice = _Translations$dialogs$quickSaveNotice$gl._(_root);
-  @override
-  late final _Translations$dialogs$zoom$gl zoom = _Translations$dialogs$zoom$gl._(_root);
-  @override
-  late final _Translations$dialogs$pin$gl pin = _Translations$dialogs$pin$gl._(_root);
-  @override
-  late final _Translations$dialogs$sendModeHelp$gl sendModeHelp = _Translations$dialogs$sendModeHelp$gl._(_root);
-  @override
-  late final _Translations$dialogs$quickSaveFromFavoritesNotice$gl quickSaveFromFavoritesNotice =
-      _Translations$dialogs$quickSaveFromFavoritesNotice$gl._(_root);
-}
-
-// Path: webSharePage
-class _Translations$webSharePage$gl extends Translations$webSharePage$en {
-  _Translations$webSharePage$gl._(TranslationsGl root) : this._root = root, super.internal(root);
-
-  final TranslationsGl _root; // ignore: unused_field
-
-  // Translations
-  @override
-  String get encryption => _root.settingsTab.network.encryption;
-  @override
-  String get encryptionHint => 'LocalSend precisa un certificado autoasinado. Tes que aceptalo no teu navegador.';
-  @override
-  String get title => 'Compartir mediante ligazón';
-  @override
-  String get stopping => 'Parando o servidor…';
-  @override
-  String get loading => 'Iniciando servidor…';
-  @override
-  String get error => 'Produciuse un erro ao iniciar o servidor.';
-  @override
-  String openLink({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('gl'))(
-    n,
-    one: 'Abre esta ligazón no teu navegador:',
-    other: 'Abre unha destas ligazóns no teu navegador:',
-  );
-  @override
-  String get requests => 'Solicitudes';
-  @override
-  String get noRequests => 'Aínda non hai solicitudes.';
-  @override
-  String get autoAccept => 'Aceptar solicitudes automaticamente';
-  @override
-  String get requirePin => 'Requerir PIN';
-  @override
-  String pinHint({required Object pin}) => 'O PIN é "${pin}"';
-  @override
-  String pendingRequests({required Object n}) => 'Solicitudes pendentes: ${n}';
-}
-
-// Path: progressPage
-class _Translations$progressPage$gl extends Translations$progressPage$en {
-  _Translations$progressPage$gl._(TranslationsGl root) : this._root = root, super.internal(root);
-
-  final TranslationsGl _root; // ignore: unused_field
-
-  // Translations
-  @override
-  late final _Translations$progressPage$total$gl total = _Translations$progressPage$total$gl._(_root);
-  @override
-  String get titleReceiving => 'Recibindo ficheiros';
-  @override
-  String get savedToGallery => 'Gardado en Fotos';
-  @override
-  String get titleSending => 'Enviando ficheiros';
-  @override
-  late final _Translations$progressPage$remainingTime$gl remainingTime = _Translations$progressPage$remainingTime$gl._(_root);
-}
-
-// Path: aboutPage
-class _Translations$aboutPage$gl extends Translations$aboutPage$en {
-  _Translations$aboutPage$gl._(TranslationsGl root) : this._root = root, super.internal(root);
-
-  final TranslationsGl _root; // ignore: unused_field
-
-  // Translations
-  @override
-  List<String> get description => [
-    'LocalSend é unha aplicación gratuita, de código aberto, que che permite compartir ficheiros e mensaxes de xeito seguro con dispositivos cercanos a través da túa rede local sen necesidade dunha conexión a internet.',
-    'Esta aplicación está dispoñíbel en Android, iOS, macOS, Windows e Linux. Podes atopar todas as opcións de descarga na páxina web oficial.',
-  ];
-  @override
-  String get contributors => 'Colaboradores';
-  @override
-  String get author => 'Autor';
-  @override
-  String get translators => 'Tradutores';
-  @override
-  String get packagers => 'Empaquetadores';
-  @override
-  String get title => 'Acerca de LocalSend';
-}
-
 // Path: sendPage
 class _Translations$sendPage$gl extends Translations$sendPage$en {
   _Translations$sendPage$gl._(TranslationsGl root) : this._root = root, super.internal(root);
@@ -534,6 +392,88 @@ class _Translations$sendPage$gl extends Translations$sendPage$en {
   String get tooManyAttempts => _root.web.tooManyAttempts;
   @override
   String get busy => 'O destinatario está ocupado con outra petición.';
+}
+
+// Path: progressPage
+class _Translations$progressPage$gl extends Translations$progressPage$en {
+  _Translations$progressPage$gl._(TranslationsGl root) : this._root = root, super.internal(root);
+
+  final TranslationsGl _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get titleSending => 'Enviando ficheiros';
+  @override
+  String get titleReceiving => 'Recibindo ficheiros';
+  @override
+  String get savedToGallery => 'Gardado en Fotos';
+  @override
+  late final _Translations$progressPage$total$gl total = _Translations$progressPage$total$gl._(_root);
+  @override
+  late final _Translations$progressPage$remainingTime$gl remainingTime = _Translations$progressPage$remainingTime$gl._(_root);
+}
+
+// Path: webSharePage
+class _Translations$webSharePage$gl extends Translations$webSharePage$en {
+  _Translations$webSharePage$gl._(TranslationsGl root) : this._root = root, super.internal(root);
+
+  final TranslationsGl _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Compartir mediante ligazón';
+  @override
+  String get loading => 'Iniciando servidor…';
+  @override
+  String get stopping => 'Parando o servidor…';
+  @override
+  String get error => 'Produciuse un erro ao iniciar o servidor.';
+  @override
+  String openLink({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('gl'))(
+    n,
+    one: 'Abre esta ligazón no teu navegador:',
+    other: 'Abre unha destas ligazóns no teu navegador:',
+  );
+  @override
+  String get requests => 'Solicitudes';
+  @override
+  String get noRequests => 'Aínda non hai solicitudes.';
+  @override
+  String get encryption => _root.settingsTab.network.encryption;
+  @override
+  String get autoAccept => 'Aceptar solicitudes automaticamente';
+  @override
+  String get requirePin => 'Requerir PIN';
+  @override
+  String pinHint({required Object pin}) => 'O PIN é "${pin}"';
+  @override
+  String get encryptionHint => 'LocalSend precisa un certificado autoasinado. Tes que aceptalo no teu navegador.';
+  @override
+  String pendingRequests({required Object n}) => 'Solicitudes pendentes: ${n}';
+}
+
+// Path: aboutPage
+class _Translations$aboutPage$gl extends Translations$aboutPage$en {
+  _Translations$aboutPage$gl._(TranslationsGl root) : this._root = root, super.internal(root);
+
+  final TranslationsGl _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Acerca de LocalSend';
+  @override
+  List<String> get description => [
+    'LocalSend é unha aplicación gratuita, de código aberto, que che permite compartir ficheiros e mensaxes de xeito seguro con dispositivos cercanos a través da túa rede local sen necesidade dunha conexión a internet.',
+    'Esta aplicación está dispoñíbel en Android, iOS, macOS, Windows e Linux. Podes atopar todas as opcións de descarga na páxina web oficial.',
+  ];
+  @override
+  String get author => 'Autor';
+  @override
+  String get contributors => 'Colaboradores';
+  @override
+  String get packagers => 'Empaquetadores';
+  @override
+  String get translators => 'Tradutores';
 }
 
 // Path: donationPage
@@ -567,19 +507,64 @@ class _Translations$changelogPage$gl extends Translations$changelogPage$en {
   String get title => 'Rexistro de cambios';
 }
 
-// Path: tray
-class _Translations$tray$gl extends Translations$tray$en {
-  _Translations$tray$gl._(TranslationsGl root) : this._root = root, super.internal(root);
+// Path: dialogs
+class _Translations$dialogs$gl extends Translations$dialogs$en {
+  _Translations$dialogs$gl._(TranslationsGl root) : this._root = root, super.internal(root);
 
   final TranslationsGl _root; // ignore: unused_field
 
   // Translations
   @override
-  String get open => _root.general.open;
+  late final _Translations$dialogs$addFile$gl addFile = _Translations$dialogs$addFile$gl._(_root);
   @override
-  String get close => 'Saír de LocalSend';
+  late final _Translations$dialogs$openFile$gl openFile = _Translations$dialogs$openFile$gl._(_root);
   @override
-  String get closeWindows => 'Saír';
+  late final _Translations$dialogs$addressInput$gl addressInput = _Translations$dialogs$addressInput$gl._(_root);
+  @override
+  late final _Translations$dialogs$cancelSession$gl cancelSession = _Translations$dialogs$cancelSession$gl._(_root);
+  @override
+  late final _Translations$dialogs$cannotOpenFile$gl cannotOpenFile = _Translations$dialogs$cannotOpenFile$gl._(_root);
+  @override
+  late final _Translations$dialogs$encryptionDisabledNotice$gl encryptionDisabledNotice = _Translations$dialogs$encryptionDisabledNotice$gl._(_root);
+  @override
+  late final _Translations$dialogs$errorDialog$gl errorDialog = _Translations$dialogs$errorDialog$gl._(_root);
+  @override
+  late final _Translations$dialogs$favoriteDialog$gl favoriteDialog = _Translations$dialogs$favoriteDialog$gl._(_root);
+  @override
+  late final _Translations$dialogs$favoriteDeleteDialog$gl favoriteDeleteDialog = _Translations$dialogs$favoriteDeleteDialog$gl._(_root);
+  @override
+  late final _Translations$dialogs$favoriteEditDialog$gl favoriteEditDialog = _Translations$dialogs$favoriteEditDialog$gl._(_root);
+  @override
+  late final _Translations$dialogs$fileInfo$gl fileInfo = _Translations$dialogs$fileInfo$gl._(_root);
+  @override
+  late final _Translations$dialogs$fileNameInput$gl fileNameInput = _Translations$dialogs$fileNameInput$gl._(_root);
+  @override
+  late final _Translations$dialogs$historyClearDialog$gl historyClearDialog = _Translations$dialogs$historyClearDialog$gl._(_root);
+  @override
+  late final _Translations$dialogs$localNetworkUnauthorized$gl localNetworkUnauthorized = _Translations$dialogs$localNetworkUnauthorized$gl._(_root);
+  @override
+  late final _Translations$dialogs$messageInput$gl messageInput = _Translations$dialogs$messageInput$gl._(_root);
+  @override
+  late final _Translations$dialogs$noFiles$gl noFiles = _Translations$dialogs$noFiles$gl._(_root);
+  @override
+  late final _Translations$dialogs$noPermission$gl noPermission = _Translations$dialogs$noPermission$gl._(_root);
+  @override
+  late final _Translations$dialogs$notAvailableOnPlatform$gl notAvailableOnPlatform = _Translations$dialogs$notAvailableOnPlatform$gl._(_root);
+  @override
+  late final _Translations$dialogs$qr$gl qr = _Translations$dialogs$qr$gl._(_root);
+  @override
+  late final _Translations$dialogs$quickActions$gl quickActions = _Translations$dialogs$quickActions$gl._(_root);
+  @override
+  late final _Translations$dialogs$quickSaveNotice$gl quickSaveNotice = _Translations$dialogs$quickSaveNotice$gl._(_root);
+  @override
+  late final _Translations$dialogs$quickSaveFromFavoritesNotice$gl quickSaveFromFavoritesNotice =
+      _Translations$dialogs$quickSaveFromFavoritesNotice$gl._(_root);
+  @override
+  late final _Translations$dialogs$pin$gl pin = _Translations$dialogs$pin$gl._(_root);
+  @override
+  late final _Translations$dialogs$sendModeHelp$gl sendModeHelp = _Translations$dialogs$sendModeHelp$gl._(_root);
+  @override
+  late final _Translations$dialogs$zoom$gl zoom = _Translations$dialogs$zoom$gl._(_root);
 }
 
 // Path: sanitization
@@ -593,6 +578,21 @@ class _Translations$sanitization$gl extends Translations$sanitization$en {
   String get empty => 'O nome do ficheiro non pode estar valeiro';
   @override
   String get invalid => 'O nome do ficheiro contén caracteres inválidos';
+}
+
+// Path: tray
+class _Translations$tray$gl extends Translations$tray$en {
+  _Translations$tray$gl._(TranslationsGl root) : this._root = root, super.internal(root);
+
+  final TranslationsGl _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get open => _root.general.open;
+  @override
+  String get close => 'Saír de LocalSend';
+  @override
+  String get closeWindows => 'Saír';
 }
 
 // Path: web
@@ -634,9 +634,9 @@ class _Translations$assetPicker$gl extends Translations$assetPicker$en {
   @override
   String get edit => 'Editar';
   @override
-  String get loadFailed => 'Carga fallida';
-  @override
   String get gifIndicator => 'GIF';
+  @override
+  String get loadFailed => 'Carga fallida';
   @override
   String get original => 'Orixe';
   @override
@@ -650,40 +650,40 @@ class _Translations$assetPicker$gl extends Translations$assetPicker$en {
   @override
   String get unableToAccessAll => 'Non se puido acceder a todos os ficheiros do dispositivo';
   @override
+  String get viewingLimitedAssetsTip => 'Ver só ficheiros e álbums accesíbeis para a aplicación.';
+  @override
+  String get changeAccessibleLimitedAssets => 'Preme para actualizar os ficheiros accesíbeis';
+  @override
+  String get accessAllTip =>
+      'A aplicación só pode acceder a algúns ficheiros do dispositivo. Vaia á configuración do sistema e permite que a aplicación acceda a todos os elementos do dispositivo.';
+  @override
+  String get goToSystemSettings => 'Vaia á configuración do sistema';
+  @override
+  String get accessLimitedAssets => 'Continuar con acceso limitado';
+  @override
+  String get accessiblePathName => 'Ficheiros accesíbeis';
+  @override
+  String get sTypeAudioLabel => 'Audio';
+  @override
+  String get sTypeImageLabel => 'Imaxe';
+  @override
+  String get sTypeVideoLabel => 'Vídeo';
+  @override
   String get sTypeOtherLabel => 'Outros contidos multimedia';
   @override
   String get sActionPlayHint => 'reproducir';
   @override
   String get sActionPreviewHint => 'vista previa';
   @override
-  String get sTypeImageLabel => 'Imaxe';
-  @override
   String get sActionSelectHint => 'seleccionar';
-  @override
-  String get sTypeVideoLabel => 'Vídeo';
   @override
   String get sActionSwitchPathLabel => 'cambiar ruta';
   @override
-  String get changeAccessibleLimitedAssets => 'Preme para actualizar os ficheiros accesíbeis';
-  @override
-  String get goToSystemSettings => 'Vaia á configuración do sistema';
-  @override
-  String get accessLimitedAssets => 'Continuar con acceso limitado';
-  @override
   String get sActionUseCameraHint => 'usar cámara';
-  @override
-  String get sUnitAssetCountLabel => 'cantidade';
-  @override
-  String get viewingLimitedAssetsTip => 'Ver só ficheiros e álbums accesíbeis para a aplicación.';
-  @override
-  String get sTypeAudioLabel => 'Audio';
   @override
   String get sNameDurationLabel => 'duración';
   @override
-  String get accessAllTip =>
-      'A aplicación só pode acceder a algúns ficheiros do dispositivo. Vaia á configuración do sistema e permite que a aplicación acceda a todos os elementos do dispositivo.';
-  @override
-  String get accessiblePathName => 'Ficheiros accesíbeis';
+  String get sUnitAssetCountLabel => 'cantidade';
 }
 
 // Path: receiveTab.infoBox
@@ -833,49 +833,6 @@ class _Translations$settingsTab$receive$gl extends Translations$settingsTab$rece
   String get saveToHistory => 'Gardar no historial';
 }
 
-// Path: settingsTab.network
-class _Translations$settingsTab$network$gl extends Translations$settingsTab$network$en {
-  _Translations$settingsTab$network$gl._(TranslationsGl root) : this._root = root, super.internal(root);
-
-  final TranslationsGl _root; // ignore: unused_field
-
-  // Translations
-  @override
-  String get deviceType => 'Tipo de dispositivo';
-  @override
-  String get title => 'Rede';
-  @override
-  String get needRestart => 'Reinicia o servidor para aplicar os axustes!';
-  @override
-  String get server => 'Servidor';
-  @override
-  String get alias => 'Nome do dispositivo';
-  @override
-  String get deviceModel => 'Modelo de dispositivo';
-  @override
-  String get port => 'Porto';
-  @override
-  String get discoveryTimeout => 'Tempo límite de Descubrimento';
-  @override
-  String get multicastGroup => 'Enderezo multicast';
-  @override
-  String get network => 'Rede';
-  @override
-  late final _Translations$settingsTab$network$networkOptions$gl networkOptions = _Translations$settingsTab$network$networkOptions$gl._(_root);
-  @override
-  String get encryption => 'Cifrado';
-  @override
-  String get useSystemName => 'Usar o nome do sistema';
-  @override
-  String get generateRandomAlias => 'Xerar alias aleatorio';
-  @override
-  String portWarning({required Object defaultPort}) =>
-      'Pode que non sexas detectado por outros dispositivos porque estás a empregar un porto personalizado. (Porto por defecto: ${defaultPort})';
-  @override
-  String multicastGroupWarning({required Object defaultMulticast}) =>
-      'Pode que non sexas detectado por outros dispositivos porque estás a empregar un enderezo multicast personalizada. (Por defecto: ${defaultMulticast})';
-}
-
 // Path: settingsTab.send
 class _Translations$settingsTab$send$gl extends Translations$settingsTab$send$en {
   _Translations$settingsTab$send$gl._(TranslationsGl root) : this._root = root, super.internal(root);
@@ -887,6 +844,49 @@ class _Translations$settingsTab$send$gl extends Translations$settingsTab$send$en
   String get title => 'Enviar';
   @override
   String get shareViaLinkAutoAccept => 'Aceptar automáticamente peticións no modo "Compartir mediante ligazón"';
+}
+
+// Path: settingsTab.network
+class _Translations$settingsTab$network$gl extends Translations$settingsTab$network$en {
+  _Translations$settingsTab$network$gl._(TranslationsGl root) : this._root = root, super.internal(root);
+
+  final TranslationsGl _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Rede';
+  @override
+  String get needRestart => 'Reinicia o servidor para aplicar os axustes!';
+  @override
+  String get server => 'Servidor';
+  @override
+  String get alias => 'Nome do dispositivo';
+  @override
+  String get deviceType => 'Tipo de dispositivo';
+  @override
+  String get deviceModel => 'Modelo de dispositivo';
+  @override
+  String get port => 'Porto';
+  @override
+  String get network => 'Rede';
+  @override
+  late final _Translations$settingsTab$network$networkOptions$gl networkOptions = _Translations$settingsTab$network$networkOptions$gl._(_root);
+  @override
+  String get discoveryTimeout => 'Tempo límite de Descubrimento';
+  @override
+  String get useSystemName => 'Usar o nome do sistema';
+  @override
+  String get generateRandomAlias => 'Xerar alias aleatorio';
+  @override
+  String portWarning({required Object defaultPort}) =>
+      'Pode que non sexas detectado por outros dispositivos porque estás a empregar un porto personalizado. (Porto por defecto: ${defaultPort})';
+  @override
+  String get encryption => 'Cifrado';
+  @override
+  String get multicastGroup => 'Enderezo multicast';
+  @override
+  String multicastGroupWarning({required Object defaultMulticast}) =>
+      'Pode que non sexas detectado por outros dispositivos porque estás a empregar un enderezo multicast personalizada. (Por defecto: ${defaultMulticast})';
 }
 
 // Path: settingsTab.other
@@ -908,20 +908,6 @@ class _Translations$settingsTab$other$gl extends Translations$settingsTab$other$
   String get termsOfUse => 'Condicións de uso';
 }
 
-// Path: troubleshootPage.noDiscovery
-class _Translations$troubleshootPage$noDiscovery$gl extends Translations$troubleshootPage$noDiscovery$en {
-  _Translations$troubleshootPage$noDiscovery$gl._(TranslationsGl root) : this._root = root, super.internal(root);
-
-  final TranslationsGl _root; // ignore: unused_field
-
-  // Translations
-  @override
-  String get solution =>
-      'Por favor asegúrese de que todos os dispositivos están na mesma rede Wi-Fi e que co partan a mesma configuración (porto, enderezo multicast, cifrado). Podes tentar escribir o enderezo IP do dispositivo de destino manualmente. Se funciona, considera agregar o dispositivo a favoritos para poder descubrilo automaticamente no futuro.';
-  @override
-  String get symptom => 'Este dispositivo non pode descubrir outros dispositivos.';
-}
-
 // Path: troubleshootPage.firewall
 class _Translations$troubleshootPage$firewall$gl extends Translations$troubleshootPage$firewall$en {
   _Translations$troubleshootPage$firewall$gl._(TranslationsGl root) : this._root = root, super.internal(root);
@@ -930,12 +916,26 @@ class _Translations$troubleshootPage$firewall$gl extends Translations$troublesho
 
   // Translations
   @override
+  String get symptom => 'Este dispositivo pode enviar ficheiros a outros dispositivos, pero outros dispositivos non lle poden enviar ficheiros.';
+  @override
   String solution({required Object port}) =>
       'O máis probábel é que se trate dun problema do firewall. Podes resolver este problema permitindo conexións entrantes (UDP e TCP) no porto ${port}.';
   @override
   String get openFirewall => 'Abrir Firewall';
+}
+
+// Path: troubleshootPage.noDiscovery
+class _Translations$troubleshootPage$noDiscovery$gl extends Translations$troubleshootPage$noDiscovery$en {
+  _Translations$troubleshootPage$noDiscovery$gl._(TranslationsGl root) : this._root = root, super.internal(root);
+
+  final TranslationsGl _root; // ignore: unused_field
+
+  // Translations
   @override
-  String get symptom => 'Este dispositivo pode enviar ficheiros a outros dispositivos, pero outros dispositivos non lle poden enviar ficheiros.';
+  String get symptom => 'Este dispositivo non pode descubrir outros dispositivos.';
+  @override
+  String get solution =>
+      'Por favor asegúrese de que todos os dispositivos están na mesma rede Wi-Fi e que co partan a mesma configuración (porto, enderezo multicast, cifrado). Podes tentar escribir o enderezo IP do dispositivo de destino manualmente. Se funciona, considera agregar o dispositivo a favoritos para poder descubrilo automaticamente no futuro.';
 }
 
 // Path: troubleshootPage.noConnection
@@ -960,27 +960,64 @@ class _Translations$receiveHistoryPage$entryActions$gl extends Translations$rece
 
   // Translations
   @override
-  String get info => 'Información';
-  @override
   String get open => 'Abrir ficheiro';
   @override
   String get showInFolder => 'Amosar no cartafol';
   @override
+  String get info => 'Información';
+  @override
   String get deleteFromHistory => 'Borrar do historial';
 }
 
-// Path: dialogs.encryptionDisabledNotice
-class _Translations$dialogs$encryptionDisabledNotice$gl extends Translations$dialogs$encryptionDisabledNotice$en {
-  _Translations$dialogs$encryptionDisabledNotice$gl._(TranslationsGl root) : this._root = root, super.internal(root);
+// Path: progressPage.total
+class _Translations$progressPage$total$gl extends Translations$progressPage$total$en {
+  _Translations$progressPage$total$gl._(TranslationsGl root) : this._root = root, super.internal(root);
 
   final TranslationsGl _root; // ignore: unused_field
 
   // Translations
   @override
-  String get title => 'Cifrado deshabilitado';
+  late final _Translations$progressPage$total$title$gl title = _Translations$progressPage$total$title$gl._(_root);
   @override
-  String get content =>
-      'A comunicación ten lugar agora mediante o protocolo sen cifrado HTTP. Para usar o protocolo HTTPS, habilite novamente o cifrado.';
+  String count({required Object curr, required Object n}) => 'Ficheiros: ${curr} / ${n}';
+  @override
+  String size({required Object curr, required Object n}) => 'Tamaño: ${curr} / ${n}';
+  @override
+  String speed({required Object speed}) => 'Velocidade: ${speed}/s';
+}
+
+// Path: progressPage.remainingTime
+class _Translations$progressPage$remainingTime$gl extends Translations$progressPage$remainingTime$en {
+  _Translations$progressPage$remainingTime$gl._(TranslationsGl root) : this._root = root, super.internal(root);
+
+  final TranslationsGl _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String seconds({required Object n, required Object ss}) => '${n}:${ss}';
+  @override
+  String minutes({required Object n, required Object ss}) => '${n}:${ss}';
+
+  /// Usa «h» para abreviatura de horas e «m» para minutos
+  @override
+  String hours({required Object h, required Object m}) => '${h}h ${m}m';
+
+  /// Usa «d» para días, «h» para horas e «m» para minutos
+  @override
+  String days({required Object d, required Object h, required Object m}) => '${d}d ${h}h ${m}m';
+}
+
+// Path: dialogs.addFile
+class _Translations$dialogs$addFile$gl extends Translations$dialogs$addFile$en {
+  _Translations$dialogs$addFile$gl._(TranslationsGl root) : this._root = root, super.internal(root);
+
+  final TranslationsGl _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Engadir á selección';
+  @override
+  String get content => 'Que queres engadir?';
 }
 
 // Path: dialogs.openFile
@@ -1006,24 +1043,11 @@ class _Translations$dialogs$addressInput$gl extends Translations$dialogs$address
   @override
   String get title => 'Introduce enderezo';
   @override
+  String get hashtag => 'Etiqueta';
+  @override
   String get ip => 'Enderezo IP';
   @override
   String get recentlyUsed => 'Empregados recentemente: ';
-  @override
-  String get hashtag => 'Etiqueta';
-}
-
-// Path: dialogs.addFile
-class _Translations$dialogs$addFile$gl extends Translations$dialogs$addFile$en {
-  _Translations$dialogs$addFile$gl._(TranslationsGl root) : this._root = root, super.internal(root);
-
-  final TranslationsGl _root; // ignore: unused_field
-
-  // Translations
-  @override
-  String get content => 'Que queres engadir?';
-  @override
-  String get title => 'Engadir á selección';
 }
 
 // Path: dialogs.cancelSession
@@ -1047,9 +1071,34 @@ class _Translations$dialogs$cannotOpenFile$gl extends Translations$dialogs$canno
 
   // Translations
   @override
-  String content({required Object file}) => 'Non se puido abrir "${file}". Moveuse, renomeouse ou eliminouse este ficheiro?';
-  @override
   String get title => 'Non se pode abrir o ficheiro';
+  @override
+  String content({required Object file}) => 'Non se puido abrir "${file}". Moveuse, renomeouse ou eliminouse este ficheiro?';
+}
+
+// Path: dialogs.encryptionDisabledNotice
+class _Translations$dialogs$encryptionDisabledNotice$gl extends Translations$dialogs$encryptionDisabledNotice$en {
+  _Translations$dialogs$encryptionDisabledNotice$gl._(TranslationsGl root) : this._root = root, super.internal(root);
+
+  final TranslationsGl _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Cifrado deshabilitado';
+  @override
+  String get content =>
+      'A comunicación ten lugar agora mediante o protocolo sen cifrado HTTP. Para usar o protocolo HTTPS, habilite novamente o cifrado.';
+}
+
+// Path: dialogs.errorDialog
+class _Translations$dialogs$errorDialog$gl extends Translations$dialogs$errorDialog$en {
+  _Translations$dialogs$errorDialog$gl._(TranslationsGl root) : this._root = root, super.internal(root);
+
+  final TranslationsGl _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => _root.general.error;
 }
 
 // Path: dialogs.favoriteDialog
@@ -1065,17 +1114,6 @@ class _Translations$dialogs$favoriteDialog$gl extends Translations$dialogs$favor
   String get noFavorites => 'Aínda non hai ningún dispositivo favorito.';
   @override
   String get addFavorite => 'Engadir';
-}
-
-// Path: dialogs.errorDialog
-class _Translations$dialogs$errorDialog$gl extends Translations$dialogs$errorDialog$en {
-  _Translations$dialogs$errorDialog$gl._(TranslationsGl root) : this._root = root, super.internal(root);
-
-  final TranslationsGl _root; // ignore: unused_field
-
-  // Translations
-  @override
-  String get title => _root.general.error;
 }
 
 // Path: dialogs.favoriteDeleteDialog
@@ -1120,8 +1158,6 @@ class _Translations$dialogs$fileInfo$gl extends Translations$dialogs$fileInfo$en
 
   // Translations
   @override
-  String get time => 'Hora:';
-  @override
   String get title => 'Información do ficheiro';
   @override
   String get fileName => 'Nome do ficheiro:';
@@ -1131,6 +1167,8 @@ class _Translations$dialogs$fileInfo$gl extends Translations$dialogs$fileInfo$en
   String get size => 'Tamaño:';
   @override
   String get sender => 'Remitente:';
+  @override
+  String get time => 'Hora:';
 }
 
 // Path: dialogs.fileNameInput
@@ -1157,32 +1195,6 @@ class _Translations$dialogs$historyClearDialog$gl extends Translations$dialogs$h
   String get title => 'Limpar historial';
   @override
   String get content => 'Realmente queres eliminar todo o historial?';
-}
-
-// Path: dialogs.noPermission
-class _Translations$dialogs$noPermission$gl extends Translations$dialogs$noPermission$en {
-  _Translations$dialogs$noPermission$gl._(TranslationsGl root) : this._root = root, super.internal(root);
-
-  final TranslationsGl _root; // ignore: unused_field
-
-  // Translations
-  @override
-  String get content => 'Non concedeches os permisos necesarios. Por favor, concédeos na configuración.';
-  @override
-  String get title => 'Sen permiso';
-}
-
-// Path: dialogs.noFiles
-class _Translations$dialogs$noFiles$gl extends Translations$dialogs$noFiles$en {
-  _Translations$dialogs$noFiles$gl._(TranslationsGl root) : this._root = root, super.internal(root);
-
-  final TranslationsGl _root; // ignore: unused_field
-
-  // Translations
-  @override
-  String get content => 'Por favor selecciona polo menos un ficheiro.';
-  @override
-  String get title => 'Non se seleccionaron ficheiros';
 }
 
 // Path: dialogs.localNetworkUnauthorized
@@ -1212,6 +1224,32 @@ class _Translations$dialogs$messageInput$gl extends Translations$dialogs$message
   String get title => 'Escribir mensaxe';
   @override
   String get multiline => 'Multiliña';
+}
+
+// Path: dialogs.noFiles
+class _Translations$dialogs$noFiles$gl extends Translations$dialogs$noFiles$en {
+  _Translations$dialogs$noFiles$gl._(TranslationsGl root) : this._root = root, super.internal(root);
+
+  final TranslationsGl _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Non se seleccionaron ficheiros';
+  @override
+  String get content => 'Por favor selecciona polo menos un ficheiro.';
+}
+
+// Path: dialogs.noPermission
+class _Translations$dialogs$noPermission$gl extends Translations$dialogs$noPermission$en {
+  _Translations$dialogs$noPermission$gl._(TranslationsGl root) : this._root = root, super.internal(root);
+
+  final TranslationsGl _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Sen permiso';
+  @override
+  String get content => 'Non concedeches os permisos necesarios. Por favor, concédeos na configuración.';
 }
 
 // Path: dialogs.notAvailableOnPlatform
@@ -1273,15 +1311,19 @@ class _Translations$dialogs$quickSaveNotice$gl extends Translations$dialogs$quic
       'Agora as solicitudes de ficheiros acéptanse automaticamente. Teña en conta que todos os usuarios da rede local poden enviarche ficheiros.';
 }
 
-// Path: dialogs.zoom
-class _Translations$dialogs$zoom$gl extends Translations$dialogs$zoom$en {
-  _Translations$dialogs$zoom$gl._(TranslationsGl root) : this._root = root, super.internal(root);
+// Path: dialogs.quickSaveFromFavoritesNotice
+class _Translations$dialogs$quickSaveFromFavoritesNotice$gl extends Translations$dialogs$quickSaveFromFavoritesNotice$en {
+  _Translations$dialogs$quickSaveFromFavoritesNotice$gl._(TranslationsGl root) : this._root = root, super.internal(root);
 
   final TranslationsGl _root; // ignore: unused_field
 
   // Translations
   @override
-  String get title => 'URL';
+  String get title => _root.general.quickSaveFromFavorites;
+  @override
+  List<String> get content => [
+    'Agora as solicitudes de ficheiros da túa lista de dispositivos favoritos acéptanse automaticamente.',
+  ];
 }
 
 // Path: dialogs.pin
@@ -1313,59 +1355,15 @@ class _Translations$dialogs$sendModeHelp$gl extends Translations$dialogs$sendMod
       'Os destinatarios que non teñan instalado LocalSend poden descargar os ficheiros seleccionados abrindo a ligazón no seu navegador.';
 }
 
-// Path: dialogs.quickSaveFromFavoritesNotice
-class _Translations$dialogs$quickSaveFromFavoritesNotice$gl extends Translations$dialogs$quickSaveFromFavoritesNotice$en {
-  _Translations$dialogs$quickSaveFromFavoritesNotice$gl._(TranslationsGl root) : this._root = root, super.internal(root);
+// Path: dialogs.zoom
+class _Translations$dialogs$zoom$gl extends Translations$dialogs$zoom$en {
+  _Translations$dialogs$zoom$gl._(TranslationsGl root) : this._root = root, super.internal(root);
 
   final TranslationsGl _root; // ignore: unused_field
 
   // Translations
   @override
-  String get title => _root.general.quickSaveFromFavorites;
-  @override
-  List<String> get content => [
-    'Agora as solicitudes de ficheiros da túa lista de dispositivos favoritos acéptanse automaticamente.',
-    'Aviso! Actualmente isto non é completamente seguro, xa que un hacker que teña a pegada dixital de calquera dos dispositivos da túa lista de favoritos pode enviarte ficheiros sen restriccións.',
-    'Porén, esta opción aínda é máis segura que permitir que todos os usuarios da rede local te envíen ficheiros sen restricións.',
-  ];
-}
-
-// Path: progressPage.total
-class _Translations$progressPage$total$gl extends Translations$progressPage$total$en {
-  _Translations$progressPage$total$gl._(TranslationsGl root) : this._root = root, super.internal(root);
-
-  final TranslationsGl _root; // ignore: unused_field
-
-  // Translations
-  @override
-  late final _Translations$progressPage$total$title$gl title = _Translations$progressPage$total$title$gl._(_root);
-  @override
-  String count({required Object curr, required Object n}) => 'Ficheiros: ${curr} / ${n}';
-  @override
-  String size({required Object curr, required Object n}) => 'Tamaño: ${curr} / ${n}';
-  @override
-  String speed({required Object speed}) => 'Velocidade: ${speed}/s';
-}
-
-// Path: progressPage.remainingTime
-class _Translations$progressPage$remainingTime$gl extends Translations$progressPage$remainingTime$en {
-  _Translations$progressPage$remainingTime$gl._(TranslationsGl root) : this._root = root, super.internal(root);
-
-  final TranslationsGl _root; // ignore: unused_field
-
-  // Translations
-  @override
-  String seconds({required Object n, required Object ss}) => '${n}:${ss}';
-  @override
-  String minutes({required Object n, required Object ss}) => '${n}:${ss}';
-
-  /// Usa «h» para abreviatura de horas e «m» para minutos
-  @override
-  String hours({required Object h, required Object m}) => '${h}h ${m}m';
-
-  /// Usa «d» para días, «h» para horas e «m» para minutos
-  @override
-  String days({required Object d, required Object h, required Object m}) => '${d}d ${h}h ${m}m';
+  String get title => 'URL';
 }
 
 // Path: settingsTab.general.brightnessOptions
@@ -1428,11 +1426,11 @@ class _Translations$progressPage$total$title$gl extends Translations$progressPag
 
   // Translations
   @override
-  String get canceledReceiver => 'Cancelado polo receptor';
-  @override
   String sending({required Object time}) => 'Progreso total (${time})';
   @override
   String get finishedError => 'Rematado con erro';
   @override
   String get canceledSender => 'Cancelado polo remitente';
+  @override
+  String get canceledReceiver => 'Cancelado polo receptor';
 }

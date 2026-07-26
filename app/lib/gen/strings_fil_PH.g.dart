@@ -1395,8 +1395,6 @@ class _Translations$dialogs$quickSaveFromFavoritesNotice$fil_PH extends Translat
   @override
   List<String> get content => [
     'Ang mga file request ngayon ay awtomatikong tinatanggap sa mga device sa iyong listahan ng mga paborito.',
-    'Babala: Ito ay kasalukuyang hindi ganap na secure dahil ang isang hacker na alam ang fingerprint ng iyong mga paboritong device ay maaari pa ring magpadala sa iyo ng mga file.',
-    'Gayunpaman, ang opsyon na ito ay mas secure kaysa sa pag-allow sa anumang device.',
   ];
 }
 

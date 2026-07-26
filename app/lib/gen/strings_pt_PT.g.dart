@@ -54,6 +54,8 @@ class TranslationsPtPt extends Translations with BaseTranslations<AppLocale, Tra
   @override
   late final Translations$troubleshootPage$pt_PT troubleshootPage = Translations$troubleshootPage$pt_PT.internal(_root);
   @override
+  late final Translations$networkInterfacesPage$pt_PT networkInterfacesPage = Translations$networkInterfacesPage$pt_PT.internal(_root);
+  @override
   late final Translations$receiveHistoryPage$pt_PT receiveHistoryPage = Translations$receiveHistoryPage$pt_PT.internal(_root);
   @override
   late final Translations$apkPickerPage$pt_PT apkPickerPage = Translations$apkPickerPage$pt_PT.internal(_root);
@@ -87,8 +89,6 @@ class TranslationsPtPt extends Translations with BaseTranslations<AppLocale, Tra
   late final Translations$web$pt_PT web = Translations$web$pt_PT.internal(_root);
   @override
   late final Translations$assetPicker$pt_PT assetPicker = Translations$assetPicker$pt_PT.internal(_root);
-  @override
-  late final Translations$networkInterfacesPage$pt_PT networkInterfacesPage = Translations$networkInterfacesPage$pt_PT.internal(_root);
 }
 
 // Path: general
@@ -151,6 +151,8 @@ class Translations$general$pt_PT extends Translations$general$en {
   @override
   String get quickSave => 'Guardar rápido';
   @override
+  String get quickSaveFromFavorites => 'Gravar rapidamente dos "Favoritos"';
+  @override
   String get renamed => 'Renomeado';
   @override
   String get reset => 'Repor';
@@ -172,8 +174,6 @@ class Translations$general$pt_PT extends Translations$general$en {
   String get unknown => 'Desconhecido';
   @override
   String get noItemInClipboard => 'Nenhum item na área de transferência.';
-  @override
-  String get quickSaveFromFavorites => 'Gravar rapidamente dos "Favoritos"';
 }
 
 // Path: receiveTab
@@ -213,6 +213,8 @@ class Translations$sendTab$pt_PT extends Translations$sendTab$en {
   @override
   String get scan => 'Procurar dispositivos';
   @override
+  String get manualSending => 'Envio manual';
+  @override
   String get sendMode => 'Modo de envio';
   @override
   late final Translations$sendTab$sendModes$pt_PT sendModes = Translations$sendTab$sendModes$pt_PT.internal(_root);
@@ -222,8 +224,6 @@ class Translations$sendTab$pt_PT extends Translations$sendTab$en {
   String get help => 'Certifique-se de que ambos os dispositivos estejam na mesma rede Wi-Fi.';
   @override
   String get placeItems => 'Coloque os itens para partilhar.';
-  @override
-  String get manualSending => 'Envio manual';
 }
 
 // Path: settingsTab
@@ -267,9 +267,29 @@ class Translations$troubleshootPage$pt_PT extends Translations$troubleshootPage$
   @override
   late final Translations$troubleshootPage$firewall$pt_PT firewall = Translations$troubleshootPage$firewall$pt_PT.internal(_root);
   @override
-  late final Translations$troubleshootPage$noConnection$pt_PT noConnection = Translations$troubleshootPage$noConnection$pt_PT.internal(_root);
-  @override
   late final Translations$troubleshootPage$noDiscovery$pt_PT noDiscovery = Translations$troubleshootPage$noDiscovery$pt_PT.internal(_root);
+  @override
+  late final Translations$troubleshootPage$noConnection$pt_PT noConnection = Translations$troubleshootPage$noConnection$pt_PT.internal(_root);
+}
+
+// Path: networkInterfacesPage
+class Translations$networkInterfacesPage$pt_PT extends Translations$networkInterfacesPage$en {
+  Translations$networkInterfacesPage$pt_PT.internal(TranslationsPtPt root) : this._root = root, super.internal(root);
+
+  final TranslationsPtPt _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Interfaces de rede';
+  @override
+  String get info =>
+      'Por padrão, o LocalSend utiliza todas as interfaces de rede disponíveis. Pode excluir as redes indesejadas aqui. É necessário reiniciar o servidor para aplicar as alterações.';
+  @override
+  String get preview => 'Anterior';
+  @override
+  String get whitelist => 'Lista branca';
+  @override
+  String get blacklist => 'Lista negra';
 }
 
 // Path: receiveHistoryPage
@@ -371,9 +391,9 @@ class Translations$sendPage$pt_PT extends Translations$sendPage$en {
   @override
   String get rejected => 'O destinatário rejeitou o pedido.';
   @override
-  String get busy => 'O destinatário está ocupado com outro pedido de transferência.';
-  @override
   String get tooManyAttempts => _root.web.tooManyAttempts;
+  @override
+  String get busy => 'O destinatário está ocupado com outro pedido de transferência.';
 }
 
 // Path: progressPage
@@ -425,13 +445,13 @@ class Translations$webSharePage$pt_PT extends Translations$webSharePage$en {
   @override
   String get autoAccept => 'Aceitar pedidos automaticamente';
   @override
-  String get encryptionHint => 'O LocalSend utiliza um certificado assinado automaticamente. Precisa de aceitá-lo no navegador.';
-  @override
-  String pendingRequests({required Object n}) => 'Pedidos pendentes: ${n}';
-  @override
   String get requirePin => 'Solicitar PIN';
   @override
   String pinHint({required Object pin}) => 'O PIN é "${pin}"';
+  @override
+  String get encryptionHint => 'O LocalSend utiliza um certificado assinado automaticamente. Precisa de aceitá-lo no navegador.';
+  @override
+  String pendingRequests({required Object n}) => 'Pedidos pendentes: ${n}';
 }
 
 // Path: aboutPage
@@ -453,9 +473,9 @@ class Translations$aboutPage$pt_PT extends Translations$aboutPage$en {
   @override
   String get contributors => 'Contribuidores';
   @override
-  String get translators => 'Tradutores';
-  @override
   String get packagers => 'Empacotadores';
+  @override
+  String get translators => 'Tradutores';
 }
 
 // Path: donationPage
@@ -585,6 +605,8 @@ class Translations$dialogs$pt_PT extends Translations$dialogs$en {
   @override
   late final Translations$dialogs$addFile$pt_PT addFile = Translations$dialogs$addFile$pt_PT.internal(_root);
   @override
+  late final Translations$dialogs$openFile$pt_PT openFile = Translations$dialogs$openFile$pt_PT.internal(_root);
+  @override
   late final Translations$dialogs$addressInput$pt_PT addressInput = Translations$dialogs$addressInput$pt_PT.internal(_root);
   @override
   late final Translations$dialogs$cancelSession$pt_PT cancelSession = Translations$dialogs$cancelSession$pt_PT.internal(_root);
@@ -627,16 +649,14 @@ class Translations$dialogs$pt_PT extends Translations$dialogs$en {
   @override
   late final Translations$dialogs$quickSaveNotice$pt_PT quickSaveNotice = Translations$dialogs$quickSaveNotice$pt_PT.internal(_root);
   @override
-  late final Translations$dialogs$sendModeHelp$pt_PT sendModeHelp = Translations$dialogs$sendModeHelp$pt_PT.internal(_root);
-  @override
-  late final Translations$dialogs$zoom$pt_PT zoom = Translations$dialogs$zoom$pt_PT.internal(_root);
-  @override
   late final Translations$dialogs$quickSaveFromFavoritesNotice$pt_PT quickSaveFromFavoritesNotice =
       Translations$dialogs$quickSaveFromFavoritesNotice$pt_PT.internal(_root);
   @override
-  late final Translations$dialogs$openFile$pt_PT openFile = Translations$dialogs$openFile$pt_PT.internal(_root);
-  @override
   late final Translations$dialogs$pin$pt_PT pin = Translations$dialogs$pin$pt_PT.internal(_root);
+  @override
+  late final Translations$dialogs$sendModeHelp$pt_PT sendModeHelp = Translations$dialogs$sendModeHelp$pt_PT.internal(_root);
+  @override
+  late final Translations$dialogs$zoom$pt_PT zoom = Translations$dialogs$zoom$pt_PT.internal(_root);
 }
 
 // Path: sanitization
@@ -677,6 +697,12 @@ class Translations$web$pt_PT extends Translations$web$en {
   @override
   String get waiting => _root.sendPage.waiting;
   @override
+  String get enterPin => 'Digite o PIN';
+  @override
+  String get invalidPin => 'PIN inválido';
+  @override
+  String get tooManyAttempts => 'Muitas tentativas';
+  @override
   String get rejected => 'Ligação rejeitada';
   @override
   String get files => 'Ficheiros';
@@ -684,12 +710,6 @@ class Translations$web$pt_PT extends Translations$web$en {
   String get fileName => 'Nome do ficheiro';
   @override
   String get size => 'Tamanho';
-  @override
-  String get enterPin => 'Digite o PIN';
-  @override
-  String get invalidPin => 'PIN inválido';
-  @override
-  String get tooManyAttempts => 'Muitas tentativas';
 }
 
 // Path: assetPicker
@@ -756,26 +776,6 @@ class Translations$assetPicker$pt_PT extends Translations$assetPicker$en {
   String get sNameDurationLabel => 'duração';
   @override
   String get sUnitAssetCountLabel => 'total';
-}
-
-// Path: networkInterfacesPage
-class Translations$networkInterfacesPage$pt_PT extends Translations$networkInterfacesPage$en {
-  Translations$networkInterfacesPage$pt_PT.internal(TranslationsPtPt root) : this._root = root, super.internal(root);
-
-  final TranslationsPtPt _root; // ignore: unused_field
-
-  // Translations
-  @override
-  String get title => 'Interfaces de rede';
-  @override
-  String get info =>
-      'Por padrão, o LocalSend utiliza todas as interfaces de rede disponíveis. Pode excluir as redes indesejadas aqui. É necessário reiniciar o servidor para aplicar as alterações.';
-  @override
-  String get preview => 'Anterior';
-  @override
-  String get whitelist => 'Lista branca';
-  @override
-  String get blacklist => 'Lista negra';
 }
 
 // Path: receiveTab.infoBox
@@ -886,17 +886,17 @@ class Translations$settingsTab$general$pt_PT extends Translations$settingsTab$ge
   @override
   String get saveWindowPlacement => 'Guardar a posição da janela ao fechar';
   @override
+  String get saveWindowPlacementWindows => 'Gravar posição da janela ao sair';
+  @override
   String get minimizeToTray => 'Minimizar para a área de notificação ao fechar';
   @override
   String get launchAtStartup => 'Abrir automaticamente após iniciar sessão';
   @override
   String get launchMinimized => 'Início automático: Abrir minimizado';
   @override
-  String get animations => 'Animações';
-  @override
-  String get saveWindowPlacementWindows => 'Gravar posição da janela ao sair';
-  @override
   String get showInContextMenu => 'Mostrar LocalSend no menu de contexto';
+  @override
+  String get animations => 'Animações';
 }
 
 // Path: settingsTab.receive
@@ -911,6 +911,10 @@ class Translations$settingsTab$receive$pt_PT extends Translations$settingsTab$re
   @override
   String get quickSave => _root.general.quickSave;
   @override
+  String get quickSaveFromFavorites => 'Gravar rapidamente dos "Favoritos"';
+  @override
+  String get requirePin => _root.webSharePage.requirePin;
+  @override
   String get autoFinish => 'Concluir automaticamente';
   @override
   String get destination => 'Destino';
@@ -920,10 +924,6 @@ class Translations$settingsTab$receive$pt_PT extends Translations$settingsTab$re
   String get saveToGallery => 'Guardar na galeria';
   @override
   String get saveToHistory => 'Guardar no histórico';
-  @override
-  String get quickSaveFromFavorites => 'Gravar rapidamente dos "Favoritos"';
-  @override
-  String get requirePin => _root.webSharePage.requirePin;
 }
 
 // Path: settingsTab.send
@@ -961,7 +961,17 @@ class Translations$settingsTab$network$pt_PT extends Translations$settingsTab$ne
   @override
   String get port => 'Porta';
   @override
+  String get network => 'Rede';
+  @override
+  late final Translations$settingsTab$network$networkOptions$pt_PT networkOptions = Translations$settingsTab$network$networkOptions$pt_PT.internal(
+    _root,
+  );
+  @override
   String get discoveryTimeout => 'Tempo limite de deteção';
+  @override
+  String get useSystemName => 'Usar nome do sistema';
+  @override
+  String get generateRandomAlias => 'Gerar apelido aleatório';
   @override
   String portWarning({required Object defaultPort}) =>
       'Pode estar indetectável para outros dispositivos por estar a usar uma porta personalizada. (Padrão: ${defaultPort})';
@@ -972,16 +982,6 @@ class Translations$settingsTab$network$pt_PT extends Translations$settingsTab$ne
   @override
   String multicastGroupWarning({required Object defaultMulticast}) =>
       'Pode estar indetectável para outros dispositivos por estar a usar um endereço multicast personalizado. (Padrão: ${defaultMulticast})';
-  @override
-  String get generateRandomAlias => 'Gerar apelido aleatório';
-  @override
-  String get network => 'Rede';
-  @override
-  late final Translations$settingsTab$network$networkOptions$pt_PT networkOptions = Translations$settingsTab$network$networkOptions$pt_PT.internal(
-    _root,
-  );
-  @override
-  String get useSystemName => 'Usar nome do sistema';
 }
 
 // Path: settingsTab.other
@@ -1020,20 +1020,6 @@ class Translations$troubleshootPage$firewall$pt_PT extends Translations$troubles
   String get openFirewall => 'Abrir a Firewall';
 }
 
-// Path: troubleshootPage.noConnection
-class Translations$troubleshootPage$noConnection$pt_PT extends Translations$troubleshootPage$noConnection$en {
-  Translations$troubleshootPage$noConnection$pt_PT.internal(TranslationsPtPt root) : this._root = root, super.internal(root);
-
-  final TranslationsPtPt _root; // ignore: unused_field
-
-  // Translations
-  @override
-  String get symptom => 'Ambos os dispositivos não se detectam nem podem partilhar ficheiros entre si.';
-  @override
-  String get solution =>
-      'O problema existe em ambos os lados? Então precisa de ter a certeza de que os dispositivos estão na mesma rede Wi-Fi e possuem a mesma configuração (porta, endereço multicast, encriptação). A rede Wi-Fi pode não permitir a comunicação entre os participantes. Neste caso, esta opção deve ser ativada no router.';
-}
-
 // Path: troubleshootPage.noDiscovery
 class Translations$troubleshootPage$noDiscovery$pt_PT extends Translations$troubleshootPage$noDiscovery$en {
   Translations$troubleshootPage$noDiscovery$pt_PT.internal(TranslationsPtPt root) : this._root = root, super.internal(root);
@@ -1048,6 +1034,20 @@ class Translations$troubleshootPage$noDiscovery$pt_PT extends Translations$troub
       'Certifique-se de que todos os dispositivos estão na mesma rede Wi-Fi e partilham as mesmas configurações (porta, endereço multicast, criptografia). Pode tentar digitar o endereço IP do dispositivo de destino manualmente. Se isto funcionar, considere adicionar este dispositivo aos favoritos, assim ele será descoberto automaticamente no futuro.';
 }
 
+// Path: troubleshootPage.noConnection
+class Translations$troubleshootPage$noConnection$pt_PT extends Translations$troubleshootPage$noConnection$en {
+  Translations$troubleshootPage$noConnection$pt_PT.internal(TranslationsPtPt root) : this._root = root, super.internal(root);
+
+  final TranslationsPtPt _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get symptom => 'Ambos os dispositivos não se detectam nem podem partilhar ficheiros entre si.';
+  @override
+  String get solution =>
+      'O problema existe em ambos os lados? Então precisa de ter a certeza de que os dispositivos estão na mesma rede Wi-Fi e possuem a mesma configuração (porta, endereço multicast, encriptação). A rede Wi-Fi pode não permitir a comunicação entre os participantes. Neste caso, esta opção deve ser ativada no router.';
+}
+
 // Path: receiveHistoryPage.entryActions
 class Translations$receiveHistoryPage$entryActions$pt_PT extends Translations$receiveHistoryPage$entryActions$en {
   Translations$receiveHistoryPage$entryActions$pt_PT.internal(TranslationsPtPt root) : this._root = root, super.internal(root);
@@ -1058,11 +1058,11 @@ class Translations$receiveHistoryPage$entryActions$pt_PT extends Translations$re
   @override
   String get open => 'Abrir ficheiro';
   @override
+  String get showInFolder => 'Mostrar na pasta';
+  @override
   String get info => 'Informação';
   @override
   String get deleteFromHistory => 'Remover do histórico';
-  @override
-  String get showInFolder => 'Mostrar na pasta';
 }
 
 // Path: progressPage.total
@@ -1114,6 +1114,19 @@ class Translations$dialogs$addFile$pt_PT extends Translations$dialogs$addFile$en
   String get title => 'Adicionar à seleção';
   @override
   String get content => 'O que quer adicionar?';
+}
+
+// Path: dialogs.openFile
+class Translations$dialogs$openFile$pt_PT extends Translations$dialogs$openFile$en {
+  Translations$dialogs$openFile$pt_PT.internal(TranslationsPtPt root) : this._root = root, super.internal(root);
+
+  final TranslationsPtPt _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Abrir ficheiro';
+  @override
+  String get content => 'Quer abrir o ficheiro recebido?';
 }
 
 // Path: dialogs.addressInput
@@ -1393,6 +1406,32 @@ class Translations$dialogs$quickSaveNotice$pt_PT extends Translations$dialogs$qu
       'Pedidos de ficheiros são aceites automaticamente. Tenha em atenção que todas as pessoas na rede local podem enviar-lhe ficheiros.';
 }
 
+// Path: dialogs.quickSaveFromFavoritesNotice
+class Translations$dialogs$quickSaveFromFavoritesNotice$pt_PT extends Translations$dialogs$quickSaveFromFavoritesNotice$en {
+  Translations$dialogs$quickSaveFromFavoritesNotice$pt_PT.internal(TranslationsPtPt root) : this._root = root, super.internal(root);
+
+  final TranslationsPtPt _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Gravar rapidamento dos "Favoritos"';
+  @override
+  List<String> get content => [
+    'Requisições de ficheiro agora são aceitas automaticamente de dispositivos da sua lista de favoritos.',
+  ];
+}
+
+// Path: dialogs.pin
+class Translations$dialogs$pin$pt_PT extends Translations$dialogs$pin$en {
+  Translations$dialogs$pin$pt_PT.internal(TranslationsPtPt root) : this._root = root, super.internal(root);
+
+  final TranslationsPtPt _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Digite o PIN';
+}
+
 // Path: dialogs.sendModeHelp
 class Translations$dialogs$sendModeHelp$pt_PT extends Translations$dialogs$sendModeHelp$en {
   Translations$dialogs$sendModeHelp$pt_PT.internal(TranslationsPtPt root) : this._root = root, super.internal(root);
@@ -1420,47 +1459,6 @@ class Translations$dialogs$zoom$pt_PT extends Translations$dialogs$zoom$en {
   // Translations
   @override
   String get title => 'URL';
-}
-
-// Path: dialogs.quickSaveFromFavoritesNotice
-class Translations$dialogs$quickSaveFromFavoritesNotice$pt_PT extends Translations$dialogs$quickSaveFromFavoritesNotice$en {
-  Translations$dialogs$quickSaveFromFavoritesNotice$pt_PT.internal(TranslationsPtPt root) : this._root = root, super.internal(root);
-
-  final TranslationsPtPt _root; // ignore: unused_field
-
-  // Translations
-  @override
-  List<String> get content => [
-    'Requisições de ficheiro agora são aceitas automaticamente de dispositivos da sua lista de favoritos.',
-    'Atenção! Atualmente, esta opção não é totalmente segura pois um hacker que saiba a identificação dos seus dispositivos favoritos ainda pode te enviar ficheiros sem restrições.',
-    'De qualquer forma, esta opção ainda é mais segura que permitir qualquer dispositivo.',
-  ];
-  @override
-  String get title => 'Gravar rapidamento dos "Favoritos"';
-}
-
-// Path: dialogs.openFile
-class Translations$dialogs$openFile$pt_PT extends Translations$dialogs$openFile$en {
-  Translations$dialogs$openFile$pt_PT.internal(TranslationsPtPt root) : this._root = root, super.internal(root);
-
-  final TranslationsPtPt _root; // ignore: unused_field
-
-  // Translations
-  @override
-  String get title => 'Abrir ficheiro';
-  @override
-  String get content => 'Quer abrir o ficheiro recebido?';
-}
-
-// Path: dialogs.pin
-class Translations$dialogs$pin$pt_PT extends Translations$dialogs$pin$en {
-  Translations$dialogs$pin$pt_PT.internal(TranslationsPtPt root) : this._root = root, super.internal(root);
-
-  final TranslationsPtPt _root; // ignore: unused_field
-
-  // Translations
-  @override
-  String get title => 'Digite o PIN';
 }
 
 // Path: settingsTab.general.brightnessOptions

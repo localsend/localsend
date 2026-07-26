@@ -1078,6 +1078,10 @@ class _Translations$progressPage$remainingTime$bn extends Translations$progressP
   final TranslationsBn _root; // ignore: unused_field
 
   // Translations
+  @override
+  String seconds({required Object n, required Object ss}) => '${n}:${ss}';
+  @override
+  String minutes({required Object n, required Object ss}) => '${n}:${ss}';
 
   /// ঘন্টার জন্য 'h' এবং মিনিটের জন্য 'm' ব্যবহার করুন
   @override
@@ -1086,11 +1090,6 @@ class _Translations$progressPage$remainingTime$bn extends Translations$progressP
   /// দিনের জন্য 'd', ঘন্টার জন্য 'h' এবং মিনিটের জন্য 'm' ব্যবহার করুন
   @override
   String days({required Object d, required Object h, required Object m}) => '${d}দিন ${h}ঘণ্টা ${m}মিনিট';
-
-  @override
-  String seconds({required Object n, required Object ss}) => '${n}:${ss}';
-  @override
-  String minutes({required Object n, required Object ss}) => '${n}:${ss}';
 }
 
 // Path: dialogs.addFile
@@ -1406,8 +1405,6 @@ class _Translations$dialogs$quickSaveFromFavoritesNotice$bn extends Translations
   @override
   List<String> get content => [
     'আপনার ফেভারিট তালিকায় থাকা ডিভাইস থেকে ফাইল অটোমেটিক রিসিভ করা হয়।',
-    'সতর্কতা! বর্তমানে, এটা সম্পূর্ণভাবে নিরাপদ নয়, কোন হ্যাকারের কাছে আপনার ফেভারিট তালিকার কোনও ডিভাইসের ফিঙ্গারপ্রিন্ট থাকে তাহলে সে সীমাবদ্ধতা ছাড়াই আপনাকে ফাইল পাঠাতে পারে।',
-    'তবে, এই অপশনটি এখনও লোকাল নেটওয়ার্কের ব্যবহারকারীদের কোনও সীমাবদ্ধতা ছাড়াই আপনাকে ফাইল পাঠাতে দেয়।',
   ];
 }
 
