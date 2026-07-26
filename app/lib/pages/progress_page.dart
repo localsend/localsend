@@ -77,7 +77,10 @@ class _ProgressPageState extends State<ProgressPage> with Refena {
           unawaited(WakelockPlus.enable());
         } catch (_) {}
 
-        // Periodically call WakelockPlus.enable() to keep the screen awake
+        // Poll for completion and disable the wakelock once.
+        // We must NOT call WakelockPlus.enable() repeatedly here: on Linux (FreeDesktop D-Bus ScreenSaver)
+        // each enable() acquires a new inhibit cookie while disable() only releases one, so re-calling
+        // enable() every 30s leaks inhibit locks that keep the screen awake indefinitely (issue #3209).
         _wakelockPlusTimer = Timer.periodic(const Duration(seconds: 30), (timer) {
           final finished =
               ref.read(serverProvider)?.session?.files.values.map((e) => e.status).isFinishedOrSkipped ??
@@ -87,10 +90,6 @@ class _ProgressPageState extends State<ProgressPage> with Refena {
             timer.cancel();
             try {
               unawaited(WakelockPlus.disable());
-            } catch (_) {}
-          } else {
-            try {
-              unawaited(WakelockPlus.enable());
             } catch (_) {}
           }
         });
