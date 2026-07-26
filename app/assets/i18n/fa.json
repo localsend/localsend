@@ -49,9 +49,9 @@
       "alias": "نام کوتاه دستگاه:"
     },
     "quickSave": {
-      "off": "خاموش ذخیره سریع",
+      "off": "@:general.off",
       "favorites": "‌موردعلاقه‌ها",
-      "on": "روشن کردن ذخیره سریع"
+      "on": "@:general.on"
     }
   },
   "sendTab": {
@@ -113,8 +113,8 @@
     },
     "receive": {
       "title": "دریافت",
-      "quickSave": "ذخیره سریع مقصد",
-      "quickSaveFromFavorites": "ذخیره سریع از علاقه مندی ها",
+      "quickSave": "@:general.quickSave",
+      "quickSaveFromFavorites": "@:general.quickSaveFromFavorites",
       "requirePin": "نیاز به رمز",
       "autoFinish": "پایان خودکار",
       "destination": "مقصد",
@@ -235,11 +235,11 @@
     },
     "remainingTime": {
       "seconds": "{n}:{ss}",
-      "minutes": "زمان باقی مانده",
-      "hours": "زمان باقی مانده",
-      "days": "زمان باقی مانده (روز)",
-      "@hours": "چند ساعت",
-      "@days": "چند روز"
+      "minutes": "{n}:{ss}",
+      "hours": "{h}س {m}د",
+      "days": "{d}ر {h}س {m}د",
+      "@hours": "از «س» به عنوان مخفف ساعت و از «د» برای دقیقه استفاده کنید",
+      "@days": "از «ر» برای روز، «س» برای ساعت و «د» برای دقیقه استفاده کنید"
     }
   },
   "webSharePage": {
@@ -480,7 +480,7 @@
   },
   "tray": {
     "@info": "دستورالعمل‌های اپل دربارهٔ استفاده از عبارت «بستن» بسیار سخت‌گیرانه هستند.",
-    "open": "باز",
+    "open": "@:general.open",
     "close": "خروج از لوکال‌سند",
     "closeWindows": "خروج"
   },
