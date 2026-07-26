@@ -87,6 +87,6 @@ async fn read_and_hash_from_file(
     Ok(())
 }
 
-fn to_hex(bytes: &[u8]) -> String {
+pub(crate) fn to_hex(bytes: &[u8]) -> String {
     bytes.iter().map(|byte| format!("{byte:02x}")).collect()
 }

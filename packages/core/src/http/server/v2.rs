@@ -7,7 +7,7 @@ use crate::http::server::common::error::AppError;
 use crate::http::server::common::pin::check_pin;
 use crate::http::server::common::query::parse_query;
 use crate::http::server::common::response::{empty_body, BoxedBody, JsonResponse};
-use crate::http::server::common::save::FileUploadTarget;
+use crate::http::server::common::save::{FileUploadTarget, SaveResult};
 use crate::http::server::common::session::{
     FileStatusV2, SessionFileV2, SessionStateV2, UploadSessionV2,
 };
@@ -359,6 +359,7 @@ pub(crate) async fn upload(
     let mut upload_guard = UploadGuard::new(v2.clone(), session_id.clone(), file_id.clone());
 
     let file_size = file_dto.size;
+    let expected_sha256 = file_dto.sha256.clone();
     let (target_tx, target_rx) = oneshot::channel::<FileUploadTarget>();
 
     let event = ServerEventV2::FileUpload {
@@ -377,13 +378,18 @@ pub(crate) async fn upload(
         return Err(AppError::Status(StatusCode::INTERNAL_SERVER_ERROR));
     };
 
-    let success = common::save::save_req_to_target(req, target, file_size).await;
+    let result =
+        common::save::save_req_to_target(req, target, file_size, expected_sha256.as_deref()).await;
 
-    upload_guard.finish(success).await;
+    upload_guard.finish(result == SaveResult::Success).await;
 
-    match success {
-        true => Ok(Response::new(empty_body())),
-        false => Err(AppError::Status(StatusCode::INTERNAL_SERVER_ERROR)),
+    match result {
+        SaveResult::Success => Ok(Response::new(empty_body())),
+        SaveResult::Failed => Err(AppError::Status(StatusCode::INTERNAL_SERVER_ERROR)),
+        SaveResult::HashMismatch => Err(AppError::Message(
+            StatusCode::UNPROCESSABLE_ENTITY,
+            "Checksum mismatch".to_string(),
+        )),
     }
 }
 

@@ -2,6 +2,7 @@
 
 use bytes::Bytes;
 use futures_util::StreamExt;
+use localsend::crypto::hash::sha256_hex;
 use localsend::http::client::{ClientError, LsHttpClientV2};
 use localsend::http::dto::ProtocolType;
 use localsend::http::dto_v2::{PrepareUploadRequestDtoV2, ProtocolTypeV2, RegisterDtoV2};
@@ -366,6 +367,78 @@ async fn test_full_upload_flow() {
     )
     .await;
     assert_status(result, 403);
+}
+
+#[tokio::test]
+async fn test_upload_with_matching_sha256() {
+    let server = start_test_server(None, true, None).await;
+    let client = LsHttpClientV2::try_new_without_cert().unwrap();
+
+    let bytes = b"hello".to_vec();
+    let mut file = file_dto("file-a", "a.bin", bytes.len() as u64);
+    file.sha256 = Some(sha256_hex(&bytes));
+
+    let response = client
+        .prepare_upload(
+            ProtocolType::Http,
+            "127.0.0.1",
+            server.port,
+            None,
+            prepare_upload_request(&[file]),
+            None,
+        )
+        .await
+        .unwrap()
+        .response
+        .unwrap();
+
+    upload_bytes(
+        &client,
+        server.port,
+        &response.session_id,
+        "file-a",
+        &response.files["file-a"],
+        &bytes,
+    )
+    .await
+    .unwrap();
+
+    assert_eq!(server.received.lock().await["file-a"], bytes);
+}
+
+#[tokio::test]
+async fn test_upload_with_mismatched_sha256() {
+    let server = start_test_server(None, true, None).await;
+    let client = LsHttpClientV2::try_new_without_cert().unwrap();
+
+    let bytes = b"hello".to_vec();
+    let mut file = file_dto("file-a", "a.bin", bytes.len() as u64);
+    file.sha256 = Some(sha256_hex(b"something else"));
+
+    let response = client
+        .prepare_upload(
+            ProtocolType::Http,
+            "127.0.0.1",
+            server.port,
+            None,
+            prepare_upload_request(&[file]),
+            None,
+        )
+        .await
+        .unwrap()
+        .response
+        .unwrap();
+
+    let result = upload_bytes(
+        &client,
+        server.port,
+        &response.session_id,
+        "file-a",
+        &response.files["file-a"],
+        &bytes,
+    )
+    .await;
+    assert_status(result, 422);
 }
 
 #[tokio::test]

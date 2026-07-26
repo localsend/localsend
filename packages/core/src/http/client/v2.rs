@@ -203,6 +203,7 @@ impl LsHttpClientV2 {
     /// * 400 - Missing parameters
     /// * 403 - Invalid token or IP address
     /// * 409 - Blocked by another session
+    /// * 422 - Checksum mismatch
     /// * 500 - Unknown error
     pub async fn upload(
         &self,

@@ -1,3 +1,4 @@
+use crate::crypto;
 use bytes::Bytes;
 use http_body_util::BodyExt;
 use hyper::body::Incoming;
@@ -58,11 +59,28 @@ pub enum FileUploadTarget {
     },
 }
 
+/// Outcome of receiving an uploaded file.
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub(crate) enum SaveResult {
+    /// The file has been received and, if a checksum was given, it matched.
+    Success,
+
+    /// The body could not be read or the target failed to process it.
+    Failed,
+
+    /// The received bytes do not match the expected SHA-256 checksum.
+    HashMismatch,
+}
+
+/// Forwards the body of `req` to `target`.
 pub(crate) async fn save_req_to_target(
     req: Request<Incoming>,
     target: FileUploadTarget,
     file_size: u64,
-) -> bool {
+    expected_sha256: Option<&str>,
+) -> SaveResult {
+    use sha2::{Digest, Sha256};
+
     // Resolve the target into a chunk sender and a result receiver.
     let (binary_tx, result_rx) = match target {
         FileUploadTarget::Stream {
@@ -103,7 +121,8 @@ pub(crate) async fn save_req_to_target(
         ),
     };
 
-    // Forward the request body to the target.
+    // Forward the request body to the target, hashing it on the way if requested.
+    let mut hasher = expected_sha256.map(|_| Sha256::new());
     let mut body = req.into_body();
     let mut stream_error = false;
     while let Some(frame) = body.frame().await {
@@ -114,6 +133,9 @@ pub(crate) async fn save_req_to_target(
                 };
                 if data.is_empty() {
                     continue;
+                }
+                if let Some(hasher) = &mut hasher {
+                    hasher.update(&data);
                 }
                 if binary_tx.send(data).await.is_err() {
                     // The receiver is gone (dropped by the application or
@@ -133,17 +155,28 @@ pub(crate) async fn save_req_to_target(
     // Signal end of file to the receiving side.
     drop(binary_tx);
 
-    match stream_error {
-        true => false,
-        false => match result_rx.await {
-            Ok(Ok(())) => true,
-            Ok(Err(err)) => {
-                tracing::warn!("Failed to process file: {err}");
-                false
-            }
-            Err(_) => false,
-        },
+    if stream_error {
+        return SaveResult::Failed;
     }
+
+    match result_rx.await {
+        Ok(Ok(())) => (),
+        Ok(Err(err)) => {
+            tracing::warn!("Failed to process file: {err}");
+            return SaveResult::Failed;
+        }
+        Err(_) => return SaveResult::Failed,
+    }
+
+    if let (Some(hasher), Some(expected)) = (hasher, expected_sha256) {
+        let actual = crypto::hash::to_hex(&hasher.finalize());
+        if !actual.eq_ignore_ascii_case(expected) {
+            tracing::warn!("Checksum mismatch: expected {expected}, got {actual}");
+            return SaveResult::HashMismatch;
+        }
+    }
+
+    SaveResult::Success
 }
 
 /// Spawns a task that writes incoming chunks to a file provided by `open`.
