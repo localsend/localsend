@@ -132,7 +132,8 @@ enum AppLocale with BaseAppLocale<AppLocale, Translations> {
   srCyrl(languageCode: 'sr', scriptCode: 'Cyrl'),
   zhCn(languageCode: 'zh', countryCode: 'CN'),
   zhHk(languageCode: 'zh', countryCode: 'HK'),
-  zhTw(languageCode: 'zh', countryCode: 'TW');
+  zhTw(languageCode: 'zh', countryCode: 'TW')
+  ;
 
   const AppLocale({
     required this.languageCode,
