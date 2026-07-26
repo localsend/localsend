@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:localsend_app/model/cross_file.dart';
 import 'package:localsend_app/model/send_mode.dart';
@@ -25,6 +24,7 @@ import 'package:localsend_isolates/rust/api/http.dart' as rust_http;
 import 'package:localsend_isolates/rust/api/model.dart' as rust_model;
 import 'package:localsend_isolates/util/rust.dart';
 import 'package:localsend_isolates/util/sleep.dart';
+import 'package:localsend_isolates/util/transfer_notification.dart';
 import 'package:logging/logging.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 import 'package:routerino/routerino.dart';
@@ -306,7 +306,46 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
       ),
     );
 
+    // Keep the process alive for the whole transfer. Started here, while the app is still in the
+    // foreground, because Android 12+ rejects starting a foreground service from the background.
+    TransferNotification.start(sessionId: sessionId, receiving: false);
+
     await _sendLoop(sessionId, sendingFiles);
+  }
+
+  /// Reports the total session progress to the foreground service notification,
+  /// so that it stays up to date while the app is minimized.
+  void _updateForegroundServiceProgress(String sessionId) {
+    if (!TransferNotification.shouldUpdate) {
+      // Checked before the sum below because progress events arrive several times per second per file.
+      return;
+    }
+
+    final session = state[sessionId];
+    if (session == null) {
+      return;
+    }
+
+    final progress = ref.read(progressProvider);
+    int currentBytes = 0;
+    int totalBytes = 0;
+    for (final sendingFile in session.files.values) {
+      if (sendingFile.status == FileStatus.skipped) {
+        // not accepted by the receiver
+        continue;
+      }
+      final size = sendingFile.file.size;
+      totalBytes += size;
+      currentBytes += (progress.getProgress(sessionId: sessionId, fileId: sendingFile.file.id) * size).round();
+    }
+
+    TransferNotification.update(
+      sessionId: sessionId,
+      currentBytes: currentBytes,
+      totalBytes: totalBytes,
+      startTime: session.startTime,
+      endTime: session.endTime,
+    );
   }
 
   Future<void> _sendLoop(String sessionId, Map<String, SendingFile> files) async {
@@ -328,6 +367,9 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
     if (sessionState == null) {
       return;
     }
+
+    // The transfer is over, the process no longer needs to be kept alive for it.
+    TransferNotification.stop(sessionId);
 
     if (state[sessionId]!.status != SessionStatus.sending) {
       _logger.info('Transfer was canceled.');
@@ -472,6 +514,7 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
                   fileId: event.fileId,
                   progress: event.progress,
                 );
+            _updateForegroundServiceProgress(sessionId);
           case HttpUploadFileFinishedEvent():
             // set progress to 100% when successfully finished
             ref
@@ -481,6 +524,7 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
                   fileId: event.fileId,
                   progress: 1,
                 );
+            _updateForegroundServiceProgress(sessionId);
             state = state.updateSession(
               sessionId: sessionId,
               state: (s) => s?.withFileStatus(event.fileId, FileStatus.finished, null),
@@ -560,6 +604,7 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
     if (sessionState == null) {
       return;
     }
+    TransferNotification.stop(sessionId);
     _cancelRunningRequests(sessionState);
 
     state = state.updateSession(
@@ -589,6 +634,7 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
     if (sessionState == null) {
       return;
     }
+    TransferNotification.stop(sessionId);
     state = state.removeSession(ref, sessionId);
     if (sessionState.status == SessionStatus.finished && ref.read(settingsProvider).sendMode == SendMode.single) {
       // clear selected files
@@ -597,6 +643,9 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
   }
 
   void clearAllSessions() {
+    for (final sessionId in state.keys) {
+      TransferNotification.stop(sessionId);
+    }
     state = {};
     ref.notifier(progressProvider).removeAllSessions();
   }

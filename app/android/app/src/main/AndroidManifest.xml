@@ -15,6 +15,10 @@
 
     <uses-permission android:name="android.permission.BIND_QUICK_SETTINGS_TILE" tools:targetApi="24" />
 
+    <!-- localsend: keep the app process alive while files are being received.
+         FOREGROUND_SERVICE and POST_NOTIFICATIONS come from the flutter_foreground_task manifest. -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
+
     <!-- Android TV -->
     <uses-feature android:name="android.software.leanback" android:required="false" />
     <uses-feature android:name="android.hardware.touchscreen" android:required="false" />
@@ -80,6 +84,13 @@
                 <action android:name="android.service.quicksettings.action.QS_TILE"/>
             </intent-filter>
         </service>
+
+        <!-- Foreground service showing the receive progress.
+             Warning: the name is defined by flutter_foreground_task and must not be changed. -->
+        <service
+            android:name="com.pravera.flutter_foreground_task.service.ForegroundService"
+            android:foregroundServiceType="dataSync"
+            android:exported="false" />
 
         <!-- Don't delete the meta-data below.
              This is used by the Flutter tool to generate GeneratedPluginRegistrant.java -->

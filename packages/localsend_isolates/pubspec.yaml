@@ -13,6 +13,7 @@ dependencies:
   dart_mappable: 4.8.0
   flutter:
     sdk: flutter
+  flutter_foreground_task: 9.2.2
   flutter_rust_bridge: 2.12.0
   freezed_annotation: 3.1.0
   gal: 2.3.2

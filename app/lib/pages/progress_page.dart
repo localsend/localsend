@@ -11,12 +11,11 @@ import 'package:localsend_app/provider/network/send_provider.dart';
 import 'package:localsend_app/provider/network/server/server_provider.dart';
 import 'package:localsend_app/provider/progress_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
-import 'package:localsend_app/util/file_size_helper.dart';
-import 'package:localsend_app/util/file_speed_helper.dart';
 import 'package:localsend_app/util/native/open_file.dart';
 import 'package:localsend_app/util/native/open_folder.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_app/util/native/taskbar_helper.dart';
+import 'package:localsend_app/util/notification_strings.dart';
 import 'package:localsend_app/util/ui/nav_bar_padding.dart';
 import 'package:localsend_app/widget/custom_basic_appbar.dart';
 import 'package:localsend_app/widget/custom_progress_bar.dart';
@@ -26,6 +25,8 @@ import 'package:localsend_app/widget/file_thumbnail.dart';
 import 'package:localsend_isolates/model/dto/file_dto.dart';
 import 'package:localsend_isolates/model/file_status.dart';
 import 'package:localsend_isolates/model/session_status.dart';
+import 'package:localsend_isolates/util/file_size_helper.dart';
+import 'package:localsend_isolates/util/file_speed_helper.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 import 'package:routerino/routerino.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
@@ -217,7 +218,7 @@ class _ProgressPageState extends State<ProgressPage> with Refena {
 
       final now = DateTime.now().millisecondsSinceEpoch;
       if (now - _lastRemainingTimeUpdate >= 1000) {
-        _remainingTime = getRemainingTime(bytesPerSeconds: speedInBytes, remainingBytes: _totalBytes - currBytes);
+        _remainingTime = getRemainingTime(bytesPerSeconds: speedInBytes, remainingBytes: _totalBytes - currBytes, strings: notificationStrings);
         _lastRemainingTimeUpdate = now;
       }
     } else {

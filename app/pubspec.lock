@@ -519,6 +519,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.7.0"
+  flutter_foreground_task:
+    dependency: transitive
+    description:
+      name: flutter_foreground_task
+      sha256: fc5c01a5e1b8f7bb51d0c737714f0c50440dbdf1aeddc5f8cbba313aa6fd4856
+      url: "https://pub.dev"
+    source: hosted
+    version: "9.2.2"
   flutter_gen_core:
     dependency: transitive
     description:
