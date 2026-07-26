@@ -62,33 +62,39 @@ class _ProgressPageState extends State<ProgressPage> with Refena {
 
   bool _advanced = false;
 
+  /// On Android the foreground service keeps the process and the connection alive,
+  /// so there is no reason to also keep the screen on.
+  bool get _useWakelock => checkPlatformIsNot([TargetPlatform.android]);
+
   @override
   void initState() {
     super.initState();
 
     // init
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      try {
-        unawaited(WakelockPlus.enable());
-      } catch (_) {}
+      if (_useWakelock) {
+        try {
+          unawaited(WakelockPlus.enable());
+        } catch (_) {}
 
-      // Periodically call WakelockPlus.enable() to keep the screen awake
-      _wakelockPlusTimer = Timer.periodic(const Duration(seconds: 30), (timer) {
-        final finished =
-            ref.read(serverProvider)?.session?.files.values.map((e) => e.status).isFinishedOrSkipped ??
-            ref.read(sendProvider)[widget.sessionId]?.files.values.map((e) => e.status).isFinishedOrSkipped ??
-            true;
-        if (finished) {
-          timer.cancel();
-          try {
-            unawaited(WakelockPlus.disable());
-          } catch (_) {}
-        } else {
-          try {
-            unawaited(WakelockPlus.enable());
-          } catch (_) {}
-        }
-      });
+        // Periodically call WakelockPlus.enable() to keep the screen awake
+        _wakelockPlusTimer = Timer.periodic(const Duration(seconds: 30), (timer) {
+          final finished =
+              ref.read(serverProvider)?.session?.files.values.map((e) => e.status).isFinishedOrSkipped ??
+              ref.read(sendProvider)[widget.sessionId]?.files.values.map((e) => e.status).isFinishedOrSkipped ??
+              true;
+          if (finished) {
+            timer.cancel();
+            try {
+              unawaited(WakelockPlus.disable());
+            } catch (_) {}
+          } else {
+            try {
+              unawaited(WakelockPlus.enable());
+            } catch (_) {}
+          }
+        });
+      }
 
       if (ref.read(settingsProvider).autoFinish) {
         _finishTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
@@ -174,9 +180,11 @@ class _ProgressPageState extends State<ProgressPage> with Refena {
     _finishTimer?.cancel();
     _wakelockPlusTimer?.cancel();
     TaskbarHelper.clearProgressBar(); // ignore: discarded_futures
-    try {
-      WakelockPlus.disable(); // ignore: discarded_futures
-    } catch (_) {}
+    if (_useWakelock) {
+      try {
+        WakelockPlus.disable(); // ignore: discarded_futures
+      } catch (_) {}
+    }
   }
 
   @override
