@@ -134,7 +134,23 @@ class _SendPageState extends State<SendPage> with Refena {
                             switch (sendState.status) {
                               SessionStatus.waiting => Padding(
                                 padding: const EdgeInsets.only(bottom: 20),
-                                child: Text(t.sendPage.waiting, textAlign: TextAlign.center),
+                                child: sendState.hashedFileCount < sendState.files.length
+                                    ? Column(
+                                        children: [
+                                          Text(
+                                            t.sendPage.calculatingChecksum(curr: sendState.hashedFileCount, n: sendState.files.length),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                          const SizedBox(height: 15),
+                                          SizedBox(
+                                            width: 200,
+                                            child: LinearProgressIndicator(
+                                              value: sendState.hashedFileCount / sendState.files.length,
+                                            ),
+                                          ),
+                                        ],
+                                      )
+                                    : Text(t.sendPage.waiting, textAlign: TextAlign.center),
                               ),
                               SessionStatus.declined => Padding(
                                 padding: const EdgeInsets.only(bottom: 20),

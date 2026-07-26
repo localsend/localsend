@@ -1,7 +1,7 @@
 import 'package:flutter/services.dart';
 import 'package:localsend_isolates/isolate.dart';
 import 'package:localsend_isolates/model/device.dart';
-import 'package:localsend_isolates/rust/api/http.dart';
+import 'package:localsend_isolates/rust/api/cancel.dart';
 import 'package:localsend_isolates/src/isolate/child/main.dart';
 import 'package:localsend_isolates/src/isolate/dto/send_to_isolate_data.dart';
 import 'package:localsend_isolates/src/task/upload/http_upload.dart';

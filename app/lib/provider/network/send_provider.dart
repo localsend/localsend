@@ -20,8 +20,10 @@ import 'package:localsend_isolates/model/dto/file_dto.dart';
 import 'package:localsend_isolates/model/file_status.dart';
 import 'package:localsend_isolates/model/file_type.dart';
 import 'package:localsend_isolates/model/session_status.dart';
+import 'package:localsend_isolates/rust/api/cancel.dart' as rust_cancel;
 import 'package:localsend_isolates/rust/api/http.dart' as rust_http;
 import 'package:localsend_isolates/rust/api/model.dart' as rust_model;
+import 'package:localsend_isolates/util/file_hash.dart';
 import 'package:localsend_isolates/util/rust.dart';
 import 'package:localsend_isolates/util/sleep.dart';
 import 'package:localsend_isolates/util/transfer_notification.dart';
@@ -45,6 +47,10 @@ final sendProvider = NotifierProvider<SendNotifier, Map<String, SendSessionState
 class SendNotifier extends Notifier<Map<String, SendSessionState>> {
   SendNotifier();
 
+  /// Cancel tokens of the running checksum calculations.
+  /// Session ID -> Cancel token
+  final _hashCancelTokens = <String, rust_cancel.RsCancellationToken>{};
+
   @override
   Map<String, SendSessionState> init() {
     return {};
@@ -61,51 +67,109 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
     final client = ref.read(httpProvider).v2;
     final sessionId = _uuid.v4();
 
-    final requestState = SendSessionState(
+    // The ids are assigned upfront, so the checksums calculated below
+    // can be mapped back to the corresponding file.
+    final selectedFiles = files.map((file) => (id: _uuid.v4(), file: file)).toList();
+
+    state = state.updateSession(
       sessionId: sessionId,
-      remoteSessionId: null,
-      background: background,
-      status: SessionStatus.waiting,
-      target: target,
-      files: Map.fromEntries(
-        await Future.wait(
-          files.map((file) async {
-            final id = _uuid.v4();
-            return MapEntry(
-              id,
-              SendingFile(
-                file: FileDto(
-                  id: id,
-                  fileName: file.name,
-                  size: file.size,
-                  fileType: file.fileType,
-                  hash: null,
-                  preview: files.length == 1 && files.first.fileType == FileType.text && files.first.bytes != null
-                      ? utf8.decode(files.first.bytes!) // send simple message by embedding it into the preview
-                      : null,
-                  metadata: file.lastModified != null || file.lastAccessed != null
-                      ? FileMetadata(
-                          lastModified: file.lastModified,
-                          lastAccessed: file.lastAccessed,
-                        )
-                      : null,
-                ),
-                status: FileStatus.queue,
-                token: null,
-                thumbnail: file.thumbnail,
-                asset: file.asset,
-                path: file.path,
-                bytes: file.bytes,
-                errorMessage: null,
+      state: (_) => SendSessionState(
+        sessionId: sessionId,
+        remoteSessionId: null,
+        background: background,
+        status: SessionStatus.waiting,
+        target: target,
+        files: {
+          for (final (:id, :file) in selectedFiles)
+            id: SendingFile(
+              file: FileDto(
+                id: id,
+                fileName: file.name,
+                size: file.size,
+                fileType: file.fileType,
+                hash: null,
+                // calculated below
+                preview: files.length == 1 && files.first.fileType == FileType.text && files.first.bytes != null
+                    ? utf8.decode(files.first.bytes!) // send simple message by embedding it into the preview
+                    : null,
+                metadata: file.lastModified != null || file.lastAccessed != null
+                    ? FileMetadata(
+                        lastModified: file.lastModified,
+                        lastAccessed: file.lastAccessed,
+                      )
+                    : null,
               ),
-            );
-          }),
-        ),
+              status: FileStatus.queue,
+              token: null,
+              thumbnail: file.thumbnail,
+              asset: file.asset,
+              path: file.path,
+              bytes: file.bytes,
+              errorMessage: null,
+            ),
+        },
+        hashedFileCount: 0,
+        startTime: null,
+        endTime: null,
+        sendingTasks: [],
+        errorMessage: null,
       ),
-      startTime: null,
-      endTime: null,
-      sendingTasks: [],
-      errorMessage: null,
+    );
+
+    if (!background) {
+      // ignore: use_build_context_synchronously, unawaited_futures
+      Routerino.context.push(
+        () => SendPage(showAppBar: false, closeSessionOnClose: true, sessionId: sessionId),
+        transition: RouterinoTransition.fade(),
+      );
+    }
+
+    // Calculate the checksums which are part of the request.
+    // The files are read and hashed in Rust, one file after another.
+    final hashCancelToken = rust_cancel.createCancellationToken();
+    _hashCancelTokens[sessionId] = hashCancelToken;
+    final hashes = <String, String>{};
+    try {
+      for (final (:id, :file) in selectedFiles) {
+        try {
+          hashes[id] = await calculateFileHash(path: file.path, bytes: file.bytes, cancelToken: hashCancelToken);
+        } catch (e) {
+          if (state[sessionId] != null) {
+            // Sending the checksum is optional, so a file that cannot be read
+            // here still gets a chance to be sent.
+            // Errors caused by the cancellation are not logged.
+            _logger.warning('Could not calculate the checksum of ${file.name}', e);
+          }
+        }
+
+        if (state[sessionId] == null) {
+          // session has been canceled while calculating the checksums
+          return;
+        }
+
+        state = state.updateSession(
+          sessionId: sessionId,
+          state: (s) => s?.copyWith(hashedFileCount: s.hashedFileCount + 1),
+        );
+      }
+    } finally {
+      _hashCancelTokens.remove(sessionId);
+    }
+
+    final hashedState = state[sessionId];
+    if (hashedState == null) {
+      // session has been canceled while calculating the checksums
+      return;
+    }
+
+    final requestState = hashedState.copyWith(
+      files: hashedState.files.map(
+        (id, sendingFile) => MapEntry(id, sendingFile.copyWith(file: sendingFile.file.withHash(hashes[id]))),
+      ),
+    );
+    state = state.updateSession(
+      sessionId: sessionId,
+      state: (_) => requestState,
     );
 
     final originDevice = ref.read(deviceFullInfoProvider);
@@ -124,19 +188,6 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
         for (final entry in requestState.files.entries) entry.key: entry.value.file.toRust(),
       },
     );
-
-    state = state.updateSession(
-      sessionId: sessionId,
-      state: (_) => requestState,
-    );
-
-    if (!background) {
-      // ignore: use_build_context_synchronously, unawaited_futures
-      Routerino.context.push(
-        () => SendPage(showAppBar: false, closeSessionOnClose: true, sessionId: sessionId),
-        transition: RouterinoTransition.fade(),
-      );
-    }
 
     rust_http.PrepareUploadResult? response;
     bool invalidPin;
@@ -617,6 +668,8 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
   }
 
   void _cancelRunningRequests(SendSessionState state) {
+    _hashCancelTokens.remove(state.sessionId)?.cancel();
+
     for (final task in state.sendingTasks ?? <SendingTask>[]) {
       ref
           .redux(parentIsolateProvider)
@@ -635,6 +688,7 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
       return;
     }
     TransferNotification.stop(sessionId);
+    _hashCancelTokens.remove(sessionId)?.cancel();
     state = state.removeSession(ref, sessionId);
     if (sessionState.status == SessionStatus.finished && ref.read(settingsProvider).sendMode == SendMode.single) {
       // clear selected files
@@ -646,6 +700,10 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
     for (final sessionId in state.keys) {
       TransferNotification.stop(sessionId);
     }
+    for (final cancelToken in _hashCancelTokens.values) {
+      cancelToken.cancel();
+    }
+    _hashCancelTokens.clear();
     state = {};
     ref.notifier(progressProvider).removeAllSessions();
   }

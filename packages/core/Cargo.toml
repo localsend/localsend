@@ -40,7 +40,7 @@ x509-parser = { version = "0.18.0", features = ["verify"], optional = true }
 
 [features]
 default = []
-crypto = ["ed25519-dalek", "rsa", "sha2"]
+crypto = ["ed25519-dalek", "rsa", "sha2", "tokio-util"]
 http = ["crypto", "form_urlencoded", "http-body-util", "hyper", "hyper-util", "pem", "percent-encoding", "reqwest", "rustls", "socket2", "tokio-rustls", "tokio-util", "x509-parser"]
 webrtc-signaling = ["tokio-tungstenite"]
 webrtc = ["crypto", "flate2", "dep:webrtc", "webrtc-signaling", "x509-parser"]

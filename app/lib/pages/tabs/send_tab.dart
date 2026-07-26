@@ -529,6 +529,7 @@ class _MultiSendDeviceListTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final ref = context.ref;
     final session = ref.watch(sendProvider).values.firstWhereOrNull((s) => s.target.ip == device.ip);
+    final String? info;
     final double? progress;
     if (session != null) {
       final files = session.files.values.where((f) => f.token != null);
@@ -539,12 +540,16 @@ class _MultiSendDeviceListTile extends StatelessWidget {
       );
       final totalBytes = files.fold<int>(0, (prev, curr) => prev + curr.file.size);
       progress = totalBytes == 0 ? 0 : currBytes / totalBytes;
+      info = session.hashedFileCount < session.files.length
+          ? t.sendPage.calculatingChecksum(curr: session.hashedFileCount, n: session.files.length)
+          : session.status.humanString;
     } else {
       progress = null;
+      info = null;
     }
     return DeviceListTile(
       device: device,
-      info: session?.status.humanString,
+      info: info,
       progress: progress,
       isFavorite: isFavorite,
       nameOverride: nameOverride,

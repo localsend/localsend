@@ -41,6 +41,19 @@ class FileDto {
 
   String lookupMime() => lookupMimeType(fileName) ?? 'application/octet-stream';
 
+  /// Returns a copy of this DTO with the given [hash].
+  FileDto withHash(String? hash) {
+    return FileDto(
+      id: id,
+      fileName: fileName,
+      size: size,
+      fileType: fileType,
+      hash: hash,
+      preview: preview,
+      metadata: metadata,
+    );
+  }
+
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||

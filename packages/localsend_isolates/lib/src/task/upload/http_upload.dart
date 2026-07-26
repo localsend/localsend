@@ -1,4 +1,5 @@
 import 'package:localsend_isolates/model/device.dart';
+import 'package:localsend_isolates/rust/api/cancel.dart';
 import 'package:localsend_isolates/rust/api/http.dart';
 import 'package:localsend_isolates/rust/api/stream.dart';
 import 'package:localsend_isolates/src/isolate/child/http_provider.dart';
