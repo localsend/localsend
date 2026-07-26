@@ -137,10 +137,10 @@
       "discoveryTimeout": "Tidsgräns för enhetssökning",
       "useSystemName": "Använd systemnamn",
       "generateRandomAlias": "Skapa slumpmässigt enhetsnamn",
-      "portWarning": "Andra enheter kanske inte hittar dig eftersom du använder en anpassad port.\n(Standard: {defaultPort})",
+      "portWarning": "Andra enheter kanske inte hittar dig eftersom du använder en anpassad port. (Standard: {defaultPort})",
       "encryption": "Kryptering",
       "multicastGroup": "Multicast-adress",
-      "multicastGroupWarning": "Andra enheter kanske inte hittar dig eftersom du använder en anpassad multicast-adress.\n(Standard: {defaultMulticast})",
+      "multicastGroupWarning": "Andra enheter kanske inte hittar dig eftersom du använder en anpassad multicast-adress. (Standard: {defaultMulticast})",
       "network": "Nätverk",
       "networkOptions": {
         "all": "Alla",
@@ -238,8 +238,8 @@
       "minutes": "{n}:{ss}",
       "hours": "{h}h {m}m",
       "days": "{d}d {h}h {m}m",
-      "@hours": "Use 'h' for hours abbreviation and 'm' for minutes",
-      "@days": "Use 'd' for days, 'h' for hours, and 'm' for minutes"
+      "@hours": "Använd ”h” som förkortning för timmar och ”m” för minuter",
+      "@days": "Använd ”d” för dagar, ”h” för timmar och ”m” för minuter"
     }
   },
   "webSharePage": {
@@ -282,7 +282,7 @@
     "title": "Ändringslogg"
   },
   "aliasGenerator(ignoreMissing, ignoreGpt)": {
-    "@info": "Different locales may have different words, it may not match 1:1",
+    "@info": "Olika språk kan ha olika ord, det kanske inte matchar 1:1",
     "adjectives": [
       "Bedårande",
       "Vacker",
@@ -479,7 +479,7 @@
     "invalid": "Filnamnet innehåller ogiltiga tecken."
   },
   "tray": {
-    "@info": "Apple Guidelines are very strict about the \"close\" wording.",
+    "@info": "Apples riktlinjer är mycket strikta gällande formuleringen ”stäng”.",
     "open": "@:general.open",
     "close": "Avsluta LocalSend",
     "closeWindows": "Avsluta"
@@ -527,7 +527,7 @@
   },
   "networkInterfacesPage": {
     "title": "Nätverksgränssnitt",
-    "info": "Som standard använder LocalSend alla tillgängliga nätverksgränssnitt. Du kan utesluta oönskade nätverk här.\nStarta om servern för att tillämpa ändringarna.",
+    "info": "Som standard använder LocalSend alla tillgängliga nätverksgränssnitt. Du kan utesluta oönskade nätverk här. Starta om servern för att tillämpa ändringarna.",
     "preview": "Förhandsvisning",
     "whitelist": "Tillåtelselista",
     "blacklist": "Blockeringslista"

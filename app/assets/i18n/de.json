@@ -179,7 +179,7 @@
     "title": "Netzwerkschnittstellen",
     "info": "Standardmäßig verwendet LocalSend alle verfügbaren Netzwerkschnittstellen. Hier können Sie unerwünschte Netzwerke ausschließen. Sie müssen den Server neu starten, um die Änderungen zu übernehmen.",
     "preview": "Vorschau",
-    "whitelist": "Ausnahmeliste",
+    "whitelist": "Zulassungsliste",
     "blacklist": "Sperrliste"
   },
   "receiveHistoryPage": {

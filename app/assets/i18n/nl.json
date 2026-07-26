@@ -238,8 +238,8 @@
       "minutes": "{n}:{ss}",
       "hours": "{h}u {m}m",
       "days": "{d}d {h}u {m}m",
-      "@hours": "Gebruik 'h' als afkorting voor uren en 'm' voor minuten",
-      "@days": "Gebruik 'd' voor dagen, 'h' voor uren en 'm' voor minuten"
+      "@hours": "Gebruik 'u' als afkorting voor uren en 'm' voor minuten",
+      "@days": "Gebruik 'd' voor dagen, 'u' voor uren en 'm' voor minuten"
     }
   },
   "webSharePage": {
