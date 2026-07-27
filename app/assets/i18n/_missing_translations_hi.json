@@ -7,8 +7,8 @@
     "remainingTime": {
       "seconds": "{n}:{ss}",
       "minutes": "{n}:{ss}",
-      "hours": "{h}h {m}m",
-      "days": "{d}d {h}h {m}m"
+      "hours": "{h}घं {m}मि",
+      "days": "{d}दि {h}घं {m}मि"
     }
   }
 }
