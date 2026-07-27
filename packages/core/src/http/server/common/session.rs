@@ -1,6 +1,6 @@
+use crate::http::server::PeerIp;
 use crate::model::transfer::FileDto;
 use std::collections::HashMap;
-use std::net::IpAddr;
 
 /// State of the single v2 upload session slot.
 pub(crate) enum SessionStateV2 {
@@ -15,7 +15,7 @@ pub(crate) struct UploadSessionV2 {
     pub(crate) session_id: String,
 
     /// The IP address of the sender. Uploads are only accepted from this address.
-    pub(crate) sender_ip: IpAddr,
+    pub(crate) sender_ip: PeerIp,
 
     /// The accepted files, mapped by file ID.
     pub(crate) files: HashMap<String, SessionFileV2>,

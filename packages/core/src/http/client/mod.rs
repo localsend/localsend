@@ -1,3 +1,4 @@
+mod scoped_host;
 mod server_cert_verifier;
 mod url;
 pub mod v2;
@@ -223,7 +224,8 @@ pub(super) fn create_reqwest_client(
 
     let mut builder = reqwest::Client::builder()
         .tls_backend_preconfigured(tls_config)
-        .tls_info(true);
+        .tls_info(true)
+        .dns_resolver(Arc::new(ScopedHostResolver));
 
     if let Some(timeout) = timeout {
         builder = builder.timeout(timeout);
@@ -232,6 +234,27 @@ pub(super) fn create_reqwest_client(
     let client = builder.build()?;
 
     Ok(client)
+}
+
+/// DNS resolver that turns the synthetic host names produced by
+/// [`scoped_host::encode`] back into their scoped IPv6 socket address.
+/// Every other name is resolved by the system resolver, like by default.
+struct ScopedHostResolver;
+
+impl reqwest::dns::Resolve for ScopedHostResolver {
+    fn resolve(&self, name: reqwest::dns::Name) -> reqwest::dns::Resolving {
+        Box::pin(async move {
+            if let Some(addr) = scoped_host::decode(name.as_str()) {
+                return Ok(Box::new(std::iter::once(addr)) as reqwest::dns::Addrs);
+            }
+
+            // The port is a placeholder, reqwest replaces it with the URL's.
+            let addrs = tokio::net::lookup_host((name.as_str(), 0))
+                .await?
+                .collect::<Vec<_>>();
+            Ok(Box::new(addrs.into_iter()) as reqwest::dns::Addrs)
+        })
+    }
 }
 
 /// Verifies the certificate from the response.

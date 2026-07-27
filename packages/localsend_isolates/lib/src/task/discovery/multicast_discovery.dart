@@ -1,15 +1,13 @@
 import 'dart:async';
-import 'dart:convert';
-import 'dart:io';
 
 import 'package:localsend_isolates/constants.dart';
-import 'package:localsend_isolates/isolate.dart';
 import 'package:localsend_isolates/model/device.dart';
 import 'package:localsend_isolates/model/dto/multicast_dto.dart';
+import 'package:localsend_isolates/rust/api/multicast.dart';
+import 'package:localsend_isolates/rust/api/server.dart' show ProtocolTypeV2;
 import 'package:localsend_isolates/src/isolate/child/http_provider.dart';
-import 'package:localsend_isolates/util/network_interfaces.dart';
+import 'package:localsend_isolates/src/isolate/child/sync_provider.dart';
 import 'package:localsend_isolates/util/rust.dart';
-import 'package:localsend_isolates/util/sleep.dart';
 import 'package:logging/logging.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 
@@ -23,11 +21,13 @@ class MulticastService {
   MulticastService(this._ref);
 
   final Ref _ref;
-  Completer<void> _cancelCompleter = Completer();
+  RsMulticast? _multicast;
+  Completer<void> _retryCompleter = Completer();
   bool _listening = false;
 
-  /// Binds the UDP port and listen to UDP multicast packages
-  /// It will automatically answer announcement messages
+  /// Binds the UDP sockets and listens to multicast announcements.
+  /// Announcements of other devices are answered with an HTTP register
+  /// request while the server is running.
   Stream<Device> startListener() async* {
     if (_listening) {
       _logger.info('Already listening to multicast');
@@ -37,99 +37,78 @@ class MulticastService {
     _listening = true;
 
     while (true) {
-      final streamController = StreamController<Device>();
       final syncState = _ref.read(syncProvider);
 
-      final sockets = await _getSockets(
-        whitelist: syncState.networkWhitelist,
-        blacklist: syncState.networkBlacklist,
-        multicastGroup: syncState.multicastGroup,
-        port: syncState.port,
-      );
-      for (final socket in sockets) {
-        socket.socket.listen((_) {
-          final datagram = socket.socket.receive();
-          if (datagram == null) {
-            return;
-          }
-
-          try {
-            final dto = MulticastDto.fromJson(jsonDecode(utf8.decode(datagram.data)));
-            if (dto.fingerprint == syncState.securityContext.certificateHash) {
-              return;
-            }
-
-            final ip = datagram.address.address;
-            final peer = dto.toDevice(ip, syncState.port, syncState.protocol == ProtocolType.https);
-            streamController.add(peer);
-            if ((dto.announcement == true || dto.announce == true) && syncState.serverRunning) {
-              // only respond when server is running
-              // ignore: discarded_futures
-              _answerAnnouncement(peer);
-            }
-          } catch (e) {
-            _logger.warning('Could not parse multicast message', e);
-          }
-        });
-        _logger.info(
-          'Bind UDP multicast port (ip: ${socket.interface.addresses.map((a) => a.address).toList()}, group: ${syncState.multicastGroup}, port: ${syncState.port})',
+      final RsMulticast multicast;
+      try {
+        multicast = await startMulticast(
+          group: syncState.multicastGroup,
+          port: syncState.port,
+          networkWhitelist: syncState.networkWhitelist,
+          networkBlacklist: syncState.networkBlacklist,
+          alias: syncState.alias,
+          version: protocolVersion,
+          deviceModel: syncState.deviceInfo.deviceModel,
+          deviceType: syncState.deviceInfo.deviceType.toRust(),
+          fingerprint: syncState.securityContext.certificateHash,
+          protocol: syncState.protocol == ProtocolType.https ? ProtocolTypeV2.https : ProtocolTypeV2.http,
+          download: syncState.download,
         );
+      } catch (e) {
+        _logger.warning('Could not start multicast discovery (group: ${syncState.multicastGroup}, port: ${syncState.port})', e);
+        // Wait for the next restart request instead of hot-looping
+        _retryCompleter = Completer();
+        await _retryCompleter.future;
+        continue;
       }
 
-      // Tell everyone in the network that I am online
-      sendAnnouncement(); // ignore: unawaited_futures
+      _multicast = multicast;
 
-      _cancelCompleter = Completer();
+      // Tell everyone in the network that I am online.
+      unawaited(multicast.announce());
 
-      // ignore: unawaited_futures
-      _cancelCompleter.future.then((_) {
-        // ignore: discarded_futures
-        streamController.close();
-        for (final socket in sockets) {
-          socket.socket.close();
+      await for (final event in multicast.listen()) {
+        final device = event.message.toDevice(event.ip);
+        yield device;
+
+        if (_ref.read(syncProvider).serverRunning) {
+          // only respond when server is running
+          unawaited(_answerAnnouncement(device));
         }
-      });
+      }
 
-      yield* streamController.stream;
-
-      // streamController is closed because of cancel
-      // wait for resources to be released (it works without on macOS, but who knows)
-      await sleepAsync(500);
+      // The stream ended because [restartListener] stopped the discovery.
+      _multicast = null;
     }
   }
 
+  /// Restarts the listener, e.g. after the port or the network settings changed.
   void restartListener() {
-    _cancelCompleter.complete();
+    final multicast = _multicast;
+    if (multicast != null) {
+      // Ends the listen stream, which makes [startListener] rebind.
+      unawaited(multicast.stop());
+    } else if (!_retryCompleter.isCompleted) {
+      // Starting failed previously; let [startListener] try again.
+      _retryCompleter.complete();
+    }
   }
 
   /// Sends an announcement which triggers a response on every LocalSend member of the network.
   Future<void> sendAnnouncement() async {
-    final syncState = _ref.read(syncProvider);
-    final sockets = await _getSockets(
-      whitelist: syncState.networkWhitelist,
-      blacklist: syncState.networkBlacklist,
-      multicastGroup: syncState.multicastGroup,
-    );
-    final dto = _getMulticastDto(announcement: true);
-    for (final wait in [100, 500, 2000]) {
-      await sleepAsync(wait);
-
-      _logger.info('Announce via UDP');
-      for (final socket in sockets) {
-        try {
-          socket.socket.send(dto, InternetAddress(syncState.multicastGroup), syncState.port);
-          socket.socket.close();
-        } catch (e) {
-          _logger.warning('Could not send multicast message', e);
-        }
-      }
+    final multicast = _multicast;
+    if (multicast == null) {
+      _logger.info('Multicast discovery is not running, skipping announcement');
+      return;
     }
+
+    _logger.info('Announce via UDP');
+    await multicast.announce();
   }
 
-  /// Responds to an announcement.
+  /// Responds to an announcement over HTTP.
   Future<void> _answerAnnouncement(Device peer) async {
     try {
-      // Answer with TCP
       await _ref
           .read(httpProvider)
           .discovery
@@ -141,75 +120,7 @@ class MulticastService {
           );
       _logger.info('Respond to announcement of ${peer.alias} (${peer.ip}, model: ${peer.deviceModel}) via TCP');
     } catch (e) {
-      // Fallback: Answer with UDP
-      final syncState = _ref.read(syncProvider);
-      final sockets = await _getSockets(
-        whitelist: syncState.networkWhitelist,
-        blacklist: syncState.networkBlacklist,
-        multicastGroup: syncState.multicastGroup,
-      );
-      final dto = _getMulticastDto(announcement: false);
-      for (final socket in sockets) {
-        try {
-          socket.socket.send(dto, InternetAddress(syncState.multicastGroup), syncState.port);
-          socket.socket.close();
-        } catch (e) {
-          _logger.warning('Could not send multicast message', e);
-        }
-      }
-      _logger.info('Respond to announcement of ${peer.alias} (${peer.ip}, model: ${peer.deviceModel}) with UDP because TCP failed');
+      _logger.warning('Could not respond to announcement of ${peer.alias} (${peer.ip})', e);
     }
   }
-
-  /// Returns the MulticastDto of this device in bytes.
-  List<int> _getMulticastDto({required bool announcement}) {
-    final syncState = _ref.read(syncProvider);
-    final dto = MulticastDto(
-      alias: syncState.alias,
-      version: protocolVersion,
-      deviceModel: syncState.deviceInfo.deviceModel,
-      deviceType: syncState.deviceInfo.deviceType,
-      fingerprint: syncState.securityContext.certificateHash,
-      port: syncState.port,
-      protocol: syncState.protocol,
-      download: syncState.download,
-      announcement: announcement,
-      announce: announcement,
-    );
-    return utf8.encode(jsonEncode(dto.toJson()));
-  }
-}
-
-class _SocketResult {
-  final NetworkInterface interface;
-  final RawDatagramSocket socket;
-
-  _SocketResult(this.interface, this.socket);
-}
-
-Future<List<_SocketResult>> _getSockets({
-  required List<String>? whitelist,
-  required List<String>? blacklist,
-  required String multicastGroup,
-  int? port,
-}) async {
-  final interfaces = await getNetworkInterfaces(
-    whitelist: whitelist,
-    blacklist: blacklist,
-  );
-  final sockets = <_SocketResult>[];
-  for (final interface in interfaces) {
-    try {
-      final socket = await RawDatagramSocket.bind(InternetAddress.anyIPv4, port ?? 0);
-      socket.joinMulticast(InternetAddress(multicastGroup), interface);
-      sockets.add(_SocketResult(interface, socket));
-    } catch (e) {
-      _logger.warning(
-        'Could not bind UDP multicast port (ip: ${interface.addresses.map((a) => a.address).toList()}, group: $multicastGroup, port: $port)',
-        e,
-      );
-    }
-  }
-
-  return sockets;
 }

@@ -1,3 +1,4 @@
+use crate::http::client::scoped_host;
 use std::borrow::Cow;
 
 pub struct TargetUrl<'a> {
@@ -22,9 +23,14 @@ impl<'a> TargetUrl<'a> {
         let base = format!(
             "{}://{}:{}/api/localsend/{}{}",
             self.protocol,
-            match self.host.contains(':') {
-                true => Cow::Owned(format!("[{}]", self.host)), // IPv6 addresses need to be enclosed in brackets
-                false => Cow::Borrowed(&self.host),
+            // A scoped IPv6 address (`fe80::1%3`) cannot be represented in a
+            // URL and becomes a synthetic host name instead.
+            match scoped_host::encode(&self.host) {
+                Some(encoded) => Cow::Owned(encoded),
+                None => match self.host.contains(':') {
+                    true => Cow::Owned(format!("[{}]", self.host)), // IPv6 addresses need to be enclosed in brackets
+                    false => Cow::Borrowed(&self.host),
+                },
             },
             self.port,
             match self.version {
@@ -77,6 +83,23 @@ mod tests {
         }
         .to_string();
         assert_eq!(url, "https://[::1]:53317/api/localsend/v2/register");
+    }
+
+    #[test]
+    fn test_build_url_scoped_ipv6() {
+        let url = TargetUrl {
+            version: ApiVersion::V2,
+            protocol: "https",
+            host: "fe80::1%3".to_string(),
+            port: 53317,
+            path: "/register",
+            params: &[],
+        }
+        .to_string();
+        assert_eq!(
+            url,
+            "https://fe80--1s3.scoped.localsend.internal:53317/api/localsend/v2/register"
+        );
     }
 
     #[test]

@@ -19,6 +19,10 @@ use tokio::sync::{Mutex, mpsc, oneshot};
 ///
 /// [RsServerEvent::PrepareUpload] must be answered with [RsHttpServer::respond_prepare_upload]
 /// and [RsServerEvent::FileUpload] with [RsHttpServer::respond_file_upload].
+///
+/// The `ip` of an event renders a link-local IPv6 peer as `fe80::1%3`,
+/// including the interface scope, which the Rust HTTP client accepts back as
+/// a host.
 pub enum RsServerEvent {
     /// A device registered itself via `POST /api/localsend/v2/register`.
     ///

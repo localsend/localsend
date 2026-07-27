@@ -3,6 +3,7 @@ use crate::http::server::common::error::AppError;
 use crate::http::server::common::pin::check_pin;
 use crate::http::server::common::query::parse_query;
 use crate::http::server::common::response::{full_body, BoxedBody, JsonResponse};
+use crate::http::server::PeerIp;
 use crate::http::server::{AppState, RequestClientInfo};
 use crate::model::transfer::{FileContent, FileDto};
 use bytes::Bytes;
@@ -31,7 +32,7 @@ pub enum WebSendEvent {
     /// Dropping `decision_tx` results in a 500 response.
     PrepareDownload {
         /// The IP address of the web client.
-        ip: IpAddr,
+        ip: PeerIp,
 
         /// The ID of the download session that is created when accepted.
         session_id: String,
@@ -168,7 +169,7 @@ impl WebPageState {
 /// A download session of a single web client.
 pub(crate) struct WebSendSession {
     /// The IP address of the web client. Downloads are only allowed from this address.
-    ip: IpAddr,
+    ip: PeerIp,
 
     /// `false` while the prepare-download request is waiting for the application's decision.
     accepted: bool,
@@ -222,7 +223,7 @@ pub(crate) async fn prepare_download(
         web.pin.as_deref(),
         &web.pin_attempts,
         &query,
-        client_info.ip,
+        client_info.ip.ip,
     )
     .await?;
 

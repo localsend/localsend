@@ -11,12 +11,12 @@ use crate::http::server::common::save::{FileUploadTarget, SaveResult};
 use crate::http::server::common::session::{
     FileStatusV2, SessionFileV2, SessionStateV2, UploadSessionV2,
 };
+use crate::http::server::PeerIp;
 use crate::http::server::{common, AppState, RequestClientInfo, V2State};
 use crate::model::transfer::FileDto;
 use hyper::body::Incoming;
 use hyper::{Request, Response, StatusCode};
 use std::collections::{HashMap, HashSet};
-use std::net::IpAddr;
 use std::sync::Arc;
 use tokio::sync::oneshot;
 use uuid::Uuid;
@@ -31,7 +31,7 @@ pub enum ServerEventV2 {
     /// handshake, so the fingerprint cannot be spoofed.
     Register {
         /// The IP address of the remote device.
-        ip: IpAddr,
+        ip: PeerIp,
 
         /// The device information sent by the remote device.
         info: RegisterDtoV2,
@@ -48,7 +48,7 @@ pub enum ServerEventV2 {
         session_id: String,
 
         /// The IP address of the sender.
-        ip: IpAddr,
+        ip: PeerIp,
 
         /// The device information of the sender.
         info: RegisterDtoV2,
@@ -112,7 +112,7 @@ pub enum ServerEventV2 {
     /// send session before cancelling it.
     CancelReceived {
         /// The IP address of the remote device requesting the cancellation.
-        ip: IpAddr,
+        ip: PeerIp,
 
         /// The session ID as known by the remote device.
         session_id: String,
@@ -212,7 +212,13 @@ pub(crate) async fn prepare_upload(
     let v2 = require_v2(&state)?;
     let query = parse_query(req.uri().query());
 
-    check_pin(v2.pin.as_deref(), &v2.pin_attempts, &query, client_info.ip).await?;
+    check_pin(
+        v2.pin.as_deref(),
+        &v2.pin_attempts,
+        &query,
+        client_info.ip.ip,
+    )
+    .await?;
 
     let payload = req
         .into_body()

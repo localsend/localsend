@@ -4,6 +4,7 @@ import 'package:localsend_isolates/model/dto/file_dto.dart';
 import 'package:localsend_isolates/model/dto/multicast_dto.dart';
 import 'package:localsend_isolates/rust/api/http.dart' as rust_http;
 import 'package:localsend_isolates/rust/api/model.dart' as rust_model;
+import 'package:localsend_isolates/rust/api/multicast.dart' as rust_multicast;
 import 'package:localsend_isolates/rust/api/server.dart' as rust_server;
 import 'package:localsend_isolates/src/isolate/child/sync_provider.dart';
 import 'package:mime/mime.dart';
@@ -124,6 +125,24 @@ extension RustFileDtoExt on rust_model.FileDto {
               lastAccessed: metadata!.accessed != null ? DateTime.tryParse(metadata!.accessed!) : null,
             )
           : null,
+    );
+  }
+}
+
+extension MulticastMessageV2Ext on rust_multicast.MulticastMessageV2 {
+  Device toDevice(String ip) {
+    return Device(
+      signalingId: null,
+      ip: ip,
+      version: version,
+      port: port,
+      https: protocol == rust_server.ProtocolTypeV2.https,
+      fingerprint: fingerprint,
+      alias: alias,
+      deviceModel: deviceModel,
+      deviceType: deviceType?.toDart() ?? DeviceType.desktop,
+      download: download,
+      discoveryMethods: {MulticastDiscovery()},
     );
   }
 }

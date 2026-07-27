@@ -1,8 +1,11 @@
 pub mod common;
 pub mod internal;
+mod peer_ip;
 pub mod v2;
 pub mod v3;
 pub mod web;
+
+pub use peer_ip::PeerIp;
 
 use crate::crypto::cert::{fingerprint_from_cert_der, public_key_from_cert_der};
 use crate::http::server::internal::{InternalConfig, InternalState};
@@ -299,7 +302,7 @@ async fn serve_connection(
             let client_info = {
                 let (_, server_connection) = tls_stream.get_ref();
                 RequestClientInfo {
-                    ip: remote_addr.ip(),
+                    ip: PeerIp::from_remote_addr(&remote_addr),
                     cert: server_connection
                         .deref()
                         .deref()
@@ -327,7 +330,7 @@ async fn serve_connection(
                     hyper::service::service_fn(move |mut req: Request<Incoming>| {
                         req.extensions_mut()
                             .insert::<RequestClientInfo>(RequestClientInfo {
-                                ip: remote_addr.ip(),
+                                ip: PeerIp::from_remote_addr(&remote_addr),
                                 cert: None,
                             });
                         req.extensions_mut().insert::<AppState>(app_state.clone());
@@ -359,8 +362,8 @@ fn create_tls_config(tls_config: &TlsConfig) -> anyhow::Result<tokio_rustls::Tls
 
 #[derive(Clone, Debug)]
 pub struct RequestClientInfo {
-    /// The IP address of the client.
-    ip: IpAddr,
+    /// The IP address of the client, including the IPv6 scope when present.
+    ip: PeerIp,
 
     /// The client certificate in DER format.
     cert: Option<Vec<u8>>,
