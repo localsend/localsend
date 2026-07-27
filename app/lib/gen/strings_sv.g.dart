@@ -54,6 +54,8 @@ class TranslationsSv extends Translations with BaseTranslations<AppLocale, Trans
   @override
   late final _Translations$troubleshootPage$sv troubleshootPage = _Translations$troubleshootPage$sv._(_root);
   @override
+  late final _Translations$networkInterfacesPage$sv networkInterfacesPage = _Translations$networkInterfacesPage$sv._(_root);
+  @override
   late final _Translations$receiveHistoryPage$sv receiveHistoryPage = _Translations$receiveHistoryPage$sv._(_root);
   @override
   late final _Translations$apkPickerPage$sv apkPickerPage = _Translations$apkPickerPage$sv._(_root);
@@ -87,8 +89,6 @@ class TranslationsSv extends Translations with BaseTranslations<AppLocale, Trans
   late final _Translations$web$sv web = _Translations$web$sv._(_root);
   @override
   late final _Translations$assetPicker$sv assetPicker = _Translations$assetPicker$sv._(_root);
-  @override
-  late final _Translations$networkInterfacesPage$sv networkInterfacesPage = _Translations$networkInterfacesPage$sv._(_root);
 }
 
 // Path: general
@@ -113,7 +113,7 @@ class _Translations$general$sv extends Translations$general$en {
   @override
   String get confirm => 'Bekräfta';
   @override
-  String get continueStr => 'Vidare';
+  String get continueStr => 'Fortsätt';
   @override
   String get copy => 'Kopiera';
   @override
@@ -133,9 +133,9 @@ class _Translations$general$sv extends Translations$general$en {
   @override
   String get files => 'Filer';
   @override
-  String get finished => 'Färdig';
+  String get finished => 'Slutförd';
   @override
-  String get hide => 'Göm';
+  String get hide => 'Dölj';
   @override
   String get off => 'Av';
   @override
@@ -151,21 +151,21 @@ class _Translations$general$sv extends Translations$general$en {
   @override
   String get quickSave => 'Snabbspara';
   @override
-  String get quickSaveFromFavorites => 'Snabbspara för "Favoriter"';
+  String get quickSaveFromFavorites => 'Snabbspara från favoriter';
   @override
-  String get renamed => 'Bytt namn';
+  String get renamed => 'Namnändrad';
   @override
-  String get reset => 'Återställ';
+  String get reset => 'Ångra ändringar';
   @override
   String get restart => 'Starta om';
   @override
   String get settings => 'Inställningar';
   @override
-  String get skipped => 'Hoppad över';
+  String get skipped => 'Hoppades över';
   @override
-  String get start => 'Börja';
+  String get start => 'Starta';
   @override
-  String get stop => 'Stopp';
+  String get stop => 'Stoppa';
   @override
   String get save => 'Spara';
   @override
@@ -173,7 +173,7 @@ class _Translations$general$sv extends Translations$general$en {
   @override
   String get unknown => 'Okänd';
   @override
-  String get noItemInClipboard => 'Inga objekt i urklipp.';
+  String get noItemInClipboard => 'Det finns inga objekt i urklipp.';
 }
 
 // Path: receiveTab
@@ -205,15 +205,15 @@ class _Translations$sendTab$sv extends Translations$sendTab$en {
   @override
   late final _Translations$sendTab$picker$sv picker = _Translations$sendTab$picker$sv._(_root);
   @override
-  String get shareIntentInfo => 'Du kan också använda "Dela"-funtionen i din mobiltelefon för att lättare välja filer.';
+  String get shareIntentInfo => 'Du kan också använda funktionen ”Dela” på mobilen för att enklare välja filer.';
   @override
-  String get nearbyDevices => 'Närbelägna enhter';
+  String get nearbyDevices => 'Närbelägna enheter';
   @override
-  String get thisDevice => 'Denna Enhet';
+  String get thisDevice => 'Den här enheten';
   @override
-  String get scan => 'Leta efter enheter';
+  String get scan => 'Sök efter enheter';
   @override
-  String get manualSending => 'Manuell sändning';
+  String get manualSending => 'Skicka manuellt';
   @override
   String get sendMode => 'Sändningsläge';
   @override
@@ -221,9 +221,9 @@ class _Translations$sendTab$sv extends Translations$sendTab$en {
   @override
   String get sendModeHelp => 'Förklaring';
   @override
-  String get help => 'Kontrollera att den sökta enheten är uppkopplad till samma wifi nätverk som din enhet.';
+  String get help => 'Kontrollera att målenheten är ansluten till samma Wi-Fi-nätverk.';
   @override
-  String get placeItems => 'Placera objekt att dela.';
+  String get placeItems => 'Lägg till objekt att dela.';
 }
 
 // Path: settingsTab
@@ -259,17 +259,37 @@ class _Translations$troubleshootPage$sv extends Translations$troubleshootPage$en
   @override
   String get title => 'Felsökning';
   @override
-  String get subTitle => 'Gör appen inte som förväntat? Här hittar du vanliga lösningar.';
+  String get subTitle => 'Fungerar inte appen som förväntat? Här finns vanliga lösningar på problem.';
   @override
   String get solution => 'Lösning:';
   @override
-  String get fixButton => 'Fixa automatiskt';
+  String get fixButton => 'Åtgärda automatiskt';
   @override
   late final _Translations$troubleshootPage$firewall$sv firewall = _Translations$troubleshootPage$firewall$sv._(_root);
   @override
   late final _Translations$troubleshootPage$noDiscovery$sv noDiscovery = _Translations$troubleshootPage$noDiscovery$sv._(_root);
   @override
   late final _Translations$troubleshootPage$noConnection$sv noConnection = _Translations$troubleshootPage$noConnection$sv._(_root);
+}
+
+// Path: networkInterfacesPage
+class _Translations$networkInterfacesPage$sv extends Translations$networkInterfacesPage$en {
+  _Translations$networkInterfacesPage$sv._(TranslationsSv root) : this._root = root, super.internal(root);
+
+  final TranslationsSv _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Nätverksgränssnitt';
+  @override
+  String get info =>
+      'Som standard använder LocalSend alla tillgängliga nätverksgränssnitt. Du kan utesluta oönskade nätverk här. Starta om servern för att tillämpa ändringarna.';
+  @override
+  String get preview => 'Förhandsvisning';
+  @override
+  String get whitelist => 'Tillåtelselista';
+  @override
+  String get blacklist => 'Blockeringslista';
 }
 
 // Path: receiveHistoryPage
@@ -284,7 +304,7 @@ class _Translations$receiveHistoryPage$sv extends Translations$receiveHistoryPag
   @override
   String get openFolder => 'Öppna mapp';
   @override
-  String get deleteHistory => 'Radera historik';
+  String get deleteHistory => 'Ta bort historiken';
   @override
   String get empty => 'Historiken är tom.';
   @override
@@ -301,11 +321,11 @@ class _Translations$apkPickerPage$sv extends Translations$apkPickerPage$en {
   @override
   String get title => 'Appar (APK)';
   @override
-  String get excludeSystemApps => 'Exkludera systemappar';
+  String get excludeSystemApps => 'Uteslut systemappar';
   @override
-  String get excludeAppsWithoutLaunchIntent => 'Exkludera appar som inte kan startas';
+  String get excludeAppsWithoutLaunchIntent => 'Uteslut appar som inte kan startas';
   @override
-  String apps({required Object n}) => '${n} Appar';
+  String apps({required Object n}) => '${n} appar';
 }
 
 // Path: selectedFilesPage
@@ -316,7 +336,7 @@ class _Translations$selectedFilesPage$sv extends Translations$selectedFilesPage$
 
   // Translations
   @override
-  String get deleteAll => 'Radera alla';
+  String get deleteAll => 'Ta bort alla';
 }
 
 // Path: receivePage
@@ -330,14 +350,14 @@ class _Translations$receivePage$sv extends Translations$receivePage$en {
   String subTitle({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('sv'))(
     n,
     one: 'vill skicka en fil till dig',
-    other: 'Vill skick ${n} filer till dig',
+    other: 'vill skicka ${n} filer till dig',
   );
   @override
   String get subTitleMessage => 'skickade ett meddelande till dig:';
   @override
   String get subTitleLink => 'skickade en länk till dig:';
   @override
-  String get canceled => 'Sändaren har avbrutit begäran.';
+  String get canceled => 'Sändaren avbröt begäran.';
 }
 
 // Path: receiveOptionsPage
@@ -356,7 +376,7 @@ class _Translations$receiveOptionsPage$sv extends Translations$receiveOptionsPag
   @override
   String get saveToGallery => _root.settingsTab.receive.saveToGallery;
   @override
-  String get saveToGalleryOff => 'Avstängd automatiskt eftersom det finns kataloger.';
+  String get saveToGalleryOff => 'Inaktiverades automatiskt eftersom överföringen innehåller mappar.';
 }
 
 // Path: sendPage
@@ -388,7 +408,7 @@ class _Translations$progressPage$sv extends Translations$progressPage$en {
   @override
   String get titleReceiving => 'Tar emot filer';
   @override
-  String get savedToGallery => 'Sparat i Foton';
+  String get savedToGallery => 'Sparat bland bilderna';
   @override
   late final _Translations$progressPage$total$sv total = _Translations$progressPage$total$sv._(_root);
   @override
@@ -405,11 +425,11 @@ class _Translations$webSharePage$sv extends Translations$webSharePage$en {
   @override
   String get title => 'Dela via länk';
   @override
-  String get loading => 'Startar server…';
+  String get loading => 'Startar servern…';
   @override
   String get stopping => 'Stoppar servern…';
   @override
-  String get error => 'Ett fel inträffade vid start av servern.';
+  String get error => 'Ett fel uppstod när servern skulle startas.';
   @override
   String openLink({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('sv'))(
     n,
@@ -429,7 +449,7 @@ class _Translations$webSharePage$sv extends Translations$webSharePage$en {
   @override
   String pinHint({required Object pin}) => 'PIN-koden är "${pin}"';
   @override
-  String get encryptionHint => 'LocalSend använder ett självsignerat certifikat. Du behöver acceptera det i webbläsaren.';
+  String get encryptionHint => 'LocalSend använder ett självsignerat certifikat. Du måste godkänna det i webbläsaren.';
   @override
   String pendingRequests({required Object n}) => 'Väntande förfrågningar: ${n}';
 }
@@ -445,15 +465,15 @@ class _Translations$aboutPage$sv extends Translations$aboutPage$en {
   String get title => 'Om LocalSend';
   @override
   List<String> get description => [
-    'LocalSend är fri programvara med öppen källkod som låter dig säkert dela filer och meddelanden med enheter i närheten över ditt lokala nätverk utan att behöva en internetanslutning.',
-    'Denna app är tillgänglig på Android, iOS, macOS, Windows och Linux. Du kan hitta alla nedladdningsalternativ på den officiella hemsidan.',
+    'LocalSend är en fri app med öppen källkod som gör det möjligt att säkert dela filer och meddelanden med enheter i närheten via det lokala nätverket, utan internetanslutning.',
+    'Appen finns för Android, iOS, macOS, Windows och Linux. Alla nedladdningsalternativ finns på den officiella webbplatsen.',
   ];
   @override
-  String get author => 'Upphovsman';
+  String get author => 'Upphovsperson';
   @override
   String get contributors => 'Bidragsgivare';
   @override
-  String get packagers => 'Förpackare';
+  String get packagers => 'Paketerare';
   @override
   String get translators => 'Översättare';
 }
@@ -468,8 +488,7 @@ class _Translations$donationPage$sv extends Translations$donationPage$en {
   @override
   String get title => 'Donera';
   @override
-  String get info =>
-      'LocalSend är fri programvara med öppen källkod och utan några annonser. Om du gillar appen kan du stödja utvecklingen med en donation.';
+  String get info => 'LocalSend är en fri app med öppen källkod och utan annonser. Om du gillar appen kan du stödja utvecklingen genom att donera.';
   @override
   String donate({required Object amount}) => 'Donera ${amount}';
   @override
@@ -486,7 +505,7 @@ class _Translations$changelogPage$sv extends Translations$changelogPage$en {
 
   // Translations
   @override
-  String get title => 'Ändringslog';
+  String get title => 'Ändringslogg';
 }
 
 // Path: aliasGenerator
@@ -640,9 +659,9 @@ class _Translations$sanitization$sv extends Translations$sanitization$en {
 
   // Translations
   @override
-  String get empty => 'Filnamnet får inte vara tomt';
+  String get empty => 'Filnamnet får inte vara tomt.';
   @override
-  String get invalid => 'Filnamnet innehåller ogiltiga tecken';
+  String get invalid => 'Filnamnet innehåller ogiltiga tecken.';
 }
 
 // Path: tray
@@ -701,7 +720,7 @@ class _Translations$assetPicker$sv extends Translations$assetPicker$en {
   @override
   String get gifIndicator => 'GIF';
   @override
-  String get loadFailed => 'Laddning misslyckades';
+  String get loadFailed => 'Inläsningen misslyckades';
   @override
   String get original => 'Original';
   @override
@@ -709,20 +728,20 @@ class _Translations$assetPicker$sv extends Translations$assetPicker$en {
   @override
   String get select => 'Välj';
   @override
-  String get emptyList => 'Tom lista';
+  String get emptyList => 'Listan är tom';
   @override
-  String get unSupportedAssetType => 'Ogiltig filtyp.';
+  String get unSupportedAssetType => 'Filtypen stöds inte.';
   @override
-  String get unableToAccessAll => 'Kan inte få åtkomst till alla filer på enheten';
+  String get unableToAccessAll => 'Det går inte att komma åt alla filer på enheten';
   @override
-  String get viewingLimitedAssetsTip => 'Endast visa filer och album som kan nås av appen.';
+  String get viewingLimitedAssetsTip => 'Visa endast filer och album som appen har åtkomst till.';
   @override
-  String get changeAccessibleLimitedAssets => 'Klicka för att uppdatera åtkomliga filer';
+  String get changeAccessibleLimitedAssets => 'Tryck för att uppdatera åtkomliga filer';
   @override
   String get accessAllTip =>
-      'Appen kan endast få åtkomst till vissa filer på enheten. Gå till systeminställningar och tillåt appen att få åtkomst till allt media på enheten.';
+      'Appen har endast åtkomst till vissa filer på enheten. Gå till systeminställningarna och ge appen åtkomst till alla mediefiler på enheten.';
   @override
-  String get goToSystemSettings => 'Gå till systeminställningar';
+  String get goToSystemSettings => 'Gå till systeminställningarna';
   @override
   String get accessLimitedAssets => 'Fortsätt med begränsad åtkomst';
   @override
@@ -734,9 +753,9 @@ class _Translations$assetPicker$sv extends Translations$assetPicker$en {
   @override
   String get sTypeVideoLabel => 'Video';
   @override
-  String get sTypeOtherLabel => 'Annan media';
+  String get sTypeOtherLabel => 'Övriga medier';
   @override
-  String get sActionPlayHint => 'spela';
+  String get sActionPlayHint => 'spela upp';
   @override
   String get sActionPreviewHint => 'förhandsvisa';
   @override
@@ -744,31 +763,11 @@ class _Translations$assetPicker$sv extends Translations$assetPicker$en {
   @override
   String get sActionSwitchPathLabel => 'byt sökväg';
   @override
-  String get sActionUseCameraHint => 'använd kamera';
+  String get sActionUseCameraHint => 'använd kameran';
   @override
   String get sNameDurationLabel => 'längd';
   @override
   String get sUnitAssetCountLabel => 'antal';
-}
-
-// Path: networkInterfacesPage
-class _Translations$networkInterfacesPage$sv extends Translations$networkInterfacesPage$en {
-  _Translations$networkInterfacesPage$sv._(TranslationsSv root) : this._root = root, super.internal(root);
-
-  final TranslationsSv _root; // ignore: unused_field
-
-  // Translations
-  @override
-  String get title => 'Nätverksgränssnitt';
-  @override
-  String get info =>
-      'Som standard använder LocalSend alla tillgängliga nätverksgränssnitt. Du kan utesluta oönskade nätverk här. Du måste starta om servern för att tillämpa ändringarna.';
-  @override
-  String get preview => 'Förhandsvisning';
-  @override
-  String get whitelist => 'Vitlista';
-  @override
-  String get blacklist => 'Svartlista';
 }
 
 // Path: receiveTab.infoBox
@@ -783,7 +782,7 @@ class _Translations$receiveTab$infoBox$sv extends Translations$receiveTab$infoBo
   @override
   String get port => 'Port:';
   @override
-  String get alias => 'Alias:';
+  String get alias => 'Enhetsnamn:';
 }
 
 // Path: receiveTab.quickSave
@@ -828,7 +827,7 @@ class _Translations$sendTab$picker$sv extends Translations$sendTab$picker$en {
   @override
   String get folder => 'Mapp';
   @override
-  String get media => 'Media';
+  String get media => 'Medier';
   @override
   String get text => 'Text';
   @override
@@ -876,15 +875,15 @@ class _Translations$settingsTab$general$sv extends Translations$settingsTab$gene
   @override
   late final _Translations$settingsTab$general$languageOptions$sv languageOptions = _Translations$settingsTab$general$languageOptions$sv._(_root);
   @override
-  String get saveWindowPlacement => 'Avsluta: Spara fönsterplacering';
+  String get saveWindowPlacement => 'Spara fönsterposition vid avslut';
   @override
-  String get saveWindowPlacementWindows => 'Spara fönsterposition efter avslut';
+  String get saveWindowPlacementWindows => 'Spara fönsterposition vid avslut';
   @override
-  String get minimizeToTray => 'Lämna: minimera till tray';
+  String get minimizeToTray => 'Minimera till systemfältet eller menyraden vid stängning';
   @override
   String get launchAtStartup => 'Starta automatiskt efter inloggning';
   @override
-  String get launchMinimized => 'Starta automatiskt: starta gömd';
+  String get launchMinimized => 'Automatisk start: starta dolt';
   @override
   String get showInContextMenu => 'Visa LocalSend i snabbmenyn';
   @override
@@ -907,15 +906,15 @@ class _Translations$settingsTab$receive$sv extends Translations$settingsTab$rece
   @override
   String get requirePin => _root.webSharePage.requirePin;
   @override
-  String get autoFinish => 'Automatisk avslutning';
+  String get autoFinish => 'Slutför automatiskt';
   @override
-  String get destination => 'Destination';
+  String get destination => 'Spara i mapp';
   @override
-  String get downloads => '(Hämtade)';
+  String get downloads => '(Nedladdningar)';
   @override
-  String get saveToGallery => 'Spara media i galleriet';
+  String get saveToGallery => 'Spara medier i galleriet';
   @override
-  String get saveToHistory => 'Spara till historik';
+  String get saveToHistory => 'Spara i historiken';
 }
 
 // Path: settingsTab.send
@@ -928,7 +927,7 @@ class _Translations$settingsTab$send$sv extends Translations$settingsTab$send$en
   @override
   String get title => 'Skicka';
   @override
-  String get shareViaLinkAutoAccept => 'Acceptera förfrågningar automatiskt i läget "Dela via länk"';
+  String get shareViaLinkAutoAccept => 'Acceptera förfrågningar automatiskt i läget ”Dela via länk”';
 }
 
 // Path: settingsTab.network
@@ -941,37 +940,37 @@ class _Translations$settingsTab$network$sv extends Translations$settingsTab$netw
   @override
   String get title => 'Nätverk';
   @override
-  String get needRestart => 'Starta om servern för att tillämpa inställningarna!';
+  String get needRestart => 'Starta om servern för att tillämpa inställningarna.';
   @override
   String get server => 'Server';
   @override
-  String get alias => 'Alias';
+  String get alias => 'Enhetsnamn';
   @override
   String get deviceType => 'Enhetstyp';
   @override
-  String get deviceModel => 'Enhet modell';
+  String get deviceModel => 'Enhetsmodell';
   @override
   String get port => 'Port';
-  @override
-  String get discoveryTimeout => 'Tidsgräns för upptäckt';
-  @override
-  String get useSystemName => 'Använd systemnamn';
-  @override
-  String get generateRandomAlias => 'Generera slumpmässigt alias';
-  @override
-  String portWarning({required Object defaultPort}) =>
-      'Du kanske inte upptäcks av andra enheter eftersom du använder en anpassad port. (standard: ${defaultPort})';
-  @override
-  String get encryption => 'Kryptering';
-  @override
-  String get multicastGroup => 'Multicast';
-  @override
-  String multicastGroupWarning({required Object defaultMulticast}) =>
-      'Du kanske inte upptäcks av andra enheter eftersom du använder en anpassad multicast-adress. (standard: ${defaultMulticast})';
   @override
   String get network => 'Nätverk';
   @override
   late final _Translations$settingsTab$network$networkOptions$sv networkOptions = _Translations$settingsTab$network$networkOptions$sv._(_root);
+  @override
+  String get discoveryTimeout => 'Tidsgräns för enhetssökning';
+  @override
+  String get useSystemName => 'Använd systemnamn';
+  @override
+  String get generateRandomAlias => 'Skapa slumpmässigt enhetsnamn';
+  @override
+  String portWarning({required Object defaultPort}) =>
+      'Andra enheter kanske inte hittar dig eftersom du använder en anpassad port. (Standard: ${defaultPort})';
+  @override
+  String get encryption => 'Kryptering';
+  @override
+  String get multicastGroup => 'Multicast-adress';
+  @override
+  String multicastGroupWarning({required Object defaultMulticast}) =>
+      'Andra enheter kanske inte hittar dig eftersom du använder en anpassad multicast-adress. (Standard: ${defaultMulticast})';
 }
 
 // Path: settingsTab.other
@@ -982,7 +981,7 @@ class _Translations$settingsTab$other$sv extends Translations$settingsTab$other$
 
   // Translations
   @override
-  String get title => 'Annat';
+  String get title => 'Övrigt';
   @override
   String get support => 'Stöd LocalSend';
   @override
@@ -1001,12 +1000,11 @@ class _Translations$troubleshootPage$firewall$sv extends Translations$troublesho
 
   // Translations
   @override
-  String get symptom => 'Denna app kan skicka filer till andra enheter men andra enheter kan inte skicka filer till denna enhet.';
+  String get symptom => 'Den här enheten kan skicka filer till andra enheter, men andra enheter kan inte skicka filer till den.';
   @override
-  String solution({required Object port}) =>
-      'Detta är troligtvis ett brandväggsproblem. Du kan lösa det genom att tillåta inkommande anslutningar (UDP och TCP) på port ${port}.';
+  String solution({required Object port}) => 'Detta beror troligen på brandväggen. Tillåt inkommande anslutningar via UDP och TCP på port ${port}.';
   @override
-  String get openFirewall => 'Öppna brandväggen';
+  String get openFirewall => 'Öppna brandväggsinställningarna';
 }
 
 // Path: troubleshootPage.noDiscovery
@@ -1020,7 +1018,7 @@ class _Translations$troubleshootPage$noDiscovery$sv extends Translations$trouble
   String get symptom => 'Denna enhet kan inte upptäcka andra enheter.';
   @override
   String get solution =>
-      'Se till att alla enheter är på samma Wi-Fi-nätverk och delar samma konfiguration (port, multicast-adress, kryptering). Du kan försöka skriva in IP-adressen för målenheten manuellt. Om detta fungerar, överväg att lägga till den här enheten till favoriterna så att den kan upptäckas automatiskt i framtiden.';
+      'Kontrollera att alla enheter är anslutna till samma Wi-Fi-nätverk och använder samma konfiguration för port, multicast-adress och kryptering. Försök att ange målenhetens IP-adress manuellt. Om det fungerar kan du lägga till målenheten i favoriterna så att den hittas automatiskt i framtiden.';
 }
 
 // Path: troubleshootPage.noConnection
@@ -1031,10 +1029,10 @@ class _Translations$troubleshootPage$noConnection$sv extends Translations$troubl
 
   // Translations
   @override
-  String get symptom => 'Båda enheterna kan inte upptäcka varandra eller dela filer.';
+  String get symptom => 'Enheterna kan varken hitta varandra eller dela filer.';
   @override
   String get solution =>
-      'Problemet finns på båda sidor? Då måste du se till att båda enheterna är anslutna till samma wifi-nätverk och delar samma konfiguration (port, multicast-adress, kryptering). Wi-Fi kanske inte tillåter kommunikation mellan deltagare. I så fall måste alternativet vara aktiverat på routern.';
+      'Om problemet finns på båda enheterna ska du kontrollera att de är anslutna till samma Wi-Fi-nätverk och använder samma konfiguration för port, multicast-adress och kryptering. Nätverket kan blockera kommunikation mellan enheter på grund av AP-isolering. I så fall måste AP-isolering inaktiveras i routern.';
 }
 
 // Path: receiveHistoryPage.entryActions
@@ -1051,7 +1049,7 @@ class _Translations$receiveHistoryPage$entryActions$sv extends Translations$rece
   @override
   String get info => 'Information';
   @override
-  String get deleteFromHistory => 'Ta bort från historik';
+  String get deleteFromHistory => 'Ta bort från historiken';
 }
 
 // Path: progressPage.total
@@ -1083,11 +1081,11 @@ class _Translations$progressPage$remainingTime$sv extends Translations$progressP
   @override
   String minutes({required Object n, required Object ss}) => '${n}:${ss}';
 
-  /// Använd "h" som förkortning för timmar och "m" för minuter
+  /// Använd ”h” som förkortning för timmar och ”m” för minuter
   @override
   String hours({required Object h, required Object m}) => '${h}h ${m}m';
 
-  /// Använd "d" för dagar, "h" för timmar och "m" för minuter
+  /// Använd ”d” för dagar, ”h” för timmar och ”m” för minuter
   @override
   String days({required Object d, required Object h, required Object m}) => '${d}d ${h}h ${m}m';
 }
@@ -1126,11 +1124,11 @@ class _Translations$dialogs$addressInput$sv extends Translations$dialogs$address
 
   // Translations
   @override
-  String get title => 'Skriv in adress';
+  String get title => 'Ange adress';
   @override
-  String get hashtag => 'Hashtag';
+  String get hashtag => 'Hashtagg';
   @override
-  String get ip => 'IP Address';
+  String get ip => 'IP-adress';
   @override
   String get recentlyUsed => 'Senast använda: ';
 }
@@ -1158,7 +1156,7 @@ class _Translations$dialogs$cannotOpenFile$sv extends Translations$dialogs$canno
   @override
   String get title => 'Kan inte öppna fil';
   @override
-  String content({required Object file}) => 'Kunde inte öppna "${file}". Har denna fil flyttats, bytt namn eller raderats?';
+  String content({required Object file}) => 'Det gick inte att öppna ”${file}”. Har filen flyttats, bytt namn eller tagits bort?';
 }
 
 // Path: dialogs.encryptionDisabledNotice
@@ -1171,7 +1169,7 @@ class _Translations$dialogs$encryptionDisabledNotice$sv extends Translations$dia
   @override
   String get title => 'Kryptering inaktiverad';
   @override
-  String get content => 'Kommunikationen sker nu via det oenkrypterade HTTP-protokollet. För att använda HTTPS, aktivera kryptering igen.';
+  String get content => 'Kommunikationen sker nu via det okrypterade HTTP-protokollet. Aktivera kryptering igen för att använda HTTPS-protokollet.';
 }
 
 // Path: dialogs.errorDialog
@@ -1195,7 +1193,7 @@ class _Translations$dialogs$favoriteDialog$sv extends Translations$dialogs$favor
   @override
   String get title => 'Favoriter';
   @override
-  String get noFavorites => 'Inga favoritenheter än.';
+  String get noFavorites => 'Inga favoritenheter ännu.';
   @override
   String get addFavorite => 'Lägg till';
 }
@@ -1210,7 +1208,7 @@ class _Translations$dialogs$favoriteDeleteDialog$sv extends Translations$dialogs
   @override
   String get title => 'Ta bort från favoriter';
   @override
-  String content({required Object name}) => 'Vill du verkligen ta bort från favoriterna "${name}"?';
+  String content({required Object name}) => 'Vill du verkligen ta bort ”${name}” från favoriterna?';
 }
 
 // Path: dialogs.favoriteEditDialog
@@ -1227,7 +1225,7 @@ class _Translations$dialogs$favoriteEditDialog$sv extends Translations$dialogs$f
   @override
   String get name => 'Enhetens namn';
   @override
-  String get auto => '(auto)';
+  String get auto => '(automatiskt)';
   @override
   String get ip => 'IP-adress';
   @override
@@ -1263,9 +1261,9 @@ class _Translations$dialogs$fileNameInput$sv extends Translations$dialogs$fileNa
 
   // Translations
   @override
-  String get title => 'Skriv in filnamn';
+  String get title => 'Ange filnamn';
   @override
-  String original({required Object original}) => 'Orginal: ${original}';
+  String original({required Object original}) => 'Original: ${original}';
 }
 
 // Path: dialogs.historyClearDialog
@@ -1276,9 +1274,9 @@ class _Translations$dialogs$historyClearDialog$sv extends Translations$dialogs$h
 
   // Translations
   @override
-  String get title => 'Rensa historik';
+  String get title => 'Rensa historiken';
   @override
-  String get content => 'Vill du verkligen ta bort hela historiken?';
+  String get content => 'Vill du verkligen rensa hela historiken?';
 }
 
 // Path: dialogs.localNetworkUnauthorized
@@ -1292,7 +1290,7 @@ class _Translations$dialogs$localNetworkUnauthorized$sv extends Translations$dia
   String get title => _root.dialogs.noPermission.title;
   @override
   String get description =>
-      'LocalSend kan inte hitta andra enheter utan att ha behörighet att skanna det lokala nätverket. Bevilja denna behörighet i inställningarna.';
+      'LocalSend kan inte hitta andra enheter utan behörighet att söka i det lokala nätverket. Bevilja behörigheten i inställningarna.';
   @override
   String get gotoSettings => 'Inställningar';
 }
@@ -1305,9 +1303,9 @@ class _Translations$dialogs$messageInput$sv extends Translations$dialogs$message
 
   // Translations
   @override
-  String get title => 'Skriv meddelande';
+  String get title => 'Skriv ett meddelande';
   @override
-  String get multiline => 'Flerlinje';
+  String get multiline => 'Flera rader';
 }
 
 // Path: dialogs.noFiles
@@ -1318,9 +1316,9 @@ class _Translations$dialogs$noFiles$sv extends Translations$dialogs$noFiles$en {
 
   // Translations
   @override
-  String get title => 'Ingen fil vald';
+  String get title => 'Inga filer valda';
   @override
-  String get content => 'Var god välj minst en fil.';
+  String get content => 'Välj minst en fil.';
 }
 
 // Path: dialogs.noPermission
@@ -1331,9 +1329,9 @@ class _Translations$dialogs$noPermission$sv extends Translations$dialogs$noPermi
 
   // Translations
   @override
-  String get title => 'Ingen behörighet';
+  String get title => 'Behörighet saknas';
   @override
-  String get content => 'Du har inte beviljat nödvändiga behörigheter. Var vänlig bevilja dem i inställningarna.';
+  String get content => 'Nödvändiga behörigheter har inte beviljats. Bevilja dem i inställningarna.';
 }
 
 // Path: dialogs.notAvailableOnPlatform
@@ -1346,7 +1344,7 @@ class _Translations$dialogs$notAvailableOnPlatform$sv extends Translations$dialo
   @override
   String get title => 'Inte tillgängligt';
   @override
-  String get content => 'Denna funktion är endast tillgänglig på:';
+  String get content => 'Funktionen är endast tillgänglig på:';
 }
 
 // Path: dialogs.qr
@@ -1368,15 +1366,15 @@ class _Translations$dialogs$quickActions$sv extends Translations$dialogs$quickAc
 
   // Translations
   @override
-  String get title => 'Snabba Handlingar';
+  String get title => 'Snabbåtgärder';
   @override
-  String get counter => 'Disken';
+  String get counter => 'Räknare';
   @override
   String get prefix => 'Prefix';
   @override
-  String get padZero => 'Block med nollor';
+  String get padZero => 'Fyll ut med nollor';
   @override
-  String get sortBeforeCount => 'Sortera alphabetiskt innan';
+  String get sortBeforeCount => 'Sortera alfabetiskt i förväg (A–Ö)';
   @override
   String get random => 'Slumpmässig';
 }
@@ -1391,7 +1389,7 @@ class _Translations$dialogs$quickSaveNotice$sv extends Translations$dialogs$quic
   @override
   String get title => _root.general.quickSave;
   @override
-  String get content => 'Filförfrågningar accepteras automatiskt. Observera att alla i lokala nätverket kan skicka filer till dig.';
+  String get content => 'Filförfrågningar accepteras automatiskt. Observera att alla på det lokala nätverket kan skicka filer till dig.';
 }
 
 // Path: dialogs.quickSaveFromFavoritesNotice
@@ -1406,8 +1404,6 @@ class _Translations$dialogs$quickSaveFromFavoritesNotice$sv extends Translations
   @override
   List<String> get content => [
     'Filförfrågningar accepteras nu automatiskt från enheter i din favoritlista.',
-    'Varning! För närvarande är detta inte helt säkert, eftersom en hacker som har fingeravtrycket från vilken enhet som helst från din favoritlista kan skicka filer till dig utan begränsningar.',
-    'Detta alternativ är dock fortfarande säkrare än att låta alla användare på det lokala nätverket skicka filer till dig utan begränsningar.',
   ];
 }
 
@@ -1432,11 +1428,11 @@ class _Translations$dialogs$sendModeHelp$sv extends Translations$dialogs$sendMod
   @override
   String get title => 'Sändningslägen';
   @override
-  String get single => 'Skickar filer till en mottagare. Valet rensas efter avslutad filöverföring.';
+  String get single => 'Skickar filer till en mottagare. Valet rensas när filöverföringen är klar.';
   @override
-  String get multiple => 'Skickar filer till flera mottagare. Valet rensas inte.';
+  String get multiple => 'Skickar filer till flera mottagare. Valet rensas inte när filöverföringen är klar.';
   @override
-  String get link => 'Mottagare som inte har LocalSend installerat kan ladda ner de valda filerna genom att öppna länken i deras webbläsare.';
+  String get link => 'Mottagare som inte har LocalSend installerat kan ladda ner de valda filerna genom att öppna länken i sin webbläsare.';
 }
 
 // Path: dialogs.zoom
@@ -1512,7 +1508,7 @@ class _Translations$progressPage$total$title$sv extends Translations$progressPag
   @override
   String sending({required Object time}) => 'Totalt förlopp (${time})';
   @override
-  String get finishedError => 'Avslutad med fel';
+  String get finishedError => 'Slutförd med fel';
   @override
   String get canceledSender => 'Avbruten av sändaren';
   @override

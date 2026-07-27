@@ -1,6 +1,4 @@
 PODS:
-  - bitsdojo_window_macos (0.0.1):
-    - FlutterMacOS
   - connectivity_plus (0.0.1):
     - FlutterMacOS
   - Defaults (4.2.2)
@@ -54,7 +52,6 @@ PODS:
     - FlutterMacOS
 
 DEPENDENCIES:
-  - bitsdojo_window_macos (from `Flutter/ephemeral/.symlinks/plugins/bitsdojo_window_macos/macos`)
   - connectivity_plus (from `Flutter/ephemeral/.symlinks/plugins/connectivity_plus/macos`)
   - Defaults (~> 4.2)
   - desktop_drop (from `Flutter/ephemeral/.symlinks/plugins/desktop_drop/macos`)
@@ -85,8 +82,6 @@ SPEC REPOS:
     - Defaults
 
 EXTERNAL SOURCES:
-  bitsdojo_window_macos:
-    :path: Flutter/ephemeral/.symlinks/plugins/bitsdojo_window_macos/macos
   connectivity_plus:
     :path: Flutter/ephemeral/.symlinks/plugins/connectivity_plus/macos
   desktop_drop:
@@ -135,7 +130,6 @@ EXTERNAL SOURCES:
     :path: Flutter/ephemeral/.symlinks/plugins/window_manager/macos
 
 SPEC CHECKSUMS:
-  bitsdojo_window_macos: 7959fb0ca65a3ccda30095c181ecb856fae48ea9
   connectivity_plus: 4adf20a405e25b42b9c9f87feff8f4b6fde18a4e
   Defaults: d785e56c0fb8890dc40351603f05c8e1df1bdd45
   desktop_drop: 10a3e6a7fa9dbe350541f2574092fecfa345a07b

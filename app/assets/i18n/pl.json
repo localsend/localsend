@@ -134,18 +134,18 @@
       "deviceType": "Typ urządzenia",
       "deviceModel": "Model urządzenia",
       "port": "Port",
+      "network": "Sieć",
+      "networkOptions": {
+        "all": "Wszystkie",
+        "filtered": "Przefiltrowane"
+      },
       "discoveryTimeout": "Limit czasu wykrywania",
       "useSystemName": "Użyj nazwy systemu",
       "generateRandomAlias": "Wygeneruj losowy alias",
       "portWarning": "Inne urządzenia mogą nie wykryć Twojego urządzenia, ponieważ używasz niestandardowego portu. (domyślnie: {defaultPort})",
       "encryption": "Szyfrowanie",
       "multicastGroup": "Multicast",
-      "multicastGroupWarning": "Inne urządzenia mogą nie wykryć Twojego urządzenia, ponieważ używasz niestandardowego adresu multicast. (domyślnie: {defaultMulticast})",
-      "networkOptions": {
-        "all": "Wszystkie",
-        "filtered": "Przefiltrowane"
-      },
-      "network": "Sieć"
+      "multicastGroupWarning": "Inne urządzenia mogą nie wykryć Twojego urządzenia, ponieważ używasz niestandardowego adresu multicast. (domyślnie: {defaultMulticast})"
     },
     "other": {
       "title": "Inne",
@@ -174,6 +174,13 @@
       "symptom": "Oba urządzenia nie mogą się nawzajem wykryć ani dzielić się plikami.",
       "solution": "Problem istnieje po obu stronach? Upewnij się, że oba urządzenia są w tej samej sieci Wi-Fi i mają takie same ustawienia (port, adres multicast, szyfrowanie). Wi-Fi może nie zezwalać na komunikację między uczestnikami z powodu izolacji punktu dostępu (AP). W takim przypadku tę opcję należy wyłączyć w routerze."
     }
+  },
+  "networkInterfacesPage": {
+    "title": "Interfejsy sieciowe",
+    "info": "Domyślnie LocalSend używa wszystkich dostępnych interfejsów sieciowych. Możesz tutaj wykluczyć niechciane sieci. Musisz ponownie uruchomić serwer, aby zastosować zmiany.",
+    "preview": "Podgląd",
+    "whitelist": "Biała lista",
+    "blacklist": "Czarna lista"
   },
   "receiveHistoryPage": {
     "title": "Historia",
@@ -386,9 +393,7 @@
     "quickSaveFromFavoritesNotice": {
       "title": "@:general.quickSaveFromFavorites",
       "content": [
-        "Żądania plików są teraz akceptowane automatycznie z urządzeń na liście ulubionych.",
-        "Uwaga! Obecnie nie jest to całkowicie bezpieczne, ponieważ haker, który ma odcisk palca dowolnego urządzenia z listy ulubionych, może wysyłać Ci pliki bez ograniczeń.",
-        "Jednak ta opcja jest nadal bezpieczniejsza niż umożliwienie wszystkim użytkownikom w sieci lokalnej wysyłanie plików bez ograniczeń."
+        "Żądania plików są teraz akceptowane automatycznie z urządzeń na liście ulubionych."
       ]
     },
     "pin": {
@@ -454,12 +459,5 @@
     "sActionUseCameraHint": "użyj kamery",
     "sNameDurationLabel": "czas trwania",
     "sUnitAssetCountLabel": "liczba"
-  },
-  "networkInterfacesPage": {
-    "preview": "Podgląd",
-    "whitelist": "Biała lista",
-    "blacklist": "Czarna lista",
-    "title": "Interfejsy sieciowe",
-    "info": "Domyślnie LocalSend używa wszystkich dostępnych interfejsów sieciowych. Możesz tutaj wykluczyć niechciane sieci. Musisz ponownie uruchomić serwer, aby zastosować zmiany."
   }
 }

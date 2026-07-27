@@ -2,6 +2,7 @@
 
 use bytes::Bytes;
 use futures_util::StreamExt;
+use localsend::crypto::hash::sha256_hex;
 use localsend::http::client::{ClientError, LsHttpClientV2};
 use localsend::http::dto::ProtocolType;
 use localsend::http::dto_v2::{PrepareUploadRequestDtoV2, ProtocolTypeV2, RegisterDtoV2};
@@ -366,6 +367,254 @@ async fn test_full_upload_flow() {
     )
     .await;
     assert_status(result, 403);
+}
+
+#[tokio::test]
+async fn test_upload_with_matching_sha256() {
+    let server = start_test_server(None, true, None).await;
+    let client = LsHttpClientV2::try_new_without_cert().unwrap();
+
+    let bytes = b"hello".to_vec();
+    let mut file = file_dto("file-a", "a.bin", bytes.len() as u64);
+    file.sha256 = Some(sha256_hex(&bytes));
+
+    let response = client
+        .prepare_upload(
+            ProtocolType::Http,
+            "127.0.0.1",
+            server.port,
+            None,
+            prepare_upload_request(&[file]),
+            None,
+        )
+        .await
+        .unwrap()
+        .response
+        .unwrap();
+
+    upload_bytes(
+        &client,
+        server.port,
+        &response.session_id,
+        "file-a",
+        &response.files["file-a"],
+        &bytes,
+    )
+    .await
+    .unwrap();
+
+    assert_eq!(server.received.lock().await["file-a"], bytes);
+}
+
+#[tokio::test]
+async fn test_upload_with_mismatched_sha256() {
+    let server = start_test_server(None, true, None).await;
+    let client = LsHttpClientV2::try_new_without_cert().unwrap();
+
+    let bytes = b"hello".to_vec();
+    let mut file = file_dto("file-a", "a.bin", bytes.len() as u64);
+    file.sha256 = Some(sha256_hex(b"something else"));
+
+    let response = client
+        .prepare_upload(
+            ProtocolType::Http,
+            "127.0.0.1",
+            server.port,
+            None,
+            prepare_upload_request(&[file]),
+            None,
+        )
+        .await
+        .unwrap()
+        .response
+        .unwrap();
+
+    let result = upload_bytes(
+        &client,
+        server.port,
+        &response.session_id,
+        "file-a",
+        &response.files["file-a"],
+        &bytes,
+    )
+    .await;
+    assert_status(result, 422);
+}
+
+#[tokio::test]
+async fn test_upload_retry_after_mismatched_sha256() {
+    let server = start_test_server(None, true, None).await;
+    let client = LsHttpClientV2::try_new_without_cert().unwrap();
+
+    let bytes = b"hello".to_vec();
+    let corrupted = b"hellO".to_vec();
+    let mut file = file_dto("file-a", "a.bin", bytes.len() as u64);
+    file.sha256 = Some(sha256_hex(&bytes));
+
+    let response = client
+        .prepare_upload(
+            ProtocolType::Http,
+            "127.0.0.1",
+            server.port,
+            None,
+            prepare_upload_request(&[file]),
+            None,
+        )
+        .await
+        .unwrap()
+        .response
+        .unwrap();
+
+    // The first upload is rejected because of the checksum mismatch ...
+    let result = upload_bytes(
+        &client,
+        server.port,
+        &response.session_id,
+        "file-a",
+        &response.files["file-a"],
+        &corrupted,
+    )
+    .await;
+    assert_status(result, 422);
+
+    // ... but a retry with the same token is accepted.
+    upload_bytes(
+        &client,
+        server.port,
+        &response.session_id,
+        "file-a",
+        &response.files["file-a"],
+        &bytes,
+    )
+    .await
+    .unwrap();
+
+    assert_eq!(server.received.lock().await["file-a"], bytes);
+
+    tokio::time::sleep(Duration::from_millis(100)).await;
+    let session_ends = server.session_ends.lock().await;
+    assert_eq!(session_ends.len(), 1);
+    assert_eq!(session_ends[0].0, response.session_id);
+    assert!(matches!(session_ends[0].1, SessionEndReasonV2::Finished));
+}
+
+/// A retry writes to the same path as the failed attempt, so the receiver ends
+/// up with exactly one file holding the correct content.
+#[tokio::test]
+async fn test_upload_retry_reuses_the_same_path() {
+    let save_dir = std::env::temp_dir().join(format!("localsend-test-{}", uuid::Uuid::new_v4()));
+    tokio::fs::create_dir_all(&save_dir).await.unwrap();
+
+    let server = start_test_server(None, true, Some(save_dir.clone())).await;
+    let client = LsHttpClientV2::try_new_without_cert().unwrap();
+
+    let bytes: Vec<u8> = (0..50_000u32).map(|i| i as u8).collect();
+    let mut corrupted = bytes.clone();
+    *corrupted.last_mut().unwrap() ^= 0xff;
+    let mut file = file_dto("file-a", "a.bin", bytes.len() as u64);
+    file.sha256 = Some(sha256_hex(&bytes));
+
+    let response = client
+        .prepare_upload(
+            ProtocolType::Http,
+            "127.0.0.1",
+            server.port,
+            None,
+            prepare_upload_request(&[file]),
+            None,
+        )
+        .await
+        .unwrap()
+        .response
+        .unwrap();
+
+    let result = upload_bytes(
+        &client,
+        server.port,
+        &response.session_id,
+        "file-a",
+        &response.files["file-a"],
+        &corrupted,
+    )
+    .await;
+    assert_status(result, 422);
+
+    upload_bytes(
+        &client,
+        server.port,
+        &response.session_id,
+        "file-a",
+        &response.files["file-a"],
+        &bytes,
+    )
+    .await
+    .unwrap();
+
+    // The corrupted attempt has been overwritten, not kept as a second file.
+    let mut entries = tokio::fs::read_dir(&save_dir).await.unwrap();
+    let mut file_names = Vec::new();
+    while let Some(entry) = entries.next_entry().await.unwrap() {
+        file_names.push(entry.file_name().to_string_lossy().to_string());
+    }
+    assert_eq!(file_names, vec!["file-a".to_string()]);
+    assert_eq!(tokio::fs::read(save_dir.join("file-a")).await.unwrap(), bytes);
+
+    tokio::fs::remove_dir_all(&save_dir).await.unwrap();
+}
+
+#[tokio::test]
+async fn test_upload_mismatched_sha256_attempts_exhausted() {
+    let server = start_test_server(None, true, None).await;
+    let client = LsHttpClientV2::try_new_without_cert().unwrap();
+
+    let bytes = b"hello".to_vec();
+    let corrupted = b"hellO".to_vec();
+    let mut file = file_dto("file-a", "a.bin", bytes.len() as u64);
+    file.sha256 = Some(sha256_hex(&bytes));
+
+    let response = client
+        .prepare_upload(
+            ProtocolType::Http,
+            "127.0.0.1",
+            server.port,
+            None,
+            prepare_upload_request(&[file]),
+            None,
+        )
+        .await
+        .unwrap()
+        .response
+        .unwrap();
+
+    // Three attempts are allowed, each failing with a checksum mismatch.
+    for _ in 0..3 {
+        let result = upload_bytes(
+            &client,
+            server.port,
+            &response.session_id,
+            "file-a",
+            &response.files["file-a"],
+            &corrupted,
+        )
+        .await;
+        assert_status(result, 422);
+    }
+
+    // The file is now failed and the session is over; further attempts are rejected.
+    let result = upload_bytes(
+        &client,
+        server.port,
+        &response.session_id,
+        "file-a",
+        &response.files["file-a"],
+        &bytes,
+    )
+    .await;
+    assert_status(result, 403);
+
+    tokio::time::sleep(Duration::from_millis(100)).await;
+    let session_ends = server.session_ends.lock().await;
+    assert_eq!(session_ends.len(), 1);
 }
 
 #[tokio::test]

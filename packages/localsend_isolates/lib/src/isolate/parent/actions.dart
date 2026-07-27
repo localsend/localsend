@@ -249,13 +249,17 @@ class IsolateHttpServerStopAction extends AsyncReduxAction<IsolateController, Pa
 }
 
 /// Answers a pending [HttpServerPrepareUploadEvent].
+///
+/// When accepted, the server isolate receives all files on its own and
+/// reports [HttpServerFileUploadEvent], [HttpServerFileUploadProgressEvent]
+/// and [HttpServerFileUploadResultEvent] on the server event stream.
 class IsolateHttpServerPrepareUploadDecisionAction extends ReduxAction<IsolateController, ParentIsolateState> {
-  /// The file IDs to accept (a subset of the offered files).
+  /// The receive configuration including the accepted file IDs.
   /// `null` declines the request.
-  final List<String>? acceptedFileIds;
+  final HttpServerReceiveConfig? config;
 
   IsolateHttpServerPrepareUploadDecisionAction({
-    required this.acceptedFileIds,
+    required this.config,
   });
 
   @override
@@ -270,105 +274,7 @@ class IsolateHttpServerPrepareUploadDecisionAction extends ReduxAction<IsolateCo
         syncState: null,
         data: IsolateTask(
           data: HttpServerPrepareUploadDecisionTask(
-            acceptedFileIds: acceptedFileIds,
-          ),
-        ),
-      ),
-    );
-
-    return state;
-  }
-}
-
-/// Answers a pending [HttpServerFileUploadEvent] with the target the file
-/// should be saved to (either a [path] or a writable [fileDescriptor]).
-/// [onProgress] is called with the progress (0.0 to 1.0) while the file is being received.
-/// The returned future completes when the file has been received completely
-/// and throws if saving the file failed.
-class IsolateHttpServerFileUploadTargetAction extends ReduxActionWithResult<IsolateController, ParentIsolateState, Future<void>> {
-  final String sessionId;
-  final String fileId;
-  final String? path;
-  final int? fileDescriptor;
-  final int fileSize;
-  final void Function(double progress)? onProgress;
-
-  IsolateHttpServerFileUploadTargetAction({
-    required this.sessionId,
-    required this.fileId,
-    required this.path,
-    required this.fileDescriptor,
-    required this.fileSize,
-    required this.onProgress,
-  });
-
-  @override
-  (ParentIsolateState, Future<void>) reduce() {
-    final connection = state.httpServer;
-    if (connection == null) {
-      throw StateError('httpServer is not initialized');
-    }
-
-    final events = connection.sendWrappedTaskAndListenStream(
-      task: HttpServerFileUploadTargetTask(
-        sessionId: sessionId,
-        fileId: fileId,
-        path: path,
-        fileDescriptor: fileDescriptor,
-        fileSize: fileSize,
-      ),
-    );
-
-    return (state, _awaitResult(events));
-  }
-
-  Future<void> _awaitResult(Stream<HttpServerEvent> events) async {
-    await for (final event in events) {
-      switch (event) {
-        case HttpServerFileUploadProgressEvent(:final progress):
-          onProgress?.call(progress);
-        case HttpServerFileUploadResultEvent(:final error):
-          if (error != null) {
-            throw HttpServerFileUploadException(error);
-          }
-          return;
-        default:
-          break;
-      }
-    }
-
-    throw HttpServerFileUploadException('The server isolate did not report a result');
-  }
-}
-
-/// Rejects a pending [HttpServerFileUploadEvent], e.g. because preparing the
-/// save target for the file failed. The sender receives an error response for
-/// this file and the session itself continues.
-/// Does nothing if the upload was already answered with a
-/// [IsolateHttpServerFileUploadTargetAction].
-class IsolateHttpServerRejectFileUploadAction extends ReduxAction<IsolateController, ParentIsolateState> {
-  final String sessionId;
-  final String fileId;
-
-  IsolateHttpServerRejectFileUploadAction({
-    required this.sessionId,
-    required this.fileId,
-  });
-
-  @override
-  ParentIsolateState reduce() {
-    final connection = state.httpServer;
-    if (connection == null) {
-      throw StateError('httpServer is not initialized');
-    }
-
-    connection.sendToIsolate(
-      SendToIsolateData(
-        syncState: null,
-        data: IsolateTask(
-          data: HttpServerRejectFileUploadTask(
-            sessionId: sessionId,
-            fileId: fileId,
+            config: config,
           ),
         ),
       ),
@@ -520,16 +426,6 @@ class IsolateHttpServerRejectFileDownloadAction extends ReduxAction<IsolateContr
 
     return state;
   }
-}
-
-/// Saving a file received by the HTTP server failed.
-class HttpServerFileUploadException implements Exception {
-  final String message;
-
-  HttpServerFileUploadException(this.message);
-
-  @override
-  String toString() => message;
 }
 
 /// Adds the [SendToIsolateData] envelope on top of the generic

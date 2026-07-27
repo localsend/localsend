@@ -134,18 +134,18 @@
       "deviceType": "设备类型",
       "deviceModel": "设备型号",
       "port": "端口",
+      "network": "网络",
+      "networkOptions": {
+        "all": "所有",
+        "filtered": "已过滤"
+      },
       "discoveryTimeout": "搜索设备超时",
       "useSystemName": "使用系统名称",
       "generateRandomAlias": "生成随机昵称",
       "portWarning": "由于正在使用自定义端口，你可能不会被其他设备检测到。（默认端口：{defaultPort}）",
       "encryption": "加密",
       "multicastGroup": "多播",
-      "multicastGroupWarning": "由于正在使用自定义多播地址，你可能不会被其他设备检测到。（默认地址：{defaultMulticast}）",
-      "network": "网络",
-      "networkOptions": {
-        "all": "所有",
-        "filtered": "已过滤"
-      }
+      "multicastGroupWarning": "由于正在使用自定义多播地址，你可能不会被其他设备检测到。（默认地址：{defaultMulticast}）"
     },
     "other": {
       "title": "其他",
@@ -174,6 +174,13 @@
       "symptom": "双方设备均无法发现对方或者分享文件。",
       "solution": "当问题发生在双方设备上时，请先确认双方设备处于同一个 Wi‑Fi 网络上，且共享相同的网络配置（端口、多播地址、加密选项）。若因 Wi‑Fi 不允许参与者间通信，那么请在路由器中关闭“接入点(AP)隔离”选项。"
     }
+  },
+  "networkInterfacesPage": {
+    "title": "网络接口",
+    "info": "默认情况下，LocalSend 使用所有可用的网络接口。您可以在此处排除不需要的网络接口。您需要重新启动服务器以应用更改。",
+    "preview": "预览",
+    "whitelist": "白名单",
+    "blacklist": "黑名单"
   },
   "receiveHistoryPage": {
     "title": "历史",
@@ -234,12 +241,12 @@
       "speed": "速度：{speed}/s"
     },
     "remainingTime": {
+      "seconds": "{n}:{ss}",
+      "minutes": "{n}:{ss}",
       "hours": "{h}h {m}m",
       "days": "{d}d {h}h {m}m",
       "@hours": "使用'h'作为小时缩写，使用'm'作为分钟缩写",
-      "@days": "使用'd'作为天缩写，使用'h'作为小时缩写，使用'm'作为分钟缩写",
-      "seconds": "{n}:{ss}",
-      "minutes": "{n}:{ss}"
+      "@days": "使用'd'作为天缩写，使用'h'作为小时缩写，使用'm'作为分钟缩写"
     }
   },
   "webSharePage": {
@@ -455,9 +462,7 @@
     "quickSaveFromFavoritesNotice": {
       "title": "@:general.quickSaveFromFavorites",
       "content": [
-        "当前会自动接受收藏夹中设备的文件请求。",
-        "警告：这目前并非绝对安全，知道您收藏夹列表中的设备指纹被黑客窃取，其仍可以向您发送文件。",
-        "但是，此选项比“允许任何设备”更安全。"
+        "当前会自动接受收藏夹中设备的文件请求。"
       ]
     },
     "pin": {
@@ -523,12 +528,5 @@
     "sActionUseCameraHint": "使用摄像头",
     "sNameDurationLabel": "时长",
     "sUnitAssetCountLabel": "计数"
-  },
-  "networkInterfacesPage": {
-    "title": "网络接口",
-    "info": "默认情况下，LocalSend 使用所有可用的网络接口。您可以在此处排除不需要的网络接口。您需要重新启动服务器以应用更改。",
-    "preview": "预览",
-    "whitelist": "白名单",
-    "blacklist": "黑名单"
   }
 }

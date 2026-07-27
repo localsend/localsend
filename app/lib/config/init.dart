@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
@@ -35,6 +34,7 @@ import 'package:localsend_app/util/native/device_info_helper.dart';
 import 'package:localsend_app/util/native/macos_channel.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_app/util/native/tray_helper.dart';
+import 'package:localsend_app/util/notification_strings.dart';
 import 'package:localsend_app/util/ui/dynamic_colors.dart';
 import 'package:localsend_app/util/ui/snackbar.dart';
 import 'package:localsend_isolates/api_route_builder.dart';
@@ -45,6 +45,7 @@ import 'package:localsend_isolates/model/dto/multicast_dto.dart';
 import 'package:localsend_isolates/rust/api/logging.dart' as rust_logging;
 import 'package:localsend_isolates/rust/frb_generated.dart';
 import 'package:localsend_isolates/util/logger.dart';
+import 'package:localsend_isolates/util/transfer_notification.dart';
 import 'package:logging/logging.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 import 'package:share_handler/share_handler.dart';
@@ -80,6 +81,8 @@ Future<RefenaContainer> preInit(List<String> args) async {
   }
 
   await initI18n();
+
+  TransferNotification.init(notificationStrings);
 
   bool startHidden = false;
   if (checkPlatformIsDesktop()) {
@@ -134,13 +137,11 @@ Future<RefenaContainer> preInit(List<String> args) async {
       startHidden = await isLaunchedAsLoginItem() && await getLaunchAtLoginMinimized();
     }
 
-    doWhenWindowReady(() {
-      if (startHidden) {
-        unawaited(hideToTray());
-      } else {
-        unawaited(showFromTray());
-      }
-    });
+    if (startHidden) {
+      unawaited(hideToTray());
+    } else {
+      unawaited(showFromTray());
+    }
 
     if (defaultTargetPlatform == TargetPlatform.macOS) {
       await setupStatusBar();

@@ -134,18 +134,18 @@
       "deviceType": "Type d'appareil",
       "deviceModel": "Modèle d'appareil",
       "port": "Port",
+      "network": "Réseau",
+      "networkOptions": {
+        "all": "Tout",
+        "filtered": "Filtré"
+      },
       "discoveryTimeout": "Délai d'expiration de la recherche",
       "useSystemName": "Utiliser le nom du système",
       "generateRandomAlias": "Générer un alias aléatoire",
       "portWarning": "Il se peut que vous ne soyez pas détecté par d'autres appareils car vous utilisez un port personnalisé. (par défaut : {defaultPort})",
       "encryption": "Chiffrement",
       "multicastGroup": "Multicast",
-      "multicastGroupWarning": "Il est possible que vous ne soyez pas détecté par d'autres appareils car vous utilisez une adresse multicast différente de celle par défaut. (par défaut : {defaultMulticast})",
-      "network": "Réseau",
-      "networkOptions": {
-        "filtered": "Filtré",
-        "all": "Tout"
-      }
+      "multicastGroupWarning": "Il est possible que vous ne soyez pas détecté par d'autres appareils car vous utilisez une adresse multicast différente de celle par défaut. (par défaut : {defaultMulticast})"
     },
     "other": {
       "title": "Autre",
@@ -174,6 +174,13 @@
       "symptom": "Les deux appareils ne peuvent ni se trouver, ni partager des fichiers.",
       "solution": "Le problème existe-il des deux côtés ? Si oui, vérifiez que les deux appareils soient connectés au même réseau Wi-Fi et qu'ils partagent la même configuration (port, adresse multicast, chiffrement). Il se peut que les appareils soient isolés les uns des autres, empêchant toutes communications entre eux. Cet isolement peut être désactivé dans votre routeur/box internet via l'option \"Isolement du point d'accès\" ou \"AP Isolation\"."
     }
+  },
+  "networkInterfacesPage": {
+    "title": "Interfaces réseau",
+    "info": "Par défaut, LocalSend utilise toutes les interfaces réseau disponibles. Vous pouvez exclure les réseaux indésirables ici. Vous aurez besoin de redémarrer le serveur pour appliquer les changements.",
+    "preview": "Aperçu",
+    "whitelist": "Liste blanche",
+    "blacklist": "Liste noire"
   },
   "receiveHistoryPage": {
     "title": "Historique",
@@ -234,12 +241,12 @@
       "speed": "Vitesse : {speed}/s"
     },
     "remainingTime": {
-      "@hours": "Utilisez « h » pour l'abréviation des heures et « m » pour les minutes",
-      "@days": "Utilisez « j » pour les jours, « h » pour les heures et « m » pour les minutes",
       "seconds": "{n}:{ss}",
       "minutes": "{n} :{ss}",
       "hours": "{h}h {m}min",
-      "days": "{d}j {h}h {m}min"
+      "days": "{d}j {h}h {m}min",
+      "@hours": "Utilisez « h » pour l'abréviation des heures et « m » pour les minutes",
+      "@days": "Utilisez « j » pour les jours, « h » pour les heures et « m » pour les minutes"
     }
   },
   "webSharePage": {
@@ -386,9 +393,7 @@
     "quickSaveFromFavoritesNotice": {
       "title": "@:general.quickSaveFromFavorites",
       "content": [
-        "Les demandes de fichiers provenant de vos appareils favoris sont désormais automatiquement acceptées.",
-        "Attention : Cette option n'est pas sûre car un hackeur qui connaîtrait l'empreinte numérique de vos appareils favoris pourrait quand même vous envoyer des fichiers.",
-        "Cette option reste néanmoins plus sûre que d'autoriser tous les appareils."
+        "Les demandes de fichiers provenant de vos appareils favoris sont désormais automatiquement acceptées."
       ]
     },
     "pin": {
@@ -454,12 +459,5 @@
     "sActionUseCameraHint": "Utiliser la Caméra",
     "sNameDurationLabel": "durée",
     "sUnitAssetCountLabel": "quantité"
-  },
-  "networkInterfacesPage": {
-    "title": "Interfaces réseau",
-    "info": "Par défaut, LocalSend utilise toutes les interfaces réseau disponibles. Vous pouvez exclure les réseaux indésirables ici. Vous aurez besoin de redémarrer le serveur pour appliquer les changements.",
-    "preview": "Aperçu",
-    "whitelist": "Liste blanche",
-    "blacklist": "Liste noire"
   }
 }

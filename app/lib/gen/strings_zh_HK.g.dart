@@ -54,6 +54,8 @@ class TranslationsZhHk extends Translations with BaseTranslations<AppLocale, Tra
   @override
   late final Translations$troubleshootPage$zh_HK troubleshootPage = Translations$troubleshootPage$zh_HK.internal(_root);
   @override
+  late final Translations$networkInterfacesPage$zh_HK networkInterfacesPage = Translations$networkInterfacesPage$zh_HK.internal(_root);
+  @override
   late final Translations$receiveHistoryPage$zh_HK receiveHistoryPage = Translations$receiveHistoryPage$zh_HK.internal(_root);
   @override
   late final Translations$apkPickerPage$zh_HK apkPickerPage = Translations$apkPickerPage$zh_HK.internal(_root);
@@ -85,8 +87,6 @@ class TranslationsZhHk extends Translations with BaseTranslations<AppLocale, Tra
   late final Translations$web$zh_HK web = Translations$web$zh_HK.internal(_root);
   @override
   late final Translations$assetPicker$zh_HK assetPicker = Translations$assetPicker$zh_HK.internal(_root);
-  @override
-  late final Translations$networkInterfacesPage$zh_HK networkInterfacesPage = Translations$networkInterfacesPage$zh_HK.internal(_root);
 }
 
 // Path: general
@@ -268,6 +268,25 @@ class Translations$troubleshootPage$zh_HK extends Translations$troubleshootPage$
   late final Translations$troubleshootPage$noDiscovery$zh_HK noDiscovery = Translations$troubleshootPage$noDiscovery$zh_HK.internal(_root);
   @override
   late final Translations$troubleshootPage$noConnection$zh_HK noConnection = Translations$troubleshootPage$noConnection$zh_HK.internal(_root);
+}
+
+// Path: networkInterfacesPage
+class Translations$networkInterfacesPage$zh_HK extends Translations$networkInterfacesPage$en {
+  Translations$networkInterfacesPage$zh_HK.internal(TranslationsZhHk root) : this._root = root, super.internal(root);
+
+  final TranslationsZhHk _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => '網路介面';
+  @override
+  String get info => 'LocalSend 預設使用所有可用的網路介面。您可以在這裡排除不需要的網路。您需要重新啟動伺服器才能套用變更。';
+  @override
+  String get preview => '預覽';
+  @override
+  String get whitelist => '白名單';
+  @override
+  String get blacklist => '黑名單';
 }
 
 // Path: receiveHistoryPage
@@ -666,25 +685,6 @@ class Translations$assetPicker$zh_HK extends Translations$assetPicker$en {
   String get sUnitAssetCountLabel => '數量';
 }
 
-// Path: networkInterfacesPage
-class Translations$networkInterfacesPage$zh_HK extends Translations$networkInterfacesPage$en {
-  Translations$networkInterfacesPage$zh_HK.internal(TranslationsZhHk root) : this._root = root, super.internal(root);
-
-  final TranslationsZhHk _root; // ignore: unused_field
-
-  // Translations
-  @override
-  String get info => 'LocalSend 預設使用所有可用的網路介面。您可以在這裡排除不需要的網路。您需要重新啟動伺服器才能套用變更。';
-  @override
-  String get title => '網路介面';
-  @override
-  String get preview => '預覽';
-  @override
-  String get whitelist => '白名單';
-  @override
-  String get blacklist => '黑名單';
-}
-
 // Path: receiveTab.infoBox
 class Translations$receiveTab$infoBox$zh_HK extends Translations$receiveTab$infoBox$en {
   Translations$receiveTab$infoBox$zh_HK.internal(TranslationsZhHk root) : this._root = root, super.internal(root);
@@ -868,6 +868,12 @@ class Translations$settingsTab$network$zh_HK extends Translations$settingsTab$ne
   @override
   String get port => 'Port';
   @override
+  String get network => '網絡';
+  @override
+  late final Translations$settingsTab$network$networkOptions$zh_HK networkOptions = Translations$settingsTab$network$networkOptions$zh_HK.internal(
+    _root,
+  );
+  @override
   String get discoveryTimeout => '裝置搜尋逾時';
   @override
   String get useSystemName => '使用系統名稱';
@@ -881,12 +887,6 @@ class Translations$settingsTab$network$zh_HK extends Translations$settingsTab$ne
   String get multicastGroup => '多播 IP 地址';
   @override
   String multicastGroupWarning({required Object defaultMulticast}) => '用自訂多播地址嘅話其他裝置有機會偵測唔到你。（預設：${defaultMulticast}）';
-  @override
-  String get network => '網絡';
-  @override
-  late final Translations$settingsTab$network$networkOptions$zh_HK networkOptions = Translations$settingsTab$network$networkOptions$zh_HK.internal(
-    _root,
-  );
 }
 
 // Path: settingsTab.other
@@ -1297,8 +1297,6 @@ class Translations$dialogs$quickSaveFromFavoritesNotice$zh_HK extends Translatio
   @override
   List<String> get content => [
     '自動接受來自已收藏裝置嘅檔案傳輸請求。',
-    '警告：目前呢個選項並非絕對安全，因為只要黑客攞到你任何一部已收藏裝置嘅指紋，佢就可以無限制噉 send 嘢畀你。',
-    '不過揀已收藏裝置點都安全過揀所有裝置嘅。',
   ];
 }
 

@@ -10,7 +10,6 @@ import 'package:localsend_app/util/favorites.dart';
 import 'package:localsend_app/util/native/taskbar_helper.dart';
 import 'package:localsend_app/widget/animations/initial_fade_transition.dart';
 import 'package:localsend_app/widget/animations/initial_slide_transition.dart';
-import 'package:localsend_app/widget/custom_basic_appbar.dart';
 import 'package:localsend_app/widget/dialogs/error_dialog.dart';
 import 'package:localsend_app/widget/list_tile/device_list_tile.dart';
 import 'package:localsend_app/widget/responsive_list_view.dart';
@@ -90,7 +89,7 @@ class _SendPageState extends State<SendPage> with Refena {
       },
       canPop: true,
       child: Scaffold(
-        appBar: widget.showAppBar ? basicLocalSendAppbar('') : null,
+        appBar: widget.showAppBar ? AppBar() : null,
         body: SafeArea(
           child: Center(
             child: ConstrainedBox(
@@ -135,7 +134,23 @@ class _SendPageState extends State<SendPage> with Refena {
                             switch (sendState.status) {
                               SessionStatus.waiting => Padding(
                                 padding: const EdgeInsets.only(bottom: 20),
-                                child: Text(t.sendPage.waiting, textAlign: TextAlign.center),
+                                child: sendState.hashedFileCount < sendState.files.length
+                                    ? Column(
+                                        children: [
+                                          Text(
+                                            t.sendPage.calculatingChecksum(curr: sendState.hashedFileCount, n: sendState.files.length),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                          const SizedBox(height: 15),
+                                          SizedBox(
+                                            width: 200,
+                                            child: LinearProgressIndicator(
+                                              value: sendState.hashedFileCount / sendState.files.length,
+                                            ),
+                                          ),
+                                        ],
+                                      )
+                                    : Text(t.sendPage.waiting, textAlign: TextAlign.center),
                               ),
                               SessionStatus.declined => Padding(
                                 padding: const EdgeInsets.only(bottom: 20),

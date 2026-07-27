@@ -54,6 +54,8 @@ class TranslationsBg extends Translations with BaseTranslations<AppLocale, Trans
   @override
   late final _Translations$troubleshootPage$bg troubleshootPage = _Translations$troubleshootPage$bg._(_root);
   @override
+  late final _Translations$networkInterfacesPage$bg networkInterfacesPage = _Translations$networkInterfacesPage$bg._(_root);
+  @override
   late final _Translations$receiveHistoryPage$bg receiveHistoryPage = _Translations$receiveHistoryPage$bg._(_root);
   @override
   late final _Translations$apkPickerPage$bg apkPickerPage = _Translations$apkPickerPage$bg._(_root);
@@ -85,8 +87,6 @@ class TranslationsBg extends Translations with BaseTranslations<AppLocale, Trans
   late final _Translations$web$bg web = _Translations$web$bg._(_root);
   @override
   late final _Translations$assetPicker$bg assetPicker = _Translations$assetPicker$bg._(_root);
-  @override
-  late final _Translations$networkInterfacesPage$bg networkInterfacesPage = _Translations$networkInterfacesPage$bg._(_root);
 }
 
 // Path: general
@@ -268,6 +268,26 @@ class _Translations$troubleshootPage$bg extends Translations$troubleshootPage$en
   late final _Translations$troubleshootPage$noDiscovery$bg noDiscovery = _Translations$troubleshootPage$noDiscovery$bg._(_root);
   @override
   late final _Translations$troubleshootPage$noConnection$bg noConnection = _Translations$troubleshootPage$noConnection$bg._(_root);
+}
+
+// Path: networkInterfacesPage
+class _Translations$networkInterfacesPage$bg extends Translations$networkInterfacesPage$en {
+  _Translations$networkInterfacesPage$bg._(TranslationsBg root) : this._root = root, super.internal(root);
+
+  final TranslationsBg _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Мрежови интерфейси';
+  @override
+  String get info =>
+      'По подразбиране, LocalSend използва всички налични мрежови интерфейси. Тук можете да изключите нежелани мрежи. Трябва да рестартирате сървъра, за да приложите промените.';
+  @override
+  String get preview => 'Преглед';
+  @override
+  String get whitelist => 'Бял списък';
+  @override
+  String get blacklist => 'Черен списък';
 }
 
 // Path: receiveHistoryPage
@@ -666,26 +686,6 @@ class _Translations$assetPicker$bg extends Translations$assetPicker$en {
   String get sUnitAssetCountLabel => 'брой';
 }
 
-// Path: networkInterfacesPage
-class _Translations$networkInterfacesPage$bg extends Translations$networkInterfacesPage$en {
-  _Translations$networkInterfacesPage$bg._(TranslationsBg root) : this._root = root, super.internal(root);
-
-  final TranslationsBg _root; // ignore: unused_field
-
-  // Translations
-  @override
-  String get preview => 'Преглед';
-  @override
-  String get whitelist => 'Бял списък';
-  @override
-  String get blacklist => 'Черен списък';
-  @override
-  String get title => 'Мрежови интерфейси';
-  @override
-  String get info =>
-      'По подразбиране, LocalSend използва всички налични мрежови интерфейси. Тук можете да изключите нежелани мрежи. Трябва да рестартирате сървъра, за да приложите промените.';
-}
-
 // Path: receiveTab.infoBox
 class _Translations$receiveTab$infoBox$bg extends Translations$receiveTab$infoBox$en {
   _Translations$receiveTab$infoBox$bg._(TranslationsBg root) : this._root = root, super.internal(root);
@@ -868,6 +868,10 @@ class _Translations$settingsTab$network$bg extends Translations$settingsTab$netw
   @override
   String get port => 'Порт';
   @override
+  String get network => 'Мрежа';
+  @override
+  late final _Translations$settingsTab$network$networkOptions$bg networkOptions = _Translations$settingsTab$network$networkOptions$bg._(_root);
+  @override
   String get discoveryTimeout => 'Изчакване за откриване';
   @override
   String get useSystemName => 'Използвай системно име';
@@ -883,10 +887,6 @@ class _Translations$settingsTab$network$bg extends Translations$settingsTab$netw
   @override
   String multicastGroupWarning({required Object defaultMulticast}) =>
       'Възможно е да не бъдете открити от други устройства, защото използвате персонализиран адрес за множествено предаване. (default: ${defaultMulticast})';
-  @override
-  String get network => 'Мрежа';
-  @override
-  late final _Translations$settingsTab$network$networkOptions$bg networkOptions = _Translations$settingsTab$network$networkOptions$bg._(_root);
 }
 
 // Path: settingsTab.other
@@ -1323,8 +1323,6 @@ class _Translations$dialogs$quickSaveFromFavoritesNotice$bg extends Translations
   @override
   List<String> get content => [
     'Заявките за файлове вече се приемат автоматично от устройства в списъка ви с любими.',
-    'Внимание! В момента това не е напълно сигурно, тъй като хакер, който има пръстов отпечатък на всяко устройство от списъка ви с любими, може да ви изпраща файлове без ограничения.',
-    'Въпреки това, тази опция все още е по-безопасна от разрешаването на всички потребители в локалната мрежа да ви изпращат файлове без ограничения.',
   ];
 }
 

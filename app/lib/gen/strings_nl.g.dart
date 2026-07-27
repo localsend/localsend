@@ -54,6 +54,8 @@ class TranslationsNl extends Translations with BaseTranslations<AppLocale, Trans
   @override
   late final _Translations$troubleshootPage$nl troubleshootPage = _Translations$troubleshootPage$nl._(_root);
   @override
+  late final _Translations$networkInterfacesPage$nl networkInterfacesPage = _Translations$networkInterfacesPage$nl._(_root);
+  @override
   late final _Translations$receiveHistoryPage$nl receiveHistoryPage = _Translations$receiveHistoryPage$nl._(_root);
   @override
   late final _Translations$apkPickerPage$nl apkPickerPage = _Translations$apkPickerPage$nl._(_root);
@@ -85,8 +87,6 @@ class TranslationsNl extends Translations with BaseTranslations<AppLocale, Trans
   late final _Translations$web$nl web = _Translations$web$nl._(_root);
   @override
   late final _Translations$assetPicker$nl assetPicker = _Translations$assetPicker$nl._(_root);
-  @override
-  late final _Translations$networkInterfacesPage$nl networkInterfacesPage = _Translations$networkInterfacesPage$nl._(_root);
 }
 
 // Path: general
@@ -268,6 +268,26 @@ class _Translations$troubleshootPage$nl extends Translations$troubleshootPage$en
   late final _Translations$troubleshootPage$noDiscovery$nl noDiscovery = _Translations$troubleshootPage$noDiscovery$nl._(_root);
   @override
   late final _Translations$troubleshootPage$noConnection$nl noConnection = _Translations$troubleshootPage$noConnection$nl._(_root);
+}
+
+// Path: networkInterfacesPage
+class _Translations$networkInterfacesPage$nl extends Translations$networkInterfacesPage$en {
+  _Translations$networkInterfacesPage$nl._(TranslationsNl root) : this._root = root, super.internal(root);
+
+  final TranslationsNl _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Netwerkinterfaces';
+  @override
+  String get info =>
+      'Standaard gebruikt LocalSend alle beschikbare netwerkinterfaces. Je kunt hier ongewenste netwerken uitsluiten. Je moet de server opnieuw opstarten om de wijzigingen toe te passen.';
+  @override
+  String get preview => 'Voorbeeld';
+  @override
+  String get whitelist => 'Whitelist';
+  @override
+  String get blacklist => 'Blacklist';
 }
 
 // Path: receiveHistoryPage
@@ -624,7 +644,7 @@ class _Translations$assetPicker$nl extends Translations$assetPicker$en {
   @override
   String get select => 'Selecteren';
   @override
-  String get emptyList => 'Lege lijst';
+  String get emptyList => 'Lijst is leeg';
   @override
   String get unSupportedAssetType => 'Niet-ondersteund bestandstype.';
   @override
@@ -664,26 +684,6 @@ class _Translations$assetPicker$nl extends Translations$assetPicker$en {
   String get sNameDurationLabel => 'duur';
   @override
   String get sUnitAssetCountLabel => 'aantal';
-}
-
-// Path: networkInterfacesPage
-class _Translations$networkInterfacesPage$nl extends Translations$networkInterfacesPage$en {
-  _Translations$networkInterfacesPage$nl._(TranslationsNl root) : this._root = root, super.internal(root);
-
-  final TranslationsNl _root; // ignore: unused_field
-
-  // Translations
-  @override
-  String get preview => 'Voorvertoning';
-  @override
-  String get title => 'Netwerkinterfaces';
-  @override
-  String get info =>
-      'Standaard gebruikt LocalSend alle beschikbare netwerkinterfaces. U kunt hier ongewenste netwerken uitsluiten. U moet de server opnieuw opstarten om de wijzigingen toe te passen.';
-  @override
-  String get whitelist => 'Whitelist';
-  @override
-  String get blacklist => 'Blacklist';
 }
 
 // Path: receiveTab.infoBox
@@ -868,6 +868,10 @@ class _Translations$settingsTab$network$nl extends Translations$settingsTab$netw
   @override
   String get port => 'Poort';
   @override
+  String get network => 'Netwerk';
+  @override
+  late final _Translations$settingsTab$network$networkOptions$nl networkOptions = _Translations$settingsTab$network$networkOptions$nl._(_root);
+  @override
   String get discoveryTimeout => 'Time-out voor scannen';
   @override
   String get useSystemName => 'Systeemnaam gebruiken';
@@ -883,10 +887,6 @@ class _Translations$settingsTab$network$nl extends Translations$settingsTab$netw
   @override
   String multicastGroupWarning({required Object defaultMulticast}) =>
       'Je apparaat kan mogelijk niet worden gevonden omdat je een aangepast multicast-adres gebruikt. (Standaard: ${defaultMulticast})';
-  @override
-  String get network => 'Netwerk';
-  @override
-  late final _Translations$settingsTab$network$networkOptions$nl networkOptions = _Translations$settingsTab$network$networkOptions$nl._(_root);
 }
 
 // Path: settingsTab.other
@@ -999,13 +999,13 @@ class _Translations$progressPage$remainingTime$nl extends Translations$progressP
   @override
   String minutes({required Object n, required Object ss}) => '${n}:${ss}';
 
-  /// Gebruik 'h' als afkorting voor uren en 'm' voor minuten
+  /// Gebruik 'u' als afkorting voor uren en 'm' voor minuten
   @override
-  String hours({required Object h, required Object m}) => '${h}h ${m}m';
+  String hours({required Object h, required Object m}) => '${h}u ${m}m';
 
-  /// Gebruik 'd' voor dagen, 'h' voor uren en 'm' voor minuten
+  /// Gebruik 'd' voor dagen, 'u' voor uren en 'm' voor minuten
   @override
-  String days({required Object d, required Object h, required Object m}) => '${d}d ${h}h ${m}m';
+  String days({required Object d, required Object h, required Object m}) => '${d}d ${h}u ${m}m';
 }
 
 // Path: dialogs.addFile
@@ -1324,8 +1324,6 @@ class _Translations$dialogs$quickSaveFromFavoritesNotice$nl extends Translations
   @override
   List<String> get content => [
     'Bestandsverzoeken van apparaten op je favorietenlijst worden nu automatisch geaccepteerd.',
-    'Waarschuwing! Dit is momenteel niet volkomen veilig. Een hacker die beschikt over de digitale vingerafdruk van een apparaat op je favorietenlijst zou zonder enige beperking bestanden naar je kunnen verzenden.',
-    'Desalniettemin is deze optie alsnog veiliger dan wanneer je zou toestaan dat alle gebruikers op het lokale netwerk bestanden naar je kunnen verzenden.',
   ];
 }
 

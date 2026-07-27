@@ -1,3 +1,4 @@
+use crate::api::cancel::RsCancellationToken;
 use crate::api::stream;
 use crate::frb_generated::StreamSink;
 use flutter_rust_bridge::frb;
@@ -27,24 +28,6 @@ pub fn create_client(
     .map_err(RsHttpClientError::from)?;
 
     Ok(RsHttpClient { inner })
-}
-
-pub struct RsCancellationToken {
-    inner: tokio_util::sync::CancellationToken,
-}
-
-#[frb(sync)]
-pub fn create_cancellation_token() -> RsCancellationToken {
-    RsCancellationToken {
-        inner: tokio_util::sync::CancellationToken::new(),
-    }
-}
-
-impl RsCancellationToken {
-    #[frb(sync)]
-    pub fn cancel(&self) {
-        self.inner.cancel();
-    }
 }
 
 impl RsHttpClient {

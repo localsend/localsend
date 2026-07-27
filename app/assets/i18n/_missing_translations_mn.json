@@ -29,6 +29,14 @@
   "sendPage": {
     "tooManyAttempts": "@:web.tooManyAttempts"
   },
+  "progressPage": {
+    "remainingTime": {
+      "seconds": "{n}:{ss}",
+      "minutes": "{n}:{ss}",
+      "hours": "{h}h {m}m",
+      "days": "{d}d {h}h {m}m"
+    }
+  },
   "webSharePage": {
     "loading": "Starting server…",
     "stopping": "Stopping server…",
@@ -139,9 +147,7 @@
     "quickSaveFromFavoritesNotice": {
       "title": "@:general.quickSaveFromFavorites",
       "content": [
-        "File requests are now accepted automatically from devices in your favorites list.",
-        "Warning! Currently, this is not entirely secure, as a hacker who has the fingerprint of any device from your favorites list can send you files without restriction.",
-        "However, this option is still safer than allowing all users on the local network to send you files without restriction."
+        "File requests are now accepted automatically from devices in your favorites list."
       ]
     },
     "pin": {

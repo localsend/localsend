@@ -26,6 +26,7 @@
 
 // Section: imports
 
+use crate::api::cancel::*;
 use crate::api::http::*;
 use crate::api::server::*;
 use crate::api::stream::*;
@@ -42,7 +43,7 @@ flutter_rust_bridge::frb_generated_boilerplate!(
     default_rust_auto_opaque = RustAutoOpaqueMoi,
 );
 pub(crate) const FLUTTER_RUST_BRIDGE_CODEGEN_VERSION: &str = "2.12.0";
-pub(crate) const FLUTTER_RUST_BRIDGE_CODEGEN_CONTENT_HASH: i32 = 1916764705;
+pub(crate) const FLUTTER_RUST_BRIDGE_CODEGEN_CONTENT_HASH: i32 = 1193619754;
 
 // Section: executor
 
@@ -358,7 +359,7 @@ fn wire__crate__api__webrtc__LsSignalingConnection_update_info_impl(
         },
     )
 }
-fn wire__crate__api__http__RsCancellationToken_cancel_impl(
+fn wire__crate__api__cancel__RsCancellationToken_cancel_impl(
     ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
     rust_vec_len_: i32,
     data_len_: i32,
@@ -399,7 +400,7 @@ fn wire__crate__api__http__RsCancellationToken_cancel_impl(
                 }
                 let api_that_guard = api_that_guard.unwrap();
                 let output_ok = Result::<_, ()>::Ok({
-                    crate::api::http::RsCancellationToken::cancel(&*api_that_guard);
+                    crate::api::cancel::RsCancellationToken::cancel(&*api_that_guard);
                 })?;
                 Ok(output_ok)
             })())
@@ -2272,7 +2273,7 @@ let api_on_connection = decode_DartFn_Inputs_Auto_Owned_RustOpaque_flutter_rust_
                     })().await)
                 } })
 }
-fn wire__crate__api__http__create_cancellation_token_impl(
+fn wire__crate__api__cancel__create_cancellation_token_impl(
     ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
     rust_vec_len_: i32,
     data_len_: i32,
@@ -2295,7 +2296,8 @@ fn wire__crate__api__http__create_cancellation_token_impl(
                 flutter_rust_bridge::for_generated::SseDeserializer::new(message);
             deserializer.end();
             transform_result_sse::<_, ()>((move || {
-                let output_ok = Result::<_, ()>::Ok(crate::api::http::create_cancellation_token())?;
+                let output_ok =
+                    Result::<_, ()>::Ok(crate::api::cancel::create_cancellation_token())?;
                 Ok(output_ok)
             })())
         },
@@ -2435,6 +2437,72 @@ fn wire__crate__api__crypto__generate_key_pair_impl(
                         let output_ok = crate::api::crypto::generate_key_pair()?;
                         Ok(output_ok)
                     })(),
+                )
+            }
+        },
+    )
+}
+fn wire__crate__api__crypto__hash_file_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
+    rust_vec_len_: i32,
+    data_len_: i32,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_async::<flutter_rust_bridge::for_generated::SseCodec, _, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "hash_file",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let message = unsafe {
+                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
+                    ptr_,
+                    rust_vec_len_,
+                    data_len_,
+                )
+            };
+            let mut deserializer =
+                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_path = <Option<String>>::sse_decode(&mut deserializer);
+            let api_file_descriptor = <Option<i32>>::sse_decode(&mut deserializer);
+            let api_bytes = <Option<Vec<u8>>>::sse_decode(&mut deserializer);
+            let api_cancel_token = <RustOpaqueMoi<
+                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<RsCancellationToken>,
+            >>::sse_decode(&mut deserializer);
+            deserializer.end();
+            move |context| async move {
+                transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>(
+                    (move || async move {
+                        let mut api_cancel_token_guard = None;
+                        let decode_indices_ =
+                            flutter_rust_bridge::for_generated::lockable_compute_decode_order(
+                                vec![flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                                    &api_cancel_token,
+                                    0,
+                                    false,
+                                )],
+                            );
+                        for i in decode_indices_ {
+                            match i {
+                                0 => {
+                                    api_cancel_token_guard =
+                                        Some(api_cancel_token.lockable_decode_async_ref().await)
+                                }
+                                _ => unreachable!(),
+                            }
+                        }
+                        let api_cancel_token_guard = api_cancel_token_guard.unwrap();
+                        let output_ok = crate::api::crypto::hash_file(
+                            api_path,
+                            api_file_descriptor,
+                            api_bytes,
+                            &*api_cancel_token_guard,
+                        )
+                        .await?;
+                        Ok(output_ok)
+                    })()
+                    .await,
                 )
             }
         },
@@ -3452,6 +3520,17 @@ impl SseDecode for Option<Vec<String>> {
     }
 }
 
+impl SseDecode for Option<Vec<u8>> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        if (<bool>::sse_decode(deserializer)) {
+            return Some(<Vec<u8>>::sse_decode(deserializer));
+        } else {
+            return None;
+        }
+    }
+}
+
 impl SseDecode for crate::api::webrtc::PinConfig {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
@@ -4194,8 +4273,9 @@ fn pde_ffi_dispatcher_primary_impl(
             wire__crate__api__logging__enable_debug_logging_impl(port, ptr, rust_vec_len, data_len)
         }
         41 => wire__crate__api__crypto__generate_key_pair_impl(port, ptr, rust_vec_len, data_len),
-        42 => wire__crate__api__server__start_server_impl(port, ptr, rust_vec_len, data_len),
-        43 => wire__crate__api__crypto__verify_cert_impl(port, ptr, rust_vec_len, data_len),
+        42 => wire__crate__api__crypto__hash_file_impl(port, ptr, rust_vec_len, data_len),
+        43 => wire__crate__api__server__start_server_impl(port, ptr, rust_vec_len, data_len),
+        44 => wire__crate__api__crypto__verify_cert_impl(port, ptr, rust_vec_len, data_len),
         _ => unreachable!(),
     }
 }
@@ -4209,8 +4289,8 @@ fn pde_ffi_dispatcher_sync_impl(
     // Codec=Pde (Serialization + dispatch), see doc to use other codecs
     match func_id {
         2 => wire__crate__api__stream__Dart2RustStreamSink_close_impl(ptr, rust_vec_len, data_len),
-        6 => wire__crate__api__http__RsCancellationToken_cancel_impl(ptr, rust_vec_len, data_len),
-        37 => wire__crate__api__http__create_cancellation_token_impl(ptr, rust_vec_len, data_len),
+        6 => wire__crate__api__cancel__RsCancellationToken_cancel_impl(ptr, rust_vec_len, data_len),
+        37 => wire__crate__api__cancel__create_cancellation_token_impl(ptr, rust_vec_len, data_len),
         38 => wire__crate__api__http__create_client_impl(ptr, rust_vec_len, data_len),
         _ => unreachable!(),
     }
@@ -5798,6 +5878,16 @@ impl SseEncode for Option<Vec<String>> {
     }
 }
 
+impl SseEncode for Option<Vec<u8>> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <bool>::sse_encode(self.is_some(), serializer);
+        if let Some(value) = self {
+            <Vec<u8>>::sse_encode(value, serializer);
+        }
+    }
+}
+
 impl SseEncode for crate::api::webrtc::PinConfig {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
@@ -6263,6 +6353,7 @@ mod io {
     // Section: imports
 
     use super::*;
+    use crate::api::cancel::*;
     use crate::api::http::*;
     use crate::api::server::*;
     use crate::api::stream::*;
@@ -6429,6 +6520,7 @@ mod web {
     // Section: imports
 
     use super::*;
+    use crate::api::cancel::*;
     use crate::api::http::*;
     use crate::api::server::*;
     use crate::api::stream::*;

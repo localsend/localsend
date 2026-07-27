@@ -134,18 +134,18 @@
       "deviceType": "Tipe Perangkat",
       "deviceModel": "Model Perangkat",
       "port": "Porta",
+      "network": "Jaringan",
+      "networkOptions": {
+        "all": "Semua",
+        "filtered": "Tersaring"
+      },
       "discoveryTimeout": "Waktu penemuan habis",
       "useSystemName": "Gunakan nama sistem",
       "generateRandomAlias": "Hasilkan alias acak",
       "portWarning": "Anda mungkin tidak terdeteksi oleh perangkat lain karena menggunakan porta kustom. (bawaan: {defaultPort})",
       "encryption": "Enkripsi",
       "multicastGroup": "Multicast",
-      "multicastGroupWarning": "Anda mungkin tidak terdeteksi oleh perangkat lain karena menggunakan alamat multicast khusus. (bawaan: {defaultMulticast})",
-      "network": "Jaringan",
-      "networkOptions": {
-        "all": "Semua",
-        "filtered": "Tersaring"
-      }
+      "multicastGroupWarning": "Anda mungkin tidak terdeteksi oleh perangkat lain karena menggunakan alamat multicast khusus. (bawaan: {defaultMulticast})"
     },
     "other": {
       "title": "Lainnya",
@@ -174,6 +174,13 @@
       "symptom": "Kedua perangkat tidak dapat saling menemukan dan berbagi berkas.",
       "solution": "Pastikan kedua perangkat berada pada jaringan Wi-Fi yang sama dan berbagi konfigurasi yang sama (porta, alamat multicast, enkripsi). Jika Wi-Fi tidak mengizinkan komunikasi, aktifkan pilihan ini pada ruter."
     }
+  },
+  "networkInterfacesPage": {
+    "title": "Antarmuka Jaringan",
+    "info": "Secara default, LocalSend menggunakan semua antarmuka jaringan yang tersedia. Anda dapat mengecualikan jaringan yang tidak diinginkan di sini. Anda perlu memulai ulang server untuk menerapkan perubahan.",
+    "preview": "Pratinjau",
+    "whitelist": "Daftar putih",
+    "blacklist": "Daftar hitam"
   },
   "receiveHistoryPage": {
     "title": "Riwayat",
@@ -376,9 +383,7 @@
     "quickSaveFromFavoritesNotice": {
       "title": "@:general.quickSaveFromFavorites",
       "content": [
-        "Permintaan berkas sekarang diterima secara otomatis dari perangkat di daftar favorit Anda.",
-        "Peringatan! Saat ini, pilihan ini tidak sepenuhnya aman karena peretas yang memiliki sidik jari perangkat apa pun dari daftar favorit Anda dapat mengirimi Anda berkas tanpa pembatasan.",
-        "Akan tetapi, pilihan ini masih lebih aman daripada mengizinkan semua pengguna di jaringan lokal mengirimkan berkas kepada Anda tanpa pembatasan."
+        "Permintaan berkas sekarang diterima secara otomatis dari perangkat di daftar favorit Anda."
       ]
     },
     "pin": {
@@ -444,12 +449,5 @@
     "sActionUseCameraHint": "Gunakan kamera",
     "sNameDurationLabel": "Durasi",
     "sUnitAssetCountLabel": "Jumlah"
-  },
-  "networkInterfacesPage": {
-    "title": "Antarmuka Jaringan",
-    "preview": "Pratinjau",
-    "whitelist": "Daftar putih",
-    "blacklist": "Daftar hitam",
-    "info": "Secara default, LocalSend menggunakan semua antarmuka jaringan yang tersedia. Anda dapat mengecualikan jaringan yang tidak diinginkan di sini. Anda perlu memulai ulang server untuk menerapkan perubahan."
   }
 }

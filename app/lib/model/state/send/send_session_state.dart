@@ -18,6 +18,11 @@ class SendSessionState with SendSessionStateMappable implements SessionState {
   final Device target;
   final Map<String, SendingFile> files; // file id as key
 
+  /// Amount of files whose checksum has been calculated.
+  /// The checksums are calculated before the request is sent to the receiver,
+  /// so this is less than the file count while the session is being prepared.
+  final int hashedFileCount;
+
   @override
   final int? startTime;
 
@@ -34,6 +39,7 @@ class SendSessionState with SendSessionStateMappable implements SessionState {
     required this.status,
     required this.target,
     required this.files,
+    required this.hashedFileCount,
     required this.startTime,
     required this.endTime,
     required this.sendingTasks,
@@ -45,7 +51,7 @@ class SendSessionState with SendSessionStateMappable implements SessionState {
   /// SendingFile.
   @override
   String toString() {
-    return 'SendSessionState(sessionId: $sessionId, remoteSessionId: $remoteSessionId, background: $background, status: $status, target: $target, files: $files, startTime: $startTime, endTime: $endTime, sendingTasks: $sendingTasks, errorMessage: $errorMessage)';
+    return 'SendSessionState(sessionId: $sessionId, remoteSessionId: $remoteSessionId, background: $background, status: $status, target: $target, files: $files, hashedFileCount: $hashedFileCount, startTime: $startTime, endTime: $endTime, sendingTasks: $sendingTasks, errorMessage: $errorMessage)';
   }
 }
 

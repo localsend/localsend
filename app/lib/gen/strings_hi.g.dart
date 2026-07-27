@@ -54,6 +54,8 @@ class TranslationsHi extends Translations with BaseTranslations<AppLocale, Trans
   @override
   late final _Translations$troubleshootPage$hi troubleshootPage = _Translations$troubleshootPage$hi._(_root);
   @override
+  late final _Translations$networkInterfacesPage$hi networkInterfacesPage = _Translations$networkInterfacesPage$hi._(_root);
+  @override
   late final _Translations$receiveHistoryPage$hi receiveHistoryPage = _Translations$receiveHistoryPage$hi._(_root);
   @override
   late final _Translations$apkPickerPage$hi apkPickerPage = _Translations$apkPickerPage$hi._(_root);
@@ -87,8 +89,6 @@ class TranslationsHi extends Translations with BaseTranslations<AppLocale, Trans
   late final _Translations$web$hi web = _Translations$web$hi._(_root);
   @override
   late final _Translations$assetPicker$hi assetPicker = _Translations$assetPicker$hi._(_root);
-  @override
-  late final _Translations$networkInterfacesPage$hi networkInterfacesPage = _Translations$networkInterfacesPage$hi._(_root);
 }
 
 // Path: general
@@ -270,6 +270,26 @@ class _Translations$troubleshootPage$hi extends Translations$troubleshootPage$en
   late final _Translations$troubleshootPage$noDiscovery$hi noDiscovery = _Translations$troubleshootPage$noDiscovery$hi._(_root);
   @override
   late final _Translations$troubleshootPage$noConnection$hi noConnection = _Translations$troubleshootPage$noConnection$hi._(_root);
+}
+
+// Path: networkInterfacesPage
+class _Translations$networkInterfacesPage$hi extends Translations$networkInterfacesPage$en {
+  _Translations$networkInterfacesPage$hi._(TranslationsHi root) : this._root = root, super.internal(root);
+
+  final TranslationsHi _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'नेटवर्क इंटरफेस';
+  @override
+  String get info =>
+      'डिफ़ॉल्ट रूप से, LocalSend सभी उपलब्ध नेटवर्क इंटरफेस का उपयोग करता है। आप यहां अवांछित नेटवर्क को बाहर कर सकते हैं। परिवर्तनों को लागू करने के लिए आपको सर्वर को पुनः आरंभ करना होगा।';
+  @override
+  String get preview => 'पूर्वावलोकन';
+  @override
+  String get whitelist => 'श्वेतसूची';
+  @override
+  String get blacklist => 'काले सूची';
 }
 
 // Path: receiveHistoryPage
@@ -748,26 +768,6 @@ class _Translations$assetPicker$hi extends Translations$assetPicker$en {
   String get sUnitAssetCountLabel => 'गणना';
 }
 
-// Path: networkInterfacesPage
-class _Translations$networkInterfacesPage$hi extends Translations$networkInterfacesPage$en {
-  _Translations$networkInterfacesPage$hi._(TranslationsHi root) : this._root = root, super.internal(root);
-
-  final TranslationsHi _root; // ignore: unused_field
-
-  // Translations
-  @override
-  String get title => 'नेटवर्क इंटरफेस';
-  @override
-  String get info =>
-      'डिफ़ॉल्ट रूप से, LocalSend सभी उपलब्ध नेटवर्क इंटरफेस का उपयोग करता है। आप यहां अवांछित नेटवर्क को बाहर कर सकते हैं। परिवर्तनों को लागू करने के लिए आपको सर्वर को पुनः आरंभ करना होगा।';
-  @override
-  String get preview => 'पूर्वावलोकन';
-  @override
-  String get whitelist => 'श्वेतसूची';
-  @override
-  String get blacklist => 'काले सूची';
-}
-
 // Path: receiveTab.infoBox
 class _Translations$receiveTab$infoBox$hi extends Translations$receiveTab$infoBox$en {
   _Translations$receiveTab$infoBox$hi._(TranslationsHi root) : this._root = root, super.internal(root);
@@ -950,6 +950,10 @@ class _Translations$settingsTab$network$hi extends Translations$settingsTab$netw
   @override
   String get port => 'पोर्ट';
   @override
+  String get network => 'नेटवर्क';
+  @override
+  late final _Translations$settingsTab$network$networkOptions$hi networkOptions = _Translations$settingsTab$network$networkOptions$hi._(_root);
+  @override
   String get discoveryTimeout => 'खोज का समय समाप्त';
   @override
   String get useSystemName => 'सिस्टम नाम का उपयोग करें';
@@ -965,10 +969,6 @@ class _Translations$settingsTab$network$hi extends Translations$settingsTab$netw
   @override
   String multicastGroupWarning({required Object defaultMulticast}) =>
       'आप कस्टम मल्टीकास्ट पते का उपयोग कर रहे हैं इसलिए अन्य डिवाइस आपको पहचान नहीं सकते हैं। (डिफ़ॉल्ट: ${defaultMulticast})';
-  @override
-  String get network => 'नेटवर्क';
-  @override
-  late final _Translations$settingsTab$network$networkOptions$hi networkOptions = _Translations$settingsTab$network$networkOptions$hi._(_root);
 }
 
 // Path: settingsTab.other
@@ -1382,9 +1382,7 @@ class _Translations$dialogs$quickSaveFromFavoritesNotice$hi extends Translations
   String get title => '@ : सामान्य .जल्दी पसंदीदा से सहेजें';
   @override
   List<String> get content => [
-    'अब आपके पसंदीदा सूची में शामिल डिवाइसों से फ़ाइल अनुरोध स्वतः स्वीकार किए जाएंगे।',
-    'चेतावनी! वर्तमान में, यह पूरी तरह से सुरक्षित नहीं है, क्योंकि कोई हैकर जो आपकी पसंदीदा सूची में शामिल किसी भी डिवाइस का फ़िंगरप्रिंट प्राप्त कर लेता है, वह बिना किसी प्रतिबंध के आपको फ़ाइलें भेज सकता है।',
-    'हालांकि, यह विकल्प अभी भी उन सभी उपयोगकर्ताओं को बिना प्रतिबंध फ़ाइलें भेजने की अनुमति देने की तुलना में सुरक्षित है, जो स्थानीय नेटवर्क पर हैं।',
+    'अब आपके पसंदीदा सूची में शामिल डिवाइसों से फ़़ाइल अनुरोध स्वतः स्वीकार किए जाएंगे।',
   ];
 }
 

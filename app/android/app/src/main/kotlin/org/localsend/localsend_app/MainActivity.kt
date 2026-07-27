@@ -63,6 +63,8 @@ class MainActivity : FlutterActivity() {
 
                 "createFile" -> handleCreateFile(call, result)
 
+                "openFileForWriting" -> handleOpenFileForWriting(call, result)
+
                 "openContentUri" -> {
                     openUri(context, call.argument<String>("uri")!!)
                     result.success(null)
@@ -155,7 +157,9 @@ class MainActivity : FlutterActivity() {
                 return
             }
 
-            val parcelFileDescriptor = contentResolver.openFileDescriptor(documentUri, "w")
+            // "wt" is write + truncate: the document is new, unless the provider
+            // handed out an existing one instead of creating a second document.
+            val parcelFileDescriptor = contentResolver.openFileDescriptor(documentUri, "wt")
             if (parcelFileDescriptor == null) {
                 result.error("OPEN_FAILED", "The content provider did not return a file descriptor", null)
                 return
@@ -173,6 +177,46 @@ class MainActivity : FlutterActivity() {
             result.error("PERMISSION_DENIED", e.message ?: "Permission denied for content URI", null)
         } catch (e: Exception) {
             result.error("CREATE_FAILED", e.message ?: "Failed to create file", null)
+        }
+    }
+
+    /// Opens an existing document created by [handleCreateFile] for writing,
+    /// discarding its current content.
+    ///
+    /// Used to write a file again after a failed attempt, so that it keeps its
+    /// name instead of being created a second time under a numbered one.
+    ///
+    /// Returns an owned writable file descriptor. It stays open after this call
+    /// and must be closed by the native consumer it is passed to.
+    private fun handleOpenFileForWriting(call: MethodCall, result: MethodChannel.Result) {
+        val uriString = call.argument<String>("uri")
+        if (uriString == null) {
+            result.error("INVALID_ARGUMENT", "Missing content URI", null)
+            return
+        }
+
+        val uri = Uri.parse(uriString)
+        if (uri.scheme != ContentResolver.SCHEME_CONTENT) {
+            result.error("INVALID_ARGUMENT", "Expected a content:// URI", null)
+            return
+        }
+
+        try {
+            // "wt" is write + truncate. A document provider may ignore the
+            // truncation, so the writer additionally shortens the file itself.
+            val parcelFileDescriptor = contentResolver.openFileDescriptor(uri, "wt")
+            if (parcelFileDescriptor == null) {
+                result.error("OPEN_FAILED", "The content provider did not return a file descriptor", null)
+                return
+            }
+
+            parcelFileDescriptor.use {
+                result.success(it.detachFd())
+            }
+        } catch (e: SecurityException) {
+            result.error("PERMISSION_DENIED", e.message ?: "Permission denied for content URI", null)
+        } catch (e: Exception) {
+            result.error("OPEN_FAILED", e.message ?: "Failed to open content URI", null)
         }
     }
 

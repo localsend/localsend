@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:typed_data';
 
-import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:localsend_app/config/theme.dart';
@@ -11,14 +10,12 @@ import 'package:localsend_app/provider/network/send_provider.dart';
 import 'package:localsend_app/provider/network/server/server_provider.dart';
 import 'package:localsend_app/provider/progress_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
-import 'package:localsend_app/util/file_size_helper.dart';
-import 'package:localsend_app/util/file_speed_helper.dart';
 import 'package:localsend_app/util/native/open_file.dart';
 import 'package:localsend_app/util/native/open_folder.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_app/util/native/taskbar_helper.dart';
+import 'package:localsend_app/util/notification_strings.dart';
 import 'package:localsend_app/util/ui/nav_bar_padding.dart';
-import 'package:localsend_app/widget/custom_basic_appbar.dart';
 import 'package:localsend_app/widget/custom_progress_bar.dart';
 import 'package:localsend_app/widget/dialogs/cancel_session_dialog.dart';
 import 'package:localsend_app/widget/dialogs/error_dialog.dart';
@@ -26,6 +23,8 @@ import 'package:localsend_app/widget/file_thumbnail.dart';
 import 'package:localsend_isolates/model/dto/file_dto.dart';
 import 'package:localsend_isolates/model/file_status.dart';
 import 'package:localsend_isolates/model/session_status.dart';
+import 'package:localsend_isolates/util/file_size_helper.dart';
+import 'package:localsend_isolates/util/file_speed_helper.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 import 'package:routerino/routerino.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
@@ -61,33 +60,38 @@ class _ProgressPageState extends State<ProgressPage> with Refena {
 
   bool _advanced = false;
 
+  /// On Android the foreground service keeps the process and the connection alive,
+  /// so there is no reason to also keep the screen on.
+  bool get _useWakelock => checkPlatformIsNot([TargetPlatform.android]);
+
   @override
   void initState() {
     super.initState();
 
     // init
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      try {
-        unawaited(WakelockPlus.enable());
-      } catch (_) {}
+      if (_useWakelock) {
+        try {
+          unawaited(WakelockPlus.enable());
+        } catch (_) {}
 
-      // Periodically call WakelockPlus.enable() to keep the screen awake
-      _wakelockPlusTimer = Timer.periodic(const Duration(seconds: 30), (timer) {
-        final finished =
-            ref.read(serverProvider)?.session?.files.values.map((e) => e.status).isFinishedOrSkipped ??
-            ref.read(sendProvider)[widget.sessionId]?.files.values.map((e) => e.status).isFinishedOrSkipped ??
-            true;
-        if (finished) {
-          timer.cancel();
-          try {
-            unawaited(WakelockPlus.disable());
-          } catch (_) {}
-        } else {
-          try {
-            unawaited(WakelockPlus.enable());
-          } catch (_) {}
-        }
-      });
+        // Poll for completion and disable the wakelock once.
+        // We must NOT call WakelockPlus.enable() repeatedly here: on Linux (FreeDesktop D-Bus ScreenSaver)
+        // each enable() acquires a new inhibit cookie while disable() only releases one, so re-calling
+        // enable() every 30s leaks inhibit locks that keep the screen awake indefinitely (issue #3209).
+        _wakelockPlusTimer = Timer.periodic(const Duration(seconds: 30), (timer) {
+          final finished =
+              ref.read(serverProvider)?.session?.files.values.map((e) => e.status).isFinishedOrSkipped ??
+              ref.read(sendProvider)[widget.sessionId]?.files.values.map((e) => e.status).isFinishedOrSkipped ??
+              true;
+          if (finished) {
+            timer.cancel();
+            try {
+              unawaited(WakelockPlus.disable());
+            } catch (_) {}
+          }
+        });
+      }
 
       if (ref.read(settingsProvider).autoFinish) {
         _finishTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
@@ -173,9 +177,11 @@ class _ProgressPageState extends State<ProgressPage> with Refena {
     _finishTimer?.cancel();
     _wakelockPlusTimer?.cancel();
     TaskbarHelper.clearProgressBar(); // ignore: discarded_futures
-    try {
-      WakelockPlus.disable(); // ignore: discarded_futures
-    } catch (_) {}
+    if (_useWakelock) {
+      try {
+        WakelockPlus.disable(); // ignore: discarded_futures
+      } catch (_) {}
+    }
   }
 
   @override
@@ -217,7 +223,7 @@ class _ProgressPageState extends State<ProgressPage> with Refena {
 
       final now = DateTime.now().millisecondsSinceEpoch;
       if (now - _lastRemainingTimeUpdate >= 1000) {
-        _remainingTime = getRemainingTime(bytesPerSeconds: speedInBytes, remainingBytes: _totalBytes - currBytes);
+        _remainingTime = getRemainingTime(bytesPerSeconds: speedInBytes, remainingBytes: _totalBytes - currBytes, strings: notificationStrings);
         _lastRemainingTimeUpdate = now;
       }
     } else {
@@ -238,7 +244,11 @@ class _ProgressPageState extends State<ProgressPage> with Refena {
       },
       canPop: false,
       child: Scaffold(
-        appBar: widget.showAppBar ? basicLocalSendAppbar(title) : null,
+        appBar: widget.showAppBar
+            ? AppBar(
+                title: Text(title),
+              )
+            : null,
         body: Stack(
           children: [
             ListView.builder(
@@ -524,15 +534,6 @@ class _ProgressPageState extends State<ProgressPage> with Refena {
                 ),
               ),
             ),
-            checkPlatform([TargetPlatform.macOS])
-                ? Positioned(
-                    top: 0,
-                    left: 0,
-                    right: 0,
-                    height: 40,
-                    child: MoveWindow(),
-                  )
-                : SizedBox(),
           ],
         ),
       ),

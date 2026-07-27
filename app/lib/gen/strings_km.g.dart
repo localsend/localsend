@@ -929,6 +929,10 @@ class _Translations$settingsTab$network$km extends Translations$settingsTab$netw
   @override
   String get port => 'ច្រក';
   @override
+  String get network => 'បណ្តាញ';
+  @override
+  late final _Translations$settingsTab$network$networkOptions$km networkOptions = _Translations$settingsTab$network$networkOptions$km._(_root);
+  @override
   String get discoveryTimeout => 'ថេរវេលាក្នុងការស្វែងរក';
   @override
   String get useSystemName => 'ប្រើប្រាស់ឈ្មោះរបស់ប្រព័ន្ធ';
@@ -944,10 +948,6 @@ class _Translations$settingsTab$network$km extends Translations$settingsTab$netw
   @override
   String multicastGroupWarning({required Object defaultMulticast}) =>
       'អ្នកប្រហែលជាមិនត្រូវបានរកឃើញដោយឧបករណ៍ផ្សេងទៀតទេ ដោយសារតែអ្នកកំពុងប្រើអាសយដ្ឋានពហុផ្សាយដែលបង្កើតផ្ទាល់ខ្លួន។ (ច្រកដើម: ${defaultMulticast})';
-  @override
-  String get network => 'បណ្តាញ';
-  @override
-  late final _Translations$settingsTab$network$networkOptions$km networkOptions = _Translations$settingsTab$network$networkOptions$km._(_root);
 }
 
 // Path: settingsTab.other
@@ -1362,9 +1362,7 @@ class _Translations$dialogs$quickSaveFromFavoritesNotice$km extends Translations
   String get title => _root.general.quickSaveFromFavorites;
   @override
   List<String> get content => [
-    'ឥឡូវនេះសំណើឯកសារត្រូវបានទទួលយកដោយស្វ័យប្រវត្តិពីឧបករណ៍ទាំងឡាយដែលមាននៅក្នុងបញ្ជីឧបករណ៍សំណព្វរបស់អ្នក។',
-    'ការព្រមាន៖ ពេលនេះជម្រើស ឬមុខងារមួយនេះមិនទាន់មានសុវត្ថិភាពទាំងស្រុងទេ និងណែនាំឲ្យប្រើប្រាស់នៅឡើយទេ ពីព្រោះជនអនាមិកដែលវាយប្រហារតាមប្រព័ន្ធបច្ចេកវិទ្យា ដែលស្គាល់ស្នាមដាននៃឧបករណ៍សំណព្វរបស់អ្នក អាចនឹងផ្ញើឯកសារផ្សេងៗមកអ្នកបាន។',
-    'ទោះ​ជា​យ៉ាង​ណាក៏ដោយ ជម្រើស​នេះ​នៅ​តែ​មាន​សុវត្ថិភាព​ជាង​ការ​អនុញ្ញាត​ឱ្យ​ឧបករណ៍​ទាំងអស់អាចផ្ញើមកអ្នកដោយសេរី​។',
+    'ឥឡូវនេះសំណើឥកសារត្រូវបានទទួលយកដោយស្វ័យប្រវត្តិពីឧបករណ៍ទាំងឡាយដែលមាននៅក្នុងបញ្ជីឧបករណ៍សំណព្វរបស់អ្នក។',
   ];
 }
 

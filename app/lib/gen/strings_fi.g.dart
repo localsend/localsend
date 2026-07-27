@@ -54,6 +54,8 @@ class TranslationsFi extends Translations with BaseTranslations<AppLocale, Trans
   @override
   late final _Translations$troubleshootPage$fi troubleshootPage = _Translations$troubleshootPage$fi._(_root);
   @override
+  late final _Translations$networkInterfacesPage$fi networkInterfacesPage = _Translations$networkInterfacesPage$fi._(_root);
+  @override
   late final _Translations$receiveHistoryPage$fi receiveHistoryPage = _Translations$receiveHistoryPage$fi._(_root);
   @override
   late final _Translations$apkPickerPage$fi apkPickerPage = _Translations$apkPickerPage$fi._(_root);
@@ -87,8 +89,6 @@ class TranslationsFi extends Translations with BaseTranslations<AppLocale, Trans
   late final _Translations$web$fi web = _Translations$web$fi._(_root);
   @override
   late final _Translations$assetPicker$fi assetPicker = _Translations$assetPicker$fi._(_root);
-  @override
-  late final _Translations$networkInterfacesPage$fi networkInterfacesPage = _Translations$networkInterfacesPage$fi._(_root);
 }
 
 // Path: general
@@ -272,6 +272,26 @@ class _Translations$troubleshootPage$fi extends Translations$troubleshootPage$en
   late final _Translations$troubleshootPage$noConnection$fi noConnection = _Translations$troubleshootPage$noConnection$fi._(_root);
 }
 
+// Path: networkInterfacesPage
+class _Translations$networkInterfacesPage$fi extends Translations$networkInterfacesPage$en {
+  _Translations$networkInterfacesPage$fi._(TranslationsFi root) : this._root = root, super.internal(root);
+
+  final TranslationsFi _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Verkkokäyttöliittymät';
+  @override
+  String get info =>
+      'Oletuksena LocalSend käyttää kaikkia saatavilla olevia verkkoliitäntöjä. Voit sulkea pois verkkoliitännät, joita et halua. Sinun tulee uudelleenkäynnistää LocalSend ottaaksesi muutokset käyttöön.';
+  @override
+  String get preview => 'Esikatselu';
+  @override
+  String get whitelist => 'Sallittujen lista';
+  @override
+  String get blacklist => 'Estettyjen lista';
+}
+
 // Path: receiveHistoryPage
 class _Translations$receiveHistoryPage$fi extends Translations$receiveHistoryPage$en {
   _Translations$receiveHistoryPage$fi._(TranslationsFi root) : this._root = root, super.internal(root);
@@ -371,9 +391,9 @@ class _Translations$sendPage$fi extends Translations$sendPage$en {
   @override
   String get rejected => 'Vastaanottaja on peruuttanut pyynnön.';
   @override
-  String get busy => 'Vastaanottaja vastaanottaa toista pyyntöä.';
-  @override
   String get tooManyAttempts => 'Liian monta yritystä';
+  @override
+  String get busy => 'Vastaanottaja vastaanottaa toista pyyntöä.';
 }
 
 // Path: progressPage
@@ -758,26 +778,6 @@ class _Translations$assetPicker$fi extends Translations$assetPicker$en {
   String get sUnitAssetCountLabel => 'määrä';
 }
 
-// Path: networkInterfacesPage
-class _Translations$networkInterfacesPage$fi extends Translations$networkInterfacesPage$en {
-  _Translations$networkInterfacesPage$fi._(TranslationsFi root) : this._root = root, super.internal(root);
-
-  final TranslationsFi _root; // ignore: unused_field
-
-  // Translations
-  @override
-  String get title => 'Verkkokäyttöliittymät';
-  @override
-  String get info =>
-      'Oletuksena LocalSend käyttää kaikkia saatavilla olevia verkkoliitäntöjä. Voit sulkea pois verkkoliitännät, joita et halua. Sinun tulee uudelleenkäynnistää LocalSend ottaaksesi muutokset käyttöön.';
-  @override
-  String get preview => 'Esikatselu';
-  @override
-  String get whitelist => 'Sallittujen lista';
-  @override
-  String get blacklist => 'Estettyjen lista';
-}
-
 // Path: receiveTab.infoBox
 class _Translations$receiveTab$infoBox$fi extends Translations$receiveTab$infoBox$en {
   _Translations$receiveTab$infoBox$fi._(TranslationsFi root) : this._root = root, super.internal(root);
@@ -801,9 +801,9 @@ class _Translations$receiveTab$quickSave$fi extends Translations$receiveTab$quic
 
   // Translations
   @override
-  String get favorites => 'Suosikit';
-  @override
   String get off => _root.general.off;
+  @override
+  String get favorites => 'Suosikit';
   @override
   String get on => _root.general.on;
 }
@@ -910,6 +910,10 @@ class _Translations$settingsTab$receive$fi extends Translations$settingsTab$rece
   @override
   String get quickSave => 'Automaattinen tallennus';
   @override
+  String get quickSaveFromFavorites => 'Automaattinen tallennus suosikeista';
+  @override
+  String get requirePin => 'Kiinnitä';
+  @override
   String get autoFinish => 'Automaattinen lopetus';
   @override
   String get destination => 'Kohde';
@@ -919,10 +923,6 @@ class _Translations$settingsTab$receive$fi extends Translations$settingsTab$rece
   String get saveToGallery => 'Tallenna media galleriaan';
   @override
   String get saveToHistory => 'Tallenna historiaan';
-  @override
-  String get quickSaveFromFavorites => 'Automaattinen tallennus suosikeista';
-  @override
-  String get requirePin => 'Kiinnitä';
 }
 
 // Path: settingsTab.send
@@ -960,6 +960,10 @@ class _Translations$settingsTab$network$fi extends Translations$settingsTab$netw
   @override
   String get port => 'Portti';
   @override
+  String get network => 'Verkko';
+  @override
+  late final _Translations$settingsTab$network$networkOptions$fi networkOptions = _Translations$settingsTab$network$networkOptions$fi._(_root);
+  @override
   String get discoveryTimeout => 'Laitteiden etsintäaika';
   @override
   String get useSystemName => 'Käytä järjestelmän nimeä';
@@ -975,10 +979,6 @@ class _Translations$settingsTab$network$fi extends Translations$settingsTab$netw
   @override
   String multicastGroupWarning({required Object defaultMulticast}) =>
       'Sinua ei ehkä havaita muiden laitteiden toimesta, koska käytät mukautettua multicast-osoitetta. (oletus: ${defaultMulticast})';
-  @override
-  late final _Translations$settingsTab$network$networkOptions$fi networkOptions = _Translations$settingsTab$network$networkOptions$fi._(_root);
-  @override
-  String get network => 'Verkko';
 }
 
 // Path: settingsTab.other
@@ -1409,13 +1409,11 @@ class _Translations$dialogs$quickSaveFromFavoritesNotice$fi extends Translations
 
   // Translations
   @override
+  String get title => _root.general.quickSaveFromFavorites;
+  @override
   List<String> get content => [
     'Tiedostopyynnöt hyväksytään nyt automaattisesti suosikkiluettelossasi olevilta laitteilta.',
-    'Varoitus! Tällä hetkellä tämä ei ole täysin turvallista, koska hakkeri, jolla on minkä tahansa suosikkiluettelosi laitteen sormenjälki, voi lähettää sinulle tiedostoja ilman rajoituksia.',
-    'Tämä vaihtoehto on kuitenkin turvallisempi kuin sallia kaikkien paikallisverkon käyttäjien lähettää sinulle tiedostoja ilman rajoituksia.',
   ];
-  @override
-  String get title => _root.general.quickSaveFromFavorites;
 }
 
 // Path: dialogs.pin

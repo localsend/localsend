@@ -49,8 +49,8 @@
       "alias": "Laitteen nimi:"
     },
     "quickSave": {
-      "favorites": "Suosikit",
       "off": "@:general.off",
+      "favorites": "Suosikit",
       "on": "@:general.on"
     }
   },
@@ -114,13 +114,13 @@
     "receive": {
       "title": "Vastaanotto",
       "quickSave": "Automaattinen tallennus",
+      "quickSaveFromFavorites": "Automaattinen tallennus suosikeista",
+      "requirePin": "Kiinnitä",
       "autoFinish": "Automaattinen lopetus",
       "destination": "Kohde",
       "downloads": "(Lataukset)",
       "saveToGallery": "Tallenna media galleriaan",
-      "saveToHistory": "Tallenna historiaan",
-      "quickSaveFromFavorites": "Automaattinen tallennus suosikeista",
-      "requirePin": "Kiinnitä"
+      "saveToHistory": "Tallenna historiaan"
     },
     "send": {
       "title": "Lähetys",
@@ -134,18 +134,18 @@
       "deviceType": "Laitteen tyyppi",
       "deviceModel": "Laitteen malli",
       "port": "Portti",
+      "network": "Verkko",
+      "networkOptions": {
+        "all": "Kaikki",
+        "filtered": "Suodatettu"
+      },
       "discoveryTimeout": "Laitteiden etsintäaika",
       "useSystemName": "Käytä järjestelmän nimeä",
       "generateRandomAlias": "Luo satunnainen alias",
       "portWarning": "Sinua ei ehkä havaita muiden laitteiden toimesta, koska käytät mukautettua porttia. (oletus: {defaultPort})",
       "encryption": "Salaus",
       "multicastGroup": "Multicast",
-      "multicastGroupWarning": "Sinua ei ehkä havaita muiden laitteiden toimesta, koska käytät mukautettua multicast-osoitetta. (oletus: {defaultMulticast})",
-      "networkOptions": {
-        "all": "Kaikki",
-        "filtered": "Suodatettu"
-      },
-      "network": "Verkko"
+      "multicastGroupWarning": "Sinua ei ehkä havaita muiden laitteiden toimesta, koska käytät mukautettua multicast-osoitetta. (oletus: {defaultMulticast})"
     },
     "other": {
       "title": "Muut",
@@ -174,6 +174,13 @@
       "symptom": "Molemmat laitteet eivät voi löytää toisiaan eivätkä jakaa tiedostoja.",
       "solution": "Onko ongelma olemassa molemmin puolin? Jos on, sinun on varmistettava, että molemmat laitteet ovat samassa Wi-Fi-verkossa ja jakavat saman kokoonpanon (portti, multicast-osoite, salaus). Verkko ei ehkä salli viestintää osallistujien välillä. Tässä tapauksessa tämä vaihtoehto on otettava käyttöön reitittimessä."
     }
+  },
+  "networkInterfacesPage": {
+    "title": "Verkkokäyttöliittymät",
+    "info": "Oletuksena LocalSend käyttää kaikkia saatavilla olevia verkkoliitäntöjä. Voit sulkea pois verkkoliitännät, joita et halua. Sinun tulee uudelleenkäynnistää LocalSend ottaaksesi muutokset käyttöön.",
+    "preview": "Esikatselu",
+    "whitelist": "Sallittujen lista",
+    "blacklist": "Estettyjen lista"
   },
   "receiveHistoryPage": {
     "title": "Historia",
@@ -215,8 +222,8 @@
   "sendPage": {
     "waiting": "Odotetaan vastausta...",
     "rejected": "Vastaanottaja on peruuttanut pyynnön.",
-    "busy": "Vastaanottaja vastaanottaa toista pyyntöä.",
-    "tooManyAttempts": "Liian monta yritystä"
+    "tooManyAttempts": "Liian monta yritystä",
+    "busy": "Vastaanottaja vastaanottaa toista pyyntöä."
   },
   "progressPage": {
     "titleSending": "Tiedostojen lähetys",
@@ -461,12 +468,10 @@
       "content": "Tiedostopyynnöt hyväksytään automaattisesti. Huomaa, että kuka tahansa paikallisverkossa voi lähettää sinulle tiedostoja."
     },
     "quickSaveFromFavoritesNotice": {
+      "title": "@:general.quickSaveFromFavorites",
       "content": [
-        "Tiedostopyynnöt hyväksytään nyt automaattisesti suosikkiluettelossasi olevilta laitteilta.",
-        "Varoitus! Tällä hetkellä tämä ei ole täysin turvallista, koska hakkeri, jolla on minkä tahansa suosikkiluettelosi laitteen sormenjälki, voi lähettää sinulle tiedostoja ilman rajoituksia.",
-        "Tämä vaihtoehto on kuitenkin turvallisempi kuin sallia kaikkien paikallisverkon käyttäjien lähettää sinulle tiedostoja ilman rajoituksia."
-      ],
-      "title": "@:general.quickSaveFromFavorites"
+        "Tiedostopyynnöt hyväksytään nyt automaattisesti suosikkiluettelossasi olevilta laitteilta."
+      ]
     },
     "pin": {
       "title": "Syötä PIN-koodi"
@@ -531,12 +536,5 @@
     "sActionUseCameraHint": "käytä kameraa",
     "sNameDurationLabel": "kesto",
     "sUnitAssetCountLabel": "määrä"
-  },
-  "networkInterfacesPage": {
-    "title": "Verkkokäyttöliittymät",
-    "info": "Oletuksena LocalSend käyttää kaikkia saatavilla olevia verkkoliitäntöjä. Voit sulkea pois verkkoliitännät, joita et halua. Sinun tulee uudelleenkäynnistää LocalSend ottaaksesi muutokset käyttöön.",
-    "preview": "Esikatselu",
-    "whitelist": "Sallittujen lista",
-    "blacklist": "Estettyjen lista"
   }
 }

@@ -134,18 +134,18 @@
       "deviceType": "Apparaattype",
       "deviceModel": "Apparaatmodel",
       "port": "Poort",
+      "network": "Netwerk",
+      "networkOptions": {
+        "all": "Alle",
+        "filtered": "Gefilterd"
+      },
       "discoveryTimeout": "Time-out voor scannen",
       "useSystemName": "Systeemnaam gebruiken",
       "generateRandomAlias": "Willekeurige naam genereren",
       "portWarning": "Je apparaat kan mogelijk niet worden gevonden omdat je een aangepaste poort gebruikt. (Standaard: {defaultPort})",
       "encryption": "Versleuteling",
       "multicastGroup": "Multicast-adres",
-      "multicastGroupWarning": "Je apparaat kan mogelijk niet worden gevonden omdat je een aangepast multicast-adres gebruikt. (Standaard: {defaultMulticast})",
-      "network": "Netwerk",
-      "networkOptions": {
-        "all": "Alle",
-        "filtered": "Gefilterd"
-      }
+      "multicastGroupWarning": "Je apparaat kan mogelijk niet worden gevonden omdat je een aangepast multicast-adres gebruikt. (Standaard: {defaultMulticast})"
     },
     "other": {
       "title": "Overig",
@@ -174,6 +174,13 @@
       "symptom": "Beide apparaten kunnen elkaar niet vinden en kunnen ook geen bestanden delen.",
       "solution": "Doet het probleem zich aan beide kanten voor? Zorg er dan voor dat beide apparaten met hetzelfde wifi-netwerk zijn verbonden en dat ze dezelfde configuratie hebben (poort, multicast-address, versleuteling). Mogelijk is onderlinge communicatie tussen apparaten op het wifi-netwerk geblokkeerd (AP-isolatie). Dit moet je dan toestaan in de instellingen van je router."
     }
+  },
+  "networkInterfacesPage": {
+    "title": "Netwerkinterfaces",
+    "info": "Standaard gebruikt LocalSend alle beschikbare netwerkinterfaces. Je kunt hier ongewenste netwerken uitsluiten. Je moet de server opnieuw opstarten om de wijzigingen toe te passen.",
+    "preview": "Voorbeeld",
+    "whitelist": "Whitelist",
+    "blacklist": "Blacklist"
   },
   "receiveHistoryPage": {
     "title": "Geschiedenis",
@@ -236,10 +243,10 @@
     "remainingTime": {
       "seconds": "{n}:{ss}",
       "minutes": "{n}:{ss}",
-      "hours": "{h}h {m}m",
-      "days": "{d}d {h}h {m}m",
-      "@hours": "Gebruik 'h' als afkorting voor uren en 'm' voor minuten",
-      "@days": "Gebruik 'd' voor dagen, 'h' voor uren en 'm' voor minuten"
+      "hours": "{h}u {m}m",
+      "days": "{d}d {h}u {m}m",
+      "@hours": "Gebruik 'u' als afkorting voor uren en 'm' voor minuten",
+      "@days": "Gebruik 'd' voor dagen, 'u' voor uren en 'm' voor minuten"
     }
   },
   "webSharePage": {
@@ -386,9 +393,7 @@
     "quickSaveFromFavoritesNotice": {
       "title": "@:general.quickSaveFromFavorites",
       "content": [
-        "Bestandsverzoeken van apparaten op je favorietenlijst worden nu automatisch geaccepteerd.",
-        "Waarschuwing! Dit is momenteel niet volkomen veilig. Een hacker die beschikt over de digitale vingerafdruk van een apparaat op je favorietenlijst zou zonder enige beperking bestanden naar je kunnen verzenden.",
-        "Desalniettemin is deze optie alsnog veiliger dan wanneer je zou toestaan dat alle gebruikers op het lokale netwerk bestanden naar je kunnen verzenden."
+        "Bestandsverzoeken van apparaten op je favorietenlijst worden nu automatisch geaccepteerd."
       ]
     },
     "pin": {
@@ -434,7 +439,7 @@
     "original": "Herkomst",
     "preview": "Voorbeeld",
     "select": "Selecteren",
-    "emptyList": "Lege lijst",
+    "emptyList": "Lijst is leeg",
     "unSupportedAssetType": "Niet-ondersteund bestandstype.",
     "unableToAccessAll": "Geen toegang tot alle bestanden op het apparaat",
     "viewingLimitedAssetsTip": "De app heeft beperkte toegang tot bestanden.",
@@ -454,12 +459,5 @@
     "sActionUseCameraHint": "camera gebruiken",
     "sNameDurationLabel": "duur",
     "sUnitAssetCountLabel": "aantal"
-  },
-  "networkInterfacesPage": {
-    "preview": "Voorvertoning",
-    "title": "Netwerkinterfaces",
-    "info": "Standaard gebruikt LocalSend alle beschikbare netwerkinterfaces. U kunt hier ongewenste netwerken uitsluiten. U moet de server opnieuw opstarten om de wijzigingen toe te passen.",
-    "whitelist": "Whitelist",
-    "blacklist": "Blacklist"
   }
 }

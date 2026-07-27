@@ -2,10 +2,9 @@ import 'dart:io';
 
 import 'package:gal/gal.dart';
 import 'package:legalize/legalize.dart';
-import 'package:localsend_app/util/file_path_helper.dart';
-import 'package:localsend_app/util/native/channel/android_channel.dart' as android_channel;
-import 'package:localsend_app/util/native/content_uri_helper.dart';
-import 'package:localsend_app/util/native/directories.dart';
+import 'package:localsend_isolates/util/android_channel.dart' as android_channel;
+import 'package:localsend_isolates/util/content_uri_helper.dart';
+import 'package:localsend_isolates/util/file_path_helper.dart';
 import 'package:logging/logging.dart';
 import 'package:mime/mime.dart';
 import 'package:path/path.dart' as p;
@@ -35,21 +34,23 @@ class FileSaveTarget {
 
 /// Prepares the destination for an incoming file with [fileName].
 ///
-/// When [saveToGallery] is true, the file is first written to the cache
-/// directory; call [saveCachedFileToGallery] after the file has been written.
+/// When [saveToGallery] is true, the file is first written to the
+/// [cacheDirectory]; call [saveCachedFileToGallery] after the file has been
+/// written.
 ///
 /// On Android, destinations that cannot be written directly (SAF content URIs
 /// and SD cards) are created via the Storage Access Framework and a writable
 /// file descriptor is returned instead of a path.
 Future<FileSaveTarget> prepareFileSaveTarget({
   required String destinationDirectory,
+  required String cacheDirectory,
   required String fileName,
   required bool saveToGallery,
   required bool isImage,
   required Set<String> createdDirectories,
   int? androidSdkInt,
 }) async {
-  final parentDirectory = saveToGallery ? await getCacheDirectory() : destinationDirectory;
+  final parentDirectory = saveToGallery ? cacheDirectory : destinationDirectory;
 
   final (destinationPath, documentUri, finalName) = await digestFilePathAndPrepareDirectory(
     parentDirectory: parentDirectory,
@@ -89,6 +90,28 @@ Future<FileSaveTarget> prepareFileSaveTarget({
     path: destinationPath,
     fileDescriptor: null,
     displayPath: destinationPath,
+  );
+}
+
+/// Prepares [target] for another attempt at the same file, e.g. after the
+/// previous attempt was rejected because of a checksum mismatch.
+///
+/// The destination is kept, so the file is overwritten instead of being
+/// created a second time under a numbered name.
+Future<FileSaveTarget> reopenFileSaveTarget(FileSaveTarget target) async {
+  final path = target.path;
+  if (path != null) {
+    // The server opens (and truncates) the path itself.
+    return target;
+  }
+
+  // The descriptor of the previous attempt was consumed by it, so the SAF
+  // document has to be opened again.
+  _logger.info('Reopening ${target.displayPath}');
+  return FileSaveTarget(
+    path: null,
+    fileDescriptor: await android_channel.openFileForWritingAndroid(uri: target.displayPath),
+    displayPath: target.displayPath,
   );
 }
 

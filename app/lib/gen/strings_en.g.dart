@@ -443,6 +443,9 @@ class Translations$sendPage$en {
 
   // Translations
 
+  /// en: 'Calculating checksum ({curr} / {n})'
+  String calculatingChecksum({required Object curr, required Object n}) => 'Calculating checksum (${curr} / ${n})';
+
   /// en: 'Waiting for response…'
   String get waiting => 'Waiting for response…';
 
@@ -1646,8 +1649,6 @@ class Translations$dialogs$quickSaveFromFavoritesNotice$en {
 
   List<String> get content => [
     'File requests are now accepted automatically from devices in your favorites list.',
-    'Warning! Currently, this is not entirely secure, as a hacker who has the fingerprint of any device from your favorites list can send you files without restriction.',
-    'However, this option is still safer than allowing all users on the local network to send you files without restriction.',
   ];
 }
 

@@ -408,6 +408,8 @@ class _Translations$progressPage$ko extends Translations$progressPage$en {
   String get savedToGallery => '갤러리에 저장했습니다.';
   @override
   late final _Translations$progressPage$total$ko total = _Translations$progressPage$total$ko._(_root);
+  @override
+  late final _Translations$progressPage$remainingTime$ko remainingTime = _Translations$progressPage$remainingTime$ko._(_root);
 }
 
 // Path: webSharePage
@@ -978,6 +980,27 @@ class _Translations$progressPage$total$ko extends Translations$progressPage$tota
   String speed({required Object speed}) => '속도: ${speed}/초';
 }
 
+// Path: progressPage.remainingTime
+class _Translations$progressPage$remainingTime$ko extends Translations$progressPage$remainingTime$en {
+  _Translations$progressPage$remainingTime$ko._(TranslationsKo root) : this._root = root, super.internal(root);
+
+  final TranslationsKo _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String seconds({required Object n, required Object ss}) => '${n}:${ss}';
+  @override
+  String minutes({required Object n, required Object ss}) => '${n}:${ss}';
+
+  /// 'h'로 시간을, 'm'으로 분을 나타냅니다
+  @override
+  String hours({required Object h, required Object m}) => '${h}시간 ${m}분';
+
+  /// 'd'로 일수를, 'h'로 시간을, 'm'으로 분을 나타냅니다
+  @override
+  String days({required Object d, required Object h, required Object m}) => '${d}일 ${h}시간 ${m}분';
+}
+
 // Path: dialogs.addFile
 class _Translations$dialogs$addFile$ko extends Translations$dialogs$addFile$en {
   _Translations$dialogs$addFile$ko._(TranslationsKo root) : this._root = root, super.internal(root);
@@ -1291,8 +1314,6 @@ class _Translations$dialogs$quickSaveFromFavoritesNotice$ko extends Translations
   @override
   List<String> get content => [
     '이제부터 즐겨찾기 목록에 있는 기기에서 보내는 파일 전송 요청이 자동으로 승인됩니다.',
-    '다만, 이 기능은 아직 보안이 완벽하지 않으므로 주의가 필요합니다. 만약 해커가 즐겨찾기 기기의 식별 정보를 알아낸다면, 별다른 제한 없이 파일을 전송할 수도 있습니다.',
-    '그럼에도 불구하고, 로컬 네트워크 상에 존재하는 모든 기기로부터 파일 전송을 허용하는 것보다는 더 안전한 방법입니다.',
   ];
 }
 

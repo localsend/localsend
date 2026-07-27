@@ -134,18 +134,18 @@
       "deviceType": "デバイスタイプ",
       "deviceModel": "デバイスモデル",
       "port": "ポート",
+      "network": "ネットワーク",
+      "networkOptions": {
+        "all": "すべて",
+        "filtered": "フィルター"
+      },
       "discoveryTimeout": "探索がタイムアウトしました",
       "useSystemName": "システム名を使用",
       "generateRandomAlias": "ランダムな別名を生成",
       "portWarning": "ポートが変更されているため、このデバイスが他のデバイスから検出されなくなる場合があります。(デフォルト: {defaultPort})",
       "encryption": "暗号化",
       "multicastGroup": "マルチキャスト",
-      "multicastGroupWarning": "マルチキャストアドレスが変更されているため、他のデバイスから検出されなくなる場合があります。(デフォルト: {defaultMulticast})",
-      "network": "ネットワーク",
-      "networkOptions": {
-        "all": "すべて",
-        "filtered": "フィルター"
-      }
+      "multicastGroupWarning": "マルチキャストアドレスが変更されているため、他のデバイスから検出されなくなる場合があります。(デフォルト: {defaultMulticast})"
     },
     "other": {
       "title": "その他",
@@ -174,6 +174,13 @@
       "symptom": "どちらのデバイスも互いに表示されず、ファイルも共有できない。",
       "solution": "双方で問題が発生している場合は、両方のデバイスが同じWi-Fiネットワーク上にあり、ポート・マルチキャストアドレス・暗号化の設定が一致していることを確認してください。Wi-Fiネットワークが接続者同士の通信を許可していない可能性もあります。その場合は、ルーターの設定でそれを許可する必要があります。"
     }
+  },
+  "networkInterfacesPage": {
+    "title": "ネットワークインターフェース",
+    "info": "デフォルトでは、LocalSend は利用可能なすべてのネットワークインターフェースを使用します。不要なネットワークを除外するには、ここで設定できます。変更を適用するには、サーバーを再起動する必要があります。",
+    "preview": "プレビュー",
+    "whitelist": "ホワイトリスト",
+    "blacklist": "ブラックリスト"
   },
   "receiveHistoryPage": {
     "title": "履歴",
@@ -382,9 +389,7 @@
     "quickSaveFromFavoritesNotice": {
       "title": "@:general.quickSaveFromFavorites",
       "content": [
-        "お気に入りリストにあるデバイスからのファイルリクエストを自動的に受け入れます。",
-        "警告 現時点では、お気に入りリストのデバイスと一致するフィンガープリントがあればハッカーが無制限にファイルを送信できてしまうため、この設定は完全に安全とは言えません。",
-        "ですが、この設定はローカルネットワーク上のすべてのユーザーに無制限のファイル送信を許可するよりはまだ安全です。"
+        "お気に入りリストにあるデバイスからのファイルリクエストを自動的に受け入れます。"
       ]
     },
     "pin": {
@@ -450,12 +455,5 @@
     "sActionUseCameraHint": "カメラを使う",
     "sNameDurationLabel": "長さ",
     "sUnitAssetCountLabel": "個数"
-  },
-  "networkInterfacesPage": {
-    "preview": "プレビュー",
-    "blacklist": "ブラックリスト",
-    "whitelist": "ホワイトリスト",
-    "title": "ネットワークインターフェース",
-    "info": "デフォルトでは、LocalSend は利用可能なすべてのネットワークインターフェースを使用します。不要なネットワークを除外するには、ここで設定できます。変更を適用するには、サーバーを再起動する必要があります。"
   }
 }

@@ -4,12 +4,25 @@
 // ignore_for_file: invalid_use_of_internal_member, unused_import, unnecessary_import
 
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
+import 'package:localsend_isolates/rust/api/cancel.dart';
 import 'package:localsend_isolates/rust/frb_generated.dart';
 
 Future<void> verifyCert({required String cert, required String publicKey}) =>
     RustLib.instance.api.crateApiCryptoVerifyCert(cert: cert, publicKey: publicKey);
 
 Future<KeyPair> generateKeyPair() => RustLib.instance.api.crateApiCryptoGenerateKeyPair();
+
+/// Computes the SHA-256 checksum of a file, encoded as lowercase hex.
+///
+/// The file is read chunk by chunk, so it is never fully loaded into memory.
+/// Cancelling [cancel_token] aborts the read, so hashing a large file does not
+/// have to be waited out.
+///
+/// Exactly one content source must be provided:
+/// a [path] to a regular file, a [file_descriptor] (Android only), or [bytes]
+/// for a file that only lives in memory.
+Future<String> hashFile({String? path, int? fileDescriptor, Uint8List? bytes, required RsCancellationToken cancelToken}) =>
+    RustLib.instance.api.crateApiCryptoHashFile(path: path, fileDescriptor: fileDescriptor, bytes: bytes, cancelToken: cancelToken);
 
 class KeyPair {
   final String privateKey;

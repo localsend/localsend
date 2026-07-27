@@ -54,6 +54,8 @@ class TranslationsVi extends Translations with BaseTranslations<AppLocale, Trans
   @override
   late final _Translations$troubleshootPage$vi troubleshootPage = _Translations$troubleshootPage$vi._(_root);
   @override
+  late final _Translations$networkInterfacesPage$vi networkInterfacesPage = _Translations$networkInterfacesPage$vi._(_root);
+  @override
   late final _Translations$receiveHistoryPage$vi receiveHistoryPage = _Translations$receiveHistoryPage$vi._(_root);
   @override
   late final _Translations$apkPickerPage$vi apkPickerPage = _Translations$apkPickerPage$vi._(_root);
@@ -85,8 +87,6 @@ class TranslationsVi extends Translations with BaseTranslations<AppLocale, Trans
   late final _Translations$web$vi web = _Translations$web$vi._(_root);
   @override
   late final _Translations$assetPicker$vi assetPicker = _Translations$assetPicker$vi._(_root);
-  @override
-  late final _Translations$networkInterfacesPage$vi networkInterfacesPage = _Translations$networkInterfacesPage$vi._(_root);
 }
 
 // Path: general
@@ -268,6 +268,26 @@ class _Translations$troubleshootPage$vi extends Translations$troubleshootPage$en
   late final _Translations$troubleshootPage$noDiscovery$vi noDiscovery = _Translations$troubleshootPage$noDiscovery$vi._(_root);
   @override
   late final _Translations$troubleshootPage$noConnection$vi noConnection = _Translations$troubleshootPage$noConnection$vi._(_root);
+}
+
+// Path: networkInterfacesPage
+class _Translations$networkInterfacesPage$vi extends Translations$networkInterfacesPage$en {
+  _Translations$networkInterfacesPage$vi._(TranslationsVi root) : this._root = root, super.internal(root);
+
+  final TranslationsVi _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Card mạng';
+  @override
+  String get info =>
+      'LocalSend mặc định sử dụng tất cả các giao diện mạng có sẵn. Bạn có thể loại trừ các mạng không mong muốn tại đây. Bạn cần khởi động lại server để áp dụng các thay đổi.';
+  @override
+  String get preview => 'Xem trước';
+  @override
+  String get whitelist => 'Cho phép';
+  @override
+  String get blacklist => 'Chặn';
 }
 
 // Path: receiveHistoryPage
@@ -664,26 +684,6 @@ class _Translations$assetPicker$vi extends Translations$assetPicker$en {
   String get sUnitAssetCountLabel => 'đếm';
 }
 
-// Path: networkInterfacesPage
-class _Translations$networkInterfacesPage$vi extends Translations$networkInterfacesPage$en {
-  _Translations$networkInterfacesPage$vi._(TranslationsVi root) : this._root = root, super.internal(root);
-
-  final TranslationsVi _root; // ignore: unused_field
-
-  // Translations
-  @override
-  String get info =>
-      'LocalSend mặc định sử dụng tất cả các giao diện mạng có sẵn. Bạn có thể loại trừ các mạng không mong muốn tại đây. Bạn cần khởi động lại server để áp dụng các thay đổi.';
-  @override
-  String get title => 'Card mạng';
-  @override
-  String get preview => 'Xem trước';
-  @override
-  String get whitelist => 'Cho phép';
-  @override
-  String get blacklist => 'Chặn';
-}
-
 // Path: receiveTab.infoBox
 class _Translations$receiveTab$infoBox$vi extends Translations$receiveTab$infoBox$en {
   _Translations$receiveTab$infoBox$vi._(TranslationsVi root) : this._root = root, super.internal(root);
@@ -866,6 +866,10 @@ class _Translations$settingsTab$network$vi extends Translations$settingsTab$netw
   @override
   String get port => 'Port';
   @override
+  String get network => 'Giao diện mạng';
+  @override
+  late final _Translations$settingsTab$network$networkOptions$vi networkOptions = _Translations$settingsTab$network$networkOptions$vi._(_root);
+  @override
   String get discoveryTimeout => 'Hết thời gian tìm kiếm';
   @override
   String get useSystemName => 'Dùng tên hệ thống';
@@ -881,10 +885,6 @@ class _Translations$settingsTab$network$vi extends Translations$settingsTab$netw
   @override
   String multicastGroupWarning({required Object defaultMulticast}) =>
       'Các thiết bị khác có thể không nhận diện được thiết bị của bạn, vì bạn đang dùng địa chỉ multicast tuỳ chỉnh. (mặc định: ${defaultMulticast})';
-  @override
-  late final _Translations$settingsTab$network$networkOptions$vi networkOptions = _Translations$settingsTab$network$networkOptions$vi._(_root);
-  @override
-  String get network => 'Giao diện mạng';
 }
 
 // Path: settingsTab.other
@@ -1299,8 +1299,6 @@ class _Translations$dialogs$quickSaveFromFavoritesNotice$vi extends Translations
   @override
   List<String> get content => [
     'Yêu cầu sẽ được chấp thuận tự động nếu thiết bị nằm trong danh sách yêu thích.',
-    'Lưu ý! Hiện tại, tính năng này không hoàn toàn an toàn, vì tin tặc có thể mạo danh thiết bị trong danh sách yêu thích và gửi tệp tin cho bạn mà không gặp trở ngại gì.',
-    'Tuy nhiên, tính năng này vẫn an toàn hơn tự động chấp thuận tập tin từ tất cả người dùng chung mạng nội bộ.',
   ];
 }
 

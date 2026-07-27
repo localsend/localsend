@@ -54,6 +54,8 @@ class TranslationsSr extends Translations with BaseTranslations<AppLocale, Trans
   @override
   late final Translations$troubleshootPage$sr troubleshootPage = Translations$troubleshootPage$sr.internal(_root);
   @override
+  late final Translations$networkInterfacesPage$sr networkInterfacesPage = Translations$networkInterfacesPage$sr.internal(_root);
+  @override
   late final Translations$receiveHistoryPage$sr receiveHistoryPage = Translations$receiveHistoryPage$sr.internal(_root);
   @override
   late final Translations$apkPickerPage$sr apkPickerPage = Translations$apkPickerPage$sr.internal(_root);
@@ -87,8 +89,6 @@ class TranslationsSr extends Translations with BaseTranslations<AppLocale, Trans
   late final Translations$web$sr web = Translations$web$sr.internal(_root);
   @override
   late final Translations$assetPicker$sr assetPicker = Translations$assetPicker$sr.internal(_root);
-  @override
-  late final Translations$networkInterfacesPage$sr networkInterfacesPage = Translations$networkInterfacesPage$sr.internal(_root);
 }
 
 // Path: general
@@ -270,6 +270,26 @@ class Translations$troubleshootPage$sr extends Translations$troubleshootPage$en 
   late final Translations$troubleshootPage$noDiscovery$sr noDiscovery = Translations$troubleshootPage$noDiscovery$sr.internal(_root);
   @override
   late final Translations$troubleshootPage$noConnection$sr noConnection = Translations$troubleshootPage$noConnection$sr.internal(_root);
+}
+
+// Path: networkInterfacesPage
+class Translations$networkInterfacesPage$sr extends Translations$networkInterfacesPage$en {
+  Translations$networkInterfacesPage$sr.internal(TranslationsSr root) : this._root = root, super.internal(root);
+
+  final TranslationsSr _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Mrežni interfejsi';
+  @override
+  String get info =>
+      'Podrazumevano, LocalSend koristi sve dostupne mrežne interfejse. Ovde možete izuzeti neželjene mreže. Morate restartovati server da bi se primenile promene.';
+  @override
+  String get preview => 'Pregled';
+  @override
+  String get whitelist => 'Bela lista';
+  @override
+  String get blacklist => 'Crna lista';
 }
 
 // Path: receiveHistoryPage
@@ -752,26 +772,6 @@ class Translations$assetPicker$sr extends Translations$assetPicker$en {
   String get sUnitAssetCountLabel => 'broj';
 }
 
-// Path: networkInterfacesPage
-class Translations$networkInterfacesPage$sr extends Translations$networkInterfacesPage$en {
-  Translations$networkInterfacesPage$sr.internal(TranslationsSr root) : this._root = root, super.internal(root);
-
-  final TranslationsSr _root; // ignore: unused_field
-
-  // Translations
-  @override
-  String get title => 'Mrežni interfejsi';
-  @override
-  String get preview => 'Pregled';
-  @override
-  String get whitelist => 'Bela lista';
-  @override
-  String get blacklist => 'Crna lista';
-  @override
-  String get info =>
-      'Podrazumevano, LocalSend koristi sve dostupne mrežne interfejse. Ovde možete izuzeti neželjene mreže. Morate restartovati server da bi se primenile promene.';
-}
-
 // Path: receiveTab.infoBox
 class Translations$receiveTab$infoBox$sr extends Translations$receiveTab$infoBox$en {
   Translations$receiveTab$infoBox$sr.internal(TranslationsSr root) : this._root = root, super.internal(root);
@@ -956,6 +956,10 @@ class Translations$settingsTab$network$sr extends Translations$settingsTab$netwo
   @override
   String get port => 'Port';
   @override
+  String get network => 'Mreža';
+  @override
+  late final Translations$settingsTab$network$networkOptions$sr networkOptions = Translations$settingsTab$network$networkOptions$sr.internal(_root);
+  @override
   String get discoveryTimeout => 'Otkrivanje je isteklo';
   @override
   String get useSystemName => 'Koristi sistemski naziv';
@@ -971,10 +975,6 @@ class Translations$settingsTab$network$sr extends Translations$settingsTab$netwo
   @override
   String multicastGroupWarning({required Object defaultMulticast}) =>
       'Drugi uređaji vas možda neće otkriti, jer koristite prilagođenu adresu višesmernog emitovanja. (podrazumevana: ${defaultMulticast})';
-  @override
-  String get network => 'Mreža';
-  @override
-  late final Translations$settingsTab$network$networkOptions$sr networkOptions = Translations$settingsTab$network$networkOptions$sr.internal(_root);
 }
 
 // Path: settingsTab.other
@@ -1388,8 +1388,6 @@ class Translations$dialogs$quickSaveFromFavoritesNotice$sr extends Translations$
   @override
   List<String> get content => [
     'Zahtevi za fajlove se sada automatski prihvataju sa uređaja koji su na vašoj listi omiljenih.',
-    'Upozorenje! Trenutno, ovo nije potpuno bezbedno, jer haker koji ima otisak prsta bilo kog uređaja sa vaše liste omiljenih može da vam šalje fajlove bez ograničenja.',
-    'Ipak, ova opcija je i dalje bezbednija od dopuštanja svim korisnicima na lokalnoj mreži da vam šalju fajlove bez ograničenja.',
   ];
 }
 
@@ -1479,9 +1477,9 @@ class Translations$settingsTab$network$networkOptions$sr extends Translations$se
 
   // Translations
   @override
-  String get filtered => 'Filtrirana';
-  @override
   String get all => 'Sve';
+  @override
+  String get filtered => 'Filtrirana';
 }
 
 // Path: progressPage.total.title

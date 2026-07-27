@@ -54,6 +54,8 @@ class TranslationsId extends Translations with BaseTranslations<AppLocale, Trans
   @override
   late final _Translations$troubleshootPage$id troubleshootPage = _Translations$troubleshootPage$id._(_root);
   @override
+  late final _Translations$networkInterfacesPage$id networkInterfacesPage = _Translations$networkInterfacesPage$id._(_root);
+  @override
   late final _Translations$receiveHistoryPage$id receiveHistoryPage = _Translations$receiveHistoryPage$id._(_root);
   @override
   late final _Translations$apkPickerPage$id apkPickerPage = _Translations$apkPickerPage$id._(_root);
@@ -85,8 +87,6 @@ class TranslationsId extends Translations with BaseTranslations<AppLocale, Trans
   late final _Translations$web$id web = _Translations$web$id._(_root);
   @override
   late final _Translations$assetPicker$id assetPicker = _Translations$assetPicker$id._(_root);
-  @override
-  late final _Translations$networkInterfacesPage$id networkInterfacesPage = _Translations$networkInterfacesPage$id._(_root);
 }
 
 // Path: general
@@ -268,6 +268,26 @@ class _Translations$troubleshootPage$id extends Translations$troubleshootPage$en
   late final _Translations$troubleshootPage$noDiscovery$id noDiscovery = _Translations$troubleshootPage$noDiscovery$id._(_root);
   @override
   late final _Translations$troubleshootPage$noConnection$id noConnection = _Translations$troubleshootPage$noConnection$id._(_root);
+}
+
+// Path: networkInterfacesPage
+class _Translations$networkInterfacesPage$id extends Translations$networkInterfacesPage$en {
+  _Translations$networkInterfacesPage$id._(TranslationsId root) : this._root = root, super.internal(root);
+
+  final TranslationsId _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Antarmuka Jaringan';
+  @override
+  String get info =>
+      'Secara default, LocalSend menggunakan semua antarmuka jaringan yang tersedia. Anda dapat mengecualikan jaringan yang tidak diinginkan di sini. Anda perlu memulai ulang server untuk menerapkan perubahan.';
+  @override
+  String get preview => 'Pratinjau';
+  @override
+  String get whitelist => 'Daftar putih';
+  @override
+  String get blacklist => 'Daftar hitam';
 }
 
 // Path: receiveHistoryPage
@@ -660,26 +680,6 @@ class _Translations$assetPicker$id extends Translations$assetPicker$en {
   String get sUnitAssetCountLabel => 'Jumlah';
 }
 
-// Path: networkInterfacesPage
-class _Translations$networkInterfacesPage$id extends Translations$networkInterfacesPage$en {
-  _Translations$networkInterfacesPage$id._(TranslationsId root) : this._root = root, super.internal(root);
-
-  final TranslationsId _root; // ignore: unused_field
-
-  // Translations
-  @override
-  String get title => 'Antarmuka Jaringan';
-  @override
-  String get preview => 'Pratinjau';
-  @override
-  String get whitelist => 'Daftar putih';
-  @override
-  String get blacklist => 'Daftar hitam';
-  @override
-  String get info =>
-      'Secara default, LocalSend menggunakan semua antarmuka jaringan yang tersedia. Anda dapat mengecualikan jaringan yang tidak diinginkan di sini. Anda perlu memulai ulang server untuk menerapkan perubahan.';
-}
-
 // Path: receiveTab.infoBox
 class _Translations$receiveTab$infoBox$id extends Translations$receiveTab$infoBox$en {
   _Translations$receiveTab$infoBox$id._(TranslationsId root) : this._root = root, super.internal(root);
@@ -862,6 +862,10 @@ class _Translations$settingsTab$network$id extends Translations$settingsTab$netw
   @override
   String get port => 'Porta';
   @override
+  String get network => 'Jaringan';
+  @override
+  late final _Translations$settingsTab$network$networkOptions$id networkOptions = _Translations$settingsTab$network$networkOptions$id._(_root);
+  @override
   String get discoveryTimeout => 'Waktu penemuan habis';
   @override
   String get useSystemName => 'Gunakan nama sistem';
@@ -877,10 +881,6 @@ class _Translations$settingsTab$network$id extends Translations$settingsTab$netw
   @override
   String multicastGroupWarning({required Object defaultMulticast}) =>
       'Anda mungkin tidak terdeteksi oleh perangkat lain karena menggunakan alamat multicast khusus. (bawaan: ${defaultMulticast})';
-  @override
-  String get network => 'Jaringan';
-  @override
-  late final _Translations$settingsTab$network$networkOptions$id networkOptions = _Translations$settingsTab$network$networkOptions$id._(_root);
 }
 
 // Path: settingsTab.other
@@ -1294,8 +1294,6 @@ class _Translations$dialogs$quickSaveFromFavoritesNotice$id extends Translations
   @override
   List<String> get content => [
     'Permintaan berkas sekarang diterima secara otomatis dari perangkat di daftar favorit Anda.',
-    'Peringatan! Saat ini, pilihan ini tidak sepenuhnya aman karena peretas yang memiliki sidik jari perangkat apa pun dari daftar favorit Anda dapat mengirimi Anda berkas tanpa pembatasan.',
-    'Akan tetapi, pilihan ini masih lebih aman daripada mengizinkan semua pengguna di jaringan lokal mengirimkan berkas kepada Anda tanpa pembatasan.',
   ];
 }
 

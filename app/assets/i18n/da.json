@@ -49,8 +49,8 @@
       "alias": "Enhedsnavn:"
     },
     "quickSave": {
-      "favorites": "Favoritter",
       "off": "@:general.off",
+      "favorites": "Favoritter",
       "on": "@:general.on"
     }
   },
@@ -134,18 +134,18 @@
       "deviceType": "Enhedstype",
       "deviceModel": "Enhedsmodel",
       "port": "Port",
-      "discoveryTimeout": "Timeout for søgning",
-      "portWarning": "Andre enheder registrerer dig muligvis ikke, da du bruger en brugerdefineret port (standard: {defaultPort}).",
-      "encryption": "Kryptering",
-      "multicastGroup": "Multicast-adresse",
-      "multicastGroupWarning": "Andre enheder registrerer dig muligvis ikke, da du bruger en brugerdefineret multicast-adresse (standard: {defaultMulticast}).",
       "network": "Netværk",
       "networkOptions": {
         "all": "Alle",
         "filtered": "Filtreret"
       },
+      "discoveryTimeout": "Timeout for søgning",
       "useSystemName": "Brug systemnavn",
-      "generateRandomAlias": "Generér tilfældigt alias"
+      "generateRandomAlias": "Generér tilfældigt alias",
+      "portWarning": "Andre enheder registrerer dig muligvis ikke, da du bruger en brugerdefineret port (standard: {defaultPort}).",
+      "encryption": "Kryptering",
+      "multicastGroup": "Multicast-adresse",
+      "multicastGroupWarning": "Andre enheder registrerer dig muligvis ikke, da du bruger en brugerdefineret multicast-adresse (standard: {defaultMulticast})."
     },
     "other": {
       "title": "Andet",
@@ -174,6 +174,13 @@
       "symptom": "Begge enheder kan hverken se hinanden eller dele data.",
       "solution": "Er problemet der på begge enheder? Hvis ja, skal du sikre, at begge er på samme Wi-Fi-netværk og har den samme konfiguration (port, multicast-adresse, kryptering). Det kan være, at Wi-Fi-netværket forhindrer kommunikation mellem enheder grundet Access Point (AP) Isolation. I så fald skal denne indstilling deaktiveres på routeren."
     }
+  },
+  "networkInterfacesPage": {
+    "title": "Netværksgrænseflader",
+    "info": "Som standard bruger LocalSend alle tilgængelige netværksgrænseflader. Du kan ekskludere uønskede netværk her. Du skal genstarte serveren for at anvende ændringerne.",
+    "preview": "Forhåndsvisning",
+    "whitelist": "Hvidliste",
+    "blacklist": "Sortliste"
   },
   "receiveHistoryPage": {
     "title": "Historik",
@@ -281,6 +288,10 @@
       "title": "Føj til valg",
       "content": "Hvad vil du tilføje?"
     },
+    "openFile": {
+      "title": "Åbn fil",
+      "content": "Vil du åbne den modtagne fil?"
+    },
     "addressInput": {
       "title": "Indtast adresse",
       "hashtag": "Hashtag",
@@ -374,9 +385,7 @@
     "quickSaveFromFavoritesNotice": {
       "title": "@:general.quickSaveFromFavorites",
       "content": [
-        "Filoverførsler accepteres nu automatisk fra enheder på din favoritliste.",
-        "Advarsel! Dette er ikke helt sikkert, da hvis en hacker har fingeraftrykket på enhver enhed fra din favoritliste, kan de sende filer til dig uden restriktioner.",
-        "Denne mulighed er dog stadig sikrere end at tillade alle brugere på det lokale netværk at sende filer til dig uden restriktioner."
+        "Filoverførsler accepteres nu automatisk fra enheder på din favoritliste."
       ]
     },
     "pin": {
@@ -390,10 +399,6 @@
     },
     "zoom": {
       "title": "URL"
-    },
-    "openFile": {
-      "title": "Åbn fil",
-      "content": "Vil du åbne den modtagne fil?"
     }
   },
   "sanitization": {
@@ -446,12 +451,5 @@
     "sActionUseCameraHint": "Brug kamera",
     "sNameDurationLabel": "Varighed",
     "sUnitAssetCountLabel": "Antal"
-  },
-  "networkInterfacesPage": {
-    "title": "Netværksgrænseflader",
-    "info": "Som standard bruger LocalSend alle tilgængelige netværksgrænseflader. Du kan ekskludere uønskede netværk her. Du skal genstarte serveren for at anvende ændringerne.",
-    "preview": "Forhåndsvisning",
-    "whitelist": "Hvidliste",
-    "blacklist": "Sortliste"
   }
 }

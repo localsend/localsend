@@ -11,7 +11,6 @@ environment:
 
 dependencies:
   basic_utils: 5.8.2
-  bitsdojo_window: ^0.1.6
   collection: ^1.17.2 # allow newer versions, so it can compile with newer Flutter versions
   connectivity_plus: 7.2.0
   convert: 3.1.2
@@ -29,7 +28,6 @@ dependencies:
     sdk: flutter
   flutter_markdown: 0.7.7+1
   freezed_annotation: 3.1.0
-  gal: 2.3.2
   glob: 2.1.3
   image: 4.8.0
   image_picker: 1.2.3

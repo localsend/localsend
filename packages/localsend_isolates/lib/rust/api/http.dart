@@ -5,6 +5,7 @@
 
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 import 'package:freezed_annotation/freezed_annotation.dart' hide protected;
+import 'package:localsend_isolates/rust/api/cancel.dart';
 import 'package:localsend_isolates/rust/api/model.dart';
 import 'package:localsend_isolates/rust/api/stream.dart';
 import 'package:localsend_isolates/rust/frb_generated.dart';
@@ -16,13 +17,6 @@ part 'http.freezed.dart';
 
 RsHttpClient createClient({required String privateKey, required String cert, required LsHttpClientVersion version, int? timeoutMs}) =>
     RustLib.instance.api.crateApiHttpCreateClient(privateKey: privateKey, cert: cert, version: version, timeoutMs: timeoutMs);
-
-RsCancellationToken createCancellationToken() => RustLib.instance.api.crateApiHttpCreateCancellationToken();
-
-// Rust type: RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<RsCancellationToken>>
-abstract class RsCancellationToken implements RustOpaqueInterface {
-  void cancel();
-}
 
 // Rust type: RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<RsHttpClient>>
 abstract class RsHttpClient implements RustOpaqueInterface {

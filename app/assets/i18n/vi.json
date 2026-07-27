@@ -134,18 +134,18 @@
       "deviceType": "Loại thiết bị",
       "deviceModel": "Model thiết bị",
       "port": "Port",
+      "network": "Giao diện mạng",
+      "networkOptions": {
+        "all": "Tất cả",
+        "filtered": "Đã lọc"
+      },
       "discoveryTimeout": "Hết thời gian tìm kiếm",
       "useSystemName": "Dùng tên hệ thống",
       "generateRandomAlias": "Dùng bí danh ngẫu nhiên",
       "portWarning": "Các thiết bị khác có thể không nhận diện được thiết bị của bạn, vì bạn đang dùng port tuỳ chỉnh. (mặc định: {defaultPort})",
       "encryption": "Mã hoá",
       "multicastGroup": "Đa phương tiện",
-      "multicastGroupWarning": "Các thiết bị khác có thể không nhận diện được thiết bị của bạn, vì bạn đang dùng địa chỉ multicast tuỳ chỉnh. (mặc định: {defaultMulticast})",
-      "networkOptions": {
-        "all": "Tất cả",
-        "filtered": "Đã lọc"
-      },
-      "network": "Giao diện mạng"
+      "multicastGroupWarning": "Các thiết bị khác có thể không nhận diện được thiết bị của bạn, vì bạn đang dùng địa chỉ multicast tuỳ chỉnh. (mặc định: {defaultMulticast})"
     },
     "other": {
       "title": "Khác",
@@ -174,6 +174,13 @@
       "symptom": "Cả hai thiết bị không thể nhận diện lẫn nhau cũng như không thể chia sẻ tập tin.",
       "solution": "Vấn đề tồn tại ở cả 2 thiết bị? Nếu thế, bạn cần chắc chắn rằng cả hai thiết bị đang dùng chung một mạng wifi với cùng thiết lập (port, địa chỉ multicast, mã hoá). Wifi có thể không cho các thiết bị giao tiếp với nhau. Trong trường hợp đó, bạn cần tìm trong thiết lập của router."
     }
+  },
+  "networkInterfacesPage": {
+    "title": "Card mạng",
+    "info": "LocalSend mặc định sử dụng tất cả các giao diện mạng có sẵn. Bạn có thể loại trừ các mạng không mong muốn tại đây. Bạn cần khởi động lại server để áp dụng các thay đổi.",
+    "preview": "Xem trước",
+    "whitelist": "Cho phép",
+    "blacklist": "Chặn"
   },
   "receiveHistoryPage": {
     "title": "Lịch sử",
@@ -378,9 +385,7 @@
     "quickSaveFromFavoritesNotice": {
       "title": "@:general.quickSaveFromFavorites",
       "content": [
-        "Yêu cầu sẽ được chấp thuận tự động nếu thiết bị nằm trong danh sách yêu thích.",
-        "Lưu ý! Hiện tại, tính năng này không hoàn toàn an toàn, vì tin tặc có thể mạo danh thiết bị trong danh sách yêu thích và gửi tệp tin cho bạn mà không gặp trở ngại gì.",
-        "Tuy nhiên, tính năng này vẫn an toàn hơn tự động chấp thuận tập tin từ tất cả người dùng chung mạng nội bộ."
+        "Yêu cầu sẽ được chấp thuận tự động nếu thiết bị nằm trong danh sách yêu thích."
       ]
     },
     "pin": {
@@ -446,12 +451,5 @@
     "sActionUseCameraHint": "dùng camera",
     "sNameDurationLabel": "thời lượng",
     "sUnitAssetCountLabel": "đếm"
-  },
-  "networkInterfacesPage": {
-    "info": "LocalSend mặc định sử dụng tất cả các giao diện mạng có sẵn. Bạn có thể loại trừ các mạng không mong muốn tại đây. Bạn cần khởi động lại server để áp dụng các thay đổi.",
-    "title": "Card mạng",
-    "preview": "Xem trước",
-    "whitelist": "Cho phép",
-    "blacklist": "Chặn"
   }
 }

@@ -13,10 +13,15 @@ dependencies:
   dart_mappable: 4.8.0
   flutter:
     sdk: flutter
+  flutter_foreground_task: 9.2.2
   flutter_rust_bridge: 2.12.0
   freezed_annotation: 3.1.0
+  gal: 2.3.2
+  legalize: 1.2.2
   logging: 1.3.0
   mime: 2.0.0
+  path: 1.9.1
+  pool: 1.5.2
   refena_flutter: 3.2.1
   rust_lib_localsend_app:
     path: rust_builder

@@ -54,6 +54,8 @@ class TranslationsTa extends Translations with BaseTranslations<AppLocale, Trans
   @override
   late final _Translations$troubleshootPage$ta troubleshootPage = _Translations$troubleshootPage$ta._(_root);
   @override
+  late final _Translations$networkInterfacesPage$ta networkInterfacesPage = _Translations$networkInterfacesPage$ta._(_root);
+  @override
   late final _Translations$receiveHistoryPage$ta receiveHistoryPage = _Translations$receiveHistoryPage$ta._(_root);
   @override
   late final _Translations$apkPickerPage$ta apkPickerPage = _Translations$apkPickerPage$ta._(_root);
@@ -87,8 +89,6 @@ class TranslationsTa extends Translations with BaseTranslations<AppLocale, Trans
   late final _Translations$web$ta web = _Translations$web$ta._(_root);
   @override
   late final _Translations$assetPicker$ta assetPicker = _Translations$assetPicker$ta._(_root);
-  @override
-  late final _Translations$networkInterfacesPage$ta networkInterfacesPage = _Translations$networkInterfacesPage$ta._(_root);
 }
 
 // Path: general
@@ -270,6 +270,26 @@ class _Translations$troubleshootPage$ta extends Translations$troubleshootPage$en
   late final _Translations$troubleshootPage$noDiscovery$ta noDiscovery = _Translations$troubleshootPage$noDiscovery$ta._(_root);
   @override
   late final _Translations$troubleshootPage$noConnection$ta noConnection = _Translations$troubleshootPage$noConnection$ta._(_root);
+}
+
+// Path: networkInterfacesPage
+class _Translations$networkInterfacesPage$ta extends Translations$networkInterfacesPage$en {
+  _Translations$networkInterfacesPage$ta._(TranslationsTa root) : this._root = root, super.internal(root);
+
+  final TranslationsTa _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'பிணைய இடைமுகங்கள்';
+  @override
+  String get info =>
+      'இயல்பாக, லோக்கல்சென்ட் கிடைக்கக்கூடிய அனைத்து பிணைய இடைமுகங்களையும் பயன்படுத்துகிறது. தேவையற்ற நெட்வொர்க்குகளை இங்கே விலக்கலாம். மாற்றங்களைப் பயன்படுத்த நீங்கள் சேவையகத்தை மறுதொடக்கம் செய்ய வேண்டும்.';
+  @override
+  String get preview => 'முன்னோட்டம்';
+  @override
+  String get whitelist => 'அனுமதிப்பட்டியலாளர்';
+  @override
+  String get blacklist => 'தடுப்புப்பட்டியல்';
 }
 
 // Path: receiveHistoryPage
@@ -749,26 +769,6 @@ class _Translations$assetPicker$ta extends Translations$assetPicker$en {
   String get sUnitAssetCountLabel => 'எண்ணிக்கை';
 }
 
-// Path: networkInterfacesPage
-class _Translations$networkInterfacesPage$ta extends Translations$networkInterfacesPage$en {
-  _Translations$networkInterfacesPage$ta._(TranslationsTa root) : this._root = root, super.internal(root);
-
-  final TranslationsTa _root; // ignore: unused_field
-
-  // Translations
-  @override
-  String get title => 'பிணைய இடைமுகங்கள்';
-  @override
-  String get info =>
-      'இயல்பாக, லோக்கல்சென்ட் கிடைக்கக்கூடிய அனைத்து பிணைய இடைமுகங்களையும் பயன்படுத்துகிறது. தேவையற்ற நெட்வொர்க்குகளை இங்கே விலக்கலாம். மாற்றங்களைப் பயன்படுத்த நீங்கள் சேவையகத்தை மறுதொடக்கம் செய்ய வேண்டும்.';
-  @override
-  String get preview => 'முன்னோட்டம்';
-  @override
-  String get whitelist => 'அனுமதிப்பட்டியலாளர்';
-  @override
-  String get blacklist => 'தடுப்புப்பட்டியல்';
-}
-
 // Path: receiveTab.infoBox
 class _Translations$receiveTab$infoBox$ta extends Translations$receiveTab$infoBox$en {
   _Translations$receiveTab$infoBox$ta._(TranslationsTa root) : this._root = root, super.internal(root);
@@ -951,6 +951,10 @@ class _Translations$settingsTab$network$ta extends Translations$settingsTab$netw
   @override
   String get port => 'போர்ட்';
   @override
+  String get network => 'பிணையம்';
+  @override
+  late final _Translations$settingsTab$network$networkOptions$ta networkOptions = _Translations$settingsTab$network$networkOptions$ta._(_root);
+  @override
   String get discoveryTimeout => 'கண்டுபிடிப்பு நேரம் முடிந்தது';
   @override
   String get useSystemName => 'அமைப்பின் பெயரைப் பயன்படுத்தவும்';
@@ -966,10 +970,6 @@ class _Translations$settingsTab$network$ta extends Translations$settingsTab$netw
   @override
   String multicastGroupWarning({required Object defaultMulticast}) =>
       'நீங்கள் தனிப்பயன் மல்டிகாஸ்ட் முகவரியைப் பயன்படுத்துவதால் பிற சாதனங்களால் உங்களைக் கண்டறிய முடியாமல் போகலாம். (இயல்புநிலை: ${defaultMulticast})';
-  @override
-  String get network => 'பிணையம்';
-  @override
-  late final _Translations$settingsTab$network$networkOptions$ta networkOptions = _Translations$settingsTab$network$networkOptions$ta._(_root);
 }
 
 // Path: settingsTab.other
@@ -1384,9 +1384,7 @@ class _Translations$dialogs$quickSaveFromFavoritesNotice$ta extends Translations
   String get title => '@: general.quick பிடித்தவைகளிலிருந்து சேமிக்கவும்';
   @override
   List<String> get content => [
-    'உங்கள் பிடித்த பட்டியலில் உள்ள சாதனங்களில் இருந்து கோப்பு கோரிக்கைகள் இப்போது தானாகவே ஏற்கப்படும்.',
-    'எச்சரிக்கை! தற்போது, இது முழுமையாக பாதுகாப்பாக இல்லை, ஏனெனில் உங்கள் பிடித்த பட்டியலில் உள்ள சாதனங்களின் விரலடிகளை வைத்துள்ள ஒரு ஹேக்கர் எந்த கட்டுப்பாடுகளும் இல்லாமல் உங்களுக்கு கோப்புகளை அனுப்ப முடியும்.',
-    'என்ன தவிர, இந்த விருப்பம் உள்ளூர் நெட்வொர்க்கில் உள்ள அனைத்து பயனர்களும் எந்த கட்டுப்பாடுகளும் இல்லாமல் உங்களுக்கு கோப்புகளை அனுப்புவதை அனுமதிக்கும் விருப்பத்தை விட அதிகமாக பாதுகாப்பாக உள்ளது.',
+    'உங்கள் பிடிக்க பட்டியலில் உள்ள சாதனங்களில் இருந்து கோப்பு கோரிக்கைகள் இப்போது தானாகவே ஏற்கப்படும்.',
   ];
 }
 

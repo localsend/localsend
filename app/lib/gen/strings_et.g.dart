@@ -54,6 +54,8 @@ class TranslationsEt extends Translations with BaseTranslations<AppLocale, Trans
   @override
   late final _Translations$troubleshootPage$et troubleshootPage = _Translations$troubleshootPage$et._(_root);
   @override
+  late final _Translations$networkInterfacesPage$et networkInterfacesPage = _Translations$networkInterfacesPage$et._(_root);
+  @override
   late final _Translations$receiveHistoryPage$et receiveHistoryPage = _Translations$receiveHistoryPage$et._(_root);
   @override
   late final _Translations$apkPickerPage$et apkPickerPage = _Translations$apkPickerPage$et._(_root);
@@ -85,8 +87,6 @@ class TranslationsEt extends Translations with BaseTranslations<AppLocale, Trans
   late final _Translations$web$et web = _Translations$web$et._(_root);
   @override
   late final _Translations$assetPicker$et assetPicker = _Translations$assetPicker$et._(_root);
-  @override
-  late final _Translations$networkInterfacesPage$et networkInterfacesPage = _Translations$networkInterfacesPage$et._(_root);
 }
 
 // Path: general
@@ -268,6 +268,26 @@ class _Translations$troubleshootPage$et extends Translations$troubleshootPage$en
   late final _Translations$troubleshootPage$noDiscovery$et noDiscovery = _Translations$troubleshootPage$noDiscovery$et._(_root);
   @override
   late final _Translations$troubleshootPage$noConnection$et noConnection = _Translations$troubleshootPage$noConnection$et._(_root);
+}
+
+// Path: networkInterfacesPage
+class _Translations$networkInterfacesPage$et extends Translations$networkInterfacesPage$en {
+  _Translations$networkInterfacesPage$et._(TranslationsEt root) : this._root = root, super.internal(root);
+
+  final TranslationsEt _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Võrguliidesed';
+  @override
+  String get info =>
+      'Vaikimisi kasutab LocalSend kõiki võrguliideseid. Kui sul on vaja, siis saad mittesoovitud võrgud siinkohal välistada ning muudatuste jõustumine eeldab serverikomponendi uuesti käivitamist.';
+  @override
+  String get preview => 'Eelvaade';
+  @override
+  String get whitelist => 'Lubatud loend';
+  @override
+  String get blacklist => 'Keelatud loend';
 }
 
 // Path: receiveHistoryPage
@@ -666,26 +686,6 @@ class _Translations$assetPicker$et extends Translations$assetPicker$en {
   String get sUnitAssetCountLabel => 'kogus';
 }
 
-// Path: networkInterfacesPage
-class _Translations$networkInterfacesPage$et extends Translations$networkInterfacesPage$en {
-  _Translations$networkInterfacesPage$et._(TranslationsEt root) : this._root = root, super.internal(root);
-
-  final TranslationsEt _root; // ignore: unused_field
-
-  // Translations
-  @override
-  String get title => 'Võrguliidesed';
-  @override
-  String get preview => 'Eelvaade';
-  @override
-  String get whitelist => 'Lubatud loend';
-  @override
-  String get blacklist => 'Keelatud loend';
-  @override
-  String get info =>
-      'Vaikimisi kasutab LocalSend kõiki võrguliideseid. Kui sul on vaja, siis saad mittesoovitud võrgud siinkohal välistada ning muudatuste jõustumine eeldab serverikomponendi uuesti käivitamist.';
-}
-
 // Path: receiveTab.infoBox
 class _Translations$receiveTab$infoBox$et extends Translations$receiveTab$infoBox$en {
   _Translations$receiveTab$infoBox$et._(TranslationsEt root) : this._root = root, super.internal(root);
@@ -868,6 +868,10 @@ class _Translations$settingsTab$network$et extends Translations$settingsTab$netw
   @override
   String get port => 'Kasutatav port';
   @override
+  String get network => 'Võrk';
+  @override
+  late final _Translations$settingsTab$network$networkOptions$et networkOptions = _Translations$settingsTab$network$networkOptions$et._(_root);
+  @override
   String get discoveryTimeout => 'Leitavuse aegumine';
   @override
   String get useSystemName => 'Kasuta süsteemset nime';
@@ -883,10 +887,6 @@ class _Translations$settingsTab$network$et extends Translations$settingsTab$netw
   @override
   String multicastGroupWarning({required Object defaultMulticast}) =>
       'Kuna kasutad endamääratud multiedastuse aadressi, siis muud seadmed ei pruugi seda seadet leida. (vaikimisi: ${defaultMulticast})';
-  @override
-  late final _Translations$settingsTab$network$networkOptions$et networkOptions = _Translations$settingsTab$network$networkOptions$et._(_root);
-  @override
-  String get network => 'Võrk';
 }
 
 // Path: settingsTab.other
@@ -1322,8 +1322,6 @@ class _Translations$dialogs$quickSaveFromFavoritesNotice$et extends Translations
   @override
   List<String> get content => [
     'Failipäringutega nõustume nüüd automaatselt vaid nende seadmete puhul, mis on lemmikuks märgitud.',
-    'Hoiatus! Kui kohtvõrgus tegutsev võimalik pahatahtlik osapool saaks kätte sinul lemmikuks märgitud seadmete võtmed ja sõrmejäljed, siis saaks sulle piiranguteta faile saata ja seega pole lahendus hetkel täiesti turvaline.',
-    'Aga siiski on see valik turvalisem, kui lubada kõigil sinu kohtvõrgu kasutajatel saata sulle faile ilma igasuguste piiranguteta.',
   ];
 }
 
@@ -1414,9 +1412,9 @@ class _Translations$settingsTab$network$networkOptions$et extends Translations$s
 
   // Translations
   @override
-  String get filtered => 'Filtreeritud';
-  @override
   String get all => 'Kõik';
+  @override
+  String get filtered => 'Filtreeritud';
 }
 
 // Path: progressPage.total.title

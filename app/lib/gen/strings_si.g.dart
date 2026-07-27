@@ -54,6 +54,8 @@ class TranslationsSi extends Translations with BaseTranslations<AppLocale, Trans
   @override
   late final _Translations$troubleshootPage$si troubleshootPage = _Translations$troubleshootPage$si._(_root);
   @override
+  late final _Translations$networkInterfacesPage$si networkInterfacesPage = _Translations$networkInterfacesPage$si._(_root);
+  @override
   late final _Translations$receiveHistoryPage$si receiveHistoryPage = _Translations$receiveHistoryPage$si._(_root);
   @override
   late final _Translations$apkPickerPage$si apkPickerPage = _Translations$apkPickerPage$si._(_root);
@@ -85,8 +87,6 @@ class TranslationsSi extends Translations with BaseTranslations<AppLocale, Trans
   late final _Translations$web$si web = _Translations$web$si._(_root);
   @override
   late final _Translations$assetPicker$si assetPicker = _Translations$assetPicker$si._(_root);
-  @override
-  late final _Translations$networkInterfacesPage$si networkInterfacesPage = _Translations$networkInterfacesPage$si._(_root);
 }
 
 // Path: general
@@ -268,6 +268,26 @@ class _Translations$troubleshootPage$si extends Translations$troubleshootPage$en
   late final _Translations$troubleshootPage$noDiscovery$si noDiscovery = _Translations$troubleshootPage$noDiscovery$si._(_root);
   @override
   late final _Translations$troubleshootPage$noConnection$si noConnection = _Translations$troubleshootPage$noConnection$si._(_root);
+}
+
+// Path: networkInterfacesPage
+class _Translations$networkInterfacesPage$si extends Translations$networkInterfacesPage$en {
+  _Translations$networkInterfacesPage$si._(TranslationsSi root) : this._root = root, super.internal(root);
+
+  final TranslationsSi _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'ජාල අතුරුමුහුණත්';
+  @override
+  String get info =>
+      'සාමාන්‍යයෙන් LocalSend ඔබගේ පවතින සියලු ජාල මුහුණත් භාවිතා කරයි. ඔබට අනවශ්‍ය මුහුණතක් වේ නම් එය මෙතනින් ඉවත් කළ හැක. ඔබ සිදු කරන වෙනස්කම් ක්‍රියාත්මක වීමට නම් server එක restart කළ යුතුය.';
+  @override
+  String get preview => 'පෙනෙන අයුරු';
+  @override
+  String get whitelist => 'අවසර ලත් ලැයිස්තුව';
+  @override
+  String get blacklist => 'අවහිර කල ලැයිස්තුව';
 }
 
 // Path: receiveHistoryPage
@@ -665,26 +685,6 @@ class _Translations$assetPicker$si extends Translations$assetPicker$en {
   String get sUnitAssetCountLabel => 'ගණන';
 }
 
-// Path: networkInterfacesPage
-class _Translations$networkInterfacesPage$si extends Translations$networkInterfacesPage$en {
-  _Translations$networkInterfacesPage$si._(TranslationsSi root) : this._root = root, super.internal(root);
-
-  final TranslationsSi _root; // ignore: unused_field
-
-  // Translations
-  @override
-  String get info =>
-      'සාමාන්‍යයෙන් LocalSend ඔබගේ පවතින සියලු ජාල මුහුණත් භාවිතා කරයි. ඔබට අනවශ්‍ය මුහුණතක් වේ නම් එය මෙතනින් ඉවත් කළ හැක. ඔබ සිදු කරන වෙනස්කම් ක්‍රියාත්මක වීමට නම් server එක restart කළ යුතුය.';
-  @override
-  String get title => 'ජාල අතුරුමුහුණත්';
-  @override
-  String get preview => 'පෙනෙන අයුරු';
-  @override
-  String get whitelist => 'අවසර ලත් ලැයිස්තුව';
-  @override
-  String get blacklist => 'අවහිර කල ලැයිස්තුව';
-}
-
 // Path: receiveTab.infoBox
 class _Translations$receiveTab$infoBox$si extends Translations$receiveTab$infoBox$en {
   _Translations$receiveTab$infoBox$si._(TranslationsSi root) : this._root = root, super.internal(root);
@@ -867,6 +867,10 @@ class _Translations$settingsTab$network$si extends Translations$settingsTab$netw
   @override
   String get port => 'Port';
   @override
+  String get network => 'ජාලය';
+  @override
+  late final _Translations$settingsTab$network$networkOptions$si networkOptions = _Translations$settingsTab$network$networkOptions$si._(_root);
+  @override
   String get discoveryTimeout => 'සොයා ගැනීමේ කාලසීමාව';
   @override
   String get useSystemName => 'පද්ධති නම භාවිතා කරන්න';
@@ -882,10 +886,6 @@ class _Translations$settingsTab$network$si extends Translations$settingsTab$netw
   @override
   String multicastGroupWarning({required Object defaultMulticast}) =>
       'ඔබ custom multicast ලිපිනයක් භාවිතා කරන්නේ නම්, වෙනත් උපාංග වලට ඔබව හඳුනා ගත නොහැක. (default: ${defaultMulticast})';
-  @override
-  String get network => 'ජාලය';
-  @override
-  late final _Translations$settingsTab$network$networkOptions$si networkOptions = _Translations$settingsTab$network$networkOptions$si._(_root);
 }
 
 // Path: settingsTab.other
@@ -1300,8 +1300,6 @@ class _Translations$dialogs$quickSaveFromFavoritesNotice$si extends Translations
   @override
   List<String> get content => [
     'ඔබගේ ප්‍රියතම ලැයිස්තුවේ ඇති උපාංගවලින් ලැබෙන ගොනු ඉල්ලීම් දැන් ස්වයංක්‍රීයව පිළිගනු ලැබේ.',
-    'අවවාදයයි! දැනට, මෙය සම්පූර්ණයෙන්ම ආරක්ෂිත නැත, ඔබේ ප්‍රියතම ලැයිස්තුවේ ඇති ඕනෑම උපාංගයක ඇඟිලි සලකුණක් සහිත හැකර්වරයෙකුට (Hacker) කිසිඳු සීමාවකින් තොරව ඔබ වෙත ගොනු එවිය හැක.',
-    'කෙසේ වෙතත්, මෙම විකල්පය ජාලයේ සියලුම පරිශීලකයින්ට කිසිඳු සීමාවකින් තොරව ගොනු එවීමට ඉඩ දීමට වඩා ආරක්ෂිත වේ.',
   ];
 }
 

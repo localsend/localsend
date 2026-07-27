@@ -54,6 +54,8 @@ class TranslationsUk extends Translations with BaseTranslations<AppLocale, Trans
   @override
   late final _Translations$troubleshootPage$uk troubleshootPage = _Translations$troubleshootPage$uk._(_root);
   @override
+  late final _Translations$networkInterfacesPage$uk networkInterfacesPage = _Translations$networkInterfacesPage$uk._(_root);
+  @override
   late final _Translations$receiveHistoryPage$uk receiveHistoryPage = _Translations$receiveHistoryPage$uk._(_root);
   @override
   late final _Translations$apkPickerPage$uk apkPickerPage = _Translations$apkPickerPage$uk._(_root);
@@ -85,8 +87,6 @@ class TranslationsUk extends Translations with BaseTranslations<AppLocale, Trans
   late final _Translations$web$uk web = _Translations$web$uk._(_root);
   @override
   late final _Translations$assetPicker$uk assetPicker = _Translations$assetPicker$uk._(_root);
-  @override
-  late final _Translations$networkInterfacesPage$uk networkInterfacesPage = _Translations$networkInterfacesPage$uk._(_root);
 }
 
 // Path: general
@@ -268,6 +268,26 @@ class _Translations$troubleshootPage$uk extends Translations$troubleshootPage$en
   late final _Translations$troubleshootPage$noDiscovery$uk noDiscovery = _Translations$troubleshootPage$noDiscovery$uk._(_root);
   @override
   late final _Translations$troubleshootPage$noConnection$uk noConnection = _Translations$troubleshootPage$noConnection$uk._(_root);
+}
+
+// Path: networkInterfacesPage
+class _Translations$networkInterfacesPage$uk extends Translations$networkInterfacesPage$en {
+  _Translations$networkInterfacesPage$uk._(TranslationsUk root) : this._root = root, super.internal(root);
+
+  final TranslationsUk _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Мережевий інтерфейс';
+  @override
+  String get info =>
+      'Типово LocalSend використовує всі доступні мережеві інтерфейси. Ви можете виключити небажані мережі тут. Щоб застосувати зміни, потрібно перезапустити сервер.';
+  @override
+  String get preview => 'Передперегляд';
+  @override
+  String get whitelist => 'Білий список';
+  @override
+  String get blacklist => 'Чорний список';
 }
 
 // Path: receiveHistoryPage
@@ -666,26 +686,6 @@ class _Translations$assetPicker$uk extends Translations$assetPicker$en {
   String get sUnitAssetCountLabel => 'кількість';
 }
 
-// Path: networkInterfacesPage
-class _Translations$networkInterfacesPage$uk extends Translations$networkInterfacesPage$en {
-  _Translations$networkInterfacesPage$uk._(TranslationsUk root) : this._root = root, super.internal(root);
-
-  final TranslationsUk _root; // ignore: unused_field
-
-  // Translations
-  @override
-  String get title => 'Мережевий інтерфейс';
-  @override
-  String get preview => 'Передперегляд';
-  @override
-  String get whitelist => 'Білий список';
-  @override
-  String get blacklist => 'Чорний список';
-  @override
-  String get info =>
-      'Типово LocalSend використовує всі доступні мережеві інтерфейси. Ви можете виключити небажані мережі тут. Щоб застосувати зміни, потрібно перезапустити сервер.';
-}
-
 // Path: receiveTab.infoBox
 class _Translations$receiveTab$infoBox$uk extends Translations$receiveTab$infoBox$en {
   _Translations$receiveTab$infoBox$uk._(TranslationsUk root) : this._root = root, super.internal(root);
@@ -868,6 +868,10 @@ class _Translations$settingsTab$network$uk extends Translations$settingsTab$netw
   @override
   String get port => 'Порт';
   @override
+  String get network => 'Мережа';
+  @override
+  late final _Translations$settingsTab$network$networkOptions$uk networkOptions = _Translations$settingsTab$network$networkOptions$uk._(_root);
+  @override
   String get discoveryTimeout => 'Час пошуку вийшов';
   @override
   String get useSystemName => 'Використати системну назву';
@@ -883,10 +887,6 @@ class _Translations$settingsTab$network$uk extends Translations$settingsTab$netw
   @override
   String multicastGroupWarning({required Object defaultMulticast}) =>
       'Інші пристрої можуть вас не знайти, оскільки ви використовуєте іншу, власну адресу групової передачі. (default: ${defaultMulticast})';
-  @override
-  String get network => 'Мережа';
-  @override
-  late final _Translations$settingsTab$network$networkOptions$uk networkOptions = _Translations$settingsTab$network$networkOptions$uk._(_root);
 }
 
 // Path: settingsTab.other
@@ -1323,8 +1323,6 @@ class _Translations$dialogs$quickSaveFromFavoritesNotice$uk extends Translations
   @override
   List<String> get content => [
     'Запити на отримання файлів відтепер приймаються автоматично від пристроїв із вашого списку улюблених.',
-    'Попередження! Наразі, це не зовсім безпечно, оскільки хакер, який має відбиток пальця будь-якого пристрою з вашого списку улюблених, може безперешкодно надсилати вам файли.',
-    'Проте, цей варіант все одно безпечніший, ніж дозволити всім користувачам локальної мережі безперешкодно надсилати вам файли.',
   ];
 }
 
