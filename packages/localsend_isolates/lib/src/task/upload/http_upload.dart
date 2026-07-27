@@ -2,21 +2,22 @@ import 'package:localsend_isolates/model/device.dart';
 import 'package:localsend_isolates/rust/api/cancel.dart';
 import 'package:localsend_isolates/rust/api/http.dart';
 import 'package:localsend_isolates/rust/api/stream.dart';
-import 'package:localsend_isolates/src/isolate/child/http_provider.dart';
 import 'package:localsend_isolates/util/rust.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 
-final httpUploadProvider = ViewProvider((ref) {
-  final client = ref.watch(httpProvider).longLiving;
-  return HttpUploadService(client);
-});
+final httpUploadProvider = ViewProvider((ref) => HttpUploadService());
 
 class HttpUploadService {
-  final RsHttpClient _client;
+  const HttpUploadService();
 
-  HttpUploadService(this._client);
-
+  /// Uploads a single file.
+  ///
+  /// [client] must be pinned to [target] so the file content is not streamed
+  /// to a peer other than the one the session was negotiated with. It is
+  /// passed in rather than resolved here so that all files of one task share
+  /// a connection.
   Future<void> upload({
+    required RsHttpClient client,
     required Stream<List<int>>? stream,
     required String? path,
     required int? fileDescriptor,
@@ -30,11 +31,13 @@ class HttpUploadService {
   }) async {
     final (sink, receiver) = stream != null ? await createStream() : (null, null);
 
-    final uploadFuture = _client
+    final uploadFuture = client
         .upload(
           protocol: target.getProtocolType(),
           ip: target.ip!,
           port: target.port,
+          // The peer is already verified during the TLS handshake by the
+          // fingerprint [client] is pinned to.
           publicKey: null,
           sessionId: remoteSessionId ?? '',
           fileId: fileId,

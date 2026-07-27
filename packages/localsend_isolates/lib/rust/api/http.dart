@@ -15,8 +15,25 @@ part 'http.freezed.dart';
 // These functions are ignored because they are not marked as `pub`: `resolve_file_content`
 // These function are ignored because they are on traits that is not defined in current crate (put an empty `#[frb]` on it to unignore): `from`
 
-RsHttpClient createClient({required String privateKey, required String cert, required LsHttpClientVersion version, int? timeoutMs}) =>
-    RustLib.instance.api.crateApiHttpCreateClient(privateKey: privateKey, cert: cert, version: version, timeoutMs: timeoutMs);
+/// Creates an HTTP client.
+///
+/// `expected_fingerprint` pins the peer to the certificate with that SHA-256
+/// fingerprint (uppercase hex). It is enforced during the TLS handshake, so a
+/// peer that does not present the expected certificate never receives the
+/// request. Pass `None` only for discovery, where the peer is not known yet.
+RsHttpClient createClient({
+  required String privateKey,
+  required String cert,
+  required LsHttpClientVersion version,
+  String? expectedFingerprint,
+  int? timeoutMs,
+}) => RustLib.instance.api.crateApiHttpCreateClient(
+  privateKey: privateKey,
+  cert: cert,
+  version: version,
+  expectedFingerprint: expectedFingerprint,
+  timeoutMs: timeoutMs,
+);
 
 // Rust type: RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<RsHttpClient>>
 abstract class RsHttpClient implements RustOpaqueInterface {

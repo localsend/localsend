@@ -3,6 +3,7 @@ import 'package:localsend_isolates/isolate.dart';
 import 'package:localsend_isolates/model/device.dart';
 import 'package:localsend_isolates/rust/api/cancel.dart';
 import 'package:localsend_isolates/rust/api/http.dart';
+import 'package:localsend_isolates/src/isolate/child/http_provider.dart';
 import 'package:localsend_isolates/src/isolate/child/main.dart';
 import 'package:localsend_isolates/src/isolate/dto/send_to_isolate_data.dart';
 import 'package:localsend_isolates/src/task/upload/http_upload.dart';
@@ -134,6 +135,11 @@ Future<void> setupHttpUploadIsolate(
           return;
       }
 
+      // One client for the whole task: pinned to the receiver, so no file
+      // content can be streamed to a different peer, and shared by all files
+      // of the task so the connection is reused.
+      final client = ref.read(httpProvider).pinnedTo(uploadTask.device.fingerprint);
+
       final cancelToken = createCancellationToken();
       ref.read(_cancelTokenProvider).putIfAbsent(task.id, () => cancelToken);
       try {
@@ -163,6 +169,7 @@ Future<void> setupHttpUploadIsolate(
                 await ref
                     .read(httpUploadProvider)
                     .upload(
+                      client: client,
                       stream: filePath == null && file.fileBytes != null ? Stream.value(file.fileBytes!) : null,
                       path: !isContentUri ? filePath : null,
                       fileDescriptor: fileDescriptor,

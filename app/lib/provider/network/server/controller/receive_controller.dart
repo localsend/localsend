@@ -645,7 +645,7 @@ class ReceiveController {
     try {
       server.ref
           .read(httpProvider)
-          .v2
+          .pinnedTo(target.fingerprint)
           // ignore: unawaited_futures
           .cancel(
             protocol: target.getProtocolType(),

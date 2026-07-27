@@ -12,17 +12,25 @@ pub struct RsHttpClient {
     inner: localsend::http::client::LsHttpClient,
 }
 
+/// Creates an HTTP client.
+///
+/// `expected_fingerprint` pins the peer to the certificate with that SHA-256
+/// fingerprint (uppercase hex). It is enforced during the TLS handshake, so a
+/// peer that does not present the expected certificate never receives the
+/// request. Pass `None` only for discovery, where the peer is not known yet.
 #[frb(sync)]
 pub fn create_client(
     private_key: String,
     cert: String,
     version: LsHttpClientVersion,
+    expected_fingerprint: Option<String>,
     timeout_ms: Option<u32>,
 ) -> Result<RsHttpClient, RsHttpClientError> {
     let inner = localsend::http::client::LsHttpClient::new(
         &private_key,
         &cert,
         version,
+        expected_fingerprint,
         timeout_ms.map(|ms| std::time::Duration::from_millis(ms as u64)),
     )
     .map_err(RsHttpClientError::from)?;

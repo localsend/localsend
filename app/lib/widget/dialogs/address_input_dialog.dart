@@ -75,7 +75,7 @@ class _AddressInputDialogState extends State<AddressInputDialog> with Refena {
           try {
             final response = await ref
                 .read(httpProvider)
-                .v2
+                .discovery
                 .register(
                   protocol: https ? ProtocolType.https : ProtocolType.http,
                   ip: ip,

@@ -21,6 +21,10 @@ impl LsHttpClientV2 {
     /// # Arguments
     /// * `private_key` - PEM-encoded private key for client certificate
     /// * `cert` - PEM-encoded certificate for client authentication
+    /// * `expected_fingerprint` - SHA-256 fingerprint (uppercase hex) the peer
+    ///   certificate must have. Enforced during the TLS handshake, so nothing
+    ///   is sent to a mismatching peer. [`None`] accepts any valid certificate
+    ///   and must only be used for discovery.
     /// * `timeout` - Optional total request timeout (e.g. for discovery scans)
     ///
     /// # Returns
@@ -28,10 +32,11 @@ impl LsHttpClientV2 {
     pub fn try_new(
         private_key: &str,
         cert: &str,
+        expected_fingerprint: Option<String>,
         timeout: Option<std::time::Duration>,
     ) -> Result<Self, ClientError> {
         Ok(Self {
-            client: super::create_reqwest_client(private_key, cert, timeout)?,
+            client: super::create_reqwest_client(private_key, cert, expected_fingerprint, timeout)?,
         })
     }
 

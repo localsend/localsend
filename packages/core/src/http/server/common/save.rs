@@ -180,7 +180,10 @@ pub(crate) async fn save_req_to_target(
                 },
                 false => None,
             };
-            break 'outcome (SaveResult::Failed, error.or(Some("Upload aborted".to_string())));
+            break 'outcome (
+                SaveResult::Failed,
+                error.or(Some("Upload aborted".to_string())),
+            );
         }
 
         match result_rx.await {

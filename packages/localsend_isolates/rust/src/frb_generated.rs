@@ -2328,6 +2328,7 @@ fn wire__crate__api__http__create_client_impl(
             let api_cert = <String>::sse_decode(&mut deserializer);
             let api_version =
                 <crate::api::http::LsHttpClientVersion>::sse_decode(&mut deserializer);
+            let api_expected_fingerprint = <Option<String>>::sse_decode(&mut deserializer);
             let api_timeout_ms = <Option<u32>>::sse_decode(&mut deserializer);
             deserializer.end();
             transform_result_sse::<_, crate::api::http::RsHttpClientError>((move || {
@@ -2335,6 +2336,7 @@ fn wire__crate__api__http__create_client_impl(
                     api_private_key,
                     api_cert,
                     api_version,
+                    api_expected_fingerprint,
                     api_timeout_ms,
                 )?;
                 Ok(output_ok)

@@ -557,7 +557,10 @@ async fn test_upload_retry_reuses_the_same_path() {
         file_names.push(entry.file_name().to_string_lossy().to_string());
     }
     assert_eq!(file_names, vec!["file-a".to_string()]);
-    assert_eq!(tokio::fs::read(save_dir.join("file-a")).await.unwrap(), bytes);
+    assert_eq!(
+        tokio::fs::read(save_dir.join("file-a")).await.unwrap(),
+        bytes
+    );
 
     tokio::fs::remove_dir_all(&save_dir).await.unwrap();
 }

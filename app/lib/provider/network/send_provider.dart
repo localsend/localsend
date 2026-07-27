@@ -64,7 +64,9 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
     required List<CrossFile> files,
     required bool background,
   }) async {
-    final client = ref.read(httpProvider).v2;
+    // Pinned to the device the user picked, so the request is not sent at all
+    // if someone else answers on that address.
+    final client = ref.read(httpProvider).pinnedTo(target.fingerprint);
     final sessionId = _uuid.v4();
 
     // The ids are assigned upfront, so the checksums calculated below
@@ -201,7 +203,8 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
           ip: target.ip!,
           port: target.port,
           payload: requestDto,
-          // TODO
+          // The peer is already verified during the TLS handshake by the
+          // fingerprint the client is pinned to.
           publicKey: null,
           pin: pin,
         );
@@ -634,7 +637,7 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
     try {
       ref
           .read(httpProvider)
-          .v2
+          .pinnedTo(target.fingerprint)
           // ignore: discarded_futures
           .cancel(
             protocol: target.getProtocolType(),

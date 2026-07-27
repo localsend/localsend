@@ -24,10 +24,11 @@ impl LsHttpClientV3 {
     pub fn try_new(
         private_key: &str,
         cert: &str,
+        expected_fingerprint: Option<String>,
         timeout: Option<std::time::Duration>,
     ) -> Result<Self, ClientError> {
         Ok(Self {
-            client: super::create_reqwest_client(private_key, cert, timeout)?,
+            client: super::create_reqwest_client(private_key, cert, expected_fingerprint, timeout)?,
             received_nonce_map: Arc::new(Mutex::new(LruCache::new(
                 NonZeroUsize::new(200).unwrap(),
             ))),

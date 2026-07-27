@@ -1,3 +1,4 @@
+mod server_cert_verifier;
 mod url;
 pub mod v2;
 pub mod v3;
@@ -10,7 +11,10 @@ use crate::{crypto, http, model};
 use bytes::Bytes;
 use futures_util::StreamExt;
 use reqwest::Response;
+use rustls::pki_types::pem::PemObject;
+use rustls::pki_types::{CertificateDer, PrivateKeyDer};
 use serde::{Deserialize, Serialize};
+use std::sync::Arc;
 use thiserror::Error;
 use tokio_stream::wrappers::ReceiverStream;
 
@@ -46,19 +50,32 @@ pub enum ClientError {
 }
 
 impl LsHttpClient {
+    /// Creates a client for the given protocol version.
+    ///
+    /// `expected_fingerprint` pins the peer to the certificate with that
+    /// SHA-256 fingerprint (uppercase hex). It is checked during the TLS
+    /// handshake, so a mismatching peer never receives the request. Pass
+    /// [`None`] only when the peer is not known yet, i.e. for discovery.
     pub fn new(
         private_key: &str,
         cert: &str,
         version: LsHttpClientVersion,
+        expected_fingerprint: Option<String>,
         timeout: Option<std::time::Duration>,
     ) -> Result<LsHttpClient, ClientError> {
         let client = match version {
-            LsHttpClientVersion::V2 => {
-                LsHttpClient::V2(LsHttpClientV2::try_new(&private_key, &cert, timeout)?)
-            }
-            LsHttpClientVersion::V3 => {
-                LsHttpClient::V3(LsHttpClientV3::try_new(&private_key, &cert, timeout)?)
-            }
+            LsHttpClientVersion::V2 => LsHttpClient::V2(LsHttpClientV2::try_new(
+                private_key,
+                cert,
+                expected_fingerprint,
+                timeout,
+            )?),
+            LsHttpClientVersion::V3 => LsHttpClient::V3(LsHttpClientV3::try_new(
+                private_key,
+                cert,
+                expected_fingerprint,
+                timeout,
+            )?),
         };
 
         Ok(client)
@@ -168,23 +185,45 @@ pub(super) fn upload_body(
     reqwest::Body::wrap_stream(stream)
 }
 
+/// Builds the reqwest client used for all outgoing requests.
+///
+/// The TLS config is assembled by hand instead of using reqwest's own TLS
+/// options, because only a preconfigured [`rustls::ClientConfig`] can carry a
+/// custom certificate verifier. reqwest passes such a config straight through,
+/// which means the client certificate and ALPN have to be set here as well:
+/// `identity()` and the HTTP version preference of the builder no longer apply.
 pub(super) fn create_reqwest_client(
     private_key: &str,
     cert: &str,
+    expected_fingerprint: Option<String>,
     timeout: Option<std::time::Duration>,
 ) -> Result<reqwest::Client, ClientError> {
     let _ = rustls::crypto::ring::default_provider().install_default();
 
-    let identity = {
-        let pem = &[cert.as_bytes(), "\n".as_bytes(), private_key.as_bytes()].concat();
-        reqwest::Identity::from_pem(pem)?
+    let mut tls_config = {
+        let certs =
+            vec![CertificateDer::from_pem_slice(cert.as_bytes()).map_err(anyhow::Error::from)?];
+        let key =
+            PrivateKeyDer::from_pem_slice(private_key.as_bytes()).map_err(anyhow::Error::from)?;
+
+        rustls::ClientConfig::builder()
+            .dangerous()
+            .with_custom_certificate_verifier(Arc::new(
+                server_cert_verifier::PinnedServerCertVerifier::try_new(
+                    cert,
+                    expected_fingerprint,
+                )?,
+            ))
+            .with_client_auth_cert(certs, key)
+            .map_err(anyhow::Error::from)?
     };
 
+    // Must be set explicitly, see the doc comment above.
+    tls_config.alpn_protocols = vec![b"h2".to_vec(), b"http/1.1".to_vec()];
+
     let mut builder = reqwest::Client::builder()
-        .use_rustls_tls()
-        .danger_accept_invalid_certs(true)
-        .tls_info(true)
-        .identity(identity);
+        .tls_backend_preconfigured(tls_config)
+        .tls_info(true);
 
     if let Some(timeout) = timeout {
         builder = builder.timeout(timeout);

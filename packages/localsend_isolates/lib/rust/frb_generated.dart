@@ -225,7 +225,13 @@ abstract class RustLibApi extends BaseApi {
 
   RsCancellationToken crateApiCancelCreateCancellationToken();
 
-  RsHttpClient crateApiHttpCreateClient({required String privateKey, required String cert, required LsHttpClientVersion version, int? timeoutMs});
+  RsHttpClient crateApiHttpCreateClient({
+    required String privateKey,
+    required String cert,
+    required LsHttpClientVersion version,
+    String? expectedFingerprint,
+    int? timeoutMs,
+  });
 
   Future<(Dart2RustStreamSink, Dart2RustStreamReceiver)> crateApiStreamCreateStream();
 
@@ -1447,7 +1453,13 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   );
 
   @override
-  RsHttpClient crateApiHttpCreateClient({required String privateKey, required String cert, required LsHttpClientVersion version, int? timeoutMs}) {
+  RsHttpClient crateApiHttpCreateClient({
+    required String privateKey,
+    required String cert,
+    required LsHttpClientVersion version,
+    String? expectedFingerprint,
+    int? timeoutMs,
+  }) {
     return handler.executeSync(
       SyncTask(
         callFfi: () {
@@ -1455,6 +1467,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           sse_encode_String(privateKey, serializer);
           sse_encode_String(cert, serializer);
           sse_encode_ls_http_client_version(version, serializer);
+          sse_encode_opt_String(expectedFingerprint, serializer);
           sse_encode_opt_box_autoadd_u_32(timeoutMs, serializer);
           return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 38)!;
         },
@@ -1463,7 +1476,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           decodeErrorData: sse_decode_rs_http_client_error,
         ),
         constMeta: kCrateApiHttpCreateClientConstMeta,
-        argValues: [privateKey, cert, version, timeoutMs],
+        argValues: [privateKey, cert, version, expectedFingerprint, timeoutMs],
         apiImpl: this,
       ),
     );
@@ -1471,7 +1484,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
 
   TaskConstMeta get kCrateApiHttpCreateClientConstMeta => const TaskConstMeta(
     debugName: 'create_client',
-    argNames: ['privateKey', 'cert', 'version', 'timeoutMs'],
+    argNames: ['privateKey', 'cert', 'version', 'expectedFingerprint', 'timeoutMs'],
   );
 
   @override
