@@ -277,6 +277,7 @@ pub(crate) async fn prepare_upload(
                 dto,
                 token: Uuid::new_v4().to_string(),
                 status: FileStatusV2::Pending,
+                attempts: 0,
             };
             (id, file)
         })
@@ -352,6 +353,7 @@ pub(crate) async fn upload(
             return Err(invalid_token_error());
         }
         file.status = FileStatusV2::InProgress;
+        file.attempts = file.attempts.saturating_add(1);
         file.dto.clone()
     };
 
@@ -369,19 +371,19 @@ pub(crate) async fn upload(
         target_tx,
     };
     if v2.event_tx.send(event).await.is_err() {
-        upload_guard.finish(false).await;
+        upload_guard.finish(SaveResult::Failed).await;
         return Err(AppError::Status(StatusCode::INTERNAL_SERVER_ERROR));
     }
 
     let Ok(target) = target_rx.await else {
-        upload_guard.finish(false).await;
+        upload_guard.finish(SaveResult::Failed).await;
         return Err(AppError::Status(StatusCode::INTERNAL_SERVER_ERROR));
     };
 
     let result =
         common::save::save_req_to_target(req, target, file_size, expected_sha256.as_deref()).await;
 
-    upload_guard.finish(result == SaveResult::Success).await;
+    upload_guard.finish(result).await;
 
     match result {
         SaveResult::Success => Ok(Response::new(empty_body())),
@@ -533,9 +535,9 @@ impl UploadGuard {
         }
     }
 
-    async fn finish(&mut self, success: bool) {
+    async fn finish(&mut self, result: SaveResult) {
         self.armed = false;
-        finalize_file(&self.v2, &self.session_id, &self.file_id, success).await;
+        finalize_file(&self.v2, &self.session_id, &self.file_id, result).await;
     }
 }
 
@@ -548,13 +550,22 @@ impl Drop for UploadGuard {
         let session_id = std::mem::take(&mut self.session_id);
         let file_id = std::mem::take(&mut self.file_id);
         tokio::spawn(async move {
-            finalize_file(&v2, &session_id, &file_id, false).await;
+            finalize_file(&v2, &session_id, &file_id, SaveResult::Failed).await;
         });
     }
 }
 
+/// How often an upload of the same file may be started, i.e. how often a
+/// sender may retry a file after a checksum mismatch.
+/// Senders must not retry more often than this (see the upload isolate).
+const MAX_UPLOAD_ATTEMPTS: u8 = 3;
+
 /// Sets the final status of a file and ends the session once all files are done.
-async fn finalize_file(v2: &V2State, session_id: &str, file_id: &str, success: bool) {
+///
+/// A checksum mismatch resets the file to [FileStatusV2::Pending] (as long as
+/// [MAX_UPLOAD_ATTEMPTS] is not exhausted) so the sender can retry the upload
+/// with the same token; the session stays active in that case.
+async fn finalize_file(v2: &V2State, session_id: &str, file_id: &str, result: SaveResult) {
     let session_ended = {
         let mut slot = v2.session.lock().await;
         let Some(SessionStateV2::Active(session)) = slot.as_mut() else {
@@ -565,9 +576,12 @@ async fn finalize_file(v2: &V2State, session_id: &str, file_id: &str, success: b
         }
         if let Some(file) = session.files.get_mut(file_id) {
             if file.status == FileStatusV2::InProgress {
-                file.status = match success {
-                    true => FileStatusV2::Finished,
-                    false => FileStatusV2::Failed,
+                file.status = match result {
+                    SaveResult::Success => FileStatusV2::Finished,
+                    SaveResult::HashMismatch if file.attempts < MAX_UPLOAD_ATTEMPTS => {
+                        FileStatusV2::Pending
+                    }
+                    SaveResult::Failed | SaveResult::HashMismatch => FileStatusV2::Failed,
                 };
             }
         }

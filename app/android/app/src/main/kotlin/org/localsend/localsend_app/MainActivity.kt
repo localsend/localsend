@@ -63,6 +63,8 @@ class MainActivity : FlutterActivity() {
 
                 "createFile" -> handleCreateFile(call, result)
 
+                "deleteFile" -> handleDeleteFile(call, result)
+
                 "openContentUri" -> {
                     openUri(context, call.argument<String>("uri")!!)
                     result.success(null)
@@ -173,6 +175,34 @@ class MainActivity : FlutterActivity() {
             result.error("PERMISSION_DENIED", e.message ?: "Permission denied for content URI", null)
         } catch (e: Exception) {
             result.error("CREATE_FAILED", e.message ?: "Failed to create file", null)
+        }
+    }
+
+    /// Deletes a document created by [handleCreateFile].
+    ///
+    /// Returns whether the document was deleted. A document that no longer
+    /// exists is reported as not deleted instead of as an error.
+    private fun handleDeleteFile(call: MethodCall, result: MethodChannel.Result) {
+        val uriString = call.argument<String>("uri")
+        if (uriString == null) {
+            result.error("INVALID_ARGUMENT", "Missing content URI", null)
+            return
+        }
+
+        val uri = Uri.parse(uriString)
+        if (uri.scheme != ContentResolver.SCHEME_CONTENT) {
+            result.error("INVALID_ARGUMENT", "Expected a content:// URI", null)
+            return
+        }
+
+        try {
+            result.success(DocumentsContract.deleteDocument(contentResolver, uri))
+        } catch (e: SecurityException) {
+            result.error("PERMISSION_DENIED", e.message ?: "Permission denied for content URI", null)
+        } catch (e: java.io.FileNotFoundException) {
+            result.success(false)
+        } catch (e: Exception) {
+            result.error("DELETE_FAILED", e.message ?: "Failed to delete file", null)
         }
     }
 

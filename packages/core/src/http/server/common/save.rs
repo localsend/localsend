@@ -19,6 +19,10 @@ pub enum FileUploadTarget {
     /// The application should compare the number of received bytes with `file.size`
     /// and report the result on the sender side of `result_rx` which determines
     /// the HTTP response (200 on `Ok`, 500 on `Err` or when the sender is dropped).
+    ///
+    /// Note: the checksum is only verified after the application reported its
+    /// result, so a checksum mismatch is not observable by the application here
+    /// (unlike [FileUploadTarget::Path] and [FileUploadTarget::Fd]).
     Stream {
         /// Channel the server sends the binary chunks of the file into.
         binary_tx: mpsc::Sender<Bytes>,
@@ -34,7 +38,8 @@ pub enum FileUploadTarget {
         /// The path to write the file to.
         path: PathBuf,
 
-        /// Channel on which the server reports whether the file was saved successfully.
+        /// Channel on which the server reports whether the file was saved
+        /// successfully, including the checksum verification if one was given.
         result_tx: oneshot::Sender<Result<(), String>>,
 
         /// Optional channel on which the server reports the number of bytes
@@ -50,7 +55,8 @@ pub enum FileUploadTarget {
         /// Ownership is transferred; the descriptor is closed after writing.
         fd: std::os::fd::RawFd,
 
-        /// Channel on which the server reports whether the file was saved successfully.
+        /// Channel on which the server reports whether the file was saved
+        /// successfully, including the checksum verification if one was given.
         result_tx: oneshot::Sender<Result<(), String>>,
 
         /// Optional channel on which the server reports the number of bytes
@@ -82,43 +88,50 @@ pub(crate) async fn save_req_to_target(
     use sha2::{Digest, Sha256};
 
     // Resolve the target into a chunk sender and a result receiver.
-    let (binary_tx, result_rx) = match target {
+    // For [FileUploadTarget::Path] and [FileUploadTarget::Fd], the application's
+    // result channel is answered by this function once the complete outcome
+    // (including the checksum verification) is known.
+    let (binary_tx, result_rx, app_result_tx) = match target {
         FileUploadTarget::Stream {
             binary_tx,
             result_rx,
-        } => (binary_tx, result_rx),
+        } => (binary_tx, result_rx, None),
         FileUploadTarget::Path {
             path,
             result_tx,
             progress_tx,
-        } => spawn_file_writer(
-            async move {
-                tokio::fs::File::create(&path)
-                    .await
-                    .map_err(|e| format!("Failed to create {}: {e}", path.display()))
-            },
-            file_size,
-            result_tx,
-            progress_tx,
-        ),
+        } => {
+            let (binary_tx, result_rx) = spawn_file_writer(
+                async move {
+                    tokio::fs::File::create(&path)
+                        .await
+                        .map_err(|e| format!("Failed to create {}: {e}", path.display()))
+                },
+                file_size,
+                progress_tx,
+            );
+            (binary_tx, result_rx, Some(result_tx))
+        }
         #[cfg(target_os = "android")]
         FileUploadTarget::Fd {
             fd,
             result_tx,
             progress_tx,
-        } => spawn_file_writer(
-            async move {
-                use std::os::fd::FromRawFd;
+        } => {
+            let (binary_tx, result_rx) = spawn_file_writer(
+                async move {
+                    use std::os::fd::FromRawFd;
 
-                // SAFETY: the descriptor is owned by this transfer; wrapping it in
-                // a File transfers that ownership so it is closed once writing finishes.
-                let std_file = unsafe { std::fs::File::from_raw_fd(fd) };
-                Ok(tokio::fs::File::from_std(std_file))
-            },
-            file_size,
-            result_tx,
-            progress_tx,
-        ),
+                    // SAFETY: the descriptor is owned by this transfer; wrapping it in
+                    // a File transfers that ownership so it is closed once writing finishes.
+                    let std_file = unsafe { std::fs::File::from_raw_fd(fd) };
+                    Ok(tokio::fs::File::from_std(std_file))
+                },
+                file_size,
+                progress_tx,
+            );
+            (binary_tx, result_rx, Some(result_tx))
+        }
     };
 
     // Forward the request body to the target, hashing it on the way if requested.
@@ -155,38 +168,60 @@ pub(crate) async fn save_req_to_target(
     // Signal end of file to the receiving side.
     drop(binary_tx);
 
-    if stream_error {
-        return SaveResult::Failed;
-    }
-
-    match result_rx.await {
-        Ok(Ok(())) => (),
-        Ok(Err(err)) => {
-            tracing::warn!("Failed to process file: {err}");
-            return SaveResult::Failed;
+    // Determine the outcome; `error` carries the reason for the application.
+    let (result, error): (SaveResult, Option<String>) = 'outcome: {
+        if stream_error {
+            // The file writer (if any) fails with a size mismatch or its own
+            // write error once the channel is closed; collect that reason.
+            let error = match app_result_tx.is_some() {
+                true => match result_rx.await {
+                    Ok(Err(err)) => Some(err),
+                    _ => None,
+                },
+                false => None,
+            };
+            break 'outcome (SaveResult::Failed, error.or(Some("Upload aborted".to_string())));
         }
-        Err(_) => return SaveResult::Failed,
-    }
 
-    if let (Some(hasher), Some(expected)) = (hasher, expected_sha256) {
-        let actual = crypto::hash::to_hex(&hasher.finalize());
-        if !actual.eq_ignore_ascii_case(expected) {
-            tracing::warn!("Checksum mismatch: expected {expected}, got {actual}");
-            return SaveResult::HashMismatch;
+        match result_rx.await {
+            Ok(Ok(())) => (),
+            Ok(Err(err)) => {
+                tracing::warn!("Failed to process file: {err}");
+                break 'outcome (SaveResult::Failed, Some(err));
+            }
+            Err(_) => break 'outcome (SaveResult::Failed, Some("Upload aborted".to_string())),
         }
+
+        if let (Some(hasher), Some(expected)) = (hasher, expected_sha256) {
+            let actual = crypto::hash::to_hex(&hasher.finalize());
+            if !actual.eq_ignore_ascii_case(expected) {
+                tracing::warn!("Checksum mismatch: expected {expected}, got {actual}");
+                break 'outcome (
+                    SaveResult::HashMismatch,
+                    Some("Checksum mismatch".to_string()),
+                );
+            }
+        }
+
+        (SaveResult::Success, None)
+    };
+
+    if let Some(app_result_tx) = app_result_tx {
+        let _ = app_result_tx.send(match error {
+            None => Ok(()),
+            Some(err) => Err(err),
+        });
     }
 
-    SaveResult::Success
+    result
 }
 
 /// Spawns a task that writes incoming chunks to a file provided by `open`.
 ///
 /// Returns the sender for the binary chunks and a receiver for the final result.
-/// The result is additionally reported to the application on `result_tx`.
 fn spawn_file_writer(
     open: impl Future<Output = Result<tokio::fs::File, String>> + Send + 'static,
     expected_size: u64,
-    result_tx: oneshot::Sender<Result<(), String>>,
     progress_tx: Option<mpsc::Sender<u64>>,
 ) -> (mpsc::Sender<Bytes>, oneshot::Receiver<Result<(), String>>) {
     let (binary_tx, mut binary_rx) = mpsc::channel::<Bytes>(UPLOAD_CHANNEL_CAPACITY);
@@ -197,7 +232,6 @@ fn spawn_file_writer(
             write_file_from_receiver(open, expected_size, &mut binary_rx, progress_tx).await;
         // Unblock the request handler if it is still sending chunks.
         binary_rx.close();
-        let _ = result_tx.send(result.clone());
         let _ = internal_tx.send(result);
     });
 

@@ -394,8 +394,11 @@ class ReceiveController {
         ),
       );
       final settings = server.ref.read(settingsProvider);
-      bool quickSave = settings.quickSave && server.getState().session?.message == null;
-      final quickSaveFromFavorites = settings.quickSaveFromFavorites && server.getState().session?.message == null;
+      // Only auto-close fully successful sessions: a failed file may still be
+      // retried by the sender (e.g. after a checksum mismatch), which requires
+      // the session to stay open.
+      bool quickSave = settings.quickSave && !hasError && server.getState().session?.message == null;
+      final quickSaveFromFavorites = settings.quickSaveFromFavorites && !hasError && server.getState().session?.message == null;
       if (quickSaveFromFavorites) {
         final bool isFavorite = server.ref.read(favoritesProvider).any((e) => e.fingerprint == session.sender.fingerprint);
         if (isFavorite) {

@@ -11,6 +11,7 @@ import 'package:localsend_isolates/src/isolate/child/sync_provider.dart';
 import 'package:localsend_isolates/src/isolate/dto/send_to_isolate_data.dart';
 import 'package:localsend_isolates/src/task/server/file_saver.dart';
 import 'package:localsend_isolates/src/task/server/http_server.dart';
+import 'package:localsend_isolates/util/future_queue.dart';
 import 'package:localsend_isolates/util/rust.dart';
 import 'package:logging/logging.dart';
 import 'package:refena_flutter/refena_flutter.dart';
@@ -336,6 +337,12 @@ class _ReceiveSession {
   /// files of the session.
   final Set<String> createdDirectories = {};
 
+  /// One queue per file ID, so that uploads of the same file do not overlap.
+  ///
+  /// A sender may upload the same file again after it was rejected because of
+  /// a checksum mismatch.
+  final Map<String, FutureQueue> uploads = {};
+
   _ReceiveSession(this.config);
 }
 
@@ -444,25 +451,31 @@ Future<void> setupHttpServerIsolate(
                     break;
                   }
 
-                  emit(
-                    HttpServerFileUploadEvent(
-                      sessionId: sessionId,
-                      fileId: fileId,
-                      file: file,
-                    ),
+                  // Files may be uploaded concurrently, so the event loop must
+                  // not block. Attempts of the same file are queued instead,
+                  // see [_ReceiveSession.uploads].
+                  final queue = session.uploads.putIfAbsent(
+                    fileId,
+                    () => FutureQueue(onError: (e, st) => _logger.severe('Unexpected error while receiving file $fileId', e, st)),
                   );
+                  queue.add(() async {
+                    emit(
+                      HttpServerFileUploadEvent(
+                        sessionId: sessionId,
+                        fileId: fileId,
+                        file: file,
+                      ),
+                    );
 
-                  // Files may be uploaded concurrently, so the event loop must not block.
-                  unawaited(
-                    _handleFileUpload(
+                    await _handleFileUpload(
                       ref: ref,
                       session: session,
                       sessionId: sessionId,
                       fileId: fileId,
                       file: file,
                       emit: emit,
-                    ),
-                  );
+                    );
+                  });
                 case RsServerEvent_SessionEnd(:final sessionId, :final reason):
                   if (holder.session?.config.sessionId == sessionId) {
                     holder.session = null;
@@ -589,10 +602,23 @@ Future<void> _handleFileUpload({
   final isImage = dartFile.fileType == FileType.image;
   final shouldSaveToGallery = config.saveToGallery && (isImage || dartFile.fileType == FileType.video);
 
-  try {
-    _logger.info('Saving ${dartFile.fileName}');
+  void emitFailed(Object e) {
+    emit(
+      HttpServerFileUploadResultEvent(
+        sessionId: sessionId,
+        fileId: fileId,
+        path: null,
+        savedToGallery: false,
+        error: e.humanErrorMessage,
+      ),
+    );
+  }
 
-    final target = await prepareFileSaveTarget(
+  _logger.info('Saving ${dartFile.fileName}');
+
+  final FileSaveTarget target;
+  try {
+    target = await prepareFileSaveTarget(
       destinationDirectory: config.destinationDirectory,
       cacheDirectory: config.cacheDirectory,
       fileName: desiredName,
@@ -601,7 +627,22 @@ Future<void> _handleFileUpload({
       createdDirectories: session.createdDirectories,
       androidSdkInt: config.androidSdkInt,
     );
+  } catch (e, st) {
+    _logger.severe('Failed to prepare save target', e, st);
 
+    // The Rust server is still waiting for the target; rejecting fails the
+    // sender's request which would otherwise hang forever.
+    try {
+      await ref.read(httpServerProvider).rejectFileUpload(sessionId: sessionId, fileId: fileId);
+    } catch (e) {
+      _logger.warning('Failed to reject file upload', e);
+    }
+
+    emitFailed(e);
+    return;
+  }
+
+  try {
     // The Rust server writes the file and reports the progress.
     final progressStream = ref
         .read(httpServerProvider)
@@ -621,7 +662,20 @@ Future<void> _handleFileUpload({
         ),
       );
     }
+  } catch (e, st) {
+    _logger.severe('Failed to save file', e, st);
 
+    // Delete the partial (or checksum-mismatched) file so a retried upload
+    // gets the same file name again instead of a renamed one.
+    await deleteFileSaveTarget(target);
+
+    emitFailed(e);
+    return;
+  }
+
+  // The file is fully received and the sender was already told success,
+  // so failures from here on must not delete the file.
+  try {
     await applyFileTimestamps(
       target: target,
       lastModified: dartFile.metadata?.lastModified,
@@ -653,26 +707,7 @@ Future<void> _handleFileUpload({
       ),
     );
   } catch (e, st) {
-    _logger.severe('Failed to save file', e, st);
-
-    // If the failure happened before the upload target was dispatched
-    // (e.g. preparing the save target failed), the Rust server is still
-    // waiting for it and the sender's request would hang forever.
-    // Rejecting fails the request; a no-op if the target was already sent.
-    try {
-      await ref.read(httpServerProvider).rejectFileUpload(sessionId: sessionId, fileId: fileId);
-    } catch (e) {
-      _logger.warning('Failed to reject file upload', e);
-    }
-
-    emit(
-      HttpServerFileUploadResultEvent(
-        sessionId: sessionId,
-        fileId: fileId,
-        path: null,
-        savedToGallery: false,
-        error: e.humanErrorMessage,
-      ),
-    );
+    _logger.severe('Failed to post-process file', e, st);
+    emitFailed(e);
   }
 }

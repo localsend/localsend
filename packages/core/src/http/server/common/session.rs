@@ -37,6 +37,11 @@ pub(crate) struct SessionFileV2 {
     pub(crate) token: String,
 
     pub(crate) status: FileStatusV2,
+
+    /// Number of upload requests started for this file.
+    /// Limits how often a checksum mismatch resets the file to
+    /// [FileStatusV2::Pending] for a retry.
+    pub(crate) attempts: u8,
 }
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]

@@ -93,6 +93,32 @@ Future<FileSaveTarget> prepareFileSaveTarget({
   );
 }
 
+/// Deletes the file behind [target].
+///
+/// Used when a file could not be received completely, so that a retry of the
+/// same file gets the original file name again instead of a numbered one.
+///
+/// Failures are logged and swallowed: a leftover file is not worth failing
+/// the transfer for.
+Future<void> deleteFileSaveTarget(FileSaveTarget target) async {
+  // SAF targets are written through a file descriptor and must be deleted
+  // through the Storage Access Framework, addressed by their document URI.
+  final uri = target.path ?? target.displayPath;
+  try {
+    if (uri.startsWith('content://')) {
+      await android_channel.deleteFileAndroid(uri: uri);
+      return;
+    }
+
+    final file = File(uri);
+    if (await file.exists()) {
+      await file.delete();
+    }
+  } catch (e) {
+    _logger.warning('Could not delete file at $uri', e);
+  }
+}
+
 /// Applies the file timestamps after the file has been written to a plain path.
 Future<void> applyFileTimestamps({
   required FileSaveTarget target,

@@ -2,6 +2,7 @@ import 'package:flutter/services.dart';
 import 'package:localsend_isolates/isolate.dart';
 import 'package:localsend_isolates/model/device.dart';
 import 'package:localsend_isolates/rust/api/cancel.dart';
+import 'package:localsend_isolates/rust/api/http.dart';
 import 'package:localsend_isolates/src/isolate/child/main.dart';
 import 'package:localsend_isolates/src/isolate/dto/send_to_isolate_data.dart';
 import 'package:localsend_isolates/src/task/upload/http_upload.dart';
@@ -13,6 +14,12 @@ import 'package:typed_isolates/typed_isolates.dart';
 
 /// How many files of a [HttpUploadFilesTask] are uploaded in parallel.
 const _concurrency = 2;
+
+/// How often a single file is uploaded at most when the receiver keeps
+/// rejecting it with a checksum mismatch (HTTP 422).
+/// Must not exceed MAX_UPLOAD_ATTEMPTS of the Rust server which stops
+/// accepting retries at some point.
+const _maxUploadAttempts = 3;
 
 sealed class BaseHttpUploadTask {}
 
@@ -146,32 +153,46 @@ Future<void> setupHttpUploadIsolate(
           try {
             final filePath = file.filePath;
             final isContentUri = filePath?.startsWith('content://') ?? false;
-            final fileDescriptor = isContentUri ? await getFileDescriptorAndroid(uri: filePath!) : null;
 
-            await ref
-                .read(httpUploadProvider)
-                .upload(
-                  stream: filePath == null && file.fileBytes != null ? Stream.value(file.fileBytes!) : null,
-                  path: !isContentUri ? filePath : null,
-                  fileDescriptor: fileDescriptor,
-                  contentLength: file.fileSize,
-                  target: uploadTask.device,
-                  remoteSessionId: uploadTask.remoteSessionId,
-                  fileId: file.fileId,
-                  token: file.remoteFileToken,
-                  onSendProgress: (progress) {
-                    sendToMain(
-                      IsolateTaskStreamResult.event(
-                        id: task.id,
-                        data: HttpUploadFileProgressEvent(
-                          fileId: file.fileId,
-                          progress: progress,
-                        ),
-                      ),
+            for (var attempt = 1; ; attempt++) {
+              // The file descriptor is consumed by the upload, so a fresh one
+              // is needed for every attempt.
+              final fileDescriptor = isContentUri ? await getFileDescriptorAndroid(uri: filePath!) : null;
+
+              try {
+                await ref
+                    .read(httpUploadProvider)
+                    .upload(
+                      stream: filePath == null && file.fileBytes != null ? Stream.value(file.fileBytes!) : null,
+                      path: !isContentUri ? filePath : null,
+                      fileDescriptor: fileDescriptor,
+                      contentLength: file.fileSize,
+                      target: uploadTask.device,
+                      remoteSessionId: uploadTask.remoteSessionId,
+                      fileId: file.fileId,
+                      token: file.remoteFileToken,
+                      onSendProgress: (progress) {
+                        sendToMain(
+                          IsolateTaskStreamResult.event(
+                            id: task.id,
+                            data: HttpUploadFileProgressEvent(
+                              fileId: file.fileId,
+                              progress: progress,
+                            ),
+                          ),
+                        );
+                      },
+                      cancelToken: cancelToken,
                     );
-                  },
-                  cancelToken: cancelToken,
-                );
+                break;
+              } on RsHttpClientError_StatusCode catch (e) {
+                if (e.status != 422 || attempt >= _maxUploadAttempts) {
+                  rethrow;
+                }
+                // The receiver discarded the file because its checksum did not
+                // match (e.g. the file changed while being read). Send it again.
+              }
+            }
 
             sendToMain(
               IsolateTaskStreamResult.event(
