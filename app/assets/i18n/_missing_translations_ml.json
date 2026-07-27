@@ -7,6 +7,9 @@
     "destination": "@:settingsTab.receive.destination",
     "saveToGallery": "@:settingsTab.receive.saveToGallery"
   },
+  "sendPage": {
+    "calculatingChecksum": "Calculating checksum ({curr} / {n})"
+  },
   "progressPage": {
     "remainingTime": {
       "seconds": "{n}:{ss}",

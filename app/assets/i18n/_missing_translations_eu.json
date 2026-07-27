@@ -20,6 +20,7 @@
     }
   },
   "sendPage": {
+    "calculatingChecksum": "Calculating checksum ({curr} / {n})",
     "tooManyAttempts": "@:web.tooManyAttempts"
   },
   "progressPage": {

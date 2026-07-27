@@ -8,6 +8,9 @@
       "quickSaveFromFavorites": "@:general.quickSaveFromFavorites"
     }
   },
+  "sendPage": {
+    "calculatingChecksum": "Calculating checksum ({curr} / {n})"
+  },
   "progressPage": {
     "remainingTime": {
       "seconds": "{n}:{ss}",

@@ -239,6 +239,12 @@
       "count": "फाइलें: {curr}/{n}",
       "size": "आकार: {curr}/{n}",
       "speed": "गति: {speed}/सेकंड"
+    },
+    "remainingTime": {
+      "seconds": "{n}:{ss}",
+      "minutes": "{n}:{ss}",
+      "hours": "{h}घं {m}मि",
+      "days": "{d}दि {h}घं {m}मि"
     }
   },
   "webSharePage": {

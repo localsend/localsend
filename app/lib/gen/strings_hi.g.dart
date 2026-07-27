@@ -411,6 +411,8 @@ class _Translations$progressPage$hi extends Translations$progressPage$en {
   String get savedToGallery => 'गैलरी में सहेजा गया';
   @override
   late final _Translations$progressPage$total$hi total = _Translations$progressPage$total$hi._(_root);
+  @override
+  late final _Translations$progressPage$remainingTime$hi remainingTime = _Translations$progressPage$remainingTime$hi._(_root);
 }
 
 // Path: webSharePage
@@ -1066,6 +1068,23 @@ class _Translations$progressPage$total$hi extends Translations$progressPage$tota
   String size({required Object curr, required Object n}) => 'आकार: ${curr}/${n}';
   @override
   String speed({required Object speed}) => 'गति: ${speed}/सेकंड';
+}
+
+// Path: progressPage.remainingTime
+class _Translations$progressPage$remainingTime$hi extends Translations$progressPage$remainingTime$en {
+  _Translations$progressPage$remainingTime$hi._(TranslationsHi root) : this._root = root, super.internal(root);
+
+  final TranslationsHi _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String seconds({required Object n, required Object ss}) => '${n}:${ss}';
+  @override
+  String minutes({required Object n, required Object ss}) => '${n}:${ss}';
+  @override
+  String hours({required Object h, required Object m}) => '${h}घं ${m}मि';
+  @override
+  String days({required Object d, required Object h, required Object m}) => '${d}दि ${h}घं ${m}मि';
 }
 
 // Path: dialogs.addFile
