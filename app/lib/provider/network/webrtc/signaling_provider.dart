@@ -18,6 +18,9 @@ import 'package:refena_flutter/refena_flutter.dart';
 
 part 'signaling_provider.mapper.dart';
 
+/// WebRTC (and therefore the signaling connection) is disabled for now.
+const webRTCEnabled = false;
+
 @MappableClass()
 class SignalingState with SignalingStateMappable {
   final List<String> signalingServers;

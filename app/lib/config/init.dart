@@ -221,7 +221,10 @@ Future<void> postInit(BuildContext context, Ref ref, bool appStart) async {
     _logger.warning('Starting multicast listener failed', e);
   }
 
-  ref.redux(signalingProvider).dispatch(SetupSignalingConnection());
+  // ignore: dead_code
+  if (webRTCEnabled) {
+    ref.redux(signalingProvider).dispatch(SetupSignalingConnection());
+  }
 
   if (appStart) {
     if (defaultTargetPlatform == TargetPlatform.macOS) {
