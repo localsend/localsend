@@ -115,7 +115,13 @@ Future<FileSaveTarget> reopenFileSaveTarget(FileSaveTarget target) async {
   );
 }
 
-/// Applies the file timestamps after the file has been written to a plain path.
+/// Applies the file timestamps after the file has been written.
+///
+/// For plain file paths this delegates to [File.setLastModified] /
+/// [File.setLastAccessed]. For SAF-backed targets (Android, where [path] is
+/// `null`), the last-modified timestamp is applied through the Storage Access
+/// Framework via [setLastModifiedAndroid]; the access time is not exposed by
+/// SAF and is therefore ignored on that path.
 Future<void> applyFileTimestamps({
   required FileSaveTarget target,
   DateTime? lastModified,
@@ -123,6 +129,12 @@ Future<void> applyFileTimestamps({
 }) async {
   final path = target.path;
   if (path == null) {
+    // SAF target (Android): there is no filesystem path to stat, so the
+    // metadata has to be set through the content provider. Only the modified
+    // time is available; SAF does not expose a separate access time.
+    if (lastModified != null && target.displayPath.startsWith('content://')) {
+      await android_channel.setLastModifiedAndroid(uri: target.displayPath, lastModified: lastModified);
+    }
     return;
   }
   final file = File(path);

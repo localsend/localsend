@@ -64,6 +64,7 @@ class MainActivity : FlutterActivity() {
                 "createFile" -> handleCreateFile(call, result)
 
                 "openFileForWriting" -> handleOpenFileForWriting(call, result)
+                "setLastModified" -> handleSetLastModified(call, result)
 
                 "openContentUri" -> {
                     openUri(context, call.argument<String>("uri")!!)
@@ -217,6 +218,48 @@ class MainActivity : FlutterActivity() {
             result.error("PERMISSION_DENIED", e.message ?: "Permission denied for content URI", null)
         } catch (e: Exception) {
             result.error("OPEN_FAILED", e.message ?: "Failed to open content URI", null)
+        }
+    }
+
+    /// Sets the last-modified timestamp of a SAF document.
+    ///
+    /// Not every provider honours [DocumentsContract.Document.COLUMN_LAST_MODIFIED]
+    /// on writes (the ExternalStorage provider does; some cloud providers ignore
+    /// it), so failures are surfaced as a soft error rather than failing the
+    /// whole transfer. The timestamp is expressed in milliseconds since the
+    /// Unix epoch, matching what [FastDocumentFile.lastModified] returns.
+    private fun handleSetLastModified(call: MethodCall, result: MethodChannel.Result) {
+        val uriString = call.argument<String>("uri")
+        val timestamp = call.argument<Long>("timestamp")
+        if (uriString == null || timestamp == null) {
+            result.error("INVALID_ARGUMENT", "Missing uri or timestamp", null)
+            return
+        }
+
+        val uri = Uri.parse(uriString)
+        if (uri.scheme != ContentResolver.SCHEME_CONTENT) {
+            result.error("INVALID_ARGUMENT", "Expected a content:// URI", null)
+            return
+        }
+
+        try {
+            val values = android.content.ContentValues().apply {
+                put(DocumentsContract.Document.COLUMN_LAST_MODIFIED, timestamp)
+            }
+            val updated = contentResolver.update(uri, values, null, null)
+            if (updated > 0) {
+                result.success(true)
+            } else {
+                // The provider did not accept the update; this is not fatal for
+                // the transfer, so report false rather than erroring out.
+                result.success(false)
+            }
+        } catch (e: SecurityException) {
+            result.error("PERMISSION_DENIED", e.message ?: "Permission denied for content URI", null)
+        } catch (e: Exception) {
+            // Some providers reject updates to COLUMN_LAST_MODIFIED; treat as a
+            // no-op so the received file is still kept.
+            result.success(false)
         }
     }
 

@@ -99,3 +99,24 @@ Future<int> openFileForWritingAndroid({required String uri}) async {
   }
   return fileDescriptor;
 }
+
+/// Sets the last-modified timestamp of a SAF document (Android only).
+///
+/// Returns `true` when the provider accepted the update, `false` when the
+/// provider rejected or ignored it. Failures are not thrown because the file
+/// has already been written at this point and must be kept.
+Future<bool> setLastModifiedAndroid({
+  required String uri,
+  required DateTime lastModified,
+}) async {
+  try {
+    final result = await _methodChannel.invokeMethod<bool>('setLastModified', {
+      'uri': uri,
+      'timestamp': lastModified.toUtc().millisecondsSinceEpoch,
+    });
+    return result ?? false;
+  } catch (e) {
+    _logger.warning('Could not set lastModified on $uri', e);
+    return false;
+  }
+}
