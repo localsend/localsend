@@ -242,6 +242,9 @@ fn spawn_file_writer(
 ///
 /// Fails if the total number of written bytes does not match `expected_size`
 /// (e.g. the sender disconnected mid-transfer).
+///
+/// The file is truncated to the written size, so that a target that pointed at
+/// a longer, pre-existing file cannot keep a tail of the old content.
 async fn write_file_from_receiver(
     open: impl Future<Output = Result<tokio::fs::File, String>>,
     expected_size: u64,
@@ -276,5 +279,18 @@ async fn write_file_from_receiver(
             "Expected {expected_size} bytes, received {written}"
         ));
     }
+
+    // Drops content beyond the file that was just written, in case the target
+    // pointed at a longer, pre-existing file: opening truncates for paths and
+    // for descriptors opened with the SAF "wt" mode, but a document provider is
+    // free to ignore that mode. Retries of the same upload are covered by the
+    // exact size check above either way.
+    //
+    // Best-effort: a provider may back the descriptor by something that cannot
+    // be truncated (e.g. a pipe), which must not fail the completed transfer.
+    if let Err(e) = file.set_len(written).await {
+        tracing::warn!("Could not truncate file to {written} bytes: {e}");
+    }
+
     Ok(())
 }

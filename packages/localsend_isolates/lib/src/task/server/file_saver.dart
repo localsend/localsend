@@ -93,30 +93,26 @@ Future<FileSaveTarget> prepareFileSaveTarget({
   );
 }
 
-/// Deletes the file behind [target].
+/// Prepares [target] for another attempt at the same file, e.g. after the
+/// previous attempt was rejected because of a checksum mismatch.
 ///
-/// Used when a file could not be received completely, so that a retry of the
-/// same file gets the original file name again instead of a numbered one.
-///
-/// Failures are logged and swallowed: a leftover file is not worth failing
-/// the transfer for.
-Future<void> deleteFileSaveTarget(FileSaveTarget target) async {
-  // SAF targets are written through a file descriptor and must be deleted
-  // through the Storage Access Framework, addressed by their document URI.
-  final uri = target.path ?? target.displayPath;
-  try {
-    if (uri.startsWith('content://')) {
-      await android_channel.deleteFileAndroid(uri: uri);
-      return;
-    }
-
-    final file = File(uri);
-    if (await file.exists()) {
-      await file.delete();
-    }
-  } catch (e) {
-    _logger.warning('Could not delete file at $uri', e);
+/// The destination is kept, so the file is overwritten instead of being
+/// created a second time under a numbered name.
+Future<FileSaveTarget> reopenFileSaveTarget(FileSaveTarget target) async {
+  final path = target.path;
+  if (path != null) {
+    // The server opens (and truncates) the path itself.
+    return target;
   }
+
+  // The descriptor of the previous attempt was consumed by it, so the SAF
+  // document has to be opened again.
+  _logger.info('Reopening ${target.displayPath}');
+  return FileSaveTarget(
+    path: null,
+    fileDescriptor: await android_channel.openFileForWritingAndroid(uri: target.displayPath),
+    displayPath: target.displayPath,
+  );
 }
 
 /// Applies the file timestamps after the file has been written to a plain path.

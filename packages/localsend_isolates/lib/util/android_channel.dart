@@ -85,13 +85,17 @@ Future<CreatedFileAndroid> createFileAndroid({
   );
 }
 
-/// Deletes the document at [uri], e.g. a file created by [createFileAndroid].
+/// Opens an existing document created by [createFileAndroid] for writing and
+/// discards its current content.
 ///
-/// Returns whether the document has been deleted. A document that does not
-/// exist (anymore) returns `false` instead of throwing.
-Future<bool> deleteFileAndroid({required String uri}) async {
-  final deleted = await _methodChannel.invokeMethod<bool>('deleteFile', {
+/// The descriptor stays open after this call and must be closed by the native
+/// consumer it is passed to.
+Future<int> openFileForWritingAndroid({required String uri}) async {
+  final fileDescriptor = await _methodChannel.invokeMethod<int>('openFileForWriting', {
     'uri': uri,
   });
-  return deleted ?? false;
+  if (fileDescriptor == null) {
+    throw StateError('Android returned no file descriptor for $uri');
+  }
+  return fileDescriptor;
 }

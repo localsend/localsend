@@ -63,7 +63,7 @@ class MainActivity : FlutterActivity() {
 
                 "createFile" -> handleCreateFile(call, result)
 
-                "deleteFile" -> handleDeleteFile(call, result)
+                "openFileForWriting" -> handleOpenFileForWriting(call, result)
 
                 "openContentUri" -> {
                     openUri(context, call.argument<String>("uri")!!)
@@ -157,7 +157,9 @@ class MainActivity : FlutterActivity() {
                 return
             }
 
-            val parcelFileDescriptor = contentResolver.openFileDescriptor(documentUri, "w")
+            // "wt" is write + truncate: the document is new, unless the provider
+            // handed out an existing one instead of creating a second document.
+            val parcelFileDescriptor = contentResolver.openFileDescriptor(documentUri, "wt")
             if (parcelFileDescriptor == null) {
                 result.error("OPEN_FAILED", "The content provider did not return a file descriptor", null)
                 return
@@ -178,11 +180,15 @@ class MainActivity : FlutterActivity() {
         }
     }
 
-    /// Deletes a document created by [handleCreateFile].
+    /// Opens an existing document created by [handleCreateFile] for writing,
+    /// discarding its current content.
     ///
-    /// Returns whether the document was deleted. A document that no longer
-    /// exists is reported as not deleted instead of as an error.
-    private fun handleDeleteFile(call: MethodCall, result: MethodChannel.Result) {
+    /// Used to write a file again after a failed attempt, so that it keeps its
+    /// name instead of being created a second time under a numbered one.
+    ///
+    /// Returns an owned writable file descriptor. It stays open after this call
+    /// and must be closed by the native consumer it is passed to.
+    private fun handleOpenFileForWriting(call: MethodCall, result: MethodChannel.Result) {
         val uriString = call.argument<String>("uri")
         if (uriString == null) {
             result.error("INVALID_ARGUMENT", "Missing content URI", null)
@@ -196,13 +202,21 @@ class MainActivity : FlutterActivity() {
         }
 
         try {
-            result.success(DocumentsContract.deleteDocument(contentResolver, uri))
+            // "wt" is write + truncate. A document provider may ignore the
+            // truncation, so the writer additionally shortens the file itself.
+            val parcelFileDescriptor = contentResolver.openFileDescriptor(uri, "wt")
+            if (parcelFileDescriptor == null) {
+                result.error("OPEN_FAILED", "The content provider did not return a file descriptor", null)
+                return
+            }
+
+            parcelFileDescriptor.use {
+                result.success(it.detachFd())
+            }
         } catch (e: SecurityException) {
             result.error("PERMISSION_DENIED", e.message ?: "Permission denied for content URI", null)
-        } catch (e: java.io.FileNotFoundException) {
-            result.success(false)
         } catch (e: Exception) {
-            result.error("DELETE_FAILED", e.message ?: "Failed to delete file", null)
+            result.error("OPEN_FAILED", e.message ?: "Failed to open content URI", null)
         }
     }
 

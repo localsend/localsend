@@ -340,8 +340,14 @@ class _ReceiveSession {
   /// One queue per file ID, so that uploads of the same file do not overlap.
   ///
   /// A sender may upload the same file again after it was rejected because of
-  /// a checksum mismatch.
+  /// a checksum mismatch. Both attempts write to the same [targets] entry.
   final Map<String, FutureQueue> uploads = {};
+
+  /// The destination of each file of this session, by file ID.
+  ///
+  /// Remembered so that another attempt at the same file overwrites it instead
+  /// of being saved next to it under a numbered name.
+  final Map<String, FileSaveTarget> targets = {};
 
   _ReceiveSession(this.config);
 }
@@ -618,15 +624,21 @@ Future<void> _handleFileUpload({
 
   final FileSaveTarget target;
   try {
-    target = await prepareFileSaveTarget(
-      destinationDirectory: config.destinationDirectory,
-      cacheDirectory: config.cacheDirectory,
-      fileName: desiredName,
-      saveToGallery: shouldSaveToGallery,
-      isImage: isImage,
-      createdDirectories: session.createdDirectories,
-      androidSdkInt: config.androidSdkInt,
-    );
+    // A previous attempt at this file already picked a destination, which this
+    // attempt overwrites instead of creating a numbered version.
+    final previous = session.targets[fileId];
+    target = previous != null
+        ? await reopenFileSaveTarget(previous)
+        : await prepareFileSaveTarget(
+            destinationDirectory: config.destinationDirectory,
+            cacheDirectory: config.cacheDirectory,
+            fileName: desiredName,
+            saveToGallery: shouldSaveToGallery,
+            isImage: isImage,
+            createdDirectories: session.createdDirectories,
+            androidSdkInt: config.androidSdkInt,
+          );
+    session.targets[fileId] = target;
   } catch (e, st) {
     _logger.severe('Failed to prepare save target', e, st);
 
@@ -663,18 +675,13 @@ Future<void> _handleFileUpload({
       );
     }
   } catch (e, st) {
+    // The incomplete file is kept: a retry of this file overwrites it, and
+    // otherwise it stays behind as the partial file of a failed transfer.
     _logger.severe('Failed to save file', e, st);
-
-    // Delete the partial (or checksum-mismatched) file so a retried upload
-    // gets the same file name again instead of a renamed one.
-    await deleteFileSaveTarget(target);
-
     emitFailed(e);
     return;
   }
 
-  // The file is fully received and the sender was already told success,
-  // so failures from here on must not delete the file.
   try {
     await applyFileTimestamps(
       target: target,
