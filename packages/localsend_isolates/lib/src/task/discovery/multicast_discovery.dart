@@ -26,16 +26,22 @@ class MulticastService {
   bool _listening = false;
 
   /// Binds the UDP sockets and listens to multicast announcements.
-  /// Announcements of other devices are answered with an HTTP register
-  /// request while the server is running.
-  Stream<Device> startListener() async* {
+  Stream<Device> startListener() {
     if (_listening) {
       _logger.info('Already listening to multicast');
-      return;
+      return const Stream.empty();
     }
 
     _listening = true;
 
+    // Verified devices are pushed in as [_answerAnnouncement] resolves, which
+    // runs concurrently: one unreachable peer must not hold up the others.
+    final devices = StreamController<Device>();
+    unawaited(_runListener(devices));
+    return devices.stream;
+  }
+
+  Future<void> _runListener(StreamController<Device> devices) async {
     while (true) {
       final syncState = _ref.read(syncProvider);
 
@@ -68,13 +74,17 @@ class MulticastService {
       unawaited(multicast.announce());
 
       await for (final event in multicast.listen()) {
-        final device = event.message.toDevice(event.ip);
-        yield device;
-
-        if (_ref.read(syncProvider).serverRunning) {
+        if (!_ref.read(syncProvider).serverRunning) {
           // only respond when server is running
-          unawaited(_answerAnnouncement(device));
+          continue;
         }
+
+        unawaited(() async {
+          final device = await _answerAnnouncement(event.message.toDevice(event.ip));
+          if (device != null && !devices.isClosed) {
+            devices.add(device);
+          }
+        }());
       }
 
       // The stream ended because [restartListener] stopped the discovery.
@@ -106,21 +116,28 @@ class MulticastService {
     await multicast.announce();
   }
 
-  /// Responds to an announcement over HTTP.
-  Future<void> _answerAnnouncement(Device peer) async {
+  /// Responds to an announcement and returns the peer.
+  /// Data from the multicast announcement is ignored.
+  ///
+  /// Returns null if the peer could not be reached or could not be verified.
+  Future<Device?> _answerAnnouncement(Device peer) async {
+    final clients = _ref.read(httpProvider);
     try {
-      await _ref
-          .read(httpProvider)
-          .discovery
+      final response = await clients
+          .pinnedTo(peer.fingerprint, timeoutMs: clients.discoveryTimeout)
           .register(
             protocol: peer.getProtocolType(),
             ip: peer.ip!,
             port: peer.port,
             payload: _ref.read(syncProvider).toRegisterDto(),
           );
+
       _logger.info('Respond to announcement of ${peer.alias} (${peer.ip}, model: ${peer.deviceModel}) via TCP');
+
+      return response.body.toDevice(peer.ip!, peer.port, peer.https, const MulticastDiscovery());
     } catch (e) {
       _logger.warning('Could not respond to announcement of ${peer.alias} (${peer.ip})', e);
+      return null;
     }
   }
 }

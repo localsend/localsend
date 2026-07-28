@@ -3,10 +3,44 @@ use rustls::client::danger::{HandshakeSignatureValid, ServerCertVerified, Server
 use rustls::client::WebPkiServerVerifier;
 use rustls::pki_types::pem::PemObject;
 use rustls::pki_types::{CertificateDer, ServerName, UnixTime};
-use rustls::{CertificateError, DigitallySignedStruct, Error, RootCertStore, SignatureScheme};
-use std::fmt::{Debug, Formatter};
+use rustls::{
+    CertificateError, DigitallySignedStruct, Error, OtherError, RootCertStore, SignatureScheme,
+};
+use std::fmt::{Debug, Display, Formatter};
 use std::sync::Arc;
 use x509_parser::nom::AsBytes;
+
+/// The reason a peer certificate was rejected, as an error that rustls carries
+/// along.
+///
+/// Without this, every check in this file collapses into rustls'
+/// [`CertificateError::ApplicationVerificationFailure`], which surfaces in the
+/// app as a bare "error sending request for url (...)" with no hint that the
+/// certificate was the problem.
+struct RejectedCert(String);
+
+impl Display for RejectedCert {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        f.write_str(&self.0)
+    }
+}
+
+/// rustls renders `InvalidCertificate` with `Debug`, so the derived
+/// `RejectedCert("…")` would end up in the message.
+impl Debug for RejectedCert {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        f.write_str(&self.0)
+    }
+}
+
+impl std::error::Error for RejectedCert {}
+
+fn rejected(reason: String) -> Error {
+    tracing::warn!("{reason}");
+    Error::InvalidCertificate(CertificateError::Other(OtherError(Arc::new(RejectedCert(
+        reason,
+    )))))
+}
 
 /// Verifies the certificate of the remote peer during the TLS handshake.
 ///
@@ -65,20 +99,15 @@ impl ServerCertVerifier for PinnedServerCertVerifier {
         // The hostname is deliberately ignored: peers are addressed by IP and
         // their certificates carry no matching SAN. The fingerprint below is
         // what identifies the peer.
-        crate::crypto::cert::verify_cert_from_der(end_entity.as_bytes(), None).map_err(|e| {
-            tracing::warn!("Server certificate verification failed: {e:#}");
-            Error::InvalidCertificate(CertificateError::ApplicationVerificationFailure)
-        })?;
+        crate::crypto::cert::verify_cert_from_der(end_entity.as_bytes(), None)
+            .map_err(|e| rejected(format!("server certificate is not valid: {e:#}")))?;
 
         if let Some(expected) = &self.expected_fingerprint {
             let actual = fingerprint_from_cert_der(end_entity.as_bytes());
             if &actual != expected {
-                tracing::warn!(
-                    "Server certificate fingerprint mismatch: expected {expected}, got {actual}"
-                );
-                return Err(Error::InvalidCertificate(
-                    CertificateError::ApplicationVerificationFailure,
-                ));
+                return Err(rejected(format!(
+                    "server certificate fingerprint mismatch: expected {expected}, got {actual}"
+                )));
             }
         }
 
@@ -167,7 +196,11 @@ VRus1zGVD8IVpIdPMyz01WJyS7M0fWaHXKWo+Bo=
     #[test]
     fn rejects_mismatching_fingerprint() {
         let other = "0".repeat(64);
-        assert!(verify(Some(&other)).is_err());
+        let error = verify(Some(&other)).unwrap_err();
+        let message = error.to_string();
+        assert!(message.contains("fingerprint mismatch"), "{message}");
+        assert!(message.contains(&other), "{message}");
+        assert!(message.contains(FINGERPRINT), "{message}");
     }
 
     #[test]

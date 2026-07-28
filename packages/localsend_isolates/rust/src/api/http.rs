@@ -7,6 +7,7 @@ pub use localsend::http::dto::{
     PrepareUploadRequestDto, PrepareUploadResponseDto, PrepareUploadResult, ProtocolType,
     RegisterDto, RegisterResponseDto,
 };
+use localsend::reqwest;
 
 pub struct RsHttpClient {
     inner: localsend::http::client::LsHttpClient,
@@ -195,13 +196,28 @@ impl From<ClientError> for RsHttpClientError {
                 status: e.status,
                 message: e.message,
             },
-            ClientError::Reqwest(e) => RsHttpClientError::Reqwest(e.to_string()),
+            ClientError::Reqwest(e) => RsHttpClientError::Reqwest(error_chain(&e)),
             ClientError::Json(e) => RsHttpClientError::Json(e.to_string()),
             ClientError::Io(e) => RsHttpClientError::Io(e.to_string()),
             ClientError::Other(e) => RsHttpClientError::Other(e.to_string()),
             ClientError::Cancelled => RsHttpClientError::Other("Upload cancelled".to_string()),
         }
     }
+}
+
+/// Renders an error together with everything that caused it.
+///
+/// [`reqwest::Error`] alone only says "error sending request for url (...)".
+pub fn error_chain(e: &dyn std::error::Error) -> String {
+    use std::fmt::Write;
+
+    let mut message = e.to_string();
+    let mut source = e.source();
+    while let Some(current) = source {
+        let _ = write!(message, ": {current}");
+        source = current.source();
+    }
+    message
 }
 
 #[frb(mirror(LsHttpClientVersion))]
