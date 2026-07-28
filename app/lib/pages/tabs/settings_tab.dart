@@ -156,6 +156,9 @@ class SettingsTab extends StatelessWidget {
                   onChanged: (b) async {
                     final old = vm.settings.quickSave;
                     await ref.notifier(settingsProvider).setQuickSave(b);
+                    if (b) {
+                      await ref.notifier(settingsProvider).setQuickSaveFromFavorites(false);
+                    }
                     if (!old && b && context.mounted) {
                       await QuickSaveNotice.open(context);
                     }
@@ -167,6 +170,9 @@ class SettingsTab extends StatelessWidget {
                   onChanged: (b) async {
                     final old = vm.settings.quickSaveFromFavorites;
                     await ref.notifier(settingsProvider).setQuickSaveFromFavorites(b);
+                    if (b) {
+                      await ref.notifier(settingsProvider).setQuickSave(false);
+                    }
                     if (!old && b && context.mounted) {
                       await QuickSaveFromFavoritesNotice.open(context);
                     }
