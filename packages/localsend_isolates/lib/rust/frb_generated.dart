@@ -74,7 +74,7 @@ class RustLib extends BaseEntrypoint<RustLibApi, RustLibApiImpl, RustLibWire> {
   String get codegenVersion => '2.12.0';
 
   @override
-  int get rustContentHash => -2071906741;
+  int get rustContentHash => 1795427439;
 
   static const kDefaultExternalLibraryLoaderConfig = ExternalLibraryLoaderConfig(
     stem: 'rust_lib_localsend_app',
@@ -128,6 +128,7 @@ abstract class RustLibApi extends BaseApi {
     required PrepareUploadRequestDto payload,
     String? publicKey,
     String? pin,
+    required RsCancellationToken cancelToken,
   });
 
   Future<ResultWithPublicKeyRegisterResponseDto> crateApiHttpRsHttpClientRegister({
@@ -156,11 +157,11 @@ abstract class RustLibApi extends BaseApi {
 
   Future<void> crateApiServerRsHttpServerCancelSession({required RsHttpServer that, required String sessionId});
 
+  Future<void> crateApiServerRsHttpServerFailFileDownload({required RsHttpServer that, required String sessionId, required String fileId});
+
+  Future<void> crateApiServerRsHttpServerFailFileUpload({required RsHttpServer that, required String sessionId, required String fileId});
+
   Stream<RsServerEvent> crateApiServerRsHttpServerListen({required RsHttpServer that});
-
-  Future<void> crateApiServerRsHttpServerRejectFileDownload({required RsHttpServer that, required String sessionId, required String fileId});
-
-  Future<void> crateApiServerRsHttpServerRejectFileUpload({required RsHttpServer that, required String sessionId, required String fileId});
 
   Future<void> crateApiServerRsHttpServerRespondFileDownload({
     required RsHttpServer that,
@@ -574,6 +575,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
     required PrepareUploadRequestDto payload,
     String? publicKey,
     String? pin,
+    required RsCancellationToken cancelToken,
   }) {
     return handler.executeNormal(
       NormalTask(
@@ -586,6 +588,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           sse_encode_box_autoadd_prepare_upload_request_dto(payload, serializer);
           sse_encode_opt_String(publicKey, serializer);
           sse_encode_opt_String(pin, serializer);
+          sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsCancellationToken(cancelToken, serializer);
           pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 8, port: port_);
         },
         codec: SseCodec(
@@ -593,7 +596,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           decodeErrorData: sse_decode_rs_http_client_error,
         ),
         constMeta: kCrateApiHttpRsHttpClientPrepareUploadConstMeta,
-        argValues: [that, protocol, ip, port, payload, publicKey, pin],
+        argValues: [that, protocol, ip, port, payload, publicKey, pin, cancelToken],
         apiImpl: this,
       ),
     );
@@ -601,7 +604,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
 
   TaskConstMeta get kCrateApiHttpRsHttpClientPrepareUploadConstMeta => const TaskConstMeta(
     debugName: 'RsHttpClient_prepare_upload',
-    argNames: ['that', 'protocol', 'ip', 'port', 'payload', 'publicKey', 'pin'],
+    argNames: ['that', 'protocol', 'ip', 'port', 'payload', 'publicKey', 'pin', 'cancelToken'],
   );
 
   @override
@@ -740,6 +743,60 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   );
 
   @override
+  Future<void> crateApiServerRsHttpServerFailFileDownload({required RsHttpServer that, required String sessionId, required String fileId}) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsHttpServer(that, serializer);
+          sse_encode_String(sessionId, serializer);
+          sse_encode_String(fileId, serializer);
+          pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 12, port: port_);
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_unit,
+          decodeErrorData: null,
+        ),
+        constMeta: kCrateApiServerRsHttpServerFailFileDownloadConstMeta,
+        argValues: [that, sessionId, fileId],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kCrateApiServerRsHttpServerFailFileDownloadConstMeta => const TaskConstMeta(
+    debugName: 'RsHttpServer_fail_file_download',
+    argNames: ['that', 'sessionId', 'fileId'],
+  );
+
+  @override
+  Future<void> crateApiServerRsHttpServerFailFileUpload({required RsHttpServer that, required String sessionId, required String fileId}) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsHttpServer(that, serializer);
+          sse_encode_String(sessionId, serializer);
+          sse_encode_String(fileId, serializer);
+          pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 13, port: port_);
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_unit,
+          decodeErrorData: null,
+        ),
+        constMeta: kCrateApiServerRsHttpServerFailFileUploadConstMeta,
+        argValues: [that, sessionId, fileId],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kCrateApiServerRsHttpServerFailFileUploadConstMeta => const TaskConstMeta(
+    debugName: 'RsHttpServer_fail_file_upload',
+    argNames: ['that', 'sessionId', 'fileId'],
+  );
+
+  @override
   Stream<RsServerEvent> crateApiServerRsHttpServerListen({required RsHttpServer that}) {
     final sink = RustStreamSink<RsServerEvent>();
     unawaited(
@@ -749,7 +806,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
             final serializer = SseSerializer(generalizedFrbRustBinding);
             sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsHttpServer(that, serializer);
             sse_encode_StreamSink_rs_server_event_Sse(sink, serializer);
-            pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 12, port: port_);
+            pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 14, port: port_);
           },
           codec: SseCodec(
             decodeSuccessData: sse_decode_unit,
@@ -767,60 +824,6 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   TaskConstMeta get kCrateApiServerRsHttpServerListenConstMeta => const TaskConstMeta(
     debugName: 'RsHttpServer_listen',
     argNames: ['that', 'sink'],
-  );
-
-  @override
-  Future<void> crateApiServerRsHttpServerRejectFileDownload({required RsHttpServer that, required String sessionId, required String fileId}) {
-    return handler.executeNormal(
-      NormalTask(
-        callFfi: (port_) {
-          final serializer = SseSerializer(generalizedFrbRustBinding);
-          sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsHttpServer(that, serializer);
-          sse_encode_String(sessionId, serializer);
-          sse_encode_String(fileId, serializer);
-          pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 13, port: port_);
-        },
-        codec: SseCodec(
-          decodeSuccessData: sse_decode_unit,
-          decodeErrorData: null,
-        ),
-        constMeta: kCrateApiServerRsHttpServerRejectFileDownloadConstMeta,
-        argValues: [that, sessionId, fileId],
-        apiImpl: this,
-      ),
-    );
-  }
-
-  TaskConstMeta get kCrateApiServerRsHttpServerRejectFileDownloadConstMeta => const TaskConstMeta(
-    debugName: 'RsHttpServer_reject_file_download',
-    argNames: ['that', 'sessionId', 'fileId'],
-  );
-
-  @override
-  Future<void> crateApiServerRsHttpServerRejectFileUpload({required RsHttpServer that, required String sessionId, required String fileId}) {
-    return handler.executeNormal(
-      NormalTask(
-        callFfi: (port_) {
-          final serializer = SseSerializer(generalizedFrbRustBinding);
-          sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsHttpServer(that, serializer);
-          sse_encode_String(sessionId, serializer);
-          sse_encode_String(fileId, serializer);
-          pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 14, port: port_);
-        },
-        codec: SseCodec(
-          decodeSuccessData: sse_decode_unit,
-          decodeErrorData: null,
-        ),
-        constMeta: kCrateApiServerRsHttpServerRejectFileUploadConstMeta,
-        argValues: [that, sessionId, fileId],
-        apiImpl: this,
-      ),
-    );
-  }
-
-  TaskConstMeta get kCrateApiServerRsHttpServerRejectFileUploadConstMeta => const TaskConstMeta(
-    debugName: 'RsHttpServer_reject_file_upload',
-    argNames: ['that', 'sessionId', 'fileId'],
   );
 
   @override
@@ -5573,6 +5576,7 @@ class RsHttpClientImpl extends RustOpaque implements RsHttpClient {
     required PrepareUploadRequestDto payload,
     String? publicKey,
     String? pin,
+    required RsCancellationToken cancelToken,
   }) => RustLib.instance.api.crateApiHttpRsHttpClientPrepareUpload(
     that: this,
     protocol: protocol,
@@ -5581,6 +5585,7 @@ class RsHttpClientImpl extends RustOpaque implements RsHttpClient {
     payload: payload,
     publicKey: publicKey,
     pin: pin,
+    cancelToken: cancelToken,
   );
 
   Future<ResultWithPublicKeyRegisterResponseDto> register({
@@ -5638,11 +5643,27 @@ class RsHttpServerImpl extends RustOpaque implements RsHttpServer {
   /// transfer on the receiving side.
   ///
   /// Uploads that are already in progress still run to completion, but new
-  /// upload requests are rejected and a new session can be created.
+  /// upload requests fail and a new session can be created.
   /// No [RsServerEvent::SessionEnd] is emitted: the application initiated
   /// the cancellation itself.
   Future<void> cancelSession({required String sessionId}) =>
       RustLib.instance.api.crateApiServerRsHttpServerCancelSession(that: this, sessionId: sessionId);
+
+  /// Fails the pending [RsServerEvent::WebFileDownload] event, e.g. because
+  /// the application failed to resolve a source for the file content.
+  ///
+  /// The download request fails with an error response.
+  /// Does nothing if the download was already answered.
+  Future<void> failFileDownload({required String sessionId, required String fileId}) =>
+      RustLib.instance.api.crateApiServerRsHttpServerFailFileDownload(that: this, sessionId: sessionId, fileId: fileId);
+
+  /// Fails the pending [RsServerEvent::FileUpload] event, e.g. because
+  /// the application failed to prepare a save target for the file.
+  ///
+  /// The upload request fails with an error response and the file is marked
+  /// as failed. Does nothing if the upload was already answered.
+  Future<void> failFileUpload({required String sessionId, required String fileId}) =>
+      RustLib.instance.api.crateApiServerRsHttpServerFailFileUpload(that: this, sessionId: sessionId, fileId: fileId);
 
   /// Emits server events until the server is stopped.
   /// Can only be listened to once.
@@ -5652,22 +5673,6 @@ class RsHttpServerImpl extends RustOpaque implements RsHttpServer {
   Stream<RsServerEvent> listen() => RustLib.instance.api.crateApiServerRsHttpServerListen(
     that: this,
   );
-
-  /// Rejects the pending [RsServerEvent::WebFileDownload] event, e.g. because
-  /// the application failed to resolve a source for the file content.
-  ///
-  /// The download request fails with an error response.
-  /// Does nothing if the download was already answered.
-  Future<void> rejectFileDownload({required String sessionId, required String fileId}) =>
-      RustLib.instance.api.crateApiServerRsHttpServerRejectFileDownload(that: this, sessionId: sessionId, fileId: fileId);
-
-  /// Rejects the pending [RsServerEvent::FileUpload] event, e.g. because
-  /// the application failed to prepare a save target for the file.
-  ///
-  /// The upload request fails with an error response and the file is marked
-  /// as failed. Does nothing if the upload was already answered.
-  Future<void> rejectFileUpload({required String sessionId, required String fileId}) =>
-      RustLib.instance.api.crateApiServerRsHttpServerRejectFileUpload(that: this, sessionId: sessionId, fileId: fileId);
 
   /// Answers the pending [RsServerEvent::WebFileDownload] event with the source
   /// the file content should be read from (either a path or a file descriptor).

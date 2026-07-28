@@ -310,6 +310,7 @@ async fn test_full_upload_flow() {
             None,
             prepare_upload_request(&[file_a.clone(), file_b.clone()]),
             None,
+            CancellationToken::new(),
         )
         .await
         .unwrap();
@@ -386,6 +387,7 @@ async fn test_upload_with_matching_sha256() {
             None,
             prepare_upload_request(&[file]),
             None,
+            CancellationToken::new(),
         )
         .await
         .unwrap()
@@ -423,6 +425,7 @@ async fn test_upload_with_mismatched_sha256() {
             None,
             prepare_upload_request(&[file]),
             None,
+            CancellationToken::new(),
         )
         .await
         .unwrap()
@@ -459,6 +462,7 @@ async fn test_upload_retry_after_mismatched_sha256() {
             None,
             prepare_upload_request(&[file]),
             None,
+            CancellationToken::new(),
         )
         .await
         .unwrap()
@@ -522,6 +526,7 @@ async fn test_upload_retry_reuses_the_same_path() {
             None,
             prepare_upload_request(&[file]),
             None,
+            CancellationToken::new(),
         )
         .await
         .unwrap()
@@ -583,6 +588,7 @@ async fn test_upload_mismatched_sha256_attempts_exhausted() {
             None,
             prepare_upload_request(&[file]),
             None,
+            CancellationToken::new(),
         )
         .await
         .unwrap()
@@ -639,6 +645,7 @@ async fn test_upload_saved_to_path_by_server() {
             None,
             prepare_upload_request(&[file_a.clone(), file_b.clone()]),
             None,
+            CancellationToken::new(),
         )
         .await
         .unwrap();
@@ -699,6 +706,7 @@ async fn test_upload_with_invalid_token() {
             None,
             prepare_upload_request(&[file]),
             None,
+            CancellationToken::new(),
         )
         .await
         .unwrap()
@@ -759,6 +767,7 @@ async fn test_second_session_blocked_and_cancel() {
             None,
             prepare_upload_request(&[file.clone()]),
             None,
+            CancellationToken::new(),
         )
         .await
         .unwrap()
@@ -774,6 +783,7 @@ async fn test_second_session_blocked_and_cancel() {
             None,
             prepare_upload_request(&[file.clone()]),
             None,
+            CancellationToken::new(),
         )
         .await;
     assert_status(result, 409);
@@ -804,9 +814,363 @@ async fn test_second_session_blocked_and_cancel() {
             None,
             prepare_upload_request(&[file]),
             None,
+            CancellationToken::new(),
         )
         .await
         .unwrap();
+}
+
+/// The sender aborts the prepare-upload request (drops the connection) while
+/// the receiving application is still deciding. The application must be told
+/// via [ServerEventV2::PrepareUploadAborted] and the session slot must be
+/// freed so the next request is not blocked.
+#[tokio::test]
+async fn test_prepare_upload_aborted_by_sender_disconnect() {
+    let _ = tracing_subscriber::fmt().with_test_writer().try_init();
+    let port = free_port();
+
+    let (event_tx, mut event_rx) = mpsc::channel::<ServerEventV2>(16);
+    let (aborted_tx, aborted_rx) = oneshot::channel::<String>();
+
+    // Unlike the shared harness, this event loop does not answer the first
+    // prepare-upload decision: the request stays pending like a real
+    // application waiting for user input. Later requests are declined so the
+    // test can verify the slot was freed without hanging.
+    tokio::spawn(async move {
+        let mut held_decision = None;
+        let mut aborted_tx = Some(aborted_tx);
+        while let Some(event) = event_rx.recv().await {
+            match event {
+                ServerEventV2::PrepareUpload { decision_tx, .. } => {
+                    if held_decision.is_none() {
+                        held_decision = Some(decision_tx);
+                    } else {
+                        let _ = decision_tx.send(PrepareUploadDecisionV2::Decline);
+                    }
+                }
+                ServerEventV2::PrepareUploadAborted { session_id } => {
+                    if let Some(tx) = aborted_tx.take() {
+                        let _ = tx.send(session_id);
+                    }
+                }
+                _ => {}
+            }
+        }
+    });
+
+    let (stop_tx, stop_rx) = oneshot::channel::<()>();
+    start_with_port(
+        port,
+        None, // plain HTTP
+        ClientInfo {
+            alias: "Test Server".to_string(),
+            version: "2.1".to_string(),
+            device_model: Some("Rust".to_string()),
+            device_type: None,
+            token: "server-fingerprint".to_string(),
+        },
+        None,
+        Some(ServerConfigV2 {
+            pin: None,
+            event_tx,
+        }),
+        None,
+        stop_rx,
+    )
+    .await
+    .expect("Failed to start server");
+    wait_until_reachable(port).await;
+
+    // Raw TCP so the connection can be closed mid-request.
+    let body =
+        serde_json::to_string(&prepare_upload_request(&[file_dto("file-a", "a.bin", 5)])).unwrap();
+    let request = format!(
+        "POST /api/localsend/v2/prepare-upload HTTP/1.1\r\nHost: 127.0.0.1:{port}\r\nContent-Type: application/json\r\nContent-Length: {}\r\n\r\n{body}",
+        body.len()
+    );
+    let mut stream = tokio::net::TcpStream::connect(("127.0.0.1", port))
+        .await
+        .unwrap();
+    tokio::io::AsyncWriteExt::write_all(&mut stream, request.as_bytes())
+        .await
+        .unwrap();
+
+    // Give the server time to read the request and emit PrepareUpload,
+    // then hang up without waiting for the response.
+    tokio::time::sleep(Duration::from_millis(200)).await;
+    drop(stream);
+
+    tokio::time::timeout(Duration::from_secs(3), aborted_rx)
+        .await
+        .expect("PrepareUploadAborted was not emitted after the sender disconnected")
+        .unwrap();
+
+    // The pending slot must be free again for the next sender.
+    let client = LsHttpClientV2::try_new_without_cert().unwrap();
+    let result = client
+        .prepare_upload(
+            ProtocolType::Http,
+            "127.0.0.1",
+            port,
+            None,
+            prepare_upload_request(&[file_dto("file-b", "b.bin", 5)]),
+            None,
+            CancellationToken::new(),
+        )
+        .await;
+    // The event loop declines the second request; 409 would mean the
+    // pending slot of the aborted request leaked.
+    assert_status(result, 403);
+
+    let _ = stop_tx.send(());
+}
+
+/// A released (Dart) sender cancels a pending prepare-upload with a
+/// session-less `POST /cancel` while keeping the prepare-upload request open:
+/// it does not know the session ID (that is part of the response it never
+/// waits for) and does not abort the connection. The pending request must be
+/// rejected, the application notified, and the slot freed.
+#[tokio::test]
+async fn test_prepare_upload_cancelled_by_session_less_cancel() {
+    let _ = tracing_subscriber::fmt().with_test_writer().try_init();
+    let port = free_port();
+
+    let (event_tx, mut event_rx) = mpsc::channel::<ServerEventV2>(16);
+    let (aborted_tx, mut aborted_rx) = oneshot::channel::<String>();
+
+    tokio::spawn(async move {
+        let mut held_decision = None;
+        let mut aborted_tx = Some(aborted_tx);
+        while let Some(event) = event_rx.recv().await {
+            match event {
+                ServerEventV2::PrepareUpload { decision_tx, .. } => {
+                    if held_decision.is_none() {
+                        held_decision = Some(decision_tx);
+                    } else {
+                        let _ = decision_tx.send(PrepareUploadDecisionV2::Decline);
+                    }
+                }
+                ServerEventV2::PrepareUploadAborted { session_id } => {
+                    if let Some(tx) = aborted_tx.take() {
+                        let _ = tx.send(session_id);
+                    }
+                }
+                _ => {}
+            }
+        }
+    });
+
+    let (stop_tx, stop_rx) = oneshot::channel::<()>();
+    start_with_port(
+        port,
+        None, // plain HTTP
+        ClientInfo {
+            alias: "Test Server".to_string(),
+            version: "2.1".to_string(),
+            device_model: Some("Rust".to_string()),
+            device_type: None,
+            token: "server-fingerprint".to_string(),
+        },
+        None,
+        Some(ServerConfigV2 {
+            pin: None,
+            event_tx,
+        }),
+        None,
+        stop_rx,
+    )
+    .await
+    .expect("Failed to start server");
+    wait_until_reachable(port).await;
+
+    // The prepare-upload request stays open in the background, like the
+    // released sender that fires the cancel without aborting it.
+    let prepare_task = tokio::spawn(async move {
+        let client = LsHttpClientV2::try_new_without_cert().unwrap();
+        client
+            .prepare_upload(
+                ProtocolType::Http,
+                "127.0.0.1",
+                port,
+                None,
+                prepare_upload_request(&[file_dto("file-a", "a.bin", 5)]),
+                None,
+                CancellationToken::new(),
+            )
+            .await
+    });
+    tokio::time::sleep(Duration::from_millis(200)).await;
+
+    let cancel_url = format!("http://127.0.0.1:{port}/api/localsend/v2/cancel");
+    let cancel_client = localsend::reqwest::Client::new();
+
+    // A cancel with a wrong session ID must not cancel the pending request.
+    cancel_client
+        .post(format!("{cancel_url}?sessionId=some-other-session"))
+        .send()
+        .await
+        .unwrap();
+    assert!(
+        tokio::time::timeout(Duration::from_millis(300), &mut aborted_rx)
+            .await
+            .is_err(),
+        "a cancel with a foreign session ID must not abort the pending request"
+    );
+
+    // The session-less cancel of the released sender.
+    cancel_client.post(&cancel_url).send().await.unwrap();
+
+    tokio::time::timeout(Duration::from_secs(3), aborted_rx)
+        .await
+        .expect("PrepareUploadAborted was not emitted after the session-less cancel")
+        .unwrap();
+
+    // The open prepare-upload request is answered with a rejection.
+    let result = prepare_task.await.unwrap();
+    assert_status(result, 403);
+
+    // The pending slot must be free again for the next sender.
+    let client = LsHttpClientV2::try_new_without_cert().unwrap();
+    let result = client
+        .prepare_upload(
+            ProtocolType::Http,
+            "127.0.0.1",
+            port,
+            None,
+            prepare_upload_request(&[file_dto("file-b", "b.bin", 5)]),
+            None,
+            CancellationToken::new(),
+        )
+        .await;
+    assert_status(result, 403);
+
+    let _ = stop_tx.send(());
+}
+
+/// Same as [test_prepare_upload_aborted_by_sender_disconnect], but over TLS
+/// with mutual certificates - the transport every real LocalSend transfer
+/// uses - and cancelled through the client's cancellation token, the way a
+/// sender cancels while waiting for the receiver's decision.
+#[tokio::test]
+async fn test_prepare_upload_aborted_by_sender_disconnect_tls() {
+    let _ = tracing_subscriber::fmt().with_test_writer().try_init();
+    let port = free_port();
+
+    let server_key = rcgen::KeyPair::generate().unwrap();
+    let server_cert = rcgen::CertificateParams::new(vec!["LocalSend User".to_string()])
+        .unwrap()
+        .self_signed(&server_key)
+        .unwrap();
+    let sender_key = rcgen::KeyPair::generate().unwrap();
+    let sender_cert = rcgen::CertificateParams::new(vec!["LocalSend User".to_string()])
+        .unwrap()
+        .self_signed(&sender_key)
+        .unwrap();
+
+    let (event_tx, mut event_rx) = mpsc::channel::<ServerEventV2>(16);
+    let (aborted_tx, aborted_rx) = oneshot::channel::<String>();
+
+    tokio::spawn(async move {
+        let mut held_decision = None;
+        let mut aborted_tx = Some(aborted_tx);
+        while let Some(event) = event_rx.recv().await {
+            match event {
+                ServerEventV2::PrepareUpload { decision_tx, .. } => {
+                    if held_decision.is_none() {
+                        held_decision = Some(decision_tx);
+                    } else {
+                        let _ = decision_tx.send(PrepareUploadDecisionV2::Decline);
+                    }
+                }
+                ServerEventV2::PrepareUploadAborted { session_id } => {
+                    if let Some(tx) = aborted_tx.take() {
+                        let _ = tx.send(session_id);
+                    }
+                }
+                _ => {}
+            }
+        }
+    });
+
+    let (stop_tx, stop_rx) = oneshot::channel::<()>();
+    start_with_port(
+        port,
+        Some(localsend::http::server::TlsConfig {
+            cert: server_cert.pem(),
+            private_key: server_key.serialize_pem(),
+        }),
+        ClientInfo {
+            alias: "Test Server".to_string(),
+            version: "2.1".to_string(),
+            device_model: Some("Rust".to_string()),
+            device_type: None,
+            token: "server-fingerprint".to_string(),
+        },
+        None,
+        Some(ServerConfigV2 {
+            pin: None,
+            event_tx,
+        }),
+        None,
+        stop_rx,
+    )
+    .await
+    .expect("Failed to start server");
+    wait_until_reachable(port).await;
+
+    // The sender cancels while the server is still waiting for the
+    // application's decision.
+    let client =
+        LsHttpClientV2::try_new(&sender_key.serialize_pem(), &sender_cert.pem(), None, None)
+            .unwrap();
+    let cancel = CancellationToken::new();
+    tokio::spawn({
+        let cancel = cancel.clone();
+        async move {
+            tokio::time::sleep(Duration::from_millis(300)).await;
+            cancel.cancel();
+        }
+    });
+    let result = client
+        .prepare_upload(
+            ProtocolType::Https,
+            "127.0.0.1",
+            port,
+            None,
+            prepare_upload_request(&[file_dto("file-a", "a.bin", 5)]),
+            None,
+            cancel,
+        )
+        .await;
+    assert!(
+        matches!(result, Err(ClientError::Cancelled)),
+        "expected ClientError::Cancelled, got {:?}",
+        result.err()
+    );
+
+    tokio::time::timeout(Duration::from_secs(3), aborted_rx)
+        .await
+        .expect("PrepareUploadAborted was not emitted after the sender disconnected (TLS)")
+        .unwrap();
+
+    // The pending slot must be free again for the next sender.
+    let client =
+        LsHttpClientV2::try_new(&sender_key.serialize_pem(), &sender_cert.pem(), None, None)
+            .unwrap();
+    let result = client
+        .prepare_upload(
+            ProtocolType::Https,
+            "127.0.0.1",
+            port,
+            None,
+            prepare_upload_request(&[file_dto("file-b", "b.bin", 5)]),
+            None,
+            CancellationToken::new(),
+        )
+        .await;
+    assert_status(result, 403);
+
+    let _ = stop_tx.send(());
 }
 
 #[tokio::test]
@@ -823,6 +1187,7 @@ async fn test_prepare_upload_declined() {
             None,
             prepare_upload_request(&[file.clone()]),
             None,
+            CancellationToken::new(),
         )
         .await;
     assert_status(result, 403);
@@ -836,6 +1201,7 @@ async fn test_prepare_upload_declined() {
             None,
             prepare_upload_request(&[file]),
             None,
+            CancellationToken::new(),
         )
         .await;
     assert_status(result, 403);
@@ -857,6 +1223,7 @@ async fn test_pin() {
             None,
             prepare_upload_request(&[file.clone()]),
             None,
+            CancellationToken::new(),
         )
         .await;
     assert_status(result, 401);
@@ -870,6 +1237,7 @@ async fn test_pin() {
             None,
             prepare_upload_request(&[file.clone()]),
             Some("000000"),
+            CancellationToken::new(),
         )
         .await;
     assert_status(result, 401);
@@ -883,6 +1251,7 @@ async fn test_pin() {
             None,
             prepare_upload_request(&[file]),
             Some("123456"),
+            CancellationToken::new(),
         )
         .await
         .unwrap();
@@ -904,6 +1273,7 @@ async fn test_pin_too_many_attempts() {
                 None,
                 prepare_upload_request(&[file.clone()]),
                 Some("000000"),
+                CancellationToken::new(),
             )
             .await;
         assert_status(result, 401);
@@ -918,6 +1288,7 @@ async fn test_pin_too_many_attempts() {
             None,
             prepare_upload_request(&[file]),
             Some("123456"),
+            CancellationToken::new(),
         )
         .await;
     assert_status(result, 429);

@@ -73,16 +73,16 @@ class HttpServerService {
     );
   }
 
-  /// Rejects a pending file upload, e.g. because no save target could be
+  /// Fails a pending file upload, e.g. because no save target could be
   /// prepared. The upload request fails with an error response and the file is
   /// marked as failed; the session itself continues.
   /// Does nothing if the upload was already answered via [respondFileUpload].
-  Future<void> rejectFileUpload({required String sessionId, required String fileId}) async {
-    await _requireServer().rejectFileUpload(sessionId: sessionId, fileId: fileId);
+  Future<void> failFileUpload({required String sessionId, required String fileId}) async {
+    await _requireServer().failFileUpload(sessionId: sessionId, fileId: fileId);
   }
 
   /// Cancels the active upload session. Uploads that are already in progress
-  /// still run to completion, but new upload requests are rejected and a new
+  /// still run to completion, but new upload requests fail and a new
   /// session can be created. No session-end event is emitted.
   Future<void> cancelSession({required String sessionId}) async {
     await _requireServer().cancelSession(sessionId: sessionId);
@@ -110,11 +110,11 @@ class HttpServerService {
     );
   }
 
-  /// Rejects a pending web file download, e.g. because no content source could
+  /// Fails a pending web file download, e.g. because no content source could
   /// be resolved. The download request fails with an error response.
   /// Does nothing if the download was already answered via [respondFileDownload].
-  Future<void> rejectFileDownload({required String sessionId, required String fileId}) async {
-    await _requireServer().rejectFileDownload(sessionId: sessionId, fileId: fileId);
+  Future<void> failFileDownload({required String sessionId, required String fileId}) async {
+    await _requireServer().failFileDownload(sessionId: sessionId, fileId: fileId);
   }
 
   /// Stops the server. The event stream returned by [start] will end.

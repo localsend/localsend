@@ -274,6 +274,7 @@ async fn test_transfer_with_matching_fingerprint() {
             None,
             prepare_upload_request(&sender, &files),
             None,
+            CancellationToken::new(),
         )
         .await
         .expect("prepare-upload should succeed");
@@ -321,6 +322,7 @@ async fn test_prepare_upload_rejected_on_fingerprint_mismatch() {
             None,
             prepare_upload_request(&sender, &files),
             None,
+            CancellationToken::new(),
         )
         .await;
 

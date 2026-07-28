@@ -67,10 +67,19 @@ impl RsHttpClient {
         payload: PrepareUploadRequestDto,
         public_key: Option<String>,
         pin: Option<String>,
+        cancel_token: &RsCancellationToken,
     ) -> Result<PrepareUploadResult, RsHttpClientError> {
         let response = self
             .inner
-            .prepare_upload(protocol, ip, port, public_key, payload, pin.as_deref())
+            .prepare_upload(
+                protocol,
+                ip,
+                port,
+                public_key,
+                payload,
+                pin.as_deref(),
+                cancel_token.inner.clone(),
+            )
             .await
             .map_err(RsHttpClientError::from)?;
 
@@ -208,7 +217,7 @@ impl From<ClientError> for RsHttpClientError {
 /// Renders an error together with everything that caused it.
 ///
 /// [`reqwest::Error`] alone only says "error sending request for url (...)".
-pub fn error_chain(e: &dyn std::error::Error) -> String {
+pub(crate) fn error_chain(e: &dyn std::error::Error) -> String {
     use std::fmt::Write;
 
     let mut message = e.to_string();

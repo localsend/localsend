@@ -109,17 +109,18 @@ impl LsHttpClient {
         public_key: Option<String>,
         payload: http::dto::PrepareUploadRequestDto,
         pin: Option<&str>,
+        cancel: tokio_util::sync::CancellationToken,
     ) -> Result<http::dto::PrepareUploadResult, ClientError> {
         match self {
             LsHttpClient::V2(client) => {
                 let result = client
-                    .prepare_upload(protocol, ip, port, public_key, payload.into(), pin)
+                    .prepare_upload(protocol, ip, port, public_key, payload.into(), pin, cancel)
                     .await?;
                 Ok(result.into())
             }
             LsHttpClient::V3(client) => {
                 client
-                    .prepare_upload(protocol, ip, port, public_key, payload)
+                    .prepare_upload(protocol, ip, port, public_key, payload, cancel)
                     .await
             }
         }

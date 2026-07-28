@@ -443,12 +443,12 @@ impl RsHttpServer {
         }
     }
 
-    /// Rejects the pending [RsServerEvent::FileUpload] event, e.g. because
+    /// Fails the pending [RsServerEvent::FileUpload] event, e.g. because
     /// the application failed to prepare a save target for the file.
     ///
     /// The upload request fails with an error response and the file is marked
     /// as failed. Does nothing if the upload was already answered.
-    pub async fn reject_file_upload(&self, session_id: String, file_id: String) {
+    pub async fn fail_file_upload(&self, session_id: String, file_id: String) {
         // Dropping the responder fails the request waiting for the target.
         self.pending_uploads
             .lock()
@@ -509,12 +509,12 @@ impl RsHttpServer {
         Ok(())
     }
 
-    /// Rejects the pending [RsServerEvent::WebFileDownload] event, e.g. because
+    /// Fails the pending [RsServerEvent::WebFileDownload] event, e.g. because
     /// the application failed to resolve a source for the file content.
     ///
     /// The download request fails with an error response.
     /// Does nothing if the download was already answered.
-    pub async fn reject_file_download(&self, session_id: String, file_id: String) {
+    pub async fn fail_file_download(&self, session_id: String, file_id: String) {
         // Dropping the responder fails the request waiting for the content.
         self.pending_downloads
             .lock()
@@ -526,7 +526,7 @@ impl RsHttpServer {
     /// transfer on the receiving side.
     ///
     /// Uploads that are already in progress still run to completion, but new
-    /// upload requests are rejected and a new session can be created.
+    /// upload requests fail and a new session can be created.
     /// No [RsServerEvent::SessionEnd] is emitted: the application initiated
     /// the cancellation itself.
     pub async fn cancel_session(&self, session_id: String) {

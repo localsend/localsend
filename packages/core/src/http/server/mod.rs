@@ -138,7 +138,7 @@ impl ServerHandle {
     /// e.g. because the user aborted the transfer on the receiving side.
     ///
     /// Uploads that are already in progress still run to completion, but new
-    /// upload requests are rejected and a new session can be created.
+    /// upload requests fail and a new session can be created.
     /// No [ServerEventV2::SessionEnd] is emitted: the application initiated
     /// the cancellation itself.
     ///

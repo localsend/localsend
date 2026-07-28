@@ -9,7 +9,7 @@ use crate::http::server::common::query::parse_query;
 use crate::http::server::common::response::{empty_body, BoxedBody, JsonResponse};
 use crate::http::server::common::save::{FileUploadTarget, SaveResult};
 use crate::http::server::common::session::{
-    FileStatusV2, SessionFileV2, SessionStateV2, UploadSessionV2,
+    FileStatusV2, PendingSessionV2, SessionFileV2, SessionStateV2, UploadSessionV2,
 };
 use crate::http::server::PeerIp;
 use crate::http::server::{common, AppState, RequestClientInfo, V2State};
@@ -19,6 +19,7 @@ use hyper::{Request, Response, StatusCode};
 use std::collections::{HashMap, HashSet};
 use std::sync::Arc;
 use tokio::sync::oneshot;
+use tokio_util::sync::CancellationToken;
 use uuid::Uuid;
 
 /// Events emitted by the v2 HTTP server that must be handled by the application.
@@ -229,6 +230,9 @@ pub(crate) async fn prepare_upload(
         return Err(AppError::BadRequest("No files provided".to_string()));
     }
 
+    let session_id = Uuid::new_v4().to_string();
+    let cancelled = CancellationToken::new();
+
     // Claim the single session slot.
     {
         let mut slot = v2.session.lock().await;
@@ -238,10 +242,12 @@ pub(crate) async fn prepare_upload(
                 "Blocked by another session".to_string(),
             ));
         }
-        *slot = Some(SessionStateV2::Pending);
+        *slot = Some(SessionStateV2::Pending(PendingSessionV2 {
+            session_id: session_id.clone(),
+            sender_ip: client_info.ip,
+            cancel: cancelled.clone(),
+        }));
     }
-
-    let session_id = Uuid::new_v4().to_string();
 
     // Frees the slot again if this request is aborted before a session is created.
     let mut pending_guard = PendingSessionGuard::new(v2.clone(), session_id.clone());
@@ -259,9 +265,20 @@ pub(crate) async fn prepare_upload(
         return Err(AppError::Status(StatusCode::INTERNAL_SERVER_ERROR));
     }
 
-    let decision = decision_rx
-        .await
-        .map_err(|_| AppError::Status(StatusCode::INTERNAL_SERVER_ERROR))?;
+    // The sender may cancel the request while the application is deciding.
+    // Returning with the guard still armed frees the slot and emits
+    // [ServerEventV2::PrepareUploadAborted], like a dropped connection.
+    let decision = tokio::select! {
+        decision = decision_rx => {
+            decision.map_err(|_| AppError::Status(StatusCode::INTERNAL_SERVER_ERROR))?
+        }
+        _ = cancelled.cancelled() => {
+            return Err(AppError::Message(
+                StatusCode::FORBIDDEN,
+                "Cancelled by sender".to_string(),
+            ));
+        }
+    };
 
     let accepted_ids = match decision {
         PrepareUploadDecisionV2::Decline => {
@@ -408,8 +425,36 @@ pub(crate) async fn cancel(
 ) -> Result<Response<BoxedBody>, AppError> {
     let v2 = require_v2(&state)?;
     let query = parse_query(req.uri().query());
+    let session_id = query.get("sessionId");
 
-    if let Some(session_id) = query.get("sessionId") {
+    // A pending prepare-upload request: the sender does not know the session
+    // ID yet (it is part of the response), so a cancel from the pending
+    // sender's address is accepted without one.
+    let pending_cancelled = {
+        let slot = v2.session.lock().await;
+        match slot.as_ref() {
+            Some(SessionStateV2::Pending(pending))
+                if pending.sender_ip == client_info.ip
+                    && session_id.is_none_or(|id| *id == pending.session_id) =>
+            {
+                tracing::info!(
+                    "Pending upload session cancelled by sender: {}",
+                    pending.session_id
+                );
+                // The waiting prepare-upload handler frees the slot and
+                // notifies the application.
+                pending.cancel.cancel();
+                true
+            }
+            _ => false,
+        }
+    };
+
+    if pending_cancelled {
+        return Ok(Response::new(empty_body()));
+    }
+
+    if let Some(session_id) = session_id {
         let cancelled = {
             let mut slot = v2.session.lock().await;
             match slot.as_ref() {
@@ -515,7 +560,7 @@ impl Drop for PendingSessionGuard {
 
 async fn clear_pending_session(v2: &V2State) {
     let mut slot = v2.session.lock().await;
-    if matches!(*slot, Some(SessionStateV2::Pending)) {
+    if matches!(*slot, Some(SessionStateV2::Pending(_))) {
         *slot = None;
     }
 }

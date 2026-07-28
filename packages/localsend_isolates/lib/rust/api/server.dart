@@ -53,10 +53,24 @@ abstract class RsHttpServer implements RustOpaqueInterface {
   /// transfer on the receiving side.
   ///
   /// Uploads that are already in progress still run to completion, but new
-  /// upload requests are rejected and a new session can be created.
+  /// upload requests fail and a new session can be created.
   /// No [RsServerEvent::SessionEnd] is emitted: the application initiated
   /// the cancellation itself.
   Future<void> cancelSession({required String sessionId});
+
+  /// Fails the pending [RsServerEvent::WebFileDownload] event, e.g. because
+  /// the application failed to resolve a source for the file content.
+  ///
+  /// The download request fails with an error response.
+  /// Does nothing if the download was already answered.
+  Future<void> failFileDownload({required String sessionId, required String fileId});
+
+  /// Fails the pending [RsServerEvent::FileUpload] event, e.g. because
+  /// the application failed to prepare a save target for the file.
+  ///
+  /// The upload request fails with an error response and the file is marked
+  /// as failed. Does nothing if the upload was already answered.
+  Future<void> failFileUpload({required String sessionId, required String fileId});
 
   /// Emits server events until the server is stopped.
   /// Can only be listened to once.
@@ -64,20 +78,6 @@ abstract class RsHttpServer implements RustOpaqueInterface {
   /// The v2 protocol, the web send (download API), and the internal endpoint
   /// events are all emitted on the same stream.
   Stream<RsServerEvent> listen();
-
-  /// Rejects the pending [RsServerEvent::WebFileDownload] event, e.g. because
-  /// the application failed to resolve a source for the file content.
-  ///
-  /// The download request fails with an error response.
-  /// Does nothing if the download was already answered.
-  Future<void> rejectFileDownload({required String sessionId, required String fileId});
-
-  /// Rejects the pending [RsServerEvent::FileUpload] event, e.g. because
-  /// the application failed to prepare a save target for the file.
-  ///
-  /// The upload request fails with an error response and the file is marked
-  /// as failed. Does nothing if the upload was already answered.
-  Future<void> rejectFileUpload({required String sessionId, required String fileId});
 
   /// Answers the pending [RsServerEvent::WebFileDownload] event with the source
   /// the file content should be read from (either a path or a file descriptor).

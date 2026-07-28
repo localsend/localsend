@@ -7,13 +7,13 @@ import 'dart:async' as _i4;
 
 import 'package:flutter/material.dart' as _i8;
 import 'package:localsend_app/gen/strings.g.dart' as _i10;
-import 'package:localsend_isolates/model/device.dart' as _i12;
-import 'package:localsend_isolates/model/stored_security_context.dart' as _i2;
 import 'package:localsend_app/model/persistence/color_mode.dart' as _i9;
 import 'package:localsend_app/model/persistence/favorite_device.dart' as _i6;
 import 'package:localsend_app/model/persistence/receive_history_entry.dart' as _i5;
 import 'package:localsend_app/model/send_mode.dart' as _i11;
 import 'package:localsend_app/provider/persistence_provider.dart' as _i3;
+import 'package:localsend_isolates/model/device.dart' as _i12;
+import 'package:localsend_isolates/model/stored_security_context.dart' as _i2;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:mockito/src/dummies.dart' as _i7;
 import 'package:shared_preferences/shared_preferences.dart' as _i13;

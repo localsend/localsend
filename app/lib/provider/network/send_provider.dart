@@ -51,6 +51,12 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
   /// Session ID -> Cancel token
   final _hashCancelTokens = <String, rust_cancel.RsCancellationToken>{};
 
+  /// Cancel tokens of the running prepare-upload requests.
+  /// Cancelling aborts the request, which tells the receiver that the sender
+  /// is no longer waiting for a decision.
+  /// Session ID -> Cancel token
+  final _prepareUploadCancelTokens = <String, rust_cancel.RsCancellationToken>{};
+
   @override
   Map<String, SendSessionState> init() {
     return {};
@@ -195,92 +201,99 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
     bool invalidPin;
     bool pinFirstAttempt = true;
     String? pin;
-    do {
-      invalidPin = false;
-      try {
-        response = await client.prepareUpload(
-          protocol: target.getProtocolType(),
-          ip: target.ip!,
-          port: target.port,
-          payload: requestDto,
-          // The peer is already verified during the TLS handshake by the
-          // fingerprint the client is pinned to.
-          publicKey: null,
-          pin: pin,
-        );
-      } on rust_http.RsHttpClientError_StatusCode catch (e) {
-        switch (e.status) {
-          case 401:
-            invalidPin = true;
+    final prepareUploadCancelToken = rust_cancel.createCancellationToken();
+    _prepareUploadCancelTokens[sessionId] = prepareUploadCancelToken;
+    try {
+      do {
+        invalidPin = false;
+        try {
+          response = await client.prepareUpload(
+            protocol: target.getProtocolType(),
+            ip: target.ip!,
+            port: target.port,
+            payload: requestDto,
+            // The peer is already verified during the TLS handshake by the
+            // fingerprint the client is pinned to.
+            publicKey: null,
+            pin: pin,
+            cancelToken: prepareUploadCancelToken,
+          );
+        } on rust_http.RsHttpClientError_StatusCode catch (e) {
+          switch (e.status) {
+            case 401:
+              invalidPin = true;
 
-            // wait until animation is finished
-            await sleepAsync(500);
+              // wait until animation is finished
+              await sleepAsync(500);
 
-            pin = await showDialog<String>(
-              context: Routerino.context, // ignore: use_build_context_synchronously
-              builder: (_) => PinDialog(
-                obscureText: true,
-                showInvalidPin: !pinFirstAttempt,
-              ),
-            );
+              pin = await showDialog<String>(
+                context: Routerino.context, // ignore: use_build_context_synchronously
+                builder: (_) => PinDialog(
+                  obscureText: true,
+                  showInvalidPin: !pinFirstAttempt,
+                ),
+              );
 
-            pinFirstAttempt = false;
+              pinFirstAttempt = false;
 
-            if (pin == null) {
+              if (pin == null) {
+                state = state.updateSession(
+                  sessionId: sessionId,
+                  state: (s) => s?.copyWith(
+                    status: SessionStatus.canceledBySender,
+                  ),
+                );
+                return;
+              }
+              break;
+            case 403:
               state = state.updateSession(
                 sessionId: sessionId,
                 state: (s) => s?.copyWith(
-                  status: SessionStatus.canceledBySender,
+                  status: SessionStatus.declined,
                 ),
               );
               return;
-            }
-            break;
-          case 403:
-            state = state.updateSession(
-              sessionId: sessionId,
-              state: (s) => s?.copyWith(
-                status: SessionStatus.declined,
-              ),
-            );
-            return;
-          case 409:
-            state = state.updateSession(
-              sessionId: sessionId,
-              state: (s) => s?.copyWith(
-                status: SessionStatus.recipientBusy,
-              ),
-            );
-            return;
-          case 429:
-            state = state.updateSession(
-              sessionId: sessionId,
-              state: (s) => s?.copyWith(
-                status: SessionStatus.tooManyAttempts,
-              ),
-            );
-            return;
-          default:
-            state = state.updateSession(
-              sessionId: sessionId,
-              state: (s) => s?.copyWith(
-                status: SessionStatus.finishedWithErrors,
-                errorMessage: e.humanErrorMessage,
-              ),
-            );
-            return;
+            case 409:
+              state = state.updateSession(
+                sessionId: sessionId,
+                state: (s) => s?.copyWith(
+                  status: SessionStatus.recipientBusy,
+                ),
+              );
+              return;
+            case 429:
+              state = state.updateSession(
+                sessionId: sessionId,
+                state: (s) => s?.copyWith(
+                  status: SessionStatus.tooManyAttempts,
+                ),
+              );
+              return;
+            default:
+              state = state.updateSession(
+                sessionId: sessionId,
+                state: (s) => s?.copyWith(
+                  status: SessionStatus.finishedWithErrors,
+                  errorMessage: e.humanErrorMessage,
+                ),
+              );
+              return;
+          }
+        } catch (e) {
+          state = state.updateSession(
+            sessionId: sessionId,
+            state: (s) => s?.copyWith(
+              status: SessionStatus.finishedWithErrors,
+              errorMessage: e.humanErrorMessage,
+            ),
+          );
+          return;
         }
-      } catch (e) {
-        state = state.updateSession(
-          sessionId: sessionId,
-          state: (s) => s?.copyWith(
-            status: SessionStatus.finishedWithErrors,
-            errorMessage: e.humanErrorMessage,
-          ),
-        );
-        return;
-      }
-    } while (invalidPin);
+      } while (invalidPin);
+    } finally {
+      _prepareUploadCancelTokens.remove(sessionId);
+    }
 
     if (response == null) {
       return;
@@ -672,6 +685,7 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
 
   void _cancelRunningRequests(SendSessionState state) {
     _hashCancelTokens.remove(state.sessionId)?.cancel();
+    _prepareUploadCancelTokens.remove(state.sessionId)?.cancel();
 
     for (final task in state.sendingTasks ?? <SendingTask>[]) {
       ref
@@ -692,6 +706,7 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
     }
     TransferNotification.stop(sessionId);
     _hashCancelTokens.remove(sessionId)?.cancel();
+    _prepareUploadCancelTokens.remove(sessionId)?.cancel();
     state = state.removeSession(ref, sessionId);
     if (sessionState.status == SessionStatus.finished && ref.read(settingsProvider).sendMode == SendMode.single) {
       // clear selected files
@@ -707,6 +722,10 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
       cancelToken.cancel();
     }
     _hashCancelTokens.clear();
+    for (final cancelToken in _prepareUploadCancelTokens.values) {
+      cancelToken.cancel();
+    }
+    _prepareUploadCancelTokens.clear();
     state = {};
     ref.notifier(progressProvider).removeAllSessions();
   }

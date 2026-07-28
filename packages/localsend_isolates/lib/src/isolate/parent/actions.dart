@@ -391,16 +391,16 @@ class IsolateHttpServerFileDownloadTargetAction extends ReduxAction<IsolateContr
   }
 }
 
-/// Rejects a pending [HttpServerWebFileDownloadEvent], e.g. because no source
+/// Fails a pending [HttpServerWebFileDownloadEvent], e.g. because no source
 /// for the file content could be resolved. The web client receives an error
 /// response for this file.
 /// Does nothing if the download was already answered with a
 /// [IsolateHttpServerFileDownloadTargetAction].
-class IsolateHttpServerRejectFileDownloadAction extends ReduxAction<IsolateController, ParentIsolateState> {
+class IsolateHttpServerFailFileDownloadAction extends ReduxAction<IsolateController, ParentIsolateState> {
   final String sessionId;
   final String fileId;
 
-  IsolateHttpServerRejectFileDownloadAction({
+  IsolateHttpServerFailFileDownloadAction({
     required this.sessionId,
     required this.fileId,
   });
@@ -416,7 +416,7 @@ class IsolateHttpServerRejectFileDownloadAction extends ReduxAction<IsolateContr
       SendToIsolateData(
         syncState: null,
         data: IsolateTask(
-          data: HttpServerRejectFileDownloadTask(
+          data: HttpServerFailFileDownloadTask(
             sessionId: sessionId,
             fileId: fileId,
           ),

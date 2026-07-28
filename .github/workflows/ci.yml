@@ -77,9 +77,16 @@ jobs:
           echo "Inno Setup version is $VERSION"
           echo "inno_version=$VERSION" >> $GITHUB_ENV
 
-      - name: Compare pubspec and Inno Setup versions
+      - name: Extract version from CLI Cargo.toml
+        id: cli_version
         run: |
-          if [ "$pubspec_version" != "$inno_version" ]; then
+          VERSION=$(grep '^version = ' cli/Cargo.toml | sed 's/version = "//' | sed 's/"//')
+          echo "CLI version is $VERSION"
+          echo "cli_version=$VERSION" >> $GITHUB_ENV
+
+      - name: Compare pubspec, Inno Setup and CLI versions
+        run: |
+          if [ "$pubspec_version" != "$inno_version" ] || [ "$pubspec_version" != "$cli_version" ]; then
             echo "Version mismatch detected!"
             exit 1
           else

@@ -144,15 +144,15 @@ class HttpServerFileDownloadTargetTask implements BaseHttpServerTask {
   });
 }
 
-/// Rejects a pending [HttpServerWebFileDownloadEvent], e.g. because no source
+/// Fails a pending [HttpServerWebFileDownloadEvent], e.g. because no source
 /// for the file content could be resolved. The download request fails with an
 /// error response. Does nothing if the download was already answered with a
 /// [HttpServerFileDownloadTargetTask].
-class HttpServerRejectFileDownloadTask implements BaseHttpServerTask {
+class HttpServerFailFileDownloadTask implements BaseHttpServerTask {
   final String sessionId;
   final String fileId;
 
-  HttpServerRejectFileDownloadTask({
+  HttpServerFailFileDownloadTask({
     required this.sessionId,
     required this.fileId,
   });
@@ -575,12 +575,12 @@ Future<void> setupHttpServerIsolate(
                 fileDescriptor: targetTask.fileDescriptor,
               );
           return;
-        case HttpServerRejectFileDownloadTask rejectTask:
+        case HttpServerFailFileDownloadTask failTask:
           await ref
               .read(httpServerProvider)
-              .rejectFileDownload(
-                sessionId: rejectTask.sessionId,
-                fileId: rejectTask.fileId,
+              .failFileDownload(
+                sessionId: failTask.sessionId,
+                fileId: failTask.fileId,
               );
           return;
       }
@@ -642,12 +642,12 @@ Future<void> _handleFileUpload({
   } catch (e, st) {
     _logger.severe('Failed to prepare save target', e, st);
 
-    // The Rust server is still waiting for the target; rejecting fails the
+    // The Rust server is still waiting for the target; failing it ends the
     // sender's request which would otherwise hang forever.
     try {
-      await ref.read(httpServerProvider).rejectFileUpload(sessionId: sessionId, fileId: fileId);
+      await ref.read(httpServerProvider).failFileUpload(sessionId: sessionId, fileId: fileId);
     } catch (e) {
-      _logger.warning('Failed to reject file upload', e);
+      _logger.warning('Could not fail the pending file upload', e);
     }
 
     emitFailed(e);

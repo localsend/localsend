@@ -1,6 +1,31 @@
 [package]
-name = "cli"
-version = "0.1.0"
+name = "localsend-cli"
+version = "1.17.0"
 edition = "2024"
 
+[[bin]]
+name = "localsend-cli"
+path = "src/main.rs"
+
 [dependencies]
+localsend = { path = "../packages/core", features = ["full"] }
+anyhow = "1.0"
+bytes = "1.11"
+clap = { version = "4.6", features = ["derive", "env"] }
+crossterm = "0.29"
+dirs = "6.0"
+futures-util = "0.3"
+gethostname = "1.0"
+if-addrs = "0.15"
+mime_guess = "2.0"
+pem = "4.0"
+ratatui = "0.30"
+ratatui-explorer = "0.3"
+rcgen = "0.14"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+tokio = { version = "1", features = ["full"] }
+tokio-stream = "0.1"
+tokio-util = { version = "0.7", features = ["rt"] }
+toml = "1.1"
+uuid = { version = "1", features = ["v4"] }
