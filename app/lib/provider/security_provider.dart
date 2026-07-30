@@ -30,7 +30,7 @@ class SecurityService extends ReduxNotifier<StoredSecurityContext> {
 class ResetSecurityContextAction extends AsyncReduxAction<SecurityService, StoredSecurityContext> {
   @override
   Future<StoredSecurityContext> reduce() async {
-    final securityContext = generateSecurityContext();
+    final securityContext = await generateSecurityContext();
     await notifier._persistence.setSecurityContext(securityContext);
     return securityContext;
   }

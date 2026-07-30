@@ -1812,6 +1812,7 @@ dependencies = [
  "pem 3.0.6",
  "percent-encoding",
  "rand 0.9.5",
+ "rcgen 0.14.8",
  "reqwest",
  "rsa",
  "rustls",

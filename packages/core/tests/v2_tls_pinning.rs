@@ -5,7 +5,6 @@
 
 use bytes::Bytes;
 use futures_util::StreamExt;
-use localsend::crypto::cert::fingerprint_from_cert_der;
 use localsend::http::client::{ClientError, LsHttpClientV2};
 use localsend::http::dto::ProtocolType;
 use localsend::http::dto_v2::{PrepareUploadRequestDtoV2, ProtocolTypeV2, RegisterDtoV2};
@@ -30,16 +29,12 @@ struct Identity {
 }
 
 fn generate_identity() -> Identity {
-    let key_pair = rcgen::KeyPair::generate().unwrap();
-    let cert = rcgen::CertificateParams::new(vec!["LocalSend User".to_string()])
-        .unwrap()
-        .self_signed(&key_pair)
-        .unwrap();
+    let cert = localsend::crypto::cert::generate_self_signed().unwrap();
 
     Identity {
-        cert: cert.pem(),
-        private_key: key_pair.serialize_pem(),
-        fingerprint: fingerprint_from_cert_der(cert.der()),
+        cert: cert.certificate_pem,
+        private_key: cert.private_key_pem,
+        fingerprint: cert.fingerprint,
     }
 }
 

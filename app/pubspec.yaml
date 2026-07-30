@@ -10,10 +10,8 @@ environment:
   sdk: ^3.11.0
 
 dependencies:
-  basic_utils: 5.8.2
   collection: ^1.17.2 # allow newer versions, so it can compile with newer Flutter versions
   connectivity_plus: 7.2.0
-  convert: 3.1.2
   dart_mappable: 4.8.0
   desktop_drop: 0.7.1
   device_apps: 2.2.0

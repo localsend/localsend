@@ -166,7 +166,7 @@ class PersistenceService {
     }
 
     if (prefs.getString(_securityContext) == null) {
-      await prefs.setString(_securityContext, jsonEncode(generateSecurityContext()));
+      await prefs.setString(_securityContext, jsonEncode(await generateSecurityContext()));
     }
 
     if (isFirstAppStart) {

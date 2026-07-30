@@ -86,20 +86,14 @@ impl Identity {
     }
 
     fn generate(alias: String, port: u16) -> anyhow::Result<Self> {
-        let key_pair = rcgen::KeyPair::generate()?;
-        let mut params = rcgen::CertificateParams::default();
-        params.distinguished_name = rcgen::DistinguishedName::new();
-        params
-            .distinguished_name
-            .push(rcgen::DnType::CommonName, "LocalSend User");
-        let cert = params.self_signed(&key_pair)?;
+        let cert = localsend::crypto::cert::generate_self_signed()?;
 
         Ok(Self {
             alias,
             port,
-            fingerprint: fingerprint_from_cert_der(cert.der()),
-            cert_pem: cert.pem(),
-            key_pem: key_pair.serialize_pem(),
+            fingerprint: cert.fingerprint,
+            cert_pem: cert.certificate_pem,
+            key_pem: cert.private_key_pem,
         })
     }
 

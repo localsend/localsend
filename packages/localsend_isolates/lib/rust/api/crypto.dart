@@ -12,6 +12,10 @@ Future<void> verifyCert({required String cert, required String publicKey}) =>
 
 Future<KeyPair> generateKeyPair() => RustLib.instance.api.crateApiCryptoGenerateKeyPair();
 
+/// Generates a new device identity: an RSA-2048 key pair and a self-signed
+/// certificate whose SHA-256 fingerprint identifies the device.
+Future<SecurityContext> generateSecurityContext() => RustLib.instance.api.crateApiCryptoGenerateSecurityContext();
+
 /// Computes the SHA-256 checksum of a file, encoded as lowercase hex.
 ///
 /// The file is read chunk by chunk, so it is never fully loaded into memory.
@@ -40,4 +44,31 @@ class KeyPair {
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is KeyPair && runtimeType == other.runtimeType && privateKey == other.privateKey && publicKey == other.publicKey;
+}
+
+class SecurityContext {
+  final String privateKey;
+  final String publicKey;
+  final String certificate;
+  final String certificateHash;
+
+  const SecurityContext({
+    required this.privateKey,
+    required this.publicKey,
+    required this.certificate,
+    required this.certificateHash,
+  });
+
+  @override
+  int get hashCode => privateKey.hashCode ^ publicKey.hashCode ^ certificate.hashCode ^ certificateHash.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is SecurityContext &&
+          runtimeType == other.runtimeType &&
+          privateKey == other.privateKey &&
+          publicKey == other.publicKey &&
+          certificate == other.certificate &&
+          certificateHash == other.certificateHash;
 }

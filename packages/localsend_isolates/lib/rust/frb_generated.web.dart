@@ -438,6 +438,9 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   RTCStatus dco_decode_rtc_status(dynamic raw);
 
   @protected
+  SecurityContext dco_decode_security_context(dynamic raw);
+
+  @protected
   SessionEndReasonV2 dco_decode_session_end_reason_v_2(dynamic raw);
 
   @protected
@@ -866,6 +869,9 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
 
   @protected
   RTCStatus sse_decode_rtc_status(SseDeserializer deserializer);
+
+  @protected
+  SecurityContext sse_decode_security_context(SseDeserializer deserializer);
 
   @protected
   SessionEndReasonV2 sse_decode_session_end_reason_v_2(SseDeserializer deserializer);
@@ -1342,6 +1348,9 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
 
   @protected
   void sse_encode_rtc_status(RTCStatus self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_security_context(SecurityContext self, SseSerializer serializer);
 
   @protected
   void sse_encode_session_end_reason_v_2(SessionEndReasonV2 self, SseSerializer serializer);

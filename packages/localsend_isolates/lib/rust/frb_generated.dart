@@ -74,7 +74,7 @@ class RustLib extends BaseEntrypoint<RustLibApi, RustLibApiImpl, RustLibWire> {
   String get codegenVersion => '2.12.0';
 
   @override
-  int get rustContentHash => 1795427439;
+  int get rustContentHash => -286605518;
 
   static const kDefaultExternalLibraryLoaderConfig = ExternalLibraryLoaderConfig(
     stem: 'rust_lib_localsend_app',
@@ -246,6 +246,8 @@ abstract class RustLibApi extends BaseApi {
   Future<void> crateApiLoggingEnableDebugLogging();
 
   Future<KeyPair> crateApiCryptoGenerateKeyPair();
+
+  Future<SecurityContext> crateApiCryptoGenerateSecurityContext();
 
   Future<String> crateApiCryptoHashFile({String? path, int? fileDescriptor, Uint8List? bytes, required RsCancellationToken cancelToken});
 
@@ -1671,6 +1673,30 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   );
 
   @override
+  Future<SecurityContext> crateApiCryptoGenerateSecurityContext() {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          final serializer = SseSerializer(generalizedFrbRustBinding);
+          pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 45, port: port_);
+        },
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_security_context,
+          decodeErrorData: sse_decode_AnyhowException,
+        ),
+        constMeta: kCrateApiCryptoGenerateSecurityContextConstMeta,
+        argValues: [],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kCrateApiCryptoGenerateSecurityContextConstMeta => const TaskConstMeta(
+    debugName: 'generate_security_context',
+    argNames: [],
+  );
+
+  @override
   Future<String> crateApiCryptoHashFile({String? path, int? fileDescriptor, Uint8List? bytes, required RsCancellationToken cancelToken}) {
     return handler.executeNormal(
       NormalTask(
@@ -1680,7 +1706,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           sse_encode_opt_box_autoadd_i_32(fileDescriptor, serializer);
           sse_encode_opt_list_prim_u_8_strict(bytes, serializer);
           sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsCancellationToken(cancelToken, serializer);
-          pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 45, port: port_);
+          pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 46, port: port_);
         },
         codec: SseCodec(
           decodeSuccessData: sse_decode_String,
@@ -1727,7 +1753,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           sse_encode_String(fingerprint, serializer);
           sse_encode_protocol_type_v_2(protocol, serializer);
           sse_encode_bool(download, serializer);
-          pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 46, port: port_);
+          pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 47, port: port_);
         },
         codec: SseCodec(
           decodeSuccessData: sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsMulticast,
@@ -1784,7 +1810,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           sse_encode_opt_String(pin, serializer);
           sse_encode_opt_box_autoadd_web_send_params(webSend, serializer);
           sse_encode_opt_String(showToken, serializer);
-          pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 47, port: port_);
+          pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 48, port: port_);
         },
         codec: SseCodec(
           decodeSuccessData: sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsHttpServer,
@@ -1810,7 +1836,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           final serializer = SseSerializer(generalizedFrbRustBinding);
           sse_encode_String(cert, serializer);
           sse_encode_String(publicKey, serializer);
-          pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 48, port: port_);
+          pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 49, port: port_);
         },
         codec: SseCodec(
           decodeSuccessData: sse_decode_unit,
@@ -2911,6 +2937,19 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       default:
         throw Exception('unreachable');
     }
+  }
+
+  @protected
+  SecurityContext dco_decode_security_context(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 4) throw Exception('unexpected arr length: expect 4 but see ${arr.length}');
+    return SecurityContext(
+      privateKey: dco_decode_String(arr[0]),
+      publicKey: dco_decode_String(arr[1]),
+      certificate: dco_decode_String(arr[2]),
+      certificateHash: dco_decode_String(arr[3]),
+    );
   }
 
   @protected
@@ -4127,6 +4166,16 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  SecurityContext sse_decode_security_context(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_privateKey = sse_decode_String(deserializer);
+    var var_publicKey = sse_decode_String(deserializer);
+    var var_certificate = sse_decode_String(deserializer);
+    var var_certificateHash = sse_decode_String(deserializer);
+    return SecurityContext(privateKey: var_privateKey, publicKey: var_publicKey, certificate: var_certificate, certificateHash: var_certificateHash);
+  }
+
+  @protected
   SessionEndReasonV2 sse_decode_session_end_reason_v_2(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     var inner = sse_decode_i_32(deserializer);
@@ -5333,6 +5382,15 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
         sse_encode_i_32(7, serializer);
         sse_encode_String(field0, serializer);
     }
+  }
+
+  @protected
+  void sse_encode_security_context(SecurityContext self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_String(self.privateKey, serializer);
+    sse_encode_String(self.publicKey, serializer);
+    sse_encode_String(self.certificate, serializer);
+    sse_encode_String(self.certificateHash, serializer);
   }
 
   @protected

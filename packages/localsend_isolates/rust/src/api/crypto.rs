@@ -20,6 +20,26 @@ pub struct KeyPair {
     pub public_key: String,
 }
 
+/// Generates a new device identity: an RSA-2048 key pair and a self-signed
+/// certificate whose SHA-256 fingerprint identifies the device.
+pub fn generate_security_context() -> anyhow::Result<SecurityContext> {
+    let cert = localsend::crypto::cert::generate_self_signed()?;
+
+    Ok(SecurityContext {
+        private_key: cert.private_key_pem,
+        public_key: cert.public_key_pem,
+        certificate: cert.certificate_pem,
+        certificate_hash: cert.fingerprint,
+    })
+}
+
+pub struct SecurityContext {
+    pub private_key: String,
+    pub public_key: String,
+    pub certificate: String,
+    pub certificate_hash: String,
+}
+
 /// Computes the SHA-256 checksum of a file, encoded as lowercase hex.
 ///
 /// The file is read chunk by chunk, so it is never fully loaded into memory.
