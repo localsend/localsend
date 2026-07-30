@@ -238,7 +238,7 @@ impl DeviceList {
                         .title_top(" Devices "),
                 )
                 .highlight_spacing(HighlightSpacing::Always)
-                .highlight_style(Style::default().bg(Color::DarkGray));
+                .highlight_style(Style::default().bg(Color::DarkGray).fg(Color::White));
             frame.render_stateful_widget(list, main_area, list_state);
 
             frame.render_widget(Paragraph::new(help), help_area);
@@ -265,10 +265,9 @@ fn row_item(row: &Row) -> ListItem<'_> {
                 None => "-".to_string(),
             };
             match &device.host {
-                Some(host) => ListItem::new(Span::styled(
-                    format!("  [{slot}] {} ({host})", device.alias),
-                    Style::default().fg(Color::White),
-                )),
+                Some(host) => {
+                    ListItem::new(Span::raw(format!("  [{slot}] {} ({host})", device.alias)))
+                }
                 None => ListItem::new(Span::styled(
                     format!("  [{slot}] {} (offline)", device.alias),
                     Style::default().fg(Color::DarkGray),

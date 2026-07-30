@@ -4,11 +4,12 @@ use ratatui::Terminal;
 use ratatui::backend::CrosstermBackend;
 use ratatui::layout::{Constraint, Layout};
 use ratatui::style::{Color, Style};
-use ratatui::text::Span;
+use ratatui::text::{Line, Span};
 use ratatui::widgets::{Block, Borders, HighlightSpacing, List, ListState, Paragraph};
 use ratatui_explorer::{File, FileExplorer};
 use std::io::Stdout;
 use std::path::PathBuf;
+use unicode_width::{UnicodeWidthChar, UnicodeWidthStr};
 
 /// How far `PageUp` / `PageDown` jump, matching `ratatui_explorer`.
 const SCROLL_COUNT: usize = 12;
@@ -36,6 +37,10 @@ pub struct Picker {
 
     /// Indices into `explorer.files()` that match `query`, in listing order.
     matches: Vec<usize>,
+
+    /// Byte sizes of `explorer.files()`, same indices. `None` for directories
+    /// and for entries whose metadata could not be read.
+    sizes: Vec<Option<u64>>,
 
     list_state: ListState,
 }
@@ -66,8 +71,10 @@ impl Picker {
             selected: Vec::new(),
             query: String::new(),
             matches: Vec::new(),
+            sizes: Vec::new(),
             list_state: ListState::default(),
         };
+        picker.refresh_sizes();
         picker.refresh_matches();
         picker.select_first_entry();
         picker.draw();
@@ -177,8 +184,24 @@ impl Picker {
             return;
         }
         self.query.clear();
+        self.refresh_sizes();
         self.refresh_matches();
         self.select_first_entry();
+    }
+
+    /// Stats the current listing. Only ever called when the directory changes:
+    /// `explorer.files()` is stable otherwise, and doing this per draw would
+    /// mean one syscall per entry on every key press.
+    fn refresh_sizes(&mut self) {
+        self.sizes = self
+            .explorer
+            .files()
+            .iter()
+            .map(|file| match file.is_dir {
+                true => None,
+                false => file.path.metadata().ok().map(|metadata| metadata.len()),
+            })
+            .collect();
     }
 
     /// Highlights the first real entry, skipping the `../` link the explorer
@@ -234,6 +257,7 @@ impl Picker {
             selected,
             query,
             matches,
+            sizes,
             list_state,
             ..
         } = self;
@@ -261,20 +285,29 @@ impl Picker {
                 block = block.title_bottom(format!(" Filter: {query} ({hits}) "));
             }
 
+            // No highlight symbol is set, so `HighlightSpacing::Always` reserves
+            // nothing and only the borders eat into the width.
+            let inner_width = main_area.width.saturating_sub(2) as usize;
+
             let items = matches
                 .iter()
-                .filter_map(|&index| explorer.files().get(index))
-                .map(|file| {
+                .filter_map(|&index| {
+                    let file = explorer.files().get(index)?;
+                    Some((file, sizes.get(index).copied().flatten()))
+                })
+                .map(|(file, size)| {
+                    // Files stay unstyled so they inherit the terminal's default
+                    // foreground, which is readable on light and dark profiles alike.
                     let style = match file.is_dir {
-                        true => Style::default().fg(Color::LightBlue),
-                        false => Style::default().fg(Color::White),
+                        true => Style::default().fg(Color::Cyan),
+                        false => Style::default(),
                     };
-                    Span::styled(file.name.clone(), style)
+                    entry_line(&file.name, size, style, inner_width)
                 });
             let list = List::new(items)
                 .block(block)
                 .highlight_spacing(HighlightSpacing::Always)
-                .highlight_style(Style::default().bg(Color::DarkGray));
+                .highlight_style(Style::default().bg(Color::DarkGray).fg(Color::White));
             frame.render_stateful_widget(list, main_area, list_state);
 
             let selected_line = match selected.is_empty() {
@@ -293,6 +326,53 @@ impl Picker {
             frame.render_widget(Paragraph::new(help), help_area);
         });
     }
+}
+
+/// One listing row: the name, and the size right-aligned within `width`
+/// display columns. Directories pass `None` and render as the bare name.
+fn entry_line(name: &str, size: Option<u64>, style: Style, width: usize) -> Line<'static> {
+    let Some(size) = size else {
+        return Line::from(Span::styled(name.to_string(), style));
+    };
+    let size = util::format_bytes(size);
+
+    // The size wins when the row is too narrow for both: a name can be
+    // truncated and still be recognisable, half a size reads as a wrong number.
+    let (name, name_width) = truncate(name, width.saturating_sub(size.width() + 1));
+    let gap = width.saturating_sub(name_width + size.width());
+
+    Line::from(vec![
+        Span::styled(name, style),
+        Span::raw(" ".repeat(gap)),
+        Span::styled(size, Style::default().fg(Color::DarkGray)),
+    ])
+}
+
+/// Shortens `name` to at most `width` display columns, marking the cut with an
+/// ellipsis. Returns the result and its width, which is not `name.len()`:
+/// CJK and emoji occupy two columns per character.
+fn truncate(name: &str, width: usize) -> (String, usize) {
+    if name.width() <= width {
+        return (name.to_string(), name.width());
+    }
+    if width == 0 {
+        return (String::new(), 0);
+    }
+
+    // Reserve the last column for the ellipsis.
+    let budget = width - 1;
+    let mut truncated = String::new();
+    let mut truncated_width = 0;
+    for c in name.chars() {
+        let char_width = c.width().unwrap_or(0);
+        if truncated_width + char_width > budget {
+            break;
+        }
+        truncated.push(c);
+        truncated_width += char_width;
+    }
+    truncated.push('…');
+    (truncated, truncated_width + 1)
 }
 
 /// Case-insensitive subsequence match, so `myrep` finds `My Report.pdf`
