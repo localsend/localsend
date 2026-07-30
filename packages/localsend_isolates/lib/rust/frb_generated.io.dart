@@ -193,6 +193,9 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   RustStreamSink<Uint8List> dco_decode_StreamSink_list_prim_u_8_strict_Sse(dynamic raw);
 
   @protected
+  RustStreamSink<RsHashFileEvent> dco_decode_StreamSink_rs_hash_file_event_Sse(dynamic raw);
+
+  @protected
   RustStreamSink<RsMulticastDiscovered> dco_decode_StreamSink_rs_multicast_discovered_Sse(dynamic raw);
 
   @protected
@@ -418,6 +421,9 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   ResultWithPublicKeyRegisterResponseDto dco_decode_result_with_public_key_register_response_dto(dynamic raw);
 
   @protected
+  RsHashFileEvent dco_decode_rs_hash_file_event(dynamic raw);
+
+  @protected
   RsHttpClientError dco_decode_rs_http_client_error(dynamic raw);
 
   @protected
@@ -622,6 +628,9 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
 
   @protected
   RustStreamSink<Uint8List> sse_decode_StreamSink_list_prim_u_8_strict_Sse(SseDeserializer deserializer);
+
+  @protected
+  RustStreamSink<RsHashFileEvent> sse_decode_StreamSink_rs_hash_file_event_Sse(SseDeserializer deserializer);
 
   @protected
   RustStreamSink<RsMulticastDiscovered> sse_decode_StreamSink_rs_multicast_discovered_Sse(SseDeserializer deserializer);
@@ -849,6 +858,9 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
 
   @protected
   ResultWithPublicKeyRegisterResponseDto sse_decode_result_with_public_key_register_response_dto(SseDeserializer deserializer);
+
+  @protected
+  RsHashFileEvent sse_decode_rs_hash_file_event(SseDeserializer deserializer);
 
   @protected
   RsHttpClientError sse_decode_rs_http_client_error(SseDeserializer deserializer);
@@ -1101,6 +1113,9 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   void sse_encode_StreamSink_list_prim_u_8_strict_Sse(RustStreamSink<Uint8List> self, SseSerializer serializer);
 
   @protected
+  void sse_encode_StreamSink_rs_hash_file_event_Sse(RustStreamSink<RsHashFileEvent> self, SseSerializer serializer);
+
+  @protected
   void sse_encode_StreamSink_rs_multicast_discovered_Sse(RustStreamSink<RsMulticastDiscovered> self, SseSerializer serializer);
 
   @protected
@@ -1328,6 +1343,9 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
 
   @protected
   void sse_encode_result_with_public_key_register_response_dto(ResultWithPublicKeyRegisterResponseDto self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_rs_hash_file_event(RsHashFileEvent self, SseSerializer serializer);
 
   @protected
   void sse_encode_rs_http_client_error(RsHttpClientError self, SseSerializer serializer);

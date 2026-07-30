@@ -3,9 +3,11 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:localsend_app/config/theme.dart';
 import 'package:localsend_app/gen/strings.g.dart';
+import 'package:localsend_app/model/state/send/send_session_state.dart';
 import 'package:localsend_app/provider/device_info_provider.dart';
 import 'package:localsend_app/provider/favorites_provider.dart';
 import 'package:localsend_app/provider/network/send_provider.dart';
+import 'package:localsend_app/provider/progress_provider.dart';
 import 'package:localsend_app/util/favorites.dart';
 import 'package:localsend_app/util/native/taskbar_helper.dart';
 import 'package:localsend_app/widget/animations/initial_fade_transition.dart';
@@ -31,6 +33,19 @@ class SendPage extends StatefulWidget {
 
   @override
   State<SendPage> createState() => _SendPageState();
+}
+
+double _hashProgress(SendSessionState sendState, ProgressNotifier progressNotifier) {
+  final files = sendState.files.values;
+  final totalBytes = files.fold<int>(0, (prev, curr) => prev + curr.file.size);
+  if (totalBytes == 0) {
+    return sendState.files.isEmpty ? 0 : sendState.hashedFileCount / sendState.files.length;
+  }
+  final hashedBytes = files.fold<double>(
+    0,
+    (prev, curr) => prev + progressNotifier.getProgress(sessionId: sendState.sessionId, fileId: curr.file.id) * curr.file.size,
+  );
+  return (hashedBytes / totalBytes).clamp(0, 1);
 }
 
 class _SendPageState extends State<SendPage> with Refena {
@@ -145,7 +160,7 @@ class _SendPageState extends State<SendPage> with Refena {
                                           SizedBox(
                                             width: 200,
                                             child: LinearProgressIndicator(
-                                              value: sendState.hashedFileCount / sendState.files.length,
+                                              value: _hashProgress(sendState, ref.watch(progressProvider)),
                                             ),
                                           ),
                                         ],

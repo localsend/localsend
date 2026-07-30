@@ -26,27 +26,38 @@ pub fn sha256_hex(data: &[u8]) -> String {
 }
 
 /// Computes the SHA-256 checksum of a file's content, encoded as lowercase hex.
+///
+/// `progress` is invoked with the cumulative number of bytes hashed as each
+/// chunk is consumed, mirroring the upload progress callback.
 pub async fn sha256_file_content(
     content: FileContent,
     cancel_token: &CancellationToken,
+    progress: impl Fn(u64),
 ) -> Result<String, HashError> {
     let mut hasher = Sha256::new();
     match content {
-        FileContent::Stream(mut receiver) => loop {
-            let chunk = tokio::select! {
-                biased;
-                _ = cancel_token.cancelled() => return Err(HashError::Cancelled),
-                chunk = receiver.recv() => chunk,
-            };
-            match chunk {
-                Some(chunk) => hasher.update(&chunk),
-                None => break,
+        FileContent::Stream(mut receiver) => {
+            let mut hashed = 0_u64;
+            loop {
+                let chunk = tokio::select! {
+                    biased;
+                    _ = cancel_token.cancelled() => return Err(HashError::Cancelled),
+                    chunk = receiver.recv() => chunk,
+                };
+                match chunk {
+                    Some(chunk) => {
+                        hasher.update(&chunk);
+                        hashed += chunk.len() as u64;
+                        progress(hashed);
+                    }
+                    None => break,
+                }
             }
-        },
+        }
         FileContent::Path(path) => {
             tracing::info!("Hashing file content from path: {}", path.display());
             let file = tokio::fs::File::open(&path).await?;
-            read_and_hash_from_file(&mut hasher, file, cancel_token).await?;
+            read_and_hash_from_file(&mut hasher, file, cancel_token, progress).await?;
         }
         #[cfg(target_os = "android")]
         FileContent::Fd(fd) => {
@@ -57,7 +68,7 @@ pub async fn sha256_file_content(
             // transfers that ownership so it is closed once hashing finishes.
             let std_file = unsafe { std::fs::File::from_raw_fd(fd) };
             let file = tokio::fs::File::from_std(std_file);
-            read_and_hash_from_file(&mut hasher, file, cancel_token).await?;
+            read_and_hash_from_file(&mut hasher, file, cancel_token, progress).await?;
         }
     }
 
@@ -69,10 +80,12 @@ async fn read_and_hash_from_file(
     hasher: &mut Sha256,
     mut file: tokio::fs::File,
     cancel_token: &CancellationToken,
+    progress: impl Fn(u64),
 ) -> Result<(), HashError> {
     use tokio::io::AsyncReadExt;
 
     let mut buffer = vec![0u8; HASH_BUFFER_SIZE];
+    let mut hashed = 0_u64;
     loop {
         let read = tokio::select! {
             biased;
@@ -83,6 +96,8 @@ async fn read_and_hash_from_file(
             break;
         }
         hasher.update(&buffer[..read]);
+        hashed += read as u64;
+        progress(hashed);
     }
     Ok(())
 }

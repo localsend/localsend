@@ -1,4 +1,5 @@
 use crate::api::cancel::RsCancellationToken;
+use crate::frb_generated::StreamSink;
 
 pub fn verify_cert(cert: String, public_key: String) -> anyhow::Result<()> {
     localsend::crypto::cert::verify_cert_from_pem(cert, Some(&public_key))
@@ -40,7 +41,20 @@ pub struct SecurityContext {
     pub certificate_hash: String,
 }
 
-/// Computes the SHA-256 checksum of a file, encoded as lowercase hex.
+/// An event emitted while a file is being hashed by [hash_file].
+#[derive(Clone)]
+pub enum RsHashFileEvent {
+    /// Cumulative number of bytes hashed so far.
+    /// Throttled, so not every hashed chunk is reported.
+    Progress { bytes: u64 },
+
+    /// Hashing has finished; [hash] is the checksum, encoded as lowercase hex.
+    /// Always the last event of the stream.
+    Done { hash: String },
+}
+
+/// Computes the SHA-256 checksum of a file, reported as the final
+/// [RsHashFileEvent::Done] event of the returned stream.
 ///
 /// The file is read chunk by chunk, so it is never fully loaded into memory.
 /// Cancelling [cancel_token] aborts the read, so hashing a large file does not
@@ -50,11 +64,12 @@ pub struct SecurityContext {
 /// a [path] to a regular file, a [file_descriptor] (Android only), or [bytes]
 /// for a file that only lives in memory.
 pub async fn hash_file(
+    sink: StreamSink<RsHashFileEvent>,
     path: Option<String>,
     file_descriptor: Option<i32>,
     bytes: Option<Vec<u8>>,
     cancel_token: &RsCancellationToken,
-) -> anyhow::Result<String> {
+) -> anyhow::Result<()> {
     let content = match (path, file_descriptor, bytes) {
         (Some(path), None, None) => localsend::model::transfer::FileContent::Path(path.into()),
         (None, Some(file_descriptor), None) => {
@@ -68,9 +83,33 @@ pub async fn hash_file(
                 anyhow::bail!("File descriptors are only supported on Android");
             }
         }
-        (None, None, Some(bytes)) => return Ok(localsend::crypto::hash::sha256_hex(&bytes)),
+        (None, None, Some(bytes)) => {
+            let hash = localsend::crypto::hash::sha256_hex(&bytes);
+            let _ = sink.add(RsHashFileEvent::Done { hash });
+            return Ok(());
+        }
         _ => anyhow::bail!("Exactly one content source must be provided"),
     };
 
-    Ok(localsend::crypto::hash::sha256_file_content(content, &cancel_token.inner).await?)
+    // Progress events with throttling
+    let last_emit = std::cell::Cell::new(None::<std::time::Instant>);
+    let progress = {
+        let sink = sink.clone();
+        move |hashed| {
+            let now = std::time::Instant::now();
+            if let Some(last) = last_emit.get() {
+                if now.duration_since(last) < std::time::Duration::from_millis(20) {
+                    return;
+                }
+            }
+            last_emit.set(Some(now));
+            let _ = sink.add(RsHashFileEvent::Progress { bytes: hashed });
+        }
+    };
+
+    let hash =
+        localsend::crypto::hash::sha256_file_content(content, &cancel_token.inner, progress)
+            .await?;
+    let _ = sink.add(RsHashFileEvent::Done { hash });
+    Ok(())
 }

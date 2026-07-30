@@ -2694,6 +2694,10 @@ fn wire__crate__api__crypto__hash_file_impl(
             };
             let mut deserializer =
                 flutter_rust_bridge::for_generated::SseDeserializer::new(message);
+            let api_sink = <StreamSink<
+                crate::api::crypto::RsHashFileEvent,
+                flutter_rust_bridge::for_generated::SseCodec,
+            >>::sse_decode(&mut deserializer);
             let api_path = <Option<String>>::sse_decode(&mut deserializer);
             let api_file_descriptor = <Option<i32>>::sse_decode(&mut deserializer);
             let api_bytes = <Option<Vec<u8>>>::sse_decode(&mut deserializer);
@@ -2724,6 +2728,7 @@ fn wire__crate__api__crypto__hash_file_impl(
                         }
                         let api_cancel_token_guard = api_cancel_token_guard.unwrap();
                         let output_ok = crate::api::crypto::hash_file(
+                            api_sink,
                             api_path,
                             api_file_descriptor,
                             api_bytes,
@@ -3424,6 +3429,19 @@ impl SseDecode for StreamSink<Vec<u8>, flutter_rust_bridge::for_generated::SseCo
 
 impl SseDecode
     for StreamSink<
+        crate::api::crypto::RsHashFileEvent,
+        flutter_rust_bridge::for_generated::SseCodec,
+    >
+{
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut inner = <String>::sse_decode(deserializer);
+        return StreamSink::deserialize(inner);
+    }
+}
+
+impl SseDecode
+    for StreamSink<
         crate::api::multicast::RsMulticastDiscovered,
         flutter_rust_bridge::for_generated::SseCodec,
     >
@@ -4088,6 +4106,26 @@ impl SseDecode for crate::api::http::ResultWithPublicKeyRegisterResponseDto {
             public_key: var_publicKey,
             body: var_body,
         };
+    }
+}
+
+impl SseDecode for crate::api::crypto::RsHashFileEvent {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut tag_ = <i32>::sse_decode(deserializer);
+        match tag_ {
+            0 => {
+                let mut var_bytes = <u64>::sse_decode(deserializer);
+                return crate::api::crypto::RsHashFileEvent::Progress { bytes: var_bytes };
+            }
+            1 => {
+                let mut var_hash = <String>::sse_decode(deserializer);
+                return crate::api::crypto::RsHashFileEvent::Done { hash: var_hash };
+            }
+            _ => {
+                unimplemented!("");
+            }
+        }
     }
 }
 
@@ -5345,6 +5383,33 @@ impl flutter_rust_bridge::IntoIntoDart<crate::api::http::ResultWithPublicKeyRegi
     }
 }
 // Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for crate::api::crypto::RsHashFileEvent {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        match self {
+            crate::api::crypto::RsHashFileEvent::Progress { bytes } => {
+                [0.into_dart(), bytes.into_into_dart().into_dart()].into_dart()
+            }
+            crate::api::crypto::RsHashFileEvent::Done { hash } => {
+                [1.into_dart(), hash.into_into_dart().into_dart()].into_dart()
+            }
+            _ => {
+                unimplemented!("");
+            }
+        }
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for crate::api::crypto::RsHashFileEvent
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<crate::api::crypto::RsHashFileEvent>
+    for crate::api::crypto::RsHashFileEvent
+{
+    fn into_into_dart(self) -> crate::api::crypto::RsHashFileEvent {
+        self
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
 impl flutter_rust_bridge::IntoDart for crate::api::http::RsHttpClientError {
     fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
         match self {
@@ -6031,6 +6096,18 @@ impl SseEncode for StreamSink<Vec<u8>, flutter_rust_bridge::for_generated::SseCo
 
 impl SseEncode
     for StreamSink<
+        crate::api::crypto::RsHashFileEvent,
+        flutter_rust_bridge::for_generated::SseCodec,
+    >
+{
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        unimplemented!("")
+    }
+}
+
+impl SseEncode
+    for StreamSink<
         crate::api::multicast::RsMulticastDiscovered,
         flutter_rust_bridge::for_generated::SseCodec,
     >
@@ -6572,6 +6649,25 @@ impl SseEncode for crate::api::http::ResultWithPublicKeyRegisterResponseDto {
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
         <Option<String>>::sse_encode(self.public_key, serializer);
         <crate::api::model::RegisterResponseDto>::sse_encode(self.body, serializer);
+    }
+}
+
+impl SseEncode for crate::api::crypto::RsHashFileEvent {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        match self {
+            crate::api::crypto::RsHashFileEvent::Progress { bytes } => {
+                <i32>::sse_encode(0, serializer);
+                <u64>::sse_encode(bytes, serializer);
+            }
+            crate::api::crypto::RsHashFileEvent::Done { hash } => {
+                <i32>::sse_encode(1, serializer);
+                <String>::sse_encode(hash, serializer);
+            }
+            _ => {
+                unimplemented!("");
+            }
+        }
     }
 }
 

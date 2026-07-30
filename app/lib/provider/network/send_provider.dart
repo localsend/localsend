@@ -140,7 +140,24 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
     try {
       for (final (:id, :file) in selectedFiles) {
         try {
-          hashes[id] = await calculateFileHash(path: file.path, bytes: file.bytes, cancelToken: hashCancelToken);
+          hashes[id] = await calculateFileHash(
+            path: file.path,
+            bytes: file.bytes,
+            cancelToken: hashCancelToken,
+            onProgress: (bytes) {
+              if (state[sessionId] == null) {
+                // session has been canceled while calculating the checksums
+                return;
+              }
+              ref
+                  .notifier(progressProvider)
+                  .setProgress(
+                    sessionId: sessionId,
+                    fileId: id,
+                    progress: file.size == 0 ? 1 : (bytes / file.size).clamp(0, 1),
+                  );
+            },
+          );
         } catch (e) {
           if (state[sessionId] != null) {
             // Sending the checksum is optional, so a file that cannot be read
@@ -155,6 +172,9 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
           return;
         }
 
+        // Also set for files whose hashing failed, so the progress bar stays
+        // consistent with the files that are left.
+        ref.notifier(progressProvider).setProgress(sessionId: sessionId, fileId: id, progress: 1);
         state = state.updateSession(
           sessionId: sessionId,
           state: (s) => s?.copyWith(hashedFileCount: s.hashedFileCount + 1),
@@ -348,6 +368,10 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
       for (final file in requestState.files.values)
         file.file.id: fileMap.containsKey(file.file.id) ? file.copyWith(token: fileMap[file.file.id]) : file.copyWith(status: FileStatus.skipped),
     };
+
+    // The hash progress is no longer needed and must not be mistaken for
+    // upload progress, which starts at zero for every file.
+    ref.notifier(progressProvider).removeSession(sessionId);
 
     if (state[sessionId]?.background == false) {
       final background = ref.read(settingsProvider).sendMode == SendMode.multiple;

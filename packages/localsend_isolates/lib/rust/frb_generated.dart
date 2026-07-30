@@ -249,7 +249,7 @@ abstract class RustLibApi extends BaseApi {
 
   Future<SecurityContext> crateApiCryptoGenerateSecurityContext();
 
-  Future<String> crateApiCryptoHashFile({String? path, int? fileDescriptor, Uint8List? bytes, required RsCancellationToken cancelToken});
+  Stream<RsHashFileEvent> crateApiCryptoHashFile({String? path, int? fileDescriptor, Uint8List? bytes, required RsCancellationToken cancelToken});
 
   Future<RsMulticast> crateApiMulticastStartMulticast({
     required String group,
@@ -1697,31 +1697,36 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   );
 
   @override
-  Future<String> crateApiCryptoHashFile({String? path, int? fileDescriptor, Uint8List? bytes, required RsCancellationToken cancelToken}) {
-    return handler.executeNormal(
-      NormalTask(
-        callFfi: (port_) {
-          final serializer = SseSerializer(generalizedFrbRustBinding);
-          sse_encode_opt_String(path, serializer);
-          sse_encode_opt_box_autoadd_i_32(fileDescriptor, serializer);
-          sse_encode_opt_list_prim_u_8_strict(bytes, serializer);
-          sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsCancellationToken(cancelToken, serializer);
-          pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 46, port: port_);
-        },
-        codec: SseCodec(
-          decodeSuccessData: sse_decode_String,
-          decodeErrorData: sse_decode_AnyhowException,
+  Stream<RsHashFileEvent> crateApiCryptoHashFile({String? path, int? fileDescriptor, Uint8List? bytes, required RsCancellationToken cancelToken}) {
+    final sink = RustStreamSink<RsHashFileEvent>();
+    unawaited(
+      handler.executeNormal(
+        NormalTask(
+          callFfi: (port_) {
+            final serializer = SseSerializer(generalizedFrbRustBinding);
+            sse_encode_StreamSink_rs_hash_file_event_Sse(sink, serializer);
+            sse_encode_opt_String(path, serializer);
+            sse_encode_opt_box_autoadd_i_32(fileDescriptor, serializer);
+            sse_encode_opt_list_prim_u_8_strict(bytes, serializer);
+            sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsCancellationToken(cancelToken, serializer);
+            pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 46, port: port_);
+          },
+          codec: SseCodec(
+            decodeSuccessData: sse_decode_unit,
+            decodeErrorData: sse_decode_AnyhowException,
+          ),
+          constMeta: kCrateApiCryptoHashFileConstMeta,
+          argValues: [sink, path, fileDescriptor, bytes, cancelToken],
+          apiImpl: this,
         ),
-        constMeta: kCrateApiCryptoHashFileConstMeta,
-        argValues: [path, fileDescriptor, bytes, cancelToken],
-        apiImpl: this,
       ),
     );
+    return sink.stream;
   }
 
   TaskConstMeta get kCrateApiCryptoHashFileConstMeta => const TaskConstMeta(
     debugName: 'hash_file',
-    argNames: ['path', 'fileDescriptor', 'bytes', 'cancelToken'],
+    argNames: ['sink', 'path', 'fileDescriptor', 'bytes', 'cancelToken'],
   );
 
   @override
@@ -2203,6 +2208,12 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
 
   @protected
   RustStreamSink<Uint8List> dco_decode_StreamSink_list_prim_u_8_strict_Sse(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    throw UnimplementedError();
+  }
+
+  @protected
+  RustStreamSink<RsHashFileEvent> dco_decode_StreamSink_rs_hash_file_event_Sse(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     throw UnimplementedError();
   }
@@ -2791,6 +2802,23 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  RsHashFileEvent dco_decode_rs_hash_file_event(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    switch (raw[0]) {
+      case 0:
+        return RsHashFileEvent_Progress(
+          bytes: dco_decode_u_64(raw[1]),
+        );
+      case 1:
+        return RsHashFileEvent_Done(
+          hash: dco_decode_String(raw[1]),
+        );
+      default:
+        throw Exception('unreachable');
+    }
+  }
+
+  @protected
   RsHttpClientError dco_decode_rs_http_client_error(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     switch (raw[0]) {
@@ -3359,6 +3387,12 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
 
   @protected
   RustStreamSink<Uint8List> sse_decode_StreamSink_list_prim_u_8_strict_Sse(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    throw UnimplementedError('Unreachable ()');
+  }
+
+  @protected
+  RustStreamSink<RsHashFileEvent> sse_decode_StreamSink_rs_hash_file_event_Sse(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     throw UnimplementedError('Unreachable ()');
   }
@@ -4029,6 +4063,23 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  RsHashFileEvent sse_decode_rs_hash_file_event(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    var tag_ = sse_decode_i_32(deserializer);
+    switch (tag_) {
+      case 0:
+        var var_bytes = sse_decode_u_64(deserializer);
+        return RsHashFileEvent_Progress(bytes: var_bytes);
+      case 1:
+        var var_hash = sse_decode_String(deserializer);
+        return RsHashFileEvent_Done(hash: var_hash);
+      default:
+        throw UnimplementedError('');
+    }
+  }
+
+  @protected
   RsHttpClientError sse_decode_rs_http_client_error(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
 
@@ -4651,6 +4702,20 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  void sse_encode_StreamSink_rs_hash_file_event_Sse(RustStreamSink<RsHashFileEvent> self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_String(
+      self.setupAndSerialize(
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_rs_hash_file_event,
+          decodeErrorData: sse_decode_AnyhowException,
+        ),
+      ),
+      serializer,
+    );
+  }
+
+  @protected
   void sse_encode_StreamSink_rs_multicast_discovered_Sse(RustStreamSink<RsMulticastDiscovered> self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_String(
@@ -5260,6 +5325,19 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_opt_String(self.publicKey, serializer);
     sse_encode_register_response_dto(self.body, serializer);
+  }
+
+  @protected
+  void sse_encode_rs_hash_file_event(RsHashFileEvent self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    switch (self) {
+      case RsHashFileEvent_Progress(bytes: final bytes):
+        sse_encode_i_32(0, serializer);
+        sse_encode_u_64(bytes, serializer);
+      case RsHashFileEvent_Done(hash: final hash):
+        sse_encode_i_32(1, serializer);
+        sse_encode_String(hash, serializer);
+    }
   }
 
   @protected

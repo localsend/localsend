@@ -4,8 +4,11 @@
 // ignore_for_file: invalid_use_of_internal_member, unused_import, unnecessary_import
 
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
+import 'package:freezed_annotation/freezed_annotation.dart' hide protected;
 import 'package:localsend_isolates/rust/api/cancel.dart';
 import 'package:localsend_isolates/rust/frb_generated.dart';
+
+part 'crypto.freezed.dart';
 
 Future<void> verifyCert({required String cert, required String publicKey}) =>
     RustLib.instance.api.crateApiCryptoVerifyCert(cert: cert, publicKey: publicKey);
@@ -16,7 +19,8 @@ Future<KeyPair> generateKeyPair() => RustLib.instance.api.crateApiCryptoGenerate
 /// certificate whose SHA-256 fingerprint identifies the device.
 Future<SecurityContext> generateSecurityContext() => RustLib.instance.api.crateApiCryptoGenerateSecurityContext();
 
-/// Computes the SHA-256 checksum of a file, encoded as lowercase hex.
+/// Computes the SHA-256 checksum of a file, reported as the final
+/// [RsHashFileEvent::Done] event of the returned stream.
 ///
 /// The file is read chunk by chunk, so it is never fully loaded into memory.
 /// Cancelling [cancel_token] aborts the read, so hashing a large file does not
@@ -25,7 +29,7 @@ Future<SecurityContext> generateSecurityContext() => RustLib.instance.api.crateA
 /// Exactly one content source must be provided:
 /// a [path] to a regular file, a [file_descriptor] (Android only), or [bytes]
 /// for a file that only lives in memory.
-Future<String> hashFile({String? path, int? fileDescriptor, Uint8List? bytes, required RsCancellationToken cancelToken}) =>
+Stream<RsHashFileEvent> hashFile({String? path, int? fileDescriptor, Uint8List? bytes, required RsCancellationToken cancelToken}) =>
     RustLib.instance.api.crateApiCryptoHashFile(path: path, fileDescriptor: fileDescriptor, bytes: bytes, cancelToken: cancelToken);
 
 class KeyPair {
@@ -44,6 +48,23 @@ class KeyPair {
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is KeyPair && runtimeType == other.runtimeType && privateKey == other.privateKey && publicKey == other.publicKey;
+}
+
+@freezed
+sealed class RsHashFileEvent with _$RsHashFileEvent {
+  const RsHashFileEvent._();
+
+  /// Cumulative number of bytes hashed so far.
+  /// Throttled, so not every hashed chunk is reported.
+  const factory RsHashFileEvent.progress({
+    required BigInt bytes,
+  }) = RsHashFileEvent_Progress;
+
+  /// Hashing has finished; [hash] is the checksum, encoded as lowercase hex.
+  /// Always the last event of the stream.
+  const factory RsHashFileEvent.done({
+    required String hash,
+  }) = RsHashFileEvent_Done;
 }
 
 class SecurityContext {
