@@ -4,6 +4,6 @@
     "After editing this file, you can run 'dart run slang apply --locale=uk' to quickly apply the newly added translations."
   ],
   "sendPage": {
-    "calculatingChecksum": "Calculating checksum ({curr} / {n})"
+    "calculatingChecksum": "Обчислення контрольної суми ({curr} / {n})"
   }
 }
