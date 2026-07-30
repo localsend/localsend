@@ -223,7 +223,8 @@
     "waiting": "Válaszra várva…",
     "rejected": "A fogadó elutasította a kérelmet.",
     "tooManyAttempts": "@:web.tooManyAttempts",
-    "busy": "A fogadó más kéréssel van elfoglalva."
+    "busy": "A fogadó más kéréssel van elfoglalva.",
+    "calculatingChecksum": "Ellenőrzőösszeg kiszámítása ({curr} / {n})"
   },
   "progressPage": {
     "titleSending": "Fájlok küldése",

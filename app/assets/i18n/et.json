@@ -223,7 +223,8 @@
     "waiting": "Ootame vastust…",
     "rejected": "Vastuvõtja on vastuvõtmisest keeldunud.",
     "tooManyAttempts": "@:web.tooManyAttempts",
-    "busy": "Vastuvõtja on hõivatud teise päringuga tegelemisega."
+    "busy": "Vastuvõtja on hõivatud teise päringuga tegelemisega.",
+    "calculatingChecksum": "Arvutan kontrollsummat ({curr} / {n})"
   },
   "progressPage": {
     "titleSending": "Saadame faile",

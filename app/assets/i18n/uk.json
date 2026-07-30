@@ -223,7 +223,8 @@
     "waiting": "Очікування відповіді…",
     "rejected": "Отримувач відхилив запит.",
     "tooManyAttempts": "@:web.tooManyAttempts",
-    "busy": "Отримувач зайнятий іншим запитом."
+    "busy": "Отримувач зайнятий іншим запитом.",
+    "calculatingChecksum": "Обчислення контрольної суми ({curr} / {n})"
   },
   "progressPage": {
     "titleSending": "Надсилання файлів",

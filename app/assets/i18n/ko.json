@@ -223,7 +223,8 @@
     "waiting": "응답 대기 중…",
     "rejected": "받는 사람이 요청을 거부했습니다",
     "tooManyAttempts": "@:web.tooManyAttempts",
-    "busy": "받는 사람이 다른 요청을 처리하는 중입니다."
+    "busy": "받는 사람이 다른 요청을 처리하는 중입니다.",
+    "calculatingChecksum": "체크섬 계산 중 ({curr} / {n})"
   },
   "progressPage": {
     "titleSending": "파일 보내는 중",

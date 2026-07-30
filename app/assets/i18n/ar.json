@@ -223,7 +223,8 @@
     "waiting": "بإنتظار الرد…",
     "rejected": "المستلم رفض الطلب.",
     "tooManyAttempts": "@:web.tooManyAttempts",
-    "busy": "المستلم مشغول بطلب آخر."
+    "busy": "المستلم مشغول بطلب آخر.",
+    "calculatingChecksum": "يحسب تدقيق المجموع ({curr} / {n})"
   },
   "progressPage": {
     "titleSending": "جارِ إرسال الملفات",
