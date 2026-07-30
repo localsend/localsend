@@ -3,7 +3,7 @@ use crossterm::event::{Event, KeyCode, KeyEvent, KeyModifiers};
 use ratatui::Terminal;
 use ratatui::backend::CrosstermBackend;
 use ratatui::layout::{Constraint, Layout};
-use ratatui::style::{Color, Style};
+use ratatui::style::{Color, Modifier, Style};
 use ratatui::text::{Line, Span};
 use ratatui::widgets::{Block, Borders, HighlightSpacing, List, ListState, Paragraph};
 use ratatui_explorer::{File, FileExplorer};
@@ -29,7 +29,11 @@ pub struct Picker {
 
     explorer: FileExplorer,
     terminal: Terminal<CrosstermBackend<Stdout>>,
-    selected: Vec<PathBuf>,
+
+    /// The picked files with the byte size they had when they were picked, so
+    /// that the summary line does not have to stat them again — they may well
+    /// live in a directory that is no longer listed.
+    selected: Vec<(PathBuf, u64)>,
 
     /// The search query, matched as a case-insensitive subsequence against the
     /// entry names. Empty means "show everything".
@@ -121,11 +125,14 @@ impl Picker {
                     && !current.is_dir
                 {
                     let path = current.path.clone();
-                    match self.selected.iter().position(|p| *p == path) {
+                    match self.selected.iter().position(|(p, _)| *p == path) {
                         Some(index) => {
                             self.selected.remove(index);
                         }
-                        None => self.selected.push(path),
+                        None => {
+                            let size = self.current_size().unwrap_or(0);
+                            self.selected.push((path, size));
+                        }
                     }
                 }
             }
@@ -135,14 +142,14 @@ impl Picker {
             {
                 Some((true, _)) => self.navigate(key),
                 Some((false, path)) => {
-                    let mut files = std::mem::take(&mut self.selected);
+                    let mut files = self.take_selected();
                     if files.is_empty() {
                         files.push(path);
                     }
                     return PickerOutcome::Picked(files);
                 }
                 None => {
-                    let files = std::mem::take(&mut self.selected);
+                    let files = self.take_selected();
                     if !files.is_empty() {
                         return PickerOutcome::Picked(files);
                     }
@@ -165,6 +172,22 @@ impl Picker {
     /// The highlighted entry, or `None` while nothing matches the query.
     fn current(&self) -> Option<&File> {
         self.cursor().map(|_| self.explorer.current())
+    }
+
+    /// Size of the highlighted entry, `None` for directories and for entries
+    /// whose metadata could not be read.
+    fn current_size(&self) -> Option<u64> {
+        self.sizes
+            .get(self.explorer.selected_idx())
+            .copied()
+            .flatten()
+    }
+
+    fn take_selected(&mut self) -> Vec<PathBuf> {
+        std::mem::take(&mut self.selected)
+            .into_iter()
+            .map(|(path, _)| path)
+            .collect()
     }
 
     /// Position of the highlighted entry within [Picker::matches].
@@ -298,10 +321,13 @@ impl Picker {
                 .map(|(file, size)| {
                     // Files stay unstyled so they inherit the terminal's default
                     // foreground, which is readable on light and dark profiles alike.
-                    let style = match file.is_dir {
+                    let mut style = match file.is_dir {
                         true => Style::default().fg(Color::Cyan),
                         false => Style::default(),
                     };
+                    if selected.iter().any(|(path, _)| *path == file.path) {
+                        style = style.add_modifier(Modifier::BOLD);
+                    }
                     entry_line(&file.name, size, style, inner_width)
                 });
             let list = List::new(items)
@@ -313,13 +339,13 @@ impl Picker {
             let selected_line = match selected.is_empty() {
                 true => " No files selected".to_string(),
                 false => format!(
-                    " Selected: {}",
-                    selected
-                        .iter()
-                        .filter_map(|path| path.file_name())
-                        .map(|name| name.to_string_lossy().into_owned())
-                        .collect::<Vec<_>>()
-                        .join(", ")
+                    " Selected: {} file{}, {}",
+                    selected.len(),
+                    match selected.len() {
+                        1 => "",
+                        _ => "s",
+                    },
+                    util::format_bytes(selected.iter().map(|(_, size)| size).sum())
                 ),
             };
             frame.render_widget(Paragraph::new(selected_line), selected_area);
