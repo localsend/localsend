@@ -1,9 +1,11 @@
+mod devices;
 mod discovery;
 mod receive;
 mod sending;
 mod status;
 
 use crate::Args;
+use crate::device_list::DeviceList;
 use crate::devices::DeviceRegistry;
 use crate::picker::Picker;
 use crate::storage;
@@ -69,6 +71,7 @@ struct App {
     receive: Option<ReceiveSession>,
     send: Option<SendState>,
     picker: Option<Picker>,
+    device_list: Option<DeviceList>,
 
     events_tx: mpsc::Sender<AppEvent>,
 }
@@ -155,6 +158,7 @@ pub async fn run(args: Args) -> anyhow::Result<()> {
         receive: None,
         send: None,
         picker: None,
+        device_list: None,
         events_tx: events_tx.clone(),
     };
 
@@ -181,12 +185,13 @@ pub async fn run(args: Args) -> anyhow::Result<()> {
         }
     }
 
-    // Shutdown: leave a possibly open picker, restore the terminal, stop the
+    // Shutdown: leave a possibly open modal, restore the terminal, stop the
     // network tasks (briefly, so the ports are released cleanly).
     if let Some(picker) = app.picker.take() {
         picker.close();
         app.ui.resume();
     }
+    app.close_device_list();
     app.ui.set_status(None);
     let _ = crossterm::terminal::disable_raw_mode();
     let _ = server_stop_tx.send(());
@@ -247,9 +252,13 @@ impl App {
             return self.handle_ctrl_c();
         }
 
-        // While the picker is open it consumes every key.
+        // While the picker or the device list is open it consumes every key.
         if self.picker.is_some() {
             self.handle_picker_key(key);
+            return false;
+        }
+        if self.device_list.is_some() {
+            self.handle_device_list_key(key);
             return false;
         }
 
@@ -258,6 +267,7 @@ impl App {
                 'y' => self.answer_pending(Answer::Accept),
                 'n' => self.answer_pending(Answer::Decline),
                 'p' => self.answer_pending(Answer::AcceptAndPair),
+                'd' => self.open_device_list(),
                 '1'..='9' => self.start_picking(c as u8 - b'0'),
                 _ => {}
             }
@@ -265,13 +275,17 @@ impl App {
         false
     }
 
-    /// Cancels the current activity: the picker, the pending request and the
-    /// active transfers. Returns `true` (quit) only when there was nothing to
-    /// cancel.
+    /// Cancels the current activity: the open modal, the pending request and
+    /// the active transfers. Returns `true` (quit) only when there was
+    /// nothing to cancel.
     fn handle_ctrl_c(&mut self) -> bool {
         if let Some(picker) = self.picker.take() {
             picker.close();
             self.ui.resume();
+            return false;
+        }
+        if self.device_list.is_some() {
+            self.close_device_list();
             return false;
         }
         let mut cancelled = false;

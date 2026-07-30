@@ -84,6 +84,20 @@ impl PairedDevices {
         self.save()
     }
 
+    /// Removes a device and saves the file. The device stays removed for
+    /// this run even when saving fails.
+    pub fn remove(&mut self, fingerprint: &str) -> anyhow::Result<Option<PairedDevice>> {
+        match self.file.devices.remove(fingerprint) {
+            Some(device) => self.save().map(|()| Some(device)),
+            None => Ok(None),
+        }
+    }
+
+    /// All paired devices with their fingerprints, ordered by fingerprint.
+    pub fn iter(&self) -> impl Iterator<Item = (&String, &PairedDevice)> {
+        self.file.devices.iter()
+    }
+
     fn save(&self) -> anyhow::Result<()> {
         // Write-then-rename so a crash cannot leave a truncated file.
         let temp = self.path.with_extension("json.tmp");

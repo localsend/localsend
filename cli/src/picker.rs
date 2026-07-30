@@ -1,6 +1,5 @@
+use crate::util;
 use crossterm::event::{Event, KeyCode, KeyEvent, KeyModifiers};
-use crossterm::terminal::{Clear, ClearType};
-use crossterm::{cursor, execute};
 use ratatui::Terminal;
 use ratatui::backend::CrosstermBackend;
 use ratatui::layout::{Constraint, Layout};
@@ -24,8 +23,8 @@ const SCROLL_COUNT: usize = 12;
 /// The explorer only supplies the directory listing; navigation and rendering
 /// are done here so that the filter can hide entries.
 pub struct Picker {
-    /// The device slot the picked files will be sent to.
-    pub slot: u8,
+    /// The fingerprint of the device the picked files will be sent to.
+    pub fingerprint: String,
 
     explorer: FileExplorer,
     terminal: Terminal<CrosstermBackend<Stdout>>,
@@ -56,16 +55,12 @@ pub enum PickerOutcome {
 impl Picker {
     /// Enters the alternate screen and shows the picker.
     /// The caller must suspend the log UI first and resume it after [Picker::close].
-    pub fn open(slot: u8) -> anyhow::Result<Self> {
+    pub fn open(fingerprint: String) -> anyhow::Result<Self> {
         let explorer = FileExplorer::new()?;
-        execute!(
-            std::io::stdout(),
-            crossterm::terminal::EnterAlternateScreen,
-            cursor::Hide
-        )?;
+        util::enter_alternate_screen()?;
         let terminal = Terminal::new(CrosstermBackend::new(std::io::stdout()))?;
         let mut picker = Self {
-            slot,
+            fingerprint,
             explorer,
             terminal,
             selected: Vec::new(),
@@ -81,17 +76,7 @@ impl Picker {
 
     /// Leaves the alternate screen. Must be called exactly once.
     pub fn close(self) {
-        // Clears via crossterm, not `Terminal::clear`: the latter queries the
-        // cursor position, whose response is read from the event stream but
-        // the keyboard reader thread is parked in `crossterm::event::read()`,
-        // so the query only ever returns after crossterm's 2s timeout.
-        let _ = execute!(
-            std::io::stdout(),
-            Clear(ClearType::All),
-            cursor::MoveTo(0, 0),
-            crossterm::terminal::LeaveAlternateScreen,
-            cursor::Show
-        );
+        util::leave_alternate_screen();
     }
 
     pub fn handle_key(&mut self, key: KeyEvent) -> PickerOutcome {

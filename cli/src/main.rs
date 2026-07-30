@@ -1,5 +1,6 @@
 mod app;
 mod banner;
+mod device_list;
 mod devices;
 mod picker;
 mod send_task;
@@ -33,6 +34,7 @@ const HELP_SECTIONS: &str = "Events:\n  \
                              R      Receive files\n\
                              \nHotkeys:\n  \
                              1-9    Send files to the device with that number\n  \
+                             D      Show the paired and discovered devices\n  \
                              Y/N/P  Accept / Decline / Accept-and-Pair an incoming request\n  \
                              Ctrl+C Cancel the current transfer or request, or quit when idle\n \
                              \nEnvironment Variables:\n  \

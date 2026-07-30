@@ -76,4 +76,15 @@ impl DeviceRegistry {
     pub fn by_slot(&self, slot: u8) -> Option<&Device> {
         self.devices.iter().find(|device| device.slot == Some(slot))
     }
+
+    pub fn by_fingerprint(&self, fingerprint: &str) -> Option<&Device> {
+        self.devices
+            .iter()
+            .find(|device| device.fingerprint == fingerprint)
+    }
+
+    /// All devices in discovery order.
+    pub fn devices(&self) -> &[Device] {
+        &self.devices
+    }
 }

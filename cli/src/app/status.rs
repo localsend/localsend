@@ -14,6 +14,15 @@ impl App {
             picker.draw();
             return;
         }
+        if self.device_list.is_some() {
+            // Also picks up devices discovered while the list is open.
+            let rows = self.device_rows();
+            if let Some(list) = &mut self.device_list {
+                list.set_rows(rows);
+                list.draw();
+            }
+            return;
+        }
         self.render_status();
     }
 

@@ -2,6 +2,7 @@
 //! transfer driven by the [`crate::send_task`].
 
 use super::App;
+use crate::devices::Device;
 use crate::picker::{Picker, PickerOutcome};
 use crate::send_task;
 use crate::ui::Category;
@@ -27,17 +28,20 @@ pub(super) struct SendState {
 
 impl App {
     pub(super) fn start_picking(&mut self, slot: u8) {
-        let Some(device) = self.registry.by_slot(slot) else {
+        let Some(device) = self.registry.by_slot(slot).cloned() else {
             self.ui
                 .log(Category::Send, &format!("No device on [{slot}]"));
             return;
         };
+        self.open_picker(device);
+    }
+
+    pub(super) fn open_picker(&mut self, device: Device) {
         if self.send.is_some() {
             self.ui.log(Category::Send, "A send is already in progress");
             return;
         }
-        let alias = device.alias.clone();
-        match Picker::open(slot) {
+        match Picker::open(device.fingerprint) {
             Ok(picker) => {
                 self.ui.suspend();
                 self.picker = Some(picker);
@@ -45,7 +49,7 @@ impl App {
             Err(err) => {
                 self.ui.log(
                     Category::Send,
-                    &format!("{alias}: could not open the file picker: {err}"),
+                    &format!("{}: could not open the file picker: {err}", device.alias),
                 );
             }
         }
@@ -59,10 +63,10 @@ impl App {
             PickerOutcome::Open => {}
             PickerOutcome::Picked(files) => {
                 let picker = self.picker.take().unwrap();
-                let slot = picker.slot;
+                let fingerprint = picker.fingerprint.clone();
                 picker.close();
                 self.ui.resume();
-                self.start_send(slot, files);
+                self.start_send(&fingerprint, files);
             }
             PickerOutcome::Cancelled => {
                 let picker = self.picker.take().unwrap();
@@ -72,8 +76,8 @@ impl App {
         }
     }
 
-    fn start_send(&mut self, slot: u8, picked: Vec<PathBuf>) {
-        let Some(device) = self.registry.by_slot(slot).cloned() else {
+    fn start_send(&mut self, fingerprint: &str, picked: Vec<PathBuf>) {
+        let Some(device) = self.registry.by_fingerprint(fingerprint).cloned() else {
             return;
         };
 

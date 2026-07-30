@@ -1,0 +1,115 @@
+//! The device list overlay: paired and discovered devices, with the send
+//! and unpair actions.
+
+use super::App;
+use crate::device_list::{DeviceList, DeviceListOutcome, DeviceRow, Row};
+use crate::ui::Category;
+use crossterm::event::KeyEvent;
+
+impl App {
+    pub(super) fn open_device_list(&mut self) {
+        match DeviceList::open(self.device_rows()) {
+            Ok(list) => {
+                self.ui.suspend();
+                self.device_list = Some(list);
+            }
+            Err(err) => {
+                self.ui
+                    .log_plain(&format!("Could not open the device list: {err}"));
+            }
+        }
+    }
+
+    /// Builds the rows of the device list: the paired devices (with the
+    /// live address of those that are also discovered), then the discovered
+    /// devices that are not paired.
+    pub(super) fn device_rows(&self) -> Vec<Row> {
+        let mut rows = vec![Row::Header("Paired")];
+        let mut empty = true;
+        for (fingerprint, paired) in self.storage.paired.iter() {
+            empty = false;
+            let discovered = self.registry.by_fingerprint(fingerprint);
+            rows.push(Row::Device(DeviceRow {
+                fingerprint: fingerprint.clone(),
+                alias: discovered
+                    .map(|device| device.alias.clone())
+                    .unwrap_or_else(|| paired.alias.clone()),
+                slot: discovered.and_then(|device| device.slot),
+                host: discovered.map(|device| device.host.clone()),
+                paired: true,
+            }));
+        }
+        if empty {
+            rows.push(Row::Empty);
+        }
+
+        rows.push(Row::Spacer);
+        rows.push(Row::Header("Discovered"));
+        let mut empty = true;
+        for device in self.registry.devices() {
+            if self.storage.paired.contains(&device.fingerprint) {
+                continue;
+            }
+            empty = false;
+            rows.push(Row::Device(DeviceRow {
+                fingerprint: device.fingerprint.clone(),
+                alias: device.alias.clone(),
+                slot: device.slot,
+                host: Some(device.host.clone()),
+                paired: false,
+            }));
+        }
+        if empty {
+            rows.push(Row::Empty);
+        }
+        rows
+    }
+
+    pub(super) fn handle_device_list_key(&mut self, key: KeyEvent) {
+        let Some(list) = &mut self.device_list else {
+            return;
+        };
+        match list.handle_key(key) {
+            DeviceListOutcome::Open => {}
+            DeviceListOutcome::Closed => self.close_device_list(),
+            DeviceListOutcome::Send { fingerprint } => {
+                self.close_device_list();
+                if let Some(device) = self.registry.by_fingerprint(&fingerprint).cloned() {
+                    self.open_picker(device);
+                }
+            }
+            DeviceListOutcome::Unpair { fingerprint } => self.unpair(&fingerprint),
+        }
+    }
+
+    pub(super) fn close_device_list(&mut self) {
+        if let Some(list) = self.device_list.take() {
+            list.close();
+            self.ui.resume();
+        }
+    }
+
+    /// Removes a paired device; the list stays open and refreshes (the
+    /// device reappears under "Discovered" when it is still around). The
+    /// log line shows up once the list is closed.
+    fn unpair(&mut self, fingerprint: &str) {
+        match self.storage.paired.remove(fingerprint) {
+            Ok(Some(device)) => {
+                self.ui
+                    .log(Category::Discovery, &format!("{}: Unpaired", device.alias));
+            }
+            Ok(None) => {}
+            Err(err) => {
+                self.ui.log(
+                    Category::Discovery,
+                    &format!("Unpaired for this run, but saving failed: {err:#}"),
+                );
+            }
+        }
+        let rows = self.device_rows();
+        if let Some(list) = &mut self.device_list {
+            list.set_rows(rows);
+            list.draw();
+        }
+    }
+}

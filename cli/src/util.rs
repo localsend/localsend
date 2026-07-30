@@ -1,6 +1,36 @@
+use crossterm::terminal::{Clear, ClearType};
+use crossterm::{cursor, execute};
 use std::net::Ipv4Addr;
 use std::path::{Path, PathBuf};
 use std::time::{Duration, Instant};
+
+/// Enters the alternate screen for a modal widget (the file picker or the
+/// device list). The caller must suspend the log UI first and resume it
+/// after [leave_alternate_screen].
+pub fn enter_alternate_screen() -> anyhow::Result<()> {
+    execute!(
+        std::io::stdout(),
+        crossterm::terminal::EnterAlternateScreen,
+        cursor::Hide
+    )?;
+    Ok(())
+}
+
+/// Leaves the alternate screen. Must be called exactly once per enter.
+///
+/// Clears via crossterm, not `Terminal::clear`: the latter queries the
+/// cursor position, whose response is read from the event stream but
+/// the keyboard reader thread is parked in `crossterm::event::read()`,
+/// so the query only ever returns after crossterm's 2s timeout.
+pub fn leave_alternate_screen() {
+    let _ = execute!(
+        std::io::stdout(),
+        Clear(ClearType::All),
+        cursor::MoveTo(0, 0),
+        crossterm::terminal::LeaveAlternateScreen,
+        cursor::Show
+    );
+}
 
 pub fn format_bytes(bytes: u64) -> String {
     const UNITS: [&str; 5] = ["B", "KB", "MB", "GB", "TB"];
