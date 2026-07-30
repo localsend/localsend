@@ -223,7 +223,8 @@
     "waiting": "В очакване на отговор…",
     "rejected": "Получателят е отхвърлил заявката.",
     "tooManyAttempts": "@:web.tooManyAttempts",
-    "busy": "Получателят е зает с друга заявка."
+    "busy": "Получателят е зает с друга заявка.",
+    "calculatingChecksum": "Изчисляване на контролна сума ({curr} / {n})"
   },
   "progressPage": {
     "titleSending": "Изпращане на файлове",

@@ -128,7 +128,7 @@
     },
     "network": {
       "title": "Nätverk",
-      "needRestart": "Starta om servern för att tillämpa inställningarna.",
+      "needRestart": "Starta om servern för att tillämpa inställningarna!",
       "server": "Server",
       "alias": "Enhetsnamn",
       "deviceType": "Enhetstyp",
@@ -223,7 +223,8 @@
     "waiting": "Väntar på svar…",
     "rejected": "Mottagaren har avvisat begäran.",
     "tooManyAttempts": "@:web.tooManyAttempts",
-    "busy": "Mottagaren är upptagen med en annan förfrågan."
+    "busy": "Mottagaren är upptagen med en annan förfrågan.",
+    "calculatingChecksum": "Beräknar kontrollsumma ({curr} / {n})"
   },
   "progressPage": {
     "titleSending": "Skickar filer",
@@ -480,8 +481,8 @@
     }
   },
   "sanitization": {
-    "empty": "Filnamnet får inte vara tomt.",
-    "invalid": "Filnamnet innehåller ogiltiga tecken."
+    "empty": "Filnamnet får inte vara tomt",
+    "invalid": "Filnamnet innehåller ogiltiga tecken"
   },
   "tray": {
     "@info": "Apples riktlinjer är mycket strikta gällande formuleringen ”stäng”.",
@@ -500,7 +501,7 @@
     "size": "Storlek"
   },
   "assetPicker": {
-    "@info": "Translations for the Media selection tool for Android and iPhone",
+    "@info": "Översättningar för medievalsverktyget för Android och iPhone",
     "confirm": "Bekräfta",
     "cancel": "Avbryt",
     "edit": "Redigera",

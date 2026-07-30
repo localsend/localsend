@@ -223,7 +223,8 @@
     "waiting": "Čaká sa na odpoveď…",
     "rejected": "Príjemca zamietol žiadosť.",
     "tooManyAttempts": "@:web.tooManyAttempts",
-    "busy": "Príjemca je zaneprázdnený inou žiadosťou."
+    "busy": "Príjemca je zaneprázdnený inou žiadosťou.",
+    "calculatingChecksum": "Výpočet kontrolného súčtu ({curr} / {n})"
   },
   "progressPage": {
     "titleSending": "Odosielanie súborov",

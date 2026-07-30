@@ -223,7 +223,8 @@
     "waiting": "Alıcıdan cevap bekleniyor…",
     "rejected": "Alıcı isteği reddetti.",
     "tooManyAttempts": "@:web.tooManyAttempts",
-    "busy": "Alıcı başka bir istekle meşgul."
+    "busy": "Alıcı başka bir istekle meşgul.",
+    "calculatingChecksum": "Sağlama toplamı hesaplanıyor ({curr} / {n})"
   },
   "progressPage": {
     "titleSending": "Dosyalar gönderiliyor",

@@ -223,7 +223,8 @@
     "waiting": "Czekanie na odpowiedź…",
     "rejected": "Odbiorca odrzucił żądanie.",
     "tooManyAttempts": "@:web.tooManyAttempts",
-    "busy": "Odbiorca jest zajęty innym żądaniem."
+    "busy": "Odbiorca jest zajęty innym żądaniem.",
+    "calculatingChecksum": "Obliczanie sumy kontrolnej ({curr} / {n})"
   },
   "progressPage": {
     "titleSending": "Wysyłanie plików",

@@ -223,7 +223,8 @@
     "waiting": "Wachten op antwoord…",
     "rejected": "De ontvanger heeft het verzoek geweigerd.",
     "tooManyAttempts": "@:web.tooManyAttempts",
-    "busy": "De ontvanger is bezig met een ander verzoek."
+    "busy": "De ontvanger is bezig met een ander verzoek.",
+    "calculatingChecksum": "Controlesom berekenen ({curr} / {n})"
   },
   "progressPage": {
     "titleSending": "Bestanden verzenden",
