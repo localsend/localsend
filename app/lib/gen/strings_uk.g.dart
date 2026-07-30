@@ -385,6 +385,8 @@ class _Translations$sendPage$uk extends Translations$sendPage$en {
 
   // Translations
   @override
+  String calculatingChecksum({required Object curr, required Object n}) => 'Обчислення контрольної суми (${curr} / ${n})';
+  @override
   String get waiting => 'Очікування відповіді…';
   @override
   String get rejected => 'Отримувач відхилив запит.';

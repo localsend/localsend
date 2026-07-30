@@ -392,6 +392,8 @@ class _Translations$sendPage$nl extends Translations$sendPage$en {
   String get tooManyAttempts => _root.web.tooManyAttempts;
   @override
   String get busy => 'De ontvanger is bezig met een ander verzoek.';
+  @override
+  String calculatingChecksum({required Object curr, required Object n}) => 'Controlesom berekenen (${curr} / ${n})';
 }
 
 // Path: progressPage

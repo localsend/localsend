@@ -220,11 +220,11 @@
     "saveToGalleryOff": "Вимкнено автоматично, оскільки є папки."
   },
   "sendPage": {
+    "calculatingChecksum": "Обчислення контрольної суми ({curr} / {n})",
     "waiting": "Очікування відповіді…",
     "rejected": "Отримувач відхилив запит.",
     "tooManyAttempts": "@:web.tooManyAttempts",
-    "busy": "Отримувач зайнятий іншим запитом.",
-    "calculatingChecksum": "Обчислення контрольної суми ({curr} / {n})"
+    "busy": "Отримувач зайнятий іншим запитом."
   },
   "progressPage": {
     "titleSending": "Надсилання файлів",

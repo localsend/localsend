@@ -394,6 +394,8 @@ class _Translations$sendPage$sv extends Translations$sendPage$en {
   String get tooManyAttempts => _root.web.tooManyAttempts;
   @override
   String get busy => 'Mottagaren är upptagen med en annan förfrågan.';
+  @override
+  String calculatingChecksum({required Object curr, required Object n}) => 'Beräknar kontrollsumma (${curr} / ${n})';
 }
 
 // Path: progressPage
@@ -659,9 +661,9 @@ class _Translations$sanitization$sv extends Translations$sanitization$en {
 
   // Translations
   @override
-  String get empty => 'Filnamnet får inte vara tomt.';
+  String get empty => 'Filnamnet får inte vara tomt';
   @override
-  String get invalid => 'Filnamnet innehåller ogiltiga tecken.';
+  String get invalid => 'Filnamnet innehåller ogiltiga tecken';
 }
 
 // Path: tray
@@ -940,7 +942,7 @@ class _Translations$settingsTab$network$sv extends Translations$settingsTab$netw
   @override
   String get title => 'Nätverk';
   @override
-  String get needRestart => 'Starta om servern för att tillämpa inställningarna.';
+  String get needRestart => 'Starta om servern för att tillämpa inställningarna!';
   @override
   String get server => 'Server';
   @override

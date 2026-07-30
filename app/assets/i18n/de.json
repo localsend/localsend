@@ -220,6 +220,7 @@
     "saveToGalleryOff": "Aufgrund von Ordnern automatisch ausgeschaltet."
   },
   "sendPage": {
+    "calculatingChecksum": "Berechne Prüfsumme ({curr} / {n})",
     "waiting": "Warte auf Antwort…",
     "rejected": "Der Empfänger hat die Anfrage abgelehnt.",
     "tooManyAttempts": "@:web.tooManyAttempts",

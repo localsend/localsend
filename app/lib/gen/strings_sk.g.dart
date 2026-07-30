@@ -394,6 +394,8 @@ class _Translations$sendPage$sk extends Translations$sendPage$en {
   String get tooManyAttempts => _root.web.tooManyAttempts;
   @override
   String get busy => 'Príjemca je zaneprázdnený inou žiadosťou.';
+  @override
+  String calculatingChecksum({required Object curr, required Object n}) => 'Výpočet kontrolného súčtu (${curr} / ${n})';
 }
 
 // Path: progressPage

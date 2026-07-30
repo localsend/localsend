@@ -391,6 +391,8 @@ class _Translations$sendPage$ko extends Translations$sendPage$en {
   String get tooManyAttempts => _root.web.tooManyAttempts;
   @override
   String get busy => '받는 사람이 다른 요청을 처리하는 중입니다.';
+  @override
+  String calculatingChecksum({required Object curr, required Object n}) => '체크섬 계산 중 (${curr} / ${n})';
 }
 
 // Path: progressPage

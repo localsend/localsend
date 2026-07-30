@@ -220,6 +220,7 @@
     "saveToGalleryOff": "Отключено автоматически, поскольку есть папки."
   },
   "sendPage": {
+    "calculatingChecksum": "Расчет контрольной суммы ({curr} / {n})",
     "waiting": "Ожидание ответа…",
     "rejected": "Получатель отклонил запрос.",
     "tooManyAttempts": "@:web.tooManyAttempts",

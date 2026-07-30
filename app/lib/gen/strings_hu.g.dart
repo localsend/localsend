@@ -392,6 +392,8 @@ class _Translations$sendPage$hu extends Translations$sendPage$en {
   String get tooManyAttempts => _root.web.tooManyAttempts;
   @override
   String get busy => 'A fogadó más kéréssel van elfoglalva.';
+  @override
+  String calculatingChecksum({required Object curr, required Object n}) => 'Ellenőrzőösszeg kiszámítása (${curr} / ${n})';
 }
 
 // Path: progressPage

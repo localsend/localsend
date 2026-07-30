@@ -392,6 +392,8 @@ class _Translations$sendPage$et extends Translations$sendPage$en {
   String get tooManyAttempts => _root.web.tooManyAttempts;
   @override
   String get busy => 'Vastuvõtja on hõivatud teise päringuga tegelemisega.';
+  @override
+  String calculatingChecksum({required Object curr, required Object n}) => 'Arvutan kontrollsummat (${curr} / ${n})';
 }
 
 // Path: progressPage
