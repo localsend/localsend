@@ -78,6 +78,7 @@ impl App {
                     self.open_picker(device);
                 }
             }
+            DeviceListOutcome::Pair { fingerprint } => self.pair(&fingerprint),
             DeviceListOutcome::Unpair { fingerprint } => self.unpair(&fingerprint),
         }
     }
@@ -86,6 +87,35 @@ impl App {
         if let Some(list) = self.device_list.take() {
             list.close();
             self.ui.resume();
+        }
+    }
+
+    /// Pairs a discovered device; the list stays open and refreshes (the
+    /// device moves up into "Paired"). The log line shows up once the list
+    /// is closed.
+    fn pair(&mut self, fingerprint: &str) {
+        let Some(device) = self.registry.by_fingerprint(fingerprint) else {
+            return;
+        };
+        let alias = device.alias.clone();
+        match self
+            .storage
+            .paired
+            .insert(fingerprint.to_string(), alias.clone())
+        {
+            Ok(()) => self.ui.log(
+                Category::Discovery,
+                &format!("{alias}: Paired. Future requests are auto-accepted."),
+            ),
+            Err(err) => self.ui.log(
+                Category::Discovery,
+                &format!("{alias}: Paired for this run, but saving failed: {err:#}"),
+            ),
+        }
+        let rows = self.device_rows();
+        if let Some(list) = &mut self.device_list {
+            list.set_rows(rows);
+            list.draw();
         }
     }
 

@@ -34,7 +34,7 @@ pub struct DeviceRow {
     /// not been discovered in this run and therefore cannot be sent to.
     pub host: Option<String>,
 
-    /// Paired devices offer the remove action.
+    /// Whether the device is paired; the pair hotkey toggles it.
     pub paired: bool,
 }
 
@@ -49,27 +49,19 @@ pub enum DeviceListOutcome {
     /// The user wants to send files to this device.
     Send { fingerprint: String },
 
-    /// The user confirmed removing this paired device.
-    Unpair { fingerprint: String },
-}
+    /// The user wants to pair this discovered device.
+    Pair { fingerprint: String },
 
-/// A pending remove confirmation, answered with y/n.
-struct Confirm {
-    fingerprint: String,
-    alias: String,
+    /// The user wants to remove this paired device.
+    Unpair { fingerprint: String },
 }
 
 /// A modal list of the paired and discovered devices, rendered on the
 /// alternate screen while the log UI is suspended.
-///
-/// Up/Down navigates, Enter sends to the highlighted device, Delete (or
-/// Backspace) removes a paired device after a y/n confirmation, Esc or D
-/// closes the list.
 pub struct DeviceList {
     terminal: Terminal<CrosstermBackend<Stdout>>,
     rows: Vec<Row>,
     list_state: ListState,
-    confirm: Option<Confirm>,
 }
 
 impl DeviceList {
@@ -82,7 +74,6 @@ impl DeviceList {
             terminal,
             rows,
             list_state: ListState::default(),
-            confirm: None,
         };
         list.select_first_device();
         list.draw();
@@ -101,13 +92,6 @@ impl DeviceList {
             .selected_device()
             .map(|device| device.fingerprint.clone());
         self.rows = rows;
-        if let Some(confirm) = &self.confirm
-            && !self
-                .device_rows()
-                .any(|(_, device)| device.paired && device.fingerprint == confirm.fingerprint)
-        {
-            self.confirm = None;
-        }
         let index = highlighted.and_then(|fingerprint| {
             self.device_rows()
                 .find(|(_, device)| device.fingerprint == fingerprint)
@@ -120,23 +104,6 @@ impl DeviceList {
     }
 
     pub fn handle_key(&mut self, key: KeyEvent) -> DeviceListOutcome {
-        // The confirmation prompt consumes every key.
-        if self.confirm.is_some() {
-            match key.code {
-                KeyCode::Char(c) if c.eq_ignore_ascii_case(&'y') => {
-                    let confirm = self.confirm.take().unwrap();
-                    return DeviceListOutcome::Unpair {
-                        fingerprint: confirm.fingerprint,
-                    };
-                }
-                KeyCode::Esc => self.confirm = None,
-                KeyCode::Char(c) if c.eq_ignore_ascii_case(&'n') => self.confirm = None,
-                _ => {}
-            }
-            self.draw();
-            return DeviceListOutcome::Open;
-        }
-
         match key.code {
             KeyCode::Esc => return DeviceListOutcome::Closed,
             KeyCode::Char(c) if c.eq_ignore_ascii_case(&'d') => return DeviceListOutcome::Closed,
@@ -152,16 +119,13 @@ impl DeviceList {
                     };
                 }
             }
-            // Backspace, because that is what the key labeled "delete"
-            // sends on macOS.
-            KeyCode::Delete | KeyCode::Backspace => {
-                if let Some(device) = self.selected_device()
-                    && device.paired
-                {
-                    self.confirm = Some(Confirm {
-                        fingerprint: device.fingerprint.clone(),
-                        alias: device.alias.clone(),
-                    });
+            KeyCode::Char(c) if c.eq_ignore_ascii_case(&'p') => {
+                if let Some(device) = self.selected_device() {
+                    let fingerprint = device.fingerprint.clone();
+                    return match device.paired {
+                        true => DeviceListOutcome::Unpair { fingerprint },
+                        false => DeviceListOutcome::Pair { fingerprint },
+                    };
                 }
             }
             _ => {}
@@ -217,16 +181,9 @@ impl DeviceList {
             terminal,
             rows,
             list_state,
-            confirm,
         } = self;
 
-        let help = match confirm {
-            Some(confirm) => Span::styled(
-                format!(" Remove {}? y/n", confirm.alias),
-                Style::default().add_modifier(Modifier::BOLD),
-            ),
-            None => Span::raw(" ↑/↓: navigate  Enter: send  Del: remove (paired only)  Esc: close"),
-        };
+        let help = Span::raw(" ↑/↓: navigate  Enter: send  P: pair/unpair  Esc: close");
         let _ = terminal.draw(|frame| {
             let [main_area, help_area] =
                 Layout::vertical([Constraint::Fill(1), Constraint::Length(1)]).areas(frame.area());
