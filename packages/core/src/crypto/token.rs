@@ -1,10 +1,14 @@
 use crate::crypto::hash;
 use crate::util;
-use ed25519_dalek::ed25519::signature::rand_core::OsRng;
 use ed25519_dalek::pkcs8::spki::der::pem::LineEnding;
 use ed25519_dalek::pkcs8::spki::der::zeroize::Zeroizing;
-use ed25519_dalek::pkcs8::{DecodePrivateKey, DecodePublicKey, EncodePrivateKey, EncodePublicKey};
-use ed25519_dalek::{Signer, Verifier};
+use ed25519_dalek::pkcs8::{
+    DecodePrivateKey, DecodePublicKey as EdDecodePublicKey, EncodePrivateKey,
+    EncodePublicKey as EdEncodePublicKey,
+};
+use ed25519_dalek::{Signer as EdSigner, Verifier as EdVerifier};
+use rsa::pkcs8::{DecodePublicKey as RsaDecodePublicKey, EncodePublicKey as RsaEncodePublicKey};
+use rsa::signature::Verifier as RsaVerifier;
 
 pub struct SigningTokenKey {
     inner: ed25519_dalek::SigningKey,
@@ -31,7 +35,7 @@ struct Ed25519VerifyingKey {
 }
 
 struct RsaPssVerifyingKey {
-    inner: rsa::pss::VerifyingKey<sha2::Sha256>,
+    inner: rsa::pss::VerifyingKey<rsa::sha2::Sha256>,
 }
 
 impl VerifyingTokenKey for Ed25519VerifyingKey {
@@ -67,7 +71,7 @@ impl VerifyingTokenKey for RsaPssVerifyingKey {
 }
 
 pub fn generate_key() -> SigningTokenKey {
-    let mut csprng = OsRng;
+    let mut csprng = rand::rng();
     SigningTokenKey {
         inner: ed25519_dalek::SigningKey::generate(&mut csprng),
     }

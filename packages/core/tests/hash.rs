@@ -101,13 +101,9 @@ async fn hash_stream() {
         tx.send(bytes::Bytes::from_static(b"world")).await.unwrap();
     });
 
-    let hash = sha256_file_content(
-        FileContent::Stream(rx),
-        &CancellationToken::new(),
-        |_| {},
-    )
-    .await
-    .unwrap();
+    let hash = sha256_file_content(FileContent::Stream(rx), &CancellationToken::new(), |_| {})
+        .await
+        .unwrap();
 
     assert_eq!(hash, HELLO_WORLD_HASH);
 }
