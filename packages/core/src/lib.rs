@@ -1,5 +1,7 @@
 #[cfg(feature = "crypto")]
 pub mod crypto;
+#[cfg(feature = "discovery")]
+pub mod discovery;
 #[cfg(feature = "http")]
 pub mod http;
 pub mod model;

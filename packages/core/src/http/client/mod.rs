@@ -94,6 +94,7 @@ impl LsHttpClient {
                 let result = client.register(protocol, ip, port, payload.into()).await?;
                 Ok(ResultWithPublicKey {
                     public_key: result.public_key,
+                    cert_fingerprint: result.cert_fingerprint,
                     body: result.body.into(),
                 })
             }
@@ -279,6 +280,20 @@ pub(super) fn verify_cert_from_res(
     Ok(public_key)
 }
 
+/// The SHA-256 fingerprint (uppercase hex) of the peer certificate the
+/// response was received over. This — not any fingerprint claimed in the
+/// body — is the peer's identity in HTTPS mode.
+pub(super) fn cert_fingerprint_from_res(response: &Response) -> anyhow::Result<String> {
+    let tls_info_ext = response
+        .extensions()
+        .get::<reqwest::tls::TlsInfo>()
+        .ok_or_else(|| anyhow::anyhow!("TLS info not found"))?;
+    let cert = tls_info_ext
+        .peer_certificate()
+        .ok_or_else(|| anyhow::anyhow!("Certificate not found"))?;
+    Ok(crypto::cert::fingerprint_from_cert_der(cert))
+}
+
 #[derive(Serialize, Deserialize)]
 struct ErrorResponse {
     message: String,
@@ -289,6 +304,11 @@ pub struct ResultWithPublicKey<T> {
     /// Encoded in PEM format.
     /// Only available in HTTPS mode.
     pub public_key: Option<String>,
+
+    /// The SHA-256 fingerprint (uppercase hex) of the peer certificate.
+    /// Only available in HTTPS mode, where it is the peer's identity and
+    /// overrules any fingerprint claimed in the body.
+    pub cert_fingerprint: Option<String>,
 
     /// The response body.
     pub body: T,

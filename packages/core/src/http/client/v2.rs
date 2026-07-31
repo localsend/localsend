@@ -96,14 +96,21 @@ impl LsHttpClientV2 {
             return res.into_error().await;
         }
 
-        let public_key = match protocol {
-            ProtocolType::Https => Some(super::verify_cert_from_res(&res, None)?),
-            _ => None,
+        let (public_key, cert_fingerprint) = match protocol {
+            ProtocolType::Https => (
+                Some(super::verify_cert_from_res(&res, None)?),
+                Some(super::cert_fingerprint_from_res(&res)?),
+            ),
+            _ => (None, None),
         };
 
         let body = res.json::<RegisterResponseDtoV2>().await?;
 
-        Ok(ResultWithPublicKey { public_key, body })
+        Ok(ResultWithPublicKey {
+            public_key,
+            cert_fingerprint,
+            body,
+        })
     }
 
     /// Prepares a file upload session with the receiver.
