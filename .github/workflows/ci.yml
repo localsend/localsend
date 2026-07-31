@@ -57,6 +57,12 @@ jobs:
       - name: Test (app)
         working-directory: app
         run: flutter test
+      - name: Dependencies (localsend_isolates)
+        working-directory: packages/localsend_isolates
+        run: flutter pub get
+      - name: Test (localsend_isolates)
+        working-directory: packages/localsend_isolates
+        run: flutter test
 
   packaging:
     runs-on: ubuntu-latest
