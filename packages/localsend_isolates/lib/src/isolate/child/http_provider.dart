@@ -6,23 +6,9 @@ class HttpClientCollection {
   final String _privateKey;
   final String _certificate;
 
-  /// A client that accepts any valid peer certificate.
-  ///
-  /// Only for discovery, where the certificate of the peer is not known yet
-  /// and is learned from the response. Never use this to transfer files:
-  /// it cannot tell the discovered device apart from anyone else answering
-  /// on that address.
-  final RsHttpClient discovery;
-
-  /// The request timeout of the [discovery] client.
-  /// Also apply it to short-lived pinned requests made during discovery.
-  final int discoveryTimeout;
-
   HttpClientCollection({
     required String privateKey,
     required String certificate,
-    required this.discovery,
-    required this.discoveryTimeout,
   }) : _privateKey = privateKey,
        _certificate = certificate;
 
@@ -48,19 +34,9 @@ class HttpClientCollection {
 }
 
 final httpProvider = ViewProvider((ref) {
-  final (securityContext, discoveryTimeout) = ref.watch(
-    syncProvider.select((state) => (state.securityContext, state.discoveryTimeout)),
-  );
+  final securityContext = ref.watch(syncProvider.select((state) => state.securityContext));
   return HttpClientCollection(
     privateKey: securityContext.privateKey,
     certificate: securityContext.certificate,
-    discovery: createClient(
-      privateKey: securityContext.privateKey,
-      cert: securityContext.certificate,
-      version: LsHttpClientVersion.v2,
-      expectedFingerprint: null,
-      timeoutMs: discoveryTimeout,
-    ),
-    discoveryTimeout: discoveryTimeout,
   );
 });

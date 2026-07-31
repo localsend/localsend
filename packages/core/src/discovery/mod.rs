@@ -15,6 +15,7 @@ use futures_util::StreamExt;
 use std::collections::HashSet;
 use std::net::{IpAddr, Ipv4Addr, Ipv6Addr};
 use std::sync::Arc;
+use std::sync::atomic::{AtomicBool, Ordering};
 use std::time::{Duration, SystemTime};
 use store::DeviceStore;
 use tokio::sync::{mpsc, oneshot};
@@ -104,6 +105,10 @@ struct DiscoveryState {
     timeout: Duration,
     store: DeviceStore,
     event_tx: Option<mpsc::Sender<DiscoveryEvent>>,
+
+    /// Whether announcements of other devices are answered, see
+    /// [`DiscoveryHandle::set_answer_announcements`].
+    answering: AtomicBool,
 
     /// The interface addresses a subnet scan is currently running for.
     scanning: std::sync::Mutex<HashSet<Ipv4Addr>>,
@@ -279,6 +284,16 @@ impl DiscoveryHandle {
         Ok(found)
     }
 
+    /// Sets whether announcements of other devices are answered with a
+    /// register request (the answer is what makes the announcing device
+    /// enter the store). On by default.
+    ///
+    /// An application whose server is not running turns this off: the answer
+    /// would advertise an HTTP port that nobody listens on.
+    pub fn set_answer_announcements(&self, answer: bool) {
+        self.state.answering.store(answer, Ordering::Relaxed);
+    }
+
     /// Puts a device confirmed outside of discovery into the store, e.g. one
     /// that answered an announcement by registering with this device's HTTP
     /// server. The confirmation is emitted as `Discovered` or `Updated`;
@@ -353,6 +368,7 @@ pub async fn start(config: DiscoveryConfig, stop_rx: oneshot::Receiver<()>) -> D
         timeout: config.timeout,
         store: DeviceStore::new(),
         event_tx: config.event_tx,
+        answering: AtomicBool::new(true),
         scanning: std::sync::Mutex::new(HashSet::new()),
     });
 
@@ -362,6 +378,9 @@ pub async fn start(config: DiscoveryConfig, stop_rx: oneshot::Receiver<()>) -> D
         let state = state.clone();
         async move {
             while let Some(event) = multicast_rx.recv().await {
+                if !state.answering.load(Ordering::Relaxed) {
+                    continue;
+                }
                 let MulticastEvent::Discovered {
                     ip,
                     scope_id,

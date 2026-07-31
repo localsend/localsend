@@ -1,0 +1,115 @@
+import 'package:localsend_isolates/model/device.dart';
+import 'package:localsend_isolates/src/isolate/child/main.dart';
+import 'package:localsend_isolates/src/isolate/dto/send_to_isolate_data.dart';
+import 'package:localsend_isolates/src/task/discovery/discovery.dart';
+import 'package:typed_isolates/typed_isolates.dart';
+
+sealed class DiscoveryTask {}
+
+/// Starts the discovery and streams every confirmed device.
+/// The stream never completes; it survives [DiscoveryRestartTask]s.
+class DiscoveryListenTask implements DiscoveryTask {}
+
+/// Sends an announcement to all devices on all network interfaces.
+/// They will respond by registering with this device's HTTP server.
+class DiscoveryAnnouncementTask implements DiscoveryTask {}
+
+/// Restarts the discovery, e.g. after the port or the network settings changed.
+class DiscoveryRestartTask implements DiscoveryTask {}
+
+/// Scans the subnet of one network interface over HTTP.
+/// Completes (without events) when the scan is finished; the found devices
+/// arrive on the [DiscoveryListenTask] stream.
+class DiscoverySubnetScanTask implements DiscoveryTask {
+  final String networkInterface;
+  final int port;
+  final bool https;
+
+  DiscoverySubnetScanTask({
+    required this.networkInterface,
+    required this.port,
+    required this.https,
+  });
+}
+
+/// Probes the known addresses of the favorites over HTTP.
+/// Completes (without events) when every favorite has been probed; the found
+/// devices arrive on the [DiscoveryListenTask] stream.
+class DiscoveryFavoriteScanTask implements DiscoveryTask {
+  final List<(String, int)> favorites;
+  final bool https;
+
+  DiscoveryFavoriteScanTask({
+    required this.favorites,
+    required this.https,
+  });
+}
+
+/// Feeds a device confirmed outside of the discovery into the store, e.g. one
+/// that registered with this device's HTTP server. The device comes back on
+/// the [DiscoveryListenTask] stream.
+class DiscoveryAddDeviceTask implements DiscoveryTask {
+  final Device device;
+
+  DiscoveryAddDeviceTask({
+    required this.device,
+  });
+}
+
+Future<void> setupDiscoveryIsolate(
+  Stream<SendToIsolateData<IsolateTask<DiscoveryTask>>> receiveFromMain,
+  void Function(IsolateTaskStreamResult<Device>) sendToMain,
+  InitialData initialData,
+) async {
+  await setupChildIsolateHelper(
+    debugLabel: 'DiscoveryIsolate',
+    receiveFromMain: receiveFromMain,
+    sendToMain: sendToMain,
+    initialData: initialData,
+    handler: (ref, task) async {
+      switch (task.data) {
+        case DiscoveryListenTask():
+          await for (final device in ref.read(discoveryProvider).startListener()) {
+            sendToMain(
+              IsolateTaskStreamResult.event(
+                id: task.id,
+                data: device,
+              ),
+            );
+          }
+          return;
+        case DiscoveryAnnouncementTask():
+          await ref.read(discoveryProvider).sendAnnouncement();
+          break;
+        case DiscoveryRestartTask():
+          ref.read(discoveryProvider).restartListener();
+          break;
+        case DiscoverySubnetScanTask data:
+          await ref
+              .read(discoveryProvider)
+              .scanSubnet(
+                networkInterface: data.networkInterface,
+                port: data.port,
+                https: data.https,
+              );
+          break;
+        case DiscoveryFavoriteScanTask data:
+          await ref
+              .read(discoveryProvider)
+              .discoverFavorites(
+                devices: data.favorites,
+                https: data.https,
+              );
+          break;
+        case DiscoveryAddDeviceTask data:
+          await ref.read(discoveryProvider).addDevice(data.device);
+          break;
+      }
+      sendToMain(
+        IsolateTaskStreamResult.done(
+          id: task.id,
+        ),
+      );
+    },
+  );
+}

@@ -135,7 +135,7 @@ class SettingsTabController extends ReduxNotifier<SettingsTabVm> {
             state.portController.text = newServerState.port.toString();
             await _settingsService.setAlias(newServerState.alias);
             await _settingsService.setPort(newServerState.port);
-            external(_isolateController).dispatch(IsolateSendMulticastRestartListenerAction());
+            external(_isolateController).dispatch(IsolateDiscoveryRestartAction());
             external(_localIpService).dispatchAsync(FetchLocalIpAction()); // ignore: unawaited_futures
           }
         } catch (e) {

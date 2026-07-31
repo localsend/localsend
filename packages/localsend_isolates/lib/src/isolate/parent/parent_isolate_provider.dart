@@ -1,8 +1,7 @@
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:localsend_isolates/model/device.dart';
-import 'package:localsend_isolates/src/isolate/child/http_scan_discovery_isolate.dart';
+import 'package:localsend_isolates/src/isolate/child/discovery_isolate.dart';
 import 'package:localsend_isolates/src/isolate/child/main.dart';
-import 'package:localsend_isolates/src/isolate/child/multicast_discovery_isolate.dart';
 import 'package:localsend_isolates/src/isolate/child/server_isolate.dart';
 import 'package:localsend_isolates/src/isolate/child/sync_provider.dart';
 import 'package:localsend_isolates/src/isolate/child/upload_isolate.dart';
@@ -19,23 +18,20 @@ part 'parent_isolate_provider.mapper.dart';
 @MappableClass()
 class ParentIsolateState with ParentIsolateStateMappable {
   final SyncState syncState;
-  final IsolateConnector<IsolateTaskStreamResult<Device>, SendToIsolateData<IsolateTask<HttpScanTask>>>? httpScanDiscovery;
-  final IsolateConnector<Device, SendToIsolateData<MulticastTask>>? multicastDiscovery;
+  final IsolateConnector<IsolateTaskStreamResult<Device>, SendToIsolateData<IsolateTask<DiscoveryTask>>>? discovery;
   final IsolateConnector<IsolateTaskStreamResult<HttpUploadEvent>, SendToIsolateData<IsolateTask<BaseHttpUploadTask>>>? httpUpload;
   final IsolateConnector<IsolateTaskStreamResult<HttpServerEvent>, SendToIsolateData<IsolateTask<BaseHttpServerTask>>>? httpServer;
 
   ParentIsolateState({
     required this.syncState,
-    required this.httpScanDiscovery,
-    required this.multicastDiscovery,
+    required this.discovery,
     required this.httpUpload,
     required this.httpServer,
   });
 
   static ParentIsolateState initial(SyncState syncState) => ParentIsolateState(
     syncState: syncState,
-    httpScanDiscovery: null,
-    multicastDiscovery: null,
+    discovery: null,
     httpUpload: null,
     httpServer: null,
   );
@@ -66,17 +62,8 @@ class IsolateController extends ReduxNotifier<ParentIsolateState> {
 class IsolateSetupAction extends AsyncReduxAction<IsolateController, ParentIsolateState> {
   @override
   Future<ParentIsolateState> reduce() async {
-    final httpScanDiscovery =
-        await TypedIsolates.startIsolate<IsolateTaskStreamResult<Device>, SendToIsolateData<IsolateTask<HttpScanTask>>, InitialData>(
-          task: setupHttpScanDiscoveryIsolate,
-          param: InitialData(
-            syncState: state.syncState,
-            logLevel: Logger.root.level,
-          ),
-        );
-
-    final multicastDiscovery = await TypedIsolates.startIsolate<Device, SendToIsolateData<MulticastTask>, InitialData>(
-      task: setupMulticastDiscoveryIsolate,
+    final discovery = await TypedIsolates.startIsolate<IsolateTaskStreamResult<Device>, SendToIsolateData<IsolateTask<DiscoveryTask>>, InitialData>(
+      task: setupDiscoveryIsolate,
       param: InitialData(
         syncState: state.syncState,
         logLevel: Logger.root.level,
@@ -102,8 +89,7 @@ class IsolateSetupAction extends AsyncReduxAction<IsolateController, ParentIsola
         );
 
     return state.copyWith(
-      httpScanDiscovery: httpScanDiscovery,
-      multicastDiscovery: multicastDiscovery,
+      discovery: discovery,
       httpUpload: httpUpload,
       httpServer: httpServer,
     );
@@ -113,8 +99,7 @@ class IsolateSetupAction extends AsyncReduxAction<IsolateController, ParentIsola
 class IsolateDisposeAction extends ReduxAction<IsolateController, ParentIsolateState> {
   @override
   ParentIsolateState reduce() {
-    state.httpScanDiscovery?.isolate.kill();
-    state.multicastDiscovery?.isolate.kill();
+    state.discovery?.isolate.kill();
     state.httpUpload?.isolate.kill();
     state.httpServer?.isolate.kill();
     return state;

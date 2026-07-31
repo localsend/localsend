@@ -119,13 +119,7 @@ class _PublishSyncStateAction extends ReduxAction<IsolateController, ParentIsola
 
   @override
   ParentIsolateState reduce() {
-    state.httpScanDiscovery?.sendToIsolate(
-      SendToIsolateData(
-        syncState: syncState,
-        data: null,
-      ),
-    );
-    state.multicastDiscovery?.sendToIsolate(
+    state.discovery?.sendToIsolate(
       SendToIsolateData(
         syncState: syncState,
         data: null,

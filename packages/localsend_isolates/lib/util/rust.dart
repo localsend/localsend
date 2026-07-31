@@ -2,9 +2,9 @@ import 'package:localsend_isolates/constants.dart';
 import 'package:localsend_isolates/model/device.dart';
 import 'package:localsend_isolates/model/dto/file_dto.dart';
 import 'package:localsend_isolates/model/dto/multicast_dto.dart';
+import 'package:localsend_isolates/rust/api/discovery.dart' as rust_discovery;
 import 'package:localsend_isolates/rust/api/http.dart' as rust_http;
 import 'package:localsend_isolates/rust/api/model.dart' as rust_model;
-import 'package:localsend_isolates/rust/api/multicast.dart' as rust_multicast;
 import 'package:localsend_isolates/rust/api/server.dart' as rust_server;
 import 'package:localsend_isolates/src/isolate/child/sync_provider.dart';
 import 'package:mime/mime.dart';
@@ -129,11 +129,11 @@ extension RustFileDtoExt on rust_model.FileDto {
   }
 }
 
-extension MulticastMessageV2Ext on rust_multicast.MulticastMessageV2 {
-  Device toDevice(String ip) {
+extension RsDiscoveredDeviceExt on rust_discovery.RsDiscoveredDevice {
+  Device toDevice() {
     return Device(
       signalingId: null,
-      ip: ip,
+      ip: host,
       version: version,
       port: port,
       https: protocol == rust_server.ProtocolTypeV2.https,
@@ -142,7 +142,23 @@ extension MulticastMessageV2Ext on rust_multicast.MulticastMessageV2 {
       deviceModel: deviceModel,
       deviceType: deviceType?.toDart() ?? DeviceType.desktop,
       download: download,
-      discoveryMethods: {MulticastDiscovery()},
+      discoveryMethods: {HttpDiscovery(ip: host)},
+    );
+  }
+}
+
+extension DeviceToRsDiscoveredDeviceExt on Device {
+  rust_discovery.RsDiscoveredDevice toRsDiscoveredDevice(String ip) {
+    return rust_discovery.RsDiscoveredDevice(
+      alias: alias,
+      version: version,
+      deviceModel: deviceModel,
+      deviceType: deviceType.toRust(),
+      fingerprint: fingerprint,
+      host: ip,
+      port: port,
+      protocol: https ? rust_server.ProtocolTypeV2.https : rust_server.ProtocolTypeV2.http,
+      download: download,
     );
   }
 }
