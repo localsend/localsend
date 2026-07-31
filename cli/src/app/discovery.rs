@@ -1,91 +1,54 @@
-//! Device discovery: multicast announcements are answered with an HTTP
-//! register request, and confirmed devices get a slot in the registry.
+//! Device discovery: the core discovery answers multicast announcements with
+//! an HTTP register request and stores confirmed devices; the CLI assigns a
+//! hotkey slot to every device entering the store.
 
-use super::{App, AppEvent};
+use super::App;
+use crate::slots::slot_label;
 use crate::ui::Category;
-use localsend::http::client::v2::LsHttpClientV2;
-use localsend::http::dto::ProtocolType;
-use localsend::http::dto_v2::ProtocolTypeV2;
-use localsend::multicast::MulticastEvent;
-use std::time::Duration;
+use localsend::discovery::{DeviceChannel, DiscoveredDevice, DiscoveryEvent, HttpChannel};
+use localsend::http::dto_v2::RegisterDtoV2;
 
 impl App {
-    pub(super) fn handle_multicast(&mut self, event: MulticastEvent) {
-        let MulticastEvent::Discovered {
-            ip,
-            scope_id,
-            message,
-        } = event;
-        if message.fingerprint == self.storage.identity.fingerprint {
+    pub(super) fn handle_discovery(&mut self, event: DiscoveryEvent) {
+        let DiscoveryEvent::Discovered { device } = event else {
+            // Re-confirmations update the store silently; multi-homed peers
+            // re-announce with a different address all the time.
             return;
-        }
-        let host = match scope_id {
-            Some(scope_id) => format!("{ip}%{scope_id}"),
-            None => ip.to_string(),
         };
-
-        // Answer the announcement with an HTTP register request; the device
-        // is only shown once that request succeeds.
-        let identity = self.storage.identity.clone();
-        let events_tx = self.events_tx.clone();
-        tokio::spawn(async move {
-            let expected_fingerprint = match message.protocol {
-                ProtocolTypeV2::Https => Some(message.fingerprint.clone()),
-                ProtocolTypeV2::Http => None,
-            };
-            let Ok(client) = LsHttpClientV2::try_new(
-                &identity.key_pem,
-                &identity.cert_pem,
-                expected_fingerprint,
-                Some(Duration::from_secs(5)),
-            ) else {
-                return;
-            };
-            let protocol = match message.protocol {
-                ProtocolTypeV2::Http => ProtocolType::Http,
-                ProtocolTypeV2::Https => ProtocolType::Https,
-            };
-            let result = client
-                .register(protocol, &host, message.port, identity.register_dto())
-                .await;
-            if let Ok(response) = result {
-                let _ = events_tx
-                    .send(AppEvent::DeviceUp {
-                        alias: response.body.alias,
-                        host,
-                        port: message.port,
-                        protocol: message.protocol,
-                        fingerprint: message.fingerprint,
-                    })
-                    .await;
-            }
-        });
+        let slot = self.slots.assign(&device.fingerprint);
+        let host = device
+            .http()
+            .map(|http| http.host.as_str())
+            .unwrap_or("unknown address");
+        self.ui.log(
+            Category::Discovery,
+            &format!("[{}] {} ({host})", slot_label(slot), device.alias),
+        );
     }
 
-    pub(super) fn device_up(
-        &mut self,
-        alias: String,
-        host: String,
-        port: u16,
-        protocol: ProtocolTypeV2,
-        fingerprint: String,
-    ) {
-        if fingerprint == self.storage.identity.fingerprint {
+    /// Feeds a device confirmed outside of discovery — it registered with our
+    /// HTTP server, or it sent a transfer request — into the discovery store;
+    /// a device new to the store comes back as a `Discovered` event.
+    pub(super) fn device_confirmed(&self, host: String, info: RegisterDtoV2) {
+        if info.fingerprint == self.storage.identity.fingerprint {
             return;
         }
-        if let Some(device) = self
-            .registry
-            .upsert(alias, host, port, protocol, fingerprint)
-        {
-            self.ui.log(
-                Category::Discovery,
-                &format!(
-                    "[{}] {} ({})",
-                    device.slot_label(),
-                    device.alias,
-                    device.host
-                ),
-            );
-        }
+        let device = DiscoveredDevice {
+            alias: info.alias,
+            version: info.version,
+            device_model: info.device_model,
+            device_type: info.device_type,
+            fingerprint: info.fingerprint,
+            channel: DeviceChannel::Http(HttpChannel {
+                host,
+                port: info.port,
+                protocol: info.protocol,
+            }),
+            download: info.download,
+        };
+        let discovery = self.discovery.clone();
+        tokio::spawn(async move {
+            discovery.add_device(device).await;
+        });
     }
 }

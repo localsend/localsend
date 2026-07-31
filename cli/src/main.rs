@@ -1,9 +1,9 @@
 mod app;
 mod banner;
 mod device_list;
-mod devices;
 mod picker;
 mod send_task;
+mod slots;
 mod storage;
 mod ui;
 mod util;

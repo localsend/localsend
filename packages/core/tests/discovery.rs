@@ -15,7 +15,7 @@ use localsend::discovery::{
 use localsend::http::server::{start_with_port, ServerConfigV2, TlsConfig};
 use localsend::http::state::ClientInfo;
 use localsend::model::discovery::{DeviceType, ProtocolTypeV2, PROTOCOL_VERSION_V2};
-use localsend::multicast::MulticastDevice;
+use localsend::multicast::{InterfaceFilter, MulticastDevice};
 use std::net::{Ipv4Addr, Ipv6Addr};
 use std::sync::atomic::{AtomicU16, Ordering};
 use std::time::Duration;
@@ -161,8 +161,10 @@ async fn start_instance(
         },
         stop_rx,
     )
-    .await
-    .ok()?;
+    .await;
+    if handle.multicast_error().is_some() {
+        return None;
+    }
 
     Some(TestInstance {
         fingerprint: cert.fingerprint,
@@ -296,8 +298,9 @@ async fn test_subnet_scan_finds_device_on_loopback() {
     assert_eq!(stored.device.alias, "ScanTarget");
     assert!(
         stored
-            .device
-            .http_channels()
+            .channels
+            .keys()
+            .filter_map(|channel| channel.http())
             .all(|http| http.host != "127.0.0.99"),
         "the interface address itself must not be probed"
     );
@@ -351,6 +354,66 @@ async fn test_targeted_discovery_reads_fingerprint_from_certificate_on_https() {
         .handle
         .device_by_fingerprint("claimed-fingerprint")
         .is_none());
+}
+
+#[tokio::test]
+async fn test_discovery_works_without_multicast() {
+    let server_port = free_port();
+    let _server_stop =
+        start_register_server(server_port, "Target", "target-fingerprint", None).await;
+
+    // An interface whitelist matching no interface makes the multicast side
+    // fail deterministically.
+    let cert = generate_self_signed().expect("Failed to generate an identity");
+    let (stop_tx, stop_rx) = oneshot::channel();
+    let handle = discovery::start(
+        DiscoveryConfig {
+            group: TEST_GROUP,
+            group_v6: Some(TEST_GROUP_V6),
+            port: NEXT_MULTICAST_PORT.fetch_add(1, Ordering::Relaxed),
+            interface_filter: InterfaceFilter {
+                whitelist: Some(vec!["203.0.113.1".to_string()]),
+                blacklist: None,
+            },
+            device: MulticastDevice {
+                alias: "NoMulticast".to_string(),
+                version: PROTOCOL_VERSION_V2.to_string(),
+                device_model: Some("Rust".to_string()),
+                device_type: Some(DeviceType::Headless),
+                fingerprint: cert.fingerprint.clone(),
+                port: free_port(),
+                protocol: ProtocolTypeV2::Http,
+                download: false,
+            },
+            identity: DeviceIdentity {
+                cert_pem: cert.certificate_pem,
+                private_key_pem: cert.private_key_pem,
+            },
+            timeout: discovery::DEFAULT_DISCOVERY_TIMEOUT,
+            event_tx: None,
+        },
+        stop_rx,
+    )
+    .await;
+
+    assert!(
+        handle.multicast_error().is_some(),
+        "no interface matches the whitelist, so multicast must be unavailable"
+    );
+
+    // Announcing is a no-op, the active operations still work.
+    handle.announce().await;
+    let device = handle
+        .discover("127.0.0.1", server_port, ProtocolTypeV2::Http)
+        .await
+        .expect("Targeted discovery failed")
+        .expect("The target must not be mistaken for the device itself");
+    assert_eq!(device.device.alias, "Target");
+    assert!(handle.device_by_fingerprint("target-fingerprint").is_some());
+
+    // Stopping must not hang without multicast sockets to close.
+    drop(stop_tx);
+    handle.wait_stopped().await;
 }
 
 #[tokio::test]

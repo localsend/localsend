@@ -30,9 +30,10 @@ pub struct DeviceRow {
     /// The send hotkey (1-9) of the discovered device, if one was free.
     pub slot: Option<u8>,
 
-    /// Where the device was last seen; `None` for a paired device that has
-    /// not been discovered in this run and therefore cannot be sent to.
-    pub host: Option<String>,
+    /// The addresses the device was seen on, the best first; empty for a paired
+    /// device that has not been discovered in this run and therefore cannot
+    /// be sent to.
+    pub hosts: Vec<String>,
 
     /// Whether the device is paired; the pair hotkey toggles it.
     pub paired: bool,
@@ -112,7 +113,7 @@ impl DeviceList {
             KeyCode::Enter => {
                 // A paired device that was never discovered has no address.
                 if let Some(device) = self.selected_device()
-                    && device.host.is_some()
+                    && !device.hosts.is_empty()
                 {
                     return DeviceListOutcome::Send {
                         fingerprint: device.fingerprint.clone(),
@@ -221,15 +222,57 @@ fn row_item(row: &Row) -> ListItem<'_> {
                 Some(slot) => slot.to_string(),
                 None => "-".to_string(),
             };
-            match &device.host {
-                Some(host) => {
-                    ListItem::new(Span::raw(format!("  [{slot}] {} ({host})", device.alias)))
+            match device.hosts.is_empty() {
+                false => {
+                    let hosts: Vec<String> =
+                        device.hosts.iter().map(|host| shorten_host(host)).collect();
+                    ListItem::new(Span::raw(format!(
+                        "  [{slot}] {} ({})",
+                        device.alias,
+                        hosts.join(", ")
+                    )))
                 }
-                None => ListItem::new(Span::styled(
+                true => ListItem::new(Span::styled(
                     format!("  [{slot}] {} (offline)", device.alias),
                     Style::default().fg(Color::DarkGray),
                 )),
             }
         }
+    }
+}
+
+/// Shortens a host for the row: an IPv6 address is reduced to its last group
+/// (keeping the scope), so `fe80::6888:8aff:febd:8578%15` renders as
+/// `::8578%15`. Display only; sending always uses the full address.
+fn shorten_host(host: &str) -> String {
+    let (address, scope) = match host.split_once('%') {
+        Some((address, scope)) => (address, Some(scope)),
+        None => (host, None),
+    };
+    if !address.contains(':') {
+        return host.to_string();
+    }
+    let last_group = address.rsplit(':').next().unwrap_or_default();
+    match scope {
+        Some(scope) => format!("::{last_group}%{scope}"),
+        None => format!("::{last_group}"),
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_shorten_host() {
+        assert_eq!(shorten_host("fe80::6888:8aff:febd:8578%15"), "::8578%15");
+        assert_eq!(shorten_host("fe80::6888:8aff:febd:8578%7"), "::8578%7");
+        assert_eq!(shorten_host("fe80::1%3"), "::1%3");
+        assert_eq!(shorten_host("2a00:1450:4001:829::200e"), "::200e");
+        assert_eq!(
+            shorten_host("192.168.178.183"),
+            "192.168.178.183",
+            "IPv4 must stay untouched"
+        );
     }
 }

@@ -1,10 +1,10 @@
 use crate::app::AppEvent;
-use crate::devices::Device;
 use crate::storage::Identity;
 use crate::ui::Category;
 use crate::util;
 use bytes::Bytes;
 use futures_util::StreamExt;
+use localsend::discovery::StatefulDevice;
 use localsend::http::client::ClientError;
 use localsend::http::client::v2::LsHttpClientV2;
 use localsend::http::dto::ProtocolType;
@@ -47,7 +47,7 @@ impl SendCancel {
 /// Always ends by emitting [AppEvent::SendEnded].
 pub async fn run_send(
     identity: Arc<Identity>,
-    device: Device,
+    device: StatefulDevice,
     files: HashMap<String, FileDto>,
     paths: HashMap<String, PathBuf>,
     progress: Arc<AtomicU64>,
@@ -60,14 +60,14 @@ pub async fn run_send(
 
 async fn send_inner(
     identity: Arc<Identity>,
-    device: Device,
+    device: StatefulDevice,
     files: HashMap<String, FileDto>,
     paths: HashMap<String, PathBuf>,
     progress: Arc<AtomicU64>,
     cancel: SendCancel,
     events: &mpsc::Sender<AppEvent>,
 ) {
-    let alias = device.alias.clone();
+    let alias = device.device.alias.clone();
     let log = |text: String| {
         let events = events.clone();
         async move {
@@ -80,12 +80,16 @@ async fn send_inner(
         }
     };
 
-    let protocol = match device.protocol {
+    let Some(http) = device.get_best_channel().and_then(|channel| channel.http()) else {
+        log(format!("{alias}: No dialable address")).await;
+        return;
+    };
+    let protocol = match http.protocol {
         ProtocolTypeV2::Http => ProtocolType::Http,
         ProtocolTypeV2::Https => ProtocolType::Https,
     };
-    let expected_fingerprint = match device.protocol {
-        ProtocolTypeV2::Https => Some(device.fingerprint.clone()),
+    let expected_fingerprint = match http.protocol {
+        ProtocolTypeV2::Https => Some(device.device.fingerprint.clone()),
         ProtocolTypeV2::Http => None,
     };
     let client = match LsHttpClientV2::try_new(
@@ -109,8 +113,8 @@ async fn send_inner(
     let prepared = match client
         .prepare_upload(
             protocol.clone(),
-            &device.host,
-            device.port,
+            &http.host,
+            http.port,
             None,
             payload,
             None,
@@ -193,8 +197,8 @@ async fn send_inner(
         match client
             .upload(
                 protocol.clone(),
-                &device.host,
-                device.port,
+                &http.host,
+                http.port,
                 None,
                 &response.session_id,
                 file_id,
@@ -220,8 +224,8 @@ async fn send_inner(
                     let _ = client
                         .cancel(
                             protocol.clone(),
-                            &device.host,
-                            device.port,
+                            &http.host,
+                            http.port,
                             &response.session_id,
                         )
                         .await;
@@ -238,8 +242,8 @@ async fn send_inner(
                 let _ = client
                     .cancel(
                         protocol.clone(),
-                        &device.host,
-                        device.port,
+                        &http.host,
+                        http.port,
                         &response.session_id,
                     )
                     .await;

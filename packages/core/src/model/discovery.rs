@@ -14,7 +14,7 @@ pub enum DeviceType {
 }
 
 /// Protocol type for HTTP or HTTPS connections.
-#[derive(Clone, Copy, Debug, Deserialize, Eq, Serialize, PartialEq)]
+#[derive(Clone, Copy, Debug, Deserialize, Eq, Hash, Serialize, PartialEq)]
 #[serde(rename_all = "lowercase")]
 pub enum ProtocolTypeV2 {
     Http,

@@ -5,6 +5,7 @@ use super::App;
 use crate::device_list::{DeviceList, DeviceListOutcome, DeviceRow, Row};
 use crate::ui::Category;
 use crossterm::event::KeyEvent;
+use localsend::discovery::StatefulDevice;
 
 impl App {
     pub(super) fn open_device_list(&mut self) {
@@ -28,14 +29,15 @@ impl App {
         let mut empty = true;
         for (fingerprint, paired) in self.storage.paired.iter() {
             empty = false;
-            let discovered = self.registry.by_fingerprint(fingerprint);
+            let discovered = self.discovery.device_by_fingerprint(fingerprint);
             rows.push(Row::Device(DeviceRow {
                 fingerprint: fingerprint.clone(),
                 alias: discovered
-                    .map(|device| device.alias.clone())
+                    .as_ref()
+                    .map(|stored| stored.device.alias.clone())
                     .unwrap_or_else(|| paired.alias.clone()),
-                slot: discovered.and_then(|device| device.slot),
-                host: discovered.map(|device| device.host.clone()),
+                slot: self.slots.get(fingerprint),
+                hosts: discovered.as_ref().map(channel_hosts).unwrap_or_default(),
                 paired: true,
             }));
         }
@@ -46,16 +48,16 @@ impl App {
         rows.push(Row::Spacer);
         rows.push(Row::Header("Discovered"));
         let mut empty = true;
-        for device in self.registry.devices() {
-            if self.storage.paired.contains(&device.fingerprint) {
+        for stored in self.discovery.devices() {
+            if self.storage.paired.contains(&stored.device.fingerprint) {
                 continue;
             }
             empty = false;
             rows.push(Row::Device(DeviceRow {
-                fingerprint: device.fingerprint.clone(),
-                alias: device.alias.clone(),
-                slot: device.slot,
-                host: Some(device.host.clone()),
+                fingerprint: stored.device.fingerprint.clone(),
+                alias: stored.device.alias.clone(),
+                slot: self.slots.get(&stored.device.fingerprint),
+                hosts: channel_hosts(&stored),
                 paired: false,
             }));
         }
@@ -81,7 +83,7 @@ impl App {
                 self.close_device_list();
                 if !self.preselected.is_empty() {
                     self.start_send(&fingerprint, self.preselected.clone());
-                } else if let Some(device) = self.registry.by_fingerprint(&fingerprint).cloned() {
+                } else if let Some(device) = self.discovery.device_by_fingerprint(&fingerprint) {
                     self.open_picker(device);
                 }
             }
@@ -102,10 +104,10 @@ impl App {
     /// device moves up into "Paired"). The log line shows up once the list
     /// is closed.
     fn pair(&mut self, fingerprint: &str) {
-        let Some(device) = self.registry.by_fingerprint(fingerprint) else {
+        let Some(stored) = self.discovery.device_by_fingerprint(fingerprint) else {
             return;
         };
-        let alias = device.alias.clone();
+        let alias = stored.device.alias;
         match self
             .storage
             .paired
@@ -150,4 +152,14 @@ impl App {
             list.draw();
         }
     }
+}
+
+/// The addresses a stored device can be dialed at, best first.
+fn channel_hosts(stored: &StatefulDevice) -> Vec<String> {
+    stored
+        .get_ranked_channels()
+        .into_iter()
+        .filter_map(|channel| channel.http())
+        .map(|http| http.host.clone())
+        .collect()
 }

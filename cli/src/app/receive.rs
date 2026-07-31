@@ -99,13 +99,7 @@ impl App {
     pub(super) fn handle_server_event(&mut self, event: ServerEventV2) {
         match event {
             ServerEventV2::Register { ip, info } => {
-                self.device_up(
-                    info.alias,
-                    ip.to_string(),
-                    info.port,
-                    info.protocol,
-                    info.fingerprint,
-                );
+                self.device_confirmed(ip.to_string(), info);
             }
             ServerEventV2::PrepareUpload {
                 session_id,
@@ -116,13 +110,7 @@ impl App {
                 decision_tx,
             } => {
                 // The sender is clearly reachable; make sure it has a slot.
-                self.device_up(
-                    info.alias.clone(),
-                    ip.to_string(),
-                    info.port,
-                    info.protocol,
-                    info.fingerprint.clone(),
-                );
+                self.device_confirmed(ip.to_string(), info.clone());
 
                 let sender = SenderTarget {
                     host: ip.to_string(),

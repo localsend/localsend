@@ -1,7 +1,7 @@
 mod store;
 
 pub use store::{
-    DeviceChannel, DeviceLog, DiscoveredDevice, DiscoveredDeviceWithLogs, HttpChannel,
+    ChannelStatus, DeviceChannel, DeviceLog, DiscoveredDevice, HttpChannel, StatefulDevice,
 };
 
 use crate::http::client::{ClientError, LsHttpClientV2};
@@ -77,7 +77,7 @@ pub struct DiscoveryConfig {
 }
 
 /// An event emitted by the discovery. Every event is also logged in
-/// [`DiscoveredDeviceWithLogs::logs`]; the accumulated state is read from
+/// [`StatefulDevice::logs`]; the accumulated state is read from
 /// [`DiscoveryHandle::devices`].
 #[derive(Clone, Debug)]
 pub enum DiscoveryEvent {
@@ -144,7 +144,7 @@ impl DiscoveryState {
         host: &str,
         port: u16,
         protocol: ProtocolTypeV2,
-    ) -> Result<Option<DiscoveredDeviceWithLogs>, ClientError> {
+    ) -> Result<Option<StatefulDevice>, ClientError> {
         let response = client
             .register(client_protocol(protocol), host, port, self.register_dto())
             .await?;
@@ -170,7 +170,7 @@ impl DiscoveryState {
     /// Puts a device into the store, logging the confirmation on it, and
     /// emits the resulting event. Returns whether the device is new, and
     /// its stored state after the merge.
-    async fn found(&self, device: DiscoveredDevice) -> (bool, DiscoveredDeviceWithLogs) {
+    async fn found(&self, device: DiscoveredDevice) -> (bool, StatefulDevice) {
         let (event, merged) = self.store.upsert(device, SystemTime::now());
         let is_new = matches!(event, DiscoveryEvent::Discovered { .. });
         if let Some(event_tx) = &self.event_tx {
@@ -183,7 +183,9 @@ impl DiscoveryState {
 /// A handle to a running discovery: the store of discovered devices and the
 /// application-initiated operations.
 pub struct DiscoveryHandle {
-    multicast: MulticastHandle,
+    /// The multicast side, or the reason it could not be started; discovery
+    /// keeps working without it, see [`DiscoveryHandle::multicast_error`].
+    multicast: Result<MulticastHandle, anyhow::Error>,
     state: Arc<DiscoveryState>,
 }
 
@@ -196,9 +198,22 @@ impl DiscoveryHandle {
     /// themselves. Feed them back via [`DiscoveryHandle::add_device`].
     ///
     /// Returns once the whole announcement burst has been sent, which takes a
-    /// few seconds, or immediately once discovery has been stopped.
+    /// few seconds, or immediately once discovery has been stopped or
+    /// multicast is unavailable.
     pub async fn announce(&self) {
-        self.multicast.announce().await;
+        if let Ok(multicast) = &self.multicast {
+            multicast.announce().await;
+        }
+    }
+
+    /// The reason the multicast sockets could not be bound (e.g. the port is
+    /// taken, or there is no usable network interface), when they could not.
+    ///
+    /// Discovery then neither hears nor sends announcements; it still learns
+    /// about devices through [`DiscoveryHandle::discover`],
+    /// [`DiscoveryHandle::scan_subnet`] and [`DiscoveryHandle::add_device`].
+    pub fn multicast_error(&self) -> Option<&anyhow::Error> {
+        self.multicast.as_ref().err()
     }
 
     /// Discovers a device at a known address, e.g. a favorite or a peer that
@@ -214,7 +229,7 @@ impl DiscoveryHandle {
         host: &str,
         port: u16,
         protocol: ProtocolTypeV2,
-    ) -> Result<Option<DiscoveredDeviceWithLogs>, ClientError> {
+    ) -> Result<Option<StatefulDevice>, ClientError> {
         let client = self.state.unpinned_client()?;
         self.state.probe(&client, host, port, protocol).await
     }
@@ -230,7 +245,7 @@ impl DiscoveryHandle {
         interface_ip: Ipv4Addr,
         port: u16,
         protocol: ProtocolTypeV2,
-    ) -> Result<Vec<DiscoveredDeviceWithLogs>, ClientError> {
+    ) -> Result<Vec<StatefulDevice>, ClientError> {
         if !self.state.scanning.lock().unwrap().insert(interface_ip) {
             return Ok(Vec::new());
         }
@@ -273,19 +288,22 @@ impl DiscoveryHandle {
     }
 
     /// All discovered devices in discovery order.
-    pub fn devices(&self) -> Vec<DiscoveredDeviceWithLogs> {
+    pub fn devices(&self) -> Vec<StatefulDevice> {
         self.state.store.devices()
     }
 
-    pub fn device_by_fingerprint(&self, fingerprint: &str) -> Option<DiscoveredDeviceWithLogs> {
+    pub fn device_by_fingerprint(&self, fingerprint: &str) -> Option<StatefulDevice> {
         self.state.store.by_fingerprint(fingerprint)
     }
 
     /// Waits until discovery has terminated and the multicast sockets have
     /// been closed, so that the port can be bound again.
     /// Must be called after requesting a stop via the stop channel.
+    /// Returns immediately when multicast is unavailable.
     pub async fn wait_stopped(&self) {
-        self.multicast.wait_stopped().await;
+        if let Ok(multicast) = &self.multicast {
+            multicast.wait_stopped().await;
+        }
     }
 }
 
@@ -309,14 +327,13 @@ impl Drop for ScanGuard<'_> {
 /// Binds the multicast sockets and starts answering announcements of other
 /// devices. Nothing is announced until [`DiscoveryHandle::announce`] is called.
 ///
-/// Fails when no network interface could be used, e.g. because the port is
-/// already bound by another process or because there is no network at all.
-pub async fn start(
-    config: DiscoveryConfig,
-    stop_rx: oneshot::Receiver<()>,
-) -> anyhow::Result<DiscoveryHandle> {
+/// Starting cannot fail: when no multicast socket could be bound, e.g. because
+/// the port is already bound by another process or because there is no network
+/// at all, discovery runs without multicast.
+pub async fn start(config: DiscoveryConfig, stop_rx: oneshot::Receiver<()>) -> DiscoveryHandle {
     let (multicast_tx, mut multicast_rx) = mpsc::channel(MULTICAST_CHANNEL_SIZE);
 
+    // On failure `multicast_tx` is dropped, which ends the answering task.
     let multicast = multicast::start(
         MulticastConfig {
             group: config.group,
@@ -328,7 +345,7 @@ pub async fn start(
         },
         stop_rx,
     )
-    .await?;
+    .await;
 
     let state = Arc::new(DiscoveryState {
         device: config.device,
@@ -358,7 +375,7 @@ pub async fn start(
         }
     });
 
-    Ok(DiscoveryHandle { multicast, state })
+    DiscoveryHandle { multicast, state }
 }
 
 /// Answers an announcement with a register request, as the protocol requires.
@@ -437,11 +454,11 @@ fn confirmed_device(
         device_model: response.device_model,
         device_type: response.device_type,
         fingerprint,
-        channels: vec![DeviceChannel::Http(HttpChannel {
+        channel: DeviceChannel::Http(HttpChannel {
             host,
             port,
             protocol,
-        })],
+        }),
         download: response.download,
     }
 }

@@ -2,12 +2,12 @@
 //! transfer driven by the [`crate::send_task`].
 
 use super::App;
-use crate::devices::Device;
 use crate::picker::{Picker, PickerOutcome};
 use crate::send_task;
 use crate::ui::Category;
 use crate::util::SpeedMeter;
 use crossterm::event::KeyEvent;
+use localsend::discovery::StatefulDevice;
 use localsend::model::transfer::FileDto;
 use std::collections::HashMap;
 use std::path::PathBuf;
@@ -28,24 +28,31 @@ pub(super) struct SendState {
 
 impl App {
     pub(super) fn start_picking(&mut self, slot: u8) {
-        let Some(device) = self.registry.by_slot(slot).cloned() else {
+        let device = self
+            .slots
+            .fingerprint_by_slot(slot)
+            .and_then(|fingerprint| self.discovery.device_by_fingerprint(fingerprint));
+        let Some(device) = device else {
             self.ui
                 .log(Category::Send, &format!("No device on [{slot}]"));
             return;
         };
         if !self.preselected.is_empty() {
-            self.start_send(&device.fingerprint, self.preselected.clone());
+            self.start_send(&device.device.fingerprint, self.preselected.clone());
             return;
         }
         self.open_picker(device);
     }
 
-    pub(super) fn open_picker(&mut self, device: Device) {
+    pub(super) fn open_picker(&mut self, device: StatefulDevice) {
         if self.send.is_some() {
             self.ui.log(Category::Send, "A send is already in progress");
             return;
         }
-        match Picker::open(device.fingerprint, device.alias.clone()) {
+        match Picker::open(
+            device.device.fingerprint.clone(),
+            device.device.alias.clone(),
+        ) {
             Ok(picker) => {
                 self.ui.suspend();
                 self.picker = Some(picker);
@@ -53,7 +60,10 @@ impl App {
             Err(err) => {
                 self.ui.log(
                     Category::Send,
-                    &format!("{}: could not open the file picker: {err}", device.alias),
+                    &format!(
+                        "{}: could not open the file picker: {err}",
+                        device.device.alias
+                    ),
                 );
             }
         }
@@ -85,7 +95,18 @@ impl App {
             self.ui.log(Category::Send, "A send is already in progress");
             return;
         }
-        let Some(device) = self.registry.by_fingerprint(fingerprint).cloned() else {
+        let Some(device) = self.discovery.device_by_fingerprint(fingerprint) else {
+            return;
+        };
+        let Some(host) = device
+            .get_best_channel()
+            .and_then(|channel| channel.http())
+            .map(|http| http.host.clone())
+        else {
+            self.ui.log(
+                Category::Send,
+                &format!("{}: No dialable address", device.device.alias),
+            );
             return;
         };
 
@@ -134,8 +155,8 @@ impl App {
         let cancel = send_task::SendCancel::new();
         self.send = Some(SendState {
             session_id: None,
-            alias: device.alias.clone(),
-            host: device.host.clone(),
+            alias: device.device.alias.clone(),
+            host,
             total_bytes,
             sent: progress.clone(),
             cancel: cancel.clone(),

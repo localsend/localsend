@@ -2,6 +2,8 @@
 
 use super::DiscoveryEvent;
 use crate::model::discovery::{DeviceType, ProtocolTypeV2};
+use std::collections::HashMap;
+use std::net::IpAddr;
 use std::sync::Mutex;
 use std::time::SystemTime;
 
@@ -29,24 +31,39 @@ pub struct DiscoveredDevice {
     /// In HTTPS mode the SHA-256 hash of the certificate, otherwise a random string.
     pub fingerprint: String,
 
-    /// The channels the device is reachable on, in discovery order.
-    /// A transfer can jump to another channel when one fails.
-    pub channels: Vec<DeviceChannel>,
+    /// The channel the device was confirmed over.
+    pub channel: DeviceChannel,
 
     /// Whether the device's download API is active.
     pub download: bool,
 }
 
-/// A [`DiscoveredDevice`] as kept in the store, together with the history of
-/// events that affected it.
+/// A [`DiscoveredDevice`] as kept in the store.
 #[derive(Clone, Debug)]
-pub struct DiscoveredDeviceWithLogs {
+pub struct StatefulDevice {
+    /// The device as it was most recently confirmed.
     pub device: DiscoveredDevice,
+
+    /// Every channel the device was confirmed on, with its current status.
+    /// Starts with `Available`, the application is responsible
+    /// to set it to `NotReachable` on error.
+    pub channels: HashMap<DeviceChannel, ChannelStatus>,
 
     /// The events that affected this device, oldest first, at most
     /// [`MAX_LOGS`]. Every confirmation is logged, so the last entry is when
     /// the device was last seen.
     pub logs: Vec<DeviceLog>,
+}
+
+/// Whether a [`DeviceChannel`] of a [`StatefulDevice`] is believed to work.
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub enum ChannelStatus {
+    /// The channel worked when it was last used.
+    Available,
+
+    /// The channel failed when it was last used. A re-confirmation over the
+    /// channel makes it available again.
+    NotReachable,
 }
 
 /// A [`DiscoveryEvent`] that affected a device, with the time it happened.
@@ -56,20 +73,38 @@ pub struct DeviceLog {
     pub event: DiscoveryEvent,
 }
 
-impl DiscoveredDevice {
-    /// The device's HTTP channels — the addresses it is reachable on — in
-    /// discovery order. A multi-homed device has one per address it was
-    /// discovered on.
-    pub fn http_channels(&self) -> impl Iterator<Item = &HttpChannel> {
-        // With more channel kinds this becomes a `filter_map`.
-        self.channels.iter().map(|channel| match channel {
-            DeviceChannel::Http(http) => http,
-        })
+impl StatefulDevice {
+    pub fn get_best_channel(&self) -> Option<&DeviceChannel> {
+        self.get_ranked_channels().into_iter().next()
     }
 
-    /// The device's first HTTP channel, when it has one.
+    pub fn get_ranked_channels(&self) -> Vec<&DeviceChannel> {
+        let mut channels: Vec<_> = self.channels.iter().collect();
+        channels.sort_by_key(|(channel, status)| {
+            std::cmp::Reverse((
+                **status == ChannelStatus::Available,
+                channel.is_ipv6(),
+                self.last_confirmed(channel),
+            ))
+        });
+        channels.into_iter().map(|(channel, _)| channel).collect()
+    }
+
+    /// The position of the channel's most recent confirmation in the logs;
+    /// `None` when its confirmations have been dropped from the log cap.
+    fn last_confirmed(&self, channel: &DeviceChannel) -> Option<usize> {
+        self.logs.iter().rposition(|log| {
+            let (DiscoveryEvent::Discovered { device } | DiscoveryEvent::Updated { device }) =
+                &log.event;
+            device.channel == *channel
+        })
+    }
+}
+
+impl DiscoveredDevice {
+    /// The device's HTTP channel, when it was confirmed over HTTP.
     pub fn http(&self) -> Option<&HttpChannel> {
-        self.http_channels().next()
+        self.channel.http()
     }
 }
 
@@ -77,13 +112,20 @@ impl DiscoveredDevice {
 ///
 /// Only HTTP exists so far; other transports (e.g. WebRTC, Bluetooth) will
 /// become further variants.
-#[derive(Clone, Debug)]
+#[derive(Clone, Debug, Eq, Hash, PartialEq)]
 pub enum DeviceChannel {
     /// The device's HTTP server (protocol v2), reachable at one address.
     Http(HttpChannel),
 }
 
 impl DeviceChannel {
+    /// The HTTP address, when this is an HTTP channel.
+    pub fn http(&self) -> Option<&HttpChannel> {
+        match self {
+            DeviceChannel::Http(http) => Some(http),
+        }
+    }
+
     /// Whether two channels address the same endpoint, so that a
     /// re-confirmation updates the known channel instead of adding one.
     fn same_endpoint(&self, other: &DeviceChannel) -> bool {
@@ -91,10 +133,21 @@ impl DeviceChannel {
             (DeviceChannel::Http(own), DeviceChannel::Http(other)) => own.host == other.host,
         }
     }
+
+    /// Whether the channel dials an IPv6 address.
+    fn is_ipv6(&self) -> bool {
+        match self {
+            DeviceChannel::Http(http) => {
+                // Strip the scope of a link-local address like `fe80::1%3`.
+                let host = http.host.split('%').next().unwrap_or(&http.host);
+                matches!(host.parse::<IpAddr>(), Ok(IpAddr::V6(_)))
+            }
+        }
+    }
 }
 
 /// The address of a device's HTTP server.
-#[derive(Clone, Debug)]
+#[derive(Clone, Debug, Eq, Hash, PartialEq)]
 pub struct HttpChannel {
     /// The host to dial: an IP address, or the scoped form `fe80::1%3` for
     /// link-local IPv6 (the HTTP client accepts both).
@@ -110,7 +163,7 @@ pub struct HttpChannel {
 /// All devices discovered in this run, identified by fingerprint, in
 /// discovery order.
 pub(super) struct DeviceStore {
-    devices: Mutex<Vec<DiscoveredDeviceWithLogs>>,
+    devices: Mutex<Vec<StatefulDevice>>,
 }
 
 impl DeviceStore {
@@ -126,12 +179,13 @@ impl DeviceStore {
     /// stored state after the merge.
     ///
     /// Channels are merged by endpoint: a rediscovery over a known address
-    /// updates its channel in place, an unknown address adds one.
+    /// replaces its channel (and makes it available again), an unknown
+    /// address adds one.
     pub(super) fn upsert(
         &self,
         device: DiscoveredDevice,
         timestamp: SystemTime,
-    ) -> (DiscoveryEvent, DiscoveredDeviceWithLogs) {
+    ) -> (DiscoveryEvent, StatefulDevice) {
         let mut devices = self.devices.lock().unwrap();
         match devices
             .iter_mut()
@@ -142,13 +196,12 @@ impl DeviceStore {
                     device: device.clone(),
                 };
 
-                let mut channels = std::mem::take(&mut known.device.channels);
-                for channel in device.channels {
-                    match channels.iter_mut().find(|c| c.same_endpoint(&channel)) {
-                        Some(known) => *known = channel,
-                        None => channels.push(channel),
-                    }
-                }
+                known
+                    .channels
+                    .retain(|channel, _| !channel.same_endpoint(&device.channel));
+                known
+                    .channels
+                    .insert(device.channel.clone(), ChannelStatus::Available);
 
                 known.logs.push(DeviceLog {
                     timestamp,
@@ -159,14 +212,15 @@ impl DeviceStore {
                     known.logs.drain(..excess);
                 }
 
-                known.device = DiscoveredDevice { channels, ..device };
+                known.device = device;
                 (event, known.clone())
             }
             None => {
                 let event = DiscoveryEvent::Discovered {
                     device: device.clone(),
                 };
-                let known = DiscoveredDeviceWithLogs {
+                let known = StatefulDevice {
+                    channels: HashMap::from([(device.channel.clone(), ChannelStatus::Available)]),
                     device,
                     logs: vec![DeviceLog {
                         timestamp,
@@ -180,11 +234,11 @@ impl DeviceStore {
     }
 
     /// All discovered devices in discovery order.
-    pub(super) fn devices(&self) -> Vec<DiscoveredDeviceWithLogs> {
+    pub(super) fn devices(&self) -> Vec<StatefulDevice> {
         self.devices.lock().unwrap().clone()
     }
 
-    pub(super) fn by_fingerprint(&self, fingerprint: &str) -> Option<DiscoveredDeviceWithLogs> {
+    pub(super) fn by_fingerprint(&self, fingerprint: &str) -> Option<StatefulDevice> {
         self.devices
             .lock()
             .unwrap()
@@ -205,13 +259,17 @@ mod tests {
             device_model: None,
             device_type: Some(DeviceType::Desktop),
             fingerprint: fingerprint.to_string(),
-            channels: vec![DeviceChannel::Http(HttpChannel {
+            channel: DeviceChannel::Http(HttpChannel {
                 host: host.to_string(),
                 port: 53317,
                 protocol: ProtocolTypeV2::Https,
-            })],
+            }),
             download: false,
         }
+    }
+
+    fn channel_host(channel: &DeviceChannel) -> &str {
+        channel.http().unwrap().host.as_str()
     }
 
     /// The marker telling log entries apart: the host the logged snapshot
@@ -282,64 +340,137 @@ mod tests {
 
         let devices = store.devices();
         assert_eq!(devices.len(), 1);
-        let hosts: Vec<&str> = devices[0]
-            .device
-            .http_channels()
-            .map(|http| http.host.as_str())
-            .collect();
+        let known = &devices[0];
+        assert!(
+            known
+                .channels
+                .values()
+                .all(|status| *status == ChannelStatus::Available),
+            "a confirmed channel must be available"
+        );
+        let mut hosts: Vec<&str> = known.channels.keys().map(channel_host).collect();
+        hosts.sort();
         assert_eq!(
             hosts,
             ["192.168.0.10", "fe80::1%3"],
             "every address the device was confirmed on must be kept"
         );
+        assert_eq!(
+            channel_host(&known.device.channel),
+            "fe80::1%3",
+            "the device must carry the channel of the last confirmation"
+        );
     }
 
     #[test]
-    fn test_upsert_updates_channel_of_known_endpoint_in_place() {
+    fn test_upsert_replaces_channel_of_known_endpoint() {
         let store = DeviceStore::new();
 
         store.upsert(device("a", "192.168.0.10"), SystemTime::now());
         store.upsert(device("a", "fe80::1%3"), SystemTime::now());
 
         let mut update = device("a", "192.168.0.10");
-        match &mut update.channels[0] {
+        match &mut update.channel {
             DeviceChannel::Http(http) => http.port = 54000,
         }
         store.upsert(update, SystemTime::now());
 
         let known = store.by_fingerprint("a").unwrap();
-        let channels: Vec<(&str, u16)> = known
-            .device
-            .http_channels()
-            .map(|http| (http.host.as_str(), http.port))
+        let mut channels: Vec<(&str, u16)> = known
+            .channels
+            .keys()
+            .map(|channel| {
+                let http = channel.http().unwrap();
+                (http.host.as_str(), http.port)
+            })
             .collect();
+        channels.sort();
         assert_eq!(
             channels,
             [("192.168.0.10", 54000), ("fe80::1%3", 53317)],
-            "a known address must be updated in place, not duplicated"
+            "a known address must be replaced, not duplicated"
         );
     }
 
     #[test]
-    fn test_upsert_keeps_channels_missing_from_the_update() {
+    fn test_get_channel_prefers_the_most_recent_confirmation() {
         let store = DeviceStore::new();
 
         store.upsert(device("a", "192.168.0.10"), SystemTime::now());
+        store.upsert(device("a", "10.0.0.10"), SystemTime::now());
+        let known = store.by_fingerprint("a").unwrap();
+        assert_eq!(channel_host(known.get_best_channel().unwrap()), "10.0.0.10");
 
-        let mut update = device("a", "10.0.0.10");
-        update.channels.clear();
-        store.upsert(update, SystemTime::now());
-
+        store.upsert(device("a", "192.168.0.10"), SystemTime::now());
+        let known = store.by_fingerprint("a").unwrap();
         assert_eq!(
-            store
-                .by_fingerprint("a")
-                .unwrap()
-                .device
-                .http()
-                .unwrap()
-                .host,
+            channel_host(known.get_best_channel().unwrap()),
             "192.168.0.10",
-            "an update without an HTTP channel must not drop the known one"
+            "the latest confirmation must win among equals"
+        );
+    }
+
+    #[test]
+    fn test_get_channel_prefers_ipv6_over_ipv4() {
+        let store = DeviceStore::new();
+
+        store.upsert(device("a", "fe80::1%3"), SystemTime::now());
+        store.upsert(device("a", "192.168.0.10"), SystemTime::now());
+
+        let known = store.by_fingerprint("a").unwrap();
+        assert_eq!(
+            channel_host(known.get_best_channel().unwrap()),
+            "fe80::1%3",
+            "IPv6 must beat a more recent IPv4 confirmation"
+        );
+    }
+
+    #[test]
+    fn test_get_channel_prefers_available_channels() {
+        let store = DeviceStore::new();
+
+        store.upsert(device("a", "192.168.0.10"), SystemTime::now());
+        store.upsert(device("a", "fe80::1%3"), SystemTime::now());
+
+        let mut known = store.by_fingerprint("a").unwrap();
+        for (channel, status) in known.channels.iter_mut() {
+            if channel_host(channel) == "fe80::1%3" {
+                *status = ChannelStatus::NotReachable;
+            }
+        }
+        assert_eq!(
+            channel_host(known.get_best_channel().unwrap()),
+            "192.168.0.10",
+            "an available IPv4 channel must beat a not-reachable IPv6 one"
+        );
+    }
+
+    #[test]
+    fn test_get_channels_sorts_best_first() {
+        let store = DeviceStore::new();
+
+        store.upsert(device("a", "192.168.0.10"), SystemTime::now());
+        store.upsert(device("a", "10.0.0.10"), SystemTime::now());
+        store.upsert(device("a", "fe80::1%3"), SystemTime::now());
+
+        let mut known = store.by_fingerprint("a").unwrap();
+        let hosts: Vec<&str> = known.get_ranked_channels().into_iter().map(channel_host).collect();
+        assert_eq!(
+            hosts,
+            ["fe80::1%3", "10.0.0.10", "192.168.0.10"],
+            "IPv6 must come first, then the more recent IPv4 confirmation"
+        );
+
+        for (channel, status) in known.channels.iter_mut() {
+            if channel_host(channel) == "fe80::1%3" {
+                *status = ChannelStatus::NotReachable;
+            }
+        }
+        let hosts: Vec<&str> = known.get_ranked_channels().into_iter().map(channel_host).collect();
+        assert_eq!(
+            hosts,
+            ["10.0.0.10", "192.168.0.10", "fe80::1%3"],
+            "a not-reachable channel must sort last"
         );
     }
 
