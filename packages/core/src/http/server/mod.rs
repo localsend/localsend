@@ -118,6 +118,12 @@ impl AppState {
 pub struct ServerHandle {
     v2: Option<Arc<V2State>>,
 
+    /// The port the listeners are bound to.
+    port: u16,
+
+    /// Whether the IPv6 wildcard listener could be bound.
+    ipv6_bound: bool,
+
     /// The task running the accept loops. Completes after a stop has been
     /// requested, the listeners have been dropped and all connections have
     /// been closed.
@@ -125,6 +131,35 @@ pub struct ServerHandle {
 }
 
 impl ServerHandle {
+    /// The socket addresses this server can be reached at: every address of
+    /// the non-loopback interfaces, restricted to the address families that
+    /// are actually bound. The listeners themselves only know the wildcard
+    /// addresses, so the concrete addresses come from interface enumeration.
+    ///
+    /// Link-local IPv6 addresses are skipped: peers can only use them together
+    /// with their own scope, which this device cannot know.
+    ///
+    /// Empty when the interfaces cannot be enumerated.
+    pub fn local_addresses(&self) -> Vec<SocketAddr> {
+        let Ok(interfaces) = if_addrs::get_if_addrs() else {
+            return Vec::new();
+        };
+        let mut addresses: Vec<SocketAddr> = interfaces
+            .into_iter()
+            .filter(|interface| !interface.is_loopback())
+            .filter_map(|interface| match interface.ip() {
+                IpAddr::V4(address) => Some(SocketAddr::new(address.into(), self.port)),
+                IpAddr::V6(address) if self.ipv6_bound && !address.is_unicast_link_local() => {
+                    Some(SocketAddr::new(address.into(), self.port))
+                }
+                IpAddr::V6(_) => None,
+            })
+            .collect();
+        addresses.sort();
+        addresses.dedup();
+        addresses
+    }
+
     /// Waits until the server task has terminated, the listeners are closed
     /// and all connections have been dropped, so that the port can be bound again.
     /// Must be called after requesting a stop via the stop channel.
@@ -169,11 +204,13 @@ pub async fn start_with_port(
     stop_rx: oneshot::Receiver<()>,
 ) -> anyhow::Result<ServerHandle> {
     let ipv4_socket_addr = SocketAddr::new(Ipv4Addr::UNSPECIFIED.into(), port);
-    let ipv6_socket_addr = SocketAddr::new(Ipv6Addr::UNSPECIFIED.into(), port);
     let info = Arc::new(Mutex::new(info));
     let state = AppState::new(info.clone(), internal_config, v2_config, web_send_config);
 
     let ipv4_listener = tokio::net::TcpListener::bind(ipv4_socket_addr).await?;
+    // With port 0, the IPv6 listener must reuse the port the IPv4 listener got.
+    let bound_port = ipv4_listener.local_addr()?.port();
+    let ipv6_socket_addr = SocketAddr::new(Ipv6Addr::UNSPECIFIED.into(), bound_port);
     let ipv6_listener = match bind_ipv6_only(ipv6_socket_addr) {
         Ok(listener) => Some(listener),
         Err(err) => {
@@ -181,6 +218,7 @@ pub async fn start_with_port(
             None
         }
     };
+    let ipv6_bound = ipv6_listener.is_some();
 
     let cancel = CancellationToken::new();
     let connections = TaskTracker::new();
@@ -215,6 +253,8 @@ pub async fn start_with_port(
 
     Ok(ServerHandle {
         v2: state.v2.clone(),
+        port: bound_port,
+        ipv6_bound,
         task: Mutex::new(Some(task)),
     })
 }

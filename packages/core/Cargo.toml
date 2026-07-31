@@ -44,7 +44,7 @@ x509-parser = { version = "0.18.1", features = ["verify"], optional = true }
 default = []
 crypto = ["ed25519-dalek", "rcgen", "rsa", "sha2", "tokio-util"]
 discovery = ["http", "multicast"]
-http = ["crypto", "form_urlencoded", "http-body-util", "hyper", "hyper-util", "pem", "percent-encoding", "reqwest", "rustls", "socket2", "tokio-rustls", "tokio-util", "x509-parser"]
+http = ["crypto", "form_urlencoded", "http-body-util", "hyper", "hyper-util", "if-addrs", "pem", "percent-encoding", "reqwest", "rustls", "socket2", "tokio-rustls", "tokio-util", "x509-parser"]
 multicast = ["if-addrs", "socket2", "tokio-util"]
 webrtc-signaling = ["tokio-tungstenite"]
 webrtc = ["crypto", "flate2", "dep:webrtc", "webrtc-signaling", "x509-parser"]

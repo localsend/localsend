@@ -1,6 +1,5 @@
 use crossterm::terminal::{Clear, ClearType};
 use crossterm::{cursor, execute};
-use std::net::Ipv4Addr;
 use std::path::{Path, PathBuf};
 use std::time::{Duration, Instant};
 
@@ -110,25 +109,6 @@ pub fn unique_path(dir: &Path, file_name: &str) -> PathBuf {
         .map(|i| dir.join(format!("{stem} ({i}){extension}")))
         .find(|candidate| !candidate.exists())
         .unwrap()
-}
-
-/// The IPv4 addresses of all non-loopback interfaces, i.e. the addresses this
-/// device can be reached at. Empty when the interfaces cannot be enumerated.
-pub fn local_ipv4_addresses() -> Vec<Ipv4Addr> {
-    let Ok(interfaces) = if_addrs::get_if_addrs() else {
-        return Vec::new();
-    };
-    let mut addresses: Vec<Ipv4Addr> = interfaces
-        .into_iter()
-        .filter(|interface| !interface.is_loopback())
-        .filter_map(|interface| match interface.ip() {
-            std::net::IpAddr::V4(address) => Some(address),
-            std::net::IpAddr::V6(_) => None,
-        })
-        .collect();
-    addresses.sort();
-    addresses.dedup();
-    addresses
 }
 
 /// Estimates the transfer speed from cumulative byte counts, smoothed with an

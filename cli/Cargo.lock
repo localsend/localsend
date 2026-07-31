@@ -1944,7 +1944,6 @@ dependencies = [
  "dirs",
  "futures-util",
  "gethostname",
- "if-addrs",
  "localsend",
  "mime_guess",
  "pem 4.0.0",

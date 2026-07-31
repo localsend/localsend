@@ -172,7 +172,9 @@ pub async fn run(args: Args) -> anyhow::Result<()> {
     };
 
     match app.preselected.is_empty() {
-        true => app.ui.log_plain(&crate::banner::render(&app.storage)),
+        true => app
+            .ui
+            .log_plain(&crate::banner::render(&app.storage, &app.server)),
         false => app.open_device_list(),
     }
 
