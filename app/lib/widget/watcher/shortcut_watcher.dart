@@ -5,8 +5,6 @@ import 'package:flutter/services.dart';
 import 'package:localsend_app/pages/home_page.dart';
 import 'package:localsend_app/pages/home_page_controller.dart';
 import 'package:localsend_app/util/native/file_picker.dart';
-import 'package:localsend_app/util/native/platform_check.dart';
-import 'package:localsend_app/widget/watcher/window_watcher.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 import 'package:routerino/routerino.dart';
 
@@ -21,14 +19,6 @@ class ShortcutWatcher extends StatelessWidget {
       shortcuts: {
         // The select button on AndroidTV needs this to work
         LogicalKeySet(LogicalKeyboardKey.select): const ActivateIntent(),
-
-        // Add Control+Q binding for Linux
-        // https://github.com/localsend/localsend/issues/194
-        if (checkPlatform([TargetPlatform.linux])) LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.keyQ): _ExitAppIntent(),
-        // Add Command+W to close the window for macOS
-        if (checkPlatform([TargetPlatform.macOS])) LogicalKeySet(LogicalKeyboardKey.meta, LogicalKeyboardKey.keyW): _CloseWindowIntent(),
-        // Add Control+, to open settings for macOS
-        if (checkPlatform([TargetPlatform.macOS])) LogicalKeySet(LogicalKeyboardKey.meta, LogicalKeyboardKey.comma): _OpenSettingsIntent(),
 
         LogicalKeySet(LogicalKeyboardKey.escape): _PopPageIntent(),
 
@@ -46,22 +36,6 @@ class ShortcutWatcher extends StatelessWidget {
               if (context.mounted) {
                 context.redux(homePageControllerProvider).dispatch(ChangeTabAction(HomeTab.send));
               }
-              return null;
-            },
-          ),
-          _CloseWindowIntent: CallbackAction<_CloseWindowIntent>(
-            onInvoke: (_) async {
-              if (_isFakeMetaKey()) {
-                return null;
-              }
-
-              await WindowWatcher.closeWindow(context);
-              return null;
-            },
-          ),
-          _OpenSettingsIntent: CallbackAction(
-            onInvoke: (_) async {
-              context.redux(homePageControllerProvider).dispatch(ChangeTabAction(HomeTab.settings));
               return null;
             },
           ),

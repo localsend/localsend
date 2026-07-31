@@ -8,7 +8,6 @@ import 'package:localsend_app/provider/local_ip_provider.dart';
 import 'package:localsend_app/provider/network/server/server_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/util/native/autostart_helper.dart';
-import 'package:localsend_app/util/native/context_menu_helper.dart';
 import 'package:localsend_app/util/ui/dynamic_colors.dart';
 import 'package:localsend_app/util/ui/snackbar.dart';
 import 'package:localsend_isolates/isolate.dart';
@@ -176,11 +175,10 @@ class _SettingsTabInitAction extends AsyncReduxAction<SettingsTabController, Set
     dispatch(_SettingsTabWatchAction());
     final autoStartEnabled = await isAutoStartEnabled();
     final autoStartHidden = await isAutoStartHidden();
-    final showInContextMenu = await isContextMenuEnabled();
     return state.copyWith(
       autoStart: autoStartEnabled,
       autoStartLaunchHidden: autoStartHidden,
-      showInContextMenu: showInContextMenu,
+      showInContextMenu: false,
     );
   }
 }

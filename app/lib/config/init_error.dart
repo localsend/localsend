@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:localsend_app/util/native/platform_check.dart';
-import 'package:localsend_app/util/native/tray_helper.dart';
 import 'package:logging/logging.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:refena_flutter/refena_flutter.dart';
-import 'package:window_manager/window_manager.dart';
 
 final _logger = Logger('Init');
 
@@ -15,11 +12,6 @@ void showInitErrorApp({
 }) async {
   _logger.severe('Error during init', error, stackTrace);
 
-  if (checkPlatformIsDesktop()) {
-    await WindowManager.instance.ensureInitialized();
-    await WindowManager.instance.show();
-  }
-
   runApp(
     RefenaScope(
       child: _ErrorApp(
@@ -28,8 +20,6 @@ void showInitErrorApp({
       ),
     ),
   );
-
-  await showFromTray();
 }
 
 class _ErrorApp extends StatefulWidget {

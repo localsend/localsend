@@ -1,1 +1,0 @@
-Cross-Platform file sharing solution via WiFi.

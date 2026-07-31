@@ -24,16 +24,11 @@ import 'package:localsend_app/provider/purchase_provider.dart';
 import 'package:localsend_app/provider/selection/selected_sending_files_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/provider/tv_provider.dart';
-import 'package:localsend_app/provider/window_dimensions_provider.dart';
 import 'package:localsend_app/util/i18n.dart';
-import 'package:localsend_app/util/native/autostart_helper.dart';
 import 'package:localsend_app/util/native/cache_helper.dart';
-import 'package:localsend_app/util/native/context_menu_helper.dart';
 import 'package:localsend_app/util/native/cross_file_converters.dart';
 import 'package:localsend_app/util/native/device_info_helper.dart';
-import 'package:localsend_app/util/native/macos_channel.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
-import 'package:localsend_app/util/native/tray_helper.dart';
 import 'package:localsend_app/util/notification_strings.dart';
 import 'package:localsend_app/util/ui/dynamic_colors.dart';
 import 'package:localsend_app/util/ui/snackbar.dart';
@@ -49,7 +44,6 @@ import 'package:localsend_isolates/util/transfer_notification.dart';
 import 'package:logging/logging.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 import 'package:share_handler/share_handler.dart';
-import 'package:window_manager/window_manager.dart';
 
 final _logger = Logger('Init');
 
@@ -76,77 +70,9 @@ Future<RefenaContainer> preInit(List<String> args) async {
     supportsDynamicColors: dynamicColors != null,
   );
 
-  if (persistenceService.isFirstAppStart && !persistenceService.isPortableMode()) {
-    await enableContextMenu();
-  }
-
   await initI18n();
 
   TransferNotification.init(notificationStrings);
-
-  bool startHidden = false;
-  if (checkPlatformIsDesktop()) {
-    // Check if this app is already open and let it "show up".
-    // If this is the case, then exit the current instance.
-
-    final client = HttpClient();
-    client.connectionTimeout = const Duration(milliseconds: 100);
-    client.badCertificateCallback = (cert, host, port) => true;
-
-    try {
-      final uri =
-          Uri.parse(
-            ApiRoute.show.targetRaw(
-              '127.0.0.1',
-              persistenceService.getPort(),
-              persistenceService.isHttps(),
-              peerProtocolVersion,
-            ),
-          ).replace(
-            queryParameters: {
-              'token': persistenceService.getShowToken(),
-            },
-          );
-
-      final request = await client.postUrl(uri);
-      request.headers.contentType = ContentType.json;
-      request.write(jsonEncode({'args': args}));
-      final response = await request.close().timeout(const Duration(milliseconds: 500));
-      if (response.statusCode == 200) {
-        exit(0); // Another instance does exist
-      }
-    } catch (_) {
-    } finally {
-      client.close(force: true);
-    }
-
-    // initialize tray AFTER i18n has been initialized
-    try {
-      await initTray();
-    } catch (e) {
-      _logger.warning('Initializing tray failed: $e');
-    }
-
-    // initialize size and position
-    await WindowManager.instance.ensureInitialized();
-    await WindowDimensionsController(persistenceService).initDimensionsConfiguration();
-    if (args.contains(startHiddenFlag)) {
-      // keep this app hidden
-      startHidden = true;
-    } else if (defaultTargetPlatform == TargetPlatform.macOS) {
-      startHidden = await isLaunchedAsLoginItem() && await getLaunchAtLoginMinimized();
-    }
-
-    if (startHidden) {
-      unawaited(hideToTray());
-    } else {
-      unawaited(showFromTray());
-    }
-
-    if (defaultTargetPlatform == TargetPlatform.macOS) {
-      await setupStatusBar();
-    }
-  }
 
   setDefaultRouteTransition();
 
@@ -158,7 +84,7 @@ Future<RefenaContainer> preInit(List<String> args) async {
       appArgumentsProvider.overrideWithValue(args),
       tvProvider.overrideWithValue(await checkIfTv()),
       dynamicColorsProvider.overrideWithValue(dynamicColors),
-      sleepProvider.overrideWithInitialState((ref) => startHidden),
+      sleepProvider.overrideWithInitialState((ref) => false),
     ],
     platformHint: RefenaScope.getPlatformHint(), // help Refena know the correct platform
   );
@@ -227,33 +153,12 @@ Future<void> postInit(BuildContext context, Ref ref, bool appStart) async {
   }
 
   if (appStart) {
-    if (defaultTargetPlatform == TargetPlatform.macOS) {
-      // handle dropped files
-      pendingFilesStream.listen((files) async {
-        await ref.global.dispatchAsync(
-          _HandleAppStartArgumentsAction(
-            args: files,
-          ),
-        );
-      });
-
-      // handle dropped strings
-      pendingStringsStream.listen((pendingStrings) {
-        for (final string in pendingStrings) {
-          ref.redux(selectedSendingFilesProvider).dispatch(AddMessageAction(message: string));
-        }
-        ref.redux(homePageControllerProvider).dispatch(ChangeTabAction(HomeTab.send));
-      });
-
-      await setupMethodCallHandler();
-    } else {
-      final args = ref.read(appArgumentsProvider);
-      await ref.global.dispatchAsync(
-        _HandleAppStartArgumentsAction(
-          args: args,
-        ),
-      );
-    }
+    final args = ref.read(appArgumentsProvider);
+    await ref.global.dispatchAsync(
+      _HandleAppStartArgumentsAction(
+        args: args,
+      ),
+    );
   }
 
   bool hasInitialShare = false;
