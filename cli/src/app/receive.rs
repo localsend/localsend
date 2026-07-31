@@ -297,7 +297,7 @@ impl App {
                 let alias = session.alias.clone();
                 self.ui.log(
                     Category::Receive,
-                    &format!("{alias}: failed to receive {name}: {err}"),
+                    &format!("{alias}: Failed to receive {name}: {err}"),
                 );
             }
         }
@@ -334,7 +334,7 @@ impl App {
                 self.ui.log(
                     Category::Receive,
                     &format!(
-                        "{}: cancelled by sender ({} of {} files received)",
+                        "{}: Cancelled by sender ({} of {} files received)",
                         session.alias,
                         session.finished_files,
                         session.files.len(),

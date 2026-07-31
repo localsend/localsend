@@ -212,7 +212,7 @@ async fn send_inner(
             Err(ClientError::Cancelled) => {
                 if cancel.by_peer.load(Ordering::Relaxed) {
                     log(format!(
-                        "{alias}: cancelled by receiver ({sent_files} file(s) sent)"
+                        "{alias}: Cancelled by receiver ({sent_files} file(s) sent)"
                     ))
                     .await;
                 } else {
@@ -225,13 +225,13 @@ async fn send_inner(
                             &response.session_id,
                         )
                         .await;
-                    log(format!("{alias}: cancelled ({sent_files} file(s) sent)")).await;
+                    log(format!("{alias}: Cancelled ({sent_files} file(s) sent)")).await;
                 }
                 return;
             }
             Err(err) => {
                 log(format!(
-                    "{alias}: failed to upload {}: {err}",
+                    "{alias}: Failed to upload {}: {err}",
                     file.file_name
                 ))
                 .await;
