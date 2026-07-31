@@ -41,7 +41,7 @@ impl App {
             self.ui.log(Category::Send, "A send is already in progress");
             return;
         }
-        match Picker::open(device.fingerprint) {
+        match Picker::open(device.fingerprint, device.alias.clone()) {
             Ok(picker) => {
                 self.ui.suspend();
                 self.picker = Some(picker);

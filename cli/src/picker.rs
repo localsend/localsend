@@ -27,6 +27,9 @@ pub struct Picker {
     /// The fingerprint of the device the picked files will be sent to.
     pub fingerprint: String,
 
+    /// The alias of that device, shown in the title.
+    alias: String,
+
     explorer: FileExplorer,
     terminal: Terminal<CrosstermBackend<Stdout>>,
 
@@ -64,12 +67,13 @@ pub enum PickerOutcome {
 impl Picker {
     /// Enters the alternate screen and shows the picker.
     /// The caller must suspend the log UI first and resume it after [Picker::close].
-    pub fn open(fingerprint: String) -> anyhow::Result<Self> {
+    pub fn open(fingerprint: String, alias: String) -> anyhow::Result<Self> {
         let explorer = FileExplorer::new()?;
         util::enter_alternate_screen()?;
         let terminal = Terminal::new(CrosstermBackend::new(std::io::stdout()))?;
         let mut picker = Self {
             fingerprint,
+            alias,
             explorer,
             terminal,
             selected: Vec::new(),
@@ -275,6 +279,7 @@ impl Picker {
 
     pub fn draw(&mut self) {
         let Self {
+            alias,
             explorer,
             terminal,
             selected,
@@ -285,10 +290,8 @@ impl Picker {
             ..
         } = self;
 
-        let help = format!(
-            " Type: filter  ←/→: folder  Space: select ({})  Enter: confirm  Esc: clear/cancel",
-            selected.len()
-        );
+        let help =
+            " Type: filter  ←/→: folder  Space: select  Enter: confirm  Esc: cancel".to_string();
         let _ = terminal.draw(|frame| {
             let [main_area, selected_area, help_area] = Layout::vertical([
                 Constraint::Fill(1),
@@ -299,7 +302,8 @@ impl Picker {
 
             let mut block = Block::default()
                 .borders(Borders::ALL)
-                .title_top(format!(" {} ", explorer.cwd().display()));
+                .title_top(format!(" {} ", explorer.cwd().display()))
+                .title_top(Line::from(format!(" To: {alias} ")).right_aligned());
             if !query.is_empty() {
                 let hits = match matches.is_empty() {
                     true => " no matches".to_string(),
