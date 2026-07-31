@@ -65,22 +65,30 @@ impl App {
         rows
     }
 
-    pub(super) fn handle_device_list_key(&mut self, key: KeyEvent) {
+    /// Handles a key while the list is open; returns `true` when the
+    /// application should quit (the list was cancelled in `--file` mode).
+    pub(super) fn handle_device_list_key(&mut self, key: KeyEvent) -> bool {
         let Some(list) = &mut self.device_list else {
-            return;
+            return false;
         };
         match list.handle_key(key) {
             DeviceListOutcome::Open => {}
-            DeviceListOutcome::Closed => self.close_device_list(),
+            DeviceListOutcome::Closed => {
+                self.close_device_list();
+                return !self.preselected.is_empty();
+            }
             DeviceListOutcome::Send { fingerprint } => {
                 self.close_device_list();
-                if let Some(device) = self.registry.by_fingerprint(&fingerprint).cloned() {
+                if !self.preselected.is_empty() {
+                    self.start_send(&fingerprint, self.preselected.clone());
+                } else if let Some(device) = self.registry.by_fingerprint(&fingerprint).cloned() {
                     self.open_picker(device);
                 }
             }
             DeviceListOutcome::Pair { fingerprint } => self.pair(&fingerprint),
             DeviceListOutcome::Unpair { fingerprint } => self.unpair(&fingerprint),
         }
+        false
     }
 
     pub(super) fn close_device_list(&mut self) {

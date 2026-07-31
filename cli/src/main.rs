@@ -26,6 +26,10 @@ pub struct Args {
     /// Directory where received files are saved [default: config.toml, else the Downloads folder]
     #[arg(long, env = "LOCALSEND_DESTINATION")]
     pub destination: Option<PathBuf>,
+
+    /// File to send: opens the device list on start, selecting a device starts the transfer (repeatable)
+    #[arg(short, long = "file", value_name = "PATH")]
+    pub file: Vec<PathBuf>,
 }
 
 const HELP_SECTIONS: &str = "Events:\n  \

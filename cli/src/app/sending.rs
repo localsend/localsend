@@ -33,6 +33,10 @@ impl App {
                 .log(Category::Send, &format!("No device on [{slot}]"));
             return;
         };
+        if !self.preselected.is_empty() {
+            self.start_send(&device.fingerprint, self.preselected.clone());
+            return;
+        }
         self.open_picker(device);
     }
 
@@ -76,7 +80,11 @@ impl App {
         }
     }
 
-    fn start_send(&mut self, fingerprint: &str, picked: Vec<PathBuf>) {
+    pub(super) fn start_send(&mut self, fingerprint: &str, picked: Vec<PathBuf>) {
+        if self.send.is_some() {
+            self.ui.log(Category::Send, "A send is already in progress");
+            return;
+        }
         let Some(device) = self.registry.by_fingerprint(fingerprint).cloned() else {
             return;
         };

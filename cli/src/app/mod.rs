@@ -20,6 +20,7 @@ use localsend::multicast::{
 };
 use receive::{Answer, PendingReceive, ReceiveSession};
 use sending::SendState;
+use std::path::PathBuf;
 use std::sync::Arc;
 use std::time::Duration;
 use tokio::sync::{mpsc, oneshot};
@@ -73,10 +74,16 @@ struct App {
     picker: Option<Picker>,
     device_list: Option<DeviceList>,
 
+    /// Files given via `-f`/`--file`; sending uses these instead of the picker.
+    preselected: Vec<PathBuf>,
+
     events_tx: mpsc::Sender<AppEvent>,
 }
 
 pub async fn run(args: Args) -> anyhow::Result<()> {
+    for path in &args.file {
+        anyhow::ensure!(path.is_file(), "Not a file: {}", path.display());
+    }
     let storage = storage::Repository::load(&args)?;
     let identity = storage.identity.clone();
     let (events_tx, mut events_rx) = mpsc::channel::<AppEvent>(64);
@@ -159,10 +166,14 @@ pub async fn run(args: Args) -> anyhow::Result<()> {
         send: None,
         picker: None,
         device_list: None,
+        preselected: args.file,
         events_tx: events_tx.clone(),
     };
 
-    app.ui.log_plain(&crate::banner::render(&app.storage));
+    match app.preselected.is_empty() {
+        true => app.ui.log_plain(&crate::banner::render(&app.storage)),
+        false => app.open_device_list(),
+    }
 
     let mut tick = tokio::time::interval(Duration::from_millis(250));
     tick.set_missed_tick_behavior(tokio::time::MissedTickBehavior::Skip);
@@ -200,7 +211,6 @@ pub async fn run(args: Args) -> anyhow::Result<()> {
     if let Some(multicast) = &multicast {
         let _ = tokio::time::timeout(Duration::from_secs(1), multicast.wait_stopped()).await;
     }
-    println!("Bye!");
     Ok(())
 }
 
@@ -241,6 +251,8 @@ impl App {
             AppEvent::SendEnded => {
                 self.send = None;
                 self.render_status();
+                // In `--file` mode the transfer is the whole program.
+                return !self.preselected.is_empty();
             }
             AppEvent::Log { category, text } => self.ui.log(category, &text),
         }
@@ -258,8 +270,7 @@ impl App {
             return false;
         }
         if self.device_list.is_some() {
-            self.handle_device_list_key(key);
-            return false;
+            return self.handle_device_list_key(key);
         }
 
         if let KeyCode::Char(c) = key.code {
@@ -286,7 +297,8 @@ impl App {
         }
         if self.device_list.is_some() {
             self.close_device_list();
-            return false;
+            // In `--file` mode the device list is the whole program.
+            return !self.preselected.is_empty();
         }
         let mut cancelled = false;
         if self.pending.is_some() {
