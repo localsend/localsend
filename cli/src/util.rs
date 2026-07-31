@@ -32,6 +32,17 @@ pub fn leave_alternate_screen() {
     );
 }
 
+/// Clears the alternate screen without leaving it, for handing it over from
+/// one modal to the next — leaving and re-entering would flash the main
+/// screen in between.
+pub fn clear_alternate_screen() {
+    let _ = execute!(
+        std::io::stdout(),
+        Clear(ClearType::All),
+        cursor::MoveTo(0, 0)
+    );
+}
+
 pub fn format_bytes(bytes: u64) -> String {
     const UNITS: [&str; 5] = ["B", "KB", "MB", "GB", "TB"];
     let mut value = bytes as f64;

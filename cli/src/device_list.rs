@@ -86,6 +86,13 @@ impl DeviceList {
         util::leave_alternate_screen();
     }
 
+    /// Drops the list but stays on the (cleared) alternate screen, handing it
+    /// over to the next modal (see [crate::picker::Picker::open_on_alternate_screen]).
+    /// That modal's close leaves the screen.
+    pub fn close_keeping_screen(self) {
+        util::clear_alternate_screen();
+    }
+
     /// Replaces the rows (discovery goes on while the list is open), keeping
     /// the highlight on the same device where possible.
     pub fn set_rows(&mut self, rows: Vec<Row>) {

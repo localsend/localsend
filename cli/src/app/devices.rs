@@ -80,11 +80,17 @@ impl App {
                 return !self.preselected.is_empty();
             }
             DeviceListOutcome::Send { fingerprint } => {
-                self.close_device_list();
-                if !self.preselected.is_empty() {
-                    self.start_send(&fingerprint, self.preselected.clone());
-                } else if let Some(device) = self.discovery.device_by_fingerprint(&fingerprint) {
+                if self.preselected.is_empty()
+                    && let Some(device) = self.discovery.device_by_fingerprint(&fingerprint)
+                {
+                    // The list stays open until the picker takes over its
+                    // alternate screen, so the main screen never shows.
                     self.open_picker(device);
+                } else {
+                    self.close_device_list();
+                    if !self.preselected.is_empty() {
+                        self.start_send(&fingerprint, self.preselected.clone());
+                    }
                 }
             }
             DeviceListOutcome::Pair { fingerprint } => self.pair(&fingerprint),

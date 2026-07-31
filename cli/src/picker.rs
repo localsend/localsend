@@ -70,6 +70,19 @@ impl Picker {
     pub fn open(fingerprint: String, alias: String) -> anyhow::Result<Self> {
         let explorer = FileExplorer::new()?;
         util::enter_alternate_screen()?;
+        Self::show(fingerprint, alias, explorer)
+    }
+
+    /// Shows the picker on the blank alternate screen a previous modal left
+    /// behind (see [crate::device_list::DeviceList::close_keeping_screen]);
+    /// [Picker::close] leaves it as usual. When this fails, the caller must
+    /// leave the alternate screen itself.
+    pub fn open_on_alternate_screen(fingerprint: String, alias: String) -> anyhow::Result<Self> {
+        let explorer = FileExplorer::new()?;
+        Self::show(fingerprint, alias, explorer)
+    }
+
+    fn show(fingerprint: String, alias: String, explorer: FileExplorer) -> anyhow::Result<Self> {
         let terminal = Terminal::new(CrosstermBackend::new(std::io::stdout()))?;
         let mut picker = Self {
             fingerprint,

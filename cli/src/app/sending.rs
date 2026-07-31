@@ -46,18 +46,39 @@ impl App {
 
     pub(super) fn open_picker(&mut self, device: StatefulDevice) {
         if self.send.is_some() {
+            self.close_device_list();
             self.ui.log(Category::Send, "A send is already in progress");
             return;
         }
-        match Picker::open(
-            device.device.fingerprint.clone(),
-            device.device.alias.clone(),
-        ) {
+        // When the device list is open, the picker takes over its alternate
+        // screen — leaving and re-entering it would flash the main screen.
+        let handoff = match self.device_list.take() {
+            Some(list) => {
+                list.close_keeping_screen();
+                true
+            }
+            None => false,
+        };
+        let opened = match handoff {
+            true => Picker::open_on_alternate_screen(
+                device.device.fingerprint.clone(),
+                device.device.alias.clone(),
+            ),
+            false => Picker::open(
+                device.device.fingerprint.clone(),
+                device.device.alias.clone(),
+            ),
+        };
+        match opened {
             Ok(picker) => {
                 self.ui.suspend();
                 self.picker = Some(picker);
             }
             Err(err) => {
+                if handoff {
+                    crate::util::leave_alternate_screen();
+                    self.ui.resume();
+                }
                 self.ui.log(
                     Category::Send,
                     &format!(
