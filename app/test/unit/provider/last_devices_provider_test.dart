@@ -62,6 +62,6 @@ Device _createDevice(String ip) {
     deviceModel: 'A',
     deviceType: DeviceType.mobile,
     download: false,
-    discoveryMethods: {},
+    channels: [],
   );
 }

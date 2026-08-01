@@ -131,7 +131,7 @@ extension RustFileDtoExt on rust_model.FileDto {
 
 extension RsStoredDeviceExt on rust_discovery.RsStoredDevice {
   /// Maps the merged stored state to a [Device]: the best channel becomes the
-  /// dialed address, every channel is kept as a [HttpDiscovery] method.
+  /// dialed address, every channel is kept as a [HttpChannel], best first.
   Device toDevice() {
     final best = channels.first;
     return Device(
@@ -145,7 +145,14 @@ extension RsStoredDeviceExt on rust_discovery.RsStoredDevice {
       deviceModel: deviceModel,
       deviceType: deviceType?.toDart() ?? DeviceType.desktop,
       download: download,
-      discoveryMethods: {for (final channel in channels) HttpDiscovery(ip: channel.host)},
+      channels: [
+        for (final channel in channels)
+          HttpChannel(
+            host: channel.host,
+            port: channel.port,
+            https: channel.protocol == rust_model.ProtocolType.https,
+          ),
+      ],
     );
   }
 }
@@ -167,7 +174,7 @@ extension DeviceToRsDiscoveredDeviceExt on Device {
 }
 
 extension RegisterDtoV2Ext on rust_server.RegisterDtoV2 {
-  Device toDevice(String ip, DiscoveryMethod? method) {
+  Device toDevice(String ip, {required bool withChannel}) {
     return Device(
       signalingId: null,
       ip: ip,
@@ -179,13 +186,13 @@ extension RegisterDtoV2Ext on rust_server.RegisterDtoV2 {
       deviceModel: deviceModel,
       deviceType: deviceType?.toDart() ?? DeviceType.desktop,
       download: download,
-      discoveryMethods: method == null ? const {} : {method},
+      channels: withChannel ? [HttpChannel(host: ip, port: port, https: protocol == rust_model.ProtocolType.https)] : const [],
     );
   }
 }
 
 extension RegisterResponseDtoExt on rust_model.RegisterResponseDto {
-  Device toDevice(String ip, int port, bool https, DiscoveryMethod method) {
+  Device toDevice(String ip, int port, bool https) {
     return Device(
       signalingId: null,
       ip: ip,
@@ -197,7 +204,7 @@ extension RegisterResponseDtoExt on rust_model.RegisterResponseDto {
       deviceModel: deviceModel,
       deviceType: deviceType?.toDart() ?? DeviceType.desktop,
       download: hasWebInterface,
-      discoveryMethods: {method},
+      channels: [HttpChannel(host: ip, port: port, https: https)],
     );
   }
 }

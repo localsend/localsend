@@ -11,28 +11,34 @@ enum DeviceType {
   server,
 }
 
+/// A channel a device is reachable on.
 @MappableClass()
-sealed class DiscoveryMethod with DiscoveryMethodMappable {
-  const DiscoveryMethod();
+sealed class DeviceChannel with DeviceChannelMappable {
+  const DeviceChannel();
 }
 
+/// The device's HTTP server, reachable at one address.
 @MappableClass()
-class MulticastDiscovery extends DiscoveryMethod with MulticastDiscoveryMappable {
-  const MulticastDiscovery();
+class HttpChannel extends DeviceChannel with HttpChannelMappable {
+  /// The host to dial: an IP address, or the scoped form `fe80::1%3` for
+  /// link-local IPv6 (the Rust HTTP client accepts both back as a host).
+  final String host;
+
+  /// The port of the device's HTTP server at this address.
+  final int port;
+
+  /// Whether the HTTP server uses TLS.
+  final bool https;
+
+  const HttpChannel({required this.host, required this.port, required this.https});
 }
 
+/// The device is reachable over WebRTC through a signaling server.
 @MappableClass()
-class HttpDiscovery extends DiscoveryMethod with HttpDiscoveryMappable {
-  final String ip;
-
-  const HttpDiscovery({required this.ip});
-}
-
-@MappableClass()
-class SignalingDiscovery extends DiscoveryMethod with SignalingDiscoveryMappable {
+class SignalingChannel extends DeviceChannel with SignalingChannelMappable {
   final String signalingServer;
 
-  const SignalingDiscovery({required this.signalingServer});
+  const SignalingChannel({required this.signalingServer});
 }
 
 enum TransmissionMethod {
@@ -64,29 +70,18 @@ class Device with DeviceMappable {
   final String? deviceModel;
   final DeviceType deviceType;
   final bool download;
-  final Set<DiscoveryMethod> discoveryMethods;
+
+  /// Every channel the device was confirmed on, best first.
+  final List<DeviceChannel> channels;
 
   Set<TransmissionMethod> get transmissionMethods {
-    bool http = false;
-    bool webrtc = false;
-
-    for (final method in discoveryMethods) {
-      if (method is SignalingDiscovery) {
-        webrtc = true;
-      } else {
-        http = true;
-      }
-    }
-
-    final methods = <TransmissionMethod>{};
-    if (http) {
-      methods.add(TransmissionMethod.http);
-    }
-    if (webrtc) {
-      methods.add(TransmissionMethod.webrtc);
-    }
-
-    return methods;
+    return {
+      for (final channel in channels)
+        switch (channel) {
+          HttpChannel() => TransmissionMethod.http,
+          SignalingChannel() => TransmissionMethod.webrtc,
+        },
+    };
   }
 
   const Device({
@@ -100,7 +95,7 @@ class Device with DeviceMappable {
     required this.deviceModel,
     required this.deviceType,
     required this.download,
-    required this.discoveryMethods,
+    required this.channels,
   });
 
   static const empty = Device(
@@ -114,6 +109,6 @@ class Device with DeviceMappable {
     deviceModel: null,
     deviceType: DeviceType.desktop,
     download: false,
-    discoveryMethods: {},
+    channels: [],
   );
 }

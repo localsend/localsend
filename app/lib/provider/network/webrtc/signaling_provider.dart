@@ -218,11 +218,11 @@ extension ClientInfoExt on ClientInfo {
       deviceModel: deviceModel,
       deviceType: deviceType?.toDeviceType() ?? DeviceType.desktop,
       download: false,
-      discoveryMethods: {
-        SignalingDiscovery(
+      channels: [
+        SignalingChannel(
           signalingServer: signalingServer,
         ),
-      },
+      ],
     );
   }
 }

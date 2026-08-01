@@ -45,6 +45,6 @@ final deviceFullInfoProvider = ViewProvider((ref) {
     deviceModel: rawInfo.deviceModel,
     deviceType: rawInfo.deviceType,
     download: serverState?.webSendState != null,
-    discoveryMethods: const {},
+    channels: const [],
   );
 });

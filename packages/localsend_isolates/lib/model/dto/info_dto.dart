@@ -28,7 +28,7 @@ class InfoDto with InfoDtoMappable {
 extension InfoToDeviceExt on InfoDto {
   /// Convert [InfoDto] to [Device].
   /// Since this HTTP request was successful, the [port] and [https] are known.
-  Device toDevice(String ip, int port, bool https, DiscoveryMethod method) {
+  Device toDevice(String ip, int port, bool https) {
     return Device(
       signalingId: null,
       ip: ip,
@@ -40,7 +40,7 @@ extension InfoToDeviceExt on InfoDto {
       deviceModel: deviceModel,
       deviceType: deviceType ?? DeviceType.desktop,
       download: download ?? false,
-      discoveryMethods: {method},
+      channels: [HttpChannel(host: ip, port: port, https: https)],
     );
   }
 }

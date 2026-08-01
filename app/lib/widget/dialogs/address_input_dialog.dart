@@ -83,7 +83,7 @@ class _AddressInputDialogState extends State<AddressInputDialog> with Refena {
                   payload: payload,
                 );
 
-            foundDevice = response.body.toDevice(ip, port, https, HttpDiscovery(ip: ip));
+            foundDevice = response.body.toDevice(ip, port, https);
             deviceCompleter.complete();
           } catch (e) {
             error = e.toString();

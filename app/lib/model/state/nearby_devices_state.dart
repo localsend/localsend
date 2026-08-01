@@ -51,10 +51,11 @@ extension on Device {
       deviceModel: deviceModel,
       deviceType: deviceType,
       download: download,
-      discoveryMethods: {
-        ...discoveryMethods,
-        ...other.discoveryMethods,
-      },
+      channels: [
+        ...channels,
+        for (final channel in other.channels)
+          if (!channels.contains(channel)) channel,
+      ],
     );
   }
 }

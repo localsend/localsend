@@ -34,19 +34,21 @@ class InfoRegisterDto with InfoRegisterDtoMappable {
 }
 
 extension InfoRegisterDtoExt on InfoRegisterDto {
-  Device toDevice(String ip, int ownPort, bool ownHttps, DiscoveryMethod? method) {
+  Device toDevice(String ip, int ownPort, bool ownHttps, {required bool withChannel}) {
+    final resolvedPort = port ?? ownPort;
+    final resolvedHttps = protocol != null ? protocol == ProtocolType.https : ownHttps;
     return Device(
       signalingId: null,
       ip: ip,
       version: version ?? fallbackProtocolVersion,
-      port: port ?? ownPort,
-      https: protocol != null ? protocol == ProtocolType.https : ownHttps,
+      port: resolvedPort,
+      https: resolvedHttps,
       fingerprint: fingerprint ?? '',
       alias: alias,
       deviceModel: deviceModel,
       deviceType: deviceType ?? DeviceType.desktop,
       download: download ?? false,
-      discoveryMethods: method == null ? const {} : {method},
+      channels: withChannel ? [HttpChannel(host: ip, port: resolvedPort, https: resolvedHttps)] : const [],
     );
   }
 }

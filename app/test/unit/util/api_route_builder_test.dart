@@ -56,6 +56,6 @@ Device _target({
     deviceModel: 'deviceModel',
     deviceType: DeviceType.desktop,
     download: false,
-    discoveryMethods: {},
+    channels: [],
   );
 }
