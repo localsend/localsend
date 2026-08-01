@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/model/persistence/color_mode.dart';
 import 'package:localsend_app/model/persistence/favorite_device.dart';
+import 'package:localsend_app/model/persistence/quick_save_mode.dart';
 import 'package:localsend_app/model/persistence/receive_history_entry.dart';
 import 'package:localsend_app/model/send_mode.dart';
 import 'package:localsend_app/provider/window_dimensions_provider.dart';
@@ -78,8 +79,7 @@ const _multicastGroupKey = 'ls_multicast_group';
 const _destinationKey = 'ls_destination';
 const _saveToGallery = 'ls_save_to_gallery';
 const _saveToHistory = 'ls_save_to_history';
-const _quickSave = 'ls_quick_save';
-const _quickSaveFromFavorites = 'ls_quick_save_from_favorites';
+const _quickSave = 'ls_quick_save'; // a QuickSaveMode; was a bool until storage version 2 ('ls_quick_save_from_favorites' is merged into this key)
 const _receivePin = 'ls_receive_pin';
 const _autoFinish = 'ls_auto_finish';
 const _minimizeToTray = 'ls_minimize_to_tray';
@@ -411,20 +411,13 @@ class PersistenceService {
     await _prefs.setBool(_advancedSettingsKey, isEnabled);
   }
 
-  bool isQuickSave() {
-    return _prefs.getBool(_quickSave) ?? false;
+  QuickSaveMode getQuickSave() {
+    final value = _prefs.getString(_quickSave);
+    return QuickSaveMode.values.firstWhereOrNull((mode) => mode.name == value) ?? QuickSaveMode.paired;
   }
 
-  Future<void> setQuickSave(bool quickSave) async {
-    await _prefs.setBool(_quickSave, quickSave);
-  }
-
-  bool isQuickSaveFromFavorites() {
-    return _prefs.getBool(_quickSaveFromFavorites) ?? false;
-  }
-
-  Future<void> setQuickSaveFromFavorites(bool quickSaveFromFavorites) async {
-    await _prefs.setBool(_quickSaveFromFavorites, quickSaveFromFavorites);
+  Future<void> setQuickSave(QuickSaveMode mode) async {
+    await _prefs.setString(_quickSave, mode.name);
   }
 
   String? getReceivePin() {

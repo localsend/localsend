@@ -9,14 +9,15 @@ import 'package:flutter/material.dart' as _i8;
 import 'package:localsend_app/gen/strings.g.dart' as _i10;
 import 'package:localsend_app/model/persistence/color_mode.dart' as _i9;
 import 'package:localsend_app/model/persistence/favorite_device.dart' as _i6;
+import 'package:localsend_app/model/persistence/quick_save_mode.dart' as _i11;
 import 'package:localsend_app/model/persistence/receive_history_entry.dart' as _i5;
-import 'package:localsend_app/model/send_mode.dart' as _i11;
+import 'package:localsend_app/model/send_mode.dart' as _i12;
 import 'package:localsend_app/provider/persistence_provider.dart' as _i3;
-import 'package:localsend_isolates/model/device.dart' as _i12;
+import 'package:localsend_isolates/model/device.dart' as _i13;
 import 'package:localsend_isolates/model/stored_security_context.dart' as _i2;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:mockito/src/dummies.dart' as _i7;
-import 'package:shared_preferences/shared_preferences.dart' as _i13;
+import 'package:shared_preferences/shared_preferences.dart' as _i14;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -383,38 +384,18 @@ class MockPersistenceService extends _i1.Mock implements _i3.PersistenceService 
           as _i4.Future<void>);
 
   @override
-  bool isQuickSave() =>
+  _i11.QuickSaveMode getQuickSave() =>
       (super.noSuchMethod(
-            Invocation.method(#isQuickSave, []),
-            returnValue: false,
-            returnValueForMissingStub: false,
+            Invocation.method(#getQuickSave, []),
+            returnValue: _i11.QuickSaveMode.off,
+            returnValueForMissingStub: _i11.QuickSaveMode.off,
           )
-          as bool);
+          as _i11.QuickSaveMode);
 
   @override
-  _i4.Future<void> setQuickSave(bool? quickSave) =>
+  _i4.Future<void> setQuickSave(_i11.QuickSaveMode? mode) =>
       (super.noSuchMethod(
-            Invocation.method(#setQuickSave, [quickSave]),
-            returnValue: _i4.Future<void>.value(),
-            returnValueForMissingStub: _i4.Future<void>.value(),
-          )
-          as _i4.Future<void>);
-
-  @override
-  bool isQuickSaveFromFavorites() =>
-      (super.noSuchMethod(
-            Invocation.method(#isQuickSaveFromFavorites, []),
-            returnValue: false,
-            returnValueForMissingStub: false,
-          )
-          as bool);
-
-  @override
-  _i4.Future<void> setQuickSaveFromFavorites(bool? quickSaveFromFavorites) =>
-      (super.noSuchMethod(
-            Invocation.method(#setQuickSaveFromFavorites, [
-              quickSaveFromFavorites,
-            ]),
+            Invocation.method(#setQuickSave, [mode]),
             returnValue: _i4.Future<void>.value(),
             returnValueForMissingStub: _i4.Future<void>.value(),
           )
@@ -484,16 +465,16 @@ class MockPersistenceService extends _i1.Mock implements _i3.PersistenceService 
           as _i4.Future<void>);
 
   @override
-  _i11.SendMode getSendMode() =>
+  _i12.SendMode getSendMode() =>
       (super.noSuchMethod(
             Invocation.method(#getSendMode, []),
-            returnValue: _i11.SendMode.single,
-            returnValueForMissingStub: _i11.SendMode.single,
+            returnValue: _i12.SendMode.single,
+            returnValueForMissingStub: _i12.SendMode.single,
           )
-          as _i11.SendMode);
+          as _i12.SendMode);
 
   @override
-  _i4.Future<void> setSendMode(_i11.SendMode? mode) =>
+  _i4.Future<void> setSendMode(_i12.SendMode? mode) =>
       (super.noSuchMethod(
             Invocation.method(#setSendMode, [mode]),
             returnValue: _i4.Future<void>.value(),
@@ -574,7 +555,7 @@ class MockPersistenceService extends _i1.Mock implements _i3.PersistenceService 
           as bool);
 
   @override
-  _i4.Future<void> setDeviceType(_i12.DeviceType? deviceType) =>
+  _i4.Future<void> setDeviceType(_i13.DeviceType? deviceType) =>
       (super.noSuchMethod(
             Invocation.method(#setDeviceType, [deviceType]),
             returnValue: _i4.Future<void>.value(),
@@ -604,7 +585,7 @@ class MockPersistenceService extends _i1.Mock implements _i3.PersistenceService 
 /// A class which mocks [SharedPreferences].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockSharedPreferences extends _i1.Mock implements _i13.SharedPreferences {
+class MockSharedPreferences extends _i1.Mock implements _i14.SharedPreferences {
   @override
   Set<String> getKeys() =>
       (super.noSuchMethod(

@@ -2,6 +2,7 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/model/persistence/color_mode.dart';
+import 'package:localsend_app/model/persistence/quick_save_mode.dart';
 import 'package:localsend_app/model/send_mode.dart';
 import 'package:localsend_app/model/state/settings_state.dart';
 import 'package:localsend_app/provider/persistence_provider.dart';
@@ -56,8 +57,8 @@ class SettingsService extends PureNotifier<SettingsState> {
     destination: _persistence.getDestination(),
     saveToGallery: _persistence.isSaveToGallery(),
     saveToHistory: _persistence.isSaveToHistory(),
-    quickSave: _persistence.isQuickSave(),
-    quickSaveFromFavorites: _persistence.isQuickSaveFromFavorites(),
+    quickSave: _persistence.getQuickSave() == QuickSaveMode.on,
+    quickSaveFromFavorites: _persistence.getQuickSave() == QuickSaveMode.paired,
     receivePin: _persistence.getReceivePin(),
     autoFinish: _persistence.isAutoFinish(),
     minimizeToTray: _persistence.isMinimizeToTray(),
@@ -164,16 +165,32 @@ class SettingsService extends PureNotifier<SettingsState> {
   }
 
   Future<void> setQuickSave(bool quickSave) async {
-    await _persistence.setQuickSave(quickSave);
-    state = state.copyWith(
-      quickSave: quickSave,
-    );
+    final old = _persistence.getQuickSave();
+    final QuickSaveMode mode;
+    if (quickSave) {
+      mode = QuickSaveMode.on;
+    } else {
+      mode = old == QuickSaveMode.on ? QuickSaveMode.off : old;
+    }
+    await _setQuickSaveMode(mode);
   }
 
   Future<void> setQuickSaveFromFavorites(bool quickSaveFromFavorites) async {
-    await _persistence.setQuickSaveFromFavorites(quickSaveFromFavorites);
+    final old = _persistence.getQuickSave();
+    final QuickSaveMode mode;
+    if (quickSaveFromFavorites) {
+      mode = QuickSaveMode.paired;
+    } else {
+      mode = old == QuickSaveMode.paired ? QuickSaveMode.off : old;
+    }
+    await _setQuickSaveMode(mode);
+  }
+
+  Future<void> _setQuickSaveMode(QuickSaveMode mode) async {
+    await _persistence.setQuickSave(mode);
     state = state.copyWith(
-      quickSaveFromFavorites: quickSaveFromFavorites,
+      quickSave: mode == QuickSaveMode.on,
+      quickSaveFromFavorites: mode == QuickSaveMode.paired,
     );
   }
 
