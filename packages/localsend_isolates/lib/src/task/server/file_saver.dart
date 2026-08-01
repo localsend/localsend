@@ -215,13 +215,13 @@ Future<(String, String?, String)> digestFilePathAndPrepareDirectory({
     if (!p.isWithin(parentDirectory, dir)) {
       throw 'Path traversal detected';
     }
-
-    try {
-      Directory(dir).createSync(recursive: true);
-    } catch (e) {
-      _logger.warning('Could not create directory', e);
-    }
   }
+
+  // The destination directory may not exist anymore, e.g. because it was deleted
+  // or is on a drive that is no longer mounted. This also creates the
+  // sub-directories of a folder transfer. Errors are propagated so that the
+  // caller fails the upload instead of writing to a path that cannot be opened.
+  Directory(dir).createSync(recursive: true);
 
   String destinationPath;
   int counter = 1;

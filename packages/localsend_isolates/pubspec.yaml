@@ -33,4 +33,6 @@ dev_dependencies:
   build_runner: 2.15.1
   dart_mappable_builder: 4.8.0
   flutter_lints: 6.0.0
+  flutter_test:
+    sdk: flutter
   freezed: 3.2.5
