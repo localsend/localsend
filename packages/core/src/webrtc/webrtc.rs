@@ -492,7 +492,7 @@ pub async fn send_offer(
                 .is_err()
             {
                 let error = "Could not publish selection";
-                let _ = status_tx.send(RTCStatus::Error(error.to_owned()));
+                let _ = status_tx.send(RTCStatus::Error(error.to_owned())).await;
                 return Err(anyhow::anyhow!(error));
             }
 
