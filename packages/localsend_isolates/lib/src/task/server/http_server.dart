@@ -57,6 +57,9 @@ class HttpServerService {
   /// The returned stream emits the progress (fraction of [fileSize]) while the
   /// file is being received and closes once the file has been received
   /// completely (or errors when saving failed).
+  ///
+  /// Timestamps provided in the sender's file metadata are applied to the
+  /// written file by the Rust server.
   Stream<double> respondFileUpload({
     required String sessionId,
     required String fileId,

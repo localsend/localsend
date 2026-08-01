@@ -388,6 +388,9 @@ impl RsHttpServer {
     ///
     /// The progress (fraction of [file_size]) is emitted on [sink]
     /// while the file is being received.
+    ///
+    /// Timestamps provided in the sender's file metadata are applied to the
+    /// written file by the server.
     pub async fn respond_file_upload(
         &self,
         sink: StreamSink<f64>,

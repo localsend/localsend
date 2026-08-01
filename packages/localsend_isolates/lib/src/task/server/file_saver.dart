@@ -115,29 +115,6 @@ Future<FileSaveTarget> reopenFileSaveTarget(FileSaveTarget target) async {
   );
 }
 
-/// Applies the file timestamps after the file has been written to a plain path.
-Future<void> applyFileTimestamps({
-  required FileSaveTarget target,
-  DateTime? lastModified,
-  DateTime? lastAccessed,
-}) async {
-  final path = target.path;
-  if (path == null) {
-    return;
-  }
-  final file = File(path);
-  if (lastModified != null) {
-    try {
-      await file.setLastModified(lastModified);
-    } catch (_) {}
-  }
-  if (lastAccessed != null) {
-    try {
-      await file.setLastAccessed(lastAccessed);
-    } catch (_) {}
-  }
-}
-
 /// Moves a file that has been written to the cache directory into the
 /// OS gallery (Photos/Videos).
 ///

@@ -7,7 +7,7 @@ use crate::http::server::common::error::AppError;
 use crate::http::server::common::pin::check_pin;
 use crate::http::server::common::query::parse_query;
 use crate::http::server::common::response::{empty_body, BoxedBody, JsonResponse};
-use crate::http::server::common::save::{FileUploadTarget, SaveResult};
+use crate::http::server::common::save::{FileTimestamps, FileUploadTarget, SaveResult};
 use crate::http::server::common::session::{
     FileStatusV2, PendingSessionV2, SessionFileV2, SessionStateV2, UploadSessionV2,
 };
@@ -385,6 +385,13 @@ pub(crate) async fn upload(
 
     let file_size = file_dto.size;
     let expected_sha256 = file_dto.sha256.clone();
+    let timestamps = match &file_dto.metadata {
+        Some(metadata) => FileTimestamps {
+            modified: metadata.modified_time(),
+            accessed: metadata.accessed_time(),
+        },
+        None => FileTimestamps::default(),
+    };
     let (target_tx, target_rx) = oneshot::channel::<FileUploadTarget>();
 
     let event = ServerEventV2::FileUpload {
@@ -403,8 +410,14 @@ pub(crate) async fn upload(
         return Err(AppError::Status(StatusCode::INTERNAL_SERVER_ERROR));
     };
 
-    let result =
-        common::save::save_req_to_target(req, target, file_size, expected_sha256.as_deref()).await;
+    let result = common::save::save_req_to_target(
+        req,
+        target,
+        file_size,
+        expected_sha256.as_deref(),
+        timestamps,
+    )
+    .await;
 
     upload_guard.finish(result).await;
 

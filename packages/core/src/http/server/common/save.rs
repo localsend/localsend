@@ -34,6 +34,9 @@ pub enum FileUploadTarget {
 
     /// The server writes the file to this path (created or truncated)
     /// and reports the result on `result_tx`.
+    ///
+    /// Timestamps provided in the sender's file metadata are applied to the
+    /// written file, so the application does not need to set them itself.
     Path {
         /// The path to write the file to.
         path: PathBuf,
@@ -49,6 +52,9 @@ pub enum FileUploadTarget {
 
     /// The server writes the file to this raw file descriptor (Android only)
     /// and reports the result on `result_tx`.
+    ///
+    /// Timestamps provided in the sender's file metadata are applied through
+    /// the descriptor, which also covers SAF documents that have no path.
     #[cfg(target_os = "android")]
     Fd {
         /// The raw file descriptor to write the file to.
@@ -63,6 +69,20 @@ pub enum FileUploadTarget {
         /// written so far. Events are dropped when the channel is full.
         progress_tx: Option<mpsc::Sender<u64>>,
     },
+}
+
+/// The sender-provided timestamps of an uploaded file, applied to the written
+/// file for [FileUploadTarget::Path] and [FileUploadTarget::Fd].
+#[derive(Debug, Clone, Copy, Default)]
+pub(crate) struct FileTimestamps {
+    pub modified: Option<std::time::SystemTime>,
+    pub accessed: Option<std::time::SystemTime>,
+}
+
+impl FileTimestamps {
+    fn is_empty(&self) -> bool {
+        self.modified.is_none() && self.accessed.is_none()
+    }
 }
 
 /// Outcome of receiving an uploaded file.
@@ -84,6 +104,7 @@ pub(crate) async fn save_req_to_target(
     target: FileUploadTarget,
     file_size: u64,
     expected_sha256: Option<&str>,
+    timestamps: FileTimestamps,
 ) -> SaveResult {
     use sha2::{Digest, Sha256};
 
@@ -109,6 +130,7 @@ pub(crate) async fn save_req_to_target(
                 },
                 file_size,
                 progress_tx,
+                timestamps,
             );
             (binary_tx, result_rx, Some(result_tx))
         }
@@ -129,6 +151,7 @@ pub(crate) async fn save_req_to_target(
                 },
                 file_size,
                 progress_tx,
+                timestamps,
             );
             (binary_tx, result_rx, Some(result_tx))
         }
@@ -226,13 +249,15 @@ fn spawn_file_writer(
     open: impl Future<Output = Result<tokio::fs::File, String>> + Send + 'static,
     expected_size: u64,
     progress_tx: Option<mpsc::Sender<u64>>,
+    timestamps: FileTimestamps,
 ) -> (mpsc::Sender<Bytes>, oneshot::Receiver<Result<(), String>>) {
     let (binary_tx, mut binary_rx) = mpsc::channel::<Bytes>(UPLOAD_CHANNEL_CAPACITY);
     let (internal_tx, internal_rx) = oneshot::channel::<Result<(), String>>();
 
     tokio::spawn(async move {
         let result =
-            write_file_from_receiver(open, expected_size, &mut binary_rx, progress_tx).await;
+            write_file_from_receiver(open, expected_size, &mut binary_rx, progress_tx, timestamps)
+                .await;
         // Unblock the request handler if it is still sending chunks.
         binary_rx.close();
         let _ = internal_tx.send(result);
@@ -248,11 +273,16 @@ fn spawn_file_writer(
 ///
 /// The file is truncated to the written size, so that a target that pointed at
 /// a longer, pre-existing file cannot keep a tail of the old content.
+///
+/// The sender-provided `timestamps` are applied to the completely written
+/// file. This happens on the still-open handle: an Android file descriptor has
+/// no path to address the file by afterwards.
 async fn write_file_from_receiver(
     open: impl Future<Output = Result<tokio::fs::File, String>>,
     expected_size: u64,
     rx: &mut mpsc::Receiver<Bytes>,
     progress_tx: Option<mpsc::Sender<u64>>,
+    timestamps: FileTimestamps,
 ) -> Result<(), String> {
     use tokio::io::AsyncWriteExt;
 
@@ -293,6 +323,27 @@ async fn write_file_from_receiver(
     // be truncated (e.g. a pipe), which must not fail the completed transfer.
     if let Err(e) = file.set_len(written).await {
         tracing::warn!("Could not truncate file to {written} bytes: {e}");
+    }
+
+    // The timestamps are applied last because the writes and the truncation
+    // above update the modification time themselves.
+    //
+    // Best-effort: the provider backing an Android file descriptor may not
+    // support changing timestamps, which must not fail the completed transfer.
+    if !timestamps.is_empty() {
+        let mut times = std::fs::FileTimes::new();
+        if let Some(modified) = timestamps.modified {
+            times = times.set_modified(modified);
+        }
+        if let Some(accessed) = timestamps.accessed {
+            times = times.set_accessed(accessed);
+        }
+        let file = file.into_std().await;
+        // Also closes the file, off the async runtime like tokio::fs does.
+        let result = tokio::task::spawn_blocking(move || file.set_times(times)).await;
+        if let Ok(Err(e)) = result {
+            tracing::warn!("Could not set file timestamps: {e}");
+        }
     }
 
     Ok(())

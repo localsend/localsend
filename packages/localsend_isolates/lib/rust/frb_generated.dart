@@ -6117,6 +6117,9 @@ class RsHttpServerImpl extends RustOpaque implements RsHttpServer {
   ///
   /// The progress (fraction of [file_size]) is emitted on [sink]
   /// while the file is being received.
+  ///
+  /// Timestamps provided in the sender's file metadata are applied to the
+  /// written file by the server.
   Stream<double> respondFileUpload({
     required String sessionId,
     required String fileId,

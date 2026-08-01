@@ -115,3 +115,86 @@ pub struct FileMetadata {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub accessed: Option<String>,
 }
+
+#[cfg(feature = "http")]
+impl FileMetadata {
+    /// The `modified` timestamp parsed as a [`std::time::SystemTime`],
+    /// or `None` when absent or not parsable.
+    pub fn modified_time(&self) -> Option<std::time::SystemTime> {
+        parse_timestamp(self.modified.as_deref()?)
+    }
+
+    /// The `accessed` timestamp parsed as a [`std::time::SystemTime`],
+    /// or `None` when absent or not parsable.
+    pub fn accessed_time(&self) -> Option<std::time::SystemTime> {
+        parse_timestamp(self.accessed.as_deref()?)
+    }
+}
+
+/// Parses an RFC 3339 timestamp (e.g. `2026-08-01T10:20:30.456Z`), the format
+/// the protocol uses for file metadata.
+#[cfg(feature = "http")]
+fn parse_timestamp(value: &str) -> Option<std::time::SystemTime> {
+    match time::OffsetDateTime::parse(value, &time::format_description::well_known::Rfc3339) {
+        Ok(parsed) => Some(parsed.into()),
+        Err(e) => {
+            tracing::warn!("Could not parse file timestamp {value:?}: {e}");
+            None
+        }
+    }
+}
+
+#[cfg(all(test, feature = "http"))]
+mod tests {
+    use super::*;
+    use std::time::{Duration, SystemTime};
+
+    fn metadata(modified: &str) -> FileMetadata {
+        FileMetadata {
+            modified: Some(modified.to_string()),
+            accessed: None,
+        }
+    }
+
+    #[test]
+    fn parses_utc_timestamp() {
+        assert_eq!(
+            metadata("2000-01-01T00:00:00Z").modified_time(),
+            Some(SystemTime::UNIX_EPOCH + Duration::from_secs(946_684_800)),
+        );
+    }
+
+    #[test]
+    fn parses_fractional_seconds() {
+        // The Dart implementation sends `DateTime.toIso8601String()` of a UTC
+        // value, which includes fractional seconds: 1970-01-01T00:00:00.500Z.
+        assert_eq!(
+            metadata("1970-01-01T00:00:00.500Z").modified_time(),
+            Some(SystemTime::UNIX_EPOCH + Duration::from_millis(500)),
+        );
+    }
+
+    #[test]
+    fn parses_offset_timestamp() {
+        assert_eq!(
+            metadata("2000-01-01T01:00:00+01:00").modified_time(),
+            Some(SystemTime::UNIX_EPOCH + Duration::from_secs(946_684_800)),
+        );
+    }
+
+    #[test]
+    fn ignores_invalid_timestamp() {
+        assert_eq!(metadata("yesterday").modified_time(), None);
+        assert_eq!(metadata("2000-01-01T00:00:00").modified_time(), None);
+    }
+
+    #[test]
+    fn ignores_absent_timestamp() {
+        let metadata = FileMetadata {
+            modified: None,
+            accessed: None,
+        };
+        assert_eq!(metadata.modified_time(), None);
+        assert_eq!(metadata.accessed_time(), None);
+    }
+}

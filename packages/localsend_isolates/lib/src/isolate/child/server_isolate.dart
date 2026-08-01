@@ -683,12 +683,6 @@ Future<void> _handleFileUpload({
   }
 
   try {
-    await applyFileTimestamps(
-      target: target,
-      lastModified: dartFile.metadata?.lastModified,
-      lastAccessed: dartFile.metadata?.lastAccessed,
-    );
-
     String? filePath;
     bool savedToGallery = false;
     if (shouldSaveToGallery) {
