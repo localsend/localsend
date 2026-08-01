@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:gal/gal.dart';
-import 'package:legalize/legalize.dart';
+import 'package:localsend_isolates/rust/api/filename.dart' as rust_filename;
 import 'package:localsend_isolates/util/android_channel.dart' as android_channel;
 import 'package:localsend_isolates/util/content_uri_helper.dart';
 import 'package:localsend_isolates/util/file_path_helper.dart';
@@ -183,7 +183,7 @@ Future<(String, String?, String)> digestFilePathAndPrepareDirectory({
     return (destinationUri, documentUri, p.basename(fileName));
   }
 
-  final actualFileName = legalizeFilename(p.basename(fileName), os: Platform.operatingSystem);
+  final actualFileName = rust_filename.sanitizeFileName(name: p.basename(fileName));
   final fileNameParts = p.split(fileName);
   final dir = p.joinAll([parentDirectory, ...fileNameParts.take(fileNameParts.length - 1)]);
 

@@ -1,11 +1,16 @@
 import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
+import 'package:localsend_isolates/rust/frb_generated.dart';
 import 'package:localsend_isolates/src/task/server/file_saver.dart';
 import 'package:path/path.dart' as p;
 
 void main() {
   late Directory tempDir;
+
+  setUpAll(() {
+    RustLib.initMock(api: _MockRustLibApi());
+  });
 
   setUp(() {
     tempDir = Directory.systemTemp.createTempSync('file_saver_test');
@@ -56,4 +61,13 @@ void main() {
       throwsA('Path traversal detected'),
     );
   });
+}
+
+/// The sanitizer lives in the Rust library, which is not loaded in unit tests.
+class _MockRustLibApi implements RustLibApi {
+  @override
+  String crateApiFilenameSanitizeFileName({required String name}) => name;
+
+  @override
+  dynamic noSuchMethod(Invocation invocation) => throw UnsupportedError('Not mocked: ${invocation.memberName}');
 }

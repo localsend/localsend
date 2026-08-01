@@ -1,5 +1,6 @@
 use crossterm::terminal::{Clear, ClearType};
 use crossterm::{cursor, execute};
+use localsend::util::filename;
 use std::path::{Path, PathBuf};
 use std::time::{Duration, Instant};
 
@@ -88,13 +89,11 @@ pub fn progress_bar(fraction: f64, width: usize) -> String {
 /// A path in `dir` for `file_name` that does not exist yet, appending
 /// ` (1)`, ` (2)`, … before the extension on collisions.
 ///
-/// Only the final path component of `file_name` is used, so a malicious
-/// sender cannot escape the target directory.
+/// `file_name` comes from the sender and is untrusted: it is collapsed to its
+/// final path component and sanitized for the local filesystem, so it can
+/// neither escape the target directory nor carry illegal characters.
 pub fn unique_path(dir: &Path, file_name: &str) -> PathBuf {
-    let name = Path::new(file_name)
-        .file_name()
-        .map(|name| name.to_string_lossy().into_owned())
-        .unwrap_or_else(|| "unnamed".to_string());
+    let name = filename::sanitize_path(file_name, filename::Rules::current());
 
     let candidate = dir.join(&name);
     if !candidate.exists() {

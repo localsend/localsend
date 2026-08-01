@@ -454,7 +454,11 @@ mod tests {
         store.upsert(device("a", "fe80::1%3"), SystemTime::now());
 
         let mut known = store.by_fingerprint("a").unwrap();
-        let hosts: Vec<&str> = known.get_ranked_channels().into_iter().map(channel_host).collect();
+        let hosts: Vec<&str> = known
+            .get_ranked_channels()
+            .into_iter()
+            .map(channel_host)
+            .collect();
         assert_eq!(
             hosts,
             ["fe80::1%3", "10.0.0.10", "192.168.0.10"],
@@ -466,7 +470,11 @@ mod tests {
                 *status = ChannelStatus::NotReachable;
             }
         }
-        let hosts: Vec<&str> = known.get_ranked_channels().into_iter().map(channel_host).collect();
+        let hosts: Vec<&str> = known
+            .get_ranked_channels()
+            .into_iter()
+            .map(channel_host)
+            .collect();
         assert_eq!(
             hosts,
             ["10.0.0.10", "192.168.0.10", "fe80::1%3"],

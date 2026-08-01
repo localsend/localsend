@@ -14,8 +14,8 @@ use crate::multicast::{
 use futures_util::StreamExt;
 use std::collections::HashSet;
 use std::net::{IpAddr, Ipv4Addr, Ipv6Addr};
-use std::sync::Arc;
 use std::sync::atomic::{AtomicBool, Ordering};
+use std::sync::Arc;
 use std::time::{Duration, SystemTime};
 use store::DeviceStore;
 use tokio::sync::{mpsc, oneshot};

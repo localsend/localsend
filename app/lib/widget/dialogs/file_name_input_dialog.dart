@@ -1,9 +1,7 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:legalize/legalize.dart';
 import 'package:localsend_app/config/theme.dart';
 import 'package:localsend_app/gen/strings.g.dart';
+import 'package:localsend_isolates/rust/api/filename.dart';
 import 'package:localsend_isolates/util/file_path_helper.dart';
 import 'package:routerino/routerino.dart';
 
@@ -38,7 +36,7 @@ class _FileNameInputDialogState extends State<FileNameInputDialog> {
       return false;
     }
 
-    if (!isValidFilename(input, os: Platform.operatingSystem)) {
+    if (!isValidFileName(name: input)) {
       setState(() {
         _errorMessage = t.sanitization.invalid;
       });
