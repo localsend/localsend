@@ -13,7 +13,7 @@ mod socket;
 
 pub use interface::InterfaceFilter;
 
-use crate::model::discovery::{DeviceType, MulticastMessageV2, ProtocolTypeV2};
+use crate::model::discovery::{DeviceType, MulticastMessageV2, ProtocolType};
 use serde::Serialize;
 use socket::MulticastSocket;
 use std::net::{IpAddr, Ipv4Addr, Ipv6Addr, SocketAddr};
@@ -85,7 +85,7 @@ pub struct MulticastDevice {
     pub port: u16,
 
     /// Whether this device's HTTP server uses TLS.
-    pub protocol: ProtocolTypeV2,
+    pub protocol: ProtocolType,
 
     /// Whether this device's download API is active.
     pub download: bool,
@@ -395,7 +395,7 @@ mod tests {
             device_type: Some(DeviceType::Desktop),
             fingerprint: "my-fingerprint".to_string(),
             port: 53317,
-            protocol: ProtocolTypeV2::Https,
+            protocol: ProtocolType::Https,
             download: false,
         };
 

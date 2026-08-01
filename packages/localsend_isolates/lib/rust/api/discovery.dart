@@ -5,10 +5,9 @@
 
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 import 'package:localsend_isolates/rust/api/model.dart';
-import 'package:localsend_isolates/rust/api/server.dart';
 import 'package:localsend_isolates/rust/frb_generated.dart';
 
-// These functions are ignored because they are not marked as `pub`: `rs_device`
+// These functions are ignored because they are not marked as `pub`: `rs_stored_device`
 
 /// Starts the discovery: binds the UDP multicast sockets on all usable
 /// network interfaces, answers announcements of other devices with an HTTP
@@ -39,7 +38,7 @@ Future<RsDiscovery> startDiscovery({
   String? deviceModel,
   DeviceType? deviceType,
   required String fingerprint,
-  required ProtocolTypeV2 protocol,
+  required ProtocolType protocol,
   required bool download,
   required String certPem,
   required String privateKeyPem,
@@ -85,11 +84,11 @@ abstract class RsDiscovery implements RustOpaqueInterface {
   /// The confirmed device is also emitted on [RsDiscovery::listen].
   /// Returns `None` when the device did not answer or answered with this
   /// device's own fingerprint (i.e. the device discovered itself).
-  Future<RsDiscoveredDevice?> discover({required String host, required int port, required ProtocolTypeV2 protocol});
+  Future<RsStoredDevice?> discover({required String host, required int port, required ProtocolType protocol});
 
-  /// Emits a [RsDiscoveredDevice] for every device confirmation until the
+  /// Emits a [RsStoredDevice] for every device confirmation until the
   /// discovery is stopped. Can only be listened to once.
-  Stream<RsDiscoveredDevice> listen();
+  Stream<RsStoredDevice> listen();
 
   /// The reason the multicast sockets could not be bound, when they could
   /// not. Discovery then neither hears nor sends announcements.
@@ -103,7 +102,7 @@ abstract class RsDiscovery implements RustOpaqueInterface {
   /// this method returns once the whole scan has finished. At most one scan
   /// runs per interface: a call for an address that is still being scanned
   /// returns immediately.
-  Future<void> scanSubnet({required String interfaceIp, required int port, required ProtocolTypeV2 protocol});
+  Future<void> scanSubnet({required String interfaceIp, required int port, required ProtocolType protocol});
 
   /// Sets whether announcements of other devices are answered with a
   /// register request (the answer is what makes the announcing device enter
@@ -118,12 +117,34 @@ abstract class RsDiscovery implements RustOpaqueInterface {
   Future<void> stop();
 }
 
-/// A device that was confirmed over HTTP by the discovery: it answered a
-/// register request, or its register request was accepted by our server and
-/// was fed back via [RsDiscovery::add_device].
-///
-/// Emitted on [RsDiscovery::listen] for every confirmation, so a device
-/// re-appears whenever it re-announces itself or is re-discovered.
+/// An address a stored device was confirmed on and is dialed at.
+class RsDeviceChannel {
+  /// The host to dial: an IP address, or the scoped form `fe80::1%3` for
+  /// link-local IPv6 (the Rust HTTP client accepts both back as a host).
+  final String host;
+
+  /// The port of the device's HTTP server at this address.
+  final int port;
+  final ProtocolType protocol;
+
+  const RsDeviceChannel({
+    required this.host,
+    required this.port,
+    required this.protocol,
+  });
+
+  @override
+  int get hashCode => host.hashCode ^ port.hashCode ^ protocol.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is RsDeviceChannel && runtimeType == other.runtimeType && host == other.host && port == other.port && protocol == other.protocol;
+}
+
+/// A single device confirmation over HTTP, fed into the store via
+/// [RsDiscovery::add_device]: the device's register request was accepted by
+/// our server, so it is known to be reachable at [RsDiscoveredDevice::host].
 class RsDiscoveredDevice {
   final String alias;
 
@@ -142,7 +163,7 @@ class RsDiscoveredDevice {
 
   /// The port of the device's HTTP server.
   final int port;
-  final ProtocolTypeV2 protocol;
+  final ProtocolType protocol;
 
   /// Whether the device's download API is active.
   final bool download;
@@ -185,4 +206,61 @@ class RsDiscoveredDevice {
           port == other.port &&
           protocol == other.protocol &&
           download == other.download;
+}
+
+/// The merged stored state of a discovered device: one entry per fingerprint,
+/// carrying every address the device was confirmed on. A multi-homed device
+/// that is reachable over several network interfaces is still one
+/// [RsStoredDevice].
+///
+/// Emitted on [RsDiscovery::listen] for every confirmation (answered
+/// announcements, scan results and devices fed in via
+/// [RsDiscovery::add_device]), so a device re-appears — with its channels
+/// accumulated so far — whenever it re-announces itself or is re-discovered.
+class RsStoredDevice {
+  final String alias;
+
+  /// Protocol version (major.minor) implemented by the device.
+  final String version;
+  final String? deviceModel;
+  final DeviceType? deviceType;
+
+  /// Fingerprint identifying the device; devices are deduplicated by it.
+  final String fingerprint;
+
+  /// Whether the device's download API is active.
+  final bool download;
+
+  /// Every address the device was confirmed on, best first (available
+  /// before not-reachable, IPv6 before IPv4, most recently confirmed
+  /// first). Never empty: a device only enters the store through a
+  /// confirmation.
+  final List<RsDeviceChannel> channels;
+
+  const RsStoredDevice({
+    required this.alias,
+    required this.version,
+    this.deviceModel,
+    this.deviceType,
+    required this.fingerprint,
+    required this.download,
+    required this.channels,
+  });
+
+  @override
+  int get hashCode =>
+      alias.hashCode ^ version.hashCode ^ deviceModel.hashCode ^ deviceType.hashCode ^ fingerprint.hashCode ^ download.hashCode ^ channels.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is RsStoredDevice &&
+          runtimeType == other.runtimeType &&
+          alias == other.alias &&
+          version == other.version &&
+          deviceModel == other.deviceModel &&
+          deviceType == other.deviceType &&
+          fingerprint == other.fingerprint &&
+          download == other.download &&
+          channels == other.channels;
 }

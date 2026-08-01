@@ -112,11 +112,6 @@ abstract class RsHttpServer implements RustOpaqueInterface {
   Future<void> stop();
 }
 
-enum ProtocolTypeV2 {
-  http,
-  https,
-}
-
 class RegisterDtoV2 {
   final String alias;
   final String version;
@@ -124,7 +119,7 @@ class RegisterDtoV2 {
   final DeviceType? deviceType;
   final String fingerprint;
   final int port;
-  final ProtocolTypeV2 protocol;
+  final ProtocolType protocol;
   final bool download;
 
   const RegisterDtoV2({

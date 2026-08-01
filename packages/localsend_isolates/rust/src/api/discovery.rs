@@ -1,20 +1,16 @@
 use crate::frb_generated::StreamSink;
 use localsend::discovery::{
     DeviceChannel, DeviceIdentity, DiscoveredDevice, DiscoveryConfig, DiscoveryEvent,
-    DiscoveryHandle, HttpChannel,
+    DiscoveryHandle, HttpChannel, StatefulDevice,
 };
-use localsend::http::dto_v2::ProtocolTypeV2;
-use localsend::model::discovery::DeviceType;
+use localsend::model::discovery::{DeviceType, ProtocolType};
 use localsend::multicast::{DEFAULT_MULTICAST_GROUP_V6, InterfaceFilter, MulticastDevice};
 use std::time::Duration;
 use tokio::sync::{Mutex, mpsc, oneshot};
 
-/// A device that was confirmed over HTTP by the discovery: it answered a
-/// register request, or its register request was accepted by our server and
-/// was fed back via [RsDiscovery::add_device].
-///
-/// Emitted on [RsDiscovery::listen] for every confirmation, so a device
-/// re-appears whenever it re-announces itself or is re-discovered.
+/// A single device confirmation over HTTP, fed into the store via
+/// [RsDiscovery::add_device]: the device's register request was accepted by
+/// our server, so it is known to be reachable at [RsDiscoveredDevice::host].
 pub struct RsDiscoveredDevice {
     pub alias: String,
 
@@ -36,10 +32,54 @@ pub struct RsDiscoveredDevice {
     /// The port of the device's HTTP server.
     pub port: u16,
 
-    pub protocol: ProtocolTypeV2,
+    pub protocol: ProtocolType,
 
     /// Whether the device's download API is active.
     pub download: bool,
+}
+
+/// An address a stored device was confirmed on and is dialed at.
+pub struct RsDeviceChannel {
+    /// The host to dial: an IP address, or the scoped form `fe80::1%3` for
+    /// link-local IPv6 (the Rust HTTP client accepts both back as a host).
+    pub host: String,
+
+    /// The port of the device's HTTP server at this address.
+    pub port: u16,
+
+    pub protocol: ProtocolType,
+}
+
+/// The merged stored state of a discovered device: one entry per fingerprint,
+/// carrying every address the device was confirmed on. A multi-homed device
+/// that is reachable over several network interfaces is still one
+/// [RsStoredDevice].
+///
+/// Emitted on [RsDiscovery::listen] for every confirmation (answered
+/// announcements, scan results and devices fed in via
+/// [RsDiscovery::add_device]), so a device re-appears — with its channels
+/// accumulated so far — whenever it re-announces itself or is re-discovered.
+pub struct RsStoredDevice {
+    pub alias: String,
+
+    /// Protocol version (major.minor) implemented by the device.
+    pub version: String,
+
+    pub device_model: Option<String>,
+
+    pub device_type: Option<DeviceType>,
+
+    /// Fingerprint identifying the device; devices are deduplicated by it.
+    pub fingerprint: String,
+
+    /// Whether the device's download API is active.
+    pub download: bool,
+
+    /// Every address the device was confirmed on, best first (available
+    /// before not-reachable, IPv6 before IPv4, most recently confirmed
+    /// first). Never empty: a device only enters the store through a
+    /// confirmation.
+    pub channels: Vec<RsDeviceChannel>,
 }
 
 pub struct RsDiscovery {
@@ -77,7 +117,7 @@ pub async fn start_discovery(
     device_model: Option<String>,
     device_type: Option<DeviceType>,
     fingerprint: String,
-    protocol: ProtocolTypeV2,
+    protocol: ProtocolType,
     download: bool,
     cert_pem: String,
     private_key_pem: String,
@@ -129,9 +169,9 @@ pub async fn start_discovery(
 }
 
 impl RsDiscovery {
-    /// Emits a [RsDiscoveredDevice] for every device confirmation until the
+    /// Emits a [RsStoredDevice] for every device confirmation until the
     /// discovery is stopped. Can only be listened to once.
-    pub async fn listen(&self, sink: StreamSink<RsDiscoveredDevice>) {
+    pub async fn listen(&self, sink: StreamSink<RsStoredDevice>) {
         let Some(mut event_rx) = self.event_rx.lock().await.take() else {
             let _ = sink.add_error(anyhow::anyhow!("Discovery events already listened to"));
             return;
@@ -140,7 +180,11 @@ impl RsDiscovery {
         while let Some(event) = event_rx.recv().await {
             let (DiscoveryEvent::Discovered { device } | DiscoveryEvent::Updated { device }) =
                 event;
-            let _ = sink.add(rs_device(device));
+            // The store is updated before the event is emitted, so the merged
+            // state is at least as new as the confirmation.
+            if let Some(stored) = self.handle.device_by_fingerprint(&device.fingerprint) {
+                let _ = sink.add(rs_stored_device(stored));
+            }
         }
     }
 
@@ -183,10 +227,10 @@ impl RsDiscovery {
         &self,
         host: String,
         port: u16,
-        protocol: ProtocolTypeV2,
-    ) -> Option<RsDiscoveredDevice> {
+        protocol: ProtocolType,
+    ) -> Option<RsStoredDevice> {
         match self.handle.discover(&host, port, protocol).await {
-            Ok(found) => found.map(|found| rs_device(found.device)),
+            Ok(found) => found.map(rs_stored_device),
             Err(err) => {
                 tracing::debug!("Could not discover {host}:{port}: {err:#}");
                 None
@@ -206,7 +250,7 @@ impl RsDiscovery {
         &self,
         interface_ip: String,
         port: u16,
-        protocol: ProtocolTypeV2,
+        protocol: ProtocolType,
     ) -> anyhow::Result<()> {
         let interface_ip = interface_ip
             .parse()
@@ -246,19 +290,30 @@ impl RsDiscovery {
     }
 }
 
-/// The stored device flattened for the Dart side; only the channel of the
-/// current confirmation is carried.
-fn rs_device(device: DiscoveredDevice) -> RsDiscoveredDevice {
-    let DeviceChannel::Http(http) = device.channel;
-    RsDiscoveredDevice {
+/// The merged stored device flattened for the Dart side, its channels ranked
+/// best first.
+fn rs_stored_device(stored: StatefulDevice) -> RsStoredDevice {
+    let channels = stored
+        .get_ranked_channels()
+        .into_iter()
+        .map(|channel| {
+            let DeviceChannel::Http(http) = channel;
+            RsDeviceChannel {
+                host: http.host.clone(),
+                port: http.port,
+                protocol: http.protocol,
+            }
+        })
+        .collect();
+
+    let device = stored.device;
+    RsStoredDevice {
         alias: device.alias,
         version: device.version,
         device_model: device.device_model,
         device_type: device.device_type,
         fingerprint: device.fingerprint,
-        host: http.host,
-        port: http.port,
-        protocol: http.protocol,
         download: device.download,
+        channels,
     }
 }

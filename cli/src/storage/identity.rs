@@ -2,7 +2,8 @@
 
 use anyhow::Context;
 use localsend::crypto::cert::fingerprint_from_cert_der;
-use localsend::http::dto_v2::{PROTOCOL_VERSION_V2, ProtocolTypeV2, RegisterDtoV2};
+use localsend::http::dto_v2::RegisterDtoV2;
+use localsend::model::discovery::{PROTOCOL_VERSION_V2, ProtocolType};
 use localsend::http::server::TlsConfig;
 use localsend::http::state::ClientInfo;
 use localsend::model::discovery::DeviceType;
@@ -122,7 +123,7 @@ impl Identity {
             device_type: Some(DeviceType::Headless),
             fingerprint: self.fingerprint.clone(),
             port: self.port,
-            protocol: ProtocolTypeV2::Https,
+            protocol: ProtocolType::Https,
             download: false,
         }
     }
@@ -135,7 +136,7 @@ impl Identity {
             device_type: Some(DeviceType::Headless),
             fingerprint: self.fingerprint.clone(),
             port: self.port,
-            protocol: ProtocolTypeV2::Https,
+            protocol: ProtocolType::Https,
             download: false,
         }
     }

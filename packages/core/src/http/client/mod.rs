@@ -84,7 +84,7 @@ impl LsHttpClient {
 
     pub async fn register(
         &self,
-        protocol: http::dto::ProtocolType,
+        protocol: model::discovery::ProtocolType,
         ip: &str,
         port: u16,
         payload: http::dto::RegisterDto,
@@ -104,7 +104,7 @@ impl LsHttpClient {
 
     pub async fn prepare_upload(
         &self,
-        protocol: http::dto::ProtocolType,
+        protocol: model::discovery::ProtocolType,
         ip: &str,
         port: u16,
         public_key: Option<String>,
@@ -129,7 +129,7 @@ impl LsHttpClient {
 
     pub async fn upload(
         &self,
-        protocol: http::dto::ProtocolType,
+        protocol: model::discovery::ProtocolType,
         ip: &str,
         port: u16,
         public_key: Option<String>,
@@ -161,7 +161,7 @@ impl LsHttpClient {
 
     pub async fn cancel(
         &self,
-        protocol: http::dto::ProtocolType,
+        protocol: model::discovery::ProtocolType,
         ip: &str,
         port: u16,
         session_id: &str,

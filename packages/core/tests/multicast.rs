@@ -6,7 +6,7 @@
 //! interface, a firewall dropping the group), so these tests skip themselves
 //! instead of failing when the environment does not carry the traffic.
 
-use localsend::model::discovery::{DeviceType, ProtocolTypeV2, PROTOCOL_VERSION_V2};
+use localsend::model::discovery::{DeviceType, ProtocolType, PROTOCOL_VERSION_V2};
 use localsend::multicast::{
     self, MulticastConfig, MulticastDevice, MulticastEvent, MulticastHandle,
 };
@@ -88,7 +88,7 @@ async fn start_instance(alias: &str, port: u16) -> Option<TestInstance> {
                 device_type: Some(DeviceType::Headless),
                 fingerprint: format!("fingerprint-of-{alias}"),
                 port,
-                protocol: ProtocolTypeV2::Https,
+                protocol: ProtocolType::Https,
                 download: false,
             },
             event_tx,
@@ -215,7 +215,7 @@ async fn test_port_is_released_after_stop() {
                 device_type: None,
                 fingerprint: "fingerprint-of-Restarting".to_string(),
                 port,
-                protocol: ProtocolTypeV2::Http,
+                protocol: ProtocolType::Http,
                 download: false,
             },
             event_tx,

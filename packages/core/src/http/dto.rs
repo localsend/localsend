@@ -1,8 +1,8 @@
 use crate::http::dto_v2::{
-    PrepareUploadRequestDtoV2, PrepareUploadResponseDtoV2, ProtocolTypeV2, RegisterDtoV2,
-    RegisterResponseDtoV2,
+    PrepareUploadRequestDtoV2, PrepareUploadResponseDtoV2, RegisterDtoV2, RegisterResponseDtoV2,
 };
 use crate::model::discovery::DeviceType;
+use crate::model::discovery::ProtocolType;
 use crate::model::transfer::FileDto;
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
@@ -48,31 +48,6 @@ pub struct RegisterDto {
     pub has_web_interface: bool,
 }
 
-#[derive(Clone, Debug, Deserialize, Eq, Serialize, PartialEq)]
-#[serde(rename_all = "SCREAMING_SNAKE_CASE")]
-pub enum ProtocolType {
-    Http,
-    Https,
-}
-
-impl ProtocolType {
-    pub fn as_str(&self) -> &'static str {
-        match self {
-            ProtocolType::Http => "http",
-            ProtocolType::Https => "https",
-        }
-    }
-}
-
-impl From<ProtocolType> for ProtocolTypeV2 {
-    fn from(p: ProtocolType) -> Self {
-        match p {
-            ProtocolType::Http => ProtocolTypeV2::Http,
-            ProtocolType::Https => ProtocolTypeV2::Https,
-        }
-    }
-}
-
 impl From<RegisterDto> for RegisterDtoV2 {
     fn from(v3: RegisterDto) -> Self {
         RegisterDtoV2 {
@@ -82,7 +57,7 @@ impl From<RegisterDto> for RegisterDtoV2 {
             device_type: v3.device_type,
             fingerprint: v3.token,
             port: v3.port,
-            protocol: v3.protocol.into(),
+            protocol: v3.protocol,
             download: v3.has_web_interface,
         }
     }

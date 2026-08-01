@@ -555,7 +555,7 @@ fn wire__crate__api__discovery__RsDiscovery_discover_impl(
             >>::sse_decode(&mut deserializer);
             let api_host = <String>::sse_decode(&mut deserializer);
             let api_port = <u16>::sse_decode(&mut deserializer);
-            let api_protocol = <crate::api::server::ProtocolTypeV2>::sse_decode(&mut deserializer);
+            let api_protocol = <crate::api::model::ProtocolType>::sse_decode(&mut deserializer);
             deserializer.end();
             move |context| async move {
                 transform_result_sse::<_, ()>(
@@ -620,7 +620,7 @@ fn wire__crate__api__discovery__RsDiscovery_listen_impl(
                 flutter_rust_bridge::for_generated::RustAutoOpaqueInner<RsDiscovery>,
             >>::sse_decode(&mut deserializer);
             let api_sink = <StreamSink<
-                crate::api::discovery::RsDiscoveredDevice,
+                crate::api::discovery::RsStoredDevice,
                 flutter_rust_bridge::for_generated::SseCodec,
             >>::sse_decode(&mut deserializer);
             deserializer.end();
@@ -734,7 +734,7 @@ fn wire__crate__api__discovery__RsDiscovery_scan_subnet_impl(
             >>::sse_decode(&mut deserializer);
             let api_interface_ip = <String>::sse_decode(&mut deserializer);
             let api_port = <u16>::sse_decode(&mut deserializer);
-            let api_protocol = <crate::api::server::ProtocolTypeV2>::sse_decode(&mut deserializer);
+            let api_protocol = <crate::api::model::ProtocolType>::sse_decode(&mut deserializer);
             deserializer.end();
             move |context| async move {
                 transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>(
@@ -3136,7 +3136,7 @@ fn wire__crate__api__discovery__start_discovery_impl(
             let api_device_type =
                 <Option<crate::api::model::DeviceType>>::sse_decode(&mut deserializer);
             let api_fingerprint = <String>::sse_decode(&mut deserializer);
-            let api_protocol = <crate::api::server::ProtocolTypeV2>::sse_decode(&mut deserializer);
+            let api_protocol = <crate::api::model::ProtocolType>::sse_decode(&mut deserializer);
             let api_download = <bool>::sse_decode(&mut deserializer);
             let api_cert_pem = <String>::sse_decode(&mut deserializer);
             let api_private_key_pem = <String>::sse_decode(&mut deserializer);
@@ -3342,7 +3342,7 @@ const _: fn() = || {
         let _: Option<crate::api::model::DeviceType> = RegisterDtoV2.device_type;
         let _: String = RegisterDtoV2.fingerprint;
         let _: u16 = RegisterDtoV2.port;
-        let _: crate::api::server::ProtocolTypeV2 = RegisterDtoV2.protocol;
+        let _: crate::api::model::ProtocolType = RegisterDtoV2.protocol;
         let _: bool = RegisterDtoV2.download;
     }
     {
@@ -3785,19 +3785,6 @@ impl SseDecode for StreamSink<Vec<u8>, flutter_rust_bridge::for_generated::SseCo
 
 impl SseDecode
     for StreamSink<
-        crate::api::discovery::RsDiscoveredDevice,
-        flutter_rust_bridge::for_generated::SseCodec,
-    >
-{
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
-        let mut inner = <String>::sse_decode(deserializer);
-        return StreamSink::deserialize(inner);
-    }
-}
-
-impl SseDecode
-    for StreamSink<
         crate::api::crypto::RsHashFileEvent,
         flutter_rust_bridge::for_generated::SseCodec,
     >
@@ -3811,6 +3798,19 @@ impl SseDecode
 
 impl SseDecode
     for StreamSink<crate::api::server::RsServerEvent, flutter_rust_bridge::for_generated::SseCodec>
+{
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut inner = <String>::sse_decode(deserializer);
+        return StreamSink::deserialize(inner);
+    }
+}
+
+impl SseDecode
+    for StreamSink<
+        crate::api::discovery::RsStoredDevice,
+        flutter_rust_bridge::for_generated::SseCodec,
+    >
 {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
@@ -4081,6 +4081,20 @@ impl SseDecode for Vec<(String, String)> {
     }
 }
 
+impl SseDecode for Vec<crate::api::discovery::RsDeviceChannel> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut len_ = <i32>::sse_decode(deserializer);
+        let mut ans_ = Vec::with_capacity(len_ as usize);
+        for idx_ in 0..len_ {
+            ans_.push(<crate::api::discovery::RsDeviceChannel>::sse_decode(
+                deserializer,
+            ));
+        }
+        return ans_;
+    }
+}
+
 impl SseDecode for crate::api::http::LsHttpClientVersion {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
@@ -4185,11 +4199,11 @@ impl SseDecode for Option<crate::api::model::PrepareUploadResponseDto> {
     }
 }
 
-impl SseDecode for Option<crate::api::discovery::RsDiscoveredDevice> {
+impl SseDecode for Option<crate::api::discovery::RsStoredDevice> {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
         if (<bool>::sse_decode(deserializer)) {
-            return Some(<crate::api::discovery::RsDiscoveredDevice>::sse_decode(
+            return Some(<crate::api::discovery::RsStoredDevice>::sse_decode(
                 deserializer,
             ));
         } else {
@@ -4335,18 +4349,6 @@ impl SseDecode for crate::api::model::ProtocolType {
     }
 }
 
-impl SseDecode for crate::api::server::ProtocolTypeV2 {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
-        let mut inner = <i32>::sse_decode(deserializer);
-        return match inner {
-            0 => crate::api::server::ProtocolTypeV2::Http,
-            1 => crate::api::server::ProtocolTypeV2::Https,
-            _ => unreachable!("Invalid variant for ProtocolTypeV2: {}", inner),
-        };
-    }
-}
-
 impl SseDecode for (Dart2RustStreamSink, Dart2RustStreamReceiver) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
@@ -4407,7 +4409,7 @@ impl SseDecode for crate::api::server::RegisterDtoV2 {
         let mut var_deviceType = <Option<crate::api::model::DeviceType>>::sse_decode(deserializer);
         let mut var_fingerprint = <String>::sse_decode(deserializer);
         let mut var_port = <u16>::sse_decode(deserializer);
-        let mut var_protocol = <crate::api::server::ProtocolTypeV2>::sse_decode(deserializer);
+        let mut var_protocol = <crate::api::model::ProtocolType>::sse_decode(deserializer);
         let mut var_download = <bool>::sse_decode(deserializer);
         return crate::api::server::RegisterDtoV2 {
             alias: var_alias,
@@ -4454,6 +4456,20 @@ impl SseDecode for crate::api::http::ResultWithPublicKeyRegisterResponseDto {
     }
 }
 
+impl SseDecode for crate::api::discovery::RsDeviceChannel {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut var_host = <String>::sse_decode(deserializer);
+        let mut var_port = <u16>::sse_decode(deserializer);
+        let mut var_protocol = <crate::api::model::ProtocolType>::sse_decode(deserializer);
+        return crate::api::discovery::RsDeviceChannel {
+            host: var_host,
+            port: var_port,
+            protocol: var_protocol,
+        };
+    }
+}
+
 impl SseDecode for crate::api::discovery::RsDiscoveredDevice {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
@@ -4464,7 +4480,7 @@ impl SseDecode for crate::api::discovery::RsDiscoveredDevice {
         let mut var_fingerprint = <String>::sse_decode(deserializer);
         let mut var_host = <String>::sse_decode(deserializer);
         let mut var_port = <u16>::sse_decode(deserializer);
-        let mut var_protocol = <crate::api::server::ProtocolTypeV2>::sse_decode(deserializer);
+        let mut var_protocol = <crate::api::model::ProtocolType>::sse_decode(deserializer);
         let mut var_download = <bool>::sse_decode(deserializer);
         return crate::api::discovery::RsDiscoveredDevice {
             alias: var_alias,
@@ -4627,6 +4643,29 @@ impl SseDecode for crate::api::server::RsServerEvent {
                 unimplemented!("");
             }
         }
+    }
+}
+
+impl SseDecode for crate::api::discovery::RsStoredDevice {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut var_alias = <String>::sse_decode(deserializer);
+        let mut var_version = <String>::sse_decode(deserializer);
+        let mut var_deviceModel = <Option<String>>::sse_decode(deserializer);
+        let mut var_deviceType = <Option<crate::api::model::DeviceType>>::sse_decode(deserializer);
+        let mut var_fingerprint = <String>::sse_decode(deserializer);
+        let mut var_download = <bool>::sse_decode(deserializer);
+        let mut var_channels =
+            <Vec<crate::api::discovery::RsDeviceChannel>>::sse_decode(deserializer);
+        return crate::api::discovery::RsStoredDevice {
+            alias: var_alias,
+            version: var_version,
+            device_model: var_deviceModel,
+            device_type: var_deviceType,
+            fingerprint: var_fingerprint,
+            download: var_download,
+            channels: var_channels,
+        };
     }
 }
 
@@ -5626,27 +5665,6 @@ impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<crate::api::model::ProtocolTyp
     }
 }
 // Codec=Dco (DartCObject based), see doc to use other codecs
-impl flutter_rust_bridge::IntoDart for FrbWrapper<crate::api::server::ProtocolTypeV2> {
-    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
-        match self.0 {
-            crate::api::server::ProtocolTypeV2::Http => 0.into_dart(),
-            crate::api::server::ProtocolTypeV2::Https => 1.into_dart(),
-            _ => unreachable!(),
-        }
-    }
-}
-impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
-    for FrbWrapper<crate::api::server::ProtocolTypeV2>
-{
-}
-impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<crate::api::server::ProtocolTypeV2>>
-    for crate::api::server::ProtocolTypeV2
-{
-    fn into_into_dart(self) -> FrbWrapper<crate::api::server::ProtocolTypeV2> {
-        self.into()
-    }
-}
-// Codec=Dco (DartCObject based), see doc to use other codecs
 impl flutter_rust_bridge::IntoDart for FrbWrapper<crate::api::model::RegisterDto> {
     fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
         [
@@ -5743,6 +5761,28 @@ impl flutter_rust_bridge::IntoIntoDart<crate::api::http::ResultWithPublicKeyRegi
     for crate::api::http::ResultWithPublicKeyRegisterResponseDto
 {
     fn into_into_dart(self) -> crate::api::http::ResultWithPublicKeyRegisterResponseDto {
+        self
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for crate::api::discovery::RsDeviceChannel {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        [
+            self.host.into_into_dart().into_dart(),
+            self.port.into_into_dart().into_dart(),
+            self.protocol.into_into_dart().into_dart(),
+        ]
+        .into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for crate::api::discovery::RsDeviceChannel
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<crate::api::discovery::RsDeviceChannel>
+    for crate::api::discovery::RsDeviceChannel
+{
+    fn into_into_dart(self) -> crate::api::discovery::RsDeviceChannel {
         self
     }
 }
@@ -5930,6 +5970,32 @@ impl flutter_rust_bridge::IntoIntoDart<crate::api::server::RsServerEvent>
     for crate::api::server::RsServerEvent
 {
     fn into_into_dart(self) -> crate::api::server::RsServerEvent {
+        self
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for crate::api::discovery::RsStoredDevice {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        [
+            self.alias.into_into_dart().into_dart(),
+            self.version.into_into_dart().into_dart(),
+            self.device_model.into_into_dart().into_dart(),
+            self.device_type.into_into_dart().into_dart(),
+            self.fingerprint.into_into_dart().into_dart(),
+            self.download.into_into_dart().into_dart(),
+            self.channels.into_into_dart().into_dart(),
+        ]
+        .into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for crate::api::discovery::RsStoredDevice
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<crate::api::discovery::RsStoredDevice>
+    for crate::api::discovery::RsStoredDevice
+{
+    fn into_into_dart(self) -> crate::api::discovery::RsStoredDevice {
         self
     }
 }
@@ -6467,18 +6533,6 @@ impl SseEncode for StreamSink<Vec<u8>, flutter_rust_bridge::for_generated::SseCo
 
 impl SseEncode
     for StreamSink<
-        crate::api::discovery::RsDiscoveredDevice,
-        flutter_rust_bridge::for_generated::SseCodec,
-    >
-{
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
-        unimplemented!("")
-    }
-}
-
-impl SseEncode
-    for StreamSink<
         crate::api::crypto::RsHashFileEvent,
         flutter_rust_bridge::for_generated::SseCodec,
     >
@@ -6491,6 +6545,18 @@ impl SseEncode
 
 impl SseEncode
     for StreamSink<crate::api::server::RsServerEvent, flutter_rust_bridge::for_generated::SseCodec>
+{
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        unimplemented!("")
+    }
+}
+
+impl SseEncode
+    for StreamSink<
+        crate::api::discovery::RsStoredDevice,
+        flutter_rust_bridge::for_generated::SseCodec,
+    >
 {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
@@ -6712,6 +6778,16 @@ impl SseEncode for Vec<(String, String)> {
     }
 }
 
+impl SseEncode for Vec<crate::api::discovery::RsDeviceChannel> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <i32>::sse_encode(self.len() as _, serializer);
+        for item in self {
+            <crate::api::discovery::RsDeviceChannel>::sse_encode(item, serializer);
+        }
+    }
+}
+
 impl SseEncode for crate::api::http::LsHttpClientVersion {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
@@ -6808,12 +6884,12 @@ impl SseEncode for Option<crate::api::model::PrepareUploadResponseDto> {
     }
 }
 
-impl SseEncode for Option<crate::api::discovery::RsDiscoveredDevice> {
+impl SseEncode for Option<crate::api::discovery::RsStoredDevice> {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
         <bool>::sse_encode(self.is_some(), serializer);
         if let Some(value) = self {
-            <crate::api::discovery::RsDiscoveredDevice>::sse_encode(value, serializer);
+            <crate::api::discovery::RsStoredDevice>::sse_encode(value, serializer);
         }
     }
 }
@@ -6931,22 +7007,6 @@ impl SseEncode for crate::api::model::ProtocolType {
     }
 }
 
-impl SseEncode for crate::api::server::ProtocolTypeV2 {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
-        <i32>::sse_encode(
-            match self {
-                crate::api::server::ProtocolTypeV2::Http => 0,
-                crate::api::server::ProtocolTypeV2::Https => 1,
-                _ => {
-                    unimplemented!("");
-                }
-            },
-            serializer,
-        );
-    }
-}
-
 impl SseEncode for (Dart2RustStreamSink, Dart2RustStreamReceiver) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
@@ -6994,7 +7054,7 @@ impl SseEncode for crate::api::server::RegisterDtoV2 {
         <Option<crate::api::model::DeviceType>>::sse_encode(self.device_type, serializer);
         <String>::sse_encode(self.fingerprint, serializer);
         <u16>::sse_encode(self.port, serializer);
-        <crate::api::server::ProtocolTypeV2>::sse_encode(self.protocol, serializer);
+        <crate::api::model::ProtocolType>::sse_encode(self.protocol, serializer);
         <bool>::sse_encode(self.download, serializer);
     }
 }
@@ -7019,6 +7079,15 @@ impl SseEncode for crate::api::http::ResultWithPublicKeyRegisterResponseDto {
     }
 }
 
+impl SseEncode for crate::api::discovery::RsDeviceChannel {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <String>::sse_encode(self.host, serializer);
+        <u16>::sse_encode(self.port, serializer);
+        <crate::api::model::ProtocolType>::sse_encode(self.protocol, serializer);
+    }
+}
+
 impl SseEncode for crate::api::discovery::RsDiscoveredDevice {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
@@ -7029,7 +7098,7 @@ impl SseEncode for crate::api::discovery::RsDiscoveredDevice {
         <String>::sse_encode(self.fingerprint, serializer);
         <String>::sse_encode(self.host, serializer);
         <u16>::sse_encode(self.port, serializer);
-        <crate::api::server::ProtocolTypeV2>::sse_encode(self.protocol, serializer);
+        <crate::api::model::ProtocolType>::sse_encode(self.protocol, serializer);
         <bool>::sse_encode(self.download, serializer);
     }
 }
@@ -7162,6 +7231,19 @@ impl SseEncode for crate::api::server::RsServerEvent {
                 unimplemented!("");
             }
         }
+    }
+}
+
+impl SseEncode for crate::api::discovery::RsStoredDevice {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <String>::sse_encode(self.alias, serializer);
+        <String>::sse_encode(self.version, serializer);
+        <Option<String>>::sse_encode(self.device_model, serializer);
+        <Option<crate::api::model::DeviceType>>::sse_encode(self.device_type, serializer);
+        <String>::sse_encode(self.fingerprint, serializer);
+        <bool>::sse_encode(self.download, serializer);
+        <Vec<crate::api::discovery::RsDeviceChannel>>::sse_encode(self.channels, serializer);
     }
 }
 

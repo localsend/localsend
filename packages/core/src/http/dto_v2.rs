@@ -6,8 +6,8 @@ use std::collections::HashMap;
 // Discovery types are shared with the (HTTP-independent) multicast module and
 // therefore live in `crate::model::discovery`. They are re-exported here so that
 // the v2 DTOs remain available under a single path.
-pub(crate) use crate::model::discovery::device_type_v2;
-pub use crate::model::discovery::{MulticastMessageV2, ProtocolTypeV2, PROTOCOL_VERSION_V2};
+use crate::model::discovery::ProtocolType;
+use crate::model::discovery::{device_type_v2, protocol_type_v2};
 
 /// Register request DTO for v2.1 protocol.
 ///
@@ -41,7 +41,8 @@ pub struct RegisterDtoV2 {
     pub port: u16,
 
     /// Protocol type (http or https).
-    pub protocol: ProtocolTypeV2,
+    #[serde(with = "protocol_type_v2")]
+    pub protocol: ProtocolType,
 
     /// Whether the download API (sections 5.2, 5.3) is active.
     #[serde(default)]
@@ -188,7 +189,7 @@ mod tests {
         assert_eq!(dto.device_type, Some(DeviceType::Desktop));
         assert_eq!(dto.fingerprint, "random string");
         assert_eq!(dto.port, 53317);
-        assert_eq!(dto.protocol, ProtocolTypeV2::Https);
+        assert_eq!(dto.protocol, ProtocolType::Https);
         assert!(dto.download);
     }
 
@@ -232,7 +233,7 @@ mod tests {
                 device_type: None,
                 fingerprint: "sender-fingerprint".to_string(),
                 port: 53317,
-                protocol: ProtocolTypeV2::Https,
+                protocol: ProtocolType::Https,
                 download: false,
             },
             files: HashMap::from([(

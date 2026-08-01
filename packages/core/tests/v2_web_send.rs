@@ -2,12 +2,12 @@
 
 use bytes::Bytes;
 use localsend::http::client::{ClientError, LsHttpClientV2};
-use localsend::http::dto::ProtocolType;
 use localsend::http::server::v2::ServerEventV2;
 use localsend::http::server::web::WebSendConfig;
 use localsend::http::server::web::{WebSendEvent, WebSendI18n};
 use localsend::http::server::{start_with_port, ServerConfigV2};
 use localsend::http::state::ClientInfo;
+use localsend::model::discovery::ProtocolType;
 use localsend::model::transfer::{FileContent, FileDto};
 use std::collections::HashMap;
 use std::net::IpAddr;

@@ -1,6 +1,7 @@
 use crate::frb_generated::StreamSink;
 use flutter_rust_bridge::frb;
-pub use localsend::http::dto_v2::{ProtocolTypeV2, RegisterDtoV2};
+pub use localsend::http::dto_v2::RegisterDtoV2;
+use localsend::model::discovery::ProtocolType;
 use localsend::http::server::ServerConfigV2;
 pub use localsend::http::server::TlsConfig;
 use localsend::http::server::common::save::FileUploadTarget;
@@ -640,12 +641,6 @@ pub struct _TlsConfig {
     pub private_key: String,
 }
 
-#[frb(mirror(ProtocolTypeV2))]
-pub enum _ProtocolTypeV2 {
-    Http,
-    Https,
-}
-
 #[frb(mirror(RegisterDtoV2))]
 pub struct _RegisterDtoV2 {
     pub alias: String,
@@ -654,7 +649,7 @@ pub struct _RegisterDtoV2 {
     pub device_type: Option<DeviceType>,
     pub fingerprint: String,
     pub port: u16,
-    pub protocol: ProtocolTypeV2,
+    pub protocol: ProtocolType,
     pub download: bool,
 }
 

@@ -5,9 +5,8 @@ pub use store::{
 };
 
 use crate::http::client::{ClientError, LsHttpClientV2};
-use crate::http::dto::ProtocolType;
 use crate::http::dto_v2::{RegisterDtoV2, RegisterResponseDtoV2};
-use crate::model::discovery::{MulticastMessageV2, ProtocolTypeV2};
+use crate::model::discovery::{MulticastMessageV2, ProtocolType};
 use crate::multicast::{
     self, InterfaceFilter, MulticastConfig, MulticastDevice, MulticastEvent, MulticastHandle,
 };
@@ -148,20 +147,20 @@ impl DiscoveryState {
         client: &LsHttpClientV2,
         host: &str,
         port: u16,
-        protocol: ProtocolTypeV2,
+        protocol: ProtocolType,
     ) -> Result<Option<StatefulDevice>, ClientError> {
         let response = client
-            .register(client_protocol(protocol), host, port, self.register_dto())
+            .register(protocol, host, port, self.register_dto())
             .await?;
 
         // In HTTPS mode the certificate is the peer's identity; the
         // fingerprint claimed in the body only counts without encryption.
         let fingerprint = match protocol {
-            ProtocolTypeV2::Https => response
+            ProtocolType::Https => response
                 .cert_fingerprint
                 .clone()
                 .ok_or_else(|| anyhow::anyhow!("HTTPS response carried no peer certificate"))?,
-            ProtocolTypeV2::Http => response.body.fingerprint.clone(),
+            ProtocolType::Http => response.body.fingerprint.clone(),
         };
         if fingerprint == self.device.fingerprint {
             return Ok(None);
@@ -233,7 +232,7 @@ impl DiscoveryHandle {
         &self,
         host: &str,
         port: u16,
-        protocol: ProtocolTypeV2,
+        protocol: ProtocolType,
     ) -> Result<Option<StatefulDevice>, ClientError> {
         let client = self.state.unpinned_client()?;
         self.state.probe(&client, host, port, protocol).await
@@ -249,7 +248,7 @@ impl DiscoveryHandle {
         &self,
         interface_ip: Ipv4Addr,
         port: u16,
-        protocol: ProtocolTypeV2,
+        protocol: ProtocolType,
     ) -> Result<Vec<StatefulDevice>, ClientError> {
         if !self.state.scanning.lock().unwrap().insert(interface_ip) {
             return Ok(Vec::new());
@@ -414,8 +413,8 @@ async fn answer_announcement(
     // Pin the claimed fingerprint, so nothing is sent to a device that does
     // not hold the matching certificate.
     let expected_fingerprint = match message.protocol {
-        ProtocolTypeV2::Https => Some(message.fingerprint.clone()),
-        ProtocolTypeV2::Http => None,
+        ProtocolType::Https => Some(message.fingerprint.clone()),
+        ProtocolType::Http => None,
     };
     let client = match LsHttpClientV2::try_new(
         &state.identity.private_key_pem,
@@ -431,12 +430,7 @@ async fn answer_announcement(
     };
 
     let result = client
-        .register(
-            client_protocol(message.protocol),
-            &host,
-            message.port,
-            state.register_dto(),
-        )
+        .register(message.protocol, &host, message.port, state.register_dto())
         .await;
 
     match result {
@@ -464,7 +458,7 @@ fn confirmed_device(
     response: RegisterResponseDtoV2,
     host: String,
     port: u16,
-    protocol: ProtocolTypeV2,
+    protocol: ProtocolType,
     fingerprint: String,
 ) -> DiscoveredDevice {
     DiscoveredDevice {
@@ -479,12 +473,5 @@ fn confirmed_device(
             protocol,
         }),
         download: response.download,
-    }
-}
-
-fn client_protocol(protocol: ProtocolTypeV2) -> ProtocolType {
-    match protocol {
-        ProtocolTypeV2::Http => ProtocolType::Http,
-        ProtocolTypeV2::Https => ProtocolType::Https,
     }
 }

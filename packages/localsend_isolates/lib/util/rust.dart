@@ -129,20 +129,23 @@ extension RustFileDtoExt on rust_model.FileDto {
   }
 }
 
-extension RsDiscoveredDeviceExt on rust_discovery.RsDiscoveredDevice {
+extension RsStoredDeviceExt on rust_discovery.RsStoredDevice {
+  /// Maps the merged stored state to a [Device]: the best channel becomes the
+  /// dialed address, every channel is kept as a [HttpDiscovery] method.
   Device toDevice() {
+    final best = channels.first;
     return Device(
       signalingId: null,
-      ip: host,
+      ip: best.host,
       version: version,
-      port: port,
-      https: protocol == rust_server.ProtocolTypeV2.https,
+      port: best.port,
+      https: best.protocol == rust_model.ProtocolType.https,
       fingerprint: fingerprint,
       alias: alias,
       deviceModel: deviceModel,
       deviceType: deviceType?.toDart() ?? DeviceType.desktop,
       download: download,
-      discoveryMethods: {HttpDiscovery(ip: host)},
+      discoveryMethods: {for (final channel in channels) HttpDiscovery(ip: channel.host)},
     );
   }
 }
@@ -157,7 +160,7 @@ extension DeviceToRsDiscoveredDeviceExt on Device {
       fingerprint: fingerprint,
       host: ip,
       port: port,
-      protocol: https ? rust_server.ProtocolTypeV2.https : rust_server.ProtocolTypeV2.http,
+      protocol: https ? rust_model.ProtocolType.https : rust_model.ProtocolType.http,
       download: download,
     );
   }
@@ -170,7 +173,7 @@ extension RegisterDtoV2Ext on rust_server.RegisterDtoV2 {
       ip: ip,
       version: version,
       port: port,
-      https: protocol == rust_server.ProtocolTypeV2.https,
+      https: protocol == rust_model.ProtocolType.https,
       fingerprint: fingerprint,
       alias: alias,
       deviceModel: deviceModel,

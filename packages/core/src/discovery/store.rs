@@ -1,7 +1,7 @@
 //! The in-memory store of discovered devices.
 
 use super::DiscoveryEvent;
-use crate::model::discovery::{DeviceType, ProtocolTypeV2};
+use crate::model::discovery::{DeviceType, ProtocolType};
 use std::collections::HashMap;
 use std::net::IpAddr;
 use std::sync::Mutex;
@@ -157,7 +157,7 @@ pub struct HttpChannel {
     pub port: u16,
 
     /// Whether the HTTP server uses TLS.
-    pub protocol: ProtocolTypeV2,
+    pub protocol: ProtocolType,
 }
 
 /// All devices discovered in this run, identified by fingerprint, in
@@ -262,7 +262,7 @@ mod tests {
             channel: DeviceChannel::Http(HttpChannel {
                 host: host.to_string(),
                 port: 53317,
-                protocol: ProtocolTypeV2::Https,
+                protocol: ProtocolType::Https,
             }),
             download: false,
         }

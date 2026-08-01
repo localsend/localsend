@@ -4,9 +4,10 @@ use crate::frb_generated::StreamSink;
 use flutter_rust_bridge::frb;
 pub use localsend::http::client::{ClientError, LsHttpClientVersion};
 pub use localsend::http::dto::{
-    PrepareUploadRequestDto, PrepareUploadResponseDto, PrepareUploadResult, ProtocolType,
+    PrepareUploadRequestDto, PrepareUploadResponseDto, PrepareUploadResult,
     RegisterDto, RegisterResponseDto,
 };
+use localsend::model::discovery::ProtocolType;
 use localsend::reqwest;
 
 pub struct RsHttpClient {

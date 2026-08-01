@@ -7,8 +7,8 @@ use futures_util::StreamExt;
 use localsend::discovery::StatefulDevice;
 use localsend::http::client::ClientError;
 use localsend::http::client::v2::LsHttpClientV2;
-use localsend::http::dto::ProtocolType;
-use localsend::http::dto_v2::{PrepareUploadRequestDtoV2, ProtocolTypeV2};
+use localsend::model::discovery::ProtocolType;
+use localsend::http::dto_v2::PrepareUploadRequestDtoV2;
 use localsend::model::transfer::{FileContent, FileDto};
 use localsend::reqwest;
 use std::collections::HashMap;
@@ -85,12 +85,12 @@ async fn send_inner(
         return;
     };
     let protocol = match http.protocol {
-        ProtocolTypeV2::Http => ProtocolType::Http,
-        ProtocolTypeV2::Https => ProtocolType::Https,
+        ProtocolType::Http => ProtocolType::Http,
+        ProtocolType::Https => ProtocolType::Https,
     };
     let expected_fingerprint = match http.protocol {
-        ProtocolTypeV2::Https => Some(device.device.fingerprint.clone()),
-        ProtocolTypeV2::Http => None,
+        ProtocolType::Https => Some(device.device.fingerprint.clone()),
+        ProtocolType::Http => None,
     };
     let client = match LsHttpClientV2::try_new(
         &identity.key_pem,

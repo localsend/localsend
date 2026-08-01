@@ -1,10 +1,11 @@
-use crate::http::dto_v2::{InfoResponseDtoV2, PrepareDownloadResponseDtoV2, PROTOCOL_VERSION_V2};
+use crate::http::dto_v2::{InfoResponseDtoV2, PrepareDownloadResponseDtoV2};
 use crate::http::server::common::error::AppError;
 use crate::http::server::common::pin::check_pin;
 use crate::http::server::common::query::parse_query;
 use crate::http::server::common::response::{full_body, BoxedBody, JsonResponse};
 use crate::http::server::PeerIp;
 use crate::http::server::{AppState, RequestClientInfo};
+use crate::model::discovery::PROTOCOL_VERSION_V2;
 use crate::model::transfer::{FileContent, FileDto};
 use bytes::Bytes;
 use http_body_util::{BodyExt, StreamBody};

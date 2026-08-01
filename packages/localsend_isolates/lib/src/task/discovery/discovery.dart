@@ -2,9 +2,8 @@ import 'dart:async';
 
 import 'package:localsend_isolates/constants.dart';
 import 'package:localsend_isolates/model/device.dart';
-import 'package:localsend_isolates/model/dto/multicast_dto.dart';
 import 'package:localsend_isolates/rust/api/discovery.dart';
-import 'package:localsend_isolates/rust/api/server.dart' show ProtocolTypeV2;
+import 'package:localsend_isolates/rust/api/model.dart' as rust_model;
 import 'package:localsend_isolates/src/isolate/child/sync_provider.dart';
 import 'package:localsend_isolates/util/rust.dart';
 import 'package:logging/logging.dart';
@@ -68,7 +67,7 @@ class DiscoveryService {
           deviceModel: syncState.deviceInfo.deviceModel,
           deviceType: syncState.deviceInfo.deviceType.toRust(),
           fingerprint: syncState.securityContext.certificateHash,
-          protocol: syncState.protocol == ProtocolType.https ? ProtocolTypeV2.https : ProtocolTypeV2.http,
+          protocol: syncState.protocol.toRust(),
           download: syncState.download,
           certPem: syncState.securityContext.certificate,
           privateKeyPem: syncState.securityContext.privateKey,
@@ -145,7 +144,7 @@ class DiscoveryService {
     await discovery.scanSubnet(
       interfaceIp: networkInterface,
       port: port,
-      protocol: https ? ProtocolTypeV2.https : ProtocolTypeV2.http,
+      protocol: https ? rust_model.ProtocolType.https : rust_model.ProtocolType.http,
     );
   }
 
@@ -159,7 +158,7 @@ class DiscoveryService {
       return;
     }
 
-    final protocol = https ? ProtocolTypeV2.https : ProtocolTypeV2.http;
+    final protocol = https ? rust_model.ProtocolType.https : rust_model.ProtocolType.http;
     await Future.wait([
       for (final (host, port) in devices) discovery.discover(host: host, port: port, protocol: protocol),
     ]);

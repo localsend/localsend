@@ -14,7 +14,7 @@ use localsend::discovery::{
 };
 use localsend::http::server::{start_with_port, ServerConfigV2, TlsConfig};
 use localsend::http::state::ClientInfo;
-use localsend::model::discovery::{DeviceType, ProtocolTypeV2, PROTOCOL_VERSION_V2};
+use localsend::model::discovery::{DeviceType, ProtocolType, PROTOCOL_VERSION_V2};
 use localsend::multicast::{InterfaceFilter, MulticastDevice};
 use std::net::{Ipv4Addr, Ipv6Addr};
 use std::sync::atomic::{AtomicU16, Ordering};
@@ -149,7 +149,7 @@ async fn start_instance(
                 device_type: Some(DeviceType::Headless),
                 fingerprint: cert.fingerprint.clone(),
                 port: server_port,
-                protocol: ProtocolTypeV2::Http,
+                protocol: ProtocolType::Http,
                 download: false,
             },
             identity: DeviceIdentity {
@@ -191,7 +191,7 @@ async fn test_targeted_discovery_stores_and_emits_device() {
 
     let device = instance
         .handle
-        .discover("127.0.0.1", server_port, ProtocolTypeV2::Http)
+        .discover("127.0.0.1", server_port, ProtocolType::Http)
         .await
         .expect("Targeted discovery failed")
         .expect("The target must not be mistaken for the device itself");
@@ -220,7 +220,7 @@ async fn test_targeted_discovery_stores_and_emits_device() {
     // Discovering the same device again emits Updated instead of Discovered.
     let updated = instance
         .handle
-        .discover("127.0.0.1", server_port, ProtocolTypeV2::Http)
+        .discover("127.0.0.1", server_port, ProtocolType::Http)
         .await
         .expect("Targeted discovery failed")
         .expect("The target must still be discoverable");
@@ -254,7 +254,7 @@ async fn test_targeted_discovery_does_not_discover_itself() {
 
     let device = instance
         .handle
-        .discover("127.0.0.1", server_port, ProtocolTypeV2::Http)
+        .discover("127.0.0.1", server_port, ProtocolType::Http)
         .await
         .expect("Targeted discovery failed");
 
@@ -281,7 +281,7 @@ async fn test_subnet_scan_finds_device_on_loopback() {
         .scan_subnet(
             Ipv4Addr::new(127, 0, 0, 99),
             server_port,
-            ProtocolTypeV2::Http,
+            ProtocolType::Http,
         )
         .await
         .expect("Subnet scan failed");
@@ -337,7 +337,7 @@ async fn test_targeted_discovery_reads_fingerprint_from_certificate_on_https() {
 
     let device = instance
         .handle
-        .discover("127.0.0.1", server_port, ProtocolTypeV2::Https)
+        .discover("127.0.0.1", server_port, ProtocolType::Https)
         .await
         .expect("Targeted discovery failed")
         .expect("The target must not be mistaken for the device itself");
@@ -382,7 +382,7 @@ async fn test_discovery_works_without_multicast() {
                 device_type: Some(DeviceType::Headless),
                 fingerprint: cert.fingerprint.clone(),
                 port: free_port(),
-                protocol: ProtocolTypeV2::Http,
+                protocol: ProtocolType::Http,
                 download: false,
             },
             identity: DeviceIdentity {
@@ -404,7 +404,7 @@ async fn test_discovery_works_without_multicast() {
     // Announcing is a no-op, the active operations still work.
     handle.announce().await;
     let device = handle
-        .discover("127.0.0.1", server_port, ProtocolTypeV2::Http)
+        .discover("127.0.0.1", server_port, ProtocolType::Http)
         .await
         .expect("Targeted discovery failed")
         .expect("The target must not be mistaken for the device itself");
@@ -441,7 +441,7 @@ async fn test_announcement_is_answered_and_device_stored() {
     assert_eq!(device.alias, "Announcer");
     let http = device.http().expect("The device must have an HTTP channel");
     assert_eq!(http.port, announcer_port);
-    assert_eq!(http.protocol, ProtocolTypeV2::Http);
+    assert_eq!(http.protocol, ProtocolType::Http);
 
     assert!(
         receiver

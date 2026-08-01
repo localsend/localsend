@@ -6,12 +6,12 @@
 use bytes::Bytes;
 use futures_util::StreamExt;
 use localsend::http::client::{ClientError, LsHttpClientV2};
-use localsend::http::dto::ProtocolType;
-use localsend::http::dto_v2::{PrepareUploadRequestDtoV2, ProtocolTypeV2, RegisterDtoV2};
+use localsend::http::dto_v2::{PrepareUploadRequestDtoV2, RegisterDtoV2};
 use localsend::http::server::common::save::FileUploadTarget;
 use localsend::http::server::v2::{PrepareUploadDecisionV2, ServerEventV2};
 use localsend::http::server::{start_with_port, ServerConfigV2, TlsConfig};
 use localsend::http::state::ClientInfo;
+use localsend::model::discovery::ProtocolType;
 use localsend::model::transfer::FileDto;
 use std::sync::atomic::{AtomicU16, AtomicU64, Ordering};
 use std::sync::Arc;
@@ -177,7 +177,7 @@ fn sender_info(fingerprint: &str) -> RegisterDtoV2 {
         device_type: None,
         fingerprint: fingerprint.to_string(),
         port: 53317,
-        protocol: ProtocolTypeV2::Https,
+        protocol: ProtocolType::Https,
         download: false,
     }
 }

@@ -71,7 +71,9 @@ class ClearFoundDevicesAction extends ReduxAction<NearbyDevicesService, NearbyDe
 }
 
 /// Registers a device in the state.
-/// It will override any existing device with the same IP.
+/// It will override any existing device with the same fingerprint: the
+/// incoming device is the merged store state, so it already carries every
+/// address the device was confirmed on.
 class RegisterDeviceAction extends AsyncReduxAction<NearbyDevicesService, NearbyDevicesState> {
   final Device device;
 
@@ -92,7 +94,7 @@ class RegisterDeviceAction extends AsyncReduxAction<NearbyDevicesService, Nearby
       await Future.microtask(() {});
     }
     return state.copyWith(
-      devices: {...state.devices}..update(device.ip!, (_) => device, ifAbsent: () => device),
+      devices: {...state.devices}..update(device.fingerprint, (_) => device, ifAbsent: () => device),
     );
   }
 }

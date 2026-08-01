@@ -1,6 +1,6 @@
 use crate::http::dto_v2::{
     InfoResponseDtoV2, PrepareUploadRequestDtoV2, PrepareUploadResponseDtoV2, RegisterDtoV2,
-    RegisterResponseDtoV2, PROTOCOL_VERSION_V2,
+    RegisterResponseDtoV2,
 };
 use crate::http::server::common::collect_to_json::CollectToJson;
 use crate::http::server::common::error::AppError;
@@ -13,6 +13,7 @@ use crate::http::server::common::session::{
 };
 use crate::http::server::PeerIp;
 use crate::http::server::{common, AppState, RequestClientInfo, V2State};
+use crate::model::discovery::PROTOCOL_VERSION_V2;
 use crate::model::transfer::FileDto;
 use hyper::body::Incoming;
 use hyper::{Request, Response, StatusCode};

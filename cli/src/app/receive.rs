@@ -5,8 +5,7 @@ use super::App;
 use crate::ui::Category;
 use crate::util::{self, SpeedMeter};
 use localsend::http::client::v2::LsHttpClientV2;
-use localsend::http::dto::ProtocolType;
-use localsend::http::dto_v2::ProtocolTypeV2;
+use localsend::model::discovery::ProtocolType;
 use localsend::http::server::common::save::FileUploadTarget;
 use localsend::http::server::v2::{PrepareUploadDecisionV2, ServerEventV2, SessionEndReasonV2};
 use localsend::model::transfer::FileDto;
@@ -22,7 +21,7 @@ use tokio::sync::{mpsc, oneshot};
 pub(super) struct SenderTarget {
     pub(super) host: String,
     pub(super) port: u16,
-    pub(super) protocol: ProtocolTypeV2,
+    pub(super) protocol: ProtocolType,
     pub(super) fingerprint: String,
 }
 
@@ -350,8 +349,8 @@ impl App {
             // Best effort: without it the sender only notices through its
             // failing upload requests.
             let expected_fingerprint = match sender.protocol {
-                ProtocolTypeV2::Https => Some(sender.fingerprint.clone()),
-                ProtocolTypeV2::Http => None,
+                ProtocolType::Https => Some(sender.fingerprint.clone()),
+                ProtocolType::Http => None,
             };
             let Ok(client) = LsHttpClientV2::try_new(
                 &identity.key_pem,
@@ -362,8 +361,8 @@ impl App {
                 return;
             };
             let protocol = match sender.protocol {
-                ProtocolTypeV2::Http => ProtocolType::Http,
-                ProtocolTypeV2::Https => ProtocolType::Https,
+                ProtocolType::Http => ProtocolType::Http,
+                ProtocolType::Https => ProtocolType::Https,
             };
             let _ = client
                 .cancel(protocol, &sender.host, sender.port, &session_id)
