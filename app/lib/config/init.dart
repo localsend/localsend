@@ -300,14 +300,14 @@ Future<void> postInit(BuildContext context, Ref ref, bool appStart) async {
   if (!ref.read(persistenceProvider).isFirstAppStart) {
     WhatsNewPage? whatsNew = WhatsNewPage.fromLastVersion(lastVersion: ref.read(persistenceProvider).getWhatsNew());
     if (whatsNew != null) {
-      await ref.future(versionProvider).then((version) async {
-        await ref.read(persistenceProvider).setWhatsNew(version.version);
-      });
-
       // ignore: unawaited_futures
       ref.global.dispatchAsync(NavigateAction.push(whatsNew));
     }
   }
+
+  await ref.future(versionProvider).then((version) async {
+    await ref.read(persistenceProvider).setWhatsNew(version.version);
+  });
 
   // [FOSS_REMOVE_START]
   if (checkPlatformSupportPayment()) {
