@@ -1,17 +1,18 @@
-//! `paired.json`: paired devices; machine-written.
-
 use anyhow::Context;
 use serde::{Deserialize, Serialize};
 use std::collections::BTreeMap;
 use std::io::ErrorKind;
 use std::path::{Path, PathBuf};
 
-/// Current schema version of `paired.json`. On a schema change,
-/// bump this and migrate the old versions in [`PairedDevices::load`].
+/// Current schema version of `paired-v2.json`. On a schema change within
+/// this file, bump this and migrate the old versions in
+/// [`PairedDevices::load`].
 ///
-/// Planned v2: trust the peer's permanent ed25519 public key (see
-/// `crypto::token` in the core crate) instead of its certificate
-/// fingerprint; certificates (RSA) then become ephemeral.
+/// The file name tracks the trust model, not this schema version: a new
+/// trust model gets a new file, so a downgraded build still finds its own
+/// file intact. Planned `paired-v3.json`: trust the peer's permanent
+/// ed25519 public key (see `crypto::token` in the core crate) instead of
+/// its certificate fingerprint; certificates (RSA) then become ephemeral.
 const PAIRED_DEVICES_VERSION: u32 = 1;
 
 #[derive(Serialize, Deserialize)]
@@ -19,15 +20,14 @@ pub struct PairedDevice {
     pub alias: String,
 }
 
-/// The on-disk format of `paired.json`.
+/// The on-disk format of `paired-v2.json`,
+/// keyed by certificate fingerprint.
 #[derive(Serialize, Deserialize)]
 struct PairedDevicesFile {
     version: u32,
     devices: BTreeMap<String, PairedDevice>,
 }
 
-/// The paired devices from `paired.json`, keyed by certificate
-/// fingerprint. Their transfer requests are accepted without asking.
 pub struct PairedDevices {
     path: PathBuf,
     file: PairedDevicesFile,
@@ -35,7 +35,7 @@ pub struct PairedDevices {
 
 impl PairedDevices {
     pub fn load(dir: &Path) -> anyhow::Result<Self> {
-        let path = dir.join("paired.json");
+        let path = dir.join("paired-v2.json");
         let devices = match std::fs::read_to_string(&path) {
             Ok(text) => {
                 // Read the version on its own first: old versions are parsed

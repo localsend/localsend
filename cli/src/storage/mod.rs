@@ -6,7 +6,7 @@
 //!   is written on the first run.
 //! - `identity.pem` ([`identity`]): this device's certificate and private
 //!   key.
-//! - `paired.json` ([`paired`]): paired devices; machine-written.
+//! - `paired-v2.json` ([`paired`]): paired devices; machine-written.
 
 mod config;
 mod identity;
@@ -33,7 +33,7 @@ pub struct Repository {
     pub identity: Arc<Identity>,
 
     /// Devices whose transfer requests are auto-accepted; persisted across
-    /// runs as `paired.json`.
+    /// runs as `paired-v2.json`.
     pub paired: PairedDevices,
 }
 
