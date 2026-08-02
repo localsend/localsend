@@ -112,7 +112,11 @@ class ReceiveOptionsPage extends StatelessWidget {
               Tooltip(
                 message: t.general.reset,
                 child: CustomIconButton(
-                  onPressed: () => ref.notifier(selectedReceivingFilesProvider).setFiles(vm.files),
+                  onPressed: () => ref
+                      .notifier(selectedReceivingFilesProvider)
+                      .setFiles(
+                        vm.files.where((f) => !vm.alreadyExistingFileIds.contains(f.id)).toList(),
+                      ),
                   child: const Icon(Icons.undo),
                 ),
               ),
@@ -139,7 +143,7 @@ class ReceiveOptionsPage extends StatelessWidget {
                           softWrap: false,
                         ),
                         Text(
-                          '${!selectState.containsKey(file.id) ? t.general.skipped : (selectState[file.id] == file.fileName ? t.general.unchanged : t.general.renamed)} - ${file.size.asReadableFileSize}',
+                          '${!selectState.containsKey(file.id) ? (vm.alreadyExistingFileIds.contains(file.id) ? t.general.alreadyExists : t.general.skipped) : (selectState[file.id] == file.fileName ? t.general.unchanged : t.general.renamed)} - ${file.size.asReadableFileSize}',
                           style: TextStyle(
                             color: !selectState.containsKey(file.id)
                                 ? Colors.grey

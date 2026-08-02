@@ -31,6 +31,7 @@ class ReceivePageVm {
   /// Show hashtag and device model.
   final bool showSenderInfo;
   final List<FileDto> files;
+  final Set<String> alreadyExistingFileIds;
   final String? message;
   final bool isLink;
   final void Function() onAccept;
@@ -42,6 +43,7 @@ class ReceivePageVm {
     required this.sender,
     required this.showSenderInfo,
     required this.files,
+    required this.alreadyExistingFileIds,
     required this.message,
     required this.onAccept,
     required this.onDecline,
@@ -84,7 +86,7 @@ class _ReceivePageState extends State<ReceivePage> with Refena {
     return ViewModelBuilder(
       provider: (ref) => widget.vm,
       onFirstFrame: (context, vm) {
-        ref.notifier(selectedReceivingFilesProvider).setFiles(vm.files);
+        ref.notifier(selectedReceivingFilesProvider).setFiles(vm.files.where((f) => !vm.alreadyExistingFileIds.contains(f.id)).toList());
       },
       dispose: (ref) {
         ref.dispose(widget.vm);
