@@ -289,6 +289,18 @@
   "changelogPage": {
     "title": "Änderungsprotokoll"
   },
+  "whatsNewPage": {
+    "title": "Was ist neu in {version}",
+    "changes(interface=WhatsNewStrings)": {
+      "v1_18_0": {
+        "changes": [
+          "Die Verschlüsselung bremst die Übertragung nicht mehr aus. Sie wurde auf diesem Gerät wieder aktiviert, falls du sie zuvor deaktiviert hattest.",
+          "Anfragen von Favoriten werden jetzt automatisch akzeptiert. Diese Option ist standardmäßig aktiviert und kann in den Einstellungen deaktiviert werden.",
+          "Unter Android laufen Übertragungen weiter, während die App im Hintergrund ist oder der Bildschirm aus ist. Unter iOS muss die App weiterhin im Vordergrund bleiben."
+        ]
+      }
+    }
+  },
   "aliasGenerator(ignoreMissing, ignoreGpt)": {
     "@info": "Inherits from the English version"
   },

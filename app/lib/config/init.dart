@@ -11,6 +11,7 @@ import 'package:localsend_app/config/refena.dart';
 import 'package:localsend_app/config/theme.dart';
 import 'package:localsend_app/pages/home_page.dart';
 import 'package:localsend_app/pages/home_page_controller.dart';
+import 'package:localsend_app/pages/whats_new_page.dart';
 import 'package:localsend_app/provider/animation_provider.dart';
 import 'package:localsend_app/provider/app_arguments_provider.dart';
 import 'package:localsend_app/provider/device_info_provider.dart';
@@ -24,6 +25,7 @@ import 'package:localsend_app/provider/purchase_provider.dart';
 import 'package:localsend_app/provider/selection/selected_sending_files_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/provider/tv_provider.dart';
+import 'package:localsend_app/provider/version_provider.dart';
 import 'package:localsend_app/provider/window_dimensions_provider.dart';
 import 'package:localsend_app/util/i18n.dart';
 import 'package:localsend_app/util/native/autostart_helper.dart';
@@ -47,7 +49,9 @@ import 'package:localsend_isolates/rust/frb_generated.dart';
 import 'package:localsend_isolates/util/logger.dart';
 import 'package:localsend_isolates/util/transfer_notification.dart';
 import 'package:logging/logging.dart';
+import 'package:refena_flutter/addons.dart';
 import 'package:refena_flutter/refena_flutter.dart';
+import 'package:routerino/routerino.dart';
 import 'package:share_handler/share_handler.dart';
 import 'package:window_manager/window_manager.dart';
 
@@ -162,6 +166,9 @@ Future<RefenaContainer> preInit(List<String> args) async {
     ],
     platformHint: RefenaScope.getPlatformHint(), // help Refena know the correct platform
   );
+
+  // compatibility for Routerino. TODO: Remove Routerino
+  Routerino.navigatorKey = container.read(navigationProvider).key;
 
   // initialize multi-threading
   container.set(
@@ -288,6 +295,18 @@ Future<void> postInit(BuildContext context, Ref ref, bool appStart) async {
     // Clear cache on every app start.
     // If we received a share intent, then don't clear it, otherwise the shared file will be lost.
     ref.global.dispatchAsync(ClearCacheAction()); // ignore: unawaited_futures
+  }
+
+  if (!ref.read(persistenceProvider).isFirstAppStart) {
+    WhatsNewPage? whatsNew = WhatsNewPage.fromLastVersion(lastVersion: ref.read(persistenceProvider).getWhatsNew());
+    if (whatsNew != null) {
+      await ref.future(versionProvider).then((version) async {
+        await ref.read(persistenceProvider).setWhatsNew(version.version);
+      });
+
+      // ignore: unawaited_futures
+      ref.global.dispatchAsync(NavigateAction.push(whatsNew));
+    }
   }
 
   // [FOSS_REMOVE_START]

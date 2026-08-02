@@ -1456,7 +1456,7 @@ class _Translations$settingsTab$general$brightnessOptions$ar extends Translation
 
   // Translations
   @override
-  String get system => 'نظام';
+  String get system => 'النظام';
   @override
   String get dark => 'داكنة';
   @override

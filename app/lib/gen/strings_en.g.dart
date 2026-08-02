@@ -66,6 +66,7 @@ class Translations with BaseTranslations<AppLocale, Translations> {
   late final Translations$aboutPage$en aboutPage = Translations$aboutPage$en.internal(_root);
   late final Translations$donationPage$en donationPage = Translations$donationPage$en.internal(_root);
   late final Translations$changelogPage$en changelogPage = Translations$changelogPage$en.internal(_root);
+  late final Translations$whatsNewPage$en whatsNewPage = Translations$whatsNewPage$en.internal(_root);
   late final Translations$aliasGenerator$en aliasGenerator = Translations$aliasGenerator$en.internal(_root);
   late final Translations$dialogs$en dialogs = Translations$dialogs$en.internal(_root);
   late final Translations$sanitization$en sanitization = Translations$sanitization$en.internal(_root);
@@ -592,6 +593,20 @@ class Translations$changelogPage$en {
 
   /// en: 'Changelog'
   String get title => 'Changelog';
+}
+
+// Path: whatsNewPage
+class Translations$whatsNewPage$en {
+  Translations$whatsNewPage$en.internal(this._root);
+
+  final Translations _root; // ignore: unused_field
+
+  // Translations
+
+  /// en: 'What's new in {version}'
+  String title({required Object version}) => 'What\'s new in ${version}';
+
+  late final Translations$whatsNewPage$changes$en changes = Translations$whatsNewPage$changes$en.internal(_root);
 }
 
 // Path: aliasGenerator
@@ -1275,6 +1290,16 @@ class Translations$progressPage$remainingTime$en {
   String days({required Object d, required Object h, required Object m}) => '${d}d ${h}h ${m}m';
 }
 
+// Path: whatsNewPage.changes
+class Translations$whatsNewPage$changes$en {
+  Translations$whatsNewPage$changes$en.internal(this._root);
+
+  final Translations _root; // ignore: unused_field
+
+  // Translations
+  late final Translations$whatsNewPage$changes$v1_18_0$en v1_18_0 = Translations$whatsNewPage$changes$v1_18_0$en.internal(_root);
+}
+
 // Path: dialogs.addFile
 class Translations$dialogs$addFile$en {
   Translations$dialogs$addFile$en.internal(this._root);
@@ -1773,4 +1798,19 @@ class Translations$progressPage$total$title$en {
 
   /// en: 'Canceled by receiver'
   String get canceledReceiver => 'Canceled by receiver';
+}
+
+// Path: whatsNewPage.changes.v1_18_0
+class Translations$whatsNewPage$changes$v1_18_0$en with WhatsNewStrings {
+  Translations$whatsNewPage$changes$v1_18_0$en.internal(this._root);
+
+  final Translations _root; // ignore: unused_field
+
+  // Translations
+  @override
+  List<String> get changes => [
+    'Encryption no longer slows down transfers. It has been re-enabled on this device if you turned it off before.',
+    'Requests from favorites are now accepted automatically. This is turned on by default and can be disabled in the settings.',
+    'On Android, transfers continue while the app is in the background or the screen is off. On iOS, the app must still stay in the foreground.',
+  ];
 }

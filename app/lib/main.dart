@@ -14,6 +14,7 @@ import 'package:localsend_app/widget/watcher/shortcut_watcher.dart';
 import 'package:localsend_app/widget/watcher/tray_watcher.dart';
 import 'package:localsend_app/widget/watcher/window_watcher.dart';
 import 'package:localsend_isolates/isolate.dart';
+import 'package:refena_flutter/addons.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 import 'package:routerino/routerino.dart';
 
@@ -74,7 +75,7 @@ class LocalSendApp extends StatelessWidget {
               theme: getTheme(colorMode, Brightness.light, dynamicColors),
               darkTheme: getTheme(colorMode, Brightness.dark, dynamicColors),
               themeMode: colorMode == ColorMode.oled ? ThemeMode.dark : themeMode,
-              navigatorKey: Routerino.navigatorKey,
+              navigatorKey: context.read(navigationProvider).key,
               home: RouterinoHome(
                 builder: () => const HomePage(
                   initialTab: HomeTab.receive,

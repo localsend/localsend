@@ -78,6 +78,8 @@ class TranslationsDe extends Translations with BaseTranslations<AppLocale, Trans
   @override
   late final _Translations$changelogPage$de changelogPage = _Translations$changelogPage$de._(_root);
   @override
+  late final _Translations$whatsNewPage$de whatsNewPage = _Translations$whatsNewPage$de._(_root);
+  @override
   late final _Translations$dialogs$de dialogs = _Translations$dialogs$de._(_root);
   @override
   late final _Translations$sanitization$de sanitization = _Translations$sanitization$de._(_root);
@@ -507,6 +509,19 @@ class _Translations$changelogPage$de extends Translations$changelogPage$en {
   // Translations
   @override
   String get title => 'Änderungsprotokoll';
+}
+
+// Path: whatsNewPage
+class _Translations$whatsNewPage$de extends Translations$whatsNewPage$en {
+  _Translations$whatsNewPage$de._(TranslationsDe root) : this._root = root, super.internal(root);
+
+  final TranslationsDe _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String title({required Object version}) => 'Was ist neu in ${version}';
+  @override
+  late final _Translations$whatsNewPage$changes$de changes = _Translations$whatsNewPage$changes$de._(_root);
 }
 
 // Path: dialogs
@@ -1009,6 +1024,17 @@ class _Translations$progressPage$remainingTime$de extends Translations$progressP
   String days({required Object d, required Object h, required Object m}) => '${d}d ${h}h ${m}m';
 }
 
+// Path: whatsNewPage.changes
+class _Translations$whatsNewPage$changes$de extends Translations$whatsNewPage$changes$en {
+  _Translations$whatsNewPage$changes$de._(TranslationsDe root) : this._root = root, super.internal(root);
+
+  final TranslationsDe _root; // ignore: unused_field
+
+  // Translations
+  @override
+  late final _Translations$whatsNewPage$changes$v1_18_0$de v1_18_0 = _Translations$whatsNewPage$changes$v1_18_0$de._(_root);
+}
+
 // Path: dialogs.addFile
 class _Translations$dialogs$addFile$de extends Translations$dialogs$addFile$en {
   _Translations$dialogs$addFile$de._(TranslationsDe root) : this._root = root, super.internal(root);
@@ -1435,4 +1461,19 @@ class _Translations$progressPage$total$title$de extends Translations$progressPag
   String get canceledSender => 'Abgebrochen durch Absender';
   @override
   String get canceledReceiver => 'Abgebrochen durch Empfänger';
+}
+
+// Path: whatsNewPage.changes.v1_18_0
+class _Translations$whatsNewPage$changes$v1_18_0$de extends Translations$whatsNewPage$changes$v1_18_0$en with WhatsNewStrings {
+  _Translations$whatsNewPage$changes$v1_18_0$de._(TranslationsDe root) : this._root = root, super.internal(root);
+
+  final TranslationsDe _root; // ignore: unused_field
+
+  // Translations
+  @override
+  List<String> get changes => [
+    'Die Verschlüsselung bremst die Übertragung nicht mehr aus. Sie wurde auf diesem Gerät wieder aktiviert, falls du sie zuvor deaktiviert hattest.',
+    'Anfragen von Favoriten werden jetzt automatisch akzeptiert. Diese Option ist standardmäßig aktiviert und kann in den Einstellungen deaktiviert werden.',
+    'Unter Android laufen Übertragungen weiter, während die App im Hintergrund ist oder der Bildschirm aus ist. Unter iOS muss die App weiterhin im Vordergrund bleiben.',
+  ];
 }

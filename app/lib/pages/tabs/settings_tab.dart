@@ -560,7 +560,7 @@ class SettingsTab extends StatelessWidget {
                 .watch(versionProvider)
                 .maybeWhen(
                   data: (version) => Text(
-                    'Version: $version',
+                    'Version: ${version.combinedString}',
                     textAlign: TextAlign.center,
                   ),
                   orElse: () => Container(),

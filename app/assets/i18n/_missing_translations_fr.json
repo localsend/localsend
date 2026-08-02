@@ -5,5 +5,17 @@
   ],
   "sendPage": {
     "calculatingChecksum": "Calculating checksum ({curr} / {n})"
+  },
+  "whatsNewPage": {
+    "title": "What's new in {version}",
+    "changes(interface=WhatsNewStrings)": {
+      "v1_18_0": {
+        "changes": [
+          "Encryption no longer slows down transfers. It has been re-enabled on this device if you turned it off before.",
+          "Requests from favorites are now accepted automatically. This is turned on by default and can be disabled in the settings.",
+          "On Android, transfers continue while the app is in the background or the screen is off. On iOS, the app must still stay in the foreground."
+        ]
+      }
+    }
   }
 }

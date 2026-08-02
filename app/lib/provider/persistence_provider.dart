@@ -90,6 +90,7 @@ const _deviceType = 'ls_device_type';
 const _deviceModel = 'ls_device_model';
 const _shareViaLinkAutoAccept = 'ls_share_via_link_auto_accept';
 const _advancedSettingsKey = 'ls_advanced_settings';
+const _whatsNewKey = 'ls_whats_new';
 
 final persistenceProvider = Provider<PersistenceService>((ref) {
   throw Exception('persistenceProvider not initialized');
@@ -537,6 +538,14 @@ class PersistenceService {
 
   Future<void> setDeviceModel(String deviceModel) async {
     await _prefs.setString(_deviceModel, deviceModel);
+  }
+
+  String? getWhatsNew() {
+    return _prefs.getString(_whatsNewKey);
+  }
+
+  Future<void> setWhatsNew(String version) async {
+    await _prefs.setString(_whatsNewKey, version);
   }
 
   Future<void> clear() async {
