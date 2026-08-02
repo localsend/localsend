@@ -33,9 +33,9 @@ pub struct Args {
 }
 
 const HELP_SECTIONS: &str = "Events:\n  \
-                             D      Discovered a new device\n  \
-                             S      Send files\n  \
-                             R      Receive files\n\
+                             D      Discovery\n  \
+                             S      Sending files\n  \
+                             R      Receiving files\n\
                              \nHotkeys:\n  \
                              1-9    Send files to the device with that number\n  \
                              D      Show the paired and discovered devices\n  \
