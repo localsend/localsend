@@ -5,6 +5,7 @@ use localsend::discovery::{
 };
 use localsend::model::discovery::{DeviceType, ProtocolType};
 use localsend::multicast::{DEFAULT_MULTICAST_GROUP_V6, InterfaceFilter, MulticastDevice};
+use std::sync::Arc;
 use std::time::Duration;
 use tokio::sync::{Mutex, mpsc, oneshot};
 
@@ -83,10 +84,35 @@ pub struct RsStoredDevice {
 }
 
 pub struct RsDiscovery {
-    handle: DiscoveryHandle,
+    instance: Arc<DiscoveryInstance>,
     event_rx: Mutex<Option<mpsc::Receiver<DiscoveryEvent>>>,
+}
+
+/// The stoppable part of a running discovery, shared between [RsDiscovery]
+/// and [RUNNING_DISCOVERY] so that a leftover instance can be stopped without
+/// its Dart owner.
+struct DiscoveryInstance {
+    handle: DiscoveryHandle,
     stop_tx: Mutex<Option<oneshot::Sender<()>>>,
 }
+
+impl DiscoveryInstance {
+    /// Stops the discovery and waits until all sockets are closed.
+    /// Does nothing when already stopped.
+    async fn stop(&self) {
+        if let Some(stop_tx) = self.stop_tx.lock().await.take() {
+            let _ = stop_tx.send(());
+            self.handle.wait_stopped().await;
+        }
+    }
+}
+
+/// The most recently started discovery. A Flutter hot restart kills all Dart
+/// isolates without stopping the Rust discovery task, which would keep
+/// answering announcements forever (the `SO_REUSEPORT` sockets do not even
+/// fail the next bind); [start_discovery] stops such a leftover instance
+/// before starting again.
+static RUNNING_DISCOVERY: Mutex<Option<Arc<DiscoveryInstance>>> = Mutex::const_new(None);
 
 /// Starts the discovery: binds the UDP multicast sockets on all usable
 /// network interfaces, answers announcements of other devices with an HTTP
@@ -127,6 +153,13 @@ pub async fn start_discovery(
         .parse()
         .map_err(|_| anyhow::anyhow!("Invalid multicast group: {group}"))?;
 
+    // Stop a discovery left over from before a hot restart (its Dart owner
+    // died without calling stop)
+    let mut running_discovery = RUNNING_DISCOVERY.lock().await;
+    if let Some(previous) = running_discovery.take() {
+        previous.stop().await;
+    }
+
     let (event_tx, event_rx) = mpsc::channel::<DiscoveryEvent>(16);
     let (stop_tx, stop_rx) = oneshot::channel::<()>();
 
@@ -161,16 +194,24 @@ pub async fn start_discovery(
     )
     .await;
 
-    Ok(RsDiscovery {
+    let instance = Arc::new(DiscoveryInstance {
         handle,
-        event_rx: Mutex::new(Some(event_rx)),
         stop_tx: Mutex::new(Some(stop_tx)),
+    });
+    *running_discovery = Some(instance.clone());
+
+    Ok(RsDiscovery {
+        instance,
+        event_rx: Mutex::new(Some(event_rx)),
     })
 }
 
 impl RsDiscovery {
     /// Emits a [RsStoredDevice] for every device confirmation until the
     /// discovery is stopped. Can only be listened to once.
+    ///
+    /// Also returns when the Dart side of the stream is gone (e.g. after a
+    /// hot restart), so this call does not keep the discovery alive forever.
     pub async fn listen(&self, sink: StreamSink<RsStoredDevice>) {
         let Some(mut event_rx) = self.event_rx.lock().await.take() else {
             let _ = sink.add_error(anyhow::anyhow!("Discovery events already listened to"));
@@ -182,8 +223,14 @@ impl RsDiscovery {
                 event;
             // The store is updated before the event is emitted, so the merged
             // state is at least as new as the confirmation.
-            if let Some(stored) = self.handle.device_by_fingerprint(&device.fingerprint) {
-                let _ = sink.add(rs_stored_device(stored));
+            if let Some(stored) = self
+                .instance
+                .handle
+                .device_by_fingerprint(&device.fingerprint)
+                && sink.add(rs_stored_device(stored)).is_err()
+            {
+                // The Dart listener is gone; the remaining events have no receiver.
+                break;
             }
         }
     }
@@ -191,7 +238,10 @@ impl RsDiscovery {
     /// The reason the multicast sockets could not be bound, when they could
     /// not. Discovery then neither hears nor sends announcements.
     pub fn multicast_error(&self) -> Option<String> {
-        self.handle.multicast_error().map(|err| format!("{err:#}"))
+        self.instance
+            .handle
+            .multicast_error()
+            .map(|err| format!("{err:#}"))
     }
 
     /// Announces this device to the network, which makes every other LocalSend
@@ -204,7 +254,7 @@ impl RsDiscovery {
     /// few seconds, or immediately once the discovery has been stopped or
     /// multicast is unavailable.
     pub async fn announce(&self) {
-        self.handle.announce().await;
+        self.instance.handle.announce().await;
     }
 
     /// Sets whether announcements of other devices are answered with a
@@ -214,7 +264,7 @@ impl RsDiscovery {
     /// Turned off while the HTTP server is not running: the answer would
     /// advertise a port that nobody listens on.
     pub fn set_answer_announcements(&self, answer: bool) {
-        self.handle.set_answer_announcements(answer);
+        self.instance.handle.set_answer_announcements(answer);
     }
 
     /// Discovers a device at a known address, e.g. a favorite or a peer that
@@ -229,7 +279,7 @@ impl RsDiscovery {
         port: u16,
         protocol: ProtocolType,
     ) -> Option<RsStoredDevice> {
-        match self.handle.discover(&host, port, protocol).await {
+        match self.instance.handle.discover(&host, port, protocol).await {
             Ok(found) => found.map(rs_stored_device),
             Err(err) => {
                 tracing::debug!("Could not discover {host}:{port}: {err:#}");
@@ -255,7 +305,10 @@ impl RsDiscovery {
         let interface_ip = interface_ip
             .parse()
             .map_err(|_| anyhow::anyhow!("Invalid interface address: {interface_ip}"))?;
-        self.handle.scan_subnet(interface_ip, port, protocol).await?;
+        self.instance
+            .handle
+            .scan_subnet(interface_ip, port, protocol)
+            .await?;
         Ok(())
     }
 
@@ -263,7 +316,8 @@ impl RsDiscovery {
     /// one that answered an announcement by registering with this device's
     /// HTTP server. The device is emitted on [RsDiscovery::listen].
     pub async fn add_device(&self, device: RsDiscoveredDevice) {
-        self.handle
+        self.instance
+            .handle
             .add_device(DiscoveredDevice {
                 alias: device.alias,
                 version: device.version,
@@ -283,9 +337,14 @@ impl RsDiscovery {
     /// Stops the discovery, which also ends the [RsDiscovery::listen] stream.
     /// Returns after all sockets are closed, so the port can be bound again.
     pub async fn stop(&self) {
-        if let Some(stop_tx) = self.stop_tx.lock().await.take() {
-            let _ = stop_tx.send(());
-            self.handle.wait_stopped().await;
+        self.instance.stop().await;
+
+        let mut running_discovery = RUNNING_DISCOVERY.lock().await;
+        if running_discovery
+            .as_ref()
+            .is_some_and(|running| Arc::ptr_eq(running, &self.instance))
+        {
+            *running_discovery = None;
         }
     }
 }
