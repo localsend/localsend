@@ -33,5 +33,7 @@ Future<String> getDefaultDestinationDirectory() async {
 }
 
 Future<String> getCacheDirectory() async {
-  return (await path.getTemporaryDirectory()).path;
+  final dir = await path.getTemporaryDirectory();
+  await dir.create(recursive: true);
+  return dir.path;
 }
