@@ -39,6 +39,16 @@ Future<List<FileInfo>?> pickFilesAndroid() async {
   return result.map((e) => FileInfoMapper.fromJson((e as Map).cast<String, dynamic>())).toList();
 }
 
+/// Returns the global "Download" directory, e.g. /storage/emulated/0/Download.
+Future<String?> getDownloadsDirectoryAndroid() async {
+  try {
+    return await _methodChannel.invokeMethod<String>('getDownloadsDirectory');
+  } catch (e) {
+    _logger.warning('Could not get downloads directory', e);
+    return null;
+  }
+}
+
 Future<bool> getSystemAnimationsStatusAndroid() async {
   return await _methodChannel.invokeMethod('isAnimationsEnabled') ?? true;
 }

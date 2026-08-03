@@ -7,6 +7,7 @@ import android.content.Context
 import android.content.Intent
 import android.database.Cursor
 import android.net.Uri
+import android.os.Environment
 import android.provider.DocumentsContract
 import android.provider.Settings
 import io.flutter.embedding.android.FlutterActivity
@@ -79,9 +80,19 @@ class MainActivity : FlutterActivity() {
                     result.success(isAnimationsEnabled())
                 }
 
+                "getDownloadsDirectory" -> {
+                    result.success(getDownloadsDirectory())
+                }
+
                 else -> result.notImplemented()
             }
         }
+    }
+
+    /// Absolute path of the shared "Download" directory (usually /storage/emulated/0/Download).
+    @Suppress("DEPRECATION")
+    private fun getDownloadsDirectory(): String {
+        return Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).absolutePath
     }
 
     private fun isAnimationsEnabled() : Boolean {
