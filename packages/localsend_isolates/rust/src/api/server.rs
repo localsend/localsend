@@ -183,6 +183,7 @@ pub async fn start_server(
     device_type: Option<DeviceType>,
     fingerprint: String,
     pin: Option<String>,
+    verify_checksums: bool,
     web: Option<WebParams>,
     show_token: Option<String>,
 ) -> anyhow::Result<RsHttpServer> {
@@ -243,7 +244,11 @@ pub async fn start_server(
             token: fingerprint,
         },
         internal_config,
-        Some(ServerConfigV2 { pin, event_tx }),
+        Some(ServerConfigV2 {
+            pin,
+            verify_checksums,
+            event_tx,
+        }),
         web_config,
         stop_rx,
     )

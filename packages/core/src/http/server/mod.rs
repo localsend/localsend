@@ -39,6 +39,11 @@ pub struct ServerConfigV2 {
     /// Optional PIN that senders must provide via the `pin` query parameter.
     pub pin: Option<String>,
 
+    /// Whether the SHA-256 checksums that senders provide for their files are
+    /// verified after receiving. When disabled, received files are not hashed
+    /// and a mismatch is not detected.
+    pub verify_checksums: bool,
+
     /// Channel on which the server emits events that must be handled by the application.
     pub event_tx: mpsc::Sender<ServerEventV2>,
 }
@@ -47,6 +52,9 @@ pub struct ServerConfigV2 {
 pub(crate) struct V2State {
     /// Optional PIN required for prepare-upload requests.
     pub(crate) pin: Option<String>,
+
+    /// Whether sender-provided SHA-256 checksums are verified after receiving.
+    pub(crate) verify_checksums: bool,
 
     /// Channel on which server events are emitted to the application.
     pub(crate) event_tx: mpsc::Sender<ServerEventV2>,
@@ -95,6 +103,7 @@ impl AppState {
         let v2 = v2_config.map(|config| {
             Arc::new(V2State {
                 pin: config.pin,
+                verify_checksums: config.verify_checksums,
                 event_tx: config.event_tx,
                 session: Mutex::new(None),
                 pin_attempts: Mutex::new(LruCache::new(NonZeroUsize::new(200).unwrap())),

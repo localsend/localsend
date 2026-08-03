@@ -22,6 +22,7 @@ class HttpServerService {
     required DeviceType? deviceType,
     required String fingerprint,
     required String? pin,
+    required bool verifyChecksums,
     required WebParams? web,
     required String? showToken,
   }) async {
@@ -38,6 +39,7 @@ class HttpServerService {
       deviceType: deviceType,
       fingerprint: fingerprint,
       pin: pin,
+      verifyChecksums: verifyChecksums,
       web: web,
       showToken: showToken,
     );

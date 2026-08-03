@@ -34,6 +34,8 @@ class SettingsState with SettingsStateMappable {
   final String? deviceModel;
   final bool shareViaLinkAutoAccept;
   final bool receiveViaLinkAutoAccept;
+  final bool createChecksums; // create checksums when sending files
+  final bool verifyChecksums; // verify checksums when receiving files
   final int discoveryTimeout;
   final bool advancedSettings;
 
@@ -63,6 +65,8 @@ class SettingsState with SettingsStateMappable {
     required this.deviceModel,
     required this.shareViaLinkAutoAccept,
     required this.receiveViaLinkAutoAccept,
+    required this.createChecksums,
+    required this.verifyChecksums,
     required this.discoveryTimeout,
     required this.advancedSettings,
   });

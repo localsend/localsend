@@ -126,6 +126,7 @@ class ServerService extends Notifier<ServerState?> {
         .dispatchTakeResult(
           IsolateHttpServerStartAction(
             pin: settings.receivePin,
+            verifyChecksums: settings.verifyChecksums,
             web: webSendState != null || webUpload
                 ? WebParams(
                     send: webSendState != null

@@ -256,6 +256,10 @@ class IsolateHttpUploadCancelAction extends ReduxAction<IsolateController, Paren
 class IsolateHttpServerStartAction extends ReduxActionWithResult<IsolateController, ParentIsolateState, Stream<HttpServerEvent>> {
   final String? pin;
 
+  /// Whether the SHA-256 checksums that senders provide for their files are
+  /// verified after receiving.
+  final bool verifyChecksums;
+
   /// Serves the web pages: the download page (web send) and/or the upload page.
   /// `null` disables the web pages.
   final WebParams? web;
@@ -266,6 +270,7 @@ class IsolateHttpServerStartAction extends ReduxActionWithResult<IsolateControll
 
   IsolateHttpServerStartAction({
     required this.pin,
+    required this.verifyChecksums,
     required this.web,
     required this.showToken,
   });
@@ -282,6 +287,7 @@ class IsolateHttpServerStartAction extends ReduxActionWithResult<IsolateControll
       connection.sendWrappedTaskAndListenStream(
         task: HttpServerStartTask(
           pin: pin,
+          verifyChecksums: verifyChecksums,
           web: web,
           showToken: showToken,
         ),

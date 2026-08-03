@@ -34,6 +34,7 @@ Future<RsHttpServer> startServer({
   DeviceType? deviceType,
   required String fingerprint,
   String? pin,
+  required bool verifyChecksums,
   WebParams? web,
   String? showToken,
 }) => RustLib.instance.api.crateApiServerStartServer(
@@ -45,6 +46,7 @@ Future<RsHttpServer> startServer({
   deviceType: deviceType,
   fingerprint: fingerprint,
   pin: pin,
+  verifyChecksums: verifyChecksums,
   web: web,
   showToken: showToken,
 );

@@ -95,6 +95,7 @@ pub async fn run(args: Args) -> anyhow::Result<()> {
         None,
         Some(ServerConfigV2 {
             pin: None,
+            verify_checksums: true,
             event_tx: server_tx,
         }),
         None,

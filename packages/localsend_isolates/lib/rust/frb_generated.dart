@@ -302,6 +302,7 @@ abstract class RustLibApi extends BaseApi {
     DeviceType? deviceType,
     required String fingerprint,
     String? pin,
+    required bool verifyChecksums,
     WebParams? web,
     String? showToken,
   });
@@ -2043,6 +2044,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
     DeviceType? deviceType,
     required String fingerprint,
     String? pin,
+    required bool verifyChecksums,
     WebParams? web,
     String? showToken,
   }) {
@@ -2058,6 +2060,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           sse_encode_opt_box_autoadd_device_type(deviceType, serializer);
           sse_encode_String(fingerprint, serializer);
           sse_encode_opt_String(pin, serializer);
+          sse_encode_bool(verifyChecksums, serializer);
           sse_encode_opt_box_autoadd_web_params(web, serializer);
           sse_encode_opt_String(showToken, serializer);
           pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 55, port: port_);
@@ -2067,7 +2070,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           decodeErrorData: sse_decode_AnyhowException,
         ),
         constMeta: kCrateApiServerStartServerConstMeta,
-        argValues: [port, tls, alias, version, deviceModel, deviceType, fingerprint, pin, web, showToken],
+        argValues: [port, tls, alias, version, deviceModel, deviceType, fingerprint, pin, verifyChecksums, web, showToken],
         apiImpl: this,
       ),
     );
@@ -2075,7 +2078,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
 
   TaskConstMeta get kCrateApiServerStartServerConstMeta => const TaskConstMeta(
     debugName: 'start_server',
-    argNames: ['port', 'tls', 'alias', 'version', 'deviceModel', 'deviceType', 'fingerprint', 'pin', 'web', 'showToken'],
+    argNames: ['port', 'tls', 'alias', 'version', 'deviceModel', 'deviceType', 'fingerprint', 'pin', 'verifyChecksums', 'web', 'showToken'],
   );
 
   @override

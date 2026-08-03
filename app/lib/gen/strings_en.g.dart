@@ -1088,6 +1088,9 @@ class Translations$settingsTab$receive$en {
 
   /// en: 'Save to history'
   String get saveToHistory => 'Save to history';
+
+  /// en: 'Verify checksums when receiving files'
+  String get verifyChecksums => 'Verify checksums when receiving files';
 }
 
 // Path: settingsTab.send
@@ -1103,6 +1106,9 @@ class Translations$settingsTab$send$en {
 
   /// en: 'Automatically accept requests in "Share via link" mode'
   String get shareViaLinkAutoAccept => 'Automatically accept requests in "Share via link" mode';
+
+  /// en: 'Create checksums when sending files'
+  String get createChecksums => 'Create checksums when sending files';
 }
 
 // Path: settingsTab.network

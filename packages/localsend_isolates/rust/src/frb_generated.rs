@@ -3201,6 +3201,7 @@ fn wire__crate__api__server__start_server_impl(
                 <Option<crate::api::model::DeviceType>>::sse_decode(&mut deserializer);
             let api_fingerprint = <String>::sse_decode(&mut deserializer);
             let api_pin = <Option<String>>::sse_decode(&mut deserializer);
+            let api_verify_checksums = <bool>::sse_decode(&mut deserializer);
             let api_web = <Option<crate::api::server::WebParams>>::sse_decode(&mut deserializer);
             let api_show_token = <Option<String>>::sse_decode(&mut deserializer);
             deserializer.end();
@@ -3216,6 +3217,7 @@ fn wire__crate__api__server__start_server_impl(
                             api_device_type,
                             api_fingerprint,
                             api_pin,
+                            api_verify_checksums,
                             api_web,
                             api_show_token,
                         )

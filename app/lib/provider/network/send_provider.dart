@@ -74,6 +74,7 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
     // if someone else answers on that address.
     final client = ref.read(httpProvider).pinnedTo(target.fingerprint);
     final sessionId = _uuid.v4();
+    final createChecksums = ref.read(settingsProvider).createChecksums;
 
     // The ids are assigned upfront, so the checksums calculated below
     // can be mapped back to the corresponding file.
@@ -116,7 +117,9 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
               errorMessage: null,
             ),
         },
-        hashedFileCount: 0,
+        // Skipping the checksums marks all files as hashed, so the UI does not
+        // show the checksum progress.
+        hashedFileCount: createChecksums ? 0 : selectedFiles.length,
         startTime: null,
         endTime: null,
         sendingTasks: [],
@@ -134,54 +137,56 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
 
     // Calculate the checksums which are part of the request.
     // The files are read and hashed in Rust, one file after another.
-    final hashCancelToken = rust_cancel.createCancellationToken();
-    _hashCancelTokens[sessionId] = hashCancelToken;
     final hashes = <String, String>{};
-    try {
-      for (final (:id, :file) in selectedFiles) {
-        try {
-          hashes[id] = await calculateFileHash(
-            path: file.path,
-            bytes: file.bytes,
-            cancelToken: hashCancelToken,
-            onProgress: (bytes) {
-              if (state[sessionId] == null) {
-                // session has been canceled while calculating the checksums
-                return;
-              }
-              ref
-                  .notifier(progressProvider)
-                  .setProgress(
-                    sessionId: sessionId,
-                    fileId: id,
-                    progress: file.size == 0 ? 1 : (bytes / file.size).clamp(0, 1),
-                  );
-            },
-          );
-        } catch (e) {
-          if (state[sessionId] != null) {
-            // Sending the checksum is optional, so a file that cannot be read
-            // here still gets a chance to be sent.
-            // Errors caused by the cancellation are not logged.
-            _logger.warning('Could not calculate the checksum of ${file.name}', e);
+    if (createChecksums) {
+      final hashCancelToken = rust_cancel.createCancellationToken();
+      _hashCancelTokens[sessionId] = hashCancelToken;
+      try {
+        for (final (:id, :file) in selectedFiles) {
+          try {
+            hashes[id] = await calculateFileHash(
+              path: file.path,
+              bytes: file.bytes,
+              cancelToken: hashCancelToken,
+              onProgress: (bytes) {
+                if (state[sessionId] == null) {
+                  // session has been canceled while calculating the checksums
+                  return;
+                }
+                ref
+                    .notifier(progressProvider)
+                    .setProgress(
+                      sessionId: sessionId,
+                      fileId: id,
+                      progress: file.size == 0 ? 1 : (bytes / file.size).clamp(0, 1),
+                    );
+              },
+            );
+          } catch (e) {
+            if (state[sessionId] != null) {
+              // Sending the checksum is optional, so a file that cannot be read
+              // here still gets a chance to be sent.
+              // Errors caused by the cancellation are not logged.
+              _logger.warning('Could not calculate the checksum of ${file.name}', e);
+            }
           }
-        }
 
-        if (state[sessionId] == null) {
-          // session has been canceled while calculating the checksums
-          return;
-        }
+          if (state[sessionId] == null) {
+            // session has been canceled while calculating the checksums
+            return;
+          }
 
-        // Also set for files whose hashing failed, so the progress bar stays
-        // consistent with the files that are left.
-        ref.notifier(progressProvider).setProgress(sessionId: sessionId, fileId: id, progress: 1);
-        state = state.updateSession(
-          sessionId: sessionId,
-          state: (s) => s?.copyWith(hashedFileCount: s.hashedFileCount + 1),
-        );
+          // Also set for files whose hashing failed, so the progress bar stays
+          // consistent with the files that are left.
+          ref.notifier(progressProvider).setProgress(sessionId: sessionId, fileId: id, progress: 1);
+          state = state.updateSession(
+            sessionId: sessionId,
+            state: (s) => s?.copyWith(hashedFileCount: s.hashedFileCount + 1),
+          );
+        }
+      } finally {
+        _hashCancelTokens.remove(sessionId);
       }
-    } finally {
-      _hashCancelTokens.remove(sessionId);
     }
 
     final hashedState = state[sessionId];

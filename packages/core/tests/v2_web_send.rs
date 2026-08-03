@@ -140,6 +140,7 @@ async fn start_test_server(
         None,
         Some(ServerConfigV2 {
             pin: None,
+            verify_checksums: true,
             event_tx: v2_event_tx,
         }),
         web_config,
@@ -340,6 +341,7 @@ async fn test_upload_page() {
         None,
         Some(ServerConfigV2 {
             pin: None,
+            verify_checksums: true,
             event_tx: v2_event_tx,
         }),
         Some(WebConfig {

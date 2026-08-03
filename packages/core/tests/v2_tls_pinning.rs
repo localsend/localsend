@@ -123,6 +123,7 @@ async fn start_tls_server_with_web(identity: &Identity, web: Option<WebConfig>) 
         None,
         Some(ServerConfigV2 {
             pin: None,
+            verify_checksums: true,
             event_tx,
         }),
         web,

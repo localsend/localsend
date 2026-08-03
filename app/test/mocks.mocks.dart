@@ -319,6 +319,42 @@ class MockPersistenceService extends _i1.Mock implements _i3.PersistenceService 
           as _i4.Future<void>);
 
   @override
+  bool getCreateChecksums() =>
+      (super.noSuchMethod(
+            Invocation.method(#getCreateChecksums, []),
+            returnValue: false,
+            returnValueForMissingStub: false,
+          )
+          as bool);
+
+  @override
+  _i4.Future<void> setCreateChecksums(bool? createChecksums) =>
+      (super.noSuchMethod(
+            Invocation.method(#setCreateChecksums, [createChecksums]),
+            returnValue: _i4.Future<void>.value(),
+            returnValueForMissingStub: _i4.Future<void>.value(),
+          )
+          as _i4.Future<void>);
+
+  @override
+  bool getVerifyChecksums() =>
+      (super.noSuchMethod(
+            Invocation.method(#getVerifyChecksums, []),
+            returnValue: false,
+            returnValueForMissingStub: false,
+          )
+          as bool);
+
+  @override
+  _i4.Future<void> setVerifyChecksums(bool? verifyChecksums) =>
+      (super.noSuchMethod(
+            Invocation.method(#setVerifyChecksums, [verifyChecksums]),
+            returnValue: _i4.Future<void>.value(),
+            returnValueForMissingStub: _i4.Future<void>.value(),
+          )
+          as _i4.Future<void>);
+
+  @override
   String getMulticastGroup() =>
       (super.noSuchMethod(
             Invocation.method(#getMulticastGroup, []),

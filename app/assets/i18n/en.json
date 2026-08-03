@@ -120,11 +120,13 @@
       "destination": "Save to folder",
       "downloads": "(Downloads)",
       "saveToGallery": "Save media to gallery",
-      "saveToHistory": "Save to history"
+      "saveToHistory": "Save to history",
+      "verifyChecksums": "Verify checksums when receiving files"
     },
     "send": {
       "title": "Send",
-      "shareViaLinkAutoAccept": "Automatically accept requests in \"Share via link\" mode"
+      "shareViaLinkAutoAccept": "Automatically accept requests in \"Share via link\" mode",
+      "createChecksums": "Create checksums when sending files"
     },
     "network": {
       "title": "Network",

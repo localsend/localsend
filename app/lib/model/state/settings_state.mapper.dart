@@ -144,6 +144,16 @@ class SettingsStateMapper extends ClassMapperBase<SettingsState> {
     'receiveViaLinkAutoAccept',
     _$receiveViaLinkAutoAccept,
   );
+  static bool _$createChecksums(SettingsState v) => v.createChecksums;
+  static const Field<SettingsState, bool> _f$createChecksums = Field(
+    'createChecksums',
+    _$createChecksums,
+  );
+  static bool _$verifyChecksums(SettingsState v) => v.verifyChecksums;
+  static const Field<SettingsState, bool> _f$verifyChecksums = Field(
+    'verifyChecksums',
+    _$verifyChecksums,
+  );
   static int _$discoveryTimeout(SettingsState v) => v.discoveryTimeout;
   static const Field<SettingsState, int> _f$discoveryTimeout = Field(
     'discoveryTimeout',
@@ -182,6 +192,8 @@ class SettingsStateMapper extends ClassMapperBase<SettingsState> {
     #deviceModel: _f$deviceModel,
     #shareViaLinkAutoAccept: _f$shareViaLinkAutoAccept,
     #receiveViaLinkAutoAccept: _f$receiveViaLinkAutoAccept,
+    #createChecksums: _f$createChecksums,
+    #verifyChecksums: _f$verifyChecksums,
     #discoveryTimeout: _f$discoveryTimeout,
     #advancedSettings: _f$advancedSettings,
   };
@@ -213,6 +225,8 @@ class SettingsStateMapper extends ClassMapperBase<SettingsState> {
       deviceModel: data.dec(_f$deviceModel),
       shareViaLinkAutoAccept: data.dec(_f$shareViaLinkAutoAccept),
       receiveViaLinkAutoAccept: data.dec(_f$receiveViaLinkAutoAccept),
+      createChecksums: data.dec(_f$createChecksums),
+      verifyChecksums: data.dec(_f$verifyChecksums),
       discoveryTimeout: data.dec(_f$discoveryTimeout),
       advancedSettings: data.dec(_f$advancedSettings),
     );
@@ -310,6 +324,8 @@ abstract class SettingsStateCopyWith<$R, $In extends SettingsState, $Out>
     String? deviceModel,
     bool? shareViaLinkAutoAccept,
     bool? receiveViaLinkAutoAccept,
+    bool? createChecksums,
+    bool? verifyChecksums,
     int? discoveryTimeout,
     bool? advancedSettings,
   });
@@ -369,6 +385,8 @@ class _SettingsStateCopyWithImpl<$R, $Out>
     Object? deviceModel = $none,
     bool? shareViaLinkAutoAccept,
     bool? receiveViaLinkAutoAccept,
+    bool? createChecksums,
+    bool? verifyChecksums,
     int? discoveryTimeout,
     bool? advancedSettings,
   }) => $apply(
@@ -402,6 +420,8 @@ class _SettingsStateCopyWithImpl<$R, $Out>
         #shareViaLinkAutoAccept: shareViaLinkAutoAccept,
       if (receiveViaLinkAutoAccept != null)
         #receiveViaLinkAutoAccept: receiveViaLinkAutoAccept,
+      if (createChecksums != null) #createChecksums: createChecksums,
+      if (verifyChecksums != null) #verifyChecksums: verifyChecksums,
       if (discoveryTimeout != null) #discoveryTimeout: discoveryTimeout,
       if (advancedSettings != null) #advancedSettings: advancedSettings,
     }),
@@ -445,6 +465,8 @@ class _SettingsStateCopyWithImpl<$R, $Out>
       #receiveViaLinkAutoAccept,
       or: $value.receiveViaLinkAutoAccept,
     ),
+    createChecksums: data.get(#createChecksums, or: $value.createChecksums),
+    verifyChecksums: data.get(#verifyChecksums, or: $value.verifyChecksums),
     discoveryTimeout: data.get(#discoveryTimeout, or: $value.discoveryTimeout),
     advancedSettings: data.get(#advancedSettings, or: $value.advancedSettings),
   );

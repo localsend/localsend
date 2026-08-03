@@ -90,6 +90,8 @@ const _deviceType = 'ls_device_type';
 const _deviceModel = 'ls_device_model';
 const _shareViaLinkAutoAccept = 'ls_share_via_link_auto_accept';
 const _receiveViaLinkAutoAccept = 'ls_receive_via_link_auto_accept';
+const _createChecksums = 'ls_create_checksums';
+const _verifyChecksums = 'ls_verify_checksums';
 const _advancedSettingsKey = 'ls_advanced_settings';
 const _whatsNewKey = 'ls_whats_new';
 
@@ -375,6 +377,22 @@ class PersistenceService {
 
   Future<void> setReceiveViaLinkAutoAccept(bool receiveViaLinkAutoAccept) async {
     await _prefs.setBool(_receiveViaLinkAutoAccept, receiveViaLinkAutoAccept);
+  }
+
+  bool getCreateChecksums() {
+    return _prefs.getBool(_createChecksums) ?? true;
+  }
+
+  Future<void> setCreateChecksums(bool createChecksums) async {
+    await _prefs.setBool(_createChecksums, createChecksums);
+  }
+
+  bool getVerifyChecksums() {
+    return _prefs.getBool(_verifyChecksums) ?? true;
+  }
+
+  Future<void> setVerifyChecksums(bool verifyChecksums) async {
+    await _prefs.setBool(_verifyChecksums, verifyChecksums);
   }
 
   String getMulticastGroup() {

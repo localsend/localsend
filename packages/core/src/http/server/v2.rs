@@ -385,7 +385,10 @@ pub(crate) async fn upload(
     let mut upload_guard = UploadGuard::new(v2.clone(), session_id.clone(), file_id.clone());
 
     let file_size = file_dto.size;
-    let expected_sha256 = file_dto.sha256.clone();
+    let expected_sha256 = match v2.verify_checksums {
+        true => file_dto.sha256.clone(),
+        false => None,
+    };
     let timestamps = match &file_dto.metadata {
         Some(metadata) => FileTimestamps {
             modified: metadata.modified_time(),

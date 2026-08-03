@@ -30,6 +30,10 @@ class HttpServerStartTask implements BaseHttpServerTask {
   /// Optional PIN that senders must provide to start an upload session.
   final String? pin;
 
+  /// Whether the SHA-256 checksums that senders provide for their files are
+  /// verified after receiving.
+  final bool verifyChecksums;
+
   /// Serves the web pages: the download page (web send) and/or the upload page.
   /// `null` disables the web pages.
   final WebParams? web;
@@ -40,6 +44,7 @@ class HttpServerStartTask implements BaseHttpServerTask {
 
   HttpServerStartTask({
     required this.pin,
+    required this.verifyChecksums,
     required this.web,
     required this.showToken,
   });
@@ -398,6 +403,7 @@ Future<void> setupHttpServerIsolate(
                   deviceType: syncState.deviceInfo.deviceType.toRust(),
                   fingerprint: syncState.securityContext.certificateHash,
                   pin: startTask.pin,
+                  verifyChecksums: startTask.verifyChecksums,
                   web: startTask.web,
                   showToken: startTask.showToken,
                 );

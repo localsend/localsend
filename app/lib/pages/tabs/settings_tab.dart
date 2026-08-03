@@ -259,6 +259,19 @@ class SettingsTab extends StatelessWidget {
                     await ref.notifier(settingsProvider).setSaveToHistory(b);
                   },
                 ),
+                if (vm.advanced)
+                  _BooleanEntry(
+                    label: t.settingsTab.receive.verifyChecksums,
+                    value: vm.settings.verifyChecksums,
+                    onChanged: (b) async {
+                      await ref.notifier(settingsProvider).setVerifyChecksums(b);
+
+                      // The checksums are verified by the Rust server, so it needs a restart.
+                      if (ref.read(serverProvider) != null) {
+                        await ref.notifier(serverProvider).restartServerFromSettings();
+                      }
+                    },
+                  ),
               ],
             ),
             if (vm.advanced)
@@ -270,6 +283,13 @@ class SettingsTab extends StatelessWidget {
                     value: vm.settings.shareViaLinkAutoAccept,
                     onChanged: (b) async {
                       await ref.notifier(settingsProvider).setShareViaLinkAutoAccept(b);
+                    },
+                  ),
+                  _BooleanEntry(
+                    label: t.settingsTab.send.createChecksums,
+                    value: vm.settings.createChecksums,
+                    onChanged: (b) async {
+                      await ref.notifier(settingsProvider).setCreateChecksums(b);
                     },
                   ),
                 ],

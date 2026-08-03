@@ -38,6 +38,16 @@ async fn start_test_server(
     accept: bool,
     save_dir: Option<PathBuf>,
 ) -> TestServer {
+    start_test_server_with_verification(pin, accept, save_dir, true).await
+}
+
+/// Like [start_test_server], but allows disabling the checksum verification.
+async fn start_test_server_with_verification(
+    pin: Option<String>,
+    accept: bool,
+    save_dir: Option<PathBuf>,
+    verify_checksums: bool,
+) -> TestServer {
     let _ = tracing_subscriber::fmt().with_test_writer().try_init();
     let port = free_port();
     let received: Arc<Mutex<HashMap<String, Vec<u8>>>> = Arc::new(Mutex::new(HashMap::new()));
@@ -125,7 +135,11 @@ async fn start_test_server(
             token: "server-fingerprint".to_string(),
         },
         None,
-        Some(ServerConfigV2 { pin, event_tx }),
+        Some(ServerConfigV2 {
+            pin,
+            verify_checksums,
+            event_tx,
+        }),
         None,
         stop_rx,
     )
@@ -497,6 +511,45 @@ async fn test_upload_with_mismatched_sha256() {
     )
     .await;
     assert_status(result, 422);
+}
+
+#[tokio::test]
+async fn test_upload_mismatched_sha256_with_verification_disabled() {
+    let server = start_test_server_with_verification(None, true, None, false).await;
+    let client = LsHttpClientV2::try_new_without_cert().unwrap();
+
+    let bytes = b"hello".to_vec();
+    let mut file = file_dto("file-a", "a.bin", bytes.len() as u64);
+    file.sha256 = Some(sha256_hex(b"something else"));
+
+    let response = client
+        .prepare_upload(
+            ProtocolType::Http,
+            "127.0.0.1",
+            server.port,
+            None,
+            prepare_upload_request(&[file]),
+            None,
+            CancellationToken::new(),
+        )
+        .await
+        .unwrap()
+        .response
+        .unwrap();
+
+    // The mismatch goes unnoticed because the received bytes are not hashed.
+    upload_bytes(
+        &client,
+        server.port,
+        &response.session_id,
+        "file-a",
+        &response.files["file-a"],
+        &bytes,
+    )
+    .await
+    .unwrap();
+
+    assert_eq!(server.received.lock().await["file-a"], bytes);
 }
 
 #[tokio::test]
@@ -927,6 +980,7 @@ async fn test_prepare_upload_aborted_by_sender_disconnect() {
         None,
         Some(ServerConfigV2 {
             pin: None,
+            verify_checksums: true,
             event_tx,
         }),
         None,
@@ -1029,6 +1083,7 @@ async fn test_prepare_upload_cancelled_by_session_less_cancel() {
         None,
         Some(ServerConfigV2 {
             pin: None,
+            verify_checksums: true,
             event_tx,
         }),
         None,
@@ -1164,6 +1219,7 @@ async fn test_prepare_upload_aborted_by_sender_disconnect_tls() {
         None,
         Some(ServerConfigV2 {
             pin: None,
+            verify_checksums: true,
             event_tx,
         }),
         None,
