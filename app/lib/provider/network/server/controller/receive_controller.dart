@@ -134,11 +134,7 @@ class ReceiveController {
     }
 
     if (quickSave) {
-      // accept all files
-      await acceptFileRequest({
-        for (final f in files.values) f.id: f.fileName,
-      });
-
+      // Push before accepting: the permission request in [acceptFileRequest] may block for a while.
       // ignore: use_build_context_synchronously, unawaited_futures
       Routerino.context.pushImmediately(
         () => ProgressPage(
@@ -147,6 +143,11 @@ class ReceiveController {
           sessionId: sessionId,
         ),
       );
+
+      // accept all files
+      await acceptFileRequest({
+        for (final f in files.values) f.id: f.fileName,
+      });
       return;
     }
 
@@ -195,17 +196,20 @@ class ReceiveController {
           }
 
           final selectedFiles = ref.read(selectedReceivingFilesProvider);
-          await ref.notifier(serverProvider).acceptFileRequest(selectedFiles);
 
-          // ignore: use_build_context_synchronously
-          await Routerino.context.pushAndRemoveUntilImmediately(
-            removeUntil: ReceivePage,
-            builder: () => ProgressPage(
-              showAppBar: false,
-              closeSessionOnClose: true,
-              sessionId: sessionId,
+          // Push before accepting: the permission request in [acceptFileRequest] may block for a while.
+          unawaited(
+            Routerino.context.pushAndRemoveUntilImmediately(
+              removeUntil: ReceivePage,
+              builder: () => ProgressPage(
+                showAppBar: false,
+                closeSessionOnClose: true,
+                sessionId: sessionId,
+              ),
             ),
           );
+
+          await ref.notifier(serverProvider).acceptFileRequest(selectedFiles);
         },
         onDecline: () {
           ref.notifier(serverProvider).declineFileRequest();
@@ -554,18 +558,14 @@ class ReceiveController {
       },
     );
 
-    if (checkPlatform([TargetPlatform.android, TargetPlatform.iOS])) {
-      if (checkPlatform([TargetPlatform.android]) && !session.destinationDirectory.startsWith('/storage/emulated/0/Download')) {
-        // Android requires more permission to save files outside of the Download directory
-        try {
-          final result = await Permission.storage.request();
-          _logger.info('storage permission: $result');
-        } catch (e) {
-          _logger.warning('Could not request storage permission', e);
-        }
-      }
+    // The storage permission only exists below Android 13 (scoped storage): newer versions
+    // auto-deny the request, but the round trip through the system permission activity
+    // still blocks the UI noticeably.
+    final androidSdkInt = server.ref.read(deviceInfoProvider).androidSdkInt;
+    if (checkPlatform([TargetPlatform.android]) && androidSdkInt != null && androidSdkInt < 33) {
       try {
-        await Permission.storage.request();
+        final result = await Permission.storage.request();
+        _logger.info('storage permission: $result');
       } catch (e) {
         _logger.warning('Could not request storage permission', e);
       }
