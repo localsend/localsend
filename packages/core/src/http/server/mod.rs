@@ -483,7 +483,6 @@ async fn handle_request_inner(mut req: Request<Incoming>) -> Result<Response<Box
 
     match (req.method(), req.uri().path()) {
         (&Method::GET, "/") => Ok(web::index(&state)),
-        (&Method::GET, "/download.js") => Ok(web::download_js(&state)),
         (&Method::GET, "/i18n.json") => web::i18n(&state),
         (&Method::POST, "/api/localsend/v2/prepare-download") => {
             web::prepare_download(req, state, client_info).await

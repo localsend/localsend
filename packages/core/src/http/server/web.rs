@@ -68,7 +68,6 @@ pub enum WebSendEvent {
 }
 
 const DOWNLOAD_HTML: &str = include_str!("../../../assets/web/download.html");
-const DOWNLOAD_JS: &str = include_str!("../../../assets/web/download.js");
 const UPLOAD_HTML: &str = include_str!("../../../assets/web/upload.html");
 const ERROR_403_HTML: &str = include_str!("../../../assets/web/error-403.html");
 
@@ -196,17 +195,6 @@ pub(crate) fn index(state: &AppState) -> Response<BoxedBody> {
         html_response(StatusCode::OK, UPLOAD_HTML, "text/html; charset=utf-8")
     } else {
         error_403_page()
-    }
-}
-
-pub(crate) fn download_js(state: &AppState) -> Response<BoxedBody> {
-    match &state.web {
-        Some(_) => html_response(
-            StatusCode::OK,
-            DOWNLOAD_JS,
-            "text/javascript; charset=utf-8",
-        ),
-        None => error_403_page(),
     }
 }
 
