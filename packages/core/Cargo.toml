@@ -41,6 +41,10 @@ uuid = { version = "1.24.0", features = ["serde", "v4"] }
 webrtc = { version = "0.14.0", optional = true }
 x509-parser = { version = "0.18.1", features = ["verify"], optional = true }
 
+[[example]]
+name = "stress_send"
+required-features = ["http"]
+
 [features]
 default = []
 crypto = ["ed25519-dalek", "rcgen", "rsa", "sha2", "tokio-util"]
