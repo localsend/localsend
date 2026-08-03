@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:localsend_isolates/model/device.dart';
-import 'package:localsend_isolates/rust/api/server.dart' show WebSendParams;
+import 'package:localsend_isolates/rust/api/server.dart' show WebParams;
 import 'package:localsend_isolates/src/isolate/child/discovery_isolate.dart';
 import 'package:localsend_isolates/src/isolate/child/server_isolate.dart';
 import 'package:localsend_isolates/src/isolate/child/upload_isolate.dart';
@@ -256,9 +256,9 @@ class IsolateHttpUploadCancelAction extends ReduxAction<IsolateController, Paren
 class IsolateHttpServerStartAction extends ReduxActionWithResult<IsolateController, ParentIsolateState, Stream<HttpServerEvent>> {
   final String? pin;
 
-  /// Enables web send (download API) so web browsers can download the offered files.
-  /// `null` disables web send.
-  final WebSendParams? webSend;
+  /// Serves the web pages: the download page (web send) and/or the upload page.
+  /// `null` disables the web pages.
+  final WebParams? web;
 
   /// Enables the internal `show` endpoint, guarded by this token, that lets another
   /// application instance request this one to show itself. `null` disables it.
@@ -266,7 +266,7 @@ class IsolateHttpServerStartAction extends ReduxActionWithResult<IsolateControll
 
   IsolateHttpServerStartAction({
     required this.pin,
-    required this.webSend,
+    required this.web,
     required this.showToken,
   });
 
@@ -282,7 +282,7 @@ class IsolateHttpServerStartAction extends ReduxActionWithResult<IsolateControll
       connection.sendWrappedTaskAndListenStream(
         task: HttpServerStartTask(
           pin: pin,
-          webSend: webSend,
+          web: web,
           showToken: showToken,
         ),
       ),

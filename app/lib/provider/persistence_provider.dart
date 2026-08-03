@@ -89,6 +89,7 @@ const _enableAnimations = 'ls_enable_animations';
 const _deviceType = 'ls_device_type';
 const _deviceModel = 'ls_device_model';
 const _shareViaLinkAutoAccept = 'ls_share_via_link_auto_accept';
+const _receiveViaLinkAutoAccept = 'ls_receive_via_link_auto_accept';
 const _advancedSettingsKey = 'ls_advanced_settings';
 const _whatsNewKey = 'ls_whats_new';
 
@@ -366,6 +367,14 @@ class PersistenceService {
 
   Future<void> setShareViaLinkAutoAccept(bool shareViaLinkAutoAccept) async {
     await _prefs.setBool(_shareViaLinkAutoAccept, shareViaLinkAutoAccept);
+  }
+
+  bool getReceiveViaLinkAutoAccept() {
+    return _prefs.getBool(_receiveViaLinkAutoAccept) ?? false;
+  }
+
+  Future<void> setReceiveViaLinkAutoAccept(bool receiveViaLinkAutoAccept) async {
+    await _prefs.setBool(_receiveViaLinkAutoAccept, receiveViaLinkAutoAccept);
   }
 
   String getMulticastGroup() {

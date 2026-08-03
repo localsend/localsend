@@ -7,7 +7,8 @@ import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 import 'package:localsend_isolates/rust/api/model.dart';
 import 'package:localsend_isolates/rust/frb_generated.dart';
 
-// These functions are ignored because they are not marked as `pub`: `rs_stored_device`
+// These functions are ignored because they are not marked as `pub`: `rs_stored_device`, `stop`
+// These types are ignored because they are neither used by any `pub` functions nor (for structs and enums) marked `#[frb(unignore)]`: `DiscoveryInstance`
 
 /// Starts the discovery: binds the UDP multicast sockets on all usable
 /// network interfaces, answers announcements of other devices with an HTTP
@@ -88,6 +89,9 @@ abstract class RsDiscovery implements RustOpaqueInterface {
 
   /// Emits a [RsStoredDevice] for every device confirmation until the
   /// discovery is stopped. Can only be listened to once.
+  ///
+  /// Also returns when the Dart side of the stream is gone (e.g. after a
+  /// hot restart), so this call does not keep the discovery alive forever.
   Stream<RsStoredDevice> listen();
 
   /// The reason the multicast sockets could not be bound, when they could

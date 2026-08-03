@@ -10,7 +10,7 @@ pub use peer_ip::PeerIp;
 use crate::crypto::cert::{fingerprint_from_cert_der, public_key_from_cert_der};
 use crate::http::server::internal::{InternalConfig, InternalState};
 use crate::http::server::v2::ServerEventV2;
-use crate::http::server::web::WebSendConfig;
+use crate::http::server::web::{WebConfig, WebI18n};
 use crate::http::state::ClientInfo;
 use common::client_cert_verifier::CustomClientCertVerifier;
 use common::error::AppError;
@@ -63,8 +63,14 @@ pub struct AppState {
     /// Information about server's device.
     info: Arc<Mutex<ClientInfo>>,
 
-    /// State for serving web pages.
+    /// State for serving the download page (web send).
     web: Option<Arc<WebPageState>>,
+
+    /// Whether the upload page is served (when the download page is not active).
+    web_upload: bool,
+
+    /// Translations for the web pages, served via `/i18n.json`.
+    web_i18n: Option<Arc<WebI18n>>,
 
     /// State for application-internal endpoints.
     internal: Option<Arc<InternalState>>,
@@ -84,7 +90,7 @@ impl AppState {
         info: Arc<Mutex<ClientInfo>>,
         internal_config: Option<InternalConfig>,
         v2_config: Option<ServerConfigV2>,
-        web_send_config: Option<WebSendConfig>,
+        web_config: Option<WebConfig>,
     ) -> Self {
         let v2 = v2_config.map(|config| {
             Arc::new(V2State {
@@ -95,12 +101,21 @@ impl AppState {
             })
         });
 
-        let web = web_send_config.map(|config| Arc::new(WebPageState::new(config)));
+        let (web, web_upload, web_i18n) = match web_config {
+            Some(config) => (
+                config.send.map(|send| Arc::new(WebPageState::new(send))),
+                config.upload,
+                Some(Arc::new(config.i18n)),
+            ),
+            None => (None, false, None),
+        };
         let internal = internal_config.map(|config| Arc::new(InternalState::new(config)));
 
         Self {
             info,
             web,
+            web_upload,
+            web_i18n,
             internal,
             received_nonce_map: Arc::new(Mutex::new(LruCache::new(
                 NonZeroUsize::new(200).unwrap(),
@@ -200,12 +215,12 @@ pub async fn start_with_port(
     info: ClientInfo,
     internal_config: Option<InternalConfig>,
     v2_config: Option<ServerConfigV2>,
-    web_send_config: Option<WebSendConfig>,
+    web_config: Option<WebConfig>,
     stop_rx: oneshot::Receiver<()>,
 ) -> anyhow::Result<ServerHandle> {
     let ipv4_socket_addr = SocketAddr::new(Ipv4Addr::UNSPECIFIED.into(), port);
     let info = Arc::new(Mutex::new(info));
-    let state = AppState::new(info.clone(), internal_config, v2_config, web_send_config);
+    let state = AppState::new(info.clone(), internal_config, v2_config, web_config);
 
     let ipv4_listener = tokio::net::TcpListener::bind(ipv4_socket_addr).await?;
     // With port 0, the IPv6 listener must reuse the port the IPv4 listener got.
@@ -293,10 +308,16 @@ async fn start_server_with_listener(
 ) -> anyhow::Result<()> {
     let _ = rustls::crypto::ring::default_provider().install_default();
 
+    // Browsers have no client certificate, so presenting one is optional while
+    // the web pages are served. A certificate that is presented is still verified.
+    let mandatory_client_auth = app_state.web.is_none() && !app_state.web_upload;
+
     let tls_acceptor = match tls_config {
-        Some(tls_config) => Some(create_tls_config(&tls_config).inspect_err(|err| {
-            tracing::error!("failed to create tls config: {err:#}");
-        })?),
+        Some(tls_config) => Some(
+            create_tls_config(&tls_config, mandatory_client_auth).inspect_err(|err| {
+                tracing::error!("failed to create tls config: {err:#}");
+            })?,
+        ),
         None => None,
     };
 
@@ -343,11 +364,13 @@ async fn serve_connection(
                 let (_, server_connection) = tls_stream.get_ref();
                 RequestClientInfo {
                     ip: PeerIp::from_remote_addr(&remote_addr),
+                    // No certificate when client auth is optional (web pages served)
+                    // and the client (e.g. a browser) did not present one.
                     cert: server_connection
                         .deref()
                         .deref()
                         .peer_certificates()
-                        .map(|cert| cert.get(0).unwrap().to_vec()),
+                        .and_then(|certs| certs.first().map(|cert| cert.to_vec())),
                 }
             };
 
@@ -386,7 +409,10 @@ async fn serve_connection(
     }
 }
 
-fn create_tls_config(tls_config: &TlsConfig) -> anyhow::Result<tokio_rustls::TlsAcceptor> {
+fn create_tls_config(
+    tls_config: &TlsConfig,
+    mandatory_client_auth: bool,
+) -> anyhow::Result<tokio_rustls::TlsAcceptor> {
     let config = {
         let certs = vec![CertificateDer::from_pem_slice(&tls_config.cert.as_bytes())?];
         let key = PrivateKeyDer::from_pem_slice(&tls_config.private_key.as_bytes())?;
@@ -394,6 +420,7 @@ fn create_tls_config(tls_config: &TlsConfig) -> anyhow::Result<tokio_rustls::Tls
         rustls::ServerConfig::builder()
             .with_client_cert_verifier(Arc::new(CustomClientCertVerifier::try_new(
                 &tls_config.cert,
+                mandatory_client_auth,
             )?))
             .with_single_cert(certs, key)?
     };
@@ -456,7 +483,7 @@ async fn handle_request_inner(mut req: Request<Incoming>) -> Result<Response<Box
 
     match (req.method(), req.uri().path()) {
         (&Method::GET, "/") => Ok(web::index(&state)),
-        (&Method::GET, "/main.js") => Ok(web::main_js(&state)),
+        (&Method::GET, "/download.js") => Ok(web::download_js(&state)),
         (&Method::GET, "/i18n.json") => web::i18n(&state),
         (&Method::POST, "/api/localsend/v2/prepare-download") => {
             web::prepare_download(req, state, client_info).await

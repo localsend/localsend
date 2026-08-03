@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LocalSend</title>
+    <style>
+        body {
+            font-family: sans-serif, system-ui;
+            margin: 0;
+            line-height: 1.5;
+            text-align: center;
+        }
+
+        #content {
+            box-sizing: border-box;
+            width: 100%;
+            max-width: 400px;
+            margin: 15vh auto 0;
+            padding: 0 1em;
+        }
+
+        #upload-button {
+            width: 100%;
+            padding: 1em;
+            font-family: inherit;
+            font-size: 1.5em;
+            color: #FFFFFF;
+            background-color: #00796B;
+            border: none;
+            border-radius: 0.5em;
+            cursor: pointer;
+        }
+
+        #upload-button:hover {
+            background-color: #009688;
+        }
+
+        #status-text {
+            display: none;
+            font-size: 1.5em;
+        }
+
+        #progress-text {
+            display: none;
+            font-size: 1.5em;
+        }
+    </style>
+</head>
+<body>
+<noscript>
+    LocalSend requires JavaScript, which is currently disabled. Please enable it and try again.
+</noscript>
+
+<h1 style="padding: 0.5em">LocalSend</h1>
+<div id="content">
+    <button id="upload-button" type="button">Upload</button>
+    <input id="file-input" type="file" multiple style="display: none">
+    <p id="status-text"></p>
+    <p id="progress-text"></p>
+</div>
+
+<script>
+    var BASE_URL = '/api/localsend/v2';
+
+    var i18n = {};
+
+    function makeRequest(url, method, body, callback) {
+      var xhr = new XMLHttpRequest();
+      xhr.open(method, url, true);
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4) {
+          callback(xhr);
+        }
+      };
+      xhr.send(body);
+    }
+
+    function fetchI18n(then) {
+      makeRequest('/i18n.json', 'GET', null, function (response) {
+        if (response.status === 200) {
+          i18n = JSON.parse(response.responseText);
+          then();
+        }
+      });
+    }
+
+    function showButton() {
+      document.getElementById('upload-button').style.display = 'block';
+      document.getElementById('status-text').style.display = 'none';
+      document.getElementById('progress-text').style.display = 'none';
+    }
+
+    function showStatus(text) {
+      document.getElementById('upload-button').style.display = 'none';
+      var statusText = document.getElementById('status-text');
+      statusText.style.display = 'block';
+      statusText.innerText = text;
+    }
+
+    function showProgress(finished, total) {
+      var progressText = document.getElementById('progress-text');
+      progressText.style.display = 'block';
+      progressText.innerText = finished + '/' + total + ' file(s)';
+    }
+
+    function startUpload(fileList) {
+      showStatus(i18n.waiting);
+
+      var selectedFiles = {};
+      var filesDto = {};
+      for (var i = 0; i < fileList.length; i++) {
+        var file = fileList[i];
+        var fileId = String(i);
+        selectedFiles[fileId] = file;
+        filesDto[fileId] = {
+          id: fileId,
+          fileName: file.name,
+          size: file.size,
+          fileType: file.type || 'application/octet-stream'
+        };
+      }
+
+      var body = JSON.stringify({
+        info: {
+          alias: 'Web Browser',
+          version: '2.1',
+          deviceType: 'web',
+          fingerprint: getFingerprint(),
+          port: 0,
+          protocol: location.protocol === 'https:' ? 'https' : 'http',
+          download: false
+        },
+        files: filesDto
+      });
+
+      makeRequest(BASE_URL + '/prepare-upload', 'POST', body, function (response) {
+        if (response.status === 403) {
+          showStatus(i18n.uploadRejected);
+          return;
+        }
+
+        if (response.status === 409) {
+          showStatus(i18n.busy);
+          return;
+        }
+
+        if (response.status === 204) {
+          // The recipient accepted the request but declined every file.
+          showStatus(i18n.uploadRejected);
+          return;
+        }
+
+        if (response.status !== 200) {
+          showStatus('Error: ' + response.status);
+          return;
+        }
+
+        var data = JSON.parse(response.responseText);
+        uploadFiles(data.sessionId, data.files, selectedFiles);
+      });
+    }
+
+    function uploadFiles(sessionId, tokens, selectedFiles) {
+      var fileIds = getKeys(tokens);
+      var total = fileIds.length;
+
+      showStatus('');
+      showProgress(0, total);
+
+      function uploadNext(index) {
+        if (index >= total) {
+          return;
+        }
+
+        var fileId = fileIds[index];
+        var url = BASE_URL + '/upload' +
+            '?sessionId=' + encodeURIComponent(sessionId) +
+            '&fileId=' + encodeURIComponent(fileId) +
+            '&token=' + encodeURIComponent(tokens[fileId]);
+
+        makeRequest(url, 'POST', selectedFiles[fileId], function (response) {
+          if (response.status !== 200) {
+            showStatus('Error: ' + response.status);
+            return;
+          }
+
+          showProgress(index + 1, total);
+          uploadNext(index + 1);
+        });
+      }
+
+      uploadNext(0);
+    }
+
+    function getFingerprint() {
+      var fingerprint = sessionStorage.getItem('fingerprint');
+      if (!fingerprint) {
+        fingerprint = 'web-';
+        for (var i = 0; i < 32; i++) {
+          fingerprint += Math.floor(Math.random() * 16).toString(16);
+        }
+        sessionStorage.setItem('fingerprint', fingerprint);
+      }
+      return fingerprint;
+    }
+
+    function getKeys(obj) {
+      var keys = [];
+      for (var key in obj) {
+        keys.push(key);
+      }
+      return keys;
+    }
+
+    function init() {
+      var fileInput = document.getElementById('file-input');
+      document.getElementById('upload-button').onclick = function () {
+        fileInput.click();
+      };
+      fileInput.onchange = function () {
+        if (fileInput.files.length > 0) {
+          startUpload(fileInput.files);
+        }
+      };
+      fetchI18n(function () {});
+    }
+
+    init();
+</script>
+</body>
+</html>

@@ -3201,8 +3201,7 @@ fn wire__crate__api__server__start_server_impl(
                 <Option<crate::api::model::DeviceType>>::sse_decode(&mut deserializer);
             let api_fingerprint = <String>::sse_decode(&mut deserializer);
             let api_pin = <Option<String>>::sse_decode(&mut deserializer);
-            let api_web_send =
-                <Option<crate::api::server::WebSendParams>>::sse_decode(&mut deserializer);
+            let api_web = <Option<crate::api::server::WebParams>>::sse_decode(&mut deserializer);
             let api_show_token = <Option<String>>::sse_decode(&mut deserializer);
             deserializer.end();
             move |context| async move {
@@ -3217,7 +3216,7 @@ fn wire__crate__api__server__start_server_impl(
                             api_device_type,
                             api_fingerprint,
                             api_pin,
-                            api_web_send,
+                            api_web,
                             api_show_token,
                         )
                         .await?;
@@ -3383,15 +3382,17 @@ const _: fn() = || {
         let _: String = TlsConfig.private_key;
     }
     {
-        let WebSendI18n = None::<crate::api::server::WebSendI18n>.unwrap();
-        let _: String = WebSendI18n.waiting;
-        let _: String = WebSendI18n.enter_pin;
-        let _: String = WebSendI18n.invalid_pin;
-        let _: String = WebSendI18n.too_many_attempts;
-        let _: String = WebSendI18n.rejected;
-        let _: String = WebSendI18n.files;
-        let _: String = WebSendI18n.file_name;
-        let _: String = WebSendI18n.size;
+        let WebI18n = None::<crate::api::server::WebI18n>.unwrap();
+        let _: String = WebI18n.waiting;
+        let _: String = WebI18n.enter_pin;
+        let _: String = WebI18n.invalid_pin;
+        let _: String = WebI18n.too_many_attempts;
+        let _: String = WebI18n.rejected;
+        let _: String = WebI18n.upload_rejected;
+        let _: String = WebI18n.busy;
+        let _: String = WebI18n.files;
+        let _: String = WebI18n.file_name;
+        let _: String = WebI18n.size;
     }
     match None::<crate::api::webrtc::WsServerMessage>.unwrap() {
         crate::api::webrtc::WsServerMessage::Hello { client, peers } => {
@@ -4234,6 +4235,17 @@ impl SseDecode for Option<u32> {
     }
 }
 
+impl SseDecode for Option<crate::api::server::WebParams> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        if (<bool>::sse_decode(deserializer)) {
+            return Some(<crate::api::server::WebParams>::sse_decode(deserializer));
+        } else {
+            return None;
+        }
+    }
+}
+
 impl SseDecode for Option<crate::api::server::WebSendParams> {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
@@ -4812,7 +4824,7 @@ impl SseDecode for usize {
     }
 }
 
-impl SseDecode for crate::api::server::WebSendI18n {
+impl SseDecode for crate::api::server::WebI18n {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
         let mut var_waiting = <String>::sse_decode(deserializer);
@@ -4820,18 +4832,36 @@ impl SseDecode for crate::api::server::WebSendI18n {
         let mut var_invalidPin = <String>::sse_decode(deserializer);
         let mut var_tooManyAttempts = <String>::sse_decode(deserializer);
         let mut var_rejected = <String>::sse_decode(deserializer);
+        let mut var_uploadRejected = <String>::sse_decode(deserializer);
+        let mut var_busy = <String>::sse_decode(deserializer);
         let mut var_files = <String>::sse_decode(deserializer);
         let mut var_fileName = <String>::sse_decode(deserializer);
         let mut var_size = <String>::sse_decode(deserializer);
-        return crate::api::server::WebSendI18n {
+        return crate::api::server::WebI18n {
             waiting: var_waiting,
             enter_pin: var_enterPin,
             invalid_pin: var_invalidPin,
             too_many_attempts: var_tooManyAttempts,
             rejected: var_rejected,
+            upload_rejected: var_uploadRejected,
+            busy: var_busy,
             files: var_files,
             file_name: var_fileName,
             size: var_size,
+        };
+    }
+}
+
+impl SseDecode for crate::api::server::WebParams {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut var_send = <Option<crate::api::server::WebSendParams>>::sse_decode(deserializer);
+        let mut var_upload = <bool>::sse_decode(deserializer);
+        let mut var_i18N = <crate::api::server::WebI18n>::sse_decode(deserializer);
+        return crate::api::server::WebParams {
+            send: var_send,
+            upload: var_upload,
+            i18n: var_i18N,
         };
     }
 }
@@ -4844,11 +4874,9 @@ impl SseDecode for crate::api::server::WebSendParams {
                 deserializer,
             );
         let mut var_pin = <Option<String>>::sse_decode(deserializer);
-        let mut var_i18N = <crate::api::server::WebSendI18n>::sse_decode(deserializer);
         return crate::api::server::WebSendParams {
             files: var_files,
             pin: var_pin,
-            i18n: var_i18N,
         };
     }
 }
@@ -6139,7 +6167,7 @@ impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<crate::api::server::TlsConfig>
     }
 }
 // Codec=Dco (DartCObject based), see doc to use other codecs
-impl flutter_rust_bridge::IntoDart for FrbWrapper<crate::api::server::WebSendI18n> {
+impl flutter_rust_bridge::IntoDart for FrbWrapper<crate::api::server::WebI18n> {
     fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
         [
             self.0.waiting.into_into_dart().into_dart(),
@@ -6147,6 +6175,8 @@ impl flutter_rust_bridge::IntoDart for FrbWrapper<crate::api::server::WebSendI18
             self.0.invalid_pin.into_into_dart().into_dart(),
             self.0.too_many_attempts.into_into_dart().into_dart(),
             self.0.rejected.into_into_dart().into_dart(),
+            self.0.upload_rejected.into_into_dart().into_dart(),
+            self.0.busy.into_into_dart().into_dart(),
             self.0.files.into_into_dart().into_dart(),
             self.0.file_name.into_into_dart().into_dart(),
             self.0.size.into_into_dart().into_dart(),
@@ -6155,14 +6185,33 @@ impl flutter_rust_bridge::IntoDart for FrbWrapper<crate::api::server::WebSendI18
     }
 }
 impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
-    for FrbWrapper<crate::api::server::WebSendI18n>
+    for FrbWrapper<crate::api::server::WebI18n>
 {
 }
-impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<crate::api::server::WebSendI18n>>
-    for crate::api::server::WebSendI18n
+impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<crate::api::server::WebI18n>>
+    for crate::api::server::WebI18n
 {
-    fn into_into_dart(self) -> FrbWrapper<crate::api::server::WebSendI18n> {
+    fn into_into_dart(self) -> FrbWrapper<crate::api::server::WebI18n> {
         self.into()
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for crate::api::server::WebParams {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        [
+            self.send.into_into_dart().into_dart(),
+            self.upload.into_into_dart().into_dart(),
+            self.i18n.into_into_dart().into_dart(),
+        ]
+        .into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive for crate::api::server::WebParams {}
+impl flutter_rust_bridge::IntoIntoDart<crate::api::server::WebParams>
+    for crate::api::server::WebParams
+{
+    fn into_into_dart(self) -> crate::api::server::WebParams {
+        self
     }
 }
 // Codec=Dco (DartCObject based), see doc to use other codecs
@@ -6171,7 +6220,6 @@ impl flutter_rust_bridge::IntoDart for crate::api::server::WebSendParams {
         [
             self.files.into_into_dart().into_dart(),
             self.pin.into_into_dart().into_dart(),
-            self.i18n.into_into_dart().into_dart(),
         ]
         .into_dart()
     }
@@ -6914,6 +6962,16 @@ impl SseEncode for Option<u32> {
     }
 }
 
+impl SseEncode for Option<crate::api::server::WebParams> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <bool>::sse_encode(self.is_some(), serializer);
+        if let Some(value) = self {
+            <crate::api::server::WebParams>::sse_encode(value, serializer);
+        }
+    }
+}
+
 impl SseEncode for Option<crate::api::server::WebSendParams> {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
@@ -7377,7 +7435,7 @@ impl SseEncode for usize {
     }
 }
 
-impl SseEncode for crate::api::server::WebSendI18n {
+impl SseEncode for crate::api::server::WebI18n {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
         <String>::sse_encode(self.waiting, serializer);
@@ -7385,9 +7443,20 @@ impl SseEncode for crate::api::server::WebSendI18n {
         <String>::sse_encode(self.invalid_pin, serializer);
         <String>::sse_encode(self.too_many_attempts, serializer);
         <String>::sse_encode(self.rejected, serializer);
+        <String>::sse_encode(self.upload_rejected, serializer);
+        <String>::sse_encode(self.busy, serializer);
         <String>::sse_encode(self.files, serializer);
         <String>::sse_encode(self.file_name, serializer);
         <String>::sse_encode(self.size, serializer);
+    }
+}
+
+impl SseEncode for crate::api::server::WebParams {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <Option<crate::api::server::WebSendParams>>::sse_encode(self.send, serializer);
+        <bool>::sse_encode(self.upload, serializer);
+        <crate::api::server::WebI18n>::sse_encode(self.i18n, serializer);
     }
 }
 
@@ -7398,7 +7467,6 @@ impl SseEncode for crate::api::server::WebSendParams {
             self.files, serializer,
         );
         <Option<String>>::sse_encode(self.pin, serializer);
-        <crate::api::server::WebSendI18n>::sse_encode(self.i18n, serializer);
     }
 }
 

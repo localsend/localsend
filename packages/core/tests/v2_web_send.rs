@@ -4,7 +4,7 @@ use bytes::Bytes;
 use localsend::http::client::{ClientError, LsHttpClientV2};
 use localsend::http::server::v2::ServerEventV2;
 use localsend::http::server::web::WebSendConfig;
-use localsend::http::server::web::{WebSendEvent, WebSendI18n};
+use localsend::http::server::web::{WebConfig, WebI18n, WebSendEvent};
 use localsend::http::server::{start_with_port, ServerConfigV2};
 use localsend::http::state::ClientInfo;
 use localsend::model::discovery::ProtocolType;
@@ -118,9 +118,13 @@ async fn start_test_server(
     let (stop_tx, stop_rx) = oneshot::channel::<()>();
 
     // Web send is configured independently of the v2 endpoints.
-    let web_send = web_send.map(|mut config| {
+    let web_config = web_send.map(|mut config| {
         config.event_tx = web_event_tx;
-        config
+        WebConfig {
+            send: Some(config),
+            upload: false,
+            i18n: WebI18n::default(),
+        }
     });
 
     start_with_port(
@@ -138,7 +142,7 @@ async fn start_test_server(
             pin: None,
             event_tx: v2_event_tx,
         }),
-        web_send,
+        web_config,
         stop_rx,
     )
     .await
@@ -242,7 +246,6 @@ fn web_send_config(
         WebSendConfig {
             files,
             pin,
-            i18n: WebSendI18n::default(),
             event_tx,
         },
         contents,
@@ -271,7 +274,7 @@ async fn test_web_page() {
     assert!(response.text().await.unwrap().contains("LocalSend"));
 
     let response = client
-        .get(format!("{base_url}/main.js"))
+        .get(format!("{base_url}/download.js"))
         .send()
         .await
         .unwrap();
@@ -324,6 +327,69 @@ async fn test_web_page_disabled() {
         .await
         .unwrap();
     assert!(!info.download);
+}
+
+#[tokio::test]
+async fn test_upload_page() {
+    let _ = tracing_subscriber::fmt().with_test_writer().try_init();
+    let port = free_port();
+    let (v2_event_tx, _v2_event_rx) = mpsc::channel::<ServerEventV2>(16);
+    let (_stop_tx, stop_rx) = oneshot::channel::<()>();
+
+    start_with_port(
+        port,
+        None, // plain HTTP
+        ClientInfo {
+            alias: "Test Server".to_string(),
+            version: "2.1".to_string(),
+            device_model: Some("Rust".to_string()),
+            device_type: None,
+            token: "server-fingerprint".to_string(),
+        },
+        None,
+        Some(ServerConfigV2 {
+            pin: None,
+            event_tx: v2_event_tx,
+        }),
+        Some(WebConfig {
+            send: None,
+            upload: true,
+            i18n: WebI18n::default(),
+        }),
+        stop_rx,
+    )
+    .await
+    .expect("Failed to start server");
+
+    wait_until_reachable(port).await;
+
+    let client = localsend::reqwest::Client::new();
+    let base_url = format!("http://127.0.0.1:{port}");
+
+    // The upload page is served at `/` because web send is not active.
+    let response = client.get(&base_url).send().await.unwrap();
+    assert_eq!(response.status().as_u16(), 200);
+    let body = response.text().await.unwrap();
+    assert!(body.contains("LocalSend"));
+    assert!(body.contains("prepare-upload"));
+
+    let response = client
+        .get(format!("{base_url}/i18n.json"))
+        .send()
+        .await
+        .unwrap();
+    assert_eq!(response.status().as_u16(), 200);
+    let i18n = response.json::<HashMap<String, String>>().await.unwrap();
+    assert!(i18n.contains_key("busy"));
+    assert!(i18n.contains_key("uploadRejected"));
+
+    // The download page assets stay disabled without web send.
+    let response = client
+        .get(format!("{base_url}/download.js"))
+        .send()
+        .await
+        .unwrap();
+    assert_eq!(response.status().as_u16(), 403);
 }
 
 #[tokio::test]

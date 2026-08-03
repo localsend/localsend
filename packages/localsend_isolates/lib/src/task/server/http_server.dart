@@ -22,7 +22,7 @@ class HttpServerService {
     required DeviceType? deviceType,
     required String fingerprint,
     required String? pin,
-    required WebSendParams? webSend,
+    required WebParams? web,
     required String? showToken,
   }) async {
     if (_server != null) {
@@ -38,7 +38,7 @@ class HttpServerService {
       deviceType: deviceType,
       fingerprint: fingerprint,
       pin: pin,
-      webSend: webSend,
+      web: web,
       showToken: showToken,
     );
     _server = server;

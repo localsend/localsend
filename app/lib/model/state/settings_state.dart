@@ -33,6 +33,7 @@ class SettingsState with SettingsStateMappable {
   final DeviceType? deviceType;
   final String? deviceModel;
   final bool shareViaLinkAutoAccept;
+  final bool receiveViaLinkAutoAccept;
   final int discoveryTimeout;
   final bool advancedSettings;
 
@@ -61,6 +62,7 @@ class SettingsState with SettingsStateMappable {
     required this.deviceType,
     required this.deviceModel,
     required this.shareViaLinkAutoAccept,
+    required this.receiveViaLinkAutoAccept,
     required this.discoveryTimeout,
     required this.advancedSettings,
   });

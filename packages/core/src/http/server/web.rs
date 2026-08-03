@@ -67,8 +67,9 @@ pub enum WebSendEvent {
     },
 }
 
-const INDEX_HTML: &str = include_str!("../../../assets/web/index.html");
-const MAIN_JS: &str = include_str!("../../../assets/web/main.js");
+const DOWNLOAD_HTML: &str = include_str!("../../../assets/web/download.html");
+const DOWNLOAD_JS: &str = include_str!("../../../assets/web/download.js");
+const UPLOAD_HTML: &str = include_str!("../../../assets/web/upload.html");
 const ERROR_403_HTML: &str = include_str!("../../../assets/web/error-403.html");
 
 /// Characters that are percent-encoded in the content-disposition file name.
@@ -84,6 +85,21 @@ const FILE_NAME_ENCODE_SET: &AsciiSet = &NON_ALPHANUMERIC
     .remove(b'(')
     .remove(b')');
 
+/// Configuration for the web pages served to browsers.
+pub struct WebConfig {
+    /// Enables web send (the download page): files offered for download by web browsers.
+    /// `None` disables the download page and the download API.
+    pub send: Option<WebSendConfig>,
+
+    /// Serves the upload page so web browsers can upload files
+    /// via the v2 `prepare-upload`/`upload` endpoints.
+    /// Ignored when [`WebConfig::send`] is set: the download page takes precedence at `/`.
+    pub upload: bool,
+
+    /// Translations for the web pages, served via `/i18n.json`.
+    pub i18n: WebI18n,
+}
+
 /// Configuration for web send (download API): files offered for download by web browsers.
 ///
 /// Web send can be enabled independently of the v2/v3 protocol endpoints.
@@ -97,28 +113,27 @@ pub struct WebSendConfig {
     /// Optional PIN that web clients must provide via the `pin` query parameter.
     pub pin: Option<String>,
 
-    /// Translations for the web page, served via `/i18n.json`.
-    pub i18n: WebSendI18n,
-
     /// Channel on which the server emits events that must be handled by the application.
     pub event_tx: mpsc::Sender<WebSendEvent>,
 }
 
-/// Translations for the web page, served via `/i18n.json`.
+/// Translations for the web pages, served via `/i18n.json`.
 #[derive(Clone, Debug, Serialize)]
 #[serde(rename_all = "camelCase")]
-pub struct WebSendI18n {
+pub struct WebI18n {
     pub waiting: String,
     pub enter_pin: String,
     pub invalid_pin: String,
     pub too_many_attempts: String,
     pub rejected: String,
+    pub upload_rejected: String,
+    pub busy: String,
     pub files: String,
     pub file_name: String,
     pub size: String,
 }
 
-impl Default for WebSendI18n {
+impl Default for WebI18n {
     fn default() -> Self {
         Self {
             waiting: "Waiting for response…".to_string(),
@@ -126,6 +141,8 @@ impl Default for WebSendI18n {
             invalid_pin: "Invalid PIN".to_string(),
             too_many_attempts: "Too many attempts".to_string(),
             rejected: "Rejected".to_string(),
+            upload_rejected: "The recipient has rejected the request.".to_string(),
+            busy: "The recipient is busy with another request.".to_string(),
             files: "Files".to_string(),
             file_name: "File name".to_string(),
             size: "Size".to_string(),
@@ -140,9 +157,6 @@ pub(crate) struct WebPageState {
 
     /// Optional PIN required for prepare-download requests.
     pub(crate) pin: Option<String>,
-
-    /// Translations served via `/i18n.json`.
-    pub(crate) i18n: WebSendI18n,
 
     /// Channel on which server events are emitted to the application.
     pub(crate) event_tx: mpsc::Sender<WebSendEvent>,
@@ -159,7 +173,6 @@ impl WebPageState {
         Self {
             files: config.files,
             pin: config.pin,
-            i18n: config.i18n,
             event_tx: config.event_tx,
             sessions: Mutex::new(HashMap::new()),
             pin_attempts: Mutex::new(LruCache::new(NonZeroUsize::new(200).unwrap())),
@@ -177,25 +190,37 @@ pub(crate) struct WebSendSession {
 }
 
 pub(crate) fn index(state: &AppState) -> Response<BoxedBody> {
-    match &state.web {
-        Some(_) => html_response(StatusCode::OK, INDEX_HTML, "text/html; charset=utf-8"),
-        None => error_403_page(),
+    if state.web.is_some() {
+        html_response(StatusCode::OK, DOWNLOAD_HTML, "text/html; charset=utf-8")
+    } else if state.web_upload {
+        html_response(StatusCode::OK, UPLOAD_HTML, "text/html; charset=utf-8")
+    } else {
+        error_403_page()
     }
 }
 
-pub(crate) fn main_js(state: &AppState) -> Response<BoxedBody> {
+pub(crate) fn download_js(state: &AppState) -> Response<BoxedBody> {
     match &state.web {
-        Some(_) => html_response(StatusCode::OK, MAIN_JS, "text/javascript; charset=utf-8"),
+        Some(_) => html_response(
+            StatusCode::OK,
+            DOWNLOAD_JS,
+            "text/javascript; charset=utf-8",
+        ),
         None => error_403_page(),
     }
 }
 
 pub(crate) fn i18n(state: &AppState) -> Result<Response<BoxedBody>, AppError> {
-    let web = require_web(state)?;
+    let Some(i18n) = &state.web_i18n else {
+        return Err(AppError::Message(
+            StatusCode::FORBIDDEN,
+            "Web pages not initialized.".to_string(),
+        ));
+    };
 
     Ok(JsonResponse {
         status: StatusCode::OK,
-        body: &web.i18n,
+        body: i18n.as_ref(),
     }
     .into_response())
 }

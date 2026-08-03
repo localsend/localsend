@@ -12,16 +12,20 @@ class ServerState with ServerStateMappable {
   final ReceiveSessionState? session;
   final WebSendState? webSendState;
 
+  /// Whether the upload page is served so web browsers can upload files.
+  final bool webUpload;
+
   const ServerState({
     required this.alias,
     required this.port,
     required this.https,
     required this.session,
     required this.webSendState,
+    required this.webUpload,
   });
 
   @override
   String toString() {
-    return 'ServerState(alias: $alias, port: $port, https: $https, session: $session, webSendState: $webSendState)';
+    return 'ServerState(alias: $alias, port: $port, https: $https, session: $session, webSendState: $webSendState, webUpload: $webUpload)';
   }
 }

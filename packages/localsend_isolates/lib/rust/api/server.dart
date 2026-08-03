@@ -10,13 +10,15 @@ import 'package:localsend_isolates/rust/frb_generated.dart';
 
 part 'server.freezed.dart';
 
-// These functions are ignored because they are not marked as `pub`: `handle_server_event`, `handle_web_event`, `recv_opt`, `resolve_file_content`, `resolve_upload_target`
+// These functions are ignored because they are not marked as `pub`: `handle_server_event`, `handle_web_event`, `recv_opt`, `resolve_file_content`, `resolve_upload_target`, `stop`
+// These types are ignored because they are neither used by any `pub` functions nor (for structs and enums) marked `#[frb(unignore)]`: `ServerInstance`
 
 /// Starts the HTTP server on the given port (IPv4 and IPv6).
 /// The server runs until [RsHttpServer::stop] is called.
 ///
-/// Passing [web_send] additionally enables the web send (download API) so that
-/// web browsers can download the offered files.
+/// Passing [web] additionally serves the web pages: the download page when
+/// [WebParams::send] is set (so web browsers can download the offered files)
+/// or the upload page when [WebParams::upload] is enabled.
 ///
 /// Passing [show_token] enables the internal `show` endpoint that lets another
 /// application instance request this one to show itself (emitted as
@@ -32,7 +34,7 @@ Future<RsHttpServer> startServer({
   DeviceType? deviceType,
   required String fingerprint,
   String? pin,
-  WebSendParams? webSend,
+  WebParams? web,
   String? showToken,
 }) => RustLib.instance.api.crateApiServerStartServer(
   port: port,
@@ -43,7 +45,7 @@ Future<RsHttpServer> startServer({
   deviceType: deviceType,
   fingerprint: fingerprint,
   pin: pin,
-  webSend: webSend,
+  web: web,
   showToken: showToken,
 );
 
@@ -77,6 +79,9 @@ abstract class RsHttpServer implements RustOpaqueInterface {
   ///
   /// The v2 protocol, the web send (download API), and the internal endpoint
   /// events are all emitted on the same stream.
+  ///
+  /// Also returns when the Dart side of the stream is gone (e.g. after a
+  /// hot restart), so this call does not keep the server alive forever.
   Stream<RsServerEvent> listen();
 
   /// Answers the pending [RsServerEvent::WebFileDownload] event with the source
@@ -266,22 +271,26 @@ class TlsConfig {
       identical(this, other) || other is TlsConfig && runtimeType == other.runtimeType && cert == other.cert && privateKey == other.privateKey;
 }
 
-class WebSendI18n {
+class WebI18n {
   final String waiting;
   final String enterPin;
   final String invalidPin;
   final String tooManyAttempts;
   final String rejected;
+  final String uploadRejected;
+  final String busy;
   final String files;
   final String fileName;
   final String size;
 
-  const WebSendI18n({
+  const WebI18n({
     required this.waiting,
     required this.enterPin,
     required this.invalidPin,
     required this.tooManyAttempts,
     required this.rejected,
+    required this.uploadRejected,
+    required this.busy,
     required this.files,
     required this.fileName,
     required this.size,
@@ -294,6 +303,8 @@ class WebSendI18n {
       invalidPin.hashCode ^
       tooManyAttempts.hashCode ^
       rejected.hashCode ^
+      uploadRejected.hashCode ^
+      busy.hashCode ^
       files.hashCode ^
       fileName.hashCode ^
       size.hashCode;
@@ -301,22 +312,53 @@ class WebSendI18n {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is WebSendI18n &&
+      other is WebI18n &&
           runtimeType == other.runtimeType &&
           waiting == other.waiting &&
           enterPin == other.enterPin &&
           invalidPin == other.invalidPin &&
           tooManyAttempts == other.tooManyAttempts &&
           rejected == other.rejected &&
+          uploadRejected == other.uploadRejected &&
+          busy == other.busy &&
           files == other.files &&
           fileName == other.fileName &&
           size == other.size;
 }
 
+/// Configuration for the web pages served to browsers. When omitted, the web
+/// pages respond with 403 and only the v2 endpoints run.
+class WebParams {
+  /// Enables web send (the download page): files offered for download by web
+  /// browsers. `null` disables the download page and the download API.
+  final WebSendParams? send;
+
+  /// Serves the upload page so web browsers can upload files via the v2
+  /// `prepare-upload`/`upload` endpoints. Ignored when [WebParams::send] is
+  /// set: the download page takes precedence at `/`.
+  final bool upload;
+
+  /// Translations for the web pages, served via `/i18n.json`.
+  final WebI18n i18N;
+
+  const WebParams({
+    this.send,
+    required this.upload,
+    required this.i18N,
+  });
+
+  @override
+  int get hashCode => send.hashCode ^ upload.hashCode ^ i18N.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is WebParams && runtimeType == other.runtimeType && send == other.send && upload == other.upload && i18N == other.i18N;
+}
+
 /// Configuration for web send: files offered for download by web browsers.
 ///
-/// Web send can be enabled independently of the v2 protocol endpoints. When
-/// omitted, the download API responds with 403 and only the v2 endpoints run.
+/// Web send can be enabled independently of the v2 protocol endpoints.
 class WebSendParams {
   /// The metadata of the files offered for download, mapped by file ID.
   /// The content is requested per download via [RsServerEvent::WebFileDownload].
@@ -325,20 +367,15 @@ class WebSendParams {
   /// Optional PIN that web clients must provide via the `pin` query parameter.
   final String? pin;
 
-  /// Translations for the web page, served via `/i18n.json`.
-  final WebSendI18n i18N;
-
   const WebSendParams({
     required this.files,
     this.pin,
-    required this.i18N,
   });
 
   @override
-  int get hashCode => files.hashCode ^ pin.hashCode ^ i18N.hashCode;
+  int get hashCode => files.hashCode ^ pin.hashCode;
 
   @override
   bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is WebSendParams && runtimeType == other.runtimeType && files == other.files && pin == other.pin && i18N == other.i18N;
+      identical(this, other) || other is WebSendParams && runtimeType == other.runtimeType && files == other.files && pin == other.pin;
 }

@@ -302,7 +302,7 @@ abstract class RustLibApi extends BaseApi {
     DeviceType? deviceType,
     required String fingerprint,
     String? pin,
-    WebSendParams? webSend,
+    WebParams? web,
     String? showToken,
   });
 
@@ -2043,7 +2043,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
     DeviceType? deviceType,
     required String fingerprint,
     String? pin,
-    WebSendParams? webSend,
+    WebParams? web,
     String? showToken,
   }) {
     return handler.executeNormal(
@@ -2058,7 +2058,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           sse_encode_opt_box_autoadd_device_type(deviceType, serializer);
           sse_encode_String(fingerprint, serializer);
           sse_encode_opt_String(pin, serializer);
-          sse_encode_opt_box_autoadd_web_send_params(webSend, serializer);
+          sse_encode_opt_box_autoadd_web_params(web, serializer);
           sse_encode_opt_String(showToken, serializer);
           pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 55, port: port_);
         },
@@ -2067,7 +2067,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           decodeErrorData: sse_decode_AnyhowException,
         ),
         constMeta: kCrateApiServerStartServerConstMeta,
-        argValues: [port, tls, alias, version, deviceModel, deviceType, fingerprint, pin, webSend, showToken],
+        argValues: [port, tls, alias, version, deviceModel, deviceType, fingerprint, pin, web, showToken],
         apiImpl: this,
       ),
     );
@@ -2075,7 +2075,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
 
   TaskConstMeta get kCrateApiServerStartServerConstMeta => const TaskConstMeta(
     debugName: 'start_server',
-    argNames: ['port', 'tls', 'alias', 'version', 'deviceModel', 'deviceType', 'fingerprint', 'pin', 'webSend', 'showToken'],
+    argNames: ['port', 'tls', 'alias', 'version', 'deviceModel', 'deviceType', 'fingerprint', 'pin', 'web', 'showToken'],
   );
 
   @override
@@ -2628,6 +2628,12 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  WebParams dco_decode_box_autoadd_web_params(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return dco_decode_web_params(raw);
+  }
+
+  @protected
   WebSendParams dco_decode_box_autoadd_web_send_params(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return dco_decode_web_send_params(raw);
@@ -2862,6 +2868,12 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   int? dco_decode_opt_box_autoadd_u_32(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return raw == null ? null : dco_decode_box_autoadd_u_32(raw);
+  }
+
+  @protected
+  WebParams? dco_decode_opt_box_autoadd_web_params(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return raw == null ? null : dco_decode_box_autoadd_web_params(raw);
   }
 
   @protected
@@ -3315,19 +3327,33 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
-  WebSendI18n dco_decode_web_send_i_18_n(dynamic raw) {
+  WebI18n dco_decode_web_i_18_n(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     final arr = raw as List<dynamic>;
-    if (arr.length != 8) throw Exception('unexpected arr length: expect 8 but see ${arr.length}');
-    return WebSendI18n(
+    if (arr.length != 10) throw Exception('unexpected arr length: expect 10 but see ${arr.length}');
+    return WebI18n(
       waiting: dco_decode_String(arr[0]),
       enterPin: dco_decode_String(arr[1]),
       invalidPin: dco_decode_String(arr[2]),
       tooManyAttempts: dco_decode_String(arr[3]),
       rejected: dco_decode_String(arr[4]),
-      files: dco_decode_String(arr[5]),
-      fileName: dco_decode_String(arr[6]),
-      size: dco_decode_String(arr[7]),
+      uploadRejected: dco_decode_String(arr[5]),
+      busy: dco_decode_String(arr[6]),
+      files: dco_decode_String(arr[7]),
+      fileName: dco_decode_String(arr[8]),
+      size: dco_decode_String(arr[9]),
+    );
+  }
+
+  @protected
+  WebParams dco_decode_web_params(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 3) throw Exception('unexpected arr length: expect 3 but see ${arr.length}');
+    return WebParams(
+      send: dco_decode_opt_box_autoadd_web_send_params(arr[0]),
+      upload: dco_decode_bool(arr[1]),
+      i18N: dco_decode_web_i_18_n(arr[2]),
     );
   }
 
@@ -3335,11 +3361,10 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   WebSendParams dco_decode_web_send_params(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     final arr = raw as List<dynamic>;
-    if (arr.length != 3) throw Exception('unexpected arr length: expect 3 but see ${arr.length}');
+    if (arr.length != 2) throw Exception('unexpected arr length: expect 2 but see ${arr.length}');
     return WebSendParams(
       files: dco_decode_Map_String_file_dto_None(arr[0]),
       pin: dco_decode_opt_String(arr[1]),
-      i18N: dco_decode_web_send_i_18_n(arr[2]),
     );
   }
 
@@ -3845,6 +3870,12 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  WebParams sse_decode_box_autoadd_web_params(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return (sse_decode_web_params(deserializer));
+  }
+
+  @protected
   WebSendParams sse_decode_box_autoadd_web_send_params(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     return (sse_decode_web_send_params(deserializer));
@@ -4161,6 +4192,17 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
 
     if (sse_decode_bool(deserializer)) {
       return (sse_decode_box_autoadd_u_32(deserializer));
+    } else {
+      return null;
+    }
+  }
+
+  @protected
+  WebParams? sse_decode_opt_box_autoadd_web_params(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    if (sse_decode_bool(deserializer)) {
+      return (sse_decode_box_autoadd_web_params(deserializer));
     } else {
       return null;
     }
@@ -4610,22 +4652,26 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
-  WebSendI18n sse_decode_web_send_i_18_n(SseDeserializer deserializer) {
+  WebI18n sse_decode_web_i_18_n(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     var var_waiting = sse_decode_String(deserializer);
     var var_enterPin = sse_decode_String(deserializer);
     var var_invalidPin = sse_decode_String(deserializer);
     var var_tooManyAttempts = sse_decode_String(deserializer);
     var var_rejected = sse_decode_String(deserializer);
+    var var_uploadRejected = sse_decode_String(deserializer);
+    var var_busy = sse_decode_String(deserializer);
     var var_files = sse_decode_String(deserializer);
     var var_fileName = sse_decode_String(deserializer);
     var var_size = sse_decode_String(deserializer);
-    return WebSendI18n(
+    return WebI18n(
       waiting: var_waiting,
       enterPin: var_enterPin,
       invalidPin: var_invalidPin,
       tooManyAttempts: var_tooManyAttempts,
       rejected: var_rejected,
+      uploadRejected: var_uploadRejected,
+      busy: var_busy,
       files: var_files,
       fileName: var_fileName,
       size: var_size,
@@ -4633,12 +4679,20 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  WebParams sse_decode_web_params(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_send = sse_decode_opt_box_autoadd_web_send_params(deserializer);
+    var var_upload = sse_decode_bool(deserializer);
+    var var_i18N = sse_decode_web_i_18_n(deserializer);
+    return WebParams(send: var_send, upload: var_upload, i18N: var_i18N);
+  }
+
+  @protected
   WebSendParams sse_decode_web_send_params(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     var var_files = sse_decode_Map_String_file_dto_None(deserializer);
     var var_pin = sse_decode_opt_String(deserializer);
-    var var_i18N = sse_decode_web_send_i_18_n(deserializer);
-    return WebSendParams(files: var_files, pin: var_pin, i18N: var_i18N);
+    return WebSendParams(files: var_files, pin: var_pin);
   }
 
   @protected
@@ -5254,6 +5308,12 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  void sse_encode_box_autoadd_web_params(WebParams self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_web_params(self, serializer);
+  }
+
+  @protected
   void sse_encode_box_autoadd_web_send_params(WebSendParams self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_web_send_params(self, serializer);
@@ -5527,6 +5587,16 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
     sse_encode_bool(self != null, serializer);
     if (self != null) {
       sse_encode_box_autoadd_u_32(self, serializer);
+    }
+  }
+
+  @protected
+  void sse_encode_opt_box_autoadd_web_params(WebParams? self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    sse_encode_bool(self != null, serializer);
+    if (self != null) {
+      sse_encode_box_autoadd_web_params(self, serializer);
     }
   }
 
@@ -5892,16 +5962,26 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
-  void sse_encode_web_send_i_18_n(WebSendI18n self, SseSerializer serializer) {
+  void sse_encode_web_i_18_n(WebI18n self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_String(self.waiting, serializer);
     sse_encode_String(self.enterPin, serializer);
     sse_encode_String(self.invalidPin, serializer);
     sse_encode_String(self.tooManyAttempts, serializer);
     sse_encode_String(self.rejected, serializer);
+    sse_encode_String(self.uploadRejected, serializer);
+    sse_encode_String(self.busy, serializer);
     sse_encode_String(self.files, serializer);
     sse_encode_String(self.fileName, serializer);
     sse_encode_String(self.size, serializer);
+  }
+
+  @protected
+  void sse_encode_web_params(WebParams self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_opt_box_autoadd_web_send_params(self.send, serializer);
+    sse_encode_bool(self.upload, serializer);
+    sse_encode_web_i_18_n(self.i18N, serializer);
   }
 
   @protected
@@ -5909,7 +5989,6 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_Map_String_file_dto_None(self.files, serializer);
     sse_encode_opt_String(self.pin, serializer);
-    sse_encode_web_send_i_18_n(self.i18N, serializer);
   }
 
   @protected
@@ -6104,6 +6183,9 @@ class RsDiscoveryImpl extends RustOpaque implements RsDiscovery {
 
   /// Emits a [RsStoredDevice] for every device confirmation until the
   /// discovery is stopped. Can only be listened to once.
+  ///
+  /// Also returns when the Dart side of the stream is gone (e.g. after a
+  /// hot restart), so this call does not keep the discovery alive forever.
   Stream<RsStoredDevice> listen() => RustLib.instance.api.crateApiDiscoveryRsDiscoveryListen(
     that: this,
   );
@@ -6259,6 +6341,9 @@ class RsHttpServerImpl extends RustOpaque implements RsHttpServer {
   ///
   /// The v2 protocol, the web send (download API), and the internal endpoint
   /// events are all emitted on the same stream.
+  ///
+  /// Also returns when the Dart side of the stream is gone (e.g. after a
+  /// hot restart), so this call does not keep the server alive forever.
   Stream<RsServerEvent> listen() => RustLib.instance.api.crateApiServerRsHttpServerListen(
     that: this,
   );

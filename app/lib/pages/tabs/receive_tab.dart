@@ -4,6 +4,7 @@ import 'package:localsend_app/pages/home_page.dart';
 import 'package:localsend_app/pages/home_page_controller.dart';
 import 'package:localsend_app/pages/receive_history_page.dart';
 import 'package:localsend_app/pages/tabs/receive_tab_vm.dart';
+import 'package:localsend_app/pages/web_receive_page.dart';
 import 'package:localsend_app/provider/animation_provider.dart';
 import 'package:localsend_app/util/ip_helper.dart';
 import 'package:localsend_app/widget/animations/initial_fade_transition.dart';
@@ -12,14 +13,9 @@ import 'package:localsend_app/widget/custom_icon_button.dart';
 import 'package:localsend_app/widget/local_send_logo.dart';
 import 'package:localsend_app/widget/responsive_list_view.dart';
 import 'package:localsend_app/widget/rotating_widget.dart';
+import 'package:refena_flutter/addons.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 import 'package:routerino/routerino.dart';
-
-enum _QuickSaveMode {
-  off,
-  favorites,
-  on,
-}
 
 class ReceiveTab extends StatelessWidget {
   const ReceiveTab();
@@ -76,53 +72,12 @@ class ReceiveTab extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(top: 10),
                     child: Center(
-                      child: Column(
-                        children: [
-                          Text(t.general.quickSave),
-                          const SizedBox(height: 10),
-                          SegmentedButton<_QuickSaveMode>(
-                            multiSelectionEnabled: false,
-                            emptySelectionAllowed: false,
-                            showSelectedIcon: false,
-                            onSelectionChanged: (selection) async {
-                              if (selection.contains(_QuickSaveMode.off)) {
-                                await vm.onSetQuickSave(context, false);
-                                if (context.mounted) {
-                                  await vm.onSetQuickSaveFromFavorites(context, false);
-                                }
-                              } else if (selection.contains(_QuickSaveMode.favorites)) {
-                                await vm.onSetQuickSave(context, false);
-                                if (context.mounted) {
-                                  await vm.onSetQuickSaveFromFavorites(context, true);
-                                }
-                              } else if (selection.contains(_QuickSaveMode.on)) {
-                                await vm.onSetQuickSaveFromFavorites(context, false);
-                                if (context.mounted) {
-                                  await vm.onSetQuickSave(context, true);
-                                }
-                              }
-                            },
-                            selected: {
-                              if (!vm.quickSaveSettings && !vm.quickSaveFromFavoritesSettings) _QuickSaveMode.off,
-                              if (vm.quickSaveFromFavoritesSettings) _QuickSaveMode.favorites,
-                              if (vm.quickSaveSettings) _QuickSaveMode.on,
-                            },
-                            segments: [
-                              ButtonSegment(
-                                value: _QuickSaveMode.off,
-                                label: Text(t.receiveTab.quickSave.off),
-                              ),
-                              ButtonSegment(
-                                value: _QuickSaveMode.favorites,
-                                label: Text(t.receiveTab.quickSave.favorites),
-                              ),
-                              ButtonSegment(
-                                value: _QuickSaveMode.on,
-                                label: Text(t.receiveTab.quickSave.on),
-                              ),
-                            ],
-                          ),
-                        ],
+                      child: OutlinedButton.icon(
+                        onPressed: () async {
+                          await context.global.dispatchAsync(NavigateAction.push(WebReceivePage()));
+                        },
+                        icon: Icon(Icons.language),
+                        label: Text(t.$wip.receiveTab.link('Receive via link')),
                       ),
                     ),
                   ),

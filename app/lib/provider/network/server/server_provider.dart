@@ -12,7 +12,7 @@ import 'package:localsend_app/util/alias_generator.dart';
 import 'package:localsend_isolates/constants.dart';
 import 'package:localsend_isolates/isolate.dart';
 import 'package:localsend_isolates/model/dto/multicast_dto.dart';
-import 'package:localsend_isolates/rust/api/server.dart' show WebSendI18n, WebSendParams;
+import 'package:localsend_isolates/rust/api/server.dart' show WebI18n, WebParams, WebSendParams;
 import 'package:localsend_isolates/util/rust.dart';
 import 'package:logging/logging.dart';
 import 'package:refena_flutter/refena_flutter.dart';
@@ -92,11 +92,13 @@ class ServerService extends Notifier<ServerState?> {
 
   /// Starts the server.
   /// Passing a [webSendState] additionally serves the web send (download) API.
+  /// Passing [webUpload] serves the upload page so web browsers can upload files.
   Future<ServerState?> startServer({
     required String alias,
     required int port,
     required bool https,
     WebSendState? webSendState,
+    bool webUpload = false,
   }) async {
     if (state != null) {
       _logger.info('Server already running.');
@@ -124,18 +126,25 @@ class ServerService extends Notifier<ServerState?> {
         .dispatchTakeResult(
           IsolateHttpServerStartAction(
             pin: settings.receivePin,
-            webSend: webSendState != null
-                ? WebSendParams(
-                    files: {
-                      for (final entry in webSendState.files.entries) entry.key: entry.value.file.toRust(),
-                    },
-                    pin: webSendState.pin,
-                    i18N: WebSendI18n(
+            web: webSendState != null || webUpload
+                ? WebParams(
+                    send: webSendState != null
+                        ? WebSendParams(
+                            files: {
+                              for (final entry in webSendState.files.entries) entry.key: entry.value.file.toRust(),
+                            },
+                            pin: webSendState.pin,
+                          )
+                        : null,
+                    upload: webUpload,
+                    i18N: WebI18n(
                       waiting: t.web.waiting,
                       enterPin: t.web.enterPin,
                       invalidPin: t.web.invalidPin,
                       tooManyAttempts: t.web.tooManyAttempts,
                       rejected: t.web.rejected,
+                      uploadRejected: t.sendPage.rejected,
+                      busy: t.sendPage.busy,
                       files: t.web.files,
                       fileName: t.web.fileName,
                       size: t.web.size,
@@ -183,6 +192,7 @@ class ServerService extends Notifier<ServerState?> {
       https: https,
       session: null,
       webSendState: webSendState,
+      webUpload: webUpload,
     );
 
     state = newServerState;
@@ -204,9 +214,15 @@ class ServerService extends Notifier<ServerState?> {
     return await startServerFromSettings();
   }
 
-  Future<ServerState?> restartServer({required String alias, required int port, required bool https, WebSendState? webSendState}) async {
+  Future<ServerState?> restartServer({
+    required String alias,
+    required int port,
+    required bool https,
+    WebSendState? webSendState,
+    bool webUpload = false,
+  }) async {
     await stopServer();
-    return await startServer(alias: alias, port: port, https: https, webSendState: webSendState);
+    return await startServer(alias: alias, port: port, https: https, webSendState: webSendState, webUpload: webUpload);
   }
 
   Future<void> acceptFileRequest(Map<String, String> fileNameMap) async {

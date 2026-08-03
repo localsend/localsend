@@ -138,6 +138,12 @@ class SettingsStateMapper extends ClassMapperBase<SettingsState> {
     'shareViaLinkAutoAccept',
     _$shareViaLinkAutoAccept,
   );
+  static bool _$receiveViaLinkAutoAccept(SettingsState v) =>
+      v.receiveViaLinkAutoAccept;
+  static const Field<SettingsState, bool> _f$receiveViaLinkAutoAccept = Field(
+    'receiveViaLinkAutoAccept',
+    _$receiveViaLinkAutoAccept,
+  );
   static int _$discoveryTimeout(SettingsState v) => v.discoveryTimeout;
   static const Field<SettingsState, int> _f$discoveryTimeout = Field(
     'discoveryTimeout',
@@ -175,6 +181,7 @@ class SettingsStateMapper extends ClassMapperBase<SettingsState> {
     #deviceType: _f$deviceType,
     #deviceModel: _f$deviceModel,
     #shareViaLinkAutoAccept: _f$shareViaLinkAutoAccept,
+    #receiveViaLinkAutoAccept: _f$receiveViaLinkAutoAccept,
     #discoveryTimeout: _f$discoveryTimeout,
     #advancedSettings: _f$advancedSettings,
   };
@@ -205,6 +212,7 @@ class SettingsStateMapper extends ClassMapperBase<SettingsState> {
       deviceType: data.dec(_f$deviceType),
       deviceModel: data.dec(_f$deviceModel),
       shareViaLinkAutoAccept: data.dec(_f$shareViaLinkAutoAccept),
+      receiveViaLinkAutoAccept: data.dec(_f$receiveViaLinkAutoAccept),
       discoveryTimeout: data.dec(_f$discoveryTimeout),
       advancedSettings: data.dec(_f$advancedSettings),
     );
@@ -301,6 +309,7 @@ abstract class SettingsStateCopyWith<$R, $In extends SettingsState, $Out>
     DeviceType? deviceType,
     String? deviceModel,
     bool? shareViaLinkAutoAccept,
+    bool? receiveViaLinkAutoAccept,
     int? discoveryTimeout,
     bool? advancedSettings,
   });
@@ -359,6 +368,7 @@ class _SettingsStateCopyWithImpl<$R, $Out>
     Object? deviceType = $none,
     Object? deviceModel = $none,
     bool? shareViaLinkAutoAccept,
+    bool? receiveViaLinkAutoAccept,
     int? discoveryTimeout,
     bool? advancedSettings,
   }) => $apply(
@@ -390,6 +400,8 @@ class _SettingsStateCopyWithImpl<$R, $Out>
       if (deviceModel != $none) #deviceModel: deviceModel,
       if (shareViaLinkAutoAccept != null)
         #shareViaLinkAutoAccept: shareViaLinkAutoAccept,
+      if (receiveViaLinkAutoAccept != null)
+        #receiveViaLinkAutoAccept: receiveViaLinkAutoAccept,
       if (discoveryTimeout != null) #discoveryTimeout: discoveryTimeout,
       if (advancedSettings != null) #advancedSettings: advancedSettings,
     }),
@@ -428,6 +440,10 @@ class _SettingsStateCopyWithImpl<$R, $Out>
     shareViaLinkAutoAccept: data.get(
       #shareViaLinkAutoAccept,
       or: $value.shareViaLinkAutoAccept,
+    ),
+    receiveViaLinkAutoAccept: data.get(
+      #receiveViaLinkAutoAccept,
+      or: $value.receiveViaLinkAutoAccept,
     ),
     discoveryTimeout: data.get(#discoveryTimeout, or: $value.discoveryTimeout),
     advancedSettings: data.get(#advancedSettings, or: $value.advancedSettings),

@@ -128,6 +128,10 @@ class ReceiveController {
         quickSave = true;
       }
     }
+    if (server.getState().webUpload && settings.receiveViaLinkAutoAccept && server.getState().session?.message == null) {
+      // The upload page (receive via link) is being served and requests should be accepted automatically.
+      quickSave = true;
+    }
 
     if (quickSave) {
       // accept all files

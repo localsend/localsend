@@ -7,8 +7,8 @@ use localsend::http::server::common::save::FileUploadTarget;
 use localsend::http::server::internal::{InternalConfig, InternalEvent};
 pub use localsend::http::server::v2::SessionEndReasonV2;
 use localsend::http::server::v2::{PrepareUploadDecisionV2, ServerEventV2};
-pub use localsend::http::server::web::WebSendI18n;
-use localsend::http::server::web::{WebSendConfig, WebSendEvent};
+pub use localsend::http::server::web::WebI18n;
+use localsend::http::server::web::{WebConfig, WebSendConfig, WebSendEvent};
 use localsend::http::state::ClientInfo;
 use localsend::model::discovery::DeviceType;
 use localsend::model::discovery::ProtocolType;
@@ -134,10 +134,25 @@ impl ServerInstance {
 /// binding again.
 static RUNNING_SERVER: Mutex<Option<Arc<ServerInstance>>> = Mutex::const_new(None);
 
+/// Configuration for the web pages served to browsers. When omitted, the web
+/// pages respond with 403 and only the v2 endpoints run.
+pub struct WebParams {
+    /// Enables web send (the download page): files offered for download by web
+    /// browsers. `null` disables the download page and the download API.
+    pub send: Option<WebSendParams>,
+
+    /// Serves the upload page so web browsers can upload files via the v2
+    /// `prepare-upload`/`upload` endpoints. Ignored when [WebParams::send] is
+    /// set: the download page takes precedence at `/`.
+    pub upload: bool,
+
+    /// Translations for the web pages, served via `/i18n.json`.
+    pub i18n: WebI18n,
+}
+
 /// Configuration for web send: files offered for download by web browsers.
 ///
-/// Web send can be enabled independently of the v2 protocol endpoints. When
-/// omitted, the download API responds with 403 and only the v2 endpoints run.
+/// Web send can be enabled independently of the v2 protocol endpoints.
 pub struct WebSendParams {
     /// The metadata of the files offered for download, mapped by file ID.
     /// The content is requested per download via [RsServerEvent::WebFileDownload].
@@ -145,16 +160,14 @@ pub struct WebSendParams {
 
     /// Optional PIN that web clients must provide via the `pin` query parameter.
     pub pin: Option<String>,
-
-    /// Translations for the web page, served via `/i18n.json`.
-    pub i18n: WebSendI18n,
 }
 
 /// Starts the HTTP server on the given port (IPv4 and IPv6).
 /// The server runs until [RsHttpServer::stop] is called.
 ///
-/// Passing [web_send] additionally enables the web send (download API) so that
-/// web browsers can download the offered files.
+/// Passing [web] additionally serves the web pages: the download page when
+/// [WebParams::send] is set (so web browsers can download the offered files)
+/// or the upload page when [WebParams::upload] is enabled.
 ///
 /// Passing [show_token] enables the internal `show` endpoint that lets another
 /// application instance request this one to show itself (emitted as
@@ -170,7 +183,7 @@ pub async fn start_server(
     device_type: Option<DeviceType>,
     fingerprint: String,
     pin: Option<String>,
-    web_send: Option<WebSendParams>,
+    web: Option<WebParams>,
     show_token: Option<String>,
 ) -> anyhow::Result<RsHttpServer> {
     // Stop a server left over from before a hot restart (its Dart owner died
@@ -183,16 +196,26 @@ pub async fn start_server(
     let (event_tx, event_rx) = mpsc::channel::<ServerEventV2>(16);
     let (stop_tx, stop_rx) = oneshot::channel::<()>();
 
-    let (web_send_config, web_event_rx) = match web_send {
-        Some(web_send) => {
-            let (web_event_tx, web_event_rx) = mpsc::channel::<WebSendEvent>(16);
-            let config = WebSendConfig {
-                files: web_send.files,
-                pin: web_send.pin,
-                i18n: web_send.i18n,
-                event_tx: web_event_tx,
+    let (web_config, web_event_rx) = match web {
+        Some(web) => {
+            let (send_config, web_event_rx) = match web.send {
+                Some(send) => {
+                    let (web_event_tx, web_event_rx) = mpsc::channel::<WebSendEvent>(16);
+                    let config = WebSendConfig {
+                        files: send.files,
+                        pin: send.pin,
+                        event_tx: web_event_tx,
+                    };
+                    (Some(config), Some(web_event_rx))
+                }
+                None => (None, None),
             };
-            (Some(config), Some(web_event_rx))
+            let config = WebConfig {
+                send: send_config,
+                upload: web.upload,
+                i18n: web.i18n,
+            };
+            (Some(config), web_event_rx)
         }
         None => (None, None),
     };
@@ -221,7 +244,7 @@ pub async fn start_server(
         },
         internal_config,
         Some(ServerConfigV2 { pin, event_tx }),
-        web_send_config,
+        web_config,
         stop_rx,
     )
     .await?;
@@ -698,13 +721,15 @@ fn resolve_file_content(
     }
 }
 
-#[frb(mirror(WebSendI18n))]
-pub struct _WebSendI18n {
+#[frb(mirror(WebI18n))]
+pub struct _WebI18n {
     pub waiting: String,
     pub enter_pin: String,
     pub invalid_pin: String,
     pub too_many_attempts: String,
     pub rejected: String,
+    pub upload_rejected: String,
+    pub busy: String,
     pub files: String,
     pub file_name: String,
     pub size: String,

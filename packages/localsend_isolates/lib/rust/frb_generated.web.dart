@@ -282,6 +282,9 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   int dco_decode_box_autoadd_u_32(dynamic raw);
 
   @protected
+  WebParams dco_decode_box_autoadd_web_params(dynamic raw);
+
+  @protected
   WebSendParams dco_decode_box_autoadd_web_send_params(dynamic raw);
 
   @protected
@@ -377,6 +380,9 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
 
   @protected
   int? dco_decode_opt_box_autoadd_u_32(dynamic raw);
+
+  @protected
+  WebParams? dco_decode_opt_box_autoadd_web_params(dynamic raw);
 
   @protected
   WebSendParams? dco_decode_opt_box_autoadd_web_send_params(dynamic raw);
@@ -484,7 +490,10 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   BigInt dco_decode_usize(dynamic raw);
 
   @protected
-  WebSendI18n dco_decode_web_send_i_18_n(dynamic raw);
+  WebI18n dco_decode_web_i_18_n(dynamic raw);
+
+  @protected
+  WebParams dco_decode_web_params(dynamic raw);
 
   @protected
   WebSendParams dco_decode_web_send_params(dynamic raw);
@@ -731,6 +740,9 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   int sse_decode_box_autoadd_u_32(SseDeserializer deserializer);
 
   @protected
+  WebParams sse_decode_box_autoadd_web_params(SseDeserializer deserializer);
+
+  @protected
   WebSendParams sse_decode_box_autoadd_web_send_params(SseDeserializer deserializer);
 
   @protected
@@ -828,6 +840,9 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
 
   @protected
   int? sse_decode_opt_box_autoadd_u_32(SseDeserializer deserializer);
+
+  @protected
+  WebParams? sse_decode_opt_box_autoadd_web_params(SseDeserializer deserializer);
 
   @protected
   WebSendParams? sse_decode_opt_box_autoadd_web_send_params(SseDeserializer deserializer);
@@ -935,7 +950,10 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   BigInt sse_decode_usize(SseDeserializer deserializer);
 
   @protected
-  WebSendI18n sse_decode_web_send_i_18_n(SseDeserializer deserializer);
+  WebI18n sse_decode_web_i_18_n(SseDeserializer deserializer);
+
+  @protected
+  WebParams sse_decode_web_params(SseDeserializer deserializer);
 
   @protected
   WebSendParams sse_decode_web_send_params(SseDeserializer deserializer);
@@ -1227,6 +1245,9 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   void sse_encode_box_autoadd_u_32(int self, SseSerializer serializer);
 
   @protected
+  void sse_encode_box_autoadd_web_params(WebParams self, SseSerializer serializer);
+
+  @protected
   void sse_encode_box_autoadd_web_send_params(WebSendParams self, SseSerializer serializer);
 
   @protected
@@ -1324,6 +1345,9 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
 
   @protected
   void sse_encode_opt_box_autoadd_u_32(int? self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_opt_box_autoadd_web_params(WebParams? self, SseSerializer serializer);
 
   @protected
   void sse_encode_opt_box_autoadd_web_send_params(WebSendParams? self, SseSerializer serializer);
@@ -1432,7 +1456,10 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   void sse_encode_usize(BigInt self, SseSerializer serializer);
 
   @protected
-  void sse_encode_web_send_i_18_n(WebSendI18n self, SseSerializer serializer);
+  void sse_encode_web_i_18_n(WebI18n self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_web_params(WebParams self, SseSerializer serializer);
 
   @protected
   void sse_encode_web_send_params(WebSendParams self, SseSerializer serializer);

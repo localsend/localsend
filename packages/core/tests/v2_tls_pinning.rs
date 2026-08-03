@@ -9,6 +9,7 @@ use localsend::http::client::{ClientError, LsHttpClientV2};
 use localsend::http::dto_v2::{PrepareUploadRequestDtoV2, RegisterDtoV2};
 use localsend::http::server::common::save::FileUploadTarget;
 use localsend::http::server::v2::{PrepareUploadDecisionV2, ServerEventV2};
+use localsend::http::server::web::{WebConfig, WebI18n};
 use localsend::http::server::{start_with_port, ServerConfigV2, TlsConfig};
 use localsend::http::state::ClientInfo;
 use localsend::model::discovery::ProtocolType;
@@ -49,6 +50,12 @@ struct TestServer {
 
 /// Starts a test server over TLS using the given identity.
 async fn start_tls_server(identity: &Identity) -> TestServer {
+    start_tls_server_with_web(identity, None).await
+}
+
+/// Starts a test server over TLS, optionally with the web pages enabled
+/// (which makes the client certificate optional).
+async fn start_tls_server_with_web(identity: &Identity, web: Option<WebConfig>) -> TestServer {
     let _ = tracing_subscriber::fmt().with_test_writer().try_init();
     let port = free_port();
     let prepare_uploads: Arc<Mutex<Vec<String>>> = Arc::new(Mutex::new(Vec::new()));
@@ -118,7 +125,7 @@ async fn start_tls_server(identity: &Identity) -> TestServer {
             pin: None,
             event_tx,
         }),
-        None,
+        web,
         stop_rx,
     )
     .await
@@ -363,6 +370,70 @@ async fn test_upload_body_not_sent_on_fingerprint_mismatch() {
     );
     assert_eq!(sent, 0, "no file content may be read or sent");
     assert!(server.received.lock().await.is_empty());
+}
+
+/// Without the web pages, the client certificate stays mandatory: a client
+/// without one (e.g. a browser) must fail the handshake.
+#[tokio::test]
+async fn test_client_without_cert_rejected() {
+    let server_identity = generate_identity();
+    let server = start_tls_server(&server_identity).await;
+    let client = LsHttpClientV2::try_new_without_cert().unwrap();
+
+    let result = client
+        .info(ProtocolType::Https, "127.0.0.1", server.port)
+        .await;
+
+    assert!(
+        matches!(result, Err(ClientError::Reqwest(_))),
+        "expected the handshake to fail, got {:?}",
+        result.err()
+    );
+}
+
+/// With the web pages served, the client certificate is optional so that
+/// browsers can connect; a presented certificate is still verified (mTLS
+/// clients keep working).
+#[tokio::test]
+async fn test_client_without_cert_allowed_in_web_mode() {
+    let server_identity = generate_identity();
+    let sender = generate_identity();
+    let server = start_tls_server_with_web(
+        &server_identity,
+        Some(WebConfig {
+            send: None,
+            upload: true,
+            i18n: WebI18n::default(),
+        }),
+    )
+    .await;
+
+    // A browser-like client: no client certificate, self-signed server cert accepted.
+    let browser = localsend::reqwest::Client::builder()
+        .use_rustls_tls()
+        .danger_accept_invalid_certs(true)
+        .build()
+        .unwrap();
+    let response = browser
+        .get(format!("https://127.0.0.1:{}/", server.port))
+        .send()
+        .await
+        .expect("browser without client certificate should be able to connect");
+    assert_eq!(response.status().as_u16(), 200);
+    assert!(response.text().await.unwrap().contains("prepare-upload"));
+
+    // A LocalSend peer still authenticates with its certificate.
+    let client = client(&sender, Some(&server_identity.fingerprint));
+    let response = client
+        .register(
+            ProtocolType::Https,
+            "127.0.0.1",
+            server.port,
+            sender_info(&sender.fingerprint),
+        )
+        .await
+        .expect("register with client certificate should succeed");
+    assert!(response.public_key.is_some());
 }
 
 /// Discovery has no fingerprint to pin yet, so any valid certificate is

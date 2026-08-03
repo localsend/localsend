@@ -11,10 +11,15 @@ use x509_parser::nom::AsBytes;
 /// Enables client certificate verification.
 pub(crate) struct CustomClientCertVerifier {
     inner: Arc<dyn ClientCertVerifier>,
+
+    /// Whether clients must present a certificate.
+    /// Optional when the web pages are served: browsers have no client certificate.
+    /// A certificate that is presented is always verified.
+    mandatory: bool,
 }
 
 impl CustomClientCertVerifier {
-    pub(crate) fn try_new(cert: &str) -> anyhow::Result<Self> {
+    pub(crate) fn try_new(cert: &str, mandatory: bool) -> anyhow::Result<Self> {
         // We add the certificate of the server itself just so that no "empty" error is returned.
         // We don't care about the authority of the certificate, just that it is valid.
         let mut root_cert_store = RootCertStore::empty();
@@ -22,6 +27,7 @@ impl CustomClientCertVerifier {
 
         Ok(Self {
             inner: WebPkiClientVerifier::builder(Arc::new(root_cert_store)).build()?,
+            mandatory,
         })
     }
 }
@@ -38,7 +44,7 @@ impl ClientCertVerifier for CustomClientCertVerifier {
     }
 
     fn client_auth_mandatory(&self) -> bool {
-        true
+        self.mandatory
     }
 
     fn root_hint_subjects(&self) -> &[DistinguishedName] {

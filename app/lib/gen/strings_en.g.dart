@@ -63,6 +63,7 @@ class Translations with BaseTranslations<AppLocale, Translations> {
   late final Translations$sendPage$en sendPage = Translations$sendPage$en.internal(_root);
   late final Translations$progressPage$en progressPage = Translations$progressPage$en.internal(_root);
   late final Translations$webSharePage$en webSharePage = Translations$webSharePage$en.internal(_root);
+  late final Translations$webReceivePage$en webReceivePage = Translations$webReceivePage$en.internal(_root);
   late final Translations$aboutPage$en aboutPage = Translations$aboutPage$en.internal(_root);
   late final Translations$donationPage$en donationPage = Translations$donationPage$en.internal(_root);
   late final Translations$changelogPage$en changelogPage = Translations$changelogPage$en.internal(_root);
@@ -528,6 +529,18 @@ class Translations$webSharePage$en {
 
   /// en: 'Pending requests: {n}'
   String pendingRequests({required Object n}) => 'Pending requests: ${n}';
+}
+
+// Path: webReceivePage
+class Translations$webReceivePage$en {
+  Translations$webReceivePage$en.internal(this._root);
+
+  final Translations _root; // ignore: unused_field
+
+  // Translations
+
+  /// en: 'Receive via link'
+  String get title => 'Receive via link';
 }
 
 // Path: aboutPage

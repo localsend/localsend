@@ -30,9 +30,9 @@ class HttpServerStartTask implements BaseHttpServerTask {
   /// Optional PIN that senders must provide to start an upload session.
   final String? pin;
 
-  /// Enables web send (download API) so web browsers can download the offered files.
-  /// `null` disables web send.
-  final WebSendParams? webSend;
+  /// Serves the web pages: the download page (web send) and/or the upload page.
+  /// `null` disables the web pages.
+  final WebParams? web;
 
   /// Enables the internal `show` endpoint, guarded by this token, that lets another
   /// application instance request this one to show itself. `null` disables it.
@@ -40,7 +40,7 @@ class HttpServerStartTask implements BaseHttpServerTask {
 
   HttpServerStartTask({
     required this.pin,
-    required this.webSend,
+    required this.web,
     required this.showToken,
   });
 }
@@ -398,7 +398,7 @@ Future<void> setupHttpServerIsolate(
                   deviceType: syncState.deviceInfo.deviceType.toRust(),
                   fingerprint: syncState.securityContext.certificateHash,
                   pin: startTask.pin,
-                  webSend: startTask.webSend,
+                  web: startTask.web,
                   showToken: startTask.showToken,
                 );
           } catch (e) {
