@@ -80,6 +80,22 @@ class ServerService extends Notifier<ServerState?> {
     return null;
   }
 
+  /// The default (equality) strategy runs the dart_mappable deep equality which
+  /// walks the whole files map on every change, making state updates O(n) per received file.
+  @override
+  bool updateShouldNotify(ServerState? prev, ServerState? next) => !identical(prev, next);
+
+  /// The debug observer stringifies the state on every change,
+  /// so large file maps must be summarized to keep transfers responsive in debug mode.
+  @override
+  String describeState(ServerState? state) {
+    final session = state?.session;
+    if (session == null || session.files.length <= 10) {
+      return state.toString();
+    }
+    return state!.copyWith(session: session.copyWith(files: {})).toString().replaceFirst('files: {}', 'files: <${session.files.length} files>');
+  }
+
   /// Starts the server from user settings.
   Future<ServerState?> startServerFromSettings() async {
     final settings = ref.read(settingsProvider);

@@ -1,3 +1,4 @@
+import 'package:localsend_app/provider/file_status_provider.dart';
 import 'package:localsend_app/provider/local_ip_provider.dart';
 import 'package:localsend_app/provider/logging/discovery_logs_provider.dart';
 import 'package:localsend_app/provider/progress_provider.dart';
@@ -26,7 +27,11 @@ class CustomRefenaObserver extends RefenaMultiObserver {
 
 bool _exclude(RefenaEvent event) {
   return switch (event) {
-    ChangeEvent() => event.notifier is DiscoveryLogger || event.notifier is LocalIpService || event.notifier is ProgressNotifier,
+    ChangeEvent() =>
+      event.notifier is DiscoveryLogger ||
+          event.notifier is LocalIpService ||
+          event.notifier is ProgressNotifier ||
+          event.notifier is FileStatusNotifier,
     ActionDispatchedEvent() => event.action.runtimeType.toString() == '_FetchLocalIpAction',
     ActionFinishedEvent() => event.action.runtimeType.toString() == '_FetchLocalIpAction',
     _ => false,
