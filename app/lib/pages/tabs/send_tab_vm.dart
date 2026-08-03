@@ -5,7 +5,7 @@ import 'package:localsend_app/model/persistence/favorite_device.dart';
 import 'package:localsend_app/model/send_mode.dart';
 import 'package:localsend_app/pages/progress_page.dart';
 import 'package:localsend_app/pages/send_page.dart';
-import 'package:localsend_app/pages/web_send_page.dart';
+import 'package:localsend_app/pages/web_share_page.dart';
 import 'package:localsend_app/provider/favorites_provider.dart';
 import 'package:localsend_app/provider/local_ip_provider.dart';
 import 'package:localsend_app/provider/network/nearby_devices_provider.dart';
@@ -113,7 +113,7 @@ final sendTabVmProvider = ViewProvider((ref) {
           await context.pushBottomSheet(() => const NoFilesDialog());
           return;
         }
-        await context.push(() => WebSendPage(files));
+        await context.push(() => WebSharePage(files: files));
         return;
       }
 

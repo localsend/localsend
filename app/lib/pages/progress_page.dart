@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:localsend_app/config/theme.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/model/state/server/receive_session_state.dart';
-import 'package:localsend_app/pages/web_receive_page.dart';
+import 'package:localsend_app/pages/web_share_page.dart';
 import 'package:localsend_app/provider/network/send_provider.dart';
 import 'package:localsend_app/provider/network/server/server_provider.dart';
 import 'package:localsend_app/provider/progress_provider.dart';
@@ -143,7 +143,7 @@ class _ProgressPageState extends State<ProgressPage> with Refena {
 
     if (result && mounted) {
       if (ref.read(serverProvider)?.webUpload == true) {
-        context.global.dispatch(NavigateAction.popUntil<WebReceivePage>());
+        context.global.dispatch(NavigateAction.popUntil<WebSharePage>());
       } else {
         context.global.dispatch(NavigateAction.popUntilRoot());
       }
