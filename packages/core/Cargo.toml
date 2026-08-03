@@ -50,11 +50,3 @@ multicast = ["if-addrs", "socket2", "tokio-util"]
 webrtc-signaling = ["tokio-tungstenite"]
 webrtc = ["crypto", "flate2", "dep:webrtc", "webrtc-signaling", "x509-parser"]
 full = ["crypto", "discovery", "http", "multicast", "webrtc"]
-
-# RSA key generation is bignum-heavy and takes ~10x longer unoptimized;
-# keep the crypto crates optimized in dev so tests stay fast.
-[profile.dev.package.rsa]
-opt-level = 2
-
-[profile.dev.package.num-bigint-dig]
-opt-level = 2

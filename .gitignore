@@ -1,5 +1,8 @@
 .idea
 
+# Rust workspace build output
+/target/
+
 # Linux AppImage
 /app/AppDir
 /app/appimage-build

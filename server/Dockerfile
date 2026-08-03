@@ -1,24 +1,22 @@
-FROM rust:1.83 AS builder
+# Build from the repository root (workspace root):
+#   docker build -f server/Dockerfile .
+FROM rust:1.93 AS builder
 
 WORKDIR /app
 
-# Compile Dependencies
-COPY Cargo.* ./
-RUN mkdir src && echo 'fn main() { panic!("Dummy Image Called!") }' > ./src/main.rs
-RUN cargo build --release
+COPY Cargo.toml Cargo.lock ./
+COPY packages/core ./packages/core
+COPY packages/localsend_isolates/rust ./packages/localsend_isolates/rust
+COPY server ./server
+COPY cli ./cli
 
-# Add Source
-COPY src ./src
-
-# Break cargo cache
-RUN touch ./src/main.rs
-
-# Compile
-RUN cargo build --release
+RUN --mount=type=cache,target=/usr/local/cargo/registry \
+    --mount=type=cache,target=/app/target \
+    cargo build --release -p server && cp target/release/server /server-bin
 
 FROM debian:bookworm AS runtime
 
-COPY --from=builder /app/target/release/server /server
+COPY --from=builder /server-bin /server
 
 EXPOSE 3000
 ENTRYPOINT ["/server"]
