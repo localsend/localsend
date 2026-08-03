@@ -6,6 +6,9 @@ use tokio::sync::mpsc;
 /// Channel capacity used when normalizing a file-backed [`FileContent`] into a stream.
 const FILE_CHANNEL_CAPACITY: usize = 16;
 
+/// Buffer size used when reading a file into chunks.
+const READ_BUFFER_SIZE: usize = 512 * 1024;
+
 /// The binary content of a file provided by the application for a transfer.
 ///
 /// Shared by the HTTP client (upload) and server (download API) so both can
@@ -73,9 +76,12 @@ impl FileContent {
 async fn read_file_into_sender(mut file: tokio::fs::File, tx: mpsc::Sender<Bytes>) {
     use tokio::io::AsyncReadExt;
 
-    let mut buffer = bytes::BytesMut::with_capacity(64 * 1024);
+    let mut buffer = bytes::BytesMut::new();
     let mut total: u64 = 0;
     loop {
+        // Re-reserve every iteration: `split()` hands the filled part off, which
+        // can leave little spare capacity for the next read.
+        buffer.reserve(READ_BUFFER_SIZE);
         match file.read_buf(&mut buffer).await {
             Ok(0) => break,
             Ok(n) => {

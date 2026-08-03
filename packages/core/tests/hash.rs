@@ -28,7 +28,7 @@ async fn hash_file_from_path() {
 /// reporting the cumulative progress after each of them.
 #[tokio::test]
 async fn hash_large_file_from_path() {
-    let content: Vec<u8> = (0..500_000).map(|i| (i % 251) as u8).collect();
+    let content: Vec<u8> = (0..2_000_000).map(|i| (i % 251) as u8).collect();
     let path = std::env::temp_dir().join(format!("localsend-hash-{}", uuid::Uuid::new_v4()));
     tokio::fs::write(&path, &content).await.unwrap();
 

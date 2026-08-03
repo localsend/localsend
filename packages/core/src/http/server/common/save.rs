@@ -10,6 +10,10 @@ use tokio::sync::{mpsc, oneshot};
 /// Channel capacity for file upload chunks (provides backpressure).
 const UPLOAD_CHANNEL_CAPACITY: usize = 16;
 
+/// Size of the write buffer that coalesces incoming body chunks (typically one
+/// TLS record, ~16 KiB) into larger file writes.
+const WRITE_BUFFER_SIZE: usize = 512 * 1024;
+
 /// Where the content of an uploaded file should go, decided by the application.
 #[derive(Debug)]
 pub enum FileUploadTarget {
@@ -286,7 +290,7 @@ async fn write_file_from_receiver(
 ) -> Result<(), String> {
     use tokio::io::AsyncWriteExt;
 
-    let mut file = open.await?;
+    let mut file = tokio::io::BufWriter::with_capacity(WRITE_BUFFER_SIZE, open.await?);
     let mut written: u64 = 0;
     while let Some(chunk) = rx.recv().await {
         written += chunk.len() as u64;
@@ -306,6 +310,7 @@ async fn write_file_from_receiver(
     file.flush()
         .await
         .map_err(|e| format!("Failed to flush file: {e}"))?;
+    let file = file.into_inner();
 
     if written != expected_size {
         return Err(format!(

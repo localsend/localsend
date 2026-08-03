@@ -3,7 +3,7 @@ use sha2::{Digest, Sha256};
 use tokio_util::sync::CancellationToken;
 
 /// Buffer size used when hashing a file chunk by chunk.
-const HASH_BUFFER_SIZE: usize = 64 * 1024;
+const HASH_BUFFER_SIZE: usize = 512 * 1024;
 
 #[derive(Debug, thiserror::Error)]
 pub enum HashError {
