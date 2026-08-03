@@ -33,7 +33,7 @@ class BigButton extends StatelessWidget {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           ),
-          padding: EdgeInsets.only(left: 2, right: 2, top: 10 + desktopPaddingFix, bottom: 8 + desktopPaddingFix),
+          padding: const EdgeInsets.only(left: 2, right: 2, top: 10, bottom: 8),
         ),
         onPressed: onTap,
         child: Column(
