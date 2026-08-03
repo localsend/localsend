@@ -153,7 +153,6 @@ class _InitSessionState extends ReduxAction<WebRTCReceiveService, WebRTCReceiveS
     //       for (final file in files)
     //         file.id: ReceivingFile(
     //           file: file,
-    //           status: FileStatus.queue,
     //           token: null,
     //           desiredName: null,
     //           path: null,

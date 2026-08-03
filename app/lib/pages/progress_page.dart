@@ -7,9 +7,9 @@ import 'package:localsend_app/config/theme.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/model/state/server/receive_session_state.dart';
 import 'package:localsend_app/pages/web_share_page.dart';
+import 'package:localsend_app/provider/file_transfer_provider.dart';
 import 'package:localsend_app/provider/network/send_provider.dart';
 import 'package:localsend_app/provider/network/server/server_provider.dart';
-import 'package:localsend_app/provider/progress_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/util/native/open_file.dart';
 import 'package:localsend_app/util/native/open_folder.dart';
@@ -82,10 +82,8 @@ class _ProgressPageState extends State<ProgressPage> with Refena {
         // each enable() acquires a new inhibit cookie while disable() only releases one, so re-calling
         // enable() every 30s leaks inhibit locks that keep the screen awake indefinitely (issue #3209).
         _wakelockPlusTimer = Timer.periodic(const Duration(seconds: 30), (timer) {
-          final finished =
-              ref.read(serverProvider)?.session?.files.values.map((e) => e.status).isFinishedOrSkipped ??
-              ref.read(sendProvider)[widget.sessionId]?.files.values.map((e) => e.status).isFinishedOrSkipped ??
-              true;
+          // an empty iterable (session already removed) also counts as finished
+          final finished = ref.read(fileTransferProvider).getStatuses(widget.sessionId).isFinishedOrSkipped;
           if (finished) {
             timer.cancel();
             try {
@@ -97,10 +95,8 @@ class _ProgressPageState extends State<ProgressPage> with Refena {
 
       if (ref.read(settingsProvider).autoFinish) {
         _finishTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
-          final finished =
-              ref.read(serverProvider)?.session?.files.values.map((e) => e.status).isFinishedOrSkipped ??
-              ref.read(sendProvider)[widget.sessionId]?.files.values.map((e) => e.status).isFinishedOrSkipped ??
-              true;
+          // an empty iterable (session already removed) also counts as finished
+          final finished = ref.read(fileTransferProvider).getStatuses(widget.sessionId).isFinishedOrSkipped;
           if (finished) {
             if (_finishCounter == 1) {
               timer.cancel();
@@ -118,16 +114,19 @@ class _ProgressPageState extends State<ProgressPage> with Refena {
         final receiveSession = ref.read(serverProvider)?.session;
         if (receiveSession != null) {
           _files = receiveSession.files.values.map((f) => f.file).toList();
-
-          // We previously used f.token != null here, but this may not work on very fast networks.
-          _selectedFiles = receiveSession.files.values.where((f) => f.status != FileStatus.skipped).map((f) => f.file.id).toSet();
         } else {
           final sendSession = ref.read(sendProvider)[widget.sessionId];
           if (sendSession != null) {
             _files = sendSession.files.values.map((f) => f.file).toList();
-            _selectedFiles = sendSession.files.values.where((f) => f.status != FileStatus.skipped).map((f) => f.file.id).toSet();
           }
         }
+
+        // We previously used f.token != null here, but this may not work on very fast networks.
+        final transferNotifier = ref.read(fileTransferProvider);
+        _selectedFiles = _files
+            .where((f) => transferNotifier.getStatus(sessionId: widget.sessionId, fileId: f.id) != FileStatus.skipped)
+            .map((f) => f.id)
+            .toSet();
 
         _totalBytes = _files.where((f) => _selectedFiles.contains(f.id)).fold(0, (prev, curr) => prev + curr.size);
       });
@@ -191,13 +190,15 @@ class _ProgressPageState extends State<ProgressPage> with Refena {
 
   @override
   Widget build(BuildContext context) {
-    final progressNotifier = ref.watch(progressProvider);
+    final transferNotifier = ref.watch(fileTransferProvider);
     final currBytes = _files.fold<int>(
       0,
-      (prev, curr) => prev + ((progressNotifier.getProgress(sessionId: widget.sessionId, fileId: curr.id) * curr.size).round()),
+      (prev, curr) => prev + ((transferNotifier.getProgress(sessionId: widget.sessionId, fileId: curr.id) * curr.size).round()),
     );
 
-    final receiveSession = ref.watch(serverProvider.select((s) => s?.session));
+    // No select: comparing the selected session runs the dart_mappable deep equality
+    // over the whole files map on every state change.
+    final receiveSession = ref.watch(serverProvider)?.session;
     final sendSession = ref.watch(sendProvider)[widget.sessionId];
 
     final SessionState? commonSessionState = receiveSession ?? sendSession;
@@ -235,8 +236,7 @@ class _ProgressPageState extends State<ProgressPage> with Refena {
       speedInBytes = null;
     }
 
-    final fileStatusMap = receiveSession?.files.map((k, f) => MapEntry(k, f.status)) ?? sendSession!.files.map((k, f) => MapEntry(k, f.status));
-    final finishedCount = fileStatusMap.values.where((s) => s == FileStatus.finished).length;
+    final finishedCount = transferNotifier.getStatuses(widget.sessionId).where((s) => s == FileStatus.finished).length;
 
     return PopScope(
       onPopInvokedWithResult: (didPop, result) {
@@ -321,7 +321,7 @@ class _ProgressPageState extends State<ProgressPage> with Refena {
                 final file = _files[index - 2];
                 final String fileName = receiveSession?.files[file.id]?.desiredName ?? file.fileName;
 
-                final fileStatus = fileStatusMap[file.id]!;
+                final fileStatus = transferNotifier.getStatus(sessionId: widget.sessionId, fileId: file.id);
                 final savedToGallery = receiveSession?.files[file.id]?.savedToGallery ?? false;
 
                 final String? filePath;
@@ -393,7 +393,7 @@ class _ProgressPageState extends State<ProgressPage> with Refena {
                                 Padding(
                                   padding: const EdgeInsets.only(top: 5),
                                   child: CustomProgressBar(
-                                    progress: progressNotifier.getProgress(sessionId: widget.sessionId, fileId: file.id),
+                                    progress: transferNotifier.getProgress(sessionId: widget.sessionId, fileId: file.id),
                                   ),
                                 )
                               else
