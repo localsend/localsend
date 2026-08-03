@@ -41,6 +41,10 @@
             font-size: 1.5em;
         }
 
+        #status-text.error {
+            color: #C62828;
+        }
+
         #progress-text {
             display: none;
             font-size: 1.5em;
@@ -85,16 +89,14 @@
       });
     }
 
-    function showButton() {
-      document.getElementById('upload-button').style.display = 'block';
-      document.getElementById('status-text').style.display = 'none';
-      document.getElementById('progress-text').style.display = 'none';
+    function setButtonVisible(visible) {
+      document.getElementById('upload-button').style.display = visible ? 'block' : 'none';
     }
 
-    function showStatus(text) {
-      document.getElementById('upload-button').style.display = 'none';
+    function showStatus(text, isError) {
       var statusText = document.getElementById('status-text');
-      statusText.style.display = 'block';
+      statusText.style.display = text ? 'block' : 'none';
+      statusText.className = isError ? 'error' : '';
       statusText.innerText = text;
     }
 
@@ -104,7 +106,25 @@
       progressText.innerText = finished + '/' + total + ' file(s)';
     }
 
+    function hideProgress() {
+      document.getElementById('progress-text').style.display = 'none';
+    }
+
+    // Ends the upload flow: keeps the error visible and lets the user try again.
+    function finishWithError(text) {
+      showStatus(text, true);
+      setButtonVisible(true);
+    }
+
+    // Ends the upload flow after all files have been sent.
+    function finishWithSuccess() {
+      showStatus('');
+      setButtonVisible(true);
+    }
+
     function startUpload(fileList) {
+      setButtonVisible(false);
+      hideProgress();
       showStatus(i18n.waiting);
 
       var selectedFiles = {};
@@ -136,23 +156,23 @@
 
       makeRequest(BASE_URL + '/prepare-upload', 'POST', body, function (response) {
         if (response.status === 403) {
-          showStatus(i18n.uploadRejected);
+          finishWithError(i18n.uploadRejected);
           return;
         }
 
         if (response.status === 409) {
-          showStatus(i18n.busy);
+          finishWithError(i18n.busy);
           return;
         }
 
         if (response.status === 204) {
           // The recipient accepted the request but declined every file.
-          showStatus(i18n.uploadRejected);
+          finishWithError(i18n.uploadRejected);
           return;
         }
 
         if (response.status !== 200) {
-          showStatus('Error: ' + response.status);
+          finishWithError(errorText(response.status));
           return;
         }
 
@@ -170,6 +190,7 @@
 
       function uploadNext(index) {
         if (index >= total) {
+          finishWithSuccess();
           return;
         }
 
@@ -181,7 +202,7 @@
 
         makeRequest(url, 'POST', selectedFiles[fileId], function (response) {
           if (response.status !== 200) {
-            showStatus('Error: ' + response.status);
+            finishWithError(errorText(response.status));
             return;
           }
 
@@ -205,6 +226,11 @@
       return fingerprint;
     }
 
+    // A status of 0 means the request never completed (connection lost or aborted by the recipient).
+    function errorText(status) {
+      return status ? 'Error: ' + status : 'Error';
+    }
+
     function getKeys(obj) {
       var keys = [];
       for (var key in obj) {
@@ -221,6 +247,8 @@
       fileInput.onchange = function () {
         if (fileInput.files.length > 0) {
           startUpload(fileInput.files);
+          // Reset the input so selecting the same files again fires this event.
+          fileInput.value = '';
         }
       };
       fetchI18n(function () {});
