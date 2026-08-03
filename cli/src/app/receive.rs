@@ -87,6 +87,19 @@ impl ReceiveSession {
     }
 }
 
+/// Returns the text of a "message request": a single text file whose content
+/// is already included as a preview, so there is nothing left to transfer.
+fn message_of(files: &HashMap<String, FileDto>) -> Option<&str> {
+    if files.len() != 1 {
+        return None;
+    }
+    let file = files.values().next()?;
+    if file.file_type != "text" && !file.file_type.starts_with("text/") {
+        return None;
+    }
+    file.preview.as_deref()
+}
+
 /// The user's decision on a [`PendingReceive`].
 pub(super) enum Answer {
     Accept,
@@ -110,6 +123,17 @@ impl App {
             } => {
                 // The sender is clearly reachable; make sure it has a slot.
                 self.device_confirmed(ip.to_string(), info.clone());
+
+                if let Some(message) = message_of(&files) {
+                    // Nothing to transfer: the text is the request. Accepting
+                    // no file ends the session right away.
+                    let _ = decision_tx.send(PrepareUploadDecisionV2::Accept(HashSet::new()));
+                    self.ui.log(
+                        Category::Receive,
+                        &format!("{}: Message received\n{}", info.alias, message),
+                    );
+                    return;
+                }
 
                 let sender = SenderTarget {
                     host: ip.to_string(),
