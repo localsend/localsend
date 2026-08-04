@@ -458,6 +458,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.1.1"
+  flex_color_picker:
+    dependency: "direct main"
+    description:
+      name: flex_color_picker
+      sha256: a0979dd61f21b634717b98eb4ceaed2bfe009fe020ce8597aaf164b9eeb57aaa
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.8.0"
+  flex_seed_scheme:
+    dependency: transitive
+    description:
+      name: flex_seed_scheme
+      sha256: a3183753bbcfc3af106224bff3ab3e1844b73f58062136b7499919f49f3667e7
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.0.1"
   flutter:
     dependency: "direct main"
     description: flutter

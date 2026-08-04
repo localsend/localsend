@@ -70,6 +70,7 @@ const _showToken = 'ls_show_token';
 const _aliasKey = 'ls_alias';
 const _themeKey = 'ls_theme'; // now called brightness
 const _colorKey = 'ls_color';
+const _customColorKey = 'ls_custom_color'; // RRGGBB hex, used by ColorMode.custom
 const _localeKey = 'ls_locale';
 const _portKey = 'ls_port';
 const _networkWhitelistKey = 'ls_network_whitelist';
@@ -305,6 +306,19 @@ class PersistenceService {
 
   Future<void> setColorMode(ColorMode color) async {
     await _prefs.setString(_colorKey, color.name);
+  }
+
+  Color getCustomColor() {
+    final value = _prefs.getString(_customColorKey);
+    final rgb = value == null ? null : int.tryParse(value, radix: 16);
+    if (rgb == null) {
+      return Colors.teal;
+    }
+    return Color(0xff000000 | rgb);
+  }
+
+  Future<void> setCustomColor(Color color) async {
+    await _prefs.setString(_customColorKey, color.toARGB32().toRadixString(16).padLeft(8, '0').substring(2));
   }
 
   AppLocale? getLocale() {

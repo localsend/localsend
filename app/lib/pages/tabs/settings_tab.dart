@@ -80,7 +80,7 @@ class SettingsTab extends StatelessWidget {
                         child: Text(colorMode.humanName),
                       );
                     }).toList(),
-                    onChanged: vm.onChangeColorMode,
+                    onChanged: (colorMode) => vm.onChangeColorMode(context, colorMode),
                   ),
                 ),
                 _ButtonEntry(
@@ -768,6 +768,7 @@ extension on ColorMode {
       ColorMode.localsend => t.appName,
       ColorMode.oled => t.settingsTab.general.colorOptions.oled,
       ColorMode.yaru => 'Yaru',
+      ColorMode.custom => t.settingsTab.general.colorOptions.custom,
     };
   }
 }

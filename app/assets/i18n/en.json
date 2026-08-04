@@ -52,7 +52,8 @@
       "off": "@:general.off",
       "favorites": "Favorites",
       "on": "@:general.on"
-    }
+    },
+    "link": "Receive via link"
   },
   "sendTab": {
     "title": "Send",
@@ -97,7 +98,8 @@
       "color": "Color",
       "colorOptions": {
         "system": "System",
-        "oled": "OLED"
+        "oled": "OLED",
+        "custom": "Custom"
       },
       "language": "Language",
       "languageOptions": {

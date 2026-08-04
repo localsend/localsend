@@ -212,6 +212,9 @@ class Translations$receiveTab$en {
 
   late final Translations$receiveTab$infoBox$en infoBox = Translations$receiveTab$infoBox$en.internal(_root);
   late final Translations$receiveTab$quickSave$en quickSave = Translations$receiveTab$quickSave$en.internal(_root);
+
+  /// en: 'Receive via link'
+  String get link => 'Receive via link';
 }
 
 // Path: sendTab
@@ -1769,6 +1772,9 @@ class Translations$settingsTab$general$colorOptions$en {
 
   /// en: 'OLED'
   String get oled => 'OLED';
+
+  /// en: 'Custom'
+  String get custom => 'Custom';
 }
 
 // Path: settingsTab.general.languageOptions

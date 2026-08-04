@@ -110,7 +110,7 @@ class _ReceiveTabState extends State<ReceiveTab> {
                           await context.global.dispatchAsync(NavigateAction.push(const WebSharePage()));
                         },
                         icon: Icon(Icons.language),
-                        label: Text(t.$wip.receiveTab.link('Receive via link')),
+                        label: Text(t.receiveTab.link),
                       ),
                     ),
                   ),

@@ -99,7 +99,8 @@ class SettingsTabVmMapper extends ClassMapperBase<SettingsTabVm> {
   );
   static Function _$onChangeColorMode(SettingsTabVm v) =>
       (v as dynamic).onChangeColorMode as Function;
-  static dynamic _arg$onChangeColorMode(f) => f<void Function(ColorMode)>();
+  static dynamic _arg$onChangeColorMode(f) =>
+      f<void Function(BuildContext, ColorMode)>();
   static const Field<SettingsTabVm, Function> _f$onChangeColorMode = Field(
     'onChangeColorMode',
     _$onChangeColorMode,
@@ -317,7 +318,7 @@ abstract class SettingsTabVmCopyWith<$R, $In extends SettingsTabVm, $Out>
     bool? autoStartLaunchHidden,
     bool? showInContextMenu,
     void Function(BuildContext, ThemeMode)? onChangeTheme,
-    void Function(ColorMode)? onChangeColorMode,
+    void Function(BuildContext, ColorMode)? onChangeColorMode,
     void Function(BuildContext)? onTapLanguage,
     void Function(BuildContext)? onToggleAutoStart,
     void Function(BuildContext)? onToggleAutoStartLaunchHidden,
@@ -367,7 +368,7 @@ class _SettingsTabVmCopyWithImpl<$R, $Out>
     bool? autoStartLaunchHidden,
     bool? showInContextMenu,
     void Function(BuildContext, ThemeMode)? onChangeTheme,
-    void Function(ColorMode)? onChangeColorMode,
+    void Function(BuildContext, ColorMode)? onChangeColorMode,
     void Function(BuildContext)? onTapLanguage,
     void Function(BuildContext)? onToggleAutoStart,
     void Function(BuildContext)? onToggleAutoStartLaunchHidden,

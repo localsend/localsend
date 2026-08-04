@@ -19,6 +19,7 @@ dependencies:
   dynamic_color: 1.8.1
   file_picker: 11.0.2
   file_selector: 1.1.0
+  flex_color_picker: 3.8.0
   flutter:
     sdk: flutter
   flutter_displaymode: 0.7.0

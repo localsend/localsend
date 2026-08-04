@@ -40,6 +40,11 @@ class SettingsStateMapper extends ClassMapperBase<SettingsState> {
     'colorMode',
     _$colorMode,
   );
+  static Color _$customColor(SettingsState v) => v.customColor;
+  static const Field<SettingsState, Color> _f$customColor = Field(
+    'customColor',
+    _$customColor,
+  );
   static AppLocale? _$locale(SettingsState v) => v.locale;
   static const Field<SettingsState, AppLocale> _f$locale = Field(
     'locale',
@@ -171,6 +176,7 @@ class SettingsStateMapper extends ClassMapperBase<SettingsState> {
     #alias: _f$alias,
     #theme: _f$theme,
     #colorMode: _f$colorMode,
+    #customColor: _f$customColor,
     #locale: _f$locale,
     #port: _f$port,
     #networkWhitelist: _f$networkWhitelist,
@@ -204,6 +210,7 @@ class SettingsStateMapper extends ClassMapperBase<SettingsState> {
       alias: data.dec(_f$alias),
       theme: data.dec(_f$theme),
       colorMode: data.dec(_f$colorMode),
+      customColor: data.dec(_f$customColor),
       locale: data.dec(_f$locale),
       port: data.dec(_f$port),
       networkWhitelist: data.dec(_f$networkWhitelist),
@@ -303,6 +310,7 @@ abstract class SettingsStateCopyWith<$R, $In extends SettingsState, $Out>
     String? alias,
     ThemeMode? theme,
     ColorMode? colorMode,
+    Color? customColor,
     AppLocale? locale,
     int? port,
     List<String>? networkWhitelist,
@@ -364,6 +372,7 @@ class _SettingsStateCopyWithImpl<$R, $Out>
     String? alias,
     ThemeMode? theme,
     ColorMode? colorMode,
+    Color? customColor,
     Object? locale = $none,
     int? port,
     Object? networkWhitelist = $none,
@@ -395,6 +404,7 @@ class _SettingsStateCopyWithImpl<$R, $Out>
       if (alias != null) #alias: alias,
       if (theme != null) #theme: theme,
       if (colorMode != null) #colorMode: colorMode,
+      if (customColor != null) #customColor: customColor,
       if (locale != $none) #locale: locale,
       if (port != null) #port: port,
       if (networkWhitelist != $none) #networkWhitelist: networkWhitelist,
@@ -432,6 +442,7 @@ class _SettingsStateCopyWithImpl<$R, $Out>
     alias: data.get(#alias, or: $value.alias),
     theme: data.get(#theme, or: $value.theme),
     colorMode: data.get(#colorMode, or: $value.colorMode),
+    customColor: data.get(#customColor, or: $value.customColor),
     locale: data.get(#locale, or: $value.locale),
     port: data.get(#port, or: $value.port),
     networkWhitelist: data.get(#networkWhitelist, or: $value.networkWhitelist),
