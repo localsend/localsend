@@ -3,4 +3,10 @@ enum ColorMode {
   localsend,
   oled,
   yaru,
+  // Custom color palettes
+  pink,
+  purple,
+  blue,
+  orange,
+  red,
 }
