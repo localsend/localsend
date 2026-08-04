@@ -305,7 +305,7 @@
     }
   },
   "aliasGenerator(ignoreMissing, ignoreGpt)": {
-    "@info": "Разные локализации могут использовать разные слова, поэтому соответствие может быть не 1 к 1"
+    "@info": "Different locales may have different words, it may not match 1:1"
   },
   "dialogs": {
     "addFile": {
@@ -446,7 +446,7 @@
     "size": "Размер"
   },
   "assetPicker": {
-    "@info": "Переводы для инструмента выбора медиа для Android и iPhone",
+    "@info": "Translations for the Media selection tool for Android and iPhone",
     "confirm": "Подтвердить",
     "cancel": "Отменить",
     "edit": "Редактировать",
