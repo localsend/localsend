@@ -204,6 +204,18 @@ class _ProgressPageState extends State<ProgressPage> with Refena {
     final SessionState? commonSessionState = receiveSession ?? sendSession;
 
     if (commonSessionState == null) {
+      // The session no longer exists, e.g. a multi-send session that finished successfully
+      // in background gets removed while this page is still open.
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (!mounted) {
+          return;
+        }
+        if (ref.read(serverProvider)?.webUpload == true) {
+          context.global.dispatch(NavigateAction.popUntil<WebSharePage>());
+        } else {
+          context.global.dispatch(NavigateAction.popUntilRoot());
+        }
+      });
       return Scaffold(
         body: Container(),
       );
