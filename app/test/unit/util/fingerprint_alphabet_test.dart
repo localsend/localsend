@@ -5,8 +5,14 @@ import 'package:test/test.dart';
 
 void main() {
   group('iconAlphabet', () {
-    test('every icon is unique', () {
-      expect(iconAlphabet.toSet().length, iconAlphabet.length);
+    test('no two icons share a glyph', () {
+      // Different names can point to the same glyph (e.g. Icons.local_dining and Icons.local_restaurant).
+      final byCodePoint = <int, int>{};
+      for (final icon in iconAlphabet) {
+        byCodePoint.update(icon.codePoint, (count) => count + 1, ifAbsent: () => 1);
+      }
+      final duplicates = byCodePoint.entries.where((e) => e.value > 1).map((e) => '0x${e.key.toRadixString(16)}').toList();
+      expect(duplicates, isEmpty, reason: 'duplicate glyphs: ${duplicates.join(', ')}');
     });
   });
 
