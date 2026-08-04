@@ -7,7 +7,7 @@ import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 import 'package:localsend_isolates/rust/api/model.dart';
 import 'package:localsend_isolates/rust/frb_generated.dart';
 
-// These functions are ignored because they are not marked as `pub`: `rs_stored_device`, `stop`
+// These functions are ignored because they are not marked as `pub`: `rs_device_log`, `rs_stored_device`, `stop`
 // These types are ignored because they are neither used by any `pub` functions nor (for structs and enums) marked `#[frb(unignore)]`: `DiscoveryInstance`
 
 /// Starts the discovery: binds the UDP multicast sockets on all usable
@@ -79,6 +79,10 @@ abstract class RsDiscovery implements RustOpaqueInterface {
   /// multicast is unavailable.
   Future<void> announce();
 
+  /// The retained confirmations of a stored device, oldest first, capped at
+  /// the store's log limit. Empty when the fingerprint is unknown.
+  Future<List<RsDeviceLog>> deviceLogs({required String fingerprint});
+
   /// Discovers a device at a known address, e.g. a favorite or a peer that
   /// multicast does not reach, by sending it a register request.
   ///
@@ -121,6 +125,11 @@ abstract class RsDiscovery implements RustOpaqueInterface {
   Future<void> stop();
 }
 
+enum DeviceLogKind {
+  discovered,
+  updated,
+}
+
 /// An address a stored device was confirmed on and is dialed at.
 class RsDeviceChannel {
   /// The host to dial: an IP address, or the scoped form `fe80::1%3` for
@@ -144,6 +153,36 @@ class RsDeviceChannel {
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is RsDeviceChannel && runtimeType == other.runtimeType && host == other.host && port == other.port && protocol == other.protocol;
+}
+
+/// One retained confirmation of a stored device, for the device details UI.
+class RsDeviceLog {
+  /// When the confirmation happened, in milliseconds since the Unix epoch.
+  final BigInt timestampMillis;
+
+  /// Whether the confirmation discovered the device or re-confirmed it.
+  final DeviceLogKind kind;
+
+  /// The channel the confirmation happened on.
+  final RsDeviceChannel channel;
+
+  const RsDeviceLog({
+    required this.timestampMillis,
+    required this.kind,
+    required this.channel,
+  });
+
+  @override
+  int get hashCode => timestampMillis.hashCode ^ kind.hashCode ^ channel.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is RsDeviceLog &&
+          runtimeType == other.runtimeType &&
+          timestampMillis == other.timestampMillis &&
+          kind == other.kind &&
+          channel == other.channel;
 }
 
 /// A single device confirmation over HTTP, fed into the store via

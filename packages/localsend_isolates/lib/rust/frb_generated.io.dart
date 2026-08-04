@@ -301,6 +301,9 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   ClientInfoWithoutId dco_decode_client_info_without_id(dynamic raw);
 
   @protected
+  DeviceLogKind dco_decode_device_log_kind(dynamic raw);
+
+  @protected
   DeviceType dco_decode_device_type(dynamic raw);
 
   @protected
@@ -347,6 +350,9 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
 
   @protected
   List<RsDeviceChannel> dco_decode_list_rs_device_channel(dynamic raw);
+
+  @protected
+  List<RsDeviceLog> dco_decode_list_rs_device_log(dynamic raw);
 
   @protected
   LsHttpClientVersion dco_decode_ls_http_client_version(dynamic raw);
@@ -441,6 +447,9 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
 
   @protected
   RsDeviceChannel dco_decode_rs_device_channel(dynamic raw);
+
+  @protected
+  RsDeviceLog dco_decode_rs_device_log(dynamic raw);
 
   @protected
   RsDiscoveredDevice dco_decode_rs_discovered_device(dynamic raw);
@@ -768,6 +777,9 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   ClientInfoWithoutId sse_decode_client_info_without_id(SseDeserializer deserializer);
 
   @protected
+  DeviceLogKind sse_decode_device_log_kind(SseDeserializer deserializer);
+
+  @protected
   DeviceType sse_decode_device_type(SseDeserializer deserializer);
 
   @protected
@@ -814,6 +826,9 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
 
   @protected
   List<RsDeviceChannel> sse_decode_list_rs_device_channel(SseDeserializer deserializer);
+
+  @protected
+  List<RsDeviceLog> sse_decode_list_rs_device_log(SseDeserializer deserializer);
 
   @protected
   LsHttpClientVersion sse_decode_ls_http_client_version(SseDeserializer deserializer);
@@ -910,6 +925,9 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
 
   @protected
   RsDeviceChannel sse_decode_rs_device_channel(SseDeserializer deserializer);
+
+  @protected
+  RsDeviceLog sse_decode_rs_device_log(SseDeserializer deserializer);
 
   @protected
   RsDiscoveredDevice sse_decode_rs_discovered_device(SseDeserializer deserializer);
@@ -1282,6 +1300,9 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   void sse_encode_client_info_without_id(ClientInfoWithoutId self, SseSerializer serializer);
 
   @protected
+  void sse_encode_device_log_kind(DeviceLogKind self, SseSerializer serializer);
+
+  @protected
   void sse_encode_device_type(DeviceType self, SseSerializer serializer);
 
   @protected
@@ -1328,6 +1349,9 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
 
   @protected
   void sse_encode_list_rs_device_channel(List<RsDeviceChannel> self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_list_rs_device_log(List<RsDeviceLog> self, SseSerializer serializer);
 
   @protected
   void sse_encode_ls_http_client_version(LsHttpClientVersion self, SseSerializer serializer);
@@ -1425,6 +1449,9 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
 
   @protected
   void sse_encode_rs_device_channel(RsDeviceChannel self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_rs_device_log(RsDeviceLog self, SseSerializer serializer);
 
   @protected
   void sse_encode_rs_discovered_device(RsDiscoveredDevice self, SseSerializer serializer);

@@ -66,11 +66,27 @@ pub enum ChannelStatus {
     NotReachable,
 }
 
-/// A [`DiscoveryEvent`] that affected a device, with the time it happened.
+/// A confirmation of a device, as retained on it for display.
 #[derive(Clone, Debug)]
 pub struct DeviceLog {
     pub timestamp: SystemTime,
-    pub event: DiscoveryEvent,
+
+    /// Whether the confirmation discovered the device or re-confirmed it.
+    pub kind: DeviceLogKind,
+
+    /// The channel the confirmation happened on.
+    pub channel: DeviceChannel,
+}
+
+/// What a logged confirmation meant for the device, mirroring the
+/// [`DiscoveryEvent`] variants.
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub enum DeviceLogKind {
+    /// The device entered the store.
+    Discovered,
+
+    /// An already known device was confirmed again.
+    Updated,
 }
 
 impl StatefulDevice {
@@ -93,11 +109,7 @@ impl StatefulDevice {
     /// The position of the channel's most recent confirmation in the logs;
     /// `None` when its confirmations have been dropped from the log cap.
     fn last_confirmed(&self, channel: &DeviceChannel) -> Option<usize> {
-        self.logs.iter().rposition(|log| {
-            let (DiscoveryEvent::Discovered { device } | DiscoveryEvent::Updated { device }) =
-                &log.event;
-            device.channel == *channel
-        })
+        self.logs.iter().rposition(|log| log.channel == *channel)
     }
 }
 
@@ -192,10 +204,6 @@ impl DeviceStore {
             .find(|known| known.device.fingerprint == device.fingerprint)
         {
             Some(known) => {
-                let event = DiscoveryEvent::Updated {
-                    device: device.clone(),
-                };
-
                 known
                     .channels
                     .retain(|channel, _| !channel.same_endpoint(&device.channel));
@@ -205,30 +213,32 @@ impl DeviceStore {
 
                 known.logs.push(DeviceLog {
                     timestamp,
-                    event: event.clone(),
+                    kind: DeviceLogKind::Updated,
+                    channel: device.channel.clone(),
                 });
                 if known.logs.len() > MAX_LOGS {
                     let excess = known.logs.len() - MAX_LOGS;
                     known.logs.drain(..excess);
                 }
 
+                let event = DiscoveryEvent::Updated {
+                    device: device.clone(),
+                };
                 known.device = device;
                 (event, known.clone())
             }
             None => {
-                let event = DiscoveryEvent::Discovered {
-                    device: device.clone(),
-                };
                 let known = StatefulDevice {
                     channels: HashMap::from([(device.channel.clone(), ChannelStatus::Available)]),
-                    device,
                     logs: vec![DeviceLog {
                         timestamp,
-                        event: event.clone(),
+                        kind: DeviceLogKind::Discovered,
+                        channel: device.channel.clone(),
                     }],
+                    device: device.clone(),
                 };
                 devices.push(known.clone());
-                (event, known)
+                (DiscoveryEvent::Discovered { device }, known)
             }
         }
     }
@@ -272,13 +282,10 @@ mod tests {
         channel.http().unwrap().host.as_str()
     }
 
-    /// The marker telling log entries apart: the host the logged snapshot
-    /// was confirmed on.
+    /// The marker telling log entries apart: the host the confirmation
+    /// happened on.
     fn log_marker(log: &DeviceLog) -> &str {
-        let device = match &log.event {
-            DiscoveryEvent::Discovered { device } | DiscoveryEvent::Updated { device } => device,
-        };
-        device.http().unwrap().host.as_str()
+        log.channel.http().unwrap().host.as_str()
     }
 
     #[test]
@@ -303,14 +310,8 @@ mod tests {
 
         let known = store.by_fingerprint("a").unwrap();
         assert_eq!(known.logs.len(), 2, "every confirmation must be logged");
-        assert!(matches!(
-            known.logs[0].event,
-            DiscoveryEvent::Discovered { .. }
-        ));
-        assert!(matches!(
-            known.logs[1].event,
-            DiscoveryEvent::Updated { .. }
-        ));
+        assert_eq!(known.logs[0].kind, DeviceLogKind::Discovered);
+        assert_eq!(known.logs[1].kind, DeviceLogKind::Updated);
         assert_eq!(log_marker(&known.logs[1]), "fe80::1%3");
     }
 

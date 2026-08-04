@@ -1,7 +1,8 @@
 mod store;
 
 pub use store::{
-    ChannelStatus, DeviceChannel, DeviceLog, DiscoveredDevice, HttpChannel, StatefulDevice,
+    ChannelStatus, DeviceChannel, DeviceLog, DeviceLogKind, DiscoveredDevice, HttpChannel,
+    StatefulDevice,
 };
 
 use crate::http::client::{ClientError, LsHttpClientV2};

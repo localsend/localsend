@@ -1,6 +1,8 @@
 use crate::frb_generated::StreamSink;
+use flutter_rust_bridge::frb;
+pub use localsend::discovery::DeviceLogKind;
 use localsend::discovery::{
-    DeviceChannel, DeviceIdentity, DiscoveredDevice, DiscoveryConfig, DiscoveryEvent,
+    DeviceChannel, DeviceIdentity, DeviceLog, DiscoveredDevice, DiscoveryConfig, DiscoveryEvent,
     DiscoveryHandle, HttpChannel, StatefulDevice,
 };
 use localsend::model::discovery::{DeviceType, ProtocolType};
@@ -81,6 +83,24 @@ pub struct RsStoredDevice {
     /// first). Never empty: a device only enters the store through a
     /// confirmation.
     pub channels: Vec<RsDeviceChannel>,
+}
+
+/// One retained confirmation of a stored device, for the device details UI.
+pub struct RsDeviceLog {
+    /// When the confirmation happened, in milliseconds since the Unix epoch.
+    pub timestamp_millis: u64,
+
+    /// Whether the confirmation discovered the device or re-confirmed it.
+    pub kind: DeviceLogKind,
+
+    /// The channel the confirmation happened on.
+    pub channel: RsDeviceChannel,
+}
+
+#[frb(mirror(DeviceLogKind))]
+pub enum _DeviceLogKind {
+    Discovered,
+    Updated,
 }
 
 pub struct RsDiscovery {
@@ -334,6 +354,16 @@ impl RsDiscovery {
             .await;
     }
 
+    /// The retained confirmations of a stored device, oldest first, capped at
+    /// the store's log limit. Empty when the fingerprint is unknown.
+    pub fn device_logs(&self, fingerprint: String) -> Vec<RsDeviceLog> {
+        self.instance
+            .handle
+            .device_by_fingerprint(&fingerprint)
+            .map(|stored| stored.logs.into_iter().map(rs_device_log).collect())
+            .unwrap_or_default()
+    }
+
     /// Stops the discovery, which also ends the [RsDiscovery::listen] stream.
     /// Returns after all sockets are closed, so the port can be bound again.
     pub async fn stop(&self) {
@@ -346,6 +376,23 @@ impl RsDiscovery {
         {
             *running_discovery = None;
         }
+    }
+}
+
+fn rs_device_log(log: DeviceLog) -> RsDeviceLog {
+    let DeviceChannel::Http(http) = log.channel;
+    RsDeviceLog {
+        timestamp_millis: log
+            .timestamp
+            .duration_since(std::time::UNIX_EPOCH)
+            .map(|elapsed| elapsed.as_millis() as u64)
+            .unwrap_or(0),
+        kind: log.kind,
+        channel: RsDeviceChannel {
+            host: http.host,
+            port: http.port,
+            protocol: http.protocol,
+        },
     }
 }
 
