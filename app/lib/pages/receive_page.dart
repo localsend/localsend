@@ -83,9 +83,6 @@ class _ReceivePageState extends State<ReceivePage> with Refena {
 
     return ViewModelBuilder(
       provider: (ref) => widget.vm,
-      onFirstFrame: (context, vm) {
-        ref.notifier(selectedReceivingFilesProvider).setFiles(vm.files);
-      },
       dispose: (ref) {
         ref.dispose(widget.vm);
         unawaited(TaskbarHelper.clearProgressBar());
