@@ -206,9 +206,9 @@
   },
   "receiveOptionsPage": {
     "title": "اختیارات",
-    "destination": "@:ترتیبات ٹیب.وصول.منزل",
+    "destination": "@:settingsTab.receive.destination",
     "appDirectory": "(لوکل سینڈ فولڈر)",
-    "saveToGallery": "@:@:ترتیبات ٹیب.وصول.گیلری میں محفوظ",
+    "saveToGallery": "@:settingsTab.receive.saveToGallery",
     "saveToGalleryOff": "خود کار طور پر منقطع ہوگیا ہے کیونکہ ڈائریکٹریاں ہیں۔"
   },
   "sendPage": {
