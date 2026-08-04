@@ -78,7 +78,7 @@ class _DeviceDetailsPageState extends State<DeviceDetailsPage> with Refena {
               BigButton(
                 icon: favoriteEntry != null ? Icons.favorite : Icons.favorite_border,
                 label: t.deviceDetailsPage.favorite,
-                filled: false,
+                filled: favoriteEntry != null,
                 onTap: () async => await _toggleFavorite(favoriteEntry),
               ),
               const SizedBox(width: 20),
@@ -99,6 +99,7 @@ class _DeviceDetailsPageState extends State<DeviceDetailsPage> with Refena {
             children: [
               for (final entry in {
                 t.deviceDetailsPage.info.name: device.alias,
+                t.deviceDetailsPage.info.version: t.deviceDetailsPage.info.protocol(version: device.version),
                 if (device.ip != null) t.deviceDetailsPage.info.address: '${device.ip}:${device.port}',
               }.entries)
                 TableRow(

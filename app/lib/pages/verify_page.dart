@@ -66,6 +66,14 @@ class _VerifyPageState extends State<VerifyPage> {
             ),
             _VerifyMode.raw => SelectableText(combined),
           },
+          const SizedBox(height: 20),
+          Center(
+            child: Text(
+              t.verifyPage.question,
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
+            ),
+          ),
         ],
       ),
     );

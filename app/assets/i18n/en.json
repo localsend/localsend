@@ -213,7 +213,9 @@
     "verify": "Verify",
     "info": {
       "name": "Name",
-      "address": "Address"
+      "address": "Address",
+      "version": "Version",
+      "protocol": "Protocol v{version}"
     },
     "logs": {
       "title": "Logs",
@@ -225,7 +227,8 @@
   "verifyPage": {
     "title": "Verify",
     "icons": "Icons",
-    "raw": "Raw"
+    "raw": "Raw",
+    "question": "Does it look the same on the other device?"
   },
   "receivePage": {
     "subTitle": {
