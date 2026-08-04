@@ -87,6 +87,8 @@ class TranslationsZhTw extends Translations with BaseTranslations<AppLocale, Tra
   late final Translations$web$zh_TW web = Translations$web$zh_TW.internal(_root);
   @override
   late final Translations$assetPicker$zh_TW assetPicker = Translations$assetPicker$zh_TW.internal(_root);
+  @override
+  late final Translations$whatsNewPage$zh_TW whatsNewPage = Translations$whatsNewPage$zh_TW.internal(_root);
 }
 
 // Path: general
@@ -391,6 +393,8 @@ class Translations$sendPage$zh_TW extends Translations$sendPage$en {
   String get tooManyAttempts => _root.web.tooManyAttempts;
   @override
   String get busy => '接收者正忙於處理另一個要求。';
+  @override
+  String calculatingChecksum({required Object curr, required Object n}) => '正在計算核對和（${curr} / ${n}）';
 }
 
 // Path: progressPage
@@ -685,6 +689,19 @@ class Translations$assetPicker$zh_TW extends Translations$assetPicker$en {
   String get sNameDurationLabel => '持續時間';
   @override
   String get sUnitAssetCountLabel => '計數';
+}
+
+// Path: whatsNewPage
+class Translations$whatsNewPage$zh_TW extends Translations$whatsNewPage$en {
+  Translations$whatsNewPage$zh_TW.internal(TranslationsZhTw root) : this._root = root, super.internal(root);
+
+  final TranslationsZhTw _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String title({required Object version}) => '${version} 有什麼新功能';
+  @override
+  late final Translations$whatsNewPage$changes$zh_TW changes = Translations$whatsNewPage$changes$zh_TW.internal(_root);
 }
 
 // Path: receiveTab.infoBox
@@ -992,10 +1009,19 @@ class Translations$progressPage$remainingTime$zh_TW extends Translations$progres
   final TranslationsZhTw _root; // ignore: unused_field
 
   // Translations
+
+  /// 使用「h」作為小時縮寫，「m」作為分鐘縮寫
   @override
   String hours({required Object h, required Object m}) => '${h}小時 ${m}分鐘';
+
+  /// 使用「d」作為日數縮寫，「h」作為小時縮寫，「m」作為分鐘縮寫
   @override
   String days({required Object d, required Object h, required Object m}) => '${d}天 ${h}小時 ${m}分鐘';
+
+  @override
+  String seconds({required Object n, required Object ss}) => '${n}:${ss}';
+  @override
+  String minutes({required Object n, required Object ss}) => '${n}:${ss}';
 }
 
 // Path: dialogs.addFile
@@ -1353,6 +1379,17 @@ class Translations$dialogs$zoom$zh_TW extends Translations$dialogs$zoom$en {
   String get title => '網址';
 }
 
+// Path: whatsNewPage.changes
+class Translations$whatsNewPage$changes$zh_TW extends Translations$whatsNewPage$changes$en {
+  Translations$whatsNewPage$changes$zh_TW.internal(TranslationsZhTw root) : this._root = root, super.internal(root);
+
+  final TranslationsZhTw _root; // ignore: unused_field
+
+  // Translations
+  @override
+  late final Translations$whatsNewPage$changes$v1_18_0$zh_TW v1_18_0 = Translations$whatsNewPage$changes$v1_18_0$zh_TW.internal(_root);
+}
+
 // Path: settingsTab.general.brightnessOptions
 class Translations$settingsTab$general$brightnessOptions$zh_TW extends Translations$settingsTab$general$brightnessOptions$en {
   Translations$settingsTab$general$brightnessOptions$zh_TW.internal(TranslationsZhTw root) : this._root = root, super.internal(root);
@@ -1420,4 +1457,19 @@ class Translations$progressPage$total$title$zh_TW extends Translations$progressP
   String get canceledSender => '傳送者已取消';
   @override
   String get canceledReceiver => '接收者已取消';
+}
+
+// Path: whatsNewPage.changes.v1_18_0
+class Translations$whatsNewPage$changes$v1_18_0$zh_TW extends Translations$whatsNewPage$changes$v1_18_0$en with WhatsNewStrings {
+  Translations$whatsNewPage$changes$v1_18_0$zh_TW.internal(TranslationsZhTw root) : this._root = root, super.internal(root);
+
+  final TranslationsZhTw _root; // ignore: unused_field
+
+  // Translations
+  @override
+  List<String> get changes => [
+    '加密不再會拖慢傳輸速度。如果您之前將此裝置上的加密關閉，現在已重新啟用。',
+    '來自「最愛」的請求現在會自動接受。此功能預設為開啟，並可在設定中停用。',
+    '在 Android 上，當應用程式在背景執行或螢幕關閉時，傳輸仍會繼續。在 iOS 上，應用程式必須保持在前景。',
+  ];
 }

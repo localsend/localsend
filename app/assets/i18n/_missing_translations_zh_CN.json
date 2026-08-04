@@ -3,19 +3,20 @@
     "Here are translations that exist in <en> but not in <zh-CN>.",
     "After editing this file, you can run 'dart run slang apply --locale=zh-CN' to quickly apply the newly added translations."
   ],
-  "sendPage": {
-    "calculatingChecksum": "Calculating checksum ({curr} / {n})"
+  "receiveTab": {
+    "link": "Receive via link"
   },
-  "whatsNewPage": {
-    "title": "What's new in {version}",
-    "changes(interface=WhatsNewStrings)": {
-      "v1_18_0": {
-        "changes": [
-          "Encryption no longer slows down transfers. It has been re-enabled on this device if you turned it off before.",
-          "Requests from favorites are now accepted automatically. This is turned on by default and can be disabled in the settings.",
-          "On Android, transfers continue while the app is in the background or the screen is off. On iOS, the app must still stay in the foreground."
-        ]
+  "settingsTab": {
+    "general": {
+      "colorOptions": {
+        "custom": "Custom"
       }
+    },
+    "receive": {
+      "verifyChecksums": "Verify checksums when receiving files"
+    },
+    "send": {
+      "createChecksums": "Create checksums when sending files"
     }
   }
 }

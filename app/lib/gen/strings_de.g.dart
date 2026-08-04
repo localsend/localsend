@@ -72,6 +72,8 @@ class TranslationsDe extends Translations with BaseTranslations<AppLocale, Trans
   @override
   late final _Translations$webSharePage$de webSharePage = _Translations$webSharePage$de._(_root);
   @override
+  late final _Translations$webReceivePage$de webReceivePage = _Translations$webReceivePage$de._(_root);
+  @override
   late final _Translations$aboutPage$de aboutPage = _Translations$aboutPage$de._(_root);
   @override
   late final _Translations$donationPage$de donationPage = _Translations$donationPage$de._(_root);
@@ -189,6 +191,8 @@ class _Translations$receiveTab$de extends Translations$receiveTab$en {
   late final _Translations$receiveTab$infoBox$de infoBox = _Translations$receiveTab$infoBox$de._(_root);
   @override
   late final _Translations$receiveTab$quickSave$de quickSave = _Translations$receiveTab$quickSave$de._(_root);
+  @override
+  String get link => 'Per Link empfangen';
 }
 
 // Path: sendTab
@@ -454,6 +458,17 @@ class _Translations$webSharePage$de extends Translations$webSharePage$en {
   String get encryptionHint => 'LocalSend verwendet ein selbstsigniertes Zertifikat. Du musst es im Browser akzeptieren.';
   @override
   String pendingRequests({required Object n}) => 'Offene Anfragen: ${n}';
+}
+
+// Path: webReceivePage
+class _Translations$webReceivePage$de extends Translations$webReceivePage$en {
+  _Translations$webReceivePage$de._(TranslationsDe root) : this._root = root, super.internal(root);
+
+  final TranslationsDe _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Per Link empfangen';
 }
 
 // Path: aboutPage
@@ -848,6 +863,8 @@ class _Translations$settingsTab$receive$de extends Translations$settingsTab$rece
   String get saveToGallery => 'Medien in die Galerie speichern';
   @override
   String get saveToHistory => 'In Verlauf speichern';
+  @override
+  String get verifyChecksums => 'Prüfsummen beim Empfangen überprüfen';
 }
 
 // Path: settingsTab.send
@@ -861,6 +878,8 @@ class _Translations$settingsTab$send$de extends Translations$settingsTab$send$en
   String get title => 'Senden';
   @override
   String get shareViaLinkAutoAccept => 'Link teilen: Autom. akzeptieren';
+  @override
+  String get createChecksums => 'Prüfsummen beim Senden erstellen';
 }
 
 // Path: settingsTab.network
@@ -1420,6 +1439,8 @@ class _Translations$settingsTab$general$colorOptions$de extends Translations$set
   String get system => 'System';
   @override
   String get oled => 'OLED';
+  @override
+  String get custom => 'Benutzerdefiniert';
 }
 
 // Path: settingsTab.general.languageOptions

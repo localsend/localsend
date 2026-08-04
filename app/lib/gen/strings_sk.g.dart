@@ -89,6 +89,10 @@ class TranslationsSk extends Translations with BaseTranslations<AppLocale, Trans
   late final _Translations$web$sk web = _Translations$web$sk._(_root);
   @override
   late final _Translations$assetPicker$sk assetPicker = _Translations$assetPicker$sk._(_root);
+  @override
+  late final _Translations$whatsNewPage$sk whatsNewPage = _Translations$whatsNewPage$sk._(_root);
+  @override
+  late final _Translations$webReceivePage$sk webReceivePage = _Translations$webReceivePage$sk._(_root);
 }
 
 // Path: general
@@ -772,6 +776,30 @@ class _Translations$assetPicker$sk extends Translations$assetPicker$en {
   String get sUnitAssetCountLabel => 'počet';
 }
 
+// Path: whatsNewPage
+class _Translations$whatsNewPage$sk extends Translations$whatsNewPage$en {
+  _Translations$whatsNewPage$sk._(TranslationsSk root) : this._root = root, super.internal(root);
+
+  final TranslationsSk _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String title({required Object version}) => 'Novinky vo verzii ${version}';
+  @override
+  late final _Translations$whatsNewPage$changes$sk changes = _Translations$whatsNewPage$changes$sk._(_root);
+}
+
+// Path: webReceivePage
+class _Translations$webReceivePage$sk extends Translations$webReceivePage$en {
+  _Translations$webReceivePage$sk._(TranslationsSk root) : this._root = root, super.internal(root);
+
+  final TranslationsSk _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Prijať cez odkaz';
+}
+
 // Path: receiveTab.infoBox
 class _Translations$receiveTab$infoBox$sk extends Translations$receiveTab$infoBox$en {
   _Translations$receiveTab$infoBox$sk._(TranslationsSk root) : this._root = root, super.internal(root);
@@ -1449,6 +1477,17 @@ class _Translations$dialogs$zoom$sk extends Translations$dialogs$zoom$en {
   String get title => 'URL';
 }
 
+// Path: whatsNewPage.changes
+class _Translations$whatsNewPage$changes$sk extends Translations$whatsNewPage$changes$en {
+  _Translations$whatsNewPage$changes$sk._(TranslationsSk root) : this._root = root, super.internal(root);
+
+  final TranslationsSk _root; // ignore: unused_field
+
+  // Translations
+  @override
+  late final _Translations$whatsNewPage$changes$v1_18_0$sk v1_18_0 = _Translations$whatsNewPage$changes$v1_18_0$sk._(_root);
+}
+
 // Path: settingsTab.general.brightnessOptions
 class _Translations$settingsTab$general$brightnessOptions$sk extends Translations$settingsTab$general$brightnessOptions$en {
   _Translations$settingsTab$general$brightnessOptions$sk._(TranslationsSk root) : this._root = root, super.internal(root);
@@ -1516,4 +1555,19 @@ class _Translations$progressPage$total$title$sk extends Translations$progressPag
   String get canceledSender => 'Zrušené odosielateľom';
   @override
   String get canceledReceiver => 'Zrušené príjemcom';
+}
+
+// Path: whatsNewPage.changes.v1_18_0
+class _Translations$whatsNewPage$changes$v1_18_0$sk extends Translations$whatsNewPage$changes$v1_18_0$en with WhatsNewStrings {
+  _Translations$whatsNewPage$changes$v1_18_0$sk._(TranslationsSk root) : this._root = root, super.internal(root);
+
+  final TranslationsSk _root; // ignore: unused_field
+
+  // Translations
+  @override
+  List<String> get changes => [
+    'Šifrovanie už nespomaľuje prenosy. Ak ste ho predtým vypli, na tomto zariadení bolo opäť zapnuté.',
+    'Žiadosti od obľúbených sa teraz prijímajú automaticky. Táto funkcia je štandardne zapnutá a je možné ju vypnúť v nastaveniach.',
+    'V systéme Android prebiehajú prenosy aj vtedy, keď je aplikácia spustená na pozadí alebo je obrazovka vypnutá. V systéme iOS musí aplikácia zostať spustená v popredí.',
+  ];
 }

@@ -89,6 +89,10 @@ class TranslationsHi extends Translations with BaseTranslations<AppLocale, Trans
   late final _Translations$web$hi web = _Translations$web$hi._(_root);
   @override
   late final _Translations$assetPicker$hi assetPicker = _Translations$assetPicker$hi._(_root);
+  @override
+  late final _Translations$webReceivePage$hi webReceivePage = _Translations$webReceivePage$hi._(_root);
+  @override
+  late final _Translations$whatsNewPage$hi whatsNewPage = _Translations$whatsNewPage$hi._(_root);
 }
 
 // Path: general
@@ -391,9 +395,11 @@ class _Translations$sendPage$hi extends Translations$sendPage$en {
   @override
   String get rejected => 'प्राप्तकर्ता ने अनुरोध अस्वीकार कर दिया।';
   @override
-  String get tooManyAttempts => '@ : वेब. बहुत अधिक प्रयास';
+  String get tooManyAttempts => _root.web.tooManyAttempts;
   @override
   String get busy => 'प्राप्तकर्ता किसी अन्य अनुरोध में व्यस्त है।';
+  @override
+  String calculatingChecksum({required Object curr, required Object n}) => 'चेकसम की गणना की जा रही है (${curr} / ${n})';
 }
 
 // Path: progressPage
@@ -425,9 +431,9 @@ class _Translations$webSharePage$hi extends Translations$webSharePage$en {
   @override
   String get title => 'लिंक के माध्यम से साझा करें';
   @override
-  String get loading => 'सर्वर प्रारंभ हो रहा है ||';
+  String get loading => 'सर्वर प्रारंभ हो रहा है..';
   @override
-  String get stopping => 'सर्वर बंद हो रहा है ||';
+  String get stopping => 'सर्वर बंद हो रहा है..';
   @override
   String get error => 'सर्वर शुरू करते समय एक त्रुटि हुई।';
   @override
@@ -441,7 +447,7 @@ class _Translations$webSharePage$hi extends Translations$webSharePage$en {
   @override
   String get noRequests => 'अभी तक कोई अनुरोध नहीं।';
   @override
-  String get encryption => '@ : सेटिंग्स टैब . नेटवर्क . एन्क्रिप्शन';
+  String get encryption => _root.settingsTab.network.encryption;
   @override
   String get autoAccept => 'अनुरोधों को स्वचालित रूप से स्वीकार करें';
   @override
@@ -449,7 +455,7 @@ class _Translations$webSharePage$hi extends Translations$webSharePage$en {
   @override
   String pinHint({required Object pin}) => 'पिन "${pin}" है';
   @override
-  String get encryptionHint => 'LocalSend एक स्व-हस्ताक्षरित प्रमाणपत्र का उपयोग करता है। आपको इसे अपने ब्राउज़र में स्वीकार करना होगा।';
+  String get encryptionHint => 'लोकलसेंड एक स्व-हस्ताक्षरित प्रमाणपत्र का उपयोग करता है। आपको इसे अपने ब्राउज़र में स्वीकार करना होगा।';
   @override
   String pendingRequests({required Object n}) => 'लंबित अनुरोध: ${n}';
 }
@@ -770,6 +776,30 @@ class _Translations$assetPicker$hi extends Translations$assetPicker$en {
   String get sUnitAssetCountLabel => 'गणना';
 }
 
+// Path: webReceivePage
+class _Translations$webReceivePage$hi extends Translations$webReceivePage$en {
+  _Translations$webReceivePage$hi._(TranslationsHi root) : this._root = root, super.internal(root);
+
+  final TranslationsHi _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'लिंक के ज़रिए प्राप्त करें';
+}
+
+// Path: whatsNewPage
+class _Translations$whatsNewPage$hi extends Translations$whatsNewPage$en {
+  _Translations$whatsNewPage$hi._(TranslationsHi root) : this._root = root, super.internal(root);
+
+  final TranslationsHi _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String title({required Object version}) => '${version} में नया क्या है';
+  @override
+  late final _Translations$whatsNewPage$changes$hi changes = _Translations$whatsNewPage$changes$hi._(_root);
+}
+
 // Path: receiveTab.infoBox
 class _Translations$receiveTab$infoBox$hi extends Translations$receiveTab$infoBox$en {
   _Translations$receiveTab$infoBox$hi._(TranslationsHi root) : this._root = root, super.internal(root);
@@ -1081,8 +1111,12 @@ class _Translations$progressPage$remainingTime$hi extends Translations$progressP
   String seconds({required Object n, required Object ss}) => '${n}:${ss}';
   @override
   String minutes({required Object n, required Object ss}) => '${n}:${ss}';
+
+  /// घंटों के लिए 'h' और मिनटों के लिए 'm' का इस्तेमाल करें
   @override
   String hours({required Object h, required Object m}) => '${h}घं ${m}मि';
+
+  /// दिनों के लिए 'd', घंटों के लिए 'h' और मिनटों के लिए 'm' का इस्तेमाल करें
   @override
   String days({required Object d, required Object h, required Object m}) => '${d}दि ${h}घं ${m}मि';
 }
@@ -1444,6 +1478,17 @@ class _Translations$dialogs$zoom$hi extends Translations$dialogs$zoom$en {
   String get title => 'URL';
 }
 
+// Path: whatsNewPage.changes
+class _Translations$whatsNewPage$changes$hi extends Translations$whatsNewPage$changes$en {
+  _Translations$whatsNewPage$changes$hi._(TranslationsHi root) : this._root = root, super.internal(root);
+
+  final TranslationsHi _root; // ignore: unused_field
+
+  // Translations
+  @override
+  late final _Translations$whatsNewPage$changes$v1_18_0$hi v1_18_0 = _Translations$whatsNewPage$changes$v1_18_0$hi._(_root);
+}
+
 // Path: settingsTab.general.brightnessOptions
 class _Translations$settingsTab$general$brightnessOptions$hi extends Translations$settingsTab$general$brightnessOptions$en {
   _Translations$settingsTab$general$brightnessOptions$hi._(TranslationsHi root) : this._root = root, super.internal(root);
@@ -1511,4 +1556,19 @@ class _Translations$progressPage$total$title$hi extends Translations$progressPag
   String get canceledSender => 'प्रेषक द्वारा रद्द किया गया';
   @override
   String get canceledReceiver => 'प्राप्तकर्ता द्वारा रद्द किया गया';
+}
+
+// Path: whatsNewPage.changes.v1_18_0
+class _Translations$whatsNewPage$changes$v1_18_0$hi extends Translations$whatsNewPage$changes$v1_18_0$en with WhatsNewStrings {
+  _Translations$whatsNewPage$changes$v1_18_0$hi._(TranslationsHi root) : this._root = root, super.internal(root);
+
+  final TranslationsHi _root; // ignore: unused_field
+
+  // Translations
+  @override
+  List<String> get changes => [
+    'एनक्रिप्शन से अब ट्रांसफ़र धीमा नहीं होता है। अगर आपने इसे पहले बंद किया था, तो इस डिवाइस पर इसे फिर से चालू कर दिया गया है।',
+    'पसंदीदा से आने वाले अनुरोध अब स्वचालित रूप से स्वीकार कर लिए जाते हैं। यह सुविधा डिफ़ॉल्ट रूप से चालू है और इसे सेटिंग्स में बंद किया जा सकता है।',
+    'एंड्रोइड पर, ऐप के बैकग्राउंड में होने या स्क्रीन बंद होने पर भी ट्रांसफ़र जारी रहते हैं। आईओएस पर, ऐप का फ़ोरग्राउंड में ही रहना ज़रूरी है।',
+  ];
 }

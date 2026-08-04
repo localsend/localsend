@@ -78,6 +78,8 @@ class TranslationsUk extends Translations with BaseTranslations<AppLocale, Trans
   @override
   late final _Translations$changelogPage$uk changelogPage = _Translations$changelogPage$uk._(_root);
   @override
+  late final _Translations$whatsNewPage$uk whatsNewPage = _Translations$whatsNewPage$uk._(_root);
+  @override
   late final _Translations$dialogs$uk dialogs = _Translations$dialogs$uk._(_root);
   @override
   late final _Translations$sanitization$uk sanitization = _Translations$sanitization$uk._(_root);
@@ -507,6 +509,19 @@ class _Translations$changelogPage$uk extends Translations$changelogPage$en {
   // Translations
   @override
   String get title => 'Історія змін';
+}
+
+// Path: whatsNewPage
+class _Translations$whatsNewPage$uk extends Translations$whatsNewPage$en {
+  _Translations$whatsNewPage$uk._(TranslationsUk root) : this._root = root, super.internal(root);
+
+  final TranslationsUk _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String title({required Object version}) => 'Що нового у ${version}';
+  @override
+  late final _Translations$whatsNewPage$changes$uk changes = _Translations$whatsNewPage$changes$uk._(_root);
 }
 
 // Path: dialogs
@@ -1009,6 +1024,17 @@ class _Translations$progressPage$remainingTime$uk extends Translations$progressP
   String days({required Object d, required Object h, required Object m}) => '${d}d ${h}h ${m}m';
 }
 
+// Path: whatsNewPage.changes
+class _Translations$whatsNewPage$changes$uk extends Translations$whatsNewPage$changes$en {
+  _Translations$whatsNewPage$changes$uk._(TranslationsUk root) : this._root = root, super.internal(root);
+
+  final TranslationsUk _root; // ignore: unused_field
+
+  // Translations
+  @override
+  late final _Translations$whatsNewPage$changes$v1_18_0$uk v1_18_0 = _Translations$whatsNewPage$changes$v1_18_0$uk._(_root);
+}
+
 // Path: dialogs.addFile
 class _Translations$dialogs$addFile$uk extends Translations$dialogs$addFile$en {
   _Translations$dialogs$addFile$uk._(TranslationsUk root) : this._root = root, super.internal(root);
@@ -1434,4 +1460,19 @@ class _Translations$progressPage$total$title$uk extends Translations$progressPag
   String get canceledSender => 'Скасовано відправником';
   @override
   String get canceledReceiver => 'Скасовано отримувачем';
+}
+
+// Path: whatsNewPage.changes.v1_18_0
+class _Translations$whatsNewPage$changes$v1_18_0$uk extends Translations$whatsNewPage$changes$v1_18_0$en with WhatsNewStrings {
+  _Translations$whatsNewPage$changes$v1_18_0$uk._(TranslationsUk root) : this._root = root, super.internal(root);
+
+  final TranslationsUk _root; // ignore: unused_field
+
+  // Translations
+  @override
+  List<String> get changes => [
+    'Шифрування більше не сповільнює передачу даних. Якщо ви раніше вимкнули його на цьому пристрої, тепер воно знову увімкнене.',
+    'Запити від улюблених тепер приймаються автоматично. Ця функція увімкнена за замовчуванням, і її можна вимкнути в налаштуваннях.',
+    'На Android передача даних тепер триває, навіть коли програма працює у фоновому режимі або екран вимкнено. На iOS програма й надалі повинна залишатися на передньому плані.',
+  ];
 }

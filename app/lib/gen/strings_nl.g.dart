@@ -87,6 +87,10 @@ class TranslationsNl extends Translations with BaseTranslations<AppLocale, Trans
   late final _Translations$web$nl web = _Translations$web$nl._(_root);
   @override
   late final _Translations$assetPicker$nl assetPicker = _Translations$assetPicker$nl._(_root);
+  @override
+  late final _Translations$whatsNewPage$nl whatsNewPage = _Translations$whatsNewPage$nl._(_root);
+  @override
+  late final _Translations$webReceivePage$nl webReceivePage = _Translations$webReceivePage$nl._(_root);
 }
 
 // Path: general
@@ -686,6 +690,30 @@ class _Translations$assetPicker$nl extends Translations$assetPicker$en {
   String get sNameDurationLabel => 'duur';
   @override
   String get sUnitAssetCountLabel => 'aantal';
+}
+
+// Path: whatsNewPage
+class _Translations$whatsNewPage$nl extends Translations$whatsNewPage$en {
+  _Translations$whatsNewPage$nl._(TranslationsNl root) : this._root = root, super.internal(root);
+
+  final TranslationsNl _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String title({required Object version}) => 'Nieuw in ${version}';
+  @override
+  late final _Translations$whatsNewPage$changes$nl changes = _Translations$whatsNewPage$changes$nl._(_root);
+}
+
+// Path: webReceivePage
+class _Translations$webReceivePage$nl extends Translations$webReceivePage$en {
+  _Translations$webReceivePage$nl._(TranslationsNl root) : this._root = root, super.internal(root);
+
+  final TranslationsNl _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Ontvangen via link';
 }
 
 // Path: receiveTab.infoBox
@@ -1368,6 +1396,17 @@ class _Translations$dialogs$zoom$nl extends Translations$dialogs$zoom$en {
   String get title => 'URL';
 }
 
+// Path: whatsNewPage.changes
+class _Translations$whatsNewPage$changes$nl extends Translations$whatsNewPage$changes$en {
+  _Translations$whatsNewPage$changes$nl._(TranslationsNl root) : this._root = root, super.internal(root);
+
+  final TranslationsNl _root; // ignore: unused_field
+
+  // Translations
+  @override
+  late final _Translations$whatsNewPage$changes$v1_18_0$nl v1_18_0 = _Translations$whatsNewPage$changes$v1_18_0$nl._(_root);
+}
+
 // Path: settingsTab.general.brightnessOptions
 class _Translations$settingsTab$general$brightnessOptions$nl extends Translations$settingsTab$general$brightnessOptions$en {
   _Translations$settingsTab$general$brightnessOptions$nl._(TranslationsNl root) : this._root = root, super.internal(root);
@@ -1435,4 +1474,19 @@ class _Translations$progressPage$total$title$nl extends Translations$progressPag
   String get canceledSender => 'Geannuleerd door verzender';
   @override
   String get canceledReceiver => 'Geannuleerd door ontvanger';
+}
+
+// Path: whatsNewPage.changes.v1_18_0
+class _Translations$whatsNewPage$changes$v1_18_0$nl extends Translations$whatsNewPage$changes$v1_18_0$en with WhatsNewStrings {
+  _Translations$whatsNewPage$changes$v1_18_0$nl._(TranslationsNl root) : this._root = root, super.internal(root);
+
+  final TranslationsNl _root; // ignore: unused_field
+
+  // Translations
+  @override
+  List<String> get changes => [
+    'Encryptie vertraagt de overdrachten niet langer. Het is opnieuw ingeschakeld op dit apparaat als u het eerder hebt uitgeschakeld.',
+    'Aanvragen van favorieten worden nu automatisch geaccepteerd. Deze wordt standaard ingeschakeld en kan in de instellingen uitgeschakeld worden.',
+    'Op Android gaan de overdrachten door als de app op de achtergrond staat of het scherm uit staat. Op iOS moet de app op de voorgrond blijven.',
+  ];
 }

@@ -3,9 +3,21 @@
     "Here are translations that exist in <en> but not in <eu>.",
     "After editing this file, you can run 'dart run slang apply --locale=eu' to quickly apply the newly added translations."
   ],
+  "receiveTab": {
+    "link": "Receive via link"
+  },
   "settingsTab": {
+    "general": {
+      "colorOptions": {
+        "custom": "Custom"
+      }
+    },
     "receive": {
-      "requirePin": "@:webSharePage.requirePin"
+      "requirePin": "@:webSharePage.requirePin",
+      "verifyChecksums": "Verify checksums when receiving files"
+    },
+    "send": {
+      "createChecksums": "Create checksums when sending files"
     }
   },
   "networkInterfacesPage": {
@@ -35,6 +47,9 @@
     "autoAccept": "Automatically accept requests",
     "requirePin": "Require PIN",
     "pinHint": "The PIN is \"{pin}\""
+  },
+  "webReceivePage": {
+    "title": "Receive via link"
   },
   "aboutPage": {
     "description": [

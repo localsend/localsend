@@ -87,6 +87,10 @@ class TranslationsEsEs extends Translations with BaseTranslations<AppLocale, Tra
   late final _Translations$web$es_ES web = _Translations$web$es_ES._(_root);
   @override
   late final _Translations$assetPicker$es_ES assetPicker = _Translations$assetPicker$es_ES._(_root);
+  @override
+  late final _Translations$webReceivePage$es_ES webReceivePage = _Translations$webReceivePage$es_ES._(_root);
+  @override
+  late final _Translations$whatsNewPage$es_ES whatsNewPage = _Translations$whatsNewPage$es_ES._(_root);
 }
 
 // Path: general
@@ -392,6 +396,8 @@ class _Translations$sendPage$es_ES extends Translations$sendPage$en {
   String get tooManyAttempts => _root.web.tooManyAttempts;
   @override
   String get busy => 'El destino está ocupado con otra petición.';
+  @override
+  String calculatingChecksum({required Object curr, required Object n}) => 'Calculando suma de verificación (${curr} / ${n})';
 }
 
 // Path: progressPage
@@ -688,6 +694,30 @@ class _Translations$assetPicker$es_ES extends Translations$assetPicker$en {
   String get sNameDurationLabel => 'duración';
   @override
   String get sUnitAssetCountLabel => 'conteo';
+}
+
+// Path: webReceivePage
+class _Translations$webReceivePage$es_ES extends Translations$webReceivePage$en {
+  _Translations$webReceivePage$es_ES._(TranslationsEsEs root) : this._root = root, super.internal(root);
+
+  final TranslationsEsEs _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Recibir mediante enlace';
+}
+
+// Path: whatsNewPage
+class _Translations$whatsNewPage$es_ES extends Translations$whatsNewPage$en {
+  _Translations$whatsNewPage$es_ES._(TranslationsEsEs root) : this._root = root, super.internal(root);
+
+  final TranslationsEsEs _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String title({required Object version}) => 'Novedades de la ${version}';
+  @override
+  late final _Translations$whatsNewPage$changes$es_ES changes = _Translations$whatsNewPage$changes$es_ES._(_root);
 }
 
 // Path: receiveTab.infoBox
@@ -1371,6 +1401,17 @@ class _Translations$dialogs$zoom$es_ES extends Translations$dialogs$zoom$en {
   String get title => 'URL';
 }
 
+// Path: whatsNewPage.changes
+class _Translations$whatsNewPage$changes$es_ES extends Translations$whatsNewPage$changes$en {
+  _Translations$whatsNewPage$changes$es_ES._(TranslationsEsEs root) : this._root = root, super.internal(root);
+
+  final TranslationsEsEs _root; // ignore: unused_field
+
+  // Translations
+  @override
+  late final _Translations$whatsNewPage$changes$v1_18_0$es_ES v1_18_0 = _Translations$whatsNewPage$changes$v1_18_0$es_ES._(_root);
+}
+
 // Path: settingsTab.general.brightnessOptions
 class _Translations$settingsTab$general$brightnessOptions$es_ES extends Translations$settingsTab$general$brightnessOptions$en {
   _Translations$settingsTab$general$brightnessOptions$es_ES._(TranslationsEsEs root) : this._root = root, super.internal(root);
@@ -1438,4 +1479,19 @@ class _Translations$progressPage$total$title$es_ES extends Translations$progress
   String get canceledSender => 'Cancelado por remitente';
   @override
   String get canceledReceiver => 'Cancelado por destino';
+}
+
+// Path: whatsNewPage.changes.v1_18_0
+class _Translations$whatsNewPage$changes$v1_18_0$es_ES extends Translations$whatsNewPage$changes$v1_18_0$en with WhatsNewStrings {
+  _Translations$whatsNewPage$changes$v1_18_0$es_ES._(TranslationsEsEs root) : this._root = root, super.internal(root);
+
+  final TranslationsEsEs _root; // ignore: unused_field
+
+  // Translations
+  @override
+  List<String> get changes => [
+    'La encriptación ya no ralentiza las transferencias. Se ha habilitado en este dispositivo, en caso de haberla desactivado con anterioridad.',
+    'Las peticiones de los favoritos se aceptan automáticamente. Esta opción está activada por defecto, pero se puede desactivar en los ajustes.',
+    'En Android, las transferencias continúan en segundo plano o mientras la pantalla está apagada. En iOS, la aplicación debe estar en primer plano.',
+  ];
 }

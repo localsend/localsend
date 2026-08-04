@@ -3,8 +3,27 @@
     "Here are translations that exist in <en> but not in <pt-PT>.",
     "After editing this file, you can run 'dart run slang apply --locale=pt-PT' to quickly apply the newly added translations."
   ],
+  "receiveTab": {
+    "link": "Receive via link"
+  },
+  "settingsTab": {
+    "general": {
+      "colorOptions": {
+        "custom": "Custom"
+      }
+    },
+    "receive": {
+      "verifyChecksums": "Verify checksums when receiving files"
+    },
+    "send": {
+      "createChecksums": "Create checksums when sending files"
+    }
+  },
   "sendPage": {
     "calculatingChecksum": "Calculating checksum ({curr} / {n})"
+  },
+  "webReceivePage": {
+    "title": "Receive via link"
   },
   "whatsNewPage": {
     "title": "What's new in {version}",

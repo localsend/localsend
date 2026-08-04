@@ -87,6 +87,10 @@ class TranslationsTr extends Translations with BaseTranslations<AppLocale, Trans
   late final _Translations$web$tr web = _Translations$web$tr._(_root);
   @override
   late final _Translations$assetPicker$tr assetPicker = _Translations$assetPicker$tr._(_root);
+  @override
+  late final _Translations$whatsNewPage$tr whatsNewPage = _Translations$whatsNewPage$tr._(_root);
+  @override
+  late final _Translations$webReceivePage$tr webReceivePage = _Translations$webReceivePage$tr._(_root);
 }
 
 // Path: general
@@ -688,6 +692,30 @@ class _Translations$assetPicker$tr extends Translations$assetPicker$en {
   String get sUnitAssetCountLabel => 'sayım';
 }
 
+// Path: whatsNewPage
+class _Translations$whatsNewPage$tr extends Translations$whatsNewPage$en {
+  _Translations$whatsNewPage$tr._(TranslationsTr root) : this._root = root, super.internal(root);
+
+  final TranslationsTr _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String title({required Object version}) => '${version} sürümündeki yenilikler';
+  @override
+  late final _Translations$whatsNewPage$changes$tr changes = _Translations$whatsNewPage$changes$tr._(_root);
+}
+
+// Path: webReceivePage
+class _Translations$webReceivePage$tr extends Translations$webReceivePage$en {
+  _Translations$webReceivePage$tr._(TranslationsTr root) : this._root = root, super.internal(root);
+
+  final TranslationsTr _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Bağlantı yoluyla al';
+}
+
 // Path: receiveTab.infoBox
 class _Translations$receiveTab$infoBox$tr extends Translations$receiveTab$infoBox$en {
   _Translations$receiveTab$infoBox$tr._(TranslationsTr root) : this._root = root, super.internal(root);
@@ -833,6 +861,8 @@ class _Translations$settingsTab$receive$tr extends Translations$settingsTab$rece
   String get saveToGallery => 'Medyayı galeriye kaydet';
   @override
   String get saveToHistory => 'Geçmişe kaydet';
+  @override
+  String get verifyChecksums => 'Dosyaları alırken sağlama toplamlarını doğrula';
 }
 
 // Path: settingsTab.send
@@ -846,6 +876,8 @@ class _Translations$settingsTab$send$tr extends Translations$settingsTab$send$en
   String get title => 'Gönder';
   @override
   String get shareViaLinkAutoAccept => 'Link aracılığıyla paylaş: Otomatik olarak kabul et';
+  @override
+  String get createChecksums => 'Dosya gönderirken sağlama toplamlarını oluştur';
 }
 
 // Path: settingsTab.network
@@ -1366,6 +1398,17 @@ class _Translations$dialogs$zoom$tr extends Translations$dialogs$zoom$en {
   String get title => 'URL';
 }
 
+// Path: whatsNewPage.changes
+class _Translations$whatsNewPage$changes$tr extends Translations$whatsNewPage$changes$en {
+  _Translations$whatsNewPage$changes$tr._(TranslationsTr root) : this._root = root, super.internal(root);
+
+  final TranslationsTr _root; // ignore: unused_field
+
+  // Translations
+  @override
+  late final _Translations$whatsNewPage$changes$v1_18_0$tr v1_18_0 = _Translations$whatsNewPage$changes$v1_18_0$tr._(_root);
+}
+
 // Path: settingsTab.general.brightnessOptions
 class _Translations$settingsTab$general$brightnessOptions$tr extends Translations$settingsTab$general$brightnessOptions$en {
   _Translations$settingsTab$general$brightnessOptions$tr._(TranslationsTr root) : this._root = root, super.internal(root);
@@ -1433,4 +1476,19 @@ class _Translations$progressPage$total$title$tr extends Translations$progressPag
   String get canceledSender => 'Gönderici tarafından iptal edildi';
   @override
   String get canceledReceiver => 'Alıcı tarafından iptal edildi';
+}
+
+// Path: whatsNewPage.changes.v1_18_0
+class _Translations$whatsNewPage$changes$v1_18_0$tr extends Translations$whatsNewPage$changes$v1_18_0$en with WhatsNewStrings {
+  _Translations$whatsNewPage$changes$v1_18_0$tr._(TranslationsTr root) : this._root = root, super.internal(root);
+
+  final TranslationsTr _root; // ignore: unused_field
+
+  // Translations
+  @override
+  List<String> get changes => [
+    'Şifreleme artık aktarımları yavaşlatmıyor. Daha önce bu özelliği devre dışı bıraktıysanız, bu aygıtta yeniden etkinleştirildi.',
+    'Favorilerden gelen istekler artık otomatik olarak kabul ediliyor. Bu özellik varsayılan olarak etkindir ve ayarlardan devre dışı bırakılabilir.',
+    'Android\'de, uygulama arka planda çalışırken veya ekran kapalıyken aktarımlar devam eder. iOS\'ta ise uygulamanın ön planda kalması gerekir.',
+  ];
 }

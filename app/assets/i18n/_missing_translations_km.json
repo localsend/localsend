@@ -3,6 +3,22 @@
     "Here are translations that exist in <en> but not in <km>.",
     "After editing this file, you can run 'dart run slang apply --locale=km' to quickly apply the newly added translations."
   ],
+  "receiveTab": {
+    "link": "Receive via link"
+  },
+  "settingsTab": {
+    "general": {
+      "colorOptions": {
+        "custom": "Custom"
+      }
+    },
+    "receive": {
+      "verifyChecksums": "Verify checksums when receiving files"
+    },
+    "send": {
+      "createChecksums": "Create checksums when sending files"
+    }
+  },
   "networkInterfacesPage": {
     "title": "Network Interfaces",
     "info": "By default, LocalSend uses all available network interfaces. You can exclude unwanted networks here. You need to restart the server to apply the changes.",
@@ -20,6 +36,9 @@
       "hours": "{h}h {m}m",
       "days": "{d}d {h}h {m}m"
     }
+  },
+  "webReceivePage": {
+    "title": "Receive via link"
   },
   "whatsNewPage": {
     "title": "What's new in {version}",

@@ -3,9 +3,21 @@
     "Here are translations that exist in <en> but not in <ne>.",
     "After editing this file, you can run 'dart run slang apply --locale=ne' to quickly apply the newly added translations."
   ],
+  "receiveTab": {
+    "link": "Receive via link"
+  },
   "settingsTab": {
+    "general": {
+      "colorOptions": {
+        "custom": "Custom"
+      }
+    },
     "receive": {
-      "quickSaveFromFavorites": "@:general.quickSaveFromFavorites"
+      "quickSaveFromFavorites": "@:general.quickSaveFromFavorites",
+      "verifyChecksums": "Verify checksums when receiving files"
+    },
+    "send": {
+      "createChecksums": "Create checksums when sending files"
     }
   },
   "sendPage": {
@@ -18,6 +30,9 @@
       "hours": "{h}h {m}m",
       "days": "{d}d {h}h {m}m"
     }
+  },
+  "webReceivePage": {
+    "title": "Receive via link"
   },
   "whatsNewPage": {
     "title": "What's new in {version}",

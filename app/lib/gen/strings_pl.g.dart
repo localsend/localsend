@@ -87,6 +87,10 @@ class TranslationsPl extends Translations with BaseTranslations<AppLocale, Trans
   late final _Translations$web$pl web = _Translations$web$pl._(_root);
   @override
   late final _Translations$assetPicker$pl assetPicker = _Translations$assetPicker$pl._(_root);
+  @override
+  late final _Translations$whatsNewPage$pl whatsNewPage = _Translations$whatsNewPage$pl._(_root);
+  @override
+  late final _Translations$webReceivePage$pl webReceivePage = _Translations$webReceivePage$pl._(_root);
 }
 
 // Path: general
@@ -688,6 +692,30 @@ class _Translations$assetPicker$pl extends Translations$assetPicker$en {
   String get sUnitAssetCountLabel => 'liczba';
 }
 
+// Path: whatsNewPage
+class _Translations$whatsNewPage$pl extends Translations$whatsNewPage$en {
+  _Translations$whatsNewPage$pl._(TranslationsPl root) : this._root = root, super.internal(root);
+
+  final TranslationsPl _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String title({required Object version}) => 'Co nowego w ${version}';
+  @override
+  late final _Translations$whatsNewPage$changes$pl changes = _Translations$whatsNewPage$changes$pl._(_root);
+}
+
+// Path: webReceivePage
+class _Translations$webReceivePage$pl extends Translations$webReceivePage$en {
+  _Translations$webReceivePage$pl._(TranslationsPl root) : this._root = root, super.internal(root);
+
+  final TranslationsPl _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Odbierz przez link';
+}
+
 // Path: receiveTab.infoBox
 class _Translations$receiveTab$infoBox$pl extends Translations$receiveTab$infoBox$en {
   _Translations$receiveTab$infoBox$pl._(TranslationsPl root) : this._root = root, super.internal(root);
@@ -833,6 +861,8 @@ class _Translations$settingsTab$receive$pl extends Translations$settingsTab$rece
   String get saveToGallery => 'Zapisz media w galerii';
   @override
   String get saveToHistory => 'Zapisz w historii';
+  @override
+  String get verifyChecksums => 'Sprawdź sumy kontrolne podczas odbierania plików';
 }
 
 // Path: settingsTab.send
@@ -846,6 +876,8 @@ class _Translations$settingsTab$send$pl extends Translations$settingsTab$send$en
   String get title => 'Wyślij';
   @override
   String get shareViaLinkAutoAccept => 'Udostępnij przez link: akceptuj automatycznie';
+  @override
+  String get createChecksums => 'Twórz sumy kontrolne podczas wysyłania plików';
 }
 
 // Path: settingsTab.network
@@ -1365,6 +1397,17 @@ class _Translations$dialogs$zoom$pl extends Translations$dialogs$zoom$en {
   String get title => 'Adres URL';
 }
 
+// Path: whatsNewPage.changes
+class _Translations$whatsNewPage$changes$pl extends Translations$whatsNewPage$changes$en {
+  _Translations$whatsNewPage$changes$pl._(TranslationsPl root) : this._root = root, super.internal(root);
+
+  final TranslationsPl _root; // ignore: unused_field
+
+  // Translations
+  @override
+  late final _Translations$whatsNewPage$changes$v1_18_0$pl v1_18_0 = _Translations$whatsNewPage$changes$v1_18_0$pl._(_root);
+}
+
 // Path: settingsTab.general.brightnessOptions
 class _Translations$settingsTab$general$brightnessOptions$pl extends Translations$settingsTab$general$brightnessOptions$en {
   _Translations$settingsTab$general$brightnessOptions$pl._(TranslationsPl root) : this._root = root, super.internal(root);
@@ -1432,4 +1475,19 @@ class _Translations$progressPage$total$title$pl extends Translations$progressPag
   String get canceledSender => 'Anulowane przez nadawcę';
   @override
   String get canceledReceiver => 'Anulowane przez odbiorcę';
+}
+
+// Path: whatsNewPage.changes.v1_18_0
+class _Translations$whatsNewPage$changes$v1_18_0$pl extends Translations$whatsNewPage$changes$v1_18_0$en with WhatsNewStrings {
+  _Translations$whatsNewPage$changes$v1_18_0$pl._(TranslationsPl root) : this._root = root, super.internal(root);
+
+  final TranslationsPl _root; // ignore: unused_field
+
+  // Translations
+  @override
+  List<String> get changes => [
+    'Szyfrowanie nie spowalnia już transferów. Zostało ponownie włączone na tym urządzeniu, jeśli zostało wcześniej wyłączone.',
+    'Prośby od ulubionych są teraz akceptowane automatycznie. Ta opcja jest domyślnie włączona i można ją wyłączyć w ustawieniach.',
+    'Na Androidzie przesyłanie danych jest kontynuowane, gdy aplikacja działa w tle lub ekran jest wyłączony. Na iOS aplikacja musi pozostać na pierwszym planie.',
+  ];
 }

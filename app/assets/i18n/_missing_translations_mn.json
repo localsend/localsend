@@ -6,9 +6,21 @@
   "general": {
     "quickSaveFromFavorites": "Quick Save for \"Favorites\""
   },
+  "receiveTab": {
+    "link": "Receive via link"
+  },
   "settingsTab": {
+    "general": {
+      "colorOptions": {
+        "custom": "Custom"
+      }
+    },
     "receive": {
-      "quickSaveFromFavorites": "@:general.quickSaveFromFavorites"
+      "quickSaveFromFavorites": "@:general.quickSaveFromFavorites",
+      "verifyChecksums": "Verify checksums when receiving files"
+    },
+    "send": {
+      "createChecksums": "Create checksums when sending files"
     },
     "network": {
       "network": "Network",
@@ -42,6 +54,9 @@
     "loading": "Starting server…",
     "stopping": "Stopping server…",
     "encryption": "@:settingsTab.network.encryption"
+  },
+  "webReceivePage": {
+    "title": "Receive via link"
   },
   "aboutPage": {
     "packagers": "Packagers"

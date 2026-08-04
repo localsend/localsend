@@ -87,6 +87,10 @@ class TranslationsBg extends Translations with BaseTranslations<AppLocale, Trans
   late final _Translations$web$bg web = _Translations$web$bg._(_root);
   @override
   late final _Translations$assetPicker$bg assetPicker = _Translations$assetPicker$bg._(_root);
+  @override
+  late final _Translations$webReceivePage$bg webReceivePage = _Translations$webReceivePage$bg._(_root);
+  @override
+  late final _Translations$whatsNewPage$bg whatsNewPage = _Translations$whatsNewPage$bg._(_root);
 }
 
 // Path: general
@@ -686,6 +690,30 @@ class _Translations$assetPicker$bg extends Translations$assetPicker$en {
   String get sNameDurationLabel => 'продължителност';
   @override
   String get sUnitAssetCountLabel => 'брой';
+}
+
+// Path: webReceivePage
+class _Translations$webReceivePage$bg extends Translations$webReceivePage$en {
+  _Translations$webReceivePage$bg._(TranslationsBg root) : this._root = root, super.internal(root);
+
+  final TranslationsBg _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Получаване чрез връзка';
+}
+
+// Path: whatsNewPage
+class _Translations$whatsNewPage$bg extends Translations$whatsNewPage$en {
+  _Translations$whatsNewPage$bg._(TranslationsBg root) : this._root = root, super.internal(root);
+
+  final TranslationsBg _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String title({required Object version}) => 'Новите неща в ${version}';
+  @override
+  late final _Translations$whatsNewPage$changes$bg changes = _Translations$whatsNewPage$changes$bg._(_root);
 }
 
 // Path: receiveTab.infoBox
@@ -1367,6 +1395,17 @@ class _Translations$dialogs$zoom$bg extends Translations$dialogs$zoom$en {
   String get title => 'URL адрес';
 }
 
+// Path: whatsNewPage.changes
+class _Translations$whatsNewPage$changes$bg extends Translations$whatsNewPage$changes$en {
+  _Translations$whatsNewPage$changes$bg._(TranslationsBg root) : this._root = root, super.internal(root);
+
+  final TranslationsBg _root; // ignore: unused_field
+
+  // Translations
+  @override
+  late final _Translations$whatsNewPage$changes$v1_18_0$bg v1_18_0 = _Translations$whatsNewPage$changes$v1_18_0$bg._(_root);
+}
+
 // Path: settingsTab.general.brightnessOptions
 class _Translations$settingsTab$general$brightnessOptions$bg extends Translations$settingsTab$general$brightnessOptions$en {
   _Translations$settingsTab$general$brightnessOptions$bg._(TranslationsBg root) : this._root = root, super.internal(root);
@@ -1434,4 +1473,19 @@ class _Translations$progressPage$total$title$bg extends Translations$progressPag
   String get canceledSender => 'Отменено от подателя';
   @override
   String get canceledReceiver => 'Отменено от получателя';
+}
+
+// Path: whatsNewPage.changes.v1_18_0
+class _Translations$whatsNewPage$changes$v1_18_0$bg extends Translations$whatsNewPage$changes$v1_18_0$en with WhatsNewStrings {
+  _Translations$whatsNewPage$changes$v1_18_0$bg._(TranslationsBg root) : this._root = root, super.internal(root);
+
+  final TranslationsBg _root; // ignore: unused_field
+
+  // Translations
+  @override
+  List<String> get changes => [
+    'Шифроването вече няма да забавя прехвърлянията. Ако преди сте го били изключили на това устройство, то сега е включено отново.',
+    'Заявките за любимите неща вече се приемат автоматично. По подразбиране това е включено, но може да бъде изключено в настройките.',
+    'Под Андроид, прехвърлянията продължават дори когато приложението е на заден план и/или екранът е изключен. Под iOS, приложението все още трябва да бъде на преден план, за да работи.',
+  ];
 }

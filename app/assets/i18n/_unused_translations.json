@@ -9,6 +9,13 @@
       "online": "Online",
       "save": "Save"
     },
+    "receiveTab": {
+      "quickSave": {
+        "off": "@:general.off",
+        "favorites": "Favorites",
+        "on": "@:general.on"
+      }
+    },
     "sendTab": {
       "thisDevice": "This Device"
     },

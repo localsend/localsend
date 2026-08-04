@@ -3,6 +3,22 @@
     "Here are translations that exist in <en> but not in <ml>.",
     "After editing this file, you can run 'dart run slang apply --locale=ml' to quickly apply the newly added translations."
   ],
+  "receiveTab": {
+    "link": "Receive via link"
+  },
+  "settingsTab": {
+    "general": {
+      "colorOptions": {
+        "custom": "Custom"
+      }
+    },
+    "receive": {
+      "verifyChecksums": "Verify checksums when receiving files"
+    },
+    "send": {
+      "createChecksums": "Create checksums when sending files"
+    }
+  },
   "receiveOptionsPage": {
     "destination": "@:settingsTab.receive.destination",
     "saveToGallery": "@:settingsTab.receive.saveToGallery"
@@ -20,6 +36,9 @@
   },
   "webSharePage": {
     "encryption": "@:settingsTab.network.encryption"
+  },
+  "webReceivePage": {
+    "title": "Receive via link"
   },
   "whatsNewPage": {
     "title": "What's new in {version}",
