@@ -87,9 +87,15 @@ impl RsHttpClient {
         Ok(response)
     }
 
+    /// Uploads a single file, emitting [RsUploadEvent]s on [sink].
+    ///
+    /// Failures are emitted as [RsUploadEvent::Failed] instead of being
+    /// returned: flutter_rust_bridge discards the returned `Result` of
+    /// functions taking a [StreamSink], so a returned error would become an
+    /// uncaught async error killing the calling isolate.
     pub async fn upload(
         &self,
-        sink: StreamSink<f64>,
+        sink: StreamSink<RsUploadEvent>,
         protocol: ProtocolType,
         ip: &str,
         port: u16,
@@ -102,45 +108,53 @@ impl RsHttpClient {
         file_descriptor: Option<i32>,
         content_length: u64,
         cancel_token: &RsCancellationToken,
-    ) -> Result<(), RsHttpClientError> {
-        let content = resolve_file_content(binary, path, file_descriptor)?;
-        let last_emit = std::cell::Cell::new(None::<std::time::Instant>);
-        let progress = move |sent| {
-            let now = std::time::Instant::now();
-            let is_final = sent >= content_length;
-            if !is_final {
-                if let Some(last) = last_emit.get() {
-                    if now.duration_since(last) < std::time::Duration::from_millis(20) {
-                        return;
+    ) {
+        let result = async {
+            let content = resolve_file_content(binary, path, file_descriptor)?;
+            let last_emit = std::cell::Cell::new(None::<std::time::Instant>);
+            let progress_sink = sink.clone();
+            let progress = move |sent| {
+                let now = std::time::Instant::now();
+                let is_final = sent >= content_length;
+                if !is_final {
+                    if let Some(last) = last_emit.get() {
+                        if now.duration_since(last) < std::time::Duration::from_millis(20) {
+                            return;
+                        }
                     }
                 }
-            }
-            last_emit.set(Some(now));
-            let progress = if content_length == 0 {
-                1.0
-            } else {
-                (sent as f64 / content_length as f64).min(1.0)
+                last_emit.set(Some(now));
+                let progress = if content_length == 0 {
+                    1.0
+                } else {
+                    (sent as f64 / content_length as f64).min(1.0)
+                };
+                let _ = progress_sink.add(RsUploadEvent::Progress { progress });
             };
-            let _ = sink.add(progress);
-        };
 
-        self.inner
-            .upload(
-                protocol,
-                ip,
-                port,
-                public_key,
-                session_id,
-                file_id,
-                token,
-                content,
-                progress,
-                cancel_token.inner.clone(),
-            )
-            .await
-            .map_err(RsHttpClientError::from)?;
+            self.inner
+                .upload(
+                    protocol,
+                    ip,
+                    port,
+                    public_key,
+                    session_id,
+                    file_id,
+                    token,
+                    content,
+                    progress,
+                    cancel_token.inner.clone(),
+                )
+                .await
+                .map_err(RsHttpClientError::from)?;
 
-        Ok(())
+            Ok(())
+        }
+        .await;
+
+        if let Err(error) = result {
+            let _ = sink.add(RsUploadEvent::Failed { error });
+        }
     }
 
     pub async fn cancel(
@@ -188,6 +202,17 @@ fn resolve_file_content(
     }
 }
 
+/// An event emitted while a file is being uploaded by [RsHttpClient::upload].
+#[derive(Clone)]
+pub enum RsUploadEvent {
+    /// The upload progress as a fraction (0.0 to 1.0). Throttled.
+    Progress { progress: f64 },
+
+    /// The upload failed. Always the last event of the stream.
+    Failed { error: RsHttpClientError },
+}
+
+#[derive(Clone)]
 pub enum RsHttpClientError {
     StatusCode {
         status: u16,

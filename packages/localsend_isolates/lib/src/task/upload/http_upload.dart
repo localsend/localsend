@@ -48,7 +48,15 @@ class HttpUploadService {
           contentLength: BigInt.from(contentLength),
           cancelToken: cancelToken,
         )
-        .forEach(onSendProgress);
+        .forEach((event) {
+          switch (event) {
+            case RsUploadEvent_Progress(:final progress):
+              onSendProgress(progress);
+            case RsUploadEvent_Failed(:final error):
+              // Fails [uploadFuture] with the typed client error.
+              throw error;
+          }
+        });
 
     try {
       await for (final chunk in stream ?? const Stream<List<int>>.empty()) {

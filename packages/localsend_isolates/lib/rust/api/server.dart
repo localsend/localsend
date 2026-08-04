@@ -97,7 +97,10 @@ abstract class RsHttpServer implements RustOpaqueInterface {
   /// and waits until the file has been received completely.
   ///
   /// The progress (fraction of [file_size]) is emitted on [sink]
-  /// while the file is being received.
+  /// while the file is being received. Failures are emitted on [sink] as
+  /// well: flutter_rust_bridge discards the returned `Result` of functions
+  /// taking a [StreamSink], so a returned error would become an uncaught
+  /// async error killing the calling isolate.
   ///
   /// Timestamps provided in the sender's file metadata are applied to the
   /// written file by the server.

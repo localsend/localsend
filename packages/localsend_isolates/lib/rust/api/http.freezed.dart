@@ -521,4 +521,305 @@ as String,
 
 }
 
+/// @nodoc
+mixin _$RsUploadEvent {
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is RsUploadEvent);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'RsUploadEvent()';
+}
+
+
+}
+
+/// @nodoc
+class $RsUploadEventCopyWith<$Res>  {
+$RsUploadEventCopyWith(RsUploadEvent _, $Res Function(RsUploadEvent) __);
+}
+
+
+/// Adds pattern-matching-related methods to [RsUploadEvent].
+extension RsUploadEventPatterns on RsUploadEvent {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( RsUploadEvent_Progress value)?  progress,TResult Function( RsUploadEvent_Failed value)?  failed,required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case RsUploadEvent_Progress() when progress != null:
+return progress(_that);case RsUploadEvent_Failed() when failed != null:
+return failed(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( RsUploadEvent_Progress value)  progress,required TResult Function( RsUploadEvent_Failed value)  failed,}){
+final _that = this;
+switch (_that) {
+case RsUploadEvent_Progress():
+return progress(_that);case RsUploadEvent_Failed():
+return failed(_that);}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( RsUploadEvent_Progress value)?  progress,TResult? Function( RsUploadEvent_Failed value)?  failed,}){
+final _that = this;
+switch (_that) {
+case RsUploadEvent_Progress() when progress != null:
+return progress(_that);case RsUploadEvent_Failed() when failed != null:
+return failed(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( double progress)?  progress,TResult Function( RsHttpClientError error)?  failed,required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case RsUploadEvent_Progress() when progress != null:
+return progress(_that.progress);case RsUploadEvent_Failed() when failed != null:
+return failed(_that.error);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( double progress)  progress,required TResult Function( RsHttpClientError error)  failed,}) {final _that = this;
+switch (_that) {
+case RsUploadEvent_Progress():
+return progress(_that.progress);case RsUploadEvent_Failed():
+return failed(_that.error);}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( double progress)?  progress,TResult? Function( RsHttpClientError error)?  failed,}) {final _that = this;
+switch (_that) {
+case RsUploadEvent_Progress() when progress != null:
+return progress(_that.progress);case RsUploadEvent_Failed() when failed != null:
+return failed(_that.error);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+
+
+class RsUploadEvent_Progress extends RsUploadEvent {
+  const RsUploadEvent_Progress({required this.progress}): super._();
+  
+
+ final  double progress;
+
+/// Create a copy of RsUploadEvent
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$RsUploadEvent_ProgressCopyWith<RsUploadEvent_Progress> get copyWith => _$RsUploadEvent_ProgressCopyWithImpl<RsUploadEvent_Progress>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is RsUploadEvent_Progress&&(identical(other.progress, progress) || other.progress == progress));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,progress);
+
+@override
+String toString() {
+  return 'RsUploadEvent.progress(progress: $progress)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $RsUploadEvent_ProgressCopyWith<$Res> implements $RsUploadEventCopyWith<$Res> {
+  factory $RsUploadEvent_ProgressCopyWith(RsUploadEvent_Progress value, $Res Function(RsUploadEvent_Progress) _then) = _$RsUploadEvent_ProgressCopyWithImpl;
+@useResult
+$Res call({
+ double progress
+});
+
+
+
+
+}
+/// @nodoc
+class _$RsUploadEvent_ProgressCopyWithImpl<$Res>
+    implements $RsUploadEvent_ProgressCopyWith<$Res> {
+  _$RsUploadEvent_ProgressCopyWithImpl(this._self, this._then);
+
+  final RsUploadEvent_Progress _self;
+  final $Res Function(RsUploadEvent_Progress) _then;
+
+/// Create a copy of RsUploadEvent
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? progress = null,}) {
+  return _then(RsUploadEvent_Progress(
+progress: null == progress ? _self.progress : progress // ignore: cast_nullable_to_non_nullable
+as double,
+  ));
+}
+
+
+}
+
+/// @nodoc
+
+
+class RsUploadEvent_Failed extends RsUploadEvent {
+  const RsUploadEvent_Failed({required this.error}): super._();
+  
+
+ final  RsHttpClientError error;
+
+/// Create a copy of RsUploadEvent
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$RsUploadEvent_FailedCopyWith<RsUploadEvent_Failed> get copyWith => _$RsUploadEvent_FailedCopyWithImpl<RsUploadEvent_Failed>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is RsUploadEvent_Failed&&(identical(other.error, error) || other.error == error));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,error);
+
+@override
+String toString() {
+  return 'RsUploadEvent.failed(error: $error)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $RsUploadEvent_FailedCopyWith<$Res> implements $RsUploadEventCopyWith<$Res> {
+  factory $RsUploadEvent_FailedCopyWith(RsUploadEvent_Failed value, $Res Function(RsUploadEvent_Failed) _then) = _$RsUploadEvent_FailedCopyWithImpl;
+@useResult
+$Res call({
+ RsHttpClientError error
+});
+
+
+$RsHttpClientErrorCopyWith<$Res> get error;
+
+}
+/// @nodoc
+class _$RsUploadEvent_FailedCopyWithImpl<$Res>
+    implements $RsUploadEvent_FailedCopyWith<$Res> {
+  _$RsUploadEvent_FailedCopyWithImpl(this._self, this._then);
+
+  final RsUploadEvent_Failed _self;
+  final $Res Function(RsUploadEvent_Failed) _then;
+
+/// Create a copy of RsUploadEvent
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? error = null,}) {
+  return _then(RsUploadEvent_Failed(
+error: null == error ? _self.error : error // ignore: cast_nullable_to_non_nullable
+as RsHttpClientError,
+  ));
+}
+
+/// Create a copy of RsUploadEvent
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$RsHttpClientErrorCopyWith<$Res> get error {
+  
+  return $RsHttpClientErrorCopyWith<$Res>(_self.error, (value) {
+    return _then(_self.copyWith(error: value));
+  });
+}
+}
+
 // dart format on

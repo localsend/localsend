@@ -1128,10 +1128,10 @@ fn wire__crate__api__http__RsHttpClient_upload_impl(
             let api_that = <RustOpaqueMoi<
                 flutter_rust_bridge::for_generated::RustAutoOpaqueInner<RsHttpClient>,
             >>::sse_decode(&mut deserializer);
-            let api_sink =
-                <StreamSink<f64, flutter_rust_bridge::for_generated::SseCodec>>::sse_decode(
-                    &mut deserializer,
-                );
+            let api_sink = <StreamSink<
+                crate::api::http::RsUploadEvent,
+                flutter_rust_bridge::for_generated::SseCodec,
+            >>::sse_decode(&mut deserializer);
             let api_protocol = <crate::api::model::ProtocolType>::sse_decode(&mut deserializer);
             let api_ip = <String>::sse_decode(&mut deserializer);
             let api_port = <u16>::sse_decode(&mut deserializer);
@@ -1148,7 +1148,7 @@ fn wire__crate__api__http__RsHttpClient_upload_impl(
             >>::sse_decode(&mut deserializer);
             deserializer.end();
             move |context| async move {
-                transform_result_sse::<_, crate::api::http::RsHttpClientError>(
+                transform_result_sse::<_, ()>(
                     (move || async move {
                         let mut api_that_guard = None;
                         let mut api_cancel_token_guard = None;
@@ -1180,23 +1180,25 @@ fn wire__crate__api__http__RsHttpClient_upload_impl(
                         }
                         let api_that_guard = api_that_guard.unwrap();
                         let api_cancel_token_guard = api_cancel_token_guard.unwrap();
-                        let output_ok = crate::api::http::RsHttpClient::upload(
-                            &*api_that_guard,
-                            api_sink,
-                            api_protocol,
-                            &api_ip,
-                            api_port,
-                            api_public_key,
-                            &api_session_id,
-                            &api_file_id,
-                            &api_token,
-                            api_binary,
-                            api_path,
-                            api_file_descriptor,
-                            api_content_length,
-                            &*api_cancel_token_guard,
-                        )
-                        .await?;
+                        let output_ok = Result::<_, ()>::Ok({
+                            crate::api::http::RsHttpClient::upload(
+                                &*api_that_guard,
+                                api_sink,
+                                api_protocol,
+                                &api_ip,
+                                api_port,
+                                api_public_key,
+                                &api_session_id,
+                                &api_file_id,
+                                &api_token,
+                                api_binary,
+                                api_path,
+                                api_file_descriptor,
+                                api_content_length,
+                                &*api_cancel_token_guard,
+                            )
+                            .await;
+                        })?;
                         Ok(output_ok)
                     })()
                     .await,
@@ -1559,7 +1561,7 @@ fn wire__crate__api__server__RsHttpServer_respond_file_upload_impl(
             let api_file_size = <u64>::sse_decode(&mut deserializer);
             deserializer.end();
             move |context| async move {
-                transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>(
+                transform_result_sse::<_, ()>(
                     (move || async move {
                         let mut api_that_guard = None;
                         let decode_indices_ =
@@ -1578,16 +1580,18 @@ fn wire__crate__api__server__RsHttpServer_respond_file_upload_impl(
                             }
                         }
                         let api_that_guard = api_that_guard.unwrap();
-                        let output_ok = crate::api::server::RsHttpServer::respond_file_upload(
-                            &*api_that_guard,
-                            api_sink,
-                            api_session_id,
-                            api_file_id,
-                            api_path,
-                            api_file_descriptor,
-                            api_file_size,
-                        )
-                        .await?;
+                        let output_ok = Result::<_, ()>::Ok({
+                            crate::api::server::RsHttpServer::respond_file_upload(
+                                &*api_that_guard,
+                                api_sink,
+                                api_session_id,
+                                api_file_id,
+                                api_path,
+                                api_file_descriptor,
+                                api_file_size,
+                            )
+                            .await;
+                        })?;
                         Ok(output_ok)
                     })()
                     .await,
@@ -3005,7 +3009,7 @@ fn wire__crate__api__crypto__hash_file_impl(
             >>::sse_decode(&mut deserializer);
             deserializer.end();
             move |context| async move {
-                transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>(
+                transform_result_sse::<_, ()>(
                     (move || async move {
                         let mut api_cancel_token_guard = None;
                         let decode_indices_ =
@@ -3026,14 +3030,16 @@ fn wire__crate__api__crypto__hash_file_impl(
                             }
                         }
                         let api_cancel_token_guard = api_cancel_token_guard.unwrap();
-                        let output_ok = crate::api::crypto::hash_file(
-                            api_sink,
-                            api_path,
-                            api_file_descriptor,
-                            api_bytes,
-                            &*api_cancel_token_guard,
-                        )
-                        .await?;
+                        let output_ok = Result::<_, ()>::Ok({
+                            crate::api::crypto::hash_file(
+                                api_sink,
+                                api_path,
+                                api_file_descriptor,
+                                api_bytes,
+                                &*api_cancel_token_guard,
+                            )
+                            .await;
+                        })?;
                         Ok(output_ok)
                     })()
                     .await,
@@ -3814,6 +3820,16 @@ impl SseDecode
         crate::api::discovery::RsStoredDevice,
         flutter_rust_bridge::for_generated::SseCodec,
     >
+{
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut inner = <String>::sse_decode(deserializer);
+        return StreamSink::deserialize(inner);
+    }
+}
+
+impl SseDecode
+    for StreamSink<crate::api::http::RsUploadEvent, flutter_rust_bridge::for_generated::SseCodec>
 {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
@@ -4680,6 +4696,28 @@ impl SseDecode for crate::api::discovery::RsStoredDevice {
             download: var_download,
             channels: var_channels,
         };
+    }
+}
+
+impl SseDecode for crate::api::http::RsUploadEvent {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut tag_ = <i32>::sse_decode(deserializer);
+        match tag_ {
+            0 => {
+                let mut var_progress = <f64>::sse_decode(deserializer);
+                return crate::api::http::RsUploadEvent::Progress {
+                    progress: var_progress,
+                };
+            }
+            1 => {
+                let mut var_error = <crate::api::http::RsHttpClientError>::sse_decode(deserializer);
+                return crate::api::http::RsUploadEvent::Failed { error: var_error };
+            }
+            _ => {
+                unimplemented!("");
+            }
+        }
     }
 }
 
@@ -6030,6 +6068,33 @@ impl flutter_rust_bridge::IntoIntoDart<crate::api::discovery::RsStoredDevice>
     }
 }
 // Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for crate::api::http::RsUploadEvent {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        match self {
+            crate::api::http::RsUploadEvent::Progress { progress } => {
+                [0.into_dart(), progress.into_into_dart().into_dart()].into_dart()
+            }
+            crate::api::http::RsUploadEvent::Failed { error } => {
+                [1.into_dart(), error.into_into_dart().into_dart()].into_dart()
+            }
+            _ => {
+                unimplemented!("");
+            }
+        }
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for crate::api::http::RsUploadEvent
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<crate::api::http::RsUploadEvent>
+    for crate::api::http::RsUploadEvent
+{
+    fn into_into_dart(self) -> crate::api::http::RsUploadEvent {
+        self
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
 impl flutter_rust_bridge::IntoDart for FrbWrapper<crate::api::webrtc::RTCFileError> {
     fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
         [
@@ -6607,6 +6672,15 @@ impl SseEncode
         crate::api::discovery::RsStoredDevice,
         flutter_rust_bridge::for_generated::SseCodec,
     >
+{
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        unimplemented!("")
+    }
+}
+
+impl SseEncode
+    for StreamSink<crate::api::http::RsUploadEvent, flutter_rust_bridge::for_generated::SseCodec>
 {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
@@ -7304,6 +7378,25 @@ impl SseEncode for crate::api::discovery::RsStoredDevice {
         <String>::sse_encode(self.fingerprint, serializer);
         <bool>::sse_encode(self.download, serializer);
         <Vec<crate::api::discovery::RsDeviceChannel>>::sse_encode(self.channels, serializer);
+    }
+}
+
+impl SseEncode for crate::api::http::RsUploadEvent {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        match self {
+            crate::api::http::RsUploadEvent::Progress { progress } => {
+                <i32>::sse_encode(0, serializer);
+                <f64>::sse_encode(progress, serializer);
+            }
+            crate::api::http::RsUploadEvent::Failed { error } => {
+                <i32>::sse_encode(1, serializer);
+                <crate::api::http::RsHttpClientError>::sse_encode(error, serializer);
+            }
+            _ => {
+                unimplemented!("");
+            }
+        }
     }
 }
 

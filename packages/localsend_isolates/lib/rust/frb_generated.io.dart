@@ -203,6 +203,9 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   RustStreamSink<RsStoredDevice> dco_decode_StreamSink_rs_stored_device_Sse(dynamic raw);
 
   @protected
+  RustStreamSink<RsUploadEvent> dco_decode_StreamSink_rs_upload_event_Sse(dynamic raw);
+
+  @protected
   RustStreamSink<RTCFileError> dco_decode_StreamSink_rtc_file_error_Sse(dynamic raw);
 
   @protected
@@ -266,6 +269,9 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
 
   @protected
   RsDiscoveredDevice dco_decode_box_autoadd_rs_discovered_device(dynamic raw);
+
+  @protected
+  RsHttpClientError dco_decode_box_autoadd_rs_http_client_error(dynamic raw);
 
   @protected
   RsStoredDevice dco_decode_box_autoadd_rs_stored_device(dynamic raw);
@@ -450,6 +456,9 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
 
   @protected
   RsStoredDevice dco_decode_rs_stored_device(dynamic raw);
+
+  @protected
+  RsUploadEvent dco_decode_rs_upload_event(dynamic raw);
 
   @protected
   RTCFileError dco_decode_rtc_file_error(dynamic raw);
@@ -661,6 +670,9 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   RustStreamSink<RsStoredDevice> sse_decode_StreamSink_rs_stored_device_Sse(SseDeserializer deserializer);
 
   @protected
+  RustStreamSink<RsUploadEvent> sse_decode_StreamSink_rs_upload_event_Sse(SseDeserializer deserializer);
+
+  @protected
   RustStreamSink<RTCFileError> sse_decode_StreamSink_rtc_file_error_Sse(SseDeserializer deserializer);
 
   @protected
@@ -724,6 +736,9 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
 
   @protected
   RsDiscoveredDevice sse_decode_box_autoadd_rs_discovered_device(SseDeserializer deserializer);
+
+  @protected
+  RsHttpClientError sse_decode_box_autoadd_rs_http_client_error(SseDeserializer deserializer);
 
   @protected
   RsStoredDevice sse_decode_box_autoadd_rs_stored_device(SseDeserializer deserializer);
@@ -910,6 +925,9 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
 
   @protected
   RsStoredDevice sse_decode_rs_stored_device(SseDeserializer deserializer);
+
+  @protected
+  RsUploadEvent sse_decode_rs_upload_event(SseDeserializer deserializer);
 
   @protected
   RTCFileError sse_decode_rtc_file_error(SseDeserializer deserializer);
@@ -1165,6 +1183,9 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   void sse_encode_StreamSink_rs_stored_device_Sse(RustStreamSink<RsStoredDevice> self, SseSerializer serializer);
 
   @protected
+  void sse_encode_StreamSink_rs_upload_event_Sse(RustStreamSink<RsUploadEvent> self, SseSerializer serializer);
+
+  @protected
   void sse_encode_StreamSink_rtc_file_error_Sse(RustStreamSink<RTCFileError> self, SseSerializer serializer);
 
   @protected
@@ -1229,6 +1250,9 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
 
   @protected
   void sse_encode_box_autoadd_rs_discovered_device(RsDiscoveredDevice self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_box_autoadd_rs_http_client_error(RsHttpClientError self, SseSerializer serializer);
 
   @protected
   void sse_encode_box_autoadd_rs_stored_device(RsStoredDevice self, SseSerializer serializer);
@@ -1416,6 +1440,9 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
 
   @protected
   void sse_encode_rs_stored_device(RsStoredDevice self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_rs_upload_event(RsUploadEvent self, SseSerializer serializer);
 
   @protected
   void sse_encode_rtc_file_error(RTCFileError self, SseSerializer serializer);

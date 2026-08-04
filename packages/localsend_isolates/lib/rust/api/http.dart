@@ -13,7 +13,7 @@ import 'package:localsend_isolates/rust/frb_generated.dart';
 part 'http.freezed.dart';
 
 // These functions are ignored because they are not marked as `pub`: `error_chain`, `resolve_file_content`
-// These function are ignored because they are on traits that is not defined in current crate (put an empty `#[frb]` on it to unignore): `from`
+// These function are ignored because they are on traits that is not defined in current crate (put an empty `#[frb]` on it to unignore): `clone`, `clone`, `from`
 
 /// Creates an HTTP client.
 ///
@@ -56,7 +56,13 @@ abstract class RsHttpClient implements RustOpaqueInterface {
     required RegisterDto payload,
   });
 
-  Stream<double> upload({
+  /// Uploads a single file, emitting [RsUploadEvent]s on [sink].
+  ///
+  /// Failures are emitted as [RsUploadEvent::Failed] instead of being
+  /// returned: flutter_rust_bridge discards the returned `Result` of
+  /// functions taking a [StreamSink], so a returned error would become an
+  /// uncaught async error killing the calling isolate.
+  Stream<RsUploadEvent> upload({
     required ProtocolType protocol,
     required String ip,
     required int port,
@@ -133,4 +139,19 @@ sealed class RsHttpClientError with _$RsHttpClientError implements FrbException 
   const factory RsHttpClientError.other(
     String field0,
   ) = RsHttpClientError_Other;
+}
+
+@freezed
+sealed class RsUploadEvent with _$RsUploadEvent {
+  const RsUploadEvent._();
+
+  /// The upload progress as a fraction (0.0 to 1.0). Throttled.
+  const factory RsUploadEvent.progress({
+    required double progress,
+  }) = RsUploadEvent_Progress;
+
+  /// The upload failed. Always the last event of the stream.
+  const factory RsUploadEvent.failed({
+    required RsHttpClientError error,
+  }) = RsUploadEvent_Failed;
 }

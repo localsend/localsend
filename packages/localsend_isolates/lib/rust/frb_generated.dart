@@ -166,7 +166,7 @@ abstract class RustLibApi extends BaseApi {
     required RegisterDto payload,
   });
 
-  Stream<double> crateApiHttpRsHttpClientUpload({
+  Stream<RsUploadEvent> crateApiHttpRsHttpClientUpload({
     required RsHttpClient that,
     required ProtocolType protocol,
     required String ip,
@@ -897,7 +897,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   );
 
   @override
-  Stream<double> crateApiHttpRsHttpClientUpload({
+  Stream<RsUploadEvent> crateApiHttpRsHttpClientUpload({
     required RsHttpClient that,
     required ProtocolType protocol,
     required String ip,
@@ -912,14 +912,14 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
     required BigInt contentLength,
     required RsCancellationToken cancelToken,
   }) {
-    final sink = RustStreamSink<double>();
+    final sink = RustStreamSink<RsUploadEvent>();
     unawaited(
       handler.executeNormal(
         NormalTask(
           callFfi: (port_) {
             final serializer = SseSerializer(generalizedFrbRustBinding);
             sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsHttpClient(that, serializer);
-            sse_encode_StreamSink_f_64_Sse(sink, serializer);
+            sse_encode_StreamSink_rs_upload_event_Sse(sink, serializer);
             sse_encode_protocol_type(protocol, serializer);
             sse_encode_String(ip, serializer);
             sse_encode_u_16(port, serializer);
@@ -939,7 +939,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           },
           codec: SseCodec(
             decodeSuccessData: sse_decode_unit,
-            decodeErrorData: sse_decode_rs_http_client_error,
+            decodeErrorData: null,
           ),
           constMeta: kCrateApiHttpRsHttpClientUploadConstMeta,
           argValues: [that, sink, protocol, ip, port, publicKey, sessionId, fileId, token, binary, path, fileDescriptor, contentLength, cancelToken],
@@ -1141,7 +1141,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           },
           codec: SseCodec(
             decodeSuccessData: sse_decode_unit,
-            decodeErrorData: sse_decode_AnyhowException,
+            decodeErrorData: null,
           ),
           constMeta: kCrateApiServerRsHttpServerRespondFileUploadConstMeta,
           argValues: [that, sink, sessionId, fileId, path, fileDescriptor, fileSize],
@@ -1885,7 +1885,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           },
           codec: SseCodec(
             decodeSuccessData: sse_decode_unit,
-            decodeErrorData: sse_decode_AnyhowException,
+            decodeErrorData: null,
           ),
           constMeta: kCrateApiCryptoHashFileConstMeta,
           argValues: [sink, path, fileDescriptor, bytes, cancelToken],
@@ -2479,6 +2479,12 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  RustStreamSink<RsUploadEvent> dco_decode_StreamSink_rs_upload_event_Sse(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    throw UnimplementedError();
+  }
+
+  @protected
   RustStreamSink<RTCFileError> dco_decode_StreamSink_rtc_file_error_Sse(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     throw UnimplementedError();
@@ -2604,6 +2610,12 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   RsDiscoveredDevice dco_decode_box_autoadd_rs_discovered_device(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return dco_decode_rs_discovered_device(raw);
+  }
+
+  @protected
+  RsHttpClientError dco_decode_box_autoadd_rs_http_client_error(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return dco_decode_rs_http_client_error(raw);
   }
 
   @protected
@@ -3214,6 +3226,23 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  RsUploadEvent dco_decode_rs_upload_event(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    switch (raw[0]) {
+      case 0:
+        return RsUploadEvent_Progress(
+          progress: dco_decode_f_64(raw[1]),
+        );
+      case 1:
+        return RsUploadEvent_Failed(
+          error: dco_decode_box_autoadd_rs_http_client_error(raw[1]),
+        );
+      default:
+        throw Exception('unreachable');
+    }
+  }
+
+  @protected
   RTCFileError dco_decode_rtc_file_error(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     final arr = raw as List<dynamic>;
@@ -3719,6 +3748,12 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  RustStreamSink<RsUploadEvent> sse_decode_StreamSink_rs_upload_event_Sse(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    throw UnimplementedError('Unreachable ()');
+  }
+
+  @protected
   RustStreamSink<RTCFileError> sse_decode_StreamSink_rtc_file_error_Sse(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     throw UnimplementedError('Unreachable ()');
@@ -3846,6 +3881,12 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   RsDiscoveredDevice sse_decode_box_autoadd_rs_discovered_device(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     return (sse_decode_rs_discovered_device(deserializer));
+  }
+
+  @protected
+  RsHttpClientError sse_decode_box_autoadd_rs_http_client_error(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return (sse_decode_rs_http_client_error(deserializer));
   }
 
   @protected
@@ -4550,6 +4591,23 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  RsUploadEvent sse_decode_rs_upload_event(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    var tag_ = sse_decode_i_32(deserializer);
+    switch (tag_) {
+      case 0:
+        var var_progress = sse_decode_f_64(deserializer);
+        return RsUploadEvent_Progress(progress: var_progress);
+      case 1:
+        var var_error = sse_decode_box_autoadd_rs_http_client_error(deserializer);
+        return RsUploadEvent_Failed(error: var_error);
+      default:
+        throw UnimplementedError('');
+    }
+  }
+
+  @protected
   RTCFileError sse_decode_rtc_file_error(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     var var_fileId = sse_decode_String(deserializer);
@@ -5134,6 +5192,20 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  void sse_encode_StreamSink_rs_upload_event_Sse(RustStreamSink<RsUploadEvent> self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_String(
+      self.setupAndSerialize(
+        codec: SseCodec(
+          decodeSuccessData: sse_decode_rs_upload_event,
+          decodeErrorData: sse_decode_AnyhowException,
+        ),
+      ),
+      serializer,
+    );
+  }
+
+  @protected
   void sse_encode_StreamSink_rtc_file_error_Sse(RustStreamSink<RTCFileError> self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_String(
@@ -5284,6 +5356,12 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   void sse_encode_box_autoadd_rs_discovered_device(RsDiscoveredDevice self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_rs_discovered_device(self, serializer);
+  }
+
+  @protected
+  void sse_encode_box_autoadd_rs_http_client_error(RsHttpClientError self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_rs_http_client_error(self, serializer);
   }
 
   @protected
@@ -5869,6 +5947,19 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  void sse_encode_rs_upload_event(RsUploadEvent self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    switch (self) {
+      case RsUploadEvent_Progress(progress: final progress):
+        sse_encode_i_32(0, serializer);
+        sse_encode_f_64(progress, serializer);
+      case RsUploadEvent_Failed(error: final error):
+        sse_encode_i_32(1, serializer);
+        sse_encode_box_autoadd_rs_http_client_error(error, serializer);
+    }
+  }
+
+  @protected
   void sse_encode_rtc_file_error(RTCFileError self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_String(self.fileId, serializer);
@@ -6269,7 +6360,13 @@ class RsHttpClientImpl extends RustOpaque implements RsHttpClient {
     required RegisterDto payload,
   }) => RustLib.instance.api.crateApiHttpRsHttpClientRegister(that: this, protocol: protocol, ip: ip, port: port, payload: payload);
 
-  Stream<double> upload({
+  /// Uploads a single file, emitting [RsUploadEvent]s on [sink].
+  ///
+  /// Failures are emitted as [RsUploadEvent::Failed] instead of being
+  /// returned: flutter_rust_bridge discards the returned `Result` of
+  /// functions taking a [StreamSink], so a returned error would become an
+  /// uncaught async error killing the calling isolate.
+  Stream<RsUploadEvent> upload({
     required ProtocolType protocol,
     required String ip,
     required int port,
@@ -6363,7 +6460,10 @@ class RsHttpServerImpl extends RustOpaque implements RsHttpServer {
   /// and waits until the file has been received completely.
   ///
   /// The progress (fraction of [file_size]) is emitted on [sink]
-  /// while the file is being received.
+  /// while the file is being received. Failures are emitted on [sink] as
+  /// well: flutter_rust_bridge discards the returned `Result` of functions
+  /// taking a [StreamSink], so a returned error would become an uncaught
+  /// async error killing the calling isolate.
   ///
   /// Timestamps provided in the sender's file metadata are applied to the
   /// written file by the server.

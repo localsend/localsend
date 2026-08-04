@@ -40,25 +40,34 @@ Future<void> setupChildIsolateHelper<S, R>({
 }) async {
   initLogger(initialData.logLevel);
 
-  _isolateContainer.set(
-    syncProvider.overrideWithNotifier(
-      (ref) => SyncService(
-        initial: initialData.syncState,
-      ),
-    ),
+  // Uncaught async errors are fatal to the isolate by default, which would
+  // silently kill the server/upload loop; log them instead.
+  await runZonedGuarded(
+    () async {
+      _isolateContainer.set(
+        syncProvider.overrideWithNotifier(
+          (ref) => SyncService(
+            initial: initialData.syncState,
+          ),
+        ),
+      );
+
+      await RustLib.init();
+
+      if (init != null) {
+        await init(_isolateContainer);
+      }
+
+      _logger.info('Child isolate is ready: $debugLabel (logLevel: ${initialData.logLevel})');
+
+      await for (final message in receiveFromMain) {
+        _handleMessage(debugLabel, message, handler);
+      }
+    },
+    (e, st) {
+      _logger.severe('Uncaught error in $debugLabel', e, st);
+    },
   );
-
-  await RustLib.init();
-
-  if (init != null) {
-    await init(_isolateContainer);
-  }
-
-  _logger.info('Child isolate is ready: $debugLabel (logLevel: ${initialData.logLevel})');
-
-  await for (final message in receiveFromMain) {
-    _handleMessage(debugLabel, message, handler);
-  }
 }
 
 // separate function to avoid blocking the for loop

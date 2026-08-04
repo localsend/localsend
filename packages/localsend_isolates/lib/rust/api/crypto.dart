@@ -28,6 +28,11 @@ Future<SecurityContext> generateSecurityContext() => RustLib.instance.api.crateA
 /// Cancelling [cancel_token] aborts the read, so hashing a large file does not
 /// have to be waited out.
 ///
+/// Failures (including cancellation) are emitted as errors on the stream:
+/// flutter_rust_bridge discards the returned `Result` of functions taking a
+/// [StreamSink], so a returned error would become an uncaught async error
+/// killing the calling isolate.
+///
 /// Exactly one content source must be provided:
 /// a [path] to a regular file, a [file_descriptor] (Android only), or [bytes]
 /// for a file that only lives in memory.

@@ -60,6 +60,11 @@ pub enum RsHashFileEvent {
 /// Cancelling [cancel_token] aborts the read, so hashing a large file does not
 /// have to be waited out.
 ///
+/// Failures (including cancellation) are emitted as errors on the stream:
+/// flutter_rust_bridge discards the returned `Result` of functions taking a
+/// [StreamSink], so a returned error would become an uncaught async error
+/// killing the calling isolate.
+///
 /// Exactly one content source must be provided:
 /// a [path] to a regular file, a [file_descriptor] (Android only), or [bytes]
 /// for a file that only lives in memory.
@@ -69,47 +74,54 @@ pub async fn hash_file(
     file_descriptor: Option<i32>,
     bytes: Option<Vec<u8>>,
     cancel_token: &RsCancellationToken,
-) -> anyhow::Result<()> {
-    let content = match (path, file_descriptor, bytes) {
-        (Some(path), None, None) => localsend::model::transfer::FileContent::Path(path.into()),
-        (None, Some(file_descriptor), None) => {
-            #[cfg(target_os = "android")]
-            {
-                localsend::model::transfer::FileContent::Fd(file_descriptor)
-            }
-            #[cfg(not(target_os = "android"))]
-            {
-                let _ = file_descriptor;
-                anyhow::bail!("File descriptors are only supported on Android");
-            }
-        }
-        (None, None, Some(bytes)) => {
-            let hash = localsend::crypto::hash::sha256_hex(&bytes);
-            let _ = sink.add(RsHashFileEvent::Done { hash });
-            return Ok(());
-        }
-        _ => anyhow::bail!("Exactly one content source must be provided"),
-    };
-
-    // Progress events with throttling
-    let last_emit = std::cell::Cell::new(None::<std::time::Instant>);
-    let progress = {
-        let sink = sink.clone();
-        move |hashed| {
-            let now = std::time::Instant::now();
-            if let Some(last) = last_emit.get() {
-                if now.duration_since(last) < std::time::Duration::from_millis(20) {
-                    return;
+) {
+    let result = async {
+        let content = match (path, file_descriptor, bytes) {
+            (Some(path), None, None) => localsend::model::transfer::FileContent::Path(path.into()),
+            (None, Some(file_descriptor), None) => {
+                #[cfg(target_os = "android")]
+                {
+                    localsend::model::transfer::FileContent::Fd(file_descriptor)
+                }
+                #[cfg(not(target_os = "android"))]
+                {
+                    let _ = file_descriptor;
+                    anyhow::bail!("File descriptors are only supported on Android");
                 }
             }
-            last_emit.set(Some(now));
-            let _ = sink.add(RsHashFileEvent::Progress { bytes: hashed });
-        }
-    };
+            (None, None, Some(bytes)) => {
+                let hash = localsend::crypto::hash::sha256_hex(&bytes);
+                let _ = sink.add(RsHashFileEvent::Done { hash });
+                return Ok(());
+            }
+            _ => anyhow::bail!("Exactly one content source must be provided"),
+        };
 
-    let hash =
-        localsend::crypto::hash::sha256_file_content(content, &cancel_token.inner, progress)
-            .await?;
-    let _ = sink.add(RsHashFileEvent::Done { hash });
-    Ok(())
+        // Progress events with throttling
+        let last_emit = std::cell::Cell::new(None::<std::time::Instant>);
+        let progress = {
+            let sink = sink.clone();
+            move |hashed| {
+                let now = std::time::Instant::now();
+                if let Some(last) = last_emit.get() {
+                    if now.duration_since(last) < std::time::Duration::from_millis(20) {
+                        return;
+                    }
+                }
+                last_emit.set(Some(now));
+                let _ = sink.add(RsHashFileEvent::Progress { bytes: hashed });
+            }
+        };
+
+        let hash =
+            localsend::crypto::hash::sha256_file_content(content, &cancel_token.inner, progress)
+                .await?;
+        let _ = sink.add(RsHashFileEvent::Done { hash });
+        Ok(())
+    }
+    .await;
+
+    if let Err(err) = result {
+        let _ = sink.add_error(err);
+    }
 }

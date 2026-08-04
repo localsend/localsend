@@ -1,3 +1,4 @@
+import 'package:flutter_rust_bridge/flutter_rust_bridge.dart' show AnyhowException;
 import 'package:localsend_isolates/constants.dart';
 import 'package:localsend_isolates/model/device.dart';
 import 'package:localsend_isolates/model/dto/file_dto.dart';
@@ -105,6 +106,7 @@ extension HumanErrorMessageExt on Object {
     final e = this;
     return switch (e) {
       rust_http.RsHttpClientError_StatusCode(:final status, :final message) when message != null => '[$status] $message',
+      AnyhowException(:final message) => message,
       _ => e.toString(),
     };
   }

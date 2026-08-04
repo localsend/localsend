@@ -486,7 +486,10 @@ impl RsHttpServer {
     /// and waits until the file has been received completely.
     ///
     /// The progress (fraction of [file_size]) is emitted on [sink]
-    /// while the file is being received.
+    /// while the file is being received. Failures are emitted on [sink] as
+    /// well: flutter_rust_bridge discards the returned `Result` of functions
+    /// taking a [StreamSink], so a returned error would become an uncaught
+    /// async error killing the calling isolate.
     ///
     /// Timestamps provided in the sender's file metadata are applied to the
     /// written file by the server.
@@ -498,50 +501,58 @@ impl RsHttpServer {
         path: Option<String>,
         file_descriptor: Option<i32>,
         file_size: u64,
-    ) -> anyhow::Result<()> {
-        let Some(target_tx) = self
-            .pending_uploads
-            .lock()
-            .await
-            .remove(&(session_id, file_id))
-        else {
-            return Err(anyhow::anyhow!("No pending file upload for this file"));
-        };
+    ) {
+        let result = async {
+            let Some(target_tx) = self
+                .pending_uploads
+                .lock()
+                .await
+                .remove(&(session_id, file_id))
+            else {
+                return Err(anyhow::anyhow!("No pending file upload for this file"));
+            };
 
-        let (progress_tx, mut progress_rx) = mpsc::channel::<u64>(16);
-        tokio::spawn(async move {
-            let mut last_emit = None::<std::time::Instant>;
-            while let Some(written) = progress_rx.recv().await {
-                let now = std::time::Instant::now();
-                let is_final = written >= file_size;
-                if !is_final {
-                    if let Some(last) = last_emit {
-                        if now.duration_since(last) < std::time::Duration::from_millis(20) {
-                            continue;
+            let (progress_tx, mut progress_rx) = mpsc::channel::<u64>(16);
+            let progress_sink = sink.clone();
+            tokio::spawn(async move {
+                let mut last_emit = None::<std::time::Instant>;
+                while let Some(written) = progress_rx.recv().await {
+                    let now = std::time::Instant::now();
+                    let is_final = written >= file_size;
+                    if !is_final {
+                        if let Some(last) = last_emit {
+                            if now.duration_since(last) < std::time::Duration::from_millis(20) {
+                                continue;
+                            }
                         }
                     }
+                    last_emit = Some(now);
+                    let progress = if file_size == 0 {
+                        1.0
+                    } else {
+                        (written as f64 / file_size as f64).min(1.0)
+                    };
+                    let _ = progress_sink.add(progress);
                 }
-                last_emit = Some(now);
-                let progress = if file_size == 0 {
-                    1.0
-                } else {
-                    (written as f64 / file_size as f64).min(1.0)
-                };
-                let _ = sink.add(progress);
+            });
+
+            let (result_tx, result_rx) = oneshot::channel::<Result<(), String>>();
+            let target = resolve_upload_target(path, file_descriptor, result_tx, progress_tx)?;
+
+            target_tx
+                .send(target)
+                .map_err(|_| anyhow::anyhow!("Upload request already ended"))?;
+
+            match result_rx.await {
+                Ok(Ok(())) => Ok(()),
+                Ok(Err(err)) => Err(anyhow::anyhow!(err)),
+                Err(_) => Err(anyhow::anyhow!("Upload request aborted")),
             }
-        });
+        }
+        .await;
 
-        let (result_tx, result_rx) = oneshot::channel::<Result<(), String>>();
-        let target = resolve_upload_target(path, file_descriptor, result_tx, progress_tx)?;
-
-        target_tx
-            .send(target)
-            .map_err(|_| anyhow::anyhow!("Upload request already ended"))?;
-
-        match result_rx.await {
-            Ok(Ok(())) => Ok(()),
-            Ok(Err(err)) => Err(anyhow::anyhow!(err)),
-            Err(_) => Err(anyhow::anyhow!("Upload request aborted")),
+        if let Err(err) = result {
+            let _ = sink.add_error(err);
         }
     }
 
