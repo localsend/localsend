@@ -13,11 +13,8 @@ import 'package:localsend_app/provider/network/scan_facade.dart';
 import 'package:localsend_app/provider/network/send_provider.dart';
 import 'package:localsend_app/provider/selection/selected_sending_files_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
-import 'package:localsend_app/util/favorites.dart';
 import 'package:localsend_app/widget/dialogs/address_input_dialog.dart';
-import 'package:localsend_app/widget/dialogs/favorite_delete_dialog.dart';
 import 'package:localsend_app/widget/dialogs/favorite_dialog.dart';
-import 'package:localsend_app/widget/dialogs/favorite_edit_dialog.dart';
 import 'package:localsend_app/widget/dialogs/no_files_dialog.dart';
 import 'package:localsend_isolates/model/device.dart';
 import 'package:localsend_isolates/model/session_status.dart';
@@ -33,7 +30,6 @@ class SendTabVm {
   final Future<void> Function(BuildContext context) onTapAddress;
   final Future<void> Function(BuildContext context) onTapFavorite;
   final Future<void> Function(BuildContext context, SendMode mode) onTapSendMode;
-  final Future<void> Function(BuildContext context, Device device) onToggleFavorite;
   final Future<void> Function(BuildContext context, Device device) onTapDevice;
   final Future<void> Function(BuildContext context, Device device) onTapDeviceMultiSend;
 
@@ -46,7 +42,6 @@ class SendTabVm {
     required this.onTapAddress,
     required this.onTapFavorite,
     required this.onTapSendMode,
-    required this.onToggleFavorite,
     required this.onTapDevice,
     required this.onTapDeviceMultiSend,
   });
@@ -120,23 +115,6 @@ final sendTabVmProvider = ViewProvider((ref) {
       await ref.notifier(settingsProvider).setSendMode(mode);
       if (mode != SendMode.multiple) {
         ref.notifier(sendProvider).clearAllSessions();
-      }
-    },
-    onToggleFavorite: (context, device) async {
-      final favoriteDevice = favoriteDevices.findDevice(device);
-      if (favoriteDevice != null) {
-        final result = await showDialog<bool>(
-          context: context,
-          builder: (_) => FavoriteDeleteDialog(favoriteDevice),
-        );
-        if (result == true) {
-          await ref.redux(favoritesProvider).dispatchAsync(RemoveFavoriteAction(deviceFingerprint: device.fingerprint));
-        }
-      } else {
-        await showDialog(
-          context: context,
-          builder: (_) => FavoriteEditDialog(prefilledDevice: device),
-        );
       }
     },
     onTapDevice: (context, device) async {

@@ -41,6 +41,29 @@ class SignalingChannel extends DeviceChannel with SignalingChannelMappable {
   const SignalingChannel({required this.signalingServer});
 }
 
+/// Whether a [DeviceLog] discovered the device or re-confirmed it.
+enum DeviceLogKind {
+  discovered,
+  updated,
+}
+
+/// One retained confirmation of a stored device, for the device details UI.
+class DeviceLog {
+  /// When the confirmation happened.
+  final DateTime timestamp;
+
+  final DeviceLogKind kind;
+
+  /// The channel the confirmation happened on.
+  final HttpChannel channel;
+
+  const DeviceLog({
+    required this.timestamp,
+    required this.kind,
+    required this.channel,
+  });
+}
+
 enum TransmissionMethod {
   http('HTTP'),
   webrtc('WebRTC')

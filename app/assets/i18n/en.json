@@ -207,6 +207,26 @@
   "selectedFilesPage": {
     "deleteAll": "Delete all"
   },
+  "deviceDetailsPage": {
+    "title": "Device Details",
+    "favorite": "Favorite",
+    "verify": "Verify",
+    "info": {
+      "name": "Name",
+      "address": "Address"
+    },
+    "logs": {
+      "title": "Logs",
+      "empty": "No logs available.",
+      "discovered": "Discovered via {protocol} ({host})",
+      "updated": "Updated via {protocol} ({host})"
+    }
+  },
+  "verifyPage": {
+    "title": "Verify",
+    "icons": "Icons",
+    "raw": "Raw"
+  },
   "receivePage": {
     "subTitle": {
       "one": "wants to send you a file",

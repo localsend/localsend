@@ -159,6 +159,23 @@ extension RsStoredDeviceExt on rust_discovery.RsStoredDevice {
   }
 }
 
+extension RsDeviceLogExt on rust_discovery.RsDeviceLog {
+  DeviceLog toDeviceLog() {
+    return DeviceLog(
+      timestamp: DateTime.fromMillisecondsSinceEpoch(timestampMillis.toInt()),
+      kind: switch (kind) {
+        rust_discovery.DeviceLogKind.discovered => DeviceLogKind.discovered,
+        rust_discovery.DeviceLogKind.updated => DeviceLogKind.updated,
+      },
+      channel: HttpChannel(
+        host: channel.host,
+        port: channel.port,
+        https: channel.protocol == rust_model.ProtocolType.https,
+      ),
+    );
+  }
+}
+
 extension DeviceToRsDiscoveredDeviceExt on Device {
   rust_discovery.RsDiscoveredDevice toRsDiscoveredDevice(String ip) {
     return rust_discovery.RsDiscoveredDevice(

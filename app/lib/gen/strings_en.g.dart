@@ -58,6 +58,8 @@ class Translations with BaseTranslations<AppLocale, Translations> {
   late final Translations$receiveHistoryPage$en receiveHistoryPage = Translations$receiveHistoryPage$en.internal(_root);
   late final Translations$apkPickerPage$en apkPickerPage = Translations$apkPickerPage$en.internal(_root);
   late final Translations$selectedFilesPage$en selectedFilesPage = Translations$selectedFilesPage$en.internal(_root);
+  late final Translations$deviceDetailsPage$en deviceDetailsPage = Translations$deviceDetailsPage$en.internal(_root);
+  late final Translations$verifyPage$en verifyPage = Translations$verifyPage$en.internal(_root);
   late final Translations$receivePage$en receivePage = Translations$receivePage$en.internal(_root);
   late final Translations$receiveOptionsPage$en receiveOptionsPage = Translations$receiveOptionsPage$en.internal(_root);
   late final Translations$sendPage$en sendPage = Translations$sendPage$en.internal(_root);
@@ -386,6 +388,45 @@ class Translations$selectedFilesPage$en {
 
   /// en: 'Delete all'
   String get deleteAll => 'Delete all';
+}
+
+// Path: deviceDetailsPage
+class Translations$deviceDetailsPage$en {
+  Translations$deviceDetailsPage$en.internal(this._root);
+
+  final Translations _root; // ignore: unused_field
+
+  // Translations
+
+  /// en: 'Device Details'
+  String get title => 'Device Details';
+
+  /// en: 'Favorite'
+  String get favorite => 'Favorite';
+
+  /// en: 'Verify'
+  String get verify => 'Verify';
+
+  late final Translations$deviceDetailsPage$info$en info = Translations$deviceDetailsPage$info$en.internal(_root);
+  late final Translations$deviceDetailsPage$logs$en logs = Translations$deviceDetailsPage$logs$en.internal(_root);
+}
+
+// Path: verifyPage
+class Translations$verifyPage$en {
+  Translations$verifyPage$en.internal(this._root);
+
+  final Translations _root; // ignore: unused_field
+
+  // Translations
+
+  /// en: 'Verify'
+  String get title => 'Verify';
+
+  /// en: 'Icons'
+  String get icons => 'Icons';
+
+  /// en: 'Raw'
+  String get raw => 'Raw';
 }
 
 // Path: receivePage
@@ -1266,6 +1307,42 @@ class Translations$receiveHistoryPage$entryActions$en {
 
   /// en: 'Delete from history'
   String get deleteFromHistory => 'Delete from history';
+}
+
+// Path: deviceDetailsPage.info
+class Translations$deviceDetailsPage$info$en {
+  Translations$deviceDetailsPage$info$en.internal(this._root);
+
+  final Translations _root; // ignore: unused_field
+
+  // Translations
+
+  /// en: 'Name'
+  String get name => 'Name';
+
+  /// en: 'Address'
+  String get address => 'Address';
+}
+
+// Path: deviceDetailsPage.logs
+class Translations$deviceDetailsPage$logs$en {
+  Translations$deviceDetailsPage$logs$en.internal(this._root);
+
+  final Translations _root; // ignore: unused_field
+
+  // Translations
+
+  /// en: 'Logs'
+  String get title => 'Logs';
+
+  /// en: 'No logs available.'
+  String get empty => 'No logs available.';
+
+  /// en: 'Discovered via {protocol} ({host})'
+  String discovered({required Object protocol, required Object host}) => 'Discovered via ${protocol} (${host})';
+
+  /// en: 'Updated via {protocol} ({host})'
+  String updated({required Object protocol, required Object host}) => 'Updated via ${protocol} (${host})';
 }
 
 // Path: progressPage.total

@@ -164,6 +164,19 @@ class DiscoveryService {
     ]);
   }
 
+  /// The retained confirmations of a stored device, oldest first.
+  /// Empty when the fingerprint is unknown or the discovery is not running.
+  Future<List<DeviceLog>> deviceLogs(String fingerprint) async {
+    final discovery = _discovery;
+    if (discovery == null) {
+      _logger.info('Discovery is not running, skipping device logs');
+      return const [];
+    }
+
+    final logs = await discovery.deviceLogs(fingerprint: fingerprint);
+    return logs.map((log) => log.toDeviceLog()).toList();
+  }
+
   /// Feeds a device confirmed outside of the discovery into the store, e.g.
   /// one that registered with this device's HTTP server.
   /// The device comes back on the [startListener] stream.

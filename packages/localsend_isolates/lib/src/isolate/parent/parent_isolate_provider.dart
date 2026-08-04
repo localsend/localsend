@@ -1,5 +1,4 @@
 import 'package:dart_mappable/dart_mappable.dart';
-import 'package:localsend_isolates/model/device.dart';
 import 'package:localsend_isolates/src/isolate/child/discovery_isolate.dart';
 import 'package:localsend_isolates/src/isolate/child/main.dart';
 import 'package:localsend_isolates/src/isolate/child/server_isolate.dart';
@@ -18,7 +17,7 @@ part 'parent_isolate_provider.mapper.dart';
 @MappableClass()
 class ParentIsolateState with ParentIsolateStateMappable {
   final SyncState syncState;
-  final IsolateConnector<IsolateTaskStreamResult<Device>, SendToIsolateData<IsolateTask<DiscoveryTask>>>? discovery;
+  final IsolateConnector<IsolateTaskStreamResult<DiscoveryResult>, SendToIsolateData<IsolateTask<DiscoveryTask>>>? discovery;
   final IsolateConnector<IsolateTaskStreamResult<HttpUploadEvent>, SendToIsolateData<IsolateTask<BaseHttpUploadTask>>>? httpUpload;
   final IsolateConnector<IsolateTaskStreamResult<HttpServerEvent>, SendToIsolateData<IsolateTask<BaseHttpServerTask>>>? httpServer;
 
@@ -62,13 +61,14 @@ class IsolateController extends ReduxNotifier<ParentIsolateState> {
 class IsolateSetupAction extends AsyncReduxAction<IsolateController, ParentIsolateState> {
   @override
   Future<ParentIsolateState> reduce() async {
-    final discovery = await TypedIsolates.startIsolate<IsolateTaskStreamResult<Device>, SendToIsolateData<IsolateTask<DiscoveryTask>>, InitialData>(
-      task: setupDiscoveryIsolate,
-      param: InitialData(
-        syncState: state.syncState,
-        logLevel: Logger.root.level,
-      ),
-    );
+    final discovery =
+        await TypedIsolates.startIsolate<IsolateTaskStreamResult<DiscoveryResult>, SendToIsolateData<IsolateTask<DiscoveryTask>>, InitialData>(
+          task: setupDiscoveryIsolate,
+          param: InitialData(
+            syncState: state.syncState,
+            logLevel: Logger.root.level,
+          ),
+        );
 
     final httpUpload =
         await TypedIsolates.startIsolate<IsolateTaskStreamResult<HttpUploadEvent>, SendToIsolateData<IsolateTask<BaseHttpUploadTask>>, InitialData>(

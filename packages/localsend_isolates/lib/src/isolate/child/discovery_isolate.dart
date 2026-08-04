@@ -6,6 +6,29 @@ import 'package:typed_isolates/typed_isolates.dart';
 
 sealed class DiscoveryTask {}
 
+/// A result sent from the discovery isolate to the main isolate,
+/// routed to the task that requested it.
+sealed class DiscoveryResult {}
+
+/// A confirmed device, emitted on the [DiscoveryListenTask] stream.
+class DiscoveryDeviceResult implements DiscoveryResult {
+  final Device device;
+
+  DiscoveryDeviceResult({
+    required this.device,
+  });
+}
+
+/// The retained confirmations of one stored device, answering a
+/// [DiscoveryDeviceLogsTask].
+class DiscoveryDeviceLogsResult implements DiscoveryResult {
+  final List<DeviceLog> logs;
+
+  DiscoveryDeviceLogsResult({
+    required this.logs,
+  });
+}
+
 /// Starts the discovery and streams every confirmed device.
 /// The stream never completes; it survives [DiscoveryRestartTask]s.
 class DiscoveryListenTask implements DiscoveryTask {}
@@ -56,9 +79,20 @@ class DiscoveryAddDeviceTask implements DiscoveryTask {
   });
 }
 
+/// Fetches the retained confirmations of a stored device, oldest first.
+/// Answered with one [DiscoveryDeviceLogsResult]; the logs are empty when
+/// the fingerprint is unknown.
+class DiscoveryDeviceLogsTask implements DiscoveryTask {
+  final String fingerprint;
+
+  DiscoveryDeviceLogsTask({
+    required this.fingerprint,
+  });
+}
+
 Future<void> setupDiscoveryIsolate(
   Stream<SendToIsolateData<IsolateTask<DiscoveryTask>>> receiveFromMain,
-  void Function(IsolateTaskStreamResult<Device>) sendToMain,
+  void Function(IsolateTaskStreamResult<DiscoveryResult>) sendToMain,
   InitialData initialData,
 ) async {
   await setupChildIsolateHelper(
@@ -73,7 +107,7 @@ Future<void> setupDiscoveryIsolate(
             sendToMain(
               IsolateTaskStreamResult.event(
                 id: task.id,
-                data: device,
+                data: DiscoveryDeviceResult(device: device),
               ),
             );
           }
@@ -103,6 +137,15 @@ Future<void> setupDiscoveryIsolate(
           break;
         case DiscoveryAddDeviceTask data:
           await ref.read(discoveryProvider).addDevice(data.device);
+          break;
+        case DiscoveryDeviceLogsTask data:
+          final logs = await ref.read(discoveryProvider).deviceLogs(data.fingerprint);
+          sendToMain(
+            IsolateTaskStreamResult.event(
+              id: task.id,
+              data: DiscoveryDeviceLogsResult(logs: logs),
+            ),
+          );
           break;
       }
       sendToMain(
