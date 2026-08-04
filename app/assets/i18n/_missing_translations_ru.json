@@ -4,13 +4,13 @@
     "After editing this file, you can run 'dart run slang apply --locale=ru' to quickly apply the newly added translations."
   ],
   "whatsNewPage": {
-    "title": "What's new in {version}",
+    "title": "Что нового в {version}",
     "changes(interface=WhatsNewStrings)": {
       "v1_18_0": {
         "changes": [
-          "Encryption no longer slows down transfers. It has been re-enabled on this device if you turned it off before.",
-          "Requests from favorites are now accepted automatically. This is turned on by default and can be disabled in the settings.",
-          "On Android, transfers continue while the app is in the background or the screen is off. On iOS, the app must still stay in the foreground."
+          "Шифрование больше не замедляет передачу данных. Если вы отключили его на этом устройстве, теперь оно снова включено.",
+          "Запросы от избранных теперь принимаются автоматически. Эта функция включена по умолчанию, и ее можно отключить в настройках.",
+          "На Android передача данных теперь продолжается, даже когда приложение работает в фоновом режиме или экран выключен. На iOS приложение по-прежнему должно оставаться на переднем плане."
         ]
       }
     }
