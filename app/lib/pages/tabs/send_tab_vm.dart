@@ -162,7 +162,12 @@ final sendTabVmProvider = ViewProvider((ref) {
             () => SendPage(showAppBar: true, closeSessionOnClose: false, sessionId: session.sessionId),
             transition: RouterinoTransition.fade(),
           );
-          ref.notifier(sendProvider).setBackground(session.sessionId, true);
+          // Only restore background mode if the user actually backed out.
+          // When the receiver accepts, the provider replaces this page with the ProgressPage,
+          // which also resolves this future; the ProgressPage then owns the background flag.
+          if (ref.read(sendProvider)[session.sessionId]?.status == SessionStatus.waiting) {
+            ref.notifier(sendProvider).setBackground(session.sessionId, true);
+          }
           return;
         } else if (session.status == SessionStatus.sending || session.status == SessionStatus.finishedWithErrors) {
           ref.notifier(sendProvider).setBackground(session.sessionId, false);
