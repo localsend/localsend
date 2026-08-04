@@ -223,7 +223,8 @@
     "waiting": "正在等候回應…",
     "rejected": "接收者拒絕了要求。",
     "tooManyAttempts": "@:web.tooManyAttempts",
-    "busy": "接收者正忙於處理另一個要求。"
+    "busy": "接收者正忙於處理另一個要求。",
+    "calculatingChecksum": "正在計算核對和（{curr} / {n}）"
   },
   "progressPage": {
     "titleSending": "正在傳送檔案",
@@ -242,7 +243,11 @@
     },
     "remainingTime": {
       "hours": "{h}小時 {m}分鐘",
-      "days": "{d}天 {h}小時 {m}分鐘"
+      "days": "{d}天 {h}小時 {m}分鐘",
+      "seconds": "{n}:{ss}",
+      "minutes": "{n}:{ss}",
+      "@hours": "使用「h」作為小時縮寫，「m」作為分鐘縮寫",
+      "@days": "使用「d」作為日數縮寫，「h」作為小時縮寫，「m」作為分鐘縮寫"
     }
   },
   "webSharePage": {
@@ -455,5 +460,17 @@
     "sActionUseCameraHint": "使用相機",
     "sNameDurationLabel": "持續時間",
     "sUnitAssetCountLabel": "計數"
+  },
+  "whatsNewPage": {
+    "title": "{version} 有什麼新功能",
+    "changes(interface=WhatsNewStrings)": {
+      "v1_18_0": {
+        "changes": [
+          "加密不再會拖慢傳輸速度。如果您之前將此裝置上的加密關閉，現在已重新啟用。",
+          "來自「最愛」的請求現在會自動接受。此功能預設為開啟，並可在設定中停用。",
+          "在 Android 上，當應用程式在背景執行或螢幕關閉時，傳輸仍會繼續。在 iOS 上，應用程式必須保持在前景。"
+        ]
+      }
+    }
   }
 }

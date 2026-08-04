@@ -530,5 +530,20 @@
     "sActionUseCameraHint": "použiť fotoaparát",
     "sNameDurationLabel": "trvanie",
     "sUnitAssetCountLabel": "počet"
+  },
+  "whatsNewPage": {
+    "title": "Novinky vo verzii {version}",
+    "changes(interface=WhatsNewStrings)": {
+      "v1_18_0": {
+        "changes": [
+          "Šifrovanie už nespomaľuje prenosy. Ak ste ho predtým vypli, na tomto zariadení bolo opäť zapnuté.",
+          "Žiadosti od obľúbených sa teraz prijímajú automaticky. Táto funkcia je štandardne zapnutá a je možné ju vypnúť v nastaveniach.",
+          "V systéme Android prebiehajú prenosy aj vtedy, keď je aplikácia spustená na pozadí alebo je obrazovka vypnutá. V systéme iOS musí aplikácia zostať spustená v popredí."
+        ]
+      }
+    }
+  },
+  "webReceivePage": {
+    "title": "Prijať cez odkaz"
   }
 }
