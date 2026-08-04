@@ -460,5 +460,20 @@
     "sActionUseCameraHint": "카메라 사용",
     "sNameDurationLabel": "길이",
     "sUnitAssetCountLabel": "개수"
+  },
+  "whatsNewPage": {
+    "title": "{version} 버전의 새 기능",
+    "changes(interface=WhatsNewStrings)": {
+      "v1_18_0": {
+        "changes": [
+          "암호화가 더 이상 전송을 느리게 하지 않습니다. 이 기기에서 이전에 암호화를 끈 경우 다시 암호화를 켰습니다.",
+          "이제 즐겨찾기한 기기의 요청을 자동으로 수락합니다. 기본적으로 켜져 있으며 설정에서 끌 수 있습니다.",
+          "Android에서는 앱이 백그라운드로 전환되거나 화면이 꺼져도 전송을 계속합니다. iOS에서는 여전히 앱을 연 채로 유지해야 합니다."
+        ]
+      }
+    }
+  },
+  "webReceivePage": {
+    "title": "링크로 수신"
   }
 }

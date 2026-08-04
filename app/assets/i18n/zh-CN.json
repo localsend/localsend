@@ -223,7 +223,8 @@
     "waiting": "等待响应中……",
     "rejected": "对方拒绝了请求。",
     "tooManyAttempts": "@:web.tooManyAttempts",
-    "busy": "对方正在处理另一个请求。"
+    "busy": "对方正在处理另一个请求。",
+    "calculatingChecksum": "正在计算校验和（{curr} / {n}）"
   },
   "progressPage": {
     "titleSending": "正在发送文件",
@@ -528,5 +529,20 @@
     "sActionUseCameraHint": "使用摄像头",
     "sNameDurationLabel": "时长",
     "sUnitAssetCountLabel": "计数"
+  },
+  "webReceivePage": {
+    "title": "通过链接接收"
+  },
+  "whatsNewPage": {
+    "title": "{version} 中的新增功能",
+    "changes(interface=WhatsNewStrings)": {
+      "v1_18_0": {
+        "changes": [
+          "加密不再减缓传输速度。如果您之前将其关闭，则现在已在此设备上重新启用。",
+          "来自收藏夹的请求现在会被自动接受。这项功能是默认打开的，可以在设置中禁用。",
+          "在Android上，当应用处于后台或屏幕关闭时，传输仍会继续。在iOS上，应用仍必须保持在前台。"
+        ]
+      }
+    }
   }
 }

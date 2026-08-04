@@ -120,11 +120,13 @@
       "destination": "Pasta de destino",
       "downloads": "(Downloads)",
       "saveToGallery": "Salvar mídia na galeria",
-      "saveToHistory": "Salvar no histórico"
+      "saveToHistory": "Salvar no histórico",
+      "verifyChecksums": "Verificar checksums ao receber arquivos"
     },
     "send": {
       "title": "Envio",
-      "shareViaLinkAutoAccept": "Aceitar solicitações por link automaticamente"
+      "shareViaLinkAutoAccept": "Aceitar solicitações por link automaticamente",
+      "createChecksums": "Criar checksums ao enviar arquivos"
     },
     "network": {
       "title": "Rede",
@@ -223,7 +225,8 @@
     "waiting": "Aguardando resposta…",
     "rejected": "O destinatário rejeitou a solicitação.",
     "tooManyAttempts": "@:web.tooManyAttempts",
-    "busy": "O destinatário está ocupado com outra solicitação."
+    "busy": "O destinatário está ocupado com outra solicitação.",
+    "calculatingChecksum": "Calculando checksum ({curr} / {n})"
   },
   "progressPage": {
     "titleSending": "Enviando arquivos",
@@ -519,5 +522,20 @@
     "sActionUseCameraHint": "usar a câmera",
     "sNameDurationLabel": "duração",
     "sUnitAssetCountLabel": "contagem"
+  },
+  "webReceivePage": {
+    "title": "Receber via link"
+  },
+  "whatsNewPage": {
+    "title": "O que há de novo na versão {version}",
+    "changes(interface=WhatsNewStrings)": {
+      "v1_18_0": {
+        "changes": [
+          "A criptografia não retarda mais as transferências. Ela foi reativada neste dispositivo se você a desativou antes.",
+          "Solicitações de favoritos agora são aceitas automaticamente. Isso está ativado por padrão e pode ser desativado nas configurações.",
+          "No Android, as transferências continuam enquanto o aplicativo está em segundo plano ou a tela está desligada. No iOS, o aplicativo ainda deve permanecer em primeiro plano."
+        ]
+      }
+    }
   }
 }

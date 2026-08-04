@@ -120,11 +120,13 @@
       "destination": "Miejsce docelowe",
       "downloads": "(Pobrane)",
       "saveToGallery": "Zapisz media w galerii",
-      "saveToHistory": "Zapisz w historii"
+      "saveToHistory": "Zapisz w historii",
+      "verifyChecksums": "Sprawdź sumy kontrolne podczas odbierania plików"
     },
     "send": {
       "title": "Wyślij",
-      "shareViaLinkAutoAccept": "Udostępnij przez link: akceptuj automatycznie"
+      "shareViaLinkAutoAccept": "Udostępnij przez link: akceptuj automatycznie",
+      "createChecksums": "Twórz sumy kontrolne podczas wysyłania plików"
     },
     "network": {
       "title": "Sieć",
@@ -460,5 +462,20 @@
     "sActionUseCameraHint": "użyj kamery",
     "sNameDurationLabel": "czas trwania",
     "sUnitAssetCountLabel": "liczba"
+  },
+  "whatsNewPage": {
+    "title": "Co nowego w {version}",
+    "changes(interface=WhatsNewStrings)": {
+      "v1_18_0": {
+        "changes": [
+          "Szyfrowanie nie spowalnia już transferów. Zostało ponownie włączone na tym urządzeniu, jeśli zostało wcześniej wyłączone.",
+          "Prośby od ulubionych są teraz akceptowane automatycznie. Ta opcja jest domyślnie włączona i można ją wyłączyć w ustawieniach.",
+          "Na Androidzie przesyłanie danych jest kontynuowane, gdy aplikacja działa w tle lub ekran jest wyłączony. Na iOS aplikacja musi pozostać na pierwszym planie."
+        ]
+      }
+    }
+  },
+  "webReceivePage": {
+    "title": "Odbierz przez link"
   }
 }

@@ -460,5 +460,20 @@
     "sActionUseCameraHint": "camera gebruiken",
     "sNameDurationLabel": "duur",
     "sUnitAssetCountLabel": "aantal"
+  },
+  "whatsNewPage": {
+    "title": "Nieuw in {version}",
+    "changes(interface=WhatsNewStrings)": {
+      "v1_18_0": {
+        "changes": [
+          "Encryptie vertraagt de overdrachten niet langer. Het is opnieuw ingeschakeld op dit apparaat als u het eerder hebt uitgeschakeld.",
+          "Aanvragen van favorieten worden nu automatisch geaccepteerd. Deze wordt standaard ingeschakeld en kan in de instellingen uitgeschakeld worden.",
+          "Op Android gaan de overdrachten door als de app op de achtergrond staat of het scherm uit staat. Op iOS moet de app op de voorgrond blijven."
+        ]
+      }
+    }
+  },
+  "webReceivePage": {
+    "title": "Ontvangen via link"
   }
 }
