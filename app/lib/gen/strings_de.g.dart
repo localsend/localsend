@@ -62,6 +62,10 @@ class TranslationsDe extends Translations with BaseTranslations<AppLocale, Trans
   @override
   late final _Translations$selectedFilesPage$de selectedFilesPage = _Translations$selectedFilesPage$de._(_root);
   @override
+  late final _Translations$deviceDetailsPage$de deviceDetailsPage = _Translations$deviceDetailsPage$de._(_root);
+  @override
+  late final _Translations$verifyPage$de verifyPage = _Translations$verifyPage$de._(_root);
+  @override
   late final _Translations$receivePage$de receivePage = _Translations$receivePage$de._(_root);
   @override
   late final _Translations$receiveOptionsPage$de receiveOptionsPage = _Translations$receiveOptionsPage$de._(_root);
@@ -341,6 +345,42 @@ class _Translations$selectedFilesPage$de extends Translations$selectedFilesPage$
   // Translations
   @override
   String get deleteAll => 'Alle löschen';
+}
+
+// Path: deviceDetailsPage
+class _Translations$deviceDetailsPage$de extends Translations$deviceDetailsPage$en {
+  _Translations$deviceDetailsPage$de._(TranslationsDe root) : this._root = root, super.internal(root);
+
+  final TranslationsDe _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Gerätedetails';
+  @override
+  String get favorite => 'Favorit';
+  @override
+  String get verify => 'Verifizieren';
+  @override
+  late final _Translations$deviceDetailsPage$info$de info = _Translations$deviceDetailsPage$info$de._(_root);
+  @override
+  late final _Translations$deviceDetailsPage$logs$de logs = _Translations$deviceDetailsPage$logs$de._(_root);
+}
+
+// Path: verifyPage
+class _Translations$verifyPage$de extends Translations$verifyPage$en {
+  _Translations$verifyPage$de._(TranslationsDe root) : this._root = root, super.internal(root);
+
+  final TranslationsDe _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Verifizieren';
+  @override
+  String get icons => 'Symbole';
+  @override
+  String get raw => 'Rohdaten';
+  @override
+  String get question => 'Sieht es auf dem anderen Gerät gleich aus?';
 }
 
 // Path: receivePage
@@ -1003,6 +1043,40 @@ class _Translations$receiveHistoryPage$entryActions$de extends Translations$rece
   String get info => 'Information';
   @override
   String get deleteFromHistory => 'Vom Verlauf entfernen';
+}
+
+// Path: deviceDetailsPage.info
+class _Translations$deviceDetailsPage$info$de extends Translations$deviceDetailsPage$info$en {
+  _Translations$deviceDetailsPage$info$de._(TranslationsDe root) : this._root = root, super.internal(root);
+
+  final TranslationsDe _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get name => 'Name';
+  @override
+  String get address => 'Adresse';
+  @override
+  String get version => 'Version';
+  @override
+  String protocol({required Object version}) => 'Protokoll v${version}';
+}
+
+// Path: deviceDetailsPage.logs
+class _Translations$deviceDetailsPage$logs$de extends Translations$deviceDetailsPage$logs$en {
+  _Translations$deviceDetailsPage$logs$de._(TranslationsDe root) : this._root = root, super.internal(root);
+
+  final TranslationsDe _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Logs';
+  @override
+  String get empty => 'Keine Logs vorhanden.';
+  @override
+  String discovered({required Object protocol, required Object host}) => 'Entdeckt über ${protocol} (${host})';
+  @override
+  String updated({required Object protocol, required Object host}) => 'Aktualisiert über ${protocol} (${host})';
 }
 
 // Path: progressPage.total

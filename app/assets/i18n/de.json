@@ -207,6 +207,29 @@
   "selectedFilesPage": {
     "deleteAll": "Alle löschen"
   },
+  "deviceDetailsPage": {
+    "title": "Gerätedetails",
+    "favorite": "Favorit",
+    "verify": "Verifizieren",
+    "info": {
+      "name": "Name",
+      "address": "Adresse",
+      "version": "Version",
+      "protocol": "Protokoll v{version}"
+    },
+    "logs": {
+      "title": "Logs",
+      "empty": "Keine Logs vorhanden.",
+      "discovered": "Entdeckt über {protocol} ({host})",
+      "updated": "Aktualisiert über {protocol} ({host})"
+    }
+  },
+  "verifyPage": {
+    "title": "Verifizieren",
+    "icons": "Symbole",
+    "raw": "Rohdaten",
+    "question": "Sieht es auf dem anderen Gerät gleich aus?"
+  },
   "receivePage": {
     "subTitle": {
       "one": "möchte dir eine Datei senden",
