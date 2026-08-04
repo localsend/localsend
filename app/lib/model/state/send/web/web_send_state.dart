@@ -9,17 +9,15 @@ class WebSendState with WebSendStateMappable {
   final Map<String, WebSendSession> sessions; // session id -> session data, also includes incoming requests
   final Map<String, WebSendFile> files; // file id as key
   final bool autoAccept; // automatically accept incoming requests
-  final String? pin; // the PIN is enforced by the Rust server; changing it requires a server restart
 
   const WebSendState({
     required this.sessions,
     required this.files,
     required this.autoAccept,
-    required this.pin,
   });
 
   @override
   String toString() {
-    return 'WebSendState(sessions: $sessions, files: <${files.keys}>, autoAccept: $autoAccept, pin: $pin)';
+    return 'WebSendState(sessions: $sessions, files: <${files.keys}>, autoAccept: $autoAccept)';
   }
 }

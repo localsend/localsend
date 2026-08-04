@@ -62,8 +62,15 @@ class _WebSharePageState extends State<WebSharePage> with Refena {
     await sleepAsync(500);
     try {
       final files = widget.files;
+
+      // The pin of a previous web share session is kept;
+      // receive mode initially uses the receive pin from settings.
+      final previousState = ref.read(serverProvider);
+      final wasWebActive = previousState?.webSendState != null || previousState?.webUpload == true;
+      final webPin = wasWebActive ? previousState?.webPin : (files == null ? settings.receivePin : null);
+
       if (files != null) {
-        // The auto accept setting and the pin of a previous web send state are kept.
+        // The auto accept setting of a previous web send state is kept.
         await ref
             .notifier(serverProvider)
             .restartServerWithWebSend(
@@ -71,6 +78,7 @@ class _WebSharePageState extends State<WebSharePage> with Refena {
               port: settings.port,
               https: _encrypted,
               files: files,
+              webPin: webPin,
             );
       } else {
         await ref
@@ -80,6 +88,7 @@ class _WebSharePageState extends State<WebSharePage> with Refena {
               port: settings.port,
               https: _encrypted,
               webUpload: true,
+              webPin: webPin,
             );
       }
       setState(() {
@@ -169,6 +178,7 @@ class _WebSharePageState extends State<WebSharePage> with Refena {
             }
             final networkState = context.watch(localIpProvider);
             final settings = context.watch(settingsProvider);
+            final pin = serverState.webPin;
 
             return ResponsiveListView(
               padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
@@ -184,8 +194,8 @@ class _WebSharePageState extends State<WebSharePage> with Refena {
                       children: [
                         ...networkState.localIps.map((ip) {
                           final url = '${_encrypted ? 'https' : 'http'}://$ip:${serverState.port}';
-                          final urlWithPin = switch (webSendState?.pin) {
-                            String() => '$url/?pin=${Uri.encodeQueryComponent(webSendState!.pin!)}',
+                          final urlWithPin = switch (pin) {
+                            String() => '$url/?pin=${Uri.encodeQueryComponent(pin)}',
                             null => url,
                           };
                           return Padding(
@@ -217,7 +227,7 @@ class _WebSharePageState extends State<WebSharePage> with Refena {
                                         data: urlWithPin,
                                         label: url,
                                         listenIncomingWebSendRequests: _sendMode,
-                                        pin: webSendState?.pin,
+                                        pin: pin,
                                       ),
                                     );
                                   },
@@ -233,7 +243,7 @@ class _WebSharePageState extends State<WebSharePage> with Refena {
                                       builder: (_) => ZoomDialog(
                                         label: url,
                                         listenIncomingWebSendRequests: _sendMode,
-                                        pin: webSendState?.pin,
+                                        pin: pin,
                                       ),
                                     );
                                   },
@@ -354,41 +364,38 @@ class _WebSharePageState extends State<WebSharePage> with Refena {
                     ),
                   ],
                 ),
-                if (webSendState != null) ...[
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(t.webSharePage.requirePin, style: Theme.of(context).textTheme.titleMedium),
-                      const SizedBox(width: 10),
-                      Checkbox(
-                        value: webSendState.pin != null,
-                        onChanged: (value) async {
-                          final currentPIN = webSendState.pin;
-                          if (currentPIN != null) {
-                            await ref.notifier(serverProvider).setWebSendPin(null);
-                          } else {
-                            final String? newPin = await showDialog<String>(
-                              context: context,
-                              builder: (_) => const PinDialog(
-                                obscureText: false,
-                                generateRandom: true,
-                              ),
-                            );
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(t.webSharePage.requirePin, style: Theme.of(context).textTheme.titleMedium),
+                    const SizedBox(width: 10),
+                    Checkbox(
+                      value: pin != null,
+                      onChanged: (value) async {
+                        if (pin != null) {
+                          await ref.notifier(serverProvider).setWebPin(null);
+                        } else {
+                          final String? newPin = await showDialog<String>(
+                            context: context,
+                            builder: (_) => const PinDialog(
+                              obscureText: false,
+                              generateRandom: true,
+                            ),
+                          );
 
-                            if (newPin != null && newPin.isNotEmpty) {
-                              await ref.notifier(serverProvider).setWebSendPin(newPin);
-                            }
+                          if (newPin != null && newPin.isNotEmpty) {
+                            await ref.notifier(serverProvider).setWebPin(newPin);
                           }
-                        },
-                      ),
-                    ],
-                  ),
-                  if (webSendState.pin != null)
-                    Text(
-                      t.webSharePage.pinHint(pin: webSendState.pin!),
-                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: Theme.of(context).colorScheme.warning),
+                        }
+                      },
                     ),
-                ],
+                  ],
+                ),
+                if (pin != null)
+                  Text(
+                    t.webSharePage.pinHint(pin: pin),
+                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: Theme.of(context).colorScheme.warning),
+                  ),
               ],
             );
           },

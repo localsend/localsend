@@ -37,15 +37,12 @@ class WebSendStateMapper extends ClassMapperBase<WebSendState> {
     'autoAccept',
     _$autoAccept,
   );
-  static String? _$pin(WebSendState v) => v.pin;
-  static const Field<WebSendState, String> _f$pin = Field('pin', _$pin);
 
   @override
   final MappableFields<WebSendState> fields = const {
     #sessions: _f$sessions,
     #files: _f$files,
     #autoAccept: _f$autoAccept,
-    #pin: _f$pin,
   };
 
   static WebSendState _instantiate(DecodingData data) {
@@ -53,7 +50,6 @@ class WebSendStateMapper extends ClassMapperBase<WebSendState> {
       sessions: data.dec(_f$sessions),
       files: data.dec(_f$files),
       autoAccept: data.dec(_f$autoAccept),
-      pin: data.dec(_f$pin),
     );
   }
 
@@ -137,7 +133,6 @@ abstract class WebSendStateCopyWith<$R, $In extends WebSendState, $Out>
     Map<String, WebSendSession>? sessions,
     Map<String, WebSendFile>? files,
     bool? autoAccept,
-    String? pin,
   });
   WebSendStateCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
@@ -179,13 +174,11 @@ class _WebSendStateCopyWithImpl<$R, $Out>
     Map<String, WebSendSession>? sessions,
     Map<String, WebSendFile>? files,
     bool? autoAccept,
-    Object? pin = $none,
   }) => $apply(
     FieldCopyWithData({
       if (sessions != null) #sessions: sessions,
       if (files != null) #files: files,
       if (autoAccept != null) #autoAccept: autoAccept,
-      if (pin != $none) #pin: pin,
     }),
   );
   @override
@@ -193,7 +186,6 @@ class _WebSendStateCopyWithImpl<$R, $Out>
     sessions: data.get(#sessions, or: $value.sessions),
     files: data.get(#files, or: $value.files),
     autoAccept: data.get(#autoAccept, or: $value.autoAccept),
-    pin: data.get(#pin, or: $value.pin),
   );
 
   @override

@@ -45,6 +45,8 @@ class ServerStateMapper extends ClassMapperBase<ServerState> {
     'webUpload',
     _$webUpload,
   );
+  static String? _$webPin(ServerState v) => v.webPin;
+  static const Field<ServerState, String> _f$webPin = Field('webPin', _$webPin);
 
   @override
   final MappableFields<ServerState> fields = const {
@@ -54,6 +56,7 @@ class ServerStateMapper extends ClassMapperBase<ServerState> {
     #session: _f$session,
     #webSendState: _f$webSendState,
     #webUpload: _f$webUpload,
+    #webPin: _f$webPin,
   };
 
   static ServerState _instantiate(DecodingData data) {
@@ -64,6 +67,7 @@ class ServerStateMapper extends ClassMapperBase<ServerState> {
       session: data.dec(_f$session),
       webSendState: data.dec(_f$webSendState),
       webUpload: data.dec(_f$webUpload),
+      webPin: data.dec(_f$webPin),
     );
   }
 
@@ -137,6 +141,7 @@ abstract class ServerStateCopyWith<$R, $In extends ServerState, $Out>
     ReceiveSessionState? session,
     WebSendState? webSendState,
     bool? webUpload,
+    String? webPin,
   });
   ServerStateCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
@@ -163,6 +168,7 @@ class _ServerStateCopyWithImpl<$R, $Out>
     Object? session = $none,
     Object? webSendState = $none,
     bool? webUpload,
+    Object? webPin = $none,
   }) => $apply(
     FieldCopyWithData({
       if (alias != null) #alias: alias,
@@ -171,6 +177,7 @@ class _ServerStateCopyWithImpl<$R, $Out>
       if (session != $none) #session: session,
       if (webSendState != $none) #webSendState: webSendState,
       if (webUpload != null) #webUpload: webUpload,
+      if (webPin != $none) #webPin: webPin,
     }),
   );
   @override
@@ -181,6 +188,7 @@ class _ServerStateCopyWithImpl<$R, $Out>
     session: data.get(#session, or: $value.session),
     webSendState: data.get(#webSendState, or: $value.webSendState),
     webUpload: data.get(#webUpload, or: $value.webUpload),
+    webPin: data.get(#webPin, or: $value.webPin),
   );
 
   @override

@@ -68,6 +68,17 @@
     var BASE_URL = '/api/localsend/v2';
 
     var i18n = {};
+    var queryParams = location.search.slice(1).split('&');
+    var pin = null;
+
+    // Parse query parameters manually for IE
+    for (var i = 0; i < queryParams.length; i++) {
+      var pair = queryParams[i].split('=');
+      if (pair[0] === 'pin') {
+        pin = decodeURIComponent(pair[1]);
+        break;
+      }
+    }
 
     function makeRequest(url, method, body, callback) {
       var xhr = new XMLHttpRequest();
@@ -154,7 +165,32 @@
         files: filesDto
       });
 
-      makeRequest(BASE_URL + '/prepare-upload', 'POST', body, function (response) {
+      prepareUpload(body, selectedFiles, true);
+    }
+
+    function prepareUpload(body, selectedFiles, firstAttempt) {
+      var url = BASE_URL + '/prepare-upload';
+      if (pin) {
+        url += '?pin=' + encodeURIComponent(pin);
+      }
+
+      makeRequest(url, 'POST', body, function (response) {
+        if (response.status === 401) {
+          var newPin = prompt(i18n.enterPin + (firstAttempt ? '' : '\n' + i18n.invalidPin));
+          if (!newPin) {
+            finishWithError(i18n.invalidPin);
+            return;
+          }
+          pin = newPin;
+          prepareUpload(body, selectedFiles, false);
+          return;
+        }
+
+        if (response.status === 429) {
+          finishWithError(i18n.tooManyAttempts);
+          return;
+        }
+
         if (response.status === 403) {
           finishWithError(i18n.uploadRejected);
           return;

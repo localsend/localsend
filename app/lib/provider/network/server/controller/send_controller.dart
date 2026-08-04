@@ -79,7 +79,6 @@ class SendController {
         ),
       ),
       autoAccept: currentWebSendState?.autoAccept ?? server.ref.read(settingsProvider).shareViaLinkAutoAccept,
-      pin: currentWebSendState?.pin,
     );
   }
 

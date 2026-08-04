@@ -109,12 +109,15 @@ class ServerService extends Notifier<ServerState?> {
   /// Starts the server.
   /// Passing a [webSendState] additionally serves the web send (download) API.
   /// Passing [webUpload] serves the upload page so web browsers can upload files.
+  /// [webPin] protects the active web share mode: the download page in send mode;
+  /// in upload mode, it replaces the receive pin from settings.
   Future<ServerState?> startServer({
     required String alias,
     required int port,
     required bool https,
     WebSendState? webSendState,
     bool webUpload = false,
+    String? webPin,
   }) async {
     if (state != null) {
       _logger.info('Server already running.');
@@ -141,7 +144,7 @@ class ServerService extends Notifier<ServerState?> {
         .redux(parentIsolateProvider)
         .dispatchTakeResult(
           IsolateHttpServerStartAction(
-            pin: settings.receivePin,
+            pin: webUpload ? webPin : settings.receivePin,
             verifyChecksums: settings.verifyChecksums,
             web: webSendState != null || webUpload
                 ? WebParams(
@@ -150,7 +153,7 @@ class ServerService extends Notifier<ServerState?> {
                             files: {
                               for (final entry in webSendState.files.entries) entry.key: entry.value.file.toRust(),
                             },
-                            pin: webSendState.pin,
+                            pin: webPin,
                           )
                         : null,
                     upload: webUpload,
@@ -210,6 +213,7 @@ class ServerService extends Notifier<ServerState?> {
       session: null,
       webSendState: webSendState,
       webUpload: webUpload,
+      webPin: webSendState != null || webUpload ? webPin : null,
     );
 
     state = newServerState;
@@ -237,9 +241,10 @@ class ServerService extends Notifier<ServerState?> {
     required bool https,
     WebSendState? webSendState,
     bool webUpload = false,
+    String? webPin,
   }) async {
     await stopServer();
-    return await startServer(alias: alias, port: port, https: https, webSendState: webSendState, webUpload: webUpload);
+    return await startServer(alias: alias, port: port, https: https, webSendState: webSendState, webUpload: webUpload, webPin: webPin);
   }
 
   Future<void> acceptFileRequest(Map<String, String> fileNameMap) async {
@@ -271,23 +276,23 @@ class ServerService extends Notifier<ServerState?> {
   }
 
   /// Restarts the server with web send (the download API) enabled for [files].
-  /// The auto accept setting and the pin of a previous web send state are kept.
+  /// The auto accept setting of a previous web send state is kept.
   Future<void> restartServerWithWebSend({
     required String alias,
     required int port,
     required bool https,
     required List<CrossFile> files,
+    String? webPin,
   }) async {
     final webSendState = await _sendController.buildWebSendState(files: files);
-    await restartServer(alias: alias, port: port, https: https, webSendState: webSendState);
+    await restartServer(alias: alias, port: port, https: https, webSendState: webSendState, webPin: webPin);
   }
 
-  /// Updates the web send pin.
+  /// Updates the pin of the active web share mode (download or upload page).
   /// The pin is enforced by the Rust server, so the server is restarted.
-  Future<void> setWebSendPin(String? pin) async {
+  Future<void> setWebPin(String? pin) async {
     final current = state;
-    final webSendState = current?.webSendState;
-    if (current == null || webSendState == null || webSendState.pin == pin) {
+    if (current == null || (current.webSendState == null && !current.webUpload) || current.webPin == pin) {
       return;
     }
 
@@ -295,7 +300,9 @@ class ServerService extends Notifier<ServerState?> {
       alias: current.alias,
       port: current.port,
       https: current.https,
-      webSendState: webSendState.copyWith(sessions: {}, pin: pin),
+      webSendState: current.webSendState?.copyWith(sessions: {}),
+      webUpload: current.webUpload,
+      webPin: pin,
     );
   }
 
