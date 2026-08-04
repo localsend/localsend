@@ -77,7 +77,7 @@ class SettingsTab extends StatelessWidget {
                       return DropdownMenuItem(
                         value: colorMode,
                         alignment: Alignment.center,
-                        child: Text(colorMode.humanName),
+                        child: Text(colorMode.humanName, overflow: TextOverflow.ellipsis),
                       );
                     }).toList(),
                     onChanged: (colorMode) => vm.onChangeColorMode(context, colorMode),
