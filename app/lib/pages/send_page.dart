@@ -145,7 +145,7 @@ class _SendPageState extends State<SendPage> with Refena {
                             child: Padding(
                               padding: const EdgeInsets.only(top: 8),
                               child: TextButton.icon(
-                                onPressed: () async => await context.push(
+                                onPressed: !targetDevice.https ? null : () async => await context.push(
                                   () => VerifyPage(
                                     fingerprint: CombinedFingerprint.load(context, targetDevice.fingerprint),
                                   ),

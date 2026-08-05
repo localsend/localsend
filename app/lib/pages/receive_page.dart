@@ -163,7 +163,7 @@ class _ReceivePageState extends State<ReceivePage> with Refena {
                                             mainAxisAlignment: MainAxisAlignment.center,
                                             children: [
                                               TextButton.icon(
-                                                onPressed: () async => await context.push(
+                                                onPressed: !vm.sender.https ? null : () async => await context.push(
                                                   () => VerifyPage(
                                                     fingerprint: CombinedFingerprint.load(context, vm.sender.fingerprint),
                                                   ),
