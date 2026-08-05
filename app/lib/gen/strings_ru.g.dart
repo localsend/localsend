@@ -191,6 +191,8 @@ class _Translations$receiveTab$ru extends Translations$receiveTab$en {
   late final _Translations$receiveTab$infoBox$ru infoBox = _Translations$receiveTab$infoBox$ru._(_root);
   @override
   late final _Translations$receiveTab$quickSave$ru quickSave = _Translations$receiveTab$quickSave$ru._(_root);
+  @override
+  String get link => 'Получить по ссылке';
 }
 
 // Path: sendTab
@@ -861,6 +863,8 @@ class _Translations$settingsTab$receive$ru extends Translations$settingsTab$rece
   String get saveToGallery => 'Сохранять медиафайлы в галерею';
   @override
   String get saveToHistory => 'Сохранять историю';
+  @override
+  String get verifyChecksums => 'Проверять контрольные суммы при получении файлов';
 }
 
 // Path: settingsTab.send
@@ -874,6 +878,8 @@ class _Translations$settingsTab$send$ru extends Translations$settingsTab$send$en
   String get title => 'Отправка';
   @override
   String get shareViaLinkAutoAccept => 'Автоматически принимать запросы в режиме "Поделиться по ссылке"';
+  @override
+  String get createChecksums => 'Создавать контрольные суммы при отправке файлов';
 }
 
 // Path: settingsTab.network
@@ -1432,6 +1438,8 @@ class _Translations$settingsTab$general$colorOptions$ru extends Translations$set
   String get system => 'Системный';
   @override
   String get oled => 'OLED';
+  @override
+  String get custom => 'Собственный';
 }
 
 // Path: settingsTab.general.languageOptions

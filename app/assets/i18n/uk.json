@@ -52,7 +52,8 @@
       "off": "@:general.off",
       "favorites": "Улюблені",
       "on": "@:general.on"
-    }
+    },
+    "link": "Отримати за посиланням"
   },
   "sendTab": {
     "title": "Надіслати",
@@ -97,7 +98,8 @@
       "color": "Колір",
       "colorOptions": {
         "system": "Системний",
-        "oled": "OLED"
+        "oled": "OLED",
+        "custom": "Власний"
       },
       "language": "Мова",
       "languageOptions": {
@@ -120,11 +122,13 @@
       "destination": "Зберігати в папку",
       "downloads": "(Завантаження)",
       "saveToGallery": "Зберігати медіафайли в галерею",
-      "saveToHistory": "Зберігати історію"
+      "saveToHistory": "Зберігати історію",
+      "verifyChecksums": "Перевіряти контрольні суми під час отримання файлів"
     },
     "send": {
       "title": "Надсилання",
-      "shareViaLinkAutoAccept": "Автоматично приймати запити в режимі «Поділитися через посилання»"
+      "shareViaLinkAutoAccept": "Автоматично приймати запити в режимі «Поділитися через посилання»",
+      "createChecksums": "Створювати контрольні суми під час надсилання файлів"
     },
     "network": {
       "title": "Мережа",
@@ -267,6 +271,9 @@
     "pinHint": "PIN-код: «{pin}»",
     "encryptionHint": "LocalSend використовує самопідписаний сертифікат. Вам потрібно прийняти його в браузері.",
     "pendingRequests": "Запити, що очікують на розгляд: {n}"
+  },
+  "webReceivePage": {
+    "title": "Отримати за посиланням"
   },
   "aboutPage": {
     "title": "Про LocalSend",

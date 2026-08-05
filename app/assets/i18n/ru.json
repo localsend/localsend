@@ -52,7 +52,8 @@
       "off": "@:general.off",
       "favorites": "Избранное",
       "on": "@:general.on"
-    }
+    },
+    "link": "Получить по ссылке"
   },
   "sendTab": {
     "title": "Отправить",
@@ -97,7 +98,8 @@
       "color": "Цвет",
       "colorOptions": {
         "system": "Системный",
-        "oled": "OLED"
+        "oled": "OLED",
+        "custom": "Собственный"
       },
       "language": "Язык",
       "languageOptions": {
@@ -120,11 +122,13 @@
       "destination": "Сохранять в папку",
       "downloads": "(Загрузки)",
       "saveToGallery": "Сохранять медиафайлы в галерею",
-      "saveToHistory": "Сохранять историю"
+      "saveToHistory": "Сохранять историю",
+      "verifyChecksums": "Проверять контрольные суммы при получении файлов"
     },
     "send": {
       "title": "Отправка",
-      "shareViaLinkAutoAccept": "Автоматически принимать запросы в режиме \"Поделиться по ссылке\""
+      "shareViaLinkAutoAccept": "Автоматически принимать запросы в режиме \"Поделиться по ссылке\"",
+      "createChecksums": "Создавать контрольные суммы при отправке файлов"
     },
     "network": {
       "title": "Сеть",

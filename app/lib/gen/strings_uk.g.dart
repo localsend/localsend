@@ -72,6 +72,8 @@ class TranslationsUk extends Translations with BaseTranslations<AppLocale, Trans
   @override
   late final _Translations$webSharePage$uk webSharePage = _Translations$webSharePage$uk._(_root);
   @override
+  late final _Translations$webReceivePage$uk webReceivePage = _Translations$webReceivePage$uk._(_root);
+  @override
   late final _Translations$aboutPage$uk aboutPage = _Translations$aboutPage$uk._(_root);
   @override
   late final _Translations$donationPage$uk donationPage = _Translations$donationPage$uk._(_root);
@@ -189,6 +191,8 @@ class _Translations$receiveTab$uk extends Translations$receiveTab$en {
   late final _Translations$receiveTab$infoBox$uk infoBox = _Translations$receiveTab$infoBox$uk._(_root);
   @override
   late final _Translations$receiveTab$quickSave$uk quickSave = _Translations$receiveTab$quickSave$uk._(_root);
+  @override
+  String get link => 'Отримати за посиланням';
 }
 
 // Path: sendTab
@@ -454,6 +458,17 @@ class _Translations$webSharePage$uk extends Translations$webSharePage$en {
   String get encryptionHint => 'LocalSend використовує самопідписаний сертифікат. Вам потрібно прийняти його в браузері.';
   @override
   String pendingRequests({required Object n}) => 'Запити, що очікують на розгляд: ${n}';
+}
+
+// Path: webReceivePage
+class _Translations$webReceivePage$uk extends Translations$webReceivePage$en {
+  _Translations$webReceivePage$uk._(TranslationsUk root) : this._root = root, super.internal(root);
+
+  final TranslationsUk _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Отримати за посиланням';
 }
 
 // Path: aboutPage
@@ -848,6 +863,8 @@ class _Translations$settingsTab$receive$uk extends Translations$settingsTab$rece
   String get saveToGallery => 'Зберігати медіафайли в галерею';
   @override
   String get saveToHistory => 'Зберігати історію';
+  @override
+  String get verifyChecksums => 'Перевіряти контрольні суми під час отримання файлів';
 }
 
 // Path: settingsTab.send
@@ -861,6 +878,8 @@ class _Translations$settingsTab$send$uk extends Translations$settingsTab$send$en
   String get title => 'Надсилання';
   @override
   String get shareViaLinkAutoAccept => 'Автоматично приймати запити в режимі «Поділитися через посилання»';
+  @override
+  String get createChecksums => 'Створювати контрольні суми під час надсилання файлів';
 }
 
 // Path: settingsTab.network
@@ -1419,6 +1438,8 @@ class _Translations$settingsTab$general$colorOptions$uk extends Translations$set
   String get system => 'Системний';
   @override
   String get oled => 'OLED';
+  @override
+  String get custom => 'Власний';
 }
 
 // Path: settingsTab.general.languageOptions
