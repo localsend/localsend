@@ -196,7 +196,7 @@
   "apkPickerPage": {
     "title": "אפליקציות (APK)",
     "excludeSystemApps": "אל תכלול אפליקציות מערכת",
-    "excludeAppsWithoutLaunchIntent": "אל תכלול אפליקציות שאינן ניתנות להפעלה",
+    "excludeAppsWithoutLaunchIntent": "אל תכלול אפליקציות שאינן ניתנות לפתיחה",
     "apps": "{n} אפליקציות"
   },
   "selectedFilesPage": {
