@@ -4,19 +4,19 @@
     "After editing this file, you can run 'dart run slang apply --locale=ru' to quickly apply the newly added translations."
   ],
   "receiveTab": {
-    "link": "Receive via link"
+    "link": "Получить по ссылке"
   },
   "settingsTab": {
     "general": {
       "colorOptions": {
-        "custom": "Custom"
+        "custom": "Собственный"
       }
     },
     "receive": {
-      "verifyChecksums": "Verify checksums when receiving files"
+      "verifyChecksums": "Проверять контрольные суммы при получении файлов"
     },
     "send": {
-      "createChecksums": "Create checksums when sending files"
+      "createChecksums": "Создавать контрольные суммы при отправке файлов"
     }
   },
   "deviceDetailsPage": {

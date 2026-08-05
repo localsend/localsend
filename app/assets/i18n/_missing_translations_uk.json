@@ -4,19 +4,19 @@
     "After editing this file, you can run 'dart run slang apply --locale=uk' to quickly apply the newly added translations."
   ],
   "receiveTab": {
-    "link": "Receive via link"
+    "link": "Отримати за посиланням"
   },
   "settingsTab": {
     "general": {
       "colorOptions": {
-        "custom": "Custom"
+        "custom": "Власний"
       }
     },
     "receive": {
-      "verifyChecksums": "Verify checksums when receiving files"
+      "verifyChecksums": "Перевіряти контрольні суми під час отримання файлів"
     },
     "send": {
-      "createChecksums": "Create checksums when sending files"
+      "createChecksums": "Створювати контрольні суми під час надсилання файлів"
     }
   },
   "deviceDetailsPage": {
@@ -43,6 +43,6 @@
     "question": "Does it look the same on the other device?"
   },
   "webReceivePage": {
-    "title": "Receive via link"
+    "title": "Отримати за посиланням"
   }
 }
