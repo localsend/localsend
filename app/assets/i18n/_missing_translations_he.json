@@ -61,9 +61,9 @@
     "changes(interface=WhatsNewStrings)": {
       "v1_18_0": {
         "changes": [
-          "Encryption no longer slows down transfers. It has been re-enabled on this device if you turned it off before.",
-          "Requests from favorites are now accepted automatically. This is turned on by default and can be disabled in the settings.",
-          "On Android, transfers continue while the app is in the background or the screen is off. On iOS, the app must still stay in the foreground."
+          "הצפנה כבר לא מאטה את ההעברות! הפעלנו אותה מחדש אם כיבית אותה בעבר",
+          "בקשות ממכשירים מועדפים מתקבלות כעת באופן אוטומטי. ניתן לבטל זאת בהגדרות האפליקציה",
+          "באנדרואיד, ההעברות נמשכות גם כשהאפליקציה ברקע או שהמסך כבוי (ב-iOS כרגע האפליקציה עדיין חייבת להישאר בחזית)"
         ]
       }
     }
