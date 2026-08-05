@@ -88,7 +88,11 @@ class _DeviceDetailsPageState extends State<DeviceDetailsPage> with Refena {
                 label: t.deviceDetailsPage.verify,
                 filled: false,
                 width: 120,
-                onTap: () async => await context.push(() => VerifyPage(device: device)),
+                onTap: () async => await context.push(
+                  () => VerifyPage(
+                    fingerprint: CombinedFingerprint.load(context, device.fingerprint),
+                  ),
+                ),
               ),
             ],
           ),
