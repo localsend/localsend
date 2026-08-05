@@ -4,26 +4,26 @@
     "After editing this file, you can run 'dart run slang apply --locale=uk' to quickly apply the newly added translations."
   ],
   "deviceDetailsPage": {
-    "title": "Device Details",
+    "title": "Відомості про пристрій",
     "favorite": "Favorite",
-    "verify": "Verify",
+    "verify": "Перевірити",
     "info": {
-      "name": "Name",
-      "address": "Address",
-      "version": "Version",
-      "protocol": "Protocol v{version}"
+      "name": "Ім'я пристрою",
+      "address": "Адреса",
+      "version": "Версія",
+      "protocol": "Протокол v{version}"
     },
     "logs": {
-      "title": "Logs",
-      "empty": "No logs available.",
-      "discovered": "Discovered via {protocol} ({host})",
-      "updated": "Updated via {protocol} ({host})"
+      "title": "Журнали",
+      "empty": "Немає доступних журналів.",
+      "discovered": "Виявлено за допомогою {protocol} ({host})",
+      "updated": "Оновлено за допомогою {protocol} ({host})"
     }
   },
   "verifyPage": {
-    "title": "Verify",
-    "icons": "Icons",
+    "title": "Перевірити",
+    "icons": "Піктограми",
     "raw": "Raw",
-    "question": "Does it look the same on the other device?"
+    "question": "Чи виглядає це так само на іншому пристрої?"
   }
 }
