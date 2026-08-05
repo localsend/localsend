@@ -5,7 +5,7 @@
   ],
   "deviceDetailsPage": {
     "title": "Відомості про пристрій",
-    "favorite": "Favorite",
+    "favorite": "До улюблених",
     "verify": "Перевірити",
     "info": {
       "name": "Ім'я пристрою",
@@ -16,14 +16,14 @@
     "logs": {
       "title": "Журнали",
       "empty": "Немає доступних журналів.",
-      "discovered": "Виявлено за допомогою {protocol} ({host})",
-      "updated": "Оновлено за допомогою {protocol} ({host})"
+      "discovered": "Виявлено через {protocol} ({host})",
+      "updated": "Оновлено через {protocol} ({host})"
     }
   },
   "verifyPage": {
-    "title": "Перевірити",
+    "title": "Перевірка",
     "icons": "Піктограми",
-    "raw": "Raw",
+    "raw": "Код",
     "question": "Чи виглядає це так само на іншому пристрої?"
   }
 }
