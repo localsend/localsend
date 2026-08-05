@@ -54,10 +54,10 @@
     }
   },
   "webReceivePage": {
-    "title": "Receive via link"
+    "title": "קבלה באמצעות קישור"
   },
   "whatsNewPage": {
-    "title": "What's new in {version}",
+    "title": "מה חדש בגרסה {version}?",
     "changes(interface=WhatsNewStrings)": {
       "v1_18_0": {
         "changes": [
