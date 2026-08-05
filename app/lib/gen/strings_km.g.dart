@@ -40,8 +40,6 @@ class TranslationsKm extends Translations with BaseTranslations<AppLocale, Trans
 
   // Translations
   @override
-  String get locale => 'ភាសាខ្មែរ';
-  @override
   String get appName => 'LocalSend';
   @override
   late final _Translations$general$km general = _Translations$general$km._(_root);
@@ -1082,10 +1080,6 @@ class _Translations$dialogs$addressInput$km extends Translations$dialogs$address
   // Translations
   @override
   String get title => 'បញ្ចូលអាសយដ្ឋាន';
-  @override
-  String get hashtag => 'Hashtag';
-  @override
-  String get ip => 'អាស័យដ្ឋាន IP';
   @override
   String get recentlyUsed => 'បានប្រើថ្មីៗនេះ: ';
 }

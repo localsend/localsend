@@ -40,8 +40,6 @@ class TranslationsFilPh extends Translations with BaseTranslations<AppLocale, Tr
 
   // Translations
   @override
-  String get locale => 'Filipino';
-  @override
   String get appName => 'LocalSend';
   @override
   late final _Translations$general$fil_PH general = _Translations$general$fil_PH._(_root);
@@ -1114,10 +1112,6 @@ class _Translations$dialogs$addressInput$fil_PH extends Translations$dialogs$add
   // Translations
   @override
   String get title => 'Ilagay ang address';
-  @override
-  String get hashtag => 'Hashtag';
-  @override
-  String get ip => 'IP Address';
   @override
   String get recentlyUsed => 'Recently used: ';
 }

@@ -40,8 +40,6 @@ class TranslationsEt extends Translations with BaseTranslations<AppLocale, Trans
 
   // Translations
   @override
-  String get locale => 'Eesti keel';
-  @override
   String get appName => 'LocalSend';
   @override
   late final _Translations$general$et general = _Translations$general$et._(_root);
@@ -1044,10 +1042,6 @@ class _Translations$dialogs$addressInput$et extends Translations$dialogs$address
   // Translations
   @override
   String get title => 'Sisesta aadress';
-  @override
-  String get hashtag => 'Teemaviide';
-  @override
-  String get ip => 'IP-aadress';
   @override
   String get recentlyUsed => 'Hiljuti kasutatud: ';
 }

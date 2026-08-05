@@ -40,8 +40,6 @@ class TranslationsHe extends Translations with BaseTranslations<AppLocale, Trans
 
   // Translations
   @override
-  String get locale => 'עברית';
-  @override
   String get appName => 'LocalSend';
   @override
   late final _Translations$general$he general = _Translations$general$he._(_root);
@@ -1017,10 +1015,6 @@ class _Translations$dialogs$addressInput$he extends Translations$dialogs$address
   // Translations
   @override
   String get title => 'הכנס כתובת';
-  @override
-  String get hashtag => 'סולמית';
-  @override
-  String get ip => 'כתובת ה-IP';
   @override
   String get recentlyUsed => 'בשימוש לאחרונה: ';
 }

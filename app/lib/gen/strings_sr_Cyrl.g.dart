@@ -41,8 +41,6 @@ class TranslationsSrCyrl extends TranslationsSr with BaseTranslations<AppLocale,
 
   // Translations
   @override
-  String get locale => 'Српски (ћирилица)';
-  @override
   String get appName => 'LocalSend';
   @override
   late final _Translations$general$sr_Cyrl general = _Translations$general$sr_Cyrl._(_root);
@@ -1111,10 +1109,6 @@ class _Translations$dialogs$addressInput$sr_Cyrl extends Translations$dialogs$ad
   // Translations
   @override
   String get title => 'Унесите адресу';
-  @override
-  String get hashtag => 'Хеш-ознака';
-  @override
-  String get ip => 'IP адреса';
   @override
   String get recentlyUsed => 'Недавно коришћено: ';
 }

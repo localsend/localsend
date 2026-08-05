@@ -1,5 +1,4 @@
 {
-  "locale": "Srpski (latinica)",
   "appName": "LocalSend",
   "general": {
     "accept": "Prihvati",
@@ -364,8 +363,6 @@
     },
     "addressInput": {
       "title": "Unesite adresu",
-      "hashtag": "Heš-oznaka",
-      "ip": "IP adresa",
       "recentlyUsed": "Nedavno korišćeno: "
     },
     "cancelSession": {

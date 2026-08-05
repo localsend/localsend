@@ -40,8 +40,6 @@ class TranslationsHu extends Translations with BaseTranslations<AppLocale, Trans
 
   // Translations
   @override
-  String get locale => 'Magyar';
-  @override
   String get appName => 'LocalSend';
   @override
   late final _Translations$general$hu general = _Translations$general$hu._(_root);
@@ -1072,10 +1070,6 @@ class _Translations$dialogs$addressInput$hu extends Translations$dialogs$address
   // Translations
   @override
   String get title => 'Adja meg a címet';
-  @override
-  String get hashtag => 'Hashtag';
-  @override
-  String get ip => 'IP cím';
   @override
   String get recentlyUsed => 'Nemrég használt: ';
 }

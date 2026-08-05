@@ -40,8 +40,6 @@ class TranslationsSi extends Translations with BaseTranslations<AppLocale, Trans
 
   // Translations
   @override
-  String get locale => 'සිංහල';
-  @override
   String get appName => 'LocalSend';
   @override
   late final _Translations$general$si general = _Translations$general$si._(_root);
@@ -1020,10 +1018,6 @@ class _Translations$dialogs$addressInput$si extends Translations$dialogs$address
   // Translations
   @override
   String get title => 'ලිපිනය ඇතුලත් කරන්න';
-  @override
-  String get hashtag => 'හැශ්ටැග්';
-  @override
-  String get ip => 'IP ලිපිනය';
   @override
   String get recentlyUsed => 'පෙර භාවිතා කළ: ';
 }

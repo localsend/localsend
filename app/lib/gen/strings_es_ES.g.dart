@@ -40,8 +40,6 @@ class TranslationsEsEs extends Translations with BaseTranslations<AppLocale, Tra
 
   // Translations
   @override
-  String get locale => 'Español';
-  @override
   String get appName => 'LocalSend';
   @override
   late final _Translations$general$es_ES general = _Translations$general$es_ES._(_root);
@@ -1077,10 +1075,6 @@ class _Translations$dialogs$addressInput$es_ES extends Translations$dialogs$addr
   // Translations
   @override
   String get title => 'Introducir dirección';
-  @override
-  String get hashtag => 'Etiqueta';
-  @override
-  String get ip => 'Dirección IP';
   @override
   String get recentlyUsed => 'Usados recientemente: ';
 }

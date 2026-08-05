@@ -1,5 +1,4 @@
 {
-  "locale": "अंग्रेज़ी",
   "appName": "स्थानीय भेजें (फाइल भेजो)",
   "general": {
     "accept": "स्वीकार करें",
@@ -373,8 +372,6 @@
     },
     "addressInput": {
       "title": "पता दर्ज करें",
-      "hashtag": "हैशटैग",
-      "ip": "IP पता",
       "recentlyUsed": "हाल ही में उपयोग किया गया: "
     },
     "cancelSession": {

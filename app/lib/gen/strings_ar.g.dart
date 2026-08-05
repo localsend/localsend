@@ -40,8 +40,6 @@ class TranslationsAr extends Translations with BaseTranslations<AppLocale, Trans
 
   // Translations
   @override
-  String get locale => 'العربية';
-  @override
   String get appName => 'LocalSend';
   @override
   late final _Translations$general$ar general = _Translations$general$ar._(_root);
@@ -1156,10 +1154,6 @@ class _Translations$dialogs$addressInput$ar extends Translations$dialogs$address
   // Translations
   @override
   String get title => 'أدخل العنوان';
-  @override
-  String get hashtag => 'رابطة هاشتاق';
-  @override
-  String get ip => 'عنوان IP';
   @override
   String get recentlyUsed => 'المستخدمة حديثًا: ';
 }

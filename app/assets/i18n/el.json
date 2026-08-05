@@ -1,5 +1,4 @@
 {
-  "locale": "Ελληνικά",
   "appName": "LocalSend",
   "general": {
     "accept": "Αποδοχή",
@@ -372,8 +371,6 @@
     },
     "addressInput": {
       "title": "Εισαγωγή διεύθυνσης",
-      "hashtag": "Χάσταγκ",
-      "ip": "Διεύθυνση IP",
       "recentlyUsed": "Χρησιμοποιήθηκε πρόσφατα: "
     },
     "cancelSession": {

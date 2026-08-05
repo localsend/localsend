@@ -1,5 +1,4 @@
 {
-  "locale": "日本語",
   "appName": "LocalSend",
   "general": {
     "accept": "承諾",
@@ -298,8 +297,6 @@
     },
     "addressInput": {
       "title": "アドレスを入力",
-      "hashtag": "ハッシュタグ",
-      "ip": "IPアドレス",
       "recentlyUsed": "最近使用したアドレス: "
     },
     "cancelSession": {

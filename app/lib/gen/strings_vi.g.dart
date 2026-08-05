@@ -40,8 +40,6 @@ class TranslationsVi extends Translations with BaseTranslations<AppLocale, Trans
 
   // Translations
   @override
-  String get locale => 'Tiếng Anh';
-  @override
   String get appName => 'LocalSend';
   @override
   late final _Translations$general$vi general = _Translations$general$vi._(_root);
@@ -1019,10 +1017,6 @@ class _Translations$dialogs$addressInput$vi extends Translations$dialogs$address
   // Translations
   @override
   String get title => 'Nhập địa chỉ';
-  @override
-  String get hashtag => 'Hashtag';
-  @override
-  String get ip => 'Địa chỉ IP';
   @override
   String get recentlyUsed => 'Sử dụng gần đây: ';
 }

@@ -40,8 +40,6 @@ class TranslationsMl extends Translations with BaseTranslations<AppLocale, Trans
 
   // Translations
   @override
-  String get locale => 'മലയാളം';
-  @override
   String get appName => 'ലോക്കൽസെൻഡ്‌';
   @override
   late final _Translations$general$ml general = _Translations$general$ml._(_root);
@@ -1006,10 +1004,6 @@ class _Translations$dialogs$addressInput$ml extends Translations$dialogs$address
   // Translations
   @override
   String get title => 'വിലാസം എഴുതുക';
-  @override
-  String get hashtag => 'ഹാഷ്ടാഗ്';
-  @override
-  String get ip => 'ഐ പി അഡ്രസ്';
   @override
   String get recentlyUsed => 'ഈയ്യിടെ ഉപയോഗിച്ചത്: ';
 }

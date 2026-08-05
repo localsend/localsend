@@ -40,8 +40,6 @@ class TranslationsJa extends Translations with BaseTranslations<AppLocale, Trans
 
   // Translations
   @override
-  String get locale => '日本語';
-  @override
   String get appName => 'LocalSend';
   @override
   late final _Translations$general$ja general = _Translations$general$ja._(_root);
@@ -1013,10 +1011,6 @@ class _Translations$dialogs$addressInput$ja extends Translations$dialogs$address
   // Translations
   @override
   String get title => 'アドレスを入力';
-  @override
-  String get hashtag => 'ハッシュタグ';
-  @override
-  String get ip => 'IPアドレス';
   @override
   String get recentlyUsed => '最近使用したアドレス: ';
 }

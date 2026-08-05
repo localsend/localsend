@@ -1,5 +1,4 @@
 {
-  "locale": "اردو",
   "appName": "LocalSend",
   "general": {
     "accept": "قبول کریں",
@@ -282,8 +281,6 @@
     },
     "addressInput": {
       "title": "پتہ درج کریں۔",
-      "hashtag": "Hashtag",
-      "ip": "اپ ایڈریس",
       "recentlyUsed": "حال ہی میں استعمال ہوا:"
     },
     "cancelSession": {

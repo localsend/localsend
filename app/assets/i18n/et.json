@@ -1,5 +1,4 @@
 {
-  "locale": "Eesti keel",
   "appName": "LocalSend",
   "general": {
     "accept": "Nõustu",
@@ -303,8 +302,6 @@
     },
     "addressInput": {
       "title": "Sisesta aadress",
-      "hashtag": "Teemaviide",
-      "ip": "IP-aadress",
       "recentlyUsed": "Hiljuti kasutatud: "
     },
     "cancelSession": {

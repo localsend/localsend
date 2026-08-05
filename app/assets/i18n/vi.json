@@ -1,5 +1,4 @@
 {
-  "locale": "Tiếng Anh",
   "appName": "LocalSend",
   "general": {
     "accept": "Đồng ý",
@@ -294,8 +293,6 @@
     },
     "addressInput": {
       "title": "Nhập địa chỉ",
-      "hashtag": "Hashtag",
-      "ip": "Địa chỉ IP",
       "recentlyUsed": "Sử dụng gần đây: "
     },
     "cancelSession": {

@@ -1,5 +1,4 @@
 {
-  "locale": "Deutsch",
   "appName": "LocalSend",
   "general": {
     "accept": "Akzeptieren",
@@ -345,8 +344,6 @@
     },
     "addressInput": {
       "title": "Adresse eingeben",
-      "hashtag": "Hashtag",
-      "ip": "IP-Adresse",
       "recentlyUsed": "Zuletzt verwendet: "
     },
     "cancelSession": {

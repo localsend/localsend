@@ -40,8 +40,6 @@ class TranslationsEnIn extends Translations with BaseTranslations<AppLocale, Tra
 
   // Translations
   @override
-  String get locale => 'English(India)';
-  @override
   String get appName => 'LocalSend';
   @override
   late final _Translations$general$en_IN general = _Translations$general$en_IN._(_root);
@@ -1131,10 +1129,6 @@ class _Translations$dialogs$addressInput$en_IN extends Translations$dialogs$addr
   // Translations
   @override
   String get title => 'Enter address';
-  @override
-  String get hashtag => 'Hashtag';
-  @override
-  String get ip => 'IP Address';
   @override
   String get recentlyUsed => 'Recently used: ';
 }

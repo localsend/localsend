@@ -1,5 +1,4 @@
 {
-  "locale": "Finnish",
   "appName": "LocalSend",
   "general": {
     "accept": "Hyväksy",
@@ -379,8 +378,6 @@
     },
     "addressInput": {
       "title": "Anna osoite",
-      "hashtag": "Hashtag",
-      "ip": "IP-osoite",
       "recentlyUsed": "Äskettäin käytetty: "
     },
     "cancelSession": {

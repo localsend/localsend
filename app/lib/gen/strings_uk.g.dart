@@ -40,8 +40,6 @@ class TranslationsUk extends Translations with BaseTranslations<AppLocale, Trans
 
   // Translations
   @override
-  String get locale => 'Українська';
-  @override
   String get appName => 'LocalSend';
   @override
   late final _Translations$general$uk general = _Translations$general$uk._(_root);
@@ -61,6 +59,10 @@ class TranslationsUk extends Translations with BaseTranslations<AppLocale, Trans
   late final _Translations$apkPickerPage$uk apkPickerPage = _Translations$apkPickerPage$uk._(_root);
   @override
   late final _Translations$selectedFilesPage$uk selectedFilesPage = _Translations$selectedFilesPage$uk._(_root);
+  @override
+  late final _Translations$deviceDetailsPage$uk deviceDetailsPage = _Translations$deviceDetailsPage$uk._(_root);
+  @override
+  late final _Translations$verifyPage$uk verifyPage = _Translations$verifyPage$uk._(_root);
   @override
   late final _Translations$receivePage$uk receivePage = _Translations$receivePage$uk._(_root);
   @override
@@ -341,6 +343,42 @@ class _Translations$selectedFilesPage$uk extends Translations$selectedFilesPage$
   // Translations
   @override
   String get deleteAll => 'Видалити все';
+}
+
+// Path: deviceDetailsPage
+class _Translations$deviceDetailsPage$uk extends Translations$deviceDetailsPage$en {
+  _Translations$deviceDetailsPage$uk._(TranslationsUk root) : this._root = root, super.internal(root);
+
+  final TranslationsUk _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Відомості про пристрій';
+  @override
+  String get favorite => 'До улюблених';
+  @override
+  String get verify => 'Перевірити';
+  @override
+  late final _Translations$deviceDetailsPage$info$uk info = _Translations$deviceDetailsPage$info$uk._(_root);
+  @override
+  late final _Translations$deviceDetailsPage$logs$uk logs = _Translations$deviceDetailsPage$logs$uk._(_root);
+}
+
+// Path: verifyPage
+class _Translations$verifyPage$uk extends Translations$verifyPage$en {
+  _Translations$verifyPage$uk._(TranslationsUk root) : this._root = root, super.internal(root);
+
+  final TranslationsUk _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Перевірка';
+  @override
+  String get icons => 'Піктограми';
+  @override
+  String get raw => 'Код';
+  @override
+  String get question => 'Чи виглядає це так само на іншому пристрої?';
 }
 
 // Path: receivePage
@@ -1005,6 +1043,40 @@ class _Translations$receiveHistoryPage$entryActions$uk extends Translations$rece
   String get deleteFromHistory => 'Видалити з історії';
 }
 
+// Path: deviceDetailsPage.info
+class _Translations$deviceDetailsPage$info$uk extends Translations$deviceDetailsPage$info$en {
+  _Translations$deviceDetailsPage$info$uk._(TranslationsUk root) : this._root = root, super.internal(root);
+
+  final TranslationsUk _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get name => 'Ім\'я пристрою';
+  @override
+  String get address => 'Адреса';
+  @override
+  String get version => 'Версія';
+  @override
+  String protocol({required Object version}) => 'Протокол v${version}';
+}
+
+// Path: deviceDetailsPage.logs
+class _Translations$deviceDetailsPage$logs$uk extends Translations$deviceDetailsPage$logs$en {
+  _Translations$deviceDetailsPage$logs$uk._(TranslationsUk root) : this._root = root, super.internal(root);
+
+  final TranslationsUk _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Журнали';
+  @override
+  String get empty => 'Немає доступних журналів.';
+  @override
+  String discovered({required Object protocol, required Object host}) => 'Виявлено через ${protocol} (${host})';
+  @override
+  String updated({required Object protocol, required Object host}) => 'Оновлено через ${protocol} (${host})';
+}
+
 // Path: progressPage.total
 class _Translations$progressPage$total$uk extends Translations$progressPage$total$en {
   _Translations$progressPage$total$uk._(TranslationsUk root) : this._root = root, super.internal(root);
@@ -1089,10 +1161,6 @@ class _Translations$dialogs$addressInput$uk extends Translations$dialogs$address
   // Translations
   @override
   String get title => 'Введіть адресу';
-  @override
-  String get hashtag => 'Хештег';
-  @override
-  String get ip => 'IP-адреса';
   @override
   String get recentlyUsed => 'Нещодавно використані: ';
 }

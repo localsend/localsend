@@ -40,8 +40,6 @@ class TranslationsNl extends Translations with BaseTranslations<AppLocale, Trans
 
   // Translations
   @override
-  String get locale => 'Nederlands';
-  @override
   String get appName => 'LocalSend';
   @override
   late final _Translations$general$nl general = _Translations$general$nl._(_root);
@@ -1073,10 +1071,6 @@ class _Translations$dialogs$addressInput$nl extends Translations$dialogs$address
   // Translations
   @override
   String get title => 'Vul een adres in';
-  @override
-  String get hashtag => 'Hashtag';
-  @override
-  String get ip => 'IP-adres';
   @override
   String get recentlyUsed => 'Onlangs gebruikt: ';
 }

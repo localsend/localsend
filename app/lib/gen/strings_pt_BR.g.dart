@@ -40,8 +40,6 @@ class TranslationsPtBr extends Translations with BaseTranslations<AppLocale, Tra
 
   // Translations
   @override
-  String get locale => 'Português (Brasil)';
-  @override
   String get appName => 'LocalSend';
   @override
   late final Translations$general$pt_BR general = Translations$general$pt_BR.internal(_root);
@@ -1160,10 +1158,6 @@ class Translations$dialogs$addressInput$pt_BR extends Translations$dialogs$addre
   // Translations
   @override
   String get title => 'Digite o endereço';
-  @override
-  String get hashtag => 'Jogo da velha';
-  @override
-  String get ip => 'Endereço de IP';
   @override
   String get recentlyUsed => 'Usado recentemente: ';
 }

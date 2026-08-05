@@ -40,8 +40,6 @@ class TranslationsTa extends Translations with BaseTranslations<AppLocale, Trans
 
   // Translations
   @override
-  String get locale => 'தமிழ்';
-  @override
   String get appName => 'உள்ளக';
   @override
   late final _Translations$general$ta general = _Translations$general$ta._(_root);
@@ -1104,10 +1102,6 @@ class _Translations$dialogs$addressInput$ta extends Translations$dialogs$address
   // Translations
   @override
   String get title => 'முகவரியை உள்ளிடவும்';
-  @override
-  String get hashtag => 'ஹாஷ்டேக்';
-  @override
-  String get ip => 'IP முகவரி';
   @override
   String get recentlyUsed => 'சமீபத்தில் பயன்படுத்தப்பட்டது: ';
 }

@@ -1,5 +1,4 @@
 {
-  "locale": "English(India)",
   "appName": "LocalSend",
   "general": {
     "accept": "Accept",
@@ -372,8 +371,6 @@
     },
     "addressInput": {
       "title": "Enter address",
-      "hashtag": "Hashtag",
-      "ip": "IP Address",
       "recentlyUsed": "Recently used: "
     },
     "cancelSession": {

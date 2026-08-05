@@ -1,5 +1,4 @@
 {
-  "locale": "અંગ્રેજી",
   "appName": "LocalSend",
   "general": {
     "accept": "સ્વીકારો",
@@ -372,8 +371,6 @@
     },
     "addressInput": {
       "title": "સરનામું દાખલ કરો",
-      "hashtag": "હૅશટૅગ",
-      "ip": "IP સરનામું",
       "recentlyUsed": "હાલમાં ઉપયોગમાં લીધેલું: "
     },
     "cancelSession": {

@@ -1,5 +1,4 @@
 {
-  "locale": "فارسی",
   "appName": "لوکال‌سِند",
   "general": {
     "accept": "پذیرفتن",
@@ -372,8 +371,6 @@
     },
     "addressInput": {
       "title": "آدرس را وارد کنید",
-      "hashtag": "هشتگ",
-      "ip": "آدرس آی‌پی",
       "recentlyUsed": "اخیرا استفاده شده: "
     },
     "cancelSession": {

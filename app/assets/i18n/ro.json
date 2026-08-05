@@ -1,5 +1,4 @@
 {
-  "locale": "Română",
   "appName": "LocalSend",
   "general": {
     "accept": "Acceptă",
@@ -362,8 +361,6 @@
     },
     "addressInput": {
       "title": "Introdu adresa",
-      "hashtag": "Hashtag",
-      "ip": "Adresă IP",
       "recentlyUsed": "Folosit recent: "
     },
     "cancelSession": {

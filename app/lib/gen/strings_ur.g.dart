@@ -40,8 +40,6 @@ class TranslationsUr extends Translations with BaseTranslations<AppLocale, Trans
 
   // Translations
   @override
-  String get locale => 'اردو';
-  @override
   String get appName => 'LocalSend';
   @override
   late final _Translations$general$ur general = _Translations$general$ur._(_root);
@@ -999,10 +997,6 @@ class _Translations$dialogs$addressInput$ur extends Translations$dialogs$address
   // Translations
   @override
   String get title => 'پتہ درج کریں۔';
-  @override
-  String get hashtag => 'Hashtag';
-  @override
-  String get ip => 'اپ ایڈریس';
   @override
   String get recentlyUsed => 'حال ہی میں استعمال ہوا:';
 }

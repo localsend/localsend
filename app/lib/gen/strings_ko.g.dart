@@ -40,8 +40,6 @@ class TranslationsKo extends Translations with BaseTranslations<AppLocale, Trans
 
   // Translations
   @override
-  String get locale => '한국어';
-  @override
   String get appName => 'LocalSend';
   @override
   late final _Translations$general$ko general = _Translations$general$ko._(_root);
@@ -1066,10 +1064,6 @@ class _Translations$dialogs$addressInput$ko extends Translations$dialogs$address
   // Translations
   @override
   String get title => '주소 입력';
-  @override
-  String get hashtag => '해시태그';
-  @override
-  String get ip => 'IP 주소';
   @override
   String get recentlyUsed => '최근 사용된 주소: ';
 }

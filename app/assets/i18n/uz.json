@@ -1,5 +1,4 @@
 {
-  "locale": "Oʻzbekcha",
   "appName": "LocalSend",
   "general": {
     "accept": "Qabul qilish",
@@ -297,8 +296,6 @@
     },
     "addressInput": {
       "title": "Manzilni kiriting",
-      "hashtag": "Hashtag",
-      "ip": "IP manzil",
       "recentlyUsed": "Yaqinda ishlatilgan: "
     },
     "cancelSession": {

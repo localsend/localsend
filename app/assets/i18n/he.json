@@ -1,5 +1,4 @@
 {
-  "locale": "עברית",
   "appName": "LocalSend",
   "general": {
     "accept": "אישור",
@@ -294,8 +293,6 @@
     },
     "addressInput": {
       "title": "הכנס כתובת",
-      "hashtag": "סולמית",
-      "ip": "כתובת ה-IP",
       "recentlyUsed": "בשימוש לאחרונה: "
     },
     "cancelSession": {

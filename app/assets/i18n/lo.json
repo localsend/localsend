@@ -1,5 +1,4 @@
 {
-  "locale": "ລາວ",
   "appName": "LocalSend",
   "general": {
     "accept": "ຍອມຮັບ",
@@ -368,8 +367,6 @@
     },
     "addressInput": {
       "title": "ໃສ່ທີ່ຢູ່",
-      "hashtag": "ແຮັຊແທັກ",
-      "ip": "ທີ່ຢູ່ IP",
       "recentlyUsed": "ໃຊ້ຫຼ້າສຸດ: "
     },
     "cancelSession": {

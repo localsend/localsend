@@ -1,5 +1,4 @@
 {
-  "locale": "Galego",
   "appName": "LocalSend",
   "general": {
     "accept": "Aceptar",
@@ -302,8 +301,6 @@
     },
     "addressInput": {
       "title": "Introduce enderezo",
-      "hashtag": "Etiqueta",
-      "ip": "Enderezo IP",
       "recentlyUsed": "Empregados recentemente: "
     },
     "cancelSession": {

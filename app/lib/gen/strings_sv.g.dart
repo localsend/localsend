@@ -40,8 +40,6 @@ class TranslationsSv extends Translations with BaseTranslations<AppLocale, Trans
 
   // Translations
   @override
-  String get locale => 'Svenska';
-  @override
   String get appName => 'LocalSend';
   @override
   late final _Translations$general$sv general = _Translations$general$sv._(_root);
@@ -1127,10 +1125,6 @@ class _Translations$dialogs$addressInput$sv extends Translations$dialogs$address
   // Translations
   @override
   String get title => 'Ange adress';
-  @override
-  String get hashtag => 'Hashtagg';
-  @override
-  String get ip => 'IP-adress';
   @override
   String get recentlyUsed => 'Senast använda: ';
 }

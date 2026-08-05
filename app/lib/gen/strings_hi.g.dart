@@ -40,8 +40,6 @@ class TranslationsHi extends Translations with BaseTranslations<AppLocale, Trans
 
   // Translations
   @override
-  String get locale => 'अंग्रेज़ी';
-  @override
   String get appName => 'स्थानीय भेजें (फाइल भेजो)';
   @override
   late final _Translations$general$hi general = _Translations$general$hi._(_root);
@@ -1156,10 +1154,6 @@ class _Translations$dialogs$addressInput$hi extends Translations$dialogs$address
   // Translations
   @override
   String get title => 'पता दर्ज करें';
-  @override
-  String get hashtag => 'हैशटैग';
-  @override
-  String get ip => 'IP पता';
   @override
   String get recentlyUsed => 'हाल ही में उपयोग किया गया: ';
 }

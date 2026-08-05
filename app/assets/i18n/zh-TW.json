@@ -1,5 +1,4 @@
 {
-  "locale": "繁體中文 (台灣)",
   "appName": "LocalSend",
   "general": {
     "accept": "接受",
@@ -303,8 +302,6 @@
     },
     "addressInput": {
       "title": "輸入位址",
-      "hashtag": "雜湊標記",
-      "ip": "IP 位址",
       "recentlyUsed": "最近使用： "
     },
     "cancelSession": {

@@ -1,5 +1,4 @@
 {
-  "locale": "한국어",
   "appName": "LocalSend",
   "general": {
     "accept": "수락",
@@ -303,8 +302,6 @@
     },
     "addressInput": {
       "title": "주소 입력",
-      "hashtag": "해시태그",
-      "ip": "IP 주소",
       "recentlyUsed": "최근 사용된 주소: "
     },
     "cancelSession": {

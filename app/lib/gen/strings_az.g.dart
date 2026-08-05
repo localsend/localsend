@@ -40,8 +40,6 @@ class TranslationsAz extends Translations with BaseTranslations<AppLocale, Trans
 
   // Translations
   @override
-  String get locale => 'Azərbaycanca';
-  @override
   String get appName => 'LocalSend';
   @override
   late final _Translations$general$az general = _Translations$general$az._(_root);
@@ -1019,10 +1017,6 @@ class _Translations$dialogs$addressInput$az extends Translations$dialogs$address
   // Translations
   @override
   String get title => 'Ünvanı daxil et';
-  @override
-  String get hashtag => 'Heşteq';
-  @override
-  String get ip => 'IP ünvan';
   @override
   String get recentlyUsed => 'Son istifadə olunan: ';
 }

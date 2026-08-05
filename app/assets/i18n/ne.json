@@ -1,5 +1,4 @@
 {
-  "locale": "नेपाली",
   "appName": "LocalSend",
   "general": {
     "accept": "स्वीकार गर्नुहोस्",
@@ -363,8 +362,6 @@
     },
     "addressInput": {
       "title": "ठेगाना प्रविष्ट गर्नुहोस्",
-      "hashtag": "ह्यासट्याग",
-      "ip": "IP ठेगाना",
       "recentlyUsed": "हालसालै प्रयोग गरिएको: "
     },
     "cancelSession": {

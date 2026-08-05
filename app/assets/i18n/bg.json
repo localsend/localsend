@@ -1,5 +1,4 @@
 {
-  "locale": "Български",
   "appName": "LocalSend",
   "general": {
     "accept": "Приеми",
@@ -303,8 +302,6 @@
     },
     "addressInput": {
       "title": "Въведете адрес",
-      "hashtag": "Хаштаг",
-      "ip": "IP адрес",
       "recentlyUsed": "Наскоро използван: "
     },
     "cancelSession": {
