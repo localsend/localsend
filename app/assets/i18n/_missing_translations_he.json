@@ -22,7 +22,7 @@
   "deviceDetailsPage": {
     "title": "פרטי מכשיר",
     "favorite": "מועדף",
-    "verify": "מאומת",
+    "verify": "אמת",
     "info": {
       "name": "שם",
       "address": "כתובת",
