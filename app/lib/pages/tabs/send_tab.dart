@@ -36,7 +36,7 @@ import 'package:refena_flutter/refena_flutter.dart';
 import 'package:routerino/routerino.dart';
 
 const _horizontalPadding = 15.0;
-final _options = FilePickerOption.getOptionsForPlatform();
+final pickerOptions = FilePickerOption.getOptionsForPlatform();
 
 class SendTab extends StatelessWidget {
   const SendTab();
@@ -67,7 +67,7 @@ class SendTab extends StatelessWidget {
                 outerVerticalPadding: 10,
                 childPadding: 10,
                 minChildWidth: buttonWidth,
-                children: _options.map((option) {
+                children: pickerOptions.map((option) {
                   return BigButton(
                     icon: option.icon,
                     label: option.label,
@@ -141,11 +141,11 @@ class SendTab extends StatelessWidget {
                               foregroundColor: Theme.of(context).colorScheme.onPrimary,
                             ),
                             onPressed: () async {
-                              if (_options.length == 1) {
+                              if (pickerOptions.length == 1) {
                                 // open directly
                                 await ref.global.dispatchAsync(
                                   PickFileAction(
-                                    option: _options.first,
+                                    option: pickerOptions.first,
                                     context: context,
                                   ),
                                 );
@@ -153,7 +153,7 @@ class SendTab extends StatelessWidget {
                               }
                               await AddFileDialog.open(
                                 context: context,
-                                options: _options,
+                                options: pickerOptions,
                               );
                             },
                             icon: const Icon(Icons.add),

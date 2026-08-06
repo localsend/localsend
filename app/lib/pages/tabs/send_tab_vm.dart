@@ -5,6 +5,7 @@ import 'package:localsend_app/model/persistence/favorite_device.dart';
 import 'package:localsend_app/model/send_mode.dart';
 import 'package:localsend_app/pages/progress_page.dart';
 import 'package:localsend_app/pages/send_page.dart';
+import 'package:localsend_app/pages/tabs/send_tab.dart';
 import 'package:localsend_app/pages/web_share_page.dart';
 import 'package:localsend_app/provider/favorites_provider.dart';
 import 'package:localsend_app/provider/local_ip_provider.dart';
@@ -13,6 +14,7 @@ import 'package:localsend_app/provider/network/scan_facade.dart';
 import 'package:localsend_app/provider/network/send_provider.dart';
 import 'package:localsend_app/provider/selection/selected_sending_files_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
+import 'package:localsend_app/widget/dialogs/add_file_dialog.dart';
 import 'package:localsend_app/widget/dialogs/address_input_dialog.dart';
 import 'package:localsend_app/widget/dialogs/favorite_dialog.dart';
 import 'package:localsend_app/widget/dialogs/no_files_dialog.dart';
@@ -118,8 +120,17 @@ final sendTabVmProvider = ViewProvider((ref) {
       }
     },
     onTapDevice: (context, device) async {
-      if (selectedFiles.isEmpty) {
-        await context.pushBottomSheet(() => const NoFilesDialog());
+      var files = selectedFiles;
+      if (files.isEmpty) {
+        await AddFileDialog.open(
+          context: context,
+          options: pickerOptions,
+        );
+      }
+
+      files = ref.read(selectedSendingFilesProvider);
+
+      if (files.isEmpty) {
         return;
       }
 
@@ -127,7 +138,7 @@ final sendTabVmProvider = ViewProvider((ref) {
           .notifier(sendProvider)
           .startSession(
             target: device,
-            files: selectedFiles,
+            files: files,
             background: false,
           );
     },
@@ -155,9 +166,18 @@ final sendTabVmProvider = ViewProvider((ref) {
         }
       }
 
-      final files = ref.read(selectedSendingFilesProvider);
+      var files = ref.read(selectedSendingFilesProvider);
+
       if (files.isEmpty) {
-        await context.pushBottomSheet(() => const NoFilesDialog());
+        await AddFileDialog.open(
+          context: context,
+          options: pickerOptions,
+        );
+      }
+
+      files = ref.read(selectedSendingFilesProvider);
+
+      if (files.isEmpty) {
         return;
       }
 
