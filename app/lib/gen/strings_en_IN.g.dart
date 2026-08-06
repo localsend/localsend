@@ -1086,10 +1086,6 @@ class _Translations$progressPage$remainingTime$en_IN extends Translations$progre
   /// Use 'h' for hours abbreviation and 'm' for minutes
   @override
   String hours({required Object h, required Object m}) => '${h}h ${m}m';
-
-  /// Use 'd' for days, 'h' for hours, and 'm' for minutes
-  @override
-  String days({required Object d, required Object h, required Object m}) => '${d}d ${h}h ${m}m';
 }
 
 // Path: dialogs.addFile

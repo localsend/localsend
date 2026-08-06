@@ -10,9 +10,6 @@
       },
       "hoursUnit(plural, param=h)": {
         "other": "{h}h"
-      },
-      "daysUnit(plural, param=d)": {
-        "other": "{d}d"
       }
     }
   }

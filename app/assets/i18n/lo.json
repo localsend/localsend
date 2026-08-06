@@ -241,8 +241,7 @@
     },
     "remainingTime": {
       "minutes": "{n}:{ss}",
-      "hours": "{h}ຊມ {m}ນທ",
-      "days": "{d}ມື້ {h}ຊມ {m}ນທ"
+      "hours": "{h}ຊມ {m}ນທ"
     }
   },
   "webSharePage": {

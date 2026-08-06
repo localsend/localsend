@@ -1108,10 +1108,6 @@ class _Translations$progressPage$remainingTime$ru extends Translations$progressP
   /// Используйте "h" для обозначения часов, а "m" для минут
   @override
   String hours({required Object h, required Object m}) => '${h}ч ${m}мин';
-
-  /// Используйте "d" для дней, "h" для часов и "m" для минут
-  @override
-  String days({required Object d, required Object h, required Object m}) => '${d}д ${h}ч ${m}мин';
 }
 
 // Path: whatsNewPage.changes

@@ -1082,10 +1082,6 @@ class _Translations$progressPage$remainingTime$bn extends Translations$progressP
   /// ঘন্টার জন্য 'h' এবং মিনিটের জন্য 'm' ব্যবহার করুন
   @override
   String hours({required Object h, required Object m}) => '${h}ঘণ্টা ${m}মিনিট';
-
-  /// দিনের জন্য 'd', ঘন্টার জন্য 'h' এবং মিনিটের জন্য 'm' ব্যবহার করুন
-  @override
-  String days({required Object d, required Object h, required Object m}) => '${d}দিন ${h}ঘণ্টা ${m}মিনিট';
 }
 
 // Path: dialogs.addFile

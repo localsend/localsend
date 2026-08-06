@@ -12,22 +12,10 @@ final notificationStrings = NotificationStrings(
   remainingTimeLong: _remainingTimeLong,
 );
 
-String _remainingTimeLong({required num d, required num h, required num m}) {
+String _remainingTimeLong({required num h, required num m}) {
   final remainingTime = t.progressPage.remainingTime;
-  if (d == 0 && m == 0) {
+  if (m == 0) {
     return remainingTime.hoursUnit(h: h);
   }
-  if (d == 0) {
-    return remainingTime.hours(h: h, m: m);
-  }
-  if (h == 0 && m == 0) {
-    return remainingTime.daysUnit(d: d);
-  }
-  if (h == 0) {
-    return '${remainingTime.daysUnit(d: d)} ${remainingTime.minutesUnit(m: m)}';
-  }
-  if (m == 0) {
-    return '${remainingTime.daysUnit(d: d)} ${remainingTime.hoursUnitWithAnd(h: h)}';
-  }
-  return remainingTime.days(d: d, h: h, m: m);
+  return remainingTime.hours(h: h, m: m);
 }

@@ -1027,10 +1027,6 @@ class _Translations$progressPage$remainingTime$hu extends Translations$progressP
   /// Az órák rövidítéséhez használja a 'h' betűt, a percekhez pedig az 'm' betűt
   @override
   String hours({required Object h, required Object m}) => '${h}h ${m}m';
-
-  /// A naphoz  a 'd', az órához a 'h', a percekhez az 'm' betűt használja
-  @override
-  String days({required Object d, required Object h, required Object m}) => '${d}d ${h}h ${m}m';
 }
 
 // Path: dialogs.addFile

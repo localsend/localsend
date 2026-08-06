@@ -1083,10 +1083,6 @@ class _Translations$progressPage$remainingTime$fa extends Translations$progressP
   /// از «س» به عنوان مخفف ساعت و از «د» برای دقیقه استفاده کنید
   @override
   String hours({required Object h, required Object m}) => '${h}س ${m}د';
-
-  /// از «ر» برای روز، «س» برای ساعت و «د» برای دقیقه استفاده کنید
-  @override
-  String days({required Object d, required Object h, required Object m}) => '${d}ر ${h}س ${m}د';
 }
 
 // Path: dialogs.addFile

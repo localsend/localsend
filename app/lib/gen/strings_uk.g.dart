@@ -1107,10 +1107,6 @@ class _Translations$progressPage$remainingTime$uk extends Translations$progressP
   /// Використовуйте «h» як скорочення для годин і «m» для хвилин
   @override
   String hours({required Object h, required Object m}) => '${h}h ${m}m';
-
-  /// Використовуйте «d» для днів, «h» для годин і «m» для хвилин
-  @override
-  String days({required Object d, required Object h, required Object m}) => '${d}d ${h}h ${m}m';
 }
 
 // Path: whatsNewPage.changes

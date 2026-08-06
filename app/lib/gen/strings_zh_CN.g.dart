@@ -1109,10 +1109,6 @@ class Translations$progressPage$remainingTime$zh_CN extends Translations$progres
   /// 使用'h'作为小时缩写，使用'm'作为分钟缩写
   @override
   String hours({required Object h, required Object m}) => '${h}h ${m}m';
-
-  /// 使用'd'作为天缩写，使用'h'作为小时缩写，使用'm'作为分钟缩写
-  @override
-  String days({required Object d, required Object h, required Object m}) => '${d}d ${h}h ${m}m';
 }
 
 // Path: dialogs.addFile

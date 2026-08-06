@@ -6,13 +6,10 @@
   "progressPage": {
     "remainingTime": {
       "minutesUnit(plural, param=m)": {
-        "other": "{m}хв"
+        "other": "{m}m"
       },
       "hoursUnit(plural, param=h)": {
-        "other": "{h}год"
-      },
-      "daysUnit(plural, param=d)": {
-        "other": "{d}дн"
+        "other": "{h}h"
       }
     }
   }

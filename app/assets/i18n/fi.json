@@ -242,9 +242,7 @@
     "remainingTime": {
       "minutes": "{n}:{ss}",
       "hours": "{h}t {m}m",
-      "days": "{d}pv {h}t {m}m",
-      "@hours": "Käytä 'h' tuntien lyhenteenä ja 'm' minuuttien",
-      "@days": "Käytä 'pv' päiville, 'h' tunneille ja 'm' minuuteille"
+      "@hours": "Käytä 'h' tuntien lyhenteenä ja 'm' minuuttien"
     }
   },
   "webSharePage": {

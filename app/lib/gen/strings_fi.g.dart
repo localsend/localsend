@@ -1090,10 +1090,6 @@ class _Translations$progressPage$remainingTime$fi extends Translations$progressP
   /// Käytä 'h' tuntien lyhenteenä ja 'm' minuuttien
   @override
   String hours({required Object h, required Object m}) => '${h}t ${m}m';
-
-  /// Käytä 'pv' päiville, 'h' tunneille ja 'm' minuuteille
-  @override
-  String days({required Object d, required Object h, required Object m}) => '${d}pv ${h}t ${m}m';
 }
 
 // Path: dialogs.addFile

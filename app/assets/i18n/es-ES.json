@@ -243,9 +243,7 @@
     "remainingTime": {
       "minutes": "{n}:{ss}",
       "hours": "{h}h {m}m",
-      "days": "{d}d {h}h {m}m",
-      "@hours": "Usa «h» como abreviatura de horas y «m» para minutos",
-      "@days": "Usa «d» para días, «h» para horas y «m» para minutos"
+      "@hours": "Usa «h» como abreviatura de horas y «m» para minutos"
     }
   },
   "webSharePage": {

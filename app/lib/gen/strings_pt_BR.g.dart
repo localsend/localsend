@@ -1115,10 +1115,6 @@ class Translations$progressPage$remainingTime$pt_BR extends Translations$progres
   /// Use 'h' para abreviar horas e 'm' para minutos
   @override
   String hours({required Object h, required Object m}) => '${h}h ${m}m';
-
-  /// Use 'd' para dias, 'h' para horas e 'm' para minutos
-  @override
-  String days({required Object d, required Object h, required Object m}) => '${d}d ${h}h ${m}m';
 }
 
 // Path: dialogs.addFile

@@ -241,8 +241,7 @@
     },
     "remainingTime": {
       "minutes": "{n}:{ss}",
-      "hours": "{h}s {m}d",
-      "days": "{d}k {h}s {m}d"
+      "hours": "{h}s {m}d"
     }
   },
   "webSharePage": {

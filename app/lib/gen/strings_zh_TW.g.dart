@@ -1012,10 +1012,6 @@ class Translations$progressPage$remainingTime$zh_TW extends Translations$progres
   @override
   String hours({required Object h, required Object m}) => '${h}小時 ${m}分鐘';
 
-  /// 使用「d」作為日數縮寫，「h」作為小時縮寫，「m」作為分鐘縮寫
-  @override
-  String days({required Object d, required Object h, required Object m}) => '${d}天 ${h}小時 ${m}分鐘';
-
   @override
   String minutes({required Object n, required Object ss}) => '${n}:${ss}';
 }

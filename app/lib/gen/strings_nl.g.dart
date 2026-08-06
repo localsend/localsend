@@ -1028,10 +1028,6 @@ class _Translations$progressPage$remainingTime$nl extends Translations$progressP
   /// Gebruik 'u' als afkorting voor uren en 'm' voor minuten
   @override
   String hours({required Object h, required Object m}) => '${h}u ${m}m';
-
-  /// Gebruik 'd' voor dagen, 'u' voor uren en 'm' voor minuten
-  @override
-  String days({required Object d, required Object h, required Object m}) => '${d}d ${h}u ${m}m';
 }
 
 // Path: dialogs.addFile

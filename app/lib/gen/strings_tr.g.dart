@@ -1031,10 +1031,6 @@ class _Translations$progressPage$remainingTime$tr extends Translations$progressP
   /// Saat kısaltması için 's', dakika kısaltması için 'd' kullanın
   @override
   String hours({required Object h, required Object m}) => '${h}s ${m}d';
-
-  /// Günler için 'g', saatler için 's' ve dakikalar için 'd' kullanın
-  @override
-  String days({required Object d, required Object h, required Object m}) => '${d}g ${h}s ${m}d';
 }
 
 // Path: dialogs.addFile

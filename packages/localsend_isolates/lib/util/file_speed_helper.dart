@@ -3,7 +3,6 @@ import 'package:localsend_isolates/util/notification_strings.dart';
 const _millisecondsPerSecond = 1000;
 const _secondsPerMinute = 60;
 const _secondsPerHour = 3600;
-const _secondsPerDay = 86400;
 
 int getFileSpeed({
   required int start,
@@ -29,16 +28,10 @@ String getRemainingTime({
     final minutes = remainingTimeInSeconds ~/ _secondsPerMinute;
     final seconds = remainingTimeInSeconds % _secondsPerMinute;
     return strings.remainingTimeMinutes(n: minutes, ss: seconds.toString().padLeft(2, '0'));
-  } else if (remainingTimeInSeconds < _secondsPerDay) {
+  } else {
     final hours = remainingTimeInSeconds ~/ _secondsPerHour;
     final minutes = (remainingTimeInSeconds % _secondsPerHour) ~/ _secondsPerMinute;
-    return strings.remainingTimeLong(d: 0, h: hours, m: minutes);
-  } else {
-    final days = remainingTimeInSeconds ~/ _secondsPerDay;
-    final remainingAfterDays = remainingTimeInSeconds % _secondsPerDay;
-    final hours = remainingAfterDays ~/ _secondsPerHour;
-    final minutes = (remainingAfterDays % _secondsPerHour) ~/ _secondsPerMinute;
-    return strings.remainingTimeLong(d: days, h: hours, m: minutes);
+    return strings.remainingTimeLong(h: hours, m: minutes);
   }
 }
 

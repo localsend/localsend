@@ -1003,25 +1003,8 @@ class _Translations$progressPage$remainingTime$he extends Translations$progressP
     other: '${h} שעות',
   );
   @override
-  String hoursUnitWithAnd({required num h}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('he'))(
-    h,
-    one: 'ושעה',
-    two: 'ושעתיים',
-    other: 'ו־${h} שעות',
-  );
-  @override
-  String daysUnit({required num d}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('he'))(
-    d,
-    one: 'יום',
-    two: 'יומיים',
-    other: '${d} ימים',
-  );
-  @override
   String hours({required num h, required num m}) =>
       '${_root.progressPage.remainingTime.hoursUnit(h: h)} ${_root.progressPage.remainingTime.minutesUnit(m: m)}';
-  @override
-  String days({required num d, required num h, required num m}) =>
-      '${_root.progressPage.remainingTime.daysUnit(d: d)}, ${_root.progressPage.remainingTime.hoursUnit(h: h)} ${_root.progressPage.remainingTime.minutesUnit(m: m)}';
 }
 
 // Path: dialogs.addFile

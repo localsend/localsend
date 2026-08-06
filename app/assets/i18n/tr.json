@@ -245,9 +245,7 @@
     "remainingTime": {
       "minutes": "{n}:{ss}",
       "hours": "{h}s {m}d",
-      "days": "{d}g {h}s {m}d",
-      "@hours": "Saat kısaltması için 's', dakika kısaltması için 'd' kullanın",
-      "@days": "Günler için 'g', saatler için 's' ve dakikalar için 'd' kullanın"
+      "@hours": "Saat kısaltması için 's', dakika kısaltması için 'd' kullanın"
     }
   },
   "webSharePage": {
