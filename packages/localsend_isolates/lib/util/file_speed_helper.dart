@@ -32,13 +32,13 @@ String getRemainingTime({
   } else if (remainingTimeInSeconds < _secondsPerDay) {
     final hours = remainingTimeInSeconds ~/ _secondsPerHour;
     final minutes = (remainingTimeInSeconds % _secondsPerHour) ~/ _secondsPerMinute;
-    return strings.remainingTimeHours(h: hours, m: minutes);
+    return strings.remainingTimeLong(d: 0, h: hours, m: minutes);
   } else {
     final days = remainingTimeInSeconds ~/ _secondsPerDay;
     final remainingAfterDays = remainingTimeInSeconds % _secondsPerDay;
     final hours = remainingAfterDays ~/ _secondsPerHour;
     final minutes = (remainingAfterDays % _secondsPerHour) ~/ _secondsPerMinute;
-    return strings.remainingTimeDays(d: days, h: hours, m: minutes);
+    return strings.remainingTimeLong(d: days, h: hours, m: minutes);
   }
 }
 

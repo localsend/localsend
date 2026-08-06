@@ -16,6 +16,9 @@ Future<void> initI18n() async {
         if (n == 1) {
           return one ?? other ?? n.toString();
         }
+        if (locale == AppLocale.he && n == 2) {
+          return two ?? other ?? n.toString();
+        }
         return other ?? n.toString();
       },
       ordinalResolver: (n, {zero, one, two, few, many, other}) {

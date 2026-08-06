@@ -45,28 +45,6 @@
   "sendPage": {
     "calculatingChecksum": "מאמת שלמות ({curr} / {n})"
   },
-  "progressPage": {
-    "remainingTime": {
-      "minutesUnit(plural, param=m)": {
-        "one": "דקה",
-        "tow": "שתי דקות",
-        "other": "{m} דקות"
-      },
-      "hoursUnit(plural, param=h)": {
-        "one": "שעה",
-        "tow": "שעתיים",
-        "other": "{h} שעות"
-      },
-      "daysUnit(plural, param=d)": {
-        "one": "יום",
-        "tow": "יומיים",
-        "other": "{d} ימים"
-      },
-      "minutes": "{n}:{ss} דקות",
-      "hours": "@:progressPage.remainingTime.hoursUnit ו-@:progressPage.remainingTime.minutesUnit",
-      "days": "@:progressPage.remainingTime.daysUnit, @:progressPage.remainingTime.hoursUnit ו-@:progressPage.remainingTime.minutesUnit"
-    }
-  },
   "webReceivePage": {
     "title": "קבלה באמצעות קישור"
   },
