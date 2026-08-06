@@ -48,13 +48,19 @@
   "progressPage": {
     "remainingTime": {
       "minutesUnit(plural, param=m)": {
-        "other": "{m}m"
+        "one": "דקה",
+        "tow": "שתי דקות",
+        "other": "{m} דקות"
       },
       "hoursUnit(plural, param=h)": {
-        "other": "{h}h"
+        "one": "שעה",
+        "tow": "שעתיים",
+        "other": "{h} שעות"
       },
       "daysUnit(plural, param=d)": {
-        "other": "{d}d"
+        "one": "יום",
+        "tow": "יומיים",
+        "other": "{d} ימים"
       },
       "minutes": "{n}:{ss}",
       "hours": "@:progressPage.remainingTime.hoursUnit @:progressPage.remainingTime.minutesUnit",
