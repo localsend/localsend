@@ -1079,15 +1079,11 @@ class _Translations$progressPage$remainingTime$el extends Translations$progressP
 
   // Translations
   @override
-  String minutes({required Object n, required Object ss}) => '${n}:${ss}';
+  String minutes({required Object m, required Object ss}) => '${m}:${ss}';
 
   /// Χρησιμοποιήστε τη συντομογραφία «ώ» για ώρες και τη συντομογραφία «λ» για λεπτά
   @override
   String hours({required Object h, required Object m}) => '${h}ώ ${m}λ';
-
-  /// Χρησιμοποιήστε τη συντομογραφία «ημ» για ημέρες, τη συντομογραφία «ώ» για ώρες και τη συντομογραφία «λ» για λεπτά
-  @override
-  String days({required Object d, required Object h, required Object m}) => '${d}ημ ${h}ώ ${m}λ';
 }
 
 // Path: dialogs.addFile

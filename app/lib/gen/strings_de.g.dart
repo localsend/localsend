@@ -1102,15 +1102,11 @@ class _Translations$progressPage$remainingTime$de extends Translations$progressP
 
   // Translations
   @override
-  String minutes({required Object n, required Object ss}) => '${n}:${ss}';
+  String minutes({required Object m, required Object ss}) => '${m}:${ss}';
 
   /// Benutze 'h' als Abkürzung für Stunden und 'm' für Minuten
   @override
   String hours({required Object h, required Object m}) => '${h}h ${m}m';
-
-  /// Benutze 'd' für Tage, 'h' für Stunden und 'm' für Minuten
-  @override
-  String days({required Object d, required Object h, required Object m}) => '${d}d ${h}h ${m}m';
 }
 
 // Path: whatsNewPage.changes

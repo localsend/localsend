@@ -9,6 +9,13 @@ final notificationStrings = NotificationStrings(
   titleReceiving: t.progressPage.titleReceiving,
   titleSending: t.progressPage.titleSending,
   remainingTimeMinutes: t.progressPage.remainingTime.minutes,
-  remainingTimeHours: t.progressPage.remainingTime.hours,
-  remainingTimeDays: t.progressPage.remainingTime.days,
+  remainingTimeLong: _remainingTimeLong,
 );
+
+String _remainingTimeLong({required num h, required num m}) {
+  final remainingTime = t.progressPage.remainingTime;
+  if (m == 0) {
+    return remainingTime.hoursUnit(h: h);
+  }
+  return remainingTime.hours(h: h, m: m);
+}

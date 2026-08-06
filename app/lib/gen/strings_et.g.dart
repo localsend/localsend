@@ -994,15 +994,11 @@ class _Translations$progressPage$remainingTime$et extends Translations$progressP
 
   // Translations
   @override
-  String minutes({required Object n, required Object ss}) => '${n}:${ss}';
+  String minutes({required Object m, required Object ss}) => '${m}:${ss}';
 
   /// Kasuta „h“ tunni lühendina ja „m“ minutite jaoks
   @override
   String hours({required Object h, required Object m}) => '${h} t ${m} min';
-
-  /// Kasuta „d“ päeva, lühendina „h“ tunni lühendina ja „m“ minutite jaoks
-  @override
-  String days({required Object d, required Object h, required Object m}) => '${d} pv ${h} t ${m} min';
 }
 
 // Path: dialogs.addFile

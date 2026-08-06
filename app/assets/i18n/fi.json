@@ -240,11 +240,9 @@
       "speed": "Nopeus: {speed}/s"
     },
     "remainingTime": {
-      "minutes": "{n}:{ss}",
+      "minutes": "{m}:{ss}",
       "hours": "{h}t {m}m",
-      "days": "{d}pv {h}t {m}m",
-      "@hours": "Käytä 'h' tuntien lyhenteenä ja 'm' minuuttien",
-      "@days": "Käytä 'pv' päiville, 'h' tunneille ja 'm' minuuteille"
+      "@hours": "Käytä 'h' tuntien lyhenteenä ja 'm' minuuttien"
     }
   },
   "webSharePage": {

@@ -240,11 +240,9 @@
       "speed": "Vitesse : {speed}/s"
     },
     "remainingTime": {
-      "minutes": "{n} :{ss}",
+      "minutes": "{m} :{ss}",
       "hours": "{h}h {m}min",
-      "days": "{d}j {h}h {m}min",
-      "@hours": "Utilisez « h » pour l'abréviation des heures et « m » pour les minutes",
-      "@days": "Utilisez « j » pour les jours, « h » pour les heures et « m » pour les minutes"
+      "@hours": "Utilisez « h » pour l'abréviation des heures et « m » pour les minutes"
     }
   },
   "webSharePage": {

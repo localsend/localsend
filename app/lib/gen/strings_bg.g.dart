@@ -1023,15 +1023,11 @@ class _Translations$progressPage$remainingTime$bg extends Translations$progressP
 
   // Translations
   @override
-  String minutes({required Object n, required Object ss}) => '${n}:${ss}';
+  String minutes({required Object m, required Object ss}) => '${m}:${ss}';
 
   /// Използвайте „h“ като съкращение за часове и „m“ за минути
   @override
   String hours({required Object h, required Object m}) => '${h}ч ${m}мин';
-
-  /// Използвайте „d“ за дни, „h“ за часове и „m“ за минути
-  @override
-  String days({required Object d, required Object h, required Object m}) => '${d}д ${h}ч ${m}мин';
 }
 
 // Path: dialogs.addFile

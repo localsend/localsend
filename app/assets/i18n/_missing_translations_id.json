@@ -57,12 +57,8 @@
       "hoursUnit(plural, param=h)": {
         "other": "{h}h"
       },
-      "daysUnit(plural, param=d)": {
-        "other": "{d}d"
-      },
-      "minutes": "{n}:{ss}",
-      "hours": "@:progressPage.remainingTime.hoursUnit @:progressPage.remainingTime.minutesUnit",
-      "days": "@:progressPage.remainingTime.daysUnit @:progressPage.remainingTime.hoursUnit @:progressPage.remainingTime.minutesUnit"
+      "minutes": "{m}:{ss}",
+      "hours": "@:progressPage.remainingTime.hoursUnit @:progressPage.remainingTime.minutesUnit"
     }
   },
   "webReceivePage": {

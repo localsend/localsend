@@ -241,11 +241,9 @@
       "speed": "Snelheid: {speed}/s"
     },
     "remainingTime": {
-      "minutes": "{n}:{ss}",
+      "minutes": "{m}:{ss}",
       "hours": "{h}u {m}m",
-      "days": "{d}d {h}u {m}m",
-      "@hours": "Gebruik 'u' als afkorting voor uren en 'm' voor minuten",
-      "@days": "Gebruik 'd' voor dagen, 'u' voor uren en 'm' voor minuten"
+      "@hours": "Gebruik 'u' als afkorting voor uren en 'm' voor minuten"
     }
   },
   "webSharePage": {

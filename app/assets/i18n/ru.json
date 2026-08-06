@@ -268,11 +268,14 @@
       "speed": "Скорость: {speed}/s"
     },
     "remainingTime": {
-      "minutes": "{n}:{ss}",
-      "hours": "{h}ч {m}мин",
-      "days": "{d}д {h}ч {m}мин",
-      "@hours": "Используйте \"h\" для обозначения часов, а \"m\" для минут",
-      "@days": "Используйте \"d\" для дней, \"h\" для часов и \"m\" для минут"
+      "minutesUnit(plural, param=m)": {
+        "other": "{m}мин"
+      },
+      "hoursUnit(plural, param=h)": {
+        "other": "{h}ч"
+      },
+      "minutes": "{m}:{ss}",
+      "hours": "@:.hoursUnit @:.minutesUnit"
     }
   },
   "webSharePage": {

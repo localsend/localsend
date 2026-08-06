@@ -1072,11 +1072,9 @@ class _Translations$progressPage$remainingTime$lo extends Translations$progressP
 
   // Translations
   @override
-  String minutes({required Object n, required Object ss}) => '${n}:${ss}';
+  String minutes({required Object m, required Object ss}) => '${m}:${ss}';
   @override
   String hours({required Object h, required Object m}) => '${h}ຊມ ${m}ນທ';
-  @override
-  String days({required Object d, required Object h, required Object m}) => '${d}ມື້ ${h}ຊມ ${m}ນທ';
 }
 
 // Path: dialogs.addFile

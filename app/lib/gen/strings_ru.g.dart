@@ -1103,15 +1103,20 @@ class _Translations$progressPage$remainingTime$ru extends Translations$progressP
 
   // Translations
   @override
-  String minutes({required Object n, required Object ss}) => '${n}:${ss}';
-
-  /// Используйте "h" для обозначения часов, а "m" для минут
+  String minutesUnit({required num m}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(
+    m,
+    other: '${m}мин',
+  );
   @override
-  String hours({required Object h, required Object m}) => '${h}ч ${m}мин';
-
-  /// Используйте "d" для дней, "h" для часов и "m" для минут
+  String hoursUnit({required num h}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(
+    h,
+    other: '${h}ч',
+  );
   @override
-  String days({required Object d, required Object h, required Object m}) => '${d}д ${h}ч ${m}мин';
+  String minutes({required Object m, required Object ss}) => '${m}:${ss}';
+  @override
+  String hours({required num h, required num m}) =>
+      '${_root.progressPage.remainingTime.hoursUnit(h: h)} ${_root.progressPage.remainingTime.minutesUnit(m: m)}';
 }
 
 // Path: whatsNewPage.changes

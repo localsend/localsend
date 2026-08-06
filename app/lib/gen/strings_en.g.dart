@@ -1390,22 +1390,12 @@ class Translations$progressPage$remainingTime$en {
     other: '${h}h',
   );
 
-  /// en: '(other) {{d}d}'
-  String daysUnit({required num d}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(
-    d,
-    other: '${d}d',
-  );
-
-  /// en: '{n}:{ss}'
-  String minutes({required Object n, required Object ss}) => '${n}:${ss}';
+  /// en: '{m}:{ss}'
+  String minutes({required Object m, required Object ss}) => '${m}:${ss}';
 
   /// en: '(other) {{h}h} (other) {{m}m}'
   String hours({required num h, required num m}) =>
       '${_root.progressPage.remainingTime.hoursUnit(h: h)} ${_root.progressPage.remainingTime.minutesUnit(m: m)}';
-
-  /// en: '(other) {{d}d} (other) {{h}h} (other) {{m}m}'
-  String days({required num d, required num h, required num m}) =>
-      '${_root.progressPage.remainingTime.daysUnit(d: d)} ${_root.progressPage.remainingTime.hoursUnit(h: h)} ${_root.progressPage.remainingTime.minutesUnit(m: m)}';
 }
 
 // Path: whatsNewPage.changes

@@ -51,7 +51,8 @@
       "off": "@:general.off",
       "favorites": "מועדפים",
       "on": "@:general.on"
-    }
+    },
+    "link": "קבלה באמצעות קישור"
   },
   "sendTab": {
     "title": "שליחה",
@@ -96,7 +97,8 @@
       "color": "צבע",
       "colorOptions": {
         "system": "מערכת",
-        "oled": "OLED"
+        "oled": "OLED",
+        "custom": "מותאם אישית"
       },
       "language": "שפה",
       "languageOptions": {
@@ -119,11 +121,13 @@
       "destination": "יעד",
       "downloads": "(הורדות)",
       "saveToGallery": "שמור מדיה לגלריה",
-      "saveToHistory": "שמור בהיסטוריה"
+      "saveToHistory": "שמור בהיסטוריה",
+      "verifyChecksums": "אימות שלמות קבצים בעת קבלה"
     },
     "send": {
       "title": "שליחה",
-      "shareViaLinkAutoAccept": "שיתוף באמצעות קישור: אישור אוטומטי"
+      "shareViaLinkAutoAccept": "שיתוף באמצעות קישור: אישור אוטומטי",
+      "createChecksums": "צור סכומי שלמות קבצים בעת שליחה"
     },
     "network": {
       "title": "רשת",
@@ -196,11 +200,34 @@
   "apkPickerPage": {
     "title": "אפליקציות (APK)",
     "excludeSystemApps": "אל תכלול אפליקציות מערכת",
-    "excludeAppsWithoutLaunchIntent": "אל תכלול אפליקציות שאינן ניתנות להפעלה",
+    "excludeAppsWithoutLaunchIntent": "אל תכלול אפליקציות שאינן ניתנות לפתיחה",
     "apps": "{n} אפליקציות"
   },
   "selectedFilesPage": {
     "deleteAll": "מחק הכל"
+  },
+  "deviceDetailsPage": {
+    "title": "פרטי מכשיר",
+    "favorite": "מועדף",
+    "verify": "אימות",
+    "info": {
+      "name": "שם",
+      "address": "כתובת",
+      "version": "גרסה",
+      "protocol": "פרוטוקול גרסה {version}"
+    },
+    "logs": {
+      "title": "יומני רישום",
+      "empty": "אין יומנים זמינים",
+      "discovered": "התגלה באמצעות {protocol} ({host})",
+      "updated": "עודכן באמצעות {protocol} ({host})"
+    }
+  },
+  "verifyPage": {
+    "title": "אימות",
+    "icons": "סמלים",
+    "raw": "גולמי",
+    "question": "האם זה נראה אותו דבר במכשיר השני?"
   },
   "receivePage": {
     "subTitle": {
@@ -219,6 +246,7 @@
     "saveToGalleryOff": "כבוי באופן אוטומטי בשל קיום ספריות."
   },
   "sendPage": {
+    "calculatingChecksum": "מאמת שלמות ({curr} / {n})",
     "waiting": "ממתין לתגובה…",
     "rejected": "הנמען דחה את הבקשה.",
     "tooManyAttempts": "@:web.tooManyAttempts",
@@ -238,6 +266,19 @@
       "count": "קבצים: {curr}/{n}",
       "size": "גודל: {curr}/{n}",
       "speed": "מהירות: {speed}/שניה"
+    },
+    "remainingTime": {
+      "minutesUnit(plural, param=m)": {
+        "other": "ו־{m} דקות",
+        "one": "ודקה"
+      },
+      "hoursUnit(plural, param=h)": {
+        "other": "{h} שעות",
+        "one": "שעה",
+        "two": "שעתיים"
+      },
+      "minutes": "{m}:{ss}",
+      "hours": "@:.hoursUnit @:.minutesUnit"
     }
   },
   "webSharePage": {
@@ -257,6 +298,9 @@
     "pinHint": "הסיסמה היא \"{pin}\"",
     "encryptionHint": "LocalSend משתמש בתעודה עצמית. עליך לאשר אותה בדפדפן.",
     "pendingRequests": "בקשות בהמתנה: {n}"
+  },
+  "webReceivePage": {
+    "title": "קבלה באמצעות קישור"
   },
   "aboutPage": {
     "title": "אודות LocalSend",
@@ -278,6 +322,18 @@
   },
   "changelogPage": {
     "title": "יומן שינויים"
+  },
+  "whatsNewPage": {
+    "title": "מה חדש בגרסה {version}?",
+    "changes(interface=WhatsNewStrings)": {
+      "v1_18_0": {
+        "changes": [
+          "הצפנה כבר לא מאטה את ההעברות! הפעלנו אותה מחדש אם כיבית אותה בעבר",
+          "מהיום העברות ממכשירים מועדפים יתקבלו באופן אוטומטי. ניתן לבטל זאת בהגדרות האפליקציה",
+          "באנדרואיד, ההעברות נמשכות גם כשהאפליקציה ברקע או שהמסך כבוי (ב-iOS כרגע האפליקציה עדיין חייבת להישאר פתוחה והמסך דולק)"
+        ]
+      }
+    }
   },
   "aliasGenerator(ignoreMissing, ignoreGpt)": {
     "@info": "Inherits from the English version"

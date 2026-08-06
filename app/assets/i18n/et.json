@@ -241,11 +241,9 @@
       "speed": "Kiirus: {speed}/s"
     },
     "remainingTime": {
-      "minutes": "{n}:{ss}",
+      "minutes": "{m}:{ss}",
       "hours": "{h} t {m} min",
-      "days": "{d} pv {h} t {m} min",
-      "@hours": "Kasuta „h“ tunni lühendina ja „m“ minutite jaoks",
-      "@days": "Kasuta „d“ päeva, lühendina „h“ tunni lühendina ja „m“ minutite jaoks"
+      "@hours": "Kasuta „h“ tunni lühendina ja „m“ minutite jaoks"
     }
   },
   "webSharePage": {

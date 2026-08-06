@@ -240,9 +240,8 @@
       "speed": "Tezlik: {speed}/s"
     },
     "remainingTime": {
-      "minutes": "{n}:{ss}",
-      "hours": "{h}s {m}d",
-      "days": "{d}k {h}s {m}d"
+      "minutes": "{m}:{ss}",
+      "hours": "{h}s {m}d"
     }
   },
   "webSharePage": {
