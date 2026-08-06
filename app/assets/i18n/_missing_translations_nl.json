@@ -41,5 +41,18 @@
     "icons": "Icons",
     "raw": "Raw",
     "question": "Does it look the same on the other device?"
+  },
+  "progressPage": {
+    "remainingTime": {
+      "minutesUnit(plural, param=m)": {
+        "other": "{m}m"
+      },
+      "hoursUnit(plural, param=h)": {
+        "other": "{h}h"
+      },
+      "daysUnit(plural, param=d)": {
+        "other": "{d}d"
+      }
+    }
   }
 }

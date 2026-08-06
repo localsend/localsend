@@ -1017,8 +1017,6 @@ class Translations$progressPage$remainingTime$zh_TW extends Translations$progres
   String days({required Object d, required Object h, required Object m}) => '${d}天 ${h}小時 ${m}分鐘';
 
   @override
-  String seconds({required Object n, required Object ss}) => '${n}:${ss}';
-  @override
   String minutes({required Object n, required Object ss}) => '${n}:${ss}';
 }
 

@@ -240,7 +240,6 @@
       "speed": "Nopeus: {speed}/s"
     },
     "remainingTime": {
-      "seconds": "{n}:{ss}",
       "minutes": "{n}:{ss}",
       "hours": "{h}t {m}m",
       "days": "{d}pv {h}t {m}m",

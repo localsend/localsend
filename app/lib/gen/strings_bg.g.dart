@@ -1023,8 +1023,6 @@ class _Translations$progressPage$remainingTime$bg extends Translations$progressP
 
   // Translations
   @override
-  String seconds({required Object n, required Object ss}) => '${n}:${ss}';
-  @override
   String minutes({required Object n, required Object ss}) => '${n}:${ss}';
 
   /// Използвайте „h“ като съкращение за часове и „m“ за минути

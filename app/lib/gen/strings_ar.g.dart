@@ -1106,8 +1106,6 @@ class _Translations$progressPage$remainingTime$ar extends Translations$progressP
 
   // Translations
   @override
-  String seconds({required Object n, required Object ss}) => '${n}:${ss}';
-  @override
   String minutes({required Object n, required Object ss}) => '${n}:${ss}';
 
   /// استخدم 'س' لاختصار الساعات و'د' للدقائق

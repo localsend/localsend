@@ -241,7 +241,6 @@
       "speed": "Скорост: {speed}/s"
     },
     "remainingTime": {
-      "seconds": "{n}:{ss}",
       "minutes": "{n}:{ss}",
       "hours": "{h}ч {m}мин",
       "days": "{d}д {h}ч {m}мин",

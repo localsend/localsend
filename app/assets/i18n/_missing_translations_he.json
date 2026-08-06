@@ -47,10 +47,18 @@
   },
   "progressPage": {
     "remainingTime": {
-      "seconds": "{n}:{ss}",
+      "minutesUnit(plural, param=m)": {
+        "other": "{m}m"
+      },
+      "hoursUnit(plural, param=h)": {
+        "other": "{h}h"
+      },
+      "daysUnit(plural, param=d)": {
+        "other": "{d}d"
+      },
       "minutes": "{n}:{ss}",
-      "hours": "{h} שעות ו-{m} דקות",
-      "days": "{d} ימים, {h} שעות ו-{m} דקות"
+      "hours": "@:progressPage.remainingTime.hoursUnit @:progressPage.remainingTime.minutesUnit",
+      "days": "@:progressPage.remainingTime.daysUnit @:progressPage.remainingTime.hoursUnit @:progressPage.remainingTime.minutesUnit"
     }
   },
   "webReceivePage": {

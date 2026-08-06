@@ -1104,8 +1104,6 @@ class Translations$progressPage$remainingTime$zh_CN extends Translations$progres
 
   // Translations
   @override
-  String seconds({required Object n, required Object ss}) => '${n}:${ss}';
-  @override
   String minutes({required Object n, required Object ss}) => '${n}:${ss}';
 
   /// 使用'h'作为小时缩写，使用'm'作为分钟缩写

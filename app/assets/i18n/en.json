@@ -268,12 +268,18 @@
       "speed": "Speed: {speed}/s"
     },
     "remainingTime": {
-      "seconds": "{n}:{ss}",
+      "minutesUnit(plural, param=m)": {
+        "other": "{m}m"
+      },
+      "hoursUnit(plural, param=h)": {
+        "other": "{h}h"
+      },
+      "daysUnit(plural, param=d)": {
+        "other": "{d}d"
+      },
       "minutes": "{n}:{ss}",
-      "hours": "{h}h {m}m",
-      "days": "{d}d {h}h {m}m",
-      "@hours": "Use 'h' for hours abbreviation and 'm' for minutes",
-      "@days": "Use 'd' for days, 'h' for hours, and 'm' for minutes"
+      "hours": "@:progressPage.remainingTime.hoursUnit @:progressPage.remainingTime.minutesUnit",
+      "days": "@:progressPage.remainingTime.daysUnit @:progressPage.remainingTime.hoursUnit @:progressPage.remainingTime.minutesUnit"
     }
   },
   "webSharePage": {

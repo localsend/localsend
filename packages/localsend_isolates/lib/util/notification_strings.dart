@@ -10,22 +10,18 @@ class NotificationStrings {
   /// Title while files are being sent, e.g. "Sending files".
   final String titleSending;
 
-  /// Remaining time below a minute, e.g. "0:45". [ss] is zero padded.
-  final String Function({required Object n, required Object ss}) remainingTimeSeconds;
-
-  /// Remaining time below an hour, e.g. "1:30". [ss] is zero padded.
+  /// Remaining time below an hour, e.g. "1:30" or "0:45". [ss] is zero padded.
   final String Function({required Object n, required Object ss}) remainingTimeMinutes;
 
   /// Remaining time below a day, e.g. "2h 5m".
-  final String Function({required Object h, required Object m}) remainingTimeHours;
+  final String Function({required num h, required num m}) remainingTimeHours;
 
   /// Remaining time of a day or more, e.g. "3d 4h 5m".
-  final String Function({required Object d, required Object h, required Object m}) remainingTimeDays;
+  final String Function({required num d, required num h, required num m}) remainingTimeDays;
 
   const NotificationStrings({
     required this.titleReceiving,
     required this.titleSending,
-    required this.remainingTimeSeconds,
     required this.remainingTimeMinutes,
     required this.remainingTimeHours,
     required this.remainingTimeDays,

@@ -1022,8 +1022,6 @@ class _Translations$progressPage$remainingTime$hu extends Translations$progressP
 
   // Translations
   @override
-  String seconds({required Object n, required Object ss}) => '${n}:${ss}';
-  @override
   String minutes({required Object n, required Object ss}) => '${n}:${ss}';
 
   /// Az órák rövidítéséhez használja a 'h' betűt, a percekhez pedig az 'm' betűt

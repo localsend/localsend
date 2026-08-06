@@ -240,7 +240,6 @@
       "speed": "স্পীড: {speed}/s"
     },
     "remainingTime": {
-      "seconds": "{n}:{ss}",
       "minutes": "{n}:{ss}",
       "hours": "{h}ঘণ্টা {m}মিনিট",
       "days": "{d}দিন {h}ঘণ্টা {m}মিনিট",

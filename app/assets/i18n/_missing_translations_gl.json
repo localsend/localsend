@@ -45,6 +45,19 @@
   "sendPage": {
     "calculatingChecksum": "Calculating checksum ({curr} / {n})"
   },
+  "progressPage": {
+    "remainingTime": {
+      "minutesUnit(plural, param=m)": {
+        "other": "{m}m"
+      },
+      "hoursUnit(plural, param=h)": {
+        "other": "{h}h"
+      },
+      "daysUnit(plural, param=d)": {
+        "other": "{d}d"
+      }
+    }
+  },
   "webReceivePage": {
     "title": "Receive via link"
   },

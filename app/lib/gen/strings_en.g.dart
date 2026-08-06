@@ -1378,21 +1378,34 @@ class Translations$progressPage$remainingTime$en {
 
   // Translations
 
-  /// en: '{n}:{ss}'
-  String seconds({required Object n, required Object ss}) => '${n}:${ss}';
+  /// en: '(other) {{m}m}'
+  String minutesUnit({required num m}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(
+    m,
+    other: '${m}m',
+  );
+
+  /// en: '(other) {{h}h}'
+  String hoursUnit({required num h}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(
+    h,
+    other: '${h}h',
+  );
+
+  /// en: '(other) {{d}d}'
+  String daysUnit({required num d}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(
+    d,
+    other: '${d}d',
+  );
 
   /// en: '{n}:{ss}'
   String minutes({required Object n, required Object ss}) => '${n}:${ss}';
 
-  /// Use 'h' for hours abbreviation and 'm' for minutes
-  ///
-  /// en: '{h}h {m}m'
-  String hours({required Object h, required Object m}) => '${h}h ${m}m';
+  /// en: '(other) {{h}h} (other) {{m}m}'
+  String hours({required num h, required num m}) =>
+      '${_root.progressPage.remainingTime.hoursUnit(h: h)} ${_root.progressPage.remainingTime.minutesUnit(m: m)}';
 
-  /// Use 'd' for days, 'h' for hours, and 'm' for minutes
-  ///
-  /// en: '{d}d {h}h {m}m'
-  String days({required Object d, required Object h, required Object m}) => '${d}d ${h}h ${m}m';
+  /// en: '(other) {{d}d} (other) {{h}h} (other) {{m}m}'
+  String days({required num d, required num h, required num m}) =>
+      '${_root.progressPage.remainingTime.daysUnit(d: d)} ${_root.progressPage.remainingTime.hoursUnit(h: h)} ${_root.progressPage.remainingTime.minutesUnit(m: m)}';
 }
 
 // Path: whatsNewPage.changes

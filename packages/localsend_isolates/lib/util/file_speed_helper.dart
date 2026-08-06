@@ -20,14 +20,12 @@ String getRemainingTime({
   required NotificationStrings strings,
 }) {
   if (bytesPerSeconds == 0) {
-    return remainingBytes == 0 ? strings.remainingTimeSeconds(n: 0, ss: '00') : '∞';
+    return remainingBytes == 0 ? strings.remainingTimeMinutes(n: 0, ss: '00') : '∞';
   }
 
   final remainingTimeInSeconds = _getRemainingTime(bytesPerSeconds: bytesPerSeconds, remainingBytes: remainingBytes);
 
-  if (remainingTimeInSeconds < _secondsPerMinute) {
-    return strings.remainingTimeSeconds(n: 0, ss: remainingTimeInSeconds.toString().padLeft(2, '0'));
-  } else if (remainingTimeInSeconds < _secondsPerHour) {
+  if (remainingTimeInSeconds < _secondsPerHour) {
     final minutes = remainingTimeInSeconds ~/ _secondsPerMinute;
     final seconds = remainingTimeInSeconds % _secondsPerMinute;
     return strings.remainingTimeMinutes(n: minutes, ss: seconds.toString().padLeft(2, '0'));

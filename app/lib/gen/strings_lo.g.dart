@@ -1072,8 +1072,6 @@ class _Translations$progressPage$remainingTime$lo extends Translations$progressP
 
   // Translations
   @override
-  String seconds({required Object n, required Object ss}) => '${n}:${ss}';
-  @override
   String minutes({required Object n, required Object ss}) => '${n}:${ss}';
   @override
   String hours({required Object h, required Object m}) => '${h}ຊມ ${m}ນທ';
