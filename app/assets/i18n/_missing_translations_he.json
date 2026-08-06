@@ -62,9 +62,9 @@
         "tow": "יומיים",
         "other": "{d} ימים"
       },
-      "minutes": "{n}:{ss}",
-      "hours": "@:progressPage.remainingTime.hoursUnit @:progressPage.remainingTime.minutesUnit",
-      "days": "@:progressPage.remainingTime.daysUnit @:progressPage.remainingTime.hoursUnit @:progressPage.remainingTime.minutesUnit"
+      "minutes": "{n}:{ss} דקות",
+      "hours": "@:progressPage.remainingTime.hoursUnit ו-@:progressPage.remainingTime.minutesUnit",
+      "days": "@:progressPage.remainingTime.daysUnit, @:progressPage.remainingTime.hoursUnit ו-@:progressPage.remainingTime.minutesUnit"
     }
   },
   "webReceivePage": {
