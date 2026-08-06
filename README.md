@@ -23,6 +23,7 @@
 LocalSend is a free, open-source app that allows you to securely share files and messages with nearby devices over your local network without needing an internet connection.
 
 - [About](#about)
+- [Sponsors](#sponsors)
 - [Screenshots](#screenshots)
 - [Download](#download)
 - [How It Works](#how-it-works)
@@ -42,6 +43,14 @@ LocalSend is a free, open-source app that allows you to securely share files and
 ## About
 
 LocalSend is a cross-platform app that enables secure communication between devices using a REST API and HTTPS encryption. Unlike other messaging apps that rely on external servers, LocalSend doesn't require an internet connection or third-party servers, making it a fast and reliable solution for local communication.
+
+## Sponsors
+
+Browser testing via
+
+<a href="https://www.testmuai.com/?utm_medium=sponsor&utm_source=localsend" target="_blank">
+    <img src="https://localsend.org/img/sponsors/tesmu.svg" style="vertical-align: middle;" width="250" height="45" />
+</a>
 
 ## Screenshots
 
