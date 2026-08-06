@@ -993,7 +993,6 @@ class _Translations$progressPage$remainingTime$he extends Translations$progressP
   String minutesUnit({required num m}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('he'))(
     m,
     one: 'ודקה',
-    two: 'ושתי דקות',
     other: 'ו־${m} דקות',
   );
   @override

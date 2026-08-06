@@ -242,7 +242,6 @@
     "remainingTime": {
       "minutesUnit(plural, param=m)": {
         "one": "ודקה",
-        "two": "ושתי דקות",
         "other": "ו־{m} דקות"
       },
       "hoursUnit(plural, param=h)": {

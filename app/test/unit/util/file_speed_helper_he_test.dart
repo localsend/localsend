@@ -14,7 +14,7 @@ void main() {
     (Duration(minutes: 10, seconds: 54), '10:54'),
     (Duration(hours: 1), 'שעה'),
     (Duration(hours: 1, minutes: 1), 'שעה ודקה'),
-    (Duration(hours: 2, minutes: 2), 'שעתיים ושתי דקות'),
+    (Duration(hours: 2, minutes: 2), 'שעתיים ו־2 דקות'),
     (Duration(hours: 1, minutes: 5), 'שעה ו־5 דקות'),
     (Duration(days: 1), 'יום'),
     (Duration(days: 2), 'יומיים'),
