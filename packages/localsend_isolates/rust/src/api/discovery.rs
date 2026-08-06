@@ -7,6 +7,7 @@ use localsend::discovery::{
 };
 use localsend::model::discovery::{DeviceType, ProtocolType};
 use localsend::multicast::{DEFAULT_MULTICAST_GROUP_V6, InterfaceFilter, MulticastDevice};
+use localsend::util::error::ErrorChain;
 use std::sync::Arc;
 use std::time::Duration;
 use tokio::sync::{Mutex, mpsc, oneshot};
@@ -302,7 +303,11 @@ impl RsDiscovery {
         match self.instance.handle.discover(&host, port, protocol).await {
             Ok(found) => found.map(rs_stored_device),
             Err(err) => {
-                tracing::debug!("Could not discover {host}:{port}: {err:#}");
+                tracing::debug!(
+                    "Could not discover {}://{host}:{port}: {}",
+                    protocol.as_str(),
+                    ErrorChain(&err)
+                );
                 None
             }
         }

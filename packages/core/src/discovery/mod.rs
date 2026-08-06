@@ -11,6 +11,7 @@ use crate::model::discovery::{MulticastMessageV2, ProtocolType};
 use crate::multicast::{
     self, InterfaceFilter, MulticastConfig, MulticastDevice, MulticastEvent, MulticastHandle,
 };
+use crate::util::error::ErrorChain;
 use futures_util::StreamExt;
 use std::collections::HashSet;
 use std::net::{IpAddr, Ipv4Addr, Ipv6Addr};
@@ -425,7 +426,10 @@ async fn answer_announcement(
     ) {
         Ok(client) => client,
         Err(err) => {
-            tracing::error!("Could not create the client to answer {host}: {err:#}");
+            tracing::error!(
+                "Could not create the client to answer {host}: {}",
+                ErrorChain(&err)
+            );
             return;
         }
     };
@@ -448,7 +452,12 @@ async fn answer_announcement(
             state.found(device).await;
         }
         Err(err) => {
-            tracing::debug!("Could not register with announcing device {host}: {err:#}");
+            let url = format!("{}://{host}:{}", message.protocol.as_str(), message.port);
+            tracing::debug!(
+                "Could not register with announcing device {} ({url}): {}",
+                message.alias,
+                ErrorChain(&err),
+            );
         }
     }
 }
