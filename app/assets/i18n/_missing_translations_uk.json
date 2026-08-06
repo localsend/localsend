@@ -12,7 +12,7 @@
         "other": "{h}год"
       },
       "daysUnit(plural, param=d)": {
-        "other": "{d}дн"
+        "other": "{d}днd"
       }
     }
   }
