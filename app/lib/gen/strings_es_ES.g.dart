@@ -1027,7 +1027,7 @@ class _Translations$progressPage$remainingTime$es_ES extends Translations$progre
 
   // Translations
   @override
-  String minutes({required Object n, required Object ss}) => '${n}:${ss}';
+  String minutes({required Object m, required Object ss}) => '${m}:${ss}';
 
   /// Usa «h» como abreviatura de horas y «m» para minutos
   @override

@@ -241,7 +241,7 @@
       "speed": "Rýchlosť: {speed}/s"
     },
     "remainingTime": {
-      "minutes": "{n}:{ss}",
+      "minutes": "{m}:{ss}",
       "hours": "{h}h {m}m",
       "@hours": "Použiť „h“ pre skratku hodín a „m“ pre minúty"
     }

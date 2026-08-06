@@ -19,7 +19,7 @@ String getRemainingTime({
   required NotificationStrings strings,
 }) {
   if (bytesPerSeconds == 0) {
-    return remainingBytes == 0 ? strings.remainingTimeMinutes(n: 0, ss: '00') : '∞';
+    return remainingBytes == 0 ? strings.remainingTimeMinutes(m: 0, ss: '00') : '∞';
   }
 
   final remainingTimeInSeconds = _getRemainingTime(bytesPerSeconds: bytesPerSeconds, remainingBytes: remainingBytes);
@@ -27,7 +27,7 @@ String getRemainingTime({
   if (remainingTimeInSeconds < _secondsPerHour) {
     final minutes = remainingTimeInSeconds ~/ _secondsPerMinute;
     final seconds = remainingTimeInSeconds % _secondsPerMinute;
-    return strings.remainingTimeMinutes(n: minutes, ss: seconds.toString().padLeft(2, '0'));
+    return strings.remainingTimeMinutes(m: minutes, ss: seconds.toString().padLeft(2, '0'));
   } else {
     final hours = remainingTimeInSeconds ~/ _secondsPerHour;
     final minutes = (remainingTimeInSeconds % _secondsPerHour) ~/ _secondsPerMinute;

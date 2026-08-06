@@ -241,7 +241,7 @@
       "speed": "سرعة: {speed}/ثانية"
     },
     "remainingTime": {
-      "minutes": "{n}:{ss}",
+      "minutes": "{m}:{ss}",
       "hours": "{h}س {m}د",
       "@hours": "استخدم 'س' لاختصار الساعات و'د' للدقائق"
     }

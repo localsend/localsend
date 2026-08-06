@@ -11,7 +11,7 @@ class NotificationStrings {
   final String titleSending;
 
   /// Remaining time below an hour, e.g. "1:30" or "0:45". [ss] is zero padded.
-  final String Function({required Object n, required Object ss}) remainingTimeMinutes;
+  final String Function({required Object m, required Object ss}) remainingTimeMinutes;
 
   /// Remaining time of an hour or more, e.g. "2h 5m" or "34h". Hours are not capped at a day.
   final String Function({required num h, required num m}) remainingTimeLong;

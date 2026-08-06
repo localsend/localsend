@@ -1106,7 +1106,7 @@ class _Translations$progressPage$remainingTime$hi extends Translations$progressP
 
   // Translations
   @override
-  String minutes({required Object n, required Object ss}) => '${n}:${ss}';
+  String minutes({required Object m, required Object ss}) => '${m}:${ss}';
 
   /// घंटों के लिए 'h' और मिनटों के लिए 'm' का इस्तेमाल करें
   @override

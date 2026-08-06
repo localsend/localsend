@@ -240,7 +240,7 @@
       "speed": "سرعت: {speed}/s"
     },
     "remainingTime": {
-      "minutes": "{n}:{ss}",
+      "minutes": "{m}:{ss}",
       "hours": "{h}س {m}د",
       "@hours": "از «س» به عنوان مخفف ساعت و از «د» برای دقیقه استفاده کنید"
     }

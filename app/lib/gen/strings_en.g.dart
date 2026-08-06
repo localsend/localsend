@@ -1390,8 +1390,8 @@ class Translations$progressPage$remainingTime$en {
     other: '${h}h',
   );
 
-  /// en: '{n}:{ss}'
-  String minutes({required Object n, required Object ss}) => '${n}:${ss}';
+  /// en: '{m}:{ss}'
+  String minutes({required Object m, required Object ss}) => '${m}:${ss}';
 
   /// en: '(other) {{h}h} (other) {{m}m}'
   String hours({required num h, required num m}) =>

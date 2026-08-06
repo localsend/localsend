@@ -241,7 +241,7 @@
       "speed": "速度：{speed}/s"
     },
     "remainingTime": {
-      "minutes": "{n}:{ss}",
+      "minutes": "{m}:{ss}",
       "hours": "{h}h {m}m",
       "@hours": "使用'h'作为小时缩写，使用'm'作为分钟缩写"
     }

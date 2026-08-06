@@ -53,7 +53,7 @@
       "hoursUnit(plural, param=h)": {
         "other": "{h}h"
       },
-      "minutes": "{n}:{ss}",
+      "minutes": "{m}:{ss}",
       "hours": "@:progressPage.remainingTime.hoursUnit @:progressPage.remainingTime.minutesUnit"
     }
   },

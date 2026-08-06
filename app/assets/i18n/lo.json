@@ -240,7 +240,7 @@
       "speed": "ຄວາມໄວ: {speed}/s"
     },
     "remainingTime": {
-      "minutes": "{n}:{ss}",
+      "minutes": "{m}:{ss}",
       "hours": "{h}ຊມ {m}ນທ"
     }
   },

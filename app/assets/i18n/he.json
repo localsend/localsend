@@ -277,8 +277,8 @@
         "one": "שעה",
         "two": "שעתיים"
       },
-      "minutes": "{n}:{ss}",
-      "hours": "@:progressPage.remainingTime.hoursUnit @:progressPage.remainingTime.minutesUnit"
+      "minutes": "{m}:{ss}",
+      "hours": "@:.hoursUnit @:.minutesUnit"
     }
   },
   "webSharePage": {

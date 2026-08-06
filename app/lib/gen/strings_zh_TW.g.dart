@@ -1013,7 +1013,7 @@ class Translations$progressPage$remainingTime$zh_TW extends Translations$progres
   String hours({required Object h, required Object m}) => '${h}小時 ${m}分鐘';
 
   @override
-  String minutes({required Object n, required Object ss}) => '${n}:${ss}';
+  String minutes({required Object m, required Object ss}) => '${m}:${ss}';
 }
 
 // Path: dialogs.addFile

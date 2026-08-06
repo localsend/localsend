@@ -243,7 +243,7 @@
       "speed": "Hız: {speed}/s"
     },
     "remainingTime": {
-      "minutes": "{n}:{ss}",
+      "minutes": "{m}:{ss}",
       "hours": "{h}s {m}d",
       "@hours": "Saat kısaltması için 's', dakika kısaltması için 'd' kullanın"
     }

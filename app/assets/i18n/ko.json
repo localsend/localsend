@@ -241,7 +241,7 @@
       "speed": "속도: {speed}/초"
     },
     "remainingTime": {
-      "minutes": "{n}:{ss}",
+      "minutes": "{m}:{ss}",
       "hours": "{h}시간 {m}분",
       "@hours": "'h'로 시간을, 'm'으로 분을 나타냅니다"
     }

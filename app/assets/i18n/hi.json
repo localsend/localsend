@@ -241,7 +241,7 @@
       "speed": "गति: {speed}/सेकंड"
     },
     "remainingTime": {
-      "minutes": "{n}:{ss}",
+      "minutes": "{m}:{ss}",
       "hours": "{h}घं {m}मि",
       "@hours": "घंटों के लिए 'h' और मिनटों के लिए 'm' का इस्तेमाल करें"
     }

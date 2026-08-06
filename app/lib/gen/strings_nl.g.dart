@@ -1023,7 +1023,7 @@ class _Translations$progressPage$remainingTime$nl extends Translations$progressP
 
   // Translations
   @override
-  String minutes({required Object n, required Object ss}) => '${n}:${ss}';
+  String minutes({required Object m, required Object ss}) => '${m}:${ss}';
 
   /// Gebruik 'u' als afkorting voor uren en 'm' voor minuten
   @override

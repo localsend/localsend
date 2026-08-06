@@ -1016,7 +1016,7 @@ class _Translations$progressPage$remainingTime$ko extends Translations$progressP
 
   // Translations
   @override
-  String minutes({required Object n, required Object ss}) => '${n}:${ss}';
+  String minutes({required Object m, required Object ss}) => '${m}:${ss}';
 
   /// 'h'로 시간을, 'm'으로 분을 나타냅니다
   @override

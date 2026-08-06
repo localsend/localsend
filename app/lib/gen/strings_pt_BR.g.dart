@@ -1110,7 +1110,7 @@ class Translations$progressPage$remainingTime$pt_BR extends Translations$progres
 
   // Translations
   @override
-  String minutes({required Object n, required Object ss}) => '${n}:${ss}';
+  String minutes({required Object m, required Object ss}) => '${m}:${ss}';
 
   /// Use 'h' para abreviar horas e 'm' para minutos
   @override

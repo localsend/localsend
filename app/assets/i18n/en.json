@@ -274,8 +274,8 @@
       "hoursUnit(plural, param=h)": {
         "other": "{h}h"
       },
-      "minutes": "{n}:{ss}",
-      "hours": "@:progressPage.remainingTime.hoursUnit @:progressPage.remainingTime.minutesUnit"
+      "minutes": "{m}:{ss}",
+      "hours": "@:.hoursUnit @:.minutesUnit"
     }
   },
   "webSharePage": {

@@ -240,7 +240,7 @@
       "speed": "Speed: {speed}/s"
     },
     "remainingTime": {
-      "minutes": "{n}:{ss}",
+      "minutes": "{m}:{ss}",
       "hours": "{h}h {m}m",
       "@hours": "Use 'h' for hours abbreviation and 'm' for minutes"
     }
