@@ -1390,6 +1390,12 @@ class Translations$progressPage$remainingTime$en {
     other: '${h}h',
   );
 
+  /// en: '(other) {{h}h}'
+  String hoursUnitWithAnd({required num h}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(
+    h,
+    other: '${h}h',
+  );
+
   /// en: '(other) {{d}d}'
   String daysUnit({required num d}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(
     d,

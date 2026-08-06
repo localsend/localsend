@@ -17,18 +17,18 @@ void main() {
     });
 
     test('shows hours and minutes for duration 1 hour or more but less than 1 day', () {
-      expect(getRemainingTime(bytesPerSeconds: 1000, remainingBytes: 3600000, strings: notificationStrings), '1h 0m');
+      expect(getRemainingTime(bytesPerSeconds: 1000, remainingBytes: 3600000, strings: notificationStrings), '1h');
       expect(getRemainingTime(bytesPerSeconds: 1000, remainingBytes: 3660000, strings: notificationStrings), '1h 1m');
-      expect(getRemainingTime(bytesPerSeconds: 1000, remainingBytes: 7200000, strings: notificationStrings), '2h 0m');
+      expect(getRemainingTime(bytesPerSeconds: 1000, remainingBytes: 7200000, strings: notificationStrings), '2h');
       expect(getRemainingTime(bytesPerSeconds: 1000, remainingBytes: 12000000, strings: notificationStrings), '3h 20m');
       expect(getRemainingTime(bytesPerSeconds: 1000, remainingBytes: 86340000, strings: notificationStrings), '23h 59m');
     });
 
     test('shows days, hours and minutes for duration 1 day or more', () {
-      expect(getRemainingTime(bytesPerSeconds: 1000, remainingBytes: 86400000, strings: notificationStrings), '1d 0h 0m');
-      expect(getRemainingTime(bytesPerSeconds: 1000, remainingBytes: 90000000, strings: notificationStrings), '1d 1h 0m');
+      expect(getRemainingTime(bytesPerSeconds: 1000, remainingBytes: 86400000, strings: notificationStrings), '1d');
+      expect(getRemainingTime(bytesPerSeconds: 1000, remainingBytes: 90000000, strings: notificationStrings), '1d 1h');
       expect(getRemainingTime(bytesPerSeconds: 1000, remainingBytes: 93660000, strings: notificationStrings), '1d 2h 1m');
-      expect(getRemainingTime(bytesPerSeconds: 1000, remainingBytes: 172800000, strings: notificationStrings), '2d 0h 0m');
+      expect(getRemainingTime(bytesPerSeconds: 1000, remainingBytes: 172800000, strings: notificationStrings), '2d');
       expect(getRemainingTime(bytesPerSeconds: 1000, remainingBytes: 183780000, strings: notificationStrings), '2d 3h 3m');
     });
 

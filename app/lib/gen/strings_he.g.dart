@@ -319,7 +319,7 @@ class _Translations$apkPickerPage$he extends Translations$apkPickerPage$en {
   @override
   String get excludeSystemApps => 'אל תכלול אפליקציות מערכת';
   @override
-  String get excludeAppsWithoutLaunchIntent => 'אל תכלול אפליקציות שאינן ניתנות להפעלה';
+  String get excludeAppsWithoutLaunchIntent => 'אל תכלול אפליקציות שאינן ניתנות לפתיחה';
   @override
   String apps({required Object n}) => '${n} אפליקציות';
 }
@@ -407,6 +407,8 @@ class _Translations$progressPage$he extends Translations$progressPage$en {
   String get savedToGallery => 'נשמר בתמונות';
   @override
   late final _Translations$progressPage$total$he total = _Translations$progressPage$total$he._(_root);
+  @override
+  late final _Translations$progressPage$remainingTime$he remainingTime = _Translations$progressPage$remainingTime$he._(_root);
 }
 
 // Path: webSharePage
@@ -978,6 +980,48 @@ class _Translations$progressPage$total$he extends Translations$progressPage$tota
   String size({required Object curr, required Object n}) => 'גודל: ${curr}/${n}';
   @override
   String speed({required Object speed}) => 'מהירות: ${speed}/שניה';
+}
+
+// Path: progressPage.remainingTime
+class _Translations$progressPage$remainingTime$he extends Translations$progressPage$remainingTime$en {
+  _Translations$progressPage$remainingTime$he._(TranslationsHe root) : this._root = root, super.internal(root);
+
+  final TranslationsHe _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String minutesUnit({required num m}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('he'))(
+    m,
+    one: 'ודקה',
+    other: 'ו־${m} דקות',
+  );
+  @override
+  String hoursUnit({required num h}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('he'))(
+    h,
+    one: 'שעה',
+    two: 'שעתיים',
+    other: '${h} שעות',
+  );
+  @override
+  String hoursUnitWithAnd({required num h}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('he'))(
+    h,
+    one: 'ושעה',
+    two: 'ושעתיים',
+    other: 'ו־${h} שעות',
+  );
+  @override
+  String daysUnit({required num d}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('he'))(
+    d,
+    one: 'יום',
+    two: 'יומיים',
+    other: '${d} ימים',
+  );
+  @override
+  String hours({required num h, required num m}) =>
+      '${_root.progressPage.remainingTime.hoursUnit(h: h)} ${_root.progressPage.remainingTime.minutesUnit(m: m)}';
+  @override
+  String days({required num d, required num h, required num m}) =>
+      '${_root.progressPage.remainingTime.daysUnit(d: d)}, ${_root.progressPage.remainingTime.hoursUnit(h: h)} ${_root.progressPage.remainingTime.minutesUnit(m: m)}';
 }
 
 // Path: dialogs.addFile
