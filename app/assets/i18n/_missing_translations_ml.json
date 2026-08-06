@@ -51,10 +51,18 @@
   },
   "progressPage": {
     "remainingTime": {
-      "seconds": "{n}:{ss}",
+      "minutesUnit(plural, param=m)": {
+        "other": "{m}m"
+      },
+      "hoursUnit(plural, param=h)": {
+        "other": "{h}h"
+      },
+      "daysUnit(plural, param=d)": {
+        "other": "{d}d"
+      },
       "minutes": "{n}:{ss}",
-      "hours": "{h}h {m}m",
-      "days": "{d}d {h}h {m}m"
+      "hours": "@:progressPage.remainingTime.hoursUnit @:progressPage.remainingTime.minutesUnit",
+      "days": "@:progressPage.remainingTime.daysUnit @:progressPage.remainingTime.hoursUnit @:progressPage.remainingTime.minutesUnit"
     }
   },
   "webSharePage": {

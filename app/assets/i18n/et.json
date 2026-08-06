@@ -241,7 +241,6 @@
       "speed": "Kiirus: {speed}/s"
     },
     "remainingTime": {
-      "seconds": "{n}:{ss}",
       "minutes": "{n}:{ss}",
       "hours": "{h} t {m} min",
       "days": "{d} pv {h} t {m} min",

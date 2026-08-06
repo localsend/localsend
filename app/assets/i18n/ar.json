@@ -241,7 +241,6 @@
       "speed": "سرعة: {speed}/ثانية"
     },
     "remainingTime": {
-      "seconds": "{n}:{ss}",
       "minutes": "{n}:{ss}",
       "hours": "{h}س {m}د",
       "days": "{d}ي {h}س {m}د",

@@ -243,7 +243,6 @@
       "speed": "Hız: {speed}/s"
     },
     "remainingTime": {
-      "seconds": "{n}:{ss}",
       "minutes": "{n}:{ss}",
       "hours": "{h}s {m}d",
       "days": "{d}g {h}s {m}d",

@@ -240,7 +240,6 @@
       "speed": "Tezlik: {speed}/s"
     },
     "remainingTime": {
-      "seconds": "{n}:{ss}",
       "minutes": "{n}:{ss}",
       "hours": "{h}s {m}d",
       "days": "{d}k {h}s {m}d"

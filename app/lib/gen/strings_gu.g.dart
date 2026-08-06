@@ -1075,8 +1075,6 @@ class _Translations$progressPage$remainingTime$gu extends Translations$progressP
 
   // Translations
   @override
-  String seconds({required Object n, required Object ss}) => '${n}:${ss}';
-  @override
   String minutes({required Object n, required Object ss}) => '${n}:${ss}';
 
   /// નાનું કરી ને 'ક' કલાક માટે અને 'મિ' મિનિટ માટે વાપરો
