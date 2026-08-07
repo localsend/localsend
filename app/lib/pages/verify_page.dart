@@ -15,7 +15,7 @@ class CombinedFingerprint {
   });
 
   factory CombinedFingerprint.load(BuildContext context, String fingerprint) {
-    final myFingerprint = context.ref.watch(securityProvider.select((s) => s.certificateHash));
+    final myFingerprint = context.read(securityProvider.select((s) => s.certificateHash));
     final fingerprints = [myFingerprint, fingerprint]..sort();
     final combined = fingerprints.join();
     final icons = fingerprintToIcons(combined);
