@@ -1,6 +1,5 @@
-# UNCOMMENT THESE LINES TO BUILD FROM LATEST COMMIT
-# git reset --hard origin/main
-# git pull
+# Prerequisite:
+# - brew install create-dmg
 
 cd app
 fvm flutter clean
