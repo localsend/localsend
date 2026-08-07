@@ -7,7 +7,10 @@ import android.content.Context
 import android.content.Intent
 import android.database.Cursor
 import android.net.Uri
+import android.os.Bundle
 import android.os.Environment
+import android.os.Handler
+import android.os.Looper
 import android.provider.DocumentsContract
 import android.provider.Settings
 import io.flutter.embedding.android.FlutterActivity
@@ -33,6 +36,15 @@ class MainActivity : FlutterActivity() {
 
         fun createDefaultIntent(launchContext: Context): Intent {
             return withNewEngine().build(launchContext)
+        }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        if (intent?.getBooleanExtra(EXTRA_BACKGROUND_START, false) == true) {
+            Handler(Looper.getMainLooper()).postDelayed({
+                moveTaskToBack(true)
+            }, 4000)
         }
     }
 

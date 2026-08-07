@@ -17,12 +17,14 @@ class ForegroundService {
 
   /// Start, update and stop must not overlap, otherwise they would read a [_running] flag that
   /// a still pending action is about to change.
-  static final _queue = FutureQueue(
-    onError: (e, st) => _logger.warning('Foreground service operation failed', e, st),
-  );
+  static final _queue = FutureQueue(onError: (e, st) => _logger.warning('Foreground service operation failed', e, st));
 
   static bool _initialized = false;
   static bool _running = false;
+  static bool _keepAlive = false;
+  static String? _keepAliveChannelName;
+  static String? _keepAliveTitle;
+  static String? _keepAliveText;
   static DateTime? _lastUpdate;
   static String? _lastTitle;
   static String? _lastText;
@@ -48,11 +50,7 @@ class ForegroundService {
   ///
   /// [channelName] is shown in the Android notification settings and is only read the first time
   /// the service starts, because the notification channel is created once per app installation.
-  static void start({
-    required String channelName,
-    required String title,
-    required String text,
-  }) {
+  static void start({required String channelName, required String title, required String text}) {
     if (!_isSupported) {
       return;
     }
@@ -62,6 +60,7 @@ class ForegroundService {
     _lastText = null;
     _queue.add(() async {
       if (_running) {
+        await _updateService(title: title, text: text);
         return;
       }
 
@@ -84,6 +83,59 @@ class ForegroundService {
 
       _running = true;
     });
+  }
+
+  /// Keeps the Android process alive while the app is idle but available to receive files.
+  ///
+  /// Transfers temporarily replace the notification text. When the last transfer ends, callers
+  /// can restore this idle notification instead of stopping the foreground service.
+  static void startKeepAlive({required String channelName, required String title, required String text}) {
+    if (!_isSupported) {
+      return;
+    }
+
+    _keepAlive = true;
+    _keepAliveChannelName = channelName;
+    _keepAliveTitle = title;
+    _keepAliveText = text;
+
+    start(channelName: channelName, title: title, text: text);
+  }
+
+  /// Stops the idle keepalive. Running transfers may still keep the service active.
+  static void stopKeepAlive() {
+    _keepAlive = false;
+    _keepAliveChannelName = null;
+    _keepAliveTitle = null;
+    _keepAliveText = null;
+    stop();
+  }
+
+  /// Restores the idle keepalive notification, or stops the service when no keepalive is active.
+  static void restoreKeepAliveOrStop() {
+    if (!_isSupported) {
+      return;
+    }
+
+    if (!_keepAlive) {
+      stop();
+      return;
+    }
+
+    final channelName = _keepAliveChannelName;
+    final title = _keepAliveTitle;
+    final text = _keepAliveText;
+    if (channelName == null || title == null || text == null) {
+      stop();
+      return;
+    }
+
+    _lastUpdate = null;
+    if (_running) {
+      updateNotification(title: title, text: text);
+    } else {
+      start(channelName: channelName, title: title, text: text);
+    }
   }
 
   /// Updates the notification.
@@ -114,10 +166,7 @@ class ForegroundService {
         return;
       }
 
-      final result = await FlutterForegroundTask.updateService(notificationTitle: title, notificationText: text);
-      if (result is ServiceRequestFailure) {
-        _logger.warning('Could not update the foreground service', result.error);
-      }
+      await _updateService(title: title, text: text);
     });
   }
 
@@ -157,10 +206,7 @@ class ForegroundService {
         priority: NotificationPriority.LOW,
         onlyAlertOnce: true,
       ),
-      iosNotificationOptions: const IOSNotificationOptions(
-        showNotification: false,
-        playSound: false,
-      ),
+      iosNotificationOptions: const IOSNotificationOptions(showNotification: false, playSound: false),
       foregroundTaskOptions: ForegroundTaskOptions(
         // The work happens in the other isolates, so the service has nothing to do on its own.
         eventAction: ForegroundTaskEventAction.nothing(),
@@ -186,6 +232,13 @@ class ForegroundService {
       }
     } catch (e) {
       _logger.warning('Could not request the notification permission', e);
+    }
+  }
+
+  static Future<void> _updateService({required String title, required String text}) async {
+    final result = await FlutterForegroundTask.updateService(notificationTitle: title, notificationText: text);
+    if (result is ServiceRequestFailure) {
+      _logger.warning('Could not update the foreground service', result.error);
     }
   }
 }

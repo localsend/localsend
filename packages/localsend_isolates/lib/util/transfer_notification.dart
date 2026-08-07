@@ -46,11 +46,7 @@ class TransferNotification {
     _transfers[sessionId] = _Transfer(receiving: receiving);
 
     if (isFirst) {
-      ForegroundService.start(
-        channelName: _requiredStrings.titleReceiving,
-        title: _title(),
-        text: _text(),
-      );
+      ForegroundService.start(channelName: _requiredStrings.titleReceiving, title: _title(), text: _text());
     }
   }
 
@@ -75,14 +71,15 @@ class TransferNotification {
     ForegroundService.updateNotification(title: _title(), text: _text());
   }
 
-  /// Unregisters a transfer, stopping the service once the last one is gone.
+  /// Unregisters a transfer, stopping the service once the last one is gone unless
+  /// Android is keeping an idle receive service alive.
   static void stop(String sessionId) {
     if (_transfers.remove(sessionId) == null) {
       return;
     }
 
     if (_transfers.isEmpty) {
-      ForegroundService.stop();
+      ForegroundService.restoreKeepAliveOrStop();
     } else {
       ForegroundService.updateNotification(title: _title(), text: _text());
     }
