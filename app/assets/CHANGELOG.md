@@ -1,28 +1,35 @@
-## unreleased
+## 1.18.0 (2026-08-09)
 
-- feat(windows): add LocalSend to Windows Share Sheet (@chenxdust, https://github.com/localsend/localsend/pull/2555)
-- feat: enable starting text share via command line using `--text` or `-t` flags (@guilhermetiscoski, https://github.com/localsend/localsend/pull/2661)
-- feat(android): add quick settings tile for instant app launch (@Voltra, https://github.com/localsend/localsend/pull/2676)
-- feat(android, ios, macos): respect system-wide animation preferences on first app startup (@nitheesh-daram, https://github.com/localsend/localsend/pull/2338)
-- feat: improve remaining time formatting for long transfers (@ShlomoCode, https://github.com/localsend/localsend/pull/2765)
-- feat: change duplicate file naming from "file-1.txt" to "file (1).txt" format (@kartoshka95, https://github.com/localsend/localsend/pull/2455)
-- feat(macos): implement button to quickly open firewall settings from troubleshoot page (@ShlomoCode, https://github.com/localsend/localsend/pull/2775)
-- feat(macos): add Command+Comma shortcut to open settings (@ShlomoCode, https://github.com/localsend/localsend/pull/2715)
-- feat(macos): use user-friendly ComputerName instead of the technical hostname (@ShlomoCode, https://github.com/localsend/localsend/pull/2729)
-- feat(linux): use native window decorations instead of large GTK3 headerbar (@nixigaj, https://github.com/localsend/localsend/pull/2360)
-- fix(macos): prevent Dock icon from briefly appearing during autostart when "Start hidden" is enabled (@ShlomoCode, https://github.com/localsend/localsend/pull/2449)
-- feat(macos): enable Dock icon text-drop even when the app is not running (@ShlomoCode, https://github.com/localsend/localsend/pull/2712)
-- feat(macos): borderless window design (@ReallLucky, https://github.com/localsend/localsend/pull/2416)
-- feat(macos): enable Hardened Runtime for the Mac App Store version as well to improve security (@ShlomoCode, https://github.com/localsend/localsend/pull/2716)
-- fix(macos): Dock icon drag-and-drop and Share Extension working again (@ShlomoCode, https://github.com/localsend/localsend/pull/2711)
-- fix(android): files not downloading when using "Share via link" (@ShlomoCode, https://github.com/localsend/localsend/pull/2756)
-- fix(ios, android): prevent transfer error by saving unsupported media formats to folder instead of gallery (@ShlomoCode, https://github.com/localsend/localsend/pull/2766)
-- fix: release wake lock after file transfer completes to allow device sleep (@kartoshka95, https://github.com/localsend/localsend/pull/2457)
-- fix(android): preserve location metadata when sharing media (@ShlomoCode, https://github.com/localsend/localsend/pull/2742)
-- fix: text message content displayed three times in history dialog (@ew-sirenko, https://github.com/localsend/localsend/pull/2296)
-- fix: text message content size calculation (@ew-sirenko, https://github.com/localsend/localsend/pull/2297)
-- fix(linux): add CJK font support for Chinese, Japanese, and Korean text (@Mr-Ebonycat, https://github.com/localsend/localsend/pull/2719)
-- fix: save DNG files to image gallery (@ShlomoCode, https://github.com/localsend/localsend/pull/2728)
+- feat(cli): initial CLI release
+- feat: receive via link
+- feat: custom color theme via color picker
+- feat: ipv6 support
+- feat: checksum support (enabled by default)
+- feat: automatically accept files by favorite devices by default
+- feat: use decimal units for file sizes (1 GB = 1000 MB) to match macOS, iOS, Android, and Linux
+- feat: enable starting text share via command line using `--text` or `-t` flags (@guilhermetiscoski)
+- feat: improve remaining time formatting for long transfers (@ShlomoCode)
+- feat: change duplicate file naming from "file-1.txt" to "file (1).txt" format (@kartoshka95)
+- feat(android, ios, macos): respect system-wide animation preferences on first app startup (@nitheesh-daram)
+- feat(android): run file transfer in background
+- feat(android): add quick settings tile for instant app launch (@Voltra)
+- feat(windows): add LocalSend to share sheet (@chenxdust)
+- feat(macos): implement button to quickly open firewall settings from troubleshoot page (@ShlomoCode)
+- feat(macos): add Command+Comma shortcut to open settings (@ShlomoCode)
+- feat(macos): use user-friendly ComputerName instead of the technical hostname (@ShlomoCode)
+- feat(macos): enable Dock icon text-drop even when the app is not running (@ShlomoCode)
+- feat(linux): use native window decorations instead of large GTK3 headerbar (@nixigaj)
+- perf: faster transfers for slow receiving devices
+- fix: receiving / sending many files no longer freeze / lag
+- fix: release wake lock after file transfer completes to allow device sleep (@kartoshka95)
+- fix: text message content displayed three times in history dialog (@ew-sirenko)
+- fix: text message content size calculation (@ew-sirenko)
+- fix: save DNG files to image gallery (@ShlomoCode)
+- fix(ios, android): prevent transfer error by saving unsupported media formats to folder instead of gallery (@ShlomoCode)
+- fix(android): preserve location metadata when sharing media (@ShlomoCode)
+- fix(macos): prevent Dock icon from briefly appearing during autostart when "Start hidden" is enabled (@ShlomoCode)
+- fix(macos): Dock icon drag-and-drop and Share Extension working again (@ShlomoCode)
+- fix(linux): add CJK font support for Chinese, Japanese, and Korean text (@Mr-Ebonycat)
 
 ## 1.17.0 (2025-02-19)
 
