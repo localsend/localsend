@@ -1,3 +1,5 @@
+import 'package:adaptive_platform_ui/adaptive_platform_ui.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class LabeledCheckbox extends StatelessWidget {
@@ -20,13 +22,15 @@ class LabeledCheckbox extends StatelessWidget {
           ? [
               Text(label),
               const SizedBox(width: 5),
-              Checkbox(
+              CupertinoCheckbox(
+                activeColor: Theme.of(context).colorScheme.primary,
                 value: value,
                 onChanged: onChanged,
               ),
             ]
           : [
-              Checkbox(
+              CupertinoCheckbox(
+                activeColor: Theme.of(context).colorScheme.primary,
                 value: value,
                 onChanged: onChanged,
               ),

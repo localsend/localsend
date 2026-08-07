@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:adaptive_platform_ui/adaptive_platform_ui.dart';
 import 'package:desktop_drop/desktop_drop.dart';
 import 'package:flutter/material.dart';
 import 'package:localsend_app/config/init.dart';
@@ -9,6 +10,7 @@ import 'package:localsend_app/pages/home_page_controller.dart';
 import 'package:localsend_app/pages/tabs/receive_tab.dart';
 import 'package:localsend_app/pages/tabs/send_tab.dart';
 import 'package:localsend_app/pages/tabs/settings_tab.dart';
+import 'package:localsend_app/provider/device_info_provider.dart';
 import 'package:localsend_app/provider/selection/selected_sending_files_provider.dart';
 import 'package:localsend_app/util/native/cross_file_converters.dart';
 import 'package:localsend_app/widget/responsive_builder.dart';
@@ -17,8 +19,7 @@ import 'package:refena_flutter/refena_flutter.dart';
 enum HomeTab {
   receive(Icons.wifi),
   send(Icons.send),
-  settings(Icons.settings)
-  ;
+  settings(Icons.settings);
 
   const HomeTab(this.icon);
 
@@ -32,6 +33,17 @@ enum HomeTab {
         return t.sendTab.title;
       case HomeTab.settings:
         return t.settingsTab.title;
+    }
+  }
+
+  String get iconName {
+    switch (this) {
+      case HomeTab.receive:
+        return 'wifi';
+      case HomeTab.send:
+        return 'paperplane';
+      case HomeTab.settings:
+        return 'gear';
     }
   }
 }
@@ -70,7 +82,7 @@ class _HomePageState extends State<HomePage> with Refena {
   Widget build(BuildContext context) {
     Translations.of(context); // rebuild on locale change
     final vm = context.watch(homePageControllerProvider);
-
+    final deviceInfo = context.watch(deviceRawInfoProvider);
     return DropTarget(
       onDragEntered: (_) {
         setState(() {
@@ -101,7 +113,8 @@ class _HomePageState extends State<HomePage> with Refena {
       },
       child: ResponsiveBuilder(
         builder: (sizingInformation) {
-          return Scaffold(
+          return AdaptiveScaffold(
+            minimizeBehavior: TabBarMinimizeBehavior.never,
             body: Row(
               children: [
                 if (!sizingInformation.isMobile)
@@ -166,11 +179,12 @@ class _HomePageState extends State<HomePage> with Refena {
               ],
             ),
             bottomNavigationBar: sizingInformation.isMobile
-                ? NavigationBar(
+                ? AdaptiveBottomNavigationBar(
+                    useNativeBottomBar: deviceInfo.IOSVersion >= 26,
                     selectedIndex: vm.currentTab.index,
-                    onDestinationSelected: (index) => vm.changeTab(HomeTab.values[index]),
-                    destinations: HomeTab.values.map((tab) {
-                      return NavigationDestination(icon: Icon(tab.icon), label: tab.label);
+                    onTap: (index) => vm.changeTab(HomeTab.values[index]),
+                    items: HomeTab.values.map((tab) {
+                      return AdaptiveNavigationDestination(icon: deviceInfo.IOSVersion >= 26 ? tab.iconName : Icon(tab.icon), label: tab.label);
                     }).toList(),
                   )
                 : null,

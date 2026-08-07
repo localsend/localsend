@@ -10,6 +10,7 @@ environment:
   sdk: ^3.11.0
 
 dependencies:
+  adaptive_platform_ui: ^0.1.111
   collection: ^1.17.2 # allow newer versions, so it can compile with newer Flutter versions
   connectivity_plus: 7.2.0
   dart_mappable: 4.8.0

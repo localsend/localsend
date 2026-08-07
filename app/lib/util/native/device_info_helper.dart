@@ -13,6 +13,8 @@ Future<DeviceInfoResult> getDeviceInfo() async {
   final String? deviceModel;
   int? androidSdkInt;
 
+  double IOSVersion = 0;
+
   if (kIsWeb) {
     deviceType = DeviceType.web;
     final deviceInfo = await plugin.webBrowserInfo;
@@ -40,6 +42,7 @@ Future<DeviceInfoResult> getDeviceInfo() async {
       case TargetPlatform.iOS:
         final deviceInfo = await plugin.iosInfo;
         deviceModel = deviceInfo.localizedModel;
+        IOSVersion = double.parse(deviceInfo.systemVersion);
         break;
       case TargetPlatform.linux:
         deviceModel = 'Linux';
@@ -56,11 +59,7 @@ Future<DeviceInfoResult> getDeviceInfo() async {
     }
   }
 
-  return DeviceInfoResult(
-    deviceType: deviceType,
-    deviceModel: deviceModel,
-    androidSdkInt: androidSdkInt,
-  );
+  return DeviceInfoResult(deviceType: deviceType, deviceModel: deviceModel, androidSdkInt: androidSdkInt, IOSVersion: IOSVersion);
 }
 
 extension on BrowserName {
