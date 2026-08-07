@@ -100,6 +100,9 @@ fn message_of(files: &HashMap<String, FileDto>) -> Option<&str> {
     file.preview.as_deref()
 }
 
+/// Maximum number of files listed in an incoming request prompt.
+const MAX_LISTED_FILES: usize = 20;
+
 /// The user's decision on a [`PendingReceive`].
 pub(super) enum Answer {
     Accept,
@@ -155,17 +158,19 @@ impl App {
                     }
                 } else {
                     let total: u64 = files.values().map(|file| file.size).sum();
-                    let mut lines = vec![info.alias.clone(), "\nFiles:".to_string()];
+                    let mut lines = vec![info.alias.clone(), format!("\nFiles ({}, {}):", files.len(), util::format_bytes(total))];
                     let mut sorted: Vec<&FileDto> = files.values().collect();
-                    sorted.sort_by_key(|file| &file.file_name);
-                    for file in sorted {
+                    sorted.sort_by_key(|file| std::cmp::Reverse(file.size));
+                    for file in sorted.iter().take(MAX_LISTED_FILES) {
                         lines.push(format!(
                             "  {} ({})",
                             file.file_name,
                             util::format_bytes(file.size)
                         ));
                     }
-                    lines.push(format!("Total size: {}", util::format_bytes(total)));
+                    if sorted.len() > MAX_LISTED_FILES {
+                        lines.push(format!("  ... and {} more", sorted.len() - MAX_LISTED_FILES));
+                    }
                     lines.push("\nAccept? Y/N/P (P = accept and pair)".to_string());
                     self.ui.log(Category::Receive, &lines.join("\n"));
                     self.pending = Some(PendingReceive {
