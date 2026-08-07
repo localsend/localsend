@@ -1,0 +1,66 @@
+{
+  "fill-specializations": [
+    {
+      "value": "system-dark"
+    },
+    {
+      "appearance": "dark",
+      "value": "system-dark"
+    }
+  ],
+  "groups": [
+    {
+      "layers": [
+        {
+          "blend-mode-specializations": [
+            {
+              "value": "normal"
+            },
+            {
+              "appearance": "dark",
+              "value": "normal"
+            },
+            {
+              "appearance": "tinted",
+              "value": "normal"
+            }
+          ],
+          "fill-specializations": [
+            {
+              "value": "none"
+            },
+            {
+              "appearance": "dark",
+              "value": "none"
+            },
+            {
+              "appearance": "tinted",
+              "value": "none"
+            }
+          ],
+          "glass": true,
+          "image-name": "emblem.png",
+          "name": "emblem",
+          "position": {
+            "scale": 1.61,
+            "translation-in-points": [
+              0.8050000000000637,
+              85.78125
+            ]
+          }
+        }
+      ],
+      "shadow": {
+        "kind": "neutral",
+        "opacity": 0.5
+      },
+      "translucency": {
+        "enabled": true,
+        "value": 0.5
+      }
+    }
+  ],
+  "supported-platforms": {
+    "squares": "shared"
+  }
+}
