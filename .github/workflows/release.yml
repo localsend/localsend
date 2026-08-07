@@ -334,6 +334,7 @@ jobs:
   build_windows_zip_x86_64:
     needs: build
     runs-on: windows-latest
+    environment: packaging
 
     steps:
       - name: Fix long file paths
@@ -366,15 +367,43 @@ jobs:
           Copy-Item ../support/build/windows/x64/vcruntime140.dll build/windows/x64/runner/Release/
           Copy-Item ../support/build/windows/x64/vcruntime140_1.dll build/windows/x64/runner/Release/
 
+      # The SignPath artifact configuration expects "LocalSend-*-windows-x86-64.zip" containing "localsend_app.exe"
       - name: Zip compiled files
         working-directory: app
-        run: Compress-Archive -Path build/windows/x64/runner/Release/* -DestinationPath LocalSend.zip
+        run: Compress-Archive -Path build/windows/x64/runner/Release/* -DestinationPath "LocalSend-${{ needs.build.outputs.version }}-windows-x86-64.zip"
 
-      - name: Upload zip
+      - name: Upload unsigned zip
+        id: unsigned-zip
+        uses: actions/upload-artifact@v6
+        with:
+          name: windows-zip-unsigned
+          path: app/LocalSend-${{ needs.build.outputs.version }}-windows-x86-64.zip
+          if-no-files-found: error
+
+      - name: Sign zip (SignPath)
+        uses: signpath/github-action-submit-signing-request@v2
+        with:
+          api-token: ${{ secrets.SIGNPATH_API_TOKEN }}
+          organization-id: ${{ vars.SIGNPATH_ORG_ID }}
+          project-slug: localsend
+          signing-policy-slug: release-signing
+          artifact-configuration-slug: portable
+          github-artifact-id: ${{ steps.unsigned-zip.outputs.artifact-id }}
+          wait-for-completion: true
+          output-artifact-directory: signed/portable
+
+      - name: Verify signature
+        continue-on-error: true
+        run: |
+          Expand-Archive -Path "signed\portable\LocalSend-${{ needs.build.outputs.version }}-windows-x86-64.zip" -DestinationPath verify-portable
+          $signtool = Get-ChildItem 'C:\Program Files (x86)\Windows Kits\10\bin\10.*\x64\signtool.exe' | Select-Object -Last 1
+          & $signtool.FullName verify /pa /v verify-portable\localsend_app.exe
+
+      - name: Upload signed zip
         uses: actions/upload-artifact@v6
         with:
           name: windows-zip-x86-64-result
-          path: app/LocalSend.zip
+          path: signed/portable/LocalSend-${{ needs.build.outputs.version }}-windows-x86-64.zip
 
   build_windows_exe_x86_64:
     needs: build
