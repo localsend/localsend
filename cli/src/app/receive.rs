@@ -417,11 +417,11 @@ impl App {
             Answer::Decline => {
                 let _ = pending.decision_tx.send(PrepareUploadDecisionV2::Decline);
                 self.ui
-                    .log(Category::Receive, &format!("{}: Declined", pending.alias));
+                    .log(Category::Receive, &format!("{}: You declined", pending.alias));
             }
             Answer::Accept | Answer::AcceptAndPair => {
                 self.ui
-                    .log(Category::Receive, &format!("{}: Accepted", pending.alias));
+                    .log(Category::Receive, &format!("{}: You accepted", pending.alias));
                 if matches!(answer, Answer::AcceptAndPair) {
                     match self
                         .storage
