@@ -10,28 +10,28 @@ environment:
 
 dependencies:
   collection: ^1.17.2 # allow newer versions, so it can compile with newer Flutter versions
-  dart_mappable: 4.8.0
+  dart_mappable: ^4.8.0
   flutter:
     sdk: flutter
-  flutter_foreground_task: 9.2.2
-  flutter_rust_bridge: 2.12.0
-  freezed_annotation: 3.1.0
-  gal: 2.3.2
-  logging: 1.3.0
-  mime: 2.0.0
-  path: 1.9.1
-  pool: 1.5.2
+  flutter_foreground_task: ^9.2.2
+  flutter_rust_bridge: ^2.12.0
+  freezed_annotation: ^3.1.0
+  gal: ^2.3.3
+  logging: ^1.3.0
+  mime: ^2.0.0
+  path: ^1.9.1
+  pool: ^1.5.2
   refena_flutter: ^3.4.0
   rust_lib_localsend_app:
     path: rust_builder
   typed_isolates:
     path: ../typed_isolates
-  uuid: 4.5.3
+  uuid: ^4.5.3
 
 dev_dependencies:
-  build_runner: 2.15.1
-  dart_mappable_builder: 4.8.0
-  flutter_lints: 6.0.0
+  build_runner: ^2.15.1
+  dart_mappable_builder: ^4.8.0
+  flutter_lints: ^6.0.0
   flutter_test:
     sdk: flutter
-  freezed: 3.2.5
+  freezed: ^3.2.5
