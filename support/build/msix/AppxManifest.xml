@@ -21,8 +21,8 @@
         xmlns:com2="http://schemas.microsoft.com/appx/manifest/com/windows10/2" 
         xmlns:com3="http://schemas.microsoft.com/appx/manifest/com/windows10/3" 
         IgnorableNamespaces="uap3 desktop">
-  <Identity Name="11157TienDoNam.LocalSend" Version="1.14.0.0"
-            Publisher="CN=Tien Do Nam, O=Tien Do Nam, S=Sachsen, C=DE" ProcessorArchitecture="x64" />
+  <Identity Name="LocalSend.App" Version="1.14.0.0"
+            Publisher="CN=SignPath Foundation, O=SignPath Foundation, C=US, S=DE, L=Lewes" ProcessorArchitecture="x64" />
   <Properties>
     <DisplayName>LocalSend MSIX Helper</DisplayName>
     <PublisherDisplayName>Tien Do Nam</PublisherDisplayName>

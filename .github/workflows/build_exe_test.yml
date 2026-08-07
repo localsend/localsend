@@ -38,8 +38,49 @@ jobs:
           flutter-version: ${{ env.FLUTTER_VERSION }}
           channel: "stable"
 
+      # The MSIX publisher must match the subject of the signing certificate.
+      # The manifests in the repo carry the release certificate subject; test-signing
+      # uses SignPath's self-issued test certificate, so patch both manifests here.
+      - name: Patch MSIX publisher for test certificate
+        run: |
+          $subject = 'CN=Test certificate for ''LocalSend [OSS]'''
+          $manifest = 'support\build\msix\AppxManifest.xml'
+          $exeManifest = 'app\windows\localsend_app.exe.manifest'
+          (Get-Content $manifest -Raw) -creplace 'Publisher="[^"]+"', ('Publisher="' + $subject + '"') | Set-Content $manifest -Encoding utf8
+          (Get-Content $exeManifest -Raw) -creplace 'publisher="[^"]+"', ('publisher="' + $subject + '"') | Set-Content $exeManifest -Encoding utf8
+
       - name: Build MSIX helper
         run: '& ''C:\Program Files (x86)\Windows Kits\10\App Certification Kit\makeappx.exe'' pack /o /d support\build\msix /nv /p app\windows\localsend_msix_helper.msix'
+
+      # The sparse package needs its own signature (Add-AppxPackage rejects unsigned packages)
+      - name: Upload unsigned MSIX helper
+        id: unsigned-msix
+        uses: actions/upload-artifact@v6
+        with:
+          name: windows-msix-helper-unsigned
+          path: app\windows\localsend_msix_helper.msix
+          if-no-files-found: error
+
+      - name: Sign MSIX helper (SignPath)
+        uses: signpath/github-action-submit-signing-request@v2
+        with:
+          api-token: ${{ secrets.SIGNPATH_API_TOKEN }}
+          organization-id: ${{ vars.SIGNPATH_ORG_ID }}
+          project-slug: localsend
+          signing-policy-slug: test-signing
+          artifact-configuration-slug: msix-helper
+          github-artifact-id: ${{ steps.unsigned-msix.outputs.artifact-id }}
+          wait-for-completion: true
+          output-artifact-directory: signed/msix-helper
+
+      - name: Replace MSIX helper with signed version
+        run: Copy-Item -Force signed\msix-helper\localsend_msix_helper.msix app\windows\localsend_msix_helper.msix
+
+      - name: Verify MSIX signature
+        continue-on-error: true
+        run: |
+          $signtool = Get-ChildItem 'C:\Program Files (x86)\Windows Kits\10\bin\10.*\x64\signtool.exe' | Select-Object -Last 1
+          & $signtool.FullName verify /pa /v app\windows\localsend_msix_helper.msix
 
       - name: Dependencies
         working-directory: app
