@@ -132,7 +132,7 @@ async fn start_test_server(
         None, // plain HTTP
         ClientInfo {
             alias: "Test Server".to_string(),
-            version: "2.1".to_string(),
+            version: "2.2".to_string(),
             device_model: Some("Rust".to_string()),
             device_type: None,
             token: "server-fingerprint".to_string(),
@@ -333,7 +333,7 @@ async fn test_upload_page() {
         None, // plain HTTP
         ClientInfo {
             alias: "Test Server".to_string(),
-            version: "2.1".to_string(),
+            version: "2.2".to_string(),
             device_model: Some("Rust".to_string()),
             device_type: None,
             token: "server-fingerprint".to_string(),

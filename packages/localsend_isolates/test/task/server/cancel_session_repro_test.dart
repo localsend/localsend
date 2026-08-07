@@ -47,7 +47,7 @@ void main() {
       port: _port,
       tls: null,
       alias: 'Receiver',
-      version: '2.1',
+      version: '2.2',
       deviceModel: 'Test',
       deviceType: null,
       fingerprint: 'RECEIVER-FINGERPRINT',
@@ -129,7 +129,7 @@ void main() {
         jsonEncode({
           'info': {
             'alias': 'Sender',
-            'version': '2.1',
+            'version': '2.2',
             'fingerprint': 'SENDER-FINGERPRINT',
             'port': 1,
             'protocol': 'http',

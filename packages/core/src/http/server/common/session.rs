@@ -14,7 +14,7 @@ pub(crate) enum SessionStateV2 {
 
 /// A prepare-upload request that is waiting for the application's decision.
 ///
-/// Senders on protocol 2.0/2.1 do not know the session ID before the
+/// Senders on protocol 2.0/2.1/2.2 do not know the session ID before the
 /// prepare-upload response, so they cancel the pending request with a
 /// session-less `POST /cancel` from the same address; `cancel` interrupts
 /// the waiting request handler.
