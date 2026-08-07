@@ -25,9 +25,11 @@ class IsolateDiscoveryListenAction extends ReduxActionWithResult<IsolateControll
 
     return (
       state,
-      connection.sendWrappedTaskAndListenStream(
-        task: DiscoveryListenTask(),
-      ),
+      connection
+          .sendWrappedTaskAndListenStream(
+            task: DiscoveryListenTask(),
+          )
+          .toDeviceStream(),
     );
   }
 }
@@ -56,13 +58,15 @@ class IsolateDiscoverySubnetScanAction extends ReduxActionWithResult<IsolateCont
 
     return (
       state,
-      connection.sendWrappedTaskAndListenStream(
-        task: DiscoverySubnetScanTask(
-          networkInterface: networkInterface,
-          port: port,
-          https: https,
-        ),
-      ),
+      connection
+          .sendWrappedTaskAndListenStream(
+            task: DiscoverySubnetScanTask(
+              networkInterface: networkInterface,
+              port: port,
+              https: https,
+            ),
+          )
+          .toDeviceStream(),
     );
   }
 }
@@ -88,13 +92,42 @@ class IsolateDiscoveryFavoriteScanAction extends ReduxActionWithResult<IsolateCo
 
     return (
       state,
-      connection.sendWrappedTaskAndListenStream(
-        task: DiscoveryFavoriteScanTask(
-          favorites: favorites,
-          https: https,
-        ),
-      ),
+      connection
+          .sendWrappedTaskAndListenStream(
+            task: DiscoveryFavoriteScanTask(
+              favorites: favorites,
+              https: https,
+            ),
+          )
+          .toDeviceStream(),
     );
+  }
+}
+
+/// Fetches the retained confirmations of a stored device, oldest first.
+/// The logs are empty when the fingerprint is unknown or the discovery is
+/// not running.
+class IsolateDiscoveryDeviceLogsAction extends AsyncReduxActionWithResult<IsolateController, ParentIsolateState, List<DeviceLog>> {
+  final String fingerprint;
+
+  IsolateDiscoveryDeviceLogsAction({
+    required this.fingerprint,
+  });
+
+  @override
+  Future<(ParentIsolateState, List<DeviceLog>)> reduce() async {
+    final connection = state.discovery;
+    if (connection == null) {
+      throw StateError('discovery is not initialized');
+    }
+
+    final result = await connection
+        .sendWrappedTaskAndListenStream(
+          task: DiscoveryDeviceLogsTask(fingerprint: fingerprint),
+        )
+        .first;
+
+    return (state, (result as DiscoveryDeviceLogsResult).logs);
   }
 }
 
@@ -493,6 +526,13 @@ class IsolateHttpServerFailFileDownloadAction extends ReduxAction<IsolateControl
     );
 
     return state;
+  }
+}
+
+extension _DeviceStreamExt on Stream<DiscoveryResult> {
+  /// Unwraps the [DiscoveryDeviceResult]s of a device stream.
+  Stream<Device> toDeviceStream() {
+    return map((result) => (result as DiscoveryDeviceResult).device);
   }
 }
 

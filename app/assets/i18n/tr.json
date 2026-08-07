@@ -1,5 +1,4 @@
 {
-  "locale": "Türkçe",
   "appName": "LocalSend",
   "general": {
     "accept": "Kabul et",
@@ -120,11 +119,13 @@
       "destination": "Hedef klasör",
       "downloads": "(İndirilenler)",
       "saveToGallery": "Medyayı galeriye kaydet",
-      "saveToHistory": "Geçmişe kaydet"
+      "saveToHistory": "Geçmişe kaydet",
+      "verifyChecksums": "Dosyaları alırken sağlama toplamlarını doğrula"
     },
     "send": {
       "title": "Gönder",
-      "shareViaLinkAutoAccept": "Link aracılığıyla paylaş: Otomatik olarak kabul et"
+      "shareViaLinkAutoAccept": "Link aracılığıyla paylaş: Otomatik olarak kabul et",
+      "createChecksums": "Dosya gönderirken sağlama toplamlarını oluştur"
     },
     "network": {
       "title": "Ağ",
@@ -242,12 +243,9 @@
       "speed": "Hız: {speed}/s"
     },
     "remainingTime": {
-      "seconds": "{n}:{ss}",
-      "minutes": "{n}:{ss}",
+      "minutes": "{m}:{ss}",
       "hours": "{h}s {m}d",
-      "days": "{d}g {h}s {m}d",
-      "@hours": "Saat kısaltması için 's', dakika kısaltması için 'd' kullanın",
-      "@days": "Günler için 'g', saatler için 's' ve dakikalar için 'd' kullanın"
+      "@hours": "Saat kısaltması için 's', dakika kısaltması için 'd' kullanın"
     }
   },
   "webSharePage": {
@@ -303,8 +301,6 @@
     },
     "addressInput": {
       "title": "Adresi giriniz",
-      "hashtag": "Hashtag",
-      "ip": "IP adresi",
       "recentlyUsed": "Daha önce kullanılmış: "
     },
     "cancelSession": {
@@ -460,5 +456,20 @@
     "sActionUseCameraHint": "Kamera kullan",
     "sNameDurationLabel": "süre",
     "sUnitAssetCountLabel": "sayım"
+  },
+  "whatsNewPage": {
+    "title": "{version} sürümündeki yenilikler",
+    "changes(interface=WhatsNewStrings)": {
+      "v1_18_0": {
+        "changes": [
+          "Şifreleme artık aktarımları yavaşlatmıyor. Daha önce bu özelliği devre dışı bıraktıysanız, bu aygıtta yeniden etkinleştirildi.",
+          "Favorilerden gelen istekler artık otomatik olarak kabul ediliyor. Bu özellik varsayılan olarak etkindir ve ayarlardan devre dışı bırakılabilir.",
+          "Android'de, uygulama arka planda çalışırken veya ekran kapalıyken aktarımlar devam eder. iOS'ta ise uygulamanın ön planda kalması gerekir."
+        ]
+      }
+    }
+  },
+  "webReceivePage": {
+    "title": "Bağlantı yoluyla al"
   }
 }

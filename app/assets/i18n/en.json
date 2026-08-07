@@ -1,5 +1,4 @@
 {
-  "locale": "English",
   "appName": "LocalSend",
   "general": {
     "accept": "Accept",
@@ -52,7 +51,8 @@
       "off": "@:general.off",
       "favorites": "Favorites",
       "on": "@:general.on"
-    }
+    },
+    "link": "Receive via link"
   },
   "sendTab": {
     "title": "Send",
@@ -97,7 +97,8 @@
       "color": "Color",
       "colorOptions": {
         "system": "System",
-        "oled": "OLED"
+        "oled": "OLED",
+        "custom": "Custom"
       },
       "language": "Language",
       "languageOptions": {
@@ -205,6 +206,29 @@
   "selectedFilesPage": {
     "deleteAll": "Delete all"
   },
+  "deviceDetailsPage": {
+    "title": "Device Details",
+    "favorite": "Favorite",
+    "verify": "Verify",
+    "info": {
+      "name": "Name",
+      "address": "Address",
+      "version": "Version",
+      "protocol": "Protocol v{version}"
+    },
+    "logs": {
+      "title": "Logs",
+      "empty": "No logs available.",
+      "discovered": "Discovered via {protocol} ({host})",
+      "updated": "Updated via {protocol} ({host})"
+    }
+  },
+  "verifyPage": {
+    "title": "Verify",
+    "icons": "Icons",
+    "raw": "Raw",
+    "question": "Does it look the same on the other device?"
+  },
   "receivePage": {
     "subTitle": {
       "one": "wants to send you a file",
@@ -244,12 +268,14 @@
       "speed": "Speed: {speed}/s"
     },
     "remainingTime": {
-      "seconds": "{n}:{ss}",
-      "minutes": "{n}:{ss}",
-      "hours": "{h}h {m}m",
-      "days": "{d}d {h}h {m}m",
-      "@hours": "Use 'h' for hours abbreviation and 'm' for minutes",
-      "@days": "Use 'd' for days, 'h' for hours, and 'm' for minutes"
+      "minutesUnit(plural, param=m)": {
+        "other": "{m}m"
+      },
+      "hoursUnit(plural, param=h)": {
+        "other": "{h}h"
+      },
+      "minutes": "{m}:{ss}",
+      "hours": "@:.hoursUnit @:.minutesUnit"
     }
   },
   "webSharePage": {
@@ -390,8 +416,6 @@
     },
     "addressInput": {
       "title": "Enter address",
-      "hashtag": "Hashtag",
-      "ip": "IP Address",
       "recentlyUsed": "Recently used: "
     },
     "cancelSession": {

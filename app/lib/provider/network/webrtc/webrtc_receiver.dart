@@ -4,6 +4,7 @@ import 'package:localsend_app/model/state/server/receive_session_state.dart';
 import 'package:localsend_app/model/state/settings_state.dart';
 import 'package:localsend_app/pages/receive_page.dart';
 import 'package:localsend_app/provider/network/webrtc/signaling_provider.dart';
+import 'package:localsend_app/provider/selection/selected_receiving_files_provider.dart';
 import 'package:localsend_isolates/model/dto/file_dto.dart' as dart_model;
 import 'package:localsend_isolates/model/session_status.dart';
 import 'package:localsend_isolates/model/stored_security_context.dart';
@@ -124,6 +125,9 @@ class _AcceptOfferAction extends AsyncReduxAction<WebRTCReceiveService, WebRTCRe
         onClose: () {},
       );
     });
+
+    // ignore: use_build_context_synchronously
+    Routerino.context.notifier(selectedReceivingFilesProvider).setFiles(convertedFiles);
 
     // ignore: unawaited_futures, use_build_context_synchronously
     Routerino.context.push(() => ReceivePage(vm));

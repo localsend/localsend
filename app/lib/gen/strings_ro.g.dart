@@ -40,8 +40,6 @@ class TranslationsRo extends Translations with BaseTranslations<AppLocale, Trans
 
   // Translations
   @override
-  String get locale => 'Română';
-  @override
   String get appName => 'LocalSend';
   @override
   late final _Translations$general$ro general = _Translations$general$ro._(_root);
@@ -1102,10 +1100,6 @@ class _Translations$dialogs$addressInput$ro extends Translations$dialogs$address
   // Translations
   @override
   String get title => 'Introdu adresa';
-  @override
-  String get hashtag => 'Hashtag';
-  @override
-  String get ip => 'Adresă IP';
   @override
   String get recentlyUsed => 'Folosit recent: ';
 }

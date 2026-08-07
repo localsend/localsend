@@ -8,9 +8,21 @@
       "off": "@:general.off",
       "favorites": "Favorites",
       "on": "@:general.on"
-    }
+    },
+    "link": "Receive via link"
   },
   "settingsTab": {
+    "general": {
+      "colorOptions": {
+        "custom": "Custom"
+      }
+    },
+    "receive": {
+      "verifyChecksums": "Verify checksums when receiving files"
+    },
+    "send": {
+      "createChecksums": "Create checksums when sending files"
+    },
     "network": {
       "network": "Network",
       "networkOptions": {
@@ -26,16 +38,46 @@
     "whitelist": "Whitelist",
     "blacklist": "Blacklist"
   },
+  "deviceDetailsPage": {
+    "title": "Device Details",
+    "favorite": "Favorite",
+    "verify": "Verify",
+    "info": {
+      "name": "Name",
+      "address": "Address",
+      "version": "Version",
+      "protocol": "Protocol v{version}"
+    },
+    "logs": {
+      "title": "Logs",
+      "empty": "No logs available.",
+      "discovered": "Discovered via {protocol} ({host})",
+      "updated": "Updated via {protocol} ({host})"
+    }
+  },
+  "verifyPage": {
+    "title": "Verify",
+    "icons": "Icons",
+    "raw": "Raw",
+    "question": "Does it look the same on the other device?"
+  },
   "sendPage": {
     "calculatingChecksum": "Calculating checksum ({curr} / {n})"
   },
   "progressPage": {
     "remainingTime": {
-      "seconds": "{n}:{ss}",
-      "minutes": "{n}:{ss}",
-      "hours": "{h}h {m}m",
-      "days": "{d}d {h}h {m}m"
+      "minutesUnit(plural, param=m)": {
+        "other": "{m}m"
+      },
+      "hoursUnit(plural, param=h)": {
+        "other": "{h}h"
+      },
+      "minutes": "{m}:{ss}",
+      "hours": "@:progressPage.remainingTime.hoursUnit @:progressPage.remainingTime.minutesUnit"
     }
+  },
+  "webReceivePage": {
+    "title": "Receive via link"
   },
   "whatsNewPage": {
     "title": "What's new in {version}",

@@ -21,6 +21,11 @@ add_executable(${BINARY_NAME} WIN32
 # that need different build settings.
 apply_standard_settings(${BINARY_NAME})
 
+# winrt_ext.cpp uses C++/WinRT, which needs C++20 for the standard <coroutine>
+# header; under C++17 it falls back to <experimental/coroutine>, which recent
+# MSVC STLs reject with error STL1011.
+target_compile_features(${BINARY_NAME} PRIVATE cxx_std_20)
+
 # Add preprocessor definitions for the build version.
 target_compile_definitions(${BINARY_NAME} PRIVATE "FLUTTER_VERSION=\"${FLUTTER_VERSION}\"")
 target_compile_definitions(${BINARY_NAME} PRIVATE "FLUTTER_VERSION_MAJOR=${FLUTTER_VERSION_MAJOR}")
@@ -35,6 +40,9 @@ target_compile_definitions(${BINARY_NAME} PRIVATE "NOMINMAX")
 # dependencies here.
 target_link_libraries(${BINARY_NAME} PRIVATE flutter flutter_wrapper_app)
 target_link_libraries(${BINARY_NAME} PRIVATE "dwmapi.lib")
+# C++/WinRT (winrt_ext.cpp): newer Windows SDKs require linking the WinRT
+# activation functions (RoGetActivationFactory etc.) explicitly.
+target_link_libraries(${BINARY_NAME} PRIVATE "runtimeobject.lib")
 target_include_directories(${BINARY_NAME} PRIVATE "${CMAKE_SOURCE_DIR}")
 
 # Run the Flutter tool portions of the build. This must not be removed.

@@ -1,5 +1,4 @@
 {
-  "locale": "Bahasa Inggeris",
   "appName": "LocalSend",
   "general": {
     "accept": "Terima",
@@ -361,8 +360,6 @@
     },
     "addressInput": {
       "title": "Masukkan alamat",
-      "hashtag": "Tanda pagar",
-      "ip": "Alamat IP",
       "recentlyUsed": "Digunakan baru-baru ini: "
     },
     "cancelSession": {

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:localsend_app/config/theme.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/model/send_mode.dart';
+import 'package:localsend_app/pages/device_details_page.dart';
 import 'package:localsend_app/pages/selected_files_page.dart';
 import 'package:localsend_app/pages/tabs/send_tab_vm.dart';
 import 'package:localsend_app/pages/troubleshoot_page.dart';
@@ -35,7 +36,7 @@ import 'package:refena_flutter/refena_flutter.dart';
 import 'package:routerino/routerino.dart';
 
 const _horizontalPadding = 15.0;
-final _options = FilePickerOption.getOptionsForPlatform();
+final pickerOptions = FilePickerOption.getOptionsForPlatform();
 
 class SendTab extends StatelessWidget {
   const SendTab();
@@ -66,7 +67,7 @@ class SendTab extends StatelessWidget {
                 outerVerticalPadding: 10,
                 childPadding: 10,
                 minChildWidth: buttonWidth,
-                children: _options.map((option) {
+                children: pickerOptions.map((option) {
                   return BigButton(
                     icon: option.icon,
                     label: option.label,
@@ -140,11 +141,11 @@ class SendTab extends StatelessWidget {
                               foregroundColor: Theme.of(context).colorScheme.onPrimary,
                             ),
                             onPressed: () async {
-                              if (_options.length == 1) {
+                              if (pickerOptions.length == 1) {
                                 // open directly
                                 await ref.global.dispatchAsync(
                                   PickFileAction(
-                                    option: _options.first,
+                                    option: pickerOptions.first,
                                     context: context,
                                   ),
                                 );
@@ -152,7 +153,7 @@ class SendTab extends StatelessWidget {
                               }
                               await AddFileDialog.open(
                                 context: context,
-                                options: _options,
+                                options: pickerOptions,
                               );
                             },
                             icon: const Icon(Icons.add),
@@ -223,7 +224,7 @@ class SendTab extends StatelessWidget {
                           device: device,
                           isFavorite: favoriteEntry != null,
                           nameOverride: favoriteEntry?.alias,
-                          onFavoriteTap: () async => await vm.onToggleFavorite(context, device),
+                          onDetailsTap: () async => await context.push(() => DeviceDetailsPage(device: device)),
                           onTap: () async => await vm.onTapDevice(context, device),
                         ),
                 ),
@@ -553,7 +554,7 @@ class _MultiSendDeviceListTile extends StatelessWidget {
       progress: progress,
       isFavorite: isFavorite,
       nameOverride: nameOverride,
-      onFavoriteTap: device.ip == null ? null : () async => await vm.onToggleFavorite(context, device),
+      onDetailsTap: () async => await context.push(() => DeviceDetailsPage(device: device)),
       onTap: () async => await vm.onTapDeviceMultiSend(context, device),
     );
   }

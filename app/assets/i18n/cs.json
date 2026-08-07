@@ -1,5 +1,4 @@
 {
-  "locale": "Česky",
   "appName": "LocalSend",
   "general": {
     "accept": "Přijmout",
@@ -294,8 +293,6 @@
     },
     "addressInput": {
       "title": "Zadat adresu",
-      "hashtag": "Hashtag",
-      "ip": "IP Adresa",
       "recentlyUsed": "Nedávno použité: "
     },
     "cancelSession": {

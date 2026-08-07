@@ -25,7 +25,7 @@ class SettingsTabVm with SettingsTabVmMappable {
   final bool autoStartLaunchHidden;
   final bool showInContextMenu;
   final void Function(BuildContext context, ThemeMode mode) onChangeTheme;
-  final void Function(ColorMode mode) onChangeColorMode;
+  final void Function(BuildContext context, ColorMode mode) onChangeColorMode;
   final void Function(BuildContext context) onTapLanguage;
   final void Function(BuildContext context) onToggleAutoStart;
   final void Function(BuildContext context) onToggleAutoStartLaunchHidden;

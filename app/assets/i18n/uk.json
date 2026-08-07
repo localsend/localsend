@@ -1,5 +1,4 @@
 {
-  "locale": "Українська",
   "appName": "LocalSend",
   "general": {
     "accept": "Прийняти",
@@ -52,7 +51,8 @@
       "off": "@:general.off",
       "favorites": "Улюблені",
       "on": "@:general.on"
-    }
+    },
+    "link": "Отримати за посиланням"
   },
   "sendTab": {
     "title": "Надіслати",
@@ -97,7 +97,8 @@
       "color": "Колір",
       "colorOptions": {
         "system": "Системний",
-        "oled": "OLED"
+        "oled": "OLED",
+        "custom": "Власний"
       },
       "language": "Мова",
       "languageOptions": {
@@ -120,11 +121,13 @@
       "destination": "Зберігати в папку",
       "downloads": "(Завантаження)",
       "saveToGallery": "Зберігати медіафайли в галерею",
-      "saveToHistory": "Зберігати історію"
+      "saveToHistory": "Зберігати історію",
+      "verifyChecksums": "Перевіряти контрольні суми під час отримання файлів"
     },
     "send": {
       "title": "Надсилання",
-      "shareViaLinkAutoAccept": "Автоматично приймати запити в режимі «Поділитися через посилання»"
+      "shareViaLinkAutoAccept": "Автоматично приймати запити в режимі «Поділитися через посилання»",
+      "createChecksums": "Створювати контрольні суми під час надсилання файлів"
     },
     "network": {
       "title": "Мережа",
@@ -203,6 +206,29 @@
   "selectedFilesPage": {
     "deleteAll": "Видалити все"
   },
+  "deviceDetailsPage": {
+    "title": "Відомості про пристрій",
+    "favorite": "До улюблених",
+    "verify": "Перевірити",
+    "info": {
+      "name": "Ім'я пристрою",
+      "address": "Адреса",
+      "version": "Версія",
+      "protocol": "Протокол v{version}"
+    },
+    "logs": {
+      "title": "Журнали",
+      "empty": "Немає доступних журналів.",
+      "discovered": "Виявлено через {protocol} ({host})",
+      "updated": "Оновлено через {protocol} ({host})"
+    }
+  },
+  "verifyPage": {
+    "title": "Перевірка",
+    "icons": "Піктограми",
+    "raw": "Код",
+    "question": "Чи виглядає це так само на іншому пристрої?"
+  },
   "receivePage": {
     "subTitle": {
       "one": "хоче надіслати вам файл",
@@ -242,12 +268,14 @@
       "speed": "Швидкість: {speed}/s"
     },
     "remainingTime": {
-      "seconds": "{n}:{ss}",
-      "minutes": "{n}:{ss}",
-      "hours": "{h}h {m}m",
-      "days": "{d}d {h}h {m}m",
-      "@hours": "Використовуйте «h» як скорочення для годин і «m» для хвилин",
-      "@days": "Використовуйте «d» для днів, «h» для годин і «m» для хвилин"
+      "minutesUnit(plural, param=m)": {
+        "other": "{m}хв"
+      },
+      "hoursUnit(plural, param=h)": {
+        "other": "{h}год"
+      },
+      "minutes": "{m}:{ss}",
+      "hours": "@:.hoursUnit @:.minutesUnit"
     }
   },
   "webSharePage": {
@@ -267,6 +295,9 @@
     "pinHint": "PIN-код: «{pin}»",
     "encryptionHint": "LocalSend використовує самопідписаний сертифікат. Вам потрібно прийняти його в браузері.",
     "pendingRequests": "Запити, що очікують на розгляд: {n}"
+  },
+  "webReceivePage": {
+    "title": "Отримати за посиланням"
   },
   "aboutPage": {
     "title": "Про LocalSend",
@@ -289,8 +320,20 @@
   "changelogPage": {
     "title": "Історія змін"
   },
+  "whatsNewPage": {
+    "title": "Що нового у {version}",
+    "changes(interface=WhatsNewStrings)": {
+      "v1_18_0": {
+        "changes": [
+          "Шифрування більше не сповільнює передачу даних. Якщо ви раніше вимкнули його на цьому пристрої, тепер воно знову увімкнене.",
+          "Запити від улюблених тепер приймаються автоматично. Ця функція увімкнена за замовчуванням, і її можна вимкнути в налаштуваннях.",
+          "На Android передача даних тепер триває, навіть коли програма працює у фоновому режимі або екран вимкнено. На iOS програма й надалі повинна залишатися на передньому плані."
+        ]
+      }
+    }
+  },
   "aliasGenerator(ignoreMissing, ignoreGpt)": {
-    "@info": "У різних місцевостях можуть бути різні слова, вони можуть не збігатися 1 в 1"
+    "@info": "Different locales may have different words, it may not match 1:1"
   },
   "dialogs": {
     "addFile": {
@@ -303,8 +346,6 @@
     },
     "addressInput": {
       "title": "Введіть адресу",
-      "hashtag": "Хештег",
-      "ip": "IP-адреса",
       "recentlyUsed": "Нещодавно використані: "
     },
     "cancelSession": {
@@ -415,7 +456,7 @@
     "invalid": "Назва файлу містить недопустимі символи"
   },
   "tray": {
-    "@info": "Керівництво Apple дуже суворо ставиться до формулювання «близький».",
+    "@info": "Apple Guidelines are very strict about the \"close\" wording.",
     "open": "@:general.open",
     "close": "Вийти з LocalSend",
     "closeWindows": "Вийти"
@@ -431,7 +472,7 @@
     "size": "Розмір"
   },
   "assetPicker": {
-    "@info": "Переклади для інструменту вибору медіа на Android та iPhone",
+    "@info": "Translations for the Media selection tool for Android and iPhone",
     "confirm": "Підтвердити",
     "cancel": "Скасувати",
     "edit": "Редагувати",

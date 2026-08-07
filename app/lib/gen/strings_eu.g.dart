@@ -40,8 +40,6 @@ class TranslationsEu extends Translations with BaseTranslations<AppLocale, Trans
 
   // Translations
   @override
-  String get locale => 'Euskara';
-  @override
   String get appName => 'LocalSend';
   @override
   late final _Translations$general$eu general = _Translations$general$eu._(_root);
@@ -930,10 +928,6 @@ class _Translations$dialogs$addressInput$eu extends Translations$dialogs$address
   // Translations
   @override
   String get title => 'Sartu helbidea';
-  @override
-  String get hashtag => 'Hashtag';
-  @override
-  String get ip => 'IP Helbidea';
   @override
   String get recentlyUsed => 'Duela gutxi erabilitakoak: ';
 }

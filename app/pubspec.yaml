@@ -13,6 +13,7 @@ dependencies:
   adaptive_platform_ui: ^0.1.111
   collection: ^1.17.2 # allow newer versions, so it can compile with newer Flutter versions
   connectivity_plus: 7.2.0
+  crypto: 3.0.7
   dart_mappable: 4.8.0
   desktop_drop: 0.7.1
   device_apps: 2.2.0
@@ -20,6 +21,7 @@ dependencies:
   dynamic_color: 1.8.1
   file_picker: 11.0.2
   file_selector: 1.1.0
+  flex_color_picker: 3.8.0
   flutter:
     sdk: flutter
   flutter_displaymode: 0.7.0
@@ -57,8 +59,8 @@ dependencies:
   share_handler: 0.0.22
   shared_preferences: 2.5.5
   shared_preferences_platform_interface: any
-  slang: 4.18.0
-  slang_flutter: 4.18.0
+  slang: 4.19.0
+  slang_flutter: 4.19.0
   system_settings_2: 3.0.2
   tray_manager: 0.5.3
   uri_content: 3.1.1
@@ -79,7 +81,7 @@ dev_dependencies:
   freezed: 3.2.5
   mockito: any
   refena_inspector: 2.1.1
-  slang_build_runner: 4.18.0
+  slang_build_runner: 4.19.0
   test: ^1.30.0
 
 dependency_overrides:

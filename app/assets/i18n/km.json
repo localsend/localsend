@@ -1,5 +1,4 @@
 {
-  "locale": "ភាសាខ្មែរ",
   "appName": "LocalSend",
   "general": {
     "accept": "ទទួល",
@@ -357,8 +356,6 @@
     },
     "addressInput": {
       "title": "បញ្ចូលអាសយដ្ឋាន",
-      "hashtag": "Hashtag",
-      "ip": "អាស័យដ្ឋាន IP",
       "recentlyUsed": "បានប្រើថ្មីៗនេះ: "
     },
     "cancelSession": {

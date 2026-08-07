@@ -1,5 +1,4 @@
 {
-  "locale": "Español",
   "appName": "LocalSend",
   "general": {
     "accept": "Aceptar",
@@ -223,7 +222,8 @@
     "waiting": "Esperando respuesta…",
     "rejected": "El destino ha rechazado la petición.",
     "tooManyAttempts": "@:web.tooManyAttempts",
-    "busy": "El destino está ocupado con otra petición."
+    "busy": "El destino está ocupado con otra petición.",
+    "calculatingChecksum": "Calculando suma de verificación ({curr} / {n})"
   },
   "progressPage": {
     "titleSending": "Enviando archivos",
@@ -241,12 +241,9 @@
       "speed": "Velocidad: {speed}/s"
     },
     "remainingTime": {
-      "seconds": "{n}:{ss}",
-      "minutes": "{n}:{ss}",
+      "minutes": "{m}:{ss}",
       "hours": "{h}h {m}m",
-      "days": "{d}d {h}h {m}m",
-      "@hours": "Usa «h» como abreviatura de horas y «m» para minutos",
-      "@days": "Usa «d» para días, «h» para horas y «m» para minutos"
+      "@hours": "Usa «h» como abreviatura de horas y «m» para minutos"
     }
   },
   "webSharePage": {
@@ -302,8 +299,6 @@
     },
     "addressInput": {
       "title": "Introducir dirección",
-      "hashtag": "Etiqueta",
-      "ip": "Dirección IP",
       "recentlyUsed": "Usados recientemente: "
     },
     "cancelSession": {
@@ -459,5 +454,20 @@
     "sActionUseCameraHint": "usar cámara",
     "sNameDurationLabel": "duración",
     "sUnitAssetCountLabel": "conteo"
+  },
+  "webReceivePage": {
+    "title": "Recibir mediante enlace"
+  },
+  "whatsNewPage": {
+    "title": "Novedades de la {version}",
+    "changes(interface=WhatsNewStrings)": {
+      "v1_18_0": {
+        "changes": [
+          "La encriptación ya no ralentiza las transferencias. Se ha habilitado en este dispositivo, en caso de haberla desactivado con anterioridad.",
+          "Las peticiones de los favoritos se aceptan automáticamente. Esta opción está activada por defecto, pero se puede desactivar en los ajustes.",
+          "En Android, las transferencias continúan en segundo plano o mientras la pantalla está apagada. En iOS, la aplicación debe estar en primer plano."
+        ]
+      }
+    }
   }
 }

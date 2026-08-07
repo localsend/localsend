@@ -24,6 +24,7 @@ class CustomDropdownButton<T> extends StatelessWidget {
       child: DropdownButton<T>(
         value: value,
         isExpanded: expanded,
+        padding: const EdgeInsets.symmetric(horizontal: 12),
         underline: Container(),
         borderRadius: Theme.of(context).inputDecorationTheme.borderRadius,
         items: items,

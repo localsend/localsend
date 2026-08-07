@@ -1,5 +1,4 @@
 {
-  "locale": "Polski",
   "appName": "LocalSend",
   "general": {
     "accept": "Akceptuj",
@@ -120,11 +119,13 @@
       "destination": "Miejsce docelowe",
       "downloads": "(Pobrane)",
       "saveToGallery": "Zapisz media w galerii",
-      "saveToHistory": "Zapisz w historii"
+      "saveToHistory": "Zapisz w historii",
+      "verifyChecksums": "Sprawdź sumy kontrolne podczas odbierania plików"
     },
     "send": {
       "title": "Wyślij",
-      "shareViaLinkAutoAccept": "Udostępnij przez link: akceptuj automatycznie"
+      "shareViaLinkAutoAccept": "Udostępnij przez link: akceptuj automatycznie",
+      "createChecksums": "Twórz sumy kontrolne podczas wysyłania plików"
     },
     "network": {
       "title": "Sieć",
@@ -242,12 +243,9 @@
       "speed": "Prędkość: {speed}/s"
     },
     "remainingTime": {
-      "seconds": "{n}:{ss}",
-      "minutes": "{n}:{ss}",
+      "minutes": "{m}:{ss}",
       "hours": "{h}h {m}m",
-      "days": "{d}d {h}h {m}m",
-      "@hours": "Użyj „h” w przypadku skrótu godzin i „m” w przypadku minut",
-      "@days": "Uży „d” w przypadku dni, „h” w przypadku godzin i „m” w przypadku minut"
+      "@hours": "Użyj „h” w przypadku skrótu godzin i „m” w przypadku minut"
     }
   },
   "webSharePage": {
@@ -303,8 +301,6 @@
     },
     "addressInput": {
       "title": "Wpisz adres",
-      "hashtag": "Hashtag",
-      "ip": "Adres IP",
       "recentlyUsed": "Ostatnio używane: "
     },
     "cancelSession": {
@@ -460,5 +456,20 @@
     "sActionUseCameraHint": "użyj kamery",
     "sNameDurationLabel": "czas trwania",
     "sUnitAssetCountLabel": "liczba"
+  },
+  "whatsNewPage": {
+    "title": "Co nowego w {version}",
+    "changes(interface=WhatsNewStrings)": {
+      "v1_18_0": {
+        "changes": [
+          "Szyfrowanie nie spowalnia już transferów. Zostało ponownie włączone na tym urządzeniu, jeśli zostało wcześniej wyłączone.",
+          "Prośby od ulubionych są teraz akceptowane automatycznie. Ta opcja jest domyślnie włączona i można ją wyłączyć w ustawieniach.",
+          "Na Androidzie przesyłanie danych jest kontynuowane, gdy aplikacja działa w tle lub ekran jest wyłączony. Na iOS aplikacja musi pozostać na pierwszym planie."
+        ]
+      }
+    }
+  },
+  "webReceivePage": {
+    "title": "Odbierz przez link"
   }
 }

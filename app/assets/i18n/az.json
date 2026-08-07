@@ -1,5 +1,4 @@
 {
-  "locale": "Azərbaycanca",
   "appName": "LocalSend",
   "general": {
     "accept": "Qəbul et",
@@ -294,8 +293,6 @@
     },
     "addressInput": {
       "title": "Ünvanı daxil et",
-      "hashtag": "Heşteq",
-      "ip": "IP ünvan",
       "recentlyUsed": "Son istifadə olunan: "
     },
     "cancelSession": {

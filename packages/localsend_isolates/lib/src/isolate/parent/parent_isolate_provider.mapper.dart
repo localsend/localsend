@@ -16,7 +16,6 @@ class ParentIsolateStateMapper extends ClassMapperBase<ParentIsolateState> {
     if (_instance == null) {
       MapperContainer.globals.use(_instance = ParentIsolateStateMapper._());
       SyncStateMapper.ensureInitialized();
-      DeviceMapper.ensureInitialized();
     }
     return _instance!;
   }
@@ -30,14 +29,14 @@ class ParentIsolateStateMapper extends ClassMapperBase<ParentIsolateState> {
     _$syncState,
   );
   static IsolateConnector<
-    IsolateTaskStreamResult<Device>,
+    IsolateTaskStreamResult<DiscoveryResult>,
     SendToIsolateData<IsolateTask<DiscoveryTask>>
   >?
   _$discovery(ParentIsolateState v) => v.discovery;
   static const Field<
     ParentIsolateState,
     IsolateConnector<
-      IsolateTaskStreamResult<Device>,
+      IsolateTaskStreamResult<DiscoveryResult>,
       SendToIsolateData<IsolateTask<DiscoveryTask>>
     >
   >
@@ -161,7 +160,7 @@ abstract class ParentIsolateStateCopyWith<
   $R call({
     SyncState? syncState,
     IsolateConnector<
-      IsolateTaskStreamResult<Device>,
+      IsolateTaskStreamResult<DiscoveryResult>,
       SendToIsolateData<IsolateTask<DiscoveryTask>>
     >?
     discovery,

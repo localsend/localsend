@@ -40,8 +40,6 @@ class TranslationsPtBr extends Translations with BaseTranslations<AppLocale, Tra
 
   // Translations
   @override
-  String get locale => 'Português (Brasil)';
-  @override
   String get appName => 'LocalSend';
   @override
   late final Translations$general$pt_BR general = Translations$general$pt_BR.internal(_root);
@@ -89,6 +87,10 @@ class TranslationsPtBr extends Translations with BaseTranslations<AppLocale, Tra
   late final Translations$web$pt_BR web = Translations$web$pt_BR.internal(_root);
   @override
   late final Translations$assetPicker$pt_BR assetPicker = Translations$assetPicker$pt_BR.internal(_root);
+  @override
+  late final Translations$webReceivePage$pt_BR webReceivePage = Translations$webReceivePage$pt_BR.internal(_root);
+  @override
+  late final Translations$whatsNewPage$pt_BR whatsNewPage = Translations$whatsNewPage$pt_BR.internal(_root);
 }
 
 // Path: general
@@ -395,6 +397,8 @@ class Translations$sendPage$pt_BR extends Translations$sendPage$en {
   String get tooManyAttempts => _root.web.tooManyAttempts;
   @override
   String get busy => 'O destinatário está ocupado com outra solicitação.';
+  @override
+  String calculatingChecksum({required Object curr, required Object n}) => 'Calculando checksum (${curr} / ${n})';
 }
 
 // Path: progressPage
@@ -766,6 +770,30 @@ class Translations$assetPicker$pt_BR extends Translations$assetPicker$en {
   String get sUnitAssetCountLabel => 'contagem';
 }
 
+// Path: webReceivePage
+class Translations$webReceivePage$pt_BR extends Translations$webReceivePage$en {
+  Translations$webReceivePage$pt_BR.internal(TranslationsPtBr root) : this._root = root, super.internal(root);
+
+  final TranslationsPtBr _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Receber via link';
+}
+
+// Path: whatsNewPage
+class Translations$whatsNewPage$pt_BR extends Translations$whatsNewPage$en {
+  Translations$whatsNewPage$pt_BR.internal(TranslationsPtBr root) : this._root = root, super.internal(root);
+
+  final TranslationsPtBr _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String title({required Object version}) => 'O que há de novo na versão ${version}';
+  @override
+  late final Translations$whatsNewPage$changes$pt_BR changes = Translations$whatsNewPage$changes$pt_BR.internal(_root);
+}
+
 // Path: receiveTab.infoBox
 class Translations$receiveTab$infoBox$pt_BR extends Translations$receiveTab$infoBox$en {
   Translations$receiveTab$infoBox$pt_BR.internal(TranslationsPtBr root) : this._root = root, super.internal(root);
@@ -912,6 +940,8 @@ class Translations$settingsTab$receive$pt_BR extends Translations$settingsTab$re
   String get saveToGallery => 'Salvar mídia na galeria';
   @override
   String get saveToHistory => 'Salvar no histórico';
+  @override
+  String get verifyChecksums => 'Verificar checksums ao receber arquivos';
 }
 
 // Path: settingsTab.send
@@ -925,6 +955,8 @@ class Translations$settingsTab$send$pt_BR extends Translations$settingsTab$send$
   String get title => 'Envio';
   @override
   String get shareViaLinkAutoAccept => 'Aceitar solicitações por link automaticamente';
+  @override
+  String get createChecksums => 'Criar checksums ao enviar arquivos';
 }
 
 // Path: settingsTab.network
@@ -1078,17 +1110,11 @@ class Translations$progressPage$remainingTime$pt_BR extends Translations$progres
 
   // Translations
   @override
-  String seconds({required Object n, required Object ss}) => '${n}:${ss}';
-  @override
-  String minutes({required Object n, required Object ss}) => '${n}:${ss}';
+  String minutes({required Object m, required Object ss}) => '${m}:${ss}';
 
   /// Use 'h' para abreviar horas e 'm' para minutos
   @override
   String hours({required Object h, required Object m}) => '${h}h ${m}m';
-
-  /// Use 'd' para dias, 'h' para horas e 'm' para minutos
-  @override
-  String days({required Object d, required Object h, required Object m}) => '${d}d ${h}h ${m}m';
 }
 
 // Path: dialogs.addFile
@@ -1126,10 +1152,6 @@ class Translations$dialogs$addressInput$pt_BR extends Translations$dialogs$addre
   // Translations
   @override
   String get title => 'Digite o endereço';
-  @override
-  String get hashtag => 'Jogo da velha';
-  @override
-  String get ip => 'Endereço de IP';
   @override
   String get recentlyUsed => 'Usado recentemente: ';
 }
@@ -1449,6 +1471,17 @@ class Translations$dialogs$zoom$pt_BR extends Translations$dialogs$zoom$en {
   String get title => 'URL';
 }
 
+// Path: whatsNewPage.changes
+class Translations$whatsNewPage$changes$pt_BR extends Translations$whatsNewPage$changes$en {
+  Translations$whatsNewPage$changes$pt_BR.internal(TranslationsPtBr root) : this._root = root, super.internal(root);
+
+  final TranslationsPtBr _root; // ignore: unused_field
+
+  // Translations
+  @override
+  late final Translations$whatsNewPage$changes$v1_18_0$pt_BR v1_18_0 = Translations$whatsNewPage$changes$v1_18_0$pt_BR.internal(_root);
+}
+
 // Path: settingsTab.general.brightnessOptions
 class Translations$settingsTab$general$brightnessOptions$pt_BR extends Translations$settingsTab$general$brightnessOptions$en {
   Translations$settingsTab$general$brightnessOptions$pt_BR.internal(TranslationsPtBr root) : this._root = root, super.internal(root);
@@ -1516,4 +1549,19 @@ class Translations$progressPage$total$title$pt_BR extends Translations$progressP
   String get canceledSender => 'Cancelado pelo remetente';
   @override
   String get canceledReceiver => 'Cancelado pelo destinatário';
+}
+
+// Path: whatsNewPage.changes.v1_18_0
+class Translations$whatsNewPage$changes$v1_18_0$pt_BR extends Translations$whatsNewPage$changes$v1_18_0$en with WhatsNewStrings {
+  Translations$whatsNewPage$changes$v1_18_0$pt_BR.internal(TranslationsPtBr root) : this._root = root, super.internal(root);
+
+  final TranslationsPtBr _root; // ignore: unused_field
+
+  // Translations
+  @override
+  List<String> get changes => [
+    'A criptografia não retarda mais as transferências. Ela foi reativada neste dispositivo se você a desativou antes.',
+    'Solicitações de favoritos agora são aceitas automaticamente. Isso está ativado por padrão e pode ser desativado nas configurações.',
+    'No Android, as transferências continuam enquanto o aplicativo está em segundo plano ou a tela está desligada. No iOS, o aplicativo ainda deve permanecer em primeiro plano.',
+  ];
 }

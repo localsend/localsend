@@ -1,5 +1,4 @@
 {
-  "locale": "Magyar",
   "appName": "LocalSend",
   "general": {
     "accept": "Elfogad",
@@ -242,12 +241,9 @@
       "speed": "Sebesség: {speed}/s"
     },
     "remainingTime": {
-      "seconds": "{n}:{ss}",
-      "minutes": "{n}:{ss}",
+      "minutes": "{m}:{ss}",
       "hours": "{h}h {m}m",
-      "days": "{d}d {h}h {m}m",
-      "@hours": "Az órák rövidítéséhez használja a 'h' betűt, a percekhez pedig az 'm' betűt",
-      "@days": "A naphoz  a 'd', az órához a 'h', a percekhez az 'm' betűt használja"
+      "@hours": "Az órák rövidítéséhez használja a 'h' betűt, a percekhez pedig az 'm' betűt"
     }
   },
   "webSharePage": {
@@ -303,8 +299,6 @@
     },
     "addressInput": {
       "title": "Adja meg a címet",
-      "hashtag": "Hashtag",
-      "ip": "IP cím",
       "recentlyUsed": "Nemrég használt: "
     },
     "cancelSession": {
@@ -460,5 +454,20 @@
     "sActionUseCameraHint": "használjon kamerát",
     "sNameDurationLabel": "időtartam",
     "sUnitAssetCountLabel": "számol"
+  },
+  "webReceivePage": {
+    "title": "Linken keresztüli fogadás"
+  },
+  "whatsNewPage": {
+    "title": "{version} verzió újdonságai",
+    "changes(interface=WhatsNewStrings)": {
+      "v1_18_0": {
+        "changes": [
+          "A titkosítás már nem lassítja az adatátvitelt. Ha korábban kikapcsolta, akkor ezen az eszközön újra engedélyezve lett.",
+          "A kedvencekből érkező kéréseket már automatikusan elfogadjuk. Alapból be van kapcsolva, és a beállításokban kikapcsolható.",
+          "Android rendszeren az adatátvitel akkor is folytatódik, ha az alkalmazás a háttérben fut, vagy a képernyő ki van kapcsolva. iOS rendszeren viszont az alkalmazásnak továbbra is az előtérben kell maradnia."
+        ]
+      }
+    }
   }
 }

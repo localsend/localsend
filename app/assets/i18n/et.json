@@ -1,5 +1,4 @@
 {
-  "locale": "Eesti keel",
   "appName": "LocalSend",
   "general": {
     "accept": "Nõustu",
@@ -242,12 +241,9 @@
       "speed": "Kiirus: {speed}/s"
     },
     "remainingTime": {
-      "seconds": "{n}:{ss}",
-      "minutes": "{n}:{ss}",
+      "minutes": "{m}:{ss}",
       "hours": "{h} t {m} min",
-      "days": "{d} pv {h} t {m} min",
-      "@hours": "Kasuta „h“ tunni lühendina ja „m“ minutite jaoks",
-      "@days": "Kasuta „d“ päeva, lühendina „h“ tunni lühendina ja „m“ minutite jaoks"
+      "@hours": "Kasuta „h“ tunni lühendina ja „m“ minutite jaoks"
     }
   },
   "webSharePage": {
@@ -303,8 +299,6 @@
     },
     "addressInput": {
       "title": "Sisesta aadress",
-      "hashtag": "Teemaviide",
-      "ip": "IP-aadress",
       "recentlyUsed": "Hiljuti kasutatud: "
     },
     "cancelSession": {

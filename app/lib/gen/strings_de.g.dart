@@ -40,8 +40,6 @@ class TranslationsDe extends Translations with BaseTranslations<AppLocale, Trans
 
   // Translations
   @override
-  String get locale => 'Deutsch';
-  @override
   String get appName => 'LocalSend';
   @override
   late final _Translations$general$de general = _Translations$general$de._(_root);
@@ -62,6 +60,10 @@ class TranslationsDe extends Translations with BaseTranslations<AppLocale, Trans
   @override
   late final _Translations$selectedFilesPage$de selectedFilesPage = _Translations$selectedFilesPage$de._(_root);
   @override
+  late final _Translations$deviceDetailsPage$de deviceDetailsPage = _Translations$deviceDetailsPage$de._(_root);
+  @override
+  late final _Translations$verifyPage$de verifyPage = _Translations$verifyPage$de._(_root);
+  @override
   late final _Translations$receivePage$de receivePage = _Translations$receivePage$de._(_root);
   @override
   late final _Translations$receiveOptionsPage$de receiveOptionsPage = _Translations$receiveOptionsPage$de._(_root);
@@ -71,6 +73,8 @@ class TranslationsDe extends Translations with BaseTranslations<AppLocale, Trans
   late final _Translations$progressPage$de progressPage = _Translations$progressPage$de._(_root);
   @override
   late final _Translations$webSharePage$de webSharePage = _Translations$webSharePage$de._(_root);
+  @override
+  late final _Translations$webReceivePage$de webReceivePage = _Translations$webReceivePage$de._(_root);
   @override
   late final _Translations$aboutPage$de aboutPage = _Translations$aboutPage$de._(_root);
   @override
@@ -189,6 +193,8 @@ class _Translations$receiveTab$de extends Translations$receiveTab$en {
   late final _Translations$receiveTab$infoBox$de infoBox = _Translations$receiveTab$infoBox$de._(_root);
   @override
   late final _Translations$receiveTab$quickSave$de quickSave = _Translations$receiveTab$quickSave$de._(_root);
+  @override
+  String get link => 'Per Link empfangen';
 }
 
 // Path: sendTab
@@ -339,6 +345,42 @@ class _Translations$selectedFilesPage$de extends Translations$selectedFilesPage$
   String get deleteAll => 'Alle löschen';
 }
 
+// Path: deviceDetailsPage
+class _Translations$deviceDetailsPage$de extends Translations$deviceDetailsPage$en {
+  _Translations$deviceDetailsPage$de._(TranslationsDe root) : this._root = root, super.internal(root);
+
+  final TranslationsDe _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Gerätedetails';
+  @override
+  String get favorite => 'Favorit';
+  @override
+  String get verify => 'Verifizieren';
+  @override
+  late final _Translations$deviceDetailsPage$info$de info = _Translations$deviceDetailsPage$info$de._(_root);
+  @override
+  late final _Translations$deviceDetailsPage$logs$de logs = _Translations$deviceDetailsPage$logs$de._(_root);
+}
+
+// Path: verifyPage
+class _Translations$verifyPage$de extends Translations$verifyPage$en {
+  _Translations$verifyPage$de._(TranslationsDe root) : this._root = root, super.internal(root);
+
+  final TranslationsDe _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Verifizieren';
+  @override
+  String get icons => 'Symbole';
+  @override
+  String get raw => 'Rohdaten';
+  @override
+  String get question => 'Sieht es auf dem anderen Gerät gleich aus?';
+}
+
 // Path: receivePage
 class _Translations$receivePage$de extends Translations$receivePage$en {
   _Translations$receivePage$de._(TranslationsDe root) : this._root = root, super.internal(root);
@@ -454,6 +496,17 @@ class _Translations$webSharePage$de extends Translations$webSharePage$en {
   String get encryptionHint => 'LocalSend verwendet ein selbstsigniertes Zertifikat. Du musst es im Browser akzeptieren.';
   @override
   String pendingRequests({required Object n}) => 'Offene Anfragen: ${n}';
+}
+
+// Path: webReceivePage
+class _Translations$webReceivePage$de extends Translations$webReceivePage$en {
+  _Translations$webReceivePage$de._(TranslationsDe root) : this._root = root, super.internal(root);
+
+  final TranslationsDe _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Per Link empfangen';
 }
 
 // Path: aboutPage
@@ -848,6 +901,8 @@ class _Translations$settingsTab$receive$de extends Translations$settingsTab$rece
   String get saveToGallery => 'Medien in die Galerie speichern';
   @override
   String get saveToHistory => 'In Verlauf speichern';
+  @override
+  String get verifyChecksums => 'Prüfsummen beim Empfangen überprüfen';
 }
 
 // Path: settingsTab.send
@@ -861,6 +916,8 @@ class _Translations$settingsTab$send$de extends Translations$settingsTab$send$en
   String get title => 'Senden';
   @override
   String get shareViaLinkAutoAccept => 'Link teilen: Autom. akzeptieren';
+  @override
+  String get createChecksums => 'Prüfsummen beim Senden erstellen';
 }
 
 // Path: settingsTab.network
@@ -986,6 +1043,40 @@ class _Translations$receiveHistoryPage$entryActions$de extends Translations$rece
   String get deleteFromHistory => 'Vom Verlauf entfernen';
 }
 
+// Path: deviceDetailsPage.info
+class _Translations$deviceDetailsPage$info$de extends Translations$deviceDetailsPage$info$en {
+  _Translations$deviceDetailsPage$info$de._(TranslationsDe root) : this._root = root, super.internal(root);
+
+  final TranslationsDe _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get name => 'Name';
+  @override
+  String get address => 'Adresse';
+  @override
+  String get version => 'Version';
+  @override
+  String protocol({required Object version}) => 'Protokoll v${version}';
+}
+
+// Path: deviceDetailsPage.logs
+class _Translations$deviceDetailsPage$logs$de extends Translations$deviceDetailsPage$logs$en {
+  _Translations$deviceDetailsPage$logs$de._(TranslationsDe root) : this._root = root, super.internal(root);
+
+  final TranslationsDe _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Logs';
+  @override
+  String get empty => 'Keine Logs vorhanden.';
+  @override
+  String discovered({required Object protocol, required Object host}) => 'Entdeckt über ${protocol} (${host})';
+  @override
+  String updated({required Object protocol, required Object host}) => 'Aktualisiert über ${protocol} (${host})';
+}
+
 // Path: progressPage.total
 class _Translations$progressPage$total$de extends Translations$progressPage$total$en {
   _Translations$progressPage$total$de._(TranslationsDe root) : this._root = root, super.internal(root);
@@ -1011,17 +1102,11 @@ class _Translations$progressPage$remainingTime$de extends Translations$progressP
 
   // Translations
   @override
-  String seconds({required Object n, required Object ss}) => '${n}:${ss}';
-  @override
-  String minutes({required Object n, required Object ss}) => '${n}:${ss}';
+  String minutes({required Object m, required Object ss}) => '${m}:${ss}';
 
   /// Benutze 'h' als Abkürzung für Stunden und 'm' für Minuten
   @override
   String hours({required Object h, required Object m}) => '${h}h ${m}m';
-
-  /// Benutze 'd' für Tage, 'h' für Stunden und 'm' für Minuten
-  @override
-  String days({required Object d, required Object h, required Object m}) => '${d}d ${h}h ${m}m';
 }
 
 // Path: whatsNewPage.changes
@@ -1070,10 +1155,6 @@ class _Translations$dialogs$addressInput$de extends Translations$dialogs$address
   // Translations
   @override
   String get title => 'Adresse eingeben';
-  @override
-  String get hashtag => 'Hashtag';
-  @override
-  String get ip => 'IP-Adresse';
   @override
   String get recentlyUsed => 'Zuletzt verwendet: ';
 }
@@ -1420,6 +1501,8 @@ class _Translations$settingsTab$general$colorOptions$de extends Translations$set
   String get system => 'System';
   @override
   String get oled => 'OLED';
+  @override
+  String get custom => 'Benutzerdefiniert';
 }
 
 // Path: settingsTab.general.languageOptions

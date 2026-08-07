@@ -4,10 +4,15 @@
     "[--full enabled] Furthermore, translations not used in 'lib/' according to the 't.<path>' pattern are written into <en>."
   ],
   "en": {
-    "locale": "English",
     "general": {
-      "online": "Online",
       "save": "Save"
+    },
+    "receiveTab": {
+      "quickSave": {
+        "off": "@:general.off",
+        "favorites": "Favorites",
+        "on": "@:general.on"
+      }
     },
     "sendTab": {
       "thisDevice": "This Device"

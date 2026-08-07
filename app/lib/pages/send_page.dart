@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:localsend_app/config/theme.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/model/state/send/send_session_state.dart';
+import 'package:localsend_app/pages/verify_page.dart';
 import 'package:localsend_app/provider/device_info_provider.dart';
 import 'package:localsend_app/provider/favorites_provider.dart';
 import 'package:localsend_app/provider/file_transfer_provider.dart';
@@ -17,6 +18,7 @@ import 'package:localsend_app/widget/list_tile/device_list_tile.dart';
 import 'package:localsend_app/widget/responsive_list_view.dart';
 import 'package:localsend_isolates/model/device.dart';
 import 'package:localsend_isolates/model/session_status.dart';
+import 'package:refena_flutter/addons.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 import 'package:routerino/routerino.dart';
 
@@ -137,6 +139,27 @@ class _SendPageState extends State<SendPage> with Refena {
                               nameOverride: targetFavoriteEntry?.alias,
                             ),
                           ),
+                          InitialFadeTransition(
+                            duration: const Duration(milliseconds: 300),
+                            delay: const Duration(milliseconds: 400),
+                            child: Padding(
+                              padding: const EdgeInsets.only(top: 8),
+                              child: TextButton.icon(
+                                onPressed: !targetDevice.https
+                                    ? null
+                                    : () async => await context.push(
+                                        () => VerifyPage(
+                                          fingerprint: CombinedFingerprint.load(context, targetDevice.fingerprint),
+                                        ),
+                                      ),
+                                style: TextButton.styleFrom(
+                                  foregroundColor: Theme.of(context).colorScheme.onSurface,
+                                ),
+                                icon: Icon(Icons.verified_user),
+                                label: Text(t.verifyPage.title),
+                              ),
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -217,7 +240,7 @@ class _SendPageState extends State<SendPage> with Refena {
                               child: FilledButton.icon(
                                 onPressed: () {
                                   _cancel();
-                                  context.pop();
+                                  context.global.dispatch(NavigateAction.popUntilRoot());
                                 },
                                 icon: Icon(waiting ? Icons.close : Icons.check_circle),
                                 label: Text(waiting ? t.general.cancel : t.general.close),

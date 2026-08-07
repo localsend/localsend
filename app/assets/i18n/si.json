@@ -1,5 +1,4 @@
 {
-  "locale": "සිංහල",
   "appName": "LocalSend",
   "general": {
     "accept": "පිළිගන්න",
@@ -294,8 +293,6 @@
     },
     "addressInput": {
       "title": "ලිපිනය ඇතුලත් කරන්න",
-      "hashtag": "හැශ්ටැග්",
-      "ip": "IP ලිපිනය",
       "recentlyUsed": "පෙර භාවිතා කළ: "
     },
     "cancelSession": {

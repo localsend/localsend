@@ -40,8 +40,6 @@ class TranslationsRu extends Translations with BaseTranslations<AppLocale, Trans
 
   // Translations
   @override
-  String get locale => 'Русский';
-  @override
   String get appName => 'LocalSend';
   @override
   late final _Translations$general$ru general = _Translations$general$ru._(_root);
@@ -62,6 +60,10 @@ class TranslationsRu extends Translations with BaseTranslations<AppLocale, Trans
   @override
   late final _Translations$selectedFilesPage$ru selectedFilesPage = _Translations$selectedFilesPage$ru._(_root);
   @override
+  late final _Translations$deviceDetailsPage$ru deviceDetailsPage = _Translations$deviceDetailsPage$ru._(_root);
+  @override
+  late final _Translations$verifyPage$ru verifyPage = _Translations$verifyPage$ru._(_root);
+  @override
   late final _Translations$receivePage$ru receivePage = _Translations$receivePage$ru._(_root);
   @override
   late final _Translations$receiveOptionsPage$ru receiveOptionsPage = _Translations$receiveOptionsPage$ru._(_root);
@@ -72,11 +74,15 @@ class TranslationsRu extends Translations with BaseTranslations<AppLocale, Trans
   @override
   late final _Translations$webSharePage$ru webSharePage = _Translations$webSharePage$ru._(_root);
   @override
+  late final _Translations$webReceivePage$ru webReceivePage = _Translations$webReceivePage$ru._(_root);
+  @override
   late final _Translations$aboutPage$ru aboutPage = _Translations$aboutPage$ru._(_root);
   @override
   late final _Translations$donationPage$ru donationPage = _Translations$donationPage$ru._(_root);
   @override
   late final _Translations$changelogPage$ru changelogPage = _Translations$changelogPage$ru._(_root);
+  @override
+  late final _Translations$whatsNewPage$ru whatsNewPage = _Translations$whatsNewPage$ru._(_root);
   @override
   late final _Translations$dialogs$ru dialogs = _Translations$dialogs$ru._(_root);
   @override
@@ -187,6 +193,8 @@ class _Translations$receiveTab$ru extends Translations$receiveTab$en {
   late final _Translations$receiveTab$infoBox$ru infoBox = _Translations$receiveTab$infoBox$ru._(_root);
   @override
   late final _Translations$receiveTab$quickSave$ru quickSave = _Translations$receiveTab$quickSave$ru._(_root);
+  @override
+  String get link => 'Получить по ссылке';
 }
 
 // Path: sendTab
@@ -337,6 +345,42 @@ class _Translations$selectedFilesPage$ru extends Translations$selectedFilesPage$
   String get deleteAll => 'Удалить все';
 }
 
+// Path: deviceDetailsPage
+class _Translations$deviceDetailsPage$ru extends Translations$deviceDetailsPage$en {
+  _Translations$deviceDetailsPage$ru._(TranslationsRu root) : this._root = root, super.internal(root);
+
+  final TranslationsRu _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Сведения об устройстве';
+  @override
+  String get favorite => 'В избранное';
+  @override
+  String get verify => 'Проверить';
+  @override
+  late final _Translations$deviceDetailsPage$info$ru info = _Translations$deviceDetailsPage$info$ru._(_root);
+  @override
+  late final _Translations$deviceDetailsPage$logs$ru logs = _Translations$deviceDetailsPage$logs$ru._(_root);
+}
+
+// Path: verifyPage
+class _Translations$verifyPage$ru extends Translations$verifyPage$en {
+  _Translations$verifyPage$ru._(TranslationsRu root) : this._root = root, super.internal(root);
+
+  final TranslationsRu _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Проверка';
+  @override
+  String get icons => 'Значки';
+  @override
+  String get raw => 'Код';
+  @override
+  String get question => 'Выглядит ли это так же на другом устройстве?';
+}
+
 // Path: receivePage
 class _Translations$receivePage$ru extends Translations$receivePage$en {
   _Translations$receivePage$ru._(TranslationsRu root) : this._root = root, super.internal(root);
@@ -454,6 +498,17 @@ class _Translations$webSharePage$ru extends Translations$webSharePage$en {
   String pendingRequests({required Object n}) => 'Ожидающие запросы: ${n}';
 }
 
+// Path: webReceivePage
+class _Translations$webReceivePage$ru extends Translations$webReceivePage$en {
+  _Translations$webReceivePage$ru._(TranslationsRu root) : this._root = root, super.internal(root);
+
+  final TranslationsRu _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Получить по ссылке';
+}
+
 // Path: aboutPage
 class _Translations$aboutPage$ru extends Translations$aboutPage$en {
   _Translations$aboutPage$ru._(TranslationsRu root) : this._root = root, super.internal(root);
@@ -507,6 +562,19 @@ class _Translations$changelogPage$ru extends Translations$changelogPage$en {
   // Translations
   @override
   String get title => 'История изменений';
+}
+
+// Path: whatsNewPage
+class _Translations$whatsNewPage$ru extends Translations$whatsNewPage$en {
+  _Translations$whatsNewPage$ru._(TranslationsRu root) : this._root = root, super.internal(root);
+
+  final TranslationsRu _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String title({required Object version}) => 'Что нового в ${version}';
+  @override
+  late final _Translations$whatsNewPage$changes$ru changes = _Translations$whatsNewPage$changes$ru._(_root);
 }
 
 // Path: dialogs
@@ -833,6 +901,8 @@ class _Translations$settingsTab$receive$ru extends Translations$settingsTab$rece
   String get saveToGallery => 'Сохранять медиафайлы в галерею';
   @override
   String get saveToHistory => 'Сохранять историю';
+  @override
+  String get verifyChecksums => 'Проверять контрольные суммы при получении файлов';
 }
 
 // Path: settingsTab.send
@@ -846,6 +916,8 @@ class _Translations$settingsTab$send$ru extends Translations$settingsTab$send$en
   String get title => 'Отправка';
   @override
   String get shareViaLinkAutoAccept => 'Автоматически принимать запросы в режиме "Поделиться по ссылке"';
+  @override
+  String get createChecksums => 'Создавать контрольные суммы при отправке файлов';
 }
 
 // Path: settingsTab.network
@@ -972,6 +1044,40 @@ class _Translations$receiveHistoryPage$entryActions$ru extends Translations$rece
   String get deleteFromHistory => 'Удалить из истории';
 }
 
+// Path: deviceDetailsPage.info
+class _Translations$deviceDetailsPage$info$ru extends Translations$deviceDetailsPage$info$en {
+  _Translations$deviceDetailsPage$info$ru._(TranslationsRu root) : this._root = root, super.internal(root);
+
+  final TranslationsRu _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get name => 'Имя устройства';
+  @override
+  String get address => 'Адрес';
+  @override
+  String get version => 'Версия';
+  @override
+  String protocol({required Object version}) => 'Протокол v${version}';
+}
+
+// Path: deviceDetailsPage.logs
+class _Translations$deviceDetailsPage$logs$ru extends Translations$deviceDetailsPage$logs$en {
+  _Translations$deviceDetailsPage$logs$ru._(TranslationsRu root) : this._root = root, super.internal(root);
+
+  final TranslationsRu _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Журналы';
+  @override
+  String get empty => 'Нет доступных журналов.';
+  @override
+  String discovered({required Object protocol, required Object host}) => 'Обнаружено через ${protocol} (${host})';
+  @override
+  String updated({required Object protocol, required Object host}) => 'Обновлено через ${protocol} (${host})';
+}
+
 // Path: progressPage.total
 class _Translations$progressPage$total$ru extends Translations$progressPage$total$en {
   _Translations$progressPage$total$ru._(TranslationsRu root) : this._root = root, super.internal(root);
@@ -997,17 +1103,31 @@ class _Translations$progressPage$remainingTime$ru extends Translations$progressP
 
   // Translations
   @override
-  String seconds({required Object n, required Object ss}) => '${n}:${ss}';
+  String minutesUnit({required num m}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(
+    m,
+    other: '${m}мин',
+  );
   @override
-  String minutes({required Object n, required Object ss}) => '${n}:${ss}';
+  String hoursUnit({required num h}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ru'))(
+    h,
+    other: '${h}ч',
+  );
+  @override
+  String minutes({required Object m, required Object ss}) => '${m}:${ss}';
+  @override
+  String hours({required num h, required num m}) =>
+      '${_root.progressPage.remainingTime.hoursUnit(h: h)} ${_root.progressPage.remainingTime.minutesUnit(m: m)}';
+}
 
-  /// Используйте "h" для обозначения часов, а "m" для минут
-  @override
-  String hours({required Object h, required Object m}) => '${h}ч ${m}мин';
+// Path: whatsNewPage.changes
+class _Translations$whatsNewPage$changes$ru extends Translations$whatsNewPage$changes$en {
+  _Translations$whatsNewPage$changes$ru._(TranslationsRu root) : this._root = root, super.internal(root);
 
-  /// Используйте "d" для дней, "h" для часов и "m" для минут
+  final TranslationsRu _root; // ignore: unused_field
+
+  // Translations
   @override
-  String days({required Object d, required Object h, required Object m}) => '${d}д ${h}ч ${m}мин';
+  late final _Translations$whatsNewPage$changes$v1_18_0$ru v1_18_0 = _Translations$whatsNewPage$changes$v1_18_0$ru._(_root);
 }
 
 // Path: dialogs.addFile
@@ -1045,10 +1165,6 @@ class _Translations$dialogs$addressInput$ru extends Translations$dialogs$address
   // Translations
   @override
   String get title => 'Введите адрес';
-  @override
-  String get hashtag => 'Хэштег';
-  @override
-  String get ip => 'IP-адрес';
   @override
   String get recentlyUsed => 'Недавно использованные: ';
 }
@@ -1393,6 +1509,8 @@ class _Translations$settingsTab$general$colorOptions$ru extends Translations$set
   String get system => 'Системный';
   @override
   String get oled => 'OLED';
+  @override
+  String get custom => 'Собственный';
 }
 
 // Path: settingsTab.general.languageOptions
@@ -1434,4 +1552,19 @@ class _Translations$progressPage$total$title$ru extends Translations$progressPag
   String get canceledSender => 'Отменено отправителем';
   @override
   String get canceledReceiver => 'Отменено получателем';
+}
+
+// Path: whatsNewPage.changes.v1_18_0
+class _Translations$whatsNewPage$changes$v1_18_0$ru extends Translations$whatsNewPage$changes$v1_18_0$en with WhatsNewStrings {
+  _Translations$whatsNewPage$changes$v1_18_0$ru._(TranslationsRu root) : this._root = root, super.internal(root);
+
+  final TranslationsRu _root; // ignore: unused_field
+
+  // Translations
+  @override
+  List<String> get changes => [
+    'Шифрование больше не замедляет передачу данных. Если вы отключили его на этом устройстве, теперь оно снова включено.',
+    'Запросы от избранных теперь принимаются автоматически. Эта функция включена по умолчанию, и ее можно отключить в настройках.',
+    'На Android передача данных теперь продолжается, даже когда приложение работает в фоновом режиме или экран выключен. На iOS приложение по-прежнему должно оставаться на переднем плане.',
+  ];
 }

@@ -16,7 +16,7 @@ class DeviceListTile extends StatelessWidget {
   final String? info;
   final double? progress;
   final VoidCallback? onTap;
-  final VoidCallback? onFavoriteTap;
+  final VoidCallback? onDetailsTap;
 
   const DeviceListTile({
     required this.device,
@@ -25,7 +25,7 @@ class DeviceListTile extends StatelessWidget {
     this.info,
     this.progress,
     this.onTap,
-    this.onFavoriteTap,
+    this.onDetailsTap,
   });
 
   @override
@@ -33,11 +33,20 @@ class DeviceListTile extends StatelessWidget {
     final badgeColor = Color.lerp(Theme.of(context).colorScheme.secondaryContainer, Colors.white, 0.3)!;
     return CustomListTile(
       icon: Icon(device.deviceType.icon, size: 46),
-      title: Text(nameOverride ?? device.alias, style: const TextStyle(fontSize: 20)),
-      trailing: onFavoriteTap != null
+      title: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(nameOverride ?? device.alias, style: const TextStyle(fontSize: 20)),
+          if (isFavorite) ...[
+            const SizedBox(width: 5),
+            Icon(Icons.check_circle, size: 16),
+          ],
+        ],
+      ),
+      trailing: onDetailsTap != null
           ? IconButton(
-              icon: Icon(isFavorite ? Icons.favorite : Icons.favorite_border),
-              onPressed: onFavoriteTap,
+              icon: const Icon(Icons.info_outline),
+              onPressed: onDetailsTap,
             )
           : null,
       subTitle: Wrap(
@@ -56,7 +65,7 @@ class DeviceListTile extends StatelessWidget {
               DeviceBadge(
                 backgroundColor: badgeColor,
                 foregroundColor: Theme.of(context).colorScheme.onSecondaryContainer,
-                label: 'LAN • HTTP',
+                label: 'HTTP',
               )
             else
               DeviceBadge(

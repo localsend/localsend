@@ -1,5 +1,4 @@
 {
-  "locale": "Nederlands",
   "appName": "LocalSend",
   "general": {
     "accept": "Accepteren",
@@ -242,12 +241,9 @@
       "speed": "Snelheid: {speed}/s"
     },
     "remainingTime": {
-      "seconds": "{n}:{ss}",
-      "minutes": "{n}:{ss}",
+      "minutes": "{m}:{ss}",
       "hours": "{h}u {m}m",
-      "days": "{d}d {h}u {m}m",
-      "@hours": "Gebruik 'u' als afkorting voor uren en 'm' voor minuten",
-      "@days": "Gebruik 'd' voor dagen, 'u' voor uren en 'm' voor minuten"
+      "@hours": "Gebruik 'u' als afkorting voor uren en 'm' voor minuten"
     }
   },
   "webSharePage": {
@@ -303,8 +299,6 @@
     },
     "addressInput": {
       "title": "Vul een adres in",
-      "hashtag": "Hashtag",
-      "ip": "IP-adres",
       "recentlyUsed": "Onlangs gebruikt: "
     },
     "cancelSession": {
@@ -460,5 +454,20 @@
     "sActionUseCameraHint": "camera gebruiken",
     "sNameDurationLabel": "duur",
     "sUnitAssetCountLabel": "aantal"
+  },
+  "whatsNewPage": {
+    "title": "Nieuw in {version}",
+    "changes(interface=WhatsNewStrings)": {
+      "v1_18_0": {
+        "changes": [
+          "Encryptie vertraagt de overdrachten niet langer. Het is opnieuw ingeschakeld op dit apparaat als u het eerder hebt uitgeschakeld.",
+          "Aanvragen van favorieten worden nu automatisch geaccepteerd. Deze wordt standaard ingeschakeld en kan in de instellingen uitgeschakeld worden.",
+          "Op Android gaan de overdrachten door als de app op de achtergrond staat of het scherm uit staat. Op iOS moet de app op de voorgrond blijven."
+        ]
+      }
+    }
+  },
+  "webReceivePage": {
+    "title": "Ontvangen via link"
   }
 }

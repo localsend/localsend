@@ -40,8 +40,6 @@ class TranslationsTh extends Translations with BaseTranslations<AppLocale, Trans
 
   // Translations
   @override
-  String get locale => 'ไทย';
-  @override
   String get appName => 'LocalSend';
   @override
   late final _Translations$general$th general = _Translations$general$th._(_root);
@@ -1105,10 +1103,6 @@ class _Translations$dialogs$addressInput$th extends Translations$dialogs$address
   // Translations
   @override
   String get title => 'กรอกที่อยู่';
-  @override
-  String get hashtag => 'แฮชแท็ก';
-  @override
-  String get ip => 'ที่อยู่ไอพี';
   @override
   String get recentlyUsed => 'ใช้งานล่าสุดเมื่อ: ';
 }

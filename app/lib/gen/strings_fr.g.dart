@@ -40,8 +40,6 @@ class TranslationsFr extends Translations with BaseTranslations<AppLocale, Trans
 
   // Translations
   @override
-  String get locale => 'Français';
-  @override
   String get appName => 'LocalSend';
   @override
   late final _Translations$general$fr general = _Translations$general$fr._(_root);
@@ -995,17 +993,11 @@ class _Translations$progressPage$remainingTime$fr extends Translations$progressP
 
   // Translations
   @override
-  String seconds({required Object n, required Object ss}) => '${n}:${ss}';
-  @override
-  String minutes({required Object n, required Object ss}) => '${n} :${ss}';
+  String minutes({required Object m, required Object ss}) => '${m} :${ss}';
 
   /// Utilisez « h » pour l'abréviation des heures et « m » pour les minutes
   @override
   String hours({required Object h, required Object m}) => '${h}h ${m}min';
-
-  /// Utilisez « j » pour les jours, « h » pour les heures et « m » pour les minutes
-  @override
-  String days({required Object d, required Object h, required Object m}) => '${d}j ${h}h ${m}min';
 }
 
 // Path: dialogs.addFile
@@ -1043,10 +1035,6 @@ class _Translations$dialogs$addressInput$fr extends Translations$dialogs$address
   // Translations
   @override
   String get title => 'Entrez l\'adresse IP';
-  @override
-  String get hashtag => 'Hashtag';
-  @override
-  String get ip => 'Adresse IP';
   @override
   String get recentlyUsed => 'Récemment utilisé : ';
 }

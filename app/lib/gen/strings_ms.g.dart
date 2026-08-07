@@ -40,8 +40,6 @@ class TranslationsMs extends Translations with BaseTranslations<AppLocale, Trans
 
   // Translations
   @override
-  String get locale => 'Bahasa Inggeris';
-  @override
   String get appName => 'LocalSend';
   @override
   late final _Translations$general$ms general = _Translations$general$ms._(_root);
@@ -1101,10 +1099,6 @@ class _Translations$dialogs$addressInput$ms extends Translations$dialogs$address
   // Translations
   @override
   String get title => 'Masukkan alamat';
-  @override
-  String get hashtag => 'Tanda pagar';
-  @override
-  String get ip => 'Alamat IP';
   @override
   String get recentlyUsed => 'Digunakan baru-baru ini: ';
 }

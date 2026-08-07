@@ -40,8 +40,6 @@ class TranslationsLo extends Translations with BaseTranslations<AppLocale, Trans
 
   // Translations
   @override
-  String get locale => 'ລາວ';
-  @override
   String get appName => 'LocalSend';
   @override
   late final _Translations$general$lo general = _Translations$general$lo._(_root);
@@ -1074,13 +1072,9 @@ class _Translations$progressPage$remainingTime$lo extends Translations$progressP
 
   // Translations
   @override
-  String seconds({required Object n, required Object ss}) => '${n}:${ss}';
-  @override
-  String minutes({required Object n, required Object ss}) => '${n}:${ss}';
+  String minutes({required Object m, required Object ss}) => '${m}:${ss}';
   @override
   String hours({required Object h, required Object m}) => '${h}ຊມ ${m}ນທ';
-  @override
-  String days({required Object d, required Object h, required Object m}) => '${d}ມື້ ${h}ຊມ ${m}ນທ';
 }
 
 // Path: dialogs.addFile
@@ -1118,10 +1112,6 @@ class _Translations$dialogs$addressInput$lo extends Translations$dialogs$address
   // Translations
   @override
   String get title => 'ໃສ່ທີ່ຢູ່';
-  @override
-  String get hashtag => 'ແຮັຊແທັກ';
-  @override
-  String get ip => 'ທີ່ຢູ່ IP';
   @override
   String get recentlyUsed => 'ໃຊ້ຫຼ້າສຸດ: ';
 }

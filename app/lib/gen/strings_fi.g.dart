@@ -40,8 +40,6 @@ class TranslationsFi extends Translations with BaseTranslations<AppLocale, Trans
 
   // Translations
   @override
-  String get locale => 'Finnish';
-  @override
   String get appName => 'LocalSend';
   @override
   late final _Translations$general$fi general = _Translations$general$fi._(_root);
@@ -1087,17 +1085,11 @@ class _Translations$progressPage$remainingTime$fi extends Translations$progressP
 
   // Translations
   @override
-  String seconds({required Object n, required Object ss}) => '${n}:${ss}';
-  @override
-  String minutes({required Object n, required Object ss}) => '${n}:${ss}';
+  String minutes({required Object m, required Object ss}) => '${m}:${ss}';
 
   /// Käytä 'h' tuntien lyhenteenä ja 'm' minuuttien
   @override
   String hours({required Object h, required Object m}) => '${h}t ${m}m';
-
-  /// Käytä 'pv' päiville, 'h' tunneille ja 'm' minuuteille
-  @override
-  String days({required Object d, required Object h, required Object m}) => '${d}pv ${h}t ${m}m';
 }
 
 // Path: dialogs.addFile
@@ -1135,10 +1127,6 @@ class _Translations$dialogs$addressInput$fi extends Translations$dialogs$address
   // Translations
   @override
   String get title => 'Anna osoite';
-  @override
-  String get hashtag => 'Hashtag';
-  @override
-  String get ip => 'IP-osoite';
   @override
   String get recentlyUsed => 'Äskettäin käytetty: ';
 }

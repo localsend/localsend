@@ -1,5 +1,4 @@
 {
-  "locale": "Slovenčina",
   "appName": "LocalSend",
   "general": {
     "accept": "Prijať",
@@ -242,12 +241,9 @@
       "speed": "Rýchlosť: {speed}/s"
     },
     "remainingTime": {
-      "seconds": "{n}:{ss}",
-      "minutes": "{n}:{ss}",
+      "minutes": "{m}:{ss}",
       "hours": "{h}h {m}m",
-      "days": "{d}d {h}h {m}m",
-      "@hours": "Použiť „h“ pre skratku hodín a „m“ pre minúty",
-      "@days": "Použiť „d“ pre dni, „h“ pre hodiny a „m“ pre minúty"
+      "@hours": "Použiť „h“ pre skratku hodín a „m“ pre minúty"
     }
   },
   "webSharePage": {
@@ -373,8 +369,6 @@
     },
     "addressInput": {
       "title": "Zadajte adresu",
-      "hashtag": "Hashtag",
-      "ip": "IP adresa",
       "recentlyUsed": "Nedávno použité: "
     },
     "cancelSession": {
@@ -530,5 +524,20 @@
     "sActionUseCameraHint": "použiť fotoaparát",
     "sNameDurationLabel": "trvanie",
     "sUnitAssetCountLabel": "počet"
+  },
+  "whatsNewPage": {
+    "title": "Novinky vo verzii {version}",
+    "changes(interface=WhatsNewStrings)": {
+      "v1_18_0": {
+        "changes": [
+          "Šifrovanie už nespomaľuje prenosy. Ak ste ho predtým vypli, na tomto zariadení bolo opäť zapnuté.",
+          "Žiadosti od obľúbených sa teraz prijímajú automaticky. Táto funkcia je štandardne zapnutá a je možné ju vypnúť v nastaveniach.",
+          "V systéme Android prebiehajú prenosy aj vtedy, keď je aplikácia spustená na pozadí alebo je obrazovka vypnutá. V systéme iOS musí aplikácia zostať spustená v popredí."
+        ]
+      }
+    }
+  },
+  "webReceivePage": {
+    "title": "Prijať cez odkaz"
   }
 }

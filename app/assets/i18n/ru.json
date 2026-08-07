@@ -1,5 +1,4 @@
 {
-  "locale": "Русский",
   "appName": "LocalSend",
   "general": {
     "accept": "Принять",
@@ -52,7 +51,8 @@
       "off": "@:general.off",
       "favorites": "Избранное",
       "on": "@:general.on"
-    }
+    },
+    "link": "Получить по ссылке"
   },
   "sendTab": {
     "title": "Отправить",
@@ -97,7 +97,8 @@
       "color": "Цвет",
       "colorOptions": {
         "system": "Системный",
-        "oled": "OLED"
+        "oled": "OLED",
+        "custom": "Собственный"
       },
       "language": "Язык",
       "languageOptions": {
@@ -120,11 +121,13 @@
       "destination": "Сохранять в папку",
       "downloads": "(Загрузки)",
       "saveToGallery": "Сохранять медиафайлы в галерею",
-      "saveToHistory": "Сохранять историю"
+      "saveToHistory": "Сохранять историю",
+      "verifyChecksums": "Проверять контрольные суммы при получении файлов"
     },
     "send": {
       "title": "Отправка",
-      "shareViaLinkAutoAccept": "Автоматически принимать запросы в режиме \"Поделиться по ссылке\""
+      "shareViaLinkAutoAccept": "Автоматически принимать запросы в режиме \"Поделиться по ссылке\"",
+      "createChecksums": "Создавать контрольные суммы при отправке файлов"
     },
     "network": {
       "title": "Сеть",
@@ -203,6 +206,29 @@
   "selectedFilesPage": {
     "deleteAll": "Удалить все"
   },
+  "deviceDetailsPage": {
+    "title": "Сведения об устройстве",
+    "favorite": "В избранное",
+    "verify": "Проверить",
+    "info": {
+      "name": "Имя устройства",
+      "address": "Адрес",
+      "version": "Версия",
+      "protocol": "Протокол v{version}"
+    },
+    "logs": {
+      "title": "Журналы",
+      "empty": "Нет доступных журналов.",
+      "discovered": "Обнаружено через {protocol} ({host})",
+      "updated": "Обновлено через {protocol} ({host})"
+    }
+  },
+  "verifyPage": {
+    "title": "Проверка",
+    "icons": "Значки",
+    "raw": "Код",
+    "question": "Выглядит ли это так же на другом устройстве?"
+  },
   "receivePage": {
     "subTitle": {
       "one": "хочет отправить вам файл",
@@ -242,12 +268,14 @@
       "speed": "Скорость: {speed}/s"
     },
     "remainingTime": {
-      "seconds": "{n}:{ss}",
-      "minutes": "{n}:{ss}",
-      "hours": "{h}ч {m}мин",
-      "days": "{d}д {h}ч {m}мин",
-      "@hours": "Используйте \"h\" для обозначения часов, а \"m\" для минут",
-      "@days": "Используйте \"d\" для дней, \"h\" для часов и \"m\" для минут"
+      "minutesUnit(plural, param=m)": {
+        "other": "{m}мин"
+      },
+      "hoursUnit(plural, param=h)": {
+        "other": "{h}ч"
+      },
+      "minutes": "{m}:{ss}",
+      "hours": "@:.hoursUnit @:.minutesUnit"
     }
   },
   "webSharePage": {
@@ -267,6 +295,9 @@
     "pinHint": "PIN-код: \"{pin}\"",
     "encryptionHint": "LocalSend использует самоподписанный сертификат. Вам необходимо принять его в браузере.",
     "pendingRequests": "Ожидающие запросы: {n}"
+  },
+  "webReceivePage": {
+    "title": "Получить по ссылке"
   },
   "aboutPage": {
     "title": "О LocalSend",
@@ -289,8 +320,20 @@
   "changelogPage": {
     "title": "История изменений"
   },
+  "whatsNewPage": {
+    "title": "Что нового в {version}",
+    "changes(interface=WhatsNewStrings)": {
+      "v1_18_0": {
+        "changes": [
+          "Шифрование больше не замедляет передачу данных. Если вы отключили его на этом устройстве, теперь оно снова включено.",
+          "Запросы от избранных теперь принимаются автоматически. Эта функция включена по умолчанию, и ее можно отключить в настройках.",
+          "На Android передача данных теперь продолжается, даже когда приложение работает в фоновом режиме или экран выключен. На iOS приложение по-прежнему должно оставаться на переднем плане."
+        ]
+      }
+    }
+  },
   "aliasGenerator(ignoreMissing, ignoreGpt)": {
-    "@info": "Разные локализации могут использовать разные слова, поэтому соответствие может быть не 1 к 1"
+    "@info": "Different locales may have different words, it may not match 1:1"
   },
   "dialogs": {
     "addFile": {
@@ -303,8 +346,6 @@
     },
     "addressInput": {
       "title": "Введите адрес",
-      "hashtag": "Хэштег",
-      "ip": "IP-адрес",
       "recentlyUsed": "Недавно использованные: "
     },
     "cancelSession": {
@@ -431,7 +472,7 @@
     "size": "Размер"
   },
   "assetPicker": {
-    "@info": "Переводы для инструмента выбора медиа для Android и iPhone",
+    "@info": "Translations for the Media selection tool for Android and iPhone",
     "confirm": "Подтвердить",
     "cancel": "Отменить",
     "edit": "Редактировать",

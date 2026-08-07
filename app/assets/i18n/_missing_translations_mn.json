@@ -6,9 +6,21 @@
   "general": {
     "quickSaveFromFavorites": "Quick Save for \"Favorites\""
   },
+  "receiveTab": {
+    "link": "Receive via link"
+  },
   "settingsTab": {
+    "general": {
+      "colorOptions": {
+        "custom": "Custom"
+      }
+    },
     "receive": {
-      "quickSaveFromFavorites": "@:general.quickSaveFromFavorites"
+      "quickSaveFromFavorites": "@:general.quickSaveFromFavorites",
+      "verifyChecksums": "Verify checksums when receiving files"
+    },
+    "send": {
+      "createChecksums": "Create checksums when sending files"
     },
     "network": {
       "network": "Network",
@@ -26,22 +38,52 @@
     "whitelist": "Whitelist",
     "blacklist": "Blacklist"
   },
+  "deviceDetailsPage": {
+    "title": "Device Details",
+    "favorite": "Favorite",
+    "verify": "Verify",
+    "info": {
+      "name": "Name",
+      "address": "Address",
+      "version": "Version",
+      "protocol": "Protocol v{version}"
+    },
+    "logs": {
+      "title": "Logs",
+      "empty": "No logs available.",
+      "discovered": "Discovered via {protocol} ({host})",
+      "updated": "Updated via {protocol} ({host})"
+    }
+  },
+  "verifyPage": {
+    "title": "Verify",
+    "icons": "Icons",
+    "raw": "Raw",
+    "question": "Does it look the same on the other device?"
+  },
   "sendPage": {
     "calculatingChecksum": "Calculating checksum ({curr} / {n})",
     "tooManyAttempts": "@:web.tooManyAttempts"
   },
   "progressPage": {
     "remainingTime": {
-      "seconds": "{n}:{ss}",
-      "minutes": "{n}:{ss}",
-      "hours": "{h}h {m}m",
-      "days": "{d}d {h}h {m}m"
+      "minutesUnit(plural, param=m)": {
+        "other": "{m}m"
+      },
+      "hoursUnit(plural, param=h)": {
+        "other": "{h}h"
+      },
+      "minutes": "{m}:{ss}",
+      "hours": "@:progressPage.remainingTime.hoursUnit @:progressPage.remainingTime.minutesUnit"
     }
   },
   "webSharePage": {
     "loading": "Starting server…",
     "stopping": "Stopping server…",
     "encryption": "@:settingsTab.network.encryption"
+  },
+  "webReceivePage": {
+    "title": "Receive via link"
   },
   "aboutPage": {
     "packagers": "Packagers"
@@ -69,8 +111,6 @@
     },
     "addressInput": {
       "title": "Enter address",
-      "hashtag": "Hashtag",
-      "ip": "IP Address",
       "recentlyUsed": "Recently used: "
     },
     "cancelSession": {

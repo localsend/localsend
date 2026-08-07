@@ -1,5 +1,4 @@
 {
-  "locale": "தமிழ்",
   "appName": "உள்ளக",
   "general": {
     "accept": "ஏற்றுக்கொள்",
@@ -364,8 +363,6 @@
     },
     "addressInput": {
       "title": "முகவரியை உள்ளிடவும்",
-      "hashtag": "ஹாஷ்டேக்",
-      "ip": "IP முகவரி",
       "recentlyUsed": "சமீபத்தில் பயன்படுத்தப்பட்டது: "
     },
     "cancelSession": {

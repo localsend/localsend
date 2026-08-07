@@ -1,26 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
+import 'package:localsend_app/util/i18n.dart';
 import 'package:localsend_app/widget/responsive_list_view.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 
-class LanguagePage extends StatefulWidget {
+class LanguagePage extends StatelessWidget {
   const LanguagePage({super.key});
-
-  @override
-  State<LanguagePage> createState() => _LanguagePageState();
-}
-
-class _LanguagePageState extends State<LanguagePage> {
-  @override
-  void initState() {
-    super.initState();
-
-    // ignore: discarded_futures
-    LocaleSettings.instance.loadAllLocales().then((_) {
-      setState(() {});
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +35,7 @@ class _LanguagePageState extends State<LanguagePage> {
               title: Row(
                 children: [
                   Flexible(
-                    child: Text(locale?.humanName ?? t.settingsTab.general.languageOptions.system),
+                    child: Text(locale?.getLocaleName() ?? t.settingsTab.general.languageOptions.system),
                   ),
                   if (locale == activeLocale) ...[
                     const SizedBox(width: 10),
@@ -62,11 +48,5 @@ class _LanguagePageState extends State<LanguagePage> {
         ],
       ),
     );
-  }
-}
-
-extension AppLocaleExt on AppLocale {
-  String get humanName {
-    return LocaleSettings.instance.translationMap[this]?.locale ?? 'Loading';
   }
 }

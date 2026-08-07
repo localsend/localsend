@@ -40,8 +40,6 @@ class TranslationsSr extends Translations with BaseTranslations<AppLocale, Trans
 
   // Translations
   @override
-  String get locale => 'Srpski (latinica)';
-  @override
   String get appName => 'LocalSend';
   @override
   late final Translations$general$sr general = Translations$general$sr.internal(_root);
@@ -1109,10 +1107,6 @@ class Translations$dialogs$addressInput$sr extends Translations$dialogs$addressI
   // Translations
   @override
   String get title => 'Unesite adresu';
-  @override
-  String get hashtag => 'Heš-oznaka';
-  @override
-  String get ip => 'IP adresa';
   @override
   String get recentlyUsed => 'Nedavno korišćeno: ';
 }

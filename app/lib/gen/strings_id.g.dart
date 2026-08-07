@@ -40,8 +40,6 @@ class TranslationsId extends Translations with BaseTranslations<AppLocale, Trans
 
   // Translations
   @override
-  String get locale => 'Indonesian';
-  @override
   String get appName => 'LocalSend';
   @override
   late final _Translations$general$id general = _Translations$general$id._(_root);
@@ -1015,10 +1013,6 @@ class _Translations$dialogs$addressInput$id extends Translations$dialogs$address
   // Translations
   @override
   String get title => 'Masukkan Alamat';
-  @override
-  String get hashtag => 'Tagar';
-  @override
-  String get ip => 'Alamat IP';
   @override
   String get recentlyUsed => 'Baru saja digunakan: ';
 }

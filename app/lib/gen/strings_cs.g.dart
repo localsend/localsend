@@ -40,8 +40,6 @@ class TranslationsCs extends Translations with BaseTranslations<AppLocale, Trans
 
   // Translations
   @override
-  String get locale => 'Česky';
-  @override
   String get appName => 'LocalSend';
   @override
   late final _Translations$general$cs general = _Translations$general$cs._(_root);
@@ -1018,10 +1016,6 @@ class _Translations$dialogs$addressInput$cs extends Translations$dialogs$address
   // Translations
   @override
   String get title => 'Zadat adresu';
-  @override
-  String get hashtag => 'Hashtag';
-  @override
-  String get ip => 'IP Adresa';
   @override
   String get recentlyUsed => 'Nedávno použité: ';
 }

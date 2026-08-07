@@ -10,12 +10,12 @@ import 'package:yaru/yaru.dart' as yaru;
 
 final _borderRadius = BorderRadius.circular(5);
 
-ThemeData getTheme(ColorMode colorMode, Brightness brightness, DynamicColors? dynamicColors) {
+ThemeData getTheme(ColorMode colorMode, Color customColor, Brightness brightness, DynamicColors? dynamicColors) {
   if (colorMode == ColorMode.yaru) {
     return _getYaruTheme(brightness);
   }
 
-  final colorScheme = _determineColorScheme(colorMode, brightness, dynamicColors);
+  final colorScheme = _determineColorScheme(colorMode, customColor, brightness, dynamicColors);
 
   final lightInputBorder = OutlineInputBorder(
     borderSide: BorderSide(color: colorScheme.secondaryContainer),
@@ -140,7 +140,7 @@ extension InputDecorationThemeExt on InputDecorationThemeData {
   BorderRadius get borderRadius => _borderRadius;
 }
 
-ColorScheme _determineColorScheme(ColorMode mode, Brightness brightness, DynamicColors? dynamicColors) {
+ColorScheme _determineColorScheme(ColorMode mode, Color customColor, Brightness brightness, DynamicColors? dynamicColors) {
   final defaultColorScheme = ColorScheme.fromSeed(
     seedColor: Colors.teal,
     brightness: brightness,
@@ -153,6 +153,10 @@ ColorScheme _determineColorScheme(ColorMode mode, Brightness brightness, Dynamic
       surface: Colors.black,
     ),
     ColorMode.yaru => throw 'Should reach here',
+    ColorMode.custom => ColorScheme.fromSeed(
+      seedColor: customColor,
+      brightness: brightness,
+    ),
   };
 
   return colorScheme ?? defaultColorScheme;

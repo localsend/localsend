@@ -40,8 +40,6 @@ class TranslationsGu extends Translations with BaseTranslations<AppLocale, Trans
 
   // Translations
   @override
-  String get locale => 'અંગ્રેજી';
-  @override
   String get appName => 'LocalSend';
   @override
   late final _Translations$general$gu general = _Translations$general$gu._(_root);
@@ -1077,17 +1075,11 @@ class _Translations$progressPage$remainingTime$gu extends Translations$progressP
 
   // Translations
   @override
-  String seconds({required Object n, required Object ss}) => '${n}:${ss}';
-  @override
-  String minutes({required Object n, required Object ss}) => '${n}:${ss}';
+  String minutes({required Object m, required Object ss}) => '${m}:${ss}';
 
   /// નાનું કરી ને 'ક' કલાક માટે અને 'મિ' મિનિટ માટે વાપરો
   @override
   String hours({required Object h, required Object m}) => '${h}ક ${m}મિ';
-
-  /// નાનું કરી ને 'દિ' દિવસ માટે, 'ક' કલાક માટે અને 'મિ' મિનિટ માટે વાપરો
-  @override
-  String days({required Object d, required Object h, required Object m}) => '${d}દિ ${h}ક ${m}મિ';
 }
 
 // Path: dialogs.addFile
@@ -1125,10 +1117,6 @@ class _Translations$dialogs$addressInput$gu extends Translations$dialogs$address
   // Translations
   @override
   String get title => 'સરનામું દાખલ કરો';
-  @override
-  String get hashtag => 'હૅશટૅગ';
-  @override
-  String get ip => 'IP સરનામું';
   @override
   String get recentlyUsed => 'હાલમાં ઉપયોગમાં લીધેલું: ';
 }

@@ -46,7 +46,9 @@ class LocalSendApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ref = context.ref;
-    final (themeMode, colorMode) = ref.watch(settingsProvider.select((settings) => (settings.theme, settings.colorMode)));
+    final (themeMode, colorMode, customColor) = ref.watch(
+      settingsProvider.select((settings) => (settings.theme, settings.colorMode, settings.customColor)),
+    );
     final dynamicColors = ref.watch(dynamicColorsProvider);
     return TrayWatcher(
       child: WindowWatcher(
@@ -72,8 +74,8 @@ class LocalSendApp extends StatelessWidget {
               supportedLocales: AppLocaleUtils.supportedLocales,
               localizationsDelegates: GlobalMaterialLocalizations.delegates,
               debugShowCheckedModeBanner: false,
-              theme: getTheme(colorMode, Brightness.light, dynamicColors),
-              darkTheme: getTheme(colorMode, Brightness.dark, dynamicColors),
+              theme: getTheme(colorMode, customColor, Brightness.light, dynamicColors),
+              darkTheme: getTheme(colorMode, customColor, Brightness.dark, dynamicColors),
               themeMode: colorMode == ColorMode.oled ? ThemeMode.dark : themeMode,
               navigatorKey: context.read(navigationProvider).key,
               home: RouterinoHome(

@@ -43,9 +43,6 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 
   // Translations
 
-  /// en: 'English'
-  String get locale => 'English';
-
   /// en: 'LocalSend'
   String get appName => 'LocalSend';
 
@@ -58,6 +55,8 @@ class Translations with BaseTranslations<AppLocale, Translations> {
   late final Translations$receiveHistoryPage$en receiveHistoryPage = Translations$receiveHistoryPage$en.internal(_root);
   late final Translations$apkPickerPage$en apkPickerPage = Translations$apkPickerPage$en.internal(_root);
   late final Translations$selectedFilesPage$en selectedFilesPage = Translations$selectedFilesPage$en.internal(_root);
+  late final Translations$deviceDetailsPage$en deviceDetailsPage = Translations$deviceDetailsPage$en.internal(_root);
+  late final Translations$verifyPage$en verifyPage = Translations$verifyPage$en.internal(_root);
   late final Translations$receivePage$en receivePage = Translations$receivePage$en.internal(_root);
   late final Translations$receiveOptionsPage$en receiveOptionsPage = Translations$receiveOptionsPage$en.internal(_root);
   late final Translations$sendPage$en sendPage = Translations$sendPage$en.internal(_root);
@@ -212,6 +211,9 @@ class Translations$receiveTab$en {
 
   late final Translations$receiveTab$infoBox$en infoBox = Translations$receiveTab$infoBox$en.internal(_root);
   late final Translations$receiveTab$quickSave$en quickSave = Translations$receiveTab$quickSave$en.internal(_root);
+
+  /// en: 'Receive via link'
+  String get link => 'Receive via link';
 }
 
 // Path: sendTab
@@ -383,6 +385,48 @@ class Translations$selectedFilesPage$en {
 
   /// en: 'Delete all'
   String get deleteAll => 'Delete all';
+}
+
+// Path: deviceDetailsPage
+class Translations$deviceDetailsPage$en {
+  Translations$deviceDetailsPage$en.internal(this._root);
+
+  final Translations _root; // ignore: unused_field
+
+  // Translations
+
+  /// en: 'Device Details'
+  String get title => 'Device Details';
+
+  /// en: 'Favorite'
+  String get favorite => 'Favorite';
+
+  /// en: 'Verify'
+  String get verify => 'Verify';
+
+  late final Translations$deviceDetailsPage$info$en info = Translations$deviceDetailsPage$info$en.internal(_root);
+  late final Translations$deviceDetailsPage$logs$en logs = Translations$deviceDetailsPage$logs$en.internal(_root);
+}
+
+// Path: verifyPage
+class Translations$verifyPage$en {
+  Translations$verifyPage$en.internal(this._root);
+
+  final Translations _root; // ignore: unused_field
+
+  // Translations
+
+  /// en: 'Verify'
+  String get title => 'Verify';
+
+  /// en: 'Icons'
+  String get icons => 'Icons';
+
+  /// en: 'Raw'
+  String get raw => 'Raw';
+
+  /// en: 'Does it look the same on the other device?'
+  String get question => 'Does it look the same on the other device?';
 }
 
 // Path: receivePage
@@ -1265,6 +1309,48 @@ class Translations$receiveHistoryPage$entryActions$en {
   String get deleteFromHistory => 'Delete from history';
 }
 
+// Path: deviceDetailsPage.info
+class Translations$deviceDetailsPage$info$en {
+  Translations$deviceDetailsPage$info$en.internal(this._root);
+
+  final Translations _root; // ignore: unused_field
+
+  // Translations
+
+  /// en: 'Name'
+  String get name => 'Name';
+
+  /// en: 'Address'
+  String get address => 'Address';
+
+  /// en: 'Version'
+  String get version => 'Version';
+
+  /// en: 'Protocol v{version}'
+  String protocol({required Object version}) => 'Protocol v${version}';
+}
+
+// Path: deviceDetailsPage.logs
+class Translations$deviceDetailsPage$logs$en {
+  Translations$deviceDetailsPage$logs$en.internal(this._root);
+
+  final Translations _root; // ignore: unused_field
+
+  // Translations
+
+  /// en: 'Logs'
+  String get title => 'Logs';
+
+  /// en: 'No logs available.'
+  String get empty => 'No logs available.';
+
+  /// en: 'Discovered via {protocol} ({host})'
+  String discovered({required Object protocol, required Object host}) => 'Discovered via ${protocol} (${host})';
+
+  /// en: 'Updated via {protocol} ({host})'
+  String updated({required Object protocol, required Object host}) => 'Updated via ${protocol} (${host})';
+}
+
 // Path: progressPage.total
 class Translations$progressPage$total$en {
   Translations$progressPage$total$en.internal(this._root);
@@ -1292,21 +1378,24 @@ class Translations$progressPage$remainingTime$en {
 
   // Translations
 
-  /// en: '{n}:{ss}'
-  String seconds({required Object n, required Object ss}) => '${n}:${ss}';
+  /// en: '(other) {{m}m}'
+  String minutesUnit({required num m}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(
+    m,
+    other: '${m}m',
+  );
 
-  /// en: '{n}:{ss}'
-  String minutes({required Object n, required Object ss}) => '${n}:${ss}';
+  /// en: '(other) {{h}h}'
+  String hoursUnit({required num h}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(
+    h,
+    other: '${h}h',
+  );
 
-  /// Use 'h' for hours abbreviation and 'm' for minutes
-  ///
-  /// en: '{h}h {m}m'
-  String hours({required Object h, required Object m}) => '${h}h ${m}m';
+  /// en: '{m}:{ss}'
+  String minutes({required Object m, required Object ss}) => '${m}:${ss}';
 
-  /// Use 'd' for days, 'h' for hours, and 'm' for minutes
-  ///
-  /// en: '{d}d {h}h {m}m'
-  String days({required Object d, required Object h, required Object m}) => '${d}d ${h}h ${m}m';
+  /// en: '(other) {{h}h} (other) {{m}m}'
+  String hours({required num h, required num m}) =>
+      '${_root.progressPage.remainingTime.hoursUnit(h: h)} ${_root.progressPage.remainingTime.minutesUnit(m: m)}';
 }
 
 // Path: whatsNewPage.changes
@@ -1359,12 +1448,6 @@ class Translations$dialogs$addressInput$en {
 
   /// en: 'Enter address'
   String get title => 'Enter address';
-
-  /// en: 'Hashtag'
-  String get hashtag => 'Hashtag';
-
-  /// en: 'IP Address'
-  String get ip => 'IP Address';
 
   /// en: 'Recently used: '
   String get recentlyUsed => 'Recently used: ';
@@ -1769,6 +1852,9 @@ class Translations$settingsTab$general$colorOptions$en {
 
   /// en: 'OLED'
   String get oled => 'OLED';
+
+  /// en: 'Custom'
+  String get custom => 'Custom';
 }
 
 // Path: settingsTab.general.languageOptions

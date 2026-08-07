@@ -1,5 +1,4 @@
 {
-  "locale": "اردو",
   "appName": "LocalSend",
   "general": {
     "accept": "قبول کریں",
@@ -38,14 +37,20 @@
     "save": "محفوظ کریں",
     "unchanged": "غیر تبدیل شدہ",
     "unknown": "نامعلوم",
-    "noItemInClipboard": "کلپ بورڈ میں کوئی آئٹم نہیں ہے۔"
+    "noItemInClipboard": "کلپ بورڈ میں کوئی آئٹم نہیں ہے۔",
+    "quickSaveFromFavorites": "پسندیدہ کے لیے فوری محفوظ کریں"
   },
   "receiveTab": {
     "title": "وصول کریں",
     "infoBox": {
-      "ip": ":آئی پی",
-      "port": ":پورٹ",
-      "alias": ":عرف"
+      "ip": "آئی پی:",
+      "port": "پورٹ:",
+      "alias": "عرف:"
+    },
+    "quickSave": {
+      "favorites": "پسندیدہ",
+      "off": "آف",
+      "on": "آن"
     }
   },
   "sendTab": {
@@ -97,9 +102,9 @@
       "languageOptions": {
         "system": "سسٹم"
       },
-      "saveWindowPlacement": "چھوڑیں: ونڈو کی جگہ کو محفوظ کریں۔",
+      "saveWindowPlacement": "چھوڑیں: ونڈو کی جگہ کو محفوظ کریں",
       "saveWindowPlacementWindows": "بند ہونے پر ونڈو کی پوزیشن محفوظ کریں",
-      "minimizeToTray": "چھوڑیں: ٹرے میں چھوٹا کریں۔",
+      "minimizeToTray": "چھوڑیں: ٹرے میں چھوٹا کریں",
       "launchAtStartup": "لاگ ان کے بعد آٹو اسٹارٹ",
       "launchMinimized": "آٹو سٹارٹ: سٹارٹ پوشیدہ",
       "showInContextMenu": "سیاق و سباق کے مینو میں LocalSend دکھائیں",
@@ -112,7 +117,7 @@
       "autoFinish": "خودکار تکمیل",
       "destination": "منزل",
       "downloads": "(ڈاؤن لوڈ)",
-      "saveToGallery": "میڈیا کو گیلری میں محفوظ کریں۔",
+      "saveToGallery": "میڈیا کو گیلری میں محفوظ کریں",
       "saveToHistory": "تاریخچہ میں محفوظ کریں"
     },
     "send": {
@@ -131,7 +136,14 @@
       "portWarning": "ہو سکتا ہے آپ کو دوسرے آلات سے پتہ نہ چل سکے کیونکہ آپ حسب ضرورت پورٹ استعمال کر رہے ہیں۔ (پہلے سے طے شدہ: {defaultPort})",
       "encryption": "خفیہ کاری",
       "multicastGroup": "ملٹی کاسٹ",
-      "multicastGroupWarning": "ہو سکتا ہے آپ کو دوسرے آلات سے پتہ نہ لگے کیونکہ آپ حسب ضرورت ملٹی کاسٹ ایڈریس استعمال کر رہے ہیں۔ (پہلے سے طے شدہ: {defaultMulticast})"
+      "multicastGroupWarning": "ہو سکتا ہے آپ کو دوسرے آلات سے پتہ نہ لگے کیونکہ آپ حسب ضرورت ملٹی کاسٹ ایڈریس استعمال کر رہے ہیں۔ (پہلے سے طے شدہ: {defaultMulticast})",
+      "network": "نیٹ ورک",
+      "networkOptions": {
+        "all": "تمام",
+        "filtered": "فلٹر کیا گیا"
+      },
+      "useSystemName": "سسٹم کا نام استعمال کریں",
+      "generateRandomAlias": "بے ترتیب عرف پیدا کریں"
     },
     "other": {
       "title": "دیگر",
@@ -146,7 +158,7 @@
     "title": "خرابی کا سراغ لگانا",
     "subTitle": "کیا یہ ایپ توقع کے مطابق کام نہیں کرتی؟ یہاں آپ عام حل تلاش کر سکتے ہیں۔",
     "solution": "حل:",
-    "fixButton": "خود بخود درست کریں۔",
+    "fixButton": "خود بخود درست کریں",
     "firewall": {
       "symptom": "یہ ایپ دیگر آلات پر فائلیں بھیج سکتی ہے لیکن دیگر آلات اس ڈیوائس پر فائلیں نہیں بھیج سکتے۔",
       "solution": "یہ ممکنہ طور پر فائر وال کا مسئلہ ہے۔ آپ اسے پورٹ {port} پر آنے والے کنکشنز (UDP اور TCP) کی اجازت دے کر حل کر سکتے ہیں۔",
@@ -184,8 +196,8 @@
   },
   "receivePage": {
     "subTitle": {
-      "one": "آپ کو ایک فائل بھیجنا چاہتا ہے۔",
-      "other": "آپ کو {n} فائلیں بھیجنا چاہتا ہے۔"
+      "one": "آپ کو ایک فائل بھیجنا چاہتا ہے",
+      "other": "آپ کو {n} فائلیں بھیجنا چاہتا ہے"
     },
     "subTitleMessage": "آپ کو ایک پیغام بھیجا:",
     "subTitleLink": "آپ کو ایک لنک بھیجا:",
@@ -194,8 +206,8 @@
   "receiveOptionsPage": {
     "title": "اختیارات",
     "destination": "@:settingsTab.receive.destination",
-    "appDirectory": "(@:appName folder)",
-    "saveToGallery": ". گیلری میں محفوظ کریں@:settingsTab.receive.saveToGallery",
+    "appDirectory": "(لوکل سینڈ فولڈر)",
+    "saveToGallery": "@:settingsTab.receive.saveToGallery",
     "saveToGalleryOff": "خود کار طور پر منقطع ہوگیا ہے کیونکہ ڈائریکٹریاں ہیں۔"
   },
   "sendPage": {
@@ -212,8 +224,8 @@
       "title": {
         "sending": "کل پیش رفت ({time})",
         "finishedError": "غلطی کے ساتھ ختم",
-        "canceledSender": "بھیجنے والے کے ذریعے منسوخ کر دیا گیا۔",
-        "canceledReceiver": "وصول کنندہ کے ذریعے منسوخ کر دیا گیا۔"
+        "canceledSender": "بھیجنے والے کے ذریعے منسوخ کر دیا گیا",
+        "canceledReceiver": "وصول کنندہ کے ذریعے منسوخ کر دیا گیا"
       },
       "count": "فائلوں: {curr} / {n}",
       "size": "سائز: {curr} / {n}",
@@ -269,8 +281,6 @@
     },
     "addressInput": {
       "title": "پتہ درج کریں۔",
-      "hashtag": "Hashtag",
-      "ip": "اپ ایڈریس",
       "recentlyUsed": "حال ہی میں استعمال ہوا:"
     },
     "cancelSession": {
@@ -420,5 +430,12 @@
     "sActionUseCameraHint": "کیمرہ استعمال کریں",
     "sNameDurationLabel": "مدت",
     "sUnitAssetCountLabel": "کاؤنٹ"
+  },
+  "networkInterfacesPage": {
+    "title": "نیٹ ورک انٹرفیسز",
+    "info": "پہلے سے طے شدہ طور پر، لوکل سینڈ تمام دستیاب نیٹ ورک انٹرفیس استعمال کرتا ہے۔ آپ یہاں ناپسندیدہ نیٹ ورکس کو خارج کر سکتے ہیں۔ تبدیلیاں لاگو کرنے کے لیے آپ کو سرور کو دوبارہ شروع کرنے کی ضرورت ہے۔",
+    "preview": "پیش نظارہ",
+    "whitelist": "وائٹ لسٹ",
+    "blacklist": "بلیک لسٹ"
   }
 }

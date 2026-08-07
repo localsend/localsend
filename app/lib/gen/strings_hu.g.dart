@@ -40,8 +40,6 @@ class TranslationsHu extends Translations with BaseTranslations<AppLocale, Trans
 
   // Translations
   @override
-  String get locale => 'Magyar';
-  @override
   String get appName => 'LocalSend';
   @override
   late final _Translations$general$hu general = _Translations$general$hu._(_root);
@@ -87,6 +85,10 @@ class TranslationsHu extends Translations with BaseTranslations<AppLocale, Trans
   late final _Translations$web$hu web = _Translations$web$hu._(_root);
   @override
   late final _Translations$assetPicker$hu assetPicker = _Translations$assetPicker$hu._(_root);
+  @override
+  late final _Translations$webReceivePage$hu webReceivePage = _Translations$webReceivePage$hu._(_root);
+  @override
+  late final _Translations$whatsNewPage$hu whatsNewPage = _Translations$whatsNewPage$hu._(_root);
 }
 
 // Path: general
@@ -688,6 +690,30 @@ class _Translations$assetPicker$hu extends Translations$assetPicker$en {
   String get sUnitAssetCountLabel => 'számol';
 }
 
+// Path: webReceivePage
+class _Translations$webReceivePage$hu extends Translations$webReceivePage$en {
+  _Translations$webReceivePage$hu._(TranslationsHu root) : this._root = root, super.internal(root);
+
+  final TranslationsHu _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Linken keresztüli fogadás';
+}
+
+// Path: whatsNewPage
+class _Translations$whatsNewPage$hu extends Translations$whatsNewPage$en {
+  _Translations$whatsNewPage$hu._(TranslationsHu root) : this._root = root, super.internal(root);
+
+  final TranslationsHu _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String title({required Object version}) => '${version} verzió újdonságai';
+  @override
+  late final _Translations$whatsNewPage$changes$hu changes = _Translations$whatsNewPage$changes$hu._(_root);
+}
+
 // Path: receiveTab.infoBox
 class _Translations$receiveTab$infoBox$hu extends Translations$receiveTab$infoBox$en {
   _Translations$receiveTab$infoBox$hu._(TranslationsHu root) : this._root = root, super.internal(root);
@@ -996,17 +1022,11 @@ class _Translations$progressPage$remainingTime$hu extends Translations$progressP
 
   // Translations
   @override
-  String seconds({required Object n, required Object ss}) => '${n}:${ss}';
-  @override
-  String minutes({required Object n, required Object ss}) => '${n}:${ss}';
+  String minutes({required Object m, required Object ss}) => '${m}:${ss}';
 
   /// Az órák rövidítéséhez használja a 'h' betűt, a percekhez pedig az 'm' betűt
   @override
   String hours({required Object h, required Object m}) => '${h}h ${m}m';
-
-  /// A naphoz  a 'd', az órához a 'h', a percekhez az 'm' betűt használja
-  @override
-  String days({required Object d, required Object h, required Object m}) => '${d}d ${h}h ${m}m';
 }
 
 // Path: dialogs.addFile
@@ -1044,10 +1064,6 @@ class _Translations$dialogs$addressInput$hu extends Translations$dialogs$address
   // Translations
   @override
   String get title => 'Adja meg a címet';
-  @override
-  String get hashtag => 'Hashtag';
-  @override
-  String get ip => 'IP cím';
   @override
   String get recentlyUsed => 'Nemrég használt: ';
 }
@@ -1367,6 +1383,17 @@ class _Translations$dialogs$zoom$hu extends Translations$dialogs$zoom$en {
   String get title => 'URL';
 }
 
+// Path: whatsNewPage.changes
+class _Translations$whatsNewPage$changes$hu extends Translations$whatsNewPage$changes$en {
+  _Translations$whatsNewPage$changes$hu._(TranslationsHu root) : this._root = root, super.internal(root);
+
+  final TranslationsHu _root; // ignore: unused_field
+
+  // Translations
+  @override
+  late final _Translations$whatsNewPage$changes$v1_18_0$hu v1_18_0 = _Translations$whatsNewPage$changes$v1_18_0$hu._(_root);
+}
+
 // Path: settingsTab.general.brightnessOptions
 class _Translations$settingsTab$general$brightnessOptions$hu extends Translations$settingsTab$general$brightnessOptions$en {
   _Translations$settingsTab$general$brightnessOptions$hu._(TranslationsHu root) : this._root = root, super.internal(root);
@@ -1434,4 +1461,19 @@ class _Translations$progressPage$total$title$hu extends Translations$progressPag
   String get canceledSender => 'A küldő törölte';
   @override
   String get canceledReceiver => 'A fogadó törölte';
+}
+
+// Path: whatsNewPage.changes.v1_18_0
+class _Translations$whatsNewPage$changes$v1_18_0$hu extends Translations$whatsNewPage$changes$v1_18_0$en with WhatsNewStrings {
+  _Translations$whatsNewPage$changes$v1_18_0$hu._(TranslationsHu root) : this._root = root, super.internal(root);
+
+  final TranslationsHu _root; // ignore: unused_field
+
+  // Translations
+  @override
+  List<String> get changes => [
+    'A titkosítás már nem lassítja az adatátvitelt. Ha korábban kikapcsolta, akkor ezen az eszközön újra engedélyezve lett.',
+    'A kedvencekből érkező kéréseket már automatikusan elfogadjuk. Alapból be van kapcsolva, és a beállításokban kikapcsolható.',
+    'Android rendszeren az adatátvitel akkor is folytatódik, ha az alkalmazás a háttérben fut, vagy a képernyő ki van kapcsolva. iOS rendszeren viszont az alkalmazásnak továbbra is az előtérben kell maradnia.',
+  ];
 }

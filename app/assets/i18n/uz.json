@@ -1,5 +1,4 @@
 {
-  "locale": "Oʻzbekcha",
   "appName": "LocalSend",
   "general": {
     "accept": "Qabul qilish",
@@ -241,10 +240,8 @@
       "speed": "Tezlik: {speed}/s"
     },
     "remainingTime": {
-      "seconds": "{n}:{ss}",
-      "minutes": "{n}:{ss}",
-      "hours": "{h}s {m}d",
-      "days": "{d}k {h}s {m}d"
+      "minutes": "{m}:{ss}",
+      "hours": "{h}s {m}d"
     }
   },
   "webSharePage": {
@@ -297,8 +294,6 @@
     },
     "addressInput": {
       "title": "Manzilni kiriting",
-      "hashtag": "Hashtag",
-      "ip": "IP manzil",
       "recentlyUsed": "Yaqinda ishlatilgan: "
     },
     "cancelSession": {

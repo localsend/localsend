@@ -9,7 +9,6 @@ import 'package:localsend_app/provider/animation_provider.dart';
 import 'package:localsend_app/provider/local_ip_provider.dart';
 import 'package:localsend_app/provider/network/server/server_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
-import 'package:localsend_app/util/ip_helper.dart';
 import 'package:localsend_app/widget/animations/initial_fade_transition.dart';
 import 'package:localsend_app/widget/column_list_view.dart';
 import 'package:localsend_app/widget/custom_icon_button.dart';
@@ -94,7 +93,7 @@ class _ReceiveTabState extends State<ReceiveTab> {
                           duration: const Duration(milliseconds: 300),
                           delay: const Duration(milliseconds: 500),
                           child: Text(
-                            serverState == null ? t.general.offline : localIps.map((ip) => '#${ip.visualId}').toSet().join(' '),
+                            serverState == null ? t.general.offline : t.general.online,
                             style: const TextStyle(fontSize: 24),
                             textAlign: TextAlign.center,
                           ),
@@ -110,7 +109,7 @@ class _ReceiveTabState extends State<ReceiveTab> {
                           await context.global.dispatchAsync(NavigateAction.push(const WebSharePage()));
                         },
                         icon: Icon(Icons.language),
-                        label: Text(t.$wip.receiveTab.link('Receive via link')),
+                        label: Text(t.receiveTab.link),
                       ),
                     ),
                   ),

@@ -40,8 +40,6 @@ class TranslationsUr extends Translations with BaseTranslations<AppLocale, Trans
 
   // Translations
   @override
-  String get locale => 'اردو';
-  @override
   String get appName => 'LocalSend';
   @override
   late final _Translations$general$ur general = _Translations$general$ur._(_root);
@@ -85,6 +83,8 @@ class TranslationsUr extends Translations with BaseTranslations<AppLocale, Trans
   late final _Translations$web$ur web = _Translations$web$ur._(_root);
   @override
   late final _Translations$assetPicker$ur assetPicker = _Translations$assetPicker$ur._(_root);
+  @override
+  late final _Translations$networkInterfacesPage$ur networkInterfacesPage = _Translations$networkInterfacesPage$ur._(_root);
 }
 
 // Path: general
@@ -168,6 +168,8 @@ class _Translations$general$ur extends Translations$general$en {
   String get unknown => 'نامعلوم';
   @override
   String get noItemInClipboard => 'کلپ بورڈ میں کوئی آئٹم نہیں ہے۔';
+  @override
+  String get quickSaveFromFavorites => 'پسندیدہ کے لیے فوری محفوظ کریں';
 }
 
 // Path: receiveTab
@@ -181,6 +183,8 @@ class _Translations$receiveTab$ur extends Translations$receiveTab$en {
   String get title => 'وصول کریں';
   @override
   late final _Translations$receiveTab$infoBox$ur infoBox = _Translations$receiveTab$infoBox$ur._(_root);
+  @override
+  late final _Translations$receiveTab$quickSave$ur quickSave = _Translations$receiveTab$quickSave$ur._(_root);
 }
 
 // Path: sendTab
@@ -255,7 +259,7 @@ class _Translations$troubleshootPage$ur extends Translations$troubleshootPage$en
   @override
   String get solution => 'حل:';
   @override
-  String get fixButton => 'خود بخود درست کریں۔';
+  String get fixButton => 'خود بخود درست کریں';
   @override
   late final _Translations$troubleshootPage$firewall$ur firewall = _Translations$troubleshootPage$firewall$ur._(_root);
   @override
@@ -321,8 +325,8 @@ class _Translations$receivePage$ur extends Translations$receivePage$en {
   @override
   String subTitle({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ur'))(
     n,
-    one: 'آپ کو ایک فائل بھیجنا چاہتا ہے۔',
-    other: 'آپ کو ${n} فائلیں بھیجنا چاہتا ہے۔',
+    one: 'آپ کو ایک فائل بھیجنا چاہتا ہے',
+    other: 'آپ کو ${n} فائلیں بھیجنا چاہتا ہے',
   );
   @override
   String get subTitleMessage => 'آپ کو ایک پیغام بھیجا:';
@@ -344,9 +348,9 @@ class _Translations$receiveOptionsPage$ur extends Translations$receiveOptionsPag
   @override
   String get destination => _root.settingsTab.receive.destination;
   @override
-  String get appDirectory => '(${_root.appName} folder)';
+  String get appDirectory => '(لوکل سینڈ فولڈر)';
   @override
-  String get saveToGallery => '. گیلری میں محفوظ کریں${_root.settingsTab.receive.saveToGallery}';
+  String get saveToGallery => _root.settingsTab.receive.saveToGallery;
   @override
   String get saveToGalleryOff => 'خود کار طور پر منقطع ہوگیا ہے کیونکہ ڈائریکٹریاں ہیں۔';
 }
@@ -653,6 +657,26 @@ class _Translations$assetPicker$ur extends Translations$assetPicker$en {
   String get sUnitAssetCountLabel => 'کاؤنٹ';
 }
 
+// Path: networkInterfacesPage
+class _Translations$networkInterfacesPage$ur extends Translations$networkInterfacesPage$en {
+  _Translations$networkInterfacesPage$ur._(TranslationsUr root) : this._root = root, super.internal(root);
+
+  final TranslationsUr _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'نیٹ ورک انٹرفیسز';
+  @override
+  String get info =>
+      'پہلے سے طے شدہ طور پر، لوکل سینڈ تمام دستیاب نیٹ ورک انٹرفیس استعمال کرتا ہے۔ آپ یہاں ناپسندیدہ نیٹ ورکس کو خارج کر سکتے ہیں۔ تبدیلیاں لاگو کرنے کے لیے آپ کو سرور کو دوبارہ شروع کرنے کی ضرورت ہے۔';
+  @override
+  String get preview => 'پیش نظارہ';
+  @override
+  String get whitelist => 'وائٹ لسٹ';
+  @override
+  String get blacklist => 'بلیک لسٹ';
+}
+
 // Path: receiveTab.infoBox
 class _Translations$receiveTab$infoBox$ur extends Translations$receiveTab$infoBox$en {
   _Translations$receiveTab$infoBox$ur._(TranslationsUr root) : this._root = root, super.internal(root);
@@ -661,11 +685,26 @@ class _Translations$receiveTab$infoBox$ur extends Translations$receiveTab$infoBo
 
   // Translations
   @override
-  String get ip => ':آئی پی';
+  String get ip => 'آئی پی:';
   @override
-  String get port => ':پورٹ';
+  String get port => 'پورٹ:';
   @override
-  String get alias => ':عرف';
+  String get alias => 'عرف:';
+}
+
+// Path: receiveTab.quickSave
+class _Translations$receiveTab$quickSave$ur extends Translations$receiveTab$quickSave$en {
+  _Translations$receiveTab$quickSave$ur._(TranslationsUr root) : this._root = root, super.internal(root);
+
+  final TranslationsUr _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get favorites => 'پسندیدہ';
+  @override
+  String get off => 'آف';
+  @override
+  String get on => 'آن';
 }
 
 // Path: sendTab.selection
@@ -743,11 +782,11 @@ class _Translations$settingsTab$general$ur extends Translations$settingsTab$gene
   @override
   late final _Translations$settingsTab$general$languageOptions$ur languageOptions = _Translations$settingsTab$general$languageOptions$ur._(_root);
   @override
-  String get saveWindowPlacement => 'چھوڑیں: ونڈو کی جگہ کو محفوظ کریں۔';
+  String get saveWindowPlacement => 'چھوڑیں: ونڈو کی جگہ کو محفوظ کریں';
   @override
   String get saveWindowPlacementWindows => 'بند ہونے پر ونڈو کی پوزیشن محفوظ کریں';
   @override
-  String get minimizeToTray => 'چھوڑیں: ٹرے میں چھوٹا کریں۔';
+  String get minimizeToTray => 'چھوڑیں: ٹرے میں چھوٹا کریں';
   @override
   String get launchAtStartup => 'لاگ ان کے بعد آٹو اسٹارٹ';
   @override
@@ -778,7 +817,7 @@ class _Translations$settingsTab$receive$ur extends Translations$settingsTab$rece
   @override
   String get downloads => '(ڈاؤن لوڈ)';
   @override
-  String get saveToGallery => 'میڈیا کو گیلری میں محفوظ کریں۔';
+  String get saveToGallery => 'میڈیا کو گیلری میں محفوظ کریں';
   @override
   String get saveToHistory => 'تاریخچہ میں محفوظ کریں';
 }
@@ -829,6 +868,14 @@ class _Translations$settingsTab$network$ur extends Translations$settingsTab$netw
   @override
   String multicastGroupWarning({required Object defaultMulticast}) =>
       'ہو سکتا ہے آپ کو دوسرے آلات سے پتہ نہ لگے کیونکہ آپ حسب ضرورت ملٹی کاسٹ ایڈریس استعمال کر رہے ہیں۔ (پہلے سے طے شدہ: ${defaultMulticast})';
+  @override
+  String get network => 'نیٹ ورک';
+  @override
+  late final _Translations$settingsTab$network$networkOptions$ur networkOptions = _Translations$settingsTab$network$networkOptions$ur._(_root);
+  @override
+  String get useSystemName => 'سسٹم کا نام استعمال کریں';
+  @override
+  String get generateRandomAlias => 'بے ترتیب عرف پیدا کریں';
 }
 
 // Path: settingsTab.other
@@ -950,10 +997,6 @@ class _Translations$dialogs$addressInput$ur extends Translations$dialogs$address
   // Translations
   @override
   String get title => 'پتہ درج کریں۔';
-  @override
-  String get hashtag => 'Hashtag';
-  @override
-  String get ip => 'اپ ایڈریس';
   @override
   String get recentlyUsed => 'حال ہی میں استعمال ہوا:';
 }
@@ -1295,6 +1338,19 @@ class _Translations$settingsTab$general$languageOptions$ur extends Translations$
   String get system => 'سسٹم';
 }
 
+// Path: settingsTab.network.networkOptions
+class _Translations$settingsTab$network$networkOptions$ur extends Translations$settingsTab$network$networkOptions$en {
+  _Translations$settingsTab$network$networkOptions$ur._(TranslationsUr root) : this._root = root, super.internal(root);
+
+  final TranslationsUr _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get all => 'تمام';
+  @override
+  String get filtered => 'فلٹر کیا گیا';
+}
+
 // Path: progressPage.total.title
 class _Translations$progressPage$total$title$ur extends Translations$progressPage$total$title$en {
   _Translations$progressPage$total$title$ur._(TranslationsUr root) : this._root = root, super.internal(root);
@@ -1307,7 +1363,7 @@ class _Translations$progressPage$total$title$ur extends Translations$progressPag
   @override
   String get finishedError => 'غلطی کے ساتھ ختم';
   @override
-  String get canceledSender => 'بھیجنے والے کے ذریعے منسوخ کر دیا گیا۔';
+  String get canceledSender => 'بھیجنے والے کے ذریعے منسوخ کر دیا گیا';
   @override
-  String get canceledReceiver => 'وصول کنندہ کے ذریعے منسوخ کر دیا گیا۔';
+  String get canceledReceiver => 'وصول کنندہ کے ذریعے منسوخ کر دیا گیا';
 }

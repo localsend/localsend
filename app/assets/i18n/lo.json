@@ -1,5 +1,4 @@
 {
-  "locale": "ລາວ",
   "appName": "LocalSend",
   "general": {
     "accept": "ຍອມຮັບ",
@@ -241,10 +240,8 @@
       "speed": "ຄວາມໄວ: {speed}/s"
     },
     "remainingTime": {
-      "seconds": "{n}:{ss}",
-      "minutes": "{n}:{ss}",
-      "hours": "{h}ຊມ {m}ນທ",
-      "days": "{d}ມື້ {h}ຊມ {m}ນທ"
+      "minutes": "{m}:{ss}",
+      "hours": "{h}ຊມ {m}ນທ"
     }
   },
   "webSharePage": {
@@ -368,8 +365,6 @@
     },
     "addressInput": {
       "title": "ໃສ່ທີ່ຢູ່",
-      "hashtag": "ແຮັຊແທັກ",
-      "ip": "ທີ່ຢູ່ IP",
       "recentlyUsed": "ໃຊ້ຫຼ້າສຸດ: "
     },
     "cancelSession": {

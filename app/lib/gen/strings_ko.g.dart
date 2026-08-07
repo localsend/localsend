@@ -40,8 +40,6 @@ class TranslationsKo extends Translations with BaseTranslations<AppLocale, Trans
 
   // Translations
   @override
-  String get locale => '한국어';
-  @override
   String get appName => 'LocalSend';
   @override
   late final _Translations$general$ko general = _Translations$general$ko._(_root);
@@ -87,6 +85,10 @@ class TranslationsKo extends Translations with BaseTranslations<AppLocale, Trans
   late final _Translations$web$ko web = _Translations$web$ko._(_root);
   @override
   late final _Translations$assetPicker$ko assetPicker = _Translations$assetPicker$ko._(_root);
+  @override
+  late final _Translations$whatsNewPage$ko whatsNewPage = _Translations$whatsNewPage$ko._(_root);
+  @override
+  late final _Translations$webReceivePage$ko webReceivePage = _Translations$webReceivePage$ko._(_root);
 }
 
 // Path: general
@@ -685,6 +687,30 @@ class _Translations$assetPicker$ko extends Translations$assetPicker$en {
   String get sUnitAssetCountLabel => '개수';
 }
 
+// Path: whatsNewPage
+class _Translations$whatsNewPage$ko extends Translations$whatsNewPage$en {
+  _Translations$whatsNewPage$ko._(TranslationsKo root) : this._root = root, super.internal(root);
+
+  final TranslationsKo _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String title({required Object version}) => '${version} 버전의 새 기능';
+  @override
+  late final _Translations$whatsNewPage$changes$ko changes = _Translations$whatsNewPage$changes$ko._(_root);
+}
+
+// Path: webReceivePage
+class _Translations$webReceivePage$ko extends Translations$webReceivePage$en {
+  _Translations$webReceivePage$ko._(TranslationsKo root) : this._root = root, super.internal(root);
+
+  final TranslationsKo _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => '링크로 수신';
+}
+
 // Path: receiveTab.infoBox
 class _Translations$receiveTab$infoBox$ko extends Translations$receiveTab$infoBox$en {
   _Translations$receiveTab$infoBox$ko._(TranslationsKo root) : this._root = root, super.internal(root);
@@ -990,17 +1016,11 @@ class _Translations$progressPage$remainingTime$ko extends Translations$progressP
 
   // Translations
   @override
-  String seconds({required Object n, required Object ss}) => '${n}:${ss}';
-  @override
-  String minutes({required Object n, required Object ss}) => '${n}:${ss}';
+  String minutes({required Object m, required Object ss}) => '${m}:${ss}';
 
   /// 'h'로 시간을, 'm'으로 분을 나타냅니다
   @override
   String hours({required Object h, required Object m}) => '${h}시간 ${m}분';
-
-  /// 'd'로 일수를, 'h'로 시간을, 'm'으로 분을 나타냅니다
-  @override
-  String days({required Object d, required Object h, required Object m}) => '${d}일 ${h}시간 ${m}분';
 }
 
 // Path: dialogs.addFile
@@ -1038,10 +1058,6 @@ class _Translations$dialogs$addressInput$ko extends Translations$dialogs$address
   // Translations
   @override
   String get title => '주소 입력';
-  @override
-  String get hashtag => '해시태그';
-  @override
-  String get ip => 'IP 주소';
   @override
   String get recentlyUsed => '최근 사용된 주소: ';
 }
@@ -1358,6 +1374,17 @@ class _Translations$dialogs$zoom$ko extends Translations$dialogs$zoom$en {
   String get title => 'URL';
 }
 
+// Path: whatsNewPage.changes
+class _Translations$whatsNewPage$changes$ko extends Translations$whatsNewPage$changes$en {
+  _Translations$whatsNewPage$changes$ko._(TranslationsKo root) : this._root = root, super.internal(root);
+
+  final TranslationsKo _root; // ignore: unused_field
+
+  // Translations
+  @override
+  late final _Translations$whatsNewPage$changes$v1_18_0$ko v1_18_0 = _Translations$whatsNewPage$changes$v1_18_0$ko._(_root);
+}
+
 // Path: settingsTab.general.brightnessOptions
 class _Translations$settingsTab$general$brightnessOptions$ko extends Translations$settingsTab$general$brightnessOptions$en {
   _Translations$settingsTab$general$brightnessOptions$ko._(TranslationsKo root) : this._root = root, super.internal(root);
@@ -1425,4 +1452,19 @@ class _Translations$progressPage$total$title$ko extends Translations$progressPag
   String get canceledSender => '보내는 사람에 의해 취소되었습니다';
   @override
   String get canceledReceiver => '받는 사람에 의해 취소되었습니다';
+}
+
+// Path: whatsNewPage.changes.v1_18_0
+class _Translations$whatsNewPage$changes$v1_18_0$ko extends Translations$whatsNewPage$changes$v1_18_0$en with WhatsNewStrings {
+  _Translations$whatsNewPage$changes$v1_18_0$ko._(TranslationsKo root) : this._root = root, super.internal(root);
+
+  final TranslationsKo _root; // ignore: unused_field
+
+  // Translations
+  @override
+  List<String> get changes => [
+    '암호화가 더 이상 전송을 느리게 하지 않습니다. 이 기기에서 이전에 암호화를 끈 경우 다시 암호화를 켰습니다.',
+    '이제 즐겨찾기한 기기의 요청을 자동으로 수락합니다. 기본적으로 켜져 있으며 설정에서 끌 수 있습니다.',
+    'Android에서는 앱이 백그라운드로 전환되거나 화면이 꺼져도 전송을 계속합니다. iOS에서는 여전히 앱을 연 채로 유지해야 합니다.',
+  ];
 }

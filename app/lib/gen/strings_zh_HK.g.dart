@@ -40,8 +40,6 @@ class TranslationsZhHk extends Translations with BaseTranslations<AppLocale, Tra
 
   // Translations
   @override
-  String get locale => '繁體中文 (香港)';
-  @override
   String get appName => 'LocalSend';
   @override
   late final Translations$general$zh_HK general = Translations$general$zh_HK.internal(_root);
@@ -1019,10 +1017,6 @@ class Translations$dialogs$addressInput$zh_HK extends Translations$dialogs$addre
   // Translations
   @override
   String get title => '輸入地址';
-  @override
-  String get hashtag => 'Hashtag';
-  @override
-  String get ip => 'IP 地址';
   @override
   String get recentlyUsed => '輸入記錄： ';
 }

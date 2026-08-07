@@ -1,5 +1,4 @@
 {
-  "locale": "Slovenščina",
   "appName": "LocalSend",
   "general": {
     "accept": "Sprejmi",
@@ -343,8 +342,6 @@
     },
     "addressInput": {
       "title": "Vnesite naslov",
-      "hashtag": "Hashtag",
-      "ip": "IP naslov",
       "recentlyUsed": "Nedavno uporabljeno: "
     },
     "cancelSession": {
