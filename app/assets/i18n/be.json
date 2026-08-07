@@ -1,0 +1,457 @@
+{
+  "locale": "Беларуская",
+  "appName": "LocalSend",
+  "general": {
+    "accept": "Прыняць",
+    "accepted": "Прынята",
+    "add": "Дадаць",
+    "advanced": "Пашыранае",
+    "cancel": "Скасаваць",
+    "close": "Закрыць",
+    "confirm": "Пацвердзіць",
+    "continueStr": "Працягнуць",
+    "copy": "Капіраваць",
+    "copiedToClipboard": "Скапіравана ў буфер абмену",
+    "decline": "Адхіліць",
+    "done": "Гатова",
+    "delete": "Выдаліць",
+    "edit": "Рэдагаваць",
+    "error": "Памылка",
+    "example": "Прыклад",
+    "files": "Файлы",
+    "finished": "Скончана",
+    "hide": "Схаваць",
+    "off": "Выкл.",
+    "offline": "Па-за сеткай",
+    "on": "Укл.",
+    "online": "У сетцы",
+    "open": "Адкрыць",
+    "queue": "Чарга",
+    "quickSave": "Хуткае захаванне",
+    "quickSaveFromFavorites": "Хуткае захаванне для \"Абраных\"",
+    "renamed": "Перайменавана",
+    "reset": "Адрабіць",
+    "restart": "Перазапусціць",
+    "settings": "Налады",
+    "skipped": "Прапушчана",
+    "start": "Пачаць",
+    "stop": "Спыніць",
+    "save": "Захаваць",
+    "unchanged": "Без змен",
+    "unknown": "Невядома",
+    "noItemInClipboard": "Буфер абмену пусты."
+  },
+  "receiveTab": {
+    "title": "Атрымаць",
+    "infoBox": {
+      "ip": "IP-адрас:",
+      "port": "Порт:",
+      "alias": "Назва прылады:"
+    },
+    "quickSave": {
+      "off": "@:general.off",
+      "favorites": "Абраныя",
+      "on": "@:general.on"
+    }
+  },
+  "sendTab": {
+    "title": "Адправіць",
+    "selection": {
+      "title": "Выбар",
+      "files": "Файлаў: {files}",
+      "size": "Памер: {size}"
+    },
+    "picker": {
+      "file": "Файл",
+      "folder": "Папка",
+      "media": "Медыя",
+      "text": "Тэкст",
+      "app": "Праграма",
+      "clipboard": "Уставіць"
+    },
+    "shareIntentInfo": "Вы таксама можаце выкарыстоўваць функцыю \"Абагуліць\" мабільнай прылады, каб зручней выбіраць файлы.",
+    "nearbyDevices": "Прылады побач",
+    "thisDevice": "Гэта прылада",
+    "scan": "Пошук прылад",
+    "manualSending": "Ручная адпраўка",
+    "sendMode": "Рэжым адпраўкі",
+    "sendModes": {
+      "single": "Адзін атрымальнік",
+      "multiple": "Некалькі атрымальнікаў",
+      "link": "Абагуліць праз спасылку"
+    },
+    "sendModeHelp": "Тлумачэнне",
+    "help": "Пераканайцеся, што патрэбная прылада знаходзіцца ў той жа сетцы Wi-Fi.",
+    "placeItems": "Змясціце элементы для абагульвання"
+  },
+  "settingsTab": {
+    "title": "Налады",
+    "general": {
+      "title": "Агульныя",
+      "brightness": "Тэма",
+      "brightnessOptions": {
+        "system": "Сістэмная",
+        "dark": "Цёмная",
+        "light": "Светлая"
+      },
+      "color": "Колер",
+      "colorOptions": {
+        "system": "Сістэмны",
+        "oled": "OLED"
+      },
+      "language": "Мова",
+      "languageOptions": {
+        "system": "Сістэмная"
+      },
+      "saveWindowPlacement": "Запамінаць пазіцыю акна пасля выхаду",
+      "saveWindowPlacementWindows": "Запамінаць пазіцыю акна пасля выхаду",
+      "minimizeToTray": "Згортваць у вобласць апавяшчэнняў/панэль меню пры закрыцці",
+      "launchAtStartup": "Аўтазапуск пасля ўваходу",
+      "launchMinimized": "Аўтазапуск: Запускаць схаванай",
+      "showInContextMenu": "Паказваць LocalSend у кантэкстным меню",
+      "animations": "Анімацыі"
+    },
+    "receive": {
+      "title": "Атрыманне",
+      "quickSave": "@:general.quickSave",
+      "quickSaveFromFavorites": "@:general.quickSaveFromFavorites",
+      "requirePin": "@:webSharePage.requirePin",
+      "autoFinish": "Заканчваць аўтаматычна",
+      "destination": "Захоўваць у папку",
+      "downloads": "(Спампоўкі)",
+      "saveToGallery": "Захоўваць медыя ў галерэю",
+      "saveToHistory": "Захоўваць гісторыю"
+    },
+    "send": {
+      "title": "Адпраўка",
+      "shareViaLinkAutoAccept": "Аўтаматычна прымаць запыты ў рэжыме \"Абагуліць праз спасылку\""
+    },
+    "network": {
+      "title": "Сетка",
+      "needRestart": "Перазапусціце сервер, каб ужыць налады!",
+      "server": "Сервер",
+      "alias": "Назва прылады",
+      "deviceType": "Тып прылады",
+      "deviceModel": "Мадэль прылады",
+      "port": "Порт",
+      "network": "Сетка",
+      "networkOptions": {
+        "all": "Усе",
+        "filtered": "Фільтраваныя"
+      },
+      "discoveryTimeout": "Час чакання выяўлення",
+      "useSystemName": "Сістэмная назва",
+      "generateRandomAlias": "Стварыць выпадковы псеўданім",
+      "portWarning": "Іншыя прылады могуць не выявіць вас, бо вы выкарыстоўваеце ўласны порт. (прадвызначана: {defaultPort})",
+      "encryption": "Шыфраванне",
+      "multicastGroup": "Multicast-адрас",
+      "multicastGroupWarning": "Іншыя прылады могуць не выявіць вас, бо вы выкарыстоўваеце ўласны multicast-адрас. (прадвызначана: {defaultMulticast})"
+    },
+    "other": {
+      "title": "Іншыя",
+      "support": "Падтрымаць LocalSend",
+      "donate": "Ахвяраваць",
+      "privacyPolicy": "Палітыка прыватнасці",
+      "termsOfUse": "Умовы карыстання"
+    },
+    "advancedSettings": "Пашыраныя налады"
+  },
+  "troubleshootPage": {
+    "title": "Выпраўленне непаладак",
+    "subTitle": "Праграма не працуе належным чынам? Тут вы можаце знайсці некаторыя агульныя рашэнні праблем.",
+    "solution": "Рашэнне:",
+    "fixButton": "Выправіць аўтаматычна",
+    "firewall": {
+      "symptom": "Гэта прылада можа адпраўляць файлы на іншыя прылады, але іншыя прылады не могуць адпраўляць файлы на гэту прыладу.",
+      "solution": "Хутчэй за ўсё, гэта праблема з міжсеткавым экранам. Вы можаце вырашыць яе, дазволіўшы ўваходныя злучэнні (UDP і TCP) на порце {port}.",
+      "openFirewall": "Адкрыць міжсеткавы экран"
+    },
+    "noDiscovery": {
+      "symptom": "Гэта прылада не можа выявіць іншыя прылады.",
+      "solution": "Пераканайцеся, што ўсе прылады знаходзяцца ў адной сетцы Wi-Fi і маюць аднолькавую канфігурацыю (порт, multicast-адрас, шыфраванне). Вы можаце паспрабаваць увесці IP-адрас мэтавай прылады ўручную. Калі гэта спрацуе, паспрабуйце дадаць гэту прыладу ў абранае, каб яна магла аўтаматычна выяўляцца ў будучыні."
+    },
+    "noConnection": {
+      "symptom": "Абедзве прылады не могуць выявіць адна адну і не могуць абагульваць файлы.",
+      "solution": "Ці існуе праблема з абодвух бакоў? Калі так, пераканайцеся, што абедзве прылады знаходзяцца ў адной сетцы Wi-Fi і маюць аднолькавую канфігурацыю (порт, multicast-адрас, шыфраванне). Сетка Wi-Fi можа не дазваляць сувязь паміж удзельнікамі з-за ізаляцыі кропкі доступу (AP). У гэтым выпадку гэты параметр павінен быць адключаны на маршрутызатары."
+    }
+  },
+  "networkInterfacesPage": {
+    "title": "Сеткавыя інтэрфейсы",
+    "info": "Прадвызначана LocalSend выкарыстоўвае ўсе даступныя сеткавыя інтэрфейсы. Тут вы можаце выключыць непажаданыя сеткі. Каб змены ўступілі ў сілу, трэба перазапусціць сервер.",
+    "preview": "Перадпрагляд",
+    "whitelist": "Белы спіс",
+    "blacklist": "Чорны спіс"
+  },
+  "receiveHistoryPage": {
+    "title": "Гісторыя",
+    "openFolder": "Адкрыць папку",
+    "deleteHistory": "Выдаліць гісторыю",
+    "empty": "Гісторыя пустая.",
+    "entryActions": {
+      "open": "Адкрыць файл",
+      "showInFolder": "Паказаць у папцы",
+      "info": "Інфармацыя",
+      "deleteFromHistory": "Выдаліць з гісторыі"
+    }
+  },
+  "apkPickerPage": {
+    "title": "Праграмы (APK)",
+    "excludeSystemApps": "Выключыць сістэмныя праграмы",
+    "excludeAppsWithoutLaunchIntent": "Выключыць праграмы, якія не запускаюцца",
+    "apps": "Праграм: {n}"
+  },
+  "selectedFilesPage": {
+    "deleteAll": "Выдаліць усе"
+  },
+  "receivePage": {
+    "subTitle": {
+      "one": "хоча адправіць вам файл",
+      "other": "хоча адправіць вам {n} файлы(-аў)"
+    },
+    "subTitleMessage": "адправіў(-ла) вам паведамленне:",
+    "subTitleLink": "адправіў(-ла) вам спасылку:",
+    "canceled": "Адпраўнік скасаваў запыт."
+  },
+  "receiveOptionsPage": {
+    "title": "Параметры",
+    "destination": "@:settingsTab.receive.destination",
+    "appDirectory": "(Папка LocalSend)",
+    "saveToGallery": "@:settingsTab.receive.saveToGallery",
+    "saveToGalleryOff": "Аўтаматычна выключана з-за наяўнасці папак."
+  },
+  "sendPage": {
+    "waiting": "Чаканне адказу…",
+    "rejected": "Атрымальнік адхіліў запыт.",
+    "tooManyAttempts": "@:web.tooManyAttempts",
+    "busy": "Атрымальнік заняты іншым запытам."
+  },
+  "progressPage": {
+    "titleSending": "Адпраўка файлаў",
+    "titleReceiving": "Атрыманне файлаў",
+    "savedToGallery": "Захавана ў галерэі",
+    "total": {
+      "title": {
+        "sending": "Агульны ход выканання ({time})",
+        "finishedError": "Скончана з памылкай",
+        "canceledSender": "Скасавана адпраўніком",
+        "canceledReceiver": "Скасавана атрымальнікам"
+      },
+      "count": "Файлаў: {curr} / {n}",
+      "size": "Памер: {curr} / {n}",
+      "speed": "Хуткасць: {speed}/с"
+    }
+  },
+  "webSharePage": {
+    "title": "Абагуліць праз спасылку",
+    "loading": "Запуск сервера…",
+    "stopping": "Спыненне сервера…",
+    "error": "Падчас запуску сервера адбылася памылка.",
+    "openLink": {
+      "one": "Адкрыць спасылку ў браўзеры:",
+      "other": "Адкрыць адну з гэтых спасылак у браўзеры:"
+    },
+    "requests": "Запыты",
+    "noRequests": "Няма запытаў.",
+    "encryption": "@:settingsTab.network.encryption",
+    "autoAccept": "Аўтаматычна прымаць запыты",
+    "requirePin": "Патрабаваць PIN-код",
+    "pinHint": "PIN-код: \"{pin}\"",
+    "encryptionHint": "LocalSend выкарыстоўвае самападпісаны сертыфікат. Вам трэба прыняць яго ў браўзеры.",
+    "pendingRequests": "Запытаў у чаканні: {n}"
+  },
+  "aboutPage": {
+    "title": "Пра LocalSend",
+    "description": [
+      "LocalSend - гэта бясплатная праграма з адкрытым зыходным кодам, якая дазваляе бяспечна абменьвацца файламі і паведамленнямі з бліжэйшымі прыладамі праз лакальную сетку без інтэрнэт-злучэння.",
+      "Гэта праграма даступная на Android, iOS, macOS, Windows і Linux. Усе варыянты спампоўвання можна знайсці на афіцыйным сайце."
+    ],
+    "author": "Аўтар",
+    "contributors": "Суаўтары",
+    "packagers": "Зборшчыкі",
+    "translators": "Перакладчыкі"
+  },
+  "donationPage": {
+    "title": "Ахвяраваць",
+    "info": "LocalSend бясплатная, з адкрытым зыходным кодам і без рэкламы. Калі вам падабаецца праграма, вы можаце падтрымаць яе распрацоўку ахвяраваннем.",
+    "donate": "Ахвяраваць {amount}",
+    "thanks": "Шчыра дзякую!",
+    "restore": "Аднавіць пакупку"
+  },
+  "changelogPage": {
+    "title": "Спіс змен"
+  },
+  "aliasGenerator(ignoreMissing, ignoreGpt)": {
+    "@info": "Inherits from the English version"
+  },
+  "dialogs": {
+    "addFile": {
+      "title": "Дадаць да выбару",
+      "content": "Што вы хочаце дадаць?"
+    },
+    "openFile": {
+      "title": "Адкрыць файл",
+      "content": "Вы хочаце адкрыць атрыманы файл?"
+    },
+    "addressInput": {
+      "title": "Увядзіце адрас",
+      "hashtag": "Хэштэг",
+      "ip": "IP-адрас",
+      "recentlyUsed": "Нядаўнія: "
+    },
+    "cancelSession": {
+      "title": "Скасаваць перадачу файлаў",
+      "content": "Вы сапраўды хочаце скасаваць перадачу файлаў?"
+    },
+    "cannotOpenFile": {
+      "title": "Не ўдалося адкрыць файл",
+      "content": "Не ўдалося адкрыць \"{file}\". Гэты файл быў перамешчаны, перайменаваны або выдалены?"
+    },
+    "encryptionDisabledNotice": {
+      "title": "Шыфраванне адключана",
+      "content": "Цяпер сувязь адбываецца праз незашыфраваны пратакол HTTP. Каб выкарыстоўваць пратакол HTTPS, зноў уключыце шыфраванне."
+    },
+    "errorDialog": {
+      "title": "@:general.error"
+    },
+    "favoriteDialog": {
+      "title": "Абраныя",
+      "noFavorites": "Пакуль няма абраных прылад.",
+      "addFavorite": "Дадаць"
+    },
+    "favoriteDeleteDialog": {
+      "title": "Выдаліць з абраных",
+      "content": "Вы сапраўды хочаце выдаліць з абраных \"{name}\"?"
+    },
+    "favoriteEditDialog": {
+      "titleAdd": "Дадаць у абраныя",
+      "titleEdit": "Налады",
+      "name": "Назва прылады",
+      "auto": "(аўта)",
+      "ip": "IP-адрас",
+      "port": "Порт"
+    },
+    "fileInfo": {
+      "title": "Звесткі пра файл",
+      "fileName": "Назва файла:",
+      "path": "Шлях:",
+      "size": "Памер:",
+      "sender": "Адпраўнік:",
+      "time": "Час:"
+    },
+    "fileNameInput": {
+      "title": "Увядзіце назву файла",
+      "original": "Арыгінальная: {original}"
+    },
+    "historyClearDialog": {
+      "title": "Ачысціць гісторыю",
+      "content": "Вы сапраўды хочаце выдаліць усю гісторыю?"
+    },
+    "localNetworkUnauthorized": {
+      "title": "@:dialogs.noPermission.title",
+      "description": "LocalSend не можа знайсці іншыя прылады, не маючы дазволу на сканіраванне лакальнай сеткі. Дайце дазвол у наладах.",
+      "gotoSettings": "Налады"
+    },
+    "messageInput": {
+      "title": "Увядзіце паведамленне",
+      "multiline": "Шматрадковае"
+    },
+    "noFiles": {
+      "title": "Файлы не выбраны",
+      "content": "Выберыце хаця б адзін файл."
+    },
+    "noPermission": {
+      "title": "Няма дазволу",
+      "content": "Вы не ўключылі неабходныя дазволы. Уключыце іх у наладах."
+    },
+    "notAvailableOnPlatform": {
+      "title": "Недаступна",
+      "content": "Гэта функцыя даступная толькі на:"
+    },
+    "qr": {
+      "title": "QR-код"
+    },
+    "quickActions": {
+      "title": "Хуткія дзеянні",
+      "counter": "Лічыльнік",
+      "prefix": "Прэфікс",
+      "padZero": "Дадаць нулі ў пачатку",
+      "sortBeforeCount": "Загадзя адсартаваць у алфавітным парадку (А-Я)",
+      "random": "Выпадкова"
+    },
+    "quickSaveNotice": {
+      "title": "@:general.quickSave",
+      "content": "Запыты на адпраўку файлаў цяпер прымаюцца аўтаматычна. Майце на ўвазе, што ўсе карыстальнікі лакальнай сеткі могуць адпраўляць вам файлы."
+    },
+    "quickSaveFromFavoritesNotice": {
+      "title": "@:general.quickSaveFromFavorites",
+      "content": [
+        "Запыты на адпраўку файлаў цяпер прымаюцца аўтаматычна з абраных прылад.",
+        "Увага! Зараз гэта не зусім бяспечна, бо хакер, які мае лічбавы адбітак любой прылады з вашага спісу абраных, можа адпраўляць вам файлы без абмежаванняў.",
+        "Аднак, гэты варыянт усё ж больш бяспечны за дазвол усім карыстальнікам лакальнай сеткі адпраўляць вам файлы без абмежаванняў."
+      ]
+    },
+    "pin": {
+      "title": "Увядзіце PIN-код"
+    },
+    "sendModeHelp": {
+      "title": "Рэжымы адпраўкі",
+      "single": "Адпраўляе файлы аднаму атрымальніку. Выбар будзе ачышчаны пасля заканчэння перадачы файлаў.",
+      "multiple": "Адпраўляе файлы некалькім атрымальнікам. Выбар не будзе ачышчаны пасля заканчэння перадачы файлаў.",
+      "link": "Атрымальнікі, у якіх не ўсталяваны LocalSend, могуць спампаваць выбраныя файлы, адкрыўшы спасылку ў браўзеры."
+    },
+    "zoom": {
+      "title": "URL-адрас"
+    }
+  },
+  "sanitization": {
+    "empty": "Назва файла не можа быць пустой",
+    "invalid": "Назва файла змяшчае недапушчальныя сімвалы"
+  },
+  "tray": {
+    "@info": "Apple Guidelines are very strict about the \"close\" wording.",
+    "open": "@:general.open",
+    "close": "Выйсці з LocalSend",
+    "closeWindows": "Выйсці"
+  },
+  "web": {
+    "waiting": "@:sendPage.waiting",
+    "enterPin": "Увядзіце PIN-код",
+    "invalidPin": "Памылковы PIN-код",
+    "tooManyAttempts": "Занадта шмат спроб",
+    "rejected": "Адхілена",
+    "files": "Файлаў",
+    "fileName": "Назва файла",
+    "size": "Памер"
+  },
+  "assetPicker": {
+    "@info": "Translations for the Media selection tool for Android and iPhone",
+    "confirm": "Пацвердзіць",
+    "cancel": "Скасаваць",
+    "edit": "Рэдагаваць",
+    "gifIndicator": "GIF",
+    "loadFailed": "Не ўдалося загрузіць",
+    "original": "Арыгінал",
+    "preview": "Перадпрагляд",
+    "select": "Выбраць",
+    "emptyList": "Спіс пусты",
+    "unSupportedAssetType": "Тып файла не падтрымліваецца.",
+    "unableToAccessAll": "Не ўдалося атрымаць доступ да ўсіх файлаў на прыладзе",
+    "viewingLimitedAssetsTip": "Праглядзець толькі файлы і альбомы, даступныя праграме.",
+    "changeAccessibleLimitedAssets": "Націсніце, каб абнавіць даступныя файлы",
+    "accessAllTip": "Праграма мае доступ толькі да некаторых файлаў на прыладзе. Перайдзіце ў налады сістэмы і дазвольце праграме доступ да ўсіх медыяфайлаў.",
+    "goToSystemSettings": "Перайсці ў налады сістэмы",
+    "accessLimitedAssets": "Працягнуць з абмежаваным доступам",
+    "accessiblePathName": "Даступныя файлы",
+    "sTypeAudioLabel": "Аўдыя",
+    "sTypeImageLabel": "Відарысы",
+    "sTypeVideoLabel": "Відэа",
+    "sTypeOtherLabel": "Іншыя медыяфайлы",
+    "sActionPlayHint": "прайграць",
+    "sActionPreviewHint": "перадпрагляд",
+    "sActionSelectHint": "выбраць",
+    "sActionSwitchPathLabel": "змяніць шлях",
+    "sActionUseCameraHint": "выкарыстоўваць камеру",
+    "sNameDurationLabel": "працягласць",
+    "sUnitAssetCountLabel": "колькасць"
+  }
+}
