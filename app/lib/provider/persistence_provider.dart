@@ -95,6 +95,8 @@ const _createChecksums = 'ls_create_checksums';
 const _verifyChecksums = 'ls_verify_checksums';
 const _advancedSettingsKey = 'ls_advanced_settings';
 const _whatsNewKey = 'ls_whats_new';
+const _backgroundKeepaliveWsUrl = 'ls_background_keepalive_ws_url';
+const _backgroundKeepaliveWsEnabled = 'ls_background_keepalive_ws_enabled';
 
 final persistenceProvider = Provider<PersistenceService>((ref) {
   throw Exception('persistenceProvider not initialized');
@@ -587,6 +589,22 @@ class PersistenceService {
 
   Future<void> setWhatsNew(String version) async {
     await _prefs.setString(_whatsNewKey, version);
+  }
+
+  String getBackgroundKeepaliveWebSocketUrl() {
+    return _prefs.getString(_backgroundKeepaliveWsUrl) ?? 'wss://echo.websocket.org';
+  }
+
+  Future<void> setBackgroundKeepaliveWebSocketUrl(String url) async {
+    await _prefs.setString(_backgroundKeepaliveWsUrl, url);
+  }
+
+  bool getBackgroundKeepaliveWebSocketEnabled() {
+    return _prefs.getBool(_backgroundKeepaliveWsEnabled) ?? (defaultTargetPlatform == TargetPlatform.android);
+  }
+
+  Future<void> setBackgroundKeepaliveWebSocketEnabled(bool enabled) async {
+    await _prefs.setBool(_backgroundKeepaliveWsEnabled, enabled);
   }
 
   Future<void> clear() async {

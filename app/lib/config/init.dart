@@ -14,6 +14,7 @@ import 'package:localsend_app/pages/whats_new_page.dart';
 import 'package:localsend_app/provider/animation_provider.dart';
 import 'package:localsend_app/provider/app_arguments_provider.dart';
 import 'package:localsend_app/provider/device_info_provider.dart';
+import 'package:localsend_app/provider/network/background_websocket_keepalive_provider.dart';
 import 'package:localsend_app/provider/network/nearby_devices_provider.dart';
 import 'package:localsend_app/provider/network/server/server_provider.dart';
 import 'package:localsend_app/provider/network/webrtc/signaling_provider.dart';
@@ -28,6 +29,7 @@ import 'package:localsend_app/provider/version_provider.dart';
 import 'package:localsend_app/provider/window_dimensions_provider.dart';
 import 'package:localsend_app/util/i18n.dart';
 import 'package:localsend_app/util/native/autostart_helper.dart';
+import 'package:localsend_app/util/native/background_workmanager.dart';
 import 'package:localsend_app/util/native/cache_helper.dart';
 import 'package:localsend_app/util/native/context_menu_helper.dart';
 import 'package:localsend_app/util/native/cross_file_converters.dart';
@@ -205,8 +207,16 @@ Future<void> postInit(BuildContext context, Ref ref, bool appStart) async {
   try {
     await ref.notifier(serverProvider).startServerFromSettings();
   } catch (e) {
+    _logger.warning('Server start failed: $e');
     if (context.mounted) {
-      context.showSnackBar(e.toString());
+      final msg = e.toString();
+      if (msg.contains('10048') || msg.contains('already in use')) {
+        context.showSnackBar('Cannot start server: port 53317 is in use by another process');
+      } else if (msg.contains('10013') || msg.contains('permission')) {
+        context.showSnackBar('Cannot start server: blocked by firewall or missing permissions');
+      } else {
+        context.showSnackBar('Cannot start server: $msg');
+      }
     }
   }
 
@@ -216,6 +226,10 @@ Future<void> postInit(BuildContext context, Ref ref, bool appStart) async {
     _logger.warning('Starting discovery listener failed', e);
   }
 
+  if (checkPlatform([TargetPlatform.android])) {
+    await registerPeriodicWakeup();
+    ref.redux(backgroundWebSocketKeepaliveProvider).dispatch(StartKeepaliveAction());
+  }
   // ignore: dead_code
   if (webRTCEnabled) {
     ref.redux(signalingProvider).dispatch(SetupSignalingConnection());

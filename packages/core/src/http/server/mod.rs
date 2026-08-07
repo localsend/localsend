@@ -231,7 +231,16 @@ pub async fn start_with_port(
     let info = Arc::new(Mutex::new(info));
     let state = AppState::new(info.clone(), internal_config, v2_config, web_config);
 
-    let ipv4_listener = tokio::net::TcpListener::bind(ipv4_socket_addr).await?;
+    let ipv4_listener = match bind_ipv4_reuse(ipv4_socket_addr) {
+        Ok(listener) => listener,
+        Err(err) if port != 0 => {
+            tracing::warn!(
+                "Failed to bind port {port}: {err:#}. Falling back to OS-assigned port."
+            );
+            bind_ipv4_reuse(SocketAddr::new(Ipv4Addr::UNSPECIFIED.into(), 0))?
+        }
+        Err(err) => return Err(err),
+    };
     // With port 0, the IPv6 listener must reuse the port the IPv4 listener got.
     let bound_port = ipv4_listener.local_addr()?.port();
     let ipv6_socket_addr = SocketAddr::new(Ipv6Addr::UNSPECIFIED.into(), bound_port);
@@ -283,6 +292,21 @@ pub async fn start_with_port(
     })
 }
 
+/// Binds an IPv4 listener with `SO_REUSEADDR` so that a restarted process can
+/// immediately reclaim the port without waiting for TIME_WAIT to expire.
+fn bind_ipv4_reuse(socket_addr: SocketAddr) -> anyhow::Result<tokio::net::TcpListener> {
+    let socket = socket2::Socket::new(
+        socket2::Domain::IPV4,
+        socket2::Type::STREAM,
+        Some(socket2::Protocol::TCP),
+    )?;
+    socket.set_reuse_address(true)?;
+    socket.set_nonblocking(true)?;
+    socket.bind(&socket_addr.into())?;
+    socket.listen(1024)?;
+    Ok(tokio::net::TcpListener::from_std(socket.into())?)
+}
+
 /// Binds an IPv6 listener with `IPV6_V6ONLY` enabled.
 ///
 /// Without this flag, some systems (e.g. macOS) bind IPv6 wildcard sockets in
@@ -294,7 +318,6 @@ fn bind_ipv6_only(socket_addr: SocketAddr) -> anyhow::Result<tokio::net::TcpList
         Some(socket2::Protocol::TCP),
     )?;
     socket.set_only_v6(true)?;
-    #[cfg(not(windows))]
     socket.set_reuse_address(true)?;
     socket.set_nonblocking(true)?;
     socket.bind(&socket_addr.into())?;

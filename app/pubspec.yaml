@@ -70,6 +70,7 @@ dependencies:
   win32_registry: 2.1.0
   window_manager: 0.5.2
   windows_taskbar: 1.1.2
+  workmanager: 0.10.7
   yaru: 10.2.0
 
 dev_dependencies:
