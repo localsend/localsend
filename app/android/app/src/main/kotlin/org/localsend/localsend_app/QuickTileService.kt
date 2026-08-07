@@ -1,4 +1,4 @@
-package org.localsend.localsend_app
+package org.localsend.localsend_ng
 
 import android.annotation.SuppressLint
 import android.app.ActivityManager

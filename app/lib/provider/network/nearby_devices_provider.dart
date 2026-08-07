@@ -4,6 +4,7 @@ import 'package:collection/collection.dart';
 import 'package:localsend_app/model/persistence/favorite_device.dart';
 import 'package:localsend_app/model/state/nearby_devices_state.dart';
 import 'package:localsend_app/provider/favorites_provider.dart';
+import 'package:localsend_app/provider/last_devices.provider.dart';
 import 'package:localsend_app/provider/logging/discovery_logs_provider.dart';
 import 'package:localsend_isolates/isolate.dart';
 import 'package:localsend_isolates/model/device.dart';
@@ -18,6 +19,7 @@ final nearbyDevicesProvider = ReduxProvider<NearbyDevicesService, NearbyDevicesS
   return NearbyDevicesService(
     isolateController: ref.notifier(parentIsolateProvider),
     favoriteService: ref.notifier(favoritesProvider),
+    lastDevicesService: ref.notifier(lastDevicesProvider),
     discoveryLogs: ref.notifier(discoveryLoggerProvider),
   );
 });
@@ -25,15 +27,18 @@ final nearbyDevicesProvider = ReduxProvider<NearbyDevicesService, NearbyDevicesS
 class NearbyDevicesService extends ReduxNotifier<NearbyDevicesState> {
   final IsolateController _isolateController;
   final FavoritesService _favoriteService;
+  final LastDevicesService _lastDevicesService;
   final DiscoveryLogger _discoveryLogger;
 
   NearbyDevicesService({
     required IsolateController isolateController,
     required FavoritesService favoriteService,
+    required LastDevicesService lastDevicesService,
     required DiscoveryLogger discoveryLogs,
   }) : _discoveryLogger = discoveryLogs,
        _isolateController = isolateController,
-       _favoriteService = favoriteService;
+       _favoriteService = favoriteService,
+       _lastDevicesService = lastDevicesService;
 
   @override
   NearbyDevicesState init() => const NearbyDevicesState(
@@ -93,6 +98,7 @@ class RegisterDeviceAction extends AsyncReduxAction<NearbyDevicesService, Nearby
     } else {
       await Future.microtask(() {});
     }
+    external(notifier._lastDevicesService).dispatch(AddLastDeviceAction(device));
     return state.copyWith(
       devices: {...state.devices}..update(device.fingerprint, (_) => device, ifAbsent: () => device),
     );
@@ -211,6 +217,54 @@ class StartFavoriteScan extends AsyncReduxAction<NearbyDevicesService, NearbyDev
         .dispatchTakeResult(
           IsolateDiscoveryFavoriteScanAction(
             favorites: devices.map((e) => (e.ip, e.port)).toList(),
+            https: https,
+          ),
+        )
+        .drain<void>();
+
+    return state.copyWith(
+      runningFavoriteScan: false,
+    );
+  }
+}
+
+class StartKnownDeviceScan extends AsyncReduxAction<NearbyDevicesService, NearbyDevicesState> {
+  final List<Device> devices;
+  final bool https;
+
+  StartKnownDeviceScan({
+    required this.devices,
+    required this.https,
+  });
+
+  @override
+  Future<NearbyDevicesState> reduce() async {
+    final addresses = <(String, int)>[];
+    final seen = <(String, int)>{};
+    for (final device in devices) {
+      final ip = device.ip;
+      if (ip != null && ip.isNotEmpty && seen.add((ip, device.port))) {
+        addresses.add((ip, device.port));
+      }
+      for (final channel in device.channels) {
+        if (channel is HttpChannel && seen.add((channel.host, channel.port))) {
+          addresses.add((channel.host, channel.port));
+        }
+      }
+    }
+
+    if (addresses.isEmpty) {
+      return state;
+    }
+
+    dispatch(_SetRunningFavoriteScanAction(true));
+
+    // Reuse the direct-probe discovery path. These are not necessarily
+    // favorites; they are peers that have worked recently.
+    await external(notifier._isolateController)
+        .dispatchTakeResult(
+          IsolateDiscoveryFavoriteScanAction(
+            favorites: addresses,
             https: https,
           ),
         )

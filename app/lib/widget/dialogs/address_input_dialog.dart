@@ -11,6 +11,7 @@ import 'package:localsend_app/provider/last_devices.provider.dart';
 import 'package:localsend_app/provider/local_ip_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/widget/dialogs/error_dialog.dart';
+import 'package:localsend_isolates/constants.dart' as constants;
 import 'package:localsend_isolates/model/device.dart';
 import 'package:localsend_isolates/rust/api/model.dart';
 import 'package:localsend_isolates/util/rust.dart';
@@ -31,8 +32,11 @@ class _AddressInputDialogState extends State<AddressInputDialog> with Refena {
   bool _fetching = false;
   String? _error;
 
-  Future<void> _submit(int port, [String? candidate]) async {
-    final candidates = [candidate ?? _input.trim()];
+  Future<void> _submit(int port, List<String> localIps, [String? candidate, int? candidatePort]) async {
+    final candidates = _addressCandidates(candidate ?? _input.trim(), port, localIps, candidatePort);
+    if (candidates.isEmpty) {
+      return;
+    }
 
     setState(() {
       _fetching = true;
@@ -47,7 +51,7 @@ class _AddressInputDialogState extends State<AddressInputDialog> with Refena {
     final payload = ref.read(deviceFullInfoProvider).toRegisterDto();
 
     final List<Future<void>> futures = [
-      for (final ip in candidates)
+      for (final candidate in candidates)
         () async {
           try {
             final response = await ref
@@ -55,12 +59,12 @@ class _AddressInputDialogState extends State<AddressInputDialog> with Refena {
                 .discovery
                 .register(
                   protocol: https ? ProtocolType.https : ProtocolType.http,
-                  ip: ip,
-                  port: port,
+                  ip: candidate.host,
+                  port: candidate.port,
                   payload: payload,
                 );
 
-            foundDevice = response.body.toDevice(ip, port, https);
+            foundDevice = response.body.toDevice(candidate.host, candidate.port, https);
             deviceCompleter.complete();
           } catch (e) {
             error = e.toString();
@@ -115,7 +119,7 @@ class _AddressInputDialogState extends State<AddressInputDialog> with Refena {
             onChanged: (s) {
               setState(() => _input = s);
             },
-            onFieldSubmitted: (s) async => _submit(settings.port),
+            onFieldSubmitted: (s) async => _submit(settings.port, localIps),
           ),
           const SizedBox(height: 10),
           if (lastDevices.isEmpty)
@@ -135,7 +139,7 @@ class _AddressInputDialogState extends State<AddressInputDialog> with Refena {
                           TextSpan(
                             text: device.ip,
                             style: TextStyle(color: Theme.of(context).colorScheme.primary),
-                            recognizer: TapGestureRecognizer()..onTap = () async => _submit(settings.port, device.ip),
+                            recognizer: TapGestureRecognizer()..onTap = () async => _submit(settings.port, localIps, device.ip, device.port),
                           ),
                         ];
                       })
@@ -175,12 +179,70 @@ class _AddressInputDialogState extends State<AddressInputDialog> with Refena {
           child: Text(t.general.cancel),
         ),
         FilledButton(
-          onPressed: _fetching ? null : () async => _submit(settings.port),
+          onPressed: _fetching ? null : () async => _submit(settings.port, localIps),
           child: Text(t.general.confirm),
         ),
       ],
     );
   }
+}
+
+List<({String host, int port})> _addressCandidates(String rawInput, int configuredPort, List<String> localIps, [int? candidatePort]) {
+  final input = rawInput.trim();
+  if (input.isEmpty) {
+    return [];
+  }
+
+  final octetMatch = RegExp(r'^[#.]?(\d{1,3})(?::(\d{1,5}))?$').firstMatch(input);
+  if (octetMatch != null) {
+    final octet = int.tryParse(octetMatch.group(1)!);
+    if (octet != null && octet >= 0 && octet <= 255) {
+      final explicitPort = int.tryParse(octetMatch.group(2) ?? '');
+      final prefixes = localIps.map((ip) => ip.ipPrefix).where((prefix) => prefix.split('.').length == 3).toSet();
+      if (prefixes.isNotEmpty) {
+        return _dedupeCandidates([
+          for (final prefix in prefixes)
+            for (final port in _candidatePorts(configuredPort, candidatePort, explicitPort)) (host: '$prefix.$octet', port: port),
+        ]);
+      }
+    }
+  }
+
+  final parsed = _parseHostPort(input);
+  if (parsed != null) {
+    return _dedupeCandidates([
+      for (final port in _candidatePorts(configuredPort, candidatePort, parsed.port)) (host: parsed.host, port: port),
+    ]);
+  }
+
+  return _dedupeCandidates([
+    for (final port in _candidatePorts(configuredPort, candidatePort, null)) (host: input, port: port),
+  ]);
+}
+
+({String host, int? port})? _parseHostPort(String input) {
+  final uri = Uri.tryParse(input.contains('://') ? input : 'localsend://$input');
+  if (uri == null || uri.host.isEmpty) {
+    return null;
+  }
+
+  return (host: uri.host, port: uri.hasPort ? uri.port : null);
+}
+
+List<int> _candidatePorts(int configuredPort, int? candidatePort, int? explicitPort) {
+  final ports = [
+    ?explicitPort,
+    ?candidatePort,
+    configuredPort,
+    constants.defaultPort,
+  ];
+  final seen = <int>{};
+  return ports.where((port) => port > 0 && port <= 65535 && seen.add(port)).toList();
+}
+
+List<({String host, int port})> _dedupeCandidates(List<({String host, int port})> candidates) {
+  final seen = <String>{};
+  return candidates.where((candidate) => seen.add('${candidate.host}:${candidate.port}')).toList();
 }
 
 extension on String {

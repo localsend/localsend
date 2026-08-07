@@ -13,6 +13,7 @@ import 'package:localsend_app/provider/device_info_provider.dart';
 import 'package:localsend_app/provider/favorites_provider.dart';
 import 'package:localsend_app/provider/file_transfer_provider.dart';
 import 'package:localsend_app/provider/http_provider.dart';
+import 'package:localsend_app/provider/last_devices.provider.dart';
 import 'package:localsend_app/provider/logging/discovery_logs_provider.dart';
 import 'package:localsend_app/provider/network/send_provider.dart';
 import 'package:localsend_app/provider/network/server/server_provider.dart';
@@ -25,7 +26,6 @@ import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/util/native/directories.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_app/util/native/tray_helper.dart';
-import 'package:localsend_app/widget/dialogs/open_file_dialog.dart';
 import 'package:localsend_isolates/isolate.dart';
 import 'package:localsend_isolates/model/device.dart';
 import 'package:localsend_isolates/model/file_status.dart';
@@ -87,6 +87,9 @@ class ReceiveController {
     // self-reported fingerprint in the JSON payload which is only used as fallback
     // when encryption is disabled.
     final senderFingerprint = event.certFingerprint ?? event.info.fingerprint;
+    final sender = event.info.toDevice(event.ip, withChannel: true).copyWith(fingerprint: senderFingerprint);
+    server.ref.redux(parentIsolateProvider).dispatch(IsolateDiscoveryAddDeviceAction(device: sender));
+    server.ref.redux(lastDevicesProvider).dispatch(AddLastDeviceAction(sender));
 
     _logger.info('Session Id: $sessionId');
     _logger.info('Destination Directory: $destinationDir');
@@ -96,7 +99,7 @@ class ReceiveController {
         session: ReceiveSessionState(
           sessionId: sessionId,
           status: SessionStatus.waiting,
-          sender: event.info.toDevice(event.ip, withChannel: false).copyWith(fingerprint: senderFingerprint),
+          sender: sender,
           senderAlias: server.ref.read(favoritesProvider).firstWhereOrNull((e) => e.fingerprint == senderFingerprint)?.alias ?? event.info.alias,
           files: {
             for (final file in files.values)
@@ -410,6 +413,9 @@ class ReceiveController {
         ),
       );
       final settings = server.ref.read(settingsProvider);
+      if (!hasError) {
+        await server.ref.redux(favoritesProvider).dispatchAsync(RecordTrustedInteractionAction(session.sender));
+      }
       // Only auto-close fully successful sessions: a failed file may still be
       // retried by the sender (e.g. after a checksum mismatch), which requires
       // the session to stay open.
@@ -429,17 +435,6 @@ class ReceiveController {
 
           // ignore: use_build_context_synchronously, discarded_futures
           Routerino.context.pushRootImmediately(() => const HomePage(initialTab: HomeTab.receive, appStart: false));
-
-          // open the dialog to open file instantly
-          if (filePath != null && filePath.isNotEmpty) {
-            // ignore: discarded_futures
-            OpenFileDialog.open(
-              Routerino.context, // ignore: use_build_context_synchronously
-              filePath: filePath,
-              fileType: fileType,
-              openGallery: event.savedToGallery,
-            );
-          }
         });
       }
       _logger.info('Received all files.');

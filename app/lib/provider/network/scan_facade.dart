@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:localsend_app/pages/home_page.dart';
 import 'package:localsend_app/pages/home_page_controller.dart';
 import 'package:localsend_app/provider/favorites_provider.dart';
+import 'package:localsend_app/provider/last_devices.provider.dart';
 import 'package:localsend_app/provider/local_ip_provider.dart';
 import 'package:localsend_app/provider/network/nearby_devices_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
@@ -29,8 +30,10 @@ class StartSmartScan extends AsyncGlobalAction {
 
     // At the same time, try to discover favorites
     final favorites = ref.read(favoritesProvider);
+    final lastDevices = ref.read(lastDevicesProvider);
     final https = ref.read(settingsProvider).https;
     await ref.redux(nearbyDevicesProvider).dispatchAsync(StartFavoriteScan(devices: favorites, https: https));
+    await ref.redux(nearbyDevicesProvider).dispatchAsync(StartKnownDeviceScan(devices: lastDevices, https: https));
 
     if (!forceLegacy) {
       // Wait a bit before trying the legacy method.

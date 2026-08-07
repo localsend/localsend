@@ -4,7 +4,7 @@ import 'package:logging/logging.dart';
 
 part 'android_channel.mapper.dart';
 
-const _methodChannel = MethodChannel('org.localsend.localsend_app/localsend');
+const _methodChannel = MethodChannel('org.localsend.localsend_ng/localsend');
 final _logger = Logger('AndroidSaf');
 
 /// From Android 10 and above, we need to use the Storage Access Framework (SAF) to access files due to the scoped storage.
@@ -53,13 +53,9 @@ Future<bool> getSystemAnimationsStatusAndroid() async {
   return await _methodChannel.invokeMethod('isAnimationsEnabled') ?? true;
 }
 
-Future<void> openContentUri({
-  required String uri,
-}) async {
+Future<void> openContentUri({required String uri}) async {
   _logger.info('Opening content URI: $uri');
-  await _methodChannel.invokeMethod('openContentUri', {
-    'uri': uri,
-  });
+  await _methodChannel.invokeMethod('openContentUri', {'uri': uri});
 }
 
 Future<void> openGallery() async {
@@ -72,10 +68,7 @@ class PickDirectoryResult with PickDirectoryResultMappable {
   final String directoryUri;
   final List<FileInfo> files;
 
-  PickDirectoryResult({
-    required this.directoryUri,
-    required this.files,
-  });
+  PickDirectoryResult({required this.directoryUri, required this.files});
 }
 
 @MappableClass()
@@ -85,10 +78,5 @@ class FileInfo with FileInfoMappable {
   final String uri;
   final int lastModified;
 
-  FileInfo({
-    required this.name,
-    required this.size,
-    required this.uri,
-    required this.lastModified,
-  });
+  FileInfo({required this.name, required this.size, required this.uri, required this.lastModified});
 }

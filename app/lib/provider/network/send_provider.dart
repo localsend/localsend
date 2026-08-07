@@ -9,8 +9,10 @@ import 'package:localsend_app/pages/home_page.dart';
 import 'package:localsend_app/pages/progress_page.dart';
 import 'package:localsend_app/pages/send_page.dart';
 import 'package:localsend_app/provider/device_info_provider.dart';
+import 'package:localsend_app/provider/favorites_provider.dart';
 import 'package:localsend_app/provider/file_transfer_provider.dart';
 import 'package:localsend_app/provider/http_provider.dart';
+import 'package:localsend_app/provider/last_devices.provider.dart';
 import 'package:localsend_app/provider/selection/selected_sending_files_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/widget/dialogs/pin_dialog.dart';
@@ -510,6 +512,10 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
       _logger.info('Transfer was canceled.');
     } else {
       final hasError = ref.read(fileTransferProvider).getStatuses(sessionId).any((status) => status == FileStatus.failed);
+      if (!hasError) {
+        ref.redux(lastDevicesProvider).dispatch(AddLastDeviceAction(sessionState.target));
+        unawaited(ref.redux(favoritesProvider).dispatchAsync(RecordTrustedInteractionAction(sessionState.target)));
+      }
       if (!hasError && sessionState.background == true) {
         // close session because everything is fine and it is in background
         closeSession(sessionId);
