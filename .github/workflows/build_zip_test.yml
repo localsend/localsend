@@ -42,9 +42,10 @@ jobs:
         working-directory: app
         run: flutter pub get
 
+      # TODO: remove -v once the CI build failure is diagnosed
       - name: Compile for Windows
         working-directory: app
-        run: flutter build windows
+        run: flutter build windows -v
 
       - name: Create empty settings.json
         working-directory: app
