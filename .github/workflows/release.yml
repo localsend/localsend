@@ -348,6 +348,10 @@ jobs:
           flutter-version: ${{ env.FLUTTER_VERSION }}
           channel: "stable"
 
+      # Required by the CMake install step (app/windows/CMakeLists.txt installs localsend_msix_helper.msix)
+      - name: Build MSIX helper
+        run: '& ''C:\Program Files (x86)\Windows Kits\10\App Certification Kit\makeappx.exe'' pack /o /d support\build\msix /nv /p app\windows\localsend_msix_helper.msix'
+
       - name: Dependencies
         working-directory: app
         run: flutter pub get
@@ -366,6 +370,13 @@ jobs:
           Copy-Item ../support/build/windows/x64/msvcp140.dll build/windows/x64/runner/Release/
           Copy-Item ../support/build/windows/x64/vcruntime140.dll build/windows/x64/runner/Release/
           Copy-Item ../support/build/windows/x64/vcruntime140_1.dll build/windows/x64/runner/Release/
+
+      # The MSIX helper only makes sense for the installer; portable users should not register an MSIX package
+      - name: Remove MSIX helper from portable bundle
+        working-directory: app
+        run: |
+          Remove-Item build/windows/x64/runner/Release/localsend_msix_helper.msix
+          Remove-Item build/windows/x64/runner/Release/install_msix_helper.ps1
 
       # The SignPath artifact configuration expects "LocalSend-*-windows-x86-64.zip" containing "localsend_app.exe"
       - name: Zip compiled files
