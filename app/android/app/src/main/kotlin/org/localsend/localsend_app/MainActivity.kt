@@ -23,6 +23,7 @@ private const val REQUEST_CODE_PICK_FILE = 3
 
 class MainActivity : FlutterActivity() {
     private var pendingResult: MethodChannel.Result? = null
+    private lateinit var companionBridge: CompanionBridge
 
     // Overriding the static methods we need from the Java class, as described
     // in the documentation of `FlutterActivity.NewEngineIntentBuilder`
@@ -34,6 +35,11 @@ class MainActivity : FlutterActivity() {
         fun createDefaultIntent(launchContext: Context): Intent {
             return withNewEngine().build(launchContext)
         }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        companionBridge = CompanionBridge(this)
     }
 
     override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
@@ -83,6 +89,17 @@ class MainActivity : FlutterActivity() {
                 "getDownloadsDirectory" -> {
                     result.success(getDownloadsDirectory())
                 }
+
+                "companion_associate" -> companionBridge.associate(result)
+
+                "companion_getAssociations" -> result.success(companionBridge.getAssociations())
+
+                "companion_disassociate" -> {
+                    val id = call.argument<Int>("id") ?: 0
+                    companionBridge.disassociate(id, result)
+                }
+
+                "companion_startObserving" -> companionBridge.startObservingDevicePresence(result)
 
                 else -> result.notImplemented()
             }
@@ -255,6 +272,7 @@ class MainActivity : FlutterActivity() {
     @Override
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+        if (companionBridge.onActivityResult(requestCode, resultCode)) return
         if (resultCode == Activity.RESULT_CANCELED) {
             pendingResult?.error("CANCELED", "Canceled", null)
             pendingResult = null

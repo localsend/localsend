@@ -29,6 +29,7 @@ import 'package:localsend_app/provider/window_dimensions_provider.dart';
 import 'package:localsend_app/util/i18n.dart';
 import 'package:localsend_app/util/native/autostart_helper.dart';
 import 'package:localsend_app/util/native/cache_helper.dart';
+import 'package:localsend_app/util/native/channel/companion_device_channel.dart';
 import 'package:localsend_app/util/native/context_menu_helper.dart';
 import 'package:localsend_app/util/native/cross_file_converters.dart';
 import 'package:localsend_app/util/native/device_info_helper.dart';
@@ -206,6 +207,11 @@ Future<void> postInit(BuildContext context, Ref ref, bool appStart) async {
     _logger.warning('Starting discovery listener failed', e);
   }
 
+  if (checkPlatform([TargetPlatform.android])) {
+    // Re-arm device-presence observing for already-associated companion devices.
+    // No-op when the user has never paired one.
+    await companionStartObserving();
+  }
   // ignore: dead_code
   if (webRTCEnabled) {
     ref.redux(signalingProvider).dispatch(SetupSignalingConnection());

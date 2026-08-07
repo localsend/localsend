@@ -16,6 +16,7 @@ import 'package:localsend_app/provider/version_provider.dart';
 import 'package:localsend_app/util/alias_generator.dart';
 import 'package:localsend_app/util/device_type_ext.dart';
 import 'package:localsend_app/util/i18n.dart';
+import 'package:localsend_app/util/native/channel/companion_device_channel.dart';
 import 'package:localsend_app/util/native/macos_channel.dart';
 import 'package:localsend_app/util/native/pick_directory_path.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
@@ -515,6 +516,7 @@ class SettingsTab extends StatelessWidget {
                     ),
                   ),
                 ),
+                if (checkPlatform([TargetPlatform.android]) && vm.advanced) const _CompanionDeviceEntry(),
               ],
             ),
             _SettingsSection(
@@ -770,5 +772,105 @@ extension on ColorMode {
       ColorMode.yaru => 'Yaru',
       ColorMode.custom => t.settingsTab.general.colorOptions.custom,
     };
+  }
+}
+
+class _CompanionDeviceEntry extends StatefulWidget {
+  const _CompanionDeviceEntry();
+
+  @override
+  State<_CompanionDeviceEntry> createState() => _CompanionDeviceEntryState();
+}
+
+class _CompanionDeviceEntryState extends State<_CompanionDeviceEntry> {
+  List<CompanionAssociation> _associations = [];
+  bool _loading = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadAssociations(); // ignore: discarded_futures
+  }
+
+  Future<void> _loadAssociations() async {
+    final list = await companionGetAssociations();
+    if (mounted) setState(() => _associations = list);
+  }
+
+  Future<void> _associate() async {
+    setState(() => _loading = true);
+    final result = await companionAssociate();
+    if (result != null) {
+      await companionStartObserving();
+      await _loadAssociations();
+    }
+    if (mounted) setState(() => _loading = false);
+  }
+
+  Future<void> _disassociate(int id) async {
+    await companionDisassociate(id);
+    await _loadAssociations();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 15),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Expanded(child: Text('Bluetooth Companion')),
+              const SizedBox(width: 10),
+              SizedBox(
+                width: 150,
+                child: TextButton(
+                  style: TextButton.styleFrom(
+                    backgroundColor: Theme.of(context).inputDecorationTheme.fillColor,
+                    shape: RoundedRectangleBorder(borderRadius: Theme.of(context).inputDecorationTheme.borderRadius),
+                    foregroundColor: Theme.of(context).colorScheme.onSurface,
+                  ),
+                  onPressed: _loading ? null : _associate,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 5),
+                    child: _loading
+                        ? const SizedBox(width: 20, height: 20, child: CircularProgressIndicator(strokeWidth: 2))
+                        : Text('Pair Device', style: Theme.of(context).textTheme.titleMedium, textAlign: TextAlign.center),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          if (_associations.isNotEmpty) ...[
+            const SizedBox(height: 8),
+            ...List.generate(_associations.length, (i) {
+              final a = _associations[i];
+              return Padding(
+                padding: const EdgeInsets.only(left: 8, bottom: 4),
+                child: Row(
+                  children: [
+                    const Icon(Icons.bluetooth_connected, size: 16),
+                    const SizedBox(width: 8),
+                    Expanded(child: Text(a.deviceName, style: Theme.of(context).textTheme.bodySmall)),
+                    IconButton(
+                      icon: const Icon(Icons.delete_outline, size: 18),
+                      onPressed: () => _disassociate(a.id),
+                      padding: EdgeInsets.zero,
+                      constraints: const BoxConstraints(),
+                    ),
+                  ],
+                ),
+              );
+            }),
+          ],
+          const SizedBox(height: 4),
+          Text(
+            'Grants permanent background execution for receiving files.',
+            style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Colors.grey),
+          ),
+        ],
+      ),
+    );
   }
 }
