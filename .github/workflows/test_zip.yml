@@ -61,7 +61,7 @@ jobs:
         run: Compress-Archive -Path build/windows/x64/runner/Release/* -DestinationPath LocalSend.zip
 
       - name: Upload zip
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: windows-zip-x86-64-result
           path: app/LocalSend.zip

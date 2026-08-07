@@ -49,7 +49,7 @@ jobs:
           tar -czvf ../../../../../result.tar.gz *
 
       - name: Upload tar.gz archive
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: tar-gz-arm-64-result
           path: ./app/*.tar.gz
