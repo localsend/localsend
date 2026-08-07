@@ -62,8 +62,18 @@ Future<RefenaContainer> preInit(List<String> args) async {
   initLogger(args.contains('-v') || args.contains('--verbose') ? Level.ALL : Level.INFO);
   MapperContainer.globals.use(const FileDtoMapper());
 
+  final hasSingleInstanceLock = defaultTargetPlatform != TargetPlatform.windows || WindowsSingleInstanceLock.instance.acquire();
+
   await RustLib.init();
 
+  final dynamicColors = await getDynamicColors();
+
+  final persistenceService = await PersistenceService.initialize(supportsDynamicColors: dynamicColors != null);
+
+  if (!hasSingleInstanceLock) {
+    await _notifyExistingInstance(persistenceService, args);
+    exit(0);
+  }
   if (kDebugMode) {
     try {
       await rust_logging.enableDebugLogging();
