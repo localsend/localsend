@@ -54,7 +54,7 @@
         "other": "{h}h"
       },
       "minutes": "{m}:{ss}",
-      "hours": "@:progressPage.remainingTime.hoursUnit @:progressPage.remainingTime.minutesUnit"
+      "hours": "@:.hoursUnit @:.minutesUnit"
     }
   },
   "webReceivePage": {

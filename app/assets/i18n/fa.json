@@ -51,7 +51,8 @@
       "off": "@:general.off",
       "favorites": "موردعلاقه‌ها",
       "on": "@:general.on"
-    }
+    },
+    "link": "دریافت از طریق لینک"
   },
   "sendTab": {
     "title": "ارسال",
@@ -96,7 +97,8 @@
       "color": "رنگ",
       "colorOptions": {
         "system": "سیستم",
-        "oled": "OLED"
+        "oled": "OLED",
+        "custom": "سفارشی"
       },
       "language": "زبان",
       "languageOptions": {
@@ -119,11 +121,13 @@
       "destination": "مسیر ذخیره‌سازی",
       "downloads": "(دانلودها)",
       "saveToGallery": "ذخیره رسانه در گالری",
-      "saveToHistory": "ذخیره در تاریخچه"
+      "saveToHistory": "ذخیره در تاریخچه",
+      "verifyChecksums": "تأیید اصالت و سلامت فایل‌ها هنگام دریافت"
     },
     "send": {
       "title": "ارسال",
-      "shareViaLinkAutoAccept": "تأیید خودکار درخواست‌ها در حالت «اشتراک‌گذاری از طریق لینک»"
+      "shareViaLinkAutoAccept": "تأیید خودکار درخواست‌ها در حالت «اشتراک‌گذاری از طریق لینک»",
+      "createChecksums": "تولید کد ساختار و سلامت فایل هنگام ارسال"
     },
     "network": {
       "title": "شبکه",
@@ -202,6 +206,29 @@
   "selectedFilesPage": {
     "deleteAll": "حذف همه"
   },
+  "deviceDetailsPage": {
+    "title": "جزئیات دستگاه",
+    "favorite": "علاقه‌مندی",
+    "verify": "تأیید هویت",
+    "info": {
+      "name": "نام",
+      "address": "آدرس",
+      "version": "نسخه",
+      "protocol": "پروتکل نسخه {version}"
+    },
+    "logs": {
+      "title": "گزارش‌ها",
+      "empty": "هیچ گزارشی موجود نیست.",
+      "discovered": "شناسایی شده از طریق {protocol} ({host})",
+      "updated": "به‌روزرسانی شده از طریق {protocol} ({host})"
+    }
+  },
+  "verifyPage": {
+    "title": "تأیید هویت",
+    "icons": "آیکون‌ها",
+    "raw": "خام",
+    "question": "آیا در دستگاه دیگر هم همین‌طور به نظر می‌رسد؟"
+  },
   "receivePage": {
     "subTitle": {
       "one": "می‌خواهدیک فایل برای شما ارسال کند",
@@ -219,6 +246,7 @@
     "saveToGalleryOff": "به دلیل وجود پوشه‌ها به‌طور خودکار خاموش شد."
   },
   "sendPage": {
+    "calculatingChecksum": "در حال محاسبه کد سلامت فایل ({curr} / {n})",
     "waiting": "در انتظار پاسخ…",
     "rejected": "گیرنده درخواست را رد کرد.",
     "tooManyAttempts": "تلاش‌های بیش از حد مجاز",
@@ -240,6 +268,12 @@
       "speed": "سرعت: {speed}/s"
     },
     "remainingTime": {
+      "minutesUnit(plural, param=m)": {
+        "other": "{m} د"
+      },
+      "hoursUnit(plural, param=h)": {
+        "other": "{h} س"
+      },
       "minutes": "{m}:{ss}",
       "hours": "{h}س {m}د",
       "@hours": "از «س» به عنوان مخفف ساعت و از «د» برای دقیقه استفاده کنید"
@@ -263,6 +297,9 @@
     "encryptionHint": "لوکال‌سند از یک گواهی خودامضا (Self-signed) استفاده می‌کند. باید آن را در مرورگر تأیید کنید.",
     "pendingRequests": "درخواست‌های در انتظار: {n}"
   },
+  "webReceivePage": {
+    "title": "دریافت از طریق لینک"
+  },
   "aboutPage": {
     "title": "درباره لوکال‌سند",
     "description": [
@@ -283,6 +320,18 @@
   },
   "changelogPage": {
     "title": "تاریخچه تغییرات برنامه"
+  },
+  "whatsNewPage": {
+    "title": "ویژگی‌های جدید در نسخه {version}",
+    "changes(interface=WhatsNewStrings)": {
+      "v1_18_0": {
+        "changes": [
+          "رمزنگاری دیگر سرعت انتقال را کاهش نمی‌دهد. اگر قبلاً آن را خاموش کرده بودید، دوباره در این دستگاه فعال شده است.",
+          "درخواست‌های دریافت شده از لیست علاقه‌مندی‌ها اکنون به صورت خودکار پذیرفته می‌شوند. این گزینه به صورت پیش‌فرض روشن است و می‌توانید آن را در تنظیمات غیرفعال کنید.",
+          "در اندروید، انتقال فایل‌ها زمانی که برنامه در پس‌زمینه است یا صفحه نمایش خاموش است ادامه می‌یابد. در iOS، برنامه همچنان باید در پیش‌زمینه باقی بماند."
+        ]
+      }
+    }
   },
   "aliasGenerator(ignoreMissing, ignoreGpt)": {
     "@info": "مناطق زبانی مختلف ممکن است واژه‌های متفاوتی داشته باشند، ممکن است تطابق 1:1 وجود نداشته باشد",

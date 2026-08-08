@@ -347,9 +347,7 @@
     },
     "addressInput": {
       "title": "輸入地址",
-      "recentlyUsed": "輸入記錄：",
-      "hashtag": "Hashtag",
-      "ip": "IP 地址"
+      "recentlyUsed": "輸入記錄："
     },
     "cancelSession": {
       "title": "取消檔案傳輸",

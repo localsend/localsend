@@ -60,6 +60,10 @@ class TranslationsZhHk extends Translations with BaseTranslations<AppLocale, Tra
   @override
   late final Translations$selectedFilesPage$zh_HK selectedFilesPage = Translations$selectedFilesPage$zh_HK.internal(_root);
   @override
+  late final Translations$deviceDetailsPage$zh_HK deviceDetailsPage = Translations$deviceDetailsPage$zh_HK.internal(_root);
+  @override
+  late final Translations$verifyPage$zh_HK verifyPage = Translations$verifyPage$zh_HK.internal(_root);
+  @override
   late final Translations$receivePage$zh_HK receivePage = Translations$receivePage$zh_HK.internal(_root);
   @override
   late final Translations$receiveOptionsPage$zh_HK receiveOptionsPage = Translations$receiveOptionsPage$zh_HK.internal(_root);
@@ -70,11 +74,15 @@ class TranslationsZhHk extends Translations with BaseTranslations<AppLocale, Tra
   @override
   late final Translations$webSharePage$zh_HK webSharePage = Translations$webSharePage$zh_HK.internal(_root);
   @override
+  late final Translations$webReceivePage$zh_HK webReceivePage = Translations$webReceivePage$zh_HK.internal(_root);
+  @override
   late final Translations$aboutPage$zh_HK aboutPage = Translations$aboutPage$zh_HK.internal(_root);
   @override
   late final Translations$donationPage$zh_HK donationPage = Translations$donationPage$zh_HK.internal(_root);
   @override
   late final Translations$changelogPage$zh_HK changelogPage = Translations$changelogPage$zh_HK.internal(_root);
+  @override
+  late final Translations$whatsNewPage$zh_HK whatsNewPage = Translations$whatsNewPage$zh_HK.internal(_root);
   @override
   late final Translations$dialogs$zh_HK dialogs = Translations$dialogs$zh_HK.internal(_root);
   @override
@@ -147,7 +155,7 @@ class Translations$general$zh_HK extends Translations$general$en {
   @override
   String get quickSave => '自動儲存';
   @override
-  String get quickSaveFromFavorites => '自動儲存來自已收藏裝置嘅檔案';
+  String get quickSaveFromFavorites => '自動儲存已收藏裝置 send 過嚟嘅檔案';
   @override
   String get renamed => '改咗名';
   @override
@@ -169,7 +177,7 @@ class Translations$general$zh_HK extends Translations$general$en {
   @override
   String get unknown => '未知';
   @override
-  String get noItemInClipboard => '剪貼簿冇嘢.';
+  String get noItemInClipboard => '剪貼簿冇嘢。';
 }
 
 // Path: receiveTab
@@ -185,6 +193,8 @@ class Translations$receiveTab$zh_HK extends Translations$receiveTab$en {
   late final Translations$receiveTab$infoBox$zh_HK infoBox = Translations$receiveTab$infoBox$zh_HK.internal(_root);
   @override
   late final Translations$receiveTab$quickSave$zh_HK quickSave = Translations$receiveTab$quickSave$zh_HK.internal(_root);
+  @override
+  String get link => '用 link 接收';
 }
 
 // Path: sendTab
@@ -217,9 +227,9 @@ class Translations$sendTab$zh_HK extends Translations$sendTab$en {
   @override
   String get sendModeHelp => '説明';
   @override
-  String get help => '請確保目標裝置駁緊同一個 Wi‑Fi 網路。';
+  String get help => '請確保目標裝置駁緊同一個 Wi‑Fi 網絡。';
   @override
-  String get placeItems => '將要分享嘅檔案拉過嚟呢度.';
+  String get placeItems => '將要分享嘅檔案拉過嚟呢度。';
 }
 
 // Path: settingsTab
@@ -276,9 +286,9 @@ class Translations$networkInterfacesPage$zh_HK extends Translations$networkInter
 
   // Translations
   @override
-  String get title => '網路介面';
+  String get title => '網絡介面';
   @override
-  String get info => 'LocalSend 預設使用所有可用的網路介面。您可以在這裡排除不需要的網路。您需要重新啟動伺服器才能套用變更。';
+  String get info => 'LocalSend 預設會用晒所有可用嘅網絡介面。你可以喺呢度排除唔需要嘅網絡。改完之後要熄咗個 server 再開過先會生效。';
   @override
   String get preview => '預覽';
   @override
@@ -301,7 +311,7 @@ class Translations$receiveHistoryPage$zh_HK extends Translations$receiveHistoryP
   @override
   String get deleteHistory => '清除記錄';
   @override
-  String get empty => '得個吉噃 :(.';
+  String get empty => '得個吉噃 :(';
   @override
   late final Translations$receiveHistoryPage$entryActions$zh_HK entryActions = Translations$receiveHistoryPage$entryActions$zh_HK.internal(_root);
 }
@@ -332,6 +342,42 @@ class Translations$selectedFilesPage$zh_HK extends Translations$selectedFilesPag
   // Translations
   @override
   String get deleteAll => '全部刪除';
+}
+
+// Path: deviceDetailsPage
+class Translations$deviceDetailsPage$zh_HK extends Translations$deviceDetailsPage$en {
+  Translations$deviceDetailsPage$zh_HK.internal(TranslationsZhHk root) : this._root = root, super.internal(root);
+
+  final TranslationsZhHk _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => '裝置資料';
+  @override
+  String get favorite => '收藏';
+  @override
+  String get verify => '驗證';
+  @override
+  late final Translations$deviceDetailsPage$info$zh_HK info = Translations$deviceDetailsPage$info$zh_HK.internal(_root);
+  @override
+  late final Translations$deviceDetailsPage$logs$zh_HK logs = Translations$deviceDetailsPage$logs$zh_HK.internal(_root);
+}
+
+// Path: verifyPage
+class Translations$verifyPage$zh_HK extends Translations$verifyPage$en {
+  Translations$verifyPage$zh_HK.internal(TranslationsZhHk root) : this._root = root, super.internal(root);
+
+  final TranslationsZhHk _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => '驗證';
+  @override
+  String get icons => '圖示';
+  @override
+  String get raw => '原始資料';
+  @override
+  String get question => '另一部裝置睇落係咪一樣？';
 }
 
 // Path: receivePage
@@ -371,7 +417,7 @@ class Translations$receiveOptionsPage$zh_HK extends Translations$receiveOptionsP
   @override
   String get saveToGallery => _root.settingsTab.receive.saveToGallery;
   @override
-  String get saveToGalleryOff => '因為有資料夾存在而自動閂咗.';
+  String get saveToGalleryOff => '有資料夾存在，所以自動閂咗。';
 }
 
 // Path: sendPage
@@ -381,6 +427,8 @@ class Translations$sendPage$zh_HK extends Translations$sendPage$en {
   final TranslationsZhHk _root; // ignore: unused_field
 
   // Translations
+  @override
+  String calculatingChecksum({required Object curr, required Object n}) => '計緊 checksum（${curr} / ${n}）';
   @override
   String get waiting => '等緊回應……';
   @override
@@ -399,13 +447,15 @@ class Translations$progressPage$zh_HK extends Translations$progressPage$en {
 
   // Translations
   @override
-  String get titleSending => '正在傳送檔案';
+  String get titleSending => 'Send 緊……';
   @override
-  String get titleReceiving => '正在接收檔案';
+  String get titleReceiving => '接收緊……';
   @override
   String get savedToGallery => '成功 save 咗落相簿';
   @override
   late final Translations$progressPage$total$zh_HK total = Translations$progressPage$total$zh_HK.internal(_root);
+  @override
+  late final Translations$progressPage$remainingTime$zh_HK remainingTime = Translations$progressPage$remainingTime$zh_HK.internal(_root);
 }
 
 // Path: webSharePage
@@ -432,7 +482,7 @@ class Translations$webSharePage$zh_HK extends Translations$webSharePage$en {
   @override
   String get requests => '請求';
   @override
-  String get noRequests => '未有請求.';
+  String get noRequests => '未有任何請求。';
   @override
   String get encryption => _root.settingsTab.network.encryption;
   @override
@@ -447,6 +497,17 @@ class Translations$webSharePage$zh_HK extends Translations$webSharePage$en {
   String pendingRequests({required Object n}) => '仲有 ${n} 個請求未處理';
 }
 
+// Path: webReceivePage
+class Translations$webReceivePage$zh_HK extends Translations$webReceivePage$en {
+  Translations$webReceivePage$zh_HK.internal(TranslationsZhHk root) : this._root = root, super.internal(root);
+
+  final TranslationsZhHk _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => '用 link 接收';
+}
+
 // Path: aboutPage
 class Translations$aboutPage$zh_HK extends Translations$aboutPage$en {
   Translations$aboutPage$zh_HK.internal(TranslationsZhHk root) : this._root = root, super.internal(root);
@@ -458,7 +519,7 @@ class Translations$aboutPage$zh_HK extends Translations$aboutPage$en {
   String get title => '關於 LocalSend';
   @override
   List<String> get description => [
-    'LocalSend 係一款免費嘅開源應用程式，佢可以透過區域網路幫你安全噉將檔案同訊息分享畀附近嘅裝置，全程無需互聯網連線。',
+    'LocalSend 係一款免費嘅開源應用程式，佢可以透過區域網絡幫你安全噉將檔案同訊息分享畀附近嘅裝置，全程無需互聯網連線。',
     '呢個 app 喺 Android、iOS、macOS、Windows 同 Linux 都用得㗎。你可以喺我哋嘅網站揾到呢個 app 所有平台嘅版本同其他下載方式。',
   ];
   @override
@@ -481,7 +542,7 @@ class Translations$donationPage$zh_HK extends Translations$donationPage$en {
   @override
   String get title => _root.settingsTab.other.donate;
   @override
-  String get info => 'LocalSend 唔單只免費、開源，仲係冇廣告添㗎！如果你鍾意呢個 app，不妨捐款贊助我哋開發.';
+  String get info => 'LocalSend 唔單只免費、開源，仲係冇廣告添㗎！如果你鍾意呢個 app，不妨捐款贊助我哋開發？';
   @override
   String donate({required Object amount}) => '捐 ${amount}';
   @override
@@ -499,6 +560,19 @@ class Translations$changelogPage$zh_HK extends Translations$changelogPage$en {
   // Translations
   @override
   String get title => '更新記錄';
+}
+
+// Path: whatsNewPage
+class Translations$whatsNewPage$zh_HK extends Translations$whatsNewPage$en {
+  Translations$whatsNewPage$zh_HK.internal(TranslationsZhHk root) : this._root = root, super.internal(root);
+
+  final TranslationsZhHk _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String title({required Object version}) => '${version} 有咩新嘢';
+  @override
+  late final Translations$whatsNewPage$changes$zh_HK changes = Translations$whatsNewPage$changes$zh_HK.internal(_root);
 }
 
 // Path: dialogs
@@ -573,9 +647,9 @@ class Translations$sanitization$zh_HK extends Translations$sanitization$en {
 
   // Translations
   @override
-  String get empty => '檔案名稱唔可以係吉嘅';
+  String get empty => '檔案名稱唔可以係吉嘅。';
   @override
-  String get invalid => '檔案名稱唔可以包括唔用得嘅字元';
+  String get invalid => '檔案名稱唔可以包括唔用得嘅字元。';
 }
 
 // Path: tray
@@ -706,11 +780,11 @@ class Translations$receiveTab$quickSave$zh_HK extends Translations$receiveTab$qu
 
   // Translations
   @override
-  String get off => '關閉';
+  String get off => _root.general.off;
   @override
-  String get favorites => '僅來自已收藏裝置嘅檔案';
+  String get favorites => '已收藏裝置';
   @override
-  String get on => '來自所有裝置嘅檔案';
+  String get on => _root.general.on;
 }
 
 // Path: sendTab.selection
@@ -829,6 +903,8 @@ class Translations$settingsTab$receive$zh_HK extends Translations$settingsTab$re
   String get saveToGallery => 'Save 落相簿';
   @override
   String get saveToHistory => 'Save 去歷史紀錄';
+  @override
+  String get verifyChecksums => '接收檔案嗰陣驗證 checksum';
 }
 
 // Path: settingsTab.send
@@ -842,6 +918,8 @@ class Translations$settingsTab$send$zh_HK extends Translations$settingsTab$send$
   String get title => '傳送';
   @override
   String get shareViaLinkAutoAccept => '用 link 分享檔案嗰陣自動接收';
+  @override
+  String get createChecksums => '傳送檔案嗰陣建立 checksum';
 }
 
 // Path: settingsTab.network
@@ -852,9 +930,9 @@ class Translations$settingsTab$network$zh_HK extends Translations$settingsTab$ne
 
   // Translations
   @override
-  String get title => '網路';
+  String get title => '網絡';
   @override
-  String get needRestart => '熄咗個 server 再開過，設定先會生效!';
+  String get needRestart => '熄咗個 server 再開過，設定先會生效！';
   @override
   String get server => 'Server';
   @override
@@ -874,7 +952,7 @@ class Translations$settingsTab$network$zh_HK extends Translations$settingsTab$ne
   @override
   String get discoveryTimeout => '裝置搜尋逾時';
   @override
-  String get useSystemName => '使用系統名稱';
+  String get useSystemName => '用系統名稱';
   @override
   String get generateRandomAlias => '求其改個名';
   @override
@@ -931,7 +1009,7 @@ class Translations$troubleshootPage$noDiscovery$zh_HK extends Translations$troub
   @override
   String get symptom => '呢部機偵測唔到其他裝置。';
   @override
-  String get solution => '請確保所有裝置都駁緊同一個 Wi‑Fi 網路同用緊相同嘅設定（port、多播 IP 地址同有冇開加密傳送）。你亦都可以試下人手輸入目標裝置嘅 IP 地址。如果 work 嘅話可以選擇收藏呢部裝置，噉樣日後就會自動偵測到佢，毋須重新輸入。';
+  String get solution => '請確保所有裝置都駁緊同一個 Wi‑Fi 網絡同用緊相同嘅設定（port、多播 IP 地址同有冇開加密傳送）。你亦都可以試下人手輸入目標裝置嘅 IP 地址。如果噉樣 work，就可以收藏呢部裝置，等佢日後可以自動偵測到，唔使再輸入。';
 }
 
 // Path: troubleshootPage.noConnection
@@ -945,7 +1023,7 @@ class Translations$troubleshootPage$noConnection$zh_HK extends Translations$trou
   String get symptom => '兩部裝置都偵測唔到同 send 唔到嘢畀對方。';
   @override
   String get solution =>
-      '如果兩邊都發生同樣嘅情況，你要 check 清楚兩邊係咪駁緊同一個 Wi‑Fi 網路同用緊相同嘅設定（port、多播 IP 地址同有冇開加密傳送）。亦可能係個 Wi‑Fi 唔畀裝置之間通訊，呢種情況下要喺 router 嗰邊熄咗「接入點 (AP) 隔離」模式至得。';
+      '如果兩邊都發生同樣嘅情況，你要 check 清楚兩邊係咪駁緊同一個 Wi‑Fi 網絡同用緊相同嘅設定（port、多播 IP 地址同有冇開加密傳送）。亦可能係個 Wi‑Fi 唔畀裝置之間通訊，呢種情況下要喺 router 嗰邊熄咗「接入點 (AP) 隔離」模式至得。';
 }
 
 // Path: receiveHistoryPage.entryActions
@@ -965,6 +1043,40 @@ class Translations$receiveHistoryPage$entryActions$zh_HK extends Translations$re
   String get deleteFromHistory => '刪走呢筆記錄';
 }
 
+// Path: deviceDetailsPage.info
+class Translations$deviceDetailsPage$info$zh_HK extends Translations$deviceDetailsPage$info$en {
+  Translations$deviceDetailsPage$info$zh_HK.internal(TranslationsZhHk root) : this._root = root, super.internal(root);
+
+  final TranslationsZhHk _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get name => '名稱';
+  @override
+  String get address => '地址';
+  @override
+  String get version => '版本';
+  @override
+  String protocol({required Object version}) => 'Protocol v${version}';
+}
+
+// Path: deviceDetailsPage.logs
+class Translations$deviceDetailsPage$logs$zh_HK extends Translations$deviceDetailsPage$logs$en {
+  Translations$deviceDetailsPage$logs$zh_HK.internal(TranslationsZhHk root) : this._root = root, super.internal(root);
+
+  final TranslationsZhHk _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => '記錄';
+  @override
+  String get empty => '冇任何記錄。';
+  @override
+  String discovered({required Object protocol, required Object host}) => '透過 ${protocol} (${host}) 偵測到';
+  @override
+  String updated({required Object protocol, required Object host}) => '透過 ${protocol} (${host}) 更新';
+}
+
 // Path: progressPage.total
 class Translations$progressPage$total$zh_HK extends Translations$progressPage$total$en {
   Translations$progressPage$total$zh_HK.internal(TranslationsZhHk root) : this._root = root, super.internal(root);
@@ -982,6 +1094,41 @@ class Translations$progressPage$total$zh_HK extends Translations$progressPage$to
   String speed({required Object speed}) => '速度：${speed}/s';
 }
 
+// Path: progressPage.remainingTime
+class Translations$progressPage$remainingTime$zh_HK extends Translations$progressPage$remainingTime$en {
+  Translations$progressPage$remainingTime$zh_HK.internal(TranslationsZhHk root) : this._root = root, super.internal(root);
+
+  final TranslationsZhHk _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String minutesUnit({required num m}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('zh'))(
+    m,
+    other: '${m} 分鐘',
+  );
+  @override
+  String hoursUnit({required num h}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('zh'))(
+    h,
+    other: '${h} 個鐘頭',
+  );
+  @override
+  String minutes({required Object m, required Object ss}) => '${m}:${ss}';
+  @override
+  String hours({required num h, required num m}) =>
+      '${_root.progressPage.remainingTime.hoursUnit(h: h)} ${_root.progressPage.remainingTime.minutesUnit(m: m)}';
+}
+
+// Path: whatsNewPage.changes
+class Translations$whatsNewPage$changes$zh_HK extends Translations$whatsNewPage$changes$en {
+  Translations$whatsNewPage$changes$zh_HK.internal(TranslationsZhHk root) : this._root = root, super.internal(root);
+
+  final TranslationsZhHk _root; // ignore: unused_field
+
+  // Translations
+  @override
+  late final Translations$whatsNewPage$changes$v1_18_0$zh_HK v1_18_0 = Translations$whatsNewPage$changes$v1_18_0$zh_HK.internal(_root);
+}
+
 // Path: dialogs.addFile
 class Translations$dialogs$addFile$zh_HK extends Translations$dialogs$addFile$en {
   Translations$dialogs$addFile$zh_HK.internal(TranslationsZhHk root) : this._root = root, super.internal(root);
@@ -992,7 +1139,7 @@ class Translations$dialogs$addFile$zh_HK extends Translations$dialogs$addFile$en
   @override
   String get title => '將檔案加至選擇';
   @override
-  String get content => '您想新增什麼檔案?';
+  String get content => '想加入咩檔案？';
 }
 
 // Path: dialogs.openFile
@@ -1018,7 +1165,7 @@ class Translations$dialogs$addressInput$zh_HK extends Translations$dialogs$addre
   @override
   String get title => '輸入地址';
   @override
-  String get recentlyUsed => '輸入記錄： ';
+  String get recentlyUsed => '輸入記錄：';
 }
 
 // Path: dialogs.cancelSession
@@ -1081,7 +1228,7 @@ class Translations$dialogs$favoriteDialog$zh_HK extends Translations$dialogs$fav
   @override
   String get title => '收藏';
   @override
-  String get noFavorites => '未收藏任何裝置.';
+  String get noFavorites => '未收藏任何裝置。';
   @override
   String get addFavorite => _root.general.add;
 }
@@ -1177,7 +1324,7 @@ class Translations$dialogs$localNetworkUnauthorized$zh_HK extends Translations$d
   @override
   String get title => _root.dialogs.noPermission.title;
   @override
-  String get description => '喺冇權掃描區域網路嘅情況下 LocalSend 唔會偵測到其他裝置。麻煩你喺系統設定開返呢個權限。';
+  String get description => '喺冇權掃描區域網絡嘅情況下 LocalSend 唔會偵測到其他裝置。麻煩你喺系統設定開返呢個權限。';
   @override
   String get gotoSettings => '開啟系統設定';
 }
@@ -1276,7 +1423,7 @@ class Translations$dialogs$quickSaveNotice$zh_HK extends Translations$dialogs$qu
   @override
   String get title => _root.general.quickSave;
   @override
-  String get content => '自動接受所有檔案傳輸請求。留意返，噉樣會令呢個網路嘅所有人都 send 得嘢畀你。';
+  String get content => '自動接受所有檔案傳輸請求。留意返，噉樣會令呢個網絡嘅所有人都 send 得嘢畀你。';
 }
 
 // Path: dialogs.quickSaveFromFavoritesNotice
@@ -1290,7 +1437,9 @@ class Translations$dialogs$quickSaveFromFavoritesNotice$zh_HK extends Translatio
   String get title => _root.general.quickSaveFromFavorites;
   @override
   List<String> get content => [
-    '自動接受來自已收藏裝置嘅檔案傳輸請求。',
+    '自動接受已收藏裝置嘅檔案傳輸請求。',
+    '警告：呢個選項目前並非絕對安全，黑客只要攞到你任何一部已收藏裝置嘅指紋，就可以無限制噉 send 嘢畀你。',
+    '不過，揀已收藏裝置點都安全過揀所有裝置嘅。',
   ];
 }
 
@@ -1359,6 +1508,8 @@ class Translations$settingsTab$general$colorOptions$zh_HK extends Translations$s
   String get system => '跟機';
   @override
   String get oled => 'OLED';
+  @override
+  String get custom => '自訂';
 }
 
 // Path: settingsTab.general.languageOptions
@@ -1382,7 +1533,7 @@ class Translations$settingsTab$network$networkOptions$zh_HK extends Translations
   @override
   String get all => '全部';
   @override
-  String get filtered => '已過濾';
+  String get filtered => '已篩選';
 }
 
 // Path: progressPage.total.title
@@ -1400,4 +1551,19 @@ class Translations$progressPage$total$title$zh_HK extends Translations$progressP
   String get canceledSender => '傳送者取消咗';
   @override
   String get canceledReceiver => '接收者取消咗';
+}
+
+// Path: whatsNewPage.changes.v1_18_0
+class Translations$whatsNewPage$changes$v1_18_0$zh_HK extends Translations$whatsNewPage$changes$v1_18_0$en with WhatsNewStrings {
+  Translations$whatsNewPage$changes$v1_18_0$zh_HK.internal(TranslationsZhHk root) : this._root = root, super.internal(root);
+
+  final TranslationsZhHk _root; // ignore: unused_field
+
+  // Translations
+  @override
+  List<String> get changes => [
+    '加密唔再拖慢傳輸。如果你之前喺呢部裝置閂咗加密，而家會自動重新開返。',
+    '而家已收藏裝置嘅請求會自動接受。呢個功能預設開啟，可以喺設定入面閂咗佢。',
+    'Android 而家就算個 app 喺背景運行或者熄咗畫面，傳輸都會繼續。iOS 就仲係要保持個 app 喺前景。',
+  ];
 }
