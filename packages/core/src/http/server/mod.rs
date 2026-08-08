@@ -308,6 +308,22 @@ pub struct TlsConfig {
     pub private_key: String,
 }
 
+/// How long the accept loop waits after a failure that would repeat
+/// immediately, doubling up to [`ACCEPT_BACKOFF_MAX`].
+const ACCEPT_BACKOFF_MIN: std::time::Duration = std::time::Duration::from_millis(50);
+const ACCEPT_BACKOFF_MAX: std::time::Duration = std::time::Duration::from_secs(1);
+
+/// Whether the failed accept concerned only the connection being accepted, so
+/// the next one can be attempted right away.
+fn is_transient_accept_error(err: &std::io::Error) -> bool {
+    matches!(
+        err.kind(),
+        std::io::ErrorKind::ConnectionAborted
+            | std::io::ErrorKind::ConnectionReset
+            | std::io::ErrorKind::Interrupted
+    )
+}
+
 async fn start_server_with_listener(
     incoming: tokio::net::TcpListener,
     tls_config: Option<TlsConfig>,
@@ -336,8 +352,33 @@ async fn start_server_with_listener(
         tls_acceptor.is_some()
     );
 
+    let mut accept_backoff = ACCEPT_BACKOFF_MIN;
     loop {
-        let (tcp_stream, remote_addr) = incoming.accept().await?;
+        let (tcp_stream, remote_addr) = match incoming.accept().await {
+            Ok(accepted) => {
+                accept_backoff = ACCEPT_BACKOFF_MIN;
+                accepted
+            }
+            // Accepting fails for reasons that say nothing about the listener:
+            // the peer went away before the handshake completed, or the process
+            // momentarily ran out of file descriptors (a subnet scan opens a
+            // few hundred sockets). Giving up here would stop the server for
+            // good and the application would never learn that it can no longer
+            // receive anything, so keep accepting.
+            //
+            // Descriptor exhaustion would otherwise spin: the pending
+            // connection stays in the backlog and fails again immediately, so
+            // back off before retrying.
+            Err(err) => {
+                tracing::warn!("Could not accept a connection: {err:#}");
+                if is_transient_accept_error(&err) {
+                    continue;
+                }
+                tokio::time::sleep(accept_backoff).await;
+                accept_backoff = (accept_backoff * 2).min(ACCEPT_BACKOFF_MAX);
+                continue;
+            }
+        };
 
         let tls_acceptor = tls_acceptor.clone();
         let app_state = app_state.clone();
