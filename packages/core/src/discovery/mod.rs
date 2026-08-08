@@ -180,7 +180,19 @@ impl DiscoveryState {
         let (event, merged) = self.store.upsert(device, SystemTime::now());
         let is_new = matches!(event, DiscoveryEvent::Discovered { .. });
         if let Some(event_tx) = &self.event_tx {
-            let _ = event_tx.send(event).await;
+            // Never wait for the application here. A subnet scan confirms up to
+            // 255 devices in a burst, far more than the channel holds, and
+            // every confirmation runs inside the scan's own concurrency limit:
+            // blocking on a full channel would stall the scan for good and
+            // leave its `ScanGuard` held, so the interface could never be
+            // scanned again.
+            //
+            // Dropping an event only costs a refresh. The device is in the
+            // store before the event is emitted, so it is still returned by
+            // the scan and by `devices()`.
+            if let Err(err) = event_tx.try_send(event) {
+                tracing::debug!("Dropped a discovery event: {err}");
+            }
         }
         (is_new, merged)
     }
