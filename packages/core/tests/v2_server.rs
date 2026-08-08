@@ -396,7 +396,7 @@ async fn test_upload_applies_file_timestamps() {
     let bytes = b"hello".to_vec();
     let mut file = file_dto("file-a", "a.bin", bytes.len() as u64);
     file.metadata = Some(FileMetadata {
-        modified: Some("2020-08-15T10:20:30.500Z".to_string()),
+        modified: Some("1970-01-01T00:00:00.123456789Z".to_string()),
         accessed: None,
     });
 
@@ -433,7 +433,7 @@ async fn test_upload_applies_file_timestamps() {
         .unwrap();
     assert_eq!(
         modified,
-        std::time::SystemTime::UNIX_EPOCH + Duration::from_millis(1_597_486_830_500),
+        std::time::SystemTime::UNIX_EPOCH + Duration::from_nanos(123_456_789),
     );
 
     tokio::fs::remove_dir_all(&save_dir).await.unwrap();

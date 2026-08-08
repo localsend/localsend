@@ -172,11 +172,12 @@ mod tests {
 
     #[test]
     fn parses_fractional_seconds() {
-        // The Dart implementation sends `DateTime.toIso8601String()` of a UTC
-        // value, which includes fractional seconds: 1970-01-01T00:00:00.500Z.
+        // Preserve all fractional-second digits from the RFC3339 value. The
+        // reported regression shifted the digits in `123456789` by three
+        // places, producing `000123000` on the receiving device.
         assert_eq!(
-            metadata("1970-01-01T00:00:00.500Z").modified_time(),
-            Some(SystemTime::UNIX_EPOCH + Duration::from_millis(500)),
+            metadata("1970-01-01T00:00:00.123456789Z").modified_time(),
+            Some(SystemTime::UNIX_EPOCH + Duration::from_nanos(123_456_789)),
         );
     }
 
