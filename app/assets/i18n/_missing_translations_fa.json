@@ -4,68 +4,68 @@
     "After editing this file, you can run 'dart run slang apply --locale=fa' to quickly apply the newly added translations."
   ],
   "receiveTab": {
-    "link": "Receive via link"
+    "link": "دریافت از طریق لینک"
   },
   "settingsTab": {
     "general": {
       "colorOptions": {
-        "custom": "Custom"
+        "custom": "سفارشی"
       }
     },
     "receive": {
-      "verifyChecksums": "Verify checksums when receiving files"
+      "verifyChecksums": "تأیید اصالت و سلامت فایل‌ها هنگام دریافت"
     },
     "send": {
-      "createChecksums": "Create checksums when sending files"
+      "createChecksums": "تولید کد ساختار و سلامت فایل هنگام ارسال"
     }
   },
   "deviceDetailsPage": {
-    "title": "Device Details",
-    "favorite": "Favorite",
-    "verify": "Verify",
+    "title": "جزئیات دستگاه",
+    "favorite": "علاقه‌مندی",
+    "verify": "تأیید هویت",
     "info": {
-      "name": "Name",
-      "address": "Address",
-      "version": "Version",
-      "protocol": "Protocol v{version}"
+      "name": "نام",
+      "address": "آدرس",
+      "version": "نسخه",
+      "protocol": "پروتکل نسخه {version}"
     },
     "logs": {
-      "title": "Logs",
-      "empty": "No logs available.",
-      "discovered": "Discovered via {protocol} ({host})",
-      "updated": "Updated via {protocol} ({host})"
+      "title": "گزارش‌ها",
+      "empty": "هیچ گزارشی موجود نیست.",
+      "discovered": "شناسایی شده از طریق {protocol} ({host})",
+      "updated": "به‌روزرسانی شده از طریق {protocol} ({host})"
     }
   },
   "verifyPage": {
-    "title": "Verify",
-    "icons": "Icons",
-    "raw": "Raw",
-    "question": "Does it look the same on the other device?"
+    "title": "تأیید هویت",
+    "icons": "آیکون‌ها",
+    "raw": "خام",
+    "question": "آیا در دستگاه دیگر هم همین‌طور به نظر می‌رسد؟"
   },
   "sendPage": {
-    "calculatingChecksum": "Calculating checksum ({curr} / {n})"
+    "calculatingChecksum": "در حال محاسبه کد سلامت فایل ({curr} / {n})"
   },
   "progressPage": {
     "remainingTime": {
       "minutesUnit(plural, param=m)": {
-        "other": "{m}m"
+        "other": "{m} د"
       },
       "hoursUnit(plural, param=h)": {
-        "other": "{h}h"
+        "other": "{h} س"
       }
     }
   },
   "webReceivePage": {
-    "title": "Receive via link"
+    "title": "دریافت از طریق لینک"
   },
   "whatsNewPage": {
-    "title": "What's new in {version}",
+    "title": "ویژگی‌های جدید در نسخه {version}",
     "changes(interface=WhatsNewStrings)": {
       "v1_18_0": {
         "changes": [
-          "Encryption no longer slows down transfers. It has been re-enabled on this device if you turned it off before.",
-          "Requests from favorites are now accepted automatically. This is turned on by default and can be disabled in the settings.",
-          "On Android, transfers continue while the app is in the background or the screen is off. On iOS, the app must still stay in the foreground."
+		  "رمزنگاری دیگر سرعت انتقال را کاهش نمی‌دهد. اگر قبلاً آن را خاموش کرده بودید، دوباره در این دستگاه فعال شده است.",
+          "درخواست‌های دریافت شده از لیست علاقه‌مندی‌ها اکنون به صورت خودکار پذیرفته می‌شوند. این گزینه به صورت پیش‌فرض روشن است و می‌توانید آن را در تنظیمات غیرفعال کنید.",
+          "در اندروید، انتقال فایل‌ها زمانی که برنامه در پس‌زمینه است یا صفحه نمایش خاموش است ادامه می‌یابد. در iOS، برنامه همچنان باید در پیش‌زمینه باقی بماند."
         ]
       }
     }
