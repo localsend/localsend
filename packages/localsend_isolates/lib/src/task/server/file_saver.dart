@@ -157,12 +157,54 @@ Future<(bool, String?)> saveCachedFileToGallery({
   return (true, null);
 }
 
+/// Turns the peer-supplied [fileName] into a relative name that stays inside
+/// the destination directory.
+///
+/// Protocol v2 lets a name carry directory components, for folder transfers.
+/// The peer chooses them, so they get the same treatment as the base name:
+/// `..` and absolute names are refused outright rather than rewritten, since a
+/// name that tries to leave the destination is not a name to guess at, and
+/// every remaining component is sanitized. Without that, only the base name
+/// was checked and a directory could still be named `con`, end in a dot or
+/// carry control characters.
+///
+/// Throws `'Path traversal detected'` when the name tries to leave the
+/// destination.
+List<String> sanitizeRelativeName(String fileName) {
+  final parts = p.split(fileName);
+
+  final components = <String>[];
+  for (final part in parts) {
+    // `p.split` keeps the root of an absolute name ('/', 'C:\\', ...) as the
+    // first component, so this catches absolute names as well.
+    if (part == '..' || p.rootPrefix(part).isNotEmpty) {
+      throw 'Path traversal detected';
+    }
+    // A '.' component (and the empty ones `p.split` can produce) addresses the
+    // directory it is in, so it simply drops out.
+    if (part == '.' || part.isEmpty) {
+      continue;
+    }
+    components.add(rust_filename.sanitizeFileName(name: part));
+  }
+
+  // Everything collapsed, e.g. the name was empty or just '.'.
+  if (components.isEmpty) {
+    components.add(rust_filename.sanitizeFileName(name: ''));
+  }
+
+  return components;
+}
+
 /// If there is a file with the same name, then it appends a number to its file name
 Future<(String, String?, String)> digestFilePathAndPrepareDirectory({
   required String parentDirectory,
   required String fileName,
   required Set<String> createdDirectories,
 }) async {
+  final components = sanitizeRelativeName(fileName);
+  fileName = components.join('/');
+
   if (parentDirectory.startsWith('content://')) {
     final String documentUri;
     if (fileName.contains('/')) {
@@ -183,12 +225,12 @@ Future<(String, String?, String)> digestFilePathAndPrepareDirectory({
     return (destinationUri, documentUri, p.basename(fileName));
   }
 
-  final actualFileName = rust_filename.sanitizeFileName(name: p.basename(fileName));
-  final fileNameParts = p.split(fileName);
-  final dir = p.joinAll([parentDirectory, ...fileNameParts.take(fileNameParts.length - 1)]);
+  final actualFileName = components.last;
+  final dir = p.joinAll([parentDirectory, ...components.take(components.length - 1)]);
 
-  if (fileNameParts.length > 1) {
-    // Check path traversal
+  if (components.length > 1) {
+    // Second gate: the components above cannot escape on their own, but the
+    // resulting directory is what is about to be created.
     if (!p.isWithin(parentDirectory, dir)) {
       throw 'Path traversal detected';
     }
