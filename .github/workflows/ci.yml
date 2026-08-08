@@ -64,6 +64,33 @@ jobs:
         working-directory: packages/localsend_isolates
         run: flutter test
 
+  rust:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v6
+      - name: Setup Rust
+        run: rustup toolchain install stable --profile minimal --component clippy
+      - name: Cache
+        uses: Swatinem/rust-cache@v2
+
+      # `cargo fmt --check` is deliberately left out: the tree is not
+      # rustfmt-clean today, and `frb_generated.rs` never will be.
+      #
+      # `packages/core` declares its modules unconditionally while their
+      # dependencies are optional, so it only builds with a feature set that
+      # pulls all of them in.
+      - name: Clippy (core)
+        working-directory: packages/core
+        run: cargo clippy --features full --all-targets
+      - name: Test (core)
+        working-directory: packages/core
+        run: cargo test --features full
+      - name: Test (signaling server)
+        run: cargo test --package server
+      - name: Check (plugin crate, CLI)
+        run: cargo check --package rust_lib_localsend_app --package localsend-cli
+
   packaging:
     runs-on: ubuntu-latest
 
