@@ -5,13 +5,15 @@ import 'package:mime/mime.dart';
 
 part 'file_dto.mapper.dart';
 
+/// The timestamps are kept as raw RFC 3339 strings instead of [DateTime],
+/// which is capped at microseconds and would truncate nanosecond precision.
 @MappableClass(ignoreNull: true)
 class FileMetadata with FileMetadataMappable {
   @MappableField(key: 'modified')
-  final DateTime? lastModified;
+  final String? lastModified;
 
   @MappableField(key: 'accessed')
-  final DateTime? lastAccessed;
+  final String? lastAccessed;
 
   const FileMetadata({
     required this.lastModified,

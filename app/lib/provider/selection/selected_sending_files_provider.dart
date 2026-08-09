@@ -8,6 +8,7 @@ import 'package:localsend_app/util/native/channel/android_channel.dart' as andro
 import 'package:localsend_app/util/native/cross_file_converters.dart';
 import 'package:localsend_app/util/send_ignore.dart';
 import 'package:localsend_isolates/model/file_type.dart';
+import 'package:localsend_isolates/rust/api/metadata.dart';
 import 'package:localsend_isolates/util/content_uri_helper.dart';
 import 'package:localsend_isolates/util/file_path_helper.dart';
 import 'package:logging/logging.dart';
@@ -175,6 +176,7 @@ class AddDirectoryAction extends AsyncReduxAction<SelectedSendingFilesNotifier, 
 
         _logger.info('Add file $relative');
 
+        final metadata = await readFileMetadata(path: entity.path);
         final file = CrossFile(
           name: relative,
           fileType: relative.guessFileType(),
@@ -183,8 +185,8 @@ class AddDirectoryAction extends AsyncReduxAction<SelectedSendingFilesNotifier, 
           asset: null,
           path: entity.path,
           bytes: null,
-          lastModified: entity.lastModifiedSync().toUtc(),
-          lastAccessed: entity.lastAccessedSync().toUtc(),
+          lastModified: metadata?.modified,
+          lastAccessed: metadata?.accessed,
         );
 
         final isAlreadySelect = state.any((element) => element.isSameFile(otherFile: file));
@@ -244,7 +246,8 @@ class AddAndroidDirectoryAction extends AsyncReduxAction<SelectedSendingFilesNot
         asset: null,
         path: file.uri,
         bytes: null,
-        lastModified: DateTime.fromMillisecondsSinceEpoch(file.lastModified, isUtc: true),
+        // SAF only provides milliseconds, so there is no point statting in Rust.
+        lastModified: DateTime.fromMillisecondsSinceEpoch(file.lastModified, isUtc: true).toIso8601String(),
         lastAccessed: null,
       );
 

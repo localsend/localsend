@@ -64,8 +64,8 @@ extension FileDtoExt on FileDto {
       preview: preview,
       metadata: metadata != null
           ? rust_model.FileMetadata(
-              modified: metadata!.lastModified?.toUtc().toIso8601String(),
-              accessed: metadata!.lastAccessed?.toUtc().toIso8601String(),
+              modified: metadata!.lastModified,
+              accessed: metadata!.lastAccessed,
             )
           : null,
     );
@@ -123,8 +123,8 @@ extension RustFileDtoExt on rust_model.FileDto {
       preview: preview,
       metadata: metadata != null
           ? FileMetadata(
-              lastModified: metadata!.modified != null ? DateTime.tryParse(metadata!.modified!) : null,
-              lastAccessed: metadata!.accessed != null ? DateTime.tryParse(metadata!.accessed!) : null,
+              lastModified: metadata!.modified,
+              lastAccessed: metadata!.accessed,
             )
           : null,
     );

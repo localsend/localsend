@@ -124,6 +124,22 @@ pub struct FileMetadata {
 
 #[cfg(feature = "http")]
 impl FileMetadata {
+    /// The timestamps of the file at `path`, or `None` when the file cannot be
+    /// inspected or provides no timestamps.
+    pub fn from_path(path: &std::path::Path) -> Option<Self> {
+        Self::from_fs_metadata(&std::fs::metadata(path).ok()?)
+    }
+
+    /// See [`FileMetadata::from_path`], on an already obtained [`std::fs::Metadata`].
+    pub fn from_fs_metadata(metadata: &std::fs::Metadata) -> Option<Self> {
+        let modified = metadata.modified().ok().and_then(format_timestamp);
+        let accessed = metadata.accessed().ok().and_then(format_timestamp);
+        if modified.is_none() && accessed.is_none() {
+            return None;
+        }
+        Some(Self { modified, accessed })
+    }
+
     /// The `modified` timestamp parsed as a [`std::time::SystemTime`],
     /// or `None` when absent or not parsable.
     pub fn modified_time(&self) -> Option<std::time::SystemTime> {
@@ -145,6 +161,18 @@ fn parse_timestamp(value: &str) -> Option<std::time::SystemTime> {
         Ok(parsed) => Some(parsed.into()),
         Err(e) => {
             tracing::warn!("Could not parse file timestamp {value:?}: {e}");
+            None
+        }
+    }
+}
+
+/// Formats a timestamp as RFC 3339 with nanosecond precision.
+#[cfg(feature = "http")]
+fn format_timestamp(value: std::time::SystemTime) -> Option<String> {
+    match time::OffsetDateTime::from(value).format(&time::format_description::well_known::Rfc3339) {
+        Ok(formatted) => Some(formatted),
+        Err(e) => {
+            tracing::warn!("Could not format file timestamp: {e}");
             None
         }
     }
@@ -192,6 +220,44 @@ mod tests {
     fn ignores_invalid_timestamp() {
         assert_eq!(metadata("yesterday").modified_time(), None);
         assert_eq!(metadata("2000-01-01T00:00:00").modified_time(), None);
+    }
+
+    #[test]
+    fn formats_nanosecond_timestamp() {
+        let time = SystemTime::UNIX_EPOCH + Duration::from_nanos(123_456_789);
+        let formatted = format_timestamp(time).unwrap();
+        assert_eq!(formatted, "1970-01-01T00:00:00.123456789Z");
+        assert_eq!(parse_timestamp(&formatted), Some(time));
+    }
+
+    #[test]
+    fn reads_file_timestamps() {
+        let path =
+            std::env::temp_dir().join(format!("localsend-metadata-{}", uuid::Uuid::new_v4()));
+        std::fs::write(&path, b"hello").unwrap();
+        // 100 ns aligned, so the values are exactly representable on NTFS.
+        let modified = SystemTime::UNIX_EPOCH + Duration::new(1_600_000_000, 123_456_700);
+        let accessed = SystemTime::UNIX_EPOCH + Duration::new(1_600_000_001, 987_654_300);
+        let file = std::fs::File::options().write(true).open(&path).unwrap();
+        file.set_times(
+            std::fs::FileTimes::new()
+                .set_modified(modified)
+                .set_accessed(accessed),
+        )
+        .unwrap();
+        drop(file);
+
+        let metadata = FileMetadata::from_path(&path).unwrap();
+        std::fs::remove_file(&path).unwrap();
+        assert_eq!(metadata.modified_time(), Some(modified));
+        assert_eq!(metadata.accessed_time(), Some(accessed));
+    }
+
+    #[test]
+    fn reads_no_metadata_from_missing_file() {
+        assert!(
+            FileMetadata::from_path(std::path::Path::new("/nonexistent/localsend-test")).is_none()
+        );
     }
 
     #[test]

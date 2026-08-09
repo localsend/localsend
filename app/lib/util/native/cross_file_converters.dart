@@ -6,6 +6,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:localsend_app/model/cross_file.dart';
 import 'package:localsend_app/util/native/channel/android_channel.dart' as android_channel;
 import 'package:localsend_isolates/model/file_type.dart';
+import 'package:localsend_isolates/rust/api/metadata.dart';
 import 'package:localsend_isolates/util/file_path_helper.dart';
 import 'package:share_handler/share_handler.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
@@ -14,6 +15,7 @@ import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 class CrossFileConverters {
   static Future<CrossFile> convertAssetEntity(AssetEntity asset) async {
     final file = (await asset.originFile)!;
+    final metadata = await readFileMetadata(path: file.path);
     return CrossFile(
       name: await asset.titleAsync,
       fileType: asset.type == AssetType.video ? FileType.video : FileType.image,
@@ -22,12 +24,13 @@ class CrossFileConverters {
       asset: asset,
       path: file.path,
       bytes: null,
-      lastModified: file.lastModifiedSync().toUtc(),
-      lastAccessed: file.lastAccessedSync().toUtc(),
+      lastModified: metadata?.modified,
+      lastAccessed: metadata?.accessed,
     );
   }
 
   static Future<CrossFile> convertXFile(XFile file) async {
+    final metadata = kIsWeb ? null : await readFileMetadata(path: file.path);
     return CrossFile(
       name: file.name,
       fileType: file.name.guessFileType(),
@@ -36,12 +39,13 @@ class CrossFileConverters {
       asset: null,
       path: kIsWeb ? null : file.path,
       bytes: kIsWeb ? await file.readAsBytes() : null, // we can fetch it now because in Web it is already there
-      lastModified: kIsWeb ? null : await file.lastModified(),
-      lastAccessed: null,
+      lastModified: metadata?.modified,
+      lastAccessed: metadata?.accessed,
     );
   }
 
   static Future<CrossFile> convertFile(File file) async {
+    final metadata = await readFileMetadata(path: file.path);
     return CrossFile(
       name: file.path.fileName,
       fileType: file.path.fileName.guessFileType(),
@@ -50,8 +54,8 @@ class CrossFileConverters {
       asset: null,
       path: file.path,
       bytes: null,
-      lastModified: file.lastModifiedSync().toUtc(),
-      lastAccessed: file.lastAccessedSync().toUtc(),
+      lastModified: metadata?.modified,
+      lastAccessed: metadata?.accessed,
     );
   }
 
@@ -64,7 +68,8 @@ class CrossFileConverters {
       asset: null,
       path: file.uri,
       bytes: null,
-      lastModified: DateTime.fromMillisecondsSinceEpoch(file.lastModified, isUtc: true),
+      // SAF only provides milliseconds, so there is no point statting in Rust.
+      lastModified: DateTime.fromMillisecondsSinceEpoch(file.lastModified, isUtc: true).toIso8601String(),
       lastAccessed: null,
     );
   }
@@ -72,6 +77,7 @@ class CrossFileConverters {
   static Future<CrossFile> convertSharedAttachment(SharedAttachment attachment) async {
     final file = File(attachment.path);
     final fileName = attachment.path.fileName;
+    final metadata = await readFileMetadata(path: file.path);
     return CrossFile(
       name: fileName,
       fileType: fileName.guessFileType(),
@@ -80,8 +86,8 @@ class CrossFileConverters {
       asset: null,
       path: file.path,
       bytes: null,
-      lastModified: file.lastModifiedSync().toUtc(),
-      lastAccessed: file.lastAccessedSync().toUtc(),
+      lastModified: metadata?.modified,
+      lastAccessed: metadata?.accessed,
     );
   }
 

@@ -12,7 +12,7 @@ import 'package:localsend_isolates/rust/frb_generated.dart';
 
 part 'http.freezed.dart';
 
-// These functions are ignored because they are not marked as `pub`: `error_chain`, `resolve_file_content`
+// These functions are ignored because they are not marked as `pub`: `resolve_file_content`
 // These function are ignored because they are on traits that is not defined in current crate (put an empty `#[frb]` on it to unignore): `clone`, `clone`, `from`
 
 /// Creates an HTTP client.
