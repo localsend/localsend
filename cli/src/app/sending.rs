@@ -2,12 +2,11 @@
 //! transfer driven by the [`crate::send_task`].
 
 use super::App;
-use crate::picker::{Picker, PickerOutcome};
+use crate::picker::{Picker, PickerOutcome, PickerTarget};
 use crate::send_task;
 use crate::ui::Category;
 use crate::util::SpeedMeter;
 use crossterm::event::KeyEvent;
-use localsend::discovery::StatefulDevice;
 use localsend::model::transfer::{FileDto, FileMetadata};
 use std::collections::HashMap;
 use std::path::PathBuf;
@@ -41,11 +40,14 @@ impl App {
             self.start_send(&device.device.fingerprint, self.preselected.clone());
             return;
         }
-        self.open_picker(device);
+        self.open_picker(PickerTarget::Device {
+            fingerprint: device.device.fingerprint.clone(),
+            alias: device.device.alias.clone(),
+        });
     }
 
-    pub(super) fn open_picker(&mut self, device: StatefulDevice) {
-        if self.send.is_some() {
+    pub(super) fn open_picker(&mut self, target: PickerTarget) {
+        if matches!(target, PickerTarget::Device { .. }) && self.send.is_some() {
             self.close_device_list();
             self.ui.log(Category::Send, "A send is already in progress");
             return;
@@ -60,14 +62,8 @@ impl App {
             None => false,
         };
         let opened = match handoff {
-            true => Picker::open_on_alternate_screen(
-                device.device.fingerprint.clone(),
-                device.device.alias.clone(),
-            ),
-            false => Picker::open(
-                device.device.fingerprint.clone(),
-                device.device.alias.clone(),
-            ),
+            true => Picker::open_on_alternate_screen(target),
+            false => Picker::open(target),
         };
         match opened {
             Ok(picker) => {
@@ -81,16 +77,13 @@ impl App {
                 }
                 self.ui.log(
                     Category::Send,
-                    &format!(
-                        "{}: could not open the file picker: {err}",
-                        device.device.alias
-                    ),
+                    &format!("Could not open the file picker: {err}"),
                 );
             }
         }
     }
 
-    pub(super) fn handle_picker_key(&mut self, key: KeyEvent) {
+    pub(super) async fn handle_picker_key(&mut self, key: KeyEvent) {
         let Some(picker) = &mut self.picker else {
             return;
         };
@@ -98,10 +91,15 @@ impl App {
             PickerOutcome::Open => {}
             PickerOutcome::Picked(files) => {
                 let picker = self.picker.take().unwrap();
-                let fingerprint = picker.fingerprint.clone();
+                let target = picker.target.clone();
                 picker.close();
                 self.ui.resume();
-                self.start_send(&fingerprint, files);
+                match target {
+                    PickerTarget::Device { fingerprint, .. } => {
+                        self.start_send(&fingerprint, files)
+                    }
+                    PickerTarget::WebShare => self.enable_web_share(files).await,
+                }
             }
             PickerOutcome::Cancelled => {
                 let picker = self.picker.take().unwrap();
@@ -131,6 +129,42 @@ impl App {
             return;
         };
 
+        let (files, paths, total_bytes) = self.collect_files(picked);
+        if files.is_empty() {
+            self.ui.log(Category::Send, "No files selected");
+            return;
+        }
+
+        let progress = Arc::new(AtomicU64::new(0));
+        let cancel = send_task::SendCancel::new();
+        self.send = Some(SendState {
+            session_id: None,
+            alias: device.device.alias.clone(),
+            host,
+            total_bytes,
+            sent: progress.clone(),
+            cancel: cancel.clone(),
+            speed: SpeedMeter::new(),
+        });
+
+        tokio::spawn(send_task::run_send(
+            self.storage.identity.clone(),
+            device,
+            files,
+            paths,
+            progress,
+            cancel,
+            self.events_tx.clone(),
+        ));
+    }
+
+    /// Stats the picked paths into transfer metadata keyed by a fresh file ID,
+    /// plus the paths under the same IDs and the total byte count. Entries
+    /// that are not readable files are skipped with a log line.
+    pub(super) fn collect_files(
+        &mut self,
+        picked: Vec<PathBuf>,
+    ) -> (HashMap<String, FileDto>, HashMap<String, PathBuf>, u64) {
         let mut files = HashMap::new();
         let mut paths = HashMap::new();
         let mut total_bytes = 0u64;
@@ -167,31 +201,6 @@ impl App {
             );
             paths.insert(id, path);
         }
-        if files.is_empty() {
-            self.ui.log(Category::Send, "No files selected");
-            return;
-        }
-
-        let progress = Arc::new(AtomicU64::new(0));
-        let cancel = send_task::SendCancel::new();
-        self.send = Some(SendState {
-            session_id: None,
-            alias: device.device.alias.clone(),
-            host,
-            total_bytes,
-            sent: progress.clone(),
-            cancel: cancel.clone(),
-            speed: SpeedMeter::new(),
-        });
-
-        tokio::spawn(send_task::run_send(
-            self.storage.identity.clone(),
-            device,
-            files,
-            paths,
-            progress,
-            cancel,
-            self.events_tx.clone(),
-        ));
+        (files, paths, total_bytes)
     }
 }

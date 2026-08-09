@@ -232,5 +232,4 @@ mod tests {
             .collect();
         assert_eq!(hosts, ["fe80::1%3", "192.168.0.10"]);
     }
-
 }

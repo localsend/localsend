@@ -2,6 +2,7 @@
 //! active receive session.
 
 use super::App;
+use super::web_link::WebMode;
 use crate::ui::Category;
 use crate::util::{self, SpeedMeter};
 use localsend::http::client::v2::LsHttpClientV2;
@@ -158,7 +159,10 @@ impl App {
                     }
                 } else {
                     let total: u64 = files.values().map(|file| file.size).sum();
-                    let mut lines = vec![info.alias.clone(), format!("\nFiles ({}, {}):", files.len(), util::format_bytes(total))];
+                    let mut lines = vec![
+                        info.alias.clone(),
+                        format!("\nFiles ({}, {}):", files.len(), util::format_bytes(total)),
+                    ];
                     let mut sorted: Vec<&FileDto> = files.values().collect();
                     sorted.sort_by_key(|file| std::cmp::Reverse(file.size));
                     for file in sorted.iter().take(MAX_LISTED_FILES) {
@@ -169,9 +173,18 @@ impl App {
                         ));
                     }
                     if sorted.len() > MAX_LISTED_FILES {
-                        lines.push(format!("  ... and {} more", sorted.len() - MAX_LISTED_FILES));
+                        lines.push(format!(
+                            "  ... and {} more",
+                            sorted.len() - MAX_LISTED_FILES
+                        ));
                     }
-                    lines.push("\nAccept? Y/N/P (P = accept and pair)".to_string());
+                    // Web senders have no stable identity worth pairing: the
+                    // fingerprint is an unverified payload value.
+                    let prompt = match self.web {
+                        Some(WebMode::Receive) => "\nAccept? Y/N",
+                        _ => "\nAccept? Y/N/P (P = accept and pair)",
+                    };
+                    lines.push(prompt.to_string());
                     self.ui.log(Category::Receive, &lines.join("\n"));
                     self.pending = Some(PendingReceive {
                         session_id,
@@ -416,13 +429,21 @@ impl App {
         match answer {
             Answer::Decline => {
                 let _ = pending.decision_tx.send(PrepareUploadDecisionV2::Decline);
-                self.ui
-                    .log(Category::Receive, &format!("{}: You declined", pending.alias));
+                self.ui.log(
+                    Category::Receive,
+                    &format!("{}: You declined", pending.alias),
+                );
             }
             Answer::Accept | Answer::AcceptAndPair => {
-                self.ui
-                    .log(Category::Receive, &format!("{}: You accepted", pending.alias));
-                if matches!(answer, Answer::AcceptAndPair) {
+                self.ui.log(
+                    Category::Receive,
+                    &format!("{}: You accepted", pending.alias),
+                );
+                // While "receive via link" is on, P was not offered; a stray
+                // press still accepts, but never pairs.
+                if matches!(answer, Answer::AcceptAndPair)
+                    && !matches!(self.web, Some(WebMode::Receive))
+                {
                     let channels = self
                         .discovery
                         .device_by_fingerprint(&pending.sender.fingerprint)

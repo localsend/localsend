@@ -24,11 +24,8 @@ const SCROLL_COUNT: usize = 12;
 /// The explorer only supplies the directory listing; navigation and rendering
 /// are done here so that the filter can hide entries.
 pub struct Picker {
-    /// The fingerprint of the device the picked files will be sent to.
-    pub fingerprint: String,
-
-    /// The alias of that device, shown in the title.
-    alias: String,
+    /// What the picked files are for; decides the title and what confirming does.
+    pub target: PickerTarget,
 
     explorer: FileExplorer,
     terminal: Terminal<CrosstermBackend<Stdout>>,
@@ -52,6 +49,16 @@ pub struct Picker {
     list_state: ListState,
 }
 
+/// What the picked files are for.
+#[derive(Clone)]
+pub enum PickerTarget {
+    /// Send the files to the device with this fingerprint.
+    Device { fingerprint: String, alias: String },
+
+    /// Offer the files for download via "share via link".
+    WebShare,
+}
+
 /// What a key press did to the picker.
 pub enum PickerOutcome {
     /// The picker stays open.
@@ -67,26 +74,25 @@ pub enum PickerOutcome {
 impl Picker {
     /// Enters the alternate screen and shows the picker.
     /// The caller must suspend the log UI first and resume it after [Picker::close].
-    pub fn open(fingerprint: String, alias: String) -> anyhow::Result<Self> {
+    pub fn open(target: PickerTarget) -> anyhow::Result<Self> {
         let explorer = FileExplorer::new()?;
         util::enter_alternate_screen()?;
-        Self::show(fingerprint, alias, explorer)
+        Self::show(target, explorer)
     }
 
     /// Shows the picker on the blank alternate screen a previous modal left
     /// behind (see [crate::device_list::DeviceList::close_keeping_screen]);
     /// [Picker::close] leaves it as usual. When this fails, the caller must
     /// leave the alternate screen itself.
-    pub fn open_on_alternate_screen(fingerprint: String, alias: String) -> anyhow::Result<Self> {
+    pub fn open_on_alternate_screen(target: PickerTarget) -> anyhow::Result<Self> {
         let explorer = FileExplorer::new()?;
-        Self::show(fingerprint, alias, explorer)
+        Self::show(target, explorer)
     }
 
-    fn show(fingerprint: String, alias: String, explorer: FileExplorer) -> anyhow::Result<Self> {
+    fn show(target: PickerTarget, explorer: FileExplorer) -> anyhow::Result<Self> {
         let terminal = Terminal::new(CrosstermBackend::new(std::io::stdout()))?;
         let mut picker = Self {
-            fingerprint,
-            alias,
+            target,
             explorer,
             terminal,
             selected: Vec::new(),
@@ -292,7 +298,7 @@ impl Picker {
 
     pub fn draw(&mut self) {
         let Self {
-            alias,
+            target,
             explorer,
             terminal,
             selected,
@@ -313,10 +319,14 @@ impl Picker {
             ])
             .areas(frame.area());
 
+            let title = match target {
+                PickerTarget::Device { alias, .. } => format!(" To: {alias} "),
+                PickerTarget::WebShare => " Share via link ".to_string(),
+            };
             let mut block = Block::default()
                 .borders(Borders::ALL)
                 .title_top(format!(" {} ", explorer.cwd().display()))
-                .title_top(Line::from(format!(" To: {alias} ")).right_aligned());
+                .title_top(Line::from(title).right_aligned());
             if !query.is_empty() {
                 let hits = match matches.is_empty() {
                     true => " no matches".to_string(),

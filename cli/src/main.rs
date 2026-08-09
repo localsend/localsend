@@ -39,6 +39,8 @@ const HELP_SECTIONS: &str = "Events:\n  \
                              \nHotkeys:\n  \
                              1-9    Send files to the device with that number\n  \
                              D      Show the paired and discovered devices\n  \
+                             W+S    Toggle share via link: serve files to browsers over plain HTTP\n  \
+                             W+R    Toggle receive via link: let browsers upload files over plain HTTP\n  \
                              Y/N/P  Accept / Decline / Accept-and-Pair an incoming request\n  \
                              Ctrl+C Cancel the current transfer or request, or quit when idle\n \
                              \nEnvironment Variables:\n  \

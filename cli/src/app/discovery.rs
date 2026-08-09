@@ -3,6 +3,7 @@
 //! hotkey slot to every device entering the store.
 
 use super::App;
+use super::web_link::WebMode;
 use crate::slots::slot_label;
 use crate::storage::PairedChannel;
 use crate::ui::Category;
@@ -20,6 +21,11 @@ impl App {
             return;
         };
         let slot = self.slots.assign(&device.fingerprint);
+        if matches!(self.web, Some(WebMode::Receive)) {
+            // Every browser opening the upload page registers like a device;
+            // those lines would just interleave the transfer prompts.
+            return;
+        }
         let host = device
             .http()
             .map(|http| http.host.as_str())

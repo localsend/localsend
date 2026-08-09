@@ -3,6 +3,7 @@
 
 use super::App;
 use crate::device_list::{DeviceList, DeviceListOutcome, DeviceRow, Row};
+use crate::picker::PickerTarget;
 use crate::storage::PairedChannel;
 use crate::ui::Category;
 use crossterm::event::KeyEvent;
@@ -86,7 +87,10 @@ impl App {
                 {
                     // The list stays open until the picker takes over its
                     // alternate screen, so the main screen never shows.
-                    self.open_picker(device);
+                    self.open_picker(PickerTarget::Device {
+                        fingerprint: device.device.fingerprint.clone(),
+                        alias: device.device.alias.clone(),
+                    });
                 } else {
                     self.close_device_list();
                     if !self.preselected.is_empty() {

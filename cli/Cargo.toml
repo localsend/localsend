@@ -18,6 +18,7 @@ futures-util = "0.3"
 gethostname = "1.0"
 mime_guess = "2.0"
 pem = "4.0"
+qrcode = { version = "0.14", default-features = false }
 ratatui = "0.30"
 ratatui-explorer = "0.3"
 rcgen = "0.14"
