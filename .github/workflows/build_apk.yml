@@ -5,7 +5,6 @@ on:
 
 env:
   FLUTTER_VERSION: "3.41.9"
-  RUST_VERSION: "1.84.1"
   APK_BUILD_DIR: "/tmp/build"
 
 jobs:
@@ -66,7 +65,6 @@ jobs:
         uses: actions-rs/toolchain@v1
         with:
           toolchain: stable
-          override: ${{ env.RUST_VERSION }}
 
       - name: Dependencies
         working-directory: ${{ env.APK_BUILD_DIR }}/app
