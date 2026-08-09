@@ -1,0 +1,124 @@
+name: Build windows arm64 zip
+
+on:
+  workflow_dispatch:
+
+# Windows ARM64 requires beta: stable (3.41.9) has no windows-arm64 artifacts and silently falls back to an x64 build.
+# Switch back to the shared stable FLUTTER_VERSION once windows-arm64 reaches stable.
+env:
+  FLUTTER_VERSION: "3.47.0-0.4.pre"
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    outputs:
+      version: ${{ steps.get_version.outputs.version }}
+
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Get version from pubspec.yaml
+        id: get_version
+        run: |
+          VERSION=$(sed -n 's/^version: \([0-9]*\.[0-9]*\.[0-9]*\).*/\1/p' app/pubspec.yaml)
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+  build_windows_zip_arm_64:
+    needs: build
+    runs-on: windows-11-arm
+    environment: packaging
+
+    steps:
+      - name: Fix long file paths
+        run: git config --system core.longpaths true
+
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      # Flutter doesn't provide Windows ARM64 binaries, so clone the SDK from GitHub instead of using a setup action.
+      - name: Setup Flutter SDK
+        run: |
+          git clone --depth 1 --branch ${{ env.FLUTTER_VERSION }} https://github.com/flutter/flutter.git $env:USERPROFILE\flutter
+          Add-Content $env:GITHUB_PATH "$env:USERPROFILE\flutter\bin"
+          & "$env:USERPROFILE\flutter\bin\flutter.bat" --version
+
+      # Flutter silently falls back to an x64 Dart SDK when arm64 artifacts are missing, which would produce an x64 build
+      - name: Verify native arm64 toolchain
+        run: |
+          $dartVersion = & "$env:USERPROFILE\flutter\bin\dart.bat" --version 2>&1 | Out-String
+          Write-Host $dartVersion
+          if ($dartVersion -notmatch 'windows_arm64') {
+            Write-Error "Dart SDK is not windows_arm64 - Flutter fell back to x64"
+            exit 1
+          }
+
+      # Required by the CMake install step (app/windows/CMakeLists.txt installs localsend_msix_helper.msix)
+      - name: Build MSIX helper
+        run: '& ''C:\Program Files (x86)\Windows Kits\10\App Certification Kit\makeappx.exe'' pack /o /d support\build\msix /nv /p app\windows\localsend_msix_helper.msix'
+
+      - name: Dependencies
+        working-directory: app
+        run: flutter pub get
+
+      - name: Compile for Windows
+        working-directory: app
+        run: flutter build windows
+
+      - name: Create empty settings.json
+        working-directory: app
+        run: echo {} > build/windows/arm64/runner/Release/settings.json
+
+      # support/build/windows only carries x64 runtime DLLs, so take the arm64 ones from the Visual Studio redist
+      - name: Add DLL files
+        working-directory: app
+        run: |
+          $crt = Get-ChildItem 'C:\Program Files\Microsoft Visual Studio\2022\*\VC\Redist\MSVC\*\arm64\Microsoft.VC143.CRT' | Select-Object -Last 1
+          Copy-Item "$($crt.FullName)\msvcp140.dll" build/windows/arm64/runner/Release/
+          Copy-Item "$($crt.FullName)\vcruntime140.dll" build/windows/arm64/runner/Release/
+          Copy-Item "$($crt.FullName)\vcruntime140_1.dll" build/windows/arm64/runner/Release/
+
+      # The MSIX helper only makes sense for the installer; portable users should not register an MSIX package
+      - name: Remove MSIX helper from portable bundle
+        working-directory: app
+        run: |
+          Remove-Item build/windows/arm64/runner/Release/localsend_msix_helper.msix
+          Remove-Item build/windows/arm64/runner/Release/install_msix_helper.ps1
+          Remove-Item build/windows/arm64/runner/Release/localsend_app.exe.manifest
+
+      - name: Zip compiled files
+        working-directory: app
+        run: Compress-Archive -Path build/windows/arm64/runner/Release/* -DestinationPath "LocalSend-${{ needs.build.outputs.version }}-windows-arm-64.zip"
+
+      - name: Upload unsigned zip
+        id: unsigned-zip
+        uses: actions/upload-artifact@v6
+        with:
+          name: windows-zip-arm-64-unsigned
+          path: app/LocalSend-${{ needs.build.outputs.version }}-windows-arm-64.zip
+          if-no-files-found: error
+
+      # The SignPath artifact configuration expects "LocalSend-*-windows-*-64.zip" containing "localsend_app.exe"
+      - name: Sign zip (SignPath)
+        uses: signpath/github-action-submit-signing-request@v2
+        with:
+          api-token: ${{ secrets.SIGNPATH_API_TOKEN }}
+          organization-id: ${{ vars.SIGNPATH_ORG_ID }}
+          project-slug: localsend
+          signing-policy-slug: test-signing
+          artifact-configuration-slug: portable
+          github-artifact-id: ${{ steps.unsigned-zip.outputs.artifact-id }}
+          wait-for-completion: true
+          output-artifact-directory: signed/portable
+
+      - name: Verify signature
+        continue-on-error: true
+        run: |
+          Expand-Archive -Path "signed\portable\LocalSend-${{ needs.build.outputs.version }}-windows-arm-64.zip" -DestinationPath verify-portable
+          $signtool = Get-ChildItem 'C:\Program Files (x86)\Windows Kits\10\bin\10.*\arm64\signtool.exe' | Select-Object -Last 1
+          & $signtool.FullName verify /pa /v verify-portable\localsend_app.exe
+
+      - name: Upload signed zip
+        uses: actions/upload-artifact@v6
+        with:
+          name: windows-zip-arm-64-result
+          path: signed/portable/LocalSend-${{ needs.build.outputs.version }}-windows-arm-64.zip

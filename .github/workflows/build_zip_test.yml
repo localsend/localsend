@@ -69,7 +69,7 @@ jobs:
           Remove-Item build/windows/x64/runner/Release/install_msix_helper.ps1
           Remove-Item build/windows/x64/runner/Release/localsend_app.exe.manifest
 
-      # The SignPath artifact configuration expects "LocalSend-*-windows-x86-64.zip" containing "localsend_app.exe"
+      # The SignPath artifact configuration expects "LocalSend-*-windows-*-64.zip" containing "localsend_app.exe"
       - name: Zip compiled files
         working-directory: app
         run: Compress-Archive -Path build/windows/x64/runner/Release/* -DestinationPath "LocalSend-${{ needs.build.outputs.version }}-windows-x86-64.zip"
