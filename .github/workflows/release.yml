@@ -89,7 +89,7 @@ jobs:
 
   build_tar_x86_64:
     needs: build
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-22.04
 
     steps:
       - uses: actions/checkout@v6
@@ -134,7 +134,7 @@ jobs:
 
   build_tar_arm_64:
     needs: build
-    runs-on: ubuntu-24.04-arm
+    runs-on: ubuntu-22.04-arm
 
     steps:
       - uses: actions/checkout@v6
@@ -181,7 +181,7 @@ jobs:
 
   build_deb_x86_64:
     needs: build
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-22.04
 
     steps:
       - uses: actions/checkout@v6
@@ -238,7 +238,7 @@ jobs:
 
   build_deb_arm_64:
     needs: build
-    runs-on: ubuntu-24.04-arm
+    runs-on: ubuntu-22.04-arm
 
     steps:
       - uses: actions/checkout@v6
@@ -294,7 +294,7 @@ jobs:
 
   build_appimage_x86_64:
     needs: build
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-22.04
 
     steps:
       - uses: actions/checkout@v6
