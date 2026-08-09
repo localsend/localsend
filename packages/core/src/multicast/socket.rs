@@ -1,6 +1,6 @@
 //! Binding of the UDP sockets that carry the multicast discovery traffic.
 
-use crate::multicast::interface::{local_interfaces, InterfaceFilter};
+use crate::util::interface::{local_interfaces, InterfaceFilter};
 use socket2::{Domain, Protocol, Socket, Type};
 use std::net::{Ipv4Addr, Ipv6Addr, SocketAddr, SocketAddrV4, SocketAddrV6};
 use std::sync::Arc;

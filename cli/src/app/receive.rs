@@ -423,11 +423,16 @@ impl App {
                 self.ui
                     .log(Category::Receive, &format!("{}: You accepted", pending.alias));
                 if matches!(answer, Answer::AcceptAndPair) {
-                    match self
-                        .storage
-                        .paired
-                        .insert(pending.sender.fingerprint.clone(), pending.alias.clone())
-                    {
+                    let channels = self
+                        .discovery
+                        .device_by_fingerprint(&pending.sender.fingerprint)
+                        .map(|stored| crate::storage::PairedChannel::channels_of(&stored))
+                        .unwrap_or_default();
+                    match self.storage.paired.insert(
+                        pending.sender.fingerprint.clone(),
+                        pending.alias.clone(),
+                        channels,
+                    ) {
                         Ok(()) => self.ui.log(
                             Category::Receive,
                             &format!(

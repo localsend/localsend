@@ -16,9 +16,9 @@ use localsend::discovery::{
 };
 use localsend::http::server::v2::ServerEventV2;
 use localsend::http::server::{ServerConfigV2, ServerHandle, start_with_port};
-use localsend::multicast::{
-    DEFAULT_MULTICAST_GROUP, DEFAULT_MULTICAST_GROUP_V6, DEFAULT_PORT, InterfaceFilter,
-};
+use localsend::model::discovery::ProtocolType;
+use localsend::multicast::{DEFAULT_MULTICAST_GROUP, DEFAULT_MULTICAST_GROUP_V6, DEFAULT_PORT};
+use localsend::util::interface::{InterfaceFilter, local_interface_addresses};
 use receive::{Answer, PendingReceive, ReceiveSession};
 use sending::SendState;
 use std::path::PathBuf;
@@ -132,9 +132,34 @@ pub async fn run(args: Args) -> anyhow::Result<()> {
         eprintln!("Multicast unavailable: {err:#}");
     }
     {
-        // Announce this device; peers answer with an HTTP register request.
+        // Discover in stages: announce this device (peers answer with an HTTP
+        // register request), probe the paired devices' stored addresses, and
+        // fall back to scanning the local subnets when nothing was confirmed.
         let discovery = discovery.clone();
-        tokio::spawn(async move { discovery.announce().await });
+        let events_tx = events_tx.clone();
+        let port = identity.port;
+        let known_channels = storage.paired.known_http_channels();
+        let interface_ips =
+            local_interface_addresses(&InterfaceFilter::default()).unwrap_or_default();
+        tokio::spawn(async move {
+            let result = discovery
+                .discover_staged(
+                    known_channels,
+                    interface_ips,
+                    port,
+                    ProtocolType::Https,
+                    Duration::from_secs(1),
+                )
+                .await;
+            if let Err(err) = result {
+                let _ = events_tx
+                    .send(AppEvent::Log {
+                        category: Category::Discovery,
+                        text: format!("Discovery failed: {err}"),
+                    })
+                    .await;
+            }
+        });
     }
 
     crossterm::terminal::enable_raw_mode()?;

@@ -6,7 +6,8 @@ use localsend::discovery::{
     DiscoveryHandle, HttpChannel, StatefulDevice,
 };
 use localsend::model::discovery::{DeviceType, ProtocolType};
-use localsend::multicast::{DEFAULT_MULTICAST_GROUP_V6, InterfaceFilter, MulticastDevice};
+use localsend::multicast::{DEFAULT_MULTICAST_GROUP_V6, MulticastDevice};
+use localsend::util::interface::InterfaceFilter;
 use std::sync::Arc;
 use std::time::Duration;
 use tokio::sync::{Mutex, mpsc, oneshot};

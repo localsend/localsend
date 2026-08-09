@@ -3,6 +3,7 @@
 
 use super::App;
 use crate::device_list::{DeviceList, DeviceListOutcome, DeviceRow, Row};
+use crate::storage::PairedChannel;
 use crate::ui::Category;
 use crossterm::event::KeyEvent;
 use localsend::discovery::StatefulDevice;
@@ -113,12 +114,12 @@ impl App {
         let Some(stored) = self.discovery.device_by_fingerprint(fingerprint) else {
             return;
         };
-        let alias = stored.device.alias;
-        match self
-            .storage
-            .paired
-            .insert(fingerprint.to_string(), alias.clone())
-        {
+        let alias = stored.device.alias.clone();
+        match self.storage.paired.insert(
+            fingerprint.to_string(),
+            alias.clone(),
+            PairedChannel::channels_of(&stored),
+        ) {
             Ok(()) => self.ui.log(
                 Category::Discovery,
                 &format!("{alias}: Paired. Future requests are auto-accepted."),

@@ -8,12 +8,10 @@
 //! [`start`] binds the sockets and emits a [`MulticastEvent`] per announcement;
 //! the returned [`MulticastHandle`] drives the application-initiated side.
 
-mod interface;
 mod socket;
 
-pub use interface::InterfaceFilter;
-
 use crate::model::discovery::{DeviceType, MulticastMessageV2, ProtocolType};
+use crate::util::interface::InterfaceFilter;
 use serde::Serialize;
 use socket::MulticastSocket;
 use std::net::{IpAddr, Ipv4Addr, Ipv6Addr, SocketAddr};

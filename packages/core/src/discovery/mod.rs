@@ -8,10 +8,9 @@ pub use store::{
 use crate::http::client::{ClientError, LsHttpClientV2};
 use crate::http::dto_v2::{RegisterDtoV2, RegisterResponseDtoV2};
 use crate::model::discovery::{MulticastMessageV2, ProtocolType};
-use crate::multicast::{
-    self, InterfaceFilter, MulticastConfig, MulticastDevice, MulticastEvent, MulticastHandle,
-};
+use crate::multicast::{self, MulticastConfig, MulticastDevice, MulticastEvent, MulticastHandle};
 use crate::util::error::ErrorChain;
+use crate::util::interface::InterfaceFilter;
 use futures_util::StreamExt;
 use std::collections::HashSet;
 use std::net::{IpAddr, Ipv4Addr, Ipv6Addr};
