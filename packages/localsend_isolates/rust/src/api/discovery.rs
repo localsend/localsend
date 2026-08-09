@@ -7,7 +7,6 @@ use localsend::discovery::{
 };
 use localsend::model::discovery::{DeviceType, ProtocolType};
 use localsend::multicast::{DEFAULT_MULTICAST_GROUP_V6, InterfaceFilter, MulticastDevice};
-use localsend::util::error::ErrorChain;
 use std::sync::Arc;
 use std::time::Duration;
 use tokio::sync::{Mutex, mpsc, oneshot};
@@ -288,29 +287,51 @@ impl RsDiscovery {
         self.instance.handle.set_answer_announcements(answer);
     }
 
-    /// Discovers a device at a known address, e.g. a favorite or a peer that
-    /// multicast does not reach, by sending it a register request.
+    /// Discovers devices in stages, cheapest first: announces this device to
+    /// the network and probes [channels] (e.g. the favorites), then falls
+    /// back to scanning the `/24` subnets of the local interface addresses
+    /// [interface_ips], for networks that do not carry multicast. The
+    /// fallback only runs when nothing was confirmed until [grace_ms] after
+    /// the channels have been probed.
     ///
-    /// The confirmed device is also emitted on [RsDiscovery::listen].
-    /// Returns `None` when the device did not answer or answered with this
-    /// device's own fingerprint (i.e. the device discovered itself).
-    pub async fn discover(
+    /// The found devices are emitted on [RsDiscovery::listen] as they answer;
+    /// returns once every stage has finished, including the whole
+    /// announcement burst.
+    pub async fn discover_staged(
         &self,
-        host: String,
+        channels: Vec<RsDeviceChannel>,
+        interface_ips: Vec<String>,
         port: u16,
         protocol: ProtocolType,
-    ) -> Option<RsStoredDevice> {
-        match self.instance.handle.discover(&host, port, protocol).await {
-            Ok(found) => found.map(rs_stored_device),
-            Err(err) => {
-                tracing::debug!(
-                    "Could not discover {}://{host}:{port}: {}",
-                    protocol.as_str(),
-                    ErrorChain(&err)
-                );
-                None
-            }
-        }
+        grace_ms: u64,
+    ) -> anyhow::Result<()> {
+        let channels = channels
+            .into_iter()
+            .map(|channel| HttpChannel {
+                host: channel.host,
+                port: channel.port,
+                protocol: channel.protocol,
+            })
+            .collect();
+        let interface_ips = interface_ips
+            .into_iter()
+            .map(|ip| {
+                ip.parse()
+                    .map_err(|_| anyhow::anyhow!("Invalid interface address: {ip}"))
+            })
+            .collect::<anyhow::Result<Vec<_>>>()?;
+
+        self.instance
+            .handle
+            .discover_staged(
+                channels,
+                interface_ips,
+                port,
+                protocol,
+                Duration::from_millis(grace_ms),
+            )
+            .await?;
+        Ok(())
     }
 
     /// Scans the `/24` subnet of the local interface address [interface_ip]

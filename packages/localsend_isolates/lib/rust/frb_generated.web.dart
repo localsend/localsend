@@ -277,9 +277,6 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   RsHttpClientError dco_decode_box_autoadd_rs_http_client_error(dynamic raw);
 
   @protected
-  RsStoredDevice dco_decode_box_autoadd_rs_stored_device(dynamic raw);
-
-  @protected
   RTCSendFileResponse dco_decode_box_autoadd_rtc_send_file_response(dynamic raw);
 
   @protected
@@ -384,9 +381,6 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
 
   @protected
   PrepareUploadResponseDto? dco_decode_opt_box_autoadd_prepare_upload_response_dto(dynamic raw);
-
-  @protected
-  RsStoredDevice? dco_decode_opt_box_autoadd_rs_stored_device(dynamic raw);
 
   @protected
   TlsConfig? dco_decode_opt_box_autoadd_tls_config(dynamic raw);
@@ -753,9 +747,6 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   RsHttpClientError sse_decode_box_autoadd_rs_http_client_error(SseDeserializer deserializer);
 
   @protected
-  RsStoredDevice sse_decode_box_autoadd_rs_stored_device(SseDeserializer deserializer);
-
-  @protected
   RTCSendFileResponse sse_decode_box_autoadd_rtc_send_file_response(SseDeserializer deserializer);
 
   @protected
@@ -862,9 +853,6 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
 
   @protected
   PrepareUploadResponseDto? sse_decode_opt_box_autoadd_prepare_upload_response_dto(SseDeserializer deserializer);
-
-  @protected
-  RsStoredDevice? sse_decode_opt_box_autoadd_rs_stored_device(SseDeserializer deserializer);
 
   @protected
   TlsConfig? sse_decode_opt_box_autoadd_tls_config(SseDeserializer deserializer);
@@ -1276,9 +1264,6 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   void sse_encode_box_autoadd_rs_http_client_error(RsHttpClientError self, SseSerializer serializer);
 
   @protected
-  void sse_encode_box_autoadd_rs_stored_device(RsStoredDevice self, SseSerializer serializer);
-
-  @protected
   void sse_encode_box_autoadd_rtc_send_file_response(RTCSendFileResponse self, SseSerializer serializer);
 
   @protected
@@ -1385,9 +1370,6 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
 
   @protected
   void sse_encode_opt_box_autoadd_prepare_upload_response_dto(PrepareUploadResponseDto? self, SseSerializer serializer);
-
-  @protected
-  void sse_encode_opt_box_autoadd_rs_stored_device(RsStoredDevice? self, SseSerializer serializer);
 
   @protected
   void sse_encode_opt_box_autoadd_tls_config(TlsConfig? self, SseSerializer serializer);

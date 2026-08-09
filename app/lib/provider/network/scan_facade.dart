@@ -1,60 +1,36 @@
 import 'dart:async';
 
-import 'package:localsend_app/pages/home_page.dart';
-import 'package:localsend_app/pages/home_page_controller.dart';
 import 'package:localsend_app/provider/favorites_provider.dart';
 import 'package:localsend_app/provider/local_ip_provider.dart';
 import 'package:localsend_app/provider/network/nearby_devices_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
-import 'package:localsend_isolates/util/sleep.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 
-/// Scans the network via multicast first,
-/// if no devices has been found, try http-based discovery on the first subnet.
-/// If [forceLegacy] is true, then the http-based discovery runs in parallel.
-/// Otherwise, it runs after a delay of 1 second and only if no devices has been found.
+/// Discovers devices in stages, cheapest first: multicast announcement and
+/// favorite probes right away, http-based discovery on the subnets only when
+/// nothing was confirmed within 1 second.
 class StartSmartScan extends AsyncGlobalAction {
   /// Maximum number of interfaces to scan.
   /// If there are more interfaces, the first ones will be used or the user needs to select one.
   static const maxInterfaces = 3;
 
-  final bool forceLegacy;
-
-  StartSmartScan({required this.forceLegacy});
-
   @override
   Future<void> reduce() async {
-    // Try performant Multicast/UDP method first
-    ref.redux(nearbyDevicesProvider).dispatch(StartMulticastScan());
-
-    // At the same time, try to discover favorites
     final favorites = ref.read(favoritesProvider);
-    final https = ref.read(settingsProvider).https;
-    await ref.redux(nearbyDevicesProvider).dispatchAsync(StartFavoriteScan(devices: favorites, https: https));
+    final settings = ref.read(settingsProvider);
+    final networkInterfaces = ref.read(localIpProvider).localIps.take(maxInterfaces).toList();
 
-    if (!forceLegacy) {
-      // Wait a bit before trying the legacy method.
-      // Skip waiting if [forceLegacy] is true.
-      await sleepAsync(1000);
-    }
-
-    // If no devices has been found, then switch to legacy discovery mode
-    // which is purely HTTP/TCP based.
-    final stillEmpty = ref.read(nearbyDevicesProvider).devices.isEmpty;
-    final stillInSendTab = ref.read(homePageControllerProvider).currentTab == HomeTab.send;
-    if (forceLegacy || (stillEmpty && stillInSendTab)) {
-      final networkInterfaces = ref.read(localIpProvider).localIps.take(maxInterfaces).toList();
-      if (networkInterfaces.isNotEmpty) {
-        await dispatchAsync(StartLegacySubnetScan(subnets: networkInterfaces));
-      }
-    } else {
-      if (!stillEmpty) {
-        emitMessage('Already found devices. This network seem to work, no need to start legacy scan.');
-      }
-      if (!stillInSendTab) {
-        emitMessage('User left the send tab. No need to start legacy scan.');
-      }
-    }
+    await ref
+        .redux(nearbyDevicesProvider)
+        .dispatchAsync(
+          StartStagedScan(
+            favorites: favorites,
+            interfaces: networkInterfaces,
+            port: settings.port,
+            https: settings.https,
+            grace: const Duration(seconds: 1),
+          ),
+        );
   }
 }
 

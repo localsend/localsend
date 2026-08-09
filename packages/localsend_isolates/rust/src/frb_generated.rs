@@ -44,7 +44,7 @@ flutter_rust_bridge::frb_generated_boilerplate!(
     default_rust_auto_opaque = RustAutoOpaqueMoi,
 );
 pub(crate) const FLUTTER_RUST_BRIDGE_CODEGEN_VERSION: &str = "2.12.0";
-pub(crate) const FLUTTER_RUST_BRIDGE_CODEGEN_CONTENT_HASH: i32 = -324914520;
+pub(crate) const FLUTTER_RUST_BRIDGE_CODEGEN_CONTENT_HASH: i32 = -1979579466;
 
 // Section: executor
 
@@ -582,7 +582,7 @@ fn wire__crate__api__discovery__RsDiscovery_device_logs_impl(
         },
     )
 }
-fn wire__crate__api__discovery__RsDiscovery_discover_impl(
+fn wire__crate__api__discovery__RsDiscovery_discover_staged_impl(
     port_: flutter_rust_bridge::for_generated::MessagePort,
     ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
     rust_vec_len_: i32,
@@ -590,7 +590,7 @@ fn wire__crate__api__discovery__RsDiscovery_discover_impl(
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap_async::<flutter_rust_bridge::for_generated::SseCodec, _, _, _>(
         flutter_rust_bridge::for_generated::TaskInfo {
-            debug_name: "RsDiscovery_discover",
+            debug_name: "RsDiscovery_discover_staged",
             port: Some(port_),
             mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
         },
@@ -607,12 +607,15 @@ fn wire__crate__api__discovery__RsDiscovery_discover_impl(
             let api_that = <RustOpaqueMoi<
                 flutter_rust_bridge::for_generated::RustAutoOpaqueInner<RsDiscovery>,
             >>::sse_decode(&mut deserializer);
-            let api_host = <String>::sse_decode(&mut deserializer);
+            let api_channels =
+                <Vec<crate::api::discovery::RsDeviceChannel>>::sse_decode(&mut deserializer);
+            let api_interface_ips = <Vec<String>>::sse_decode(&mut deserializer);
             let api_port = <u16>::sse_decode(&mut deserializer);
             let api_protocol = <crate::api::model::ProtocolType>::sse_decode(&mut deserializer);
+            let api_grace_ms = <u64>::sse_decode(&mut deserializer);
             deserializer.end();
             move |context| async move {
-                transform_result_sse::<_, ()>(
+                transform_result_sse::<_, flutter_rust_bridge::for_generated::anyhow::Error>(
                     (move || async move {
                         let mut api_that_guard = None;
                         let decode_indices_ =
@@ -631,15 +634,15 @@ fn wire__crate__api__discovery__RsDiscovery_discover_impl(
                             }
                         }
                         let api_that_guard = api_that_guard.unwrap();
-                        let output_ok = Result::<_, ()>::Ok(
-                            crate::api::discovery::RsDiscovery::discover(
-                                &*api_that_guard,
-                                api_host,
-                                api_port,
-                                api_protocol,
-                            )
-                            .await,
-                        )?;
+                        let output_ok = crate::api::discovery::RsDiscovery::discover_staged(
+                            &*api_that_guard,
+                            api_channels,
+                            api_interface_ips,
+                            api_port,
+                            api_protocol,
+                            api_grace_ms,
+                        )
+                        .await?;
                         Ok(output_ok)
                     })()
                     .await,
@@ -4336,19 +4339,6 @@ impl SseDecode for Option<crate::api::model::PrepareUploadResponseDto> {
     }
 }
 
-impl SseDecode for Option<crate::api::discovery::RsStoredDevice> {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
-        if (<bool>::sse_decode(deserializer)) {
-            return Some(<crate::api::discovery::RsStoredDevice>::sse_decode(
-                deserializer,
-            ));
-        } else {
-            return None;
-        }
-    }
-}
-
 impl SseDecode for Option<crate::api::server::TlsConfig> {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
@@ -5166,7 +5156,7 @@ fn pde_ffi_dispatcher_primary_impl(
             rust_vec_len,
             data_len,
         ),
-        10 => wire__crate__api__discovery__RsDiscovery_discover_impl(
+        10 => wire__crate__api__discovery__RsDiscovery_discover_staged_impl(
             port,
             ptr,
             rust_vec_len,
@@ -7214,16 +7204,6 @@ impl SseEncode for Option<crate::api::model::PrepareUploadResponseDto> {
         <bool>::sse_encode(self.is_some(), serializer);
         if let Some(value) = self {
             <crate::api::model::PrepareUploadResponseDto>::sse_encode(value, serializer);
-        }
-    }
-}
-
-impl SseEncode for Option<crate::api::discovery::RsStoredDevice> {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
-        <bool>::sse_encode(self.is_some(), serializer);
-        if let Some(value) = self {
-            <crate::api::discovery::RsStoredDevice>::sse_encode(value, serializer);
         }
     }
 }

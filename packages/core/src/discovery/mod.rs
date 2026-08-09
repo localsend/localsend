@@ -15,7 +15,7 @@ use crate::util::error::ErrorChain;
 use futures_util::StreamExt;
 use std::collections::HashSet;
 use std::net::{IpAddr, Ipv4Addr, Ipv6Addr};
-use std::sync::atomic::{AtomicBool, Ordering};
+use std::sync::atomic::{AtomicBool, AtomicU64, Ordering};
 use std::sync::Arc;
 use std::time::{Duration, SystemTime};
 use store::DeviceStore;
@@ -113,6 +113,10 @@ struct DiscoveryState {
 
     /// The interface addresses a subnet scan is currently running for.
     scanning: std::sync::Mutex<HashSet<Ipv4Addr>>,
+
+    /// Number of confirmations in this run, on which
+    /// [`DiscoveryHandle::discover_staged`] decides whether to escalate.
+    confirmations: AtomicU64,
 }
 
 impl DiscoveryState {
@@ -177,6 +181,7 @@ impl DiscoveryState {
     /// emits the resulting event. Returns whether the device is new, and
     /// its stored state after the merge.
     async fn found(&self, device: DiscoveredDevice) -> (bool, StatefulDevice) {
+        self.confirmations.fetch_add(1, Ordering::Relaxed);
         let (event, merged) = self.store.upsert(device, SystemTime::now());
         let is_new = matches!(event, DiscoveryEvent::Discovered { .. });
         if let Some(event_tx) = &self.event_tx {
@@ -250,6 +255,76 @@ impl DiscoveryHandle {
     ) -> Result<Option<StatefulDevice>, ClientError> {
         let client = self.state.unpinned_client()?;
         self.state.probe(&client, host, port, protocol).await
+    }
+
+    /// Discovers devices at known addresses, e.g. the favorites, by sending
+    /// each channel a register request: [`DiscoveryHandle::discover`] for a
+    /// whole list, probed concurrently.
+    ///
+    /// Channels that do not answer are skipped; returns the stored state of
+    /// the devices that answered, in completion order.
+    pub async fn discover_known_http_channels(
+        &self,
+        channels: Vec<HttpChannel>,
+    ) -> Result<Vec<StatefulDevice>, ClientError> {
+        let client = self.state.unpinned_client()?;
+
+        let state = &self.state;
+        let client = &client;
+        let found = futures_util::stream::iter(channels)
+            .map(|channel| async move {
+                state
+                    .probe(client, &channel.host, channel.port, channel.protocol)
+                    .await
+                    .ok()
+                    .flatten()
+            })
+            .buffer_unordered(SCAN_CONCURRENCY)
+            .filter_map(std::future::ready)
+            .collect()
+            .await;
+
+        Ok(found)
+    }
+
+    /// Discovers devices in stages, cheapest first: announces this device to
+    /// the network and probes `known_channels` (e.g. the favorites), then
+    /// falls back to scanning the `/24` subnets of the local interface
+    /// addresses `interface_ips`, for networks that do not carry multicast.
+    ///
+    /// The fallback only runs when nothing was confirmed until `grace` after
+    /// the known channels have been probed: any confirmation — a new device
+    /// or a known one — proves that the cheap stages work on this network.
+    ///
+    /// The found devices are put into the store (and emitted) as they answer;
+    /// returns once every stage has finished, including the whole
+    /// announcement burst.
+    pub async fn discover_staged(
+        &self,
+        known_channels: Vec<HttpChannel>,
+        interface_ips: Vec<Ipv4Addr>,
+        port: u16,
+        protocol: ProtocolType,
+        grace: Duration,
+    ) -> Result<(), ClientError> {
+        let confirmations = self.state.confirmations.load(Ordering::Relaxed);
+        let escalate = async {
+            self.discover_known_http_channels(known_channels).await?;
+            tokio::time::sleep(grace).await;
+
+            if self.state.confirmations.load(Ordering::Relaxed) == confirmations {
+                futures_util::future::try_join_all(
+                    interface_ips
+                        .into_iter()
+                        .map(|ip| self.scan_subnet(ip, port, protocol)),
+                )
+                .await?;
+            }
+            Ok(())
+        };
+
+        let (_, escalated) = tokio::join!(self.announce(), escalate);
+        escalated
     }
 
     /// Scans the `/24` subnet of the local interface address `interface_ip`
@@ -383,6 +458,7 @@ pub async fn start(config: DiscoveryConfig, stop_rx: oneshot::Receiver<()>) -> D
         event_tx: config.event_tx,
         answering: AtomicBool::new(true),
         scanning: std::sync::Mutex::new(HashSet::new()),
+        confirmations: AtomicU64::new(0),
     });
 
     // Ends once discovery is stopped: the multicast side then drops its

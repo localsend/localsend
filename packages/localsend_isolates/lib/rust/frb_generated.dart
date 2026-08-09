@@ -76,7 +76,7 @@ class RustLib extends BaseEntrypoint<RustLibApi, RustLibApiImpl, RustLibWire> {
   String get codegenVersion => '2.12.0';
 
   @override
-  int get rustContentHash => -324914520;
+  int get rustContentHash => -1979579466;
 
   static const kDefaultExternalLibraryLoaderConfig = ExternalLibraryLoaderConfig(
     stem: 'rust_lib_localsend_app',
@@ -120,11 +120,13 @@ abstract class RustLibApi extends BaseApi {
 
   Future<List<RsDeviceLog>> crateApiDiscoveryRsDiscoveryDeviceLogs({required RsDiscovery that, required String fingerprint});
 
-  Future<RsStoredDevice?> crateApiDiscoveryRsDiscoveryDiscover({
+  Future<void> crateApiDiscoveryRsDiscoveryDiscoverStaged({
     required RsDiscovery that,
-    required String host,
+    required List<RsDeviceChannel> channels,
+    required List<String> interfaceIps,
     required int port,
     required ProtocolType protocol,
+    required BigInt graceMs,
   });
 
   Stream<RsStoredDevice> crateApiDiscoveryRsDiscoveryListen({required RsDiscovery that});
@@ -645,36 +647,40 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   );
 
   @override
-  Future<RsStoredDevice?> crateApiDiscoveryRsDiscoveryDiscover({
+  Future<void> crateApiDiscoveryRsDiscoveryDiscoverStaged({
     required RsDiscovery that,
-    required String host,
+    required List<RsDeviceChannel> channels,
+    required List<String> interfaceIps,
     required int port,
     required ProtocolType protocol,
+    required BigInt graceMs,
   }) {
     return handler.executeNormal(
       NormalTask(
         callFfi: (port_) {
           final serializer = SseSerializer(generalizedFrbRustBinding);
           sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerRsDiscovery(that, serializer);
-          sse_encode_String(host, serializer);
+          sse_encode_list_rs_device_channel(channels, serializer);
+          sse_encode_list_String(interfaceIps, serializer);
           sse_encode_u_16(port, serializer);
           sse_encode_protocol_type(protocol, serializer);
+          sse_encode_u_64(graceMs, serializer);
           pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 10, port: port_);
         },
         codec: SseCodec(
-          decodeSuccessData: sse_decode_opt_box_autoadd_rs_stored_device,
-          decodeErrorData: null,
+          decodeSuccessData: sse_decode_unit,
+          decodeErrorData: sse_decode_AnyhowException,
         ),
-        constMeta: kCrateApiDiscoveryRsDiscoveryDiscoverConstMeta,
-        argValues: [that, host, port, protocol],
+        constMeta: kCrateApiDiscoveryRsDiscoveryDiscoverStagedConstMeta,
+        argValues: [that, channels, interfaceIps, port, protocol, graceMs],
         apiImpl: this,
       ),
     );
   }
 
-  TaskConstMeta get kCrateApiDiscoveryRsDiscoveryDiscoverConstMeta => const TaskConstMeta(
-    debugName: 'RsDiscovery_discover',
-    argNames: ['that', 'host', 'port', 'protocol'],
+  TaskConstMeta get kCrateApiDiscoveryRsDiscoveryDiscoverStagedConstMeta => const TaskConstMeta(
+    debugName: 'RsDiscovery_discover_staged',
+    argNames: ['that', 'channels', 'interfaceIps', 'port', 'protocol', 'graceMs'],
   );
 
   @override
@@ -2675,12 +2681,6 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
-  RsStoredDevice dco_decode_box_autoadd_rs_stored_device(dynamic raw) {
-    // Codec=Dco (DartCObject based), see doc to use other codecs
-    return dco_decode_rs_stored_device(raw);
-  }
-
-  @protected
   RTCSendFileResponse dco_decode_box_autoadd_rtc_send_file_response(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return dco_decode_rtc_send_file_response(raw);
@@ -2933,12 +2933,6 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   PrepareUploadResponseDto? dco_decode_opt_box_autoadd_prepare_upload_response_dto(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return raw == null ? null : dco_decode_box_autoadd_prepare_upload_response_dto(raw);
-  }
-
-  @protected
-  RsStoredDevice? dco_decode_opt_box_autoadd_rs_stored_device(dynamic raw) {
-    // Codec=Dco (DartCObject based), see doc to use other codecs
-    return raw == null ? null : dco_decode_box_autoadd_rs_stored_device(raw);
   }
 
   @protected
@@ -3970,12 +3964,6 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
-  RsStoredDevice sse_decode_box_autoadd_rs_stored_device(SseDeserializer deserializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    return (sse_decode_rs_stored_device(deserializer));
-  }
-
-  @protected
   RTCSendFileResponse sse_decode_box_autoadd_rtc_send_file_response(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     return (sse_decode_rtc_send_file_response(deserializer));
@@ -4302,17 +4290,6 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
 
     if (sse_decode_bool(deserializer)) {
       return (sse_decode_box_autoadd_prepare_upload_response_dto(deserializer));
-    } else {
-      return null;
-    }
-  }
-
-  @protected
-  RsStoredDevice? sse_decode_opt_box_autoadd_rs_stored_device(SseDeserializer deserializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-
-    if (sse_decode_bool(deserializer)) {
-      return (sse_decode_box_autoadd_rs_stored_device(deserializer));
     } else {
       return null;
     }
@@ -5473,12 +5450,6 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
-  void sse_encode_box_autoadd_rs_stored_device(RsStoredDevice self, SseSerializer serializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    sse_encode_rs_stored_device(self, serializer);
-  }
-
-  @protected
   void sse_encode_box_autoadd_rtc_send_file_response(RTCSendFileResponse self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_rtc_send_file_response(self, serializer);
@@ -5761,16 +5732,6 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
     sse_encode_bool(self != null, serializer);
     if (self != null) {
       sse_encode_box_autoadd_prepare_upload_response_dto(self, serializer);
-    }
-  }
-
-  @protected
-  void sse_encode_opt_box_autoadd_rs_stored_device(RsStoredDevice? self, SseSerializer serializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-
-    sse_encode_bool(self != null, serializer);
-    if (self != null) {
-      sse_encode_box_autoadd_rs_stored_device(self, serializer);
     }
   }
 
@@ -6402,14 +6363,30 @@ class RsDiscoveryImpl extends RustOpaque implements RsDiscovery {
   Future<List<RsDeviceLog>> deviceLogs({required String fingerprint}) =>
       RustLib.instance.api.crateApiDiscoveryRsDiscoveryDeviceLogs(that: this, fingerprint: fingerprint);
 
-  /// Discovers a device at a known address, e.g. a favorite or a peer that
-  /// multicast does not reach, by sending it a register request.
+  /// Discovers devices in stages, cheapest first: announces this device to
+  /// the network and probes [channels] (e.g. the favorites), then falls
+  /// back to scanning the `/24` subnets of the local interface addresses
+  /// [interface_ips], for networks that do not carry multicast. The
+  /// fallback only runs when nothing was confirmed until [grace_ms] after
+  /// the channels have been probed.
   ///
-  /// The confirmed device is also emitted on [RsDiscovery::listen].
-  /// Returns `None` when the device did not answer or answered with this
-  /// device's own fingerprint (i.e. the device discovered itself).
-  Future<RsStoredDevice?> discover({required String host, required int port, required ProtocolType protocol}) =>
-      RustLib.instance.api.crateApiDiscoveryRsDiscoveryDiscover(that: this, host: host, port: port, protocol: protocol);
+  /// The found devices are emitted on [RsDiscovery::listen] as they answer;
+  /// returns once every stage has finished, including the whole
+  /// announcement burst.
+  Future<void> discoverStaged({
+    required List<RsDeviceChannel> channels,
+    required List<String> interfaceIps,
+    required int port,
+    required ProtocolType protocol,
+    required BigInt graceMs,
+  }) => RustLib.instance.api.crateApiDiscoveryRsDiscoveryDiscoverStaged(
+    that: this,
+    channels: channels,
+    interfaceIps: interfaceIps,
+    port: port,
+    protocol: protocol,
+    graceMs: graceMs,
+  );
 
   /// Emits a [RsStoredDevice] for every device confirmation until the
   /// discovery is stopped. Can only be listened to once.

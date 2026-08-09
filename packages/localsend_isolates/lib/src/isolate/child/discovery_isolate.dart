@@ -55,16 +55,24 @@ class DiscoverySubnetScanTask implements DiscoveryTask {
   });
 }
 
-/// Probes the known addresses of the favorites over HTTP.
-/// Completes (without events) when every favorite has been probed; the found
+/// Discovers devices in stages, cheapest first: announcement and favorite
+/// probes right away, a subnet scan only when nothing was confirmed within
+/// the grace period.
+/// Completes (without events) when every stage has finished; the found
 /// devices arrive on the [DiscoveryListenTask] stream.
-class DiscoveryFavoriteScanTask implements DiscoveryTask {
+class DiscoveryStagedScanTask implements DiscoveryTask {
   final List<(String, int)> favorites;
+  final List<String> networkInterfaces;
+  final int port;
   final bool https;
+  final Duration grace;
 
-  DiscoveryFavoriteScanTask({
+  DiscoveryStagedScanTask({
     required this.favorites,
+    required this.networkInterfaces,
+    required this.port,
     required this.https,
+    required this.grace,
   });
 }
 
@@ -127,12 +135,15 @@ Future<void> setupDiscoveryIsolate(
                 https: data.https,
               );
           break;
-        case DiscoveryFavoriteScanTask data:
+        case DiscoveryStagedScanTask data:
           await ref
               .read(discoveryProvider)
-              .discoverFavorites(
-                devices: data.favorites,
+              .discoverStaged(
+                favorites: data.favorites,
+                networkInterfaces: data.networkInterfaces,
+                port: data.port,
                 https: data.https,
+                grace: data.grace,
               );
           break;
         case DiscoveryAddDeviceTask data:
