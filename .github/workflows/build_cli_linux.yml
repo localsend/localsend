@@ -39,12 +39,12 @@ jobs:
       - name: Compile CLI
         run: cargo build --release --package localsend-cli
 
-      - name: Rename CLI executable
-        run: mv target/release/localsend-cli target/release/LocalSend-CLI-${{ needs.build.outputs.version }}-${{ matrix.suffix }}
+      - name: Create tar.gz archive
+        run: tar -czvf LocalSend-CLI-${{ needs.build.outputs.version }}-${{ matrix.suffix }}.tar.gz -C target/release localsend-cli
 
       - name: Upload CLI
         uses: actions/upload-artifact@v6
         with:
           name: cli-${{ matrix.suffix }}-result
-          path: target/release/LocalSend-CLI-${{ needs.build.outputs.version }}-${{ matrix.suffix }}
+          path: LocalSend-CLI-${{ needs.build.outputs.version }}-${{ matrix.suffix }}.tar.gz
           if-no-files-found: error

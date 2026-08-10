@@ -687,14 +687,15 @@ jobs:
       - name: Compile CLI
         run: cargo build --release --package localsend-cli
 
-      - name: Rename CLI executable
-        run: mv target/release/localsend-cli target/release/LocalSend-CLI-${{ needs.build.outputs.version }}-${{ matrix.suffix }}
+      # tar preserves the executable bit, which a bare artifact upload would lose
+      - name: Create tar.gz archive
+        run: tar -czvf LocalSend-CLI-${{ needs.build.outputs.version }}-${{ matrix.suffix }}.tar.gz -C target/release localsend-cli
 
       - name: Upload CLI
         uses: actions/upload-artifact@v6
         with:
           name: cli-${{ matrix.suffix }}-result
-          path: target/release/LocalSend-CLI-${{ needs.build.outputs.version }}-${{ matrix.suffix }}
+          path: LocalSend-CLI-${{ needs.build.outputs.version }}-${{ matrix.suffix }}.tar.gz
           if-no-files-found: error
 
   build_cli_windows_exe:
@@ -1015,9 +1016,9 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.draft_release.outputs.upload_url }}
-          asset_path: cli-linux-x86-64-result/LocalSend-CLI-${{ needs.build.outputs.version }}-linux-x86-64
-          asset_name: LocalSend-CLI-${{ needs.build.outputs.version }}-linux-x86-64
-          asset_content_type: application/octet-stream
+          asset_path: cli-linux-x86-64-result/LocalSend-CLI-${{ needs.build.outputs.version }}-linux-x86-64.tar.gz
+          asset_name: LocalSend-CLI-${{ needs.build.outputs.version }}-linux-x86-64.tar.gz
+          asset_content_type: application/gzip
 
       # LINUX CLI (arm_64)
       - name: Download linux CLI file
@@ -1032,9 +1033,9 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.draft_release.outputs.upload_url }}
-          asset_path: cli-linux-arm-64-result/LocalSend-CLI-${{ needs.build.outputs.version }}-linux-arm-64
-          asset_name: LocalSend-CLI-${{ needs.build.outputs.version }}-linux-arm-64
-          asset_content_type: application/octet-stream
+          asset_path: cli-linux-arm-64-result/LocalSend-CLI-${{ needs.build.outputs.version }}-linux-arm-64.tar.gz
+          asset_name: LocalSend-CLI-${{ needs.build.outputs.version }}-linux-arm-64.tar.gz
+          asset_content_type: application/gzip
 
       # WINDOWS CLI EXE (x86_64, signed via SignPath)
       - name: Download windows CLI exe file
