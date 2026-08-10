@@ -1,6 +1,8 @@
 /// This is copied from Cargokit (which is the official way to use it currently)
 /// Details: https://fzyzcjy.github.io/flutter_rust_bridge/manual/integrate/builtin
 
+import 'dart:io';
+
 import 'package:collection/collection.dart';
 import 'package:logging/logging.dart';
 import 'package:path/path.dart' as path;
@@ -118,7 +120,7 @@ class RustBuilder {
   void prepare(
     Rustup rustup,
   ) {
-    final toolchain = _toolchain;
+    final toolchain = _getToolchainVersion(environment.manifestDir, _toolchain);
     if (rustup.installedTargets(toolchain) == null) {
       rustup.installToolchain(toolchain);
     }
@@ -143,7 +145,7 @@ class RustBuilder {
       'rustup',
       [
         'run',
-        _toolchain,
+        _getToolchainVersion(environment.manifestDir, _toolchain),
         'cargo',
         'build',
         ...extraArgs,
@@ -195,4 +197,31 @@ class RustBuilder {
       return env.buildEnvironment();
     }
   }
+}
+
+/// Regex for 'channel = "1.82.0"' capturing the version number
+final _toolchainVersionPattern = RegExp(r'^channel\s*=\s*"([^"]+)"$');
+
+/// Returns the toolchain version preferring the one from the rust-toolchain.toml
+/// found next to or above the crate's manifest directory.
+String _getToolchainVersion(String manifestDir, String fallback) {
+  var dir = Directory(manifestDir);
+  for (var i = 0; i < 3; i++) {
+    final toolchainFile = File(path.join(dir.path, 'rust-toolchain.toml'));
+    if (toolchainFile.existsSync()) {
+      final content = toolchainFile.readAsStringSync();
+      for (final line in content.split('\n')) {
+        final match = _toolchainVersionPattern.firstMatch(line.trim());
+        if (match != null) {
+          return match.group(1)!;
+        }
+      }
+    }
+    final parent = dir.parent;
+    if (parent.path == dir.path) {
+      break;
+    }
+    dir = parent;
+  }
+  return fallback;
 }
