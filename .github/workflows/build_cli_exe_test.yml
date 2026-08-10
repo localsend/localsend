@@ -20,30 +20,39 @@ jobs:
 
   build_cli_windows_exe:
     needs: build
-    runs-on: windows-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - runner: windows-latest
+            suffix: x86-64
+            signtool_arch: x64
+          - runner: windows-11-arm
+            suffix: arm-64
+            signtool_arch: arm64
+    runs-on: ${{ matrix.runner }}
     environment: packaging
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6
 
-      # cli/ uses edition 2024; the preinstalled toolchain on the runner may be outdated
-      - name: Update Rust
-        run: rustup update stable
+      - name: Install Rust
+        run: rustup toolchain install # version from rust-toolchain.toml
 
       - name: Compile CLI
         run: cargo build --release --package localsend-cli
 
-      # The SignPath artifact configuration expects "LocalSend-CLI-*-windows-x86-64.exe"
+      # The SignPath artifact configuration expects "LocalSend-CLI-*-windows-*-64.exe"
       - name: Rename CLI executable
-        run: Rename-Item -Path "target\release\localsend-cli.exe" -NewName "LocalSend-CLI-${{ needs.build.outputs.version }}-windows-x86-64.exe"
+        run: Rename-Item -Path "target\release\localsend-cli.exe" -NewName "LocalSend-CLI-${{ needs.build.outputs.version }}-windows-${{ matrix.suffix }}.exe"
 
       - name: Upload unsigned CLI
         id: unsigned-cli
         uses: actions/upload-artifact@v6
         with:
-          name: windows-cli-exe-unsigned
-          path: target\release\LocalSend-CLI-${{ needs.build.outputs.version }}-windows-x86-64.exe
+          name: windows-cli-exe-${{ matrix.suffix }}-unsigned
+          path: target\release\LocalSend-CLI-${{ needs.build.outputs.version }}-windows-${{ matrix.suffix }}.exe
           if-no-files-found: error
 
       - name: Sign CLI (SignPath)
@@ -61,11 +70,11 @@ jobs:
       - name: Verify signature
         continue-on-error: true
         run: |
-          $signtool = Get-ChildItem 'C:\Program Files (x86)\Windows Kits\10\bin\10.*\x64\signtool.exe' | Select-Object -Last 1
-          & $signtool.FullName verify /pa /v "signed\cli\LocalSend-CLI-${{ needs.build.outputs.version }}-windows-x86-64.exe"
+          $signtool = Get-ChildItem 'C:\Program Files (x86)\Windows Kits\10\bin\10.*\${{ matrix.signtool_arch }}\signtool.exe' | Select-Object -Last 1
+          & $signtool.FullName verify /pa /v "signed\cli\LocalSend-CLI-${{ needs.build.outputs.version }}-windows-${{ matrix.suffix }}.exe"
 
       - name: Upload signed CLI
         uses: actions/upload-artifact@v6
         with:
-          name: windows-cli-exe-x86-64-result
-          path: signed/cli/LocalSend-CLI-${{ needs.build.outputs.version }}-windows-x86-64.exe
+          name: windows-cli-exe-${{ matrix.suffix }}-result
+          path: signed/cli/LocalSend-CLI-${{ needs.build.outputs.version }}-windows-${{ matrix.suffix }}.exe

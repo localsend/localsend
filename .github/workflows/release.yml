@@ -443,6 +443,114 @@ jobs:
           name: windows-zip-x86-64-result
           path: signed/portable/LocalSend-${{ needs.build.outputs.version }}-windows-x86-64.zip
 
+  build_windows_zip_arm_64:
+    needs: build
+    runs-on: windows-11-arm
+    environment: packaging
+
+    # Windows ARM64 requires beta: stable (3.41.9) has no windows-arm64 artifacts and silently falls back to an x64 build.
+    # Switch back to the shared stable FLUTTER_VERSION once windows-arm64 reaches stable.
+    env:
+      FLUTTER_VERSION: "3.47.0-0.4.pre"
+
+    steps:
+      - name: Fix long file paths
+        run: git config --system core.longpaths true
+
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      # Flutter doesn't provide Windows ARM64 binaries, so clone the SDK from GitHub instead of using a setup action.
+      - name: Setup Flutter SDK
+        run: |
+          git clone --depth 1 --branch ${{ env.FLUTTER_VERSION }} https://github.com/flutter/flutter.git $env:USERPROFILE\flutter
+          Add-Content $env:GITHUB_PATH "$env:USERPROFILE\flutter\bin"
+          & "$env:USERPROFILE\flutter\bin\flutter.bat" --version
+
+      # Flutter silently falls back to an x64 Dart SDK when arm64 artifacts are missing, which would produce an x64 build
+      - name: Verify native arm64 toolchain
+        run: |
+          $dartVersion = & "$env:USERPROFILE\flutter\bin\dart.bat" --version 2>&1 | Out-String
+          Write-Host $dartVersion
+          if ($dartVersion -notmatch 'windows_arm64') {
+            Write-Error "Dart SDK is not windows_arm64 - Flutter fell back to x64"
+            exit 1
+          }
+
+      # Required by the CMake install step (app/windows/CMakeLists.txt installs localsend_msix_helper.msix)
+      - name: Build MSIX helper
+        run: |
+          $makepri = Get-ChildItem 'C:\Program Files (x86)\Windows Kits\10\bin\10.*\x64\makepri.exe' | Select-Object -Last 1
+          & $makepri.FullName new /pr support\build\msix\content /cf support\build\msix\priconfig.xml /mn support\build\msix\content\AppxManifest.xml /of support\build\msix\content\resources.pri /o
+          & 'C:\Program Files (x86)\Windows Kits\10\App Certification Kit\makeappx.exe' pack /o /d support\build\msix\content /nv /p app\windows\localsend_msix_helper.msix
+
+      - name: Dependencies
+        working-directory: app
+        run: flutter pub get
+
+      - name: Compile for Windows
+        working-directory: app
+        run: flutter build windows
+
+      - name: Create empty settings.json
+        working-directory: app
+        run: echo {} > build/windows/arm64/runner/Release/settings.json
+
+      # support/build/windows only carries x64 runtime DLLs, so take the arm64 ones from the Visual Studio redist
+      - name: Add DLL files
+        working-directory: app
+        run: |
+          $crt = Get-ChildItem 'C:\Program Files\Microsoft Visual Studio\2022\*\VC\Redist\MSVC\*\arm64\Microsoft.VC143.CRT' | Select-Object -Last 1
+          Copy-Item "$($crt.FullName)\msvcp140.dll" build/windows/arm64/runner/Release/
+          Copy-Item "$($crt.FullName)\vcruntime140.dll" build/windows/arm64/runner/Release/
+          Copy-Item "$($crt.FullName)\vcruntime140_1.dll" build/windows/arm64/runner/Release/
+
+      # The MSIX helper only makes sense for the installer; portable users should not register an MSIX package
+      - name: Remove MSIX helper from portable bundle
+        working-directory: app
+        run: |
+          Remove-Item build/windows/arm64/runner/Release/localsend_msix_helper.msix
+          Remove-Item build/windows/arm64/runner/Release/install_msix_helper.ps1
+          Remove-Item build/windows/arm64/runner/Release/localsend_app.exe.manifest
+
+      # The SignPath artifact configuration expects "LocalSend-*-windows-*-64.zip" containing "localsend_app.exe"
+      - name: Zip compiled files
+        working-directory: app
+        run: Compress-Archive -Path build/windows/arm64/runner/Release/* -DestinationPath "LocalSend-${{ needs.build.outputs.version }}-windows-arm-64.zip"
+
+      - name: Upload unsigned zip
+        id: unsigned-zip
+        uses: actions/upload-artifact@v6
+        with:
+          name: windows-zip-arm-64-unsigned
+          path: app/LocalSend-${{ needs.build.outputs.version }}-windows-arm-64.zip
+          if-no-files-found: error
+
+      - name: Sign zip (SignPath)
+        uses: signpath/github-action-submit-signing-request@v2
+        with:
+          api-token: ${{ secrets.SIGNPATH_API_TOKEN }}
+          organization-id: ${{ vars.SIGNPATH_ORG_ID }}
+          project-slug: localsend
+          signing-policy-slug: release-signing
+          artifact-configuration-slug: portable
+          github-artifact-id: ${{ steps.unsigned-zip.outputs.artifact-id }}
+          wait-for-completion: true
+          output-artifact-directory: signed/portable
+
+      - name: Verify signature
+        continue-on-error: true
+        run: |
+          Expand-Archive -Path "signed\portable\LocalSend-${{ needs.build.outputs.version }}-windows-arm-64.zip" -DestinationPath verify-portable
+          $signtool = Get-ChildItem 'C:\Program Files (x86)\Windows Kits\10\bin\10.*\arm64\signtool.exe' | Select-Object -Last 1
+          & $signtool.FullName verify /pa /v verify-portable\localsend_app.exe
+
+      - name: Upload signed zip
+        uses: actions/upload-artifact@v6
+        with:
+          name: windows-zip-arm-64-result
+          path: signed/portable/LocalSend-${{ needs.build.outputs.version }}-windows-arm-64.zip
+
   build_windows_exe_x86_64:
     needs: build
     runs-on: windows-latest
@@ -553,32 +661,72 @@ jobs:
           name: windows-exe-x86-64-result
           path: signed/installer/LocalSend-${{ needs.build.outputs.version }}-windows-x86-64.exe
 
-  build_cli_windows_exe_x86_64:
+  build_cli_linux:
     needs: build
-    runs-on: windows-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - runner: ubuntu-22.04
+            suffix: linux-x86-64
+          - runner: ubuntu-22.04-arm
+            suffix: linux-arm-64
+    runs-on: ${{ matrix.runner }}
+
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Install Rust
+        run: rustup toolchain install # version from rust-toolchain.toml
+
+      - name: Compile CLI
+        run: cargo build --release --package localsend-cli
+
+      - name: Rename CLI executable
+        run: mv target/release/localsend-cli target/release/LocalSend-CLI-${{ needs.build.outputs.version }}-${{ matrix.suffix }}
+
+      - name: Upload CLI
+        uses: actions/upload-artifact@v6
+        with:
+          name: cli-${{ matrix.suffix }}-result
+          path: target/release/LocalSend-CLI-${{ needs.build.outputs.version }}-${{ matrix.suffix }}
+          if-no-files-found: error
+
+  build_cli_windows_exe:
+    needs: build
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - runner: windows-latest
+            suffix: x86-64
+            signtool_arch: x64
+          - runner: windows-11-arm
+            suffix: arm-64
+            signtool_arch: arm64
+    runs-on: ${{ matrix.runner }}
     environment: packaging
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6
 
-      # cli/ uses edition 2024; the preinstalled toolchain on the runner may be outdated
-      - name: Update Rust
-        run: rustup update stable
+      - name: Install Rust
+        run: rustup toolchain install # version from rust-toolchain.toml
 
       - name: Compile CLI
         run: cargo build --release --package localsend-cli
 
-      # The SignPath artifact configuration expects "LocalSend-CLI-*-windows-x86-64.exe"
+      # The SignPath artifact configuration expects "LocalSend-CLI-*-windows-*-64.exe"
       - name: Rename CLI executable
-        run: Rename-Item -Path "target\release\localsend-cli.exe" -NewName "LocalSend-CLI-${{ needs.build.outputs.version }}-windows-x86-64.exe"
+        run: Rename-Item -Path "target\release\localsend-cli.exe" -NewName "LocalSend-CLI-${{ needs.build.outputs.version }}-windows-${{ matrix.suffix }}.exe"
 
       - name: Upload unsigned CLI
         id: unsigned-cli
         uses: actions/upload-artifact@v6
         with:
-          name: windows-cli-exe-unsigned
-          path: target\release\LocalSend-CLI-${{ needs.build.outputs.version }}-windows-x86-64.exe
+          name: windows-cli-exe-${{ matrix.suffix }}-unsigned
+          path: target\release\LocalSend-CLI-${{ needs.build.outputs.version }}-windows-${{ matrix.suffix }}.exe
           if-no-files-found: error
 
       - name: Sign CLI (SignPath)
@@ -596,14 +744,14 @@ jobs:
       - name: Verify signature
         continue-on-error: true
         run: |
-          $signtool = Get-ChildItem 'C:\Program Files (x86)\Windows Kits\10\bin\10.*\x64\signtool.exe' | Select-Object -Last 1
-          & $signtool.FullName verify /pa /v "signed\cli\LocalSend-CLI-${{ needs.build.outputs.version }}-windows-x86-64.exe"
+          $signtool = Get-ChildItem 'C:\Program Files (x86)\Windows Kits\10\bin\10.*\${{ matrix.signtool_arch }}\signtool.exe' | Select-Object -Last 1
+          & $signtool.FullName verify /pa /v "signed\cli\LocalSend-CLI-${{ needs.build.outputs.version }}-windows-${{ matrix.suffix }}.exe"
 
       - name: Upload signed CLI
         uses: actions/upload-artifact@v6
         with:
-          name: windows-cli-exe-x86-64-result
-          path: signed/cli/LocalSend-CLI-${{ needs.build.outputs.version }}-windows-x86-64.exe
+          name: windows-cli-exe-${{ matrix.suffix }}-result
+          path: signed/cli/LocalSend-CLI-${{ needs.build.outputs.version }}-windows-${{ matrix.suffix }}.exe
 
   release:
     needs:
@@ -615,8 +763,10 @@ jobs:
       - build_deb_arm_64
       - build_appimage_x86_64
       - build_windows_zip_x86_64
+      - build_windows_zip_arm_64
       - build_windows_exe_x86_64
-      - build_cli_windows_exe_x86_64
+      - build_cli_linux
+      - build_cli_windows_exe
     runs-on: ubuntu-24.04
 
     steps:
@@ -805,6 +955,26 @@ jobs:
           asset_name: LocalSend-${{ needs.build.outputs.version }}-windows-x86-64.zip
           asset_content_type: application/zip
 
+      # WINDOWS ZIP (arm_64, signed via SignPath)
+      - name: Download windows zip file
+        uses: actions/download-artifact@v7
+        with:
+          name: windows-zip-arm-64-result
+          path: windows-zip-arm-64-result
+
+      - name: Copy zip file to root
+        run: cp windows-zip-arm-64-result/*.zip result.zip
+
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.draft_release.outputs.upload_url }}
+          asset_path: result.zip
+          asset_name: LocalSend-${{ needs.build.outputs.version }}-windows-arm-64.zip
+          asset_content_type: application/zip
+
       # WINDOWS EXE (x86_64, signed via SignPath)
       - name: Download windows exe file
         uses: actions/download-artifact@v7
@@ -825,6 +995,40 @@ jobs:
           asset_name: LocalSend-${{ needs.build.outputs.version }}-windows-x86-64.exe
           asset_content_type: application/vnd.microsoft.portable-executable
 
+      # LINUX CLI (x86_64)
+      - name: Download linux CLI file
+        uses: actions/download-artifact@v7
+        with:
+          name: cli-linux-x86-64-result
+          path: cli-linux-x86-64-result
+
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.draft_release.outputs.upload_url }}
+          asset_path: cli-linux-x86-64-result/LocalSend-CLI-${{ needs.build.outputs.version }}-linux-x86-64
+          asset_name: LocalSend-CLI-${{ needs.build.outputs.version }}-linux-x86-64
+          asset_content_type: application/octet-stream
+
+      # LINUX CLI (arm_64)
+      - name: Download linux CLI file
+        uses: actions/download-artifact@v7
+        with:
+          name: cli-linux-arm-64-result
+          path: cli-linux-arm-64-result
+
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.draft_release.outputs.upload_url }}
+          asset_path: cli-linux-arm-64-result/LocalSend-CLI-${{ needs.build.outputs.version }}-linux-arm-64
+          asset_name: LocalSend-CLI-${{ needs.build.outputs.version }}-linux-arm-64
+          asset_content_type: application/octet-stream
+
       # WINDOWS CLI EXE (x86_64, signed via SignPath)
       - name: Download windows CLI exe file
         uses: actions/download-artifact@v7
@@ -843,4 +1047,24 @@ jobs:
           upload_url: ${{ steps.draft_release.outputs.upload_url }}
           asset_path: result-cli.exe
           asset_name: LocalSend-CLI-${{ needs.build.outputs.version }}-windows-x86-64.exe
+          asset_content_type: application/vnd.microsoft.portable-executable
+
+      # WINDOWS CLI EXE (arm_64, signed via SignPath)
+      - name: Download windows CLI exe file
+        uses: actions/download-artifact@v7
+        with:
+          name: windows-cli-exe-arm-64-result
+          path: windows-cli-exe-arm-64-result
+
+      - name: Copy CLI exe file to root
+        run: cp windows-cli-exe-arm-64-result/*.exe result-cli.exe
+
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.draft_release.outputs.upload_url }}
+          asset_path: result-cli.exe
+          asset_name: LocalSend-CLI-${{ needs.build.outputs.version }}-windows-arm-64.exe
           asset_content_type: application/vnd.microsoft.portable-executable
