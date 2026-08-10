@@ -268,8 +268,14 @@
       "speed": "Geschwindigkeit: {speed}/s"
     },
     "remainingTime": {
+      "minutesUnit(plural, param=m)": {
+        "other": "{m}m"
+      },
+      "hoursUnit(plural, param=h)": {
+        "other": "{h}h"
+      },
       "minutes": "{m}:{ss}",
-      "hours": "{h}h {m}m",
+      "hours": "@:.hoursUnit @:.minutesUnit",
       "@hours": "Benutze 'h' als Abkürzung für Stunden und 'm' für Minuten"
     }
   },

@@ -1102,11 +1102,22 @@ class _Translations$progressPage$remainingTime$de extends Translations$progressP
 
   // Translations
   @override
+  String minutesUnit({required num m}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('de'))(
+    m,
+    other: '${m}m',
+  );
+  @override
+  String hoursUnit({required num h}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('de'))(
+    h,
+    other: '${h}h',
+  );
+  @override
   String minutes({required Object m, required Object ss}) => '${m}:${ss}';
 
   /// Benutze 'h' als Abkürzung für Stunden und 'm' für Minuten
   @override
-  String hours({required Object h, required Object m}) => '${h}h ${m}m';
+  String hours({required num h, required num m}) =>
+      '${_root.progressPage.remainingTime.hoursUnit(h: h)} ${_root.progressPage.remainingTime.minutesUnit(m: m)}';
 }
 
 // Path: whatsNewPage.changes

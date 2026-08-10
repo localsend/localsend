@@ -1189,19 +1189,18 @@ class _Translations$progressPage$remainingTime$fa extends Translations$progressP
   @override
   String minutesUnit({required num m}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('fa'))(
     m,
-    other: '${m} د',
+    other: '${m}د',
   );
   @override
   String hoursUnit({required num h}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('fa'))(
     h,
-    other: '${h} س',
+    other: '${h}س',
   );
   @override
   String minutes({required Object m, required Object ss}) => '${m}:${ss}';
-
-  /// از «س» به عنوان مخفف ساعت و از «د» برای دقیقه استفاده کنید
   @override
-  String hours({required Object h, required Object m}) => '${h}س ${m}د';
+  String hours({required num h, required num m}) =>
+      '${_root.progressPage.remainingTime.hoursUnit(h: h)} ${_root.progressPage.remainingTime.minutesUnit(m: m)}';
 }
 
 // Path: whatsNewPage.changes

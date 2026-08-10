@@ -2,54 +2,5 @@
   "@@info": [
     "Here are translations that exist in <en> but not in <ar>.",
     "After editing this file, you can run 'dart run slang apply --locale=ar' to quickly apply the newly added translations."
-  ],
-  "receiveTab": {
-    "link": "Receive via link"
-  },
-  "settingsTab": {
-    "general": {
-      "colorOptions": {
-        "custom": "Custom"
-      }
-    },
-    "receive": {
-      "verifyChecksums": "Verify checksums when receiving files"
-    },
-    "send": {
-      "createChecksums": "Create checksums when sending files"
-    }
-  },
-  "deviceDetailsPage": {
-    "title": "Device Details",
-    "favorite": "Favorite",
-    "verify": "Verify",
-    "info": {
-      "name": "Name",
-      "address": "Address",
-      "version": "Version",
-      "protocol": "Protocol v{version}"
-    },
-    "logs": {
-      "title": "Logs",
-      "empty": "No logs available.",
-      "discovered": "Discovered via {protocol} ({host})",
-      "updated": "Updated via {protocol} ({host})"
-    }
-  },
-  "verifyPage": {
-    "title": "Verify",
-    "icons": "Icons",
-    "raw": "Raw",
-    "question": "Does it look the same on the other device?"
-  },
-  "progressPage": {
-    "remainingTime": {
-      "minutesUnit(plural, param=m)": {
-        "other": "{m}m"
-      },
-      "hoursUnit(plural, param=h)": {
-        "other": "{h}h"
-      }
-    }
-  }
+  ]
 }
