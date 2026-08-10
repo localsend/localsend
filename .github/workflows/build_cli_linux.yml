@@ -33,9 +33,8 @@ jobs:
     steps:
       - uses: actions/checkout@v6
 
-      # cli/ uses edition 2024; the preinstalled toolchain on the runner may be outdated
-      - name: Update Rust
-        run: rustup update stable
+      - name: Install Rust
+        run: rustup toolchain install # version from rust-toolchain.toml
 
       - name: Compile CLI
         run: cargo build --release --package localsend-cli

@@ -70,7 +70,7 @@ jobs:
     steps:
       - uses: actions/checkout@v6
       - name: Setup Rust
-        run: rustup toolchain install stable --profile minimal --component clippy
+        run: rustup toolchain install --profile minimal # version from rust-toolchain.toml
       - name: Cache
         uses: Swatinem/rust-cache@v2
 
@@ -131,5 +131,17 @@ jobs:
             exit 1
           else
             echo "Versions match."
+          fi
+
+      - name: Compare Rust toolchain versions
+        run: |
+          ROOT_TOOLCHAIN=$(grep '^channel = ' rust-toolchain.toml | sed 's/channel = "//' | sed 's/"//')
+          PLUGIN_TOOLCHAIN=$(grep '^channel = ' packages/localsend_isolates/rust-toolchain.toml | sed 's/channel = "//' | sed 's/"//')
+          echo "Root toolchain is $ROOT_TOOLCHAIN, plugin toolchain is $PLUGIN_TOOLCHAIN"
+          if [ "$ROOT_TOOLCHAIN" != "$PLUGIN_TOOLCHAIN" ]; then
+            echo "Rust toolchain version mismatch detected!"
+            exit 1
+          else
+            echo "Toolchain versions match."
           fi
 
