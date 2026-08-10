@@ -27,7 +27,7 @@ PODS:
     - FlutterMacOS
   - pasteboard (0.0.1):
     - FlutterMacOS
-  - photo_manager (3.10.0):
+  - photo_manager (3.12.0):
     - Flutter
     - FlutterMacOS
   - rust_lib_localsend_app (0.0.1):
@@ -144,7 +144,7 @@ SPEC CHECKSUMS:
   open_dir_macos: 79810d7921d777f8732bf6358b3a0839a8fad9b5
   package_info_plus: f0052d280d17aa382b932f399edf32507174e870
   pasteboard: 278d8100149f940fb795d6b3a74f0720c890ecb7
-  photo_manager: 93cc83778e33d5fd49dfd7e34b73f8f5a4f10aaf
+  photo_manager: c303e4476f6c220274119f0212a7753e45edd4a2
   rust_lib_localsend_app: 293779a82668308386129c9669c081d201d3e278
   screen_retriever_macos: c5508cc3c66ff0d4db650480cf0ab691e220d933
   shared_preferences_foundation: 7036424c3d8ec98dfe75ff1667cb0cd531ec82bb
