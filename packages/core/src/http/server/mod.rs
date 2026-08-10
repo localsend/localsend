@@ -155,6 +155,12 @@ pub struct ServerHandle {
 }
 
 impl ServerHandle {
+    /// The port the listeners are bound to. Relevant when the server was
+    /// started with port 0, where the OS picks the port.
+    pub fn port(&self) -> u16 {
+        self.port
+    }
+
     /// The socket addresses this server can be reached at: every address of
     /// the non-loopback interfaces, restricted to the address families that
     /// are actually bound. The listeners themselves only know the wildcard
@@ -227,6 +233,10 @@ pub async fn start_with_port(
     web_config: Option<WebConfig>,
     stop_rx: oneshot::Receiver<()>,
 ) -> anyhow::Result<ServerHandle> {
+    // Installed before returning, so that a client built right after (which
+    // skips the install when a provider exists) does not race the accept task.
+    let _ = rustls::crypto::ring::default_provider().install_default();
+
     let ipv4_socket_addr = SocketAddr::new(Ipv4Addr::UNSPECIFIED.into(), port);
     let info = Arc::new(Mutex::new(info));
     let state = AppState::new(info.clone(), internal_config, v2_config, web_config);
@@ -331,8 +341,6 @@ async fn start_server_with_listener(
     cancel: CancellationToken,
     connections: TaskTracker,
 ) -> anyhow::Result<()> {
-    let _ = rustls::crypto::ring::default_provider().install_default();
-
     // Browsers have no client certificate, so presenting one is optional while
     // the web pages are served. A certificate that is presented is still verified.
     let mandatory_client_auth = app_state.web.is_none() && !app_state.web_upload;

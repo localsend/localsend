@@ -63,12 +63,12 @@ async fn server_survives_descriptor_exhaustion() {
         return;
     }
 
-    let port = 41777;
     let (event_tx, _event_rx) = mpsc::channel::<ServerEventV2>(16);
     let (_stop_tx, stop_rx) = oneshot::channel();
 
-    start_with_port(
-        port,
+    // Port 0 lets the OS pick a free port, avoiding collisions between tests.
+    let handle = start_with_port(
+        0,
         None, // plain HTTP
         ClientInfo {
             alias: "Target".to_string(),
@@ -88,6 +88,7 @@ async fn server_survives_descriptor_exhaustion() {
     )
     .await
     .expect("Failed to start server");
+    let port = handle.port();
 
     for _ in 0..100 {
         if info_status(port).await.is_ok() {

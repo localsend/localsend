@@ -14,9 +14,8 @@ use localsend::http::server::{start_with_port, ServerConfigV2, TlsConfig};
 use localsend::http::state::ClientInfo;
 use localsend::model::discovery::ProtocolType;
 use localsend::model::transfer::FileDto;
-use std::sync::atomic::{AtomicU16, AtomicU64, Ordering};
+use std::sync::atomic::{AtomicU64, Ordering};
 use std::sync::Arc;
-use std::time::Duration;
 use tokio::sync::{mpsc, oneshot, Mutex};
 use tokio_stream::wrappers::ReceiverStream;
 use tokio_util::sync::CancellationToken;
@@ -57,7 +56,6 @@ async fn start_tls_server(identity: &Identity) -> TestServer {
 /// (which makes the client certificate optional).
 async fn start_tls_server_with_web(identity: &Identity, web: Option<WebConfig>) -> TestServer {
     let _ = tracing_subscriber::fmt().with_test_writer().try_init();
-    let port = free_port();
     let prepare_uploads: Arc<Mutex<Vec<String>>> = Arc::new(Mutex::new(Vec::new()));
     let received: Arc<Mutex<Vec<(String, Vec<u8>)>>> = Arc::new(Mutex::new(Vec::new()));
 
@@ -107,8 +105,9 @@ async fn start_tls_server_with_web(identity: &Identity, web: Option<WebConfig>) 
 
     let (stop_tx, stop_rx) = oneshot::channel::<()>();
 
-    start_with_port(
-        port,
+    // Port 0 lets the OS pick a free port, avoiding collisions between tests.
+    let handle = start_with_port(
+        0,
         Some(TlsConfig {
             cert: identity.cert.clone(),
             private_key: identity.private_key.clone(),
@@ -132,39 +131,12 @@ async fn start_tls_server_with_web(identity: &Identity, web: Option<WebConfig>) 
     .await
     .expect("Failed to start server");
 
-    wait_until_reachable(port).await;
-
     TestServer {
-        port,
+        port: handle.port(),
         prepare_uploads,
         received,
         _stop_tx: stop_tx,
     }
-}
-
-/// Returns a free port.
-fn free_port() -> u16 {
-    static PORT_COUNTER: AtomicU16 = AtomicU16::new(40951);
-
-    loop {
-        let port = PORT_COUNTER.fetch_add(1, Ordering::SeqCst);
-        if std::net::TcpListener::bind(("127.0.0.1", port)).is_ok() {
-            return port;
-        }
-    }
-}
-
-async fn wait_until_reachable(port: u16) {
-    for _ in 0..100 {
-        if tokio::net::TcpStream::connect(("127.0.0.1", port))
-            .await
-            .is_ok()
-        {
-            return;
-        }
-        tokio::time::sleep(Duration::from_millis(20)).await;
-    }
-    panic!("Server did not become reachable on port {port}");
 }
 
 fn client(sender: &Identity, expected_fingerprint: Option<&str>) -> LsHttpClientV2 {

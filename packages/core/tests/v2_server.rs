@@ -13,7 +13,7 @@ use localsend::model::discovery::ProtocolType;
 use localsend::model::transfer::{FileDto, FileMetadata};
 use std::collections::HashMap;
 use std::path::PathBuf;
-use std::sync::atomic::{AtomicU16, AtomicU64, Ordering};
+use std::sync::atomic::{AtomicU64, Ordering};
 use std::sync::Arc;
 use std::time::Duration;
 use tokio::sync::{mpsc, oneshot, Mutex};
@@ -49,7 +49,6 @@ async fn start_test_server_with_verification(
     verify_checksums: bool,
 ) -> TestServer {
     let _ = tracing_subscriber::fmt().with_test_writer().try_init();
-    let port = free_port();
     let received: Arc<Mutex<HashMap<String, Vec<u8>>>> = Arc::new(Mutex::new(HashMap::new()));
     let session_ends: Arc<Mutex<Vec<(String, SessionEndReasonV2)>>> =
         Arc::new(Mutex::new(Vec::new()));
@@ -124,8 +123,9 @@ async fn start_test_server_with_verification(
 
     let (stop_tx, stop_rx) = oneshot::channel::<()>();
 
-    start_with_port(
-        port,
+    // Port 0 lets the OS pick a free port, avoiding collisions between tests.
+    let handle = start_with_port(
+        0,
         None, // plain HTTP
         ClientInfo {
             alias: "Test Server".to_string(),
@@ -146,42 +146,12 @@ async fn start_test_server_with_verification(
     .await
     .expect("Failed to start server");
 
-    wait_until_reachable(port).await;
-
     TestServer {
-        port,
+        port: handle.port(),
         received,
         session_ends,
         _stop_tx: stop_tx,
     }
-}
-
-/// Returns a free port.
-///
-/// A counter is used instead of binding to port 0 because the OS may hand out
-/// the same just-freed ephemeral port to multiple tests running in parallel.
-fn free_port() -> u16 {
-    static PORT_COUNTER: AtomicU16 = AtomicU16::new(40551);
-
-    loop {
-        let port = PORT_COUNTER.fetch_add(1, Ordering::SeqCst);
-        if std::net::TcpListener::bind(("127.0.0.1", port)).is_ok() {
-            return port;
-        }
-    }
-}
-
-async fn wait_until_reachable(port: u16) {
-    for _ in 0..100 {
-        if tokio::net::TcpStream::connect(("127.0.0.1", port))
-            .await
-            .is_ok()
-        {
-            return;
-        }
-        tokio::time::sleep(Duration::from_millis(20)).await;
-    }
-    panic!("Server did not become reachable on port {port}");
 }
 
 fn sender_info() -> RegisterDtoV2 {
@@ -935,7 +905,6 @@ async fn test_second_session_blocked_and_cancel() {
 #[tokio::test]
 async fn test_prepare_upload_aborted_by_sender_disconnect() {
     let _ = tracing_subscriber::fmt().with_test_writer().try_init();
-    let port = free_port();
 
     let (event_tx, mut event_rx) = mpsc::channel::<ServerEventV2>(16);
     let (aborted_tx, aborted_rx) = oneshot::channel::<String>();
@@ -967,8 +936,8 @@ async fn test_prepare_upload_aborted_by_sender_disconnect() {
     });
 
     let (stop_tx, stop_rx) = oneshot::channel::<()>();
-    start_with_port(
-        port,
+    let handle = start_with_port(
+        0,
         None, // plain HTTP
         ClientInfo {
             alias: "Test Server".to_string(),
@@ -988,7 +957,7 @@ async fn test_prepare_upload_aborted_by_sender_disconnect() {
     )
     .await
     .expect("Failed to start server");
-    wait_until_reachable(port).await;
+    let port = handle.port();
 
     // Raw TCP so the connection can be closed mid-request.
     let body =
@@ -1042,7 +1011,6 @@ async fn test_prepare_upload_aborted_by_sender_disconnect() {
 #[tokio::test]
 async fn test_prepare_upload_cancelled_by_session_less_cancel() {
     let _ = tracing_subscriber::fmt().with_test_writer().try_init();
-    let port = free_port();
 
     let (event_tx, mut event_rx) = mpsc::channel::<ServerEventV2>(16);
     let (aborted_tx, mut aborted_rx) = oneshot::channel::<String>();
@@ -1070,8 +1038,8 @@ async fn test_prepare_upload_cancelled_by_session_less_cancel() {
     });
 
     let (stop_tx, stop_rx) = oneshot::channel::<()>();
-    start_with_port(
-        port,
+    let handle = start_with_port(
+        0,
         None, // plain HTTP
         ClientInfo {
             alias: "Test Server".to_string(),
@@ -1091,7 +1059,7 @@ async fn test_prepare_upload_cancelled_by_session_less_cancel() {
     )
     .await
     .expect("Failed to start server");
-    wait_until_reachable(port).await;
+    let port = handle.port();
 
     // The prepare-upload request stays open in the background, like the
     // released sender that fires the cancel without aborting it.
@@ -1164,7 +1132,6 @@ async fn test_prepare_upload_cancelled_by_session_less_cancel() {
 #[tokio::test]
 async fn test_prepare_upload_aborted_by_sender_disconnect_tls() {
     let _ = tracing_subscriber::fmt().with_test_writer().try_init();
-    let port = free_port();
 
     let server_key = rcgen::KeyPair::generate().unwrap();
     let server_cert = rcgen::CertificateParams::new(vec!["LocalSend User".to_string()])
@@ -1203,8 +1170,8 @@ async fn test_prepare_upload_aborted_by_sender_disconnect_tls() {
     });
 
     let (stop_tx, stop_rx) = oneshot::channel::<()>();
-    start_with_port(
-        port,
+    let handle = start_with_port(
+        0,
         Some(localsend::http::server::TlsConfig {
             cert: server_cert.pem(),
             private_key: server_key.serialize_pem(),
@@ -1227,7 +1194,7 @@ async fn test_prepare_upload_aborted_by_sender_disconnect_tls() {
     )
     .await
     .expect("Failed to start server");
-    wait_until_reachable(port).await;
+    let port = handle.port();
 
     // The sender cancels while the server is still waiting for the
     // application's decision.

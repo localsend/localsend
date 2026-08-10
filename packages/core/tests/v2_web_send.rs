@@ -12,9 +12,8 @@ use localsend::model::transfer::{FileContent, FileDto};
 use std::collections::HashMap;
 use std::net::IpAddr;
 use std::path::PathBuf;
-use std::sync::atomic::{AtomicU16, AtomicU32, Ordering};
+use std::sync::atomic::{AtomicU32, Ordering};
 use std::sync::Arc;
-use std::time::Duration;
 use tokio::io::AsyncReadExt;
 use tokio::sync::{mpsc, oneshot};
 
@@ -69,7 +68,6 @@ async fn start_test_server(
     accept: bool,
 ) -> TestServer {
     let _ = tracing_subscriber::fmt().with_test_writer().try_init();
-    let port = free_port();
     let prepare_download_events = Arc::new(AtomicU32::new(0));
 
     let (web_send, contents) = match web_send {
@@ -127,8 +125,9 @@ async fn start_test_server(
         }
     });
 
-    start_with_port(
-        port,
+    // Port 0 lets the OS pick a free port, avoiding collisions between tests.
+    let handle = start_with_port(
+        0,
         None, // plain HTTP
         ClientInfo {
             alias: "Test Server".to_string(),
@@ -149,41 +148,11 @@ async fn start_test_server(
     .await
     .expect("Failed to start server");
 
-    wait_until_reachable(port).await;
-
     TestServer {
-        port,
+        port: handle.port(),
         prepare_download_events,
         _stop_tx: stop_tx,
     }
-}
-
-/// Returns a free port.
-///
-/// A counter is used instead of binding to port 0 because the OS may hand out
-/// the same just-freed ephemeral port to multiple tests running in parallel.
-fn free_port() -> u16 {
-    static PORT_COUNTER: AtomicU16 = AtomicU16::new(41551);
-
-    loop {
-        let port = PORT_COUNTER.fetch_add(1, Ordering::SeqCst);
-        if std::net::TcpListener::bind(("127.0.0.1", port)).is_ok() {
-            return port;
-        }
-    }
-}
-
-async fn wait_until_reachable(port: u16) {
-    for _ in 0..100 {
-        if tokio::net::TcpStream::connect(("127.0.0.1", port))
-            .await
-            .is_ok()
-        {
-            return;
-        }
-        tokio::time::sleep(Duration::from_millis(20)).await;
-    }
-    panic!("Server did not become reachable on port {port}");
 }
 
 fn file_dto(id: &str, name: &str, size: u64) -> FileDto {
@@ -324,12 +293,11 @@ async fn test_web_page_disabled() {
 #[tokio::test]
 async fn test_upload_page() {
     let _ = tracing_subscriber::fmt().with_test_writer().try_init();
-    let port = free_port();
     let (v2_event_tx, _v2_event_rx) = mpsc::channel::<ServerEventV2>(16);
     let (_stop_tx, stop_rx) = oneshot::channel::<()>();
 
-    start_with_port(
-        port,
+    let handle = start_with_port(
+        0,
         None, // plain HTTP
         ClientInfo {
             alias: "Test Server".to_string(),
@@ -353,8 +321,7 @@ async fn test_upload_page() {
     )
     .await
     .expect("Failed to start server");
-
-    wait_until_reachable(port).await;
+    let port = handle.port();
 
     let client = localsend::reqwest::Client::new();
     let base_url = format!("http://127.0.0.1:{port}");

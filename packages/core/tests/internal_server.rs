@@ -3,9 +3,7 @@
 use localsend::http::server::internal::{InternalConfig, InternalEvent};
 use localsend::http::server::start_with_port;
 use localsend::http::state::ClientInfo;
-use std::sync::atomic::{AtomicU16, Ordering};
 use std::sync::Arc;
-use std::time::Duration;
 use tokio::sync::{mpsc, oneshot, Mutex};
 
 struct TestServer {
@@ -16,7 +14,6 @@ struct TestServer {
 
 async fn start_test_server(internal_enabled: bool) -> TestServer {
     let _ = tracing_subscriber::fmt().with_test_writer().try_init();
-    let port = free_port();
     let show_args = Arc::new(Mutex::new(Vec::new()));
     let (event_tx, mut event_rx) = mpsc::channel::<InternalEvent>(16);
 
@@ -37,8 +34,9 @@ async fn start_test_server(internal_enabled: bool) -> TestServer {
     });
     let (stop_tx, stop_rx) = oneshot::channel::<()>();
 
-    start_with_port(
-        port,
+    // Port 0 lets the OS pick a free port, avoiding collisions between tests.
+    let handle = start_with_port(
+        0,
         None,
         ClientInfo {
             alias: "Test Server".to_string(),
@@ -55,37 +53,11 @@ async fn start_test_server(internal_enabled: bool) -> TestServer {
     .await
     .expect("Failed to start server");
 
-    wait_until_reachable(port).await;
-
     TestServer {
-        port,
+        port: handle.port(),
         show_args,
         _stop_tx: stop_tx,
     }
-}
-
-fn free_port() -> u16 {
-    static PORT_COUNTER: AtomicU16 = AtomicU16::new(42551);
-
-    loop {
-        let port = PORT_COUNTER.fetch_add(1, Ordering::SeqCst);
-        if std::net::TcpListener::bind(("127.0.0.1", port)).is_ok() {
-            return port;
-        }
-    }
-}
-
-async fn wait_until_reachable(port: u16) {
-    for _ in 0..100 {
-        if tokio::net::TcpStream::connect(("127.0.0.1", port))
-            .await
-            .is_ok()
-        {
-            return;
-        }
-        tokio::time::sleep(Duration::from_millis(20)).await;
-    }
-    panic!("Server did not become reachable on port {port}");
 }
 
 #[tokio::test]

@@ -35,37 +35,31 @@ const RECEIVE_TIMEOUT: Duration = Duration::from_secs(5);
 /// stopped instance would leak messages into the next test.
 static NEXT_MULTICAST_PORT: AtomicU16 = AtomicU16::new(55317);
 
-/// Returns a free port for an HTTP server.
+/// Returns a port to announce for instances that do not run a real server.
 ///
-/// A counter is used instead of binding to port 0 because the OS may hand out
-/// the same just-freed ephemeral port to multiple tests running in parallel.
-fn free_port() -> u16 {
+/// The port is never bound; it only needs to differ between instances.
+fn announce_port() -> u16 {
     static PORT_COUNTER: AtomicU16 = AtomicU16::new(41551);
-
-    loop {
-        let port = PORT_COUNTER.fetch_add(1, Ordering::SeqCst);
-        if std::net::TcpListener::bind(("127.0.0.1", port)).is_ok() {
-            return port;
-        }
-    }
+    PORT_COUNTER.fetch_add(1, Ordering::Relaxed)
 }
 
-/// Starts a v2 server on `port` that only exists to answer register requests
-/// with the given identity, over TLS when `tls` is given.
+/// Starts a v2 server that only exists to answer register requests with the
+/// given identity, over TLS when `tls` is given. Returns the port the OS
+/// picked.
 async fn start_register_server(
-    port: u16,
     alias: &str,
     fingerprint: &str,
     tls: Option<TlsConfig>,
-) -> oneshot::Sender<()> {
+) -> (u16, oneshot::Sender<()>) {
     let _ = tracing_subscriber::fmt().with_test_writer().try_init();
 
     // The receiver is dropped: the register endpoint responds either way.
     let (event_tx, _) = mpsc::channel(16);
     let (stop_tx, stop_rx) = oneshot::channel();
 
-    start_with_port(
-        port,
+    // Port 0 lets the OS pick a free port, avoiding collisions between tests.
+    let handle = start_with_port(
+        0,
         tls,
         ClientInfo {
             alias: alias.to_string(),
@@ -86,16 +80,7 @@ async fn start_register_server(
     .await
     .expect("Failed to start server");
 
-    for _ in 0..100 {
-        if tokio::net::TcpStream::connect(("127.0.0.1", port))
-            .await
-            .is_ok()
-        {
-            return stop_tx;
-        }
-        tokio::time::sleep(Duration::from_millis(20)).await;
-    }
-    panic!("Server did not become reachable on port {port}");
+    (handle.port(), stop_tx)
 }
 
 struct TestInstance {
@@ -135,6 +120,17 @@ async fn start_instance(
     server_port: u16,
 ) -> Option<TestInstance> {
     let cert = generate_self_signed().expect("Failed to generate an identity");
+    start_instance_with_cert(alias, multicast_port, server_port, cert).await
+}
+
+/// Like [start_instance], but with a pre-generated identity, for tests that
+/// need the fingerprint before the instance exists.
+async fn start_instance_with_cert(
+    alias: &str,
+    multicast_port: u16,
+    server_port: u16,
+    cert: localsend::crypto::cert::SelfSignedCert,
+) -> Option<TestInstance> {
     let (event_tx, events) = mpsc::channel(32);
     let (stop_tx, stop_rx) = oneshot::channel();
 
@@ -183,11 +179,10 @@ fn skip(reason: &str) {
 #[tokio::test]
 async fn test_targeted_discovery_stores_and_emits_device() {
     let multicast_port = NEXT_MULTICAST_PORT.fetch_add(1, Ordering::Relaxed);
-    let server_port = free_port();
-    let _server_stop =
-        start_register_server(server_port, "Target", "target-fingerprint", None).await;
+    let (server_port, _server_stop) =
+        start_register_server("Target", "target-fingerprint", None).await;
 
-    let Some(mut instance) = start_instance("Finder", multicast_port, free_port()).await else {
+    let Some(mut instance) = start_instance("Finder", multicast_port, announce_port()).await else {
         return skip("no network interface available for multicast");
     };
 
@@ -244,15 +239,14 @@ async fn test_targeted_discovery_stores_and_emits_device() {
 async fn test_targeted_discovery_does_not_discover_itself() {
     let multicast_port = NEXT_MULTICAST_PORT.fetch_add(1, Ordering::Relaxed);
 
-    let Some(instance) = start_instance("Selfish", multicast_port, free_port()).await else {
+    let Some(instance) = start_instance("Selfish", multicast_port, announce_port()).await else {
         return skip("no network interface available for multicast");
     };
 
     // A server answering with this instance's own fingerprint, as the
     // instance's real server would.
-    let server_port = free_port();
-    let _server_stop =
-        start_register_server(server_port, "Selfish", &instance.fingerprint, None).await;
+    let (server_port, _server_stop) =
+        start_register_server("Selfish", &instance.fingerprint, None).await;
 
     let device = instance
         .handle
@@ -267,11 +261,10 @@ async fn test_targeted_discovery_does_not_discover_itself() {
 #[tokio::test]
 async fn test_subnet_scan_finds_device_on_loopback() {
     let multicast_port = NEXT_MULTICAST_PORT.fetch_add(1, Ordering::Relaxed);
-    let server_port = free_port();
-    let _server_stop =
-        start_register_server(server_port, "ScanTarget", "scan-fingerprint", None).await;
+    let (server_port, _server_stop) =
+        start_register_server("ScanTarget", "scan-fingerprint", None).await;
 
-    let Some(mut instance) = start_instance("Scanner", multicast_port, free_port()).await else {
+    let Some(mut instance) = start_instance("Scanner", multicast_port, announce_port()).await else {
         return skip("no network interface available for multicast");
     };
 
@@ -318,16 +311,14 @@ async fn test_subnet_scan_finds_device_on_loopback() {
 async fn test_targeted_discovery_reads_fingerprint_from_certificate_on_https() {
     let multicast_port = NEXT_MULTICAST_PORT.fetch_add(1, Ordering::Relaxed);
 
-    let Some(instance) = start_instance("TlsFinder", multicast_port, free_port()).await else {
+    let Some(instance) = start_instance("TlsFinder", multicast_port, announce_port()).await else {
         return skip("no network interface available for multicast");
     };
 
     // A TLS server whose response body claims a fingerprint that does not
     // match its certificate.
     let server_cert = generate_self_signed().expect("Failed to generate an identity");
-    let server_port = free_port();
-    let _server_stop = start_register_server(
-        server_port,
+    let (server_port, _server_stop) = start_register_server(
         "TlsTarget",
         "claimed-fingerprint",
         Some(TlsConfig {
@@ -360,9 +351,8 @@ async fn test_targeted_discovery_reads_fingerprint_from_certificate_on_https() {
 
 #[tokio::test]
 async fn test_discovery_works_without_multicast() {
-    let server_port = free_port();
-    let _server_stop =
-        start_register_server(server_port, "Target", "target-fingerprint", None).await;
+    let (server_port, _server_stop) =
+        start_register_server("Target", "target-fingerprint", None).await;
 
     // An interface whitelist matching no interface makes the multicast side
     // fail deterministically.
@@ -383,7 +373,7 @@ async fn test_discovery_works_without_multicast() {
                 device_model: Some("Rust".to_string()),
                 device_type: Some(DeviceType::Headless),
                 fingerprint: cert.fingerprint.clone(),
-                port: free_port(),
+                port: announce_port(),
                 protocol: ProtocolType::Http,
                 download: false,
             },
@@ -424,15 +414,17 @@ async fn test_announcement_is_answered_and_device_stored() {
 
     // The receiver answers the announcement with a register request to the
     // announcer's HTTP server, so the announcer needs a real one.
-    let Some(mut receiver) = start_instance("Receiver", multicast_port, free_port()).await else {
+    let Some(mut receiver) = start_instance("Receiver", multicast_port, announce_port()).await else {
         return skip("no network interface available for multicast");
     };
-    let announcer_port = free_port();
-    let Some(announcer) = start_instance("Announcer", multicast_port, announcer_port).await else {
+    let announcer_cert = generate_self_signed().expect("Failed to generate an identity");
+    let (announcer_port, _server_stop) =
+        start_register_server("Announcer", &announcer_cert.fingerprint, None).await;
+    let Some(announcer) =
+        start_instance_with_cert("Announcer", multicast_port, announcer_port, announcer_cert).await
+    else {
         return skip("no network interface available for multicast");
     };
-    let _server_stop =
-        start_register_server(announcer_port, "Announcer", &announcer.fingerprint, None).await;
 
     announcer.handle.announce().await;
 

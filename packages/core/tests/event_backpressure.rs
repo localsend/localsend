@@ -25,16 +25,9 @@ use tokio::sync::{mpsc, oneshot};
 /// The capacity the isolate layer uses for both event channels.
 const CHANNEL_CAPACITY: usize = 16;
 
-fn free_port() -> u16 {
-    static PORT_COUNTER: AtomicU16 = AtomicU16::new(43551);
-
-    loop {
-        let port = PORT_COUNTER.fetch_add(1, Ordering::SeqCst);
-        if std::net::TcpListener::bind(("127.0.0.1", port)).is_ok() {
-            return port;
-        }
-    }
-}
+/// Multicast ports are not reused between tests: a lingering membership of a
+/// stopped instance would leak messages into the next test.
+static NEXT_MULTICAST_PORT: AtomicU16 = AtomicU16::new(43551);
 
 fn register_dto(port: u16) -> RegisterDtoV2 {
     RegisterDtoV2 {
@@ -50,15 +43,14 @@ fn register_dto(port: u16) -> RegisterDtoV2 {
 }
 
 /// Starts a v2 server whose event receiver is kept alive but never read, i.e.
-/// an application that is busy.
+/// an application that is busy. Returns the port the OS picked.
 async fn start_server_with_stalled_events(
-    port: u16,
-) -> (oneshot::Sender<()>, mpsc::Receiver<ServerEventV2>) {
+) -> (u16, oneshot::Sender<()>, mpsc::Receiver<ServerEventV2>) {
     let (event_tx, event_rx) = mpsc::channel::<ServerEventV2>(CHANNEL_CAPACITY);
     let (stop_tx, stop_rx) = oneshot::channel();
 
-    start_with_port(
-        port,
+    let handle = start_with_port(
+        0,
         None, // plain HTTP
         ClientInfo {
             alias: "Target".to_string(),
@@ -79,25 +71,14 @@ async fn start_server_with_stalled_events(
     .await
     .expect("Failed to start server");
 
-    for _ in 0..100 {
-        if tokio::net::TcpStream::connect(("127.0.0.1", port))
-            .await
-            .is_ok()
-        {
-            break;
-        }
-        tokio::time::sleep(Duration::from_millis(20)).await;
-    }
-
-    (stop_tx, event_rx)
+    (handle.port(), stop_tx, event_rx)
 }
 
 /// More registrations than the event channel holds must all be answered, even
 /// though the application reads none of them.
 #[tokio::test(flavor = "multi_thread")]
 async fn register_keeps_answering_when_events_are_not_consumed() {
-    let port = free_port();
-    let (_stop_tx, _event_rx) = start_server_with_stalled_events(port).await;
+    let (port, _stop_tx, _event_rx) = start_server_with_stalled_events().await;
 
     let cert = generate_self_signed().expect("Failed to generate an identity");
     let client = LsHttpClientV2::try_new(
@@ -125,8 +106,7 @@ async fn register_keeps_answering_when_events_are_not_consumed() {
 async fn subnet_scan_finishes_when_events_are_not_consumed() {
     // Every 127.0.0.x address reaches this server, so the scan confirms the
     // whole subnet at once.
-    let port = free_port();
-    let (_stop_tx, _server_event_rx) = start_server_with_stalled_events(port).await;
+    let (port, _stop_tx, _server_event_rx) = start_server_with_stalled_events().await;
 
     let cert = generate_self_signed().expect("Failed to generate an identity");
     let (event_tx, _events) = mpsc::channel::<DiscoveryEvent>(CHANNEL_CAPACITY);
@@ -136,7 +116,7 @@ async fn subnet_scan_finishes_when_events_are_not_consumed() {
         DiscoveryConfig {
             group: Ipv4Addr::new(224, 0, 0, 171),
             group_v6: None,
-            port: free_port(),
+            port: NEXT_MULTICAST_PORT.fetch_add(1, Ordering::SeqCst),
             interface_filter: Default::default(),
             device: MulticastDevice {
                 alias: "Scanner".to_string(),
