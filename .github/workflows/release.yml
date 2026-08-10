@@ -410,38 +410,40 @@ jobs:
         working-directory: app
         run: Compress-Archive -Path build/windows/x64/runner/Release/* -DestinationPath "LocalSend-${{ needs.build.outputs.version }}-windows-x86-64.zip"
 
-      - name: Upload unsigned zip
-        id: unsigned-zip
-        uses: actions/upload-artifact@v6
-        with:
-          name: windows-zip-unsigned
-          path: app/LocalSend-${{ needs.build.outputs.version }}-windows-x86-64.zip
-          if-no-files-found: error
+      # Signing temporarily disabled: the unsigned zip is uploaded as the result
+      # - name: Upload unsigned zip
+      #   id: unsigned-zip
+      #   uses: actions/upload-artifact@v6
+      #   with:
+      #     name: windows-zip-unsigned
+      #     path: app/LocalSend-${{ needs.build.outputs.version }}-windows-x86-64.zip
+      #     if-no-files-found: error
+      #
+      # - name: Sign zip (SignPath)
+      #   uses: signpath/github-action-submit-signing-request@v2
+      #   with:
+      #     api-token: ${{ secrets.SIGNPATH_API_TOKEN }}
+      #     organization-id: ${{ vars.SIGNPATH_ORG_ID }}
+      #     project-slug: localsend
+      #     signing-policy-slug: release-signing
+      #     artifact-configuration-slug: portable
+      #     github-artifact-id: ${{ steps.unsigned-zip.outputs.artifact-id }}
+      #     wait-for-completion: true
+      #     output-artifact-directory: signed/portable
+      #
+      # - name: Verify signature
+      #   continue-on-error: true
+      #   run: |
+      #     Expand-Archive -Path "signed\portable\LocalSend-${{ needs.build.outputs.version }}-windows-x86-64.zip" -DestinationPath verify-portable
+      #     $signtool = Get-ChildItem 'C:\Program Files (x86)\Windows Kits\10\bin\10.*\x64\signtool.exe' | Select-Object -Last 1
+      #     & $signtool.FullName verify /pa /v verify-portable\localsend_app.exe
 
-      - name: Sign zip (SignPath)
-        uses: signpath/github-action-submit-signing-request@v2
-        with:
-          api-token: ${{ secrets.SIGNPATH_API_TOKEN }}
-          organization-id: ${{ vars.SIGNPATH_ORG_ID }}
-          project-slug: localsend
-          signing-policy-slug: release-signing
-          artifact-configuration-slug: portable
-          github-artifact-id: ${{ steps.unsigned-zip.outputs.artifact-id }}
-          wait-for-completion: true
-          output-artifact-directory: signed/portable
-
-      - name: Verify signature
-        continue-on-error: true
-        run: |
-          Expand-Archive -Path "signed\portable\LocalSend-${{ needs.build.outputs.version }}-windows-x86-64.zip" -DestinationPath verify-portable
-          $signtool = Get-ChildItem 'C:\Program Files (x86)\Windows Kits\10\bin\10.*\x64\signtool.exe' | Select-Object -Last 1
-          & $signtool.FullName verify /pa /v verify-portable\localsend_app.exe
-
-      - name: Upload signed zip
+      - name: Upload zip
         uses: actions/upload-artifact@v6
         with:
           name: windows-zip-x86-64-result
-          path: signed/portable/LocalSend-${{ needs.build.outputs.version }}-windows-x86-64.zip
+          path: app/LocalSend-${{ needs.build.outputs.version }}-windows-x86-64.zip
+          if-no-files-found: error
 
   build_windows_zip_arm_64:
     needs: build
@@ -518,148 +520,151 @@ jobs:
         working-directory: app
         run: Compress-Archive -Path build/windows/arm64/runner/Release/* -DestinationPath "LocalSend-${{ needs.build.outputs.version }}-windows-arm-64.zip"
 
-      - name: Upload unsigned zip
-        id: unsigned-zip
-        uses: actions/upload-artifact@v6
-        with:
-          name: windows-zip-arm-64-unsigned
-          path: app/LocalSend-${{ needs.build.outputs.version }}-windows-arm-64.zip
-          if-no-files-found: error
+      # Signing temporarily disabled: the unsigned zip is uploaded as the result
+      # - name: Upload unsigned zip
+      #   id: unsigned-zip
+      #   uses: actions/upload-artifact@v6
+      #   with:
+      #     name: windows-zip-arm-64-unsigned
+      #     path: app/LocalSend-${{ needs.build.outputs.version }}-windows-arm-64.zip
+      #     if-no-files-found: error
+      #
+      # - name: Sign zip (SignPath)
+      #   uses: signpath/github-action-submit-signing-request@v2
+      #   with:
+      #     api-token: ${{ secrets.SIGNPATH_API_TOKEN }}
+      #     organization-id: ${{ vars.SIGNPATH_ORG_ID }}
+      #     project-slug: localsend
+      #     signing-policy-slug: release-signing
+      #     artifact-configuration-slug: portable
+      #     github-artifact-id: ${{ steps.unsigned-zip.outputs.artifact-id }}
+      #     wait-for-completion: true
+      #     output-artifact-directory: signed/portable
+      #
+      # - name: Verify signature
+      #   continue-on-error: true
+      #   run: |
+      #     Expand-Archive -Path "signed\portable\LocalSend-${{ needs.build.outputs.version }}-windows-arm-64.zip" -DestinationPath verify-portable
+      #     $signtool = Get-ChildItem 'C:\Program Files (x86)\Windows Kits\10\bin\10.*\arm64\signtool.exe' | Select-Object -Last 1
+      #     & $signtool.FullName verify /pa /v verify-portable\localsend_app.exe
 
-      - name: Sign zip (SignPath)
-        uses: signpath/github-action-submit-signing-request@v2
-        with:
-          api-token: ${{ secrets.SIGNPATH_API_TOKEN }}
-          organization-id: ${{ vars.SIGNPATH_ORG_ID }}
-          project-slug: localsend
-          signing-policy-slug: release-signing
-          artifact-configuration-slug: portable
-          github-artifact-id: ${{ steps.unsigned-zip.outputs.artifact-id }}
-          wait-for-completion: true
-          output-artifact-directory: signed/portable
-
-      - name: Verify signature
-        continue-on-error: true
-        run: |
-          Expand-Archive -Path "signed\portable\LocalSend-${{ needs.build.outputs.version }}-windows-arm-64.zip" -DestinationPath verify-portable
-          $signtool = Get-ChildItem 'C:\Program Files (x86)\Windows Kits\10\bin\10.*\arm64\signtool.exe' | Select-Object -Last 1
-          & $signtool.FullName verify /pa /v verify-portable\localsend_app.exe
-
-      - name: Upload signed zip
+      - name: Upload zip
         uses: actions/upload-artifact@v6
         with:
           name: windows-zip-arm-64-result
-          path: signed/portable/LocalSend-${{ needs.build.outputs.version }}-windows-arm-64.zip
-
-  build_windows_exe_x86_64:
-    needs: build
-    runs-on: windows-latest
-    environment: packaging
-
-    steps:
-      - name: Fix long file paths
-        run: git config --system core.longpaths true
-
-      - name: Checkout repository
-        uses: actions/checkout@v6
-
-      - uses: subosito/flutter-action@v2
-        with:
-          flutter-version: ${{ env.FLUTTER_VERSION }}
-          channel: "stable"
-
-      - name: Build MSIX helper
-        run: |
-          $makepri = Get-ChildItem 'C:\Program Files (x86)\Windows Kits\10\bin\10.*\x64\makepri.exe' | Select-Object -Last 1
-          & $makepri.FullName new /pr support\build\msix\content /cf support\build\msix\priconfig.xml /mn support\build\msix\content\AppxManifest.xml /of support\build\msix\content\resources.pri /o
-          & 'C:\Program Files (x86)\Windows Kits\10\App Certification Kit\makeappx.exe' pack /o /d support\build\msix\content /nv /p app\windows\localsend_msix_helper.msix
-
-      # The sparse package needs its own signature (Add-AppxPackage rejects unsigned packages);
-      # signing the surrounding installer does not cover it. Sign before "flutter build windows"
-      # so CMake bundles the signed msix into the Release directory.
-      - name: Upload unsigned MSIX helper
-        id: unsigned-msix
-        uses: actions/upload-artifact@v6
-        with:
-          name: windows-msix-helper-unsigned
-          path: app\windows\localsend_msix_helper.msix
+          path: app/LocalSend-${{ needs.build.outputs.version }}-windows-arm-64.zip
           if-no-files-found: error
 
-      - name: Sign MSIX helper (SignPath)
-        uses: signpath/github-action-submit-signing-request@v2
-        with:
-          api-token: ${{ secrets.SIGNPATH_API_TOKEN }}
-          organization-id: ${{ vars.SIGNPATH_ORG_ID }}
-          project-slug: localsend
-          signing-policy-slug: release-signing
-          artifact-configuration-slug: msix-helper
-          github-artifact-id: ${{ steps.unsigned-msix.outputs.artifact-id }}
-          wait-for-completion: true
-          output-artifact-directory: signed/msix-helper
+  # Installer temporarily disabled: releasing without code signing for now
+  # build_windows_exe_x86_64:
+  #   needs: build
+  #   runs-on: windows-latest
+  #   environment: packaging
 
-      - name: Replace MSIX helper with signed version
-        run: Copy-Item -Force signed\msix-helper\localsend_msix_helper.msix app\windows\localsend_msix_helper.msix
+  #   steps:
+  #     - name: Fix long file paths
+  #       run: git config --system core.longpaths true
 
-      - name: Verify MSIX signature
-        continue-on-error: true
-        run: |
-          $signtool = Get-ChildItem 'C:\Program Files (x86)\Windows Kits\10\bin\10.*\x64\signtool.exe' | Select-Object -Last 1
-          & $signtool.FullName verify /pa /v app\windows\localsend_msix_helper.msix
+  #     - name: Checkout repository
+  #       uses: actions/checkout@v6
 
-      - name: Dependencies
-        working-directory: app
-        run: flutter pub get
+  #     - uses: subosito/flutter-action@v2
+  #       with:
+  #         flutter-version: ${{ env.FLUTTER_VERSION }}
+  #         channel: "stable"
 
-      - name: Compile for Windows
-        working-directory: app
-        run: flutter build windows
+  #     - name: Build MSIX helper
+  #       run: |
+  #         $makepri = Get-ChildItem 'C:\Program Files (x86)\Windows Kits\10\bin\10.*\x64\makepri.exe' | Select-Object -Last 1
+  #         & $makepri.FullName new /pr support\build\msix\content /cf support\build\msix\priconfig.xml /mn support\build\msix\content\AppxManifest.xml /of support\build\msix\content\resources.pri /o
+  #         & 'C:\Program Files (x86)\Windows Kits\10\App Certification Kit\makeappx.exe' pack /o /d support\build\msix\content /nv /p app\windows\localsend_msix_helper.msix
 
-      - name: Prepare Inno Setup payload
-        run: |
-          New-Item -ItemType Directory -Force -Path "${{ runner.temp }}\inno" | Out-Null
-          Copy-Item -Path "app\build\windows\x64\runner\Release\*" -Destination "${{ runner.temp }}\inno" -Recurse
-          Copy-Item -Path "app\assets\packaging\logo.ico" -Destination "${{ runner.temp }}\inno"
-          Copy-Item -Path "support\build\windows\x64\*" -Destination "${{ runner.temp }}\inno" -Recurse
-          New-Item -ItemType Directory -Force -Path "${{ runner.temp }}\inno-result" | Out-Null
+  #     # The sparse package needs its own signature (Add-AppxPackage rejects unsigned packages);
+  #     # signing the surrounding installer does not cover it. Sign before "flutter build windows"
+  #     # so CMake bundles the signed msix into the Release directory.
+  #     - name: Upload unsigned MSIX helper
+  #       id: unsigned-msix
+  #       uses: actions/upload-artifact@v6
+  #       with:
+  #         name: windows-msix-helper-unsigned
+  #         path: app\windows\localsend_msix_helper.msix
+  #         if-no-files-found: error
 
-      - name: Compile installer (unsigned)
-        run: iscc /DSkipSignTool "/DPayloadDir=${{ runner.temp }}\inno" "/DResultDir=${{ runner.temp }}\inno-result" support\scripts\compile_windows_exe-inno.iss
+  #     - name: Sign MSIX helper (SignPath)
+  #       uses: signpath/github-action-submit-signing-request@v2
+  #       with:
+  #         api-token: ${{ secrets.SIGNPATH_API_TOKEN }}
+  #         organization-id: ${{ vars.SIGNPATH_ORG_ID }}
+  #         project-slug: localsend
+  #         signing-policy-slug: release-signing
+  #         artifact-configuration-slug: msix-helper
+  #         github-artifact-id: ${{ steps.unsigned-msix.outputs.artifact-id }}
+  #         wait-for-completion: true
+  #         output-artifact-directory: signed/msix-helper
 
-      # The SignPath artifact configuration expects "LocalSend-*-windows-x86-64.exe"
-      - name: Rename installer
-        run: Rename-Item -Path "${{ runner.temp }}\inno-result\localsend.exe" -NewName "LocalSend-${{ needs.build.outputs.version }}-windows-x86-64.exe"
+  #     - name: Replace MSIX helper with signed version
+  #       run: Copy-Item -Force signed\msix-helper\localsend_msix_helper.msix app\windows\localsend_msix_helper.msix
 
-      - name: Upload unsigned installer
-        id: unsigned-installer
-        uses: actions/upload-artifact@v6
-        with:
-          name: windows-exe-unsigned
-          path: ${{ runner.temp }}\inno-result\LocalSend-${{ needs.build.outputs.version }}-windows-x86-64.exe
-          if-no-files-found: error
+  #     - name: Verify MSIX signature
+  #       continue-on-error: true
+  #       run: |
+  #         $signtool = Get-ChildItem 'C:\Program Files (x86)\Windows Kits\10\bin\10.*\x64\signtool.exe' | Select-Object -Last 1
+  #         & $signtool.FullName verify /pa /v app\windows\localsend_msix_helper.msix
 
-      - name: Sign installer (SignPath)
-        uses: signpath/github-action-submit-signing-request@v2
-        with:
-          api-token: ${{ secrets.SIGNPATH_API_TOKEN }}
-          organization-id: ${{ vars.SIGNPATH_ORG_ID }}
-          project-slug: localsend
-          signing-policy-slug: release-signing
-          artifact-configuration-slug: installer
-          github-artifact-id: ${{ steps.unsigned-installer.outputs.artifact-id }}
-          wait-for-completion: true
-          output-artifact-directory: signed/installer
+  #     - name: Dependencies
+  #       working-directory: app
+  #       run: flutter pub get
 
-      - name: Verify signature
-        continue-on-error: true
-        run: |
-          $signtool = Get-ChildItem 'C:\Program Files (x86)\Windows Kits\10\bin\10.*\x64\signtool.exe' | Select-Object -Last 1
-          & $signtool.FullName verify /pa /v "signed\installer\LocalSend-${{ needs.build.outputs.version }}-windows-x86-64.exe"
+  #     - name: Compile for Windows
+  #       working-directory: app
+  #       run: flutter build windows
 
-      - name: Upload signed installer
-        uses: actions/upload-artifact@v6
-        with:
-          name: windows-exe-x86-64-result
-          path: signed/installer/LocalSend-${{ needs.build.outputs.version }}-windows-x86-64.exe
+  #     - name: Prepare Inno Setup payload
+  #       run: |
+  #         New-Item -ItemType Directory -Force -Path "${{ runner.temp }}\inno" | Out-Null
+  #         Copy-Item -Path "app\build\windows\x64\runner\Release\*" -Destination "${{ runner.temp }}\inno" -Recurse
+  #         Copy-Item -Path "app\assets\packaging\logo.ico" -Destination "${{ runner.temp }}\inno"
+  #         Copy-Item -Path "support\build\windows\x64\*" -Destination "${{ runner.temp }}\inno" -Recurse
+  #         New-Item -ItemType Directory -Force -Path "${{ runner.temp }}\inno-result" | Out-Null
+
+  #     - name: Compile installer (unsigned)
+  #       run: iscc /DSkipSignTool "/DPayloadDir=${{ runner.temp }}\inno" "/DResultDir=${{ runner.temp }}\inno-result" support\scripts\compile_windows_exe-inno.iss
+
+  #     # The SignPath artifact configuration expects "LocalSend-*-windows-x86-64.exe"
+  #     - name: Rename installer
+  #       run: Rename-Item -Path "${{ runner.temp }}\inno-result\localsend.exe" -NewName "LocalSend-${{ needs.build.outputs.version }}-windows-x86-64.exe"
+
+  #     - name: Upload unsigned installer
+  #       id: unsigned-installer
+  #       uses: actions/upload-artifact@v6
+  #       with:
+  #         name: windows-exe-unsigned
+  #         path: ${{ runner.temp }}\inno-result\LocalSend-${{ needs.build.outputs.version }}-windows-x86-64.exe
+  #         if-no-files-found: error
+
+  #     - name: Sign installer (SignPath)
+  #       uses: signpath/github-action-submit-signing-request@v2
+  #       with:
+  #         api-token: ${{ secrets.SIGNPATH_API_TOKEN }}
+  #         organization-id: ${{ vars.SIGNPATH_ORG_ID }}
+  #         project-slug: localsend
+  #         signing-policy-slug: release-signing
+  #         artifact-configuration-slug: installer
+  #         github-artifact-id: ${{ steps.unsigned-installer.outputs.artifact-id }}
+  #         wait-for-completion: true
+  #         output-artifact-directory: signed/installer
+
+  #     - name: Verify signature
+  #       continue-on-error: true
+  #       run: |
+  #         $signtool = Get-ChildItem 'C:\Program Files (x86)\Windows Kits\10\bin\10.*\x64\signtool.exe' | Select-Object -Last 1
+  #         & $signtool.FullName verify /pa /v "signed\installer\LocalSend-${{ needs.build.outputs.version }}-windows-x86-64.exe"
+
+  #     - name: Upload signed installer
+  #       uses: actions/upload-artifact@v6
+  #       with:
+  #         name: windows-exe-x86-64-result
+  #         path: signed/installer/LocalSend-${{ needs.build.outputs.version }}-windows-x86-64.exe
 
   build_cli_linux:
     needs: build
@@ -721,37 +726,39 @@ jobs:
       - name: Rename CLI executable
         run: Rename-Item -Path "target\release\localsend-cli.exe" -NewName "LocalSend-CLI-${{ needs.build.outputs.version }}-windows-${{ matrix.suffix }}.exe"
 
-      - name: Upload unsigned CLI
-        id: unsigned-cli
-        uses: actions/upload-artifact@v6
-        with:
-          name: windows-cli-exe-${{ matrix.suffix }}-unsigned
-          path: target\release\LocalSend-CLI-${{ needs.build.outputs.version }}-windows-${{ matrix.suffix }}.exe
-          if-no-files-found: error
+      # Signing temporarily disabled: the unsigned exe is uploaded as the result
+      # - name: Upload unsigned CLI
+      #   id: unsigned-cli
+      #   uses: actions/upload-artifact@v6
+      #   with:
+      #     name: windows-cli-exe-${{ matrix.suffix }}-unsigned
+      #     path: target\release\LocalSend-CLI-${{ needs.build.outputs.version }}-windows-${{ matrix.suffix }}.exe
+      #     if-no-files-found: error
+      #
+      # - name: Sign CLI (SignPath)
+      #   uses: signpath/github-action-submit-signing-request@v2
+      #   with:
+      #     api-token: ${{ secrets.SIGNPATH_API_TOKEN }}
+      #     organization-id: ${{ vars.SIGNPATH_ORG_ID }}
+      #     project-slug: localsend
+      #     signing-policy-slug: release-signing
+      #     artifact-configuration-slug: cli
+      #     github-artifact-id: ${{ steps.unsigned-cli.outputs.artifact-id }}
+      #     wait-for-completion: true
+      #     output-artifact-directory: signed/cli
+      #
+      # - name: Verify signature
+      #   continue-on-error: true
+      #   run: |
+      #     $signtool = Get-ChildItem 'C:\Program Files (x86)\Windows Kits\10\bin\10.*\${{ matrix.signtool_arch }}\signtool.exe' | Select-Object -Last 1
+      #     & $signtool.FullName verify /pa /v "signed\cli\LocalSend-CLI-${{ needs.build.outputs.version }}-windows-${{ matrix.suffix }}.exe"
 
-      - name: Sign CLI (SignPath)
-        uses: signpath/github-action-submit-signing-request@v2
-        with:
-          api-token: ${{ secrets.SIGNPATH_API_TOKEN }}
-          organization-id: ${{ vars.SIGNPATH_ORG_ID }}
-          project-slug: localsend
-          signing-policy-slug: release-signing
-          artifact-configuration-slug: cli
-          github-artifact-id: ${{ steps.unsigned-cli.outputs.artifact-id }}
-          wait-for-completion: true
-          output-artifact-directory: signed/cli
-
-      - name: Verify signature
-        continue-on-error: true
-        run: |
-          $signtool = Get-ChildItem 'C:\Program Files (x86)\Windows Kits\10\bin\10.*\${{ matrix.signtool_arch }}\signtool.exe' | Select-Object -Last 1
-          & $signtool.FullName verify /pa /v "signed\cli\LocalSend-CLI-${{ needs.build.outputs.version }}-windows-${{ matrix.suffix }}.exe"
-
-      - name: Upload signed CLI
+      - name: Upload CLI
         uses: actions/upload-artifact@v6
         with:
           name: windows-cli-exe-${{ matrix.suffix }}-result
-          path: signed/cli/LocalSend-CLI-${{ needs.build.outputs.version }}-windows-${{ matrix.suffix }}.exe
+          path: target\release\LocalSend-CLI-${{ needs.build.outputs.version }}-windows-${{ matrix.suffix }}.exe
+          if-no-files-found: error
 
   release:
     needs:
@@ -764,7 +771,7 @@ jobs:
       - build_appimage_x86_64
       - build_windows_zip_x86_64
       - build_windows_zip_arm_64
-      - build_windows_exe_x86_64
+      # - build_windows_exe_x86_64
       - build_cli_linux
       - build_cli_windows_exe
     runs-on: ubuntu-24.04
@@ -975,25 +982,25 @@ jobs:
           asset_name: LocalSend-${{ needs.build.outputs.version }}-windows-arm-64.zip
           asset_content_type: application/zip
 
-      # WINDOWS EXE (x86_64, signed via SignPath)
-      - name: Download windows exe file
-        uses: actions/download-artifact@v7
-        with:
-          name: windows-exe-x86-64-result
-          path: windows-exe-x86-64-result
-
-      - name: Copy exe file to root
-        run: cp windows-exe-x86-64-result/*.exe result.exe
-
-      - name: Upload Release Asset
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.draft_release.outputs.upload_url }}
-          asset_path: result.exe
-          asset_name: LocalSend-${{ needs.build.outputs.version }}-windows-x86-64.exe
-          asset_content_type: application/vnd.microsoft.portable-executable
+      # WINDOWS EXE (x86_64, signed via SignPath) — installer temporarily disabled
+      # - name: Download windows exe file
+      #   uses: actions/download-artifact@v7
+      #   with:
+      #     name: windows-exe-x86-64-result
+      #     path: windows-exe-x86-64-result
+      #
+      # - name: Copy exe file to root
+      #   run: cp windows-exe-x86-64-result/*.exe result.exe
+      #
+      # - name: Upload Release Asset
+      #   uses: actions/upload-release-asset@v1
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #   with:
+      #     upload_url: ${{ steps.draft_release.outputs.upload_url }}
+      #     asset_path: result.exe
+      #     asset_name: LocalSend-${{ needs.build.outputs.version }}-windows-x86-64.exe
+      #     asset_content_type: application/vnd.microsoft.portable-executable
 
       # LINUX CLI (x86_64)
       - name: Download linux CLI file
