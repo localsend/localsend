@@ -117,9 +117,16 @@ jobs:
           echo "CLI version is $VERSION"
           echo "cli_version=$VERSION" >> $GITHUB_ENV
 
-      - name: Compare pubspec, Inno Setup and CLI versions
+      - name: Extract version from MSIX helper manifest
+        id: msix_version
         run: |
-          if [ "$pubspec_version" != "$inno_version" ] || [ "$pubspec_version" != "$cli_version" ]; then
+          VERSION=$(grep -o ' Version="[0-9.]*"' support/build/msix/content/AppxManifest.xml | sed 's/ Version="//' | sed 's/"//')
+          echo "MSIX helper version is $VERSION"
+          echo "msix_version=$VERSION" >> $GITHUB_ENV
+
+      - name: Compare pubspec, Inno Setup, CLI and MSIX helper versions
+        run: |
+          if [ "$pubspec_version" != "$inno_version" ] || [ "$pubspec_version" != "$cli_version" ] || [ "$pubspec_version.0" != "$msix_version" ]; then
             echo "Version mismatch detected!"
             exit 1
           else

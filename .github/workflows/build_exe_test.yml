@@ -44,13 +44,16 @@ jobs:
       - name: Patch MSIX publisher for test certificate
         run: |
           $subject = 'CN=Test certificate for ''LocalSend [OSS]'''
-          $manifest = 'support\build\msix\AppxManifest.xml'
+          $manifest = 'support\build\msix\content\AppxManifest.xml'
           $exeManifest = 'app\windows\localsend_app.exe.manifest'
           (Get-Content $manifest -Raw) -creplace 'Publisher="[^"]+"', ('Publisher="' + $subject + '"') | Set-Content $manifest -Encoding utf8
           (Get-Content $exeManifest -Raw) -creplace 'publisher="[^"]+"', ('publisher="' + $subject + '"') | Set-Content $exeManifest -Encoding utf8
 
       - name: Build MSIX helper
-        run: '& ''C:\Program Files (x86)\Windows Kits\10\App Certification Kit\makeappx.exe'' pack /o /d support\build\msix /nv /p app\windows\localsend_msix_helper.msix'
+        run: |
+          $makepri = Get-ChildItem 'C:\Program Files (x86)\Windows Kits\10\bin\10.*\x64\makepri.exe' | Select-Object -Last 1
+          & $makepri.FullName new /pr support\build\msix\content /cf support\build\msix\priconfig.xml /mn support\build\msix\content\AppxManifest.xml /of support\build\msix\content\resources.pri /o
+          & 'C:\Program Files (x86)\Windows Kits\10\App Certification Kit\makeappx.exe' pack /o /d support\build\msix\content /nv /p app\windows\localsend_msix_helper.msix
 
       # The sparse package needs its own signature (Add-AppxPackage rejects unsigned packages)
       - name: Upload unsigned MSIX helper
