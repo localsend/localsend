@@ -1,4 +1,4 @@
-## 1.18.0 (2026-08-09)
+## 1.18.0 (2026-08-10)
 
 - feat(cli): initial CLI release
 - feat: receive via link
