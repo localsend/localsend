@@ -74,6 +74,8 @@ It is recommended to download the app either from an app store or from a package
 
 Read more about [distribution channels][].
 
+Windows binaries are signed. Read more about the [Code signing policy][].
+
 > [!CAUTION]
 > **Unofficial MSIX preview:** you can try builds from the latest commits at [localsend.ob-buff.dev](https://localsend.ob-buff.dev/). Stability is not guaranteed and all custom code tweaks are listed on that site.
 
@@ -92,6 +94,7 @@ Read more about [distribution channels][].
 [aur]: https://aur.archlinux.org/packages/localsend-bin
 [latest]: https://github.com/localsend/localsend/releases/latest
 [distribution channels]: https://github.com/localsend/localsend/blob/main/CONTRIBUTING.md#distribution
+[code signing policy]: https://github.com/localsend/localsend/blob/main/CODE_SIGNING.md
 
 **Compatibility**
 
