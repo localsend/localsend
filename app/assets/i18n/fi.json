@@ -226,7 +226,7 @@
   "verifyPage": {
     "title": "Vahvista",
     "icons": "Kuvakkeet",
-    "raw": "Raaka",
+    "text": "Teksti",
     "question": "Näyttääkö se samalta toisella laitteella?"
   },
   "receivePage": {

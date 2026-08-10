@@ -226,7 +226,7 @@
   "verifyPage": {
     "title": "Проверка",
     "icons": "Икони",
-    "raw": "Необработен",
+    "text": "Текст",
     "question": "Изглежда ли по същия начин на другото устройство?"
   },
   "receivePage": {
@@ -269,7 +269,7 @@
     },
     "remainingTime": {
       "minutesUnit(plural, param=m)": {
-        "other": "{m}м"
+        "other": "{m}мин"
       },
       "hoursUnit(plural, param=h)": {
         "other": "{h}ч"

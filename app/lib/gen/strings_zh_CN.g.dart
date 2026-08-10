@@ -377,7 +377,7 @@ class Translations$verifyPage$zh_CN extends Translations$verifyPage$en {
   @override
   String get icons => '图标';
   @override
-  String get raw => '原始数据';
+  String get text => '文本';
   @override
   String get question => '在另一台设备上显示的内容相同吗？';
 }

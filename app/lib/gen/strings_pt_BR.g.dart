@@ -379,7 +379,7 @@ class Translations$verifyPage$pt_BR extends Translations$verifyPage$en {
   @override
   String get icons => 'Ícones';
   @override
-  String get raw => 'Bruto';
+  String get text => 'Texto';
   @override
   String get question => 'Está igual no outro dispositivo?';
 }

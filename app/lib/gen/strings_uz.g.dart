@@ -376,9 +376,9 @@ class _Translations$verifyPage$uz extends Translations$verifyPage$en {
   @override
   String get icons => 'Belgilar';
   @override
-  String get raw => 'Xom';
+  String get text => 'Matn';
   @override
-  String get question => 'Boshqa qurilmada ham xuddi shunday ko\'rinyaptimi?';
+  String get question => 'Boshqa qurilmada ham xuddi shunday koʻrinyaptimi?';
 }
 
 // Path: receivePage
@@ -1563,8 +1563,8 @@ class _Translations$whatsNewPage$changes$v1_18_0$uz extends Translations$whatsNe
   // Translations
   @override
   List<String> get changes => [
-    'Shifrlash endi uzatishlarni sekinlashtirmaydi. Agar avval o\'chirib qo\'ygan bo\'lsangiz, bu qurilmada u qayta yoqildi.',
-    'Sevimlilardan kelgan so\'rovlar endi avtomatik qabul qilinadi. Bu sukut bo\'yicha yoqilgan va sozlamalarda o\'chirib qo\'yish mumkin.',
-    'Android\'da ilova fonda bo\'lsa yoki ekran o\'chiq bo\'lsa ham uzatishlar davom etadi. iOS\'da ilova hali ham old fonda qolishi kerak.',
+    'Shifrlash endi uzatishlarni sekinlashtirmaydi. Agar avval oʻchirib qoʻygan boʻlsangiz, bu qurilmada u qayta yoqildi.',
+    'Sevimlilardan kelgan soʻrovlar endi avtomatik qabul qilinadi. Bu sukut boʻyicha yoqilgan va sozlamalarda oʻchirib qoʻyish mumkin.',
+    'Androidda ilova fonda boʻlsa yoki ekran oʻchiq boʻlsa ham uzatishlar davom etadi. iOSda ilova hali ham old fonda qolishi kerak.',
   ];
 }

@@ -376,7 +376,7 @@ class _Translations$verifyPage$eu extends Translations$verifyPage$en {
   @override
   String get icons => 'Ikonoak';
   @override
-  String get raw => 'Gordina';
+  String get text => 'Testua';
   @override
   String get question => 'Beste gailuan berdin ikusten da?';
 }

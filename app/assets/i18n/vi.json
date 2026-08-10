@@ -226,7 +226,7 @@
   "verifyPage": {
     "title": "Xác minh",
     "icons": "Biểu tượng",
-    "raw": "Thô",
+    "text": "Văn bản",
     "question": "Nó có giống nhau trên thiết bị kia không?"
   },
   "receivePage": {

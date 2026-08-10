@@ -377,7 +377,7 @@ class _Translations$verifyPage$fr extends Translations$verifyPage$en {
   @override
   String get icons => 'Icônes';
   @override
-  String get raw => 'Brut';
+  String get text => 'Texte';
   @override
   String get question => 'Est-ce identique sur l\'autre appareil ?';
 }

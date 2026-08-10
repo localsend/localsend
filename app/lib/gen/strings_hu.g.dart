@@ -376,7 +376,7 @@ class _Translations$verifyPage$hu extends Translations$verifyPage$en {
   @override
   String get icons => 'Ikonok';
   @override
-  String get raw => 'Nyers';
+  String get text => 'Szöveg';
   @override
   String get question => 'Ugyanúgy néz ki a másik eszközön?';
 }

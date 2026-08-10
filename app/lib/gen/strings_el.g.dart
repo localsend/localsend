@@ -379,7 +379,7 @@ class _Translations$verifyPage$el extends Translations$verifyPage$en {
   @override
   String get icons => 'Εικονίδια';
   @override
-  String get raw => 'Ακατέργαστο';
+  String get text => 'Κείμενο';
   @override
   String get question => 'Φαίνεται το ίδιο στην άλλη συσκευή;';
 }
@@ -1196,7 +1196,7 @@ class _Translations$progressPage$remainingTime$el extends Translations$progressP
   @override
   String hoursUnit({required num h}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('el'))(
     h,
-    other: '${h}ω',
+    other: '${h}ώ',
   );
   @override
   String minutes({required Object m, required Object ss}) => '${m}:${ss}';

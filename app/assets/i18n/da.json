@@ -226,7 +226,7 @@
   "verifyPage": {
     "title": "Verificer",
     "icons": "Ikoner",
-    "raw": "Rå",
+    "text": "Tekst",
     "question": "Ser det ens ud på den anden enhed?"
   },
   "receivePage": {

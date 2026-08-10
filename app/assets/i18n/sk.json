@@ -226,7 +226,7 @@
   "verifyPage": {
     "title": "Overiť",
     "icons": "Ikony",
-    "raw": "Surové",
+    "text": "Text",
     "question": "Vyzerá to na druhom zariadení rovnako?"
   },
   "receivePage": {

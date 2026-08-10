@@ -376,7 +376,7 @@ class _Translations$verifyPage$vi extends Translations$verifyPage$en {
   @override
   String get icons => 'Biểu tượng';
   @override
-  String get raw => 'Thô';
+  String get text => 'Văn bản';
   @override
   String get question => 'Nó có giống nhau trên thiết bị kia không?';
 }

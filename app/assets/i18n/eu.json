@@ -226,7 +226,7 @@
   "verifyPage": {
     "title": "Egiaztatu",
     "icons": "Ikonoak",
-    "raw": "Gordina",
+    "text": "Testua",
     "question": "Beste gailuan berdin ikusten da?"
   },
   "receivePage": {

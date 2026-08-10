@@ -226,7 +226,7 @@
   "verifyPage": {
     "title": "Ellenőrzés",
     "icons": "Ikonok",
-    "raw": "Nyers",
+    "text": "Szöveg",
     "question": "Ugyanúgy néz ki a másik eszközön?"
   },
   "receivePage": {

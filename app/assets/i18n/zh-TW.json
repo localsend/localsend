@@ -226,7 +226,7 @@
   "verifyPage": {
     "title": "驗證",
     "icons": "圖示",
-    "raw": "原始資料",
+    "text": "文字",
     "question": "在另一台裝置上顯示的內容相同嗎？"
   },
   "receivePage": {

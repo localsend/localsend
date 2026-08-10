@@ -378,7 +378,7 @@ class _Translations$verifyPage$bn extends Translations$verifyPage$en {
   @override
   String get icons => 'আইকন';
   @override
-  String get raw => 'র্যাব';
+  String get text => 'টেক্সট';
   @override
   String get question => 'অন্য ডিভাইসে কি একই রকম দেখাচ্ছে?';
 }

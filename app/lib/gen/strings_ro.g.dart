@@ -378,7 +378,7 @@ class _Translations$verifyPage$ro extends Translations$verifyPage$en {
   @override
   String get icons => 'Pictograme';
   @override
-  String get raw => 'Brut';
+  String get text => 'Text';
   @override
   String get question => 'Arată la fel pe celălalt dispozitiv?';
 }

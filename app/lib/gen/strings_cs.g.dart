@@ -376,7 +376,7 @@ class _Translations$verifyPage$cs extends Translations$verifyPage$en {
   @override
   String get icons => 'Ikony';
   @override
-  String get raw => 'Surové';
+  String get text => 'Text';
   @override
   String get question => 'Vypadá to na druhém zařízení stejně?';
 }
@@ -1562,6 +1562,6 @@ class _Translations$whatsNewPage$changes$v1_18_0$cs extends Translations$whatsNe
   List<String> get changes => [
     'Šifrování již nezpomaluje přenosy. Pokud jste je dříve vypnuli, bylo na tomto zařízení znovu zapnuto.',
     'Požadavky od oblíbených zařízení jsou nyní přijímány automaticky. Tato funkce je ve výchozím nastavení zapnutá a lze ji v nastavení vypnout.',
-    'Na Androidu přenosy pokračují, i když je aplikace na pozadí nebo je obrazovka vypnutá. Na iOS musí aplikace stále zůstat na popředí.',
+    'Na Androidu přenosy pokračují, i když je aplikace na pozadí nebo je obrazovka vypnutá. Na iOS musí aplikace stále zůstat v popředí.',
   ];
 }

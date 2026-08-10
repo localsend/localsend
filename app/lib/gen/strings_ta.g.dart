@@ -196,7 +196,7 @@ class _Translations$receiveTab$ta extends Translations$receiveTab$en {
   @override
   late final _Translations$receiveTab$quickSave$ta quickSave = _Translations$receiveTab$quickSave$ta._(_root);
   @override
-  String get link => 'இணப்பு வழியாகப் பெறுக';
+  String get link => 'இணைப்பு வழியாகப் பெறுக';
 }
 
 // Path: sendTab
@@ -378,7 +378,7 @@ class _Translations$verifyPage$ta extends Translations$verifyPage$en {
   @override
   String get icons => 'ஐகான்கள்';
   @override
-  String get raw => 'மூல';
+  String get text => 'உரை';
   @override
   String get question => 'மற்ற சாதனத்தில் இது ஒரே மாதிரி தெரிகிறதா?';
 }
@@ -508,7 +508,7 @@ class _Translations$webReceivePage$ta extends Translations$webReceivePage$en {
 
   // Translations
   @override
-  String get title => 'இணப்பு வழியாகப் பெறுக';
+  String get title => 'இணைப்பு வழியாகப் பெறுக';
 }
 
 // Path: aboutPage

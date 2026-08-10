@@ -98,7 +98,7 @@
       "colorOptions": {
         "system": "පද්ධතිය",
         "oled": "OLED",
-        "custom": "අභිරුකි"
+        "custom": "අභිරුචි"
       },
       "language": "භාෂාව",
       "languageOptions": {
@@ -226,7 +226,7 @@
   "verifyPage": {
     "title": "සත්‍යාපනය",
     "icons": "අයිකන",
-    "raw": "අමු",
+    "text": "පෙළ",
     "question": "අනෙක් උපාංගයේද සමානව පෙනේද?"
   },
   "receivePage": {

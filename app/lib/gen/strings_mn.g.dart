@@ -376,7 +376,7 @@ class _Translations$verifyPage$mn extends Translations$verifyPage$en {
   @override
   String get icons => 'Дүрс тэмдэг';
   @override
-  String get raw => 'Түүхий';
+  String get text => 'Текст';
   @override
   String get question => 'Нөгөө төхөөрөмж дээр адилхан харагдаж байна уу?';
 }

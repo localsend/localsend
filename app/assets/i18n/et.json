@@ -226,7 +226,7 @@
   "verifyPage": {
     "title": "Kontrolli",
     "icons": "Ikoonid",
-    "raw": "Toorandmed",
+    "text": "Tekst",
     "question": "Kas see näeb teises seadmes samasugune välja?"
   },
   "receivePage": {

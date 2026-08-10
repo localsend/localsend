@@ -376,7 +376,7 @@ class _Translations$verifyPage$tr extends Translations$verifyPage$en {
   @override
   String get icons => 'Simgeler';
   @override
-  String get raw => 'Ham';
+  String get text => 'Metin';
   @override
   String get question => 'Diğer cihazda aynı görünüyor mu?';
 }

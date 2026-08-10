@@ -226,7 +226,7 @@
   "verifyPage": {
     "title": "验证",
     "icons": "图标",
-    "raw": "原始数据",
+    "text": "文本",
     "question": "在另一台设备上显示的内容相同吗？"
   },
   "receivePage": {

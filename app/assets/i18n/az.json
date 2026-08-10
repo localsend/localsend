@@ -226,7 +226,7 @@
   "verifyPage": {
     "title": "Doğrula",
     "icons": "İkonlar",
-    "raw": "Xam",
+    "text": "Mətn",
     "question": "Digər cihazda eyni görünür?"
   },
   "receivePage": {

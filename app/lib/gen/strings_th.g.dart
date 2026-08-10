@@ -378,7 +378,7 @@ class _Translations$verifyPage$th extends Translations$verifyPage$en {
   @override
   String get icons => 'ไอคอน';
   @override
-  String get raw => 'ข้อมูลดิบ';
+  String get text => 'ข้อความ';
   @override
   String get question => 'บนอุปกรณ์อีกเครื่องแสดงเหมือนกันหรือไม่?';
 }

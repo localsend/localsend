@@ -376,7 +376,7 @@ class _Translations$verifyPage$de extends Translations$verifyPage$en {
   @override
   String get icons => 'Symbole';
   @override
-  String get raw => 'Rohdaten';
+  String get text => 'Text';
   @override
   String get question => 'Sieht es auf dem anderen Gerät gleich aus?';
 }
@@ -1113,8 +1113,6 @@ class _Translations$progressPage$remainingTime$de extends Translations$progressP
   );
   @override
   String minutes({required Object m, required Object ss}) => '${m}:${ss}';
-
-  /// Benutze 'h' als Abkürzung für Stunden und 'm' für Minuten
   @override
   String hours({required num h, required num m}) =>
       '${_root.progressPage.remainingTime.hoursUnit(h: h)} ${_root.progressPage.remainingTime.minutesUnit(m: m)}';

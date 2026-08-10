@@ -52,7 +52,7 @@
       "favorites": "Омиљено",
       "on": "@:general.on"
     },
-    "link": "Прими путем везе"
+    "link": "Прими путем линка"
   },
   "sendTab": {
     "title": "Слање",
@@ -226,7 +226,7 @@
   "verifyPage": {
     "title": "Провери",
     "icons": "Иконице",
-    "raw": "Сирово",
+    "text": "Текст",
     "question": "Да ли изгледа исто на другом уређају?"
   },
   "receivePage": {
@@ -297,7 +297,7 @@
     "pendingRequests": "Захтеви на чекању: {n}"
   },
   "webReceivePage": {
-    "title": "Прими путем везе"
+    "title": "Прими путем линка"
   },
   "aboutPage": {
     "title": "О LocalSend-у",

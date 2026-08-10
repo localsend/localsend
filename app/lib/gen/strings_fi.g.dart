@@ -378,7 +378,7 @@ class _Translations$verifyPage$fi extends Translations$verifyPage$en {
   @override
   String get icons => 'Kuvakkeet';
   @override
-  String get raw => 'Raaka';
+  String get text => 'Teksti';
   @override
   String get question => 'Näyttääkö se samalta toisella laitteella?';
 }

@@ -197,7 +197,7 @@ class _Translations$receiveTab$sr_Cyrl extends Translations$receiveTab$sr {
   @override
   late final _Translations$receiveTab$quickSave$sr_Cyrl quickSave = _Translations$receiveTab$quickSave$sr_Cyrl._(_root);
   @override
-  String get link => 'Прими путем везе';
+  String get link => 'Прими путем линка';
 }
 
 // Path: sendTab
@@ -349,7 +349,7 @@ class _Translations$selectedFilesPage$sr_Cyrl extends Translations$selectedFiles
 }
 
 // Path: deviceDetailsPage
-class _Translations$deviceDetailsPage$sr_Cyrl extends Translations$deviceDetailsPage$en {
+class _Translations$deviceDetailsPage$sr_Cyrl extends Translations$deviceDetailsPage$sr {
   _Translations$deviceDetailsPage$sr_Cyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
 
   final TranslationsSrCyrl _root; // ignore: unused_field
@@ -368,7 +368,7 @@ class _Translations$deviceDetailsPage$sr_Cyrl extends Translations$deviceDetails
 }
 
 // Path: verifyPage
-class _Translations$verifyPage$sr_Cyrl extends Translations$verifyPage$en {
+class _Translations$verifyPage$sr_Cyrl extends Translations$verifyPage$sr {
   _Translations$verifyPage$sr_Cyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
 
   final TranslationsSrCyrl _root; // ignore: unused_field
@@ -379,7 +379,7 @@ class _Translations$verifyPage$sr_Cyrl extends Translations$verifyPage$en {
   @override
   String get icons => 'Иконице';
   @override
-  String get raw => 'Сирово';
+  String get text => 'Текст';
   @override
   String get question => 'Да ли изгледа исто на другом уређају?';
 }
@@ -502,14 +502,14 @@ class _Translations$webSharePage$sr_Cyrl extends Translations$webSharePage$sr {
 }
 
 // Path: webReceivePage
-class _Translations$webReceivePage$sr_Cyrl extends Translations$webReceivePage$en {
+class _Translations$webReceivePage$sr_Cyrl extends Translations$webReceivePage$sr {
   _Translations$webReceivePage$sr_Cyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
 
   final TranslationsSrCyrl _root; // ignore: unused_field
 
   // Translations
   @override
-  String get title => 'Прими путем везе';
+  String get title => 'Прими путем линка';
 }
 
 // Path: aboutPage
@@ -567,7 +567,7 @@ class _Translations$changelogPage$sr_Cyrl extends Translations$changelogPage$sr 
 }
 
 // Path: whatsNewPage
-class _Translations$whatsNewPage$sr_Cyrl extends Translations$whatsNewPage$en {
+class _Translations$whatsNewPage$sr_Cyrl extends Translations$whatsNewPage$sr {
   _Translations$whatsNewPage$sr_Cyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
 
   final TranslationsSrCyrl _root; // ignore: unused_field
@@ -1136,7 +1136,7 @@ class _Translations$receiveHistoryPage$entryActions$sr_Cyrl extends Translations
 }
 
 // Path: deviceDetailsPage.info
-class _Translations$deviceDetailsPage$info$sr_Cyrl extends Translations$deviceDetailsPage$info$en {
+class _Translations$deviceDetailsPage$info$sr_Cyrl extends Translations$deviceDetailsPage$info$sr {
   _Translations$deviceDetailsPage$info$sr_Cyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
 
   final TranslationsSrCyrl _root; // ignore: unused_field
@@ -1153,7 +1153,7 @@ class _Translations$deviceDetailsPage$info$sr_Cyrl extends Translations$deviceDe
 }
 
 // Path: deviceDetailsPage.logs
-class _Translations$deviceDetailsPage$logs$sr_Cyrl extends Translations$deviceDetailsPage$logs$en {
+class _Translations$deviceDetailsPage$logs$sr_Cyrl extends Translations$deviceDetailsPage$logs$sr {
   _Translations$deviceDetailsPage$logs$sr_Cyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
 
   final TranslationsSrCyrl _root; // ignore: unused_field
@@ -1187,7 +1187,7 @@ class _Translations$progressPage$total$sr_Cyrl extends Translations$progressPage
 }
 
 // Path: progressPage.remainingTime
-class _Translations$progressPage$remainingTime$sr_Cyrl extends Translations$progressPage$remainingTime$en {
+class _Translations$progressPage$remainingTime$sr_Cyrl extends Translations$progressPage$remainingTime$sr {
   _Translations$progressPage$remainingTime$sr_Cyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
 
   final TranslationsSrCyrl _root; // ignore: unused_field
@@ -1211,7 +1211,7 @@ class _Translations$progressPage$remainingTime$sr_Cyrl extends Translations$prog
 }
 
 // Path: whatsNewPage.changes
-class _Translations$whatsNewPage$changes$sr_Cyrl extends Translations$whatsNewPage$changes$en {
+class _Translations$whatsNewPage$changes$sr_Cyrl extends Translations$whatsNewPage$changes$sr {
   _Translations$whatsNewPage$changes$sr_Cyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
 
   final TranslationsSrCyrl _root; // ignore: unused_field
@@ -1645,7 +1645,7 @@ class _Translations$progressPage$total$title$sr_Cyrl extends Translations$progre
 }
 
 // Path: whatsNewPage.changes.v1_18_0
-class _Translations$whatsNewPage$changes$v1_18_0$sr_Cyrl extends Translations$whatsNewPage$changes$v1_18_0$en with WhatsNewStrings {
+class _Translations$whatsNewPage$changes$v1_18_0$sr_Cyrl extends Translations$whatsNewPage$changes$v1_18_0$sr with WhatsNewStrings {
   _Translations$whatsNewPage$changes$v1_18_0$sr_Cyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
 
   final TranslationsSrCyrl _root; // ignore: unused_field

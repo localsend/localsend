@@ -226,7 +226,7 @@
   "verifyPage": {
     "title": "Sahkan",
     "icons": "Ikon",
-    "raw": "Mentah",
+    "text": "Teks",
     "question": "Adakah ia kelihatan sama pada peranti yang satu lagi?"
   },
   "receivePage": {

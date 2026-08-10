@@ -226,7 +226,7 @@
   "verifyPage": {
     "title": "Doğrula",
     "icons": "Simgeler",
-    "raw": "Ham",
+    "text": "Metin",
     "question": "Diğer cihazda aynı görünüyor mu?"
   },
   "receivePage": {

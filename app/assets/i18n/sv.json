@@ -226,7 +226,7 @@
   "verifyPage": {
     "title": "Verifiera",
     "icons": "Ikoner",
-    "raw": "Rå",
+    "text": "Text",
     "question": "Ser det likadant ut på den andra enheten?"
   },
   "receivePage": {

@@ -226,7 +226,7 @@
   "verifyPage": {
     "title": "Verifică",
     "icons": "Pictograme",
-    "raw": "Brut",
+    "text": "Text",
     "question": "Arată la fel pe celălalt dispozitiv?"
   },
   "receivePage": {

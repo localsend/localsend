@@ -196,7 +196,7 @@ class _Translations$receiveTab$lo extends Translations$receiveTab$en {
   @override
   late final _Translations$receiveTab$quickSave$lo quickSave = _Translations$receiveTab$quickSave$lo._(_root);
   @override
-  String get link => 'ຣັບຜ່ານລິງ';
+  String get link => 'ຮັບຜ່ານລິ້ງ';
 }
 
 // Path: sendTab
@@ -378,9 +378,9 @@ class _Translations$verifyPage$lo extends Translations$verifyPage$en {
   @override
   String get icons => 'ໄອຄອນ';
   @override
-  String get raw => 'ຂໍ້ມູນດິບ';
+  String get text => 'ຂໍ້ຄວາມ';
   @override
-  String get question => 'ມັນເບິ່ງຄືກັນບໍ່ໃນອຸປະກອນອີກເຄື່ອງ?';
+  String get question => 'ມັນເບິ່ງຄືກັນໃນອຸປະກອນອີກເຄື່ອງບໍ?';
 }
 
 // Path: receivePage
@@ -508,7 +508,7 @@ class _Translations$webReceivePage$lo extends Translations$webReceivePage$en {
 
   // Translations
   @override
-  String get title => 'ຣັບຜ່ານລິງ';
+  String get title => 'ຮັບຜ່ານລິ້ງ';
 }
 
 // Path: aboutPage
@@ -983,7 +983,7 @@ class _Translations$settingsTab$receive$lo extends Translations$settingsTab$rece
   @override
   String get saveToHistory => 'ບັນທຶກໃສ່ປະຫວັດ';
   @override
-  String get verifyChecksums => 'ກວດສອບ checksum ເມື່ອຣັບໄຟລ໌';
+  String get verifyChecksums => 'ກວດສອບ checksum ເມື່ອຮັບໄຟລ໌';
 }
 
 // Path: settingsTab.send
@@ -1133,7 +1133,7 @@ class _Translations$deviceDetailsPage$info$lo extends Translations$deviceDetails
   @override
   String get name => 'ຊື່';
   @override
-  String get address => 'ທີ່ອະຍູ່';
+  String get address => 'ທີ່ຢູ່';
   @override
   String get version => 'ເວີຊັນ';
   @override
@@ -1642,6 +1642,6 @@ class _Translations$whatsNewPage$changes$v1_18_0$lo extends Translations$whatsNe
   List<String> get changes => [
     'ການເຂົ້າລະຫັດບໍ່ເຮັດໃຫ້ການໂອນຊ້າລົງອີກຕໍ່ໄປ. ມັນຖືກເປີດໃຊ້ຄືນໃໝ່ໃນອຸປະກອນນີ້ ຖ້າທ່ານໄດ້ປິດມັນໄວ້ກ່ອນ.',
     'ຄຳຮ້ອງຂໍຈາກລາຍການໂປດຖືກຍອມຮັບໂດຍອັດຕະໂນມັດແລ້ວ. ມັນຖືກເປີດໃຊ້ໂດຍຄ່າເລີ່ມຕົ້ນ ແລະສາມາດປິດໄດ້ໃນການຕັ້ງຄ່າ.',
-    'ໃນ Android, ການໂອນຊ້າຍັງດຳເນີນຕໍ່ໃນຂະນະທີ່ແອັບບັນທຶກການະຫຼັງ ຫຼືໜ້າຈໍດັບອະຍູ່. ໃນ iOS, ແອັບຍັງຕ້ອງຄົງອະຍູ່ໜ້າຈໍ.',
+    'ໃນ Android, ການໂອນໄຟລ໌ຍັງດຳເນີນຕໍ່ໃນຂະນະທີ່ແອັບຢູ່ເບື້ອງຫຼັງ ຫຼື ໜ້າຈໍດັບຢູ່. ໃນ iOS, ແອັບຍັງຕ້ອງຄົງຢູ່ໜ້າຈໍ.',
   ];
 }

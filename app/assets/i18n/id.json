@@ -226,7 +226,7 @@
   "verifyPage": {
     "title": "Verifikasi",
     "icons": "Ikon",
-    "raw": "Mentah",
+    "text": "Teks",
     "question": "Apakah tampilannya sama di perangkat lain?"
   },
   "receivePage": {

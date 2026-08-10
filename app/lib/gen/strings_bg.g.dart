@@ -376,7 +376,7 @@ class _Translations$verifyPage$bg extends Translations$verifyPage$en {
   @override
   String get icons => 'Икони';
   @override
-  String get raw => 'Необработен';
+  String get text => 'Текст';
   @override
   String get question => 'Изглежда ли по същия начин на другото устройство?';
 }
@@ -1105,7 +1105,7 @@ class _Translations$progressPage$remainingTime$bg extends Translations$progressP
   @override
   String minutesUnit({required num m}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('bg'))(
     m,
-    other: '${m}м',
+    other: '${m}мин',
   );
   @override
   String hoursUnit({required num h}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('bg'))(

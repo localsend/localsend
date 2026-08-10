@@ -376,7 +376,7 @@ class _Translations$verifyPage$da extends Translations$verifyPage$en {
   @override
   String get icons => 'Ikoner';
   @override
-  String get raw => 'Rå';
+  String get text => 'Tekst';
   @override
   String get question => 'Ser det ens ud på den anden enhed?';
 }

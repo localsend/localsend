@@ -226,7 +226,7 @@
   "verifyPage": {
     "title": "Επαλήθευση",
     "icons": "Εικονίδια",
-    "raw": "Ακατέργαστο",
+    "text": "Κείμενο",
     "question": "Φαίνεται το ίδιο στην άλλη συσκευή;"
   },
   "receivePage": {
@@ -272,7 +272,7 @@
         "other": "{m}λ"
       },
       "hoursUnit(plural, param=h)": {
-        "other": "{h}ω"
+        "other": "{h}ώ"
       },
       "minutes": "{m}:{ss}",
       "hours": "@:.hoursUnit @:.minutesUnit"

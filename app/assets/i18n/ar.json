@@ -226,7 +226,7 @@
   "verifyPage": {
     "title": "تحقق",
     "icons": "الأيقونات",
-    "raw": "خام",
+    "text": "النص",
     "question": "هل يبدو متطابقًا على الجهاز الآخر؟"
   },
   "receivePage": {

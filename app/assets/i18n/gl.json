@@ -226,7 +226,7 @@
   "verifyPage": {
     "title": "Verificar",
     "icons": "Iconas",
-    "raw": "Sen procesar",
+    "text": "Texto",
     "question": "Vese igual no outro dispositivo?"
   },
   "receivePage": {

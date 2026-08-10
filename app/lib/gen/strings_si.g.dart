@@ -376,7 +376,7 @@ class _Translations$verifyPage$si extends Translations$verifyPage$en {
   @override
   String get icons => 'අයිකන';
   @override
-  String get raw => 'අමු';
+  String get text => 'පෙළ';
   @override
   String get question => 'අනෙක් උපාංගයේද සමානව පෙනේද?';
 }
@@ -1511,7 +1511,7 @@ class _Translations$settingsTab$general$colorOptions$si extends Translations$set
   @override
   String get oled => 'OLED';
   @override
-  String get custom => 'අභිරුකි';
+  String get custom => 'අභිරුචි';
 }
 
 // Path: settingsTab.general.languageOptions

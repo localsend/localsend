@@ -226,7 +226,7 @@
   "verifyPage": {
     "title": "Ověřit",
     "icons": "Ikony",
-    "raw": "Surové",
+    "text": "Text",
     "question": "Vypadá to na druhém zařízení stejně?"
   },
   "receivePage": {
@@ -327,7 +327,7 @@
         "changes": [
           "Šifrování již nezpomaluje přenosy. Pokud jste je dříve vypnuli, bylo na tomto zařízení znovu zapnuto.",
           "Požadavky od oblíbených zařízení jsou nyní přijímány automaticky. Tato funkce je ve výchozím nastavení zapnutá a lze ji v nastavení vypnout.",
-          "Na Androidu přenosy pokračují, i když je aplikace na pozadí nebo je obrazovka vypnutá. Na iOS musí aplikace stále zůstat na popředí."
+          "Na Androidu přenosy pokračují, i když je aplikace na pozadí nebo je obrazovka vypnutá. Na iOS musí aplikace stále zůstat v popředí."
         ]
       }
     }

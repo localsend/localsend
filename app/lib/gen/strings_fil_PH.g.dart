@@ -378,7 +378,7 @@ class _Translations$verifyPage$fil_PH extends Translations$verifyPage$en {
   @override
   String get icons => 'Mga Icon';
   @override
-  String get raw => 'Raw';
+  String get text => 'Teksto';
   @override
   String get question => 'Pareho ba ang hitsura nito sa kabilang device?';
 }

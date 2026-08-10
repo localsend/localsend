@@ -378,7 +378,7 @@ class _Translations$verifyPage$km extends Translations$verifyPage$en {
   @override
   String get icons => 'រូបតំណាង';
   @override
-  String get raw => 'ទិន្នន័យដើម';
+  String get text => 'អត្ថបទ';
   @override
   String get question => 'តើវាមើលទៅដូចគ្នានៅលើឧបករណ៍មួយទៀតដែរឬទេ?';
 }

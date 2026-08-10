@@ -226,7 +226,7 @@
   "verifyPage": {
     "title": "I-verify",
     "icons": "Mga Icon",
-    "raw": "Raw",
+    "text": "Teksto",
     "question": "Pareho ba ang hitsura nito sa kabilang device?"
   },
   "receivePage": {

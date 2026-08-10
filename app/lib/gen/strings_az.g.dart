@@ -376,7 +376,7 @@ class _Translations$verifyPage$az extends Translations$verifyPage$en {
   @override
   String get icons => 'İkonlar';
   @override
-  String get raw => 'Xam';
+  String get text => 'Mətn';
   @override
   String get question => 'Digər cihazda eyni görünür?';
 }

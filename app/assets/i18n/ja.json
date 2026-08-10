@@ -226,7 +226,7 @@
   "verifyPage": {
     "title": "検証",
     "icons": "アイコン",
-    "raw": "生データ",
+    "text": "テキスト",
     "question": "もう一方のデバイスでも同じように見えますか？"
   },
   "receivePage": {

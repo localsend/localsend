@@ -226,7 +226,7 @@
   "verifyPage": {
     "title": "Preveri",
     "icons": "Ikone",
-    "raw": "Surovo",
+    "text": "Besedilo",
     "question": "Ali je na drugi napravi videti enako?"
   },
   "receivePage": {

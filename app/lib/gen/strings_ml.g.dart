@@ -353,7 +353,7 @@ class _Translations$deviceDetailsPage$ml extends Translations$deviceDetailsPage$
 
   // Translations
   @override
-  String get title => 'ഉപകരണ വിശദാംശങ്ങള്‍';
+  String get title => 'ഉപകരണ വിശദാംശങ്ങൾ';
   @override
   String get favorite => 'പ്രിയപ്പെട്ടത്';
   @override
@@ -374,11 +374,11 @@ class _Translations$verifyPage$ml extends Translations$verifyPage$en {
   @override
   String get title => 'പരിശോധിക്കുക';
   @override
-  String get icons => 'ഐക്കണുകള്‍';
+  String get icons => 'ഐക്കണുകൾ';
   @override
-  String get raw => 'റോ';
+  String get text => 'ടെക്സ്റ്റ്';
   @override
-  String get question => 'മറ്റെ ഉപകരണത്തിലും ഇതുപോലെ തന്നെയാണോ കാണുന്നത്?';
+  String get question => 'മറ്റേ ഉപകരണത്തിലും ഇതുപോലെ തന്നെയാണോ കാണുന്നത്?';
 }
 
 // Path: receivePage
@@ -572,7 +572,7 @@ class _Translations$whatsNewPage$ml extends Translations$whatsNewPage$en {
 
   // Translations
   @override
-  String title({required Object version}) => '${version}-ലെ പുതിയ കാര്യങ്ങള്‍';
+  String title({required Object version}) => '${version}-ലെ പുതിയ കാര്യങ്ങൾ';
   @override
   late final _Translations$whatsNewPage$changes$ml changes = _Translations$whatsNewPage$changes$ml._(_root);
 }
@@ -901,7 +901,7 @@ class _Translations$settingsTab$receive$ml extends Translations$settingsTab$rece
   @override
   String get saveToHistory => 'ഹിസ്റ്ററിയിലേക്കു സേവ് ചെയ്യുക';
   @override
-  String get verifyChecksums => 'ഫയലുകള്‍ സ്വീകരിക്കുമ്പോള്‍ ചെക്ക്സം പരിശോധിക്കുക';
+  String get verifyChecksums => 'ഫയലുകൾ സ്വീകരിക്കുമ്പോൾ ചെക്ക്സം പരിശോധിക്കുക';
 }
 
 // Path: settingsTab.send
@@ -916,7 +916,7 @@ class _Translations$settingsTab$send$ml extends Translations$settingsTab$send$en
   @override
   String get shareViaLinkAutoAccept => '"ലിങ്ക് വഴി ഷെയർ" ചെയ്യുമ്പോൾ ഓട്ടോമാറ്റിക് ആയി സ്വീകരിക്കുക';
   @override
-  String get createChecksums => 'ഫയലുകള്‍ അയയ്ക്കുമ്പോള്‍ ചെക്ക്സം സൃഷ്ടിക്കുക';
+  String get createChecksums => 'ഫയലുകൾ അയയ്ക്കുമ്പോൾ ചെക്ക്സം സൃഷ്ടിക്കുക';
 }
 
 // Path: settingsTab.network
@@ -1056,7 +1056,7 @@ class _Translations$deviceDetailsPage$info$ml extends Translations$deviceDetails
   @override
   String get version => 'പതിപ്പ്';
   @override
-  String protocol({required Object version}) => 'പ്രോട്ടോക്കോള്‍ v${version}';
+  String protocol({required Object version}) => 'പ്രോട്ടോക്കോൾ v${version}';
 }
 
 // Path: deviceDetailsPage.logs
@@ -1067,7 +1067,7 @@ class _Translations$deviceDetailsPage$logs$ml extends Translations$deviceDetails
 
   // Translations
   @override
-  String get title => 'ലോഗുകള്‍';
+  String get title => 'ലോഗുകൾ';
   @override
   String get empty => 'ലോഗുകളൊന്നും ലഭ്യമല്ല.';
   @override
@@ -1408,7 +1408,7 @@ class _Translations$dialogs$quickActions$ml extends Translations$dialogs$quickAc
   @override
   String get prefix => 'പ്രിഫിക്സ്';
   @override
-  String get padZero => 'പൂജ്യങ്ങള്‍ ചേര്‍ക്കുക';
+  String get padZero => 'പൂജ്യങ്ങൾ ചേർക്കുക';
   @override
   String get sortBeforeCount => 'മുൻകൂട്ടി അകാരാദിക്രമത്തിൽ ഒത്തിരിക്കുക (A-Z)';
   @override
@@ -1563,8 +1563,8 @@ class _Translations$whatsNewPage$changes$v1_18_0$ml extends Translations$whatsNe
   // Translations
   @override
   List<String> get changes => [
-    'എന്‍ക്രിപ്ഷന്‍ ഇനി കൈമാറ്റങ്ങളെ മന്ദഗതിയിലാക്കില്ല. നിങ്ങള്‍ മുമ്പ് അത് ഓഫാക്കിയിരുന്നെങ്കില്‍ ഈ ഉപകരണത്തില്‍ അത് വീണ്ടും പ്രവര്‍ത്തനക്ഷമമാക്കിയിട്ടുണ്ട്.',
-    'പ്രിയപ്പെട്ടവയില്‍ നിന്നുള്ള അഭ്യര്‍ത്ഥനകള്‍ ഇപ്പോള്‍ സ്വയമേവ സ്വീകരിക്കുന്നു. ഇത് സ്ഥിരസ്ഥിതിയില്‍ പ്രവര്‍ത്തനക്ഷമമാണ്, ക്രമീകരണങ്ങളില്‍ പ്രവര്‍ത്തനരഹിതമാക്കാം.',
-    'Android-ല്‍, ആപ്പ് പശ്ചാത്തലത്തിലായിരിക്കുമ്പോഴോ സ്ക്രീന്‍ ഓഫായിരിക്കുമ്പോഴോ കൈമാറ്റങ്ങള്‍ തുടരുന്നു. iOS-ല്‍, ആപ്പ് ഇപ്പോഴും ഫോര്‍ഗ്രൗണ്ടില്‍ തുടരണം.',
+    'എൻക്രിപ്ഷൻ ഇനി കൈമാറ്റങ്ങളെ മന്ദഗതിയിലാക്കില്ല. നിങ്ങൾ മുമ്പ് അത് ഓഫാക്കിയിരുന്നെങ്കിൽ ഈ ഉപകരണത്തിൽ അത് വീണ്ടും പ്രവർത്തനക്ഷമമാക്കിയിട്ടുണ്ട്.',
+    'പ്രിയപ്പെട്ടവയിൽ നിന്നുള്ള അഭ്യർത്ഥനകൾ ഇപ്പോൾ സ്വയമേവ സ്വീകരിക്കുന്നു. ഇത് സ്ഥിരസ്ഥിതിയിൽ പ്രവർത്തനക്ഷമമാണ്, ക്രമീകരണങ്ങളിൽ പ്രവർത്തനരഹിതമാക്കാം.',
+    'Android-ൽ, ആപ്പ് പശ്ചാത്തലത്തിലായിരിക്കുമ്പോഴോ സ്ക്രീൻ ഓഫായിരിക്കുമ്പോഴോ കൈമാറ്റങ്ങൾ തുടരുന്നു. iOS-ൽ, ആപ്പ് ഇപ്പോഴും ഫോർഗ്രൗണ്ടിൽ തുടരണം.',
   ];
 }
