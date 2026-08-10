@@ -29,6 +29,7 @@ import 'package:localsend_app/provider/window_dimensions_provider.dart';
 import 'package:localsend_app/util/i18n.dart';
 import 'package:localsend_app/util/native/autostart_helper.dart';
 import 'package:localsend_app/util/native/cache_helper.dart';
+import 'package:localsend_app/util/native/channel/android_channel.dart';
 import 'package:localsend_app/util/native/context_menu_helper.dart';
 import 'package:localsend_app/util/native/cross_file_converters.dart';
 import 'package:localsend_app/util/native/device_info_helper.dart';
@@ -267,6 +268,12 @@ Future<void> postInit(BuildContext context, Ref ref, bool appStart) async {
         ),
       );
     });
+
+    if (checkPlatform([TargetPlatform.android])) {
+      // Both messages above travel through the same messenger in order, so the stream is
+      // guaranteed to be attached natively before MainActivity replays held-back intents.
+      await flushPendingShareIntentsAndroid();
+    }
   }
 
   if (appStart && !hasInitialShare && (checkPlatformWithGallery() || checkPlatformCanReceiveShareIntent())) {
