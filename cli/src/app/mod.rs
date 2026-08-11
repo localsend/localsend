@@ -5,12 +5,12 @@ mod sending;
 mod status;
 mod web_link;
 
-use crate::Args;
 use crate::device_list::DeviceList;
 use crate::picker::Picker;
 use crate::slots::Slots;
 use crate::storage;
 use crate::ui::{Category, Ui};
+use crate::{Args, Command};
 use crossterm::event::{Event, KeyCode, KeyEvent, KeyEventKind, KeyModifiers};
 use localsend::discovery::{
     DEFAULT_DISCOVERY_TIMEOUT, DeviceIdentity, DiscoveryConfig, DiscoveryEvent, DiscoveryHandle,
@@ -90,15 +90,24 @@ struct App {
     picker: Option<Picker>,
     device_list: Option<DeviceList>,
 
-    /// Files given via `-f`/`--file`; sending uses these instead of the picker.
+    /// Paths given to the `send` command; sending uses these instead of the
+    /// picker.
     preselected: Vec<PathBuf>,
 
     events_tx: mpsc::Sender<AppEvent>,
 }
 
 pub async fn run(args: Args) -> anyhow::Result<()> {
-    for path in &args.file {
-        anyhow::ensure!(path.is_file(), "Not a file: {}", path.display());
+    let preselected = match &args.command {
+        Some(Command::Send { paths }) => paths.clone(),
+        None => Vec::new(),
+    };
+    for path in &preselected {
+        anyhow::ensure!(
+            path.is_file() || path.is_dir(),
+            "Not a file or directory: {}",
+            path.display()
+        );
     }
     let storage = storage::Repository::load(&args)?;
     let identity = storage.identity.clone();
@@ -218,7 +227,7 @@ pub async fn run(args: Args) -> anyhow::Result<()> {
         send: None,
         picker: None,
         device_list: None,
-        preselected: args.file,
+        preselected,
         events_tx: events_tx.clone(),
     };
 
@@ -293,7 +302,7 @@ impl App {
             AppEvent::SendEnded => {
                 self.send = None;
                 self.render_status();
-                // In `--file` mode the transfer is the whole program.
+                // In `send` mode the transfer is the whole program.
                 return !self.preselected.is_empty();
             }
             AppEvent::Log { category, text } => self.ui.log(category, &text),
@@ -344,7 +353,7 @@ impl App {
         }
         if self.device_list.is_some() {
             self.close_device_list();
-            // In `--file` mode the device list is the whole program.
+            // In `send` mode the device list is the whole program.
             return !self.preselected.is_empty();
         }
         let mut cancelled = false;
