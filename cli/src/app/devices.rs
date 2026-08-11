@@ -70,7 +70,7 @@ impl App {
     }
 
     /// Handles a key while the list is open; returns `true` when the
-    /// application should quit (the list was cancelled in `--file` mode).
+    /// application should quit (the list was cancelled in `send` mode).
     pub(super) fn handle_device_list_key(&mut self, key: KeyEvent) -> bool {
         let Some(list) = &mut self.device_list else {
             return false;
