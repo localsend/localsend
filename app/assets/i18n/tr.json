@@ -185,29 +185,6 @@
     "whitelist": "Beyaz liste",
     "blacklist": "Kara liste"
   },
-  "deviceDetailsPage": {
-    "title": "Cihaz Detayları",
-    "favorite": "Favori",
-    "verify": "Doğrula",
-    "info": {
-      "name": "Ad",
-      "address": "Adres",
-      "version": "Sürüm",
-      "protocol": "Protokol v{version}"
-    },
-    "logs": {
-      "title": "Günlükler",
-      "empty": "Günlük yok.",
-      "discovered": "{protocol} üzerinden bulundu ({host})",
-      "updated": "{protocol} üzerinden güncellendi ({host})"
-    }
-  },
-  "verifyPage": {
-    "title": "Doğrulama",
-    "icons": "Simgeler",
-    "raw": "Ham",
-    "question": "Diğer cihazda da aynı görünüyor mu?"
-  },
   "receiveHistoryPage": {
     "title": "Geçmiş",
     "openFolder": "Dosyayı aç",
@@ -298,19 +275,7 @@
         "other": "{h}sa"
       },
       "minutes": "{m}:{ss}",
-      "hours": "{h}s {m}d",
-      "days": "{d}g {h}s {m}d",
-      "@hours": "Saat kısaltması için 's', dakika kısaltması için 'd' kullanın",
-      "@days": "Günler için 'g', saatler için 's' ve dakikalar için 'd' kullanın",
-      "minutesUnit(plural, param=m)": {
-        "other": "{m}d"
-      },
-      "hoursUnit(plural, param=h)": {
-        "other": "{h}s"
-      },
-      "daysUnit(plural, param=d)": {
-        "other": "{d}g"
-      }
+      "hours": "@:.hoursUnit @:.minutesUnit"
     }
   },
   "webSharePage": {
