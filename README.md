@@ -29,6 +29,7 @@ LocalSend is a free, open-source app that allows you to securely share files and
 - [How It Works](#how-it-works)
 - [Dependency Hierarchy](#dependency-hierarchy)
 - [Getting Started](#getting-started)
+- [Command Line Interface](#command-line-interface)
 - [Contributing](#contributing)
   - [Translation](#translation)
   - [Bug Fixes and Improvements](#bug-fixes-and-improvements)
@@ -160,6 +161,35 @@ To compile LocalSend from the source code, follow these steps:
 > and thus build issues may be caused by a mismatch between the required and the (system-wide) installed Flutter version.  
 > To make development more consistent, LocalSend uses [fvm](https://fvm.app) to manage the project Flutter version.
 > After installing `fvm`, run `fvm flutter` instead of `flutter`.
+
+## Command Line Interface
+
+The LocalSend CLI is a terminal client built on LocalSend Protocol v2.
+Run `localsend-cli --help` to see every available option and hotkey.
+
+Use the `send` command with one or more files, directories, or a mixture of both:
+
+```shell
+localsend-cli send report.pdf photo.jpg ./project-backup
+```
+
+The command opens the discovered-device list; select the destination interactively
+and press Enter to start the transfer.
+
+To select the destination without an interactive device list, pass its exact alias
+or IP address:
+
+```shell
+localsend-cli send --to "Cute Tomato" report.pdf
+localsend-cli send --to 192.168.27.26 report.pdf
+```
+
+An alias must uniquely identify a discovered device. An IP address is probed directly
+over HTTPS on LocalSend's default port (`53317`).
+
+Directories are collected recursively. Their selected root names and nested paths
+are preserved on the receiver. Empty directories are not sent because LocalSend
+transfers file entries rather than directory entries.
 
 ## Contributing
 
