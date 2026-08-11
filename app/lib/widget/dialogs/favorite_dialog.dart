@@ -94,7 +94,7 @@ class _FavoritesDialogState extends State<FavoritesDialog> with Refena {
                   ),
                 ),
                 TextButton(
-                  style: TextButton.styleFrom(foregroundColor: Theme.of(context).colorScheme.onSurface),
+                  style: TextButton.styleFrom(foregroundColor: Theme.of(context).colorScheme.onSurface, iconSize: 24),
                   onPressed: _fetching ? null : () async => await _showDeviceDialog(favorite),
                   child: const Icon(Icons.edit),
                 ),

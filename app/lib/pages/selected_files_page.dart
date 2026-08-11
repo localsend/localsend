@@ -105,6 +105,7 @@ class SelectedFilesPage extends StatelessWidget {
                                 TextButton(
                                   style: TextButton.styleFrom(
                                     foregroundColor: Theme.of(context).colorScheme.onSurface,
+                                    iconSize: 24,
                                   ),
                                   onPressed: () async {
                                     final result = await showDialog<String>(
@@ -120,6 +121,7 @@ class SelectedFilesPage extends StatelessWidget {
                               TextButton(
                                 style: TextButton.styleFrom(
                                   foregroundColor: Theme.of(context).colorScheme.onSurface,
+                                  iconSize: 24,
                                 ),
                                 onPressed: () {
                                   final currCount = ref.read(selectedSendingFilesProvider).length;

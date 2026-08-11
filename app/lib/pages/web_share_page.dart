@@ -300,6 +300,7 @@ class _WebSharePageState extends State<WebSharePage> with Refena {
                                   },
                                   style: TextButton.styleFrom(
                                     foregroundColor: Theme.of(context).colorScheme.onSurface,
+                                    iconSize: 24,
                                   ),
                                   child: const Icon(Icons.close),
                                 ),
@@ -309,6 +310,7 @@ class _WebSharePageState extends State<WebSharePage> with Refena {
                                   },
                                   style: TextButton.styleFrom(
                                     foregroundColor: Theme.of(context).colorScheme.onSurface,
+                                    iconSize: 24,
                                   ),
                                   child: const Icon(Icons.check_circle),
                                 ),
