@@ -1,14 +1,13 @@
 import 'package:collection/collection.dart';
-import 'package:common/util/network_interfaces.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:local_hero/local_hero.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
-import 'package:localsend_app/widget/custom_basic_appbar.dart';
 import 'package:localsend_app/widget/dialogs/text_field_tv.dart';
 import 'package:localsend_app/widget/labeled_checkbox.dart';
 import 'package:localsend_app/widget/responsive_list_view.dart';
+import 'package:localsend_isolates/util/network_interfaces.dart';
 import 'package:moform/moform.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 
@@ -44,7 +43,9 @@ class _NetworkInterfacesPageState extends State<NetworkInterfacesPage> {
         ? context.notifier(settingsProvider).setNetworkWhitelist
         : context.notifier(settingsProvider).setNetworkBlacklist;
     return Scaffold(
-      appBar: basicLocalSendAppbar(t.networkInterfacesPage.title),
+      appBar: AppBar(
+        title: Text(t.networkInterfacesPage.title),
+      ),
       body: LocalHeroScope(
         duration: const Duration(milliseconds: 200),
         curve: Curves.easeInOut,
@@ -123,9 +124,9 @@ class _NetworkInterfacesPageState extends State<NetworkInterfacesPage> {
                       await context.notifier(settingsProvider).setNetworkWhitelist(null);
                     } else {
                       await context.notifier(settingsProvider).setNetworkWhitelist(switch (currList) {
-                            [] => [''],
-                            _ => [...currList],
-                          });
+                        [] => [''],
+                        _ => [...currList],
+                      });
                       if (context.mounted) {
                         await context.notifier(settingsProvider).setNetworkBlacklist(null);
                       }
@@ -140,9 +141,9 @@ class _NetworkInterfacesPageState extends State<NetworkInterfacesPage> {
                       await context.notifier(settingsProvider).setNetworkBlacklist(null);
                     } else {
                       await context.notifier(settingsProvider).setNetworkBlacklist(switch (currList) {
-                            [] => [''],
-                            _ => [...currList],
-                          });
+                        [] => [''],
+                        _ => [...currList],
+                      });
                       if (context.mounted) {
                         await context.notifier(settingsProvider).setNetworkWhitelist(null);
                       }
@@ -156,30 +157,31 @@ class _NetworkInterfacesPageState extends State<NetworkInterfacesPage> {
               return Padding(
                 padding: const EdgeInsets.only(bottom: 12),
                 child: StringField(
-                    value: e,
-                    onChanged: (value) async {
-                      await updateFunction([
-                        ...currList.sublist(0, i),
-                        value,
-                        ...currList.sublist(i + 1),
-                      ]);
-                    },
-                    builder: (context, controller) {
-                      return TextFieldTv(
-                        name: t.networkInterfacesPage.whitelist,
-                        controller: controller,
-                        onDelete: () async {
-                          if (currList.length == 1) {
-                            await updateFunction(null);
-                            return;
-                          }
-                          await updateFunction([
-                            ...currList.sublist(0, i),
-                            ...currList.sublist(i + 1),
-                          ]);
-                        },
-                      );
-                    }),
+                  value: e,
+                  onChanged: (value) async {
+                    await updateFunction([
+                      ...currList.sublist(0, i),
+                      value,
+                      ...currList.sublist(i + 1),
+                    ]);
+                  },
+                  builder: (context, controller) {
+                    return TextFieldTv(
+                      name: t.networkInterfacesPage.whitelist,
+                      controller: controller,
+                      onDelete: () async {
+                        if (currList.length == 1) {
+                          await updateFunction(null);
+                          return;
+                        }
+                        await updateFunction([
+                          ...currList.sublist(0, i),
+                          ...currList.sublist(i + 1),
+                        ]);
+                      },
+                    );
+                  },
+                ),
               );
             }),
             if (settings.networkWhitelist != null || settings.networkBlacklist != null)

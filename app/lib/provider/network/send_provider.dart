@@ -1,19 +1,5 @@
 import 'dart:async';
-import 'dart:collection';
 import 'dart:convert';
-
-import 'package:common/api_route_builder.dart';
-import 'package:common/isolate.dart';
-import 'package:common/model/device.dart';
-import 'package:common/model/dto/file_dto.dart';
-import 'package:common/model/dto/info_register_dto.dart';
-import 'package:common/model/dto/multicast_dto.dart';
-import 'package:common/model/dto/prepare_upload_request_dto.dart';
-import 'package:common/model/dto/prepare_upload_response_dto.dart';
-import 'package:common/model/file_status.dart';
-import 'package:common/model/file_type.dart';
-import 'package:common/model/session_status.dart';
-import 'package:common/util/sleep.dart';
 import 'package:flutter/material.dart';
 import 'package:localsend_app/model/cross_file.dart';
 import 'package:localsend_app/model/send_mode.dart';
@@ -23,14 +9,26 @@ import 'package:localsend_app/pages/home_page.dart';
 import 'package:localsend_app/pages/progress_page.dart';
 import 'package:localsend_app/pages/send_page.dart';
 import 'package:localsend_app/provider/device_info_provider.dart';
+import 'package:localsend_app/provider/file_transfer_provider.dart';
 import 'package:localsend_app/provider/http_provider.dart';
-import 'package:localsend_app/provider/progress_provider.dart';
 import 'package:localsend_app/provider/selection/selected_sending_files_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/widget/dialogs/pin_dialog.dart';
+import 'package:localsend_isolates/isolate.dart';
+import 'package:localsend_isolates/model/device.dart';
+import 'package:localsend_isolates/model/dto/file_dto.dart';
+import 'package:localsend_isolates/model/file_status.dart';
+import 'package:localsend_isolates/model/file_type.dart';
+import 'package:localsend_isolates/model/session_status.dart';
+import 'package:localsend_isolates/rust/api/cancel.dart' as rust_cancel;
+import 'package:localsend_isolates/rust/api/http.dart' as rust_http;
+import 'package:localsend_isolates/rust/api/model.dart' as rust_model;
+import 'package:localsend_isolates/util/file_hash.dart';
+import 'package:localsend_isolates/util/rust.dart';
+import 'package:localsend_isolates/util/sleep.dart';
+import 'package:localsend_isolates/util/transfer_notification.dart';
 import 'package:logging/logging.dart';
 import 'package:refena_flutter/refena_flutter.dart';
-import 'package:rhttp/rhttp.dart';
 import 'package:routerino/routerino.dart';
 import 'package:uri_content/uri_content.dart';
 import 'package:uuid/uuid.dart';
@@ -49,9 +47,37 @@ final sendProvider = NotifierProvider<SendNotifier, Map<String, SendSessionState
 class SendNotifier extends Notifier<Map<String, SendSessionState>> {
   SendNotifier();
 
+  /// Cancel tokens of the running checksum calculations.
+  /// Session ID -> Cancel token
+  final _hashCancelTokens = <String, rust_cancel.RsCancellationToken>{};
+
+  /// Cancel tokens of the running prepare-upload requests.
+  /// Cancelling aborts the request, which tells the receiver that the sender
+  /// is no longer waiting for a decision.
+  /// Session ID -> Cancel token
+  final _prepareUploadCancelTokens = <String, rust_cancel.RsCancellationToken>{};
+
   @override
   Map<String, SendSessionState> init() {
     return {};
+  }
+
+  /// The debug observer stringifies the state on every change,
+  /// so large file maps must be summarized to keep transfers responsive in debug mode.
+  @override
+  String describeState(Map<String, SendSessionState> state) {
+    if (state.values.every((session) => session.files.length <= 10)) {
+      return state.toString();
+    }
+    return state.map((sessionId, session) {
+      if (session.files.length <= 10) {
+        return MapEntry(sessionId, session.toString());
+      }
+      return MapEntry(
+        sessionId,
+        session.copyWith(files: {}).toString().replaceFirst('files: {}', 'files: <${session.files.length} files>'),
+      );
+    }).toString();
   }
 
   /// Starts a session.
@@ -62,75 +88,68 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
     required List<CrossFile> files,
     required bool background,
   }) async {
-    final client = ref.read(httpProvider).longLiving;
-    final cancelToken = CancelToken();
+    // Pinned to the device the user picked, so the request is not sent at all
+    // if someone else answers on that address.
+    final client = ref.read(httpProvider).pinnedTo(target.fingerprint);
     final sessionId = _uuid.v4();
+    final createChecksums = ref.read(settingsProvider).createChecksums;
 
-    final requestState = SendSessionState(
-      sessionId: sessionId,
-      remoteSessionId: null,
-      background: background,
-      status: SessionStatus.waiting,
-      target: target,
-      files: Map.fromEntries(await Future.wait(files.map((file) async {
-        final id = _uuid.v4();
-        return MapEntry(
-          id,
-          SendingFile(
-            file: FileDto(
-              id: id,
-              fileName: file.name,
-              size: file.size,
-              fileType: file.fileType,
-              hash: null,
-              preview: files.length == 1 && files.first.fileType == FileType.text && files.first.bytes != null
-                  ? utf8.decode(files.first.bytes!) // send simple message by embedding it into the preview
-                  : null,
-              metadata: file.lastModified != null || file.lastAccessed != null
-                  ? FileMetadata(
-                      lastModified: file.lastModified,
-                      lastAccessed: file.lastAccessed,
-                    )
-                  : null,
-              legacy: target.version == '1.0',
-            ),
-            status: FileStatus.queue,
-            token: null,
-            thumbnail: file.thumbnail,
-            asset: file.asset,
-            path: file.path,
-            bytes: file.bytes,
-            errorMessage: null,
-          ),
-        );
-      }))),
-      startTime: null,
-      endTime: null,
-      sendingTasks: [],
-      errorMessage: null,
-    );
-
-    final originDevice = ref.read(deviceFullInfoProvider);
-    final requestDto = PrepareUploadRequestDto(
-      info: InfoRegisterDto(
-        alias: originDevice.alias,
-        version: originDevice.version,
-        deviceModel: originDevice.deviceModel,
-        deviceType: originDevice.deviceType,
-        fingerprint: originDevice.fingerprint,
-        port: originDevice.port,
-        protocol: originDevice.https ? ProtocolType.https : ProtocolType.http,
-        download: originDevice.download,
-      ),
-      files: {
-        for (final entry in requestState.files.entries) entry.key: entry.value.file,
-      },
-    );
+    // The ids are assigned upfront, so the checksums calculated below
+    // can be mapped back to the corresponding file.
+    final selectedFiles = files.map((file) => (id: _uuid.v4(), file: file)).toList();
 
     state = state.updateSession(
       sessionId: sessionId,
-      state: (_) => requestState,
+      state: (_) => SendSessionState(
+        sessionId: sessionId,
+        remoteSessionId: null,
+        background: background,
+        status: SessionStatus.waiting,
+        target: target,
+        files: {
+          for (final (:id, :file) in selectedFiles)
+            id: SendingFile(
+              file: FileDto(
+                id: id,
+                fileName: file.name,
+                size: file.size,
+                fileType: file.fileType,
+                hash: null,
+                // calculated below
+                preview: files.length == 1 && files.first.fileType == FileType.text && files.first.bytes != null
+                    ? utf8.decode(files.first.bytes!) // send simple message by embedding it into the preview
+                    : null,
+                metadata: file.lastModified != null || file.lastAccessed != null
+                    ? FileMetadata(
+                        lastModified: file.lastModified,
+                        lastAccessed: file.lastAccessed,
+                      )
+                    : null,
+              ),
+              token: null,
+              thumbnail: file.thumbnail,
+              asset: file.asset,
+              path: file.path,
+              bytes: file.bytes,
+              errorMessage: null,
+            ),
+        },
+        // Skipping the checksums marks all files as hashed, so the UI does not
+        // show the checksum progress.
+        hashedFileCount: createChecksums ? 0 : selectedFiles.length,
+        startTime: null,
+        endTime: null,
+        sendingTasks: [],
+        errorMessage: null,
+      ),
     );
+
+    ref
+        .notifier(fileTransferProvider)
+        .setStatuses(
+          sessionId: sessionId,
+          statuses: {for (final f in selectedFiles) f.id: FileStatus.queue},
+        );
 
     if (!background) {
       // ignore: use_build_context_synchronously, unawaited_futures
@@ -140,117 +159,176 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
       );
     }
 
-    HttpTextResponse? response;
-    bool invalidPin;
-    bool pinFirstAttempt = true;
-    String? pin;
-    do {
-      invalidPin = false;
+    // Calculate the checksums which are part of the request.
+    // The files are read and hashed in Rust, one file after another.
+    final hashes = <String, String>{};
+    if (createChecksums) {
+      final hashCancelToken = rust_cancel.createCancellationToken();
+      _hashCancelTokens[sessionId] = hashCancelToken;
       try {
-        response = await client.post(
-          ApiRoute.prepareUpload.target(target),
-          query: {
-            if (pin != null) 'pin': pin,
-          },
-          body: HttpBody.json(requestDto.toJson()),
-          cancelToken: cancelToken,
-        );
-      } on RhttpStatusCodeException catch (e) {
-        switch (e.statusCode) {
-          case 401:
-            invalidPin = true;
-
-            // wait until animation is finished
-            await sleepAsync(500);
-
-            pin = await showDialog<String>(
-              context: Routerino.context, // ignore: use_build_context_synchronously
-              builder: (_) => PinDialog(
-                obscureText: true,
-                showInvalidPin: !pinFirstAttempt,
-              ),
+        for (final (:id, :file) in selectedFiles) {
+          try {
+            hashes[id] = await calculateFileHash(
+              path: file.path,
+              bytes: file.bytes,
+              cancelToken: hashCancelToken,
+              onProgress: (bytes) {
+                if (state[sessionId] == null) {
+                  // session has been canceled while calculating the checksums
+                  return;
+                }
+                ref
+                    .notifier(fileTransferProvider)
+                    .setProgress(
+                      sessionId: sessionId,
+                      fileId: id,
+                      progress: file.size == 0 ? 1 : (bytes / file.size).clamp(0, 1),
+                    );
+              },
             );
-
-            pinFirstAttempt = false;
-
-            if (pin == null) {
-              state = state.updateSession(
-                sessionId: sessionId,
-                state: (s) => s?.copyWith(
-                  status: SessionStatus.canceledBySender,
-                ),
-              );
-              return;
+          } catch (e) {
+            if (state[sessionId] != null) {
+              // Sending the checksum is optional, so a file that cannot be read
+              // here still gets a chance to be sent.
+              // Errors caused by the cancellation are not logged.
+              _logger.warning('Could not calculate the checksum of ${file.name}', e);
             }
-            break;
-          case 403:
-            state = state.updateSession(
-              sessionId: sessionId,
-              state: (s) => s?.copyWith(
-                status: SessionStatus.declined,
-              ),
-            );
-            return;
-          case 409:
-            state = state.updateSession(
-              sessionId: sessionId,
-              state: (s) => s?.copyWith(
-                status: SessionStatus.recipientBusy,
-              ),
-            );
-            return;
-          case 429:
-            state = state.updateSession(
-              sessionId: sessionId,
-              state: (s) => s?.copyWith(
-                status: SessionStatus.tooManyAttempts,
-              ),
-            );
-            return;
-          default:
-            state = state.updateSession(
-              sessionId: sessionId,
-              state: (s) => s?.copyWith(
-                status: SessionStatus.finishedWithErrors,
-                errorMessage: e.humanErrorMessage,
-              ),
-            );
-            return;
-        }
-      } catch (e) {
-        state = state.updateSession(
-          sessionId: sessionId,
-          state: (s) => s?.copyWith(
-            status: SessionStatus.finishedWithErrors,
-            errorMessage: e.humanErrorMessage,
-          ),
-        );
-        return;
-      }
-    } while (invalidPin);
+          }
 
-    if (response == null) {
+          if (state[sessionId] == null) {
+            // session has been canceled while calculating the checksums
+            return;
+          }
+
+          // Also set for files whose hashing failed, so the progress bar stays
+          // consistent with the files that are left.
+          ref.notifier(fileTransferProvider).setProgress(sessionId: sessionId, fileId: id, progress: 1);
+          state = state.updateSession(
+            sessionId: sessionId,
+            state: (s) => s?.copyWith(hashedFileCount: s.hashedFileCount + 1),
+          );
+        }
+      } finally {
+        _hashCancelTokens.remove(sessionId);
+      }
+    }
+
+    final hashedState = state[sessionId];
+    if (hashedState == null) {
+      // session has been canceled while calculating the checksums
       return;
     }
 
-    final Map<String, String> fileMap;
-    if (target.version == '1.0') {
-      fileMap = (response.bodyToJson as Map).cast<String, String>();
-    } else {
-      if (response.statusCode == 204) {
-        // Nothing selected
-        // Interpret this as "Read and close"
-        fileMap = {};
-      } else {
+    final requestState = hashedState.copyWith(
+      files: hashedState.files.map(
+        (id, sendingFile) => MapEntry(id, sendingFile.copyWith(file: sendingFile.file.withHash(hashes[id]))),
+      ),
+    );
+    state = state.updateSession(
+      sessionId: sessionId,
+      state: (_) => requestState,
+    );
+
+    final originDevice = ref.read(deviceFullInfoProvider);
+    final requestDto = rust_model.PrepareUploadRequestDto(
+      info: rust_model.RegisterDto(
+        alias: originDevice.alias,
+        version: originDevice.version,
+        deviceModel: originDevice.deviceModel,
+        deviceType: originDevice.deviceType.toRust(),
+        token: originDevice.fingerprint,
+        port: originDevice.port,
+        protocol: originDevice.https ? rust_model.ProtocolType.https : rust_model.ProtocolType.http,
+        hasWebInterface: originDevice.download,
+      ),
+      files: {
+        for (final entry in requestState.files.entries) entry.key: entry.value.file.toRust(),
+      },
+    );
+
+    rust_http.PrepareUploadResult? response;
+    bool invalidPin;
+    bool pinFirstAttempt = true;
+    String? pin;
+    final prepareUploadCancelToken = rust_cancel.createCancellationToken();
+    _prepareUploadCancelTokens[sessionId] = prepareUploadCancelToken;
+    try {
+      do {
+        invalidPin = false;
         try {
-          final responseDto = PrepareUploadResponseDto.fromJson(response.bodyToJson);
-          fileMap = responseDto.files;
-          state = state.updateSession(
-            sessionId: sessionId,
-            state: (s) => s?.copyWith(
-              remoteSessionId: responseDto.sessionId,
-            ),
+          response = await client.prepareUpload(
+            protocol: target.getProtocolType(),
+            ip: target.ip!,
+            port: target.port,
+            payload: requestDto,
+            // The peer is already verified during the TLS handshake by the
+            // fingerprint the client is pinned to.
+            publicKey: null,
+            pin: pin,
+            cancelToken: prepareUploadCancelToken,
           );
+        } on rust_http.RsHttpClientError_StatusCode catch (e) {
+          switch (e.status) {
+            case 401:
+              invalidPin = true;
+
+              // wait until animation is finished
+              await sleepAsync(500);
+
+              pin = await showDialog<String>(
+                context: Routerino.context, // ignore: use_build_context_synchronously
+                builder: (_) => PinDialog(
+                  obscureText: true,
+                  showInvalidPin: !pinFirstAttempt,
+                ),
+              );
+
+              pinFirstAttempt = false;
+
+              if (pin == null) {
+                state = state.updateSession(
+                  sessionId: sessionId,
+                  state: (s) => s?.copyWith(
+                    status: SessionStatus.canceledBySender,
+                  ),
+                );
+                return;
+              }
+              break;
+            case 403:
+              state = state.updateSession(
+                sessionId: sessionId,
+                state: (s) => s?.copyWith(
+                  status: SessionStatus.declined,
+                ),
+              );
+              return;
+            case 409:
+              state = state.updateSession(
+                sessionId: sessionId,
+                state: (s) => s?.copyWith(
+                  status: SessionStatus.recipientBusy,
+                ),
+              );
+              return;
+            case 429:
+              state = state.updateSession(
+                sessionId: sessionId,
+                state: (s) => s?.copyWith(
+                  status: SessionStatus.tooManyAttempts,
+                ),
+              );
+              return;
+            default:
+              state = state.updateSession(
+                sessionId: sessionId,
+                state: (s) => s?.copyWith(
+                  status: SessionStatus.finishedWithErrors,
+                  errorMessage: e.humanErrorMessage,
+                ),
+              );
+              return;
+          }
         } catch (e) {
           state = state.updateSession(
             sessionId: sessionId,
@@ -261,6 +339,39 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
           );
           return;
         }
+      } while (invalidPin);
+    } finally {
+      _prepareUploadCancelTokens.remove(sessionId);
+    }
+
+    if (response == null) {
+      return;
+    }
+
+    final Map<String, String> fileMap;
+    if (response.statusCode == 204) {
+      // Nothing selected
+      // Interpret this as "Read and close"
+      fileMap = {};
+    } else {
+      try {
+        fileMap = response.response!.files;
+        final remoteSessionId = response.response!.sessionId;
+        state = state.updateSession(
+          sessionId: sessionId,
+          state: (s) => s?.copyWith(
+            remoteSessionId: remoteSessionId,
+          ),
+        );
+      } catch (e) {
+        state = state.updateSession(
+          sessionId: sessionId,
+          state: (s) => s?.copyWith(
+            status: SessionStatus.finishedWithErrors,
+            errorMessage: e.humanErrorMessage,
+          ),
+        );
+        return;
       }
     }
 
@@ -284,22 +395,41 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
 
     final sendingFiles = {
       for (final file in requestState.files.values)
-        file.file.id: fileMap.containsKey(file.file.id) ? file.copyWith(token: fileMap[file.file.id]) : file.copyWith(status: FileStatus.skipped),
+        file.file.id: fileMap.containsKey(file.file.id) ? file.copyWith(token: fileMap[file.file.id]) : file,
     };
+
+    // Recreate the transfer state: the hash progress is no longer needed and must not be
+    // mistaken for upload progress, which starts at zero for every file.
+    final transferNotifier = ref.notifier(fileTransferProvider);
+    transferNotifier.removeSession(sessionId);
+    transferNotifier.setStatuses(
+      sessionId: sessionId,
+      statuses: {for (final file in sendingFiles.values) file.file.id: file.token != null ? FileStatus.queue : FileStatus.skipped},
+    );
 
     if (state[sessionId]?.background == false) {
       final background = ref.read(settingsProvider).sendMode == SendMode.multiple;
 
-      // ignore: use_build_context_synchronously, unawaited_futures
-      Routerino.context.pushAndRemoveUntil(
-        removeUntil: HomePage,
-        transition: RouterinoTransition.fade(),
-        // immediately is not possible: https://github.com/flutter/flutter/issues/121910
-        builder: () => ProgressPage(
-          showAppBar: background,
-          closeSessionOnClose: !background,
-          sessionId: sessionId,
-        ),
+      unawaited(
+        // ignore: use_build_context_synchronously
+        Routerino.context
+            .pushAndRemoveUntil(
+              removeUntil: HomePage,
+              transition: RouterinoTransition.fade(),
+              // immediately is not possible: https://github.com/flutter/flutter/issues/121910
+              builder: () => ProgressPage(
+                showAppBar: background,
+                closeSessionOnClose: !background,
+                sessionId: sessionId,
+              ),
+            )
+            .then((_) {
+              if (background) {
+                // The page was popped (e.g. backing out mid-transfer), so the session
+                // runs in background again and is removed silently on success.
+                setBackground(sessionId, true);
+              }
+            }),
       );
     }
 
@@ -311,40 +441,58 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
       ),
     );
 
-    await _sendLoop(ref, sessionId, target, sendingFiles);
+    // Keep the process alive for the whole transfer. Started here, while the app is still in the
+    // foreground, because Android 12+ rejects starting a foreground service from the background.
+    TransferNotification.start(sessionId: sessionId, receiving: false);
+
+    await _sendLoop(sessionId, sendingFiles);
   }
 
-  Future<void> _sendLoop(Ref ref, String sessionId, Device target, Map<String, SendingFile> files) async {
+  /// Reports the total session progress to the foreground service notification,
+  /// so that it stays up to date while the app is minimized.
+  void _updateForegroundServiceProgress(String sessionId) {
+    if (!TransferNotification.shouldUpdate) {
+      // Checked before the sum below because progress events arrive several times per second per file.
+      return;
+    }
+
+    final session = state[sessionId];
+    if (session == null) {
+      return;
+    }
+
+    final transferNotifier = ref.read(fileTransferProvider);
+    int currentBytes = 0;
+    int totalBytes = 0;
+    for (final sendingFile in session.files.values) {
+      if (transferNotifier.getStatus(sessionId: sessionId, fileId: sendingFile.file.id) == FileStatus.skipped) {
+        // not accepted by the receiver
+        continue;
+      }
+      final size = sendingFile.file.size;
+      totalBytes += size;
+      currentBytes += (transferNotifier.getProgress(sessionId: sessionId, fileId: sendingFile.file.id) * size).round();
+    }
+
+    TransferNotification.update(
+      sessionId: sessionId,
+      currentBytes: currentBytes,
+      totalBytes: totalBytes,
+      startTime: session.startTime,
+      endTime: session.endTime,
+    );
+  }
+
+  Future<void> _sendLoop(String sessionId, Map<String, SendingFile> files) async {
     state = state.updateSession(
       sessionId: sessionId,
       state: (s) => s?.copyWith(startTime: DateTime.now().millisecondsSinceEpoch),
     );
 
-    final queue = Queue<SendingFile>()..addAll(files.values);
-    final concurrency = ref.read(parentIsolateProvider).uploadIsolateCount;
-    _logger.info('Sending files using $concurrency concurrent isolates');
-
-    final futures = List.generate(concurrency, (index) async {
-      while (true) {
-        final file = switch (queue.isEmpty) {
-          true => null,
-          false => queue.removeFirst(),
-        };
-
-        if (file == null) {
-          break;
-        }
-
-        await sendFile(
-          sessionId: sessionId,
-          isolateIndex: index,
-          file: file,
-          isRetry: false,
-        );
-      }
-    });
-
-    await Future.wait(futures);
+    await _sendFiles(
+      sessionId: sessionId,
+      files: files.values.toList(),
+    );
 
     _finish(sessionId: sessionId);
   }
@@ -355,10 +503,13 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
       return;
     }
 
+    // The transfer is over, the process no longer needs to be kept alive for it.
+    TransferNotification.stop(sessionId);
+
     if (state[sessionId]!.status != SessionStatus.sending) {
       _logger.info('Transfer was canceled.');
     } else {
-      final hasError = sessionState.files.values.any((file) => file.status == FileStatus.failed);
+      final hasError = ref.read(fileTransferProvider).getStatuses(sessionId).any((status) => status == FileStatus.failed);
       if (!hasError && sessionState.background == true) {
         // close session because everything is fine and it is in background
         closeSession(sessionId);
@@ -384,116 +535,170 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
 
   final uriContent = UriContent();
 
-  /// Sends a file.
-  /// Returns true, if the next file should be sent.
-  Future<bool> sendFile({
+  /// Sends a single file. Currently only used to retry a failed file.
+  Future<void> sendFile({
     required String sessionId,
-    required int isolateIndex,
     required SendingFile file,
     required bool isRetry,
   }) async {
-    final token = file.token;
-    if (token == null) {
-      return true;
+    if (file.token == null) {
+      return;
     }
 
     final status = state[sessionId]?.status;
     const allowedStates = {SessionStatus.sending, SessionStatus.finishedWithErrors};
     if (status == null || !allowedStates.contains(status)) {
-      return false;
+      return;
     }
-
-    final remoteSessionId = state[sessionId]!.remoteSessionId;
-    final target = state[sessionId]!.target;
 
     if (isRetry) {
       _logger.info('Retrying ${file.file.fileName}');
 
+      ref.notifier(fileTransferProvider).setStatus(sessionId: sessionId, fileId: file.file.id, status: FileStatus.queue);
       state = state.updateSession(
         sessionId: sessionId,
         state: (s) => s?.copyWith(
           status: SessionStatus.sending,
           files: s.files.map((key, value) {
             if (key == file.file.id) {
-              return MapEntry(key, value.copyWith(status: FileStatus.queue, errorMessage: null));
+              return MapEntry(key, value.copyWith(errorMessage: null));
             }
             return MapEntry(key, value);
           }),
         ),
       );
-    } else {
-      _logger.info('Sending ${file.file.fileName}');
     }
+
+    await _sendFiles(
+      sessionId: sessionId,
+      files: [file],
+    );
+
+    if (isRetry) {
+      if (state[sessionId] != null && ref.read(fileTransferProvider).getStatuses(sessionId).isFinishedOrError) {
+        _finish(sessionId: sessionId);
+      }
+    }
+  }
+
+  /// Sends the given [files] as one isolate task.
+  /// The isolate iterates through the list and reports the state of each file
+  /// via [HttpUploadEvent]s.
+  /// Files without a token (i.e. not selected by the receiver) are skipped.
+  Future<void> _sendFiles({
+    required String sessionId,
+    required List<SendingFile> files,
+  }) async {
+    final sessionState = state[sessionId];
+    if (sessionState == null) {
+      return;
+    }
+
+    final uploadFiles = [
+      for (final file in files)
+        if (file.token != null)
+          HttpUploadFile(
+            remoteFileToken: file.token!,
+            fileId: file.file.id,
+            filePath: file.path,
+            fileBytes: file.bytes,
+            fileSize: file.file.size,
+          ),
+    ];
+
+    if (uploadFiles.isEmpty) {
+      return;
+    }
+
+    final taskResult = ref
+        .redux(parentIsolateProvider)
+        .dispatchTakeResult(
+          IsolateHttpUploadFilesAction(
+            remoteSessionId: sessionState.remoteSessionId,
+            files: uploadFiles,
+            device: sessionState.target,
+          ),
+        );
 
     state = state.updateSession(
       sessionId: sessionId,
-      state: (s) => s?.withFileStatus(file.file.id, FileStatus.sending, null),
-    );
-
-    final taskResult = ref.redux(parentIsolateProvider).dispatchTakeResult(IsolateHttpUploadAction(
-          isolateIndex: isolateIndex,
-          remoteSessionId: remoteSessionId,
-          remoteFileToken: token,
-          fileId: file.file.id,
-          filePath: file.path,
-          fileBytes: file.bytes,
-          mime: file.file.lookupMime(),
-          fileSize: file.file.size,
-          device: target,
-        ));
-
-    String? fileError;
-    try {
-      state = state.updateSession(
-        sessionId: sessionId,
-        state: (s) => s?.copyWith(sendingTasks: [
+      state: (s) => s?.copyWith(
+        sendingTasks: [
           ...?s.sendingTasks,
           SendingTask(
-            isolateIndex: isolateIndex,
             taskId: taskResult.taskId,
           ),
-        ]),
-      );
+        ],
+      ),
+    );
 
-      await for (final progress in taskResult.progress) {
-        ref.notifier(progressProvider).setProgress(
+    try {
+      await for (final event in taskResult.events) {
+        switch (event) {
+          case HttpUploadFileStartedEvent():
+            _logger.info('Sending ${state[sessionId]?.files[event.fileId]?.file.fileName}');
+            ref.notifier(fileTransferProvider).setStatus(sessionId: sessionId, fileId: event.fileId, status: FileStatus.sending);
+          case HttpUploadFileProgressEvent():
+            ref
+                .notifier(fileTransferProvider)
+                .setProgress(
+                  sessionId: sessionId,
+                  fileId: event.fileId,
+                  progress: event.progress,
+                );
+            _updateForegroundServiceProgress(sessionId);
+          case HttpUploadFileFinishedEvent():
+            // set progress to 100% when successfully finished
+            ref
+                .notifier(fileTransferProvider)
+                .setProgress(
+                  sessionId: sessionId,
+                  fileId: event.fileId,
+                  progress: 1,
+                );
+            _updateForegroundServiceProgress(sessionId);
+            ref.notifier(fileTransferProvider).setStatus(sessionId: sessionId, fileId: event.fileId, status: FileStatus.finished);
+          case HttpUploadFileFailedEvent():
+            _logger.warning('Error while sending file ${state[sessionId]?.files[event.fileId]?.file.fileName}: ${event.error}');
+            ref.notifier(fileTransferProvider).setStatus(sessionId: sessionId, fileId: event.fileId, status: FileStatus.failed);
+            state = state.updateSession(
               sessionId: sessionId,
-              fileId: file.file.id,
-              progress: progress,
+              state: (s) => s?.withFileError(event.fileId, event.error),
             );
+        }
       }
-
-      // set progress to 100% when successfully finished
-      ref.notifier(progressProvider).setProgress(
-            sessionId: sessionId,
-            fileId: file.file.id,
-            progress: 1,
-          );
     } catch (e, st) {
-      fileError = e.humanErrorMessage;
-      _logger.warning('Error while sending file ${file.file.fileName}', e, st);
+      // the whole task failed, mark all files of this task that did not finish as failed
+      _logger.warning('Error while sending files', e, st);
+      final error = e.humanErrorMessage;
+      final transferNotifier = ref.notifier(fileTransferProvider);
+      final failedFileIds = uploadFiles
+          .map((file) => file.fileId)
+          .where((id) => const {FileStatus.queue, FileStatus.sending}.contains(transferNotifier.getStatus(sessionId: sessionId, fileId: id)))
+          .toSet();
+      transferNotifier.setStatuses(
+        sessionId: sessionId,
+        statuses: {for (final id in failedFileIds) id: FileStatus.failed},
+      );
+      state = state.updateSession(
+        sessionId: sessionId,
+        state: (s) => s?.copyWith(
+          files: s.files.map((key, value) {
+            if (failedFileIds.contains(key)) {
+              return MapEntry(key, value.copyWith(errorMessage: error));
+            }
+            return MapEntry(key, value);
+          }),
+        ),
+      );
     } finally {
       state = state.updateSession(
         sessionId: sessionId,
         state: (s) => s?.copyWith(
-            sendingTasks: s.sendingTasks?.where((task) => !(task.isolateIndex == isolateIndex && task.taskId == taskResult.taskId)).toList()),
+          sendingTasks: s.sendingTasks?.where((task) => task.taskId != taskResult.taskId).toList(),
+        ),
       );
     }
-
-    state = state.updateSession(
-      sessionId: sessionId,
-      state: (s) => s?.withFileStatus(file.file.id, fileError != null ? FileStatus.failed : FileStatus.finished, fileError),
-    );
-
-    if (isRetry) {
-      final state = this.state[sessionId];
-      if (state != null && state.files.values.map((e) => e.status).isFinishedOrError) {
-        _finish(sessionId: sessionId);
-        return false;
-      }
-    }
-
-    return true;
   }
 
   /// Closes the send-session and sends a cancel event to the receiver.
@@ -506,13 +711,24 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
 
     _cancelRunningRequests(sessionState);
 
+    if (remoteSessionId == null) {
+      closeSession(sessionId);
+      return;
+    }
+
     // notify the receiver
+    final target = sessionState.target;
     try {
       ref
           .read(httpProvider)
-          .discovery
+          .pinnedTo(target.fingerprint)
           // ignore: discarded_futures
-          .post(ApiRoute.cancel.target(sessionState.target, query: remoteSessionId != null ? {'sessionId': remoteSessionId} : null));
+          .cancel(
+            protocol: target.getProtocolType(),
+            ip: target.ip!,
+            port: target.port,
+            sessionId: remoteSessionId,
+          );
     } catch (e) {
       _logger.warning('Error while canceling session', e);
     }
@@ -526,6 +742,7 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
     if (sessionState == null) {
       return;
     }
+    TransferNotification.stop(sessionId);
     _cancelRunningRequests(sessionState);
 
     state = state.updateSession(
@@ -538,11 +755,17 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
   }
 
   void _cancelRunningRequests(SendSessionState state) {
+    _hashCancelTokens.remove(state.sessionId)?.cancel();
+    _prepareUploadCancelTokens.remove(state.sessionId)?.cancel();
+
     for (final task in state.sendingTasks ?? <SendingTask>[]) {
-      ref.redux(parentIsolateProvider).dispatch(IsolateHttpUploadCancelAction(
-            isolateIndex: task.isolateIndex,
-            taskId: task.taskId,
-          ));
+      ref
+          .redux(parentIsolateProvider)
+          .dispatch(
+            IsolateHttpUploadCancelAction(
+              taskId: task.taskId,
+            ),
+          );
     }
   }
 
@@ -552,6 +775,9 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
     if (sessionState == null) {
       return;
     }
+    TransferNotification.stop(sessionId);
+    _hashCancelTokens.remove(sessionId)?.cancel();
+    _prepareUploadCancelTokens.remove(sessionId)?.cancel();
     state = state.removeSession(ref, sessionId);
     if (sessionState.status == SessionStatus.finished && ref.read(settingsProvider).sendMode == SendMode.single) {
       // clear selected files
@@ -560,12 +786,26 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
   }
 
   void clearAllSessions() {
+    for (final sessionId in state.keys) {
+      TransferNotification.stop(sessionId);
+    }
+    for (final cancelToken in _hashCancelTokens.values) {
+      cancelToken.cancel();
+    }
+    _hashCancelTokens.clear();
+    for (final cancelToken in _prepareUploadCancelTokens.values) {
+      cancelToken.cancel();
+    }
+    _prepareUploadCancelTokens.clear();
     state = {};
-    ref.notifier(progressProvider).removeAllSessions();
+    ref.notifier(fileTransferProvider).removeAllSessions();
   }
 
   void setBackground(String sessionId, bool background) {
-    state = state.updateSession(sessionId: sessionId, state: (s) => s?.copyWith(background: background));
+    state = state.updateSession(
+      sessionId: sessionId,
+      state: (s) => s?.copyWith(background: background),
+    );
   }
 }
 
@@ -586,49 +826,21 @@ extension on Map<String, SendSessionState> {
   }
 
   Map<String, SendSessionState> removeSession(Ref ref, String sessionId) {
-    ref.notifier(progressProvider).removeSession(sessionId);
+    ref.notifier(fileTransferProvider).removeSession(sessionId);
     return {...this}..remove(sessionId);
   }
 }
 
 extension on SendSessionState {
-  SendSessionState withFileStatus(String fileId, FileStatus status, String? errorMessage) {
+  SendSessionState withFileError(String fileId, String? errorMessage) {
     return copyWith(
-      files: {...files}..update(
+      files: {...files}
+        ..update(
           fileId,
           (file) => file.copyWith(
-            status: status,
             errorMessage: errorMessage,
           ),
         ),
     );
-  }
-}
-
-extension on Object {
-  String get humanErrorMessage {
-    final e = this;
-    final (statusCode, message) = switch (this) {
-      RhttpStatusCodeException(:final statusCode, :final body) => (statusCode, _parseErrorMessage(body)),
-      _ => (null, e.toString()),
-    };
-
-    if (statusCode != null && message != null) {
-      return '[$statusCode] $message';
-    }
-
-    return e.toString();
-  }
-}
-
-String? _parseErrorMessage(Object? body) {
-  if (body is! String) {
-    return null;
-  }
-
-  try {
-    return (jsonDecode(body) as Map)['message'];
-  } catch (_) {
-    return null;
   }
 }

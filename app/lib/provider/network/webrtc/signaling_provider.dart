@@ -1,8 +1,7 @@
 import 'dart:async';
 
-import 'package:common/constants.dart';
-import 'package:common/model/device.dart';
 import 'package:dart_mappable/dart_mappable.dart';
+import 'package:flutter/foundation.dart';
 import 'package:localsend_app/provider/device_info_provider.dart';
 import 'package:localsend_app/provider/favorites_provider.dart';
 import 'package:localsend_app/provider/network/nearby_devices_provider.dart';
@@ -10,12 +9,17 @@ import 'package:localsend_app/provider/network/webrtc/webrtc_receiver.dart';
 import 'package:localsend_app/provider/persistence_provider.dart';
 import 'package:localsend_app/provider/security_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
-import 'package:localsend_app/rust/api/crypto.dart' as crypto;
-import 'package:localsend_app/rust/api/model.dart' as rust;
-import 'package:localsend_app/rust/api/webrtc.dart';
+import 'package:localsend_isolates/constants.dart';
+import 'package:localsend_isolates/model/device.dart';
+import 'package:localsend_isolates/rust/api/crypto.dart' as crypto;
+import 'package:localsend_isolates/rust/api/model.dart' as rust;
+import 'package:localsend_isolates/rust/api/webrtc.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 
 part 'signaling_provider.mapper.dart';
+
+/// WebRTC (and therefore the signaling connection) is disabled for now.
+const webRTCEnabled = false;
 
 @MappableClass()
 class SignalingState with SignalingStateMappable {
@@ -74,11 +78,12 @@ class _SetupSignalingConnection extends AsyncGlobalAction {
   Future<void> reduce() async {
     final settings = ref.read(settingsProvider);
     final deviceInfo = ref.read(deviceInfoProvider);
-    final security = ref.read(securityProvider);
 
     // TODO: Use persistent key
     final key = await crypto.generateKeyPair();
-    print('private key: ${key.privateKey}');
+    if (kDebugMode) {
+      print('private key: ${key.privateKey}');
+    }
 
     LsSignalingConnection? connection;
     final stream = connect(
@@ -93,10 +98,14 @@ class _SetupSignalingConnection extends AsyncGlobalAction {
       onConnection: (c) {
         connection = c;
 
-        ref.redux(signalingProvider).dispatch(_SetConnectionAction(
-              signalingServer: signalingServer,
-              connection: c,
-            ));
+        ref
+            .redux(signalingProvider)
+            .dispatch(
+              _SetConnectionAction(
+                signalingServer: signalingServer,
+                connection: c,
+              ),
+            );
       },
     );
 
@@ -105,21 +114,33 @@ class _SetupSignalingConnection extends AsyncGlobalAction {
         switch (message) {
           case WsServerMessage_Hello():
             for (final d in message.peers) {
-              ref.redux(nearbyDevicesProvider).dispatch(RegisterSignalingDeviceAction(
-                    d.toDevice(signalingServer),
-                  ));
+              ref
+                  .redux(nearbyDevicesProvider)
+                  .dispatch(
+                    RegisterSignalingDeviceAction(
+                      d.toDevice(signalingServer),
+                    ),
+                  );
             }
             break;
           case WsServerMessage_Join(peer: final peer):
           case WsServerMessage_Update(peer: final peer):
-            ref.redux(nearbyDevicesProvider).dispatch(RegisterSignalingDeviceAction(
-                  peer.toDevice(signalingServer),
-                ));
+            ref
+                .redux(nearbyDevicesProvider)
+                .dispatch(
+                  RegisterSignalingDeviceAction(
+                    peer.toDevice(signalingServer),
+                  ),
+                );
             break;
           case WsServerMessage_Left():
-            ref.redux(nearbyDevicesProvider).dispatch(UnregisterSignalingDeviceAction(
-                  message.peerId.uuid,
-                ));
+            ref
+                .redux(nearbyDevicesProvider)
+                .dispatch(
+                  UnregisterSignalingDeviceAction(
+                    message.peerId.uuid,
+                  ),
+                );
             break;
           case WsServerMessage_Offer():
             final provider = ReduxProvider<WebRTCReceiveService, WebRTCReceiveState>((ref) {
@@ -197,11 +218,11 @@ extension ClientInfoExt on ClientInfo {
       deviceModel: deviceModel,
       deviceType: deviceType?.toDeviceType() ?? DeviceType.desktop,
       download: false,
-      discoveryMethods: {
-        SignalingDiscovery(
+      channels: [
+        SignalingChannel(
           signalingServer: signalingServer,
         ),
-      },
+      ],
     );
   }
 }

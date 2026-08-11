@@ -48,9 +48,11 @@ class UpdateFavoriteAction extends AsyncReduxAction<FavoritesService, List<Favor
       await Future.microtask(() {});
       return state;
     }
-    final updated = List<FavoriteDevice>.unmodifiable(<FavoriteDevice>[
-      ...state,
-    ]..replaceRange(index, index + 1, [device]));
+    final updated = List<FavoriteDevice>.unmodifiable(
+      <FavoriteDevice>[
+        ...state,
+      ]..replaceRange(index, index + 1, [device]),
+    );
     await notifier._persistence.setFavorites(updated);
     return updated;
   }
@@ -71,9 +73,11 @@ class RemoveFavoriteAction extends AsyncReduxAction<FavoritesService, List<Favor
       // Unknown device
       return state;
     }
-    final updated = List<FavoriteDevice>.unmodifiable(<FavoriteDevice>[
-      ...state,
-    ]..removeAt(index));
+    final updated = List<FavoriteDevice>.unmodifiable(
+      <FavoriteDevice>[
+        ...state,
+      ]..removeAt(index),
+    );
     await notifier._persistence.setFavorites(updated);
     return updated;
   }

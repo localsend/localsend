@@ -10,15 +10,12 @@ import 'package:yaru/yaru.dart' as yaru;
 
 final _borderRadius = BorderRadius.circular(5);
 
-/// On desktop, we need to add additional padding to achieve the same visual appearance as on mobile
-double get desktopPaddingFix => checkPlatformIsDesktop() ? 8 : 0;
-
-ThemeData getTheme(ColorMode colorMode, Brightness brightness, DynamicColors? dynamicColors) {
+ThemeData getTheme(ColorMode colorMode, Color customColor, Brightness brightness, DynamicColors? dynamicColors) {
   if (colorMode == ColorMode.yaru) {
     return _getYaruTheme(brightness);
   }
 
-  final colorScheme = _determineColorScheme(colorMode, brightness, dynamicColors);
+  final colorScheme = _determineColorScheme(colorMode, customColor, brightness, dynamicColors);
 
   final lightInputBorder = OutlineInputBorder(
     borderSide: BorderSide(color: colorScheme.secondaryContainer),
@@ -46,7 +43,7 @@ ThemeData getTheme(ColorMode colorMode, Brightness brightness, DynamicColors? dy
       AppLocale.ko => 'Noto Sans CJK KR',
       AppLocale.zhCn => 'Noto Sans CJK SC',
       AppLocale.zhHk || AppLocale.zhTw => 'Noto Sans CJK TC',
-      _ => 'Noto Sans', 
+      _ => 'Noto Sans',
     };
   } else {
     fontFamily = null;
@@ -55,6 +52,8 @@ ThemeData getTheme(ColorMode colorMode, Brightness brightness, DynamicColors? dy
   return ThemeData(
     colorScheme: colorScheme,
     useMaterial3: true,
+    // same density on all platforms so desktop matches mobile (defaults to compact on desktop)
+    visualDensity: VisualDensity.standard,
     navigationBarTheme: colorScheme.brightness == Brightness.dark
         ? NavigationBarThemeData(
             iconTheme: WidgetStateProperty.all(const IconThemeData(color: Colors.white)),
@@ -71,12 +70,12 @@ ThemeData getTheme(ColorMode colorMode, Brightness brightness, DynamicColors? dy
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         foregroundColor: colorScheme.brightness == Brightness.dark ? Colors.white : null,
-        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8 + desktopPaddingFix),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       ),
     ),
     textButtonTheme: TextButtonThemeData(
       style: TextButton.styleFrom(
-        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8 + desktopPaddingFix),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       ),
     ),
     fontFamily: fontFamily,
@@ -97,18 +96,22 @@ Future<void> updateSystemOverlayStyleWithBrightness(Brightness brightness) async
 
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge); // ignore: unawaited_futures
 
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      statusBarColor: Colors.transparent,
-      statusBarIconBrightness: brightness == Brightness.light ? Brightness.dark : Brightness.light,
-      systemNavigationBarColor: edgeToEdge ? Colors.transparent : (darkMode ? Colors.black : Colors.white),
-      systemNavigationBarContrastEnforced: false,
-      systemNavigationBarIconBrightness: darkMode ? Brightness.light : Brightness.dark,
-    ));
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        statusBarIconBrightness: brightness == Brightness.light ? Brightness.dark : Brightness.light,
+        systemNavigationBarColor: edgeToEdge ? Colors.transparent : (darkMode ? Colors.black : Colors.white),
+        systemNavigationBarContrastEnforced: false,
+        systemNavigationBarIconBrightness: darkMode ? Brightness.light : Brightness.dark,
+      ),
+    );
   } else {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      statusBarBrightness: brightness, // iOS
-      statusBarColor: Colors.transparent, // Not relevant to this issue
-    ));
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(
+        statusBarBrightness: brightness, // iOS
+        statusBarColor: Colors.transparent, // Not relevant to this issue
+      ),
+    );
   }
 }
 
@@ -137,7 +140,7 @@ extension InputDecorationThemeExt on InputDecorationThemeData {
   BorderRadius get borderRadius => _borderRadius;
 }
 
-ColorScheme _determineColorScheme(ColorMode mode, Brightness brightness, DynamicColors? dynamicColors) {
+ColorScheme _determineColorScheme(ColorMode mode, Color customColor, Brightness brightness, DynamicColors? dynamicColors) {
   final defaultColorScheme = ColorScheme.fromSeed(
     seedColor: Colors.teal,
     brightness: brightness,
@@ -147,9 +150,13 @@ ColorScheme _determineColorScheme(ColorMode mode, Brightness brightness, Dynamic
     ColorMode.system => brightness == Brightness.light ? dynamicColors?.light : dynamicColors?.dark,
     ColorMode.localsend => null,
     ColorMode.oled => (dynamicColors?.dark ?? defaultColorScheme).copyWith(
-        surface: Colors.black,
-      ),
+      surface: Colors.black,
+    ),
     ColorMode.yaru => throw 'Should reach here',
+    ColorMode.custom => ColorScheme.fromSeed(
+      seedColor: customColor,
+      brightness: brightness,
+    ),
   };
 
   return colorScheme ?? defaultColorScheme;
@@ -172,6 +179,8 @@ ThemeData _getYaruTheme(Brightness brightness) {
   InputDecorationThemeData;
 
   return baseTheme.copyWith(
+    // same density on all platforms so desktop matches mobile (defaults to compact on desktop)
+    visualDensity: VisualDensity.standard,
     navigationBarTheme: colorScheme.brightness == Brightness.dark
         ? NavigationBarThemeData(
             iconTheme: WidgetStateProperty.all(const IconThemeData(color: Colors.white)),
@@ -188,12 +197,12 @@ ThemeData _getYaruTheme(Brightness brightness) {
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         foregroundColor: colorScheme.brightness == Brightness.dark ? Colors.white : null,
-        padding: checkPlatformIsDesktop() ? const EdgeInsets.all(16) : const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       ),
     ),
     textButtonTheme: TextButtonThemeData(
       style: TextButton.styleFrom(
-        padding: checkPlatformIsDesktop() ? const EdgeInsets.all(16) : const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       ),
     ),
   );

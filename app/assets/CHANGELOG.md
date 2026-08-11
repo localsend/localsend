@@ -1,3 +1,37 @@
+## 1.18.0 (2026-08-10)
+
+- feat(cli): initial CLI release
+- feat: receive via link
+- feat: custom color theme via color picker
+- feat: ipv6 support
+- feat: checksum support (enabled by default)
+- feat: automatically accept files by favorite devices by default
+- feat: use decimal units for file sizes (1 GB = 1000 MB) to match macOS, iOS, Android, and Linux
+- feat: enable starting text share via command line using `--text` or `-t` flags (@guilhermetiscoski)
+- feat: improve remaining time formatting for long transfers (@ShlomoCode)
+- feat: change duplicate file naming from "file-1.txt" to "file (1).txt" format (@kartoshka95)
+- feat(android, ios, macos): respect system-wide animation preferences on first app startup (@nitheesh-daram)
+- feat(android): run file transfer in background
+- feat(android): add quick settings tile for instant app launch (@Voltra)
+- feat(windows): add LocalSend to share sheet (@chenxdust)
+- feat(macos): implement button to quickly open firewall settings from troubleshoot page (@ShlomoCode)
+- feat(macos): add Command+Comma shortcut to open settings (@ShlomoCode)
+- feat(macos): use user-friendly ComputerName instead of the technical hostname (@ShlomoCode)
+- feat(macos): enable Dock icon text-drop even when the app is not running (@ShlomoCode)
+- feat(linux): use native window decorations instead of large GTK3 headerbar (@nixigaj)
+- perf: faster transfers for slow receiving devices
+- fix: receiving / sending many files no longer freeze / lag
+- fix: release wake lock after file transfer completes to allow device sleep (@kartoshka95)
+- fix: text message content displayed three times in history dialog (@ew-sirenko)
+- fix: text message content size calculation (@ew-sirenko)
+- fix: save DNG files to image gallery (@ShlomoCode)
+- fix(ios, android): prevent transfer error by saving unsupported media formats to folder instead of gallery (@ShlomoCode)
+- fix(android): share to LocalSend sometimes doesn't work
+- fix(android): preserve location metadata when sharing media (@ShlomoCode)
+- fix(macos): prevent Dock icon from briefly appearing during autostart when "Start hidden" is enabled (@ShlomoCode)
+- fix(macos): Dock icon drag-and-drop and Share Extension working again (@ShlomoCode)
+- fix(linux): add CJK font support for Chinese, Japanese, and Korean text (@Mr-Ebonycat)
+
 ## 1.17.0 (2025-02-19)
 
 - feat: add advanced setting to filter network interfaces (@Tienisto)

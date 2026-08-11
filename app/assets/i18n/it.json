@@ -1,5 +1,4 @@
 {
-  "locale": "Italiano",
   "appName": "LocalSend",
   "general": {
     "accept": "Accetta",
@@ -52,7 +51,8 @@
       "off": "@:general.off",
       "favorites": "Preferiti",
       "on": "@:general.on"
-    }
+    },
+    "link": "Ricevi tramite link"
   },
   "sendTab": {
     "title": "Invia",
@@ -97,7 +97,8 @@
       "color": "Colore",
       "colorOptions": {
         "system": "Sistema",
-        "oled": "OLED"
+        "oled": "OLED",
+        "custom": "Personalizzato"
       },
       "language": "Lingua",
       "languageOptions": {
@@ -120,11 +121,13 @@
       "destination": "Destinazione",
       "downloads": "(Download)",
       "saveToGallery": "Salva i media nella galleria",
-      "saveToHistory": "Salva nella cronologia"
+      "saveToHistory": "Salva nella cronologia",
+      "verifyChecksums": "Verifica i checksum durante la ricezione dei file"
     },
     "send": {
       "title": "Invia",
-      "shareViaLinkAutoAccept": "Accetta automaticamente le richieste in modalità \"Condividi tramite link\""
+      "shareViaLinkAutoAccept": "Accetta automaticamente le richieste in modalità \"Condividi tramite link\"",
+      "createChecksums": "Crea i checksum durante l'invio dei file"
     },
     "network": {
       "title": "Rete",
@@ -134,18 +137,18 @@
       "deviceType": "Tipo di dispositivo",
       "deviceModel": "Modello del dispositivo",
       "port": "Porta",
+      "network": "Rete",
+      "networkOptions": {
+        "all": "Tutto",
+        "filtered": "Filtrato"
+      },
       "discoveryTimeout": "Timeout di rilevamento",
       "useSystemName": "Usa il nome di sistema",
       "generateRandomAlias": "Genera un alias casuale",
       "portWarning": "Potresti non essere rilevato da altri dispositivi perché stai utilizzando una porta personalizzata. (predefinita: {defaultPort})",
       "encryption": "Crittografia",
       "multicastGroup": "Indirizzo Multicast",
-      "multicastGroupWarning": "Potresti non essere rilevato dagli altri dispositivi perché stai utilizzando un indirizzo multicast personalizzato. (predefinito: {defaultMulticast})",
-      "network": "Rete",
-      "networkOptions": {
-        "all": "Tutto",
-        "filtered": "Filtrato"
-      }
+      "multicastGroupWarning": "Potresti non essere rilevato dagli altri dispositivi perché stai utilizzando un indirizzo multicast personalizzato. (predefinito: {defaultMulticast})"
     },
     "other": {
       "title": "Altro",
@@ -175,6 +178,13 @@
       "solution": "Il problema si presenta da entrambi le parti? In tal caso, assicurati che i dispositivi siano sulla stessa rete Wi-Fi e condividano la stessa configurazione (porta, indirizzo multicast, crittografia). La rete Wi-Fi potrebbe non consentire la comunicazione tra i partecipanti (isolamento dell'Access Point). In questo caso, l'opzione deve essere abilitata sul router."
     }
   },
+  "networkInterfacesPage": {
+    "title": "Interfacce di rete",
+    "info": "Per impostazione predefinita, LocalSend utilizza tutte le interfacce di rete disponibili. È possibile escludere le reti indesiderate. È necessario riavviare il server per applicare le modifiche.",
+    "preview": "Anteprima",
+    "whitelist": "Whitelist",
+    "blacklist": "Blacklist"
+  },
   "receiveHistoryPage": {
     "title": "Cronologia",
     "openFolder": "Apri cartella",
@@ -196,6 +206,29 @@
   "selectedFilesPage": {
     "deleteAll": "Rimuovi tutti"
   },
+  "deviceDetailsPage": {
+    "title": "Dettagli dispositivo",
+    "favorite": "Preferito",
+    "verify": "Verifica",
+    "info": {
+      "name": "Nome",
+      "address": "Indirizzo",
+      "version": "Versione",
+      "protocol": "Protocollo v{version}"
+    },
+    "logs": {
+      "title": "Log",
+      "empty": "Nessun log disponibile.",
+      "discovered": "Rilevato tramite {protocol} ({host})",
+      "updated": "Aggiornato tramite {protocol} ({host})"
+    }
+  },
+  "verifyPage": {
+    "title": "Verifica",
+    "icons": "Icone",
+    "text": "Testo",
+    "question": "Appare uguale sull'altro dispositivo?"
+  },
   "receivePage": {
     "subTitle": {
       "one": "vuole inviarti un file",
@@ -213,6 +246,7 @@
     "saveToGalleryOff": "Disattivato automaticamente in presenza di cartelle."
   },
   "sendPage": {
+    "calculatingChecksum": "Calcolo del checksum ({curr} / {n})",
     "waiting": "In attesa di risposta…",
     "rejected": "Il destinatario ha rifiutato la richiesta.",
     "tooManyAttempts": "@:web.tooManyAttempts",
@@ -232,6 +266,16 @@
       "count": "File: {curr} / {n}",
       "size": "Dimensione: {curr} / {n}",
       "speed": "Velocità: {speed}/s"
+    },
+    "remainingTime": {
+      "minutesUnit(plural, param=m)": {
+        "other": "{m}min"
+      },
+      "hoursUnit(plural, param=h)": {
+        "other": "{h}h"
+      },
+      "minutes": "{m}:{ss}",
+      "hours": "@:.hoursUnit @:.minutesUnit"
     }
   },
   "webSharePage": {
@@ -251,6 +295,9 @@
     "pinHint": "Il PIN è \"{pin}\"",
     "encryptionHint": "LocalSend utilizza un certificato autofirmato. Devi accettarlo nel browser.",
     "pendingRequests": "Richieste in sospeso: {n}"
+  },
+  "webReceivePage": {
+    "title": "Ricevi tramite link"
   },
   "aboutPage": {
     "title": "Informazioni su LocalSend",
@@ -273,6 +320,18 @@
   "changelogPage": {
     "title": "Changelog"
   },
+  "whatsNewPage": {
+    "title": "Novità della versione {version}",
+    "changes(interface=WhatsNewStrings)": {
+      "v1_18_0": {
+        "changes": [
+          "La crittografia non rallenta più i trasferimenti. È stata riattivata su questo dispositivo se l'avevi disattivata in precedenza.",
+          "Le richieste dai preferiti ora vengono accettate automaticamente. Questa opzione è attiva per impostazione predefinita e può essere disattivata nelle impostazioni.",
+          "Su Android, i trasferimenti continuano mentre l'app è in background o lo schermo è spento. Su iOS, l'app deve ancora rimanere in primo piano."
+        ]
+      }
+    }
+  },
   "aliasGenerator(ignoreMissing, ignoreGpt)": {
     "@info": "Eredita dalla versione inglese"
   },
@@ -287,8 +346,6 @@
     },
     "addressInput": {
       "title": "Inserisci l'indirizzo",
-      "hashtag": "Hashtag",
-      "ip": "Indirizzo IP",
       "recentlyUsed": "Usato di recente: "
     },
     "cancelSession": {
@@ -378,9 +435,7 @@
     "quickSaveFromFavoritesNotice": {
       "title": "@:general.quickSaveFromFavorites",
       "content": [
-        "Ora le richieste di file vengono accettate automaticamente dai dispositivi presenti nell'elenco dei preferiti.",
-        "Attenzione! Al momento, questa soluzione non è del tutto sicura, poiché un hacker che possiede l'impronta digitale di un qualsiasi dispositivo presente nella tua lista dei preferiti può inviarti file senza restrizioni.",
-        "Tuttavia, questa opzione è comunque più sicura rispetto al consentire a tutti gli utenti della rete locale di inviarti file senza restrizioni."
+        "Ora le richieste di file vengono accettate automaticamente dai dispositivi presenti nell'elenco dei preferiti."
       ]
     },
     "pin": {
@@ -446,12 +501,5 @@
     "sActionUseCameraHint": "usa fotocamera",
     "sNameDurationLabel": "durata",
     "sUnitAssetCountLabel": "conteggio"
-  },
-  "networkInterfacesPage": {
-    "title": "Interfacce di rete",
-    "info": "Per impostazione predefinita, LocalSend utilizza tutte le interfacce di rete disponibili. È possibile escludere le reti indesiderate. È necessario riavviare il server per applicare le modifiche.",
-    "preview": "Anteprima",
-    "whitelist": "Whitelist",
-    "blacklist": "Blacklist"
   }
 }

@@ -15,7 +15,8 @@ Future<bool> enableAutoStart({required bool startHidden}) async {
     final packageInfo = await PackageInfo.fromPlatform();
     switch (defaultTargetPlatform) {
       case TargetPlatform.linux:
-        String contents = '''
+        String contents =
+            '''
 [Desktop Entry]
 Type=Application
 Name=${packageInfo.appName}
@@ -35,11 +36,12 @@ Terminal=false
         await setLaunchAtLoginMinimized(startHidden);
         return true;
       case TargetPlatform.windows:
-        _getWindowsRegistryKey().createValue(RegistryValue(
-          _windowsRegistryKeyValue,
-          RegistryValueType.string,
-          '"${Platform.resolvedExecutable}"${startHidden ? ' $startHiddenFlag' : ''}',
-        ));
+        _getWindowsRegistryKey().createValue(
+          RegistryValue.string(
+            _windowsRegistryKeyValue,
+            '"${Platform.resolvedExecutable}"${startHidden ? ' $startHiddenFlag' : ''}',
+          ),
+        );
         return true;
       default:
         return false;
@@ -81,7 +83,7 @@ Future<bool> isAutoStartEnabled() async {
     case TargetPlatform.macOS:
       return await getLaunchAtLogin();
     case TargetPlatform.windows:
-      return _getWindowsRegistryKey().getValueAsString(_windowsRegistryKeyValue)?.contains(Platform.resolvedExecutable) ?? false;
+      return _getWindowsRegistryKey().getStringValue(_windowsRegistryKeyValue)?.contains(Platform.resolvedExecutable) ?? false;
     default:
       return false;
   }
@@ -99,7 +101,7 @@ Future<bool> isAutoStartHidden() async {
     case TargetPlatform.macOS:
       return await getLaunchAtLoginMinimized();
     case TargetPlatform.windows:
-      return _getWindowsRegistryKey().getValueAsString(_windowsRegistryKeyValue)?.contains(startHiddenFlag) ?? false;
+      return _getWindowsRegistryKey().getStringValue(_windowsRegistryKeyValue)?.contains(startHiddenFlag) ?? false;
     default:
       return false;
   }

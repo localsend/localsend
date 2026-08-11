@@ -1,10 +1,8 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:legalize/legalize.dart';
 import 'package:localsend_app/config/theme.dart';
 import 'package:localsend_app/gen/strings.g.dart';
-import 'package:localsend_app/util/file_path_helper.dart';
+import 'package:localsend_isolates/rust/api/filename.dart';
+import 'package:localsend_isolates/util/file_path_helper.dart';
 import 'package:routerino/routerino.dart';
 
 class FileNameInputDialog extends StatefulWidget {
@@ -38,7 +36,7 @@ class _FileNameInputDialogState extends State<FileNameInputDialog> {
       return false;
     }
 
-    if (!isValidFilename(input, os: Platform.operatingSystem)) {
+    if (!isValidFileName(name: input)) {
       setState(() {
         _errorMessage = t.sanitization.invalid;
       });
@@ -88,13 +86,14 @@ class _FileNameInputDialogState extends State<FileNameInputDialog> {
           ),
           const SizedBox(height: 5),
           Visibility(
-              visible: _errorMessage.isNotEmpty,
-              child: Text(
-                _errorMessage,
-                style: TextStyle(
-                  color: Theme.of(context).colorScheme.warning,
-                ),
-              )),
+            visible: _errorMessage.isNotEmpty,
+            child: Text(
+              _errorMessage,
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.warning,
+              ),
+            ),
+          ),
         ],
       ),
       actions: [

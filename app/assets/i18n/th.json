@@ -1,5 +1,4 @@
 {
-  "locale": "ไทย",
   "appName": "LocalSend",
   "general": {
     "accept": "ยอมรับ",
@@ -28,10 +27,11 @@
     "open": "เปิด",
     "queue": "ลำดับคิว",
     "quickSave": "บันทึกด่วน",
+    "quickSaveFromFavorites": "เซฟด่วน สำหรับ \"รายการโปรด\"",
     "renamed": "เปลี่ยนชื่อแล้ว",
-    "reset": "รีเซ็ต",
+    "reset": "เลิกทำการเปลี่ยนแปลง",
     "restart": "เริ่มต้นใหม่",
-    "settings": "การตั้งค่า",
+    "settings": "ตั้งค่า",
     "skipped": "ข้ามไฟล์",
     "start": "เริ่ม",
     "stop": "หยุด",
@@ -46,7 +46,13 @@
       "ip": "ไอพี:",
       "port": "พอร์ต:",
       "alias": "ชื่ออุปกรณ์:"
-    }
+    },
+    "quickSave": {
+      "off": "บันทึกอย่างรวดเร็ว",
+      "favorites": "รายการโปรด",
+      "on": "@:general.on"
+    },
+    "link": "รับผ่านลิงก์"
   },
   "sendTab": {
     "title": "ส่ง",
@@ -67,6 +73,7 @@
     "nearbyDevices": "อุปกรณ์ที่อยู่ใกล้เคียง",
     "thisDevice": "อุปกรณ์นี้",
     "scan": "กำลังค้นหาอุปกรณ์ภายในเครือข่าย",
+    "manualSending": "ส่งด้วยตัวเอง",
     "sendMode": "โหมดการส่ง",
     "sendModes": {
       "single": "ผู้รับคนเดียว",
@@ -90,13 +97,15 @@
       "color": "สี",
       "colorOptions": {
         "system": "ตามระบบ",
-        "oled": "โอเล็ด"
+        "oled": "โอเล็ด",
+        "custom": "กำหนดเอง"
       },
       "language": "ภาษา",
       "languageOptions": {
         "system": "ตามระบบ"
       },
       "saveWindowPlacement": "ออก: บันทึกตำแหน่งหน้าต่างของโปรแกรม",
+      "saveWindowPlacementWindows": "บันทึกตำแหน่งหน้าต่างหลังจากออก",
       "minimizeToTray": "ย่อแอปไปยัง System Tray/แถบเมนูเมื่อปิดโปรแกรม",
       "launchAtStartup": "เริ่มอัตโนมัติหลังจากเข้าสู่ระบบ",
       "launchMinimized": "เริ่มอัตโนมัติ: ซ่อนโปรแกรมหลังจากเริ่ม",
@@ -106,16 +115,19 @@
     "receive": {
       "title": "รับ",
       "quickSave": "@:general.quickSave",
+      "quickSaveFromFavorites": "บันทึกอย่างรวดเร็วจากรายการโปรด",
       "requirePin": "@:webSharePage.requirePin",
       "autoFinish": "ดำเนินการให้เสร็จสิ้นโดยอัตโนมัติ",
       "destination": "ปลายทาง",
       "downloads": "(ดาวน์โหลด)",
       "saveToGallery": "บันทึกมีเดียลงในแกลอรี่",
-      "saveToHistory": "บันทึกลงในประวัติย้อนหลัง"
+      "saveToHistory": "บันทึกลงในประวัติย้อนหลัง",
+      "verifyChecksums": "ตรวจสอบ checksum เมื่อรับไฟล์"
     },
     "send": {
       "title": "ส่ง",
-      "shareViaLinkAutoAccept": "ตอบรับคำขอในการโอนถ่ายข้อมูลจากโหมด \"แชร์ผ่านลิงก์\" โดยอัตโนมัติ"
+      "shareViaLinkAutoAccept": "ตอบรับคำขอในการโอนถ่ายข้อมูลจากโหมด \"แชร์ผ่านลิงก์\" โดยอัตโนมัติ",
+      "createChecksums": "สร้าง checksum เมื่อส่งไฟล์"
     },
     "network": {
       "title": "เครือข่าย",
@@ -125,7 +137,14 @@
       "deviceType": "ประเภทอุปกรณ์",
       "deviceModel": "รุ่นอุปกรณ์",
       "port": "พอร์ต",
+      "network": "เครือข่าย",
+      "networkOptions": {
+        "all": "ทั้งหมด",
+        "filtered": "ตัวกรอง"
+      },
       "discoveryTimeout": "สิ้นสุดเวลาสำหรับการค้นหาอุปกรณ์ในเครือข่าย",
+      "useSystemName": "ใช้ชื่อในระบบ",
+      "generateRandomAlias": "สุ่มนามแฝง",
       "portWarning": "อุปกรณ์เครื่องอื่นอาจจะไม่สามารถค้นหาอุปกรณ์เครื่องนี้เจอในเครื่อข่ายได้เนื่องจากคุณแก้ไขพอร์ตเป็นหมายเลขอื่น (default: {defaultPort})",
       "encryption": "การเข้ารหัส",
       "multicastGroup": "มัลติคาสต์",
@@ -159,6 +178,13 @@
       "solution": "ปัญหานี้เกิดกับอุปกรณ์ที่จะรับและส่งข้อมูลใช่หรือไม่ ถ้าใช่ คุณจำเป็นต้องตรวจสอบให้แน่ใจว่าอุปกรณ์ทั้งสองได้เชื่อมต่อบนเครือข่ายเดียวกันและได้มีการตั้งค่าการเชื่อมต่อภายในแอปที่เหมือนกัน (ใช้หมายเลขพอร์ต, ที่อยู่มัลติคาสต์, วิธีการเข้ารหัสเดียวกัน) ทั้งนี้เครือข่ายที่คุณเชื่อมต่ออยู่อาจมีการตั้งค่าเพื่อป้องกันไม่ให้อุปกรณ์ภายในเครือข่ายสื่อสารกันได้ หากเป็นเช่นนั้น คุณจำเป็นต้องปรับการตั้งค่าของเราเตอร์ก่อนเป็นอันดับแรกเพื่อให้อุปกรณ์ในเครือข่ายสามารถสื่อสารเพื่อส่งข้อมูลได้"
     }
   },
+  "networkInterfacesPage": {
+    "title": "อินเทอร์เฟซเครือข่าย",
+    "info": "ตามค่าเริ่มต้น LocalSend จะใช้อินเทอร์เฟซเครือข่ายที่มีอยู่ทั้งหมด คุณสามารถยกเว้นเครือข่ายที่ไม่ต้องการได้ที่นี่ คุณต้องรีสตาร์ทเซิร์ฟเวอร์เพื่อใช้การเปลี่ยนแปลง",
+    "preview": "ดูตัวอย่าง",
+    "whitelist": "ไวท์ลิสต์",
+    "blacklist": "บัญชีดำ"
+  },
   "receiveHistoryPage": {
     "title": "ประวัติ",
     "openFolder": "เปิดโฟลเดอร์",
@@ -180,6 +206,29 @@
   "selectedFilesPage": {
     "deleteAll": "ลบทั้งหมด"
   },
+  "deviceDetailsPage": {
+    "title": "รายละเอียดอุปกรณ์",
+    "favorite": "รายการโปรด",
+    "verify": "ตรวจสอบ",
+    "info": {
+      "name": "ชื่อ",
+      "address": "ที่อยู่",
+      "version": "เวอร์ชัน",
+      "protocol": "โปรโตคอล v{version}"
+    },
+    "logs": {
+      "title": "บันทึก",
+      "empty": "ไม่มีบันทึก",
+      "discovered": "ค้นพบผ่าน {protocol} ({host})",
+      "updated": "อัปเดตผ่าน {protocol} ({host})"
+    }
+  },
+  "verifyPage": {
+    "title": "ตรวจสอบ",
+    "icons": "ไอคอน",
+    "text": "ข้อความ",
+    "question": "บนอุปกรณ์อีกเครื่องแสดงเหมือนกันหรือไม่?"
+  },
   "receivePage": {
     "subTitle": {
       "one": "ต้องการส่งไฟล์ให้คุณ",
@@ -197,6 +246,7 @@
     "saveToGalleryOff": "ถูกปิดโดยอัตโนมัติเนื่องจากมีโฟลเดอร์"
   },
   "sendPage": {
+    "calculatingChecksum": "กำลังคำนวณ checksum ({curr} / {n})",
     "waiting": "กำลังรอการตอบกลับ...",
     "rejected": "ผู้รับได้ปฏิเสธคำขอส่งไฟล์",
     "tooManyAttempts": "@:web.tooManyAttempts",
@@ -216,6 +266,16 @@
       "count": "ไฟล์: {curr} / {n}",
       "size": "ขนาด: {curr} / {n}",
       "speed": "ความเร็ว: {speed}/วิ"
+    },
+    "remainingTime": {
+      "minutesUnit(plural, param=m)": {
+        "other": "{m}นท"
+      },
+      "hoursUnit(plural, param=h)": {
+        "other": "{h}ชม"
+      },
+      "minutes": "{m}:{ss}",
+      "hours": "@:.hoursUnit @:.minutesUnit"
     }
   },
   "webSharePage": {
@@ -235,6 +295,9 @@
     "pinHint": "รหัส PIN คือ \"{pin}\"",
     "encryptionHint": "LocalSend ใช้ใบรับรองอุปกรณ์จากเว็บเบราเซอร์ (self-signed certificate) คุณต้องกดยอมรับใบรับรองนี้ในเบราว์เซอร์บนอุปกรณ์ของคุณ",
     "pendingRequests": "คำขอที่รอดำเนินการ: {n}"
+  },
+  "webReceivePage": {
+    "title": "รับผ่านลิงก์"
   },
   "aboutPage": {
     "title": "เกี่ยวกับ LocalSend",
@@ -256,6 +319,18 @@
   },
   "changelogPage": {
     "title": "บันทึกรายการเปลี่ยนแปลง"
+  },
+  "whatsNewPage": {
+    "title": "มีอะไรใหม่ใน {version}",
+    "changes(interface=WhatsNewStrings)": {
+      "v1_18_0": {
+        "changes": [
+          "การเข้ารหัสไม่ทำให้การโอนช้าลงอีกต่อไป หากคุณเคยปิดไว้ ระบบได้เปิดใช้งานอีกครั้งบนอุปกรณ์นี้แล้ว",
+          "คำขอจากรายการโปรดจะถูกยอมรับโดยอัตโนมัติแล้ว โดยเปิดใช้งานเป็นค่าเริ่มต้น และสามารถปิดได้ในการตั้งค่า",
+          "บน Android การโอนจะดำเนินต่อขณะที่แอปอยู่เบื้องหลังหรือปิดหน้าจอ บน iOS แอปยังคงต้องอยู่เบื้องหน้า"
+        ]
+      }
+    }
   },
   "aliasGenerator(ignoreMissing, ignoreGpt)": {
     "@info": "ภาษาอื่นอาจมีคำที่แตกต่างกันออกไป อาจจะไม่ตรงกันแบบ 1:1",
@@ -335,10 +410,12 @@
       "title": "เพิ่มไปยังส่วนที่เลือกไว้",
       "content": "คุณต้องการจะเพิ่มไฟล์ใด?"
     },
+    "openFile": {
+      "title": "เปิดไฟล์",
+      "content": "ต้องการเปิดไฟล์ที่ได้รับหรือไม่?"
+    },
     "addressInput": {
       "title": "กรอกที่อยู่",
-      "hashtag": "แฮชแท็ก",
-      "ip": "ที่อยู่ไอพี",
       "recentlyUsed": "ใช้งานล่าสุดเมื่อ: "
     },
     "cancelSession": {
@@ -425,6 +502,12 @@
       "title": "@:general.quickSave",
       "content": "การตอบรับคำขอรับไฟล์จากอุปกรณ์อื่นจะเป็นไปโดยอัตโนมัติ โปรดทราบว่าทุกคนในเครือข่ายที่อุปกรณ์นี้เชื่อมต่ออยู่จะสามารถส่งไฟล์ถึงคุณได้"
     },
+    "quickSaveFromFavoritesNotice": {
+      "title": "บันทึกอย่างรวดเร็วจากรายการโปรด",
+      "content": [
+        "คำขอไฟล์ได้รับการยอมรับโดยอัตโนมัติจากอุปกรณ์ในรายการโปรดของคุณแล้ว"
+      ]
+    },
     "pin": {
       "title": "กรอกรหัส PIN"
     },
@@ -445,7 +528,8 @@
   "tray": {
     "@info": "หลักเกณฑ์ของ Apple นั้นเข้มงวดมากเกี่ยวกับคำว่า 'ปิด' แอป",
     "open": "@:general.open",
-    "close": "ออกจากแอป LocalSend"
+    "close": "ออกจากแอป LocalSend",
+    "closeWindows": "ออก"
   },
   "web": {
     "waiting": "@:sendPage.waiting",
@@ -481,9 +565,9 @@
     "sTypeVideoLabel": "วิดีโอ",
     "sTypeOtherLabel": "สื่ออื่นๆ",
     "sActionPlayHint": "เล่น",
-    "sActionPreviewHint": "ตัวอย่าง",
+    "sActionPreviewHint": "ดูตัวอย่าง",
     "sActionSelectHint": "เลือก",
-    "sActionSwitchPathLabel": "เปลี่ยนเส้นทางที่อยู่ไฟล์",
+    "sActionSwitchPathLabel": "เปลี่ยนที่เก็บไฟล์",
     "sActionUseCameraHint": "ใช้กล้อง",
     "sNameDurationLabel": "ความยาว",
     "sUnitAssetCountLabel": "จำนวน"

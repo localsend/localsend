@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LocalSend</title>
+    <style>
+        body {
+            font-family: sans-serif, system-ui;
+            margin: 0;
+            line-height: 1.5;
+            text-align: center;
+        }
+
+        #content {
+            box-sizing: border-box;
+            width: 100%;
+            max-width: 400px;
+            margin: 15vh auto 0;
+            padding: 0 1em;
+        }
+
+        #upload-button {
+            width: 100%;
+            padding: 1em;
+            font-family: inherit;
+            font-size: 1.5em;
+            color: #FFFFFF;
+            background-color: #00796B;
+            border: none;
+            border-radius: 0.5em;
+            cursor: pointer;
+        }
+
+        #upload-button:hover {
+            background-color: #009688;
+        }
+
+        #status-text {
+            display: none;
+            font-size: 1.5em;
+        }
+
+        #status-text.error {
+            color: #C62828;
+        }
+
+        #progress-text {
+            display: none;
+            font-size: 1.5em;
+        }
+    </style>
+</head>
+<body>
+<noscript>
+    LocalSend requires JavaScript, which is currently disabled. Please enable it and try again.
+</noscript>
+
+<h1 style="padding: 0.5em">LocalSend</h1>
+<div id="content">
+    <button id="upload-button" type="button">Upload</button>
+    <input id="file-input" type="file" multiple style="display: none">
+    <p id="status-text"></p>
+    <p id="progress-text"></p>
+</div>
+
+<script>
+    var BASE_URL = '/api/localsend/v2';
+
+    var i18n = {};
+    var queryParams = location.search.slice(1).split('&');
+    var pin = null;
+
+    // Parse query parameters manually for IE
+    for (var i = 0; i < queryParams.length; i++) {
+      var pair = queryParams[i].split('=');
+      if (pair[0] === 'pin') {
+        pin = decodeURIComponent(pair[1]);
+        break;
+      }
+    }
+
+    function makeRequest(url, method, body, callback) {
+      var xhr = new XMLHttpRequest();
+      xhr.open(method, url, true);
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4) {
+          callback(xhr);
+        }
+      };
+      xhr.send(body);
+    }
+
+    function fetchI18n(then) {
+      makeRequest('/i18n.json', 'GET', null, function (response) {
+        if (response.status === 200) {
+          i18n = JSON.parse(response.responseText);
+          then();
+        }
+      });
+    }
+
+    function setButtonVisible(visible) {
+      document.getElementById('upload-button').style.display = visible ? 'block' : 'none';
+    }
+
+    function showStatus(text, isError) {
+      var statusText = document.getElementById('status-text');
+      statusText.style.display = text ? 'block' : 'none';
+      statusText.className = isError ? 'error' : '';
+      statusText.innerText = text;
+    }
+
+    function showProgress(finished, total) {
+      var progressText = document.getElementById('progress-text');
+      progressText.style.display = 'block';
+      progressText.innerText = finished + '/' + total + ' file(s)';
+    }
+
+    function hideProgress() {
+      document.getElementById('progress-text').style.display = 'none';
+    }
+
+    // Ends the upload flow: keeps the error visible and lets the user try again.
+    function finishWithError(text) {
+      showStatus(text, true);
+      setButtonVisible(true);
+    }
+
+    // Ends the upload flow after all files have been sent.
+    function finishWithSuccess() {
+      showStatus('');
+      setButtonVisible(true);
+    }
+
+    function startUpload(fileList) {
+      setButtonVisible(false);
+      hideProgress();
+      showStatus(i18n.waiting);
+
+      var selectedFiles = {};
+      var filesDto = {};
+      for (var i = 0; i < fileList.length; i++) {
+        var file = fileList[i];
+        var fileId = String(i);
+        selectedFiles[fileId] = file;
+        filesDto[fileId] = {
+          id: fileId,
+          fileName: file.name,
+          size: file.size,
+          fileType: file.type || 'application/octet-stream'
+        };
+      }
+
+      var body = JSON.stringify({
+        info: {
+          alias: 'Web Browser',
+          version: '2.1',
+          deviceType: 'web',
+          fingerprint: getFingerprint(),
+          port: 0,
+          protocol: location.protocol === 'https:' ? 'https' : 'http',
+          download: false
+        },
+        files: filesDto
+      });
+
+      prepareUpload(body, selectedFiles, true);
+    }
+
+    function prepareUpload(body, selectedFiles, firstAttempt) {
+      var url = BASE_URL + '/prepare-upload';
+      if (pin) {
+        url += '?pin=' + encodeURIComponent(pin);
+      }
+
+      makeRequest(url, 'POST', body, function (response) {
+        if (response.status === 401) {
+          var newPin = prompt(i18n.enterPin + (firstAttempt ? '' : '\n' + i18n.invalidPin));
+          if (!newPin) {
+            finishWithError(i18n.invalidPin);
+            return;
+          }
+          pin = newPin;
+          prepareUpload(body, selectedFiles, false);
+          return;
+        }
+
+        if (response.status === 429) {
+          finishWithError(i18n.tooManyAttempts);
+          return;
+        }
+
+        if (response.status === 403) {
+          finishWithError(i18n.uploadRejected);
+          return;
+        }
+
+        if (response.status === 409) {
+          finishWithError(i18n.busy);
+          return;
+        }
+
+        if (response.status === 204) {
+          // The recipient accepted the request but declined every file.
+          finishWithError(i18n.uploadRejected);
+          return;
+        }
+
+        if (response.status !== 200) {
+          finishWithError(errorText(response.status));
+          return;
+        }
+
+        var data = JSON.parse(response.responseText);
+        uploadFiles(data.sessionId, data.files, selectedFiles);
+      });
+    }
+
+    function uploadFiles(sessionId, tokens, selectedFiles) {
+      var fileIds = getKeys(tokens);
+      var total = fileIds.length;
+
+      showStatus('');
+      showProgress(0, total);
+
+      function uploadNext(index) {
+        if (index >= total) {
+          finishWithSuccess();
+          return;
+        }
+
+        var fileId = fileIds[index];
+        var url = BASE_URL + '/upload' +
+            '?sessionId=' + encodeURIComponent(sessionId) +
+            '&fileId=' + encodeURIComponent(fileId) +
+            '&token=' + encodeURIComponent(tokens[fileId]);
+
+        makeRequest(url, 'POST', selectedFiles[fileId], function (response) {
+          if (response.status !== 200) {
+            finishWithError(errorText(response.status));
+            return;
+          }
+
+          showProgress(index + 1, total);
+          uploadNext(index + 1);
+        });
+      }
+
+      uploadNext(0);
+    }
+
+    function getFingerprint() {
+      var fingerprint = sessionStorage.getItem('fingerprint');
+      if (!fingerprint) {
+        fingerprint = 'web-';
+        for (var i = 0; i < 32; i++) {
+          fingerprint += Math.floor(Math.random() * 16).toString(16);
+        }
+        sessionStorage.setItem('fingerprint', fingerprint);
+      }
+      return fingerprint;
+    }
+
+    // A status of 0 means the request never completed (connection lost or aborted by the recipient).
+    function errorText(status) {
+      return status ? 'Error: ' + status : 'Error';
+    }
+
+    function getKeys(obj) {
+      var keys = [];
+      for (var key in obj) {
+        keys.push(key);
+      }
+      return keys;
+    }
+
+    function init() {
+      var fileInput = document.getElementById('file-input');
+      document.getElementById('upload-button').onclick = function () {
+        fileInput.click();
+      };
+      fileInput.onchange = function () {
+        if (fileInput.files.length > 0) {
+          startUpload(fileInput.files);
+          // Reset the input so selecting the same files again fires this event.
+          fileInput.value = '';
+        }
+      };
+      fetchI18n(function () {});
+    }
+
+    init();
+</script>
+</body>
+</html>

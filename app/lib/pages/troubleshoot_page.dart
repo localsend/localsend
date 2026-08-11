@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/util/native/cmd_helper.dart';
+import 'package:localsend_app/util/native/macos_channel.dart' as macos_channel;
 import 'package:localsend_app/util/native/platform_check.dart';
-import 'package:localsend_app/widget/custom_basic_appbar.dart';
 import 'package:localsend_app/widget/custom_icon_button.dart';
 import 'package:localsend_app/widget/dialogs/not_available_on_platform_dialog.dart';
 import 'package:localsend_app/widget/responsive_list_view.dart';
@@ -19,7 +19,9 @@ class TroubleshootPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final settings = context.ref.watch(settingsProvider);
     return Scaffold(
-      appBar: basicLocalSendAppbar(t.troubleshootPage.title),
+      appBar: AppBar(
+        title: Text(t.troubleshootPage.title),
+      ),
       body: ResponsiveListView(
         padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 30),
         children: [
@@ -47,6 +49,7 @@ class TroubleshootPage extends StatelessWidget {
                   adminPrivileges: false,
                   commands: ['wf'],
                 ),
+                TargetPlatform.macOS: _NativeFixAction(() => macos_channel.openFirewallSettings()),
               },
             ),
           ),
@@ -207,5 +210,19 @@ class _CommandFixAction extends _FixAction {
         await Process.run(c, [], runInShell: true);
       }
     }
+  }
+}
+
+class _NativeFixAction extends _FixAction {
+  final Future<void> Function() action;
+
+  _NativeFixAction(this.action);
+
+  @override
+  List<String>? get commands => null;
+
+  @override
+  void runFix() async {
+    await action();
   }
 }

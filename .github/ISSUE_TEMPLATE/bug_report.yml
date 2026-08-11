@@ -1,0 +1,95 @@
+name: Bug report
+description: Create a report to help us address issues you are facing
+title: "bug: "
+labels: [bug]
+body:
+  - type: checkboxes
+    id: confirm
+    attributes:
+      label: Read [this](https://github.com/localsend/localsend/issues/528) before anything
+      options:
+        - label: I have read it.
+        - label: Issues not fitting are closed.
+
+  - type: checkboxes
+    id: duplication
+    attributes:
+      label: "Make sure about:"
+      options:
+        - label: This issue is not duplicated with any other open or closed issues.
+          required: true
+        - label: I am using the latest version from the release.
+          required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Describe the bug
+      description: A clear and concise description of what the bug is
+      placeholder: |
+        App crashes on startup every time after changing settings.
+        /
+        App crashes when sending/receiving massive files.
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+      description: A clear and concise description of what you expected to happen
+      placeholder: |
+        App started normally, everything worked fine.
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Reproduction
+      description: Steps to reproduce the bug
+      placeholder: |
+        1. Turn on "..." in "... settings"
+        2. Restart the app
+        3. Crash
+        /
+        1. Transfer a "..." file is ... size takes ... long
+        2. Observe ...
+        3. Crash
+    validations:
+      required: true
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: Device information
+      description: Provide details about your system environment
+      placeholder: |
+        Device: (Pixel 9 Pro/Lenovo Yoga 9i)
+        System: (Android 16 BP31.2505/Windows 11 24H2)
+        Special things: (Rooted/Hardware damaged)
+        If applicable, both info of sender and receiver.
+    validations:
+      required: true
+
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots
+      description: If applicable, add screenshots to help explain your problem
+      placeholder: |
+        modified_setting_items.jpg
+        files_to_send.jpg
+        crashed_screen.jpg
+    validations:
+      required: false
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional context
+      description: Add any other context about the problem here
+      placeholder: |
+        Crash report or any helpful information.
+    validations:
+      required: false

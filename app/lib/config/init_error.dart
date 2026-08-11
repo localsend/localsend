@@ -20,12 +20,14 @@ void showInitErrorApp({
     await WindowManager.instance.show();
   }
 
-  runApp(RefenaScope(
-    child: _ErrorApp(
-      error: error,
-      stackTrace: stackTrace,
+  runApp(
+    RefenaScope(
+      child: _ErrorApp(
+        error: error,
+        stackTrace: stackTrace,
+      ),
     ),
-  ));
+  );
 
   await showFromTray();
 }

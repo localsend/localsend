@@ -1,5 +1,4 @@
 {
-  "locale": "Finnish",
   "appName": "LocalSend",
   "general": {
     "accept": "Hyväksy",
@@ -39,18 +38,21 @@
     "save": "Tallenna",
     "unchanged": "Muuttumaton",
     "unknown": "Tuntematon",
-    "noItemInClipboard": "Leikepöydällä ei ole mitään"
+    "noItemInClipboard": "Leikepöydällä ei ole mitään."
   },
   "receiveTab": {
-    "title": "Ota Vastaan",
+    "title": "Ota vastaan",
     "infoBox": {
-      "ip": "IP:",
+      "ip": "IP-osoite:",
       "port": "Portti:",
       "alias": "Laitteen nimi:"
     },
     "quickSave": {
-      "favorites": "Suosikit"
-    }
+      "off": "@:general.off",
+      "favorites": "Suosikit",
+      "on": "@:general.on"
+    },
+    "link": "Vastaanota linkin kautta"
   },
   "sendTab": {
     "title": "Lähetä",
@@ -80,7 +82,7 @@
     },
     "sendModeHelp": "Selitys",
     "help": "Varmista, että haluttu kohde on myös samassa Wi-Fi-verkossa.",
-    "placeItems": "Lissä tiedostot tähän, jakaaksesi ne."
+    "placeItems": "Lisää tiedostot tähän, jotta voit lähettää ne."
   },
   "settingsTab": {
     "title": "Asetukset",
@@ -95,7 +97,8 @@
       "color": "Väri",
       "colorOptions": {
         "system": "Järjestelmä",
-        "oled": "OLED"
+        "oled": "OLED",
+        "custom": "Mukautettu"
       },
       "language": "Kieli",
       "languageOptions": {
@@ -111,25 +114,34 @@
     },
     "receive": {
       "title": "Vastaanotto",
-      "quickSave": "@:general.quickSave",
+      "quickSave": "Automaattinen tallennus",
+      "quickSaveFromFavorites": "Automaattinen tallennus suosikeista",
+      "requirePin": "Kiinnitä",
       "autoFinish": "Automaattinen lopetus",
       "destination": "Kohde",
       "downloads": "(Lataukset)",
       "saveToGallery": "Tallenna media galleriaan",
-      "saveToHistory": "Tallenna historiaan"
+      "saveToHistory": "Tallenna historiaan",
+      "verifyChecksums": "Vahvista tarkistussummat tiedostoja vastaanotettaessa"
     },
     "send": {
       "title": "Lähetys",
-      "shareViaLinkAutoAccept": "Jaa linkki: Hyväksy automaattisesti"
+      "shareViaLinkAutoAccept": "Jaa linkki: Hyväksy automaattisesti",
+      "createChecksums": "Luo tarkistussummat tiedostoja lähetettäessä"
     },
     "network": {
       "title": "Verkko",
-      "needRestart": "Uudelleenkäynnistä palvelin ottaaksesi asetukset käyttöön!",
+      "needRestart": "Käynnistä LocalSend uudelleen saadaksesi muutokset käyttöön!",
       "server": "Palvelin",
       "alias": "Laitteen nimi",
       "deviceType": "Laitteen tyyppi",
       "deviceModel": "Laitteen malli",
       "port": "Portti",
+      "network": "Verkko",
+      "networkOptions": {
+        "all": "Kaikki",
+        "filtered": "Suodatettu"
+      },
       "discoveryTimeout": "Laitteiden etsintäaika",
       "useSystemName": "Käytä järjestelmän nimeä",
       "generateRandomAlias": "Luo satunnainen alias",
@@ -153,7 +165,7 @@
     "solution": "Ratkaisu:",
     "fixButton": "Automaattinen korjaus",
     "firewall": {
-      "symptom": "Tämä sovellus voi lähettää tiedostoja muihin laitteisiin; mutta muut laitteet eivät voi lähettää tiedostoja tähän laitteeseen.",
+      "symptom": "Tämä sovellus voi lähettää tiedostoja muihin laitteisiin, mutta muut laitteet eivät voi lähettää tiedostoja tähän laitteeseen.",
       "solution": "Tämä on todennäköisesti palomuuriongelma. Voit ratkaista tämän sallimalla saapuvat yhteydet (UDP ja TCP) porttiin {port}.",
       "openFirewall": "Avaa palomuuri"
     },
@@ -166,10 +178,17 @@
       "solution": "Onko ongelma olemassa molemmin puolin? Jos on, sinun on varmistettava, että molemmat laitteet ovat samassa Wi-Fi-verkossa ja jakavat saman kokoonpanon (portti, multicast-osoite, salaus). Verkko ei ehkä salli viestintää osallistujien välillä. Tässä tapauksessa tämä vaihtoehto on otettava käyttöön reitittimessä."
     }
   },
+  "networkInterfacesPage": {
+    "title": "Verkkokäyttöliittymät",
+    "info": "Oletuksena LocalSend käyttää kaikkia saatavilla olevia verkkoliitäntöjä. Voit sulkea pois verkkoliitännät, joita et halua. Sinun tulee uudelleenkäynnistää LocalSend ottaaksesi muutokset käyttöön.",
+    "preview": "Esikatselu",
+    "whitelist": "Sallittujen lista",
+    "blacklist": "Estettyjen lista"
+  },
   "receiveHistoryPage": {
     "title": "Historia",
     "openFolder": "Avaa kansio",
-    "deleteHistory": "Poista historia",
+    "deleteHistory": "Tyhjennä historia",
     "empty": "Historia on tyhjä.",
     "entryActions": {
       "open": "Avaa tiedosto",
@@ -187,10 +206,33 @@
   "selectedFilesPage": {
     "deleteAll": "Poista kaikki"
   },
+  "deviceDetailsPage": {
+    "title": "Laitteen tiedot",
+    "favorite": "Suosikki",
+    "verify": "Vahvista",
+    "info": {
+      "name": "Nimi",
+      "address": "Osoite",
+      "version": "Versio",
+      "protocol": "Protokolla v{version}"
+    },
+    "logs": {
+      "title": "Lokit",
+      "empty": "Lokeja ei ole saatavilla.",
+      "discovered": "Löydetty {protocol}-protokollan kautta ({host})",
+      "updated": "Päivitetty {protocol}-protokollan kautta ({host})"
+    }
+  },
+  "verifyPage": {
+    "title": "Vahvista",
+    "icons": "Kuvakkeet",
+    "text": "Teksti",
+    "question": "Näyttääkö se samalta toisella laitteella?"
+  },
   "receivePage": {
     "subTitle": {
-      "one": "haluaa lähettää sinulle tiedoston",
-      "other": "haluaa lähettää sinulle {n} tiedostoa"
+      "one": "on lähettämässä sinulle tiedostoa",
+      "other": "on lähettämässä sinulle {n} tiedostoa"
     },
     "subTitleMessage": "lähetti sinulle viestin:",
     "subTitleLink": "lähetti sinulle linkin:",
@@ -198,15 +240,17 @@
   },
   "receiveOptionsPage": {
     "title": "Asetukset",
-    "destination": "@:settingsTab.receive.destination",
+    "destination": "Vastaanottoasetukset",
     "appDirectory": "(LocalSend-kansio)",
-    "saveToGallery": "@:settingsTab.receive.saveToGallery",
-    "saveToGalleryOff": "Poistettu käytöstä automaattisesti, koska hakemistoja on olemassa."
+    "saveToGallery": "Tallenna galleriaan",
+    "saveToGalleryOff": "Poistettu käytöstä automaattisesti, koska lähetetyissä tiedostoissa on kansioita."
   },
   "sendPage": {
+    "calculatingChecksum": "Lasketaan tarkistussummaa ({curr} / {n})",
     "waiting": "Odotetaan vastausta...",
-    "rejected": "Vastaanottaja on hylännyt pyynnön.",
-    "busy": "Vastaanottaja käsittelee toista pyyntöä."
+    "rejected": "Vastaanottaja on peruuttanut pyynnön.",
+    "tooManyAttempts": "Liian monta yritystä",
+    "busy": "Vastaanottaja vastaanottaa toista pyyntöä."
   },
   "progressPage": {
     "titleSending": "Tiedostojen lähetys",
@@ -214,39 +258,52 @@
     "savedToGallery": "Tallennettu Kuvat-kansioon",
     "total": {
       "title": {
-        "sending": "Edistyminen yhteensä ({time})",
+        "sending": "Lähetysprosessi ({time})",
         "finishedError": "Päättynyt virheellä",
         "canceledSender": "Lähettäjä peruutti",
         "canceledReceiver": "Vastaanottaja peruutti"
       },
-      "count": "Tiedostoja: {curr} / {n}",
+      "count": "Tiedostot: {curr} / {n}",
       "size": "Koko: {curr} / {n}",
       "speed": "Nopeus: {speed}/s"
+    },
+    "remainingTime": {
+      "minutesUnit(plural, param=m)": {
+        "other": "{m}min"
+      },
+      "hoursUnit(plural, param=h)": {
+        "other": "{h}t"
+      },
+      "minutes": "{m}:{ss}",
+      "hours": "@:.hoursUnit @:.minutesUnit"
     }
   },
   "webSharePage": {
     "title": "Jaa linkin kautta",
-    "loading": "Palvelimen käynnistys...",
-    "stopping": "Palvelimen pysäytys...",
+    "loading": "Käynnistetään palvelinta…",
+    "stopping": "Pysäytetään palvelinta…",
     "error": "Palvelimen käynnistyksessä tapahtui virhe.",
     "openLink": {
       "one": "Avaa tämä linkki selaimessasi:",
       "other": "Avaa jokin näistä linkeistä selaimessasi:"
     },
-    "requests": "Pyyntöjä",
+    "requests": "Pyynnöt",
     "noRequests": "Ei pyyntöjä vielä.",
-    "encryption": "@:settingsTab.network.encryption",
+    "encryption": "Verkon salaus",
     "autoAccept": "Hyväksy pyynnöt automaattisesti",
-    "requirePin": "Vaadi PIN",
+    "requirePin": "Vaadi PIN-koodi",
     "pinHint": "PIN-koodi on \"{pin}\"",
     "encryptionHint": "LocalSend käyttää itse allekirjoitettua sertifikaattia. Sinun on hyväksyttävä se selaimessasi.",
     "pendingRequests": "Odottavat pyynnöt: {n}"
   },
+  "webReceivePage": {
+    "title": "Vastaanota linkin kautta"
+  },
   "aboutPage": {
     "title": "Tietoja LocalSendista",
     "description": [
-      "LocalSend on ilmainen, avoimen lähdekoodin sovellus, jonka avulla voit turvallisesti jakaa tiedostoja ja viestejä läheisten laitteiden kanssa paikallisverkossasi ilman internet-yhteyttä.",
-      "Tämä sovellus on saatavilla Androidille, iOS:lle, macOS:lle, Windowsille ja Linuxille. Kaikki latausvaihtoehdot löytyvät virallisilta kotisivuilta."
+      "LocalSend on ilmainen, avoimen lähdekoodin sovellus, jonka avulla voit turvallisesti jakaa tiedostoja ja lähettää viestejä läheisten laitteiden kanssa paikallisessa verkossasi ilman internet-yhteyttä.",
+      "LocalSend on saatavilla Androidille, iOS:lle, Linuxille, macOS:lle ja Windowsille. Kaikki latausvaihtoehdot löytyvät virallisilta kotisivuilta."
     ],
     "author": "Tekijä",
     "contributors": "Avustajat",
@@ -255,16 +312,28 @@
   },
   "donationPage": {
     "title": "Lahjoita",
-    "info": "LocalSend on ilmainen, avoimen lähdekoodin sovellus ilman mainoksia. Jos pidät sovelluksesta, voit tukea kehitystä lahjoituksella.",
+    "info": "LocalSend on ilmainen, avoimen lähdekoodin sovellus ilman mainoksia. Voit tukea projektia lahjoituksella, jos pidät sovelluksesta.",
     "donate": "Lahjoita {amount}",
-    "thanks": "Suurkiitokset!",
+    "thanks": "Suuret kiitokset!",
     "restore": "Palauta ostos"
   },
   "changelogPage": {
     "title": "Muutosloki"
   },
+  "whatsNewPage": {
+    "title": "Uutta versiossa {version}",
+    "changes(interface=WhatsNewStrings)": {
+      "v1_18_0": {
+        "changes": [
+          "Salaus ei enää hidasta siirtoja. Se on otettu uudelleen käyttöön tällä laitteella, jos poistit sen aiemmin käytöstä.",
+          "Suosikkien pyynnöt hyväksytään nyt automaattisesti. Tämä on oletuksena käytössä ja sen voi poistaa käytöstä asetuksista.",
+          "Androidilla siirrot jatkuvat, kun sovellus on taustalla tai näyttö on sammutettu. iOS:llä sovelluksen on edelleen pysyttävä etualalla."
+        ]
+      }
+    }
+  },
   "aliasGenerator(ignoreMissing, ignoreGpt)": {
-    "@info": "Different locales may have different words, it may not match 1:1",
+    "@info": "Eri sijainneissa voi olla käytössä eri sanoja. Ne eivät täsmää toisiaan tasantarkkaan.",
     "adjectives": [
       "Stydi",
       "Jämä",
@@ -354,8 +423,6 @@
     },
     "addressInput": {
       "title": "Anna osoite",
-      "hashtag": "Hashtag",
-      "ip": "IP-osoite",
       "recentlyUsed": "Äskettäin käytetty: "
     },
     "cancelSession": {
@@ -443,10 +510,9 @@
       "content": "Tiedostopyynnöt hyväksytään automaattisesti. Huomaa, että kuka tahansa paikallisverkossa voi lähettää sinulle tiedostoja."
     },
     "quickSaveFromFavoritesNotice": {
+      "title": "@:general.quickSaveFromFavorites",
       "content": [
-        "Tiedostopyynnöt hyväksytään nyt automaattisesti suosikkiluettelossasi olevilta laitteilta.",
-        "Varoitus! Tällä hetkellä tämä ei ole täysin turvallista, koska hakkeri, jolla on minkä tahansa suosikkiluettelosi laitteen sormenjälki, voi lähettää sinulle tiedostoja ilman rajoituksia.",
-        "Tämä vaihtoehto on kuitenkin turvallisempi kuin sallia kaikkien paikallisverkon käyttäjien lähettää sinulle tiedostoja ilman rajoituksia."
+        "Tiedostopyynnöt hyväksytään nyt automaattisesti suosikkiluettelossasi olevilta laitteilta."
       ]
     },
     "pin": {

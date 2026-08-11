@@ -57,7 +57,7 @@ class _TextFieldTvState extends State<TextFieldTv> with Refena {
                     ),
                     onPressed: () => context.pop(),
                     child: Text(t.general.confirm),
-                  )
+                  ),
                 ],
               );
             },

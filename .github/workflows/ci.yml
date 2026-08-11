@@ -7,48 +7,49 @@ on:
     branches: [main]
 
 env:
-  FLUTTER_VERSION: "3.35.6"
+  FLUTTER_VERSION: "3.41.9"
 
 jobs:
   format:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
-      - uses: subosito/flutter-action@v2
+      - uses: actions/checkout@v6
+      - name: Setup Flutter SDK
+        uses: flutter-actions/setup-flutter@v4
         with:
-          flutter-version: ${{ env.FLUTTER_VERSION }}
+          version: ${{ env.FLUTTER_VERSION }}
           channel: "stable"
 
       - name: Dependencies (app)
         working-directory: app
+        run: flutter pub get
+      - name: Dependencies (cargokit - rust_builder)
+        working-directory: packages/localsend_isolates/rust_builder/cargokit/build_tool
         run: flutter pub get
       - name: Remove gen directory (app)
         working-directory: app
         run: rm -rf lib/gen
       - name: Check format (app)
         working-directory: app
-        run: dart format --line-length 150 --set-exit-if-changed lib test
-
-      - name: Dependencies (common)
-        working-directory: common
-        run: dart pub get
-      - name: Check format (common)
-        working-directory: common
-        run: dart format --line-length 150 --set-exit-if-changed lib test
+        run: dart format --set-exit-if-changed lib test
 
   test:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
-      - uses: subosito/flutter-action@v2
+      - uses: actions/checkout@v6
+      - name: Setup Flutter SDK
+        uses: flutter-actions/setup-flutter@v4
         with:
-          flutter-version: ${{ env.FLUTTER_VERSION }}
+          version: ${{ env.FLUTTER_VERSION }}
           channel: "stable"
 
       - name: Dependencies (app)
         working-directory: app
+        run: flutter pub get
+      - name: Dependencies (cargokit - rust_builder)
+        working-directory: packages/localsend_isolates/rust_builder/cargokit/build_tool
         run: flutter pub get
       - name: Analyze (app)
         working-directory: app
@@ -56,22 +57,45 @@ jobs:
       - name: Test (app)
         working-directory: app
         run: flutter test
+      - name: Dependencies (localsend_isolates)
+        working-directory: packages/localsend_isolates
+        run: flutter pub get
+      - name: Test (localsend_isolates)
+        working-directory: packages/localsend_isolates
+        run: flutter test
 
-      - name: Dependencies (common)
-        working-directory: common
-        run: dart pub get
-      - name: Analyze (common)
-        working-directory: common
-        run: dart analyze
-      - name: Test (common)
-        working-directory: common
-        run: dart test
+  rust:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v6
+      - name: Setup Rust
+        run: rustup toolchain install --profile minimal # version from rust-toolchain.toml
+      - name: Cache
+        uses: Swatinem/rust-cache@v2
+
+      # `cargo fmt --check` is deliberately left out: the tree is not
+      # rustfmt-clean today, and `frb_generated.rs` never will be.
+      #
+      # `packages/core` declares its modules unconditionally while their
+      # dependencies are optional, so it only builds with a feature set that
+      # pulls all of them in.
+      - name: Clippy (core)
+        working-directory: packages/core
+        run: cargo clippy --features full --all-targets
+      - name: Test (core)
+        working-directory: packages/core
+        run: cargo test --features full
+      - name: Test (signaling server)
+        run: cargo test --package server
+      - name: Check (plugin crate, CLI)
+        run: cargo check --package rust_lib_localsend_app --package localsend-cli
 
   packaging:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Extract version from pubspec.yaml
         id: pubspec_version
         run: |
@@ -82,15 +106,42 @@ jobs:
       - name: Extract version from Inno Setup configuration
         id: inno_version
         run: |
-          VERSION=$(grep '#define MyAppVersion ' scripts/compile_windows_exe-inno.iss | sed 's/#define MyAppVersion "//' | sed 's/"//')
+          VERSION=$(grep '#define MyAppVersion ' support/scripts/compile_windows_exe-inno.iss | sed 's/#define MyAppVersion "//' | sed 's/"//')
           echo "Inno Setup version is $VERSION"
           echo "inno_version=$VERSION" >> $GITHUB_ENV
 
-      - name: Compare pubspec and Inno Setup versions
+      - name: Extract version from CLI Cargo.toml
+        id: cli_version
         run: |
-          if [ "$pubspec_version" != "$inno_version" ]; then
+          VERSION=$(grep '^version = ' cli/Cargo.toml | sed 's/version = "//' | sed 's/"//')
+          echo "CLI version is $VERSION"
+          echo "cli_version=$VERSION" >> $GITHUB_ENV
+
+      - name: Extract version from MSIX helper manifest
+        id: msix_version
+        run: |
+          VERSION=$(grep -o ' Version="[0-9.]*"' support/build/msix/content/AppxManifest.xml | sed 's/ Version="//' | sed 's/"//')
+          echo "MSIX helper version is $VERSION"
+          echo "msix_version=$VERSION" >> $GITHUB_ENV
+
+      - name: Compare pubspec, Inno Setup, CLI and MSIX helper versions
+        run: |
+          if [ "$pubspec_version" != "$inno_version" ] || [ "$pubspec_version" != "$cli_version" ] || [ "$pubspec_version.0" != "$msix_version" ]; then
             echo "Version mismatch detected!"
             exit 1
           else
             echo "Versions match."
           fi
+
+      - name: Compare Rust toolchain versions
+        run: |
+          ROOT_TOOLCHAIN=$(grep '^channel = ' rust-toolchain.toml | sed 's/channel = "//' | sed 's/"//')
+          PLUGIN_TOOLCHAIN=$(grep '^channel = ' packages/localsend_isolates/rust-toolchain.toml | sed 's/channel = "//' | sed 's/"//')
+          echo "Root toolchain is $ROOT_TOOLCHAIN, plugin toolchain is $PLUGIN_TOOLCHAIN"
+          if [ "$ROOT_TOOLCHAIN" != "$PLUGIN_TOOLCHAIN" ]; then
+            echo "Rust toolchain version mismatch detected!"
+            exit 1
+          else
+            echo "Toolchain versions match."
+          fi
+

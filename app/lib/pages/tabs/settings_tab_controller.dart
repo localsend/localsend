@@ -1,6 +1,3 @@
-import 'package:common/isolate.dart';
-import 'package:common/model/device_info_result.dart';
-import 'package:common/util/sleep.dart';
 import 'package:flutter/material.dart';
 import 'package:localsend_app/config/theme.dart';
 import 'package:localsend_app/model/persistence/color_mode.dart';
@@ -14,6 +11,10 @@ import 'package:localsend_app/util/native/autostart_helper.dart';
 import 'package:localsend_app/util/native/context_menu_helper.dart';
 import 'package:localsend_app/util/ui/dynamic_colors.dart';
 import 'package:localsend_app/util/ui/snackbar.dart';
+import 'package:localsend_app/widget/dialogs/custom_color_dialog.dart';
+import 'package:localsend_isolates/isolate.dart';
+import 'package:localsend_isolates/model/device_info_result.dart';
+import 'package:localsend_isolates/util/sleep.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 import 'package:routerino/routerino.dart';
 
@@ -50,12 +51,12 @@ class SettingsTabController extends ReduxNotifier<SettingsTabVm> {
     required LocalIpService localIpService,
     required DeviceInfoResult initialDeviceInfo,
     required bool supportsDynamicColors,
-  })  : _settingsService = settingsService,
-        _serverService = serverNotifier,
-        _isolateController = isolateController,
-        _localIpService = localIpService,
-        _initialDeviceInfo = initialDeviceInfo,
-        _supportsDynamicColors = supportsDynamicColors;
+  }) : _settingsService = settingsService,
+       _serverService = serverNotifier,
+       _isolateController = isolateController,
+       _localIpService = localIpService,
+       _initialDeviceInfo = initialDeviceInfo,
+       _supportsDynamicColors = supportsDynamicColors;
 
   @override
   SettingsTabVm init() {
@@ -80,7 +81,17 @@ class SettingsTabController extends ReduxNotifier<SettingsTabVm> {
           await updateSystemOverlayStyle(context);
         }
       },
-      onChangeColorMode: (colorMode) async {
+      onChangeColorMode: (context, colorMode) async {
+        if (colorMode == ColorMode.custom) {
+          final color = await showDialog<Color>(
+            context: context,
+            builder: (_) => CustomColorDialog(initialColor: _settingsService.state.customColor),
+          );
+          if (color == null) {
+            return;
+          }
+          await _settingsService.setCustomColor(color);
+        }
         await _settingsService.setColorMode(colorMode);
         if (colorMode == ColorMode.oled) {
           await _settingsService.setTheme(ThemeMode.dark);
@@ -135,7 +146,7 @@ class SettingsTabController extends ReduxNotifier<SettingsTabVm> {
             state.portController.text = newServerState.port.toString();
             await _settingsService.setAlias(newServerState.alias);
             await _settingsService.setPort(newServerState.port);
-            external(_isolateController).dispatch(IsolateSendMulticastRestartListenerAction());
+            external(_isolateController).dispatch(IsolateDiscoveryRestartAction());
             external(_localIpService).dispatchAsync(FetchLocalIpAction()); // ignore: unawaited_futures
           }
         } catch (e) {

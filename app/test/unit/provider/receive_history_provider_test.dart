@@ -1,6 +1,7 @@
-import 'package:common/model/file_type.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:localsend_app/model/persistence/receive_history_entry.dart';
 import 'package:localsend_app/provider/receive_history_provider.dart';
+import 'package:localsend_isolates/model/file_type.dart';
 import 'package:mockito/mockito.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 import 'package:test/test.dart';
@@ -9,6 +10,10 @@ import '../../mocks.mocks.dart';
 
 void main() {
   late MockPersistenceService persistenceService;
+
+  setUpAll(() async {
+    await initializeDateFormatting();
+  });
 
   setUp(() {
     persistenceService = MockPersistenceService();
@@ -22,17 +27,19 @@ void main() {
 
     final entry = _createEntry('1');
 
-    await service.dispatchAsync(AddHistoryEntryAction(
-      entryId: entry.id,
-      fileName: entry.fileName,
-      fileType: entry.fileType,
-      path: entry.path,
-      savedToGallery: entry.savedToGallery,
-      isMessage: entry.isMessage,
-      fileSize: entry.fileSize,
-      senderAlias: entry.senderAlias,
-      timestamp: entry.timestamp,
-    ));
+    await service.dispatchAsync(
+      AddHistoryEntryAction(
+        entryId: entry.id,
+        fileName: entry.fileName,
+        fileType: entry.fileType,
+        path: entry.path,
+        savedToGallery: entry.savedToGallery,
+        isMessage: entry.isMessage,
+        fileSize: entry.fileSize,
+        senderAlias: entry.senderAlias,
+        timestamp: entry.timestamp,
+      ),
+    );
 
     expect(service.state, [entry]);
     verify(persistenceService.setReceiveHistory([entry]));
@@ -47,17 +54,19 @@ void main() {
 
     final entry = _createEntry('1');
 
-    await service.dispatchAsync(AddHistoryEntryAction(
-      entryId: entry.id,
-      fileName: entry.fileName,
-      fileType: entry.fileType,
-      path: entry.path,
-      savedToGallery: entry.savedToGallery,
-      isMessage: entry.isMessage,
-      fileSize: entry.fileSize,
-      senderAlias: entry.senderAlias,
-      timestamp: entry.timestamp,
-    ));
+    await service.dispatchAsync(
+      AddHistoryEntryAction(
+        entryId: entry.id,
+        fileName: entry.fileName,
+        fileType: entry.fileType,
+        path: entry.path,
+        savedToGallery: entry.savedToGallery,
+        isMessage: entry.isMessage,
+        fileSize: entry.fileSize,
+        senderAlias: entry.senderAlias,
+        timestamp: entry.timestamp,
+      ),
+    );
 
     expect(service.state, []);
     verifyNever(persistenceService.setReceiveHistory(any));
@@ -75,17 +84,19 @@ void main() {
 
     final entry = _createEntry('AAA');
 
-    await service.dispatchAsync(AddHistoryEntryAction(
-      entryId: entry.id,
-      fileName: entry.fileName,
-      fileType: entry.fileType,
-      path: entry.path,
-      savedToGallery: entry.savedToGallery,
-      isMessage: entry.isMessage,
-      fileSize: entry.fileSize,
-      senderAlias: entry.senderAlias,
-      timestamp: entry.timestamp,
-    ));
+    await service.dispatchAsync(
+      AddHistoryEntryAction(
+        entryId: entry.id,
+        fileName: entry.fileName,
+        fileType: entry.fileType,
+        path: entry.path,
+        savedToGallery: entry.savedToGallery,
+        isMessage: entry.isMessage,
+        fileSize: entry.fileSize,
+        senderAlias: entry.senderAlias,
+        timestamp: entry.timestamp,
+      ),
+    );
 
     expect(service.state.length, 30);
     expect(service.state.first, entry);
@@ -113,10 +124,12 @@ void main() {
       _createEntry('1'),
       _createEntry('3'),
     ]);
-    verify(persistenceService.setReceiveHistory([
-      _createEntry('1'),
-      _createEntry('3'),
-    ]));
+    verify(
+      persistenceService.setReceiveHistory([
+        _createEntry('1'),
+        _createEntry('3'),
+      ]),
+    );
   });
 
   test('Should not remove an entry if not found', () async {

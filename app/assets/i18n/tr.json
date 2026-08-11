@@ -1,5 +1,4 @@
 {
-  "locale": "Türkçe",
   "appName": "LocalSend",
   "general": {
     "accept": "Kabul et",
@@ -52,7 +51,8 @@
       "off": "@:general.off",
       "favorites": "Favoriler",
       "on": "@:general.on"
-    }
+    },
+    "link": "Bağlantı ile al"
   },
   "sendTab": {
     "title": "Gönder",
@@ -97,7 +97,8 @@
       "color": "Renk",
       "colorOptions": {
         "system": "Sistem",
-        "oled": "OLED"
+        "oled": "OLED",
+        "custom": "Özel"
       },
       "language": "Dil",
       "languageOptions": {
@@ -114,16 +115,19 @@
     "receive": {
       "title": "Alım",
       "quickSave": "@:general.quickSave",
+      "quickSaveFromFavorites": "@:general.quickSaveFromFavorites",
       "requirePin": "@:webSharePage.requirePin",
       "autoFinish": "Otomatik bitir",
       "destination": "Hedef klasör",
       "downloads": "(İndirilenler)",
       "saveToGallery": "Medyayı galeriye kaydet",
-      "saveToHistory": "Geçmişe kaydet"
+      "saveToHistory": "Geçmişe kaydet",
+      "verifyChecksums": "Dosyaları alırken sağlama toplamlarını doğrula"
     },
     "send": {
       "title": "Gönder",
-      "shareViaLinkAutoAccept": "Link aracılığıyla paylaş: Otomatik olarak kabul et"
+      "shareViaLinkAutoAccept": "Link aracılığıyla paylaş: Otomatik olarak kabul et",
+      "createChecksums": "Dosya gönderirken sağlama toplamlarını oluştur"
     },
     "network": {
       "title": "Ağ",
@@ -133,17 +137,18 @@
       "deviceType": "Cihaz tipi",
       "deviceModel": "Cihaz modeli",
       "port": "Port",
+      "network": "Ağ",
+      "networkOptions": {
+        "all": "Tümü",
+        "filtered": "Filtrelenmiş"
+      },
       "discoveryTimeout": "Arama zaman aşımına uğradı",
+      "useSystemName": "Sistem adını kullan",
+      "generateRandomAlias": "Rastgele takma ad oluştur",
       "portWarning": "Kişiselleştirilmiş bir port kullanıyorsanız ağınızdaki diğer cihazlar tarafından bulunamayabilirsiniz. (varsayılan: {defaultPort})",
       "encryption": "Şifreleme",
       "multicastGroup": "Çoklu yayın",
-      "multicastGroupWarning": "Özel çoklu yayın adresini kullandığınız için diğer cihazlar tarafından algılanamayabilirsiniz.(varsayılan: {defaultMulticast})",
-      "network": "Ağ",
-      "networkOptions": {
-        "all": "Tümü"
-      },
-      "useSystemName": "Sistem adını kullan",
-      "generateRandomAlias": "Rastgele takma ad oluştur"
+      "multicastGroupWarning": "Özel çoklu yayın adresini kullandığınız için diğer cihazlar tarafından algılanamayabilirsiniz.(varsayılan: {defaultMulticast})"
     },
     "other": {
       "title": "Diğer",
@@ -173,6 +178,13 @@
       "solution": "Sorun her iki tarafta da var mı? O zaman her iki cihazın da aynı WiFi ağında olduğundan ve aynı yapılandırmayı (bağlantı noktası, çoklu yayın adresi, şifreleme) paylaştığından emin olmanız gerekir. WiFi, katılımcılar arasında iletişime izin vermeyebilir. Bu durumda, bu seçenek yönlendiricide etkinleştirilmelidir."
     }
   },
+  "networkInterfacesPage": {
+    "title": "Ağ Arayüzleri",
+    "info": "Varsayılan olarak, LocalSend mevcut olan tüm ağları kullanır. Burada istenmeyen ağları engelleyebilirsiniz. Değişikliklerin uygulanması için sunucuyu yeniden başlatmanız gerekir.",
+    "preview": "Önizle",
+    "whitelist": "Beyaz liste",
+    "blacklist": "Kara liste"
+  },
   "receiveHistoryPage": {
     "title": "Geçmiş",
     "openFolder": "Dosyayı aç",
@@ -194,6 +206,29 @@
   "selectedFilesPage": {
     "deleteAll": "Hepsini sil"
   },
+  "deviceDetailsPage": {
+    "title": "Cihaz Ayrıntıları",
+    "favorite": "Favori",
+    "verify": "Doğrula",
+    "info": {
+      "name": "Ad",
+      "address": "Adres",
+      "version": "Sürüm",
+      "protocol": "Protokol v{version}"
+    },
+    "logs": {
+      "title": "Günlükler",
+      "empty": "Kullanılabilir günlük yok.",
+      "discovered": "{protocol} üzerinden keşfedildi ({host})",
+      "updated": "{protocol} üzerinden güncellendi ({host})"
+    }
+  },
+  "verifyPage": {
+    "title": "Doğrula",
+    "icons": "Simgeler",
+    "text": "Metin",
+    "question": "Diğer cihazda aynı görünüyor mu?"
+  },
   "receivePage": {
     "subTitle": {
       "one": "sana bir dosya göndermek istiyor",
@@ -211,6 +246,7 @@
     "saveToGalleryOff": "Otomatik olarak kapanır çünkü bunlar klasör."
   },
   "sendPage": {
+    "calculatingChecksum": "Sağlama toplamı hesaplanıyor ({curr} / {n})",
     "waiting": "Alıcıdan cevap bekleniyor…",
     "rejected": "Alıcı isteği reddetti.",
     "tooManyAttempts": "@:web.tooManyAttempts",
@@ -230,6 +266,16 @@
       "count": "Dosyalar: {curr} / {n}",
       "size": "Boyut: {curr} / {n}",
       "speed": "Hız: {speed}/s"
+    },
+    "remainingTime": {
+      "minutesUnit(plural, param=m)": {
+        "other": "{m}dk"
+      },
+      "hoursUnit(plural, param=h)": {
+        "other": "{h}sa"
+      },
+      "minutes": "{m}:{ss}",
+      "hours": "@:.hoursUnit @:.minutesUnit"
     }
   },
   "webSharePage": {
@@ -249,6 +295,9 @@
     "pinHint": "PIN \"{pin}\"",
     "encryptionHint": "LocalSend, tarayıcıda kabul etmeniz gereken kendi-üretimli bir sertifika kullanır.",
     "pendingRequests": "Bekleyen istekler: {n}"
+  },
+  "webReceivePage": {
+    "title": "Bağlantı yoluyla al"
   },
   "aboutPage": {
     "title": "LocalSend hakkında",
@@ -271,6 +320,18 @@
   "changelogPage": {
     "title": "Değişiklik günlüğü"
   },
+  "whatsNewPage": {
+    "title": "{version} sürümündeki yenilikler",
+    "changes(interface=WhatsNewStrings)": {
+      "v1_18_0": {
+        "changes": [
+          "Şifreleme artık aktarımları yavaşlatmıyor. Daha önce bu özelliği devre dışı bıraktıysanız, bu aygıtta yeniden etkinleştirildi.",
+          "Favorilerden gelen istekler artık otomatik olarak kabul ediliyor. Bu özellik varsayılan olarak etkindir ve ayarlardan devre dışı bırakılabilir.",
+          "Android'de, uygulama arka planda çalışırken veya ekran kapalıyken aktarımlar devam eder. iOS'ta ise uygulamanın ön planda kalması gerekir."
+        ]
+      }
+    }
+  },
   "aliasGenerator(ignoreMissing, ignoreGpt)": {
     "@info": "Inherits from the English version"
   },
@@ -279,10 +340,12 @@
       "title": "Seçime ekle",
       "content": "Ne eklemek istiyorsunuz ?"
     },
+    "openFile": {
+      "title": "Dosya Aç",
+      "content": "Alınan dosyayı açmak istiyor musunuz?"
+    },
     "addressInput": {
       "title": "Adresi giriniz",
-      "hashtag": "Hashtag",
-      "ip": "IP adresi",
       "recentlyUsed": "Daha önce kullanılmış: "
     },
     "cancelSession": {
@@ -369,6 +432,12 @@
       "title": "@:general.quickSave",
       "content": "Dosya gönderim istekleri otomatik olarak gerçekleşir. Yerel ağınızdaki herkesin size dosya gönderebileceğinin farkında olunuz."
     },
+    "quickSaveFromFavoritesNotice": {
+      "title": "@:general.quickSaveFromFavorites",
+      "content": [
+        "Favoriler listenizdeki cihazların paylaşım istekleri otomatik olarak kabul edilecektir."
+      ]
+    },
     "pin": {
       "title": "PIN girin"
     },
@@ -380,10 +449,6 @@
     },
     "zoom": {
       "title": "URL"
-    },
-    "openFile": {
-      "title": "Dosya Aç",
-      "content": "Alınan dosyayı açmak istiyor musunuz?"
     }
   },
   "sanitization": {
@@ -436,11 +501,5 @@
     "sActionUseCameraHint": "Kamera kullan",
     "sNameDurationLabel": "süre",
     "sUnitAssetCountLabel": "sayım"
-  },
-  "networkInterfacesPage": {
-    "title": "Ağ Arayüzleri",
-    "preview": "Önizle",
-    "whitelist": "Beyaz liste",
-    "blacklist": "Kara liste"
   }
 }

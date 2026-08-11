@@ -1,40 +1,63 @@
-import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
 import 'package:localsend_app/gen/strings.g.dart';
+import 'package:localsend_app/model/state/server/server_state.dart';
 import 'package:localsend_app/pages/home_page.dart';
 import 'package:localsend_app/pages/home_page_controller.dart';
 import 'package:localsend_app/pages/receive_history_page.dart';
-import 'package:localsend_app/pages/tabs/receive_tab_vm.dart';
+import 'package:localsend_app/pages/web_share_page.dart';
 import 'package:localsend_app/provider/animation_provider.dart';
-import 'package:localsend_app/util/ip_helper.dart';
-import 'package:localsend_app/util/native/platform_check.dart';
+import 'package:localsend_app/provider/local_ip_provider.dart';
+import 'package:localsend_app/provider/network/server/server_provider.dart';
+import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/widget/animations/initial_fade_transition.dart';
 import 'package:localsend_app/widget/column_list_view.dart';
 import 'package:localsend_app/widget/custom_icon_button.dart';
 import 'package:localsend_app/widget/local_send_logo.dart';
 import 'package:localsend_app/widget/responsive_list_view.dart';
 import 'package:localsend_app/widget/rotating_widget.dart';
+import 'package:localsend_isolates/util/sleep.dart';
+import 'package:refena_flutter/addons.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 import 'package:routerino/routerino.dart';
 
-enum _QuickSaveMode {
-  off,
-  favorites,
-  on,
-}
-
-class ReceiveTab extends StatelessWidget {
+class ReceiveTab extends StatefulWidget {
   const ReceiveTab();
 
   @override
+  State<ReceiveTab> createState() => _ReceiveTabState();
+}
+
+class _ReceiveTabState extends State<ReceiveTab> {
+  /// Whether the advanced network info is shown
+  bool _showAdvanced = false;
+
+  /// Whether the history button is shown
+  /// This extra boolean is needed to delay the animation
+  bool _showHistoryButton = true;
+
+  Future<void> _toggleAdvanced() async {
+    if (_showAdvanced) {
+      setState(() => _showAdvanced = false);
+      await sleepAsync(200);
+      if (mounted) {
+        setState(() => _showHistoryButton = true);
+      }
+    } else {
+      setState(() {
+        _showAdvanced = true;
+        _showHistoryButton = false;
+      });
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final vm = context.watch(receiveTabVmProvider);
+    final alias = context.watch(settingsProvider.select((s) => s.alias));
+    final serverState = context.watch(serverProvider);
+    final localIps = context.watch(localIpProvider.select((s) => s.localIps));
 
     return Stack(
       children: [
-        checkPlatform([TargetPlatform.macOS])
-            ? SizedBox(height: 50, child: MoveWindow())
-            : SizedBox(height: 0, width: 0), // makes the top part that's not occupied by another widget draggable
         Center(
           child: ConstrainedBox(
             constraints: const BoxConstraints(maxWidth: ResponsiveListView.defaultMaxWidth),
@@ -50,27 +73,35 @@ class ReceiveTab extends StatelessWidget {
                         InitialFadeTransition(
                           duration: const Duration(milliseconds: 300),
                           delay: const Duration(milliseconds: 200),
-                          child: Consumer(builder: (context, ref) {
-                            final animations = ref.watch(animationProvider);
-                            final activeTab = ref.watch(homePageControllerProvider.select((state) => state.currentTab));
-                            return RotatingWidget(
-                              duration: const Duration(seconds: 15),
-                              spinning: vm.serverState != null && animations && activeTab == HomeTab.receive,
-                              child: const LocalSendLogo(withText: false),
-                            );
-                          }),
+                          child: Consumer(
+                            builder: (context, ref) {
+                              final animations = ref.watch(animationProvider);
+                              final activeTab = ref.watch(homePageControllerProvider.select((state) => state.currentTab));
+                              return RotatingWidget(
+                                duration: const Duration(seconds: 15),
+                                spinning: serverState != null && animations && activeTab == HomeTab.receive,
+                                child: const LocalSendLogo(withText: false),
+                              );
+                            },
+                          ),
                         ),
                         FittedBox(
                           fit: BoxFit.scaleDown,
-                          child: Text(vm.serverState?.alias ?? vm.aliasSettings, style: const TextStyle(fontSize: 48)),
+                          child: Text(serverState?.alias ?? alias, style: const TextStyle(fontSize: 48)),
                         ),
-                        InitialFadeTransition(
-                          duration: const Duration(milliseconds: 300),
-                          delay: const Duration(milliseconds: 500),
-                          child: Text(
-                            vm.serverState == null ? t.general.offline : vm.localIps.map((ip) => '#${ip.visualId}').toSet().join(' '),
-                            style: const TextStyle(fontSize: 24),
-                            textAlign: TextAlign.center,
+                        Visibility(
+                          visible: serverState == null,
+                          maintainSize: true,
+                          maintainAnimation: true,
+                          maintainState: true,
+                          child: InitialFadeTransition(
+                            duration: const Duration(milliseconds: 300),
+                            delay: const Duration(milliseconds: 500),
+                            child: Text(
+                              t.general.offline,
+                              style: const TextStyle(fontSize: 24),
+                              textAlign: TextAlign.center,
+                            ),
                           ),
                         ),
                       ],
@@ -79,53 +110,12 @@ class ReceiveTab extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(top: 10),
                     child: Center(
-                      child: Column(
-                        children: [
-                          Text(t.general.quickSave),
-                          const SizedBox(height: 10),
-                          SegmentedButton<_QuickSaveMode>(
-                            multiSelectionEnabled: false,
-                            emptySelectionAllowed: false,
-                            showSelectedIcon: false,
-                            onSelectionChanged: (selection) async {
-                              if (selection.contains(_QuickSaveMode.off)) {
-                                await vm.onSetQuickSave(context, false);
-                                if (context.mounted) {
-                                  await vm.onSetQuickSaveFromFavorites(context, false);
-                                }
-                              } else if (selection.contains(_QuickSaveMode.favorites)) {
-                                await vm.onSetQuickSave(context, false);
-                                if (context.mounted) {
-                                  await vm.onSetQuickSaveFromFavorites(context, true);
-                                }
-                              } else if (selection.contains(_QuickSaveMode.on)) {
-                                await vm.onSetQuickSaveFromFavorites(context, false);
-                                if (context.mounted) {
-                                  await vm.onSetQuickSave(context, true);
-                                }
-                              }
-                            },
-                            selected: {
-                              if (!vm.quickSaveSettings && !vm.quickSaveFromFavoritesSettings) _QuickSaveMode.off,
-                              if (vm.quickSaveFromFavoritesSettings) _QuickSaveMode.favorites,
-                              if (vm.quickSaveSettings) _QuickSaveMode.on,
-                            },
-                            segments: [
-                              ButtonSegment(
-                                value: _QuickSaveMode.off,
-                                label: Text(t.receiveTab.quickSave.off),
-                              ),
-                              ButtonSegment(
-                                value: _QuickSaveMode.favorites,
-                                label: Text(t.receiveTab.quickSave.favorites),
-                              ),
-                              ButtonSegment(
-                                value: _QuickSaveMode.on,
-                                label: Text(t.receiveTab.quickSave.on),
-                              ),
-                            ],
-                          ),
-                        ],
+                      child: OutlinedButton.icon(
+                        onPressed: () async {
+                          await context.global.dispatchAsync(NavigateAction.push(const WebSharePage()));
+                        },
+                        icon: Icon(Icons.language),
+                        label: Text(t.receiveTab.link),
                       ),
                     ),
                   ),
@@ -135,11 +125,15 @@ class ReceiveTab extends StatelessWidget {
             ),
           ),
         ),
-        _InfoBox(vm),
+        _InfoBox(
+          serverState: serverState,
+          localIps: localIps,
+          showAdvanced: _showAdvanced,
+        ),
         _CornerButtons(
-          showAdvanced: vm.showAdvanced,
-          showHistoryButton: vm.showHistoryButton,
-          toggleAdvanced: vm.toggleAdvanced,
+          showAdvanced: _showAdvanced,
+          showHistoryButton: _showHistoryButton,
+          toggleAdvanced: _toggleAdvanced,
         ),
       ],
     );
@@ -190,14 +184,20 @@ class _CornerButtons extends StatelessWidget {
 }
 
 class _InfoBox extends StatelessWidget {
-  final ReceiveTabVm vm;
+  final ServerState? serverState;
+  final List<String> localIps;
+  final bool showAdvanced;
 
-  const _InfoBox(this.vm);
+  const _InfoBox({
+    required this.serverState,
+    required this.localIps,
+    required this.showAdvanced,
+  });
 
   @override
   Widget build(BuildContext context) {
     return AnimatedCrossFade(
-      crossFadeState: vm.showAdvanced ? CrossFadeState.showSecond : CrossFadeState.showFirst,
+      crossFadeState: showAdvanced ? CrossFadeState.showSecond : CrossFadeState.showFirst,
       duration: const Duration(milliseconds: 200),
       firstChild: Container(),
       secondChild: Align(
@@ -220,7 +220,7 @@ class _InfoBox extends StatelessWidget {
                       const SizedBox(width: 10),
                       Padding(
                         padding: const EdgeInsets.only(right: 30),
-                        child: SelectableText(vm.serverState?.alias ?? '-'),
+                        child: SelectableText(serverState?.alias ?? '-'),
                       ),
                     ],
                   ),
@@ -231,8 +231,8 @@ class _InfoBox extends StatelessWidget {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          if (vm.localIps.isEmpty) Text(t.general.unknown),
-                          ...vm.localIps.map((ip) => SelectableText(ip)),
+                          if (localIps.isEmpty) Text(t.general.unknown),
+                          ...localIps.map((ip) => SelectableText(ip)),
                         ],
                       ),
                     ],
@@ -241,7 +241,7 @@ class _InfoBox extends StatelessWidget {
                     children: [
                       Text(t.receiveTab.infoBox.port),
                       const SizedBox(width: 10),
-                      SelectableText(vm.serverState?.port.toString() ?? '-'),
+                      SelectableText(serverState?.port.toString() ?? '-'),
                     ],
                   ),
                 ],

@@ -1,7 +1,5 @@
 import 'dart:async';
 
-import 'package:common/model/file_type.dart';
-import 'package:common/util/sleep.dart';
 import 'package:file_selector/file_selector.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +11,6 @@ import 'package:localsend_app/pages/apk_picker_page.dart';
 import 'package:localsend_app/provider/device_info_provider.dart';
 import 'package:localsend_app/provider/selection/selected_sending_files_provider.dart';
 import 'package:localsend_app/util/determine_image_type.dart';
-import 'package:localsend_app/util/file_path_helper.dart';
 import 'package:localsend_app/util/image_converter.dart';
 import 'package:localsend_app/util/native/channel/android_channel.dart' as android_channel;
 import 'package:localsend_app/util/native/cross_file_converters.dart';
@@ -23,6 +20,9 @@ import 'package:localsend_app/util/ui/asset_picker_translated_text_delegate.dart
 import 'package:localsend_app/widget/dialogs/loading_dialog.dart';
 import 'package:localsend_app/widget/dialogs/message_input_dialog.dart';
 import 'package:localsend_app/widget/dialogs/no_permission_dialog.dart';
+import 'package:localsend_isolates/model/file_type.dart';
+import 'package:localsend_isolates/util/file_path_helper.dart';
+import 'package:localsend_isolates/util/sleep.dart';
 import 'package:logging/logging.dart';
 import 'package:pasteboard/pasteboard.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -40,7 +40,8 @@ enum FilePickerOption {
   media(Icons.image),
   text(Icons.subject),
   app(Icons.apps),
-  clipboard(Icons.paste);
+  clipboard(Icons.paste)
+  ;
 
   const FilePickerOption(this.icon);
 
@@ -156,17 +157,25 @@ Future<void> _pickFiles(BuildContext context, Ref ref) async {
     if (defaultTargetPlatform == TargetPlatform.android) {
       final result = await android_channel.pickFilesAndroid();
       if (result != null) {
-        await ref.redux(selectedSendingFilesProvider).dispatchAsync(AddFilesAction(
-              files: result,
-              converter: CrossFileConverters.convertFileInfo,
-            ));
+        await ref
+            .redux(selectedSendingFilesProvider)
+            .dispatchAsync(
+              AddFilesAction(
+                files: result,
+                converter: CrossFileConverters.convertFileInfo,
+              ),
+            );
       }
     } else {
       final result = await openFiles();
-      await ref.redux(selectedSendingFilesProvider).dispatchAsync(AddFilesAction(
-            files: result,
-            converter: CrossFileConverters.convertXFile,
-          ));
+      await ref
+          .redux(selectedSendingFilesProvider)
+          .dispatchAsync(
+            AddFilesAction(
+              files: result,
+              converter: CrossFileConverters.convertXFile,
+            ),
+          );
     }
   } catch (e) {
     if (e is PlatformException && e.code == 'CANCELED') {
@@ -234,8 +243,20 @@ Future<void> _pickFolder(BuildContext context, Ref ref) async {
 }
 
 Future<void> _pickMedia(BuildContext context, Ref ref) async {
+  if (checkPlatform([TargetPlatform.android])) {
+    await PhotoManager.requestPermissionExtend(
+      requestOption: const PermissionRequestOption(
+        androidPermission: AndroidPermission(
+          type: RequestType.common,
+          mediaLocation: true,
+        ),
+      ),
+    );
+  }
+
+  if (!context.mounted) return;
+
   final oldBrightness = Theme.of(context).brightness;
-  // ignore: use_build_context_synchronously
   final List<AssetEntity>? result = await AssetPicker.pickAssets(
     context,
     pickerConfig: const AssetPickerConfig(maxAssets: 999, textDelegate: TranslatedAssetPickerTextDelegate()),
@@ -250,10 +271,14 @@ Future<void> _pickMedia(BuildContext context, Ref ref) async {
   });
 
   if (result != null) {
-    await ref.redux(selectedSendingFilesProvider).dispatchAsync(AddFilesAction(
-          files: result,
-          converter: CrossFileConverters.convertAssetEntity,
-        ));
+    await ref
+        .redux(selectedSendingFilesProvider)
+        .dispatchAsync(
+          AddFilesAction(
+            files: result,
+            converter: CrossFileConverters.convertAssetEntity,
+          ),
+        );
   }
 }
 
@@ -291,17 +316,23 @@ Future<void> _pickClipboard(BuildContext context, Ref ref) async {
     final now = DateTime.now();
     final fileName =
         'clipboard_${now.year}-${now.month.twoDigitString}-${now.day.twoDigitString}_${now.hour.twoDigitString}-${now.minute.twoDigitString}.$imageType';
-    ref.redux(selectedSendingFilesProvider).dispatch(AddBinaryAction(
-          bytes: currImage,
-          fileType: FileType.image,
-          fileName: fileName,
-        ));
+    ref
+        .redux(selectedSendingFilesProvider)
+        .dispatch(
+          AddBinaryAction(
+            bytes: currImage,
+            fileType: FileType.image,
+            fileName: fileName,
+          ),
+        );
     return;
   }
 
   final List<String> files = await Pasteboard.files();
   if (files.isNotEmpty) {
-    await ref.redux(selectedSendingFilesProvider).dispatchAsync(
+    await ref
+        .redux(selectedSendingFilesProvider)
+        .dispatchAsync(
           AddFilesAction(
             files: files.map((e) => XFile(e)).toList(),
             converter: (file) async {
@@ -330,9 +361,11 @@ Future<void> _pickClipboard(BuildContext context, Ref ref) async {
     return;
   }
 
-  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-    content: Text(t.general.noItemInClipboard),
-  ));
+  ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(
+      content: Text(t.general.noItemInClipboard),
+    ),
+  );
 }
 
 Future<void> _pickApp(BuildContext context) async {

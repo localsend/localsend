@@ -13,10 +13,10 @@ final purchaseProvider = ReduxProvider<PurchaseService, PurchaseState>((ref) {
 class PurchaseService extends ReduxNotifier<PurchaseState> {
   @override
   PurchaseState init() => const PurchaseState(
-        prices: {},
-        purchases: {},
-        pending: false,
-      );
+    prices: {},
+    purchases: {},
+    pending: false,
+  );
 }
 
 class InitPurchaseStream extends AsyncReduxAction<PurchaseService, PurchaseState> {
@@ -161,9 +161,9 @@ class PurchaseRestoreAction extends AsyncReduxAction<PurchaseService, PurchaseSt
 class PurchaseResetAction extends ReduxAction<PurchaseService, PurchaseState> {
   @override
   PurchaseState reduce() => state.copyWith(
-        purchases: {},
-        pending: false,
-      );
+    purchases: {},
+    pending: false,
+  );
 }
 
 /// Initiate the purchase flow for a product.

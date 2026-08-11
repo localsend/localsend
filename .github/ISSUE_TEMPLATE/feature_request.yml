@@ -1,0 +1,59 @@
+name: Feature request
+description: Suggest an idea for this project
+title: "fr: "
+labels: ["enhancement"]
+body:
+  - type: checkboxes
+    id: confirm
+    attributes:
+      label: Read [this](https://github.com/localsend/localsend/issues/528) before anything
+      options:
+        - label: I have read it.
+        - label: Issues not fitting are closed.
+
+  - type: checkboxes
+    id: duplication
+    attributes:
+      label: "Make sure about:"
+      options:
+        - label: This issue is not duplicated with any other open or closed issues.
+          required: true
+        - label: This issue is a feature request, not a bug report.
+          required: true
+
+  - type: textarea
+    id: reason
+    attributes:
+      label: Reason of the change
+      description: Why the things need to be changed? Inconvenient or logical wrong?
+      placeholder: |
+        Because if I want to ..., I'll need to ...
+        It's not very ... to do so ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: Description of the change
+      description: What should we change or add, to make it better?
+      placeholder: |
+        If there's a choice like ..., it will be more ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: The alternatives you've considered
+      description: If we are unable to do that above, any other solution?
+      placeholder: |
+        Add a ... also helps ...
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional context
+      description: Add any other context or screenshots about the request here
+      placeholder: |
+        Related app, website, system, or a design. Anything helpful can be here.

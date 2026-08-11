@@ -4,6 +4,7 @@ import 'package:localsend_app/util/native/file_picker.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_app/widget/big_button.dart';
 import 'package:localsend_app/widget/dialogs/custom_bottom_sheet.dart';
+import 'package:refena_flutter/addons.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 import 'package:routerino/routerino.dart';
 
@@ -36,16 +37,18 @@ class AddFileDialog extends StatelessWidget {
                 context.pop();
               },
               child: Text(t.general.close),
-            )
+            ),
           ],
         ),
       );
     } else {
-      await context.pushBottomSheet(() => CustomBottomSheet(
-            title: t.dialogs.addFile.title,
-            description: t.dialogs.addFile.content,
-            child: AddFileDialog(options: options),
-          ));
+      await context.pushBottomSheet(
+        () => CustomBottomSheet(
+          title: t.dialogs.addFile.title,
+          description: t.dialogs.addFile.content,
+          child: AddFileDialog(options: options),
+        ),
+      );
     }
   }
 
@@ -61,8 +64,9 @@ class AddFileDialog extends StatelessWidget {
             label: option.label,
             filled: true,
             onTap: () async {
-              context.popUntilRoot();
-              await context.global.dispatchAsync(PickFileAction(option: option, context: context));
+              final ref = context.ref;
+              await ref.global.dispatchAsync(PickFileAction(option: option, context: context));
+              ref.global.dispatch(NavigateAction.popUntilRoot());
             },
           );
         }),

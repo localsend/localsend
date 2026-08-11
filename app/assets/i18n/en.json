@@ -1,5 +1,4 @@
 {
-  "locale": "English",
   "appName": "LocalSend",
   "general": {
     "accept": "Accept",
@@ -52,7 +51,8 @@
       "off": "@:general.off",
       "favorites": "Favorites",
       "on": "@:general.on"
-    }
+    },
+    "link": "Receive via link"
   },
   "sendTab": {
     "title": "Send",
@@ -97,7 +97,8 @@
       "color": "Color",
       "colorOptions": {
         "system": "System",
-        "oled": "OLED"
+        "oled": "OLED",
+        "custom": "Custom"
       },
       "language": "Language",
       "languageOptions": {
@@ -120,11 +121,13 @@
       "destination": "Save to folder",
       "downloads": "(Downloads)",
       "saveToGallery": "Save media to gallery",
-      "saveToHistory": "Save to history"
+      "saveToHistory": "Save to history",
+      "verifyChecksums": "Verify checksums when receiving files"
     },
     "send": {
       "title": "Send",
-      "shareViaLinkAutoAccept": "Automatically accept requests in \"Share via link\" mode"
+      "shareViaLinkAutoAccept": "Automatically accept requests in \"Share via link\" mode",
+      "createChecksums": "Create checksums when sending files"
     },
     "network": {
       "title": "Network",
@@ -203,6 +206,29 @@
   "selectedFilesPage": {
     "deleteAll": "Delete all"
   },
+  "deviceDetailsPage": {
+    "title": "Device Details",
+    "favorite": "Favorite",
+    "verify": "Verify",
+    "info": {
+      "name": "Name",
+      "address": "Address",
+      "version": "Version",
+      "protocol": "Protocol v{version}"
+    },
+    "logs": {
+      "title": "Logs",
+      "empty": "No logs available.",
+      "discovered": "Discovered via {protocol} ({host})",
+      "updated": "Updated via {protocol} ({host})"
+    }
+  },
+  "verifyPage": {
+    "title": "Verify",
+    "icons": "Icons",
+    "text": "Text",
+    "question": "Does it look the same on the other device?"
+  },
   "receivePage": {
     "subTitle": {
       "one": "wants to send you a file",
@@ -220,6 +246,7 @@
     "saveToGalleryOff": "Turned off automatically because there are folders."
   },
   "sendPage": {
+    "calculatingChecksum": "Calculating checksum ({curr} / {n})",
     "waiting": "Waiting for response…",
     "rejected": "The recipient has rejected the request.",
     "tooManyAttempts": "@:web.tooManyAttempts",
@@ -239,6 +266,16 @@
       "count": "Files: {curr} / {n}",
       "size": "Size: {curr} / {n}",
       "speed": "Speed: {speed}/s"
+    },
+    "remainingTime": {
+      "minutesUnit(plural, param=m)": {
+        "other": "{m}m"
+      },
+      "hoursUnit(plural, param=h)": {
+        "other": "{h}h"
+      },
+      "minutes": "{m}:{ss}",
+      "hours": "@:.hoursUnit @:.minutesUnit"
     }
   },
   "webSharePage": {
@@ -258,6 +295,9 @@
     "pinHint": "The PIN is \"{pin}\"",
     "encryptionHint": "LocalSend uses a self-signed certificate. You need to accept it in your browser.",
     "pendingRequests": "Pending requests: {n}"
+  },
+  "webReceivePage": {
+    "title": "Receive via link"
   },
   "aboutPage": {
     "title": "About LocalSend",
@@ -279,6 +319,18 @@
   },
   "changelogPage": {
     "title": "Changelog"
+  },
+  "whatsNewPage": {
+    "title": "What's new in {version}",
+    "changes(interface=WhatsNewStrings)": {
+      "v1_18_0": {
+        "changes": [
+          "Encryption no longer slows down transfers. It has been re-enabled on this device if you turned it off before.",
+          "Requests from favorites are now accepted automatically. This is turned on by default and can be disabled in the settings.",
+          "On Android, transfers continue while the app is in the background or the screen is off. On iOS, the app must still stay in the foreground."
+        ]
+      }
+    }
   },
   "aliasGenerator(ignoreMissing, ignoreGpt)": {
     "@info": "Different locales may have different words, it may not match 1:1",
@@ -364,8 +416,6 @@
     },
     "addressInput": {
       "title": "Enter address",
-      "hashtag": "Hashtag",
-      "ip": "IP Address",
       "recentlyUsed": "Recently used: "
     },
     "cancelSession": {
@@ -455,9 +505,7 @@
     "quickSaveFromFavoritesNotice": {
       "title": "@:general.quickSaveFromFavorites",
       "content": [
-        "File requests are now accepted automatically from devices in your favorites list.",
-        "Warning! Currently, this is not entirely secure, as a hacker who has the fingerprint of any device from your favorites list can send you files without restriction.",
-        "However, this option is still safer than allowing all users on the local network to send you files without restriction."
+        "File requests are now accepted automatically from devices in your favorites list."
       ]
     },
     "pin": {

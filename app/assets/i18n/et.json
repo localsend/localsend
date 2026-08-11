@@ -1,5 +1,4 @@
 {
-  "locale": "Eesti keel",
   "appName": "LocalSend",
   "general": {
     "accept": "Nõustu",
@@ -26,7 +25,7 @@
     "on": "Sees",
     "online": "Võrgus",
     "open": "Ava",
-    "queue": "Järjekord",
+    "queue": "Järjekorras",
     "quickSave": "Kiirsalvestus",
     "quickSaveFromFavorites": "Kiirsalvestamine „Lemmikutelt“",
     "renamed": "Nimi on muudetud",
@@ -52,7 +51,8 @@
       "off": "@:general.off",
       "favorites": "Lemmikud",
       "on": "@:general.on"
-    }
+    },
+    "link": "Võta vastu lingi kaudu"
   },
   "sendTab": {
     "title": "Saada",
@@ -97,7 +97,8 @@
       "color": "Värv",
       "colorOptions": {
         "system": "Süsteemi värvid",
-        "oled": "OLED"
+        "oled": "OLED",
+        "custom": "Kohandatud"
       },
       "language": "Keel",
       "languageOptions": {
@@ -120,11 +121,13 @@
       "destination": "Salvesta kausta",
       "downloads": "(Allalaadimised)",
       "saveToGallery": "Lisa meedia galeriisse",
-      "saveToHistory": "Salvesta ajalukku"
+      "saveToHistory": "Salvesta ajalukku",
+      "verifyChecksums": "Kontrolli failide vastuvõtmisel kontrollsummasid"
     },
     "send": {
       "title": "Saatmine",
-      "shareViaLinkAutoAccept": "Kui kasutusel on „Jaga lingi abil“, siis nõustu vastuvõtmisega automaatselt"
+      "shareViaLinkAutoAccept": "Kui kasutusel on „Jaga lingi abil“, siis nõustu vastuvõtmisega automaatselt",
+      "createChecksums": "Loo failide saatmisel kontrollsummad"
     },
     "network": {
       "title": "Võrk",
@@ -134,24 +137,24 @@
       "deviceType": "Seadme tüüp",
       "deviceModel": "Seadme mudel",
       "port": "Kasutatav port",
+      "network": "Võrk",
+      "networkOptions": {
+        "all": "Kõik",
+        "filtered": "Filtreeritud"
+      },
       "discoveryTimeout": "Leitavuse aegumine",
       "useSystemName": "Kasuta süsteemset nime",
       "generateRandomAlias": "Loo juhuslik nimi",
       "portWarning": "Kuna kasutad endamääratud porti, siis muud seadmed ei pruugi seda seadet leida. (vaikimisi: {defaultPort})",
       "encryption": "Krüptimine",
       "multicastGroup": "Multiedastuse aadress",
-      "multicastGroupWarning": "Kuna kasutad endamääratud multiedastuse aadressi, siis muud seadmed ei pruugi seda seadet leida. (vaikimisi: {defaultMulticast})",
-      "networkOptions": {
-        "filtered": "Filtreeritud",
-        "all": "Kõik"
-      },
-      "network": "Võrk"
+      "multicastGroupWarning": "Kuna kasutad endamääratud multiedastuse aadressi, siis muud seadmed ei pruugi seda seadet leida. (vaikimisi: {defaultMulticast})"
     },
     "other": {
       "title": "Muu teave",
       "support": "Toeta LocalSendi",
       "donate": "Toeta rahaliselt",
-      "privacyPolicy": "Privaatsuspoliitika",
+      "privacyPolicy": "Andmekaitsepõhimõtted",
       "termsOfUse": "Kasutustingimused"
     },
     "advancedSettings": "Täiendavad seadistused"
@@ -175,6 +178,13 @@
       "solution": "Kas identne probleem on mõlemas seadmes? Kui nii, siis palun kontrolli, et mõlemad seadmed asuvad samas WiFi võrgus ning kasutavad samu seadistusi (port, multiedastuse aadress ja krüptimine). Aga samas on võimalik, et WiFi võrk on seadistatud nii, et kõik seadmed on üksteisest isoleeritud. Sel juhul küsi abi võrgu haldajalt, kes saab ruuteris teha vajalikud muudatused."
     }
   },
+  "networkInterfacesPage": {
+    "title": "Võrguliidesed",
+    "info": "Vaikimisi kasutab LocalSend kõiki võrguliideseid. Kui sul on vaja, siis saad mittesoovitud võrgud siinkohal välistada ning muudatuste jõustumine eeldab serverikomponendi uuesti käivitamist.",
+    "preview": "Eelvaade",
+    "whitelist": "Lubatud loend",
+    "blacklist": "Keelatud loend"
+  },
   "receiveHistoryPage": {
     "title": "Ajalugu",
     "openFolder": "Ava kaust",
@@ -196,6 +206,29 @@
   "selectedFilesPage": {
     "deleteAll": "Kustuta kõik"
   },
+  "deviceDetailsPage": {
+    "title": "Seadme üksikasjad",
+    "favorite": "Lemmik",
+    "verify": "Kontrolli",
+    "info": {
+      "name": "Nimi",
+      "address": "Aadress",
+      "version": "Versioon",
+      "protocol": "Protokoll v{version}"
+    },
+    "logs": {
+      "title": "Logid",
+      "empty": "Logisid pole saadaval.",
+      "discovered": "Avastatud {protocol} kaudu ({host})",
+      "updated": "Uuendatud {protocol} kaudu ({host})"
+    }
+  },
+  "verifyPage": {
+    "title": "Kontrolli",
+    "icons": "Ikoonid",
+    "text": "Tekst",
+    "question": "Kas see näeb teises seadmes samasugune välja?"
+  },
   "receivePage": {
     "subTitle": {
       "one": "soovib sulle saata faili",
@@ -213,6 +246,7 @@
     "saveToGalleryOff": "Pole kasutusel, kuna saadetavate hulgas leidub kaustu."
   },
   "sendPage": {
+    "calculatingChecksum": "Arvutan kontrollsummat ({curr} / {n})",
     "waiting": "Ootame vastust…",
     "rejected": "Vastuvõtja on vastuvõtmisest keeldunud.",
     "tooManyAttempts": "@:web.tooManyAttempts",
@@ -232,6 +266,16 @@
       "count": "Faile: {curr} / {n}",
       "size": "Andmemaht: {curr} / {n}",
       "speed": "Kiirus: {speed}/s"
+    },
+    "remainingTime": {
+      "minutesUnit(plural, param=m)": {
+        "other": "{m}min"
+      },
+      "hoursUnit(plural, param=h)": {
+        "other": "{h}t"
+      },
+      "minutes": "{m}:{ss}",
+      "hours": "@:.hoursUnit @:.minutesUnit"
     }
   },
   "webSharePage": {
@@ -251,6 +295,9 @@
     "pinHint": "PIN-kood on „{pin}“",
     "encryptionHint": "LocalSend kasutab enda poolt allkirjastatud sertifikaate. Ühenduse toimimiseks palun nõustu nendega veebibrauseris.",
     "pendingRequests": "Ootel päringuid: {n}"
+  },
+  "webReceivePage": {
+    "title": "Võta vastu lingi kaudu"
   },
   "aboutPage": {
     "title": "Rakenduse teave: LocalSend",
@@ -273,6 +320,18 @@
   "changelogPage": {
     "title": "Muudatuste logi"
   },
+  "whatsNewPage": {
+    "title": "Mis on uut versioonis {version}",
+    "changes(interface=WhatsNewStrings)": {
+      "v1_18_0": {
+        "changes": [
+          "Krüpteerimine ei aeglusta enam ülekandeid. Kui olite selle varem välja lülitanud, on see selles seadmes uuesti sisse lülitatud.",
+          "Lemmikute päringud võetakse nüüd automaatselt vastu. See on vaikimisi sisse lülitatud ja seda saab seadetes välja lülitada.",
+          "Androidis jätkuvad ülekanded, kui rakendus on taustal või ekraan on väljas. iOS-is peab rakendus endiselt esiplaanile jääma."
+        ]
+      }
+    }
+  },
   "aliasGenerator(ignoreMissing, ignoreGpt)": {
     "@info": "Erinevates lokaatides võivad olla kasutusel erinevad sõnad ning nad ei pruugi 1:1 kattuda"
   },
@@ -287,8 +346,6 @@
     },
     "addressInput": {
       "title": "Sisesta aadress",
-      "hashtag": "Teemaviide",
-      "ip": "IP-aadress",
       "recentlyUsed": "Hiljuti kasutatud: "
     },
     "cancelSession": {
@@ -378,9 +435,7 @@
     "quickSaveFromFavoritesNotice": {
       "title": "@:general.quickSaveFromFavorites",
       "content": [
-        "Failipäringutega nõustume nüüd automaatselt vaid nende seadmete puhul, mis on lemmikuks märgitud.",
-        "Hoiatus! Kui kohtvõrgus tegutsev võimalik pahatahtlik osapool saaks kätte sinul lemmikuks märgitud seadmete võtmed ja sõrmejäljed, siis saaks sulle piiranguteta faile saata ja seega pole lahendus hetkel täiesti turvaline.",
-        "Aga siiski on see valik turvalisem, kui lubada kõigil sinu kohtvõrgu kasutajatel saata sulle faile ilma igasuguste piiranguteta."
+        "Failipäringutega nõustume nüüd automaatselt vaid nende seadmete puhul, mis on lemmikuks märgitud."
       ]
     },
     "pin": {
@@ -446,12 +501,5 @@
     "sActionUseCameraHint": "kasuta kaamerat",
     "sNameDurationLabel": "kestus",
     "sUnitAssetCountLabel": "kogus"
-  },
-  "networkInterfacesPage": {
-    "title": "Võrguliidesed",
-    "preview": "Eelvaade",
-    "whitelist": "Lubatud loend",
-    "blacklist": "Keelatud loend",
-    "info": "Vaikimisi kasutab LocalSend kõiki võrguliideseid. Kui sul on vaja, siis saad mittesoovitud võrgud siinkohal välistada ning muudatuste jõustumine eeldab serverikomponendi uuesti käivitamist."
   }
 }

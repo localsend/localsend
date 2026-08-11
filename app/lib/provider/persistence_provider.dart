@@ -2,14 +2,12 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:collection/collection.dart';
-import 'package:common/constants.dart';
-import 'package:common/model/device.dart';
-import 'package:common/model/stored_security_context.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/model/persistence/color_mode.dart';
 import 'package:localsend_app/model/persistence/favorite_device.dart';
+import 'package:localsend_app/model/persistence/quick_save_mode.dart';
 import 'package:localsend_app/model/persistence/receive_history_entry.dart';
 import 'package:localsend_app/model/send_mode.dart';
 import 'package:localsend_app/provider/window_dimensions_provider.dart';
@@ -21,6 +19,9 @@ import 'package:localsend_app/util/security_helper.dart';
 import 'package:localsend_app/util/shared_preferences/shared_preferences_file.dart';
 import 'package:localsend_app/util/shared_preferences/shared_preferences_portable.dart';
 import 'package:localsend_app/util/ui/animations_status.dart';
+import 'package:localsend_isolates/constants.dart';
+import 'package:localsend_isolates/model/device.dart';
+import 'package:localsend_isolates/model/stored_security_context.dart';
 import 'package:logging/logging.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -69,6 +70,7 @@ const _showToken = 'ls_show_token';
 const _aliasKey = 'ls_alias';
 const _themeKey = 'ls_theme'; // now called brightness
 const _colorKey = 'ls_color';
+const _customColorKey = 'ls_custom_color'; // RRGGBB hex, used by ColorMode.custom
 const _localeKey = 'ls_locale';
 const _portKey = 'ls_port';
 const _networkWhitelistKey = 'ls_network_whitelist';
@@ -78,8 +80,7 @@ const _multicastGroupKey = 'ls_multicast_group';
 const _destinationKey = 'ls_destination';
 const _saveToGallery = 'ls_save_to_gallery';
 const _saveToHistory = 'ls_save_to_history';
-const _quickSave = 'ls_quick_save';
-const _quickSaveFromFavorites = 'ls_quick_save_from_favorites';
+const _quickSave = 'ls_quick_save'; // a QuickSaveMode; was a bool until storage version 2 ('ls_quick_save_from_favorites' is merged into this key)
 const _receivePin = 'ls_receive_pin';
 const _autoFinish = 'ls_auto_finish';
 const _minimizeToTray = 'ls_minimize_to_tray';
@@ -89,7 +90,11 @@ const _enableAnimations = 'ls_enable_animations';
 const _deviceType = 'ls_device_type';
 const _deviceModel = 'ls_device_model';
 const _shareViaLinkAutoAccept = 'ls_share_via_link_auto_accept';
+const _receiveViaLinkAutoAccept = 'ls_receive_via_link_auto_accept';
+const _createChecksums = 'ls_create_checksums';
+const _verifyChecksums = 'ls_verify_checksums';
 const _advancedSettingsKey = 'ls_advanced_settings';
+const _whatsNewKey = 'ls_whats_new';
 
 final persistenceProvider = Provider<PersistenceService>((ref) {
   throw Exception('persistenceProvider not initialized');
@@ -166,7 +171,7 @@ class PersistenceService {
     }
 
     if (prefs.getString(_securityContext) == null) {
-      await prefs.setString(_securityContext, jsonEncode(generateSecurityContext()));
+      await prefs.setString(_securityContext, jsonEncode(await generateSecurityContext()));
     }
 
     if (isFirstAppStart) {
@@ -303,6 +308,19 @@ class PersistenceService {
     await _prefs.setString(_colorKey, color.name);
   }
 
+  Color getCustomColor() {
+    final value = _prefs.getString(_customColorKey);
+    final rgb = value == null ? null : int.tryParse(value, radix: 16);
+    if (rgb == null) {
+      return Colors.teal;
+    }
+    return Color(0xff000000 | rgb);
+  }
+
+  Future<void> setCustomColor(Color color) async {
+    await _prefs.setString(_customColorKey, color.toARGB32().toRadixString(16).padLeft(8, '0').substring(2));
+  }
+
   AppLocale? getLocale() {
     final value = _prefs.getString(_localeKey);
     if (value == null) {
@@ -367,6 +385,30 @@ class PersistenceService {
     await _prefs.setBool(_shareViaLinkAutoAccept, shareViaLinkAutoAccept);
   }
 
+  bool getReceiveViaLinkAutoAccept() {
+    return _prefs.getBool(_receiveViaLinkAutoAccept) ?? false;
+  }
+
+  Future<void> setReceiveViaLinkAutoAccept(bool receiveViaLinkAutoAccept) async {
+    await _prefs.setBool(_receiveViaLinkAutoAccept, receiveViaLinkAutoAccept);
+  }
+
+  bool getCreateChecksums() {
+    return _prefs.getBool(_createChecksums) ?? true;
+  }
+
+  Future<void> setCreateChecksums(bool createChecksums) async {
+    await _prefs.setBool(_createChecksums, createChecksums);
+  }
+
+  bool getVerifyChecksums() {
+    return _prefs.getBool(_verifyChecksums) ?? true;
+  }
+
+  Future<void> setVerifyChecksums(bool verifyChecksums) async {
+    await _prefs.setBool(_verifyChecksums, verifyChecksums);
+  }
+
   String getMulticastGroup() {
     return _prefs.getString(_multicastGroupKey) ?? defaultMulticastGroup;
   }
@@ -411,20 +453,13 @@ class PersistenceService {
     await _prefs.setBool(_advancedSettingsKey, isEnabled);
   }
 
-  bool isQuickSave() {
-    return _prefs.getBool(_quickSave) ?? false;
+  QuickSaveMode getQuickSave() {
+    final value = _prefs.getString(_quickSave);
+    return QuickSaveMode.values.firstWhereOrNull((mode) => mode.name == value) ?? QuickSaveMode.paired;
   }
 
-  Future<void> setQuickSave(bool quickSave) async {
-    await _prefs.setBool(_quickSave, quickSave);
-  }
-
-  bool isQuickSaveFromFavorites() {
-    return _prefs.getBool(_quickSaveFromFavorites) ?? false;
-  }
-
-  Future<void> setQuickSaveFromFavorites(bool quickSaveFromFavorites) async {
-    await _prefs.setBool(_quickSaveFromFavorites, quickSaveFromFavorites);
+  Future<void> setQuickSave(QuickSaveMode mode) async {
+    await _prefs.setString(_quickSave, mode.name);
   }
 
   String? getReceivePin() {
@@ -544,6 +579,14 @@ class PersistenceService {
 
   Future<void> setDeviceModel(String deviceModel) async {
     await _prefs.setString(_deviceModel, deviceModel);
+  }
+
+  String? getWhatsNew() {
+    return _prefs.getString(_whatsNewKey);
+  }
+
+  Future<void> setWhatsNew(String version) async {
+    await _prefs.setString(_whatsNewKey, version);
   }
 
   Future<void> clear() async {

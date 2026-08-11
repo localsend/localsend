@@ -1,15 +1,15 @@
-import 'package:common/model/file_type.dart';
 import 'package:device_apps/device_apps.dart';
 import 'package:flutter/material.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/provider/apk_provider.dart';
 import 'package:localsend_app/provider/selection/selected_sending_files_provider.dart';
-import 'package:localsend_app/util/file_size_helper.dart';
 import 'package:localsend_app/util/native/cross_file_converters.dart';
 import 'package:localsend_app/util/ui/nav_bar_padding.dart';
 import 'package:localsend_app/widget/file_thumbnail.dart';
 import 'package:localsend_app/widget/responsive_list_view.dart';
 import 'package:localsend_app/widget/sliver/sliver_pinned_header.dart';
+import 'package:localsend_isolates/model/file_type.dart';
+import 'package:localsend_isolates/util/file_size_helper.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 import 'package:routerino/routerino.dart';
 
@@ -25,10 +25,14 @@ class _ApkPickerPageState extends State<ApkPickerPage> with Refena {
   final List<Application> _selectedApps = [];
 
   Future<void> _pickApp(Application app) async {
-    await ref.redux(selectedSendingFilesProvider).dispatchAsync(AddFilesAction(
-          files: [app],
-          converter: CrossFileConverters.convertApplication,
-        ));
+    await ref
+        .redux(selectedSendingFilesProvider)
+        .dispatchAsync(
+          AddFilesAction(
+            files: [app],
+            converter: CrossFileConverters.convertApplication,
+          ),
+        );
 
     if (mounted) {
       context.pop();
@@ -39,10 +43,14 @@ class _ApkPickerPageState extends State<ApkPickerPage> with Refena {
     // ignore: discarded_futures
 
     for (Application app in apps) {
-      await ref.redux(selectedSendingFilesProvider).dispatchAsync(AddFilesAction(
-            files: [app],
-            converter: CrossFileConverters.convertApplication,
-          ));
+      await ref
+          .redux(selectedSendingFilesProvider)
+          .dispatchAsync(
+            AddFilesAction(
+              files: [app],
+              converter: CrossFileConverters.convertApplication,
+            ),
+          );
     }
 
     if (mounted) {
@@ -76,29 +84,32 @@ class _ApkPickerPageState extends State<ApkPickerPage> with Refena {
       appBar: AppBar(
         title: Text(t.apkPickerPage.title),
         actions: [
-          PopupMenuButton(itemBuilder: (context) {
-            return [
-              CheckedPopupMenuItem<int>(
-                value: 0,
-                checked: !apkParams.includeSystemApps,
-                child: Text(t.apkPickerPage.excludeSystemApps),
-              ),
-              CheckedPopupMenuItem<int>(
-                value: 1,
-                checked: apkParams.onlyAppsWithLaunchIntent,
-                child: Text(t.apkPickerPage.excludeAppsWithoutLaunchIntent),
-              ),
-            ];
-          }, onSelected: (value) {
-            switch (value) {
-              case 0:
-                ref.notifier(apkSearchParamProvider).setState((old) => old.copyWith(includeSystemApps: !old.includeSystemApps));
-                break;
-              case 1:
-                ref.notifier(apkSearchParamProvider).setState((old) => old.copyWith(onlyAppsWithLaunchIntent: !old.onlyAppsWithLaunchIntent));
-                break;
-            }
-          }),
+          PopupMenuButton(
+            itemBuilder: (context) {
+              return [
+                CheckedPopupMenuItem<int>(
+                  value: 0,
+                  checked: !apkParams.includeSystemApps,
+                  child: Text(t.apkPickerPage.excludeSystemApps),
+                ),
+                CheckedPopupMenuItem<int>(
+                  value: 1,
+                  checked: apkParams.onlyAppsWithLaunchIntent,
+                  child: Text(t.apkPickerPage.excludeAppsWithoutLaunchIntent),
+                ),
+              ];
+            },
+            onSelected: (value) {
+              switch (value) {
+                case 0:
+                  ref.notifier(apkSearchParamProvider).setState((old) => old.copyWith(includeSystemApps: !old.includeSystemApps));
+                  break;
+                case 1:
+                  ref.notifier(apkSearchParamProvider).setState((old) => old.copyWith(onlyAppsWithLaunchIntent: !old.onlyAppsWithLaunchIntent));
+                  break;
+              }
+            },
+          ),
         ],
       ),
       floatingActionButton: (_selectedApps.isEmpty)
@@ -244,7 +255,7 @@ class _ApkPickerPageState extends State<ApkPickerPage> with Refena {
                                 Icon(
                                   _selectedApps.contains(app) ? Icons.check_circle : Icons.radio_button_unchecked,
                                   color: _selectedApps.contains(app) ? Theme.of(context).iconTheme.color : Colors.grey,
-                                )
+                                ),
                             ],
                           ),
                         ),
