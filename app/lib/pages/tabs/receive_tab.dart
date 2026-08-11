@@ -89,13 +89,19 @@ class _ReceiveTabState extends State<ReceiveTab> {
                           fit: BoxFit.scaleDown,
                           child: Text(serverState?.alias ?? alias, style: const TextStyle(fontSize: 48)),
                         ),
-                        InitialFadeTransition(
-                          duration: const Duration(milliseconds: 300),
-                          delay: const Duration(milliseconds: 500),
-                          child: Text(
-                            serverState == null ? t.general.offline : t.general.online,
-                            style: const TextStyle(fontSize: 24),
-                            textAlign: TextAlign.center,
+                        Visibility(
+                          visible: serverState == null,
+                          maintainSize: true,
+                          maintainAnimation: true,
+                          maintainState: true,
+                          child: InitialFadeTransition(
+                            duration: const Duration(milliseconds: 300),
+                            delay: const Duration(milliseconds: 500),
+                            child: Text(
+                              t.general.offline,
+                              style: const TextStyle(fontSize: 24),
+                              textAlign: TextAlign.center,
+                            ),
                           ),
                         ),
                       ],

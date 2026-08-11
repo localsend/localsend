@@ -1,7 +1,7 @@
 use serde::{Deserialize, Serialize};
 
 /// The protocol version (major.minor) implemented by this crate for the v2 protocol.
-pub const PROTOCOL_VERSION_V2: &str = "2.1";
+pub const PROTOCOL_VERSION_V2: &str = "2.2";
 
 #[derive(Clone, Debug, Deserialize, Eq, Serialize, PartialEq)]
 #[serde(rename_all = "SCREAMING_SNAKE_CASE")]
@@ -98,7 +98,7 @@ pub(crate) mod device_type_v2 {
     }
 }
 
-/// Multicast announcement message for UDP discovery (v2.1).
+/// Multicast announcement message for UDP discovery (v2.2).
 ///
 /// Devices that receive an announcement respond over HTTP, so this message is
 /// only ever an announcement and never a response.
@@ -108,7 +108,7 @@ pub struct MulticastMessageV2 {
     /// The display name of the device.
     pub alias: String,
 
-    /// Protocol version (e.g., "2.1").
+    /// Protocol version (e.g., "2.2").
     pub version: String,
 
     /// Device model (e.g., "Samsung", "Windows"). Optional.
@@ -148,7 +148,7 @@ mod tests {
     fn test_multicast_message_serialization() {
         let msg = MulticastMessageV2 {
             alias: "Nice Orange".to_string(),
-            version: "2.1".to_string(),
+            version: "2.2".to_string(),
             device_model: Some("Samsung".to_string()),
             device_type: Some(DeviceType::Mobile),
             fingerprint: "random string".to_string(),
@@ -159,7 +159,7 @@ mod tests {
 
         let json = serde_json::to_string(&msg).unwrap();
         assert!(json.contains("\"alias\":\"Nice Orange\""));
-        assert!(json.contains("\"version\":\"2.1\""));
+        assert!(json.contains("\"version\":\"2.2\""));
         assert!(json.contains("\"fingerprint\":\"random string\""));
         assert!(json.contains("\"download\":true"));
         assert!(json.contains("\"protocol\":\"https\""));
@@ -170,7 +170,7 @@ mod tests {
     fn test_multicast_message_deserialization() {
         let json = r#"{
             "alias": "Secret Banana",
-            "version": "2.1",
+            "version": "2.2",
             "deviceModel": "Windows",
             "deviceType": "desktop",
             "fingerprint": "random string",
@@ -181,7 +181,7 @@ mod tests {
 
         let msg: MulticastMessageV2 = serde_json::from_str(json).unwrap();
         assert_eq!(msg.alias, "Secret Banana");
-        assert_eq!(msg.version, "2.1");
+        assert_eq!(msg.version, "2.2");
         assert_eq!(msg.device_model, Some("Windows".to_string()));
         assert_eq!(msg.device_type, Some(DeviceType::Desktop));
         assert_eq!(msg.port, 53317);
@@ -193,7 +193,7 @@ mod tests {
     fn test_multicast_message_without_optional_fields() {
         let json = r#"{
             "alias": "Secret Banana",
-            "version": "2.1",
+            "version": "2.2",
             "fingerprint": "random string",
             "port": 53317,
             "protocol": "http"

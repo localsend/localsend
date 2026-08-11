@@ -189,29 +189,39 @@ class StartLegacyScan extends AsyncReduxAction<NearbyDevicesService, NearbyDevic
   }
 }
 
-class StartFavoriteScan extends AsyncReduxAction<NearbyDevicesService, NearbyDevicesState> {
-  final List<FavoriteDevice> devices;
+/// Discovers devices in stages, cheapest first: multicast announcement and
+/// favorite probes right away, a subnet scan of [interfaces] only when
+/// nothing was confirmed within the grace period.
+/// This method awaits until every stage is finished.
+class StartStagedScan extends AsyncReduxAction<NearbyDevicesService, NearbyDevicesState> {
+  final List<FavoriteDevice> favorites;
+  final List<String> interfaces;
+  final int port;
   final bool https;
+  final Duration grace;
 
-  StartFavoriteScan({
-    required this.devices,
+  StartStagedScan({
+    required this.favorites,
+    required this.interfaces,
+    required this.port,
     required this.https,
+    required this.grace,
   });
 
   @override
   Future<NearbyDevicesState> reduce() async {
-    if (devices.isEmpty) {
-      return state;
-    }
     dispatch(_SetRunningFavoriteScanAction(true));
 
     // The found devices arrive on the [StartDiscoveryListener] stream;
-    // this stream only signals when every favorite has been probed.
+    // this stream only signals when every stage has finished.
     await external(notifier._isolateController)
         .dispatchTakeResult(
-          IsolateDiscoveryFavoriteScanAction(
-            favorites: devices.map((e) => (e.ip, e.port)).toList(),
+          IsolateDiscoveryStagedScanAction(
+            favorites: favorites.map((e) => (e.ip, e.port)).toList(),
+            networkInterfaces: interfaces,
+            port: port,
             https: https,
+            grace: grace,
           ),
         )
         .drain<void>();

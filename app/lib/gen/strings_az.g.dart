@@ -60,6 +60,10 @@ class TranslationsAz extends Translations with BaseTranslations<AppLocale, Trans
   @override
   late final _Translations$selectedFilesPage$az selectedFilesPage = _Translations$selectedFilesPage$az._(_root);
   @override
+  late final _Translations$deviceDetailsPage$az deviceDetailsPage = _Translations$deviceDetailsPage$az._(_root);
+  @override
+  late final _Translations$verifyPage$az verifyPage = _Translations$verifyPage$az._(_root);
+  @override
   late final _Translations$receivePage$az receivePage = _Translations$receivePage$az._(_root);
   @override
   late final _Translations$receiveOptionsPage$az receiveOptionsPage = _Translations$receiveOptionsPage$az._(_root);
@@ -70,11 +74,15 @@ class TranslationsAz extends Translations with BaseTranslations<AppLocale, Trans
   @override
   late final _Translations$webSharePage$az webSharePage = _Translations$webSharePage$az._(_root);
   @override
+  late final _Translations$webReceivePage$az webReceivePage = _Translations$webReceivePage$az._(_root);
+  @override
   late final _Translations$aboutPage$az aboutPage = _Translations$aboutPage$az._(_root);
   @override
   late final _Translations$donationPage$az donationPage = _Translations$donationPage$az._(_root);
   @override
   late final _Translations$changelogPage$az changelogPage = _Translations$changelogPage$az._(_root);
+  @override
+  late final _Translations$whatsNewPage$az whatsNewPage = _Translations$whatsNewPage$az._(_root);
   @override
   late final _Translations$dialogs$az dialogs = _Translations$dialogs$az._(_root);
   @override
@@ -185,6 +193,8 @@ class _Translations$receiveTab$az extends Translations$receiveTab$en {
   late final _Translations$receiveTab$infoBox$az infoBox = _Translations$receiveTab$infoBox$az._(_root);
   @override
   late final _Translations$receiveTab$quickSave$az quickSave = _Translations$receiveTab$quickSave$az._(_root);
+  @override
+  String get link => 'Keçid vasitəsilə qəbul et';
 }
 
 // Path: sendTab
@@ -335,6 +345,42 @@ class _Translations$selectedFilesPage$az extends Translations$selectedFilesPage$
   String get deleteAll => 'Hamısını sil';
 }
 
+// Path: deviceDetailsPage
+class _Translations$deviceDetailsPage$az extends Translations$deviceDetailsPage$en {
+  _Translations$deviceDetailsPage$az._(TranslationsAz root) : this._root = root, super.internal(root);
+
+  final TranslationsAz _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Cihaz təfərrüatları';
+  @override
+  String get favorite => 'Sevimli';
+  @override
+  String get verify => 'Doğrula';
+  @override
+  late final _Translations$deviceDetailsPage$info$az info = _Translations$deviceDetailsPage$info$az._(_root);
+  @override
+  late final _Translations$deviceDetailsPage$logs$az logs = _Translations$deviceDetailsPage$logs$az._(_root);
+}
+
+// Path: verifyPage
+class _Translations$verifyPage$az extends Translations$verifyPage$en {
+  _Translations$verifyPage$az._(TranslationsAz root) : this._root = root, super.internal(root);
+
+  final TranslationsAz _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Doğrula';
+  @override
+  String get icons => 'İkonlar';
+  @override
+  String get text => 'Mətn';
+  @override
+  String get question => 'Digər cihazda eyni görünür?';
+}
+
 // Path: receivePage
 class _Translations$receivePage$az extends Translations$receivePage$en {
   _Translations$receivePage$az._(TranslationsAz root) : this._root = root, super.internal(root);
@@ -383,6 +429,8 @@ class _Translations$sendPage$az extends Translations$sendPage$en {
 
   // Translations
   @override
+  String calculatingChecksum({required Object curr, required Object n}) => 'Yoxlama məbləği hesablanır (${curr} / ${n})';
+  @override
   String get waiting => 'Qarşı tərəfdən cavab gözlənilir…';
   @override
   String get rejected => 'Qəbul edən bu sorğudan imtina etdi.';
@@ -407,6 +455,8 @@ class _Translations$progressPage$az extends Translations$progressPage$en {
   String get savedToGallery => 'Qalereyada saxlanıldı';
   @override
   late final _Translations$progressPage$total$az total = _Translations$progressPage$total$az._(_root);
+  @override
+  late final _Translations$progressPage$remainingTime$az remainingTime = _Translations$progressPage$remainingTime$az._(_root);
 }
 
 // Path: webSharePage
@@ -446,6 +496,17 @@ class _Translations$webSharePage$az extends Translations$webSharePage$en {
   String get encryptionHint => 'LocalSend özü imzalanmış sertifikatdan istifadə edir. Siz onu brauzerinizdə qəbul etməlisiniz.';
   @override
   String pendingRequests({required Object n}) => 'Gözləyən sorğular: ${n}';
+}
+
+// Path: webReceivePage
+class _Translations$webReceivePage$az extends Translations$webReceivePage$en {
+  _Translations$webReceivePage$az._(TranslationsAz root) : this._root = root, super.internal(root);
+
+  final TranslationsAz _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Keçid vasitəsilə qəbul et';
 }
 
 // Path: aboutPage
@@ -501,6 +562,19 @@ class _Translations$changelogPage$az extends Translations$changelogPage$en {
   // Translations
   @override
   String get title => 'Versiya jurnalı';
+}
+
+// Path: whatsNewPage
+class _Translations$whatsNewPage$az extends Translations$whatsNewPage$en {
+  _Translations$whatsNewPage$az._(TranslationsAz root) : this._root = root, super.internal(root);
+
+  final TranslationsAz _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String title({required Object version}) => '${version} versiyasında yeniliklər';
+  @override
+  late final _Translations$whatsNewPage$changes$az changes = _Translations$whatsNewPage$changes$az._(_root);
 }
 
 // Path: dialogs
@@ -827,6 +901,8 @@ class _Translations$settingsTab$receive$az extends Translations$settingsTab$rece
   String get saveToGallery => 'Medianı qalereyada yadda saxla';
   @override
   String get saveToHistory => 'Tarixçədə yadda saxla';
+  @override
+  String get verifyChecksums => 'Faylları qəbul edərkən yoxlama məbləğlərini yoxla';
 }
 
 // Path: settingsTab.send
@@ -840,6 +916,8 @@ class _Translations$settingsTab$send$az extends Translations$settingsTab$send$en
   String get title => 'Göndər';
   @override
   String get shareViaLinkAutoAccept => '"Keçid vasitəsilə paylaş" rejimində sorğuları avtomatik qəbul et';
+  @override
+  String get createChecksums => 'Faylları göndərərkən yoxlama məbləğləri yarat';
 }
 
 // Path: settingsTab.network
@@ -965,6 +1043,40 @@ class _Translations$receiveHistoryPage$entryActions$az extends Translations$rece
   String get deleteFromHistory => 'Tarixçədən sil';
 }
 
+// Path: deviceDetailsPage.info
+class _Translations$deviceDetailsPage$info$az extends Translations$deviceDetailsPage$info$en {
+  _Translations$deviceDetailsPage$info$az._(TranslationsAz root) : this._root = root, super.internal(root);
+
+  final TranslationsAz _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get name => 'Ad';
+  @override
+  String get address => 'Ünvan';
+  @override
+  String get version => 'Versiya';
+  @override
+  String protocol({required Object version}) => 'Protokol v${version}';
+}
+
+// Path: deviceDetailsPage.logs
+class _Translations$deviceDetailsPage$logs$az extends Translations$deviceDetailsPage$logs$en {
+  _Translations$deviceDetailsPage$logs$az._(TranslationsAz root) : this._root = root, super.internal(root);
+
+  final TranslationsAz _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Jurnallar';
+  @override
+  String get empty => 'Jurnal mövcud deyil.';
+  @override
+  String discovered({required Object protocol, required Object host}) => '${protocol} vasitəsilə aşkarlandı (${host})';
+  @override
+  String updated({required Object protocol, required Object host}) => '${protocol} vasitəsilə yeniləndi (${host})';
+}
+
 // Path: progressPage.total
 class _Translations$progressPage$total$az extends Translations$progressPage$total$en {
   _Translations$progressPage$total$az._(TranslationsAz root) : this._root = root, super.internal(root);
@@ -980,6 +1092,41 @@ class _Translations$progressPage$total$az extends Translations$progressPage$tota
   String size({required Object curr, required Object n}) => 'Ölçü: ${curr} / ${n}';
   @override
   String speed({required Object speed}) => 'Sürət: ${speed}/s';
+}
+
+// Path: progressPage.remainingTime
+class _Translations$progressPage$remainingTime$az extends Translations$progressPage$remainingTime$en {
+  _Translations$progressPage$remainingTime$az._(TranslationsAz root) : this._root = root, super.internal(root);
+
+  final TranslationsAz _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String minutesUnit({required num m}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('az'))(
+    m,
+    other: '${m}dəq',
+  );
+  @override
+  String hoursUnit({required num h}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('az'))(
+    h,
+    other: '${h}s',
+  );
+  @override
+  String minutes({required Object m, required Object ss}) => '${m}:${ss}';
+  @override
+  String hours({required num h, required num m}) =>
+      '${_root.progressPage.remainingTime.hoursUnit(h: h)} ${_root.progressPage.remainingTime.minutesUnit(m: m)}';
+}
+
+// Path: whatsNewPage.changes
+class _Translations$whatsNewPage$changes$az extends Translations$whatsNewPage$changes$en {
+  _Translations$whatsNewPage$changes$az._(TranslationsAz root) : this._root = root, super.internal(root);
+
+  final TranslationsAz _root; // ignore: unused_field
+
+  // Translations
+  @override
+  late final _Translations$whatsNewPage$changes$v1_18_0$az v1_18_0 = _Translations$whatsNewPage$changes$v1_18_0$az._(_root);
 }
 
 // Path: dialogs.addFile
@@ -1361,6 +1508,8 @@ class _Translations$settingsTab$general$colorOptions$az extends Translations$set
   String get system => 'Sistem';
   @override
   String get oled => 'OLED';
+  @override
+  String get custom => 'Fərdi';
 }
 
 // Path: settingsTab.general.languageOptions
@@ -1402,4 +1551,19 @@ class _Translations$progressPage$total$title$az extends Translations$progressPag
   String get canceledSender => 'Göndərən tərəfindən dayandırıldı';
   @override
   String get canceledReceiver => 'Qəbul edən tərəfindən dayandırıldı';
+}
+
+// Path: whatsNewPage.changes.v1_18_0
+class _Translations$whatsNewPage$changes$v1_18_0$az extends Translations$whatsNewPage$changes$v1_18_0$en with WhatsNewStrings {
+  _Translations$whatsNewPage$changes$v1_18_0$az._(TranslationsAz root) : this._root = root, super.internal(root);
+
+  final TranslationsAz _root; // ignore: unused_field
+
+  // Translations
+  @override
+  List<String> get changes => [
+    'Şifrələmə artıq köçürmələri yavaşlatmır. Əvvəllər söndürmüsünüzsə, bu cihazda yenidən aktiv edilib.',
+    'Sevimlilərdən gələn sorğular indi avtomatik qəbul edilir. Bu, standart olaraq aktivdir və parametrlərdə söndürülə bilər.',
+    'Android-də köçürmələr tətbiq arxa fonda olarkən və ya ekran sönülü olarkən davam edir. iOS-da tətbiq hələ də ön planda qalmalıdır.',
+  ];
 }

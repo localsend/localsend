@@ -60,6 +60,10 @@ class TranslationsSr extends Translations with BaseTranslations<AppLocale, Trans
   @override
   late final Translations$selectedFilesPage$sr selectedFilesPage = Translations$selectedFilesPage$sr.internal(_root);
   @override
+  late final Translations$deviceDetailsPage$sr deviceDetailsPage = Translations$deviceDetailsPage$sr.internal(_root);
+  @override
+  late final Translations$verifyPage$sr verifyPage = Translations$verifyPage$sr.internal(_root);
+  @override
   late final Translations$receivePage$sr receivePage = Translations$receivePage$sr.internal(_root);
   @override
   late final Translations$receiveOptionsPage$sr receiveOptionsPage = Translations$receiveOptionsPage$sr.internal(_root);
@@ -70,11 +74,15 @@ class TranslationsSr extends Translations with BaseTranslations<AppLocale, Trans
   @override
   late final Translations$webSharePage$sr webSharePage = Translations$webSharePage$sr.internal(_root);
   @override
+  late final Translations$webReceivePage$sr webReceivePage = Translations$webReceivePage$sr.internal(_root);
+  @override
   late final Translations$aboutPage$sr aboutPage = Translations$aboutPage$sr.internal(_root);
   @override
   late final Translations$donationPage$sr donationPage = Translations$donationPage$sr.internal(_root);
   @override
   late final Translations$changelogPage$sr changelogPage = Translations$changelogPage$sr.internal(_root);
+  @override
+  late final Translations$whatsNewPage$sr whatsNewPage = Translations$whatsNewPage$sr.internal(_root);
   @override
   late final Translations$aliasGenerator$sr aliasGenerator = Translations$aliasGenerator$sr.internal(_root);
   @override
@@ -187,6 +195,8 @@ class Translations$receiveTab$sr extends Translations$receiveTab$en {
   late final Translations$receiveTab$infoBox$sr infoBox = Translations$receiveTab$infoBox$sr.internal(_root);
   @override
   late final Translations$receiveTab$quickSave$sr quickSave = Translations$receiveTab$quickSave$sr.internal(_root);
+  @override
+  String get link => 'Primi putem linka';
 }
 
 // Path: sendTab
@@ -337,6 +347,42 @@ class Translations$selectedFilesPage$sr extends Translations$selectedFilesPage$e
   String get deleteAll => 'Izbriši sve';
 }
 
+// Path: deviceDetailsPage
+class Translations$deviceDetailsPage$sr extends Translations$deviceDetailsPage$en {
+  Translations$deviceDetailsPage$sr.internal(TranslationsSr root) : this._root = root, super.internal(root);
+
+  final TranslationsSr _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Detalji uređaja';
+  @override
+  String get favorite => 'Omiljeni';
+  @override
+  String get verify => 'Proveri';
+  @override
+  late final Translations$deviceDetailsPage$info$sr info = Translations$deviceDetailsPage$info$sr.internal(_root);
+  @override
+  late final Translations$deviceDetailsPage$logs$sr logs = Translations$deviceDetailsPage$logs$sr.internal(_root);
+}
+
+// Path: verifyPage
+class Translations$verifyPage$sr extends Translations$verifyPage$en {
+  Translations$verifyPage$sr.internal(TranslationsSr root) : this._root = root, super.internal(root);
+
+  final TranslationsSr _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Proveri';
+  @override
+  String get icons => 'Ikonice';
+  @override
+  String get text => 'Tekst';
+  @override
+  String get question => 'Da li izgleda isto na drugom uređaju?';
+}
+
 // Path: receivePage
 class Translations$receivePage$sr extends Translations$receivePage$en {
   Translations$receivePage$sr.internal(TranslationsSr root) : this._root = root, super.internal(root);
@@ -385,6 +431,8 @@ class Translations$sendPage$sr extends Translations$sendPage$en {
 
   // Translations
   @override
+  String calculatingChecksum({required Object curr, required Object n}) => 'Izračunavanje kontrolne sume (${curr} / ${n})';
+  @override
   String get waiting => 'Čekanje odgovora…';
   @override
   String get rejected => 'Primalac je odbio zahtev.';
@@ -409,6 +457,8 @@ class Translations$progressPage$sr extends Translations$progressPage$en {
   String get savedToGallery => 'Sačuvano u galeriji';
   @override
   late final Translations$progressPage$total$sr total = Translations$progressPage$total$sr.internal(_root);
+  @override
+  late final Translations$progressPage$remainingTime$sr remainingTime = Translations$progressPage$remainingTime$sr.internal(_root);
 }
 
 // Path: webSharePage
@@ -448,6 +498,17 @@ class Translations$webSharePage$sr extends Translations$webSharePage$en {
   String get encryptionHint => 'LocalSend koristi samopotpisani sertifikat. Morate ga prihvatiti u svom pregledaču.';
   @override
   String pendingRequests({required Object n}) => 'Zahtevi na čekanju: ${n}';
+}
+
+// Path: webReceivePage
+class Translations$webReceivePage$sr extends Translations$webReceivePage$en {
+  Translations$webReceivePage$sr.internal(TranslationsSr root) : this._root = root, super.internal(root);
+
+  final TranslationsSr _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Primi putem linka';
 }
 
 // Path: aboutPage
@@ -502,6 +563,19 @@ class Translations$changelogPage$sr extends Translations$changelogPage$en {
   // Translations
   @override
   String get title => 'Evidencija promena';
+}
+
+// Path: whatsNewPage
+class Translations$whatsNewPage$sr extends Translations$whatsNewPage$en {
+  Translations$whatsNewPage$sr.internal(TranslationsSr root) : this._root = root, super.internal(root);
+
+  final TranslationsSr _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String title({required Object version}) => 'Šta je novo u ${version}';
+  @override
+  late final Translations$whatsNewPage$changes$sr changes = Translations$whatsNewPage$changes$sr.internal(_root);
 }
 
 // Path: aliasGenerator
@@ -917,6 +991,8 @@ class Translations$settingsTab$receive$sr extends Translations$settingsTab$recei
   String get saveToGallery => 'Sačuvaj medije u galeriju';
   @override
   String get saveToHistory => 'Sačuvaj u istoriji';
+  @override
+  String get verifyChecksums => 'Proveri kontrolne sume pri prijemu fajlova';
 }
 
 // Path: settingsTab.send
@@ -930,6 +1006,8 @@ class Translations$settingsTab$send$sr extends Translations$settingsTab$send$en 
   String get title => 'Slanje';
   @override
   String get shareViaLinkAutoAccept => 'Automatski prihvati zahteve u režimu „Deljenje putem linka“';
+  @override
+  String get createChecksums => 'Napravi kontrolne sume pri slanju fajlova';
 }
 
 // Path: settingsTab.network
@@ -1055,6 +1133,40 @@ class Translations$receiveHistoryPage$entryActions$sr extends Translations$recei
   String get deleteFromHistory => 'Izbriši iz istorije';
 }
 
+// Path: deviceDetailsPage.info
+class Translations$deviceDetailsPage$info$sr extends Translations$deviceDetailsPage$info$en {
+  Translations$deviceDetailsPage$info$sr.internal(TranslationsSr root) : this._root = root, super.internal(root);
+
+  final TranslationsSr _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get name => 'Ime';
+  @override
+  String get address => 'Adresa';
+  @override
+  String get version => 'Verzija';
+  @override
+  String protocol({required Object version}) => 'Protokol v${version}';
+}
+
+// Path: deviceDetailsPage.logs
+class Translations$deviceDetailsPage$logs$sr extends Translations$deviceDetailsPage$logs$en {
+  Translations$deviceDetailsPage$logs$sr.internal(TranslationsSr root) : this._root = root, super.internal(root);
+
+  final TranslationsSr _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Evidencija';
+  @override
+  String get empty => 'Nema dostupne evidencije.';
+  @override
+  String discovered({required Object protocol, required Object host}) => 'Otkriveno putem ${protocol} (${host})';
+  @override
+  String updated({required Object protocol, required Object host}) => 'Ažurirano putem ${protocol} (${host})';
+}
+
 // Path: progressPage.total
 class Translations$progressPage$total$sr extends Translations$progressPage$total$en {
   Translations$progressPage$total$sr.internal(TranslationsSr root) : this._root = root, super.internal(root);
@@ -1070,6 +1182,41 @@ class Translations$progressPage$total$sr extends Translations$progressPage$total
   String size({required Object curr, required Object n}) => 'Veličina: ${curr} / ${n}';
   @override
   String speed({required Object speed}) => 'Brzina: ${speed}/s';
+}
+
+// Path: progressPage.remainingTime
+class Translations$progressPage$remainingTime$sr extends Translations$progressPage$remainingTime$en {
+  Translations$progressPage$remainingTime$sr.internal(TranslationsSr root) : this._root = root, super.internal(root);
+
+  final TranslationsSr _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String minutesUnit({required num m}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('sr'))(
+    m,
+    other: '${m}min',
+  );
+  @override
+  String hoursUnit({required num h}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('sr'))(
+    h,
+    other: '${h}č',
+  );
+  @override
+  String minutes({required Object m, required Object ss}) => '${m}:${ss}';
+  @override
+  String hours({required num h, required num m}) =>
+      '${_root.progressPage.remainingTime.hoursUnit(h: h)} ${_root.progressPage.remainingTime.minutesUnit(m: m)}';
+}
+
+// Path: whatsNewPage.changes
+class Translations$whatsNewPage$changes$sr extends Translations$whatsNewPage$changes$en {
+  Translations$whatsNewPage$changes$sr.internal(TranslationsSr root) : this._root = root, super.internal(root);
+
+  final TranslationsSr _root; // ignore: unused_field
+
+  // Translations
+  @override
+  late final Translations$whatsNewPage$changes$v1_18_0$sr v1_18_0 = Translations$whatsNewPage$changes$v1_18_0$sr.internal(_root);
 }
 
 // Path: dialogs.addFile
@@ -1450,6 +1597,8 @@ class Translations$settingsTab$general$colorOptions$sr extends Translations$sett
   String get system => 'Sistemska';
   @override
   String get oled => 'OLED';
+  @override
+  String get custom => 'Prilagođeno';
 }
 
 // Path: settingsTab.general.languageOptions
@@ -1491,4 +1640,19 @@ class Translations$progressPage$total$title$sr extends Translations$progressPage
   String get canceledSender => 'Pošiljalac je otkazao';
   @override
   String get canceledReceiver => 'Primalac je otkazao';
+}
+
+// Path: whatsNewPage.changes.v1_18_0
+class Translations$whatsNewPage$changes$v1_18_0$sr extends Translations$whatsNewPage$changes$v1_18_0$en with WhatsNewStrings {
+  Translations$whatsNewPage$changes$v1_18_0$sr.internal(TranslationsSr root) : this._root = root, super.internal(root);
+
+  final TranslationsSr _root; // ignore: unused_field
+
+  // Translations
+  @override
+  List<String> get changes => [
+    'Šifrovanje više ne usporava prenose. Ponovo je omogućeno na ovom uređaju ako ste ga ranije isključili.',
+    'Zahtevi od omiljenih se sada automatski prihvataju. Ovo je podrazumevano uključeno i može se isključiti u podešavanjima.',
+    'Na Android-u, prenosi se nastavljaju dok je aplikacija u pozadini ili je ekran isključen. Na iOS-u, aplikacija i dalje mora ostati u prvom planu.',
+  ];
 }

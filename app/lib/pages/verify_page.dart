@@ -15,7 +15,7 @@ class CombinedFingerprint {
   });
 
   factory CombinedFingerprint.load(BuildContext context, String fingerprint) {
-    final myFingerprint = context.ref.watch(securityProvider.select((s) => s.certificateHash));
+    final myFingerprint = context.read(securityProvider.select((s) => s.certificateHash));
     final fingerprints = [myFingerprint, fingerprint]..sort();
     final combined = fingerprints.join();
     final icons = fingerprintToIcons(combined);
@@ -28,7 +28,7 @@ class CombinedFingerprint {
 
 enum VerifyMode {
   icons,
-  raw,
+  text,
 }
 
 /// Verifies the identity of a discovered device by comparing the fingerprints
@@ -58,7 +58,7 @@ class _VerifyPageState extends State<VerifyPage> {
             child: SegmentedButton<VerifyMode>(
               segments: [
                 ButtonSegment(value: VerifyMode.icons, label: Text(t.verifyPage.icons)),
-                ButtonSegment(value: VerifyMode.raw, label: Text(t.verifyPage.raw)),
+                ButtonSegment(value: VerifyMode.text, label: Text(t.verifyPage.text)),
               ],
               selected: {_mode},
               onSelectionChanged: (selection) => setState(() => _mode = selection.first),
@@ -112,7 +112,7 @@ class VerifyWidget extends StatelessWidget {
               ),
             ),
           ),
-          VerifyMode.raw => SelectableText(fingerprint.combined),
+          VerifyMode.text => SelectableText(fingerprint.combined),
         },
       ],
     );

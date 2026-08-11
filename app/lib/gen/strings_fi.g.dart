@@ -60,6 +60,10 @@ class TranslationsFi extends Translations with BaseTranslations<AppLocale, Trans
   @override
   late final _Translations$selectedFilesPage$fi selectedFilesPage = _Translations$selectedFilesPage$fi._(_root);
   @override
+  late final _Translations$deviceDetailsPage$fi deviceDetailsPage = _Translations$deviceDetailsPage$fi._(_root);
+  @override
+  late final _Translations$verifyPage$fi verifyPage = _Translations$verifyPage$fi._(_root);
+  @override
   late final _Translations$receivePage$fi receivePage = _Translations$receivePage$fi._(_root);
   @override
   late final _Translations$receiveOptionsPage$fi receiveOptionsPage = _Translations$receiveOptionsPage$fi._(_root);
@@ -70,11 +74,15 @@ class TranslationsFi extends Translations with BaseTranslations<AppLocale, Trans
   @override
   late final _Translations$webSharePage$fi webSharePage = _Translations$webSharePage$fi._(_root);
   @override
+  late final _Translations$webReceivePage$fi webReceivePage = _Translations$webReceivePage$fi._(_root);
+  @override
   late final _Translations$aboutPage$fi aboutPage = _Translations$aboutPage$fi._(_root);
   @override
   late final _Translations$donationPage$fi donationPage = _Translations$donationPage$fi._(_root);
   @override
   late final _Translations$changelogPage$fi changelogPage = _Translations$changelogPage$fi._(_root);
+  @override
+  late final _Translations$whatsNewPage$fi whatsNewPage = _Translations$whatsNewPage$fi._(_root);
   @override
   late final _Translations$aliasGenerator$fi aliasGenerator = _Translations$aliasGenerator$fi._(_root);
   @override
@@ -187,6 +195,8 @@ class _Translations$receiveTab$fi extends Translations$receiveTab$en {
   late final _Translations$receiveTab$infoBox$fi infoBox = _Translations$receiveTab$infoBox$fi._(_root);
   @override
   late final _Translations$receiveTab$quickSave$fi quickSave = _Translations$receiveTab$quickSave$fi._(_root);
+  @override
+  String get link => 'Vastaanota linkin kautta';
 }
 
 // Path: sendTab
@@ -337,6 +347,42 @@ class _Translations$selectedFilesPage$fi extends Translations$selectedFilesPage$
   String get deleteAll => 'Poista kaikki';
 }
 
+// Path: deviceDetailsPage
+class _Translations$deviceDetailsPage$fi extends Translations$deviceDetailsPage$en {
+  _Translations$deviceDetailsPage$fi._(TranslationsFi root) : this._root = root, super.internal(root);
+
+  final TranslationsFi _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Laitteen tiedot';
+  @override
+  String get favorite => 'Suosikki';
+  @override
+  String get verify => 'Vahvista';
+  @override
+  late final _Translations$deviceDetailsPage$info$fi info = _Translations$deviceDetailsPage$info$fi._(_root);
+  @override
+  late final _Translations$deviceDetailsPage$logs$fi logs = _Translations$deviceDetailsPage$logs$fi._(_root);
+}
+
+// Path: verifyPage
+class _Translations$verifyPage$fi extends Translations$verifyPage$en {
+  _Translations$verifyPage$fi._(TranslationsFi root) : this._root = root, super.internal(root);
+
+  final TranslationsFi _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Vahvista';
+  @override
+  String get icons => 'Kuvakkeet';
+  @override
+  String get text => 'Teksti';
+  @override
+  String get question => 'Näyttääkö se samalta toisella laitteella?';
+}
+
 // Path: receivePage
 class _Translations$receivePage$fi extends Translations$receivePage$en {
   _Translations$receivePage$fi._(TranslationsFi root) : this._root = root, super.internal(root);
@@ -384,6 +430,8 @@ class _Translations$sendPage$fi extends Translations$sendPage$en {
   final TranslationsFi _root; // ignore: unused_field
 
   // Translations
+  @override
+  String calculatingChecksum({required Object curr, required Object n}) => 'Lasketaan tarkistussummaa (${curr} / ${n})';
   @override
   String get waiting => 'Odotetaan vastausta...';
   @override
@@ -452,6 +500,17 @@ class _Translations$webSharePage$fi extends Translations$webSharePage$en {
   String pendingRequests({required Object n}) => 'Odottavat pyynnöt: ${n}';
 }
 
+// Path: webReceivePage
+class _Translations$webReceivePage$fi extends Translations$webReceivePage$en {
+  _Translations$webReceivePage$fi._(TranslationsFi root) : this._root = root, super.internal(root);
+
+  final TranslationsFi _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Vastaanota linkin kautta';
+}
+
 // Path: aboutPage
 class _Translations$aboutPage$fi extends Translations$aboutPage$en {
   _Translations$aboutPage$fi._(TranslationsFi root) : this._root = root, super.internal(root);
@@ -505,6 +564,19 @@ class _Translations$changelogPage$fi extends Translations$changelogPage$en {
   // Translations
   @override
   String get title => 'Muutosloki';
+}
+
+// Path: whatsNewPage
+class _Translations$whatsNewPage$fi extends Translations$whatsNewPage$en {
+  _Translations$whatsNewPage$fi._(TranslationsFi root) : this._root = root, super.internal(root);
+
+  final TranslationsFi _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String title({required Object version}) => 'Uutta versiossa ${version}';
+  @override
+  late final _Translations$whatsNewPage$changes$fi changes = _Translations$whatsNewPage$changes$fi._(_root);
 }
 
 // Path: aliasGenerator
@@ -921,6 +993,8 @@ class _Translations$settingsTab$receive$fi extends Translations$settingsTab$rece
   String get saveToGallery => 'Tallenna media galleriaan';
   @override
   String get saveToHistory => 'Tallenna historiaan';
+  @override
+  String get verifyChecksums => 'Vahvista tarkistussummat tiedostoja vastaanotettaessa';
 }
 
 // Path: settingsTab.send
@@ -934,6 +1008,8 @@ class _Translations$settingsTab$send$fi extends Translations$settingsTab$send$en
   String get title => 'Lähetys';
   @override
   String get shareViaLinkAutoAccept => 'Jaa linkki: Hyväksy automaattisesti';
+  @override
+  String get createChecksums => 'Luo tarkistussummat tiedostoja lähetettäessä';
 }
 
 // Path: settingsTab.network
@@ -1060,6 +1136,40 @@ class _Translations$receiveHistoryPage$entryActions$fi extends Translations$rece
   String get deleteFromHistory => 'Poista historiasta';
 }
 
+// Path: deviceDetailsPage.info
+class _Translations$deviceDetailsPage$info$fi extends Translations$deviceDetailsPage$info$en {
+  _Translations$deviceDetailsPage$info$fi._(TranslationsFi root) : this._root = root, super.internal(root);
+
+  final TranslationsFi _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get name => 'Nimi';
+  @override
+  String get address => 'Osoite';
+  @override
+  String get version => 'Versio';
+  @override
+  String protocol({required Object version}) => 'Protokolla v${version}';
+}
+
+// Path: deviceDetailsPage.logs
+class _Translations$deviceDetailsPage$logs$fi extends Translations$deviceDetailsPage$logs$en {
+  _Translations$deviceDetailsPage$logs$fi._(TranslationsFi root) : this._root = root, super.internal(root);
+
+  final TranslationsFi _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Lokit';
+  @override
+  String get empty => 'Lokeja ei ole saatavilla.';
+  @override
+  String discovered({required Object protocol, required Object host}) => 'Löydetty ${protocol}-protokollan kautta (${host})';
+  @override
+  String updated({required Object protocol, required Object host}) => 'Päivitetty ${protocol}-protokollan kautta (${host})';
+}
+
 // Path: progressPage.total
 class _Translations$progressPage$total$fi extends Translations$progressPage$total$en {
   _Translations$progressPage$total$fi._(TranslationsFi root) : this._root = root, super.internal(root);
@@ -1085,11 +1195,31 @@ class _Translations$progressPage$remainingTime$fi extends Translations$progressP
 
   // Translations
   @override
-  String minutes({required Object m, required Object ss}) => '${m}:${ss}';
-
-  /// Käytä 'h' tuntien lyhenteenä ja 'm' minuuttien
+  String minutesUnit({required num m}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('fi'))(
+    m,
+    other: '${m}min',
+  );
   @override
-  String hours({required Object h, required Object m}) => '${h}t ${m}m';
+  String hoursUnit({required num h}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('fi'))(
+    h,
+    other: '${h}t',
+  );
+  @override
+  String minutes({required Object m, required Object ss}) => '${m}:${ss}';
+  @override
+  String hours({required num h, required num m}) =>
+      '${_root.progressPage.remainingTime.hoursUnit(h: h)} ${_root.progressPage.remainingTime.minutesUnit(m: m)}';
+}
+
+// Path: whatsNewPage.changes
+class _Translations$whatsNewPage$changes$fi extends Translations$whatsNewPage$changes$en {
+  _Translations$whatsNewPage$changes$fi._(TranslationsFi root) : this._root = root, super.internal(root);
+
+  final TranslationsFi _root; // ignore: unused_field
+
+  // Translations
+  @override
+  late final _Translations$whatsNewPage$changes$v1_18_0$fi v1_18_0 = _Translations$whatsNewPage$changes$v1_18_0$fi._(_root);
 }
 
 // Path: dialogs.addFile
@@ -1469,6 +1599,8 @@ class _Translations$settingsTab$general$colorOptions$fi extends Translations$set
   String get system => 'Järjestelmä';
   @override
   String get oled => 'OLED';
+  @override
+  String get custom => 'Mukautettu';
 }
 
 // Path: settingsTab.general.languageOptions
@@ -1510,4 +1642,19 @@ class _Translations$progressPage$total$title$fi extends Translations$progressPag
   String get canceledSender => 'Lähettäjä peruutti';
   @override
   String get canceledReceiver => 'Vastaanottaja peruutti';
+}
+
+// Path: whatsNewPage.changes.v1_18_0
+class _Translations$whatsNewPage$changes$v1_18_0$fi extends Translations$whatsNewPage$changes$v1_18_0$en with WhatsNewStrings {
+  _Translations$whatsNewPage$changes$v1_18_0$fi._(TranslationsFi root) : this._root = root, super.internal(root);
+
+  final TranslationsFi _root; // ignore: unused_field
+
+  // Translations
+  @override
+  List<String> get changes => [
+    'Salaus ei enää hidasta siirtoja. Se on otettu uudelleen käyttöön tällä laitteella, jos poistit sen aiemmin käytöstä.',
+    'Suosikkien pyynnöt hyväksytään nyt automaattisesti. Tämä on oletuksena käytössä ja sen voi poistaa käytöstä asetuksista.',
+    'Androidilla siirrot jatkuvat, kun sovellus on taustalla tai näyttö on sammutettu. iOS:llä sovelluksen on edelleen pysyttävä etualalla.',
+  ];
 }

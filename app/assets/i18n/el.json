@@ -51,7 +51,8 @@
       "off": "@:general.off",
       "favorites": "Αγαπημένα",
       "on": "@:general.on"
-    }
+    },
+    "link": "Λήψη μέσω συνδέσμου"
   },
   "sendTab": {
     "title": "Αποστολή",
@@ -96,7 +97,8 @@
       "color": "Χρώμα",
       "colorOptions": {
         "system": "Σύστημα",
-        "oled": "OLED"
+        "oled": "OLED",
+        "custom": "Προσαρμοσμένο"
       },
       "language": "Γλώσσα",
       "languageOptions": {
@@ -119,11 +121,13 @@
       "destination": "Προορισμός",
       "downloads": "(Λήψεις)",
       "saveToGallery": "Αποθήκευση μέσου στη συλλογή",
-      "saveToHistory": "Αποθήκευση στο ιστορικό"
+      "saveToHistory": "Αποθήκευση στο ιστορικό",
+      "verifyChecksums": "Επαλήθευση αθροισμάτων ελέγχου κατά τη λήψη αρχείων"
     },
     "send": {
       "title": "Αποστολή",
-      "shareViaLinkAutoAccept": "Κοινοποίηση μέσω συνδέσμου: Αυτόματη αποδοχή"
+      "shareViaLinkAutoAccept": "Κοινοποίηση μέσω συνδέσμου: Αυτόματη αποδοχή",
+      "createChecksums": "Δημιουργία αθροισμάτων ελέγχου κατά την αποστολή αρχείων"
     },
     "network": {
       "title": "Δίκτυο",
@@ -202,6 +206,29 @@
   "selectedFilesPage": {
     "deleteAll": "Διαγραφή όλων"
   },
+  "deviceDetailsPage": {
+    "title": "Λεπτομέρειες συσκευής",
+    "favorite": "Αγαπημένο",
+    "verify": "Επαλήθευση",
+    "info": {
+      "name": "Όνομα",
+      "address": "Διεύθυνση",
+      "version": "Έκδοση",
+      "protocol": "Πρωτόκολλο v{version}"
+    },
+    "logs": {
+      "title": "Αρχεία καταγραφής",
+      "empty": "Δεν υπάρχουν διαθέσιμα αρχεία καταγραφής.",
+      "discovered": "Εντοπίστηκε μέσω {protocol} ({host})",
+      "updated": "Ενημερώθηκε μέσω {protocol} ({host})"
+    }
+  },
+  "verifyPage": {
+    "title": "Επαλήθευση",
+    "icons": "Εικονίδια",
+    "text": "Κείμενο",
+    "question": "Φαίνεται το ίδιο στην άλλη συσκευή;"
+  },
   "receivePage": {
     "subTitle": {
       "one": "θέλει να σου στείλει ένα αρχείο",
@@ -219,6 +246,7 @@
     "saveToGalleryOff": "Απενεργοποιήθηκε αυτόματα επειδή υπάρχουν κατάλογοι."
   },
   "sendPage": {
+    "calculatingChecksum": "Υπολογισμός αθροίσματος ελέγχου ({curr} / {n})",
     "waiting": "Αναμονή για απάντηση…",
     "rejected": "Ο παραλήπτης απέρριψε το αίτημα.",
     "tooManyAttempts": "@:web.tooManyAttempts",
@@ -240,9 +268,14 @@
       "speed": "Ταχύτητα: {speed}/s"
     },
     "remainingTime": {
+      "minutesUnit(plural, param=m)": {
+        "other": "{m}λ"
+      },
+      "hoursUnit(plural, param=h)": {
+        "other": "{h}ώ"
+      },
       "minutes": "{m}:{ss}",
-      "hours": "{h}ώ {m}λ",
-      "@hours": "Χρησιμοποιήστε τη συντομογραφία «ώ» για ώρες και τη συντομογραφία «λ» για λεπτά"
+      "hours": "@:.hoursUnit @:.minutesUnit"
     }
   },
   "webSharePage": {
@@ -262,6 +295,9 @@
     "pinHint": "Το PIN είναι \"{pin}\"",
     "encryptionHint": "Το LocalSend χρησιμοποιεί αυτο-υπογεγραμμένο πιστοποιητικό. Χρειάζεται να το αποθεχτείτε στον φυλλομετρητή.",
     "pendingRequests": "Αναμονή αιτημάτων: {n}"
+  },
+  "webReceivePage": {
+    "title": "Λήψη μέσω συνδέσμου"
   },
   "aboutPage": {
     "title": "Σχετικά με το LocalSend",
@@ -283,6 +319,18 @@
   },
   "changelogPage": {
     "title": "Καταγραφή αλλαγών"
+  },
+  "whatsNewPage": {
+    "title": "Τι νέο υπάρχει στην έκδοση {version}",
+    "changes(interface=WhatsNewStrings)": {
+      "v1_18_0": {
+        "changes": [
+          "Η κρυπτογράφηση δεν επιβραδύνει πλέον τις μεταφορές. Έχει ενεργοποιηθεί ξανά σε αυτή τη συσκευή εάν την είχατε απενεργοποιήσει.",
+          "Τα αιτήματα από αγαπημένα γίνονται πλέον αποδεκτά αυτόματα. Αυτό είναι ενεργοποιημένο από προεπιλογή και μπορεί να απενεργοποιηθεί στις ρυθμίσεις.",
+          "Στο Android, οι μεταφορές συνεχίζονται ενώ η εφαρμογή βρίσκεται στο παρασκήνιο ή η οθόνη είναι σβηστή. Στο iOS, η εφαρμογή πρέπει ακόμα να παραμένει στο προσκήνιο."
+        ]
+      }
+    }
   },
   "aliasGenerator(ignoreMissing, ignoreGpt)": {
     "@info": "Διαφορετικές τοποθεσίες μπορεί να έχουν διαφορετικές λέξεις, μπορεί να μην ταιριάζουν 1:1",

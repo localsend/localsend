@@ -51,7 +51,8 @@
       "off": "@:general.off",
       "favorites": "Sevimlilər",
       "on": "@:general.on"
-    }
+    },
+    "link": "Keçid vasitəsilə qəbul et"
   },
   "sendTab": {
     "title": "Göndər",
@@ -96,7 +97,8 @@
       "color": "Rəng",
       "colorOptions": {
         "system": "Sistem",
-        "oled": "OLED"
+        "oled": "OLED",
+        "custom": "Fərdi"
       },
       "language": "Dil",
       "languageOptions": {
@@ -119,11 +121,13 @@
       "destination": "Qovluqda yadda saxla",
       "downloads": "(Yüklənənlər)",
       "saveToGallery": "Medianı qalereyada yadda saxla",
-      "saveToHistory": "Tarixçədə yadda saxla"
+      "saveToHistory": "Tarixçədə yadda saxla",
+      "verifyChecksums": "Faylları qəbul edərkən yoxlama məbləğlərini yoxla"
     },
     "send": {
       "title": "Göndər",
-      "shareViaLinkAutoAccept": "\"Keçid vasitəsilə paylaş\" rejimində sorğuları avtomatik qəbul et"
+      "shareViaLinkAutoAccept": "\"Keçid vasitəsilə paylaş\" rejimində sorğuları avtomatik qəbul et",
+      "createChecksums": "Faylları göndərərkən yoxlama məbləğləri yarat"
     },
     "network": {
       "title": "Şəbəkə",
@@ -202,6 +206,29 @@
   "selectedFilesPage": {
     "deleteAll": "Hamısını sil"
   },
+  "deviceDetailsPage": {
+    "title": "Cihaz təfərrüatları",
+    "favorite": "Sevimli",
+    "verify": "Doğrula",
+    "info": {
+      "name": "Ad",
+      "address": "Ünvan",
+      "version": "Versiya",
+      "protocol": "Protokol v{version}"
+    },
+    "logs": {
+      "title": "Jurnallar",
+      "empty": "Jurnal mövcud deyil.",
+      "discovered": "{protocol} vasitəsilə aşkarlandı ({host})",
+      "updated": "{protocol} vasitəsilə yeniləndi ({host})"
+    }
+  },
+  "verifyPage": {
+    "title": "Doğrula",
+    "icons": "İkonlar",
+    "text": "Mətn",
+    "question": "Digər cihazda eyni görünür?"
+  },
   "receivePage": {
     "subTitle": {
       "one": "sənə fayl göndərmək istəyir",
@@ -219,6 +246,7 @@
     "saveToGalleryOff": "Qovluqlar olduğu üçün avtomatik söndürülür."
   },
   "sendPage": {
+    "calculatingChecksum": "Yoxlama məbləği hesablanır ({curr} / {n})",
     "waiting": "Qarşı tərəfdən cavab gözlənilir…",
     "rejected": "Qəbul edən bu sorğudan imtina etdi.",
     "tooManyAttempts": "@:web.tooManyAttempts",
@@ -238,6 +266,16 @@
       "count": "Fayl: {curr} / {n}",
       "size": "Ölçü: {curr} / {n}",
       "speed": "Sürət: {speed}/s"
+    },
+    "remainingTime": {
+      "minutesUnit(plural, param=m)": {
+        "other": "{m}dəq"
+      },
+      "hoursUnit(plural, param=h)": {
+        "other": "{h}s"
+      },
+      "minutes": "{m}:{ss}",
+      "hours": "@:.hoursUnit @:.minutesUnit"
     }
   },
   "webSharePage": {
@@ -257,6 +295,9 @@
     "pinHint": "Sizin PIN: \"{pin}\"",
     "encryptionHint": "LocalSend özü imzalanmış sertifikatdan istifadə edir. Siz onu brauzerinizdə qəbul etməlisiniz.",
     "pendingRequests": "Gözləyən sorğular: {n}"
+  },
+  "webReceivePage": {
+    "title": "Keçid vasitəsilə qəbul et"
   },
   "aboutPage": {
     "title": "LocalSend haqqında",
@@ -278,6 +319,18 @@
   },
   "changelogPage": {
     "title": "Versiya jurnalı"
+  },
+  "whatsNewPage": {
+    "title": "{version} versiyasında yeniliklər",
+    "changes(interface=WhatsNewStrings)": {
+      "v1_18_0": {
+        "changes": [
+          "Şifrələmə artıq köçürmələri yavaşlatmır. Əvvəllər söndürmüsünüzsə, bu cihazda yenidən aktiv edilib.",
+          "Sevimlilərdən gələn sorğular indi avtomatik qəbul edilir. Bu, standart olaraq aktivdir və parametrlərdə söndürülə bilər.",
+          "Android-də köçürmələr tətbiq arxa fonda olarkən və ya ekran sönülü olarkən davam edir. iOS-da tətbiq hələ də ön planda qalmalıdır."
+        ]
+      }
+    }
   },
   "aliasGenerator(ignoreMissing, ignoreGpt)": {
     "@info": "Fərqli dillərdə fərqli sözlər ola bilər, 1:1 uyğun olmaya bilər"

@@ -229,6 +229,29 @@
   "selectedFilesPage": {
     "deleteAll": "Hepsini sil"
   },
+  "deviceDetailsPage": {
+    "title": "Cihaz Ayrıntıları",
+    "favorite": "Favori",
+    "verify": "Doğrula",
+    "info": {
+      "name": "Ad",
+      "address": "Adres",
+      "version": "Sürüm",
+      "protocol": "Protokol v{version}"
+    },
+    "logs": {
+      "title": "Günlükler",
+      "empty": "Kullanılabilir günlük yok.",
+      "discovered": "{protocol} üzerinden keşfedildi ({host})",
+      "updated": "{protocol} üzerinden güncellendi ({host})"
+    }
+  },
+  "verifyPage": {
+    "title": "Doğrula",
+    "icons": "Simgeler",
+    "text": "Metin",
+    "question": "Diğer cihazda aynı görünüyor mu?"
+  },
   "receivePage": {
     "subTitle": {
       "one": "sana bir dosya göndermek istiyor",
@@ -246,11 +269,11 @@
     "saveToGalleryOff": "Otomatik olarak kapanır çünkü bunlar klasör."
   },
   "sendPage": {
+    "calculatingChecksum": "Sağlama toplamı hesaplanıyor ({curr} / {n})",
     "waiting": "Alıcıdan cevap bekleniyor…",
     "rejected": "Alıcı isteği reddetti.",
     "tooManyAttempts": "@:web.tooManyAttempts",
-    "busy": "Alıcı başka bir istekle meşgul.",
-    "calculatingChecksum": "Sağlama toplamı hesaplanıyor ({curr} / {n})"
+    "busy": "Alıcı başka bir istekle meşgul."
   },
   "progressPage": {
     "titleSending": "Dosyalar gönderiliyor",
@@ -268,6 +291,12 @@
       "speed": "Hız: {speed}/s"
     },
     "remainingTime": {
+      "minutesUnit(plural, param=m)": {
+        "other": "{m}dk"
+      },
+      "hoursUnit(plural, param=h)": {
+        "other": "{h}sa"
+      },
       "minutes": "{m}:{ss}",
       "hours": "{h}s {m}d",
       "days": "{d}g {h}s {m}d",
@@ -302,6 +331,9 @@
     "encryptionHint": "LocalSend, tarayıcıda kabul etmeniz gereken kendi-üretimli bir sertifika kullanır.",
     "pendingRequests": "Bekleyen istekler: {n}"
   },
+  "webReceivePage": {
+    "title": "Bağlantı yoluyla al"
+  },
   "aboutPage": {
     "title": "LocalSend hakkında",
     "description": [
@@ -322,6 +354,18 @@
   },
   "changelogPage": {
     "title": "Değişiklik günlüğü"
+  },
+  "whatsNewPage": {
+    "title": "{version} sürümündeki yenilikler",
+    "changes(interface=WhatsNewStrings)": {
+      "v1_18_0": {
+        "changes": [
+          "Şifreleme artık aktarımları yavaşlatmıyor. Daha önce bu özelliği devre dışı bıraktıysanız, bu aygıtta yeniden etkinleştirildi.",
+          "Favorilerden gelen istekler artık otomatik olarak kabul ediliyor. Bu özellik varsayılan olarak etkindir ve ayarlardan devre dışı bırakılabilir.",
+          "Android'de, uygulama arka planda çalışırken veya ekran kapalıyken aktarımlar devam eder. iOS'ta ise uygulamanın ön planda kalması gerekir."
+        ]
+      }
+    }
   },
   "aliasGenerator(ignoreMissing, ignoreGpt)": {
     "@info": "Inherits from the English version"
@@ -492,20 +536,5 @@
     "sActionUseCameraHint": "Kamera kullan",
     "sNameDurationLabel": "süre",
     "sUnitAssetCountLabel": "sayım"
-  },
-  "whatsNewPage": {
-    "title": "{version} sürümündeki yenilikler",
-    "changes(interface=WhatsNewStrings)": {
-      "v1_18_0": {
-        "changes": [
-          "Şifreleme artık aktarımları yavaşlatmıyor. Daha önce bu özelliği devre dışı bıraktıysanız, bu aygıtta yeniden etkinleştirildi.",
-          "Favorilerden gelen istekler artık otomatik olarak kabul ediliyor. Bu özellik varsayılan olarak etkindir ve ayarlardan devre dışı bırakılabilir.",
-          "Android'de, uygulama arka planda çalışırken veya ekran kapalıyken aktarımlar devam eder. iOS'ta ise uygulamanın ön planda kalması gerekir."
-        ]
-      }
-    }
-  },
-  "webReceivePage": {
-    "title": "Bağlantı yoluyla al"
   }
 }

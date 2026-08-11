@@ -51,7 +51,8 @@
       "off": "@:general.off",
       "favorites": "ລາຍການໂປຣດ",
       "on": "@:general.on"
-    }
+    },
+    "link": "ຮັບຜ່ານລິ້ງ"
   },
   "sendTab": {
     "title": "ສົ່ງ",
@@ -96,7 +97,8 @@
       "color": "ສີ",
       "colorOptions": {
         "system": "ລະບົບ",
-        "oled": "OLED"
+        "oled": "OLED",
+        "custom": "ກຳນົດເອງ"
       },
       "language": "ພາສາ",
       "languageOptions": {
@@ -119,11 +121,13 @@
       "destination": "ບັນທຶກໄປໃສ່ໂຟລເດີ",
       "downloads": "(ດາວໂຫຼດ)",
       "saveToGallery": "ບັນທຶກມີເດຍໃສ່ແກລເລີຣີ",
-      "saveToHistory": "ບັນທຶກໃສ່ປະຫວັດ"
+      "saveToHistory": "ບັນທຶກໃສ່ປະຫວັດ",
+      "verifyChecksums": "ກວດສອບ checksum ເມື່ອຮັບໄຟລ໌"
     },
     "send": {
       "title": "ສົ່ງ",
-      "shareViaLinkAutoAccept": "ຍອມຮັບຄຳຂໍອັດຕະໂນມັດໃນໂໝດ \"ແບ່ງປັນຜ່ານລິ້ງ\""
+      "shareViaLinkAutoAccept": "ຍອມຮັບຄຳຂໍອັດຕະໂນມັດໃນໂໝດ \"ແບ່ງປັນຜ່ານລິ້ງ\"",
+      "createChecksums": "ສ້າງ checksum ເມື່ອສົ່ງໄຟລ໌"
     },
     "network": {
       "title": "ເຄືອຂ່າຍ",
@@ -202,6 +206,29 @@
   "selectedFilesPage": {
     "deleteAll": "ລຶບທັງໝົດ"
   },
+  "deviceDetailsPage": {
+    "title": "ລາຍລະອຽດອຸປະກອນ",
+    "favorite": "ລາຍການໂປດ",
+    "verify": "ກວດສອບ",
+    "info": {
+      "name": "ຊື່",
+      "address": "ທີ່ຢູ່",
+      "version": "ເວີຊັນ",
+      "protocol": "ໂປຣໂຕເຄລ v{version}"
+    },
+    "logs": {
+      "title": "ບັນທຶກ",
+      "empty": "ບໍ່ມີບັນທຶກ.",
+      "discovered": "ຄົ້ນພົບຜ່ານ {protocol} ({host})",
+      "updated": "ອັບເດດຜ່ານ {protocol} ({host})"
+    }
+  },
+  "verifyPage": {
+    "title": "ກວດສອບ",
+    "icons": "ໄອຄອນ",
+    "text": "ຂໍ້ຄວາມ",
+    "question": "ມັນເບິ່ງຄືກັນໃນອຸປະກອນອີກເຄື່ອງບໍ?"
+  },
   "receivePage": {
     "subTitle": {
       "one": "ຕ້ອງການສົ່ງໄຟລ໌ໃຫ້ທ່ານ",
@@ -219,6 +246,7 @@
     "saveToGalleryOff": "ປິດອັດຕະໂນມັດເພາະມີໂຟລເດີ."
   },
   "sendPage": {
+    "calculatingChecksum": "ກຳລັງຄິດໄລ່ checksum ({curr} / {n})",
     "waiting": "ກຳລັງລໍຖ້າການຕອບກັບ…",
     "rejected": "ຜູ້ຮັບໄດ້ປະຕິເສດຄຳຂໍ.",
     "tooManyAttempts": "@:web.tooManyAttempts",
@@ -240,8 +268,14 @@
       "speed": "ຄວາມໄວ: {speed}/s"
     },
     "remainingTime": {
+      "minutesUnit(plural, param=m)": {
+        "other": "{m}ນທ"
+      },
+      "hoursUnit(plural, param=h)": {
+        "other": "{h}ຊມ"
+      },
       "minutes": "{m}:{ss}",
-      "hours": "{h}ຊມ {m}ນທ"
+      "hours": "@:.hoursUnit @:.minutesUnit"
     }
   },
   "webSharePage": {
@@ -261,6 +295,9 @@
     "pinHint": "PIN ຄື \"{pin}\"",
     "encryptionHint": "LocalSend ໃຊ້ໃບຮັບຮອງທີ່ເຊັນດ້ວຍຕົນເອງ. ທ່ານຕ້ອງຍອມຮັບມັນຢູ່ໃນບຣາວເຊີຂອງທ່ານ.",
     "pendingRequests": "ຄຳຂໍທີ່ລໍຖ້າ: {n}"
+  },
+  "webReceivePage": {
+    "title": "ຮັບຜ່ານລິ້ງ"
   },
   "aboutPage": {
     "title": "ກ່ຽວກັບ LocalSend",
@@ -282,6 +319,18 @@
   },
   "changelogPage": {
     "title": "ບັນທຶກການປ່ຽນແປງ"
+  },
+  "whatsNewPage": {
+    "title": "ມີຫຍັງໃໝ່ໃນ {version}",
+    "changes(interface=WhatsNewStrings)": {
+      "v1_18_0": {
+        "changes": [
+          "ການເຂົ້າລະຫັດບໍ່ເຮັດໃຫ້ການໂອນຊ້າລົງອີກຕໍ່ໄປ. ມັນຖືກເປີດໃຊ້ຄືນໃໝ່ໃນອຸປະກອນນີ້ ຖ້າທ່ານໄດ້ປິດມັນໄວ້ກ່ອນ.",
+          "ຄຳຮ້ອງຂໍຈາກລາຍການໂປດຖືກຍອມຮັບໂດຍອັດຕະໂນມັດແລ້ວ. ມັນຖືກເປີດໃຊ້ໂດຍຄ່າເລີ່ມຕົ້ນ ແລະສາມາດປິດໄດ້ໃນການຕັ້ງຄ່າ.",
+          "ໃນ Android, ການໂອນໄຟລ໌ຍັງດຳເນີນຕໍ່ໃນຂະນະທີ່ແອັບຢູ່ເບື້ອງຫຼັງ ຫຼື ໜ້າຈໍດັບຢູ່. ໃນ iOS, ແອັບຍັງຕ້ອງຄົງຢູ່ໜ້າຈໍ."
+        ]
+      }
+    }
   },
   "aliasGenerator(ignoreMissing, ignoreGpt)": {
     "adjectives": [

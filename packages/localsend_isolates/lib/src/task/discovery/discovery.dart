@@ -148,21 +148,37 @@ class DiscoveryService {
     );
   }
 
-  /// Probes the known addresses of the favorites.
+  /// Discovers devices in stages, cheapest first: announces this device and
+  /// probes the known addresses of the favorites, then falls back to scanning
+  /// the subnets of [networkInterfaces] when nothing was confirmed within the
+  /// grace period.
   /// Found devices arrive on the [startListener] stream; this method returns
-  /// once every favorite has been probed.
-  Future<void> discoverFavorites({required List<(String, int)> devices, required bool https}) async {
+  /// once every stage has finished, including the whole announcement burst.
+  Future<void> discoverStaged({
+    required List<(String, int)> favorites,
+    required List<String> networkInterfaces,
+    required int port,
+    required bool https,
+    required Duration grace,
+  }) async {
     final discovery = _discovery;
     if (discovery == null) {
-      _logger.info('Discovery is not running, skipping favorite scan');
+      _logger.info('Discovery is not running, skipping staged discovery');
       return;
     }
 
     final protocol = https ? rust_model.ProtocolType.https : rust_model.ProtocolType.http;
-    await Future.wait([
-      for (final (host, port) in devices) discovery.discover(host: host, port: port, protocol: protocol),
-    ]);
+    await discovery.discoverStaged(
+      channels: [
+        for (final (host, port) in favorites) RsDeviceChannel(host: host, port: port, protocol: protocol),
+      ],
+      interfaceIps: networkInterfaces,
+      port: port,
+      protocol: protocol,
+      graceMs: BigInt.from(grace.inMilliseconds),
+    );
   }
+
 
   /// The retained confirmations of a stored device, oldest first.
   /// Empty when the fingerprint is unknown or the discovery is not running.

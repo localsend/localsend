@@ -51,7 +51,8 @@
       "off": "@:general.off",
       "favorites": "Омиљено",
       "on": "@:general.on"
-    }
+    },
+    "link": "Прими путем линка"
   },
   "sendTab": {
     "title": "Слање",
@@ -96,7 +97,8 @@
       "color": "Боја",
       "colorOptions": {
         "system": "Системска",
-        "oled": "OLED"
+        "oled": "OLED",
+        "custom": "Прилагођено"
       },
       "language": "Језик",
       "languageOptions": {
@@ -119,11 +121,13 @@
       "destination": "Чување у фолдер",
       "downloads": "(Downloads)",
       "saveToGallery": "Сачувај медије у галерију",
-      "saveToHistory": "Сачувај у историји"
+      "saveToHistory": "Сачувај у историји",
+      "verifyChecksums": "Провери контролне суме при пријему датотека"
     },
     "send": {
       "title": "Слање",
-      "shareViaLinkAutoAccept": "Аутоматски прихвати захтеве у режиму „Дељење путем линка“"
+      "shareViaLinkAutoAccept": "Аутоматски прихвати захтеве у режиму „Дељење путем линка“",
+      "createChecksums": "Направи контролне суме при слању датотека"
     },
     "network": {
       "title": "Мрежа",
@@ -202,6 +206,29 @@
   "selectedFilesPage": {
     "deleteAll": "Избриши све"
   },
+  "deviceDetailsPage": {
+    "title": "Детаљи уређаја",
+    "favorite": "Омиљени",
+    "verify": "Провери",
+    "info": {
+      "name": "Име",
+      "address": "Адреса",
+      "version": "Верзија",
+      "protocol": "Протокол v{version}"
+    },
+    "logs": {
+      "title": "Евиденција",
+      "empty": "Нема доступне евиденције.",
+      "discovered": "Откривено путем {protocol} ({host})",
+      "updated": "Ажурирано путем {protocol} ({host})"
+    }
+  },
+  "verifyPage": {
+    "title": "Провери",
+    "icons": "Иконице",
+    "text": "Текст",
+    "question": "Да ли изгледа исто на другом уређају?"
+  },
   "receivePage": {
     "subTitle": {
       "one": "жели да вам пошаље фајл",
@@ -219,6 +246,7 @@
     "saveToGalleryOff": "Аутоматски искључено јер постоје фолдери."
   },
   "sendPage": {
+    "calculatingChecksum": "Израчунавање контролне суме ({curr} / {n})",
     "waiting": "Чекање одговора…",
     "rejected": "Прималац је одбио захтев.",
     "tooManyAttempts": "@:web.tooManyAttempts",
@@ -238,6 +266,16 @@
       "count": "Фајлова: {curr} / {n}",
       "size": "Величина: {curr} / {n}",
       "speed": "Брзина: {speed}/s"
+    },
+    "remainingTime": {
+      "minutesUnit(plural, param=m)": {
+        "other": "{m}мин"
+      },
+      "hoursUnit(plural, param=h)": {
+        "other": "{h}ч"
+      },
+      "minutes": "{m}:{ss}",
+      "hours": "@:.hoursUnit @:.minutesUnit"
     }
   },
   "webSharePage": {
@@ -257,6 +295,9 @@
     "pinHint": "PIN је {pin}“„",
     "encryptionHint": "LocalSend користи самопотписани сертификат. Морате га прихватити у свом прегледачу.",
     "pendingRequests": "Захтеви на чекању: {n}"
+  },
+  "webReceivePage": {
+    "title": "Прими путем линка"
   },
   "aboutPage": {
     "title": "О LocalSend-у",
@@ -278,6 +319,18 @@
   },
   "changelogPage": {
     "title": "Евиденција промена"
+  },
+  "whatsNewPage": {
+    "title": "Шта је ново у {version}",
+    "changes(interface=WhatsNewStrings)": {
+      "v1_18_0": {
+        "changes": [
+          "Шифровање више не успорава преносе. Поново је омогућено на овом уређају ако сте га раније искључили.",
+          "Захтеви од омиљених се сада аутоматски прихватају. Ово је подразумевано укључено и може се искључити у подешавањима.",
+          "На Android-у, преноси се настављају док је апликација у позадини или је екран искључен. На iOS-у, апликација и даље мора остати у првом плану."
+        ]
+      }
+    }
   },
   "aliasGenerator(ignoreMissing, ignoreGpt)": {
     "@info": "Различити преводи могу имати различите речи, можда се не подударају 1:1",

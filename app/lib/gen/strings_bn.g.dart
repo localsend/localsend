@@ -60,6 +60,10 @@ class TranslationsBn extends Translations with BaseTranslations<AppLocale, Trans
   @override
   late final _Translations$selectedFilesPage$bn selectedFilesPage = _Translations$selectedFilesPage$bn._(_root);
   @override
+  late final _Translations$deviceDetailsPage$bn deviceDetailsPage = _Translations$deviceDetailsPage$bn._(_root);
+  @override
+  late final _Translations$verifyPage$bn verifyPage = _Translations$verifyPage$bn._(_root);
+  @override
   late final _Translations$receivePage$bn receivePage = _Translations$receivePage$bn._(_root);
   @override
   late final _Translations$receiveOptionsPage$bn receiveOptionsPage = _Translations$receiveOptionsPage$bn._(_root);
@@ -70,11 +74,15 @@ class TranslationsBn extends Translations with BaseTranslations<AppLocale, Trans
   @override
   late final _Translations$webSharePage$bn webSharePage = _Translations$webSharePage$bn._(_root);
   @override
+  late final _Translations$webReceivePage$bn webReceivePage = _Translations$webReceivePage$bn._(_root);
+  @override
   late final _Translations$aboutPage$bn aboutPage = _Translations$aboutPage$bn._(_root);
   @override
   late final _Translations$donationPage$bn donationPage = _Translations$donationPage$bn._(_root);
   @override
   late final _Translations$changelogPage$bn changelogPage = _Translations$changelogPage$bn._(_root);
+  @override
+  late final _Translations$whatsNewPage$bn whatsNewPage = _Translations$whatsNewPage$bn._(_root);
   @override
   late final _Translations$aliasGenerator$bn aliasGenerator = _Translations$aliasGenerator$bn._(_root);
   @override
@@ -187,6 +195,8 @@ class _Translations$receiveTab$bn extends Translations$receiveTab$en {
   late final _Translations$receiveTab$infoBox$bn infoBox = _Translations$receiveTab$infoBox$bn._(_root);
   @override
   late final _Translations$receiveTab$quickSave$bn quickSave = _Translations$receiveTab$quickSave$bn._(_root);
+  @override
+  String get link => 'লিঙ্কের মাধ্যমে গ্রহণ করুন';
 }
 
 // Path: sendTab
@@ -337,6 +347,42 @@ class _Translations$selectedFilesPage$bn extends Translations$selectedFilesPage$
   String get deleteAll => 'সব ডিলিট করুন';
 }
 
+// Path: deviceDetailsPage
+class _Translations$deviceDetailsPage$bn extends Translations$deviceDetailsPage$en {
+  _Translations$deviceDetailsPage$bn._(TranslationsBn root) : this._root = root, super.internal(root);
+
+  final TranslationsBn _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'ডিভাইসের বিবরণ';
+  @override
+  String get favorite => 'পছন্দের';
+  @override
+  String get verify => 'যাচাই করুন';
+  @override
+  late final _Translations$deviceDetailsPage$info$bn info = _Translations$deviceDetailsPage$info$bn._(_root);
+  @override
+  late final _Translations$deviceDetailsPage$logs$bn logs = _Translations$deviceDetailsPage$logs$bn._(_root);
+}
+
+// Path: verifyPage
+class _Translations$verifyPage$bn extends Translations$verifyPage$en {
+  _Translations$verifyPage$bn._(TranslationsBn root) : this._root = root, super.internal(root);
+
+  final TranslationsBn _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'যাচাই করুন';
+  @override
+  String get icons => 'আইকন';
+  @override
+  String get text => 'টেক্সট';
+  @override
+  String get question => 'অন্য ডিভাইসে কি একই রকম দেখাচ্ছে?';
+}
+
 // Path: receivePage
 class _Translations$receivePage$bn extends Translations$receivePage$en {
   _Translations$receivePage$bn._(TranslationsBn root) : this._root = root, super.internal(root);
@@ -384,6 +430,8 @@ class _Translations$sendPage$bn extends Translations$sendPage$en {
   final TranslationsBn _root; // ignore: unused_field
 
   // Translations
+  @override
+  String calculatingChecksum({required Object curr, required Object n}) => 'চেকসাম গণনা করা হচ্ছে (${curr} / ${n})';
   @override
   String get waiting => 'রেস্পন্সের অপেক্ষায়…';
   @override
@@ -452,6 +500,17 @@ class _Translations$webSharePage$bn extends Translations$webSharePage$en {
   String pendingRequests({required Object n}) => 'রিকুয়েস্ট অপেক্ষারত: ${n}';
 }
 
+// Path: webReceivePage
+class _Translations$webReceivePage$bn extends Translations$webReceivePage$en {
+  _Translations$webReceivePage$bn._(TranslationsBn root) : this._root = root, super.internal(root);
+
+  final TranslationsBn _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'লিঙ্কের মাধ্যমে গ্রহণ করুন';
+}
+
 // Path: aboutPage
 class _Translations$aboutPage$bn extends Translations$aboutPage$en {
   _Translations$aboutPage$bn._(TranslationsBn root) : this._root = root, super.internal(root);
@@ -505,6 +564,19 @@ class _Translations$changelogPage$bn extends Translations$changelogPage$en {
   // Translations
   @override
   String get title => 'চেঞ্জলগ';
+}
+
+// Path: whatsNewPage
+class _Translations$whatsNewPage$bn extends Translations$whatsNewPage$en {
+  _Translations$whatsNewPage$bn._(TranslationsBn root) : this._root = root, super.internal(root);
+
+  final TranslationsBn _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String title({required Object version}) => '${version} এ নতুন কী আছে';
+  @override
+  late final _Translations$whatsNewPage$changes$bn changes = _Translations$whatsNewPage$changes$bn._(_root);
 }
 
 // Path: aliasGenerator
@@ -914,6 +986,8 @@ class _Translations$settingsTab$receive$bn extends Translations$settingsTab$rece
   String get saveToGallery => 'মিডিয়া গ্যালারিতে সেভ করুন';
   @override
   String get saveToHistory => 'হিস্ট্রি সেভ করুন';
+  @override
+  String get verifyChecksums => 'ফাইল গ্রহণের সময় চেকসাম যাচাই করুন';
 }
 
 // Path: settingsTab.send
@@ -927,6 +1001,8 @@ class _Translations$settingsTab$send$bn extends Translations$settingsTab$send$en
   String get title => 'সেন্ড';
   @override
   String get shareViaLinkAutoAccept => '"Share via link" মোডের রিকুয়েস্ট অটো এক্সেপ্ট করুন';
+  @override
+  String get createChecksums => 'ফাইল পাঠানোর সময় চেকসাম তৈরি করুন';
 }
 
 // Path: settingsTab.network
@@ -1052,6 +1128,40 @@ class _Translations$receiveHistoryPage$entryActions$bn extends Translations$rece
   String get deleteFromHistory => 'হিস্ট্রি থেকে মুছে ফেলুন';
 }
 
+// Path: deviceDetailsPage.info
+class _Translations$deviceDetailsPage$info$bn extends Translations$deviceDetailsPage$info$en {
+  _Translations$deviceDetailsPage$info$bn._(TranslationsBn root) : this._root = root, super.internal(root);
+
+  final TranslationsBn _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get name => 'নাম';
+  @override
+  String get address => 'ঠিকানা';
+  @override
+  String get version => 'সংস্করণ';
+  @override
+  String protocol({required Object version}) => 'প্রোটোকল v${version}';
+}
+
+// Path: deviceDetailsPage.logs
+class _Translations$deviceDetailsPage$logs$bn extends Translations$deviceDetailsPage$logs$en {
+  _Translations$deviceDetailsPage$logs$bn._(TranslationsBn root) : this._root = root, super.internal(root);
+
+  final TranslationsBn _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'লগ';
+  @override
+  String get empty => 'কোনো লগ নেই।';
+  @override
+  String discovered({required Object protocol, required Object host}) => '${protocol} এর মাধ্যমে আবিষ্কৃত (${host})';
+  @override
+  String updated({required Object protocol, required Object host}) => '${protocol} এর মাধ্যমে আপডেট হয়েছে (${host})';
+}
+
 // Path: progressPage.total
 class _Translations$progressPage$total$bn extends Translations$progressPage$total$en {
   _Translations$progressPage$total$bn._(TranslationsBn root) : this._root = root, super.internal(root);
@@ -1077,11 +1187,31 @@ class _Translations$progressPage$remainingTime$bn extends Translations$progressP
 
   // Translations
   @override
-  String minutes({required Object m, required Object ss}) => '${m}:${ss}';
-
-  /// ঘন্টার জন্য 'h' এবং মিনিটের জন্য 'm' ব্যবহার করুন
+  String minutesUnit({required num m}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('bn'))(
+    m,
+    other: '${m}মি',
+  );
   @override
-  String hours({required Object h, required Object m}) => '${h}ঘণ্টা ${m}মিনিট';
+  String hoursUnit({required num h}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('bn'))(
+    h,
+    other: '${h}ঘ',
+  );
+  @override
+  String minutes({required Object m, required Object ss}) => '${m}:${ss}';
+  @override
+  String hours({required num h, required num m}) =>
+      '${_root.progressPage.remainingTime.hoursUnit(h: h)} ${_root.progressPage.remainingTime.minutesUnit(m: m)}';
+}
+
+// Path: whatsNewPage.changes
+class _Translations$whatsNewPage$changes$bn extends Translations$whatsNewPage$changes$en {
+  _Translations$whatsNewPage$changes$bn._(TranslationsBn root) : this._root = root, super.internal(root);
+
+  final TranslationsBn _root; // ignore: unused_field
+
+  // Translations
+  @override
+  late final _Translations$whatsNewPage$changes$v1_18_0$bn v1_18_0 = _Translations$whatsNewPage$changes$v1_18_0$bn._(_root);
 }
 
 // Path: dialogs.addFile
@@ -1461,6 +1591,8 @@ class _Translations$settingsTab$general$colorOptions$bn extends Translations$set
   String get system => 'সিস্টেম';
   @override
   String get oled => 'ওলেড';
+  @override
+  String get custom => 'কাস্টম';
 }
 
 // Path: settingsTab.general.languageOptions
@@ -1502,4 +1634,19 @@ class _Translations$progressPage$total$title$bn extends Translations$progressPag
   String get canceledSender => 'সেন্ডারের দ্বারা ক্যানসেল করা হয়েছে';
   @override
   String get canceledReceiver => 'রিসিভার দ্বারা ক্যানসেল করা হয়েছে';
+}
+
+// Path: whatsNewPage.changes.v1_18_0
+class _Translations$whatsNewPage$changes$v1_18_0$bn extends Translations$whatsNewPage$changes$v1_18_0$en with WhatsNewStrings {
+  _Translations$whatsNewPage$changes$v1_18_0$bn._(TranslationsBn root) : this._root = root, super.internal(root);
+
+  final TranslationsBn _root; // ignore: unused_field
+
+  // Translations
+  @override
+  List<String> get changes => [
+    'এনক্রিপশন আর স্থানান্তরের গতি কমায় না। আপনি আগে বন্ধ করে থাকলে এই ডিভাইসে এটি আবার চালু করা হয়েছে।',
+    'পছন্দের ডিভাইস থেকে অনুরোধ এখন স্বয়ংক্রিয়ভাবে গৃহীত হয়। এটি ডিফল্টভাবে চালু থাকে এবং সেটিংসে বন্ধ করা যায়।',
+    'Android এ অ্যাপ ব্যাকগ্রাউন্ডে থাকলে বা স্ক্রিন বন্ধ থাকলেও স্থানান্তর চলতে থাকে। iOS এ অ্যাপটিকে এখনও ফোরগ্রাউন্ডে থাকতে হবে।',
+  ];
 }

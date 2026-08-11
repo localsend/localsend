@@ -51,7 +51,8 @@
       "off": "@:general.off",
       "favorites": "Favorite",
       "on": "@:general.on"
-    }
+    },
+    "link": "Primește prin link"
   },
   "sendTab": {
     "title": "Trimite",
@@ -96,7 +97,8 @@
       "color": "Culoare",
       "colorOptions": {
         "system": "Sistem",
-        "oled": "OLED"
+        "oled": "OLED",
+        "custom": "Personalizat"
       },
       "language": "Limba",
       "languageOptions": {
@@ -119,11 +121,13 @@
       "destination": "Salvează în dosar",
       "downloads": "(Descărcări)",
       "saveToGallery": "Salvează media în galerie",
-      "saveToHistory": "Salvează în istoric"
+      "saveToHistory": "Salvează în istoric",
+      "verifyChecksums": "Verifică sumele de control la primirea fișierelor"
     },
     "send": {
       "title": "Trimite",
-      "shareViaLinkAutoAccept": "Acceptă automat cererile în modul „Partajare prin link”"
+      "shareViaLinkAutoAccept": "Acceptă automat cererile în modul „Partajare prin link”",
+      "createChecksums": "Creează sume de control la trimiterea fișierelor"
     },
     "network": {
       "title": "Rețea",
@@ -202,6 +206,29 @@
   "selectedFilesPage": {
     "deleteAll": "Șterge tot"
   },
+  "deviceDetailsPage": {
+    "title": "Detalii dispozitiv",
+    "favorite": "Favorit",
+    "verify": "Verifică",
+    "info": {
+      "name": "Nume",
+      "address": "Adresă",
+      "version": "Versiune",
+      "protocol": "Protocol v{version}"
+    },
+    "logs": {
+      "title": "Jurnale",
+      "empty": "Nu sunt jurnale disponibile.",
+      "discovered": "Descoperit prin {protocol} ({host})",
+      "updated": "Actualizat prin {protocol} ({host})"
+    }
+  },
+  "verifyPage": {
+    "title": "Verifică",
+    "icons": "Pictograme",
+    "text": "Text",
+    "question": "Arată la fel pe celălalt dispozitiv?"
+  },
   "receivePage": {
     "subTitle": {
       "one": "vrea să îți trimită un fișier",
@@ -219,6 +246,7 @@
     "saveToGalleryOff": "Dezactivat automat deoarece există foldere."
   },
   "sendPage": {
+    "calculatingChecksum": "Se calculează suma de control ({curr} / {n})",
     "waiting": "Așteptare răspuns…",
     "rejected": "Destinatarul a respins cererea.",
     "tooManyAttempts": "@:web.tooManyAttempts",
@@ -238,6 +266,16 @@
       "count": "Fișiere: {curr} / {n}",
       "size": "Dimensiune: {curr} / {n}",
       "speed": "Viteză: {speed}/s"
+    },
+    "remainingTime": {
+      "minutesUnit(plural, param=m)": {
+        "other": "{m}min"
+      },
+      "hoursUnit(plural, param=h)": {
+        "other": "{h}h"
+      },
+      "minutes": "{m}:{ss}",
+      "hours": "@:.hoursUnit @:.minutesUnit"
     }
   },
   "webSharePage": {
@@ -257,6 +295,9 @@
     "pinHint": "PIN-ul este \"{pin}\"",
     "encryptionHint": "LocalSend folosește un certificat auto-semnat. Trebuie să-l accepți în browserul tău.",
     "pendingRequests": "Cereri în așteptare: {n}"
+  },
+  "webReceivePage": {
+    "title": "Primește prin link"
   },
   "aboutPage": {
     "title": "Despre LocalSend",
@@ -278,6 +319,18 @@
   },
   "changelogPage": {
     "title": "Schimbări"
+  },
+  "whatsNewPage": {
+    "title": "Noutăți în {version}",
+    "changes(interface=WhatsNewStrings)": {
+      "v1_18_0": {
+        "changes": [
+          "Criptarea nu mai încetinește transferurile. A fost reactivată pe acest dispozitiv dacă o dezactivaserăți înainte.",
+          "Cererile de la favorite sunt acum acceptate automat. Această opțiune este activată implicit și poate fi dezactivată din setări.",
+          "Pe Android, transferurile continuă cât timp aplicația este în fundal sau ecranul este stins. Pe iOS, aplicația trebuie în continuare să rămână în prim-plan."
+        ]
+      }
+    }
   },
   "aliasGenerator(ignoreMissing, ignoreGpt)": {
     "@info": "Diferite localizări pot avea cuvinte diferite, este posibil să nu se potrivească cu 1: 1",

@@ -6,16 +6,8 @@
 /// 1.0       | 1.0.0 - 1.8.0
 /// 1.0, 2.0  | 1.9.0 - 1.14.0
 /// 1.0, 2.1  | 1.15.0 - 1.17.0
-/// 2.1       | 1.18.0
-const protocolVersion = '2.1';
-
-/// Assumed protocol version of peers for first handshake.
-/// Generally this should be slightly lower than the current protocol version.
-const peerProtocolVersion = '1.0';
-
-/// The protocol version when no version is specified.
-/// Prior v2, the protocol version was not specified.
-const fallbackProtocolVersion = '1.0';
+/// 2.2       | 1.18.0
+const protocolVersion = '2.2';
 
 /// The default http server port and
 /// and multicast port.

@@ -51,7 +51,8 @@
       "off": "@:general.off",
       "favorites": "お気に入り",
       "on": "@:general.on"
-    }
+    },
+    "link": "リンク経由で受信"
   },
   "sendTab": {
     "title": "送信",
@@ -96,7 +97,8 @@
       "color": "カラー",
       "colorOptions": {
         "system": "システム",
-        "oled": "OLED"
+        "oled": "OLED",
+        "custom": "カスタム"
       },
       "language": "言語",
       "languageOptions": {
@@ -119,11 +121,13 @@
       "destination": "保存先",
       "downloads": "(ダウンロード)",
       "saveToGallery": "メディアをギャラリーに保存",
-      "saveToHistory": "履歴に保存"
+      "saveToHistory": "履歴に保存",
+      "verifyChecksums": "ファイル受信時にチェックサムを検証する"
     },
     "send": {
       "title": "送信",
-      "shareViaLinkAutoAccept": "リンク経由で共有時: 自動で承諾"
+      "shareViaLinkAutoAccept": "リンク経由で共有時: 自動で承諾",
+      "createChecksums": "ファイル送信時にチェックサムを作成する"
     },
     "network": {
       "title": "ネットワーク",
@@ -202,6 +206,29 @@
   "selectedFilesPage": {
     "deleteAll": "すべて削除"
   },
+  "deviceDetailsPage": {
+    "title": "デバイスの詳細",
+    "favorite": "お気に入り",
+    "verify": "検証",
+    "info": {
+      "name": "名前",
+      "address": "アドレス",
+      "version": "バージョン",
+      "protocol": "プロトコル v{version}"
+    },
+    "logs": {
+      "title": "ログ",
+      "empty": "ログはありません。",
+      "discovered": "{protocol} 経由で発見 ({host})",
+      "updated": "{protocol} 経由で更新 ({host})"
+    }
+  },
+  "verifyPage": {
+    "title": "検証",
+    "icons": "アイコン",
+    "text": "テキスト",
+    "question": "もう一方のデバイスでも同じように見えますか？"
+  },
   "receivePage": {
     "subTitle": {
       "one": "がファイルを送信しようとしています。",
@@ -219,6 +246,7 @@
     "saveToGalleryOff": "ディレクトリーがあるため自動で無効になっています。"
   },
   "sendPage": {
+    "calculatingChecksum": "チェックサムを計算中 ({curr} / {n})",
     "waiting": "返答を待っています...",
     "rejected": "受信者がリクエストを拒否しました。",
     "tooManyAttempts": "@:web.tooManyAttempts",
@@ -240,7 +268,14 @@
       "speed": "速度: {speed}/s"
     },
     "remainingTime": {
-      "@hours": "時間の略語には「h」、分の略語には「m」を使用します"
+      "minutesUnit(plural, param=m)": {
+        "other": "{m}分"
+      },
+      "hoursUnit(plural, param=h)": {
+        "other": "{h}時間"
+      },
+      "minutes": "{m}:{ss}",
+      "hours": "@:.hoursUnit @:.minutesUnit"
     }
   },
   "webSharePage": {
@@ -260,6 +295,9 @@
     "pinHint": "PINコードは \"{pin}\" です",
     "encryptionHint": "LocalSendは自己署名証明書を使用しているため、ブラウザーで証明書を許可する必要があります。",
     "pendingRequests": "保留中のリクエスト数: {n}"
+  },
+  "webReceivePage": {
+    "title": "リンク経由で受信"
   },
   "aboutPage": {
     "title": "LocalSendについて",
@@ -281,6 +319,18 @@
   },
   "changelogPage": {
     "title": "更新履歴"
+  },
+  "whatsNewPage": {
+    "title": "{version} の新機能",
+    "changes(interface=WhatsNewStrings)": {
+      "v1_18_0": {
+        "changes": [
+          "暗号化による転送速度の低下がなくなりました。以前にオフにしていた場合、このデバイスでは再び有効になっています。",
+          "お気に入りからのリクエストは自動的に受け入れられるようになりました。これはデフォルトでオンになっており、設定で無効にできます。",
+          "Android では、アプリがバックグラウンドにあるときや画面がオフのときでも転送が継続されます。iOS では、引き続きアプリをフォアグラウンドに表示したままにする必要があります。"
+        ]
+      }
+    }
   },
   "aliasGenerator(ignoreMissing, ignoreGpt)": {
     "@info": "Inherits from the English version"

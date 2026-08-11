@@ -51,7 +51,8 @@
       "off": "@:general.off",
       "favorites": "Favoriter",
       "on": "@:general.on"
-    }
+    },
+    "link": "Ta emot via länk"
   },
   "sendTab": {
     "title": "Skicka",
@@ -96,7 +97,8 @@
       "color": "Färg",
       "colorOptions": {
         "system": "System",
-        "oled": "OLED"
+        "oled": "OLED",
+        "custom": "Anpassad"
       },
       "language": "Språk",
       "languageOptions": {
@@ -119,11 +121,13 @@
       "destination": "Spara i mapp",
       "downloads": "(Nedladdningar)",
       "saveToGallery": "Spara medier i galleriet",
-      "saveToHistory": "Spara i historiken"
+      "saveToHistory": "Spara i historiken",
+      "verifyChecksums": "Verifiera kontrollsummor när filer tas emot"
     },
     "send": {
       "title": "Skicka",
-      "shareViaLinkAutoAccept": "Acceptera förfrågningar automatiskt i läget ”Dela via länk”"
+      "shareViaLinkAutoAccept": "Acceptera förfrågningar automatiskt i läget ”Dela via länk”",
+      "createChecksums": "Skapa kontrollsummor när filer skickas"
     },
     "network": {
       "title": "Nätverk",
@@ -202,6 +206,29 @@
   "selectedFilesPage": {
     "deleteAll": "Ta bort alla"
   },
+  "deviceDetailsPage": {
+    "title": "Enhetsdetaljer",
+    "favorite": "Favorit",
+    "verify": "Verifiera",
+    "info": {
+      "name": "Namn",
+      "address": "Adress",
+      "version": "Version",
+      "protocol": "Protokoll v{version}"
+    },
+    "logs": {
+      "title": "Loggar",
+      "empty": "Inga loggar tillgängliga.",
+      "discovered": "Upptäckt via {protocol} ({host})",
+      "updated": "Uppdaterad via {protocol} ({host})"
+    }
+  },
+  "verifyPage": {
+    "title": "Verifiera",
+    "icons": "Ikoner",
+    "text": "Text",
+    "question": "Ser det likadant ut på den andra enheten?"
+  },
   "receivePage": {
     "subTitle": {
       "one": "vill skicka en fil till dig",
@@ -219,11 +246,11 @@
     "saveToGalleryOff": "Inaktiverades automatiskt eftersom överföringen innehåller mappar."
   },
   "sendPage": {
+    "calculatingChecksum": "Beräknar kontrollsumma ({curr} / {n})",
     "waiting": "Väntar på svar…",
     "rejected": "Mottagaren har avvisat begäran.",
     "tooManyAttempts": "@:web.tooManyAttempts",
-    "busy": "Mottagaren är upptagen med en annan förfrågan.",
-    "calculatingChecksum": "Beräknar kontrollsumma ({curr} / {n})"
+    "busy": "Mottagaren är upptagen med en annan förfrågan."
   },
   "progressPage": {
     "titleSending": "Skickar filer",
@@ -241,9 +268,14 @@
       "speed": "Hastighet: {speed}/s"
     },
     "remainingTime": {
+      "minutesUnit(plural, param=m)": {
+        "other": "{m}min"
+      },
+      "hoursUnit(plural, param=h)": {
+        "other": "{h}h"
+      },
       "minutes": "{m}:{ss}",
-      "hours": "{h}h {m}m",
-      "@hours": "Använd ”h” som förkortning för timmar och ”m” för minuter"
+      "hours": "@:.hoursUnit @:.minutesUnit"
     }
   },
   "webSharePage": {
@@ -263,6 +295,9 @@
     "pinHint": "PIN-koden är \"{pin}\"",
     "encryptionHint": "LocalSend använder ett självsignerat certifikat. Du måste godkänna det i webbläsaren.",
     "pendingRequests": "Väntande förfrågningar: {n}"
+  },
+  "webReceivePage": {
+    "title": "Ta emot via länk"
   },
   "aboutPage": {
     "title": "Om LocalSend",
@@ -284,6 +319,18 @@
   },
   "changelogPage": {
     "title": "Ändringslogg"
+  },
+  "whatsNewPage": {
+    "title": "Nyheter i {version}",
+    "changes(interface=WhatsNewStrings)": {
+      "v1_18_0": {
+        "changes": [
+          "Kryptering gör inte längre överföringar långsammare. Den har aktiverats igen på den här enheten om du tidigare stängde av den.",
+          "Förfrågningar från favoriter accepteras nu automatiskt. Detta är påslaget som standard och kan inaktiveras i inställningarna.",
+          "På Android fortsätter överföringar medan appen är i bakgrunden eller skärmen är avstängd. På iOS måste appen fortfarande vara i förgrunden."
+        ]
+      }
+    }
   },
   "aliasGenerator(ignoreMissing, ignoreGpt)": {
     "@info": "Olika språk kan ha olika ord, det kanske inte matchar 1:1",

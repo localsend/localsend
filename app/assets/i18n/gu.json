@@ -51,7 +51,8 @@
       "off": "@:general.off",
       "favorites": "મનપસંદ",
       "on": "@:general.on"
-    }
+    },
+    "link": "લિંક દ્વારા મેળવો"
   },
   "sendTab": {
     "title": "મોકલો",
@@ -96,7 +97,8 @@
       "color": "રંગ",
       "colorOptions": {
         "system": "સિસ્ટમ",
-        "oled": "OLED"
+        "oled": "OLED",
+        "custom": "કસ્ટમ"
       },
       "language": "ભાષા",
       "languageOptions": {
@@ -119,11 +121,13 @@
       "destination": "સ્થળ",
       "downloads": "(ડાઉનલોડ્સ)",
       "saveToGallery": "મીડિયા ગેલેરીમાં સેવ કરો",
-      "saveToHistory": "ઇતિહાસમાં સેવ કરો"
+      "saveToHistory": "ઇતિહાસમાં સેવ કરો",
+      "verifyChecksums": "ફાઇલો મેળવતી વખતે ચેકસમ ચકાસો"
     },
     "send": {
       "title": "મોકલો",
-      "shareViaLinkAutoAccept": "લિંક દ્વારા શેર કરો: સ્વયંચાલિત સ્વીકારો"
+      "shareViaLinkAutoAccept": "લિંક દ્વારા શેર કરો: સ્વયંચાલિત સ્વીકારો",
+      "createChecksums": "ફાઇલો મોકલતી વખતે ચેકસમ બનાવો"
     },
     "network": {
       "title": "નેટવર્ક",
@@ -202,6 +206,29 @@
   "selectedFilesPage": {
     "deleteAll": "બધા ડિલીટ કરો"
   },
+  "deviceDetailsPage": {
+    "title": "ઉપકરણની વિગતો",
+    "favorite": "મનપસંદ",
+    "verify": "ચકાસો",
+    "info": {
+      "name": "નામ",
+      "address": "સરનામું",
+      "version": "સંસ્કરણ",
+      "protocol": "પ્રોટોકોલ v{version}"
+    },
+    "logs": {
+      "title": "લોગ",
+      "empty": "કોઈ લોગ ઉપલબ્ધ નથી.",
+      "discovered": "{protocol} દ્વારા શોધાયું ({host})",
+      "updated": "{protocol} દ્વારા અપડેટ થયું ({host})"
+    }
+  },
+  "verifyPage": {
+    "title": "ચકાસો",
+    "icons": "આઇકન",
+    "text": "ટેક્સ્ટ",
+    "question": "શું તે બીજા ઉપકરણ પર સરખું દેખાય છે?"
+  },
   "receivePage": {
     "subTitle": {
       "one": "તમે ફાઇલ મોકલવા માંગે છે",
@@ -219,6 +246,7 @@
     "saveToGalleryOff": "સ્વયંચાલિત રીતે બંધ કરી દેવામાં આવ્યું છે કારણ કે ડિરેક્ટરીઓ છે."
   },
   "sendPage": {
+    "calculatingChecksum": "ચેકસમની ગણતરી થઈ રહી છે ({curr} / {n})",
     "waiting": "પ્રતિસાદની રાહ જોવામાં આવી રહી છે...",
     "rejected": "પ્રાપ્તકર્તાએ વિનંતી અસ્વીકાર કરી છે.",
     "tooManyAttempts": "@:વેબ.બહુ_બધા_પ્રયાસ",
@@ -240,9 +268,14 @@
       "speed": "ગતિ: {speed}/s"
     },
     "remainingTime": {
+      "minutesUnit(plural, param=m)": {
+        "other": "{m}મિ"
+      },
+      "hoursUnit(plural, param=h)": {
+        "other": "{h}ક"
+      },
       "minutes": "{m}:{ss}",
-      "hours": "{h}ક {m}મિ",
-      "@hours": "નાનું કરી ને 'ક' કલાક માટે અને 'મિ' મિનિટ માટે વાપરો"
+      "hours": "@:.hoursUnit @:.minutesUnit"
     }
   },
   "webSharePage": {
@@ -262,6 +295,9 @@
     "pinHint": "પિન \"{pin}\" છે",
     "encryptionHint": "લોકલસેન્ડ એ સ્વ-સાઇન્ડ સર્ટિફિકેટનો ઉપયોગ કરે છે. તમારે તેને તમારા બ્રાઉઝરમાં સ્વીકારવું પડશે.",
     "pendingRequests": "બાકી વિનંતિઓ: {n}"
+  },
+  "webReceivePage": {
+    "title": "લિંક દ્વારા મેળવો"
   },
   "aboutPage": {
     "title": "લોકલસેન્ડ વિશે",
@@ -283,6 +319,18 @@
   },
   "changelogPage": {
     "title": "ચેન્જલોગ"
+  },
+  "whatsNewPage": {
+    "title": "{version} માં નવું શું છે",
+    "changes(interface=WhatsNewStrings)": {
+      "v1_18_0": {
+        "changes": [
+          "એન્ક્રિપ્શન હવે ટ્રાન્સફરને ધીમું કરતું નથી. જો તમે તેને પહેલાં બંધ કર્યું હતું, તો આ ઉપકરણ પર તે ફરીથી સક્ષમ કરવામાં આવ્યું છે.",
+          "મનપસંદમાંથી આવતી વિનંતીઓ હવે આપોઆપ સ્વીકારવામાં આવે છે. આ મૂળભૂત રીતે ચાલુ છે અને સેટિંગ્સમાં બંધ કરી શકાય છે.",
+          "Android પર, એપ બેકગ્રાઉન્ડમાં હોય કે સ્ક્રીન બંધ હોય ત્યારે પણ ટ્રાન્સફર ચાલુ રહે છે. iOS પર, એપ હજુ પણ ફોરગ્રાઉન્ડમાં રહેવું જરૂરી છે."
+        ]
+      }
+    }
   },
   "aliasGenerator(ignoreMissing, ignoreGpt)": {
     "@info": "Different locales may have different words, it may not match 1:1",

@@ -51,7 +51,8 @@
       "off": "@: செனரல்",
       "favorites": "பிடித்தவை",
       "on": "@: செனரல்"
-    }
+    },
+    "link": "இணைப்பு வழியாகப் பெறுக"
   },
   "sendTab": {
     "title": "அனுப்பு",
@@ -96,7 +97,8 @@
       "color": "நிறம்",
       "colorOptions": {
         "system": "கணினி நிறம்",
-        "oled": "ஓஎல்இடி"
+        "oled": "ஓஎல்இடி",
+        "custom": "தனிப்பயன்"
       },
       "language": "மொழி",
       "languageOptions": {
@@ -119,11 +121,13 @@
       "destination": "கோப்புறையில் சேமிக்கவும்",
       "downloads": "(பதிவிறக்கங்கள்)",
       "saveToGallery": "மீடியாவை கேலரியில் சேமிக்கவும்",
-      "saveToHistory": "வரலாற்றில் சேமிக்கவும்"
+      "saveToHistory": "வரலாற்றில் சேமிக்கவும்",
+      "verifyChecksums": "கோப்புகளைப் பெறும்போது checksum சரிபார்க்கவும்"
     },
     "send": {
       "title": "அனுப்பு",
-      "shareViaLinkAutoAccept": "\"இணைப்பு வழியாக பகிர்\" பயன்முறையில் கோரிக்கைகளை தானாக ஏற்கவும்"
+      "shareViaLinkAutoAccept": "\"இணைப்பு வழியாக பகிர்\" பயன்முறையில் கோரிக்கைகளை தானாக ஏற்கவும்",
+      "createChecksums": "கோப்புகளை அனுப்பும்போது checksum உருவாக்கவும்"
     },
     "network": {
       "title": "நெட்வொர்க்",
@@ -202,6 +206,29 @@
   "selectedFilesPage": {
     "deleteAll": "அனைத்தையும் நீக்கவும்"
   },
+  "deviceDetailsPage": {
+    "title": "சாதன விவரங்கள்",
+    "favorite": "பிடித்தவை",
+    "verify": "சரிபார்",
+    "info": {
+      "name": "பெயர்",
+      "address": "முகவரி",
+      "version": "பதிப்பு",
+      "protocol": "நெறிமுறை v{version}"
+    },
+    "logs": {
+      "title": "பதிவுகள்",
+      "empty": "பதிவுகள் எதுவும் இல்லை.",
+      "discovered": "{protocol} வழியாகக் கண்டறியப்பட்டது ({host})",
+      "updated": "{protocol} வழியாக புதுப்பிக்கப்பட்டது ({host})"
+    }
+  },
+  "verifyPage": {
+    "title": "சரிபார்",
+    "icons": "ஐகான்கள்",
+    "text": "உரை",
+    "question": "மற்ற சாதனத்தில் இது ஒரே மாதிரி தெரிகிறதா?"
+  },
   "receivePage": {
     "subTitle": {
       "one": "உங்களுக்கு ஒரு கோப்பை அனுப்ப விரும்புகிறார்",
@@ -219,6 +246,7 @@
     "saveToGalleryOff": "கோப்புறைகள் இருப்பதால் தானாகவே முடக்கப்பட்டது."
   },
   "sendPage": {
+    "calculatingChecksum": "checksum கணக்கிடப்படுகிறது ({curr} / {n})",
     "waiting": "பதில் வரும் வரை காத்திருக்கிறது…",
     "rejected": "பெறுநர் கோரிக்கையை நிராகரித்துள்ளார்.",
     "tooManyAttempts": "@: web.doomanyattempts",
@@ -238,6 +266,16 @@
       "count": "கோப்புகள்: {curr} / {n}",
       "size": "அளவு: {curr} / {n}",
       "speed": "வேகம்: {speed}/s"
+    },
+    "remainingTime": {
+      "minutesUnit(plural, param=m)": {
+        "other": "{m}நி"
+      },
+      "hoursUnit(plural, param=h)": {
+        "other": "{h}மணி"
+      },
+      "minutes": "{m}:{ss}",
+      "hours": "@:.hoursUnit @:.minutesUnit"
     }
   },
   "webSharePage": {
@@ -257,6 +295,9 @@
     "pinHint": "PIN \"{pin}\" ஆகும்",
     "encryptionHint": "LocalSend ஒரு சுய கையொப்பம் செய்யப்பட்ட சான்றிதழைப் பயன்படுத்துகிறது. உங்களின் உலாவியில் அதை ஏற்க வேண்டும்.",
     "pendingRequests": "நிலுவை கோரிக்கைகள்: {n}"
+  },
+  "webReceivePage": {
+    "title": "இணைப்பு வழியாகப் பெறுக"
   },
   "aboutPage": {
     "title": "LocalSend பற்றி",
@@ -278,6 +319,18 @@
   },
   "changelogPage": {
     "title": "மாற்றம் பதிவு"
+  },
+  "whatsNewPage": {
+    "title": "{version} இல் புதியது என்ன",
+    "changes(interface=WhatsNewStrings)": {
+      "v1_18_0": {
+        "changes": [
+          "மறைகுறியாக்கம் இனி பரிமாற்றங்களை மெதுவாக்காது. நீங்கள் முன்பு அதை அணைத்திருந்தால், இந்தச் சாதனத்தில் அது மீண்டும் இயக்கப்பட்டுள்ளது.",
+          "பிடித்தவைகளில் இருந்து வரும் கோரிக்கைகள் இப்போது தானாகவே ஏற்கப்படுகின்றன. இது இயல்பாக இயக்கத்தில் உள்ளது; அமைப்புகளில் முடக்கலாம்.",
+          "Android இல், செயலி பின்னணியில் இருந்தாலும் அல்லது திரை அணைந்திருந்தாலும் பரிமாற்றங்கள் தொடரும். iOS இல், செயலி இன்னும் முன்னணியில் இருக்க வேண்டும்."
+        ]
+      }
+    }
   },
   "aliasGenerator(ignoreMissing, ignoreGpt)": {
     "@info": "வெவ்வேறு இடங்களுக்கு வெவ்வேறு சொற்கள் இருக்கலாம், அது 1: 1 உடன் பொருந்தாது",

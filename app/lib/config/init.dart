@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:dart_mappable/dart_mappable.dart';
@@ -30,6 +29,7 @@ import 'package:localsend_app/provider/window_dimensions_provider.dart';
 import 'package:localsend_app/util/i18n.dart';
 import 'package:localsend_app/util/native/autostart_helper.dart';
 import 'package:localsend_app/util/native/cache_helper.dart';
+import 'package:localsend_app/util/native/channel/android_channel.dart';
 import 'package:localsend_app/util/native/context_menu_helper.dart';
 import 'package:localsend_app/util/native/cross_file_converters.dart';
 import 'package:localsend_app/util/native/device_info_helper.dart';
@@ -39,14 +39,13 @@ import 'package:localsend_app/util/native/tray_helper.dart';
 import 'package:localsend_app/util/notification_strings.dart';
 import 'package:localsend_app/util/ui/dynamic_colors.dart';
 import 'package:localsend_app/util/ui/snackbar.dart';
-import 'package:localsend_isolates/api_route_builder.dart';
-import 'package:localsend_isolates/constants.dart';
 import 'package:localsend_isolates/isolate.dart';
 import 'package:localsend_isolates/model/dto/file_dto.dart';
 import 'package:localsend_isolates/model/dto/multicast_dto.dart';
 import 'package:localsend_isolates/rust/api/logging.dart' as rust_logging;
 import 'package:localsend_isolates/rust/frb_generated.dart';
 import 'package:localsend_isolates/util/logger.dart';
+import 'package:localsend_isolates/util/show_instance.dart';
 import 'package:localsend_isolates/util/transfer_notification.dart';
 import 'package:logging/logging.dart';
 import 'package:refena_flutter/addons.dart';
@@ -93,35 +92,15 @@ Future<RefenaContainer> preInit(List<String> args) async {
     // Check if this app is already open and let it "show up".
     // If this is the case, then exit the current instance.
 
-    final client = HttpClient();
-    client.connectionTimeout = const Duration(milliseconds: 100);
-    client.badCertificateCallback = (cert, host, port) => true;
-
-    try {
-      final uri =
-          Uri.parse(
-            ApiRoute.show.targetRaw(
-              '127.0.0.1',
-              persistenceService.getPort(),
-              persistenceService.isHttps(),
-              peerProtocolVersion,
-            ),
-          ).replace(
-            queryParameters: {
-              'token': persistenceService.getShowToken(),
-            },
-          );
-
-      final request = await client.postUrl(uri);
-      request.headers.contentType = ContentType.json;
-      request.write(jsonEncode({'args': args}));
-      final response = await request.close().timeout(const Duration(milliseconds: 500));
-      if (response.statusCode == 200) {
-        exit(0); // Another instance does exist
-      }
-    } catch (_) {
-    } finally {
-      client.close(force: true);
+    final handedOver = await notifyRunningInstance(
+      securityContext: persistenceService.getSecurityContext(),
+      port: persistenceService.getPort(),
+      https: persistenceService.isHttps(),
+      showToken: persistenceService.getShowToken(),
+      args: args,
+    );
+    if (handedOver) {
+      exit(0); // Another instance does exist
     }
 
     // initialize tray AFTER i18n has been initialized
@@ -289,6 +268,12 @@ Future<void> postInit(BuildContext context, Ref ref, bool appStart) async {
         ),
       );
     });
+
+    if (checkPlatform([TargetPlatform.android])) {
+      // Both messages above travel through the same messenger in order, so the stream is
+      // guaranteed to be attached natively before MainActivity replays held-back intents.
+      await flushPendingShareIntentsAndroid();
+    }
   }
 
   if (appStart && !hasInitialShare && (checkPlatformWithGallery() || checkPlatformCanReceiveShareIntent())) {

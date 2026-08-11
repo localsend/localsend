@@ -51,7 +51,8 @@
       "off": "@:general.off",
       "favorites": "പ്രിയപ്പെട്ട",
       "on": "@:general.on"
-    }
+    },
+    "link": "ലിങ്ക് വഴി സ്വീകരിക്കുക"
   },
   "sendTab": {
     "title": "അയക്കുക",
@@ -96,7 +97,8 @@
       "color": "നിറം",
       "colorOptions": {
         "system": "സിസ്റ്റം",
-        "oled": "OLED"
+        "oled": "OLED",
+        "custom": "ഇഷ്ടാനുസൃതം"
       },
       "language": "ഭാഷ",
       "languageOptions": {
@@ -119,11 +121,13 @@
       "destination": "ഫോൾഡറിലേക്കു സേവ് ചെയ്യുക",
       "downloads": "(ഡൗൻലോഡ്)",
       "saveToGallery": "മീഡിയ ഫയൽസ് ഗാലറിയിലേക്ക് സേവ് ചെയ്യുക",
-      "saveToHistory": "ഹിസ്റ്ററിയിലേക്കു സേവ് ചെയ്യുക"
+      "saveToHistory": "ഹിസ്റ്ററിയിലേക്കു സേവ് ചെയ്യുക",
+      "verifyChecksums": "ഫയലുകൾ സ്വീകരിക്കുമ്പോൾ ചെക്ക്സം പരിശോധിക്കുക"
     },
     "send": {
       "title": "അയക്കുക",
-      "shareViaLinkAutoAccept": "\"ലിങ്ക് വഴി ഷെയർ\" ചെയ്യുമ്പോൾ ഓട്ടോമാറ്റിക് ആയി സ്വീകരിക്കുക"
+      "shareViaLinkAutoAccept": "\"ലിങ്ക് വഴി ഷെയർ\" ചെയ്യുമ്പോൾ ഓട്ടോമാറ്റിക് ആയി സ്വീകരിക്കുക",
+      "createChecksums": "ഫയലുകൾ അയയ്ക്കുമ്പോൾ ചെക്ക്സം സൃഷ്ടിക്കുക"
     },
     "network": {
       "title": "നെറ്റ്‌വർക്ക്",
@@ -202,6 +206,29 @@
   "selectedFilesPage": {
     "deleteAll": "എല്ലാം ഡിലീറ്റ് ചെയ്യുക"
   },
+  "deviceDetailsPage": {
+    "title": "ഉപകരണ വിശദാംശങ്ങൾ",
+    "favorite": "പ്രിയപ്പെട്ടത്",
+    "verify": "പരിശോധിക്കുക",
+    "info": {
+      "name": "പേര്",
+      "address": "വിലാസം",
+      "version": "പതിപ്പ്",
+      "protocol": "പ്രോട്ടോക്കോൾ v{version}"
+    },
+    "logs": {
+      "title": "ലോഗുകൾ",
+      "empty": "ലോഗുകളൊന്നും ലഭ്യമല്ല.",
+      "discovered": "{protocol} വഴി കണ്ടെത്തി ({host})",
+      "updated": "{protocol} വഴി അപ്ഡേറ്റ് ചെയ്തു ({host})"
+    }
+  },
+  "verifyPage": {
+    "title": "പരിശോധിക്കുക",
+    "icons": "ഐക്കണുകൾ",
+    "text": "ടെക്സ്റ്റ്",
+    "question": "മറ്റേ ഉപകരണത്തിലും ഇതുപോലെ തന്നെയാണോ കാണുന്നത്?"
+  },
   "receivePage": {
     "subTitle": {
       "one": "നിങ്ങൾക്ക് ഒരു ഫയൽ അയയ്‌ക്കാൻ താൽപ്പര്യപ്പെടുന്നു",
@@ -213,10 +240,13 @@
   },
   "receiveOptionsPage": {
     "title": "ഓപ്ഷനുകൾ",
+    "destination": "@:settingsTab.receive.destination",
     "appDirectory": "(ലോക്കൽസെൻഡ് ഫോൾഡർ)",
+    "saveToGallery": "@:settingsTab.receive.saveToGallery",
     "saveToGalleryOff": "ഫോൾഡറുകൾ ഉള്ളതിനാൽ ഓട്ടോമാറ്റിക്കായി ഓഫാക്കി."
   },
   "sendPage": {
+    "calculatingChecksum": "ചെക്ക്സം കണക്കാക്കുന്നു ({curr} / {n})",
     "waiting": "പ്രതികരണത്തിനായി കാത്തിരിക്കുന്നു…",
     "rejected": "സ്വീകർത്താവ് അപേക്ഷ നിരസിച്ചിരിക്കുന്നു.",
     "tooManyAttempts": "@:web.tooManyAttempts",
@@ -236,6 +266,16 @@
       "count": "ഫയലുകൾ: {curr} / {n}",
       "size": "വലിപ്പം: {curr} / {n}",
       "speed": "വേഗത: {speed}/s"
+    },
+    "remainingTime": {
+      "minutesUnit(plural, param=m)": {
+        "other": "{m}മി"
+      },
+      "hoursUnit(plural, param=h)": {
+        "other": "{h}മ"
+      },
+      "minutes": "{m}:{ss}",
+      "hours": "@:.hoursUnit @:.minutesUnit"
     }
   },
   "webSharePage": {
@@ -249,11 +289,15 @@
     },
     "requests": "അപേക്ഷകൾ",
     "noRequests": "അപേക്ഷകളൊന്നും ഇതുവരെ ഇല്ല.",
+    "encryption": "@:settingsTab.network.encryption",
     "autoAccept": "ആട്ടോമാറ്റിക് ആയി അപേക്ഷകൾ സ്വീകരിക്കുക",
     "requirePin": "പിൻ ആവശ്യമാണ്",
     "pinHint": "പിൻ ഇതാണ് \"{pin}\"",
     "encryptionHint": "ലോക്കൽസെൻഡ്‌ ഉപയോഗിക്കുന്നത് സ്വയം ഒപ്പു വച്ച സാക്ഷ്യപത്രം ആണ്. നിങ്ങളുടെ ബ്രൗസറിൽ ഇത് നിങ്ങൾ അംഗീകരിക്കണം.",
     "pendingRequests": "തീരുമാനിക്കപ്പെടാത്ത അപേക്ഷകൾ: {n}"
+  },
+  "webReceivePage": {
+    "title": "ലിങ്ക് വഴി സ്വീകരിക്കുക"
   },
   "aboutPage": {
     "title": "ലോക്കൽസെൻഡിനെ കുറിച്ച്",
@@ -275,6 +319,18 @@
   },
   "changelogPage": {
     "title": "മാറ്റവിവരപട്ടിക"
+  },
+  "whatsNewPage": {
+    "title": "{version}-ലെ പുതിയ കാര്യങ്ങൾ",
+    "changes(interface=WhatsNewStrings)": {
+      "v1_18_0": {
+        "changes": [
+          "എൻക്രിപ്ഷൻ ഇനി കൈമാറ്റങ്ങളെ മന്ദഗതിയിലാക്കില്ല. നിങ്ങൾ മുമ്പ് അത് ഓഫാക്കിയിരുന്നെങ്കിൽ ഈ ഉപകരണത്തിൽ അത് വീണ്ടും പ്രവർത്തനക്ഷമമാക്കിയിട്ടുണ്ട്.",
+          "പ്രിയപ്പെട്ടവയിൽ നിന്നുള്ള അഭ്യർത്ഥനകൾ ഇപ്പോൾ സ്വയമേവ സ്വീകരിക്കുന്നു. ഇത് സ്ഥിരസ്ഥിതിയിൽ പ്രവർത്തനക്ഷമമാണ്, ക്രമീകരണങ്ങളിൽ പ്രവർത്തനരഹിതമാക്കാം.",
+          "Android-ൽ, ആപ്പ് പശ്ചാത്തലത്തിലായിരിക്കുമ്പോഴോ സ്ക്രീൻ ഓഫായിരിക്കുമ്പോഴോ കൈമാറ്റങ്ങൾ തുടരുന്നു. iOS-ൽ, ആപ്പ് ഇപ്പോഴും ഫോർഗ്രൗണ്ടിൽ തുടരണം."
+        ]
+      }
+    }
   },
   "aliasGenerator(ignoreMissing, ignoreGpt)": {
     "@info": "വിവിധ ദേശത്തു വിവിധ വാക്കുകൾ ഉണ്ടാകാം. അവ ഒരേപോലെ (1:1) തുല്യം ആവണമെന്നില്ല"
@@ -304,6 +360,9 @@
       "title": "എൻക്രിപ്ഷൻ ഓഫ് ചെയ്തു",
       "content": "എൻക്രിപ്ട് ചെയ്യാത്ത HTTP പ്രോട്ടോകോൾ വഴിയാണ് ഇപ്പോൾ ആശയ വിനിമയം നടക്കുന്നത്. HTTPS പ്രോട്ടോകോൾ ഉപയോഗിക്കാൻ എൻക്രിപ്ഷൻ ഓൺ ചെയ്യുക."
     },
+    "errorDialog": {
+      "title": "@:general.error"
+    },
     "favoriteDialog": {
       "title": "ഫേവറിറ്റ്സ്",
       "noFavorites": "ഫേവറിറ്റ് ഡിവൈസുകൾ ഇതുവരെ ഇല്ല.",
@@ -317,6 +376,7 @@
       "titleAdd": "ഫേവറിറ്റ്സിൽ ചേർക്കുക",
       "titleEdit": "സജ്ജീകരണങ്ങൾ",
       "name": "ഡിവൈസ് നാമം",
+      "auto": "(സ്വയം)",
       "ip": "ഐ പി അഡ്രസ്",
       "port": "പോർട്ട്"
     },
@@ -337,6 +397,7 @@
       "content": "നിങ്ങൾക്കു തീർച്ചയായും മുഴുവൻ ഹിസ്റ്ററി ഡിലീറ്റ് ചെയ്യണമോ?"
     },
     "localNetworkUnauthorized": {
+      "title": "@:dialogs.noPermission.title",
       "description": "അനുവാദം ഇല്ലാതെ ലോക്കൽ നെറ്റ്‌വർക്ക് സ്കാൻ ചെയ്തു മറ്റു ഡിവൈസുകൾ കണ്ടുപിടിക്കാൻ ലോക്കൽസെന്റിന്‌ കഴിയില്ല. ദയവായി സെറ്റിങ്സിൽ ഇതിനുള്ള അനുവാദം നൽകുക.",
       "gotoSettings": "സജ്ജീകരണങ്ങൾ"
     },
@@ -362,13 +423,17 @@
     "quickActions": {
       "title": "ചടുല പ്രവർത്തികൾ",
       "counter": "കൗണ്ടർ",
+      "prefix": "പ്രിഫിക്സ്",
+      "padZero": "പൂജ്യങ്ങൾ ചേർക്കുക",
       "sortBeforeCount": "മുൻകൂട്ടി അകാരാദിക്രമത്തിൽ ഒത്തിരിക്കുക (A-Z)",
       "random": "ക്രമമില്ലാത്തത്"
     },
     "quickSaveNotice": {
+      "title": "@:general.quickSave",
       "content": "ഫയൽ അപേക്ഷകൾ ഇപ്പോൾ ഓട്ടോമാറ്റിക് ആയി അനുവദിക്കുന്നു. ലോക്കൽ നെറ്റ്‌വർക്കിലുള്ള എല്ലാവര്ക്കും നിങ്ങൾക്കു ഫയൽ അയക്കാൻ കഴിയും എന്ന ബോധ്യമുണ്ടായിരിക്കുക."
     },
     "quickSaveFromFavoritesNotice": {
+      "title": "@:general.quickSaveFromFavorites",
       "content": [
         "നിങ്ങളുടെ ഫേവറൈറ്സ് ഉള്ള ഡിവൈസുകളിൽ നിന്നും ഓട്ടോമാറ്റിക് ആയി റിക്വസ്റ്റ് അക്സെപ്റ് ചെയ്യും."
       ]
@@ -392,10 +457,12 @@
   },
   "tray": {
     "@info": "Apple ന്റെ ക്ലോസ് വേർഡ് നെ കുറിച്ചുള്ള നയങ്ങൾ വളരെ കർക്കശമാണ്.",
+    "open": "@:general.open",
     "close": "ഈ അപ്പ്ലിക്കേഷനിൽ നിന്നും പുറത്തു കടക്കുക",
     "closeWindows": "എക്സിറ്"
   },
   "web": {
+    "waiting": "@:sendPage.waiting",
     "enterPin": "PIN എന്റർ ചെയ്യുക",
     "invalidPin": "PIN തെറ്റാണു",
     "tooManyAttempts": "ഒരുപാട് തവണ തെറ്റായി ട്രൈ ചെയ്തു",

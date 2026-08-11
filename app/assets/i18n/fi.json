@@ -51,7 +51,8 @@
       "off": "@:general.off",
       "favorites": "Suosikit",
       "on": "@:general.on"
-    }
+    },
+    "link": "Vastaanota linkin kautta"
   },
   "sendTab": {
     "title": "Lähetä",
@@ -96,7 +97,8 @@
       "color": "Väri",
       "colorOptions": {
         "system": "Järjestelmä",
-        "oled": "OLED"
+        "oled": "OLED",
+        "custom": "Mukautettu"
       },
       "language": "Kieli",
       "languageOptions": {
@@ -119,11 +121,13 @@
       "destination": "Kohde",
       "downloads": "(Lataukset)",
       "saveToGallery": "Tallenna media galleriaan",
-      "saveToHistory": "Tallenna historiaan"
+      "saveToHistory": "Tallenna historiaan",
+      "verifyChecksums": "Vahvista tarkistussummat tiedostoja vastaanotettaessa"
     },
     "send": {
       "title": "Lähetys",
-      "shareViaLinkAutoAccept": "Jaa linkki: Hyväksy automaattisesti"
+      "shareViaLinkAutoAccept": "Jaa linkki: Hyväksy automaattisesti",
+      "createChecksums": "Luo tarkistussummat tiedostoja lähetettäessä"
     },
     "network": {
       "title": "Verkko",
@@ -202,6 +206,29 @@
   "selectedFilesPage": {
     "deleteAll": "Poista kaikki"
   },
+  "deviceDetailsPage": {
+    "title": "Laitteen tiedot",
+    "favorite": "Suosikki",
+    "verify": "Vahvista",
+    "info": {
+      "name": "Nimi",
+      "address": "Osoite",
+      "version": "Versio",
+      "protocol": "Protokolla v{version}"
+    },
+    "logs": {
+      "title": "Lokit",
+      "empty": "Lokeja ei ole saatavilla.",
+      "discovered": "Löydetty {protocol}-protokollan kautta ({host})",
+      "updated": "Päivitetty {protocol}-protokollan kautta ({host})"
+    }
+  },
+  "verifyPage": {
+    "title": "Vahvista",
+    "icons": "Kuvakkeet",
+    "text": "Teksti",
+    "question": "Näyttääkö se samalta toisella laitteella?"
+  },
   "receivePage": {
     "subTitle": {
       "one": "on lähettämässä sinulle tiedostoa",
@@ -219,6 +246,7 @@
     "saveToGalleryOff": "Poistettu käytöstä automaattisesti, koska lähetetyissä tiedostoissa on kansioita."
   },
   "sendPage": {
+    "calculatingChecksum": "Lasketaan tarkistussummaa ({curr} / {n})",
     "waiting": "Odotetaan vastausta...",
     "rejected": "Vastaanottaja on peruuttanut pyynnön.",
     "tooManyAttempts": "Liian monta yritystä",
@@ -240,9 +268,14 @@
       "speed": "Nopeus: {speed}/s"
     },
     "remainingTime": {
+      "minutesUnit(plural, param=m)": {
+        "other": "{m}min"
+      },
+      "hoursUnit(plural, param=h)": {
+        "other": "{h}t"
+      },
       "minutes": "{m}:{ss}",
-      "hours": "{h}t {m}m",
-      "@hours": "Käytä 'h' tuntien lyhenteenä ja 'm' minuuttien"
+      "hours": "@:.hoursUnit @:.minutesUnit"
     }
   },
   "webSharePage": {
@@ -262,6 +295,9 @@
     "pinHint": "PIN-koodi on \"{pin}\"",
     "encryptionHint": "LocalSend käyttää itse allekirjoitettua sertifikaattia. Sinun on hyväksyttävä se selaimessasi.",
     "pendingRequests": "Odottavat pyynnöt: {n}"
+  },
+  "webReceivePage": {
+    "title": "Vastaanota linkin kautta"
   },
   "aboutPage": {
     "title": "Tietoja LocalSendista",
@@ -283,6 +319,18 @@
   },
   "changelogPage": {
     "title": "Muutosloki"
+  },
+  "whatsNewPage": {
+    "title": "Uutta versiossa {version}",
+    "changes(interface=WhatsNewStrings)": {
+      "v1_18_0": {
+        "changes": [
+          "Salaus ei enää hidasta siirtoja. Se on otettu uudelleen käyttöön tällä laitteella, jos poistit sen aiemmin käytöstä.",
+          "Suosikkien pyynnöt hyväksytään nyt automaattisesti. Tämä on oletuksena käytössä ja sen voi poistaa käytöstä asetuksista.",
+          "Androidilla siirrot jatkuvat, kun sovellus on taustalla tai näyttö on sammutettu. iOS:llä sovelluksen on edelleen pysyttävä etualalla."
+        ]
+      }
+    }
   },
   "aliasGenerator(ignoreMissing, ignoreGpt)": {
     "@info": "Eri sijainneissa voi olla käytössä eri sanoja. Ne eivät täsmää toisiaan tasantarkkaan.",

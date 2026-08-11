@@ -3,19 +3,29 @@
 //! hotkey slot to every device entering the store.
 
 use super::App;
+use super::web_link::WebMode;
 use crate::slots::slot_label;
+use crate::storage::PairedChannel;
 use crate::ui::Category;
 use localsend::discovery::{DeviceChannel, DiscoveredDevice, DiscoveryEvent, HttpChannel};
 use localsend::http::dto_v2::RegisterDtoV2;
 
 impl App {
     pub(super) fn handle_discovery(&mut self, event: DiscoveryEvent) {
+        let (DiscoveryEvent::Discovered { device } | DiscoveryEvent::Updated { device }) = &event;
+        self.refresh_paired_channels(&device.fingerprint);
+
         let DiscoveryEvent::Discovered { device } = event else {
             // Re-confirmations update the store silently; multi-homed peers
             // re-announce with a different address all the time.
             return;
         };
         let slot = self.slots.assign(&device.fingerprint);
+        if matches!(self.web, Some(WebMode::Receive)) {
+            // Every browser opening the upload page registers like a device;
+            // those lines would just interleave the transfer prompts.
+            return;
+        }
         let host = device
             .http()
             .map(|http| http.host.as_str())
@@ -24,6 +34,28 @@ impl App {
             Category::Discovery,
             &format!("[{}] {} ({host})", slot_label(slot), device.alias),
         );
+    }
+
+    /// Keeps a paired device's stored alias and channels in sync with the
+    /// discovery store, so the next run probes the addresses that worked last.
+    fn refresh_paired_channels(&mut self, fingerprint: &str) {
+        if !self.storage.paired.contains(fingerprint) {
+            return;
+        }
+        let Some(stored) = self.discovery.device_by_fingerprint(fingerprint) else {
+            return;
+        };
+        let result = self.storage.paired.update(
+            fingerprint,
+            &stored.device.alias,
+            PairedChannel::channels_of(&stored),
+        );
+        if let Err(err) = result {
+            self.ui.log(
+                Category::Discovery,
+                &format!("Could not save the paired devices: {err:#}"),
+            );
+        }
     }
 
     /// Feeds a device confirmed outside of discovery — it registered with our

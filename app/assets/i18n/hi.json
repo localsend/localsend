@@ -51,7 +51,8 @@
       "off": "@:general.off",
       "favorites": "पसंदीदा",
       "on": "@:general.on"
-    }
+    },
+    "link": "लिंक के ज़रिए प्राप्त करें"
   },
   "sendTab": {
     "title": "भेजें",
@@ -96,7 +97,8 @@
       "color": "रंग",
       "colorOptions": {
         "system": "सिस्टम",
-        "oled": "OLED"
+        "oled": "OLED",
+        "custom": "कस्टम"
       },
       "language": "भाषा",
       "languageOptions": {
@@ -119,11 +121,13 @@
       "destination": "गंतव्य",
       "downloads": "(डाउनलोड्स)",
       "saveToGallery": "मीडिया को गैलरी में सहेजें",
-      "saveToHistory": "इतिहास में सहेजें"
+      "saveToHistory": "इतिहास में सहेजें",
+      "verifyChecksums": "फ़ाइलें प्राप्त करते समय चेकसम सत्यापित करें"
     },
     "send": {
       "title": "भेजें",
-      "shareViaLinkAutoAccept": "लिंक के माध्यम से साझा करें: स्वतः स्वीकार"
+      "shareViaLinkAutoAccept": "लिंक के माध्यम से साझा करें: स्वतः स्वीकार",
+      "createChecksums": "फ़ाइलें भेजते समय चेकसम बनाएं"
     },
     "network": {
       "title": "नेटवर्क",
@@ -202,6 +206,29 @@
   "selectedFilesPage": {
     "deleteAll": "सभी हटाएं"
   },
+  "deviceDetailsPage": {
+    "title": "डिवाइस विवरण",
+    "favorite": "पसंदीदा",
+    "verify": "सत्यापित करें",
+    "info": {
+      "name": "नाम",
+      "address": "पता",
+      "version": "संस्करण",
+      "protocol": "प्रोटोकॉल v{version}"
+    },
+    "logs": {
+      "title": "लॉग",
+      "empty": "कोई लॉग उपलब्ध नहीं।",
+      "discovered": "{protocol} के ज़रिए खोजा गया ({host})",
+      "updated": "{protocol} के ज़रिए अपडेट किया गया ({host})"
+    }
+  },
+  "verifyPage": {
+    "title": "सत्यापित करें",
+    "icons": "आइकन",
+    "text": "टेक्स्ट",
+    "question": "क्या यह दूसरे डिवाइस पर एक जैसा दिखता है?"
+  },
   "receivePage": {
     "subTitle": {
       "one": "आपको एक फाइल भेजना चाहता है",
@@ -219,11 +246,11 @@
     "saveToGalleryOff": "स्वचालित रूप से बंद कर दिया गया क्योंकि वहाँ निर्देशिकाएँ हैं।"
   },
   "sendPage": {
+    "calculatingChecksum": "चेकसम की गणना की जा रही है ({curr} / {n})",
     "waiting": "प्रतिक्रिया का इंतजार कर रहे हैं ||",
     "rejected": "प्राप्तकर्ता ने अनुरोध अस्वीकार कर दिया।",
     "tooManyAttempts": "@:web.tooManyAttempts",
-    "busy": "प्राप्तकर्ता किसी अन्य अनुरोध में व्यस्त है।",
-    "calculatingChecksum": "चेकसम की गणना की जा रही है ({curr} / {n})"
+    "busy": "प्राप्तकर्ता किसी अन्य अनुरोध में व्यस्त है।"
   },
   "progressPage": {
     "titleSending": "फ़ाइलें भेजी जा रही",
@@ -241,9 +268,14 @@
       "speed": "गति: {speed}/सेकंड"
     },
     "remainingTime": {
+      "minutesUnit(plural, param=m)": {
+        "other": "{m}मि"
+      },
+      "hoursUnit(plural, param=h)": {
+        "other": "{h}घं"
+      },
       "minutes": "{m}:{ss}",
-      "hours": "{h}घं {m}मि",
-      "@hours": "घंटों के लिए 'h' और मिनटों के लिए 'm' का इस्तेमाल करें"
+      "hours": "@:.hoursUnit @:.minutesUnit"
     }
   },
   "webSharePage": {
@@ -263,6 +295,9 @@
     "pinHint": "पिन \"{pin}\" है",
     "encryptionHint": "लोकलसेंड एक स्व-हस्ताक्षरित प्रमाणपत्र का उपयोग करता है। आपको इसे अपने ब्राउज़र में स्वीकार करना होगा।",
     "pendingRequests": "लंबित अनुरोध: {n}"
+  },
+  "webReceivePage": {
+    "title": "लिंक के ज़रिए प्राप्त करें"
   },
   "aboutPage": {
     "title": "LocalSend के बारे में",
@@ -284,6 +319,18 @@
   },
   "changelogPage": {
     "title": "परिवर्तन सूची"
+  },
+  "whatsNewPage": {
+    "title": "{version} में नया क्या है",
+    "changes(interface=WhatsNewStrings)": {
+      "v1_18_0": {
+        "changes": [
+          "एनक्रिप्शन से अब ट्रांसफ़र धीमा नहीं होता है। अगर आपने इसे पहले बंद किया था, तो इस डिवाइस पर इसे फिर से चालू कर दिया गया है।",
+          "पसंदीदा से आने वाले अनुरोध अब स्वचालित रूप से स्वीकार कर लिए जाते हैं। यह सुविधा डिफ़ॉल्ट रूप से चालू है और इसे सेटिंग्स में बंद किया जा सकता है।",
+          "एंड्रोइड पर, ऐप के बैकग्राउंड में होने या स्क्रीन बंद होने पर भी ट्रांसफ़र जारी रहते हैं। आईओएस पर, ऐप का फ़ोरग्राउंड में ही रहना ज़रूरी है।"
+        ]
+      }
+    }
   },
   "aliasGenerator(ignoreMissing, ignoreGpt)": {
     "@info": "अलग-अलग स्थानों में अलग-अलग शब्द हो सकते हैं, यह 1:1 से मेल नहीं खा सकता",
@@ -524,20 +571,5 @@
     "sActionUseCameraHint": "कैमरा का उपयोग करें",
     "sNameDurationLabel": "अवधि",
     "sUnitAssetCountLabel": "गणना"
-  },
-  "webReceivePage": {
-    "title": "लिंक के ज़रिए प्राप्त करें"
-  },
-  "whatsNewPage": {
-    "title": "{version} में नया क्या है",
-    "changes(interface=WhatsNewStrings)": {
-      "v1_18_0": {
-        "changes": [
-          "एनक्रिप्शन से अब ट्रांसफ़र धीमा नहीं होता है। अगर आपने इसे पहले बंद किया था, तो इस डिवाइस पर इसे फिर से चालू कर दिया गया है।",
-          "पसंदीदा से आने वाले अनुरोध अब स्वचालित रूप से स्वीकार कर लिए जाते हैं। यह सुविधा डिफ़ॉल्ट रूप से चालू है और इसे सेटिंग्स में बंद किया जा सकता है।",
-          "एंड्रोइड पर, ऐप के बैकग्राउंड में होने या स्क्रीन बंद होने पर भी ट्रांसफ़र जारी रहते हैं। आईओएस पर, ऐप का फ़ोरग्राउंड में ही रहना ज़रूरी है।"
-        ]
-      }
-    }
   }
 }

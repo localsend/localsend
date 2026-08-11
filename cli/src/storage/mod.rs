@@ -13,7 +13,7 @@ mod identity;
 mod paired;
 
 pub use identity::Identity;
-pub use paired::PairedDevices;
+pub use paired::{PairedChannel, PairedDevices};
 
 use crate::Args;
 use anyhow::Context;

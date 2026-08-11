@@ -51,7 +51,8 @@
       "off": "@:general.off",
       "favorites": "Favoritos",
       "on": "@:general.on"
-    }
+    },
+    "link": "Recibir mediante ligazón"
   },
   "sendTab": {
     "title": "Enviar",
@@ -96,7 +97,8 @@
       "color": "Cor",
       "colorOptions": {
         "system": "Sistema",
-        "oled": "OLED"
+        "oled": "OLED",
+        "custom": "Personalizado"
       },
       "language": "Linguaxe",
       "languageOptions": {
@@ -119,11 +121,13 @@
       "destination": "Gardar no cartafol",
       "downloads": "(Descargas)",
       "saveToGallery": "Gardar multimedia na galería",
-      "saveToHistory": "Gardar no historial"
+      "saveToHistory": "Gardar no historial",
+      "verifyChecksums": "Verificar as sumas de comprobación ao recibir ficheiros"
     },
     "send": {
       "title": "Enviar",
-      "shareViaLinkAutoAccept": "Aceptar automáticamente peticións no modo \"Compartir mediante ligazón\""
+      "shareViaLinkAutoAccept": "Aceptar automáticamente peticións no modo \"Compartir mediante ligazón\"",
+      "createChecksums": "Crear sumas de comprobación ao enviar ficheiros"
     },
     "network": {
       "title": "Rede",
@@ -202,6 +206,29 @@
   "selectedFilesPage": {
     "deleteAll": "Eliminar todo"
   },
+  "deviceDetailsPage": {
+    "title": "Detalles do dispositivo",
+    "favorite": "Favorito",
+    "verify": "Verificar",
+    "info": {
+      "name": "Nome",
+      "address": "Enderezo",
+      "version": "Versión",
+      "protocol": "Protocolo v{version}"
+    },
+    "logs": {
+      "title": "Rexistros",
+      "empty": "Non hai rexistros dispoñibles.",
+      "discovered": "Descuberto mediante {protocol} ({host})",
+      "updated": "Actualizado mediante {protocol} ({host})"
+    }
+  },
+  "verifyPage": {
+    "title": "Verificar",
+    "icons": "Iconas",
+    "text": "Texto",
+    "question": "Vese igual no outro dispositivo?"
+  },
   "receivePage": {
     "subTitle": {
       "one": "quere enviarte un ficheiro",
@@ -219,6 +246,7 @@
     "saveToGalleryOff": "Desactivado automáticamente porque hai cartafois."
   },
   "sendPage": {
+    "calculatingChecksum": "Calculando a suma de comprobación ({curr} / {n})",
     "waiting": "Agardando pola resposta…",
     "rejected": "O destinatario rexeitou a solicitude.",
     "tooManyAttempts": "@:web.tooManyAttempts",
@@ -240,9 +268,14 @@
       "speed": "Velocidade: {speed}/s"
     },
     "remainingTime": {
+      "minutesUnit(plural, param=m)": {
+        "other": "{m}min"
+      },
+      "hoursUnit(plural, param=h)": {
+        "other": "{h}h"
+      },
       "minutes": "{m}:{ss}",
-      "hours": "{h}h {m}m",
-      "@hours": "Usa «h» para abreviatura de horas e «m» para minutos"
+      "hours": "@:.hoursUnit @:.minutesUnit"
     }
   },
   "webSharePage": {
@@ -262,6 +295,9 @@
     "pinHint": "O PIN é \"{pin}\"",
     "encryptionHint": "LocalSend precisa un certificado autoasinado. Tes que aceptalo no teu navegador.",
     "pendingRequests": "Solicitudes pendentes: {n}"
+  },
+  "webReceivePage": {
+    "title": "Recibir mediante ligazón"
   },
   "aboutPage": {
     "title": "Acerca de LocalSend",
@@ -283,6 +319,18 @@
   },
   "changelogPage": {
     "title": "Rexistro de cambios"
+  },
+  "whatsNewPage": {
+    "title": "Novidades da versión {version}",
+    "changes(interface=WhatsNewStrings)": {
+      "v1_18_0": {
+        "changes": [
+          "O cifrado xa non ralentiza as transferencias. Reactivouse neste dispositivo se o desactivaras antes.",
+          "As solicitudes dos favoritos acéptanse agora automaticamente. Isto está activado por defecto e pódese desactivar na configuración.",
+          "En Android, as transferencias continúan mentres a aplicación está en segundo plano ou a pantalla está apagada. En iOS, a aplicación aínda debe permanecer en primeiro plano."
+        ]
+      }
+    }
   },
   "aliasGenerator(ignoreMissing, ignoreGpt)": {
     "@info": "Diferentes idiomas poden ter palabras diferentes, podendo non coincidir 1:1"

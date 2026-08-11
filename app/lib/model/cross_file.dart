@@ -17,8 +17,8 @@ class CrossFile with CrossFileMappable {
   final AssetEntity? asset; // for thumbnails
   final String? path;
   final List<int>? bytes; // if type message, then UTF-8 encoded
-  final DateTime? lastModified;
-  final DateTime? lastAccessed;
+  final String? lastModified; // RFC 3339; a string because DateTime would truncate to microseconds
+  final String? lastAccessed; // RFC 3339
 
   const CrossFile({
     required this.name,

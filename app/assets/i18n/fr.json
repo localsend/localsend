@@ -51,7 +51,8 @@
       "off": "@:general.off",
       "favorites": "Favoris",
       "on": "@:general.on"
-    }
+    },
+    "link": "Recevoir via un lien"
   },
   "sendTab": {
     "title": "Envoyer",
@@ -96,7 +97,8 @@
       "color": "Couleur",
       "colorOptions": {
         "system": "Système",
-        "oled": "OLED"
+        "oled": "OLED",
+        "custom": "Personnalisé"
       },
       "language": "Langue",
       "languageOptions": {
@@ -119,11 +121,13 @@
       "destination": "Destination",
       "downloads": "(Téléchargements)",
       "saveToGallery": "Sauvegarder les médias dans la galerie",
-      "saveToHistory": "Activer l'historique"
+      "saveToHistory": "Activer l'historique",
+      "verifyChecksums": "Vérifier les sommes de contrôle lors de la réception de fichiers"
     },
     "send": {
       "title": "Envoyer",
-      "shareViaLinkAutoAccept": "Accepter automatiquement les demandes de téléchargement d'un partage par lien"
+      "shareViaLinkAutoAccept": "Accepter automatiquement les demandes de téléchargement d'un partage par lien",
+      "createChecksums": "Créer des sommes de contrôle lors de l'envoi de fichiers"
     },
     "network": {
       "title": "Réseau",
@@ -202,6 +206,29 @@
   "selectedFilesPage": {
     "deleteAll": "Tout supprimer"
   },
+  "deviceDetailsPage": {
+    "title": "Détails de l'appareil",
+    "favorite": "Favori",
+    "verify": "Vérifier",
+    "info": {
+      "name": "Nom",
+      "address": "Adresse",
+      "version": "Version",
+      "protocol": "Protocole v{version}"
+    },
+    "logs": {
+      "title": "Journaux",
+      "empty": "Aucun journal disponible.",
+      "discovered": "Découvert via {protocol} ({host})",
+      "updated": "Mis à jour via {protocol} ({host})"
+    }
+  },
+  "verifyPage": {
+    "title": "Vérifier",
+    "icons": "Icônes",
+    "text": "Texte",
+    "question": "Est-ce identique sur l'autre appareil ?"
+  },
   "receivePage": {
     "subTitle": {
       "one": "veut vous envoyer un fichier",
@@ -219,6 +246,7 @@
     "saveToGalleryOff": "Désactivé automatiquement car des dossiers sont présents."
   },
   "sendPage": {
+    "calculatingChecksum": "Calcul de la somme de contrôle ({curr} / {n})",
     "waiting": "En attente d'une réponse …",
     "rejected": "Le destinataire a rejeté la demande.",
     "tooManyAttempts": "@:web.tooManyAttempts",
@@ -240,9 +268,14 @@
       "speed": "Vitesse : {speed}/s"
     },
     "remainingTime": {
-      "minutes": "{m} :{ss}",
-      "hours": "{h}h {m}min",
-      "@hours": "Utilisez « h » pour l'abréviation des heures et « m » pour les minutes"
+      "minutesUnit(plural, param=m)": {
+        "other": "{m}min"
+      },
+      "hoursUnit(plural, param=h)": {
+        "other": "{h}h"
+      },
+      "minutes": "{m}:{ss}",
+      "hours": "@:.hoursUnit @:.minutesUnit"
     }
   },
   "webSharePage": {
@@ -262,6 +295,9 @@
     "pinHint": "Le code PIN est \"{pin}\"",
     "encryptionHint": "LocalSend utilise un certificat auto-signé. Vous devez l'accepter dans le navigateur.",
     "pendingRequests": "Requêtes en attente : {n}"
+  },
+  "webReceivePage": {
+    "title": "Recevoir via un lien"
   },
   "aboutPage": {
     "title": "À propos de LocalSend",
@@ -283,6 +319,18 @@
   },
   "changelogPage": {
     "title": "Historique des mises à jour"
+  },
+  "whatsNewPage": {
+    "title": "Nouveautés de la version {version}",
+    "changes(interface=WhatsNewStrings)": {
+      "v1_18_0": {
+        "changes": [
+          "Le chiffrement ne ralentit plus les transferts. Il a été réactivé sur cet appareil si vous l'aviez désactivé auparavant.",
+          "Les demandes des favoris sont désormais acceptées automatiquement. Cette option est activée par défaut et peut être désactivée dans les paramètres.",
+          "Sur Android, les transferts continuent lorsque l'application est en arrière-plan ou que l'écran est éteint. Sur iOS, l'application doit toujours rester au premier plan."
+        ]
+      }
+    }
   },
   "aliasGenerator(ignoreMissing, ignoreGpt)": {
     "@info": "Inherits from the English version"

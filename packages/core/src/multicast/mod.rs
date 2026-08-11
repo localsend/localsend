@@ -1,4 +1,4 @@
-//! UDP multicast discovery for the LocalSend protocol (v2.1).
+//! UDP multicast discovery for the LocalSend protocol (v2.2).
 //!
 //! Devices announce themselves by sending a [`MulticastMessageV2`] to the
 //! multicast group. Announcements are only ever sent, never answered over UDP:
@@ -8,12 +8,10 @@
 //! [`start`] binds the sockets and emits a [`MulticastEvent`] per announcement;
 //! the returned [`MulticastHandle`] drives the application-initiated side.
 
-mod interface;
 mod socket;
 
-pub use interface::InterfaceFilter;
-
 use crate::model::discovery::{DeviceType, MulticastMessageV2, ProtocolType};
+use crate::util::interface::InterfaceFilter;
 use serde::Serialize;
 use socket::MulticastSocket;
 use std::net::{IpAddr, Ipv4Addr, Ipv6Addr, SocketAddr};
@@ -32,7 +30,7 @@ pub const DEFAULT_MULTICAST_GROUP: Ipv4Addr = Ipv4Addr::new(224, 0, 0, 167);
 /// The IPv6 multicast group used by LocalSend, a transient (`ff1x::`) group
 /// with link-local scope.
 ///
-/// IPv6 discovery is a LocalSend extension on top of protocol v2.1, so IPv4
+/// IPv6 discovery is a LocalSend extension on top of protocol v2.2, so IPv4
 /// remains the baseline and IPv6 is announced in parallel.
 pub const DEFAULT_MULTICAST_GROUP_V6: Ipv6Addr =
     Ipv6Addr::new(0xff12, 0, 0, 0, 0, 0, 0xfd3a, 0xe420);
@@ -390,7 +388,7 @@ mod tests {
     fn test_sent_message_carries_legacy_announce_flag() {
         let device = MulticastDevice {
             alias: "Nice Orange".to_string(),
-            version: "2.1".to_string(),
+            version: "2.2".to_string(),
             device_model: None,
             device_type: Some(DeviceType::Desktop),
             fingerprint: "my-fingerprint".to_string(),

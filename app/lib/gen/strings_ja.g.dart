@@ -60,6 +60,10 @@ class TranslationsJa extends Translations with BaseTranslations<AppLocale, Trans
   @override
   late final _Translations$selectedFilesPage$ja selectedFilesPage = _Translations$selectedFilesPage$ja._(_root);
   @override
+  late final _Translations$deviceDetailsPage$ja deviceDetailsPage = _Translations$deviceDetailsPage$ja._(_root);
+  @override
+  late final _Translations$verifyPage$ja verifyPage = _Translations$verifyPage$ja._(_root);
+  @override
   late final _Translations$receivePage$ja receivePage = _Translations$receivePage$ja._(_root);
   @override
   late final _Translations$receiveOptionsPage$ja receiveOptionsPage = _Translations$receiveOptionsPage$ja._(_root);
@@ -70,11 +74,15 @@ class TranslationsJa extends Translations with BaseTranslations<AppLocale, Trans
   @override
   late final _Translations$webSharePage$ja webSharePage = _Translations$webSharePage$ja._(_root);
   @override
+  late final _Translations$webReceivePage$ja webReceivePage = _Translations$webReceivePage$ja._(_root);
+  @override
   late final _Translations$aboutPage$ja aboutPage = _Translations$aboutPage$ja._(_root);
   @override
   late final _Translations$donationPage$ja donationPage = _Translations$donationPage$ja._(_root);
   @override
   late final _Translations$changelogPage$ja changelogPage = _Translations$changelogPage$ja._(_root);
+  @override
+  late final _Translations$whatsNewPage$ja whatsNewPage = _Translations$whatsNewPage$ja._(_root);
   @override
   late final _Translations$dialogs$ja dialogs = _Translations$dialogs$ja._(_root);
   @override
@@ -185,6 +193,8 @@ class _Translations$receiveTab$ja extends Translations$receiveTab$en {
   late final _Translations$receiveTab$infoBox$ja infoBox = _Translations$receiveTab$infoBox$ja._(_root);
   @override
   late final _Translations$receiveTab$quickSave$ja quickSave = _Translations$receiveTab$quickSave$ja._(_root);
+  @override
+  String get link => 'リンク経由で受信';
 }
 
 // Path: sendTab
@@ -334,6 +344,42 @@ class _Translations$selectedFilesPage$ja extends Translations$selectedFilesPage$
   String get deleteAll => 'すべて削除';
 }
 
+// Path: deviceDetailsPage
+class _Translations$deviceDetailsPage$ja extends Translations$deviceDetailsPage$en {
+  _Translations$deviceDetailsPage$ja._(TranslationsJa root) : this._root = root, super.internal(root);
+
+  final TranslationsJa _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'デバイスの詳細';
+  @override
+  String get favorite => 'お気に入り';
+  @override
+  String get verify => '検証';
+  @override
+  late final _Translations$deviceDetailsPage$info$ja info = _Translations$deviceDetailsPage$info$ja._(_root);
+  @override
+  late final _Translations$deviceDetailsPage$logs$ja logs = _Translations$deviceDetailsPage$logs$ja._(_root);
+}
+
+// Path: verifyPage
+class _Translations$verifyPage$ja extends Translations$verifyPage$en {
+  _Translations$verifyPage$ja._(TranslationsJa root) : this._root = root, super.internal(root);
+
+  final TranslationsJa _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => '検証';
+  @override
+  String get icons => 'アイコン';
+  @override
+  String get text => 'テキスト';
+  @override
+  String get question => 'もう一方のデバイスでも同じように見えますか？';
+}
+
 // Path: receivePage
 class _Translations$receivePage$ja extends Translations$receivePage$en {
   _Translations$receivePage$ja._(TranslationsJa root) : this._root = root, super.internal(root);
@@ -382,6 +428,8 @@ class _Translations$sendPage$ja extends Translations$sendPage$en {
 
   // Translations
   @override
+  String calculatingChecksum({required Object curr, required Object n}) => 'チェックサムを計算中 (${curr} / ${n})';
+  @override
   String get waiting => '返答を待っています...';
   @override
   String get rejected => '受信者がリクエストを拒否しました。';
@@ -406,6 +454,8 @@ class _Translations$progressPage$ja extends Translations$progressPage$en {
   String get savedToGallery => '写真に保存しました';
   @override
   late final _Translations$progressPage$total$ja total = _Translations$progressPage$total$ja._(_root);
+  @override
+  late final _Translations$progressPage$remainingTime$ja remainingTime = _Translations$progressPage$remainingTime$ja._(_root);
 }
 
 // Path: webSharePage
@@ -445,6 +495,17 @@ class _Translations$webSharePage$ja extends Translations$webSharePage$en {
   String get encryptionHint => 'LocalSendは自己署名証明書を使用しているため、ブラウザーで証明書を許可する必要があります。';
   @override
   String pendingRequests({required Object n}) => '保留中のリクエスト数: ${n}';
+}
+
+// Path: webReceivePage
+class _Translations$webReceivePage$ja extends Translations$webReceivePage$en {
+  _Translations$webReceivePage$ja._(TranslationsJa root) : this._root = root, super.internal(root);
+
+  final TranslationsJa _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'リンク経由で受信';
 }
 
 // Path: aboutPage
@@ -499,6 +560,19 @@ class _Translations$changelogPage$ja extends Translations$changelogPage$en {
   // Translations
   @override
   String get title => '更新履歴';
+}
+
+// Path: whatsNewPage
+class _Translations$whatsNewPage$ja extends Translations$whatsNewPage$en {
+  _Translations$whatsNewPage$ja._(TranslationsJa root) : this._root = root, super.internal(root);
+
+  final TranslationsJa _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String title({required Object version}) => '${version} の新機能';
+  @override
+  late final _Translations$whatsNewPage$changes$ja changes = _Translations$whatsNewPage$changes$ja._(_root);
 }
 
 // Path: dialogs
@@ -824,6 +898,8 @@ class _Translations$settingsTab$receive$ja extends Translations$settingsTab$rece
   String get saveToGallery => 'メディアをギャラリーに保存';
   @override
   String get saveToHistory => '履歴に保存';
+  @override
+  String get verifyChecksums => 'ファイル受信時にチェックサムを検証する';
 }
 
 // Path: settingsTab.send
@@ -837,6 +913,8 @@ class _Translations$settingsTab$send$ja extends Translations$settingsTab$send$en
   String get title => '送信';
   @override
   String get shareViaLinkAutoAccept => 'リンク経由で共有時: 自動で承諾';
+  @override
+  String get createChecksums => 'ファイル送信時にチェックサムを作成する';
 }
 
 // Path: settingsTab.network
@@ -959,6 +1037,40 @@ class _Translations$receiveHistoryPage$entryActions$ja extends Translations$rece
   String get deleteFromHistory => '履歴から削除';
 }
 
+// Path: deviceDetailsPage.info
+class _Translations$deviceDetailsPage$info$ja extends Translations$deviceDetailsPage$info$en {
+  _Translations$deviceDetailsPage$info$ja._(TranslationsJa root) : this._root = root, super.internal(root);
+
+  final TranslationsJa _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get name => '名前';
+  @override
+  String get address => 'アドレス';
+  @override
+  String get version => 'バージョン';
+  @override
+  String protocol({required Object version}) => 'プロトコル v${version}';
+}
+
+// Path: deviceDetailsPage.logs
+class _Translations$deviceDetailsPage$logs$ja extends Translations$deviceDetailsPage$logs$en {
+  _Translations$deviceDetailsPage$logs$ja._(TranslationsJa root) : this._root = root, super.internal(root);
+
+  final TranslationsJa _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'ログ';
+  @override
+  String get empty => 'ログはありません。';
+  @override
+  String discovered({required Object protocol, required Object host}) => '${protocol} 経由で発見 (${host})';
+  @override
+  String updated({required Object protocol, required Object host}) => '${protocol} 経由で更新 (${host})';
+}
+
 // Path: progressPage.total
 class _Translations$progressPage$total$ja extends Translations$progressPage$total$en {
   _Translations$progressPage$total$ja._(TranslationsJa root) : this._root = root, super.internal(root);
@@ -974,6 +1086,41 @@ class _Translations$progressPage$total$ja extends Translations$progressPage$tota
   String size({required Object curr, required Object n}) => 'サイズ: ${curr} / ${n}';
   @override
   String speed({required Object speed}) => '速度: ${speed}/s';
+}
+
+// Path: progressPage.remainingTime
+class _Translations$progressPage$remainingTime$ja extends Translations$progressPage$remainingTime$en {
+  _Translations$progressPage$remainingTime$ja._(TranslationsJa root) : this._root = root, super.internal(root);
+
+  final TranslationsJa _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String minutesUnit({required num m}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ja'))(
+    m,
+    other: '${m}分',
+  );
+  @override
+  String hoursUnit({required num h}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ja'))(
+    h,
+    other: '${h}時間',
+  );
+  @override
+  String minutes({required Object m, required Object ss}) => '${m}:${ss}';
+  @override
+  String hours({required num h, required num m}) =>
+      '${_root.progressPage.remainingTime.hoursUnit(h: h)} ${_root.progressPage.remainingTime.minutesUnit(m: m)}';
+}
+
+// Path: whatsNewPage.changes
+class _Translations$whatsNewPage$changes$ja extends Translations$whatsNewPage$changes$en {
+  _Translations$whatsNewPage$changes$ja._(TranslationsJa root) : this._root = root, super.internal(root);
+
+  final TranslationsJa _root; // ignore: unused_field
+
+  // Translations
+  @override
+  late final _Translations$whatsNewPage$changes$v1_18_0$ja v1_18_0 = _Translations$whatsNewPage$changes$v1_18_0$ja._(_root);
 }
 
 // Path: dialogs.addFile
@@ -1353,6 +1500,8 @@ class _Translations$settingsTab$general$colorOptions$ja extends Translations$set
   String get system => 'システム';
   @override
   String get oled => 'OLED';
+  @override
+  String get custom => 'カスタム';
 }
 
 // Path: settingsTab.general.languageOptions
@@ -1394,4 +1543,19 @@ class _Translations$progressPage$total$title$ja extends Translations$progressPag
   String get canceledSender => '送信者によりキャンセルされました';
   @override
   String get canceledReceiver => '受信者よりキャンセルされました';
+}
+
+// Path: whatsNewPage.changes.v1_18_0
+class _Translations$whatsNewPage$changes$v1_18_0$ja extends Translations$whatsNewPage$changes$v1_18_0$en with WhatsNewStrings {
+  _Translations$whatsNewPage$changes$v1_18_0$ja._(TranslationsJa root) : this._root = root, super.internal(root);
+
+  final TranslationsJa _root; // ignore: unused_field
+
+  // Translations
+  @override
+  List<String> get changes => [
+    '暗号化による転送速度の低下がなくなりました。以前にオフにしていた場合、このデバイスでは再び有効になっています。',
+    'お気に入りからのリクエストは自動的に受け入れられるようになりました。これはデフォルトでオンになっており、設定で無効にできます。',
+    'Android では、アプリがバックグラウンドにあるときや画面がオフのときでも転送が継続されます。iOS では、引き続きアプリをフォアグラウンドに表示したままにする必要があります。',
+  ];
 }

@@ -51,7 +51,8 @@
       "off": "@:general.off",
       "favorites": "Favoritos",
       "on": "@:general.on"
-    }
+    },
+    "link": "Recibir mediante enlace"
   },
   "sendTab": {
     "title": "Enviar",
@@ -96,7 +97,8 @@
       "color": "Color",
       "colorOptions": {
         "system": "Sistema",
-        "oled": "OLED"
+        "oled": "OLED",
+        "custom": "Personalizado"
       },
       "language": "Idioma",
       "languageOptions": {
@@ -119,11 +121,13 @@
       "destination": "Guardar en carpeta",
       "downloads": "(Descargas)",
       "saveToGallery": "Guardar media en la galería",
-      "saveToHistory": "Guardar en el historial"
+      "saveToHistory": "Guardar en el historial",
+      "verifyChecksums": "Verificar sumas de comprobación al recibir archivos"
     },
     "send": {
       "title": "Enviar",
-      "shareViaLinkAutoAccept": "Aceptar automáticamente solicitudes en el modo \"Compartir mediante enlace\""
+      "shareViaLinkAutoAccept": "Aceptar automáticamente solicitudes en el modo \"Compartir mediante enlace\"",
+      "createChecksums": "Crear sumas de comprobación al enviar archivos"
     },
     "network": {
       "title": "Red",
@@ -202,6 +206,29 @@
   "selectedFilesPage": {
     "deleteAll": "Eliminar todo"
   },
+  "deviceDetailsPage": {
+    "title": "Detalles del dispositivo",
+    "favorite": "Favorito",
+    "verify": "Verificar",
+    "info": {
+      "name": "Nombre",
+      "address": "Dirección",
+      "version": "Versión",
+      "protocol": "Protocolo v{version}"
+    },
+    "logs": {
+      "title": "Registros",
+      "empty": "No hay registros disponibles.",
+      "discovered": "Descubierto mediante {protocol} ({host})",
+      "updated": "Actualizado mediante {protocol} ({host})"
+    }
+  },
+  "verifyPage": {
+    "title": "Verificar",
+    "icons": "Iconos",
+    "text": "Texto",
+    "question": "¿Se ve igual en el otro dispositivo?"
+  },
   "receivePage": {
     "subTitle": {
       "one": "quiere enviarte un archivo",
@@ -219,11 +246,11 @@
     "saveToGalleryOff": "Desactivado automáticamente porque hay carpetas."
   },
   "sendPage": {
+    "calculatingChecksum": "Calculando suma de verificación ({curr} / {n})",
     "waiting": "Esperando respuesta…",
     "rejected": "El destino ha rechazado la petición.",
     "tooManyAttempts": "@:web.tooManyAttempts",
-    "busy": "El destino está ocupado con otra petición.",
-    "calculatingChecksum": "Calculando suma de verificación ({curr} / {n})"
+    "busy": "El destino está ocupado con otra petición."
   },
   "progressPage": {
     "titleSending": "Enviando archivos",
@@ -241,9 +268,14 @@
       "speed": "Velocidad: {speed}/s"
     },
     "remainingTime": {
+      "minutesUnit(plural, param=m)": {
+        "other": "{m}min"
+      },
+      "hoursUnit(plural, param=h)": {
+        "other": "{h}h"
+      },
       "minutes": "{m}:{ss}",
-      "hours": "{h}h {m}m",
-      "@hours": "Usa «h» como abreviatura de horas y «m» para minutos"
+      "hours": "@:.hoursUnit @:.minutesUnit"
     }
   },
   "webSharePage": {
@@ -263,6 +295,9 @@
     "pinHint": "El PIN es \"{pin}\"",
     "encryptionHint": "LocalSend utiliza un certificado autofirmado. Necesitas aceptarlo en el navegador.",
     "pendingRequests": "Solicitudes pendientes: {n}"
+  },
+  "webReceivePage": {
+    "title": "Recibir mediante enlace"
   },
   "aboutPage": {
     "title": "Sobre LocalSend",
@@ -284,6 +319,18 @@
   },
   "changelogPage": {
     "title": "Registro de cambios"
+  },
+  "whatsNewPage": {
+    "title": "Novedades de la {version}",
+    "changes(interface=WhatsNewStrings)": {
+      "v1_18_0": {
+        "changes": [
+          "La encriptación ya no ralentiza las transferencias. Se ha habilitado en este dispositivo, en caso de haberla desactivado con anterioridad.",
+          "Las peticiones de los favoritos se aceptan automáticamente. Esta opción está activada por defecto, pero se puede desactivar en los ajustes.",
+          "En Android, las transferencias continúan en segundo plano o mientras la pantalla está apagada. En iOS, la aplicación debe estar en primer plano."
+        ]
+      }
+    }
   },
   "aliasGenerator(ignoreMissing, ignoreGpt)": {
     "@info": "Uses English version"
@@ -454,20 +501,5 @@
     "sActionUseCameraHint": "usar cámara",
     "sNameDurationLabel": "duración",
     "sUnitAssetCountLabel": "conteo"
-  },
-  "webReceivePage": {
-    "title": "Recibir mediante enlace"
-  },
-  "whatsNewPage": {
-    "title": "Novedades de la {version}",
-    "changes(interface=WhatsNewStrings)": {
-      "v1_18_0": {
-        "changes": [
-          "La encriptación ya no ralentiza las transferencias. Se ha habilitado en este dispositivo, en caso de haberla desactivado con anterioridad.",
-          "Las peticiones de los favoritos se aceptan automáticamente. Esta opción está activada por defecto, pero se puede desactivar en los ajustes.",
-          "En Android, las transferencias continúan en segundo plano o mientras la pantalla está apagada. En iOS, la aplicación debe estar en primer plano."
-        ]
-      }
-    }
   }
 }

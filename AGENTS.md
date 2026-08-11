@@ -116,7 +116,7 @@ Web assets for the browser download page are embedded from `packages/core/assets
 
 ### Multicast discovery (Rust)
 
-`packages/core/src/multicast/` (feature `multicast`, independent of `http`) implements UDP multicast discovery for protocol v2.1 — v1 messages are not parsed.
+`packages/core/src/multicast/` (feature `multicast`, independent of `http`) implements UDP multicast discovery for protocol v2.2 — v1 messages are not parsed.
 Integration mirrors the HTTP server: `multicast::start` takes a `MulticastConfig { group, group_v6, port, interface_filter, device, event_tx }` and emits `MulticastEvent::Discovered { ip, message }`; the returned `MulticastHandle` offers `announce` (the announcement burst) and `wait_stopped`.
 
 UDP is **announce-only**: responses go back over HTTP as a unicast register request to the announcing device.

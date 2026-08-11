@@ -51,7 +51,8 @@
       "off": "@:general.off",
       "favorites": "ප්‍රියතම",
       "on": "@:general.on"
-    }
+    },
+    "link": "සබැඳිය හරහා ලබාගන්න"
   },
   "sendTab": {
     "title": "යවන්න",
@@ -96,7 +97,8 @@
       "color": "පාට",
       "colorOptions": {
         "system": "පද්ධතිය",
-        "oled": "OLED"
+        "oled": "OLED",
+        "custom": "අභිරුචි"
       },
       "language": "භාෂාව",
       "languageOptions": {
@@ -119,11 +121,13 @@
       "destination": "ෆෝල්ඩරය වෙත සුරකින්න",
       "downloads": "(බාගත කිරීම්)",
       "saveToGallery": "මාධ්‍ය ගැලරියට සුරකින්න",
-      "saveToHistory": "ඉතිහාසයට සුරකින්න"
+      "saveToHistory": "ඉතිහාසයට සුරකින්න",
+      "verifyChecksums": "ගොනු ලැබෙන විට checksum සත්‍යාපනය කරන්න"
     },
     "send": {
       "title": "යවන්න",
-      "shareViaLinkAutoAccept": "\"ලින්ක් (Link) ඔස්සේ බෙදාගන්න (Share)\" මාදිලියේ ඉල්ලීම් ස්වයංක්‍රීයව පිළිගන්න"
+      "shareViaLinkAutoAccept": "\"ලින්ක් (Link) ඔස්සේ බෙදාගන්න (Share)\" මාදිලියේ ඉල්ලීම් ස්වයංක්‍රීයව පිළිගන්න",
+      "createChecksums": "ගොනු යවන විට checksum සාදන්න"
     },
     "network": {
       "title": "ජාලය",
@@ -202,6 +206,29 @@
   "selectedFilesPage": {
     "deleteAll": "සියල්ල මකන්න"
   },
+  "deviceDetailsPage": {
+    "title": "උපාංග විස්තර",
+    "favorite": "ප්‍රියතම",
+    "verify": "සත්‍යාපනය",
+    "info": {
+      "name": "නම",
+      "address": "ලිපිනය",
+      "version": "අනුවාදය",
+      "protocol": "නියමාවලිය v{version}"
+    },
+    "logs": {
+      "title": "ලොග",
+      "empty": "ලොග නොමැත.",
+      "discovered": "{protocol} හරහා සොයාගන්නා ලදී ({host})",
+      "updated": "{protocol} හරහා යාවත්කාල කරන ලදී ({host})"
+    }
+  },
+  "verifyPage": {
+    "title": "සත්‍යාපනය",
+    "icons": "අයිකන",
+    "text": "පෙළ",
+    "question": "අනෙක් උපාංගයේද සමානව පෙනේද?"
+  },
   "receivePage": {
     "subTitle": {
       "one": "ඔබට ගොනුවක් එවීමට කැමතියි",
@@ -219,6 +246,7 @@
     "saveToGalleryOff": "ෆෝල්ඩර් නොමැති බැවින් ස්වයංක්‍රීයව ක්‍රියා විරහිත කරන ලදි."
   },
   "sendPage": {
+    "calculatingChecksum": "checksum ගණනය කරමින් ({curr} / {n})",
     "waiting": "ප්‍රතිචාරයක් බලාපොරොත්තු වෙමින්…",
     "rejected": "ලැබුම්කරු ඉල්ලීම ප්‍රතික්ෂේප කර ඇත.",
     "tooManyAttempts": "@:web.tooManyAttempts",
@@ -238,6 +266,16 @@
       "count": "ගොනු: {curr} / {n}",
       "size": "විශාලත්වය: {curr} / {n}",
       "speed": "වේගය: {speed}/s"
+    },
+    "remainingTime": {
+      "minutesUnit(plural, param=m)": {
+        "other": "{m}මි"
+      },
+      "hoursUnit(plural, param=h)": {
+        "other": "{h}පැ"
+      },
+      "minutes": "{m}:{ss}",
+      "hours": "@:.hoursUnit @:.minutesUnit"
     }
   },
   "webSharePage": {
@@ -257,6 +295,9 @@
     "pinHint": "PIN එක \"{pin}\"",
     "encryptionHint": "LocalSend self-signed certificate එකක් භාවිතා කරයි. ඔබ විසින් එය බ්‍රවුසරය (browser) තුළ දි පිළිගැනීම (accept) අවශ්‍ය වේ.",
     "pendingRequests": "Pending වන ඉල්ලීම්: {n}"
+  },
+  "webReceivePage": {
+    "title": "සබැඳිය හරහා ලබාගන්න"
   },
   "aboutPage": {
     "title": "LocalSend පිළිබඳව",
@@ -278,6 +319,18 @@
   },
   "changelogPage": {
     "title": "වෙනස්කම් ලේඛනය"
+  },
+  "whatsNewPage": {
+    "title": "{version} හි අලුත් දේ",
+    "changes(interface=WhatsNewStrings)": {
+      "v1_18_0": {
+        "changes": [
+          "සංකේතනය තවදුරටත් හුවමාරු මන්දගාමී නොකරයි. ඔබ කලින් එය අක්‍රිය කර තිබුණේ නම්, මෙම උපාංගයේ එය නැවත සක්‍රිය කර ඇත.",
+          "ප්‍රියතමවලින් එන ඉල්ලීම් දැන් ස්වයංක්‍රීයව පිළිගනු ලැබේ. මෙය පෙරනිමියෙන් සක්‍රිය අතර සැකසුම් හරහා අක්‍රිය කළ හැක.",
+          "Android හි, යෙදුම පසුබිමේ ඇති විට හෝ තිරය නිවා ඇති විට හුවමාරු දිගටම සිදුවේ. iOS හි, යෙදුම තවමත් පෙරබිමේ තිබිය යුතුය."
+        ]
+      }
+    }
   },
   "aliasGenerator(ignoreMissing, ignoreGpt)": {
     "@info": "විවිධ භාෂා වල වෙනස් වචන තිබිය හැකි අතර, එය සෑමව්ටිම 1:1 අනුපාතයේ නොතිබීමට හැකියාව ඇත"

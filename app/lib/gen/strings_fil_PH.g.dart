@@ -60,6 +60,10 @@ class TranslationsFilPh extends Translations with BaseTranslations<AppLocale, Tr
   @override
   late final _Translations$selectedFilesPage$fil_PH selectedFilesPage = _Translations$selectedFilesPage$fil_PH._(_root);
   @override
+  late final _Translations$deviceDetailsPage$fil_PH deviceDetailsPage = _Translations$deviceDetailsPage$fil_PH._(_root);
+  @override
+  late final _Translations$verifyPage$fil_PH verifyPage = _Translations$verifyPage$fil_PH._(_root);
+  @override
   late final _Translations$receivePage$fil_PH receivePage = _Translations$receivePage$fil_PH._(_root);
   @override
   late final _Translations$receiveOptionsPage$fil_PH receiveOptionsPage = _Translations$receiveOptionsPage$fil_PH._(_root);
@@ -70,11 +74,15 @@ class TranslationsFilPh extends Translations with BaseTranslations<AppLocale, Tr
   @override
   late final _Translations$webSharePage$fil_PH webSharePage = _Translations$webSharePage$fil_PH._(_root);
   @override
+  late final _Translations$webReceivePage$fil_PH webReceivePage = _Translations$webReceivePage$fil_PH._(_root);
+  @override
   late final _Translations$aboutPage$fil_PH aboutPage = _Translations$aboutPage$fil_PH._(_root);
   @override
   late final _Translations$donationPage$fil_PH donationPage = _Translations$donationPage$fil_PH._(_root);
   @override
   late final _Translations$changelogPage$fil_PH changelogPage = _Translations$changelogPage$fil_PH._(_root);
+  @override
+  late final _Translations$whatsNewPage$fil_PH whatsNewPage = _Translations$whatsNewPage$fil_PH._(_root);
   @override
   late final _Translations$aliasGenerator$fil_PH aliasGenerator = _Translations$aliasGenerator$fil_PH._(_root);
   @override
@@ -187,6 +195,8 @@ class _Translations$receiveTab$fil_PH extends Translations$receiveTab$en {
   late final _Translations$receiveTab$infoBox$fil_PH infoBox = _Translations$receiveTab$infoBox$fil_PH._(_root);
   @override
   late final _Translations$receiveTab$quickSave$fil_PH quickSave = _Translations$receiveTab$quickSave$fil_PH._(_root);
+  @override
+  String get link => 'Tumanggap sa pamamagitan ng link';
 }
 
 // Path: sendTab
@@ -337,6 +347,42 @@ class _Translations$selectedFilesPage$fil_PH extends Translations$selectedFilesP
   String get deleteAll => 'Burahin lahat';
 }
 
+// Path: deviceDetailsPage
+class _Translations$deviceDetailsPage$fil_PH extends Translations$deviceDetailsPage$en {
+  _Translations$deviceDetailsPage$fil_PH._(TranslationsFilPh root) : this._root = root, super.internal(root);
+
+  final TranslationsFilPh _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Mga Detalye ng Device';
+  @override
+  String get favorite => 'Paborito';
+  @override
+  String get verify => 'I-verify';
+  @override
+  late final _Translations$deviceDetailsPage$info$fil_PH info = _Translations$deviceDetailsPage$info$fil_PH._(_root);
+  @override
+  late final _Translations$deviceDetailsPage$logs$fil_PH logs = _Translations$deviceDetailsPage$logs$fil_PH._(_root);
+}
+
+// Path: verifyPage
+class _Translations$verifyPage$fil_PH extends Translations$verifyPage$en {
+  _Translations$verifyPage$fil_PH._(TranslationsFilPh root) : this._root = root, super.internal(root);
+
+  final TranslationsFilPh _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'I-verify';
+  @override
+  String get icons => 'Mga Icon';
+  @override
+  String get text => 'Teksto';
+  @override
+  String get question => 'Pareho ba ang hitsura nito sa kabilang device?';
+}
+
 // Path: receivePage
 class _Translations$receivePage$fil_PH extends Translations$receivePage$en {
   _Translations$receivePage$fil_PH._(TranslationsFilPh root) : this._root = root, super.internal(root);
@@ -385,6 +431,8 @@ class _Translations$sendPage$fil_PH extends Translations$sendPage$en {
 
   // Translations
   @override
+  String calculatingChecksum({required Object curr, required Object n}) => 'Kinakalkula ang checksum (${curr} / ${n})';
+  @override
   String get waiting => 'Naghihintay ng response...';
   @override
   String get rejected => 'Tinanggihan ng recipient ang request.';
@@ -409,6 +457,8 @@ class _Translations$progressPage$fil_PH extends Translations$progressPage$en {
   String get savedToGallery => 'Naka-save sa Photos';
   @override
   late final _Translations$progressPage$total$fil_PH total = _Translations$progressPage$total$fil_PH._(_root);
+  @override
+  late final _Translations$progressPage$remainingTime$fil_PH remainingTime = _Translations$progressPage$remainingTime$fil_PH._(_root);
 }
 
 // Path: webSharePage
@@ -448,6 +498,17 @@ class _Translations$webSharePage$fil_PH extends Translations$webSharePage$en {
   String get encryptionHint => 'Ang LocalSend ay gumagamit ng self-signed certificate. Kailangan mo itong i-accept sa browser.';
   @override
   String pendingRequests({required Object n}) => 'Mga naka-pending na request: ${n}';
+}
+
+// Path: webReceivePage
+class _Translations$webReceivePage$fil_PH extends Translations$webReceivePage$en {
+  _Translations$webReceivePage$fil_PH._(TranslationsFilPh root) : this._root = root, super.internal(root);
+
+  final TranslationsFilPh _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Tumanggap sa pamamagitan ng link';
 }
 
 // Path: aboutPage
@@ -503,6 +564,19 @@ class _Translations$changelogPage$fil_PH extends Translations$changelogPage$en {
   // Translations
   @override
   String get title => 'Changelog';
+}
+
+// Path: whatsNewPage
+class _Translations$whatsNewPage$fil_PH extends Translations$whatsNewPage$en {
+  _Translations$whatsNewPage$fil_PH._(TranslationsFilPh root) : this._root = root, super.internal(root);
+
+  final TranslationsFilPh _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String title({required Object version}) => 'Ano ang bago sa ${version}';
+  @override
+  late final _Translations$whatsNewPage$changes$fil_PH changes = _Translations$whatsNewPage$changes$fil_PH._(_root);
 }
 
 // Path: aliasGenerator
@@ -919,6 +993,8 @@ class _Translations$settingsTab$receive$fil_PH extends Translations$settingsTab$
   String get saveToGallery => 'I-save ang media sa gallery';
   @override
   String get saveToHistory => 'I-save sa history';
+  @override
+  String get verifyChecksums => 'I-verify ang mga checksum kapag tumatanggap ng mga file';
 }
 
 // Path: settingsTab.send
@@ -932,6 +1008,8 @@ class _Translations$settingsTab$send$fil_PH extends Translations$settingsTab$sen
   String get title => 'Ipasa';
   @override
   String get shareViaLinkAutoAccept => 'Kusang tanggapin ang request sa "Share via link" mode';
+  @override
+  String get createChecksums => 'Gumawa ng mga checksum kapag nagpapadala ng mga file';
 }
 
 // Path: settingsTab.network
@@ -1060,6 +1138,40 @@ class _Translations$receiveHistoryPage$entryActions$fil_PH extends Translations$
   String get deleteFromHistory => 'Burahin sa history';
 }
 
+// Path: deviceDetailsPage.info
+class _Translations$deviceDetailsPage$info$fil_PH extends Translations$deviceDetailsPage$info$en {
+  _Translations$deviceDetailsPage$info$fil_PH._(TranslationsFilPh root) : this._root = root, super.internal(root);
+
+  final TranslationsFilPh _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get name => 'Pangalan';
+  @override
+  String get address => 'Address';
+  @override
+  String get version => 'Bersyon';
+  @override
+  String protocol({required Object version}) => 'Protocol v${version}';
+}
+
+// Path: deviceDetailsPage.logs
+class _Translations$deviceDetailsPage$logs$fil_PH extends Translations$deviceDetailsPage$logs$en {
+  _Translations$deviceDetailsPage$logs$fil_PH._(TranslationsFilPh root) : this._root = root, super.internal(root);
+
+  final TranslationsFilPh _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Mga Log';
+  @override
+  String get empty => 'Walang available na mga log.';
+  @override
+  String discovered({required Object protocol, required Object host}) => 'Natuklasan sa pamamagitan ng ${protocol} (${host})';
+  @override
+  String updated({required Object protocol, required Object host}) => 'Na-update sa pamamagitan ng ${protocol} (${host})';
+}
+
 // Path: progressPage.total
 class _Translations$progressPage$total$fil_PH extends Translations$progressPage$total$en {
   _Translations$progressPage$total$fil_PH._(TranslationsFilPh root) : this._root = root, super.internal(root);
@@ -1075,6 +1187,41 @@ class _Translations$progressPage$total$fil_PH extends Translations$progressPage$
   String size({required Object curr, required Object n}) => 'Size: ${curr} / ${n}';
   @override
   String speed({required Object speed}) => 'Speed: ${speed}/s';
+}
+
+// Path: progressPage.remainingTime
+class _Translations$progressPage$remainingTime$fil_PH extends Translations$progressPage$remainingTime$en {
+  _Translations$progressPage$remainingTime$fil_PH._(TranslationsFilPh root) : this._root = root, super.internal(root);
+
+  final TranslationsFilPh _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String minutesUnit({required num m}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('fil'))(
+    m,
+    other: '${m}m',
+  );
+  @override
+  String hoursUnit({required num h}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('fil'))(
+    h,
+    other: '${h}h',
+  );
+  @override
+  String minutes({required Object m, required Object ss}) => '${m}:${ss}';
+  @override
+  String hours({required num h, required num m}) =>
+      '${_root.progressPage.remainingTime.hoursUnit(h: h)} ${_root.progressPage.remainingTime.minutesUnit(m: m)}';
+}
+
+// Path: whatsNewPage.changes
+class _Translations$whatsNewPage$changes$fil_PH extends Translations$whatsNewPage$changes$en {
+  _Translations$whatsNewPage$changes$fil_PH._(TranslationsFilPh root) : this._root = root, super.internal(root);
+
+  final TranslationsFilPh _root; // ignore: unused_field
+
+  // Translations
+  @override
+  late final _Translations$whatsNewPage$changes$v1_18_0$fil_PH v1_18_0 = _Translations$whatsNewPage$changes$v1_18_0$fil_PH._(_root);
 }
 
 // Path: dialogs.addFile
@@ -1458,6 +1605,8 @@ class _Translations$settingsTab$general$colorOptions$fil_PH extends Translations
   String get system => 'System';
   @override
   String get oled => 'OLED';
+  @override
+  String get custom => 'Pasadya';
 }
 
 // Path: settingsTab.general.languageOptions
@@ -1499,4 +1648,19 @@ class _Translations$progressPage$total$title$fil_PH extends Translations$progres
   String get canceledSender => 'Kinansela ng sender';
   @override
   String get canceledReceiver => 'Kinansela ng receiver';
+}
+
+// Path: whatsNewPage.changes.v1_18_0
+class _Translations$whatsNewPage$changes$v1_18_0$fil_PH extends Translations$whatsNewPage$changes$v1_18_0$en with WhatsNewStrings {
+  _Translations$whatsNewPage$changes$v1_18_0$fil_PH._(TranslationsFilPh root) : this._root = root, super.internal(root);
+
+  final TranslationsFilPh _root; // ignore: unused_field
+
+  // Translations
+  @override
+  List<String> get changes => [
+    'Hindi na pinapabagal ng encryption ang mga paglilipat. Muling na-enable ito sa device na ito kung na-off mo ito dati.',
+    'Awtomatiko nang tinatanggap ang mga kahilingan mula sa mga paborito. Naka-on ito bilang default at maaaring i-disable sa mga setting.',
+    'Sa Android, nagpapatuloy ang mga paglilipat habang nasa background ang app o naka-off ang screen. Sa iOS, kailangan pa ring manatili sa foreground ang app.',
+  ];
 }

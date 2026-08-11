@@ -51,7 +51,8 @@
       "off": "@:general.off",
       "favorites": "Obľúbené",
       "on": "@:general.on"
-    }
+    },
+    "link": "Prijať cez odkaz"
   },
   "sendTab": {
     "title": "Odoslať",
@@ -96,7 +97,8 @@
       "color": "Farba",
       "colorOptions": {
         "system": "Systémová",
-        "oled": "OLED"
+        "oled": "OLED",
+        "custom": "Vlastné"
       },
       "language": "Jazyk",
       "languageOptions": {
@@ -119,11 +121,13 @@
       "destination": "Uložiť do priečinka",
       "downloads": "(Stiahnuté)",
       "saveToGallery": "Uložiť médiá do galérie",
-      "saveToHistory": "Uložiť do histórie"
+      "saveToHistory": "Uložiť do histórie",
+      "verifyChecksums": "Overovať kontrolné súčty pri prijímaní súborov"
     },
     "send": {
       "title": "Odoslať",
-      "shareViaLinkAutoAccept": "Automaticky prijímať žiadosti v režime \"Zdieľať cez odkaz\""
+      "shareViaLinkAutoAccept": "Automaticky prijímať žiadosti v režime \"Zdieľať cez odkaz\"",
+      "createChecksums": "Vytvárať kontrolné súčty pri odosielaní súborov"
     },
     "network": {
       "title": "Sieť",
@@ -202,6 +206,29 @@
   "selectedFilesPage": {
     "deleteAll": "Vymazať všetky"
   },
+  "deviceDetailsPage": {
+    "title": "Podrobnosti o zariadení",
+    "favorite": "Obľúbené",
+    "verify": "Overiť",
+    "info": {
+      "name": "Názov",
+      "address": "Adresa",
+      "version": "Verzia",
+      "protocol": "Protokol v{version}"
+    },
+    "logs": {
+      "title": "Záznamy",
+      "empty": "Nie sú k dispozícii žiadne záznamy.",
+      "discovered": "Objavené cez {protocol} ({host})",
+      "updated": "Aktualizované cez {protocol} ({host})"
+    }
+  },
+  "verifyPage": {
+    "title": "Overiť",
+    "icons": "Ikony",
+    "text": "Text",
+    "question": "Vyzerá to na druhom zariadení rovnako?"
+  },
   "receivePage": {
     "subTitle": {
       "one": "vám chce poslať súbor",
@@ -219,11 +246,11 @@
     "saveToGalleryOff": "Automaticky vypnuté, pretože existujú priečinky."
   },
   "sendPage": {
+    "calculatingChecksum": "Výpočet kontrolného súčtu ({curr} / {n})",
     "waiting": "Čaká sa na odpoveď…",
     "rejected": "Príjemca zamietol žiadosť.",
     "tooManyAttempts": "@:web.tooManyAttempts",
-    "busy": "Príjemca je zaneprázdnený inou žiadosťou.",
-    "calculatingChecksum": "Výpočet kontrolného súčtu ({curr} / {n})"
+    "busy": "Príjemca je zaneprázdnený inou žiadosťou."
   },
   "progressPage": {
     "titleSending": "Odosielanie súborov",
@@ -241,9 +268,14 @@
       "speed": "Rýchlosť: {speed}/s"
     },
     "remainingTime": {
+      "minutesUnit(plural, param=m)": {
+        "other": "{m}min"
+      },
+      "hoursUnit(plural, param=h)": {
+        "other": "{h}h"
+      },
       "minutes": "{m}:{ss}",
-      "hours": "{h}h {m}m",
-      "@hours": "Použiť „h“ pre skratku hodín a „m“ pre minúty"
+      "hours": "@:.hoursUnit @:.minutesUnit"
     }
   },
   "webSharePage": {
@@ -263,6 +295,9 @@
     "pinHint": "PIN je \"{pin}\"",
     "encryptionHint": "LocalSend používa certifikát s vlastným podpisom. Musíte ho prijať vo svojom prehliadači.",
     "pendingRequests": "Nespracované žiadosti: {n}"
+  },
+  "webReceivePage": {
+    "title": "Prijať cez odkaz"
   },
   "aboutPage": {
     "title": "O aplikácii LocalSend",
@@ -284,6 +319,18 @@
   },
   "changelogPage": {
     "title": "Zoznam zmien"
+  },
+  "whatsNewPage": {
+    "title": "Novinky vo verzii {version}",
+    "changes(interface=WhatsNewStrings)": {
+      "v1_18_0": {
+        "changes": [
+          "Šifrovanie už nespomaľuje prenosy. Ak ste ho predtým vypli, na tomto zariadení bolo opäť zapnuté.",
+          "Žiadosti od obľúbených sa teraz prijímajú automaticky. Táto funkcia je štandardne zapnutá a je možné ju vypnúť v nastaveniach.",
+          "V systéme Android prebiehajú prenosy aj vtedy, keď je aplikácia spustená na pozadí alebo je obrazovka vypnutá. V systéme iOS musí aplikácia zostať spustená v popredí."
+        ]
+      }
+    }
   },
   "aliasGenerator(ignoreMissing, ignoreGpt)": {
     "@info": "Rôzne miestne nastavenia môžu mať rôzne slová, nemusia sa presne zhodovať",
@@ -524,20 +571,5 @@
     "sActionUseCameraHint": "použiť fotoaparát",
     "sNameDurationLabel": "trvanie",
     "sUnitAssetCountLabel": "počet"
-  },
-  "whatsNewPage": {
-    "title": "Novinky vo verzii {version}",
-    "changes(interface=WhatsNewStrings)": {
-      "v1_18_0": {
-        "changes": [
-          "Šifrovanie už nespomaľuje prenosy. Ak ste ho predtým vypli, na tomto zariadení bolo opäť zapnuté.",
-          "Žiadosti od obľúbených sa teraz prijímajú automaticky. Táto funkcia je štandardne zapnutá a je možné ju vypnúť v nastaveniach.",
-          "V systéme Android prebiehajú prenosy aj vtedy, keď je aplikácia spustená na pozadí alebo je obrazovka vypnutá. V systéme iOS musí aplikácia zostať spustená v popredí."
-        ]
-      }
-    }
-  },
-  "webReceivePage": {
-    "title": "Prijať cez odkaz"
   }
 }

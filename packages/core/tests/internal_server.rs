@@ -42,7 +42,7 @@ async fn start_test_server(internal_enabled: bool) -> TestServer {
         None,
         ClientInfo {
             alias: "Test Server".to_string(),
-            version: "2.1".to_string(),
+            version: "2.2".to_string(),
             device_model: Some("Rust".to_string()),
             device_type: None,
             token: "server-fingerprint".to_string(),

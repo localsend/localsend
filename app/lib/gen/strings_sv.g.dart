@@ -60,6 +60,10 @@ class TranslationsSv extends Translations with BaseTranslations<AppLocale, Trans
   @override
   late final _Translations$selectedFilesPage$sv selectedFilesPage = _Translations$selectedFilesPage$sv._(_root);
   @override
+  late final _Translations$deviceDetailsPage$sv deviceDetailsPage = _Translations$deviceDetailsPage$sv._(_root);
+  @override
+  late final _Translations$verifyPage$sv verifyPage = _Translations$verifyPage$sv._(_root);
+  @override
   late final _Translations$receivePage$sv receivePage = _Translations$receivePage$sv._(_root);
   @override
   late final _Translations$receiveOptionsPage$sv receiveOptionsPage = _Translations$receiveOptionsPage$sv._(_root);
@@ -70,11 +74,15 @@ class TranslationsSv extends Translations with BaseTranslations<AppLocale, Trans
   @override
   late final _Translations$webSharePage$sv webSharePage = _Translations$webSharePage$sv._(_root);
   @override
+  late final _Translations$webReceivePage$sv webReceivePage = _Translations$webReceivePage$sv._(_root);
+  @override
   late final _Translations$aboutPage$sv aboutPage = _Translations$aboutPage$sv._(_root);
   @override
   late final _Translations$donationPage$sv donationPage = _Translations$donationPage$sv._(_root);
   @override
   late final _Translations$changelogPage$sv changelogPage = _Translations$changelogPage$sv._(_root);
+  @override
+  late final _Translations$whatsNewPage$sv whatsNewPage = _Translations$whatsNewPage$sv._(_root);
   @override
   late final _Translations$aliasGenerator$sv aliasGenerator = _Translations$aliasGenerator$sv._(_root);
   @override
@@ -187,6 +195,8 @@ class _Translations$receiveTab$sv extends Translations$receiveTab$en {
   late final _Translations$receiveTab$infoBox$sv infoBox = _Translations$receiveTab$infoBox$sv._(_root);
   @override
   late final _Translations$receiveTab$quickSave$sv quickSave = _Translations$receiveTab$quickSave$sv._(_root);
+  @override
+  String get link => 'Ta emot via länk';
 }
 
 // Path: sendTab
@@ -337,6 +347,42 @@ class _Translations$selectedFilesPage$sv extends Translations$selectedFilesPage$
   String get deleteAll => 'Ta bort alla';
 }
 
+// Path: deviceDetailsPage
+class _Translations$deviceDetailsPage$sv extends Translations$deviceDetailsPage$en {
+  _Translations$deviceDetailsPage$sv._(TranslationsSv root) : this._root = root, super.internal(root);
+
+  final TranslationsSv _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Enhetsdetaljer';
+  @override
+  String get favorite => 'Favorit';
+  @override
+  String get verify => 'Verifiera';
+  @override
+  late final _Translations$deviceDetailsPage$info$sv info = _Translations$deviceDetailsPage$info$sv._(_root);
+  @override
+  late final _Translations$deviceDetailsPage$logs$sv logs = _Translations$deviceDetailsPage$logs$sv._(_root);
+}
+
+// Path: verifyPage
+class _Translations$verifyPage$sv extends Translations$verifyPage$en {
+  _Translations$verifyPage$sv._(TranslationsSv root) : this._root = root, super.internal(root);
+
+  final TranslationsSv _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Verifiera';
+  @override
+  String get icons => 'Ikoner';
+  @override
+  String get text => 'Text';
+  @override
+  String get question => 'Ser det likadant ut på den andra enheten?';
+}
+
 // Path: receivePage
 class _Translations$receivePage$sv extends Translations$receivePage$en {
   _Translations$receivePage$sv._(TranslationsSv root) : this._root = root, super.internal(root);
@@ -385,6 +431,8 @@ class _Translations$sendPage$sv extends Translations$sendPage$en {
 
   // Translations
   @override
+  String calculatingChecksum({required Object curr, required Object n}) => 'Beräknar kontrollsumma (${curr} / ${n})';
+  @override
   String get waiting => 'Väntar på svar…';
   @override
   String get rejected => 'Mottagaren har avvisat begäran.';
@@ -392,8 +440,6 @@ class _Translations$sendPage$sv extends Translations$sendPage$en {
   String get tooManyAttempts => _root.web.tooManyAttempts;
   @override
   String get busy => 'Mottagaren är upptagen med en annan förfrågan.';
-  @override
-  String calculatingChecksum({required Object curr, required Object n}) => 'Beräknar kontrollsumma (${curr} / ${n})';
 }
 
 // Path: progressPage
@@ -454,6 +500,17 @@ class _Translations$webSharePage$sv extends Translations$webSharePage$en {
   String pendingRequests({required Object n}) => 'Väntande förfrågningar: ${n}';
 }
 
+// Path: webReceivePage
+class _Translations$webReceivePage$sv extends Translations$webReceivePage$en {
+  _Translations$webReceivePage$sv._(TranslationsSv root) : this._root = root, super.internal(root);
+
+  final TranslationsSv _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Ta emot via länk';
+}
+
 // Path: aboutPage
 class _Translations$aboutPage$sv extends Translations$aboutPage$en {
   _Translations$aboutPage$sv._(TranslationsSv root) : this._root = root, super.internal(root);
@@ -506,6 +563,19 @@ class _Translations$changelogPage$sv extends Translations$changelogPage$en {
   // Translations
   @override
   String get title => 'Ändringslogg';
+}
+
+// Path: whatsNewPage
+class _Translations$whatsNewPage$sv extends Translations$whatsNewPage$en {
+  _Translations$whatsNewPage$sv._(TranslationsSv root) : this._root = root, super.internal(root);
+
+  final TranslationsSv _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String title({required Object version}) => 'Nyheter i ${version}';
+  @override
+  late final _Translations$whatsNewPage$changes$sv changes = _Translations$whatsNewPage$changes$sv._(_root);
 }
 
 // Path: aliasGenerator
@@ -915,6 +985,8 @@ class _Translations$settingsTab$receive$sv extends Translations$settingsTab$rece
   String get saveToGallery => 'Spara medier i galleriet';
   @override
   String get saveToHistory => 'Spara i historiken';
+  @override
+  String get verifyChecksums => 'Verifiera kontrollsummor när filer tas emot';
 }
 
 // Path: settingsTab.send
@@ -928,6 +1000,8 @@ class _Translations$settingsTab$send$sv extends Translations$settingsTab$send$en
   String get title => 'Skicka';
   @override
   String get shareViaLinkAutoAccept => 'Acceptera förfrågningar automatiskt i läget ”Dela via länk”';
+  @override
+  String get createChecksums => 'Skapa kontrollsummor när filer skickas';
 }
 
 // Path: settingsTab.network
@@ -1052,6 +1126,40 @@ class _Translations$receiveHistoryPage$entryActions$sv extends Translations$rece
   String get deleteFromHistory => 'Ta bort från historiken';
 }
 
+// Path: deviceDetailsPage.info
+class _Translations$deviceDetailsPage$info$sv extends Translations$deviceDetailsPage$info$en {
+  _Translations$deviceDetailsPage$info$sv._(TranslationsSv root) : this._root = root, super.internal(root);
+
+  final TranslationsSv _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get name => 'Namn';
+  @override
+  String get address => 'Adress';
+  @override
+  String get version => 'Version';
+  @override
+  String protocol({required Object version}) => 'Protokoll v${version}';
+}
+
+// Path: deviceDetailsPage.logs
+class _Translations$deviceDetailsPage$logs$sv extends Translations$deviceDetailsPage$logs$en {
+  _Translations$deviceDetailsPage$logs$sv._(TranslationsSv root) : this._root = root, super.internal(root);
+
+  final TranslationsSv _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Loggar';
+  @override
+  String get empty => 'Inga loggar tillgängliga.';
+  @override
+  String discovered({required Object protocol, required Object host}) => 'Upptäckt via ${protocol} (${host})';
+  @override
+  String updated({required Object protocol, required Object host}) => 'Uppdaterad via ${protocol} (${host})';
+}
+
 // Path: progressPage.total
 class _Translations$progressPage$total$sv extends Translations$progressPage$total$en {
   _Translations$progressPage$total$sv._(TranslationsSv root) : this._root = root, super.internal(root);
@@ -1077,11 +1185,31 @@ class _Translations$progressPage$remainingTime$sv extends Translations$progressP
 
   // Translations
   @override
-  String minutes({required Object m, required Object ss}) => '${m}:${ss}';
-
-  /// Använd ”h” som förkortning för timmar och ”m” för minuter
+  String minutesUnit({required num m}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('sv'))(
+    m,
+    other: '${m}min',
+  );
   @override
-  String hours({required Object h, required Object m}) => '${h}h ${m}m';
+  String hoursUnit({required num h}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('sv'))(
+    h,
+    other: '${h}h',
+  );
+  @override
+  String minutes({required Object m, required Object ss}) => '${m}:${ss}';
+  @override
+  String hours({required num h, required num m}) =>
+      '${_root.progressPage.remainingTime.hoursUnit(h: h)} ${_root.progressPage.remainingTime.minutesUnit(m: m)}';
+}
+
+// Path: whatsNewPage.changes
+class _Translations$whatsNewPage$changes$sv extends Translations$whatsNewPage$changes$en {
+  _Translations$whatsNewPage$changes$sv._(TranslationsSv root) : this._root = root, super.internal(root);
+
+  final TranslationsSv _root; // ignore: unused_field
+
+  // Translations
+  @override
+  late final _Translations$whatsNewPage$changes$v1_18_0$sv v1_18_0 = _Translations$whatsNewPage$changes$v1_18_0$sv._(_root);
 }
 
 // Path: dialogs.addFile
@@ -1462,6 +1590,8 @@ class _Translations$settingsTab$general$colorOptions$sv extends Translations$set
   String get system => 'System';
   @override
   String get oled => 'OLED';
+  @override
+  String get custom => 'Anpassad';
 }
 
 // Path: settingsTab.general.languageOptions
@@ -1503,4 +1633,19 @@ class _Translations$progressPage$total$title$sv extends Translations$progressPag
   String get canceledSender => 'Avbruten av sändaren';
   @override
   String get canceledReceiver => 'Avbruten av mottagaren';
+}
+
+// Path: whatsNewPage.changes.v1_18_0
+class _Translations$whatsNewPage$changes$v1_18_0$sv extends Translations$whatsNewPage$changes$v1_18_0$en with WhatsNewStrings {
+  _Translations$whatsNewPage$changes$v1_18_0$sv._(TranslationsSv root) : this._root = root, super.internal(root);
+
+  final TranslationsSv _root; // ignore: unused_field
+
+  // Translations
+  @override
+  List<String> get changes => [
+    'Kryptering gör inte längre överföringar långsammare. Den har aktiverats igen på den här enheten om du tidigare stängde av den.',
+    'Förfrågningar från favoriter accepteras nu automatiskt. Detta är påslaget som standard och kan inaktiveras i inställningarna.',
+    'På Android fortsätter överföringar medan appen är i bakgrunden eller skärmen är avstängd. På iOS måste appen fortfarande vara i förgrunden.',
+  ];
 }

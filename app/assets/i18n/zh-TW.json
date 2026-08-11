@@ -51,7 +51,8 @@
       "off": "@:general.off",
       "favorites": "最愛",
       "on": "@:general.on"
-    }
+    },
+    "link": "透過連結接收"
   },
   "sendTab": {
     "title": "傳送",
@@ -96,7 +97,8 @@
       "color": "色彩",
       "colorOptions": {
         "system": "系統",
-        "oled": "OLED"
+        "oled": "OLED",
+        "custom": "自訂"
       },
       "language": "語言",
       "languageOptions": {
@@ -119,11 +121,13 @@
       "destination": "儲存目錄",
       "downloads": "(下載)",
       "saveToGallery": "儲存媒體至相簿",
-      "saveToHistory": "儲存至歷史記錄"
+      "saveToHistory": "儲存至歷史記錄",
+      "verifyChecksums": "接收檔案時驗證校驗碼"
     },
     "send": {
       "title": "傳送",
-      "shareViaLinkAutoAccept": "透過連結分享：自動同意接收要求"
+      "shareViaLinkAutoAccept": "透過連結分享：自動同意接收要求",
+      "createChecksums": "傳送檔案時建立校驗碼"
     },
     "network": {
       "title": "網路",
@@ -202,6 +206,29 @@
   "selectedFilesPage": {
     "deleteAll": "全部刪除"
   },
+  "deviceDetailsPage": {
+    "title": "裝置詳情",
+    "favorite": "最愛",
+    "verify": "驗證",
+    "info": {
+      "name": "名稱",
+      "address": "位址",
+      "version": "版本",
+      "protocol": "協定 v{version}"
+    },
+    "logs": {
+      "title": "記錄",
+      "empty": "沒有可用的記錄。",
+      "discovered": "透過 {protocol} 發現 ({host})",
+      "updated": "透過 {protocol} 更新 ({host})"
+    }
+  },
+  "verifyPage": {
+    "title": "驗證",
+    "icons": "圖示",
+    "text": "文字",
+    "question": "在另一台裝置上顯示的內容相同嗎？"
+  },
   "receivePage": {
     "subTitle": {
       "one": "要傳送一個檔案給您",
@@ -219,11 +246,11 @@
     "saveToGalleryOff": "因內容存在資料夾而自動關閉。"
   },
   "sendPage": {
+    "calculatingChecksum": "正在計算核對和（{curr} / {n}）",
     "waiting": "正在等候回應…",
     "rejected": "接收者拒絕了要求。",
     "tooManyAttempts": "@:web.tooManyAttempts",
-    "busy": "接收者正忙於處理另一個要求。",
-    "calculatingChecksum": "正在計算核對和（{curr} / {n}）"
+    "busy": "接收者正忙於處理另一個要求。"
   },
   "progressPage": {
     "titleSending": "正在傳送檔案",
@@ -241,9 +268,14 @@
       "speed": "速度：{speed}/s"
     },
     "remainingTime": {
-      "hours": "{h}小時 {m}分鐘",
+      "minutesUnit(plural, param=m)": {
+        "other": "{m}分鐘"
+      },
+      "hoursUnit(plural, param=h)": {
+        "other": "{h}小時"
+      },
       "minutes": "{m}:{ss}",
-      "@hours": "使用「h」作為小時縮寫，「m」作為分鐘縮寫"
+      "hours": "@:.hoursUnit @:.minutesUnit"
     }
   },
   "webSharePage": {
@@ -263,6 +295,9 @@
     "pinHint": "PIN 碼是「{pin}」",
     "encryptionHint": "LocalSend 使用自簽署憑證。您需要在瀏覽器中接受它。",
     "pendingRequests": "待處理的要求：{n}"
+  },
+  "webReceivePage": {
+    "title": "透過連結接收"
   },
   "aboutPage": {
     "title": "關於 LocalSend",
@@ -284,6 +319,18 @@
   },
   "changelogPage": {
     "title": "變更記錄"
+  },
+  "whatsNewPage": {
+    "title": "{version} 有什麼新功能",
+    "changes(interface=WhatsNewStrings)": {
+      "v1_18_0": {
+        "changes": [
+          "加密不再會拖慢傳輸速度。如果您之前將此裝置上的加密關閉，現在已重新啟用。",
+          "來自「最愛」的請求現在會自動接受。此功能預設為開啟，並可在設定中停用。",
+          "在 Android 上，當應用程式在背景執行或螢幕關閉時，傳輸仍會繼續。在 iOS 上，應用程式必須保持在前景。"
+        ]
+      }
+    }
   },
   "aliasGenerator(ignoreMissing, ignoreGpt)": {
     "@info": "Inherits from the English version"
@@ -454,17 +501,5 @@
     "sActionUseCameraHint": "使用相機",
     "sNameDurationLabel": "持續時間",
     "sUnitAssetCountLabel": "計數"
-  },
-  "whatsNewPage": {
-    "title": "{version} 有什麼新功能",
-    "changes(interface=WhatsNewStrings)": {
-      "v1_18_0": {
-        "changes": [
-          "加密不再會拖慢傳輸速度。如果您之前將此裝置上的加密關閉，現在已重新啟用。",
-          "來自「最愛」的請求現在會自動接受。此功能預設為開啟，並可在設定中停用。",
-          "在 Android 上，當應用程式在背景執行或螢幕關閉時，傳輸仍會繼續。在 iOS 上，應用程式必須保持在前景。"
-        ]
-      }
-    }
   }
 }

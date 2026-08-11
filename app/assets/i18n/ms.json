@@ -51,7 +51,8 @@
       "off": "@:general.off",
       "favorites": "Kegemaran",
       "on": "@:general.on"
-    }
+    },
+    "link": "Terima melalui pautan"
   },
   "sendTab": {
     "title": "Hantar",
@@ -96,7 +97,8 @@
       "color": "Warna",
       "colorOptions": {
         "system": "Sistem",
-        "oled": "OLED"
+        "oled": "OLED",
+        "custom": "Tersuai"
       },
       "language": "Bahasa",
       "languageOptions": {
@@ -119,11 +121,13 @@
       "destination": "Simpan ke folder",
       "downloads": "(Muat turun)",
       "saveToGallery": "Simpan media ke galeri",
-      "saveToHistory": "Simpan ke sejarah"
+      "saveToHistory": "Simpan ke sejarah",
+      "verifyChecksums": "Sahkan checksum semasa menerima fail"
     },
     "send": {
       "title": "Hantar",
-      "shareViaLinkAutoAccept": "Terima permintaan secara automatik dalam mod \"Kongsi melalui pautan\""
+      "shareViaLinkAutoAccept": "Terima permintaan secara automatik dalam mod \"Kongsi melalui pautan\"",
+      "createChecksums": "Cipta checksum semasa menghantar fail"
     },
     "network": {
       "title": "Rangkaian",
@@ -202,6 +206,29 @@
   "selectedFilesPage": {
     "deleteAll": "Padam semua"
   },
+  "deviceDetailsPage": {
+    "title": "Butiran Peranti",
+    "favorite": "Kegemaran",
+    "verify": "Sahkan",
+    "info": {
+      "name": "Nama",
+      "address": "Alamat",
+      "version": "Versi",
+      "protocol": "Protokol v{version}"
+    },
+    "logs": {
+      "title": "Log",
+      "empty": "Tiada log tersedia.",
+      "discovered": "Ditemui melalui {protocol} ({host})",
+      "updated": "Dikemas kini melalui {protocol} ({host})"
+    }
+  },
+  "verifyPage": {
+    "title": "Sahkan",
+    "icons": "Ikon",
+    "text": "Teks",
+    "question": "Adakah ia kelihatan sama pada peranti yang satu lagi?"
+  },
   "receivePage": {
     "subTitle": {
       "one": "ingin menghantar fail kepada anda",
@@ -219,6 +246,7 @@
     "saveToGalleryOff": "Dimatikan secara automatik kerana terdapat folder."
   },
   "sendPage": {
+    "calculatingChecksum": "Mengira checksum ({curr} / {n})",
     "waiting": "Menunggu respons…",
     "rejected": "Penerima telah menolak permintaan.",
     "tooManyAttempts": "@:web.tooManyAttempts",
@@ -238,6 +266,16 @@
       "count": "Fail: {curr} / {n}",
       "size": "Saiz: {curr} / {n}",
       "speed": "Kelajuan: {speed}/s"
+    },
+    "remainingTime": {
+      "minutesUnit(plural, param=m)": {
+        "other": "{m}m"
+      },
+      "hoursUnit(plural, param=h)": {
+        "other": "{h}j"
+      },
+      "minutes": "{m}:{ss}",
+      "hours": "@:.hoursUnit @:.minutesUnit"
     }
   },
   "webSharePage": {
@@ -257,6 +295,9 @@
     "pinHint": "PIN ialah \"{pin}\"",
     "encryptionHint": "LocalSend menggunakan sijil yang ditandatangani sendiri. Anda perlu menerimanya di pelayar anda.",
     "pendingRequests": "Permintaan yang masih belum selesai: {n}"
+  },
+  "webReceivePage": {
+    "title": "Terima melalui pautan"
   },
   "aboutPage": {
     "title": "Tentang LocalSend",
@@ -278,6 +319,18 @@
   },
   "changelogPage": {
     "title": "Log perubahan"
+  },
+  "whatsNewPage": {
+    "title": "Apa yang baharu dalam {version}",
+    "changes(interface=WhatsNewStrings)": {
+      "v1_18_0": {
+        "changes": [
+          "Penyulitan tidak lagi memperlahankan pemindahan. Ia telah diaktifkan semula pada peranti ini jika anda mematikannya sebelum ini.",
+          "Permintaan daripada kegemaran kini diterima secara automatik. Ini diaktifkan secara lalai dan boleh dimatikan dalam tetapan.",
+          "Pada Android, pemindahan diteruskan semasa aplikasi berada di latar belakang atau skrin dimatikan. Pada iOS, aplikasi masih perlu kekal di latar depan."
+        ]
+      }
+    }
   },
   "aliasGenerator(ignoreMissing, ignoreGpt)": {
     "@info": "Penempatan berbeza mungkin mempunyai perkataan yang berbeza, dan tidak sepadan 1:1",

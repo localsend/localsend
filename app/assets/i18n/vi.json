@@ -51,7 +51,8 @@
       "off": "@:general.off",
       "favorites": "Yêu thích",
       "on": "@:general.on"
-    }
+    },
+    "link": "Nhận qua liên kết"
   },
   "sendTab": {
     "title": "Gửi",
@@ -96,7 +97,8 @@
       "color": "Màu sắc",
       "colorOptions": {
         "system": "Hệ thống",
-        "oled": "OLED"
+        "oled": "OLED",
+        "custom": "Tùy chỉnh"
       },
       "language": "Ngôn ngữ",
       "languageOptions": {
@@ -119,11 +121,13 @@
       "destination": "Đích đến",
       "downloads": "(Downloads)",
       "saveToGallery": "Lưu media vào thư viện",
-      "saveToHistory": "Lưu vào lịch sử"
+      "saveToHistory": "Lưu vào lịch sử",
+      "verifyChecksums": "Xác minh checksum khi nhận tệp"
     },
     "send": {
       "title": "Gửi",
-      "shareViaLinkAutoAccept": "Chia sẻ qua liên kết: Tự động chấp nhận"
+      "shareViaLinkAutoAccept": "Chia sẻ qua liên kết: Tự động chấp nhận",
+      "createChecksums": "Tạo checksum khi gửi tệp"
     },
     "network": {
       "title": "Mạng",
@@ -202,6 +206,29 @@
   "selectedFilesPage": {
     "deleteAll": "Xoá toàn bộ"
   },
+  "deviceDetailsPage": {
+    "title": "Chi tiết thiết bị",
+    "favorite": "Yêu thích",
+    "verify": "Xác minh",
+    "info": {
+      "name": "Tên",
+      "address": "Địa chỉ",
+      "version": "Phiên bản",
+      "protocol": "Giao thức v{version}"
+    },
+    "logs": {
+      "title": "Nhật ký",
+      "empty": "Không có nhật ký nào.",
+      "discovered": "Được phát hiện qua {protocol} ({host})",
+      "updated": "Được cập nhật qua {protocol} ({host})"
+    }
+  },
+  "verifyPage": {
+    "title": "Xác minh",
+    "icons": "Biểu tượng",
+    "text": "Văn bản",
+    "question": "Nó có giống nhau trên thiết bị kia không?"
+  },
   "receivePage": {
     "subTitle": {
       "one": "muốn gửi cho bạn một tập tin",
@@ -219,6 +246,7 @@
     "saveToGalleryOff": "Đã tự động tắt vì là thư mục."
   },
   "sendPage": {
+    "calculatingChecksum": "Đang tính checksum ({curr} / {n})",
     "waiting": "Đang chờ phản hồi…",
     "rejected": "Người nhận đã từ chối yêu cầu.",
     "tooManyAttempts": "@:web.tooManyAttempts",
@@ -238,6 +266,16 @@
       "count": "Tập tin: {curr} / {n}",
       "size": "Kích thước: {curr} / {n}",
       "speed": "Tốc độ: {speed}/s"
+    },
+    "remainingTime": {
+      "minutesUnit(plural, param=m)": {
+        "other": "{m} phút"
+      },
+      "hoursUnit(plural, param=h)": {
+        "other": "{h} giờ"
+      },
+      "minutes": "{m}:{ss}",
+      "hours": "@:.hoursUnit @:.minutesUnit"
     }
   },
   "webSharePage": {
@@ -257,6 +295,9 @@
     "pinHint": "Mã PIN là \"{pin}\"",
     "encryptionHint": "LocalSend dùng chứng chỉ tự tạo. Bạn cần chấp thuận trong trình duyệt.",
     "pendingRequests": "Yêu cầu chờ: {n}"
+  },
+  "webReceivePage": {
+    "title": "Nhận qua liên kết"
   },
   "aboutPage": {
     "title": "Thông tin về LocalSend",
@@ -278,6 +319,18 @@
   },
   "changelogPage": {
     "title": "Lịch sử thay đổi"
+  },
+  "whatsNewPage": {
+    "title": "Có gì mới trong {version}",
+    "changes(interface=WhatsNewStrings)": {
+      "v1_18_0": {
+        "changes": [
+          "Mã hóa không còn làm chậm quá trình truyền tệp. Nó đã được bật lại trên thiết bị này nếu trước đây bạn đã tắt.",
+          "Yêu cầu từ các thiết bị yêu thích giờ được chấp nhận tự động. Tính năng này được bật mặc định và có thể tắt trong cài đặt.",
+          "Trên Android, quá trình truyền tệp tiếp tục khi ứng dụng ở chế độ nền hoặc màn hình tắt. Trên iOS, ứng dụng vẫn phải ở trên nền trước."
+        ]
+      }
+    }
   },
   "aliasGenerator(ignoreMissing, ignoreGpt)": {
     "@info": "Inherits from the English version"

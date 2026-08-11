@@ -238,11 +238,6 @@
       "count": "Files: {curr} / {n}",
       "size": "Size: {curr} / {n}",
       "speed": "Speed: {speed}/s"
-    },
-    "remainingTime": {
-      "minutes": "{m}:{ss}",
-      "hours": "{h}h {m}m",
-      "@hours": "Use 'h' for hours abbreviation and 'm' for minutes"
     }
   },
   "webSharePage": {

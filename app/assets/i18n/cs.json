@@ -51,7 +51,8 @@
       "off": "@:general.off",
       "favorites": "Oblíbené",
       "on": "@:general.on"
-    }
+    },
+    "link": "Přijmout přes odkaz"
   },
   "sendTab": {
     "title": "Odeslat",
@@ -96,7 +97,8 @@
       "color": "Barva",
       "colorOptions": {
         "system": "Systém",
-        "oled": "OLED"
+        "oled": "OLED",
+        "custom": "Vlastní"
       },
       "language": "Jazyk",
       "languageOptions": {
@@ -119,11 +121,13 @@
       "destination": "Uložit do",
       "downloads": "(Downloads)",
       "saveToGallery": "Uložit média do galerie",
-      "saveToHistory": "Uložit do historie"
+      "saveToHistory": "Uložit do historie",
+      "verifyChecksums": "Ověřovat kontrolní součty při přijímání souborů"
     },
     "send": {
       "title": "Poslat",
-      "shareViaLinkAutoAccept": "Automaticky přijímat požadavky v režimu \"Sdílet přes odkaz\"."
+      "shareViaLinkAutoAccept": "Automaticky přijímat požadavky v režimu \"Sdílet přes odkaz\".",
+      "createChecksums": "Vytvářet kontrolní součty při odesílání souborů"
     },
     "network": {
       "title": "Síť",
@@ -202,6 +206,29 @@
   "selectedFilesPage": {
     "deleteAll": "Smazat vše"
   },
+  "deviceDetailsPage": {
+    "title": "Podrobnosti o zařízení",
+    "favorite": "Oblíbené",
+    "verify": "Ověřit",
+    "info": {
+      "name": "Název",
+      "address": "Adresa",
+      "version": "Verze",
+      "protocol": "Protokol v{version}"
+    },
+    "logs": {
+      "title": "Záznamy",
+      "empty": "Žádné záznamy nejsou k dispozici.",
+      "discovered": "Objeveno přes {protocol} ({host})",
+      "updated": "Aktualizováno přes {protocol} ({host})"
+    }
+  },
+  "verifyPage": {
+    "title": "Ověřit",
+    "icons": "Ikony",
+    "text": "Text",
+    "question": "Vypadá to na druhém zařízení stejně?"
+  },
   "receivePage": {
     "subTitle": {
       "one": "vám chce poslat soubor",
@@ -219,6 +246,7 @@
     "saveToGalleryOff": "Automaticky vypnuto, protože existují adresáře."
   },
   "sendPage": {
+    "calculatingChecksum": "Výpočet kontrolního součtu ({curr} / {n})",
     "waiting": "Čekání na odpověď...",
     "rejected": "Příjemce žádost odmítl.",
     "tooManyAttempts": "@:web.tooManyAttempts",
@@ -238,6 +266,16 @@
       "count": "Soubory: {curr} / {n}",
       "size": "Velikost: {curr} / {n}",
       "speed": "Rychlost: {speed}/s"
+    },
+    "remainingTime": {
+      "minutesUnit(plural, param=m)": {
+        "other": "{m}m"
+      },
+      "hoursUnit(plural, param=h)": {
+        "other": "{h}h"
+      },
+      "minutes": "{m}:{ss}",
+      "hours": "@:.hoursUnit @:.minutesUnit"
     }
   },
   "webSharePage": {
@@ -257,6 +295,9 @@
     "pinHint": "PIN je \"{pin}\"",
     "encryptionHint": "LocalSend používá self-signed certifikát. Musíte ho přijmout ve vašem prohlížeči.",
     "pendingRequests": "Čekající žádosti: {n}"
+  },
+  "webReceivePage": {
+    "title": "Přijmout přes odkaz"
   },
   "aboutPage": {
     "title": "O aplikaci LocalSend",
@@ -278,6 +319,18 @@
   },
   "changelogPage": {
     "title": "Seznam změn"
+  },
+  "whatsNewPage": {
+    "title": "Co je nového ve verzi {version}",
+    "changes(interface=WhatsNewStrings)": {
+      "v1_18_0": {
+        "changes": [
+          "Šifrování již nezpomaluje přenosy. Pokud jste je dříve vypnuli, bylo na tomto zařízení znovu zapnuto.",
+          "Požadavky od oblíbených zařízení jsou nyní přijímány automaticky. Tato funkce je ve výchozím nastavení zapnutá a lze ji v nastavení vypnout.",
+          "Na Androidu přenosy pokračují, i když je aplikace na pozadí nebo je obrazovka vypnutá. Na iOS musí aplikace stále zůstat v popředí."
+        ]
+      }
+    }
   },
   "aliasGenerator(ignoreMissing, ignoreGpt)": {
     "@info": "Inherits from the English version"

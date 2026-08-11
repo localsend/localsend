@@ -23,6 +23,7 @@
 LocalSend is a free, open-source app that allows you to securely share files and messages with nearby devices over your local network without needing an internet connection.
 
 - [About](#about)
+- [Sponsors](#sponsors)
 - [Screenshots](#screenshots)
 - [Download](#download)
 - [How It Works](#how-it-works)
@@ -42,6 +43,14 @@ LocalSend is a free, open-source app that allows you to securely share files and
 ## About
 
 LocalSend is a cross-platform app that enables secure communication between devices using a REST API and HTTPS encryption. Unlike other messaging apps that rely on external servers, LocalSend doesn't require an internet connection or third-party servers, making it a fast and reliable solution for local communication.
+
+## Sponsors
+
+Browser testing via
+
+<a href="https://www.testmuai.com/?utm_medium=sponsor&utm_source=localsend" target="_blank">
+    <img src="https://localsend.org/img/sponsors/tesmu.svg" style="vertical-align: middle;" width="250" height="45" />
+</a>
 
 ## Screenshots
 
@@ -65,6 +74,8 @@ It is recommended to download the app either from an app store or from a package
 
 Read more about [distribution channels][].
 
+Windows binaries are signed. Read more about the [Code signing policy][].
+
 > [!CAUTION]
 > **Unofficial MSIX preview:** you can try builds from the latest commits at [localsend.ob-buff.dev](https://localsend.ob-buff.dev/). Stability is not guaranteed and all custom code tweaks are listed on that site.
 
@@ -83,6 +94,7 @@ Read more about [distribution channels][].
 [aur]: https://aur.archlinux.org/packages/localsend-bin
 [latest]: https://github.com/localsend/localsend/releases/latest
 [distribution channels]: https://github.com/localsend/localsend/blob/main/CONTRIBUTING.md#distribution
+[code signing policy]: https://github.com/localsend/localsend/blob/main/CODE_SIGNING.md
 
 **Compatibility**
 

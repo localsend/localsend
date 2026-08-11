@@ -226,7 +226,7 @@
   "verifyPage": {
     "title": "אימות",
     "icons": "סמלים",
-    "raw": "גולמי",
+    "text": "טקסט",
     "question": "האם זה נראה אותו דבר במכשיר השני?"
   },
   "receivePage": {

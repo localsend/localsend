@@ -60,6 +60,10 @@ class TranslationsMl extends Translations with BaseTranslations<AppLocale, Trans
   @override
   late final _Translations$selectedFilesPage$ml selectedFilesPage = _Translations$selectedFilesPage$ml._(_root);
   @override
+  late final _Translations$deviceDetailsPage$ml deviceDetailsPage = _Translations$deviceDetailsPage$ml._(_root);
+  @override
+  late final _Translations$verifyPage$ml verifyPage = _Translations$verifyPage$ml._(_root);
+  @override
   late final _Translations$receivePage$ml receivePage = _Translations$receivePage$ml._(_root);
   @override
   late final _Translations$receiveOptionsPage$ml receiveOptionsPage = _Translations$receiveOptionsPage$ml._(_root);
@@ -70,11 +74,15 @@ class TranslationsMl extends Translations with BaseTranslations<AppLocale, Trans
   @override
   late final _Translations$webSharePage$ml webSharePage = _Translations$webSharePage$ml._(_root);
   @override
+  late final _Translations$webReceivePage$ml webReceivePage = _Translations$webReceivePage$ml._(_root);
+  @override
   late final _Translations$aboutPage$ml aboutPage = _Translations$aboutPage$ml._(_root);
   @override
   late final _Translations$donationPage$ml donationPage = _Translations$donationPage$ml._(_root);
   @override
   late final _Translations$changelogPage$ml changelogPage = _Translations$changelogPage$ml._(_root);
+  @override
+  late final _Translations$whatsNewPage$ml whatsNewPage = _Translations$whatsNewPage$ml._(_root);
   @override
   late final _Translations$dialogs$ml dialogs = _Translations$dialogs$ml._(_root);
   @override
@@ -185,6 +193,8 @@ class _Translations$receiveTab$ml extends Translations$receiveTab$en {
   late final _Translations$receiveTab$infoBox$ml infoBox = _Translations$receiveTab$infoBox$ml._(_root);
   @override
   late final _Translations$receiveTab$quickSave$ml quickSave = _Translations$receiveTab$quickSave$ml._(_root);
+  @override
+  String get link => 'ലിങ്ക് വഴി സ്വീകരിക്കുക';
 }
 
 // Path: sendTab
@@ -335,6 +345,42 @@ class _Translations$selectedFilesPage$ml extends Translations$selectedFilesPage$
   String get deleteAll => 'എല്ലാം ഡിലീറ്റ് ചെയ്യുക';
 }
 
+// Path: deviceDetailsPage
+class _Translations$deviceDetailsPage$ml extends Translations$deviceDetailsPage$en {
+  _Translations$deviceDetailsPage$ml._(TranslationsMl root) : this._root = root, super.internal(root);
+
+  final TranslationsMl _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'ഉപകരണ വിശദാംശങ്ങൾ';
+  @override
+  String get favorite => 'പ്രിയപ്പെട്ടത്';
+  @override
+  String get verify => 'പരിശോധിക്കുക';
+  @override
+  late final _Translations$deviceDetailsPage$info$ml info = _Translations$deviceDetailsPage$info$ml._(_root);
+  @override
+  late final _Translations$deviceDetailsPage$logs$ml logs = _Translations$deviceDetailsPage$logs$ml._(_root);
+}
+
+// Path: verifyPage
+class _Translations$verifyPage$ml extends Translations$verifyPage$en {
+  _Translations$verifyPage$ml._(TranslationsMl root) : this._root = root, super.internal(root);
+
+  final TranslationsMl _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'പരിശോധിക്കുക';
+  @override
+  String get icons => 'ഐക്കണുകൾ';
+  @override
+  String get text => 'ടെക്സ്റ്റ്';
+  @override
+  String get question => 'മറ്റേ ഉപകരണത്തിലും ഇതുപോലെ തന്നെയാണോ കാണുന്നത്?';
+}
+
 // Path: receivePage
 class _Translations$receivePage$ml extends Translations$receivePage$en {
   _Translations$receivePage$ml._(TranslationsMl root) : this._root = root, super.internal(root);
@@ -366,7 +412,11 @@ class _Translations$receiveOptionsPage$ml extends Translations$receiveOptionsPag
   @override
   String get title => 'ഓപ്ഷനുകൾ';
   @override
+  String get destination => _root.settingsTab.receive.destination;
+  @override
   String get appDirectory => '(ലോക്കൽസെൻഡ് ഫോൾഡർ)';
+  @override
+  String get saveToGallery => _root.settingsTab.receive.saveToGallery;
   @override
   String get saveToGalleryOff => 'ഫോൾഡറുകൾ ഉള്ളതിനാൽ ഓട്ടോമാറ്റിക്കായി ഓഫാക്കി.';
 }
@@ -378,6 +428,8 @@ class _Translations$sendPage$ml extends Translations$sendPage$en {
   final TranslationsMl _root; // ignore: unused_field
 
   // Translations
+  @override
+  String calculatingChecksum({required Object curr, required Object n}) => 'ചെക്ക്സം കണക്കാക്കുന്നു (${curr} / ${n})';
   @override
   String get waiting => 'പ്രതികരണത്തിനായി കാത്തിരിക്കുന്നു…';
   @override
@@ -403,6 +455,8 @@ class _Translations$progressPage$ml extends Translations$progressPage$en {
   String get savedToGallery => 'ഫോട്ടോസിൽ സേവ് ചെയ്തു';
   @override
   late final _Translations$progressPage$total$ml total = _Translations$progressPage$total$ml._(_root);
+  @override
+  late final _Translations$progressPage$remainingTime$ml remainingTime = _Translations$progressPage$remainingTime$ml._(_root);
 }
 
 // Path: webSharePage
@@ -431,6 +485,8 @@ class _Translations$webSharePage$ml extends Translations$webSharePage$en {
   @override
   String get noRequests => 'അപേക്ഷകളൊന്നും ഇതുവരെ ഇല്ല.';
   @override
+  String get encryption => _root.settingsTab.network.encryption;
+  @override
   String get autoAccept => 'ആട്ടോമാറ്റിക് ആയി അപേക്ഷകൾ സ്വീകരിക്കുക';
   @override
   String get requirePin => 'പിൻ ആവശ്യമാണ്';
@@ -440,6 +496,17 @@ class _Translations$webSharePage$ml extends Translations$webSharePage$en {
   String get encryptionHint => 'ലോക്കൽസെൻഡ്‌ ഉപയോഗിക്കുന്നത് സ്വയം ഒപ്പു വച്ച സാക്ഷ്യപത്രം ആണ്. നിങ്ങളുടെ ബ്രൗസറിൽ ഇത് നിങ്ങൾ അംഗീകരിക്കണം.';
   @override
   String pendingRequests({required Object n}) => 'തീരുമാനിക്കപ്പെടാത്ത അപേക്ഷകൾ: ${n}';
+}
+
+// Path: webReceivePage
+class _Translations$webReceivePage$ml extends Translations$webReceivePage$en {
+  _Translations$webReceivePage$ml._(TranslationsMl root) : this._root = root, super.internal(root);
+
+  final TranslationsMl _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'ലിങ്ക് വഴി സ്വീകരിക്കുക';
 }
 
 // Path: aboutPage
@@ -497,6 +564,19 @@ class _Translations$changelogPage$ml extends Translations$changelogPage$en {
   String get title => 'മാറ്റവിവരപട്ടിക';
 }
 
+// Path: whatsNewPage
+class _Translations$whatsNewPage$ml extends Translations$whatsNewPage$en {
+  _Translations$whatsNewPage$ml._(TranslationsMl root) : this._root = root, super.internal(root);
+
+  final TranslationsMl _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String title({required Object version}) => '${version}-ലെ പുതിയ കാര്യങ്ങൾ';
+  @override
+  late final _Translations$whatsNewPage$changes$ml changes = _Translations$whatsNewPage$changes$ml._(_root);
+}
+
 // Path: dialogs
 class _Translations$dialogs$ml extends Translations$dialogs$en {
   _Translations$dialogs$ml._(TranslationsMl root) : this._root = root, super.internal(root);
@@ -516,6 +596,8 @@ class _Translations$dialogs$ml extends Translations$dialogs$en {
   late final _Translations$dialogs$cannotOpenFile$ml cannotOpenFile = _Translations$dialogs$cannotOpenFile$ml._(_root);
   @override
   late final _Translations$dialogs$encryptionDisabledNotice$ml encryptionDisabledNotice = _Translations$dialogs$encryptionDisabledNotice$ml._(_root);
+  @override
+  late final _Translations$dialogs$errorDialog$ml errorDialog = _Translations$dialogs$errorDialog$ml._(_root);
   @override
   late final _Translations$dialogs$favoriteDialog$ml favoriteDialog = _Translations$dialogs$favoriteDialog$ml._(_root);
   @override
@@ -576,6 +658,8 @@ class _Translations$tray$ml extends Translations$tray$en {
 
   // Translations
   @override
+  String get open => _root.general.open;
+  @override
   String get close => 'ഈ അപ്പ്ലിക്കേഷനിൽ നിന്നും പുറത്തു കടക്കുക';
   @override
   String get closeWindows => 'എക്സിറ്';
@@ -588,6 +672,8 @@ class _Translations$web$ml extends Translations$web$en {
   final TranslationsMl _root; // ignore: unused_field
 
   // Translations
+  @override
+  String get waiting => _root.sendPage.waiting;
   @override
   String get enterPin => 'PIN എന്റർ ചെയ്യുക';
   @override
@@ -814,6 +900,8 @@ class _Translations$settingsTab$receive$ml extends Translations$settingsTab$rece
   String get saveToGallery => 'മീഡിയ ഫയൽസ് ഗാലറിയിലേക്ക് സേവ് ചെയ്യുക';
   @override
   String get saveToHistory => 'ഹിസ്റ്ററിയിലേക്കു സേവ് ചെയ്യുക';
+  @override
+  String get verifyChecksums => 'ഫയലുകൾ സ്വീകരിക്കുമ്പോൾ ചെക്ക്സം പരിശോധിക്കുക';
 }
 
 // Path: settingsTab.send
@@ -827,6 +915,8 @@ class _Translations$settingsTab$send$ml extends Translations$settingsTab$send$en
   String get title => 'അയക്കുക';
   @override
   String get shareViaLinkAutoAccept => '"ലിങ്ക് വഴി ഷെയർ" ചെയ്യുമ്പോൾ ഓട്ടോമാറ്റിക് ആയി സ്വീകരിക്കുക';
+  @override
+  String get createChecksums => 'ഫയലുകൾ അയയ്ക്കുമ്പോൾ ചെക്ക്സം സൃഷ്ടിക്കുക';
 }
 
 // Path: settingsTab.network
@@ -952,6 +1042,40 @@ class _Translations$receiveHistoryPage$entryActions$ml extends Translations$rece
   String get deleteFromHistory => 'ഹിസ്റ്ററിയിൽ നിന്ന് ഡിലീറ്റ് ചെയ്യുക';
 }
 
+// Path: deviceDetailsPage.info
+class _Translations$deviceDetailsPage$info$ml extends Translations$deviceDetailsPage$info$en {
+  _Translations$deviceDetailsPage$info$ml._(TranslationsMl root) : this._root = root, super.internal(root);
+
+  final TranslationsMl _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get name => 'പേര്';
+  @override
+  String get address => 'വിലാസം';
+  @override
+  String get version => 'പതിപ്പ്';
+  @override
+  String protocol({required Object version}) => 'പ്രോട്ടോക്കോൾ v${version}';
+}
+
+// Path: deviceDetailsPage.logs
+class _Translations$deviceDetailsPage$logs$ml extends Translations$deviceDetailsPage$logs$en {
+  _Translations$deviceDetailsPage$logs$ml._(TranslationsMl root) : this._root = root, super.internal(root);
+
+  final TranslationsMl _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'ലോഗുകൾ';
+  @override
+  String get empty => 'ലോഗുകളൊന്നും ലഭ്യമല്ല.';
+  @override
+  String discovered({required Object protocol, required Object host}) => '${protocol} വഴി കണ്ടെത്തി (${host})';
+  @override
+  String updated({required Object protocol, required Object host}) => '${protocol} വഴി അപ്ഡേറ്റ് ചെയ്തു (${host})';
+}
+
 // Path: progressPage.total
 class _Translations$progressPage$total$ml extends Translations$progressPage$total$en {
   _Translations$progressPage$total$ml._(TranslationsMl root) : this._root = root, super.internal(root);
@@ -967,6 +1091,41 @@ class _Translations$progressPage$total$ml extends Translations$progressPage$tota
   String size({required Object curr, required Object n}) => 'വലിപ്പം: ${curr} / ${n}';
   @override
   String speed({required Object speed}) => 'വേഗത: ${speed}/s';
+}
+
+// Path: progressPage.remainingTime
+class _Translations$progressPage$remainingTime$ml extends Translations$progressPage$remainingTime$en {
+  _Translations$progressPage$remainingTime$ml._(TranslationsMl root) : this._root = root, super.internal(root);
+
+  final TranslationsMl _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String minutesUnit({required num m}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ml'))(
+    m,
+    other: '${m}മി',
+  );
+  @override
+  String hoursUnit({required num h}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ml'))(
+    h,
+    other: '${h}മ',
+  );
+  @override
+  String minutes({required Object m, required Object ss}) => '${m}:${ss}';
+  @override
+  String hours({required num h, required num m}) =>
+      '${_root.progressPage.remainingTime.hoursUnit(h: h)} ${_root.progressPage.remainingTime.minutesUnit(m: m)}';
+}
+
+// Path: whatsNewPage.changes
+class _Translations$whatsNewPage$changes$ml extends Translations$whatsNewPage$changes$en {
+  _Translations$whatsNewPage$changes$ml._(TranslationsMl root) : this._root = root, super.internal(root);
+
+  final TranslationsMl _root; // ignore: unused_field
+
+  // Translations
+  @override
+  late final _Translations$whatsNewPage$changes$v1_18_0$ml v1_18_0 = _Translations$whatsNewPage$changes$v1_18_0$ml._(_root);
 }
 
 // Path: dialogs.addFile
@@ -1049,6 +1208,17 @@ class _Translations$dialogs$encryptionDisabledNotice$ml extends Translations$dia
       'എൻക്രിപ്ട് ചെയ്യാത്ത HTTP പ്രോട്ടോകോൾ വഴിയാണ് ഇപ്പോൾ ആശയ വിനിമയം നടക്കുന്നത്. HTTPS പ്രോട്ടോകോൾ ഉപയോഗിക്കാൻ എൻക്രിപ്ഷൻ ഓൺ ചെയ്യുക.';
 }
 
+// Path: dialogs.errorDialog
+class _Translations$dialogs$errorDialog$ml extends Translations$dialogs$errorDialog$en {
+  _Translations$dialogs$errorDialog$ml._(TranslationsMl root) : this._root = root, super.internal(root);
+
+  final TranslationsMl _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => _root.general.error;
+}
+
 // Path: dialogs.favoriteDialog
 class _Translations$dialogs$favoriteDialog$ml extends Translations$dialogs$favoriteDialog$en {
   _Translations$dialogs$favoriteDialog$ml._(TranslationsMl root) : this._root = root, super.internal(root);
@@ -1090,6 +1260,8 @@ class _Translations$dialogs$favoriteEditDialog$ml extends Translations$dialogs$f
   String get titleEdit => 'സജ്ജീകരണങ്ങൾ';
   @override
   String get name => 'ഡിവൈസ് നാമം';
+  @override
+  String get auto => '(സ്വയം)';
   @override
   String get ip => 'ഐ പി അഡ്രസ്';
   @override
@@ -1150,6 +1322,8 @@ class _Translations$dialogs$localNetworkUnauthorized$ml extends Translations$dia
   final TranslationsMl _root; // ignore: unused_field
 
   // Translations
+  @override
+  String get title => _root.dialogs.noPermission.title;
   @override
   String get description =>
       'അനുവാദം ഇല്ലാതെ ലോക്കൽ നെറ്റ്‌വർക്ക് സ്കാൻ ചെയ്തു മറ്റു ഡിവൈസുകൾ കണ്ടുപിടിക്കാൻ ലോക്കൽസെന്റിന്‌ കഴിയില്ല. ദയവായി സെറ്റിങ്സിൽ ഇതിനുള്ള അനുവാദം നൽകുക.';
@@ -1232,6 +1406,10 @@ class _Translations$dialogs$quickActions$ml extends Translations$dialogs$quickAc
   @override
   String get counter => 'കൗണ്ടർ';
   @override
+  String get prefix => 'പ്രിഫിക്സ്';
+  @override
+  String get padZero => 'പൂജ്യങ്ങൾ ചേർക്കുക';
+  @override
   String get sortBeforeCount => 'മുൻകൂട്ടി അകാരാദിക്രമത്തിൽ ഒത്തിരിക്കുക (A-Z)';
   @override
   String get random => 'ക്രമമില്ലാത്തത്';
@@ -1245,6 +1423,8 @@ class _Translations$dialogs$quickSaveNotice$ml extends Translations$dialogs$quic
 
   // Translations
   @override
+  String get title => _root.general.quickSave;
+  @override
   String get content =>
       'ഫയൽ അപേക്ഷകൾ ഇപ്പോൾ ഓട്ടോമാറ്റിക് ആയി അനുവദിക്കുന്നു. ലോക്കൽ നെറ്റ്‌വർക്കിലുള്ള എല്ലാവര്ക്കും നിങ്ങൾക്കു ഫയൽ അയക്കാൻ കഴിയും എന്ന ബോധ്യമുണ്ടായിരിക്കുക.';
 }
@@ -1256,6 +1436,8 @@ class _Translations$dialogs$quickSaveFromFavoritesNotice$ml extends Translations
   final TranslationsMl _root; // ignore: unused_field
 
   // Translations
+  @override
+  String get title => _root.general.quickSaveFromFavorites;
   @override
   List<String> get content => [
     'നിങ്ങളുടെ ഫേവറൈറ്സ് ഉള്ള ഡിവൈസുകളിൽ നിന്നും ഓട്ടോമാറ്റിക് ആയി റിക്വസ്റ്റ് അക്സെപ്റ് ചെയ്യും.',
@@ -1327,6 +1509,8 @@ class _Translations$settingsTab$general$colorOptions$ml extends Translations$set
   String get system => 'സിസ്റ്റം';
   @override
   String get oled => 'OLED';
+  @override
+  String get custom => 'ഇഷ്ടാനുസൃതം';
 }
 
 // Path: settingsTab.general.languageOptions
@@ -1368,4 +1552,19 @@ class _Translations$progressPage$total$title$ml extends Translations$progressPag
   String get canceledSender => 'അയക്കുന്നവൻ റദ്ധാക്കി';
   @override
   String get canceledReceiver => 'സ്വീകർത്താവ് റദ്ധാക്കി';
+}
+
+// Path: whatsNewPage.changes.v1_18_0
+class _Translations$whatsNewPage$changes$v1_18_0$ml extends Translations$whatsNewPage$changes$v1_18_0$en with WhatsNewStrings {
+  _Translations$whatsNewPage$changes$v1_18_0$ml._(TranslationsMl root) : this._root = root, super.internal(root);
+
+  final TranslationsMl _root; // ignore: unused_field
+
+  // Translations
+  @override
+  List<String> get changes => [
+    'എൻക്രിപ്ഷൻ ഇനി കൈമാറ്റങ്ങളെ മന്ദഗതിയിലാക്കില്ല. നിങ്ങൾ മുമ്പ് അത് ഓഫാക്കിയിരുന്നെങ്കിൽ ഈ ഉപകരണത്തിൽ അത് വീണ്ടും പ്രവർത്തനക്ഷമമാക്കിയിട്ടുണ്ട്.',
+    'പ്രിയപ്പെട്ടവയിൽ നിന്നുള്ള അഭ്യർത്ഥനകൾ ഇപ്പോൾ സ്വയമേവ സ്വീകരിക്കുന്നു. ഇത് സ്ഥിരസ്ഥിതിയിൽ പ്രവർത്തനക്ഷമമാണ്, ക്രമീകരണങ്ങളിൽ പ്രവർത്തനരഹിതമാക്കാം.',
+    'Android-ൽ, ആപ്പ് പശ്ചാത്തലത്തിലായിരിക്കുമ്പോഴോ സ്ക്രീൻ ഓഫായിരിക്കുമ്പോഴോ കൈമാറ്റങ്ങൾ തുടരുന്നു. iOS-ൽ, ആപ്പ് ഇപ്പോഴും ഫോർഗ്രൗണ്ടിൽ തുടരണം.',
+  ];
 }

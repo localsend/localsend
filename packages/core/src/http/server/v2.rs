@@ -158,13 +158,21 @@ pub(crate) async fn register(
 
     if let Some(v2) = &state.v2 {
         if fingerprint_valid {
-            let _ = v2
-                .event_tx
-                .send(ServerEventV2::Register {
-                    ip: client_info.ip,
-                    info: payload,
-                })
-                .await;
+            // Not awaited: registrations arrive in bursts (every device on the
+            // network answers an announcement, and a peer scanning its subnet
+            // registers with everyone), so the channel fills up easily. Waiting
+            // would block this request handler — and every later one — until
+            // the application catches up, which is what makes the device stop
+            // answering `register` altogether.
+            //
+            // The event carries no responder, and peers repeat their
+            // announcement, so a dropped registration is recoverable.
+            if let Err(err) = v2.event_tx.try_send(ServerEventV2::Register {
+                ip: client_info.ip,
+                info: payload,
+            }) {
+                tracing::debug!("Dropped a register event: {err}");
+            }
         } else {
             tracing::warn!(
                 "Ignoring register from {}: claimed fingerprint does not match the client certificate",

@@ -409,8 +409,6 @@ class _Translations$progressPage$en_IN extends Translations$progressPage$en {
   String get savedToGallery => 'Saved in Photos';
   @override
   late final _Translations$progressPage$total$en_IN total = _Translations$progressPage$total$en_IN._(_root);
-  @override
-  late final _Translations$progressPage$remainingTime$en_IN remainingTime = _Translations$progressPage$remainingTime$en_IN._(_root);
 }
 
 // Path: webSharePage
@@ -1071,21 +1069,6 @@ class _Translations$progressPage$total$en_IN extends Translations$progressPage$t
   String size({required Object curr, required Object n}) => 'Size: ${curr} / ${n}';
   @override
   String speed({required Object speed}) => 'Speed: ${speed}/s';
-}
-
-// Path: progressPage.remainingTime
-class _Translations$progressPage$remainingTime$en_IN extends Translations$progressPage$remainingTime$en {
-  _Translations$progressPage$remainingTime$en_IN._(TranslationsEnIn root) : this._root = root, super.internal(root);
-
-  final TranslationsEnIn _root; // ignore: unused_field
-
-  // Translations
-  @override
-  String minutes({required Object m, required Object ss}) => '${m}:${ss}';
-
-  /// Use 'h' for hours abbreviation and 'm' for minutes
-  @override
-  String hours({required Object h, required Object m}) => '${h}h ${m}m';
 }
 
 // Path: dialogs.addFile

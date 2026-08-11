@@ -51,7 +51,8 @@
       "off": "@:general.off",
       "favorites": "Mga Paborito",
       "on": "@:general.on"
-    }
+    },
+    "link": "Tumanggap sa pamamagitan ng link"
   },
   "sendTab": {
     "title": "Magpadala",
@@ -96,7 +97,8 @@
       "color": "Kulay",
       "colorOptions": {
         "system": "System",
-        "oled": "OLED"
+        "oled": "OLED",
+        "custom": "Pasadya"
       },
       "language": "Wika",
       "languageOptions": {
@@ -119,11 +121,13 @@
       "destination": "Patutunguhan",
       "downloads": "(Downloads)",
       "saveToGallery": "I-save ang media sa gallery",
-      "saveToHistory": "I-save sa history"
+      "saveToHistory": "I-save sa history",
+      "verifyChecksums": "I-verify ang mga checksum kapag tumatanggap ng mga file"
     },
     "send": {
       "title": "Ipasa",
-      "shareViaLinkAutoAccept": "Kusang tanggapin ang request sa \"Share via link\" mode"
+      "shareViaLinkAutoAccept": "Kusang tanggapin ang request sa \"Share via link\" mode",
+      "createChecksums": "Gumawa ng mga checksum kapag nagpapadala ng mga file"
     },
     "network": {
       "title": "Network",
@@ -202,6 +206,29 @@
   "selectedFilesPage": {
     "deleteAll": "Burahin lahat"
   },
+  "deviceDetailsPage": {
+    "title": "Mga Detalye ng Device",
+    "favorite": "Paborito",
+    "verify": "I-verify",
+    "info": {
+      "name": "Pangalan",
+      "address": "Address",
+      "version": "Bersyon",
+      "protocol": "Protocol v{version}"
+    },
+    "logs": {
+      "title": "Mga Log",
+      "empty": "Walang available na mga log.",
+      "discovered": "Natuklasan sa pamamagitan ng {protocol} ({host})",
+      "updated": "Na-update sa pamamagitan ng {protocol} ({host})"
+    }
+  },
+  "verifyPage": {
+    "title": "I-verify",
+    "icons": "Mga Icon",
+    "text": "Teksto",
+    "question": "Pareho ba ang hitsura nito sa kabilang device?"
+  },
   "receivePage": {
     "subTitle": {
       "one": "ay gustong magpadala sa iyo ng file",
@@ -219,6 +246,7 @@
     "saveToGalleryOff": "Awtomatikong pinatay dahil mayroong mga directories."
   },
   "sendPage": {
+    "calculatingChecksum": "Kinakalkula ang checksum ({curr} / {n})",
     "waiting": "Naghihintay ng response...",
     "rejected": "Tinanggihan ng recipient ang request.",
     "tooManyAttempts": "@:web.tooManyAttempts",
@@ -238,6 +266,16 @@
       "count": "Files: {curr} / {n}",
       "size": "Size: {curr} / {n}",
       "speed": "Speed: {speed}/s"
+    },
+    "remainingTime": {
+      "minutesUnit(plural, param=m)": {
+        "other": "{m}m"
+      },
+      "hoursUnit(plural, param=h)": {
+        "other": "{h}h"
+      },
+      "minutes": "{m}:{ss}",
+      "hours": "@:.hoursUnit @:.minutesUnit"
     }
   },
   "webSharePage": {
@@ -257,6 +295,9 @@
     "pinHint": "Ang Pin ay \"{pin}\"",
     "encryptionHint": "Ang LocalSend ay gumagamit ng self-signed certificate. Kailangan mo itong i-accept sa browser.",
     "pendingRequests": "Mga naka-pending na request: {n}"
+  },
+  "webReceivePage": {
+    "title": "Tumanggap sa pamamagitan ng link"
   },
   "aboutPage": {
     "title": "Tungkol sa LocalSend",
@@ -278,6 +319,18 @@
   },
   "changelogPage": {
     "title": "Changelog"
+  },
+  "whatsNewPage": {
+    "title": "Ano ang bago sa {version}",
+    "changes(interface=WhatsNewStrings)": {
+      "v1_18_0": {
+        "changes": [
+          "Hindi na pinapabagal ng encryption ang mga paglilipat. Muling na-enable ito sa device na ito kung na-off mo ito dati.",
+          "Awtomatiko nang tinatanggap ang mga kahilingan mula sa mga paborito. Naka-on ito bilang default at maaaring i-disable sa mga setting.",
+          "Sa Android, nagpapatuloy ang mga paglilipat habang nasa background ang app o naka-off ang screen. Sa iOS, kailangan pa ring manatili sa foreground ang app."
+        ]
+      }
+    }
   },
   "aliasGenerator(ignoreMissing, ignoreGpt)": {
     "@info": "Different locales may have different words, it may not match 1:1",

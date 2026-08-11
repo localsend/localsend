@@ -60,6 +60,10 @@ class TranslationsUz extends Translations with BaseTranslations<AppLocale, Trans
   @override
   late final _Translations$selectedFilesPage$uz selectedFilesPage = _Translations$selectedFilesPage$uz._(_root);
   @override
+  late final _Translations$deviceDetailsPage$uz deviceDetailsPage = _Translations$deviceDetailsPage$uz._(_root);
+  @override
+  late final _Translations$verifyPage$uz verifyPage = _Translations$verifyPage$uz._(_root);
+  @override
   late final _Translations$receivePage$uz receivePage = _Translations$receivePage$uz._(_root);
   @override
   late final _Translations$receiveOptionsPage$uz receiveOptionsPage = _Translations$receiveOptionsPage$uz._(_root);
@@ -70,11 +74,15 @@ class TranslationsUz extends Translations with BaseTranslations<AppLocale, Trans
   @override
   late final _Translations$webSharePage$uz webSharePage = _Translations$webSharePage$uz._(_root);
   @override
+  late final _Translations$webReceivePage$uz webReceivePage = _Translations$webReceivePage$uz._(_root);
+  @override
   late final _Translations$aboutPage$uz aboutPage = _Translations$aboutPage$uz._(_root);
   @override
   late final _Translations$donationPage$uz donationPage = _Translations$donationPage$uz._(_root);
   @override
   late final _Translations$changelogPage$uz changelogPage = _Translations$changelogPage$uz._(_root);
+  @override
+  late final _Translations$whatsNewPage$uz whatsNewPage = _Translations$whatsNewPage$uz._(_root);
   @override
   late final _Translations$dialogs$uz dialogs = _Translations$dialogs$uz._(_root);
   @override
@@ -185,6 +193,8 @@ class _Translations$receiveTab$uz extends Translations$receiveTab$en {
   late final _Translations$receiveTab$infoBox$uz infoBox = _Translations$receiveTab$infoBox$uz._(_root);
   @override
   late final _Translations$receiveTab$quickSave$uz quickSave = _Translations$receiveTab$quickSave$uz._(_root);
+  @override
+  String get link => 'Havola orqali qabul qilish';
 }
 
 // Path: sendTab
@@ -335,6 +345,42 @@ class _Translations$selectedFilesPage$uz extends Translations$selectedFilesPage$
   String get deleteAll => 'Barchasini oʻchirish';
 }
 
+// Path: deviceDetailsPage
+class _Translations$deviceDetailsPage$uz extends Translations$deviceDetailsPage$en {
+  _Translations$deviceDetailsPage$uz._(TranslationsUz root) : this._root = root, super.internal(root);
+
+  final TranslationsUz _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Qurilma tafsilotlari';
+  @override
+  String get favorite => 'Sevimli';
+  @override
+  String get verify => 'Tasdiqlash';
+  @override
+  late final _Translations$deviceDetailsPage$info$uz info = _Translations$deviceDetailsPage$info$uz._(_root);
+  @override
+  late final _Translations$deviceDetailsPage$logs$uz logs = _Translations$deviceDetailsPage$logs$uz._(_root);
+}
+
+// Path: verifyPage
+class _Translations$verifyPage$uz extends Translations$verifyPage$en {
+  _Translations$verifyPage$uz._(TranslationsUz root) : this._root = root, super.internal(root);
+
+  final TranslationsUz _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Tasdiqlash';
+  @override
+  String get icons => 'Belgilar';
+  @override
+  String get text => 'Matn';
+  @override
+  String get question => 'Boshqa qurilmada ham xuddi shunday koʻrinyaptimi?';
+}
+
 // Path: receivePage
 class _Translations$receivePage$uz extends Translations$receivePage$en {
   _Translations$receivePage$uz._(TranslationsUz root) : this._root = root, super.internal(root);
@@ -382,6 +428,8 @@ class _Translations$sendPage$uz extends Translations$sendPage$en {
   final TranslationsUz _root; // ignore: unused_field
 
   // Translations
+  @override
+  String calculatingChecksum({required Object curr, required Object n}) => 'Nazorat summasi hisoblanmoqda (${curr} / ${n})';
   @override
   String get waiting => 'Javob kutilmoqda…';
   @override
@@ -450,6 +498,17 @@ class _Translations$webSharePage$uz extends Translations$webSharePage$en {
   String pendingRequests({required Object n}) => 'Kutilayotgan soʻrovlar: ${n}';
 }
 
+// Path: webReceivePage
+class _Translations$webReceivePage$uz extends Translations$webReceivePage$en {
+  _Translations$webReceivePage$uz._(TranslationsUz root) : this._root = root, super.internal(root);
+
+  final TranslationsUz _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Havola orqali qabul qilish';
+}
+
 // Path: aboutPage
 class _Translations$aboutPage$uz extends Translations$aboutPage$en {
   _Translations$aboutPage$uz._(TranslationsUz root) : this._root = root, super.internal(root);
@@ -503,6 +562,19 @@ class _Translations$changelogPage$uz extends Translations$changelogPage$en {
   // Translations
   @override
   String get title => 'Oʻzgarishlar tarixi';
+}
+
+// Path: whatsNewPage
+class _Translations$whatsNewPage$uz extends Translations$whatsNewPage$en {
+  _Translations$whatsNewPage$uz._(TranslationsUz root) : this._root = root, super.internal(root);
+
+  final TranslationsUz _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String title({required Object version}) => '${version} versiyasidagi yangiliklar';
+  @override
+  late final _Translations$whatsNewPage$changes$uz changes = _Translations$whatsNewPage$changes$uz._(_root);
 }
 
 // Path: dialogs
@@ -829,6 +901,8 @@ class _Translations$settingsTab$receive$uz extends Translations$settingsTab$rece
   String get saveToGallery => 'Mediani galereyaga saqlash';
   @override
   String get saveToHistory => 'Tarixga saqlash';
+  @override
+  String get verifyChecksums => 'Fayllarni qabul qilishda nazorat summalarini tekshirish';
 }
 
 // Path: settingsTab.send
@@ -842,6 +916,8 @@ class _Translations$settingsTab$send$uz extends Translations$settingsTab$send$en
   String get title => 'Yuborish';
   @override
   String get shareViaLinkAutoAccept => '"Havola orqali ulashish" rejimida soʻrovlarni avtomatik qabul qilish';
+  @override
+  String get createChecksums => 'Fayllarni yuborishda nazorat summalarini yaratish';
 }
 
 // Path: settingsTab.network
@@ -967,6 +1043,40 @@ class _Translations$receiveHistoryPage$entryActions$uz extends Translations$rece
   String get deleteFromHistory => 'Tarixdan oʻchirish';
 }
 
+// Path: deviceDetailsPage.info
+class _Translations$deviceDetailsPage$info$uz extends Translations$deviceDetailsPage$info$en {
+  _Translations$deviceDetailsPage$info$uz._(TranslationsUz root) : this._root = root, super.internal(root);
+
+  final TranslationsUz _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get name => 'Nomi';
+  @override
+  String get address => 'Manzil';
+  @override
+  String get version => 'Versiya';
+  @override
+  String protocol({required Object version}) => 'Protokol v${version}';
+}
+
+// Path: deviceDetailsPage.logs
+class _Translations$deviceDetailsPage$logs$uz extends Translations$deviceDetailsPage$logs$en {
+  _Translations$deviceDetailsPage$logs$uz._(TranslationsUz root) : this._root = root, super.internal(root);
+
+  final TranslationsUz _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Jurnallar';
+  @override
+  String get empty => 'Jurnallar mavjud emas.';
+  @override
+  String discovered({required Object protocol, required Object host}) => '${protocol} orqali topildi (${host})';
+  @override
+  String updated({required Object protocol, required Object host}) => '${protocol} orqali yangilandi (${host})';
+}
+
 // Path: progressPage.total
 class _Translations$progressPage$total$uz extends Translations$progressPage$total$en {
   _Translations$progressPage$total$uz._(TranslationsUz root) : this._root = root, super.internal(root);
@@ -992,9 +1102,31 @@ class _Translations$progressPage$remainingTime$uz extends Translations$progressP
 
   // Translations
   @override
+  String minutesUnit({required num m}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('uz'))(
+    m,
+    other: '${m}daq',
+  );
+  @override
+  String hoursUnit({required num h}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('uz'))(
+    h,
+    other: '${h}soat',
+  );
+  @override
   String minutes({required Object m, required Object ss}) => '${m}:${ss}';
   @override
-  String hours({required Object h, required Object m}) => '${h}s ${m}d';
+  String hours({required num h, required num m}) =>
+      '${_root.progressPage.remainingTime.hoursUnit(h: h)} ${_root.progressPage.remainingTime.minutesUnit(m: m)}';
+}
+
+// Path: whatsNewPage.changes
+class _Translations$whatsNewPage$changes$uz extends Translations$whatsNewPage$changes$en {
+  _Translations$whatsNewPage$changes$uz._(TranslationsUz root) : this._root = root, super.internal(root);
+
+  final TranslationsUz _root; // ignore: unused_field
+
+  // Translations
+  @override
+  late final _Translations$whatsNewPage$changes$v1_18_0$uz v1_18_0 = _Translations$whatsNewPage$changes$v1_18_0$uz._(_root);
 }
 
 // Path: dialogs.addFile
@@ -1377,6 +1509,8 @@ class _Translations$settingsTab$general$colorOptions$uz extends Translations$set
   String get system => 'Tizim';
   @override
   String get oled => 'OLED';
+  @override
+  String get custom => 'Maxsus';
 }
 
 // Path: settingsTab.general.languageOptions
@@ -1418,4 +1552,19 @@ class _Translations$progressPage$total$title$uz extends Translations$progressPag
   String get canceledSender => 'Yuboruvchi tomonidan bekor qilindi';
   @override
   String get canceledReceiver => 'Qabul qiluvchi tomonidan bekor qilindi';
+}
+
+// Path: whatsNewPage.changes.v1_18_0
+class _Translations$whatsNewPage$changes$v1_18_0$uz extends Translations$whatsNewPage$changes$v1_18_0$en with WhatsNewStrings {
+  _Translations$whatsNewPage$changes$v1_18_0$uz._(TranslationsUz root) : this._root = root, super.internal(root);
+
+  final TranslationsUz _root; // ignore: unused_field
+
+  // Translations
+  @override
+  List<String> get changes => [
+    'Shifrlash endi uzatishlarni sekinlashtirmaydi. Agar avval oʻchirib qoʻygan boʻlsangiz, bu qurilmada u qayta yoqildi.',
+    'Sevimlilardan kelgan soʻrovlar endi avtomatik qabul qilinadi. Bu sukut boʻyicha yoqilgan va sozlamalarda oʻchirib qoʻyish mumkin.',
+    'Androidda ilova fonda boʻlsa yoki ekran oʻchiq boʻlsa ham uzatishlar davom etadi. iOSda ilova hali ham old fonda qolishi kerak.',
+  ];
 }

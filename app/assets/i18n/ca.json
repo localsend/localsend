@@ -51,7 +51,8 @@
       "off": "@:general.off",
       "favorites": "Preferits",
       "on": "@:general.on"
-    }
+    },
+    "link": "Rebre mitjançant enllaç"
   },
   "sendTab": {
     "title": "Envia",
@@ -96,7 +97,8 @@
       "color": "Color",
       "colorOptions": {
         "system": "Sistema",
-        "oled": "OLED"
+        "oled": "OLED",
+        "custom": "Personalitzat"
       },
       "language": "Llengua",
       "languageOptions": {
@@ -119,11 +121,13 @@
       "destination": "Desa en la carpeta",
       "downloads": "(Baixades)",
       "saveToGallery": "Desa els fitxers multimèdia a la galeria",
-      "saveToHistory": "Desa a l'historial"
+      "saveToHistory": "Desa a l'historial",
+      "verifyChecksums": "Verifica les sumes de verificació en rebre fitxers"
     },
     "send": {
       "title": "Enviament",
-      "shareViaLinkAutoAccept": "Accepta peticions de manera automàtica en el mode «Comparteix via enllaç»"
+      "shareViaLinkAutoAccept": "Accepta peticions de manera automàtica en el mode «Comparteix via enllaç»",
+      "createChecksums": "Crea sumes de verificació en enviar fitxers"
     },
     "network": {
       "title": "Xarxa",
@@ -202,6 +206,29 @@
   "selectedFilesPage": {
     "deleteAll": "Elimina-ho tot"
   },
+  "deviceDetailsPage": {
+    "title": "Detalls del dispositiu",
+    "favorite": "Preferit",
+    "verify": "Verifica",
+    "info": {
+      "name": "Nom",
+      "address": "Adreça",
+      "version": "Versió",
+      "protocol": "Protocol v{version}"
+    },
+    "logs": {
+      "title": "Registres",
+      "empty": "No hi ha registres disponibles.",
+      "discovered": "Descobert mitjançant {protocol} ({host})",
+      "updated": "Actualitzat mitjançant {protocol} ({host})"
+    }
+  },
+  "verifyPage": {
+    "title": "Verifica",
+    "icons": "Icones",
+    "text": "Text",
+    "question": "Es veu igual a l'altre dispositiu?"
+  },
   "receivePage": {
     "subTitle": {
       "one": "vol enviar-vos un fitxer",
@@ -219,6 +246,7 @@
     "saveToGalleryOff": "S'ha desactivat automàticament perquè hi ha carpetes."
   },
   "sendPage": {
+    "calculatingChecksum": "S'està calculant la suma de verificació ({curr} / {n})",
     "waiting": "S'està esperant una resposta…",
     "rejected": "El destinatari ha rebutjat la petició.",
     "tooManyAttempts": "@:web.tooManyAttempts",
@@ -238,6 +266,16 @@
       "count": "Fitxers: {curr} / {n}",
       "size": "Mida: {curr} / {n}",
       "speed": "Velocitat: {speed}/s"
+    },
+    "remainingTime": {
+      "minutesUnit(plural, param=m)": {
+        "other": "{m}min"
+      },
+      "hoursUnit(plural, param=h)": {
+        "other": "{h}h"
+      },
+      "minutes": "{m}:{ss}",
+      "hours": "@:.hoursUnit @:.minutesUnit"
     }
   },
   "webSharePage": {
@@ -257,6 +295,9 @@
     "pinHint": "El PIN és «{pin}»",
     "encryptionHint": "El LocalSend utilitza un certificat auto-signat. Cal que l'accepteu al navegador.",
     "pendingRequests": "Peticions pendents: {n}"
+  },
+  "webReceivePage": {
+    "title": "Rebre mitjançant enllaç"
   },
   "aboutPage": {
     "title": "Quant al LocalSend",
@@ -278,6 +319,18 @@
   },
   "changelogPage": {
     "title": "Registre de canvis"
+  },
+  "whatsNewPage": {
+    "title": "Novetats de la versió {version}",
+    "changes(interface=WhatsNewStrings)": {
+      "v1_18_0": {
+        "changes": [
+          "El xifratge ja no alenteix les transferències. S'ha tornat a activar en aquest dispositiu si abans l'havíeu desactivat.",
+          "Les sol·licituds dels preferits ara s'accepten automàticament. Aquesta opció està activada per defecte i es pot desactivar a la configuració.",
+          "A Android, les transferències continuen mentre l'aplicació és en segon pla o la pantalla està apagada. A iOS, l'aplicació encara ha de romandre en primer pla."
+        ]
+      }
+    }
   },
   "aliasGenerator(ignoreMissing, ignoreGpt)": {
     "@info": "Llengües diferents poden tenir paraules diferents, podrien no coincidir al 100%",

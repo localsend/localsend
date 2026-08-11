@@ -60,6 +60,10 @@ class TranslationsPtBr extends Translations with BaseTranslations<AppLocale, Tra
   @override
   late final Translations$selectedFilesPage$pt_BR selectedFilesPage = Translations$selectedFilesPage$pt_BR.internal(_root);
   @override
+  late final Translations$deviceDetailsPage$pt_BR deviceDetailsPage = Translations$deviceDetailsPage$pt_BR.internal(_root);
+  @override
+  late final Translations$verifyPage$pt_BR verifyPage = Translations$verifyPage$pt_BR.internal(_root);
+  @override
   late final Translations$receivePage$pt_BR receivePage = Translations$receivePage$pt_BR.internal(_root);
   @override
   late final Translations$receiveOptionsPage$pt_BR receiveOptionsPage = Translations$receiveOptionsPage$pt_BR.internal(_root);
@@ -70,11 +74,15 @@ class TranslationsPtBr extends Translations with BaseTranslations<AppLocale, Tra
   @override
   late final Translations$webSharePage$pt_BR webSharePage = Translations$webSharePage$pt_BR.internal(_root);
   @override
+  late final Translations$webReceivePage$pt_BR webReceivePage = Translations$webReceivePage$pt_BR.internal(_root);
+  @override
   late final Translations$aboutPage$pt_BR aboutPage = Translations$aboutPage$pt_BR.internal(_root);
   @override
   late final Translations$donationPage$pt_BR donationPage = Translations$donationPage$pt_BR.internal(_root);
   @override
   late final Translations$changelogPage$pt_BR changelogPage = Translations$changelogPage$pt_BR.internal(_root);
+  @override
+  late final Translations$whatsNewPage$pt_BR whatsNewPage = Translations$whatsNewPage$pt_BR.internal(_root);
   @override
   late final Translations$aliasGenerator$pt_BR aliasGenerator = Translations$aliasGenerator$pt_BR.internal(_root);
   @override
@@ -87,10 +95,6 @@ class TranslationsPtBr extends Translations with BaseTranslations<AppLocale, Tra
   late final Translations$web$pt_BR web = Translations$web$pt_BR.internal(_root);
   @override
   late final Translations$assetPicker$pt_BR assetPicker = Translations$assetPicker$pt_BR.internal(_root);
-  @override
-  late final Translations$webReceivePage$pt_BR webReceivePage = Translations$webReceivePage$pt_BR.internal(_root);
-  @override
-  late final Translations$whatsNewPage$pt_BR whatsNewPage = Translations$whatsNewPage$pt_BR.internal(_root);
 }
 
 // Path: general
@@ -191,6 +195,8 @@ class Translations$receiveTab$pt_BR extends Translations$receiveTab$en {
   late final Translations$receiveTab$infoBox$pt_BR infoBox = Translations$receiveTab$infoBox$pt_BR.internal(_root);
   @override
   late final Translations$receiveTab$quickSave$pt_BR quickSave = Translations$receiveTab$quickSave$pt_BR.internal(_root);
+  @override
+  String get link => 'Receber via link';
 }
 
 // Path: sendTab
@@ -342,6 +348,42 @@ class Translations$selectedFilesPage$pt_BR extends Translations$selectedFilesPag
   String get deleteAll => 'Apagar tudo';
 }
 
+// Path: deviceDetailsPage
+class Translations$deviceDetailsPage$pt_BR extends Translations$deviceDetailsPage$en {
+  Translations$deviceDetailsPage$pt_BR.internal(TranslationsPtBr root) : this._root = root, super.internal(root);
+
+  final TranslationsPtBr _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Detalhes do dispositivo';
+  @override
+  String get favorite => 'Favorito';
+  @override
+  String get verify => 'Verificar';
+  @override
+  late final Translations$deviceDetailsPage$info$pt_BR info = Translations$deviceDetailsPage$info$pt_BR.internal(_root);
+  @override
+  late final Translations$deviceDetailsPage$logs$pt_BR logs = Translations$deviceDetailsPage$logs$pt_BR.internal(_root);
+}
+
+// Path: verifyPage
+class Translations$verifyPage$pt_BR extends Translations$verifyPage$en {
+  Translations$verifyPage$pt_BR.internal(TranslationsPtBr root) : this._root = root, super.internal(root);
+
+  final TranslationsPtBr _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Verificar';
+  @override
+  String get icons => 'Ícones';
+  @override
+  String get text => 'Texto';
+  @override
+  String get question => 'Está igual no outro dispositivo?';
+}
+
 // Path: receivePage
 class Translations$receivePage$pt_BR extends Translations$receivePage$en {
   Translations$receivePage$pt_BR.internal(TranslationsPtBr root) : this._root = root, super.internal(root);
@@ -390,6 +432,8 @@ class Translations$sendPage$pt_BR extends Translations$sendPage$en {
 
   // Translations
   @override
+  String calculatingChecksum({required Object curr, required Object n}) => 'Calculando checksum (${curr} / ${n})';
+  @override
   String get waiting => 'Aguardando resposta…';
   @override
   String get rejected => 'O destinatário rejeitou a solicitação.';
@@ -397,8 +441,6 @@ class Translations$sendPage$pt_BR extends Translations$sendPage$en {
   String get tooManyAttempts => _root.web.tooManyAttempts;
   @override
   String get busy => 'O destinatário está ocupado com outra solicitação.';
-  @override
-  String calculatingChecksum({required Object curr, required Object n}) => 'Calculando checksum (${curr} / ${n})';
 }
 
 // Path: progressPage
@@ -459,6 +501,17 @@ class Translations$webSharePage$pt_BR extends Translations$webSharePage$en {
   String pendingRequests({required Object n}) => 'Solicitações pendentes: ${n}';
 }
 
+// Path: webReceivePage
+class Translations$webReceivePage$pt_BR extends Translations$webReceivePage$en {
+  Translations$webReceivePage$pt_BR.internal(TranslationsPtBr root) : this._root = root, super.internal(root);
+
+  final TranslationsPtBr _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Receber via link';
+}
+
 // Path: aboutPage
 class Translations$aboutPage$pt_BR extends Translations$aboutPage$en {
   Translations$aboutPage$pt_BR.internal(TranslationsPtBr root) : this._root = root, super.internal(root);
@@ -512,6 +565,19 @@ class Translations$changelogPage$pt_BR extends Translations$changelogPage$en {
   // Translations
   @override
   String get title => 'Registro de alterações';
+}
+
+// Path: whatsNewPage
+class Translations$whatsNewPage$pt_BR extends Translations$whatsNewPage$en {
+  Translations$whatsNewPage$pt_BR.internal(TranslationsPtBr root) : this._root = root, super.internal(root);
+
+  final TranslationsPtBr _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String title({required Object version}) => 'O que há de novo na versão ${version}';
+  @override
+  late final Translations$whatsNewPage$changes$pt_BR changes = Translations$whatsNewPage$changes$pt_BR.internal(_root);
 }
 
 // Path: aliasGenerator
@@ -768,30 +834,6 @@ class Translations$assetPicker$pt_BR extends Translations$assetPicker$en {
   String get sNameDurationLabel => 'duração';
   @override
   String get sUnitAssetCountLabel => 'contagem';
-}
-
-// Path: webReceivePage
-class Translations$webReceivePage$pt_BR extends Translations$webReceivePage$en {
-  Translations$webReceivePage$pt_BR.internal(TranslationsPtBr root) : this._root = root, super.internal(root);
-
-  final TranslationsPtBr _root; // ignore: unused_field
-
-  // Translations
-  @override
-  String get title => 'Receber via link';
-}
-
-// Path: whatsNewPage
-class Translations$whatsNewPage$pt_BR extends Translations$whatsNewPage$en {
-  Translations$whatsNewPage$pt_BR.internal(TranslationsPtBr root) : this._root = root, super.internal(root);
-
-  final TranslationsPtBr _root; // ignore: unused_field
-
-  // Translations
-  @override
-  String title({required Object version}) => 'O que há de novo na versão ${version}';
-  @override
-  late final Translations$whatsNewPage$changes$pt_BR changes = Translations$whatsNewPage$changes$pt_BR.internal(_root);
 }
 
 // Path: receiveTab.infoBox
@@ -1085,6 +1127,40 @@ class Translations$receiveHistoryPage$entryActions$pt_BR extends Translations$re
   String get deleteFromHistory => 'Apagar do histórico';
 }
 
+// Path: deviceDetailsPage.info
+class Translations$deviceDetailsPage$info$pt_BR extends Translations$deviceDetailsPage$info$en {
+  Translations$deviceDetailsPage$info$pt_BR.internal(TranslationsPtBr root) : this._root = root, super.internal(root);
+
+  final TranslationsPtBr _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get name => 'Nome';
+  @override
+  String get address => 'Endereço';
+  @override
+  String get version => 'Versão';
+  @override
+  String protocol({required Object version}) => 'Protocolo v${version}';
+}
+
+// Path: deviceDetailsPage.logs
+class Translations$deviceDetailsPage$logs$pt_BR extends Translations$deviceDetailsPage$logs$en {
+  Translations$deviceDetailsPage$logs$pt_BR.internal(TranslationsPtBr root) : this._root = root, super.internal(root);
+
+  final TranslationsPtBr _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Registros';
+  @override
+  String get empty => 'Nenhum registro disponível.';
+  @override
+  String discovered({required Object protocol, required Object host}) => 'Descoberto via ${protocol} (${host})';
+  @override
+  String updated({required Object protocol, required Object host}) => 'Atualizado via ${protocol} (${host})';
+}
+
 // Path: progressPage.total
 class Translations$progressPage$total$pt_BR extends Translations$progressPage$total$en {
   Translations$progressPage$total$pt_BR.internal(TranslationsPtBr root) : this._root = root, super.internal(root);
@@ -1110,11 +1186,31 @@ class Translations$progressPage$remainingTime$pt_BR extends Translations$progres
 
   // Translations
   @override
-  String minutes({required Object m, required Object ss}) => '${m}:${ss}';
-
-  /// Use 'h' para abreviar horas e 'm' para minutos
+  String minutesUnit({required num m}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('pt'))(
+    m,
+    other: '${m}min',
+  );
   @override
-  String hours({required Object h, required Object m}) => '${h}h ${m}m';
+  String hoursUnit({required num h}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('pt'))(
+    h,
+    other: '${h}h',
+  );
+  @override
+  String minutes({required Object m, required Object ss}) => '${m}:${ss}';
+  @override
+  String hours({required num h, required num m}) =>
+      '${_root.progressPage.remainingTime.hoursUnit(h: h)} ${_root.progressPage.remainingTime.minutesUnit(m: m)}';
+}
+
+// Path: whatsNewPage.changes
+class Translations$whatsNewPage$changes$pt_BR extends Translations$whatsNewPage$changes$en {
+  Translations$whatsNewPage$changes$pt_BR.internal(TranslationsPtBr root) : this._root = root, super.internal(root);
+
+  final TranslationsPtBr _root; // ignore: unused_field
+
+  // Translations
+  @override
+  late final Translations$whatsNewPage$changes$v1_18_0$pt_BR v1_18_0 = Translations$whatsNewPage$changes$v1_18_0$pt_BR.internal(_root);
 }
 
 // Path: dialogs.addFile
@@ -1471,17 +1567,6 @@ class Translations$dialogs$zoom$pt_BR extends Translations$dialogs$zoom$en {
   String get title => 'URL';
 }
 
-// Path: whatsNewPage.changes
-class Translations$whatsNewPage$changes$pt_BR extends Translations$whatsNewPage$changes$en {
-  Translations$whatsNewPage$changes$pt_BR.internal(TranslationsPtBr root) : this._root = root, super.internal(root);
-
-  final TranslationsPtBr _root; // ignore: unused_field
-
-  // Translations
-  @override
-  late final Translations$whatsNewPage$changes$v1_18_0$pt_BR v1_18_0 = Translations$whatsNewPage$changes$v1_18_0$pt_BR.internal(_root);
-}
-
 // Path: settingsTab.general.brightnessOptions
 class Translations$settingsTab$general$brightnessOptions$pt_BR extends Translations$settingsTab$general$brightnessOptions$en {
   Translations$settingsTab$general$brightnessOptions$pt_BR.internal(TranslationsPtBr root) : this._root = root, super.internal(root);
@@ -1508,6 +1593,8 @@ class Translations$settingsTab$general$colorOptions$pt_BR extends Translations$s
   String get system => 'Sistema';
   @override
   String get oled => 'OLED';
+  @override
+  String get custom => 'Personalizado';
 }
 
 // Path: settingsTab.general.languageOptions

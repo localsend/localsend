@@ -60,6 +60,10 @@ class TranslationsNe extends Translations with BaseTranslations<AppLocale, Trans
   @override
   late final _Translations$selectedFilesPage$ne selectedFilesPage = _Translations$selectedFilesPage$ne._(_root);
   @override
+  late final _Translations$deviceDetailsPage$ne deviceDetailsPage = _Translations$deviceDetailsPage$ne._(_root);
+  @override
+  late final _Translations$verifyPage$ne verifyPage = _Translations$verifyPage$ne._(_root);
+  @override
   late final _Translations$receivePage$ne receivePage = _Translations$receivePage$ne._(_root);
   @override
   late final _Translations$receiveOptionsPage$ne receiveOptionsPage = _Translations$receiveOptionsPage$ne._(_root);
@@ -70,11 +74,15 @@ class TranslationsNe extends Translations with BaseTranslations<AppLocale, Trans
   @override
   late final _Translations$webSharePage$ne webSharePage = _Translations$webSharePage$ne._(_root);
   @override
+  late final _Translations$webReceivePage$ne webReceivePage = _Translations$webReceivePage$ne._(_root);
+  @override
   late final _Translations$aboutPage$ne aboutPage = _Translations$aboutPage$ne._(_root);
   @override
   late final _Translations$donationPage$ne donationPage = _Translations$donationPage$ne._(_root);
   @override
   late final _Translations$changelogPage$ne changelogPage = _Translations$changelogPage$ne._(_root);
+  @override
+  late final _Translations$whatsNewPage$ne whatsNewPage = _Translations$whatsNewPage$ne._(_root);
   @override
   late final _Translations$aliasGenerator$ne aliasGenerator = _Translations$aliasGenerator$ne._(_root);
   @override
@@ -187,6 +195,8 @@ class _Translations$receiveTab$ne extends Translations$receiveTab$en {
   late final _Translations$receiveTab$infoBox$ne infoBox = _Translations$receiveTab$infoBox$ne._(_root);
   @override
   late final _Translations$receiveTab$quickSave$ne quickSave = _Translations$receiveTab$quickSave$ne._(_root);
+  @override
+  String get link => 'लिङ्कमार्फत प्राप्त गर्नुहोस्';
 }
 
 // Path: sendTab
@@ -337,6 +347,42 @@ class _Translations$selectedFilesPage$ne extends Translations$selectedFilesPage$
   String get deleteAll => 'सबै मेटाउनुहोस्';
 }
 
+// Path: deviceDetailsPage
+class _Translations$deviceDetailsPage$ne extends Translations$deviceDetailsPage$en {
+  _Translations$deviceDetailsPage$ne._(TranslationsNe root) : this._root = root, super.internal(root);
+
+  final TranslationsNe _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'डिभाइस विवरण';
+  @override
+  String get favorite => 'मनपर्ने';
+  @override
+  String get verify => 'प्रमाणित गर्नुहोस्';
+  @override
+  late final _Translations$deviceDetailsPage$info$ne info = _Translations$deviceDetailsPage$info$ne._(_root);
+  @override
+  late final _Translations$deviceDetailsPage$logs$ne logs = _Translations$deviceDetailsPage$logs$ne._(_root);
+}
+
+// Path: verifyPage
+class _Translations$verifyPage$ne extends Translations$verifyPage$en {
+  _Translations$verifyPage$ne._(TranslationsNe root) : this._root = root, super.internal(root);
+
+  final TranslationsNe _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'प्रमाणित गर्नुहोस्';
+  @override
+  String get icons => 'आइकनहरू';
+  @override
+  String get text => 'पाठ';
+  @override
+  String get question => 'के यो अर्को डिभाइसमा उस्तै देखिन्छ?';
+}
+
 // Path: receivePage
 class _Translations$receivePage$ne extends Translations$receivePage$en {
   _Translations$receivePage$ne._(TranslationsNe root) : this._root = root, super.internal(root);
@@ -385,6 +431,8 @@ class _Translations$sendPage$ne extends Translations$sendPage$en {
 
   // Translations
   @override
+  String calculatingChecksum({required Object curr, required Object n}) => 'चेकसम गणना गर्दै (${curr} / ${n})';
+  @override
   String get waiting => 'प्रतिक्रियाको प्रतीक्षा गर्दै…';
   @override
   String get rejected => 'प्राप्तकर्ताले अनुरोध अस्वीकार गरेको छ।';
@@ -409,6 +457,8 @@ class _Translations$progressPage$ne extends Translations$progressPage$en {
   String get savedToGallery => 'फोटोहरूमा सुरक्षित गरियो';
   @override
   late final _Translations$progressPage$total$ne total = _Translations$progressPage$total$ne._(_root);
+  @override
+  late final _Translations$progressPage$remainingTime$ne remainingTime = _Translations$progressPage$remainingTime$ne._(_root);
 }
 
 // Path: webSharePage
@@ -448,6 +498,17 @@ class _Translations$webSharePage$ne extends Translations$webSharePage$en {
   String get encryptionHint => 'LocalSend एक स्वयंसिग्ध प्रमाणपत्र प्रयोग गर्दछ। तपाईंले ब्राउजरमा यसलाई स्वीकार्नु पर्दछ।';
   @override
   String pendingRequests({required Object n}) => 'लंबित अनुरोध: ${n}';
+}
+
+// Path: webReceivePage
+class _Translations$webReceivePage$ne extends Translations$webReceivePage$en {
+  _Translations$webReceivePage$ne._(TranslationsNe root) : this._root = root, super.internal(root);
+
+  final TranslationsNe _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'लिङ्कमार्फत प्राप्त गर्नुहोस्';
 }
 
 // Path: aboutPage
@@ -503,6 +564,19 @@ class _Translations$changelogPage$ne extends Translations$changelogPage$en {
   // Translations
   @override
   String get title => 'परिवर्तन लग';
+}
+
+// Path: whatsNewPage
+class _Translations$whatsNewPage$ne extends Translations$whatsNewPage$en {
+  _Translations$whatsNewPage$ne._(TranslationsNe root) : this._root = root, super.internal(root);
+
+  final TranslationsNe _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String title({required Object version}) => '${version} मा नयाँ के छ';
+  @override
+  late final _Translations$whatsNewPage$changes$ne changes = _Translations$whatsNewPage$changes$ne._(_root);
 }
 
 // Path: aliasGenerator
@@ -899,6 +973,8 @@ class _Translations$settingsTab$receive$ne extends Translations$settingsTab$rece
   @override
   String get quickSave => _root.general.quickSave;
   @override
+  String get quickSaveFromFavorites => _root.general.quickSaveFromFavorites;
+  @override
   String get requirePin => _root.webSharePage.requirePin;
   @override
   String get autoFinish => 'स्वतः समाप्त';
@@ -910,6 +986,8 @@ class _Translations$settingsTab$receive$ne extends Translations$settingsTab$rece
   String get saveToGallery => 'मिडियालाई ग्यालरीमा सेभ गर्नुहोस्';
   @override
   String get saveToHistory => 'इतिहासमा संचय गर्नुहोस्';
+  @override
+  String get verifyChecksums => 'फाइलहरू प्राप्त गर्दा चेकसम प्रमाणित गर्नुहोस्';
 }
 
 // Path: settingsTab.send
@@ -923,6 +1001,8 @@ class _Translations$settingsTab$send$ne extends Translations$settingsTab$send$en
   String get title => 'पठाउनुहोस्';
   @override
   String get shareViaLinkAutoAccept => '"लिङ्क मार्फत साझेदारी" मोडमा स्वचालित रूपमा अनुरोधहरू स्वीकार गर्नुहोस्';
+  @override
+  String get createChecksums => 'फाइलहरू पठाउँदा चेकसम सिर्जना गर्नुहोस्';
 }
 
 // Path: settingsTab.network
@@ -1048,6 +1128,40 @@ class _Translations$receiveHistoryPage$entryActions$ne extends Translations$rece
   String get deleteFromHistory => 'इतिहासबाट मेटाउनुहोस्';
 }
 
+// Path: deviceDetailsPage.info
+class _Translations$deviceDetailsPage$info$ne extends Translations$deviceDetailsPage$info$en {
+  _Translations$deviceDetailsPage$info$ne._(TranslationsNe root) : this._root = root, super.internal(root);
+
+  final TranslationsNe _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get name => 'नाम';
+  @override
+  String get address => 'ठेगाना';
+  @override
+  String get version => 'संस्करण';
+  @override
+  String protocol({required Object version}) => 'प्रोटोकल v${version}';
+}
+
+// Path: deviceDetailsPage.logs
+class _Translations$deviceDetailsPage$logs$ne extends Translations$deviceDetailsPage$logs$en {
+  _Translations$deviceDetailsPage$logs$ne._(TranslationsNe root) : this._root = root, super.internal(root);
+
+  final TranslationsNe _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'लगहरू';
+  @override
+  String get empty => 'कुनै लग उपलब्ध छैन।';
+  @override
+  String discovered({required Object protocol, required Object host}) => '${protocol} मार्फत फेला पर्यो (${host})';
+  @override
+  String updated({required Object protocol, required Object host}) => '${protocol} मार्फत अपडेट भयो (${host})';
+}
+
 // Path: progressPage.total
 class _Translations$progressPage$total$ne extends Translations$progressPage$total$en {
   _Translations$progressPage$total$ne._(TranslationsNe root) : this._root = root, super.internal(root);
@@ -1063,6 +1177,41 @@ class _Translations$progressPage$total$ne extends Translations$progressPage$tota
   String size({required Object curr, required Object n}) => 'आकार: ${curr} / ${n}';
   @override
   String speed({required Object speed}) => 'गति: ${speed}/s';
+}
+
+// Path: progressPage.remainingTime
+class _Translations$progressPage$remainingTime$ne extends Translations$progressPage$remainingTime$en {
+  _Translations$progressPage$remainingTime$ne._(TranslationsNe root) : this._root = root, super.internal(root);
+
+  final TranslationsNe _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String minutesUnit({required num m}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ne'))(
+    m,
+    other: '${m}मि',
+  );
+  @override
+  String hoursUnit({required num h}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ne'))(
+    h,
+    other: '${h}घं',
+  );
+  @override
+  String minutes({required Object m, required Object ss}) => '${m}:${ss}';
+  @override
+  String hours({required num h, required num m}) =>
+      '${_root.progressPage.remainingTime.hoursUnit(h: h)} ${_root.progressPage.remainingTime.minutesUnit(m: m)}';
+}
+
+// Path: whatsNewPage.changes
+class _Translations$whatsNewPage$changes$ne extends Translations$whatsNewPage$changes$en {
+  _Translations$whatsNewPage$changes$ne._(TranslationsNe root) : this._root = root, super.internal(root);
+
+  final TranslationsNe _root; // ignore: unused_field
+
+  // Translations
+  @override
+  late final _Translations$whatsNewPage$changes$v1_18_0$ne v1_18_0 = _Translations$whatsNewPage$changes$v1_18_0$ne._(_root);
 }
 
 // Path: dialogs.addFile
@@ -1374,6 +1523,8 @@ class _Translations$dialogs$quickSaveFromFavoritesNotice$ne extends Translations
 
   // Translations
   @override
+  String get title => _root.general.quickSaveFromFavorites;
+  @override
   List<String> get content => [
     'फाइल अनुरोधहरू अब तपाईंको मनपर्ने सूचीमा रहेका उपकरणहरूबाट स्वचालित रूपमा स्वीकार गरिन्छन्।',
   ];
@@ -1444,6 +1595,8 @@ class _Translations$settingsTab$general$colorOptions$ne extends Translations$set
   String get system => 'सिस्टम';
   @override
   String get oled => 'ओ एल ई डी';
+  @override
+  String get custom => 'अनुकूलित';
 }
 
 // Path: settingsTab.general.languageOptions
@@ -1485,4 +1638,19 @@ class _Translations$progressPage$total$title$ne extends Translations$progressPag
   String get canceledSender => 'प्रेषकद्वारा रद्द गरियो';
   @override
   String get canceledReceiver => 'प्राप्तकर्ता द्वारा रद्द गरियो';
+}
+
+// Path: whatsNewPage.changes.v1_18_0
+class _Translations$whatsNewPage$changes$v1_18_0$ne extends Translations$whatsNewPage$changes$v1_18_0$en with WhatsNewStrings {
+  _Translations$whatsNewPage$changes$v1_18_0$ne._(TranslationsNe root) : this._root = root, super.internal(root);
+
+  final TranslationsNe _root; // ignore: unused_field
+
+  // Translations
+  @override
+  List<String> get changes => [
+    'इन्क्रिप्सनले अब स्थानान्तरण सुस्त बनाउँदैन। तपाईंले पहिले बन्द गर्नुभएको भए यो डिभाइसमा फेरि सक्षम गरिएको छ।',
+    'मनपर्नेहरूबाट अनुरोधहरू अब स्वतः स्वीकार गरिन्छन्। यो पूर्वनिर्धारित रूपमा सक्षम छ र सेटिङमा गएर बन्द गर्न सकिन्छ।',
+    'Android मा, एप पृष्ठभूमिमा हुँदा वा स्क्रिन बन्द हुँदा पनि स्थानान्तरण जारी रहन्छ। iOS मा, एप अझै अग्रभूमिमा रहनुपर्छ।',
+  ];
 }

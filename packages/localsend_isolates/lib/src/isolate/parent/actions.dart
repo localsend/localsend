@@ -71,16 +71,25 @@ class IsolateDiscoverySubnetScanAction extends ReduxActionWithResult<IsolateCont
   }
 }
 
-/// Probes the known addresses of the favorites over HTTP.
-/// The returned stream completes (without events) when every favorite has been
-/// probed; the found devices arrive on the [IsolateDiscoveryListenAction] stream.
-class IsolateDiscoveryFavoriteScanAction extends ReduxActionWithResult<IsolateController, ParentIsolateState, Stream<Device>> {
+/// Discovers devices in stages, cheapest first: announcement and favorite
+/// probes right away, a subnet scan only when nothing was confirmed within
+/// the grace period.
+/// The returned stream completes (without events) when every stage has
+/// finished; the found devices arrive on the [IsolateDiscoveryListenAction]
+/// stream.
+class IsolateDiscoveryStagedScanAction extends ReduxActionWithResult<IsolateController, ParentIsolateState, Stream<Device>> {
   final List<(String, int)> favorites;
+  final List<String> networkInterfaces;
+  final int port;
   final bool https;
+  final Duration grace;
 
-  IsolateDiscoveryFavoriteScanAction({
+  IsolateDiscoveryStagedScanAction({
     required this.favorites,
+    required this.networkInterfaces,
+    required this.port,
     required this.https,
+    required this.grace,
   });
 
   @override
@@ -94,9 +103,12 @@ class IsolateDiscoveryFavoriteScanAction extends ReduxActionWithResult<IsolateCo
       state,
       connection
           .sendWrappedTaskAndListenStream(
-            task: DiscoveryFavoriteScanTask(
+            task: DiscoveryStagedScanTask(
               favorites: favorites,
+              networkInterfaces: networkInterfaces,
+              port: port,
               https: https,
+              grace: grace,
             ),
           )
           .toDeviceStream(),

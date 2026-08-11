@@ -1,8 +1,8 @@
-//! Enumeration and filtering of the local network interfaces used for multicast.
+//! Enumeration and filtering of the local network interfaces.
 
 use std::net::{IpAddr, Ipv4Addr};
 
-/// Restricts the network interfaces that multicast sockets are bound to.
+/// Restricts the network interfaces that are used.
 ///
 /// Filters are matched against every address of an interface. A `*` matches one
 /// or more characters that are not a `.`, so `192.168.1.*` matches
@@ -171,6 +171,16 @@ pub(crate) fn local_interfaces(filter: &InterfaceFilter) -> std::io::Result<Loca
     }
 
     Ok(result)
+}
+
+/// The IPv4 addresses of all usable (non-loopback, unfiltered) local
+/// interfaces, e.g. the subnets to fall back-scan when multicast is silent.
+pub fn local_interface_addresses(filter: &InterfaceFilter) -> std::io::Result<Vec<Ipv4Addr>> {
+    Ok(local_interfaces(filter)?
+        .v4
+        .into_iter()
+        .map(|interface| interface.address)
+        .collect())
 }
 
 #[cfg(test)]

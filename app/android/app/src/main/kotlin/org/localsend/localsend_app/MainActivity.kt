@@ -24,6 +24,31 @@ private const val REQUEST_CODE_PICK_FILE = 3
 class MainActivity : FlutterActivity() {
     private var pendingResult: MethodChannel.Result? = null
 
+    /// share_handler drops share intents arriving via onNewIntent while the Dart side
+    /// is not subscribed to its media stream yet, which happens when this singleTask
+    /// activity is relaunched into an existing task while the app is still starting.
+    /// Hold such intents back until Dart reports readiness ("shareIntentReady"), then
+    /// replay them through the regular plugin path.
+    private val pendingShareIntents = mutableListOf<Intent>()
+    private var shareIntentReady = false
+
+    override fun onNewIntent(intent: Intent) {
+        if (!shareIntentReady && (intent.action == Intent.ACTION_SEND || intent.action == Intent.ACTION_SEND_MULTIPLE)) {
+            pendingShareIntents.add(intent)
+            return
+        }
+        super.onNewIntent(intent)
+    }
+
+    private fun onShareIntentReady() {
+        shareIntentReady = true
+        val pending = pendingShareIntents.toList()
+        pendingShareIntents.clear()
+        for (intent in pending) {
+            super.onNewIntent(intent)
+        }
+    }
+
     // Overriding the static methods we need from the Java class, as described
     // in the documentation of `FlutterActivity.NewEngineIntentBuilder`
     companion object {
@@ -73,6 +98,11 @@ class MainActivity : FlutterActivity() {
 
                 "openGallery" -> {
                     openGallery()
+                    result.success(null)
+                }
+
+                "shareIntentReady" -> {
+                    onShareIntentReady()
                     result.success(null)
                 }
 

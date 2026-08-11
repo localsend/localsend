@@ -51,7 +51,8 @@
       "off": "@:general.off",
       "favorites": "ឧបករណ៍សំណព្វ",
       "on": "@:general.on"
-    }
+    },
+    "link": "ទទួលតាមរយៈតំណ"
   },
   "sendTab": {
     "title": "ការផ្ញើ",
@@ -96,7 +97,8 @@
       "color": "ពណ៌",
       "colorOptions": {
         "system": "តាមប្រព័ន្ធ",
-        "oled": "OLED"
+        "oled": "OLED",
+        "custom": "ផ្ទាល់ខ្លួន"
       },
       "language": "ភាសា",
       "languageOptions": {
@@ -119,11 +121,13 @@
       "destination": "រក្សាទុកនៅឯថត",
       "downloads": "(ទាញយក)",
       "saveToGallery": "រក្សាទុកទៅកាន់កម្មវិធីវិចិត្រសាល",
-      "saveToHistory": "រក្សាទុកទៅកាន់ប្រវត្តិ"
+      "saveToHistory": "រក្សាទុកទៅកាន់ប្រវត្តិ",
+      "verifyChecksums": "ផ្ទៀងផ្ទាត់ checksum នៅពេលទទួលឯកសារ"
     },
     "send": {
       "title": "ផ្ញើ",
-      "shareViaLinkAutoAccept": "ទទួលការស្នើដោយស្វ័យប្រវត្តិនៅក្នុងម៉ូដ\"ចែករំលែកតាមរយៈតំណភ្ជាប់\""
+      "shareViaLinkAutoAccept": "ទទួលការស្នើដោយស្វ័យប្រវត្តិនៅក្នុងម៉ូដ\"ចែករំលែកតាមរយៈតំណភ្ជាប់\"",
+      "createChecksums": "បង្កើត checksum នៅពេលផ្ញើឯកសារ"
     },
     "network": {
       "title": "បណ្តាញ",
@@ -174,6 +178,13 @@
       "solution": "បញ្ហា​កើត​មាន​ទាំង​សង​ខាង? បន្ទាប់មកអ្នកត្រូវប្រាកដថាឧបករណ៍ទាំងពីរស្ថិតនៅក្នុងបណ្តាញ wifi ដូចគ្នា និងចែករំលែកការកំណត់ដូចគ្នា (ច្រក អាសយដ្ឋានពហុផ្សាយ ការអ៊ិនគ្រីបទិន្នន័យ)។ Wi-Fi ប្រហែលជាមិនអនុញ្ញាតឱ្យទំនាក់ទំនងរវាងអ្នកចូលរួមទេ។ ក្នុងករណីនេះជម្រើសត្រូវតែបើកនៅលើរ៉ោតទ័រ។"
     }
   },
+  "networkInterfacesPage": {
+    "title": "ចំណុចប្រទាក់បណ្តាញ",
+    "info": "តាមលំនាំដើម LocalSend ប្រើចំណុចប្រទាក់បណ្តាញដែលមានទាំងអស់។ អ្នកអាចដកបណ្តាញដែលមិនចង់បានចេញនៅទីនេះ។ អ្នកត្រូវចាប់ផ្តើមម៉ាស៊ីនមេឡើងវិញ ដើម្បីអនុវត្តការផ្លាស់ប្តូរ។",
+    "preview": "មើលជាមុន",
+    "whitelist": "បញ្ជីអនុញ្ញាត",
+    "blacklist": "បញ្ជីហាមឃាត់"
+  },
   "receiveHistoryPage": {
     "title": "ប្រវត្តិ",
     "openFolder": "បើកថតឯកសារ",
@@ -195,6 +206,29 @@
   "selectedFilesPage": {
     "deleteAll": "លុបទាំងអស់"
   },
+  "deviceDetailsPage": {
+    "title": "ព័ត៌មានលម្អិតឧបករណ៍",
+    "favorite": "សំណព្វ",
+    "verify": "ផ្ទៀងផ្ទាត់",
+    "info": {
+      "name": "ឈ្មោះ",
+      "address": "អាសយដ្ឋាន",
+      "version": "កំណែ",
+      "protocol": "ពិធីការ v{version}"
+    },
+    "logs": {
+      "title": "កំណត់ហេតុ",
+      "empty": "មិនមានកំណត់ហេតុទេ។",
+      "discovered": "បានរកឃើញតាមរយៈ {protocol} ({host})",
+      "updated": "បានធ្វើបច្ចុប្បន្នភាពតាមរយៈ {protocol} ({host})"
+    }
+  },
+  "verifyPage": {
+    "title": "ផ្ទៀងផ្ទាត់",
+    "icons": "រូបតំណាង",
+    "text": "អត្ថបទ",
+    "question": "តើវាមើលទៅដូចគ្នានៅលើឧបករណ៍មួយទៀតដែរឬទេ?"
+  },
   "receivePage": {
     "subTitle": {
       "one": "ចង់ផ្ញើឯកសារមួយឲ្យមកអ្នក។",
@@ -212,6 +246,7 @@
     "saveToGalleryOff": "បានបិទដោយស្វ័យប្រវត្តិ ដោយសារមានថតស្រាប់ហើយ។"
   },
   "sendPage": {
+    "calculatingChecksum": "កំពុងគណនា checksum ({curr} / {n})",
     "waiting": "កំពុងរង់ចាំការឆ្លើយតប...",
     "rejected": "អ្នកទទួលបានបដិសេធសំណើនេះ។",
     "tooManyAttempts": "@:web.tooManyAttempts",
@@ -231,6 +266,16 @@
       "count": "ឯកសារ: {curr} / {n}",
       "size": "ទំហំ: {curr} / {n}",
       "speed": "ល្បឿន: {speed}/s"
+    },
+    "remainingTime": {
+      "minutesUnit(plural, param=m)": {
+        "other": "{m}ន"
+      },
+      "hoursUnit(plural, param=h)": {
+        "other": "{h}ម៉"
+      },
+      "minutes": "{m}:{ss}",
+      "hours": "@:.hoursUnit @:.minutesUnit"
     }
   },
   "webSharePage": {
@@ -250,6 +295,9 @@
     "pinHint": "លេខកូដគឺ \"{pin}\"",
     "encryptionHint": "LocalSend ប្រើវិញ្ញាបនបត្រដែលចុះហត្ថលេខាដោយខ្លួនឯង។ អ្នកត្រូវទទួលយកវានៅក្នុងកម្មវិធី​ browser ។",
     "pendingRequests": "សំណើដែលកំពុងរង់ចាំ: {n}"
+  },
+  "webReceivePage": {
+    "title": "ទទួលតាមរយៈតំណ"
   },
   "aboutPage": {
     "title": "អំពី LocalSend",
@@ -271,6 +319,18 @@
   },
   "changelogPage": {
     "title": "កំណត់ត្រាការផ្លាស់ប្តូរ"
+  },
+  "whatsNewPage": {
+    "title": "អ្វីថ្មីនៅក្នុង {version}",
+    "changes(interface=WhatsNewStrings)": {
+      "v1_18_0": {
+        "changes": [
+          "ការអ៊ិនគ្រីបលែងធ្វើឱ្យការផ្ទេរយឺតទៀតហើយ។ វាត្រូវបានបើកឡើងវិញនៅលើឧបករណ៍នេះ ប្រសិនបើអ្នកបានបិទវាពីមុន។",
+          "សំណើពីសំណព្វឥឡូវត្រូវបានទទួលយកដោយស្វ័យប្រវត្តិ។ វាត្រូវបានបើកតាមលំនាំដើម ហើយអាចបិទបាននៅក្នុងការកំណត់។",
+          "នៅលើ Android ការផ្ទេរបន្តដំណើរការ ខណៈកម្មវិធីនៅផ្ទៃខាងក្រោយ ឬអេក្រង់បិទ។ នៅលើ iOS កម្មវិធីនៅតែត្រូវស្ថិតនៅផ្ទៃខាងមុខ។"
+        ]
+      }
+    }
   },
   "aliasGenerator(ignoreMissing, ignoreGpt)": {
     "@info": "មូលដ្ឋានផ្សេងគ្នាអាចមានពាក្យផ្សេងគ្នា វាប្រហែលជាមិនត្រូវគ្នានឹង 1:1 ទេ។",

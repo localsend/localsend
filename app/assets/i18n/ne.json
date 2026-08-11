@@ -51,7 +51,8 @@
       "off": "@:general.off",
       "favorites": "मनपर्नेहरू",
       "on": "@:general.on"
-    }
+    },
+    "link": "लिङ्कमार्फत प्राप्त गर्नुहोस्"
   },
   "sendTab": {
     "title": "पठाउनुहोस्",
@@ -96,7 +97,8 @@
       "color": "रंग",
       "colorOptions": {
         "system": "सिस्टम",
-        "oled": "ओ एल ई डी"
+        "oled": "ओ एल ई डी",
+        "custom": "अनुकूलित"
       },
       "language": "भाषा",
       "languageOptions": {
@@ -113,16 +115,19 @@
     "receive": {
       "title": "प्राप्त गर्नुहोस्",
       "quickSave": "@:general.quickSave",
+      "quickSaveFromFavorites": "@:general.quickSaveFromFavorites",
       "requirePin": "@:webSharePage.requirePin",
       "autoFinish": "स्वतः समाप्त",
       "destination": "गन्तव्य",
       "downloads": "(डाउनलोड)",
       "saveToGallery": "मिडियालाई ग्यालरीमा सेभ गर्नुहोस्",
-      "saveToHistory": "इतिहासमा संचय गर्नुहोस्"
+      "saveToHistory": "इतिहासमा संचय गर्नुहोस्",
+      "verifyChecksums": "फाइलहरू प्राप्त गर्दा चेकसम प्रमाणित गर्नुहोस्"
     },
     "send": {
       "title": "पठाउनुहोस्",
-      "shareViaLinkAutoAccept": "\"लिङ्क मार्फत साझेदारी\" मोडमा स्वचालित रूपमा अनुरोधहरू स्वीकार गर्नुहोस्"
+      "shareViaLinkAutoAccept": "\"लिङ्क मार्फत साझेदारी\" मोडमा स्वचालित रूपमा अनुरोधहरू स्वीकार गर्नुहोस्",
+      "createChecksums": "फाइलहरू पठाउँदा चेकसम सिर्जना गर्नुहोस्"
     },
     "network": {
       "title": "नेटवर्क",
@@ -201,6 +206,29 @@
   "selectedFilesPage": {
     "deleteAll": "सबै मेटाउनुहोस्"
   },
+  "deviceDetailsPage": {
+    "title": "डिभाइस विवरण",
+    "favorite": "मनपर्ने",
+    "verify": "प्रमाणित गर्नुहोस्",
+    "info": {
+      "name": "नाम",
+      "address": "ठेगाना",
+      "version": "संस्करण",
+      "protocol": "प्रोटोकल v{version}"
+    },
+    "logs": {
+      "title": "लगहरू",
+      "empty": "कुनै लग उपलब्ध छैन।",
+      "discovered": "{protocol} मार्फत फेला पर्यो ({host})",
+      "updated": "{protocol} मार्फत अपडेट भयो ({host})"
+    }
+  },
+  "verifyPage": {
+    "title": "प्रमाणित गर्नुहोस्",
+    "icons": "आइकनहरू",
+    "text": "पाठ",
+    "question": "के यो अर्को डिभाइसमा उस्तै देखिन्छ?"
+  },
   "receivePage": {
     "subTitle": {
       "one": "तपाईंलाई एउटा फाइल पठाउन चाहन्छ",
@@ -218,6 +246,7 @@
     "saveToGalleryOff": "फोल्डरहरू भएकाले स्वतः बन्द भयो।"
   },
   "sendPage": {
+    "calculatingChecksum": "चेकसम गणना गर्दै ({curr} / {n})",
     "waiting": "प्रतिक्रियाको प्रतीक्षा गर्दै…",
     "rejected": "प्राप्तकर्ताले अनुरोध अस्वीकार गरेको छ।",
     "tooManyAttempts": "@:web.tooManyAttempts",
@@ -237,6 +266,16 @@
       "count": "फाइलहरू: {curr} / {n}",
       "size": "आकार: {curr} / {n}",
       "speed": "गति: {speed}/s"
+    },
+    "remainingTime": {
+      "minutesUnit(plural, param=m)": {
+        "other": "{m}मि"
+      },
+      "hoursUnit(plural, param=h)": {
+        "other": "{h}घं"
+      },
+      "minutes": "{m}:{ss}",
+      "hours": "@:.hoursUnit @:.minutesUnit"
     }
   },
   "webSharePage": {
@@ -256,6 +295,9 @@
     "pinHint": "पिन \"{pin}\" हो",
     "encryptionHint": "LocalSend एक स्वयंसिग्ध प्रमाणपत्र प्रयोग गर्दछ। तपाईंले ब्राउजरमा यसलाई स्वीकार्नु पर्दछ।",
     "pendingRequests": "लंबित अनुरोध: {n}"
+  },
+  "webReceivePage": {
+    "title": "लिङ्कमार्फत प्राप्त गर्नुहोस्"
   },
   "aboutPage": {
     "title": "LocalSend को बारेमा",
@@ -277,6 +319,18 @@
   },
   "changelogPage": {
     "title": "परिवर्तन लग"
+  },
+  "whatsNewPage": {
+    "title": "{version} मा नयाँ के छ",
+    "changes(interface=WhatsNewStrings)": {
+      "v1_18_0": {
+        "changes": [
+          "इन्क्रिप्सनले अब स्थानान्तरण सुस्त बनाउँदैन। तपाईंले पहिले बन्द गर्नुभएको भए यो डिभाइसमा फेरि सक्षम गरिएको छ।",
+          "मनपर्नेहरूबाट अनुरोधहरू अब स्वतः स्वीकार गरिन्छन्। यो पूर्वनिर्धारित रूपमा सक्षम छ र सेटिङमा गएर बन्द गर्न सकिन्छ।",
+          "Android मा, एप पृष्ठभूमिमा हुँदा वा स्क्रिन बन्द हुँदा पनि स्थानान्तरण जारी रहन्छ। iOS मा, एप अझै अग्रभूमिमा रहनुपर्छ।"
+        ]
+      }
+    }
   },
   "aliasGenerator(ignoreMissing, ignoreGpt)": {
     "@info": "फरक-फरक स्थानमा फरक-फरक शब्दहरू हुन सक्छन्, यो १:१ अनुपातमा नमिल्न सक्छ",
@@ -449,6 +503,7 @@
       "content": "फाइल अनुरोधहरू अब स्वचालित रूपमा स्वीकार गरिन्छन्। स्थानीय नेटवर्कमा भएका सबैले तपाईंलाई फाइलहरू पठाउन सक्छन् भन्ने कुरामा सचेत रहनुहोस्।"
     },
     "quickSaveFromFavoritesNotice": {
+      "title": "@:general.quickSaveFromFavorites",
       "content": [
         "फाइल अनुरोधहरू अब तपाईंको मनपर्ने सूचीमा रहेका उपकरणहरूबाट स्वचालित रूपमा स्वीकार गरिन्छन्।"
       ]

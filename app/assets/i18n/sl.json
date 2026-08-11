@@ -46,7 +46,13 @@
       "ip": "IP:",
       "port": "Vrata:",
       "alias": "Ime naprave:"
-    }
+    },
+    "quickSave": {
+      "off": "@:general.off",
+      "favorites": "Priljubljene",
+      "on": "@:general.on"
+    },
+    "link": "Prejmi prek povezave"
   },
   "sendTab": {
     "title": "Pošlji",
@@ -91,7 +97,8 @@
       "color": "Barva",
       "colorOptions": {
         "system": "Sistem",
-        "oled": "OLED"
+        "oled": "OLED",
+        "custom": "Po meri"
       },
       "language": "Jezik",
       "languageOptions": {
@@ -114,11 +121,13 @@
       "destination": "Shrani v mapo",
       "downloads": "(Prenosi)",
       "saveToGallery": "Shrani medije v galerijo",
-      "saveToHistory": "Shrani v zgodovino"
+      "saveToHistory": "Shrani v zgodovino",
+      "verifyChecksums": "Preveri kontrolne vsote ob prejemanju datotek"
     },
     "send": {
       "title": "Pošlji",
-      "shareViaLinkAutoAccept": "Samodejno sprejmi zahteve v načinu »Deli prek povezave«"
+      "shareViaLinkAutoAccept": "Samodejno sprejmi zahteve v načinu »Deli prek povezave«",
+      "createChecksums": "Ustvari kontrolne vsote ob pošiljanju datotek"
     },
     "network": {
       "title": "Omrežje",
@@ -128,6 +137,11 @@
       "deviceType": "Tip naprave",
       "deviceModel": "Model naprave",
       "port": "Vrata",
+      "network": "Omrežje",
+      "networkOptions": {
+        "all": "Vsa",
+        "filtered": "Filtrirana"
+      },
       "discoveryTimeout": "Časovna omejitev za odkrivanje",
       "useSystemName": "Uporabi sistemsko ime",
       "generateRandomAlias": "Ustvari naključni vzdevek",
@@ -164,6 +178,13 @@
       "solution": "Preverite, da so obe napravi v istem Wi-Fi omrežju in imajo enake nastavitve (vrata, večtočkovni naslov, šifriranje). Morda omrežje preprečuje komunikacijo med udeleženci (izolacija AP)."
     }
   },
+  "networkInterfacesPage": {
+    "title": "Omrežni vmesniki",
+    "info": "LocalSend privzeto uporablja vse razpoložljive omrežne vmesnike. Tukaj lahko izključite neželena omrežja. Za uveljavitev sprememb morate znova zagnati strežnik.",
+    "preview": "Predogled",
+    "whitelist": "Seznam dovoljenih",
+    "blacklist": "Seznam blokiranih"
+  },
   "receiveHistoryPage": {
     "title": "Zgodovina",
     "openFolder": "Odpri mapo",
@@ -185,6 +206,29 @@
   "selectedFilesPage": {
     "deleteAll": "Izbriši vse"
   },
+  "deviceDetailsPage": {
+    "title": "Podrobnosti naprave",
+    "favorite": "Priljubljena",
+    "verify": "Preveri",
+    "info": {
+      "name": "Ime",
+      "address": "Naslov",
+      "version": "Različica",
+      "protocol": "Protokol v{version}"
+    },
+    "logs": {
+      "title": "Dnevniki",
+      "empty": "Ni razpoložljivih dnevnikov.",
+      "discovered": "Odkrito prek {protocol} ({host})",
+      "updated": "Posodobljeno prek {protocol} ({host})"
+    }
+  },
+  "verifyPage": {
+    "title": "Preveri",
+    "icons": "Ikone",
+    "text": "Besedilo",
+    "question": "Ali je na drugi napravi videti enako?"
+  },
   "receivePage": {
     "subTitle": {
       "one": "želi poslati datoteko",
@@ -202,6 +246,7 @@
     "saveToGalleryOff": "Samodejno izklopljeno, ker obstajajo mape."
   },
   "sendPage": {
+    "calculatingChecksum": "Izračunavanje kontrolne vsote ({curr} / {n})",
     "waiting": "Čakanje na odgovor...",
     "rejected": "Prejemnik je zavrnil zahtevo.",
     "tooManyAttempts": "@:web.tooManyAttempts",
@@ -221,6 +266,16 @@
       "count": "Datoteke: {curr} / {n}",
       "size": "Velikost: {curr} / {n}",
       "speed": "Hitrost: {speed}/s"
+    },
+    "remainingTime": {
+      "minutesUnit(plural, param=m)": {
+        "other": "{m}min"
+      },
+      "hoursUnit(plural, param=h)": {
+        "other": "{h}h"
+      },
+      "minutes": "{m}:{ss}",
+      "hours": "@:.hoursUnit @:.minutesUnit"
     }
   },
   "webSharePage": {
@@ -240,6 +295,9 @@
     "pinHint": "PIN je \"{pin}\"",
     "encryptionHint": "LocalSend uporablja samopodpisano potrdilo. Sprejeti ga morate v svojem brskalniku.",
     "pendingRequests": "Čakajoče zahteve: {n}"
+  },
+  "webReceivePage": {
+    "title": "Prejmi prek povezave"
   },
   "aboutPage": {
     "title": "O LocalSend",
@@ -261,6 +319,18 @@
   },
   "changelogPage": {
     "title": "Dnevnik sprememb"
+  },
+  "whatsNewPage": {
+    "title": "Novosti v {version}",
+    "changes(interface=WhatsNewStrings)": {
+      "v1_18_0": {
+        "changes": [
+          "Šifriranje ne upočasnjuje več prenosov. Če ste ga prej izklopili, je bilo na tej napravi znova omogočeno.",
+          "Zahteve priljubljenih naprav so zdaj samodejno sprejete. To je privzeto vklopljeno in se lahko izklopi v nastavitvah.",
+          "V sistemu Android se prenosi nadaljujejo, ko je aplikacija v ozadju ali je zaslon izklopljen. V sistemu iOS mora aplikacija še vedno ostati v ospredju."
+        ]
+      }
+    }
   },
   "aliasGenerator(ignoreMissing, ignoreGpt)": {
     "@info": "Različne lokalizacije imajo lahko različne besede, morda se ne ujemajo 1:1",
@@ -339,6 +409,10 @@
     "addFile": {
       "title": "Dodaj k izbiri",
       "content": "Kaj želite dodati?"
+    },
+    "openFile": {
+      "title": "Odpri datoteko",
+      "content": "Ali želite odpreti prejeto datoteko?"
     },
     "addressInput": {
       "title": "Vnesite naslov",
@@ -429,7 +503,10 @@
       "content": "Zahteve za datoteke so zdaj samodejno sprejete. Bodite pozorni, da vam lahko vsi v lokalnem omrežju pošiljajo datoteke."
     },
     "quickSaveFromFavoritesNotice": {
-      "title": "@:general.quickSaveFromFavorites"
+      "title": "@:general.quickSaveFromFavorites",
+      "content": [
+        "Zahteve za datoteke naprav s seznama priljubljenih so zdaj samodejno sprejete."
+      ]
     },
     "pin": {
       "title": "Vnesite PIN"

@@ -60,6 +60,10 @@ class TranslationsTh extends Translations with BaseTranslations<AppLocale, Trans
   @override
   late final _Translations$selectedFilesPage$th selectedFilesPage = _Translations$selectedFilesPage$th._(_root);
   @override
+  late final _Translations$deviceDetailsPage$th deviceDetailsPage = _Translations$deviceDetailsPage$th._(_root);
+  @override
+  late final _Translations$verifyPage$th verifyPage = _Translations$verifyPage$th._(_root);
+  @override
   late final _Translations$receivePage$th receivePage = _Translations$receivePage$th._(_root);
   @override
   late final _Translations$receiveOptionsPage$th receiveOptionsPage = _Translations$receiveOptionsPage$th._(_root);
@@ -70,11 +74,15 @@ class TranslationsTh extends Translations with BaseTranslations<AppLocale, Trans
   @override
   late final _Translations$webSharePage$th webSharePage = _Translations$webSharePage$th._(_root);
   @override
+  late final _Translations$webReceivePage$th webReceivePage = _Translations$webReceivePage$th._(_root);
+  @override
   late final _Translations$aboutPage$th aboutPage = _Translations$aboutPage$th._(_root);
   @override
   late final _Translations$donationPage$th donationPage = _Translations$donationPage$th._(_root);
   @override
   late final _Translations$changelogPage$th changelogPage = _Translations$changelogPage$th._(_root);
+  @override
+  late final _Translations$whatsNewPage$th whatsNewPage = _Translations$whatsNewPage$th._(_root);
   @override
   late final _Translations$aliasGenerator$th aliasGenerator = _Translations$aliasGenerator$th._(_root);
   @override
@@ -187,6 +195,8 @@ class _Translations$receiveTab$th extends Translations$receiveTab$en {
   late final _Translations$receiveTab$infoBox$th infoBox = _Translations$receiveTab$infoBox$th._(_root);
   @override
   late final _Translations$receiveTab$quickSave$th quickSave = _Translations$receiveTab$quickSave$th._(_root);
+  @override
+  String get link => 'รับผ่านลิงก์';
 }
 
 // Path: sendTab
@@ -337,6 +347,42 @@ class _Translations$selectedFilesPage$th extends Translations$selectedFilesPage$
   String get deleteAll => 'ลบทั้งหมด';
 }
 
+// Path: deviceDetailsPage
+class _Translations$deviceDetailsPage$th extends Translations$deviceDetailsPage$en {
+  _Translations$deviceDetailsPage$th._(TranslationsTh root) : this._root = root, super.internal(root);
+
+  final TranslationsTh _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'รายละเอียดอุปกรณ์';
+  @override
+  String get favorite => 'รายการโปรด';
+  @override
+  String get verify => 'ตรวจสอบ';
+  @override
+  late final _Translations$deviceDetailsPage$info$th info = _Translations$deviceDetailsPage$info$th._(_root);
+  @override
+  late final _Translations$deviceDetailsPage$logs$th logs = _Translations$deviceDetailsPage$logs$th._(_root);
+}
+
+// Path: verifyPage
+class _Translations$verifyPage$th extends Translations$verifyPage$en {
+  _Translations$verifyPage$th._(TranslationsTh root) : this._root = root, super.internal(root);
+
+  final TranslationsTh _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'ตรวจสอบ';
+  @override
+  String get icons => 'ไอคอน';
+  @override
+  String get text => 'ข้อความ';
+  @override
+  String get question => 'บนอุปกรณ์อีกเครื่องแสดงเหมือนกันหรือไม่?';
+}
+
 // Path: receivePage
 class _Translations$receivePage$th extends Translations$receivePage$en {
   _Translations$receivePage$th._(TranslationsTh root) : this._root = root, super.internal(root);
@@ -385,6 +431,8 @@ class _Translations$sendPage$th extends Translations$sendPage$en {
 
   // Translations
   @override
+  String calculatingChecksum({required Object curr, required Object n}) => 'กำลังคำนวณ checksum (${curr} / ${n})';
+  @override
   String get waiting => 'กำลังรอการตอบกลับ...';
   @override
   String get rejected => 'ผู้รับได้ปฏิเสธคำขอส่งไฟล์';
@@ -409,6 +457,8 @@ class _Translations$progressPage$th extends Translations$progressPage$en {
   String get savedToGallery => 'บันทึกไว้ในแอปรูปถ่ายแล้ว';
   @override
   late final _Translations$progressPage$total$th total = _Translations$progressPage$total$th._(_root);
+  @override
+  late final _Translations$progressPage$remainingTime$th remainingTime = _Translations$progressPage$remainingTime$th._(_root);
 }
 
 // Path: webSharePage
@@ -449,6 +499,17 @@ class _Translations$webSharePage$th extends Translations$webSharePage$en {
       'LocalSend ใช้ใบรับรองอุปกรณ์จากเว็บเบราเซอร์ (self-signed certificate) คุณต้องกดยอมรับใบรับรองนี้ในเบราว์เซอร์บนอุปกรณ์ของคุณ';
   @override
   String pendingRequests({required Object n}) => 'คำขอที่รอดำเนินการ: ${n}';
+}
+
+// Path: webReceivePage
+class _Translations$webReceivePage$th extends Translations$webReceivePage$en {
+  _Translations$webReceivePage$th._(TranslationsTh root) : this._root = root, super.internal(root);
+
+  final TranslationsTh _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'รับผ่านลิงก์';
 }
 
 // Path: aboutPage
@@ -504,6 +565,19 @@ class _Translations$changelogPage$th extends Translations$changelogPage$en {
   // Translations
   @override
   String get title => 'บันทึกรายการเปลี่ยนแปลง';
+}
+
+// Path: whatsNewPage
+class _Translations$whatsNewPage$th extends Translations$whatsNewPage$en {
+  _Translations$whatsNewPage$th._(TranslationsTh root) : this._root = root, super.internal(root);
+
+  final TranslationsTh _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String title({required Object version}) => 'มีอะไรใหม่ใน ${version}';
+  @override
+  late final _Translations$whatsNewPage$changes$th changes = _Translations$whatsNewPage$changes$th._(_root);
 }
 
 // Path: aliasGenerator
@@ -913,6 +987,8 @@ class _Translations$settingsTab$receive$th extends Translations$settingsTab$rece
   String get saveToGallery => 'บันทึกมีเดียลงในแกลอรี่';
   @override
   String get saveToHistory => 'บันทึกลงในประวัติย้อนหลัง';
+  @override
+  String get verifyChecksums => 'ตรวจสอบ checksum เมื่อรับไฟล์';
 }
 
 // Path: settingsTab.send
@@ -926,6 +1002,8 @@ class _Translations$settingsTab$send$th extends Translations$settingsTab$send$en
   String get title => 'ส่ง';
   @override
   String get shareViaLinkAutoAccept => 'ตอบรับคำขอในการโอนถ่ายข้อมูลจากโหมด "แชร์ผ่านลิงก์" โดยอัตโนมัติ';
+  @override
+  String get createChecksums => 'สร้าง checksum เมื่อส่งไฟล์';
 }
 
 // Path: settingsTab.network
@@ -1051,6 +1129,40 @@ class _Translations$receiveHistoryPage$entryActions$th extends Translations$rece
   String get deleteFromHistory => 'ลบออกจากประวัติ';
 }
 
+// Path: deviceDetailsPage.info
+class _Translations$deviceDetailsPage$info$th extends Translations$deviceDetailsPage$info$en {
+  _Translations$deviceDetailsPage$info$th._(TranslationsTh root) : this._root = root, super.internal(root);
+
+  final TranslationsTh _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get name => 'ชื่อ';
+  @override
+  String get address => 'ที่อยู่';
+  @override
+  String get version => 'เวอร์ชัน';
+  @override
+  String protocol({required Object version}) => 'โปรโตคอล v${version}';
+}
+
+// Path: deviceDetailsPage.logs
+class _Translations$deviceDetailsPage$logs$th extends Translations$deviceDetailsPage$logs$en {
+  _Translations$deviceDetailsPage$logs$th._(TranslationsTh root) : this._root = root, super.internal(root);
+
+  final TranslationsTh _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'บันทึก';
+  @override
+  String get empty => 'ไม่มีบันทึก';
+  @override
+  String discovered({required Object protocol, required Object host}) => 'ค้นพบผ่าน ${protocol} (${host})';
+  @override
+  String updated({required Object protocol, required Object host}) => 'อัปเดตผ่าน ${protocol} (${host})';
+}
+
 // Path: progressPage.total
 class _Translations$progressPage$total$th extends Translations$progressPage$total$en {
   _Translations$progressPage$total$th._(TranslationsTh root) : this._root = root, super.internal(root);
@@ -1066,6 +1178,41 @@ class _Translations$progressPage$total$th extends Translations$progressPage$tota
   String size({required Object curr, required Object n}) => 'ขนาด: ${curr} / ${n}';
   @override
   String speed({required Object speed}) => 'ความเร็ว: ${speed}/วิ';
+}
+
+// Path: progressPage.remainingTime
+class _Translations$progressPage$remainingTime$th extends Translations$progressPage$remainingTime$en {
+  _Translations$progressPage$remainingTime$th._(TranslationsTh root) : this._root = root, super.internal(root);
+
+  final TranslationsTh _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String minutesUnit({required num m}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('th'))(
+    m,
+    other: '${m}นท',
+  );
+  @override
+  String hoursUnit({required num h}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('th'))(
+    h,
+    other: '${h}ชม',
+  );
+  @override
+  String minutes({required Object m, required Object ss}) => '${m}:${ss}';
+  @override
+  String hours({required num h, required num m}) =>
+      '${_root.progressPage.remainingTime.hoursUnit(h: h)} ${_root.progressPage.remainingTime.minutesUnit(m: m)}';
+}
+
+// Path: whatsNewPage.changes
+class _Translations$whatsNewPage$changes$th extends Translations$whatsNewPage$changes$en {
+  _Translations$whatsNewPage$changes$th._(TranslationsTh root) : this._root = root, super.internal(root);
+
+  final TranslationsTh _root; // ignore: unused_field
+
+  // Translations
+  @override
+  late final _Translations$whatsNewPage$changes$v1_18_0$th v1_18_0 = _Translations$whatsNewPage$changes$v1_18_0$th._(_root);
 }
 
 // Path: dialogs.addFile
@@ -1448,6 +1595,8 @@ class _Translations$settingsTab$general$colorOptions$th extends Translations$set
   String get system => 'ตามระบบ';
   @override
   String get oled => 'โอเล็ด';
+  @override
+  String get custom => 'กำหนดเอง';
 }
 
 // Path: settingsTab.general.languageOptions
@@ -1489,4 +1638,19 @@ class _Translations$progressPage$total$title$th extends Translations$progressPag
   String get canceledSender => 'ถูกยกเลิกโดยผู้ส่ง';
   @override
   String get canceledReceiver => 'ถูกยกเลิกโดยผู้รับ';
+}
+
+// Path: whatsNewPage.changes.v1_18_0
+class _Translations$whatsNewPage$changes$v1_18_0$th extends Translations$whatsNewPage$changes$v1_18_0$en with WhatsNewStrings {
+  _Translations$whatsNewPage$changes$v1_18_0$th._(TranslationsTh root) : this._root = root, super.internal(root);
+
+  final TranslationsTh _root; // ignore: unused_field
+
+  // Translations
+  @override
+  List<String> get changes => [
+    'การเข้ารหัสไม่ทำให้การโอนช้าลงอีกต่อไป หากคุณเคยปิดไว้ ระบบได้เปิดใช้งานอีกครั้งบนอุปกรณ์นี้แล้ว',
+    'คำขอจากรายการโปรดจะถูกยอมรับโดยอัตโนมัติแล้ว โดยเปิดใช้งานเป็นค่าเริ่มต้น และสามารถปิดได้ในการตั้งค่า',
+    'บน Android การโอนจะดำเนินต่อขณะที่แอปอยู่เบื้องหลังหรือปิดหน้าจอ บน iOS แอปยังคงต้องอยู่เบื้องหน้า',
+  ];
 }

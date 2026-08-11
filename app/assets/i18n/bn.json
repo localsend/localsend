@@ -51,7 +51,8 @@
       "off": "@:general.off",
       "favorites": "ফেভারিট",
       "on": "@:general.on"
-    }
+    },
+    "link": "লিঙ্কের মাধ্যমে গ্রহণ করুন"
   },
   "sendTab": {
     "title": "সেন্ড",
@@ -96,7 +97,8 @@
       "color": "অ্যাপ কালার",
       "colorOptions": {
         "system": "সিস্টেম",
-        "oled": "ওলেড"
+        "oled": "ওলেড",
+        "custom": "কাস্টম"
       },
       "language": "ভাষা",
       "languageOptions": {
@@ -119,11 +121,13 @@
       "destination": "ডেস্টিনেশন",
       "downloads": "(Downloads)",
       "saveToGallery": "মিডিয়া গ্যালারিতে সেভ করুন",
-      "saveToHistory": "হিস্ট্রি সেভ করুন"
+      "saveToHistory": "হিস্ট্রি সেভ করুন",
+      "verifyChecksums": "ফাইল গ্রহণের সময় চেকসাম যাচাই করুন"
     },
     "send": {
       "title": "সেন্ড",
-      "shareViaLinkAutoAccept": "\"Share via link\" মোডের রিকুয়েস্ট অটো এক্সেপ্ট করুন"
+      "shareViaLinkAutoAccept": "\"Share via link\" মোডের রিকুয়েস্ট অটো এক্সেপ্ট করুন",
+      "createChecksums": "ফাইল পাঠানোর সময় চেকসাম তৈরি করুন"
     },
     "network": {
       "title": "নেটওয়ার্ক",
@@ -202,6 +206,29 @@
   "selectedFilesPage": {
     "deleteAll": "সব ডিলিট করুন"
   },
+  "deviceDetailsPage": {
+    "title": "ডিভাইসের বিবরণ",
+    "favorite": "পছন্দের",
+    "verify": "যাচাই করুন",
+    "info": {
+      "name": "নাম",
+      "address": "ঠিকানা",
+      "version": "সংস্করণ",
+      "protocol": "প্রোটোকল v{version}"
+    },
+    "logs": {
+      "title": "লগ",
+      "empty": "কোনো লগ নেই।",
+      "discovered": "{protocol} এর মাধ্যমে আবিষ্কৃত ({host})",
+      "updated": "{protocol} এর মাধ্যমে আপডেট হয়েছে ({host})"
+    }
+  },
+  "verifyPage": {
+    "title": "যাচাই করুন",
+    "icons": "আইকন",
+    "text": "টেক্সট",
+    "question": "অন্য ডিভাইসে কি একই রকম দেখাচ্ছে?"
+  },
   "receivePage": {
     "subTitle": {
       "one": "আপনাকে একটি ফাইল পাঠাতে চায়",
@@ -219,6 +246,7 @@
     "saveToGalleryOff": "অটোমেটিকালি বন্ধ কারণ ডিরেক্টরি আছে."
   },
   "sendPage": {
+    "calculatingChecksum": "চেকসাম গণনা করা হচ্ছে ({curr} / {n})",
     "waiting": "রেস্পন্সের অপেক্ষায়…",
     "rejected": "রিসিভার রিকুয়েস্টটি ক্যানসেল করেছে।",
     "tooManyAttempts": "@:web.tooManyAttempts",
@@ -240,9 +268,14 @@
       "speed": "স্পীড: {speed}/s"
     },
     "remainingTime": {
+      "minutesUnit(plural, param=m)": {
+        "other": "{m}মি"
+      },
+      "hoursUnit(plural, param=h)": {
+        "other": "{h}ঘ"
+      },
       "minutes": "{m}:{ss}",
-      "hours": "{h}ঘণ্টা {m}মিনিট",
-      "@hours": "ঘন্টার জন্য 'h' এবং মিনিটের জন্য 'm' ব্যবহার করুন"
+      "hours": "@:.hoursUnit @:.minutesUnit"
     }
   },
   "webSharePage": {
@@ -262,6 +295,9 @@
     "pinHint": "পিনটি \"{pin}\"",
     "encryptionHint": "LocalSend একটি সেল্ফ-সাইন্ড সার্টিফিকেট ব্যবহার করে। আপনাকে ব্রাউজারে এটি একসেপ্ট করতে হবে।",
     "pendingRequests": "রিকুয়েস্ট অপেক্ষারত: {n}"
+  },
+  "webReceivePage": {
+    "title": "লিঙ্কের মাধ্যমে গ্রহণ করুন"
   },
   "aboutPage": {
     "title": "LocalSend সম্পর্কে",
@@ -283,6 +319,18 @@
   },
   "changelogPage": {
     "title": "চেঞ্জলগ"
+  },
+  "whatsNewPage": {
+    "title": "{version} এ নতুন কী আছে",
+    "changes(interface=WhatsNewStrings)": {
+      "v1_18_0": {
+        "changes": [
+          "এনক্রিপশন আর স্থানান্তরের গতি কমায় না। আপনি আগে বন্ধ করে থাকলে এই ডিভাইসে এটি আবার চালু করা হয়েছে।",
+          "পছন্দের ডিভাইস থেকে অনুরোধ এখন স্বয়ংক্রিয়ভাবে গৃহীত হয়। এটি ডিফল্টভাবে চালু থাকে এবং সেটিংসে বন্ধ করা যায়।",
+          "Android এ অ্যাপ ব্যাকগ্রাউন্ডে থাকলে বা স্ক্রিন বন্ধ থাকলেও স্থানান্তর চলতে থাকে। iOS এ অ্যাপটিকে এখনও ফোরগ্রাউন্ডে থাকতে হবে।"
+        ]
+      }
+    }
   },
   "aliasGenerator(ignoreMissing, ignoreGpt)": {
     "@info": "ভিন্ন জায়গার ভিন্ন শব্দ থাকতে পারে, একেবারে 1:1 মিলতে নাও পারে",

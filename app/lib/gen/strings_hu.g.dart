@@ -60,6 +60,10 @@ class TranslationsHu extends Translations with BaseTranslations<AppLocale, Trans
   @override
   late final _Translations$selectedFilesPage$hu selectedFilesPage = _Translations$selectedFilesPage$hu._(_root);
   @override
+  late final _Translations$deviceDetailsPage$hu deviceDetailsPage = _Translations$deviceDetailsPage$hu._(_root);
+  @override
+  late final _Translations$verifyPage$hu verifyPage = _Translations$verifyPage$hu._(_root);
+  @override
   late final _Translations$receivePage$hu receivePage = _Translations$receivePage$hu._(_root);
   @override
   late final _Translations$receiveOptionsPage$hu receiveOptionsPage = _Translations$receiveOptionsPage$hu._(_root);
@@ -70,11 +74,15 @@ class TranslationsHu extends Translations with BaseTranslations<AppLocale, Trans
   @override
   late final _Translations$webSharePage$hu webSharePage = _Translations$webSharePage$hu._(_root);
   @override
+  late final _Translations$webReceivePage$hu webReceivePage = _Translations$webReceivePage$hu._(_root);
+  @override
   late final _Translations$aboutPage$hu aboutPage = _Translations$aboutPage$hu._(_root);
   @override
   late final _Translations$donationPage$hu donationPage = _Translations$donationPage$hu._(_root);
   @override
   late final _Translations$changelogPage$hu changelogPage = _Translations$changelogPage$hu._(_root);
+  @override
+  late final _Translations$whatsNewPage$hu whatsNewPage = _Translations$whatsNewPage$hu._(_root);
   @override
   late final _Translations$dialogs$hu dialogs = _Translations$dialogs$hu._(_root);
   @override
@@ -85,10 +93,6 @@ class TranslationsHu extends Translations with BaseTranslations<AppLocale, Trans
   late final _Translations$web$hu web = _Translations$web$hu._(_root);
   @override
   late final _Translations$assetPicker$hu assetPicker = _Translations$assetPicker$hu._(_root);
-  @override
-  late final _Translations$webReceivePage$hu webReceivePage = _Translations$webReceivePage$hu._(_root);
-  @override
-  late final _Translations$whatsNewPage$hu whatsNewPage = _Translations$whatsNewPage$hu._(_root);
 }
 
 // Path: general
@@ -189,6 +193,8 @@ class _Translations$receiveTab$hu extends Translations$receiveTab$en {
   late final _Translations$receiveTab$infoBox$hu infoBox = _Translations$receiveTab$infoBox$hu._(_root);
   @override
   late final _Translations$receiveTab$quickSave$hu quickSave = _Translations$receiveTab$quickSave$hu._(_root);
+  @override
+  String get link => 'Fogadás hivatkozáson keresztül';
 }
 
 // Path: sendTab
@@ -339,6 +345,42 @@ class _Translations$selectedFilesPage$hu extends Translations$selectedFilesPage$
   String get deleteAll => 'Összes törlése';
 }
 
+// Path: deviceDetailsPage
+class _Translations$deviceDetailsPage$hu extends Translations$deviceDetailsPage$en {
+  _Translations$deviceDetailsPage$hu._(TranslationsHu root) : this._root = root, super.internal(root);
+
+  final TranslationsHu _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Eszköz részletei';
+  @override
+  String get favorite => 'Kedvenc';
+  @override
+  String get verify => 'Ellenőrzés';
+  @override
+  late final _Translations$deviceDetailsPage$info$hu info = _Translations$deviceDetailsPage$info$hu._(_root);
+  @override
+  late final _Translations$deviceDetailsPage$logs$hu logs = _Translations$deviceDetailsPage$logs$hu._(_root);
+}
+
+// Path: verifyPage
+class _Translations$verifyPage$hu extends Translations$verifyPage$en {
+  _Translations$verifyPage$hu._(TranslationsHu root) : this._root = root, super.internal(root);
+
+  final TranslationsHu _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Ellenőrzés';
+  @override
+  String get icons => 'Ikonok';
+  @override
+  String get text => 'Szöveg';
+  @override
+  String get question => 'Ugyanúgy néz ki a másik eszközön?';
+}
+
 // Path: receivePage
 class _Translations$receivePage$hu extends Translations$receivePage$en {
   _Translations$receivePage$hu._(TranslationsHu root) : this._root = root, super.internal(root);
@@ -387,6 +429,8 @@ class _Translations$sendPage$hu extends Translations$sendPage$en {
 
   // Translations
   @override
+  String calculatingChecksum({required Object curr, required Object n}) => 'Ellenőrzőösszeg kiszámítása (${curr} / ${n})';
+  @override
   String get waiting => 'Válaszra várva…';
   @override
   String get rejected => 'A fogadó elutasította a kérelmet.';
@@ -394,8 +438,6 @@ class _Translations$sendPage$hu extends Translations$sendPage$en {
   String get tooManyAttempts => _root.web.tooManyAttempts;
   @override
   String get busy => 'A fogadó más kéréssel van elfoglalva.';
-  @override
-  String calculatingChecksum({required Object curr, required Object n}) => 'Ellenőrzőösszeg kiszámítása (${curr} / ${n})';
 }
 
 // Path: progressPage
@@ -456,6 +498,17 @@ class _Translations$webSharePage$hu extends Translations$webSharePage$en {
   String pendingRequests({required Object n}) => 'Függőben lévő kérések: ${n}';
 }
 
+// Path: webReceivePage
+class _Translations$webReceivePage$hu extends Translations$webReceivePage$en {
+  _Translations$webReceivePage$hu._(TranslationsHu root) : this._root = root, super.internal(root);
+
+  final TranslationsHu _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Linken keresztüli fogadás';
+}
+
 // Path: aboutPage
 class _Translations$aboutPage$hu extends Translations$aboutPage$en {
   _Translations$aboutPage$hu._(TranslationsHu root) : this._root = root, super.internal(root);
@@ -509,6 +562,19 @@ class _Translations$changelogPage$hu extends Translations$changelogPage$en {
   // Translations
   @override
   String get title => 'Változásnapló';
+}
+
+// Path: whatsNewPage
+class _Translations$whatsNewPage$hu extends Translations$whatsNewPage$en {
+  _Translations$whatsNewPage$hu._(TranslationsHu root) : this._root = root, super.internal(root);
+
+  final TranslationsHu _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String title({required Object version}) => '${version} verzió újdonságai';
+  @override
+  late final _Translations$whatsNewPage$changes$hu changes = _Translations$whatsNewPage$changes$hu._(_root);
 }
 
 // Path: dialogs
@@ -690,30 +756,6 @@ class _Translations$assetPicker$hu extends Translations$assetPicker$en {
   String get sUnitAssetCountLabel => 'számol';
 }
 
-// Path: webReceivePage
-class _Translations$webReceivePage$hu extends Translations$webReceivePage$en {
-  _Translations$webReceivePage$hu._(TranslationsHu root) : this._root = root, super.internal(root);
-
-  final TranslationsHu _root; // ignore: unused_field
-
-  // Translations
-  @override
-  String get title => 'Linken keresztüli fogadás';
-}
-
-// Path: whatsNewPage
-class _Translations$whatsNewPage$hu extends Translations$whatsNewPage$en {
-  _Translations$whatsNewPage$hu._(TranslationsHu root) : this._root = root, super.internal(root);
-
-  final TranslationsHu _root; // ignore: unused_field
-
-  // Translations
-  @override
-  String title({required Object version}) => '${version} verzió újdonságai';
-  @override
-  late final _Translations$whatsNewPage$changes$hu changes = _Translations$whatsNewPage$changes$hu._(_root);
-}
-
 // Path: receiveTab.infoBox
 class _Translations$receiveTab$infoBox$hu extends Translations$receiveTab$infoBox$en {
   _Translations$receiveTab$infoBox$hu._(TranslationsHu root) : this._root = root, super.internal(root);
@@ -859,6 +901,8 @@ class _Translations$settingsTab$receive$hu extends Translations$settingsTab$rece
   String get saveToGallery => 'Média mentése a galériába';
   @override
   String get saveToHistory => 'Mentés az előzmények közé';
+  @override
+  String get verifyChecksums => 'Ellenőrzőösszegek ellenőrzése fájlok fogadásakor';
 }
 
 // Path: settingsTab.send
@@ -872,6 +916,8 @@ class _Translations$settingsTab$send$hu extends Translations$settingsTab$send$en
   String get title => 'Küld';
   @override
   String get shareViaLinkAutoAccept => 'Megosztás linken keresztül: Auto. elfogadás';
+  @override
+  String get createChecksums => 'Ellenőrzőösszegek létrehozása fájlok küldésekor';
 }
 
 // Path: settingsTab.network
@@ -997,6 +1043,40 @@ class _Translations$receiveHistoryPage$entryActions$hu extends Translations$rece
   String get deleteFromHistory => 'Törlés az előzményből';
 }
 
+// Path: deviceDetailsPage.info
+class _Translations$deviceDetailsPage$info$hu extends Translations$deviceDetailsPage$info$en {
+  _Translations$deviceDetailsPage$info$hu._(TranslationsHu root) : this._root = root, super.internal(root);
+
+  final TranslationsHu _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get name => 'Név';
+  @override
+  String get address => 'Cím';
+  @override
+  String get version => 'Verzió';
+  @override
+  String protocol({required Object version}) => 'Protokoll v${version}';
+}
+
+// Path: deviceDetailsPage.logs
+class _Translations$deviceDetailsPage$logs$hu extends Translations$deviceDetailsPage$logs$en {
+  _Translations$deviceDetailsPage$logs$hu._(TranslationsHu root) : this._root = root, super.internal(root);
+
+  final TranslationsHu _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Naplók';
+  @override
+  String get empty => 'Nincs elérhető napló.';
+  @override
+  String discovered({required Object protocol, required Object host}) => 'Felfedezve ${protocol} útján (${host})';
+  @override
+  String updated({required Object protocol, required Object host}) => 'Frissítve ${protocol} útján (${host})';
+}
+
 // Path: progressPage.total
 class _Translations$progressPage$total$hu extends Translations$progressPage$total$en {
   _Translations$progressPage$total$hu._(TranslationsHu root) : this._root = root, super.internal(root);
@@ -1022,11 +1102,31 @@ class _Translations$progressPage$remainingTime$hu extends Translations$progressP
 
   // Translations
   @override
-  String minutes({required Object m, required Object ss}) => '${m}:${ss}';
-
-  /// Az órák rövidítéséhez használja a 'h' betűt, a percekhez pedig az 'm' betűt
+  String minutesUnit({required num m}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('hu'))(
+    m,
+    other: '${m}p',
+  );
   @override
-  String hours({required Object h, required Object m}) => '${h}h ${m}m';
+  String hoursUnit({required num h}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('hu'))(
+    h,
+    other: '${h}ó',
+  );
+  @override
+  String minutes({required Object m, required Object ss}) => '${m}:${ss}';
+  @override
+  String hours({required num h, required num m}) =>
+      '${_root.progressPage.remainingTime.hoursUnit(h: h)} ${_root.progressPage.remainingTime.minutesUnit(m: m)}';
+}
+
+// Path: whatsNewPage.changes
+class _Translations$whatsNewPage$changes$hu extends Translations$whatsNewPage$changes$en {
+  _Translations$whatsNewPage$changes$hu._(TranslationsHu root) : this._root = root, super.internal(root);
+
+  final TranslationsHu _root; // ignore: unused_field
+
+  // Translations
+  @override
+  late final _Translations$whatsNewPage$changes$v1_18_0$hu v1_18_0 = _Translations$whatsNewPage$changes$v1_18_0$hu._(_root);
 }
 
 // Path: dialogs.addFile
@@ -1383,17 +1483,6 @@ class _Translations$dialogs$zoom$hu extends Translations$dialogs$zoom$en {
   String get title => 'URL';
 }
 
-// Path: whatsNewPage.changes
-class _Translations$whatsNewPage$changes$hu extends Translations$whatsNewPage$changes$en {
-  _Translations$whatsNewPage$changes$hu._(TranslationsHu root) : this._root = root, super.internal(root);
-
-  final TranslationsHu _root; // ignore: unused_field
-
-  // Translations
-  @override
-  late final _Translations$whatsNewPage$changes$v1_18_0$hu v1_18_0 = _Translations$whatsNewPage$changes$v1_18_0$hu._(_root);
-}
-
 // Path: settingsTab.general.brightnessOptions
 class _Translations$settingsTab$general$brightnessOptions$hu extends Translations$settingsTab$general$brightnessOptions$en {
   _Translations$settingsTab$general$brightnessOptions$hu._(TranslationsHu root) : this._root = root, super.internal(root);
@@ -1420,6 +1509,8 @@ class _Translations$settingsTab$general$colorOptions$hu extends Translations$set
   String get system => 'Rendszer';
   @override
   String get oled => 'OLED';
+  @override
+  String get custom => 'Egyéni';
 }
 
 // Path: settingsTab.general.languageOptions

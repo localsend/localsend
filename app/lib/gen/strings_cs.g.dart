@@ -60,6 +60,10 @@ class TranslationsCs extends Translations with BaseTranslations<AppLocale, Trans
   @override
   late final _Translations$selectedFilesPage$cs selectedFilesPage = _Translations$selectedFilesPage$cs._(_root);
   @override
+  late final _Translations$deviceDetailsPage$cs deviceDetailsPage = _Translations$deviceDetailsPage$cs._(_root);
+  @override
+  late final _Translations$verifyPage$cs verifyPage = _Translations$verifyPage$cs._(_root);
+  @override
   late final _Translations$receivePage$cs receivePage = _Translations$receivePage$cs._(_root);
   @override
   late final _Translations$receiveOptionsPage$cs receiveOptionsPage = _Translations$receiveOptionsPage$cs._(_root);
@@ -70,11 +74,15 @@ class TranslationsCs extends Translations with BaseTranslations<AppLocale, Trans
   @override
   late final _Translations$webSharePage$cs webSharePage = _Translations$webSharePage$cs._(_root);
   @override
+  late final _Translations$webReceivePage$cs webReceivePage = _Translations$webReceivePage$cs._(_root);
+  @override
   late final _Translations$aboutPage$cs aboutPage = _Translations$aboutPage$cs._(_root);
   @override
   late final _Translations$donationPage$cs donationPage = _Translations$donationPage$cs._(_root);
   @override
   late final _Translations$changelogPage$cs changelogPage = _Translations$changelogPage$cs._(_root);
+  @override
+  late final _Translations$whatsNewPage$cs whatsNewPage = _Translations$whatsNewPage$cs._(_root);
   @override
   late final _Translations$dialogs$cs dialogs = _Translations$dialogs$cs._(_root);
   @override
@@ -185,6 +193,8 @@ class _Translations$receiveTab$cs extends Translations$receiveTab$en {
   late final _Translations$receiveTab$infoBox$cs infoBox = _Translations$receiveTab$infoBox$cs._(_root);
   @override
   late final _Translations$receiveTab$quickSave$cs quickSave = _Translations$receiveTab$quickSave$cs._(_root);
+  @override
+  String get link => 'Přijmout přes odkaz';
 }
 
 // Path: sendTab
@@ -335,6 +345,42 @@ class _Translations$selectedFilesPage$cs extends Translations$selectedFilesPage$
   String get deleteAll => 'Smazat vše';
 }
 
+// Path: deviceDetailsPage
+class _Translations$deviceDetailsPage$cs extends Translations$deviceDetailsPage$en {
+  _Translations$deviceDetailsPage$cs._(TranslationsCs root) : this._root = root, super.internal(root);
+
+  final TranslationsCs _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Podrobnosti o zařízení';
+  @override
+  String get favorite => 'Oblíbené';
+  @override
+  String get verify => 'Ověřit';
+  @override
+  late final _Translations$deviceDetailsPage$info$cs info = _Translations$deviceDetailsPage$info$cs._(_root);
+  @override
+  late final _Translations$deviceDetailsPage$logs$cs logs = _Translations$deviceDetailsPage$logs$cs._(_root);
+}
+
+// Path: verifyPage
+class _Translations$verifyPage$cs extends Translations$verifyPage$en {
+  _Translations$verifyPage$cs._(TranslationsCs root) : this._root = root, super.internal(root);
+
+  final TranslationsCs _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Ověřit';
+  @override
+  String get icons => 'Ikony';
+  @override
+  String get text => 'Text';
+  @override
+  String get question => 'Vypadá to na druhém zařízení stejně?';
+}
+
 // Path: receivePage
 class _Translations$receivePage$cs extends Translations$receivePage$en {
   _Translations$receivePage$cs._(TranslationsCs root) : this._root = root, super.internal(root);
@@ -383,6 +429,8 @@ class _Translations$sendPage$cs extends Translations$sendPage$en {
 
   // Translations
   @override
+  String calculatingChecksum({required Object curr, required Object n}) => 'Výpočet kontrolního součtu (${curr} / ${n})';
+  @override
   String get waiting => 'Čekání na odpověď...';
   @override
   String get rejected => 'Příjemce žádost odmítl.';
@@ -407,6 +455,8 @@ class _Translations$progressPage$cs extends Translations$progressPage$en {
   String get savedToGallery => 'Uloženo ve Fotkách';
   @override
   late final _Translations$progressPage$total$cs total = _Translations$progressPage$total$cs._(_root);
+  @override
+  late final _Translations$progressPage$remainingTime$cs remainingTime = _Translations$progressPage$remainingTime$cs._(_root);
 }
 
 // Path: webSharePage
@@ -446,6 +496,17 @@ class _Translations$webSharePage$cs extends Translations$webSharePage$en {
   String get encryptionHint => 'LocalSend používá self-signed certifikát. Musíte ho přijmout ve vašem prohlížeči.';
   @override
   String pendingRequests({required Object n}) => 'Čekající žádosti: ${n}';
+}
+
+// Path: webReceivePage
+class _Translations$webReceivePage$cs extends Translations$webReceivePage$en {
+  _Translations$webReceivePage$cs._(TranslationsCs root) : this._root = root, super.internal(root);
+
+  final TranslationsCs _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Přijmout přes odkaz';
 }
 
 // Path: aboutPage
@@ -500,6 +561,19 @@ class _Translations$changelogPage$cs extends Translations$changelogPage$en {
   // Translations
   @override
   String get title => 'Seznam změn';
+}
+
+// Path: whatsNewPage
+class _Translations$whatsNewPage$cs extends Translations$whatsNewPage$en {
+  _Translations$whatsNewPage$cs._(TranslationsCs root) : this._root = root, super.internal(root);
+
+  final TranslationsCs _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String title({required Object version}) => 'Co je nového ve verzi ${version}';
+  @override
+  late final _Translations$whatsNewPage$changes$cs changes = _Translations$whatsNewPage$changes$cs._(_root);
 }
 
 // Path: dialogs
@@ -826,6 +900,8 @@ class _Translations$settingsTab$receive$cs extends Translations$settingsTab$rece
   String get saveToGallery => 'Uložit média do galerie';
   @override
   String get saveToHistory => 'Uložit do historie';
+  @override
+  String get verifyChecksums => 'Ověřovat kontrolní součty při přijímání souborů';
 }
 
 // Path: settingsTab.send
@@ -839,6 +915,8 @@ class _Translations$settingsTab$send$cs extends Translations$settingsTab$send$en
   String get title => 'Poslat';
   @override
   String get shareViaLinkAutoAccept => 'Automaticky přijímat požadavky v režimu "Sdílet přes odkaz".';
+  @override
+  String get createChecksums => 'Vytvářet kontrolní součty při odesílání souborů';
 }
 
 // Path: settingsTab.network
@@ -964,6 +1042,40 @@ class _Translations$receiveHistoryPage$entryActions$cs extends Translations$rece
   String get deleteFromHistory => 'Smazat z historie';
 }
 
+// Path: deviceDetailsPage.info
+class _Translations$deviceDetailsPage$info$cs extends Translations$deviceDetailsPage$info$en {
+  _Translations$deviceDetailsPage$info$cs._(TranslationsCs root) : this._root = root, super.internal(root);
+
+  final TranslationsCs _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get name => 'Název';
+  @override
+  String get address => 'Adresa';
+  @override
+  String get version => 'Verze';
+  @override
+  String protocol({required Object version}) => 'Protokol v${version}';
+}
+
+// Path: deviceDetailsPage.logs
+class _Translations$deviceDetailsPage$logs$cs extends Translations$deviceDetailsPage$logs$en {
+  _Translations$deviceDetailsPage$logs$cs._(TranslationsCs root) : this._root = root, super.internal(root);
+
+  final TranslationsCs _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Záznamy';
+  @override
+  String get empty => 'Žádné záznamy nejsou k dispozici.';
+  @override
+  String discovered({required Object protocol, required Object host}) => 'Objeveno přes ${protocol} (${host})';
+  @override
+  String updated({required Object protocol, required Object host}) => 'Aktualizováno přes ${protocol} (${host})';
+}
+
 // Path: progressPage.total
 class _Translations$progressPage$total$cs extends Translations$progressPage$total$en {
   _Translations$progressPage$total$cs._(TranslationsCs root) : this._root = root, super.internal(root);
@@ -979,6 +1091,41 @@ class _Translations$progressPage$total$cs extends Translations$progressPage$tota
   String size({required Object curr, required Object n}) => 'Velikost: ${curr} / ${n}';
   @override
   String speed({required Object speed}) => 'Rychlost: ${speed}/s';
+}
+
+// Path: progressPage.remainingTime
+class _Translations$progressPage$remainingTime$cs extends Translations$progressPage$remainingTime$en {
+  _Translations$progressPage$remainingTime$cs._(TranslationsCs root) : this._root = root, super.internal(root);
+
+  final TranslationsCs _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String minutesUnit({required num m}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('cs'))(
+    m,
+    other: '${m}m',
+  );
+  @override
+  String hoursUnit({required num h}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('cs'))(
+    h,
+    other: '${h}h',
+  );
+  @override
+  String minutes({required Object m, required Object ss}) => '${m}:${ss}';
+  @override
+  String hours({required num h, required num m}) =>
+      '${_root.progressPage.remainingTime.hoursUnit(h: h)} ${_root.progressPage.remainingTime.minutesUnit(m: m)}';
+}
+
+// Path: whatsNewPage.changes
+class _Translations$whatsNewPage$changes$cs extends Translations$whatsNewPage$changes$en {
+  _Translations$whatsNewPage$changes$cs._(TranslationsCs root) : this._root = root, super.internal(root);
+
+  final TranslationsCs _root; // ignore: unused_field
+
+  // Translations
+  @override
+  late final _Translations$whatsNewPage$changes$v1_18_0$cs v1_18_0 = _Translations$whatsNewPage$changes$v1_18_0$cs._(_root);
 }
 
 // Path: dialogs.addFile
@@ -1359,6 +1506,8 @@ class _Translations$settingsTab$general$colorOptions$cs extends Translations$set
   String get system => 'Systém';
   @override
   String get oled => 'OLED';
+  @override
+  String get custom => 'Vlastní';
 }
 
 // Path: settingsTab.general.languageOptions
@@ -1400,4 +1549,19 @@ class _Translations$progressPage$total$title$cs extends Translations$progressPag
   String get canceledSender => 'Zrušeno odesílatelem';
   @override
   String get canceledReceiver => 'Zrušeno příjemcem';
+}
+
+// Path: whatsNewPage.changes.v1_18_0
+class _Translations$whatsNewPage$changes$v1_18_0$cs extends Translations$whatsNewPage$changes$v1_18_0$en with WhatsNewStrings {
+  _Translations$whatsNewPage$changes$v1_18_0$cs._(TranslationsCs root) : this._root = root, super.internal(root);
+
+  final TranslationsCs _root; // ignore: unused_field
+
+  // Translations
+  @override
+  List<String> get changes => [
+    'Šifrování již nezpomaluje přenosy. Pokud jste je dříve vypnuli, bylo na tomto zařízení znovu zapnuto.',
+    'Požadavky od oblíbených zařízení jsou nyní přijímány automaticky. Tato funkce je ve výchozím nastavení zapnutá a lze ji v nastavení vypnout.',
+    'Na Androidu přenosy pokračují, i když je aplikace na pozadí nebo je obrazovka vypnutá. Na iOS musí aplikace stále zůstat v popředí.',
+  ];
 }

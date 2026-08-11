@@ -15,7 +15,8 @@ use localsend::discovery::{
 use localsend::http::server::{start_with_port, ServerConfigV2, TlsConfig};
 use localsend::http::state::ClientInfo;
 use localsend::model::discovery::{DeviceType, ProtocolType, PROTOCOL_VERSION_V2};
-use localsend::multicast::{InterfaceFilter, MulticastDevice};
+use localsend::multicast::MulticastDevice;
+use localsend::util::interface::InterfaceFilter;
 use std::net::{Ipv4Addr, Ipv6Addr};
 use std::sync::atomic::{AtomicU16, Ordering};
 use std::time::Duration;

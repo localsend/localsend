@@ -206,8 +206,8 @@ extension on FileDto {
 extension on FileMetadata {
   dart_model.FileMetadata toFileMetadata() {
     return dart_model.FileMetadata(
-      lastModified: DateTime.tryParse(modified ?? ''),
-      lastAccessed: DateTime.tryParse(accessed ?? ''),
+      lastModified: modified,
+      lastAccessed: accessed,
     );
   }
 }

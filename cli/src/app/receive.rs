@@ -2,6 +2,7 @@
 //! active receive session.
 
 use super::App;
+use super::web_link::WebMode;
 use crate::ui::Category;
 use crate::util::{self, SpeedMeter};
 use localsend::http::client::v2::LsHttpClientV2;
@@ -100,6 +101,9 @@ fn message_of(files: &HashMap<String, FileDto>) -> Option<&str> {
     file.preview.as_deref()
 }
 
+/// Maximum number of files listed in an incoming request prompt.
+const MAX_LISTED_FILES: usize = 20;
+
 /// The user's decision on a [`PendingReceive`].
 pub(super) enum Answer {
     Accept,
@@ -155,18 +159,32 @@ impl App {
                     }
                 } else {
                     let total: u64 = files.values().map(|file| file.size).sum();
-                    let mut lines = vec![info.alias.clone(), "\nFiles:".to_string()];
+                    let mut lines = vec![
+                        info.alias.clone(),
+                        format!("\nFiles ({}, {}):", files.len(), util::format_bytes(total)),
+                    ];
                     let mut sorted: Vec<&FileDto> = files.values().collect();
-                    sorted.sort_by_key(|file| &file.file_name);
-                    for file in sorted {
+                    sorted.sort_by_key(|file| std::cmp::Reverse(file.size));
+                    for file in sorted.iter().take(MAX_LISTED_FILES) {
                         lines.push(format!(
                             "  {} ({})",
                             file.file_name,
                             util::format_bytes(file.size)
                         ));
                     }
-                    lines.push(format!("Total size: {}", util::format_bytes(total)));
-                    lines.push("\nAccept? Y/N/P (P = accept and pair)".to_string());
+                    if sorted.len() > MAX_LISTED_FILES {
+                        lines.push(format!(
+                            "  ... and {} more",
+                            sorted.len() - MAX_LISTED_FILES
+                        ));
+                    }
+                    // Web senders have no stable identity worth pairing: the
+                    // fingerprint is an unverified payload value.
+                    let prompt = match self.web {
+                        Some(WebMode::Receive) => "\nAccept? Y/N",
+                        _ => "\nAccept? Y/N/P (P = accept and pair)",
+                    };
+                    lines.push(prompt.to_string());
                     self.ui.log(Category::Receive, &lines.join("\n"));
                     self.pending = Some(PendingReceive {
                         session_id,
@@ -411,18 +429,31 @@ impl App {
         match answer {
             Answer::Decline => {
                 let _ = pending.decision_tx.send(PrepareUploadDecisionV2::Decline);
-                self.ui
-                    .log(Category::Receive, &format!("{}: Declined", pending.alias));
+                self.ui.log(
+                    Category::Receive,
+                    &format!("{}: You declined", pending.alias),
+                );
             }
             Answer::Accept | Answer::AcceptAndPair => {
-                self.ui
-                    .log(Category::Receive, &format!("{}: Accepted", pending.alias));
-                if matches!(answer, Answer::AcceptAndPair) {
-                    match self
-                        .storage
-                        .paired
-                        .insert(pending.sender.fingerprint.clone(), pending.alias.clone())
-                    {
+                self.ui.log(
+                    Category::Receive,
+                    &format!("{}: You accepted", pending.alias),
+                );
+                // While "receive via link" is on, P was not offered; a stray
+                // press still accepts, but never pairs.
+                if matches!(answer, Answer::AcceptAndPair)
+                    && !matches!(self.web, Some(WebMode::Receive))
+                {
+                    let channels = self
+                        .discovery
+                        .device_by_fingerprint(&pending.sender.fingerprint)
+                        .map(|stored| crate::storage::PairedChannel::channels_of(&stored))
+                        .unwrap_or_default();
+                    match self.storage.paired.insert(
+                        pending.sender.fingerprint.clone(),
+                        pending.alias.clone(),
+                        channels,
+                    ) {
                         Ok(()) => self.ui.log(
                             Category::Receive,
                             &format!(

@@ -60,6 +60,10 @@ class TranslationsRo extends Translations with BaseTranslations<AppLocale, Trans
   @override
   late final _Translations$selectedFilesPage$ro selectedFilesPage = _Translations$selectedFilesPage$ro._(_root);
   @override
+  late final _Translations$deviceDetailsPage$ro deviceDetailsPage = _Translations$deviceDetailsPage$ro._(_root);
+  @override
+  late final _Translations$verifyPage$ro verifyPage = _Translations$verifyPage$ro._(_root);
+  @override
   late final _Translations$receivePage$ro receivePage = _Translations$receivePage$ro._(_root);
   @override
   late final _Translations$receiveOptionsPage$ro receiveOptionsPage = _Translations$receiveOptionsPage$ro._(_root);
@@ -70,11 +74,15 @@ class TranslationsRo extends Translations with BaseTranslations<AppLocale, Trans
   @override
   late final _Translations$webSharePage$ro webSharePage = _Translations$webSharePage$ro._(_root);
   @override
+  late final _Translations$webReceivePage$ro webReceivePage = _Translations$webReceivePage$ro._(_root);
+  @override
   late final _Translations$aboutPage$ro aboutPage = _Translations$aboutPage$ro._(_root);
   @override
   late final _Translations$donationPage$ro donationPage = _Translations$donationPage$ro._(_root);
   @override
   late final _Translations$changelogPage$ro changelogPage = _Translations$changelogPage$ro._(_root);
+  @override
+  late final _Translations$whatsNewPage$ro whatsNewPage = _Translations$whatsNewPage$ro._(_root);
   @override
   late final _Translations$aliasGenerator$ro aliasGenerator = _Translations$aliasGenerator$ro._(_root);
   @override
@@ -187,6 +195,8 @@ class _Translations$receiveTab$ro extends Translations$receiveTab$en {
   late final _Translations$receiveTab$infoBox$ro infoBox = _Translations$receiveTab$infoBox$ro._(_root);
   @override
   late final _Translations$receiveTab$quickSave$ro quickSave = _Translations$receiveTab$quickSave$ro._(_root);
+  @override
+  String get link => 'Primește prin link';
 }
 
 // Path: sendTab
@@ -337,6 +347,42 @@ class _Translations$selectedFilesPage$ro extends Translations$selectedFilesPage$
   String get deleteAll => 'Șterge tot';
 }
 
+// Path: deviceDetailsPage
+class _Translations$deviceDetailsPage$ro extends Translations$deviceDetailsPage$en {
+  _Translations$deviceDetailsPage$ro._(TranslationsRo root) : this._root = root, super.internal(root);
+
+  final TranslationsRo _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Detalii dispozitiv';
+  @override
+  String get favorite => 'Favorit';
+  @override
+  String get verify => 'Verifică';
+  @override
+  late final _Translations$deviceDetailsPage$info$ro info = _Translations$deviceDetailsPage$info$ro._(_root);
+  @override
+  late final _Translations$deviceDetailsPage$logs$ro logs = _Translations$deviceDetailsPage$logs$ro._(_root);
+}
+
+// Path: verifyPage
+class _Translations$verifyPage$ro extends Translations$verifyPage$en {
+  _Translations$verifyPage$ro._(TranslationsRo root) : this._root = root, super.internal(root);
+
+  final TranslationsRo _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Verifică';
+  @override
+  String get icons => 'Pictograme';
+  @override
+  String get text => 'Text';
+  @override
+  String get question => 'Arată la fel pe celălalt dispozitiv?';
+}
+
 // Path: receivePage
 class _Translations$receivePage$ro extends Translations$receivePage$en {
   _Translations$receivePage$ro._(TranslationsRo root) : this._root = root, super.internal(root);
@@ -385,6 +431,8 @@ class _Translations$sendPage$ro extends Translations$sendPage$en {
 
   // Translations
   @override
+  String calculatingChecksum({required Object curr, required Object n}) => 'Se calculează suma de control (${curr} / ${n})';
+  @override
   String get waiting => 'Așteptare răspuns…';
   @override
   String get rejected => 'Destinatarul a respins cererea.';
@@ -409,6 +457,8 @@ class _Translations$progressPage$ro extends Translations$progressPage$en {
   String get savedToGallery => 'Salvat în Galerie';
   @override
   late final _Translations$progressPage$total$ro total = _Translations$progressPage$total$ro._(_root);
+  @override
+  late final _Translations$progressPage$remainingTime$ro remainingTime = _Translations$progressPage$remainingTime$ro._(_root);
 }
 
 // Path: webSharePage
@@ -448,6 +498,17 @@ class _Translations$webSharePage$ro extends Translations$webSharePage$en {
   String get encryptionHint => 'LocalSend folosește un certificat auto-semnat. Trebuie să-l accepți în browserul tău.';
   @override
   String pendingRequests({required Object n}) => 'Cereri în așteptare: ${n}';
+}
+
+// Path: webReceivePage
+class _Translations$webReceivePage$ro extends Translations$webReceivePage$en {
+  _Translations$webReceivePage$ro._(TranslationsRo root) : this._root = root, super.internal(root);
+
+  final TranslationsRo _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Primește prin link';
 }
 
 // Path: aboutPage
@@ -502,6 +563,19 @@ class _Translations$changelogPage$ro extends Translations$changelogPage$en {
   // Translations
   @override
   String get title => 'Schimbări';
+}
+
+// Path: whatsNewPage
+class _Translations$whatsNewPage$ro extends Translations$whatsNewPage$en {
+  _Translations$whatsNewPage$ro._(TranslationsRo root) : this._root = root, super.internal(root);
+
+  final TranslationsRo _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String title({required Object version}) => 'Noutăți în ${version}';
+  @override
+  late final _Translations$whatsNewPage$changes$ro changes = _Translations$whatsNewPage$changes$ro._(_root);
 }
 
 // Path: aliasGenerator
@@ -909,6 +983,8 @@ class _Translations$settingsTab$receive$ro extends Translations$settingsTab$rece
   String get saveToGallery => 'Salvează media în galerie';
   @override
   String get saveToHistory => 'Salvează în istoric';
+  @override
+  String get verifyChecksums => 'Verifică sumele de control la primirea fișierelor';
 }
 
 // Path: settingsTab.send
@@ -922,6 +998,8 @@ class _Translations$settingsTab$send$ro extends Translations$settingsTab$send$en
   String get title => 'Trimite';
   @override
   String get shareViaLinkAutoAccept => 'Acceptă automat cererile în modul „Partajare prin link”';
+  @override
+  String get createChecksums => 'Creează sume de control la trimiterea fișierelor';
 }
 
 // Path: settingsTab.network
@@ -1048,6 +1126,40 @@ class _Translations$receiveHistoryPage$entryActions$ro extends Translations$rece
   String get deleteFromHistory => 'Șterge din istoric';
 }
 
+// Path: deviceDetailsPage.info
+class _Translations$deviceDetailsPage$info$ro extends Translations$deviceDetailsPage$info$en {
+  _Translations$deviceDetailsPage$info$ro._(TranslationsRo root) : this._root = root, super.internal(root);
+
+  final TranslationsRo _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get name => 'Nume';
+  @override
+  String get address => 'Adresă';
+  @override
+  String get version => 'Versiune';
+  @override
+  String protocol({required Object version}) => 'Protocol v${version}';
+}
+
+// Path: deviceDetailsPage.logs
+class _Translations$deviceDetailsPage$logs$ro extends Translations$deviceDetailsPage$logs$en {
+  _Translations$deviceDetailsPage$logs$ro._(TranslationsRo root) : this._root = root, super.internal(root);
+
+  final TranslationsRo _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Jurnale';
+  @override
+  String get empty => 'Nu sunt jurnale disponibile.';
+  @override
+  String discovered({required Object protocol, required Object host}) => 'Descoperit prin ${protocol} (${host})';
+  @override
+  String updated({required Object protocol, required Object host}) => 'Actualizat prin ${protocol} (${host})';
+}
+
 // Path: progressPage.total
 class _Translations$progressPage$total$ro extends Translations$progressPage$total$en {
   _Translations$progressPage$total$ro._(TranslationsRo root) : this._root = root, super.internal(root);
@@ -1063,6 +1175,41 @@ class _Translations$progressPage$total$ro extends Translations$progressPage$tota
   String size({required Object curr, required Object n}) => 'Dimensiune: ${curr} / ${n}';
   @override
   String speed({required Object speed}) => 'Viteză: ${speed}/s';
+}
+
+// Path: progressPage.remainingTime
+class _Translations$progressPage$remainingTime$ro extends Translations$progressPage$remainingTime$en {
+  _Translations$progressPage$remainingTime$ro._(TranslationsRo root) : this._root = root, super.internal(root);
+
+  final TranslationsRo _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String minutesUnit({required num m}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ro'))(
+    m,
+    other: '${m}min',
+  );
+  @override
+  String hoursUnit({required num h}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ro'))(
+    h,
+    other: '${h}h',
+  );
+  @override
+  String minutes({required Object m, required Object ss}) => '${m}:${ss}';
+  @override
+  String hours({required num h, required num m}) =>
+      '${_root.progressPage.remainingTime.hoursUnit(h: h)} ${_root.progressPage.remainingTime.minutesUnit(m: m)}';
+}
+
+// Path: whatsNewPage.changes
+class _Translations$whatsNewPage$changes$ro extends Translations$whatsNewPage$changes$en {
+  _Translations$whatsNewPage$changes$ro._(TranslationsRo root) : this._root = root, super.internal(root);
+
+  final TranslationsRo _root; // ignore: unused_field
+
+  // Translations
+  @override
+  late final _Translations$whatsNewPage$changes$v1_18_0$ro v1_18_0 = _Translations$whatsNewPage$changes$v1_18_0$ro._(_root);
 }
 
 // Path: dialogs.addFile
@@ -1443,6 +1590,8 @@ class _Translations$settingsTab$general$colorOptions$ro extends Translations$set
   String get system => 'Sistem';
   @override
   String get oled => 'OLED';
+  @override
+  String get custom => 'Personalizat';
 }
 
 // Path: settingsTab.general.languageOptions
@@ -1484,4 +1633,19 @@ class _Translations$progressPage$total$title$ro extends Translations$progressPag
   String get canceledSender => 'Anulat de expeditor';
   @override
   String get canceledReceiver => 'Anulat de către destinatar';
+}
+
+// Path: whatsNewPage.changes.v1_18_0
+class _Translations$whatsNewPage$changes$v1_18_0$ro extends Translations$whatsNewPage$changes$v1_18_0$en with WhatsNewStrings {
+  _Translations$whatsNewPage$changes$v1_18_0$ro._(TranslationsRo root) : this._root = root, super.internal(root);
+
+  final TranslationsRo _root; // ignore: unused_field
+
+  // Translations
+  @override
+  List<String> get changes => [
+    'Criptarea nu mai încetinește transferurile. A fost reactivată pe acest dispozitiv dacă o dezactivaserăți înainte.',
+    'Cererile de la favorite sunt acum acceptate automat. Această opțiune este activată implicit și poate fi dezactivată din setări.',
+    'Pe Android, transferurile continuă cât timp aplicația este în fundal sau ecranul este stins. Pe iOS, aplicația trebuie în continuare să rămână în prim-plan.',
+  ];
 }

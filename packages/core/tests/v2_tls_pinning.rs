@@ -115,7 +115,7 @@ async fn start_tls_server_with_web(identity: &Identity, web: Option<WebConfig>) 
         }),
         ClientInfo {
             alias: "Test Server".to_string(),
-            version: "2.1".to_string(),
+            version: "2.2".to_string(),
             device_model: Some("Rust".to_string()),
             device_type: None,
             token: identity.fingerprint.clone(),
@@ -180,7 +180,7 @@ fn client(sender: &Identity, expected_fingerprint: Option<&str>) -> LsHttpClient
 fn sender_info(fingerprint: &str) -> RegisterDtoV2 {
     RegisterDtoV2 {
         alias: "Test Sender".to_string(),
-        version: "2.1".to_string(),
+        version: "2.2".to_string(),
         device_model: Some("Rust".to_string()),
         device_type: None,
         fingerprint: fingerprint.to_string(),

@@ -1,6 +1,6 @@
 # Build from the repository root (workspace root):
 #   docker build -f server/Dockerfile .
-FROM rust:1.93 AS builder
+FROM rust:1.97 AS builder
 
 WORKDIR /app
 

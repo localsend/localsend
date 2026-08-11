@@ -52,11 +52,17 @@ class TranslationsEu extends Translations with BaseTranslations<AppLocale, Trans
   @override
   late final _Translations$troubleshootPage$eu troubleshootPage = _Translations$troubleshootPage$eu._(_root);
   @override
+  late final _Translations$networkInterfacesPage$eu networkInterfacesPage = _Translations$networkInterfacesPage$eu._(_root);
+  @override
   late final _Translations$receiveHistoryPage$eu receiveHistoryPage = _Translations$receiveHistoryPage$eu._(_root);
   @override
   late final _Translations$apkPickerPage$eu apkPickerPage = _Translations$apkPickerPage$eu._(_root);
   @override
   late final _Translations$selectedFilesPage$eu selectedFilesPage = _Translations$selectedFilesPage$eu._(_root);
+  @override
+  late final _Translations$deviceDetailsPage$eu deviceDetailsPage = _Translations$deviceDetailsPage$eu._(_root);
+  @override
+  late final _Translations$verifyPage$eu verifyPage = _Translations$verifyPage$eu._(_root);
   @override
   late final _Translations$receivePage$eu receivePage = _Translations$receivePage$eu._(_root);
   @override
@@ -68,21 +74,25 @@ class TranslationsEu extends Translations with BaseTranslations<AppLocale, Trans
   @override
   late final _Translations$webSharePage$eu webSharePage = _Translations$webSharePage$eu._(_root);
   @override
+  late final _Translations$webReceivePage$eu webReceivePage = _Translations$webReceivePage$eu._(_root);
+  @override
   late final _Translations$aboutPage$eu aboutPage = _Translations$aboutPage$eu._(_root);
+  @override
+  late final _Translations$donationPage$eu donationPage = _Translations$donationPage$eu._(_root);
   @override
   late final _Translations$changelogPage$eu changelogPage = _Translations$changelogPage$eu._(_root);
   @override
+  late final _Translations$whatsNewPage$eu whatsNewPage = _Translations$whatsNewPage$eu._(_root);
+  @override
   late final _Translations$dialogs$eu dialogs = _Translations$dialogs$eu._(_root);
+  @override
+  late final _Translations$sanitization$eu sanitization = _Translations$sanitization$eu._(_root);
   @override
   late final _Translations$tray$eu tray = _Translations$tray$eu._(_root);
   @override
   late final _Translations$web$eu web = _Translations$web$eu._(_root);
   @override
   late final _Translations$assetPicker$eu assetPicker = _Translations$assetPicker$eu._(_root);
-  @override
-  late final _Translations$sanitization$eu sanitization = _Translations$sanitization$eu._(_root);
-  @override
-  late final _Translations$networkInterfacesPage$eu networkInterfacesPage = _Translations$networkInterfacesPage$eu._(_root);
 }
 
 // Path: general
@@ -145,6 +155,8 @@ class _Translations$general$eu extends Translations$general$en {
   @override
   String get quickSave => 'Gordetze Azkarra';
   @override
+  String get quickSaveFromFavorites => '“Gogokoetan” gorde';
+  @override
   String get renamed => 'Berizendatua';
   @override
   String get reset => 'Berrezarri';
@@ -166,8 +178,6 @@ class _Translations$general$eu extends Translations$general$en {
   String get unknown => 'Ezezaguna';
   @override
   String get noItemInClipboard => 'Arbela hutsik dago.';
-  @override
-  String get quickSaveFromFavorites => '“Gogokoetan” gorde';
 }
 
 // Path: receiveTab
@@ -183,6 +193,8 @@ class _Translations$receiveTab$eu extends Translations$receiveTab$en {
   late final _Translations$receiveTab$infoBox$eu infoBox = _Translations$receiveTab$infoBox$eu._(_root);
   @override
   late final _Translations$receiveTab$quickSave$eu quickSave = _Translations$receiveTab$quickSave$eu._(_root);
+  @override
+  String get link => 'Jaso esteka bidez';
 }
 
 // Path: sendTab
@@ -207,6 +219,8 @@ class _Translations$sendTab$eu extends Translations$sendTab$en {
   @override
   String get scan => 'Bilatu gailuak';
   @override
+  String get manualSending => 'Eskuzko bidalketa';
+  @override
   String get sendMode => 'Bidalketa modua';
   @override
   late final _Translations$sendTab$sendModes$eu sendModes = _Translations$sendTab$sendModes$eu._(_root);
@@ -216,8 +230,6 @@ class _Translations$sendTab$eu extends Translations$sendTab$en {
   String get help => 'Ziurtatu zaitez aukeratutako hartzailea zure Wi-Fi sare berean dagoela.';
   @override
   String get placeItems => 'Aukeratu elkarbanatzeko elementuak.';
-  @override
-  String get manualSending => 'Eskuzko bidalketa';
 }
 
 // Path: settingsTab
@@ -234,13 +246,13 @@ class _Translations$settingsTab$eu extends Translations$settingsTab$en {
   @override
   late final _Translations$settingsTab$receive$eu receive = _Translations$settingsTab$receive$eu._(_root);
   @override
-  late final _Translations$settingsTab$network$eu network = _Translations$settingsTab$network$eu._(_root);
-  @override
-  String get advancedSettings => 'Ezarpen aurreratuak';
-  @override
   late final _Translations$settingsTab$send$eu send = _Translations$settingsTab$send$eu._(_root);
   @override
+  late final _Translations$settingsTab$network$eu network = _Translations$settingsTab$network$eu._(_root);
+  @override
   late final _Translations$settingsTab$other$eu other = _Translations$settingsTab$other$eu._(_root);
+  @override
+  String get advancedSettings => 'Ezarpen aurreratuak';
 }
 
 // Path: troubleshootPage
@@ -261,9 +273,29 @@ class _Translations$troubleshootPage$eu extends Translations$troubleshootPage$en
   @override
   late final _Translations$troubleshootPage$firewall$eu firewall = _Translations$troubleshootPage$firewall$eu._(_root);
   @override
-  late final _Translations$troubleshootPage$noConnection$eu noConnection = _Translations$troubleshootPage$noConnection$eu._(_root);
-  @override
   late final _Translations$troubleshootPage$noDiscovery$eu noDiscovery = _Translations$troubleshootPage$noDiscovery$eu._(_root);
+  @override
+  late final _Translations$troubleshootPage$noConnection$eu noConnection = _Translations$troubleshootPage$noConnection$eu._(_root);
+}
+
+// Path: networkInterfacesPage
+class _Translations$networkInterfacesPage$eu extends Translations$networkInterfacesPage$en {
+  _Translations$networkInterfacesPage$eu._(TranslationsEu root) : this._root = root, super.internal(root);
+
+  final TranslationsEu _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Sare interfazeak';
+  @override
+  String get info =>
+      'Lehenespenez, LocalSend-ek eskuragarri dauden sare-interfaze guztiak erabiltzen ditu. Nahi ez dituzun sareak hemen baztertu ditzakezu. Zerbitzaria berrabiarazi behar duzu aldaketak aplikatzeko.';
+  @override
+  String get preview => 'Aurrebista';
+  @override
+  String get whitelist => 'Zerrenda zuria';
+  @override
+  String get blacklist => 'Zerrenda beltza';
 }
 
 // Path: receiveHistoryPage
@@ -311,6 +343,42 @@ class _Translations$selectedFilesPage$eu extends Translations$selectedFilesPage$
   // Translations
   @override
   String get deleteAll => 'Ezabatu dena';
+}
+
+// Path: deviceDetailsPage
+class _Translations$deviceDetailsPage$eu extends Translations$deviceDetailsPage$en {
+  _Translations$deviceDetailsPage$eu._(TranslationsEu root) : this._root = root, super.internal(root);
+
+  final TranslationsEu _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Gailuaren xehetasunak';
+  @override
+  String get favorite => 'Gogokoa';
+  @override
+  String get verify => 'Egiaztatu';
+  @override
+  late final _Translations$deviceDetailsPage$info$eu info = _Translations$deviceDetailsPage$info$eu._(_root);
+  @override
+  late final _Translations$deviceDetailsPage$logs$eu logs = _Translations$deviceDetailsPage$logs$eu._(_root);
+}
+
+// Path: verifyPage
+class _Translations$verifyPage$eu extends Translations$verifyPage$en {
+  _Translations$verifyPage$eu._(TranslationsEu root) : this._root = root, super.internal(root);
+
+  final TranslationsEu _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Egiaztatu';
+  @override
+  String get icons => 'Ikonoak';
+  @override
+  String get text => 'Testua';
+  @override
+  String get question => 'Beste gailuan berdin ikusten da?';
 }
 
 // Path: receivePage
@@ -361,9 +429,13 @@ class _Translations$sendPage$eu extends Translations$sendPage$en {
 
   // Translations
   @override
+  String calculatingChecksum({required Object curr, required Object n}) => 'Kontrol-batura kalkulatzen (${curr} / ${n})';
+  @override
   String get waiting => 'Erantzunaren zai...';
   @override
   String get rejected => 'Hartzaileak ez du bidalketa onartu.';
+  @override
+  String get tooManyAttempts => _root.web.tooManyAttempts;
   @override
   String get busy => 'Hartzailea beste bidalketa batekin okupatuta dago.';
 }
@@ -383,6 +455,8 @@ class _Translations$progressPage$eu extends Translations$progressPage$en {
   String get savedToGallery => 'Galerian gordeta';
   @override
   late final _Translations$progressPage$total$eu total = _Translations$progressPage$total$eu._(_root);
+  @override
+  late final _Translations$progressPage$remainingTime$eu remainingTime = _Translations$progressPage$remainingTime$eu._(_root);
 }
 
 // Path: webSharePage
@@ -413,9 +487,26 @@ class _Translations$webSharePage$eu extends Translations$webSharePage$en {
   @override
   String get encryption => _root.settingsTab.network.encryption;
   @override
+  String get autoAccept => 'Onartu eskaerak automatikoki';
+  @override
+  String get requirePin => 'Eskatu PINa';
+  @override
+  String pinHint({required Object pin}) => 'PINa "${pin}" da';
+  @override
   String get encryptionHint => 'LocalSend-ek autosinatutako zertifikatuak erabiltzen ditu. Nabigatzailean onartu behar duzu';
   @override
   String pendingRequests({required Object n}) => 'Eskerak: ${n}';
+}
+
+// Path: webReceivePage
+class _Translations$webReceivePage$eu extends Translations$webReceivePage$en {
+  _Translations$webReceivePage$eu._(TranslationsEu root) : this._root = root, super.internal(root);
+
+  final TranslationsEu _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Jaso esteka bidez';
 }
 
 // Path: aboutPage
@@ -427,6 +518,39 @@ class _Translations$aboutPage$eu extends Translations$aboutPage$en {
   // Translations
   @override
   String get title => 'LocalSend buruz';
+  @override
+  List<String> get description => [
+    'LocalSend doako eta kode irekiko aplikazio bat da, gertuko gailuekin fitxategiak eta mezuak modu seguruan partekatzeko aukera ematen dizuna zure sare lokalaren bidez, interneteko konexiorik behar izan gabe.',
+    'Aplikazio hau Android, iOS, macOS, Windows eta Linux sistemetan dago eskuragarri. Deskarga-aukera guztiak webgune ofizialean aurki ditzakezu.',
+  ];
+  @override
+  String get author => 'Egilea';
+  @override
+  String get contributors => 'Laguntzaileak';
+  @override
+  String get packagers => 'Paketatzaileak';
+  @override
+  String get translators => 'Itzultzaileak';
+}
+
+// Path: donationPage
+class _Translations$donationPage$eu extends Translations$donationPage$en {
+  _Translations$donationPage$eu._(TranslationsEu root) : this._root = root, super.internal(root);
+
+  final TranslationsEu _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Egin dohaintza';
+  @override
+  String get info =>
+      'LocalSend doakoa da, kode irekikoa eta iragarkirik gabea. Aplikazioa gustuko baduzu, garapena dohaintza batekin lagun dezakezu.';
+  @override
+  String donate({required Object amount}) => 'Eman ${amount}';
+  @override
+  String get thanks => 'Eskerrik asko!';
+  @override
+  String get restore => 'Berreskuratu erosketa';
 }
 
 // Path: changelogPage
@@ -440,6 +564,19 @@ class _Translations$changelogPage$eu extends Translations$changelogPage$en {
   String get title => 'Aldaketak';
 }
 
+// Path: whatsNewPage
+class _Translations$whatsNewPage$eu extends Translations$whatsNewPage$en {
+  _Translations$whatsNewPage$eu._(TranslationsEu root) : this._root = root, super.internal(root);
+
+  final TranslationsEu _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String title({required Object version}) => 'Zer berri ${version} bertsioan';
+  @override
+  late final _Translations$whatsNewPage$changes$eu changes = _Translations$whatsNewPage$changes$eu._(_root);
+}
+
 // Path: dialogs
 class _Translations$dialogs$eu extends Translations$dialogs$en {
   _Translations$dialogs$eu._(TranslationsEu root) : this._root = root, super.internal(root);
@@ -449,6 +586,8 @@ class _Translations$dialogs$eu extends Translations$dialogs$en {
   // Translations
   @override
   late final _Translations$dialogs$addFile$eu addFile = _Translations$dialogs$addFile$eu._(_root);
+  @override
+  late final _Translations$dialogs$openFile$eu openFile = _Translations$dialogs$openFile$eu._(_root);
   @override
   late final _Translations$dialogs$addressInput$eu addressInput = _Translations$dialogs$addressInput$eu._(_root);
   @override
@@ -470,6 +609,8 @@ class _Translations$dialogs$eu extends Translations$dialogs$en {
   @override
   late final _Translations$dialogs$fileNameInput$eu fileNameInput = _Translations$dialogs$fileNameInput$eu._(_root);
   @override
+  late final _Translations$dialogs$historyClearDialog$eu historyClearDialog = _Translations$dialogs$historyClearDialog$eu._(_root);
+  @override
   late final _Translations$dialogs$localNetworkUnauthorized$eu localNetworkUnauthorized = _Translations$dialogs$localNetworkUnauthorized$eu._(_root);
   @override
   late final _Translations$dialogs$messageInput$eu messageInput = _Translations$dialogs$messageInput$eu._(_root);
@@ -486,7 +627,27 @@ class _Translations$dialogs$eu extends Translations$dialogs$en {
   @override
   late final _Translations$dialogs$quickSaveNotice$eu quickSaveNotice = _Translations$dialogs$quickSaveNotice$eu._(_root);
   @override
+  late final _Translations$dialogs$quickSaveFromFavoritesNotice$eu quickSaveFromFavoritesNotice =
+      _Translations$dialogs$quickSaveFromFavoritesNotice$eu._(_root);
+  @override
+  late final _Translations$dialogs$pin$eu pin = _Translations$dialogs$pin$eu._(_root);
+  @override
   late final _Translations$dialogs$sendModeHelp$eu sendModeHelp = _Translations$dialogs$sendModeHelp$eu._(_root);
+  @override
+  late final _Translations$dialogs$zoom$eu zoom = _Translations$dialogs$zoom$eu._(_root);
+}
+
+// Path: sanitization
+class _Translations$sanitization$eu extends Translations$sanitization$en {
+  _Translations$sanitization$eu._(TranslationsEu root) : this._root = root, super.internal(root);
+
+  final TranslationsEu _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get empty => 'Fitxategi-izena ezin da hutsik egon';
+  @override
+  String get invalid => 'Fitxategiaren izena karaktere baliogabeak ditu';
 }
 
 // Path: tray
@@ -500,6 +661,8 @@ class _Translations$tray$eu extends Translations$tray$en {
   String get open => _root.general.open;
   @override
   String get close => 'Itxi LocalSend';
+  @override
+  String get closeWindows => 'Irten';
 }
 
 // Path: web
@@ -511,6 +674,12 @@ class _Translations$web$eu extends Translations$web$en {
   // Translations
   @override
   String get waiting => _root.sendPage.waiting;
+  @override
+  String get enterPin => 'Sartu PINa';
+  @override
+  String get invalidPin => 'PIN baliogabea';
+  @override
+  String get tooManyAttempts => 'Saiakera gehiegi';
   @override
   String get rejected => 'Bertan behera utzita';
   @override
@@ -587,28 +756,6 @@ class _Translations$assetPicker$eu extends Translations$assetPicker$en {
   String get sUnitAssetCountLabel => 'kontaketa';
 }
 
-// Path: sanitization
-class _Translations$sanitization$eu extends Translations$sanitization$en {
-  _Translations$sanitization$eu._(TranslationsEu root) : this._root = root, super.internal(root);
-
-  final TranslationsEu _root; // ignore: unused_field
-
-  // Translations
-  @override
-  String get invalid => 'Fitxategiaren izena karaktere baliogabeak ditu';
-}
-
-// Path: networkInterfacesPage
-class _Translations$networkInterfacesPage$eu extends Translations$networkInterfacesPage$en {
-  _Translations$networkInterfacesPage$eu._(TranslationsEu root) : this._root = root, super.internal(root);
-
-  final TranslationsEu _root; // ignore: unused_field
-
-  // Translations
-  @override
-  String get title => 'Sare interfazeak';
-}
-
 // Path: receiveTab.infoBox
 class _Translations$receiveTab$infoBox$eu extends Translations$receiveTab$infoBox$en {
   _Translations$receiveTab$infoBox$eu._(TranslationsEu root) : this._root = root, super.internal(root);
@@ -634,9 +781,9 @@ class _Translations$receiveTab$quickSave$eu extends Translations$receiveTab$quic
   @override
   String get off => _root.general.off;
   @override
-  String get on => _root.general.on;
-  @override
   String get favorites => 'Gogokoak';
+  @override
+  String get on => _root.general.on;
 }
 
 // Path: sendTab.selection
@@ -716,17 +863,17 @@ class _Translations$settingsTab$general$eu extends Translations$settingsTab$gene
   @override
   String get saveWindowPlacement => 'Ateratzean gorde lehioaren kokapena';
   @override
+  String get saveWindowPlacementWindows => 'Irteeran leihoaren kokapena gorde';
+  @override
   String get minimizeToTray => 'Itxi: txikitu lehioa';
   @override
   String get launchAtStartup => 'Hasieratze automatikoa';
   @override
   String get launchMinimized => 'Hasieratze automatikoa: hasi txikituta';
   @override
-  String get animations => 'Animazioak';
-  @override
-  String get saveWindowPlacementWindows => 'Irteeran leihoaren kokapena gorde';
-  @override
   String get showInContextMenu => 'Erakutsi LocalSend testuinguru menuan';
+  @override
+  String get animations => 'Animazioak';
 }
 
 // Path: settingsTab.receive
@@ -741,6 +888,12 @@ class _Translations$settingsTab$receive$eu extends Translations$settingsTab$rece
   @override
   String get quickSave => _root.general.quickSave;
   @override
+  String get quickSaveFromFavorites => _root.general.quickSaveFromFavorites;
+  @override
+  String get requirePin => _root.webSharePage.requirePin;
+  @override
+  String get autoFinish => 'Automatikoki amaitu';
+  @override
   String get destination => 'Hartzailea';
   @override
   String get downloads => '(Deskargak)';
@@ -749,9 +902,22 @@ class _Translations$settingsTab$receive$eu extends Translations$settingsTab$rece
   @override
   String get saveToHistory => 'Gorde historialean';
   @override
-  String get quickSaveFromFavorites => _root.general.quickSaveFromFavorites;
+  String get verifyChecksums => 'Egiaztatu kontrol-baturak fitxategiak jasotzean';
+}
+
+// Path: settingsTab.send
+class _Translations$settingsTab$send$eu extends Translations$settingsTab$send$en {
+  _Translations$settingsTab$send$eu._(TranslationsEu root) : this._root = root, super.internal(root);
+
+  final TranslationsEu _root; // ignore: unused_field
+
+  // Translations
   @override
-  String get autoFinish => 'Automatikoki amaitu';
+  String get title => 'Bidali';
+  @override
+  String get shareViaLinkAutoAccept => 'Eskaerak automatikoki onartu “URL bidez partekatu” moduan';
+  @override
+  String get createChecksums => 'Sortu kontrol-baturak fitxategiak bidaltzean';
 }
 
 // Path: settingsTab.network
@@ -776,6 +942,16 @@ class _Translations$settingsTab$network$eu extends Translations$settingsTab$netw
   @override
   String get port => 'Portua';
   @override
+  String get network => 'Sarea';
+  @override
+  late final _Translations$settingsTab$network$networkOptions$eu networkOptions = _Translations$settingsTab$network$networkOptions$eu._(_root);
+  @override
+  String get discoveryTimeout => 'Aurkikuntza denbora muga';
+  @override
+  String get useSystemName => 'Erabili sistemaren izena';
+  @override
+  String get generateRandomAlias => 'Ausazko "alias" sortu';
+  @override
   String portWarning({required Object defaultPort}) =>
       'Portu berezi bat erabiltzen ari zarenez, agian ez zara beste gailuentzat ikusgarri izango (Lehenetsitako portua: ${defaultPort})';
   @override
@@ -785,29 +961,6 @@ class _Translations$settingsTab$network$eu extends Translations$settingsTab$netw
   @override
   String multicastGroupWarning({required Object defaultMulticast}) =>
       'Multicast helbide berezi bat erabiltzen ari zarenez, agian ez zara beste gailuentzat ikusgarri izango. (Lehenetsitako multicast helbidea: ${defaultMulticast})';
-  @override
-  String get discoveryTimeout => 'Aurkikuntza denbora muga';
-  @override
-  String get useSystemName => 'Erabili sistemaren izena';
-  @override
-  String get generateRandomAlias => 'Ausazko "alias" sortu';
-  @override
-  late final _Translations$settingsTab$network$networkOptions$eu networkOptions = _Translations$settingsTab$network$networkOptions$eu._(_root);
-  @override
-  String get network => 'Sarea';
-}
-
-// Path: settingsTab.send
-class _Translations$settingsTab$send$eu extends Translations$settingsTab$send$en {
-  _Translations$settingsTab$send$eu._(TranslationsEu root) : this._root = root, super.internal(root);
-
-  final TranslationsEu _root; // ignore: unused_field
-
-  // Translations
-  @override
-  String get title => 'Bidali';
-  @override
-  String get shareViaLinkAutoAccept => 'Eskaerak automatikoki onartu “URL bidez partekatu” moduan';
 }
 
 // Path: settingsTab.other
@@ -846,20 +999,6 @@ class _Translations$troubleshootPage$firewall$eu extends Translations$troublesho
   String get openFirewall => 'Ireki Suhesia';
 }
 
-// Path: troubleshootPage.noConnection
-class _Translations$troubleshootPage$noConnection$eu extends Translations$troubleshootPage$noConnection$en {
-  _Translations$troubleshootPage$noConnection$eu._(TranslationsEu root) : this._root = root, super.internal(root);
-
-  final TranslationsEu _root; // ignore: unused_field
-
-  // Translations
-  @override
-  String get symptom => 'Hartzaile eta bidaltzaileak ez dute elkar ikusten eta ezin diote fitxategiak elkarri bidali.';
-  @override
-  String get solution =>
-      'Bi aldeetan dago arazoa? Ziurtatu Wi-Fi sare berdinean kokatuta daudela eta konfigurazio bera elkarbanatzen dutela (portua, multicast helbidea, zifratua). Arazoa Wi-Fi sareak partaideen arteko konexioak mugatzea ere izan liteke. Horrela bada, routerrean aukera hau aktibatu.';
-}
-
 // Path: troubleshootPage.noDiscovery
 class _Translations$troubleshootPage$noDiscovery$eu extends Translations$troubleshootPage$noDiscovery$en {
   _Translations$troubleshootPage$noDiscovery$eu._(TranslationsEu root) : this._root = root, super.internal(root);
@@ -874,6 +1013,20 @@ class _Translations$troubleshootPage$noDiscovery$eu extends Translations$trouble
       'Ziurtatu gailu guztiak Wi-Fi sare berean daudela eta konfigurazio bera partekatzen dutela (atea, helbide multikasta, kodeketa). Helburuko gailuaren IP helbidea eskuz idatz dezakezu. Horrek balio badu, gehitu gailu hori gogokoetan, etorkizunean automatikoki aurkitu dadin.';
 }
 
+// Path: troubleshootPage.noConnection
+class _Translations$troubleshootPage$noConnection$eu extends Translations$troubleshootPage$noConnection$en {
+  _Translations$troubleshootPage$noConnection$eu._(TranslationsEu root) : this._root = root, super.internal(root);
+
+  final TranslationsEu _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get symptom => 'Hartzaile eta bidaltzaileak ez dute elkar ikusten eta ezin diote fitxategiak elkarri bidali.';
+  @override
+  String get solution =>
+      'Bi aldeetan dago arazoa? Ziurtatu Wi-Fi sare berdinean kokatuta daudela eta konfigurazio bera elkarbanatzen dutela (portua, multicast helbidea, zifratua). Arazoa Wi-Fi sareak partaideen arteko konexioak mugatzea ere izan liteke. Horrela bada, routerrean aukera hau aktibatu.';
+}
+
 // Path: receiveHistoryPage.entryActions
 class _Translations$receiveHistoryPage$entryActions$eu extends Translations$receiveHistoryPage$entryActions$en {
   _Translations$receiveHistoryPage$entryActions$eu._(TranslationsEu root) : this._root = root, super.internal(root);
@@ -884,9 +1037,45 @@ class _Translations$receiveHistoryPage$entryActions$eu extends Translations$rece
   @override
   String get open => 'Ireki fitxategia';
   @override
+  String get showInFolder => 'Erakutsi karpetan';
+  @override
   String get info => 'Informazioa';
   @override
   String get deleteFromHistory => 'Ezabatu historia';
+}
+
+// Path: deviceDetailsPage.info
+class _Translations$deviceDetailsPage$info$eu extends Translations$deviceDetailsPage$info$en {
+  _Translations$deviceDetailsPage$info$eu._(TranslationsEu root) : this._root = root, super.internal(root);
+
+  final TranslationsEu _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get name => 'Izena';
+  @override
+  String get address => 'Helbidea';
+  @override
+  String get version => 'Bertsioa';
+  @override
+  String protocol({required Object version}) => 'Protokoloa v${version}';
+}
+
+// Path: deviceDetailsPage.logs
+class _Translations$deviceDetailsPage$logs$eu extends Translations$deviceDetailsPage$logs$en {
+  _Translations$deviceDetailsPage$logs$eu._(TranslationsEu root) : this._root = root, super.internal(root);
+
+  final TranslationsEu _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Erregistroak';
+  @override
+  String get empty => 'Ez dago erregistrorik eskuragarri.';
+  @override
+  String discovered({required Object protocol, required Object host}) => '${protocol} bidez aurkitua (${host})';
+  @override
+  String updated({required Object protocol, required Object host}) => '${protocol} bidez eguneratua (${host})';
 }
 
 // Path: progressPage.total
@@ -906,6 +1095,41 @@ class _Translations$progressPage$total$eu extends Translations$progressPage$tota
   String speed({required Object speed}) => 'Abiadura: ${speed}/s';
 }
 
+// Path: progressPage.remainingTime
+class _Translations$progressPage$remainingTime$eu extends Translations$progressPage$remainingTime$en {
+  _Translations$progressPage$remainingTime$eu._(TranslationsEu root) : this._root = root, super.internal(root);
+
+  final TranslationsEu _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String minutesUnit({required num m}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('eu'))(
+    m,
+    other: '${m}min',
+  );
+  @override
+  String hoursUnit({required num h}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('eu'))(
+    h,
+    other: '${h}h',
+  );
+  @override
+  String minutes({required Object m, required Object ss}) => '${m}:${ss}';
+  @override
+  String hours({required num h, required num m}) =>
+      '${_root.progressPage.remainingTime.hoursUnit(h: h)} ${_root.progressPage.remainingTime.minutesUnit(m: m)}';
+}
+
+// Path: whatsNewPage.changes
+class _Translations$whatsNewPage$changes$eu extends Translations$whatsNewPage$changes$en {
+  _Translations$whatsNewPage$changes$eu._(TranslationsEu root) : this._root = root, super.internal(root);
+
+  final TranslationsEu _root; // ignore: unused_field
+
+  // Translations
+  @override
+  late final _Translations$whatsNewPage$changes$v1_18_0$eu v1_18_0 = _Translations$whatsNewPage$changes$v1_18_0$eu._(_root);
+}
+
 // Path: dialogs.addFile
 class _Translations$dialogs$addFile$eu extends Translations$dialogs$addFile$en {
   _Translations$dialogs$addFile$eu._(TranslationsEu root) : this._root = root, super.internal(root);
@@ -917,6 +1141,19 @@ class _Translations$dialogs$addFile$eu extends Translations$dialogs$addFile$en {
   String get title => 'Gehitu aukeraketari';
   @override
   String get content => 'Zer gehitu nahi duzu?';
+}
+
+// Path: dialogs.openFile
+class _Translations$dialogs$openFile$eu extends Translations$dialogs$openFile$en {
+  _Translations$dialogs$openFile$eu._(TranslationsEu root) : this._root = root, super.internal(root);
+
+  final TranslationsEu _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Ireki fitxategia';
+  @override
+  String get content => 'Jasotako fitxategia ireki nahi duzu?';
 }
 
 // Path: dialogs.addressInput
@@ -1065,6 +1302,19 @@ class _Translations$dialogs$fileNameInput$eu extends Translations$dialogs$fileNa
   String original({required Object original}) => 'Jatorrizkoa: ${original}';
 }
 
+// Path: dialogs.historyClearDialog
+class _Translations$dialogs$historyClearDialog$eu extends Translations$dialogs$historyClearDialog$en {
+  _Translations$dialogs$historyClearDialog$eu._(TranslationsEu root) : this._root = root, super.internal(root);
+
+  final TranslationsEu _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Garbitu historia';
+  @override
+  String get content => 'Ziur historia osoa ezabatu nahi duzula?';
+}
+
 // Path: dialogs.localNetworkUnauthorized
 class _Translations$dialogs$localNetworkUnauthorized$eu extends Translations$dialogs$localNetworkUnauthorized$en {
   _Translations$dialogs$localNetworkUnauthorized$eu._(TranslationsEu root) : this._root = root, super.internal(root);
@@ -1179,6 +1429,32 @@ class _Translations$dialogs$quickSaveNotice$eu extends Translations$dialogs$quic
       'Fitxategi eskaerak automatikoki onartzen dira. Kontutan izan sare lokaleko edonork bidali ahal izango dizkizula fitxategiak.';
 }
 
+// Path: dialogs.quickSaveFromFavoritesNotice
+class _Translations$dialogs$quickSaveFromFavoritesNotice$eu extends Translations$dialogs$quickSaveFromFavoritesNotice$en {
+  _Translations$dialogs$quickSaveFromFavoritesNotice$eu._(TranslationsEu root) : this._root = root, super.internal(root);
+
+  final TranslationsEu _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => _root.general.quickSaveFromFavorites;
+  @override
+  List<String> get content => [
+    'Fitxategi-eskaerak orain automatikoki onartzen dira zure gogokoen zerrendako gailuetatik.',
+  ];
+}
+
+// Path: dialogs.pin
+class _Translations$dialogs$pin$eu extends Translations$dialogs$pin$en {
+  _Translations$dialogs$pin$eu._(TranslationsEu root) : this._root = root, super.internal(root);
+
+  final TranslationsEu _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Sartu PINa';
+}
+
 // Path: dialogs.sendModeHelp
 class _Translations$dialogs$sendModeHelp$eu extends Translations$dialogs$sendModeHelp$en {
   _Translations$dialogs$sendModeHelp$eu._(TranslationsEu root) : this._root = root, super.internal(root);
@@ -1194,6 +1470,17 @@ class _Translations$dialogs$sendModeHelp$eu extends Translations$dialogs$sendMod
   String get multiple => 'Bidali fitxategiak hartzaile anitzeri. Aukeraketa ez da garbituko.';
   @override
   String get link => 'LocalSend instalatuta ez duten hartzaileak fitxategiak eskuratu ahali zango dituzte lotura nabigatzailean zabalduz.';
+}
+
+// Path: dialogs.zoom
+class _Translations$dialogs$zoom$eu extends Translations$dialogs$zoom$en {
+  _Translations$dialogs$zoom$eu._(TranslationsEu root) : this._root = root, super.internal(root);
+
+  final TranslationsEu _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'URL';
 }
 
 // Path: settingsTab.general.brightnessOptions
@@ -1222,6 +1509,8 @@ class _Translations$settingsTab$general$colorOptions$eu extends Translations$set
   String get system => 'Sistema';
   @override
   String get oled => 'OLED';
+  @override
+  String get custom => 'Pertsonalizatua';
 }
 
 // Path: settingsTab.general.languageOptions
@@ -1263,4 +1552,19 @@ class _Translations$progressPage$total$title$eu extends Translations$progressPag
   String get canceledSender => 'Bidaltzaileak bertan behera utzita';
   @override
   String get canceledReceiver => 'Hartzaileak bertan behera utzita';
+}
+
+// Path: whatsNewPage.changes.v1_18_0
+class _Translations$whatsNewPage$changes$v1_18_0$eu extends Translations$whatsNewPage$changes$v1_18_0$en with WhatsNewStrings {
+  _Translations$whatsNewPage$changes$v1_18_0$eu._(TranslationsEu root) : this._root = root, super.internal(root);
+
+  final TranslationsEu _root; // ignore: unused_field
+
+  // Translations
+  @override
+  List<String> get changes => [
+    'Zifratzeak jada ez ditu transferentziak moteltzen. Gailu honetan berriro gaitu da, lehen desgaitu bazenuen.',
+    'Gogokoen eskaerak orain automatikoki onartzen dira. Lehenespenez gaituta dago eta ezarpenetan desgaitu daiteke.',
+    'Android-en, transferentziek jarraitzen dute aplikazioa atzeko planoan dagoenean edo pantaila itzalita dagoenean. iOS-en, aplikazioak aurreko planoan egon behar du oraindik.',
+  ];
 }

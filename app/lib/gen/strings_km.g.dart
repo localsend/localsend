@@ -52,11 +52,17 @@ class TranslationsKm extends Translations with BaseTranslations<AppLocale, Trans
   @override
   late final _Translations$troubleshootPage$km troubleshootPage = _Translations$troubleshootPage$km._(_root);
   @override
+  late final _Translations$networkInterfacesPage$km networkInterfacesPage = _Translations$networkInterfacesPage$km._(_root);
+  @override
   late final _Translations$receiveHistoryPage$km receiveHistoryPage = _Translations$receiveHistoryPage$km._(_root);
   @override
   late final _Translations$apkPickerPage$km apkPickerPage = _Translations$apkPickerPage$km._(_root);
   @override
   late final _Translations$selectedFilesPage$km selectedFilesPage = _Translations$selectedFilesPage$km._(_root);
+  @override
+  late final _Translations$deviceDetailsPage$km deviceDetailsPage = _Translations$deviceDetailsPage$km._(_root);
+  @override
+  late final _Translations$verifyPage$km verifyPage = _Translations$verifyPage$km._(_root);
   @override
   late final _Translations$receivePage$km receivePage = _Translations$receivePage$km._(_root);
   @override
@@ -68,11 +74,15 @@ class TranslationsKm extends Translations with BaseTranslations<AppLocale, Trans
   @override
   late final _Translations$webSharePage$km webSharePage = _Translations$webSharePage$km._(_root);
   @override
+  late final _Translations$webReceivePage$km webReceivePage = _Translations$webReceivePage$km._(_root);
+  @override
   late final _Translations$aboutPage$km aboutPage = _Translations$aboutPage$km._(_root);
   @override
   late final _Translations$donationPage$km donationPage = _Translations$donationPage$km._(_root);
   @override
   late final _Translations$changelogPage$km changelogPage = _Translations$changelogPage$km._(_root);
+  @override
+  late final _Translations$whatsNewPage$km whatsNewPage = _Translations$whatsNewPage$km._(_root);
   @override
   late final _Translations$aliasGenerator$km aliasGenerator = _Translations$aliasGenerator$km._(_root);
   @override
@@ -185,6 +195,8 @@ class _Translations$receiveTab$km extends Translations$receiveTab$en {
   late final _Translations$receiveTab$infoBox$km infoBox = _Translations$receiveTab$infoBox$km._(_root);
   @override
   late final _Translations$receiveTab$quickSave$km quickSave = _Translations$receiveTab$quickSave$km._(_root);
+  @override
+  String get link => 'ទទួលតាមរយៈតំណ';
 }
 
 // Path: sendTab
@@ -268,6 +280,26 @@ class _Translations$troubleshootPage$km extends Translations$troubleshootPage$en
   late final _Translations$troubleshootPage$noConnection$km noConnection = _Translations$troubleshootPage$noConnection$km._(_root);
 }
 
+// Path: networkInterfacesPage
+class _Translations$networkInterfacesPage$km extends Translations$networkInterfacesPage$en {
+  _Translations$networkInterfacesPage$km._(TranslationsKm root) : this._root = root, super.internal(root);
+
+  final TranslationsKm _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'ចំណុចប្រទាក់បណ្តាញ';
+  @override
+  String get info =>
+      'តាមលំនាំដើម LocalSend ប្រើចំណុចប្រទាក់បណ្តាញដែលមានទាំងអស់។ អ្នកអាចដកបណ្តាញដែលមិនចង់បានចេញនៅទីនេះ។ អ្នកត្រូវចាប់ផ្តើមម៉ាស៊ីនមេឡើងវិញ ដើម្បីអនុវត្តការផ្លាស់ប្តូរ។';
+  @override
+  String get preview => 'មើលជាមុន';
+  @override
+  String get whitelist => 'បញ្ជីអនុញ្ញាត';
+  @override
+  String get blacklist => 'បញ្ជីហាមឃាត់';
+}
+
 // Path: receiveHistoryPage
 class _Translations$receiveHistoryPage$km extends Translations$receiveHistoryPage$en {
   _Translations$receiveHistoryPage$km._(TranslationsKm root) : this._root = root, super.internal(root);
@@ -313,6 +345,42 @@ class _Translations$selectedFilesPage$km extends Translations$selectedFilesPage$
   // Translations
   @override
   String get deleteAll => 'លុបទាំងអស់';
+}
+
+// Path: deviceDetailsPage
+class _Translations$deviceDetailsPage$km extends Translations$deviceDetailsPage$en {
+  _Translations$deviceDetailsPage$km._(TranslationsKm root) : this._root = root, super.internal(root);
+
+  final TranslationsKm _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'ព័ត៌មានលម្អិតឧបករណ៍';
+  @override
+  String get favorite => 'សំណព្វ';
+  @override
+  String get verify => 'ផ្ទៀងផ្ទាត់';
+  @override
+  late final _Translations$deviceDetailsPage$info$km info = _Translations$deviceDetailsPage$info$km._(_root);
+  @override
+  late final _Translations$deviceDetailsPage$logs$km logs = _Translations$deviceDetailsPage$logs$km._(_root);
+}
+
+// Path: verifyPage
+class _Translations$verifyPage$km extends Translations$verifyPage$en {
+  _Translations$verifyPage$km._(TranslationsKm root) : this._root = root, super.internal(root);
+
+  final TranslationsKm _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'ផ្ទៀងផ្ទាត់';
+  @override
+  String get icons => 'រូបតំណាង';
+  @override
+  String get text => 'អត្ថបទ';
+  @override
+  String get question => 'តើវាមើលទៅដូចគ្នានៅលើឧបករណ៍មួយទៀតដែរឬទេ?';
 }
 
 // Path: receivePage
@@ -363,6 +431,8 @@ class _Translations$sendPage$km extends Translations$sendPage$en {
 
   // Translations
   @override
+  String calculatingChecksum({required Object curr, required Object n}) => 'កំពុងគណនា checksum (${curr} / ${n})';
+  @override
   String get waiting => 'កំពុងរង់ចាំការឆ្លើយតប...';
   @override
   String get rejected => 'អ្នកទទួលបានបដិសេធសំណើនេះ។';
@@ -387,6 +457,8 @@ class _Translations$progressPage$km extends Translations$progressPage$en {
   String get savedToGallery => 'បានរក្សាទុកក្នុងកម្មវិធីរូបថត';
   @override
   late final _Translations$progressPage$total$km total = _Translations$progressPage$total$km._(_root);
+  @override
+  late final _Translations$progressPage$remainingTime$km remainingTime = _Translations$progressPage$remainingTime$km._(_root);
 }
 
 // Path: webSharePage
@@ -426,6 +498,17 @@ class _Translations$webSharePage$km extends Translations$webSharePage$en {
   String get encryptionHint => 'LocalSend ប្រើវិញ្ញាបនបត្រដែលចុះហត្ថលេខាដោយខ្លួនឯង។ អ្នកត្រូវទទួលយកវានៅក្នុងកម្មវិធី​ browser ។';
   @override
   String pendingRequests({required Object n}) => 'សំណើដែលកំពុងរង់ចាំ: ${n}';
+}
+
+// Path: webReceivePage
+class _Translations$webReceivePage$km extends Translations$webReceivePage$en {
+  _Translations$webReceivePage$km._(TranslationsKm root) : this._root = root, super.internal(root);
+
+  final TranslationsKm _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'ទទួលតាមរយៈតំណ';
 }
 
 // Path: aboutPage
@@ -481,6 +564,19 @@ class _Translations$changelogPage$km extends Translations$changelogPage$en {
   // Translations
   @override
   String get title => 'កំណត់ត្រាការផ្លាស់ប្តូរ';
+}
+
+// Path: whatsNewPage
+class _Translations$whatsNewPage$km extends Translations$whatsNewPage$en {
+  _Translations$whatsNewPage$km._(TranslationsKm root) : this._root = root, super.internal(root);
+
+  final TranslationsKm _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String title({required Object version}) => 'អ្វីថ្មីនៅក្នុង ${version}';
+  @override
+  late final _Translations$whatsNewPage$changes$km changes = _Translations$whatsNewPage$changes$km._(_root);
 }
 
 // Path: aliasGenerator
@@ -890,6 +986,8 @@ class _Translations$settingsTab$receive$km extends Translations$settingsTab$rece
   String get saveToGallery => 'រក្សាទុកទៅកាន់កម្មវិធីវិចិត្រសាល';
   @override
   String get saveToHistory => 'រក្សាទុកទៅកាន់ប្រវត្តិ';
+  @override
+  String get verifyChecksums => 'ផ្ទៀងផ្ទាត់ checksum នៅពេលទទួលឯកសារ';
 }
 
 // Path: settingsTab.send
@@ -903,6 +1001,8 @@ class _Translations$settingsTab$send$km extends Translations$settingsTab$send$en
   String get title => 'ផ្ញើ';
   @override
   String get shareViaLinkAutoAccept => 'ទទួលការស្នើដោយស្វ័យប្រវត្តិនៅក្នុងម៉ូដ"ចែករំលែកតាមរយៈតំណភ្ជាប់"';
+  @override
+  String get createChecksums => 'បង្កើត checksum នៅពេលផ្ញើឯកសារ';
 }
 
 // Path: settingsTab.network
@@ -1028,6 +1128,40 @@ class _Translations$receiveHistoryPage$entryActions$km extends Translations$rece
   String get deleteFromHistory => 'លុបចោលពីប្រវត្តិ';
 }
 
+// Path: deviceDetailsPage.info
+class _Translations$deviceDetailsPage$info$km extends Translations$deviceDetailsPage$info$en {
+  _Translations$deviceDetailsPage$info$km._(TranslationsKm root) : this._root = root, super.internal(root);
+
+  final TranslationsKm _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get name => 'ឈ្មោះ';
+  @override
+  String get address => 'អាសយដ្ឋាន';
+  @override
+  String get version => 'កំណែ';
+  @override
+  String protocol({required Object version}) => 'ពិធីការ v${version}';
+}
+
+// Path: deviceDetailsPage.logs
+class _Translations$deviceDetailsPage$logs$km extends Translations$deviceDetailsPage$logs$en {
+  _Translations$deviceDetailsPage$logs$km._(TranslationsKm root) : this._root = root, super.internal(root);
+
+  final TranslationsKm _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'កំណត់ហេតុ';
+  @override
+  String get empty => 'មិនមានកំណត់ហេតុទេ។';
+  @override
+  String discovered({required Object protocol, required Object host}) => 'បានរកឃើញតាមរយៈ ${protocol} (${host})';
+  @override
+  String updated({required Object protocol, required Object host}) => 'បានធ្វើបច្ចុប្បន្នភាពតាមរយៈ ${protocol} (${host})';
+}
+
 // Path: progressPage.total
 class _Translations$progressPage$total$km extends Translations$progressPage$total$en {
   _Translations$progressPage$total$km._(TranslationsKm root) : this._root = root, super.internal(root);
@@ -1043,6 +1177,41 @@ class _Translations$progressPage$total$km extends Translations$progressPage$tota
   String size({required Object curr, required Object n}) => 'ទំហំ: ${curr} / ${n}';
   @override
   String speed({required Object speed}) => 'ល្បឿន: ${speed}/s';
+}
+
+// Path: progressPage.remainingTime
+class _Translations$progressPage$remainingTime$km extends Translations$progressPage$remainingTime$en {
+  _Translations$progressPage$remainingTime$km._(TranslationsKm root) : this._root = root, super.internal(root);
+
+  final TranslationsKm _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String minutesUnit({required num m}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('km'))(
+    m,
+    other: '${m}ន',
+  );
+  @override
+  String hoursUnit({required num h}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('km'))(
+    h,
+    other: '${h}ម៉',
+  );
+  @override
+  String minutes({required Object m, required Object ss}) => '${m}:${ss}';
+  @override
+  String hours({required num h, required num m}) =>
+      '${_root.progressPage.remainingTime.hoursUnit(h: h)} ${_root.progressPage.remainingTime.minutesUnit(m: m)}';
+}
+
+// Path: whatsNewPage.changes
+class _Translations$whatsNewPage$changes$km extends Translations$whatsNewPage$changes$en {
+  _Translations$whatsNewPage$changes$km._(TranslationsKm root) : this._root = root, super.internal(root);
+
+  final TranslationsKm _root; // ignore: unused_field
+
+  // Translations
+  @override
+  late final _Translations$whatsNewPage$changes$v1_18_0$km v1_18_0 = _Translations$whatsNewPage$changes$v1_18_0$km._(_root);
 }
 
 // Path: dialogs.addFile
@@ -1425,6 +1594,8 @@ class _Translations$settingsTab$general$colorOptions$km extends Translations$set
   String get system => 'តាមប្រព័ន្ធ';
   @override
   String get oled => 'OLED';
+  @override
+  String get custom => 'ផ្ទាល់ខ្លួន';
 }
 
 // Path: settingsTab.general.languageOptions
@@ -1466,4 +1637,19 @@ class _Translations$progressPage$total$title$km extends Translations$progressPag
   String get canceledSender => 'ត្រូវបានបោះបង់ដោយអ្នកផ្ញើ';
   @override
   String get canceledReceiver => 'ត្រូវបានបោះបង់ដោយអ្នកទទួល';
+}
+
+// Path: whatsNewPage.changes.v1_18_0
+class _Translations$whatsNewPage$changes$v1_18_0$km extends Translations$whatsNewPage$changes$v1_18_0$en with WhatsNewStrings {
+  _Translations$whatsNewPage$changes$v1_18_0$km._(TranslationsKm root) : this._root = root, super.internal(root);
+
+  final TranslationsKm _root; // ignore: unused_field
+
+  // Translations
+  @override
+  List<String> get changes => [
+    'ការអ៊ិនគ្រីបលែងធ្វើឱ្យការផ្ទេរយឺតទៀតហើយ។ វាត្រូវបានបើកឡើងវិញនៅលើឧបករណ៍នេះ ប្រសិនបើអ្នកបានបិទវាពីមុន។',
+    'សំណើពីសំណព្វឥឡូវត្រូវបានទទួលយកដោយស្វ័យប្រវត្តិ។ វាត្រូវបានបើកតាមលំនាំដើម ហើយអាចបិទបាននៅក្នុងការកំណត់។',
+    'នៅលើ Android ការផ្ទេរបន្តដំណើរការ ខណៈកម្មវិធីនៅផ្ទៃខាងក្រោយ ឬអេក្រង់បិទ។ នៅលើ iOS កម្មវិធីនៅតែត្រូវស្ថិតនៅផ្ទៃខាងមុខ។',
+  ];
 }

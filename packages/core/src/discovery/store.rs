@@ -265,7 +265,7 @@ mod tests {
     fn device(fingerprint: &str, host: &str) -> DiscoveredDevice {
         DiscoveredDevice {
             alias: format!("Alias of {fingerprint}"),
-            version: "2.1".to_string(),
+            version: "2.2".to_string(),
             device_model: None,
             device_type: Some(DeviceType::Desktop),
             fingerprint: fingerprint.to_string(),

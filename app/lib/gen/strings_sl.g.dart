@@ -52,11 +52,17 @@ class TranslationsSl extends Translations with BaseTranslations<AppLocale, Trans
   @override
   late final _Translations$troubleshootPage$sl troubleshootPage = _Translations$troubleshootPage$sl._(_root);
   @override
+  late final _Translations$networkInterfacesPage$sl networkInterfacesPage = _Translations$networkInterfacesPage$sl._(_root);
+  @override
   late final _Translations$receiveHistoryPage$sl receiveHistoryPage = _Translations$receiveHistoryPage$sl._(_root);
   @override
   late final _Translations$apkPickerPage$sl apkPickerPage = _Translations$apkPickerPage$sl._(_root);
   @override
   late final _Translations$selectedFilesPage$sl selectedFilesPage = _Translations$selectedFilesPage$sl._(_root);
+  @override
+  late final _Translations$deviceDetailsPage$sl deviceDetailsPage = _Translations$deviceDetailsPage$sl._(_root);
+  @override
+  late final _Translations$verifyPage$sl verifyPage = _Translations$verifyPage$sl._(_root);
   @override
   late final _Translations$receivePage$sl receivePage = _Translations$receivePage$sl._(_root);
   @override
@@ -68,11 +74,15 @@ class TranslationsSl extends Translations with BaseTranslations<AppLocale, Trans
   @override
   late final _Translations$webSharePage$sl webSharePage = _Translations$webSharePage$sl._(_root);
   @override
+  late final _Translations$webReceivePage$sl webReceivePage = _Translations$webReceivePage$sl._(_root);
+  @override
   late final _Translations$aboutPage$sl aboutPage = _Translations$aboutPage$sl._(_root);
   @override
   late final _Translations$donationPage$sl donationPage = _Translations$donationPage$sl._(_root);
   @override
   late final _Translations$changelogPage$sl changelogPage = _Translations$changelogPage$sl._(_root);
+  @override
+  late final _Translations$whatsNewPage$sl whatsNewPage = _Translations$whatsNewPage$sl._(_root);
   @override
   late final _Translations$aliasGenerator$sl aliasGenerator = _Translations$aliasGenerator$sl._(_root);
   @override
@@ -183,6 +193,10 @@ class _Translations$receiveTab$sl extends Translations$receiveTab$en {
   String get title => 'Prejem';
   @override
   late final _Translations$receiveTab$infoBox$sl infoBox = _Translations$receiveTab$infoBox$sl._(_root);
+  @override
+  late final _Translations$receiveTab$quickSave$sl quickSave = _Translations$receiveTab$quickSave$sl._(_root);
+  @override
+  String get link => 'Prejmi prek povezave';
 }
 
 // Path: sendTab
@@ -266,6 +280,26 @@ class _Translations$troubleshootPage$sl extends Translations$troubleshootPage$en
   late final _Translations$troubleshootPage$noConnection$sl noConnection = _Translations$troubleshootPage$noConnection$sl._(_root);
 }
 
+// Path: networkInterfacesPage
+class _Translations$networkInterfacesPage$sl extends Translations$networkInterfacesPage$en {
+  _Translations$networkInterfacesPage$sl._(TranslationsSl root) : this._root = root, super.internal(root);
+
+  final TranslationsSl _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Omrežni vmesniki';
+  @override
+  String get info =>
+      'LocalSend privzeto uporablja vse razpoložljive omrežne vmesnike. Tukaj lahko izključite neželena omrežja. Za uveljavitev sprememb morate znova zagnati strežnik.';
+  @override
+  String get preview => 'Predogled';
+  @override
+  String get whitelist => 'Seznam dovoljenih';
+  @override
+  String get blacklist => 'Seznam blokiranih';
+}
+
 // Path: receiveHistoryPage
 class _Translations$receiveHistoryPage$sl extends Translations$receiveHistoryPage$en {
   _Translations$receiveHistoryPage$sl._(TranslationsSl root) : this._root = root, super.internal(root);
@@ -311,6 +345,42 @@ class _Translations$selectedFilesPage$sl extends Translations$selectedFilesPage$
   // Translations
   @override
   String get deleteAll => 'Izbriši vse';
+}
+
+// Path: deviceDetailsPage
+class _Translations$deviceDetailsPage$sl extends Translations$deviceDetailsPage$en {
+  _Translations$deviceDetailsPage$sl._(TranslationsSl root) : this._root = root, super.internal(root);
+
+  final TranslationsSl _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Podrobnosti naprave';
+  @override
+  String get favorite => 'Priljubljena';
+  @override
+  String get verify => 'Preveri';
+  @override
+  late final _Translations$deviceDetailsPage$info$sl info = _Translations$deviceDetailsPage$info$sl._(_root);
+  @override
+  late final _Translations$deviceDetailsPage$logs$sl logs = _Translations$deviceDetailsPage$logs$sl._(_root);
+}
+
+// Path: verifyPage
+class _Translations$verifyPage$sl extends Translations$verifyPage$en {
+  _Translations$verifyPage$sl._(TranslationsSl root) : this._root = root, super.internal(root);
+
+  final TranslationsSl _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Preveri';
+  @override
+  String get icons => 'Ikone';
+  @override
+  String get text => 'Besedilo';
+  @override
+  String get question => 'Ali je na drugi napravi videti enako?';
 }
 
 // Path: receivePage
@@ -361,6 +431,8 @@ class _Translations$sendPage$sl extends Translations$sendPage$en {
 
   // Translations
   @override
+  String calculatingChecksum({required Object curr, required Object n}) => 'Izračunavanje kontrolne vsote (${curr} / ${n})';
+  @override
   String get waiting => 'Čakanje na odgovor...';
   @override
   String get rejected => 'Prejemnik je zavrnil zahtevo.';
@@ -385,6 +457,8 @@ class _Translations$progressPage$sl extends Translations$progressPage$en {
   String get savedToGallery => 'Shranjeno v Fotografije';
   @override
   late final _Translations$progressPage$total$sl total = _Translations$progressPage$total$sl._(_root);
+  @override
+  late final _Translations$progressPage$remainingTime$sl remainingTime = _Translations$progressPage$remainingTime$sl._(_root);
 }
 
 // Path: webSharePage
@@ -424,6 +498,17 @@ class _Translations$webSharePage$sl extends Translations$webSharePage$en {
   String get encryptionHint => 'LocalSend uporablja samopodpisano potrdilo. Sprejeti ga morate v svojem brskalniku.';
   @override
   String pendingRequests({required Object n}) => 'Čakajoče zahteve: ${n}';
+}
+
+// Path: webReceivePage
+class _Translations$webReceivePage$sl extends Translations$webReceivePage$en {
+  _Translations$webReceivePage$sl._(TranslationsSl root) : this._root = root, super.internal(root);
+
+  final TranslationsSl _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Prejmi prek povezave';
 }
 
 // Path: aboutPage
@@ -478,6 +563,19 @@ class _Translations$changelogPage$sl extends Translations$changelogPage$en {
   // Translations
   @override
   String get title => 'Dnevnik sprememb';
+}
+
+// Path: whatsNewPage
+class _Translations$whatsNewPage$sl extends Translations$whatsNewPage$en {
+  _Translations$whatsNewPage$sl._(TranslationsSl root) : this._root = root, super.internal(root);
+
+  final TranslationsSl _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String title({required Object version}) => 'Novosti v ${version}';
+  @override
+  late final _Translations$whatsNewPage$changes$sl changes = _Translations$whatsNewPage$changes$sl._(_root);
 }
 
 // Path: aliasGenerator
@@ -572,6 +670,8 @@ class _Translations$dialogs$sl extends Translations$dialogs$en {
   // Translations
   @override
   late final _Translations$dialogs$addFile$sl addFile = _Translations$dialogs$addFile$sl._(_root);
+  @override
+  late final _Translations$dialogs$openFile$sl openFile = _Translations$dialogs$openFile$sl._(_root);
   @override
   late final _Translations$dialogs$addressInput$sl addressInput = _Translations$dialogs$addressInput$sl._(_root);
   @override
@@ -755,6 +855,21 @@ class _Translations$receiveTab$infoBox$sl extends Translations$receiveTab$infoBo
   String get alias => 'Ime naprave:';
 }
 
+// Path: receiveTab.quickSave
+class _Translations$receiveTab$quickSave$sl extends Translations$receiveTab$quickSave$en {
+  _Translations$receiveTab$quickSave$sl._(TranslationsSl root) : this._root = root, super.internal(root);
+
+  final TranslationsSl _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get off => _root.general.off;
+  @override
+  String get favorites => 'Priljubljene';
+  @override
+  String get on => _root.general.on;
+}
+
 // Path: sendTab.selection
 class _Translations$sendTab$selection$sl extends Translations$sendTab$selection$en {
   _Translations$sendTab$selection$sl._(TranslationsSl root) : this._root = root, super.internal(root);
@@ -870,6 +985,8 @@ class _Translations$settingsTab$receive$sl extends Translations$settingsTab$rece
   String get saveToGallery => 'Shrani medije v galerijo';
   @override
   String get saveToHistory => 'Shrani v zgodovino';
+  @override
+  String get verifyChecksums => 'Preveri kontrolne vsote ob prejemanju datotek';
 }
 
 // Path: settingsTab.send
@@ -883,6 +1000,8 @@ class _Translations$settingsTab$send$sl extends Translations$settingsTab$send$en
   String get title => 'Pošlji';
   @override
   String get shareViaLinkAutoAccept => 'Samodejno sprejmi zahteve v načinu »Deli prek povezave«';
+  @override
+  String get createChecksums => 'Ustvari kontrolne vsote ob pošiljanju datotek';
 }
 
 // Path: settingsTab.network
@@ -906,6 +1025,10 @@ class _Translations$settingsTab$network$sl extends Translations$settingsTab$netw
   String get deviceModel => 'Model naprave';
   @override
   String get port => 'Vrata';
+  @override
+  String get network => 'Omrežje';
+  @override
+  late final _Translations$settingsTab$network$networkOptions$sl networkOptions = _Translations$settingsTab$network$networkOptions$sl._(_root);
   @override
   String get discoveryTimeout => 'Časovna omejitev za odkrivanje';
   @override
@@ -1003,6 +1126,40 @@ class _Translations$receiveHistoryPage$entryActions$sl extends Translations$rece
   String get deleteFromHistory => 'Izbriši iz zgodovine';
 }
 
+// Path: deviceDetailsPage.info
+class _Translations$deviceDetailsPage$info$sl extends Translations$deviceDetailsPage$info$en {
+  _Translations$deviceDetailsPage$info$sl._(TranslationsSl root) : this._root = root, super.internal(root);
+
+  final TranslationsSl _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get name => 'Ime';
+  @override
+  String get address => 'Naslov';
+  @override
+  String get version => 'Različica';
+  @override
+  String protocol({required Object version}) => 'Protokol v${version}';
+}
+
+// Path: deviceDetailsPage.logs
+class _Translations$deviceDetailsPage$logs$sl extends Translations$deviceDetailsPage$logs$en {
+  _Translations$deviceDetailsPage$logs$sl._(TranslationsSl root) : this._root = root, super.internal(root);
+
+  final TranslationsSl _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Dnevniki';
+  @override
+  String get empty => 'Ni razpoložljivih dnevnikov.';
+  @override
+  String discovered({required Object protocol, required Object host}) => 'Odkrito prek ${protocol} (${host})';
+  @override
+  String updated({required Object protocol, required Object host}) => 'Posodobljeno prek ${protocol} (${host})';
+}
+
 // Path: progressPage.total
 class _Translations$progressPage$total$sl extends Translations$progressPage$total$en {
   _Translations$progressPage$total$sl._(TranslationsSl root) : this._root = root, super.internal(root);
@@ -1020,6 +1177,41 @@ class _Translations$progressPage$total$sl extends Translations$progressPage$tota
   String speed({required Object speed}) => 'Hitrost: ${speed}/s';
 }
 
+// Path: progressPage.remainingTime
+class _Translations$progressPage$remainingTime$sl extends Translations$progressPage$remainingTime$en {
+  _Translations$progressPage$remainingTime$sl._(TranslationsSl root) : this._root = root, super.internal(root);
+
+  final TranslationsSl _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String minutesUnit({required num m}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('sl'))(
+    m,
+    other: '${m}min',
+  );
+  @override
+  String hoursUnit({required num h}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('sl'))(
+    h,
+    other: '${h}h',
+  );
+  @override
+  String minutes({required Object m, required Object ss}) => '${m}:${ss}';
+  @override
+  String hours({required num h, required num m}) =>
+      '${_root.progressPage.remainingTime.hoursUnit(h: h)} ${_root.progressPage.remainingTime.minutesUnit(m: m)}';
+}
+
+// Path: whatsNewPage.changes
+class _Translations$whatsNewPage$changes$sl extends Translations$whatsNewPage$changes$en {
+  _Translations$whatsNewPage$changes$sl._(TranslationsSl root) : this._root = root, super.internal(root);
+
+  final TranslationsSl _root; // ignore: unused_field
+
+  // Translations
+  @override
+  late final _Translations$whatsNewPage$changes$v1_18_0$sl v1_18_0 = _Translations$whatsNewPage$changes$v1_18_0$sl._(_root);
+}
+
 // Path: dialogs.addFile
 class _Translations$dialogs$addFile$sl extends Translations$dialogs$addFile$en {
   _Translations$dialogs$addFile$sl._(TranslationsSl root) : this._root = root, super.internal(root);
@@ -1031,6 +1223,19 @@ class _Translations$dialogs$addFile$sl extends Translations$dialogs$addFile$en {
   String get title => 'Dodaj k izbiri';
   @override
   String get content => 'Kaj želite dodati?';
+}
+
+// Path: dialogs.openFile
+class _Translations$dialogs$openFile$sl extends Translations$dialogs$openFile$en {
+  _Translations$dialogs$openFile$sl._(TranslationsSl root) : this._root = root, super.internal(root);
+
+  final TranslationsSl _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Odpri datoteko';
+  @override
+  String get content => 'Ali želite odpreti prejeto datoteko?';
 }
 
 // Path: dialogs.addressInput
@@ -1314,6 +1519,10 @@ class _Translations$dialogs$quickSaveFromFavoritesNotice$sl extends Translations
   // Translations
   @override
   String get title => _root.general.quickSaveFromFavorites;
+  @override
+  List<String> get content => [
+    'Zahteve za datoteke naprav s seznama priljubljenih so zdaj samodejno sprejete.',
+  ];
 }
 
 // Path: dialogs.pin
@@ -1381,6 +1590,8 @@ class _Translations$settingsTab$general$colorOptions$sl extends Translations$set
   String get system => 'Sistem';
   @override
   String get oled => 'OLED';
+  @override
+  String get custom => 'Po meri';
 }
 
 // Path: settingsTab.general.languageOptions
@@ -1392,6 +1603,19 @@ class _Translations$settingsTab$general$languageOptions$sl extends Translations$
   // Translations
   @override
   String get system => 'Sistem';
+}
+
+// Path: settingsTab.network.networkOptions
+class _Translations$settingsTab$network$networkOptions$sl extends Translations$settingsTab$network$networkOptions$en {
+  _Translations$settingsTab$network$networkOptions$sl._(TranslationsSl root) : this._root = root, super.internal(root);
+
+  final TranslationsSl _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get all => 'Vsa';
+  @override
+  String get filtered => 'Filtrirana';
 }
 
 // Path: progressPage.total.title
@@ -1409,4 +1633,19 @@ class _Translations$progressPage$total$title$sl extends Translations$progressPag
   String get canceledSender => 'Preklical pošiljatelj';
   @override
   String get canceledReceiver => 'Preklical prejemnik';
+}
+
+// Path: whatsNewPage.changes.v1_18_0
+class _Translations$whatsNewPage$changes$v1_18_0$sl extends Translations$whatsNewPage$changes$v1_18_0$en with WhatsNewStrings {
+  _Translations$whatsNewPage$changes$v1_18_0$sl._(TranslationsSl root) : this._root = root, super.internal(root);
+
+  final TranslationsSl _root; // ignore: unused_field
+
+  // Translations
+  @override
+  List<String> get changes => [
+    'Šifriranje ne upočasnjuje več prenosov. Če ste ga prej izklopili, je bilo na tej napravi znova omogočeno.',
+    'Zahteve priljubljenih naprav so zdaj samodejno sprejete. To je privzeto vklopljeno in se lahko izklopi v nastavitvah.',
+    'V sistemu Android se prenosi nadaljujejo, ko je aplikacija v ozadju ali je zaslon izklopljen. V sistemu iOS mora aplikacija še vedno ostati v ospredju.',
+  ];
 }

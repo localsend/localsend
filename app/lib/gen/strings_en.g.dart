@@ -422,8 +422,8 @@ class Translations$verifyPage$en {
   /// en: 'Icons'
   String get icons => 'Icons';
 
-  /// en: 'Raw'
-  String get raw => 'Raw';
+  /// en: 'Text'
+  String get text => 'Text';
 
   /// en: 'Does it look the same on the other device?'
   String get question => 'Does it look the same on the other device?';

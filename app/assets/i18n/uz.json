@@ -51,7 +51,8 @@
       "off": "@:general.off",
       "favorites": "Sevimlilar",
       "on": "@:general.on"
-    }
+    },
+    "link": "Havola orqali qabul qilish"
   },
   "sendTab": {
     "title": "Yuborish",
@@ -96,7 +97,8 @@
       "color": "Rang",
       "colorOptions": {
         "system": "Tizim",
-        "oled": "OLED"
+        "oled": "OLED",
+        "custom": "Maxsus"
       },
       "language": "Til",
       "languageOptions": {
@@ -119,11 +121,13 @@
       "destination": "Papkaga saqlash",
       "downloads": "(Yuklanmalar)",
       "saveToGallery": "Mediani galereyaga saqlash",
-      "saveToHistory": "Tarixga saqlash"
+      "saveToHistory": "Tarixga saqlash",
+      "verifyChecksums": "Fayllarni qabul qilishda nazorat summalarini tekshirish"
     },
     "send": {
       "title": "Yuborish",
-      "shareViaLinkAutoAccept": "\"Havola orqali ulashish\" rejimida soʻrovlarni avtomatik qabul qilish"
+      "shareViaLinkAutoAccept": "\"Havola orqali ulashish\" rejimida soʻrovlarni avtomatik qabul qilish",
+      "createChecksums": "Fayllarni yuborishda nazorat summalarini yaratish"
     },
     "network": {
       "title": "Tarmoq",
@@ -202,6 +206,29 @@
   "selectedFilesPage": {
     "deleteAll": "Barchasini oʻchirish"
   },
+  "deviceDetailsPage": {
+    "title": "Qurilma tafsilotlari",
+    "favorite": "Sevimli",
+    "verify": "Tasdiqlash",
+    "info": {
+      "name": "Nomi",
+      "address": "Manzil",
+      "version": "Versiya",
+      "protocol": "Protokol v{version}"
+    },
+    "logs": {
+      "title": "Jurnallar",
+      "empty": "Jurnallar mavjud emas.",
+      "discovered": "{protocol} orqali topildi ({host})",
+      "updated": "{protocol} orqali yangilandi ({host})"
+    }
+  },
+  "verifyPage": {
+    "title": "Tasdiqlash",
+    "icons": "Belgilar",
+    "text": "Matn",
+    "question": "Boshqa qurilmada ham xuddi shunday koʻrinyaptimi?"
+  },
   "receivePage": {
     "subTitle": {
       "one": "sizga fayl yubormoqchi",
@@ -219,6 +246,7 @@
     "saveToGalleryOff": "Papkalar mavjud boʻlgani uchun avtomatik oʻchirildi."
   },
   "sendPage": {
+    "calculatingChecksum": "Nazorat summasi hisoblanmoqda ({curr} / {n})",
     "waiting": "Javob kutilmoqda…",
     "rejected": "Qabul qiluvchi soʻrovni rad etdi.",
     "tooManyAttempts": "@:web.tooManyAttempts",
@@ -240,8 +268,14 @@
       "speed": "Tezlik: {speed}/s"
     },
     "remainingTime": {
+      "minutesUnit(plural, param=m)": {
+        "other": "{m}daq"
+      },
+      "hoursUnit(plural, param=h)": {
+        "other": "{h}soat"
+      },
       "minutes": "{m}:{ss}",
-      "hours": "{h}s {m}d"
+      "hours": "@:.hoursUnit @:.minutesUnit"
     }
   },
   "webSharePage": {
@@ -261,6 +295,9 @@
     "pinHint": "PIN \"{pin}\"",
     "encryptionHint": "LocalSend oʻz-oʻzini imzolagan sertifikatdan foydalanadi. Uni brauzeringizda qabul qilishingiz kerak.",
     "pendingRequests": "Kutilayotgan soʻrovlar: {n}"
+  },
+  "webReceivePage": {
+    "title": "Havola orqali qabul qilish"
   },
   "aboutPage": {
     "title": "LocalSend haqida",
@@ -282,6 +319,18 @@
   },
   "changelogPage": {
     "title": "Oʻzgarishlar tarixi"
+  },
+  "whatsNewPage": {
+    "title": "{version} versiyasidagi yangiliklar",
+    "changes(interface=WhatsNewStrings)": {
+      "v1_18_0": {
+        "changes": [
+          "Shifrlash endi uzatishlarni sekinlashtirmaydi. Agar avval oʻchirib qoʻygan boʻlsangiz, bu qurilmada u qayta yoqildi.",
+          "Sevimlilardan kelgan soʻrovlar endi avtomatik qabul qilinadi. Bu sukut boʻyicha yoqilgan va sozlamalarda oʻchirib qoʻyish mumkin.",
+          "Androidda ilova fonda boʻlsa yoki ekran oʻchiq boʻlsa ham uzatishlar davom etadi. iOSda ilova hali ham old fonda qolishi kerak."
+        ]
+      }
+    }
   },
   "dialogs": {
     "addFile": {

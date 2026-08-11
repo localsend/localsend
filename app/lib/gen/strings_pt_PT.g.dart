@@ -60,6 +60,10 @@ class TranslationsPtPt extends Translations with BaseTranslations<AppLocale, Tra
   @override
   late final Translations$selectedFilesPage$pt_PT selectedFilesPage = Translations$selectedFilesPage$pt_PT.internal(_root);
   @override
+  late final Translations$deviceDetailsPage$pt_PT deviceDetailsPage = Translations$deviceDetailsPage$pt_PT.internal(_root);
+  @override
+  late final Translations$verifyPage$pt_PT verifyPage = Translations$verifyPage$pt_PT.internal(_root);
+  @override
   late final Translations$receivePage$pt_PT receivePage = Translations$receivePage$pt_PT.internal(_root);
   @override
   late final Translations$receiveOptionsPage$pt_PT receiveOptionsPage = Translations$receiveOptionsPage$pt_PT.internal(_root);
@@ -70,11 +74,15 @@ class TranslationsPtPt extends Translations with BaseTranslations<AppLocale, Tra
   @override
   late final Translations$webSharePage$pt_PT webSharePage = Translations$webSharePage$pt_PT.internal(_root);
   @override
+  late final Translations$webReceivePage$pt_PT webReceivePage = Translations$webReceivePage$pt_PT.internal(_root);
+  @override
   late final Translations$aboutPage$pt_PT aboutPage = Translations$aboutPage$pt_PT.internal(_root);
   @override
   late final Translations$donationPage$pt_PT donationPage = Translations$donationPage$pt_PT.internal(_root);
   @override
   late final Translations$changelogPage$pt_PT changelogPage = Translations$changelogPage$pt_PT.internal(_root);
+  @override
+  late final Translations$whatsNewPage$pt_PT whatsNewPage = Translations$whatsNewPage$pt_PT.internal(_root);
   @override
   late final Translations$aliasGenerator$pt_PT aliasGenerator = Translations$aliasGenerator$pt_PT.internal(_root);
   @override
@@ -187,6 +195,8 @@ class Translations$receiveTab$pt_PT extends Translations$receiveTab$en {
   late final Translations$receiveTab$infoBox$pt_PT infoBox = Translations$receiveTab$infoBox$pt_PT.internal(_root);
   @override
   late final Translations$receiveTab$quickSave$pt_PT quickSave = Translations$receiveTab$quickSave$pt_PT.internal(_root);
+  @override
+  String get link => 'Receber via ligação';
 }
 
 // Path: sendTab
@@ -337,6 +347,42 @@ class Translations$selectedFilesPage$pt_PT extends Translations$selectedFilesPag
   String get deleteAll => 'Remover tudo';
 }
 
+// Path: deviceDetailsPage
+class Translations$deviceDetailsPage$pt_PT extends Translations$deviceDetailsPage$en {
+  Translations$deviceDetailsPage$pt_PT.internal(TranslationsPtPt root) : this._root = root, super.internal(root);
+
+  final TranslationsPtPt _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Detalhes do dispositivo';
+  @override
+  String get favorite => 'Favorito';
+  @override
+  String get verify => 'Verificar';
+  @override
+  late final Translations$deviceDetailsPage$info$pt_PT info = Translations$deviceDetailsPage$info$pt_PT.internal(_root);
+  @override
+  late final Translations$deviceDetailsPage$logs$pt_PT logs = Translations$deviceDetailsPage$logs$pt_PT.internal(_root);
+}
+
+// Path: verifyPage
+class Translations$verifyPage$pt_PT extends Translations$verifyPage$en {
+  Translations$verifyPage$pt_PT.internal(TranslationsPtPt root) : this._root = root, super.internal(root);
+
+  final TranslationsPtPt _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Verificar';
+  @override
+  String get icons => 'Ícones';
+  @override
+  String get text => 'Texto';
+  @override
+  String get question => 'Está igual no outro dispositivo?';
+}
+
 // Path: receivePage
 class Translations$receivePage$pt_PT extends Translations$receivePage$en {
   Translations$receivePage$pt_PT.internal(TranslationsPtPt root) : this._root = root, super.internal(root);
@@ -384,6 +430,8 @@ class Translations$sendPage$pt_PT extends Translations$sendPage$en {
   final TranslationsPtPt _root; // ignore: unused_field
 
   // Translations
+  @override
+  String calculatingChecksum({required Object curr, required Object n}) => 'A calcular a soma de verificação (${curr} / ${n})';
   @override
   String get waiting => 'A aguardar resposta…';
   @override
@@ -452,6 +500,17 @@ class Translations$webSharePage$pt_PT extends Translations$webSharePage$en {
   String pendingRequests({required Object n}) => 'Pedidos pendentes: ${n}';
 }
 
+// Path: webReceivePage
+class Translations$webReceivePage$pt_PT extends Translations$webReceivePage$en {
+  Translations$webReceivePage$pt_PT.internal(TranslationsPtPt root) : this._root = root, super.internal(root);
+
+  final TranslationsPtPt _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Receber via ligação';
+}
+
 // Path: aboutPage
 class Translations$aboutPage$pt_PT extends Translations$aboutPage$en {
   Translations$aboutPage$pt_PT.internal(TranslationsPtPt root) : this._root = root, super.internal(root);
@@ -505,6 +564,19 @@ class Translations$changelogPage$pt_PT extends Translations$changelogPage$en {
   // Translations
   @override
   String get title => 'Histórico de alterações';
+}
+
+// Path: whatsNewPage
+class Translations$whatsNewPage$pt_PT extends Translations$whatsNewPage$en {
+  Translations$whatsNewPage$pt_PT.internal(TranslationsPtPt root) : this._root = root, super.internal(root);
+
+  final TranslationsPtPt _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String title({required Object version}) => 'Novidades da versão ${version}';
+  @override
+  late final Translations$whatsNewPage$changes$pt_PT changes = Translations$whatsNewPage$changes$pt_PT.internal(_root);
 }
 
 // Path: aliasGenerator
@@ -922,6 +994,8 @@ class Translations$settingsTab$receive$pt_PT extends Translations$settingsTab$re
   String get saveToGallery => 'Guardar na galeria';
   @override
   String get saveToHistory => 'Guardar no histórico';
+  @override
+  String get verifyChecksums => 'Verificar somas de verificação ao receber ficheiros';
 }
 
 // Path: settingsTab.send
@@ -935,6 +1009,8 @@ class Translations$settingsTab$send$pt_PT extends Translations$settingsTab$send$
   String get title => 'Enviar';
   @override
   String get shareViaLinkAutoAccept => 'Partilhar via link: Aceitar automaticamente';
+  @override
+  String get createChecksums => 'Criar somas de verificação ao enviar ficheiros';
 }
 
 // Path: settingsTab.network
@@ -1063,6 +1139,40 @@ class Translations$receiveHistoryPage$entryActions$pt_PT extends Translations$re
   String get deleteFromHistory => 'Remover do histórico';
 }
 
+// Path: deviceDetailsPage.info
+class Translations$deviceDetailsPage$info$pt_PT extends Translations$deviceDetailsPage$info$en {
+  Translations$deviceDetailsPage$info$pt_PT.internal(TranslationsPtPt root) : this._root = root, super.internal(root);
+
+  final TranslationsPtPt _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get name => 'Nome';
+  @override
+  String get address => 'Endereço';
+  @override
+  String get version => 'Versão';
+  @override
+  String protocol({required Object version}) => 'Protocolo v${version}';
+}
+
+// Path: deviceDetailsPage.logs
+class Translations$deviceDetailsPage$logs$pt_PT extends Translations$deviceDetailsPage$logs$en {
+  Translations$deviceDetailsPage$logs$pt_PT.internal(TranslationsPtPt root) : this._root = root, super.internal(root);
+
+  final TranslationsPtPt _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Registos';
+  @override
+  String get empty => 'Nenhum registo disponível.';
+  @override
+  String discovered({required Object protocol, required Object host}) => 'Descoberto via ${protocol} (${host})';
+  @override
+  String updated({required Object protocol, required Object host}) => 'Atualizado via ${protocol} (${host})';
+}
+
 // Path: progressPage.total
 class Translations$progressPage$total$pt_PT extends Translations$progressPage$total$en {
   Translations$progressPage$total$pt_PT.internal(TranslationsPtPt root) : this._root = root, super.internal(root);
@@ -1088,11 +1198,31 @@ class Translations$progressPage$remainingTime$pt_PT extends Translations$progres
 
   // Translations
   @override
-  String minutes({required Object m, required Object ss}) => '${m}:${ss}';
-
-  /// Usar 'h' e 'm' para abreviar as palavras horas e minutos
+  String minutesUnit({required num m}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('pt'))(
+    m,
+    other: '${m}min',
+  );
   @override
-  String hours({required Object h, required Object m}) => '${h}h ${m}m';
+  String hoursUnit({required num h}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('pt'))(
+    h,
+    other: '${h}h',
+  );
+  @override
+  String minutes({required Object m, required Object ss}) => '${m}:${ss}';
+  @override
+  String hours({required num h, required num m}) =>
+      '${_root.progressPage.remainingTime.hoursUnit(h: h)} ${_root.progressPage.remainingTime.minutesUnit(m: m)}';
+}
+
+// Path: whatsNewPage.changes
+class Translations$whatsNewPage$changes$pt_PT extends Translations$whatsNewPage$changes$en {
+  Translations$whatsNewPage$changes$pt_PT.internal(TranslationsPtPt root) : this._root = root, super.internal(root);
+
+  final TranslationsPtPt _root; // ignore: unused_field
+
+  // Translations
+  @override
+  late final Translations$whatsNewPage$changes$v1_18_0$pt_PT v1_18_0 = Translations$whatsNewPage$changes$v1_18_0$pt_PT.internal(_root);
 }
 
 // Path: dialogs.addFile
@@ -1475,6 +1605,8 @@ class Translations$settingsTab$general$colorOptions$pt_PT extends Translations$s
   String get system => 'Sistema';
   @override
   String get oled => 'OLED';
+  @override
+  String get custom => 'Personalizado';
 }
 
 // Path: settingsTab.general.languageOptions
@@ -1516,4 +1648,19 @@ class Translations$progressPage$total$title$pt_PT extends Translations$progressP
   String get canceledSender => 'Cancelado pelo remetente';
   @override
   String get canceledReceiver => 'Cancelado pelo destinatário';
+}
+
+// Path: whatsNewPage.changes.v1_18_0
+class Translations$whatsNewPage$changes$v1_18_0$pt_PT extends Translations$whatsNewPage$changes$v1_18_0$en with WhatsNewStrings {
+  Translations$whatsNewPage$changes$v1_18_0$pt_PT.internal(TranslationsPtPt root) : this._root = root, super.internal(root);
+
+  final TranslationsPtPt _root; // ignore: unused_field
+
+  // Translations
+  @override
+  List<String> get changes => [
+    'A encriptação já não torna as transferências mais lentas. Foi reativada neste dispositivo se a tinha desativado anteriormente.',
+    'Os pedidos dos favoritos são agora aceites automaticamente. Esta opção está ativada por predefinição e pode ser desativada nas definições.',
+    'No Android, as transferências continuam enquanto a aplicação está em segundo plano ou o ecrã está desligado. No iOS, a aplicação ainda tem de permanecer em primeiro plano.',
+  ];
 }

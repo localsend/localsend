@@ -27,6 +27,7 @@
     "open": "Нээх",
     "queue": "Хүлээгдэж байгаа",
     "quickSave": "Шууд хадгалах",
+    "quickSaveFromFavorites": "\"Дуртай\"-д зориулсан шуурхай хадгалалт",
     "renamed": "Дахин нэрлэсэн",
     "reset": "Өөрчлөлтүүдийг буцаах",
     "restart": "Дахин ачаалах",
@@ -50,7 +51,8 @@
       "off": "@:general.off",
       "favorites": "Хадгалсан",
       "on": "@:general.on"
-    }
+    },
+    "link": "Холбоосоор хүлээн авах"
   },
   "sendTab": {
     "title": "Илгээх",
@@ -95,7 +97,8 @@
       "color": "Өнгө",
       "colorOptions": {
         "system": "Систем",
-        "oled": "OLED"
+        "oled": "OLED",
+        "custom": "Өөрийн"
       },
       "language": "Хэл",
       "languageOptions": {
@@ -112,16 +115,19 @@
     "receive": {
       "title": "Авах",
       "quickSave": "@:general.quickSave",
+      "quickSaveFromFavorites": "@:general.quickSaveFromFavorites",
       "requirePin": "@:webSharePage.requirePin",
       "autoFinish": "Авто-дуусгах",
       "destination": "Хавтаст хадгалах",
       "downloads": "(Татсан файлууд)",
       "saveToGallery": "Зургийн санд хадгалах",
-      "saveToHistory": "Түүхэнд хадгалах"
+      "saveToHistory": "Түүхэнд хадгалах",
+      "verifyChecksums": "Файл хүлээн авахдаа шалгах нийлбэрийг баталгаажуулах"
     },
     "send": {
       "title": "Илгээх",
-      "shareViaLinkAutoAccept": "\"Холбоосоор илгээх\" горимын хүсэлтүүдийн шууд зөвшөөрөх"
+      "shareViaLinkAutoAccept": "\"Холбоосоор илгээх\" горимын хүсэлтүүдийн шууд зөвшөөрөх",
+      "createChecksums": "Файл илгээхдээ шалгах нийлбэр үүсгэх"
     },
     "network": {
       "title": "Сүлжээ",
@@ -131,8 +137,14 @@
       "deviceType": "Төхөөрөмжийн төрөл",
       "deviceModel": "Төхөөрөмжийг модел",
       "port": "Порт",
+      "network": "Сүлжээ",
+      "networkOptions": {
+        "all": "Бүгд",
+        "filtered": "Шүүсэн"
+      },
       "discoveryTimeout": "Хайх хүчинтэй хугацаа",
       "useSystemName": "Системийн нэр ашиглах",
+      "generateRandomAlias": "Санамсаргүй нэр үүсгэх",
       "portWarning": "Та өөр порт ашиглаж байгаа тул бусад төхөөрөмжинд олдохгүй байж магадгүй . (өгөгдмөл: {defaultPort})",
       "encryption": "Нууцлал",
       "multicastGroup": "Мультикаст хаяг",
@@ -166,6 +178,13 @@
       "solution": "Хоёр талдаа ажиллахгүй байна уу? Хэрэв тийм бол хоёр төхөөрөмж ижил Wi-Fi сүлжээнд байгаа эсэхийг эсвэл ижил тохиргоотой (порт, multicast хаяг, шифрлэлт) байгаа эсэхийг шалгана уу. Wi-Fi сүлжээ эсвэл Acess Point (AP) төхөөрөмж хоорондын харилцааг хаасан байж магадгүй. Энэ тохиолдолд Wi-Fi төхөөрөмжийн тохиргоог өөрчлөнө үү."
     }
   },
+  "networkInterfacesPage": {
+    "title": "Сүлжээний интерфэйсүүд",
+    "info": "Анхдагчаар LocalSend боломжтой бүх сүлжээний интерфэйсийг ашигладаг. Та хүсээгүй сүлжээг эндээс хасаж болно. Өөрчлөлтийг хэрэгжүүлэхийн тулд серверийг дахин эхлүүлэх шаардлагатай.",
+    "preview": "Урьдчилан харах",
+    "whitelist": "Цагаан жагсаалт",
+    "blacklist": "Хар жагсаалт"
+  },
   "receiveHistoryPage": {
     "title": "Түүх",
     "openFolder": "Хавтас нээх",
@@ -187,6 +206,29 @@
   "selectedFilesPage": {
     "deleteAll": "Бүгдийг устгах"
   },
+  "deviceDetailsPage": {
+    "title": "Төхөөрөмжийн дэлгэрэнгүй",
+    "favorite": "Дуртай",
+    "verify": "Баталгаажуулах",
+    "info": {
+      "name": "Нэр",
+      "address": "Хаяг",
+      "version": "Хувилбар",
+      "protocol": "Протокол v{version}"
+    },
+    "logs": {
+      "title": "Логууд",
+      "empty": "Лог байхгүй байна.",
+      "discovered": "{protocol}-оор илэрсэн ({host})",
+      "updated": "{protocol}-оор шинэчлэгдсэн ({host})"
+    }
+  },
+  "verifyPage": {
+    "title": "Баталгаажуулах",
+    "icons": "Дүрс тэмдэг",
+    "text": "Текст",
+    "question": "Нөгөө төхөөрөмж дээр адилхан харагдаж байна уу?"
+  },
   "receivePage": {
     "subTitle": {
       "one": "танруу файл явуулахыг хүсэж байна",
@@ -204,8 +246,10 @@
     "saveToGalleryOff": "Хавтсууд байгаа учир автоматаар унтраалаа."
   },
   "sendPage": {
+    "calculatingChecksum": "Шалгах нийлбэрийг тооцоолж байна ({curr} / {n})",
     "waiting": "Хариу хүлээж байна…",
     "rejected": "Хүлээн авагч хүсэлтйиг татгалзлаа.",
+    "tooManyAttempts": "@:web.tooManyAttempts",
     "busy": "Хүлээн авагч өөр хүсэлт авсан тул завгүй байна."
   },
   "progressPage": {
@@ -222,10 +266,22 @@
       "count": "Файл: {curr} / {n}",
       "size": "Хэмжээ: {curr} / {n}",
       "speed": "Хурд: {speed}/s"
+    },
+    "remainingTime": {
+      "minutesUnit(plural, param=m)": {
+        "other": "{m}м"
+      },
+      "hoursUnit(plural, param=h)": {
+        "other": "{h}ц"
+      },
+      "minutes": "{m}:{ss}",
+      "hours": "@:.hoursUnit @:.minutesUnit"
     }
   },
   "webSharePage": {
     "title": "Линкээр хуваалцах",
+    "loading": "Сервер эхэлж байна…",
+    "stopping": "Сервер зогсож байна…",
     "error": "Сервер асаахад алдаа гарлаа.",
     "openLink": {
       "one": "Энэ холбоосыг browser дээрээ нээнэ үү:",
@@ -233,11 +289,15 @@
     },
     "requests": "Хүсэлтүүд",
     "noRequests": "Одоогоор хүсэлт байхгүй байна.",
+    "encryption": "@:settingsTab.network.encryption",
     "autoAccept": "Хүсэлтийг автоматаар авах",
     "requirePin": "PIN код ашиглах",
     "pinHint": "PIN код: \"{pin}\"",
     "encryptionHint": "LocalSend нь өөрийн гарын үсэг ашигладаг тул үүнийг browser дээрээ хүлээн зөвшөөрнө үү.",
     "pendingRequests": "Хүлээгдэж буй хүсэлт: {n}"
+  },
+  "webReceivePage": {
+    "title": "Холбоосоор хүлээн авах"
   },
   "aboutPage": {
     "title": "LocalSend танилцуулга",
@@ -247,6 +307,7 @@
     ],
     "author": "Эзэмшигч",
     "contributors": "Хамт тусалсан",
+    "packagers": "Багцлагчид",
     "translators": "Орчуулагч нар"
   },
   "donationPage": {
@@ -259,7 +320,184 @@
   "changelogPage": {
     "title": "Шинэчлэлт"
   },
+  "whatsNewPage": {
+    "title": "{version} хувилбарын шинэлэг зүйлс",
+    "changes(interface=WhatsNewStrings)": {
+      "v1_18_0": {
+        "changes": [
+          "Шифрлэлт дамжуулалтыг удаашруулахаа больсон. Хэрэв та өмнө нь унтраасан бол энэ төхөөрөмж дээр дахин идэвхжүүлсэн.",
+          "Дуртай төхөөрөмжүүдийн хүсэлтийг одоо автоматаар хүлээн авдаг боллоо. Энэ нь анхдагчаар идэвхтэй бөгөөд тохиргооноос унтрааж болно.",
+          "Android дээр апп ар талд байх эсвэл дэлгэц унтарсан үед дамжуулалт үргэлжилнэ. iOS дээр апп урд талд байх ёстой хэвээр."
+        ]
+      }
+    }
+  },
   "aliasGenerator(ignoreMissing, ignoreGpt)": {
     "@info": "Inherits from the English version"
+  },
+  "dialogs": {
+    "addFile": {
+      "title": "Сонголтод нэмэх",
+      "content": "Та юу нэмэхийг хүсэж байна?"
+    },
+    "openFile": {
+      "title": "Файл нээх",
+      "content": "Хүлээн авсан файлыг нээх үү?"
+    },
+    "addressInput": {
+      "title": "Хаяг оруулах",
+      "recentlyUsed": "Саяхан ашигласан: "
+    },
+    "cancelSession": {
+      "title": "Файл дамжуулалтыг цуцлах",
+      "content": "Та файл дамжуулалтыг үнэхээр цуцлах уу?"
+    },
+    "cannotOpenFile": {
+      "title": "Файлыг нээж чадсангүй",
+      "content": "\"{file}\"-г нээж чадсангүй. Энэ файл зөөгдсөн, нэр нь өөрчлөгдсөн эсвэл устгагдсан уу?"
+    },
+    "encryptionDisabledNotice": {
+      "title": "Шифрлэлт идэвхгүй",
+      "content": "Харилцаа одоо шифрлэгдээгүй HTTP протоколоор явагдаж байна. HTTPS протокол ашиглахын тулд шифрлэлтийг дахин идэвхжүүлнэ үү."
+    },
+    "errorDialog": {
+      "title": "@:general.error"
+    },
+    "favoriteDialog": {
+      "title": "Дуртай",
+      "noFavorites": "Одоогоор дуртай төхөөрөмж алга.",
+      "addFavorite": "Нэмэх"
+    },
+    "favoriteDeleteDialog": {
+      "title": "Дуртайгаас устгах",
+      "content": "Та \"{name}\"-г дуртайгаас үнэхээр устгах уу?"
+    },
+    "favoriteEditDialog": {
+      "titleAdd": "Дуртайд нэмэх",
+      "titleEdit": "Тохиргоо",
+      "name": "Төхөөрөмжийн нэр",
+      "auto": "(авто)",
+      "ip": "IP хаяг",
+      "port": "Порт"
+    },
+    "fileInfo": {
+      "title": "Файлын мэдээлэл",
+      "fileName": "Файлын нэр:",
+      "path": "Зам:",
+      "size": "Хэмжээ:",
+      "sender": "Илгээгч:",
+      "time": "Цаг:"
+    },
+    "fileNameInput": {
+      "title": "Файлын нэр оруулах",
+      "original": "Эх нэр: {original}"
+    },
+    "historyClearDialog": {
+      "title": "Түүхийг цэвэрлэх",
+      "content": "Та бүх түүхийг үнэхээр устгах уу?"
+    },
+    "localNetworkUnauthorized": {
+      "title": "@:dialogs.noPermission.title",
+      "description": "Дотоод сүлжээг скан хийх зөвшөөрөлгүйгээр LocalSend бусад төхөөрөмжийг олж чадахгүй. Энэ зөвшөөрлийг тохиргооноос олгоно уу.",
+      "gotoSettings": "Тохиргоо"
+    },
+    "messageInput": {
+      "title": "Мессеж бичих",
+      "multiline": "Олон мөр"
+    },
+    "noFiles": {
+      "title": "Файл сонгоогүй",
+      "content": "Дор хаяж нэг файл сонгоно уу."
+    },
+    "noPermission": {
+      "title": "Зөвшөөрөл алга",
+      "content": "Та шаардлагатай зөвшөөрлүүдийг олгоогүй байна. Тохиргооноос олгоно уу."
+    },
+    "notAvailableOnPlatform": {
+      "title": "Боломжгүй",
+      "content": "Энэ боломж зөвхөн дараах дээр ажиллана:"
+    },
+    "qr": {
+      "title": "QR код"
+    },
+    "quickActions": {
+      "title": "Шуурхай үйлдлүүд",
+      "counter": "Тоолуур",
+      "prefix": "Угтвар",
+      "padZero": "Тэгээр дүүргэх",
+      "sortBeforeCount": "Эхлээд цагаан толгойн дарааллаар эрэмбэлэх (A-Z)",
+      "random": "Санамсаргүй"
+    },
+    "quickSaveNotice": {
+      "title": "@:general.quickSave",
+      "content": "Файлын хүсэлтийг одоо автоматаар хүлээн авна. Дотоод сүлжээн дэх хэн ч танд файл илгээж болохыг анхаарна уу."
+    },
+    "quickSaveFromFavoritesNotice": {
+      "title": "@:general.quickSaveFromFavorites",
+      "content": [
+        "Дуртай жагсаалтад байгаа төхөөрөмжүүдийн файлын хүсэлтийг одоо автоматаар хүлээн авна."
+      ]
+    },
+    "pin": {
+      "title": "PIN код оруулах"
+    },
+    "sendModeHelp": {
+      "title": "Илгээх горимууд",
+      "single": "Нэг хүлээн авагчид файл илгээнэ. Дамжуулалт дууссаны дараа сонголт арилна.",
+      "multiple": "Олон хүлээн авагчид файл илгээнэ. Дамжуулалт дууссаны дараа сонголт арилахгүй.",
+      "link": "LocalSend суулгаагүй хүлээн авагчид холбоосыг хөтчөөрөө нээж сонгосон файлуудыг татаж авах боломжтой."
+    },
+    "zoom": {
+      "title": "URL"
+    }
+  },
+  "sanitization": {
+    "empty": "Файлын нэр хоосон байж болохгүй",
+    "invalid": "Файлын нэр буруу тэмдэгт агуулж байна"
+  },
+  "tray": {
+    "open": "@:general.open",
+    "close": "LocalSend-с гарах",
+    "closeWindows": "Гарах"
+  },
+  "web": {
+    "waiting": "@:sendPage.waiting",
+    "enterPin": "PIN код оруулах",
+    "invalidPin": "Буруу PIN",
+    "tooManyAttempts": "Хэт олон оролдлого",
+    "rejected": "Татгалзсан",
+    "files": "Файлууд",
+    "fileName": "Файлын нэр",
+    "size": "Хэмжээ"
+  },
+  "assetPicker": {
+    "confirm": "Батлах",
+    "cancel": "Цуцлах",
+    "edit": "Засах",
+    "gifIndicator": "GIF",
+    "loadFailed": "Ачаалж чадсангүй",
+    "original": "Эх",
+    "preview": "Урьдчилан харах",
+    "select": "Сонгох",
+    "emptyList": "Хоосон жагсаалт",
+    "unSupportedAssetType": "Дэмжигдээгүй файлын төрөл.",
+    "unableToAccessAll": "Төхөөрөмж дээрх бүх файлд хандах боломжгүй",
+    "viewingLimitedAssetsTip": "Зөвхөн аппд хандах боломжтой файл болон цомгуудыг харна.",
+    "changeAccessibleLimitedAssets": "Хандах боломжтой файлуудыг шинэчлэхийн тулд дарна уу",
+    "accessAllTip": "Апп төхөөрөмж дээрх зарим файлд л хандах боломжтой. Системийн тохиргоо руу орж аппд төхөөрөмжийн бүх медиад хандахыг зөвшөөрнө үү.",
+    "goToSystemSettings": "Системийн тохиргоо руу очих",
+    "accessLimitedAssets": "Хязгаарлагдмал хандалтаар үргэлжлүүлэх",
+    "accessiblePathName": "Хандах боломжтой файлууд",
+    "sTypeAudioLabel": "Аудио",
+    "sTypeImageLabel": "Зураг",
+    "sTypeVideoLabel": "Видео",
+    "sTypeOtherLabel": "Бусад медиа",
+    "sActionPlayHint": "тоглуулах",
+    "sActionPreviewHint": "урьдчилан харах",
+    "sActionSelectHint": "сонгох",
+    "sActionSwitchPathLabel": "зам солих",
+    "sActionUseCameraHint": "камер ашиглах",
+    "sNameDurationLabel": "үргэлжлэх хугацаа",
+    "sUnitAssetCountLabel": "тоо"
   }
 }

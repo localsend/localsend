@@ -27,6 +27,7 @@
     "open": "Ireki",
     "queue": "Ilara",
     "quickSave": "Gordetze Azkarra",
+    "quickSaveFromFavorites": "“Gogokoetan” gorde",
     "renamed": "Berizendatua",
     "reset": "Berrezarri",
     "restart": "Berrasieratu",
@@ -37,8 +38,7 @@
     "save": "Gorde",
     "unchanged": "Aldaketarik gabe",
     "unknown": "Ezezaguna",
-    "noItemInClipboard": "Arbela hutsik dago.",
-    "quickSaveFromFavorites": "“Gogokoetan” gorde"
+    "noItemInClipboard": "Arbela hutsik dago."
   },
   "receiveTab": {
     "title": "Eskuratu",
@@ -49,9 +49,10 @@
     },
     "quickSave": {
       "off": "@:general.off",
-      "on": "@:general.on",
-      "favorites": "Gogokoak"
-    }
+      "favorites": "Gogokoak",
+      "on": "@:general.on"
+    },
+    "link": "Jaso esteka bidez"
   },
   "sendTab": {
     "title": "Bidali",
@@ -72,6 +73,7 @@
     "nearbyDevices": "Inguruko Gailuak",
     "thisDevice": "Gailu hau",
     "scan": "Bilatu gailuak",
+    "manualSending": "Eskuzko bidalketa",
     "sendMode": "Bidalketa modua",
     "sendModes": {
       "single": "Hartzaile bakarra",
@@ -80,8 +82,7 @@
     },
     "sendModeHelp": "Azalpena",
     "help": "Ziurtatu zaitez aukeratutako hartzailea zure Wi-Fi sare berean dagoela.",
-    "placeItems": "Aukeratu elkarbanatzeko elementuak.",
-    "manualSending": "Eskuzko bidalketa"
+    "placeItems": "Aukeratu elkarbanatzeko elementuak."
   },
   "settingsTab": {
     "title": "Ezarpenak",
@@ -96,29 +97,37 @@
       "color": "Kolorea",
       "colorOptions": {
         "system": "Sistema",
-        "oled": "OLED"
+        "oled": "OLED",
+        "custom": "Pertsonalizatua"
       },
       "language": "Hizkuntza",
       "languageOptions": {
         "system": "Sistema"
       },
       "saveWindowPlacement": "Ateratzean gorde lehioaren kokapena",
+      "saveWindowPlacementWindows": "Irteeran leihoaren kokapena gorde",
       "minimizeToTray": "Itxi: txikitu lehioa",
       "launchAtStartup": "Hasieratze automatikoa",
       "launchMinimized": "Hasieratze automatikoa: hasi txikituta",
-      "animations": "Animazioak",
-      "saveWindowPlacementWindows": "Irteeran leihoaren kokapena gorde",
-      "showInContextMenu": "Erakutsi LocalSend testuinguru menuan"
+      "showInContextMenu": "Erakutsi LocalSend testuinguru menuan",
+      "animations": "Animazioak"
     },
     "receive": {
       "title": "Eskuratu",
       "quickSave": "@:general.quickSave",
+      "quickSaveFromFavorites": "@:general.quickSaveFromFavorites",
+      "requirePin": "@:webSharePage.requirePin",
+      "autoFinish": "Automatikoki amaitu",
       "destination": "Hartzailea",
       "downloads": "(Deskargak)",
       "saveToGallery": "Gorde galerian",
       "saveToHistory": "Gorde historialean",
-      "quickSaveFromFavorites": "@:general.quickSaveFromFavorites",
-      "autoFinish": "Automatikoki amaitu"
+      "verifyChecksums": "Egiaztatu kontrol-baturak fitxategiak jasotzean"
+    },
+    "send": {
+      "title": "Bidali",
+      "shareViaLinkAutoAccept": "Eskaerak automatikoki onartu “URL bidez partekatu” moduan",
+      "createChecksums": "Sortu kontrol-baturak fitxategiak bidaltzean"
     },
     "network": {
       "title": "Gorria",
@@ -128,23 +137,18 @@
       "deviceType": "Gailu mota",
       "deviceModel": "Gailu modeloa",
       "port": "Portua",
-      "portWarning": "Portu berezi bat erabiltzen ari zarenez, agian ez zara beste gailuentzat ikusgarri izango (Lehenetsitako portua: {defaultPort})",
-      "encryption": "Zifratzea",
-      "multicastGroup": "Multicast",
-      "multicastGroupWarning": "Multicast helbide berezi bat erabiltzen ari zarenez, agian ez zara beste gailuentzat ikusgarri izango. (Lehenetsitako multicast helbidea: {defaultMulticast})",
-      "discoveryTimeout": "Aurkikuntza denbora muga",
-      "useSystemName": "Erabili sistemaren izena",
-      "generateRandomAlias": "Ausazko \"alias\" sortu",
+      "network": "Sarea",
       "networkOptions": {
         "all": "Guztiak",
         "filtered": "Iragazita"
       },
-      "network": "Sarea"
-    },
-    "advancedSettings": "Ezarpen aurreratuak",
-    "send": {
-      "title": "Bidali",
-      "shareViaLinkAutoAccept": "Eskaerak automatikoki onartu “URL bidez partekatu” moduan"
+      "discoveryTimeout": "Aurkikuntza denbora muga",
+      "useSystemName": "Erabili sistemaren izena",
+      "generateRandomAlias": "Ausazko \"alias\" sortu",
+      "portWarning": "Portu berezi bat erabiltzen ari zarenez, agian ez zara beste gailuentzat ikusgarri izango (Lehenetsitako portua: {defaultPort})",
+      "encryption": "Zifratzea",
+      "multicastGroup": "Multicast",
+      "multicastGroupWarning": "Multicast helbide berezi bat erabiltzen ari zarenez, agian ez zara beste gailuentzat ikusgarri izango. (Lehenetsitako multicast helbidea: {defaultMulticast})"
     },
     "other": {
       "title": "Besteak",
@@ -152,7 +156,8 @@
       "donate": "Dohaintza egin",
       "privacyPolicy": "Pribatutasun politika",
       "termsOfUse": "Erabilera baldintzak"
-    }
+    },
+    "advancedSettings": "Ezarpen aurreratuak"
   },
   "troubleshootPage": {
     "title": "Konpondu arazoak",
@@ -164,14 +169,21 @@
       "solution": "Suhesiarekin erlazionatutako arazo bat izen liteke. {port} portura sarrerako konexioak (UDP eta TCP) onartuz konpon dezakezu.",
       "openFirewall": "Ireki Suhesia"
     },
-    "noConnection": {
-      "symptom": "Hartzaile eta bidaltzaileak ez dute elkar ikusten eta ezin diote fitxategiak elkarri bidali.",
-      "solution": "Bi aldeetan dago arazoa? Ziurtatu Wi-Fi sare berdinean kokatuta daudela eta konfigurazio bera elkarbanatzen dutela (portua, multicast helbidea, zifratua). Arazoa Wi-Fi sareak partaideen arteko konexioak mugatzea ere izan liteke. Horrela bada, routerrean aukera hau aktibatu."
-    },
     "noDiscovery": {
       "symptom": "Gailu honek ezin ditu beste gailurik aurkitu.",
       "solution": "Ziurtatu gailu guztiak Wi-Fi sare berean daudela eta konfigurazio bera partekatzen dutela (atea, helbide multikasta, kodeketa). Helburuko gailuaren IP helbidea eskuz idatz dezakezu. Horrek balio badu, gehitu gailu hori gogokoetan, etorkizunean automatikoki aurkitu dadin."
+    },
+    "noConnection": {
+      "symptom": "Hartzaile eta bidaltzaileak ez dute elkar ikusten eta ezin diote fitxategiak elkarri bidali.",
+      "solution": "Bi aldeetan dago arazoa? Ziurtatu Wi-Fi sare berdinean kokatuta daudela eta konfigurazio bera elkarbanatzen dutela (portua, multicast helbidea, zifratua). Arazoa Wi-Fi sareak partaideen arteko konexioak mugatzea ere izan liteke. Horrela bada, routerrean aukera hau aktibatu."
     }
+  },
+  "networkInterfacesPage": {
+    "title": "Sare interfazeak",
+    "info": "Lehenespenez, LocalSend-ek eskuragarri dauden sare-interfaze guztiak erabiltzen ditu. Nahi ez dituzun sareak hemen baztertu ditzakezu. Zerbitzaria berrabiarazi behar duzu aldaketak aplikatzeko.",
+    "preview": "Aurrebista",
+    "whitelist": "Zerrenda zuria",
+    "blacklist": "Zerrenda beltza"
   },
   "receiveHistoryPage": {
     "title": "Historia",
@@ -180,6 +192,7 @@
     "empty": "Historia hutsik dago.",
     "entryActions": {
       "open": "Ireki fitxategia",
+      "showInFolder": "Erakutsi karpetan",
       "info": "Informazioa",
       "deleteFromHistory": "Ezabatu historia"
     }
@@ -192,6 +205,29 @@
   },
   "selectedFilesPage": {
     "deleteAll": "Ezabatu dena"
+  },
+  "deviceDetailsPage": {
+    "title": "Gailuaren xehetasunak",
+    "favorite": "Gogokoa",
+    "verify": "Egiaztatu",
+    "info": {
+      "name": "Izena",
+      "address": "Helbidea",
+      "version": "Bertsioa",
+      "protocol": "Protokoloa v{version}"
+    },
+    "logs": {
+      "title": "Erregistroak",
+      "empty": "Ez dago erregistrorik eskuragarri.",
+      "discovered": "{protocol} bidez aurkitua ({host})",
+      "updated": "{protocol} bidez eguneratua ({host})"
+    }
+  },
+  "verifyPage": {
+    "title": "Egiaztatu",
+    "icons": "Ikonoak",
+    "text": "Testua",
+    "question": "Beste gailuan berdin ikusten da?"
   },
   "receivePage": {
     "subTitle": {
@@ -210,8 +246,10 @@
     "saveToGalleryOff": "Direktorioak daudelako desaktibatua."
   },
   "sendPage": {
+    "calculatingChecksum": "Kontrol-batura kalkulatzen ({curr} / {n})",
     "waiting": "Erantzunaren zai...",
     "rejected": "Hartzaileak ez du bidalketa onartu.",
+    "tooManyAttempts": "@:web.tooManyAttempts",
     "busy": "Hartzailea beste bidalketa batekin okupatuta dago."
   },
   "progressPage": {
@@ -228,6 +266,16 @@
       "count": "Fitxategiak: {curr} / {n}",
       "size": "Tamaina: {curr} / {n}",
       "speed": "Abiadura: {speed}/s"
+    },
+    "remainingTime": {
+      "minutesUnit(plural, param=m)": {
+        "other": "{m}min"
+      },
+      "hoursUnit(plural, param=h)": {
+        "other": "{h}h"
+      },
+      "minutes": "{m}:{ss}",
+      "hours": "@:.hoursUnit @:.minutesUnit"
     }
   },
   "webSharePage": {
@@ -242,14 +290,47 @@
     "requests": "Eskerak",
     "noRequests": "Oraindik ez dago eskaerarik.",
     "encryption": "@:settingsTab.network.encryption",
+    "autoAccept": "Onartu eskaerak automatikoki",
+    "requirePin": "Eskatu PINa",
+    "pinHint": "PINa \"{pin}\" da",
     "encryptionHint": "LocalSend-ek autosinatutako zertifikatuak erabiltzen ditu. Nabigatzailean onartu behar duzu",
     "pendingRequests": "Eskerak: {n}"
   },
+  "webReceivePage": {
+    "title": "Jaso esteka bidez"
+  },
   "aboutPage": {
-    "title": "LocalSend buruz"
+    "title": "LocalSend buruz",
+    "description": [
+      "LocalSend doako eta kode irekiko aplikazio bat da, gertuko gailuekin fitxategiak eta mezuak modu seguruan partekatzeko aukera ematen dizuna zure sare lokalaren bidez, interneteko konexiorik behar izan gabe.",
+      "Aplikazio hau Android, iOS, macOS, Windows eta Linux sistemetan dago eskuragarri. Deskarga-aukera guztiak webgune ofizialean aurki ditzakezu."
+    ],
+    "author": "Egilea",
+    "contributors": "Laguntzaileak",
+    "packagers": "Paketatzaileak",
+    "translators": "Itzultzaileak"
+  },
+  "donationPage": {
+    "title": "Egin dohaintza",
+    "info": "LocalSend doakoa da, kode irekikoa eta iragarkirik gabea. Aplikazioa gustuko baduzu, garapena dohaintza batekin lagun dezakezu.",
+    "donate": "Eman {amount}",
+    "thanks": "Eskerrik asko!",
+    "restore": "Berreskuratu erosketa"
   },
   "changelogPage": {
     "title": "Aldaketak"
+  },
+  "whatsNewPage": {
+    "title": "Zer berri {version} bertsioan",
+    "changes(interface=WhatsNewStrings)": {
+      "v1_18_0": {
+        "changes": [
+          "Zifratzeak jada ez ditu transferentziak moteltzen. Gailu honetan berriro gaitu da, lehen desgaitu bazenuen.",
+          "Gogokoen eskaerak orain automatikoki onartzen dira. Lehenespenez gaituta dago eta ezarpenetan desgaitu daiteke.",
+          "Android-en, transferentziek jarraitzen dute aplikazioa atzeko planoan dagoenean edo pantaila itzalita dagoenean. iOS-en, aplikazioak aurreko planoan egon behar du oraindik."
+        ]
+      }
+    }
   },
   "aliasGenerator(ignoreMissing, ignoreGpt)": {
     "@info": "Uses English version"
@@ -258,6 +339,10 @@
     "addFile": {
       "title": "Gehitu aukeraketari",
       "content": "Zer gehitu nahi duzu?"
+    },
+    "openFile": {
+      "title": "Ireki fitxategia",
+      "content": "Jasotako fitxategia ireki nahi duzu?"
     },
     "addressInput": {
       "title": "Sartu helbidea",
@@ -307,6 +392,10 @@
       "title": "Sartu izena",
       "original": "Jatorrizkoa: {original}"
     },
+    "historyClearDialog": {
+      "title": "Garbitu historia",
+      "content": "Ziur historia osoa ezabatu nahi duzula?"
+    },
     "localNetworkUnauthorized": {
       "title": "@:dialogs.noPermission.title",
       "description": "Sare lokala eskaneatzeko baimenik gabe, LocalSend-ek ezin ditu inguruko gailuak aurkitu. Mesedez, onartu baimen hau ezarpenetan.",
@@ -343,20 +432,40 @@
       "title": "@:general.quickSave",
       "content": "Fitxategi eskaerak automatikoki onartzen dira. Kontutan izan sare lokaleko edonork bidali ahal izango dizkizula fitxategiak."
     },
+    "quickSaveFromFavoritesNotice": {
+      "title": "@:general.quickSaveFromFavorites",
+      "content": [
+        "Fitxategi-eskaerak orain automatikoki onartzen dira zure gogokoen zerrendako gailuetatik."
+      ]
+    },
+    "pin": {
+      "title": "Sartu PINa"
+    },
     "sendModeHelp": {
       "title": "Bidalketa moduak",
       "single": "Bidali fitxategiak hartzaile bakar bati. Bidalketa bukatutakoan aukeraketa garbituko da.",
       "multiple": "Bidali fitxategiak hartzaile anitzeri. Aukeraketa ez da garbituko.",
       "link": "LocalSend instalatuta ez duten hartzaileak fitxategiak eskuratu ahali zango dituzte lotura nabigatzailean zabalduz."
+    },
+    "zoom": {
+      "title": "URL"
     }
+  },
+  "sanitization": {
+    "empty": "Fitxategi-izena ezin da hutsik egon",
+    "invalid": "Fitxategiaren izena karaktere baliogabeak ditu"
   },
   "tray": {
     "@info": "Apple Guidelines are very strict about the 'close' wording.",
     "open": "@:general.open",
-    "close": "Itxi LocalSend"
+    "close": "Itxi LocalSend",
+    "closeWindows": "Irten"
   },
   "web": {
     "waiting": "@:sendPage.waiting",
+    "enterPin": "Sartu PINa",
+    "invalidPin": "PIN baliogabea",
+    "tooManyAttempts": "Saiakera gehiegi",
     "rejected": "Bertan behera utzita",
     "files": "Fitxategiak",
     "fileName": "Fitxateig izena",
@@ -392,11 +501,5 @@
     "sActionUseCameraHint": "erabaili kamera",
     "sNameDurationLabel": "iraupena",
     "sUnitAssetCountLabel": "kontaketa"
-  },
-  "sanitization": {
-    "invalid": "Fitxategiaren izena karaktere baliogabeak ditu"
-  },
-  "networkInterfacesPage": {
-    "title": "Sare interfazeak"
   }
 }

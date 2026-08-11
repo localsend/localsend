@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_isolates/util/sleep.dart';
+import 'package:refena_flutter/refena_flutter.dart';
 
 class InitialFadeTransition extends StatefulWidget {
   final Widget child;
@@ -24,7 +26,8 @@ class _InitialFadeTransitionState extends State<InitialFadeTransition> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      await sleepAsync(widget.delay.inMilliseconds);
+      final delay = context.read(settingsProvider).enableAnimations ? widget.delay.inMilliseconds : 0;
+      await sleepAsync(delay);
       if (!mounted) {
         return;
       }

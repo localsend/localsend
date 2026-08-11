@@ -22,14 +22,14 @@ class FileMetadataMapper extends ClassMapperBase<FileMetadata> {
   @override
   final String id = 'FileMetadata';
 
-  static DateTime? _$lastModified(FileMetadata v) => v.lastModified;
-  static const Field<FileMetadata, DateTime> _f$lastModified = Field(
+  static String? _$lastModified(FileMetadata v) => v.lastModified;
+  static const Field<FileMetadata, String> _f$lastModified = Field(
     'lastModified',
     _$lastModified,
     key: r'modified',
   );
-  static DateTime? _$lastAccessed(FileMetadata v) => v.lastAccessed;
-  static const Field<FileMetadata, DateTime> _f$lastAccessed = Field(
+  static String? _$lastAccessed(FileMetadata v) => v.lastAccessed;
+  static const Field<FileMetadata, String> _f$lastAccessed = Field(
     'lastAccessed',
     _$lastAccessed,
     key: r'accessed',
@@ -112,7 +112,7 @@ extension FileMetadataValueCopy<$R, $Out>
 
 abstract class FileMetadataCopyWith<$R, $In extends FileMetadata, $Out>
     implements ClassCopyWith<$R, $In, $Out> {
-  $R call({DateTime? lastModified, DateTime? lastAccessed});
+  $R call({String? lastModified, String? lastAccessed});
   FileMetadataCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
 

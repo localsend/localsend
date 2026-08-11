@@ -60,6 +60,10 @@ class TranslationsVi extends Translations with BaseTranslations<AppLocale, Trans
   @override
   late final _Translations$selectedFilesPage$vi selectedFilesPage = _Translations$selectedFilesPage$vi._(_root);
   @override
+  late final _Translations$deviceDetailsPage$vi deviceDetailsPage = _Translations$deviceDetailsPage$vi._(_root);
+  @override
+  late final _Translations$verifyPage$vi verifyPage = _Translations$verifyPage$vi._(_root);
+  @override
   late final _Translations$receivePage$vi receivePage = _Translations$receivePage$vi._(_root);
   @override
   late final _Translations$receiveOptionsPage$vi receiveOptionsPage = _Translations$receiveOptionsPage$vi._(_root);
@@ -70,11 +74,15 @@ class TranslationsVi extends Translations with BaseTranslations<AppLocale, Trans
   @override
   late final _Translations$webSharePage$vi webSharePage = _Translations$webSharePage$vi._(_root);
   @override
+  late final _Translations$webReceivePage$vi webReceivePage = _Translations$webReceivePage$vi._(_root);
+  @override
   late final _Translations$aboutPage$vi aboutPage = _Translations$aboutPage$vi._(_root);
   @override
   late final _Translations$donationPage$vi donationPage = _Translations$donationPage$vi._(_root);
   @override
   late final _Translations$changelogPage$vi changelogPage = _Translations$changelogPage$vi._(_root);
+  @override
+  late final _Translations$whatsNewPage$vi whatsNewPage = _Translations$whatsNewPage$vi._(_root);
   @override
   late final _Translations$dialogs$vi dialogs = _Translations$dialogs$vi._(_root);
   @override
@@ -185,6 +193,8 @@ class _Translations$receiveTab$vi extends Translations$receiveTab$en {
   late final _Translations$receiveTab$infoBox$vi infoBox = _Translations$receiveTab$infoBox$vi._(_root);
   @override
   late final _Translations$receiveTab$quickSave$vi quickSave = _Translations$receiveTab$quickSave$vi._(_root);
+  @override
+  String get link => 'Nhận qua liên kết';
 }
 
 // Path: sendTab
@@ -335,6 +345,42 @@ class _Translations$selectedFilesPage$vi extends Translations$selectedFilesPage$
   String get deleteAll => 'Xoá toàn bộ';
 }
 
+// Path: deviceDetailsPage
+class _Translations$deviceDetailsPage$vi extends Translations$deviceDetailsPage$en {
+  _Translations$deviceDetailsPage$vi._(TranslationsVi root) : this._root = root, super.internal(root);
+
+  final TranslationsVi _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Chi tiết thiết bị';
+  @override
+  String get favorite => 'Yêu thích';
+  @override
+  String get verify => 'Xác minh';
+  @override
+  late final _Translations$deviceDetailsPage$info$vi info = _Translations$deviceDetailsPage$info$vi._(_root);
+  @override
+  late final _Translations$deviceDetailsPage$logs$vi logs = _Translations$deviceDetailsPage$logs$vi._(_root);
+}
+
+// Path: verifyPage
+class _Translations$verifyPage$vi extends Translations$verifyPage$en {
+  _Translations$verifyPage$vi._(TranslationsVi root) : this._root = root, super.internal(root);
+
+  final TranslationsVi _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Xác minh';
+  @override
+  String get icons => 'Biểu tượng';
+  @override
+  String get text => 'Văn bản';
+  @override
+  String get question => 'Nó có giống nhau trên thiết bị kia không?';
+}
+
 // Path: receivePage
 class _Translations$receivePage$vi extends Translations$receivePage$en {
   _Translations$receivePage$vi._(TranslationsVi root) : this._root = root, super.internal(root);
@@ -383,6 +429,8 @@ class _Translations$sendPage$vi extends Translations$sendPage$en {
 
   // Translations
   @override
+  String calculatingChecksum({required Object curr, required Object n}) => 'Đang tính checksum (${curr} / ${n})';
+  @override
   String get waiting => 'Đang chờ phản hồi…';
   @override
   String get rejected => 'Người nhận đã từ chối yêu cầu.';
@@ -407,6 +455,8 @@ class _Translations$progressPage$vi extends Translations$progressPage$en {
   String get savedToGallery => 'Đã lưu vào Ảnh';
   @override
   late final _Translations$progressPage$total$vi total = _Translations$progressPage$total$vi._(_root);
+  @override
+  late final _Translations$progressPage$remainingTime$vi remainingTime = _Translations$progressPage$remainingTime$vi._(_root);
 }
 
 // Path: webSharePage
@@ -446,6 +496,17 @@ class _Translations$webSharePage$vi extends Translations$webSharePage$en {
   String get encryptionHint => 'LocalSend dùng chứng chỉ tự tạo. Bạn cần chấp thuận trong trình duyệt.';
   @override
   String pendingRequests({required Object n}) => 'Yêu cầu chờ: ${n}';
+}
+
+// Path: webReceivePage
+class _Translations$webReceivePage$vi extends Translations$webReceivePage$en {
+  _Translations$webReceivePage$vi._(TranslationsVi root) : this._root = root, super.internal(root);
+
+  final TranslationsVi _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Nhận qua liên kết';
 }
 
 // Path: aboutPage
@@ -501,6 +562,19 @@ class _Translations$changelogPage$vi extends Translations$changelogPage$en {
   // Translations
   @override
   String get title => 'Lịch sử thay đổi';
+}
+
+// Path: whatsNewPage
+class _Translations$whatsNewPage$vi extends Translations$whatsNewPage$en {
+  _Translations$whatsNewPage$vi._(TranslationsVi root) : this._root = root, super.internal(root);
+
+  final TranslationsVi _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String title({required Object version}) => 'Có gì mới trong ${version}';
+  @override
+  late final _Translations$whatsNewPage$changes$vi changes = _Translations$whatsNewPage$changes$vi._(_root);
 }
 
 // Path: dialogs
@@ -827,6 +901,8 @@ class _Translations$settingsTab$receive$vi extends Translations$settingsTab$rece
   String get saveToGallery => 'Lưu media vào thư viện';
   @override
   String get saveToHistory => 'Lưu vào lịch sử';
+  @override
+  String get verifyChecksums => 'Xác minh checksum khi nhận tệp';
 }
 
 // Path: settingsTab.send
@@ -840,6 +916,8 @@ class _Translations$settingsTab$send$vi extends Translations$settingsTab$send$en
   String get title => 'Gửi';
   @override
   String get shareViaLinkAutoAccept => 'Chia sẻ qua liên kết: Tự động chấp nhận';
+  @override
+  String get createChecksums => 'Tạo checksum khi gửi tệp';
 }
 
 // Path: settingsTab.network
@@ -965,6 +1043,40 @@ class _Translations$receiveHistoryPage$entryActions$vi extends Translations$rece
   String get deleteFromHistory => 'Xoá khỏi lịch sử';
 }
 
+// Path: deviceDetailsPage.info
+class _Translations$deviceDetailsPage$info$vi extends Translations$deviceDetailsPage$info$en {
+  _Translations$deviceDetailsPage$info$vi._(TranslationsVi root) : this._root = root, super.internal(root);
+
+  final TranslationsVi _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get name => 'Tên';
+  @override
+  String get address => 'Địa chỉ';
+  @override
+  String get version => 'Phiên bản';
+  @override
+  String protocol({required Object version}) => 'Giao thức v${version}';
+}
+
+// Path: deviceDetailsPage.logs
+class _Translations$deviceDetailsPage$logs$vi extends Translations$deviceDetailsPage$logs$en {
+  _Translations$deviceDetailsPage$logs$vi._(TranslationsVi root) : this._root = root, super.internal(root);
+
+  final TranslationsVi _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Nhật ký';
+  @override
+  String get empty => 'Không có nhật ký nào.';
+  @override
+  String discovered({required Object protocol, required Object host}) => 'Được phát hiện qua ${protocol} (${host})';
+  @override
+  String updated({required Object protocol, required Object host}) => 'Được cập nhật qua ${protocol} (${host})';
+}
+
 // Path: progressPage.total
 class _Translations$progressPage$total$vi extends Translations$progressPage$total$en {
   _Translations$progressPage$total$vi._(TranslationsVi root) : this._root = root, super.internal(root);
@@ -980,6 +1092,41 @@ class _Translations$progressPage$total$vi extends Translations$progressPage$tota
   String size({required Object curr, required Object n}) => 'Kích thước: ${curr} / ${n}';
   @override
   String speed({required Object speed}) => 'Tốc độ: ${speed}/s';
+}
+
+// Path: progressPage.remainingTime
+class _Translations$progressPage$remainingTime$vi extends Translations$progressPage$remainingTime$en {
+  _Translations$progressPage$remainingTime$vi._(TranslationsVi root) : this._root = root, super.internal(root);
+
+  final TranslationsVi _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String minutesUnit({required num m}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('vi'))(
+    m,
+    other: '${m} phút',
+  );
+  @override
+  String hoursUnit({required num h}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('vi'))(
+    h,
+    other: '${h} giờ',
+  );
+  @override
+  String minutes({required Object m, required Object ss}) => '${m}:${ss}';
+  @override
+  String hours({required num h, required num m}) =>
+      '${_root.progressPage.remainingTime.hoursUnit(h: h)} ${_root.progressPage.remainingTime.minutesUnit(m: m)}';
+}
+
+// Path: whatsNewPage.changes
+class _Translations$whatsNewPage$changes$vi extends Translations$whatsNewPage$changes$en {
+  _Translations$whatsNewPage$changes$vi._(TranslationsVi root) : this._root = root, super.internal(root);
+
+  final TranslationsVi _root; // ignore: unused_field
+
+  // Translations
+  @override
+  late final _Translations$whatsNewPage$changes$v1_18_0$vi v1_18_0 = _Translations$whatsNewPage$changes$v1_18_0$vi._(_root);
 }
 
 // Path: dialogs.addFile
@@ -1361,6 +1508,8 @@ class _Translations$settingsTab$general$colorOptions$vi extends Translations$set
   String get system => 'Hệ thống';
   @override
   String get oled => 'OLED';
+  @override
+  String get custom => 'Tùy chỉnh';
 }
 
 // Path: settingsTab.general.languageOptions
@@ -1402,4 +1551,19 @@ class _Translations$progressPage$total$title$vi extends Translations$progressPag
   String get canceledSender => 'Đã huỷ bởi người gửi';
   @override
   String get canceledReceiver => 'Đã huỷ bởi người nhận';
+}
+
+// Path: whatsNewPage.changes.v1_18_0
+class _Translations$whatsNewPage$changes$v1_18_0$vi extends Translations$whatsNewPage$changes$v1_18_0$en with WhatsNewStrings {
+  _Translations$whatsNewPage$changes$v1_18_0$vi._(TranslationsVi root) : this._root = root, super.internal(root);
+
+  final TranslationsVi _root; // ignore: unused_field
+
+  // Translations
+  @override
+  List<String> get changes => [
+    'Mã hóa không còn làm chậm quá trình truyền tệp. Nó đã được bật lại trên thiết bị này nếu trước đây bạn đã tắt.',
+    'Yêu cầu từ các thiết bị yêu thích giờ được chấp nhận tự động. Tính năng này được bật mặc định và có thể tắt trong cài đặt.',
+    'Trên Android, quá trình truyền tệp tiếp tục khi ứng dụng ở chế độ nền hoặc màn hình tắt. Trên iOS, ứng dụng vẫn phải ở trên nền trước.',
+  ];
 }

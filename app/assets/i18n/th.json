@@ -51,7 +51,8 @@
       "off": "บันทึกอย่างรวดเร็ว",
       "favorites": "รายการโปรด",
       "on": "@:general.on"
-    }
+    },
+    "link": "รับผ่านลิงก์"
   },
   "sendTab": {
     "title": "ส่ง",
@@ -96,7 +97,8 @@
       "color": "สี",
       "colorOptions": {
         "system": "ตามระบบ",
-        "oled": "โอเล็ด"
+        "oled": "โอเล็ด",
+        "custom": "กำหนดเอง"
       },
       "language": "ภาษา",
       "languageOptions": {
@@ -119,11 +121,13 @@
       "destination": "ปลายทาง",
       "downloads": "(ดาวน์โหลด)",
       "saveToGallery": "บันทึกมีเดียลงในแกลอรี่",
-      "saveToHistory": "บันทึกลงในประวัติย้อนหลัง"
+      "saveToHistory": "บันทึกลงในประวัติย้อนหลัง",
+      "verifyChecksums": "ตรวจสอบ checksum เมื่อรับไฟล์"
     },
     "send": {
       "title": "ส่ง",
-      "shareViaLinkAutoAccept": "ตอบรับคำขอในการโอนถ่ายข้อมูลจากโหมด \"แชร์ผ่านลิงก์\" โดยอัตโนมัติ"
+      "shareViaLinkAutoAccept": "ตอบรับคำขอในการโอนถ่ายข้อมูลจากโหมด \"แชร์ผ่านลิงก์\" โดยอัตโนมัติ",
+      "createChecksums": "สร้าง checksum เมื่อส่งไฟล์"
     },
     "network": {
       "title": "เครือข่าย",
@@ -202,6 +206,29 @@
   "selectedFilesPage": {
     "deleteAll": "ลบทั้งหมด"
   },
+  "deviceDetailsPage": {
+    "title": "รายละเอียดอุปกรณ์",
+    "favorite": "รายการโปรด",
+    "verify": "ตรวจสอบ",
+    "info": {
+      "name": "ชื่อ",
+      "address": "ที่อยู่",
+      "version": "เวอร์ชัน",
+      "protocol": "โปรโตคอล v{version}"
+    },
+    "logs": {
+      "title": "บันทึก",
+      "empty": "ไม่มีบันทึก",
+      "discovered": "ค้นพบผ่าน {protocol} ({host})",
+      "updated": "อัปเดตผ่าน {protocol} ({host})"
+    }
+  },
+  "verifyPage": {
+    "title": "ตรวจสอบ",
+    "icons": "ไอคอน",
+    "text": "ข้อความ",
+    "question": "บนอุปกรณ์อีกเครื่องแสดงเหมือนกันหรือไม่?"
+  },
   "receivePage": {
     "subTitle": {
       "one": "ต้องการส่งไฟล์ให้คุณ",
@@ -219,6 +246,7 @@
     "saveToGalleryOff": "ถูกปิดโดยอัตโนมัติเนื่องจากมีโฟลเดอร์"
   },
   "sendPage": {
+    "calculatingChecksum": "กำลังคำนวณ checksum ({curr} / {n})",
     "waiting": "กำลังรอการตอบกลับ...",
     "rejected": "ผู้รับได้ปฏิเสธคำขอส่งไฟล์",
     "tooManyAttempts": "@:web.tooManyAttempts",
@@ -238,6 +266,16 @@
       "count": "ไฟล์: {curr} / {n}",
       "size": "ขนาด: {curr} / {n}",
       "speed": "ความเร็ว: {speed}/วิ"
+    },
+    "remainingTime": {
+      "minutesUnit(plural, param=m)": {
+        "other": "{m}นท"
+      },
+      "hoursUnit(plural, param=h)": {
+        "other": "{h}ชม"
+      },
+      "minutes": "{m}:{ss}",
+      "hours": "@:.hoursUnit @:.minutesUnit"
     }
   },
   "webSharePage": {
@@ -257,6 +295,9 @@
     "pinHint": "รหัส PIN คือ \"{pin}\"",
     "encryptionHint": "LocalSend ใช้ใบรับรองอุปกรณ์จากเว็บเบราเซอร์ (self-signed certificate) คุณต้องกดยอมรับใบรับรองนี้ในเบราว์เซอร์บนอุปกรณ์ของคุณ",
     "pendingRequests": "คำขอที่รอดำเนินการ: {n}"
+  },
+  "webReceivePage": {
+    "title": "รับผ่านลิงก์"
   },
   "aboutPage": {
     "title": "เกี่ยวกับ LocalSend",
@@ -278,6 +319,18 @@
   },
   "changelogPage": {
     "title": "บันทึกรายการเปลี่ยนแปลง"
+  },
+  "whatsNewPage": {
+    "title": "มีอะไรใหม่ใน {version}",
+    "changes(interface=WhatsNewStrings)": {
+      "v1_18_0": {
+        "changes": [
+          "การเข้ารหัสไม่ทำให้การโอนช้าลงอีกต่อไป หากคุณเคยปิดไว้ ระบบได้เปิดใช้งานอีกครั้งบนอุปกรณ์นี้แล้ว",
+          "คำขอจากรายการโปรดจะถูกยอมรับโดยอัตโนมัติแล้ว โดยเปิดใช้งานเป็นค่าเริ่มต้น และสามารถปิดได้ในการตั้งค่า",
+          "บน Android การโอนจะดำเนินต่อขณะที่แอปอยู่เบื้องหลังหรือปิดหน้าจอ บน iOS แอปยังคงต้องอยู่เบื้องหน้า"
+        ]
+      }
+    }
   },
   "aliasGenerator(ignoreMissing, ignoreGpt)": {
     "@info": "ภาษาอื่นอาจมีคำที่แตกต่างกันออกไป อาจจะไม่ตรงกันแบบ 1:1",

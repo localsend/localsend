@@ -10,13 +10,13 @@ use reqwest::{Response, StatusCode};
 use tokio::io::AsyncWriteExt;
 use tokio_util::sync::CancellationToken;
 
-/// HTTP client for LocalSend Protocol v2.1.
+/// HTTP client for LocalSend Protocol v2.2.
 pub struct LsHttpClientV2 {
     client: reqwest::Client,
 }
 
 impl LsHttpClientV2 {
-    /// Creates a new HTTP client for v2.1 protocol.
+    /// Creates a new HTTP client for v2.2 protocol.
     ///
     /// # Arguments
     /// * `private_key` - PEM-encoded private key for client certificate

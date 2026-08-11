@@ -60,6 +60,10 @@ class TranslationsId extends Translations with BaseTranslations<AppLocale, Trans
   @override
   late final _Translations$selectedFilesPage$id selectedFilesPage = _Translations$selectedFilesPage$id._(_root);
   @override
+  late final _Translations$deviceDetailsPage$id deviceDetailsPage = _Translations$deviceDetailsPage$id._(_root);
+  @override
+  late final _Translations$verifyPage$id verifyPage = _Translations$verifyPage$id._(_root);
+  @override
   late final _Translations$receivePage$id receivePage = _Translations$receivePage$id._(_root);
   @override
   late final _Translations$receiveOptionsPage$id receiveOptionsPage = _Translations$receiveOptionsPage$id._(_root);
@@ -70,11 +74,15 @@ class TranslationsId extends Translations with BaseTranslations<AppLocale, Trans
   @override
   late final _Translations$webSharePage$id webSharePage = _Translations$webSharePage$id._(_root);
   @override
+  late final _Translations$webReceivePage$id webReceivePage = _Translations$webReceivePage$id._(_root);
+  @override
   late final _Translations$aboutPage$id aboutPage = _Translations$aboutPage$id._(_root);
   @override
   late final _Translations$donationPage$id donationPage = _Translations$donationPage$id._(_root);
   @override
   late final _Translations$changelogPage$id changelogPage = _Translations$changelogPage$id._(_root);
+  @override
+  late final _Translations$whatsNewPage$id whatsNewPage = _Translations$whatsNewPage$id._(_root);
   @override
   late final _Translations$dialogs$id dialogs = _Translations$dialogs$id._(_root);
   @override
@@ -185,6 +193,8 @@ class _Translations$receiveTab$id extends Translations$receiveTab$en {
   late final _Translations$receiveTab$infoBox$id infoBox = _Translations$receiveTab$infoBox$id._(_root);
   @override
   late final _Translations$receiveTab$quickSave$id quickSave = _Translations$receiveTab$quickSave$id._(_root);
+  @override
+  String get link => 'Terima melalui tautan';
 }
 
 // Path: sendTab
@@ -335,6 +345,42 @@ class _Translations$selectedFilesPage$id extends Translations$selectedFilesPage$
   String get deleteAll => 'Hapus semua';
 }
 
+// Path: deviceDetailsPage
+class _Translations$deviceDetailsPage$id extends Translations$deviceDetailsPage$en {
+  _Translations$deviceDetailsPage$id._(TranslationsId root) : this._root = root, super.internal(root);
+
+  final TranslationsId _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Detail Perangkat';
+  @override
+  String get favorite => 'Favorit';
+  @override
+  String get verify => 'Verifikasi';
+  @override
+  late final _Translations$deviceDetailsPage$info$id info = _Translations$deviceDetailsPage$info$id._(_root);
+  @override
+  late final _Translations$deviceDetailsPage$logs$id logs = _Translations$deviceDetailsPage$logs$id._(_root);
+}
+
+// Path: verifyPage
+class _Translations$verifyPage$id extends Translations$verifyPage$en {
+  _Translations$verifyPage$id._(TranslationsId root) : this._root = root, super.internal(root);
+
+  final TranslationsId _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Verifikasi';
+  @override
+  String get icons => 'Ikon';
+  @override
+  String get text => 'Teks';
+  @override
+  String get question => 'Apakah tampilannya sama di perangkat lain?';
+}
+
 // Path: receivePage
 class _Translations$receivePage$id extends Translations$receivePage$en {
   _Translations$receivePage$id._(TranslationsId root) : this._root = root, super.internal(root);
@@ -366,7 +412,11 @@ class _Translations$receiveOptionsPage$id extends Translations$receiveOptionsPag
   @override
   String get title => 'Pilihan';
   @override
+  String get destination => _root.settingsTab.receive.destination;
+  @override
   String get appDirectory => '(folder LocalSend)';
+  @override
+  String get saveToGallery => _root.settingsTab.receive.saveToGallery;
   @override
   String get saveToGalleryOff => 'Dimatikan secara otomatis karena ada direktori.';
 }
@@ -378,6 +428,8 @@ class _Translations$sendPage$id extends Translations$sendPage$en {
   final TranslationsId _root; // ignore: unused_field
 
   // Translations
+  @override
+  String calculatingChecksum({required Object curr, required Object n}) => 'Menghitung checksum (${curr} / ${n})';
   @override
   String get waiting => 'Menunggu tanggapan…';
   @override
@@ -403,6 +455,8 @@ class _Translations$progressPage$id extends Translations$progressPage$en {
   String get savedToGallery => 'Simpan di galeri';
   @override
   late final _Translations$progressPage$total$id total = _Translations$progressPage$total$id._(_root);
+  @override
+  late final _Translations$progressPage$remainingTime$id remainingTime = _Translations$progressPage$remainingTime$id._(_root);
 }
 
 // Path: webSharePage
@@ -442,6 +496,17 @@ class _Translations$webSharePage$id extends Translations$webSharePage$en {
   String get encryptionHint => 'LocalSend menggunakan sertifikat self-signed. Anda perlu menerimanya di peramban.';
   @override
   String pendingRequests({required Object n}) => 'Banyaknya permintaan yang tertunda: ${n}';
+}
+
+// Path: webReceivePage
+class _Translations$webReceivePage$id extends Translations$webReceivePage$en {
+  _Translations$webReceivePage$id._(TranslationsId root) : this._root = root, super.internal(root);
+
+  final TranslationsId _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Terima melalui tautan';
 }
 
 // Path: aboutPage
@@ -497,6 +562,19 @@ class _Translations$changelogPage$id extends Translations$changelogPage$en {
   // Translations
   @override
   String get title => 'Catatan Perubahan';
+}
+
+// Path: whatsNewPage
+class _Translations$whatsNewPage$id extends Translations$whatsNewPage$en {
+  _Translations$whatsNewPage$id._(TranslationsId root) : this._root = root, super.internal(root);
+
+  final TranslationsId _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String title({required Object version}) => 'Apa yang baru di ${version}';
+  @override
+  late final _Translations$whatsNewPage$changes$id changes = _Translations$whatsNewPage$changes$id._(_root);
 }
 
 // Path: dialogs
@@ -823,6 +901,8 @@ class _Translations$settingsTab$receive$id extends Translations$settingsTab$rece
   String get saveToGallery => 'Simpan media ke galeri';
   @override
   String get saveToHistory => 'Simpan ke riwayat';
+  @override
+  String get verifyChecksums => 'Verifikasi checksum saat menerima berkas';
 }
 
 // Path: settingsTab.send
@@ -836,6 +916,8 @@ class _Translations$settingsTab$send$id extends Translations$settingsTab$send$en
   String get title => 'Kirim';
   @override
   String get shareViaLinkAutoAccept => 'Bagikan melalui tautan: Terima otomatis';
+  @override
+  String get createChecksums => 'Buat checksum saat mengirim berkas';
 }
 
 // Path: settingsTab.network
@@ -961,6 +1043,40 @@ class _Translations$receiveHistoryPage$entryActions$id extends Translations$rece
   String get deleteFromHistory => 'Hapus dari riwayat';
 }
 
+// Path: deviceDetailsPage.info
+class _Translations$deviceDetailsPage$info$id extends Translations$deviceDetailsPage$info$en {
+  _Translations$deviceDetailsPage$info$id._(TranslationsId root) : this._root = root, super.internal(root);
+
+  final TranslationsId _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get name => 'Nama';
+  @override
+  String get address => 'Alamat';
+  @override
+  String get version => 'Versi';
+  @override
+  String protocol({required Object version}) => 'Protokol v${version}';
+}
+
+// Path: deviceDetailsPage.logs
+class _Translations$deviceDetailsPage$logs$id extends Translations$deviceDetailsPage$logs$en {
+  _Translations$deviceDetailsPage$logs$id._(TranslationsId root) : this._root = root, super.internal(root);
+
+  final TranslationsId _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Log';
+  @override
+  String get empty => 'Tidak ada log yang tersedia.';
+  @override
+  String discovered({required Object protocol, required Object host}) => 'Ditemukan melalui ${protocol} (${host})';
+  @override
+  String updated({required Object protocol, required Object host}) => 'Diperbarui melalui ${protocol} (${host})';
+}
+
 // Path: progressPage.total
 class _Translations$progressPage$total$id extends Translations$progressPage$total$en {
   _Translations$progressPage$total$id._(TranslationsId root) : this._root = root, super.internal(root);
@@ -976,6 +1092,41 @@ class _Translations$progressPage$total$id extends Translations$progressPage$tota
   String size({required Object curr, required Object n}) => 'Ukuran: ${curr} / ${n}';
   @override
   String speed({required Object speed}) => 'Kecepatan: ${speed}/s';
+}
+
+// Path: progressPage.remainingTime
+class _Translations$progressPage$remainingTime$id extends Translations$progressPage$remainingTime$en {
+  _Translations$progressPage$remainingTime$id._(TranslationsId root) : this._root = root, super.internal(root);
+
+  final TranslationsId _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String minutesUnit({required num m}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('id'))(
+    m,
+    other: '${m}m',
+  );
+  @override
+  String hoursUnit({required num h}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('id'))(
+    h,
+    other: '${h}j',
+  );
+  @override
+  String minutes({required Object m, required Object ss}) => '${m}:${ss}';
+  @override
+  String hours({required num h, required num m}) =>
+      '${_root.progressPage.remainingTime.hoursUnit(h: h)} ${_root.progressPage.remainingTime.minutesUnit(m: m)}';
+}
+
+// Path: whatsNewPage.changes
+class _Translations$whatsNewPage$changes$id extends Translations$whatsNewPage$changes$en {
+  _Translations$whatsNewPage$changes$id._(TranslationsId root) : this._root = root, super.internal(root);
+
+  final TranslationsId _root; // ignore: unused_field
+
+  // Translations
+  @override
+  late final _Translations$whatsNewPage$changes$v1_18_0$id v1_18_0 = _Translations$whatsNewPage$changes$v1_18_0$id._(_root);
 }
 
 // Path: dialogs.addFile
@@ -1356,6 +1507,8 @@ class _Translations$settingsTab$general$colorOptions$id extends Translations$set
   String get system => 'Sistem';
   @override
   String get oled => 'OLED';
+  @override
+  String get custom => 'Kustom';
 }
 
 // Path: settingsTab.general.languageOptions
@@ -1397,4 +1550,19 @@ class _Translations$progressPage$total$title$id extends Translations$progressPag
   String get canceledSender => 'Dibatalkan pengirim';
   @override
   String get canceledReceiver => 'Dibatalkan penerima';
+}
+
+// Path: whatsNewPage.changes.v1_18_0
+class _Translations$whatsNewPage$changes$v1_18_0$id extends Translations$whatsNewPage$changes$v1_18_0$en with WhatsNewStrings {
+  _Translations$whatsNewPage$changes$v1_18_0$id._(TranslationsId root) : this._root = root, super.internal(root);
+
+  final TranslationsId _root; // ignore: unused_field
+
+  // Translations
+  @override
+  List<String> get changes => [
+    'Enkripsi tidak lagi memperlambat transfer. Enkripsi telah diaktifkan kembali di perangkat ini jika sebelumnya Anda menonaktifkannya.',
+    'Permintaan dari favorit kini diterima secara otomatis. Fitur ini aktif secara bawaan dan dapat dinonaktifkan di pengaturan.',
+    'Di Android, transfer tetap berjalan saat aplikasi berada di latar belakang atau layar mati. Di iOS, aplikasi masih harus tetap berada di latar depan.',
+  ];
 }

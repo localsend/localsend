@@ -3,6 +3,8 @@
 
 use super::App;
 use crate::device_list::{DeviceList, DeviceListOutcome, DeviceRow, Row};
+use crate::picker::PickerTarget;
+use crate::storage::PairedChannel;
 use crate::ui::Category;
 use crossterm::event::KeyEvent;
 use localsend::discovery::StatefulDevice;
@@ -85,7 +87,10 @@ impl App {
                 {
                     // The list stays open until the picker takes over its
                     // alternate screen, so the main screen never shows.
-                    self.open_picker(device);
+                    self.open_picker(PickerTarget::Device {
+                        fingerprint: device.device.fingerprint.clone(),
+                        alias: device.device.alias.clone(),
+                    });
                 } else {
                     self.close_device_list();
                     if !self.preselected.is_empty() {
@@ -113,12 +118,12 @@ impl App {
         let Some(stored) = self.discovery.device_by_fingerprint(fingerprint) else {
             return;
         };
-        let alias = stored.device.alias;
-        match self
-            .storage
-            .paired
-            .insert(fingerprint.to_string(), alias.clone())
-        {
+        let alias = stored.device.alias.clone();
+        match self.storage.paired.insert(
+            fingerprint.to_string(),
+            alias.clone(),
+            PairedChannel::channels_of(&stored),
+        ) {
             Ok(()) => self.ui.log(
                 Category::Discovery,
                 &format!("{alias}: Paired. Future requests are auto-accepted."),

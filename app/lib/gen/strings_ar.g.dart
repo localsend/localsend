@@ -60,6 +60,10 @@ class TranslationsAr extends Translations with BaseTranslations<AppLocale, Trans
   @override
   late final _Translations$selectedFilesPage$ar selectedFilesPage = _Translations$selectedFilesPage$ar._(_root);
   @override
+  late final _Translations$deviceDetailsPage$ar deviceDetailsPage = _Translations$deviceDetailsPage$ar._(_root);
+  @override
+  late final _Translations$verifyPage$ar verifyPage = _Translations$verifyPage$ar._(_root);
+  @override
   late final _Translations$receivePage$ar receivePage = _Translations$receivePage$ar._(_root);
   @override
   late final _Translations$receiveOptionsPage$ar receiveOptionsPage = _Translations$receiveOptionsPage$ar._(_root);
@@ -70,11 +74,15 @@ class TranslationsAr extends Translations with BaseTranslations<AppLocale, Trans
   @override
   late final _Translations$webSharePage$ar webSharePage = _Translations$webSharePage$ar._(_root);
   @override
+  late final _Translations$webReceivePage$ar webReceivePage = _Translations$webReceivePage$ar._(_root);
+  @override
   late final _Translations$aboutPage$ar aboutPage = _Translations$aboutPage$ar._(_root);
   @override
   late final _Translations$donationPage$ar donationPage = _Translations$donationPage$ar._(_root);
   @override
   late final _Translations$changelogPage$ar changelogPage = _Translations$changelogPage$ar._(_root);
+  @override
+  late final _Translations$whatsNewPage$ar whatsNewPage = _Translations$whatsNewPage$ar._(_root);
   @override
   late final _Translations$aliasGenerator$ar aliasGenerator = _Translations$aliasGenerator$ar._(_root);
   @override
@@ -87,10 +95,6 @@ class TranslationsAr extends Translations with BaseTranslations<AppLocale, Trans
   late final _Translations$web$ar web = _Translations$web$ar._(_root);
   @override
   late final _Translations$assetPicker$ar assetPicker = _Translations$assetPicker$ar._(_root);
-  @override
-  late final _Translations$whatsNewPage$ar whatsNewPage = _Translations$whatsNewPage$ar._(_root);
-  @override
-  late final _Translations$webReceivePage$ar webReceivePage = _Translations$webReceivePage$ar._(_root);
 }
 
 // Path: general
@@ -191,6 +195,8 @@ class _Translations$receiveTab$ar extends Translations$receiveTab$en {
   late final _Translations$receiveTab$infoBox$ar infoBox = _Translations$receiveTab$infoBox$ar._(_root);
   @override
   late final _Translations$receiveTab$quickSave$ar quickSave = _Translations$receiveTab$quickSave$ar._(_root);
+  @override
+  String get link => 'الاستلام عبر رابط';
 }
 
 // Path: sendTab
@@ -341,6 +347,42 @@ class _Translations$selectedFilesPage$ar extends Translations$selectedFilesPage$
   String get deleteAll => 'احذف الكل';
 }
 
+// Path: deviceDetailsPage
+class _Translations$deviceDetailsPage$ar extends Translations$deviceDetailsPage$en {
+  _Translations$deviceDetailsPage$ar._(TranslationsAr root) : this._root = root, super.internal(root);
+
+  final TranslationsAr _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'تفاصيل الجهاز';
+  @override
+  String get favorite => 'المفضلة';
+  @override
+  String get verify => 'تحقق';
+  @override
+  late final _Translations$deviceDetailsPage$info$ar info = _Translations$deviceDetailsPage$info$ar._(_root);
+  @override
+  late final _Translations$deviceDetailsPage$logs$ar logs = _Translations$deviceDetailsPage$logs$ar._(_root);
+}
+
+// Path: verifyPage
+class _Translations$verifyPage$ar extends Translations$verifyPage$en {
+  _Translations$verifyPage$ar._(TranslationsAr root) : this._root = root, super.internal(root);
+
+  final TranslationsAr _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'تحقق';
+  @override
+  String get icons => 'الأيقونات';
+  @override
+  String get text => 'النص';
+  @override
+  String get question => 'هل يبدو متطابقًا على الجهاز الآخر؟';
+}
+
 // Path: receivePage
 class _Translations$receivePage$ar extends Translations$receivePage$en {
   _Translations$receivePage$ar._(TranslationsAr root) : this._root = root, super.internal(root);
@@ -389,6 +431,8 @@ class _Translations$sendPage$ar extends Translations$sendPage$en {
 
   // Translations
   @override
+  String calculatingChecksum({required Object curr, required Object n}) => 'يحسب تدقيق المجموع (${curr} / ${n})';
+  @override
   String get waiting => 'بإنتظار الرد…';
   @override
   String get rejected => 'المستلم رفض الطلب.';
@@ -396,8 +440,6 @@ class _Translations$sendPage$ar extends Translations$sendPage$en {
   String get tooManyAttempts => _root.web.tooManyAttempts;
   @override
   String get busy => 'المستلم مشغول بطلب آخر.';
-  @override
-  String calculatingChecksum({required Object curr, required Object n}) => 'يحسب تدقيق المجموع (${curr} / ${n})';
 }
 
 // Path: progressPage
@@ -458,6 +500,17 @@ class _Translations$webSharePage$ar extends Translations$webSharePage$en {
   String pendingRequests({required Object n}) => 'الطلبات المعلقة: ${n}';
 }
 
+// Path: webReceivePage
+class _Translations$webReceivePage$ar extends Translations$webReceivePage$en {
+  _Translations$webReceivePage$ar._(TranslationsAr root) : this._root = root, super.internal(root);
+
+  final TranslationsAr _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'استلم من خلال رابط';
+}
+
 // Path: aboutPage
 class _Translations$aboutPage$ar extends Translations$aboutPage$en {
   _Translations$aboutPage$ar._(TranslationsAr root) : this._root = root, super.internal(root);
@@ -510,6 +563,19 @@ class _Translations$changelogPage$ar extends Translations$changelogPage$en {
   // Translations
   @override
   String get title => 'سجل التغييرات';
+}
+
+// Path: whatsNewPage
+class _Translations$whatsNewPage$ar extends Translations$whatsNewPage$en {
+  _Translations$whatsNewPage$ar._(TranslationsAr root) : this._root = root, super.internal(root);
+
+  final TranslationsAr _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String title({required Object version}) => 'ما الجديد في ${version}';
+  @override
+  late final _Translations$whatsNewPage$changes$ar changes = _Translations$whatsNewPage$changes$ar._(_root);
 }
 
 // Path: aliasGenerator
@@ -774,30 +840,6 @@ class _Translations$assetPicker$ar extends Translations$assetPicker$en {
   String get sUnitAssetCountLabel => 'عدد';
 }
 
-// Path: whatsNewPage
-class _Translations$whatsNewPage$ar extends Translations$whatsNewPage$en {
-  _Translations$whatsNewPage$ar._(TranslationsAr root) : this._root = root, super.internal(root);
-
-  final TranslationsAr _root; // ignore: unused_field
-
-  // Translations
-  @override
-  String title({required Object version}) => 'ما الجديد في ${version}';
-  @override
-  late final _Translations$whatsNewPage$changes$ar changes = _Translations$whatsNewPage$changes$ar._(_root);
-}
-
-// Path: webReceivePage
-class _Translations$webReceivePage$ar extends Translations$webReceivePage$en {
-  _Translations$webReceivePage$ar._(TranslationsAr root) : this._root = root, super.internal(root);
-
-  final TranslationsAr _root; // ignore: unused_field
-
-  // Translations
-  @override
-  String get title => 'استلم من خلال رابط';
-}
-
 // Path: receiveTab.infoBox
 class _Translations$receiveTab$infoBox$ar extends Translations$receiveTab$infoBox$en {
   _Translations$receiveTab$infoBox$ar._(TranslationsAr root) : this._root = root, super.internal(root);
@@ -943,6 +985,8 @@ class _Translations$settingsTab$receive$ar extends Translations$settingsTab$rece
   String get saveToGallery => 'حفظ الوسائط في المعرض';
   @override
   String get saveToHistory => 'حفظ في التاريخ';
+  @override
+  String get verifyChecksums => 'التحقق من المجاميع الاختبارية عند استلام الملفات';
 }
 
 // Path: settingsTab.send
@@ -956,6 +1000,8 @@ class _Translations$settingsTab$send$ar extends Translations$settingsTab$send$en
   String get title => 'أرسِل';
   @override
   String get shareViaLinkAutoAccept => 'المشاركة عبر الرابط: قبول تلقائي';
+  @override
+  String get createChecksums => 'إنشاء المجاميع الاختبارية عند إرسال الملفات';
 }
 
 // Path: settingsTab.network
@@ -1081,6 +1127,40 @@ class _Translations$receiveHistoryPage$entryActions$ar extends Translations$rece
   String get deleteFromHistory => 'احذف من التاريخ';
 }
 
+// Path: deviceDetailsPage.info
+class _Translations$deviceDetailsPage$info$ar extends Translations$deviceDetailsPage$info$en {
+  _Translations$deviceDetailsPage$info$ar._(TranslationsAr root) : this._root = root, super.internal(root);
+
+  final TranslationsAr _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get name => 'الاسم';
+  @override
+  String get address => 'العنوان';
+  @override
+  String get version => 'الإصدار';
+  @override
+  String protocol({required Object version}) => 'البروتوكول v${version}';
+}
+
+// Path: deviceDetailsPage.logs
+class _Translations$deviceDetailsPage$logs$ar extends Translations$deviceDetailsPage$logs$en {
+  _Translations$deviceDetailsPage$logs$ar._(TranslationsAr root) : this._root = root, super.internal(root);
+
+  final TranslationsAr _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'السجلات';
+  @override
+  String get empty => 'لا توجد سجلات متاحة.';
+  @override
+  String discovered({required Object protocol, required Object host}) => 'تم الاكتشاف عبر ${protocol} (${host})';
+  @override
+  String updated({required Object protocol, required Object host}) => 'تم التحديث عبر ${protocol} (${host})';
+}
+
 // Path: progressPage.total
 class _Translations$progressPage$total$ar extends Translations$progressPage$total$en {
   _Translations$progressPage$total$ar._(TranslationsAr root) : this._root = root, super.internal(root);
@@ -1106,11 +1186,31 @@ class _Translations$progressPage$remainingTime$ar extends Translations$progressP
 
   // Translations
   @override
-  String minutes({required Object m, required Object ss}) => '${m}:${ss}';
-
-  /// استخدم 'س' لاختصار الساعات و'د' للدقائق
+  String minutesUnit({required num m}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ar'))(
+    m,
+    other: '${m}د',
+  );
   @override
-  String hours({required Object h, required Object m}) => '${h}س ${m}د';
+  String hoursUnit({required num h}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ar'))(
+    h,
+    other: '${h}س',
+  );
+  @override
+  String minutes({required Object m, required Object ss}) => '${m}:${ss}';
+  @override
+  String hours({required num h, required num m}) =>
+      '${_root.progressPage.remainingTime.hoursUnit(h: h)} ${_root.progressPage.remainingTime.minutesUnit(m: m)}';
+}
+
+// Path: whatsNewPage.changes
+class _Translations$whatsNewPage$changes$ar extends Translations$whatsNewPage$changes$en {
+  _Translations$whatsNewPage$changes$ar._(TranslationsAr root) : this._root = root, super.internal(root);
+
+  final TranslationsAr _root; // ignore: unused_field
+
+  // Translations
+  @override
+  late final _Translations$whatsNewPage$changes$v1_18_0$ar v1_18_0 = _Translations$whatsNewPage$changes$v1_18_0$ar._(_root);
 }
 
 // Path: dialogs.addFile
@@ -1464,17 +1564,6 @@ class _Translations$dialogs$zoom$ar extends Translations$dialogs$zoom$en {
   String get title => 'عنوان URL';
 }
 
-// Path: whatsNewPage.changes
-class _Translations$whatsNewPage$changes$ar extends Translations$whatsNewPage$changes$en {
-  _Translations$whatsNewPage$changes$ar._(TranslationsAr root) : this._root = root, super.internal(root);
-
-  final TranslationsAr _root; // ignore: unused_field
-
-  // Translations
-  @override
-  late final _Translations$whatsNewPage$changes$v1_18_0$ar v1_18_0 = _Translations$whatsNewPage$changes$v1_18_0$ar._(_root);
-}
-
 // Path: settingsTab.general.brightnessOptions
 class _Translations$settingsTab$general$brightnessOptions$ar extends Translations$settingsTab$general$brightnessOptions$en {
   _Translations$settingsTab$general$brightnessOptions$ar._(TranslationsAr root) : this._root = root, super.internal(root);
@@ -1501,6 +1590,8 @@ class _Translations$settingsTab$general$colorOptions$ar extends Translations$set
   String get system => 'النظام';
   @override
   String get oled => 'OLED';
+  @override
+  String get custom => 'مخصص';
 }
 
 // Path: settingsTab.general.languageOptions

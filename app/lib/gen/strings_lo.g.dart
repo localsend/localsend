@@ -60,6 +60,10 @@ class TranslationsLo extends Translations with BaseTranslations<AppLocale, Trans
   @override
   late final _Translations$selectedFilesPage$lo selectedFilesPage = _Translations$selectedFilesPage$lo._(_root);
   @override
+  late final _Translations$deviceDetailsPage$lo deviceDetailsPage = _Translations$deviceDetailsPage$lo._(_root);
+  @override
+  late final _Translations$verifyPage$lo verifyPage = _Translations$verifyPage$lo._(_root);
+  @override
   late final _Translations$receivePage$lo receivePage = _Translations$receivePage$lo._(_root);
   @override
   late final _Translations$receiveOptionsPage$lo receiveOptionsPage = _Translations$receiveOptionsPage$lo._(_root);
@@ -70,11 +74,15 @@ class TranslationsLo extends Translations with BaseTranslations<AppLocale, Trans
   @override
   late final _Translations$webSharePage$lo webSharePage = _Translations$webSharePage$lo._(_root);
   @override
+  late final _Translations$webReceivePage$lo webReceivePage = _Translations$webReceivePage$lo._(_root);
+  @override
   late final _Translations$aboutPage$lo aboutPage = _Translations$aboutPage$lo._(_root);
   @override
   late final _Translations$donationPage$lo donationPage = _Translations$donationPage$lo._(_root);
   @override
   late final _Translations$changelogPage$lo changelogPage = _Translations$changelogPage$lo._(_root);
+  @override
+  late final _Translations$whatsNewPage$lo whatsNewPage = _Translations$whatsNewPage$lo._(_root);
   @override
   late final _Translations$aliasGenerator$lo aliasGenerator = _Translations$aliasGenerator$lo._(_root);
   @override
@@ -187,6 +195,8 @@ class _Translations$receiveTab$lo extends Translations$receiveTab$en {
   late final _Translations$receiveTab$infoBox$lo infoBox = _Translations$receiveTab$infoBox$lo._(_root);
   @override
   late final _Translations$receiveTab$quickSave$lo quickSave = _Translations$receiveTab$quickSave$lo._(_root);
+  @override
+  String get link => 'ຮັບຜ່ານລິ້ງ';
 }
 
 // Path: sendTab
@@ -337,6 +347,42 @@ class _Translations$selectedFilesPage$lo extends Translations$selectedFilesPage$
   String get deleteAll => 'ລຶບທັງໝົດ';
 }
 
+// Path: deviceDetailsPage
+class _Translations$deviceDetailsPage$lo extends Translations$deviceDetailsPage$en {
+  _Translations$deviceDetailsPage$lo._(TranslationsLo root) : this._root = root, super.internal(root);
+
+  final TranslationsLo _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'ລາຍລະອຽດອຸປະກອນ';
+  @override
+  String get favorite => 'ລາຍການໂປດ';
+  @override
+  String get verify => 'ກວດສອບ';
+  @override
+  late final _Translations$deviceDetailsPage$info$lo info = _Translations$deviceDetailsPage$info$lo._(_root);
+  @override
+  late final _Translations$deviceDetailsPage$logs$lo logs = _Translations$deviceDetailsPage$logs$lo._(_root);
+}
+
+// Path: verifyPage
+class _Translations$verifyPage$lo extends Translations$verifyPage$en {
+  _Translations$verifyPage$lo._(TranslationsLo root) : this._root = root, super.internal(root);
+
+  final TranslationsLo _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'ກວດສອບ';
+  @override
+  String get icons => 'ໄອຄອນ';
+  @override
+  String get text => 'ຂໍ້ຄວາມ';
+  @override
+  String get question => 'ມັນເບິ່ງຄືກັນໃນອຸປະກອນອີກເຄື່ອງບໍ?';
+}
+
 // Path: receivePage
 class _Translations$receivePage$lo extends Translations$receivePage$en {
   _Translations$receivePage$lo._(TranslationsLo root) : this._root = root, super.internal(root);
@@ -384,6 +430,8 @@ class _Translations$sendPage$lo extends Translations$sendPage$en {
   final TranslationsLo _root; // ignore: unused_field
 
   // Translations
+  @override
+  String calculatingChecksum({required Object curr, required Object n}) => 'ກຳລັງຄິດໄລ່ checksum (${curr} / ${n})';
   @override
   String get waiting => 'ກຳລັງລໍຖ້າການຕອບກັບ…';
   @override
@@ -452,6 +500,17 @@ class _Translations$webSharePage$lo extends Translations$webSharePage$en {
   String pendingRequests({required Object n}) => 'ຄຳຂໍທີ່ລໍຖ້າ: ${n}';
 }
 
+// Path: webReceivePage
+class _Translations$webReceivePage$lo extends Translations$webReceivePage$en {
+  _Translations$webReceivePage$lo._(TranslationsLo root) : this._root = root, super.internal(root);
+
+  final TranslationsLo _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'ຮັບຜ່ານລິ້ງ';
+}
+
 // Path: aboutPage
 class _Translations$aboutPage$lo extends Translations$aboutPage$en {
   _Translations$aboutPage$lo._(TranslationsLo root) : this._root = root, super.internal(root);
@@ -504,6 +563,19 @@ class _Translations$changelogPage$lo extends Translations$changelogPage$en {
   // Translations
   @override
   String get title => 'ບັນທຶກການປ່ຽນແປງ';
+}
+
+// Path: whatsNewPage
+class _Translations$whatsNewPage$lo extends Translations$whatsNewPage$en {
+  _Translations$whatsNewPage$lo._(TranslationsLo root) : this._root = root, super.internal(root);
+
+  final TranslationsLo _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String title({required Object version}) => 'ມີຫຍັງໃໝ່ໃນ ${version}';
+  @override
+  late final _Translations$whatsNewPage$changes$lo changes = _Translations$whatsNewPage$changes$lo._(_root);
 }
 
 // Path: aliasGenerator
@@ -910,6 +982,8 @@ class _Translations$settingsTab$receive$lo extends Translations$settingsTab$rece
   String get saveToGallery => 'ບັນທຶກມີເດຍໃສ່ແກລເລີຣີ';
   @override
   String get saveToHistory => 'ບັນທຶກໃສ່ປະຫວັດ';
+  @override
+  String get verifyChecksums => 'ກວດສອບ checksum ເມື່ອຮັບໄຟລ໌';
 }
 
 // Path: settingsTab.send
@@ -923,6 +997,8 @@ class _Translations$settingsTab$send$lo extends Translations$settingsTab$send$en
   String get title => 'ສົ່ງ';
   @override
   String get shareViaLinkAutoAccept => 'ຍອມຮັບຄຳຂໍອັດຕະໂນມັດໃນໂໝດ "ແບ່ງປັນຜ່ານລິ້ງ"';
+  @override
+  String get createChecksums => 'ສ້າງ checksum ເມື່ອສົ່ງໄຟລ໌';
 }
 
 // Path: settingsTab.network
@@ -1047,6 +1123,40 @@ class _Translations$receiveHistoryPage$entryActions$lo extends Translations$rece
   String get deleteFromHistory => 'ລຶບອອກຈາກປະຫວັດ';
 }
 
+// Path: deviceDetailsPage.info
+class _Translations$deviceDetailsPage$info$lo extends Translations$deviceDetailsPage$info$en {
+  _Translations$deviceDetailsPage$info$lo._(TranslationsLo root) : this._root = root, super.internal(root);
+
+  final TranslationsLo _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get name => 'ຊື່';
+  @override
+  String get address => 'ທີ່ຢູ່';
+  @override
+  String get version => 'ເວີຊັນ';
+  @override
+  String protocol({required Object version}) => 'ໂປຣໂຕເຄລ v${version}';
+}
+
+// Path: deviceDetailsPage.logs
+class _Translations$deviceDetailsPage$logs$lo extends Translations$deviceDetailsPage$logs$en {
+  _Translations$deviceDetailsPage$logs$lo._(TranslationsLo root) : this._root = root, super.internal(root);
+
+  final TranslationsLo _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'ບັນທຶກ';
+  @override
+  String get empty => 'ບໍ່ມີບັນທຶກ.';
+  @override
+  String discovered({required Object protocol, required Object host}) => 'ຄົ້ນພົບຜ່ານ ${protocol} (${host})';
+  @override
+  String updated({required Object protocol, required Object host}) => 'ອັບເດດຜ່ານ ${protocol} (${host})';
+}
+
 // Path: progressPage.total
 class _Translations$progressPage$total$lo extends Translations$progressPage$total$en {
   _Translations$progressPage$total$lo._(TranslationsLo root) : this._root = root, super.internal(root);
@@ -1072,9 +1182,31 @@ class _Translations$progressPage$remainingTime$lo extends Translations$progressP
 
   // Translations
   @override
+  String minutesUnit({required num m}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('lo'))(
+    m,
+    other: '${m}ນທ',
+  );
+  @override
+  String hoursUnit({required num h}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('lo'))(
+    h,
+    other: '${h}ຊມ',
+  );
+  @override
   String minutes({required Object m, required Object ss}) => '${m}:${ss}';
   @override
-  String hours({required Object h, required Object m}) => '${h}ຊມ ${m}ນທ';
+  String hours({required num h, required num m}) =>
+      '${_root.progressPage.remainingTime.hoursUnit(h: h)} ${_root.progressPage.remainingTime.minutesUnit(m: m)}';
+}
+
+// Path: whatsNewPage.changes
+class _Translations$whatsNewPage$changes$lo extends Translations$whatsNewPage$changes$en {
+  _Translations$whatsNewPage$changes$lo._(TranslationsLo root) : this._root = root, super.internal(root);
+
+  final TranslationsLo _root; // ignore: unused_field
+
+  // Translations
+  @override
+  late final _Translations$whatsNewPage$changes$v1_18_0$lo v1_18_0 = _Translations$whatsNewPage$changes$v1_18_0$lo._(_root);
 }
 
 // Path: dialogs.addFile
@@ -1454,6 +1586,8 @@ class _Translations$settingsTab$general$colorOptions$lo extends Translations$set
   String get system => 'ລະບົບ';
   @override
   String get oled => 'OLED';
+  @override
+  String get custom => 'ກຳນົດເອງ';
 }
 
 // Path: settingsTab.general.languageOptions
@@ -1495,4 +1629,19 @@ class _Translations$progressPage$total$title$lo extends Translations$progressPag
   String get canceledSender => 'ຍົກເລີກໂດຍຜູ້ສົ່ງ';
   @override
   String get canceledReceiver => 'ຍົກເລີກໂດຍຜູ້ຮັບ';
+}
+
+// Path: whatsNewPage.changes.v1_18_0
+class _Translations$whatsNewPage$changes$v1_18_0$lo extends Translations$whatsNewPage$changes$v1_18_0$en with WhatsNewStrings {
+  _Translations$whatsNewPage$changes$v1_18_0$lo._(TranslationsLo root) : this._root = root, super.internal(root);
+
+  final TranslationsLo _root; // ignore: unused_field
+
+  // Translations
+  @override
+  List<String> get changes => [
+    'ການເຂົ້າລະຫັດບໍ່ເຮັດໃຫ້ການໂອນຊ້າລົງອີກຕໍ່ໄປ. ມັນຖືກເປີດໃຊ້ຄືນໃໝ່ໃນອຸປະກອນນີ້ ຖ້າທ່ານໄດ້ປິດມັນໄວ້ກ່ອນ.',
+    'ຄຳຮ້ອງຂໍຈາກລາຍການໂປດຖືກຍອມຮັບໂດຍອັດຕະໂນມັດແລ້ວ. ມັນຖືກເປີດໃຊ້ໂດຍຄ່າເລີ່ມຕົ້ນ ແລະສາມາດປິດໄດ້ໃນການຕັ້ງຄ່າ.',
+    'ໃນ Android, ການໂອນໄຟລ໌ຍັງດຳເນີນຕໍ່ໃນຂະນະທີ່ແອັບຢູ່ເບື້ອງຫຼັງ ຫຼື ໜ້າຈໍດັບຢູ່. ໃນ iOS, ແອັບຍັງຕ້ອງຄົງຢູ່ໜ້າຈໍ.',
+  ];
 }

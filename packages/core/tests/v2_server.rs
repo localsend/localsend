@@ -129,7 +129,7 @@ async fn start_test_server_with_verification(
         None, // plain HTTP
         ClientInfo {
             alias: "Test Server".to_string(),
-            version: "2.1".to_string(),
+            version: "2.2".to_string(),
             device_model: Some("Rust".to_string()),
             device_type: None,
             token: "server-fingerprint".to_string(),
@@ -187,7 +187,7 @@ async fn wait_until_reachable(port: u16) {
 fn sender_info() -> RegisterDtoV2 {
     RegisterDtoV2 {
         alias: "Test Sender".to_string(),
-        version: "2.1".to_string(),
+        version: "2.2".to_string(),
         device_model: Some("Rust".to_string()),
         device_type: None,
         fingerprint: "sender-fingerprint".to_string(),
@@ -972,7 +972,7 @@ async fn test_prepare_upload_aborted_by_sender_disconnect() {
         None, // plain HTTP
         ClientInfo {
             alias: "Test Server".to_string(),
-            version: "2.1".to_string(),
+            version: "2.2".to_string(),
             device_model: Some("Rust".to_string()),
             device_type: None,
             token: "server-fingerprint".to_string(),
@@ -1075,7 +1075,7 @@ async fn test_prepare_upload_cancelled_by_session_less_cancel() {
         None, // plain HTTP
         ClientInfo {
             alias: "Test Server".to_string(),
-            version: "2.1".to_string(),
+            version: "2.2".to_string(),
             device_model: Some("Rust".to_string()),
             device_type: None,
             token: "server-fingerprint".to_string(),
@@ -1211,7 +1211,7 @@ async fn test_prepare_upload_aborted_by_sender_disconnect_tls() {
         }),
         ClientInfo {
             alias: "Test Server".to_string(),
-            version: "2.1".to_string(),
+            version: "2.2".to_string(),
             device_model: Some("Rust".to_string()),
             device_type: None,
             token: "server-fingerprint".to_string(),

@@ -52,11 +52,17 @@ class TranslationsUr extends Translations with BaseTranslations<AppLocale, Trans
   @override
   late final _Translations$troubleshootPage$ur troubleshootPage = _Translations$troubleshootPage$ur._(_root);
   @override
+  late final _Translations$networkInterfacesPage$ur networkInterfacesPage = _Translations$networkInterfacesPage$ur._(_root);
+  @override
   late final _Translations$receiveHistoryPage$ur receiveHistoryPage = _Translations$receiveHistoryPage$ur._(_root);
   @override
   late final _Translations$apkPickerPage$ur apkPickerPage = _Translations$apkPickerPage$ur._(_root);
   @override
   late final _Translations$selectedFilesPage$ur selectedFilesPage = _Translations$selectedFilesPage$ur._(_root);
+  @override
+  late final _Translations$deviceDetailsPage$ur deviceDetailsPage = _Translations$deviceDetailsPage$ur._(_root);
+  @override
+  late final _Translations$verifyPage$ur verifyPage = _Translations$verifyPage$ur._(_root);
   @override
   late final _Translations$receivePage$ur receivePage = _Translations$receivePage$ur._(_root);
   @override
@@ -68,11 +74,15 @@ class TranslationsUr extends Translations with BaseTranslations<AppLocale, Trans
   @override
   late final _Translations$webSharePage$ur webSharePage = _Translations$webSharePage$ur._(_root);
   @override
+  late final _Translations$webReceivePage$ur webReceivePage = _Translations$webReceivePage$ur._(_root);
+  @override
   late final _Translations$aboutPage$ur aboutPage = _Translations$aboutPage$ur._(_root);
   @override
   late final _Translations$donationPage$ur donationPage = _Translations$donationPage$ur._(_root);
   @override
   late final _Translations$changelogPage$ur changelogPage = _Translations$changelogPage$ur._(_root);
+  @override
+  late final _Translations$whatsNewPage$ur whatsNewPage = _Translations$whatsNewPage$ur._(_root);
   @override
   late final _Translations$dialogs$ur dialogs = _Translations$dialogs$ur._(_root);
   @override
@@ -83,8 +93,6 @@ class TranslationsUr extends Translations with BaseTranslations<AppLocale, Trans
   late final _Translations$web$ur web = _Translations$web$ur._(_root);
   @override
   late final _Translations$assetPicker$ur assetPicker = _Translations$assetPicker$ur._(_root);
-  @override
-  late final _Translations$networkInterfacesPage$ur networkInterfacesPage = _Translations$networkInterfacesPage$ur._(_root);
 }
 
 // Path: general
@@ -147,6 +155,8 @@ class _Translations$general$ur extends Translations$general$en {
   @override
   String get quickSave => 'فوری محفوظ کریں';
   @override
+  String get quickSaveFromFavorites => 'پسندیدہ کے لیے فوری محفوظ کریں';
+  @override
   String get renamed => 'نام تبدیل کر دیا گیا';
   @override
   String get reset => 'دوبارہ ترتیب دیں';
@@ -168,8 +178,6 @@ class _Translations$general$ur extends Translations$general$en {
   String get unknown => 'نامعلوم';
   @override
   String get noItemInClipboard => 'کلپ بورڈ میں کوئی آئٹم نہیں ہے۔';
-  @override
-  String get quickSaveFromFavorites => 'پسندیدہ کے لیے فوری محفوظ کریں';
 }
 
 // Path: receiveTab
@@ -185,6 +193,8 @@ class _Translations$receiveTab$ur extends Translations$receiveTab$en {
   late final _Translations$receiveTab$infoBox$ur infoBox = _Translations$receiveTab$infoBox$ur._(_root);
   @override
   late final _Translations$receiveTab$quickSave$ur quickSave = _Translations$receiveTab$quickSave$ur._(_root);
+  @override
+  String get link => 'لنک کے ذریعے وصول کریں';
 }
 
 // Path: sendTab
@@ -268,6 +278,26 @@ class _Translations$troubleshootPage$ur extends Translations$troubleshootPage$en
   late final _Translations$troubleshootPage$noConnection$ur noConnection = _Translations$troubleshootPage$noConnection$ur._(_root);
 }
 
+// Path: networkInterfacesPage
+class _Translations$networkInterfacesPage$ur extends Translations$networkInterfacesPage$en {
+  _Translations$networkInterfacesPage$ur._(TranslationsUr root) : this._root = root, super.internal(root);
+
+  final TranslationsUr _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'نیٹ ورک انٹرفیسز';
+  @override
+  String get info =>
+      'پہلے سے طے شدہ طور پر، لوکل سینڈ تمام دستیاب نیٹ ورک انٹرفیس استعمال کرتا ہے۔ آپ یہاں ناپسندیدہ نیٹ ورکس کو خارج کر سکتے ہیں۔ تبدیلیاں لاگو کرنے کے لیے آپ کو سرور کو دوبارہ شروع کرنے کی ضرورت ہے۔';
+  @override
+  String get preview => 'پیش نظارہ';
+  @override
+  String get whitelist => 'وائٹ لسٹ';
+  @override
+  String get blacklist => 'بلیک لسٹ';
+}
+
 // Path: receiveHistoryPage
 class _Translations$receiveHistoryPage$ur extends Translations$receiveHistoryPage$en {
   _Translations$receiveHistoryPage$ur._(TranslationsUr root) : this._root = root, super.internal(root);
@@ -313,6 +343,42 @@ class _Translations$selectedFilesPage$ur extends Translations$selectedFilesPage$
   // Translations
   @override
   String get deleteAll => 'تمام حذف کریں';
+}
+
+// Path: deviceDetailsPage
+class _Translations$deviceDetailsPage$ur extends Translations$deviceDetailsPage$en {
+  _Translations$deviceDetailsPage$ur._(TranslationsUr root) : this._root = root, super.internal(root);
+
+  final TranslationsUr _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'آلے کی تفصیلات';
+  @override
+  String get favorite => 'پسندیدہ';
+  @override
+  String get verify => 'تصدیق کریں';
+  @override
+  late final _Translations$deviceDetailsPage$info$ur info = _Translations$deviceDetailsPage$info$ur._(_root);
+  @override
+  late final _Translations$deviceDetailsPage$logs$ur logs = _Translations$deviceDetailsPage$logs$ur._(_root);
+}
+
+// Path: verifyPage
+class _Translations$verifyPage$ur extends Translations$verifyPage$en {
+  _Translations$verifyPage$ur._(TranslationsUr root) : this._root = root, super.internal(root);
+
+  final TranslationsUr _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'تصدیق کریں';
+  @override
+  String get icons => 'آئیکنز';
+  @override
+  String get text => 'متن';
+  @override
+  String get question => 'کیا یہ دوسرے آلے پر ویسا ہی نظر آتا ہے؟';
 }
 
 // Path: receivePage
@@ -363,6 +429,8 @@ class _Translations$sendPage$ur extends Translations$sendPage$en {
 
   // Translations
   @override
+  String calculatingChecksum({required Object curr, required Object n}) => 'چیک سم کا حساب لگایا جا رہا ہے (${curr} / ${n})';
+  @override
   String get waiting => 'جواب کا منتظر...';
   @override
   String get rejected => 'وصول کنندہ نے درخواست مسترد کر دی ہے۔';
@@ -387,6 +455,8 @@ class _Translations$progressPage$ur extends Translations$progressPage$en {
   String get savedToGallery => 'تصاویر میں محفوظ کیا گیا';
   @override
   late final _Translations$progressPage$total$ur total = _Translations$progressPage$total$ur._(_root);
+  @override
+  late final _Translations$progressPage$remainingTime$ur remainingTime = _Translations$progressPage$remainingTime$ur._(_root);
 }
 
 // Path: webSharePage
@@ -426,6 +496,17 @@ class _Translations$webSharePage$ur extends Translations$webSharePage$en {
   String get encryptionHint => 'LocalSend براؤزر میں استعمال کرنے کیلئے آپ کوخود سائن کردہ سرٹیفکیٹ قبول کرنا ہوگا۔';
   @override
   String pendingRequests({required Object n}) => 'زیر التواء درخواستیں: ${n}';
+}
+
+// Path: webReceivePage
+class _Translations$webReceivePage$ur extends Translations$webReceivePage$en {
+  _Translations$webReceivePage$ur._(TranslationsUr root) : this._root = root, super.internal(root);
+
+  final TranslationsUr _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'لنک کے ذریعے وصول کریں';
 }
 
 // Path: aboutPage
@@ -483,6 +564,19 @@ class _Translations$changelogPage$ur extends Translations$changelogPage$en {
   String get title => 'چینج لاگ';
 }
 
+// Path: whatsNewPage
+class _Translations$whatsNewPage$ur extends Translations$whatsNewPage$en {
+  _Translations$whatsNewPage$ur._(TranslationsUr root) : this._root = root, super.internal(root);
+
+  final TranslationsUr _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String title({required Object version}) => '${version} میں نیا کیا ہے';
+  @override
+  late final _Translations$whatsNewPage$changes$ur changes = _Translations$whatsNewPage$changes$ur._(_root);
+}
+
 // Path: dialogs
 class _Translations$dialogs$ur extends Translations$dialogs$en {
   _Translations$dialogs$ur._(TranslationsUr root) : this._root = root, super.internal(root);
@@ -492,6 +586,8 @@ class _Translations$dialogs$ur extends Translations$dialogs$en {
   // Translations
   @override
   late final _Translations$dialogs$addFile$ur addFile = _Translations$dialogs$addFile$ur._(_root);
+  @override
+  late final _Translations$dialogs$openFile$ur openFile = _Translations$dialogs$openFile$ur._(_root);
   @override
   late final _Translations$dialogs$addressInput$ur addressInput = _Translations$dialogs$addressInput$ur._(_root);
   @override
@@ -530,6 +626,9 @@ class _Translations$dialogs$ur extends Translations$dialogs$en {
   late final _Translations$dialogs$quickActions$ur quickActions = _Translations$dialogs$quickActions$ur._(_root);
   @override
   late final _Translations$dialogs$quickSaveNotice$ur quickSaveNotice = _Translations$dialogs$quickSaveNotice$ur._(_root);
+  @override
+  late final _Translations$dialogs$quickSaveFromFavoritesNotice$ur quickSaveFromFavoritesNotice =
+      _Translations$dialogs$quickSaveFromFavoritesNotice$ur._(_root);
   @override
   late final _Translations$dialogs$pin$ur pin = _Translations$dialogs$pin$ur._(_root);
   @override
@@ -657,26 +756,6 @@ class _Translations$assetPicker$ur extends Translations$assetPicker$en {
   String get sUnitAssetCountLabel => 'کاؤنٹ';
 }
 
-// Path: networkInterfacesPage
-class _Translations$networkInterfacesPage$ur extends Translations$networkInterfacesPage$en {
-  _Translations$networkInterfacesPage$ur._(TranslationsUr root) : this._root = root, super.internal(root);
-
-  final TranslationsUr _root; // ignore: unused_field
-
-  // Translations
-  @override
-  String get title => 'نیٹ ورک انٹرفیسز';
-  @override
-  String get info =>
-      'پہلے سے طے شدہ طور پر، لوکل سینڈ تمام دستیاب نیٹ ورک انٹرفیس استعمال کرتا ہے۔ آپ یہاں ناپسندیدہ نیٹ ورکس کو خارج کر سکتے ہیں۔ تبدیلیاں لاگو کرنے کے لیے آپ کو سرور کو دوبارہ شروع کرنے کی ضرورت ہے۔';
-  @override
-  String get preview => 'پیش نظارہ';
-  @override
-  String get whitelist => 'وائٹ لسٹ';
-  @override
-  String get blacklist => 'بلیک لسٹ';
-}
-
 // Path: receiveTab.infoBox
 class _Translations$receiveTab$infoBox$ur extends Translations$receiveTab$infoBox$en {
   _Translations$receiveTab$infoBox$ur._(TranslationsUr root) : this._root = root, super.internal(root);
@@ -700,9 +779,9 @@ class _Translations$receiveTab$quickSave$ur extends Translations$receiveTab$quic
 
   // Translations
   @override
-  String get favorites => 'پسندیدہ';
-  @override
   String get off => 'آف';
+  @override
+  String get favorites => 'پسندیدہ';
   @override
   String get on => 'آن';
 }
@@ -809,6 +888,8 @@ class _Translations$settingsTab$receive$ur extends Translations$settingsTab$rece
   @override
   String get quickSave => _root.general.quickSave;
   @override
+  String get quickSaveFromFavorites => _root.general.quickSaveFromFavorites;
+  @override
   String get requirePin => _root.webSharePage.requirePin;
   @override
   String get autoFinish => 'خودکار تکمیل';
@@ -820,6 +901,8 @@ class _Translations$settingsTab$receive$ur extends Translations$settingsTab$rece
   String get saveToGallery => 'میڈیا کو گیلری میں محفوظ کریں';
   @override
   String get saveToHistory => 'تاریخچہ میں محفوظ کریں';
+  @override
+  String get verifyChecksums => 'فائلیں وصول کرتے وقت چیک سم کی تصدیق کریں';
 }
 
 // Path: settingsTab.send
@@ -833,6 +916,8 @@ class _Translations$settingsTab$send$ur extends Translations$settingsTab$send$en
   String get title => 'بھیجیں';
   @override
   String get shareViaLinkAutoAccept => '"لنک کے ذریعے شیئر کریں" موڈ میں درخواستیں خود بخود قبول کریں';
+  @override
+  String get createChecksums => 'فائلیں بھیجتے وقت چیک سم بنائیں';
 }
 
 // Path: settingsTab.network
@@ -857,7 +942,15 @@ class _Translations$settingsTab$network$ur extends Translations$settingsTab$netw
   @override
   String get port => 'پورٹ';
   @override
+  String get network => 'نیٹ ورک';
+  @override
+  late final _Translations$settingsTab$network$networkOptions$ur networkOptions = _Translations$settingsTab$network$networkOptions$ur._(_root);
+  @override
   String get discoveryTimeout => 'نیٹورک پرڈھونڈنے کی مدت ختم ہوگئ ہے';
+  @override
+  String get useSystemName => 'سسٹم کا نام استعمال کریں';
+  @override
+  String get generateRandomAlias => 'بے ترتیب عرف پیدا کریں';
   @override
   String portWarning({required Object defaultPort}) =>
       'ہو سکتا ہے آپ کو دوسرے آلات سے پتہ نہ چل سکے کیونکہ آپ حسب ضرورت پورٹ استعمال کر رہے ہیں۔ (پہلے سے طے شدہ: ${defaultPort})';
@@ -868,14 +961,6 @@ class _Translations$settingsTab$network$ur extends Translations$settingsTab$netw
   @override
   String multicastGroupWarning({required Object defaultMulticast}) =>
       'ہو سکتا ہے آپ کو دوسرے آلات سے پتہ نہ لگے کیونکہ آپ حسب ضرورت ملٹی کاسٹ ایڈریس استعمال کر رہے ہیں۔ (پہلے سے طے شدہ: ${defaultMulticast})';
-  @override
-  String get network => 'نیٹ ورک';
-  @override
-  late final _Translations$settingsTab$network$networkOptions$ur networkOptions = _Translations$settingsTab$network$networkOptions$ur._(_root);
-  @override
-  String get useSystemName => 'سسٹم کا نام استعمال کریں';
-  @override
-  String get generateRandomAlias => 'بے ترتیب عرف پیدا کریں';
 }
 
 // Path: settingsTab.other
@@ -958,6 +1043,40 @@ class _Translations$receiveHistoryPage$entryActions$ur extends Translations$rece
   String get deleteFromHistory => 'تاریخ سے حذف کریں';
 }
 
+// Path: deviceDetailsPage.info
+class _Translations$deviceDetailsPage$info$ur extends Translations$deviceDetailsPage$info$en {
+  _Translations$deviceDetailsPage$info$ur._(TranslationsUr root) : this._root = root, super.internal(root);
+
+  final TranslationsUr _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get name => 'نام';
+  @override
+  String get address => 'پتہ';
+  @override
+  String get version => 'ورژن';
+  @override
+  String protocol({required Object version}) => 'پروٹوکول v${version}';
+}
+
+// Path: deviceDetailsPage.logs
+class _Translations$deviceDetailsPage$logs$ur extends Translations$deviceDetailsPage$logs$en {
+  _Translations$deviceDetailsPage$logs$ur._(TranslationsUr root) : this._root = root, super.internal(root);
+
+  final TranslationsUr _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'لاگز';
+  @override
+  String get empty => 'کوئی لاگ دستیاب نہیں۔';
+  @override
+  String discovered({required Object protocol, required Object host}) => '${protocol} کے ذریعے دریافت ہوا (${host})';
+  @override
+  String updated({required Object protocol, required Object host}) => '${protocol} کے ذریعے اپ ڈیٹ ہوا (${host})';
+}
+
 // Path: progressPage.total
 class _Translations$progressPage$total$ur extends Translations$progressPage$total$en {
   _Translations$progressPage$total$ur._(TranslationsUr root) : this._root = root, super.internal(root);
@@ -975,6 +1094,41 @@ class _Translations$progressPage$total$ur extends Translations$progressPage$tota
   String speed({required Object speed}) => 'رفتار: ${speed}/s';
 }
 
+// Path: progressPage.remainingTime
+class _Translations$progressPage$remainingTime$ur extends Translations$progressPage$remainingTime$en {
+  _Translations$progressPage$remainingTime$ur._(TranslationsUr root) : this._root = root, super.internal(root);
+
+  final TranslationsUr _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String minutesUnit({required num m}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ur'))(
+    m,
+    other: '${m}م',
+  );
+  @override
+  String hoursUnit({required num h}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ur'))(
+    h,
+    other: '${h}گھ',
+  );
+  @override
+  String minutes({required Object m, required Object ss}) => '${m}:${ss}';
+  @override
+  String hours({required num h, required num m}) =>
+      '${_root.progressPage.remainingTime.hoursUnit(h: h)} ${_root.progressPage.remainingTime.minutesUnit(m: m)}';
+}
+
+// Path: whatsNewPage.changes
+class _Translations$whatsNewPage$changes$ur extends Translations$whatsNewPage$changes$en {
+  _Translations$whatsNewPage$changes$ur._(TranslationsUr root) : this._root = root, super.internal(root);
+
+  final TranslationsUr _root; // ignore: unused_field
+
+  // Translations
+  @override
+  late final _Translations$whatsNewPage$changes$v1_18_0$ur v1_18_0 = _Translations$whatsNewPage$changes$v1_18_0$ur._(_root);
+}
+
 // Path: dialogs.addFile
 class _Translations$dialogs$addFile$ur extends Translations$dialogs$addFile$en {
   _Translations$dialogs$addFile$ur._(TranslationsUr root) : this._root = root, super.internal(root);
@@ -986,6 +1140,19 @@ class _Translations$dialogs$addFile$ur extends Translations$dialogs$addFile$en {
   String get title => 'انتخاب میں شامل کریں';
   @override
   String get content => 'آپ کیا شامل کرنا چاہتے ہیں؟';
+}
+
+// Path: dialogs.openFile
+class _Translations$dialogs$openFile$ur extends Translations$dialogs$openFile$en {
+  _Translations$dialogs$openFile$ur._(TranslationsUr root) : this._root = root, super.internal(root);
+
+  final TranslationsUr _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'فائل کھولیں';
+  @override
+  String get content => 'کیا آپ موصولہ فائل کھولنا چاہتے ہیں؟';
 }
 
 // Path: dialogs.addressInput
@@ -1260,6 +1427,21 @@ class _Translations$dialogs$quickSaveNotice$ur extends Translations$dialogs$quic
   String get content => 'فائل کی درخواستیں خود بخود قبول ہو جاتی ہیں۔ آگاہ رہیں کہ مقامی نیٹ ورک میں موجود ہر کوئی آپ کو فائلیں بھیج سکتا ہے۔';
 }
 
+// Path: dialogs.quickSaveFromFavoritesNotice
+class _Translations$dialogs$quickSaveFromFavoritesNotice$ur extends Translations$dialogs$quickSaveFromFavoritesNotice$en {
+  _Translations$dialogs$quickSaveFromFavoritesNotice$ur._(TranslationsUr root) : this._root = root, super.internal(root);
+
+  final TranslationsUr _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => _root.general.quickSaveFromFavorites;
+  @override
+  List<String> get content => [
+    'آپ کی پسندیدہ فہرست میں شامل آلات کی فائل درخواستیں اب خودکار طور پر قبول کی جاتی ہیں۔',
+  ];
+}
+
 // Path: dialogs.pin
 class _Translations$dialogs$pin$ur extends Translations$dialogs$pin$en {
   _Translations$dialogs$pin$ur._(TranslationsUr root) : this._root = root, super.internal(root);
@@ -1325,6 +1507,8 @@ class _Translations$settingsTab$general$colorOptions$ur extends Translations$set
   String get system => 'نظام';
   @override
   String get oled => 'OLED';
+  @override
+  String get custom => 'حسب ضرورت';
 }
 
 // Path: settingsTab.general.languageOptions
@@ -1366,4 +1550,19 @@ class _Translations$progressPage$total$title$ur extends Translations$progressPag
   String get canceledSender => 'بھیجنے والے کے ذریعے منسوخ کر دیا گیا';
   @override
   String get canceledReceiver => 'وصول کنندہ کے ذریعے منسوخ کر دیا گیا';
+}
+
+// Path: whatsNewPage.changes.v1_18_0
+class _Translations$whatsNewPage$changes$v1_18_0$ur extends Translations$whatsNewPage$changes$v1_18_0$en with WhatsNewStrings {
+  _Translations$whatsNewPage$changes$v1_18_0$ur._(TranslationsUr root) : this._root = root, super.internal(root);
+
+  final TranslationsUr _root; // ignore: unused_field
+
+  // Translations
+  @override
+  List<String> get changes => [
+    'خفیہ کاری اب منتقلی کو سست نہیں کرتی۔ اگر آپ نے اسے پہلے بند کیا تھا تو اس آلے پر اسے دوبارہ فعال کر دیا گیا ہے۔',
+    'پسندیدہ آلات کی درخواستیں اب خودکار طور پر قبول کی جاتی ہیں۔ یہ طے شدہ طور پر فعال ہے اور ترتیبات میں غیر فعال کیا جا سکتا ہے۔',
+    'Android پر، منتقلی جاری رہتی ہے جب ایپ پس منظر میں ہو یا اسکرین بند ہو۔ iOS پر، ایپ کو اب بھی پیش منظر میں رہنا ہوگا۔',
+  ];
 }

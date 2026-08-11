@@ -60,6 +60,10 @@ class TranslationsEl extends Translations with BaseTranslations<AppLocale, Trans
   @override
   late final _Translations$selectedFilesPage$el selectedFilesPage = _Translations$selectedFilesPage$el._(_root);
   @override
+  late final _Translations$deviceDetailsPage$el deviceDetailsPage = _Translations$deviceDetailsPage$el._(_root);
+  @override
+  late final _Translations$verifyPage$el verifyPage = _Translations$verifyPage$el._(_root);
+  @override
   late final _Translations$receivePage$el receivePage = _Translations$receivePage$el._(_root);
   @override
   late final _Translations$receiveOptionsPage$el receiveOptionsPage = _Translations$receiveOptionsPage$el._(_root);
@@ -70,11 +74,15 @@ class TranslationsEl extends Translations with BaseTranslations<AppLocale, Trans
   @override
   late final _Translations$webSharePage$el webSharePage = _Translations$webSharePage$el._(_root);
   @override
+  late final _Translations$webReceivePage$el webReceivePage = _Translations$webReceivePage$el._(_root);
+  @override
   late final _Translations$aboutPage$el aboutPage = _Translations$aboutPage$el._(_root);
   @override
   late final _Translations$donationPage$el donationPage = _Translations$donationPage$el._(_root);
   @override
   late final _Translations$changelogPage$el changelogPage = _Translations$changelogPage$el._(_root);
+  @override
+  late final _Translations$whatsNewPage$el whatsNewPage = _Translations$whatsNewPage$el._(_root);
   @override
   late final _Translations$aliasGenerator$el aliasGenerator = _Translations$aliasGenerator$el._(_root);
   @override
@@ -187,6 +195,8 @@ class _Translations$receiveTab$el extends Translations$receiveTab$en {
   late final _Translations$receiveTab$infoBox$el infoBox = _Translations$receiveTab$infoBox$el._(_root);
   @override
   late final _Translations$receiveTab$quickSave$el quickSave = _Translations$receiveTab$quickSave$el._(_root);
+  @override
+  String get link => 'Λήψη μέσω συνδέσμου';
 }
 
 // Path: sendTab
@@ -338,6 +348,42 @@ class _Translations$selectedFilesPage$el extends Translations$selectedFilesPage$
   String get deleteAll => 'Διαγραφή όλων';
 }
 
+// Path: deviceDetailsPage
+class _Translations$deviceDetailsPage$el extends Translations$deviceDetailsPage$en {
+  _Translations$deviceDetailsPage$el._(TranslationsEl root) : this._root = root, super.internal(root);
+
+  final TranslationsEl _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Λεπτομέρειες συσκευής';
+  @override
+  String get favorite => 'Αγαπημένο';
+  @override
+  String get verify => 'Επαλήθευση';
+  @override
+  late final _Translations$deviceDetailsPage$info$el info = _Translations$deviceDetailsPage$info$el._(_root);
+  @override
+  late final _Translations$deviceDetailsPage$logs$el logs = _Translations$deviceDetailsPage$logs$el._(_root);
+}
+
+// Path: verifyPage
+class _Translations$verifyPage$el extends Translations$verifyPage$en {
+  _Translations$verifyPage$el._(TranslationsEl root) : this._root = root, super.internal(root);
+
+  final TranslationsEl _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Επαλήθευση';
+  @override
+  String get icons => 'Εικονίδια';
+  @override
+  String get text => 'Κείμενο';
+  @override
+  String get question => 'Φαίνεται το ίδιο στην άλλη συσκευή;';
+}
+
 // Path: receivePage
 class _Translations$receivePage$el extends Translations$receivePage$en {
   _Translations$receivePage$el._(TranslationsEl root) : this._root = root, super.internal(root);
@@ -385,6 +431,8 @@ class _Translations$sendPage$el extends Translations$sendPage$en {
   final TranslationsEl _root; // ignore: unused_field
 
   // Translations
+  @override
+  String calculatingChecksum({required Object curr, required Object n}) => 'Υπολογισμός αθροίσματος ελέγχου (${curr} / ${n})';
   @override
   String get waiting => 'Αναμονή για απάντηση…';
   @override
@@ -453,6 +501,17 @@ class _Translations$webSharePage$el extends Translations$webSharePage$en {
   String pendingRequests({required Object n}) => 'Αναμονή αιτημάτων: ${n}';
 }
 
+// Path: webReceivePage
+class _Translations$webReceivePage$el extends Translations$webReceivePage$en {
+  _Translations$webReceivePage$el._(TranslationsEl root) : this._root = root, super.internal(root);
+
+  final TranslationsEl _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Λήψη μέσω συνδέσμου';
+}
+
 // Path: aboutPage
 class _Translations$aboutPage$el extends Translations$aboutPage$en {
   _Translations$aboutPage$el._(TranslationsEl root) : this._root = root, super.internal(root);
@@ -506,6 +565,19 @@ class _Translations$changelogPage$el extends Translations$changelogPage$en {
   // Translations
   @override
   String get title => 'Καταγραφή αλλαγών';
+}
+
+// Path: whatsNewPage
+class _Translations$whatsNewPage$el extends Translations$whatsNewPage$en {
+  _Translations$whatsNewPage$el._(TranslationsEl root) : this._root = root, super.internal(root);
+
+  final TranslationsEl _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String title({required Object version}) => 'Τι νέο υπάρχει στην έκδοση ${version}';
+  @override
+  late final _Translations$whatsNewPage$changes$el changes = _Translations$whatsNewPage$changes$el._(_root);
 }
 
 // Path: aliasGenerator
@@ -915,6 +987,8 @@ class _Translations$settingsTab$receive$el extends Translations$settingsTab$rece
   String get saveToGallery => 'Αποθήκευση μέσου στη συλλογή';
   @override
   String get saveToHistory => 'Αποθήκευση στο ιστορικό';
+  @override
+  String get verifyChecksums => 'Επαλήθευση αθροισμάτων ελέγχου κατά τη λήψη αρχείων';
 }
 
 // Path: settingsTab.send
@@ -928,6 +1002,8 @@ class _Translations$settingsTab$send$el extends Translations$settingsTab$send$en
   String get title => 'Αποστολή';
   @override
   String get shareViaLinkAutoAccept => 'Κοινοποίηση μέσω συνδέσμου: Αυτόματη αποδοχή';
+  @override
+  String get createChecksums => 'Δημιουργία αθροισμάτων ελέγχου κατά την αποστολή αρχείων';
 }
 
 // Path: settingsTab.network
@@ -1054,6 +1130,40 @@ class _Translations$receiveHistoryPage$entryActions$el extends Translations$rece
   String get deleteFromHistory => 'Διαγραφή από το ιστορικό';
 }
 
+// Path: deviceDetailsPage.info
+class _Translations$deviceDetailsPage$info$el extends Translations$deviceDetailsPage$info$en {
+  _Translations$deviceDetailsPage$info$el._(TranslationsEl root) : this._root = root, super.internal(root);
+
+  final TranslationsEl _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get name => 'Όνομα';
+  @override
+  String get address => 'Διεύθυνση';
+  @override
+  String get version => 'Έκδοση';
+  @override
+  String protocol({required Object version}) => 'Πρωτόκολλο v${version}';
+}
+
+// Path: deviceDetailsPage.logs
+class _Translations$deviceDetailsPage$logs$el extends Translations$deviceDetailsPage$logs$en {
+  _Translations$deviceDetailsPage$logs$el._(TranslationsEl root) : this._root = root, super.internal(root);
+
+  final TranslationsEl _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Αρχεία καταγραφής';
+  @override
+  String get empty => 'Δεν υπάρχουν διαθέσιμα αρχεία καταγραφής.';
+  @override
+  String discovered({required Object protocol, required Object host}) => 'Εντοπίστηκε μέσω ${protocol} (${host})';
+  @override
+  String updated({required Object protocol, required Object host}) => 'Ενημερώθηκε μέσω ${protocol} (${host})';
+}
+
 // Path: progressPage.total
 class _Translations$progressPage$total$el extends Translations$progressPage$total$en {
   _Translations$progressPage$total$el._(TranslationsEl root) : this._root = root, super.internal(root);
@@ -1079,11 +1189,31 @@ class _Translations$progressPage$remainingTime$el extends Translations$progressP
 
   // Translations
   @override
-  String minutes({required Object m, required Object ss}) => '${m}:${ss}';
-
-  /// Χρησιμοποιήστε τη συντομογραφία «ώ» για ώρες και τη συντομογραφία «λ» για λεπτά
+  String minutesUnit({required num m}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('el'))(
+    m,
+    other: '${m}λ',
+  );
   @override
-  String hours({required Object h, required Object m}) => '${h}ώ ${m}λ';
+  String hoursUnit({required num h}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('el'))(
+    h,
+    other: '${h}ώ',
+  );
+  @override
+  String minutes({required Object m, required Object ss}) => '${m}:${ss}';
+  @override
+  String hours({required num h, required num m}) =>
+      '${_root.progressPage.remainingTime.hoursUnit(h: h)} ${_root.progressPage.remainingTime.minutesUnit(m: m)}';
+}
+
+// Path: whatsNewPage.changes
+class _Translations$whatsNewPage$changes$el extends Translations$whatsNewPage$changes$en {
+  _Translations$whatsNewPage$changes$el._(TranslationsEl root) : this._root = root, super.internal(root);
+
+  final TranslationsEl _root; // ignore: unused_field
+
+  // Translations
+  @override
+  late final _Translations$whatsNewPage$changes$v1_18_0$el v1_18_0 = _Translations$whatsNewPage$changes$v1_18_0$el._(_root);
 }
 
 // Path: dialogs.addFile
@@ -1466,6 +1596,8 @@ class _Translations$settingsTab$general$colorOptions$el extends Translations$set
   String get system => 'Σύστημα';
   @override
   String get oled => 'OLED';
+  @override
+  String get custom => 'Προσαρμοσμένο';
 }
 
 // Path: settingsTab.general.languageOptions
@@ -1507,4 +1639,19 @@ class _Translations$progressPage$total$title$el extends Translations$progressPag
   String get canceledSender => 'Ακυρώθηκε από τον αποστολέα';
   @override
   String get canceledReceiver => 'Ακυρώθηκε από τον παραλήπτη';
+}
+
+// Path: whatsNewPage.changes.v1_18_0
+class _Translations$whatsNewPage$changes$v1_18_0$el extends Translations$whatsNewPage$changes$v1_18_0$en with WhatsNewStrings {
+  _Translations$whatsNewPage$changes$v1_18_0$el._(TranslationsEl root) : this._root = root, super.internal(root);
+
+  final TranslationsEl _root; // ignore: unused_field
+
+  // Translations
+  @override
+  List<String> get changes => [
+    'Η κρυπτογράφηση δεν επιβραδύνει πλέον τις μεταφορές. Έχει ενεργοποιηθεί ξανά σε αυτή τη συσκευή εάν την είχατε απενεργοποιήσει.',
+    'Τα αιτήματα από αγαπημένα γίνονται πλέον αποδεκτά αυτόματα. Αυτό είναι ενεργοποιημένο από προεπιλογή και μπορεί να απενεργοποιηθεί στις ρυθμίσεις.',
+    'Στο Android, οι μεταφορές συνεχίζονται ενώ η εφαρμογή βρίσκεται στο παρασκήνιο ή η οθόνη είναι σβηστή. Στο iOS, η εφαρμογή πρέπει ακόμα να παραμένει στο προσκήνιο.',
+  ];
 }

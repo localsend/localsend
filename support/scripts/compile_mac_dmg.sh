@@ -1,6 +1,8 @@
-# UNCOMMENT THESE LINES TO BUILD FROM LATEST COMMIT
-# git reset --hard origin/main
-# git pull
+# Prerequisite:
+# - brew install create-dmg
+
+VERSION=$(sed -n 's/^version: \([0-9]*\.[0-9]*\.[0-9]*\).*/\1/p' app/pubspec.yaml)
+DMG="LocalSend-$VERSION.dmg"
 
 cd app
 fvm flutter clean
@@ -19,21 +21,21 @@ codesign --deep --force --verbose --options runtime --entitlements macos/Runner/
 echo
 echo "Creating dmg..."
 echo
-rm -f LocalSend.dmg
+rm -f "$DMG"
 create-dmg \
   --volname "LocalSend" \
   --window-size 500 300 \
   --background "../support/build/dmg/background.png" \
   --icon LocalSend.app 130 110 \
   --app-drop-link 360 110 \
-  LocalSend.dmg \
+  "$DMG" \
   build/macos/Build/Products/Release/LocalSend.app
 
 # sign the dmg
 echo
 echo "Signing the dmg..."
 echo
-codesign --force --verbose --sign "$SIGN_ID" LocalSend.dmg
+codesign --force --verbose --sign "$SIGN_ID" "$DMG"
 
 # send to apple for notarization
 DEV_EMAIL=example@example.com
@@ -43,11 +45,11 @@ TEAM_ID=3W7H4PYMCV
 echo
 echo "Sending to apple for notarization..."
 echo
-xcrun notarytool submit LocalSend.dmg --wait --apple-id $DEV_EMAIL --password "$APP_PASSWORD" --team-id "$TEAM_ID"
+xcrun notarytool submit "$DMG" --wait --apple-id $DEV_EMAIL --password "$APP_PASSWORD" --team-id "$TEAM_ID"
 
 # download notarization result and apply to the dmg
 echo
 echo "Run stapler..."
 echo
-xcrun stapler staple LocalSend.dmg
+xcrun stapler staple "$DMG"
 cd ..

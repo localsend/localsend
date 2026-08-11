@@ -51,7 +51,8 @@
       "off": "@:general.off",
       "favorites": "Favoritos",
       "on": "@:general.on"
-    }
+    },
+    "link": "Receber via link"
   },
   "sendTab": {
     "title": "Enviar",
@@ -96,7 +97,8 @@
       "color": "Cores",
       "colorOptions": {
         "system": "Sistema",
-        "oled": "OLED"
+        "oled": "OLED",
+        "custom": "Personalizado"
       },
       "language": "Idioma",
       "languageOptions": {
@@ -204,6 +206,29 @@
   "selectedFilesPage": {
     "deleteAll": "Apagar tudo"
   },
+  "deviceDetailsPage": {
+    "title": "Detalhes do dispositivo",
+    "favorite": "Favorito",
+    "verify": "Verificar",
+    "info": {
+      "name": "Nome",
+      "address": "Endereço",
+      "version": "Versão",
+      "protocol": "Protocolo v{version}"
+    },
+    "logs": {
+      "title": "Registros",
+      "empty": "Nenhum registro disponível.",
+      "discovered": "Descoberto via {protocol} ({host})",
+      "updated": "Atualizado via {protocol} ({host})"
+    }
+  },
+  "verifyPage": {
+    "title": "Verificar",
+    "icons": "Ícones",
+    "text": "Texto",
+    "question": "Está igual no outro dispositivo?"
+  },
   "receivePage": {
     "subTitle": {
       "one": "quer te enviar um arquivo",
@@ -221,11 +246,11 @@
     "saveToGalleryOff": "Desativada automaticamente pois há pastas."
   },
   "sendPage": {
+    "calculatingChecksum": "Calculando checksum ({curr} / {n})",
     "waiting": "Aguardando resposta…",
     "rejected": "O destinatário rejeitou a solicitação.",
     "tooManyAttempts": "@:web.tooManyAttempts",
-    "busy": "O destinatário está ocupado com outra solicitação.",
-    "calculatingChecksum": "Calculando checksum ({curr} / {n})"
+    "busy": "O destinatário está ocupado com outra solicitação."
   },
   "progressPage": {
     "titleSending": "Enviando arquivos",
@@ -243,9 +268,14 @@
       "speed": "Velocidade: {speed}/s"
     },
     "remainingTime": {
+      "minutesUnit(plural, param=m)": {
+        "other": "{m}min"
+      },
+      "hoursUnit(plural, param=h)": {
+        "other": "{h}h"
+      },
       "minutes": "{m}:{ss}",
-      "hours": "{h}h {m}m",
-      "@hours": "Use 'h' para abreviar horas e 'm' para minutos"
+      "hours": "@:.hoursUnit @:.minutesUnit"
     }
   },
   "webSharePage": {
@@ -265,6 +295,9 @@
     "pinHint": "O PIN é \"{pin}\"",
     "encryptionHint": "O LocalSend utiliza um certificado autoassinado. Você precisa aceitá-lo no seu navegador.",
     "pendingRequests": "Solicitações pendentes: {n}"
+  },
+  "webReceivePage": {
+    "title": "Receber via link"
   },
   "aboutPage": {
     "title": "Sobre o LocalSend",
@@ -286,6 +319,18 @@
   },
   "changelogPage": {
     "title": "Registro de alterações"
+  },
+  "whatsNewPage": {
+    "title": "O que há de novo na versão {version}",
+    "changes(interface=WhatsNewStrings)": {
+      "v1_18_0": {
+        "changes": [
+          "A criptografia não retarda mais as transferências. Ela foi reativada neste dispositivo se você a desativou antes.",
+          "Solicitações de favoritos agora são aceitas automaticamente. Isso está ativado por padrão e pode ser desativado nas configurações.",
+          "No Android, as transferências continuam enquanto o aplicativo está em segundo plano ou a tela está desligada. No iOS, o aplicativo ainda deve permanecer em primeiro plano."
+        ]
+      }
+    }
   },
   "aliasGenerator(ignoreMissing, ignoreGpt)": {
     "@info": "Idiomas diferentes podem usar palavras diferentes, pode não corresponder totalmente",
@@ -516,20 +561,5 @@
     "sActionUseCameraHint": "usar a câmera",
     "sNameDurationLabel": "duração",
     "sUnitAssetCountLabel": "contagem"
-  },
-  "webReceivePage": {
-    "title": "Receber via link"
-  },
-  "whatsNewPage": {
-    "title": "O que há de novo na versão {version}",
-    "changes(interface=WhatsNewStrings)": {
-      "v1_18_0": {
-        "changes": [
-          "A criptografia não retarda mais as transferências. Ela foi reativada neste dispositivo se você a desativou antes.",
-          "Solicitações de favoritos agora são aceitas automaticamente. Isso está ativado por padrão e pode ser desativado nas configurações.",
-          "No Android, as transferências continuam enquanto o aplicativo está em segundo plano ou a tela está desligada. No iOS, o aplicativo ainda deve permanecer em primeiro plano."
-        ]
-      }
-    }
   }
 }

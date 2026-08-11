@@ -51,7 +51,8 @@
       "off": "@:general.off",
       "favorites": "收藏夹",
       "on": "@:general.on"
-    }
+    },
+    "link": "通过链接接收"
   },
   "sendTab": {
     "title": "发送",
@@ -96,7 +97,8 @@
       "color": "颜色",
       "colorOptions": {
         "system": "跟随系统",
-        "oled": "OLED"
+        "oled": "OLED",
+        "custom": "自定义"
       },
       "language": "语言",
       "languageOptions": {
@@ -119,11 +121,13 @@
       "destination": "保存目录",
       "downloads": "(下载)",
       "saveToGallery": "保存到相册",
-      "saveToHistory": "保存到历史记录"
+      "saveToHistory": "保存到历史记录",
+      "verifyChecksums": "接收文件时验证校验和"
     },
     "send": {
       "title": "发送",
-      "shareViaLinkAutoAccept": "通过链接分享：自动同意接收请求"
+      "shareViaLinkAutoAccept": "通过链接分享：自动同意接收请求",
+      "createChecksums": "发送文件时创建校验和"
     },
     "network": {
       "title": "网络",
@@ -202,6 +206,29 @@
   "selectedFilesPage": {
     "deleteAll": "全部删除"
   },
+  "deviceDetailsPage": {
+    "title": "设备详情",
+    "favorite": "收藏",
+    "verify": "验证",
+    "info": {
+      "name": "名称",
+      "address": "地址",
+      "version": "版本",
+      "protocol": "协议 v{version}"
+    },
+    "logs": {
+      "title": "日志",
+      "empty": "没有可用的日志。",
+      "discovered": "通过 {protocol} 发现 ({host})",
+      "updated": "通过 {protocol} 更新 ({host})"
+    }
+  },
+  "verifyPage": {
+    "title": "验证",
+    "icons": "图标",
+    "text": "文本",
+    "question": "在另一台设备上显示的内容相同吗？"
+  },
   "receivePage": {
     "subTitle": {
       "one": "想要发送给你一个文件",
@@ -219,11 +246,11 @@
     "saveToGalleryOff": "由于分享内容中存在文件夹，已自动关闭。"
   },
   "sendPage": {
+    "calculatingChecksum": "正在计算校验和（{curr} / {n}）",
     "waiting": "等待响应中……",
     "rejected": "对方拒绝了请求。",
     "tooManyAttempts": "@:web.tooManyAttempts",
-    "busy": "对方正在处理另一个请求。",
-    "calculatingChecksum": "正在计算校验和（{curr} / {n}）"
+    "busy": "对方正在处理另一个请求。"
   },
   "progressPage": {
     "titleSending": "正在发送文件",
@@ -241,9 +268,14 @@
       "speed": "速度：{speed}/s"
     },
     "remainingTime": {
+      "minutesUnit(plural, param=m)": {
+        "other": "{m}分钟"
+      },
+      "hoursUnit(plural, param=h)": {
+        "other": "{h}小时"
+      },
       "minutes": "{m}:{ss}",
-      "hours": "{h}h {m}m",
-      "@hours": "使用'h'作为小时缩写，使用'm'作为分钟缩写"
+      "hours": "@:.hoursUnit @:.minutesUnit"
     }
   },
   "webSharePage": {
@@ -263,6 +295,9 @@
     "pinHint": "PIN 为 “{pin}”",
     "encryptionHint": "LocalSend 使用自签名证书。您需要在浏览器中允许它。",
     "pendingRequests": "待处理请求：{n}"
+  },
+  "webReceivePage": {
+    "title": "通过链接接收"
   },
   "aboutPage": {
     "title": "关于 LocalSend",
@@ -284,6 +319,18 @@
   },
   "changelogPage": {
     "title": "更新日志"
+  },
+  "whatsNewPage": {
+    "title": "{version} 中的新增功能",
+    "changes(interface=WhatsNewStrings)": {
+      "v1_18_0": {
+        "changes": [
+          "加密不再减缓传输速度。如果您之前将其关闭，则现在已在此设备上重新启用。",
+          "来自收藏夹的请求现在会被自动接受。这项功能是默认打开的，可以在设置中禁用。",
+          "在Android上，当应用处于后台或屏幕关闭时，传输仍会继续。在iOS上，应用仍必须保持在前台。"
+        ]
+      }
+    }
   },
   "aliasGenerator(ignoreMissing, ignoreGpt)": {
     "@info": "由于英文中一些近义词无法被翻译为不同的中文，这里与英文会有所差异",
@@ -523,20 +570,5 @@
     "sActionUseCameraHint": "使用摄像头",
     "sNameDurationLabel": "时长",
     "sUnitAssetCountLabel": "计数"
-  },
-  "webReceivePage": {
-    "title": "通过链接接收"
-  },
-  "whatsNewPage": {
-    "title": "{version} 中的新增功能",
-    "changes(interface=WhatsNewStrings)": {
-      "v1_18_0": {
-        "changes": [
-          "加密不再减缓传输速度。如果您之前将其关闭，则现在已在此设备上重新启用。",
-          "来自收藏夹的请求现在会被自动接受。这项功能是默认打开的，可以在设置中禁用。",
-          "在Android上，当应用处于后台或屏幕关闭时，传输仍会继续。在iOS上，应用仍必须保持在前台。"
-        ]
-      }
-    }
   }
 }

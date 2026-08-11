@@ -51,7 +51,8 @@
       "off": "@:general.off",
       "favorites": "Favorit",
       "on": "@:general.on"
-    }
+    },
+    "link": "Terima melalui tautan"
   },
   "sendTab": {
     "title": "Kirim",
@@ -96,7 +97,8 @@
       "color": "Warna",
       "colorOptions": {
         "system": "Sistem",
-        "oled": "OLED"
+        "oled": "OLED",
+        "custom": "Kustom"
       },
       "language": "Bahasa",
       "languageOptions": {
@@ -119,11 +121,13 @@
       "destination": "Tujuan",
       "downloads": "(Unduhan)",
       "saveToGallery": "Simpan media ke galeri",
-      "saveToHistory": "Simpan ke riwayat"
+      "saveToHistory": "Simpan ke riwayat",
+      "verifyChecksums": "Verifikasi checksum saat menerima berkas"
     },
     "send": {
       "title": "Kirim",
-      "shareViaLinkAutoAccept": "Bagikan melalui tautan: Terima otomatis"
+      "shareViaLinkAutoAccept": "Bagikan melalui tautan: Terima otomatis",
+      "createChecksums": "Buat checksum saat mengirim berkas"
     },
     "network": {
       "title": "Jaringan",
@@ -202,6 +206,29 @@
   "selectedFilesPage": {
     "deleteAll": "Hapus semua"
   },
+  "deviceDetailsPage": {
+    "title": "Detail Perangkat",
+    "favorite": "Favorit",
+    "verify": "Verifikasi",
+    "info": {
+      "name": "Nama",
+      "address": "Alamat",
+      "version": "Versi",
+      "protocol": "Protokol v{version}"
+    },
+    "logs": {
+      "title": "Log",
+      "empty": "Tidak ada log yang tersedia.",
+      "discovered": "Ditemukan melalui {protocol} ({host})",
+      "updated": "Diperbarui melalui {protocol} ({host})"
+    }
+  },
+  "verifyPage": {
+    "title": "Verifikasi",
+    "icons": "Ikon",
+    "text": "Teks",
+    "question": "Apakah tampilannya sama di perangkat lain?"
+  },
   "receivePage": {
     "subTitle": {
       "one": "ingin mengirimi Anda sebuah berkas",
@@ -213,10 +240,13 @@
   },
   "receiveOptionsPage": {
     "title": "Pilihan",
+    "destination": "@:settingsTab.receive.destination",
     "appDirectory": "(folder LocalSend)",
+    "saveToGallery": "@:settingsTab.receive.saveToGallery",
     "saveToGalleryOff": "Dimatikan secara otomatis karena ada direktori."
   },
   "sendPage": {
+    "calculatingChecksum": "Menghitung checksum ({curr} / {n})",
     "waiting": "Menunggu tanggapan…",
     "rejected": "Penerima menolak permintaan.",
     "tooManyAttempts": "@:web.tooManyAttempts",
@@ -236,6 +266,16 @@
       "count": "Berkas: {curr} / {n}",
       "size": "Ukuran: {curr} / {n}",
       "speed": "Kecepatan: {speed}/s"
+    },
+    "remainingTime": {
+      "minutesUnit(plural, param=m)": {
+        "other": "{m}m"
+      },
+      "hoursUnit(plural, param=h)": {
+        "other": "{h}j"
+      },
+      "minutes": "{m}:{ss}",
+      "hours": "@:.hoursUnit @:.minutesUnit"
     }
   },
   "webSharePage": {
@@ -255,6 +295,9 @@
     "pinHint": "PIN-nya adalah \"{pin}\"",
     "encryptionHint": "LocalSend menggunakan sertifikat self-signed. Anda perlu menerimanya di peramban.",
     "pendingRequests": "Banyaknya permintaan yang tertunda: {n}"
+  },
+  "webReceivePage": {
+    "title": "Terima melalui tautan"
   },
   "aboutPage": {
     "title": "Tentang LocalSend",
@@ -276,6 +319,18 @@
   },
   "changelogPage": {
     "title": "Catatan Perubahan"
+  },
+  "whatsNewPage": {
+    "title": "Apa yang baru di {version}",
+    "changes(interface=WhatsNewStrings)": {
+      "v1_18_0": {
+        "changes": [
+          "Enkripsi tidak lagi memperlambat transfer. Enkripsi telah diaktifkan kembali di perangkat ini jika sebelumnya Anda menonaktifkannya.",
+          "Permintaan dari favorit kini diterima secara otomatis. Fitur ini aktif secara bawaan dan dapat dinonaktifkan di pengaturan.",
+          "Di Android, transfer tetap berjalan saat aplikasi berada di latar belakang atau layar mati. Di iOS, aplikasi masih harus tetap berada di latar depan."
+        ]
+      }
+    }
   },
   "aliasGenerator(ignoreMissing, ignoreGpt)": {
     "@info": "Bahasa lokal yang berbeda mungkin memiliki kata-kata yang berbeda, mungkin tidak sama persis 1:1"

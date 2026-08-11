@@ -51,7 +51,8 @@
       "off": "@:general.off",
       "favorites": "Favorieten",
       "on": "@:general.on"
-    }
+    },
+    "link": "Ontvangen via link"
   },
   "sendTab": {
     "title": "Verzenden",
@@ -96,7 +97,8 @@
       "color": "Kleur",
       "colorOptions": {
         "system": "Systeem",
-        "oled": "OLED"
+        "oled": "OLED",
+        "custom": "Aangepast"
       },
       "language": "Taal",
       "languageOptions": {
@@ -119,11 +121,13 @@
       "destination": "Opslaan in map",
       "downloads": "(Downloads)",
       "saveToGallery": "Media opslaan in galerij",
-      "saveToHistory": "Opslaan in geschiedenis"
+      "saveToHistory": "Opslaan in geschiedenis",
+      "verifyChecksums": "Controlesommen verifiëren bij het ontvangen van bestanden"
     },
     "send": {
       "title": "Verzenden",
-      "shareViaLinkAutoAccept": "Automatisch verzoeken goedkeuren in modus 'Delen via link'"
+      "shareViaLinkAutoAccept": "Automatisch verzoeken goedkeuren in modus 'Delen via link'",
+      "createChecksums": "Controlesommen aanmaken bij het verzenden van bestanden"
     },
     "network": {
       "title": "Netwerk",
@@ -202,6 +206,29 @@
   "selectedFilesPage": {
     "deleteAll": "Alles verwijderen"
   },
+  "deviceDetailsPage": {
+    "title": "Apparaatdetails",
+    "favorite": "Favoriet",
+    "verify": "Verifiëren",
+    "info": {
+      "name": "Naam",
+      "address": "Adres",
+      "version": "Versie",
+      "protocol": "Protocol v{version}"
+    },
+    "logs": {
+      "title": "Logboeken",
+      "empty": "Geen logboeken beschikbaar.",
+      "discovered": "Ontdekt via {protocol} ({host})",
+      "updated": "Bijgewerkt via {protocol} ({host})"
+    }
+  },
+  "verifyPage": {
+    "title": "Verifiëren",
+    "icons": "Pictogrammen",
+    "text": "Tekst",
+    "question": "Ziet het er hetzelfde uit op het andere apparaat?"
+  },
   "receivePage": {
     "subTitle": {
       "one": "wil een bestand naar je verzenden",
@@ -219,11 +246,11 @@
     "saveToGalleryOff": "Automatisch uitgezet omdat er mappen bij zitten."
   },
   "sendPage": {
+    "calculatingChecksum": "Controlesom berekenen ({curr} / {n})",
     "waiting": "Wachten op antwoord…",
     "rejected": "De ontvanger heeft het verzoek geweigerd.",
     "tooManyAttempts": "@:web.tooManyAttempts",
-    "busy": "De ontvanger is bezig met een ander verzoek.",
-    "calculatingChecksum": "Controlesom berekenen ({curr} / {n})"
+    "busy": "De ontvanger is bezig met een ander verzoek."
   },
   "progressPage": {
     "titleSending": "Bestanden verzenden",
@@ -241,9 +268,14 @@
       "speed": "Snelheid: {speed}/s"
     },
     "remainingTime": {
+      "minutesUnit(plural, param=m)": {
+        "other": "{m}m"
+      },
+      "hoursUnit(plural, param=h)": {
+        "other": "{h}u"
+      },
       "minutes": "{m}:{ss}",
-      "hours": "{h}u {m}m",
-      "@hours": "Gebruik 'u' als afkorting voor uren en 'm' voor minuten"
+      "hours": "@:.hoursUnit @:.minutesUnit"
     }
   },
   "webSharePage": {
@@ -263,6 +295,9 @@
     "pinHint": "De PINcode is \"{pin}\"",
     "encryptionHint": "LocalSend maakt gebruik van een zelfondertekend certificaat. Je moet dit accepteren in je browser.",
     "pendingRequests": "Openstaande verzoeken: {n}"
+  },
+  "webReceivePage": {
+    "title": "Ontvangen via link"
   },
   "aboutPage": {
     "title": "Over LocalSend",
@@ -284,6 +319,18 @@
   },
   "changelogPage": {
     "title": "Wijzigingenoverzicht"
+  },
+  "whatsNewPage": {
+    "title": "Nieuw in {version}",
+    "changes(interface=WhatsNewStrings)": {
+      "v1_18_0": {
+        "changes": [
+          "Encryptie vertraagt de overdrachten niet langer. Het is opnieuw ingeschakeld op dit apparaat als u het eerder hebt uitgeschakeld.",
+          "Aanvragen van favorieten worden nu automatisch geaccepteerd. Deze wordt standaard ingeschakeld en kan in de instellingen uitgeschakeld worden.",
+          "Op Android gaan de overdrachten door als de app op de achtergrond staat of het scherm uit staat. Op iOS moet de app op de voorgrond blijven."
+        ]
+      }
+    }
   },
   "aliasGenerator(ignoreMissing, ignoreGpt)": {
     "@info": "Inherits from the English version"
@@ -454,20 +501,5 @@
     "sActionUseCameraHint": "camera gebruiken",
     "sNameDurationLabel": "duur",
     "sUnitAssetCountLabel": "aantal"
-  },
-  "whatsNewPage": {
-    "title": "Nieuw in {version}",
-    "changes(interface=WhatsNewStrings)": {
-      "v1_18_0": {
-        "changes": [
-          "Encryptie vertraagt de overdrachten niet langer. Het is opnieuw ingeschakeld op dit apparaat als u het eerder hebt uitgeschakeld.",
-          "Aanvragen van favorieten worden nu automatisch geaccepteerd. Deze wordt standaard ingeschakeld en kan in de instellingen uitgeschakeld worden.",
-          "Op Android gaan de overdrachten door als de app op de achtergrond staat of het scherm uit staat. Op iOS moet de app op de voorgrond blijven."
-        ]
-      }
-    }
-  },
-  "webReceivePage": {
-    "title": "Ontvangen via link"
   }
 }

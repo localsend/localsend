@@ -51,7 +51,8 @@
       "off": "@:general.off",
       "favorites": "즐겨찾기",
       "on": "@:general.on"
-    }
+    },
+    "link": "링크로 받기"
   },
   "sendTab": {
     "title": "보내기",
@@ -96,7 +97,8 @@
       "color": "색상",
       "colorOptions": {
         "system": "시스템",
-        "oled": "OLED"
+        "oled": "OLED",
+        "custom": "사용자 지정"
       },
       "language": "언어",
       "languageOptions": {
@@ -119,11 +121,13 @@
       "destination": "저장 위치",
       "downloads": "(다운로드 폴더)",
       "saveToGallery": "갤러리에 미디어 저장",
-      "saveToHistory": "전송 기록 보관"
+      "saveToHistory": "전송 기록 보관",
+      "verifyChecksums": "파일을 받을 때 체크섬 검증"
     },
     "send": {
       "title": "보내기",
-      "shareViaLinkAutoAccept": "\"링크로 공유하기\" 요청 자동 수락"
+      "shareViaLinkAutoAccept": "\"링크로 공유하기\" 요청 자동 수락",
+      "createChecksums": "파일을 보낼 때 체크섬 생성"
     },
     "network": {
       "title": "네트워크",
@@ -202,6 +206,29 @@
   "selectedFilesPage": {
     "deleteAll": "모두 삭제"
   },
+  "deviceDetailsPage": {
+    "title": "기기 세부 정보",
+    "favorite": "즐겨찾기",
+    "verify": "검증",
+    "info": {
+      "name": "이름",
+      "address": "주소",
+      "version": "버전",
+      "protocol": "프로토콜 v{version}"
+    },
+    "logs": {
+      "title": "로그",
+      "empty": "사용 가능한 로그가 없습니다.",
+      "discovered": "{protocol}을(를) 통해 발견됨 ({host})",
+      "updated": "{protocol}을(를) 통해 업데이트됨 ({host})"
+    }
+  },
+  "verifyPage": {
+    "title": "검증",
+    "icons": "아이콘",
+    "text": "텍스트",
+    "question": "다른 기기에서도 똑같이 보이나요?"
+  },
   "receivePage": {
     "subTitle": {
       "one": "에서 파일을 보내려고 합니다",
@@ -219,11 +246,11 @@
     "saveToGalleryOff": "폴더가 있어 자동으로 비활성화되었습니다."
   },
   "sendPage": {
+    "calculatingChecksum": "체크섬 계산 중 ({curr} / {n})",
     "waiting": "응답 대기 중…",
     "rejected": "받는 사람이 요청을 거부했습니다",
     "tooManyAttempts": "@:web.tooManyAttempts",
-    "busy": "받는 사람이 다른 요청을 처리하는 중입니다.",
-    "calculatingChecksum": "체크섬 계산 중 ({curr} / {n})"
+    "busy": "받는 사람이 다른 요청을 처리하는 중입니다."
   },
   "progressPage": {
     "titleSending": "파일 보내는 중",
@@ -241,9 +268,14 @@
       "speed": "속도: {speed}/초"
     },
     "remainingTime": {
+      "minutesUnit(plural, param=m)": {
+        "other": "{m}분"
+      },
+      "hoursUnit(plural, param=h)": {
+        "other": "{h}시간"
+      },
       "minutes": "{m}:{ss}",
-      "hours": "{h}시간 {m}분",
-      "@hours": "'h'로 시간을, 'm'으로 분을 나타냅니다"
+      "hours": "@:.hoursUnit @:.minutesUnit"
     }
   },
   "webSharePage": {
@@ -263,6 +295,9 @@
     "pinHint": "PIN 번호는 \"{pin}\" 입니다",
     "encryptionHint": "LocalSend는 자체 서명된 인증서를 사용합니다. 브라우저에서 이를 허용해야 합니다.",
     "pendingRequests": "대기 중인 요청: {n}"
+  },
+  "webReceivePage": {
+    "title": "링크로 수신"
   },
   "aboutPage": {
     "title": "LocalSend 정보",
@@ -284,6 +319,18 @@
   },
   "changelogPage": {
     "title": "변경사항"
+  },
+  "whatsNewPage": {
+    "title": "{version} 버전의 새 기능",
+    "changes(interface=WhatsNewStrings)": {
+      "v1_18_0": {
+        "changes": [
+          "암호화가 더 이상 전송을 느리게 하지 않습니다. 이 기기에서 이전에 암호화를 끈 경우 다시 암호화를 켰습니다.",
+          "이제 즐겨찾기한 기기의 요청을 자동으로 수락합니다. 기본적으로 켜져 있으며 설정에서 끌 수 있습니다.",
+          "Android에서는 앱이 백그라운드로 전환되거나 화면이 꺼져도 전송을 계속합니다. iOS에서는 여전히 앱을 연 채로 유지해야 합니다."
+        ]
+      }
+    }
   },
   "aliasGenerator(ignoreMissing, ignoreGpt)": {
     "@info": "Inherits from the English version"
@@ -454,20 +501,5 @@
     "sActionUseCameraHint": "카메라 사용",
     "sNameDurationLabel": "길이",
     "sUnitAssetCountLabel": "개수"
-  },
-  "whatsNewPage": {
-    "title": "{version} 버전의 새 기능",
-    "changes(interface=WhatsNewStrings)": {
-      "v1_18_0": {
-        "changes": [
-          "암호화가 더 이상 전송을 느리게 하지 않습니다. 이 기기에서 이전에 암호화를 끈 경우 다시 암호화를 켰습니다.",
-          "이제 즐겨찾기한 기기의 요청을 자동으로 수락합니다. 기본적으로 켜져 있으며 설정에서 끌 수 있습니다.",
-          "Android에서는 앱이 백그라운드로 전환되거나 화면이 꺼져도 전송을 계속합니다. iOS에서는 여전히 앱을 연 채로 유지해야 합니다."
-        ]
-      }
-    }
-  },
-  "webReceivePage": {
-    "title": "링크로 수신"
   }
 }

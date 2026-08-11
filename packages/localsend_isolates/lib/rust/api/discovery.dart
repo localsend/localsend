@@ -83,13 +83,23 @@ abstract class RsDiscovery implements RustOpaqueInterface {
   /// the store's log limit. Empty when the fingerprint is unknown.
   Future<List<RsDeviceLog>> deviceLogs({required String fingerprint});
 
-  /// Discovers a device at a known address, e.g. a favorite or a peer that
-  /// multicast does not reach, by sending it a register request.
+  /// Discovers devices in stages, cheapest first: announces this device to
+  /// the network and probes [channels] (e.g. the favorites), then falls
+  /// back to scanning the `/24` subnets of the local interface addresses
+  /// [interface_ips], for networks that do not carry multicast. The
+  /// fallback only runs when nothing was confirmed until [grace_ms] after
+  /// the channels have been probed.
   ///
-  /// The confirmed device is also emitted on [RsDiscovery::listen].
-  /// Returns `None` when the device did not answer or answered with this
-  /// device's own fingerprint (i.e. the device discovered itself).
-  Future<RsStoredDevice?> discover({required String host, required int port, required ProtocolType protocol});
+  /// The found devices are emitted on [RsDiscovery::listen] as they answer;
+  /// returns once every stage has finished, including the whole
+  /// announcement burst.
+  Future<void> discoverStaged({
+    required List<RsDeviceChannel> channels,
+    required List<String> interfaceIps,
+    required int port,
+    required ProtocolType protocol,
+    required BigInt graceMs,
+  });
 
   /// Emits a [RsStoredDevice] for every device confirmation until the
   /// discovery is stopped. Can only be listened to once.

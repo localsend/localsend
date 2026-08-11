@@ -226,7 +226,7 @@
   "verifyPage": {
     "title": "Verifizieren",
     "icons": "Symbole",
-    "raw": "Rohdaten",
+    "text": "Text",
     "question": "Sieht es auf dem anderen Gerät gleich aus?"
   },
   "receivePage": {
@@ -268,9 +268,14 @@
       "speed": "Geschwindigkeit: {speed}/s"
     },
     "remainingTime": {
+      "minutesUnit(plural, param=m)": {
+        "other": "{m}m"
+      },
+      "hoursUnit(plural, param=h)": {
+        "other": "{h}h"
+      },
       "minutes": "{m}:{ss}",
-      "hours": "{h}h {m}m",
-      "@hours": "Benutze 'h' als Abkürzung für Stunden und 'm' für Minuten"
+      "hours": "@:.hoursUnit @:.minutesUnit"
     }
   },
   "webSharePage": {

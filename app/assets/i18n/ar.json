@@ -51,7 +51,8 @@
       "off": "@:general.off",
       "favorites": "المفضلات",
       "on": "@:general.on"
-    }
+    },
+    "link": "الاستلام عبر رابط"
   },
   "sendTab": {
     "title": "إرسال",
@@ -96,7 +97,8 @@
       "color": "اللون",
       "colorOptions": {
         "system": "النظام",
-        "oled": "OLED"
+        "oled": "OLED",
+        "custom": "مخصص"
       },
       "language": "اللغة",
       "languageOptions": {
@@ -119,11 +121,13 @@
       "destination": "احفظ في المجلد",
       "downloads": "(التنزيلات)",
       "saveToGallery": "حفظ الوسائط في المعرض",
-      "saveToHistory": "حفظ في التاريخ"
+      "saveToHistory": "حفظ في التاريخ",
+      "verifyChecksums": "التحقق من المجاميع الاختبارية عند استلام الملفات"
     },
     "send": {
       "title": "أرسِل",
-      "shareViaLinkAutoAccept": "المشاركة عبر الرابط: قبول تلقائي"
+      "shareViaLinkAutoAccept": "المشاركة عبر الرابط: قبول تلقائي",
+      "createChecksums": "إنشاء المجاميع الاختبارية عند إرسال الملفات"
     },
     "network": {
       "title": "شبكة الاتصال",
@@ -202,6 +206,29 @@
   "selectedFilesPage": {
     "deleteAll": "احذف الكل"
   },
+  "deviceDetailsPage": {
+    "title": "تفاصيل الجهاز",
+    "favorite": "المفضلة",
+    "verify": "تحقق",
+    "info": {
+      "name": "الاسم",
+      "address": "العنوان",
+      "version": "الإصدار",
+      "protocol": "البروتوكول v{version}"
+    },
+    "logs": {
+      "title": "السجلات",
+      "empty": "لا توجد سجلات متاحة.",
+      "discovered": "تم الاكتشاف عبر {protocol} ({host})",
+      "updated": "تم التحديث عبر {protocol} ({host})"
+    }
+  },
+  "verifyPage": {
+    "title": "تحقق",
+    "icons": "الأيقونات",
+    "text": "النص",
+    "question": "هل يبدو متطابقًا على الجهاز الآخر؟"
+  },
   "receivePage": {
     "subTitle": {
       "one": "يريد أن يرسل لك ملف",
@@ -219,11 +246,11 @@
     "saveToGalleryOff": "تم إيقافه تلقائيًا لوجود مجلدات."
   },
   "sendPage": {
+    "calculatingChecksum": "يحسب تدقيق المجموع ({curr} / {n})",
     "waiting": "بإنتظار الرد…",
     "rejected": "المستلم رفض الطلب.",
     "tooManyAttempts": "@:web.tooManyAttempts",
-    "busy": "المستلم مشغول بطلب آخر.",
-    "calculatingChecksum": "يحسب تدقيق المجموع ({curr} / {n})"
+    "busy": "المستلم مشغول بطلب آخر."
   },
   "progressPage": {
     "titleSending": "جارِ إرسال الملفات",
@@ -241,9 +268,14 @@
       "speed": "سرعة: {speed}/ثانية"
     },
     "remainingTime": {
+      "minutesUnit(plural, param=m)": {
+        "other": "{m}د"
+      },
+      "hoursUnit(plural, param=h)": {
+        "other": "{h}س"
+      },
       "minutes": "{m}:{ss}",
-      "hours": "{h}س {m}د",
-      "@hours": "استخدم 'س' لاختصار الساعات و'د' للدقائق"
+      "hours": "@:.hoursUnit @:.minutesUnit"
     }
   },
   "webSharePage": {
@@ -263,6 +295,9 @@
     "pinHint": "رمز PIN هو \"{pin}\"",
     "encryptionHint": "يستخدم تطبيق LocalSend شهادة موقع ذاتية التوقيع. يجب عليك قبولها في المتصفح.",
     "pendingRequests": "الطلبات المعلقة: {n}"
+  },
+  "webReceivePage": {
+    "title": "استلم من خلال رابط"
   },
   "aboutPage": {
     "title": "عن LocalSend",
@@ -284,6 +319,18 @@
   },
   "changelogPage": {
     "title": "سجل التغييرات"
+  },
+  "whatsNewPage": {
+    "title": "ما الجديد في {version}",
+    "changes(interface=WhatsNewStrings)": {
+      "v1_18_0": {
+        "changes": [
+          "لم تعد التعمية تُبطئ عمليات النقل. وقد أُعيد تفعيلها على هذا الجهاز إذا كنت قد أقفت تشغيلها من قبل.",
+          "يتم الآن قبول الطلبات الواردة من المفضلات تلقائيًا. هذه الميزة مفعَّلة افتراضيًا ويمكن تعطيلها من خلال الإعدادات.",
+          "في نظام أندرويد، تستمر عمليات النقل حتى عندما يكون التطبيق قيد التشغيل في الخلفية أو تكون الشاشة مطفأة. أما في نظام iOS، فيجب أن يظل التطبيق قيد التشغيل في المقدمة."
+        ]
+      }
+    }
   },
   "aliasGenerator(ignoreMissing, ignoreGpt)": {
     "@info": "قد تحتوي المناطق المختلفة على كلمات مختلفة، وقد لا تتطابق 1:1",
@@ -524,20 +571,5 @@
     "sActionUseCameraHint": "استخدم الكاميرا",
     "sNameDurationLabel": "مدة",
     "sUnitAssetCountLabel": "عدد"
-  },
-  "whatsNewPage": {
-    "title": "ما الجديد في {version}",
-    "changes(interface=WhatsNewStrings)": {
-      "v1_18_0": {
-        "changes": [
-          "لم تعد التعمية تُبطئ عمليات النقل. وقد أُعيد تفعيلها على هذا الجهاز إذا كنت قد أقفت تشغيلها من قبل.",
-          "يتم الآن قبول الطلبات الواردة من المفضلات تلقائيًا. هذه الميزة مفعَّلة افتراضيًا ويمكن تعطيلها من خلال الإعدادات.",
-          "في نظام أندرويد، تستمر عمليات النقل حتى عندما يكون التطبيق قيد التشغيل في الخلفية أو تكون الشاشة مطفأة. أما في نظام iOS، فيجب أن يظل التطبيق قيد التشغيل في المقدمة."
-        ]
-      }
-    }
-  },
-  "webReceivePage": {
-    "title": "استلم من خلال رابط"
   }
 }
