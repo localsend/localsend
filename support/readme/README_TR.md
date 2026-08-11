@@ -149,7 +149,7 @@ LocalSend Protokolü hakkında daha fazla bilgi için [dokümantasyon](https://g
 <a id="dependency-hierarchy"></a>
 ## Bağımlılık Hiyerarşisi
 
-![Dependency hierarchy](support/docs/dependency-hierarchy.svg)
+![Dependency hierarchy](https://github.com/localsend/localsend/raw/main/support/docs/dependency-hierarchy.svg)
 
 <a id="getting-started"></a>
 ## Başlarken
