@@ -9,7 +9,7 @@
     "close": "بند کریں",
     "confirm": "تصدیق کریں",
     "continueStr": "جاری رہے",
-    "copy": "کاپی",
+    "copy": "کاپی کریں",
     "copiedToClipboard": "کلپ بورڈ پر کاپی کیا گیا",
     "decline": "رد کرنا",
     "done": "ہو گیا",
@@ -22,7 +22,7 @@
     "hide": "چھپائیں",
     "off": "بند",
     "offline": "آف لائن",
-    "on": "پر",
+    "on": "آن",
     "online": "آن لائن",
     "open": "کھولیں",
     "queue": "قطار",
@@ -38,7 +38,7 @@
     "save": "محفوظ کریں",
     "unchanged": "غیر تبدیل شدہ",
     "unknown": "نامعلوم",
-    "noItemInClipboard": "کلپ بورڈ میں کوئی آئٹم نہیں ہے۔"
+    "noItemInClipboard": "کلپ بورڈ میں کوئی چیز نہیں ہے۔"
   },
   "receiveTab": {
     "title": "وصول کریں",
