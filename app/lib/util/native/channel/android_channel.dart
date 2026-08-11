@@ -53,6 +53,17 @@ Future<bool> getSystemAnimationsStatusAndroid() async {
   return await _methodChannel.invokeMethod('isAnimationsEnabled') ?? true;
 }
 
+/// Requests the "Nearby devices" permission gating local network access on Android 17+.
+/// Returns true when granted or when running on an older Android version.
+Future<bool> requestLocalNetworkPermissionAndroid() async {
+  try {
+    return await _methodChannel.invokeMethod<bool>('requestLocalNetworkPermission') ?? false;
+  } catch (e) {
+    _logger.warning('Could not request local network permission', e);
+    return false;
+  }
+}
+
 Future<void> openContentUri({
   required String uri,
 }) async {

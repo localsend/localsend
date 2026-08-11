@@ -39,6 +39,7 @@ import 'package:localsend_app/util/native/tray_helper.dart';
 import 'package:localsend_app/util/notification_strings.dart';
 import 'package:localsend_app/util/ui/dynamic_colors.dart';
 import 'package:localsend_app/util/ui/snackbar.dart';
+import 'package:localsend_app/widget/dialogs/local_network_dialog.dart';
 import 'package:localsend_isolates/isolate.dart';
 import 'package:localsend_isolates/model/dto/file_dto.dart';
 import 'package:localsend_isolates/model/dto/multicast_dto.dart';
@@ -190,6 +191,16 @@ Future<void> postInit(BuildContext context, Ref ref, bool appStart) async {
       await FlutterDisplayMode.setHighRefreshRate();
     } catch (e) {
       _logger.warning('Setting high refresh rate failed', e);
+    }
+
+    // Android 17+ blocks multicast discovery and LAN connections until this permission is granted,
+    // so ask before the server and discovery start.
+    final localNetworkGranted = await requestLocalNetworkPermissionAndroid();
+    if (!localNetworkGranted) {
+      _logger.warning('Local network permission denied. Discovery and transfers may not work.');
+      if (context.mounted) {
+        await context.pushBottomSheet(() => const LocalNetworkDialog());
+      }
     }
   }
 
