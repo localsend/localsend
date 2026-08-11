@@ -297,7 +297,7 @@
     "pendingRequests": "Bekleyen istekler: {n}"
   },
   "webReceivePage": {
-    "title": "Bağlantı yoluyla al"
+    "title": "Link üzerinden al"
   },
   "aboutPage": {
     "title": "LocalSend hakkında",
