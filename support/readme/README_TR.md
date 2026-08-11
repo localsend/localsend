@@ -1,13 +1,19 @@
 # LocalSend
 
 [![CI status][ci-badge]][ci-workflow]
+[![Translations][translate-badge]][translate-link]
+[![Packaging status][packaging-badge]][packaging-link]
 
 [ci-badge]: https://github.com/localsend/localsend/actions/workflows/ci.yml/badge.svg
 [ci-workflow]: https://github.com/localsend/localsend/actions/workflows/ci.yml
+[translate-badge]: https://hosted.weblate.org/widget/localsend/app/svg-badge.svg
+[translate-link]: https://hosted.weblate.org/engage/localsend/
+[packaging-badge]: https://repology.org/badge/tiny-repos/localsend.svg
+[packaging-link]: https://repology.org/project/localsend/versions
 
 [Ana Sayfa][homepage] • [Discord][discord] • [GitHub][github] • [Codeberg][codeberg]
 
-[English (Default)](/README.md) • [Español](README_ES.md) • [فارسی](README_FA.md) • [Filipino](README_PH.md) • [Français](README_FR.md) • [Indonesia](README_ID.md) • [Italiano](README_IT.md) • [日本語](README_JA.md) • [ភាសាខ្មែរ](README_KM.md) • [한국어](README_KO.md) • [Polski](README_PL.md) • [Português Brasil](README_PT_BR.md) • [Русский](README_RU.md) • [ภาษาไทย](README_TH.md) • [Turkish](README_TR.md) • [Українська](README_UK.md) • [Tiếng Việt](README_VI.md) • [中文](README_ZH.md)
+[English (Default)](README.md) • [Español](/support/readme/README_ES.md) • [فارسی](/support/readme/README_FA.md) • [Filipino](/support/readme/README_PH.md) • [Français](/support/readme/README_FR.md) • [Indonesia](/support/readme/README_ID.md) • [Italiano](/support/readme/README_IT.md) • [日本語](/support/readme/README_JA.md) • [ភាសាខ្មែរ](/support/readme/README_KM.md) • [한국어](/support/readme/README_KO.md) • [Polski](/support/readme/README_PL.md) • [Português Brasil](/support/readme/README_PT_BR.md) • [Русский](/support/readme/README_RU.md) • [ภาษาไทย](/support/readme/README_TH.md) • [Türkçe](/support/readme/README_TR.md) • [Українська](/support/readme/README_UK.md) • [Tiếng Việt](/support/readme/README_VI.md) • [中文](/support/readme/README_ZH.md)
 
 [homepage]: https://localsend.org
 [discord]: https://discord.gg/GSRWmQNP87
@@ -17,9 +23,11 @@
 LocalSend, internet bağlantısına ihtiyaç duymadan, yerel ağ üzerinden yakın cihazlarla güvenli bir şekilde dosya ve mesaj paylaşmanıza olanak tanıyan ücretsiz, açık kaynaklı bir uygulamadır.
 
 - [Hakkında](#hakkında)
+- [Sponsorlar](#sponsorlar)
 - [Ekran Görüntüleri](#ekran-görüntüleri)
 - [İndir](#i̇ndir)
 - [Nasıl Çalışır](#nasıl-çalışır)
+- [Bağımlılık Hiyerarşisi](#bağımlılık-hiyerarşisi)
 - [Başlarken](#başlarken)
 - [Katkıda Bulunma](#katkıda-bulunma)
   - [Çeviri](#çeviri)
@@ -37,16 +45,26 @@ LocalSend, internet bağlantısına ihtiyaç duymadan, yerel ağ üzerinden yak�
 
 LocalSend, cihazlar arasında güvenli iletişim sağlamak için REST API ve HTTPS şifrelemesi kullanan, çoklu platform desteğine sahip bir uygulamadır. Diğer mesajlaşma uygulamalarının dış sunuculara bağımlı olmasının aksine, LocalSend internet bağlantısına veya üçüncü taraf sunuculara ihtiyaç duymaz; bu da yerel iletişim için hızlı ve güvenilir bir çözüm sunar.
 
+## Sponsorlar
+
+Tarayıcı testleri, sayesinde
+
+<a href="https://www.testmuai.com/?utm_medium=sponsor&utm_source=localsend" target="_blank">
+    <img src="https://localsend.org/img/sponsors/tesmu.svg" style="vertical-align: middle;" width="250" height="45" />
+</a>
+
 ## Ekran Görüntüleri
 
-<img src="https://localsend.org/img/screenshot-iphone.webp" alt="iPhone screenshot" height="300"/> <img src="https://localsend.org/img/screenshot-pc.webp" alt="PC screenshot" height="300"/>
+<img src="https://localsend.org/img/screenshot-iphone.webp" alt="iPhone ekran görüntüsü" height="300"/> <img src="https://localsend.org/img/screenshot-pc.webp" alt="PC ekran görüntüsü" height="300"/>
 
 ## İndir
 
-Uygulamayı, otomatik güncelleme özelliği olmadığı için bir uygulama mağazasından veya bir paket yöneticisinden indirmeniz önerilir.
+[![Packaging status](https://repology.org/badge/tiny-repos/localsend.svg)](https://repology.org/project/localsend/versions)
+
+Uygulamada otomatik güncelleme özelliği olmadığı için, uygulamayı bir uygulama mağazasından veya bir paket yöneticisinden indirmeniz önerilir.
 
 | Windows                 | macOS                   | Linux              | Android        | iOS           | Fire OS    |
-| ----------------------- | ----------------------- | ------------------ | -------------- | ------------- | ---------- |
+|-------------------------|-------------------------|--------------------|----------------|---------------|------------|
 | [Winget][]              | [App Store][]           | [Flathub][]        | [Play Store][] | [App Store][] | [Amazon][] |
 | [Scoop][]               | [Homebrew][]            | [Nixpkgs][]        | [F-Droid][]    |               |            |
 | [Chocolatey][]          | [DMG Installer][latest] | [Snap][]           | [APK][latest]  |               |            |
@@ -55,7 +73,12 @@ Uygulamayı, otomatik güncelleme özelliği olmadığı için bir uygulama mağ
 |                         |                         | [DEB][latest]      |                |               |            |
 |                         |                         | [AppImage][latest] |                |               |            |
 
-Hakkında daha fazla bilgi edinin [distribution channels][].
+Dağıtım kanalları hakkında [daha fazla bilgi edinin][distribution channels].
+
+Windows ikili dosyaları imzalıdır. [Kod imzalama politikası][code signing policy] hakkında daha fazla bilgi edinin.
+
+> [!UYARI]
+> **Resmi olmayan MSIX önizleme:** [localsend.ob-buff.dev](https://localsend.ob-buff.dev/) adresinden son commit'lerden oluşan yapıları deneyebilirsiniz. Kararlılık garanti edilmez ve tüm özel kod düzeltmeleri sitede listelenir.
 
 [windows store]: https://www.microsoft.com/store/apps/9NCB4Z0TZ6RR
 [app store]: https://apps.apple.com/us/app/localsend/id1661733229
@@ -72,27 +95,29 @@ Hakkında daha fazla bilgi edinin [distribution channels][].
 [aur]: https://aur.archlinux.org/packages/localsend-bin
 [latest]: https://github.com/localsend/localsend/releases/latest
 [distribution channels]: https://github.com/localsend/localsend/blob/main/CONTRIBUTING.md#distribution
+[code signing policy]: https://github.com/localsend/localsend/blob/main/CODE_SIGNING.md
 
 **Uyumluluk**
 
-| Platform | Minimum Sürüm | Not                                                                                                                               |
-| -------- | ------------- | --------------------------------------------------------------------------------------------------------------------------------- |
-| Android  | 5.0           | -                                                                                                                                 |
-| iOS      | 12.0          | -                                                                                                                                 |
+| Platform | Minimum Sürüm | Not                                                                                                                       |
+|----------|---------------|---------------------------------------------------------------------------------------------------------------------------|
+| Android  | 5.0           | -                                                                                                                         |
+| iOS      | 12.0          | -                                                                                                                         |
 | macOS    | 11 Big Sur    | OpenCore Legacy Patcher 2.0.2 kullanın (Bkz. [#1005](https://github.com/localsend/localsend/issues/1005#issuecomment-2449899384)) |
-| Windows  | 10            | Windows 7'yi destekleyen son sürüm v1.15.4’tür. Daha yeni sürümler için Windows 7'ye yönelik backport'lar olabilir.               |
-| Linux    | N.A.          | -                                                                                                                                 |
+| Windows  | 10            | Windows 7'yi destekleyen son sürüm v1.15.4'tür. Gelecekte Windows 7 için yeni sürümlerin backport'ları yapılabilir.        |
+| Linux    | N.A.          | Bağımlılıklar: Gnome: `xdg-desktop-portal` ve `xdg-desktop-portal-gtk`, KDE: `xdg-desktop-portal` ve `xdg-desktop-portal-kde` |
 
 ## Kurulum
 
 Çoğu durumda, LocalSend kutudan çıkar çıkmaz çalışmalıdır. Ancak, dosya gönderme veya alma konusunda sorun yaşıyorsanız, LocalSend'in yerel ağ üzerinden iletişim kurabilmesi için güvenlik duvarınızı yapılandırmanız gerekebilir.
 
-| Trafik Türü | Protokol | Port     | Aksiyon  |
-| ----------- | -------- | -------- | -------- |
-| Gelen       | TCP, UDP | 53317    | İzin Ver |
+| Trafik Türü | Protokol | Port  | Aksiyon   |
+|-------------|----------|-------|-----------|
+| Gelen       | TCP, UDP | 53317 | İzin Ver  |
 | Giden       | TCP, UDP | Herhangi | İzin Ver |
 
 Ayrıca, yönlendiricinizde AP izolasyonunu devre dışı bıraktığınızdan emin olun. Genellikle varsayılan olarak devre dışı olmalıdır, ancak bazı yönlendiriciler bunu etkinleştirmiş olabilir (özellikle misafir ağlarında).
+Daha fazla bilgi için [sorun giderme](#sorun-giderme) bölümüne bakın.
 
 **Taşınabilir Mod**
 
@@ -114,22 +139,26 @@ v1.14.0 ve önceki sürümlerde, `autostart` bayrağı ayarlandığında ve gizl
 
 LocalSend, cihazların birbirleriyle iletişim kurmasını sağlayan güvenli bir iletişim protokolü kullanır ve bu iletişim REST API aracılığıyla gerçekleştirilir. Tüm veriler HTTPS üzerinden güvenli bir şekilde iletilir ve her cihazda anlık olarak oluşturulan TLS/SSL sertifikası ile maksimum güvenlik sağlanır.
 
-LocalSend Protokolü hakkında daha fazla bilgi için [dökümantasyon](https://github.com/localsend/protocol).
+LocalSend Protokolü hakkında daha fazla bilgi için [dökümantasyon](https://github.com/localsend/protocol) sayfasına bakın.
+
+## Bağımlılık Hiyerarşisi
+
+![Bağımlılık hiyerarşisi](support/docs/dependency-hierarchy.svg)
 
 ## Başlarken
 
 LocalSend'i kaynak kodundan derlemek için şu adımları izleyin:
 
-1. Flutter'ı [doğrudan](https://flutter.dev) veya [fvm](https://fvm.app) kullanarak kurun (gerekli [sürüm](.fvmrc) için bakın.)
+1. Flutter'ı [doğrudan](https://flutter.dev) veya [fvm](https://fvm.app) kullanarak kurun (gerekli [sürüm](.fvmrc) için bakın)
 2. [Rust'ı](https://www.rust-lang.org/tools/install) yükleyin
-3. `LocalSend` reposunu klonlayın.
-4. `cd app` komutunu çalıştırarak uygulama dizinine girin.
+3. `LocalSend` deposunu klonlayın
+4. Uygulama dizinine girmek için `cd app` komutunu çalıştırın
 5. Bağımlılıkları indirmek için `flutter pub get` komutunu çalıştırın
 6. Uygulamayı başlatmak için `flutter run` komutunu çalıştırın
 
 > [!NOT]
-> LocalSend, şu anda daha eski bir Flutter sürümünü gerektiriyor(gerekli sürüm [.fvmrc](.fvmrc) dosyasında belirtilmiştir)
-> bu nedenle gerekli sürüm ile (sistem genelinde) yüklü olan Flutter sürümü arasındaki uyumsuzluk derleme sorunlarına yol açabilir.
+> LocalSend şu anda daha eski bir Flutter sürümünü gerektirir ([.fvmrc](.fvmrc) dosyasında belirtilmiştir)
+> ve bu nedenle gerekli sürüm ile (sistem genelinde) yüklü olan Flutter sürümü arasındaki uyumsuzluk derleme sorunlarına yol açabilir.
 > Geliştirmeyi daha tutarlı hale getirmek için LocalSend, proje Flutter sürümünü yönetmek için [fvm](https://fvm.app) kullanır.
 > `fvm`'yi kurduktan sonra, `flutter` yerine `fvm flutter` komutunu çalıştırın.
 
@@ -139,9 +168,9 @@ LocalSend'i geliştirmekle ilgilenen herkesten katkı bekliyoruz. Katkıda bulun
 
 ### Çeviri
 
-LocalSend'i diğer dillere çevirmeye yardımcı olabilirsiniz! **Önerilen yöntem**: Çevirileri yönetmek için [Weblate](https://hosted.weblate.org/projects/localsend/app) platformunu kullanın.
+LocalSend'i diğer dillere çevirmeye yardımcı olabilirsiniz. Çevirileri yönetmek için [Weblate](https://hosted.weblate.org/projects/localsend/app) platformunu kullanıyoruz.
 
-**Alternatif**: Bu depoyu fork'layarak ve çevirileri manuel olarak ekleyerek de katkıda bulunabilirsiniz.
+Alternatif olarak, bu depoyu fork'layarak ve çevirileri manuel olarak ekleyerek de katkıda bulunabilirsiniz.
 
 Çeviriler [app/assets/i18n](https://github.com/localsend/localsend/tree/main/app/assets/i18n) dizininde bulunmaktadır. Çeviri eklemek veya güncellemek için `_missing_translations_<locale>.json` veya `strings_<locale>.i18n.json` dosyasını düzenleyebilirsiniz.
 
@@ -149,7 +178,7 @@ LocalSend'i diğer dillere çevirmeye yardımcı olabilirsiniz! **Önerilen yön
 <img src="https://hosted.weblate.org/widget/localsend/app/multi-auto.svg" alt="Çeviri durumu" />
 </a>
 
-**_Take note:_ `@` ile süslenmiş alanlar çevrilmek için değildir; bu alanlar uygulamada herhangi bir şekilde kullanılmaz, yalnızca dosya hakkında bilgi veren veya çevirmen için bağlam sağlayan bilgilendirici metinlerdir.**
+**_Dikkat:_ `@` ile süslenmiş alanlar çevrilmek için değildir; bu alanlar uygulamada herhangi bir şekilde kullanılmaz, yalnızca dosya hakkında bilgi veren veya çevirmen için bağlam sağlayan bilgilendirici metinlerdir.**
 
 ### Hata Düzeltmeleri ve İyileştirmeler
 
@@ -161,10 +190,83 @@ Daha fazla bilgi için [katkı sağlama kılavuzuna](https://github.com/localsen
 ## Sorun Giderme
 
 | Sorun            | Platform (Gönderici)  | Platform (Alıcı)      | Çözüm                                                                                                                                  |
-| ---------------- | --------------------- | --------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
+|------------------|-----------------------|-----------------------|-----------------------------------------------------------------------------------------------------------------------------------------|
 | Cihaz görünmüyor | Herhangi bir platform | Herhangi bir platform | Yönlendiricinizde AP-İzolasyonunu devre dışı bıraktığınızdan emin olun. Bu özellik etkinse cihazlar arası bağlantılar engellenir.      |
 | Cihaz görünmüyor | Herhangi bir platform | Windows               | Ağınızı "özel" bir ağ olarak yapılandırdığınızdan emin olun. Windows, ağ "genel" olarak yapılandırıldığında daha kısıtlayıcı olabilir. |
 | Cihaz görünmüyor | macOS, iOS            | Herhangi bir platform | İşletim sistemi ayarlarında "Gizlilik" altında "Yerel Ağ" iznini açıp kapatmayı deneyebilirsiniz.                                      |
 | Hız çok yavaş    | Herhangi bir platform | Herhangi bir platform | 5 Ghz kullanın; her iki cihazda da şifrelemeyi devre dışı bırakın.                                                                     |
 | Hız çok yavaş    | Herhangi bir platform | Android               | Bilinen bir sorun. https://github.com/flutter-cavalry/saf_stream/issues/4                                                              |
 
+## Derleme
+
+Bu komutlar yalnızca bakımcılar içindir. `app` dizininden çalıştırdığınızdan emin olun.
+
+### Android
+
+Geleneksel APK
+
+```bash
+flutter build apk
+```
+
+Google Play için AppBundle
+
+```bash
+flutter build appbundle
+```
+
+### iOS
+
+```bash
+flutter build ipa
+```
+
+### macOS
+
+```bash
+flutter build macos
+```
+
+### Windows
+
+**Geleneksel**
+
+```bash
+flutter build windows
+```
+
+**Yerel MSIX Uygulaması**
+
+```bash
+flutter pub run msix:create
+```
+
+**Mağaza hazır**
+
+```bash
+flutter pub run msix:create --store
+```
+
+### Linux
+
+**Geleneksel**
+
+```bash
+flutter build linux
+```
+
+**AppImage**
+
+```bash
+appimage-builder --recipe AppImageBuilder.yml
+```
+
+**Snap**
+
+Talimatlar için [localsend/snap/README.md](https://github.com/localsend/snap/blob/main/README.md)
+
+## Katkıda Bulunanlar
+
+<a href="https://github.com/localsend/localsend/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=localsend/localsend"  alt="LocalSend Katkıda Bulunanları"/>
+</a>
