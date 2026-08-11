@@ -1,3 +1,9 @@
+## 1.18.1
+
+- fix: when sending a link message, the "Open" button overflows
+- fix: when sending a message that is accepted immediately, a ghost device list tile appears
+- fix(android): add missing ACCESS_LOCAL_NETWORK permission that is required for Android 17+
+
 ## 1.18.0 (2026-08-10)
 
 - feat(cli): initial CLI release
