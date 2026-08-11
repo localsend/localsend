@@ -227,7 +227,7 @@ class Translations$sendTab$zh_TW extends Translations$sendTab$en {
   @override
   String get sendModeHelp => '說明';
   @override
-  String get help => '請確保所需目標的處於相同的 Wi‑Fi 網路。';
+  String get help => '請確認目標裝置也已連線至相同的 Wi‑Fi 網路。';
   @override
   String get placeItems => '列出要分享的項目。';
 }
@@ -956,13 +956,13 @@ class Translations$settingsTab$network$zh_TW extends Translations$settingsTab$ne
   @override
   String get generateRandomAlias => '隨機產生別名';
   @override
-  String portWarning({required Object defaultPort}) => '您可能無法被其他裝置偵測，因為您正在使用自訂通訊埠。(預設：${defaultPort})';
+  String portWarning({required Object defaultPort}) => '您使用了自訂通訊埠，因此其他裝置可能無法偵測到您。（預設值：${defaultPort}）';
   @override
   String get encryption => '加密';
   @override
-  String get multicastGroup => '多點傳送';
+  String get multicastGroup => '多點傳送位址';
   @override
-  String multicastGroupWarning({required Object defaultMulticast}) => '您可能無法被其他裝置偵測，因為您正在使用自訂多點傳送位址。(預設：${defaultMulticast})';
+  String multicastGroupWarning({required Object defaultMulticast}) => '您使用了自訂多點傳送位址，因此其他裝置可能無法偵測到您。（預設值：${defaultMulticast}）';
 }
 
 // Path: settingsTab.other
@@ -973,7 +973,7 @@ class Translations$settingsTab$other$zh_TW extends Translations$settingsTab$othe
 
   // Translations
   @override
-  String get title => '其它';
+  String get title => '其他';
   @override
   String get support => '支持 LocalSend';
   @override
@@ -1022,7 +1022,7 @@ class Translations$troubleshootPage$noConnection$zh_TW extends Translations$trou
   @override
   String get symptom => '兩部裝置無法探索彼此，也無法分享檔案。';
   @override
-  String get solution => '雙方都存在問題？然後你需要確保兩部裝置處於相同的 Wi‑Fi 網路中並共用相同的組態 (通訊埠、多點傳送位址、加密選項)。Wi‑Fi 可能不允許參與者之間進行通訊。在這種狀況下，必須在路由器上停用「存取點 (AP) 隔離」選項。';
+  String get solution => '兩部裝置都有這個問題嗎？若是，請確認兩部裝置已連線至相同的 Wi‑Fi 網路，且使用相同的設定（通訊埠、多點傳送位址、加密選項）。Wi‑Fi 網路可能因為啟用了「無線存取點（AP）隔離」而不允許裝置彼此通訊。請在路由器上停用此選項。';
 }
 
 // Path: receiveHistoryPage.entryActions
@@ -1461,11 +1461,11 @@ class Translations$dialogs$sendModeHelp$zh_TW extends Translations$dialogs$sendM
   @override
   String get title => '傳送模式';
   @override
-  String get single => '傳送檔案至單個接收者，選取項目將在檔案傳輸完成後被清除。';
+  String get single => '傳送檔案給單一接收者；檔案傳輸完成後，系統會清除選取項目。';
   @override
-  String get multiple => '傳送檔案至多重接收者，選取項目將不會被清除。';
+  String get multiple => '傳送檔案給多位接收者；檔案傳輸完成後，系統不會清除選取項目。';
   @override
-  String get link => '未安裝 LocalSend 的接收者可以透過在瀏覽器開啟連結以下載選取的檔案.';
+  String get link => '未安裝 LocalSend 的接收者可以在瀏覽器中開啟連結，以下載選取的檔案。';
 }
 
 // Path: dialogs.zoom

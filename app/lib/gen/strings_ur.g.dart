@@ -119,7 +119,7 @@ class _Translations$general$ur extends Translations$general$en {
   @override
   String get continueStr => 'جاری رہے';
   @override
-  String get copy => 'کاپی';
+  String get copy => 'کاپی کریں';
   @override
   String get copiedToClipboard => 'کلپ بورڈ پر کاپی کیا گیا';
   @override
@@ -145,7 +145,7 @@ class _Translations$general$ur extends Translations$general$en {
   @override
   String get offline => 'آف لائن';
   @override
-  String get on => 'پر';
+  String get on => 'آن';
   @override
   String get online => 'آن لائن';
   @override
@@ -177,7 +177,7 @@ class _Translations$general$ur extends Translations$general$en {
   @override
   String get unknown => 'نامعلوم';
   @override
-  String get noItemInClipboard => 'کلپ بورڈ میں کوئی آئٹم نہیں ہے۔';
+  String get noItemInClipboard => 'کلپ بورڈ میں کوئی چیز نہیں ہے۔';
 }
 
 // Path: receiveTab

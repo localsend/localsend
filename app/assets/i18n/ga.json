@@ -1,5 +1,4 @@
 {
-  "locale": "Gaeilge",
   "appName": "LocalSend",
   "general": {
     "accept": "Glac",
@@ -364,8 +363,6 @@
     },
     "addressInput": {
       "title": "Iontráil seoladh",
-      "hashtag": "Haischlib",
-      "ip": "Seoladh IP",
       "recentlyUsed": "Úsáidte le déanaí: "
     },
     "cancelSession": {
