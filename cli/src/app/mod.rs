@@ -3,6 +3,7 @@ mod discovery;
 mod receive;
 mod sending;
 mod status;
+mod target;
 mod web_link;
 
 use crate::device_list::DeviceList;
@@ -26,6 +27,7 @@ use sending::SendState;
 use std::path::PathBuf;
 use std::sync::Arc;
 use std::time::Duration;
+use target::TargetSelector;
 use tokio::sync::{mpsc, oneshot};
 
 /// Events processed by the central application loop.
@@ -46,8 +48,11 @@ pub enum AppEvent {
         accepted_bytes: u64,
     },
 
-    /// The send task ended (successfully or not).
-    SendEnded,
+    /// The send task ended.
+    SendEnded { success: bool },
+
+    /// The staged startup discovery finished.
+    DiscoveryFinished,
 
     /// A log line produced by a background task.
     Log { category: Category, text: String },
@@ -94,14 +99,26 @@ struct App {
     /// picker.
     preselected: Vec<PathBuf>,
 
+    /// A destination selected by `send --to`; `None` keeps device selection
+    /// interactive.
+    target: Option<TargetSelector>,
+
+    /// Returned after network tasks have shut down when headless operation
+    /// could not complete.
+    exit_error: Option<anyhow::Error>,
+
     events_tx: mpsc::Sender<AppEvent>,
 }
 
 pub async fn run(args: Args) -> anyhow::Result<()> {
-    let preselected = match &args.command {
-        Some(Command::Send { paths }) => paths.clone(),
-        None => Vec::new(),
+    let (preselected, target) = match &args.command {
+        Some(Command::Send { to, paths }) => (
+            paths.clone(),
+            to.as_deref().map(TargetSelector::parse).transpose()?,
+        ),
+        None => (Vec::new(), None),
     };
+    let interactive = target.is_none();
     for path in &preselected {
         anyhow::ensure!(
             path.is_file() || path.is_dir(),
@@ -167,7 +184,12 @@ pub async fn run(args: Args) -> anyhow::Result<()> {
         let discovery = discovery.clone();
         let events_tx = events_tx.clone();
         let port = identity.port;
-        let known_channels = storage.paired.known_http_channels();
+        let mut known_channels = storage.paired.known_http_channels();
+        if let Some(channel) = target.as_ref().and_then(TargetSelector::direct_channel)
+            && !known_channels.contains(&channel)
+        {
+            known_channels.insert(0, channel);
+        }
         let interface_ips =
             local_interface_addresses(&InterfaceFilter::default()).unwrap_or_default();
         tokio::spawn(async move {
@@ -188,28 +210,31 @@ pub async fn run(args: Args) -> anyhow::Result<()> {
                     })
                     .await;
             }
+            let _ = events_tx.send(AppEvent::DiscoveryFinished).await;
         });
     }
 
-    crossterm::terminal::enable_raw_mode()?;
+    if interactive {
+        crossterm::terminal::enable_raw_mode()?;
 
-    // Keyboard reader. The blocking thread ends with the process.
-    std::thread::spawn({
-        let events_tx = events_tx.clone();
-        move || {
-            loop {
-                match crossterm::event::read() {
-                    Ok(Event::Key(key)) if key.kind == KeyEventKind::Press => {
-                        if events_tx.blocking_send(AppEvent::Key(key)).is_err() {
-                            return;
+        // Keyboard reader. The blocking thread ends with the process.
+        std::thread::spawn({
+            let events_tx = events_tx.clone();
+            move || {
+                loop {
+                    match crossterm::event::read() {
+                        Ok(Event::Key(key)) if key.kind == KeyEventKind::Press => {
+                            if events_tx.blocking_send(AppEvent::Key(key)).is_err() {
+                                return;
+                            }
                         }
+                        Ok(_) => {}
+                        Err(_) => return,
                     }
-                    Ok(_) => {}
-                    Err(_) => return,
                 }
             }
-        }
-    });
+        });
+    }
 
     let mut app = App {
         ui: Ui::new(),
@@ -228,14 +253,19 @@ pub async fn run(args: Args) -> anyhow::Result<()> {
         picker: None,
         device_list: None,
         preselected,
+        target,
+        exit_error: None,
         events_tx: events_tx.clone(),
     };
 
-    match app.preselected.is_empty() {
-        true => app
+    match (&app.target, app.preselected.is_empty()) {
+        (Some(target), _) => app
+            .ui
+            .log_plain(&format!("Discovering destination {target}...")),
+        (None, true) => app
             .ui
             .log_plain(&crate::banner::render(&app.storage, &app.server)),
-        false => app.open_device_list(),
+        (None, false) => app.open_device_list(),
     }
 
     let mut tick = tokio::time::interval(Duration::from_millis(250));
@@ -270,14 +300,19 @@ pub async fn run(args: Args) -> anyhow::Result<()> {
     }
     app.close_device_list();
     app.ui.set_status(None);
-    let _ = crossterm::terminal::disable_raw_mode();
+    if interactive {
+        let _ = crossterm::terminal::disable_raw_mode();
+    }
     if let Some(stop_tx) = app.server_stop_tx.take() {
         let _ = stop_tx.send(());
     }
     let _ = discovery_stop_tx.send(());
     let _ = tokio::time::timeout(Duration::from_secs(1), app.server.wait_stopped()).await;
     let _ = tokio::time::timeout(Duration::from_secs(1), discovery.wait_stopped()).await;
-    Ok(())
+    match app.exit_error.take() {
+        Some(error) => Err(error),
+        None => Ok(()),
+    }
 }
 
 impl App {
@@ -299,11 +334,31 @@ impl App {
                     send.total_bytes = accepted_bytes;
                 }
             }
-            AppEvent::SendEnded => {
+            AppEvent::SendEnded { success } => {
                 self.send = None;
                 self.render_status();
+                if !success && !self.preselected.is_empty() {
+                    self.exit_error = Some(anyhow::anyhow!("Transfer failed"));
+                }
                 // In `send` mode the transfer is the whole program.
                 return !self.preselected.is_empty();
+            }
+            AppEvent::DiscoveryFinished => {
+                let Some(target) = self.target.clone() else {
+                    return false;
+                };
+                let fingerprint = match target.resolve(&self.discovery.devices()) {
+                    Ok(fingerprint) => fingerprint,
+                    Err(error) => {
+                        self.exit_error = Some(anyhow::anyhow!(error));
+                        return true;
+                    }
+                };
+                self.start_send(&fingerprint, self.preselected.clone());
+                if self.send.is_none() {
+                    self.exit_error = Some(anyhow::anyhow!("Could not start transfer to {target}"));
+                    return true;
+                }
             }
             AppEvent::Log { category, text } => self.ui.log(category, &text),
         }

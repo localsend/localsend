@@ -15,6 +15,10 @@ use std::path::PathBuf;
 pub enum Command {
     /// Send one or more files or directories
     Send {
+        /// Destination device: an exact alias or IP address
+        #[arg(long, value_name = "TARGET")]
+        to: Option<String>,
+
         /// Files or directories to send (directories are collected recursively)
         #[arg(value_name = "PATH", required = true, num_args = 1..)]
         paths: Vec<PathBuf>,
@@ -71,9 +75,10 @@ mod tests {
         let args = Args::try_parse_from(["localsend-cli", "send", "one.txt", "two.txt", "backup"])
             .unwrap();
 
-        let Some(Command::Send { paths }) = args.command else {
+        let Some(Command::Send { to, paths }) = args.command else {
             panic!("expected the send command");
         };
+        assert_eq!(to, None);
         assert_eq!(
             paths,
             vec![
@@ -82,6 +87,32 @@ mod tests {
                 PathBuf::from("backup"),
             ]
         );
+    }
+
+    #[test]
+    fn accepts_a_destination_alias() {
+        let args =
+            Args::try_parse_from(["localsend-cli", "send", "--to", "Cute Tomato", "one.txt"])
+                .unwrap();
+
+        let Some(Command::Send { to, paths }) = args.command else {
+            panic!("expected the send command");
+        };
+        assert_eq!(to.as_deref(), Some("Cute Tomato"));
+        assert_eq!(paths, vec![PathBuf::from("one.txt")]);
+    }
+
+    #[test]
+    fn accepts_a_destination_ip() {
+        let args =
+            Args::try_parse_from(["localsend-cli", "send", "--to", "192.168.27.26", "one.txt"])
+                .unwrap();
+
+        let Some(Command::Send { to, paths }) = args.command else {
+            panic!("expected the send command");
+        };
+        assert_eq!(to.as_deref(), Some("192.168.27.26"));
+        assert_eq!(paths, vec![PathBuf::from("one.txt")]);
     }
 
     #[test]
