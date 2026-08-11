@@ -52,7 +52,7 @@
       "favorites": "Favoriler",
       "on": "@:general.on"
     },
-    "link": "Bağlantı ile al"
+    "link": "Link üzerinden al"
   },
   "sendTab": {
     "title": "Gönder",
