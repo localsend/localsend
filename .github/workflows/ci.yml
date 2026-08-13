@@ -133,6 +133,34 @@ jobs:
             echo "Versions match."
           fi
 
+      # Binaries must carry identical copyright strings (macOS conventionally uses
+      # the © symbol, which is normalized for the comparison). License files use the
+      # Apache boilerplate format ("Copyright 2022-2026 Tien Do Nam") and typed_isolates
+      # has its own start year, so only their end year is compared.
+      # The vendored cargokit LICENSE is third-party and deliberately not checked.
+      - name: Compare copyright strings
+        run: |
+          APP_COPYRIGHT=$(grep -o 'Copyright (C) [^"]*' app/windows/runner/Runner.rc)
+          CLI_COPYRIGHT=$(grep -o 'Copyright (C) [^"]*' cli/build.rs)
+          MACOS_COPYRIGHT=$(sed -n 's/^PRODUCT_COPYRIGHT = //p' app/macos/Runner/Configs/AppInfo.xcconfig | sed 's/©/(C)/')
+          APP_YEAR=$(echo "$APP_COPYRIGHT" | grep -o '[0-9]\{4\}' | tail -1)
+          ROOT_LICENSE_YEAR=$(grep -o 'Copyright [0-9][0-9-]* Tien Do Nam' LICENSE | grep -o '[0-9]\{4\}' | tail -1)
+          TYPED_LICENSE_YEAR=$(grep -o 'Copyright [0-9][0-9-]* Tien Do Nam' packages/typed_isolates/LICENSE | grep -o '[0-9]\{4\}' | tail -1)
+          echo "App copyright is:                   $APP_COPYRIGHT"
+          echo "CLI copyright is:                   $CLI_COPYRIGHT"
+          echo "macOS copyright is:                 $MACOS_COPYRIGHT"
+          echo "Root LICENSE end year is:           $ROOT_LICENSE_YEAR"
+          echo "typed_isolates LICENSE end year is: $TYPED_LICENSE_YEAR"
+          if [ -z "$APP_COPYRIGHT" ] || [ "$APP_COPYRIGHT" != "$CLI_COPYRIGHT" ] || [ "$APP_COPYRIGHT" != "$MACOS_COPYRIGHT" ]; then
+            echo "Copyright mismatch detected!"
+            exit 1
+          fi
+          if [ -z "$APP_YEAR" ] || [ "$APP_YEAR" != "$ROOT_LICENSE_YEAR" ] || [ "$APP_YEAR" != "$TYPED_LICENSE_YEAR" ]; then
+            echo "License copyright year mismatch detected!"
+            exit 1
+          fi
+          echo "Copyright strings match."
+
       - name: Compare Rust toolchain versions
         run: |
           ROOT_TOOLCHAIN=$(grep '^channel = ' rust-toolchain.toml | sed 's/channel = "//' | sed 's/"//')
