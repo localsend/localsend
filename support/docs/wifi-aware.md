@@ -17,13 +17,20 @@ Android support requires:
   on Android 13 and newer. On older releases the system may also require
   Location services to be enabled before Wi-Fi Aware is reported available.
 
-Both LocalSend devices publish and subscribe to the `localsend` service. The
-publisher advertises a versioned, bounded service-info record containing its
-HTTP server port, HTTP/HTTPS mode, and an ephemeral Wi-Fi Aware passphrase.
-After discovery, the subscriber requests a data path and reports the peer's
-scoped link-local IPv6 address to Dart. The Rust discovery layer then performs
-the normal LocalSend register request. A peer is not shown until that request
-succeeds, and HTTPS continues to use LocalSend's mutual-certificate identity.
+Both LocalSend devices publish and subscribe to the RFC 6763 service type
+`_localsend._tcp`. The publisher advertises a versioned, bounded service-info
+record containing its HTTP server port, HTTP/HTTPS mode, and an ephemeral
+Wi-Fi Aware passphrase. After discovery, the subscriber requests a data path
+and reports the peer's scoped link-local IPv6 address to Dart. The Rust
+discovery layer then performs the normal LocalSend register request. A peer is
+not shown until that request succeeds, and HTTPS continues to use LocalSend's
+mutual-certificate identity.
+
+On Android 14 or newer, hardware that advertises Wi-Fi Aware Pairing also
+publishes PIN display/keypad bootstrapping support. Android 16 QPR/API 37 adds
+the paired data-path APIs used for standards-based peers such as iOS 26. If
+pairing or its data path fails, LocalSend retries the existing ephemeral
+passphrase data path. Devices without pairing support use that path directly.
 
 Wi-Fi Aware therefore changes only how a reachable IP path is obtained. File
 transfer, authentication, pins, protocol negotiation, and the LAN path are not
@@ -34,21 +41,22 @@ not provide a Wi-Fi Aware radio.
 
 ## Apple platforms
 
-Apple's Wi-Fi Aware framework is not an interchangeable implementation of
-Android's open publish/subscribe flow. The public API requires:
+Apple's Wi-Fi Aware framework requires:
 
-- the Apple-granted `com.apple.developer.wifi-aware` entitlement;
+- the `com.apple.developer.wifi-aware` entitlement;
 - services declared in `WiFiAwareServices`;
 - `WAPairedDevice` identities created through the system accessory-pairing
   flow before a browser or listener can connect.
 
-LocalSend currently has no accessory identity or pairing enrollment, and the
-entitlement cannot be enabled or tested by an unaffiliated fork. Adding the
-entitlement or `Info.plist` declarations alone would either fail signing or
-leave the app without eligible peers. For that reason this change does not
-claim iOS peer support. An Apple implementation needs an approved entitlement
-and a product decision for a user-visible pairing flow before it can share the
-transport abstraction described above.
+The Android pairing path in this change supplies the standards-based PIN
+bootstrap and paired data path needed by an iOS implementation. The iOS native
+listener, browser, system pairing UI, signing entitlement, and transport bridge
+remain a separate change. iPhones that do not support iOS 26 Wi-Fi Aware keep
+using LocalSend's existing LAN discovery and transfer path.
+
+End-to-end pairing must be verified on two capable devices. In particular,
+`Characteristics.isAwarePairingSupported` is hardware/firmware dependent even
+on API 37; when it is false, only the passphrase path can be exercised.
 
 Relevant platform documentation:
 

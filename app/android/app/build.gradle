@@ -24,7 +24,7 @@ if (flutterVersionName == null) {
 
 android {
     namespace "org.localsend.localsend_app"
-    compileSdkVersion 36
+    compileSdkVersion 37
     ndkVersion flutter.ndkVersion
 
     compileOptions {
