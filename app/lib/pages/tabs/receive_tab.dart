@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/model/state/server/server_state.dart';
@@ -9,6 +12,7 @@ import 'package:localsend_app/provider/animation_provider.dart';
 import 'package:localsend_app/provider/local_ip_provider.dart';
 import 'package:localsend_app/provider/network/server/server_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
+import 'package:localsend_app/util/native/ios_wifi_aware_helper.dart';
 import 'package:localsend_app/widget/animations/initial_fade_transition.dart';
 import 'package:localsend_app/widget/column_list_view.dart';
 import 'package:localsend_app/widget/custom_icon_button.dart';
@@ -28,6 +32,20 @@ class ReceiveTab extends StatefulWidget {
 }
 
 class _ReceiveTabState extends State<ReceiveTab> {
+  bool _wifiAwareSupported = false;
+
+  @override
+  void initState() {
+    super.initState();
+    if (defaultTargetPlatform == TargetPlatform.iOS) {
+      unawaited(
+        isIOSWifiAwareSupported().then((supported) {
+          if (mounted) setState(() => _wifiAwareSupported = supported);
+        }),
+      );
+    }
+  }
+
   /// Whether the advanced network info is shown
   bool _showAdvanced = false;
 
@@ -131,6 +149,7 @@ class _ReceiveTabState extends State<ReceiveTab> {
           showAdvanced: _showAdvanced,
         ),
         _CornerButtons(
+          wifiAwareSupported: _wifiAwareSupported,
           showAdvanced: _showAdvanced,
           showHistoryButton: _showHistoryButton,
           toggleAdvanced: _toggleAdvanced,
@@ -141,11 +160,13 @@ class _ReceiveTabState extends State<ReceiveTab> {
 }
 
 class _CornerButtons extends StatelessWidget {
+  final bool wifiAwareSupported;
   final bool showAdvanced;
   final bool showHistoryButton;
   final Future<void> Function() toggleAdvanced;
 
   const _CornerButtons({
+    required this.wifiAwareSupported,
     required this.showAdvanced,
     required this.showHistoryButton,
     required this.toggleAdvanced,
@@ -160,6 +181,14 @@ class _CornerButtons extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
+            if (wifiAwareSupported)
+              Tooltip(
+                message: 'Pair a nearby device',
+                child: CustomIconButton(
+                  onPressed: showIOSWifiAwarePairing,
+                  child: const Icon(Icons.wifi_tethering),
+                ),
+              ),
             if (!showAdvanced)
               AnimatedOpacity(
                 opacity: showHistoryButton ? 1 : 0,

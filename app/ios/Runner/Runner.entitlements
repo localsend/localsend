@@ -6,6 +6,11 @@
 	<string>development</string>
 	<key>com.apple.developer.networking.multicast</key>
 	<true/>
+	<key>com.apple.developer.wifi-aware</key>
+	<array>
+		<string>Publish</string>
+		<string>Subscribe</string>
+	</array>
 	<key>com.apple.security.application-groups</key>
 	<array>
 		<string>group.org.localsend.localsendApp</string>
