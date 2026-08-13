@@ -6,9 +6,34 @@ use rustls::pki_types::{CertificateDer, ServerName, UnixTime};
 use rustls::{
     CertificateError, DigitallySignedStruct, Error, OtherError, RootCertStore, SignatureScheme,
 };
+use std::collections::HashMap;
 use std::fmt::{Debug, Display, Formatter};
-use std::sync::Arc;
+use std::sync::{Arc, RwLock};
 use x509_parser::nom::AsBytes;
+
+/// Certificates observed during successful TLS handshakes, keyed by the TLS
+/// server name. Discovery needs this to learn a peer's identity before a
+/// fingerprint is known.
+///
+/// Keeping this data at the verifier layer avoids depending on reqwest's
+/// optional response `TlsInfo` extension, which can be absent when traffic is
+/// routed through a macOS packet tunnel.
+#[derive(Clone, Default)]
+pub(crate) struct PeerCertificateStore {
+    certificates: Arc<RwLock<HashMap<String, Vec<u8>>>>,
+}
+
+impl PeerCertificateStore {
+    fn record(&self, server_name: &ServerName<'_>, certificate: &[u8]) {
+        let mut certificates = self.certificates.write().unwrap();
+        certificates.insert(server_name.to_str().into_owned(), certificate.to_vec());
+    }
+
+    pub(crate) fn get(&self, host: &str) -> Option<Vec<u8>> {
+        let server_name = super::scoped_host::encode(host).unwrap_or_else(|| host.to_string());
+        self.certificates.read().unwrap().get(&server_name).cloned()
+    }
+}
 
 /// The reason a peer certificate was rejected, as an error that rustls carries
 /// along.
@@ -55,6 +80,8 @@ fn rejected(reason: String) -> Error {
 pub(crate) struct PinnedServerCertVerifier {
     inner: Arc<dyn ServerCertVerifier>,
 
+    peer_certificates: PeerCertificateStore,
+
     /// The SHA-256 fingerprint (uppercase hex) the peer certificate must have.
     ///
     /// [`None`] accepts any valid certificate. This is trust on first use and
@@ -67,6 +94,7 @@ impl PinnedServerCertVerifier {
     pub(crate) fn try_new(
         cert: &str,
         expected_fingerprint: Option<String>,
+        peer_certificates: PeerCertificateStore,
     ) -> anyhow::Result<Self> {
         // The root store must not be empty, so we add our own certificate.
         // It is never used as an authority: `verify_server_cert` below does not
@@ -76,6 +104,7 @@ impl PinnedServerCertVerifier {
 
         Ok(Self {
             inner: WebPkiServerVerifier::builder(Arc::new(root_cert_store)).build()?,
+            peer_certificates,
             expected_fingerprint: expected_fingerprint.map(|f| f.to_ascii_uppercase()),
         })
     }
@@ -92,7 +121,7 @@ impl ServerCertVerifier for PinnedServerCertVerifier {
         &self,
         end_entity: &CertificateDer<'_>,
         _: &[CertificateDer<'_>],
-        _: &ServerName<'_>,
+        server_name: &ServerName<'_>,
         _: &[u8],
         _: UnixTime,
     ) -> Result<ServerCertVerified, Error> {
@@ -110,6 +139,10 @@ impl ServerCertVerifier for PinnedServerCertVerifier {
                 )));
             }
         }
+
+        // Record only certificates that passed every verifier check above.
+        self.peer_certificates
+            .record(server_name, end_entity.as_bytes());
 
         Ok(ServerCertVerified::assertion())
     }
@@ -168,9 +201,12 @@ VRus1zGVD8IVpIdPMyz01WJyS7M0fWaHXKWo+Bo=
     fn verify(expected_fingerprint: Option<&str>) -> Result<(), Error> {
         let _ = rustls::crypto::ring::default_provider().install_default();
 
-        let verifier =
-            PinnedServerCertVerifier::try_new(CERT, expected_fingerprint.map(|f| f.to_string()))
-                .unwrap();
+        let verifier = PinnedServerCertVerifier::try_new(
+            CERT,
+            expected_fingerprint.map(|f| f.to_string()),
+            PeerCertificateStore::default(),
+        )
+        .unwrap();
 
         verifier
             .verify_server_cert(

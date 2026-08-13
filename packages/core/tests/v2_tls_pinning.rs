@@ -14,6 +14,8 @@ use localsend::http::server::{start_with_port, ServerConfigV2, TlsConfig};
 use localsend::http::state::ClientInfo;
 use localsend::model::discovery::ProtocolType;
 use localsend::model::transfer::FileDto;
+use rustls::pki_types::pem::PemObject;
+use rustls::pki_types::CertificateDer;
 use std::sync::atomic::{AtomicU64, Ordering};
 use std::sync::Arc;
 use tokio::sync::{mpsc, oneshot, Mutex};
@@ -345,6 +347,36 @@ async fn test_upload_body_not_sent_on_fingerprint_mismatch() {
     assert!(server.received.lock().await.is_empty());
 }
 
+/// Legacy callers can still verify a peer by public key. The certificate used
+/// for that check comes from the handshake verifier, so this remains reliable
+/// when response TLS metadata is absent behind a system packet tunnel.
+#[tokio::test]
+async fn test_prepare_upload_verifies_captured_certificate() {
+    let server_identity = generate_identity();
+    let sender = generate_identity();
+    let server = start_tls_server(&server_identity).await;
+    let client = client(&sender, None);
+
+    let cert_der = CertificateDer::from_pem_slice(server_identity.cert.as_bytes()).unwrap();
+    let public_key =
+        localsend::crypto::cert::public_key_from_cert_der(cert_der.as_ref()).unwrap();
+
+    let files = vec![file_dto("file-1", 10)];
+    let result = client
+        .prepare_upload(
+            ProtocolType::Https,
+            "127.0.0.1",
+            server.port,
+            Some(public_key),
+            prepare_upload_request(&sender, &files),
+            None,
+            CancellationToken::new(),
+        )
+        .await;
+
+    result.expect("prepare-upload should use the certificate captured at the handshake");
+}
+
 /// Without the web pages, the client certificate stays mandatory: a client
 /// without one (e.g. a browser) must fail the handshake.
 #[tokio::test]
@@ -429,5 +461,9 @@ async fn test_register_without_pin_returns_public_key() {
         .expect("register should succeed");
 
     assert!(response.public_key.is_some());
+    assert_eq!(
+        response.cert_fingerprint.as_deref(),
+        Some(server_identity.fingerprint.as_str())
+    );
     assert_eq!(response.body.fingerprint, server_identity.fingerprint);
 }

@@ -13,6 +13,8 @@ use tokio_util::sync::CancellationToken;
 pub struct LsHttpClientV3 {
     client: reqwest::Client,
 
+    peer_certificates: super::server_cert_verifier::PeerCertificateStore,
+
     /// Maps client identifiers to nonces that have been received from remote.
     received_nonce_map: Arc<Mutex<LruCache<String, Vec<u8>>>>,
 
@@ -27,8 +29,11 @@ impl LsHttpClientV3 {
         expected_fingerprint: Option<String>,
         timeout: Option<std::time::Duration>,
     ) -> Result<Self, ClientError> {
+        let configured =
+            super::create_reqwest_client(private_key, cert, expected_fingerprint, timeout)?;
         Ok(Self {
-            client: super::create_reqwest_client(private_key, cert, expected_fingerprint, timeout)?,
+            client: configured.client,
+            peer_certificates: configured.peer_certificates,
             received_nonce_map: Arc::new(Mutex::new(LruCache::new(
                 NonZeroUsize::new(200).unwrap(),
             ))),
@@ -73,7 +78,13 @@ impl LsHttpClientV3 {
             return res.into_error().await;
         }
 
-        let remote_key = to_identifier(&res, protocol == ProtocolType::Https, None)?;
+        let remote_key = to_identifier(
+            &res,
+            protocol == ProtocolType::Https,
+            &self.peer_certificates,
+            ip,
+            None,
+        )?;
         let body = res.json::<http::dto::NonceResponse>().await?;
 
         // Save the response nonce and our generated nonce
@@ -124,10 +135,11 @@ impl LsHttpClientV3 {
             .await?;
 
         let (public_key, cert_fingerprint) = match protocol {
-            ProtocolType::Https => (
-                Some(super::verify_cert_from_res(&res, None)?),
-                Some(super::cert_fingerprint_from_res(&res)?),
-            ),
+            ProtocolType::Https => {
+                let (public_key, fingerprint) =
+                    super::peer_identity(&self.peer_certificates, ip, None)?;
+                (Some(public_key), Some(fingerprint))
+            }
             _ => (None, None),
         };
 
@@ -174,7 +186,7 @@ impl LsHttpClientV3 {
         };
 
         if protocol == ProtocolType::Https {
-            super::verify_cert_from_res(&res, public_key)?;
+            super::peer_identity(&self.peer_certificates, ip, public_key)?;
         }
 
         let status = res.status();
@@ -242,7 +254,7 @@ impl LsHttpClientV3 {
         };
 
         if protocol == ProtocolType::Https {
-            super::verify_cert_from_res(&res, public_key)?;
+            super::peer_identity(&self.peer_certificates, ip, public_key)?;
         }
 
         if res.status() != StatusCode::OK {
@@ -281,10 +293,12 @@ impl LsHttpClientV3 {
 fn to_identifier(
     response: &Response,
     require_cert: bool,
+    peer_certificates: &super::server_cert_verifier::PeerCertificateStore,
+    host: &str,
     public_key: Option<String>,
 ) -> Result<String, ClientError> {
     match require_cert {
-        true => Ok(super::verify_cert_from_res(response, public_key)?),
+        true => Ok(super::peer_identity(peer_certificates, host, public_key)?.0),
         false => response
             .remote_addr()
             .map(|addr| addr.ip().to_string())

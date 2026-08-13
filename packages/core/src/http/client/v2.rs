@@ -13,6 +13,7 @@ use tokio_util::sync::CancellationToken;
 /// HTTP client for LocalSend Protocol v2.2.
 pub struct LsHttpClientV2 {
     client: reqwest::Client,
+    peer_certificates: super::server_cert_verifier::PeerCertificateStore,
 }
 
 impl LsHttpClientV2 {
@@ -35,8 +36,11 @@ impl LsHttpClientV2 {
         expected_fingerprint: Option<String>,
         timeout: Option<std::time::Duration>,
     ) -> Result<Self, ClientError> {
+        let configured =
+            super::create_reqwest_client(private_key, cert, expected_fingerprint, timeout)?;
         Ok(Self {
-            client: super::create_reqwest_client(private_key, cert, expected_fingerprint, timeout)?,
+            client: configured.client,
+            peer_certificates: configured.peer_certificates,
         })
     }
 
@@ -52,7 +56,10 @@ impl LsHttpClientV2 {
             .tls_info(true)
             .build()?;
 
-        Ok(Self { client })
+        Ok(Self {
+            client,
+            peer_certificates: Default::default(),
+        })
     }
 
     /// Registers with another device for discovery.
@@ -97,10 +104,11 @@ impl LsHttpClientV2 {
         }
 
         let (public_key, cert_fingerprint) = match protocol {
-            ProtocolType::Https => (
-                Some(super::verify_cert_from_res(&res, None)?),
-                Some(super::cert_fingerprint_from_res(&res)?),
-            ),
+            ProtocolType::Https => {
+                let (public_key, fingerprint) =
+                    super::peer_identity(&self.peer_certificates, ip, None)?;
+                (Some(public_key), Some(fingerprint))
+            }
             _ => (None, None),
         };
 
@@ -179,7 +187,7 @@ impl LsHttpClientV2 {
         };
 
         if protocol == ProtocolType::Https {
-            super::verify_cert_from_res(&res, public_key)?;
+            super::peer_identity(&self.peer_certificates, ip, public_key)?;
         }
 
         let status = res.status();
@@ -258,7 +266,7 @@ impl LsHttpClientV2 {
         };
 
         if protocol == ProtocolType::Https {
-            super::verify_cert_from_res(&res, public_key)?;
+            super::peer_identity(&self.peer_certificates, ip, public_key)?;
         }
 
         if res.status() != StatusCode::OK {

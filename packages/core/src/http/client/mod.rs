@@ -195,13 +195,20 @@ pub(super) fn upload_body(
 /// custom certificate verifier. reqwest passes such a config straight through,
 /// which means the client certificate and ALPN have to be set here as well:
 /// `identity()` and the HTTP version preference of the builder no longer apply.
+pub(super) struct ConfiguredClient {
+    client: reqwest::Client,
+    peer_certificates: server_cert_verifier::PeerCertificateStore,
+}
+
 pub(super) fn create_reqwest_client(
     private_key: &str,
     cert: &str,
     expected_fingerprint: Option<String>,
     timeout: Option<std::time::Duration>,
-) -> Result<reqwest::Client, ClientError> {
+) -> Result<ConfiguredClient, ClientError> {
     let _ = rustls::crypto::ring::default_provider().install_default();
+
+    let peer_certificates = server_cert_verifier::PeerCertificateStore::default();
 
     let mut tls_config = {
         let certs =
@@ -215,6 +222,7 @@ pub(super) fn create_reqwest_client(
                 server_cert_verifier::PinnedServerCertVerifier::try_new(
                     cert,
                     expected_fingerprint,
+                    peer_certificates.clone(),
                 )?,
             ))
             .with_client_auth_cert(certs, key)
@@ -235,7 +243,10 @@ pub(super) fn create_reqwest_client(
 
     let client = builder.build()?;
 
-    Ok(client)
+    Ok(ConfiguredClient {
+        client,
+        peer_certificates,
+    })
 }
 
 /// DNS resolver that turns the synthetic host names produced by
@@ -259,39 +270,23 @@ impl reqwest::dns::Resolve for ScopedHostResolver {
     }
 }
 
-/// Verifies the certificate from the response.
-/// Returns the public key extracted from the certificate.
-pub(super) fn verify_cert_from_res(
-    response: &Response,
+/// Verifies a certificate captured during the successful TLS handshake and
+/// returns the public key and SHA-256 fingerprint that identify the peer.
+pub(super) fn peer_identity(
+    peer_certificates: &server_cert_verifier::PeerCertificateStore,
+    host: &str,
     public_key: Option<String>,
-) -> anyhow::Result<String> {
-    let tls_info_ext = response
-        .extensions()
-        .get::<reqwest::tls::TlsInfo>()
-        .ok_or_else(|| anyhow::anyhow!("TLS info not found"))?;
-    let cert = tls_info_ext
-        .peer_certificate()
-        .ok_or_else(|| anyhow::anyhow!("Certificate not found"))?;
-    crypto::cert::verify_cert_from_der(cert, public_key.as_deref())?;
+) -> anyhow::Result<(String, String)> {
+    let cert = peer_certificates
+        .get(host)
+        .ok_or_else(|| anyhow::anyhow!("Certificate not found for host {host}"))?;
+    crypto::cert::verify_cert_from_der(&cert, public_key.as_deref())?;
     let public_key = match public_key {
         Some(public_key) => public_key,
-        None => crypto::cert::public_key_from_cert_der(cert)?,
+        None => crypto::cert::public_key_from_cert_der(&cert)?,
     };
-    Ok(public_key)
-}
-
-/// The SHA-256 fingerprint (uppercase hex) of the peer certificate the
-/// response was received over. This — not any fingerprint claimed in the
-/// body — is the peer's identity in HTTPS mode.
-pub(super) fn cert_fingerprint_from_res(response: &Response) -> anyhow::Result<String> {
-    let tls_info_ext = response
-        .extensions()
-        .get::<reqwest::tls::TlsInfo>()
-        .ok_or_else(|| anyhow::anyhow!("TLS info not found"))?;
-    let cert = tls_info_ext
-        .peer_certificate()
-        .ok_or_else(|| anyhow::anyhow!("Certificate not found"))?;
-    Ok(crypto::cert::fingerprint_from_cert_der(cert))
+    let fingerprint = crypto::cert::fingerprint_from_cert_der(&cert);
+    Ok((public_key, fingerprint))
 }
 
 #[derive(Serialize, Deserialize)]
