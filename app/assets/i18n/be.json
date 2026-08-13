@@ -247,7 +247,7 @@
   },
   "sendPage": {
     "calculatingChecksum": "Ідзе разлік кантрольнай сумы ({curr} / {n})",
-    "waiting": "Чакаецца адказ…",
+    "waiting": "Чаканне адказу…",
     "rejected": "Атрымальнік адхіліў запыт.",
     "tooManyAttempts": "@:web.tooManyAttempts",
     "busy": "Атрымальнік заняты іншым запытам."
@@ -269,10 +269,10 @@
     },
     "remainingTime": {
       "minutesUnit(plural, param=m)": {
-        "other": "{m}хв"
+        "other": "{m} хв"
       },
       "hoursUnit(plural, param=h)": {
-        "other": "{h}гадз"
+        "other": "{h} гадз"
       },
       "minutes": "{m}:{ss}",
       "hours": "@:.hoursUnit @:.minutesUnit"
@@ -280,8 +280,8 @@
   },
   "webSharePage": {
     "title": "Абагуліць праз спасылку",
-    "loading": "Ідзе запуск сервера…",
-    "stopping": "Ідзе спыненне сервера…",
+    "loading": "Запуск сервера…",
+    "stopping": "Спыненне сервера…",
     "error": "Узнікла памылка падчас запуску сервера.",
     "openLink": {
       "one": "Адкрыйце гэтую спасылку ў браўзеры:",
