@@ -83,6 +83,12 @@ abstract class RsDiscovery implements RustOpaqueInterface {
   /// the store's log limit. Empty when the fingerprint is unknown.
   Future<List<RsDeviceLog>> deviceLogs({required String fingerprint});
 
+  /// Probes one endpoint that was discovered by a platform transport, such
+  /// as an Android Wi-Fi Aware data path. A successful LocalSend register
+  /// response is merged into the regular discovery store and emitted on
+  /// [RsDiscovery::listen].
+  Future<void> discover({required String host, required int port, required ProtocolType protocol});
+
   /// Discovers devices in stages, cheapest first: announces this device to
   /// the network and probes [channels] (e.g. the favorites), then falls
   /// back to scanning the `/24` subnets of the local interface addresses
