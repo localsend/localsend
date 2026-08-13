@@ -1,3 +1,8 @@
+## 1.18.2 (unreleased)
+
+- fix: ignore proxies, fixes "TLS info not found" when a system proxy (e.g. Shadowrocket) is enabled
+- fix: do not follow HTTP redirects sent by peers
+
 ## 1.18.1 (2026-08-11)
 
 Android+iOS only hotfix update.
