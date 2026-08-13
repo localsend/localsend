@@ -23,6 +23,7 @@ private const val REQUEST_CODE_PICK_DIRECTORY = 1
 private const val REQUEST_CODE_PICK_DIRECTORY_PATH = 2
 private const val REQUEST_CODE_PICK_FILE = 3
 private const val REQUEST_CODE_LOCAL_NETWORK = 4
+private const val REQUEST_CODE_WIFI_AWARE = 5
 
 // Not available as a constant in compileSdk 36.
 private const val PERMISSION_ACCESS_LOCAL_NETWORK = "android.permission.ACCESS_LOCAL_NETWORK"
@@ -31,6 +32,7 @@ private const val API_LEVEL_ANDROID_17 = 37
 class MainActivity : FlutterActivity() {
     private var pendingResult: MethodChannel.Result? = null
     private var pendingPermissionResult: MethodChannel.Result? = null
+    private var wifiAwareController: WifiAwareController? = null
 
     /// share_handler drops share intents arriving via onNewIntent while the Dart side
     /// is not subscribed to its media stream yet, which happens when this singleTask
@@ -71,10 +73,12 @@ class MainActivity : FlutterActivity() {
 
     override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
         super.configureFlutterEngine(flutterEngine)
-        MethodChannel(
+        val channel = MethodChannel(
             flutterEngine.dartExecutor.binaryMessenger,
             CHANNEL
-        ).setMethodCallHandler { call, result ->
+        )
+        wifiAwareController = WifiAwareController(this, channel)
+        channel.setMethodCallHandler { call, result ->
             when (call.method) {
                 "pickDirectory" -> {
                     pendingResult = result
@@ -131,8 +135,45 @@ class MainActivity : FlutterActivity() {
                     }
                 }
 
+                "requestWifiAwarePermission" -> requestWifiAwarePermission(result)
+
+                "startWifiAware" -> {
+                    val port = call.argument<Int>("port")
+                    val https = call.argument<Boolean>("https")
+                    if (port == null || https == null) {
+                        result.error("INVALID_ARGUMENT", "Missing port or https", null)
+                    } else {
+                        result.success(wifiAwareController?.start(port, https) ?: false)
+                    }
+                }
+
+                "stopWifiAware" -> {
+                    wifiAwareController?.stop()
+                    result.success(null)
+                }
+
                 else -> result.notImplemented()
             }
+        }
+    }
+
+    private fun requestWifiAwarePermission(result: MethodChannel.Result) {
+        // Android 10 exposes the peer IPv6 address through WifiAwareNetworkInfo.
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q || !packageManager.hasSystemFeature(PackageManager.FEATURE_WIFI_AWARE)) {
+            result.success(false)
+            return
+        }
+
+        val permission = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            android.Manifest.permission.NEARBY_WIFI_DEVICES
+        } else {
+            android.Manifest.permission.ACCESS_FINE_LOCATION
+        }
+        if (checkSelfPermission(permission) == PackageManager.PERMISSION_GRANTED) {
+            result.success(true)
+        } else {
+            pendingPermissionResult = result
+            requestPermissions(arrayOf(permission), REQUEST_CODE_WIFI_AWARE)
         }
     }
 
@@ -149,7 +190,16 @@ class MainActivity : FlutterActivity() {
         if (requestCode == REQUEST_CODE_LOCAL_NETWORK) {
             pendingPermissionResult?.success(grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)
             pendingPermissionResult = null
+        } else if (requestCode == REQUEST_CODE_WIFI_AWARE) {
+            pendingPermissionResult?.success(grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+            pendingPermissionResult = null
         }
+    }
+
+    override fun onDestroy() {
+        wifiAwareController?.stop()
+        wifiAwareController = null
+        super.onDestroy()
     }
 
     /// Absolute path of the shared "Download" directory (usually /storage/emulated/0/Download).

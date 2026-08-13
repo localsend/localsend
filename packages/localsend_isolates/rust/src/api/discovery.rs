@@ -335,6 +335,23 @@ impl RsDiscovery {
         Ok(())
     }
 
+    /// Probes one endpoint that was discovered by a platform transport, such
+    /// as an Android Wi-Fi Aware data path. A successful LocalSend register
+    /// response is merged into the regular discovery store and emitted on
+    /// [RsDiscovery::listen].
+    pub async fn discover(
+        &self,
+        host: String,
+        port: u16,
+        protocol: ProtocolType,
+    ) -> anyhow::Result<()> {
+        self.instance
+            .handle
+            .discover(&host, port, protocol)
+            .await?;
+        Ok(())
+    }
+
     /// Scans the `/24` subnet of the local interface address [interface_ip]
     /// by sending every other host a register request, for networks that do
     /// not carry multicast.

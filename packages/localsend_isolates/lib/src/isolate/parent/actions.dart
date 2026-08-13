@@ -116,6 +116,38 @@ class IsolateDiscoveryStagedScanAction extends ReduxActionWithResult<IsolateCont
   }
 }
 
+/// Probes a single endpoint discovered by a native platform transport.
+/// The returned stream completes when the probe finishes; a successful device
+/// arrives on the [IsolateDiscoveryListenAction] stream.
+class IsolateDiscoveryProbeAction extends ReduxActionWithResult<IsolateController, ParentIsolateState, Stream<Device>> {
+  final String host;
+  final int port;
+  final bool https;
+
+  IsolateDiscoveryProbeAction({
+    required this.host,
+    required this.port,
+    required this.https,
+  });
+
+  @override
+  (ParentIsolateState, Stream<Device>) reduce() {
+    final connection = state.discovery;
+    if (connection == null) {
+      throw StateError('discovery is not initialized');
+    }
+
+    return (
+      state,
+      connection
+          .sendWrappedTaskAndListenStream(
+            task: DiscoveryProbeTask(host: host, port: port, https: https),
+          )
+          .toDeviceStream(),
+    );
+  }
+}
+
 /// Fetches the retained confirmations of a stored device, oldest first.
 /// The logs are empty when the fingerprint is unknown or the discovery is
 /// not running.

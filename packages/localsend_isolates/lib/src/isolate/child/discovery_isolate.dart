@@ -76,6 +76,21 @@ class DiscoveryStagedScanTask implements DiscoveryTask {
   });
 }
 
+/// Probes a single endpoint discovered through a native platform transport.
+/// Completes when the endpoint answered or the probe failed; successful
+/// devices arrive on the [DiscoveryListenTask] stream.
+class DiscoveryProbeTask implements DiscoveryTask {
+  final String host;
+  final int port;
+  final bool https;
+
+  DiscoveryProbeTask({
+    required this.host,
+    required this.port,
+    required this.https,
+  });
+}
+
 /// Feeds a device confirmed outside of the discovery into the store, e.g. one
 /// that registered with this device's HTTP server. The device comes back on
 /// the [DiscoveryListenTask] stream.
@@ -145,6 +160,9 @@ Future<void> setupDiscoveryIsolate(
                 https: data.https,
                 grace: data.grace,
               );
+          break;
+        case DiscoveryProbeTask data:
+          await ref.read(discoveryProvider).probe(host: data.host, port: data.port, https: data.https);
           break;
         case DiscoveryAddDeviceTask data:
           await ref.read(discoveryProvider).addDevice(data.device);

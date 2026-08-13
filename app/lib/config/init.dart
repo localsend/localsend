@@ -36,6 +36,7 @@ import 'package:localsend_app/util/native/device_info_helper.dart';
 import 'package:localsend_app/util/native/macos_channel.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_app/util/native/tray_helper.dart';
+import 'package:localsend_app/util/native/wifi_aware_helper.dart';
 import 'package:localsend_app/util/notification_strings.dart';
 import 'package:localsend_app/util/ui/dynamic_colors.dart';
 import 'package:localsend_app/util/ui/snackbar.dart';
@@ -217,6 +218,8 @@ Future<void> postInit(BuildContext context, Ref ref, bool appStart) async {
   } catch (e) {
     _logger.warning('Starting discovery listener failed', e);
   }
+
+  await setupWifiAwareDiscovery(ref);
 
   // ignore: dead_code
   if (webRTCEnabled) {
