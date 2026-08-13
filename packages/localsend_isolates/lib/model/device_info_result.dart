@@ -8,9 +8,7 @@ class DeviceInfoResult {
   // See https://github.com/flutter/flutter/issues/90098
   final int? androidSdkInt;
 
-  DeviceInfoResult({
-    required this.deviceType,
-    required this.deviceModel,
-    required this.androidSdkInt,
-  });
+  final double IOSVersion;
+
+  DeviceInfoResult({required this.deviceType, required this.deviceModel, required this.androidSdkInt, required this.IOSVersion});
 }
