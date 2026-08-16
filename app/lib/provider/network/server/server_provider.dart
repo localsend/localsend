@@ -168,6 +168,7 @@ class ServerService extends Notifier<ServerState?> {
                       files: t.web.files,
                       fileName: t.web.fileName,
                       size: t.web.size,
+                      dropHint: t.web.dropHint,
                     ),
                   )
                 : null,

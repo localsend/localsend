@@ -539,7 +539,8 @@
     "rejected": "Rejected",
     "files": "Files",
     "fileName": "File name",
-    "size": "Size"
+    "size": "Size",
+    "dropHint": "Or drop files here"
   },
   "assetPicker": {
     "@info": "Translations for the Media selection tool for Android and iPhone",

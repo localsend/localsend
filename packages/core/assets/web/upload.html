@@ -17,7 +17,14 @@
             width: 100%;
             max-width: 400px;
             margin: 15vh auto 0;
-            padding: 0 1em;
+            padding: 1em;
+            border: 2px dashed transparent;
+            border-radius: 0.5em;
+        }
+
+        #content.drag-over {
+            border-color: #00796B;
+            background-color: #E0F2F1;
         }
 
         #upload-button {
@@ -49,6 +56,12 @@
             display: none;
             font-size: 1.5em;
         }
+
+        #drop-hint {
+            margin-top: 0.75em;
+            font-size: 1em;
+            color: #616161;
+        }
     </style>
 </head>
 <body>
@@ -59,6 +72,7 @@
 <h1 style="padding: 0.5em">LocalSend</h1>
 <div id="content">
     <button id="upload-button" type="button">Upload</button>
+    <p id="drop-hint">Or drop files here</p>
     <input id="file-input" type="file" multiple style="display: none">
     <p id="status-text"></p>
     <p id="progress-text"></p>
@@ -70,6 +84,8 @@
     var i18n = {};
     var queryParams = location.search.slice(1).split('&');
     var pin = null;
+    var uploading = false;
+    var dragDepth = 0;
 
     // Parse query parameters manually for IE
     for (var i = 0; i < queryParams.length; i++) {
@@ -95,13 +111,31 @@
       makeRequest('/i18n.json', 'GET', null, function (response) {
         if (response.status === 200) {
           i18n = JSON.parse(response.responseText);
+          if (i18n.dropHint) {
+            document.getElementById('drop-hint').innerText = i18n.dropHint;
+          }
           then();
         }
       });
     }
 
+    function setHintVisible(visible) {
+      document.getElementById('drop-hint').style.display = visible ? 'block' : 'none';
+    }
+
     function setButtonVisible(visible) {
       document.getElementById('upload-button').style.display = visible ? 'block' : 'none';
+      setHintVisible(visible);
+    }
+
+    function setDragOver(active) {
+      var content = document.getElementById('content');
+      if (active) {
+        content.className = 'drag-over';
+      } else {
+        content.className = '';
+        dragDepth = 0;
+      }
     }
 
     function showStatus(text, isError) {
@@ -123,17 +157,21 @@
 
     // Ends the upload flow: keeps the error visible and lets the user try again.
     function finishWithError(text) {
+      uploading = false;
       showStatus(text, true);
       setButtonVisible(true);
     }
 
     // Ends the upload flow after all files have been sent.
     function finishWithSuccess() {
+      uploading = false;
       showStatus('');
       setButtonVisible(true);
     }
 
     function startUpload(fileList) {
+      uploading = true;
+      setDragOver(false);
       setButtonVisible(false);
       hideProgress();
       showStatus(i18n.waiting);
@@ -287,6 +325,34 @@
           fileInput.value = '';
         }
       };
+
+      document.addEventListener('dragenter', function (e) {
+        e.preventDefault();
+        if (uploading) {
+          return;
+        }
+        dragDepth++;
+        setDragOver(true);
+      });
+      document.addEventListener('dragover', function (e) {
+        e.preventDefault();
+      });
+      document.addEventListener('dragleave', function (e) {
+        e.preventDefault();
+        dragDepth--;
+        if (dragDepth <= 0) {
+          setDragOver(false);
+        }
+      });
+      document.addEventListener('drop', function (e) {
+        e.preventDefault();
+        setDragOver(false);
+        if (uploading || !e.dataTransfer || !e.dataTransfer.files.length) {
+          return;
+        }
+        startUpload(e.dataTransfer.files);
+      });
+
       fetchI18n(function () {});
     }
 

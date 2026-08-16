@@ -851,6 +851,9 @@ class Translations$web$en {
 
   /// en: 'Size'
   String get size => 'Size';
+
+  /// en: 'Or drop files here'
+  String get dropHint => 'Or drop files here';
 }
 
 // Path: assetPicker

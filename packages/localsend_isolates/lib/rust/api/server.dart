@@ -287,6 +287,7 @@ class WebI18n {
   final String files;
   final String fileName;
   final String size;
+  final String dropHint;
 
   const WebI18n({
     required this.waiting,
@@ -299,6 +300,7 @@ class WebI18n {
     required this.files,
     required this.fileName,
     required this.size,
+    required this.dropHint,
   });
 
   @override
@@ -312,7 +314,8 @@ class WebI18n {
       busy.hashCode ^
       files.hashCode ^
       fileName.hashCode ^
-      size.hashCode;
+      size.hashCode ^
+      dropHint.hashCode;
 
   @override
   bool operator ==(Object other) =>
@@ -328,7 +331,8 @@ class WebI18n {
           busy == other.busy &&
           files == other.files &&
           fileName == other.fileName &&
-          size == other.size;
+          size == other.size &&
+          dropHint == other.dropHint;
 }
 
 /// Configuration for the web pages served to browsers. When omitted, the web

@@ -344,6 +344,7 @@ async fn test_upload_page() {
     let i18n = response.json::<HashMap<String, String>>().await.unwrap();
     assert!(i18n.contains_key("busy"));
     assert!(i18n.contains_key("uploadRejected"));
+    assert!(i18n.contains_key("dropHint"));
 }
 
 #[tokio::test]

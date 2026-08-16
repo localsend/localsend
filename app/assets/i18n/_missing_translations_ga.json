@@ -71,5 +71,8 @@
         ]
       }
     }
+  },
+  "web": {
+    "dropHint": "Or drop files here"
   }
 }
