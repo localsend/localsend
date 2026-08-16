@@ -77,13 +77,7 @@ Read more about [distribution channels][].
 ### Command Line Interface (CLI)
 
 Since v1.18.0, LocalSend provides a standalone Command Line Interface.
-It is available on Windows via Winget:
-
-```bash
-winget install LocalSend.CLI
-```
-
-For other platforms, you can download the binaries directly from the [latest release][latest] (look for `LocalSend-CLI-...`).
+You can download the binaries directly from the [latest release][latest] (look for `LocalSend-CLI-...`).
 
 *(Note: The main desktop app also supports command line arguments, such as `--text` or `-t` to start a text share from the terminal).*
 
