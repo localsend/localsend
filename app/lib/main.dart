@@ -7,7 +7,9 @@ import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/model/persistence/color_mode.dart';
 import 'package:localsend_app/pages/home_page.dart';
 import 'package:localsend_app/provider/local_ip_provider.dart';
+import 'package:localsend_app/provider/network/server/server_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
+import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_app/util/ui/dynamic_colors.dart';
 import 'package:localsend_app/widget/watcher/life_cycle_watcher.dart';
 import 'package:localsend_app/widget/watcher/shortcut_watcher.dart';
@@ -57,6 +59,15 @@ class LocalSendApp extends StatelessWidget {
             switch (state) {
               case AppLifecycleState.resumed:
                 ref.redux(localIpProvider).dispatch(InitLocalIpAction());
+                if (checkPlatform([TargetPlatform.iOS, TargetPlatform.android])) {
+                  // The OS may have invalidated the sockets of the suspended app without any error ever reaching the accept loop.
+                  // ignore: discarded_futures
+                  ref.notifier(serverProvider).ensureRunning();
+                }
+                if (checkPlatform([TargetPlatform.iOS])) {
+                  // The multicast sockets die the same silent way but cannot be probed, so always rebind them.
+                  ref.redux(parentIsolateProvider).dispatch(IsolateDiscoveryRestartAction());
+                }
                 break;
               case AppLifecycleState.detached:
                 // The main isolate is only exited when all child isolates are exited.

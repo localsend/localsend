@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/model/cross_file.dart';
@@ -366,6 +367,36 @@ class ServerService extends Notifier<ServerState?> {
   /// The Rust server has already stopped itself at this point.
   Future<void> _restartAfterListenerFailure(String error) async {
     _logger.warning('The server listener failed: $error. Restarting server.');
+    await _restartDeadServer();
+  }
+
+  bool _probeInFlight = false;
+
+  /// Restarts the server when it no longer accepts a loopback probe connection, e.g. because iOS invalidated the socket while the app was suspended.
+  Future<void> ensureRunning() async {
+    final current = state;
+    if (current == null || _probeInFlight) {
+      return;
+    }
+
+    _probeInFlight = true;
+    try {
+      final socket = await Socket.connect(
+        InternetAddress.loopbackIPv4,
+        current.port,
+        timeout: const Duration(seconds: 2),
+      );
+      socket.destroy();
+    } catch (e) {
+      _logger.warning('The server did not accept a probe connection: $e. Restarting server.');
+      await _restartDeadServer();
+    } finally {
+      _probeInFlight = false;
+    }
+  }
+
+  /// Restarts the server with its current configuration after its listening socket died.
+  Future<void> _restartDeadServer() async {
     final current = state;
     if (current == null) {
       return;
