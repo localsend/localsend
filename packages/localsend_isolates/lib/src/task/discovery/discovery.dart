@@ -24,6 +24,7 @@ class DiscoveryService {
 
   final Ref _ref;
   RsDiscovery? _discovery;
+  Completer<void> _readyCompleter = Completer<void>();
   Completer<void> _retryCompleter = Completer();
   bool _listening = false;
 
@@ -91,6 +92,9 @@ class DiscoveryService {
       }
 
       _discovery = discovery;
+      if (!_readyCompleter.isCompleted) {
+        _readyCompleter.complete();
+      }
 
       // Tell everyone in the network that I am online.
       unawaited(discovery.announce());
@@ -103,6 +107,7 @@ class DiscoveryService {
 
       // The stream ended because [restartListener] stopped the discovery.
       _discovery = null;
+      _readyCompleter = Completer<void>();
     }
   }
 
@@ -179,6 +184,29 @@ class DiscoveryService {
     );
   }
 
+  /// Probes one endpoint found by a native transport such as Wi-Fi Aware.
+  /// Successful devices are emitted by [startListener].
+  Future<void> probe({required String host, required int port, required bool https}) async {
+    if (_discovery == null) {
+      try {
+        await _readyCompleter.future.timeout(const Duration(seconds: 5));
+      } on TimeoutException {
+        _logger.info('Discovery did not become ready, skipping endpoint $host:$port');
+        return;
+      }
+    }
+    final discovery = _discovery;
+    if (discovery == null) {
+      _logger.info('Discovery is not running, skipping endpoint $host:$port');
+      return;
+    }
+
+    await discovery.discover(
+      host: host,
+      port: port,
+      protocol: https ? rust_model.ProtocolType.https : rust_model.ProtocolType.http,
+    );
+  }
 
   /// The retained confirmations of a stored device, oldest first.
   /// Empty when the fingerprint is unknown or the discovery is not running.

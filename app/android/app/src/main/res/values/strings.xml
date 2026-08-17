@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="wifi_aware_pairing_title">Pair nearby device</string>
+    <string name="wifi_aware_pairing_enter_message">Enter the code displayed on the other device.</string>
+    <string name="wifi_aware_pairing_display_message">Enter this code on the other device.</string>
+    <string name="wifi_aware_pairing_code_hint">8-digit code</string>
+    <string name="wifi_aware_pairing_action">Pair</string>
+</resources>
