@@ -1,6 +1,7 @@
 name: localsend_isolates
 description: LocalSend network isolates and Rust bindings
 publish_to: "none"
+resolution: workspace
 
 version: 0.0.1
 

@@ -38,7 +38,7 @@ class TypedIsolates {
   }) async {
     final receivePort = ReceivePort();
     final isolate = await Isolate.spawn(
-          (param) => _isolateRunner<R, S, P>(param),
+      (param) => _isolateRunner<R, S, P>(param),
       _IsolateParam<R, S, P>(receivePort.sendPort, task, param),
     );
 

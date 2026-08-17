@@ -2,6 +2,7 @@ name: localsend_app
 description: An open source cross-platform alternative to AirDrop
 homepage: https://localsend.org/
 publish_to: "none"
+resolution: workspace
 
 version: 1.18.1+61
 

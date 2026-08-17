@@ -1,5 +1,8 @@
 .idea
 
+# Pub workspace resolution output
+/.dart_tool/
+
 # Rust workspace build output
 /target/
 
