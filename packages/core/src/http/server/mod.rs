@@ -616,7 +616,8 @@ async fn handle_request_inner(mut req: Request<Incoming>) -> Result<Response<Box
                 .await?
                 .into_response())
         }
-        (&Method::GET, "/api/localsend/v2/info") => {
+        // Old clients (v1.17 and earlier) probe unknown peers on the v1 route
+        (&Method::GET, "/api/localsend/v1/info") | (&Method::GET, "/api/localsend/v2/info") => {
             if !v2_enabled {
                 return Err(AppError::Status(StatusCode::NOT_FOUND));
             }

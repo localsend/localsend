@@ -267,6 +267,27 @@ async fn test_register_and_info() {
     assert_eq!(info.fingerprint, "server-fingerprint");
 }
 
+/// Old clients (v1.17 and earlier) probe unknown peers on the legacy v1 route.
+#[tokio::test]
+async fn test_info_on_legacy_v1_route() {
+    let server = start_test_server(None, true, None).await;
+
+    let body: serde_json::Value = reqwest::get(format!(
+        "http://127.0.0.1:{}/api/localsend/v1/info",
+        server.port
+    ))
+    .await
+    .unwrap()
+    .error_for_status()
+    .unwrap()
+    .json()
+    .await
+    .unwrap();
+
+    assert_eq!(body["alias"], "Test Server");
+    assert_eq!(body["fingerprint"], "server-fingerprint");
+}
+
 #[tokio::test]
 async fn test_register_over_ipv6() {
     let server = start_test_server(None, true, None).await;
