@@ -3278,6 +3278,10 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
         return RsServerEvent_Show(
           args: dco_decode_list_String(raw[1]),
         );
+      case 9:
+        return RsServerEvent_ListenerFailed(
+          error: dco_decode_String(raw[1]),
+        );
       default:
         throw Exception('unreachable');
     }
@@ -4649,6 +4653,9 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       case 8:
         var var_args = sse_decode_list_String(deserializer);
         return RsServerEvent_Show(args: var_args);
+      case 9:
+        var var_error = sse_decode_String(deserializer);
+        return RsServerEvent_ListenerFailed(error: var_error);
       default:
         throw UnimplementedError('');
     }
@@ -6023,6 +6030,9 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       case RsServerEvent_Show(args: final args):
         sse_encode_i_32(8, serializer);
         sse_encode_list_String(args, serializer);
+      case RsServerEvent_ListenerFailed(error: final error):
+        sse_encode_i_32(9, serializer);
+        sse_encode_String(error, serializer);
     }
   }
 
@@ -6390,6 +6400,11 @@ class RsDiscoveryImpl extends RustOpaque implements RsDiscovery {
 
   /// Emits a [RsStoredDevice] for every device confirmation until the
   /// discovery is stopped. Can only be listened to once.
+  ///
+  /// Also ends when the multicast sockets failed permanently (e.g. because
+  /// the OS invalidated them while the application was suspended): the
+  /// application reacts to the ended stream by starting a new discovery,
+  /// which rebinds the sockets.
   ///
   /// Also returns when the Dart side of the stream is gone (e.g. after a
   /// hot restart), so this call does not keep the discovery alive forever.

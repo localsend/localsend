@@ -27,6 +27,10 @@ class DiscoveryService {
   Completer<void> _retryCompleter = Completer();
   bool _listening = false;
 
+  /// Whether the current discovery was stopped by [restartListener], as
+  /// opposed to stopping itself because the multicast sockets failed.
+  bool _restartRequested = false;
+
   /// Starts the discovery and emits every device confirmation:
   /// answered announcements, scan results and devices fed in
   /// via [addDevice] all arrive on this one stream.
@@ -101,8 +105,19 @@ class DiscoveryService {
         }
       }
 
-      // The stream ended because [restartListener] stopped the discovery.
       _discovery = null;
+
+      if (_restartRequested) {
+        // The stream ended because [restartListener] stopped the discovery.
+        _restartRequested = false;
+      } else {
+        // The stream ended because the multicast sockets failed permanently,
+        // e.g. because iOS reclaimed them while the app was suspended.
+        // The delay avoids hot-looping when binding keeps succeeding but the
+        // sockets keep failing right away.
+        _logger.warning('Discovery stopped unexpectedly (multicast sockets failed). Restarting discovery.');
+        await Future<void>.delayed(const Duration(seconds: 1));
+      }
     }
   }
 
@@ -111,6 +126,7 @@ class DiscoveryService {
     final discovery = _discovery;
     if (discovery != null) {
       // Ends the listen stream, which makes [startListener] rebind.
+      _restartRequested = true;
       unawaited(discovery.stop());
     } else if (!_retryCompleter.isCompleted) {
       // Starting failed previously; let [startListener] try again.
@@ -178,7 +194,6 @@ class DiscoveryService {
       graceMs: BigInt.from(grace.inMilliseconds),
     );
   }
-
 
   /// The retained confirmations of a stored device, oldest first.
   /// Empty when the fingerprint is unknown or the discovery is not running.

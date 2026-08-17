@@ -96,6 +96,15 @@ pub enum RsServerEvent {
         /// Command-line arguments forwarded by the other application instance.
         args: Vec<String>,
     },
+
+    /// The listening socket failed permanently, e.g. because the OS
+    /// invalidated it while the application was suspended (iOS reclaims the
+    /// sockets of suspended apps). The server has stopped itself; the
+    /// application must restart it to become reachable again.
+    ListenerFailed {
+        /// Description of the failure.
+        error: String,
+    },
 }
 
 pub struct RsHttpServer {
@@ -410,6 +419,9 @@ impl RsHttpServer {
                     session_id,
                 })
                 .is_ok(),
+            ServerEventV2::ListenerFailed { error } => {
+                sink.add(RsServerEvent::ListenerFailed { error }).is_ok()
+            }
         }
     }
 

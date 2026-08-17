@@ -41,10 +41,10 @@ uuid = { version = "1.24.0", features = ["serde", "v4"] }
 webrtc = { version = "0.14.0", optional = true }
 x509-parser = { version = "0.18.1", features = ["verify"], optional = true }
 
-[dev-dependencies]
-# Lowers this process' descriptor limit in `accept_resilience`, to reproduce
-# the exhaustion the accept loop has to survive. Already in the tree as a
-# transitive dependency, so it costs no extra compilation.
+[target.'cfg(unix)'.dependencies]
+# Errno constants for classifying accept errors. Already in the tree as a
+# transitive dependency, so it costs no extra compilation. Also used by the
+# `accept_resilience` test to lower this process' descriptor limit.
 libc = "0.2"
 
 [[example]]

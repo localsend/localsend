@@ -11,6 +11,7 @@ use localsend::util::interface::InterfaceFilter;
 use std::sync::Arc;
 use std::time::Duration;
 use tokio::sync::{Mutex, mpsc, oneshot};
+use tokio_util::sync::CancellationToken;
 
 /// A single device confirmation over HTTP, fed into the store via
 /// [RsDiscovery::add_device]: the device's register request was accepted by
@@ -115,6 +116,12 @@ pub struct RsDiscovery {
 struct DiscoveryInstance {
     handle: DiscoveryHandle,
     stop_tx: Mutex<Option<oneshot::Sender<()>>>,
+
+    /// Ends the [RsDiscovery::listen] stream on stop. The discovery event
+    /// sender lives in the handle itself, so the event channel never closes
+    /// while this instance exists; without this signal the stream would
+    /// outlive the stop.
+    cancel: CancellationToken,
 }
 
 impl DiscoveryInstance {
@@ -125,6 +132,7 @@ impl DiscoveryInstance {
             let _ = stop_tx.send(());
             self.handle.wait_stopped().await;
         }
+        self.cancel.cancel();
     }
 }
 
@@ -218,6 +226,7 @@ pub async fn start_discovery(
     let instance = Arc::new(DiscoveryInstance {
         handle,
         stop_tx: Mutex::new(Some(stop_tx)),
+        cancel: CancellationToken::new(),
     });
     *running_discovery = Some(instance.clone());
 
@@ -231,6 +240,11 @@ impl RsDiscovery {
     /// Emits a [RsStoredDevice] for every device confirmation until the
     /// discovery is stopped. Can only be listened to once.
     ///
+    /// Also ends when the multicast sockets failed permanently (e.g. because
+    /// the OS invalidated them while the application was suspended): the
+    /// application reacts to the ended stream by starting a new discovery,
+    /// which rebinds the sockets.
+    ///
     /// Also returns when the Dart side of the stream is gone (e.g. after a
     /// hot restart), so this call does not keep the discovery alive forever.
     pub async fn listen(&self, sink: StreamSink<RsStoredDevice>) {
@@ -239,9 +253,26 @@ impl RsDiscovery {
             return;
         };
 
-        while let Some(event) = event_rx.recv().await {
-            let (DiscoveryEvent::Discovered { device } | DiscoveryEvent::Updated { device }) =
-                event;
+        loop {
+            let event = tokio::select! {
+                event = event_rx.recv() => event,
+                // The event sender lives in the handle this instance holds,
+                // so the channel never closes on its own; the stop signals
+                // the end explicitly.
+                _ = self.instance.cancel.cancelled() => break,
+            };
+            let device = match event {
+                Some(
+                    DiscoveryEvent::Discovered { device } | DiscoveryEvent::Updated { device },
+                ) => device,
+                Some(DiscoveryEvent::MulticastFailed) => {
+                    tracing::error!(
+                        "Multicast sockets failed, ending the discovery event stream"
+                    );
+                    break;
+                }
+                None => break,
+            };
             // The store is updated before the event is emitted, so the merged
             // state is at least as new as the confirmation.
             if let Some(stored) = self

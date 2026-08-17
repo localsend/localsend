@@ -335,6 +335,19 @@ class HttpServerShowEvent extends HttpServerEvent {
   });
 }
 
+/// The listening socket failed permanently, e.g. because the OS invalidated it
+/// while the application was suspended (iOS reclaims the sockets of suspended
+/// apps). The server has stopped itself; the application must restart it to
+/// become reachable again.
+class HttpServerListenerFailedEvent extends HttpServerEvent {
+  /// Description of the failure.
+  final String error;
+
+  HttpServerListenerFailedEvent({
+    required this.error,
+  });
+}
+
 class _ReceiveSession {
   final HttpServerReceiveConfig config;
 
@@ -529,6 +542,9 @@ Future<void> setupHttpServerIsolate(
                   );
                 case RsServerEvent_Show(:final args):
                   emit(HttpServerShowEvent(args: args));
+                case RsServerEvent_ListenerFailed(:final error):
+                  ref.read(_receiveSessionProvider).session = null;
+                  emit(HttpServerListenerFailedEvent(error: error));
               }
             }
           } finally {

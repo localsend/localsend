@@ -355,6 +355,33 @@ class ServerService extends Notifier<ServerState?> {
       case HttpServerWebFileDownloadEvent():
         // ignore: discarded_futures
         _sendController.onFileDownload(event);
+      case HttpServerListenerFailedEvent():
+        // ignore: discarded_futures
+        _restartAfterListenerFailure(event.error);
+    }
+  }
+
+  /// Restarts the server after its listening socket failed permanently,
+  /// e.g. because iOS reclaimed it while the app was suspended.
+  /// The Rust server has already stopped itself at this point.
+  Future<void> _restartAfterListenerFailure(String error) async {
+    _logger.warning('The server listener failed: $error. Restarting server.');
+    final current = state;
+    if (current == null) {
+      return;
+    }
+
+    try {
+      await restartServer(
+        alias: current.alias,
+        port: current.port,
+        https: current.https,
+        webSendState: current.webSendState?.copyWith(sessions: {}),
+        webUpload: current.webUpload,
+        webPin: current.webPin,
+      );
+    } catch (e) {
+      _logger.severe('Failed to restart the server after its listener failed', e);
     }
   }
 

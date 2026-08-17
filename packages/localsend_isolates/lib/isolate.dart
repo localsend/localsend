@@ -5,6 +5,7 @@ export 'package:localsend_isolates/src/isolate/child/server_isolate.dart'
         HttpServerFileUploadEvent,
         HttpServerFileUploadProgressEvent,
         HttpServerFileUploadResultEvent,
+        HttpServerListenerFailedEvent,
         HttpServerPrepareUploadAbortedEvent,
         HttpServerPrepareUploadEvent,
         HttpServerReceiveConfig,

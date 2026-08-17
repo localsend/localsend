@@ -4791,6 +4791,10 @@ impl SseDecode for crate::api::server::RsServerEvent {
                 let mut var_args = <Vec<String>>::sse_decode(deserializer);
                 return crate::api::server::RsServerEvent::Show { args: var_args };
             }
+            9 => {
+                let mut var_error = <String>::sse_decode(deserializer);
+                return crate::api::server::RsServerEvent::ListenerFailed { error: var_error };
+            }
             _ => {
                 unimplemented!("");
             }
@@ -6198,6 +6202,9 @@ impl flutter_rust_bridge::IntoDart for crate::api::server::RsServerEvent {
             crate::api::server::RsServerEvent::Show { args } => {
                 [8.into_dart(), args.into_into_dart().into_dart()].into_dart()
             }
+            crate::api::server::RsServerEvent::ListenerFailed { error } => {
+                [9.into_dart(), error.into_into_dart().into_dart()].into_dart()
+            }
             _ => {
                 unimplemented!("");
             }
@@ -7559,6 +7566,10 @@ impl SseEncode for crate::api::server::RsServerEvent {
             crate::api::server::RsServerEvent::Show { args } => {
                 <i32>::sse_encode(8, serializer);
                 <Vec<String>>::sse_encode(args, serializer);
+            }
+            crate::api::server::RsServerEvent::ListenerFailed { error } => {
+                <i32>::sse_encode(9, serializer);
+                <String>::sse_encode(error, serializer);
             }
             _ => {
                 unimplemented!("");

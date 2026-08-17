@@ -119,6 +119,15 @@ pub enum ServerEventV2 {
         /// The session ID as known by the remote device.
         session_id: String,
     },
+
+    /// The listening socket failed permanently, e.g. because the OS
+    /// invalidated it while the application was suspended (iOS reclaims the
+    /// sockets of suspended apps). The server has stopped itself; the
+    /// application must restart it to become reachable again.
+    ListenerFailed {
+        /// Description of the failure.
+        error: String,
+    },
 }
 
 /// The application's decision for a prepare-upload request.
