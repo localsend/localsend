@@ -384,7 +384,7 @@ class ServerService extends Notifier<ServerState?> {
       final socket = await Socket.connect(
         InternetAddress.loopbackIPv4,
         current.port,
-        timeout: const Duration(seconds: 2),
+        timeout: const Duration(seconds: 1),
       );
       socket.destroy();
     } catch (e) {
