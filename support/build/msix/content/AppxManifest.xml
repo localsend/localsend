@@ -21,7 +21,7 @@
         xmlns:com2="http://schemas.microsoft.com/appx/manifest/com/windows10/2" 
         xmlns:com3="http://schemas.microsoft.com/appx/manifest/com/windows10/3" 
         IgnorableNamespaces="uap3 desktop">
-  <Identity Name="LocalSend.App" Version="1.18.1.0"
+  <Identity Name="LocalSend.App" Version="1.18.2.0"
             Publisher="CN=SignPath Foundation, O=SignPath Foundation, C=US, S=DE, L=Lewes" ProcessorArchitecture="x64" />
   <Properties>
     <DisplayName>LocalSend MSIX Helper</DisplayName>
