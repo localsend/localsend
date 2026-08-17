@@ -365,6 +365,8 @@ async fn start_server_with_listener(
         let (tcp_stream, remote_addr) = match incoming.accept().await {
             Ok(accepted) => {
                 accept_backoff = ACCEPT_BACKOFF_MIN;
+                // Disable Nagle: it delays small responses (reqwest already does this on the client side).
+                let _ = accepted.0.set_nodelay(true);
                 accepted
             }
             // Accepting fails for reasons that say nothing about the listener:

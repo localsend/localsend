@@ -222,7 +222,8 @@ pub(super) fn create_reqwest_client(
     };
 
     // Must be set explicitly, see the doc comment above.
-    tls_config.alpn_protocols = vec![b"h2".to_vec(), b"http/1.1".to_vec()];
+    // HTTP/1.1 only: HTTP/2's flow-control window caps bulk upload throughput.
+    tls_config.alpn_protocols = vec![b"http/1.1".to_vec()];
 
     let mut builder = reqwest::Client::builder()
         .tls_backend_preconfigured(tls_config)
