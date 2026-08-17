@@ -44,7 +44,7 @@ Future<void> setupChildIsolateHelper<S, R>({
   // silently kill the server/upload loop; log them instead.
   await runZonedGuarded(
     () async {
-      _isolateContainer.set(
+      await _isolateContainer.set(
         syncProvider.overrideWithNotifier(
           (ref) => SyncService(
             initial: initialData.syncState,

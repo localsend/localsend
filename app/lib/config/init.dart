@@ -151,7 +151,7 @@ Future<RefenaContainer> preInit(List<String> args) async {
   Routerino.navigatorKey = container.read(navigationProvider).key;
 
   // initialize multi-threading
-  container.set(
+  await container.set(
     parentIsolateProvider.overrideWithNotifier((ref) {
       final settings = ref.read(settingsProvider);
       return IsolateController(
