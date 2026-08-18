@@ -69,7 +69,7 @@ class CrossFileConverters {
       path: file.uri,
       bytes: null,
       // SAF only provides milliseconds, so there is no point statting in Rust.
-      lastModified: DateTime.fromMillisecondsSinceEpoch(file.lastModified, isUtc: true).toIso8601String(),
+      lastModified: safTimestampToRfc3339(file.lastModified),
       lastAccessed: null,
     );
   }
@@ -105,6 +105,18 @@ class CrossFileConverters {
       lastAccessed: null,
     );
   }
+}
+
+/// Converts a SAF timestamp in milliseconds to the RFC 3339 string used by the protocol.
+///
+/// `DocumentsContract.Document.COLUMN_LAST_MODIFIED` is nullable and a null column reaches
+/// Dart as 0, so a non-positive value means "unknown" rather than the epoch. Sending it
+/// anyway makes the receiver stamp the saved file with 1970.
+String? safTimestampToRfc3339(int millisecondsSinceEpoch) {
+  if (millisecondsSinceEpoch <= 0) {
+    return null;
+  }
+  return DateTime.fromMillisecondsSinceEpoch(millisecondsSinceEpoch, isUtc: true).toIso8601String();
 }
 
 extension CompareFile on CrossFile {
