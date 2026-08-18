@@ -124,9 +124,19 @@ jobs:
           echo "MSIX helper version is $VERSION"
           echo "msix_version=$VERSION" >> $GITHUB_ENV
 
-      - name: Compare pubspec, Inno Setup, CLI and MSIX helper versions
+      - name: Extract version from AppImage recipes
+        id: appimage_version
         run: |
-          if [ "$pubspec_version" != "$inno_version" ] || [ "$pubspec_version" != "$cli_version" ] || [ "$pubspec_version.0" != "$msix_version" ]; then
+          VERSION_X86_64=$(grep '^    version: ' support/build/appimage/AppImageBuilder_x86_64.yml | sed 's/    version: //')
+          echo "AppImage x86_64 version is $VERSION_X86_64"
+          echo "appimage_x86_64_version=$VERSION_X86_64" >> $GITHUB_ENV
+          VERSION_ARM_64=$(grep '^    version: ' support/build/appimage/AppImageBuilder_arm_64.yml | sed 's/    version: //')
+          echo "AppImage arm_64 version is $VERSION_ARM_64"
+          echo "appimage_arm_64_version=$VERSION_ARM_64" >> $GITHUB_ENV
+
+      - name: Compare pubspec, Inno Setup, CLI, MSIX helper and AppImage versions
+        run: |
+          if [ "$pubspec_version" != "$inno_version" ] || [ "$pubspec_version" != "$cli_version" ] || [ "$pubspec_version.0" != "$msix_version" ] || [ "$pubspec_version" != "$appimage_x86_64_version" ] || [ "$pubspec_version" != "$appimage_arm_64_version" ]; then
             echo "Version mismatch detected!"
             exit 1
           else

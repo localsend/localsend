@@ -44,6 +44,16 @@ void main(List<String> args) {
     pattern: r'(?<= )Version="[0-9.]+"',
     replacement: 'Version="$version.0"',
   );
+  _replace(
+    file: '$root/support/build/appimage/AppImageBuilder_x86_64.yml',
+    pattern: r'^    version: .+$',
+    replacement: '    version: $version',
+  );
+  _replace(
+    file: '$root/support/build/appimage/AppImageBuilder_arm_64.yml',
+    pattern: r'^    version: .+$',
+    replacement: '    version: $version',
+  );
 
   print('Updated to $version+$build');
 }

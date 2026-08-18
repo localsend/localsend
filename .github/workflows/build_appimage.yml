@@ -74,28 +74,29 @@ jobs:
         run: flutter build linux
 
       - name: Copy compiled linux files
-        working-directory: app
         run: |
           mkdir AppDir
-          cp -r build/linux/x64/release/bundle/* AppDir/
+          cp -r app/build/linux/x64/release/bundle/* AppDir/
 
       - name: Copy logo to AppDir
-        working-directory: app
         run: |
           mkdir -p AppDir/usr/share/icons/hicolor/32x32/apps
-          cp assets/img/logo-32.png AppDir/usr/share/icons/hicolor/32x32/apps/localsend.png
+          cp app/assets/img/logo-32.png AppDir/usr/share/icons/hicolor/32x32/apps/localsend.png
           mkdir -p AppDir/usr/share/icons/hicolor/128x128/apps
-          cp assets/img/logo-128.png AppDir/usr/share/icons/hicolor/128x128/apps/localsend.png
+          cp app/assets/img/logo-128.png AppDir/usr/share/icons/hicolor/128x128/apps/localsend.png
           mkdir -p AppDir/usr/share/icons/hicolor/256x256/apps
-          cp assets/img/logo-256.png AppDir/usr/share/icons/hicolor/256x256/apps/localsend.png
+          cp app/assets/img/logo-256.png AppDir/usr/share/icons/hicolor/256x256/apps/localsend.png
+
+      - name: Copy Recipe to correct location
+        run: cp support/build/appimage/AppImageBuilder_x86_64.yml AppImageBuilder.yml
 
       - name: Build AppImage
         uses: AppImageCrafters/build-appimage@57c3bc6963f870ce3be103117de5b5e33ffbaeb6
         with:
-          recipe: ./app/AppImageBuilder.yml
+          recipe: ./AppImageBuilder.yml
 
       - name: Upload AppImage file
         uses: actions/upload-artifact@v6
         with:
           name: appimage-result
-          path: ./app/*.AppImage
+          path: ./*.AppImage
