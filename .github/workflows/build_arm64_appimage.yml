@@ -72,7 +72,11 @@ jobs:
           cp app/assets/img/logo-256.png AppDir/usr/share/icons/hicolor/256x256/apps/localsend.png
 
       - name: Copy Recipe to correct location
-        run: cp support/build/appimage/AppImageBuilder_arm_64.yml AppImageBuilder.yml
+        env:
+          APP_VERSION: ${{ needs.build.outputs.version }}
+        run: |
+          sed "s/^\( *\)version: latest$/\1version: ${APP_VERSION}/" support/build/appimage/AppImageBuilder_arm_64.yml > AppImageBuilder.yml
+          grep -q "version: ${APP_VERSION}$" AppImageBuilder.yml
 
       - name: Build AppImage
         uses: AppImageCrafters/build-appimage@57c3bc6963f870ce3be103117de5b5e33ffbaeb6
