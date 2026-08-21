@@ -147,6 +147,8 @@
       "generateRandomAlias": "Generate random alias",
       "portWarning": "You might not be detected by other devices because you are using a custom port. (default: {defaultPort})",
       "encryption": "Encryption",
+      "tailnetDiscovery": "Discover Tailscale devices",
+      "@tailnetDiscovery": "Setting to also find devices that are reachable over a Tailscale tailnet, but not on the same local network. Tailscale is a VPN product; keep the product name untranslated.",
       "multicastGroup": "Multicast address",
       "multicastGroupWarning": "You might not be detected by other devices because you are using a custom multicast address. (default: {defaultMulticast})"
     },

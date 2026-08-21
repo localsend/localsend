@@ -21,7 +21,8 @@ final settingsProvider = NotifierProvider<SettingsService, SettingsState>(
     if (_listEq(syncState.networkWhitelist, next.networkWhitelist) &&
         _listEq(syncState.networkBlacklist, next.networkBlacklist) &&
         syncState.multicastGroup == next.multicastGroup &&
-        syncState.discoveryTimeout == next.discoveryTimeout) {
+        syncState.discoveryTimeout == next.discoveryTimeout &&
+        syncState.tailnet == next.tailnetDiscovery) {
       return;
     }
 
@@ -33,6 +34,7 @@ final settingsProvider = NotifierProvider<SettingsService, SettingsState>(
             networkBlacklist: next.networkBlacklist,
             multicastGroup: next.multicastGroup,
             discoveryTimeout: next.discoveryTimeout,
+            tailnet: next.tailnetDiscovery,
           ),
         );
   },
@@ -74,6 +76,7 @@ class SettingsService extends PureNotifier<SettingsState> {
     createChecksums: _persistence.getCreateChecksums(),
     verifyChecksums: _persistence.getVerifyChecksums(),
     discoveryTimeout: _persistence.getDiscoveryTimeout(),
+    tailnetDiscovery: _persistence.isTailnetDiscovery(),
     advancedSettings: _persistence.getAdvancedSettingsEnabled(),
   );
 
@@ -144,6 +147,13 @@ class SettingsService extends PureNotifier<SettingsState> {
     await _persistence.setDiscoveryTimeout(timeout);
     state = state.copyWith(
       discoveryTimeout: timeout,
+    );
+  }
+
+  Future<void> setTailnetDiscovery(bool tailnetDiscovery) async {
+    await _persistence.setTailnetDiscovery(tailnetDiscovery);
+    state = state.copyWith(
+      tailnetDiscovery: tailnetDiscovery,
     );
   }
 

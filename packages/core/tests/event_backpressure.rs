@@ -134,6 +134,7 @@ async fn subnet_scan_finishes_when_events_are_not_consumed() {
             },
             timeout: discovery::DEFAULT_DISCOVERY_TIMEOUT,
             event_tx: Some(event_tx),
+            tailnet: false,
         },
         discovery_stop_rx,
     )

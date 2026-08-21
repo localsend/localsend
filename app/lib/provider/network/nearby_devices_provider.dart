@@ -5,6 +5,7 @@ import 'package:localsend_app/model/persistence/favorite_device.dart';
 import 'package:localsend_app/model/state/nearby_devices_state.dart';
 import 'package:localsend_app/provider/favorites_provider.dart';
 import 'package:localsend_app/provider/logging/discovery_logs_provider.dart';
+import 'package:localsend_app/provider/tailnet_peers_provider.dart';
 import 'package:localsend_isolates/isolate.dart';
 import 'package:localsend_isolates/model/device.dart';
 import 'package:refena_flutter/refena_flutter.dart';
@@ -18,6 +19,7 @@ final nearbyDevicesProvider = ReduxProvider<NearbyDevicesService, NearbyDevicesS
   return NearbyDevicesService(
     isolateController: ref.notifier(parentIsolateProvider),
     favoriteService: ref.notifier(favoritesProvider),
+    tailnetPeersService: ref.notifier(tailnetPeersProvider),
     discoveryLogs: ref.notifier(discoveryLoggerProvider),
   );
 });
@@ -25,15 +27,18 @@ final nearbyDevicesProvider = ReduxProvider<NearbyDevicesService, NearbyDevicesS
 class NearbyDevicesService extends ReduxNotifier<NearbyDevicesState> {
   final IsolateController _isolateController;
   final FavoritesService _favoriteService;
+  final TailnetPeersService _tailnetPeersService;
   final DiscoveryLogger _discoveryLogger;
 
   NearbyDevicesService({
     required IsolateController isolateController,
     required FavoritesService favoriteService,
+    required TailnetPeersService tailnetPeersService,
     required DiscoveryLogger discoveryLogs,
   }) : _discoveryLogger = discoveryLogs,
        _isolateController = isolateController,
-       _favoriteService = favoriteService;
+       _favoriteService = favoriteService,
+       _tailnetPeersService = tailnetPeersService;
 
   @override
   NearbyDevicesState init() => const NearbyDevicesState(
@@ -93,6 +98,12 @@ class RegisterDeviceAction extends AsyncReduxAction<NearbyDevicesService, Nearby
     } else {
       await Future.microtask(() {});
     }
+
+    // A device confirmed at a tailnet address is remembered across restarts,
+    // because over the tailnet nothing else can ever find it again.
+    // A no-op for every other device.
+    await external(notifier._tailnetPeersService).dispatchAsync(UpsertTailnetPeerAction(device));
+
     return state.copyWith(
       devices: {...state.devices}..update(device.fingerprint, (_) => device, ifAbsent: () => device),
     );
@@ -195,6 +206,13 @@ class StartLegacyScan extends AsyncReduxAction<NearbyDevicesService, NearbyDevic
 /// This method awaits until every stage is finished.
 class StartStagedScan extends AsyncReduxAction<NearbyDevicesService, NearbyDevicesState> {
   final List<FavoriteDevice> favorites;
+
+  /// The persisted tailnet peers, probed like favorites. They are all a
+  /// device that cannot enumerate its tailnet has after a restart, see
+  /// [tailnetPeersProvider]; the Rust side gives a tailnet address the
+  /// patient timeout such a probe needs.
+  final List<(String, int)> tailnetChannels;
+
   final List<String> interfaces;
   final int port;
   final bool https;
@@ -202,6 +220,7 @@ class StartStagedScan extends AsyncReduxAction<NearbyDevicesService, NearbyDevic
 
   StartStagedScan({
     required this.favorites,
+    required this.tailnetChannels,
     required this.interfaces,
     required this.port,
     required this.https,
@@ -217,7 +236,7 @@ class StartStagedScan extends AsyncReduxAction<NearbyDevicesService, NearbyDevic
     await external(notifier._isolateController)
         .dispatchTakeResult(
           IsolateDiscoveryStagedScanAction(
-            favorites: favorites.map((e) => (e.ip, e.port)).toList(),
+            favorites: {...favorites.map((e) => (e.ip, e.port)), ...tailnetChannels}.toList(),
             networkInterfaces: interfaces,
             port: port,
             https: https,

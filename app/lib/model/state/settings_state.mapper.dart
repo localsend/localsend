@@ -164,6 +164,11 @@ class SettingsStateMapper extends ClassMapperBase<SettingsState> {
     'discoveryTimeout',
     _$discoveryTimeout,
   );
+  static bool _$tailnetDiscovery(SettingsState v) => v.tailnetDiscovery;
+  static const Field<SettingsState, bool> _f$tailnetDiscovery = Field(
+    'tailnetDiscovery',
+    _$tailnetDiscovery,
+  );
   static bool _$advancedSettings(SettingsState v) => v.advancedSettings;
   static const Field<SettingsState, bool> _f$advancedSettings = Field(
     'advancedSettings',
@@ -201,6 +206,7 @@ class SettingsStateMapper extends ClassMapperBase<SettingsState> {
     #createChecksums: _f$createChecksums,
     #verifyChecksums: _f$verifyChecksums,
     #discoveryTimeout: _f$discoveryTimeout,
+    #tailnetDiscovery: _f$tailnetDiscovery,
     #advancedSettings: _f$advancedSettings,
   };
 
@@ -235,6 +241,7 @@ class SettingsStateMapper extends ClassMapperBase<SettingsState> {
       createChecksums: data.dec(_f$createChecksums),
       verifyChecksums: data.dec(_f$verifyChecksums),
       discoveryTimeout: data.dec(_f$discoveryTimeout),
+      tailnetDiscovery: data.dec(_f$tailnetDiscovery),
       advancedSettings: data.dec(_f$advancedSettings),
     );
   }
@@ -335,6 +342,7 @@ abstract class SettingsStateCopyWith<$R, $In extends SettingsState, $Out>
     bool? createChecksums,
     bool? verifyChecksums,
     int? discoveryTimeout,
+    bool? tailnetDiscovery,
     bool? advancedSettings,
   });
   SettingsStateCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
@@ -397,6 +405,7 @@ class _SettingsStateCopyWithImpl<$R, $Out>
     bool? createChecksums,
     bool? verifyChecksums,
     int? discoveryTimeout,
+    bool? tailnetDiscovery,
     bool? advancedSettings,
   }) => $apply(
     FieldCopyWithData({
@@ -433,6 +442,7 @@ class _SettingsStateCopyWithImpl<$R, $Out>
       if (createChecksums != null) #createChecksums: createChecksums,
       if (verifyChecksums != null) #verifyChecksums: verifyChecksums,
       if (discoveryTimeout != null) #discoveryTimeout: discoveryTimeout,
+      if (tailnetDiscovery != null) #tailnetDiscovery: tailnetDiscovery,
       if (advancedSettings != null) #advancedSettings: advancedSettings,
     }),
   );
@@ -479,6 +489,7 @@ class _SettingsStateCopyWithImpl<$R, $Out>
     createChecksums: data.get(#createChecksums, or: $value.createChecksums),
     verifyChecksums: data.get(#verifyChecksums, or: $value.verifyChecksums),
     discoveryTimeout: data.get(#discoveryTimeout, or: $value.discoveryTimeout),
+    tailnetDiscovery: data.get(#tailnetDiscovery, or: $value.tailnetDiscovery),
     advancedSettings: data.get(#advancedSettings, or: $value.advancedSettings),
   );
 
