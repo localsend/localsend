@@ -54,6 +54,7 @@ extension AppLocaleExt on AppLocale {
       AppLocale.he => 'עברית',
       AppLocale.hi => 'हिन्दी',
       AppLocale.hu => 'Magyar',
+      AppLocale.hy => 'Հայերեն',
       AppLocale.id => 'Bahasa Indonesia',
       AppLocale.it => 'Italiano',
       AppLocale.ja => '日本語',
