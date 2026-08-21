@@ -38,6 +38,7 @@ class SettingsState with SettingsStateMappable {
   final bool createChecksums; // create checksums when sending files
   final bool verifyChecksums; // verify checksums when receiving files
   final int discoveryTimeout;
+  final bool tailnetDiscovery; // also discover devices reachable over Tailscale
   final bool advancedSettings;
 
   const SettingsState({
@@ -70,6 +71,7 @@ class SettingsState with SettingsStateMappable {
     required this.createChecksums,
     required this.verifyChecksums,
     required this.discoveryTimeout,
+    required this.tailnetDiscovery,
     required this.advancedSettings,
   });
 }

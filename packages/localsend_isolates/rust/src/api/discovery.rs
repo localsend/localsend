@@ -155,6 +155,9 @@ static RUNNING_DISCOVERY: Mutex<Option<Arc<DiscoveryInstance>>> = Mutex::const_n
 /// device's TLS identity, sent as client certificate with every register
 /// request; [fingerprint] must be the certificate's SHA-256 fingerprint.
 ///
+/// [tailnet] additionally probes the peers of this device's tailnet on every
+/// staged discovery, see [RsDiscovery::set_tailnet].
+///
 /// Nothing is announced until [RsDiscovery::announce] is called.
 ///
 /// Cannot fail besides an invalid [group]: when no multicast socket could be
@@ -177,6 +180,7 @@ pub async fn start_discovery(
     cert_pem: String,
     private_key_pem: String,
     timeout_ms: u64,
+    tailnet: bool,
 ) -> anyhow::Result<RsDiscovery> {
     let group = group
         .parse()
@@ -218,6 +222,7 @@ pub async fn start_discovery(
             },
             timeout: Duration::from_millis(timeout_ms),
             event_tx: Some(event_tx),
+            tailnet,
         },
         stop_rx,
     )
@@ -317,6 +322,18 @@ impl RsDiscovery {
     /// advertise a port that nobody listens on.
     pub fn set_answer_announcements(&self, answer: bool) {
         self.instance.handle.set_answer_announcements(answer);
+    }
+
+    /// Sets whether [RsDiscovery::discover_staged] also probes the peers of
+    /// this device's tailnet, for devices that are reachable over Tailscale
+    /// but not on the same physical network.
+    ///
+    /// Takes effect on the next discovery, so the setting can be toggled
+    /// without rebinding the sockets. Costs nothing on a device that has no
+    /// Tailscale, and cannot work on Android and iOS, where Tailscale exposes
+    /// no API to other apps.
+    pub fn set_tailnet(&self, tailnet: bool) {
+        self.instance.handle.set_tailnet(tailnet);
     }
 
     /// Discovers devices in stages, cheapest first: announces this device to

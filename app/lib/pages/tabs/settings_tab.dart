@@ -479,6 +479,14 @@ class SettingsTab extends StatelessWidget {
                     },
                   ),
                 if (vm.advanced)
+                  _BooleanEntry(
+                    label: t.settingsTab.network.tailnetDiscovery,
+                    value: vm.settings.tailnetDiscovery,
+                    onChanged: (b) async {
+                      await ref.notifier(settingsProvider).setTailnetDiscovery(b);
+                    },
+                  ),
+                if (vm.advanced)
                   _SettingsEntry(
                     label: t.settingsTab.network.multicastGroup,
                     child: TextFieldTv(

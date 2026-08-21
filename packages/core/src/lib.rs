@@ -7,6 +7,8 @@ pub mod http;
 pub mod model;
 #[cfg(feature = "multicast")]
 pub mod multicast;
+#[cfg(feature = "tailscale")]
+pub mod tailscale;
 pub mod util;
 pub mod webrtc;
 

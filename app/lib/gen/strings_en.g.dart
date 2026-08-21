@@ -1205,6 +1205,11 @@ class Translations$settingsTab$network$en {
   /// en: 'Encryption'
   String get encryption => 'Encryption';
 
+  /// Setting to also find devices that are reachable over a Tailscale tailnet, but not on the same local network. Tailscale is a VPN product; keep the product name untranslated.
+  ///
+  /// en: 'Discover Tailscale devices'
+  String get tailnetDiscovery => 'Discover Tailscale devices';
+
   /// en: 'Multicast address'
   String get multicastGroup => 'Multicast address';
 

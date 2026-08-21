@@ -143,6 +143,9 @@ pub async fn run(args: Args) -> anyhow::Result<()> {
                 },
                 timeout: DEFAULT_DISCOVERY_TIMEOUT,
                 event_tx: Some(discovery_tx),
+                // Costs nothing without Tailscale, and is what makes a
+                // headless machine reachable from outside its own network.
+                tailnet: true,
             },
             discovery_stop_rx,
         )
