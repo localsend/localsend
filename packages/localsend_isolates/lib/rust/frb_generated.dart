@@ -2699,6 +2699,12 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  WebPages dco_decode_box_autoadd_web_pages(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return dco_decode_web_pages(raw);
+  }
+
+  @protected
   WebParams dco_decode_box_autoadd_web_params(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return dco_decode_web_params(raw);
@@ -2945,6 +2951,12 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   int? dco_decode_opt_box_autoadd_u_32(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return raw == null ? null : dco_decode_box_autoadd_u_32(raw);
+  }
+
+  @protected
+  WebPages? dco_decode_opt_box_autoadd_web_pages(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return raw == null ? null : dco_decode_box_autoadd_web_pages(raw);
   }
 
   @protected
@@ -3457,14 +3469,27 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
-  WebParams dco_decode_web_params(dynamic raw) {
+  WebPages dco_decode_web_pages(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     final arr = raw as List<dynamic>;
     if (arr.length != 3) throw Exception('unexpected arr length: expect 3 but see ${arr.length}');
+    return WebPages(
+      downloadHtml: dco_decode_opt_String(arr[0]),
+      uploadHtml: dco_decode_opt_String(arr[1]),
+      error403Html: dco_decode_opt_String(arr[2]),
+    );
+  }
+
+  @protected
+  WebParams dco_decode_web_params(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 4) throw Exception('unexpected arr length: expect 4 but see ${arr.length}');
     return WebParams(
       send: dco_decode_opt_box_autoadd_web_send_params(arr[0]),
       upload: dco_decode_bool(arr[1]),
       i18N: dco_decode_web_i_18_n(arr[2]),
+      pages: dco_decode_opt_box_autoadd_web_pages(arr[3]),
     );
   }
 
@@ -3987,6 +4012,12 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  WebPages sse_decode_box_autoadd_web_pages(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return (sse_decode_web_pages(deserializer));
+  }
+
+  @protected
   WebParams sse_decode_box_autoadd_web_params(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     return (sse_decode_web_params(deserializer));
@@ -4317,6 +4348,17 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
 
     if (sse_decode_bool(deserializer)) {
       return (sse_decode_box_autoadd_u_32(deserializer));
+    } else {
+      return null;
+    }
+  }
+
+  @protected
+  WebPages? sse_decode_opt_box_autoadd_web_pages(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    if (sse_decode_bool(deserializer)) {
+      return (sse_decode_box_autoadd_web_pages(deserializer));
     } else {
       return null;
     }
@@ -4835,12 +4877,22 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  WebPages sse_decode_web_pages(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_downloadHtml = sse_decode_opt_String(deserializer);
+    var var_uploadHtml = sse_decode_opt_String(deserializer);
+    var var_error403Html = sse_decode_opt_String(deserializer);
+    return WebPages(downloadHtml: var_downloadHtml, uploadHtml: var_uploadHtml, error403Html: var_error403Html);
+  }
+
+  @protected
   WebParams sse_decode_web_params(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     var var_send = sse_decode_opt_box_autoadd_web_send_params(deserializer);
     var var_upload = sse_decode_bool(deserializer);
     var var_i18N = sse_decode_web_i_18_n(deserializer);
-    return WebParams(send: var_send, upload: var_upload, i18N: var_i18N);
+    var var_pages = sse_decode_opt_box_autoadd_web_pages(deserializer);
+    return WebParams(send: var_send, upload: var_upload, i18N: var_i18N, pages: var_pages);
   }
 
   @protected
@@ -5478,6 +5530,12 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  void sse_encode_box_autoadd_web_pages(WebPages self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_web_pages(self, serializer);
+  }
+
+  @protected
   void sse_encode_box_autoadd_web_params(WebParams self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_web_params(self, serializer);
@@ -5762,6 +5820,16 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
     sse_encode_bool(self != null, serializer);
     if (self != null) {
       sse_encode_box_autoadd_u_32(self, serializer);
+    }
+  }
+
+  @protected
+  void sse_encode_opt_box_autoadd_web_pages(WebPages? self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    sse_encode_bool(self != null, serializer);
+    if (self != null) {
+      sse_encode_box_autoadd_web_pages(self, serializer);
     }
   }
 
@@ -6177,11 +6245,20 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  void sse_encode_web_pages(WebPages self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_opt_String(self.downloadHtml, serializer);
+    sse_encode_opt_String(self.uploadHtml, serializer);
+    sse_encode_opt_String(self.error403Html, serializer);
+  }
+
+  @protected
   void sse_encode_web_params(WebParams self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_opt_box_autoadd_web_send_params(self.send, serializer);
     sse_encode_bool(self.upload, serializer);
     sse_encode_web_i_18_n(self.i18N, serializer);
+    sse_encode_opt_box_autoadd_web_pages(self.pages, serializer);
   }
 
   @protected

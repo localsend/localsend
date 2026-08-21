@@ -10,7 +10,7 @@ pub use peer_ip::PeerIp;
 use crate::crypto::cert::{fingerprint_from_cert_der, public_key_from_cert_der};
 use crate::http::server::internal::{InternalConfig, InternalState};
 use crate::http::server::v2::ServerEventV2;
-use crate::http::server::web::{WebConfig, WebI18n};
+use crate::http::server::web::{WebConfig, WebI18n, WebPages};
 use crate::http::state::ClientInfo;
 use common::client_cert_verifier::CustomClientCertVerifier;
 use common::error::AppError;
@@ -80,6 +80,9 @@ pub struct AppState {
     /// Translations for the web pages, served via `/i18n.json`.
     web_i18n: Option<Arc<WebI18n>>,
 
+    /// The HTML pages served to browsers, falling back to the embedded assets.
+    web_pages: Arc<WebPages>,
+
     /// State for application-internal endpoints.
     internal: Option<Arc<InternalState>>,
 
@@ -110,13 +113,14 @@ impl AppState {
             })
         });
 
-        let (web, web_upload, web_i18n) = match web_config {
+        let (web, web_upload, web_i18n, web_pages) = match web_config {
             Some(config) => (
                 config.send.map(|send| Arc::new(WebPageState::new(send))),
                 config.upload,
                 Some(Arc::new(config.i18n)),
+                Arc::new(config.pages),
             ),
-            None => (None, false, None),
+            None => (None, false, None, Arc::new(WebPages::default())),
         };
         let internal = internal_config.map(|config| Arc::new(InternalState::new(config)));
 
@@ -125,6 +129,7 @@ impl AppState {
             web,
             web_upload,
             web_i18n,
+            web_pages,
             internal,
             received_nonce_map: Arc::new(Mutex::new(LruCache::new(
                 NonZeroUsize::new(200).unwrap(),

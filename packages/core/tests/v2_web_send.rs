@@ -4,7 +4,7 @@ use bytes::Bytes;
 use localsend::http::client::{ClientError, LsHttpClientV2};
 use localsend::http::server::v2::ServerEventV2;
 use localsend::http::server::web::WebSendConfig;
-use localsend::http::server::web::{WebConfig, WebI18n, WebSendEvent};
+use localsend::http::server::web::{WebConfig, WebI18n, WebPages, WebSendEvent};
 use localsend::http::server::{start_with_port, ServerConfigV2};
 use localsend::http::state::ClientInfo;
 use localsend::model::discovery::ProtocolType;
@@ -122,6 +122,7 @@ async fn start_test_server(
             send: Some(config),
             upload: false,
             i18n: WebI18n::default(),
+            pages: WebPages::default(),
         }
     });
 
@@ -316,6 +317,7 @@ async fn test_upload_page() {
             send: None,
             upload: true,
             i18n: WebI18n::default(),
+            pages: WebPages::default(),
         }),
         stop_rx,
     )
@@ -345,6 +347,55 @@ async fn test_upload_page() {
     assert!(i18n.contains_key("busy"));
     assert!(i18n.contains_key("uploadRejected"));
     assert!(i18n.contains_key("dropHint"));
+}
+
+#[tokio::test]
+async fn test_custom_web_pages() {
+    let (v2_event_tx, _v2_event_rx) = mpsc::channel::<ServerEventV2>(16);
+    let (_stop_tx, stop_rx) = oneshot::channel::<()>();
+
+    let handle = start_with_port(
+        0,
+        None, // plain HTTP
+        ClientInfo {
+            alias: "Test Server".to_string(),
+            version: "2.2".to_string(),
+            device_model: Some("Rust".to_string()),
+            device_type: None,
+            token: "server-fingerprint".to_string(),
+        },
+        None,
+        Some(ServerConfigV2 {
+            pin: None,
+            verify_checksums: true,
+            event_tx: v2_event_tx,
+        }),
+        Some(WebConfig {
+            send: None,
+            upload: true,
+            i18n: WebI18n::default(),
+            pages: WebPages {
+                download_html: None,
+                upload_html: Some("<html>custom upload page</html>".to_string()),
+                error_403_html: None,
+            },
+        }),
+        stop_rx,
+    )
+    .await
+    .expect("Failed to start server");
+
+    let client = localsend::reqwest::Client::new();
+    let response = client
+        .get(format!("http://127.0.0.1:{}", handle.port()))
+        .send()
+        .await
+        .unwrap();
+    assert_eq!(response.status().as_u16(), 200);
+    assert_eq!(
+        response.text().await.unwrap(),
+        "<html>custom upload page</html>"
+    );
 }
 
 #[tokio::test]

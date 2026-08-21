@@ -9,7 +9,7 @@ use super::App;
 use crate::picker::PickerTarget;
 use crate::ui::Category;
 use crate::util;
-use localsend::http::server::web::{WebConfig, WebI18n, WebSendConfig, WebSendEvent};
+use localsend::http::server::web::{WebConfig, WebI18n, WebPages, WebSendConfig, WebSendEvent};
 use localsend::http::server::{ServerConfigV2, start_with_port};
 use localsend::model::transfer::FileContent;
 use qrcode::{EcLevel, QrCode};
@@ -87,6 +87,7 @@ impl App {
             send: None,
             upload: true,
             i18n: WebI18n::default(),
+            pages: WebPages::default(),
         };
         if let Err(err) = self.restart_server(Some(web_config)).await {
             self.ui.log(
@@ -125,6 +126,7 @@ impl App {
             }),
             upload: false,
             i18n: WebI18n::default(),
+            pages: WebPages::default(),
         };
         if let Err(err) = self.restart_server(Some(web_config)).await {
             self.ui.log(

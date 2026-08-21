@@ -97,6 +97,27 @@ pub struct WebConfig {
 
     /// Translations for the web pages, served via `/i18n.json`.
     pub i18n: WebI18n,
+
+    /// The HTML pages served to browsers.
+    /// Pages left unset fall back to the assets embedded at compile time.
+    pub pages: WebPages,
+}
+
+/// The HTML pages served to browsers.
+///
+/// Each page is optional: a `None` page is served from the corresponding
+/// asset embedded at compile time, so applications only provide the pages
+/// they customize.
+#[derive(Clone, Debug, Default)]
+pub struct WebPages {
+    /// The download page served at `/` while web send is active.
+    pub download_html: Option<String>,
+
+    /// The upload page served at `/` while the upload page is enabled.
+    pub upload_html: Option<String>,
+
+    /// The error page served at `/` when neither page is active.
+    pub error_403_html: Option<String>,
 }
 
 /// Configuration for web send (download API): files offered for download by web browsers.
@@ -191,12 +212,21 @@ pub(crate) struct WebSendSession {
 }
 
 pub(crate) fn index(state: &AppState) -> Response<BoxedBody> {
+    let pages = state.web_pages.as_ref();
     if state.web.is_some() {
-        html_response(StatusCode::OK, DOWNLOAD_HTML, "text/html; charset=utf-8")
+        html_response(
+            StatusCode::OK,
+            pages.download_html.as_deref().unwrap_or(DOWNLOAD_HTML),
+            "text/html; charset=utf-8",
+        )
     } else if state.web_upload {
-        html_response(StatusCode::OK, UPLOAD_HTML, "text/html; charset=utf-8")
+        html_response(
+            StatusCode::OK,
+            pages.upload_html.as_deref().unwrap_or(UPLOAD_HTML),
+            "text/html; charset=utf-8",
+        )
     } else {
-        error_403_page()
+        error_403_page(pages)
     }
 }
 
@@ -386,10 +416,10 @@ fn require_web(state: &AppState) -> Result<Arc<WebPageState>, AppError> {
 
 fn html_response(
     status: StatusCode,
-    content: &'static str,
+    content: &str,
     content_type: &'static str,
 ) -> Response<BoxedBody> {
-    let mut response = Response::new(full_body(content));
+    let mut response = Response::new(full_body(content.to_owned()));
     *response.status_mut() = status;
     response.headers_mut().insert(
         http::header::CONTENT_TYPE,
@@ -398,10 +428,10 @@ fn html_response(
     response
 }
 
-fn error_403_page() -> Response<BoxedBody> {
+fn error_403_page(pages: &WebPages) -> Response<BoxedBody> {
     html_response(
         StatusCode::FORBIDDEN,
-        ERROR_403_HTML,
+        pages.error_403_html.as_deref().unwrap_or(ERROR_403_HTML),
         "text/html; charset=utf-8",
     )
 }

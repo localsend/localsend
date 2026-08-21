@@ -344,6 +344,30 @@ class WebI18n {
           dropHint == other.dropHint;
 }
 
+class WebPages {
+  final String? downloadHtml;
+  final String? uploadHtml;
+  final String? error403Html;
+
+  const WebPages({
+    this.downloadHtml,
+    this.uploadHtml,
+    this.error403Html,
+  });
+
+  @override
+  int get hashCode => downloadHtml.hashCode ^ uploadHtml.hashCode ^ error403Html.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is WebPages &&
+          runtimeType == other.runtimeType &&
+          downloadHtml == other.downloadHtml &&
+          uploadHtml == other.uploadHtml &&
+          error403Html == other.error403Html;
+}
+
 /// Configuration for the web pages served to browsers. When omitted, the web
 /// pages respond with 403 and only the v2 endpoints run.
 class WebParams {
@@ -359,19 +383,30 @@ class WebParams {
   /// Translations for the web pages, served via `/i18n.json`.
   final WebI18n i18N;
 
+  /// Custom HTML pages replacing the embedded web pages.
+  /// Pages left `null` (or the whole struct being `null`) are served from
+  /// the assets embedded at compile time.
+  final WebPages? pages;
+
   const WebParams({
     this.send,
     required this.upload,
     required this.i18N,
+    this.pages,
   });
 
   @override
-  int get hashCode => send.hashCode ^ upload.hashCode ^ i18N.hashCode;
+  int get hashCode => send.hashCode ^ upload.hashCode ^ i18N.hashCode ^ pages.hashCode;
 
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is WebParams && runtimeType == other.runtimeType && send == other.send && upload == other.upload && i18N == other.i18N;
+      other is WebParams &&
+          runtimeType == other.runtimeType &&
+          send == other.send &&
+          upload == other.upload &&
+          i18N == other.i18N &&
+          pages == other.pages;
 }
 
 /// Configuration for web send: files offered for download by web browsers.

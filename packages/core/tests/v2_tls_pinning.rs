@@ -9,7 +9,7 @@ use localsend::http::client::{ClientError, LsHttpClientV2};
 use localsend::http::dto_v2::{PrepareUploadRequestDtoV2, RegisterDtoV2};
 use localsend::http::server::common::save::FileUploadTarget;
 use localsend::http::server::v2::{PrepareUploadDecisionV2, ServerEventV2};
-use localsend::http::server::web::{WebConfig, WebI18n};
+use localsend::http::server::web::{WebConfig, WebI18n, WebPages};
 use localsend::http::server::{start_with_port, ServerConfigV2, TlsConfig};
 use localsend::http::state::ClientInfo;
 use localsend::model::discovery::ProtocolType;
@@ -377,6 +377,7 @@ async fn test_client_without_cert_allowed_in_web_mode() {
             send: None,
             upload: true,
             i18n: WebI18n::default(),
+            pages: WebPages::default(),
         }),
     )
     .await;

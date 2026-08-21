@@ -7,7 +7,7 @@ use localsend::http::server::common::save::FileUploadTarget;
 use localsend::http::server::internal::{InternalConfig, InternalEvent};
 pub use localsend::http::server::v2::SessionEndReasonV2;
 use localsend::http::server::v2::{PrepareUploadDecisionV2, ServerEventV2};
-pub use localsend::http::server::web::WebI18n;
+pub use localsend::http::server::web::{WebI18n, WebPages};
 use localsend::http::server::web::{WebConfig, WebSendConfig, WebSendEvent};
 use localsend::http::state::ClientInfo;
 use localsend::model::discovery::DeviceType;
@@ -157,6 +157,11 @@ pub struct WebParams {
 
     /// Translations for the web pages, served via `/i18n.json`.
     pub i18n: WebI18n,
+
+    /// Custom HTML pages replacing the embedded web pages.
+    /// Pages left `null` (or the whole struct being `null`) are served from
+    /// the assets embedded at compile time.
+    pub pages: Option<WebPages>,
 }
 
 /// Configuration for web send: files offered for download by web browsers.
@@ -224,6 +229,7 @@ pub async fn start_server(
                 send: send_config,
                 upload: web.upload,
                 i18n: web.i18n,
+                pages: web.pages.unwrap_or_default(),
             };
             (Some(config), web_event_rx)
         }
@@ -762,6 +768,13 @@ pub struct _WebI18n {
     pub file_name: String,
     pub size: String,
     pub drop_hint: String,
+}
+
+#[frb(mirror(WebPages))]
+pub struct _WebPages {
+    pub download_html: Option<String>,
+    pub upload_html: Option<String>,
+    pub error_403_html: Option<String>,
 }
 
 #[frb(mirror(TlsConfig))]

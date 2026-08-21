@@ -10,6 +10,7 @@ import 'package:localsend_app/provider/network/server/controller/send_controller
 import 'package:localsend_app/provider/network/server/server_utils.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/util/alias_generator.dart';
+import 'package:localsend_app/util/native/web_pages_loader.dart';
 import 'package:localsend_isolates/constants.dart';
 import 'package:localsend_isolates/isolate.dart';
 import 'package:localsend_isolates/model/dto/multicast_dto.dart';
@@ -141,13 +142,16 @@ class ServerService extends Notifier<ServerState?> {
     _syncServerState(alias: alias, port: port, https: https, serverRunning: true, download: webSendState != null);
 
     final settings = ref.read(settingsProvider);
+    final webActive = webSendState != null || webUpload;
+    // Custom pages provided by the user next to the executable, if any.
+    final customWebPages = webActive ? await loadCustomWebPages() : null;
     final events = ref
         .redux(parentIsolateProvider)
         .dispatchTakeResult(
           IsolateHttpServerStartAction(
             pin: webUpload ? webPin : settings.receivePin,
             verifyChecksums: settings.verifyChecksums,
-            web: webSendState != null || webUpload
+            web: webActive
                 ? WebParams(
                     send: webSendState != null
                         ? WebSendParams(
@@ -171,6 +175,7 @@ class ServerService extends Notifier<ServerState?> {
                       size: t.web.size,
                       dropHint: t.sendTab.placeItems,
                     ),
+                    pages: customWebPages,
                   )
                 : null,
             showToken: settings.showToken,

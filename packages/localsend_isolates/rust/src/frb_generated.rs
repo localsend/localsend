@@ -3498,6 +3498,12 @@ const _: fn() = || {
         let _: String = WebI18n.size;
         let _: String = WebI18n.drop_hint;
     }
+    {
+        let WebPages = None::<crate::api::server::WebPages>.unwrap();
+        let _: Option<String> = WebPages.download_html;
+        let _: Option<String> = WebPages.upload_html;
+        let _: Option<String> = WebPages.error_403_html;
+    }
     match None::<crate::api::webrtc::WsServerMessage>.unwrap() {
         crate::api::webrtc::WsServerMessage::Hello { client, peers } => {
             let _: crate::api::webrtc::ClientInfo = client;
@@ -4362,6 +4368,17 @@ impl SseDecode for Option<u32> {
     }
 }
 
+impl SseDecode for Option<crate::api::server::WebPages> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        if (<bool>::sse_decode(deserializer)) {
+            return Some(<crate::api::server::WebPages>::sse_decode(deserializer));
+        } else {
+            return None;
+        }
+    }
+}
+
 impl SseDecode for Option<crate::api::server::WebParams> {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
@@ -5021,16 +5038,32 @@ impl SseDecode for crate::api::server::WebI18n {
     }
 }
 
+impl SseDecode for crate::api::server::WebPages {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut var_downloadHtml = <Option<String>>::sse_decode(deserializer);
+        let mut var_uploadHtml = <Option<String>>::sse_decode(deserializer);
+        let mut var_error403Html = <Option<String>>::sse_decode(deserializer);
+        return crate::api::server::WebPages {
+            download_html: var_downloadHtml,
+            upload_html: var_uploadHtml,
+            error_403_html: var_error403Html,
+        };
+    }
+}
+
 impl SseDecode for crate::api::server::WebParams {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
         let mut var_send = <Option<crate::api::server::WebSendParams>>::sse_decode(deserializer);
         let mut var_upload = <bool>::sse_decode(deserializer);
         let mut var_i18N = <crate::api::server::WebI18n>::sse_decode(deserializer);
+        let mut var_pages = <Option<crate::api::server::WebPages>>::sse_decode(deserializer);
         return crate::api::server::WebParams {
             send: var_send,
             upload: var_upload,
             i18n: var_i18N,
+            pages: var_pages,
         };
     }
 }
@@ -6448,12 +6481,35 @@ impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<crate::api::server::WebI18n>>
     }
 }
 // Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for FrbWrapper<crate::api::server::WebPages> {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        [
+            self.0.download_html.into_into_dart().into_dart(),
+            self.0.upload_html.into_into_dart().into_dart(),
+            self.0.error_403_html.into_into_dart().into_dart(),
+        ]
+        .into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for FrbWrapper<crate::api::server::WebPages>
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<crate::api::server::WebPages>>
+    for crate::api::server::WebPages
+{
+    fn into_into_dart(self) -> FrbWrapper<crate::api::server::WebPages> {
+        self.into()
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
 impl flutter_rust_bridge::IntoDart for crate::api::server::WebParams {
     fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
         [
             self.send.into_into_dart().into_dart(),
             self.upload.into_into_dart().into_dart(),
             self.i18n.into_into_dart().into_dart(),
+            self.pages.into_into_dart().into_dart(),
         ]
         .into_dart()
     }
@@ -7239,6 +7295,16 @@ impl SseEncode for Option<u32> {
     }
 }
 
+impl SseEncode for Option<crate::api::server::WebPages> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <bool>::sse_encode(self.is_some(), serializer);
+        if let Some(value) = self {
+            <crate::api::server::WebPages>::sse_encode(value, serializer);
+        }
+    }
+}
+
 impl SseEncode for Option<crate::api::server::WebParams> {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
@@ -7761,12 +7827,22 @@ impl SseEncode for crate::api::server::WebI18n {
     }
 }
 
+impl SseEncode for crate::api::server::WebPages {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <Option<String>>::sse_encode(self.download_html, serializer);
+        <Option<String>>::sse_encode(self.upload_html, serializer);
+        <Option<String>>::sse_encode(self.error_403_html, serializer);
+    }
+}
+
 impl SseEncode for crate::api::server::WebParams {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
         <Option<crate::api::server::WebSendParams>>::sse_encode(self.send, serializer);
         <bool>::sse_encode(self.upload, serializer);
         <crate::api::server::WebI18n>::sse_encode(self.i18n, serializer);
+        <Option<crate::api::server::WebPages>>::sse_encode(self.pages, serializer);
     }
 }
 
