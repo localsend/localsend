@@ -761,6 +761,7 @@ pub struct _WebI18n {
     pub files: String,
     pub file_name: String,
     pub size: String,
+    pub drop_hint: String,
 }
 
 #[frb(mirror(TlsConfig))]

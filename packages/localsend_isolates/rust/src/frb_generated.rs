@@ -3496,6 +3496,7 @@ const _: fn() = || {
         let _: String = WebI18n.files;
         let _: String = WebI18n.file_name;
         let _: String = WebI18n.size;
+        let _: String = WebI18n.drop_hint;
     }
     match None::<crate::api::webrtc::WsServerMessage>.unwrap() {
         crate::api::webrtc::WsServerMessage::Hello { client, peers } => {
@@ -5003,6 +5004,7 @@ impl SseDecode for crate::api::server::WebI18n {
         let mut var_files = <String>::sse_decode(deserializer);
         let mut var_fileName = <String>::sse_decode(deserializer);
         let mut var_size = <String>::sse_decode(deserializer);
+        let mut var_dropHint = <String>::sse_decode(deserializer);
         return crate::api::server::WebI18n {
             waiting: var_waiting,
             enter_pin: var_enterPin,
@@ -5014,6 +5016,7 @@ impl SseDecode for crate::api::server::WebI18n {
             files: var_files,
             file_name: var_fileName,
             size: var_size,
+            drop_hint: var_dropHint,
         };
     }
 }
@@ -6428,6 +6431,7 @@ impl flutter_rust_bridge::IntoDart for FrbWrapper<crate::api::server::WebI18n> {
             self.0.files.into_into_dart().into_dart(),
             self.0.file_name.into_into_dart().into_dart(),
             self.0.size.into_into_dart().into_dart(),
+            self.0.drop_hint.into_into_dart().into_dart(),
         ]
         .into_dart()
     }
@@ -7753,6 +7757,7 @@ impl SseEncode for crate::api::server::WebI18n {
         <String>::sse_encode(self.files, serializer);
         <String>::sse_encode(self.file_name, serializer);
         <String>::sse_encode(self.size, serializer);
+        <String>::sse_encode(self.drop_hint, serializer);
     }
 }
 

@@ -17,7 +17,14 @@
             width: 100%;
             max-width: 400px;
             margin: 15vh auto 0;
-            padding: 0 1em;
+            padding: 1em;
+            border: 2px dashed transparent;
+            border-radius: 0.5em;
+        }
+
+        #content.drag-over {
+            border-color: #00796B;
+            background-color: #E0F2F1;
         }
 
         #upload-button {
@@ -49,6 +56,11 @@
             display: none;
             font-size: 1.5em;
         }
+
+        #drop-hint {
+            margin-top: 0.75em;
+            color: #616161;
+        }
     </style>
 </head>
 <body>
@@ -59,6 +71,7 @@
 <h1 style="padding: 0.5em">LocalSend</h1>
 <div id="content">
     <button id="upload-button" type="button">Upload</button>
+    <p id="drop-hint">Place items to share.</p>
     <input id="file-input" type="file" multiple style="display: none">
     <p id="status-text"></p>
     <p id="progress-text"></p>
@@ -70,6 +83,9 @@
     var i18n = {};
     var queryParams = location.search.slice(1).split('&');
     var pin = null;
+    var uploading = false;
+    // dragenter/dragleave fire for every nested element, so the drop zone is only left when this reaches zero.
+    var dragDepth = 0;
 
     // Parse query parameters manually for IE
     for (var i = 0; i < queryParams.length; i++) {
@@ -95,6 +111,9 @@
       makeRequest('/i18n.json', 'GET', null, function (response) {
         if (response.status === 200) {
           i18n = JSON.parse(response.responseText);
+          if (i18n.dropHint) {
+            document.getElementById('drop-hint').innerText = i18n.dropHint;
+          }
           then();
         }
       });
@@ -102,6 +121,47 @@
 
     function setButtonVisible(visible) {
       document.getElementById('upload-button').style.display = visible ? 'block' : 'none';
+      document.getElementById('drop-hint').style.display = visible ? 'block' : 'none';
+    }
+
+    function setDragOver(active) {
+      document.getElementById('content').className = active ? 'drag-over' : '';
+    }
+
+    function isFileDrag(e) {
+      var types = e.dataTransfer && e.dataTransfer.types;
+      if (!types) {
+        return false;
+      }
+      for (var i = 0; i < types.length; i++) {
+        if (types[i] === 'Files') {
+          return true;
+        }
+      }
+      return false;
+    }
+
+    function getDroppedFiles(dataTransfer) {
+      var files = [];
+      var items = dataTransfer.items;
+      if (items && items.length > 0 && items[0].webkitGetAsEntry) {
+        for (var i = 0; i < items.length; i++) {
+          // Directories cannot be read as blobs, so uploading them would fail midway; skip them.
+          var entry = items[i].webkitGetAsEntry();
+          if (entry && entry.isDirectory) {
+            continue;
+          }
+          var file = items[i].getAsFile();
+          if (file) {
+            files.push(file);
+          }
+        }
+      } else {
+        for (var i = 0; i < dataTransfer.files.length; i++) {
+          files.push(dataTransfer.files[i]);
+        }
+      }
+      return files;
     }
 
     function showStatus(text, isError) {
@@ -123,17 +183,20 @@
 
     // Ends the upload flow: keeps the error visible and lets the user try again.
     function finishWithError(text) {
+      uploading = false;
       showStatus(text, true);
       setButtonVisible(true);
     }
 
     // Ends the upload flow after all files have been sent.
     function finishWithSuccess() {
+      uploading = false;
       showStatus('');
       setButtonVisible(true);
     }
 
     function startUpload(fileList) {
+      uploading = true;
       setButtonVisible(false);
       hideProgress();
       showStatus(i18n.waiting);
@@ -287,6 +350,53 @@
           fileInput.value = '';
         }
       };
+
+      document.addEventListener('dragenter', function (e) {
+        if (!isFileDrag(e)) {
+          return;
+        }
+        e.preventDefault();
+        if (uploading) {
+          return;
+        }
+        dragDepth++;
+        setDragOver(true);
+      });
+      document.addEventListener('dragover', function (e) {
+        if (!isFileDrag(e)) {
+          return;
+        }
+        // Prevent the browser from opening the file; during an upload, show that dropping is not possible.
+        e.preventDefault();
+        if (uploading) {
+          e.dataTransfer.dropEffect = 'none';
+        }
+      });
+      document.addEventListener('dragleave', function (e) {
+        if (!isFileDrag(e) || dragDepth === 0) {
+          return;
+        }
+        dragDepth--;
+        if (dragDepth === 0) {
+          setDragOver(false);
+        }
+      });
+      document.addEventListener('drop', function (e) {
+        if (!isFileDrag(e)) {
+          return;
+        }
+        e.preventDefault();
+        dragDepth = 0;
+        setDragOver(false);
+        if (uploading) {
+          return;
+        }
+        var files = getDroppedFiles(e.dataTransfer);
+        if (files.length > 0) {
+          startUpload(files);
+        }
+      });
+
       fetchI18n(function () {});
     }
 

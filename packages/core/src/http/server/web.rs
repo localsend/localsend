@@ -130,6 +130,7 @@ pub struct WebI18n {
     pub files: String,
     pub file_name: String,
     pub size: String,
+    pub drop_hint: String,
 }
 
 impl Default for WebI18n {
@@ -145,6 +146,7 @@ impl Default for WebI18n {
             files: "Files".to_string(),
             file_name: "File name".to_string(),
             size: "Size".to_string(),
+            drop_hint: "Place items to share.".to_string(),
         }
     }
 }
