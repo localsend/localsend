@@ -13,3 +13,15 @@ extension FavoriteDevicesExt on Iterable<FavoriteDevice> {
     return any((e) => e.fingerprint == device.fingerprint);
   }
 }
+
+/// Refreshes the address stored for a favorite after the device was confirmed
+/// on the network. User-defined aliases are kept unchanged.
+FavoriteDevice updateFavoriteFromDevice(FavoriteDevice favorite, Device device) {
+  assert(device.ip?.isNotEmpty ?? false, 'IP must not be empty');
+
+  return favorite.copyWith(
+    ip: device.ip!,
+    port: device.port,
+    alias: favorite.customAlias ? favorite.alias : device.alias,
+  );
+}
