@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:localsend_app/util/shared_preferences/shared_preferences_file.dart';
 import 'package:logging/logging.dart';
+import 'package:meta/meta.dart';
 import 'package:path/path.dart' as path;
 
 final _logger = Logger('SharedPreferencesPortable');
@@ -17,7 +18,7 @@ class SharedPreferencesPortable extends SharedPreferencesFile {
 String _getSettingsPathFromExecutable() {
   return buildSettingsPath(
     executablePath: _resolveExecutable(),
-    fallbackDirectory: Directory.current.path,
+    fallbackDirectory: () => Directory.current.path,
   );
 }
 
@@ -38,10 +39,12 @@ String? _resolveExecutable() {
 
 /// Returns the absolute path to the settings.json file next to [executablePath],
 /// falling back to [fallbackDirectory] when the executable path is unknown.
+/// [fallbackDirectory] is only called when the fallback is actually taken.
+@visibleForTesting
 String buildSettingsPath({
   required String? executablePath,
-  required String fallbackDirectory,
+  required String Function() fallbackDirectory,
 }) {
-  final directory = executablePath == null ? fallbackDirectory : File(executablePath).parent.path;
+  final directory = executablePath == null ? fallbackDirectory() : File(executablePath).parent.path;
   return path.join(directory, 'settings.json');
 }

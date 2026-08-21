@@ -7,7 +7,7 @@ void main() {
     expect(
       buildSettingsPath(
         executablePath: path.join('opt', 'localsend', 'localsend_app'),
-        fallbackDirectory: path.join('home', 'user'),
+        fallbackDirectory: () => fail('The fallback should not be used when the executable is known'),
       ),
       path.join('opt', 'localsend', 'settings.json'),
     );
@@ -18,7 +18,7 @@ void main() {
     expect(
       buildSettingsPath(
         executablePath: null,
-        fallbackDirectory: path.join('home', 'user'),
+        fallbackDirectory: () => path.join('home', 'user'),
       ),
       path.join('home', 'user', 'settings.json'),
     );
