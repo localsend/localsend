@@ -2,21 +2,5 @@
   "@@info": [
     "Here are translations that exist in <en> but not in <ja>.",
     "After editing this file, you can run 'dart run slang apply --locale=ja' to quickly apply the newly added translations."
-  ],
-  "settingsTab": {
-    "network": {
-      "network": "ネットワーク",
-      "networkOptions": {
-        "all": "すべて",
-        "filtered": "フィルター済み"
-      }
-    }
-  },
-  "networkInterfacesPage": {
-    "title": "ネットワークインターフェース",
-    "info": "デフォルトでは、LocalSend は利用可能なすべてのネットワークインターフェースを使用します。不要なネットワークはここで除外できます。変更を適用するには、サーバーの再起動が必要です。",
-    "preview": "プレビュー",
-    "whitelist": "許可リスト",
-    "blacklist": "除外リスト"
-  }
+  ]
 }

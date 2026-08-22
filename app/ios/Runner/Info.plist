@@ -41,9 +41,27 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<!-- After https://github.com/flutter/flutter/issues/139069, set to false again after 3.16.3 -->
-	<key>UIViewControllerBasedStatusBarAppearance</key>
-	<true/>
+	<key>UIApplicationSceneManifest</key>
+    <dict>
+        <key>UIApplicationSupportsMultipleScenes</key>
+        <false/>
+        <key>UISceneConfigurations</key>
+        <dict>
+          <key>UIWindowSceneSessionRoleApplication</key>
+          <array>
+            <dict>
+              <key>UISceneClassName</key>
+              <string>UIWindowScene</string>
+              <key>UISceneDelegateClassName</key>
+              <string>FlutterSceneDelegate</string>
+              <key>UISceneConfigurationName</key>
+              <string>flutter</string>
+              <key>UISceneStoryboardFile</key>
+              <string>Main</string>
+            </dict>
+          </array>
+        </dict>
+    </dict>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
@@ -57,6 +75,7 @@
 	<array>
 		<string>ar</string>
 		<string>az</string>
+		<string>be</string>
 		<string>bg</string>
 		<string>bn</string>
 		<string>ca</string>
@@ -73,16 +92,19 @@
 		<string>fi</string>
 		<string>fil-PH</string>
 		<string>fr</string>
+		<string>ga</string>
 		<string>gl</string>
 		<string>gu</string>
 		<string>he</string>
 		<string>hi</string>
 		<string>hu</string>
+		<string>hy</string>
 		<string>id</string>
 		<string>it</string>
 		<string>ja</string>
 		<string>km</string>
 		<string>ko</string>
+		<string>lo</string>
 		<string>ml</string>
 		<string>mn</string>
 		<string>ms</string>
@@ -104,6 +126,7 @@
 		<string>tr</string>
 		<string>uk</string>
 		<string>ur</string>
+		<string>uz</string>
 		<string>vi</string>
 		<string>zh-CN</string>
 		<string>zh-HK</string>

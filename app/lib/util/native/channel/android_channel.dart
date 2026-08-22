@@ -1,6 +1,5 @@
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:flutter/services.dart';
-import 'package:localsend_app/util/native/content_uri_helper.dart';
 import 'package:logging/logging.dart';
 
 part 'android_channel.mapper.dart';
@@ -40,41 +39,28 @@ Future<List<FileInfo>?> pickFilesAndroid() async {
   return result.map((e) => FileInfoMapper.fromJson((e as Map).cast<String, dynamic>())).toList();
 }
 
+/// Returns the global "Download" directory, e.g. /storage/emulated/0/Download.
+Future<String?> getDownloadsDirectoryAndroid() async {
+  try {
+    return await _methodChannel.invokeMethod<String>('getDownloadsDirectory');
+  } catch (e) {
+    _logger.warning('Could not get downloads directory', e);
+    return null;
+  }
+}
+
 Future<bool> getSystemAnimationsStatusAndroid() async {
   return await _methodChannel.invokeMethod('isAnimationsEnabled') ?? true;
 }
 
-Future<void> createDirectory({
-  required String documentUri,
-  required String directoryName,
-}) async {
-  _logger.info('Creating directory "$directoryName" in $documentUri');
-  await _methodChannel.invokeMethod('createDirectory', {
-    'documentUri': documentUri,
-    'directoryName': directoryName,
-  });
-}
-
-Future<void> createMissingDirectoriesAndroid({
-  required String parentUri,
-  required String fileName,
-  required Set<String> createdDirectories,
-}) async {
-  final parts = fileName.split('/');
-  for (int i = 0; i < parts.length - 1; i++) {
-    final subDirPath = parts.sublist(0, i + 1).join('/');
-    if (createdDirectories.contains(subDirPath)) {
-      continue;
-    }
-
-    await createDirectory(
-      documentUri: ContentUriHelper.convertTreeUriToDocumentUri(
-        treeUri: parentUri,
-        suffix: i == 0 ? null : parts.sublist(0, i).join('/'),
-      ),
-      directoryName: parts[i],
-    );
-    createdDirectories.add(subDirPath);
+/// Requests the "Nearby devices" permission gating local network access on Android 17+.
+/// Returns true when granted or when running on an older Android version.
+Future<bool> requestLocalNetworkPermissionAndroid() async {
+  try {
+    return await _methodChannel.invokeMethod<bool>('requestLocalNetworkPermission') ?? false;
+  } catch (e) {
+    _logger.warning('Could not request local network permission', e);
+    return false;
   }
 }
 
@@ -85,6 +71,16 @@ Future<void> openContentUri({
   await _methodChannel.invokeMethod('openContentUri', {
     'uri': uri,
   });
+}
+
+/// Tells MainActivity that the Dart side is now subscribed to the share_handler media stream,
+/// so share intents that were held back during app start can be replayed.
+Future<void> flushPendingShareIntentsAndroid() async {
+  try {
+    await _methodChannel.invokeMethod('shareIntentReady');
+  } catch (e) {
+    _logger.warning('Could not flush pending share intents', e);
+  }
 }
 
 Future<void> openGallery() async {
@@ -108,7 +104,9 @@ class FileInfo with FileInfoMappable {
   final String name;
   final int size;
   final String uri;
-  final int lastModified;
+
+  /// RFC 3339 in UTC. Null when the document provider does not know it.
+  final String? lastModified;
 
   FileInfo({
     required this.name,

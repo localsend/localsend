@@ -2,25 +2,64 @@ package org.localsend.localsend_app
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.ContentResolver
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.database.Cursor
 import android.net.Uri
+import android.os.Build
+import android.os.Environment
 import android.provider.DocumentsContract
 import android.provider.Settings
 import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
+import java.util.TimeZone
 
 
 private const val CHANNEL = "org.localsend.localsend_app/localsend"
 private const val REQUEST_CODE_PICK_DIRECTORY = 1
 private const val REQUEST_CODE_PICK_DIRECTORY_PATH = 2
 private const val REQUEST_CODE_PICK_FILE = 3
+private const val REQUEST_CODE_LOCAL_NETWORK = 4
+
+// Not available as a constant in compileSdk 36.
+private const val PERMISSION_ACCESS_LOCAL_NETWORK = "android.permission.ACCESS_LOCAL_NETWORK"
+private const val API_LEVEL_ANDROID_17 = 37
 
 class MainActivity : FlutterActivity() {
     private var pendingResult: MethodChannel.Result? = null
+    private var pendingPermissionResult: MethodChannel.Result? = null
+
+    /// share_handler drops share intents arriving via onNewIntent while the Dart side
+    /// is not subscribed to its media stream yet, which happens when this singleTask
+    /// activity is relaunched into an existing task while the app is still starting.
+    /// Hold such intents back until Dart reports readiness ("shareIntentReady"), then
+    /// replay them through the regular plugin path.
+    private val pendingShareIntents = mutableListOf<Intent>()
+    private var shareIntentReady = false
+
+    override fun onNewIntent(intent: Intent) {
+        if (!shareIntentReady && (intent.action == Intent.ACTION_SEND || intent.action == Intent.ACTION_SEND_MULTIPLE)) {
+            pendingShareIntents.add(intent)
+            return
+        }
+        super.onNewIntent(intent)
+    }
+
+    private fun onShareIntentReady() {
+        shareIntentReady = true
+        val pending = pendingShareIntents.toList()
+        pendingShareIntents.clear()
+        for (intent in pending) {
+            super.onNewIntent(intent)
+        }
+    }
 
     // Overriding the static methods we need from the Java class, as described
     // in the documentation of `FlutterActivity.NewEngineIntentBuilder`
@@ -58,6 +97,12 @@ class MainActivity : FlutterActivity() {
 
                 "createDirectory" -> handleCreateDirectory(call, result)
 
+                "getFileDescriptor" -> handleGetFileDescriptor(call, result)
+
+                "createFile" -> handleCreateFile(call, result)
+
+                "openFileForWriting" -> handleOpenFileForWriting(call, result)
+
                 "openContentUri" -> {
                     openUri(context, call.argument<String>("uri")!!)
                     result.success(null)
@@ -68,8 +113,26 @@ class MainActivity : FlutterActivity() {
                     result.success(null)
                 }
 
+                "shareIntentReady" -> {
+                    onShareIntentReady()
+                    result.success(null)
+                }
+
                 "isAnimationsEnabled" -> {
                     result.success(isAnimationsEnabled())
+                }
+
+                "getDownloadsDirectory" -> {
+                    result.success(getDownloadsDirectory())
+                }
+
+                "requestLocalNetworkPermission" -> {
+                    if (hasLocalNetworkPermission()) {
+                        result.success(true)
+                    } else {
+                        pendingPermissionResult = result
+                        requestPermissions(arrayOf(PERMISSION_ACCESS_LOCAL_NETWORK), REQUEST_CODE_LOCAL_NETWORK)
+                    }
                 }
 
                 else -> result.notImplemented()
@@ -77,9 +140,162 @@ class MainActivity : FlutterActivity() {
         }
     }
 
+    /// Android 17+ gates local network access behind a runtime permission; older versions grant it implicitly.
+    private fun hasLocalNetworkPermission(): Boolean {
+        if (Build.VERSION.SDK_INT < API_LEVEL_ANDROID_17) {
+            return true
+        }
+        return checkSelfPermission(PERMISSION_ACCESS_LOCAL_NETWORK) == PackageManager.PERMISSION_GRANTED
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == REQUEST_CODE_LOCAL_NETWORK) {
+            pendingPermissionResult?.success(grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+            pendingPermissionResult = null
+        }
+    }
+
+    /// Absolute path of the shared "Download" directory (usually /storage/emulated/0/Download).
+    @Suppress("DEPRECATION")
+    private fun getDownloadsDirectory(): String {
+        return Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).absolutePath
+    }
+
     private fun isAnimationsEnabled() : Boolean {
         return Settings.Global.getFloat(this.getContentResolver(),
             Settings.Global.ANIMATOR_DURATION_SCALE, 1.0f) != 0.0f;
+    }
+
+    private fun handleGetFileDescriptor(call: MethodCall, result: MethodChannel.Result) {
+        val uriString = call.argument<String>("uri")
+        if (uriString == null) {
+            result.error("INVALID_ARGUMENT", "Missing content URI", null)
+            return
+        }
+
+        val uri = Uri.parse(uriString)
+        if (uri.scheme != ContentResolver.SCHEME_CONTENT) {
+            result.error("INVALID_ARGUMENT", "Expected a content:// URI", null)
+            return
+        }
+
+        try {
+            val parcelFileDescriptor = contentResolver.openFileDescriptor(uri, "r")
+            if (parcelFileDescriptor == null) {
+                result.error("OPEN_FAILED", "The content provider did not return a file descriptor", null)
+                return
+            }
+
+            // Ownership of the detached descriptor is transferred to the caller. It must be
+            // closed by Rust (or whichever native consumer receives it) after use.
+            parcelFileDescriptor.use {
+                result.success(it.detachFd())
+            }
+        } catch (e: SecurityException) {
+            result.error("PERMISSION_DENIED", e.message ?: "Permission denied for content URI", null)
+        } catch (e: Exception) {
+            result.error("OPEN_FAILED", e.message ?: "Failed to open content URI", null)
+        }
+    }
+
+    /// Creates a new file inside a SAF directory and opens it for writing.
+    ///
+    /// Returns the URI of the created document (Android may rename the file on
+    /// collisions) and an owned writable file descriptor. The descriptor must be
+    /// closed by the native consumer it is passed to.
+    private fun handleCreateFile(call: MethodCall, result: MethodChannel.Result) {
+        val parentUriString = call.argument<String>("parentUri")
+        val fileName = call.argument<String>("fileName")
+        val mimeType = call.argument<String>("mimeType") ?: "application/octet-stream"
+        if (parentUriString == null || fileName == null) {
+            result.error("INVALID_ARGUMENT", "Missing parentUri or fileName", null)
+            return
+        }
+
+        try {
+            val parentUri = Uri.parse(parentUriString)
+
+            // A pure tree URI (content://…/tree/X) must be converted to its
+            // document form before it can be used as a parent document.
+            val segments = parentUri.pathSegments
+            val parentDocumentUri = if (segments.size == 2 && segments[0] == "tree") {
+                DocumentsContract.buildDocumentUriUsingTree(
+                    parentUri,
+                    DocumentsContract.getTreeDocumentId(parentUri)
+                )
+            } else {
+                parentUri
+            }
+
+            val documentUri =
+                DocumentsContract.createDocument(contentResolver, parentDocumentUri, mimeType, fileName)
+            if (documentUri == null) {
+                result.error("CREATE_FAILED", "Could not create $fileName in $parentUriString", null)
+                return
+            }
+
+            // "wt" is write + truncate: the document is new, unless the provider
+            // handed out an existing one instead of creating a second document.
+            val parcelFileDescriptor = contentResolver.openFileDescriptor(documentUri, "wt")
+            if (parcelFileDescriptor == null) {
+                result.error("OPEN_FAILED", "The content provider did not return a file descriptor", null)
+                return
+            }
+
+            parcelFileDescriptor.use {
+                result.success(
+                    mapOf(
+                        "uri" to documentUri.toString(),
+                        "fd" to it.detachFd(),
+                    )
+                )
+            }
+        } catch (e: SecurityException) {
+            result.error("PERMISSION_DENIED", e.message ?: "Permission denied for content URI", null)
+        } catch (e: Exception) {
+            result.error("CREATE_FAILED", e.message ?: "Failed to create file", null)
+        }
+    }
+
+    /// Opens an existing document created by [handleCreateFile] for writing,
+    /// discarding its current content.
+    ///
+    /// Used to write a file again after a failed attempt, so that it keeps its
+    /// name instead of being created a second time under a numbered one.
+    ///
+    /// Returns an owned writable file descriptor. It stays open after this call
+    /// and must be closed by the native consumer it is passed to.
+    private fun handleOpenFileForWriting(call: MethodCall, result: MethodChannel.Result) {
+        val uriString = call.argument<String>("uri")
+        if (uriString == null) {
+            result.error("INVALID_ARGUMENT", "Missing content URI", null)
+            return
+        }
+
+        val uri = Uri.parse(uriString)
+        if (uri.scheme != ContentResolver.SCHEME_CONTENT) {
+            result.error("INVALID_ARGUMENT", "Expected a content:// URI", null)
+            return
+        }
+
+        try {
+            // "wt" is write + truncate. A document provider may ignore the
+            // truncation, so the writer additionally shortens the file itself.
+            val parcelFileDescriptor = contentResolver.openFileDescriptor(uri, "wt")
+            if (parcelFileDescriptor == null) {
+                result.error("OPEN_FAILED", "The content provider did not return a file descriptor", null)
+                return
+            }
+
+            parcelFileDescriptor.use {
+                result.success(it.detachFd())
+            }
+        } catch (e: SecurityException) {
+            result.error("PERMISSION_DENIED", e.message ?: "Permission denied for content URI", null)
+        } catch (e: Exception) {
+            result.error("OPEN_FAILED", e.message ?: "Failed to open content URI", null)
+        }
     }
 
     private fun openDirectoryPicker(onlyPath: Boolean) {
@@ -185,7 +401,7 @@ class MainActivity : FlutterActivity() {
                             name = documentFile.name,
                             size = documentFile.size,
                             uri = uri.toString(),
-                            lastModified = documentFile.lastModified,
+                            lastModified = documentFile.lastModified?.toRfc3339(),
                         )
                     )
                 }
@@ -209,7 +425,7 @@ class MainActivity : FlutterActivity() {
                         name = file.name,
                         size = file.size,
                         uri = file.uri.toString(),
-                        lastModified = file.lastModified,
+                        lastModified = file.lastModified?.toRfc3339(),
                     ),
                 )
             }
@@ -289,9 +505,9 @@ data class FileInfo(
     val name: String,
     val size: Long,
     val uri: String,
-    val lastModified: Long
+    val lastModified: String?
 ) {
-    fun toMap(): Map<String, Any> {
+    fun toMap(): Map<String, Any?> {
         return mapOf(
             "name" to name,
             "size" to size,
@@ -299,4 +515,11 @@ data class FileInfo(
             "lastModified" to lastModified
         )
     }
+}
+
+/// Formats milliseconds since epoch as an RFC 3339 string in UTC.
+private fun Long.toRfc3339(): String {
+    val format = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.US)
+    format.timeZone = TimeZone.getTimeZone("UTC")
+    return format.format(Date(this))
 }

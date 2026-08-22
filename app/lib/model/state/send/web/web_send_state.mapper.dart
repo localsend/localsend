@@ -2,6 +2,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 // ignore_for_file: type=lint
+// ignore_for_file: invalid_use_of_protected_member
 // ignore_for_file: unused_element, unnecessary_cast, override_on_non_overriding_member
 // ignore_for_file: strict_raw_type, inference_failure_on_untyped_parameter
 
@@ -36,21 +37,12 @@ class WebSendStateMapper extends ClassMapperBase<WebSendState> {
     'autoAccept',
     _$autoAccept,
   );
-  static String? _$pin(WebSendState v) => v.pin;
-  static const Field<WebSendState, String> _f$pin = Field('pin', _$pin);
-  static Map<String, int> _$pinAttempts(WebSendState v) => v.pinAttempts;
-  static const Field<WebSendState, Map<String, int>> _f$pinAttempts = Field(
-    'pinAttempts',
-    _$pinAttempts,
-  );
 
   @override
   final MappableFields<WebSendState> fields = const {
     #sessions: _f$sessions,
     #files: _f$files,
     #autoAccept: _f$autoAccept,
-    #pin: _f$pin,
-    #pinAttempts: _f$pinAttempts,
   };
 
   static WebSendState _instantiate(DecodingData data) {
@@ -58,8 +50,6 @@ class WebSendStateMapper extends ClassMapperBase<WebSendState> {
       sessions: data.dec(_f$sessions),
       files: data.dec(_f$files),
       autoAccept: data.dec(_f$autoAccept),
-      pin: data.dec(_f$pin),
-      pinAttempts: data.dec(_f$pinAttempts),
     );
   }
 
@@ -139,13 +129,10 @@ abstract class WebSendStateCopyWith<$R, $In extends WebSendState, $Out>
     WebSendFileCopyWith<$R, WebSendFile, WebSendFile>
   >
   get files;
-  MapCopyWith<$R, String, int, ObjectCopyWith<$R, int, int>> get pinAttempts;
   $R call({
     Map<String, WebSendSession>? sessions,
     Map<String, WebSendFile>? files,
     bool? autoAccept,
-    String? pin,
-    Map<String, int>? pinAttempts,
   });
   WebSendStateCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
@@ -183,26 +170,15 @@ class _WebSendStateCopyWithImpl<$R, $Out>
     (v) => call(files: v),
   );
   @override
-  MapCopyWith<$R, String, int, ObjectCopyWith<$R, int, int>> get pinAttempts =>
-      MapCopyWith(
-        $value.pinAttempts,
-        (v, t) => ObjectCopyWith(v, $identity, t),
-        (v) => call(pinAttempts: v),
-      );
-  @override
   $R call({
     Map<String, WebSendSession>? sessions,
     Map<String, WebSendFile>? files,
     bool? autoAccept,
-    Object? pin = $none,
-    Map<String, int>? pinAttempts,
   }) => $apply(
     FieldCopyWithData({
       if (sessions != null) #sessions: sessions,
       if (files != null) #files: files,
       if (autoAccept != null) #autoAccept: autoAccept,
-      if (pin != $none) #pin: pin,
-      if (pinAttempts != null) #pinAttempts: pinAttempts,
     }),
   );
   @override
@@ -210,8 +186,6 @@ class _WebSendStateCopyWithImpl<$R, $Out>
     sessions: data.get(#sessions, or: $value.sessions),
     files: data.get(#files, or: $value.files),
     autoAccept: data.get(#autoAccept, or: $value.autoAccept),
-    pin: data.get(#pin, or: $value.pin),
-    pinAttempts: data.get(#pinAttempts, or: $value.pinAttempts),
   );
 
   @override

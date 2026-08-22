@@ -2,28 +2,5 @@
   "@@info": [
     "Here are translations that exist in <en> but not in <tr>.",
     "After editing this file, you can run 'dart run slang apply --locale=tr' to quickly apply the newly added translations."
-  ],
-  "settingsTab": {
-    "receive": {
-      "quickSaveFromFavorites": "@:general.quickSaveFromFavorites"
-    },
-    "network": {
-      "networkOptions": {
-        "filtered": "Filtered"
-      }
-    }
-  },
-  "networkInterfacesPage": {
-    "info": "By default, LocalSend uses all available network interfaces. You can exclude unwanted networks here. You need to restart the server to apply the changes."
-  },
-  "dialogs": {
-    "quickSaveFromFavoritesNotice": {
-      "title": "@:general.quickSaveFromFavorites",
-      "content": [
-        "File requests are now accepted automatically from devices in your favorites list.",
-        "Warning! Currently, this is not entirely secure, as a hacker who has the fingerprint of any device from your favorites list can send you files without restriction.",
-        "However, this option is still safer than allowing all users on the local network to send you files without restriction."
-      ]
-    }
-  }
+  ]
 }

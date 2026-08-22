@@ -1,9 +1,5 @@
 import 'package:collection/collection.dart';
 
-extension StringIpExt on String {
-  String get visualId => split('.').last;
-}
-
 class IpHelper {
   /// Sorts Ip addresses with first being the most likely primary local address
   /// Currently,

@@ -1,5 +1,4 @@
 {
-  "locale": "Deutsch",
   "appName": "LocalSend",
   "general": {
     "accept": "Akzeptieren",
@@ -52,7 +51,8 @@
       "off": "@:general.off",
       "favorites": "Favoriten",
       "on": "@:general.on"
-    }
+    },
+    "link": "Per Link empfangen"
   },
   "sendTab": {
     "title": "Senden",
@@ -97,7 +97,8 @@
       "color": "Farbe",
       "colorOptions": {
         "system": "System",
-        "oled": "OLED"
+        "oled": "OLED",
+        "custom": "Benutzerdefiniert"
       },
       "language": "Sprache",
       "languageOptions": {
@@ -120,11 +121,13 @@
       "destination": "Ziel-Ordner",
       "downloads": "(Downloads)",
       "saveToGallery": "Medien in die Galerie speichern",
-      "saveToHistory": "In Verlauf speichern"
+      "saveToHistory": "In Verlauf speichern",
+      "verifyChecksums": "Prüfsummen beim Empfangen überprüfen"
     },
     "send": {
       "title": "Senden",
-      "shareViaLinkAutoAccept": "Link teilen: Autom. akzeptieren"
+      "shareViaLinkAutoAccept": "Link teilen: Autom. akzeptieren",
+      "createChecksums": "Prüfsummen beim Senden erstellen"
     },
     "network": {
       "title": "Netzwerk",
@@ -179,8 +182,8 @@
     "title": "Netzwerkschnittstellen",
     "info": "Standardmäßig verwendet LocalSend alle verfügbaren Netzwerkschnittstellen. Hier können Sie unerwünschte Netzwerke ausschließen. Sie müssen den Server neu starten, um die Änderungen zu übernehmen.",
     "preview": "Vorschau",
-    "whitelist": "Whitelist",
-    "blacklist": "Blacklist"
+    "whitelist": "Zulassungsliste",
+    "blacklist": "Sperrliste"
   },
   "receiveHistoryPage": {
     "title": "Verlauf",
@@ -203,6 +206,29 @@
   "selectedFilesPage": {
     "deleteAll": "Alle löschen"
   },
+  "deviceDetailsPage": {
+    "title": "Gerätedetails",
+    "favorite": "Favorit",
+    "verify": "Verifizieren",
+    "info": {
+      "name": "Name",
+      "address": "Adresse",
+      "version": "Version",
+      "protocol": "Protokoll v{version}"
+    },
+    "logs": {
+      "title": "Logs",
+      "empty": "Keine Logs vorhanden.",
+      "discovered": "Entdeckt über {protocol} ({host})",
+      "updated": "Aktualisiert über {protocol} ({host})"
+    }
+  },
+  "verifyPage": {
+    "title": "Verifizieren",
+    "icons": "Symbole",
+    "text": "Text",
+    "question": "Sieht es auf dem anderen Gerät gleich aus?"
+  },
   "receivePage": {
     "subTitle": {
       "one": "möchte dir eine Datei senden",
@@ -220,6 +246,7 @@
     "saveToGalleryOff": "Aufgrund von Ordnern automatisch ausgeschaltet."
   },
   "sendPage": {
+    "calculatingChecksum": "Berechne Prüfsumme ({curr} / {n})",
     "waiting": "Warte auf Antwort…",
     "rejected": "Der Empfänger hat die Anfrage abgelehnt.",
     "tooManyAttempts": "@:web.tooManyAttempts",
@@ -241,12 +268,14 @@
       "speed": "Geschwindigkeit: {speed}/s"
     },
     "remainingTime": {
-      "@hours": "Benutze 'h' als Abkürzung für Stunden und 'm' für Minuten",
-      "@days": "Benutze 'd' für Tage, 'h' für Stunden und 'm' für Minuten",
-      "seconds": "{n}:{ss}",
-      "minutes": "{n}:{ss}",
-      "hours": "{h}h {m}m",
-      "days": "{d}d {h}h {m}m"
+      "minutesUnit(plural, param=m)": {
+        "other": "{m}m"
+      },
+      "hoursUnit(plural, param=h)": {
+        "other": "{h}h"
+      },
+      "minutes": "{m}:{ss}",
+      "hours": "@:.hoursUnit @:.minutesUnit"
     }
   },
   "webSharePage": {
@@ -266,6 +295,9 @@
     "pinHint": "Die PIN lautet \"{pin}\"",
     "encryptionHint": "LocalSend verwendet ein selbstsigniertes Zertifikat. Du musst es im Browser akzeptieren.",
     "pendingRequests": "Offene Anfragen: {n}"
+  },
+  "webReceivePage": {
+    "title": "Per Link empfangen"
   },
   "aboutPage": {
     "title": "Über LocalSend",
@@ -288,6 +320,18 @@
   "changelogPage": {
     "title": "Änderungsprotokoll"
   },
+  "whatsNewPage": {
+    "title": "Was ist neu in {version}",
+    "changes(interface=WhatsNewStrings)": {
+      "v1_18_0": {
+        "changes": [
+          "Die Verschlüsselung bremst die Übertragung nicht mehr aus. Sie wurde auf diesem Gerät wieder aktiviert, falls du sie zuvor deaktiviert hattest.",
+          "Anfragen von Favoriten werden jetzt automatisch akzeptiert. Diese Option ist standardmäßig aktiviert und kann in den Einstellungen deaktiviert werden.",
+          "Unter Android laufen Übertragungen weiter, während die App im Hintergrund ist oder der Bildschirm aus ist. Unter iOS muss die App weiterhin im Vordergrund bleiben."
+        ]
+      }
+    }
+  },
   "aliasGenerator(ignoreMissing, ignoreGpt)": {
     "@info": "Inherits from the English version"
   },
@@ -302,8 +346,6 @@
     },
     "addressInput": {
       "title": "Adresse eingeben",
-      "hashtag": "Hashtag",
-      "ip": "IP-Adresse",
       "recentlyUsed": "Zuletzt verwendet: "
     },
     "cancelSession": {
@@ -379,7 +421,7 @@
       "title": "QR-Code"
     },
     "quickActions": {
-      "title": "Quick Actions",
+      "title": "Schnellaktionen",
       "counter": "Zähler",
       "prefix": "Prefix",
       "padZero": "Mit Nullen auffüllen",
@@ -393,9 +435,7 @@
     "quickSaveFromFavoritesNotice": {
       "title": "@:general.quickSaveFromFavorites",
       "content": [
-        "Dateianfragen werden jetzt automatisch von Geräten in deiner Favoritenliste akzeptiert.",
-        "Warnung: Dies ist derzeit nicht vollständig sicher, da ein Hacker, der den Fingerabdruck der Geräte in deiner Favoritenliste kennt, dir immer noch Dateien senden kann.",
-        "Diese Option ist jedoch immer noch sicherer als die Erlaubnis für jedes Gerät."
+        "Dateianfragen werden jetzt automatisch von Geräten in deiner Favoritenliste akzeptiert."
       ]
     },
     "pin": {
@@ -444,7 +484,7 @@
     "emptyList": "Leere Liste",
     "unSupportedAssetType": "Format ist nicht unterstützt.",
     "unableToAccessAll": "Zugriff nicht möglich",
-    "viewingLimitedAssetsTip": "Zeige nur Dateien und Alben an, auf die die App zugreifen kann.",
+    "viewingLimitedAssetsTip": "Nur Dateien und Alben anzeigen, auf die die App zugreifen kann.",
     "changeAccessibleLimitedAssets": "Tippen, um erlaubte Dateien zu aktualisieren",
     "accessAllTip": "Die App kann nur auf einige der Dateien auf dem Gerät zugreifen. Öffne die Systemeinstellungen und erlaube der App, auf alle Dateien auf dem Gerät zuzugreifen.",
     "goToSystemSettings": "Gehe zu den Systemeinstellungen",

@@ -1,13 +1,13 @@
 import 'package:collection/collection.dart';
-import 'package:common/model/dto/file_dto.dart';
-import 'package:localsend_app/util/file_path_helper.dart';
+import 'package:localsend_isolates/model/dto/file_dto.dart';
+import 'package:localsend_isolates/util/file_path_helper.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 import 'package:uuid/uuid.dart';
 
 const _uuid = Uuid();
 
 /// Manages files to be selected to receive.
-/// Only alive during [ReceivePage], i.e. this provider gets disposed as soon as the actual file transfer begin.
+/// Never disposed; it is re-seeded via [SelectedReceivingFilesNotifier.setFiles] before each [ReceivePage] is pushed.
 /// Map: FileId -> FileName
 final selectedReceivingFilesProvider = NotifierProvider<SelectedReceivingFilesNotifier, Map<String, String>>((ref) {
   return SelectedReceivingFilesNotifier();

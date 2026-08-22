@@ -1,5 +1,11 @@
 .idea
 
+# Pub workspace resolution output
+/.dart_tool/
+
+# Rust workspace build output
+/target/
+
 # Linux AppImage
 /app/AppDir
 /app/appimage-build
@@ -10,3 +16,9 @@
 
 # FVM Version Cache
 .fvm/
+
+# macOS
+.DS_Store
+
+# Generated at build time by makepri (see support/scripts/compile_windows_msix_helper.ps1)
+/support/build/msix/content/resources.pri

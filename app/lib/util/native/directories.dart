@@ -1,13 +1,13 @@
 import 'dart:io' show Directory, Platform;
 
 import 'package:flutter/foundation.dart';
+import 'package:localsend_app/util/native/channel/android_channel.dart';
 import 'package:path_provider/path_provider.dart' as path;
 
 Future<String> getDefaultDestinationDirectory() async {
   switch (defaultTargetPlatform) {
     case TargetPlatform.android:
-      final dir = await path.getDownloadsDirectory();
-      return dir?.path ?? '/storage/emulated/0/Download';
+      return await getDownloadsDirectoryAndroid() ?? '/storage/emulated/0/Download';
     case TargetPlatform.iOS:
       return (await path.getApplicationDocumentsDirectory()).path;
     case TargetPlatform.linux:
@@ -33,5 +33,7 @@ Future<String> getDefaultDestinationDirectory() async {
 }
 
 Future<String> getCacheDirectory() async {
-  return (await path.getTemporaryDirectory()).path;
+  final dir = await path.getTemporaryDirectory();
+  await dir.create(recursive: true);
+  return dir.path;
 }

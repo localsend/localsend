@@ -1,4 +1,3 @@
-import 'package:common/model/device.dart';
 import 'package:flutter/material.dart';
 import 'package:localsend_app/config/theme.dart';
 import 'package:localsend_app/gen/strings.g.dart';
@@ -7,10 +6,10 @@ import 'package:localsend_app/provider/device_info_provider.dart';
 import 'package:localsend_app/provider/favorites_provider.dart';
 import 'package:localsend_app/provider/http_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
-import 'package:localsend_app/rust/api/model.dart';
-import 'package:localsend_app/util/rust.dart';
 import 'package:localsend_app/widget/dialogs/error_dialog.dart';
 import 'package:localsend_app/widget/dialogs/favorite_edit_dialog.dart';
+import 'package:localsend_isolates/rust/api/model.dart';
+import 'package:localsend_isolates/util/rust.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 import 'package:routerino/routerino.dart';
 
@@ -38,15 +37,15 @@ class _FavoritesDialogState extends State<FavoritesDialog> with Refena {
       final payload = ref.read(deviceFullInfoProvider).toRegisterDto();
       final response = await ref
           .read(httpProvider)
-          .v2
+          .discovery
           .register(
-        protocol: https ? ProtocolType.https : ProtocolType.http,
-        ip: favorite.ip,
-        port: favorite.port,
-        payload: payload,
-      );
+            protocol: https ? ProtocolType.https : ProtocolType.http,
+            ip: favorite.ip,
+            port: favorite.port,
+            payload: payload,
+          );
 
-      final device = response.body.toDevice(favorite.ip, favorite.port, https, HttpDiscovery(ip: favorite.ip));
+      final device = response.body.toDevice(favorite.ip, favorite.port, https);
 
       if (mounted) {
         context.pop(device);
@@ -95,7 +94,7 @@ class _FavoritesDialogState extends State<FavoritesDialog> with Refena {
                   ),
                 ),
                 TextButton(
-                  style: TextButton.styleFrom(foregroundColor: Theme.of(context).colorScheme.onSurface),
+                  style: TextButton.styleFrom(foregroundColor: Theme.of(context).colorScheme.onSurface, iconSize: 24),
                   onPressed: _fetching ? null : () async => await _showDeviceDialog(favorite),
                   child: const Icon(Icons.edit),
                 ),

@@ -13,7 +13,7 @@
 
 [Homepage][homepage] • [Discord][discord] • [GitHub][github] • [Codeberg][codeberg]
 
-[English (Default)](README.md) • [Español](readme_i18n/README_ES.md) • [فارسی](readme_i18n/README_FA.md) • [Filipino](readme_i18n/README_PH.md) • [Français](readme_i18n/README_FR.md) • [Indonesia](readme_i18n/README_ID.md) • [Italiano](readme_i18n/README_IT.md) • [日本語](readme_i18n/README_JA.md) • [ភាសាខ្មែរ](readme_i18n/README_KM.md) • [한국어](readme_i18n/README_KO.md) • [Polski](readme_i18n/README_PL.md) • [Português Brasil](readme_i18n/README_PT_BR.md) • [Русский](readme_i18n/README_RU.md) • [ภาษาไทย](readme_i18n/README_TH.md) • [Türkçe](readme_i18n/README_TR.md) • [Українська](readme_i18n/README_UK.md) • [Tiếng Việt](readme_i18n/README_VI.md) • [中文](readme_i18n/README_ZH.md)
+[English (Default)](README.md) • [Беларуская](/support/readme/README_BE.md) • [Español](/support/readme/README_ES.md) • [فارسی](/support/readme/README_FA.md) • [Filipino](/support/readme/README_PH.md) • [Français](/support/readme/README_FR.md) • [Indonesia](/support/readme/README_ID.md) • [Italiano](/support/readme/README_IT.md) • [日本語](/support/readme/README_JA.md) • [ភាសាខ្មែរ](/support/readme/README_KM.md) • [한국어](/support/readme/README_KO.md) • [Polski](/support/readme/README_PL.md) • [Português Brasil](/support/readme/README_PT_BR.md) • [Русский](/support/readme/README_RU.md) • [ภาษาไทย](/support/readme/README_TH.md) • [Türkçe](/support/readme/README_TR.md) • [Українська](/support/readme/README_UK.md) • [Tiếng Việt](/support/readme/README_VI.md) • [中文](/support/readme/README_ZH.md)
 
 [homepage]: https://localsend.org
 [discord]: https://discord.gg/GSRWmQNP87
@@ -27,6 +27,7 @@ LocalSend is a free, open-source app that allows you to securely share files and
 - [Screenshots](#screenshots)
 - [Download](#download)
 - [How It Works](#how-it-works)
+- [Dependency Hierarchy](#dependency-hierarchy)
 - [Getting Started](#getting-started)
 - [Contributing](#contributing)
   - [Translation](#translation)
@@ -73,6 +74,8 @@ It is recommended to download the app either from an app store or from a package
 
 Read more about [distribution channels][].
 
+Windows binaries are signed. Read more about the [Code signing policy][].
+
 > [!CAUTION]
 > **Unofficial MSIX preview:** you can try builds from the latest commits at [localsend.ob-buff.dev](https://localsend.ob-buff.dev/). Stability is not guaranteed and all custom code tweaks are listed on that site.
 
@@ -91,6 +94,7 @@ Read more about [distribution channels][].
 [aur]: https://aur.archlinux.org/packages/localsend-bin
 [latest]: https://github.com/localsend/localsend/releases/latest
 [distribution channels]: https://github.com/localsend/localsend/blob/main/CONTRIBUTING.md#distribution
+[code signing policy]: https://github.com/localsend/localsend/blob/main/CODE_SIGNING.md
 
 **Compatibility**
 
@@ -135,6 +139,10 @@ On v1.14.0 and earlier, the app starts hidden if `autostart` flag is set, and th
 LocalSend uses a secure communication protocol that allows devices to communicate with each other using a REST API. All data is sent securely over HTTPS, and the TLS/SSL certificate is generated on the fly on each device, ensuring maximum security.
 
 For more information on the LocalSend Protocol, see the [documentation](https://github.com/localsend/protocol).
+
+## Dependency Hierarchy
+
+![Dependency hierarchy](support/docs/dependency-hierarchy.svg)
 
 ## Getting Started
 
