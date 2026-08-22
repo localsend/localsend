@@ -16,7 +16,7 @@ use localsend::discovery::{
     DEFAULT_DISCOVERY_TIMEOUT, DeviceIdentity, DiscoveryConfig, DiscoveryEvent, DiscoveryHandle,
 };
 use localsend::http::server::v2::ServerEventV2;
-use localsend::http::server::web::WebSendEvent;
+use localsend::http::server::web::{WebConfig, WebDownloadEvent};
 use localsend::http::server::{ServerConfigV2, ServerHandle, start_with_port};
 use localsend::model::discovery::ProtocolType;
 use localsend::multicast::{DEFAULT_MULTICAST_GROUP, DEFAULT_MULTICAST_GROUP_V6, DEFAULT_PORT};
@@ -64,7 +64,7 @@ struct App {
     /// Event senders handed to every (re)started server, so the receivers in
     /// [run]'s select loop survive server restarts.
     server_tx: mpsc::Sender<ServerEventV2>,
-    web_tx: mpsc::Sender<WebSendEvent>,
+    web_tx: mpsc::Sender<WebDownloadEvent>,
 
     /// The active web link mode ("share via link" / "receive via link");
     /// `Some` while the server runs in plain-HTTP mode for browsers.
@@ -106,7 +106,7 @@ pub async fn run(args: Args) -> anyhow::Result<()> {
 
     // HTTP server (TLS, like the app, until "share via link" drops it).
     let (server_tx, mut server_rx) = mpsc::channel::<ServerEventV2>(16);
-    let (web_tx, mut web_rx) = mpsc::channel::<WebSendEvent>(16);
+    let (web_tx, mut web_rx) = mpsc::channel::<WebDownloadEvent>(16);
     let (server_stop_tx, server_stop_rx) = oneshot::channel::<()>();
     let server = start_with_port(
         identity.port,
@@ -118,7 +118,7 @@ pub async fn run(args: Args) -> anyhow::Result<()> {
             verify_checksums: true,
             event_tx: server_tx.clone(),
         }),
-        None,
+        WebConfig::default(),
         server_stop_rx,
     )
     .await?;

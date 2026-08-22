@@ -16,9 +16,10 @@ part 'server.freezed.dart';
 /// Starts the HTTP server on the given port (IPv4 and IPv6).
 /// The server runs until [RsHttpServer::stop] is called.
 ///
-/// Passing [web] additionally serves the web pages: the download page when
-/// [WebParams::send] is set (so web browsers can download the offered files)
-/// or the upload page when [WebParams::upload] is enabled.
+/// [web] configures the pages served to browsers: [WebParams::mode] selects
+/// the download page ([WebMode::Download], so web browsers can download the
+/// offered files), the upload page ([WebMode::Upload]) or no web share at all
+/// ([WebMode::Disabled], serving the 403 page).
 ///
 /// Passing [show_token] enables the internal `show` endpoint that lets another
 /// application instance request this one to show itself (emitted as
@@ -35,7 +36,7 @@ Future<RsHttpServer> startServer({
   required String fingerprint,
   String? pin,
   required bool verifyChecksums,
-  WebParams? web,
+  required WebParams web,
   String? showToken,
 }) => RustLib.instance.api.crateApiServerStartServer(
   port: port,
@@ -79,7 +80,7 @@ abstract class RsHttpServer implements RustOpaqueInterface {
   /// Emits server events until the server is stopped.
   /// Can only be listened to once.
   ///
-  /// The v2 protocol, the web send (download API), and the internal endpoint
+  /// The v2 protocol, the web download (download API), and the internal endpoint
   /// events are all emitted on the same stream.
   ///
   /// Also returns when the Dart side of the stream is gone (e.g. after a
@@ -344,6 +345,33 @@ class WebI18n {
           dropHint == other.dropHint;
 }
 
+@freezed
+sealed class WebMode with _$WebMode {
+  const WebMode._();
+
+  /// No web share active: `/` serves the 403 page and client certificates
+  /// are mandatory under TLS, so the 403 page is effectively only reachable
+  /// when encryption is off.
+  const factory WebMode.disabled() = WebMode_Disabled;
+
+  /// Web download: the download page and the download API, offering files for
+  /// download by web browsers.
+  ///
+  /// Web download can be enabled independently of the v2 protocol endpoints.
+  const factory WebMode.download({
+    /// The metadata of the files offered for download, mapped by file ID.
+    /// The content is requested per download via [RsServerEvent::WebFileDownload].
+    required Map<String, FileDto> files,
+
+    /// Optional PIN that web clients must provide via the `pin` query parameter.
+    String? pin,
+  }) = WebMode_Download;
+
+  /// The upload page: web browsers upload files via the v2
+  /// `prepare-upload`/`upload` endpoints.
+  const factory WebMode.upload() = WebMode_Upload;
+}
+
 class WebPages {
   final String? downloadHtml;
   final String? uploadHtml;
@@ -368,67 +396,31 @@ class WebPages {
           error403Html == other.error403Html;
 }
 
-/// Configuration for the web pages served to browsers. When omitted, the web
-/// pages respond with 403 and only the v2 endpoints run.
+/// Configuration for the pages served to browsers. Always part of the server
+/// configuration: even with web share disabled ([WebMode::Disabled]), the
+/// server serves the 403 page at `/`.
 class WebParams {
-  /// Enables web send (the download page): files offered for download by web
-  /// browsers. `null` disables the download page and the download API.
-  final WebSendParams? send;
-
-  /// Serves the upload page so web browsers can upload files via the v2
-  /// `prepare-upload`/`upload` endpoints. Ignored when [WebParams::send] is
-  /// set: the download page takes precedence at `/`.
-  final bool upload;
+  /// What is served at `/` and which browser-facing API is active.
+  final WebMode mode;
 
   /// Translations for the web pages, served via `/i18n.json`.
   final WebI18n i18N;
 
   /// Custom HTML pages replacing the embedded web pages.
-  /// Pages left `null` (or the whole struct being `null`) are served from
-  /// the assets embedded at compile time.
-  final WebPages? pages;
+  /// Pages left `null` are served from the assets embedded at compile time.
+  final WebPages pages;
 
   const WebParams({
-    this.send,
-    required this.upload,
+    required this.mode,
     required this.i18N,
-    this.pages,
+    required this.pages,
   });
 
   @override
-  int get hashCode => send.hashCode ^ upload.hashCode ^ i18N.hashCode ^ pages.hashCode;
+  int get hashCode => mode.hashCode ^ i18N.hashCode ^ pages.hashCode;
 
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is WebParams &&
-          runtimeType == other.runtimeType &&
-          send == other.send &&
-          upload == other.upload &&
-          i18N == other.i18N &&
-          pages == other.pages;
-}
-
-/// Configuration for web send: files offered for download by web browsers.
-///
-/// Web send can be enabled independently of the v2 protocol endpoints.
-class WebSendParams {
-  /// The metadata of the files offered for download, mapped by file ID.
-  /// The content is requested per download via [RsServerEvent::WebFileDownload].
-  final Map<String, FileDto> files;
-
-  /// Optional PIN that web clients must provide via the `pin` query parameter.
-  final String? pin;
-
-  const WebSendParams({
-    required this.files,
-    this.pin,
-  });
-
-  @override
-  int get hashCode => files.hashCode ^ pin.hashCode;
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) || other is WebSendParams && runtimeType == other.runtimeType && files == other.files && pin == other.pin;
+      other is WebParams && runtimeType == other.runtimeType && mode == other.mode && i18N == other.i18N && pages == other.pages;
 }

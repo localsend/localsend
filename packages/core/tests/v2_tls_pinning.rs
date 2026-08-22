@@ -9,7 +9,7 @@ use localsend::http::client::{ClientError, LsHttpClientV2};
 use localsend::http::dto_v2::{PrepareUploadRequestDtoV2, RegisterDtoV2};
 use localsend::http::server::common::save::FileUploadTarget;
 use localsend::http::server::v2::{PrepareUploadDecisionV2, ServerEventV2};
-use localsend::http::server::web::{WebConfig, WebI18n, WebPages};
+use localsend::http::server::web::{WebConfig, WebMode};
 use localsend::http::server::{start_with_port, ServerConfigV2, TlsConfig};
 use localsend::http::state::ClientInfo;
 use localsend::model::discovery::ProtocolType;
@@ -49,12 +49,12 @@ struct TestServer {
 
 /// Starts a test server over TLS using the given identity.
 async fn start_tls_server(identity: &Identity) -> TestServer {
-    start_tls_server_with_web(identity, None).await
+    start_tls_server_with_web(identity, WebConfig::default()).await
 }
 
 /// Starts a test server over TLS, optionally with the web pages enabled
 /// (which makes the client certificate optional).
-async fn start_tls_server_with_web(identity: &Identity, web: Option<WebConfig>) -> TestServer {
+async fn start_tls_server_with_web(identity: &Identity, web: WebConfig) -> TestServer {
     let _ = tracing_subscriber::fmt().with_test_writer().try_init();
     let prepare_uploads: Arc<Mutex<Vec<String>>> = Arc::new(Mutex::new(Vec::new()));
     let received: Arc<Mutex<Vec<(String, Vec<u8>)>>> = Arc::new(Mutex::new(Vec::new()));
@@ -373,12 +373,10 @@ async fn test_client_without_cert_allowed_in_web_mode() {
     let sender = generate_identity();
     let server = start_tls_server_with_web(
         &server_identity,
-        Some(WebConfig {
-            send: None,
-            upload: true,
-            i18n: WebI18n::default(),
-            pages: WebPages::default(),
-        }),
+        WebConfig {
+            mode: WebMode::Upload,
+            ..WebConfig::default()
+        },
     )
     .await;
 

@@ -3,8 +3,8 @@ import 'dart:io';
 
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/model/cross_file.dart';
-import 'package:localsend_app/model/state/send/web/web_send_state.dart';
 import 'package:localsend_app/model/state/server/server_state.dart';
+import 'package:localsend_app/model/state/server/web_share_state.dart';
 import 'package:localsend_app/provider/network/server/controller/receive_controller.dart';
 import 'package:localsend_app/provider/network/server/controller/send_controller.dart';
 import 'package:localsend_app/provider/network/server/server_utils.dart';
@@ -14,7 +14,7 @@ import 'package:localsend_app/util/native/web_pages_loader.dart';
 import 'package:localsend_isolates/constants.dart';
 import 'package:localsend_isolates/isolate.dart';
 import 'package:localsend_isolates/model/dto/multicast_dto.dart';
-import 'package:localsend_isolates/rust/api/server.dart' show WebI18n, WebParams, WebSendParams;
+import 'package:localsend_isolates/rust/api/server.dart' show WebI18n, WebMode, WebParams;
 import 'package:localsend_isolates/util/rust.dart';
 import 'package:logging/logging.dart';
 import 'package:refena_flutter/refena_flutter.dart';
@@ -41,7 +41,7 @@ final serverProvider = NotifierProvider<ServerService, ServerState?>(
       next?.port ?? settings.port,
       (next?.https ?? settings.https) ? ProtocolType.https : ProtocolType.http,
       next != null,
-      next?.webSendState != null,
+      next?.webDownloadState != null,
     );
 
     if (syncStatePrev == syncStateNext) {
@@ -109,17 +109,14 @@ class ServerService extends Notifier<ServerState?> {
   }
 
   /// Starts the server.
-  /// Passing a [webSendState] additionally serves the web send (download) API.
-  /// Passing [webUpload] serves the upload page so web browsers can upload files.
-  /// [webPin] protects the active web share mode: the download page in send mode;
-  /// in upload mode, it replaces the receive pin from settings.
+  /// Passing a [web] share additionally serves the download page
+  /// ([WebShareDownload], so web browsers can download the offered files)
+  /// or the upload page ([WebShareUpload], so web browsers can upload files).
   Future<ServerState?> startServer({
     required String alias,
     required int port,
     required bool https,
-    WebSendState? webSendState,
-    bool webUpload = false,
-    String? webPin,
+    WebShareState? web,
   }) async {
     if (state != null) {
       _logger.info('Server already running.');
@@ -139,45 +136,48 @@ class ServerService extends Notifier<ServerState?> {
 
     // The server isolate derives its configuration from the sync state,
     // so it must be published before the start task.
-    _syncServerState(alias: alias, port: port, https: https, serverRunning: true, download: webSendState != null);
+    _syncServerState(alias: alias, port: port, https: https, serverRunning: true, download: web is WebShareDownload);
 
     final settings = ref.read(settingsProvider);
-    final webActive = webSendState != null || webUpload;
     // Custom pages provided by the user next to the executable, if any.
-    final customWebPages = webActive ? await loadCustomWebPages() : null;
+    // A custom error-403.html replaces the built-in 403 page even while no web
+    // share is active; client certificates stay mandatory in that mode.
+    final customWebPages = await loadCustomWebPages();
     final events = ref
         .redux(parentIsolateProvider)
         .dispatchTakeResult(
           IsolateHttpServerStartAction(
-            pin: webUpload ? webPin : settings.receivePin,
+            pin: switch (web) {
+              WebShareUpload(:final pin) => pin,
+              _ => settings.receivePin,
+            },
             verifyChecksums: settings.verifyChecksums,
-            web: webActive
-                ? WebParams(
-                    send: webSendState != null
-                        ? WebSendParams(
-                            files: {
-                              for (final entry in webSendState.files.entries) entry.key: entry.value.file.toRust(),
-                            },
-                            pin: webPin,
-                          )
-                        : null,
-                    upload: webUpload,
-                    i18N: WebI18n(
-                      waiting: t.web.waiting,
-                      enterPin: t.web.enterPin,
-                      invalidPin: t.web.invalidPin,
-                      tooManyAttempts: t.web.tooManyAttempts,
-                      rejected: t.web.rejected,
-                      uploadRejected: t.sendPage.rejected,
-                      busy: t.sendPage.busy,
-                      files: t.web.files,
-                      fileName: t.web.fileName,
-                      size: t.web.size,
-                      dropHint: t.sendTab.placeItems,
-                    ),
-                    pages: customWebPages,
-                  )
-                : null,
+            web: WebParams(
+              mode: switch (web) {
+                WebShareDownload(:final state, :final pin) => WebMode.download(
+                  files: {
+                    for (final entry in state.files.entries) entry.key: entry.value.file.toRust(),
+                  },
+                  pin: pin,
+                ),
+                WebShareUpload() => const WebMode.upload(),
+                null => const WebMode.disabled(),
+              },
+              i18N: WebI18n(
+                waiting: t.web.waiting,
+                enterPin: t.web.enterPin,
+                invalidPin: t.web.invalidPin,
+                tooManyAttempts: t.web.tooManyAttempts,
+                rejected: t.web.rejected,
+                uploadRejected: t.sendPage.rejected,
+                busy: t.sendPage.busy,
+                files: t.web.files,
+                fileName: t.web.fileName,
+                size: t.web.size,
+                dropHint: t.sendTab.placeItems,
+              ),
+              pages: customWebPages,
+            ),
             showToken: settings.showToken,
           ),
         );
@@ -218,9 +218,7 @@ class ServerService extends Notifier<ServerState?> {
       port: port,
       https: https,
       session: null,
-      webSendState: webSendState,
-      webUpload: webUpload,
-      webPin: webSendState != null || webUpload ? webPin : null,
+      web: web,
     );
 
     state = newServerState;
@@ -246,12 +244,10 @@ class ServerService extends Notifier<ServerState?> {
     required String alias,
     required int port,
     required bool https,
-    WebSendState? webSendState,
-    bool webUpload = false,
-    String? webPin,
+    WebShareState? web,
   }) async {
     await stopServer();
-    return await startServer(alias: alias, port: port, https: https, webSendState: webSendState, webUpload: webUpload, webPin: webPin);
+    return await startServer(alias: alias, port: port, https: https, web: web);
   }
 
   Future<void> acceptFileRequest(Map<String, String> fileNameMap) async {
@@ -282,24 +278,30 @@ class ServerService extends Notifier<ServerState?> {
     _receiveController.closeSession();
   }
 
-  /// Restarts the server with web send (the download API) enabled for [files].
-  /// The auto accept setting of a previous web send state is kept.
-  Future<void> restartServerWithWebSend({
+  /// Restarts the server with web download (the download API) enabled for [files].
+  /// The auto accept setting of a previous web download state is kept.
+  Future<void> restartServerWithWebDownload({
     required String alias,
     required int port,
     required bool https,
     required List<CrossFile> files,
-    String? webPin,
+    String? pin,
   }) async {
-    final webSendState = await _sendController.buildWebSendState(files: files);
-    await restartServer(alias: alias, port: port, https: https, webSendState: webSendState, webPin: webPin);
+    final webDownloadState = await _sendController.buildWebDownloadState(files: files);
+    await restartServer(
+      alias: alias,
+      port: port,
+      https: https,
+      web: WebShareDownload(state: webDownloadState, pin: pin),
+    );
   }
 
   /// Updates the pin of the active web share mode (download or upload page).
   /// The pin is enforced by the Rust server, so the server is restarted.
   Future<void> setWebPin(String? pin) async {
     final current = state;
-    if (current == null || (current.webSendState == null && !current.webUpload) || current.webPin == pin) {
+    final web = current?.web;
+    if (current == null || web == null || web.pin == pin) {
       return;
     }
 
@@ -307,28 +309,29 @@ class ServerService extends Notifier<ServerState?> {
       alias: current.alias,
       port: current.port,
       https: current.https,
-      webSendState: current.webSendState?.copyWith(sessions: {}),
-      webUpload: current.webUpload,
-      webPin: pin,
+      web: switch (web) {
+        // Sessions do not survive a server restart.
+        WebShareDownload(:final state) => WebShareDownload(
+          state: state.copyWith(sessions: {}),
+          pin: pin,
+        ),
+        WebShareUpload() => WebShareUpload(pin: pin),
+      },
     );
   }
 
-  /// Updates the auto accept setting for web send.
-  void setWebSendAutoAccept(bool autoAccept) {
-    state = state?.copyWith(
-      webSendState: state?.webSendState?.copyWith(
-        autoAccept: autoAccept,
-      ),
-    );
+  /// Updates the auto accept setting for web download.
+  void setWebDownloadAutoAccept(bool autoAccept) {
+    state = state?.updateWebDownloadState((webDownload) => webDownload.copyWith(autoAccept: autoAccept));
   }
 
-  /// Accepts the web send request.
-  void acceptWebSendRequest(String sessionId) {
+  /// Accepts the web download request.
+  void acceptWebDownloadRequest(String sessionId) {
     _sendController.acceptRequest(sessionId);
   }
 
-  /// Declines the web send request.
-  void declineWebSendRequest(String sessionId) {
+  /// Declines the web download request.
+  void declineWebDownloadRequest(String sessionId) {
     _sendController.declineRequest(sessionId);
   }
 
@@ -413,9 +416,14 @@ class ServerService extends Notifier<ServerState?> {
         alias: current.alias,
         port: current.port,
         https: current.https,
-        webSendState: current.webSendState?.copyWith(sessions: {}),
-        webUpload: current.webUpload,
-        webPin: current.webPin,
+        web: switch (current.web) {
+          // Sessions do not survive a server restart.
+          WebShareDownload(:final state, :final pin) => WebShareDownload(
+            state: state.copyWith(sessions: {}),
+            pin: pin,
+          ),
+          final other => other,
+        },
       );
     } catch (e) {
       _logger.severe('Failed to restart the server after its listener failed', e);

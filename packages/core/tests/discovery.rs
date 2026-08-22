@@ -12,6 +12,7 @@ use localsend::crypto::cert::generate_self_signed;
 use localsend::discovery::{
     self, DeviceIdentity, DiscoveryConfig, DiscoveryEvent, DiscoveryHandle,
 };
+use localsend::http::server::web::WebConfig;
 use localsend::http::server::{start_with_port, ServerConfigV2, TlsConfig};
 use localsend::http::state::ClientInfo;
 use localsend::model::discovery::{DeviceType, ProtocolType, PROTOCOL_VERSION_V2};
@@ -74,7 +75,7 @@ async fn start_register_server(
             verify_checksums: true,
             event_tx,
         }),
-        None,
+        WebConfig::default(),
         stop_rx,
     )
     .await

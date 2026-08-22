@@ -3303,7 +3303,7 @@ fn wire__crate__api__server__start_server_impl(
             let api_fingerprint = <String>::sse_decode(&mut deserializer);
             let api_pin = <Option<String>>::sse_decode(&mut deserializer);
             let api_verify_checksums = <bool>::sse_decode(&mut deserializer);
-            let api_web = <Option<crate::api::server::WebParams>>::sse_decode(&mut deserializer);
+            let api_web = <crate::api::server::WebParams>::sse_decode(&mut deserializer);
             let api_show_token = <Option<String>>::sse_decode(&mut deserializer);
             deserializer.end();
             move |context| async move {
@@ -4368,41 +4368,6 @@ impl SseDecode for Option<u32> {
     }
 }
 
-impl SseDecode for Option<crate::api::server::WebPages> {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
-        if (<bool>::sse_decode(deserializer)) {
-            return Some(<crate::api::server::WebPages>::sse_decode(deserializer));
-        } else {
-            return None;
-        }
-    }
-}
-
-impl SseDecode for Option<crate::api::server::WebParams> {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
-        if (<bool>::sse_decode(deserializer)) {
-            return Some(<crate::api::server::WebParams>::sse_decode(deserializer));
-        } else {
-            return None;
-        }
-    }
-}
-
-impl SseDecode for Option<crate::api::server::WebSendParams> {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
-        if (<bool>::sse_decode(deserializer)) {
-            return Some(<crate::api::server::WebSendParams>::sse_decode(
-                deserializer,
-            ));
-        } else {
-            return None;
-        }
-    }
-}
-
 impl SseDecode for Option<Vec<String>> {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
@@ -5038,6 +5003,35 @@ impl SseDecode for crate::api::server::WebI18n {
     }
 }
 
+impl SseDecode for crate::api::server::WebMode {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut tag_ = <i32>::sse_decode(deserializer);
+        match tag_ {
+            0 => {
+                return crate::api::server::WebMode::Disabled;
+            }
+            1 => {
+                let mut var_files =
+                    <std::collections::HashMap<String, crate::api::model::FileDto>>::sse_decode(
+                        deserializer,
+                    );
+                let mut var_pin = <Option<String>>::sse_decode(deserializer);
+                return crate::api::server::WebMode::Download {
+                    files: var_files,
+                    pin: var_pin,
+                };
+            }
+            2 => {
+                return crate::api::server::WebMode::Upload;
+            }
+            _ => {
+                unimplemented!("");
+            }
+        }
+    }
+}
+
 impl SseDecode for crate::api::server::WebPages {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
@@ -5055,30 +5049,13 @@ impl SseDecode for crate::api::server::WebPages {
 impl SseDecode for crate::api::server::WebParams {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
-        let mut var_send = <Option<crate::api::server::WebSendParams>>::sse_decode(deserializer);
-        let mut var_upload = <bool>::sse_decode(deserializer);
+        let mut var_mode = <crate::api::server::WebMode>::sse_decode(deserializer);
         let mut var_i18N = <crate::api::server::WebI18n>::sse_decode(deserializer);
-        let mut var_pages = <Option<crate::api::server::WebPages>>::sse_decode(deserializer);
+        let mut var_pages = <crate::api::server::WebPages>::sse_decode(deserializer);
         return crate::api::server::WebParams {
-            send: var_send,
-            upload: var_upload,
+            mode: var_mode,
             i18n: var_i18N,
             pages: var_pages,
-        };
-    }
-}
-
-impl SseDecode for crate::api::server::WebSendParams {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
-        let mut var_files =
-            <std::collections::HashMap<String, crate::api::model::FileDto>>::sse_decode(
-                deserializer,
-            );
-        let mut var_pin = <Option<String>>::sse_decode(deserializer);
-        return crate::api::server::WebSendParams {
-            files: var_files,
-            pin: var_pin,
         };
     }
 }
@@ -6481,6 +6458,32 @@ impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<crate::api::server::WebI18n>>
     }
 }
 // Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for crate::api::server::WebMode {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        match self {
+            crate::api::server::WebMode::Disabled => [0.into_dart()].into_dart(),
+            crate::api::server::WebMode::Download { files, pin } => [
+                1.into_dart(),
+                files.into_into_dart().into_dart(),
+                pin.into_into_dart().into_dart(),
+            ]
+            .into_dart(),
+            crate::api::server::WebMode::Upload => [2.into_dart()].into_dart(),
+            _ => {
+                unimplemented!("");
+            }
+        }
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive for crate::api::server::WebMode {}
+impl flutter_rust_bridge::IntoIntoDart<crate::api::server::WebMode>
+    for crate::api::server::WebMode
+{
+    fn into_into_dart(self) -> crate::api::server::WebMode {
+        self
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
 impl flutter_rust_bridge::IntoDart for FrbWrapper<crate::api::server::WebPages> {
     fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
         [
@@ -6506,8 +6509,7 @@ impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<crate::api::server::WebPages>>
 impl flutter_rust_bridge::IntoDart for crate::api::server::WebParams {
     fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
         [
-            self.send.into_into_dart().into_dart(),
-            self.upload.into_into_dart().into_dart(),
+            self.mode.into_into_dart().into_dart(),
             self.i18n.into_into_dart().into_dart(),
             self.pages.into_into_dart().into_dart(),
         ]
@@ -6519,27 +6521,6 @@ impl flutter_rust_bridge::IntoIntoDart<crate::api::server::WebParams>
     for crate::api::server::WebParams
 {
     fn into_into_dart(self) -> crate::api::server::WebParams {
-        self
-    }
-}
-// Codec=Dco (DartCObject based), see doc to use other codecs
-impl flutter_rust_bridge::IntoDart for crate::api::server::WebSendParams {
-    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
-        [
-            self.files.into_into_dart().into_dart(),
-            self.pin.into_into_dart().into_dart(),
-        ]
-        .into_dart()
-    }
-}
-impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
-    for crate::api::server::WebSendParams
-{
-}
-impl flutter_rust_bridge::IntoIntoDart<crate::api::server::WebSendParams>
-    for crate::api::server::WebSendParams
-{
-    fn into_into_dart(self) -> crate::api::server::WebSendParams {
         self
     }
 }
@@ -7295,36 +7276,6 @@ impl SseEncode for Option<u32> {
     }
 }
 
-impl SseEncode for Option<crate::api::server::WebPages> {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
-        <bool>::sse_encode(self.is_some(), serializer);
-        if let Some(value) = self {
-            <crate::api::server::WebPages>::sse_encode(value, serializer);
-        }
-    }
-}
-
-impl SseEncode for Option<crate::api::server::WebParams> {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
-        <bool>::sse_encode(self.is_some(), serializer);
-        if let Some(value) = self {
-            <crate::api::server::WebParams>::sse_encode(value, serializer);
-        }
-    }
-}
-
-impl SseEncode for Option<crate::api::server::WebSendParams> {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
-        <bool>::sse_encode(self.is_some(), serializer);
-        if let Some(value) = self {
-            <crate::api::server::WebSendParams>::sse_encode(value, serializer);
-        }
-    }
-}
-
 impl SseEncode for Option<Vec<String>> {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
@@ -7827,6 +7778,30 @@ impl SseEncode for crate::api::server::WebI18n {
     }
 }
 
+impl SseEncode for crate::api::server::WebMode {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        match self {
+            crate::api::server::WebMode::Disabled => {
+                <i32>::sse_encode(0, serializer);
+            }
+            crate::api::server::WebMode::Download { files, pin } => {
+                <i32>::sse_encode(1, serializer);
+                <std::collections::HashMap<String, crate::api::model::FileDto>>::sse_encode(
+                    files, serializer,
+                );
+                <Option<String>>::sse_encode(pin, serializer);
+            }
+            crate::api::server::WebMode::Upload => {
+                <i32>::sse_encode(2, serializer);
+            }
+            _ => {
+                unimplemented!("");
+            }
+        }
+    }
+}
+
 impl SseEncode for crate::api::server::WebPages {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
@@ -7839,20 +7814,9 @@ impl SseEncode for crate::api::server::WebPages {
 impl SseEncode for crate::api::server::WebParams {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
-        <Option<crate::api::server::WebSendParams>>::sse_encode(self.send, serializer);
-        <bool>::sse_encode(self.upload, serializer);
+        <crate::api::server::WebMode>::sse_encode(self.mode, serializer);
         <crate::api::server::WebI18n>::sse_encode(self.i18n, serializer);
-        <Option<crate::api::server::WebPages>>::sse_encode(self.pages, serializer);
-    }
-}
-
-impl SseEncode for crate::api::server::WebSendParams {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
-        <std::collections::HashMap<String, crate::api::model::FileDto>>::sse_encode(
-            self.files, serializer,
-        );
-        <Option<String>>::sse_encode(self.pin, serializer);
+        <crate::api::server::WebPages>::sse_encode(self.pages, serializer);
     }
 }
 

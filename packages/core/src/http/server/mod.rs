@@ -10,7 +10,7 @@ pub use peer_ip::PeerIp;
 use crate::crypto::cert::{fingerprint_from_cert_der, public_key_from_cert_der};
 use crate::http::server::internal::{InternalConfig, InternalState};
 use crate::http::server::v2::ServerEventV2;
-use crate::http::server::web::{WebConfig, WebI18n, WebPages};
+use crate::http::server::web::{WebConfig, WebShare};
 use crate::http::state::ClientInfo;
 use common::client_cert_verifier::CustomClientCertVerifier;
 use common::error::AppError;
@@ -32,7 +32,7 @@ use std::sync::Arc;
 use tokio::sync::{mpsc, oneshot, Mutex};
 use tokio_util::sync::CancellationToken;
 use tokio_util::task::TaskTracker;
-use web::WebPageState;
+use web::WebState;
 
 /// Configuration for the v2 (legacy) protocol endpoints.
 pub struct ServerConfigV2 {
@@ -71,17 +71,8 @@ pub struct AppState {
     /// Information about server's device.
     info: Arc<Mutex<ClientInfo>>,
 
-    /// State for serving the download page (web send).
-    web: Option<Arc<WebPageState>>,
-
-    /// Whether the upload page is served (when the download page is not active).
-    web_upload: bool,
-
-    /// Translations for the web pages, served via `/i18n.json`.
-    web_i18n: Option<Arc<WebI18n>>,
-
-    /// The HTML pages served to browsers, falling back to the embedded assets.
-    web_pages: Arc<WebPages>,
+    /// Runtime state of the browser-facing pages and web download.
+    web: Arc<WebState>,
 
     /// State for application-internal endpoints.
     internal: Option<Arc<InternalState>>,
@@ -101,7 +92,7 @@ impl AppState {
         info: Arc<Mutex<ClientInfo>>,
         internal_config: Option<InternalConfig>,
         v2_config: Option<ServerConfigV2>,
-        web_config: Option<WebConfig>,
+        web_config: WebConfig,
     ) -> Self {
         let v2 = v2_config.map(|config| {
             Arc::new(V2State {
@@ -113,23 +104,11 @@ impl AppState {
             })
         });
 
-        let (web, web_upload, web_i18n, web_pages) = match web_config {
-            Some(config) => (
-                config.send.map(|send| Arc::new(WebPageState::new(send))),
-                config.upload,
-                Some(Arc::new(config.i18n)),
-                Arc::new(config.pages),
-            ),
-            None => (None, false, None, Arc::new(WebPages::default())),
-        };
         let internal = internal_config.map(|config| Arc::new(InternalState::new(config)));
 
         Self {
             info,
-            web,
-            web_upload,
-            web_i18n,
-            web_pages,
+            web: Arc::new(WebState::from(web_config)),
             internal,
             received_nonce_map: Arc::new(Mutex::new(LruCache::new(
                 NonZeroUsize::new(200).unwrap(),
@@ -235,7 +214,7 @@ pub async fn start_with_port(
     info: ClientInfo,
     internal_config: Option<InternalConfig>,
     v2_config: Option<ServerConfigV2>,
-    web_config: Option<WebConfig>,
+    web_config: WebConfig,
     stop_rx: oneshot::Receiver<()>,
 ) -> anyhow::Result<ServerHandle> {
     // Installed before returning, so that a client built right after (which
@@ -391,7 +370,7 @@ async fn start_server_with_listener(
 ) -> anyhow::Result<()> {
     // Browsers have no client certificate, so presenting one is optional while
     // the web pages are served. A certificate that is presented is still verified.
-    let mandatory_client_auth = app_state.web.is_none() && !app_state.web_upload;
+    let mandatory_client_auth = matches!(app_state.web.share, WebShare::Disabled);
 
     let tls_acceptor = match tls_config {
         Some(tls_config) => Some(

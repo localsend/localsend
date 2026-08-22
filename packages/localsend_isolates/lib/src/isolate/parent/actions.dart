@@ -305,9 +305,9 @@ class IsolateHttpServerStartAction extends ReduxActionWithResult<IsolateControll
   /// verified after receiving.
   final bool verifyChecksums;
 
-  /// Serves the web pages: the download page (web send) and/or the upload page.
-  /// `null` disables the web pages.
-  final WebParams? web;
+  /// Configures the pages served to browsers: the download page (web download),
+  /// the upload page, or the 403 page when web share is disabled.
+  final WebParams web;
 
   /// Enables the internal `show` endpoint, guarded by this token, that lets another
   /// application instance request this one to show itself. `null` disables it.
