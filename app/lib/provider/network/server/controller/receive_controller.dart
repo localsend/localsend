@@ -113,7 +113,10 @@ class ReceiveController {
           endTime: null,
           destinationDirectory: destinationDir,
           cacheDirectory: cacheDir,
-          saveToGallery: checkPlatformWithGallery() && settings.saveToGallery && files.values.every((f) => !f.fileName.contains('/')),
+          saveToGallery:
+              checkPlatformWithGallery() &&
+              settings.saveToGallery &&
+              files.values.every((f) => !f.fileName.contains('/') && (f.fileType == FileType.image || f.fileType == FileType.video)),
           createdDirectories: {},
         ),
       ),

@@ -145,7 +145,9 @@ Future<(bool, String?)> saveCachedFileToGallery({
     );
 
     _logger.info('Moving file from $cachedPath to $fallbackPath');
-    await File(cachedPath).rename(fallbackPath);
+    final sourceFile = File(cachedPath);
+    await sourceFile.copy(fallbackPath);
+    await sourceFile.delete();
     return (false, fallbackPath);
   }
 
