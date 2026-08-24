@@ -47,18 +47,32 @@ class FastDocumentFile(
                 null,
                 null
             )
-            while (cursor!!.moveToNext()) {
+            if (cursor == null) {
+                return results
+            }
+
+            // Some providers (e.g. vivo's file manager) do not return all
+            // requested columns, so resolve indices dynamically instead of
+            // assuming a fixed column order.
+            val mimeIdx = cursor.getColumnIndex(DocumentsContract.Document.COLUMN_MIME_TYPE)
+            val docIdIdx = cursor.getColumnIndex(DocumentsContract.Document.COLUMN_DOCUMENT_ID)
+            val nameIdx = cursor.getColumnIndex(DocumentsContract.Document.COLUMN_DISPLAY_NAME)
+            val sizeIdx = cursor.getColumnIndex(DocumentsContract.Document.COLUMN_SIZE)
+            val lastModIdx = cursor.getColumnIndex(DocumentsContract.Document.COLUMN_LAST_MODIFIED)
+
+            while (cursor.moveToNext()) {
+                val documentId = if (docIdIdx >= 0) cursor.getString(docIdIdx) else continue
                 results.add(
                     FastDocumentFile(
                         context = context,
-                        mime = cursor.getString(0),
+                        mime = if (mimeIdx >= 0) cursor.getString(mimeIdx) ?: "" else "",
                         uri = DocumentsContract.buildDocumentUriUsingTree(
                             uri,
-                            cursor.getString(1)
+                            documentId
                         ),
-                        name = cursor.getString(2),
-                        size = cursor.getLong(3),
-                        lastModified = readLastModified(cursor, 4)
+                        name = if (nameIdx >= 0) cursor.getString(nameIdx) ?: "" else "",
+                        size = if (sizeIdx >= 0) cursor.getLong(sizeIdx) else 0L,
+                        lastModified = if (lastModIdx >= 0) readLastModified(cursor, lastModIdx) else null
                     )
                 )
             }
@@ -126,18 +140,26 @@ class FastDocumentFile(
                     null
                 )
 
-                return if (cursor != null && cursor.moveToFirst()) {
-                    FastDocumentFile(
-                        context = context,
-                        mime = cursor.getString(0),
-                        uri = documentUri,
-                        name = cursor.getString(1),
-                        size = cursor.getLong(2),
-                        lastModified = readLastModified(cursor, 3),
-                    )
-                } else {
-                    null
+                if (cursor == null || !cursor.moveToFirst()) {
+                    return null
                 }
+
+                // Some providers (e.g. vivo's file manager) do not return all
+                // requested columns, so resolve indices dynamically instead of
+                // assuming a fixed column order.
+                val mimeIdx = cursor.getColumnIndex(DocumentsContract.Document.COLUMN_MIME_TYPE)
+                val nameIdx = cursor.getColumnIndex(DocumentsContract.Document.COLUMN_DISPLAY_NAME)
+                val sizeIdx = cursor.getColumnIndex(DocumentsContract.Document.COLUMN_SIZE)
+                val lastModIdx = cursor.getColumnIndex(DocumentsContract.Document.COLUMN_LAST_MODIFIED)
+
+                return FastDocumentFile(
+                    context = context,
+                    mime = if (mimeIdx >= 0) cursor.getString(mimeIdx) ?: "" else "",
+                    uri = documentUri,
+                    name = if (nameIdx >= 0) cursor.getString(nameIdx) ?: "" else "",
+                    size = if (sizeIdx >= 0) cursor.getLong(sizeIdx) else 0L,
+                    lastModified = if (lastModIdx >= 0) readLastModified(cursor, lastModIdx) else null
+                )
             } catch (e: Exception) {
                 Log.w(TAG, "Error: $e")
                 return null

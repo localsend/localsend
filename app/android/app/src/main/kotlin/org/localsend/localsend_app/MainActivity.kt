@@ -6,11 +6,13 @@ import android.content.ContentResolver
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.content.res.AssetFileDescriptor
 import android.database.Cursor
 import android.net.Uri
 import android.os.Build
 import android.os.Environment
 import android.provider.DocumentsContract
+import android.provider.OpenableColumns
 import android.provider.Settings
 import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.engine.FlutterEngine
@@ -165,6 +167,37 @@ class MainActivity : FlutterActivity() {
     private fun isAnimationsEnabled() : Boolean {
         return Settings.Global.getFloat(this.getContentResolver(),
             Settings.Global.ANIMATOR_DURATION_SCALE, 1.0f) != 0.0f;
+    }
+
+    /// Queries [OpenableColumns.DISPLAY_NAME] from the given content URI.
+    ///
+    /// Some providers (e.g. vivo's file manager) do not implement the full
+    /// [DocumentsContract.Document] columns, but do respond to the more
+    /// generic [OpenableColumns] projection. This returns null if the name
+    /// cannot be resolved.
+    private fun queryDisplayName(uri: Uri): String? {
+        var cursor: Cursor? = null
+        try {
+            cursor = contentResolver.query(
+                uri,
+                arrayOf(OpenableColumns.DISPLAY_NAME),
+                null,
+                null,
+                null
+            )
+            if (cursor != null && cursor.moveToFirst()) {
+                val idx = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME)
+                if (idx >= 0) {
+                    return cursor.getString(idx)
+                }
+            }
+        } catch (_: Exception) {
+        } finally {
+            try {
+                cursor?.close()
+            } catch (_: Exception) {}
+        }
+        return null
     }
 
     private fun handleGetFileDescriptor(call: MethodCall, result: MethodChannel.Result) {
@@ -340,7 +373,13 @@ class MainActivity : FlutterActivity() {
                 val takeFlags: Int =
                     data.flags and (Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
                 if (uri != null) {
-                    contentResolver.takePersistableUriPermission(uri, takeFlags)
+                    try {
+                        contentResolver.takePersistableUriPermission(uri, takeFlags)
+                    } catch (e: SecurityException) {
+                        // Some providers (e.g. vivo's file manager) restrict
+                        // persistable permissions; the URI is still usable for
+                        // the current session.
+                    }
 
                     val files = mutableListOf<FileInfo>()
                     listFiles(uri, files)
@@ -358,7 +397,13 @@ class MainActivity : FlutterActivity() {
                 val takeFlags: Int =
                     data.flags and (Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
                 if (uri != null) {
-                    contentResolver.takePersistableUriPermission(uri, takeFlags)
+                    try {
+                        contentResolver.takePersistableUriPermission(uri, takeFlags)
+                    } catch (e: SecurityException) {
+                        // Some providers (e.g. vivo's file manager) restrict
+                        // persistable permissions; the URI is still usable for
+                        // the current session.
+                    }
                     pendingResult?.success(uri.toString())
                     pendingResult = null
                 } else {
@@ -390,20 +435,47 @@ class MainActivity : FlutterActivity() {
 
                 val resultList = mutableListOf<FileInfo>()
                 for (uri in uriList) {
-                    contentResolver.takePersistableUriPermission(uri, takeFlags)
-                    val documentFile = FastDocumentFile.fromDocumentUri(this, uri)
-                    if (documentFile == null) {
-                        pendingResult?.error("Error", "Failed to access file", null)
-                        return
+                    try {
+                        contentResolver.takePersistableUriPermission(uri, takeFlags)
+                    } catch (e: SecurityException) {
+                        // Some providers (e.g. vivo's file manager) restrict
+                        // persistable permissions; the URI is still usable for
+                        // the current session.
                     }
-                    resultList.add(
-                        FileInfo(
-                            name = documentFile.name,
-                            size = documentFile.size,
-                            uri = uri.toString(),
-                            lastModified = documentFile.lastModified?.toRfc3339(),
+                    val documentFile = FastDocumentFile.fromDocumentUri(this, uri)
+                    if (documentFile != null) {
+                        resultList.add(
+                            FileInfo(
+                                name = documentFile.name,
+                                size = documentFile.size,
+                                uri = uri.toString(),
+                                lastModified = documentFile.lastModified?.toRfc3339(),
+                            )
                         )
-                    )
+                    } else {
+                        // Fallback: the DocumentsProvider did not return the
+                        // expected columns (e.g. vivo's file manager).
+                        // Try OpenableColumns first — it is a separate contract
+                        // that some providers implement even when Document
+                        // columns are missing.
+                        val fallbackName = queryDisplayName(uri) ?: uri.lastPathSegment?.substringAfterLast('/') ?: uri.toString()
+                        val fallbackSize = try {
+                            contentResolver.openAssetFileDescriptor(uri, "r")?.use {
+                                val len = it.length
+                                if (len >= 0) len else 0L
+                            } ?: 0L
+                        } catch (e: Exception) {
+                            0L
+                        }
+                        resultList.add(
+                            FileInfo(
+                                name = fallbackName,
+                                size = fallbackSize,
+                                uri = uri.toString(),
+                                lastModified = null,
+                            )
+                        )
+                    }
                 }
 
                 pendingResult?.success(resultList.map { it.toMap() })
@@ -466,9 +538,11 @@ class MainActivity : FlutterActivity() {
             )
 
             if (cursor != null) {
+                val nameIdx = cursor.getColumnIndex(DocumentsContract.Document.COLUMN_DISPLAY_NAME)
+                val mimeIdx = cursor.getColumnIndex(DocumentsContract.Document.COLUMN_MIME_TYPE)
                 while (cursor.moveToNext()) {
-                    val displayName = cursor.getString(0)
-                    val mimeType = cursor.getString(1)
+                    val displayName = if (nameIdx >= 0) cursor.getString(nameIdx) else null
+                    val mimeType = if (mimeIdx >= 0) cursor.getString(mimeIdx) else null
 
                     if (folderName == displayName && DocumentsContract.Document.MIME_TYPE_DIR == mimeType) {
                         return true

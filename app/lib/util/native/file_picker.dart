@@ -17,6 +17,7 @@ import 'package:localsend_app/util/native/cross_file_converters.dart';
 import 'package:localsend_app/util/native/pick_directory_path.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_app/util/ui/asset_picker_translated_text_delegate.dart';
+import 'package:localsend_app/widget/dialogs/error_dialog.dart';
 import 'package:localsend_app/widget/dialogs/loading_dialog.dart';
 import 'package:localsend_app/widget/dialogs/message_input_dialog.dart';
 import 'package:localsend_app/widget/dialogs/no_permission_dialog.dart';
@@ -184,9 +185,19 @@ Future<void> _pickFiles(BuildContext context, Ref ref) async {
       return;
     }
 
-    // ignore: use_build_context_synchronously
-    await showDialog(context: context, builder: (_) => const NoPermissionDialog());
     _logger.warning('Failed to pick files', e);
+
+    if (e is PlatformException && e.code == 'PERMISSION_DENIED') {
+      // ignore: use_build_context_synchronously
+      await showDialog(context: context, builder: (_) => const NoPermissionDialog());
+    } else {
+      // Other errors (e.g. the file provider returned incomplete metadata)
+      // are not permission issues — show a generic error dialog instead of
+      // misleading the user with "no permission".
+      final errorMessage = e is PlatformException ? '${e.code}: ${e.message}' : e.toString();
+      // ignore: use_build_context_synchronously
+      await showDialog(context: context, builder: (_) => ErrorDialog(error: errorMessage));
+    }
   } finally {
     // ignore: use_build_context_synchronously
     Routerino.context.popUntilRoot(); // remove loading dialog
@@ -234,8 +245,15 @@ Future<void> _pickFolder(BuildContext context, Ref ref) async {
     }
 
     _logger.warning('Failed to pick directory', e);
-    // ignore: use_build_context_synchronously
-    await showDialog(context: context, builder: (_) => const NoPermissionDialog());
+
+    if (e is PlatformException && e.code == 'PERMISSION_DENIED') {
+      // ignore: use_build_context_synchronously
+      await showDialog(context: context, builder: (_) => const NoPermissionDialog());
+    } else {
+      final errorMessage = e is PlatformException ? '${e.code}: ${e.message}' : e.toString();
+      // ignore: use_build_context_synchronously
+      await showDialog(context: context, builder: (_) => ErrorDialog(error: errorMessage));
+    }
   } finally {
     // ignore: use_build_context_synchronously
     Routerino.context.popUntilRoot(); // remove loading dialog
