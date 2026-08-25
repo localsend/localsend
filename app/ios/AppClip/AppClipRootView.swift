@@ -114,6 +114,7 @@ struct AppClipFullAppSheet: View {
     }
 }
 
+@available(iOS 16.0, *)
 struct AppClipMessageView: View {
     let icon: String
     let title: String
