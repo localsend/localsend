@@ -12,6 +12,7 @@ struct AppClipStagedFile {
     let url: URL
 }
 
+@available(iOS 16.0, *)
 final class AppClipReverseDownloadServer {
     private let files: [String: AppClipStagedFile]
     private let alias: String
