@@ -176,7 +176,7 @@ return failed(_that.error);case _:
 
 class RsDownloadEvent_Progress extends RsDownloadEvent {
   const RsDownloadEvent_Progress({required this.progress}): super._();
-  
+
 
  final  double progress;
 
@@ -242,7 +242,7 @@ as double,
 
 class RsDownloadEvent_Failed extends RsDownloadEvent {
   const RsDownloadEvent_Failed({required this.error}): super._();
-  
+
 
  final  RsHttpClientError error;
 
@@ -305,7 +305,7 @@ as RsHttpClientError,
 @override
 @pragma('vm:prefer-inline')
 $RsHttpClientErrorCopyWith<$Res> get error {
-  
+
   return $RsHttpClientErrorCopyWith<$Res>(_self.error, (value) {
     return _then(_self.copyWith(error: value));
   });
