@@ -67,9 +67,11 @@ The normal LocalSend LAN discovery, upload protocol, server settings, and non-An
 20. When every accepted file reaches a terminal state, Android stops the foreground transfer notification, disarms HCE, closes the bootstrap listener and hotspot, and returns to the normal network.
 21. The App Clip marks success only after all offered files were downloaded completely. It tears down its listener, removes the temporary hotspot configuration, deletes staged files, and shows Done.
 
+If the full LocalSend app is already installed, iOS launches it instead of the App Clip. Runner's scene delegate validates the same invocation and presents the shared native sender screen on iOS 16 or later; its target carries the same hotspot capability required by that flow. Older supported Runner versions show an explicit unsupported-version message.
+
 ## Invocation URL contract
 
-The production base URL and path require LocalSend maintainer/App Store configuration. The code must read them from iOS/Android build configuration rather than scattering a literal.
+The checked-in production base URL is `https://localsend.org/clip`. Android reads it from the overridable `appClipInvocationBaseUrl` project property; iOS reads the matching overridable `APP_CLIP_INVOCATION_BASE_URL` target setting. Both iOS targets carry the configurable `APP_CLIP_ASSOCIATED_DOMAIN` entitlement, whose source default is `appclips:localsend.org`. Deployment also requires the matching AASA response and App Store Connect experience described in `APP_CLIP_DEPLOYMENT.md`.
 
 Query fields are unique; duplicates are invalid.
 
@@ -84,7 +86,7 @@ Query fields are unique; duplicates are invalid.
 | `bp` | ASCII integer | 1-65535 | Android bootstrap listener port. |
 | `name` | percent-encoded UTF-8 | 1-80 bytes | Android display alias. |
 
-The full URL is limited to 1,024 UTF-8 bytes. Unknown fields are ignored for forward compatibility; invalid required fields fail closed. The URL is a short-lived bearer capability and must never enter logs, analytics, history, crash text, clipboard, or persistent preferences.
+The full URL is limited to 1,024 UTF-8 bytes. Missing, duplicate, unknown, or invalid fields fail closed; a future version must explicitly update both parsers. The URL is a short-lived bearer capability and must never enter logs, analytics, history, crash text, clipboard, or persistent preferences.
 
 ## Type-4 NDEF contract
 

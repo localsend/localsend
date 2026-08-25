@@ -1,3 +1,7 @@
+## Unreleased
+
+- feat(android, ios): add an iOS App Clip sender flow with authenticated NFC/QR bootstrap, LocalSend v2 reverse downloads, installed-app fallback, and production `localsend.org/clip` deployment configuration
+
 ## 1.18.2 (2026-08-21)
 
 - feat: drag and drop files into the "Receive via link" browser page

@@ -5,6 +5,7 @@ import 'package:logging/logging.dart';
 part 'android_channel.mapper.dart';
 
 const _methodChannel = MethodChannel('org.localsend.localsend_app/localsend');
+const _appClipEventChannel = EventChannel('org.localsend.localsend_app/localsend/app-clip-events');
 final _logger = Logger('AndroidSaf');
 
 /// From Android 10 and above, we need to use the Storage Access Framework (SAF) to access files due to the scoped storage.
@@ -86,6 +87,91 @@ Future<void> flushPendingShareIntentsAndroid() async {
 Future<void> openGallery() async {
   _logger.info('Opening gallery');
   await _methodChannel.invokeMethod('openGallery');
+}
+
+/// Redacted native lifecycle state for the Android-hosted iOS App Clip session.
+Stream<AppClipHostState> watchAppClipHostStateAndroid() {
+  return _appClipEventChannel.receiveBroadcastStream().map((event) => AppClipHostState.fromMap((event as Map).cast<Object?, Object?>()));
+}
+
+Future<AppClipHostPrerequisites> getAppClipHostPrerequisitesAndroid() async {
+  final value = await _methodChannel.invokeMethod<Map>('getAppClipHostPrerequisites');
+  return AppClipHostPrerequisites.fromMap((value ?? const {}).cast<Object?, Object?>());
+}
+
+Future<AppClipHostState> getAppClipHostStateAndroid() async {
+  final value = await _methodChannel.invokeMethod<Map>('getAppClipHostState');
+  return AppClipHostState.fromMap((value ?? const {}).cast<Object?, Object?>());
+}
+
+Future<AppClipHostState> startAppClipHostAndroid(String deviceName) async {
+  final value = await _methodChannel.invokeMethod<Map>('startAppClipHost', {'deviceName': deviceName});
+  return AppClipHostState.fromMap((value ?? const {}).cast<Object?, Object?>());
+}
+
+Future<String?> getAppClipInvocationUrlAndroid() => _methodChannel.invokeMethod<String>('getAppClipInvocationUrl');
+
+Future<AppClipBootstrap?> getAppClipBootstrapAndroid() async {
+  final value = await _methodChannel.invokeMethod<Map>('getAppClipBootstrap');
+  return value == null ? null : AppClipBootstrap.fromMap(value.cast<Object?, Object?>());
+}
+
+Future<bool> acknowledgeAppClipBootstrapAndroid(String sessionId) async {
+  return await _methodChannel.invokeMethod<bool>('acknowledgeAppClipBootstrap', {'sessionId': sessionId}) ?? false;
+}
+
+Future<void> stopAppClipHostAndroid() => _methodChannel.invokeMethod<void>('stopAppClipHost');
+
+class AppClipHostPrerequisites {
+  final bool available;
+  final bool hceAvailable;
+  final List<String> missing;
+
+  const AppClipHostPrerequisites({required this.available, required this.hceAvailable, required this.missing});
+
+  factory AppClipHostPrerequisites.fromMap(Map<Object?, Object?> value) {
+    return AppClipHostPrerequisites(
+      available: value['available'] == true,
+      hceAvailable: value['hceAvailable'] == true,
+      missing: (value['missing'] as List?)?.whereType<String>().toList(growable: false) ?? const [],
+    );
+  }
+}
+
+class AppClipHostState {
+  final String state;
+  final String? message;
+  final bool hceAvailable;
+  final String? sessionId;
+
+  const AppClipHostState({required this.state, this.message, required this.hceAvailable, this.sessionId});
+
+  factory AppClipHostState.fromMap(Map<Object?, Object?> value) {
+    return AppClipHostState(
+      state: value['state'] as String? ?? 'failed',
+      message: value['message'] as String?,
+      hceAvailable: value['hceAvailable'] == true,
+      sessionId: value['sessionId'] as String?,
+    );
+  }
+}
+
+class AppClipBootstrap {
+  final String sessionId;
+  final String peerIp;
+  final int peerPort;
+  final String downloadToken;
+
+  const AppClipBootstrap({required this.sessionId, required this.peerIp, required this.peerPort, required this.downloadToken});
+
+  factory AppClipBootstrap.fromMap(Map<Object?, Object?> value) {
+    return AppClipBootstrap(
+      sessionId: value['sessionId'] as String,
+      peerIp: value['peerIp'] as String,
+      peerPort: value['peerPort'] as int,
+      downloadToken: value['downloadToken'] as String,
+    );
+  }
 }
 
 @MappableClass()

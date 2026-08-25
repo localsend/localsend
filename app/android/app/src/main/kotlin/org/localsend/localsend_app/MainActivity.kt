@@ -16,6 +16,7 @@ import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
+import org.localsend.localsend_app.appclip.AppClipHostBridge
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -75,6 +76,7 @@ class MainActivity : FlutterActivity() {
 
     override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
         super.configureFlutterEngine(flutterEngine)
+        AppClipHostBridge.configureEvents(flutterEngine.dartExecutor.binaryMessenger)
         MethodChannel(
             flutterEngine.dartExecutor.binaryMessenger,
             CHANNEL
@@ -133,6 +135,33 @@ class MainActivity : FlutterActivity() {
                         pendingPermissionResult = result
                         requestPermissions(arrayOf(PERMISSION_ACCESS_LOCAL_NETWORK), REQUEST_CODE_LOCAL_NETWORK)
                     }
+                }
+
+                "getAppClipHostPrerequisites" -> result.success(AppClipHostBridge.getPrerequisites(this))
+
+                "getAppClipHostState" -> result.success(AppClipHostBridge.getState())
+
+                "startAppClipHost" -> result.success(
+                    AppClipHostBridge.start(
+                        this,
+                        call.argument<String>("deviceName") ?: "",
+                    ),
+                )
+
+                "getAppClipInvocationUrl" -> result.success(AppClipHostBridge.getInvocationUrl())
+
+                "getAppClipBootstrap" -> result.success(AppClipHostBridge.getBootstrap())
+
+                "acknowledgeAppClipBootstrap" -> result.success(
+                    AppClipHostBridge.acknowledgeBootstrap(
+                        this,
+                        call.argument<String>("sessionId") ?: "",
+                    ),
+                )
+
+                "stopAppClipHost" -> {
+                    AppClipHostBridge.stop(this)
+                    result.success(null)
                 }
 
                 else -> result.notImplemented()

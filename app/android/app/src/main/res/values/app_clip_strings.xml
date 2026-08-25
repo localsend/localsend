@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_clip_hce_description">LocalSend App Clip link</string>
+    <string name="app_clip_notification_channel">Receive from iPhone</string>
+    <string name="app_clip_notification_title">LocalSend</string>
+    <string name="app_clip_notification_starting">Starting direct receive…</string>
+    <string name="app_clip_notification_ready">Ready for an iPhone</string>
+    <string name="app_clip_notification_connected">iPhone connected</string>
+    <string name="app_clip_notification_receiving">Receiving from iPhone…</string>
+    <string name="app_clip_notification_failed">Direct receive stopped</string>
+    <string name="app_clip_notification_stop">Stop</string>
+</resources>
