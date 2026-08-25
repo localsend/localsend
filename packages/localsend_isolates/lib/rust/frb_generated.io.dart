@@ -195,6 +195,9 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   RustStreamSink<Uint8List> dco_decode_StreamSink_list_prim_u_8_strict_Sse(dynamic raw);
 
   @protected
+  RustStreamSink<RsDownloadEvent> dco_decode_StreamSink_rs_download_event_Sse(dynamic raw);
+
+  @protected
   RustStreamSink<RsHashFileEvent> dco_decode_StreamSink_rs_hash_file_event_Sse(dynamic raw);
 
   @protected
@@ -441,10 +444,19 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   RsDiscoveredDevice dco_decode_rs_discovered_device(dynamic raw);
 
   @protected
+  RsDownloadDeviceInfo dco_decode_rs_download_device_info(dynamic raw);
+
+  @protected
+  RsDownloadEvent dco_decode_rs_download_event(dynamic raw);
+
+  @protected
   RsHashFileEvent dco_decode_rs_hash_file_event(dynamic raw);
 
   @protected
   RsHttpClientError dco_decode_rs_http_client_error(dynamic raw);
+
+  @protected
+  RsPrepareDownloadResponse dco_decode_rs_prepare_download_response(dynamic raw);
 
   @protected
   RsServerEvent dco_decode_rs_server_event(dynamic raw);
@@ -657,6 +669,9 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
 
   @protected
   RustStreamSink<Uint8List> sse_decode_StreamSink_list_prim_u_8_strict_Sse(SseDeserializer deserializer);
+
+  @protected
+  RustStreamSink<RsDownloadEvent> sse_decode_StreamSink_rs_download_event_Sse(SseDeserializer deserializer);
 
   @protected
   RustStreamSink<RsHashFileEvent> sse_decode_StreamSink_rs_hash_file_event_Sse(SseDeserializer deserializer);
@@ -907,10 +922,19 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   RsDiscoveredDevice sse_decode_rs_discovered_device(SseDeserializer deserializer);
 
   @protected
+  RsDownloadDeviceInfo sse_decode_rs_download_device_info(SseDeserializer deserializer);
+
+  @protected
+  RsDownloadEvent sse_decode_rs_download_event(SseDeserializer deserializer);
+
+  @protected
   RsHashFileEvent sse_decode_rs_hash_file_event(SseDeserializer deserializer);
 
   @protected
   RsHttpClientError sse_decode_rs_http_client_error(SseDeserializer deserializer);
+
+  @protected
+  RsPrepareDownloadResponse sse_decode_rs_prepare_download_response(SseDeserializer deserializer);
 
   @protected
   RsServerEvent sse_decode_rs_server_event(SseDeserializer deserializer);
@@ -1169,6 +1193,9 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   void sse_encode_StreamSink_list_prim_u_8_strict_Sse(RustStreamSink<Uint8List> self, SseSerializer serializer);
 
   @protected
+  void sse_encode_StreamSink_rs_download_event_Sse(RustStreamSink<RsDownloadEvent> self, SseSerializer serializer);
+
+  @protected
   void sse_encode_StreamSink_rs_hash_file_event_Sse(RustStreamSink<RsHashFileEvent> self, SseSerializer serializer);
 
   @protected
@@ -1419,10 +1446,19 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   void sse_encode_rs_discovered_device(RsDiscoveredDevice self, SseSerializer serializer);
 
   @protected
+  void sse_encode_rs_download_device_info(RsDownloadDeviceInfo self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_rs_download_event(RsDownloadEvent self, SseSerializer serializer);
+
+  @protected
   void sse_encode_rs_hash_file_event(RsHashFileEvent self, SseSerializer serializer);
 
   @protected
   void sse_encode_rs_http_client_error(RsHttpClientError self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_rs_prepare_download_response(RsPrepareDownloadResponse self, SseSerializer serializer);
 
   @protected
   void sse_encode_rs_server_event(RsServerEvent self, SseSerializer serializer);

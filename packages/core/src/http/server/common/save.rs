@@ -249,7 +249,7 @@ pub(crate) async fn save_req_to_target(
 /// Spawns a task that writes incoming chunks to a file provided by `open`.
 ///
 /// Returns the sender for the binary chunks and a receiver for the final result.
-fn spawn_file_writer(
+pub(crate) fn spawn_file_writer(
     open: impl Future<Output = Result<tokio::fs::File, String>> + Send + 'static,
     expected_size: u64,
     progress_tx: Option<mpsc::Sender<u64>>,
