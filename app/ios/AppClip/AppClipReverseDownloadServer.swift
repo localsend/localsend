@@ -127,19 +127,27 @@ final class AppClipReverseDownloadServer {
         connection.start(queue: queue)
         Task {
             defer {
-                self.lock.lock()
-                self.connections.removeValue(forKey: ObjectIdentifier(connection))
-                self.lock.unlock()
+                self.unregister(connection)
                 connection.cancel()
             }
             do { try await handle(connection) }
             catch {
-                self.lock.lock()
-                let canReply = !self.stopped
-                self.lock.unlock()
-                if canReply { try? await sendResponse(connection, status: 400, reason: "Bad Request", body: Data(), contentType: nil) }
+                if self.canReplyToFailure() { try? await sendResponse(connection, status: 400, reason: "Bad Request", body: Data(), contentType: nil) }
             }
         }
+    }
+
+    private func unregister(_ connection: NWConnection) {
+        lock.lock()
+        connections.removeValue(forKey: ObjectIdentifier(connection))
+        lock.unlock()
+    }
+
+    private func canReplyToFailure() -> Bool {
+        lock.lock()
+        let result = !stopped
+        lock.unlock()
+        return result
     }
 
     private func handle(_ connection: NWConnection) async throws {
@@ -292,7 +300,7 @@ final class AppClipReverseDownloadServer {
     }
 
     private func send(_ connection: NWConnection, _ data: Data, complete: Bool) async throws {
-        try await withCheckedThrowingContinuation { continuation in
+        try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
             connection.send(content: data, contentContext: .defaultMessage, isComplete: complete, completion: .contentProcessed { error in
                 if let error { continuation.resume(throwing: error) } else { continuation.resume() }
             })
