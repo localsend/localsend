@@ -301,10 +301,10 @@ packages:
     dependency: transitive
     description:
       name: desktop_drop
-      sha256: aa1e797255bfbc76f9eb5aa4f61e5b68dbf69962ab1be6495816d2f251bc0d1f
+      sha256: "4c639b4cb80780d1cb94c3252309772e5e68522372181497bc9cd2fbd973aec1"
       url: "https://pub.dev"
     source: hosted
-    version: "0.7.1"
+    version: "0.8.3"
   device_apps:
     dependency: "direct overridden"
     description:
