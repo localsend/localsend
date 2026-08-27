@@ -1,5 +1,4 @@
 {
-  "locale": "Indonesian",
   "appName": "LocalSend",
   "general": {
     "accept": "Terima",
@@ -52,7 +51,8 @@
       "off": "@:general.off",
       "favorites": "Favorit",
       "on": "@:general.on"
-    }
+    },
+    "link": "Terima melalui tautan"
   },
   "sendTab": {
     "title": "Kirim",
@@ -97,7 +97,8 @@
       "color": "Warna",
       "colorOptions": {
         "system": "Sistem",
-        "oled": "OLED"
+        "oled": "OLED",
+        "custom": "Kustom"
       },
       "language": "Bahasa",
       "languageOptions": {
@@ -120,11 +121,13 @@
       "destination": "Tujuan",
       "downloads": "(Unduhan)",
       "saveToGallery": "Simpan media ke galeri",
-      "saveToHistory": "Simpan ke riwayat"
+      "saveToHistory": "Simpan ke riwayat",
+      "verifyChecksums": "Verifikasi checksum saat menerima berkas"
     },
     "send": {
       "title": "Kirim",
-      "shareViaLinkAutoAccept": "Bagikan melalui tautan: Terima otomatis"
+      "shareViaLinkAutoAccept": "Bagikan melalui tautan: Terima otomatis",
+      "createChecksums": "Buat checksum saat mengirim berkas"
     },
     "network": {
       "title": "Jaringan",
@@ -134,18 +137,18 @@
       "deviceType": "Tipe Perangkat",
       "deviceModel": "Model Perangkat",
       "port": "Porta",
+      "network": "Jaringan",
+      "networkOptions": {
+        "all": "Semua",
+        "filtered": "Tersaring"
+      },
       "discoveryTimeout": "Waktu penemuan habis",
       "useSystemName": "Gunakan nama sistem",
       "generateRandomAlias": "Hasilkan alias acak",
       "portWarning": "Anda mungkin tidak terdeteksi oleh perangkat lain karena menggunakan porta kustom. (bawaan: {defaultPort})",
       "encryption": "Enkripsi",
       "multicastGroup": "Multicast",
-      "multicastGroupWarning": "Anda mungkin tidak terdeteksi oleh perangkat lain karena menggunakan alamat multicast khusus. (bawaan: {defaultMulticast})",
-      "network": "Jaringan",
-      "networkOptions": {
-        "all": "Semua",
-        "filtered": "Tersaring"
-      }
+      "multicastGroupWarning": "Anda mungkin tidak terdeteksi oleh perangkat lain karena menggunakan alamat multicast khusus. (bawaan: {defaultMulticast})"
     },
     "other": {
       "title": "Lainnya",
@@ -175,6 +178,13 @@
       "solution": "Pastikan kedua perangkat berada pada jaringan Wi-Fi yang sama dan berbagi konfigurasi yang sama (porta, alamat multicast, enkripsi). Jika Wi-Fi tidak mengizinkan komunikasi, aktifkan pilihan ini pada ruter."
     }
   },
+  "networkInterfacesPage": {
+    "title": "Antarmuka Jaringan",
+    "info": "Secara default, LocalSend menggunakan semua antarmuka jaringan yang tersedia. Anda dapat mengecualikan jaringan yang tidak diinginkan di sini. Anda perlu memulai ulang server untuk menerapkan perubahan.",
+    "preview": "Pratinjau",
+    "whitelist": "Daftar putih",
+    "blacklist": "Daftar hitam"
+  },
   "receiveHistoryPage": {
     "title": "Riwayat",
     "openFolder": "Buka folder",
@@ -196,6 +206,29 @@
   "selectedFilesPage": {
     "deleteAll": "Hapus semua"
   },
+  "deviceDetailsPage": {
+    "title": "Detail Perangkat",
+    "favorite": "Favorit",
+    "verify": "Verifikasi",
+    "info": {
+      "name": "Nama",
+      "address": "Alamat",
+      "version": "Versi",
+      "protocol": "Protokol v{version}"
+    },
+    "logs": {
+      "title": "Log",
+      "empty": "Tidak ada log yang tersedia.",
+      "discovered": "Ditemukan melalui {protocol} ({host})",
+      "updated": "Diperbarui melalui {protocol} ({host})"
+    }
+  },
+  "verifyPage": {
+    "title": "Verifikasi",
+    "icons": "Ikon",
+    "text": "Teks",
+    "question": "Apakah tampilannya sama di perangkat lain?"
+  },
   "receivePage": {
     "subTitle": {
       "one": "ingin mengirimi Anda sebuah berkas",
@@ -213,6 +246,7 @@
     "saveToGalleryOff": "Dimatikan secara otomatis karena ada direktori."
   },
   "sendPage": {
+    "calculatingChecksum": "Menghitung checksum ({curr} / {n})",
     "waiting": "Menunggu tanggapan…",
     "rejected": "Penerima menolak permintaan.",
     "tooManyAttempts": "@:web.tooManyAttempts",
@@ -232,6 +266,16 @@
       "count": "Berkas: {curr} / {n}",
       "size": "Ukuran: {curr} / {n}",
       "speed": "Kecepatan: {speed}/s"
+    },
+    "remainingTime": {
+      "minutesUnit(plural, param=m)": {
+        "other": "{m}m"
+      },
+      "hoursUnit(plural, param=h)": {
+        "other": "{h}j"
+      },
+      "minutes": "{m}:{ss}",
+      "hours": "@:.hoursUnit @:.minutesUnit"
     }
   },
   "webSharePage": {
@@ -251,6 +295,9 @@
     "pinHint": "PIN-nya adalah \"{pin}\"",
     "encryptionHint": "LocalSend menggunakan sertifikat self-signed. Anda perlu menerimanya di peramban.",
     "pendingRequests": "Banyaknya permintaan yang tertunda: {n}"
+  },
+  "webReceivePage": {
+    "title": "Terima melalui tautan"
   },
   "aboutPage": {
     "title": "Tentang LocalSend",
@@ -273,6 +320,18 @@
   "changelogPage": {
     "title": "Catatan Perubahan"
   },
+  "whatsNewPage": {
+    "title": "Apa yang baru di {version}",
+    "changes(interface=WhatsNewStrings)": {
+      "v1_18_0": {
+        "changes": [
+          "Enkripsi tidak lagi memperlambat transfer. Enkripsi telah diaktifkan kembali di perangkat ini jika sebelumnya Anda menonaktifkannya.",
+          "Permintaan dari favorit kini diterima secara otomatis. Fitur ini aktif secara bawaan dan dapat dinonaktifkan di pengaturan.",
+          "Di Android, transfer tetap berjalan saat aplikasi berada di latar belakang atau layar mati. Di iOS, aplikasi masih harus tetap berada di latar depan."
+        ]
+      }
+    }
+  },
   "aliasGenerator(ignoreMissing, ignoreGpt)": {
     "@info": "Bahasa lokal yang berbeda mungkin memiliki kata-kata yang berbeda, mungkin tidak sama persis 1:1"
   },
@@ -287,8 +346,6 @@
     },
     "addressInput": {
       "title": "Masukkan Alamat",
-      "hashtag": "Tagar",
-      "ip": "Alamat IP",
       "recentlyUsed": "Baru saja digunakan: "
     },
     "cancelSession": {
@@ -378,9 +435,7 @@
     "quickSaveFromFavoritesNotice": {
       "title": "@:general.quickSaveFromFavorites",
       "content": [
-        "Permintaan berkas sekarang diterima secara otomatis dari perangkat di daftar favorit Anda.",
-        "Peringatan! Saat ini, pilihan ini tidak sepenuhnya aman karena peretas yang memiliki sidik jari perangkat apa pun dari daftar favorit Anda dapat mengirimi Anda berkas tanpa pembatasan.",
-        "Akan tetapi, pilihan ini masih lebih aman daripada mengizinkan semua pengguna di jaringan lokal mengirimkan berkas kepada Anda tanpa pembatasan."
+        "Permintaan berkas sekarang diterima secara otomatis dari perangkat di daftar favorit Anda."
       ]
     },
     "pin": {
@@ -446,12 +501,5 @@
     "sActionUseCameraHint": "Gunakan kamera",
     "sNameDurationLabel": "Durasi",
     "sUnitAssetCountLabel": "Jumlah"
-  },
-  "networkInterfacesPage": {
-    "title": "Antarmuka Jaringan",
-    "preview": "Pratinjau",
-    "whitelist": "Daftar putih",
-    "blacklist": "Daftar hitam",
-    "info": "Secara default, LocalSend menggunakan semua antarmuka jaringan yang tersedia. Anda dapat mengecualikan jaringan yang tidak diinginkan di sini. Anda perlu memulai ulang server untuk menerapkan perubahan."
   }
 }

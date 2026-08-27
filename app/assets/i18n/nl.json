@@ -1,5 +1,4 @@
 {
-  "locale": "Nederlands",
   "appName": "LocalSend",
   "general": {
     "accept": "Accepteren",
@@ -52,7 +51,8 @@
       "off": "@:general.off",
       "favorites": "Favorieten",
       "on": "@:general.on"
-    }
+    },
+    "link": "Ontvangen via link"
   },
   "sendTab": {
     "title": "Verzenden",
@@ -97,14 +97,15 @@
       "color": "Kleur",
       "colorOptions": {
         "system": "Systeem",
-        "oled": "OLED"
+        "oled": "OLED",
+        "custom": "Aangepast"
       },
       "language": "Taal",
       "languageOptions": {
         "system": "Systeem"
       },
-      "saveWindowPlacement": "Afsluiten: vensterindeling behouden",
-      "saveWindowPlacementWindows": "Afsluiten: vensterindeling behouden",
+      "saveWindowPlacement": "Vensterpositie na beëindigen opslaan",
+      "saveWindowPlacementWindows": "Vensterpositie na afsluiten opslaan",
       "minimizeToTray": "Sluiten: minimaliseren naar systeemvak/menubalk",
       "launchAtStartup": "Automatisch starten na aanmelden",
       "launchMinimized": "Automatisch starten: verborgen",
@@ -120,11 +121,13 @@
       "destination": "Opslaan in map",
       "downloads": "(Downloads)",
       "saveToGallery": "Media opslaan in galerij",
-      "saveToHistory": "Opslaan in geschiedenis"
+      "saveToHistory": "Opslaan in geschiedenis",
+      "verifyChecksums": "Controlesommen verifiëren bij het ontvangen van bestanden"
     },
     "send": {
       "title": "Verzenden",
-      "shareViaLinkAutoAccept": "Automatisch verzoeken goedkeuren in modus 'Delen via link'"
+      "shareViaLinkAutoAccept": "Automatisch verzoeken goedkeuren in modus 'Delen via link'",
+      "createChecksums": "Controlesommen aanmaken bij het verzenden van bestanden"
     },
     "network": {
       "title": "Netwerk",
@@ -134,18 +137,18 @@
       "deviceType": "Apparaattype",
       "deviceModel": "Apparaatmodel",
       "port": "Poort",
+      "network": "Netwerk",
+      "networkOptions": {
+        "all": "Alle",
+        "filtered": "Gefilterd"
+      },
       "discoveryTimeout": "Time-out voor scannen",
       "useSystemName": "Systeemnaam gebruiken",
       "generateRandomAlias": "Willekeurige naam genereren",
       "portWarning": "Je apparaat kan mogelijk niet worden gevonden omdat je een aangepaste poort gebruikt. (Standaard: {defaultPort})",
       "encryption": "Versleuteling",
       "multicastGroup": "Multicast-adres",
-      "multicastGroupWarning": "Je apparaat kan mogelijk niet worden gevonden omdat je een aangepast multicast-adres gebruikt. (Standaard: {defaultMulticast})",
-      "network": "Netwerk",
-      "networkOptions": {
-        "all": "Alle",
-        "filtered": "Gefilterd"
-      }
+      "multicastGroupWarning": "Je apparaat kan mogelijk niet worden gevonden omdat je een aangepast multicast-adres gebruikt. (Standaard: {defaultMulticast})"
     },
     "other": {
       "title": "Overig",
@@ -175,6 +178,13 @@
       "solution": "Doet het probleem zich aan beide kanten voor? Zorg er dan voor dat beide apparaten met hetzelfde wifi-netwerk zijn verbonden en dat ze dezelfde configuratie hebben (poort, multicast-address, versleuteling). Mogelijk is onderlinge communicatie tussen apparaten op het wifi-netwerk geblokkeerd (AP-isolatie). Dit moet je dan toestaan in de instellingen van je router."
     }
   },
+  "networkInterfacesPage": {
+    "title": "Netwerkinterfaces",
+    "info": "Standaard gebruikt LocalSend alle beschikbare netwerkinterfaces. Je kunt hier ongewenste netwerken uitsluiten. Je moet de server opnieuw opstarten om de wijzigingen toe te passen.",
+    "preview": "Voorbeeld",
+    "whitelist": "Whitelist",
+    "blacklist": "Blacklist"
+  },
   "receiveHistoryPage": {
     "title": "Geschiedenis",
     "openFolder": "Map openen",
@@ -196,6 +206,29 @@
   "selectedFilesPage": {
     "deleteAll": "Alles verwijderen"
   },
+  "deviceDetailsPage": {
+    "title": "Apparaatdetails",
+    "favorite": "Favoriet",
+    "verify": "Verifiëren",
+    "info": {
+      "name": "Naam",
+      "address": "Adres",
+      "version": "Versie",
+      "protocol": "Protocol v{version}"
+    },
+    "logs": {
+      "title": "Logboeken",
+      "empty": "Geen logboeken beschikbaar.",
+      "discovered": "Ontdekt via {protocol} ({host})",
+      "updated": "Bijgewerkt via {protocol} ({host})"
+    }
+  },
+  "verifyPage": {
+    "title": "Verifiëren",
+    "icons": "Pictogrammen",
+    "text": "Tekst",
+    "question": "Ziet het er hetzelfde uit op het andere apparaat?"
+  },
   "receivePage": {
     "subTitle": {
       "one": "wil een bestand naar je verzenden",
@@ -213,6 +246,7 @@
     "saveToGalleryOff": "Automatisch uitgezet omdat er mappen bij zitten."
   },
   "sendPage": {
+    "calculatingChecksum": "Controlesom berekenen ({curr} / {n})",
     "waiting": "Wachten op antwoord…",
     "rejected": "De ontvanger heeft het verzoek geweigerd.",
     "tooManyAttempts": "@:web.tooManyAttempts",
@@ -232,6 +266,16 @@
       "count": "Bestanden: {curr} / {n}",
       "size": "Grootte: {curr} / {n}",
       "speed": "Snelheid: {speed}/s"
+    },
+    "remainingTime": {
+      "minutesUnit(plural, param=m)": {
+        "other": "{m}m"
+      },
+      "hoursUnit(plural, param=h)": {
+        "other": "{h}u"
+      },
+      "minutes": "{m}:{ss}",
+      "hours": "@:.hoursUnit @:.minutesUnit"
     }
   },
   "webSharePage": {
@@ -251,6 +295,9 @@
     "pinHint": "De PINcode is \"{pin}\"",
     "encryptionHint": "LocalSend maakt gebruik van een zelfondertekend certificaat. Je moet dit accepteren in je browser.",
     "pendingRequests": "Openstaande verzoeken: {n}"
+  },
+  "webReceivePage": {
+    "title": "Ontvangen via link"
   },
   "aboutPage": {
     "title": "Over LocalSend",
@@ -273,6 +320,18 @@
   "changelogPage": {
     "title": "Wijzigingenoverzicht"
   },
+  "whatsNewPage": {
+    "title": "Nieuw in {version}",
+    "changes(interface=WhatsNewStrings)": {
+      "v1_18_0": {
+        "changes": [
+          "Encryptie vertraagt de overdrachten niet langer. Het is opnieuw ingeschakeld op dit apparaat als u het eerder hebt uitgeschakeld.",
+          "Aanvragen van favorieten worden nu automatisch geaccepteerd. Deze wordt standaard ingeschakeld en kan in de instellingen uitgeschakeld worden.",
+          "Op Android gaan de overdrachten door als de app op de achtergrond staat of het scherm uit staat. Op iOS moet de app op de voorgrond blijven."
+        ]
+      }
+    }
+  },
   "aliasGenerator(ignoreMissing, ignoreGpt)": {
     "@info": "Inherits from the English version"
   },
@@ -287,8 +346,6 @@
     },
     "addressInput": {
       "title": "Vul een adres in",
-      "hashtag": "Hashtag",
-      "ip": "IP-adres",
       "recentlyUsed": "Onlangs gebruikt: "
     },
     "cancelSession": {
@@ -378,9 +435,7 @@
     "quickSaveFromFavoritesNotice": {
       "title": "@:general.quickSaveFromFavorites",
       "content": [
-        "Bestandsverzoeken van apparaten op je favorietenlijst worden nu automatisch geaccepteerd.",
-        "Waarschuwing! Dit is momenteel niet volkomen veilig. Een hacker die beschikt over de digitale vingerafdruk van een apparaat op je favorietenlijst zou zonder enige beperking bestanden naar je kunnen verzenden.",
-        "Desalniettemin is deze optie alsnog veiliger dan wanneer je zou toestaan dat alle gebruikers op het lokale netwerk bestanden naar je kunnen verzenden."
+        "Bestandsverzoeken van apparaten op je favorietenlijst worden nu automatisch geaccepteerd."
       ]
     },
     "pin": {
@@ -426,7 +481,7 @@
     "original": "Herkomst",
     "preview": "Voorbeeld",
     "select": "Selecteren",
-    "emptyList": "Lege lijst",
+    "emptyList": "Lijst is leeg",
     "unSupportedAssetType": "Niet-ondersteund bestandstype.",
     "unableToAccessAll": "Geen toegang tot alle bestanden op het apparaat",
     "viewingLimitedAssetsTip": "De app heeft beperkte toegang tot bestanden.",
@@ -446,12 +501,5 @@
     "sActionUseCameraHint": "camera gebruiken",
     "sNameDurationLabel": "duur",
     "sUnitAssetCountLabel": "aantal"
-  },
-  "networkInterfacesPage": {
-    "preview": "Voorvertoning",
-    "title": "Netwerkinterfaces",
-    "info": "Standaard gebruikt LocalSend alle beschikbare netwerkinterfaces. U kunt hier ongewenste netwerken uitsluiten. U moet de server opnieuw opstarten om de wijzigingen toe te passen.",
-    "whitelist": "Whitelist",
-    "blacklist": "Blacklist"
   }
 }

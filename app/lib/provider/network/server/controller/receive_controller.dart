@@ -1,23 +1,8 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:io';
-
 import 'package:collection/collection.dart';
-import 'package:common/api_route_builder.dart';
-import 'package:common/constants.dart';
-import 'package:common/model/device.dart';
-import 'package:common/model/dto/info_dto.dart';
-import 'package:common/model/dto/info_register_dto.dart';
-import 'package:common/model/dto/prepare_upload_request_dto.dart';
-import 'package:common/model/dto/prepare_upload_response_dto.dart';
-import 'package:common/model/dto/register_dto.dart';
-import 'package:common/model/file_status.dart';
-import 'package:common/model/file_type.dart';
-import 'package:common/model/session_status.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:localsend_app/model/state/send/send_session_state.dart';
 import 'package:localsend_app/model/state/server/receive_session_state.dart';
 import 'package:localsend_app/model/state/server/receiving_file.dart';
 import 'package:localsend_app/pages/home_page.dart';
@@ -26,24 +11,29 @@ import 'package:localsend_app/pages/progress_page.dart';
 import 'package:localsend_app/pages/receive_page.dart';
 import 'package:localsend_app/provider/device_info_provider.dart';
 import 'package:localsend_app/provider/favorites_provider.dart';
+import 'package:localsend_app/provider/file_transfer_provider.dart';
 import 'package:localsend_app/provider/http_provider.dart';
 import 'package:localsend_app/provider/logging/discovery_logs_provider.dart';
-import 'package:localsend_app/provider/network/nearby_devices_provider.dart';
 import 'package:localsend_app/provider/network/send_provider.dart';
-import 'package:localsend_app/provider/network/server/controller/common.dart';
 import 'package:localsend_app/provider/network/server/server_provider.dart';
 import 'package:localsend_app/provider/network/server/server_utils.dart';
-import 'package:localsend_app/provider/progress_provider.dart';
 import 'package:localsend_app/provider/receive_history_provider.dart';
+import 'package:localsend_app/provider/security_provider.dart';
 import 'package:localsend_app/provider/selection/selected_receiving_files_provider.dart';
 import 'package:localsend_app/provider/selection/selected_sending_files_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/util/native/directories.dart';
-import 'package:localsend_app/util/native/file_saver.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_app/util/native/tray_helper.dart';
-import 'package:localsend_app/util/simple_server.dart';
 import 'package:localsend_app/widget/dialogs/open_file_dialog.dart';
+import 'package:localsend_isolates/isolate.dart';
+import 'package:localsend_isolates/model/device.dart';
+import 'package:localsend_isolates/model/file_status.dart';
+import 'package:localsend_isolates/model/file_type.dart';
+import 'package:localsend_isolates/model/session_status.dart';
+import 'package:localsend_isolates/rust/api/server.dart' show SessionEndReasonV2;
+import 'package:localsend_isolates/util/rust.dart';
+import 'package:localsend_isolates/util/transfer_notification.dart';
 import 'package:logging/logging.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:refena_flutter/refena_flutter.dart';
@@ -51,195 +41,67 @@ import 'package:routerino/routerino.dart';
 import 'package:uuid/uuid.dart';
 import 'package:window_manager/window_manager.dart';
 
-const _uuid = Uuid();
-
 final _logger = Logger('ReceiveController');
 
-/// Handles all requests for receiving files.
+/// Handles all server events for receiving files.
+/// The HTTP requests themselves are served by the Rust server which emits
+/// the events handled here.
 class ReceiveController {
   final ServerUtils server;
 
   ReceiveController(this.server);
 
-  /// Installs all routes for receiving files.
-  void installRoutes({
-    required SimpleServerRouteBuilder router,
-    required String alias,
-    required int port,
-    required bool https,
-    required String fingerprint,
-    required String showToken,
-  }) {
-    router.get(ApiRoute.info.v1, (HttpRequest request) async {
-      return await _infoHandler(request: request, alias: alias, fingerprint: fingerprint);
-    });
-
-    router.get(ApiRoute.info.v2, (HttpRequest request) async {
-      return await _infoHandler(request: request, alias: alias, fingerprint: fingerprint);
-    });
-
-    // An upgraded version of /info
-    router.post(ApiRoute.register.v1, (HttpRequest request) async {
-      return await _registerHandler(request: request, alias: alias, port: port, https: https, fingerprint: fingerprint);
-    });
-
-    router.post(ApiRoute.register.v2, (HttpRequest request) async {
-      return await _registerHandler(request: request, alias: alias, port: port, https: https, fingerprint: fingerprint);
-    });
-
-    router.post(ApiRoute.prepareUpload.v1, (HttpRequest request) async {
-      return await _prepareUploadHandler(request: request, port: port, https: https, v2: false);
-    });
-
-    router.post(ApiRoute.prepareUpload.v2, (HttpRequest request) async {
-      return await _prepareUploadHandler(request: request, port: port, https: https, v2: true);
-    });
-
-    router.post(ApiRoute.upload.v1, (HttpRequest request) async {
-      return await _uploadHandler(request: request, v2: false);
-    });
-
-    router.post(ApiRoute.upload.v2, (HttpRequest request) async {
-      return await _uploadHandler(request: request, v2: true);
-    });
-
-    router.post(ApiRoute.cancel.v1, (HttpRequest request) async {
-      return await _cancelHandler(request: request, v2: false);
-    });
-
-    router.post(ApiRoute.cancel.v2, (HttpRequest request) async {
-      return await _cancelHandler(request: request, v2: true);
-    });
-
-    router.post(ApiRoute.show.v1, (HttpRequest request) async {
-      return await _showHandler(request: request, showToken: showToken);
-    });
-
-    router.post(ApiRoute.show.v2, (HttpRequest request) async {
-      return await _showHandler(request: request, showToken: showToken);
-    });
-  }
-
-  Future<void> _infoHandler({
-    required HttpRequest request,
-    required String alias,
-    required String fingerprint,
-  }) async {
-    final senderFingerprint = request.uri.queryParameters['fingerprint'];
-    if (senderFingerprint == fingerprint) {
+  /// A device registered itself on this server.
+  Future<void> onRegister(HttpServerRegisterEvent event) async {
+    if (event.info.fingerprint == server.ref.read(securityProvider).certificateHash) {
       // "I talked to myself lol"
-      return await request.respondJson(412, message: 'Self-discovered');
-    }
-
-    final deviceInfo = server.ref.read(deviceInfoProvider);
-
-    final dto = InfoDto(
-      alias: alias,
-      version: protocolVersion,
-      deviceModel: deviceInfo.deviceModel,
-      deviceType: deviceInfo.deviceType,
-      fingerprint: fingerprint,
-      download: server.getState().webSendState != null,
-    );
-
-    return await request.respondJson(200, body: dto.toJson());
-  }
-
-  Future<void> _registerHandler({
-    required HttpRequest request,
-    required String alias,
-    required String fingerprint,
-    required int port,
-    required bool https,
-  }) async {
-    final payload = await request.readAsString();
-    final RegisterDto requestDto;
-    try {
-      requestDto = RegisterDto.fromJson(jsonDecode(payload));
-    } catch (e) {
-      return await request.respondJson(400, message: 'Request body malformed');
-    }
-
-    if (requestDto.fingerprint == fingerprint) {
-      // "I talked to myself lol"
-      return await request.respondJson(412, message: 'Self-discovered');
-    }
-
-    // Save device information
-    await server.ref
-        .redux(nearbyDevicesProvider)
-        .dispatchAsync(RegisterDeviceAction(requestDto.toDevice(request.ip, port, https, HttpDiscovery(ip: request.ip))));
-    server.ref.notifier(discoveryLoggerProvider).addLog('[DISCOVER/TCP] Received "/register" HTTP request: ${requestDto.alias} (${request.ip})');
-
-    final deviceInfo = server.ref.read(deviceInfoProvider);
-
-    final responseDto = InfoDto(
-      alias: alias,
-      version: protocolVersion,
-      deviceModel: deviceInfo.deviceModel,
-      deviceType: deviceInfo.deviceType,
-      fingerprint: fingerprint,
-      download: server.getState().webSendState != null,
-    );
-
-    return await request.respondJson(200, body: responseDto.toJson());
-  }
-
-  Future<void> _prepareUploadHandler({
-    required HttpRequest request,
-    required int port,
-    required bool https,
-    required bool v2,
-  }) async {
-    if (server.getState().session != null) {
-      // block incoming requests when we are already in a session
-      return await request.respondJson(409, message: 'Blocked by another session');
-    }
-
-    final pinCorrect = await checkPin(
-      server: server,
-      pin: server.ref.read(settingsProvider).receivePin,
-      pinAttempts: server.getState().pinAttempts,
-      request: request,
-    );
-    if (!pinCorrect) {
       return;
     }
 
-    final PrepareUploadRequestDto dto;
-    try {
-      final payload = await request.readAsString();
-      dto = PrepareUploadRequestDto.fromJson(jsonDecode(payload));
-    } catch (e) {
-      return await request.respondJson(400, message: 'Request body malformed');
-    }
+    // Feed the device into the discovery store; it comes back (and is
+    // registered) via the [StartDiscoveryListener] stream.
+    server.ref.redux(parentIsolateProvider).dispatch(IsolateDiscoveryAddDeviceAction(device: event.info.toDevice(event.ip, withChannel: true)));
+    server.ref.notifier(discoveryLoggerProvider).addLog('[DISCOVER/TCP] Received "/register" HTTP request: ${event.info.alias} (${event.ip})');
+  }
 
-    if (dto.files.isEmpty) {
-      // block empty requests (at least one file is required)
-      return await request.respondJson(400, message: 'Request must contain at least one file');
+  /// A sender requests to upload files.
+  /// The Rust server already checked the PIN and enforces that only one
+  /// session can be active at a time.
+  Future<void> onPrepareUpload(HttpServerPrepareUploadEvent event) async {
+    if (server.getStateOrNull()?.session != null) {
+      // The Rust server is the authority on the single-session invariant:
+      // a new request means the old session is over (e.g. finished but still
+      // displayed, or aborted while waiting).
+      closeSession();
     }
 
     final settings = server.ref.read(settingsProvider);
     final destinationDir = settings.destination ?? await getDefaultDestinationDirectory();
     final cacheDir = await getCacheDirectory();
-    final sessionId = _uuid.v4();
+    final sessionId = event.sessionId;
+    final files = {
+      for (final entry in event.files.entries) entry.key: entry.value.toDart(),
+    };
+
+    // The fingerprint of the sender's mTLS certificate cannot be spoofed, unlike the
+    // self-reported fingerprint in the JSON payload which is only used as fallback
+    // when encryption is disabled.
+    final senderFingerprint = event.certFingerprint ?? event.info.fingerprint;
 
     _logger.info('Session Id: $sessionId');
     _logger.info('Destination Directory: $destinationDir');
 
-    final streamController = StreamController<Map<String, String>?>();
     server.setState(
       (oldState) => oldState?.copyWith(
         session: ReceiveSessionState(
           sessionId: sessionId,
           status: SessionStatus.waiting,
-          sender: dto.info.toDevice(request.ip, port, https, null),
-          senderAlias: server.ref.read(favoritesProvider).firstWhereOrNull((e) => e.fingerprint == dto.info.fingerprint)?.alias ?? dto.info.alias,
+          sender: event.info.toDevice(event.ip, withChannel: false).copyWith(fingerprint: senderFingerprint),
+          senderAlias: server.ref.read(favoritesProvider).firstWhereOrNull((e) => e.fingerprint == senderFingerprint)?.alias ?? event.info.alias,
           files: {
-            for (final file in dto.files.values)
+            for (final file in files.values)
               file.id: ReceivingFile(
                 file: file,
-                status: FileStatus.queue,
                 token: null,
                 desiredName: null,
                 path: null,
@@ -251,147 +113,34 @@ class ReceiveController {
           endTime: null,
           destinationDirectory: destinationDir,
           cacheDirectory: cacheDir,
-          saveToGallery: checkPlatformWithGallery() && settings.saveToGallery && dto.files.values.every((f) => !f.fileName.contains('/')),
+          saveToGallery: checkPlatformWithGallery() && settings.saveToGallery && files.values.every((f) => !f.fileName.contains('/')),
           createdDirectories: {},
-          responseHandler: streamController,
         ),
       ),
     );
 
+    server.ref
+        .notifier(fileTransferProvider)
+        .setStatuses(
+          sessionId: sessionId,
+          statuses: {for (final file in files.values) file.id: FileStatus.queue},
+        );
+
     bool quickSave = settings.quickSave && server.getState().session?.message == null;
     final quickSaveFromFavorites = settings.quickSaveFromFavorites && server.getState().session?.message == null;
     if (quickSaveFromFavorites) {
-      final bool isFavorite = server.ref.read(favoritesProvider).any((e) => e.fingerprint == dto.info.fingerprint);
+      final bool isFavorite = server.ref.read(favoritesProvider).any((e) => e.fingerprint == senderFingerprint);
       if (isFavorite) {
         quickSave = true;
       }
     }
-    final Map<String, String>? selection;
-    if (quickSave) {
-      // accept all files
-      selection = {
-        for (final f in dto.files.values) f.id: f.fileName,
-      };
-    } else {
-      if (checkPlatformHasTray() && (await windowManager.isMinimized() || !(await windowManager.isVisible()) || !(await windowManager.isFocused()))) {
-        await showFromTray();
-      }
-
-      final message = server.getState().session?.message;
-      if (message != null) {
-        // Message already received
-        await server.ref
-            .redux(receiveHistoryProvider)
-            .dispatchAsync(
-              AddHistoryEntryAction(
-                entryId: const Uuid().v4(),
-                fileName: message,
-                fileType: FileType.text,
-                path: null,
-                savedToGallery: false,
-                isMessage: true,
-                fileSize: utf8.encode(message).length,
-                senderAlias: server.getState().session!.senderAlias,
-                timestamp: DateTime.now().toUtc(),
-              ),
-            );
-      }
-
-      final receiveProvider = ViewProvider((ref) {
-        final session = ref.watch(serverProvider.select((state) => state?.session));
-        return ReceivePageVm(
-          status: session?.status,
-          sender: session?.sender ?? Device.empty,
-          showSenderInfo: true,
-          files: session?.files.values.map((f) => f.file).toList() ?? [],
-          message: message,
-          onAccept: () async {
-            if (message != null) {
-              // accept nothing
-              ref.notifier(serverProvider).acceptFileRequest({});
-              return;
-            }
-
-            final sessionId = ref.read(serverProvider)?.session?.sessionId;
-            if (sessionId == null) {
-              return;
-            }
-
-            final selectedFiles = ref.read(selectedReceivingFilesProvider);
-            ref.notifier(serverProvider).acceptFileRequest(selectedFiles);
-
-            await Routerino.context.pushAndRemoveUntilImmediately(
-              removeUntil: ReceivePage,
-              builder: () => ProgressPage(
-                showAppBar: false,
-                closeSessionOnClose: true,
-                sessionId: sessionId,
-              ),
-            );
-          },
-          onDecline: () {
-            ref.notifier(serverProvider).declineFileRequest();
-          },
-          onClose: () {
-            ref.notifier(serverProvider).closeSession();
-          },
-        );
-      });
-
-      // ignore: use_build_context_synchronously, unawaited_futures
-      Routerino.context.push(() => ReceivePage(receiveProvider));
-
-      // Delayed response (waiting for user's decision)
-      selection = await streamController.stream.first;
+    if (server.getState().webUpload && settings.receiveViaLinkAutoAccept && server.getState().session?.message == null) {
+      // The upload page (receive via link) is being served and requests should be accepted automatically.
+      quickSave = true;
     }
-
-    if (server.getState().session == null) {
-      // somehow this state is already disposed
-      return await request.respondJson(500, message: 'Server is in invalid state');
-    }
-
-    if (selection == null) {
-      closeSession();
-      return await request.respondJson(403, message: 'File request declined by recipient');
-    }
-
-    if (selection.isEmpty) {
-      // nothing selected, send this to sender and close session
-      // This usually happens for message transfers
-      closeSession();
-      return await request.respondJson(204);
-    }
-
-    server.setState(
-      (oldState) {
-        final receiveState = oldState!.session!;
-        return oldState.copyWith(
-          session: receiveState.copyWith(
-            status: SessionStatus.sending,
-            files: Map.fromEntries(
-              receiveState.files.values.map((entry) {
-                final desiredName = selection![entry.file.id];
-                return MapEntry(
-                  entry.file.id,
-                  ReceivingFile(
-                    file: entry.file,
-                    status: desiredName != null ? FileStatus.queue : FileStatus.skipped,
-                    token: desiredName != null ? _uuid.v4() : null,
-                    desiredName: desiredName,
-                    path: null,
-                    savedToGallery: false,
-                    errorMessage: null,
-                  ),
-                );
-              }),
-            ),
-            responseHandler: null,
-          ),
-        );
-      },
-    );
 
     if (quickSave) {
+      // Push before accepting: the permission request in [acceptFileRequest] may block for a while.
       // ignore: use_build_context_synchronously, unawaited_futures
       Routerino.context.pushImmediately(
         () => ProgressPage(
@@ -400,140 +149,202 @@ class ReceiveController {
           sessionId: sessionId,
         ),
       );
+
+      // accept all files
+      await acceptFileRequest({
+        for (final f in files.values) f.id: f.fileName,
+      });
+      return;
     }
 
-    final files = {
-      for (final file in server.getState().session!.files.values.where((f) => f.token != null)) file.file.id: file.token,
-    };
-
-    if (checkPlatform([TargetPlatform.android, TargetPlatform.iOS])) {
-      if (checkPlatform([TargetPlatform.android]) && !server.getState().session!.destinationDirectory.startsWith('/storage/emulated/0/Download')) {
-        // Android requires more permission to save files outside of the Download directory
-        try {
-          final result = await Permission.storage.request();
-          _logger.info('storage permission: $result');
-        } catch (e) {
-          _logger.warning('Could not request storage permission', e);
-        }
-      }
-      try {
-        await Permission.storage.request();
-      } catch (e) {
-        _logger.warning('Could not request storage permission', e);
-      }
+    if (checkPlatformHasTray() && (await windowManager.isMinimized() || !(await windowManager.isVisible()) || !(await windowManager.isFocused()))) {
+      await showFromTray();
     }
 
-    if (v2) {
-      return await request.respondJson(
-        200,
-        body: PrepareUploadResponseDto(
-          sessionId: sessionId,
-          files: files.cast(),
-        ).toJson(),
+    final message = server.getState().session?.message;
+    if (message != null) {
+      // Message already received
+      await server.ref
+          .redux(receiveHistoryProvider)
+          .dispatchAsync(
+            AddHistoryEntryAction(
+              entryId: const Uuid().v4(),
+              fileName: message,
+              fileType: FileType.text,
+              path: null,
+              savedToGallery: false,
+              isMessage: true,
+              fileSize: utf8.encode(message).length,
+              senderAlias: server.getState().session!.senderAlias,
+              timestamp: DateTime.now().toUtc(),
+            ),
+          );
+    }
+
+    final receiveProvider = ViewProvider((ref) {
+      // No select: comparing the selected session runs the dart_mappable deep equality
+      // over the whole files map on every state change.
+      final session = ref.watch(serverProvider)?.session;
+      return ReceivePageVm(
+        status: session?.status,
+        sender: session?.sender ?? Device.empty,
+        showSenderInfo: true,
+        files: session?.files.values.map((f) => f.file).toList() ?? [],
+        message: message,
+        onAccept: () async {
+          if (message != null) {
+            // accept nothing
+            await ref.notifier(serverProvider).acceptFileRequest({});
+            return;
+          }
+
+          final sessionId = ref.read(serverProvider)?.session?.sessionId;
+          if (sessionId == null) {
+            return;
+          }
+
+          final selectedFiles = ref.read(selectedReceivingFilesProvider);
+
+          // Push before accepting: the permission request in [acceptFileRequest] may block for a while.
+          unawaited(
+            Routerino.context.pushAndRemoveUntilImmediately(
+              removeUntil: ReceivePage,
+              builder: () => ProgressPage(
+                showAppBar: false,
+                closeSessionOnClose: true,
+                sessionId: sessionId,
+              ),
+            ),
+          );
+
+          await ref.notifier(serverProvider).acceptFileRequest(selectedFiles);
+        },
+        onDecline: () {
+          ref.notifier(serverProvider).declineFileRequest();
+        },
+        onClose: () {
+          ref.notifier(serverProvider).closeSession();
+        },
       );
-    }
+    });
 
-    return await request.respondJson(200, body: files);
+    server.ref.notifier(selectedReceivingFilesProvider).setFiles(files.values.toList());
+
+    // ignore: use_build_context_synchronously, unawaited_futures
+    Routerino.context.push(() => ReceivePage(receiveProvider));
   }
 
-  Future<void> _uploadHandler({
-    required HttpRequest request,
-    required bool v2,
-  }) async {
-    final receiveState = server.getState().session;
-    if (receiveState == null) {
-      return await request.respondJson(409, message: 'No session');
-    }
-
-    if (request.ip != receiveState.sender.ip) {
-      _logger.warning('Invalid ip address: ${request.ip} (expected: ${receiveState.sender.ip})');
-      return await request.respondJson(403, message: 'Invalid IP address: ${request.ip}');
-    }
-
+  /// An accepted file started being uploaded.
+  /// The server isolate receives and saves the file on its own
+  /// ([HttpServerReceiveConfig] was sent with the accept decision);
+  /// only the session state is updated here.
+  void onFileUpload(HttpServerFileUploadEvent event) {
+    final receiveState = server.getStateOrNull()?.session;
     const allowedStates = {SessionStatus.sending, SessionStatus.finishedWithErrors};
-    if (!allowedStates.contains(receiveState.status)) {
-      _logger.warning('Wrong state: ${receiveState.status}');
-      return await request.respondJson(409, message: 'Recipient is in wrong state');
+    if (receiveState == null || receiveState.sessionId != event.sessionId || !allowedStates.contains(receiveState.status)) {
+      _logger.warning('Failing upload of file ${event.fileId}: no matching active session');
+      // Fail the upload (and any further ones) by cancelling the session on the Rust side.
+      server.ref.redux(parentIsolateProvider).dispatch(IsolateHttpServerCancelSessionAction(sessionId: event.sessionId));
+      return;
     }
 
-    final fileId = request.uri.queryParameters['fileId'];
-    final token = request.uri.queryParameters['token'];
-    final sessionId = request.uri.queryParameters['sessionId'];
-    if (fileId == null || token == null || (v2 && sessionId == null)) {
-      // reject because of missing parameters
-      _logger.warning('Missing parameters: fileId=$fileId, token=$token, sessionId=$sessionId');
-      return await request.respondJson(400, message: 'Missing parameters');
-    }
-
-    if (v2 && sessionId != receiveState.sessionId) {
-      // reject because of wrong session id
-      _logger.warning('Wrong session id: $sessionId (expected: ${receiveState.sessionId})');
-      return await request.respondJson(403, message: 'Invalid session id');
-    }
-
+    final fileId = event.fileId;
     final receivingFile = receiveState.files[fileId];
-    if (receivingFile == null || receivingFile.token != token) {
-      // reject because there is no file or token does not match
-      _logger.warning('Wrong fileId: $fileId (expected: ${receivingFile?.file.id})');
-      return await request.respondJson(403, message: 'Invalid token');
+    if (receivingFile == null || receivingFile.desiredName == null) {
+      _logger.warning('Unexpected fileId: $fileId');
+      server.ref.redux(parentIsolateProvider).dispatch(IsolateHttpServerCancelSessionAction(sessionId: event.sessionId));
+      return;
     }
 
     // begin of actual file transfer
-    server.setState(
-      (oldState) => oldState?.copyWith(
-        session: receiveState.copyWith(
-          files: {...receiveState.files}
-            ..update(
-              fileId,
-              (_) => receivingFile.copyWith(
-                status: FileStatus.sending,
-              ),
-            ),
-          startTime: receiveState.startTime ?? DateTime.now().millisecondsSinceEpoch,
-          status: SessionStatus.sending, // in case it was finishedWithErrors and user retries a failed file
+    server.ref.notifier(fileTransferProvider).setStatus(sessionId: event.sessionId, fileId: fileId, status: FileStatus.sending);
+    if (receiveState.startTime == null || receiveState.status != SessionStatus.sending) {
+      server.setState(
+        (oldState) => oldState?.copyWith(
+          session: receiveState.copyWith(
+            startTime: receiveState.startTime ?? DateTime.now().millisecondsSinceEpoch,
+            status: SessionStatus.sending, // in case it was finishedWithErrors and user retries a failed file
+          ),
         ),
-      ),
-    );
-    final fileType = receivingFile.file.fileType;
-    final shouldSaveToGallery = receiveState.saveToGallery && (fileType == FileType.image || fileType == FileType.video);
-
-    String? filePath;
-    bool savedToGallery = false;
-    try {
-      _logger.info('Saving ${receivingFile.file.fileName}');
-
-      (savedToGallery, filePath) = await saveFile(
-        destinationDirectory: receiveState.destinationDirectory,
-        fileName: receivingFile.desiredName!,
-        saveToGallery: shouldSaveToGallery,
-        isImage: fileType == FileType.image,
-        stream: request,
-        onProgress: (savedBytes) {
-          if (receivingFile.file.size != 0) {
-            server.ref
-                .notifier(progressProvider)
-                .setProgress(
-                  sessionId: receiveState.sessionId,
-                  fileId: fileId,
-                  progress: savedBytes / receivingFile.file.size,
-                );
-          }
-        },
-        lastModified: receivingFile.file.metadata?.lastModified,
-        lastAccessed: receivingFile.file.metadata?.lastAccessed,
-        androidSdkInt: server.ref.read(deviceInfoProvider).androidSdkInt,
-        createdDirectories: receiveState.createdDirectories,
       );
-      if (server.getState().session == null || !allowedStates.contains(server.getState().session!.status)) {
-        return await request.respondJson(500, message: 'Server is in invalid state');
+    }
+  }
+
+  /// The receive progress of a file reported by the server isolate.
+  void onFileUploadProgress(HttpServerFileUploadProgressEvent event) {
+    final receiveState = server.getStateOrNull()?.session;
+    if (receiveState == null || receiveState.sessionId != event.sessionId) {
+      return;
+    }
+
+    server.ref
+        .notifier(fileTransferProvider)
+        .setProgress(
+          sessionId: event.sessionId,
+          fileId: event.fileId,
+          progress: event.progress,
+        );
+
+    _updateForegroundServiceProgress(receiveState);
+  }
+
+  /// Reports the total session progress to the foreground service notification,
+  /// so that it stays up to date while the app is minimized.
+  void _updateForegroundServiceProgress(ReceiveSessionState session) {
+    if (!TransferNotification.shouldUpdate) {
+      // Checked before the sum below because progress events arrive several times per second per file.
+      return;
+    }
+
+    final transferNotifier = server.ref.read(fileTransferProvider);
+    int currentBytes = 0;
+    int totalBytes = 0;
+    for (final receivingFile in session.files.values) {
+      if (receivingFile.desiredName == null) {
+        // not accepted by the user
+        continue;
       }
+      final size = receivingFile.file.size;
+      totalBytes += size;
+      currentBytes += (transferNotifier.getProgress(sessionId: session.sessionId, fileId: receivingFile.file.id) * size).round();
+    }
+
+    TransferNotification.update(
+      sessionId: session.sessionId,
+      currentBytes: currentBytes,
+      totalBytes: totalBytes,
+      startTime: session.startTime,
+      endTime: session.endTime,
+    );
+  }
+
+  /// A file has been received completely (or failed) by the server isolate.
+  Future<void> onFileUploadResult(HttpServerFileUploadResultEvent event) async {
+    final receiveState = server.getStateOrNull()?.session;
+    const allowedStates = {SessionStatus.sending, SessionStatus.finishedWithErrors};
+    if (receiveState == null || receiveState.sessionId != event.sessionId || !allowedStates.contains(receiveState.status)) {
+      return;
+    }
+
+    final fileId = event.fileId;
+    final receivingFile = receiveState.files[fileId];
+    if (receivingFile == null || receivingFile.desiredName == null) {
+      _logger.warning('Unexpected fileId: $fileId');
+      return;
+    }
+
+    final fileType = receivingFile.file.fileType;
+    final filePath = event.path;
+    final error = event.error;
+
+    if (error == null) {
+      server.ref.notifier(fileTransferProvider).setStatus(sessionId: event.sessionId, fileId: fileId, status: FileStatus.finished);
       server.setState(
         (oldState) => oldState?.copyWith(
           session: oldState.session?.fileFinished(
             fileId: fileId,
-            status: FileStatus.finished,
             path: filePath,
-            savedToGallery: savedToGallery,
+            savedToGallery: event.savedToGallery,
             errorMessage: null,
           ),
         ),
@@ -546,47 +357,50 @@ class ReceiveController {
             AddHistoryEntryAction(
               entryId: fileId,
               fileName: receivingFile.desiredName!,
-              fileType: receivingFile.file.fileType,
+              fileType: fileType,
               path: filePath,
-              savedToGallery: savedToGallery,
+              savedToGallery: event.savedToGallery,
               isMessage: false,
               fileSize: receivingFile.file.size,
               senderAlias: receiveState.senderAlias,
               timestamp: DateTime.now().toUtc(),
             ),
           );
-
-      _logger.info('Saved ${receivingFile.file.fileName}.');
-    } catch (e, st) {
+    } else {
+      server.ref.notifier(fileTransferProvider).setStatus(sessionId: event.sessionId, fileId: fileId, status: FileStatus.failed);
       server.setState(
         (oldState) => oldState?.copyWith(
           session: oldState.session?.fileFinished(
             fileId: fileId,
-            status: FileStatus.failed,
             path: null,
             savedToGallery: false,
-            errorMessage: e.toString(),
+            errorMessage: error,
           ),
         ),
       );
-      _logger.severe('Failed to save file', e, st);
     }
 
     server.ref
-        .notifier(progressProvider)
+        .notifier(fileTransferProvider)
         .setProgress(
           sessionId: receiveState.sessionId,
           fileId: fileId,
           progress: 1,
         );
 
-    final session = server.getState().session;
+    final session = server.getStateOrNull()?.session;
     if (session == null) {
-      return await request.respondJson(500, message: 'Server is in invalid state');
+      return;
     }
 
-    if (allowedStates.contains(session.status) && session.files.values.map((e) => e.status).isFinishedOrError) {
-      final hasError = session.files.values.any((f) => f.status == FileStatus.failed);
+    _updateForegroundServiceProgress(session);
+
+    final statuses = server.ref.read(fileTransferProvider).getStatuses(session.sessionId);
+    if (allowedStates.contains(session.status) && statuses.isFinishedOrError) {
+      // The transfer is over, the process no longer needs to be kept alive for it.
+      TransferNotification.stop(session.sessionId);
+
+      final hasError = statuses.any((status) => status == FileStatus.failed);
       server.setState(
         (oldState) => oldState?.copyWith(
           session: oldState.session!.copyWith(
@@ -596,17 +410,19 @@ class ReceiveController {
         ),
       );
       final settings = server.ref.read(settingsProvider);
-      bool quickSave = settings.quickSave && server.getState().session?.message == null;
-      final quickSaveFromFavorites = settings.quickSaveFromFavorites && server.getState().session?.message == null;
+      // Only auto-close fully successful sessions: a failed file may still be
+      // retried by the sender (e.g. after a checksum mismatch), which requires
+      // the session to stay open.
+      bool quickSave = settings.quickSave && !hasError && server.getState().session?.message == null;
+      final quickSaveFromFavorites = settings.quickSaveFromFavorites && !hasError && server.getState().session?.message == null;
       if (quickSaveFromFavorites) {
-        // dto is not defined here. I must check sender fingerprint
         final bool isFavorite = server.ref.read(favoritesProvider).any((e) => e.fingerprint == session.sender.fingerprint);
         if (isFavorite) {
           quickSave = true;
         }
       }
       if (quickSave) {
-        // close the session **after** return of the response
+        // close the session **after** the response has been sent
         Future.delayed(Duration.zero, () {
           closeSession();
           _logger.info('Closing session');
@@ -621,148 +437,192 @@ class ReceiveController {
               Routerino.context, // ignore: use_build_context_synchronously
               filePath: filePath,
               fileType: fileType,
-              openGallery: savedToGallery,
+              openGallery: event.savedToGallery,
             );
           }
         });
       }
       _logger.info('Received all files.');
     }
-
-    return server.getState().session?.files[fileId]?.status == FileStatus.finished
-        ? await request.respondJson(200)
-        : await request.respondJson(500, message: 'Could not save file. Check receiving device for more information.');
   }
 
-  Future<void> _cancelHandler({
-    required HttpRequest request,
-    required bool v2,
-  }) async {
-    final receiveSession = server.getState().session;
-    if (receiveSession != null) {
-      // We are currently receiving files.
-
-      if (!v2 && receiveSession.sender.version != '1.0') {
-        // disallow v1 cancel for active v2 sessions
-        return await request.respondJson(403, message: 'No permission');
-      }
-
-      if (receiveSession.sender.ip != request.ip) {
-        return await request.respondJson(403, message: 'No permission');
-      }
-
-      // require session id for v2
-      // don't require it when during waiting state
-      if (v2 && receiveSession.status != SessionStatus.waiting) {
-        final sessionId = request.uri.queryParameters['sessionId'];
-        if (sessionId != receiveSession.sessionId) {
-          return await request.respondJson(403, message: 'No permission');
-        }
-      }
-
-      // check if valid state
-      final currentStatus = receiveSession.status;
-      if (currentStatus != SessionStatus.waiting && currentStatus != SessionStatus.sending) {
-        return await request.respondJson(403, message: 'No permission');
-      }
-
-      _cancelBySender(server);
-      return await request.respondJson(200);
-    } else {
-      // We are not receiving files so we may be sending files.
-
-      final sessionId = request.uri.queryParameters['sessionId'];
-      final sendSessions = server.ref.read(sendProvider);
-      final SendSessionState sendState;
-      if (v2) {
-        // In v2, we require sessionId.
-
-        final selectedSession = sendSessions.values.firstWhereOrNull((s) => s.remoteSessionId == sessionId);
-        if (selectedSession == null) {
-          return await request.respondJson(403, message: 'No permission');
-        }
-
-        sendState = selectedSession;
-      } else {
-        // In v1, we are a little bit more tolerant.
-        // Let's assume the sessionId if only one send session exist
-
-        final onlySession = sendSessions.values.singleOrNull;
-        if (onlySession == null) {
-          return await request.respondJson(403, message: 'No permission');
-        }
-
-        sendState = onlySession;
-      }
-
-      if (sendState.target.ip != request.ip) {
-        return await request.respondJson(403, message: 'No permission');
-      }
-
-      // check if valid state
-      if (sendState.status != SessionStatus.sending) {
-        return await request.respondJson(403, message: 'No permission');
-      }
-
-      server.ref
-          .notifier(sendProvider)
-          .cancelSessionByReceiver(
-            sendState.sessionId,
-          );
-      return await request.respondJson(200);
-    }
-  }
-
-  Future<void> _showHandler({
-    required HttpRequest request,
-    required String showToken,
-  }) async {
-    final senderToken = request.uri.queryParameters['token'];
-    if (senderToken == showToken && checkPlatformIsDesktop()) {
-      // ignore: unawaited_futures
-      showFromTray().catchError((e) {
-        // don't wait for it
-        _logger.severe('Failed to show from tray', e);
-      });
-
-      // ignore: unawaited_futures
-      request.readAsString().then((body) async {
-        if (body.isEmpty) {
-          return;
-        }
-
-        final Map<String, dynamic> jsonBody = jsonDecode(body);
-        final List<String> args = (jsonBody['args'] as List?)?.cast<String>() ?? <String>[];
-        final filesAdded = await server.ref.redux(selectedSendingFilesProvider).dispatchAsyncTakeResult(LoadSelectionFromArgsAction(args));
-        if (filesAdded) {
-          server.ref.redux(homePageControllerProvider).dispatch(ChangeTabAction(HomeTab.send));
-        }
-      });
-
-      return await request.respondJson(200);
-    }
-
-    return await request.respondJson(403, message: 'Invalid token');
-  }
-
-  void acceptFileRequest(Map<String, String> fileNameMap) {
-    final controller = server.getState().session?.responseHandler;
-    if (controller == null || controller.isClosed) {
+  /// An upload session ended on the Rust server.
+  void onSessionEnd(HttpServerSessionEndEvent event) {
+    final receiveSession = server.getStateOrNull()?.session;
+    if (receiveSession == null || receiveSession.sessionId != event.sessionId) {
       return;
     }
 
-    controller.add(fileNameMap);
-    controller.close(); // ignore: discarded_futures
+    switch (event.reason) {
+      case SessionEndReasonV2.finished:
+        // Already handled when the last file finished.
+        break;
+      case SessionEndReasonV2.cancelled:
+        _cancelBySender(server);
+    }
+  }
+
+  /// The sender aborted the request while the user was still deciding.
+  void onPrepareUploadAborted(HttpServerPrepareUploadAbortedEvent event) {
+    final receiveSession = server.getStateOrNull()?.session;
+    if (receiveSession == null || receiveSession.sessionId != event.sessionId || receiveSession.status != SessionStatus.waiting) {
+      return;
+    }
+
+    _cancelBySender(server);
+  }
+
+  /// A remote device cancels a transfer this application is currently
+  /// *sending* to it.
+  void onCancelReceived(HttpServerCancelReceivedEvent event) {
+    final sendSessions = server.ref.read(sendProvider);
+    final selectedSession = sendSessions.values.firstWhereOrNull((s) => s.remoteSessionId == event.sessionId);
+    if (selectedSession == null) {
+      return;
+    }
+
+    if (selectedSession.target.ip != event.ip) {
+      return;
+    }
+
+    if (selectedSession.status != SessionStatus.sending) {
+      return;
+    }
+
+    server.ref
+        .notifier(sendProvider)
+        .cancelSessionByReceiver(
+          selectedSession.sessionId,
+        );
+  }
+
+  /// Another application instance requested the running application to show itself.
+  /// The show token has already been checked by the Rust server.
+  void onShow(HttpServerShowEvent event) {
+    if (!checkPlatformIsDesktop()) {
+      return;
+    }
+
+    // ignore: discarded_futures
+    showFromTray().catchError((e) {
+      // don't wait for it
+      _logger.severe('Failed to show from tray', e);
+    });
+
+    final args = event.args;
+    if (args.isEmpty) {
+      return;
+    }
+
+    // ignore: unawaited_futures, discarded_futures
+    server.ref.redux(selectedSendingFilesProvider).dispatchAsyncTakeResult(LoadSelectionFromArgsAction(args)).then((filesAdded) {
+      if (filesAdded) {
+        server.ref.redux(homePageControllerProvider).dispatch(ChangeTabAction(HomeTab.send));
+      }
+    });
+  }
+
+  /// Accepts the file request with the given [fileNameMap] (file id -> desired file name).
+  Future<void> acceptFileRequest(Map<String, String> fileNameMap) async {
+    final session = server.getStateOrNull()?.session;
+    if (session == null || session.status != SessionStatus.waiting) {
+      return;
+    }
+
+    if (fileNameMap.isEmpty) {
+      // nothing selected, the Rust server responds with 204 and creates no session
+      // This usually happens for message transfers
+      server.ref.redux(parentIsolateProvider).dispatch(IsolateHttpServerPrepareUploadDecisionAction(config: _buildReceiveConfig(session, {})));
+      closeSession();
+      return;
+    }
+
+    server.setState(
+      (oldState) {
+        final receiveState = oldState!.session!;
+        return oldState.copyWith(
+          session: receiveState.copyWith(
+            status: SessionStatus.sending,
+            files: Map.fromEntries(
+              receiveState.files.values.map((entry) {
+                final desiredName = fileNameMap[entry.file.id];
+                return MapEntry(
+                  entry.file.id,
+                  ReceivingFile(
+                    file: entry.file,
+                    token: null,
+                    desiredName: desiredName,
+                    path: null,
+                    savedToGallery: false,
+                    errorMessage: null,
+                  ),
+                );
+              }),
+            ),
+          ),
+        );
+      },
+    );
+
+    server.ref
+        .notifier(fileTransferProvider)
+        .setStatuses(
+          sessionId: session.sessionId,
+          statuses: {
+            for (final file in session.files.values) file.file.id: fileNameMap.containsKey(file.file.id) ? FileStatus.queue : FileStatus.skipped,
+          },
+        );
+
+    // The storage permission only exists below Android 13 (scoped storage): newer versions
+    // auto-deny the request, but the round trip through the system permission activity
+    // still blocks the UI noticeably.
+    final androidSdkInt = server.ref.read(deviceInfoProvider).androidSdkInt;
+    if (checkPlatform([TargetPlatform.android]) && androidSdkInt != null && androidSdkInt < 33) {
+      try {
+        final result = await Permission.storage.request();
+        _logger.info('storage permission: $result');
+      } catch (e) {
+        _logger.warning('Could not request storage permission', e);
+      }
+    }
+
+    // Keep the process alive for the whole transfer. Started here because:
+    // - the app is still in the foreground, and Android 12+ rejects starting a foreground service
+    //   from the background,
+    // - the service may ask for the notification permission, which Android cancels when it overlaps
+    //   with the storage permission requests above.
+    TransferNotification.start(sessionId: session.sessionId, receiving: true);
+
+    // From here on, the server isolate receives all accepted files on its own
+    // and reports back via upload progress/result events.
+    final updatedSession = server.getStateOrNull()?.session;
+    if (updatedSession == null) {
+      return;
+    }
+    server.ref
+        .redux(parentIsolateProvider)
+        .dispatch(IsolateHttpServerPrepareUploadDecisionAction(config: _buildReceiveConfig(updatedSession, fileNameMap)));
+  }
+
+  HttpServerReceiveConfig _buildReceiveConfig(ReceiveSessionState session, Map<String, String> fileNameMap) {
+    return HttpServerReceiveConfig(
+      sessionId: session.sessionId,
+      fileNameMap: fileNameMap,
+      destinationDirectory: session.destinationDirectory,
+      cacheDirectory: session.cacheDirectory,
+      saveToGallery: session.saveToGallery,
+      androidSdkInt: server.ref.read(deviceInfoProvider).androidSdkInt,
+    );
   }
 
   void declineFileRequest() {
-    final controller = server.getState().session?.responseHandler;
-    if (controller == null || controller.isClosed) {
+    final session = server.getStateOrNull()?.session;
+    if (session == null || session.status != SessionStatus.waiting) {
       return;
     }
 
-    controller.add(null);
-    controller.close(); // ignore: discarded_futures
+    server.ref.redux(parentIsolateProvider).dispatch(IsolateHttpServerPrepareUploadDecisionAction(config: null));
+    closeSession();
   }
 
   /// Updates the destination directory for the current session.
@@ -788,7 +648,7 @@ class ReceiveController {
   }
 
   /// In addition to [closeSession], this method also
-  /// - cancels incoming requests (TODO)
+  /// - cancels the session on the Rust server so that further uploads fail
   /// - notifies the sender that the session has been canceled
   void cancelSession() async {
     final session = server.getStateOrNull()?.session;
@@ -797,18 +657,27 @@ class ReceiveController {
       return;
     }
 
+    // fail further uploads
+    server.ref.redux(parentIsolateProvider).dispatch(IsolateHttpServerCancelSessionAction(sessionId: session.sessionId));
+
     // notify sender
+    final target = session.sender;
     try {
-      // ignore: unawaited_futures
-      server.ref.read(httpProvider).discovery.post(ApiRoute.cancel.target(session.sender, query: {'sessionId': session.sessionId}));
+      server.ref
+          .read(httpProvider)
+          .pinnedTo(target.fingerprint)
+          // ignore: unawaited_futures
+          .cancel(
+            protocol: target.getProtocolType(),
+            ip: target.ip!,
+            port: target.port,
+            sessionId: session.sessionId,
+          );
     } catch (e) {
       _logger.warning('Failed to notify sender', e);
     }
 
     closeSession();
-
-    // TODO: cancel incoming requests (https://github.com/dart-lang/shelf/issues/319)
-    // restartServer(alias: tempState.alias, port: tempState.port);
   }
 
   void closeSession() {
@@ -817,20 +686,24 @@ class ReceiveController {
       return;
     }
 
+    TransferNotification.stop(sessionId);
+
     server.setState(
       (oldState) => oldState?.copyWith(
         session: null,
       ),
     );
-    server.ref.notifier(progressProvider).removeSession(sessionId);
+    server.ref.notifier(fileTransferProvider).removeSession(sessionId);
   }
 }
 
 void _cancelBySender(ServerUtils server) {
-  final receiveSession = server.getState().session;
+  final receiveSession = server.getStateOrNull()?.session;
   if (receiveSession == null) {
     return;
   }
+
+  TransferNotification.stop(receiveSession.sessionId);
 
   if (receiveSession.status == SessionStatus.waiting) {
     // received cancel during accept/decline
@@ -851,7 +724,6 @@ void _cancelBySender(ServerUtils server) {
 extension on ReceiveSessionState {
   ReceiveSessionState fileFinished({
     required String fileId,
-    required FileStatus status,
     required String? path,
     required bool savedToGallery,
     required String? errorMessage,
@@ -861,7 +733,6 @@ extension on ReceiveSessionState {
         ..update(
           fileId,
           (file) => file.copyWith(
-            status: status,
             path: path,
             savedToGallery: savedToGallery,
             errorMessage: errorMessage,

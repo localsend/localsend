@@ -1,5 +1,4 @@
 {
-  "locale": "繁體中文 (台灣)",
   "appName": "LocalSend",
   "general": {
     "accept": "接受",
@@ -46,13 +45,14 @@
     "infoBox": {
       "ip": "IP：",
       "port": "通訊埠：",
-      "alias": "別名："
+      "alias": "裝置名稱："
     },
     "quickSave": {
       "off": "@:general.off",
       "favorites": "最愛",
       "on": "@:general.on"
-    }
+    },
+    "link": "透過連結接收"
   },
   "sendTab": {
     "title": "傳送",
@@ -81,7 +81,7 @@
       "link": "透過連結分享"
     },
     "sendModeHelp": "說明",
-    "help": "請確保所需目標的處於相同的 Wi‑Fi 網路。",
+    "help": "請確認目標裝置也已連線至相同的 Wi‑Fi 網路。",
     "placeItems": "列出要分享的項目。"
   },
   "settingsTab": {
@@ -97,7 +97,8 @@
       "color": "色彩",
       "colorOptions": {
         "system": "系統",
-        "oled": "OLED"
+        "oled": "OLED",
+        "custom": "自訂"
       },
       "language": "語言",
       "languageOptions": {
@@ -120,35 +121,37 @@
       "destination": "儲存目錄",
       "downloads": "(下載)",
       "saveToGallery": "儲存媒體至相簿",
-      "saveToHistory": "儲存至歷史記錄"
+      "saveToHistory": "儲存至歷史記錄",
+      "verifyChecksums": "接收檔案時驗證校驗碼"
     },
     "send": {
       "title": "傳送",
-      "shareViaLinkAutoAccept": "透過連結分享：自動同意接收要求"
+      "shareViaLinkAutoAccept": "透過連結分享：自動同意接收要求",
+      "createChecksums": "傳送檔案時建立校驗碼"
     },
     "network": {
       "title": "網路",
       "needRestart": "重新啟動伺服器以套用設定！",
       "server": "伺服器",
-      "alias": "別名",
+      "alias": "裝置名稱",
       "deviceType": "裝置類型",
       "deviceModel": "裝置型號",
       "port": "通訊埠",
-      "discoveryTimeout": "探索裝置逾時",
-      "useSystemName": "使用系統名稱",
-      "generateRandomAlias": "隨機產生別名",
-      "portWarning": "您可能無法被其他裝置偵測，因為您正在使用自訂通訊埠。(預設：{defaultPort})",
-      "encryption": "加密",
-      "multicastGroup": "多點傳送",
-      "multicastGroupWarning": "您可能無法被其他裝置偵測，因為您正在使用自訂多點傳送位址。(預設：{defaultMulticast})",
       "network": "網路",
       "networkOptions": {
         "all": "全部",
         "filtered": "已篩選"
-      }
+      },
+      "discoveryTimeout": "探索裝置逾時",
+      "useSystemName": "使用系統名稱",
+      "generateRandomAlias": "隨機產生別名",
+      "portWarning": "您使用了自訂通訊埠，因此其他裝置可能無法偵測到您。（預設值：{defaultPort}）",
+      "encryption": "加密",
+      "multicastGroup": "多點傳送位址",
+      "multicastGroupWarning": "您使用了自訂多點傳送位址，因此其他裝置可能無法偵測到您。（預設值：{defaultMulticast}）"
     },
     "other": {
-      "title": "其它",
+      "title": "其他",
       "support": "支持 LocalSend",
       "donate": "贊助",
       "privacyPolicy": "隱私權政策",
@@ -172,8 +175,15 @@
     },
     "noConnection": {
       "symptom": "兩部裝置無法探索彼此，也無法分享檔案。",
-      "solution": "雙方都存在問題？然後你需要確保兩部裝置處於相同的 Wi‑Fi 網路中並共用相同的組態 (通訊埠、多點傳送位址、加密選項)。Wi‑Fi 可能不允許參與者之間進行通訊。在這種狀況下，必須在路由器上停用「存取點 (AP) 隔離」選項。"
+      "solution": "兩部裝置都有這個問題嗎？若是，請確認兩部裝置已連線至相同的 Wi‑Fi 網路，且使用相同的設定（通訊埠、多點傳送位址、加密選項）。Wi‑Fi 網路可能因為啟用了「無線存取點（AP）隔離」而不允許裝置彼此通訊。請在路由器上停用此選項。"
     }
+  },
+  "networkInterfacesPage": {
+    "title": "網路介面",
+    "info": "LocalSend 預設使用所有可用的網路介面，您可於此處排除不想使用的網路。您需要重新啟動伺服器以套用變更。",
+    "preview": "預覽",
+    "whitelist": "允許清單",
+    "blacklist": "禁止清單"
   },
   "receiveHistoryPage": {
     "title": "歷史記錄",
@@ -196,6 +206,29 @@
   "selectedFilesPage": {
     "deleteAll": "全部刪除"
   },
+  "deviceDetailsPage": {
+    "title": "裝置詳情",
+    "favorite": "最愛",
+    "verify": "驗證",
+    "info": {
+      "name": "名稱",
+      "address": "位址",
+      "version": "版本",
+      "protocol": "協定 v{version}"
+    },
+    "logs": {
+      "title": "記錄",
+      "empty": "沒有可用的記錄。",
+      "discovered": "透過 {protocol} 發現 ({host})",
+      "updated": "透過 {protocol} 更新 ({host})"
+    }
+  },
+  "verifyPage": {
+    "title": "驗證",
+    "icons": "圖示",
+    "text": "文字",
+    "question": "在另一台裝置上顯示的內容相同嗎？"
+  },
   "receivePage": {
     "subTitle": {
       "one": "要傳送一個檔案給您",
@@ -213,6 +246,7 @@
     "saveToGalleryOff": "因內容存在資料夾而自動關閉。"
   },
   "sendPage": {
+    "calculatingChecksum": "正在計算核對和（{curr} / {n}）",
     "waiting": "正在等候回應…",
     "rejected": "接收者拒絕了要求。",
     "tooManyAttempts": "@:web.tooManyAttempts",
@@ -232,6 +266,16 @@
       "count": "檔案：{curr} / {n}",
       "size": "大小：{curr} / {n}",
       "speed": "速度：{speed}/s"
+    },
+    "remainingTime": {
+      "minutesUnit(plural, param=m)": {
+        "other": "{m}分鐘"
+      },
+      "hoursUnit(plural, param=h)": {
+        "other": "{h}小時"
+      },
+      "minutes": "{m}:{ss}",
+      "hours": "@:.hoursUnit @:.minutesUnit"
     }
   },
   "webSharePage": {
@@ -252,6 +296,9 @@
     "encryptionHint": "LocalSend 使用自簽署憑證。您需要在瀏覽器中接受它。",
     "pendingRequests": "待處理的要求：{n}"
   },
+  "webReceivePage": {
+    "title": "透過連結接收"
+  },
   "aboutPage": {
     "title": "關於 LocalSend",
     "description": [
@@ -265,13 +312,25 @@
   },
   "donationPage": {
     "title": "贊助",
-    "info": "LocalSend 是免費、開源且沒有任何廣告的。如果您喜歡此應用程式，您可以透過捐贈來支持開發。",
+    "info": "LocalSend 是免費、開源且沒有任何廣告的。如果您喜歡此應用程式，可以透過捐贈來支持開發。",
     "donate": "贊助 {amount}",
     "thanks": "非常感謝您！",
     "restore": "復原購買"
   },
   "changelogPage": {
     "title": "變更記錄"
+  },
+  "whatsNewPage": {
+    "title": "{version} 有什麼新功能",
+    "changes(interface=WhatsNewStrings)": {
+      "v1_18_0": {
+        "changes": [
+          "加密不再會拖慢傳輸速度。如果您之前將此裝置上的加密關閉，現在已重新啟用。",
+          "來自「最愛」的請求現在會自動接受。此功能預設為開啟，並可在設定中停用。",
+          "在 Android 上，當應用程式在背景執行或螢幕關閉時，傳輸仍會繼續。在 iOS 上，應用程式必須保持在前景。"
+        ]
+      }
+    }
   },
   "aliasGenerator(ignoreMissing, ignoreGpt)": {
     "@info": "Inherits from the English version"
@@ -287,9 +346,7 @@
     },
     "addressInput": {
       "title": "輸入位址",
-      "hashtag": "雜湊標記",
-      "ip": "IP 位址",
-      "recentlyUsed": "最近使用："
+      "recentlyUsed": "最近使用： "
     },
     "cancelSession": {
       "title": "取消檔案傳輸",
@@ -378,9 +435,7 @@
     "quickSaveFromFavoritesNotice": {
       "title": "@:general.quickSaveFromFavorites",
       "content": [
-        "自動接受來自您最愛清單中裝置傳送的檔案。",
-        "警告：目前這並非絕對安全，因為知道您最愛裝置指紋的駭客仍然可以向您傳送檔案。",
-        "但仍然比允許任何裝置更安全。"
+        "自動接受來自您最愛清單中裝置傳送的檔案。"
       ]
     },
     "pin": {
@@ -388,9 +443,9 @@
     },
     "sendModeHelp": {
       "title": "傳送模式",
-      "single": "傳送檔案至單個接收者，選取項目將在檔案傳輸完成後被清除。",
-      "multiple": "傳送檔案至多重接收者，選取項目將不會被清除。",
-      "link": "未安裝 LocalSend 的接收者可以透過在瀏覽器開啟連結以下載選取的檔案."
+      "single": "傳送檔案給單一接收者；檔案傳輸完成後，系統會清除選取項目。",
+      "multiple": "傳送檔案給多位接收者；檔案傳輸完成後，系統不會清除選取項目。",
+      "link": "未安裝 LocalSend 的接收者可以在瀏覽器中開啟連結，以下載選取的檔案。"
     },
     "zoom": {
       "title": "網址"
@@ -446,12 +501,5 @@
     "sActionUseCameraHint": "使用相機",
     "sNameDurationLabel": "持續時間",
     "sUnitAssetCountLabel": "計數"
-  },
-  "networkInterfacesPage": {
-    "info": "LocalSend 預設使用所有可用的網路介面，您可於此處排除不想使用的網路。您需要重新啟動伺服器以套用變更。",
-    "title": "網路介面",
-    "preview": "預覽",
-    "whitelist": "允許清單",
-    "blacklist": "禁止清單"
   }
 }

@@ -1,5 +1,4 @@
 {
-  "locale": "Français",
   "appName": "LocalSend",
   "general": {
     "accept": "Accepter",
@@ -52,7 +51,8 @@
       "off": "@:general.off",
       "favorites": "Favoris",
       "on": "@:general.on"
-    }
+    },
+    "link": "Recevoir via un lien"
   },
   "sendTab": {
     "title": "Envoyer",
@@ -97,7 +97,8 @@
       "color": "Couleur",
       "colorOptions": {
         "system": "Système",
-        "oled": "OLED"
+        "oled": "OLED",
+        "custom": "Personnalisé"
       },
       "language": "Langue",
       "languageOptions": {
@@ -120,11 +121,13 @@
       "destination": "Destination",
       "downloads": "(Téléchargements)",
       "saveToGallery": "Sauvegarder les médias dans la galerie",
-      "saveToHistory": "Activer l'historique"
+      "saveToHistory": "Activer l'historique",
+      "verifyChecksums": "Vérifier les sommes de contrôle lors de la réception de fichiers"
     },
     "send": {
       "title": "Envoyer",
-      "shareViaLinkAutoAccept": "Accepter automatiquement les demandes de téléchargement d'un partage par lien"
+      "shareViaLinkAutoAccept": "Accepter automatiquement les demandes de téléchargement d'un partage par lien",
+      "createChecksums": "Créer des sommes de contrôle lors de l'envoi de fichiers"
     },
     "network": {
       "title": "Réseau",
@@ -134,18 +137,18 @@
       "deviceType": "Type d'appareil",
       "deviceModel": "Modèle d'appareil",
       "port": "Port",
+      "network": "Réseau",
+      "networkOptions": {
+        "all": "Tout",
+        "filtered": "Filtré"
+      },
       "discoveryTimeout": "Délai d'expiration de la recherche",
       "useSystemName": "Utiliser le nom du système",
       "generateRandomAlias": "Générer un alias aléatoire",
       "portWarning": "Il se peut que vous ne soyez pas détecté par d'autres appareils car vous utilisez un port personnalisé. (par défaut : {defaultPort})",
       "encryption": "Chiffrement",
       "multicastGroup": "Multicast",
-      "multicastGroupWarning": "Il est possible que vous ne soyez pas détecté par d'autres appareils car vous utilisez une adresse multicast différente de celle par défaut. (par défaut : {defaultMulticast})",
-      "network": "Réseau",
-      "networkOptions": {
-        "filtered": "Filtré",
-        "all": "Tout"
-      }
+      "multicastGroupWarning": "Il est possible que vous ne soyez pas détecté par d'autres appareils car vous utilisez une adresse multicast différente de celle par défaut. (par défaut : {defaultMulticast})"
     },
     "other": {
       "title": "Autre",
@@ -175,6 +178,13 @@
       "solution": "Le problème existe-il des deux côtés ? Si oui, vérifiez que les deux appareils soient connectés au même réseau Wi-Fi et qu'ils partagent la même configuration (port, adresse multicast, chiffrement). Il se peut que les appareils soient isolés les uns des autres, empêchant toutes communications entre eux. Cet isolement peut être désactivé dans votre routeur/box internet via l'option \"Isolement du point d'accès\" ou \"AP Isolation\"."
     }
   },
+  "networkInterfacesPage": {
+    "title": "Interfaces réseau",
+    "info": "Par défaut, LocalSend utilise toutes les interfaces réseau disponibles. Vous pouvez exclure les réseaux indésirables ici. Vous aurez besoin de redémarrer le serveur pour appliquer les changements.",
+    "preview": "Aperçu",
+    "whitelist": "Liste blanche",
+    "blacklist": "Liste noire"
+  },
   "receiveHistoryPage": {
     "title": "Historique",
     "openFolder": "Ouvrir le dossier",
@@ -196,6 +206,29 @@
   "selectedFilesPage": {
     "deleteAll": "Tout supprimer"
   },
+  "deviceDetailsPage": {
+    "title": "Détails de l'appareil",
+    "favorite": "Favori",
+    "verify": "Vérifier",
+    "info": {
+      "name": "Nom",
+      "address": "Adresse",
+      "version": "Version",
+      "protocol": "Protocole v{version}"
+    },
+    "logs": {
+      "title": "Journaux",
+      "empty": "Aucun journal disponible.",
+      "discovered": "Découvert via {protocol} ({host})",
+      "updated": "Mis à jour via {protocol} ({host})"
+    }
+  },
+  "verifyPage": {
+    "title": "Vérifier",
+    "icons": "Icônes",
+    "text": "Texte",
+    "question": "Est-ce identique sur l'autre appareil ?"
+  },
   "receivePage": {
     "subTitle": {
       "one": "veut vous envoyer un fichier",
@@ -208,11 +241,12 @@
   "receiveOptionsPage": {
     "title": "Options",
     "destination": "@:settingsTab.receive.destination",
-    "appDirectory": "(LocalSend folder)",
+    "appDirectory": "(dossier LocalSend)",
     "saveToGallery": "@:settingsTab.receive.saveToGallery",
     "saveToGalleryOff": "Désactivé automatiquement car des dossiers sont présents."
   },
   "sendPage": {
+    "calculatingChecksum": "Calcul de la somme de contrôle ({curr} / {n})",
     "waiting": "En attente d'une réponse …",
     "rejected": "Le destinataire a rejeté la demande.",
     "tooManyAttempts": "@:web.tooManyAttempts",
@@ -232,6 +266,16 @@
       "count": "Fichiers : {curr} / {n}",
       "size": "Taille : {curr} / {n}",
       "speed": "Vitesse : {speed}/s"
+    },
+    "remainingTime": {
+      "minutesUnit(plural, param=m)": {
+        "other": "{m}min"
+      },
+      "hoursUnit(plural, param=h)": {
+        "other": "{h}h"
+      },
+      "minutes": "{m}:{ss}",
+      "hours": "@:.hoursUnit @:.minutesUnit"
     }
   },
   "webSharePage": {
@@ -251,6 +295,9 @@
     "pinHint": "Le code PIN est \"{pin}\"",
     "encryptionHint": "LocalSend utilise un certificat auto-signé. Vous devez l'accepter dans le navigateur.",
     "pendingRequests": "Requêtes en attente : {n}"
+  },
+  "webReceivePage": {
+    "title": "Recevoir via un lien"
   },
   "aboutPage": {
     "title": "À propos de LocalSend",
@@ -273,6 +320,18 @@
   "changelogPage": {
     "title": "Historique des mises à jour"
   },
+  "whatsNewPage": {
+    "title": "Nouveautés de la version {version}",
+    "changes(interface=WhatsNewStrings)": {
+      "v1_18_0": {
+        "changes": [
+          "Le chiffrement ne ralentit plus les transferts. Il a été réactivé sur cet appareil si vous l'aviez désactivé auparavant.",
+          "Les demandes des favoris sont désormais acceptées automatiquement. Cette option est activée par défaut et peut être désactivée dans les paramètres.",
+          "Sur Android, les transferts continuent lorsque l'application est en arrière-plan ou que l'écran est éteint. Sur iOS, l'application doit toujours rester au premier plan."
+        ]
+      }
+    }
+  },
   "aliasGenerator(ignoreMissing, ignoreGpt)": {
     "@info": "Inherits from the English version"
   },
@@ -287,8 +346,6 @@
     },
     "addressInput": {
       "title": "Entrez l'adresse IP",
-      "hashtag": "Hashtag",
-      "ip": "Adresse IP",
       "recentlyUsed": "Récemment utilisé : "
     },
     "cancelSession": {
@@ -378,9 +435,7 @@
     "quickSaveFromFavoritesNotice": {
       "title": "@:general.quickSaveFromFavorites",
       "content": [
-        "Les demandes de fichiers provenant de vos appareils favoris sont désormais automatiquement acceptées.",
-        "Attention : Cette option n'est pas sûre car un hackeur qui connaîtrait l'empreinte numérique de vos appareils favoris pourrait quand même vous envoyer des fichiers.",
-        "Cette option reste néanmoins plus sûre que d'autoriser tous les appareils."
+        "Les demandes de fichiers provenant de vos appareils favoris sont désormais automatiquement acceptées."
       ]
     },
     "pin": {
@@ -446,12 +501,5 @@
     "sActionUseCameraHint": "Utiliser la Caméra",
     "sNameDurationLabel": "durée",
     "sUnitAssetCountLabel": "quantité"
-  },
-  "networkInterfacesPage": {
-    "title": "Interfaces réseau",
-    "info": "Par défaut, LocalSend utilise toutes les interfaces réseau disponibles. Vous pouvez exclure les réseaux indésirables ici. Vous aurez besoin de redémarrer le serveur pour appliquer les changements.",
-    "preview": "Aperçu",
-    "whitelist": "Liste blanche",
-    "blacklist": "Liste noire"
   }
 }
