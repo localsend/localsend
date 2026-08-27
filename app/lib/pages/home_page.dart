@@ -83,16 +83,20 @@ class _HomePageState extends State<HomePage> with Refena {
         });
       },
       onDragDone: (event) async {
-        if (event.files.length == 1 && Directory(event.files.first.path).existsSync()) {
-          // user dropped a directory
-          await ref.redux(selectedSendingFilesProvider).dispatchAsync(AddDirectoryAction(event.files.first.path));
-        } else {
-          // user dropped one or more files
+        // the drop may contain a mix of files and directories
+        final droppedDirectories = event.files.where((file) => Directory(file.path).existsSync()).toList();
+        final droppedFiles = event.files.where((file) => !Directory(file.path).existsSync()).toList();
+
+        for (final directory in droppedDirectories) {
+          await ref.redux(selectedSendingFilesProvider).dispatchAsync(AddDirectoryAction(directory.path));
+        }
+
+        if (droppedFiles.isNotEmpty) {
           await ref
               .redux(selectedSendingFilesProvider)
               .dispatchAsync(
                 AddFilesAction(
-                  files: event.files,
+                  files: droppedFiles,
                   converter: CrossFileConverters.convertXFile,
                 ),
               );

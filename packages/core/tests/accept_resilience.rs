@@ -10,6 +10,7 @@
 //! is the only test in this binary.
 
 use localsend::http::server::v2::ServerEventV2;
+use localsend::http::server::web::WebConfig;
 use localsend::http::server::{start_with_port, ServerConfigV2};
 use localsend::http::state::ClientInfo;
 use std::time::Duration;
@@ -83,7 +84,7 @@ async fn server_survives_descriptor_exhaustion() {
             verify_checksums: true,
             event_tx,
         }),
-        None,
+        WebConfig::default(),
         stop_rx,
     )
     .await

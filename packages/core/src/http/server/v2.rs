@@ -119,6 +119,15 @@ pub enum ServerEventV2 {
         /// The session ID as known by the remote device.
         session_id: String,
     },
+
+    /// The listening socket failed permanently, e.g. because the OS
+    /// invalidated it while the application was suspended (iOS reclaims the
+    /// sockets of suspended apps). The server has stopped itself; the
+    /// application must restart it to become reachable again.
+    ListenerFailed {
+        /// Description of the failure.
+        error: String,
+    },
 }
 
 /// The application's decision for a prepare-upload request.
@@ -182,7 +191,7 @@ pub(crate) async fn register(
     }
 
     let info = state.info.lock().await.clone();
-    let download = state.web.is_some();
+    let download = state.web.share.download().is_some();
 
     Ok(JsonResponse {
         status: StatusCode::OK,
@@ -199,7 +208,7 @@ pub(crate) async fn register(
 
 pub(crate) async fn info(state: AppState) -> Result<JsonResponse<InfoResponseDtoV2>, AppError> {
     let info = state.info.lock().await.clone();
-    let download = state.web.is_some();
+    let download = state.web.share.download().is_some();
 
     Ok(JsonResponse {
         status: StatusCode::OK,

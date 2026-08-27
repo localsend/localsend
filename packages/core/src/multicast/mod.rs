@@ -148,6 +148,12 @@ pub enum MulticastEvent {
         /// The message as it was received.
         message: MulticastMessageV2,
     },
+
+    /// Every receive socket failed permanently, e.g. because the OS
+    /// invalidated them while the application was suspended (iOS reclaims the
+    /// sockets of suspended apps). Multicast has stopped itself; the
+    /// application must restart it to hear and send announcements again.
+    SocketsFailed,
 }
 
 /// A socket announcements are sent on, together with its target address.
@@ -292,7 +298,14 @@ pub async fn start(
 
             tokio::select! {
                 // All receive loops gave up on their socket.
-                _ = async { while receivers.join_next().await.is_some() {} } => {}
+                _ = async { while receivers.join_next().await.is_some() {} } => {
+                    tracing::error!("All multicast sockets failed, stopping multicast discovery");
+                    // Tell the application, so it can restart discovery.
+                    // `try_send` because this task must reach its end even
+                    // when nobody consumes events anymore, so that
+                    // `wait_stopped` cannot hang.
+                    let _ = config.event_tx.try_send(MulticastEvent::SocketsFailed);
+                }
                 _ = stop_rx => {}
             }
 

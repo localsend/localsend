@@ -1,6 +1,7 @@
 name: localsend_isolates
 description: LocalSend network isolates and Rust bindings
 publish_to: "none"
+resolution: workspace
 
 version: 0.0.1
 
@@ -21,7 +22,7 @@ dependencies:
   mime: ^2.0.0
   path: ^1.9.1
   pool: ^1.5.2
-  refena_flutter: ^3.4.0
+  refena_flutter: ^3.5.0
   rust_lib_localsend_app:
     path: rust_builder
   typed_isolates:

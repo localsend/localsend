@@ -16,6 +16,10 @@ import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
+import java.util.TimeZone
 
 
 private const val CHANNEL = "org.localsend.localsend_app/localsend"
@@ -397,7 +401,7 @@ class MainActivity : FlutterActivity() {
                             name = documentFile.name,
                             size = documentFile.size,
                             uri = uri.toString(),
-                            lastModified = documentFile.lastModified,
+                            lastModified = documentFile.lastModified?.toRfc3339(),
                         )
                     )
                 }
@@ -421,7 +425,7 @@ class MainActivity : FlutterActivity() {
                         name = file.name,
                         size = file.size,
                         uri = file.uri.toString(),
-                        lastModified = file.lastModified,
+                        lastModified = file.lastModified?.toRfc3339(),
                     ),
                 )
             }
@@ -501,9 +505,9 @@ data class FileInfo(
     val name: String,
     val size: Long,
     val uri: String,
-    val lastModified: Long
+    val lastModified: String?
 ) {
-    fun toMap(): Map<String, Any> {
+    fun toMap(): Map<String, Any?> {
         return mapOf(
             "name" to name,
             "size" to size,
@@ -511,4 +515,11 @@ data class FileInfo(
             "lastModified" to lastModified
         )
     }
+}
+
+/// Formats milliseconds since epoch as an RFC 3339 string in UTC.
+private fun Long.toRfc3339(): String {
+    val format = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.US)
+    format.timeZone = TimeZone.getTimeZone("UTC")
+    return format.format(Date(this))
 }

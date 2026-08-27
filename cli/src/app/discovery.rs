@@ -12,7 +12,16 @@ use localsend::http::dto_v2::RegisterDtoV2;
 
 impl App {
     pub(super) fn handle_discovery(&mut self, event: DiscoveryEvent) {
-        let (DiscoveryEvent::Discovered { device } | DiscoveryEvent::Updated { device }) = &event;
+        let device = match &event {
+            DiscoveryEvent::Discovered { device } | DiscoveryEvent::Updated { device } => device,
+            DiscoveryEvent::MulticastFailed => {
+                self.ui.log(
+                    Category::Discovery,
+                    "Multicast stopped, no longer hearing announcements",
+                );
+                return;
+            }
+        };
         self.refresh_paired_channels(&device.fingerprint);
 
         let DiscoveryEvent::Discovered { device } = event else {

@@ -104,7 +104,9 @@ class FileInfo with FileInfoMappable {
   final String name;
   final int size;
   final String uri;
-  final int lastModified;
+
+  /// RFC 3339 in UTC. Null when the document provider does not know it.
+  final String? lastModified;
 
   FileInfo({
     required this.name,

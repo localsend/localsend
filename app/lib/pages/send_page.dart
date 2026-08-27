@@ -224,6 +224,7 @@ class _SendPageState extends State<SendPage> with Refena {
                                       TextButton(
                                         style: TextButton.styleFrom(
                                           foregroundColor: Theme.of(context).colorScheme.warning,
+                                          iconSize: 24,
                                         ),
                                         onPressed: () async => showDialog(
                                           context: context,

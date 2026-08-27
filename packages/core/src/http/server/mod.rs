@@ -10,7 +10,7 @@ pub use peer_ip::PeerIp;
 use crate::crypto::cert::{fingerprint_from_cert_der, public_key_from_cert_der};
 use crate::http::server::internal::{InternalConfig, InternalState};
 use crate::http::server::v2::ServerEventV2;
-use crate::http::server::web::{WebConfig, WebI18n};
+use crate::http::server::web::{WebConfig, WebShare};
 use crate::http::state::ClientInfo;
 use common::client_cert_verifier::CustomClientCertVerifier;
 use common::error::AppError;
@@ -32,7 +32,7 @@ use std::sync::Arc;
 use tokio::sync::{mpsc, oneshot, Mutex};
 use tokio_util::sync::CancellationToken;
 use tokio_util::task::TaskTracker;
-use web::WebPageState;
+use web::WebState;
 
 /// Configuration for the v2 (legacy) protocol endpoints.
 pub struct ServerConfigV2 {
@@ -71,14 +71,8 @@ pub struct AppState {
     /// Information about server's device.
     info: Arc<Mutex<ClientInfo>>,
 
-    /// State for serving the download page (web send).
-    web: Option<Arc<WebPageState>>,
-
-    /// Whether the upload page is served (when the download page is not active).
-    web_upload: bool,
-
-    /// Translations for the web pages, served via `/i18n.json`.
-    web_i18n: Option<Arc<WebI18n>>,
+    /// Runtime state of the browser-facing pages and web download.
+    web: Arc<WebState>,
 
     /// State for application-internal endpoints.
     internal: Option<Arc<InternalState>>,
@@ -98,7 +92,7 @@ impl AppState {
         info: Arc<Mutex<ClientInfo>>,
         internal_config: Option<InternalConfig>,
         v2_config: Option<ServerConfigV2>,
-        web_config: Option<WebConfig>,
+        web_config: WebConfig,
     ) -> Self {
         let v2 = v2_config.map(|config| {
             Arc::new(V2State {
@@ -110,21 +104,11 @@ impl AppState {
             })
         });
 
-        let (web, web_upload, web_i18n) = match web_config {
-            Some(config) => (
-                config.send.map(|send| Arc::new(WebPageState::new(send))),
-                config.upload,
-                Some(Arc::new(config.i18n)),
-            ),
-            None => (None, false, None),
-        };
         let internal = internal_config.map(|config| Arc::new(InternalState::new(config)));
 
         Self {
             info,
-            web,
-            web_upload,
-            web_i18n,
+            web: Arc::new(WebState::from(web_config)),
             internal,
             received_nonce_map: Arc::new(Mutex::new(LruCache::new(
                 NonZeroUsize::new(200).unwrap(),
@@ -230,7 +214,7 @@ pub async fn start_with_port(
     info: ClientInfo,
     internal_config: Option<InternalConfig>,
     v2_config: Option<ServerConfigV2>,
-    web_config: Option<WebConfig>,
+    web_config: WebConfig,
     stop_rx: oneshot::Receiver<()>,
 ) -> anyhow::Result<ServerHandle> {
     // Installed before returning, so that a client built right after (which
@@ -261,14 +245,29 @@ pub async fn start_with_port(
         let state = state.clone();
         let cancel = cancel.clone();
         let connections = connections.clone();
+        let v2_event_tx = state.v2.as_ref().map(|v2| v2.event_tx.clone());
         async move {
             tokio::select! {
-                _ = start_server_with_listener(ipv4_listener, tls_config.clone(), state.clone(), cancel.clone(), connections.clone()) => {
+                result = start_server_with_listener(ipv4_listener, tls_config.clone(), state.clone(), cancel.clone(), connections.clone()) => {
+                    if let Err(err) = result {
+                        tracing::error!("Server listener failed on {}: {err:#}", ipv4_socket_addr);
+                        // Tell the application, so it can restart the server.
+                        // `try_send` because this task must reach its end even
+                        // when nobody consumes events anymore, so that
+                        // `wait_stopped` cannot hang.
+                        if let Some(event_tx) = v2_event_tx {
+                            let _ = event_tx.try_send(ServerEventV2::ListenerFailed {
+                                error: format!("{err:#}"),
+                            });
+                        }
+                    }
                     tracing::info!("Server stopped on: {}", ipv4_socket_addr);
                 }
                 _ = async {
                     if let Some(listener) = ipv6_listener {
-                        let _ = start_server_with_listener(listener, tls_config, state, cancel.clone(), connections.clone()).await;
+                        if let Err(err) = start_server_with_listener(listener, tls_config, state, cancel.clone(), connections.clone()).await {
+                            tracing::error!("IPv6 server listener failed on {}: {err:#}", ipv6_socket_addr);
+                        }
                     }
 
                     // Keep the future running forever, so we continue using "ipv4 only" even if ipv6 fails.
@@ -323,6 +322,13 @@ pub struct TlsConfig {
 const ACCEPT_BACKOFF_MIN: std::time::Duration = std::time::Duration::from_millis(50);
 const ACCEPT_BACKOFF_MAX: std::time::Duration = std::time::Duration::from_secs(1);
 
+/// How many times in a row accepting may fail with a per-connection error
+/// before the listener itself is considered broken. A healthy listener
+/// interleaves such errors with successful accepts; only a dead one (e.g. a
+/// socket the OS invalidated during app suspension, whose exact error code is
+/// OS-specific) produces them in an endless, immediate sequence.
+const ACCEPT_FAILURE_LIMIT: u32 = 100;
+
 /// Whether the failed accept concerned only the connection being accepted, so
 /// the next one can be attempted right away.
 fn is_transient_accept_error(err: &std::io::Error) -> bool {
@@ -334,6 +340,27 @@ fn is_transient_accept_error(err: &std::io::Error) -> bool {
     )
 }
 
+/// Whether the failed accept means the process momentarily ran out of
+/// resources (a subnet scan opens a few hundred sockets), which resolves once
+/// they are freed again.
+fn is_resource_accept_error(err: &std::io::Error) -> bool {
+    if err.kind() == std::io::ErrorKind::OutOfMemory {
+        return true;
+    }
+    #[cfg(unix)]
+    return matches!(
+        err.raw_os_error(),
+        Some(libc::EMFILE | libc::ENFILE | libc::ENOBUFS | libc::ENOMEM)
+    );
+    #[cfg(windows)]
+    return matches!(
+        err.raw_os_error(),
+        Some(10024 /* WSAEMFILE */ | 10055 /* WSAENOBUFS */)
+    );
+    #[allow(unreachable_code)]
+    false
+}
+
 async fn start_server_with_listener(
     incoming: tokio::net::TcpListener,
     tls_config: Option<TlsConfig>,
@@ -343,7 +370,7 @@ async fn start_server_with_listener(
 ) -> anyhow::Result<()> {
     // Browsers have no client certificate, so presenting one is optional while
     // the web pages are served. A certificate that is presented is still verified.
-    let mandatory_client_auth = app_state.web.is_none() && !app_state.web_upload;
+    let mandatory_client_auth = matches!(app_state.web.share, WebShare::Disabled);
 
     let tls_acceptor = match tls_config {
         Some(tls_config) => Some(
@@ -361,30 +388,46 @@ async fn start_server_with_listener(
     );
 
     let mut accept_backoff = ACCEPT_BACKOFF_MIN;
+    let mut accept_failures = 0u32;
     loop {
         let (tcp_stream, remote_addr) = match incoming.accept().await {
             Ok(accepted) => {
                 accept_backoff = ACCEPT_BACKOFF_MIN;
+                accept_failures = 0;
+                // Disable Nagle: it delays small responses (reqwest already does this on the client side).
+                let _ = accepted.0.set_nodelay(true);
                 accepted
             }
-            // Accepting fails for reasons that say nothing about the listener:
-            // the peer went away before the handshake completed, or the process
-            // momentarily ran out of file descriptors (a subnet scan opens a
-            // few hundred sockets). Giving up here would stop the server for
-            // good and the application would never learn that it can no longer
-            // receive anything, so keep accepting.
+            // Accepting fails for two kinds of reasons that say nothing about
+            // the listener, which must both keep the loop alive: the peer went
+            // away before the handshake completed (retried right away, but
+            // bounded by [ACCEPT_FAILURE_LIMIT] because a listener the OS
+            // invalidated during app suspension may report an OS-specific
+            // error that looks per-connection), or the process momentarily ran
+            // out of resources (a subnet scan opens a few hundred sockets).
+            // Exhaustion would otherwise spin: the pending connection stays in
+            // the backlog and fails again immediately, so back off before
+            // retrying, without a limit — it says nothing about the listener,
+            // however long it lasts.
             //
-            // Descriptor exhaustion would otherwise spin: the pending
-            // connection stays in the backlog and fails again immediately, so
-            // back off before retrying.
+            // Every other error means the listening socket itself is broken.
+            // Retrying that forever would leave the application believing it
+            // can still receive, so give up and let the caller report it.
             Err(err) => {
-                tracing::warn!("Could not accept a connection: {err:#}");
-                if is_transient_accept_error(&err) {
+                if is_resource_accept_error(&err) {
+                    tracing::warn!("Could not accept a connection: {err:#}");
+                    tokio::time::sleep(accept_backoff).await;
+                    accept_backoff = (accept_backoff * 2).min(ACCEPT_BACKOFF_MAX);
                     continue;
                 }
-                tokio::time::sleep(accept_backoff).await;
-                accept_backoff = (accept_backoff * 2).min(ACCEPT_BACKOFF_MAX);
-                continue;
+                accept_failures += 1;
+                if is_transient_accept_error(&err) && accept_failures < ACCEPT_FAILURE_LIMIT {
+                    tracing::warn!("Could not accept a connection: {err:#}");
+                    continue;
+                }
+                return Err(anyhow::Error::from(err).context(format!(
+                    "accepting connections failed {accept_failures} time(s) in a row"
+                )));
             }
         };
 
@@ -557,7 +600,8 @@ async fn handle_request_inner(mut req: Request<Incoming>) -> Result<Response<Box
                 .await?
                 .into_response())
         }
-        (&Method::GET, "/api/localsend/v2/info") => {
+        // Old clients (v1.17 and earlier) probe unknown peers on the v1 route
+        (&Method::GET, "/api/localsend/v1/info") | (&Method::GET, "/api/localsend/v2/info") => {
             if !v2_enabled {
                 return Err(AppError::Status(StatusCode::NOT_FOUND));
             }

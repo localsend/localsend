@@ -104,6 +104,11 @@ abstract class RsDiscovery implements RustOpaqueInterface {
   /// Emits a [RsStoredDevice] for every device confirmation until the
   /// discovery is stopped. Can only be listened to once.
   ///
+  /// Also ends when the multicast sockets failed permanently (e.g. because
+  /// the OS invalidated them while the application was suspended): the
+  /// application reacts to the ended stream by starting a new discovery,
+  /// which rebinds the sockets.
+  ///
   /// Also returns when the Dart side of the stream is gone (e.g. after a
   /// hot restart), so this call does not keep the discovery alive forever.
   Stream<RsStoredDevice> listen();

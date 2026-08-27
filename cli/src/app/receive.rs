@@ -235,6 +235,12 @@ impl App {
                     send.cancel.token.cancel();
                 }
             }
+            ServerEventV2::ListenerFailed { error } => {
+                self.ui.log(
+                    Category::Receive,
+                    &format!("Server stopped, no longer receiving: {error}"),
+                );
+            }
         }
     }
 

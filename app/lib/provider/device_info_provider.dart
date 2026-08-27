@@ -44,7 +44,7 @@ final deviceFullInfoProvider = ViewProvider((ref) {
     fingerprint: securityContext.certificateHash,
     deviceModel: rawInfo.deviceModel,
     deviceType: rawInfo.deviceType,
-    download: serverState?.webSendState != null,
+    download: serverState?.webDownloadState != null,
     channels: const [],
   );
 });

@@ -1,3 +1,30 @@
+## 1.18.2 (2026-08-21)
+
+- feat: drag and drop files into the "Receive via link" browser page
+- feat(desktop): allow customizing the web share pages by placing HTML files in a `web` folder next to the executable
+- feat(cli): add version info to the Windows executable
+- feat(linux): set actual version in the AppImage
+- security: do not follow HTTP redirects sent by peers
+- fix: restore compatibility with 1.17.0 and earlier versions on missing multicast networks
+- fix: devices running 1.17.0 and earlier could not add 1.18.0+ device as favorite
+- fix: ignore proxies, fixes "TLS info not found" when a system proxy (e.g. Shadowrocket) is enabled
+- fix: automatically restart the HTTP / multicast server when it dies or when the app resumes
+- fix: drag and drop with a mix of folders and files
+- fix: during transfer, add bottom padding when Advanced is open (@Chethan616)
+- fix: do not crash at startup when the executable path cannot be resolved (@Shlomo116)
+- fix(android): ignore unknown or invalid file modification times when reading files
+- i18n: add Armenian
+
+## 1.18.1 (2026-08-11)
+
+Android+iOS only hotfix update.
+
+- fix: revert button icon sizes to 24
+- fix: when sending a message that is accepted immediately, a ghost device list tile appears
+- fix(mobile): when sending a link message, the "Open" button overflows
+- fix(android): add missing ACCESS_LOCAL_NETWORK permission that is required for Android 17+
+- i18n: add Belarusian (@pavel-miniutka), Irish (@aindriu80)
+
 ## 1.18.0 (2026-08-10)
 
 - feat(cli): initial CLI release

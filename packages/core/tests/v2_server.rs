@@ -7,6 +7,7 @@ use localsend::http::client::{ClientError, LsHttpClientV2};
 use localsend::http::dto_v2::{PrepareUploadRequestDtoV2, RegisterDtoV2};
 use localsend::http::server::common::save::FileUploadTarget;
 use localsend::http::server::v2::{PrepareUploadDecisionV2, ServerEventV2, SessionEndReasonV2};
+use localsend::http::server::web::WebConfig;
 use localsend::http::server::{start_with_port, ServerConfigV2};
 use localsend::http::state::ClientInfo;
 use localsend::model::discovery::ProtocolType;
@@ -116,6 +117,7 @@ async fn start_test_server_with_verification(
                     }
                     ServerEventV2::PrepareUploadAborted { .. } => {}
                     ServerEventV2::CancelReceived { .. } => {}
+                    ServerEventV2::ListenerFailed { .. } => {}
                 }
             }
         }
@@ -140,7 +142,7 @@ async fn start_test_server_with_verification(
             verify_checksums,
             event_tx,
         }),
-        None,
+        WebConfig::default(),
         stop_rx,
     )
     .await
@@ -264,6 +266,27 @@ async fn test_register_and_info() {
         .unwrap();
     assert_eq!(info.alias, "Test Server");
     assert_eq!(info.fingerprint, "server-fingerprint");
+}
+
+/// Old clients (v1.17 and earlier) probe unknown peers on the legacy v1 route.
+#[tokio::test]
+async fn test_info_on_legacy_v1_route() {
+    let server = start_test_server(None, true, None).await;
+
+    let body: serde_json::Value = reqwest::get(format!(
+        "http://127.0.0.1:{}/api/localsend/v1/info",
+        server.port
+    ))
+    .await
+    .unwrap()
+    .error_for_status()
+    .unwrap()
+    .json()
+    .await
+    .unwrap();
+
+    assert_eq!(body["alias"], "Test Server");
+    assert_eq!(body["fingerprint"], "server-fingerprint");
 }
 
 #[tokio::test]
@@ -952,7 +975,7 @@ async fn test_prepare_upload_aborted_by_sender_disconnect() {
             verify_checksums: true,
             event_tx,
         }),
-        None,
+        WebConfig::default(),
         stop_rx,
     )
     .await
@@ -1054,7 +1077,7 @@ async fn test_prepare_upload_cancelled_by_session_less_cancel() {
             verify_checksums: true,
             event_tx,
         }),
-        None,
+        WebConfig::default(),
         stop_rx,
     )
     .await
@@ -1189,7 +1212,7 @@ async fn test_prepare_upload_aborted_by_sender_disconnect_tls() {
             verify_checksums: true,
             event_tx,
         }),
-        None,
+        WebConfig::default(),
         stop_rx,
     )
     .await

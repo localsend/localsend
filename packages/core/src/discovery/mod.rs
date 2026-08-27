@@ -77,7 +77,7 @@ pub struct DiscoveryConfig {
     pub event_tx: Option<mpsc::Sender<DiscoveryEvent>>,
 }
 
-/// An event emitted by the discovery. Every event is also logged in
+/// An event emitted by the discovery. Every confirmation is also logged in
 /// [`StatefulDevice::logs`]; the accumulated state is read from
 /// [`DiscoveryHandle::devices`].
 #[derive(Clone, Debug)]
@@ -97,6 +97,13 @@ pub enum DiscoveryEvent {
         /// [`DiscoveryEvent::Discovered`].
         device: DiscoveredDevice,
     },
+
+    /// The multicast sockets failed permanently, e.g. because the OS
+    /// invalidated them while the application was suspended (iOS reclaims the
+    /// sockets of suspended apps). Announcements are no longer heard or sent;
+    /// the application should restart discovery to rebind the sockets.
+    /// HTTP-based discovery (probes and subnet scans) keeps working.
+    MulticastFailed,
 }
 
 struct DiscoveryState {
@@ -466,18 +473,26 @@ pub async fn start(config: DiscoveryConfig, stop_rx: oneshot::Receiver<()>) -> D
         let state = state.clone();
         async move {
             while let Some(event) = multicast_rx.recv().await {
-                if !state.answering.load(Ordering::Relaxed) {
-                    continue;
-                }
-                let MulticastEvent::Discovered {
-                    ip,
-                    scope_id,
-                    message,
-                } = event;
+                match event {
+                    MulticastEvent::Discovered {
+                        ip,
+                        scope_id,
+                        message,
+                    } => {
+                        if !state.answering.load(Ordering::Relaxed) {
+                            continue;
+                        }
 
-                // The register request may take a while (up to the timeout),
-                // so announcements are answered concurrently.
-                tokio::spawn(answer_announcement(state.clone(), ip, scope_id, message));
+                        // The register request may take a while (up to the timeout),
+                        // so announcements are answered concurrently.
+                        tokio::spawn(answer_announcement(state.clone(), ip, scope_id, message));
+                    }
+                    MulticastEvent::SocketsFailed => {
+                        if let Some(event_tx) = &state.event_tx {
+                            let _ = event_tx.try_send(DiscoveryEvent::MulticastFailed);
+                        }
+                    }
+                }
             }
         }
     });

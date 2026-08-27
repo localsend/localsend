@@ -48,7 +48,10 @@ impl TestInstance {
                 ip,
                 scope_id,
                 message,
-            } = event;
+            } = event
+            else {
+                continue;
+            };
             if message.fingerprint == fingerprint {
                 return Some(MulticastMessage {
                     source: ip,

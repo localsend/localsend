@@ -6,6 +6,7 @@ import 'package:localsend_app/model/send_mode.dart';
 import 'package:localsend_app/model/state/send/send_session_state.dart';
 import 'package:localsend_app/model/state/send/sending_file.dart';
 import 'package:localsend_app/pages/home_page.dart';
+import 'package:localsend_app/pages/home_page_controller.dart';
 import 'package:localsend_app/pages/progress_page.dart';
 import 'package:localsend_app/pages/send_page.dart';
 import 'package:localsend_app/provider/device_info_provider.dart';
@@ -28,6 +29,7 @@ import 'package:localsend_isolates/util/rust.dart';
 import 'package:localsend_isolates/util/sleep.dart';
 import 'package:localsend_isolates/util/transfer_notification.dart';
 import 'package:logging/logging.dart';
+import 'package:refena_flutter/addons.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 import 'package:routerino/routerino.dart';
 import 'package:uri_content/uri_content.dart';
@@ -385,8 +387,11 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
       );
 
       if (state[sessionId]?.background == false) {
-        // ignore: use_build_context_synchronously, unawaited_futures
-        Routerino.context.pushRootImmediately(() => const HomePage(initialTab: HomeTab.send, appStart: false));
+        // Pop back to the existing HomePage instead of pushing a new one:
+        // a second HomePage attaches a second PageView to the shared PageController,
+        // and removing routes without animation orphans a hero in flight.
+        ref.redux(homePageControllerProvider).dispatch(ChangeTabAction(HomeTab.send));
+        ref.global.dispatch(NavigateAction.popUntilRoot());
       }
 
       closeSession(sessionId);

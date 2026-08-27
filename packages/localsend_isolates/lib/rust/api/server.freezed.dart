@@ -55,7 +55,7 @@ extension RsServerEventPatterns on RsServerEvent {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( RsServerEvent_Register value)?  register,TResult Function( RsServerEvent_PrepareUpload value)?  prepareUpload,TResult Function( RsServerEvent_FileUpload value)?  fileUpload,TResult Function( RsServerEvent_SessionEnd value)?  sessionEnd,TResult Function( RsServerEvent_PrepareUploadAborted value)?  prepareUploadAborted,TResult Function( RsServerEvent_CancelReceived value)?  cancelReceived,TResult Function( RsServerEvent_WebPrepareDownload value)?  webPrepareDownload,TResult Function( RsServerEvent_WebFileDownload value)?  webFileDownload,TResult Function( RsServerEvent_Show value)?  show_,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( RsServerEvent_Register value)?  register,TResult Function( RsServerEvent_PrepareUpload value)?  prepareUpload,TResult Function( RsServerEvent_FileUpload value)?  fileUpload,TResult Function( RsServerEvent_SessionEnd value)?  sessionEnd,TResult Function( RsServerEvent_PrepareUploadAborted value)?  prepareUploadAborted,TResult Function( RsServerEvent_CancelReceived value)?  cancelReceived,TResult Function( RsServerEvent_WebPrepareDownload value)?  webPrepareDownload,TResult Function( RsServerEvent_WebFileDownload value)?  webFileDownload,TResult Function( RsServerEvent_Show value)?  show_,TResult Function( RsServerEvent_ListenerFailed value)?  listenerFailed,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
 case RsServerEvent_Register() when register != null:
@@ -67,7 +67,8 @@ return prepareUploadAborted(_that);case RsServerEvent_CancelReceived() when canc
 return cancelReceived(_that);case RsServerEvent_WebPrepareDownload() when webPrepareDownload != null:
 return webPrepareDownload(_that);case RsServerEvent_WebFileDownload() when webFileDownload != null:
 return webFileDownload(_that);case RsServerEvent_Show() when show_ != null:
-return show_(_that);case _:
+return show_(_that);case RsServerEvent_ListenerFailed() when listenerFailed != null:
+return listenerFailed(_that);case _:
   return orElse();
 
 }
@@ -85,7 +86,7 @@ return show_(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( RsServerEvent_Register value)  register,required TResult Function( RsServerEvent_PrepareUpload value)  prepareUpload,required TResult Function( RsServerEvent_FileUpload value)  fileUpload,required TResult Function( RsServerEvent_SessionEnd value)  sessionEnd,required TResult Function( RsServerEvent_PrepareUploadAborted value)  prepareUploadAborted,required TResult Function( RsServerEvent_CancelReceived value)  cancelReceived,required TResult Function( RsServerEvent_WebPrepareDownload value)  webPrepareDownload,required TResult Function( RsServerEvent_WebFileDownload value)  webFileDownload,required TResult Function( RsServerEvent_Show value)  show_,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( RsServerEvent_Register value)  register,required TResult Function( RsServerEvent_PrepareUpload value)  prepareUpload,required TResult Function( RsServerEvent_FileUpload value)  fileUpload,required TResult Function( RsServerEvent_SessionEnd value)  sessionEnd,required TResult Function( RsServerEvent_PrepareUploadAborted value)  prepareUploadAborted,required TResult Function( RsServerEvent_CancelReceived value)  cancelReceived,required TResult Function( RsServerEvent_WebPrepareDownload value)  webPrepareDownload,required TResult Function( RsServerEvent_WebFileDownload value)  webFileDownload,required TResult Function( RsServerEvent_Show value)  show_,required TResult Function( RsServerEvent_ListenerFailed value)  listenerFailed,}){
 final _that = this;
 switch (_that) {
 case RsServerEvent_Register():
@@ -97,7 +98,8 @@ return prepareUploadAborted(_that);case RsServerEvent_CancelReceived():
 return cancelReceived(_that);case RsServerEvent_WebPrepareDownload():
 return webPrepareDownload(_that);case RsServerEvent_WebFileDownload():
 return webFileDownload(_that);case RsServerEvent_Show():
-return show_(_that);}
+return show_(_that);case RsServerEvent_ListenerFailed():
+return listenerFailed(_that);}
 }
 /// A variant of `map` that fallback to returning `null`.
 ///
@@ -111,7 +113,7 @@ return show_(_that);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( RsServerEvent_Register value)?  register,TResult? Function( RsServerEvent_PrepareUpload value)?  prepareUpload,TResult? Function( RsServerEvent_FileUpload value)?  fileUpload,TResult? Function( RsServerEvent_SessionEnd value)?  sessionEnd,TResult? Function( RsServerEvent_PrepareUploadAborted value)?  prepareUploadAborted,TResult? Function( RsServerEvent_CancelReceived value)?  cancelReceived,TResult? Function( RsServerEvent_WebPrepareDownload value)?  webPrepareDownload,TResult? Function( RsServerEvent_WebFileDownload value)?  webFileDownload,TResult? Function( RsServerEvent_Show value)?  show_,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( RsServerEvent_Register value)?  register,TResult? Function( RsServerEvent_PrepareUpload value)?  prepareUpload,TResult? Function( RsServerEvent_FileUpload value)?  fileUpload,TResult? Function( RsServerEvent_SessionEnd value)?  sessionEnd,TResult? Function( RsServerEvent_PrepareUploadAborted value)?  prepareUploadAborted,TResult? Function( RsServerEvent_CancelReceived value)?  cancelReceived,TResult? Function( RsServerEvent_WebPrepareDownload value)?  webPrepareDownload,TResult? Function( RsServerEvent_WebFileDownload value)?  webFileDownload,TResult? Function( RsServerEvent_Show value)?  show_,TResult? Function( RsServerEvent_ListenerFailed value)?  listenerFailed,}){
 final _that = this;
 switch (_that) {
 case RsServerEvent_Register() when register != null:
@@ -123,7 +125,8 @@ return prepareUploadAborted(_that);case RsServerEvent_CancelReceived() when canc
 return cancelReceived(_that);case RsServerEvent_WebPrepareDownload() when webPrepareDownload != null:
 return webPrepareDownload(_that);case RsServerEvent_WebFileDownload() when webFileDownload != null:
 return webFileDownload(_that);case RsServerEvent_Show() when show_ != null:
-return show_(_that);case _:
+return show_(_that);case RsServerEvent_ListenerFailed() when listenerFailed != null:
+return listenerFailed(_that);case _:
   return null;
 
 }
@@ -140,7 +143,7 @@ return show_(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( String ip,  RegisterDtoV2 info)?  register,TResult Function( String sessionId,  String ip,  RegisterDtoV2 info,  String? certFingerprint,  Map<String, FileDto> files)?  prepareUpload,TResult Function( String sessionId,  String fileId,  FileDto file)?  fileUpload,TResult Function( String sessionId,  SessionEndReasonV2 reason)?  sessionEnd,TResult Function( String sessionId)?  prepareUploadAborted,TResult Function( String ip,  String sessionId)?  cancelReceived,TResult Function( String ip,  String sessionId,  String? userAgent)?  webPrepareDownload,TResult Function( String sessionId,  String fileId,  FileDto file)?  webFileDownload,TResult Function( List<String> args)?  show_,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( String ip,  RegisterDtoV2 info)?  register,TResult Function( String sessionId,  String ip,  RegisterDtoV2 info,  String? certFingerprint,  Map<String, FileDto> files)?  prepareUpload,TResult Function( String sessionId,  String fileId,  FileDto file)?  fileUpload,TResult Function( String sessionId,  SessionEndReasonV2 reason)?  sessionEnd,TResult Function( String sessionId)?  prepareUploadAborted,TResult Function( String ip,  String sessionId)?  cancelReceived,TResult Function( String ip,  String sessionId,  String? userAgent)?  webPrepareDownload,TResult Function( String sessionId,  String fileId,  FileDto file)?  webFileDownload,TResult Function( List<String> args)?  show_,TResult Function( String error)?  listenerFailed,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case RsServerEvent_Register() when register != null:
 return register(_that.ip,_that.info);case RsServerEvent_PrepareUpload() when prepareUpload != null:
@@ -151,7 +154,8 @@ return prepareUploadAborted(_that.sessionId);case RsServerEvent_CancelReceived()
 return cancelReceived(_that.ip,_that.sessionId);case RsServerEvent_WebPrepareDownload() when webPrepareDownload != null:
 return webPrepareDownload(_that.ip,_that.sessionId,_that.userAgent);case RsServerEvent_WebFileDownload() when webFileDownload != null:
 return webFileDownload(_that.sessionId,_that.fileId,_that.file);case RsServerEvent_Show() when show_ != null:
-return show_(_that.args);case _:
+return show_(_that.args);case RsServerEvent_ListenerFailed() when listenerFailed != null:
+return listenerFailed(_that.error);case _:
   return orElse();
 
 }
@@ -169,7 +173,7 @@ return show_(_that.args);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( String ip,  RegisterDtoV2 info)  register,required TResult Function( String sessionId,  String ip,  RegisterDtoV2 info,  String? certFingerprint,  Map<String, FileDto> files)  prepareUpload,required TResult Function( String sessionId,  String fileId,  FileDto file)  fileUpload,required TResult Function( String sessionId,  SessionEndReasonV2 reason)  sessionEnd,required TResult Function( String sessionId)  prepareUploadAborted,required TResult Function( String ip,  String sessionId)  cancelReceived,required TResult Function( String ip,  String sessionId,  String? userAgent)  webPrepareDownload,required TResult Function( String sessionId,  String fileId,  FileDto file)  webFileDownload,required TResult Function( List<String> args)  show_,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( String ip,  RegisterDtoV2 info)  register,required TResult Function( String sessionId,  String ip,  RegisterDtoV2 info,  String? certFingerprint,  Map<String, FileDto> files)  prepareUpload,required TResult Function( String sessionId,  String fileId,  FileDto file)  fileUpload,required TResult Function( String sessionId,  SessionEndReasonV2 reason)  sessionEnd,required TResult Function( String sessionId)  prepareUploadAborted,required TResult Function( String ip,  String sessionId)  cancelReceived,required TResult Function( String ip,  String sessionId,  String? userAgent)  webPrepareDownload,required TResult Function( String sessionId,  String fileId,  FileDto file)  webFileDownload,required TResult Function( List<String> args)  show_,required TResult Function( String error)  listenerFailed,}) {final _that = this;
 switch (_that) {
 case RsServerEvent_Register():
 return register(_that.ip,_that.info);case RsServerEvent_PrepareUpload():
@@ -180,7 +184,8 @@ return prepareUploadAborted(_that.sessionId);case RsServerEvent_CancelReceived()
 return cancelReceived(_that.ip,_that.sessionId);case RsServerEvent_WebPrepareDownload():
 return webPrepareDownload(_that.ip,_that.sessionId,_that.userAgent);case RsServerEvent_WebFileDownload():
 return webFileDownload(_that.sessionId,_that.fileId,_that.file);case RsServerEvent_Show():
-return show_(_that.args);}
+return show_(_that.args);case RsServerEvent_ListenerFailed():
+return listenerFailed(_that.error);}
 }
 /// A variant of `when` that fallback to returning `null`
 ///
@@ -194,7 +199,7 @@ return show_(_that.args);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( String ip,  RegisterDtoV2 info)?  register,TResult? Function( String sessionId,  String ip,  RegisterDtoV2 info,  String? certFingerprint,  Map<String, FileDto> files)?  prepareUpload,TResult? Function( String sessionId,  String fileId,  FileDto file)?  fileUpload,TResult? Function( String sessionId,  SessionEndReasonV2 reason)?  sessionEnd,TResult? Function( String sessionId)?  prepareUploadAborted,TResult? Function( String ip,  String sessionId)?  cancelReceived,TResult? Function( String ip,  String sessionId,  String? userAgent)?  webPrepareDownload,TResult? Function( String sessionId,  String fileId,  FileDto file)?  webFileDownload,TResult? Function( List<String> args)?  show_,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( String ip,  RegisterDtoV2 info)?  register,TResult? Function( String sessionId,  String ip,  RegisterDtoV2 info,  String? certFingerprint,  Map<String, FileDto> files)?  prepareUpload,TResult? Function( String sessionId,  String fileId,  FileDto file)?  fileUpload,TResult? Function( String sessionId,  SessionEndReasonV2 reason)?  sessionEnd,TResult? Function( String sessionId)?  prepareUploadAborted,TResult? Function( String ip,  String sessionId)?  cancelReceived,TResult? Function( String ip,  String sessionId,  String? userAgent)?  webPrepareDownload,TResult? Function( String sessionId,  String fileId,  FileDto file)?  webFileDownload,TResult? Function( List<String> args)?  show_,TResult? Function( String error)?  listenerFailed,}) {final _that = this;
 switch (_that) {
 case RsServerEvent_Register() when register != null:
 return register(_that.ip,_that.info);case RsServerEvent_PrepareUpload() when prepareUpload != null:
@@ -205,7 +210,8 @@ return prepareUploadAborted(_that.sessionId);case RsServerEvent_CancelReceived()
 return cancelReceived(_that.ip,_that.sessionId);case RsServerEvent_WebPrepareDownload() when webPrepareDownload != null:
 return webPrepareDownload(_that.ip,_that.sessionId,_that.userAgent);case RsServerEvent_WebFileDownload() when webFileDownload != null:
 return webFileDownload(_that.sessionId,_that.fileId,_that.file);case RsServerEvent_Show() when show_ != null:
-return show_(_that.args);case _:
+return show_(_that.args);case RsServerEvent_ListenerFailed() when listenerFailed != null:
+return listenerFailed(_that.error);case _:
   return null;
 
 }
@@ -851,5 +857,381 @@ as List<String>,
 
 
 }
+
+/// @nodoc
+
+
+class RsServerEvent_ListenerFailed extends RsServerEvent {
+  const RsServerEvent_ListenerFailed({required this.error}): super._();
+  
+
+/// Description of the failure.
+ final  String error;
+
+/// Create a copy of RsServerEvent
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$RsServerEvent_ListenerFailedCopyWith<RsServerEvent_ListenerFailed> get copyWith => _$RsServerEvent_ListenerFailedCopyWithImpl<RsServerEvent_ListenerFailed>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is RsServerEvent_ListenerFailed&&(identical(other.error, error) || other.error == error));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,error);
+
+@override
+String toString() {
+  return 'RsServerEvent.listenerFailed(error: $error)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $RsServerEvent_ListenerFailedCopyWith<$Res> implements $RsServerEventCopyWith<$Res> {
+  factory $RsServerEvent_ListenerFailedCopyWith(RsServerEvent_ListenerFailed value, $Res Function(RsServerEvent_ListenerFailed) _then) = _$RsServerEvent_ListenerFailedCopyWithImpl;
+@useResult
+$Res call({
+ String error
+});
+
+
+
+
+}
+/// @nodoc
+class _$RsServerEvent_ListenerFailedCopyWithImpl<$Res>
+    implements $RsServerEvent_ListenerFailedCopyWith<$Res> {
+  _$RsServerEvent_ListenerFailedCopyWithImpl(this._self, this._then);
+
+  final RsServerEvent_ListenerFailed _self;
+  final $Res Function(RsServerEvent_ListenerFailed) _then;
+
+/// Create a copy of RsServerEvent
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? error = null,}) {
+  return _then(RsServerEvent_ListenerFailed(
+error: null == error ? _self.error : error // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+
+}
+
+/// @nodoc
+mixin _$WebMode {
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is WebMode);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'WebMode()';
+}
+
+
+}
+
+/// @nodoc
+class $WebModeCopyWith<$Res>  {
+$WebModeCopyWith(WebMode _, $Res Function(WebMode) __);
+}
+
+
+/// Adds pattern-matching-related methods to [WebMode].
+extension WebModePatterns on WebMode {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( WebMode_Disabled value)?  disabled,TResult Function( WebMode_Download value)?  download,TResult Function( WebMode_Upload value)?  upload,required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case WebMode_Disabled() when disabled != null:
+return disabled(_that);case WebMode_Download() when download != null:
+return download(_that);case WebMode_Upload() when upload != null:
+return upload(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( WebMode_Disabled value)  disabled,required TResult Function( WebMode_Download value)  download,required TResult Function( WebMode_Upload value)  upload,}){
+final _that = this;
+switch (_that) {
+case WebMode_Disabled():
+return disabled(_that);case WebMode_Download():
+return download(_that);case WebMode_Upload():
+return upload(_that);}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( WebMode_Disabled value)?  disabled,TResult? Function( WebMode_Download value)?  download,TResult? Function( WebMode_Upload value)?  upload,}){
+final _that = this;
+switch (_that) {
+case WebMode_Disabled() when disabled != null:
+return disabled(_that);case WebMode_Download() when download != null:
+return download(_that);case WebMode_Upload() when upload != null:
+return upload(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  disabled,TResult Function( Map<String, FileDto> files,  String? pin)?  download,TResult Function()?  upload,required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case WebMode_Disabled() when disabled != null:
+return disabled();case WebMode_Download() when download != null:
+return download(_that.files,_that.pin);case WebMode_Upload() when upload != null:
+return upload();case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  disabled,required TResult Function( Map<String, FileDto> files,  String? pin)  download,required TResult Function()  upload,}) {final _that = this;
+switch (_that) {
+case WebMode_Disabled():
+return disabled();case WebMode_Download():
+return download(_that.files,_that.pin);case WebMode_Upload():
+return upload();}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  disabled,TResult? Function( Map<String, FileDto> files,  String? pin)?  download,TResult? Function()?  upload,}) {final _that = this;
+switch (_that) {
+case WebMode_Disabled() when disabled != null:
+return disabled();case WebMode_Download() when download != null:
+return download(_that.files,_that.pin);case WebMode_Upload() when upload != null:
+return upload();case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+
+
+class WebMode_Disabled extends WebMode {
+  const WebMode_Disabled(): super._();
+  
+
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is WebMode_Disabled);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'WebMode.disabled()';
+}
+
+
+}
+
+
+
+
+/// @nodoc
+
+
+class WebMode_Download extends WebMode {
+  const WebMode_Download({required final  Map<String, FileDto> files, this.pin}): _files = files,super._();
+  
+
+/// The metadata of the files offered for download, mapped by file ID.
+/// The content is requested per download via [RsServerEvent::WebFileDownload].
+ final  Map<String, FileDto> _files;
+/// The metadata of the files offered for download, mapped by file ID.
+/// The content is requested per download via [RsServerEvent::WebFileDownload].
+ Map<String, FileDto> get files {
+  if (_files is EqualUnmodifiableMapView) return _files;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableMapView(_files);
+}
+
+/// Optional PIN that web clients must provide via the `pin` query parameter.
+ final  String? pin;
+
+/// Create a copy of WebMode
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$WebMode_DownloadCopyWith<WebMode_Download> get copyWith => _$WebMode_DownloadCopyWithImpl<WebMode_Download>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is WebMode_Download&&const DeepCollectionEquality().equals(other._files, _files)&&(identical(other.pin, pin) || other.pin == pin));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_files),pin);
+
+@override
+String toString() {
+  return 'WebMode.download(files: $files, pin: $pin)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $WebMode_DownloadCopyWith<$Res> implements $WebModeCopyWith<$Res> {
+  factory $WebMode_DownloadCopyWith(WebMode_Download value, $Res Function(WebMode_Download) _then) = _$WebMode_DownloadCopyWithImpl;
+@useResult
+$Res call({
+ Map<String, FileDto> files, String? pin
+});
+
+
+
+
+}
+/// @nodoc
+class _$WebMode_DownloadCopyWithImpl<$Res>
+    implements $WebMode_DownloadCopyWith<$Res> {
+  _$WebMode_DownloadCopyWithImpl(this._self, this._then);
+
+  final WebMode_Download _self;
+  final $Res Function(WebMode_Download) _then;
+
+/// Create a copy of WebMode
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? files = null,Object? pin = freezed,}) {
+  return _then(WebMode_Download(
+files: null == files ? _self._files : files // ignore: cast_nullable_to_non_nullable
+as Map<String, FileDto>,pin: freezed == pin ? _self.pin : pin // ignore: cast_nullable_to_non_nullable
+as String?,
+  ));
+}
+
+
+}
+
+/// @nodoc
+
+
+class WebMode_Upload extends WebMode {
+  const WebMode_Upload(): super._();
+  
+
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is WebMode_Upload);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'WebMode.upload()';
+}
+
+
+}
+
+
+
 
 // dart format on

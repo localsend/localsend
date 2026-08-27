@@ -210,21 +210,20 @@ class _ReceivePageState extends State<ReceivePage> with Refena {
                                               ),
                                             ),
                                             const SizedBox(height: 10),
-                                            Row(
-                                              mainAxisAlignment: MainAxisAlignment.center,
+                                            Wrap(
+                                              alignment: WrapAlignment.center,
+                                              spacing: 20,
+                                              runSpacing: 10,
                                               children: [
                                                 if (vm.showSenderInfo)
-                                                  Padding(
-                                                    padding: const EdgeInsetsDirectional.only(end: 20),
-                                                    child: ElevatedButton.icon(
-                                                      onPressed: () async => await context.push(
-                                                        () => VerifyPage(
-                                                          fingerprint: CombinedFingerprint.load(context, vm.sender.fingerprint),
-                                                        ),
+                                                  ElevatedButton.icon(
+                                                    onPressed: () async => await context.push(
+                                                      () => VerifyPage(
+                                                        fingerprint: CombinedFingerprint.load(context, vm.sender.fingerprint),
                                                       ),
-                                                      icon: Icon(Icons.verified_user),
-                                                      label: Text(t.verifyPage.title),
                                                     ),
+                                                    icon: Icon(Icons.verified_user),
+                                                    label: Text(t.verifyPage.title),
                                                   ),
                                                 ElevatedButton.icon(
                                                   onPressed: () {
@@ -241,22 +240,19 @@ class _ReceivePageState extends State<ReceivePage> with Refena {
                                                   label: Text(t.general.copy),
                                                 ),
                                                 if (vm.isLink)
-                                                  Padding(
-                                                    padding: const EdgeInsetsDirectional.only(start: 20),
-                                                    child: ElevatedButton.icon(
-                                                      style: ElevatedButton.styleFrom(
-                                                        backgroundColor: Theme.of(context).colorScheme.primary,
-                                                        foregroundColor: Theme.of(context).colorScheme.onPrimary,
-                                                      ),
-                                                      onPressed: () {
-                                                        // ignore: discarded_futures
-                                                        launchUrl(Uri.parse(vm.message!), mode: LaunchMode.externalApplication);
-                                                        vm.onAccept();
-                                                        context.global.dispatch(NavigateAction.popUntil<WebSharePage>());
-                                                      },
-                                                      icon: Icon(Icons.open_in_new),
-                                                      label: Text(t.general.open),
+                                                  ElevatedButton.icon(
+                                                    style: ElevatedButton.styleFrom(
+                                                      backgroundColor: Theme.of(context).colorScheme.primary,
+                                                      foregroundColor: Theme.of(context).colorScheme.onPrimary,
                                                     ),
+                                                    onPressed: () {
+                                                      // ignore: discarded_futures
+                                                      launchUrl(Uri.parse(vm.message!), mode: LaunchMode.externalApplication);
+                                                      vm.onAccept();
+                                                      context.global.dispatch(NavigateAction.popUntil<WebSharePage>());
+                                                    },
+                                                    icon: Icon(Icons.open_in_new),
+                                                    label: Text(t.general.open),
                                                   ),
                                               ],
                                             ),

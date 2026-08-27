@@ -69,7 +69,7 @@ class CrossFileConverters {
       path: file.uri,
       bytes: null,
       // SAF only provides milliseconds, so there is no point statting in Rust.
-      lastModified: DateTime.fromMillisecondsSinceEpoch(file.lastModified, isUtc: true).toIso8601String(),
+      lastModified: file.lastModified,
       lastAccessed: null,
     );
   }

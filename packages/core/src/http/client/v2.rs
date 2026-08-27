@@ -50,6 +50,10 @@ impl LsHttpClientV2 {
             .use_rustls_tls()
             .danger_accept_invalid_certs(true)
             .tls_info(true)
+            // Same as `create_reqwest_client`: peers are local, never proxy
+            // and never redirect.
+            .no_proxy()
+            .redirect(reqwest::redirect::Policy::none())
             .build()?;
 
         Ok(Self { client })

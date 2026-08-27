@@ -222,11 +222,19 @@ pub(super) fn create_reqwest_client(
     };
 
     // Must be set explicitly, see the doc comment above.
-    tls_config.alpn_protocols = vec![b"h2".to_vec(), b"http/1.1".to_vec()];
+    // HTTP/1.1 only: HTTP/2's flow-control window caps bulk upload throughput.
+    tls_config.alpn_protocols = vec![b"http/1.1".to_vec()];
 
     let mut builder = reqwest::Client::builder()
         .tls_backend_preconfigured(tls_config)
         .tls_info(true)
+        // Peers are on the local network: never dial them through a system or
+        // environment proxy. Proxied connections also lose the `TlsInfo`
+        // response extension that the certificate checks below rely on (#3299).
+        .no_proxy()
+        // Peers never redirect; following one would talk to a different host
+        // than the one whose certificate is being verified.
+        .redirect(reqwest::redirect::Policy::none())
         .dns_resolver(Arc::new(ScopedHostResolver));
 
     if let Some(timeout) = timeout {

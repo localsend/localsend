@@ -1,6 +1,6 @@
 [package]
 name = "localsend-cli"
-version = "1.18.0"
+version = "1.18.2"
 edition = "2024"
 
 [[bin]]
@@ -31,3 +31,6 @@ toml = "1.1"
 unicode-width = "0.2"
 uuid = { version = "1", features = ["v4"] }
 walkdir = "2.5"
+
+[build-dependencies]
+winresource = "0.1"

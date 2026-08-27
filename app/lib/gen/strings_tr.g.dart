@@ -194,7 +194,7 @@ class _Translations$receiveTab$tr extends Translations$receiveTab$en {
   @override
   late final _Translations$receiveTab$quickSave$tr quickSave = _Translations$receiveTab$quickSave$tr._(_root);
   @override
-  String get link => 'Bağlantı ile al';
+  String get link => 'Link üzerinden al';
 }
 
 // Path: sendTab
@@ -506,7 +506,7 @@ class _Translations$webReceivePage$tr extends Translations$webReceivePage$en {
 
   // Translations
   @override
-  String get title => 'Bağlantı yoluyla al';
+  String get title => 'Link üzerinden al';
 }
 
 // Path: aboutPage
