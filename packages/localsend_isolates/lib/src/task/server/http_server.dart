@@ -23,7 +23,7 @@ class HttpServerService {
     required String fingerprint,
     required String? pin,
     required bool verifyChecksums,
-    required WebParams? web,
+    required WebParams web,
     required String? showToken,
   }) async {
     if (_server != null) {

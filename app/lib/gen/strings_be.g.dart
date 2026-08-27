@@ -431,7 +431,7 @@ class _Translations$sendPage$be extends Translations$sendPage$en {
   @override
   String calculatingChecksum({required Object curr, required Object n}) => 'Ідзе разлік кантрольнай сумы (${curr} / ${n})';
   @override
-  String get waiting => 'Чакаецца адказ…';
+  String get waiting => 'Чаканне адказу…';
   @override
   String get rejected => 'Атрымальнік адхіліў запыт.';
   @override
@@ -469,9 +469,9 @@ class _Translations$webSharePage$be extends Translations$webSharePage$en {
   @override
   String get title => 'Абагуліць праз спасылку';
   @override
-  String get loading => 'Ідзе запуск сервера…';
+  String get loading => 'Запуск сервера…';
   @override
-  String get stopping => 'Ідзе спыненне сервера…';
+  String get stopping => 'Спыненне сервера…';
   @override
   String get error => 'Узнікла памылка падчас запуску сервера.';
   @override
@@ -1104,12 +1104,12 @@ class _Translations$progressPage$remainingTime$be extends Translations$progressP
   @override
   String minutesUnit({required num m}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('be'))(
     m,
-    other: '${m}хв',
+    other: '${m} хв',
   );
   @override
   String hoursUnit({required num h}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('be'))(
     h,
-    other: '${h}гадз',
+    other: '${h} гадз',
   );
   @override
   String minutes({required Object m, required Object ss}) => '${m}:${ss}';

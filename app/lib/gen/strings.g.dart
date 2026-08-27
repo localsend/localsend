@@ -3,8 +3,8 @@
 /// Source: assets/i18n
 /// To regenerate, run: `dart run slang`
 ///
-/// Locales: 57
-/// Strings: 20623 (361 per locale)
+/// Locales: 58
+/// Strings: 21022 (362 per locale)
 
 // coverage:ignore-file
 // ignore_for_file: type=lint, unused_import
@@ -36,6 +36,7 @@ import 'strings_gu.g.dart' deferred as l_gu;
 import 'strings_he.g.dart' deferred as l_he;
 import 'strings_hi.g.dart' deferred as l_hi;
 import 'strings_hu.g.dart' deferred as l_hu;
+import 'strings_hy.g.dart' deferred as l_hy;
 import 'strings_id.g.dart' deferred as l_id;
 import 'strings_it.g.dart' deferred as l_it;
 import 'strings_ja.g.dart' deferred as l_ja;
@@ -102,6 +103,7 @@ enum AppLocale with BaseAppLocale<AppLocale, Translations> {
   he(languageCode: 'he'),
   hi(languageCode: 'hi'),
   hu(languageCode: 'hu'),
+  hy(languageCode: 'hy'),
   id(languageCode: 'id'),
   it(languageCode: 'it'),
   ja(languageCode: 'ja'),
@@ -308,6 +310,13 @@ enum AppLocale with BaseAppLocale<AppLocale, Translations> {
       case AppLocale.hu:
         await l_hu.loadLibrary();
         return l_hu.TranslationsHu(
+          overrides: overrides,
+          cardinalResolver: cardinalResolver,
+          ordinalResolver: ordinalResolver,
+        );
+      case AppLocale.hy:
+        await l_hy.loadLibrary();
+        return l_hy.TranslationsHy(
           overrides: overrides,
           cardinalResolver: cardinalResolver,
           ordinalResolver: ordinalResolver,
@@ -695,6 +704,12 @@ enum AppLocale with BaseAppLocale<AppLocale, Translations> {
         );
       case AppLocale.hu:
         return l_hu.TranslationsHu(
+          overrides: overrides,
+          cardinalResolver: cardinalResolver,
+          ordinalResolver: ordinalResolver,
+        );
+      case AppLocale.hy:
+        return l_hy.TranslationsHy(
           overrides: overrides,
           cardinalResolver: cardinalResolver,
           ordinalResolver: ordinalResolver,

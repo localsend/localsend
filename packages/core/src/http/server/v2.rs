@@ -191,7 +191,7 @@ pub(crate) async fn register(
     }
 
     let info = state.info.lock().await.clone();
-    let download = state.web.is_some();
+    let download = state.web.share.download().is_some();
 
     Ok(JsonResponse {
         status: StatusCode::OK,
@@ -208,7 +208,7 @@ pub(crate) async fn register(
 
 pub(crate) async fn info(state: AppState) -> Result<JsonResponse<InfoResponseDtoV2>, AppError> {
     let info = state.info.lock().await.clone();
-    let download = state.web.is_some();
+    let download = state.web.share.download().is_some();
 
     Ok(JsonResponse {
         status: StatusCode::OK,

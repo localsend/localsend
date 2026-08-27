@@ -310,7 +310,7 @@ abstract class RustLibApi extends BaseApi {
     required String fingerprint,
     String? pin,
     required bool verifyChecksums,
-    WebParams? web,
+    required WebParams web,
     String? showToken,
   });
 
@@ -2107,7 +2107,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
     required String fingerprint,
     String? pin,
     required bool verifyChecksums,
-    WebParams? web,
+    required WebParams web,
     String? showToken,
   }) {
     return handler.executeNormal(
@@ -2123,7 +2123,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           sse_encode_String(fingerprint, serializer);
           sse_encode_opt_String(pin, serializer);
           sse_encode_bool(verifyChecksums, serializer);
-          sse_encode_opt_box_autoadd_web_params(web, serializer);
+          sse_encode_box_autoadd_web_params(web, serializer);
           sse_encode_opt_String(showToken, serializer);
           pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 57, port: port_);
         },
@@ -2705,12 +2705,6 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
-  WebSendParams dco_decode_box_autoadd_web_send_params(dynamic raw) {
-    // Codec=Dco (DartCObject based), see doc to use other codecs
-    return dco_decode_web_send_params(raw);
-  }
-
-  @protected
   WsServerSdpMessage dco_decode_box_autoadd_ws_server_sdp_message(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return dco_decode_ws_server_sdp_message(raw);
@@ -2945,18 +2939,6 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   int? dco_decode_opt_box_autoadd_u_32(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return raw == null ? null : dco_decode_box_autoadd_u_32(raw);
-  }
-
-  @protected
-  WebParams? dco_decode_opt_box_autoadd_web_params(dynamic raw) {
-    // Codec=Dco (DartCObject based), see doc to use other codecs
-    return raw == null ? null : dco_decode_box_autoadd_web_params(raw);
-  }
-
-  @protected
-  WebSendParams? dco_decode_opt_box_autoadd_web_send_params(dynamic raw) {
-    // Codec=Dco (DartCObject based), see doc to use other codecs
-    return raw == null ? null : dco_decode_box_autoadd_web_send_params(raw);
   }
 
   @protected
@@ -3440,7 +3422,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   WebI18n dco_decode_web_i_18_n(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     final arr = raw as List<dynamic>;
-    if (arr.length != 10) throw Exception('unexpected arr length: expect 10 but see ${arr.length}');
+    if (arr.length != 11) throw Exception('unexpected arr length: expect 11 but see ${arr.length}');
     return WebI18n(
       waiting: dco_decode_String(arr[0]),
       enterPin: dco_decode_String(arr[1]),
@@ -3452,6 +3434,37 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       files: dco_decode_String(arr[7]),
       fileName: dco_decode_String(arr[8]),
       size: dco_decode_String(arr[9]),
+      dropHint: dco_decode_String(arr[10]),
+    );
+  }
+
+  @protected
+  WebMode dco_decode_web_mode(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    switch (raw[0]) {
+      case 0:
+        return WebMode_Disabled();
+      case 1:
+        return WebMode_Download(
+          files: dco_decode_Map_String_file_dto_None(raw[1]),
+          pin: dco_decode_opt_String(raw[2]),
+        );
+      case 2:
+        return WebMode_Upload();
+      default:
+        throw Exception('unreachable');
+    }
+  }
+
+  @protected
+  WebPages dco_decode_web_pages(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 3) throw Exception('unexpected arr length: expect 3 but see ${arr.length}');
+    return WebPages(
+      downloadHtml: dco_decode_opt_String(arr[0]),
+      uploadHtml: dco_decode_opt_String(arr[1]),
+      error403Html: dco_decode_opt_String(arr[2]),
     );
   }
 
@@ -3461,20 +3474,9 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
     final arr = raw as List<dynamic>;
     if (arr.length != 3) throw Exception('unexpected arr length: expect 3 but see ${arr.length}');
     return WebParams(
-      send: dco_decode_opt_box_autoadd_web_send_params(arr[0]),
-      upload: dco_decode_bool(arr[1]),
-      i18N: dco_decode_web_i_18_n(arr[2]),
-    );
-  }
-
-  @protected
-  WebSendParams dco_decode_web_send_params(dynamic raw) {
-    // Codec=Dco (DartCObject based), see doc to use other codecs
-    final arr = raw as List<dynamic>;
-    if (arr.length != 2) throw Exception('unexpected arr length: expect 2 but see ${arr.length}');
-    return WebSendParams(
-      files: dco_decode_Map_String_file_dto_None(arr[0]),
-      pin: dco_decode_opt_String(arr[1]),
+      mode: dco_decode_web_mode(arr[0]),
+      i18N: dco_decode_web_i_18_n(arr[1]),
+      pages: dco_decode_web_pages(arr[2]),
     );
   }
 
@@ -3992,12 +3994,6 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
-  WebSendParams sse_decode_box_autoadd_web_send_params(SseDeserializer deserializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    return (sse_decode_web_send_params(deserializer));
-  }
-
-  @protected
   WsServerSdpMessage sse_decode_box_autoadd_ws_server_sdp_message(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     return (sse_decode_ws_server_sdp_message(deserializer));
@@ -4316,28 +4312,6 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
 
     if (sse_decode_bool(deserializer)) {
       return (sse_decode_box_autoadd_u_32(deserializer));
-    } else {
-      return null;
-    }
-  }
-
-  @protected
-  WebParams? sse_decode_opt_box_autoadd_web_params(SseDeserializer deserializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-
-    if (sse_decode_bool(deserializer)) {
-      return (sse_decode_box_autoadd_web_params(deserializer));
-    } else {
-      return null;
-    }
-  }
-
-  @protected
-  WebSendParams? sse_decode_opt_box_autoadd_web_send_params(SseDeserializer deserializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-
-    if (sse_decode_bool(deserializer)) {
-      return (sse_decode_box_autoadd_web_send_params(deserializer));
     } else {
       return null;
     }
@@ -4817,6 +4791,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
     var var_files = sse_decode_String(deserializer);
     var var_fileName = sse_decode_String(deserializer);
     var var_size = sse_decode_String(deserializer);
+    var var_dropHint = sse_decode_String(deserializer);
     return WebI18n(
       waiting: var_waiting,
       enterPin: var_enterPin,
@@ -4828,24 +4803,45 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       files: var_files,
       fileName: var_fileName,
       size: var_size,
+      dropHint: var_dropHint,
     );
+  }
+
+  @protected
+  WebMode sse_decode_web_mode(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    var tag_ = sse_decode_i_32(deserializer);
+    switch (tag_) {
+      case 0:
+        return WebMode_Disabled();
+      case 1:
+        var var_files = sse_decode_Map_String_file_dto_None(deserializer);
+        var var_pin = sse_decode_opt_String(deserializer);
+        return WebMode_Download(files: var_files, pin: var_pin);
+      case 2:
+        return WebMode_Upload();
+      default:
+        throw UnimplementedError('');
+    }
+  }
+
+  @protected
+  WebPages sse_decode_web_pages(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_downloadHtml = sse_decode_opt_String(deserializer);
+    var var_uploadHtml = sse_decode_opt_String(deserializer);
+    var var_error403Html = sse_decode_opt_String(deserializer);
+    return WebPages(downloadHtml: var_downloadHtml, uploadHtml: var_uploadHtml, error403Html: var_error403Html);
   }
 
   @protected
   WebParams sse_decode_web_params(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
-    var var_send = sse_decode_opt_box_autoadd_web_send_params(deserializer);
-    var var_upload = sse_decode_bool(deserializer);
+    var var_mode = sse_decode_web_mode(deserializer);
     var var_i18N = sse_decode_web_i_18_n(deserializer);
-    return WebParams(send: var_send, upload: var_upload, i18N: var_i18N);
-  }
-
-  @protected
-  WebSendParams sse_decode_web_send_params(SseDeserializer deserializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    var var_files = sse_decode_Map_String_file_dto_None(deserializer);
-    var var_pin = sse_decode_opt_String(deserializer);
-    return WebSendParams(files: var_files, pin: var_pin);
+    var var_pages = sse_decode_web_pages(deserializer);
+    return WebParams(mode: var_mode, i18N: var_i18N, pages: var_pages);
   }
 
   @protected
@@ -5481,12 +5477,6 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
-  void sse_encode_box_autoadd_web_send_params(WebSendParams self, SseSerializer serializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    sse_encode_web_send_params(self, serializer);
-  }
-
-  @protected
   void sse_encode_box_autoadd_ws_server_sdp_message(WsServerSdpMessage self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_ws_server_sdp_message(self, serializer);
@@ -5759,26 +5749,6 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
     sse_encode_bool(self != null, serializer);
     if (self != null) {
       sse_encode_box_autoadd_u_32(self, serializer);
-    }
-  }
-
-  @protected
-  void sse_encode_opt_box_autoadd_web_params(WebParams? self, SseSerializer serializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-
-    sse_encode_bool(self != null, serializer);
-    if (self != null) {
-      sse_encode_box_autoadd_web_params(self, serializer);
-    }
-  }
-
-  @protected
-  void sse_encode_opt_box_autoadd_web_send_params(WebSendParams? self, SseSerializer serializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-
-    sse_encode_bool(self != null, serializer);
-    if (self != null) {
-      sse_encode_box_autoadd_web_send_params(self, serializer);
     }
   }
 
@@ -6170,21 +6140,38 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
     sse_encode_String(self.files, serializer);
     sse_encode_String(self.fileName, serializer);
     sse_encode_String(self.size, serializer);
+    sse_encode_String(self.dropHint, serializer);
+  }
+
+  @protected
+  void sse_encode_web_mode(WebMode self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    switch (self) {
+      case WebMode_Disabled():
+        sse_encode_i_32(0, serializer);
+      case WebMode_Download(files: final files, pin: final pin):
+        sse_encode_i_32(1, serializer);
+        sse_encode_Map_String_file_dto_None(files, serializer);
+        sse_encode_opt_String(pin, serializer);
+      case WebMode_Upload():
+        sse_encode_i_32(2, serializer);
+    }
+  }
+
+  @protected
+  void sse_encode_web_pages(WebPages self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_opt_String(self.downloadHtml, serializer);
+    sse_encode_opt_String(self.uploadHtml, serializer);
+    sse_encode_opt_String(self.error403Html, serializer);
   }
 
   @protected
   void sse_encode_web_params(WebParams self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
-    sse_encode_opt_box_autoadd_web_send_params(self.send, serializer);
-    sse_encode_bool(self.upload, serializer);
+    sse_encode_web_mode(self.mode, serializer);
     sse_encode_web_i_18_n(self.i18N, serializer);
-  }
-
-  @protected
-  void sse_encode_web_send_params(WebSendParams self, SseSerializer serializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    sse_encode_Map_String_file_dto_None(self.files, serializer);
-    sse_encode_opt_String(self.pin, serializer);
+    sse_encode_web_pages(self.pages, serializer);
   }
 
   @protected
@@ -6567,7 +6554,7 @@ class RsHttpServerImpl extends RustOpaque implements RsHttpServer {
   /// Emits server events until the server is stopped.
   /// Can only be listened to once.
   ///
-  /// The v2 protocol, the web send (download API), and the internal endpoint
+  /// The v2 protocol, the web download (download API), and the internal endpoint
   /// events are all emitted on the same stream.
   ///
   /// Also returns when the Dart side of the stream is gone (e.g. after a

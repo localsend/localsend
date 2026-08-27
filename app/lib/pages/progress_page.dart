@@ -32,6 +32,9 @@ import 'package:routerino/routerino.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 
+/// Extra space needed below the file list while the progress details are expanded.
+const _advancedProgressPanelExtraPadding = 100.0;
+
 class ProgressPage extends StatefulWidget {
   final bool showAppBar;
   final bool closeSessionOnClose;
@@ -271,7 +274,7 @@ class _ProgressPageState extends State<ProgressPage> with Refena {
             ListView.builder(
               padding: EdgeInsets.only(
                 top: MediaQuery.of(context).padding.top + 20,
-                bottom: 150 + getNavBarPadding(context),
+                bottom: 150 + (_advanced ? _advancedProgressPanelExtraPadding : 0) + getNavBarPadding(context),
                 left: 15,
                 right: 30,
               ),
