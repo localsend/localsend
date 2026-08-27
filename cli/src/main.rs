@@ -8,8 +8,22 @@ mod storage;
 mod ui;
 mod util;
 
-use clap::Parser;
+use clap::{Parser, Subcommand};
 use std::path::PathBuf;
+
+#[derive(Subcommand)]
+pub enum Command {
+    /// Send one or more files or directories
+    Send {
+        /// Destination device: an exact alias or IP address
+        #[arg(long, value_name = "TARGET")]
+        to: Option<String>,
+
+        /// Files or directories to send (directories are collected recursively)
+        #[arg(value_name = "PATH", required = true, num_args = 1..)]
+        paths: Vec<PathBuf>,
+    },
+}
 
 /// LocalSend CLI
 #[derive(Parser)]
@@ -27,9 +41,8 @@ pub struct Args {
     #[arg(long, env = "LOCALSEND_DESTINATION")]
     pub destination: Option<PathBuf>,
 
-    /// File to send: opens the device list on start, selecting a device starts the transfer (repeatable)
-    #[arg(short, long = "file", value_name = "PATH")]
-    pub file: Vec<PathBuf>,
+    #[command(subcommand)]
+    pub command: Option<Command>,
 }
 
 const HELP_SECTIONS: &str = "Events:\n  \
@@ -49,4 +62,68 @@ const HELP_SECTIONS: &str = "Events:\n  \
 fn main() -> anyhow::Result<()> {
     let args = Args::parse();
     tokio::runtime::Runtime::new()?.block_on(app::run(args))
+}
+
+#[cfg(test)]
+mod tests {
+    use super::{Args, Command};
+    use clap::Parser;
+    use std::path::PathBuf;
+
+    #[test]
+    fn accepts_mixed_send_paths() {
+        let args = Args::try_parse_from(["localsend-cli", "send", "one.txt", "two.txt", "backup"])
+            .unwrap();
+
+        let Some(Command::Send { to, paths }) = args.command else {
+            panic!("expected the send command");
+        };
+        assert_eq!(to, None);
+        assert_eq!(
+            paths,
+            vec![
+                PathBuf::from("one.txt"),
+                PathBuf::from("two.txt"),
+                PathBuf::from("backup"),
+            ]
+        );
+    }
+
+    #[test]
+    fn accepts_a_destination_alias() {
+        let args =
+            Args::try_parse_from(["localsend-cli", "send", "--to", "Cute Tomato", "one.txt"])
+                .unwrap();
+
+        let Some(Command::Send { to, paths }) = args.command else {
+            panic!("expected the send command");
+        };
+        assert_eq!(to.as_deref(), Some("Cute Tomato"));
+        assert_eq!(paths, vec![PathBuf::from("one.txt")]);
+    }
+
+    #[test]
+    fn accepts_a_destination_ip() {
+        let args =
+            Args::try_parse_from(["localsend-cli", "send", "--to", "192.168.27.26", "one.txt"])
+                .unwrap();
+
+        let Some(Command::Send { to, paths }) = args.command else {
+            panic!("expected the send command");
+        };
+        assert_eq!(to.as_deref(), Some("192.168.27.26"));
+        assert_eq!(paths, vec![PathBuf::from("one.txt")]);
+    }
+
+    #[test]
+    fn requires_at_least_one_send_path() {
+        assert!(Args::try_parse_from(["localsend-cli", "send"]).is_err());
+    }
+
+    #[test]
+    fn accepts_interactive_mode_without_a_command() {
+        let args = Args::try_parse_from(["localsend-cli"]).unwrap();
+
+        assert!(args.command.is_none());
+    }
 }

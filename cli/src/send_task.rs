@@ -44,7 +44,7 @@ impl SendCancel {
 /// per accepted file. Progress is reported through `progress` (cumulative
 /// bytes over all files) and log lines through `events`.
 ///
-/// Always ends by emitting [AppEvent::SendEnded].
+/// Always ends by emitting [AppEvent::SendEnded] with the transfer result.
 pub async fn run_send(
     identity: Arc<Identity>,
     device: StatefulDevice,
@@ -54,8 +54,8 @@ pub async fn run_send(
     cancel: SendCancel,
     events: mpsc::Sender<AppEvent>,
 ) {
-    send_inner(identity, device, files, paths, progress, cancel, &events).await;
-    let _ = events.send(AppEvent::SendEnded).await;
+    let success = send_inner(identity, device, files, paths, progress, cancel, &events).await;
+    let _ = events.send(AppEvent::SendEnded { success }).await;
 }
 
 async fn send_inner(
@@ -66,7 +66,7 @@ async fn send_inner(
     progress: Arc<AtomicU64>,
     cancel: SendCancel,
     events: &mpsc::Sender<AppEvent>,
-) {
+) -> bool {
     let alias = device.device.alias.clone();
     let log = |text: String| {
         let events = events.clone();
@@ -82,7 +82,7 @@ async fn send_inner(
 
     let Some(http) = device.get_best_channel().and_then(|channel| channel.http()) else {
         log(format!("{alias}: No dialable address")).await;
-        return;
+        return false;
     };
     let protocol = match http.protocol {
         ProtocolType::Http => ProtocolType::Http,
@@ -101,7 +101,7 @@ async fn send_inner(
         Ok(client) => client,
         Err(err) => {
             log(format!("{alias}: Failed to create HTTP client: {err}")).await;
-            return;
+            return false;
         }
     };
 
@@ -125,7 +125,7 @@ async fn send_inner(
         Ok(prepared) => prepared,
         Err(ClientError::Cancelled) => {
             log(format!("{alias}: Cancelled")).await;
-            return;
+            return false;
         }
         Err(ClientError::StatusCode(err)) => {
             let reason = match err.status {
@@ -141,17 +141,17 @@ async fn send_inner(
                 ),
             };
             log(format!("{alias}: {reason}")).await;
-            return;
+            return false;
         }
         Err(err) => {
             log(format!("{alias}: {err}")).await;
-            return;
+            return false;
         }
     };
 
     let Some(response) = prepared.response else {
         log(format!("{alias}: all files were declined")).await;
-        return;
+        return false;
     };
 
     let accepted_bytes: u64 = response
@@ -231,7 +231,7 @@ async fn send_inner(
                         .await;
                     log(format!("{alias}: Cancelled ({sent_files} file(s) sent)")).await;
                 }
-                return;
+                return false;
             }
             Err(err) => {
                 log(format!(
@@ -247,7 +247,7 @@ async fn send_inner(
                         &response.session_id,
                     )
                     .await;
-                return;
+                return false;
             }
         }
     }
@@ -259,6 +259,7 @@ async fn send_inner(
         util::format_duration(started.elapsed()),
     ))
     .await;
+    true
 }
 
 /// Builds a streaming request body from the file content, invoking `progress`
