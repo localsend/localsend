@@ -5,15 +5,17 @@
 //! active the server is restarted without TLS and the links use plain
 //! `http://`. Toggling off restarts the encrypted server.
 
-use super::App;
+use super::{App, sending};
 use crate::picker::PickerTarget;
 use crate::ui::Category;
 use crate::util;
-use localsend::http::server::web::{WebConfig, WebMode as CoreWebMode, WebDownloadConfig, WebDownloadEvent};
+use localsend::http::server::web::{
+    WebConfig, WebDownloadConfig, WebDownloadEvent, WebMode as CoreWebMode,
+};
 use localsend::http::server::{ServerConfigV2, start_with_port};
 use localsend::model::transfer::FileContent;
-use qrcode::{EcLevel, QrCode};
 use qrcode::render::unicode;
+use qrcode::{EcLevel, QrCode};
 use std::collections::HashMap;
 use std::path::PathBuf;
 use std::sync::Arc;
@@ -106,7 +108,7 @@ impl App {
     /// Restarts the server in plain-HTTP mode offering `picked` for download
     /// and prints the links to open in a browser.
     pub(super) async fn enable_web_share(&mut self, picked: Vec<PathBuf>) {
-        let (files, paths, total_bytes) = self.collect_files(picked);
+        let (files, paths, total_bytes) = sending::collect_files(&mut self.ui, picked);
         if files.is_empty() {
             self.ui.log(Category::Send, "No files selected");
             return;
@@ -155,7 +157,8 @@ impl App {
     /// code (light on dark), which phone scanners accept.
     fn web_qr(&self) -> Option<String> {
         let address = self.server.local_addresses().into_iter().next()?;
-        let code = QrCode::with_error_correction_level(format!("http://{address}"), EcLevel::L).ok()?;
+        let code =
+            QrCode::with_error_correction_level(format!("http://{address}"), EcLevel::L).ok()?;
         Some(code.render::<unicode::Dense1x2>().quiet_zone(false).build())
     }
 

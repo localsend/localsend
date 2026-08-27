@@ -1,7 +1,7 @@
 //! The status line at the bottom of the screen: one progress bar per active
 //! transfer, refreshed by the tick of the main loop.
 
-use super::App;
+use super::{App, Overlay};
 use crate::ui::Category;
 use crate::util;
 use std::sync::atomic::Ordering;
@@ -9,15 +9,15 @@ use std::time::Duration;
 
 impl App {
     pub(super) fn tick(&mut self) {
-        if let Some(picker) = &mut self.picker {
+        if let Overlay::Picker(picker) = &mut self.overlay {
             // Covers terminal resizes; key presses redraw on their own.
             picker.draw();
             return;
         }
-        if self.device_list.is_some() {
+        if matches!(self.overlay, Overlay::DeviceList(_)) {
             // Also picks up devices discovered while the list is open.
             let rows = self.device_rows();
-            if let Some(list) = &mut self.device_list {
+            if let Overlay::DeviceList(list) = &mut self.overlay {
                 list.set_rows(rows);
                 list.draw();
             }
@@ -72,7 +72,7 @@ impl App {
 
 /// Formats one transfer for the status line, sizing the progress bar so the
 /// whole entry occupies `width` visible columns.
-fn transfer_status(
+pub(super) fn transfer_status(
     category: Category,
     alias: &str,
     done: u64,

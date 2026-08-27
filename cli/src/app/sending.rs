@@ -1,17 +1,20 @@
 //! The sending side: picking a target device and files, and tracking the
 //! transfer driven by the [`crate::send_task`].
 
-use super::App;
+use super::{App, AppEvent, Overlay};
 use crate::picker::{Picker, PickerOutcome, PickerTarget};
 use crate::send_task;
-use crate::ui::Category;
+use crate::storage::Identity;
+use crate::ui::{Category, Ui};
 use crate::util::SpeedMeter;
 use crossterm::event::KeyEvent;
+use localsend::discovery::StatefulDevice;
 use localsend::model::transfer::{FileDto, FileMetadata};
 use std::collections::HashMap;
 use std::path::{Component, Path, PathBuf};
 use std::sync::Arc;
 use std::sync::atomic::AtomicU64;
+use tokio::sync::mpsc;
 use uuid::Uuid;
 use walkdir::WalkDir;
 
@@ -103,6 +106,97 @@ fn collect_path(path: &Path) -> Vec<CollectedPath> {
         .collect()
 }
 
+/// Collects `picked` and spawns the send task towards `device`. Returns the
+/// state tracking the transfer, or the reason the transfer could not start.
+pub(super) fn spawn_send(
+    ui: &mut Ui,
+    identity: Arc<Identity>,
+    device: StatefulDevice,
+    picked: Vec<PathBuf>,
+    events_tx: mpsc::Sender<AppEvent>,
+) -> Result<SendState, String> {
+    let Some(host) = device
+        .get_best_channel()
+        .and_then(|channel| channel.http())
+        .map(|http| http.host.clone())
+    else {
+        return Err(format!("{}: No dialable address", device.device.alias));
+    };
+
+    let (files, paths, total_bytes) = collect_files(ui, picked);
+    if files.is_empty() {
+        return Err("No files selected".to_string());
+    }
+
+    let progress = Arc::new(AtomicU64::new(0));
+    let cancel = send_task::SendCancel::new();
+    let state = SendState {
+        session_id: None,
+        alias: device.device.alias.clone(),
+        host,
+        total_bytes,
+        sent: progress.clone(),
+        cancel: cancel.clone(),
+        speed: SpeedMeter::new(),
+    };
+    tokio::spawn(send_task::run_send(
+        identity, device, files, paths, progress, cancel, events_tx,
+    ));
+    Ok(state)
+}
+
+/// Expands and stats picked files/directories into transfer metadata keyed
+/// by a fresh file ID, plus paths under the same IDs and the total byte
+/// count. Entries that are not readable files are skipped with a log line.
+pub(super) fn collect_files(
+    ui: &mut Ui,
+    picked: Vec<PathBuf>,
+) -> (HashMap<String, FileDto>, HashMap<String, PathBuf>, u64) {
+    let mut files = HashMap::new();
+    let mut paths = HashMap::new();
+    let mut total_bytes = 0u64;
+    for collected in picked.iter().flat_map(|path| collect_path(path)) {
+        let (path, file_name) = match collected {
+            Ok(collected) => collected,
+            Err((path, error)) => {
+                ui.log(
+                    Category::Send,
+                    &format!("Skipping unreadable path: {} ({error})", path.display()),
+                );
+                continue;
+            }
+        };
+        let metadata = match std::fs::metadata(&path) {
+            Ok(metadata) if metadata.is_file() => metadata,
+            _ => {
+                ui.log(
+                    Category::Send,
+                    &format!("Skipping unreadable file: {}", path.display()),
+                );
+                continue;
+            }
+        };
+        let id = Uuid::new_v4().to_string();
+        total_bytes += metadata.len();
+        files.insert(
+            id.clone(),
+            FileDto {
+                id: id.clone(),
+                file_name,
+                size: metadata.len(),
+                file_type: mime_guess::from_path(&path)
+                    .first_or_octet_stream()
+                    .to_string(),
+                sha256: None,
+                preview: None,
+                metadata: FileMetadata::from_fs_metadata(&metadata),
+            },
+        );
+        paths.insert(id, path);
+    }
+    (files, paths, total_bytes)
+}
+
 impl App {
     pub(super) fn start_picking(&mut self, slot: u8) {
         let device = self
@@ -126,18 +220,23 @@ impl App {
 
     pub(super) fn open_picker(&mut self, target: PickerTarget) {
         if matches!(target, PickerTarget::Device { .. }) && self.send.is_some() {
-            self.close_device_list();
+            self.close_overlay();
             self.ui.log(Category::Send, "A send is already in progress");
             return;
         }
         // When the device list is open, the picker takes over its alternate
         // screen — leaving and re-entering it would flash the main screen.
-        let handoff = match self.device_list.take() {
-            Some(list) => {
+        let handoff = match std::mem::replace(&mut self.overlay, Overlay::None) {
+            Overlay::DeviceList(list) => {
                 list.close_keeping_screen();
                 true
             }
-            None => false,
+            // An open picker never reaches here: it consumes every key.
+            Overlay::Picker(picker) => {
+                picker.close();
+                false
+            }
+            Overlay::None => false,
         };
         let opened = match handoff {
             true => Picker::open_on_alternate_screen(target),
@@ -146,7 +245,7 @@ impl App {
         match opened {
             Ok(picker) => {
                 self.ui.suspend();
-                self.picker = Some(picker);
+                self.overlay = Overlay::Picker(Box::new(picker));
             }
             Err(err) => {
                 if handoff {
@@ -162,16 +261,14 @@ impl App {
     }
 
     pub(super) async fn handle_picker_key(&mut self, key: KeyEvent) {
-        let Some(picker) = &mut self.picker else {
+        let Overlay::Picker(picker) = &mut self.overlay else {
             return;
         };
         match picker.handle_key(key) {
             PickerOutcome::Open => {}
             PickerOutcome::Picked(files) => {
-                let picker = self.picker.take().unwrap();
                 let target = picker.target.clone();
-                picker.close();
-                self.ui.resume();
+                self.close_overlay();
                 match target {
                     PickerTarget::Device { fingerprint, .. } => {
                         self.start_send(&fingerprint, files)
@@ -179,11 +276,7 @@ impl App {
                     PickerTarget::WebShare => self.enable_web_share(files).await,
                 }
             }
-            PickerOutcome::Cancelled => {
-                let picker = self.picker.take().unwrap();
-                picker.close();
-                self.ui.resume();
-            }
+            PickerOutcome::Cancelled => self.close_overlay(),
         }
     }
 
@@ -195,97 +288,16 @@ impl App {
         let Some(device) = self.discovery.device_by_fingerprint(fingerprint) else {
             return;
         };
-        let Some(host) = device
-            .get_best_channel()
-            .and_then(|channel| channel.http())
-            .map(|http| http.host.clone())
-        else {
-            self.ui.log(
-                Category::Send,
-                &format!("{}: No dialable address", device.device.alias),
-            );
-            return;
-        };
-
-        let (files, paths, total_bytes) = self.collect_files(picked);
-        if files.is_empty() {
-            self.ui.log(Category::Send, "No files selected");
-            return;
-        }
-
-        let progress = Arc::new(AtomicU64::new(0));
-        let cancel = send_task::SendCancel::new();
-        self.send = Some(SendState {
-            session_id: None,
-            alias: device.device.alias.clone(),
-            host,
-            total_bytes,
-            sent: progress.clone(),
-            cancel: cancel.clone(),
-            speed: SpeedMeter::new(),
-        });
-
-        tokio::spawn(send_task::run_send(
+        match spawn_send(
+            &mut self.ui,
             self.storage.identity.clone(),
             device,
-            files,
-            paths,
-            progress,
-            cancel,
+            picked,
             self.events_tx.clone(),
-        ));
-    }
-
-    /// Expands and stats picked files/directories into transfer metadata keyed
-    /// by a fresh file ID, plus paths under the same IDs and the total byte
-    /// count. Entries that are not readable files are skipped with a log line.
-    pub(super) fn collect_files(
-        &mut self,
-        picked: Vec<PathBuf>,
-    ) -> (HashMap<String, FileDto>, HashMap<String, PathBuf>, u64) {
-        let mut files = HashMap::new();
-        let mut paths = HashMap::new();
-        let mut total_bytes = 0u64;
-        for collected in picked.iter().flat_map(|path| collect_path(path)) {
-            let (path, file_name) = match collected {
-                Ok(collected) => collected,
-                Err((path, error)) => {
-                    self.ui.log(
-                        Category::Send,
-                        &format!("Skipping unreadable path: {} ({error})", path.display()),
-                    );
-                    continue;
-                }
-            };
-            let metadata = match std::fs::metadata(&path) {
-                Ok(metadata) if metadata.is_file() => metadata,
-                _ => {
-                    self.ui.log(
-                        Category::Send,
-                        &format!("Skipping unreadable file: {}", path.display()),
-                    );
-                    continue;
-                }
-            };
-            let id = Uuid::new_v4().to_string();
-            total_bytes += metadata.len();
-            files.insert(
-                id.clone(),
-                FileDto {
-                    id: id.clone(),
-                    file_name,
-                    size: metadata.len(),
-                    file_type: mime_guess::from_path(&path)
-                        .first_or_octet_stream()
-                        .to_string(),
-                    sha256: None,
-                    preview: None,
-                    metadata: FileMetadata::from_fs_metadata(&metadata),
-                },
-            );
-            paths.insert(id, path);
+        ) {
+            Ok(state) => self.send = Some(state),
+            Err(reason) => self.ui.log(Category::Send, &reason),
         }
-        (files, paths, total_bytes)
     }
 }
 

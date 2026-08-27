@@ -1,7 +1,7 @@
 //! The device list overlay: paired and discovered devices, with the send
 //! and unpair actions.
 
-use super::App;
+use super::{App, Overlay};
 use crate::device_list::{DeviceList, DeviceListOutcome, DeviceRow, Row};
 use crate::picker::PickerTarget;
 use crate::storage::PairedChannel;
@@ -14,7 +14,7 @@ impl App {
         match DeviceList::open(self.device_rows()) {
             Ok(list) => {
                 self.ui.suspend();
-                self.device_list = Some(list);
+                self.overlay = Overlay::DeviceList(list);
             }
             Err(err) => {
                 self.ui
@@ -72,13 +72,14 @@ impl App {
     /// Handles a key while the list is open; returns `true` when the
     /// application should quit (the list was cancelled in `send` mode).
     pub(super) fn handle_device_list_key(&mut self, key: KeyEvent) -> bool {
-        let Some(list) = &mut self.device_list else {
+        let Overlay::DeviceList(list) = &mut self.overlay else {
             return false;
         };
         match list.handle_key(key) {
             DeviceListOutcome::Open => {}
             DeviceListOutcome::Closed => {
-                self.close_device_list();
+                self.close_overlay();
+                // In `send` mode the device list is the whole program.
                 return !self.preselected.is_empty();
             }
             DeviceListOutcome::Send { fingerprint } => {
@@ -92,7 +93,7 @@ impl App {
                         alias: device.device.alias.clone(),
                     });
                 } else {
-                    self.close_device_list();
+                    self.close_overlay();
                     if !self.preselected.is_empty() {
                         self.start_send(&fingerprint, self.preselected.clone());
                     }
@@ -102,13 +103,6 @@ impl App {
             DeviceListOutcome::Unpair { fingerprint } => self.unpair(&fingerprint),
         }
         false
-    }
-
-    pub(super) fn close_device_list(&mut self) {
-        if let Some(list) = self.device_list.take() {
-            list.close();
-            self.ui.resume();
-        }
     }
 
     /// Pairs a discovered device; the list stays open and refreshes (the
@@ -134,7 +128,7 @@ impl App {
             ),
         }
         let rows = self.device_rows();
-        if let Some(list) = &mut self.device_list {
+        if let Overlay::DeviceList(list) = &mut self.overlay {
             list.set_rows(rows);
             list.draw();
         }
@@ -158,7 +152,7 @@ impl App {
             }
         }
         let rows = self.device_rows();
-        if let Some(list) = &mut self.device_list {
+        if let Overlay::DeviceList(list) = &mut self.overlay {
             list.set_rows(rows);
             list.draw();
         }
