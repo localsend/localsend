@@ -186,11 +186,11 @@ Future<void> _pickFiles(BuildContext context, Ref ref) async {
     }
 
     _logger.warning('Failed to pick files', e);
-    if (checkPlatform([TargetPlatform.android])) {
+    if (checkPlatform([TargetPlatform.android]) && !kIsWeb) {
       // ignore: use_build_context_synchronously
       await showDialog(context: context, builder: (_) => const NoPermissionDialog());
     } else {
-      // No app-level file permission exists to grant outside Android, so show the real error instead.
+      // No app-level file permission exists to grant outside native Android, so show the real error instead.
       await showDialog(
         // ignore: use_build_context_synchronously
         context: context,
@@ -244,11 +244,11 @@ Future<void> _pickFolder(BuildContext context, Ref ref) async {
     }
 
     _logger.warning('Failed to pick directory', e);
-    if (checkPlatform([TargetPlatform.android])) {
+    if (checkPlatform([TargetPlatform.android]) && !kIsWeb) {
       // ignore: use_build_context_synchronously
       await showDialog(context: context, builder: (_) => const NoPermissionDialog());
     } else {
-      // No app-level file permission exists to grant outside Android, so show the real error instead.
+      // No app-level file permission exists to grant outside native Android, so show the real error instead.
       await showDialog(
         // ignore: use_build_context_synchronously
         context: context,
