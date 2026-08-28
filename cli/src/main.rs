@@ -2,6 +2,7 @@ mod app;
 mod banner;
 mod device_list;
 mod picker;
+mod sanitize;
 mod send_task;
 mod slots;
 mod storage;

@@ -3,6 +3,7 @@
 
 use super::App;
 use super::web_link::WebMode;
+use crate::sanitize;
 use crate::ui::Category;
 use crate::util::{self, SpeedMeter};
 use localsend::http::client::v2::LsHttpClientV2;
@@ -128,13 +129,14 @@ impl App {
                 // The sender is clearly reachable; make sure it has a slot.
                 self.device_confirmed(ip.to_string(), info.clone());
 
+                let alias = sanitize::single_line(&info.alias);
                 if let Some(message) = message_of(&files) {
                     // Nothing to transfer: the text is the request. Accepting
                     // no file ends the session right away.
                     let _ = decision_tx.send(PrepareUploadDecisionV2::Accept(HashSet::new()));
                     self.ui.log(
                         Category::Receive,
-                        &format!("{}: Message received\n{}", info.alias, message),
+                        &format!("{alias}: Message received\n{}", sanitize::multi_line(message)),
                     );
                     return;
                 }
@@ -154,13 +156,12 @@ impl App {
                     {
                         // Nothing to confirm: the progress bar and the summary
                         // are the whole story for an auto-accepted request.
-                        self.receive =
-                            Some(ReceiveSession::new(session_id, info.alias, sender, files));
+                        self.receive = Some(ReceiveSession::new(session_id, alias, sender, files));
                     }
                 } else {
                     let total: u64 = files.values().map(|file| file.size).sum();
                     let mut lines = vec![
-                        info.alias.clone(),
+                        alias.clone(),
                         format!("\nFiles ({}, {}):", files.len(), util::format_bytes(total)),
                     ];
                     let mut sorted: Vec<&FileDto> = files.values().collect();
@@ -168,7 +169,7 @@ impl App {
                     for file in sorted.iter().take(MAX_LISTED_FILES) {
                         lines.push(format!(
                             "  {} ({})",
-                            file.file_name,
+                            sanitize::single_line(&file.file_name),
                             util::format_bytes(file.size)
                         ));
                     }
@@ -188,7 +189,7 @@ impl App {
                     self.ui.log(Category::Receive, &lines.join("\n"));
                     self.pending = Some(PendingReceive {
                         session_id,
-                        alias: info.alias,
+                        alias,
                         sender,
                         files,
                         decision_tx,
@@ -327,8 +328,8 @@ impl App {
                 let name = session
                     .files
                     .get(&file_id)
-                    .map(|file| file.file_name.clone())
-                    .unwrap_or(file_id);
+                    .map(|file| sanitize::single_line(&file.file_name))
+                    .unwrap_or_else(|| sanitize::single_line(&file_id));
                 let alias = session.alias.clone();
                 self.ui.log(
                     Category::Receive,

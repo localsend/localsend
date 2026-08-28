@@ -7,6 +7,7 @@ use super::sending::{self, SendState};
 use super::status;
 use super::target::TargetSelector;
 use super::{AppEvent, Network, discovery, spawn_staged_discovery, start_network, stop_network};
+use crate::sanitize;
 use crate::storage::Repository;
 use crate::ui::{Category, Ui};
 use crate::util;
@@ -143,7 +144,7 @@ fn handle_server_event(
                 Category::Receive,
                 &format!(
                     "{}: Declined the incoming request (busy sending)",
-                    info.alias
+                    sanitize::single_line(&info.alias)
                 ),
             );
         }
@@ -193,7 +194,10 @@ fn handle_discovery(
         .http()
         .map(|http| http.host.as_str())
         .unwrap_or("unknown address");
-    ui.log(Category::Discovery, &format!("{} ({host})", device.alias));
+    ui.log(
+        Category::Discovery,
+        &format!("{} ({host})", sanitize::single_line(&device.alias)),
+    );
 }
 
 /// The status line: the progress bar of the running transfer.

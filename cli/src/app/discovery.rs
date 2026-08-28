@@ -4,6 +4,7 @@
 
 use super::App;
 use super::web_link::WebMode;
+use crate::sanitize;
 use crate::slots::slot_label;
 use crate::storage::{PairedChannel, PairedDevices};
 use crate::ui::{Category, Ui};
@@ -49,7 +50,11 @@ impl App {
             .unwrap_or("unknown address");
         self.ui.log(
             Category::Discovery,
-            &format!("[{}] {} ({host})", slot_label(slot), device.alias),
+            &format!(
+                "[{}] {} ({host})",
+                slot_label(slot),
+                sanitize::single_line(&device.alias)
+            ),
         );
     }
 
@@ -79,7 +84,7 @@ pub(super) fn refresh_paired_channels(
     };
     let result = paired.update(
         fingerprint,
-        &stored.device.alias,
+        &sanitize::single_line(&stored.device.alias),
         PairedChannel::channels_of(&stored),
     );
     if let Err(err) = result {

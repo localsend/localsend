@@ -1,4 +1,5 @@
 use crate::app::AppEvent;
+use crate::sanitize;
 use crate::storage::Identity;
 use crate::ui::Category;
 use crate::util;
@@ -67,7 +68,7 @@ async fn send_inner(
     cancel: SendCancel,
     events: &mpsc::Sender<AppEvent>,
 ) -> bool {
-    let alias = device.device.alias.clone();
+    let alias = sanitize::single_line(&device.device.alias);
     let log = |text: String| {
         let events = events.clone();
         async move {
@@ -136,7 +137,7 @@ async fn send_inner(
                 status => format!(
                     "Request failed with status {status}{}",
                     err.message
-                        .map(|message| format!(": {message}"))
+                        .map(|message| format!(": {}", sanitize::single_line(&message)))
                         .unwrap_or_default()
                 ),
             };

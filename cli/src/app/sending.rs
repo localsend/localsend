@@ -3,6 +3,7 @@
 
 use super::{App, AppEvent, Overlay};
 use crate::picker::{Picker, PickerOutcome, PickerTarget};
+use crate::sanitize;
 use crate::send_task;
 use crate::storage::Identity;
 use crate::ui::{Category, Ui};
@@ -120,7 +121,10 @@ pub(super) fn spawn_send(
         .and_then(|channel| channel.http())
         .map(|http| http.host.clone())
     else {
-        return Err(format!("{}: No dialable address", device.device.alias));
+        return Err(format!(
+            "{}: No dialable address",
+            sanitize::single_line(&device.device.alias)
+        ));
     };
 
     let (files, paths, total_bytes) = collect_files(ui, picked);
@@ -132,7 +136,7 @@ pub(super) fn spawn_send(
     let cancel = send_task::SendCancel::new();
     let state = SendState {
         session_id: None,
-        alias: device.device.alias.clone(),
+        alias: sanitize::single_line(&device.device.alias),
         host,
         total_bytes,
         sent: progress.clone(),
@@ -214,7 +218,7 @@ impl App {
         }
         self.open_picker(PickerTarget::Device {
             fingerprint: device.device.fingerprint.clone(),
-            alias: device.device.alias.clone(),
+            alias: sanitize::single_line(&device.device.alias),
         });
     }
 

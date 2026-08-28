@@ -4,6 +4,7 @@
 use super::{App, Overlay};
 use crate::device_list::{DeviceList, DeviceListOutcome, DeviceRow, Row};
 use crate::picker::PickerTarget;
+use crate::sanitize;
 use crate::storage::PairedChannel;
 use crate::ui::Category;
 use crossterm::event::KeyEvent;
@@ -36,8 +37,8 @@ impl App {
                 fingerprint: fingerprint.clone(),
                 alias: discovered
                     .as_ref()
-                    .map(|stored| stored.device.alias.clone())
-                    .unwrap_or_else(|| paired.alias.clone()),
+                    .map(|stored| sanitize::single_line(&stored.device.alias))
+                    .unwrap_or_else(|| sanitize::single_line(&paired.alias)),
                 slot: self.slots.get(fingerprint),
                 hosts: discovered.as_ref().map(channel_hosts).unwrap_or_default(),
                 paired: true,
@@ -57,7 +58,7 @@ impl App {
             empty = false;
             rows.push(Row::Device(DeviceRow {
                 fingerprint: stored.device.fingerprint.clone(),
-                alias: stored.device.alias.clone(),
+                alias: sanitize::single_line(&stored.device.alias),
                 slot: self.slots.get(&stored.device.fingerprint),
                 hosts: channel_hosts(&stored),
                 paired: false,
@@ -90,7 +91,7 @@ impl App {
                     // alternate screen, so the main screen never shows.
                     self.open_picker(PickerTarget::Device {
                         fingerprint: device.device.fingerprint.clone(),
-                        alias: device.device.alias.clone(),
+                        alias: sanitize::single_line(&device.device.alias),
                     });
                 } else {
                     self.close_overlay();
@@ -112,7 +113,7 @@ impl App {
         let Some(stored) = self.discovery.device_by_fingerprint(fingerprint) else {
             return;
         };
-        let alias = stored.device.alias.clone();
+        let alias = sanitize::single_line(&stored.device.alias);
         match self.storage.paired.insert(
             fingerprint.to_string(),
             alias.clone(),
@@ -140,8 +141,10 @@ impl App {
     fn unpair(&mut self, fingerprint: &str) {
         match self.storage.paired.remove(fingerprint) {
             Ok(Some(device)) => {
-                self.ui
-                    .log(Category::Discovery, &format!("{}: Unpaired", device.alias));
+                self.ui.log(
+                    Category::Discovery,
+                    &format!("{}: Unpaired", sanitize::single_line(&device.alias)),
+                );
             }
             Ok(None) => {}
             Err(err) => {
