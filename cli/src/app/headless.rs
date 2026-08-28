@@ -57,35 +57,52 @@ pub(super) async fn run(
 
     let mut send: Option<SendState> = None;
     let result = loop {
-        tokio::select! {
-            Some(event) = events_rx.recv() => match event {
-                AppEvent::Log { category, text } => ui.log(category, &text),
-                AppEvent::DiscoveryFinished => {
-                    match start_send(&mut ui, &storage, &discovery, &target, paths.clone(), &events_tx) {
-                        Ok(state) => send = Some(state),
-                        Err(reason) => break Err(anyhow::anyhow!(reason)),
-                    }
+        let event = tokio::select! {
+            Some(event) = events_rx.recv() => event,
+            Some(event) = server_rx.recv() => AppEvent::Server(event),
+            Some(event) = discovery_rx.recv() => AppEvent::Discovery(event),
+            _ = tick.tick() => AppEvent::Tick,
+        };
+        match event {
+            AppEvent::Server(event) => {
+                handle_server_event(&mut ui, &storage, &discovery, &mut send, event)
+            }
+            AppEvent::Discovery(event) => {
+                handle_discovery(&mut ui, &mut storage, &discovery, event)
+            }
+            AppEvent::Tick => render_progress(&mut ui, &mut send),
+            AppEvent::Log { category, text } => ui.log(category, &text),
+            AppEvent::DiscoveryFinished => {
+                match start_send(
+                    &mut ui,
+                    &storage,
+                    &discovery,
+                    &target,
+                    paths.clone(),
+                    &events_tx,
+                ) {
+                    Ok(state) => send = Some(state),
+                    Err(reason) => break Err(anyhow::anyhow!(reason)),
                 }
-                AppEvent::SendSessionStarted { session_id, accepted_bytes } => {
-                    if let Some(send) = &mut send {
-                        send.session_id = Some(session_id);
-                        send.total_bytes = accepted_bytes;
-                    }
+            }
+            AppEvent::SendSessionStarted {
+                session_id,
+                accepted_bytes,
+            } => {
+                if let Some(send) = &mut send {
+                    send.session_id = Some(session_id);
+                    send.total_bytes = accepted_bytes;
                 }
-                AppEvent::SendEnded { success } => break match success {
+            }
+            AppEvent::SendEnded { success } => {
+                break match success {
                     true => Ok(()),
                     false => Err(anyhow::anyhow!("Transfer failed")),
-                },
-                // No keyboard and no accepted receive sessions in this mode.
-                AppEvent::Key(_) | AppEvent::ReceiveFileResult { .. } => {}
-            },
-            Some(event) = server_rx.recv() => {
-                handle_server_event(&mut ui, &storage, &discovery, &mut send, event);
+                };
             }
-            Some(event) = discovery_rx.recv() => {
-                handle_discovery(&mut ui, &mut storage, &discovery, event);
-            }
-            _ = tick.tick() => render_progress(&mut ui, &mut send),
+            // No keyboard, no accepted receive sessions and no web links in
+            // this mode.
+            AppEvent::Key(_) | AppEvent::ReceiveFileResult { .. } | AppEvent::Web(_) => {}
         }
     };
     ui.set_status(None);

@@ -1,6 +1,7 @@
 mod devices;
 mod discovery;
 mod headless;
+mod keys;
 mod receive;
 mod sending;
 mod status;
@@ -13,7 +14,8 @@ use crate::slots::Slots;
 use crate::storage;
 use crate::ui::{Category, Ui};
 use crate::{Args, Command};
-use crossterm::event::{Event, KeyCode, KeyEvent, KeyEventKind, KeyModifiers};
+use crossterm::event::{Event, KeyEvent, KeyEventKind};
+use keys::{Intent, KeyDecoder};
 use localsend::discovery::{
     DEFAULT_DISCOVERY_TIMEOUT, DeviceIdentity, DiscoveryConfig, DiscoveryEvent, DiscoveryHandle,
     HttpChannel,
@@ -32,10 +34,22 @@ use std::time::Duration;
 use target::TargetSelector;
 use tokio::sync::{mpsc, oneshot};
 
-/// Events processed by the central application loop.
+/// Everything that can happen to the application.
 pub enum AppEvent {
     /// A key was pressed.
     Key(KeyEvent),
+
+    /// An event of the HTTP server (protocol v2).
+    Server(ServerEventV2),
+
+    /// An event of the "share via link" download page.
+    Web(WebDownloadEvent),
+
+    /// A device entered or updated the discovery store.
+    Discovery(DiscoveryEvent),
+
+    /// The periodic redraw of the status line and the open overlay.
+    Tick,
 
     /// A file of the active receive session finished (or failed).
     ReceiveFileResult {
@@ -231,9 +245,8 @@ struct App {
     /// `Some` while the server runs in plain-HTTP mode for browsers.
     web: Option<web_link::WebMode>,
 
-    /// Whether the previously pressed key was `W`, the first half of the
-    /// W+S / W+R chords toggling the web links.
-    chord_w: bool,
+    /// Decodes key presses into [Intent]s, tracking the W+S / W+R chords.
+    keys: KeyDecoder,
 
     /// The core discovery: the store of confirmed devices, and the multicast
     /// side when it could be started.
@@ -313,7 +326,7 @@ async fn run_interactive(
         server_tx,
         web_tx,
         web: None,
-        chord_w: false,
+        keys: KeyDecoder::new(),
         discovery: discovery.clone(),
         slots: Slots::new(),
         storage,
@@ -338,23 +351,14 @@ async fn run_interactive(
 
     let mut quit = false;
     while !quit {
-        tokio::select! {
-            Some(event) = events_rx.recv() => {
-                quit = app.handle_event(event).await;
-            }
-            Some(event) = server_rx.recv() => {
-                app.handle_server_event(event);
-            }
-            Some(event) = web_rx.recv() => {
-                app.handle_web_event(event);
-            }
-            Some(event) = discovery_rx.recv() => {
-                app.handle_discovery(event);
-            }
-            _ = tick.tick() => {
-                app.tick();
-            }
-        }
+        let event = tokio::select! {
+            Some(event) = events_rx.recv() => event,
+            Some(event) = server_rx.recv() => AppEvent::Server(event),
+            Some(event) = web_rx.recv() => AppEvent::Web(event),
+            Some(event) = discovery_rx.recv() => AppEvent::Discovery(event),
+            _ = tick.tick() => AppEvent::Tick,
+        };
+        quit = app.dispatch(event).await;
     }
 
     // Shutdown: leave a possibly open overlay, restore the terminal, stop the
@@ -377,9 +381,13 @@ async fn run_interactive(
 
 impl App {
     /// Handles an event; returns `true` when the application should quit.
-    async fn handle_event(&mut self, event: AppEvent) -> bool {
+    async fn dispatch(&mut self, event: AppEvent) -> bool {
         match event {
             AppEvent::Key(key) => return self.handle_key(key).await,
+            AppEvent::Server(event) => self.handle_server_event(event),
+            AppEvent::Web(event) => self.handle_web_event(event),
+            AppEvent::Discovery(event) => self.handle_discovery(event),
+            AppEvent::Tick => self.tick(),
             AppEvent::ReceiveFileResult {
                 session_id,
                 file_id,
@@ -411,34 +419,33 @@ impl App {
     }
 
     async fn handle_key(&mut self, key: KeyEvent) -> bool {
-        if key.code == KeyCode::Char('c') && key.modifiers.contains(KeyModifiers::CONTROL) {
-            self.chord_w = false;
-            return self.handle_ctrl_c();
+        let overlay_open = !matches!(self.overlay, Overlay::None);
+        match self.keys.decode(key, overlay_open) {
+            Some(intent) => self.handle_intent(intent).await,
+            None => false,
         }
+    }
 
-        // While an overlay is open it consumes every key.
-        match &self.overlay {
-            Overlay::Picker(_) => {
-                self.handle_picker_key(key).await;
-                return false;
+    /// Acts on a decoded intent; returns `true` when the application should
+    /// quit.
+    async fn handle_intent(&mut self, intent: Intent) -> bool {
+        match intent {
+            Intent::Cancel => return self.handle_ctrl_c(),
+            Intent::Overlay(key) => {
+                return match &self.overlay {
+                    Overlay::Picker(_) => {
+                        self.handle_picker_key(key).await;
+                        false
+                    }
+                    Overlay::DeviceList(_) => self.handle_device_list_key(key),
+                    Overlay::None => false,
+                };
             }
-            Overlay::DeviceList(_) => return self.handle_device_list_key(key),
-            Overlay::None => {}
-        }
-
-        if let KeyCode::Char(c) = key.code {
-            let chord_w = std::mem::replace(&mut self.chord_w, false);
-            match c.to_ascii_lowercase() {
-                's' if chord_w => self.toggle_web_share().await,
-                'r' if chord_w => self.toggle_web_receive().await,
-                'w' => self.chord_w = true,
-                'y' => self.answer_pending(Answer::Accept),
-                'n' => self.answer_pending(Answer::Decline),
-                'p' => self.answer_pending(Answer::AcceptAndPair),
-                'd' => self.open_device_list(),
-                '1'..='9' => self.start_picking(c as u8 - b'0'),
-                _ => {}
-            }
+            Intent::ToggleWebShare => self.toggle_web_share().await,
+            Intent::ToggleWebReceive => self.toggle_web_receive().await,
+            Intent::Answer(answer) => self.answer_pending(answer),
+            Intent::OpenDeviceList => self.open_device_list(),
+            Intent::PickDevice(slot) => self.start_picking(slot),
         }
         false
     }

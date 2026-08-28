@@ -106,6 +106,7 @@ fn message_of(files: &HashMap<String, FileDto>) -> Option<&str> {
 const MAX_LISTED_FILES: usize = 20;
 
 /// The user's decision on a [`PendingReceive`].
+#[derive(Debug, PartialEq)]
 pub(super) enum Answer {
     Accept,
     Decline,
