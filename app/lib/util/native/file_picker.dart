@@ -144,6 +144,28 @@ class PickFileAction extends AsyncGlobalAction {
   }
 }
 
+/// Handles picker errors: CANCELED is silent, PERMISSION_DENIED shows
+/// [NoPermissionDialog], everything else shows [ErrorDialog].
+Future<void> _handlePickerError(BuildContext context, Object e, String warningMessage) async {
+  if (e is PlatformException && e.code == 'CANCELED') {
+    _logger.info('User canceled file picker');
+    return;
+  }
+
+  _logger.warning(warningMessage, e);
+
+  if (e is PlatformException && e.code == 'PERMISSION_DENIED') {
+    // ignore: use_build_context_synchronously
+    await showDialog(context: context, builder: (_) => const NoPermissionDialog());
+  } else {
+    final errorMessage = e is PlatformException
+        ? '${e.code}: ${e.message ?? 'No details available'}'
+        : e.toString();
+    // ignore: use_build_context_synchronously
+    await showDialog(context: context, builder: (_) => ErrorDialog(error: errorMessage));
+  }
+}
+
 Future<void> _pickFiles(BuildContext context, Ref ref) async {
   if (checkPlatform([TargetPlatform.android])) {
     // On android, the files are copied to the cache which takes some time.
@@ -179,25 +201,7 @@ Future<void> _pickFiles(BuildContext context, Ref ref) async {
           );
     }
   } catch (e) {
-    if (e is PlatformException && e.code == 'CANCELED') {
-      // User canceled the file picker
-      _logger.info('User canceled file picker');
-      return;
-    }
-
-    _logger.warning('Failed to pick files', e);
-
-    if (e is PlatformException && e.code == 'PERMISSION_DENIED') {
-      // ignore: use_build_context_synchronously
-      await showDialog(context: context, builder: (_) => const NoPermissionDialog());
-    } else {
-      // Other errors (e.g. the file provider returned incomplete metadata)
-      // are not permission issues — show a generic error dialog instead of
-      // misleading the user with "no permission".
-      final errorMessage = e is PlatformException ? '${e.code}: ${e.message}' : e.toString();
-      // ignore: use_build_context_synchronously
-      await showDialog(context: context, builder: (_) => ErrorDialog(error: errorMessage));
-    }
+    await _handlePickerError(context, e, 'Failed to pick files');
   } finally {
     // ignore: use_build_context_synchronously
     Routerino.context.popUntilRoot(); // remove loading dialog
@@ -238,22 +242,7 @@ Future<void> _pickFolder(BuildContext context, Ref ref) async {
       }
     }
   } catch (e) {
-    if (e is PlatformException && e.code == 'CANCELED') {
-      // User canceled the file picker
-      _logger.info('User canceled file picker');
-      return;
-    }
-
-    _logger.warning('Failed to pick directory', e);
-
-    if (e is PlatformException && e.code == 'PERMISSION_DENIED') {
-      // ignore: use_build_context_synchronously
-      await showDialog(context: context, builder: (_) => const NoPermissionDialog());
-    } else {
-      final errorMessage = e is PlatformException ? '${e.code}: ${e.message}' : e.toString();
-      // ignore: use_build_context_synchronously
-      await showDialog(context: context, builder: (_) => ErrorDialog(error: errorMessage));
-    }
+    await _handlePickerError(context, e, 'Failed to pick directory');
   } finally {
     // ignore: use_build_context_synchronously
     Routerino.context.popUntilRoot(); // remove loading dialog

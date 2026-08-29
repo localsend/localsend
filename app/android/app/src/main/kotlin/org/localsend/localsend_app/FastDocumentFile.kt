@@ -51,9 +51,7 @@ class FastDocumentFile(
                 return results
             }
 
-            // Some providers (e.g. vivo's file manager) do not return all
-            // requested columns, so resolve indices dynamically instead of
-            // assuming a fixed column order.
+            // Some providers don't return all requested columns.
             val mimeIdx = cursor.getColumnIndex(DocumentsContract.Document.COLUMN_MIME_TYPE)
             val docIdIdx = cursor.getColumnIndex(DocumentsContract.Document.COLUMN_DOCUMENT_ID)
             val nameIdx = cursor.getColumnIndex(DocumentsContract.Document.COLUMN_DISPLAY_NAME)
@@ -144,9 +142,7 @@ class FastDocumentFile(
                     return null
                 }
 
-                // Some providers (e.g. vivo's file manager) do not return all
-                // requested columns, so resolve indices dynamically instead of
-                // assuming a fixed column order.
+                // Some providers don't return all requested columns.
                 val mimeIdx = cursor.getColumnIndex(DocumentsContract.Document.COLUMN_MIME_TYPE)
                 val nameIdx = cursor.getColumnIndex(DocumentsContract.Document.COLUMN_DISPLAY_NAME)
                 val sizeIdx = cursor.getColumnIndex(DocumentsContract.Document.COLUMN_SIZE)
