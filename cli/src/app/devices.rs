@@ -1,9 +1,10 @@
 //! The device list overlay: paired and discovered devices, with the send
 //! and unpair actions.
 
-use super::App;
+use super::{App, Overlay};
 use crate::device_list::{DeviceList, DeviceListOutcome, DeviceRow, Row};
 use crate::picker::PickerTarget;
+use crate::sanitize;
 use crate::storage::PairedChannel;
 use crate::ui::Category;
 use crossterm::event::KeyEvent;
@@ -14,7 +15,7 @@ impl App {
         match DeviceList::open(self.device_rows()) {
             Ok(list) => {
                 self.ui.suspend();
-                self.device_list = Some(list);
+                self.overlay = Overlay::DeviceList(list);
             }
             Err(err) => {
                 self.ui
@@ -36,8 +37,8 @@ impl App {
                 fingerprint: fingerprint.clone(),
                 alias: discovered
                     .as_ref()
-                    .map(|stored| stored.device.alias.clone())
-                    .unwrap_or_else(|| paired.alias.clone()),
+                    .map(|stored| sanitize::single_line(&stored.device.alias))
+                    .unwrap_or_else(|| sanitize::single_line(&paired.alias)),
                 slot: self.slots.get(fingerprint),
                 hosts: discovered.as_ref().map(channel_hosts).unwrap_or_default(),
                 paired: true,
@@ -57,7 +58,7 @@ impl App {
             empty = false;
             rows.push(Row::Device(DeviceRow {
                 fingerprint: stored.device.fingerprint.clone(),
-                alias: stored.device.alias.clone(),
+                alias: sanitize::single_line(&stored.device.alias),
                 slot: self.slots.get(&stored.device.fingerprint),
                 hosts: channel_hosts(&stored),
                 paired: false,
@@ -70,15 +71,16 @@ impl App {
     }
 
     /// Handles a key while the list is open; returns `true` when the
-    /// application should quit (the list was cancelled in `--file` mode).
+    /// application should quit (the list was cancelled in `send` mode).
     pub(super) fn handle_device_list_key(&mut self, key: KeyEvent) -> bool {
-        let Some(list) = &mut self.device_list else {
+        let Overlay::DeviceList(list) = &mut self.overlay else {
             return false;
         };
         match list.handle_key(key) {
             DeviceListOutcome::Open => {}
             DeviceListOutcome::Closed => {
-                self.close_device_list();
+                self.close_overlay();
+                // In `send` mode the device list is the whole program.
                 return !self.preselected.is_empty();
             }
             DeviceListOutcome::Send { fingerprint } => {
@@ -89,10 +91,10 @@ impl App {
                     // alternate screen, so the main screen never shows.
                     self.open_picker(PickerTarget::Device {
                         fingerprint: device.device.fingerprint.clone(),
-                        alias: device.device.alias.clone(),
+                        alias: sanitize::single_line(&device.device.alias),
                     });
                 } else {
-                    self.close_device_list();
+                    self.close_overlay();
                     if !self.preselected.is_empty() {
                         self.start_send(&fingerprint, self.preselected.clone());
                     }
@@ -104,13 +106,6 @@ impl App {
         false
     }
 
-    pub(super) fn close_device_list(&mut self) {
-        if let Some(list) = self.device_list.take() {
-            list.close();
-            self.ui.resume();
-        }
-    }
-
     /// Pairs a discovered device; the list stays open and refreshes (the
     /// device moves up into "Paired"). The log line shows up once the list
     /// is closed.
@@ -118,7 +113,7 @@ impl App {
         let Some(stored) = self.discovery.device_by_fingerprint(fingerprint) else {
             return;
         };
-        let alias = stored.device.alias.clone();
+        let alias = sanitize::single_line(&stored.device.alias);
         match self.storage.paired.insert(
             fingerprint.to_string(),
             alias.clone(),
@@ -134,7 +129,7 @@ impl App {
             ),
         }
         let rows = self.device_rows();
-        if let Some(list) = &mut self.device_list {
+        if let Overlay::DeviceList(list) = &mut self.overlay {
             list.set_rows(rows);
             list.draw();
         }
@@ -146,8 +141,10 @@ impl App {
     fn unpair(&mut self, fingerprint: &str) {
         match self.storage.paired.remove(fingerprint) {
             Ok(Some(device)) => {
-                self.ui
-                    .log(Category::Discovery, &format!("{}: Unpaired", device.alias));
+                self.ui.log(
+                    Category::Discovery,
+                    &format!("{}: Unpaired", sanitize::single_line(&device.alias)),
+                );
             }
             Ok(None) => {}
             Err(err) => {
@@ -158,7 +155,7 @@ impl App {
             }
         }
         let rows = self.device_rows();
-        if let Some(list) = &mut self.device_list {
+        if let Overlay::DeviceList(list) = &mut self.overlay {
             list.set_rows(rows);
             list.draw();
         }
