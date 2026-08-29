@@ -19,7 +19,8 @@ enum PurchaseItem {
   donate50(
     androidId: 'localsend_android_donate_50',
     iosId: 'localsend_ios_donate_50',
-  );
+  )
+  ;
 
   const PurchaseItem({
     required this.androidId,

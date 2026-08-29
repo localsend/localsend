@@ -2,28 +2,26 @@ import UIKit
 import Flutter
 
 @main
-@objc class AppDelegate: FlutterAppDelegate {
+@objc class AppDelegate: FlutterAppDelegate, FlutterImplicitEngineDelegate {
   override func application(
     _ application: UIApplication,
     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
   ) -> Bool {
+    return super.application(application, didFinishLaunchingWithOptions: launchOptions)
+  }
 
-    let controller : FlutterViewController = window?.rootViewController as! FlutterViewController
-
-    let engine = controller.engine
+  func didInitializeImplicitFlutterEngine(_ engineBridge: FlutterImplicitEngineBridge) {
     let channel = FlutterMethodChannel(
-      name: "ios-delegate-channel",
-      binaryMessenger: engine.binaryMessenger
+        name: "ios-delegate-channel",
+        binaryMessenger: engineBridge.applicationRegistrar.messenger()
     )
     channel.setMethodCallHandler { (call: FlutterMethodCall, result: @escaping FlutterResult) in
-      if call.method == "isReduceMotionEnabled" {
-        result(UIAccessibility.isReduceMotionEnabled)
-      } else {
-        result(FlutterMethodNotImplemented)
-      }
+        if call.method == "isReduceMotionEnabled" {
+          result(UIAccessibility.isReduceMotionEnabled)
+        } else {
+          result(FlutterMethodNotImplemented)
+        }
     }
-
-    GeneratedPluginRegistrant.register(with: self)
-    return super.application(application, didFinishLaunchingWithOptions: launchOptions)
+    GeneratedPluginRegistrant.register(with: engineBridge.pluginRegistry)
   }
 }

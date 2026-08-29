@@ -1,3 +1,0 @@
-# cli
-
-The LocalSend CLI.

@@ -2,6 +2,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 // ignore_for_file: type=lint
+// ignore_for_file: invalid_use_of_protected_member
 // ignore_for_file: unused_element, unnecessary_cast, override_on_non_overriding_member
 // ignore_for_file: strict_raw_type, inference_failure_on_untyped_parameter
 
@@ -40,9 +41,6 @@ class NearbyDevicesStateMapper extends ClassMapperBase<NearbyDevicesState> {
       v.signalingDevices;
   static const Field<NearbyDevicesState, Map<String, Set<Device>>>
   _f$signalingDevices = Field('signalingDevices', _$signalingDevices);
-  static Map<String, Device> _$allDevices(NearbyDevicesState v) => v.allDevices;
-  static const Field<NearbyDevicesState, Map<String, Device>> _f$allDevices =
-      Field('allDevices', _$allDevices, mode: FieldMode.member);
 
   @override
   final MappableFields<NearbyDevicesState> fields = const {
@@ -50,7 +48,6 @@ class NearbyDevicesStateMapper extends ClassMapperBase<NearbyDevicesState> {
     #runningIps: _f$runningIps,
     #devices: _f$devices,
     #signalingDevices: _f$signalingDevices,
-    #allDevices: _f$allDevices,
   };
 
   static NearbyDevicesState _instantiate(DecodingData data) {

@@ -1,13 +1,6 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:bitsdojo_window/bitsdojo_window.dart';
-import 'package:common/api_route_builder.dart';
-import 'package:common/constants.dart';
-import 'package:common/isolate.dart';
-import 'package:common/model/dto/file_dto.dart';
-import 'package:common/model/dto/multicast_dto.dart';
-import 'package:common/util/logger.dart';
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
@@ -17,6 +10,7 @@ import 'package:localsend_app/config/refena.dart';
 import 'package:localsend_app/config/theme.dart';
 import 'package:localsend_app/pages/home_page.dart';
 import 'package:localsend_app/pages/home_page_controller.dart';
+import 'package:localsend_app/pages/whats_new_page.dart';
 import 'package:localsend_app/provider/animation_provider.dart';
 import 'package:localsend_app/provider/app_arguments_provider.dart';
 import 'package:localsend_app/provider/device_info_provider.dart';
@@ -24,33 +18,40 @@ import 'package:localsend_app/provider/network/nearby_devices_provider.dart';
 import 'package:localsend_app/provider/network/server/server_provider.dart';
 import 'package:localsend_app/provider/network/webrtc/signaling_provider.dart';
 import 'package:localsend_app/provider/persistence_provider.dart';
-
 // [FOSS_REMOVE_START]
 import 'package:localsend_app/provider/purchase_provider.dart';
-
 // [FOSS_REMOVE_END]
 import 'package:localsend_app/provider/selection/selected_sending_files_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/provider/tv_provider.dart';
+import 'package:localsend_app/provider/version_provider.dart';
 import 'package:localsend_app/provider/window_dimensions_provider.dart';
-import 'package:localsend_app/rust/api/logging.dart' as rust_logging;
-import 'package:localsend_app/rust/frb_generated.dart';
 import 'package:localsend_app/util/i18n.dart';
 import 'package:localsend_app/util/native/autostart_helper.dart';
 import 'package:localsend_app/util/native/cache_helper.dart';
-import 'package:localsend_app/util/native/content_uri_helper.dart';
+import 'package:localsend_app/util/native/channel/android_channel.dart';
 import 'package:localsend_app/util/native/context_menu_helper.dart';
 import 'package:localsend_app/util/native/cross_file_converters.dart';
 import 'package:localsend_app/util/native/device_info_helper.dart';
 import 'package:localsend_app/util/native/macos_channel.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_app/util/native/tray_helper.dart';
-import 'package:localsend_app/util/rhttp.dart';
+import 'package:localsend_app/util/notification_strings.dart';
 import 'package:localsend_app/util/ui/dynamic_colors.dart';
 import 'package:localsend_app/util/ui/snackbar.dart';
+import 'package:localsend_app/widget/dialogs/local_network_dialog.dart';
+import 'package:localsend_isolates/isolate.dart';
+import 'package:localsend_isolates/model/dto/file_dto.dart';
+import 'package:localsend_isolates/model/dto/multicast_dto.dart';
+import 'package:localsend_isolates/rust/api/logging.dart' as rust_logging;
+import 'package:localsend_isolates/rust/frb_generated.dart';
+import 'package:localsend_isolates/util/logger.dart';
+import 'package:localsend_isolates/util/show_instance.dart';
+import 'package:localsend_isolates/util/transfer_notification.dart';
 import 'package:logging/logging.dart';
+import 'package:refena_flutter/addons.dart';
 import 'package:refena_flutter/refena_flutter.dart';
-import 'package:rhttp/rhttp.dart';
+import 'package:routerino/routerino.dart';
 import 'package:share_handler/share_handler.dart';
 import 'package:window_manager/window_manager.dart';
 
@@ -73,8 +74,6 @@ Future<RefenaContainer> preInit(List<String> args) async {
     }
   }
 
-  await Rhttp.init();
-
   final dynamicColors = await getDynamicColors();
 
   final persistenceService = await PersistenceService.initialize(
@@ -87,30 +86,23 @@ Future<RefenaContainer> preInit(List<String> args) async {
 
   await initI18n();
 
+  TransferNotification.init(notificationStrings);
+
   bool startHidden = false;
   if (checkPlatformIsDesktop()) {
     // Check if this app is already open and let it "show up".
     // If this is the case, then exit the current instance.
 
-    final client = createRhttpClient(const Duration(milliseconds: 100), persistenceService.getSecurityContext());
-
-    try {
-      await client.post(
-        ApiRoute.show.targetRaw(
-          '127.0.0.1',
-          persistenceService.getPort(),
-          persistenceService.isHttps(),
-          peerProtocolVersion,
-        ),
-        query: {
-          'token': persistenceService.getShowToken(),
-        },
-        body: HttpBody.json({
-          'args': args,
-        }),
-      );
-      exit(0); // Another instance does exist because no error is thrown
-    } catch (_) {}
+    final handedOver = await notifyRunningInstance(
+      securityContext: persistenceService.getSecurityContext(),
+      port: persistenceService.getPort(),
+      https: persistenceService.isHttps(),
+      showToken: persistenceService.getShowToken(),
+      args: args,
+    );
+    if (handedOver) {
+      exit(0); // Another instance does exist
+    }
 
     // initialize tray AFTER i18n has been initialized
     try {
@@ -129,13 +121,11 @@ Future<RefenaContainer> preInit(List<String> args) async {
       startHidden = await isLaunchedAsLoginItem() && await getLaunchAtLoginMinimized();
     }
 
-    doWhenWindowReady(() {
-      if (startHidden) {
-        unawaited(hideToTray());
-      } else {
-        unawaited(showFromTray());
-      }
-    });
+    if (startHidden) {
+      unawaited(hideToTray());
+    } else {
+      unawaited(showFromTray());
+    }
 
     if (defaultTargetPlatform == TargetPlatform.macOS) {
       await setupStatusBar();
@@ -157,18 +147,17 @@ Future<RefenaContainer> preInit(List<String> args) async {
     platformHint: RefenaScope.getPlatformHint(), // help Refena know the correct platform
   );
 
+  // compatibility for Routerino. TODO: Remove Routerino
+  Routerino.navigatorKey = container.read(navigationProvider).key;
+
   // initialize multi-threading
-  container.set(
+  await container.set(
     parentIsolateProvider.overrideWithNotifier((ref) {
       final settings = ref.read(settingsProvider);
       return IsolateController(
         initialState: ParentIsolateState.initial(
           SyncState(
-            init: () async {
-              await Rhttp.init();
-            },
             rootIsolateToken: RootIsolateToken.instance!,
-            httpClientFactory: RhttpWrapper.create,
             securityContext: persistenceService.getSecurityContext(),
             deviceInfo: ref.read(deviceInfoProvider),
             alias: settings.alias,
@@ -186,13 +175,7 @@ Future<RefenaContainer> preInit(List<String> args) async {
     }),
   );
 
-  await container
-      .redux(parentIsolateProvider)
-      .dispatchAsync(
-        IsolateSetupAction(
-          uriContentStreamResolver: AndroidUriContentStreamResolver(),
-        ),
-      );
+  await container.redux(parentIsolateProvider).dispatchAsync(IsolateSetupAction());
 
   return container;
 }
@@ -209,6 +192,16 @@ Future<void> postInit(BuildContext context, Ref ref, bool appStart) async {
     } catch (e) {
       _logger.warning('Setting high refresh rate failed', e);
     }
+
+    // Android 17+ blocks multicast discovery and LAN connections until this permission is granted,
+    // so ask before the server and discovery start.
+    final localNetworkGranted = await requestLocalNetworkPermissionAndroid();
+    if (!localNetworkGranted) {
+      _logger.warning('Local network permission denied. Discovery and transfers may not work.');
+      if (context.mounted) {
+        await context.pushBottomSheet(() => const LocalNetworkDialog());
+      }
+    }
   }
 
   try {
@@ -220,12 +213,15 @@ Future<void> postInit(BuildContext context, Ref ref, bool appStart) async {
   }
 
   try {
-    ref.redux(nearbyDevicesProvider).dispatchAsync(StartMulticastListener()); // ignore: unawaited_futures
+    ref.redux(nearbyDevicesProvider).dispatchAsync(StartDiscoveryListener()); // ignore: unawaited_futures
   } catch (e) {
-    _logger.warning('Starting multicast listener failed', e);
+    _logger.warning('Starting discovery listener failed', e);
   }
 
-  ref.redux(signalingProvider).dispatch(SetupSignalingConnection());
+  // ignore: dead_code
+  if (webRTCEnabled) {
+    ref.redux(signalingProvider).dispatch(SetupSignalingConnection());
+  }
 
   if (appStart) {
     if (defaultTargetPlatform == TargetPlatform.macOS) {
@@ -283,6 +279,12 @@ Future<void> postInit(BuildContext context, Ref ref, bool appStart) async {
         ),
       );
     });
+
+    if (checkPlatform([TargetPlatform.android])) {
+      // Both messages above travel through the same messenger in order, so the stream is
+      // guaranteed to be attached natively before MainActivity replays held-back intents.
+      await flushPendingShareIntentsAndroid();
+    }
   }
 
   if (appStart && !hasInitialShare && (checkPlatformWithGallery() || checkPlatformCanReceiveShareIntent())) {
@@ -290,6 +292,18 @@ Future<void> postInit(BuildContext context, Ref ref, bool appStart) async {
     // If we received a share intent, then don't clear it, otherwise the shared file will be lost.
     ref.global.dispatchAsync(ClearCacheAction()); // ignore: unawaited_futures
   }
+
+  if (!ref.read(persistenceProvider).isFirstAppStart) {
+    WhatsNewPage? whatsNew = WhatsNewPage.fromLastVersion(lastVersion: ref.read(persistenceProvider).getWhatsNew());
+    if (whatsNew != null) {
+      // ignore: unawaited_futures
+      ref.global.dispatchAsync(NavigateAction.push(whatsNew));
+    }
+  }
+
+  await ref.future(versionProvider).then((version) async {
+    await ref.read(persistenceProvider).setWhatsNew(version.version);
+  });
 
   // [FOSS_REMOVE_START]
   if (checkPlatformSupportPayment()) {

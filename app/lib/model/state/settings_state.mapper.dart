@@ -2,6 +2,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 // ignore_for_file: type=lint
+// ignore_for_file: invalid_use_of_protected_member
 // ignore_for_file: unused_element, unnecessary_cast, override_on_non_overriding_member
 // ignore_for_file: strict_raw_type, inference_failure_on_untyped_parameter
 
@@ -38,6 +39,11 @@ class SettingsStateMapper extends ClassMapperBase<SettingsState> {
   static const Field<SettingsState, ColorMode> _f$colorMode = Field(
     'colorMode',
     _$colorMode,
+  );
+  static Color _$customColor(SettingsState v) => v.customColor;
+  static const Field<SettingsState, Color> _f$customColor = Field(
+    'customColor',
+    _$customColor,
   );
   static AppLocale? _$locale(SettingsState v) => v.locale;
   static const Field<SettingsState, AppLocale> _f$locale = Field(
@@ -137,6 +143,22 @@ class SettingsStateMapper extends ClassMapperBase<SettingsState> {
     'shareViaLinkAutoAccept',
     _$shareViaLinkAutoAccept,
   );
+  static bool _$receiveViaLinkAutoAccept(SettingsState v) =>
+      v.receiveViaLinkAutoAccept;
+  static const Field<SettingsState, bool> _f$receiveViaLinkAutoAccept = Field(
+    'receiveViaLinkAutoAccept',
+    _$receiveViaLinkAutoAccept,
+  );
+  static bool _$createChecksums(SettingsState v) => v.createChecksums;
+  static const Field<SettingsState, bool> _f$createChecksums = Field(
+    'createChecksums',
+    _$createChecksums,
+  );
+  static bool _$verifyChecksums(SettingsState v) => v.verifyChecksums;
+  static const Field<SettingsState, bool> _f$verifyChecksums = Field(
+    'verifyChecksums',
+    _$verifyChecksums,
+  );
   static int _$discoveryTimeout(SettingsState v) => v.discoveryTimeout;
   static const Field<SettingsState, int> _f$discoveryTimeout = Field(
     'discoveryTimeout',
@@ -154,6 +176,7 @@ class SettingsStateMapper extends ClassMapperBase<SettingsState> {
     #alias: _f$alias,
     #theme: _f$theme,
     #colorMode: _f$colorMode,
+    #customColor: _f$customColor,
     #locale: _f$locale,
     #port: _f$port,
     #networkWhitelist: _f$networkWhitelist,
@@ -174,6 +197,9 @@ class SettingsStateMapper extends ClassMapperBase<SettingsState> {
     #deviceType: _f$deviceType,
     #deviceModel: _f$deviceModel,
     #shareViaLinkAutoAccept: _f$shareViaLinkAutoAccept,
+    #receiveViaLinkAutoAccept: _f$receiveViaLinkAutoAccept,
+    #createChecksums: _f$createChecksums,
+    #verifyChecksums: _f$verifyChecksums,
     #discoveryTimeout: _f$discoveryTimeout,
     #advancedSettings: _f$advancedSettings,
   };
@@ -184,6 +210,7 @@ class SettingsStateMapper extends ClassMapperBase<SettingsState> {
       alias: data.dec(_f$alias),
       theme: data.dec(_f$theme),
       colorMode: data.dec(_f$colorMode),
+      customColor: data.dec(_f$customColor),
       locale: data.dec(_f$locale),
       port: data.dec(_f$port),
       networkWhitelist: data.dec(_f$networkWhitelist),
@@ -204,6 +231,9 @@ class SettingsStateMapper extends ClassMapperBase<SettingsState> {
       deviceType: data.dec(_f$deviceType),
       deviceModel: data.dec(_f$deviceModel),
       shareViaLinkAutoAccept: data.dec(_f$shareViaLinkAutoAccept),
+      receiveViaLinkAutoAccept: data.dec(_f$receiveViaLinkAutoAccept),
+      createChecksums: data.dec(_f$createChecksums),
+      verifyChecksums: data.dec(_f$verifyChecksums),
       discoveryTimeout: data.dec(_f$discoveryTimeout),
       advancedSettings: data.dec(_f$advancedSettings),
     );
@@ -280,6 +310,7 @@ abstract class SettingsStateCopyWith<$R, $In extends SettingsState, $Out>
     String? alias,
     ThemeMode? theme,
     ColorMode? colorMode,
+    Color? customColor,
     AppLocale? locale,
     int? port,
     List<String>? networkWhitelist,
@@ -300,6 +331,9 @@ abstract class SettingsStateCopyWith<$R, $In extends SettingsState, $Out>
     DeviceType? deviceType,
     String? deviceModel,
     bool? shareViaLinkAutoAccept,
+    bool? receiveViaLinkAutoAccept,
+    bool? createChecksums,
+    bool? verifyChecksums,
     int? discoveryTimeout,
     bool? advancedSettings,
   });
@@ -338,6 +372,7 @@ class _SettingsStateCopyWithImpl<$R, $Out>
     String? alias,
     ThemeMode? theme,
     ColorMode? colorMode,
+    Color? customColor,
     Object? locale = $none,
     int? port,
     Object? networkWhitelist = $none,
@@ -358,6 +393,9 @@ class _SettingsStateCopyWithImpl<$R, $Out>
     Object? deviceType = $none,
     Object? deviceModel = $none,
     bool? shareViaLinkAutoAccept,
+    bool? receiveViaLinkAutoAccept,
+    bool? createChecksums,
+    bool? verifyChecksums,
     int? discoveryTimeout,
     bool? advancedSettings,
   }) => $apply(
@@ -366,6 +404,7 @@ class _SettingsStateCopyWithImpl<$R, $Out>
       if (alias != null) #alias: alias,
       if (theme != null) #theme: theme,
       if (colorMode != null) #colorMode: colorMode,
+      if (customColor != null) #customColor: customColor,
       if (locale != $none) #locale: locale,
       if (port != null) #port: port,
       if (networkWhitelist != $none) #networkWhitelist: networkWhitelist,
@@ -389,6 +428,10 @@ class _SettingsStateCopyWithImpl<$R, $Out>
       if (deviceModel != $none) #deviceModel: deviceModel,
       if (shareViaLinkAutoAccept != null)
         #shareViaLinkAutoAccept: shareViaLinkAutoAccept,
+      if (receiveViaLinkAutoAccept != null)
+        #receiveViaLinkAutoAccept: receiveViaLinkAutoAccept,
+      if (createChecksums != null) #createChecksums: createChecksums,
+      if (verifyChecksums != null) #verifyChecksums: verifyChecksums,
       if (discoveryTimeout != null) #discoveryTimeout: discoveryTimeout,
       if (advancedSettings != null) #advancedSettings: advancedSettings,
     }),
@@ -399,6 +442,7 @@ class _SettingsStateCopyWithImpl<$R, $Out>
     alias: data.get(#alias, or: $value.alias),
     theme: data.get(#theme, or: $value.theme),
     colorMode: data.get(#colorMode, or: $value.colorMode),
+    customColor: data.get(#customColor, or: $value.customColor),
     locale: data.get(#locale, or: $value.locale),
     port: data.get(#port, or: $value.port),
     networkWhitelist: data.get(#networkWhitelist, or: $value.networkWhitelist),
@@ -428,6 +472,12 @@ class _SettingsStateCopyWithImpl<$R, $Out>
       #shareViaLinkAutoAccept,
       or: $value.shareViaLinkAutoAccept,
     ),
+    receiveViaLinkAutoAccept: data.get(
+      #receiveViaLinkAutoAccept,
+      or: $value.receiveViaLinkAutoAccept,
+    ),
+    createChecksums: data.get(#createChecksums, or: $value.createChecksums),
+    verifyChecksums: data.get(#verifyChecksums, or: $value.verifyChecksums),
     discoveryTimeout: data.get(#discoveryTimeout, or: $value.discoveryTimeout),
     advancedSettings: data.get(#advancedSettings, or: $value.advancedSettings),
   );

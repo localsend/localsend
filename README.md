@@ -13,7 +13,7 @@
 
 [Homepage][homepage] • [Discord][discord] • [GitHub][github] • [Codeberg][codeberg]
 
-[English (Default)](README.md) • [Bahasa Melayu](readme_i18n/README_MS.md) • [Deutsch](readme_i18n/README_DE.md) • [Español](readme_i18n/README_ES.md) • [Filipino](readme_i18n/README_PH.md) • [Français](readme_i18n/README_FR.md) • [Indonesia](readme_i18n/README_ID.md) • [Italiano](readme_i18n/README_IT.md) • [Polski](readme_i18n/README_PL.md) • [Português Brasil](readme_i18n/README_PT_BR.md) • [Tiếng Việt](readme_i18n/README_VI.md) • [Türkçe](readme_i18n/README_TR.md) • [Česky](readme_i18n/README_CS.md) • [Русский](readme_i18n/README_RU.md) • [Українська](readme_i18n/README_UK.md) • [فارسی](readme_i18n/README_FA.md) • [ภาษาไทย](readme_i18n/README_TH.md) • [ភាសាខ្មែរ](readme_i18n/README_KM.md) • [中文](readme_i18n/README_ZH.md) • [日本語](readme_i18n/README_JA.md) • [한국어](readme_i18n/README_KO.md)
+[English (Default)](README.md) • [Беларуская](/support/readme/README_BE.md) • [Español](/support/readme/README_ES.md) • [فارسی](/support/readme/README_FA.md) • [Filipino](/support/readme/README_PH.md) • [Français](/support/readme/README_FR.md) • [Indonesia](/support/readme/README_ID.md) • [Italiano](/support/readme/README_IT.md) • [日本語](/support/readme/README_JA.md) • [ភាសាខ្មែរ](/support/readme/README_KM.md) • [한국어](/support/readme/README_KO.md) • [Polski](/support/readme/README_PL.md) • [Português Brasil](/support/readme/README_PT_BR.md) • [Русский](/support/readme/README_RU.md) • [ภาษาไทย](/support/readme/README_TH.md) • [Türkçe](/support/readme/README_TR.md) • [Українська](/support/readme/README_UK.md) • [Tiếng Việt](/support/readme/README_VI.md) • [中文](/support/readme/README_ZH.md)
 
 [homepage]: https://localsend.org
 [discord]: https://discord.gg/GSRWmQNP87
@@ -27,7 +27,9 @@ LocalSend is a free, open-source app that allows you to securely share files and
 - [Screenshots](#screenshots)
 - [Download](#download)
 - [How It Works](#how-it-works)
+- [Dependency Hierarchy](#dependency-hierarchy)
 - [Getting Started](#getting-started)
+- [Command Line Interface](#command-line-interface)
 - [Contributing](#contributing)
   - [Translation](#translation)
   - [Bug Fixes and Improvements](#bug-fixes-and-improvements)
@@ -73,6 +75,8 @@ It is recommended to download the app either from an app store or from a package
 
 Read more about [distribution channels][].
 
+Windows binaries are signed. Read more about the [Code signing policy][].
+
 > [!CAUTION]
 > **Unofficial MSIX preview:** you can try builds from the latest commits at [localsend.ob-buff.dev](https://localsend.ob-buff.dev/). Stability is not guaranteed and all custom code tweaks are listed on that site.
 
@@ -91,6 +95,7 @@ Read more about [distribution channels][].
 [aur]: https://aur.archlinux.org/packages/localsend-bin
 [latest]: https://github.com/localsend/localsend/releases/latest
 [distribution channels]: https://github.com/localsend/localsend/blob/main/CONTRIBUTING.md#distribution
+[code signing policy]: https://github.com/localsend/localsend/blob/main/CODE_SIGNING.md
 
 **Compatibility**
 
@@ -136,6 +141,10 @@ LocalSend uses a secure communication protocol that allows devices to communicat
 
 For more information on the LocalSend Protocol, see the [documentation](https://github.com/localsend/protocol).
 
+## Dependency Hierarchy
+
+![Dependency hierarchy](support/docs/dependency-hierarchy.svg)
+
 ## Getting Started
 
 To compile LocalSend from the source code, follow these steps:
@@ -152,6 +161,35 @@ To compile LocalSend from the source code, follow these steps:
 > and thus build issues may be caused by a mismatch between the required and the (system-wide) installed Flutter version.  
 > To make development more consistent, LocalSend uses [fvm](https://fvm.app) to manage the project Flutter version.
 > After installing `fvm`, run `fvm flutter` instead of `flutter`.
+
+## Command Line Interface
+
+The LocalSend CLI is a terminal client built on LocalSend Protocol v2.
+Run `localsend-cli --help` to see every available option and hotkey.
+
+Use the `send` command with one or more files, directories, or a mixture of both:
+
+```shell
+localsend-cli send report.pdf photo.jpg ./project-backup
+```
+
+The command opens the discovered-device list; select the destination interactively
+and press Enter to start the transfer.
+
+To select the destination without an interactive device list, pass its exact alias
+or IP address:
+
+```shell
+localsend-cli send --to "Cute Tomato" report.pdf
+localsend-cli send --to 192.168.27.26 report.pdf
+```
+
+An alias must uniquely identify a discovered device. An IP address is probed directly
+over HTTPS on LocalSend's default port (`53317`).
+
+Directories are collected recursively. Their selected root names and nested paths
+are preserved on the receiver. Empty directories are not sent because LocalSend
+transfers file entries rather than directory entries.
 
 ## Contributing
 

@@ -1,14 +1,15 @@
-import 'package:common/model/dto/file_dto.dart' as dart_model;
-import 'package:common/model/session_status.dart';
-import 'package:common/model/stored_security_context.dart';
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:localsend_app/model/persistence/favorite_device.dart';
 import 'package:localsend_app/model/state/server/receive_session_state.dart';
 import 'package:localsend_app/model/state/settings_state.dart';
 import 'package:localsend_app/pages/receive_page.dart';
 import 'package:localsend_app/provider/network/webrtc/signaling_provider.dart';
-import 'package:localsend_app/rust/api/model.dart';
-import 'package:localsend_app/rust/api/webrtc.dart';
+import 'package:localsend_app/provider/selection/selected_receiving_files_provider.dart';
+import 'package:localsend_isolates/model/dto/file_dto.dart' as dart_model;
+import 'package:localsend_isolates/model/session_status.dart';
+import 'package:localsend_isolates/model/stored_security_context.dart';
+import 'package:localsend_isolates/rust/api/model.dart';
+import 'package:localsend_isolates/rust/api/webrtc.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 import 'package:routerino/routerino.dart';
 
@@ -125,6 +126,9 @@ class _AcceptOfferAction extends AsyncReduxAction<WebRTCReceiveService, WebRTCRe
       );
     });
 
+    // ignore: use_build_context_synchronously
+    Routerino.context.notifier(selectedReceivingFilesProvider).setFiles(convertedFiles);
+
     // ignore: unawaited_futures, use_build_context_synchronously
     Routerino.context.push(() => ReceivePage(vm));
 
@@ -153,7 +157,6 @@ class _InitSessionState extends ReduxAction<WebRTCReceiveService, WebRTCReceiveS
     //       for (final file in files)
     //         file.id: ReceivingFile(
     //           file: file,
-    //           status: FileStatus.queue,
     //           token: null,
     //           desiredName: null,
     //           path: null,
@@ -203,8 +206,8 @@ extension on FileDto {
 extension on FileMetadata {
   dart_model.FileMetadata toFileMetadata() {
     return dart_model.FileMetadata(
-      lastModified: DateTime.tryParse(modified ?? ''),
-      lastAccessed: DateTime.tryParse(accessed ?? ''),
+      lastModified: modified,
+      lastAccessed: accessed,
     );
   }
 }

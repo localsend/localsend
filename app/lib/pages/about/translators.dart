@@ -7,6 +7,9 @@ const _translators = <AppLocale, List<String>>{
   AppLocale.ar: [
     '@Adam1141',
   ],
+  AppLocale.be: [
+    'Павел Мінютка (@pavel-miniutka)',
+  ],
   AppLocale.bn: [
     '@RishiASheth',
   ],
