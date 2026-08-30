@@ -9,7 +9,9 @@ import 'package:localsend_app/model/persistence/color_mode.dart';
 import 'package:localsend_app/model/persistence/favorite_device.dart';
 import 'package:localsend_app/model/persistence/quick_save_mode.dart';
 import 'package:localsend_app/model/persistence/receive_history_entry.dart';
+import 'package:localsend_app/model/send_concurrency.dart';
 import 'package:localsend_app/model/send_mode.dart';
+import 'package:localsend_app/model/send_order.dart';
 import 'package:localsend_app/provider/window_dimensions_provider.dart';
 import 'package:localsend_app/util/alias_generator.dart';
 import 'package:localsend_app/util/native/autostart_helper.dart';
@@ -86,6 +88,8 @@ const _autoFinish = 'ls_auto_finish';
 const _minimizeToTray = 'ls_minimize_to_tray';
 const _https = 'ls_https';
 const _sendMode = 'ls_send_mode';
+const _sendOrder = 'ls_send_order';
+const _sendConcurrency = 'ls_send_concurrency';
 const _enableAnimations = 'ls_enable_animations';
 const _deviceType = 'ls_device_type';
 const _deviceModel = 'ls_device_model';
@@ -504,6 +508,22 @@ class PersistenceService {
 
   Future<void> setSendMode(SendMode mode) async {
     await _prefs.setString(_sendMode, mode.name);
+  }
+
+  SendOrder getSendOrder() {
+    return SendOrder.values.firstWhereOrNull((order) => order.name == _prefs.getString(_sendOrder)) ?? SendOrder.selection;
+  }
+
+  Future<void> setSendOrder(SendOrder order) async {
+    await _prefs.setString(_sendOrder, order.name);
+  }
+
+  int getSendConcurrency() {
+    return sanitizeSendConcurrency(_prefs.getInt(_sendConcurrency));
+  }
+
+  Future<void> setSendConcurrency(int concurrency) async {
+    await _prefs.setInt(_sendConcurrency, concurrency);
   }
 
   Future<void> setWindowOffsetX(double x) async {
