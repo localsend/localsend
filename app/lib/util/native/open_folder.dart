@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:localsend_app/util/native/channel/android_channel.dart' as android_channel;
 import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:logging/logging.dart';
-import 'package:open_filex/open_filex.dart';
+import 'package:open_file/open_file.dart';
 
 final _logger = Logger('OpenFolder');
 
@@ -37,7 +37,7 @@ Future<void> openFolder({
     folderPath = '$folderPath/';
   }
 
-  final result = await OpenFilex.open(folderPath);
+  final result = await OpenFile.open(folderPath);
   _logger.info('Open folder result: ${result.message}, path: $folderPath');
 }
 
