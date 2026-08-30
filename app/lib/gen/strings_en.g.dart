@@ -1153,6 +1153,14 @@ class Translations$settingsTab$send$en {
 
   /// en: 'Create checksums when sending files'
   String get createChecksums => 'Create checksums when sending files';
+
+  /// en: 'File send order'
+  String get order => 'File send order';
+
+  late final Translations$settingsTab$send$orderOptions$en orderOptions = Translations$settingsTab$send$orderOptions$en.internal(_root);
+
+  /// en: 'Files sent at the same time'
+  String get concurrency => 'Files sent at the same time';
 }
 
 // Path: settingsTab.network
@@ -1867,6 +1875,24 @@ class Translations$settingsTab$general$languageOptions$en {
 
   /// en: 'System'
   String get system => 'System';
+}
+
+// Path: settingsTab.send.orderOptions
+class Translations$settingsTab$send$orderOptions$en {
+  Translations$settingsTab$send$orderOptions$en.internal(this._root);
+
+  final Translations _root; // ignore: unused_field
+
+  // Translations
+
+  /// en: 'Selection order'
+  String get selection => 'Selection order';
+
+  /// en: 'Smallest files first'
+  String get smallestFirst => 'Smallest files first';
+
+  /// en: 'Largest files first'
+  String get largestFirst => 'Largest files first';
 }
 
 // Path: settingsTab.network.networkOptions

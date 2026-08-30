@@ -127,7 +127,14 @@
     "send": {
       "title": "Send",
       "shareViaLinkAutoAccept": "Automatically accept requests in \"Share via link\" mode",
-      "createChecksums": "Create checksums when sending files"
+      "createChecksums": "Create checksums when sending files",
+      "order": "File send order",
+      "orderOptions": {
+        "selection": "Selection order",
+        "smallestFirst": "Smallest files first",
+        "largestFirst": "Largest files first"
+      },
+      "concurrency": "Files sent at the same time"
     },
     "network": {
       "title": "Network",

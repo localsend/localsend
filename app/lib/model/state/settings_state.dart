@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/model/persistence/color_mode.dart';
 import 'package:localsend_app/model/send_mode.dart';
+import 'package:localsend_app/model/send_order.dart';
 import 'package:localsend_isolates/model/device.dart';
 
 part 'settings_state.mapper.dart';
@@ -29,6 +30,8 @@ class SettingsState with SettingsStateMappable {
   final bool minimizeToTray; // minimize to tray instead of exiting the app
   final bool https;
   final SendMode sendMode;
+  final SendOrder sendOrder;
+  final int sendConcurrency;
   final bool saveWindowPlacement;
   final bool enableAnimations;
   final DeviceType? deviceType;
@@ -61,6 +64,8 @@ class SettingsState with SettingsStateMappable {
     required this.minimizeToTray,
     required this.https,
     required this.sendMode,
+    required this.sendOrder,
+    required this.sendConcurrency,
     required this.saveWindowPlacement,
     required this.enableAnimations,
     required this.deviceType,

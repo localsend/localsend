@@ -14,6 +14,7 @@ import 'package:localsend_app/provider/file_transfer_provider.dart';
 import 'package:localsend_app/provider/http_provider.dart';
 import 'package:localsend_app/provider/selection/selected_sending_files_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
+import 'package:localsend_app/util/send_order_sorter.dart';
 import 'package:localsend_app/widget/dialogs/pin_dialog.dart';
 import 'package:localsend_isolates/isolate.dart';
 import 'package:localsend_isolates/model/device.dart';
@@ -615,13 +616,17 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
       return;
     }
 
+    final settings = ref.read(settingsProvider);
+    final orderedFiles = sortBySendOrder(uploadFiles, settings.sendOrder, (file) => file.fileSize);
+
     final taskResult = ref
         .redux(parentIsolateProvider)
         .dispatchTakeResult(
           IsolateHttpUploadFilesAction(
             remoteSessionId: sessionState.remoteSessionId,
-            files: uploadFiles,
+            files: orderedFiles,
             device: sessionState.target,
+            concurrency: settings.sendConcurrency,
           ),
         );
 
