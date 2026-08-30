@@ -106,6 +106,8 @@ Windows 二进制文件已签名。了解更多关于[代码签名政策][]的�
 | 传入     | TCP, UDP | 53317 | 允许 |
 | 传出     | TCP, UDP | 任意  | 允许 |
 
+在 Linux 上，以 `ufw` 为例：`sudo ufw allow 53317`。使用 `firewalld` 时：`sudo firewall-cmd --permanent --add-port=53317/tcp`、`sudo firewall-cmd --permanent --add-port=53317/udp`，然后执行 `sudo firewall-cmd --reload`。
+
 另外，请确保禁用路由器上的 AP 隔离。通常默认情况下应禁用它，但某些路由器可能会启用它（比如访客网络）。
 更多信息见 [故障排查](#故障排查)。
 
@@ -208,6 +210,8 @@ localsend-cli send --to 192.168.27.26 report.pdf
 | 设备不可见 | 任何           | 任何            | 确保关闭路由器的AP隔离。如果AP隔离是开着的，设备间的连接会被禁止。            |
 | 设备不可见 | 任何           | Windows         | 确保将你的网络配置为“私有”网络。当你的网络为公共网络时 Windows 会更具限制性。 |
 | 设备不可见 | macOS, iOS     | 任何            | 尝试在系统设置中的“隐私”下切换“本地网络”权限。                               |
+| 设备不可见 | 任何           | 任何            | 如果开启了 VPN，请允许本地/局域网流量，或暂时关闭 VPN。部分 VPN 默认会阻止本地网络连接。 |
+| 设备不可见 | 任何           | 任何            | 使用手动发送直接输入接收端的 IP 地址。如果可行，请将该设备添加到收藏，之后会直接探测它。 |
 | 速度太慢   | 任何           | 任何            | 使用 5 Ghz 频段；关闭发送和接收端设备的数据加密。                            |
 | 速度太慢   | 任何           | 安卓            | 已知的问题。见 https://github.com/flutter-cavalry/saf_stream/issues/4       |
 
