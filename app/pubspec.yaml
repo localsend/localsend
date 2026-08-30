@@ -43,7 +43,6 @@ dependencies:
   moform: 0.2.11
   nanoid2: 2.0.1
   network_info_plus: 7.0.0
-  open_dir: 0.0.2+1
   open_filex: 4.7.0
   package_info_plus: 9.0.1
   pasteboard: 0.3.0
