@@ -28,7 +28,9 @@ LocalSend 是一个自由、开源的应用程序，允许你在本地网络上�
 - [截图](#截图)
 - [下载](#下载)
 - [工作原理](#工作原理)
+- [依赖层级](#依赖层级)
 - [开始使用](#开始使用)
+- [命令行界面](#命令行界面)
 - [贡献](#贡献)
   - [翻译](#翻译)
   - [Bug修复和改进](#bug修复和改进)
@@ -50,6 +52,8 @@ LocalSend 是一个跨平台应用程序，使用 REST API 和 HTTPS 加密实�
 
 ## 下载
 
+[![Packaging status](https://repology.org/badge/tiny-repos/localsend.svg)](https://repology.org/project/localsend/versions)
+
 建议从应用商店或软件包管理器下载该应用，因为该应用没有自动更新功能。
 
 | Windows                  | macOS                   | Linux              | Android        | iOS           | Fire OS    |
@@ -62,8 +66,9 @@ LocalSend 是一个跨平台应用程序，使用 REST API 和 HTTPS 加密实�
 |                          |                         | [DEB][latest]      |                |               |            |
 |                          |                         | [AppImage][latest] |                |               |            |
 
-
 了解更多关于[发行渠道][]的信息。
+
+Windows 二进制文件已签名。了解更多关于[代码签名政策][]的信息。
 
 [windows store]: https://www.microsoft.com/store/apps/9NCB4Z0TZ6RR
 [app store]: https://apps.apple.com/us/app/localsend/id1661733229
@@ -80,15 +85,17 @@ LocalSend 是一个跨平台应用程序，使用 REST API 和 HTTPS 加密实�
 [aur]: https://aur.archlinux.org/packages/localsend-bin
 [latest]: https://github.com/localsend/localsend/releases/latest
 [发行渠道]: https://github.com/localsend/localsend/blob/main/CONTRIBUTING.md#distribution
+[代码签名政策]: https://github.com/localsend/localsend/blob/main/CODE_SIGNING.md
 
 **兼容性**
-| 平台    | 最低版本   | 备注   |
+
+| 平台    | 最低版本   | 备注                                                                                                                           |
 |---------|------------|--------------------------------------------------------------------------------------------------------------------------------|
-|Android  | 5.0        | -                                                                                                                              |
-|iOS      | 12.0       | -                                                                                                                              |
-|macOS    | 11 Big Sur | 请使用 OpenCore Legacy Patcher 2.0.2 （见 [#1005](https://github.com/localsend/localsend/issues/1005#issuecomment-2449899384)） |
-|Windows  | 10         | 最后一个支持 Windows 7 的版本是 v1.15.4 。未来也许会将更新的版本向后移植至兼容 Windows 7 。                                       |
-|Linux    | 不适用     | -                                                                                                                               |
+| Android | 5.0        | -                                                                                                                              |
+| iOS     | 12.0       | -                                                                                                                              |
+| macOS   | 11 Big Sur | 请使用 OpenCore Legacy Patcher 2.0.2 （见 [#1005](https://github.com/localsend/localsend/issues/1005#issuecomment-2449899384)） |
+| Windows | 10         | 最后一个支持 Windows 7 的版本是 v1.15.4 。未来也许会将更新的版本向后移植至兼容 Windows 7 。                                    |
+| Linux   | 不适用     | 依赖：Gnome：`xdg-desktop-portal` 和 `xdg-desktop-portal-gtk`；KDE：`xdg-desktop-portal` 和 `xdg-desktop-portal-kde`           |
 
 ## 设置
 
@@ -124,11 +131,15 @@ LocalSend 使用安全通信协议，允许设备通过 REST API 进行通信。
 
 欲了解更多关于 LocalSend 协议的信息，请参阅[文档](https://github.com/localsend/protocol)。
 
+## 依赖层级
+
+![依赖层级](/support/docs/dependency-hierarchy.svg)
+
 ## 开始使用
 
 要从源代码编译 LocalSend，请按照以下步骤进行操作：
 
-1. 安装 [Flutter](https://flutter.dev)。
+1. [直接](https://flutter.dev)安装 Flutter 或使用 [fvm](https://fvm.app) 安装（所需版本见 [.fvmrc](/.fvmrc)）。
 2. 安装 [Rust](https://www.rust-lang.org/tools/install)。
 3. 克隆 `LocalSend` 代码库。
 4. 执行 `cd app` 进入 app 目录。
@@ -140,6 +151,30 @@ LocalSend 使用安全通信协议，允许设备通过 REST API 进行通信。
 > 因而一些构建问题也许是系统安装的 Flutter 版本和 LocalSend 所需的 Flutter 版本不一致导致的。
 > 为了在开发过程中保持一致性，LocalSend 使用 [fvm](https://fvm.app) 来管理此项目的 Flutter 版本。
 > 安装 `fvm` 后，请运行 `fvm flutter` 而非 `flutter` 。
+
+## 命令行界面
+
+LocalSend CLI 是一个基于 LocalSend 协议 v2 的终端客户端。
+运行 `localsend-cli --help` 查看所有可用选项和快捷键。
+
+使用 `send` 命令发送一个或多个文件、目录，或两者混合：
+
+```shell
+localsend-cli send report.pdf photo.jpg ./project-backup
+```
+
+该命令会打开已发现设备的列表；以交互方式选择目标设备并按 Enter 开始传输。
+
+如需跳过交互式设备列表直接选择目标，请传入其确切的别名或 IP 地址：
+
+```shell
+localsend-cli send --to "Cute Tomato" report.pdf
+localsend-cli send --to 192.168.27.26 report.pdf
+```
+
+别名必须能唯一确定一台已发现的设备。IP 地址会通过 HTTPS 在 LocalSend 的默认端口（`53317`）上直接探测。
+
+目录会被递归收集。所选根目录的名称及其嵌套路径会在接收端保留。空目录不会被发送，因为 LocalSend 传输的是文件条目而非目录条目。
 
 ## 贡献
 
@@ -175,6 +210,74 @@ LocalSend 使用安全通信协议，允许设备通过 REST API 进行通信。
 | 设备不可见 | macOS, iOS     | 任何            | 尝试在系统设置中的“隐私”下切换“本地网络”权限。                               |
 | 速度太慢   | 任何           | 任何            | 使用 5 Ghz 频段；关闭发送和接收端设备的数据加密。                            |
 | 速度太慢   | 任何           | 安卓            | 已知的问题。见 https://github.com/flutter-cavalry/saf_stream/issues/4       |
+
+## 构建
+
+以下命令仅供维护者使用。请确保在 `app` 目录下运行。
+
+### Android
+
+传统 APK
+
+```bash
+flutter build apk
+```
+
+用于 Google Play 的 AppBundle
+
+```bash
+flutter build appbundle
+```
+
+### iOS
+
+```bash
+flutter build ipa
+```
+
+### macOS
+
+```bash
+flutter build macos
+```
+
+### Windows
+
+**传统方式**
+
+```bash
+flutter build windows
+```
+
+**本地 MSIX 应用**
+
+```bash
+flutter pub run msix:create
+```
+
+**商店就绪版**
+
+```bash
+flutter pub run msix:create --store
+```
+
+### Linux
+
+**传统方式**
+
+```bash
+flutter build linux
+```
+
+**AppImage**
+
+```bash
+appimage-builder --recipe AppImageBuilder.yml
+```
+
+**Snap**
+
+说明见 [localsend/snap/README.md](https://github.com/localsend/snap/blob/main/README.md)
 
 ## 贡献者
 
