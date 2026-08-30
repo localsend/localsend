@@ -1,12 +1,13 @@
 use localsend::discovery::{HttpChannel, StatefulDevice};
 use localsend::model::discovery::ProtocolType;
 use localsend::multicast::DEFAULT_PORT;
-use std::net::IpAddr;
+use std::net::{IpAddr, Ipv6Addr};
 
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub(super) enum TargetSelector {
     Alias(String),
     Ip(IpAddr),
+    ScopedIpv6(String),
 }
 
 impl TargetSelector {
@@ -15,16 +16,28 @@ impl TargetSelector {
         anyhow::ensure!(!value.is_empty(), "Destination cannot be empty");
         Ok(match value.parse::<IpAddr>() {
             Ok(ip) => Self::Ip(ip),
-            Err(_) => Self::Alias(value.to_string()),
+            Err(_) => value
+                .split_once('%')
+                .and_then(|(address, scope_id)| {
+                    Some(format!(
+                        "{}%{}",
+                        address.parse::<Ipv6Addr>().ok()?,
+                        scope_id.parse::<u32>().ok()?
+                    ))
+                })
+                .map(Self::ScopedIpv6)
+                .unwrap_or_else(|| Self::Alias(value.to_string())),
         })
     }
 
     pub(super) fn direct_channel(&self) -> Option<HttpChannel> {
-        let Self::Ip(ip) = self else {
-            return None;
+        let host = match self {
+            Self::Ip(ip) => ip.to_string(),
+            Self::ScopedIpv6(host) => host.clone(),
+            Self::Alias(_) => return None,
         };
         Some(HttpChannel {
-            host: ip.to_string(),
+            host,
             port: DEFAULT_PORT,
             protocol: ProtocolType::Https,
         })
@@ -57,6 +70,10 @@ impl TargetSelector {
                         == Some(*ip)
                 })
             }),
+            Self::ScopedIpv6(host) => device
+                .get_ranked_channels()
+                .into_iter()
+                .any(|channel| channel.http().is_some_and(|http| http.host == *host)),
         }
     }
 }
@@ -66,6 +83,7 @@ impl std::fmt::Display for TargetSelector {
         match self {
             Self::Alias(alias) => write!(formatter, "alias {alias:?}"),
             Self::Ip(ip) => write!(formatter, "IP address {ip}"),
+            Self::ScopedIpv6(host) => write!(formatter, "IP address {host}"),
         }
     }
 }
@@ -111,6 +129,10 @@ mod tests {
             TargetSelector::parse("192.168.27.26").unwrap(),
             TargetSelector::Ip(IpAddr::V4(Ipv4Addr::new(192, 168, 27, 26)))
         );
+        assert_eq!(
+            TargetSelector::parse("fe80::1%3").unwrap(),
+            TargetSelector::ScopedIpv6("fe80::1%3".to_string())
+        );
     }
 
     #[test]
@@ -129,6 +151,24 @@ mod tests {
                 port: 53317,
                 protocol: ProtocolType::Https,
             })
+        );
+    }
+
+    #[test]
+    fn supports_a_scoped_ipv6_target() {
+        let selector = TargetSelector::parse("fe80::1%3").unwrap();
+
+        assert_eq!(
+            selector.direct_channel(),
+            Some(HttpChannel {
+                host: "fe80::1%3".to_string(),
+                port: 53317,
+                protocol: ProtocolType::Https,
+            })
+        );
+        assert_eq!(
+            selector.resolve(&[device("Peer", "peer", "fe80::1%3")]),
+            Ok("peer".to_string())
         );
     }
 
