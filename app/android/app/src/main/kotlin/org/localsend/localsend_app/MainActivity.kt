@@ -6,11 +6,13 @@ import android.content.ContentResolver
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.content.res.AssetFileDescriptor
 import android.database.Cursor
 import android.net.Uri
 import android.os.Build
 import android.os.Environment
 import android.provider.DocumentsContract
+import android.provider.OpenableColumns
 import android.provider.Settings
 import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.engine.FlutterEngine
@@ -165,6 +167,67 @@ class MainActivity : FlutterActivity() {
     private fun isAnimationsEnabled() : Boolean {
         return Settings.Global.getFloat(this.getContentResolver(),
             Settings.Global.ANIMATOR_DURATION_SCALE, 1.0f) != 0.0f;
+    }
+
+    /// Best-effort [ContentResolver.takePersistableUriPermission]; falls back to
+    /// read-only when no grant flags are present. Safe to ignore failures on
+    /// non-compliant providers — the URI remains usable for the session.
+    private fun takePersistableUriPermissionSafe(uri: Uri, takeFlags: Int) {
+        val flags = if (takeFlags != 0) takeFlags else Intent.FLAG_GRANT_READ_URI_PERMISSION
+        try {
+            contentResolver.takePersistableUriPermission(uri, flags)
+        } catch (e: SecurityException) {
+        } catch (e: IllegalArgumentException) {
+        }
+    }
+
+    /// Fallback [FileInfo] builder for providers that don't support the full
+    /// Document columns.
+    private fun buildFallbackFileInfo(uri: Uri): FileInfo {
+        val name = queryDisplayName(uri)
+            ?: uri.lastPathSegment?.substringAfterLast('/')
+            ?: uri.toString()
+        val size = try {
+            contentResolver.openAssetFileDescriptor(uri, "r")?.use {
+                val len = it.length
+                if (len >= 0) len else 0L
+            } ?: 0L
+        } catch (e: Exception) {
+            0L
+        }
+        return FileInfo(
+            name = name,
+            size = size,
+            uri = uri.toString(),
+            lastModified = null,
+        )
+    }
+
+    /// Some providers respond to [OpenableColumns] even when Document columns
+    /// are missing.
+    private fun queryDisplayName(uri: Uri): String? {
+        var cursor: Cursor? = null
+        try {
+            cursor = contentResolver.query(
+                uri,
+                arrayOf(OpenableColumns.DISPLAY_NAME),
+                null,
+                null,
+                null
+            )
+            if (cursor != null && cursor.moveToFirst()) {
+                val idx = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME)
+                if (idx >= 0) {
+                    return cursor.getString(idx)
+                }
+            }
+        } catch (_: Exception) {
+        } finally {
+            try {
+                cursor?.close()
+            } catch (_: Exception) {}
+        }
+        return null
     }
 
     private fun handleGetFileDescriptor(call: MethodCall, result: MethodChannel.Result) {
@@ -334,13 +397,14 @@ class MainActivity : FlutterActivity() {
             return
         }
 
+        val takeFlags: Int =
+            data.flags and (Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
+
         when (requestCode) {
             REQUEST_CODE_PICK_DIRECTORY -> {
                 val uri: Uri? = data.data
-                val takeFlags: Int =
-                    data.flags and (Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
                 if (uri != null) {
-                    contentResolver.takePersistableUriPermission(uri, takeFlags)
+                    takePersistableUriPermissionSafe(uri, takeFlags)
 
                     val files = mutableListOf<FileInfo>()
                     listFiles(uri, files)
@@ -355,10 +419,8 @@ class MainActivity : FlutterActivity() {
 
             REQUEST_CODE_PICK_DIRECTORY_PATH -> {
                 val uri: Uri? = data.data
-                val takeFlags: Int =
-                    data.flags and (Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
                 if (uri != null) {
-                    contentResolver.takePersistableUriPermission(uri, takeFlags)
+                    takePersistableUriPermissionSafe(uri, takeFlags)
                     pendingResult?.success(uri.toString())
                     pendingResult = null
                 } else {
@@ -385,24 +447,19 @@ class MainActivity : FlutterActivity() {
                     }
                 }
 
-                val takeFlags: Int =
-                    data.flags and (Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
-
                 val resultList = mutableListOf<FileInfo>()
                 for (uri in uriList) {
-                    contentResolver.takePersistableUriPermission(uri, takeFlags)
+                    takePersistableUriPermissionSafe(uri, takeFlags)
                     val documentFile = FastDocumentFile.fromDocumentUri(this, uri)
-                    if (documentFile == null) {
-                        pendingResult?.error("Error", "Failed to access file", null)
-                        return
-                    }
                     resultList.add(
-                        FileInfo(
-                            name = documentFile.name,
-                            size = documentFile.size,
-                            uri = uri.toString(),
-                            lastModified = documentFile.lastModified?.toRfc3339(),
-                        )
+                        documentFile?.let {
+                            FileInfo(
+                                name = it.name,
+                                size = it.size,
+                                uri = uri.toString(),
+                                lastModified = it.lastModified?.toRfc3339(),
+                            )
+                        } ?: buildFallbackFileInfo(uri)
                     )
                 }
 
@@ -466,9 +523,11 @@ class MainActivity : FlutterActivity() {
             )
 
             if (cursor != null) {
+                val nameIdx = cursor.getColumnIndex(DocumentsContract.Document.COLUMN_DISPLAY_NAME)
+                val mimeIdx = cursor.getColumnIndex(DocumentsContract.Document.COLUMN_MIME_TYPE)
                 while (cursor.moveToNext()) {
-                    val displayName = cursor.getString(0)
-                    val mimeType = cursor.getString(1)
+                    val displayName = if (nameIdx >= 0) cursor.getString(nameIdx) else null
+                    val mimeType = if (mimeIdx >= 0) cursor.getString(mimeIdx) else null
 
                     if (folderName == displayName && DocumentsContract.Document.MIME_TYPE_DIR == mimeType) {
                         return true
