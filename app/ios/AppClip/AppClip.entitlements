@@ -2,19 +2,17 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>aps-environment</key>
-	<string>development</string>
-	<key>com.apple.developer.networking.multicast</key>
-	<true/>
+	<key>com.apple.developer.parent-application-identifiers</key>
+	<array>
+		<string>$(AppIdentifierPrefix)org.localsend.localsendApp</string>
+	</array>
 	<key>com.apple.developer.networking.HotspotConfiguration</key>
+	<true/>
+	<key>com.apple.developer.on-demand-install-capable</key>
 	<true/>
 	<key>com.apple.developer.associated-domains</key>
 	<array>
 		<string>$(APP_CLIP_ASSOCIATED_DOMAIN)</string>
-	</array>
-	<key>com.apple.security.application-groups</key>
-	<array>
-		<string>group.org.localsend.localsendApp</string>
 	</array>
 </dict>
 </plist>

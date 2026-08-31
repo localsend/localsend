@@ -1,6 +1,7 @@
 #![cfg(feature = "http")]
 
 use bytes::Bytes;
+use localsend::http::client::v2::FileDownloadTarget;
 use localsend::http::client::{ClientError, LsHttpClientV2};
 use localsend::http::server::v2::ServerEventV2;
 use localsend::http::server::web::WebDownloadConfig;
@@ -15,7 +16,8 @@ use std::path::PathBuf;
 use std::sync::atomic::{AtomicU32, Ordering};
 use std::sync::Arc;
 use tokio::io::AsyncReadExt;
-use tokio::sync::{mpsc, oneshot};
+use tokio::sync::{mpsc, oneshot, Notify};
+use tokio_util::sync::CancellationToken;
 
 struct TestServer {
     port: u16,
@@ -30,6 +32,11 @@ struct TestServer {
 enum TestFileContent {
     Bytes(Bytes),
     Path(PathBuf),
+    Gated {
+        first: Bytes,
+        release: Arc<Notify>,
+        rest: Bytes,
+    },
 }
 
 impl TestFileContent {
@@ -58,6 +65,15 @@ impl TestFileContent {
                         break; // client disconnected
                     }
                 }
+            }
+            TestFileContent::Gated {
+                first,
+                release,
+                rest,
+            } => {
+                let _ = tx.send(first).await;
+                release.notified().await;
+                let _ = tx.send(rest).await;
             }
         }
     }
@@ -465,6 +481,190 @@ async fn test_full_download_flow() {
     assert_eq!(reused.session_id, response.session_id);
     assert_eq!(server.prepare_download_events.load(Ordering::SeqCst), 1);
 
+    let _ = std::fs::remove_file(disk_path);
+}
+
+#[tokio::test]
+async fn test_download_to_path_validates_size_truncates_and_reports_progress() {
+    let (config, contents, disk_path, _) = web_download_config(None);
+    let server = start_test_server(Some((config, contents)), true).await;
+    let client = LsHttpClientV2::try_new_without_cert().unwrap();
+    let response = client
+        .prepare_download(ProtocolType::Http, "127.0.0.1", server.port, None, None)
+        .await
+        .unwrap();
+    let destination =
+        std::env::temp_dir().join(format!("localsend-download-{}", uuid::Uuid::new_v4()));
+    std::fs::write(&destination, b"stale content longer than the download").unwrap();
+    let (progress_tx, mut progress_rx) = mpsc::channel(16);
+
+    client
+        .download_to_target(
+            ProtocolType::Http,
+            "127.0.0.1",
+            server.port,
+            &response.session_id,
+            "file-text",
+            FileDownloadTarget::Path(destination.clone()),
+            5,
+            Some(progress_tx),
+            CancellationToken::new(),
+        )
+        .await
+        .unwrap();
+
+    assert_eq!(std::fs::read(&destination).unwrap(), b"hello");
+    let mut last_progress = None;
+    while let Some(progress) = progress_rx.recv().await {
+        last_progress = Some(progress);
+    }
+    assert_eq!(last_progress, Some(5));
+
+    let _ = std::fs::remove_file(destination);
+    let _ = std::fs::remove_file(disk_path);
+}
+
+#[tokio::test]
+async fn test_download_to_path_rejects_declared_size_mismatch_before_writing() {
+    let (config, contents, disk_path, _) = web_download_config(None);
+    let server = start_test_server(Some((config, contents)), true).await;
+    let client = LsHttpClientV2::try_new_without_cert().unwrap();
+    let response = client
+        .prepare_download(ProtocolType::Http, "127.0.0.1", server.port, None, None)
+        .await
+        .unwrap();
+    let destination =
+        std::env::temp_dir().join(format!("localsend-download-{}", uuid::Uuid::new_v4()));
+
+    let result = client
+        .download_to_target(
+            ProtocolType::Http,
+            "127.0.0.1",
+            server.port,
+            &response.session_id,
+            "file-text",
+            FileDownloadTarget::Path(destination.clone()),
+            4,
+            None,
+            CancellationToken::new(),
+        )
+        .await;
+
+    assert!(matches!(result, Err(ClientError::Other(_))));
+    assert!(!destination.exists());
+
+    let _ = std::fs::remove_file(disk_path);
+}
+
+#[tokio::test]
+async fn test_download_to_path_reports_invalid_destination_and_precancel() {
+    let (config, contents, disk_path, _) = web_download_config(None);
+    let server = start_test_server(Some((config, contents)), true).await;
+    let client = LsHttpClientV2::try_new_without_cert().unwrap();
+    let prepare_cancel = CancellationToken::new();
+    prepare_cancel.cancel();
+    let cancelled_prepare = client
+        .prepare_download_with_cancel(
+            ProtocolType::Http,
+            "127.0.0.1",
+            server.port,
+            None,
+            None,
+            prepare_cancel,
+        )
+        .await;
+    assert!(matches!(cancelled_prepare, Err(ClientError::Cancelled)));
+
+    let response = client
+        .prepare_download(ProtocolType::Http, "127.0.0.1", server.port, None, None)
+        .await
+        .unwrap();
+    let missing_parent = std::env::temp_dir()
+        .join(format!("localsend-missing-{}", uuid::Uuid::new_v4()))
+        .join("file");
+
+    let invalid_target = client
+        .download_to_target(
+            ProtocolType::Http,
+            "127.0.0.1",
+            server.port,
+            &response.session_id,
+            "file-text",
+            FileDownloadTarget::Path(missing_parent),
+            5,
+            None,
+            CancellationToken::new(),
+        )
+        .await;
+    assert!(matches!(invalid_target, Err(ClientError::Other(_))));
+
+    let cancel = CancellationToken::new();
+    cancel.cancel();
+    let cancelled = client
+        .download_to_target(
+            ProtocolType::Http,
+            "127.0.0.1",
+            server.port,
+            &response.session_id,
+            "file-text",
+            FileDownloadTarget::Path(std::env::temp_dir().join("unused")),
+            5,
+            None,
+            cancel,
+        )
+        .await;
+    assert!(matches!(cancelled, Err(ClientError::Cancelled)));
+
+    let _ = std::fs::remove_file(disk_path);
+}
+
+#[tokio::test]
+async fn test_download_to_path_cancels_while_body_is_stalled() {
+    let (config, mut contents, disk_path, _) = web_download_config(None);
+    let release = Arc::new(Notify::new());
+    contents.insert(
+        "file-text".to_string(),
+        TestFileContent::Gated {
+            first: Bytes::from_static(b"h"),
+            release: release.clone(),
+            rest: Bytes::from_static(b"ello"),
+        },
+    );
+    let server = start_test_server(Some((config, contents)), true).await;
+    let client = LsHttpClientV2::try_new_without_cert().unwrap();
+    let response = client
+        .prepare_download(ProtocolType::Http, "127.0.0.1", server.port, None, None)
+        .await
+        .unwrap();
+    let destination =
+        std::env::temp_dir().join(format!("localsend-download-{}", uuid::Uuid::new_v4()));
+    let (progress_tx, mut progress_rx) = mpsc::channel(16);
+    let cancel = CancellationToken::new();
+    let download_cancel = cancel.clone();
+    let download_destination = destination.clone();
+    let download = tokio::spawn(async move {
+        client
+            .download_to_target(
+                ProtocolType::Http,
+                "127.0.0.1",
+                server.port,
+                &response.session_id,
+                "file-text",
+                FileDownloadTarget::Path(download_destination),
+                5,
+                Some(progress_tx),
+                download_cancel,
+            )
+            .await
+    });
+
+    assert_eq!(progress_rx.recv().await, Some(1));
+    cancel.cancel();
+    let result = download.await.unwrap();
+    assert!(matches!(result, Err(ClientError::Cancelled)));
+    release.notify_one();
+
+    let _ = std::fs::remove_file(destination);
     let _ = std::fs::remove_file(disk_path);
 }
 

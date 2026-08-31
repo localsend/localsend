@@ -12,8 +12,8 @@ import 'package:localsend_isolates/rust/frb_generated.dart';
 
 part 'http.freezed.dart';
 
-// These functions are ignored because they are not marked as `pub`: `resolve_file_content`
-// These function are ignored because they are on traits that is not defined in current crate (put an empty `#[frb]` on it to unignore): `clone`, `clone`, `from`
+// These functions are ignored because they are not marked as `pub`: `resolve_download_target`, `resolve_file_content`
+// These function are ignored because they are on traits that is not defined in current crate (put an empty `#[frb]` on it to unignore): `clone`, `clone`, `clone`, `from`
 
 /// Creates an HTTP client.
 ///
@@ -38,6 +38,31 @@ RsHttpClient createClient({
 // Rust type: RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<RsHttpClient>>
 abstract class RsHttpClient implements RustOpaqueInterface {
   Future<void> cancel({required ProtocolType protocol, required String ip, required int port, required String sessionId});
+
+  /// Downloads one reverse-transfer file, emitting progress on [sink].
+  ///
+  /// Failures are stream events for the same reason as [RsHttpClient::upload].
+  Stream<RsDownloadEvent> downloadToTarget({
+    required ProtocolType protocol,
+    required String ip,
+    required int port,
+    required String sessionId,
+    required String fileId,
+    String? path,
+    int? fileDescriptor,
+    required BigInt expectedSize,
+    required RsCancellationToken cancelToken,
+  });
+
+  /// Requests the sender's reverse-download manifest.
+  Future<RsPrepareDownloadResponse> prepareDownload({
+    required ProtocolType protocol,
+    required String ip,
+    required int port,
+    String? sessionId,
+    String? pin,
+    required RsCancellationToken cancelToken,
+  });
 
   Future<PrepareUploadResult> prepareUpload({
     required ProtocolType protocol,
@@ -119,6 +144,54 @@ class ResultWithPublicKeyRegisterResponseDto {
       other is ResultWithPublicKeyRegisterResponseDto && runtimeType == other.runtimeType && publicKey == other.publicKey && body == other.body;
 }
 
+class RsDownloadDeviceInfo {
+  final String alias;
+  final String version;
+  final String? deviceModel;
+  final DeviceType? deviceType;
+  final String fingerprint;
+  final bool download;
+
+  const RsDownloadDeviceInfo({
+    required this.alias,
+    required this.version,
+    this.deviceModel,
+    this.deviceType,
+    required this.fingerprint,
+    required this.download,
+  });
+
+  @override
+  int get hashCode => alias.hashCode ^ version.hashCode ^ deviceModel.hashCode ^ deviceType.hashCode ^ fingerprint.hashCode ^ download.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is RsDownloadDeviceInfo &&
+          runtimeType == other.runtimeType &&
+          alias == other.alias &&
+          version == other.version &&
+          deviceModel == other.deviceModel &&
+          deviceType == other.deviceType &&
+          fingerprint == other.fingerprint &&
+          download == other.download;
+}
+
+@freezed
+sealed class RsDownloadEvent with _$RsDownloadEvent {
+  const RsDownloadEvent._();
+
+  /// Download progress as a fraction from 0.0 through 1.0. Throttled.
+  const factory RsDownloadEvent.progress({
+    required double progress,
+  }) = RsDownloadEvent_Progress;
+
+  /// The download failed. Always the final event.
+  const factory RsDownloadEvent.failed({
+    required RsHttpClientError error,
+  }) = RsDownloadEvent_Failed;
+}
+
 @freezed
 sealed class RsHttpClientError with _$RsHttpClientError implements FrbException {
   const RsHttpClientError._();
@@ -139,6 +212,30 @@ sealed class RsHttpClientError with _$RsHttpClientError implements FrbException 
   const factory RsHttpClientError.other(
     String field0,
   ) = RsHttpClientError_Other;
+}
+
+class RsPrepareDownloadResponse {
+  final RsDownloadDeviceInfo info;
+  final String sessionId;
+  final Map<String, FileDto> files;
+
+  const RsPrepareDownloadResponse({
+    required this.info,
+    required this.sessionId,
+    required this.files,
+  });
+
+  @override
+  int get hashCode => info.hashCode ^ sessionId.hashCode ^ files.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is RsPrepareDownloadResponse &&
+          runtimeType == other.runtimeType &&
+          info == other.info &&
+          sessionId == other.sessionId &&
+          files == other.files;
 }
 
 @freezed

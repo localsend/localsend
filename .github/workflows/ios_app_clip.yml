@@ -1,0 +1,54 @@
+name: iOS App Clip
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/ios_app_clip.yml'
+      - 'app/ios/AppClip/**'
+      - 'app/ios/AppClipTests/**'
+      - 'app/ios/Flutter/AppClip.xcconfig'
+      - 'app/ios/Runner/Runner.entitlements'
+      - 'app/ios/Runner/**'
+      - 'app/ios/Runner.xcodeproj/**'
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/ios_app_clip.yml'
+      - 'app/ios/AppClip/**'
+      - 'app/ios/AppClipTests/**'
+      - 'app/ios/Flutter/AppClip.xcconfig'
+      - 'app/ios/Runner/Runner.entitlements'
+      - 'app/ios/Runner/**'
+      - 'app/ios/Runner.xcodeproj/**'
+
+env:
+  FLUTTER_VERSION: '3.41.9'
+
+jobs:
+  test:
+    runs-on: macos-26
+    steps:
+      - uses: actions/checkout@v6
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: stable
+      - name: Generate Flutter build settings
+        working-directory: app
+        run: flutter pub get
+      - name: Select an available iPhone simulator
+        run: |
+          SIMULATOR_ID=$(xcrun simctl list devices available -j | python3 -c 'import json,sys; data=json.load(sys.stdin); print(next(device["udid"] for runtime in data["devices"].values() for device in runtime if device["name"].startswith("iPhone")))')
+          echo "SIMULATOR_ID=$SIMULATOR_ID" >> "$GITHUB_ENV"
+      - name: Build and test the native App Clip
+        run: |
+          xcodebuild test \
+            -project app/ios/Runner.xcodeproj \
+            -scheme LocalSendClip \
+            -destination "platform=iOS Simulator,id=$SIMULATOR_ID" \
+            CODE_SIGNING_ALLOWED=NO \
+            APP_CLIP_ASSOCIATED_DOMAIN=appclips:localsend.org \
+            APP_CLIP_INVOCATION_BASE_URL=https://localsend.org/clip
+      - name: Compile the installed-app invocation fallback
+        working-directory: app
+        run: flutter build ios --simulator --debug --no-codesign

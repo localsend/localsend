@@ -48,6 +48,7 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 
   late final Translations$general$en general = Translations$general$en.internal(_root);
   late final Translations$receiveTab$en receiveTab = Translations$receiveTab$en.internal(_root);
+  late final Translations$appClip$en appClip = Translations$appClip$en.internal(_root);
   late final Translations$sendTab$en sendTab = Translations$sendTab$en.internal(_root);
   late final Translations$settingsTab$en settingsTab = Translations$settingsTab$en.internal(_root);
   late final Translations$troubleshootPage$en troubleshootPage = Translations$troubleshootPage$en.internal(_root);
@@ -214,6 +215,63 @@ class Translations$receiveTab$en {
 
   /// en: 'Receive via link'
   String get link => 'Receive via link';
+}
+
+// Path: appClip
+class Translations$appClip$en {
+  Translations$appClip$en.internal(this._root);
+
+  final Translations _root; // ignore: unused_field
+
+  // Translations
+
+  /// en: 'Receive from iPhone'
+  String get title => 'Receive from iPhone';
+
+  /// en: 'An iPhone can send photos and videos without installing LocalSend.'
+  String get intro => 'An iPhone can send photos and videos without installing LocalSend.';
+
+  /// en: 'Preparing a private connection…'
+  String get starting => 'Preparing a private connection…';
+
+  /// en: 'Hold the unlocked iPhone near this phone, or scan the QR code.'
+  String get readyNfc => 'Hold the unlocked iPhone near this phone, or scan the QR code.';
+
+  /// en: 'Scan this QR code with the iPhone camera.'
+  String get readyQr => 'Scan this QR code with the iPhone camera.';
+
+  /// en: 'Waiting for the iPhone…'
+  String get waiting => 'Waiting for the iPhone…';
+
+  /// en: 'Reading the file offer…'
+  String get preparing => 'Reading the file offer…';
+
+  /// en: '{name} wants to send {count} file(s).'
+  String offer({required Object name, required Object count}) => '${name} wants to send ${count} file(s).';
+
+  /// en: 'Receiving files…'
+  String get receiving => 'Receiving files…';
+
+  /// en: 'All files were received.'
+  String get completed => 'All files were received.';
+
+  /// en: 'Retry failed files'
+  String get retryFailed => 'Retry failed files';
+
+  /// en: 'Receive from iPhone is unavailable on this device.'
+  String get unavailable => 'Receive from iPhone is unavailable on this device.';
+
+  /// en: 'The App Clip invocation URL has not been configured for this build.'
+  String get notConfigured => 'The App Clip invocation URL has not been configured for this build.';
+
+  /// en: 'Nearby Wi-Fi and notification permissions are required.'
+  String get permissionDenied => 'Nearby Wi-Fi and notification permissions are required.';
+
+  /// en: 'The direct connection stopped before the transfer completed.'
+  String get failed => 'The direct connection stopped before the transfer completed.';
+
+  /// en: 'NFC is unavailable; the QR code still works.'
+  String get nfcOptional => 'NFC is unavailable; the QR code still works.';
 }
 
 // Path: sendTab

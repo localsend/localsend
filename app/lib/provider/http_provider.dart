@@ -35,6 +35,18 @@ class HttpClientCollection {
       expectedFingerprint: fingerprint,
     );
   }
+
+  /// Plain-HTTP client for an App Clip peer authenticated by the short-lived
+  /// bootstrap capability and derived download PIN. It must not be used for
+  /// ordinary discovery or transfer sessions.
+  RsHttpClient appClipAuthenticated() {
+    return createClient(
+      privateKey: _privateKey,
+      cert: _certificate,
+      version: LsHttpClientVersion.v2,
+      expectedFingerprint: null,
+    );
+  }
 }
 
 /// Provides an HTTP client for each protocol version.

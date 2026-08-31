@@ -8,8 +8,10 @@ pub use localsend::http::dto::{
     RegisterDto, RegisterResponseDto,
 };
 use localsend::model::discovery::ProtocolType;
+use localsend::model::transfer::FileDto;
 use localsend::reqwest;
 use localsend::util::error::ErrorChain;
+use std::collections::HashMap;
 
 pub struct RsHttpClient {
     inner: localsend::http::client::LsHttpClient,
@@ -86,6 +88,135 @@ impl RsHttpClient {
             .map_err(RsHttpClientError::from)?;
 
         Ok(response)
+    }
+
+    /// Requests the sender's reverse-download manifest.
+    pub async fn prepare_download(
+        &self,
+        protocol: ProtocolType,
+        ip: &str,
+        port: u16,
+        session_id: Option<String>,
+        pin: Option<String>,
+        cancel_token: &RsCancellationToken,
+    ) -> Result<RsPrepareDownloadResponse, RsHttpClientError> {
+        let client = match &self.inner {
+            localsend::http::client::LsHttpClient::V2(client) => client,
+            localsend::http::client::LsHttpClient::V3(_) => {
+                return Err(RsHttpClientError::Other(
+                    "The Download API is only available in LocalSend protocol v2".into(),
+                ));
+            }
+        };
+        let response = client
+            .prepare_download_with_cancel(
+                protocol,
+                ip,
+                port,
+                session_id.as_deref(),
+                pin.as_deref(),
+                cancel_token.inner.clone(),
+            )
+            .await
+            .map_err(|error| match error {
+                ClientError::Cancelled => {
+                    RsHttpClientError::Other("Download preparation cancelled".to_string())
+                }
+                error => RsHttpClientError::from(error),
+            })?;
+
+        Ok(RsPrepareDownloadResponse {
+            info: RsDownloadDeviceInfo {
+                alias: response.info.alias,
+                version: response.info.version,
+                device_model: response.info.device_model,
+                device_type: response.info.device_type,
+                fingerprint: response.info.fingerprint,
+                download: response.info.download,
+            },
+            session_id: response.session_id,
+            files: response.files,
+        })
+    }
+
+    /// Downloads one reverse-transfer file, emitting progress on [sink].
+    ///
+    /// Failures are stream events for the same reason as [RsHttpClient::upload].
+    #[allow(clippy::too_many_arguments)]
+    pub async fn download_to_target(
+        &self,
+        sink: StreamSink<RsDownloadEvent>,
+        protocol: ProtocolType,
+        ip: &str,
+        port: u16,
+        session_id: &str,
+        file_id: &str,
+        path: Option<String>,
+        file_descriptor: Option<i32>,
+        expected_size: u64,
+        cancel_token: &RsCancellationToken,
+    ) {
+        let result = async {
+            let client = match &self.inner {
+                localsend::http::client::LsHttpClient::V2(client) => client,
+                localsend::http::client::LsHttpClient::V3(_) => {
+                    return Err(RsHttpClientError::Other(
+                        "The Download API is only available in LocalSend protocol v2".into(),
+                    ));
+                }
+            };
+            let target = resolve_download_target(path, file_descriptor)?;
+            let (progress_tx, mut progress_rx) = tokio::sync::mpsc::channel::<u64>(16);
+            let progress_sink = sink.clone();
+            let progress_task = tokio::spawn(async move {
+                let mut last_emit = None::<std::time::Instant>;
+                while let Some(received) = progress_rx.recv().await {
+                    let now = std::time::Instant::now();
+                    let is_final = received >= expected_size;
+                    if !is_final
+                        && last_emit.is_some_and(|last| {
+                            now.duration_since(last) < std::time::Duration::from_millis(20)
+                        })
+                    {
+                        continue;
+                    }
+                    last_emit = Some(now);
+                    let progress = if expected_size == 0 {
+                        1.0
+                    } else {
+                        (received as f64 / expected_size as f64).min(1.0)
+                    };
+                    let _ = progress_sink.add(RsDownloadEvent::Progress { progress });
+                }
+            });
+
+            let download_result = client
+                .download_to_target(
+                    protocol,
+                    ip,
+                    port,
+                    session_id,
+                    file_id,
+                    target,
+                    expected_size,
+                    Some(progress_tx),
+                    cancel_token.inner.clone(),
+                )
+                .await
+                .map_err(|error| match error {
+                    ClientError::Cancelled => {
+                        RsHttpClientError::Other("Download cancelled".to_string())
+                    }
+                    error => RsHttpClientError::from(error),
+                });
+            let _ = progress_task.await;
+            download_result
+        }
+        .await;
+
+        if let Err(error) = result {
+            let _ = sink.add(RsDownloadEvent::Failed { error });
+        }
     }
 
     /// Uploads a single file, emitting [RsUploadEvent]s on [sink].
@@ -174,6 +305,38 @@ impl RsHttpClient {
     }
 }
 
+fn resolve_download_target(
+    path: Option<String>,
+    file_descriptor: Option<i32>,
+) -> Result<localsend::http::client::v2::FileDownloadTarget, RsHttpClientError> {
+    match (path, file_descriptor) {
+        (Some(path), None) => Ok(localsend::http::client::v2::FileDownloadTarget::Path(
+            path.into(),
+        )),
+        (None, Some(file_descriptor)) => {
+            #[cfg(target_os = "android")]
+            {
+                use std::os::fd::FromRawFd;
+
+                // SAFETY: the Dart caller transfers ownership to this operation.
+                // OwnedFd closes it on every success and early-return path.
+                let fd = unsafe { std::os::fd::OwnedFd::from_raw_fd(file_descriptor) };
+                Ok(localsend::http::client::v2::FileDownloadTarget::Fd(fd))
+            }
+            #[cfg(not(target_os = "android"))]
+            {
+                let _ = file_descriptor;
+                Err(RsHttpClientError::Other(
+                    "File descriptors are only supported on Android".into(),
+                ))
+            }
+        }
+        _ => Err(RsHttpClientError::Other(
+            "Exactly one download destination must be provided".into(),
+        )),
+    }
+}
+
 fn resolve_file_content(
     binary: Option<stream::Dart2RustStreamReceiver>,
     path: Option<String>,
@@ -210,6 +373,31 @@ pub enum RsUploadEvent {
     Progress { progress: f64 },
 
     /// The upload failed. Always the last event of the stream.
+    Failed { error: RsHttpClientError },
+}
+
+pub struct RsPrepareDownloadResponse {
+    pub info: RsDownloadDeviceInfo,
+    pub session_id: String,
+    pub files: HashMap<String, FileDto>,
+}
+
+pub struct RsDownloadDeviceInfo {
+    pub alias: String,
+    pub version: String,
+    pub device_model: Option<String>,
+    pub device_type: Option<localsend::model::discovery::DeviceType>,
+    pub fingerprint: String,
+    pub download: bool,
+}
+
+/// An event emitted while a reverse-transfer file is downloaded.
+#[derive(Clone)]
+pub enum RsDownloadEvent {
+    /// Download progress as a fraction from 0.0 through 1.0. Throttled.
+    Progress { progress: f64 },
+
+    /// The download failed. Always the final event.
     Failed { error: RsHttpClientError },
 }
 

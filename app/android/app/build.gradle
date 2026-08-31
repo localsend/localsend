@@ -22,6 +22,8 @@ if (flutterVersionName == null) {
     flutterVersionName = '1.0'
 }
 
+def appClipInvocationBaseUrl = project.findProperty('appClipInvocationBaseUrl') ?: 'https://localsend.org/clip'
+
 android {
     namespace "org.localsend.localsend_app"
     compileSdkVersion 36
@@ -48,6 +50,7 @@ android {
         targetSdkVersion 37
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
+        resValue "string", "app_clip_invocation_base_url", appClipInvocationBaseUrl
     }
 
     signingConfigs {
@@ -85,6 +88,10 @@ android {
 
 flutter {
     source '../..'
+}
+
+dependencies {
+    testImplementation "junit:junit:4.13.2"
 }
 
 // To comply with F-Droid version code schema

@@ -4,11 +4,25 @@ use crate::http::dto_v2::{
     InfoResponseDtoV2, PrepareDownloadResponseDtoV2, PrepareUploadRequestDtoV2,
     PrepareUploadResponseDtoV2, PrepareUploadResultV2, RegisterDtoV2, RegisterResponseDtoV2,
 };
+use crate::http::server::common::save::{spawn_file_writer, FileTimestamps};
 use crate::model::discovery::ProtocolType;
 use futures_util::StreamExt;
 use reqwest::{Response, StatusCode};
+use std::path::PathBuf;
 use tokio::io::AsyncWriteExt;
+use tokio::sync::mpsc;
 use tokio_util::sync::CancellationToken;
+
+/// Destination for a file fetched through the Download API.
+#[derive(Debug)]
+pub enum FileDownloadTarget {
+    /// Create or truncate a file at this path.
+    Path(PathBuf),
+
+    /// Write to an owned Android file descriptor, such as a SAF document.
+    #[cfg(target_os = "android")]
+    Fd(std::os::fd::OwnedFd),
+}
 
 /// HTTP client for LocalSend Protocol v2.2.
 pub struct LsHttpClientV2 {
@@ -373,6 +387,31 @@ impl LsHttpClientV2 {
         session_id: Option<&str>,
         pin: Option<&str>,
     ) -> Result<PrepareDownloadResponseDtoV2, ClientError> {
+        self.prepare_download_with_cancel(
+            protocol,
+            ip,
+            port,
+            session_id,
+            pin,
+            CancellationToken::new(),
+        )
+        .await
+    }
+
+    /// Prepares a reverse-download session with cancellation support.
+    pub async fn prepare_download_with_cancel(
+        &self,
+        protocol: ProtocolType,
+        ip: &str,
+        port: u16,
+        session_id: Option<&str>,
+        pin: Option<&str>,
+        cancel: CancellationToken,
+    ) -> Result<PrepareDownloadResponseDtoV2, ClientError> {
+        if cancel.is_cancelled() {
+            return Err(ClientError::Cancelled);
+        }
+
         let mut params: Vec<(&'static str, &str)> = Vec::new();
         if let Some(session_id) = session_id {
             params.push(("sessionId", session_id));
@@ -390,7 +429,11 @@ impl LsHttpClientV2 {
         }
         .to_string();
 
-        let res = self.client.post(&url).send().await?;
+        let send = self.client.post(&url).send();
+        let res = tokio::select! {
+            _ = cancel.cancelled() => return Err(ClientError::Cancelled),
+            result = send => result?,
+        };
 
         if res.status() != StatusCode::OK {
             return res.into_error().await;
@@ -480,5 +523,92 @@ impl LsHttpClientV2 {
         writer.flush().await?;
 
         Ok(total_bytes)
+    }
+
+    /// Downloads a file directly to a path or Android file descriptor.
+    ///
+    /// The destination is truncated to the received size, and the transfer
+    /// fails unless that size exactly matches `expected_size`. Progress values
+    /// are cumulative bytes written and may be dropped when the receiver lags.
+    #[allow(clippy::too_many_arguments)]
+    pub async fn download_to_target(
+        &self,
+        protocol: ProtocolType,
+        ip: &str,
+        port: u16,
+        session_id: &str,
+        file_id: &str,
+        target: FileDownloadTarget,
+        expected_size: u64,
+        progress_tx: Option<mpsc::Sender<u64>>,
+        cancel: CancellationToken,
+    ) -> Result<(), ClientError> {
+        if cancel.is_cancelled() {
+            return Err(ClientError::Cancelled);
+        }
+
+        let response = tokio::select! {
+            _ = cancel.cancelled() => return Err(ClientError::Cancelled),
+            result = self.download(protocol, ip, port, session_id, file_id) => result?,
+        };
+
+        if let Some(content_length) = response.content_length() {
+            if content_length != expected_size {
+                return Err(anyhow::anyhow!(
+                    "Expected {expected_size} bytes, response declares {content_length}"
+                )
+                .into());
+            }
+        }
+
+        let (binary_tx, result_rx) = match target {
+            FileDownloadTarget::Path(path) => spawn_file_writer(
+                async move {
+                    tokio::fs::File::create(&path)
+                        .await
+                        .map_err(|e| format!("Failed to create {}: {e}", path.display()))
+                },
+                expected_size,
+                progress_tx,
+                FileTimestamps::default(),
+            ),
+            #[cfg(target_os = "android")]
+            FileDownloadTarget::Fd(fd) => spawn_file_writer(
+                async move {
+                    // Ownership was captured before the request started, so every
+                    // early-return path closes the descriptor automatically.
+                    let file = std::fs::File::from(fd);
+                    Ok(tokio::fs::File::from_std(file))
+                },
+                expected_size,
+                progress_tx,
+                FileTimestamps::default(),
+            ),
+        };
+
+        let mut stream = response.bytes_stream();
+        while let Some(chunk) = tokio::select! {
+            _ = cancel.cancelled() => return Err(ClientError::Cancelled),
+            chunk = stream.next() => chunk,
+        } {
+            let chunk = chunk?;
+            if tokio::select! {
+                _ = cancel.cancelled() => return Err(ClientError::Cancelled),
+                result = binary_tx.send(chunk) => result,
+            }
+            .is_err()
+            {
+                break;
+            }
+        }
+        drop(binary_tx);
+
+        let result = tokio::select! {
+            _ = cancel.cancelled() => return Err(ClientError::Cancelled),
+            result = result_rx => result,
+        }
+        .map_err(|_| anyhow::anyhow!("File writer stopped before reporting a result"))?;
+
+        result.map_err(|message| anyhow::anyhow!(message).into())
     }
 }

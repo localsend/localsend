@@ -54,6 +54,24 @@
     },
     "link": "Receive via link"
   },
+  "appClip": {
+    "title": "Receive from iPhone",
+    "intro": "An iPhone can send photos and videos without installing LocalSend.",
+    "starting": "Preparing a private connection…",
+    "readyNfc": "Hold the unlocked iPhone near this phone, or scan the QR code.",
+    "readyQr": "Scan this QR code with the iPhone camera.",
+    "waiting": "Waiting for the iPhone…",
+    "preparing": "Reading the file offer…",
+    "offer": "{name} wants to send {count} file(s).",
+    "receiving": "Receiving files…",
+    "completed": "All files were received.",
+    "retryFailed": "Retry failed files",
+    "unavailable": "Receive from iPhone is unavailable on this device.",
+    "notConfigured": "The App Clip invocation URL has not been configured for this build.",
+    "permissionDenied": "Nearby Wi-Fi and notification permissions are required.",
+    "failed": "The direct connection stopped before the transfer completed.",
+    "nfcOptional": "NFC is unavailable; the QR code still works."
+  },
   "sendTab": {
     "title": "Send",
     "selection": {
