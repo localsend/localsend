@@ -22,9 +22,11 @@ import 'package:localsend_app/provider/security_provider.dart';
 import 'package:localsend_app/provider/selection/selected_receiving_files_provider.dart';
 import 'package:localsend_app/provider/selection/selected_sending_files_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
+import 'package:localsend_app/util/file_writable_check.dart';
 import 'package:localsend_app/util/native/directories.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_app/util/native/tray_helper.dart';
+import 'package:localsend_app/widget/dialogs/destination_not_writable_dialog.dart';
 import 'package:localsend_app/widget/dialogs/open_file_dialog.dart';
 import 'package:localsend_isolates/isolate.dart';
 import 'package:localsend_isolates/model/device.dart';
@@ -82,6 +84,16 @@ class ReceiveController {
     final files = {
       for (final entry in event.files.entries) entry.key: entry.value.toDart(),
     };
+
+    // A destination LocalSend cannot write to previously led to transfers that
+    // "finished" while silently dropping every file (#3090). Reject early with
+    // a visible error instead.
+    if (!kIsWeb && !await isDirectoryWritable(destinationDir)) {
+      _logger.warning('Destination directory is not writable: $destinationDir');
+      await showDestinationNotWritableDialog(destinationDir);
+      declineFileRequest();
+      return;
+    }
 
     // The fingerprint of the sender's mTLS certificate cannot be spoofed, unlike the
     // self-reported fingerprint in the JSON payload which is only used as fallback

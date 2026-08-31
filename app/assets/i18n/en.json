@@ -426,6 +426,12 @@
       "title": "Cannot open file",
       "content": "Could not open \"{file}\". Has this file been moved, renamed or deleted?"
     },
+    "destinationNotWritable": {
+      "title": "No permission to save files",
+      "content": "LocalSend has no permission to write saved files on this path: {path}",
+      "@content": "The path of the destination folder that is not writable",
+      "flatpakHint": "If you use Flatpak, grant access to this folder via Flatseal."
+    },
     "encryptionDisabledNotice": {
       "title": "Encryption disabled",
       "content": "Communication now takes place via the unencrypted HTTP protocol. To use HTTPS protocol, enable encryption again."

@@ -15,11 +15,13 @@ import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/provider/version_provider.dart';
 import 'package:localsend_app/util/alias_generator.dart';
 import 'package:localsend_app/util/device_type_ext.dart';
+import 'package:localsend_app/util/file_writable_check.dart';
 import 'package:localsend_app/util/i18n.dart';
 import 'package:localsend_app/util/native/macos_channel.dart';
 import 'package:localsend_app/util/native/pick_directory_path.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_app/widget/custom_dropdown_button.dart';
+import 'package:localsend_app/widget/dialogs/destination_not_writable_dialog.dart';
 import 'package:localsend_app/widget/dialogs/encryption_disabled_notice.dart';
 import 'package:localsend_app/widget/dialogs/pin_dialog.dart';
 import 'package:localsend_app/widget/dialogs/quick_save_from_favorites_notice.dart';
@@ -225,6 +227,11 @@ class SettingsTab extends StatelessWidget {
 
                         final directory = await pickDirectoryPath();
                         if (directory != null) {
+                          if (!await isDirectoryWritable(directory)) {
+                            // ignore: use_build_context_synchronously
+                            await showDestinationNotWritableDialog(directory);
+                            return;
+                          }
                           if (defaultTargetPlatform == TargetPlatform.macOS) {
                             await persistDestinationFolderAccess(directory);
                           }

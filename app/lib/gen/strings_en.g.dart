@@ -760,6 +760,7 @@ class Translations$dialogs$en {
   late final Translations$dialogs$addressInput$en addressInput = Translations$dialogs$addressInput$en.internal(_root);
   late final Translations$dialogs$cancelSession$en cancelSession = Translations$dialogs$cancelSession$en.internal(_root);
   late final Translations$dialogs$cannotOpenFile$en cannotOpenFile = Translations$dialogs$cannotOpenFile$en.internal(_root);
+  late final Translations$dialogs$destinationNotWritable$en destinationNotWritable = Translations$dialogs$destinationNotWritable$en.internal(_root);
   late final Translations$dialogs$encryptionDisabledNotice$en encryptionDisabledNotice = Translations$dialogs$encryptionDisabledNotice$en.internal(
     _root,
   );
@@ -1481,6 +1482,26 @@ class Translations$dialogs$cannotOpenFile$en {
 
   /// en: 'Could not open "{file}". Has this file been moved, renamed or deleted?'
   String content({required Object file}) => 'Could not open "${file}". Has this file been moved, renamed or deleted?';
+}
+
+// Path: dialogs.destinationNotWritable
+class Translations$dialogs$destinationNotWritable$en {
+  Translations$dialogs$destinationNotWritable$en.internal(this._root);
+
+  final Translations _root; // ignore: unused_field
+
+  // Translations
+
+  /// en: 'No permission to save files'
+  String get title => 'No permission to save files';
+
+  /// The path of the destination folder that is not writable
+  ///
+  /// en: 'LocalSend has no permission to write saved files on this path: {path}'
+  String content({required Object path}) => 'LocalSend has no permission to write saved files on this path: ${path}';
+
+  /// en: 'If you use Flatpak, grant access to this folder via Flatseal.'
+  String get flatpakHint => 'If you use Flatpak, grant access to this folder via Flatseal.';
 }
 
 // Path: dialogs.encryptionDisabledNotice
