@@ -9,6 +9,7 @@ import 'package:localsend_app/model/persistence/color_mode.dart';
 import 'package:localsend_app/model/persistence/favorite_device.dart';
 import 'package:localsend_app/model/persistence/quick_save_mode.dart';
 import 'package:localsend_app/model/persistence/receive_history_entry.dart';
+import 'package:localsend_app/model/persistence/tailnet_peer.dart';
 import 'package:localsend_app/model/send_mode.dart';
 import 'package:localsend_app/provider/window_dimensions_provider.dart';
 import 'package:localsend_app/util/alias_generator.dart';
@@ -58,6 +59,9 @@ const _receiveHistory = 'ls_receive_history';
 // Favorites
 const _favorites = 'ls_favorites';
 
+// Tailnet peers this device has seen
+const _tailnetPeers = 'ls_tailnet_peers';
+
 // App Window Offset and Size info
 const _windowOffsetX = 'ls_window_offset_x';
 const _windowOffsetY = 'ls_window_offset_y';
@@ -77,6 +81,7 @@ const _networkWhitelistKey = 'ls_network_whitelist';
 const _networkBlacklistKey = 'ls_network_blacklist';
 const _timeoutKey = 'ls_timeout';
 const _multicastGroupKey = 'ls_multicast_group';
+const _tailnetDiscoveryKey = 'ls_tailnet_discovery';
 const _destinationKey = 'ls_destination';
 const _saveToGallery = 'ls_save_to_gallery';
 const _saveToHistory = 'ls_save_to_history';
@@ -272,6 +277,16 @@ class PersistenceService {
     await _prefs.setStringList(_favorites, favoritesRaw);
   }
 
+  List<TailnetPeer> getTailnetPeers() {
+    final peersRaw = _prefs.getStringList(_tailnetPeers) ?? [];
+    return peersRaw.map((entry) => TailnetPeer.fromJson(jsonDecode(entry))).toList();
+  }
+
+  Future<void> setTailnetPeers(List<TailnetPeer> peers) async {
+    final peersRaw = peers.map((entry) => jsonEncode(entry.toJson())).toList();
+    await _prefs.setStringList(_tailnetPeers, peersRaw);
+  }
+
   String getShowToken() {
     return _prefs.getString(_showToken)!;
   }
@@ -411,6 +426,17 @@ class PersistenceService {
 
   String getMulticastGroup() {
     return _prefs.getString(_multicastGroupKey) ?? defaultMulticastGroup;
+  }
+
+  /// Whether discovery also probes the peers of this device's tailnet.
+  /// On by default: it costs a single failed socket connect on a device that
+  /// has no Tailscale installed.
+  bool isTailnetDiscovery() {
+    return _prefs.getBool(_tailnetDiscoveryKey) ?? true;
+  }
+
+  Future<void> setTailnetDiscovery(bool tailnetDiscovery) async {
+    await _prefs.setBool(_tailnetDiscoveryKey, tailnetDiscovery);
   }
 
   Future<void> setMulticastGroup(String group) async {

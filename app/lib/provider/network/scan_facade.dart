@@ -4,6 +4,7 @@ import 'package:localsend_app/provider/favorites_provider.dart';
 import 'package:localsend_app/provider/local_ip_provider.dart';
 import 'package:localsend_app/provider/network/nearby_devices_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
+import 'package:localsend_app/provider/tailnet_peers_provider.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 
 /// Discovers devices in stages, cheapest first: multicast announcement and
@@ -17,6 +18,7 @@ class StartSmartScan extends AsyncGlobalAction {
   @override
   Future<void> reduce() async {
     final favorites = ref.read(favoritesProvider);
+    final tailnetPeers = ref.read(tailnetPeersProvider);
     final settings = ref.read(settingsProvider);
     final networkInterfaces = ref.read(localIpProvider).localIps.take(maxInterfaces).toList();
 
@@ -25,6 +27,7 @@ class StartSmartScan extends AsyncGlobalAction {
         .dispatchAsync(
           StartStagedScan(
             favorites: favorites,
+            tailnetChannels: tailnetPeers.map((e) => (e.ip, e.port)).toList(),
             interfaces: networkInterfaces,
             port: settings.port,
             https: settings.https,
@@ -45,13 +48,28 @@ class StartLegacySubnetScan extends AsyncGlobalAction {
   @override
   Future<void> reduce() async {
     final settings = ref.read(settingsProvider);
+    final tailnetPeers = ref.read(tailnetPeersProvider);
     final port = settings.port;
     final https = settings.https;
 
-    // send announcement in parallel
-    ref.redux(nearbyDevicesProvider).dispatch(StartMulticastScan());
-
     await Future.wait<void>([
+      // The announcement runs inside the staged scan, which also probes the
+      // tailnet: the user picked one subnet to scan, but the tailnet is
+      // reachable regardless of which interface that is, and skipping it
+      // here would silently lose exactly the peers no subnet scan can find.
+      // No favorites and no interfaces: the selected subnet is scanned below.
+      ref
+          .redux(nearbyDevicesProvider)
+          .dispatchAsync(
+            StartStagedScan(
+              favorites: const [],
+              tailnetChannels: tailnetPeers.map((e) => (e.ip, e.port)).toList(),
+              interfaces: const [],
+              port: port,
+              https: https,
+              grace: Duration.zero,
+            ),
+          ),
       for (final subnet in subnets) ref.redux(nearbyDevicesProvider).dispatchAsync(StartLegacyScan(port: port, localIp: subnet, https: https)),
     ]);
   }

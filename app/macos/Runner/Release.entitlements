@@ -18,5 +18,18 @@
 	<true/>
 	<key>com.apple.security.network.server</key>
 	<true/>
+	<!-- Tailnet discovery asks the local Tailscale daemon for the peer list
+	     over its LocalAPI. On macOS that daemon publishes no unix socket: it
+	     listens on loopback and proves the caller is the same user by the
+	     name of a file in its own group container. The sandbox denies both
+	     listing and reading that container, so without these two paths the
+	     app cannot enumerate its tailnet at all, and it then stays invisible
+	     to every device that cannot enumerate either — phones above all.
+	     Read-only, and only these two directories: the parent stays denied. -->
+	<key>com.apple.security.temporary-exception.files.home-relative-path.read-only</key>
+	<array>
+		<string>/Library/Group Containers/W5364U7YZB.group.io.tailscale.ipn.macos/</string>
+		<string>/Library/Group Containers/io.tailscale.ipn.macsys/</string>
+	</array>
 </dict>
 </plist>

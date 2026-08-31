@@ -67,6 +67,8 @@ class SyncStateMapper extends ClassMapperBase<SyncState> {
     'discoveryTimeout',
     _$discoveryTimeout,
   );
+  static bool _$tailnet(SyncState v) => v.tailnet;
+  static const Field<SyncState, bool> _f$tailnet = Field('tailnet', _$tailnet);
   static bool _$serverRunning(SyncState v) => v.serverRunning;
   static const Field<SyncState, bool> _f$serverRunning = Field(
     'serverRunning',
@@ -90,6 +92,7 @@ class SyncStateMapper extends ClassMapperBase<SyncState> {
     #protocol: _f$protocol,
     #multicastGroup: _f$multicastGroup,
     #discoveryTimeout: _f$discoveryTimeout,
+    #tailnet: _f$tailnet,
     #serverRunning: _f$serverRunning,
     #download: _f$download,
   };
@@ -106,6 +109,7 @@ class SyncStateMapper extends ClassMapperBase<SyncState> {
       protocol: data.dec(_f$protocol),
       multicastGroup: data.dec(_f$multicastGroup),
       discoveryTimeout: data.dec(_f$discoveryTimeout),
+      tailnet: data.dec(_f$tailnet),
       serverRunning: data.dec(_f$serverRunning),
       download: data.dec(_f$download),
     );
@@ -191,6 +195,7 @@ abstract class SyncStateCopyWith<$R, $In extends SyncState, $Out>
     ProtocolType? protocol,
     String? multicastGroup,
     int? discoveryTimeout,
+    bool? tailnet,
     bool? serverRunning,
     bool? download,
   });
@@ -243,6 +248,7 @@ class _SyncStateCopyWithImpl<$R, $Out>
     ProtocolType? protocol,
     String? multicastGroup,
     int? discoveryTimeout,
+    bool? tailnet,
     bool? serverRunning,
     bool? download,
   }) => $apply(
@@ -257,6 +263,7 @@ class _SyncStateCopyWithImpl<$R, $Out>
       if (protocol != null) #protocol: protocol,
       if (multicastGroup != null) #multicastGroup: multicastGroup,
       if (discoveryTimeout != null) #discoveryTimeout: discoveryTimeout,
+      if (tailnet != null) #tailnet: tailnet,
       if (serverRunning != null) #serverRunning: serverRunning,
       if (download != null) #download: download,
     }),
@@ -273,6 +280,7 @@ class _SyncStateCopyWithImpl<$R, $Out>
     protocol: data.get(#protocol, or: $value.protocol),
     multicastGroup: data.get(#multicastGroup, or: $value.multicastGroup),
     discoveryTimeout: data.get(#discoveryTimeout, or: $value.discoveryTimeout),
+    tailnet: data.get(#tailnet, or: $value.tailnet),
     serverRunning: data.get(#serverRunning, or: $value.serverRunning),
     download: data.get(#download, or: $value.download),
   );

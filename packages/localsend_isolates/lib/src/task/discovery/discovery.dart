@@ -11,6 +11,17 @@ import 'package:refena_flutter/refena_flutter.dart';
 
 final _logger = Logger('Discovery');
 
+/// How many registrations are held while the discovery is down.
+/// Bounded because nothing limits how many devices may register in that
+/// window, and the isolate must not grow its memory from the network.
+const _maxPendingDevices = 64;
+
+/// The default of [DiscoveryService.startTimeout]. Generous compared to the
+/// startup itself, which only binds the multicast sockets, because the cost
+/// of waiting is invisible while the cost of skipping a scan is a device
+/// list that stays empty until the user rescans by hand.
+const _defaultStartTimeout = Duration(seconds: 5);
+
 final discoveryProvider = Provider((ref) {
   return DiscoveryService(ref);
 });
@@ -20,16 +31,49 @@ final discoveryProvider = Provider((ref) {
 /// of confirmed devices all live on the Rust side. This service configures it
 /// from the [syncProvider] state and maps every confirmation to a [Device].
 class DiscoveryService {
-  DiscoveryService(this._ref);
+  DiscoveryService(this._ref, {this.startTimeout = _defaultStartTimeout});
 
   final Ref _ref;
+
+  /// How long a scan waits for the discovery to come up before it is skipped.
+  ///
+  /// The app dispatches its first automatic scan without awaiting the
+  /// discovery startup, so that scan regularly arrives while [_discovery] is
+  /// still null. Dropping it there is only recoverable on a LAN, where the
+  /// startup announcement makes every peer register again; over a tailnet a
+  /// dropped scan means the persisted peers are not probed until the user
+  /// rescans by hand.
+  final Duration startTimeout;
+
   RsDiscovery? _discovery;
   Completer<void> _retryCompleter = Completer();
+
+  /// Whether the last start attempt failed and the listener is parked until
+  /// [restartListener]. A scan skips immediately in this state: only a
+  /// settings change can end it, so the wait of [_runningDiscovery] could
+  /// never be answered.
+  bool _startFailed = false;
+
+  /// Completed once the discovery runs, re-created when it stops: what a
+  /// scan awaits when it arrives while the discovery is still starting.
+  Completer<void> _started = Completer();
+
   bool _listening = false;
 
   /// Whether the current discovery was stopped by [restartListener], as
   /// opposed to stopping itself because the multicast sockets failed.
   bool _restartRequested = false;
+
+  /// Devices that registered with this device's HTTP server while the
+  /// discovery was starting or restarting, by fingerprint, newest last.
+  ///
+  /// On a LAN such a device would come back by itself, because the
+  /// announcement sent when the discovery starts makes it register again.
+  /// A peer reached over a tailnet answers no announcement and its address
+  /// range cannot be scanned, so dropping it here would lose it until that
+  /// peer happens to probe this device again — which on Android and iOS,
+  /// where the tailnet cannot be enumerated, is the only way it is ever found.
+  final Map<String, Device> _pending = {};
 
   /// Starts the discovery and emits every device confirmation:
   /// answered announcements, scan results and devices fed in
@@ -54,6 +98,11 @@ class DiscoveryService {
       if (event.prev.serverRunning != event.next.serverRunning) {
         unawaited(_discovery?.setAnswerAnnouncements(answer: event.next.serverRunning));
       }
+      // Applied without rebinding the sockets: the tailnet stage only runs
+      // during a scan, so the next one already picks up the new value.
+      if (event.prev.tailnet != event.next.tailnet) {
+        unawaited(_discovery?.setTailnet(tailnet: event.next.tailnet));
+      }
     });
 
     while (true) {
@@ -76,12 +125,15 @@ class DiscoveryService {
           certPem: syncState.securityContext.certificate,
           privateKeyPem: syncState.securityContext.privateKey,
           timeoutMs: BigInt.from(syncState.discoveryTimeout),
+          tailnet: syncState.tailnet,
         );
       } catch (e) {
         _logger.warning('Could not start discovery (group: ${syncState.multicastGroup}, port: ${syncState.port})', e);
         // Wait for the next restart request instead of hot-looping
+        _startFailed = true;
         _retryCompleter = Completer();
         await _retryCompleter.future;
+        _startFailed = false;
         continue;
       }
 
@@ -95,6 +147,10 @@ class DiscoveryService {
       }
 
       _discovery = discovery;
+      if (!_started.isCompleted) {
+        _started.complete();
+      }
+      await _flushPending();
 
       // Tell everyone in the network that I am online.
       unawaited(discovery.announce());
@@ -106,6 +162,10 @@ class DiscoveryService {
       }
 
       _discovery = null;
+      // Re-armed before the restart branch below: the discovery is already down
+      // at this point, so a scan arriving during the restart delay must wait for
+      // the rebind rather than read the completer the previous run left completed.
+      _started = Completer();
 
       if (_restartRequested) {
         // The stream ended because [restartListener] stopped the discovery.
@@ -151,9 +211,9 @@ class DiscoveryService {
   /// Found devices arrive on the [startListener] stream; this method returns
   /// once the whole scan has finished.
   Future<void> scanSubnet({required String networkInterface, required int port, required bool https}) async {
-    final discovery = _discovery;
+    final discovery = await _runningDiscovery();
     if (discovery == null) {
-      _logger.info('Discovery is not running, skipping subnet scan');
+      _logger.warning('Discovery did not start within $startTimeout, skipping subnet scan');
       return;
     }
 
@@ -162,6 +222,24 @@ class DiscoveryService {
       port: port,
       protocol: https ? rust_model.ProtocolType.https : rust_model.ProtocolType.http,
     );
+  }
+
+  /// The running discovery, waited for up to [startTimeout] when it is still
+  /// starting. Null when it did not come up in time, e.g. because starting
+  /// failed and the retry is waiting for a settings change.
+  Future<RsDiscovery?> _runningDiscovery() async {
+    if (_discovery != null) {
+      return _discovery;
+    }
+    if (_startFailed) {
+      return null;
+    }
+    try {
+      await _started.future.timeout(startTimeout);
+    } on TimeoutException {
+      return null;
+    }
+    return _discovery;
   }
 
   /// Discovers devices in stages, cheapest first: announces this device and
@@ -177,9 +255,9 @@ class DiscoveryService {
     required bool https,
     required Duration grace,
   }) async {
-    final discovery = _discovery;
+    final discovery = await _runningDiscovery();
     if (discovery == null) {
-      _logger.info('Discovery is not running, skipping staged discovery');
+      _logger.warning('Discovery did not start within $startTimeout, skipping staged discovery');
       return;
     }
 
@@ -211,16 +289,44 @@ class DiscoveryService {
   /// Feeds a device confirmed outside of the discovery into the store, e.g.
   /// one that registered with this device's HTTP server.
   /// The device comes back on the [startListener] stream.
+  ///
+  /// A device that arrives while the discovery is starting or restarting is
+  /// held until it runs again, see [_pending].
   Future<void> addDevice(Device device) async {
-    final discovery = _discovery;
     final ip = device.ip;
-    if (discovery == null || ip == null) {
-      // A device lost here re-appears on its next register request, which the
-      // announcement sent when the discovery (re)starts triggers by itself.
-      _logger.info('Discovery is not running, skipping device ${device.alias} ($ip)');
+    if (ip == null) {
+      _logger.info('Skipping device ${device.alias} without an address');
+      return;
+    }
+
+    final discovery = _discovery;
+    if (discovery == null) {
+      if (_pending.length >= _maxPendingDevices) {
+        _pending.remove(_pending.keys.first);
+      }
+      _pending[device.fingerprint] = device;
+      _logger.info('Discovery is not running, holding device ${device.alias} ($ip)');
       return;
     }
 
     await discovery.addDevice(device: device.toRsDiscoveredDevice(ip));
+  }
+
+  /// Registers the devices held while the discovery was down, oldest first.
+  Future<void> _flushPending() async {
+    final discovery = _discovery;
+    if (discovery == null || _pending.isEmpty) {
+      return;
+    }
+
+    final pending = List<Device>.of(_pending.values);
+    _pending.clear();
+    _logger.info('Registering ${pending.length} device(s) held while the discovery was down');
+    for (final device in pending) {
+      final ip = device.ip;
+      if (ip != null) {
+        await discovery.addDevice(device: device.toRsDiscoveredDevice(ip));
+      }
+    }
   }
 }

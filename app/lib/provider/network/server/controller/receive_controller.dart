@@ -25,6 +25,7 @@ import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/util/native/directories.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_app/util/native/tray_helper.dart';
+import 'package:localsend_app/util/tailnet_address.dart';
 import 'package:localsend_app/widget/dialogs/open_file_dialog.dart';
 import 'package:localsend_isolates/isolate.dart';
 import 'package:localsend_isolates/model/device.dart';
@@ -87,6 +88,20 @@ class ReceiveController {
     // self-reported fingerprint in the JSON payload which is only used as fallback
     // when encryption is disabled.
     final senderFingerprint = event.certFingerprint ?? event.info.fingerprint;
+
+    if (isTailnetAddress(event.ip)) {
+      // Over a tailnet this upload may be the only contact this device ever
+      // gets: there is no announcement to hear, no subnet to scan, and on
+      // Android and iOS the tailnet cannot be enumerated. Feed the sender
+      // into discovery so it can be replied to. A LAN sender is deliberately
+      // not fed — announcements already cover it, and receiving a file is
+      // not supposed to change what a LAN scan shows.
+      server.ref
+          .redux(parentIsolateProvider)
+          .dispatch(
+            IsolateDiscoveryAddDeviceAction(device: event.info.toDevice(event.ip, withChannel: true).copyWith(fingerprint: senderFingerprint)),
+          );
+    }
 
     _logger.info('Session Id: $sessionId');
     _logger.info('Destination Directory: $destinationDir');

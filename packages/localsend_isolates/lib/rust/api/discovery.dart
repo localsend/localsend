@@ -22,6 +22,9 @@ import 'package:localsend_isolates/rust/frb_generated.dart';
 /// device's TLS identity, sent as client certificate with every register
 /// request; [fingerprint] must be the certificate's SHA-256 fingerprint.
 ///
+/// [tailnet] additionally probes the peers of this device's tailnet on every
+/// staged discovery, see [RsDiscovery::set_tailnet].
+///
 /// Nothing is announced until [RsDiscovery::announce] is called.
 ///
 /// Cannot fail besides an invalid [group]: when no multicast socket could be
@@ -44,6 +47,7 @@ Future<RsDiscovery> startDiscovery({
   required String certPem,
   required String privateKeyPem,
   required BigInt timeoutMs,
+  required bool tailnet,
 }) => RustLib.instance.api.crateApiDiscoveryStartDiscovery(
   group: group,
   port: port,
@@ -59,6 +63,7 @@ Future<RsDiscovery> startDiscovery({
   certPem: certPem,
   privateKeyPem: privateKeyPem,
   timeoutMs: timeoutMs,
+  tailnet: tailnet,
 );
 
 // Rust type: RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<RsDiscovery>>
@@ -134,6 +139,16 @@ abstract class RsDiscovery implements RustOpaqueInterface {
   /// Turned off while the HTTP server is not running: the answer would
   /// advertise a port that nobody listens on.
   Future<void> setAnswerAnnouncements({required bool answer});
+
+  /// Sets whether [RsDiscovery::discover_staged] also probes the peers of
+  /// this device's tailnet, for devices that are reachable over Tailscale
+  /// but not on the same physical network.
+  ///
+  /// Takes effect on the next discovery, so the setting can be toggled
+  /// without rebinding the sockets. Costs nothing on a device that has no
+  /// Tailscale, and cannot work on Android and iOS, where Tailscale exposes
+  /// no API to other apps.
+  Future<void> setTailnet({required bool tailnet});
 
   /// Stops the discovery, which also ends the [RsDiscovery::listen] stream.
   /// Returns after all sockets are closed, so the port can be bound again.

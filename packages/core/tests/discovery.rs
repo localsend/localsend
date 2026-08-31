@@ -10,7 +10,8 @@
 
 use localsend::crypto::cert::generate_self_signed;
 use localsend::discovery::{
-    self, DeviceIdentity, DiscoveryConfig, DiscoveryEvent, DiscoveryHandle,
+    self, DeviceChannel, DeviceIdentity, DiscoveredDevice, DiscoveryConfig, DiscoveryEvent,
+    DiscoveryHandle, HttpChannel,
 };
 use localsend::http::server::web::WebConfig;
 use localsend::http::server::{start_with_port, ServerConfigV2, TlsConfig};
@@ -157,6 +158,9 @@ async fn start_instance_with_cert(
             },
             timeout: discovery::DEFAULT_DISCOVERY_TIMEOUT,
             event_tx: Some(event_tx),
+            // These tests cover the LAN stages; the tailnet stage would talk
+            // to whatever Tailscale daemon the test machine happens to run.
+            tailnet: false,
         },
         stop_rx,
     )
@@ -384,6 +388,7 @@ async fn test_discovery_works_without_multicast() {
             },
             timeout: discovery::DEFAULT_DISCOVERY_TIMEOUT,
             event_tx: None,
+            tailnet: false,
         },
         stop_rx,
     )
@@ -451,5 +456,132 @@ async fn test_announcement_is_answered_and_device_stored() {
             .device_by_fingerprint(&receiver.fingerprint)
             .is_none(),
         "answering over HTTP must not make the receiver appear on the announcer's side"
+    );
+}
+
+/// Starts a discovery instance whose multicast side fails deterministically
+/// (no interface matches the whitelist). The escalation tests below need
+/// this: an announcement answered by an unrelated instance on the machine
+/// would count as a local confirmation and suppress the scan on its own.
+async fn start_instance_without_multicast(alias: &str) -> (DiscoveryHandle, oneshot::Sender<()>) {
+    let cert = generate_self_signed().expect("Failed to generate an identity");
+    let (stop_tx, stop_rx) = oneshot::channel();
+    let handle = discovery::start(
+        DiscoveryConfig {
+            group: TEST_GROUP,
+            group_v6: Some(TEST_GROUP_V6),
+            port: NEXT_MULTICAST_PORT.fetch_add(1, Ordering::Relaxed),
+            interface_filter: InterfaceFilter {
+                whitelist: Some(vec!["203.0.113.1".to_string()]),
+                blacklist: None,
+            },
+            device: MulticastDevice {
+                alias: alias.to_string(),
+                version: PROTOCOL_VERSION_V2.to_string(),
+                device_model: Some("Rust".to_string()),
+                device_type: Some(DeviceType::Headless),
+                fingerprint: cert.fingerprint.clone(),
+                port: announce_port(),
+                protocol: ProtocolType::Http,
+                download: false,
+            },
+            identity: DeviceIdentity {
+                cert_pem: cert.certificate_pem,
+                private_key_pem: cert.private_key_pem,
+            },
+            timeout: discovery::DEFAULT_DISCOVERY_TIMEOUT,
+            event_tx: None,
+            tailnet: false,
+        },
+        stop_rx,
+    )
+    .await;
+    assert!(
+        handle.multicast_error().is_some(),
+        "no interface matches the whitelist, so multicast must be unavailable"
+    );
+    (handle, stop_tx)
+}
+
+/// A device as the application feeds it back after an inbound register,
+/// reachable at `host`.
+fn registered_device(fingerprint: &str, host: &str) -> DiscoveredDevice {
+    DiscoveredDevice {
+        alias: format!("Alias of {fingerprint}"),
+        version: PROTOCOL_VERSION_V2.to_string(),
+        device_model: Some("Rust".to_string()),
+        device_type: Some(DeviceType::Headless),
+        fingerprint: fingerprint.to_string(),
+        channel: DeviceChannel::Http(HttpChannel {
+            host: host.to_string(),
+            port: 53317,
+            protocol: ProtocolType::Http,
+        }),
+        download: false,
+    }
+}
+
+/// A register arriving through the tailnet during the grace period says
+/// nothing about the local network, so the subnet scan must still run —
+/// otherwise a phone whose only contact is a tailnet peer never scans the
+/// multicast-less LAN it sits on.
+#[tokio::test]
+async fn test_tailnet_registration_does_not_suppress_subnet_scan() {
+    let (server_port, _server_stop) = start_register_server("ScanTarget", "scan-target", None).await;
+
+    let (handle, _stop_tx) = start_instance_without_multicast("TailnetFed").await;
+
+    let staged = handle.discover_staged(
+        Vec::new(),
+        vec![Ipv4Addr::new(127, 0, 0, 99)],
+        server_port,
+        ProtocolType::Http,
+        Duration::from_millis(1500),
+    );
+    // Lands well inside the grace period, like a peer probing this device
+    // over the tailnet while it scans.
+    let inject = async {
+        tokio::time::sleep(Duration::from_millis(300)).await;
+        handle
+            .add_device(registered_device("tailnet-peer", "100.64.0.1"))
+            .await;
+    };
+    let (result, ()) = tokio::join!(staged, inject);
+    result.expect("Staged discovery failed");
+
+    assert!(
+        handle.device_by_fingerprint("scan-target").is_some(),
+        "a tailnet registration must not suppress the subnet scan"
+    );
+}
+
+/// The control for the test above: the same registration from a LAN address
+/// proves the local network works, so the escalation is skipped — the
+/// behavior every register-fed confirmation had before the tailnet stage.
+#[tokio::test]
+async fn test_lan_registration_suppresses_subnet_scan() {
+    let (server_port, _server_stop) = start_register_server("ScanTarget", "scan-target", None).await;
+
+    let (handle, _stop_tx) = start_instance_without_multicast("LanFed").await;
+
+    let staged = handle.discover_staged(
+        Vec::new(),
+        vec![Ipv4Addr::new(127, 0, 0, 99)],
+        server_port,
+        ProtocolType::Http,
+        Duration::from_millis(1500),
+    );
+    let inject = async {
+        tokio::time::sleep(Duration::from_millis(300)).await;
+        handle
+            .add_device(registered_device("lan-peer", "192.168.1.20"))
+            .await;
+    };
+    let (result, ()) = tokio::join!(staged, inject);
+    result.expect("Staged discovery failed");
+
+    assert!(
+        handle.device_by_fingerprint("scan-target").is_none(),
+        "a local registration proves the cheap stages work, so the scan must be skipped"
     );
 }

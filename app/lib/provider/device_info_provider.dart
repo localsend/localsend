@@ -33,7 +33,13 @@ final deviceFullInfoProvider = ViewProvider((ref) {
   final networkInfo = ref.watch(localIpProvider);
   final serverState = ref.watch(serverProvider);
   final rawInfo = ref.watch(deviceInfoProvider);
-  final securityContext = ref.read(securityProvider);
+  // Watched, not read: the manual register probes built from this device
+  // send this fingerprint as the payload while the HTTP client presents the
+  // certificate from [securityProvider] directly. A stale cached value after
+  // a security-context reset would make every peer silently ignore those
+  // registers, because the claimed fingerprint no longer matches the client
+  // certificate of the request.
+  final securityContext = ref.watch(securityProvider);
   return Device(
     signalingId: null,
     ip: networkInfo.localIps.firstOrNull ?? '-',

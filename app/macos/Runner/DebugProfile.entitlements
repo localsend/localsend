@@ -18,5 +18,12 @@
 	<true/>
 	<key>com.apple.security.network.server</key>
 	<true/>
+	<!-- See Release.entitlements: without these the sandbox hides the local
+	     Tailscale daemon's LocalAPI and tailnet discovery finds nothing. -->
+	<key>com.apple.security.temporary-exception.files.home-relative-path.read-only</key>
+	<array>
+		<string>/Library/Group Containers/W5364U7YZB.group.io.tailscale.ipn.macos/</string>
+		<string>/Library/Group Containers/io.tailscale.ipn.macsys/</string>
+	</array>
 </dict>
 </plist>

@@ -54,9 +54,12 @@ required-features = ["http"]
 [features]
 default = []
 crypto = ["ed25519-dalek", "rcgen", "rsa", "sha2", "tokio-util"]
-discovery = ["http", "multicast"]
+discovery = ["http", "multicast", "tailscale"]
 http = ["crypto", "form_urlencoded", "http-body-util", "hyper", "hyper-util", "if-addrs", "pem", "percent-encoding", "reqwest", "rustls", "socket2", "time", "tokio-rustls", "tokio-util", "x509-parser"]
 multicast = ["if-addrs", "socket2", "tokio-util"]
+# Speaks HTTP/1.1 directly on a unix socket, a named pipe or loopback, none of
+# which reqwest can dial, so hyper's client is needed next to the server side.
+tailscale = ["http-body-util", "hyper", "hyper/client", "hyper/http1", "hyper-util", "hyper-util/tokio"]
 webrtc-signaling = ["tokio-tungstenite"]
 webrtc = ["crypto", "flate2", "dep:webrtc", "webrtc-signaling", "x509-parser"]
 full = ["crypto", "discovery", "http", "multicast", "webrtc"]

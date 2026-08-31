@@ -21,6 +21,9 @@ class SyncState with SyncStateMappable {
   final String multicastGroup;
   final int discoveryTimeout;
 
+  /// Whether discovery also probes the peers of this device's tailnet.
+  final bool tailnet;
+
   final bool serverRunning;
   final bool download;
 
@@ -35,13 +38,14 @@ class SyncState with SyncStateMappable {
     required this.protocol,
     required this.multicastGroup,
     required this.discoveryTimeout,
+    required this.tailnet,
     required this.serverRunning,
     required this.download,
   });
 
   @override
   String toString() {
-    return 'SyncState(securityContext: <SecurityContext>, deviceInfo: $deviceInfo, alias: $alias, port: $port, networkWhitelist: $networkWhitelist, networkBlacklist: $networkBlacklist, protocol: $protocol, multicastGroup: $multicastGroup, discoveryTimeout: $discoveryTimeout, serverRunning: $serverRunning, download: $download)';
+    return 'SyncState(securityContext: <SecurityContext>, deviceInfo: $deviceInfo, alias: $alias, port: $port, networkWhitelist: $networkWhitelist, networkBlacklist: $networkBlacklist, protocol: $protocol, multicastGroup: $multicastGroup, discoveryTimeout: $discoveryTimeout, tailnet: $tailnet, serverRunning: $serverRunning, download: $download)';
   }
 }
 

@@ -167,6 +167,7 @@ Future<RefenaContainer> preInit(List<String> args) async {
             protocol: settings.https ? ProtocolType.https : ProtocolType.http,
             multicastGroup: settings.multicastGroup,
             discoveryTimeout: settings.discoveryTimeout,
+            tailnet: settings.tailnetDiscovery,
             serverRunning: true,
             download: false,
           ),
