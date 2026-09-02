@@ -1,5 +1,6 @@
 package org.localsend.localsend_app
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.ContentResolver
@@ -7,22 +8,40 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.database.Cursor
+import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Build
 import android.os.Environment
+import android.os.Handler
+import android.os.Looper
 import android.provider.DocumentsContract
+import android.provider.MediaStore
+import android.provider.OpenableColumns
 import android.provider.Settings
+import android.util.Log
+import android.util.Size
+import androidx.annotation.RequiresApi
 import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
+import java.io.ByteArrayOutputStream
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 import java.util.TimeZone
+import java.util.concurrent.Executors
 
 
+private const val TAG = "LocalSend"
 private const val CHANNEL = "org.localsend.localsend_app/localsend"
+
+// The thumbnails are only ever shown in a small box, so the artefacts stay invisible.
+private const val THUMBNAIL_QUALITY = 80
+
+// Decoding a selection is IO bound, so the pool only has to keep the provider busy.
+private val thumbnailThreads = Runtime.getRuntime().availableProcessors().coerceIn(2, 4)
+
 private const val REQUEST_CODE_PICK_DIRECTORY = 1
 private const val REQUEST_CODE_PICK_DIRECTORY_PATH = 2
 private const val REQUEST_CODE_PICK_FILE = 3
@@ -36,28 +55,135 @@ class MainActivity : FlutterActivity() {
     private var pendingResult: MethodChannel.Result? = null
     private var pendingPermissionResult: MethodChannel.Result? = null
 
-    /// share_handler drops share intents arriving via onNewIntent while the Dart side
-    /// is not subscribed to its media stream yet, which happens when this singleTask
+    /// Shares carrying files are answered with their content:// URIs instead of being
+    /// passed to share_handler, which copies every file into the app cache on the main
+    /// thread before Dart ever sees it. Text-only shares still take the plugin path.
+    ///
+    /// share_handler also drops share intents arriving via onNewIntent while the Dart
+    /// side is not subscribed to its media stream yet, which happens when this singleTask
     /// activity is relaunched into an existing task while the app is still starting.
-    /// Hold such intents back until Dart reports readiness ("shareIntentReady"), then
-    /// replay them through the regular plugin path.
-    private val pendingShareIntents = mutableListOf<Intent>()
+    /// Hold such intents back until Dart reports readiness ("shareIntentReady").
+    private val pendingShares = mutableListOf<PendingShare>()
     private var shareIntentReady = false
+    private var methodChannel: MethodChannel? = null
+
+    /// A held-back share. The payload is resolved once, because building it costs a binder
+    /// round-trip per URI on the main thread.
+    private class PendingShare(val intent: Intent, val payload: Map<String, Any?>?)
+
+    private val thumbnailExecutor = Executors.newFixedThreadPool(thumbnailThreads)
+    private val mainHandler = Handler(Looper.getMainLooper())
+
+    override fun onDestroy() {
+        // Queued decodes would otherwise answer a channel whose engine is being torn down.
+        thumbnailExecutor.shutdownNow()
+        methodChannel?.setMethodCallHandler(null)
+        methodChannel = null
+        super.onDestroy()
+    }
 
     override fun onNewIntent(intent: Intent) {
-        if (!shareIntentReady && (intent.action == Intent.ACTION_SEND || intent.action == Intent.ACTION_SEND_MULTIPLE)) {
-            pendingShareIntents.add(intent)
-            return
+        if (isShareIntent(intent)) {
+            val payload = sharedFilePayload(intent)
+            if (!shareIntentReady) {
+                pendingShares.add(PendingShare(intent, payload))
+                return
+            }
+            if (payload != null) {
+                methodChannel?.invokeMethod("onSharedFiles", payload)
+                return
+            }
         }
         super.onNewIntent(intent)
     }
 
-    private fun onShareIntentReady() {
+    /// Returns the payloads of the held-back shares that carry files. The remaining ones
+    /// are replayed through share_handler, which owns the text-only case.
+    private fun onShareIntentReady(): List<Map<String, Any?>> {
         shareIntentReady = true
-        val pending = pendingShareIntents.toList()
-        pendingShareIntents.clear()
-        for (intent in pending) {
-            super.onNewIntent(intent)
+        val pending = pendingShares.toList()
+        pendingShares.clear()
+
+        val payloads = mutableListOf<Map<String, Any?>>()
+        for (share in pending) {
+            if (share.payload == null) {
+                super.onNewIntent(share.intent)
+            } else {
+                payloads.add(share.payload)
+            }
+        }
+        return payloads
+    }
+
+    private fun isShareIntent(intent: Intent): Boolean {
+        return intent.action == Intent.ACTION_SEND || intent.action == Intent.ACTION_SEND_MULTIPLE
+    }
+
+    /// Null when the intent carries no file, or when any single one cannot be read.
+    /// Handing over a subset would drop the rest without the user ever learning about it,
+    /// so the whole intent is left to share_handler, which reaches schemes this path
+    /// deliberately does not (it copies, at the cost this class exists to avoid).
+    @Suppress("DEPRECATION")
+    private fun sharedFilePayload(intent: Intent): Map<String, Any?>? {
+        val uris = when (intent.action) {
+            Intent.ACTION_SEND -> listOfNotNull(intent.getParcelableExtra<Uri>(Intent.EXTRA_STREAM))
+            Intent.ACTION_SEND_MULTIPLE -> intent.getParcelableArrayListExtra<Uri>(Intent.EXTRA_STREAM).orEmpty()
+            else -> emptyList()
+        }
+        if (uris.isEmpty()) {
+            return null
+        }
+
+        val files = uris.map { uri ->
+            sharedFileInfo(uri) ?: run {
+                Log.w(TAG, "Handing the share to share_handler: $uri is not readable as a content URI")
+                return null
+            }
+        }
+
+        return mapOf(
+            "files" to files.map { it.toMap() },
+            // EXTRA_TEXT is a CharSequence, so senders styling their text would be
+            // dropped by the String accessor.
+            "text" to intent.getCharSequenceExtra(Intent.EXTRA_TEXT)?.toString(),
+        )
+    }
+
+    /// Only the openable columns are queried: they are the ones every content provider
+    /// must expose for a shared URI, unlike the document or media specific ones.
+    private fun sharedFileInfo(uri: Uri): FileInfo? {
+        if (uri.scheme != ContentResolver.SCHEME_CONTENT) {
+            return null
+        }
+
+        return try {
+            contentResolver.query(
+                uri,
+                arrayOf(OpenableColumns.DISPLAY_NAME, OpenableColumns.SIZE),
+                null,
+                null,
+                null,
+            )?.use { cursor ->
+                if (!cursor.moveToFirst() || cursor.isNull(1)) {
+                    return@use null
+                }
+                val name = cursor.getString(0) ?: return@use null
+                // A provider that cannot state a size would have the peer offered an empty
+                // file; share_handler copies such a stream instead, which at least works.
+                val size = cursor.getLong(1).takeIf { it > 0 } ?: return@use null
+
+                FileInfo(
+                    name = name,
+                    size = size,
+                    uri = uri.toString(),
+                    // Share intents carry no modification time, and the openable columns
+                    // do not expose one either.
+                    lastModified = null,
+                )
+            }
+        } catch (e: Exception) {
+            Log.w(TAG, "Could not read shared file $uri", e)
+            null
         }
     }
 
@@ -74,11 +200,27 @@ class MainActivity : FlutterActivity() {
     }
 
     override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
+        // share_handler reads the launch intent while it attaches, which happens inside
+        // the super call below, and copies the shared files right there. Claiming the
+        // intent first is the only way to keep that copy from happening.
+        val launchIntent = intent
+        if (launchIntent != null && isShareIntent(launchIntent)) {
+            val payload = sharedFilePayload(launchIntent)
+            if (payload != null) {
+                pendingShares.add(PendingShare(launchIntent, payload))
+                // An empty MAIN intent, rather than one stripped of EXTRA_STREAM, so that
+                // nothing downstream mistakes the claimed share for one still to handle.
+                setIntent(Intent(Intent.ACTION_MAIN))
+            }
+        }
+
         super.configureFlutterEngine(flutterEngine)
-        MethodChannel(
+        val channel = MethodChannel(
             flutterEngine.dartExecutor.binaryMessenger,
             CHANNEL
-        ).setMethodCallHandler { call, result ->
+        )
+        methodChannel = channel
+        channel.setMethodCallHandler { call, result ->
             when (call.method) {
                 "pickDirectory" -> {
                     pendingResult = result
@@ -99,6 +241,10 @@ class MainActivity : FlutterActivity() {
 
                 "getFileDescriptor" -> handleGetFileDescriptor(call, result)
 
+                "getOriginalMediaUri" -> handleGetOriginalMediaUri(call, result)
+
+                "getContentThumbnail" -> handleGetContentThumbnail(call, result)
+
                 "createFile" -> handleCreateFile(call, result)
 
                 "openFileForWriting" -> handleOpenFileForWriting(call, result)
@@ -114,8 +260,7 @@ class MainActivity : FlutterActivity() {
                 }
 
                 "shareIntentReady" -> {
-                    onShareIntentReady()
-                    result.success(null)
+                    result.success(onShareIntentReady())
                 }
 
                 "isAnimationsEnabled" -> {
@@ -196,6 +341,84 @@ class MainActivity : FlutterActivity() {
             result.error("PERMISSION_DENIED", e.message ?: "Permission denied for content URI", null)
         } catch (e: Exception) {
             result.error("OPEN_FAILED", e.message ?: "Failed to open content URI", null)
+        }
+    }
+
+    /// MediaStore redacts the location EXIF tags unless the caller explicitly asks for the
+    /// original file, which in turn requires ACCESS_MEDIA_LOCATION. Opening an original URI
+    /// without that permission throws, so the redacted URI is returned when it is missing.
+    private fun handleGetOriginalMediaUri(call: MethodCall, result: MethodChannel.Result) {
+        val uriString = call.argument<String>("uri")
+        if (uriString == null) {
+            result.error("INVALID_ARGUMENT", "Missing media URI", null)
+            return
+        }
+
+        val uri = Uri.parse(uriString)
+        if (uri.scheme != ContentResolver.SCHEME_CONTENT) {
+            result.error("INVALID_ARGUMENT", "Expected a content:// URI", null)
+            return
+        }
+
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
+            result.success(uriString)
+            return
+        }
+        if (!hasMediaLocationPermission()) {
+            Log.w(TAG, "Sending $uri without its location tags: ACCESS_MEDIA_LOCATION is denied")
+            result.success(uriString)
+            return
+        }
+
+        result.success(MediaStore.setRequireOriginal(uri).toString())
+    }
+
+    private fun hasMediaLocationPermission(): Boolean {
+        return checkSelfPermission(Manifest.permission.ACCESS_MEDIA_LOCATION) == PackageManager.PERMISSION_GRANTED
+    }
+
+    /// Asks the provider for a thumbnail instead of decoding the whole file, which for a
+    /// large photo or video means reading megabytes to render a few dozen pixels.
+    /// Returns null below Android 10, where the API does not exist and the caller falls
+    /// back to reading the file.
+    private fun handleGetContentThumbnail(call: MethodCall, result: MethodChannel.Result) {
+        val uriString = call.argument<String>("uri")
+        val size = call.argument<Int>("size")
+        if (uriString == null || size == null) {
+            result.error("INVALID_ARGUMENT", "Missing content URI or size", null)
+            return
+        }
+
+        val uri = Uri.parse(uriString)
+        if (uri.scheme != ContentResolver.SCHEME_CONTENT) {
+            result.error("INVALID_ARGUMENT", "Expected a content:// URI", null)
+            return
+        }
+
+        // Decoding is slow enough to be noticeable when a whole selection scrolls into view,
+        // so it must not run on the main thread. The version check sits inside the task
+        // because lint does not carry a guard across the lambda to the call it protects.
+        thumbnailExecutor.execute {
+            val bytes = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                loadThumbnailBytes(uri, size)
+            } else {
+                null
+            }
+            mainHandler.post { result.success(bytes) }
+        }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.Q)
+    private fun loadThumbnailBytes(uri: Uri, size: Int): ByteArray? {
+        return try {
+            val bitmap = contentResolver.loadThumbnail(uri, Size(size, size), null)
+            ByteArrayOutputStream().use { stream ->
+                bitmap.compress(Bitmap.CompressFormat.JPEG, THUMBNAIL_QUALITY, stream)
+                stream.toByteArray()
+            }
+        } catch (e: Exception) {
+            Log.w(TAG, "Could not load thumbnail for $uri", e)
+            null
         }
     }
 
