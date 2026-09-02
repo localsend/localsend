@@ -38,6 +38,22 @@ jobs:
           mkdir -p $APK_BUILD_DIR
           cp -r . $APK_BUILD_DIR
 
+      - name: Cache build dependencies (pub / gradle / cargo)
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.pub-cache
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+            ~/.cargo/registry
+            ~/.cargo/git
+            ${{ env.APK_BUILD_DIR }}/packages/core/target
+            ${{ env.APK_BUILD_DIR }}/packages/localsend_isolates/rust/target
+            ${{ env.APK_BUILD_DIR }}/server/target
+          key: ${{ runner.os }}-localsend-deps-${{ hashFiles('**/pubspec.lock', '**/Cargo.lock', 'packages/core/Cargo.toml', 'packages/localsend_isolates/rust/Cargo.toml', 'server/Cargo.toml') }}
+          restore-keys: |
+            ${{ runner.os }}-localsend-deps-
+
       - name: Set up JDK 17
         uses: actions/setup-java@v5
         with:
