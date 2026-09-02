@@ -58,9 +58,9 @@ jobs:
         working-directory: ${{ env.APK_BUILD_DIR }}/app
         run: flutter pub get
 
-      - name: Build APK (debug)
+      - name: Build APK (debug, arm64 only)
         working-directory: ${{ env.APK_BUILD_DIR }}/app
-        run: flutter build apk --debug
+        run: flutter build apk --debug --target-platform android-arm64
 
       - name: Upload APK
         uses: actions/upload-artifact@v6
