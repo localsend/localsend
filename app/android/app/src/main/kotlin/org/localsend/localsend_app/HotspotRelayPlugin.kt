@@ -12,12 +12,13 @@ import android.net.wifi.WifiConfiguration
 import android.net.wifi.WifiManager
 import android.net.wifi.WifiNetworkSpecifier
 import android.os.Build
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import androidx.annotation.RequiresApi
 import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
-import java.util.concurrent.Executors
 
 /**
  * PRP (Peer Relay Protocol) - Hotspot Relay Plugin for Android
@@ -129,10 +130,8 @@ class HotspotRelayPlugin(private val activity: MainActivity) {
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun startLocalOnlyHotspot(wifiManager: WifiManager, result: MethodChannel.Result) {
-        val executor = Executors.newSingleThreadExecutor()
-
+        // Public signature: startLocalOnlyHotspot(LocalOnlyHotspotCallback callback, Handler handler)
         wifiManager.startLocalOnlyHotspot(
-            executor,
             object : WifiManager.LocalOnlyHotspotCallback() {
                 override fun onStarted(reservation: WifiManager.LocalOnlyHotspotReservation) {
                     Log.d(TAG, "LocalOnlyHotspot started")
@@ -140,7 +139,7 @@ class HotspotRelayPlugin(private val activity: MainActivity) {
                     hotspotReservation = reservation
 
                     val config = reservation.wifiConfiguration
-                    val ssid = config?.ssid?.trim('"') ?: "LocalSend-Relay"
+                    val ssid = config?.SSID?.trim('"') ?: "LocalSend-Relay"
                     val password = config?.preSharedKey?.trim('"') ?: ""
 
                     Log.d(TAG, "Hotspot SSID: $ssid, Password: $password")
@@ -181,7 +180,8 @@ class HotspotRelayPlugin(private val activity: MainActivity) {
                     }
                     result.error("HOTSPOT_FAILED", errorMsg, null)
                 }
-            }
+            },
+            Handler(Looper.getMainLooper()),
         )
     }
 
@@ -400,15 +400,20 @@ class HotspotRelayPlugin(private val activity: MainActivity) {
     //  HELPERS
     // ============================================================
 
+    /**
+     * WifiManager exposes no public API to query soft-AP / LocalOnlyHotspot state.
+     * We therefore track our own reservation first, and only fall back to the hidden
+     * `isWifiApEnabled` API via reflection. That fallback is blocked by the hidden-API
+     * restrictions on API 28+, in which case this simply returns false.
+     */
     private fun isHotspotRunning(): Boolean {
+        if (hotspotReservation != null) {
+            return true
+        }
         return try {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
-                wifiManager?.isWifiApEnabled ?: false
-            } else {
-                // Use reflection to check hotspot state on older versions
-                val method = wifiManager?.javaClass?.getMethod("isWifiApEnabled")
-                method?.invoke(wifiManager) as? Boolean ?: false
-            }
+            val method = wifiManager?.javaClass?.getMethod("isWifiApEnabled")
+            method?.isAccessible = true
+            method?.invoke(wifiManager) as? Boolean ?: false
         } catch (e: Exception) {
             Log.w(TAG, "Failed to check hotspot state", e)
             false
@@ -416,29 +421,31 @@ class HotspotRelayPlugin(private val activity: MainActivity) {
     }
 
     private fun getCurrentHotspotInfo(): Map<String, Any>? {
+        // Preferred path: the configuration of the reservation we own (public API).
+        hotspotReservation?.wifiConfiguration?.let { config ->
+            return mapOf(
+                "ssid" to (config.SSID?.trim('"') ?: ""),
+                "password" to (config.preSharedKey?.trim('"') ?: ""),
+                "isRunning" to true,
+            )
+        }
+
+        // Fallback: hidden WifiManager API via reflection.
+        // WifiConfiguration exposes SSID / preSharedKey as public *fields*, not getters.
         return try {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
-                val config = wifiManager?.wifiApConfiguration
+            val getConfigMethod = wifiManager?.javaClass?.getMethod("getWifiApConfiguration")
+            getConfigMethod?.isAccessible = true
+            val config = getConfigMethod?.invoke(wifiManager)
+            if (config != null) {
+                val ssidField = config.javaClass.getField("SSID")
+                val pskField = config.javaClass.getField("preSharedKey")
                 mapOf(
-                    "ssid" to (config?.ssid?.trim('"') ?: ""),
-                    "password" to (config?.preSharedKey?.trim('"') ?: ""),
-                    "isRunning" to (wifiManager?.isWifiApEnabled ?: false),
+                    "ssid" to ((ssidField.get(config) as? String)?.trim('"') ?: ""),
+                    "password" to ((pskField.get(config) as? String)?.trim('"') ?: ""),
+                    "isRunning" to isHotspotRunning(),
                 )
             } else {
-                // Use reflection on older versions
-                val getConfigMethod = wifiManager?.javaClass?.getMethod("getWifiApConfiguration")
-                val config = getConfigMethod?.invoke(wifiManager)
-                if (config != null) {
-                    val ssidField = config.javaClass.getMethod("ssid")
-                    val pskField = config.javaClass.getMethod("preSharedKey")
-                    mapOf(
-                        "ssid" to ((ssidField.invoke(config) as? String)?.trim('"') ?: ""),
-                        "password" to ((pskField.invoke(config) as? String)?.trim('"') ?: ""),
-                        "isRunning" to isHotspotRunning(),
-                    )
-                } else {
-                    null
-                }
+                null
             }
         } catch (e: Exception) {
             Log.w(TAG, "Failed to get hotspot info", e)
