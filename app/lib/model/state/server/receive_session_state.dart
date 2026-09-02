@@ -1,10 +1,8 @@
-import 'dart:async';
-
-import 'package:common/model/device.dart';
-import 'package:common/model/file_type.dart';
-import 'package:common/model/session_status.dart';
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:localsend_app/model/state/server/receiving_file.dart';
+import 'package:localsend_isolates/model/device.dart';
+import 'package:localsend_isolates/model/file_type.dart';
+import 'package:localsend_isolates/model/session_status.dart';
 
 part 'receive_session_state.mapper.dart';
 
@@ -43,8 +41,6 @@ class ReceiveSessionState with ReceiveSessionStateMappable implements SessionSta
   /// WARNING: This list is modified in-place!
   final Set<String> createdDirectories;
 
-  final StreamController<Map<String, String>?>? responseHandler;
-
   const ReceiveSessionState({
     required this.sessionId,
     required this.status,
@@ -57,7 +53,6 @@ class ReceiveSessionState with ReceiveSessionStateMappable implements SessionSta
     required this.cacheDirectory,
     required this.saveToGallery,
     required this.createdDirectories,
-    required this.responseHandler,
   });
 
   /// Returns the message of this request if this is a "message request".

@@ -11,6 +11,8 @@ class ResponsiveListView extends StatelessWidget {
   final EdgeInsets desktopPadding;
   final List<Widget>? children;
   final Widget? child;
+  final int? itemCount;
+  final IndexedWidgetBuilder? itemBuilder;
 
   const ResponsiveListView.single({
     this.maxWidth = defaultMaxWidth,
@@ -20,7 +22,9 @@ class ResponsiveListView extends StatelessWidget {
     required Widget this.child,
     super.key,
   }) : desktopPadding = tabletPadding ?? const EdgeInsets.symmetric(horizontal: 10, vertical: 30),
-       children = null;
+       children = null,
+       itemCount = null,
+       itemBuilder = null;
 
   const ResponsiveListView({
     this.maxWidth = defaultMaxWidth,
@@ -30,11 +34,44 @@ class ResponsiveListView extends StatelessWidget {
     required List<Widget> this.children,
     super.key,
   }) : desktopPadding = tabletPadding ?? const EdgeInsets.symmetric(horizontal: 10, vertical: 30),
+       child = null,
+       itemCount = null,
+       itemBuilder = null;
+
+  const ResponsiveListView.builder({
+    this.maxWidth = defaultMaxWidth,
+    this.controller,
+    required this.padding,
+    EdgeInsets? tabletPadding,
+    required int this.itemCount,
+    required IndexedWidgetBuilder this.itemBuilder,
+    super.key,
+  }) : desktopPadding = tabletPadding ?? const EdgeInsets.symmetric(horizontal: 10, vertical: 30),
+       children = null,
        child = null;
 
   @override
   Widget build(BuildContext context) {
-    if (children != null) {
+    if (itemBuilder != null) {
+      return Center(
+        child: ConstrainedBox(
+          constraints: BoxConstraints(maxWidth: maxWidth),
+          child: ResponsiveBuilder(
+            builder: (sizingInformation) {
+              final resolvedPadding = sizingInformation.isDesktop ? desktopPadding : padding;
+              return ListView.builder(
+                controller: controller,
+                padding: resolvedPadding.copyWith(
+                  bottom: resolvedPadding.bottom + getNavBarPadding(context),
+                ),
+                itemCount: itemCount!,
+                itemBuilder: itemBuilder!,
+              );
+            },
+          ),
+        ),
+      );
+    } else if (children != null) {
       return SingleChildScrollView(
         controller: controller,
         child: Center(

@@ -3,12 +3,11 @@
 #
 
 list(APPEND FLUTTER_PLUGIN_LIST
-  bitsdojo_window_linux
   desktop_drop
   dynamic_color
   file_selector_linux
   gtk
-  open_dir_linux
+  open_file_linux
   pasteboard
   screen_retriever_linux
   tray_manager
@@ -19,7 +18,7 @@ list(APPEND FLUTTER_PLUGIN_LIST
 )
 
 list(APPEND FLUTTER_FFI_PLUGIN_LIST
-  rhttp
+  jni
   rust_lib_localsend_app
 )
 

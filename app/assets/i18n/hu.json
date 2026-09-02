@@ -1,5 +1,4 @@
 {
-  "locale": "Magyar",
   "appName": "LocalSend",
   "general": {
     "accept": "Elfogad",
@@ -52,7 +51,8 @@
       "off": "@:general.off",
       "favorites": "Kedvencek",
       "on": "@:general.on"
-    }
+    },
+    "link": "Fogadás hivatkozáson keresztül"
   },
   "sendTab": {
     "title": "Küldés",
@@ -97,7 +97,8 @@
       "color": "Színek",
       "colorOptions": {
         "system": "Rendszer",
-        "oled": "OLED"
+        "oled": "OLED",
+        "custom": "Egyéni"
       },
       "language": "Nyelv",
       "languageOptions": {
@@ -120,11 +121,13 @@
       "destination": "Mentés helye",
       "downloads": "(Letöltések)",
       "saveToGallery": "Média mentése a galériába",
-      "saveToHistory": "Mentés az előzmények közé"
+      "saveToHistory": "Mentés az előzmények közé",
+      "verifyChecksums": "Ellenőrzőösszegek ellenőrzése fájlok fogadásakor"
     },
     "send": {
       "title": "Küld",
-      "shareViaLinkAutoAccept": "Megosztás linken keresztül: Auto. elfogadás"
+      "shareViaLinkAutoAccept": "Megosztás linken keresztül: Auto. elfogadás",
+      "createChecksums": "Ellenőrzőösszegek létrehozása fájlok küldésekor"
     },
     "network": {
       "title": "Hálózat",
@@ -134,18 +137,18 @@
       "deviceType": "Eszköz típusa",
       "deviceModel": "Eszköz modell",
       "port": "Port",
+      "network": "Hálózat",
+      "networkOptions": {
+        "all": "Mindegyik",
+        "filtered": "Szűrt"
+      },
       "discoveryTimeout": "Felfedezési időtúllépés",
       "useSystemName": "Rendszernév használata",
       "generateRandomAlias": "Véletlenszerű álnév generálás",
       "portWarning": "Előfordulhat, hogy más eszközök nem észlelik eszközét, mert egyéni portot használ. (alapértelmezett: {defaultPort})",
       "encryption": "Titkosítás",
       "multicastGroup": "Multicast",
-      "multicastGroupWarning": "Előfordulhat, hogy más eszközök nem észlelik eszközét, mert egyéni multicast címet használ. (alapérték: {defaultMulticast})",
-      "network": "Hálózat",
-      "networkOptions": {
-        "all": "Mindegyik",
-        "filtered": "Szűrt"
-      }
+      "multicastGroupWarning": "Előfordulhat, hogy más eszközök nem észlelik eszközét, mert egyéni multicast címet használ. (alapérték: {defaultMulticast})"
     },
     "other": {
       "title": "Egyéb",
@@ -175,6 +178,13 @@
       "solution": "A probléma mindkét oldalon létezik? Akkor meg kell győződnie arról, hogy mindkét eszköz ugyanabban a wifi hálózatban van, és ugyanazt a konfigurációt használja (port, multicast cím, titkosítás). Előfordulhat, hogy a Wifi nem teszi lehetővé a résztvevők közötti kommunikációt. Ebben az esetben ezt az opciót engedélyezni kell a routeren.."
     }
   },
+  "networkInterfacesPage": {
+    "title": "Hálózati interfészek",
+    "info": "Alapértelmezésként a LocalSend az összes rendelkezésre álló hálózati interfészt használja. Itt kizárhatja a nem kívánt hálózatokat. A módosítások alkalmazásához újra kell indítania a kiszolgálót.",
+    "preview": "Előnézet",
+    "whitelist": "Fehérlista",
+    "blacklist": "Tiltólista"
+  },
   "receiveHistoryPage": {
     "title": "Előzmény",
     "openFolder": "Mappa megnyitása",
@@ -196,6 +206,29 @@
   "selectedFilesPage": {
     "deleteAll": "Összes törlése"
   },
+  "deviceDetailsPage": {
+    "title": "Eszköz részletei",
+    "favorite": "Kedvenc",
+    "verify": "Ellenőrzés",
+    "info": {
+      "name": "Név",
+      "address": "Cím",
+      "version": "Verzió",
+      "protocol": "Protokoll v{version}"
+    },
+    "logs": {
+      "title": "Naplók",
+      "empty": "Nincs elérhető napló.",
+      "discovered": "Felfedezve {protocol} útján ({host})",
+      "updated": "Frissítve {protocol} útján ({host})"
+    }
+  },
+  "verifyPage": {
+    "title": "Ellenőrzés",
+    "icons": "Ikonok",
+    "text": "Szöveg",
+    "question": "Ugyanúgy néz ki a másik eszközön?"
+  },
   "receivePage": {
     "subTitle": {
       "one": "fájlt szeretne küldeni",
@@ -213,6 +246,7 @@
     "saveToGalleryOff": "Automatikusan kikapcsol, mert vannak könyvtárak."
   },
   "sendPage": {
+    "calculatingChecksum": "Ellenőrzőösszeg kiszámítása ({curr} / {n})",
     "waiting": "Válaszra várva…",
     "rejected": "A fogadó elutasította a kérelmet.",
     "tooManyAttempts": "@:web.tooManyAttempts",
@@ -234,12 +268,14 @@
       "speed": "Sebesség: {speed}/s"
     },
     "remainingTime": {
-      "seconds": "{n}:{ss}",
-      "minutes": "{n}:{ss}",
-      "hours": "{h}h {m}m",
-      "days": "{d}d {h}h {m}m",
-      "@hours": "Az órák rövidítéséhez használja a 'h' betűt, a percekhez pedig az 'm' betűt",
-      "@days": "A naphoz  a 'd', az órához a 'h', a percekhez az 'm' betűt használja"
+      "minutesUnit(plural, param=m)": {
+        "other": "{m}p"
+      },
+      "hoursUnit(plural, param=h)": {
+        "other": "{h}ó"
+      },
+      "minutes": "{m}:{ss}",
+      "hours": "@:.hoursUnit @:.minutesUnit"
     }
   },
   "webSharePage": {
@@ -259,6 +295,9 @@
     "pinHint": "A PIN kód \"{pin}\"",
     "encryptionHint": "A LocalSend a saját aláírt tanúsítványt használja. A böngészőben kell elfogadnod.",
     "pendingRequests": "Függőben lévő kérések: {n}"
+  },
+  "webReceivePage": {
+    "title": "Linken keresztüli fogadás"
   },
   "aboutPage": {
     "title": "A LocalSend",
@@ -281,6 +320,18 @@
   "changelogPage": {
     "title": "Változásnapló"
   },
+  "whatsNewPage": {
+    "title": "{version} verzió újdonságai",
+    "changes(interface=WhatsNewStrings)": {
+      "v1_18_0": {
+        "changes": [
+          "A titkosítás már nem lassítja az adatátvitelt. Ha korábban kikapcsolta, akkor ezen az eszközön újra engedélyezve lett.",
+          "A kedvencekből érkező kéréseket már automatikusan elfogadjuk. Alapból be van kapcsolva, és a beállításokban kikapcsolható.",
+          "Android rendszeren az adatátvitel akkor is folytatódik, ha az alkalmazás a háttérben fut, vagy a képernyő ki van kapcsolva. iOS rendszeren viszont az alkalmazásnak továbbra is az előtérben kell maradnia."
+        ]
+      }
+    }
+  },
   "aliasGenerator(ignoreMissing, ignoreGpt)": {
     "@info": "Az angol változatból örökölve"
   },
@@ -295,8 +346,6 @@
     },
     "addressInput": {
       "title": "Adja meg a címet",
-      "hashtag": "Hashtag",
-      "ip": "IP cím",
       "recentlyUsed": "Nemrég használt: "
     },
     "cancelSession": {
@@ -386,9 +435,7 @@
     "quickSaveFromFavoritesNotice": {
       "title": "@:general.quickSaveFromFavorites",
       "content": [
-        "A fájlkérések auto. elfogadása mostantól a kedvencek listáján szereplő eszközökről.",
-        "Figyelmeztetés: Ez jelenleg nem teljesen biztonságos, mert egy hacker, aki ismeri a kedvenc eszközeinek ujjlenyomatát, még mindig küldhet fájlokat.",
-        "Ez a lehetőség azonban még mindig biztonságosabb, mint bármely eszköz engedélyezése."
+        "A fájlkérések auto. elfogadása mostantól a kedvencek listáján szereplő eszközökről."
       ]
     },
     "pin": {
@@ -454,12 +501,5 @@
     "sActionUseCameraHint": "használjon kamerát",
     "sNameDurationLabel": "időtartam",
     "sUnitAssetCountLabel": "számol"
-  },
-  "networkInterfacesPage": {
-    "title": "Hálózati interfészek",
-    "info": "Alapértelmezésként a LocalSend az összes rendelkezésre álló hálózati interfészt használja. Itt kizárhatja a nem kívánt hálózatokat. A módosítások alkalmazásához újra kell indítania a kiszolgálót.",
-    "preview": "Előnézet",
-    "whitelist": "Fehérlista",
-    "blacklist": "Tiltólista"
   }
 }

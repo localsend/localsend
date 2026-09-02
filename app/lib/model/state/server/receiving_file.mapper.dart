@@ -2,6 +2,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 // ignore_for_file: type=lint
+// ignore_for_file: invalid_use_of_protected_member
 // ignore_for_file: unused_element, unnecessary_cast, override_on_non_overriding_member
 // ignore_for_file: strict_raw_type, inference_failure_on_untyped_parameter
 
@@ -23,11 +24,6 @@ class ReceivingFileMapper extends ClassMapperBase<ReceivingFile> {
 
   static FileDto _$file(ReceivingFile v) => v.file;
   static const Field<ReceivingFile, FileDto> _f$file = Field('file', _$file);
-  static FileStatus _$status(ReceivingFile v) => v.status;
-  static const Field<ReceivingFile, FileStatus> _f$status = Field(
-    'status',
-    _$status,
-  );
   static String? _$token(ReceivingFile v) => v.token;
   static const Field<ReceivingFile, String> _f$token = Field('token', _$token);
   static String? _$desiredName(ReceivingFile v) => v.desiredName;
@@ -51,7 +47,6 @@ class ReceivingFileMapper extends ClassMapperBase<ReceivingFile> {
   @override
   final MappableFields<ReceivingFile> fields = const {
     #file: _f$file,
-    #status: _f$status,
     #token: _f$token,
     #desiredName: _f$desiredName,
     #path: _f$path,
@@ -62,7 +57,6 @@ class ReceivingFileMapper extends ClassMapperBase<ReceivingFile> {
   static ReceivingFile _instantiate(DecodingData data) {
     return ReceivingFile(
       file: data.dec(_f$file),
-      status: data.dec(_f$status),
       token: data.dec(_f$token),
       desiredName: data.dec(_f$desiredName),
       path: data.dec(_f$path),
@@ -135,7 +129,6 @@ abstract class ReceivingFileCopyWith<$R, $In extends ReceivingFile, $Out>
     implements ClassCopyWith<$R, $In, $Out> {
   $R call({
     FileDto? file,
-    FileStatus? status,
     String? token,
     String? desiredName,
     String? path,
@@ -156,7 +149,6 @@ class _ReceivingFileCopyWithImpl<$R, $Out>
   @override
   $R call({
     FileDto? file,
-    FileStatus? status,
     Object? token = $none,
     Object? desiredName = $none,
     Object? path = $none,
@@ -165,7 +157,6 @@ class _ReceivingFileCopyWithImpl<$R, $Out>
   }) => $apply(
     FieldCopyWithData({
       if (file != null) #file: file,
-      if (status != null) #status: status,
       if (token != $none) #token: token,
       if (desiredName != $none) #desiredName: desiredName,
       if (path != $none) #path: path,
@@ -176,7 +167,6 @@ class _ReceivingFileCopyWithImpl<$R, $Out>
   @override
   ReceivingFile $make(CopyWithData data) => ReceivingFile(
     file: data.get(#file, or: $value.file),
-    status: data.get(#status, or: $value.status),
     token: data.get(#token, or: $value.token),
     desiredName: data.get(#desiredName, or: $value.desiredName),
     path: data.get(#path, or: $value.path),

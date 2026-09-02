@@ -1,5 +1,4 @@
 {
-  "locale": "العربية",
   "appName": "LocalSend",
   "general": {
     "accept": "اقبل",
@@ -52,7 +51,8 @@
       "off": "@:general.off",
       "favorites": "المفضلات",
       "on": "@:general.on"
-    }
+    },
+    "link": "الاستلام عبر رابط"
   },
   "sendTab": {
     "title": "إرسال",
@@ -90,14 +90,15 @@
       "title": "عام",
       "brightness": "السمة",
       "brightnessOptions": {
-        "system": "نظام",
+        "system": "النظام",
         "dark": "داكنة",
         "light": "فاتحة"
       },
       "color": "اللون",
       "colorOptions": {
         "system": "النظام",
-        "oled": "OLED"
+        "oled": "OLED",
+        "custom": "مخصص"
       },
       "language": "اللغة",
       "languageOptions": {
@@ -120,11 +121,13 @@
       "destination": "احفظ في المجلد",
       "downloads": "(التنزيلات)",
       "saveToGallery": "حفظ الوسائط في المعرض",
-      "saveToHistory": "حفظ في التاريخ"
+      "saveToHistory": "حفظ في التاريخ",
+      "verifyChecksums": "التحقق من المجاميع الاختبارية عند استلام الملفات"
     },
     "send": {
       "title": "أرسِل",
-      "shareViaLinkAutoAccept": "المشاركة عبر الرابط: قبول تلقائي"
+      "shareViaLinkAutoAccept": "المشاركة عبر الرابط: قبول تلقائي",
+      "createChecksums": "إنشاء المجاميع الاختبارية عند إرسال الملفات"
     },
     "network": {
       "title": "شبكة الاتصال",
@@ -134,18 +137,18 @@
       "deviceType": "نوع الجهاز",
       "deviceModel": "نموذج الجهاز",
       "port": "منفذ",
+      "network": "الشبكة",
+      "networkOptions": {
+        "all": "الكل",
+        "filtered": "مُصفاة"
+      },
       "discoveryTimeout": "مهلة الاكتشاف",
       "useSystemName": "استخدم اسم النظام",
       "generateRandomAlias": "ولّد كنية عشوائية",
       "portWarning": "ربما لا يتم الكشف عنك من قبل الأجهزة الأخرى لأنك تستخدم منفذ مخصص. (الافتراضي: {defaultPort})",
       "encryption": "التعمية",
       "multicastGroup": "فرق البث المتعدد",
-      "multicastGroupWarning": "ربما لا يتم الكشف عنك من قبل الأجهزة الأخرى لأنك تستخدم عنوان بث متعدد مخصص. (الافتراضي: {defaultMulticast})",
-      "networkOptions": {
-        "filtered": "مُصفاة",
-        "all": "الكل"
-      },
-      "network": "الشبكة"
+      "multicastGroupWarning": "ربما لا يتم الكشف عنك من قبل الأجهزة الأخرى لأنك تستخدم عنوان بث متعدد مخصص. (الافتراضي: {defaultMulticast})"
     },
     "other": {
       "title": "أخرى",
@@ -175,6 +178,13 @@
       "solution": "هل المشكلة موجودة على كِلا الجانبين؟ إذا كان الأمر كذلك، يجب التأكد من أن كِلا الجهازين متصلان بنفس شبكة الواي فاي ويشتركان في نفس الإعدادات (المنفذ، عنوان البث المتعدد، التعمية). قد تمنع شبكة الواي فاي الاتصال بين المشاركين بسبب عزل نقطة الوصول (AP Isolation). في هذه الحالة، يجب تعطيل هذا الخيار على الراوتر."
     }
   },
+  "networkInterfacesPage": {
+    "title": "واجهات الشبكة",
+    "info": "بشكل افتراضي، يستخدم LocalSend جميع واجهات الشبكة المتاحة. يمكنك استبعاد الشبكات غير المرغوب فيها هنا. تحتاج إلى إعادة تشغيل الخادم لتطبيق التغييرات.",
+    "preview": "معاينة",
+    "whitelist": "القائمة البيضاء",
+    "blacklist": "القائمة السوداء"
+  },
   "receiveHistoryPage": {
     "title": "التاريخ",
     "openFolder": "افتح المجلد",
@@ -196,6 +206,29 @@
   "selectedFilesPage": {
     "deleteAll": "احذف الكل"
   },
+  "deviceDetailsPage": {
+    "title": "تفاصيل الجهاز",
+    "favorite": "المفضلة",
+    "verify": "تحقق",
+    "info": {
+      "name": "الاسم",
+      "address": "العنوان",
+      "version": "الإصدار",
+      "protocol": "البروتوكول v{version}"
+    },
+    "logs": {
+      "title": "السجلات",
+      "empty": "لا توجد سجلات متاحة.",
+      "discovered": "تم الاكتشاف عبر {protocol} ({host})",
+      "updated": "تم التحديث عبر {protocol} ({host})"
+    }
+  },
+  "verifyPage": {
+    "title": "تحقق",
+    "icons": "الأيقونات",
+    "text": "النص",
+    "question": "هل يبدو متطابقًا على الجهاز الآخر؟"
+  },
   "receivePage": {
     "subTitle": {
       "one": "يريد أن يرسل لك ملف",
@@ -213,6 +246,7 @@
     "saveToGalleryOff": "تم إيقافه تلقائيًا لوجود مجلدات."
   },
   "sendPage": {
+    "calculatingChecksum": "يحسب تدقيق المجموع ({curr} / {n})",
     "waiting": "بإنتظار الرد…",
     "rejected": "المستلم رفض الطلب.",
     "tooManyAttempts": "@:web.tooManyAttempts",
@@ -227,19 +261,21 @@
         "sending": "التقدم الكلي ({time})",
         "finishedError": "انتهى مع وجود خطأ",
         "canceledSender": "أُلغِيَ من قِبل المرسل",
-        "canceledReceiver": "أُلغِيَ من قِبل المتلقي"
+        "canceledReceiver": "أُلغِيَ من قِبل المُستلم"
       },
       "count": "ملفات: {curr} / {n}",
       "size": "حجم: {curr} / {n}",
       "speed": "سرعة: {speed}/ثانية"
     },
     "remainingTime": {
-      "seconds": "{n}:{ss}",
-      "minutes": "{n}:{ss}",
-      "hours": "{h}س {m}د",
-      "days": "{d}ي {h}س {m}د",
-      "@hours": "استخدم 'س' لاختصار الساعات و'د' للدقائق",
-      "@days": "استخدم 'ي' للأيام، و'س' للساعات، و'د' للدقائق"
+      "minutesUnit(plural, param=m)": {
+        "other": "{m}د"
+      },
+      "hoursUnit(plural, param=h)": {
+        "other": "{h}س"
+      },
+      "minutes": "{m}:{ss}",
+      "hours": "@:.hoursUnit @:.minutesUnit"
     }
   },
   "webSharePage": {
@@ -259,6 +295,9 @@
     "pinHint": "رمز PIN هو \"{pin}\"",
     "encryptionHint": "يستخدم تطبيق LocalSend شهادة موقع ذاتية التوقيع. يجب عليك قبولها في المتصفح.",
     "pendingRequests": "الطلبات المعلقة: {n}"
+  },
+  "webReceivePage": {
+    "title": "استلم من خلال رابط"
   },
   "aboutPage": {
     "title": "عن LocalSend",
@@ -280,6 +319,18 @@
   },
   "changelogPage": {
     "title": "سجل التغييرات"
+  },
+  "whatsNewPage": {
+    "title": "ما الجديد في {version}",
+    "changes(interface=WhatsNewStrings)": {
+      "v1_18_0": {
+        "changes": [
+          "لم تعد التعمية تُبطئ عمليات النقل. وقد أُعيد تفعيلها على هذا الجهاز إذا كنت قد أقفت تشغيلها من قبل.",
+          "يتم الآن قبول الطلبات الواردة من المفضلات تلقائيًا. هذه الميزة مفعَّلة افتراضيًا ويمكن تعطيلها من خلال الإعدادات.",
+          "في نظام أندرويد، تستمر عمليات النقل حتى عندما يكون التطبيق قيد التشغيل في الخلفية أو تكون الشاشة مطفأة. أما في نظام iOS، فيجب أن يظل التطبيق قيد التشغيل في المقدمة."
+        ]
+      }
+    }
   },
   "aliasGenerator(ignoreMissing, ignoreGpt)": {
     "@info": "قد تحتوي المناطق المختلفة على كلمات مختلفة، وقد لا تتطابق 1:1",
@@ -361,17 +412,15 @@
     },
     "openFile": {
       "title": "افتح الملف",
-      "content": "هل تريد فتح الملف المُستلم؟"
+      "content": "أتريد فتح الملف المُستلم؟"
     },
     "addressInput": {
       "title": "أدخل العنوان",
-      "hashtag": "رابطة هاشتاق",
-      "ip": "عنوان IP",
       "recentlyUsed": "المستخدمة حديثًا: "
     },
     "cancelSession": {
       "title": "ألغِ نقل الملف",
-      "content": "هل تريد حقًا إلغاء نقل الملف؟"
+      "content": "أتريد حقًا إلغاء نقل الملف؟"
     },
     "cannotOpenFile": {
       "title": "لا يمكن فتح الملف",
@@ -391,7 +440,7 @@
     },
     "favoriteDeleteDialog": {
       "title": "احذف من المفضلات",
-      "content": "هل ترغب حقًا في حذف \"{name}\" من المفضلات؟"
+      "content": "أترغب حقًا في حذف \"{name}\" من المفضلات؟"
     },
     "favoriteEditDialog": {
       "titleAdd": "أضف إلى المفضلات",
@@ -415,7 +464,7 @@
     },
     "historyClearDialog": {
       "title": "امسح التاريخ",
-      "content": "هل ترغب حقًا في مسح التاريخ بالكامل؟"
+      "content": "أترغب حقًا في مسح التاريخ بالكامل؟"
     },
     "localNetworkUnauthorized": {
       "title": "@:dialogs.noPermission.title",
@@ -456,9 +505,7 @@
     "quickSaveFromFavoritesNotice": {
       "title": "@:general.quickSaveFromFavorites",
       "content": [
-        "يتم الآن قبول طلبات الملفات تلقائيًا من الأجهزة الموجودة في قائمة المفضلات لديك.",
-        "تحذير! في الوقت الحالي، هذا ليس آمنًا تمامًا، حيث يمكن للمخترق الذي لديه بصمة أي جهاز من قائمة المفضلات لديك أن يرسل لك ملفات دون قيود.",
-        "ومع ذلك، يظل هذا الخيار أكثر أمانًا من السماح لجميع المستخدمين على الشبكة المحلية بإرسال الملفات إليك دون قيود."
+        "يتم الآن قبول طلبات الملفات تلقائيًا من الأجهزة الموجودة في قائمة المفضلات لديك."
       ]
     },
     "pin": {
@@ -524,12 +571,5 @@
     "sActionUseCameraHint": "استخدم الكاميرا",
     "sNameDurationLabel": "مدة",
     "sUnitAssetCountLabel": "عدد"
-  },
-  "networkInterfacesPage": {
-    "whitelist": "القائمة البيضاء",
-    "title": "واجهات الشبكة",
-    "blacklist": "القائمة السوداء",
-    "info": "بشكل افتراضي، يستخدم LocalSend جميع واجهات الشبكة المتاحة. يمكنك استبعاد الشبكات غير المرغوب فيها هنا. تحتاج إلى إعادة تشغيل الخادم لتطبيق التغييرات.",
-    "preview": "معاينة"
   }
 }

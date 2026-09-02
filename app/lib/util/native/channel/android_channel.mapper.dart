@@ -2,6 +2,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 // ignore_for_file: type=lint
+// ignore_for_file: invalid_use_of_protected_member
 // ignore_for_file: unused_element, unnecessary_cast, override_on_non_overriding_member
 // ignore_for_file: strict_raw_type, inference_failure_on_untyped_parameter
 
@@ -178,8 +179,8 @@ class FileInfoMapper extends ClassMapperBase<FileInfo> {
   static const Field<FileInfo, int> _f$size = Field('size', _$size);
   static String _$uri(FileInfo v) => v.uri;
   static const Field<FileInfo, String> _f$uri = Field('uri', _$uri);
-  static int _$lastModified(FileInfo v) => v.lastModified;
-  static const Field<FileInfo, int> _f$lastModified = Field(
+  static String? _$lastModified(FileInfo v) => v.lastModified;
+  static const Field<FileInfo, String> _f$lastModified = Field(
     'lastModified',
     _$lastModified,
   );
@@ -258,7 +259,7 @@ extension FileInfoValueCopy<$R, $Out> on ObjectCopyWith<$R, FileInfo, $Out> {
 
 abstract class FileInfoCopyWith<$R, $In extends FileInfo, $Out>
     implements ClassCopyWith<$R, $In, $Out> {
-  $R call({String? name, int? size, String? uri, int? lastModified});
+  $R call({String? name, int? size, String? uri, String? lastModified});
   FileInfoCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
 
@@ -271,12 +272,17 @@ class _FileInfoCopyWithImpl<$R, $Out>
   late final ClassMapperBase<FileInfo> $mapper =
       FileInfoMapper.ensureInitialized();
   @override
-  $R call({String? name, int? size, String? uri, int? lastModified}) => $apply(
+  $R call({
+    String? name,
+    int? size,
+    String? uri,
+    Object? lastModified = $none,
+  }) => $apply(
     FieldCopyWithData({
       if (name != null) #name: name,
       if (size != null) #size: size,
       if (uri != null) #uri: uri,
-      if (lastModified != null) #lastModified: lastModified,
+      if (lastModified != $none) #lastModified: lastModified,
     }),
   );
   @override

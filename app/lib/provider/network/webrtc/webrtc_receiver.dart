@@ -1,23 +1,17 @@
-import 'dart:async';
-import 'dart:io';
-
-import 'package:common/model/dto/file_dto.dart' as dart_model;
-import 'package:common/model/file_status.dart';
-import 'package:common/model/session_status.dart';
-import 'package:common/model/stored_security_context.dart';
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:localsend_app/model/persistence/favorite_device.dart';
 import 'package:localsend_app/model/state/server/receive_session_state.dart';
-import 'package:localsend_app/model/state/server/receiving_file.dart';
 import 'package:localsend_app/model/state/settings_state.dart';
 import 'package:localsend_app/pages/receive_page.dart';
 import 'package:localsend_app/provider/network/webrtc/signaling_provider.dart';
-import 'package:localsend_app/rust/api/model.dart';
-import 'package:localsend_app/rust/api/webrtc.dart';
-import 'package:localsend_app/util/native/platform_check.dart';
+import 'package:localsend_app/provider/selection/selected_receiving_files_provider.dart';
+import 'package:localsend_isolates/model/dto/file_dto.dart' as dart_model;
+import 'package:localsend_isolates/model/session_status.dart';
+import 'package:localsend_isolates/model/stored_security_context.dart';
+import 'package:localsend_isolates/rust/api/model.dart';
+import 'package:localsend_isolates/rust/api/webrtc.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 import 'package:routerino/routerino.dart';
-import 'package:path_provider/path_provider.dart';
 
 part 'webrtc_receiver.mapper.dart';
 
@@ -44,8 +38,6 @@ class WebRTCReceiveService extends ReduxNotifier<WebRTCReceiveState> {
   final LsSignalingConnection _connection;
   final WsServerSdpMessage _offer;
   final StoredSecurityContext _key;
-  final SettingsState _settings;
-  final List<FavoriteDevice> _favorites;
 
   WebRTCReceiveService({
     required String signalingServer,
@@ -59,8 +51,6 @@ class WebRTCReceiveService extends ReduxNotifier<WebRTCReceiveState> {
        _stunServers = stunServers,
        _connection = connection,
        _offer = offer,
-       _settings = settings,
-       _favorites = favorites,
        _key = key;
 
   @override
@@ -110,7 +100,7 @@ class _AcceptOfferAction extends AsyncReduxAction<WebRTCReceiveService, WebRTCRe
 
     final files = await controller.listenFiles();
     final convertedFiles = files.map((e) => e.toFileDto()).toList();
-    dispatchAsync(_InitSessionState(convertedFiles));
+    dispatch(_InitSessionState(convertedFiles));
 
     final vm = ViewProvider((ref) {
       final state = ref.watch(notifier.provider as ReduxProvider<WebRTCReceiveService, WebRTCReceiveState>);
@@ -136,6 +126,9 @@ class _AcceptOfferAction extends AsyncReduxAction<WebRTCReceiveService, WebRTCRe
       );
     });
 
+    // ignore: use_build_context_synchronously
+    Routerino.context.notifier(selectedReceivingFilesProvider).setFiles(convertedFiles);
+
     // ignore: unawaited_futures, use_build_context_synchronously
     Routerino.context.push(() => ReceivePage(vm));
 
@@ -145,64 +138,41 @@ class _AcceptOfferAction extends AsyncReduxAction<WebRTCReceiveService, WebRTCRe
   }
 }
 
-class _InitSessionState extends AsyncReduxAction<WebRTCReceiveService, WebRTCReceiveState> {
+class _InitSessionState extends ReduxAction<WebRTCReceiveService, WebRTCReceiveState> {
   final List<dart_model.FileDto> files;
 
   _InitSessionState(this.files);
 
   @override
-  Future<WebRTCReceiveState> reduce() async {
-    final settings = notifier._settings;
-    final favorites = notifier._favorites;
-    final destinationDir = settings.destination ?? await _getDefaultDestinationDirectory();
-    final cacheDir = await _getCacheDirectory();
-    final streamController = StreamController<Map<String, String>?>();
-
-    return state.copyWith(
-      sessionState: ReceiveSessionState(
-        sessionId: state.offer.sessionId,
-        status: SessionStatus.waiting,
-        sender: state.offer.peer.toDevice(notifier._signalingServer),
-        senderAlias: (() {
-          final matched = favorites.where((e) => e.fingerprint == state.offer.peer.token);
-          return matched.isNotEmpty ? matched.first.alias : state.offer.peer.alias;
-        })(),
-        files: {
-          for (final file in files)
-            file.id: ReceivingFile(
-              file: file,
-              status: FileStatus.queue,
-              token: null,
-              desiredName: null,
-              path: null,
-              savedToGallery: false,
-              errorMessage: null,
-            ),
-        },
-        startTime: null,
-        endTime: null,
-        destinationDirectory: destinationDir,
-        cacheDirectory: cacheDir,
-        saveToGallery: checkPlatformWithGallery() && settings.saveToGallery && files.every((f) => !f.fileName.contains('/')),
-        createdDirectories: {},
-        responseHandler: streamController,
-      ),
-    );
-  }
-
-  Future<String> _getDefaultDestinationDirectory() async {
-    if (Platform.isAndroid || Platform.isIOS) {
-      final dir = await getApplicationDocumentsDirectory();
-      return dir.path;
-    } else {
-      final dir = await getDownloadsDirectory();
-      return dir?.path ?? (await getApplicationDocumentsDirectory()).path;
-    }
-  }
-
-  Future<String> _getCacheDirectory() async {
-    final dir = await getTemporaryDirectory();
-    return dir.path;
+  WebRTCReceiveState reduce() {
+    return state;
+    // TODO
+    // return state.copyWith(
+    //   sessionState: ReceiveSessionState(
+    //     sessionId: state.offer.sessionId,
+    //     status: SessionStatus.waiting,
+    //     sender: state.offer.peer.toDevice(notifier._signalingServer),
+    //     senderAlias: notifier._favorites.firstWhereOrNull((e) => e.fingerprint == notifier.info.fingerprint)?.alias ?? dto.info.alias,
+    //     files: {
+    //       for (final file in files)
+    //         file.id: ReceivingFile(
+    //           file: file,
+    //           token: null,
+    //           desiredName: null,
+    //           path: null,
+    //           savedToGallery: false,
+    //           errorMessage: null,
+    //         ),
+    //     },
+    //     startTime: null,
+    //     endTime: null,
+    //     destinationDirectory: destinationDir,
+    //     cacheDirectory: cacheDir,
+    //     saveToGallery: checkPlatformWithGallery() && settings.saveToGallery && dto.files.values.every((f) => !f.fileName.contains('/')),
+    //     createdDirectories: {},
+    //     responseHandler: streamController,
+    //   ),
+    // );
   }
 }
 
@@ -236,8 +206,8 @@ extension on FileDto {
 extension on FileMetadata {
   dart_model.FileMetadata toFileMetadata() {
     return dart_model.FileMetadata(
-      lastModified: DateTime.tryParse(modified ?? ''),
-      lastAccessed: DateTime.tryParse(accessed ?? ''),
+      lastModified: modified,
+      lastAccessed: accessed,
     );
   }
 }

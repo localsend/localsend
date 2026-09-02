@@ -1,5 +1,4 @@
 {
-  "locale": "עברית",
   "appName": "LocalSend",
   "general": {
     "accept": "אישור",
@@ -52,7 +51,8 @@
       "off": "@:general.off",
       "favorites": "מועדפים",
       "on": "@:general.on"
-    }
+    },
+    "link": "קבלה באמצעות קישור"
   },
   "sendTab": {
     "title": "שליחה",
@@ -97,7 +97,8 @@
       "color": "צבע",
       "colorOptions": {
         "system": "מערכת",
-        "oled": "OLED"
+        "oled": "OLED",
+        "custom": "מותאם אישית"
       },
       "language": "שפה",
       "languageOptions": {
@@ -120,11 +121,13 @@
       "destination": "יעד",
       "downloads": "(הורדות)",
       "saveToGallery": "שמור מדיה לגלריה",
-      "saveToHistory": "שמור בהיסטוריה"
+      "saveToHistory": "שמור בהיסטוריה",
+      "verifyChecksums": "אימות שלמות קבצים בעת קבלה"
     },
     "send": {
       "title": "שליחה",
-      "shareViaLinkAutoAccept": "שיתוף באמצעות קישור: אישור אוטומטי"
+      "shareViaLinkAutoAccept": "שיתוף באמצעות קישור: אישור אוטומטי",
+      "createChecksums": "צור סכומי שלמות קבצים בעת שליחה"
     },
     "network": {
       "title": "רשת",
@@ -134,18 +137,18 @@
       "deviceType": "סוג המכשיר",
       "deviceModel": "דגם המכשיר",
       "port": "יציאה",
+      "network": "רשת",
+      "networkOptions": {
+        "all": "הכל",
+        "filtered": "מסונן"
+      },
       "discoveryTimeout": "זמן קצוב לגילוי",
       "useSystemName": "השתמש בשם מערכת",
       "generateRandomAlias": "צור כינוי אקראי",
       "portWarning": "יתכן שלא יזוהו מכשירים אחרים בגלל שאתה משתמש ביציאה מותאמת אישית. (ברירת־מחדל: {defaultPort})",
       "encryption": "הצפנה",
       "multicastGroup": "מולטיקאסט",
-      "multicastGroupWarning": "יתכן שלא יזוהו מכשירים אחרים בגלל שאתה משתמש בכתובת מולטיקאסט מותאמת אישית. (ברירת־מחדל: {defaultMulticast})",
-      "networkOptions": {
-        "filtered": "מסונן",
-        "all": "הכל"
-      },
-      "network": "רשת"
+      "multicastGroupWarning": "יתכן שלא יזוהו מכשירים אחרים בגלל שאתה משתמש בכתובת מולטיקאסט מותאמת אישית. (ברירת־מחדל: {defaultMulticast})"
     },
     "other": {
       "title": "אחר",
@@ -175,6 +178,13 @@
       "solution": "הבעיה קיימת בשני הצדדים? עליך לוודא ששני המכשירים נמצאים באותה רשת WiFi וחולקים את אותה תצורה (יציאה, כתובת מולטיקאסט, הצפנה). רשת ה-WiFi עשויה שלא לאפשר תקשורת בין משתתפים. במקרה כזה, יש לאפשר אפשרות זו בראוטר."
     }
   },
+  "networkInterfacesPage": {
+    "title": "ממשקי רשת",
+    "info": "כברירת מחדל, LocalSend משתמש בכל ממשקי הרשת הזמינים. באפשרותך להסיר רשתות שאינן רצויות כאן. עליך להפעיל מחדש את השרת כדי להחיל את השינויים.",
+    "preview": "תצוגה מקדימה",
+    "whitelist": "רשימה לבנה",
+    "blacklist": "רשימה שחורה"
+  },
   "receiveHistoryPage": {
     "title": "היסטוריה",
     "openFolder": "פתח תיקייה",
@@ -190,11 +200,34 @@
   "apkPickerPage": {
     "title": "אפליקציות (APK)",
     "excludeSystemApps": "אל תכלול אפליקציות מערכת",
-    "excludeAppsWithoutLaunchIntent": "אל תכלול אפליקציות שאינן ניתנות להפעלה",
+    "excludeAppsWithoutLaunchIntent": "אל תכלול אפליקציות שאינן ניתנות לפתיחה",
     "apps": "{n} אפליקציות"
   },
   "selectedFilesPage": {
     "deleteAll": "מחק הכל"
+  },
+  "deviceDetailsPage": {
+    "title": "פרטי מכשיר",
+    "favorite": "מועדף",
+    "verify": "אימות",
+    "info": {
+      "name": "שם",
+      "address": "כתובת",
+      "version": "גרסה",
+      "protocol": "פרוטוקול גרסה {version}"
+    },
+    "logs": {
+      "title": "יומני רישום",
+      "empty": "אין יומנים זמינים",
+      "discovered": "התגלה באמצעות {protocol} ({host})",
+      "updated": "עודכן באמצעות {protocol} ({host})"
+    }
+  },
+  "verifyPage": {
+    "title": "אימות",
+    "icons": "סמלים",
+    "text": "טקסט",
+    "question": "האם זה נראה אותו דבר במכשיר השני?"
   },
   "receivePage": {
     "subTitle": {
@@ -213,6 +246,7 @@
     "saveToGalleryOff": "כבוי באופן אוטומטי בשל קיום ספריות."
   },
   "sendPage": {
+    "calculatingChecksum": "מאמת שלמות ({curr} / {n})",
     "waiting": "ממתין לתגובה…",
     "rejected": "הנמען דחה את הבקשה.",
     "tooManyAttempts": "@:web.tooManyAttempts",
@@ -232,6 +266,19 @@
       "count": "קבצים: {curr}/{n}",
       "size": "גודל: {curr}/{n}",
       "speed": "מהירות: {speed}/שניה"
+    },
+    "remainingTime": {
+      "minutesUnit(plural, param=m)": {
+        "other": "ו־{m} דקות",
+        "one": "ודקה"
+      },
+      "hoursUnit(plural, param=h)": {
+        "other": "{h} שעות",
+        "one": "שעה",
+        "two": "שעתיים"
+      },
+      "minutes": "{m}:{ss}",
+      "hours": "@:.hoursUnit @:.minutesUnit"
     }
   },
   "webSharePage": {
@@ -251,6 +298,9 @@
     "pinHint": "הסיסמה היא \"{pin}\"",
     "encryptionHint": "LocalSend משתמש בתעודה עצמית. עליך לאשר אותה בדפדפן.",
     "pendingRequests": "בקשות בהמתנה: {n}"
+  },
+  "webReceivePage": {
+    "title": "קבלה באמצעות קישור"
   },
   "aboutPage": {
     "title": "אודות LocalSend",
@@ -273,6 +323,18 @@
   "changelogPage": {
     "title": "יומן שינויים"
   },
+  "whatsNewPage": {
+    "title": "מה חדש בגרסה {version}?",
+    "changes(interface=WhatsNewStrings)": {
+      "v1_18_0": {
+        "changes": [
+          "הצפנה כבר לא מאטה את ההעברות! הפעלנו אותה מחדש אם כיבית אותה בעבר",
+          "מהיום העברות ממכשירים מועדפים יתקבלו באופן אוטומטי. ניתן לבטל זאת בהגדרות האפליקציה",
+          "באנדרואיד, ההעברות נמשכות גם כשהאפליקציה ברקע או שהמסך כבוי (ב-iOS כרגע האפליקציה עדיין חייבת להישאר פתוחה והמסך דולק)"
+        ]
+      }
+    }
+  },
   "aliasGenerator(ignoreMissing, ignoreGpt)": {
     "@info": "Inherits from the English version"
   },
@@ -287,8 +349,6 @@
     },
     "addressInput": {
       "title": "הכנס כתובת",
-      "hashtag": "סולמית",
-      "ip": "כתובת ה-IP",
       "recentlyUsed": "בשימוש לאחרונה: "
     },
     "cancelSession": {
@@ -378,9 +438,7 @@
     "quickSaveFromFavoritesNotice": {
       "title": "@:general.quickSaveFromFavorites",
       "content": [
-        "כעת בקשות לקבצים ייתקבלו אוטומטית ממכשירים ברשימת המועדפים שלך.",
-        "אזהרה: כרגע זה לא לגמרי מאובטח מכיוון שהאקר שנמצא ברשת שלך ויודע את טביעת האצבע של המכשירים האהובים עליך עדיין יכול לשלוח לך קבצים ללא אישור.",
-        "עם זאת, אפשרות זו עדיין מאובטחת יותר מאשר לאפשר קבלה אוטומטית מכל מכשיר."
+        "כעת בקשות לקבצים ייתקבלו אוטומטית ממכשירים ברשימת המועדפים שלך."
       ]
     },
     "pin": {
@@ -446,12 +504,5 @@
     "sActionUseCameraHint": "שימוש במצלמה",
     "sNameDurationLabel": "אורך",
     "sUnitAssetCountLabel": "מספר"
-  },
-  "networkInterfacesPage": {
-    "title": "ממשקי רשת",
-    "info": "כברירת מחדל, LocalSend משתמש בכל ממשקי הרשת הזמינים. באפשרותך להסיר רשתות שאינן רצויות כאן. עליך להפעיל מחדש את השרת כדי להחיל את השינויים.",
-    "preview": "תצוגה מקדימה",
-    "whitelist": "רשימה לבנה",
-    "blacklist": "רשימה שחורה"
   }
 }

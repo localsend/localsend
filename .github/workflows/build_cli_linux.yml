@@ -1,0 +1,50 @@
+name: Build CLI for Linux
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    outputs:
+      version: ${{ steps.get_version.outputs.version }}
+
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Get version from pubspec.yaml
+        id: get_version
+        run: |
+          VERSION=$(sed -n 's/^version: \([0-9]*\.[0-9]*\.[0-9]*\).*/\1/p' app/pubspec.yaml)
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+  build_cli:
+    needs: build
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - runner: ubuntu-22.04
+            suffix: linux-x86-64
+          - runner: ubuntu-22.04-arm
+            suffix: linux-arm-64
+    runs-on: ${{ matrix.runner }}
+
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Install Rust
+        run: rustup toolchain install # version from rust-toolchain.toml
+
+      - name: Compile CLI
+        run: cargo build --release --package localsend-cli
+
+      - name: Create tar.gz archive
+        run: tar -czvf LocalSend-CLI-${{ needs.build.outputs.version }}-${{ matrix.suffix }}.tar.gz -C target/release localsend-cli
+
+      - name: Upload CLI
+        uses: actions/upload-artifact@v6
+        with:
+          name: cli-${{ matrix.suffix }}-result
+          path: LocalSend-CLI-${{ needs.build.outputs.version }}-${{ matrix.suffix }}.tar.gz
+          if-no-files-found: error

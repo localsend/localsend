@@ -4,13 +4,30 @@
     "[--full enabled] Furthermore, translations not used in 'lib/' according to the 't.<path>' pattern are written into <en>."
   ],
   "en": {
-    "locale": "English",
     "general": {
       "online": "Online",
       "save": "Save"
     },
+    "receiveTab": {
+      "quickSave": {
+        "off": "@:general.off",
+        "favorites": "Favorites",
+        "on": "@:general.on"
+      }
+    },
     "sendTab": {
       "thisDevice": "This Device"
+    },
+    "whatsNewPage": {
+      "changes(interface=WhatsNewStrings)": {
+        "v1_18_0": {
+          "changes": [
+            "Encryption no longer slows down transfers. It has been re-enabled on this device if you turned it off before.",
+            "Requests from favorites are now accepted automatically. This is turned on by default and can be disabled in the settings.",
+            "On Android, transfers continue while the app is in the background or the screen is off. On iOS, the app must still stay in the foreground."
+          ]
+        }
+      }
     },
     "dialogs": {
       "messageInput": {
@@ -20,6 +37,7 @@
   },
   "ar": {},
   "az": {},
+  "be": {},
   "bg": {},
   "bn": {},
   "ca": {},
@@ -27,46 +45,49 @@
   "da": {},
   "de": {},
   "el": {},
-  "en-IN": {},
-  "es-ES": {},
   "et": {},
   "eu": {},
   "fa": {},
   "fi": {},
-  "fil-PH": {},
   "fr": {},
+  "ga": {},
   "gl": {},
   "gu": {},
   "he": {},
   "hi": {},
   "hu": {},
+  "hy": {},
   "id": {},
   "it": {},
   "ja": {},
   "km": {},
   "ko": {},
+  "lo": {},
   "ml": {},
   "mn": {},
   "ms": {},
   "ne": {},
   "nl": {},
   "pl": {},
-  "pt-BR": {},
-  "pt-PT": {},
   "ro": {},
   "ru": {},
   "si": {},
   "sk": {},
   "sl": {},
-  "sr": {},
-  "sr-Cyrl": {},
   "sv": {},
   "ta": {},
   "th": {},
   "tr": {},
   "uk": {},
   "ur": {},
+  "uz": {},
   "vi": {},
+  "en-IN": {},
+  "es-ES": {},
+  "fil-PH": {},
+  "pt-BR": {},
+  "pt-PT": {},
+  "sr-Cyrl": {},
   "zh-CN": {},
   "zh-HK": {},
   "zh-TW": {}
