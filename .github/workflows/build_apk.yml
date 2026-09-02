@@ -2,6 +2,12 @@ name: Compile APK
 
 on:
   workflow_dispatch:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
 
 env:
   FLUTTER_VERSION: "3.41.9"
@@ -70,11 +76,33 @@ jobs:
         working-directory: ${{ env.APK_BUILD_DIR }}/app
         run: flutter pub get
 
-      - name: Build APK
+      - name: Build APK (split per ABI)
         working-directory: ${{ env.APK_BUILD_DIR }}/app
         run: flutter build apk --split-per-abi
 
-      - name: Upload APK
+      - name: Build universal APK
+        working-directory: ${{ env.APK_BUILD_DIR }}/app
+        run: flutter build apk
+
+      - name: Create GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          VERSION="${{ needs.build.outputs.version }}"
+          TAG="v$VERSION"
+          # idempotent: remove prior release/tag if present (allows safe re-runs)
+          gh release delete "$TAG" --repo ${{ github.repository }} --yes 2>/dev/null || true
+          gh api -X DELETE "repos/${{ github.repository }}/git/refs/tags/$TAG" 2>/dev/null || true
+          gh release create "$TAG" \
+            --repo ${{ github.repository }} \
+            --title "LocalSend v$VERSION (self-use)" \
+            --notes "Self-use build — Windows + Android only. Signed release APKs (arm64-v8a / armeabi-v7a / x86_64 / universal)." \
+            "$APK_BUILD_DIR/app/build/app/outputs/flutter-apk/app-arm64-v8a-release.apk" \
+            "$APK_BUILD_DIR/app/build/app/outputs/flutter-apk/app-armeabi-v7a-release.apk" \
+            "$APK_BUILD_DIR/app/build/app/outputs/flutter-apk/app-x86_64-release.apk" \
+            "$APK_BUILD_DIR/app/build/app/outputs/flutter-apk/app-release.apk"
+
+      - name: Upload APK (artifact fallback)
         uses: actions/upload-artifact@v6
         with:
           name: apk-result
@@ -82,3 +110,4 @@ jobs:
             ${{ env.APK_BUILD_DIR }}/app/build/app/outputs/flutter-apk/app-armeabi-v7a-release.apk
             ${{ env.APK_BUILD_DIR }}/app/build/app/outputs/flutter-apk/app-arm64-v8a-release.apk
             ${{ env.APK_BUILD_DIR }}/app/build/app/outputs/flutter-apk/app-x86_64-release.apk
+            ${{ env.APK_BUILD_DIR }}/app/build/app/outputs/flutter-apk/app-release.apk
