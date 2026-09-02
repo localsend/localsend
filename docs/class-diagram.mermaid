@@ -1,0 +1,77 @@
+classDiagram
+    class TransportInterface {
+        <<interface>>
+        +TransportType type
+        +TransportState state
+        +TransportInfo? transportInfo
+        +bool isAvailable
+        +Stream~PeerInfo~ onPeerDiscovered
+        +Stream~TransportState~ onStateChanged
+        +Future~bool~ start(config: HostConfig)
+        +Future~void~ stop()
+        +Future~bool~ connect(config: ConnectConfig)
+        +Future~void~ disconnect()
+        +Future~void~ dispose()
+    }
+
+    class WifiHotspotTransport {
+        -TransportState _state
+        -TransportInfo? _transportInfo
+        -String? _errorMessage
+        -StreamController~PeerInfo~ _peerController
+        -StreamController~TransportState~ _stateController
+        +bool get isAvailable
+        +Future~bool~ start(config: HostConfig)
+        +Future~void~ stop()
+        +Future~bool~ connect(config: ConnectConfig)
+        +Future~void~ disconnect()
+        +Future~void~ dispose()
+    }
+
+    class UsbTetheringTransport {
+        -bool _isAvailable
+        +Future~void~ init()
+        +bool get isAvailable
+    }
+
+    class TransportManager {
+        -WifiHotspotTransport _wifiTransport
+        -UsbTetheringTransport _usbTransport
+        -TransportInterface? _activeTransport
+        -StreamController~PeerInfo~ _peerController
+        -StreamController~TransportState~ _stateController
+        -bool _initialized
+        +List~TransportInterface~ transports
+        +Future~void~ init()
+        +Future~void~ dispose()
+        +Future~bool~ startHost(type: TransportType, config: HostConfig)
+        +Future~bool~ connectToHost(type: TransportType, config: ConnectConfig)
+        +List~TransportType~ availableTransports
+    }
+
+    class PrpService {
+        -TransportManager _transportManager
+        +Future~PrpState~ init()
+        +List~TransportType~ get availableTransports
+        +TransportManager get transportManager
+    }
+
+    class PrpState {
+        +PrpMode mode
+        +PrpConnectionState state
+        +TransportType transportType
+        +String? networkName
+        +String? networkPassword
+        +String? ipAddress
+        +String? errorMessage
+        +bool isUsbTetheringAvailable
+        +bool get isActive
+        +PrpState copyWith(...)
+    }
+
+    TransportInterface <|.. WifiHotspotTransport
+    TransportInterface <|.. UsbTetheringTransport
+    TransportManager --> WifiHotspotTransport
+    TransportManager --> UsbTetheringTransport
+    PrpService --> TransportManager
+    PrpService --> PrpState

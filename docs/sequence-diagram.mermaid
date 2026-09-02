@@ -1,0 +1,26 @@
+sequenceDiagram
+    participant App as Application
+    participant Prp as PrpService
+    participant TM as TransportManager
+    participant USB as UsbTetheringTransport
+    participant WiFi as WifiHotspotTransport
+
+    App->>Prp: init()
+    activate Prp
+    Prp->>TM: init()
+    activate TM
+    TM->>USB: init()
+    activate USB
+    USB-->>TM: ready (check availability)
+    deactivate USB
+    TM->>TM: wire up event listeners
+    TM->>TM: _initialized = true
+    TM-->>Prp: init() complete (await)
+    deactivate TM
+    
+    Prp->>Prp: check availableTransports
+    Prp->>Prp: create PrpState(isUsbTetheringAvailable: true/false)
+    Prp-->>App: return PrpState
+    deactivate Prp
+
+    Note over App,WiFi: Now ready to use PRP

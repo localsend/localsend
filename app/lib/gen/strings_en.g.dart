@@ -73,6 +73,7 @@ class Translations with BaseTranslations<AppLocale, Translations> {
   late final Translations$tray$en tray = Translations$tray$en.internal(_root);
   late final Translations$web$en web = Translations$web$en.internal(_root);
   late final Translations$assetPicker$en assetPicker = Translations$assetPicker$en.internal(_root);
+  late final Translations$hotspotRelayPage$en hotspotRelayPage = Translations$hotspotRelayPage$en.internal(_root);
 }
 
 // Path: general
@@ -1918,4 +1919,104 @@ class Translations$whatsNewPage$changes$v1_18_0$en with WhatsNewStrings {
     'Requests from favorites are now accepted automatically. This is turned on by default and can be disabled in the settings.',
     'On Android, transfers continue while the app is in the background or the screen is off. On iOS, the app must still stay in the foreground.',
   ];
+}
+
+// Path: hotspotRelayPage
+class Translations$hotspotRelayPage$en {
+  Translations$hotspotRelayPage$en.internal(this._root);
+
+  final Translations _root; // ignore: unused_field
+
+  // Translations
+
+  /// en: 'PRP - Peer Relay'
+  String get title => 'PRP - Peer Relay';
+
+  /// en: 'Host'
+  String get hostTab => 'Host';
+
+  /// en: 'Client'
+  String get clientTab => 'Client';
+
+  /// en: 'Start Hotspot Relay'
+  String get startHotspot => 'Start Hotspot Relay';
+
+  /// en: 'Stop Hotspot'
+  String get stopHotspot => 'Stop Hotspot';
+
+  /// en: 'Connect'
+  String get connect => 'Connect';
+
+  /// en: 'Connecting...'
+  String get connecting => 'Connecting...';
+
+  /// en: 'Disconnect'
+  String get disconnect => 'Disconnect';
+
+  /// en: 'Scan to Connect'
+  String get scanToConnect => 'Scan to Connect';
+
+  /// en: 'Scan this QR with another LocalSend device'
+  String get scanQrHint => 'Scan this QR with another LocalSend device';
+
+  /// en: 'Connection Info'
+  String get connectionInfo => 'Connection Info';
+
+  /// en: 'SSID'
+  String get ssid => 'SSID';
+
+  /// en: 'Password'
+  String get password => 'Password';
+
+  /// en: 'Hotspot SSID'
+  String get hotspotSsid => 'Hotspot SSID';
+
+  /// en: 'Enter Hotspot Info'
+  String get enterHotspotInfo => 'Enter Hotspot Info';
+
+  /// en: 'Start a local WiFi hotspot so nearby devices can connect and transfer files directly.\n\nNo internet connection required. Data is transferred device-to-device only.'
+  String get hostInfoText =>
+      'Start a local WiFi hotspot so nearby devices can connect and transfer files directly.\n\nNo internet connection required. Data is transferred device-to-device only.';
+
+  /// en: 'Ask the other device to scan the QR code from the Host tab, or manually enter the hotspot name and password.'
+  String get clientInfoText => 'Ask the other device to scan the QR code from the Host tab, or manually enter the hotspot name and password.';
+
+  /// en: 'Connected to {ssid}'
+  String connectedTo({required Object ssid}) => 'Connected to ${ssid}';
+
+  /// en: 'Open LocalSend to discover and transfer files.'
+  String get openLocalsendHint => 'Open LocalSend to discover and transfer files.';
+
+  /// en: 'Ready'
+  String get statusReady => 'Ready';
+
+  /// en: 'Connecting...'
+  String get statusConnecting => 'Connecting...';
+
+  /// en: 'Connected'
+  String get statusConnected => 'Connected';
+
+  /// en: 'Hotspot active - share QR with peer'
+  String get statusHostActive => 'Hotspot active - share QR with peer';
+
+  /// en: 'Starting hotspot...'
+  String get statusHostStarting => 'Starting hotspot...';
+
+  /// en: 'Start a hotspot to enable peer relay'
+  String get statusHostReady => 'Start a hotspot to enable peer relay';
+
+  /// en: 'Connected to peer hotspot'
+  String get statusClientConnected => 'Connected to peer hotspot';
+
+  /// en: 'Connecting to peer...'
+  String get statusClientConnecting => 'Connecting to peer...';
+
+  /// en: 'Enter hotspot info to connect'
+  String get statusClientReady => 'Enter hotspot info to connect';
+
+  /// en: 'Select a mode above'
+  String get statusSelectMode => 'Select a mode above';
+
+  /// en: '{label} copied to clipboard'
+  String copiedToClipboard({required Object label}) => '${label} copied to clipboard';
 }

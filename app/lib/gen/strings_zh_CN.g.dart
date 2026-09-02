@@ -95,6 +95,8 @@ class TranslationsZhCn extends Translations with BaseTranslations<AppLocale, Tra
   late final Translations$web$zh_CN web = Translations$web$zh_CN.internal(_root);
   @override
   late final Translations$assetPicker$zh_CN assetPicker = Translations$assetPicker$zh_CN.internal(_root);
+  @override
+  late final Translations$hotspotRelayPage$zh_CN hotspotRelayPage = Translations$hotspotRelayPage$zh_CN.internal(_root);
 }
 
 // Path: general
@@ -1646,4 +1648,73 @@ class Translations$whatsNewPage$changes$v1_18_0$zh_CN extends Translations$whats
     '来自收藏夹的请求现在会被自动接受。这项功能是默认打开的，可以在设置中禁用。',
     '在Android上，当应用处于后台或屏幕关闭时，传输仍会继续。在iOS上，应用仍必须保持在前台。',
   ];
+}
+
+// Path: hotspotRelayPage
+class Translations$hotspotRelayPage$zh_CN extends Translations$hotspotRelayPage$en {
+  Translations$hotspotRelayPage$zh_CN.internal(TranslationsZhCn root) : this._root = root, super.internal(root);
+
+  final TranslationsZhCn _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'PRP - 热点中继';
+  @override
+  String get hostTab => '热点模式';
+  @override
+  String get clientTab => '客户端模式';
+  @override
+  String get startHotspot => '启动热点中继';
+  @override
+  String get stopHotspot => '停止热点';
+  @override
+  String get connect => '连接';
+  @override
+  String get connecting => '连接中...';
+  @override
+  String get disconnect => '断开连接';
+  @override
+  String get scanToConnect => '扫码连接';
+  @override
+  String get scanQrHint => '请用另一台 LocalSend 设备扫描此二维码';
+  @override
+  String get connectionInfo => '连接信息';
+  @override
+  String get ssid => 'SSID';
+  @override
+  String get password => '密码';
+  @override
+  String get hotspotSsid => '热点 SSID';
+  @override
+  String get enterHotspotInfo => '输入热点信息';
+  @override
+  String get hostInfoText => '启动本地 WiFi 热点，让附近设备可以直接连接并进行文件传输。\n\n无需互联网连接，数据仅在设备之间直接传输。';
+  @override
+  String get clientInfoText => '请让其他设备扫描「热点模式」页面的二维码，或手动输入热点名称和密码。';
+  @override
+  String connectedTo({required Object ssid}) => '已连接到 ${ssid}';
+  @override
+  String get openLocalsendHint => '打开 LocalSend 即可发现设备并进行文件传输。';
+  @override
+  String get statusReady => '就绪';
+  @override
+  String get statusConnecting => '连接中...';
+  @override
+  String get statusConnected => '已连接';
+  @override
+  String get statusHostActive => '热点已激活 - 请分享二维码给其他设备';
+  @override
+  String get statusHostStarting => '正在启动热点...';
+  @override
+  String get statusHostReady => '启动热点以启用点对点中继';
+  @override
+  String get statusClientConnected => '已连接到对端热点';
+  @override
+  String get statusClientConnecting => '正在连接对端设备...';
+  @override
+  String get statusClientReady => '输入热点信息以连接';
+  @override
+  String get statusSelectMode => '请先选择模式';
+  @override
+  String copiedToClipboard({required Object label}) => '已复制 ${label} 到剪贴板';
 }

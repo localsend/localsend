@@ -1,11 +1,11 @@
-# LocalSend
+# LocalSend (PRP Fork)
 
 [![CI status][ci-badge]][ci-workflow]
 [![Translations][translate-badge]][translate-link]
 [![Packaging status][packaging-badge]][packaging-link]
 
-[ci-badge]: https://github.com/localsend/localsend/actions/workflows/ci.yml/badge.svg
-[ci-workflow]: https://github.com/localsend/localsend/actions/workflows/ci.yml
+[ci-badge]: https://github.com/ghshhf/localsend/actions/workflows/ci.yml/badge.svg
+[ci-workflow]: https://github.com/ghshhf/localsend/actions/workflows/ci.yml
 [translate-badge]: https://hosted.weblate.org/widget/localsend/app/svg-badge.svg
 [translate-link]: https://hosted.weblate.org/engage/localsend/
 [packaging-badge]: https://repology.org/badge/tiny-repos/localsend.svg
@@ -17,10 +17,37 @@
 
 [homepage]: https://localsend.org
 [discord]: https://discord.gg/GSRWmQNP87
-[github]: https://github.com/localsend/localsend
+[github]: https://github.com/ghshhf/localsend
 [codeberg]: https://codeberg.org/localsend/localsend
 
 LocalSend is a free, open-source app that allows you to securely share files and messages with nearby devices over your local network without needing an internet connection.
+
+---
+
+## 🔁 About This Fork
+
+This fork adds **PRP (Peer Relay Protocol)** — hotspot-based relay functionality that enables file sharing between devices that cannot directly see each other on the local network. It includes:
+
+- **WiFi Hotspot Relay** — One device creates a hotspot, others connect through it
+- **USB Tethering** — Relay over USB connection (Android 5.0+)
+- **Local Network Discovery** — Standard LAN-based peer discovery
+
+### Changes From Upstream
+
+| Area | What Changed |
+|------|-------------|
+| **Hotspot Relay** | Added `PrpService`/`TransportManager` for hotspot-based peer relay |
+| **Web Compatibility** | Conditional imports (`dart:io` → platform-agnostic) prevent web compilation crashes |
+| **macOS Safety** | `SecurityScopedResourceManager` now properly pairs `startAccessing`/`stopAccessing` |
+| **Rust Build** | Fixed `dead_code`/`unused_imports` warnings, restored missing imports, deprecated API fixes |
+| **Dart Analysis** | `refena.dart` type promotion, `signaling_provider.dart` `KeyPair` path, `webrtc_receiver.dart` missing types |
+| **Testing** | 132 tests passing. Added `send_provider`/`server_provider`/`isolate` tests |
+| **CI** | All 4 jobs (format / test / rust / packaging) verified green ✅ |
+| **Builds** | Auto-built APK / MSIX / AppImage on every push — [download from Actions] |
+
+[download from Actions]: https://github.com/ghshhf/localsend/actions/workflows/build_artifacts.yml
+
+---
 
 - [About](#about)
 - [Sponsors](#sponsors)
@@ -229,6 +256,44 @@ For more information, see the [contributing guide](https://github.com/localsend/
 | Device not visible | Any                | Any                  | Use manual sending to enter the receiver's IP address directly. If that works, add the device to favorites so it is probed directly.    |
 | Speed too slow     | Any                | Any                  | Use 5 Ghz; Disable encryption on both devices                                                                                           |
 | Speed too slow     | Any                | Android              | Known issue. https://github.com/flutter-cavalry/saf_stream/issues/4                                                                     |
+
+## FAQ
+
+**Q: Does LocalSend require an internet connection?**  
+A: No, LocalSend works completely offline. It uses your local network (Wi-Fi or Ethernet) to transfer files between devices.
+
+**Q: Is my data secure?**  
+A: Yes! All transfers are encrypted using HTTPS. The TLS/SSL certificate is generated locally on each device, ensuring end-to-end security.
+
+**Q: Why can't my device see other devices?**  
+A:  
+1. Make sure all devices are on the same Wi-Fi network  
+2. Disable AP isolation on your router  
+3. Check firewall settings (allow port 53317)  
+4. On Windows, set your network as "Private"  
+5. On macOS/iOS, enable "Local Network" permission in Privacy settings  
+
+**Q: How do I transfer files?**  
+A:  
+1. Open LocalSend on both devices  
+2. Select files on the sending device  
+3. Tap on the receiving device's name  
+4. Accept the transfer on the receiving device  
+
+**Q: Can I send files to multiple devices at once?**  
+A: Yes! Use the "Multiple recipients" mode in the send tab.
+
+**Q: Where do received files go?**  
+A: By default, files are saved to your Downloads folder. You can change this in Settings.
+
+**Q: Is there a file size limit?**  
+A: There is no hardcoded limit, but very large files may take longer to transfer depending on your network speed.
+
+**Q: Can I use LocalSend at my company/school?**  
+A: It depends on the network configuration. Some corporate/school networks have AP isolation enabled, which prevents device discovery.
+
+**Q: How do I enable portable mode?**  
+A: Create an empty file named `settings.json` in the same directory as the executable. The app will store settings there instead of the default location.
 
 ## Building
 

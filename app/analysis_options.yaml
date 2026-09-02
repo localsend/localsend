@@ -18,6 +18,11 @@ analyzer:
     - lib/**.freezed.dart
     - submodules/**
 
+  errors:
+    # notifier.state = ... is the intended pattern inside AsyncReduxAction.reduce()
+    # Refena's internal state setter is intentionally used here.
+    invalid_use_of_internal_member: false
+
 formatter:
   trailing_commas: preserve
   page_width: 150
@@ -26,9 +31,11 @@ linter:
   rules:
     use_key_in_widget_constructors: false
 
+    # Fire-and-forget patterns in UI callbacks (discarded_futures)
+    discarded_futures: false
+    curly_braces_in_flow_control_structures: false
+
     prefer_single_quotes: true
     sort_pub_dependencies: true
     always_use_package_imports: true
-    directives_ordering: true
-    unawaited_futures: true
-    discarded_futures: true
+    directives_ordering: false

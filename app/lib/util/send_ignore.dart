@@ -1,6 +1,6 @@
 import 'package:glob/glob.dart';
 
-// const _ignoreFileName = '.sendignore';
+const _ignoreFileName = '.sendignore';
 
 class SendIgnore {
   final List<Glob> _globs = [];
@@ -8,9 +8,7 @@ class SendIgnore {
   SendIgnore();
 
   bool isIgnoreFile(String fileName) {
-    // TODO: Glob does not provide the same gitignore experience
-    return false;
-    // return fileName == _ignoreFileName;
+    return fileName == _ignoreFileName;
   }
 
   void loadIgnoreContent({

@@ -1,5 +1,14 @@
 ## 1.18.2 (2026-08-21)
 
+
+## unreleased
+
+- feat(android): implement PRP (Peer Relay Protocol) for hotspot-based peer discovery when devices are not on the same LAN (@ghshhf)
+- feat(android): add PRP hotspot relay page with Host/Client modes for out-of-LAN file transfer (@ghshhf)
+- feat(android): PRP QR code sharing for easy hotspot connection setup (@ghshhf)
+- feat: add PRP page strings to i18n base file (@ghshhf)
+
+
 - feat: drag and drop files into the "Receive via link" browser page
 - feat(desktop): allow customizing the web share pages by placing HTML files in a `web` folder next to the executable
 - feat(cli): add version info to the Windows executable
@@ -58,6 +67,7 @@ Android+iOS only hotfix update.
 - fix(macos): prevent Dock icon from briefly appearing during autostart when "Start hidden" is enabled (@ShlomoCode)
 - fix(macos): Dock icon drag-and-drop and Share Extension working again (@ShlomoCode)
 - fix(linux): add CJK font support for Chinese, Japanese, and Korean text (@Mr-Ebonycat)
+
 
 ## 1.17.0 (2025-02-19)
 

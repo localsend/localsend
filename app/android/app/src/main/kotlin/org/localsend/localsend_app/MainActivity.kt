@@ -34,6 +34,11 @@ private const val API_LEVEL_ANDROID_17 = 37
 
 class MainActivity : FlutterActivity() {
     private var pendingResult: MethodChannel.Result? = null
+
+    // PRP (Peer Relay Protocol) plugins, fork-only.
+    private var hotspotRelayPlugin: HotspotRelayPlugin? = null
+    private var usbTetheringPlugin: UsbTetheringPlugin? = null
+
     private var pendingPermissionResult: MethodChannel.Result? = null
 
     /// share_handler drops share intents arriving via onNewIntent while the Dart side
@@ -75,6 +80,15 @@ class MainActivity : FlutterActivity() {
 
     override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
         super.configureFlutterEngine(flutterEngine)
+
+        // Initialize HotspotRelayPlugin for PRP
+        hotspotRelayPlugin = HotspotRelayPlugin(this)
+        hotspotRelayPlugin?.configure(flutterEngine)
+
+        // Initialize UsbTetheringPlugin for USB cable relay
+        usbTetheringPlugin = UsbTetheringPlugin(this)
+        usbTetheringPlugin?.configure(flutterEngine)
+
         MethodChannel(
             flutterEngine.dartExecutor.binaryMessenger,
             CHANNEL

@@ -34,7 +34,8 @@ ThemeData getTheme(ColorMode colorMode, Color customColor, Brightness brightness
       AppLocale.ja => 'Yu Gothic UI',
       AppLocale.ko => 'Malgun Gothic',
       AppLocale.zhCn => 'Microsoft YaHei UI',
-      AppLocale.zhHk || AppLocale.zhTw => 'Microsoft JhengHei UI',
+      AppLocale.zhHk => 'Microsoft JhengHei UI',
+      AppLocale.zhTw => 'Microsoft JhengHei UI',
       _ => 'Segoe UI Variable Display',
     };
   } else if (checkPlatform([TargetPlatform.linux])) {
@@ -42,7 +43,8 @@ ThemeData getTheme(ColorMode colorMode, Color customColor, Brightness brightness
       AppLocale.ja => 'Noto Sans CJK JP',
       AppLocale.ko => 'Noto Sans CJK KR',
       AppLocale.zhCn => 'Noto Sans CJK SC',
-      AppLocale.zhHk || AppLocale.zhTw => 'Noto Sans CJK TC',
+      AppLocale.zhHk => 'Noto Sans CJK TC',
+      AppLocale.zhTw => 'Noto Sans CJK TC',
       _ => 'Noto Sans',
     };
   } else {
@@ -175,8 +177,6 @@ ThemeData _getYaruTheme(Brightness brightness) {
     borderSide: BorderSide(color: colorScheme.secondaryContainer),
     borderRadius: _borderRadius,
   );
-
-  InputDecorationThemeData;
 
   return baseTheme.copyWith(
     // same density on all platforms so desktop matches mobile (defaults to compact on desktop)

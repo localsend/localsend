@@ -15,6 +15,7 @@ import 'package:localsend_isolates/rust/api/crypto.dart' as crypto;
 import 'package:localsend_isolates/rust/api/model.dart' as rust;
 import 'package:localsend_isolates/rust/api/webrtc.dart';
 import 'package:refena_flutter/refena_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 part 'signaling_provider.mapper.dart';
 
@@ -74,16 +75,33 @@ class _SetupSignalingConnection extends AsyncGlobalAction {
 
   _SetupSignalingConnection({required this.signalingServer});
 
+  static const String _kPrivateKey = 'webrtc_private_key';
+  static const String _kPublicKey = 'webrtc_public_key';
+
+  Future<crypto.KeyPair> _loadOrGenerateKeyPair() async {
+    final prefs = await SharedPreferences.getInstance();
+    final storedPrivate = prefs.getString(_kPrivateKey);
+    final storedPublic = prefs.getString(_kPublicKey);
+
+    if (storedPrivate != null && storedPublic != null) {
+      debugPrint('[Signaling] Loaded persistent key pair');
+      return crypto.KeyPair(privateKey: storedPrivate, publicKey: storedPublic);
+    }
+
+    debugPrint('[Signaling] Generating new key pair');
+    final key = await crypto.generateKeyPair();
+    await prefs.setString(_kPrivateKey, key.privateKey);
+    await prefs.setString(_kPublicKey, key.publicKey);
+    return key;
+  }
+
   @override
   Future<void> reduce() async {
     final settings = ref.read(settingsProvider);
     final deviceInfo = ref.read(deviceInfoProvider);
 
-    // TODO: Use persistent key
-    final key = await crypto.generateKeyPair();
-    if (kDebugMode) {
-      print('private key: ${key.privateKey}');
-    }
+    // Use persistent key pair (generate if not exists)
+    final key = await _loadOrGenerateKeyPair();
 
     LsSignalingConnection? connection;
     final stream = connect(
