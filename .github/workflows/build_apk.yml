@@ -54,7 +54,7 @@ jobs:
         working-directory: ${{ env.APK_BUILD_DIR }}
         env:
           ENCODED_STRING: ${{ secrets.ANDROID_KEY_STORE }}
-        run: mkdir secrets && echo $ENCODED_STRING | base64 -di > secrets/android-keystore.jks
+        run: mkdir -p app/android/secrets && echo $ENCODED_STRING | base64 -di > app/android/secrets/android-keystore.jks
 
       - name: Set up JDK 17
         uses: actions/setup-java@v5
