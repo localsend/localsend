@@ -1,5 +1,6 @@
 package org.localsend.localsend_app
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.ContentResolver
@@ -11,7 +12,9 @@ import android.net.Uri
 import android.os.Build
 import android.os.Environment
 import android.provider.DocumentsContract
+import android.provider.MediaStore
 import android.provider.Settings
+import android.util.Log
 import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.plugin.common.MethodCall
@@ -22,6 +25,7 @@ import java.util.Locale
 import java.util.TimeZone
 
 
+private const val TAG = "LocalSend"
 private const val CHANNEL = "org.localsend.localsend_app/localsend"
 private const val REQUEST_CODE_PICK_DIRECTORY = 1
 private const val REQUEST_CODE_PICK_DIRECTORY_PATH = 2
@@ -98,6 +102,8 @@ class MainActivity : FlutterActivity() {
                 "createDirectory" -> handleCreateDirectory(call, result)
 
                 "getFileDescriptor" -> handleGetFileDescriptor(call, result)
+
+                "getOriginalMediaUri" -> handleGetOriginalMediaUri(call, result)
 
                 "createFile" -> handleCreateFile(call, result)
 
@@ -197,6 +203,39 @@ class MainActivity : FlutterActivity() {
         } catch (e: Exception) {
             result.error("OPEN_FAILED", e.message ?: "Failed to open content URI", null)
         }
+    }
+
+    /// MediaStore redacts the location EXIF tags unless the caller explicitly asks for the
+    /// original file, which in turn requires ACCESS_MEDIA_LOCATION. Opening an original URI
+    /// without that permission throws, so the redacted URI is returned when it is missing.
+    private fun handleGetOriginalMediaUri(call: MethodCall, result: MethodChannel.Result) {
+        val uriString = call.argument<String>("uri")
+        if (uriString == null) {
+            result.error("INVALID_ARGUMENT", "Missing media URI", null)
+            return
+        }
+
+        val uri = Uri.parse(uriString)
+        if (uri.scheme != ContentResolver.SCHEME_CONTENT) {
+            result.error("INVALID_ARGUMENT", "Expected a content:// URI", null)
+            return
+        }
+
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
+            result.success(uriString)
+            return
+        }
+        if (!hasMediaLocationPermission()) {
+            Log.w(TAG, "Sending $uri without its location tags: ACCESS_MEDIA_LOCATION is denied")
+            result.success(uriString)
+            return
+        }
+
+        result.success(MediaStore.setRequireOriginal(uri).toString())
+    }
+
+    private fun hasMediaLocationPermission(): Boolean {
+        return checkSelfPermission(Manifest.permission.ACCESS_MEDIA_LOCATION) == PackageManager.PERMISSION_GRANTED
     }
 
     /// Creates a new file inside a SAF directory and opens it for writing.

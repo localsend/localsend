@@ -39,6 +39,18 @@ Future<List<FileInfo>?> pickFilesAndroid() async {
   return result.map((e) => FileInfoMapper.fromJson((e as Map).cast<String, dynamic>())).toList();
 }
 
+/// Returns a variant of [uri] that resolves to the unredacted original file, so the
+/// location EXIF tags survive. Falls back to [uri] when the platform cannot grant it,
+/// because losing the tags beats failing the whole selection.
+Future<String> getOriginalMediaUriAndroid({required String uri}) async {
+  try {
+    return await _methodChannel.invokeMethod<String>('getOriginalMediaUri', {'uri': uri}) ?? uri;
+  } catch (e) {
+    _logger.warning('Could not resolve the original media URI for $uri', e);
+    return uri;
+  }
+}
+
 /// Returns the global "Download" directory, e.g. /storage/emulated/0/Download.
 Future<String?> getDownloadsDirectoryAndroid() async {
   try {
