@@ -51,6 +51,19 @@ Future<String> getOriginalMediaUriAndroid({required String uri}) async {
   }
 }
 
+/// Returns a JPEG thumbnail of [uri] no larger than [size] in either dimension.
+///
+/// Null when the platform cannot provide one, which leaves it to the caller to fall
+/// back to decoding the file itself.
+Future<Uint8List?> getContentThumbnailAndroid({required String uri, required int size}) async {
+  try {
+    return await _methodChannel.invokeMethod<Uint8List>('getContentThumbnail', {'uri': uri, 'size': size});
+  } catch (e) {
+    _logger.warning('Could not load thumbnail for $uri', e);
+    return null;
+  }
+}
+
 /// Returns the global "Download" directory, e.g. /storage/emulated/0/Download.
 Future<String?> getDownloadsDirectoryAndroid() async {
   try {

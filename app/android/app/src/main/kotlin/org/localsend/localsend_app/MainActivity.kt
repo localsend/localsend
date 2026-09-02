@@ -8,26 +8,40 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.database.Cursor
+import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Build
 import android.os.Environment
+import android.os.Handler
+import android.os.Looper
 import android.provider.DocumentsContract
 import android.provider.MediaStore
 import android.provider.OpenableColumns
 import android.provider.Settings
 import android.util.Log
+import android.util.Size
+import androidx.annotation.RequiresApi
 import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
+import java.io.ByteArrayOutputStream
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 import java.util.TimeZone
+import java.util.concurrent.Executors
 
 
 private const val TAG = "LocalSend"
 private const val CHANNEL = "org.localsend.localsend_app/localsend"
+
+// The thumbnails are only ever shown in a small box, so the artefacts stay invisible.
+private const val THUMBNAIL_QUALITY = 80
+
+// Decoding a selection is IO bound, so the pool only has to keep the provider busy.
+private val thumbnailThreads = Runtime.getRuntime().availableProcessors().coerceIn(2, 4)
+
 private const val REQUEST_CODE_PICK_DIRECTORY = 1
 private const val REQUEST_CODE_PICK_DIRECTORY_PATH = 2
 private const val REQUEST_CODE_PICK_FILE = 3
@@ -56,6 +70,17 @@ class MainActivity : FlutterActivity() {
     /// A held-back share. The payload is resolved once, because building it costs a binder
     /// round-trip per URI on the main thread.
     private class PendingShare(val intent: Intent, val payload: Map<String, Any?>?)
+
+    private val thumbnailExecutor = Executors.newFixedThreadPool(thumbnailThreads)
+    private val mainHandler = Handler(Looper.getMainLooper())
+
+    override fun onDestroy() {
+        // Queued decodes would otherwise answer a channel whose engine is being torn down.
+        thumbnailExecutor.shutdownNow()
+        methodChannel?.setMethodCallHandler(null)
+        methodChannel = null
+        super.onDestroy()
+    }
 
     override fun onNewIntent(intent: Intent) {
         if (isShareIntent(intent)) {
@@ -218,6 +243,8 @@ class MainActivity : FlutterActivity() {
 
                 "getOriginalMediaUri" -> handleGetOriginalMediaUri(call, result)
 
+                "getContentThumbnail" -> handleGetContentThumbnail(call, result)
+
                 "createFile" -> handleCreateFile(call, result)
 
                 "openFileForWriting" -> handleOpenFileForWriting(call, result)
@@ -348,6 +375,51 @@ class MainActivity : FlutterActivity() {
 
     private fun hasMediaLocationPermission(): Boolean {
         return checkSelfPermission(Manifest.permission.ACCESS_MEDIA_LOCATION) == PackageManager.PERMISSION_GRANTED
+    }
+
+    /// Asks the provider for a thumbnail instead of decoding the whole file, which for a
+    /// large photo or video means reading megabytes to render a few dozen pixels.
+    /// Returns null below Android 10, where the API does not exist and the caller falls
+    /// back to reading the file.
+    private fun handleGetContentThumbnail(call: MethodCall, result: MethodChannel.Result) {
+        val uriString = call.argument<String>("uri")
+        val size = call.argument<Int>("size")
+        if (uriString == null || size == null) {
+            result.error("INVALID_ARGUMENT", "Missing content URI or size", null)
+            return
+        }
+
+        val uri = Uri.parse(uriString)
+        if (uri.scheme != ContentResolver.SCHEME_CONTENT) {
+            result.error("INVALID_ARGUMENT", "Expected a content:// URI", null)
+            return
+        }
+
+        // Decoding is slow enough to be noticeable when a whole selection scrolls into view,
+        // so it must not run on the main thread. The version check sits inside the task
+        // because lint does not carry a guard across the lambda to the call it protects.
+        thumbnailExecutor.execute {
+            val bytes = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                loadThumbnailBytes(uri, size)
+            } else {
+                null
+            }
+            mainHandler.post { result.success(bytes) }
+        }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.Q)
+    private fun loadThumbnailBytes(uri: Uri, size: Int): ByteArray? {
+        return try {
+            val bitmap = contentResolver.loadThumbnail(uri, Size(size, size), null)
+            ByteArrayOutputStream().use { stream ->
+                bitmap.compress(Bitmap.CompressFormat.JPEG, THUMBNAIL_QUALITY, stream)
+                stream.toByteArray()
+            }
+        } catch (e: Exception) {
+            Log.w(TAG, "Could not load thumbnail for $uri", e)
+            null
+        }
     }
 
     /// Creates a new file inside a SAF directory and opens it for writing.
