@@ -155,12 +155,18 @@ async fn send_inner(
         return false;
     };
 
-    let accepted_bytes: u64 = response
-        .files
-        .keys()
-        .filter_map(|file_id| files.get(file_id))
-        .map(|file| file.size)
-        .sum();
+    let file_ids = match accepted_file_ids(&response.files, &files) {
+        Ok(file_ids) => file_ids,
+        Err(_) => {
+            log(format!("{alias}: Receiver returned an unexpected file ID")).await;
+            let _ = client
+                .cancel(protocol, &http.host, http.port, &response.session_id)
+                .await;
+            return;
+        }
+    };
+
+    let accepted_bytes: u64 = file_ids.iter().map(|file_id| files[*file_id].size).sum();
     let _ = events
         .send(AppEvent::SendSessionStarted {
             session_id: response.session_id.clone(),
@@ -174,10 +180,6 @@ async fn send_inner(
         ))
         .await;
     }
-
-    // Upload sequentially in a stable order.
-    let mut file_ids: Vec<&String> = response.files.keys().collect();
-    file_ids.sort_by_key(|file_id| &files[*file_id].file_name);
 
     let started = Instant::now();
     let mut sent_files = 0usize;
@@ -263,6 +265,22 @@ async fn send_inner(
     true
 }
 
+/// Verifies that the receiver accepted only files offered in the request and
+/// returns their IDs in a stable upload order.
+fn accepted_file_ids<'a>(
+    accepted: &'a HashMap<String, String>,
+    offered: &HashMap<String, FileDto>,
+) -> Result<Vec<&'a String>, &'a String> {
+    let mut file_ids: Vec<&String> = accepted.keys().collect();
+    for file_id in &file_ids {
+        if !offered.contains_key(*file_id) {
+            return Err(*file_id);
+        }
+    }
+    file_ids.sort_by_key(|file_id| &offered[*file_id].file_name);
+    Ok(file_ids)
+}
+
 /// Builds a streaming request body from the file content, invoking `progress`
 /// with the cumulative number of bytes of this file as chunks are sent.
 fn upload_body(content: FileContent, progress: impl Fn(u64) + Send + 'static) -> reqwest::Body {
@@ -273,4 +291,53 @@ fn upload_body(content: FileContent, progress: impl Fn(u64) + Send + 'static) ->
         Ok::<Bytes, anyhow::Error>(chunk)
     });
     reqwest::Body::wrap_stream(stream)
+}
+
+#[cfg(test)]
+mod tests {
+    use super::accepted_file_ids;
+    use localsend::model::transfer::FileDto;
+    use std::collections::HashMap;
+
+    fn file(id: &str, file_name: &str) -> FileDto {
+        FileDto {
+            id: id.to_string(),
+            file_name: file_name.to_string(),
+            size: 1,
+            file_type: "application/octet-stream".to_string(),
+            sha256: None,
+            preview: None,
+            metadata: None,
+        }
+    }
+
+    #[test]
+    fn rejects_an_unoffered_file_id() {
+        let accepted = HashMap::from([("unexpected".to_string(), "token".to_string())]);
+        let offered = HashMap::from([("offered".to_string(), file("offered", "file.txt"))]);
+
+        assert_eq!(
+            accepted_file_ids(&accepted, &offered).unwrap_err(),
+            "unexpected"
+        );
+    }
+
+    #[test]
+    fn orders_valid_file_ids_by_file_name() {
+        let accepted = HashMap::from([
+            ("a-id".to_string(), "token-a".to_string()),
+            ("z-id".to_string(), "token-z".to_string()),
+        ]);
+        let offered = HashMap::from([
+            ("a-id".to_string(), file("a-id", "zulu.txt")),
+            ("z-id".to_string(), file("z-id", "alpha.txt")),
+            ("declined".to_string(), file("declined", "ignored.txt")),
+        ]);
+
+        let file_ids = accepted_file_ids(&accepted, &offered).unwrap();
+        assert_eq!(
+            file_ids.into_iter().map(String::as_str).collect::<Vec<_>>(),
+            vec!["z-id", "a-id"]
+        );
+    }
 }
