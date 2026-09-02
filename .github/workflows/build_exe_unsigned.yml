@@ -11,9 +11,6 @@ permissions:
 
 env:
   FLUTTER_VERSION: "3.41.9"
-  # Pin the pub cache to a known path so it can be cached (Windows default is
-  # %LOCALAPPDATA%\Pub\Cache, which actions/cache cannot address portably).
-  PUB_CACHE: ${{ runner.temp }}/pub-cache
 
 jobs:
   build:
@@ -33,6 +30,11 @@ jobs:
   build_windows_exe_x86_64:
     needs: build
     runs-on: windows-latest
+    env:
+      # Pin the pub cache to a known path so it can be cached (Windows default is
+      # %LOCALAPPDATA%\Pub\Cache, which actions/cache cannot address portably).
+      # Must be job-level: `runner` is not available in workflow-level env.
+      PUB_CACHE: ${{ runner.temp }}/pub-cache
 
     steps:
       - name: Fix long file paths
@@ -101,6 +103,9 @@ jobs:
         shell: bash
         env:
           GH_TOKEN: ${{ github.token }}
+          # Git Bash would otherwise apply MSYS path mangling to the Windows-style
+          # path below before passing it to gh.exe, which would then not find it.
+          MSYS_NO_PATHCONV: 1
         run: |
           VERSION="${{ needs.build.outputs.version }}"
           TAG="v$VERSION"
