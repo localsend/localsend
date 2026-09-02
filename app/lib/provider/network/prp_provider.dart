@@ -80,8 +80,7 @@ class PrpState {
       networkPassword: networkPassword ?? this.networkPassword,
       ipAddress: ipAddress ?? this.ipAddress,
       errorMessage: clearError ? null : (errorMessage ?? this.errorMessage),
-      isUsbTetheringAvailable:
-          isUsbTetheringAvailable ?? this.isUsbTetheringAvailable,
+      isUsbTetheringAvailable: isUsbTetheringAvailable ?? this.isUsbTetheringAvailable,
     );
   }
 }
@@ -103,23 +102,24 @@ class PrpService extends ReduxNotifier<PrpState> {
   PrpState init() {
     // Async initialization: update USB availability once transport manager is ready.
     // Uses fire-and-forget pattern since ReduxNotifier.init() must return synchronously.
-    _transportManager.init().then((_) {
-      final isUsbAvailable = _transportManager.availableTransports
-          .contains(TransportType.usbTethering);
-      if (isUsbAvailable != state.isUsbTetheringAvailable) {
-        // Note: state mutation here triggers a rebuild with updated USB availability.
-        // This is intentionally best-effort; the UI will show correct state
-        // once the first PRP action dispatches.
-      }
-    }).catchError((Object e, StackTrace st) {
-      _logger.warning('TransportManager init failed: $e', e, st);
-    });
+    _transportManager
+        .init()
+        .then((_) {
+          final isUsbAvailable = _transportManager.availableTransports.contains(TransportType.usbTethering);
+          if (isUsbAvailable != state.isUsbTetheringAvailable) {
+            // Note: state mutation here triggers a rebuild with updated USB availability.
+            // This is intentionally best-effort; the UI will show correct state
+            // once the first PRP action dispatches.
+          }
+        })
+        .catchError((Object e, StackTrace st) {
+          _logger.warning('TransportManager init failed: $e', e, st);
+        });
     return const PrpState();
   }
 
   /// Get available transport types for UI display.
-  List<TransportType> get availableTransports =>
-      _transportManager.availableTransports;
+  List<TransportType> get availableTransports => _transportManager.availableTransports;
 
   /// Access the transport manager (for direct transport operations).
   TransportManager get transportManager => _transportManager;
@@ -166,8 +166,7 @@ class StartHostAction extends AsyncReduxAction<PrpService, PrpState> {
     } else {
       return state.copyWith(
         state: PrpConnectionState.error,
-        errorMessage: notifier._transportManager.activeError ??
-            'Failed to start host mode',
+        errorMessage: notifier._transportManager.activeError ?? 'Failed to start host mode',
       );
     }
   }
@@ -231,8 +230,7 @@ class ConnectToPeerAction extends AsyncReduxAction<PrpService, PrpState> {
     } else {
       return state.copyWith(
         state: PrpConnectionState.error,
-        errorMessage:
-            notifier._transportManager.activeError ?? 'Failed to connect',
+        errorMessage: notifier._transportManager.activeError ?? 'Failed to connect',
       );
     }
   }

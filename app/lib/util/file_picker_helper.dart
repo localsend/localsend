@@ -29,7 +29,7 @@ class FilePickerHelper {
 
     // Step 2: Try to pick files
     try {
-      final result = await FilePicker.platform.pickFiles(
+      final result = await FilePicker.pickFiles(
         dialogTitle: dialogTitle ?? 'Select Files',
         type: type,
         allowedExtensions: allowedExtensions,
@@ -40,8 +40,7 @@ class FilePickerHelper {
       );
 
       if (result != null && result.files.isNotEmpty) {
-        debugPrint(
-            '[FilePicker] Successfully selected ${result.files.length} file(s)');
+        debugPrint('[FilePicker] Successfully selected ${result.files.length} file(s)');
         return result.files;
       } else {
         debugPrint('[FilePicker] User cancelled selection');
@@ -71,7 +70,7 @@ class FilePickerHelper {
     await _requestPermissions();
 
     try {
-      final result = await FilePicker.platform.getDirectoryPath(
+      final result = await FilePicker.getDirectoryPath(
         dialogTitle: dialogTitle ?? 'Select Directory',
       );
 
@@ -139,8 +138,7 @@ class FilePickerHelper {
 
     // If permission permanently denied, guide user to settings
     if (await Permission.storage.isPermanentlyDenied) {
-      debugPrint(
-          '[FilePicker] Permission permanently denied, need to open settings');
+      debugPrint('[FilePicker] Permission permanently denied, need to open settings');
       await openAppSettings();
       return false;
     }
@@ -200,7 +198,7 @@ class FilePickerHelper {
 
     try {
       // Use simpler configuration
-      final result = await FilePicker.platform.pickFiles(
+      final result = await FilePicker.pickFiles(
         type: FileType.any, // use generic type
         allowMultiple: allowMultiple,
         withData: false, // don't load file data, only get paths
@@ -208,8 +206,7 @@ class FilePickerHelper {
       );
 
       if (result != null && result.files.isNotEmpty) {
-        debugPrint(
-            '[FilePicker] Fallback method selected ${result.files.length} file(s)');
+        debugPrint('[FilePicker] Fallback method selected ${result.files.length} file(s)');
         return result.files;
       }
     } catch (e) {

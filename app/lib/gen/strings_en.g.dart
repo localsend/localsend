@@ -1975,7 +1975,8 @@ class Translations$hotspotRelayPage$en {
   String get enterHotspotInfo => 'Enter Hotspot Info';
 
   /// en: 'Start a local WiFi hotspot so nearby devices can connect and transfer files directly.\n\nNo internet connection required. Data is transferred device-to-device only.'
-  String get hostInfoText => 'Start a local WiFi hotspot so nearby devices can connect and transfer files directly.\n\nNo internet connection required. Data is transferred device-to-device only.';
+  String get hostInfoText =>
+      'Start a local WiFi hotspot so nearby devices can connect and transfer files directly.\n\nNo internet connection required. Data is transferred device-to-device only.';
 
   /// en: 'Ask the other device to scan the QR code from the Host tab, or manually enter the hotspot name and password.'
   String get clientInfoText => 'Ask the other device to scan the QR code from the Host tab, or manually enter the hotspot name and password.';

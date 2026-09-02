@@ -82,20 +82,20 @@ void main() {
     test('has all expected values', () {
       expect(TransportType.values, hasLength(3));
       expect(
-          TransportType.values,
-          containsAll([
-            TransportType.wifiHotspot,
-            TransportType.usbTethering,
-            TransportType.localNetwork,
-          ]));
+        TransportType.values,
+        containsAll([
+          TransportType.wifiHotspot,
+          TransportType.usbTethering,
+          TransportType.localNetwork,
+        ]),
+      );
     });
   });
 
   group('PrpMode enum', () {
     test('has all expected values', () {
       expect(PrpMode.values, hasLength(3));
-      expect(PrpMode.values,
-          containsAll([PrpMode.host, PrpMode.client, PrpMode.idle]));
+      expect(PrpMode.values, containsAll([PrpMode.host, PrpMode.client, PrpMode.idle]));
     });
   });
 
@@ -104,15 +104,16 @@ void main() {
       expect(PrpConnectionState.values, hasLength(6));
 
       expect(
-          PrpConnectionState.values,
-          containsAll([
-            PrpConnectionState.idle,
-            PrpConnectionState.connecting,
-            PrpConnectionState.connected,
-            PrpConnectionState.transferring,
-            PrpConnectionState.error,
-            PrpConnectionState.disconnected,
-          ]));
+        PrpConnectionState.values,
+        containsAll([
+          PrpConnectionState.idle,
+          PrpConnectionState.connecting,
+          PrpConnectionState.connected,
+          PrpConnectionState.transferring,
+          PrpConnectionState.error,
+          PrpConnectionState.disconnected,
+        ]),
+      );
     });
   });
 }

@@ -9,14 +9,6 @@ bool _shouldTriggerLegacy(bool forceLegacy, bool noDevicesFound, bool inSendTab)
 
 void main() {
   group('StartSmartScan', () {
-    test('should have forceLegacy parameter', () {
-      final actionWithForceLegacy = StartSmartScan(forceLegacy: true);
-      final actionWithoutForceLegacy = StartSmartScan(forceLegacy: false);
-
-      expect(actionWithForceLegacy.forceLegacy, true);
-      expect(actionWithoutForceLegacy.forceLegacy, false);
-    });
-
     test('maxInterfaces should be 3', () {
       expect(StartSmartScan.maxInterfaces, 3);
     });

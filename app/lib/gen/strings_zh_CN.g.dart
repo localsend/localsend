@@ -1650,7 +1650,6 @@ class Translations$whatsNewPage$changes$v1_18_0$zh_CN extends Translations$whats
   ];
 }
 
-
 // Path: hotspotRelayPage
 class Translations$hotspotRelayPage$zh_CN extends Translations$hotspotRelayPage$en {
   Translations$hotspotRelayPage$zh_CN.internal(TranslationsZhCn root) : this._root = root, super.internal(root);

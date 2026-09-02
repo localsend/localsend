@@ -18,10 +18,8 @@ class LocalNetworkTransport implements TransportInterface {
 
   TransportState _state = TransportState.idle;
 
-  final StreamController<PeerInfo> _peerController =
-      StreamController<PeerInfo>.broadcast();
-  final StreamController<TransportState> _stateController =
-      StreamController<TransportState>.broadcast();
+  final StreamController<PeerInfo> _peerController = StreamController<PeerInfo>.broadcast();
+  final StreamController<TransportState> _stateController = StreamController<TransportState>.broadcast();
 
   @override
   TransportType get type => TransportType.localNetwork;
