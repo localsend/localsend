@@ -56,9 +56,9 @@ jobs:
             ${{ env.APK_BUILD_DIR }}/packages/core/target
             ${{ env.APK_BUILD_DIR }}/packages/localsend_isolates/rust/target
             ${{ env.APK_BUILD_DIR }}/server/target
-          key: ${{ runner.os }}-localsend-deps-${{ hashFiles('**/pubspec.lock', '**/Cargo.lock', 'packages/core/Cargo.toml', 'packages/localsend_isolates/rust/Cargo.toml', 'server/Cargo.toml') }}
+          key: ${{ runner.os }}-localsend-release-deps-${{ hashFiles('**/pubspec.lock', '**/Cargo.lock', 'packages/core/Cargo.toml', 'packages/localsend_isolates/rust/Cargo.toml', 'server/Cargo.toml') }}
           restore-keys: |
-            ${{ runner.os }}-localsend-deps-
+            ${{ runner.os }}-localsend-release-deps-
 
       - name: Decode key.properties file
         working-directory: ${{ env.APK_BUILD_DIR }}
