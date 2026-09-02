@@ -106,13 +106,17 @@ jobs:
         run: |
           VERSION="${{ needs.build.outputs.version }}"
           TAG="v$VERSION"
-          # idempotent: remove prior release/tag if present (allows safe re-runs)
-          gh release delete "$TAG" --repo ${{ github.repository }} --yes 2>/dev/null || true
-          gh api -X DELETE "repos/${{ github.repository }}/git/refs/tags/$TAG" 2>/dev/null || true
-          gh release create "$TAG" \
+          # Reuse an existing release if present: deleting it would also remove
+          # assets uploaded by other workflows (e.g. the Windows installer).
+          gh release view "$TAG" --repo ${{ github.repository }} >/dev/null 2>&1 \
+            || gh release create "$TAG" \
+              --repo ${{ github.repository }} \
+              --title "LocalSend v$VERSION (self-use)" \
+              --notes "Self-use build — Windows + Android only. Signed release APKs (arm64-v8a / armeabi-v7a / x86_64 / universal) + Windows installer."
+          # --clobber overwrites same-named assets, so re-runs are safe
+          gh release upload "$TAG" \
             --repo ${{ github.repository }} \
-            --title "LocalSend v$VERSION (self-use)" \
-            --notes "Self-use build — Windows + Android only. Signed release APKs (arm64-v8a / armeabi-v7a / x86_64 / universal)." \
+            --clobber \
             "$APK_BUILD_DIR/app/build/app/outputs/flutter-apk/app-arm64-v8a-release.apk" \
             "$APK_BUILD_DIR/app/build/app/outputs/flutter-apk/app-armeabi-v7a-release.apk" \
             "$APK_BUILD_DIR/app/build/app/outputs/flutter-apk/app-x86_64-release.apk" \

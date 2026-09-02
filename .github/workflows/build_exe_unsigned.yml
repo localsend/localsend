@@ -2,9 +2,18 @@ name: Build windows exe (unsigned)
 
 on:
   workflow_dispatch:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
 
 env:
   FLUTTER_VERSION: "3.41.9"
+  # Pin the pub cache to a known path so it can be cached (Windows default is
+  # %LOCALAPPDATA%\Pub\Cache, which actions/cache cannot address portably).
+  PUB_CACHE: ${{ runner.temp }}/pub-cache
 
 jobs:
   build:
@@ -31,6 +40,20 @@ jobs:
 
       - name: Checkout repository
         uses: actions/checkout@v6
+
+      - name: Cache build dependencies (pub / cargo)
+        uses: actions/cache@v4
+        with:
+          path: |
+            ${{ runner.temp }}/pub-cache
+            ~/.cargo/registry
+            ~/.cargo/git
+            packages/core/target
+            packages/localsend_isolates/rust/target
+            server/target
+          key: ${{ runner.os }}-localsend-windows-deps-${{ hashFiles('**/pubspec.lock', '**/Cargo.lock', 'packages/core/Cargo.toml', 'packages/localsend_isolates/rust/Cargo.toml', 'server/Cargo.toml') }}
+          restore-keys: |
+            ${{ runner.os }}-localsend-windows-deps-
 
       - uses: subosito/flutter-action@v2
         with:
@@ -73,3 +96,22 @@ jobs:
           name: windows-exe-x86-64-unsigned
           path: ${{ runner.temp }}\inno-result\LocalSend-${{ needs.build.outputs.version }}-windows-x86-64.exe
           if-no-files-found: error
+
+      - name: Upload installer to GitHub Release
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          VERSION="${{ needs.build.outputs.version }}"
+          TAG="v$VERSION"
+          # Reuse an existing release: the APK workflow may have created it already.
+          # Never delete the release here — that would also drop the APK assets.
+          gh release view "$TAG" --repo ${{ github.repository }} >/dev/null 2>&1 \
+            || gh release create "$TAG" \
+              --repo ${{ github.repository }} \
+              --title "LocalSend v$VERSION (self-use)" \
+              --notes "Self-use build — Windows + Android only."
+          gh release upload "$TAG" \
+            --repo ${{ github.repository }} \
+            --clobber \
+            "${{ runner.temp }}/inno-result/LocalSend-$VERSION-windows-x86-64.exe"
