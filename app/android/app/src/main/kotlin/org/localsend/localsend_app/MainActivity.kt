@@ -13,6 +13,7 @@ import android.os.Build
 import android.os.Environment
 import android.provider.DocumentsContract
 import android.provider.MediaStore
+import android.provider.OpenableColumns
 import android.provider.Settings
 import android.util.Log
 import io.flutter.embedding.android.FlutterActivity
@@ -40,28 +41,124 @@ class MainActivity : FlutterActivity() {
     private var pendingResult: MethodChannel.Result? = null
     private var pendingPermissionResult: MethodChannel.Result? = null
 
-    /// share_handler drops share intents arriving via onNewIntent while the Dart side
-    /// is not subscribed to its media stream yet, which happens when this singleTask
+    /// Shares carrying files are answered with their content:// URIs instead of being
+    /// passed to share_handler, which copies every file into the app cache on the main
+    /// thread before Dart ever sees it. Text-only shares still take the plugin path.
+    ///
+    /// share_handler also drops share intents arriving via onNewIntent while the Dart
+    /// side is not subscribed to its media stream yet, which happens when this singleTask
     /// activity is relaunched into an existing task while the app is still starting.
-    /// Hold such intents back until Dart reports readiness ("shareIntentReady"), then
-    /// replay them through the regular plugin path.
-    private val pendingShareIntents = mutableListOf<Intent>()
+    /// Hold such intents back until Dart reports readiness ("shareIntentReady").
+    private val pendingShares = mutableListOf<PendingShare>()
     private var shareIntentReady = false
+    private var methodChannel: MethodChannel? = null
+
+    /// A held-back share. The payload is resolved once, because building it costs a binder
+    /// round-trip per URI on the main thread.
+    private class PendingShare(val intent: Intent, val payload: Map<String, Any?>?)
 
     override fun onNewIntent(intent: Intent) {
-        if (!shareIntentReady && (intent.action == Intent.ACTION_SEND || intent.action == Intent.ACTION_SEND_MULTIPLE)) {
-            pendingShareIntents.add(intent)
-            return
+        if (isShareIntent(intent)) {
+            val payload = sharedFilePayload(intent)
+            if (!shareIntentReady) {
+                pendingShares.add(PendingShare(intent, payload))
+                return
+            }
+            if (payload != null) {
+                methodChannel?.invokeMethod("onSharedFiles", payload)
+                return
+            }
         }
         super.onNewIntent(intent)
     }
 
-    private fun onShareIntentReady() {
+    /// Returns the payloads of the held-back shares that carry files. The remaining ones
+    /// are replayed through share_handler, which owns the text-only case.
+    private fun onShareIntentReady(): List<Map<String, Any?>> {
         shareIntentReady = true
-        val pending = pendingShareIntents.toList()
-        pendingShareIntents.clear()
-        for (intent in pending) {
-            super.onNewIntent(intent)
+        val pending = pendingShares.toList()
+        pendingShares.clear()
+
+        val payloads = mutableListOf<Map<String, Any?>>()
+        for (share in pending) {
+            if (share.payload == null) {
+                super.onNewIntent(share.intent)
+            } else {
+                payloads.add(share.payload)
+            }
+        }
+        return payloads
+    }
+
+    private fun isShareIntent(intent: Intent): Boolean {
+        return intent.action == Intent.ACTION_SEND || intent.action == Intent.ACTION_SEND_MULTIPLE
+    }
+
+    /// Null when the intent carries no file, or when any single one cannot be read.
+    /// Handing over a subset would drop the rest without the user ever learning about it,
+    /// so the whole intent is left to share_handler, which reaches schemes this path
+    /// deliberately does not (it copies, at the cost this class exists to avoid).
+    @Suppress("DEPRECATION")
+    private fun sharedFilePayload(intent: Intent): Map<String, Any?>? {
+        val uris = when (intent.action) {
+            Intent.ACTION_SEND -> listOfNotNull(intent.getParcelableExtra<Uri>(Intent.EXTRA_STREAM))
+            Intent.ACTION_SEND_MULTIPLE -> intent.getParcelableArrayListExtra<Uri>(Intent.EXTRA_STREAM).orEmpty()
+            else -> emptyList()
+        }
+        if (uris.isEmpty()) {
+            return null
+        }
+
+        val files = uris.map { uri ->
+            sharedFileInfo(uri) ?: run {
+                Log.w(TAG, "Handing the share to share_handler: $uri is not readable as a content URI")
+                return null
+            }
+        }
+
+        return mapOf(
+            "files" to files.map { it.toMap() },
+            // EXTRA_TEXT is a CharSequence, so senders styling their text would be
+            // dropped by the String accessor.
+            "text" to intent.getCharSequenceExtra(Intent.EXTRA_TEXT)?.toString(),
+        )
+    }
+
+    /// Only the openable columns are queried: they are the ones every content provider
+    /// must expose for a shared URI, unlike the document or media specific ones.
+    private fun sharedFileInfo(uri: Uri): FileInfo? {
+        if (uri.scheme != ContentResolver.SCHEME_CONTENT) {
+            return null
+        }
+
+        return try {
+            contentResolver.query(
+                uri,
+                arrayOf(OpenableColumns.DISPLAY_NAME, OpenableColumns.SIZE),
+                null,
+                null,
+                null,
+            )?.use { cursor ->
+                if (!cursor.moveToFirst() || cursor.isNull(1)) {
+                    return@use null
+                }
+                val name = cursor.getString(0) ?: return@use null
+                // A provider that cannot state a size would have the peer offered an empty
+                // file; share_handler copies such a stream instead, which at least works.
+                val size = cursor.getLong(1).takeIf { it > 0 } ?: return@use null
+
+                FileInfo(
+                    name = name,
+                    size = size,
+                    uri = uri.toString(),
+                    // Share intents carry no modification time, and the openable columns
+                    // do not expose one either.
+                    lastModified = null,
+                )
+            }
+        } catch (e: Exception) {
+            Log.w(TAG, "Could not read shared file $uri", e)
+            null
         }
     }
 
@@ -78,11 +175,27 @@ class MainActivity : FlutterActivity() {
     }
 
     override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
+        // share_handler reads the launch intent while it attaches, which happens inside
+        // the super call below, and copies the shared files right there. Claiming the
+        // intent first is the only way to keep that copy from happening.
+        val launchIntent = intent
+        if (launchIntent != null && isShareIntent(launchIntent)) {
+            val payload = sharedFilePayload(launchIntent)
+            if (payload != null) {
+                pendingShares.add(PendingShare(launchIntent, payload))
+                // An empty MAIN intent, rather than one stripped of EXTRA_STREAM, so that
+                // nothing downstream mistakes the claimed share for one still to handle.
+                setIntent(Intent(Intent.ACTION_MAIN))
+            }
+        }
+
         super.configureFlutterEngine(flutterEngine)
-        MethodChannel(
+        val channel = MethodChannel(
             flutterEngine.dartExecutor.binaryMessenger,
             CHANNEL
-        ).setMethodCallHandler { call, result ->
+        )
+        methodChannel = channel
+        channel.setMethodCallHandler { call, result ->
             when (call.method) {
                 "pickDirectory" -> {
                     pendingResult = result
@@ -120,8 +233,7 @@ class MainActivity : FlutterActivity() {
                 }
 
                 "shareIntentReady" -> {
-                    onShareIntentReady()
-                    result.success(null)
+                    result.success(onShareIntentReady())
                 }
 
                 "isAnimationsEnabled" -> {
