@@ -15,7 +15,7 @@ dependencies:
   connectivity_plus: 7.3.1
   crypto: 3.0.7
   dart_mappable: 4.8.0
-  desktop_drop: 0.7.1
+  desktop_drop: 0.8.4
   device_apps: 2.2.0
   device_info_plus: 12.4.0
   dynamic_color: 1.8.1
