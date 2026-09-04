@@ -39,3 +39,7 @@ categories:
   - Utility
 
 startup_notify: true
+
+# Must match the GTK application id set in linux/CMakeLists.txt, otherwise the
+# desktop environment cannot map the running window back to this desktop entry.
+startup_wm_class: org.localsend.localsend_app
