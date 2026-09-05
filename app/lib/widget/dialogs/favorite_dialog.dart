@@ -5,9 +5,12 @@ import 'package:localsend_app/model/persistence/favorite_device.dart';
 import 'package:localsend_app/provider/device_info_provider.dart';
 import 'package:localsend_app/provider/favorites_provider.dart';
 import 'package:localsend_app/provider/http_provider.dart';
+import 'package:localsend_app/provider/network/nearby_devices_provider.dart';
+import 'package:localsend_app/provider/network/scan_facade.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/widget/dialogs/error_dialog.dart';
 import 'package:localsend_app/widget/dialogs/favorite_edit_dialog.dart';
+import 'package:localsend_isolates/model/device.dart';
 import 'package:localsend_isolates/rust/api/model.dart';
 import 'package:localsend_isolates/util/rust.dart';
 import 'package:refena_flutter/refena_flutter.dart';
@@ -34,6 +37,21 @@ class _FavoritesDialogState extends State<FavoritesDialog> with Refena {
     final https = ref.read(settingsProvider).https;
 
     try {
+      final device = await _discoverFavorite(favorite, https);
+
+      if (mounted) {
+        context.pop(device);
+      }
+    } catch (e) {
+      setState(() {
+        _fetching = false;
+        _error = e.toString();
+      });
+    }
+  }
+
+  Future<Device> _discoverFavorite(FavoriteDevice favorite, bool https) async {
+    try {
       final payload = ref.read(deviceFullInfoProvider).toRegisterDto();
       final response = await ref
           .read(httpProvider)
@@ -45,17 +63,48 @@ class _FavoritesDialogState extends State<FavoritesDialog> with Refena {
             payload: payload,
           );
 
-      final device = response.body.toDevice(favorite.ip, favorite.port, https);
-
-      if (mounted) {
-        context.pop(device);
-      }
+      return response.body.toDevice(favorite.ip, favorite.port, https);
     } catch (e) {
-      setState(() {
-        _fetching = false;
-        _error = e.toString();
-      });
+      // A device may have received a new address while it was asleep. It may
+      // already have been rediscovered by multicast, so use that address
+      // before starting a full refresh.
+      final knownDevice = _deviceWithNewAddress(favorite);
+      if (knownDevice != null) {
+        return knownDevice;
+      }
+
+      // The favorite address is only a hint. If it is stale, refresh discovery
+      // so the subnet scan can find the device at its current address.
+      try {
+        await ref.global.dispatchAsync(StartSmartScan(forceLegacy: true));
+      } catch (_) {
+        // Preserve the original connection error when the recovery scan also
+        // cannot run, e.g. because the discovery isolate is unavailable.
+      }
+
+      final refreshedDevice = await _waitForDeviceWithNewAddress(favorite);
+      if (refreshedDevice != null) {
+        return refreshedDevice;
+      }
+
+      rethrow;
     }
+  }
+
+  Device? _deviceWithNewAddress(FavoriteDevice favorite) {
+    final device = ref.read(nearbyDevicesProvider).devices[favorite.fingerprint];
+    return device?.ip != null && device!.ip != favorite.ip ? device : null;
+  }
+
+  Future<Device?> _waitForDeviceWithNewAddress(FavoriteDevice favorite) async {
+    for (var attempt = 0; attempt < 20; attempt++) {
+      final device = _deviceWithNewAddress(favorite);
+      if (device != null) {
+        return device;
+      }
+      await Future<void>.delayed(const Duration(milliseconds: 100));
+    }
+    return null;
   }
 
   Future<void> _showDeviceDialog([FavoriteDevice? favorite]) async {
