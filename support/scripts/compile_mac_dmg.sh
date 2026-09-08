@@ -1,5 +1,8 @@
 # Prerequisite:
 # - brew install create-dmg
+# - Python 3 (standard library only)
+
+set -e
 
 VERSION=$(sed -n 's/^version: \([0-9]*\.[0-9]*\.[0-9]*\).*/\1/p' app/pubspec.yaml)
 DMG="LocalSend-$VERSION.dmg"
@@ -14,7 +17,7 @@ echo
 echo "Signing the app..."
 echo
 SIGN_ID="Developer ID Application: Tien Do Nam (3W7H4PYMCV)"
-codesign --deep --force --verbose --options runtime --entitlements macos/Runner/Release.entitlements --sign "$SIGN_ID" build/macos/Build/Products/Release/LocalSend.app
+python3 ../support/scripts/sign_mac_app.py build/macos/Build/Products/Release/LocalSend.app --identity "$SIGN_ID"
 
 # create dmg
 # brew install create-dmg

@@ -96,6 +96,11 @@ jobs:
 
     steps:
       - uses: actions/checkout@v6
+      - name: Test macOS signing scripts
+        run: |
+          bash -n support/scripts/compile_mac_dmg.sh
+          python3 -B -m unittest discover -s support/scripts/tests -v
+
       - name: Extract version from pubspec.yaml
         id: pubspec_version
         run: |
