@@ -42,9 +42,7 @@ class $AssetsImgGen {
   List<dynamic> get values => [logo128, logo256, logo32Black, logo32White, logo32, logo512White, logo512, logo];
 }
 
-class Assets {
-  const Assets._();
-
+abstract final class Assets {
   static const String changelog = 'assets/CHANGELOG.md';
   static const $AssetsImgGen img = $AssetsImgGen();
 

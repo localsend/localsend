@@ -96,7 +96,7 @@ add_custom_command(
     ${PHONY_OUTPUT}
   COMMAND ${CMAKE_COMMAND} -E env
     ${FLUTTER_TOOL_ENVIRONMENT}
-    "${FLUTTER_ROOT}/packages/flutter_tools/bin/tool_backend.bat"
+    cmd.exe /c call "${FLUTTER_ROOT}/packages/flutter_tools/bin/tool_backend.bat"
       ${FLUTTER_TARGET_PLATFORM} $<CONFIG>
   VERBATIM
 )

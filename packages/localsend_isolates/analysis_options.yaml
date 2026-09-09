@@ -4,6 +4,7 @@ analyzer:
   exclude:
     - lib/**.g.dart
     - lib/**.freezed.dart
+    - build/**
 
 formatter:
   trailing_commas: preserve

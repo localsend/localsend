@@ -15,7 +15,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_foreground_task: ^9.2.2
-  flutter_rust_bridge: ^2.12.0
+  flutter_rust_bridge: ">=2.12.0 <2.13.0" # must match frb codegen version in frb_generated.dart
   freezed_annotation: ^3.1.0
   gal: ^2.3.3
   logging: ^1.3.0
