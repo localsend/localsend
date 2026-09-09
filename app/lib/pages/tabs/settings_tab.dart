@@ -19,6 +19,7 @@ import 'package:localsend_app/util/i18n.dart';
 import 'package:localsend_app/util/native/macos_channel.dart';
 import 'package:localsend_app/util/native/pick_directory_path.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
+import 'package:localsend_app/util/native/windows_notification.dart';
 import 'package:localsend_app/widget/custom_dropdown_button.dart';
 import 'package:localsend_app/widget/dialogs/encryption_disabled_notice.dart';
 import 'package:localsend_app/widget/dialogs/pin_dialog.dart';
@@ -252,6 +253,42 @@ class SettingsTab extends StatelessWidget {
                     await ref.notifier(settingsProvider).setAutoFinish(b);
                   },
                 ),
+                if (checkPlatform([TargetPlatform.windows])) ...[
+                  _BooleanEntry(
+                    label: t.settingsTab.receive.toastOnRequest,
+                    value: vm.settings.toastOnRequest,
+                    onChanged: (b) async {
+                      await ref.notifier(settingsProvider).setToastOnRequest(b);
+                      // [MOD] Test hook: as soon as the feature is enabled, show
+                      // one toast so the user can confirm Windows notifications
+                      // actually work before relying on real receive events.
+                      if (b) {
+                        final code = await WindowsNotification.instance.sendTestToast();
+                        if (context.mounted) {
+                          final messenger = ScaffoldMessenger.of(context);
+                          messenger
+                            ..hideCurrentSnackBar()
+                            ..showSnackBar(
+                              SnackBar(
+                                content: Text(
+                                  code == 0
+                                      ? t.notificationToasts.enabledSnackbar
+                                      : t.notificationToasts.failedSnackbar(code: '$code'),
+                                ),
+                              ),
+                            );
+                        }
+                      }
+                    },
+                  ),
+                  _BooleanEntry(
+                    label: t.settingsTab.receive.toastOnFinished,
+                    value: vm.settings.toastOnFinished,
+                    onChanged: (b) async {
+                      await ref.notifier(settingsProvider).setToastOnFinished(b);
+                    },
+                  ),
+                ],
                 _BooleanEntry(
                   label: t.settingsTab.receive.saveToHistory,
                   value: vm.settings.saveToHistory,

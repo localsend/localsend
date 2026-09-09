@@ -4,7 +4,7 @@
 /// To regenerate, run: `dart run slang`
 ///
 /// Locales: 58
-/// Strings: 21022 (362 per locale)
+/// Strings: 21058 (363 per locale)
 
 // coverage:ignore-file
 // ignore_for_file: type=lint, unused_import
@@ -138,8 +138,7 @@ enum AppLocale with BaseAppLocale<AppLocale, Translations> {
   srCyrl(languageCode: 'sr', scriptCode: 'Cyrl'),
   zhCn(languageCode: 'zh', countryCode: 'CN'),
   zhHk(languageCode: 'zh', countryCode: 'HK'),
-  zhTw(languageCode: 'zh', countryCode: 'TW')
-  ;
+  zhTw(languageCode: 'zh', countryCode: 'TW');
 
   const AppLocale({
     required this.languageCode,

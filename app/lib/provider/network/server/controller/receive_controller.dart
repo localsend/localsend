@@ -23,8 +23,10 @@ import 'package:localsend_app/provider/selection/selected_receiving_files_provid
 import 'package:localsend_app/provider/selection/selected_sending_files_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/util/native/directories.dart';
+import 'package:localsend_app/util/native/open_folder.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_app/util/native/tray_helper.dart';
+import 'package:localsend_app/util/native/windows_notification.dart';
 import 'package:localsend_app/widget/dialogs/open_file_dialog.dart';
 import 'package:localsend_isolates/isolate.dart';
 import 'package:localsend_isolates/model/device.dart';
@@ -125,6 +127,19 @@ class ReceiveController {
           sessionId: sessionId,
           statuses: {for (final file in files.values) file.id: FileStatus.queue},
         );
+
+    // [MOD] Windows toast: a sender wants to send files/folder/message.
+    final toastEnabled = server.ref.read(settingsProvider).toastOnRequest;
+    if (toastEnabled && checkPlatform([TargetPlatform.windows])) {
+      final session = server.getState().session;
+      final sender = session?.senderAlias ?? session?.sender.alias ?? '';
+      final names = [for (final file in files.values) file.fileName];
+      final msg = session?.message;
+      // ignore: discarded_futures
+      unawaited(
+        WindowsNotification.instance.notifyReceiveStarted(senderAlias: sender, fileNames: names, message: msg),
+      );
+    }
 
     bool quickSave = settings.quickSave && server.getState().session?.message == null;
     final quickSaveFromFavorites = settings.quickSaveFromFavorites && server.getState().session?.message == null;
@@ -410,6 +425,45 @@ class ReceiveController {
         ),
       );
       final settings = server.ref.read(settingsProvider);
+
+      // [MOD] Windows toast: receiving finished (pure notification). Clicking
+      // opens the first successfully saved file in Explorer.
+      // [MOD] Windows toast on finish: files/folder sessions only (message-only
+      // sessions never reach here because session.files is empty).
+      if (settings.toastOnFinished && checkPlatform([TargetPlatform.windows]) && session.files.isNotEmpty) {
+        final transfer = server.ref.read(fileTransferProvider);
+        var success = 0;
+        var failed = 0;
+        final savedNames = <String>[];
+        final savedPaths = <String>[];
+        for (final entry in session.files.entries) {
+          final status = transfer.getStatus(sessionId: session.sessionId, fileId: entry.key);
+          if (status == FileStatus.finished) {
+            success++;
+            savedNames.add(entry.value.file.fileName);
+            final path = entry.value.path;
+            if (path != null && path.isNotEmpty) {
+              savedPaths.add(path);
+            }
+          } else if (status == FileStatus.failed) {
+            failed++;
+          }
+        }
+        if (success > 0 || failed > 0) {
+          // ignore: discarded_futures
+          unawaited(
+            WindowsNotification.instance.notifyReceiveFinished(
+              hasError: hasError,
+              successCount: success,
+              failedCount: failed,
+              savedNames: savedNames,
+              firstSavedPath: savedPaths.isNotEmpty ? savedPaths.first : null,
+              destinationDirectory: session.destinationDirectory,
+            ),
+          );
+        }
+      }
+
       // Only auto-close fully successful sessions: a failed file may still be
       // retried by the sender (e.g. after a checksum mismatch), which requires
       // the session to stay open.
@@ -509,6 +563,10 @@ class ReceiveController {
       _logger.severe('Failed to show from tray', e);
     });
 
+    // [MOD] Consume a pending Windows toast click action.
+    // ignore: discarded_futures
+    unawaited(_handleToastActivation());
+
     final args = event.args;
     if (args.isEmpty) {
       return;
@@ -520,6 +578,29 @@ class ReceiveController {
         server.ref.redux(homePageControllerProvider).dispatch(ChangeTabAction(HomeTab.send));
       }
     });
+  }
+
+  /// [MOD] Handles activation caused by a Windows toast click: brings the app
+  /// forward (already done by [showFromTray]) and executes the pending action
+  /// (open saved file in Explorer, or jump to the receive tab).
+  Future<void> _handleToastActivation() async {
+    if (!checkPlatform([TargetPlatform.windows])) {
+      return;
+    }
+    // D4: single file -> select it; folder -> select its root; multi-file ->
+    // open the receive directory. [ToastOpenTarget] already encodes this.
+    final target = WindowsNotification.instance.consumePendingOpenTarget();
+    if (target != null) {
+      try {
+        await openFolder(folderPath: target.folderPath, fileName: target.fileName);
+      } catch (e) {
+        _logger.warning('Failed to open receive target from toast', e);
+      }
+      return;
+    }
+    if (WindowsNotification.instance.consumePendingHomeAction()) {
+      server.ref.redux(homePageControllerProvider).dispatch(ChangeTabAction(HomeTab.receive));
+    }
   }
 
   /// Accepts the file request with the given [fileNameMap] (file id -> desired file name).

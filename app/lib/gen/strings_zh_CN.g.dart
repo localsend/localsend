@@ -42,6 +42,8 @@ class TranslationsZhCn extends Translations with BaseTranslations<AppLocale, Tra
   @override
   String get appName => 'LocalSend';
   @override
+  late final Translations$notificationToasts$zh_CN notificationToasts = Translations$notificationToasts$zh_CN.internal(_root);
+  @override
   late final Translations$general$zh_CN general = Translations$general$zh_CN.internal(_root);
   @override
   late final Translations$receiveTab$zh_CN receiveTab = Translations$receiveTab$zh_CN.internal(_root);
@@ -95,6 +97,47 @@ class TranslationsZhCn extends Translations with BaseTranslations<AppLocale, Tra
   late final Translations$web$zh_CN web = Translations$web$zh_CN.internal(_root);
   @override
   late final Translations$assetPicker$zh_CN assetPicker = Translations$assetPicker$zh_CN.internal(_root);
+}
+
+// Path: notificationToasts
+class Translations$notificationToasts$zh_CN extends Translations$notificationToasts$en {
+  Translations$notificationToasts$zh_CN.internal(TranslationsZhCn root) : this._root = root, super.internal(root);
+
+  final TranslationsZhCn _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get appTitle => 'LocalSend';
+  @override
+  String startSingleFile({required Object file}) => '想给你发送文件：${file}';
+  @override
+  String startSingleFileNote({required Object note}) => '想给你发送 1 个文件：${note}';
+  @override
+  String startFiles({required Object count}) => '想给你发送 ${count} 个文件';
+  @override
+  String startFilesNote({required Object count, required Object note}) => '想给你发送 ${count} 个文件：${note}';
+  @override
+  String startFolderNamed({required Object folder, required Object count}) => '想给你发送文件夹（${folder}）：${count} 个文件';
+  @override
+  String startFolder({required Object count}) => '想给你发送一个文件夹（含 ${count} 个文件）';
+  @override
+  String startFolderNote({required Object count, required Object note}) => '想给你发送文件夹（含 ${count} 个文件）：${note}';
+  @override
+  String startMessage({required Object preview}) => '给你发送了一条消息：${preview}';
+  @override
+  String finishSingleFile({required Object file}) => '已接收：${file}';
+  @override
+  String finishFiles({required Object count}) => '已接收 ${count} 个文件';
+  @override
+  String finishFolder({required Object count}) => '已接收文件夹（含 ${count} 个文件）';
+  @override
+  String finishPartial({required Object count, required Object failed}) => '已接收 ${count} 个文件，${failed} 个失败';
+  @override
+  String get enabledNotice => 'Windows 通知功能已开启';
+  @override
+  String get enabledSnackbar => 'Windows 通知功能已开启';
+  @override
+  String failedSnackbar({required Object code}) => 'Windows 通知显示失败（错误码 ${code}）';
 }
 
 // Path: general
@@ -986,6 +1029,10 @@ class Translations$settingsTab$receive$zh_CN extends Translations$settingsTab$re
   String get saveToGallery => '保存到相册';
   @override
   String get saveToHistory => '保存到历史记录';
+  @override
+  String get toastOnRequest => '收到发送请求时显示通知';
+  @override
+  String get toastOnFinished => '接收完成时显示通知';
   @override
   String get verifyChecksums => '接收文件时验证校验和';
 }

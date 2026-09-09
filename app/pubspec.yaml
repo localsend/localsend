@@ -19,6 +19,7 @@ dependencies:
   device_apps: 2.2.0
   device_info_plus: 12.4.0
   dynamic_color: 1.8.1
+  ffi: ^2.2.0 # to load the additive Windows toast DLL (localsend_windows_notify)
   file_picker: 11.0.3
   file_selector: 1.1.0
   flex_color_picker: 3.8.0

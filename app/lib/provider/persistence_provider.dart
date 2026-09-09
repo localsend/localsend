@@ -83,6 +83,8 @@ const _saveToHistory = 'ls_save_to_history';
 const _quickSave = 'ls_quick_save'; // a QuickSaveMode; was a bool until storage version 2 ('ls_quick_save_from_favorites' is merged into this key)
 const _receivePin = 'ls_receive_pin';
 const _autoFinish = 'ls_auto_finish';
+const _toastOnRequest = 'ls_toast_on_request'; // Windows only
+const _toastOnFinished = 'ls_toast_on_finished'; // Windows only
 const _minimizeToTray = 'ls_minimize_to_tray';
 const _https = 'ls_https';
 const _sendMode = 'ls_send_mode';
@@ -480,6 +482,22 @@ class PersistenceService {
 
   Future<void> setAutoFinish(bool autoFinish) async {
     await _prefs.setBool(_autoFinish, autoFinish);
+  }
+
+  bool isToastOnRequest() {
+    return _prefs.getBool(_toastOnRequest) ?? false;
+  }
+
+  Future<void> setToastOnRequest(bool enabled) async {
+    await _prefs.setBool(_toastOnRequest, enabled);
+  }
+
+  bool isToastOnFinished() {
+    return _prefs.getBool(_toastOnFinished) ?? false;
+  }
+
+  Future<void> setToastOnFinished(bool enabled) async {
+    await _prefs.setBool(_toastOnFinished, enabled);
   }
 
   bool isMinimizeToTray() {

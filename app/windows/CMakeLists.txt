@@ -2,6 +2,9 @@
 cmake_minimum_required(VERSION 3.14)
 project(localsend_app LANGUAGES CXX)
 
+# Treat all sources as UTF-8; avoids C4819 on CJK code pages.
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /utf-8")
+
 # The name of the executable created for the application. Change this to change
 # the on-disk name of your application.
 set(BINARY_NAME "localsend_app")
@@ -76,7 +79,6 @@ install(TARGETS ${BINARY_NAME} RUNTIME DESTINATION "${CMAKE_INSTALL_PREFIX}"
 
 install(FILES
   "${BINARY_NAME}.exe.manifest"
-  "localsend_msix_helper.msix"
   "install_msix_helper.ps1"
   DESTINATION "${CMAKE_INSTALL_PREFIX}"
   COMPONENT Runtime)
@@ -92,6 +94,10 @@ if(PLUGIN_BUNDLED_LIBRARIES)
     DESTINATION "${INSTALL_BUNDLE_LIB_DIR}"
     COMPONENT Runtime)
 endif()
+
+# Optional additive module: Windows toast helper (FFI DLL), see
+# app/lib/util/native/windows_notification.dart.
+add_subdirectory("windows_notification")
 
 # Fully re-copy the assets directory on each build to avoid having stale files
 # from a previous install.

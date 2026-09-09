@@ -26,6 +26,8 @@ class SettingsState with SettingsStateMappable {
   final bool quickSaveFromFavorites; // automatically accept file requests from favorites
   final String? receivePin; // null = disabled
   final bool autoFinish; // automatically finish sessions
+  final bool toastOnRequest; // Windows only: toast when a send request arrives
+  final bool toastOnFinished; // Windows only: toast when receiving finishes
   final bool minimizeToTray; // minimize to tray instead of exiting the app
   final bool https;
   final SendMode sendMode;
@@ -58,6 +60,8 @@ class SettingsState with SettingsStateMappable {
     required this.quickSaveFromFavorites,
     required this.receivePin,
     required this.autoFinish,
+    required this.toastOnRequest,
+    required this.toastOnFinished,
     required this.minimizeToTray,
     required this.https,
     required this.sendMode,

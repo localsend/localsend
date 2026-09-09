@@ -105,6 +105,16 @@ class SettingsStateMapper extends ClassMapperBase<SettingsState> {
     'autoFinish',
     _$autoFinish,
   );
+  static bool _$toastOnRequest(SettingsState v) => v.toastOnRequest;
+  static const Field<SettingsState, bool> _f$toastOnRequest = Field(
+    'toastOnRequest',
+    _$toastOnRequest,
+  );
+  static bool _$toastOnFinished(SettingsState v) => v.toastOnFinished;
+  static const Field<SettingsState, bool> _f$toastOnFinished = Field(
+    'toastOnFinished',
+    _$toastOnFinished,
+  );
   static bool _$minimizeToTray(SettingsState v) => v.minimizeToTray;
   static const Field<SettingsState, bool> _f$minimizeToTray = Field(
     'minimizeToTray',
@@ -189,6 +199,8 @@ class SettingsStateMapper extends ClassMapperBase<SettingsState> {
     #quickSaveFromFavorites: _f$quickSaveFromFavorites,
     #receivePin: _f$receivePin,
     #autoFinish: _f$autoFinish,
+    #toastOnRequest: _f$toastOnRequest,
+    #toastOnFinished: _f$toastOnFinished,
     #minimizeToTray: _f$minimizeToTray,
     #https: _f$https,
     #sendMode: _f$sendMode,
@@ -223,6 +235,8 @@ class SettingsStateMapper extends ClassMapperBase<SettingsState> {
       quickSaveFromFavorites: data.dec(_f$quickSaveFromFavorites),
       receivePin: data.dec(_f$receivePin),
       autoFinish: data.dec(_f$autoFinish),
+      toastOnRequest: data.dec(_f$toastOnRequest),
+      toastOnFinished: data.dec(_f$toastOnFinished),
       minimizeToTray: data.dec(_f$minimizeToTray),
       https: data.dec(_f$https),
       sendMode: data.dec(_f$sendMode),
@@ -323,6 +337,8 @@ abstract class SettingsStateCopyWith<$R, $In extends SettingsState, $Out>
     bool? quickSaveFromFavorites,
     String? receivePin,
     bool? autoFinish,
+    bool? toastOnRequest,
+    bool? toastOnFinished,
     bool? minimizeToTray,
     bool? https,
     SendMode? sendMode,
@@ -385,6 +401,8 @@ class _SettingsStateCopyWithImpl<$R, $Out>
     bool? quickSaveFromFavorites,
     Object? receivePin = $none,
     bool? autoFinish,
+    bool? toastOnRequest,
+    bool? toastOnFinished,
     bool? minimizeToTray,
     bool? https,
     SendMode? sendMode,
@@ -418,6 +436,8 @@ class _SettingsStateCopyWithImpl<$R, $Out>
         #quickSaveFromFavorites: quickSaveFromFavorites,
       if (receivePin != $none) #receivePin: receivePin,
       if (autoFinish != null) #autoFinish: autoFinish,
+      if (toastOnRequest != null) #toastOnRequest: toastOnRequest,
+      if (toastOnFinished != null) #toastOnFinished: toastOnFinished,
       if (minimizeToTray != null) #minimizeToTray: minimizeToTray,
       if (https != null) #https: https,
       if (sendMode != null) #sendMode: sendMode,
@@ -458,6 +478,8 @@ class _SettingsStateCopyWithImpl<$R, $Out>
     ),
     receivePin: data.get(#receivePin, or: $value.receivePin),
     autoFinish: data.get(#autoFinish, or: $value.autoFinish),
+    toastOnRequest: data.get(#toastOnRequest, or: $value.toastOnRequest),
+    toastOnFinished: data.get(#toastOnFinished, or: $value.toastOnFinished),
     minimizeToTray: data.get(#minimizeToTray, or: $value.minimizeToTray),
     https: data.get(#https, or: $value.https),
     sendMode: data.get(#sendMode, or: $value.sendMode),

@@ -1,5 +1,23 @@
 {
   "appName": "LocalSend",
+  "notificationToasts": {
+    "appTitle": "LocalSend",
+    "startSingleFile": "Wants to send you: {file}",
+    "startSingleFileNote": "Wants to send you a file: {note}",
+    "startFiles": "Wants to send you {count} files",
+    "startFilesNote": "Wants to send you {count} files: {note}",
+    "startFolderNamed": "Wants to send you a folder ({folder}): {count} files",
+    "startFolder": "Wants to send you a folder with {count} files",
+    "startFolderNote": "Wants to send you a folder with {count} files: {note}",
+    "startMessage": "Sends you a message: {preview}",
+    "finishSingleFile": "Received {file}",
+    "finishFiles": "Received {count} files",
+    "finishFolder": "Received a folder with {count} files",
+    "finishPartial": "Received {count} files, {failed} failed",
+    "enabledNotice": "Windows notifications are now enabled",
+    "enabledSnackbar": "Windows notifications are enabled",
+    "failedSnackbar": "Windows notification could not be shown (code {code})"
+  },
   "general": {
     "accept": "Accept",
     "accepted": "Accepted",
@@ -122,6 +140,8 @@
       "downloads": "(Downloads)",
       "saveToGallery": "Save media to gallery",
       "saveToHistory": "Save to history",
+      "toastOnRequest": "Show a notification when a send request arrives",
+      "toastOnFinished": "Show a notification when receiving finishes",
       "verifyChecksums": "Verify checksums when receiving files"
     },
     "send": {

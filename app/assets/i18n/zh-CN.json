@@ -1,5 +1,23 @@
 {
   "appName": "LocalSend",
+  "notificationToasts": {
+    "appTitle": "LocalSend",
+    "startSingleFile": "想给你发送文件：{file}",
+    "startSingleFileNote": "想给你发送 1 个文件：{note}",
+    "startFiles": "想给你发送 {count} 个文件",
+    "startFilesNote": "想给你发送 {count} 个文件：{note}",
+    "startFolderNamed": "想给你发送文件夹（{folder}）：{count} 个文件",
+    "startFolder": "想给你发送一个文件夹（含 {count} 个文件）",
+    "startFolderNote": "想给你发送文件夹（含 {count} 个文件）：{note}",
+    "startMessage": "给你发送了一条消息：{preview}",
+    "finishSingleFile": "已接收：{file}",
+    "finishFiles": "已接收 {count} 个文件",
+    "finishFolder": "已接收文件夹（含 {count} 个文件）",
+    "finishPartial": "已接收 {count} 个文件，{failed} 个失败",
+    "enabledNotice": "Windows 通知功能已开启",
+    "enabledSnackbar": "Windows 通知功能已开启",
+    "failedSnackbar": "Windows 通知显示失败（错误码 {code}）"
+  },
   "general": {
     "accept": "接受",
     "accepted": "已接受",
@@ -122,6 +140,8 @@
       "downloads": "(下载)",
       "saveToGallery": "保存到相册",
       "saveToHistory": "保存到历史记录",
+      "toastOnRequest": "收到发送请求时显示通知",
+      "toastOnFinished": "接收完成时显示通知",
       "verifyChecksums": "接收文件时验证校验和"
     },
     "send": {

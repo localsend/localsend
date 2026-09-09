@@ -46,6 +46,7 @@ class Translations with BaseTranslations<AppLocale, Translations> {
   /// en: 'LocalSend'
   String get appName => 'LocalSend';
 
+  late final Translations$notificationToasts$en notificationToasts = Translations$notificationToasts$en.internal(_root);
   late final Translations$general$en general = Translations$general$en.internal(_root);
   late final Translations$receiveTab$en receiveTab = Translations$receiveTab$en.internal(_root);
   late final Translations$sendTab$en sendTab = Translations$sendTab$en.internal(_root);
@@ -73,6 +74,63 @@ class Translations with BaseTranslations<AppLocale, Translations> {
   late final Translations$tray$en tray = Translations$tray$en.internal(_root);
   late final Translations$web$en web = Translations$web$en.internal(_root);
   late final Translations$assetPicker$en assetPicker = Translations$assetPicker$en.internal(_root);
+}
+
+// Path: notificationToasts
+class Translations$notificationToasts$en {
+  Translations$notificationToasts$en.internal(this._root);
+
+  final Translations _root; // ignore: unused_field
+
+  // Translations
+
+  /// en: 'LocalSend'
+  String get appTitle => 'LocalSend';
+
+  /// en: 'Wants to send you: {file}'
+  String startSingleFile({required Object file}) => 'Wants to send you: ${file}';
+
+  /// en: 'Wants to send you a file: {note}'
+  String startSingleFileNote({required Object note}) => 'Wants to send you a file: ${note}';
+
+  /// en: 'Wants to send you {count} files'
+  String startFiles({required Object count}) => 'Wants to send you ${count} files';
+
+  /// en: 'Wants to send you {count} files: {note}'
+  String startFilesNote({required Object count, required Object note}) => 'Wants to send you ${count} files: ${note}';
+
+  /// en: 'Wants to send you a folder ({folder}): {count} files'
+  String startFolderNamed({required Object folder, required Object count}) => 'Wants to send you a folder (${folder}): ${count} files';
+
+  /// en: 'Wants to send you a folder with {count} files'
+  String startFolder({required Object count}) => 'Wants to send you a folder with ${count} files';
+
+  /// en: 'Wants to send you a folder with {count} files: {note}'
+  String startFolderNote({required Object count, required Object note}) => 'Wants to send you a folder with ${count} files: ${note}';
+
+  /// en: 'Sends you a message: {preview}'
+  String startMessage({required Object preview}) => 'Sends you a message: ${preview}';
+
+  /// en: 'Received {file}'
+  String finishSingleFile({required Object file}) => 'Received ${file}';
+
+  /// en: 'Received {count} files'
+  String finishFiles({required Object count}) => 'Received ${count} files';
+
+  /// en: 'Received a folder with {count} files'
+  String finishFolder({required Object count}) => 'Received a folder with ${count} files';
+
+  /// en: 'Received {count} files, {failed} failed'
+  String finishPartial({required Object count, required Object failed}) => 'Received ${count} files, ${failed} failed';
+
+  /// en: 'Windows notifications are now enabled'
+  String get enabledNotice => 'Windows notifications are now enabled';
+
+  /// en: 'Windows notifications are enabled'
+  String get enabledSnackbar => 'Windows notifications are enabled';
+
+  /// en: 'Windows notification could not be shown (code {code})'
+  String failedSnackbar({required Object code}) => 'Windows notification could not be shown (code ${code})';
 }
 
 // Path: general
@@ -1132,6 +1190,12 @@ class Translations$settingsTab$receive$en {
 
   /// en: 'Save to history'
   String get saveToHistory => 'Save to history';
+
+  /// en: 'Show a notification when a send request arrives'
+  String get toastOnRequest => 'Show a notification when a send request arrives';
+
+  /// en: 'Show a notification when receiving finishes'
+  String get toastOnFinished => 'Show a notification when receiving finishes';
 
   /// en: 'Verify checksums when receiving files'
   String get verifyChecksums => 'Verify checksums when receiving files';
