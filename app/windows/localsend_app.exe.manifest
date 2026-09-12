@@ -2,7 +2,7 @@
 <assembly manifestVersion="1.0" xmlns="urn:schemas-microsoft-com:asm.v1">
   <assemblyIdentity version="0.0.0.0" name="localsendapp" />
   <msix xmlns="urn:schemas-microsoft-com:msix.v1"
-          publisher="CN=SignPath Foundation, O=SignPath Foundation, C=US, S=DE, L=Lewes"
+          publisher="CN=Tien Do Nam, O=Tien Do Nam, L=Berlin, C=DE"
           packageName="LocalSend.App"
           applicationId="localsendapp"
         />
