@@ -3,7 +3,7 @@ use serde::{Deserialize, Serialize};
 use std::path::PathBuf;
 use tokio::sync::mpsc;
 
-/// Limit file read-ahead to 2 MiB for each active transfer.
+/// Limit queued file read-ahead to 2 MiB per active stream.
 const FILE_CHANNEL_CAPACITY: usize = 4;
 
 /// Buffer size used when reading a file into chunks.
