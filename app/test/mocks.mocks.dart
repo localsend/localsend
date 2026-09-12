@@ -13,12 +13,13 @@ import 'package:localsend_app/model/persistence/favorite_device.dart' as _i7;
 import 'package:localsend_app/model/persistence/quick_save_mode.dart' as _i12;
 import 'package:localsend_app/model/persistence/receive_history_entry.dart' as _i6;
 import 'package:localsend_app/model/send_mode.dart' as _i13;
+import 'package:localsend_app/model/send_order.dart' as _i14;
 import 'package:localsend_app/provider/persistence_provider.dart' as _i4;
-import 'package:localsend_isolates/model/device.dart' as _i14;
+import 'package:localsend_isolates/model/device.dart' as _i15;
 import 'package:localsend_isolates/model/stored_security_context.dart' as _i2;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:mockito/src/dummies.dart' as _i8;
-import 'package:shared_preferences/shared_preferences.dart' as _i15;
+import 'package:shared_preferences/shared_preferences.dart' as _i16;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -570,6 +571,42 @@ class MockPersistenceService extends _i1.Mock implements _i4.PersistenceService 
           as _i5.Future<void>);
 
   @override
+  _i14.SendOrder getSendOrder() =>
+      (super.noSuchMethod(
+            Invocation.method(#getSendOrder, []),
+            returnValue: _i14.SendOrder.selection,
+            returnValueForMissingStub: _i14.SendOrder.selection,
+          )
+          as _i14.SendOrder);
+
+  @override
+  _i5.Future<void> setSendOrder(_i14.SendOrder? order) =>
+      (super.noSuchMethod(
+            Invocation.method(#setSendOrder, [order]),
+            returnValue: _i5.Future<void>.value(),
+            returnValueForMissingStub: _i5.Future<void>.value(),
+          )
+          as _i5.Future<void>);
+
+  @override
+  int getSendConcurrency() =>
+      (super.noSuchMethod(
+            Invocation.method(#getSendConcurrency, []),
+            returnValue: 0,
+            returnValueForMissingStub: 0,
+          )
+          as int);
+
+  @override
+  _i5.Future<void> setSendConcurrency(int? concurrency) =>
+      (super.noSuchMethod(
+            Invocation.method(#setSendConcurrency, [concurrency]),
+            returnValue: _i5.Future<void>.value(),
+            returnValueForMissingStub: _i5.Future<void>.value(),
+          )
+          as _i5.Future<void>);
+
+  @override
   _i5.Future<void> setWindowOffsetX(double? x) =>
       (super.noSuchMethod(
             Invocation.method(#setWindowOffsetX, [x]),
@@ -642,7 +679,7 @@ class MockPersistenceService extends _i1.Mock implements _i4.PersistenceService 
           as bool);
 
   @override
-  _i5.Future<void> setDeviceType(_i14.DeviceType? deviceType) =>
+  _i5.Future<void> setDeviceType(_i15.DeviceType? deviceType) =>
       (super.noSuchMethod(
             Invocation.method(#setDeviceType, [deviceType]),
             returnValue: _i5.Future<void>.value(),
@@ -681,7 +718,7 @@ class MockPersistenceService extends _i1.Mock implements _i4.PersistenceService 
 /// A class which mocks [SharedPreferences].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockSharedPreferences extends _i1.Mock implements _i15.SharedPreferences {
+class MockSharedPreferences extends _i1.Mock implements _i16.SharedPreferences {
   @override
   Set<String> getKeys() =>
       (super.noSuchMethod(

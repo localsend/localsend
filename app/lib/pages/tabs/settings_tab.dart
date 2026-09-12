@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:localsend_app/config/theme.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/model/persistence/color_mode.dart';
+import 'package:localsend_app/model/send_concurrency.dart';
+import 'package:localsend_app/model/send_order.dart';
 import 'package:localsend_app/pages/about/about_page.dart';
 import 'package:localsend_app/pages/changelog_page.dart';
 import 'package:localsend_app/pages/donation/donation_page.dart';
@@ -291,6 +293,38 @@ class SettingsTab extends StatelessWidget {
                     onChanged: (b) async {
                       await ref.notifier(settingsProvider).setCreateChecksums(b);
                     },
+                  ),
+                  _SettingsEntry(
+                    label: t.settingsTab.send.order,
+                    child: CustomDropdownButton<SendOrder>(
+                      value: vm.settings.sendOrder,
+                      items: SendOrder.values.map((sendOrder) {
+                        return DropdownMenuItem(
+                          value: sendOrder,
+                          alignment: Alignment.center,
+                          child: Text(sendOrder.humanName, overflow: TextOverflow.ellipsis),
+                        );
+                      }).toList(),
+                      onChanged: (sendOrder) async {
+                        await ref.notifier(settingsProvider).setSendOrder(sendOrder);
+                      },
+                    ),
+                  ),
+                  _SettingsEntry(
+                    label: t.settingsTab.send.concurrency,
+                    child: CustomDropdownButton<int>(
+                      value: vm.settings.sendConcurrency,
+                      items: sendConcurrencyOptions.map((concurrency) {
+                        return DropdownMenuItem(
+                          value: concurrency,
+                          alignment: Alignment.center,
+                          child: Text(concurrency.toString()),
+                        );
+                      }).toList(),
+                      onChanged: (concurrency) async {
+                        await ref.notifier(settingsProvider).setSendConcurrency(concurrency);
+                      },
+                    ),
                   ),
                 ],
               ),
@@ -758,6 +792,16 @@ extension on ThemeMode {
       case ThemeMode.dark:
         return t.settingsTab.general.brightnessOptions.dark;
     }
+  }
+}
+
+extension on SendOrder {
+  String get humanName {
+    return switch (this) {
+      SendOrder.selection => t.settingsTab.send.orderOptions.selection,
+      SendOrder.smallestFirst => t.settingsTab.send.orderOptions.smallestFirst,
+      SendOrder.largestFirst => t.settingsTab.send.orderOptions.largestFirst,
+    };
   }
 }
 

@@ -999,6 +999,12 @@ class Translations$settingsTab$send$pt_BR extends Translations$settingsTab$send$
   String get shareViaLinkAutoAccept => 'Aceitar solicitações por link automaticamente';
   @override
   String get createChecksums => 'Criar checksums ao enviar arquivos';
+  @override
+  String get order => 'Ordem de envio dos arquivos';
+  @override
+  late final Translations$settingsTab$send$orderOptions$pt_BR orderOptions = Translations$settingsTab$send$orderOptions$pt_BR.internal(_root);
+  @override
+  String get concurrency => 'Arquivos enviados ao mesmo tempo';
 }
 
 // Path: settingsTab.network
@@ -1606,6 +1612,21 @@ class Translations$settingsTab$general$languageOptions$pt_BR extends Translation
   // Translations
   @override
   String get system => 'Sistema';
+}
+
+// Path: settingsTab.send.orderOptions
+class Translations$settingsTab$send$orderOptions$pt_BR extends Translations$settingsTab$send$orderOptions$en {
+  Translations$settingsTab$send$orderOptions$pt_BR.internal(TranslationsPtBr root) : this._root = root, super.internal(root);
+
+  final TranslationsPtBr _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get selection => 'Ordem de seleção';
+  @override
+  String get smallestFirst => 'Menores primeiro';
+  @override
+  String get largestFirst => 'Maiores primeiro';
 }
 
 // Path: settingsTab.network.networkOptions
