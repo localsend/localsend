@@ -1,15 +1,15 @@
-name: Linux build
+name: Build linux x64 AppImage
 
 on:
   workflow_dispatch:
+  workflow_call:
 
 env:
   FLUTTER_VERSION: "3.41.9"
-  APK_BUILD_DIR: "/tmp/build"
 
 jobs:
   build:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-latest
     outputs:
       version: ${{ steps.get_version.outputs.version }}
 
@@ -18,42 +18,16 @@ jobs:
 
       - name: Get version from pubspec.yaml
         id: get_version
-        working-directory: app
         run: |
-          VERSION=$(sed -n 's/^version: \([0-9]*\.[0-9]*\.[0-9]*\).*/\1/p' pubspec.yaml)
+          VERSION=$(sed -n 's/^version: \([0-9]*\.[0-9]*\.[0-9]*\).*/\1/p' app/pubspec.yaml)
           echo "version=$VERSION" >> $GITHUB_OUTPUT
 
-      - uses: subosito/flutter-action@v2
-        with:
-          flutter-version: ${{ env.FLUTTER_VERSION }}
-          channel: "stable"
-
-      - name: Dependencies
-        working-directory: app
-        run: flutter pub get
-
-      - name: Build generated files
-        working-directory: app
-        run: dart run build_runner build -d
-
-      - name: Upload updated lib files with generated code
-        uses: actions/upload-artifact@v6
-        with:
-          name: lib-files
-          path: ./app/lib/*
-
-  build_appimage:
+  build_appimage_x86_64:
     needs: build
     runs-on: ubuntu-22.04
 
     steps:
       - uses: actions/checkout@v6
-
-      - name: Download generated files
-        uses: actions/download-artifact@v7
-        with:
-          name: lib-files
-          path: app/lib
 
       - name: Install dependencies
         run: |
@@ -65,6 +39,15 @@ jobs:
           flutter-version: ${{ env.FLUTTER_VERSION }}
           channel: "stable"
 
+      - name: Install Rust
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+
+      - name: Check rust-toolchain.toml
+        working-directory: packages/localsend_isolates
+        run: rustup show
+
       - name: Dependencies
         working-directory: app
         run: flutter pub get
@@ -74,28 +57,29 @@ jobs:
         run: flutter build linux
 
       - name: Copy compiled linux files
-        working-directory: app
         run: |
           mkdir AppDir
-          cp -r build/linux/x64/release/bundle/* AppDir/
+          cp -r app/build/linux/x64/release/bundle/* AppDir/
 
       - name: Copy logo to AppDir
-        working-directory: app
         run: |
           mkdir -p AppDir/usr/share/icons/hicolor/32x32/apps
-          cp assets/img/logo-32.png AppDir/usr/share/icons/hicolor/32x32/apps/localsend.png
+          cp app/assets/img/logo-32.png AppDir/usr/share/icons/hicolor/32x32/apps/localsend.png
           mkdir -p AppDir/usr/share/icons/hicolor/128x128/apps
-          cp assets/img/logo-128.png AppDir/usr/share/icons/hicolor/128x128/apps/localsend.png
+          cp app/assets/img/logo-128.png AppDir/usr/share/icons/hicolor/128x128/apps/localsend.png
           mkdir -p AppDir/usr/share/icons/hicolor/256x256/apps
-          cp assets/img/logo-256.png AppDir/usr/share/icons/hicolor/256x256/apps/localsend.png
+          cp app/assets/img/logo-256.png AppDir/usr/share/icons/hicolor/256x256/apps/localsend.png
+
+      - name: Copy Recipe to correct location
+        run: cp support/build/appimage/AppImageBuilder_x86_64.yml AppImageBuilder.yml
 
       - name: Build AppImage
         uses: AppImageCrafters/build-appimage@57c3bc6963f870ce3be103117de5b5e33ffbaeb6
         with:
-          recipe: ./app/AppImageBuilder.yml
+          recipe: ./AppImageBuilder.yml
 
       - name: Upload AppImage file
         uses: actions/upload-artifact@v6
         with:
-          name: appimage-result
-          path: ./app/*.AppImage
+          name: appimage-x86-64-result
+          path: ./*.AppImage

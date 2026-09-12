@@ -1,4 +1,4 @@
-name: Build arm64 AppImage
+name: Build linux arm64 AppImage
 
 on:
   workflow_dispatch:
@@ -8,7 +8,7 @@ env:
 
 jobs:
   build:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     outputs:
       version: ${{ steps.get_version.outputs.version }}
 

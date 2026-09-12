@@ -1,14 +1,15 @@
-name: Build arm64 tar
+name: Build linux arm64 tar
 
 on:
   workflow_dispatch:
+  workflow_call:
 
 env:
   FLUTTER_VERSION: "3.41.9"
 
 jobs:
   build:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     outputs:
       version: ${{ steps.get_version.outputs.version }}
 

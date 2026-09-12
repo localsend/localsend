@@ -2,13 +2,14 @@ name: Build windows zip
 
 on:
   workflow_dispatch:
+  workflow_call:
 
 env:
   FLUTTER_VERSION: "3.41.9"
 
 jobs:
   build:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-latest
     outputs:
       version: ${{ steps.get_version.outputs.version }}
 
@@ -25,6 +26,9 @@ jobs:
     needs: build
     runs-on: windows-latest
     environment: packaging
+    permissions:
+      id-token: write # OIDC token for Azure login
+      contents: read
 
     steps:
       - name: Fix long file paths
@@ -53,6 +57,32 @@ jobs:
         working-directory: app
         run: flutter build windows
 
+      - name: Azure login
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+      # Sign before "Add DLL files" so the Microsoft-signed CRT DLLs keep their original signature
+      - name: Sign app binaries (Azure Trusted Signing)
+        uses: azure/trusted-signing-action@v0
+        with:
+          endpoint: https://neu.codesigning.azure.net/
+          trusted-signing-account-name: tienisto
+          certificate-profile-name: localsend
+          files-folder: ${{ github.workspace }}\app\build\windows\x64\runner\Release
+          files-folder-filter: exe,dll
+          file-digest: SHA256
+          timestamp-rfc3161: http://timestamp.acs.microsoft.com
+          timestamp-digest: SHA256
+
+      - name: Verify signature
+        continue-on-error: true
+        run: |
+          $signtool = Get-ChildItem 'C:\Program Files (x86)\Windows Kits\10\bin\10.*\x64\signtool.exe' | Select-Object -Last 1
+          & $signtool.FullName verify /pa /v app\build\windows\x64\runner\Release\localsend_app.exe
+
       - name: Create empty settings.json
         working-directory: app
         run: echo {} > build/windows/x64/runner/Release/settings.json
@@ -72,40 +102,13 @@ jobs:
           Remove-Item build/windows/x64/runner/Release/install_msix_helper.ps1
           Remove-Item build/windows/x64/runner/Release/localsend_app.exe.manifest
 
-      # The SignPath artifact configuration expects "LocalSend-*-windows-*-64.zip" containing "localsend_app.exe"
       - name: Zip compiled files
         working-directory: app
         run: Compress-Archive -Path build/windows/x64/runner/Release/* -DestinationPath "LocalSend-${{ needs.build.outputs.version }}-windows-x86-64.zip"
-
-      - name: Upload unsigned zip
-        id: unsigned-zip
-        uses: actions/upload-artifact@v6
-        with:
-          name: windows-zip-unsigned
-          path: app/LocalSend-${{ needs.build.outputs.version }}-windows-x86-64.zip
-          if-no-files-found: error
-
-      - name: Sign zip (SignPath)
-        uses: signpath/github-action-submit-signing-request@v2
-        with:
-          api-token: ${{ secrets.SIGNPATH_API_TOKEN }}
-          organization-id: ${{ vars.SIGNPATH_ORG_ID }}
-          project-slug: localsend
-          signing-policy-slug: test-signing
-          artifact-configuration-slug: portable
-          github-artifact-id: ${{ steps.unsigned-zip.outputs.artifact-id }}
-          wait-for-completion: true
-          output-artifact-directory: signed/portable
-
-      - name: Verify signature
-        continue-on-error: true
-        run: |
-          Expand-Archive -Path "signed\portable\LocalSend-${{ needs.build.outputs.version }}-windows-x86-64.zip" -DestinationPath verify-portable
-          $signtool = Get-ChildItem 'C:\Program Files (x86)\Windows Kits\10\bin\10.*\x64\signtool.exe' | Select-Object -Last 1
-          & $signtool.FullName verify /pa /v verify-portable\localsend_app.exe
 
       - name: Upload signed zip
         uses: actions/upload-artifact@v6
         with:
           name: windows-zip-x86-64-result
-          path: signed/portable/LocalSend-${{ needs.build.outputs.version }}-windows-x86-64.zip
+          path: app/LocalSend-${{ needs.build.outputs.version }}-windows-x86-64.zip
+          if-no-files-found: error
