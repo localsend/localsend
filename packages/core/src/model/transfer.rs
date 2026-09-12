@@ -3,8 +3,8 @@ use serde::{Deserialize, Serialize};
 use std::path::PathBuf;
 use tokio::sync::mpsc;
 
-/// Channel capacity used when normalizing a file-backed [`FileContent`] into a stream.
-const FILE_CHANNEL_CAPACITY: usize = 16;
+/// Limit file read-ahead to 2 MiB for each active transfer.
+const FILE_CHANNEL_CAPACITY: usize = 4;
 
 /// Buffer size used when reading a file into chunks.
 const READ_BUFFER_SIZE: usize = 512 * 1024;
