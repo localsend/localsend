@@ -1,7 +1,8 @@
-name: Compile APK
+name: Build Android APK
 
 on:
   workflow_dispatch:
+  workflow_call:
 
 env:
   FLUTTER_VERSION: "3.41.9"
@@ -9,7 +10,7 @@ env:
 
 jobs:
   build:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-latest
     outputs:
       version: ${{ steps.get_version.outputs.version }}
 
@@ -65,6 +66,10 @@ jobs:
         uses: actions-rs/toolchain@v1
         with:
           toolchain: stable
+
+      - name: Check rust-toolchain.toml
+        working-directory: ${{ env.APK_BUILD_DIR }}/packages/localsend_isolates
+        run: rustup show
 
       - name: Dependencies
         working-directory: ${{ env.APK_BUILD_DIR }}/app

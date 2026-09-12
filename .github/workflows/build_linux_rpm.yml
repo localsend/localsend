@@ -1,4 +1,4 @@
-name: Build rpm package
+name: Build linux rpm
 
 on:
   workflow_dispatch:
@@ -8,7 +8,7 @@ env:
 
 jobs:
   build:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-latest
     outputs:
       version: ${{ steps.get_version.outputs.version }}
 

@@ -2,10 +2,11 @@ name: Build windows CLI exe
 
 on:
   workflow_dispatch:
+  workflow_call:
 
 jobs:
   build:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-latest
     outputs:
       version: ${{ steps.get_version.outputs.version }}
 
@@ -32,6 +33,9 @@ jobs:
             signtool_arch: arm64
     runs-on: ${{ matrix.runner }}
     environment: packaging
+    permissions:
+      id-token: write # OIDC token for Azure login
+      contents: read
 
     steps:
       - name: Checkout repository
@@ -43,38 +47,37 @@ jobs:
       - name: Compile CLI
         run: cargo build --release --package localsend-cli
 
-      # The SignPath artifact configuration expects "LocalSend-CLI-*-windows-*-64.exe"
       - name: Rename CLI executable
         run: Rename-Item -Path "target\release\localsend-cli.exe" -NewName "LocalSend-CLI-${{ needs.build.outputs.version }}-windows-${{ matrix.suffix }}.exe"
 
-      - name: Upload unsigned CLI
-        id: unsigned-cli
-        uses: actions/upload-artifact@v6
+      - name: Azure login
+        uses: azure/login@v2
         with:
-          name: windows-cli-exe-${{ matrix.suffix }}-unsigned
-          path: target\release\LocalSend-CLI-${{ needs.build.outputs.version }}-windows-${{ matrix.suffix }}.exe
-          if-no-files-found: error
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
-      - name: Sign CLI (SignPath)
-        uses: signpath/github-action-submit-signing-request@v2
+      - name: Sign CLI (Azure Trusted Signing)
+        uses: azure/trusted-signing-action@v0
         with:
-          api-token: ${{ secrets.SIGNPATH_API_TOKEN }}
-          organization-id: ${{ vars.SIGNPATH_ORG_ID }}
-          project-slug: localsend
-          signing-policy-slug: test-signing
-          artifact-configuration-slug: cli
-          github-artifact-id: ${{ steps.unsigned-cli.outputs.artifact-id }}
-          wait-for-completion: true
-          output-artifact-directory: signed/cli
+          endpoint: https://neu.codesigning.azure.net/
+          trusted-signing-account-name: tienisto
+          certificate-profile-name: localsend
+          files-folder: ${{ github.workspace }}\target\release
+          files-folder-filter: exe
+          file-digest: SHA256
+          timestamp-rfc3161: http://timestamp.acs.microsoft.com
+          timestamp-digest: SHA256
 
       - name: Verify signature
         continue-on-error: true
         run: |
           $signtool = Get-ChildItem 'C:\Program Files (x86)\Windows Kits\10\bin\10.*\${{ matrix.signtool_arch }}\signtool.exe' | Select-Object -Last 1
-          & $signtool.FullName verify /pa /v "signed\cli\LocalSend-CLI-${{ needs.build.outputs.version }}-windows-${{ matrix.suffix }}.exe"
+          & $signtool.FullName verify /pa /v "target\release\LocalSend-CLI-${{ needs.build.outputs.version }}-windows-${{ matrix.suffix }}.exe"
 
       - name: Upload signed CLI
         uses: actions/upload-artifact@v6
         with:
           name: windows-cli-exe-${{ matrix.suffix }}-result
-          path: signed/cli/LocalSend-CLI-${{ needs.build.outputs.version }}-windows-${{ matrix.suffix }}.exe
+          path: target\release\LocalSend-CLI-${{ needs.build.outputs.version }}-windows-${{ matrix.suffix }}.exe
+          if-no-files-found: error
