@@ -24,11 +24,11 @@ static void my_application_activate(GApplication* application) {
   GtkWindow* window =
       GTK_WINDOW(gtk_application_window_new(GTK_APPLICATION(application)));
 
-  // Check if --hidden is present in arguments
+  // Check if --hidden or --help is present in arguments
   bool start_hidden = false;
   if (self->dart_entrypoint_arguments != nullptr) {
     for (int i = 0; self->dart_entrypoint_arguments[i] != nullptr; i++) {
-      if (strcmp(self->dart_entrypoint_arguments[i], "--hidden") == 0) {
+      if (strcmp(self->dart_entrypoint_arguments[i], "--hidden") == 0 || strcmp(self->dart_entrypoint_arguments[i], "--help") == 0) {
         start_hidden = true;
         break;
       }
