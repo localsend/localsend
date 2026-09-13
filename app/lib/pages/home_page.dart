@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:bitsdojo_window/bitsdojo_window.dart';
+import 'package:cross_file/cross_file.dart';
 import 'package:desktop_drop/desktop_drop.dart';
 import 'package:flutter/material.dart';
 import 'package:localsend_app/config/init.dart';
@@ -44,26 +45,55 @@ class HomePage extends StatefulWidget {
   /// It is important for the initializing step
   /// because the first init clears the cache
   final bool appStart;
+  final List<String> argsForinitalTab;
 
   const HomePage({
     required this.initialTab,
     required this.appStart,
+    required this.argsForinitalTab,
     super.key,
   });
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<HomePage> createState() => _HomePageState(argsForinitalTab: argsForinitalTab);
 }
 
 class _HomePageState extends State<HomePage> with Refena {
   bool _dragAndDropIndicator = false;
+  final List<String> argsForinitalTab;
+
+  _HomePageState({
+    required this.argsForinitalTab,
+  });
 
   @override
   void initState() {
     super.initState();
+    List<XFile> files = [];
+
+    for (final file in argsForinitalTab) {
+      files.add(XFile(file));
+    }
 
     ensureRef((ref) async {
-      ref.redux(homePageControllerProvider).dispatch(ChangeTabAction(widget.initialTab));
+      if (files.isNotEmpty) {
+        if (files.length == 1 && Directory(files.first.path).existsSync()) {
+          await ref.redux(selectedSendingFilesProvider).dispatchAsync(AddDirectoryAction(files.first.path));
+        } else {
+          await ref
+              .redux(selectedSendingFilesProvider)
+              .dispatchAsync(
+                AddFilesAction(
+                  files: files,
+                  converter: CrossFileConverters.convertXFile,
+                ),
+              );
+        }
+        ref.redux(homePageControllerProvider).dispatch(ChangeTabAction(HomeTab.send));
+      } else {
+        ref.redux(homePageControllerProvider).dispatch(ChangeTabAction(widget.initialTab));
+      }
+
       await postInit(context, ref, widget.appStart);
     });
   }

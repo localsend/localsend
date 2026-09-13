@@ -44,7 +44,6 @@ import 'package:localsend_isolates/model/dto/file_dto.dart';
 import 'package:localsend_isolates/model/dto/multicast_dto.dart';
 import 'package:localsend_isolates/rust/api/logging.dart' as rust_logging;
 import 'package:localsend_isolates/rust/frb_generated.dart';
-import 'package:localsend_isolates/util/logger.dart';
 import 'package:localsend_isolates/util/transfer_notification.dart';
 import 'package:logging/logging.dart';
 import 'package:refena_flutter/refena_flutter.dart';
@@ -57,7 +56,6 @@ final _logger = Logger('Init');
 Future<RefenaContainer> preInit(List<String> args) async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  initLogger(args.contains('-v') || args.contains('--verbose') ? Level.ALL : Level.INFO);
   MapperContainer.globals.use(const FileDtoMapper());
 
   await RustLib.init();

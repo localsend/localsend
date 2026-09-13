@@ -270,7 +270,13 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
 
       if (state[sessionId]?.background == false) {
         // ignore: use_build_context_synchronously, unawaited_futures
-        Routerino.context.pushRootImmediately(() => const HomePage(initialTab: HomeTab.send, appStart: false));
+        Routerino.context.pushRootImmediately(
+          () => const HomePage(
+            initialTab: HomeTab.send,
+            appStart: false,
+            argsForinitalTab: [],
+          ),
+        );
       }
 
       closeSession(sessionId);
