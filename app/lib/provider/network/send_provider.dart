@@ -392,6 +392,14 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
         // and removing routes without animation orphans a hero in flight.
         ref.redux(homePageControllerProvider).dispatch(ChangeTabAction(HomeTab.send));
         ref.global.dispatch(NavigateAction.popUntilRoot());
+        // ignore: use_build_context_synchronously, unawaited_futures
+        Routerino.context.pushRootImmediately(
+          () => const HomePage(
+            initialTab: HomeTab.send,
+            appStart: false,
+            argsForinitalTab: [],
+          ),
+        );
       }
 
       closeSession(sessionId);
