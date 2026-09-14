@@ -3,6 +3,7 @@ import FlutterMacOS
 import Defaults
 import DockProgress
 import LaunchAtLogin
+import CoreServices
 
 enum DockIcon: CaseIterable {
     case regular
@@ -190,6 +191,22 @@ class AppDelegate: FlutterAppDelegate {
         case "openFirewallSettings":
             openFirewallSettings()
             result(nil)
+        case "quarantineReceivedAppArchive":
+            guard let path = call.arguments as? String else {
+                result(FlutterError(code: "INVALID_ARGUMENT", message: "Expected a file path", details: nil))
+                return
+            }
+
+            do {
+                let url = URL(fileURLWithPath: path)
+                let properties: [String: Any] = [
+                    kLSQuarantineTypeKey as String: kLSQuarantineTypeOtherDownload as String
+                ]
+                try (url as NSURL).setResourceValue(properties, forKey: .quarantinePropertiesKey)
+                result(nil)
+            } catch {
+                result(FlutterError(code: "QUARANTINE_FAILED", message: "Failed to quarantine received app archive", details: error.localizedDescription))
+            }
         default:
             result(FlutterMethodNotImplemented)
         }
