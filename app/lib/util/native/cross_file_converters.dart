@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:localsend_app/model/cross_file.dart';
 import 'package:localsend_app/util/native/channel/android_channel.dart' as android_channel;
+import 'package:localsend_app/util/native/macos_app_archive.dart';
 import 'package:localsend_isolates/model/file_type.dart';
 import 'package:localsend_isolates/rust/api/metadata.dart';
 import 'package:localsend_isolates/util/file_path_helper.dart';
@@ -30,6 +31,9 @@ class CrossFileConverters {
   }
 
   static Future<CrossFile> convertXFile(XFile file) async {
+    if (!kIsWeb && isMacosApp(Directory(file.path)) && await Directory(file.path).exists()) {
+      return archiveMacosAppForSending(Directory(file.path));
+    }
     final metadata = kIsWeb ? null : await readFileMetadata(path: file.path);
     return CrossFile(
       name: file.name,
@@ -45,6 +49,9 @@ class CrossFileConverters {
   }
 
   static Future<CrossFile> convertFile(File file) async {
+    if (isMacosApp(Directory(file.path)) && await Directory(file.path).exists()) {
+      return archiveMacosAppForSending(Directory(file.path));
+    }
     final metadata = await readFileMetadata(path: file.path);
     return CrossFile(
       name: file.path.fileName,
@@ -75,6 +82,9 @@ class CrossFileConverters {
   }
 
   static Future<CrossFile> convertSharedAttachment(SharedAttachment attachment) async {
+    if (isMacosApp(Directory(attachment.path)) && await Directory(attachment.path).exists()) {
+      return archiveMacosAppForSending(Directory(attachment.path));
+    }
     final file = File(attachment.path);
     final fileName = attachment.path.fileName;
     final metadata = await readFileMetadata(path: file.path);
@@ -100,6 +110,21 @@ class CrossFileConverters {
       size: await file.length(),
       asset: null,
       path: app.apkFilePath,
+      bytes: null,
+      lastModified: null,
+      lastAccessed: null,
+    );
+  }
+
+  static Future<CrossFile> archiveMacosAppForSending(Directory app) async {
+    final archive = await archiveMacosApp(app, await macosAppArchiveCache());
+    return CrossFile(
+      name: archive.path.fileName,
+      fileType: FileType.other,
+      size: await archive.length(),
+      thumbnail: null,
+      asset: null,
+      path: archive.path,
       bytes: null,
       lastModified: null,
       lastAccessed: null,

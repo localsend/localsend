@@ -5,6 +5,7 @@ import 'dart:isolate';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/services.dart';
+import 'package:localsend_app/util/native/macos_app_archive.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_isolates/util/file_path_helper.dart';
 import 'package:localsend_isolates/util/logger.dart';
@@ -32,6 +33,13 @@ Future<void> _clear(RootIsolateToken token) async {
   BackgroundIsolateBinaryMessenger.ensureInitialized(token);
 
   final futures = (
+    Platform.isMacOS
+        ? macosAppArchiveCache().then((directory) async {
+            if (await directory.exists()) {
+              await directory.delete(recursive: true);
+            }
+          })
+        : Future.value(),
     FilePicker.clearTemporaryFiles(),
     PhotoManager.clearFileCache(),
     checkPlatform([TargetPlatform.iOS, TargetPlatform.android])
