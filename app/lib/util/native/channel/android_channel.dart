@@ -39,6 +39,31 @@ Future<List<FileInfo>?> pickFilesAndroid() async {
   return result.map((e) => FileInfoMapper.fromJson((e as Map).cast<String, dynamic>())).toList();
 }
 
+/// Returns a variant of [uri] that resolves to the unredacted original file, so the
+/// location EXIF tags survive. Falls back to [uri] when the platform cannot grant it,
+/// because losing the tags beats failing the whole selection.
+Future<String> getOriginalMediaUriAndroid({required String uri}) async {
+  try {
+    return await _methodChannel.invokeMethod<String>('getOriginalMediaUri', {'uri': uri}) ?? uri;
+  } catch (e) {
+    _logger.warning('Could not resolve the original media URI for $uri', e);
+    return uri;
+  }
+}
+
+/// Returns a JPEG thumbnail of [uri] no larger than [size] in either dimension.
+///
+/// Null when the platform cannot provide one, which leaves it to the caller to fall
+/// back to decoding the file itself.
+Future<Uint8List?> getContentThumbnailAndroid({required String uri, required int size}) async {
+  try {
+    return await _methodChannel.invokeMethod<Uint8List>('getContentThumbnail', {'uri': uri, 'size': size});
+  } catch (e) {
+    _logger.warning('Could not load thumbnail for $uri', e);
+    return null;
+  }
+}
+
 /// Returns the global "Download" directory, e.g. /storage/emulated/0/Download.
 Future<String?> getDownloadsDirectoryAndroid() async {
   try {
@@ -73,14 +98,38 @@ Future<void> openContentUri({
   });
 }
 
-/// Tells MainActivity that the Dart side is now subscribed to the share_handler media stream,
-/// so share intents that were held back during app start can be replayed.
-Future<void> flushPendingShareIntentsAndroid() async {
+/// Tells MainActivity that the Dart side is ready for share intents, and returns the ones
+/// that were held back during app start.
+///
+/// Only the shares carrying files come back here. Text-only ones are replayed natively
+/// through share_handler and arrive on its media stream instead.
+Future<List<SharedPayload>> notifyShareIntentReadyAndroid() async {
   try {
-    await _methodChannel.invokeMethod('shareIntentReady');
+    final result = await _methodChannel.invokeMethod<List>('shareIntentReady');
+    return (result ?? []).map((e) => _parseSharedPayload(e as Map)).toList();
   } catch (e) {
-    _logger.warning('Could not flush pending share intents', e);
+    _logger.warning('Could not read the pending share intents', e);
+    return [];
   }
+}
+
+/// Registers [onShared] for shares arriving while the app is already running.
+void setSharedFilesHandlerAndroid(Future<void> Function(SharedPayload) onShared) {
+  _methodChannel.setMethodCallHandler((call) async {
+    if (call.method != 'onSharedFiles') {
+      _logger.warning('Unknown method call from MainActivity: ${call.method}');
+      return null;
+    }
+    await onShared(_parseSharedPayload(call.arguments as Map));
+    return null;
+  });
+}
+
+SharedPayload _parseSharedPayload(Map payload) {
+  return SharedPayload(
+    files: (payload['files'] as List).map((e) => FileInfoMapper.fromJson((e as Map).cast<String, dynamic>())).toList(),
+    text: payload['text'] as String?,
+  );
 }
 
 Future<void> openGallery() async {
@@ -96,6 +145,20 @@ class PickDirectoryResult with PickDirectoryResultMappable {
   PickDirectoryResult({
     required this.directoryUri,
     required this.files,
+  });
+}
+
+/// A share intent carrying files, as content:// URIs so that nothing has to be copied.
+@MappableClass()
+class SharedPayload with SharedPayloadMappable {
+  final List<FileInfo> files;
+
+  /// Text sent alongside the files, e.g. the caption or link accompanying them.
+  final String? text;
+
+  SharedPayload({
+    required this.files,
+    required this.text,
   });
 }
 
