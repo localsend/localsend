@@ -1,3 +1,7 @@
+## Unreleased
+
+- fix(macos): file sharing via Share Extension doesn't work in DMG builds (@ShlomoCode, @vdmkotai)
+
 ## 1.18.2 (2026-08-21)
 
 - feat: drag and drop files into the "Receive via link" browser page
