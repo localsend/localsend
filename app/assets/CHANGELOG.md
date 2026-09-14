@@ -1,5 +1,6 @@
 ## Unreleased
 
+- fix(macos): preserve application bundles by sending them as ZIP archives
 - fix(macos): file sharing via Share Extension doesn't work in DMG builds (@ShlomoCode, @vdmkotai)
 
 ## 1.18.2 (2026-08-21)

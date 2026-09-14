@@ -6,6 +6,7 @@ import 'package:localsend_app/model/cross_file.dart';
 import 'package:localsend_app/util/native/cache_helper.dart';
 import 'package:localsend_app/util/native/channel/android_channel.dart' as android_channel;
 import 'package:localsend_app/util/native/cross_file_converters.dart';
+import 'package:localsend_app/util/native/macos_app_archive.dart';
 import 'package:localsend_app/util/send_ignore.dart';
 import 'package:localsend_isolates/model/file_type.dart';
 import 'package:localsend_isolates/rust/api/metadata.dart';
@@ -158,8 +159,18 @@ class AddDirectoryAction extends AsyncReduxAction<SelectedSendingFilesNotifier, 
     final newFiles = <CrossFile>[];
     final directoryName = p.basename(directoryPath);
     final sendIgnore = SendIgnore();
-    await for (final entity in Directory(directoryPath).list(recursive: true)) {
-      if (entity is File) {
+    await for (final entity in listSendingEntries(Directory(directoryPath))) {
+      if (entity is Directory && isMacosApp(entity)) {
+        final innerRelative = p.relative(entity.path, from: directoryPath).replaceAll('\\', '/');
+        if (sendIgnore.isIgnored(innerRelative)) {
+          continue;
+        }
+        final archive = await CrossFileConverters.archiveMacosAppForSending(entity);
+        final file = archive.copyWith(name: innerRelative == '.' ? '$directoryName.zip' : '$directoryName/$innerRelative.zip');
+        if (!state.any((element) => element.isSameFile(otherFile: file))) {
+          newFiles.add(file);
+        }
+      } else if (entity is File) {
         final innerRelative = p.relative(entity.path, from: directoryPath).replaceAll('\\', '/');
         final relative = '$directoryName/$innerRelative';
         if (sendIgnore.isIgnoreFile(p.basename(entity.path))) {
