@@ -23,6 +23,7 @@ import 'package:localsend_app/provider/selection/selected_receiving_files_provid
 import 'package:localsend_app/provider/selection/selected_sending_files_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/util/native/directories.dart';
+import 'package:localsend_app/util/native/macos_channel.dart' as macos_channel;
 import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_app/util/native/tray_helper.dart';
 import 'package:localsend_app/widget/dialogs/open_file_dialog.dart';
@@ -335,7 +336,21 @@ class ReceiveController {
 
     final fileType = receivingFile.file.fileType;
     final filePath = event.path;
-    final error = event.error;
+    var error = event.error;
+
+    final receivedFileName = receivingFile.file.fileName;
+    if (error == null && checkPlatform([TargetPlatform.macOS]) && macos_channel.isReceivedAppArchive(receivedFileName)) {
+      if (filePath == null || filePath.isEmpty) {
+        error = 'Could not quarantine the received app archive because its saved path is unavailable.';
+      } else {
+        try {
+          await macos_channel.quarantineReceivedAppArchive(path: filePath, receivedFileName: receivedFileName);
+        } catch (e, st) {
+          _logger.severe('Failed to quarantine received app archive', e, st);
+          error = e.humanErrorMessage;
+        }
+      }
+    }
 
     if (error == null) {
       server.ref.notifier(fileTransferProvider).setStatus(sessionId: event.sessionId, fileId: fileId, status: FileStatus.finished);

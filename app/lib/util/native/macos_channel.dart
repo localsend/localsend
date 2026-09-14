@@ -58,6 +58,15 @@ Future<void> openFirewallSettings() async {
   await _methodChannel.invokeMethod('openFirewallSettings');
 }
 
+bool isReceivedAppArchive(String fileName) => fileName.toLowerCase().endsWith('.app.zip');
+
+Future<void> quarantineReceivedAppArchive({required String path, required String receivedFileName}) async {
+  if (!isReceivedAppArchive(receivedFileName)) {
+    return;
+  }
+  await _methodChannel.invokeMethod('quarantineReceivedAppArchive', path);
+}
+
 // This happens:
 /// - on macOS when text is dropped onto the app Dock icon
 /// - on macOS when text is dropped onto the app menu bar icon
