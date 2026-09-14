@@ -86,7 +86,7 @@ jobs:
 
       # Sign before "Add DLL files" so the Microsoft-signed CRT DLLs keep their original signature
       - name: Sign app binaries (Azure Trusted Signing)
-        uses: azure/trusted-signing-action@v0
+        uses: azure/trusted-signing-action@v2
         with:
           endpoint: https://neu.codesigning.azure.net/
           trusted-signing-account-name: tienisto
