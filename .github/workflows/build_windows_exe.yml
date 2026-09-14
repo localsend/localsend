@@ -59,7 +59,7 @@ jobs:
       # signing the surrounding installer does not cover it. Sign before "flutter build windows"
       # so CMake bundles the signed msix into the Release directory.
       - name: Sign MSIX helper (Azure Trusted Signing)
-        uses: azure/trusted-signing-action@v0
+        uses: azure/trusted-signing-action@v2
         with:
           endpoint: https://neu.codesigning.azure.net/
           trusted-signing-account-name: tienisto
@@ -85,7 +85,7 @@ jobs:
         run: flutter build windows
 
       - name: Sign app binaries (Azure Trusted Signing)
-        uses: azure/trusted-signing-action@v0
+        uses: azure/trusted-signing-action@v2
         with:
           endpoint: https://neu.codesigning.azure.net/
           trusted-signing-account-name: tienisto
