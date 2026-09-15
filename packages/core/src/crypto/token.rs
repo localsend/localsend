@@ -156,8 +156,13 @@ pub fn verify_token_timestamp(public_key: &dyn VerifyingTokenKey, token: &str) -
             )
         };
 
+        // `checked_sub` rejects timestamps from the future instead of
+        // underflowing on a salt the peer chose.
         let now_seconds = util::time::unix_timestamp_u64()?;
-        if now_seconds - salt > 60 * 60 {
+        let age = now_seconds
+            .checked_sub(salt)
+            .ok_or_else(|| anyhow::anyhow!("Fingerprint timestamp is in the future"))?;
+        if age > 60 * 60 {
             // Fingerprint is older than 1h, reject
             return Err(anyhow::anyhow!("Fingerprint timestamp expired"));
         }
@@ -183,8 +188,23 @@ pub fn verify_token_with_result(
     token: &str,
     verify_salt: impl Fn(&[u8]) -> anyhow::Result<()>,
 ) -> anyhow::Result<()> {
-    let parts: Vec<&str> = token.split('.').collect();
-    let [hash_method, hash_base64, salt_base64, sign_method, signature_base64] = parts[0..5] else {
+    // Taken one by one instead of slicing a collected `Vec`: indexing a
+    // shorter one panics, and the token comes from the peer.
+    let mut parts = token.split('.');
+    let (
+        Some(hash_method),
+        Some(hash_base64),
+        Some(salt_base64),
+        Some(sign_method),
+        Some(signature_base64),
+    ) = (
+        parts.next(),
+        parts.next(),
+        parts.next(),
+        parts.next(),
+        parts.next(),
+    )
+    else {
         return Err(anyhow::anyhow!("Invalid structure"));
     };
 
@@ -254,6 +274,29 @@ mod tests {
         let fingerprint = generate_token_timestamp(&key).unwrap();
         let verified = verify_token_timestamp(&*key.to_verifying_key(), &fingerprint);
         assert!(verified);
+    }
+
+    /// A peer-supplied token with fewer than 5 dot-separated parts must be
+    /// rejected, not panic: the token is read straight off the WebRTC data
+    /// channel.
+    #[test]
+    fn test_malformed_token_is_rejected() {
+        let key = generate_key();
+        let verifying = key.to_verifying_key();
+        for token in ["", "a", "sha256.a", "sha256.a.b.ed25519"] {
+            assert!(!verify_token_nonce(&*verifying, token, b"nonce"));
+            assert!(!verify_token_timestamp(&*verifying, token));
+        }
+    }
+
+    /// A salt in the future must be rejected rather than underflow the age
+    /// computation.
+    #[test]
+    fn test_future_token_timestamp_is_rejected() {
+        let key = generate_key();
+        let future = (util::time::unix_timestamp_u64().unwrap() + 3600).to_le_bytes();
+        let token = generate_token_nonce(&key, &future).unwrap();
+        assert!(!verify_token_timestamp(&*key.to_verifying_key(), &token));
     }
 
     #[test]
