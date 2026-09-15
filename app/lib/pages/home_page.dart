@@ -11,6 +11,7 @@ import 'package:localsend_app/pages/tabs/send_tab.dart';
 import 'package:localsend_app/pages/tabs/settings_tab.dart';
 import 'package:localsend_app/provider/selection/selected_sending_files_provider.dart';
 import 'package:localsend_app/util/native/cross_file_converters.dart';
+import 'package:localsend_app/widget/liquid_glass_bottom_bar.dart';
 import 'package:localsend_app/widget/responsive_builder.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 
@@ -105,10 +106,12 @@ class _HomePageState extends State<HomePage> with Refena {
       },
       child: ResponsiveBuilder(
         builder: (sizingInformation) {
+          final isMobile = sizingInformation.isMobile;
           return Scaffold(
+            extendBody: isMobile,
             body: Row(
               children: [
-                if (!sizingInformation.isMobile)
+                if (!isMobile)
                   NavigationRail(
                     selectedIndex: vm.currentTab.index,
                     onDestinationSelected: (index) => vm.changeTab(HomeTab.values[index]),
@@ -136,7 +139,8 @@ class _HomePageState extends State<HomePage> with Refena {
                   ),
                 Expanded(
                   child: SafeArea(
-                    left: sizingInformation.isMobile,
+                    left: isMobile,
+                    bottom: false,
                     child: Stack(
                       children: [
                         PageView(
@@ -163,21 +167,30 @@ class _HomePageState extends State<HomePage> with Refena {
                               ],
                             ),
                           ),
+                        if (isMobile)
+                          Positioned(
+                            left: 0,
+                            right: 0,
+                            bottom: 0,
+                            child: Padding(
+                              padding: EdgeInsets.only(
+                                bottom: MediaQuery.of(context).padding.bottom,
+                              ),
+                              child: LiquidGlassBottomBar(
+                                selectedIndex: vm.currentTab.index,
+                                onDestinationSelected: (index) => vm.changeTab(HomeTab.values[index]),
+                                destinations: HomeTab.values.map((tab) {
+                                  return NavigationDestination(icon: Icon(tab.icon), label: tab.label);
+                                }).toList(),
+                              ),
+                            ),
+                          ),
                       ],
                     ),
                   ),
                 ),
               ],
             ),
-            bottomNavigationBar: sizingInformation.isMobile
-                ? NavigationBar(
-                    selectedIndex: vm.currentTab.index,
-                    onDestinationSelected: (index) => vm.changeTab(HomeTab.values[index]),
-                    destinations: HomeTab.values.map((tab) {
-                      return NavigationDestination(icon: Icon(tab.icon), label: tab.label);
-                    }).toList(),
-                  )
-                : null,
           );
         },
       ),
