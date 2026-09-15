@@ -963,6 +963,12 @@ class Translations$receiveTab$infoBox$en {
 
   /// en: 'Device name:'
   String get alias => 'Device name:';
+
+  /// en: 'Show QR code'
+  String get showQrCode => 'Show QR code';
+
+  /// en: 'Scan to connect'
+  String get qrCodeLabel => 'Scan to connect';
 }
 
 // Path: receiveTab.quickSave

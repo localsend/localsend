@@ -59,6 +59,7 @@ extension AppLocaleExt on AppLocale {
       AppLocale.it => 'Italiano',
       AppLocale.ja => '日本語',
       AppLocale.km => 'ភាសាខ្មែរ',
+      AppLocale.ky => 'Кыргызча',
       AppLocale.ko => '한국어',
       AppLocale.lo => 'ລາວ',
       AppLocale.ml => 'മലയാളം',
