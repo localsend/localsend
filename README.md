@@ -75,6 +75,13 @@ It is recommended to download the app either from an app store or from a package
 
 Read more about [distribution channels][].
 
+### Command Line Interface (CLI)
+
+Since v1.18.0, LocalSend provides a standalone Command Line Interface.
+You can download the binaries directly from the [latest release][latest] (look for `LocalSend-CLI-...`).
+
+*(Note: The main desktop app also supports command line arguments, such as `--text` or `-t` to start a text share from the terminal).*
+
 Windows binaries are signed. Read more about the [Code signing policy][].
 
 > [!CAUTION]
