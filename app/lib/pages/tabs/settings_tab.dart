@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:localsend_app/config/theme.dart';
@@ -386,6 +387,11 @@ class SettingsTab extends StatelessWidget {
                             if (Platform.isMacOS) {
                               final result = await Process.run('scutil', ['--get', 'ComputerName']);
                               newAlias = result.stdout.toString().trim();
+                            } else if (Platform.isAndroid) {
+                              final deviceInfo = await DeviceInfoPlugin().androidInfo;
+                              final brand = deviceInfo.brand;
+                              final model = deviceInfo.model;
+                              newAlias = model.toLowerCase().startsWith(brand.toLowerCase()) ? model : '$brand $model';
                             } else {
                               newAlias = Platform.localHostname;
                             }
