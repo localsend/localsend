@@ -17,6 +17,38 @@ enum TrayEntry {
   close,
 }
 
+/// Linux tray icon path: Flatpak uses a themed icon name; other builds pick a
+/// monochrome asset from [brightness] so light panels stay readable.
+@visibleForTesting
+String resolveLinuxTrayIcon({required bool isFlatpak, required Brightness brightness}) {
+  if (isFlatpak) {
+    // Must exist in /app/share/icons/hicolor/*x*/apps.
+    return 'org.localsend.localsend_app-tray';
+  }
+  return brightness == Brightness.dark ? Assets.img.logo32White.path : Assets.img.logo32Black.path;
+}
+
+Future<void> _setLinuxTrayIcon() async {
+  final icon = resolveLinuxTrayIcon(
+    isFlatpak: await File('/.flatpak-info').exists(),
+    brightness: PlatformDispatcher.instance.platformBrightness,
+  );
+  _logger.info('Using "$icon" as path of system tray icon');
+  await tm.trayManager.setIcon(icon);
+}
+
+/// Re-apply the Linux tray icon after OS light/dark changes.
+Future<void> updateLinuxTrayIcon() async {
+  if (!checkPlatform([TargetPlatform.linux])) {
+    return;
+  }
+  try {
+    await _setLinuxTrayIcon();
+  } catch (e) {
+    _logger.warning('Failed to update tray icon', e);
+  }
+}
+
 Future<void> initTray() async {
   if (!checkPlatformHasTray()) {
     return;
@@ -28,15 +60,7 @@ Future<void> initTray() async {
       // The menu bar icon will created in AppDelegate.swift
       return;
     } else if (checkPlatform([TargetPlatform.linux])) {
-      String icon;
-      if (await File('/.flatpak-info').exists()) {
-        // Icon for Flatpak, which must exist in /app/share/icons/hicolor/*x*/apps.
-        icon = 'org.localsend.localsend_app-tray';
-      } else {
-        icon = Assets.img.logo32White.path;
-      }
-      _logger.info('Using "$icon" as path of system tray icon');
-      await tm.trayManager.setIcon(icon);
+      await _setLinuxTrayIcon();
     } else {
       await tm.trayManager.setIcon(Assets.img.logo32.path);
     }
