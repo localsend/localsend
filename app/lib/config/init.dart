@@ -57,6 +57,23 @@ import 'package:window_manager/window_manager.dart';
 
 final _logger = Logger('Init');
 
+@visibleForTesting
+Future<void> startReceiveServerDuringPreInit({
+  required bool isDesktop,
+  required Future<void> Function() startServer,
+  required void Function(Object error, StackTrace stackTrace) onError,
+}) async {
+  if (!isDesktop) {
+    return;
+  }
+
+  try {
+    await startServer();
+  } catch (error, stackTrace) {
+    onError(error, stackTrace);
+  }
+}
+
 /// Will be called before the MaterialApp started
 Future<RefenaContainer> preInit(List<String> args) async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -176,6 +193,19 @@ Future<RefenaContainer> preInit(List<String> args) async {
   );
 
   await container.redux(parentIsolateProvider).dispatchAsync(IsolateSetupAction());
+
+  // The receive server must start before the widget tree is mounted. When a
+  // desktop app launches hidden, HomePage may not be built, so postInit() may
+  // never run until the window is opened manually.
+  await startReceiveServerDuringPreInit(
+    isDesktop: checkPlatformIsDesktop(),
+    startServer: () async {
+      await container.notifier(serverProvider).startServerFromSettings();
+    },
+    onError: (error, stackTrace) {
+      _logger.warning('Starting receive server during initialization failed', error, stackTrace);
+    },
+  );
 
   return container;
 }
