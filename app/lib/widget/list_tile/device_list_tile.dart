@@ -65,7 +65,7 @@ class DeviceListTile extends StatelessWidget {
               DeviceBadge(
                 backgroundColor: badgeColor,
                 foregroundColor: Theme.of(context).colorScheme.onSecondaryContainer,
-                label: 'HTTP',
+                label: device.https ? 'HTTPS' : 'HTTP',
               )
             else
               DeviceBadge(
