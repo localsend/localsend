@@ -39,3 +39,4 @@ categories:
   - Utility
 
 startup_notify: true
+startup_wm_class: org.localsend.localsend_app
