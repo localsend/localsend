@@ -14,6 +14,7 @@ class SettingsState with SettingsStateMappable {
   final ThemeMode theme;
   final ColorMode colorMode;
   final Color customColor; // seed color for ColorMode.custom
+  final int? colorIntensity; // null = default Material tone mapping; see config/theme.dart
   final AppLocale? locale;
   final int port;
   final List<String>? networkWhitelist; // null = disabled
@@ -46,6 +47,7 @@ class SettingsState with SettingsStateMappable {
     required this.theme,
     required this.colorMode,
     required this.customColor,
+    required this.colorIntensity,
     required this.locale,
     required this.port,
     required this.networkWhitelist,

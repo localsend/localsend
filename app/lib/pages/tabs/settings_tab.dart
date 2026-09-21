@@ -83,6 +83,17 @@ class SettingsTab extends StatelessWidget {
                     onChanged: (colorMode) => vm.onChangeColorMode(context, colorMode),
                   ),
                 ),
+                if (vm.advanced && (vm.settings.colorMode == ColorMode.system || vm.settings.colorMode == ColorMode.custom))
+                  _SettingsEntry(
+                    label: t.settingsTab.general.colorIntensity,
+                    child: TextFieldTv(
+                      name: t.settingsTab.general.colorIntensity,
+                      controller: vm.colorIntensityController,
+                      onChanged: (s) async {
+                        await ref.notifier(settingsProvider).setColorIntensity(int.tryParse(s));
+                      },
+                    ),
+                  ),
                 _ButtonEntry(
                   label: t.settingsTab.general.language,
                   buttonLabel: vm.settings.locale?.getLocaleName() ?? t.settingsTab.general.languageOptions.system,

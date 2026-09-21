@@ -6,9 +6,15 @@ class DynamicColors {
   final ColorScheme light;
   final ColorScheme dark;
 
+  /// The raw seed color the system reported (accent color / core palette key color).
+  /// Kept around so callers can re-derive a [ColorScheme] with a different tone mapping
+  /// instead of the default Material fromSeed() algorithm.
+  final Color seedColor;
+
   const DynamicColors({
     required this.light,
     required this.dark,
+    required this.seedColor,
   });
 }
 
@@ -25,6 +31,7 @@ Future<DynamicColors?> getDynamicColors() async {
       return DynamicColors(
         light: corePalette.toColorScheme(),
         dark: corePalette.toColorScheme(brightness: Brightness.dark),
+        seedColor: Color(corePalette.primary.get(40)),
       );
     }
   } catch (e) {
@@ -44,6 +51,7 @@ Future<DynamicColors?> getDynamicColors() async {
           seedColor: accentColor,
           brightness: Brightness.dark,
         ),
+        seedColor: accentColor,
       );
     }
   } catch (e) {
