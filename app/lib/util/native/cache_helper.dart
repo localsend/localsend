@@ -20,20 +20,24 @@ final _logger = Logger('ClearCacheAction');
 /// Clears the cache.
 /// It runs on a separate isolate to avoid blocking the UI.
 class ClearCacheAction extends AsyncGlobalAction {
+  final bool clearMacosAppArchives;
+
+  ClearCacheAction({this.clearMacosAppArchives = false});
+
   @override
   Future<void> reduce() async {
     // The token statement must be outside the lambda because it must be executed on the root isolate.
     final token = ServicesBinding.rootIsolateToken!;
-    await Isolate.run(() => _clear(token));
+    await Isolate.run(() => _clear(token, clearMacosAppArchives));
   }
 }
 
-Future<void> _clear(RootIsolateToken token) async {
+Future<void> _clear(RootIsolateToken token, bool clearMacosAppArchives) async {
   initLogger(Level.ALL);
   BackgroundIsolateBinaryMessenger.ensureInitialized(token);
 
   final futures = (
-    Platform.isMacOS
+    Platform.isMacOS && clearMacosAppArchives
         ? macosAppArchiveCache().then((directory) async {
             if (await directory.exists()) {
               await directory.delete(recursive: true);

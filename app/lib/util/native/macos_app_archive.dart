@@ -1,11 +1,13 @@
-import 'dart:convert';
 import 'dart:io';
 
-import 'package:crypto/crypto.dart';
+import 'package:localsend_app/model/cross_file.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 
 bool isMacosApp(Directory directory) => Platform.isMacOS && p.extension(p.normalize(directory.path)).toLowerCase() == '.app';
+
+/// A selected app has no archive size until a transfer is started.
+bool isPendingMacosAppArchive(CrossFile file) => file.size == -1 && file.path != null && isMacosApp(Directory(file.path!));
 
 /// Keeps application bundles intact instead of enumerating their contents.
 Stream<FileSystemEntity> listSendingEntries(Directory directory, {Set<String> ancestors = const {}}) async* {
@@ -30,16 +32,11 @@ Stream<FileSystemEntity> listSendingEntries(Directory directory, {Set<String> an
 
 Future<Directory> macosAppArchiveCache() async => Directory(p.join((await getTemporaryDirectory()).path, 'localsend-app-archives'));
 
-/// Reuses the snapshot while selected, including when sending to several peers.
+/// Creates a fresh snapshot for each transfer so a later selection cannot reuse stale contents.
 Future<File> archiveMacosApp(Directory app, Directory cache) async {
-  final id = sha256.convert(utf8.encode(p.normalize(app.absolute.path))).toString();
-  final directory = Directory(p.join(cache.path, id));
+  await cache.create(recursive: true);
+  final directory = await cache.createTemp('app-');
   final archive = File(p.join(directory.path, '${p.basename(p.normalize(app.path))}.zip'));
-  if (await archive.exists()) {
-    return archive;
-  }
-
-  await directory.create(recursive: true);
   final pending = File('${archive.path}.partial');
   try {
     final result = await Process.run('/usr/bin/ditto', [
@@ -58,9 +55,7 @@ Future<File> archiveMacosApp(Directory app, Directory cache) async {
     }
     return await pending.rename(archive.path);
   } catch (_) {
-    if (await pending.exists()) {
-      await pending.delete();
-    }
+    await directory.delete(recursive: true);
     rethrow;
   }
 }

@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/provider/selection/selected_sending_files_provider.dart';
+import 'package:localsend_app/util/native/macos_app_archive.dart';
 import 'package:localsend_app/util/native/open_file.dart';
 import 'package:localsend_app/util/ui/nav_bar_padding.dart';
 import 'package:localsend_app/widget/dialogs/message_input_dialog.dart';
@@ -42,7 +43,13 @@ class SelectedFilesPage extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(t.sendTab.selection.files(files: selectedFiles.length)),
-                        Text(t.sendTab.selection.size(size: selectedFiles.fold(0, (prev, curr) => prev + curr.size).asReadableFileSize)),
+                        Text(
+                          t.sendTab.selection.size(
+                            size: selectedFiles.any(isPendingMacosAppArchive)
+                                ? '—'
+                                : selectedFiles.fold<int>(0, (prev, curr) => prev + curr.size).asReadableFileSize,
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -79,7 +86,7 @@ class SelectedFilesPage extends StatelessWidget {
                       splashFactory: NoSplash.splashFactory,
                       highlightColor: Colors.transparent,
                       hoverColor: Colors.transparent,
-                      onTap: file.path != null ? () async => openFile(context, file.fileType, file.path!) : null,
+                      onTap: file.path != null && !isPendingMacosAppArchive(file) ? () async => openFile(context, file.fileType, file.path!) : null,
                       child: Card(
                         child: Padding(
                           padding: const EdgeInsets.all(10),
@@ -97,7 +104,10 @@ class SelectedFilesPage extends StatelessWidget {
                                       overflow: TextOverflow.fade,
                                       softWrap: false,
                                     ),
-                                    Text(file.size.asReadableFileSize, style: Theme.of(context).textTheme.bodySmall),
+                                    Text(
+                                      isPendingMacosAppArchive(file) ? '—' : file.size.asReadableFileSize,
+                                      style: Theme.of(context).textTheme.bodySmall,
+                                    ),
                                   ],
                                 ),
                               ),

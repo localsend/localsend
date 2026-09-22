@@ -9,8 +9,31 @@ import 'package:localsend_app/util/native/macos_app_archive.dart';
 import 'package:localsend_isolates/model/file_type.dart';
 import 'package:localsend_isolates/rust/api/metadata.dart';
 import 'package:localsend_isolates/util/file_path_helper.dart';
+import 'package:logging/logging.dart';
+import 'package:path/path.dart' as p;
 import 'package:share_handler/share_handler.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
+
+final _logger = Logger('PreparedSendingFiles');
+
+class PreparedSendingFiles {
+  final List<CrossFile> files;
+  final List<Directory> archiveDirectories;
+
+  PreparedSendingFiles(this.files, this.archiveDirectories);
+
+  Future<void> dispose() async {
+    for (final directory in archiveDirectories) {
+      try {
+        if (await directory.exists()) {
+          await directory.delete(recursive: true);
+        }
+      } catch (e) {
+        _logger.warning('Could not delete application archive at ${directory.path}', e);
+      }
+    }
+  }
+}
 
 /// Utility functions to convert third party models to common [CrossFile] model.
 class CrossFileConverters {
@@ -32,7 +55,7 @@ class CrossFileConverters {
 
   static Future<CrossFile> convertXFile(XFile file) async {
     if (!kIsWeb && isMacosApp(Directory(file.path)) && await Directory(file.path).exists()) {
-      return archiveMacosAppForSending(Directory(file.path));
+      return selectMacosAppForSending(Directory(file.path));
     }
     final metadata = kIsWeb ? null : await readFileMetadata(path: file.path);
     return CrossFile(
@@ -50,7 +73,7 @@ class CrossFileConverters {
 
   static Future<CrossFile> convertFile(File file) async {
     if (isMacosApp(Directory(file.path)) && await Directory(file.path).exists()) {
-      return archiveMacosAppForSending(Directory(file.path));
+      return selectMacosAppForSending(Directory(file.path));
     }
     final metadata = await readFileMetadata(path: file.path);
     return CrossFile(
@@ -83,7 +106,7 @@ class CrossFileConverters {
 
   static Future<CrossFile> convertSharedAttachment(SharedAttachment attachment) async {
     if (isMacosApp(Directory(attachment.path)) && await Directory(attachment.path).exists()) {
-      return archiveMacosAppForSending(Directory(attachment.path));
+      return selectMacosAppForSending(Directory(attachment.path));
     }
     final file = File(attachment.path);
     final fileName = attachment.path.fileName;
@@ -116,19 +139,50 @@ class CrossFileConverters {
     );
   }
 
-  static Future<CrossFile> archiveMacosAppForSending(Directory app) async {
-    final archive = await archiveMacosApp(app, await macosAppArchiveCache());
+  static CrossFile selectMacosAppForSending(Directory app) {
     return CrossFile(
-      name: archive.path.fileName,
+      name: '${p.basename(p.normalize(app.path))}.zip',
       fileType: FileType.other,
-      size: await archive.length(),
+      size: -1,
       thumbnail: null,
       asset: null,
-      path: archive.path,
+      path: app.path,
       bytes: null,
       lastModified: null,
       lastAccessed: null,
     );
+  }
+
+  static Future<CrossFile> prepareMacosAppForSending(CrossFile file) async {
+    if (!isPendingMacosAppArchive(file)) {
+      return file;
+    }
+
+    final archive = await archiveMacosApp(Directory(file.path!), await macosAppArchiveCache());
+    try {
+      return file.copyWith(path: archive.path, size: await archive.length());
+    } catch (_) {
+      await archive.parent.delete(recursive: true);
+      rethrow;
+    }
+  }
+
+  static Future<PreparedSendingFiles> prepareFilesForSending(List<CrossFile> files) async {
+    final prepared = <CrossFile>[];
+    final archiveDirectories = <Directory>[];
+    try {
+      for (final file in files) {
+        final preparedFile = await prepareMacosAppForSending(file);
+        prepared.add(preparedFile);
+        if (isPendingMacosAppArchive(file)) {
+          archiveDirectories.add(File(preparedFile.path!).parent);
+        }
+      }
+    } catch (_) {
+      await PreparedSendingFiles(prepared, archiveDirectories).dispose();
+      rethrow;
+    }
+    return PreparedSendingFiles(prepared, archiveDirectories);
   }
 }
 
