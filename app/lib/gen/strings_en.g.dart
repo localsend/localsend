@@ -1154,6 +1154,12 @@ class Translations$settingsTab$send$en {
   /// en: 'Send'
   String get title => 'Send';
 
+  /// en: 'Send Live Photo video'
+  String get sendLivePhotoVideo => 'Send Live Photo video';
+
+  /// en: 'When selecting a Live Photo, send both the photo and its paired video.'
+  String get sendLivePhotoVideoDescription => 'When selecting a Live Photo, send both the photo and its paired video.';
+
   /// en: 'Automatically accept requests in "Share via link" mode'
   String get shareViaLinkAutoAccept => 'Automatically accept requests in "Share via link" mode';
 

@@ -283,24 +283,39 @@ class SettingsTab extends StatelessWidget {
                   ),
               ],
             ),
-            if (vm.advanced)
+            if (vm.advanced || checkPlatform([TargetPlatform.iOS]))
               _SettingsSection(
                 title: t.settingsTab.send.title,
                 children: [
-                  _BooleanEntry(
-                    label: t.settingsTab.send.shareViaLinkAutoAccept,
-                    value: vm.settings.shareViaLinkAutoAccept,
-                    onChanged: (b) async {
-                      await ref.notifier(settingsProvider).setShareViaLinkAutoAccept(b);
-                    },
-                  ),
-                  _BooleanEntry(
-                    label: t.settingsTab.send.createChecksums,
-                    value: vm.settings.createChecksums,
-                    onChanged: (b) async {
-                      await ref.notifier(settingsProvider).setCreateChecksums(b);
-                    },
-                  ),
+                  if (checkPlatform([TargetPlatform.iOS])) ...[
+                    _BooleanEntry(
+                      label: t.settingsTab.send.sendLivePhotoVideo,
+                      value: vm.settings.sendLivePhotoVideo,
+                      onChanged: (b) async {
+                        await ref.notifier(settingsProvider).setSendLivePhotoVideo(b);
+                      },
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 15),
+                      child: Text(t.settingsTab.send.sendLivePhotoVideoDescription, style: Theme.of(context).textTheme.bodySmall),
+                    ),
+                  ],
+                  if (vm.advanced) ...[
+                    _BooleanEntry(
+                      label: t.settingsTab.send.shareViaLinkAutoAccept,
+                      value: vm.settings.shareViaLinkAutoAccept,
+                      onChanged: (b) async {
+                        await ref.notifier(settingsProvider).setShareViaLinkAutoAccept(b);
+                      },
+                    ),
+                    _BooleanEntry(
+                      label: t.settingsTab.send.createChecksums,
+                      value: vm.settings.createChecksums,
+                      onChanged: (b) async {
+                        await ref.notifier(settingsProvider).setCreateChecksums(b);
+                      },
+                    ),
+                  ],
                 ],
               ),
             _SettingsSection(

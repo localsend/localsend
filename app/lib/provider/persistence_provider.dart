@@ -80,6 +80,7 @@ const _multicastGroupKey = 'ls_multicast_group';
 const _destinationKey = 'ls_destination';
 const _saveToGallery = 'ls_save_to_gallery';
 const _saveAsLivePhoto = 'ls_save_as_live_photo';
+const _sendLivePhotoVideo = 'ls_send_live_photo_video';
 const _saveToHistory = 'ls_save_to_history';
 const _quickSave = 'ls_quick_save'; // a QuickSaveMode; was a bool until storage version 2 ('ls_quick_save_from_favorites' is merged into this key)
 const _receivePin = 'ls_receive_pin';
@@ -444,6 +445,14 @@ class PersistenceService {
 
   Future<void> setSaveAsLivePhoto(bool saveAsLivePhoto) async {
     await _prefs.setBool(_saveAsLivePhoto, saveAsLivePhoto);
+  }
+
+  bool getSendLivePhotoVideo() {
+    return _prefs.getBool(_sendLivePhotoVideo) ?? false;
+  }
+
+  Future<void> setSendLivePhotoVideo(bool sendLivePhotoVideo) async {
+    await _prefs.setBool(_sendLivePhotoVideo, sendLivePhotoVideo);
   }
 
   bool isSaveToHistory() {

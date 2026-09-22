@@ -1004,6 +1004,10 @@ class Translations$settingsTab$send$zh_CN extends Translations$settingsTab$send$
   @override
   String get title => '发送';
   @override
+  String get sendLivePhotoVideo => '发送实况视频';
+  @override
+  String get sendLivePhotoVideoDescription => '选择实况照片时，同时发送照片和配套视频。';
+  @override
   String get shareViaLinkAutoAccept => '通过链接分享：自动同意接收请求';
   @override
   String get createChecksums => '发送文件时创建校验和';

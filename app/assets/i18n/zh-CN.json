@@ -127,6 +127,8 @@
     },
     "send": {
       "title": "发送",
+      "sendLivePhotoVideo": "发送实况视频",
+      "sendLivePhotoVideoDescription": "选择实况照片时，同时发送照片和配套视频。",
       "shareViaLinkAutoAccept": "通过链接分享：自动同意接收请求",
       "createChecksums": "发送文件时创建校验和"
     },
