@@ -165,7 +165,7 @@ class AddDirectoryAction extends AsyncReduxAction<SelectedSendingFilesNotifier, 
         if (sendIgnore.isIgnored(innerRelative)) {
           continue;
         }
-        final archive = await CrossFileConverters.archiveMacosAppForSending(entity);
+        final archive = CrossFileConverters.selectMacosAppForSending(entity);
         final file = archive.copyWith(name: innerRelative == '.' ? '$directoryName.zip' : '$directoryName/$innerRelative.zip');
         if (!state.any((element) => element.isSameFile(otherFile: file))) {
           newFiles.add(file);
