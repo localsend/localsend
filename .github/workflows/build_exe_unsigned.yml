@@ -30,11 +30,6 @@ jobs:
   build_windows_exe_x86_64:
     needs: build
     runs-on: windows-latest
-    env:
-      # Pin the pub cache to a known path so it can be cached (Windows default is
-      # %LOCALAPPDATA%\Pub\Cache, which actions/cache cannot address portably).
-      # Must be job-level: `runner` is not available in workflow-level env.
-      PUB_CACHE: ${{ runner.temp }}/pub-cache
 
     steps:
       - name: Fix long file paths
@@ -71,10 +66,18 @@ jobs:
 
       - name: Dependencies
         working-directory: app
+        env:
+          # Pin the pub cache to a known path so it can be cached (Windows default
+          # is %LOCALAPPDATA%\Pub\Cache, which actions/cache cannot address portably).
+          # `runner` context is only valid inside steps, so it lives here and on
+          # the build step below — NOT in job-level env (startup_failure).
+          PUB_CACHE: ${{ runner.temp }}/pub-cache
         run: flutter pub get
 
       - name: Compile for Windows
         working-directory: app
+        env:
+          PUB_CACHE: ${{ runner.temp }}/pub-cache
         run: flutter build windows
 
       - name: Prepare Inno Setup payload
