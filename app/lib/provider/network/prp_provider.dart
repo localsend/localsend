@@ -27,9 +27,6 @@ enum PrpConnectionState {
   /// Hotspot is running / connected to peer hotspot
   connected,
 
-  /// Transfer in progress
-  transferring,
-
   /// Error occurred
   error,
 
@@ -48,6 +45,10 @@ class PrpState {
   final String? errorMessage;
   final bool isUsbTetheringAvailable;
 
+  /// Transport types usable on this device, populated async during init.
+  /// Kept in state so the UI can watch it reactively.
+  final List<TransportType> availableTransports;
+
   const PrpState({
     this.mode = PrpMode.idle,
     this.state = PrpConnectionState.idle,
@@ -57,6 +58,7 @@ class PrpState {
     this.ipAddress,
     this.errorMessage,
     this.isUsbTetheringAvailable = false,
+    this.availableTransports = const [],
   });
 
   bool get isActive => mode != PrpMode.idle;
@@ -71,6 +73,7 @@ class PrpState {
     String? errorMessage,
     bool clearError = false,
     bool? isUsbTetheringAvailable,
+    List<TransportType>? availableTransports,
   }) {
     return PrpState(
       mode: mode ?? this.mode,
@@ -81,6 +84,7 @@ class PrpState {
       ipAddress: ipAddress ?? this.ipAddress,
       errorMessage: clearError ? null : (errorMessage ?? this.errorMessage),
       isUsbTetheringAvailable: isUsbTetheringAvailable ?? this.isUsbTetheringAvailable,
+      availableTransports: availableTransports ?? this.availableTransports,
     );
   }
 }
@@ -100,17 +104,22 @@ class PrpService extends ReduxNotifier<PrpState> {
 
   @override
   PrpState init() {
-    // Async initialization: update USB availability once transport manager is ready.
-    // Uses fire-and-forget pattern since ReduxNotifier.init() must return synchronously.
+    // Async initialization: push transport availability into state once the
+    // transport manager is ready. Fire-and-forget is required because
+    // ReduxNotifier.init() must return synchronously; by the time the future
+    // completes the provider is mounted, so writing state here is safe.
     _transportManager
         .init()
         .then((_) {
-          final isUsbAvailable = _transportManager.availableTransports.contains(TransportType.usbTethering);
-          if (isUsbAvailable != state.isUsbTetheringAvailable) {
-            // Note: state mutation here triggers a rebuild with updated USB availability.
-            // This is intentionally best-effort; the UI will show correct state
-            // once the first PRP action dispatches.
-          }
+          final available = _transportManager.availableTransports;
+          // ignore: invalid_use_of_internal_member — async init result must
+          // reach the state; this is the notifier itself, not an action.
+          state = state.copyWith(
+            isUsbTetheringAvailable: available.contains(
+              TransportType.usbTethering,
+            ),
+            availableTransports: available,
+          );
         })
         .catchError((Object e, StackTrace st) {
           _logger.warning('TransportManager init failed: $e', e, st);
@@ -164,7 +173,9 @@ class StartHostAction extends AsyncReduxAction<PrpService, PrpState> {
         ipAddress: info?.metadata['ipAddress'] as String?,
       );
     } else {
+      // Failure resets mode to idle: host mode is not active if startup failed.
       return state.copyWith(
+        mode: PrpMode.idle,
         state: PrpConnectionState.error,
         errorMessage: notifier._transportManager.activeError ?? 'Failed to start host mode',
       );
@@ -177,14 +188,15 @@ class StopHostAction extends AsyncReduxAction<PrpService, PrpState> {
   @override
   Future<PrpState> reduce() async {
     _logger.info('Stopping PRP host mode');
-    await notifier._transportManager.stopActive();
+    final stopped = await notifier._transportManager.stopActive();
     return state.copyWith(
       mode: PrpMode.idle,
-      state: PrpConnectionState.disconnected,
+      state: stopped ? PrpConnectionState.disconnected : PrpConnectionState.error,
       networkName: null,
       networkPassword: null,
       ipAddress: null,
-      clearError: true,
+      errorMessage: stopped ? null : 'Failed to stop host mode',
+      clearError: stopped,
     );
   }
 }
@@ -228,7 +240,9 @@ class ConnectToPeerAction extends AsyncReduxAction<PrpService, PrpState> {
         ipAddress: info?.metadata['ipAddress'] as String?,
       );
     } else {
+      // Failure resets mode to idle: client mode is not active if connect failed.
       return state.copyWith(
+        mode: PrpMode.idle,
         state: PrpConnectionState.error,
         errorMessage: notifier._transportManager.activeError ?? 'Failed to connect',
       );
@@ -290,6 +304,11 @@ class ResetPrpAction extends AsyncReduxAction<PrpService, PrpState> {
   @override
   Future<PrpState> reduce() async {
     await notifier._transportManager.disconnectActive();
-    return const PrpState();
+    // Preserve device-level transport availability: it reflects the platform,
+    // not the connection lifecycle.
+    return const PrpState().copyWith(
+      isUsbTetheringAvailable: state.isUsbTetheringAvailable,
+      availableTransports: state.availableTransports,
+    );
   }
 }

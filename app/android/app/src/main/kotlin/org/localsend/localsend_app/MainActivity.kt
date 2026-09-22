@@ -154,6 +154,17 @@ class MainActivity : FlutterActivity() {
         }
     }
 
+    override fun cleanUpFlutterEngine(flutterEngine: FlutterEngine) {
+        // Release native resources held by the PRP plugins (hotspot
+        // reservation, broadcast receivers, network callbacks) when the
+        // engine goes away instead of leaking them until process death.
+        hotspotRelayPlugin?.dispose()
+        hotspotRelayPlugin = null
+        usbTetheringPlugin?.dispose()
+        usbTetheringPlugin = null
+        super.cleanUpFlutterEngine(flutterEngine)
+    }
+
     /// Android 17+ gates local network access behind a runtime permission; older versions grant it implicitly.
     private fun hasLocalNetworkPermission(): Boolean {
         if (Build.VERSION.SDK_INT < API_LEVEL_ANDROID_17) {

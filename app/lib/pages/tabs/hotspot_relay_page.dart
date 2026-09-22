@@ -50,17 +50,20 @@ class _PrpPageState extends State<PrpPage> with SingleTickerProviderStateMixin {
         bottom: TabBar(
           controller: _tabController,
           tabs: [
-            Tab(icon: const Icon(Icons.wifi_tethering), text: t.hotspotRelayPage.hostTab),
-            Tab(icon: const Icon(Icons.wifi_find), text: t.hotspotRelayPage.clientTab),
+            Tab(
+              icon: const Icon(Icons.wifi_tethering),
+              text: t.hotspotRelayPage.hostTab,
+            ),
+            Tab(
+              icon: const Icon(Icons.wifi_find),
+              text: t.hotspotRelayPage.clientTab,
+            ),
           ],
         ),
       ),
       body: TabBarView(
         controller: _tabController,
-        children: [
-          _buildHostTab(theme),
-          _buildClientTab(theme),
-        ],
+        children: [_buildHostTab(theme), _buildClientTab(theme)],
       ),
     );
   }
@@ -70,8 +73,11 @@ class _PrpPageState extends State<PrpPage> with SingleTickerProviderStateMixin {
   // ============================================================
 
   Widget _buildTransportSelector() {
+    // Watch state (not the notifier getter) so the selector rebuilds when
+    // async init populates availableTransports.
+    final prpState = context.ref.watch(prpProvider);
     final prpService = context.redux(prpProvider);
-    final available = prpService.notifier.availableTransports;
+    final available = prpState.availableTransports;
     if (available.length <= 1) return const SizedBox.shrink();
 
     return Card(
@@ -172,7 +178,11 @@ class _PrpPageState extends State<PrpPage> with SingleTickerProviderStateMixin {
                 padding: const EdgeInsets.all(16),
                 child: Column(
                   children: [
-                    Icon(Icons.info_outline, color: theme.colorScheme.primary, size: 32),
+                    Icon(
+                      Icons.info_outline,
+                      color: theme.colorScheme.primary,
+                      size: 32,
+                    ),
                     const SizedBox(height: 8),
                     Text(
                       _selectedTransport == TransportType.usbTethering
@@ -230,7 +240,9 @@ class _PrpPageState extends State<PrpPage> with SingleTickerProviderStateMixin {
                     Text(
                       prpState.transportType == TransportType.usbTethering
                           ? 'Connected via USB'
-                          : t.hotspotRelayPage.connectedTo(ssid: prpState.networkName ?? ''),
+                          : t.hotspotRelayPage.connectedTo(
+                              ssid: prpState.networkName ?? '',
+                            ),
                       style: theme.textTheme.titleMedium,
                     ),
                     const SizedBox(height: 4),
@@ -291,7 +303,9 @@ class _PrpPageState extends State<PrpPage> with SingleTickerProviderStateMixin {
                             icon: Icon(
                               _obscurePassword ? Icons.visibility_off : Icons.visibility,
                             ),
-                            onPressed: () => setState(() => _obscurePassword = !_obscurePassword),
+                            onPressed: () => setState(
+                              () => _obscurePassword = !_obscurePassword,
+                            ),
                           ),
                         ),
                         obscureText: _obscurePassword,
@@ -308,13 +322,18 @@ class _PrpPageState extends State<PrpPage> with SingleTickerProviderStateMixin {
                           padding: const EdgeInsets.all(12),
                           child: Row(
                             children: [
-                              Icon(Icons.info_outline, color: theme.colorScheme.onTertiaryContainer),
+                              Icon(
+                                Icons.info_outline,
+                                color: theme.colorScheme.onTertiaryContainer,
+                              ),
                               const SizedBox(width: 8),
                               Expanded(
                                 child: Text(
                                   'Connect your device via USB cable. '
                                   'Make sure USB tethering is enabled on the host device.',
-                                  style: TextStyle(color: theme.colorScheme.onTertiaryContainer),
+                                  style: TextStyle(
+                                    color: theme.colorScheme.onTertiaryContainer,
+                                  ),
                                 ),
                               ),
                             ],
@@ -354,12 +373,17 @@ class _PrpPageState extends State<PrpPage> with SingleTickerProviderStateMixin {
                   padding: const EdgeInsets.all(12),
                   child: Row(
                     children: [
-                      Icon(Icons.error_outline, color: theme.colorScheme.onErrorContainer),
+                      Icon(
+                        Icons.error_outline,
+                        color: theme.colorScheme.onErrorContainer,
+                      ),
                       const SizedBox(width: 8),
                       Expanded(
                         child: Text(
                           prpState.errorMessage!,
-                          style: TextStyle(color: theme.colorScheme.onErrorContainer),
+                          style: TextStyle(
+                            color: theme.colorScheme.onErrorContainer,
+                          ),
                         ),
                       ),
                     ],
@@ -472,7 +496,10 @@ class _PrpPageState extends State<PrpPage> with SingleTickerProviderStateMixin {
         padding: const EdgeInsets.all(16),
         child: Column(
           children: [
-            Text(t.hotspotRelayPage.scanToConnect, style: theme.textTheme.titleMedium),
+            Text(
+              t.hotspotRelayPage.scanToConnect,
+              style: theme.textTheme.titleMedium,
+            ),
             const SizedBox(height: 12),
             SizedBox(
               width: 220,
@@ -510,20 +537,39 @@ class _PrpPageState extends State<PrpPage> with SingleTickerProviderStateMixin {
           children: [
             Row(
               children: [
-                Icon(isUsb ? Icons.usb : Icons.info, size: 20, color: theme.colorScheme.primary),
+                Icon(
+                  isUsb ? Icons.usb : Icons.info,
+                  size: 20,
+                  color: theme.colorScheme.primary,
+                ),
                 const SizedBox(width: 8),
-                Text(isUsb ? 'USB Connection' : t.hotspotRelayPage.connectionInfo, style: theme.textTheme.titleMedium),
+                Text(
+                  isUsb ? 'USB Connection' : t.hotspotRelayPage.connectionInfo,
+                  style: theme.textTheme.titleMedium,
+                ),
               ],
             ),
             const SizedBox(height: 12),
             if (isUsb) ...[
               _infoRow(theme, 'IP', prpState.ipAddress ?? 'N/A'),
               const SizedBox(height: 8),
-              _infoRow(theme, 'Status', prpState.state == PrpConnectionState.connected ? 'Active' : 'Idle'),
+              _infoRow(
+                theme,
+                'Status',
+                prpState.state == PrpConnectionState.connected ? 'Active' : 'Idle',
+              ),
             ] else ...[
-              _infoRow(theme, t.hotspotRelayPage.ssid, prpState.networkName ?? ''),
+              _infoRow(
+                theme,
+                t.hotspotRelayPage.ssid,
+                prpState.networkName ?? '',
+              ),
               const SizedBox(height: 8),
-              _infoRow(theme, t.hotspotRelayPage.password, prpState.networkPassword ?? ''),
+              _infoRow(
+                theme,
+                t.hotspotRelayPage.password,
+                prpState.networkPassword ?? '',
+              ),
             ],
           ],
         ),
@@ -548,7 +594,11 @@ class _PrpPageState extends State<PrpPage> with SingleTickerProviderStateMixin {
             onTap: () {
               Clipboard.setData(ClipboardData(text: value));
               ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text(t.hotspotRelayPage.copiedToClipboard(label: label))),
+                SnackBar(
+                  content: Text(
+                    t.hotspotRelayPage.copiedToClipboard(label: label),
+                  ),
+                ),
               );
             },
             child: Container(
@@ -560,7 +610,11 @@ class _PrpPageState extends State<PrpPage> with SingleTickerProviderStateMixin {
               child: Row(
                 children: [
                   Expanded(
-                    child: Text(value, style: theme.textTheme.bodySmall, overflow: TextOverflow.ellipsis),
+                    child: Text(
+                      value,
+                      style: theme.textTheme.bodySmall,
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ),
                   Icon(Icons.copy, size: 14, color: theme.colorScheme.primary),
                 ],

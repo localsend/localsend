@@ -16,12 +16,19 @@ final _logger = Logger('UsbTetheringTransport');
 /// - Android: Uses `ConnectivityManager` with `TRANSPORT_USB` (API 21+)
 /// - Others: Platform-specific USB networking APIs (planned)
 class UsbTetheringTransport implements TransportInterface {
-  static const _channel = MethodChannel('org.localsend.localsend_app/usb_tethering');
+  static const _channel = MethodChannel(
+    'org.localsend.localsend_app/usb_tethering',
+  );
+  static const _eventChannel = EventChannel(
+    'org.localsend.localsend_app/usb_tethering_events',
+  );
 
   TransportState _state = TransportState.idle;
   TransportInfo? _transportInfo;
   String? _errorMessage;
   bool _available = false;
+  bool _disposed = false;
+  StreamSubscription<dynamic>? _nativeEventSub;
 
   final StreamController<PeerInfo> _peerController = StreamController<PeerInfo>.broadcast();
   final StreamController<TransportState> _stateController = StreamController<TransportState>.broadcast();
@@ -51,7 +58,10 @@ class UsbTetheringTransport implements TransportInterface {
   /// Call this once to check if USB tethering is available on this device.
   Future<void> init() async {
     try {
-      final result = await _channel.invokeMethod<bool>('isUsbTetheringAvailable');
+      final result = await invokeChannel<bool>(
+        _channel,
+        'isUsbTetheringAvailable',
+      );
       _available = result ?? false;
       _logger.info('USB tethering available: $_available');
     } catch (e) {
@@ -64,9 +74,10 @@ class UsbTetheringTransport implements TransportInterface {
   Future<bool> start({required HostConfig config}) async {
     _logger.info('Starting USB tethering mode');
     _setState(TransportState.connecting);
+    _ensureNativeEvents();
 
     try {
-      final result = await _channel.invokeMethod<Map>('startUsbTethering');
+      final result = await invokeChannel<Map>(_channel, 'startUsbTethering');
       if (result == null) {
         _setError('Failed to start USB tethering: null response');
         return false;
@@ -78,9 +89,7 @@ class UsbTetheringTransport implements TransportInterface {
           type: TransportType.usbTethering,
           networkName: result['interfaceName'] as String?,
           isRunning: true,
-          metadata: {
-            'ipAddress': result['ipAddress'] as String? ?? '',
-          },
+          metadata: {'ipAddress': result['ipAddress'] as String? ?? ''},
         );
         _setState(TransportState.connected);
         _logger.info('USB tethering active');
@@ -99,7 +108,7 @@ class UsbTetheringTransport implements TransportInterface {
   Future<void> stop() async {
     _logger.info('Stopping USB tethering');
     try {
-      await _channel.invokeMethod('stopUsbTethering');
+      await invokeChannel(_channel, 'stopUsbTethering');
     } catch (e) {
       _logger.warning('Error stopping USB tethering: $e');
     }
@@ -114,9 +123,10 @@ class UsbTetheringTransport implements TransportInterface {
     // and binding to it, rather than initiating a connection.
     _logger.info('Connecting via USB tethering');
     _setState(TransportState.connecting);
+    _ensureNativeEvents();
 
     try {
-      final result = await _channel.invokeMethod<Map>('connectUsbTethering', {
+      final result = await invokeChannel<Map>(_channel, 'connectUsbTethering', {
         'interfaceName': config.ssid,
       });
 
@@ -126,9 +136,7 @@ class UsbTetheringTransport implements TransportInterface {
           type: TransportType.usbTethering,
           networkName: result?['interfaceName'] as String?,
           isRunning: true,
-          metadata: {
-            'ipAddress': result?['ipAddress'] as String? ?? '',
-          },
+          metadata: {'ipAddress': result?['ipAddress'] as String? ?? ''},
         );
         _setState(TransportState.connected);
         _logger.info('Connected via USB tethering');
@@ -147,7 +155,7 @@ class UsbTetheringTransport implements TransportInterface {
   Future<void> disconnect() async {
     _logger.info('Disconnecting USB tethering');
     try {
-      await _channel.invokeMethod('disconnectUsbTethering');
+      await invokeChannel(_channel, 'disconnectUsbTethering');
     } catch (e) {
       _logger.warning('Error disconnecting USB tethering: $e');
     }
@@ -159,7 +167,10 @@ class UsbTetheringTransport implements TransportInterface {
   /// Check if USB tethering is currently active.
   Future<bool> isTetheringActive() async {
     try {
-      final result = await _channel.invokeMethod<bool>('isUsbTetheringActive');
+      final result = await invokeChannel<bool>(
+        _channel,
+        'isUsbTetheringActive',
+      );
       return result ?? false;
     } catch (e) {
       return false;
@@ -168,8 +179,9 @@ class UsbTetheringTransport implements TransportInterface {
 
   /// Listen for USB tethering state changes.
   Future<void> startListening() async {
+    _ensureNativeEvents();
     try {
-      await _channel.invokeMethod('listenUsbTetheringChanges');
+      await invokeChannel(_channel, 'listenUsbTetheringChanges');
     } catch (e) {
       _logger.warning('Failed to start USB tethering listener: $e');
     }
@@ -177,9 +189,55 @@ class UsbTetheringTransport implements TransportInterface {
 
   @override
   Future<void> dispose() async {
-    await stop();
+    if (_disposed) return;
+    _disposed = true;
+    try {
+      await stop();
+    } catch (e) {
+      _logger.warning('Error stopping during dispose: $e');
+    }
+    final sub = _nativeEventSub;
+    _nativeEventSub = null;
+    if (sub != null) {
+      try {
+        // EventChannel's onCancel touches the binary messenger; in binding-less
+        // unit tests cancel() completes with an error — swallow it.
+        await sub.cancel();
+      } catch (e) {
+        _logger.warning('Error cancelling USB event subscription: $e');
+      }
+    }
     await _peerController.close();
     await _stateController.close();
+  }
+
+  // ============================================================
+  //  Native event stream (tethering network lost, etc.)
+  // ============================================================
+
+  /// Subscribe to native-side events lazily, and only when a binding exists —
+  /// unit tests without one never subscribe.
+  void _ensureNativeEvents() {
+    if (_disposed || _nativeEventSub != null || !channelBindingAvailable) return;
+    try {
+      _nativeEventSub = _eventChannel.receiveBroadcastStream().listen(
+        (event) {
+          if (event is Map && event['event'] == 'usbTetheringChanged') {
+            final active = event['active'] == true;
+            _logger.info('Native event: USB tethering active=$active');
+            if (!active && _state == TransportState.connected) {
+              _transportInfo = null;
+              _setState(TransportState.disconnected);
+            }
+          }
+        },
+        onError: (Object e) {
+          _logger.warning('USB tethering event stream error: $e');
+        },
+      );
+    } catch (e) {
+      _logger.warning('Failed to listen to USB tethering events: $e');
+    }
   }
 
   // ============================================================
@@ -187,11 +245,13 @@ class UsbTetheringTransport implements TransportInterface {
   // ============================================================
 
   void _setState(TransportState newState) {
+    if (_disposed) return;
     _state = newState;
     _stateController.add(newState);
   }
 
   void _setError(String message) {
+    if (_disposed) return;
     _errorMessage = message;
     _state = TransportState.error;
     _stateController.add(TransportState.error);

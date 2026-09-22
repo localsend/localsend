@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:flutter/services.dart';
+
 /// Supported transport types for peer-to-peer relay.
 enum TransportType {
   /// WiFi hotspot relay (device creates or connects to a WiFi network)
@@ -63,11 +65,7 @@ class HostConfig {
   /// Optional custom password
   final String? password;
 
-  const HostConfig({
-    required this.alias,
-    this.ssid,
-    this.password,
-  });
+  const HostConfig({required this.alias, this.ssid, this.password});
 }
 
 /// Configuration for connecting to a host.
@@ -78,10 +76,7 @@ class ConnectConfig {
   /// Password or authentication token
   final String password;
 
-  const ConnectConfig({
-    required this.ssid,
-    required this.password,
-  });
+  const ConnectConfig({required this.ssid, required this.password});
 }
 
 /// Transport connection information (returned after successful start/connect).
@@ -151,4 +146,36 @@ abstract class TransportInterface {
 
   /// Clean up all resources held by this transport.
   Future<void> dispose();
+}
+
+/// Default timeout for platform channel calls made by transports.
+const Duration kChannelCallTimeout = Duration(seconds: 45);
+
+/// Whether the Flutter binding is initialized (binary messenger usable).
+/// Platform channels must not be touched without it; plain unit tests run
+/// without a binding. The getter throws synchronously when uninitialized,
+/// which is caught and reported as false.
+bool get channelBindingAvailable {
+  try {
+    ServicesBinding.instance;
+    return true;
+  } catch (_) {
+    return false;
+  }
+}
+
+/// Invokes a platform channel method with a timeout guard.
+///
+/// Native side can lose a pending result (e.g. a second start request
+/// arriving before the first callback completes); without a timeout the
+/// Dart side would await forever and the UI would stay stuck in
+/// "connecting". The timeout does not cancel native work — it only
+/// returns control to Dart with a [TimeoutException].
+Future<T?> invokeChannel<T>(
+  MethodChannel channel,
+  String method, [
+  Map<String, dynamic>? arguments,
+  Duration timeout = kChannelCallTimeout,
+]) {
+  return channel.invokeMethod<T>(method, arguments).timeout(timeout);
 }

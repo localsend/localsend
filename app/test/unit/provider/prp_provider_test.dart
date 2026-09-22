@@ -50,9 +50,7 @@ void main() {
 
   group('PrpService (ReduxNotifier)', () {
     test('init returns idle state', () {
-      final service = ReduxNotifier.test(
-        redux: PrpService(),
-      );
+      final service = ReduxNotifier.test(redux: PrpService());
 
       expect(service.state.mode, PrpMode.idle);
       expect(service.state.state, PrpConnectionState.idle);
@@ -60,9 +58,7 @@ void main() {
     });
 
     test('ResetPrpAction resets to idle', () {
-      final service = ReduxNotifier.test(
-        redux: PrpService(),
-      );
+      final service = ReduxNotifier.test(redux: PrpService());
 
       // ResetPrpAction is an AsyncReduxAction; verify dispatch accepts it.
       // State should remain idle after init (async USB check runs in background).
@@ -95,13 +91,16 @@ void main() {
   group('PrpMode enum', () {
     test('has all expected values', () {
       expect(PrpMode.values, hasLength(3));
-      expect(PrpMode.values, containsAll([PrpMode.host, PrpMode.client, PrpMode.idle]));
+      expect(
+        PrpMode.values,
+        containsAll([PrpMode.host, PrpMode.client, PrpMode.idle]),
+      );
     });
   });
 
   group('PrpConnectionState enum', () {
     test('has all expected values', () {
-      expect(PrpConnectionState.values, hasLength(6));
+      expect(PrpConnectionState.values, hasLength(5));
 
       expect(
         PrpConnectionState.values,
@@ -109,7 +108,6 @@ void main() {
           PrpConnectionState.idle,
           PrpConnectionState.connecting,
           PrpConnectionState.connected,
-          PrpConnectionState.transferring,
           PrpConnectionState.error,
           PrpConnectionState.disconnected,
         ]),

@@ -6,8 +6,11 @@ import android.net.Network
 import android.net.NetworkCapabilities
 import android.net.NetworkRequest
 import android.os.Build
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import io.flutter.embedding.engine.FlutterEngine
+import io.flutter.plugin.common.EventChannel
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 
@@ -31,6 +34,11 @@ class UsbTetheringPlugin(private val activity: MainActivity) {
     private var tetheringCallback: ConnectivityManager.NetworkCallback? = null
     private var isTetheringActive = false
 
+    /// Sink for pushing USB tethering events to Dart.
+    private var eventSink: EventChannel.EventSink? = null
+
+    private val mainHandler = Handler(Looper.getMainLooper())
+
     /**
      * Register this plugin's method channel on the given Flutter engine.
      */
@@ -52,6 +60,26 @@ class UsbTetheringPlugin(private val activity: MainActivity) {
                 "listenUsbTetheringChanges" -> listenTetheringChanges(result)
                 else -> result.notImplemented()
             }
+        }
+
+        EventChannel(
+            flutterEngine.dartExecutor.binaryMessenger,
+            "${CHANNEL}_events"
+        ).setStreamHandler(object : EventChannel.StreamHandler {
+            override fun onListen(arguments: Any?, events: EventChannel.EventSink?) {
+                eventSink = events
+            }
+
+            override fun onCancel(arguments: Any?) {
+                eventSink = null
+            }
+        })
+    }
+
+    /// Push a USB tethering event to Dart (safe to call from any thread).
+    private fun notifyTetheringChanged(active: Boolean) {
+        mainHandler.post {
+            eventSink?.success(mapOf("event" to "usbTetheringChanged", "active" to active))
         }
     }
 
@@ -225,12 +253,13 @@ class UsbTetheringPlugin(private val activity: MainActivity) {
             override fun onAvailable(network: Network) {
                 Log.d(TAG, "USB tethering network available: $network")
                 isTetheringActive = true
-                // Notify Flutter via method channel if needed
+                notifyTetheringChanged(true)
             }
 
             override fun onLost(network: Network) {
                 Log.d(TAG, "USB tethering network lost: $network")
                 isTetheringActive = false
+                notifyTetheringChanged(false)
             }
 
             override fun onCapabilitiesChanged(network: Network, caps: NetworkCapabilities) {
@@ -288,5 +317,6 @@ class UsbTetheringPlugin(private val activity: MainActivity) {
      */
     fun dispose() {
         unregisterTetheringCallback()
+        eventSink = null
     }
 }

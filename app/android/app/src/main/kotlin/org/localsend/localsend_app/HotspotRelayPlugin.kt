@@ -17,6 +17,7 @@ import android.os.Looper
 import android.util.Log
 import androidx.annotation.RequiresApi
 import io.flutter.embedding.engine.FlutterEngine
+import io.flutter.plugin.common.EventChannel
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 
@@ -43,7 +44,15 @@ class HotspotRelayPlugin(private val activity: MainActivity) {
 
     private var wifiManager: WifiManager? = null
     private var connectivityManager: ConnectivityManager? = null
-    private var currentHotspotCallback: MethodChannel.Result? = null
+
+    /// Result of a hotspot start call that has not completed yet.
+    /// Guarded: a second start while one is pending replies BUSY instead of
+    /// overwriting the pending result (which would hang the Dart side).
+    private var pendingStartResult: MethodChannel.Result? = null
+
+    /// Sink for pushing hotspot lifecycle events to Dart.
+    private var eventSink: EventChannel.EventSink? = null
+
     private var networkCallback: ConnectivityManager.NetworkCallback? = null
     private var hotspotStateReceiver: BroadcastReceiver? = null
     private var hotspotReservation: WifiManager.LocalOnlyHotspotReservation? = null
@@ -71,6 +80,26 @@ class HotspotRelayPlugin(private val activity: MainActivity) {
                 else -> result.notImplemented()
             }
         }
+
+        EventChannel(
+            flutterEngine.dartExecutor.binaryMessenger,
+            "${CHANNEL}_events"
+        ).setStreamHandler(object : EventChannel.StreamHandler {
+            override fun onListen(arguments: Any?, events: EventChannel.EventSink?) {
+                eventSink = events
+            }
+
+            override fun onCancel(arguments: Any?) {
+                eventSink = null
+            }
+        })
+    }
+
+    /// Push a hotspot lifecycle event to Dart (must be called on main thread).
+    private fun notifyEvent(name: String) {
+        Handler(Looper.getMainLooper()).post {
+            eventSink?.success(mapOf("event" to name))
+        }
     }
 
     // ============================================================
@@ -95,6 +124,13 @@ class HotspotRelayPlugin(private val activity: MainActivity) {
             return
         }
 
+        // Guard against concurrent starts: replying to the pending result
+        // must never be skipped, or Dart awaits forever.
+        if (pendingStartResult != null) {
+            result.error("BUSY", "Hotspot start already in progress", null)
+            return
+        }
+
         // Check if hotspot is already running
         if (isHotspotRunning()) {
             Log.d(TAG, "Hotspot already running, returning current info")
@@ -113,7 +149,7 @@ class HotspotRelayPlugin(private val activity: MainActivity) {
                 return
             }
 
-            currentHotspotCallback = result
+            pendingStartResult = result
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                 // Android 13+: Use new API
@@ -124,6 +160,7 @@ class HotspotRelayPlugin(private val activity: MainActivity) {
             }
         } catch (e: Exception) {
             Log.e(TAG, "Failed to start hotspot", e)
+            pendingStartResult = null
             result.error("HOTSPOT_ERROR", "Failed to start hotspot: ${e.message}", null)
         }
     }
@@ -150,6 +187,7 @@ class HotspotRelayPlugin(private val activity: MainActivity) {
                         "password" to password,
                         "isRunning" to true,
                     )
+                    pendingStartResult = null
                     result.success(info)
 
                     // Register broadcast receiver to monitor hotspot state
@@ -158,13 +196,13 @@ class HotspotRelayPlugin(private val activity: MainActivity) {
 
                 override fun onStopped() {
                     Log.d(TAG, "LocalOnlyHotspot stopped")
-                    val info = mapOf(
-                        "ssid" to "",
-                        "password" to "",
-                        "isRunning" to false,
-                    )
-                    // If there's a pending result, it already completed.
-                    // Notify Flutter via a separate mechanism if needed.
+                    // If a start was still pending, it can never succeed now.
+                    pendingStartResult?.let {
+                        it.error("HOTSPOT_STOPPED", "Hotspot stopped before start completed", null)
+                    }
+                    pendingStartResult = null
+                    // Notify Dart so the UI does not stay in a fake "connected" state.
+                    notifyEvent("hotspotStopped")
                 }
 
                 override fun onFailed(reason: Int) {
@@ -178,6 +216,7 @@ class HotspotRelayPlugin(private val activity: MainActivity) {
                             "Incompatible mode (tethering already active)"
                         else -> "Unknown error (code: $reason)"
                     }
+                    pendingStartResult = null
                     result.error("HOTSPOT_FAILED", errorMsg, null)
                 }
             },
@@ -198,6 +237,14 @@ class HotspotRelayPlugin(private val activity: MainActivity) {
      */
     private fun stopHotspot(result: MethodChannel.Result) {
         Log.d(TAG, "stopHotspot called")
+
+        // If a start is still pending, reply to it before tearing down,
+        // otherwise the Dart side would await forever.
+        pendingStartResult?.let {
+            it.error("STOPPED", "Hotspot start aborted by stopHotspot", null)
+        }
+        pendingStartResult = null
+
         // Close the reservation to stop the hotspot
         try {
             hotspotReservation?.close()
@@ -471,6 +518,9 @@ class HotspotRelayPlugin(private val activity: MainActivity) {
                     } catch (e: Exception) {
                         Log.w(TAG, "Error closing reservation", e)
                     }
+                    hotspotReservation = null
+                    // Notify Dart so the UI can leave the fake "connected" state.
+                    notifyEvent("hotspotStopped")
                 }
             }
         }
@@ -511,9 +561,11 @@ class HotspotRelayPlugin(private val activity: MainActivity) {
         try {
             hotspotReservation?.close()
         } catch (e: Exception) {
-            Log.w(TAG, "Error closing hotstop reservation on dispose", e)
+            Log.w(TAG, "Error closing hotspot reservation on dispose", e)
         }
         hotspotReservation = null
+        pendingStartResult = null
+        eventSink = null
         unregisterHotspotStateReceiver()
         unregisterNetworkCallback()
     }
