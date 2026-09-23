@@ -23,6 +23,7 @@ import 'package:localsend_app/provider/security_provider.dart';
 import 'package:localsend_app/provider/selection/selected_receiving_files_provider.dart';
 import 'package:localsend_app/provider/selection/selected_sending_files_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
+import 'package:localsend_app/util/live_photo_pairing_helper.dart';
 import 'package:localsend_app/util/native/directories.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_app/util/native/tray_helper.dart';
@@ -613,6 +614,7 @@ class ReceiveController {
       destinationDirectory: session.destinationDirectory,
       cacheDirectory: session.cacheDirectory,
       saveToGallery: session.saveToGallery,
+      livePhotoPairs: session.saveToGallery && session.saveAsLivePhoto ? findLivePhotoPairs(session.files) : const {},
       androidSdkInt: server.ref.read(deviceInfoProvider).androidSdkInt,
     );
   }

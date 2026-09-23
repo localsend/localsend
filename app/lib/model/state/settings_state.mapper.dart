@@ -388,6 +388,7 @@ class _SettingsStateCopyWithImpl<$R, $Out>
     String? multicastGroup,
     Object? destination = $none,
     bool? saveToGallery,
+    bool? saveAsLivePhoto,
     bool? saveToHistory,
     bool? quickSave,
     bool? quickSaveFromFavorites,

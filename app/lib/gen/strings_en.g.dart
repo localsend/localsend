@@ -474,11 +474,11 @@ class Translations$receiveOptionsPage$en {
   /// en: 'Save media to gallery'
   String get saveToGallery => _root.settingsTab.receive.saveToGallery;
 
+  /// en: 'Save as Live Photo'
+  String get saveAsLivePhoto => _root.settingsTab.receive.saveAsLivePhoto;
+
   /// en: 'Turned off automatically because there are folders.'
   String get saveToGalleryOff => 'Turned off automatically because there are folders.';
-
-  /// en: 'Save as live photo'
-  String get saveAsLivePhoto => _root.settingsTab.receive.saveAsLivePhoto;
 }
 
 // Path: sendPage
@@ -1133,8 +1133,8 @@ class Translations$settingsTab$receive$en {
   /// en: 'Save media to gallery'
   String get saveToGallery => 'Save media to gallery';
 
-  /// en: 'Save as live photo'
-  String get saveAsLivePhoto => 'Save as live photo';
+  /// en: 'Save as Live Photo'
+  String get saveAsLivePhoto => 'Save as Live Photo';
 
   /// en: 'Save to history'
   String get saveToHistory => 'Save to history';

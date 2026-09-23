@@ -419,6 +419,8 @@ class Translations$receiveOptionsPage$zh_CN extends Translations$receiveOptionsP
   @override
   String get saveToGallery => _root.settingsTab.receive.saveToGallery;
   @override
+  String get saveAsLivePhoto => _root.settingsTab.receive.saveAsLivePhoto;
+  @override
   String get saveToGalleryOff => '由于分享内容中存在文件夹，已自动关闭。';
 }
 
@@ -898,8 +900,6 @@ class Translations$sendTab$picker$zh_CN extends Translations$sendTab$picker$en {
   String get folder => '文件夹';
   @override
   String get media => '媒体';
-  @override
-  String get live => '实况照片';
   @override
   String get text => '文本';
   @override

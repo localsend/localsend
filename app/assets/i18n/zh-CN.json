@@ -121,6 +121,7 @@
       "destination": "保存目录",
       "downloads": "(下载)",
       "saveToGallery": "保存到相册",
+      "saveAsLivePhoto": "保存为实况照片",
       "saveToHistory": "保存到历史记录",
       "verifyChecksums": "接收文件时验证校验和"
     },
@@ -243,6 +244,7 @@
     "destination": "@:settingsTab.receive.destination",
     "appDirectory": "(LocalSend 文件夹)",
     "saveToGallery": "@:settingsTab.receive.saveToGallery",
+    "saveAsLivePhoto": "@:settingsTab.receive.saveAsLivePhoto",
     "saveToGalleryOff": "由于分享内容中存在文件夹，已自动关闭。"
   },
   "sendPage": {
