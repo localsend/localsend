@@ -20,7 +20,11 @@ does not remove already selected files. The checks below use the enabled setting
 3. Send both files to iOS with Live Photo reception enabled. Confirm that the
    Photos app shows one playable Live Photo. Also check a Live Photo whose key
    frame or duration has been edited in Photos, since the plugin chooses the
-   available paired video resource.
+   available paired video resource. Reception uses the video's midpoint as the
+   still-image time; it does not restore a custom key-frame position.
+   Test both HEIC and JPEG photos. Export the received photo's unmodified image
+   resource from Photos and check that its actual format and extension still
+   match the source (HEIC remains HEIC, JPEG remains JPEG).
 4. Select the same Live Photo again. Neither component should be duplicated.
    Remove just one component and reselect the asset; the missing component
    should return with its counterpart's basename.

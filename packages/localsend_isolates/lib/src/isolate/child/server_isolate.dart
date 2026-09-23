@@ -384,6 +384,8 @@ class _ReceiveSession {
   );
 
   void close() {
+    // Preserve completed components using ordinary gallery saving. As with
+    // other uploads, results after cancellation do not update the closed UI/history.
     unawaited(livePhotos.close());
   }
 

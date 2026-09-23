@@ -13,15 +13,18 @@ class LivePhotoUtils {
         to destinationURL: URL
     ) throws -> URL {
         guard let imageSource = CGImageSourceCreateWithURL(photoURL as CFURL, nil),
+              let imageType = CGImageSourceGetType(imageSource),
               let imageRef = CGImageSourceCreateImageAtIndex(imageSource, 0, nil),
               var imageProperties = CGImageSourceCopyPropertiesAtIndex(imageSource, 0, nil) as? [AnyHashable : Any] else {
             let error = ImageProcessingError.invalidImageSource
             logger.error("Unable to create image source")
             throw error
         }
-        let identifierInfo = ["17" : identifier]
+        var identifierInfo = imageProperties[kCGImagePropertyMakerAppleDictionary] as? [String: Any] ?? [:]
+        identifierInfo["17"] = identifier
         imageProperties[kCGImagePropertyMakerAppleDictionary] = identifierInfo
-        guard let imageDestination = CGImageDestinationCreateWithURL(destinationURL as CFURL, kUTTypeJPEG, 1, nil) else {
+        // The temporary file keeps the source extension, so keep its image format too.
+        guard let imageDestination = CGImageDestinationCreateWithURL(destinationURL as CFURL, imageType, 1, nil) else {
             let error = ImageProcessingError.unableToReadImage
             logger.error("Unable to create image destination")
             throw error

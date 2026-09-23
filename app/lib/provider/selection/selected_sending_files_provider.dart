@@ -156,11 +156,17 @@ class AddAssetsAction extends AsyncReduxAction<SelectedSendingFilesNotifier, Lis
 
   @override
   Future<List<CrossFile>> reduce() async {
-    final files = [...state];
+    final batches = <List<CrossFile>>[];
     for (final asset in assets) {
       // Export sequentially, just like AddFilesAction. Commit the selection only
       // after all requested components are ready, so failures leave no partial batch.
-      final components = await CrossFileConverters.convertAssetEntity(asset, sendLivePhotoVideo: sendLivePhotoVideo);
+      batches.add(await CrossFileConverters.convertAssetEntity(asset, sendLivePhotoVideo: sendLivePhotoVideo));
+    }
+
+    // Like AddFilesAction, merge into the current selection after exporting.
+    // Shares and removals may have changed it while an iCloud download was pending.
+    final files = [...state];
+    for (final components in batches) {
       final existing = files.where((file) => components.any((component) => file.isSameFile(otherFile: component))).toList();
       if (components.every((component) => existing.any((file) => file.isSameFile(otherFile: component)))) {
         continue;

@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:localsend_app/provider/selection/selected_sending_files_provider.dart';
@@ -180,6 +181,62 @@ void main() {
     expect(service.state.map((file) => file.name), ['IMG_1234.HEIC', 'IMG_1234.MOV', 'IMG_1234 (2).HEIC', 'IMG_1234 (2).MOV']);
   });
 
+  test('Shares added during export are preserved and participate in pair naming', () async {
+    final service = ReduxNotifier.test(redux: SelectedSendingFilesNotifier());
+    final videoRequested = Completer<void>();
+    final videoExport = Completer<File?>();
+    final asset = _TestAsset(
+      id: 'pending',
+      title: 'IMG_1234.HEIC',
+      original: await createFile('pending.HEIC', [1]),
+      live: true,
+      videoRequested: videoRequested,
+      videoExport: videoExport.future,
+    );
+    final export = service.dispatchAsync(AddAssetsAction([asset], sendLivePhotoVideo: true));
+    await videoRequested.future;
+
+    service.dispatch(AddMessageAction(message: 'Shared during export'));
+    await service.dispatchAsync(
+      AddFilesAction(
+        files: [
+          await createFile('IMG_1234.JPG', [2]),
+        ],
+        converter: CrossFileConverters.convertFile,
+      ),
+    );
+    final sharedFiles = service.state;
+    videoExport.complete(await createFile('pending.MOV', [3]));
+    await export;
+
+    expect(service.state.take(2), sharedFiles);
+    expect(service.state.skip(2).map((file) => file.name), ['IMG_1234 (2).HEIC', 'IMG_1234 (2).MOV']);
+  });
+
+  test('Files removed during export are not restored by the completed batch', () async {
+    final service = ReduxNotifier.test(redux: SelectedSendingFilesNotifier());
+    await service.dispatchAsync(AddAssetsAction([await livePhoto('existing')]));
+    final videoRequested = Completer<void>();
+    final videoExport = Completer<File?>();
+    final asset = _TestAsset(
+      id: 'pending',
+      title: 'IMG_1234.HEIC',
+      original: await createFile('pending.HEIC', [1]),
+      live: true,
+      videoRequested: videoRequested,
+      videoExport: videoExport.future,
+    );
+    final export = service.dispatchAsync(AddAssetsAction([asset], sendLivePhotoVideo: true));
+    await videoRequested.future;
+
+    service.dispatch(RemoveSelectedFileAction(0));
+    videoExport.complete(await createFile('pending.MOV', [2]));
+    await export;
+
+    expect(service.state.map((file) => file.name), ['IMG_1234.HEIC', 'IMG_1234.MOV']);
+    expect(service.state.every((file) => file.asset == asset), isTrue);
+  });
+
   test('An export failure preserves the previous selection and adds no partial batch', () async {
     final service = ReduxNotifier.test(redux: SelectedSendingFilesNotifier());
     await service.dispatchAsync(AddAssetsAction([await livePhoto('existing')], sendLivePhotoVideo: true));
@@ -199,6 +256,8 @@ void main() {
 class _TestAsset extends AssetEntity {
   final File? original;
   final File? pairedVideo;
+  final Completer<void>? videoRequested;
+  final Future<File?>? videoExport;
   final _pairedVideoRequests = <String>[];
 
   int get pairedVideoRequests => _pairedVideoRequests.length;
@@ -208,6 +267,8 @@ class _TestAsset extends AssetEntity {
     required String title,
     this.original,
     this.pairedVideo,
+    this.videoRequested,
+    this.videoExport,
     bool live = false,
     AssetType type = AssetType.image,
   }) : super(title: title, typeInt: type == AssetType.video ? 2 : 1, width: 100, height: 100, subtype: live ? 8 : 0);
@@ -222,7 +283,8 @@ class _TestAsset extends AssetEntity {
   Future<File?> get originFileWithSubtype async {
     _pairedVideoRequests.add('originFileWithSubtype');
     if (!isLivePhoto) throw StateError('Ordinary assets must not request a Live Photo video.');
-    return pairedVideo;
+    videoRequested?.complete();
+    return videoExport != null ? await videoExport : pairedVideo;
   }
 }
 
