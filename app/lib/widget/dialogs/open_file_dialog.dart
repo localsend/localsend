@@ -76,6 +76,7 @@ class _OpenFileDialogState extends State<OpenFileDialog> {
     return AlertDialog(
       title: Text(t.dialogs.openFile.title),
       content: Text(t.dialogs.openFile.content),
+      actionsAlignment: MainAxisAlignment.end,
       actions: [
         TextButton(
           onPressed: () async {
