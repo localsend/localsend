@@ -79,6 +79,16 @@ class SettingsStateMapper extends ClassMapperBase<SettingsState> {
     'saveToGallery',
     _$saveToGallery,
   );
+  static bool _$saveAsLivePhoto(SettingsState v) => v.saveAsLivePhoto;
+  static const Field<SettingsState, bool> _f$saveAsLivePhoto = Field(
+    'saveAsLivePhoto',
+    _$saveAsLivePhoto,
+  );
+  static bool _$sendLivePhotoVideo(SettingsState v) => v.sendLivePhotoVideo;
+  static const Field<SettingsState, bool> _f$sendLivePhotoVideo = Field(
+    'sendLivePhotoVideo',
+    _$sendLivePhotoVideo,
+  );
   static bool _$saveToHistory(SettingsState v) => v.saveToHistory;
   static const Field<SettingsState, bool> _f$saveToHistory = Field(
     'saveToHistory',
@@ -184,6 +194,8 @@ class SettingsStateMapper extends ClassMapperBase<SettingsState> {
     #multicastGroup: _f$multicastGroup,
     #destination: _f$destination,
     #saveToGallery: _f$saveToGallery,
+    #saveAsLivePhoto: _f$saveAsLivePhoto,
+    #sendLivePhotoVideo: _f$sendLivePhotoVideo,
     #saveToHistory: _f$saveToHistory,
     #quickSave: _f$quickSave,
     #quickSaveFromFavorites: _f$quickSaveFromFavorites,
@@ -218,6 +230,8 @@ class SettingsStateMapper extends ClassMapperBase<SettingsState> {
       multicastGroup: data.dec(_f$multicastGroup),
       destination: data.dec(_f$destination),
       saveToGallery: data.dec(_f$saveToGallery),
+      saveAsLivePhoto: data.dec(_f$saveAsLivePhoto),
+      sendLivePhotoVideo: data.dec(_f$sendLivePhotoVideo),
       saveToHistory: data.dec(_f$saveToHistory),
       quickSave: data.dec(_f$quickSave),
       quickSaveFromFavorites: data.dec(_f$quickSaveFromFavorites),
@@ -318,6 +332,8 @@ abstract class SettingsStateCopyWith<$R, $In extends SettingsState, $Out>
     String? multicastGroup,
     String? destination,
     bool? saveToGallery,
+    bool? saveAsLivePhoto,
+    bool? sendLivePhotoVideo,
     bool? saveToHistory,
     bool? quickSave,
     bool? quickSaveFromFavorites,
@@ -380,6 +396,8 @@ class _SettingsStateCopyWithImpl<$R, $Out>
     String? multicastGroup,
     Object? destination = $none,
     bool? saveToGallery,
+    bool? saveAsLivePhoto,
+    bool? sendLivePhotoVideo,
     bool? saveToHistory,
     bool? quickSave,
     bool? quickSaveFromFavorites,
@@ -412,6 +430,8 @@ class _SettingsStateCopyWithImpl<$R, $Out>
       if (multicastGroup != null) #multicastGroup: multicastGroup,
       if (destination != $none) #destination: destination,
       if (saveToGallery != null) #saveToGallery: saveToGallery,
+      if (saveAsLivePhoto != null) #saveAsLivePhoto: saveAsLivePhoto,
+      if (sendLivePhotoVideo != null) #sendLivePhotoVideo: sendLivePhotoVideo,
       if (saveToHistory != null) #saveToHistory: saveToHistory,
       if (quickSave != null) #quickSave: quickSave,
       if (quickSaveFromFavorites != null)
@@ -450,6 +470,11 @@ class _SettingsStateCopyWithImpl<$R, $Out>
     multicastGroup: data.get(#multicastGroup, or: $value.multicastGroup),
     destination: data.get(#destination, or: $value.destination),
     saveToGallery: data.get(#saveToGallery, or: $value.saveToGallery),
+    saveAsLivePhoto: data.get(#saveAsLivePhoto, or: $value.saveAsLivePhoto),
+    sendLivePhotoVideo: data.get(
+      #sendLivePhotoVideo,
+      or: $value.sendLivePhotoVideo,
+    ),
     saveToHistory: data.get(#saveToHistory, or: $value.saveToHistory),
     quickSave: data.get(#quickSave, or: $value.quickSave),
     quickSaveFromFavorites: data.get(

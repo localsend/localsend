@@ -419,6 +419,8 @@ class Translations$receiveOptionsPage$zh_CN extends Translations$receiveOptionsP
   @override
   String get saveToGallery => _root.settingsTab.receive.saveToGallery;
   @override
+  String get saveAsLivePhoto => _root.settingsTab.receive.saveAsLivePhoto;
+  @override
   String get saveToGalleryOff => '由于分享内容中存在文件夹，已自动关闭。';
 }
 
@@ -985,6 +987,8 @@ class Translations$settingsTab$receive$zh_CN extends Translations$settingsTab$re
   @override
   String get saveToGallery => '保存到相册';
   @override
+  String get saveAsLivePhoto => '保存为实况照片';
+  @override
   String get saveToHistory => '保存到历史记录';
   @override
   String get verifyChecksums => '接收文件时验证校验和';
@@ -999,6 +1003,10 @@ class Translations$settingsTab$send$zh_CN extends Translations$settingsTab$send$
   // Translations
   @override
   String get title => '发送';
+  @override
+  String get sendLivePhotoVideo => '发送实况视频';
+  @override
+  String get sendLivePhotoVideoDescription => '选择实况照片时，同时发送照片和配套视频。';
   @override
   String get shareViaLinkAutoAccept => '通过链接分享：自动同意接收请求';
   @override
