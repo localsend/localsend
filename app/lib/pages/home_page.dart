@@ -9,6 +9,7 @@ import 'package:localsend_app/pages/home_page_controller.dart';
 import 'package:localsend_app/pages/tabs/receive_tab.dart';
 import 'package:localsend_app/pages/tabs/send_tab.dart';
 import 'package:localsend_app/pages/tabs/settings_tab.dart';
+import 'package:localsend_app/provider/selection/prepare_send_selection_action.dart';
 import 'package:localsend_app/provider/selection/selected_sending_files_provider.dart';
 import 'package:localsend_app/util/native/cross_file_converters.dart';
 import 'package:localsend_app/widget/responsive_builder.dart';
@@ -83,9 +84,17 @@ class _HomePageState extends State<HomePage> with Refena {
         });
       },
       onDragDone: (event) async {
+        setState(() {
+          _dragAndDropIndicator = false;
+        });
         // the drop may contain a mix of files and directories
         final droppedDirectories = event.files.where((file) => Directory(file.path).existsSync()).toList();
-        final droppedFiles = event.files.where((file) => !Directory(file.path).existsSync()).toList();
+        final droppedFiles = event.files.where((file) => File(file.path).existsSync()).toList();
+        if (droppedDirectories.isEmpty && droppedFiles.isEmpty) {
+          return;
+        }
+
+        ref.global.dispatch(PrepareSendSelectionAction(preserveCachePaths: event.files.map((file) => file.path).toSet()));
 
         for (final directory in droppedDirectories) {
           await ref.redux(selectedSendingFilesProvider).dispatchAsync(AddDirectoryAction(directory.path));
