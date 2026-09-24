@@ -71,6 +71,7 @@ const _aliasKey = 'ls_alias';
 const _themeKey = 'ls_theme'; // now called brightness
 const _colorKey = 'ls_color';
 const _customColorKey = 'ls_custom_color'; // RRGGBB hex, used by ColorMode.custom
+const _colorIntensityKey = 'ls_color_intensity'; // null = default Material tone mapping
 const _localeKey = 'ls_locale';
 const _portKey = 'ls_port';
 const _networkWhitelistKey = 'ls_network_whitelist';
@@ -319,6 +320,18 @@ class PersistenceService {
 
   Future<void> setCustomColor(Color color) async {
     await _prefs.setString(_customColorKey, color.toARGB32().toRadixString(16).padLeft(8, '0').substring(2));
+  }
+
+  int? getColorIntensity() {
+    return _prefs.getInt(_colorIntensityKey);
+  }
+
+  Future<void> setColorIntensity(int? colorIntensity) async {
+    if (colorIntensity == null) {
+      await _prefs.remove(_colorIntensityKey);
+    } else {
+      await _prefs.setInt(_colorIntensityKey, colorIntensity);
+    }
   }
 
   AppLocale? getLocale() {

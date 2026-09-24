@@ -100,6 +100,7 @@
         "oled": "OLED",
         "custom": "Custom"
       },
+      "colorIntensity": "Color intensity",
       "language": "Language",
       "languageOptions": {
         "system": "System"
