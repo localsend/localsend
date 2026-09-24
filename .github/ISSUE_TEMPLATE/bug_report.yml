@@ -6,19 +6,19 @@ body:
   - type: checkboxes
     id: confirm
     attributes:
-      label: Read [this](https://github.com/localsend/localsend/issues/528) before anything
+      label: "Read #528 before anything"
       options:
-        - label: I have read it.
-        - label: Issues not fitting are closed.
+        - label: I understand issues not fitting may be closed
+          required: true
 
   - type: checkboxes
     id: duplication
     attributes:
       label: "Make sure about:"
       options:
-        - label: This issue is not duplicated with any other open or closed issues.
+        - label: This issue is not duplicated with any other open or closed issues
           required: true
-        - label: I am using the latest version from the release.
+        - label: I am using the latest version from the release
           required: true
 
   - type: textarea
