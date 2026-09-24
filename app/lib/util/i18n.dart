@@ -60,6 +60,7 @@ extension AppLocaleExt on AppLocale {
       AppLocale.ja => '日本語',
       AppLocale.km => 'ភាសាខ្មែរ',
       AppLocale.ko => '한국어',
+      AppLocale.ky => 'Кыргызча',
       AppLocale.lo => 'ລາວ',
       AppLocale.ml => 'മലയാളം',
       AppLocale.mn => 'Монгол',
