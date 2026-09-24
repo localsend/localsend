@@ -44,7 +44,7 @@ Future<void> _clear(RootIsolateToken token, bool clearMacosAppArchives) async {
             }
           })
         : Future.value(),
-    FilePicker.clearTemporaryFiles(),
+    checkPlatform([TargetPlatform.iOS, TargetPlatform.android]) ? FilePicker.clearTemporaryFiles() : Future.value(),
     PhotoManager.clearFileCache(),
     checkPlatform([TargetPlatform.iOS, TargetPlatform.android])
         ? getTemporaryDirectory().then((cacheDir) {
