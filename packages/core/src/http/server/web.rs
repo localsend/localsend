@@ -7,7 +7,6 @@ use crate::http::server::PeerIp;
 use crate::http::server::{AppState, RequestClientInfo};
 use crate::model::discovery::PROTOCOL_VERSION_V2;
 use crate::model::transfer::{FileContent, FileDto};
-use bytes::Bytes;
 use http_body_util::{BodyExt, StreamBody};
 use hyper::body::{Frame, Incoming};
 use hyper::{http, Request, Response, StatusCode};
@@ -19,7 +18,6 @@ use std::net::IpAddr;
 use std::num::NonZeroUsize;
 use std::sync::Arc;
 use tokio::sync::{mpsc, oneshot, Mutex};
-use tokio_stream::wrappers::ReceiverStream;
 use tokio_stream::StreamExt;
 
 /// Events emitted by the web download (download API) endpoints that must be handled
@@ -447,7 +445,7 @@ pub(crate) async fn download(
         .map_err(|_| AppError::Status(StatusCode::INTERNAL_SERVER_ERROR))?;
 
     let size = file.size;
-    let body = receiver_stream_body(content.into_receiver());
+    let body = file_content_body(content);
 
     // The file name may be inside directories.
     let file_name = file.file_name.replace('/', "-");
@@ -523,10 +521,13 @@ async fn file_list_response(
     .into_response()
 }
 
-/// Streams application-provided chunks as a response body.
-fn receiver_stream_body(binary_rx: mpsc::Receiver<Bytes>) -> BoxedBody {
-    let stream = ReceiverStream::new(binary_rx)
-        .map(|chunk| Ok::<_, std::io::Error>(Frame::data(Bytes::from(chunk))));
+/// Streams the file content as the response body.
+///
+/// An I/O error while reading fails the body. The response announces
+/// `Content-Length`, so ending it early instead would hand the browser a
+/// silently truncated file.
+fn file_content_body(content: FileContent) -> BoxedBody {
+    let stream = content.into_stream().map(|chunk| chunk.map(Frame::data));
     StreamBody::new(stream).boxed()
 }
 

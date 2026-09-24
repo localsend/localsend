@@ -1,13 +1,24 @@
 use bytes::Bytes;
+use futures_util::stream::{Stream, StreamExt};
 use serde::{Deserialize, Serialize};
 use std::path::PathBuf;
+use std::pin::Pin;
 use tokio::sync::mpsc;
+use tokio_stream::wrappers::ReceiverStream;
 
 /// Limit queued file read-ahead to 2 MiB per active stream.
 const FILE_CHANNEL_CAPACITY: usize = 4;
 
 /// Buffer size used when reading a file into chunks.
 const READ_BUFFER_SIZE: usize = 512 * 1024;
+
+/// A file's content as a stream of chunks, ending with an [`Err`] item when the
+/// file could not be read.
+///
+/// `Sync` on top of `Send`, because the web download handler turns this stream
+/// into a boxed response body and `http_body_util::BodyExt::boxed` requires a
+/// `Sync` body.
+pub type FileStream = Pin<Box<dyn Stream<Item = Result<Bytes, std::io::Error>> + Send + Sync>>;
 
 /// The binary content of a file provided by the application for a transfer.
 ///
@@ -31,14 +42,20 @@ pub enum FileContent {
 impl FileContent {
     /// Normalizes the content into a stream of binary chunks.
     ///
-    /// [`FileContent::Stream`] is returned as-is. For [`FileContent::Path`] and
+    /// [`FileContent::Stream`] is forwarded as-is. For [`FileContent::Path`] and
     /// [`FileContent::Fd`], a background task reads the file and forwards the
-    /// chunks; the channel is closed on EOF or on an I/O error.
-    pub fn into_receiver(self) -> mpsc::Receiver<Bytes> {
+    /// chunks; the stream ends after the last chunk on EOF.
+    ///
+    /// An I/O failure is yielded as a final [`Err`] item rather than ending the
+    /// stream early. The consumer builds a request or response body from this
+    /// stream, so a silent end would be indistinguishable from a complete file:
+    /// the peer would store a truncated (or empty) file and the transfer would
+    /// look successful on this side.
+    pub fn into_stream(self) -> FileStream {
         match self {
             FileContent::Stream(rx) => {
                 tracing::info!("Reading file content via byte stream from application");
-                rx
+                Box::pin(ReceiverStream::new(rx).map(Ok))
             }
             FileContent::Path(path) => {
                 tracing::info!("Reading file content from path: {}", path.display());
@@ -48,10 +65,19 @@ impl FileContent {
                         Ok(file) => read_file_into_sender(file, tx).await,
                         Err(e) => {
                             tracing::error!("Failed to open {}: {e}", path.display());
+                            // Re-wrapped with the path: this message is what the
+                            // user gets to see, and the bare OS error does not
+                            // say which file could not be read.
+                            let _ = tx
+                                .send(Err(std::io::Error::new(
+                                    e.kind(),
+                                    format!("Failed to open {}: {e}", path.display()),
+                                )))
+                                .await;
                         }
                     }
                 });
-                rx
+                Box::pin(ReceiverStream::new(rx))
             }
             #[cfg(target_os = "android")]
             FileContent::Fd(fd) => {
@@ -64,7 +90,7 @@ impl FileContent {
                 let std_file = unsafe { std::fs::File::from_raw_fd(fd) };
                 let file = tokio::fs::File::from_std(std_file);
                 tokio::spawn(read_file_into_sender(file, tx));
-                rx
+                Box::pin(ReceiverStream::new(rx))
             }
         }
     }
@@ -72,8 +98,13 @@ impl FileContent {
 
 /// Reads `file` to EOF, forwarding chunks on `tx`.
 ///
-/// Stops early if the receiver is gone or a read error occurs.
-async fn read_file_into_sender(mut file: tokio::fs::File, tx: mpsc::Sender<Bytes>) {
+/// Stops early if the receiver is gone. A read error is forwarded as a final
+/// [`Err`] item, so the consumer aborts the transfer instead of treating the
+/// bytes read so far as the complete file.
+async fn read_file_into_sender(
+    mut file: tokio::fs::File,
+    tx: mpsc::Sender<Result<Bytes, std::io::Error>>,
+) {
     use tokio::io::AsyncReadExt;
 
     let mut buffer = bytes::BytesMut::new();
@@ -86,12 +117,13 @@ async fn read_file_into_sender(mut file: tokio::fs::File, tx: mpsc::Sender<Bytes
             Ok(0) => break,
             Ok(n) => {
                 total += n as u64;
-                if tx.send(buffer.split().freeze()).await.is_err() {
+                if tx.send(Ok(buffer.split().freeze())).await.is_err() {
                     break;
                 }
             }
             Err(e) => {
                 tracing::error!("Failed to read file content: {e}");
+                let _ = tx.send(Err(e)).await;
                 break;
             }
         }
@@ -268,5 +300,37 @@ mod tests {
         };
         assert_eq!(metadata.modified_time(), None);
         assert_eq!(metadata.accessed_time(), None);
+    }
+
+    /// A file that cannot be opened must fail the stream. Ending it silently
+    /// would be indistinguishable from an empty file, so the peer would store
+    /// a 0-byte file while this side reports a successful transfer.
+    #[tokio::test]
+    async fn unopenable_path_fails_the_stream() {
+        let missing =
+            std::env::temp_dir().join(format!("localsend-missing-{}", uuid::Uuid::new_v4()));
+        let chunks: Vec<_> = FileContent::Path(missing).into_stream().collect().await;
+
+        assert_eq!(chunks.len(), 1);
+        assert!(chunks[0].is_err());
+    }
+
+    /// The happy path still yields the file content and then ends.
+    #[tokio::test]
+    async fn readable_path_yields_the_content() {
+        let path = std::env::temp_dir().join(format!("localsend-content-{}", uuid::Uuid::new_v4()));
+        std::fs::write(&path, b"hello").unwrap();
+
+        let chunks: Vec<_> = FileContent::Path(path.clone())
+            .into_stream()
+            .collect()
+            .await;
+        std::fs::remove_file(&path).unwrap();
+
+        let mut content = Vec::new();
+        for chunk in chunks {
+            content.extend_from_slice(&chunk.expect("a readable file must not fail the stream"));
+        }
+        assert_eq!(content.as_slice(), b"hello");
     }
 }
