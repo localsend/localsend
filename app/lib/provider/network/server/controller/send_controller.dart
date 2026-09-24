@@ -7,6 +7,7 @@ import 'package:localsend_app/model/state/send/web/web_download_session.dart';
 import 'package:localsend_app/model/state/send/web/web_download_state.dart';
 import 'package:localsend_app/provider/network/server/server_utils.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
+import 'package:localsend_app/util/native/cross_file_converters.dart';
 import 'package:localsend_app/util/native/directories.dart';
 import 'package:localsend_app/util/user_agent_analyzer.dart';
 import 'package:localsend_isolates/isolate.dart';
@@ -32,54 +33,62 @@ class SendController {
   /// Builds the [WebDownloadState] for the given [files].
   /// Files that only exist in memory (e.g. text messages) are materialized
   /// to the cache directory so the Rust server can stream them.
-  Future<WebDownloadState> buildWebDownloadState({required List<CrossFile> files}) async {
+  Future<(WebDownloadState, PreparedSendingFiles)> buildWebDownloadState({required List<CrossFile> files}) async {
+    final prepared = await CrossFileConverters.prepareFilesForSending(files);
+    files = prepared.files;
     final currentWebDownloadState = server.getStateOrNull()?.webDownloadState;
 
-    return WebDownloadState(
-      sessions: {},
-      files: Map.fromEntries(
-        await Future.wait(
-          files.map((file) async {
-            final id = _uuid.v4();
+    try {
+      final state = WebDownloadState(
+        sessions: {},
+        files: Map.fromEntries(
+          await Future.wait(
+            files.map((file) async {
+              final id = _uuid.v4();
 
-            String? path = file.path;
-            if (path == null && file.bytes != null) {
-              // The Rust server streams file content from disk, so in-memory
-              // bytes (text messages, clipboard content) are written to a temp file.
-              final tempPath = p.join(await getCacheDirectory(), 'web-download-$id');
-              await File(tempPath).writeAsBytes(file.bytes!);
-              path = tempPath;
-            }
+              String? path = file.path;
+              if (path == null && file.bytes != null) {
+                // The Rust server streams file content from disk, so in-memory
+                // bytes (text messages, clipboard content) are written to a temp file.
+                final tempPath = p.join(await getCacheDirectory(), 'web-download-$id');
+                await File(tempPath).writeAsBytes(file.bytes!);
+                path = tempPath;
+              }
 
-            return MapEntry(
-              id,
-              WebDownloadFile(
-                file: FileDto(
-                  id: id,
-                  fileName: file.name,
-                  size: file.size,
-                  fileType: file.fileType,
-                  hash: null,
-                  preview: files.first.fileType == FileType.text && files.first.bytes != null
-                      ? utf8.decode(files.first.bytes!) // send simple message by embedding it into the preview
-                      : null,
-                  metadata: file.lastModified != null || file.lastAccessed != null
-                      ? FileMetadata(
-                          lastModified: file.lastModified,
-                          lastAccessed: file.lastAccessed,
-                        )
-                      : null,
+              return MapEntry(
+                id,
+                WebDownloadFile(
+                  file: FileDto(
+                    id: id,
+                    fileName: file.name,
+                    size: file.size,
+                    fileType: file.fileType,
+                    hash: null,
+                    preview: files.first.fileType == FileType.text && files.first.bytes != null
+                        ? utf8.decode(files.first.bytes!) // send simple message by embedding it into the preview
+                        : null,
+                    metadata: file.lastModified != null || file.lastAccessed != null
+                        ? FileMetadata(
+                            lastModified: file.lastModified,
+                            lastAccessed: file.lastAccessed,
+                          )
+                        : null,
+                  ),
+                  asset: file.asset,
+                  path: path,
+                  bytes: file.bytes,
                 ),
-                asset: file.asset,
-                path: path,
-                bytes: file.bytes,
-              ),
-            );
-          }),
+              );
+            }),
+          ),
         ),
-      ),
-      autoAccept: currentWebDownloadState?.autoAccept ?? server.ref.read(settingsProvider).shareViaLinkAutoAccept,
-    );
+        autoAccept: currentWebDownloadState?.autoAccept ?? server.ref.read(settingsProvider).shareViaLinkAutoAccept,
+      );
+      return (state, prepared);
+    } catch (_) {
+      await prepared.dispose();
+      rethrow;
+    }
   }
 
   /// A web client requests to download the shared files.
