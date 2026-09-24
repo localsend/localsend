@@ -18,7 +18,6 @@ use std::sync::Arc;
 use std::sync::atomic::{AtomicBool, AtomicU64, Ordering};
 use std::time::Instant;
 use tokio::sync::mpsc;
-use tokio_stream::wrappers::ReceiverStream;
 use tokio_util::sync::CancellationToken;
 
 /// Cancellation state of a send, shared between the app and the send task.
@@ -267,7 +266,8 @@ async fn send_inner(
 /// with the cumulative number of bytes of this file as chunks are sent.
 fn upload_body(content: FileContent, progress: impl Fn(u64) + Send + 'static) -> reqwest::Body {
     let mut sent = 0u64;
-    let stream = ReceiverStream::new(content.into_receiver()).map(move |chunk| {
+    let stream = content.into_stream().map(move |chunk| {
+        let chunk = chunk?;
         sent += chunk.len() as u64;
         progress(sent);
         Ok::<Bytes, anyhow::Error>(chunk)
