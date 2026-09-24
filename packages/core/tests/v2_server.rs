@@ -825,7 +825,7 @@ async fn test_upload_of_unreadable_file_fails_instead_of_sending_an_empty_body()
     // The source is gone by the time the upload starts, as an OS-managed
     // temporary copy of a picked file can be.
     let missing = save_dir.join("source-is-gone.bin");
-    let result = LsHttpClient::V2(LsHttpClientV2::try_new_without_cert().unwrap())
+    let result = LsHttpClient::V2(client)
         .upload(
             ProtocolType::Http,
             "127.0.0.1",
@@ -846,7 +846,8 @@ async fn test_upload_of_unreadable_file_fails_instead_of_sending_an_empty_body()
     // `is_err()` alone would not catch a regression.
     match result {
         Err(ClientError::StatusCode(err)) => panic!(
-            "the empty body reached the receiver, which rejected it with {};              the sender should have failed before sending anything",
+            "the empty body reached the receiver, which rejected it with {}; \
+             the sender should have failed before sending anything",
             err.status
         ),
         Ok(()) => panic!("an unreadable source must not produce a successful upload"),
