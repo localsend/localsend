@@ -39,11 +39,19 @@ Future<void> setLaunchAtLoginMinimized(bool value) async {
 }
 
 Future<bool> getLaunchAtLoginMinimized() async {
-  return await _methodChannel.invokeMethod('getLaunchAtLoginMinimized');
+  try {
+    return await _methodChannel.invokeMethod('getLaunchAtLoginMinimized') ?? false;
+  } catch (_) {
+    return false;
+  }
 }
 
 Future<bool> isLaunchedAsLoginItem() async {
-  return await _methodChannel.invokeMethod('isLaunchedAsLoginItem');
+  try {
+    return await _methodChannel.invokeMethod('isLaunchedAsLoginItem') ?? false;
+  } catch (_) {
+    return false;
+  }
 }
 
 Future<void> setDockIcon(TaskbarIcon icon) async {
