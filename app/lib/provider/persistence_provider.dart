@@ -257,6 +257,11 @@ class PersistenceService {
     return historyRaw.map((entry) => ReceiveHistoryEntry.fromJson(jsonDecode(entry))).toList();
   }
 
+  Future<List<ReceiveHistoryEntry>> reloadReceiveHistory() async {
+    await _prefs.reload();
+    return getReceiveHistory();
+  }
+
   Future<void> setReceiveHistory(List<ReceiveHistoryEntry> entries) async {
     final historyRaw = entries.map((entry) => jsonEncode(entry.toJson())).toList();
     await _prefs.setStringList(_receiveHistory, historyRaw);

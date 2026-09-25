@@ -10,6 +10,8 @@ import 'package:localsend_app/provider/network/server/controller/send_controller
 import 'package:localsend_app/provider/network/server/server_utils.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/util/alias_generator.dart';
+import 'package:localsend_app/util/native/background_receiver.dart';
+import 'package:localsend_app/util/native/channel/receiving_tile_channel.dart';
 import 'package:localsend_app/util/native/web_pages_loader.dart';
 import 'package:localsend_isolates/constants.dart';
 import 'package:localsend_isolates/isolate.dart';
@@ -32,7 +34,10 @@ final serverProvider = NotifierProvider<ServerService, ServerState?>(
   (ref) {
     return ServerService();
   },
-  onChanged: (_, next, ref) {
+  onChanged: (previous, next, ref) {
+    if (!handingReceiverToUi && (previous == null) != (next == null)) {
+      updateReceivingTile(next != null);
+    }
     final settings = ref.read(settingsProvider);
     final syncState = ref.read(parentIsolateProvider).syncState;
     final syncStatePrev = (syncState.alias, syncState.port, syncState.protocol, syncState.serverRunning, syncState.download);

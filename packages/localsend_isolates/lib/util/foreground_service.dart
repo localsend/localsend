@@ -70,7 +70,7 @@ class ForegroundService {
 
       final result = await FlutterForegroundTask.startService(
         serviceId: _serviceId,
-        serviceTypes: const [ForegroundServiceTypes.dataSync],
+        serviceTypes: const [ForegroundServiceTypes.connectedDevice],
         notificationTitle: title,
         notificationText: text,
       );

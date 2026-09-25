@@ -1,0 +1,18 @@
+<resources>
+    <string name="receiving_tile">Receiving</string>
+    <string name="receiving_tile_on">Receiving on</string>
+    <string name="receiving_tile_off">Receiving off</string>
+    <string name="receiving_tile_state_on">On</string>
+    <string name="receiving_tile_state_off">Off</string>
+    <string name="receiving_tile_busy">Finish the current transfer or share first</string>
+    <string name="receiving_service_title">LocalSend receiving</string>
+    <string name="receiving_service_text">Ready to receive files</string>
+    <string name="incoming_request_title">Incoming transfer from %1$s</string>
+    <string name="incoming_request_files">%1$d files waiting</string>
+    <string name="incoming_request_message">Message waiting</string>
+    <string name="incoming_request_accept">Accept</string>
+    <string name="incoming_request_decline">Decline</string>
+    <string name="received_file_channel">Received files</string>
+    <string name="received_file_title">Received %1$s</string>
+    <string name="received_file_sender">From %1$s</string>
+</resources>

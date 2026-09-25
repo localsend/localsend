@@ -17,11 +17,14 @@ import 'package:localsend_app/provider/logging/discovery_logs_provider.dart';
 import 'package:localsend_app/provider/network/send_provider.dart';
 import 'package:localsend_app/provider/network/server/server_provider.dart';
 import 'package:localsend_app/provider/network/server/server_utils.dart';
+import 'package:localsend_app/provider/persistence_provider.dart';
 import 'package:localsend_app/provider/receive_history_provider.dart';
 import 'package:localsend_app/provider/security_provider.dart';
 import 'package:localsend_app/provider/selection/selected_receiving_files_provider.dart';
 import 'package:localsend_app/provider/selection/selected_sending_files_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
+import 'package:localsend_app/util/native/background_receiver.dart';
+import 'package:localsend_app/util/native/channel/receiving_tile_channel.dart';
 import 'package:localsend_app/util/native/directories.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_app/util/native/tray_helper.dart';
@@ -141,14 +144,16 @@ class ReceiveController {
 
     if (quickSave) {
       // Push before accepting: the permission request in [acceptFileRequest] may block for a while.
-      // ignore: use_build_context_synchronously, unawaited_futures
-      Routerino.context.pushImmediately(
-        () => ProgressPage(
-          showAppBar: false,
-          closeSessionOnClose: true,
-          sessionId: sessionId,
-        ),
-      );
+      if (!isHeadlessReceiver) {
+        // ignore: use_build_context_synchronously, unawaited_futures
+        Routerino.context.pushImmediately(
+          () => ProgressPage(
+            showAppBar: false,
+            closeSessionOnClose: true,
+            sessionId: sessionId,
+          ),
+        );
+      }
 
       // accept all files
       await acceptFileRequest({
@@ -229,6 +234,10 @@ class ReceiveController {
     });
 
     server.ref.notifier(selectedReceivingFilesProvider).setFiles(files.values.toList());
+
+    await showIncomingRequest(sessionId: sessionId, sender: server.getState().session!.senderAlias, fileCount: files.length);
+
+    if (isHeadlessReceiver) return;
 
     // ignore: use_build_context_synchronously, unawaited_futures
     Routerino.context.push(() => ReceivePage(receiveProvider));
@@ -366,6 +375,9 @@ class ReceiveController {
               timestamp: DateTime.now().toUtc(),
             ),
           );
+      if (server.ref.read(persistenceProvider).isSaveToHistory()) {
+        await showCompletedFile(entryId: fileId, fileName: receivingFile.desiredName!, sender: receiveState.senderAlias);
+      }
     } else {
       server.ref.notifier(fileTransferProvider).setStatus(sessionId: event.sessionId, fileId: fileId, status: FileStatus.failed);
       server.setState(
@@ -427,6 +439,7 @@ class ReceiveController {
           closeSession();
           _logger.info('Closing session');
 
+          if (isHeadlessReceiver) return;
           // ignore: use_build_context_synchronously, discarded_futures
           Routerino.context.pushRootImmediately(() => const HomePage(initialTab: HomeTab.receive, appStart: false));
 
@@ -577,7 +590,7 @@ class ReceiveController {
     // auto-deny the request, but the round trip through the system permission activity
     // still blocks the UI noticeably.
     final androidSdkInt = server.ref.read(deviceInfoProvider).androidSdkInt;
-    if (checkPlatform([TargetPlatform.android]) && androidSdkInt != null && androidSdkInt < 33) {
+    if (!isHeadlessReceiver && checkPlatform([TargetPlatform.android]) && androidSdkInt != null && androidSdkInt < 33) {
       try {
         final result = await Permission.storage.request();
         _logger.info('storage permission: $result');
@@ -591,7 +604,8 @@ class ReceiveController {
     //   from the background,
     // - the service may ask for the notification permission, which Android cancels when it overlaps
     //   with the storage permission requests above.
-    TransferNotification.start(sessionId: session.sessionId, receiving: true);
+    if (!isHeadlessReceiver) TransferNotification.start(sessionId: session.sessionId, receiving: true);
+    dismissIncomingRequest(session.sessionId);
 
     // From here on, the server isolate receives all accepted files on its own
     // and reports back via upload progress/result events.
@@ -687,6 +701,7 @@ class ReceiveController {
     }
 
     TransferNotification.stop(sessionId);
+    dismissIncomingRequest(sessionId);
 
     server.setState(
       (oldState) => oldState?.copyWith(
@@ -704,11 +719,12 @@ void _cancelBySender(ServerUtils server) {
   }
 
   TransferNotification.stop(receiveSession.sessionId);
+  dismissIncomingRequest(receiveSession.sessionId);
 
   if (receiveSession.status == SessionStatus.waiting) {
     // received cancel during accept/decline
     // pop just in case if user is in [ReceiveOptionsPage]
-    Routerino.context.popUntil(ReceivePage);
+    if (!isHeadlessReceiver) Routerino.context.popUntil(ReceivePage);
   }
 
   server.setState(

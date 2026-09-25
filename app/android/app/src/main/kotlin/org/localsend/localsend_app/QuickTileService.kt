@@ -1,101 +1,187 @@
 package org.localsend.localsend_app
 
-import android.annotation.SuppressLint
-import android.app.ActivityManager
-import android.app.PendingIntent
-import android.content.Intent
+import android.content.ComponentName
+import android.content.Context
 import android.graphics.drawable.Icon
 import android.os.Build
+import android.os.Handler
+import android.os.Looper
+import android.service.quicksettings.Tile
 import android.service.quicksettings.TileService
 import android.util.Log
+import android.widget.Toast
 import androidx.annotation.RequiresApi
+import io.flutter.plugin.common.BinaryMessenger
+import io.flutter.plugin.common.MethodChannel
 
-/**
- * Service used to launch the app as a quick tile from the top/status bar
- * @see https://dev.to/djsmk123/fluttercreate-custom-quick-title-android-only-3ehp
- * @see https://github.com/ProtonVPN/android-app/blob/2290b3c6b8b5ded339d69ec7c12e15acbb4b4b3d/app/src/main/java/com/protonvpn/android/components/QuickTileService.kt#L171
- */
 @RequiresApi(Build.VERSION_CODES.N)
 class QuickTileService : TileService() {
     override fun onClick() {
         super.onClick()
-
-        launchApp()
+        ReceivingTileBridge.toggle(this) {
+            ReceivingTileBridge.setEnabled(this, true)
+            try {
+                ReceivingService.start(this)
+            } catch (e: Exception) {
+                Log.w(javaClass.simpleName, "Could not start receiving", e)
+                ReceivingTileBridge.setEnabled(this, false)
+                Toast.makeText(this, R.string.receiving_tile_busy, Toast.LENGTH_SHORT).show()
+            }
+        }
     }
-
-
 
     override fun onStartListening() {
         super.onStartListening()
-        setupIcon()
-    }
-
-    private fun setupIcon() {
-        // The tile is only available between `onStartListening` and
-        // `onStopListening`, so we ensure the tile is available
-        if (qsTile == null) {
-            return
+        val tile = qsTile ?: return
+        val receiving = ReceivingTileBridge.receiving
+        tile.icon = Icon.createWithResource(this, R.mipmap.ic_launcher_quicktile_foreground)
+        val stateLabel = getString(if (receiving) R.string.receiving_tile_on else R.string.receiving_tile_off)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            tile.label = getString(R.string.receiving_tile)
+            tile.subtitle = getString(if (receiving) R.string.receiving_tile_state_on else R.string.receiving_tile_state_off)
+        } else {
+            tile.label = stateLabel
         }
-
-        qsTile.icon =
-            Icon.createWithResource(this, R.mipmap.ic_launcher_quicktile_foreground)
-        qsTile.label = packageManager.getApplicationLabel(application.applicationInfo)
-        qsTile.updateTile()
+        tile.contentDescription = stateLabel
+        tile.state = if (receiving) Tile.STATE_ACTIVE else Tile.STATE_INACTIVE
+        tile.updateTile()
     }
 
-    @SuppressLint("StartActivityAndCollapseDeprecated")
-    private fun launchApp() {
-        try{
-            val launchIntent = getLaunchIntent()
+}
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
-                // Starting from `Build.VERSION_CODES.UPSIDE_DOWN_CAKE` we can
-                // no longer start and collapse an Intent. We need to use a
-                // PendingIntent instead.
-                //
-                // The request code can be used to identify the pending intent
-                // request if needed. We don't, hence the 0.
-                //
-                // The launch intent used for the tile doesn't need any data
-                // thus we mark it as immutable to ensure maximal reuse.
-                startActivityAndCollapse(
-                    PendingIntent.getActivity(this, 0, launchIntent,
-                        PendingIntent.FLAG_IMMUTABLE)
-                )
-            } else {
-                // For any version below `Build.VERSION_CODES.UPSIDE_DOWN_CAKE`
-                // we can simply start the intent directly.
-                startActivityAndCollapse(launchIntent)
+/** Routes tile and notification actions to the active Flutter engine. */
+internal object ReceivingTileBridge {
+    private const val channelName = "org.localsend.localsend_app/receiving_tile"
+    private const val preferencesName = "receiving_tile"
+    private const val enabledKey = "receiving_enabled"
+    private var uiChannel: MethodChannel? = null
+    private var backgroundChannel: MethodChannel? = null
+    var uiAttached = false
+        private set
+    var receiving: Boolean = false
+        private set
+
+    fun attach(context: Context, messenger: BinaryMessenger, background: Boolean = false) {
+        val channel = MethodChannel(messenger, channelName).also { methodChannel ->
+            methodChannel.setMethodCallHandler { call, result ->
+                when (call.method) {
+                    "isReceivingEnabled" -> result.success(isEnabled(context))
+                    "setReceivingState" -> {
+                        receiving = call.arguments == true
+                        setEnabled(context, receiving)
+                        if (receiving) ReceivingService.start(context) else ReceivingService.stop(context)
+                        refresh(context)
+                        result.success(null)
+                    }
+                    "stopBackgroundReceiver" -> ReceivingService.instance?.stopBackgroundEngine { stopped -> result.success(stopped) } ?: result.success(true)
+                    "showIncomingRequest" -> {
+                        val args = call.arguments as? Map<*, *>
+                        val sessionId = args?.get("sessionId") as? String
+                        val sender = args?.get("sender") as? String
+                        val fileCount = args?.get("fileCount") as? Int
+                        if (sessionId == null || sender == null || fileCount == null) {
+                            result.error("INVALID_REQUEST", "Missing incoming request details", null)
+                        } else {
+                            ReceivingService.instance?.showRequest(sessionId, sender, fileCount)
+                            result.success(null)
+                        }
+                    }
+                    "dismissIncomingRequest" -> {
+                        ReceivingService.instance?.dismissRequest(call.arguments as? String)
+                        result.success(null)
+                    }
+                    "showCompletedFile" -> {
+                        val args = call.arguments as? Map<*, *>
+                        val entryId = args?.get("entryId") as? String
+                        val fileName = args?.get("fileName") as? String
+                        val sender = args?.get("sender") as? String
+                        if (entryId == null || fileName == null || sender == null) {
+                            result.error("INVALID_FILE", "Missing received file details", null)
+                        } else {
+                            ReceivingService.instance?.showCompletedFile(entryId, fileName, sender)
+                            result.success(null)
+                        }
+                    }
+                    "backgroundFailed" -> {
+                        setEnabled(context, false)
+                        ReceivingService.stop(context)
+                        result.success(null)
+                    }
+                    else -> result.notImplemented()
+                }
             }
         }
-        catch (e:Exception){
-            Log.w(this.javaClass.toString(),"Exception $e")
+        if (background) backgroundChannel = channel else {
+            uiChannel = channel
+            uiAttached = true
         }
     }
 
-    private fun getLaunchIntent(): Intent {
-        // Getting the launch intent from the package manager is the optimal
-        // way to get the proper intent to launch the app.
-        val cleanIntent = packageManager.getLaunchIntentForPackage(packageName)
-
-        return if (cleanIntent != null) {
-            cleanIntent
+    fun detach(context: Context, background: Boolean = false) {
+        if (background) {
+            backgroundChannel?.setMethodCallHandler(null)
+            backgroundChannel = null
         } else {
-            // If we can't get the launch intent from the PM, then we default
-            // back to creating one by instantiating the app intent ourself.
-            val dirtyIntent = MainActivity.createDefaultIntent(this)
-            dirtyIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-            dirtyIntent
+            uiChannel?.setMethodCallHandler(null)
+            uiChannel = null
+            uiAttached = false
+            Handler(Looper.getMainLooper()).postDelayed({ ReceivingService.instance?.ensureBackgroundEngine() }, 500)
         }
+        receiving = ReceivingService.instance != null && isEnabled(context)
+        refresh(context)
     }
 
-    private fun appIsAlreadyRunning(): Boolean {
-        val info = ActivityManager.RunningAppProcessInfo()
-        ActivityManager.getMyMemoryState(info)
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
-            info.importance != ActivityManager.RunningAppProcessInfo.IMPORTANCE_CACHED
-        } else {
-            info.importance != ActivityManager.RunningAppProcessInfo.IMPORTANCE_BACKGROUND
-        }
+    fun isEnabled(context: Context): Boolean =
+        context.getSharedPreferences(preferencesName, Context.MODE_PRIVATE).getBoolean(enabledKey, true)
+
+    fun setEnabled(context: Context, enabled: Boolean) {
+        context.getSharedPreferences(preferencesName, Context.MODE_PRIVATE).edit().putBoolean(enabledKey, enabled).apply()
+        receiving = enabled && ReceivingService.instance != null
+        refresh(context)
+    }
+
+    fun serviceStopped(context: Context) {
+        receiving = false
+        refresh(context)
+    }
+
+    fun toggle(context: Context, onUnavailable: () -> Unit) {
+        val methodChannel = backgroundChannel ?: uiChannel ?: return onUnavailable()
+        methodChannel.invokeMethod("toggleReceiving", null, object : MethodChannel.Result {
+            override fun success(result: Any?) {
+                if (result is Boolean) {
+                    receiving = result
+                    refresh(context)
+                } else {
+                    onUnavailable()
+                }
+            }
+
+            override fun error(errorCode: String, errorMessage: String?, errorDetails: Any?) {
+                if (errorCode == "RECEIVING_BUSY") {
+                    Toast.makeText(context, R.string.receiving_tile_busy, Toast.LENGTH_SHORT).show()
+                } else {
+                    onUnavailable()
+                }
+            }
+            override fun notImplemented() = onUnavailable()
+        })
+    }
+
+    fun sendRequestAction(sessionId: String, accept: Boolean) {
+        val methodChannel = backgroundChannel ?: uiChannel ?: return
+        methodChannel.invokeMethod("incomingRequestAction", mapOf("sessionId" to sessionId, "accept" to accept), object : MethodChannel.Result {
+            override fun success(result: Any?) {
+                if (result == true) ReceivingService.instance?.dismissRequest(sessionId)
+            }
+            override fun error(errorCode: String, errorMessage: String?, errorDetails: Any?) {
+                Log.w("ReceivingTile", "Incoming request action failed: $errorCode $errorMessage")
+            }
+            override fun notImplemented() {}
+        })
+    }
+
+    fun refresh(context: Context) {
+        TileService.requestListeningState(context, ComponentName(context, QuickTileService::class.java))
     }
 }
