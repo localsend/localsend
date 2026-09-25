@@ -29,6 +29,7 @@ import 'package:localsend_app/widget/dialogs/text_field_with_actions.dart';
 import 'package:localsend_app/widget/labeled_checkbox.dart';
 import 'package:localsend_app/widget/local_send_logo.dart';
 import 'package:localsend_app/widget/responsive_list_view.dart';
+import 'package:localsend_app/widget/settings_entry.dart';
 import 'package:localsend_isolates/constants.dart';
 import 'package:localsend_isolates/model/device.dart';
 import 'package:refena_flutter/refena_flutter.dart';
@@ -47,15 +48,18 @@ class SettingsTab extends StatelessWidget {
         return ResponsiveListView(
           padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 40),
           children: [
-            Padding(
-              padding: const EdgeInsets.only(left: 8),
-              child: Text(t.settingsTab.title, style: Theme.of(context).textTheme.titleLarge, textAlign: TextAlign.center),
+            Semantics(
+              header: true,
+              child: Padding(
+                padding: const EdgeInsets.only(left: 8),
+                child: Text(t.settingsTab.title, style: Theme.of(context).textTheme.titleLarge, textAlign: TextAlign.center),
+              ),
             ),
             const SizedBox(height: 30),
             _SettingsSection(
               title: t.settingsTab.general.title,
               children: [
-                _SettingsEntry(
+                SettingsEntry(
                   label: t.settingsTab.general.brightness,
                   child: CustomDropdownButton<ThemeMode>(
                     value: vm.settings.theme,
@@ -69,7 +73,7 @@ class SettingsTab extends StatelessWidget {
                     onChanged: (theme) => vm.onChangeTheme(context, theme),
                   ),
                 ),
-                _SettingsEntry(
+                SettingsEntry(
                   label: t.settingsTab.general.color,
                   child: CustomDropdownButton<ColorMode>(
                     value: vm.settings.colorMode,
@@ -206,7 +210,7 @@ class SettingsTab extends StatelessWidget {
                   },
                 ),
                 if (checkPlatformWithFileSystem())
-                  _SettingsEntry(
+                  SettingsEntry(
                     label: t.settingsTab.receive.destination,
                     child: TextButton(
                       style: TextButton.styleFrom(
@@ -313,8 +317,9 @@ class SettingsTab extends StatelessWidget {
                     child: Text(t.settingsTab.network.needRestart, style: TextStyle(color: Theme.of(context).colorScheme.warning)),
                   ),
                 ),
-                _SettingsEntry(
+                SettingsEntry(
                   label: '${t.settingsTab.network.server}${vm.serverState == null ? ' (${t.general.offline})' : ''}',
+                  mergeSemantics: false,
                   child: DecoratedBox(
                     decoration: BoxDecoration(
                       color: Theme.of(context).inputDecorationTheme.fillColor,
@@ -329,7 +334,7 @@ class SettingsTab extends StatelessWidget {
                             child: TextButton(
                               style: TextButton.styleFrom(foregroundColor: Theme.of(context).colorScheme.onSurface, iconSize: 24),
                               onPressed: () => vm.onTapStartServer(context),
-                              child: const Icon(Icons.play_arrow),
+                              child: Icon(Icons.play_arrow, semanticLabel: t.general.start),
                             ),
                           )
                         else
@@ -338,7 +343,7 @@ class SettingsTab extends StatelessWidget {
                             child: TextButton(
                               style: TextButton.styleFrom(foregroundColor: Theme.of(context).colorScheme.onSurface, iconSize: 24),
                               onPressed: () => vm.onTapRestartServer(context),
-                              child: const Icon(Icons.refresh),
+                              child: Icon(Icons.refresh, semanticLabel: t.general.restart),
                             ),
                           ),
                         Tooltip(
@@ -346,14 +351,14 @@ class SettingsTab extends StatelessWidget {
                           child: TextButton(
                             style: TextButton.styleFrom(foregroundColor: Theme.of(context).colorScheme.onSurface, iconSize: 24),
                             onPressed: vm.serverState == null ? null : vm.onTapStopServer,
-                            child: const Icon(Icons.stop),
+                            child: Icon(Icons.stop, semanticLabel: t.general.stop),
                           ),
                         ),
                       ],
                     ),
                   ),
                 ),
-                _SettingsEntry(
+                SettingsEntry(
                   label: t.settingsTab.network.alias,
                   child: TextFieldWithActions(
                     name: t.settingsTab.network.alias,
@@ -400,7 +405,7 @@ class SettingsTab extends StatelessWidget {
                   ),
                 ),
                 if (vm.advanced)
-                  _SettingsEntry(
+                  SettingsEntry(
                     label: t.settingsTab.network.deviceType,
                     child: CustomDropdownButton<DeviceType>(
                       value: vm.deviceInfo.deviceType,
@@ -408,7 +413,7 @@ class SettingsTab extends StatelessWidget {
                         return DropdownMenuItem(
                           value: type,
                           alignment: Alignment.center,
-                          child: Icon(type.icon),
+                          child: Icon(type.icon, semanticLabel: type.name),
                         );
                       }).toList(),
                       onChanged: (type) async {
@@ -417,7 +422,7 @@ class SettingsTab extends StatelessWidget {
                     ),
                   ),
                 if (vm.advanced)
-                  _SettingsEntry(
+                  SettingsEntry(
                     label: t.settingsTab.network.deviceModel,
                     child: TextFieldTv(
                       name: t.settingsTab.network.deviceModel,
@@ -428,7 +433,7 @@ class SettingsTab extends StatelessWidget {
                     ),
                   ),
                 if (vm.advanced)
-                  _SettingsEntry(
+                  SettingsEntry(
                     label: t.settingsTab.network.port,
                     child: TextFieldTv(
                       name: t.settingsTab.network.port,
@@ -453,7 +458,7 @@ class SettingsTab extends StatelessWidget {
                     },
                   ),
                 if (vm.advanced)
-                  _SettingsEntry(
+                  SettingsEntry(
                     label: t.settingsTab.network.discoveryTimeout,
                     child: TextFieldTv(
                       name: t.settingsTab.network.discoveryTimeout,
@@ -479,7 +484,7 @@ class SettingsTab extends StatelessWidget {
                     },
                   ),
                 if (vm.advanced)
-                  _SettingsEntry(
+                  SettingsEntry(
                     label: t.settingsTab.network.multicastGroup,
                     child: TextFieldTv(
                       name: t.settingsTab.network.multicastGroup,
@@ -609,33 +614,7 @@ class SettingsTab extends StatelessWidget {
   }
 }
 
-class _SettingsEntry extends StatelessWidget {
-  final String label;
-  final Widget child;
-
-  const _SettingsEntry({required this.label, required this.child});
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 15),
-      child: Row(
-        children: [
-          Expanded(
-            child: Text(label),
-          ),
-          const SizedBox(width: 10),
-          SizedBox(
-            width: 150,
-            child: child,
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-/// A specialized version of [_SettingsEntry].
+/// A specialized version of [SettingsEntry].
 class _BooleanEntry extends StatelessWidget {
   final String label;
   final bool value;
@@ -650,7 +629,7 @@ class _BooleanEntry extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return _SettingsEntry(
+    return SettingsEntry(
       label: label,
       child: Stack(
         children: [
@@ -680,7 +659,7 @@ class _BooleanEntry extends StatelessWidget {
   }
 }
 
-/// A specialized version of [_SettingsEntry].
+/// A specialized version of [SettingsEntry].
 class _ButtonEntry extends StatelessWidget {
   final String label;
   final String buttonLabel;
@@ -694,7 +673,7 @@ class _ButtonEntry extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return _SettingsEntry(
+    return SettingsEntry(
       label: label,
       child: TextButton(
         style: TextButton.styleFrom(
@@ -737,7 +716,10 @@ class _SettingsSection extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(title, style: Theme.of(context).textTheme.titleMedium),
+              Semantics(
+                header: true,
+                child: Text(title, style: Theme.of(context).textTheme.titleMedium),
+              ),
               const SizedBox(height: 10),
               ...children,
             ],
