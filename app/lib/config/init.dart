@@ -8,6 +8,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_displaymode/flutter_displaymode.dart';
 import 'package:localsend_app/config/refena.dart';
 import 'package:localsend_app/config/theme.dart';
+import 'package:localsend_app/model/cross_file.dart';
 import 'package:localsend_app/pages/home_page.dart';
 import 'package:localsend_app/pages/home_page_controller.dart';
 import 'package:localsend_app/pages/whats_new_page.dart';
@@ -281,9 +282,19 @@ Future<void> postInit(BuildContext context, Ref ref, bool appStart) async {
     });
 
     if (checkPlatform([TargetPlatform.android])) {
+      setSharedFilesHandlerAndroid((shared) async {
+        await ref.global.dispatchAsync(_HandleSharedFilesAction(shared: shared));
+      });
+
       // Both messages above travel through the same messenger in order, so the stream is
-      // guaranteed to be attached natively before MainActivity replays held-back intents.
-      await flushPendingShareIntentsAndroid();
+      // guaranteed to be attached natively before MainActivity hands the held-back intents
+      // over. These arrive as content URIs rather than cache copies, so unlike the
+      // share_handler ones they do not need the cache to be preserved below.
+      for (final shared in await notifyShareIntentReadyAndroid()) {
+        // Awaited so that two shares cannot interleave their duplicate checks; converting
+        // a content URI does no IO, so nothing is held up by this.
+        await ref.global.dispatchAsync(_HandleSharedFilesAction(shared: shared));
+      }
     }
   }
 
@@ -322,21 +333,55 @@ class _HandleShareIntentAction extends AsyncGlobalAction {
 
   @override
   Future<void> reduce() async {
-    final message = payload.content;
-    if (message != null && message.trim().isNotEmpty) {
-      ref.redux(selectedSendingFilesProvider).dispatch(AddMessageAction(message: message));
-    }
-    await ref
-        .redux(selectedSendingFilesProvider)
-        .dispatchAsync(
-          AddFilesAction(
-            files: payload.attachments?.where((a) => a != null).cast<SharedAttachment>() ?? <SharedAttachment>[],
-            converter: CrossFileConverters.convertSharedAttachment,
-          ),
-        );
-
-    ref.redux(homePageControllerProvider).dispatch(ChangeTabAction(HomeTab.send));
+    await _selectShare(
+      ref: ref,
+      message: payload.content,
+      files: payload.attachments?.where((a) => a != null).cast<SharedAttachment>() ?? <SharedAttachment>[],
+      converter: CrossFileConverters.convertSharedAttachment,
+    );
   }
+}
+
+/// Handles the Android shares that MainActivity answers with content:// URIs,
+/// which spares them the copy into the app cache that share_handler would do.
+class _HandleSharedFilesAction extends AsyncGlobalAction {
+  final SharedPayload shared;
+
+  _HandleSharedFilesAction({
+    required this.shared,
+  });
+
+  @override
+  Future<void> reduce() async {
+    await _selectShare(
+      ref: ref,
+      message: shared.text,
+      files: shared.files,
+      converter: CrossFileConverters.convertFileInfo,
+    );
+  }
+}
+
+/// Puts a share into the selection and brings the send tab forward.
+Future<void> _selectShare<T>({
+  required Ref ref,
+  required String? message,
+  required Iterable<T> files,
+  required Future<CrossFile> Function(T) converter,
+}) async {
+  if (message != null && message.trim().isNotEmpty) {
+    ref.redux(selectedSendingFilesProvider).dispatch(AddMessageAction(message: message));
+  }
+  await ref
+      .redux(selectedSendingFilesProvider)
+      .dispatchAsync(
+        AddFilesAction(
+          files: files,
+          converter: converter,
+        ),
+      );
+
+  ref.redux(homePageControllerProvider).dispatch(ChangeTabAction(HomeTab.send));
 }
 
 class _HandleAppStartArgumentsAction extends AsyncGlobalAction {
