@@ -1,6 +1,8 @@
 pub mod common;
 pub mod internal;
 mod peer_ip;
+#[cfg(test)]
+mod resource_limit_tests;
 pub mod v2;
 pub mod v3;
 pub mod web;

@@ -47,6 +47,9 @@ x509-parser = { version = "0.18.1", features = ["verify"], optional = true }
 # `accept_resilience` test to lower this process' descriptor limit.
 libc = "0.2"
 
+[dev-dependencies]
+tokio = { version = "1.53.1", features = ["test-util"] }
+
 [[example]]
 name = "stress_send"
 required-features = ["http"]
