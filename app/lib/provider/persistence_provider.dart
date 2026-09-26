@@ -23,6 +23,8 @@ import 'package:localsend_isolates/constants.dart';
 import 'package:localsend_isolates/model/device.dart';
 import 'package:localsend_isolates/model/stored_security_context.dart';
 import 'package:logging/logging.dart';
+import 'package:path/path.dart' as path;
+import 'package:path_provider/path_provider.dart' as path_provider;
 import 'package:refena_flutter/refena_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shared_preferences_platform_interface/shared_preferences_platform_interface.dart';
@@ -40,6 +42,76 @@ String get _windowsFile {
 String get _windowsLegacyFile {
   final appData = Platform.environment['APPDATA'];
   return '$appData\\org.localsend\\localsend_app\\shared_preferences.json';
+}
+
+@visibleForTesting
+Future<void> deleteCorruptedPreferences({
+  required SharedPreferencesPortable portableStore,
+}) async {
+  if (portableStore.exists()) {
+    try {
+      final file = File(portableStore.getPath());
+      if (file.existsSync()) {
+        file.deleteSync();
+        _logger.info('Deleted corrupted portable settings file at ${file.path}');
+      }
+    } catch (e) {
+      _logger.warning('Failed to delete portable settings file', e);
+    }
+  }
+
+  if (checkPlatform([TargetPlatform.windows])) {
+    try {
+      final file = File(_windowsFile);
+      if (file.existsSync()) {
+        file.deleteSync();
+        _logger.info('Deleted corrupted Windows settings file at ${file.path}');
+      }
+    } catch (e) {
+      _logger.warning('Failed to delete Windows settings file', e);
+    }
+    try {
+      final legacyFile = File(_windowsLegacyFile);
+      if (legacyFile.existsSync()) {
+        legacyFile.deleteSync();
+        _logger.info('Deleted corrupted Windows legacy settings file at ${legacyFile.path}');
+      }
+    } catch (e) {
+      _logger.warning('Failed to delete Windows legacy settings file', e);
+    }
+  }
+
+  if (checkPlatform([TargetPlatform.linux, TargetPlatform.macOS])) {
+    final candidateDirs = <String>[];
+    try {
+      final supportDir = await path_provider.getApplicationSupportDirectory();
+      candidateDirs.add(supportDir.path);
+    } catch (e) {
+      _logger.warning('Failed to get application support directory', e);
+    }
+
+    if (checkPlatform([TargetPlatform.linux])) {
+      final home = Platform.environment['HOME'];
+      final xdgDataHome = Platform.environment['XDG_DATA_HOME'] ?? (home != null ? '$home/.local/share' : null);
+      if (xdgDataHome != null) {
+        candidateDirs.add(path.join(xdgDataHome, 'org.localsend.localsend_app'));
+        candidateDirs.add(path.join(xdgDataHome, 'localsend_app'));
+        candidateDirs.add(path.join(xdgDataHome, 'localsend'));
+      }
+    }
+
+    for (final dirPath in candidateDirs) {
+      try {
+        final file = File(path.join(dirPath, 'shared_preferences.json'));
+        if (file.existsSync()) {
+          file.deleteSync();
+          _logger.info('Deleted corrupted settings file at ${file.path}');
+        }
+      } catch (e) {
+        _logger.warning('Failed to delete settings file in $dirPath', e);
+      }
+    }
+  }
 }
 
 // Version of the storage
@@ -128,28 +200,36 @@ class PersistenceService {
       }
     }
 
-    final bool isFirstAppStart;
-    final existingVersion = (await SharedPreferencesStorePlatform.instance.getAll())['flutter.$_version'] as int?;
-    _logger.info('Existing version: $existingVersion');
-    if (existingVersion == null && !usingLegacyStore) {
-      isFirstAppStart = true;
-      await SharedPreferencesStorePlatform.instance.setValue('Int', 'flutter.$_version', _latestVersion);
-    } else {
-      isFirstAppStart = false;
-      final fromVersion = existingVersion ?? 1;
-      if (fromVersion < _latestVersion) {
-        await _runMigrations(fromVersion);
-      }
-    }
-
+    bool isFirstAppStart = false;
     try {
+      final existingVersion = (await SharedPreferencesStorePlatform.instance.getAll())['flutter.$_version'] as int?;
+      _logger.info('Existing version: $existingVersion');
+      if (existingVersion == null && !usingLegacyStore) {
+        isFirstAppStart = true;
+        await SharedPreferencesStorePlatform.instance.setValue('Int', 'flutter.$_version', _latestVersion);
+      } else {
+        isFirstAppStart = false;
+        final fromVersion = existingVersion ?? 1;
+        if (fromVersion < _latestVersion) {
+          await _runMigrations(fromVersion);
+        }
+      }
+
       prefs = await SharedPreferences.getInstance();
     } catch (e) {
-      if (checkPlatform([TargetPlatform.windows])) {
-        _logger.info('Could not initialize SharedPreferences, trying to delete corrupted settings file', e);
-        File(_windowsFile).deleteSync();
+      _logger.warning('Could not initialize SharedPreferences, trying to delete corrupted settings file', e);
+      await deleteCorruptedPreferences(portableStore: portableStore);
+      if (portableStore.exists()) {
+        SharedPreferencesStorePlatform.instance = SharedPreferencesPortable();
+      } else if (defaultTargetPlatform == TargetPlatform.windows) {
+        SharedPreferencesStorePlatform.instance = SharedPreferencesFile(filePath: _windowsFile);
+      }
+      isFirstAppStart = true;
+      try {
+        await SharedPreferencesStorePlatform.instance.setValue('Int', 'flutter.$_version', _latestVersion);
         prefs = await SharedPreferences.getInstance();
-      } else {
+      } catch (retryError) {
+        _logger.severe('Failed to recover from corrupted SharedPreferences', retryError);
         throw Exception('Could not initialize SharedPreferences');
       }
     }
