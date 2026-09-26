@@ -1,6 +1,8 @@
 pub mod common;
 pub mod internal;
 mod peer_ip;
+#[cfg(test)]
+mod resource_limit_tests;
 pub mod v2;
 pub mod v3;
 pub mod web;
@@ -19,7 +21,7 @@ use common::response::BoxedBody;
 use common::session::SessionStateV2;
 use hyper::body::Incoming;
 use hyper::{Method, Request, Response, StatusCode};
-use hyper_util::rt::{TokioExecutor, TokioIo};
+use hyper_util::rt::{TokioExecutor, TokioIo, TokioTimer};
 use hyper_util::server::conn::auto::Builder;
 use lru::LruCache;
 use rustls::pki_types::pem::PemObject;
@@ -29,7 +31,9 @@ use std::net::{IpAddr, Ipv4Addr, Ipv6Addr, SocketAddr};
 use std::num::NonZeroUsize;
 use std::ops::Deref;
 use std::sync::Arc;
-use tokio::sync::{mpsc, oneshot, Mutex};
+use std::time::Duration;
+use tokio::io::{AsyncRead, AsyncWrite};
+use tokio::sync::{mpsc, oneshot, Mutex, Semaphore};
 use tokio_util::sync::CancellationToken;
 use tokio_util::task::TaskTracker;
 use web::WebState;
@@ -85,6 +89,9 @@ pub struct AppState {
 
     /// State of the v2 protocol endpoints. `None` disables the v2 routes.
     v2: Option<Arc<V2State>>,
+
+    /// Shared by the IPv4 and IPv6 accept loops.
+    connection_slots: Arc<Semaphore>,
 }
 
 impl AppState {
@@ -117,6 +124,7 @@ impl AppState {
                 NonZeroUsize::new(200).unwrap(),
             ))),
             v2,
+            connection_slots: Arc::new(Semaphore::new(MAX_CONNECTIONS)),
         }
     }
 }
@@ -328,6 +336,10 @@ const ACCEPT_BACKOFF_MAX: std::time::Duration = std::time::Duration::from_secs(1
 /// socket the OS invalidated during app suspension, whose exact error code is
 /// OS-specific) produces them in an endless, immediate sequence.
 const ACCEPT_FAILURE_LIMIT: u32 = 100;
+const MAX_CONNECTIONS: usize = 64;
+const MAX_HTTP2_STREAMS: u32 = 16;
+const TLS_HANDSHAKE_TIMEOUT: Duration = Duration::from_secs(10);
+const FIRST_REQUEST_TIMEOUT: Duration = Duration::from_secs(30);
 
 /// Whether the failed accept concerned only the connection being accepted, so
 /// the next one can be attempted right away.
@@ -431,32 +443,63 @@ async fn start_server_with_listener(
             }
         };
 
-        let tls_acceptor = tls_acceptor.clone();
-        let app_state = app_state.clone();
-        let cancel = cancel.clone();
-        connections.spawn(async move {
-            let serve = serve_connection(tcp_stream, remote_addr, tls_acceptor, app_state);
-            tokio::select! {
-                _ = serve => {}
-                // Hard-drop the connection when the server is stopped.
-                _ = cancel.cancelled() => {}
-            }
-        });
+        spawn_connection(
+            tcp_stream,
+            remote_addr,
+            tls_acceptor.clone(),
+            app_state.clone(),
+            cancel.clone(),
+            &connections,
+        );
     }
 }
 
-async fn serve_connection(
-    tcp_stream: tokio::net::TcpStream,
+fn spawn_connection<I>(
+    stream: I,
     remote_addr: SocketAddr,
     tls_acceptor: Option<tokio_rustls::TlsAcceptor>,
     app_state: AppState,
-) {
+    cancel: CancellationToken,
+    connections: &TaskTracker,
+) where
+    I: AsyncRead + AsyncWrite + Unpin + Send + 'static,
+{
+    // Never queue a future for a stream that cannot be admitted. Dropping it
+    // closes the socket immediately.
+    let Ok(permit) = app_state.connection_slots.clone().try_acquire_owned() else {
+        return;
+    };
+    connections.spawn(async move {
+        let _permit = permit;
+        let serve = serve_connection(stream, remote_addr, tls_acceptor, app_state);
+        tokio::select! {
+            _ = serve => {}
+            // Hard-drop the connection when the server is stopped.
+            _ = cancel.cancelled() => {}
+        }
+    });
+}
+
+async fn serve_connection<I>(
+    stream: I,
+    remote_addr: SocketAddr,
+    tls_acceptor: Option<tokio_rustls::TlsAcceptor>,
+    app_state: AppState,
+) where
+    I: AsyncRead + AsyncWrite + Unpin + Send + 'static,
+{
     let res = match tls_acceptor {
         Some(tls_acceptor) => {
-            let tls_stream = match tls_acceptor.accept(tcp_stream).await {
-                Ok(tls_stream) => tls_stream,
-                Err(err) => {
+            let handshake =
+                tokio::time::timeout(TLS_HANDSHAKE_TIMEOUT, tls_acceptor.accept(stream)).await;
+            let tls_stream = match handshake {
+                Ok(Ok(tls_stream)) => tls_stream,
+                Ok(Err(err)) => {
                     tracing::warn!("TLS handshake error: {err:#}");
+                    return;
+                }
+                Err(_) => {
+                    tracing::warn!("TLS handshake timed out");
                     return;
                 }
             };
@@ -475,38 +518,68 @@ async fn serve_connection(
                 }
             };
 
-            Builder::new(TokioExecutor::new())
-                .serve_connection(
-                    TokioIo::new(tls_stream),
-                    hyper::service::service_fn(move |mut req: Request<Incoming>| {
-                        req.extensions_mut()
-                            .insert::<RequestClientInfo>(client_info.clone());
-                        req.extensions_mut().insert::<AppState>(app_state.clone());
-                        handle_request(req)
-                    }),
-                )
-                .await
+            serve_http(tls_stream, client_info, app_state).await
         }
         None => {
-            Builder::new(TokioExecutor::new())
-                .serve_connection(
-                    TokioIo::new(tcp_stream),
-                    hyper::service::service_fn(move |mut req: Request<Incoming>| {
-                        req.extensions_mut()
-                            .insert::<RequestClientInfo>(RequestClientInfo {
-                                ip: PeerIp::from_remote_addr(&remote_addr),
-                                cert: None,
-                            });
-                        req.extensions_mut().insert::<AppState>(app_state.clone());
-                        handle_request(req)
-                    }),
-                )
-                .await
+            serve_http(
+                stream,
+                RequestClientInfo {
+                    ip: PeerIp::from_remote_addr(&remote_addr),
+                    cert: None,
+                },
+                app_state,
+            )
+            .await
         }
     };
 
     if let Err(err) = res {
         tracing::warn!("Failed to serve connection: {err:#}");
+    }
+}
+
+async fn serve_http<I>(
+    io: I,
+    client_info: RequestClientInfo,
+    app_state: AppState,
+) -> Result<(), Box<dyn std::error::Error + Send + Sync>>
+where
+    I: AsyncRead + AsyncWrite + Unpin + Send + 'static,
+{
+    let first_request = CancellationToken::new();
+    let mut builder = Builder::new(TokioExecutor::new());
+    builder
+        .http1()
+        .timer(TokioTimer::new())
+        .header_read_timeout(FIRST_REQUEST_TIMEOUT);
+    builder.http2().max_concurrent_streams(MAX_HTTP2_STREAMS);
+    let connection = builder.serve_connection(
+        TokioIo::new(io),
+        hyper::service::service_fn({
+            let first_request = first_request.clone();
+            move |mut req: Request<Incoming>| {
+                // The handler may wait for a user's approval. Signal before
+                // returning its future so that wait has no connection deadline.
+                first_request.cancel();
+                req.extensions_mut()
+                    .insert::<RequestClientInfo>(client_info.clone());
+                req.extensions_mut().insert::<AppState>(app_state.clone());
+                handle_request(req)
+            }
+        }),
+    );
+    tokio::pin!(connection);
+    tokio::select! {
+        result = &mut connection => result,
+        _ = first_request.cancelled() => connection.await,
+        _ = tokio::time::sleep(FIRST_REQUEST_TIMEOUT) => {
+            if first_request.is_cancelled() {
+                connection.await
+            } else {
+                tracing::warn!("First HTTP request timed out");
+                Ok(())
+            }
+        }
     }
 }
 
