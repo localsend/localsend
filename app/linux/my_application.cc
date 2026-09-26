@@ -112,6 +112,10 @@ MyApplication* my_application_new() {
   // corresponding .desktop file. This ensures better integration by allowing
   // the application to be recognized beyond its binary name.
   g_set_prgname(APPLICATION_ID);
+  // The application name is shown instead of the program name wherever a
+  // human-readable label is expected, e.g. as the title of the system tray
+  // entry on Linux desktops.
+  g_set_application_name("LocalSend");
 
   return MY_APPLICATION(g_object_new(my_application_get_type(),
                                      "application-id", APPLICATION_ID,
