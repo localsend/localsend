@@ -60,10 +60,7 @@ Future<void> openFirewallSettings() async {
 
 bool isReceivedAppArchive(String fileName) => fileName.toLowerCase().endsWith('.app.zip');
 
-Future<void> quarantineReceivedAppArchive({required String path, required String receivedFileName}) async {
-  if (!isReceivedAppArchive(receivedFileName)) {
-    return;
-  }
+Future<void> quarantineReceivedAppArchive({required String path}) async {
   await _methodChannel.invokeMethod('quarantineReceivedAppArchive', path);
 }
 

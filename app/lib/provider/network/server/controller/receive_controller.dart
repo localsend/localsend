@@ -344,7 +344,7 @@ class ReceiveController {
         error = 'Could not quarantine the received app archive because its saved path is unavailable.';
       } else {
         try {
-          await macos_channel.quarantineReceivedAppArchive(path: filePath, receivedFileName: receivedFileName);
+          await macos_channel.quarantineReceivedAppArchive(path: filePath);
         } catch (e, st) {
           _logger.severe('Failed to quarantine received app archive', e, st);
           error = e.humanErrorMessage;
