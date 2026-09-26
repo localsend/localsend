@@ -41,7 +41,7 @@ Future<void> _clear(RootIsolateToken token) async {
           })
         : Future.value(),
     checkPlatform([TargetPlatform.iOS, TargetPlatform.android]) ? FilePicker.clearTemporaryFiles() : Future.value(),
-    PhotoManager.clearFileCache(),
+    checkPlatform([TargetPlatform.iOS, TargetPlatform.android]) ? PhotoManager.clearFileCache() : Future.value(),
     checkPlatform([TargetPlatform.iOS, TargetPlatform.android])
         ? getTemporaryDirectory().then((cacheDir) {
             cacheDir.list().listen((event) {
