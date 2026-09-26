@@ -148,7 +148,12 @@
       "portWarning": "ポートが変更されているため、このデバイスが他のデバイスから検出されなくなる場合があります。(デフォルト: {defaultPort})",
       "encryption": "暗号化",
       "multicastGroup": "マルチキャスト",
-      "multicastGroupWarning": "マルチキャストアドレスが変更されているため、他のデバイスから検出されなくなる場合があります。(デフォルト: {defaultMulticast})"
+      "multicastGroupWarning": "マルチキャストアドレスが変更されているため、他のデバイスから検出されなくなる場合があります。(デフォルト: {defaultMulticast})",
+      "network": "ネットワーク",
+      "networkOptions": {
+        "all": "すべて",
+        "filtered": "フィルター済み"
+      }
     },
     "other": {
       "title": "その他",
@@ -180,10 +185,10 @@
   },
   "networkInterfacesPage": {
     "title": "ネットワークインターフェース",
-    "info": "デフォルトでは、LocalSend は利用可能なすべてのネットワークインターフェースを使用します。不要なネットワークを除外するには、ここで設定できます。変更を適用するには、サーバーを再起動する必要があります。",
+    "info": "デフォルトでは、LocalSend は利用可能なすべてのネットワークインターフェースを使用します。不要なネットワークはここで除外できます。変更を適用するには、サーバーの再起動が必要です。",
     "preview": "プレビュー",
-    "whitelist": "ホワイトリスト",
-    "blacklist": "ブラックリスト"
+    "whitelist": "許可リスト",
+    "blacklist": "除外リスト"
   },
   "receiveHistoryPage": {
     "title": "履歴",
