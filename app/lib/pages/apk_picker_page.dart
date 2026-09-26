@@ -222,9 +222,9 @@ class _ApkPickerPageState extends State<ApkPickerPage> with Refena {
                                   children: [
                                     Text(
                                       app.appName,
-                                      maxLines: 1,
-                                      overflow: TextOverflow.fade,
-                                      softWrap: false,
+                                      maxLines: 2,
+                                      overflow: TextOverflow.ellipsis,
+                                      softWrap: true,
                                     ),
                                     Consumer(
                                       builder: (context, ref) {
