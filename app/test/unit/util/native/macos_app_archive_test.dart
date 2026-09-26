@@ -18,12 +18,15 @@ void main() {
       await app.create();
       final contents = File(p.join(app.path, 'version.txt'));
       await contents.writeAsString('first');
+      const uncompressedBytes = 64 * 1024;
+      await File(p.join(app.path, 'payload.bin')).writeAsBytes(List.filled(uncompressedBytes, 0));
       final cache = Directory(p.join(root.path, 'cache'));
 
-      final selected = CrossFileConverters.selectMacosAppForSending(app);
+      final selected = await CrossFileConverters.selectMacosAppForSending(app);
       expect(isPendingMacosAppArchive(selected), isTrue);
       expect(selected.path, app.path);
-      expect(CrossFileConverters.selectMacosAppForSending(Directory('${app.path}/')).name, 'Example.app.zip');
+      expect(selected.size, uncompressedBytes + 'first'.length);
+      expect((await CrossFileConverters.selectMacosAppForSending(Directory('${app.path}/'))).name, 'Example.app.zip');
       expect(await cache.exists(), isFalse);
 
       final first = await archiveMacosApp(app, cache);
@@ -35,6 +38,7 @@ void main() {
         (first, 'first'),
         (second, 'second'),
       ]) {
+        expect(await archive.length(), greaterThan(uncompressedBytes));
         final destination = Directory(p.join(root.path, 'unpacked-$expected'));
         await destination.create();
         final result = await Process.run('/usr/bin/ditto', [

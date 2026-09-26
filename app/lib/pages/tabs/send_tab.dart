@@ -51,6 +51,8 @@ class SendTab extends StatelessWidget {
         final sizingInformation = SizingInformation(MediaQuery.sizeOf(context).width);
         final buttonWidth = sizingInformation.isDesktop ? BigButton.desktopWidth : BigButton.mobileWidth;
         final ref = context.ref;
+        final selectedSize = vm.selectedFiles.fold<int>(0, (total, file) => total + file.size).asReadableFileSize;
+        final displayedSize = vm.selectedFiles.any(isPendingMacosAppArchive) ? '≈ $selectedSize' : selectedSize;
         return ResponsiveListView(
           padding: EdgeInsets.zero,
           children: [
@@ -108,9 +110,7 @@ class SendTab extends StatelessWidget {
                       Text(t.sendTab.selection.files(files: vm.selectedFiles.length)),
                       Text(
                         t.sendTab.selection.size(
-                          size: vm.selectedFiles.any(isPendingMacosAppArchive)
-                              ? '—'
-                              : vm.selectedFiles.fold<int>(0, (prev, curr) => prev + curr.size).asReadableFileSize,
+                          size: displayedSize,
                         ),
                       ),
                       const SizedBox(height: 10),

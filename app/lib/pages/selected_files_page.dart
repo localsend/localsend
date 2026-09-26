@@ -21,6 +21,8 @@ class SelectedFilesPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final ref = context.ref;
     final selectedFiles = ref.watch(selectedSendingFilesProvider);
+    final selectedSize = selectedFiles.fold<int>(0, (total, file) => total + file.size).asReadableFileSize;
+    final displayedSize = selectedFiles.any(isPendingMacosAppArchive) ? '≈ $selectedSize' : selectedSize;
 
     return Scaffold(
       appBar: AppBar(
@@ -45,9 +47,7 @@ class SelectedFilesPage extends StatelessWidget {
                         Text(t.sendTab.selection.files(files: selectedFiles.length)),
                         Text(
                           t.sendTab.selection.size(
-                            size: selectedFiles.any(isPendingMacosAppArchive)
-                                ? '—'
-                                : selectedFiles.fold<int>(0, (prev, curr) => prev + curr.size).asReadableFileSize,
+                            size: displayedSize,
                           ),
                         ),
                       ],
@@ -105,7 +105,7 @@ class SelectedFilesPage extends StatelessWidget {
                                       softWrap: false,
                                     ),
                                     Text(
-                                      isPendingMacosAppArchive(file) ? '—' : file.size.asReadableFileSize,
+                                      isPendingMacosAppArchive(file) ? '≈ ${file.size.asReadableFileSize}' : file.size.asReadableFileSize,
                                       style: Theme.of(context).textTheme.bodySmall,
                                     ),
                                   ],

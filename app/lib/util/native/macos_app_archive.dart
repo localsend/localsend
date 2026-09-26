@@ -6,8 +6,19 @@ import 'package:path_provider/path_provider.dart';
 
 bool isMacosApp(Directory directory) => Platform.isMacOS && p.extension(p.normalize(directory.path)).toLowerCase() == '.app';
 
-/// A selected app has no archive size until a transfer is started.
-bool isPendingMacosAppArchive(CrossFile file) => file.size == -1 && file.path != null && isMacosApp(Directory(file.path!));
+/// A selected app has only an estimated size until a transfer is started.
+bool isPendingMacosAppArchive(CrossFile file) =>
+    file.path != null && file.name.toLowerCase().endsWith('.app.zip') && isMacosApp(Directory(file.path!));
+
+Future<int> estimateMacosAppSize(Directory app) async {
+  var size = 0;
+  await for (final entry in app.list(recursive: true, followLinks: false)) {
+    if (entry is File) {
+      size += await entry.length();
+    }
+  }
+  return size;
+}
 
 /// Keeps application bundles intact instead of enumerating their contents.
 Stream<FileSystemEntity> listSendingEntries(Directory directory, {Set<String> ancestors = const {}}) async* {
@@ -46,6 +57,8 @@ Future<File> archiveMacosApp(Directory app, Directory cache) async {
       '--extattr',
       '--qtn',
       '--sequesterRsrc',
+      '--zlibCompressionLevel',
+      '0',
       '--keepParent',
       app.absolute.path,
       pending.absolute.path,

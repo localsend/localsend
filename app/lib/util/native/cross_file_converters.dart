@@ -55,7 +55,7 @@ class CrossFileConverters {
 
   static Future<CrossFile> convertXFile(XFile file) async {
     if (!kIsWeb && isMacosApp(Directory(file.path)) && await Directory(file.path).exists()) {
-      return selectMacosAppForSending(Directory(file.path));
+      return await selectMacosAppForSending(Directory(file.path));
     }
     final metadata = kIsWeb ? null : await readFileMetadata(path: file.path);
     return CrossFile(
@@ -73,7 +73,7 @@ class CrossFileConverters {
 
   static Future<CrossFile> convertFile(File file) async {
     if (isMacosApp(Directory(file.path)) && await Directory(file.path).exists()) {
-      return selectMacosAppForSending(Directory(file.path));
+      return await selectMacosAppForSending(Directory(file.path));
     }
     final metadata = await readFileMetadata(path: file.path);
     return CrossFile(
@@ -106,7 +106,7 @@ class CrossFileConverters {
 
   static Future<CrossFile> convertSharedAttachment(SharedAttachment attachment) async {
     if (isMacosApp(Directory(attachment.path)) && await Directory(attachment.path).exists()) {
-      return selectMacosAppForSending(Directory(attachment.path));
+      return await selectMacosAppForSending(Directory(attachment.path));
     }
     final file = File(attachment.path);
     final fileName = attachment.path.fileName;
@@ -139,11 +139,11 @@ class CrossFileConverters {
     );
   }
 
-  static CrossFile selectMacosAppForSending(Directory app) {
+  static Future<CrossFile> selectMacosAppForSending(Directory app) async {
     return CrossFile(
       name: '${p.basename(p.normalize(app.path))}.zip',
       fileType: FileType.other,
-      size: -1,
+      size: await estimateMacosAppSize(app),
       thumbnail: null,
       asset: null,
       path: app.path,
