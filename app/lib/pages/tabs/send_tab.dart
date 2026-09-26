@@ -16,7 +16,6 @@ import 'package:localsend_app/provider/selection/selected_sending_files_provider
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/util/favorites.dart';
 import 'package:localsend_app/util/native/file_picker.dart';
-import 'package:localsend_app/util/native/macos_app_archive.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_app/widget/big_button.dart';
 import 'package:localsend_app/widget/custom_icon_button.dart';
@@ -51,8 +50,6 @@ class SendTab extends StatelessWidget {
         final sizingInformation = SizingInformation(MediaQuery.sizeOf(context).width);
         final buttonWidth = sizingInformation.isDesktop ? BigButton.desktopWidth : BigButton.mobileWidth;
         final ref = context.ref;
-        final selectedSize = vm.selectedFiles.fold<int>(0, (total, file) => total + file.size).asReadableFileSize;
-        final displayedSize = vm.selectedFiles.any(isPendingMacosAppArchive) ? '≈ $selectedSize' : selectedSize;
         return ResponsiveListView(
           padding: EdgeInsets.zero,
           children: [
@@ -108,11 +105,7 @@ class SendTab extends StatelessWidget {
                       ),
                       const SizedBox(height: 5),
                       Text(t.sendTab.selection.files(files: vm.selectedFiles.length)),
-                      Text(
-                        t.sendTab.selection.size(
-                          size: displayedSize,
-                        ),
-                      ),
+                      Text(t.sendTab.selection.size(size: vm.selectedFiles.fold(0, (prev, curr) => prev + curr.size).asReadableFileSize)),
                       const SizedBox(height: 10),
                       SizedBox(
                         height: defaultThumbnailSize,
