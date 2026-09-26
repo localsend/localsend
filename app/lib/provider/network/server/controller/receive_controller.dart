@@ -647,18 +647,13 @@ class ReceiveController {
     );
   }
 
-  /// In addition to [closeSession], this method also
-  /// - cancels the session on the Rust server so that further uploads fail
-  /// - notifies the sender that the session has been canceled
+  /// In addition to [closeSession], notifies the sender that the session has been canceled.
   void cancelSession() async {
     final session = server.getStateOrNull()?.session;
     if (session == null) {
       // the server is not running
       return;
     }
-
-    // fail further uploads
-    server.ref.redux(parentIsolateProvider).dispatch(IsolateHttpServerCancelSessionAction(sessionId: session.sessionId));
 
     // notify sender
     final target = session.sender;
@@ -686,6 +681,7 @@ class ReceiveController {
       return;
     }
 
+    server.ref.redux(parentIsolateProvider).dispatch(IsolateHttpServerCancelSessionAction(sessionId: sessionId));
     TransferNotification.stop(sessionId);
 
     server.setState(

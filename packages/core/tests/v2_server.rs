@@ -49,6 +49,16 @@ async fn start_test_server_with_verification(
     save_dir: Option<PathBuf>,
     verify_checksums: bool,
 ) -> TestServer {
+    start_test_server_with_options(pin, accept, save_dir, verify_checksums, false).await
+}
+
+async fn start_test_server_with_options(
+    pin: Option<String>,
+    accept: bool,
+    save_dir: Option<PathBuf>,
+    verify_checksums: bool,
+    allow_manual_retries: bool,
+) -> TestServer {
     let _ = tracing_subscriber::fmt().with_test_writer().try_init();
     let received: Arc<Mutex<HashMap<String, Vec<u8>>>> = Arc::new(Mutex::new(HashMap::new()));
     let session_ends: Arc<Mutex<Vec<(String, SessionEndReasonV2)>>> =
@@ -67,6 +77,11 @@ async fn start_test_server_with_verification(
                         files, decision_tx, ..
                     } => {
                         let decision = match accept {
+                            true if allow_manual_retries => {
+                                PrepareUploadDecisionV2::AcceptWithManualRetries(
+                                    files.keys().cloned().collect(),
+                                )
+                            }
                             true => {
                                 PrepareUploadDecisionV2::Accept(files.keys().cloned().collect())
                             }
@@ -543,6 +558,155 @@ async fn test_upload_mismatched_sha256_with_verification_disabled() {
     .unwrap();
 
     assert_eq!(server.received.lock().await["file-a"], bytes);
+}
+
+#[tokio::test]
+async fn test_manual_retry_after_truncated_upload_during_batch() {
+    check_retry_after_truncated_upload(false, true).await;
+}
+
+#[tokio::test]
+async fn test_manual_retry_after_truncated_upload_after_siblings_finish() {
+    check_retry_after_truncated_upload(true, true).await;
+}
+
+#[tokio::test]
+async fn test_truncated_upload_remains_terminal_without_manual_retries() {
+    check_retry_after_truncated_upload(true, false).await;
+}
+
+async fn check_retry_after_truncated_upload(
+    finish_siblings_first: bool,
+    allow_manual_retries: bool,
+) {
+    let save_dir = std::env::temp_dir().join(format!("localsend-test-{}", uuid::Uuid::new_v4()));
+    tokio::fs::create_dir_all(&save_dir).await.unwrap();
+    let server = if allow_manual_retries {
+        start_test_server_with_options(None, true, Some(save_dir.clone()), true, true).await
+    } else {
+        start_test_server(None, true, Some(save_dir.clone())).await
+    };
+    let client = LsHttpClientV2::try_new_without_cert().unwrap();
+    let bytes = b"a complete file";
+    let sibling_bytes = b"already received";
+    let files = [
+        file_dto("file-a", "a.bin", bytes.len() as u64),
+        file_dto("file-b", "b.bin", sibling_bytes.len() as u64),
+        file_dto("file-c", "c.bin", sibling_bytes.len() as u64),
+    ];
+    let response = client
+        .prepare_upload(
+            ProtocolType::Http,
+            "127.0.0.1",
+            server.port,
+            None,
+            prepare_upload_request(&files),
+            None,
+            CancellationToken::new(),
+        )
+        .await
+        .unwrap()
+        .response
+        .unwrap();
+
+    // No checksum is involved: the body ends before the promised file size.
+    let truncated = &bytes[..4];
+    assert_status(
+        upload_bytes(
+            &client,
+            server.port,
+            &response.session_id,
+            "file-a",
+            &response.files["file-a"],
+            truncated,
+        )
+        .await,
+        500,
+    );
+    assert_eq!(
+        tokio::fs::read(save_dir.join("file-a")).await.unwrap(),
+        truncated
+    );
+
+    for file_id in if finish_siblings_first {
+        &["file-b", "file-c"][..]
+    } else {
+        &["file-b"][..]
+    } {
+        upload_bytes(
+            &client,
+            server.port,
+            &response.session_id,
+            file_id,
+            &response.files[*file_id],
+            sibling_bytes,
+        )
+        .await
+        .unwrap();
+    }
+
+    // A finished sibling must remain protected even while failures are retryable.
+    assert_status(
+        upload_bytes(
+            &client,
+            server.port,
+            &response.session_id,
+            "file-b",
+            &response.files["file-b"],
+            b"must not overwrite",
+        )
+        .await,
+        403,
+    );
+    let retry = upload_bytes(
+        &client,
+        server.port,
+        &response.session_id,
+        "file-a",
+        &response.files["file-a"],
+        bytes,
+    )
+    .await;
+    if allow_manual_retries {
+        retry.unwrap();
+        assert_eq!(
+            tokio::fs::read(save_dir.join("file-a")).await.unwrap(),
+            bytes
+        );
+    } else {
+        assert_status(retry, 403);
+        assert_eq!(
+            tokio::fs::read(save_dir.join("file-a")).await.unwrap(),
+            truncated
+        );
+    }
+
+    if !finish_siblings_first {
+        upload_bytes(
+            &client,
+            server.port,
+            &response.session_id,
+            "file-c",
+            &response.files["file-c"],
+            sibling_bytes,
+        )
+        .await
+        .unwrap();
+    }
+    for file_id in ["file-b", "file-c"] {
+        assert_eq!(
+            tokio::fs::read(save_dir.join(file_id)).await.unwrap(),
+            sibling_bytes
+        );
+    }
+    let mut entries = tokio::fs::read_dir(&save_dir).await.unwrap();
+    let mut names = Vec::new();
+    while let Some(entry) = entries.next_entry().await.unwrap() {
+        names.push(entry.file_name().to_string_lossy().into_owned());
+    }
+    names.sort();
+    assert_eq!(names, ["file-a", "file-b", "file-c"]);
+    tokio::fs::remove_dir_all(&save_dir).await.unwrap();
 }
 
 #[tokio::test]
