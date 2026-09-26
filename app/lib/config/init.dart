@@ -118,7 +118,7 @@ Future<RefenaContainer> preInit(List<String> args) async {
       // keep this app hidden
       startHidden = true;
     } else if (defaultTargetPlatform == TargetPlatform.macOS) {
-      startHidden = await isLaunchedAsLoginItem() && await getLaunchAtLoginMinimized();
+      startHidden = await _isLaunchedAsLoginItemWithRetry();
     }
 
     if (startHidden) {
@@ -178,6 +178,22 @@ Future<RefenaContainer> preInit(List<String> args) async {
   await container.redux(parentIsolateProvider).dispatchAsync(IsolateSetupAction());
 
   return container;
+}
+
+/// The native side registers the `main-delegate-channel` in
+/// `applicationDidFinishLaunching`, which can run after Dart already invoked
+/// it, resulting in a [MissingPluginException] at startup.
+/// Retry briefly and fall back to showing the window.
+Future<bool> _isLaunchedAsLoginItemWithRetry() async {
+  for (var i = 0; i < 5; i++) {
+    try {
+      return await isLaunchedAsLoginItem() && await getLaunchAtLoginMinimized();
+    } on MissingPluginException {
+      await Future<void>.delayed(const Duration(milliseconds: 100));
+    }
+  }
+  _logger.warning('Checking login item failed: method channel not registered, starting in visible mode');
+  return false;
 }
 
 StreamSubscription? _sharedMediaSubscription;
