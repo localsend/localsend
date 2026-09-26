@@ -54,11 +54,54 @@ ThemeData getTheme(ColorMode colorMode, Color customColor, Brightness brightness
     useMaterial3: true,
     // same density on all platforms so desktop matches mobile (defaults to compact on desktop)
     visualDensity: VisualDensity.standard,
-    navigationBarTheme: colorScheme.brightness == Brightness.dark
-        ? NavigationBarThemeData(
-            iconTheme: WidgetStateProperty.all(const IconThemeData(color: Colors.white)),
-          )
-        : null,
+    scaffoldBackgroundColor: colorScheme.surface,
+    navigationBarTheme: NavigationBarThemeData(
+      backgroundColor: Colors.transparent,
+      indicatorColor: colorScheme.primary.withValues(alpha: 0.12),
+      iconTheme: WidgetStateProperty.resolveWith((states) {
+        if (states.contains(WidgetState.selected)) {
+          return IconThemeData(color: colorScheme.primary);
+        }
+        return IconThemeData(
+          color: colorScheme.brightness == Brightness.dark
+              ? Colors.white.withValues(alpha: 0.7)
+              : colorScheme.onSurface.withValues(alpha: 0.6),
+        );
+      }),
+      labelTextStyle: WidgetStateProperty.resolveWith((states) {
+        if (states.contains(WidgetState.selected)) {
+          return TextStyle(
+            color: colorScheme.primary,
+            fontWeight: FontWeight.w600,
+          );
+        }
+        return TextStyle(
+          color: colorScheme.brightness == Brightness.dark
+              ? Colors.white.withValues(alpha: 0.7)
+              : colorScheme.onSurface.withValues(alpha: 0.6),
+          fontWeight: FontWeight.w500,
+        );
+      }),
+    ),
+    navigationRailTheme: NavigationRailThemeData(
+      backgroundColor: colorScheme.surfaceContainer,
+      selectedIconTheme: IconThemeData(color: colorScheme.primary),
+      unselectedIconTheme: IconThemeData(
+        color: colorScheme.onSurfaceVariant,
+      ),
+      selectedLabelTextStyle: TextStyle(
+        color: colorScheme.primary,
+        fontWeight: FontWeight.w600,
+      ),
+      unselectedLabelTextStyle: TextStyle(
+        color: colorScheme.onSurfaceVariant,
+      ),
+      indicatorColor: colorScheme.primary.withValues(alpha: 0.15),
+    ),
+    dividerTheme: DividerThemeData(
+      color: colorScheme.outlineVariant,
+      thickness: 1,
+    ),
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
       fillColor: colorScheme.secondaryContainer,
@@ -181,11 +224,50 @@ ThemeData _getYaruTheme(Brightness brightness) {
   return baseTheme.copyWith(
     // same density on all platforms so desktop matches mobile (defaults to compact on desktop)
     visualDensity: VisualDensity.standard,
-    navigationBarTheme: colorScheme.brightness == Brightness.dark
-        ? NavigationBarThemeData(
-            iconTheme: WidgetStateProperty.all(const IconThemeData(color: Colors.white)),
-          )
-        : null,
+    scaffoldBackgroundColor: colorScheme.surface,
+    navigationBarTheme: NavigationBarThemeData(
+      backgroundColor: Colors.transparent,
+      indicatorColor: colorScheme.primary.withValues(alpha: 0.12),
+      iconTheme: WidgetStateProperty.resolveWith((states) {
+        if (states.contains(WidgetState.selected)) {
+          return IconThemeData(color: colorScheme.primary);
+        }
+        return IconThemeData(
+          color: colorScheme.onSurfaceVariant,
+        );
+      }),
+      labelTextStyle: WidgetStateProperty.resolveWith((states) {
+        if (states.contains(WidgetState.selected)) {
+          return TextStyle(
+            color: colorScheme.primary,
+            fontWeight: FontWeight.w600,
+          );
+        }
+        return TextStyle(
+          color: colorScheme.onSurfaceVariant,
+          fontWeight: FontWeight.w500,
+        );
+      }),
+    ),
+    navigationRailTheme: NavigationRailThemeData(
+      backgroundColor: colorScheme.surfaceContainer,
+      selectedIconTheme: IconThemeData(color: colorScheme.primary),
+      unselectedIconTheme: IconThemeData(
+        color: colorScheme.onSurfaceVariant,
+      ),
+      selectedLabelTextStyle: TextStyle(
+        color: colorScheme.primary,
+        fontWeight: FontWeight.w600,
+      ),
+      unselectedLabelTextStyle: TextStyle(
+        color: colorScheme.onSurfaceVariant,
+      ),
+      indicatorColor: colorScheme.primary.withValues(alpha: 0.15),
+    ),
+    dividerTheme: DividerThemeData(
+      color: colorScheme.outlineVariant,
+      thickness: 1,
+    ),
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
       fillColor: colorScheme.secondaryContainer,
