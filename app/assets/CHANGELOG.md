@@ -1,6 +1,5 @@
 ## Unreleased
 
-- fix(macos): preserve application bundles by sending them as ZIP archives (@ShlomoCode)
 - fix: avoid adding a trailing dot when renaming files without an extension (@ShlomoCode)
 - fix(macos): prevent intermittent MissingPluginException during startup (@ShlomoCode)
 - fix(macos): file sharing via Share Extension doesn't work in DMG builds (@ShlomoCode, @vdmkotai)
