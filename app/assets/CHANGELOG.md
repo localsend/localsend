@@ -2,6 +2,7 @@
 
 - fix(macos): file sharing via Share Extension doesn't work in DMG builds (@ShlomoCode, @vdmkotai)
 - fix: show the real error when a file cannot be read while sending, instead of transferring it as an empty file (@leopalmieri-spec)
+- fix: show the actual save location path for receiving files (@ShlomoCode)
 
 ## 1.18.2 (2026-08-21)
 
