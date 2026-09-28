@@ -79,10 +79,12 @@ internal object ReceivingTileBridge {
                         val sessionId = args?.get("sessionId") as? String
                         val sender = args?.get("sender") as? String
                         val fileCount = args?.get("fileCount") as? Int
+                        val fileName = args?.get("fileName") as? String
+                        val previewBytes = args?.get("previewBytes") as? ByteArray
                         if (sessionId == null || sender == null || fileCount == null) {
                             result.error("INVALID_REQUEST", "Missing incoming request details", null)
                         } else {
-                            ReceivingService.instance?.showRequest(sessionId, sender, fileCount)
+                            ReceivingService.instance?.showRequest(sessionId, sender, fileCount, fileName, previewBytes)
                             result.success(null)
                         }
                     }

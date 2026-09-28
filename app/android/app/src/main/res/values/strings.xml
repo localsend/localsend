@@ -8,6 +8,8 @@
     <string name="receiving_service_title">LocalSend receiving</string>
     <string name="receiving_service_text">Ready to receive files</string>
     <string name="incoming_request_title">Incoming transfer from %1$s</string>
+    <string name="incoming_request_unknown_sender">Unknown device</string>
+    <string name="incoming_request_file">Wants to send %1$s</string>
     <string name="incoming_request_files">%1$d files waiting</string>
     <string name="incoming_request_message">Message waiting</string>
     <string name="incoming_request_accept">Accept</string>

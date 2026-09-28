@@ -8,11 +8,13 @@ import android.app.Service
 import android.content.Context
 import android.content.Intent
 import android.content.pm.ServiceInfo
+import android.graphics.BitmapFactory
 import android.os.Build
 import android.os.Handler
 import android.os.IBinder
 import android.os.Looper
 import android.util.Log
+import android.widget.RemoteViews
 import io.flutter.FlutterInjector
 import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.embedding.engine.dart.DartExecutor
@@ -135,23 +137,47 @@ class ReceivingService : Service() {
         })
     }
 
-    fun showRequest(sessionId: String, sender: String, fileCount: Int) {
+    fun showRequest(sessionId: String, sender: String, fileCount: Int, fileName: String?, previewBytes: ByteArray?) {
         activeSessionId = sessionId
+        val senderName = sender.ifBlank { getString(R.string.incoming_request_unknown_sender) }
+        val description = when {
+            fileCount == 0 -> getString(R.string.incoming_request_message)
+            fileCount == 1 && !fileName.isNullOrBlank() -> getString(R.string.incoming_request_file, fileName)
+            else -> getString(R.string.incoming_request_files, fileCount)
+        }
         val openIntent = PendingIntent.getActivity(this, 0, MainActivity.createDefaultIntent(this), PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT)
         val accept = requestAction(actionAccept, sessionId, 1)
         val decline = requestAction(actionDecline, sessionId, 2)
-        val notification = notificationBuilder(requestChannel)
+        val builder = notificationBuilder(requestChannel)
             .setSmallIcon(R.mipmap.ic_launcher_quicktile_foreground)
-            .setContentTitle(getString(R.string.incoming_request_title, sender))
-            .setContentText(if (fileCount == 0) getString(R.string.incoming_request_message) else getString(R.string.incoming_request_files, fileCount))
+            .setContentTitle(senderName)
+            .setContentText(description)
+            .setSubText(getString(R.string.receiving_service_title))
             .setCategory(Notification.CATEGORY_EVENT)
             .setPriority(Notification.PRIORITY_HIGH)
             .setAutoCancel(false)
             .setContentIntent(openIntent)
             .addAction(android.R.drawable.ic_menu_save, getString(R.string.incoming_request_accept), accept)
             .addAction(android.R.drawable.ic_menu_close_clear_cancel, getString(R.string.incoming_request_decline), decline)
-            .build()
-        notifications.notify(requestNotificationId, notification)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            val compactView = RemoteViews(packageName, R.layout.incoming_request_compact).apply {
+                setTextViewText(R.id.incoming_sender, senderName)
+                setTextViewText(R.id.incoming_description, description)
+                setOnClickPendingIntent(R.id.incoming_decline, decline)
+                setOnClickPendingIntent(R.id.incoming_accept, accept)
+            }
+            builder.setCustomContentView(compactView)
+            builder.setCustomHeadsUpContentView(compactView)
+            builder.setStyle(Notification.DecoratedCustomViewStyle())
+        }
+        if (previewBytes != null && previewBytes.size <= 64 * 1024) {
+            val bitmap = BitmapFactory.decodeByteArray(previewBytes, 0, previewBytes.size)
+            if (bitmap != null) {
+                builder.setLargeIcon(bitmap)
+                builder.setStyle(Notification.BigPictureStyle().bigPicture(bitmap).setBigContentTitle(senderName).setSummaryText(description))
+            }
+        }
+        notifications.notify(requestNotificationId, builder.build())
     }
 
     fun dismissRequest(sessionId: String?) {

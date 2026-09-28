@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="48dp"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingStart="2dp"
+    android:paddingEnd="2dp">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginEnd="2dp"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/incoming_sender"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="@color/incoming_notification_primary_text"
+            android:textSize="13sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/incoming_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="@color/incoming_notification_secondary_text"
+            android:textSize="11sp" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/incoming_decline"
+        android:layout_width="70dp"
+        android:layout_height="match_parent"
+        android:background="?android:attr/selectableItemBackground"
+        android:contentDescription="@string/incoming_request_decline"
+        android:gravity="center"
+        android:text="@string/incoming_request_decline"
+        android:textColor="@color/incoming_notification_primary_text"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/incoming_accept"
+        android:layout_width="64dp"
+        android:layout_height="match_parent"
+        android:background="?android:attr/selectableItemBackground"
+        android:contentDescription="@string/incoming_request_accept"
+        android:gravity="center"
+        android:text="@string/incoming_request_accept"
+        android:textColor="@color/incoming_notification_primary_text"
+        android:textSize="12sp"
+        android:textStyle="bold" />
+</LinearLayout>
