@@ -1,4 +1,5 @@
 pub mod common;
+mod connection_limit;
 pub mod internal;
 mod peer_ip;
 pub mod v2;
@@ -17,10 +18,10 @@ use common::error::AppError;
 use common::response;
 use common::response::BoxedBody;
 use common::session::SessionStateV2;
+use connection_limit::{ConnectionLimiter, LimitReached, MAX_CONNECTIONS, MAX_CONNECTIONS_PER_IP};
 use hyper::body::Incoming;
 use hyper::{Method, Request, Response, StatusCode};
-use hyper_util::rt::{TokioExecutor, TokioIo};
-use hyper_util::server::conn::auto::Builder;
+use hyper_util::rt::TokioIo;
 use lru::LruCache;
 use rustls::pki_types::pem::PemObject;
 use rustls::pki_types::{CertificateDer, PrivateKeyDer};
@@ -29,6 +30,7 @@ use std::net::{IpAddr, Ipv4Addr, Ipv6Addr, SocketAddr};
 use std::num::NonZeroUsize;
 use std::ops::Deref;
 use std::sync::Arc;
+use tokio::io::{AsyncRead, AsyncWrite};
 use tokio::sync::{mpsc, oneshot, Mutex};
 use tokio_util::sync::CancellationToken;
 use tokio_util::task::TaskTracker;
@@ -85,6 +87,9 @@ pub struct AppState {
 
     /// State of the v2 protocol endpoints. `None` disables the v2 routes.
     v2: Option<Arc<V2State>>,
+
+    /// Limits the connections being served, shared by the IPv4 and IPv6 listeners.
+    connection_limiter: Arc<ConnectionLimiter>,
 }
 
 impl AppState {
@@ -117,6 +122,7 @@ impl AppState {
                 NonZeroUsize::new(200).unwrap(),
             ))),
             v2,
+            connection_limiter: ConnectionLimiter::new(MAX_CONNECTIONS, MAX_CONNECTIONS_PER_IP),
         }
     }
 }
@@ -329,6 +335,13 @@ const ACCEPT_BACKOFF_MAX: std::time::Duration = std::time::Duration::from_secs(1
 /// OS-specific) produces them in an endless, immediate sequence.
 const ACCEPT_FAILURE_LIMIT: u32 = 100;
 
+/// Detects peers that vanished without closing their connections (e.g. left
+/// the network mid-transfer), which would otherwise count towards the
+/// connection limits forever.
+const TCP_KEEPALIVE: socket2::TcpKeepalive = socket2::TcpKeepalive::new()
+    .with_time(std::time::Duration::from_secs(60))
+    .with_interval(std::time::Duration::from_secs(10));
+
 /// Whether the failed accept concerned only the connection being accepted, so
 /// the next one can be attempted right away.
 fn is_transient_accept_error(err: &std::io::Error) -> bool {
@@ -389,6 +402,7 @@ async fn start_server_with_listener(
 
     let mut accept_backoff = ACCEPT_BACKOFF_MIN;
     let mut accept_failures = 0u32;
+    let mut at_connection_limit = false;
     loop {
         let (tcp_stream, remote_addr) = match incoming.accept().await {
             Ok(accepted) => {
@@ -396,6 +410,7 @@ async fn start_server_with_listener(
                 accept_failures = 0;
                 // Disable Nagle: it delays small responses (reqwest already does this on the client side).
                 let _ = accepted.0.set_nodelay(true);
+                let _ = socket2::SockRef::from(&accepted.0).set_tcp_keepalive(&TCP_KEEPALIVE);
                 accepted
             }
             // Accepting fails for two kinds of reasons that say nothing about
@@ -431,10 +446,34 @@ async fn start_server_with_listener(
             }
         };
 
+        // Dropping the stream closes the connection.
+        let permit = match app_state.connection_limiter.try_acquire(remote_addr.ip()) {
+            Ok(permit) => permit,
+            Err(LimitReached::Total) => {
+                if !at_connection_limit {
+                    tracing::warn!(
+                        "Refusing connections: {MAX_CONNECTIONS} connections are being served"
+                    );
+                    at_connection_limit = true;
+                }
+                continue;
+            }
+            // Debug only: the peer decides how often this happens.
+            Err(LimitReached::PerIp) => {
+                tracing::debug!(
+                    "Refusing connection from {}: {MAX_CONNECTIONS_PER_IP} of its connections are being served",
+                    remote_addr.ip()
+                );
+                continue;
+            }
+        };
+        at_connection_limit = false;
+
         let tls_acceptor = tls_acceptor.clone();
         let app_state = app_state.clone();
         let cancel = cancel.clone();
         connections.spawn(async move {
+            let _permit = permit;
             let serve = serve_connection(tcp_stream, remote_addr, tls_acceptor, app_state);
             tokio::select! {
                 _ = serve => {}
@@ -475,39 +514,43 @@ async fn serve_connection(
                 }
             };
 
-            Builder::new(TokioExecutor::new())
-                .serve_connection(
-                    TokioIo::new(tls_stream),
-                    hyper::service::service_fn(move |mut req: Request<Incoming>| {
-                        req.extensions_mut()
-                            .insert::<RequestClientInfo>(client_info.clone());
-                        req.extensions_mut().insert::<AppState>(app_state.clone());
-                        handle_request(req)
-                    }),
-                )
-                .await
+            serve_http(tls_stream, client_info, app_state).await
         }
         None => {
-            Builder::new(TokioExecutor::new())
-                .serve_connection(
-                    TokioIo::new(tcp_stream),
-                    hyper::service::service_fn(move |mut req: Request<Incoming>| {
-                        req.extensions_mut()
-                            .insert::<RequestClientInfo>(RequestClientInfo {
-                                ip: PeerIp::from_remote_addr(&remote_addr),
-                                cert: None,
-                            });
-                        req.extensions_mut().insert::<AppState>(app_state.clone());
-                        handle_request(req)
-                    }),
-                )
-                .await
+            let client_info = RequestClientInfo {
+                ip: PeerIp::from_remote_addr(&remote_addr),
+                cert: None,
+            };
+            serve_http(tcp_stream, client_info, app_state).await
         }
     };
 
     if let Err(err) = res {
         tracing::warn!("Failed to serve connection: {err:#}");
     }
+}
+
+/// Serves HTTP/1.1 only: HTTP/2 multiplexes many requests over one connection,
+/// so the connection limits would no longer bound the requests of a peer.
+async fn serve_http<I>(
+    io: I,
+    client_info: RequestClientInfo,
+    app_state: AppState,
+) -> hyper::Result<()>
+where
+    I: AsyncRead + AsyncWrite + Unpin + Send + 'static,
+{
+    hyper::server::conn::http1::Builder::new()
+        .serve_connection(
+            TokioIo::new(io),
+            hyper::service::service_fn(move |mut req: Request<Incoming>| {
+                req.extensions_mut()
+                    .insert::<RequestClientInfo>(client_info.clone());
+                req.extensions_mut().insert::<AppState>(app_state.clone());
+                handle_request(req)
+            }),
+        )
+        .await
 }
 
 fn create_tls_config(
