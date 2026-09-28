@@ -56,6 +56,18 @@ class FileDto {
     );
   }
 
+  FileDto withPreview(String? preview) {
+    return FileDto(
+      id: id,
+      fileName: fileName,
+      size: size,
+      fileType: fileType,
+      hash: hash,
+      preview: preview,
+      metadata: metadata,
+    );
+  }
+
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||

@@ -14,6 +14,7 @@ import 'package:localsend_app/provider/file_transfer_provider.dart';
 import 'package:localsend_app/provider/http_provider.dart';
 import 'package:localsend_app/provider/selection/selected_sending_files_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
+import 'package:localsend_app/util/transfer_preview.dart';
 import 'package:localsend_app/widget/dialogs/pin_dialog.dart';
 import 'package:localsend_isolates/isolate.dart';
 import 'package:localsend_isolates/model/device.dart';
@@ -221,9 +222,23 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
       return;
     }
 
+    final previews = <String, String>{};
+    var previewAttempts = 0;
+    for (final (:id, :file) in selectedFiles) {
+      if (file.fileType != FileType.image && file.fileType != FileType.video && file.fileType != FileType.apk) continue;
+      if (previewAttempts >= 3) break;
+      previewAttempts++;
+      final preview = await createTransferImagePreview(file);
+      if (state[sessionId] == null) return;
+      if (preview != null) previews[id] = preview;
+    }
+
     final requestState = hashedState.copyWith(
       files: hashedState.files.map(
-        (id, sendingFile) => MapEntry(id, sendingFile.copyWith(file: sendingFile.file.withHash(hashes[id]))),
+        (id, sendingFile) => MapEntry(
+          id,
+          sendingFile.copyWith(file: sendingFile.file.withHash(hashes[id]).withPreview(previews[id] ?? sendingFile.file.preview)),
+        ),
       ),
     );
     state = state.updateSession(

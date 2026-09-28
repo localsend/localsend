@@ -15,8 +15,10 @@ import 'package:localsend_app/util/device_type_ext.dart';
 import 'package:localsend_app/util/favorites.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_app/util/native/taskbar_helper.dart';
+import 'package:localsend_app/util/transfer_preview.dart';
 import 'package:localsend_app/util/ui/snackbar.dart';
 import 'package:localsend_app/widget/device_bage.dart';
+import 'package:localsend_app/widget/file_thumbnail.dart';
 import 'package:localsend_app/widget/responsive_list_view.dart';
 import 'package:localsend_isolates/model/device.dart';
 import 'package:localsend_isolates/model/dto/file_dto.dart';
@@ -29,6 +31,7 @@ import 'package:url_launcher/url_launcher.dart';
 class ReceivePageVm {
   final SessionStatus? status;
   final Device sender;
+  final String? senderAlias;
 
   /// Show verify button and device model.
   final bool showSenderInfo;
@@ -42,6 +45,7 @@ class ReceivePageVm {
   ReceivePageVm({
     required this.status,
     required this.sender,
+    this.senderAlias,
     required this.showSenderInfo,
     required this.files,
     required this.message,
@@ -121,16 +125,16 @@ class _ReceivePageState extends State<ReceivePage> with Refena {
                                         ),
                                       Builder(
                                         builder: (context) {
-                                          final alias = senderFavoriteEntry?.alias ?? vm.sender.alias;
-                                          if (alias.isEmpty) {
-                                            return Text('', style: TextStyle(fontSize: smallUi ? 32 : 48));
-                                          }
-                                          return FittedBox(
-                                            child: Text(
-                                              alias,
-                                              style: TextStyle(fontSize: smallUi ? 32 : 48),
-                                              textAlign: TextAlign.center,
-                                            ),
+                                          final alias = [senderFavoriteEntry?.alias, vm.senderAlias, vm.sender.alias, vm.sender.deviceModel]
+                                                  .whereType<String>()
+                                                  .firstWhere((value) => value.trim().isNotEmpty, orElse: () => t.general.unknown)
+                                              .trim();
+                                          return Text(
+                                            alias,
+                                            style: TextStyle(fontSize: smallUi ? 26 : 36),
+                                            textAlign: TextAlign.center,
+                                            maxLines: 2,
+                                            overflow: TextOverflow.ellipsis,
                                           );
                                         },
                                       ),
@@ -156,6 +160,34 @@ class _ReceivePageState extends State<ReceivePage> with Refena {
                                         style: smallUi ? null : Theme.of(context).textTheme.titleLarge,
                                         textAlign: TextAlign.center,
                                       ),
+                                      if (vm.message == null && vm.files.isNotEmpty)
+                                        Padding(
+                                          padding: const EdgeInsets.only(top: 14),
+                                          child: Wrap(
+                                            alignment: WrapAlignment.center,
+                                            spacing: 10,
+                                            runSpacing: 10,
+                                            children: [
+                                              for (final file in vm.files.take(3))
+                                                SizedBox(
+                                                  width: vm.files.length == 1 ? 132 : 80,
+                                                  child: Column(
+                                                    mainAxisSize: MainAxisSize.min,
+                                                    children: [
+                                                      MemoryThumbnail(
+                                                        bytes: decodeTransferImagePreview(file.preview),
+                                                        fileType: file.fileType,
+                                                        size: height < 600 ? 64 : (vm.files.length == 1 ? 96 : 64),
+                                                      ),
+                                                      const SizedBox(height: 4),
+                                                      Text(file.fileName, maxLines: 1, overflow: TextOverflow.ellipsis, textAlign: TextAlign.center),
+                                                    ],
+                                                  ),
+                                                ),
+                                              if (vm.files.length > 3) Center(child: Text('+${vm.files.length - 3}')),
+                                            ],
+                                          ),
+                                        ),
                                       if (vm.showSenderInfo && vm.message == null)
                                         Padding(
                                           padding: const EdgeInsets.only(top: 8),

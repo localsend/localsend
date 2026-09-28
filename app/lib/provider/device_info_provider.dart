@@ -39,7 +39,7 @@ final deviceFullInfoProvider = ViewProvider((ref) {
     ip: networkInfo.localIps.firstOrNull ?? '-',
     version: protocolVersion,
     port: serverState?.port ?? -1,
-    alias: serverState?.alias ?? '-',
+    alias: serverState?.alias ?? ref.watch(settingsProvider.select((state) => state.alias)),
     https: serverState?.https ?? true,
     fingerprint: securityContext.certificateHash,
     deviceModel: rawInfo.deviceModel,
