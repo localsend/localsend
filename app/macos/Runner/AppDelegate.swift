@@ -3,6 +3,7 @@ import FlutterMacOS
 import Defaults
 import DockProgress
 import LaunchAtLogin
+import WidgetKit
 
 enum DockIcon: CaseIterable {
     case regular
@@ -12,11 +13,18 @@ enum DockIcon: CaseIterable {
 
 @main
 class AppDelegate: FlutterAppDelegate {
-    private var statusItem: NSStatusItem?
+    private let controlNotification = "org.localsend.localsendApp.receivingControlRequest" as CFString
+    private let controlKind = "org.localsend.localsendApp.receivingControl"
     private var channel: FlutterMethodChannel?
+    private var flutterReady = false
+    private var lastHandledControlRequestId: String?
+    private var controlHeartbeatTimer: Timer?
     private var pendingFilesObservation: Defaults.Observation?
     private var pendingStringsObservation: Defaults.Observation?
     private var isLaunchedAsLoginItem: Bool?
+    private lazy var incomingTransferPanel = IncomingTransferPanel { [weak self] sessionId, action in
+        self?.channel?.invokeMethod("incomingTransferPanelAction", arguments: ["sessionId": sessionId, "action": action])
+    }
     
     override func applicationSupportsSecureRestorableState(_ app: NSApplication) -> Bool {
         return true
@@ -38,12 +46,32 @@ class AppDelegate: FlutterAppDelegate {
         DockProgress.style = .squircle(color: localsendBrandColor)
         
         isLaunchedAsLoginItem = LaunchAtLogin.wasLaunchedAtLogin
+
+        sharedDefaults.set(false, forKey: "receivingActive")
+        updateControlHeartbeat()
+        controlHeartbeatTimer = Timer.scheduledTimer(withTimeInterval: 10, repeats: true) { [weak self] _ in
+            self?.updateControlHeartbeat()
+        }
+        CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(), Unmanaged.passUnretained(self).toOpaque(), { _, observer, _, _, _ in
+            guard let observer = observer else { return }
+            let app = Unmanaged<AppDelegate>.fromOpaque(observer).takeUnretainedValue()
+            DispatchQueue.main.async { app.handleControlRequest() }
+        }, controlNotification, nil, .deliverImmediately)
         
         restoreDestinationFolderAccess()
     }
+
+    override func applicationWillTerminate(_ notification: Notification) {
+        controlHeartbeatTimer?.invalidate()
+        CFNotificationCenterRemoveObserver(CFNotificationCenterGetDarwinNotifyCenter(), Unmanaged.passUnretained(self).toOpaque(), CFNotificationName(controlNotification), nil)
+        sharedDefaults.set(false, forKey: "receivingActive")
+        sharedDefaults.set(0, forKey: "controlHeartbeat")
+        reloadReceivingControl()
+        super.applicationWillTerminate(notification)
+    }
     
     override func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool {
-        showLocalSendFromMenuBar()
+        showLocalSend()
         return false
     }
     
@@ -70,45 +98,33 @@ class AppDelegate: FlutterAppDelegate {
         }
     }
     
-    private func setupStatusBarItem(i18n: [String: String]) {
-        statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
-        if let button = statusItem?.button {
-            let image = NSImage(named: "StatusBarItemIcon")
-            image!.size = NSSize(width: 18, height: 18)
-            image!.isTemplate = true
-            button.image = image
-            
-            let menu = NSMenu()
-            
-            let openString = i18n["open"]!
-            let openItem = NSMenuItem(title: openString, action: #selector(showLocalSendFromMenuBar), keyEquivalent: "o")
-            menu.addItem(openItem)
-            
-            let quitString = i18n["quit"]!
-            let quitItem = NSMenuItem(title: quitString, action: #selector(quitApp), keyEquivalent: "q")
-            menu.addItem(quitItem)
-            
-            statusItem?.menu = menu
-            
-            let dragView = ContentDropView(frame: button.bounds)
-            button.addSubview(dragView)
-            
-            dragView.translatesAutoresizingMaskIntoConstraints = false
-            NSLayoutConstraint.activate([
-                dragView.topAnchor.constraint(equalTo: button.topAnchor),
-                dragView.leadingAnchor.constraint(equalTo: button.leadingAnchor),
-                dragView.trailingAnchor.constraint(equalTo: button.trailingAnchor),
-                dragView.bottomAnchor.constraint(equalTo: button.bottomAnchor)
-            ])
+    @objc func showLocalSend() {
+        channel?.invokeMethod("showLocalSend", arguments: nil)
+    }
+
+    private func updateControlHeartbeat() {
+        sharedDefaults.set(Date().timeIntervalSince1970, forKey: "controlHeartbeat")
+    }
+
+    private func reloadReceivingControl() {
+        if #available(macOS 26.0, *) {
+            ControlCenter.shared.reloadControls(ofKind: controlKind)
         }
     }
-    
-    @objc func showLocalSendFromMenuBar() {
-        channel?.invokeMethod("showLocalSendFromMenuBar", arguments: nil)
-    }
-    
-    @objc private func quitApp() {
-        NSApp.terminate(nil)
+
+    private func handleControlRequest() {
+        guard flutterReady,
+              let requestId = sharedDefaults.string(forKey: "controlRequestId"),
+              sharedDefaults.double(forKey: "controlRequestTime") > Date().timeIntervalSince1970 - 30,
+              requestId != lastHandledControlRequestId else { return }
+        lastHandledControlRequestId = requestId
+        let enabled = sharedDefaults.bool(forKey: "receivingRequested")
+        channel?.invokeMethod("setReceivingFromControlCenter", arguments: enabled) { [weak self] result in
+            if let active = result as? Bool {
+                sharedDefaults.set(active, forKey: "receivingActive")
+            }
+            self?.reloadReceivingControl()
+        }
     }
     
     func sendPendingItemsToFlutter() {
@@ -132,7 +148,7 @@ class AppDelegate: FlutterAppDelegate {
         Defaults[.pendingFiles] = []
         Defaults[.pendingStrings] = []
         
-        self.showLocalSendFromMenuBar()
+        self.showLocalSend()
     }
     
     // START: handle opened files
@@ -140,11 +156,40 @@ class AppDelegate: FlutterAppDelegate {
         switch call.method {
         case "methodChannelInitialized":
             /// Any call to the channel is dropped until methodChannelInitialized is called from Flutter
+            flutterReady = true
             setupPendingItemsObservation()
+            handleControlRequest()
             result(nil)
-        case "setupStatusBar":
-            let i18n = call.arguments as! [String: String]
-            setupStatusBarItem(i18n: i18n)
+        case "setReceivingControlState":
+            let state = call.arguments as? [String: Bool] ?? [:]
+            sharedDefaults.set(state["receiving"] == true, forKey: "receivingActive")
+            sharedDefaults.set(state["busy"] == true, forKey: "receivingBusy")
+            updateControlHeartbeat()
+            reloadReceivingControl()
+            result(nil)
+        case "showIncomingTransferPanel":
+            guard let args = call.arguments as? [String: Any],
+                  let sessionId = args["sessionId"] as? String, !sessionId.isEmpty,
+                  let sender = args["sender"] as? String,
+                  let detail = args["detail"] as? String,
+                  let accept = args["accept"] as? String,
+                  let decline = args["decline"] as? String else {
+                result(FlutterError(code: "INVALID_ARGUMENT", message: "Expected transfer details", details: nil))
+                return
+            }
+            result(incomingTransferPanel.show(
+                sessionId: sessionId,
+                sender: sender,
+                detail: detail,
+                fileCount: args["fileCount"] as? Int ?? 1,
+                previewName: args["previewName"] as? String ?? "",
+                previewType: args["previewType"] as? String ?? "other",
+                previewData: (args["previewBytes"] as? FlutterStandardTypedData)?.data,
+                accept: accept,
+                decline: decline
+            ))
+        case "hideIncomingTransferPanel":
+            incomingTransferPanel.dismiss(sessionId: call.arguments as? String)
             result(nil)
         case "removeDestinationFolderAccess":
             removeExistingDestinationAccess()

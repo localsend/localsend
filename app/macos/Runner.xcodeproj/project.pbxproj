@@ -21,6 +21,9 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		B01200000000000000000001 /* IncomingTransferPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01200000000000000000002 /* IncomingTransferPanel.swift */; };
+		B01100000000000000000001 /* ReceivingControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01100000000000000000003 /* ReceivingControl.swift */; };
+		B01100000000000000000002 /* ReceivingControl.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = B01100000000000000000004 /* ReceivingControl.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		05251DB32EA03617008503F6 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05251DB22EA03615008503F6 /* Utilities.swift */; };
 		053DADDD2C8945EF00C3B4DE /* icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 053DADDC2C8945EF00C3B4DE /* icon.icns */; };
 		053DADE72C8945EF00C3B4DE /* ShareExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 053DADDA2C8945EF00C3B4DE /* ShareExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -41,6 +44,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		B01100000000000000000010 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 33CC10E52044A3C60003C045 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B01100000000000000000008;
+			remoteInfo = ReceivingControl;
+		};
 		053DADE52C8945EF00C3B4DE /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 33CC10E52044A3C60003C045 /* Project object */;
@@ -65,6 +75,7 @@
 			dstSubfolderSpec = 13;
 			files = (
 				053DADE72C8945EF00C3B4DE /* ShareExtension.appex in Embed Foundation Extensions */,
+				B01100000000000000000002 /* ReceivingControl.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -82,6 +93,11 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		B01200000000000000000002 /* IncomingTransferPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomingTransferPanel.swift; sourceTree = "<group>"; };
+		B01100000000000000000003 /* ReceivingControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceivingControl.swift; sourceTree = "<group>"; };
+		B01100000000000000000004 /* ReceivingControl.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ReceivingControl.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		B01100000000000000000005 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B01100000000000000000006 /* ReceivingControl.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ReceivingControl.entitlements; sourceTree = "<group>"; };
 		05251DB22EA03615008503F6 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		053DADDA2C8945EF00C3B4DE /* ShareExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ShareExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		053DADDC2C8945EF00C3B4DE /* icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = icon.icns; sourceTree = "<group>"; };
@@ -115,6 +131,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		B0110000000000000000000A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		053DADD72C8945EF00C3B4DE /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -135,6 +158,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B01100000000000000000007 /* ReceivingControl */ = {
+			isa = PBXGroup;
+			children = (
+				B01100000000000000000003 /* ReceivingControl.swift */,
+				B01100000000000000000005 /* Info.plist */,
+				B01100000000000000000006 /* ReceivingControl.entitlements */,
+			);
+			path = ReceivingControl;
+			sourceTree = "<group>";
+		};
 		053DADDB2C8945EF00C3B4DE /* ShareExtension */ = {
 			isa = PBXGroup;
 			children = (
@@ -164,6 +197,7 @@
 				33FAB671232836740065AC1E /* Runner */,
 				33CEB47122A05771004F2AC0 /* Flutter */,
 				053DADDB2C8945EF00C3B4DE /* ShareExtension */,
+				B01100000000000000000007 /* ReceivingControl */,
 				33CC10EE2044A3C60003C045 /* Products */,
 				D73912EC22F37F3D000D13A0 /* Frameworks */,
 				D56CB2F58F756550B9F5851D /* Pods */,
@@ -175,6 +209,7 @@
 			children = (
 				33CC10ED2044A3C60003C045 /* LocalSend.app */,
 				053DADDA2C8945EF00C3B4DE /* ShareExtension.appex */,
+				B01100000000000000000004 /* ReceivingControl.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -205,6 +240,7 @@
 			isa = PBXGroup;
 			children = (
 				33CC10F02044A3C60003C045 /* AppDelegate.swift */,
+				B01200000000000000000002 /* IncomingTransferPanel.swift */,
 				0543E87A2C8A93A9004AA8B7 /* ContentDropView.swift */,
 				33CC11122044BFA00003C045 /* MainFlutterWindow.swift */,
 				05BAA8CF2C8CE248003CFCF1 /* SecurityScopedResourceManager.swift */,
@@ -239,6 +275,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		B01100000000000000000008 /* ReceivingControl */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B0110000000000000000000C /* Build configuration list for PBXNativeTarget "ReceivingControl" */;
+			buildPhases = (
+				B01100000000000000000009 /* Sources */,
+				B0110000000000000000000A /* Frameworks */,
+				B0110000000000000000000B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ReceivingControl;
+			productName = ReceivingControl;
+			productReference = B01100000000000000000004 /* ReceivingControl.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		053DADD92C8945EF00C3B4DE /* ShareExtension */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 053DADEC2C8945EF00C3B4DE /* Build configuration list for PBXNativeTarget "ShareExtension" */;
@@ -275,6 +328,7 @@
 			dependencies = (
 				33CC11202044C79F0003C045 /* PBXTargetDependency */,
 				053DADE62C8945EF00C3B4DE /* PBXTargetDependency */,
+				B01100000000000000000011 /* PBXTargetDependency */,
 			);
 			name = Runner;
 			packageProductDependencies = (
@@ -335,11 +389,19 @@
 				33CC10EC2044A3C60003C045 /* Runner */,
 				33CC111A2044C6BA0003C045 /* Flutter Assemble */,
 				053DADD92C8945EF00C3B4DE /* ShareExtension */,
+				B01100000000000000000008 /* ReceivingControl */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		B0110000000000000000000B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		053DADD82C8945EF00C3B4DE /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -459,6 +521,14 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		B01100000000000000000009 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B01100000000000000000001 /* ReceivingControl.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		053DADD62C8945EF00C3B4DE /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -474,6 +544,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0543E87B2C8A93A9004AA8B7 /* ContentDropView.swift in Sources */,
+				B01200000000000000000001 /* IncomingTransferPanel.swift in Sources */,
 				33CC11132044BFA00003C045 /* MainFlutterWindow.swift in Sources */,
 				05251DB32EA03617008503F6 /* Utilities.swift in Sources */,
 				053DADFD2C89F83400C3B4DE /* Shared.swift in Sources */,
@@ -486,6 +557,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		B01100000000000000000011 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B01100000000000000000008 /* ReceivingControl */;
+			targetProxy = B01100000000000000000010 /* PBXContainerItemProxy */;
+		};
 		053DADE62C8945EF00C3B4DE /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 053DADD92C8945EF00C3B4DE /* ShareExtension */;
@@ -511,6 +587,68 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		B0110000000000000000000D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGN_ENTITLEMENTS = ReceivingControl/ReceivingControl.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
+				DEVELOPMENT_TEAM = 3W7H4PYMCV;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = ReceivingControl/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = ("$(inherited)", "@executable_path/../Frameworks", "@executable_path/../../../../Frameworks");
+				MACOSX_DEPLOYMENT_TARGET = 26.0;
+				MARKETING_VERSION = "$(FLUTTER_BUILD_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = org.localsend.localsendApp.ReceivingControl;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		B0110000000000000000000E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGN_ENTITLEMENTS = ReceivingControl/ReceivingControl.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
+				DEVELOPMENT_TEAM = 3W7H4PYMCV;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = ReceivingControl/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = ("$(inherited)", "@executable_path/../Frameworks", "@executable_path/../../../../Frameworks");
+				MACOSX_DEPLOYMENT_TARGET = 26.0;
+				MARKETING_VERSION = "$(FLUTTER_BUILD_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = org.localsend.localsendApp.ReceivingControl;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		B0110000000000000000000F /* Profile */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGN_ENTITLEMENTS = ReceivingControl/ReceivingControl.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
+				DEVELOPMENT_TEAM = 3W7H4PYMCV;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = ReceivingControl/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = ("$(inherited)", "@executable_path/../Frameworks", "@executable_path/../../../../Frameworks");
+				MACOSX_DEPLOYMENT_TARGET = 26.0;
+				MARKETING_VERSION = "$(FLUTTER_BUILD_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = org.localsend.localsendApp.ReceivingControl;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Profile;
+		};
 		053DADE92C8945EF00C3B4DE /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -925,6 +1063,16 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		B0110000000000000000000C /* Build configuration list for PBXNativeTarget "ReceivingControl" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B0110000000000000000000D /* Debug */,
+				B0110000000000000000000E /* Release */,
+				B0110000000000000000000F /* Profile */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		053DADEC2C8945EF00C3B4DE /* Build configuration list for PBXNativeTarget "ShareExtension" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

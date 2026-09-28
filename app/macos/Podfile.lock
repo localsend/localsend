@@ -12,6 +12,8 @@ PODS:
     - FlutterMacOS
   - file_selector_macos (0.0.1):
     - FlutterMacOS
+  - flutter_local_notifications (0.0.1):
+    - FlutterMacOS
   - FlutterMacOS (1.0.0)
   - gal (1.0.0):
     - Flutter
@@ -59,6 +61,7 @@ DEPENDENCIES:
   - dynamic_color (from `Flutter/ephemeral/.symlinks/plugins/dynamic_color/macos`)
   - file_picker (from `Flutter/ephemeral/.symlinks/plugins/file_picker/macos`)
   - file_selector_macos (from `Flutter/ephemeral/.symlinks/plugins/file_selector_macos/macos`)
+  - flutter_local_notifications (from `Flutter/ephemeral/.symlinks/plugins/flutter_local_notifications/macos`)
   - FlutterMacOS (from `Flutter/ephemeral`)
   - gal (from `Flutter/ephemeral/.symlinks/plugins/gal/darwin`)
   - in_app_purchase_storekit (from `Flutter/ephemeral/.symlinks/plugins/in_app_purchase_storekit/darwin`)
@@ -94,6 +97,8 @@ EXTERNAL SOURCES:
     :path: Flutter/ephemeral/.symlinks/plugins/file_picker/macos
   file_selector_macos:
     :path: Flutter/ephemeral/.symlinks/plugins/file_selector_macos/macos
+  flutter_local_notifications:
+    :path: Flutter/ephemeral/.symlinks/plugins/flutter_local_notifications/macos
   FlutterMacOS:
     :path: Flutter/ephemeral
   gal:
@@ -137,6 +142,7 @@ SPEC CHECKSUMS:
   dynamic_color: cb7c2a300ee67ed3bd96c3e852df3af0300bf610
   file_picker: 7584aae6fa07a041af2b36a2655122d42f578c1a
   file_selector_macos: 9e9e068e90ebee155097d00e89ae91edb2374db7
+  flutter_local_notifications: 1fc7ffb10a83d6a2eeeeddb152d43f1944b0aad0
   FlutterMacOS: d0db08ddef1a9af05a5ec4b724367152bb0500b1
   gal: baecd024ebfd13c441269ca7404792a7152fde89
   in_app_purchase_storekit: 22cca7d08eebca9babdf4d07d0baccb73325d3c8
@@ -157,4 +163,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 5c6550f5101fcba381ddb97e2135e4cacca4f31f
 
-COCOAPODS: 1.16.2
+COCOAPODS: 1.17.0

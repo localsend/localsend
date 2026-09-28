@@ -39,6 +39,7 @@ import 'package:localsend_app/util/native/channel/android_channel.dart';
 import 'package:localsend_app/util/native/channel/receiving_tile_channel.dart';
 import 'package:localsend_app/util/native/context_menu_helper.dart';
 import 'package:localsend_app/util/native/cross_file_converters.dart';
+import 'package:localsend_app/util/native/desktop_notifications.dart';
 import 'package:localsend_app/util/native/device_info_helper.dart';
 import 'package:localsend_app/util/native/macos_channel.dart';
 import 'package:localsend_app/util/native/open_file.dart';
@@ -115,11 +116,14 @@ Future<RefenaContainer> preInit(List<String> args) async {
       exit(0); // Another instance does exist
     }
 
-    // initialize tray AFTER i18n has been initialized
-    try {
-      await initTray();
-    } catch (e) {
-      _logger.warning('Initializing tray failed: $e');
+    await DesktopNotifications.init();
+
+    if (defaultTargetPlatform != TargetPlatform.macOS) {
+      try {
+        await initTray();
+      } catch (e) {
+        _logger.warning('Initializing tray failed: $e');
+      }
     }
 
     // initialize size and position
@@ -136,10 +140,6 @@ Future<RefenaContainer> preInit(List<String> args) async {
       unawaited(hideToTray());
     } else {
       unawaited(showFromTray());
-    }
-
-    if (defaultTargetPlatform == TargetPlatform.macOS) {
-      await setupStatusBar();
     }
   }
 
@@ -188,6 +188,23 @@ Future<RefenaContainer> preInit(List<String> args) async {
 
   await container.redux(parentIsolateProvider).dispatchAsync(IsolateSetupAction());
 
+  if (checkPlatformIsDesktop()) {
+    DesktopNotifications.onRequestAction = (sessionId, action) =>
+        container.notifier(serverProvider).handleDesktopNotificationAction(sessionId, action);
+    DesktopNotifications.onCompletedFile = (entryId) async {
+      final context = Routerino.context;
+      await showFromTray();
+      if (context.mounted) await _openReceivedFileFromNotification(context, RefenaScope.defaultRef, entryId);
+    };
+    if (persistenceService.isDesktopReceivingEnabled()) {
+      try {
+        await container.notifier(serverProvider).startServerFromSettings();
+      } catch (e) {
+        _logger.warning('Could not start desktop receiver', e);
+      }
+    }
+  }
+
   return container;
 }
 
@@ -220,7 +237,9 @@ Future<void> postInit(BuildContext context, Ref ref, bool appStart) async {
     }
   }
 
-  if (backgroundReceiverStopped && await isReceivingEnabled()) {
+  if (backgroundReceiverStopped &&
+      await isReceivingEnabled() &&
+      (!checkPlatformIsDesktop() || ref.read(persistenceProvider).isDesktopReceivingEnabled())) {
     try {
       await ref.notifier(serverProvider).startServerFromSettings();
     } catch (e) {

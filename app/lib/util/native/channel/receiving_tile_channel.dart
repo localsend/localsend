@@ -30,13 +30,21 @@ void updateReceivingTile(bool receiving) {
   );
 }
 
-Future<void> showIncomingRequest({required String sessionId, required String sender, required int fileCount}) async {
+Future<void> showIncomingRequest({
+  required String sessionId,
+  required String sender,
+  required int fileCount,
+  String? fileName,
+  Uint8List? previewBytes,
+}) async {
   if (!Platform.isAndroid) return;
   try {
     await receivingTileChannel.invokeMethod<void>('showIncomingRequest', {
       'sessionId': sessionId,
       'sender': sender,
       'fileCount': fileCount,
+      'fileName': fileName,
+      'previewBytes': previewBytes,
     });
   } catch (e) {
     _logger.warning('Could not show incoming request', e);

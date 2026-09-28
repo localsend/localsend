@@ -54,6 +54,9 @@ class _TrayWatcherState extends State<TrayWatcher> with TrayListener {
       case TrayEntry.open:
         await showFromTray();
         break;
+      case TrayEntry.receiving:
+        await toggleDesktopReceiving();
+        break;
       case TrayEntry.close:
         exit(0);
       default:

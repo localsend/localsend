@@ -813,6 +813,12 @@ class Translations$tray$en {
   /// en: 'Open'
   String get open => _root.general.open;
 
+  /// en: 'Start receiving'
+  String get startReceiving => 'Start receiving';
+
+  /// en: 'Stop receiving'
+  String get stopReceiving => 'Stop receiving';
+
   /// en: 'Quit LocalSend'
   String get close => 'Quit LocalSend';
 

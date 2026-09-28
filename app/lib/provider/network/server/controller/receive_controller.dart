@@ -1,8 +1,10 @@
 import 'dart:async';
 import 'dart:convert';
+
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/model/state/server/receive_session_state.dart';
 import 'package:localsend_app/model/state/server/receiving_file.dart';
 import 'package:localsend_app/pages/home_page.dart';
@@ -25,9 +27,11 @@ import 'package:localsend_app/provider/selection/selected_sending_files_provider
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/util/native/background_receiver.dart';
 import 'package:localsend_app/util/native/channel/receiving_tile_channel.dart';
+import 'package:localsend_app/util/native/desktop_notifications.dart';
 import 'package:localsend_app/util/native/directories.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_app/util/native/tray_helper.dart';
+import 'package:localsend_app/util/transfer_preview.dart';
 import 'package:localsend_app/widget/dialogs/open_file_dialog.dart';
 import 'package:localsend_isolates/isolate.dart';
 import 'package:localsend_isolates/model/device.dart';
@@ -51,8 +55,40 @@ final _logger = Logger('ReceiveController');
 /// the events handled here.
 class ReceiveController {
   final ServerUtils server;
+  ViewProvider<ReceivePageVm>? _pendingDesktopRequest;
+  String? _pendingDesktopSessionId;
 
   ReceiveController(this.server);
+
+  void presentPendingDesktopRequest() {
+    final session = server.getStateOrNull()?.session;
+    final pendingRequest = _pendingDesktopRequest;
+    if (session == null || session.status != SessionStatus.waiting || session.sessionId != _pendingDesktopSessionId || pendingRequest == null) return;
+    _pendingDesktopRequest = null;
+    _pendingDesktopSessionId = null;
+    DesktopNotifications.dismissIncomingRequest(sessionId: session.sessionId);
+    // ignore: discarded_futures
+    Routerino.context.push(() => ReceivePage(pendingRequest));
+  }
+
+  Future<void> handleDesktopNotificationAction(String sessionId, String? action) async {
+    final session = server.getStateOrNull()?.session;
+    if (session == null || session.sessionId != sessionId || session.status != SessionStatus.waiting) return;
+    if (action == 'accept') {
+      DesktopNotifications.dismissIncomingRequest(sessionId: sessionId);
+      _pendingDesktopRequest = null;
+      _pendingDesktopSessionId = null;
+      await acceptFileRequest({for (final file in session.files.values) file.file.id: file.file.fileName});
+    } else if (action == 'decline') {
+      DesktopNotifications.dismissIncomingRequest(sessionId: sessionId);
+      _pendingDesktopRequest = null;
+      _pendingDesktopSessionId = null;
+      declineFileRequest();
+    } else {
+      await showFromTray();
+      presentPendingDesktopRequest();
+    }
+  }
 
   /// A device registered itself on this server.
   Future<void> onRegister(HttpServerRegisterEvent event) async {
@@ -85,11 +121,20 @@ class ReceiveController {
     final files = {
       for (final entry in event.files.entries) entry.key: entry.value.toDart(),
     };
+    final previewFile = files.values.firstWhereOrNull((file) => decodeTransferImagePreview(file.preview) != null) ?? files.values.firstOrNull;
+    final previewBytes = decodeTransferImagePreview(previewFile?.preview);
 
     // The fingerprint of the sender's mTLS certificate cannot be spoofed, unlike the
     // self-reported fingerprint in the JSON payload which is only used as fallback
     // when encryption is disabled.
     final senderFingerprint = event.certFingerprint ?? event.info.fingerprint;
+    final senderAlias =
+        [
+          server.ref.read(favoritesProvider).firstWhereOrNull((e) => e.fingerprint == senderFingerprint)?.alias,
+          event.info.alias,
+          event.info.deviceModel,
+        ].firstWhereOrNull((alias) => alias != null && alias.trim().isNotEmpty && alias.trim() != '-')?.trim() ??
+        t.general.unknown;
 
     _logger.info('Session Id: $sessionId');
     _logger.info('Destination Directory: $destinationDir');
@@ -100,7 +145,7 @@ class ReceiveController {
           sessionId: sessionId,
           status: SessionStatus.waiting,
           sender: event.info.toDevice(event.ip, withChannel: false).copyWith(fingerprint: senderFingerprint),
-          senderAlias: server.ref.read(favoritesProvider).firstWhereOrNull((e) => e.fingerprint == senderFingerprint)?.alias ?? event.info.alias,
+          senderAlias: senderAlias,
           files: {
             for (final file in files.values)
               file.id: ReceivingFile(
@@ -162,10 +207,6 @@ class ReceiveController {
       return;
     }
 
-    if (checkPlatformHasTray() && (await windowManager.isMinimized() || !(await windowManager.isVisible()) || !(await windowManager.isFocused()))) {
-      await showFromTray();
-    }
-
     final message = server.getState().session?.message;
     if (message != null) {
       // Message already received
@@ -193,6 +234,7 @@ class ReceiveController {
       return ReceivePageVm(
         status: session?.status,
         sender: session?.sender ?? Device.empty,
+        senderAlias: session?.senderAlias ?? '',
         showSenderInfo: true,
         files: session?.files.values.map((f) => f.file).toList() ?? [],
         message: message,
@@ -235,9 +277,43 @@ class ReceiveController {
 
     server.ref.notifier(selectedReceivingFilesProvider).setFiles(files.values.toList());
 
-    await showIncomingRequest(sessionId: sessionId, sender: server.getState().session!.senderAlias, fileCount: files.length);
+    await showIncomingRequest(
+      sessionId: sessionId,
+      sender: server.getState().session!.senderAlias,
+      fileCount: files.length,
+      fileName: files.length == 1 ? files.values.first.fileName : null,
+      previewBytes: previewBytes,
+    );
 
     if (isHeadlessReceiver) return;
+
+    if (checkPlatformIsDesktop()) {
+      final windowInactive = await windowManager.isMinimized() || !(await windowManager.isVisible()) || !(await windowManager.isFocused());
+      final currentSession = server.getStateOrNull()?.session;
+      if (currentSession == null || currentSession.sessionId != sessionId || currentSession.status != SessionStatus.waiting) return;
+      if (windowInactive) {
+        final shown = await DesktopNotifications.showIncomingRequest(
+          sessionId: sessionId,
+          sender: currentSession.senderAlias,
+          fileCount: files.length,
+          isMessage: message != null,
+          previewName: files.length == 1 ? files.values.first.fileName : null,
+          previewType: previewBytes == null && files.length > 1 ? 'multiple' : previewFile?.fileType.name,
+          previewBytes: previewBytes,
+        );
+        final activeSession = server.getStateOrNull()?.session;
+        if (activeSession == null || activeSession.sessionId != sessionId || activeSession.status != SessionStatus.waiting) {
+          DesktopNotifications.dismissIncomingRequest(sessionId: sessionId);
+          return;
+        }
+        if (shown) {
+          _pendingDesktopRequest = receiveProvider;
+          _pendingDesktopSessionId = sessionId;
+          return;
+        }
+        await showFromTray();
+      }
+    }
 
     // ignore: use_build_context_synchronously, unawaited_futures
     Routerino.context.push(() => ReceivePage(receiveProvider));
@@ -377,6 +453,9 @@ class ReceiveController {
           );
       if (server.ref.read(persistenceProvider).isSaveToHistory()) {
         await showCompletedFile(entryId: fileId, fileName: receivingFile.desiredName!, sender: receiveState.senderAlias);
+        if (checkPlatformIsDesktop() && (!(await windowManager.isVisible()) || !(await windowManager.isFocused()))) {
+          await DesktopNotifications.showCompletedFile(entryId: fileId, fileName: receivingFile.desiredName!, sender: receiveState.senderAlias);
+        }
       }
     } else {
       server.ref.notifier(fileTransferProvider).setStatus(sessionId: event.sessionId, fileId: fileId, status: FileStatus.failed);
@@ -471,7 +550,7 @@ class ReceiveController {
         // Already handled when the last file finished.
         break;
       case SessionEndReasonV2.cancelled:
-        _cancelBySender(server);
+        _cancelBySender();
     }
   }
 
@@ -482,7 +561,7 @@ class ReceiveController {
       return;
     }
 
-    _cancelBySender(server);
+    _cancelBySender();
   }
 
   /// A remote device cancels a transfer this application is currently
@@ -606,6 +685,7 @@ class ReceiveController {
     //   with the storage permission requests above.
     if (!isHeadlessReceiver) TransferNotification.start(sessionId: session.sessionId, receiving: true);
     dismissIncomingRequest(session.sessionId);
+    DesktopNotifications.dismissIncomingRequest(sessionId: session.sessionId);
 
     // From here on, the server isolate receives all accepted files on its own
     // and reports back via upload progress/result events.
@@ -702,6 +782,9 @@ class ReceiveController {
 
     TransferNotification.stop(sessionId);
     dismissIncomingRequest(sessionId);
+    DesktopNotifications.dismissIncomingRequest(sessionId: sessionId);
+    _pendingDesktopRequest = null;
+    _pendingDesktopSessionId = null;
 
     server.setState(
       (oldState) => oldState?.copyWith(
@@ -710,31 +793,32 @@ class ReceiveController {
     );
     server.ref.notifier(fileTransferProvider).removeSession(sessionId);
   }
-}
 
-void _cancelBySender(ServerUtils server) {
-  final receiveSession = server.getStateOrNull()?.session;
-  if (receiveSession == null) {
-    return;
-  }
+  void _cancelBySender() {
+    final receiveSession = server.getStateOrNull()?.session;
+    if (receiveSession == null) return;
 
-  TransferNotification.stop(receiveSession.sessionId);
-  dismissIncomingRequest(receiveSession.sessionId);
+    TransferNotification.stop(receiveSession.sessionId);
+    dismissIncomingRequest(receiveSession.sessionId);
+    DesktopNotifications.dismissIncomingRequest(sessionId: receiveSession.sessionId);
 
-  if (receiveSession.status == SessionStatus.waiting) {
-    // received cancel during accept/decline
-    // pop just in case if user is in [ReceiveOptionsPage]
-    if (!isHeadlessReceiver) Routerino.context.popUntil(ReceivePage);
-  }
+    final wasDeferred = _pendingDesktopSessionId == receiveSession.sessionId;
+    _pendingDesktopRequest = null;
+    _pendingDesktopSessionId = null;
+    if (receiveSession.status == SessionStatus.waiting && !isHeadlessReceiver && !wasDeferred) {
+      // The visible request may have a nested options page open.
+      Routerino.context.popUntil(ReceivePage);
+    }
 
-  server.setState(
-    (oldState) => oldState?.copyWith(
-      session: oldState.session?.copyWith(
-        status: SessionStatus.canceledBySender,
-        endTime: DateTime.now().millisecondsSinceEpoch,
+    server.setState(
+      (oldState) => oldState?.copyWith(
+        session: oldState.session?.copyWith(
+          status: SessionStatus.canceledBySender,
+          endTime: DateTime.now().millisecondsSinceEpoch,
+        ),
       ),
-    ),
-  );
+    );
+  }
 }
 
 extension on ReceiveSessionState {

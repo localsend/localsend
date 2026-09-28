@@ -84,6 +84,7 @@ const _quickSave = 'ls_quick_save'; // a QuickSaveMode; was a bool until storage
 const _receivePin = 'ls_receive_pin';
 const _autoFinish = 'ls_auto_finish';
 const _minimizeToTray = 'ls_minimize_to_tray';
+const _desktopReceivingEnabled = 'ls_desktop_receiving_enabled';
 const _https = 'ls_https';
 const _sendMode = 'ls_send_mode';
 const _enableAnimations = 'ls_enable_animations';
@@ -493,6 +494,12 @@ class PersistenceService {
 
   Future<void> setMinimizeToTray(bool minimizeToTray) async {
     await _prefs.setBool(_minimizeToTray, minimizeToTray);
+  }
+
+  bool isDesktopReceivingEnabled() => _prefs.getBool(_desktopReceivingEnabled) ?? true;
+
+  Future<void> setDesktopReceivingEnabled(bool enabled) async {
+    await _prefs.setBool(_desktopReceivingEnabled, enabled);
   }
 
   bool isHttps() {

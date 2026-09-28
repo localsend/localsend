@@ -530,6 +530,8 @@
   "tray": {
     "@info": "Apple Guidelines are very strict about the \"close\" wording.",
     "open": "@:general.open",
+    "startReceiving": "Start receiving",
+    "stopReceiving": "Stop receiving",
     "close": "Quit LocalSend",
     "closeWindows": "Exit"
   },

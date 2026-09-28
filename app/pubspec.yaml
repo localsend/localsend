@@ -25,6 +25,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_displaymode: 0.7.0
+  flutter_local_notifications: 22.3.1
   flutter_localizations:
     sdk: flutter
   flutter_markdown: 0.7.7+1
