@@ -11,6 +11,7 @@ import 'package:localsend_app/util/native/directories.dart';
 import 'package:localsend_app/util/native/open_file.dart';
 import 'package:localsend_app/util/native/open_folder.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
+import 'package:localsend_app/util/system_date_time_formatter.dart';
 import 'package:localsend_app/widget/dialogs/file_info_dialog.dart';
 import 'package:localsend_app/widget/dialogs/history_clear_dialog.dart';
 import 'package:localsend_app/widget/file_thumbnail.dart';
@@ -187,7 +188,7 @@ class ReceiveHistoryPage extends StatelessWidget {
                               softWrap: false,
                             ),
                             Text(
-                              '${entry.timestampString} - ${entry.fileSize.asReadableFileSize} - ${entry.senderAlias}',
+                              '${SystemDateTimeFormatter.dateTime(context, entry.timestamp.toLocal())} - ${entry.fileSize.asReadableFileSize} - ${entry.senderAlias}',
                               maxLines: 1,
                               overflow: TextOverflow.fade,
                               softWrap: false,

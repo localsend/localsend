@@ -19,6 +19,7 @@ import 'package:localsend_isolates/isolate.dart';
 import 'package:refena_flutter/addons.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 import 'package:routerino/routerino.dart';
+import 'package:system_date_time_format/system_date_time_format.dart';
 
 Future<void> main(List<String> args) async {
   final RefenaContainer container;
@@ -35,8 +36,10 @@ Future<void> main(List<String> args) async {
   runApp(
     RefenaScope.withContainer(
       container: container,
-      child: TranslationProvider(
-        child: const LocalSendApp(),
+      child: SDTFScope(
+        child: TranslationProvider(
+          child: const LocalSendApp(),
+        ),
       ),
     ),
   );
