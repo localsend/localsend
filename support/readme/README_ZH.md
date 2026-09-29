@@ -91,8 +91,8 @@ Windows 二进制文件已签名。了解更多关于[代码签名政策][]的�
 
 | 平台    | 最低版本   | 备注                                                                                                                           |
 |---------|------------|--------------------------------------------------------------------------------------------------------------------------------|
-| Android | 5.0        | -                                                                                                                              |
-| iOS     | 12.0       | -                                                                                                                              |
+| Android | 7.0        | 最后一个支持 Android 5 和 6 的版本是 v1.17.0。                                                                                   |
+| iOS     | 13.0       | 最后一个支持 iOS 12 的版本是 v1.17.0。                                                                                          |
 | macOS   | 11 Big Sur | 请使用 OpenCore Legacy Patcher 2.0.2 （见 [#1005](https://github.com/localsend/localsend/issues/1005#issuecomment-2449899384)） |
 | Windows | 10         | 最后一个支持 Windows 7 的版本是 v1.15.4 。未来也许会将更新的版本向后移植至兼容 Windows 7 。                                    |
 | Linux   | 不适用     | 依赖：Gnome：`xdg-desktop-portal` 和 `xdg-desktop-portal-gtk`；KDE：`xdg-desktop-portal` 和 `xdg-desktop-portal-kde`           |
