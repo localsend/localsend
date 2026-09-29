@@ -21,6 +21,15 @@ body:
         - label: I am using the latest version from the release.
           required: true
 
+  - type: input
+    id: app-version
+    attributes:
+      label: App version
+      description: Enter the LocalSend app version shown at the bottom of the Settings screen
+      placeholder: 1.18.2 (64)
+    validations:
+      required: true
+
   - type: textarea
     id: description
     attributes:
