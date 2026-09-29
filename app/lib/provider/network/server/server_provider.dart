@@ -175,6 +175,7 @@ class ServerService extends Notifier<ServerState?> {
                 fileName: t.web.fileName,
                 size: t.web.size,
                 dropHint: t.sendTab.placeItems,
+                upload: t.web.upload,
               ),
               pages: customWebPages,
             ),

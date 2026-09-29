@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/provider/selection/selected_sending_files_provider.dart';
 import 'package:localsend_app/util/native/open_file.dart';
+import 'package:localsend_app/util/ui/file_size.dart';
 import 'package:localsend_app/util/ui/nav_bar_padding.dart';
 import 'package:localsend_app/widget/dialogs/message_input_dialog.dart';
 import 'package:localsend_app/widget/file_thumbnail.dart';
 import 'package:localsend_app/widget/responsive_list_view.dart';
 import 'package:localsend_isolates/model/file_type.dart';
-import 'package:localsend_isolates/util/file_size_helper.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 import 'package:routerino/routerino.dart';
 
@@ -42,7 +42,7 @@ class SelectedFilesPage extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(t.sendTab.selection.files(files: selectedFiles.length)),
-                        Text(t.sendTab.selection.size(size: selectedFiles.fold(0, (prev, curr) => prev + curr.size).asReadableFileSize)),
+                        Text(t.sendTab.selection.size(size: selectedFiles.fold(0, (prev, curr) => prev + curr.size).asLocalizedFileSize)),
                       ],
                     ),
                   ),
@@ -97,7 +97,7 @@ class SelectedFilesPage extends StatelessWidget {
                                       overflow: TextOverflow.fade,
                                       softWrap: false,
                                     ),
-                                    Text(file.size.asReadableFileSize, style: Theme.of(context).textTheme.bodySmall),
+                                    Text(file.size.asLocalizedFileSize, style: Theme.of(context).textTheme.bodySmall),
                                   ],
                                 ),
                               ),

@@ -3422,7 +3422,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   WebI18n dco_decode_web_i_18_n(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     final arr = raw as List<dynamic>;
-    if (arr.length != 11) throw Exception('unexpected arr length: expect 11 but see ${arr.length}');
+    if (arr.length != 12) throw Exception('unexpected arr length: expect 12 but see ${arr.length}');
     return WebI18n(
       waiting: dco_decode_String(arr[0]),
       enterPin: dco_decode_String(arr[1]),
@@ -3435,6 +3435,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       fileName: dco_decode_String(arr[8]),
       size: dco_decode_String(arr[9]),
       dropHint: dco_decode_String(arr[10]),
+      upload: dco_decode_String(arr[11]),
     );
   }
 
@@ -4792,6 +4793,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
     var var_fileName = sse_decode_String(deserializer);
     var var_size = sse_decode_String(deserializer);
     var var_dropHint = sse_decode_String(deserializer);
+    var var_upload = sse_decode_String(deserializer);
     return WebI18n(
       waiting: var_waiting,
       enterPin: var_enterPin,
@@ -4804,6 +4806,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       fileName: var_fileName,
       size: var_size,
       dropHint: var_dropHint,
+      upload: var_upload,
     );
   }
 
@@ -6141,6 +6144,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
     sse_encode_String(self.fileName, serializer);
     sse_encode_String(self.size, serializer);
     sse_encode_String(self.dropHint, serializer);
+    sse_encode_String(self.upload, serializer);
   }
 
   @protected

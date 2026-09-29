@@ -298,6 +298,7 @@ class WebI18n {
   final String fileName;
   final String size;
   final String dropHint;
+  final String upload;
 
   const WebI18n({
     required this.waiting,
@@ -311,6 +312,7 @@ class WebI18n {
     required this.fileName,
     required this.size,
     required this.dropHint,
+    required this.upload,
   });
 
   @override
@@ -325,7 +327,8 @@ class WebI18n {
       files.hashCode ^
       fileName.hashCode ^
       size.hashCode ^
-      dropHint.hashCode;
+      dropHint.hashCode ^
+      upload.hashCode;
 
   @override
   bool operator ==(Object other) =>
@@ -342,7 +345,8 @@ class WebI18n {
           files == other.files &&
           fileName == other.fileName &&
           size == other.size &&
-          dropHint == other.dropHint;
+          dropHint == other.dropHint &&
+          upload == other.upload;
 }
 
 @freezed

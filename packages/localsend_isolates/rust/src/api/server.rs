@@ -773,6 +773,7 @@ pub struct _WebI18n {
     pub file_name: String,
     pub size: String,
     pub drop_hint: String,
+    pub upload: String,
 }
 
 #[frb(mirror(WebPages))]

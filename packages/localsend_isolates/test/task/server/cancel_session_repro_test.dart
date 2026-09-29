@@ -67,6 +67,7 @@ void main() {
           fileName: '',
           size: '',
           dropHint: '',
+          upload: '',
         ),
         pages: WebPages(),
       ),
