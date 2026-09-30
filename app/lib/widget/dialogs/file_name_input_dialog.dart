@@ -82,7 +82,7 @@ class _FileNameInputDialogState extends State<FileNameInputDialog> {
             controller: _textController,
             autofocus: true,
             onChanged: (value) => _validate(value.trim()),
-            onFieldSubmitted: (_) => _submit,
+            onFieldSubmitted: (_) => _submit(),
           ),
           const SizedBox(height: 5),
           Visibility(
