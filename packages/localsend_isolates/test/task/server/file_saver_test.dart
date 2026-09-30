@@ -61,6 +61,20 @@ void main() {
       throwsA('Path traversal detected'),
     );
   });
+
+  test('saves under an alternative name when a directory occupies the incoming name', () async {
+    final existingDirectory = Directory(p.join(tempDir.path, 'file.txt'))..createSync();
+    final existingContent = File(p.join(existingDirectory.path, 'keep.txt'))..writeAsStringSync('keep');
+    final existingFile = File(p.join(tempDir.path, 'file (2).txt'))..writeAsStringSync('existing');
+
+    final path = await digest(tempDir.path, 'file.txt');
+    await File(path).writeAsString('received');
+
+    expect(path, p.join(tempDir.path, 'file (3).txt'));
+    expect(File(path).readAsStringSync(), 'received');
+    expect(existingContent.readAsStringSync(), 'keep');
+    expect(existingFile.readAsStringSync(), 'existing');
+  });
 }
 
 /// The sanitizer lives in the Rust library, which is not loaded in unit tests.
