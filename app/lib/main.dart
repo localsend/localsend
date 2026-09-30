@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:localsend_app/config/init.dart';
 import 'package:localsend_app/config/init_error.dart';
@@ -7,8 +8,11 @@ import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/model/persistence/color_mode.dart';
 import 'package:localsend_app/pages/home_page.dart';
 import 'package:localsend_app/provider/local_ip_provider.dart';
+import 'package:localsend_app/provider/network/nearby_devices_provider.dart';
 import 'package:localsend_app/provider/network/server/server_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
+import 'package:localsend_app/util/native/background_receiver.dart';
+import 'package:localsend_app/util/native/channel/receiving_tile_channel.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_app/util/ui/dynamic_colors.dart';
 import 'package:localsend_app/widget/watcher/life_cycle_watcher.dart';
@@ -16,9 +20,60 @@ import 'package:localsend_app/widget/watcher/shortcut_watcher.dart';
 import 'package:localsend_app/widget/watcher/tray_watcher.dart';
 import 'package:localsend_app/widget/watcher/window_watcher.dart';
 import 'package:localsend_isolates/isolate.dart';
+import 'package:localsend_isolates/model/session_status.dart';
 import 'package:refena_flutter/addons.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 import 'package:routerino/routerino.dart';
+
+@pragma('vm:entry-point')
+Future<void> receiverMain() async {
+  isHeadlessReceiver = true;
+  try {
+    final container = await preInit([]);
+    receivingTileChannel.setMethodCallHandler((call) async {
+      if (call.method == 'shutdownBackground') {
+        final session = container.read(serverProvider)?.session;
+        if (session != null && (session.status == SessionStatus.waiting || session.status == SessionStatus.sending)) {
+          return false;
+        }
+        handingReceiverToUi = true;
+        await container.notifier(serverProvider).stopServer();
+        container.redux(parentIsolateProvider).dispatch(IsolateDisposeAction());
+        return true;
+      }
+      if (call.method == 'toggleReceiving') {
+        final server = container.notifier(serverProvider);
+        final current = container.read(serverProvider);
+        if (current == null) {
+          await server.startServerFromSettings();
+        } else {
+          if (current.session?.status == SessionStatus.waiting || current.session?.status == SessionStatus.sending) {
+            throw PlatformException(code: 'RECEIVING_BUSY');
+          }
+          await server.stopServer();
+        }
+        return container.read(serverProvider) != null;
+      }
+      if (call.method == 'incomingRequestAction') {
+        final args = (call.arguments as Map).cast<String, Object?>();
+        final session = container.read(serverProvider)?.session;
+        if (session == null || session.sessionId != args['sessionId'] || session.status != SessionStatus.waiting) return false;
+        if (args['accept'] == true) {
+          await container.notifier(serverProvider).acceptFileRequest({for (final entry in session.files.values) entry.file.id: entry.file.fileName});
+        } else {
+          container.notifier(serverProvider).declineFileRequest();
+        }
+        return true;
+      }
+      throw MissingPluginException();
+    });
+    await container.notifier(serverProvider).startServerFromSettings();
+    await container.redux(nearbyDevicesProvider).dispatchAsync(StartDiscoveryListener());
+  } catch (e, stackTrace) {
+    debugPrint('Background receiver failed: $e\n$stackTrace');
+    await receivingTileChannel.invokeMethod<void>('backgroundFailed');
+  }
+}
 
 Future<void> main(List<String> args) async {
   final RefenaContainer container;

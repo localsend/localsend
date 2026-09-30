@@ -69,6 +69,12 @@ class AddHistoryEntryAction extends AsyncReduxAction<ReceiveHistoryService, List
   }
 }
 
+/// Refreshes entries written by the separate background Flutter engine.
+class ReloadReceiveHistoryAction extends AsyncReduxAction<ReceiveHistoryService, List<ReceiveHistoryEntry>> {
+  @override
+  Future<List<ReceiveHistoryEntry>> reduce() => notifier._persistence.reloadReceiveHistory();
+}
+
 /// Removes a history entry.
 class RemoveHistoryEntryAction extends AsyncReduxAction<ReceiveHistoryService, List<ReceiveHistoryEntry>> {
   final String entryId;

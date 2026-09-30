@@ -33,8 +33,23 @@ private const val PERMISSION_ACCESS_LOCAL_NETWORK = "android.permission.ACCESS_L
 private const val API_LEVEL_ANDROID_17 = 37
 
 class MainActivity : FlutterActivity() {
+    companion object {
+        const val receivedFileIdExtra = "org.localsend.localsend_app.RECEIVED_FILE_ID"
+
+        fun withNewEngine(): NewEngineIntentBuilder {
+            return NewEngineIntentBuilder(MainActivity::class.java)
+        }
+
+        fun createDefaultIntent(launchContext: Context): Intent {
+            return withNewEngine().build(launchContext)
+        }
+    }
+
     private var pendingResult: MethodChannel.Result? = null
     private var pendingPermissionResult: MethodChannel.Result? = null
+    private var receivedFileChannel: MethodChannel? = null
+    private val pendingReceivedFileIds = mutableListOf<String>()
+    private var receivedFileReady = false
 
     /// share_handler drops share intents arriving via onNewIntent while the Dart side
     /// is not subscribed to its media stream yet, which happens when this singleTask
@@ -45,11 +60,27 @@ class MainActivity : FlutterActivity() {
     private var shareIntentReady = false
 
     override fun onNewIntent(intent: Intent) {
+        queueReceivedFile(intent)
         if (!shareIntentReady && (intent.action == Intent.ACTION_SEND || intent.action == Intent.ACTION_SEND_MULTIPLE)) {
             pendingShareIntents.add(intent)
             return
         }
         super.onNewIntent(intent)
+    }
+
+    private fun queueReceivedFile(intent: Intent) {
+        val entryId = intent.getStringExtra(receivedFileIdExtra) ?: return
+        intent.removeExtra(receivedFileIdExtra)
+        pendingReceivedFileIds.add(entryId)
+        flushReceivedFiles()
+    }
+
+    private fun flushReceivedFiles() {
+        if (!receivedFileReady) return
+        val channel = receivedFileChannel ?: return
+        val pending = pendingReceivedFileIds.toList()
+        pendingReceivedFileIds.clear()
+        for (entryId in pending) channel.invokeMethod("openReceivedFile", entryId)
     }
 
     private fun onShareIntentReady() {
@@ -61,20 +92,21 @@ class MainActivity : FlutterActivity() {
         }
     }
 
-    // Overriding the static methods we need from the Java class, as described
-    // in the documentation of `FlutterActivity.NewEngineIntentBuilder`
-    companion object {
-        fun withNewEngine(): NewEngineIntentBuilder {
-            return NewEngineIntentBuilder(MainActivity::class.java)
-        }
-
-        fun createDefaultIntent(launchContext: Context): Intent {
-            return withNewEngine().build(launchContext)
-        }
-    }
-
     override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
         super.configureFlutterEngine(flutterEngine)
+        ReceivingTileBridge.attach(this, flutterEngine.dartExecutor.binaryMessenger)
+        receivedFileChannel = MethodChannel(flutterEngine.dartExecutor.binaryMessenger, "org.localsend.localsend_app/received_file").also { channel ->
+            channel.setMethodCallHandler { call, result ->
+                if (call.method == "receivedFileReady") {
+                    receivedFileReady = true
+                    result.success(null)
+                    flushReceivedFiles()
+                } else {
+                    result.notImplemented()
+                }
+            }
+        }
+        queueReceivedFile(intent)
         MethodChannel(
             flutterEngine.dartExecutor.binaryMessenger,
             CHANNEL
@@ -138,6 +170,14 @@ class MainActivity : FlutterActivity() {
                 else -> result.notImplemented()
             }
         }
+    }
+
+    override fun cleanUpFlutterEngine(flutterEngine: FlutterEngine) {
+        receivedFileReady = false
+        receivedFileChannel?.setMethodCallHandler(null)
+        receivedFileChannel = null
+        ReceivingTileBridge.detach(this)
+        super.cleanUpFlutterEngine(flutterEngine)
     }
 
     /// Android 17+ gates local network access behind a runtime permission; older versions grant it implicitly.

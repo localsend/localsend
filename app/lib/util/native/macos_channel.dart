@@ -1,18 +1,14 @@
 import 'dart:async';
 
 import 'package:flutter/services.dart';
-import 'package:localsend_app/gen/strings.g.dart';
+import 'package:localsend_app/provider/network/server/server_provider.dart';
+import 'package:localsend_app/util/native/desktop_notifications.dart';
 import 'package:localsend_app/util/native/taskbar_helper.dart';
 import 'package:localsend_app/util/native/tray_helper.dart';
+import 'package:localsend_isolates/model/session_status.dart';
+import 'package:refena_flutter/refena_flutter.dart';
 
 const _methodChannel = MethodChannel('main-delegate-channel');
-
-Future<void> setupStatusBar() async {
-  await _methodChannel.invokeMethod('setupStatusBar', {
-    'open': t.tray.open,
-    'quit': t.tray.close,
-  });
-}
 
 Future<void> removeExistingDestinationAccess() async {
   await _methodChannel.invokeMethod('removeExistingDestinationAccess');
@@ -60,14 +56,12 @@ Future<void> openFirewallSettings() async {
 
 // This happens:
 /// - on macOS when text is dropped onto the app Dock icon
-/// - on macOS when text is dropped onto the app menu bar icon
 /// - on macOS when text\web link are shared to the app using the share extension (i.e. the system share menu)
 final _pendingFilesStreamController = StreamController<List<String>>.broadcast();
 Stream<List<String>> get pendingFilesStream => _pendingFilesStreamController.stream;
 
 /// This happens:
 /// - on macOS when text is dropped onto the app Dock icon
-/// - on macOS when text is dropped onto the app menu bar icon
 /// - on macOS when text\web link are shared to the app using the share extension (i.e. the system share menu)
 final _pendingStringsStreamController = StreamController<List<String>>.broadcast();
 Stream<List<String>> get pendingStringsStream => _pendingStringsStreamController.stream;
@@ -83,9 +77,30 @@ Future<void> setupMethodCallHandler() async {
       case 'onPendingStrings':
         _pendingStringsStreamController.add((call.arguments as List).cast<String>());
         break;
-      case 'showLocalSendFromMenuBar':
+      case 'showLocalSend':
         await showFromTray();
         break;
+      case 'incomingTransferPanelAction':
+        final args = (call.arguments as Map).cast<String, Object?>();
+        final sessionId = args['sessionId'] as String?;
+        final action = args['action'] as String?;
+        if (sessionId != null && (action == 'accept' || action == 'decline')) {
+          await DesktopNotifications.onRequestAction?.call(sessionId, action);
+        }
+        break;
+      case 'setReceivingFromControlCenter':
+        final enabled = call.arguments == true;
+        final ref = RefenaScope.defaultRef;
+        final current = ref.read(serverProvider);
+        if (current?.web != null || current?.session?.status == SessionStatus.waiting || current?.session?.status == SessionStatus.sending) {
+          return current != null;
+        }
+        if (enabled && current == null) {
+          await ref.notifier(serverProvider).startServerFromSettings();
+        } else if (!enabled && current != null) {
+          await ref.notifier(serverProvider).stopServer();
+        }
+        return ref.read(serverProvider) != null;
     }
   });
 

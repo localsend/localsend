@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:collection/collection.dart';
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
@@ -10,6 +11,10 @@ import 'package:localsend_app/config/refena.dart';
 import 'package:localsend_app/config/theme.dart';
 import 'package:localsend_app/pages/home_page.dart';
 import 'package:localsend_app/pages/home_page_controller.dart';
+import 'package:localsend_app/pages/progress_page.dart';
+import 'package:localsend_app/pages/receive_history_page.dart';
+import 'package:localsend_app/pages/receive_page.dart';
+import 'package:localsend_app/pages/web_share_page.dart';
 import 'package:localsend_app/pages/whats_new_page.dart';
 import 'package:localsend_app/provider/animation_provider.dart';
 import 'package:localsend_app/provider/app_arguments_provider.dart';
@@ -21,6 +26,7 @@ import 'package:localsend_app/provider/persistence_provider.dart';
 // [FOSS_REMOVE_START]
 import 'package:localsend_app/provider/purchase_provider.dart';
 // [FOSS_REMOVE_END]
+import 'package:localsend_app/provider/receive_history_provider.dart';
 import 'package:localsend_app/provider/selection/selected_sending_files_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/provider/tv_provider.dart';
@@ -30,10 +36,13 @@ import 'package:localsend_app/util/i18n.dart';
 import 'package:localsend_app/util/native/autostart_helper.dart';
 import 'package:localsend_app/util/native/cache_helper.dart';
 import 'package:localsend_app/util/native/channel/android_channel.dart';
+import 'package:localsend_app/util/native/channel/receiving_tile_channel.dart';
 import 'package:localsend_app/util/native/context_menu_helper.dart';
 import 'package:localsend_app/util/native/cross_file_converters.dart';
+import 'package:localsend_app/util/native/desktop_notifications.dart';
 import 'package:localsend_app/util/native/device_info_helper.dart';
 import 'package:localsend_app/util/native/macos_channel.dart';
+import 'package:localsend_app/util/native/open_file.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_app/util/native/tray_helper.dart';
 import 'package:localsend_app/util/notification_strings.dart';
@@ -43,12 +52,14 @@ import 'package:localsend_app/widget/dialogs/local_network_dialog.dart';
 import 'package:localsend_isolates/isolate.dart';
 import 'package:localsend_isolates/model/dto/file_dto.dart';
 import 'package:localsend_isolates/model/dto/multicast_dto.dart';
+import 'package:localsend_isolates/model/session_status.dart';
 import 'package:localsend_isolates/rust/api/logging.dart' as rust_logging;
 import 'package:localsend_isolates/rust/frb_generated.dart';
 import 'package:localsend_isolates/util/logger.dart';
 import 'package:localsend_isolates/util/show_instance.dart';
 import 'package:localsend_isolates/util/transfer_notification.dart';
 import 'package:logging/logging.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:refena_flutter/addons.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 import 'package:routerino/routerino.dart';
@@ -56,6 +67,7 @@ import 'package:share_handler/share_handler.dart';
 import 'package:window_manager/window_manager.dart';
 
 final _logger = Logger('Init');
+const _receivedFileChannel = MethodChannel('org.localsend.localsend_app/received_file');
 
 /// Will be called before the MaterialApp started
 Future<RefenaContainer> preInit(List<String> args) async {
@@ -104,11 +116,14 @@ Future<RefenaContainer> preInit(List<String> args) async {
       exit(0); // Another instance does exist
     }
 
-    // initialize tray AFTER i18n has been initialized
-    try {
-      await initTray();
-    } catch (e) {
-      _logger.warning('Initializing tray failed: $e');
+    await DesktopNotifications.init();
+
+    if (defaultTargetPlatform != TargetPlatform.macOS) {
+      try {
+        await initTray();
+      } catch (e) {
+        _logger.warning('Initializing tray failed: $e');
+      }
     }
 
     // initialize size and position
@@ -125,10 +140,6 @@ Future<RefenaContainer> preInit(List<String> args) async {
       unawaited(hideToTray());
     } else {
       unawaited(showFromTray());
-    }
-
-    if (defaultTargetPlatform == TargetPlatform.macOS) {
-      await setupStatusBar();
     }
   }
 
@@ -177,6 +188,23 @@ Future<RefenaContainer> preInit(List<String> args) async {
 
   await container.redux(parentIsolateProvider).dispatchAsync(IsolateSetupAction());
 
+  if (checkPlatformIsDesktop()) {
+    DesktopNotifications.onRequestAction = (sessionId, action) =>
+        container.notifier(serverProvider).handleDesktopNotificationAction(sessionId, action);
+    DesktopNotifications.onCompletedFile = (entryId) async {
+      final context = Routerino.context;
+      await showFromTray();
+      if (context.mounted) await _openReceivedFileFromNotification(context, RefenaScope.defaultRef, entryId);
+    };
+    if (persistenceService.isDesktopReceivingEnabled()) {
+      try {
+        await container.notifier(serverProvider).startServerFromSettings();
+      } catch (e) {
+        _logger.warning('Could not start desktop receiver', e);
+      }
+    }
+  }
+
   return container;
 }
 
@@ -186,7 +214,9 @@ StreamSubscription? _sharedMediaSubscription;
 Future<void> postInit(BuildContext context, Ref ref, bool appStart) async {
   await updateSystemOverlayStyle(context);
 
+  bool backgroundReceiverStopped = true;
   if (checkPlatform([TargetPlatform.android])) {
+    backgroundReceiverStopped = await receivingTileChannel.invokeMethod<bool>('stopBackgroundReceiver') ?? true;
     try {
       await FlutterDisplayMode.setHighRefreshRate();
     } catch (e) {
@@ -202,14 +232,72 @@ Future<void> postInit(BuildContext context, Ref ref, bool appStart) async {
         await context.pushBottomSheet(() => const LocalNetworkDialog());
       }
     }
+    if (await Permission.notification.isDenied) {
+      await Permission.notification.request();
+    }
   }
 
-  try {
-    await ref.notifier(serverProvider).startServerFromSettings();
-  } catch (e) {
-    if (context.mounted) {
-      context.showSnackBar(e.toString());
+  if (backgroundReceiverStopped &&
+      await isReceivingEnabled() &&
+      (!checkPlatformIsDesktop() || ref.read(persistenceProvider).isDesktopReceivingEnabled())) {
+    try {
+      await ref.notifier(serverProvider).startServerFromSettings();
+    } catch (e) {
+      if (context.mounted) {
+        context.showSnackBar(e.toString());
+      }
     }
+  }
+
+  if (!backgroundReceiverStopped && context.mounted) {
+    unawaited(_takeOverBackgroundReceiver(context, ref));
+  }
+
+  if (checkPlatform([TargetPlatform.android])) {
+    receivingTileChannel.setMethodCallHandler((call) async {
+      if (call.method != 'toggleReceiving') {
+        if (call.method == 'incomingRequestAction') {
+          final args = (call.arguments as Map).cast<String, Object?>();
+          final session = ref.read(serverProvider)?.session;
+          if (session == null || session.sessionId != args['sessionId'] || session.status != SessionStatus.waiting) return false;
+          if (args['accept'] == true) {
+            if (session.message == null) {
+              unawaited(
+                Routerino.context.pushAndRemoveUntilImmediately(
+                  removeUntil: ReceivePage,
+                  builder: () => ProgressPage(
+                    showAppBar: false,
+                    closeSessionOnClose: true,
+                    sessionId: session.sessionId,
+                  ),
+                ),
+              );
+              await ref.notifier(serverProvider).acceptFileRequest({for (final entry in session.files.values) entry.file.id: entry.file.fileName});
+            } else {
+              await ref.notifier(serverProvider).acceptFileRequest({});
+              ref.global.dispatch(NavigateAction.popUntil<WebSharePage>());
+            }
+          } else {
+            ref.notifier(serverProvider).declineFileRequest();
+            ref.global.dispatch(NavigateAction.popUntil<WebSharePage>());
+          }
+          return true;
+        }
+        throw MissingPluginException();
+      }
+
+      final server = ref.notifier(serverProvider);
+      final current = ref.read(serverProvider);
+      if (current == null) {
+        await server.startServerFromSettings();
+      } else {
+        if (current.web != null || current.session?.status == SessionStatus.waiting || current.session?.status == SessionStatus.sending) {
+          throw PlatformException(code: 'RECEIVING_BUSY');
+        }
+        await server.stopServer();
+      }
+      return ref.read(serverProvider) != null;
+    });
   }
 
   try {
@@ -305,12 +393,51 @@ Future<void> postInit(BuildContext context, Ref ref, bool appStart) async {
     await ref.read(persistenceProvider).setWhatsNew(version.version);
   });
 
+  if (checkPlatform([TargetPlatform.android])) {
+    _receivedFileChannel.setMethodCallHandler((call) async {
+      if (call.method != 'openReceivedFile') throw MissingPluginException();
+      final entryId = call.arguments as String?;
+      if (entryId != null) await _openReceivedFileFromNotification(context, ref, entryId);
+    });
+    await _receivedFileChannel.invokeMethod<void>('receivedFileReady');
+  }
+
   // [FOSS_REMOVE_START]
   if (checkPlatformSupportPayment()) {
     // ignore: unawaited_futures
     ref.redux(purchaseProvider).dispatchAsync(InitPurchaseStream());
   }
   // [FOSS_REMOVE_END]
+}
+
+Future<void> _openReceivedFileFromNotification(BuildContext context, Ref ref, String entryId) async {
+  await ref.redux(receiveHistoryProvider).dispatchAsync(ReloadReceiveHistoryAction());
+  if (!context.mounted) return;
+
+  final entry = ref.read(receiveHistoryProvider).firstWhereOrNull((entry) => entry.id == entryId);
+  unawaited(context.push(() => const ReceiveHistoryPage()));
+  if (entry?.path != null) {
+    await Future<void>.delayed(Duration.zero);
+    if (context.mounted) await openFile(context, entry!.fileType, entry.path!);
+  }
+}
+
+Future<void> _takeOverBackgroundReceiver(BuildContext context, Ref ref) async {
+  while (context.mounted) {
+    await Future<void>.delayed(const Duration(seconds: 3));
+    if (!context.mounted) return;
+    try {
+      final stopped = await receivingTileChannel.invokeMethod<bool>('stopBackgroundReceiver') ?? true;
+      if (!stopped) continue;
+      if (await isReceivingEnabled()) {
+        await ref.notifier(serverProvider).startServerFromSettings();
+      }
+      return;
+    } catch (e) {
+      _logger.warning('Could not take over background receiver', e);
+      return;
+    }
+  }
 }
 
 class _HandleShareIntentAction extends AsyncGlobalAction {

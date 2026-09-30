@@ -8,12 +8,18 @@ import 'package:localsend_app/model/state/server/web_share_state.dart';
 import 'package:localsend_app/provider/network/server/controller/receive_controller.dart';
 import 'package:localsend_app/provider/network/server/controller/send_controller.dart';
 import 'package:localsend_app/provider/network/server/server_utils.dart';
+import 'package:localsend_app/provider/persistence_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/util/alias_generator.dart';
+import 'package:localsend_app/util/native/background_receiver.dart';
+import 'package:localsend_app/util/native/channel/receiving_tile_channel.dart';
+import 'package:localsend_app/util/native/platform_check.dart';
+import 'package:localsend_app/util/native/tray_helper.dart';
 import 'package:localsend_app/util/native/web_pages_loader.dart';
 import 'package:localsend_isolates/constants.dart';
 import 'package:localsend_isolates/isolate.dart';
 import 'package:localsend_isolates/model/dto/multicast_dto.dart';
+import 'package:localsend_isolates/model/session_status.dart';
 import 'package:localsend_isolates/rust/api/server.dart' show WebI18n, WebMode, WebParams;
 import 'package:localsend_isolates/util/rust.dart';
 import 'package:logging/logging.dart';
@@ -32,7 +38,19 @@ final serverProvider = NotifierProvider<ServerService, ServerState?>(
   (ref) {
     return ServerService();
   },
-  onChanged: (_, next, ref) {
+  onChanged: (previous, next, ref) {
+    if (!handingReceiverToUi && (previous == null) != (next == null)) {
+      updateReceivingTile(next != null);
+    }
+    if (checkPlatformIsDesktop()) {
+      final status = next?.session?.status;
+      unawaited(
+        updateDesktopTray(
+          receiving: next != null,
+          busy: next?.web != null || status == SessionStatus.waiting || status == SessionStatus.sending,
+        ),
+      );
+    }
     final settings = ref.read(settingsProvider);
     final syncState = ref.read(parentIsolateProvider).syncState;
     final syncStatePrev = (syncState.alias, syncState.port, syncState.protocol, syncState.serverRunning, syncState.download);
@@ -222,6 +240,7 @@ class ServerService extends Notifier<ServerState?> {
     );
 
     state = newServerState;
+    if (checkPlatformIsDesktop()) await ref.read(persistenceProvider).setDesktopReceivingEnabled(true);
     _logger.info('Server started. (Port: $port, ${https ? 'HTTPS' : 'HTTP'} only)');
     return newServerState;
   }
@@ -232,6 +251,7 @@ class ServerService extends Notifier<ServerState?> {
     _subscription = null;
     await ref.redux(parentIsolateProvider).dispatchAsync(IsolateHttpServerStopAction());
     state = null;
+    if (checkPlatformIsDesktop()) await ref.read(persistenceProvider).setDesktopReceivingEnabled(false);
     _logger.info('Server stopped.');
   }
 
@@ -252,6 +272,14 @@ class ServerService extends Notifier<ServerState?> {
 
   Future<void> acceptFileRequest(Map<String, String> fileNameMap) async {
     await _receiveController.acceptFileRequest(fileNameMap);
+  }
+
+  Future<void> handleDesktopNotificationAction(String sessionId, String? action) async {
+    await _receiveController.handleDesktopNotificationAction(sessionId, action);
+  }
+
+  void presentPendingDesktopRequest() {
+    _receiveController.presentPendingDesktopRequest();
   }
 
   void declineFileRequest() {
