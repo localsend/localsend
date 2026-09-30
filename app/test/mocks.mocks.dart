@@ -243,6 +243,15 @@ class MockPersistenceService extends _i1.Mock implements _i4.PersistenceService 
           as _i5.Future<void>);
 
   @override
+  _i5.Future<void> setColorIntensity(int? colorIntensity) =>
+      (super.noSuchMethod(
+            Invocation.method(#setColorIntensity, [colorIntensity]),
+            returnValue: _i5.Future<void>.value(),
+            returnValueForMissingStub: _i5.Future<void>.value(),
+          )
+          as _i5.Future<void>);
+
+  @override
   _i5.Future<void> setLocale(_i11.AppLocale? locale) =>
       (super.noSuchMethod(
             Invocation.method(#setLocale, [locale]),

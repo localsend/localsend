@@ -1,3 +1,4 @@
+import 'package:flex_seed_scheme/flex_seed_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:localsend_app/gen/strings.g.dart';
@@ -10,12 +11,12 @@ import 'package:yaru/yaru.dart' as yaru;
 
 final _borderRadius = BorderRadius.circular(5);
 
-ThemeData getTheme(ColorMode colorMode, Color customColor, Brightness brightness, DynamicColors? dynamicColors) {
+ThemeData getTheme(ColorMode colorMode, Color customColor, Brightness brightness, DynamicColors? dynamicColors, int? colorIntensity) {
   if (colorMode == ColorMode.yaru) {
     return _getYaruTheme(brightness);
   }
 
-  final colorScheme = _determineColorScheme(colorMode, customColor, brightness, dynamicColors);
+  final colorScheme = _determineColorScheme(colorMode, customColor, brightness, dynamicColors, colorIntensity);
 
   final lightInputBorder = OutlineInputBorder(
     borderSide: BorderSide(color: colorScheme.secondaryContainer),
@@ -140,26 +141,51 @@ extension InputDecorationThemeExt on InputDecorationThemeData {
   BorderRadius get borderRadius => _borderRadius;
 }
 
-ColorScheme _determineColorScheme(ColorMode mode, Color customColor, Brightness brightness, DynamicColors? dynamicColors) {
+ColorScheme _determineColorScheme(ColorMode mode, Color customColor, Brightness brightness, DynamicColors? dynamicColors, int? colorIntensity) {
   final defaultColorScheme = ColorScheme.fromSeed(
     seedColor: Colors.teal,
     brightness: brightness,
   );
 
   final colorScheme = switch (mode) {
-    ColorMode.system => brightness == Brightness.light ? dynamicColors?.light : dynamicColors?.dark,
+    ColorMode.system => _systemColorScheme(dynamicColors, brightness, colorIntensity),
     ColorMode.localsend => null,
     ColorMode.oled => (dynamicColors?.dark ?? defaultColorScheme).copyWith(
       surface: Colors.black,
     ),
     ColorMode.yaru => throw 'Should reach here',
-    ColorMode.custom => ColorScheme.fromSeed(
-      seedColor: customColor,
-      brightness: brightness,
-    ),
+    ColorMode.custom =>
+      colorIntensity == null
+          ? ColorScheme.fromSeed(
+              seedColor: customColor,
+              brightness: brightness,
+            )
+          : _seededColorScheme(customColor, brightness, colorIntensity),
   };
 
   return colorScheme ?? defaultColorScheme;
+}
+
+ColorScheme? _systemColorScheme(DynamicColors? dynamicColors, Brightness brightness, int? colorIntensity) {
+  if (dynamicColors == null) {
+    return null;
+  }
+  if (colorIntensity == null) {
+    return brightness == Brightness.light ? dynamicColors.light : dynamicColors.dark;
+  }
+  return _seededColorScheme(dynamicColors.seedColor, brightness, colorIntensity);
+}
+
+// Same seed color as ColorScheme.fromSeed, but with a higher neutral chroma so surface/background
+// actually carry a visible tint of the seed color instead of being nearly desaturated gray.
+ColorScheme _seededColorScheme(Color seedColor, Brightness brightness, int neutralChroma) {
+  return SeedColorScheme.fromSeeds(
+    brightness: brightness,
+    primaryKey: seedColor,
+    tones: brightness == Brightness.light
+        ? FlexTones.light(neutralChroma: neutralChroma.toDouble(), neutralVariantChroma: (neutralChroma + 6).toDouble())
+        : FlexTones.dark(neutralChroma: neutralChroma.toDouble(), neutralVariantChroma: (neutralChroma + 6).toDouble()),
+  );
 }
 
 ThemeData _getYaruTheme(Brightness brightness) {

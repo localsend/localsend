@@ -50,6 +50,7 @@ class SettingsService extends PureNotifier<SettingsState> {
     theme: _persistence.getTheme(),
     colorMode: _persistence.getColorMode(),
     customColor: _persistence.getCustomColor(),
+    colorIntensity: _persistence.getColorIntensity(),
     locale: _persistence.getLocale(),
     port: _persistence.getPort(),
     networkWhitelist: _persistence.getNetworkWhitelist(),
@@ -102,6 +103,13 @@ class SettingsService extends PureNotifier<SettingsState> {
     await _persistence.setCustomColor(color);
     state = state.copyWith(
       customColor: color,
+    );
+  }
+
+  Future<void> setColorIntensity(int? colorIntensity) async {
+    await _persistence.setColorIntensity(colorIntensity);
+    state = state.copyWith(
+      colorIntensity: colorIntensity,
     );
   }
 

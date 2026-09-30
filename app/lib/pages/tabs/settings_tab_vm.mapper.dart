@@ -44,6 +44,13 @@ class SettingsTabVmMapper extends ClassMapperBase<SettingsTabVm> {
       v.portController;
   static const Field<SettingsTabVm, TextEditingController> _f$portController =
       Field('portController', _$portController);
+  static TextEditingController _$colorIntensityController(SettingsTabVm v) =>
+      v.colorIntensityController;
+  static const Field<SettingsTabVm, TextEditingController>
+  _f$colorIntensityController = Field(
+    'colorIntensityController',
+    _$colorIntensityController,
+  );
   static TextEditingController _$timeoutController(SettingsTabVm v) =>
       v.timeoutController;
   static const Field<SettingsTabVm, TextEditingController>
@@ -187,6 +194,7 @@ class SettingsTabVmMapper extends ClassMapperBase<SettingsTabVm> {
     #aliasController: _f$aliasController,
     #deviceModelController: _f$deviceModelController,
     #portController: _f$portController,
+    #colorIntensityController: _f$colorIntensityController,
     #timeoutController: _f$timeoutController,
     #multicastController: _f$multicastController,
     #settings: _f$settings,
@@ -215,6 +223,7 @@ class SettingsTabVmMapper extends ClassMapperBase<SettingsTabVm> {
       aliasController: data.dec(_f$aliasController),
       deviceModelController: data.dec(_f$deviceModelController),
       portController: data.dec(_f$portController),
+      colorIntensityController: data.dec(_f$colorIntensityController),
       timeoutController: data.dec(_f$timeoutController),
       multicastController: data.dec(_f$multicastController),
       settings: data.dec(_f$settings),
@@ -308,6 +317,7 @@ abstract class SettingsTabVmCopyWith<$R, $In extends SettingsTabVm, $Out>
     TextEditingController? aliasController,
     TextEditingController? deviceModelController,
     TextEditingController? portController,
+    TextEditingController? colorIntensityController,
     TextEditingController? timeoutController,
     TextEditingController? multicastController,
     SettingsState? settings,
@@ -358,6 +368,7 @@ class _SettingsTabVmCopyWithImpl<$R, $Out>
     TextEditingController? aliasController,
     TextEditingController? deviceModelController,
     TextEditingController? portController,
+    TextEditingController? colorIntensityController,
     TextEditingController? timeoutController,
     TextEditingController? multicastController,
     SettingsState? settings,
@@ -384,6 +395,8 @@ class _SettingsTabVmCopyWithImpl<$R, $Out>
       if (deviceModelController != null)
         #deviceModelController: deviceModelController,
       if (portController != null) #portController: portController,
+      if (colorIntensityController != null)
+        #colorIntensityController: colorIntensityController,
       if (timeoutController != null) #timeoutController: timeoutController,
       if (multicastController != null)
         #multicastController: multicastController,
@@ -418,6 +431,10 @@ class _SettingsTabVmCopyWithImpl<$R, $Out>
       or: $value.deviceModelController,
     ),
     portController: data.get(#portController, or: $value.portController),
+    colorIntensityController: data.get(
+      #colorIntensityController,
+      or: $value.colorIntensityController,
+    ),
     timeoutController: data.get(
       #timeoutController,
       or: $value.timeoutController,

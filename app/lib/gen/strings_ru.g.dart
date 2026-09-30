@@ -857,6 +857,8 @@ class _Translations$settingsTab$general$ru extends Translations$settingsTab$gene
   @override
   late final _Translations$settingsTab$general$colorOptions$ru colorOptions = _Translations$settingsTab$general$colorOptions$ru._(_root);
   @override
+  String get colorIntensity => 'Интенсивность цвета';
+  @override
   String get language => 'Язык';
   @override
   late final _Translations$settingsTab$general$languageOptions$ru languageOptions = _Translations$settingsTab$general$languageOptions$ru._(_root);
