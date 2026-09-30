@@ -34,6 +34,7 @@ class _FavoriteEditDialogState extends State<FavoriteEditDialog> with Refena {
   final _aliasController = TextEditingController();
   bool _fetching = false;
   String? _error;
+  String? _portError;
 
   @override
   void initState() {
@@ -88,6 +89,7 @@ class _FavoriteEditDialogState extends State<FavoriteEditDialog> with Refena {
             const SizedBox(height: 5),
             TextFormField(
               controller: _portController,
+              decoration: InputDecoration(errorText: _portError),
               enabled: !_fetching,
               keyboardType: TextInputType.number,
             ),
@@ -154,9 +156,12 @@ class _FavoriteEditDialogState extends State<FavoriteEditDialog> with Refena {
                     return;
                   }
 
-                  if (_portController.text.isEmpty) {
+                  final port = int.tryParse(_portController.text);
+                  if (port == null || port < 1 || port > 65535) {
+                    setState(() => _portError = t.dialogs.favoriteEditDialog.invalidPort);
                     return;
                   }
+                  setState(() => _portError = null);
 
                   if (widget.favorite != null) {
                     // Update existing favorite
@@ -172,7 +177,7 @@ class _FavoriteEditDialogState extends State<FavoriteEditDialog> with Refena {
                           UpdateFavoriteAction(
                             existingFavorite.copyWith(
                               ip: _ipController.text,
-                              port: int.parse(_portController.text),
+                              port: port,
                               alias: trimmedNewAlias,
                               customAlias: existingFavorite.customAlias || trimmedNewAlias != existingFavorite.alias,
                             ),
@@ -181,7 +186,6 @@ class _FavoriteEditDialogState extends State<FavoriteEditDialog> with Refena {
                   } else {
                     // Add new favorite
                     final ip = _ipController.text;
-                    final port = int.parse(_portController.text);
                     final https = ref.read(settingsProvider).https;
                     setState(() {
                       _fetching = true;
@@ -208,7 +212,7 @@ class _FavoriteEditDialogState extends State<FavoriteEditDialog> with Refena {
                               FavoriteDevice.fromValues(
                                 fingerprint: response.body.token,
                                 ip: _ipController.text,
-                                port: int.parse(_portController.text),
+                                port: port,
                                 alias: name.isEmpty ? response.body.alias : name,
                               ),
                             ),
