@@ -189,6 +189,15 @@ Future<RefenaContainer> preInit(List<String> args) async {
 
   await container.redux(parentIsolateProvider).dispatchAsync(IsolateSetupAction());
 
+  if (checkPlatformIsDesktop()) {
+    // Hidden desktop windows may not build HomePage, so postInit may not run.
+    try {
+      await container.notifier(serverProvider).startServerFromSettings();
+    } catch (e, st) {
+      _logger.warning('Starting receive server during initialization failed', e, st);
+    }
+  }
+
   return container;
 }
 
