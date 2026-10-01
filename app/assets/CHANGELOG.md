@@ -1,5 +1,6 @@
 ## Unreleased
 
+- feat(desktop): add an Always on Top setting (@ShlomoCode)
 - fix: avoid adding a trailing dot when renaming files without an extension (@ShlomoCode)
 - fix(macos): prevent intermittent MissingPluginException during startup (@ShlomoCode)
 - fix(macos): file sharing via Share Extension doesn't work in DMG builds (@ShlomoCode, @vdmkotai)
