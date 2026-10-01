@@ -7,6 +7,7 @@
 - perf: reduce memory use during file transfers (@luojiyin1987)
 - fix: apply zero-padding when numbering renamed files (@A-M-D-R-3-W)
 - fix(windows): correct the MSIX helper architecture in ARM64 builds (@Tienisto)
+- fix(windows): sign the embedded uninstaller as well as the installer (@Tienisto)
 - i18n: add Kyrgyz (@nidara-duo)
 - fix: avoid adding a trailing dot when renaming files without an extension (@ShlomoCode)
 - fix(macos): prevent intermittent MissingPluginException during startup (@ShlomoCode)
@@ -21,6 +22,9 @@
 - feat(cli): add version info to the Windows executable
 - feat(linux): set actual version in the AppImage
 - security: do not follow HTTP redirects sent by peers
+- perf: improve file transfer throughput and reduce response delays
+- fix: avoid startup failure in portable mode when the working directory is inaccessible (@Shlomo116)
+- fix: use the standard port 3478 for the default STUN server
 - fix: restore compatibility with 1.17.0 and earlier versions on missing multicast networks
 - fix: devices running 1.17.0 and earlier could not add 1.18.0+ device as favorite
 - fix: ignore proxies, fixes "TLS info not found" when a system proxy (e.g. Shadowrocket) is enabled
