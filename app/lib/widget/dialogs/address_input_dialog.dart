@@ -207,7 +207,7 @@ class _AddressInputDialogState extends State<AddressInputDialog> with Refena {
                             TextSpan(
                               text: device.ip,
                               style: TextStyle(color: Theme.of(context).colorScheme.primary),
-                              recognizer: TapGestureRecognizer()..onTap = () async => _submit(localIps, settings.port, device.ip),
+                              recognizer: TapGestureRecognizer()..onTap = () async => _submit(localIps, device.port, device.ip),
                             ),
                           ];
                         })
