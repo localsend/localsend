@@ -1,5 +1,13 @@
 ## Unreleased
 
+- feat(cli): replace `--file` with the `send` command for sending files and directories (@otanim)
+- feat: restore hashtag codes for connecting to devices (@Tienisto)
+- security(cli): sanitize remote text before displaying it in the terminal (@Tienisto)
+- security: limit simultaneous incoming connections to prevent resource exhaustion (@Tienisto)
+- perf: reduce memory use during file transfers (@luojiyin1987)
+- fix: apply zero-padding when numbering renamed files (@A-M-D-R-3-W)
+- fix(windows): correct the MSIX helper architecture in ARM64 builds (@Tienisto)
+- i18n: add Kyrgyz (@nidara-duo)
 - fix: avoid adding a trailing dot when renaming files without an extension (@ShlomoCode)
 - fix(macos): prevent intermittent MissingPluginException during startup (@ShlomoCode)
 - fix(macos): file sharing via Share Extension doesn't work in DMG builds (@ShlomoCode, @vdmkotai)
