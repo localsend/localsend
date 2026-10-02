@@ -89,6 +89,17 @@ class SettingsTab extends StatelessWidget {
                   onTap: () => vm.onTapLanguage(context),
                 ),
                 if (checkPlatformIsDesktop()) ...[
+                  _BooleanEntry(
+                    label: t.settingsTab.general.alwaysOnTop,
+                    value: checkPlatformIsNotWaylandDesktop() && vm.settings.alwaysOnTop,
+                    description: checkPlatformIsNotWaylandDesktop() ? null : t.settingsTab.general.alwaysOnTopUnavailable,
+                    onChanged: checkPlatformIsNotWaylandDesktop()
+                        ? (b) async {
+                            await ref.notifier(settingsProvider).setAlwaysOnTop(b);
+                          }
+                        : null,
+                  ),
+
                   /// Wayland does window position handling, so there's no need for it. See [https://github.com/localsend/localsend/issues/544]
                   if (vm.advanced && checkPlatformIsNotWaylandDesktop())
                     _BooleanEntry(
@@ -612,8 +623,9 @@ class SettingsTab extends StatelessWidget {
 class _SettingsEntry extends StatelessWidget {
   final String label;
   final Widget child;
+  final String? description;
 
-  const _SettingsEntry({required this.label, required this.child});
+  const _SettingsEntry({required this.label, required this.child, this.description});
 
   @override
   Widget build(BuildContext context) {
@@ -622,7 +634,17 @@ class _SettingsEntry extends StatelessWidget {
       child: Row(
         children: [
           Expanded(
-            child: Text(label),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(label),
+                if (description != null)
+                  Text(
+                    description!,
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
+                  ),
+              ],
+            ),
           ),
           const SizedBox(width: 10),
           SizedBox(
@@ -639,12 +661,14 @@ class _SettingsEntry extends StatelessWidget {
 class _BooleanEntry extends StatelessWidget {
   final String label;
   final bool value;
-  final ValueChanged<bool> onChanged;
+  final ValueChanged<bool>? onChanged;
+  final String? description;
 
   const _BooleanEntry({
     required this.label,
     required this.value,
     required this.onChanged,
+    this.description,
   });
 
   @override
@@ -652,6 +676,7 @@ class _BooleanEntry extends StatelessWidget {
     final theme = Theme.of(context);
     return _SettingsEntry(
       label: label,
+      description: description,
       child: Stack(
         children: [
           Container(

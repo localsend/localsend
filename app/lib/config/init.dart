@@ -62,6 +62,15 @@ Future<RefenaContainer> preInit(List<String> args) async {
   WidgetsFlutterBinding.ensureInitialized();
 
   initLogger(args.contains('-v') || args.contains('--verbose') ? Level.ALL : Level.INFO);
+
+  if (checkPlatform([TargetPlatform.linux])) {
+    try {
+      cacheWaylandStatus(await isWaylandDisplay());
+    } catch (e) {
+      _logger.warning('Reading display backend failed; using session type: $e');
+    }
+  }
+
   MapperContainer.globals.use(const FileDtoMapper());
 
   await RustLib.init();
@@ -113,6 +122,9 @@ Future<RefenaContainer> preInit(List<String> args) async {
 
     // initialize size and position
     await WindowManager.instance.ensureInitialized();
+    if (checkPlatformIsNotWaylandDesktop()) {
+      await windowManager.setAlwaysOnTop(persistenceService.getAlwaysOnTop());
+    }
     await WindowDimensionsController(persistenceService).initDimensionsConfiguration();
     if (args.contains(startHiddenFlag)) {
       // keep this app hidden
