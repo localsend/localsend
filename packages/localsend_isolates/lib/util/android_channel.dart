@@ -69,12 +69,10 @@ class CreatedFileAndroid {
 Future<CreatedFileAndroid> createFileAndroid({
   required String parentUri,
   required String fileName,
-  required String mimeType,
 }) async {
   final result = await _methodChannel.invokeMethod<Map>('createFile', {
     'parentUri': parentUri,
     'fileName': fileName,
-    'mimeType': mimeType,
   });
   if (result == null) {
     throw StateError('Android could not create $fileName in $parentUri');

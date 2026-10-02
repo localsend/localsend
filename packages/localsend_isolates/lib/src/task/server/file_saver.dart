@@ -6,7 +6,6 @@ import 'package:localsend_isolates/util/android_channel.dart' as android_channel
 import 'package:localsend_isolates/util/content_uri_helper.dart';
 import 'package:localsend_isolates/util/file_path_helper.dart';
 import 'package:logging/logging.dart';
-import 'package:mime/mime.dart';
 import 'package:path/path.dart' as p;
 
 final _logger = Logger('FileSaver');
@@ -46,7 +45,6 @@ Future<FileSaveTarget> prepareFileSaveTarget({
   required String cacheDirectory,
   required String fileName,
   required bool saveToGallery,
-  required bool isImage,
   required Set<String> createdDirectories,
   int? androidSdkInt,
 }) async {
@@ -76,7 +74,6 @@ Future<FileSaveTarget> prepareFileSaveTarget({
       final createdFile = await android_channel.createFileAndroid(
         parentUri: parentUri,
         fileName: finalName,
-        mimeType: lookupMimeType(finalName) ?? (isImage ? 'image/*' : '*/*'),
       );
       return FileSaveTarget(
         path: null,
