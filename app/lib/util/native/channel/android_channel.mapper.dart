@@ -299,3 +299,138 @@ class _FileInfoCopyWithImpl<$R, $Out>
   ) => _FileInfoCopyWithImpl<$R2, $Out2>($value, $cast, t);
 }
 
+class SharedPayloadMapper extends ClassMapperBase<SharedPayload> {
+  SharedPayloadMapper._();
+
+  static SharedPayloadMapper? _instance;
+  static SharedPayloadMapper ensureInitialized() {
+    if (_instance == null) {
+      MapperContainer.globals.use(_instance = SharedPayloadMapper._());
+      FileInfoMapper.ensureInitialized();
+    }
+    return _instance!;
+  }
+
+  @override
+  final String id = 'SharedPayload';
+
+  static List<FileInfo> _$files(SharedPayload v) => v.files;
+  static const Field<SharedPayload, List<FileInfo>> _f$files = Field(
+    'files',
+    _$files,
+  );
+  static String? _$text(SharedPayload v) => v.text;
+  static const Field<SharedPayload, String> _f$text = Field('text', _$text);
+
+  @override
+  final MappableFields<SharedPayload> fields = const {
+    #files: _f$files,
+    #text: _f$text,
+  };
+
+  static SharedPayload _instantiate(DecodingData data) {
+    return SharedPayload(files: data.dec(_f$files), text: data.dec(_f$text));
+  }
+
+  @override
+  final Function instantiate = _instantiate;
+
+  static SharedPayload fromJson(Map<String, dynamic> map) {
+    return ensureInitialized().decodeMap<SharedPayload>(map);
+  }
+
+  static SharedPayload deserialize(String json) {
+    return ensureInitialized().decodeJson<SharedPayload>(json);
+  }
+}
+
+mixin SharedPayloadMappable {
+  String serialize() {
+    return SharedPayloadMapper.ensureInitialized().encodeJson<SharedPayload>(
+      this as SharedPayload,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return SharedPayloadMapper.ensureInitialized().encodeMap<SharedPayload>(
+      this as SharedPayload,
+    );
+  }
+
+  SharedPayloadCopyWith<SharedPayload, SharedPayload, SharedPayload>
+  get copyWith => _SharedPayloadCopyWithImpl<SharedPayload, SharedPayload>(
+    this as SharedPayload,
+    $identity,
+    $identity,
+  );
+  @override
+  String toString() {
+    return SharedPayloadMapper.ensureInitialized().stringifyValue(
+      this as SharedPayload,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return SharedPayloadMapper.ensureInitialized().equalsValue(
+      this as SharedPayload,
+      other,
+    );
+  }
+
+  @override
+  int get hashCode {
+    return SharedPayloadMapper.ensureInitialized().hashValue(
+      this as SharedPayload,
+    );
+  }
+}
+
+extension SharedPayloadValueCopy<$R, $Out>
+    on ObjectCopyWith<$R, SharedPayload, $Out> {
+  SharedPayloadCopyWith<$R, SharedPayload, $Out> get $asSharedPayload =>
+      $base.as((v, t, t2) => _SharedPayloadCopyWithImpl<$R, $Out>(v, t, t2));
+}
+
+abstract class SharedPayloadCopyWith<$R, $In extends SharedPayload, $Out>
+    implements ClassCopyWith<$R, $In, $Out> {
+  ListCopyWith<$R, FileInfo, FileInfoCopyWith<$R, FileInfo, FileInfo>>
+  get files;
+  $R call({List<FileInfo>? files, String? text});
+  SharedPayloadCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
+}
+
+class _SharedPayloadCopyWithImpl<$R, $Out>
+    extends ClassCopyWithBase<$R, SharedPayload, $Out>
+    implements SharedPayloadCopyWith<$R, SharedPayload, $Out> {
+  _SharedPayloadCopyWithImpl(super.value, super.then, super.then2);
+
+  @override
+  late final ClassMapperBase<SharedPayload> $mapper =
+      SharedPayloadMapper.ensureInitialized();
+  @override
+  ListCopyWith<$R, FileInfo, FileInfoCopyWith<$R, FileInfo, FileInfo>>
+  get files => ListCopyWith(
+    $value.files,
+    (v, t) => v.copyWith.$chain(t),
+    (v) => call(files: v),
+  );
+  @override
+  $R call({List<FileInfo>? files, Object? text = $none}) => $apply(
+    FieldCopyWithData({
+      if (files != null) #files: files,
+      if (text != $none) #text: text,
+    }),
+  );
+  @override
+  SharedPayload $make(CopyWithData data) => SharedPayload(
+    files: data.get(#files, or: $value.files),
+    text: data.get(#text, or: $value.text),
+  );
+
+  @override
+  SharedPayloadCopyWith<$R2, SharedPayload, $Out2> $chain<$R2, $Out2>(
+    Then<$Out2, $R2> t,
+  ) => _SharedPayloadCopyWithImpl<$R2, $Out2>($value, $cast, t);
+}
+

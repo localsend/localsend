@@ -5,15 +5,46 @@ import 'package:flutter/foundation.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:localsend_app/model/cross_file.dart';
 import 'package:localsend_app/util/native/channel/android_channel.dart' as android_channel;
+import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_isolates/model/file_type.dart';
 import 'package:localsend_isolates/rust/api/metadata.dart';
 import 'package:localsend_isolates/util/file_path_helper.dart';
+import 'package:logging/logging.dart';
 import 'package:share_handler/share_handler.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
+
+final _logger = Logger('CrossFileConverters');
 
 /// Utility functions to convert third party models to common [CrossFile] model.
 class CrossFileConverters {
   static Future<CrossFile> convertAssetEntity(AssetEntity asset) async {
+    if (checkPlatform([TargetPlatform.android])) {
+      // Reading the asset through its MediaStore URI avoids the full copy into the app
+      // cache that originFile performs, which dominates the wait for large selections.
+      final mediaUri = await asset.getMediaUrl();
+      // photo_manager reports 0 when it cannot reach the asset, and offering the peer an
+      // empty file is worse than paying for the copy below.
+      final size = await asset.fileSize;
+      if (mediaUri != null && size > 0) {
+        final modifiedSeconds = asset.modifiedDateSecond;
+        return CrossFile(
+          name: await asset.titleAsync,
+          fileType: asset.type == AssetType.video ? FileType.video : FileType.image,
+          size: size,
+          thumbnail: null,
+          asset: asset,
+          path: await android_channel.getOriginalMediaUriAndroid(uri: mediaUri),
+          bytes: null,
+          // MediaStore only provides seconds, so there is no point statting in Rust.
+          lastModified: modifiedSeconds != null && modifiedSeconds > 0
+              ? DateTime.fromMillisecondsSinceEpoch(modifiedSeconds * 1000, isUtc: true).toIso8601String()
+              : null,
+          lastAccessed: null,
+        );
+      }
+      _logger.warning('Falling back to a cache copy of ${asset.id}: uri=$mediaUri size=$size');
+    }
+
     final file = (await asset.originFile)!;
     final metadata = await readFileMetadata(path: file.path);
     return CrossFile(

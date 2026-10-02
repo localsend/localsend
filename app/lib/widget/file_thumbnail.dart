@@ -5,11 +5,16 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:localsend_app/model/cross_file.dart';
 import 'package:localsend_app/util/file_type_ext.dart';
+import 'package:localsend_app/util/native/channel/android_channel.dart' as android_channel;
 import 'package:localsend_isolates/model/file_type.dart';
 import 'package:uri_content/uri_content.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 
 const double defaultThumbnailSize = 50;
+
+/// Resolution the thumbnails are decoded at, kept small because they are never shown
+/// larger than [defaultThumbnailSize].
+const int _thumbnailPixelSize = 64;
 
 class SmartFileThumbnail extends StatelessWidget {
   final Uint8List? bytes;
@@ -86,32 +91,36 @@ class FilePathThumbnail extends StatelessWidget {
     required this.fileType,
   });
 
+  Widget _fallbackIcon(BuildContext context, Object error, StackTrace? stackTrace) {
+    return Padding(
+      padding: const EdgeInsets.all(10),
+      child: Icon(fileType.icon, size: 32),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    final path = this.path;
     final Widget? thumbnail;
-    if (path != null && fileType == FileType.image) {
-      if (path!.startsWith('content://')) {
-        thumbnail = Image(
-          image: ResizeImage.resizeIfNeeded(
-            64,
-            null,
-            _ContentUriImage(Uri.parse(path!)),
-          ),
-          errorBuilder: (_, _, _) => Padding(
-            padding: const EdgeInsets.all(10),
-            child: Icon(fileType.icon, size: 32),
-          ),
-        );
-      } else {
-        thumbnail = Image.file(
-          File(path!),
-          cacheWidth: 64, // reduce memory with low cached size; do not set cacheHeight because the image must keep its ratio
-          errorBuilder: (_, _, _) => Padding(
-            padding: const EdgeInsets.all(10),
-            child: Icon(fileType.icon, size: 32),
-          ),
-        );
-      }
+    if (path == null) {
+      thumbnail = null;
+    } else if (path.startsWith('content://') && (fileType == FileType.image || fileType == FileType.video)) {
+      // Videos are included because the provider thumbnails them just as well, and they
+      // have no preview at all otherwise.
+      thumbnail = Image(
+        image: ResizeImage.resizeIfNeeded(
+          _thumbnailPixelSize,
+          null,
+          _ContentUriImage(Uri.parse(path), fileType: fileType),
+        ),
+        errorBuilder: _fallbackIcon,
+      );
+    } else if (fileType == FileType.image) {
+      thumbnail = Image.file(
+        File(path),
+        cacheWidth: _thumbnailPixelSize, // reduce memory with low cached size; do not set cacheHeight because the image must keep its ratio
+        errorBuilder: _fallbackIcon,
+      );
     } else {
       thumbnail = null;
     }
@@ -195,8 +204,9 @@ class _Thumbnail extends StatelessWidget {
 
 class _ContentUriImage extends ImageProvider<Uri> {
   final Uri uri;
+  final FileType fileType;
 
-  _ContentUriImage(this.uri);
+  _ContentUriImage(this.uri, {required this.fileType});
 
   @override
   Future<Uri> obtainKey(ImageConfiguration configuration) {
@@ -216,7 +226,19 @@ class _ContentUriImage extends ImageProvider<Uri> {
   }
 
   Future<Codec> _loadAsync(Uri key, ImageDecoderCallback decode) async {
-    final bytes = await UriContent().from(key);
-    return decode(await ImmutableBuffer.fromUint8List(bytes));
+    // Reading the whole file just to shrink it to a few dozen pixels is what makes large
+    // photos take seconds to show up, so it is only the fallback for providers that
+    // cannot thumbnail themselves.
+    final thumbnail = await android_channel.getContentThumbnailAndroid(uri: key.toString(), size: _thumbnailPixelSize);
+    if (thumbnail != null) {
+      return decode(await ImmutableBuffer.fromUint8List(thumbnail));
+    }
+
+    if (fileType == FileType.video) {
+      // Reading a video whole would cost gigabytes and still not decode as an image.
+      throw StateError('No thumbnail available for video $uri');
+    }
+
+    return decode(await ImmutableBuffer.fromUint8List(await UriContent().from(key)));
   }
 }
