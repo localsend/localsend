@@ -656,7 +656,6 @@ Future<void> _handleFileUpload({
             cacheDirectory: config.cacheDirectory,
             fileName: desiredName,
             saveToGallery: shouldSaveToGallery,
-            isImage: isImage,
             createdDirectories: session.createdDirectories,
             androidSdkInt: config.androidSdkInt,
           );
