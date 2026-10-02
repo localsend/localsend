@@ -8,6 +8,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <application
         android:label="LocalSend Debug"
+        android:memtagMode="sync"
         tools:ignore="MissingApplicationIcon"
         tools:replace="android:label" />
 </manifest>
