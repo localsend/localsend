@@ -58,6 +58,10 @@ Future<void> openFirewallSettings() async {
   await _methodChannel.invokeMethod('openFirewallSettings');
 }
 
+Future<void> quarantineReceivedFile(String path) async {
+  await _methodChannel.invokeMethod('quarantineReceivedFile', path);
+}
+
 // This happens:
 /// - on macOS when text is dropped onto the app Dock icon
 /// - on macOS when text is dropped onto the app menu bar icon
