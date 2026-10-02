@@ -496,7 +496,7 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
 
     await _sendFiles(
       sessionId: sessionId,
-      files: files.values.toList(),
+      files: files.values.toList()..sort((a, b) => a.file.fileName.compareTo(b.file.fileName)),
     );
 
     _finish(sessionId: sessionId);

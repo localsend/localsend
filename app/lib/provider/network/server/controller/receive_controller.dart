@@ -13,6 +13,7 @@ import 'package:localsend_app/provider/device_info_provider.dart';
 import 'package:localsend_app/provider/favorites_provider.dart';
 import 'package:localsend_app/provider/file_transfer_provider.dart';
 import 'package:localsend_app/provider/http_provider.dart';
+import 'package:localsend_app/provider/live_photo_provider.dart';
 import 'package:localsend_app/provider/logging/discovery_logs_provider.dart';
 import 'package:localsend_app/provider/network/send_provider.dart';
 import 'package:localsend_app/provider/network/server/server_provider.dart';
@@ -22,6 +23,7 @@ import 'package:localsend_app/provider/security_provider.dart';
 import 'package:localsend_app/provider/selection/selected_receiving_files_provider.dart';
 import 'package:localsend_app/provider/selection/selected_sending_files_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
+import 'package:localsend_app/util/live_photo_pairing_helper.dart';
 import 'package:localsend_app/util/native/directories.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_app/util/native/tray_helper.dart';
@@ -114,6 +116,7 @@ class ReceiveController {
           destinationDirectory: destinationDir,
           cacheDirectory: cacheDir,
           saveToGallery: checkPlatformWithGallery() && settings.saveToGallery && files.values.every((f) => !f.fileName.contains('/')),
+          saveAsLivePhoto: settings.saveAsLivePhoto && server.ref.read(livePhotoSupportProvider),
           createdDirectories: {},
         ),
       ),
@@ -611,6 +614,7 @@ class ReceiveController {
       destinationDirectory: session.destinationDirectory,
       cacheDirectory: session.cacheDirectory,
       saveToGallery: session.saveToGallery,
+      livePhotoPairs: session.saveToGallery && session.saveAsLivePhoto ? findLivePhotoPairs(session.files) : const {},
       androidSdkInt: server.ref.read(deviceInfoProvider).androidSdkInt,
     );
   }
@@ -643,6 +647,14 @@ class ReceiveController {
         session: oldState.session?.copyWith(
           saveToGallery: saveToGallery,
         ),
+      ),
+    );
+  }
+
+  void setSessionSaveAsLivePhoto(bool saveAsLivePhoto) {
+    server.setState(
+      (oldState) => oldState?.copyWith(
+        session: oldState.session?.copyWith(saveAsLivePhoto: saveAsLivePhoto),
       ),
     );
   }

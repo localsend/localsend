@@ -21,6 +21,8 @@ class SettingsState with SettingsStateMappable {
   final String multicastGroup;
   final String? destination; // null = default
   final bool saveToGallery; // only Android, iOS
+  final bool saveAsLivePhoto; // save as Live Photo, if available
+  final bool sendLivePhotoVideo; // include the paired video when selecting a Live Photo
   final bool saveToHistory;
   final bool quickSave; // automatically accept file requests
   final bool quickSaveFromFavorites; // automatically accept file requests from favorites
@@ -53,6 +55,8 @@ class SettingsState with SettingsStateMappable {
     required this.multicastGroup,
     required this.destination,
     required this.saveToGallery,
+    required this.saveAsLivePhoto,
+    required this.sendLivePhotoVideo,
     required this.saveToHistory,
     required this.quickSave,
     required this.quickSaveFromFavorites,

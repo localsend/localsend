@@ -121,11 +121,14 @@
       "destination": "Save to folder",
       "downloads": "(Downloads)",
       "saveToGallery": "Save media to gallery",
+      "saveAsLivePhoto": "Save as Live Photo",
       "saveToHistory": "Save to history",
       "verifyChecksums": "Verify checksums when receiving files"
     },
     "send": {
       "title": "Send",
+      "sendLivePhotoVideo": "Send Live Photo video",
+      "sendLivePhotoVideoDescription": "When selecting a Live Photo, send both the photo and its paired video.",
       "shareViaLinkAutoAccept": "Automatically accept requests in \"Share via link\" mode",
       "createChecksums": "Create checksums when sending files"
     },
@@ -243,6 +246,7 @@
     "destination": "@:settingsTab.receive.destination",
     "appDirectory": "(LocalSend folder)",
     "saveToGallery": "@:settingsTab.receive.saveToGallery",
+    "saveAsLivePhoto": "@:settingsTab.receive.saveAsLivePhoto",
     "saveToGalleryOff": "Turned off automatically because there are folders."
   },
   "sendPage": {

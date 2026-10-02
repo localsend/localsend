@@ -8,16 +8,28 @@ import 'package:localsend_app/util/native/channel/android_channel.dart' as andro
 import 'package:localsend_isolates/model/file_type.dart';
 import 'package:localsend_isolates/rust/api/metadata.dart';
 import 'package:localsend_isolates/util/file_path_helper.dart';
+import 'package:path/path.dart' as p;
 import 'package:share_handler/share_handler.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 
 /// Utility functions to convert third party models to common [CrossFile] model.
 class CrossFileConverters {
-  static Future<CrossFile> convertAssetEntity(AssetEntity asset) async {
-    final file = (await asset.originFile)!;
+  /// Optionally exports the paired video alongside a Live Photo's still image.
+  static Future<List<CrossFile>> convertAssetEntity(AssetEntity asset, {bool sendLivePhotoVideo = false}) async {
+    final file = await asset.originFile;
+    if (file == null) {
+      throw StateError('Could not load the selected photo or video. Please download it in Photos and try again.');
+    }
     final metadata = await readFileMetadata(path: file.path);
-    return CrossFile(
-      name: await asset.titleAsync,
+    final title = await asset.titleAsync;
+    var name = title.isEmpty ? p.basename(file.path) : title;
+    if (asset.isLivePhoto && p.extension(file.path).isNotEmpty) {
+      // An edited Live Photo can export a JPEG even if the original title ends
+      // in HEIC. Keep the user's basename but use the actual resource format.
+      name = '${p.basenameWithoutExtension(name)}${p.extension(file.path)}';
+    }
+    final image = CrossFile(
+      name: name,
       fileType: asset.type == AssetType.video ? FileType.video : FileType.image,
       size: await file.length(),
       thumbnail: null,
@@ -27,6 +39,27 @@ class CrossFileConverters {
       lastModified: metadata?.modified,
       lastAccessed: metadata?.accessed,
     );
+
+    // Keep the default still-only behavior without exporting the paired video.
+    if (!sendLivePhotoVideo || !asset.isLivePhoto) {
+      return [image];
+    }
+
+    // photo_manager exports the paired video when the Live Photo subtype is
+    // requested. originFile alone only exports the still image.
+    final video = await asset.originFileWithSubtype;
+    if (video == null || video.path == file.path) {
+      throw StateError('Could not load the Live Photo video. Please download the Live Photo in Photos and try again.');
+    }
+    final videoFile = await convertFile(video);
+    return [
+      image,
+      videoFile.copyWith(
+        name: '${p.basenameWithoutExtension(image.name)}${p.extension(video.path)}',
+        fileType: FileType.video,
+        asset: asset,
+      ),
+    ];
   }
 
   static Future<CrossFile> convertXFile(XFile file) async {
