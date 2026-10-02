@@ -1,5 +1,6 @@
 ## Unreleased
 
+- fix: use the app language for file sizes on the Receive via link browser page (@ShlomoCode)
 - fix: avoid adding a trailing dot when renaming files without an extension (@ShlomoCode)
 - fix(macos): prevent intermittent MissingPluginException during startup (@ShlomoCode)
 - fix(macos): file sharing via Share Extension doesn't work in DMG builds (@ShlomoCode, @vdmkotai)

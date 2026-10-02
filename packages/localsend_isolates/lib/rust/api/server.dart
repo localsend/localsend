@@ -287,6 +287,7 @@ class TlsConfig {
 }
 
 class WebI18n {
+  final String locale;
   final String waiting;
   final String enterPin;
   final String invalidPin;
@@ -301,6 +302,7 @@ class WebI18n {
   final String upload;
 
   const WebI18n({
+    required this.locale,
     required this.waiting,
     required this.enterPin,
     required this.invalidPin,
@@ -317,6 +319,7 @@ class WebI18n {
 
   @override
   int get hashCode =>
+      locale.hashCode ^
       waiting.hashCode ^
       enterPin.hashCode ^
       invalidPin.hashCode ^
@@ -335,6 +338,7 @@ class WebI18n {
       identical(this, other) ||
       other is WebI18n &&
           runtimeType == other.runtimeType &&
+          locale == other.locale &&
           waiting == other.waiting &&
           enterPin == other.enterPin &&
           invalidPin == other.invalidPin &&

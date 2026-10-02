@@ -321,6 +321,7 @@ async fn test_upload_page() {
         WebConfig {
             mode: WebMode::Upload,
             i18n: WebI18n {
+                locale: "fr-CA".to_string(),
                 upload: "Choose & upload".to_string(),
                 drop_hint: "Drop items here".to_string(),
                 ..WebI18n::default()
@@ -356,6 +357,7 @@ async fn test_upload_page() {
     assert!(i18n.contains_key("uploadRejected"));
     assert!(i18n.contains_key("dropHint"));
     assert_eq!(i18n["upload"], "Choose & upload");
+    assert_eq!(i18n["locale"], "fr-CA");
 }
 
 #[tokio::test]

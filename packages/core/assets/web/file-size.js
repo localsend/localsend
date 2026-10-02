@@ -1,19 +1,19 @@
-function formatBytes(bytes) {
+function formatBytes(bytes, locale) {
   if (bytes < 1024) {
-    return bytes.toLocaleString() + ' B';
+    return bytes.toLocaleString(locale) + ' B';
   } else if (bytes < 1024 * 1024) {
-    return formatDecimal(bytes / 1024) + ' KB';
+    return formatDecimal(bytes / 1024, locale) + ' KB';
   } else if (bytes < 1024 * 1024 * 1024) {
-    return formatDecimal(bytes / (1024 * 1024)) + ' MB';
+    return formatDecimal(bytes / (1024 * 1024), locale) + ' MB';
   } else {
-    return formatDecimal(bytes / (1024 * 1024 * 1024)) + ' GB';
+    return formatDecimal(bytes / (1024 * 1024 * 1024), locale) + ' GB';
   }
 }
 
-function formatDecimal(value) {
+function formatDecimal(value, locale) {
   var rounded = Number(value.toFixed(1));
   if (typeof Intl !== 'undefined' && Intl.NumberFormat) {
-    return new Intl.NumberFormat(undefined, { minimumFractionDigits: 1, maximumFractionDigits: 1 }).format(rounded);
+    return new Intl.NumberFormat(locale, { minimumFractionDigits: 1, maximumFractionDigits: 1 }).format(rounded);
   }
-  return rounded.toLocaleString();
+  return rounded.toLocaleString(locale);
 }

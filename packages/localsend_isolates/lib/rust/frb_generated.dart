@@ -3422,20 +3422,21 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   WebI18n dco_decode_web_i_18_n(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     final arr = raw as List<dynamic>;
-    if (arr.length != 12) throw Exception('unexpected arr length: expect 12 but see ${arr.length}');
+    if (arr.length != 13) throw Exception('unexpected arr length: expect 13 but see ${arr.length}');
     return WebI18n(
-      waiting: dco_decode_String(arr[0]),
-      enterPin: dco_decode_String(arr[1]),
-      invalidPin: dco_decode_String(arr[2]),
-      tooManyAttempts: dco_decode_String(arr[3]),
-      rejected: dco_decode_String(arr[4]),
-      uploadRejected: dco_decode_String(arr[5]),
-      busy: dco_decode_String(arr[6]),
-      files: dco_decode_String(arr[7]),
-      fileName: dco_decode_String(arr[8]),
-      size: dco_decode_String(arr[9]),
-      dropHint: dco_decode_String(arr[10]),
-      upload: dco_decode_String(arr[11]),
+      locale: dco_decode_String(arr[0]),
+      waiting: dco_decode_String(arr[1]),
+      enterPin: dco_decode_String(arr[2]),
+      invalidPin: dco_decode_String(arr[3]),
+      tooManyAttempts: dco_decode_String(arr[4]),
+      rejected: dco_decode_String(arr[5]),
+      uploadRejected: dco_decode_String(arr[6]),
+      busy: dco_decode_String(arr[7]),
+      files: dco_decode_String(arr[8]),
+      fileName: dco_decode_String(arr[9]),
+      size: dco_decode_String(arr[10]),
+      dropHint: dco_decode_String(arr[11]),
+      upload: dco_decode_String(arr[12]),
     );
   }
 
@@ -4782,6 +4783,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   @protected
   WebI18n sse_decode_web_i_18_n(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_locale = sse_decode_String(deserializer);
     var var_waiting = sse_decode_String(deserializer);
     var var_enterPin = sse_decode_String(deserializer);
     var var_invalidPin = sse_decode_String(deserializer);
@@ -4795,6 +4797,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
     var var_dropHint = sse_decode_String(deserializer);
     var var_upload = sse_decode_String(deserializer);
     return WebI18n(
+      locale: var_locale,
       waiting: var_waiting,
       enterPin: var_enterPin,
       invalidPin: var_invalidPin,
@@ -6133,6 +6136,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   @protected
   void sse_encode_web_i_18_n(WebI18n self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_String(self.locale, serializer);
     sse_encode_String(self.waiting, serializer);
     sse_encode_String(self.enterPin, serializer);
     sse_encode_String(self.invalidPin, serializer);

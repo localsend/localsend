@@ -154,6 +154,7 @@ pub struct WebDownloadConfig {
 #[derive(Clone, Debug, Serialize)]
 #[serde(rename_all = "camelCase")]
 pub struct WebI18n {
+    pub locale: String,
     pub waiting: String,
     pub enter_pin: String,
     pub invalid_pin: String,
@@ -171,6 +172,7 @@ pub struct WebI18n {
 impl Default for WebI18n {
     fn default() -> Self {
         Self {
+            locale: "en".to_string(),
             waiting: "Waiting for response…".to_string(),
             enter_pin: "Enter PIN".to_string(),
             invalid_pin: "Invalid PIN".to_string(),
