@@ -17,6 +17,7 @@ class AppDelegate: FlutterAppDelegate {
     private var pendingFilesObservation: Defaults.Observation?
     private var pendingStringsObservation: Defaults.Observation?
     private var isLaunchedAsLoginItem: Bool?
+    private var pendingLoginItemResults: [FlutterResult] = []
     
     override func applicationSupportsSecureRestorableState(_ app: NSApplication) -> Bool {
         return true
@@ -27,17 +28,22 @@ class AppDelegate: FlutterAppDelegate {
         return false
     }
     
-    override func applicationDidFinishLaunching(_ notification: Notification) {
-        let controller = mainFlutterWindow?.contentViewController as! FlutterViewController
-        channel = FlutterMethodChannel(name: "main-delegate-channel", binaryMessenger: controller.engine.binaryMessenger)
+    func registerMethodChannel(binaryMessenger: FlutterBinaryMessenger) {
+        channel = FlutterMethodChannel(name: "main-delegate-channel", binaryMessenger: binaryMessenger)
         channel?.setMethodCallHandler(handleFlutterCall)
-        
+    }
+
+    override func applicationDidFinishLaunching(_ notification: Notification) {
         NSApplication.shared.servicesProvider = self
         
         let localsendBrandColor = NSColor(red: 0, green: 0.392, blue: 0.353, alpha: 0.8) // #00645a
         DockProgress.style = .squircle(color: localsendBrandColor)
         
         isLaunchedAsLoginItem = LaunchAtLogin.wasLaunchedAtLogin
+        for result in pendingLoginItemResults {
+            result(isLaunchedAsLoginItem)
+        }
+        pendingLoginItemResults.removeAll()
         
         restoreDestinationFolderAccess()
     }
@@ -184,7 +190,12 @@ class AppDelegate: FlutterAppDelegate {
                 result(FlutterError(code: "INVALID_ARGUMENT", message: "Expected a boolean value", details: nil))
             }
         case "isLaunchedAsLoginItem":
-            result(isLaunchedAsLoginItem)
+            if let isLaunchedAsLoginItem = isLaunchedAsLoginItem {
+                result(isLaunchedAsLoginItem)
+            } else {
+                // The launch Apple event is only available in `applicationDidFinishLaunching`.
+                pendingLoginItemResults.append(result)
+            }
         case "isReduceMotionEnabled":
             result(NSWorkspace.shared.accessibilityDisplayShouldReduceMotion)
         case "openFirewallSettings":
