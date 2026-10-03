@@ -111,6 +111,9 @@
       makeRequest('/i18n.json', 'GET', null, function (response) {
         if (response.status === 200) {
           i18n = JSON.parse(response.responseText);
+          if (i18n.upload) {
+            document.getElementById('upload-button').innerText = i18n.upload;
+          }
           if (i18n.dropHint) {
             document.getElementById('drop-hint').innerText = i18n.dropHint;
           }
@@ -174,7 +177,7 @@
     function showProgress(finished, total) {
       var progressText = document.getElementById('progress-text');
       progressText.style.display = 'block';
-      progressText.innerText = finished + '/' + total + ' file(s)';
+      progressText.innerText = finished + '/' + total + ' ' + (i18n.files || 'Files');
     }
 
     function hideProgress() {

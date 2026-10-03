@@ -4,12 +4,12 @@ import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/provider/apk_provider.dart';
 import 'package:localsend_app/provider/selection/selected_sending_files_provider.dart';
 import 'package:localsend_app/util/native/cross_file_converters.dart';
+import 'package:localsend_app/util/ui/file_size.dart';
 import 'package:localsend_app/util/ui/nav_bar_padding.dart';
 import 'package:localsend_app/widget/file_thumbnail.dart';
 import 'package:localsend_app/widget/responsive_list_view.dart';
 import 'package:localsend_app/widget/sliver/sliver_pinned_header.dart';
 import 'package:localsend_isolates/model/file_type.dart';
-import 'package:localsend_isolates/util/file_size_helper.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 import 'package:routerino/routerino.dart';
 
@@ -120,7 +120,7 @@ class _ApkPickerPageState extends State<ApkPickerPage> with Refena {
                 children: [
                   const Icon(Icons.add),
                   const SizedBox(width: 5),
-                  Text('Add ${_selectedApps.length} ${(_selectedApps.length == 1) ? "App" : "Apps"}'),
+                  Text(t.apkPickerPage.addSelectedApps(n: _selectedApps.length)),
                 ],
               ),
             ),
@@ -167,24 +167,27 @@ class _ApkPickerPageState extends State<ApkPickerPage> with Refena {
               child: Row(
                 children: [
                   Text(t.apkPickerPage.apps(n: apkAsync.data?.length ?? 0)),
-                  const Spacer(),
-                  Row(
-                    children: [
-                      const Text('Select Multiple Apps'),
-                      const SizedBox(width: 5),
-                      Switch(
-                        value: apkParams.selectMultipleApps,
-                        onChanged: (bool newValue) {
-                          setState(() {
-                            apkParams.selectMultipleApps = !apkParams.selectMultipleApps;
-                          });
-                        },
-                        activeTrackColor: Theme.of(context).colorScheme.primary,
-                        activeThumbColor: Theme.of(context).colorScheme.onPrimary,
-                        inactiveThumbColor: Theme.of(context).colorScheme.outline,
-                        inactiveTrackColor: Theme.of(context).colorScheme.surface,
-                      ),
-                    ],
+                  const SizedBox(width: 8),
+                  Expanded(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Flexible(child: Text(t.apkPickerPage.selectMultipleApps, overflow: TextOverflow.ellipsis)),
+                        const SizedBox(width: 5),
+                        Switch(
+                          value: apkParams.selectMultipleApps,
+                          onChanged: (bool newValue) {
+                            setState(() {
+                              apkParams.selectMultipleApps = !apkParams.selectMultipleApps;
+                            });
+                          },
+                          activeTrackColor: Theme.of(context).colorScheme.primary,
+                          activeThumbColor: Theme.of(context).colorScheme.onPrimary,
+                          inactiveThumbColor: Theme.of(context).colorScheme.outline,
+                          inactiveTrackColor: Theme.of(context).colorScheme.surface,
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),
@@ -230,7 +233,7 @@ class _ApkPickerPageState extends State<ApkPickerPage> with Refena {
                                       builder: (context, ref) {
                                         final appSize = ref.watch(apkSizeProvider(app.apkFilePath));
                                         final appSizeString = appSize.maybeWhen(
-                                          data: (size) => '${size.asReadableFileSize} • ',
+                                          data: (size) => '${size.asLocalizedFileSize} • ',
                                           orElse: () => '',
                                         );
                                         return Column(

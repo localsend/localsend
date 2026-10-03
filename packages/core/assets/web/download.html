@@ -94,6 +94,7 @@
 <div id="file-list"></div>
 <div id="single-file"></div>
 
+<script src="/file-size.js"></script>
 <script>
     // IMPORTANT: This script works in Internet Explorer 8!
 
@@ -227,7 +228,7 @@
         html += '<a class="file-item" href="' + BASE_URL + '/download?sessionId=' + encodeURIComponent(sessionId) + '&fileId=' + encodeURIComponent(fileKeys[i]) + '">' +
             '<div class="file-index-cell">' + (i + 1) + '</div>' +
             '<div class="file-name-cell">' + escapeHtml(file.fileName) + '</div>' +
-            '<div class="file-size-cell">' + formatBytes(file.size) + '</div>' +
+            '<div class="file-size-cell">' + formatBytes(file.size, i18n.locale) + '</div>' +
             '</a>';
       }
 
@@ -250,18 +251,6 @@
         "'": '&#039;'
       };
       return String(text).replace(/[&<>"']/g, function (m) { return map[m]; });
-    }
-
-    function formatBytes(bytes) {
-      if (bytes < 1024) {
-        return bytes + ' B';
-      } else if (bytes < 1024 * 1024) {
-        return (bytes / 1024).toFixed(1) + ' KB';
-      } else if (bytes < 1024 * 1024 * 1024) {
-        return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
-      } else {
-        return (bytes / (1024 * 1024 * 1024)).toFixed(1) + ' GB';
-      }
     }
 
     function getKeys(obj) {
