@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/foundation.dart';
+import 'package:flutter/painting.dart';
 import 'package:localsend_app/gen/assets.gen.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/provider/animation_provider.dart';
@@ -69,6 +70,14 @@ Future<void> hideToTray() async {
     // https://github.com/localsend/localsend/issues/32
     await windowManager.setSkipTaskbar(true);
   }
+
+  // Drop the decoded images now that nothing is on screen. Hiding a window stops
+  // frames being produced but does not free what was already decoded, so the
+  // previews stay resident for as long as the process lives.
+  // https://github.com/localsend/localsend/issues/3372
+  PaintingBinding.instance.imageCache
+    ..clear()
+    ..clearLiveImages();
 
   // Disable animations
   try {
