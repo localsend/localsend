@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:localsend_isolates/model/file_type.dart';
 
 /// Matches myFile (123) -> "myFile", " (123)"
@@ -78,4 +80,43 @@ extension FilePathStringExt on String {
         return FileType.other;
     }
   }
+}
+
+/// Whether clipboard [text] is the path of a file that exists locally.
+///
+/// Some file managers (Nautilus, for one) put a copied file's path on the
+/// clipboard as plain text next to the file itself. Treating that text as a
+/// message would send the path instead of the file, so the clipboard handler
+/// uses this to tell the two apart.
+///
+/// Only a single-line value counts: surrounding whitespace and one layer of
+/// matching quotes are stripped, since file managers may add either, while a
+/// multi-line value or one containing NUL is ordinary text and never a path.
+bool isExistingLocalPath(String? text) {
+  if (text == null) {
+    return false;
+  }
+
+  var candidate = text.trim();
+  if (candidate.isEmpty) {
+    return false;
+  }
+
+  // A URI is not a filesystem path; those are handled separately.
+  if (candidate.contains('://')) {
+    return false;
+  }
+
+  // Strip a single layer of matching quotes, as shell-style copy adds them.
+  if (candidate.length >= 2 && ((candidate.startsWith('"') && candidate.endsWith('"')) || (candidate.startsWith("'") && candidate.endsWith("'")))) {
+    candidate = candidate.substring(1, candidate.length - 1).trim();
+  }
+
+  // Newlines mean this is a block of text, not one path. NUL can never appear
+  // in a path, and rejecting it here keeps the string away from the filesystem.
+  if (candidate.isEmpty || candidate.contains('\n') || candidate.contains('\r') || candidate.contains('\u0000')) {
+    return false;
+  }
+
+  return FileSystemEntity.typeSync(candidate, followLinks: true) != FileSystemEntityType.notFound;
 }
