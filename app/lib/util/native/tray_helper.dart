@@ -28,7 +28,7 @@ Future<void> initTray() async {
       // The menu bar icon will created in AppDelegate.swift
       return;
     } else if (checkPlatform([TargetPlatform.linux])) {
-      await setTrayIcon(Brightness.dark);
+      await setTrayIcon(PlatformDispatcher.instance.platformBrightness);
     } else {
       await tm.trayManager.setIcon(Assets.img.logo32.path);
     }
