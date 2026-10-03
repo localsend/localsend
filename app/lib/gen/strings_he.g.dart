@@ -1274,6 +1274,8 @@ class _Translations$dialogs$favoriteEditDialog$he extends Translations$dialogs$f
   String get ip => 'כתובת IP';
   @override
   String get port => 'יציאה';
+  @override
+  String get invalidPort => 'יש להזין מספר שלם בין 1 ל־65535.';
 }
 
 // Path: dialogs.fileInfo
