@@ -110,13 +110,15 @@ class _ReceivePageState extends State<ReceivePage> with Refena {
               return KeyEventResult.ignored;
             }
             if (event.logicalKey == LogicalKeyboardKey.escape) {
-                context.global.dispatch(NavigateAction.popUntil<WebSharePage>(),);
+              context.global.dispatch(
+                NavigateAction.popUntil<WebSharePage>(),
+              );
               return KeyEventResult.handled;
             }
             if (!_pageFocusNode.hasPrimaryFocus) {
               return KeyEventResult.ignored;
             }
-            if (event.logicalKey == LogicalKeyboardKey.enter || event.logicalKey == LogicalKeyboardKey.space) {
+            if (event.logicalKey == LogicalKeyboardKey.enter) {
               final selectedFiles = context.read(selectedReceivingFilesProvider);
               if (selectedFiles.isNotEmpty) {
                 vm.onAccept();
@@ -398,7 +400,7 @@ class _Actions extends StatelessWidget {
               onPressed: selectedFiles.isEmpty ? null : () => vm.onAccept(),
               icon: const Icon(Icons.check_circle),
               label: Text(
-                showKeyboardShortcuts ? '${t.general.accept} · (Enter / Space)' : t.general.accept,
+                showKeyboardShortcuts ? '${t.general.accept} · (Enter)' : t.general.accept,
               ),
             ),
           ],
