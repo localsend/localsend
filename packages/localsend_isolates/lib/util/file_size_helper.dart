@@ -6,7 +6,7 @@ extension IntFileSize on int {
   String readableFileSize({String? locale}) {
     final format = NumberFormat('0.0', locale);
     if (this < 1000) {
-      return '$this B';
+      return '${NumberFormat.decimalPattern(locale).format(this)} B';
     } else if (this < 1000 * 1000) {
       return '${format.format(this / 1000)} KB';
     } else if (this < 1000 * 1000 * 1000) {
