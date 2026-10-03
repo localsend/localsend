@@ -298,8 +298,9 @@ Future<void> _pickClipboard(BuildContext context, Ref ref) async {
     // text, so prefer the file when the text is a path that exists. Otherwise
     // this stays a text message, as before.
     // https://github.com/localsend/localsend/issues/3499
-    if (isExistingLocalPath(text)) {
-      await _addClipboardFiles(ref, [text]);
+    final path = existingLocalPath(text);
+    if (path != null) {
+      await _addClipboardFiles(ref, [path]);
       return;
     }
 

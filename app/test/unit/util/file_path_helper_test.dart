@@ -31,19 +31,24 @@ void main() {
 
     test('accepts the path of an existing file', () {
       expect(isExistingLocalPath(file.path), isTrue);
+      expect(existingLocalPath(file.path), file.path);
     });
 
-    test('accepts the path of an existing directory', () {
-      expect(isExistingLocalPath(dir.path), isTrue);
+    test('rejects a directory', () {
+      expect(isExistingLocalPath(dir.path), isFalse);
+      expect(existingLocalPath(dir.path), isNull);
     });
 
     test('tolerates surrounding whitespace', () {
       expect(isExistingLocalPath('  ${file.path}\n'), isTrue);
+      expect(existingLocalPath('  ${file.path}\n'), file.path);
     });
 
     test('tolerates shell-style quotes', () {
       expect(isExistingLocalPath('"${file.path}"'), isTrue);
       expect(isExistingLocalPath("'${file.path}'"), isTrue);
+      expect(existingLocalPath('"${file.path}"'), file.path);
+      expect(existingLocalPath("'${file.path}'"), file.path);
     });
 
     test('rejects a path that does not exist', () {

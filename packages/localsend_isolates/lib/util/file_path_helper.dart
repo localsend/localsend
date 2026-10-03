@@ -82,7 +82,8 @@ extension FilePathStringExt on String {
   }
 }
 
-/// Whether clipboard [text] is the path of a file that exists locally.
+/// The normalized path of the local file that clipboard [text] points to, or
+/// null if [text] is not the path of an existing file.
 ///
 /// Some file managers (Nautilus, for one) put a copied file's path on the
 /// clipboard as plain text next to the file itself. Treating that text as a
@@ -92,19 +93,25 @@ extension FilePathStringExt on String {
 /// Only a single-line value counts: surrounding whitespace and one layer of
 /// matching quotes are stripped, since file managers may add either, while a
 /// multi-line value or one containing NUL is ordinary text and never a path.
-bool isExistingLocalPath(String? text) {
+///
+/// Directories are rejected as well, because adding a file does not enumerate
+/// directory contents; a folder has to arrive through the folder picker.
+///
+/// The returned value is the normalized path, not [text], so callers can use
+/// it directly instead of redoing the stripping.
+String? existingLocalPath(String? text) {
   if (text == null) {
-    return false;
+    return null;
   }
 
   var candidate = text.trim();
   if (candidate.isEmpty) {
-    return false;
+    return null;
   }
 
   // A URI is not a filesystem path; those are handled separately.
   if (candidate.contains('://')) {
-    return false;
+    return null;
   }
 
   // Strip a single layer of matching quotes, as shell-style copy adds them.
@@ -115,8 +122,15 @@ bool isExistingLocalPath(String? text) {
   // Newlines mean this is a block of text, not one path. NUL can never appear
   // in a path, and rejecting it here keeps the string away from the filesystem.
   if (candidate.isEmpty || candidate.contains('\n') || candidate.contains('\r') || candidate.contains('\u0000')) {
-    return false;
+    return null;
   }
 
-  return FileSystemEntity.typeSync(candidate, followLinks: true) != FileSystemEntityType.notFound;
+  if (FileSystemEntity.typeSync(candidate, followLinks: true) != FileSystemEntityType.file) {
+    return null;
+  }
+
+  return candidate;
 }
+
+/// Whether clipboard [text] is the path of a file that exists locally.
+bool isExistingLocalPath(String? text) => existingLocalPath(text) != null;
