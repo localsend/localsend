@@ -12,12 +12,19 @@ class HttpClientCollection {
   /// and is learned from the response. Never use this to transfer files:
   /// it cannot tell the discovered device apart from anyone else answering
   /// on that address.
-  final RsHttpClient discovery;
+  ///
+  /// A fresh client is created for every probe so a device that went to sleep
+  /// cannot leave a dead keep-alive connection in the discovery client pool.
+  RsHttpClient get discovery => createClient(
+    privateKey: _privateKey,
+    cert: _certificate,
+    version: LsHttpClientVersion.v2,
+    expectedFingerprint: null,
+  );
 
   HttpClientCollection({
     required String privateKey,
     required String certificate,
-    required this.discovery,
   }) : _privateKey = privateKey,
        _certificate = certificate;
 
@@ -43,11 +50,5 @@ final httpProvider = ViewProvider((ref) {
   return HttpClientCollection(
     privateKey: securityContext.privateKey,
     certificate: securityContext.certificate,
-    discovery: createClient(
-      privateKey: securityContext.privateKey,
-      cert: securityContext.certificate,
-      version: LsHttpClientVersion.v2,
-      expectedFingerprint: null,
-    ),
   );
 });
