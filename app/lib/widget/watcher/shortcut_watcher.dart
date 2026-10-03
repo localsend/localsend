@@ -20,21 +20,21 @@ class ShortcutWatcher extends StatelessWidget {
     return Shortcuts(
       shortcuts: {
         // The select button on AndroidTV needs this to work
-        LogicalKeySet(LogicalKeyboardKey.select): const ActivateIntent(),
+        const SingleActivator(LogicalKeyboardKey.select): const ActivateIntent(),
 
         // Add Control+Q binding for Linux
         // https://github.com/localsend/localsend/issues/194
-        if (checkPlatform([TargetPlatform.linux])) LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.keyQ): _ExitAppIntent(),
+        if (checkPlatform([TargetPlatform.linux])) const SingleActivator(LogicalKeyboardKey.keyQ, control: true): _ExitAppIntent(),
         // Add Command+W to close the window for macOS
-        if (checkPlatform([TargetPlatform.macOS])) LogicalKeySet(LogicalKeyboardKey.meta, LogicalKeyboardKey.keyW): _CloseWindowIntent(),
+        if (checkPlatform([TargetPlatform.macOS])) const SingleActivator(LogicalKeyboardKey.keyW, meta: true): _CloseWindowIntent(),
         // Add Control+, to open settings for macOS
-        if (checkPlatform([TargetPlatform.macOS])) LogicalKeySet(LogicalKeyboardKey.meta, LogicalKeyboardKey.comma): _OpenSettingsIntent(),
+        if (checkPlatform([TargetPlatform.macOS])) const SingleActivator(LogicalKeyboardKey.comma, meta: true): _OpenSettingsIntent(),
 
-        LogicalKeySet(LogicalKeyboardKey.escape): _PopPageIntent(),
+        const SingleActivator(LogicalKeyboardKey.escape): _PopPageIntent(),
 
         // Control+V and Command+V
-        LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.keyV): _PasteIntent(),
-        LogicalKeySet(LogicalKeyboardKey.meta, LogicalKeyboardKey.keyV): _PasteIntent(),
+        const SingleActivator(LogicalKeyboardKey.keyV, control: true): _PasteIntent(),
+        const SingleActivator(LogicalKeyboardKey.keyV, meta: true): _PasteIntent(),
       },
       child: Actions(
         actions: {
