@@ -61,6 +61,20 @@ class ReceivePage extends StatefulWidget {
 }
 
 class _ReceivePageState extends State<ReceivePage> with Refena {
+  late final FocusNode _pageFocusNode;
+
+  @override
+  void initState() {
+    super.initState();
+    _pageFocusNode = FocusNode();
+  }
+
+  @override
+  void dispose() {
+    _pageFocusNode.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     final vm = context.watch(
@@ -88,186 +102,212 @@ class _ReceivePageState extends State<ReceivePage> with Refena {
         unawaited(TaskbarHelper.clearProgressBar());
       },
       builder: (context, vm) {
-        return PopScope(
-          onPopInvokedWithResult: (didPop, result) {
-            if (didPop) {
-              vm.onDecline();
+        return Focus(
+          focusNode: _pageFocusNode,
+          autofocus: true,
+          onKeyEvent: (node, event) {
+            if (event is! KeyDownEvent) {
+              return KeyEventResult.ignored;
             }
+            if (event.logicalKey == LogicalKeyboardKey.escape) {
+              context.global.dispatch(
+                NavigateAction.popUntil<WebSharePage>(),
+              );
+              return KeyEventResult.handled;
+            }
+            if (!_pageFocusNode.hasPrimaryFocus) {
+              return KeyEventResult.ignored;
+            }
+            if (event.logicalKey == LogicalKeyboardKey.enter) {
+              final selectedFiles = context.read(selectedReceivingFilesProvider);
+              if (selectedFiles.isNotEmpty) {
+                vm.onAccept();
+                return KeyEventResult.handled;
+              }
+            }
+            return KeyEventResult.ignored;
           },
-          canPop: true,
-          child: Scaffold(
-            body: SafeArea(
-              child: Center(
-                child: ConstrainedBox(
-                  constraints: const BoxConstraints(maxWidth: ResponsiveListView.defaultMaxWidth),
-                  child: Builder(
-                    builder: (context) {
-                      final height = MediaQuery.of(context).size.height;
-                      final smallUi = vm.message != null && height < 600;
-                      return Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 20, vertical: smallUi ? 20 : 30),
-                        child: Column(
-                          children: [
-                            Expanded(
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  Column(
-                                    children: [
-                                      if (vm.showSenderInfo && !smallUi)
-                                        Padding(
-                                          padding: const EdgeInsets.only(bottom: 10),
-                                          child: Icon(vm.sender.deviceType.icon, size: 64),
-                                        ),
-                                      Builder(
-                                        builder: (context) {
-                                          final alias = senderFavoriteEntry?.alias ?? vm.sender.alias;
-                                          if (alias.isEmpty) {
-                                            return Text('', style: TextStyle(fontSize: smallUi ? 32 : 48));
-                                          }
-                                          return FittedBox(
-                                            child: Text(
-                                              alias,
-                                              style: TextStyle(fontSize: smallUi ? 32 : 48),
-                                              textAlign: TextAlign.center,
-                                            ),
-                                          );
-                                        },
-                                      ),
-                                      if (vm.showSenderInfo && vm.sender.deviceModel != null) ...[
-                                        const SizedBox(height: 10),
-                                        Center(
-                                          child: DeviceBadge(
-                                            backgroundColor: Theme.of(context).colorScheme.onSecondaryContainer,
-                                            foregroundColor: Theme.of(context).colorScheme.onInverseSurface,
-                                            label: vm.sender.deviceModel!,
+          child: PopScope(
+            onPopInvokedWithResult: (didPop, result) {
+              if (didPop) {
+                vm.onDecline();
+              }
+            },
+            canPop: true,
+            child: Scaffold(
+              body: SafeArea(
+                child: Center(
+                  child: ConstrainedBox(
+                    constraints: const BoxConstraints(maxWidth: ResponsiveListView.defaultMaxWidth),
+                    child: Builder(
+                      builder: (context) {
+                        final height = MediaQuery.of(context).size.height;
+                        final smallUi = vm.message != null && height < 600;
+                        return Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 20, vertical: smallUi ? 20 : 30),
+                          child: Column(
+                            children: [
+                              Expanded(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    Column(
+                                      children: [
+                                        if (vm.showSenderInfo && !smallUi)
+                                          Padding(
+                                            padding: const EdgeInsets.only(bottom: 10),
+                                            child: Icon(vm.sender.deviceType.icon, size: 64),
                                           ),
+                                        Builder(
+                                          builder: (context) {
+                                            final alias = senderFavoriteEntry?.alias ?? vm.sender.alias;
+                                            if (alias.isEmpty) {
+                                              return Text('', style: TextStyle(fontSize: smallUi ? 32 : 48));
+                                            }
+                                            return FittedBox(
+                                              child: Text(
+                                                alias,
+                                                style: TextStyle(fontSize: smallUi ? 32 : 48),
+                                                textAlign: TextAlign.center,
+                                              ),
+                                            );
+                                          },
                                         ),
+                                        if (vm.showSenderInfo && vm.sender.deviceModel != null) ...[
+                                          const SizedBox(height: 10),
+                                          Center(
+                                            child: DeviceBadge(
+                                              backgroundColor: Theme.of(context).colorScheme.onSecondaryContainer,
+                                              foregroundColor: Theme.of(context).colorScheme.onInverseSurface,
+                                              label: vm.sender.deviceModel!,
+                                            ),
+                                          ),
+                                        ],
                                       ],
-                                    ],
-                                  ),
+                                    ),
 
-                                  Column(
-                                    children: [
-                                      Text(
-                                        vm.message != null
-                                            ? (vm.isLink ? t.receivePage.subTitleLink : t.receivePage.subTitleMessage)
-                                            : t.receivePage.subTitle(n: vm.files.length),
-                                        style: smallUi ? null : Theme.of(context).textTheme.titleLarge,
-                                        textAlign: TextAlign.center,
-                                      ),
-                                      if (vm.showSenderInfo && vm.message == null)
-                                        Padding(
-                                          padding: const EdgeInsets.only(top: 8),
-                                          child: Row(
-                                            mainAxisAlignment: MainAxisAlignment.center,
+                                    Column(
+                                      children: [
+                                        Text(
+                                          vm.message != null
+                                              ? (vm.isLink ? t.receivePage.subTitleLink : t.receivePage.subTitleMessage)
+                                              : t.receivePage.subTitle(n: vm.files.length),
+                                          style: smallUi ? null : Theme.of(context).textTheme.titleLarge,
+                                          textAlign: TextAlign.center,
+                                        ),
+                                        if (vm.showSenderInfo && vm.message == null)
+                                          Padding(
+                                            padding: const EdgeInsets.only(top: 8),
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                TextButton.icon(
+                                                  onPressed: !vm.sender.https
+                                                      ? null
+                                                      : () async => await context.push(
+                                                          () => VerifyPage(
+                                                            fingerprint: CombinedFingerprint.load(context, vm.sender.fingerprint),
+                                                          ),
+                                                        ),
+                                                  style: TextButton.styleFrom(
+                                                    foregroundColor: Theme.of(context).colorScheme.onSurface,
+                                                  ),
+                                                  icon: Icon(Icons.verified_user),
+                                                  label: Text(t.verifyPage.title),
+                                                ),
+                                                TextButton.icon(
+                                                  style: TextButton.styleFrom(
+                                                    foregroundColor: Theme.of(context).colorScheme.onSurface,
+                                                  ),
+                                                  onPressed: () async {
+                                                    await context.push(() => ReceiveOptionsPage(vm));
+                                                  },
+                                                  icon: const Icon(Icons.settings),
+                                                  label: Text(t.receiveOptionsPage.title),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        if (vm.message != null)
+                                          Column(
+                                            crossAxisAlignment: CrossAxisAlignment.stretch,
                                             children: [
-                                              TextButton.icon(
-                                                onPressed: !vm.sender.https
-                                                    ? null
-                                                    : () async => await context.push(
+                                              Padding(
+                                                padding: const EdgeInsets.only(top: 20),
+                                                child: SizedBox(
+                                                  height: 100,
+                                                  child: Card(
+                                                    child: SingleChildScrollView(
+                                                      child: Padding(
+                                                        padding: const EdgeInsets.all(10),
+                                                        child: SelectableText(
+                                                          vm.message!,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                              const SizedBox(height: 10),
+                                              Wrap(
+                                                alignment: WrapAlignment.center,
+                                                spacing: 20,
+                                                runSpacing: 10,
+                                                children: [
+                                                  if (vm.showSenderInfo)
+                                                    ElevatedButton.icon(
+                                                      onPressed: () async => await context.push(
                                                         () => VerifyPage(
                                                           fingerprint: CombinedFingerprint.load(context, vm.sender.fingerprint),
                                                         ),
                                                       ),
-                                                style: TextButton.styleFrom(
-                                                  foregroundColor: Theme.of(context).colorScheme.onSurface,
-                                                ),
-                                                icon: Icon(Icons.verified_user),
-                                                label: Text(t.verifyPage.title),
-                                              ),
-                                              TextButton.icon(
-                                                style: TextButton.styleFrom(
-                                                  foregroundColor: Theme.of(context).colorScheme.onSurface,
-                                                ),
-                                                onPressed: () async {
-                                                  await context.push(() => ReceiveOptionsPage(vm));
-                                                },
-                                                icon: const Icon(Icons.settings),
-                                                label: Text(t.receiveOptionsPage.title),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      if (vm.message != null)
-                                        Column(
-                                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                                          children: [
-                                            Padding(
-                                              padding: const EdgeInsets.only(top: 20),
-                                              child: SizedBox(
-                                                height: 100,
-                                                child: Card(
-                                                  child: SingleChildScrollView(
-                                                    child: Padding(
-                                                      padding: const EdgeInsets.all(10),
-                                                      child: SelectableText(
-                                                        vm.message!,
-                                                      ),
+                                                      icon: Icon(Icons.verified_user),
+                                                      label: Text(t.verifyPage.title),
                                                     ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                            const SizedBox(height: 10),
-                                            Wrap(
-                                              alignment: WrapAlignment.center,
-                                              spacing: 20,
-                                              runSpacing: 10,
-                                              children: [
-                                                if (vm.showSenderInfo)
                                                   ElevatedButton.icon(
-                                                    onPressed: () async => await context.push(
-                                                      () => VerifyPage(
-                                                        fingerprint: CombinedFingerprint.load(context, vm.sender.fingerprint),
-                                                      ),
-                                                    ),
-                                                    icon: Icon(Icons.verified_user),
-                                                    label: Text(t.verifyPage.title),
-                                                  ),
-                                                ElevatedButton.icon(
-                                                  onPressed: () {
-                                                    unawaited(
-                                                      Clipboard.setData(ClipboardData(text: vm.message!)),
-                                                    );
-                                                    if (checkPlatformIsDesktop()) {
-                                                      context.showSnackBar(t.general.copiedToClipboard);
-                                                    }
-                                                    vm.onAccept();
-                                                    context.global.dispatch(NavigateAction.popUntil<WebSharePage>());
-                                                  },
-                                                  icon: Icon(Icons.copy),
-                                                  label: Text(t.general.copy),
-                                                ),
-                                                if (vm.isLink)
-                                                  ElevatedButton.icon(
-                                                    style: ElevatedButton.styleFrom(
-                                                      backgroundColor: Theme.of(context).colorScheme.primary,
-                                                      foregroundColor: Theme.of(context).colorScheme.onPrimary,
-                                                    ),
                                                     onPressed: () {
-                                                      // ignore: discarded_futures
-                                                      launchUrl(Uri.parse(vm.message!), mode: LaunchMode.externalApplication);
+                                                      unawaited(
+                                                        Clipboard.setData(ClipboardData(text: vm.message!)),
+                                                      );
+                                                      if (checkPlatformIsDesktop()) {
+                                                        context.showSnackBar(t.general.copiedToClipboard);
+                                                      }
                                                       vm.onAccept();
                                                       context.global.dispatch(NavigateAction.popUntil<WebSharePage>());
                                                     },
-                                                    icon: Icon(Icons.open_in_new),
-                                                    label: Text(t.general.open),
+                                                    icon: Icon(Icons.copy),
+                                                    label: Text(t.general.copy),
                                                   ),
-                                              ],
-                                            ),
-                                          ],
-                                        ),
-                                    ],
-                                  ),
-                                ],
+                                                  if (vm.isLink)
+                                                    ElevatedButton.icon(
+                                                      style: ElevatedButton.styleFrom(
+                                                        backgroundColor: Theme.of(context).colorScheme.primary,
+                                                        foregroundColor: Theme.of(context).colorScheme.onPrimary,
+                                                      ),
+                                                      onPressed: () {
+                                                        // ignore: discarded_futures
+                                                        launchUrl(Uri.parse(vm.message!), mode: LaunchMode.externalApplication);
+                                                        vm.onAccept();
+                                                        context.global.dispatch(NavigateAction.popUntil<WebSharePage>());
+                                                      },
+                                                      icon: Icon(Icons.open_in_new),
+                                                      label: Text(t.general.open),
+                                                    ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
                               ),
-                            ),
-                            _Actions(vm),
-                          ],
-                        ),
-                      );
-                    },
+                              _Actions(vm),
+                            ],
+                          ),
+                        );
+                      },
+                    ),
                   ),
                 ),
               ),
@@ -288,6 +328,7 @@ class _Actions extends StatelessWidget {
   Widget build(BuildContext context) {
     final selectedFiles = context.watch(selectedReceivingFilesProvider);
     final colorMode = context.watch(settingsProvider.select((state) => state.colorMode));
+    final showKeyboardShortcuts = checkPlatformIsDesktop();
 
     if (vm.message != null) {
       return Center(
@@ -346,7 +387,9 @@ class _Actions extends StatelessWidget {
                 context.global.dispatch(NavigateAction.popUntil<WebSharePage>());
               },
               icon: const Icon(Icons.close),
-              label: Text(t.general.decline),
+              label: Text(
+                showKeyboardShortcuts ? '${t.general.decline} · (Esc)' : t.general.decline,
+              ),
             ),
             const SizedBox(width: 20),
             ElevatedButton.icon(
@@ -356,7 +399,9 @@ class _Actions extends StatelessWidget {
               ),
               onPressed: selectedFiles.isEmpty ? null : () => vm.onAccept(),
               icon: const Icon(Icons.check_circle),
-              label: Text(t.general.accept),
+              label: Text(
+                showKeyboardShortcuts ? '${t.general.accept} · (Enter)' : t.general.accept,
+              ),
             ),
           ],
         ),
