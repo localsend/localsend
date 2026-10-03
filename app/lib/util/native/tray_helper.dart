@@ -28,15 +28,7 @@ Future<void> initTray() async {
       // The menu bar icon will created in AppDelegate.swift
       return;
     } else if (checkPlatform([TargetPlatform.linux])) {
-      String icon;
-      if (await File('/.flatpak-info').exists()) {
-        // Icon for Flatpak, which must exist in /app/share/icons/hicolor/*x*/apps.
-        icon = 'org.localsend.localsend_app-tray';
-      } else {
-        icon = Assets.img.logo32White.path;
-      }
-      _logger.info('Using "$icon" as path of system tray icon');
-      await tm.trayManager.setIcon(icon);
+      await setTrayIcon(Brightness.dark);
     } else {
       await tm.trayManager.setIcon(Assets.img.logo32.path);
     }
@@ -60,6 +52,36 @@ Future<void> initTray() async {
   } catch (e) {
     _logger.warning('Failed to init tray', e);
   }
+}
+
+/// Applies the tray icon that suits [brightness] on Linux.
+///
+/// The icon used to be hardcoded to the white variant, which is invisible in a
+/// light panel. Both a black and a white asset already exist, so the tray follows
+/// the system brightness like the rest of the app does.
+/// https://github.com/localsend/localsend/issues/3312
+Future<void> setTrayIcon(Brightness brightness) async {
+  if (!checkPlatform([TargetPlatform.linux])) {
+    return;
+  }
+
+  // Flatpak icons must exist under /app/share/icons/hicolor/*x*/apps, so the
+  // themed assets cannot be used there.
+  if (await File('/.flatpak-info').exists()) {
+    _logger.info('Using "org.localsend.localsend_app-tray" as path of system tray icon');
+    await tm.trayManager.setIcon('org.localsend.localsend_app-tray');
+    return;
+  }
+
+  final icon = trayIconForBrightness(brightness);
+  _logger.info('Using "${icon.path}" as path of system tray icon');
+  await tm.trayManager.setIcon(icon.path);
+}
+
+/// The tray asset matching [brightness]: a dark panel needs the light icon and a
+/// light panel needs the dark one.
+AssetGenImage trayIconForBrightness(Brightness brightness) {
+  return brightness == Brightness.dark ? Assets.img.logo32White : Assets.img.logo32Black;
 }
 
 Future<void> hideToTray() async {
