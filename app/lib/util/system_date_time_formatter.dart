@@ -13,12 +13,36 @@ class SystemDateTimeFormatter {
 
   static String date(BuildContext context, DateTime value) {
     final pattern = SystemDateTimeFormat.of(context).datePattern;
-    return (pattern == null ? DateFormat.yMd(_locale) : DateFormat(pattern, _locale)).format(value);
+    if (pattern == null || !_isSupported(pattern)) {
+      // fallback to default formatting
+      return DateFormat.yMd(_locale).format(value);
+    }
+
+    // use pattern supplied by OS
+    return DateFormat(pattern, _locale).format(value);
   }
 
   static String time(BuildContext context, DateTime value) {
     final pattern = SystemDateTimeFormat.of(context).timePattern;
-    return (pattern == null ? DateFormat.jm(_locale) : DateFormat(_withoutSeconds(pattern), _locale)).format(value);
+    if (pattern == null || !_isSupported(pattern)) {
+      // fallback to default formatting
+      return DateFormat.jm(_locale).format(value);
+    }
+
+    // use pattern supplied by OS
+    return DateFormat(_withoutSeconds(pattern), _locale).format(value);
+  }
+
+  /// Fields intl mishandles: unknown letters (e.g. `B`) print literally, .NET-style `ddd` prints a padded day, `EEEEEE` throws.
+  static final _unsupportedField = RegExp(r'(?![GyMkSEahKHcLQdDmsvzZ])[A-Za-z]|d{3,}|E{6,}');
+
+  static bool _isSupported(String pattern) {
+    final parts = pattern.split("'");
+    // Only even-indexed parts are outside quoted literals.
+    for (var i = 0; i < parts.length; i += 2) {
+      if (_unsupportedField.hasMatch(parts[i])) return false;
+    }
+    return true;
   }
 
   // On Linux, T_FMT may include seconds even where the UI uses minute precision.
@@ -32,9 +56,9 @@ class SystemDateTimeFormatter {
   }
 
   static String get _locale {
-    final deviceLocale = WidgetsBinding.instance.platformDispatcher.locale.toString();
-    if (DateFormat.localeExists(deviceLocale)) return deviceLocale;
-    final appLocale = LocaleSettings.currentLocale.languageTag;
-    return DateFormat.localeExists(appLocale) ? appLocale : 'en';
+    return _verified(WidgetsBinding.instance.platformDispatcher.locale.toString()) ?? _verified(LocaleSettings.currentLocale.languageTag) ?? 'en';
   }
+
+  /// Resolves e.g. `de_DE` to `de` and `pt-BR` to `pt`, or null if intl has no date symbols for the language.
+  static String? _verified(String locale) => Intl.verifiedLocale(locale, DateFormat.localeExists, onFailure: (_) => null);
 }
