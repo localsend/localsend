@@ -1,8 +1,8 @@
 import 'dart:async';
-import 'dart:typed_data';
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:localsend_app/config/theme.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/model/state/server/receive_session_state.dart';
@@ -253,7 +253,7 @@ class _ProgressPageState extends State<ProgressPage> with Refena {
 
     final finishedCount = transferNotifier.getStatuses(widget.sessionId).where((s) => s == FileStatus.finished).length;
 
-    return PopScope(
+    final page = PopScope(
       onPopInvokedWithResult: (didPop, result) {
         if (didPop) {
           // Already popped.
@@ -533,16 +533,19 @@ class _ProgressPageState extends State<ProgressPage> with Refena {
                                 icon: const Icon(Icons.info),
                                 label: Text(_advanced ? t.general.hide : t.general.advanced),
                               ),
-                              TextButton.icon(
-                                style: TextButton.styleFrom(foregroundColor: Theme.of(context).colorScheme.onSurface),
-                                onPressed: () => _exit(closeSession: true),
-                                icon: Icon(status == SessionStatus.sending ? Icons.close : Icons.check_circle),
-                                label: Text(
-                                  status == SessionStatus.sending
-                                      ? t.general.cancel
-                                      : _finishTimer != null
-                                      ? '${t.general.done} ($_finishCounter)'
-                                      : t.general.done,
+                              Tooltip(
+                                message: checkPlatformIsDesktop() && status != SessionStatus.sending ? '${t.general.done} (Enter)' : '',
+                                child: TextButton.icon(
+                                  style: TextButton.styleFrom(foregroundColor: Theme.of(context).colorScheme.onSurface),
+                                  onPressed: () => _exit(closeSession: true),
+                                  icon: Icon(status == SessionStatus.sending ? Icons.close : Icons.check_circle),
+                                  label: Text(
+                                    status == SessionStatus.sending
+                                        ? t.general.cancel
+                                        : _finishTimer != null
+                                        ? '${t.general.done} ($_finishCounter)'
+                                        : t.general.done,
+                                  ),
                                 ),
                               ),
                             ],
@@ -557,6 +560,21 @@ class _ProgressPageState extends State<ProgressPage> with Refena {
           ],
         ),
       ),
+    );
+
+    return Focus(
+      autofocus: true,
+      onKeyEvent: (node, event) {
+        if (!node.hasPrimaryFocus || event is! KeyDownEvent || status == SessionStatus.sending) {
+          return KeyEventResult.ignored;
+        }
+        if (event.logicalKey == LogicalKeyboardKey.enter || event.logicalKey == LogicalKeyboardKey.numpadEnter) {
+          _exit(closeSession: true);
+          return KeyEventResult.handled;
+        }
+        return KeyEventResult.ignored;
+      },
+      child: page,
     );
   }
 }

@@ -88,7 +88,9 @@ class _ReceivePageState extends State<ReceivePage> with Refena {
         unawaited(TaskbarHelper.clearProgressBar());
       },
       builder: (context, vm) {
-        return PopScope(
+        final pendingFileRequest = vm.status == SessionStatus.waiting && vm.message == null;
+        final canAccept = pendingFileRequest && context.watch(selectedReceivingFilesProvider).isNotEmpty;
+        final page = PopScope(
           onPopInvokedWithResult: (didPop, result) {
             if (didPop) {
               vm.onDecline();
@@ -274,6 +276,26 @@ class _ReceivePageState extends State<ReceivePage> with Refena {
             ),
           ),
         );
+
+        return Focus(
+          autofocus: true,
+          onKeyEvent: (node, event) {
+            if (!node.hasPrimaryFocus || event is! KeyDownEvent) {
+              return KeyEventResult.ignored;
+            }
+            if (canAccept && (event.logicalKey == LogicalKeyboardKey.enter || event.logicalKey == LogicalKeyboardKey.numpadEnter)) {
+              vm.onAccept();
+              return KeyEventResult.handled;
+            }
+            if (pendingFileRequest && event.logicalKey == LogicalKeyboardKey.escape) {
+              // This page is pushed above an existing route; PopScope declines the request when it pops.
+              unawaited(Navigator.of(context).maybePop());
+              return KeyEventResult.handled;
+            }
+            return KeyEventResult.ignored;
+          },
+          child: page,
+        );
       },
     );
   }
@@ -288,6 +310,7 @@ class _Actions extends StatelessWidget {
   Widget build(BuildContext context) {
     final selectedFiles = context.watch(selectedReceivingFilesProvider);
     final colorMode = context.watch(settingsProvider.select((state) => state.colorMode));
+    final showKeyboardShortcuts = checkPlatformIsDesktop() && vm.status == SessionStatus.waiting;
 
     if (vm.message != null) {
       return Center(
@@ -335,28 +358,34 @@ class _Actions extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            ElevatedButton.icon(
-              style: ElevatedButton.styleFrom(
-                elevation: colorMode == ColorMode.yaru ? 0 : null,
-                backgroundColor: colorMode == ColorMode.yaru ? Theme.of(context).colorScheme.surface : Theme.of(context).colorScheme.error,
-                foregroundColor: colorMode == ColorMode.yaru ? Theme.of(context).colorScheme.onSurface : Theme.of(context).colorScheme.onError,
+            Tooltip(
+              message: showKeyboardShortcuts ? '${t.general.decline} (Esc)' : '',
+              child: ElevatedButton.icon(
+                style: ElevatedButton.styleFrom(
+                  elevation: colorMode == ColorMode.yaru ? 0 : null,
+                  backgroundColor: colorMode == ColorMode.yaru ? Theme.of(context).colorScheme.surface : Theme.of(context).colorScheme.error,
+                  foregroundColor: colorMode == ColorMode.yaru ? Theme.of(context).colorScheme.onSurface : Theme.of(context).colorScheme.onError,
+                ),
+                onPressed: () {
+                  vm.onDecline();
+                  context.global.dispatch(NavigateAction.popUntil<WebSharePage>());
+                },
+                icon: const Icon(Icons.close),
+                label: Text(t.general.decline),
               ),
-              onPressed: () {
-                vm.onDecline();
-                context.global.dispatch(NavigateAction.popUntil<WebSharePage>());
-              },
-              icon: const Icon(Icons.close),
-              label: Text(t.general.decline),
             ),
             const SizedBox(width: 20),
-            ElevatedButton.icon(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Theme.of(context).colorScheme.primary,
-                foregroundColor: Theme.of(context).colorScheme.onPrimary,
+            Tooltip(
+              message: showKeyboardShortcuts && selectedFiles.isNotEmpty ? '${t.general.accept} (Enter)' : '',
+              child: ElevatedButton.icon(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Theme.of(context).colorScheme.primary,
+                  foregroundColor: Theme.of(context).colorScheme.onPrimary,
+                ),
+                onPressed: selectedFiles.isEmpty ? null : () => vm.onAccept(),
+                icon: const Icon(Icons.check_circle),
+                label: Text(t.general.accept),
               ),
-              onPressed: selectedFiles.isEmpty ? null : () => vm.onAccept(),
-              icon: const Icon(Icons.check_circle),
-              label: Text(t.general.accept),
             ),
           ],
         ),
