@@ -333,8 +333,14 @@ class LoadSelectionFromArgsAction extends AsyncReduxActionWithResult<SelectedSen
         continue;
       }
 
-      final file = File(arg);
-      final directory = Directory(arg);
+      final path = resolveArgPath(arg);
+      if (path == null) {
+        _logger.warning('Ignoring argument that is neither a file nor a directory: $arg');
+        continue;
+      }
+
+      final file = File(path);
+      final directory = Directory(path);
 
       if (file.existsSync()) {
         await dispatchAsync(
@@ -345,12 +351,49 @@ class LoadSelectionFromArgsAction extends AsyncReduxActionWithResult<SelectedSen
         );
         filesAdded = true;
       } else if (directory.existsSync()) {
-        await dispatchAsync(AddDirectoryAction(arg));
+        await dispatchAsync(AddDirectoryAction(path));
         filesAdded = true;
       }
     }
 
     return (state, filesAdded);
+  }
+}
+
+/// Resolves a command line argument to a local filesystem path.
+///
+/// Desktop entries declare `Exec=localsend %U`, so a file argument arrives as
+/// a `file://` URI rather than a plain path — notably through Flatpak's
+/// `--file-forwarding @@u`, where a path-mode argument arrives as
+/// `/run/user/<uid>/doc/<id>/name` but a URI-mode one arrives as
+/// `file:///run/user/<uid>/doc/<id>/name`. Treating the URI as a path makes
+/// `File(...).existsSync()` false and silently drops the file.
+///
+/// Returns the argument unchanged when it is not a `file:` URI, so plain paths
+/// keep working. Returns `null` for a `file:` URI that does not denote a local
+/// path, such as one pointing at a remote host.
+String? resolveArgPath(String arg) {
+  if (!arg.startsWith('file:')) {
+    return arg;
+  }
+
+  var uri = Uri.tryParse(arg);
+  if (uri == null) {
+    return null;
+  }
+
+  // `localhost` is the conventional "this machine" authority, but Dart's
+  // toFilePath() rejects every authority on non-Windows platforms, so drop it.
+  if (uri.host == 'localhost') {
+    uri = uri.replace(host: '');
+  } else if (uri.host.isNotEmpty) {
+    return null;
+  }
+
+  try {
+    return uri.toFilePath(windows: Platform.isWindows);
+  } on UnsupportedError {
+    return null;
   }
 }
 
