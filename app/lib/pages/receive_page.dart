@@ -116,7 +116,7 @@ class _ReceivePageState extends State<ReceivePage> with Refena {
             if (!_pageFocusNode.hasPrimaryFocus) {
               return KeyEventResult.ignored;
             }
-            if (event.logicalKey == LogicalKeyboardKey.enter || event.logicalKey == LogicalKeyboardKey.space) {
+            if (event.logicalKey == LogicalKeyboardKey.enter) {
               final selectedFiles = context.read(selectedReceivingFilesProvider);
               if (selectedFiles.isNotEmpty) {
                 vm.onAccept();
@@ -326,7 +326,6 @@ class _Actions extends StatelessWidget {
   Widget build(BuildContext context) {
     final selectedFiles = context.watch(selectedReceivingFilesProvider);
     final colorMode = context.watch(settingsProvider.select((state) => state.colorMode));
-    final showKeyboardShortcuts = checkPlatformIsDesktop();
 
     if (vm.message != null) {
       return Center(
@@ -385,9 +384,7 @@ class _Actions extends StatelessWidget {
                 context.global.dispatch(NavigateAction.popUntil<WebSharePage>());
               },
               icon: const Icon(Icons.close),
-              label: Text(
-                showKeyboardShortcuts ? '${t.general.decline} · (Esc)' : t.general.decline,
-              ),
+              label: Text(t.general.decline,),
             ),
             const SizedBox(width: 20),
             ElevatedButton.icon(
@@ -397,9 +394,7 @@ class _Actions extends StatelessWidget {
               ),
               onPressed: selectedFiles.isEmpty ? null : () => vm.onAccept(),
               icon: const Icon(Icons.check_circle),
-              label: Text(
-                showKeyboardShortcuts ? '${t.general.accept} · (Enter / Space)' : t.general.accept,
-              ),
+              label: Text(t.general.accept,),
             ),
           ],
         ),
