@@ -262,7 +262,32 @@ impl App {
             return;
         };
 
-        let path = util::unique_path(&self.storage.destination, &file.file_name);
+        let Some(path) = util::unique_path(&self.storage.destination, &file.file_name) else {
+            // Nothing usable in the sender's file name (e.g. it consisted only of
+            // relative segments). Report it as failed so the summary counts it
+            // instead of the upload hanging.
+            self.ui.log(
+                Category::Receive,
+                &format!(
+                    "{}: Rejected unusable file name {}",
+                    sanitize::single_line(&session.alias),
+                    sanitize::single_line(&file.file_name)
+                ),
+            );
+            let events_tx = self.events_tx.clone();
+            let session_id = session_id.clone();
+            let file_id = file_id.clone();
+            tokio::spawn(async move {
+                let _ = events_tx
+                    .send(super::AppEvent::ReceiveFileResult {
+                        session_id,
+                        file_id,
+                        result: Err("Unusable file name".to_string()),
+                    })
+                    .await;
+            });
+            return;
+        };
 
         let progress = Arc::new(AtomicU64::new(0));
         session
