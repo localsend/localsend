@@ -51,5 +51,13 @@ void main() {
       final expected = Platform.isWindows ? r'C:\Users\test.txt' : '/C:/Users/test.txt';
       expect(resolveArgPath('file:///C:/Users/test.txt'), expected);
     });
+
+    test('rejects a file URI with an invalid percent-escape', () {
+      expect(resolveArgPath('file:///tmp/%FF'), isNull);
+    });
+
+    test('rejects a file URI with an incomplete UTF-8 escape', () {
+      expect(resolveArgPath('file:///%E4%F6'), isNull);
+    });
   });
 }

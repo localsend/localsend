@@ -353,6 +353,9 @@ class LoadSelectionFromArgsAction extends AsyncReduxActionWithResult<SelectedSen
       } else if (directory.existsSync()) {
         await dispatchAsync(AddDirectoryAction(path));
         filesAdded = true;
+      } else {
+        _logger.warning('Argument is neither an existing file nor an existing directory: $arg');
+        continue;
       }
     }
 
@@ -393,6 +396,10 @@ String? resolveArgPath(String arg) {
   try {
     return uri.toFilePath(windows: Platform.isWindows);
   } on UnsupportedError {
+    return null;
+  } on FormatException {
+    // Thrown transitively (via Uri.pathSegments) for a file URI whose
+    // percent-escapes are not valid UTF-8, e.g. `file:///tmp/%FF`.
     return null;
   }
 }
