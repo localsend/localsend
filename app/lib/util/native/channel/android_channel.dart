@@ -88,6 +88,18 @@ Future<void> openGallery() async {
   await _methodChannel.invokeMethod('openGallery');
 }
 
+/// `Settings.Global.DEVICE_NAME`, the name shown in Android's own settings.
+/// `Platform.localHostname` cannot be used here: it resolves to `localhost` on
+/// Android rather than the device name.
+Future<String?> getDeviceNameAndroid() async {
+  try {
+    return await _methodChannel.invokeMethod<String>('getDeviceName');
+  } catch (e) {
+    _logger.warning('Could not get device name', e);
+    return null;
+  }
+}
+
 @MappableClass()
 class PickDirectoryResult with PickDirectoryResultMappable {
   final String directoryUri;

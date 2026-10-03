@@ -127,6 +127,10 @@ class MainActivity : FlutterActivity() {
                     result.success(getDownloadsDirectory())
                 }
 
+                "getDeviceName" -> {
+                    result.success(getDeviceName())
+                }
+
                 "requestLocalNetworkPermission" -> {
                     if (hasLocalNetworkPermission()) {
                         result.success(true)
@@ -161,6 +165,16 @@ class MainActivity : FlutterActivity() {
     @Suppress("DEPRECATION")
     private fun getDownloadsDirectory(): String {
         return Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).absolutePath
+    }
+
+    /// The name shown in Android's own settings, or the model when the user has
+    /// not set one. Returns null when neither yields anything usable.
+    private fun getDeviceName(): String? {
+        val name = Settings.Global.getString(this.contentResolver, "device_name")
+        if (!name.isNullOrBlank()) {
+            return name
+        }
+        return Build.MODEL.takeIf { it.isNotBlank() }
     }
 
     private fun isAnimationsEnabled() : Boolean {
