@@ -332,35 +332,79 @@ class _Actions extends StatelessWidget {
 
     return Column(
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ElevatedButton.icon(
-              style: ElevatedButton.styleFrom(
-                elevation: colorMode == ColorMode.yaru ? 0 : null,
-                backgroundColor: colorMode == ColorMode.yaru ? Theme.of(context).colorScheme.surface : Theme.of(context).colorScheme.error,
-                foregroundColor: colorMode == ColorMode.yaru ? Theme.of(context).colorScheme.onSurface : Theme.of(context).colorScheme.onError,
+        Shortcuts(
+          shortcuts: receivePageShortcuts,
+          child: Actions(
+            actions: {
+              AcceptTransferIntent: CallbackAction<AcceptTransferIntent>(
+                onInvoke: (_) {
+                  // Mirrors the disabled state of the accept button.
+                  if (selectedFiles.isEmpty) {
+                    return null;
+                  }
+                  vm.onAccept();
+                  return null;
+                },
               ),
-              onPressed: () {
-                vm.onDecline();
-                context.global.dispatch(NavigateAction.popUntil<WebSharePage>());
-              },
-              icon: const Icon(Icons.close),
-              label: Text(t.general.decline),
-            ),
-            const SizedBox(width: 20),
-            ElevatedButton.icon(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Theme.of(context).colorScheme.primary,
-                foregroundColor: Theme.of(context).colorScheme.onPrimary,
+              DeclineTransferIntent: CallbackAction<DeclineTransferIntent>(
+                onInvoke: (_) {
+                  vm.onDecline();
+                  context.global.dispatch(NavigateAction.popUntil<WebSharePage>());
+                  return null;
+                },
               ),
-              onPressed: selectedFiles.isEmpty ? null : () => vm.onAccept(),
-              icon: const Icon(Icons.check_circle),
-              label: Text(t.general.accept),
+            },
+            child: Focus(
+              autofocus: true,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ElevatedButton.icon(
+                    style: ElevatedButton.styleFrom(
+                      elevation: colorMode == ColorMode.yaru ? 0 : null,
+                      backgroundColor: colorMode == ColorMode.yaru ? Theme.of(context).colorScheme.surface : Theme.of(context).colorScheme.error,
+                      foregroundColor: colorMode == ColorMode.yaru ? Theme.of(context).colorScheme.onSurface : Theme.of(context).colorScheme.onError,
+                    ),
+                    onPressed: () {
+                      vm.onDecline();
+                      context.global.dispatch(NavigateAction.popUntil<WebSharePage>());
+                    },
+                    icon: const Icon(Icons.close),
+                    label: Text(t.general.decline),
+                  ),
+                  const SizedBox(width: 20),
+                  ElevatedButton.icon(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Theme.of(context).colorScheme.primary,
+                      foregroundColor: Theme.of(context).colorScheme.onPrimary,
+                    ),
+                    onPressed: selectedFiles.isEmpty ? null : () => vm.onAccept(),
+                    icon: const Icon(Icons.check_circle),
+                    label: Text(t.general.accept),
+                  ),
+                ],
+              ),
             ),
-          ],
+          ),
         ),
       ],
     );
   }
 }
+
+/// Accepts the incoming transfer.
+class AcceptTransferIntent extends Intent {}
+
+/// Declines the incoming transfer.
+class DeclineTransferIntent extends Intent {}
+
+/// Enter accepts and Escape declines, mirroring the buttons on the receive page.
+/// https://github.com/localsend/localsend/issues/3476
+///
+/// numpadEnter is bound as well: on a keypad it is a distinct key and would
+/// otherwise not trigger the shortcut.
+final receivePageShortcuts = <ShortcutActivator, Intent>{
+  const SingleActivator(LogicalKeyboardKey.enter): AcceptTransferIntent(),
+  const SingleActivator(LogicalKeyboardKey.numpadEnter): AcceptTransferIntent(),
+  const SingleActivator(LogicalKeyboardKey.escape): DeclineTransferIntent(),
+};
