@@ -21,6 +21,7 @@ Future<bool> enableAutoStart({required bool startHidden}) async {
 Type=Application
 Name=${packageInfo.appName}
 Comment=${packageInfo.appName} startup script
+Icon=${packageInfo.packageName}
 Exec=${Platform.resolvedExecutable}${startHidden ? ' $startHiddenFlag' : ''}
 StartupNotify=false
 Terminal=false
@@ -57,7 +58,10 @@ Future<bool> disableAutoStart() async {
     final packageInfo = await PackageInfo.fromPlatform();
     switch (defaultTargetPlatform) {
       case TargetPlatform.linux:
-        File(_getLinuxFilePath(packageInfo.packageName)).deleteSync();
+        final file = File(_getLinuxFilePath(packageInfo.packageName));
+        if (file.existsSync()) {
+          file.deleteSync();
+        }
         break;
       case TargetPlatform.macOS:
         await setLaunchAtLogin(false);
@@ -118,5 +122,9 @@ RegistryKey _getWindowsRegistryKey() {
 }
 
 String _getLinuxFilePath(String appName) {
-  return '${Platform.environment['HOME']}/.config/autostart/$appName.desktop';
+  // An unset or empty XDG_CONFIG_HOME falls back to $HOME/.config.
+  // https://specifications.freedesktop.org/basedir-spec/latest/
+  final configHome = Platform.environment['XDG_CONFIG_HOME'];
+  final base = configHome == null || configHome.isEmpty ? '${Platform.environment['HOME']}/.config' : configHome;
+  return '$base/autostart/$appName.desktop';
 }
