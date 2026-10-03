@@ -99,6 +99,11 @@ void main() {
     final text = await _format(tester, device: const Locale('en', 'GB'), app: AppLocale.en, datePattern: 'EEEEEE dd/MM/yyyy', timePattern: 'HH:mm');
     expect(text, '27/09/2026 15:54');
   });
+
+  testWidgets('Time zone falls back to the locale default', (tester) async {
+    final text = await _format(tester, device: const Locale('en', 'GB'), app: AppLocale.en, datePattern: 'dd/MM/yyyy', timePattern: 'HH:mm z');
+    expect(text, '27/09/2026 15:54');
+  });
 }
 
 Future<String> _format(

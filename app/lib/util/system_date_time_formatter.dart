@@ -33,8 +33,9 @@ class SystemDateTimeFormatter {
     return DateFormat(_withoutSeconds(pattern), _locale).format(value);
   }
 
-  /// Fields intl mishandles: unknown letters (e.g. `B`) print literally, .NET-style `ddd` prints a padded day, `EEEEEE` throws.
-  static final _unsupportedField = RegExp(r'(?![GyMkSEahKHcLQdDmsvzZ])[A-Za-z]|d{3,}|E{6,}');
+  /// Fields intl mishandles: unknown letters (e.g. `B`) print literally, time zones (`v`, `z`, `Z`) print nothing,
+  /// .NET-style `ddd` prints a padded day, `EEEEEE` throws.
+  static final _unsupportedField = RegExp(r'(?![GyMkSEahKHcLQdDms])[A-Za-z]|d{3,}|E{6,}');
 
   static bool _isSupported(String pattern) {
     final parts = pattern.split("'");
