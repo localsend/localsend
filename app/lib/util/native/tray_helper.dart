@@ -71,13 +71,20 @@ Future<void> hideToTray() async {
     await windowManager.setSkipTaskbar(true);
   }
 
-  // Drop the decoded images now that nothing is on screen. Hiding a window stops
-  // frames being produced but does not free what was already decoded, so the
-  // previews stay resident for as long as the process lives.
+  // Release the thumbnails this window decoded and no longer displays.
+  //
+  // Only entries without a mounted listener are actually freed: an image whose
+  // widget is still in the tree is held by its ImageStreamCompleter, and
+  // clearLiveImages() does not detach those listeners — it only disposes the
+  // cache's own tracking, so the decoded frame survives either way. Hiding the
+  // window does not unmount the receive/send lists either, so the thumbnails
+  // currently on screen stay resident and are re-used when the window returns.
+  //
+  // What this does free is the rest of the cache: previews decoded for items
+  // scrolled out of a long transfer list, or for pages already popped. Those
+  // otherwise sit until the cache's own 1000-image / 100 MB ceiling evicts them.
   // https://github.com/localsend/localsend/issues/3372
-  PaintingBinding.instance.imageCache
-    ..clear()
-    ..clearLiveImages();
+  PaintingBinding.instance.imageCache.clear();
 
   // Disable animations
   try {
