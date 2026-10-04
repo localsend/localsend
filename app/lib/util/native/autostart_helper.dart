@@ -122,9 +122,9 @@ RegistryKey _getWindowsRegistryKey() {
 }
 
 String _getLinuxFilePath(String appName) {
-  // An unset or empty XDG_CONFIG_HOME falls back to $HOME/.config.
-  // https://specifications.freedesktop.org/basedir-spec/latest/
+  // XDG base directory paths must be absolute; unset, empty, or relative values fall back to $HOME/.config.
+  // https://specifications.freedesktop.org/basedir/latest/#basics
   final configHome = Platform.environment['XDG_CONFIG_HOME'];
-  final base = configHome == null || configHome.isEmpty ? '${Platform.environment['HOME']}/.config' : configHome;
+  final base = configHome == null || configHome.isEmpty || !Directory(configHome).isAbsolute ? '${Platform.environment['HOME']}/.config' : configHome;
   return '$base/autostart/$appName.desktop';
 }
