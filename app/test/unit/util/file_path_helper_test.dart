@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:localsend_isolates/util/file_path_helper.dart';
+import 'package:path/path.dart' as p;
 import 'package:test/test.dart';
 
 void main() {
@@ -53,6 +54,15 @@ void main() {
 
     test('rejects a path that does not exist', () {
       expect(isExistingLocalPath('${dir.path}/missing.txt'), isFalse);
+    });
+
+    test('rejects a relative path even when it exists', () {
+      // A relative path resolves against the process working directory, so
+      // pasting a bare word as text must not attach a file of that name.
+      final relative = p.relative(file.path, from: p.current);
+      expect(File(relative).existsSync(), isTrue, reason: 'the relative path must exist for this test to mean anything');
+      expect(isExistingLocalPath(relative), isFalse);
+      expect(isExistingLocalPath('${p.basename(dir.path)}/note.txt'), isFalse);
     });
 
     test('rejects ordinary text', () {

@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:localsend_isolates/model/file_type.dart';
+import 'package:path/path.dart' as p;
 
 /// Matches myFile (123) -> "myFile", " (123)"
 final _fileNumberRegex = RegExp(r'^(.*)(?:(\s\(\d+\)))$');
@@ -94,6 +95,9 @@ extension FilePathStringExt on String {
 /// matching quotes are stripped, since file managers may add either, while a
 /// multi-line value or one containing NUL is ordinary text and never a path.
 ///
+/// The path must be absolute, so that a bare word pasted as text cannot attach
+/// a file of that name from the process working directory.
+///
 /// Directories are rejected as well, because adding a file does not enumerate
 /// directory contents; a folder has to arrive through the folder picker.
 ///
@@ -122,6 +126,14 @@ String? existingLocalPath(String? text) {
   // Newlines mean this is a block of text, not one path. NUL can never appear
   // in a path, and rejecting it here keeps the string away from the filesystem.
   if (candidate.isEmpty || candidate.contains('\n') || candidate.contains('\r') || candidate.contains('\u0000')) {
+    return null;
+  }
+
+  // Only an absolute path counts. A relative one is resolved against the
+  // process working directory, so pasting a bare word like "notes.txt" would
+  // attach whatever file that name happens to have there instead of sending
+  // the text. File managers put an absolute path on the clipboard.
+  if (!p.isAbsolute(candidate)) {
     return null;
   }
 
