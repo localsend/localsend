@@ -85,6 +85,44 @@ void main() {
     expect(log, ['accept', 'accept', 'decline']);
   });
 
+  testWidgets('a modified Enter does not accept', (tester) async {
+    final log = <String>[];
+    final rowNode = FocusNode(debugLabel: 'row');
+    addTearDown(rowNode.dispose);
+
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Scaffold(
+          body: _buttonRow(log: log.add, rowNode: rowNode),
+        ),
+      ),
+    );
+
+    expect(FocusManager.instance.primaryFocus, rowNode);
+
+    // A modified Enter is not an accept, matching SingleActivator, which
+    // rejects every modifier it does not declare.
+    for (final modifier in [
+      LogicalKeyboardKey.control,
+      LogicalKeyboardKey.shift,
+      LogicalKeyboardKey.alt,
+      LogicalKeyboardKey.meta,
+    ]) {
+      await tester.sendKeyDownEvent(modifier);
+      await tester.sendKeyEvent(LogicalKeyboardKey.enter);
+      await tester.sendKeyUpEvent(modifier);
+      await tester.pump();
+    }
+
+    expect(log, isEmpty);
+
+    // An unmodified Enter still accepts, so the modifier check is not simply
+    // rejecting everything.
+    await tester.sendKeyEvent(LogicalKeyboardKey.enter);
+    await tester.pump();
+    expect(log, ['accept']);
+  });
+
   testWidgets('Enter declines while the decline button has focus', (tester) async {
     final log = <String>[];
     final rowNode = FocusNode(debugLabel: 'row');

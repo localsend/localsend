@@ -420,6 +420,10 @@ final receivePageShortcuts = <ShortcutActivator, Intent>{
 ///
 /// numpadEnter counts as well: on a keypad it is a distinct key.
 ///
+/// A modified Enter does not accept: [SingleActivator] rejects every modifier
+/// unless it declares it, and losing that would let Ctrl+Enter or Shift+Enter
+/// accept a transfer that was never meant to be accepted.
+///
 /// [onAccept] is null while accepting is impossible (no file selected); the key
 /// is then consumed without accepting, like the disabled Accept button does.
 KeyEventResult acceptOnEnterKey(FocusNode node, KeyEvent event, {required void Function()? onAccept}) {
@@ -429,9 +433,22 @@ KeyEventResult acceptOnEnterKey(FocusNode node, KeyEvent event, {required void F
   if (event.logicalKey != LogicalKeyboardKey.enter && event.logicalKey != LogicalKeyboardKey.numpadEnter) {
     return KeyEventResult.ignored;
   }
+  if (_hasModifierPressed(HardwareKeyboard.instance)) {
+    return KeyEventResult.ignored;
+  }
   if (FocusManager.instance.primaryFocus != node) {
     return KeyEventResult.ignored;
   }
   onAccept?.call();
   return KeyEventResult.handled;
+}
+
+/// Whether any modifier is held, matching [SingleActivator]'s default of
+/// requiring an unmodified trigger.
+bool _hasModifierPressed(HardwareKeyboard keyboard) {
+  final pressed = keyboard.logicalKeysPressed;
+  return LogicalKeyboardKey.expandSynonyms(<LogicalKeyboardKey>{LogicalKeyboardKey.control}).any(pressed.contains) ||
+      LogicalKeyboardKey.expandSynonyms(<LogicalKeyboardKey>{LogicalKeyboardKey.shift}).any(pressed.contains) ||
+      LogicalKeyboardKey.expandSynonyms(<LogicalKeyboardKey>{LogicalKeyboardKey.alt}).any(pressed.contains) ||
+      LogicalKeyboardKey.expandSynonyms(<LogicalKeyboardKey>{LogicalKeyboardKey.meta}).any(pressed.contains);
 }
