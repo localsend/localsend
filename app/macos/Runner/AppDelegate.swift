@@ -152,6 +152,12 @@ class AppDelegate: FlutterAppDelegate {
             let i18n = call.arguments as! [String: String]
             setupStatusBarItem(i18n: i18n)
             result(nil)
+        case "restoreWindowFrame":
+            guard let window = mainFlutterWindow else {
+                result(FlutterError(code: "WINDOW_UNAVAILABLE", message: "Main window is unavailable", details: nil))
+                return
+            }
+            result(window.setFrameUsingName("LocalSendMainWindow"))
         case "configureWindowFrameAutosave":
             let windowFrameStorageName = "LocalSendMainWindow"
             guard let arguments = call.arguments as? [String: Any],
@@ -164,13 +170,12 @@ class AppDelegate: FlutterAppDelegate {
                 return
             }
             if enabled {
-                _ = window.setFrameUsingName(windowFrameStorageName)
+                // AppKit reloads the saved frame when enabling autosave. Keep the current placement.
+                window.saveFrame(usingName: windowFrameStorageName)
                 guard window.setFrameAutosaveName(windowFrameStorageName) else {
                     result(FlutterError(code: "AUTOSAVE_UNAVAILABLE", message: "Window frame autosave name is unavailable", details: nil))
                     return
                 }
-                // Enabling autosave alone does not save until the next move or resize.
-                window.saveFrame(usingName: windowFrameStorageName)
             } else {
                 guard window.setFrameAutosaveName("") else {
                     result(FlutterError(code: "AUTOSAVE_UNAVAILABLE", message: "Could not disable window frame autosave", details: nil))

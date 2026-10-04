@@ -1,5 +1,4 @@
 import 'package:collection/collection.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/model/persistence/color_mode.dart';
@@ -7,7 +6,7 @@ import 'package:localsend_app/model/persistence/quick_save_mode.dart';
 import 'package:localsend_app/model/send_mode.dart';
 import 'package:localsend_app/model/state/settings_state.dart';
 import 'package:localsend_app/provider/persistence_provider.dart';
-import 'package:localsend_app/util/native/macos_channel.dart' as macos_channel;
+import 'package:localsend_app/provider/window_dimensions_provider.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_isolates/isolate.dart';
 import 'package:localsend_isolates/model/device.dart';
@@ -246,9 +245,7 @@ class SettingsService extends PureNotifier<SettingsState> {
   }
 
   Future<void> setSaveWindowPlacement(bool savePlacement) async {
-    if (defaultTargetPlatform == TargetPlatform.macOS && !_persistence.isPortableMode()) {
-      await macos_channel.configureWindowFrameAutosave(enabled: savePlacement);
-    }
+    await WindowDimensionsController(_persistence).configureWindowFrameAutosave(enabled: savePlacement);
     await _persistence.setSaveWindowPlacement(savePlacement);
     state = state.copyWith(
       saveWindowPlacement: savePlacement,
