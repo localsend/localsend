@@ -189,6 +189,17 @@ localsend-cli send --to 192.168.27.26 report.pdf
 An alias must uniquely identify a discovered device. An IP address is probed directly
 over HTTPS on LocalSend's default port (`53317`).
 
+To send a text message instead of files, use `--text` together with `--to`.
+Pass `-` to read the text from stdin:
+
+```shell
+localsend-cli send --to "Cute Tomato" --text "https://localsend.org"
+echo "Hello" | localsend-cli send --to "Cute Tomato" --text -
+```
+
+A single trailing line break is dropped from stdin. Text longer than 64 KB is sent as
+a `.txt` file instead. Stdin must be UTF-8 and at most 16 MB; send other data as a file.
+
 Directories are collected recursively. Their selected root names and nested paths
 are preserved on the receiver. Empty directories are not sent because LocalSend
 transfers file entries rather than directory entries.
