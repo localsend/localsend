@@ -330,32 +330,32 @@ class _Actions extends StatelessWidget {
       );
     }
 
+    void decline() {
+      vm.onDecline();
+      context.global.dispatch(NavigateAction.popUntil<WebSharePage>());
+    }
+
     return Column(
       children: [
         Shortcuts(
           shortcuts: receivePageShortcuts,
           child: Actions(
             actions: {
-              AcceptTransferIntent: CallbackAction<AcceptTransferIntent>(
-                onInvoke: (_) {
-                  // Mirrors the disabled state of the accept button.
-                  if (selectedFiles.isEmpty) {
-                    return null;
-                  }
-                  vm.onAccept();
-                  return null;
-                },
-              ),
               DeclineTransferIntent: CallbackAction<DeclineTransferIntent>(
                 onInvoke: (_) {
-                  vm.onDecline();
-                  context.global.dispatch(NavigateAction.popUntil<WebSharePage>());
+                  decline();
                   return null;
                 },
               ),
             },
             child: Focus(
               autofocus: true,
+              onKeyEvent: (node, event) => acceptOnEnterKey(
+                node,
+                event,
+                // null mirrors the disabled state of the accept button.
+                onAccept: selectedFiles.isEmpty ? null : vm.onAccept,
+              ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -365,10 +365,7 @@ class _Actions extends StatelessWidget {
                       backgroundColor: colorMode == ColorMode.yaru ? Theme.of(context).colorScheme.surface : Theme.of(context).colorScheme.error,
                       foregroundColor: colorMode == ColorMode.yaru ? Theme.of(context).colorScheme.onSurface : Theme.of(context).colorScheme.onError,
                     ),
-                    onPressed: () {
-                      vm.onDecline();
-                      context.global.dispatch(NavigateAction.popUntil<WebSharePage>());
-                    },
+                    onPressed: decline,
                     icon: const Icon(Icons.close),
                     label: Text(t.general.decline),
                   ),
@@ -393,18 +390,48 @@ class _Actions extends StatelessWidget {
 }
 
 /// Accepts the incoming transfer.
+///
+/// Enter is delivered by [acceptOnEnterKey] rather than by a [Shortcuts]
+/// activator, see there.
 class AcceptTransferIntent extends Intent {}
 
 /// Declines the incoming transfer.
 class DeclineTransferIntent extends Intent {}
 
-/// Enter accepts and Escape declines, mirroring the buttons on the receive page.
+/// Escape declines, mirroring the Decline button on the receive page.
 /// https://github.com/localsend/localsend/issues/3476
 ///
-/// numpadEnter is bound as well: on a keypad it is a distinct key and would
-/// otherwise not trigger the shortcut.
+/// Enter is deliberately absent and handled by [acceptOnEnterKey] instead.
 final receivePageShortcuts = <ShortcutActivator, Intent>{
-  const SingleActivator(LogicalKeyboardKey.enter): AcceptTransferIntent(),
-  const SingleActivator(LogicalKeyboardKey.numpadEnter): AcceptTransferIntent(),
   const SingleActivator(LogicalKeyboardKey.escape): DeclineTransferIntent(),
 };
+
+/// Accepts the incoming transfer on Enter or numpadEnter while the receive page's
+/// button row itself holds focus. Returns [KeyEventResult.ignored] when a button
+/// is focused so that the key still activates it.
+/// https://github.com/localsend/localsend/issues/3476
+///
+/// This cannot be a [Shortcuts] activator: key events are dispatched from
+/// [FocusManager.primaryFocus] outwards and stop at the first node whose handler
+/// does not return [KeyEventResult.ignored], so the row's [Shortcuts] — a much
+/// nearer ancestor of the buttons than the default shortcuts of [WidgetsApp] —
+/// would consume Enter and accept the transfer instead of letting the focused
+/// Decline button activate.
+///
+/// numpadEnter counts as well: on a keypad it is a distinct key.
+///
+/// [onAccept] is null while accepting is impossible (no file selected); the key
+/// is then consumed without accepting, like the disabled Accept button does.
+KeyEventResult acceptOnEnterKey(FocusNode node, KeyEvent event, {required void Function()? onAccept}) {
+  if (event is! KeyDownEvent) {
+    return KeyEventResult.ignored;
+  }
+  if (event.logicalKey != LogicalKeyboardKey.enter && event.logicalKey != LogicalKeyboardKey.numpadEnter) {
+    return KeyEventResult.ignored;
+  }
+  if (FocusManager.instance.primaryFocus != node) {
+    return KeyEventResult.ignored;
+  }
+  onAccept?.call();
+  return KeyEventResult.handled;
+}
