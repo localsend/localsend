@@ -1,5 +1,7 @@
 import 'dart:ui';
+import 'package:flutter/foundation.dart';
 import 'package:localsend_app/provider/persistence_provider.dart';
+import 'package:localsend_app/util/native/macos_channel.dart' as macos_channel;
 import 'package:refena_flutter/refena_flutter.dart';
 import 'package:screen_retriever/screen_retriever.dart';
 import 'package:window_manager/window_manager.dart';
@@ -34,15 +36,32 @@ class WindowDimensionsController {
     final useSavedPlacement = _service.getSaveWindowPlacement();
     final persistedDimensions = _service.getWindowLastDimensions();
 
+    if (defaultTargetPlatform == TargetPlatform.macOS && !_service.isPortableMode()) {
+      // AppKit restores saved frames and keeps windows reachable after display changes.
+      // Seed its first frame with the placement saved by earlier LocalSend versions.
+      if (useSavedPlacement && persistedDimensions != null && await isInScreenBounds(persistedDimensions.position)) {
+        await WindowManager.instance.setSize(persistedDimensions.size);
+        await WindowManager.instance.setPosition(persistedDimensions.position);
+      } else {
+        await _setDefaultDimensions();
+      }
+      await macos_channel.configureWindowFrameAutosave(enabled: useSavedPlacement);
+      return;
+    }
+
     if (useSavedPlacement && persistedDimensions != null && await isInScreenBounds(persistedDimensions.position, persistedDimensions.size)) {
       await WindowManager.instance.setSize(persistedDimensions.size);
       await WindowManager.instance.setPosition(persistedDimensions.position);
     } else {
-      final primaryDisplay = await ScreenRetriever.instance.getPrimaryDisplay();
-      final hasEnoughWidthForDefaultSize = primaryDisplay.digestedSize.width >= 1200;
-      await WindowManager.instance.setSize(hasEnoughWidthForDefaultSize ? _defaultSize : _minimalSize);
-      await WindowManager.instance.center();
+      await _setDefaultDimensions();
     }
+  }
+
+  Future<void> _setDefaultDimensions() async {
+    final primaryDisplay = await ScreenRetriever.instance.getPrimaryDisplay();
+    final hasEnoughWidthForDefaultSize = primaryDisplay.digestedSize.width >= 1200;
+    await WindowManager.instance.setSize(hasEnoughWidthForDefaultSize ? _defaultSize : _minimalSize);
+    await WindowManager.instance.center();
   }
 
   Future<bool> isInScreenBounds(Offset windowPosition, [Size? windowSize]) async {

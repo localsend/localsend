@@ -1,7 +1,9 @@
 import 'dart:async';
 import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:localsend_app/provider/animation_provider.dart';
+import 'package:localsend_app/provider/persistence_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/provider/window_dimensions_provider.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
@@ -34,6 +36,8 @@ class _WindowWatcherState extends State<WindowWatcher> with WindowListener, Refe
   static Stopwatch s = Stopwatch();
 
   WindowDimensionsController _ensureDimensionsProvider() => ref.watch(windowDimensionProvider);
+
+  bool get _usesNativeWindowFrameAutosave => defaultTargetPlatform == TargetPlatform.macOS && !ref.read(persistenceProvider).isPortableMode();
 
   @override
   Widget build(BuildContext context) {
@@ -77,21 +81,25 @@ class _WindowWatcherState extends State<WindowWatcher> with WindowListener, Refe
 
   @override
   Future<void> onWindowMoved() async {
+    if (_usesNativeWindowFrameAutosave) return;
     final windowOffset = await windowManager.getPosition();
     await _dimensionsController?.storePosition(windowOffset: windowOffset);
   }
 
   @override
   Future<void> onWindowResized() async {
+    if (_usesNativeWindowFrameAutosave) return;
     final windowSize = await windowManager.getSize();
     await _dimensionsController?.storeSize(windowSize: windowSize);
   }
 
   @override
   Future<void> onWindowClose() async {
-    final windowOffset = await windowManager.getPosition();
-    final windowSize = await windowManager.getSize();
-    await _dimensionsController?.storeDimensions(windowOffset: windowOffset, windowSize: windowSize);
+    if (!_usesNativeWindowFrameAutosave) {
+      final windowOffset = await windowManager.getPosition();
+      final windowSize = await windowManager.getSize();
+      await _dimensionsController?.storeDimensions(windowOffset: windowOffset, windowSize: windowSize);
+    }
 
     if (!checkPlatformIsDesktop()) {
       return;

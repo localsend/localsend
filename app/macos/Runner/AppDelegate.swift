@@ -152,6 +152,33 @@ class AppDelegate: FlutterAppDelegate {
             let i18n = call.arguments as! [String: String]
             setupStatusBarItem(i18n: i18n)
             result(nil)
+        case "configureWindowFrameAutosave":
+            let windowFrameStorageName = "LocalSendMainWindow"
+            guard let arguments = call.arguments as? [String: Any],
+                  let enabled = arguments["enabled"] as? Bool else {
+                result(FlutterError(code: "INVALID_ARGUMENT", message: "Expected window frame autosave options", details: nil))
+                return
+            }
+            guard let window = mainFlutterWindow else {
+                result(FlutterError(code: "WINDOW_UNAVAILABLE", message: "Main window is unavailable", details: nil))
+                return
+            }
+            if enabled {
+                _ = window.setFrameUsingName(windowFrameStorageName)
+                guard window.setFrameAutosaveName(windowFrameStorageName) else {
+                    result(FlutterError(code: "AUTOSAVE_UNAVAILABLE", message: "Window frame autosave name is unavailable", details: nil))
+                    return
+                }
+                // Enabling autosave alone does not save until the next move or resize.
+                window.saveFrame(usingName: windowFrameStorageName)
+            } else {
+                guard window.setFrameAutosaveName("") else {
+                    result(FlutterError(code: "AUTOSAVE_UNAVAILABLE", message: "Could not disable window frame autosave", details: nil))
+                    return
+                }
+                NSWindow.removeFrame(usingName: windowFrameStorageName)
+            }
+            result(nil)
         case "removeDestinationFolderAccess":
             removeExistingDestinationAccess()
             result(nil)
