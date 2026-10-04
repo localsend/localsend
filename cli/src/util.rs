@@ -100,7 +100,10 @@ pub fn unique_path(dir: &Path, file_name: &str) -> Option<PathBuf> {
     let rules = filename::Rules::current();
 
     let segments: Vec<String> = file_name
-        .split(['/', '\\'])
+        // `/` always separates. `\` separates only on Windows, where it is
+        // illegal in a file name; on Unix it is a legal character and the
+        // sender encodes folder paths with `/` only.
+        .split(|c: char| c == '/' || (cfg!(windows) && c == '\\'))
         // Drop empty segments (`a//b`) and relative ones (`.` and `..`), which
         // is what keeps the result inside `dir`.
         .filter(|segment| !segment.is_empty() && *segment != "." && *segment != "..")
@@ -111,16 +114,20 @@ pub fn unique_path(dir: &Path, file_name: &str) -> Option<PathBuf> {
     let (last, parents) = segments.split_last()?;
 
     // A sender-supplied name may be deep enough to exceed the path length
-    // limit once every directory exists; drop the leading directories rather
-    // than fail the transfer, keeping the file itself.
-    let mut parent = dir.to_path_buf();
-    for segment in parents {
-        if parent.join(segment).components().count() > MAX_PATH_COMPONENTS {
-            break;
-        }
-        parent.push(segment);
-    }
+    // limit once every directory exists; keep the trailing directories, which
+    // are the ones that say where the file actually lives, and drop the
+    // leading ones rather than fail the transfer. The budget counts only the
+    // received path, not the destination's own depth.
+    let kept = parents.len().min(MAX_PATH_COMPONENTS - 1);
+    let parent = parents[parents.len() - kept..]
+        .iter()
+        .fold(dir.to_path_buf(), |path, segment| path.join(segment));
 
+    // ponytail: NOTE residual risk — `create_dir_all` follows symlinks, so a
+    // sender-named parent that already exists as a symlink in the destination
+    // escapes it. Needs a local symlink (no receive path creates one); the fix
+    // is dirfd-relative traversal in `save_req_to_target`, not canonicalize
+    // (TOCTOU).
     let candidate = parent.join(unique_file_name(&parent, last));
     std::fs::create_dir_all(&parent).ok()?;
     Some(candidate)
@@ -226,19 +233,24 @@ mod tests {
         // that no relative component and no directory outside `dir` is produced.
         // Each name carries a marker file name so the assertion below can see
         // whether the directory part survived verbatim.
-        for name in [
+        #[allow(unused_mut)] // extended below on Windows only
+        let mut names = vec![
             "../../etc/passwd",
             "..",
             "../escape.txt",
             "a/../../escape.txt",
             "a/b/../../../escape.txt",
             "/etc/passwd",
-            r"..\..\windows\system32\config",
-            r"a\..\..\escape.txt",
             "legit/keep.txt",
             "legit//double.txt",
             "./legit.txt",
-        ] {
+        ];
+        // `\` is a separator only on Windows; on Unix it is an ordinary name
+        // character, so there these are just oddly named files, not traversal.
+        #[cfg(windows)]
+        names.extend([r"..\..\windows\system32\config", r"a\..\..\escape.txt"]);
+
+        for name in names {
             let Some(path) = unique_path(&dir, name) else {
                 continue;
             };
@@ -337,18 +349,41 @@ mod tests {
         assert_eq!(path.file_name().unwrap(), "c_d.txt");
     }
 
+    /// `\` is a legal file name character on Unix, so a name containing one must
+    /// stay a single file instead of becoming a directory plus a file.
+    #[cfg(unix)]
+    #[test]
+    fn test_keeps_backslash_in_unix_file_name() {
+        let dir = temp_dir("backslash");
+
+        assert_eq!(
+            unique_path(&dir, r"weird\name").unwrap(),
+            dir.join(r"weird\name")
+        );
+    }
+
     #[test]
     fn test_bounds_deeply_nested_paths() {
         let dir = temp_dir("deep");
 
-        let deep = format!("{}/IMG_1.jpg", vec!["sub"; 200].join("/"));
+        // Distinct directory names, otherwise the assertion below cannot tell
+        // a kept directory from a dropped one.
+        let subs: Vec<String> = (0..200).map(|i| format!("sub-{i}")).collect();
+        let deep = format!("{}/IMG_1.jpg", subs.join("/"));
         let path = unique_path(&dir, &deep).unwrap();
 
-        let relative = path.strip_prefix(&dir).unwrap();
-        assert!(
-            relative.components().count() <= MAX_PATH_COMPONENTS + 1,
-            "path depth must stay bounded, got {}",
-            relative.components().count()
+        // The trailing directories survive, as many as fit alongside the file
+        // name: they are the ones that say where the file actually lives.
+        let expected = subs[subs.len() - (MAX_PATH_COMPONENTS - 1)..]
+            .iter()
+            .fold(PathBuf::new(), |path, sub| path.join(sub))
+            .join("IMG_1.jpg");
+
+        assert_eq!(path, dir.join(expected));
+        assert_eq!(
+            path.strip_prefix(&dir).unwrap().components().count(),
+            MAX_PATH_COMPONENTS,
+            "path depth must stay bounded"
         );
         // The file itself is what matters; the name must survive.
         assert_eq!(path.file_name().unwrap(), "IMG_1.jpg");
