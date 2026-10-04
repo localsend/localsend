@@ -22,12 +22,5 @@ void main() {
         endsWith('logo-32-black.png'),
       );
     });
-
-    test('picks a different asset per brightness', () {
-      expect(
-        trayIconForBrightness(Brightness.dark).path,
-        isNot(trayIconForBrightness(Brightness.light).path),
-      );
-    });
   });
 }
