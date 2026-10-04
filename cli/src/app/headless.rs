@@ -68,20 +68,16 @@ pub(super) async fn run(
             }
             AppEvent::Discovery(event) => {
                 handle_discovery(&mut ui, &mut storage, &discovery, event);
-                // The send only needs the destination confirmed — the direct
-                // probe does that in one round trip. Gating on
-                // DiscoveryFinished instead stalls every send behind the full
-                // 2.6 s announcement burst; DiscoveryFinished below still
-                // reports a destination that never appears.
+                // Early start only for explicit IPs: the direct probe
+                // confirms them in one round trip and an IP cannot be
+                // ambiguous, so waiting out the 2.6 s announcement burst
+                // buys nothing. Alias targets stay on DiscoveryFinished
+                // below, where a second same-alias device can still turn
+                // the resolve into an "ambiguous" error before any send.
                 if send.is_none()
-                    && let Ok(state) = start_send(
-                        &mut ui,
-                        &storage,
-                        &discovery,
-                        &target,
-                        &payload,
-                        &events_tx,
-                    )
+                    && matches!(target, TargetSelector::Ip(_))
+                    && let Ok(state) =
+                        start_send(&mut ui, &storage, &discovery, &target, &payload, &events_tx)
                 {
                     send = Some(state);
                 }
@@ -93,14 +89,7 @@ pub(super) async fn run(
                 // (alias targets, a destination that never appeared), resolve
                 // now and surface the error.
                 if send.is_none() {
-                    match start_send(
-                        &mut ui,
-                        &storage,
-                        &discovery,
-                        &target,
-                        &payload,
-                        &events_tx,
-                    ) {
+                    match start_send(&mut ui, &storage, &discovery, &target, &payload, &events_tx) {
                         Ok(state) => send = Some(state),
                         Err(reason) => break Err(anyhow::anyhow!(reason)),
                     }
