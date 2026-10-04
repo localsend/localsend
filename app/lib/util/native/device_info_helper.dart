@@ -1,11 +1,16 @@
+import 'dart:io';
+
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:localsend_isolates/model/device.dart';
 import 'package:localsend_isolates/model/device_info_result.dart';
+import 'package:logging/logging.dart';
 // ignore: implementation_imports
 import 'package:slang/src/builder/model/enums.dart';
 // ignore: implementation_imports
 import 'package:slang/src/builder/utils/string_extensions.dart';
+
+final _logger = Logger('DeviceInfoHelper');
 
 Future<DeviceInfoResult> getDeviceInfo() async {
   final plugin = DeviceInfoPlugin();
@@ -61,6 +66,30 @@ Future<DeviceInfoResult> getDeviceInfo() async {
     deviceModel: deviceModel,
     androidSdkInt: androidSdkInt,
   );
+}
+
+Future<String?> getDeviceName() async {
+  if (defaultTargetPlatform == TargetPlatform.android) {
+    try {
+      final info = await DeviceInfoPlugin().androidInfo;
+      final name = info.name.trim();
+      if (name.isNotEmpty) {
+        return name;
+      }
+      final model = info.model.trim();
+      return model.isEmpty ? null : model;
+    } catch (e, stackTrace) {
+      _logger.warning('Could not get Android device name', e, stackTrace);
+      return null;
+    }
+  }
+
+  if (defaultTargetPlatform == TargetPlatform.macOS) {
+    final result = await Process.run('scutil', ['--get', 'ComputerName']);
+    return result.stdout.toString().trim();
+  }
+
+  return Platform.localHostname;
 }
 
 extension on BrowserName {
