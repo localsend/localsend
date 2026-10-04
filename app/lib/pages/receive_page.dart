@@ -389,12 +389,6 @@ class _Actions extends StatelessWidget {
   }
 }
 
-/// Accepts the incoming transfer.
-///
-/// Enter is delivered by [acceptOnEnterKey] rather than by a [Shortcuts]
-/// activator, see there.
-class AcceptTransferIntent extends Intent {}
-
 /// Declines the incoming transfer.
 class DeclineTransferIntent extends Intent {}
 

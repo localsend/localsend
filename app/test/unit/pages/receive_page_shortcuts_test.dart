@@ -245,13 +245,10 @@ void main() {
   });
 
   test('every activator maps to the intended intent', () {
+    // Escape is the only binding. An exact match also pins that Enter is not
+    // one, which would win over the focused button — see [acceptOnEnterKey].
     expect(receivePageShortcuts, {
       const SingleActivator(LogicalKeyboardKey.escape): isA<DeclineTransferIntent>(),
     });
-    expect(
-      receivePageShortcuts.values.whereType<AcceptTransferIntent>(),
-      isEmpty,
-      reason: 'Enter must not be a Shortcuts activator, it would win over the focused button',
-    );
   });
 }
