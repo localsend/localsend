@@ -24,7 +24,7 @@ dependencies:
 postinstall_scripts:
   - echo "Installed Localsend successfully"
 postuninstall_scripts:
-  - echo "Sorry to see you go :("
+  - if [ "$1" = "remove" ]; then echo "Sorry to see you go :("; fi
 
 keywords:
   - Sharing
