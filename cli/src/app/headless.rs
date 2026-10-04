@@ -67,14 +67,43 @@ pub(super) async fn run(
                 handle_server_event(&mut ui, &storage, &discovery, &mut send, event)
             }
             AppEvent::Discovery(event) => {
-                handle_discovery(&mut ui, &mut storage, &discovery, event)
+                handle_discovery(&mut ui, &mut storage, &discovery, event);
+                // The send only needs the destination confirmed — the direct
+                // probe does that in one round trip. Gating on
+                // DiscoveryFinished instead stalls every send behind the full
+                // 2.6 s announcement burst; DiscoveryFinished below still
+                // reports a destination that never appears.
+                if send.is_none()
+                    && let Ok(state) = start_send(
+                        &mut ui,
+                        &storage,
+                        &discovery,
+                        &target,
+                        &payload,
+                        &events_tx,
+                    )
+                {
+                    send = Some(state);
+                }
             }
             AppEvent::Tick => render_progress(&mut ui, &mut send),
             AppEvent::Log { category, text } => ui.log(category, &text),
             AppEvent::DiscoveryFinished => {
-                match start_send(&mut ui, &storage, &discovery, &target, &payload, &events_tx) {
-                    Ok(state) => send = Some(state),
-                    Err(reason) => break Err(anyhow::anyhow!(reason)),
+                // Fallback: if no Discovery event already started the send
+                // (alias targets, a destination that never appeared), resolve
+                // now and surface the error.
+                if send.is_none() {
+                    match start_send(
+                        &mut ui,
+                        &storage,
+                        &discovery,
+                        &target,
+                        &payload,
+                        &events_tx,
+                    ) {
+                        Ok(state) => send = Some(state),
+                        Err(reason) => break Err(anyhow::anyhow!(reason)),
+                    }
                 }
             }
             AppEvent::SendSessionStarted {
