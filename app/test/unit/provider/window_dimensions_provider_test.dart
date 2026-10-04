@@ -52,10 +52,11 @@ void main() {
         'visiblePosition': {'dx': 0.0, 'dy': 0.0},
         'scaleFactor': 1.0,
       };
-      if (call.method == 'getAllDisplays')
+      if (call.method == 'getAllDisplays') {
         return {
           'displays': [display],
         };
+      }
       if (call.method == 'getPrimaryDisplay') return display;
       if (call.method == 'getCursorScreenPoint') return {'dx': 500.0, 'dy': 400.0};
       return null;
