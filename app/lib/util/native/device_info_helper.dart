@@ -84,7 +84,7 @@ Future<String?> getDeviceName() async {
     }
   }
 
-  if (Platform.isMacOS) {
+  if (defaultTargetPlatform == TargetPlatform.macOS) {
     final result = await Process.run('scutil', ['--get', 'ComputerName']);
     return result.stdout.toString().trim();
   }
