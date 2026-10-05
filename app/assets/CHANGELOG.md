@@ -18,7 +18,7 @@
 - fix(linux): match the native title bar to the app theme (@ShlomoCode)
 - fix(linux): don't show the farewell message during deb upgrades or reinstalls (@ShlomoCode)
 - fix(desktop): respect custom error-403.html even when web sharing is disabled (@Tienisto)
-- feat(cli): replace `--file` with the `send` command for sending files and directories (@otanim)
+- feat(cli)!: replace `--file` with the `send` command for sending files and directories (@otanim)
 - feat: restore hashtag codes for connecting to devices (@Tienisto)
 - security(cli): sanitize remote text before displaying it in the terminal (@Tienisto)
 - security: limit simultaneous incoming connections to prevent resource exhaustion (@Tienisto)
