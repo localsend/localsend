@@ -45,25 +45,23 @@ class WindowDimensionsController {
     }
   }
 
+  /// Checks the visible bounding rectangle of all displays.
+  /// Windows may span displays; gaps between displays are not checked.
   Future<bool> isInScreenBounds(Offset windowPosition, [Size? windowSize]) async {
     final displays = await ScreenRetriever.instance.getAllDisplays();
-    final sumWidth = displays.fold(0.0, (previousValue, element) => previousValue + element.digestedSize.width);
-    final maxHeight = displays.fold(
-      0.0,
-      (previousValue, element) => previousValue > element.digestedSize.height ? previousValue : element.digestedSize.height,
-    );
-    final minX = displays.fold(0.0, (previousValue, element) {
-      final currX = element.visiblePosition?.dx ?? 0;
-      return currX < previousValue ? currX : previousValue;
-    });
-    final minY = displays.fold(0.0, (previousValue, element) {
-      final currY = element.visiblePosition?.dy ?? 0;
-      return currY < previousValue ? currY : previousValue;
-    });
-    final checkX = windowPosition.dx >= minX && windowPosition.dx + (windowSize?.width ?? 0) <= sumWidth;
-    final checkY = windowPosition.dy >= minY && windowPosition.dy + (windowSize?.height ?? 0) <= maxHeight;
+    if (displays.isEmpty) {
+      return false;
+    }
 
-    return checkX && checkY;
+    final screenBounds = displays
+        .map((display) => (display.visiblePosition ?? Offset.zero) & display.digestedSize)
+        .reduce((bounds, displayBounds) => bounds.expandToInclude(displayBounds));
+    final windowBounds = windowPosition & (windowSize ?? Size.zero);
+
+    return windowBounds.left >= screenBounds.left &&
+        windowBounds.top >= screenBounds.top &&
+        windowBounds.right <= screenBounds.right &&
+        windowBounds.bottom <= screenBounds.bottom;
   }
 
   Future<void> storeDimensions({
