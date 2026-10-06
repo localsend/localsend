@@ -1,9 +1,9 @@
-import 'package:common/model/device_info_result.dart';
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:flutter/material.dart';
 import 'package:localsend_app/model/persistence/color_mode.dart';
 import 'package:localsend_app/model/state/server/server_state.dart';
 import 'package:localsend_app/model/state/settings_state.dart';
+import 'package:localsend_isolates/model/device_info_result.dart';
 
 part 'settings_tab_vm.mapper.dart';
 
@@ -25,7 +25,7 @@ class SettingsTabVm with SettingsTabVmMappable {
   final bool autoStartLaunchHidden;
   final bool showInContextMenu;
   final void Function(BuildContext context, ThemeMode mode) onChangeTheme;
-  final void Function(ColorMode mode) onChangeColorMode;
+  final void Function(BuildContext context, ColorMode mode) onChangeColorMode;
   final void Function(BuildContext context) onTapLanguage;
   final void Function(BuildContext context) onToggleAutoStart;
   final void Function(BuildContext context) onToggleAutoStartLaunchHidden;

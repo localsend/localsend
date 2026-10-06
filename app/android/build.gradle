@@ -17,13 +17,32 @@ subprojects {
         if (project.plugins.hasPlugin("com.android.application") ||
                 project.plugins.hasPlugin("com.android.library")) {
             project.android {
-                compileSdkVersion 34
-                buildToolsVersion "34.0.0"
+                compileSdkVersion 36
+                buildToolsVersion "36.0.0"
             }
         }
     }
 }
 
+
+// Disable the linker build-id in the "jni" pub package's native library.
+// https://github.com/localsend/localsend/issues/3219
+// https://f-droid.org/docs/Reproducible_Builds/
+subprojects {
+    plugins.withId("com.android.library") {
+        if (project.name == "jni") {
+            project.android {
+                defaultConfig {
+                    externalNativeBuild {
+                        cmake {
+                            arguments "-DCMAKE_SHARED_LINKER_FLAGS=-Wl,--build-id=none"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
 
 subprojects {
     project.evaluationDependsOn(':app')

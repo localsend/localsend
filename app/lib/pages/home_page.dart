@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:desktop_drop/desktop_drop.dart';
 import 'package:flutter/material.dart';
 import 'package:localsend_app/config/init.dart';
@@ -12,14 +11,14 @@ import 'package:localsend_app/pages/tabs/send_tab.dart';
 import 'package:localsend_app/pages/tabs/settings_tab.dart';
 import 'package:localsend_app/provider/selection/selected_sending_files_provider.dart';
 import 'package:localsend_app/util/native/cross_file_converters.dart';
-import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_app/widget/responsive_builder.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 
 enum HomeTab {
   receive(Icons.wifi),
   send(Icons.send),
-  settings(Icons.settings);
+  settings(Icons.settings)
+  ;
 
   const HomeTab(this.icon);
 
@@ -84,16 +83,20 @@ class _HomePageState extends State<HomePage> with Refena {
         });
       },
       onDragDone: (event) async {
-        if (event.files.length == 1 && Directory(event.files.first.path).existsSync()) {
-          // user dropped a directory
-          await ref.redux(selectedSendingFilesProvider).dispatchAsync(AddDirectoryAction(event.files.first.path));
-        } else {
-          // user dropped one or more files
+        // the drop may contain a mix of files and directories
+        final droppedDirectories = event.files.where((file) => Directory(file.path).existsSync()).toList();
+        final droppedFiles = event.files.where((file) => !Directory(file.path).existsSync()).toList();
+
+        for (final directory in droppedDirectories) {
+          await ref.redux(selectedSendingFilesProvider).dispatchAsync(AddDirectoryAction(directory.path));
+        }
+
+        if (droppedFiles.isNotEmpty) {
           await ref
               .redux(selectedSendingFilesProvider)
               .dispatchAsync(
                 AddFilesAction(
-                  files: event.files,
+                  files: droppedFiles,
                   converter: CrossFileConverters.convertXFile,
                 ),
               );
@@ -106,78 +109,62 @@ class _HomePageState extends State<HomePage> with Refena {
             body: Row(
               children: [
                 if (!sizingInformation.isMobile)
-                  Stack(
-                    children: [
-                      NavigationRail(
-                        selectedIndex: vm.currentTab.index,
-                        onDestinationSelected: (index) => vm.changeTab(HomeTab.values[index]),
-                        extended: sizingInformation.isDesktop,
-                        backgroundColor: Theme.of(context).cardColorWithElevation,
-                        leading: sizingInformation.isDesktop
-                            ? Column(
-                                children: [
-                                  checkPlatform([TargetPlatform.macOS])
-                                      ? // considered adding some extra space so it looks more natural
-                                        SizedBox(height: 40)
-                                      : SizedBox(height: 20),
-                                  const Text(
-                                    'LocalSend',
-                                    style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                  SizedBox(height: 20),
-                                ],
-                              )
-                            : checkPlatform([TargetPlatform.macOS])
-                            ? SizedBox(
-                                height: 20,
-                              )
-                            : null,
-                        destinations: HomeTab.values.map((tab) {
-                          return NavigationRailDestination(
-                            icon: Icon(tab.icon),
-                            label: Text(tab.label),
-                          );
-                        }).toList(),
-                      ),
-                      // makes the top draggable
-                      Positioned(
-                        top: 0,
-                        left: 0,
-                        right: 0,
-                        height: 40,
-                        child: MoveWindow(),
-                      ),
-                    ],
+                  NavigationRail(
+                    selectedIndex: vm.currentTab.index,
+                    onDestinationSelected: (index) => vm.changeTab(HomeTab.values[index]),
+                    extended: sizingInformation.isDesktop,
+                    backgroundColor: Theme.of(context).cardColorWithElevation,
+                    leading: sizingInformation.isDesktop
+                        ? const Column(
+                            children: [
+                              SizedBox(height: 20),
+                              Text(
+                                'LocalSend',
+                                style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
+                                textAlign: TextAlign.center,
+                              ),
+                              SizedBox(height: 20),
+                            ],
+                          )
+                        : null,
+                    destinations: HomeTab.values.map((tab) {
+                      return NavigationRailDestination(
+                        icon: Icon(tab.icon),
+                        label: Text(tab.label),
+                      );
+                    }).toList(),
                   ),
                 Expanded(
-                  child: Stack(
-                    children: [
-                      PageView(
-                        controller: vm.controller,
-                        physics: const NeverScrollableScrollPhysics(),
-                        children: const [
-                          SafeArea(child: ReceiveTab()),
-                          SafeArea(child: SendTab()),
-                          SettingsTab(),
-                        ],
-                      ),
-                      if (_dragAndDropIndicator)
-                        Container(
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                            color: Theme.of(context).scaffoldBackgroundColor,
-                          ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              const Icon(Icons.file_download, size: 128),
-                              const SizedBox(height: 30),
-                              Text(t.sendTab.placeItems, style: Theme.of(context).textTheme.titleLarge),
-                            ],
-                          ),
+                  child: SafeArea(
+                    left: sizingInformation.isMobile,
+                    child: Stack(
+                      children: [
+                        PageView(
+                          controller: vm.controller,
+                          physics: const NeverScrollableScrollPhysics(),
+                          children: const [
+                            ReceiveTab(),
+                            SendTab(),
+                            SettingsTab(),
+                          ],
                         ),
-                    ],
+                        if (_dragAndDropIndicator)
+                          Container(
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                              color: Theme.of(context).scaffoldBackgroundColor,
+                            ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Icon(Icons.file_download, size: 128),
+                                const SizedBox(height: 30),
+                                Text(t.sendTab.placeItems, style: Theme.of(context).textTheme.titleLarge),
+                              ],
+                            ),
+                          ),
+                      ],
+                    ),
                   ),
                 ),
               ],

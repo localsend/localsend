@@ -16,6 +16,7 @@ class CustomIconButton extends StatelessWidget {
     return TextButton(
       style: TextButton.styleFrom(
         foregroundColor: Theme.of(context).colorScheme.onSurface,
+        iconSize: 24,
         tapTargetSize: MaterialTapTargetSize.shrinkWrap,
         minimumSize: Size.zero,
         shape: const CircleBorder(),

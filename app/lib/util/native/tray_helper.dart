@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/foundation.dart';
 import 'package:localsend_app/gen/assets.gen.dart';
 import 'package:localsend_app/gen/strings.g.dart';
@@ -86,7 +85,6 @@ Future<void> showFromTray() async {
     // This will crash on Windows
     // https://github.com/localsend/localsend/issues/32
     await windowManager.setSkipTaskbar(false);
-    appWindow.show();
   }
 
   // Enable animations

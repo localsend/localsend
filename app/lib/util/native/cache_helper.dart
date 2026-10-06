@@ -3,11 +3,11 @@
 import 'dart:io';
 import 'dart:isolate';
 
-import 'package:common/util/logger.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/services.dart';
-import 'package:localsend_app/util/file_path_helper.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
+import 'package:localsend_isolates/util/file_path_helper.dart';
+import 'package:localsend_isolates/util/logger.dart';
 import 'package:logging/logging.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path_provider_foundation/path_provider_foundation.dart';
@@ -32,7 +32,7 @@ Future<void> _clear(RootIsolateToken token) async {
   BackgroundIsolateBinaryMessenger.ensureInitialized(token);
 
   final futures = (
-    FilePicker.platform.clearTemporaryFiles(),
+    FilePicker.clearTemporaryFiles(),
     PhotoManager.clearFileCache(),
     checkPlatform([TargetPlatform.iOS, TargetPlatform.android])
         ? getTemporaryDirectory().then((cacheDir) {

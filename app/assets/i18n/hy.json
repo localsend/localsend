@@ -1,0 +1,573 @@
+{
+  "appName": "LocalSend",
+  "general": {
+    "accept": "Ընդունել",
+    "accepted": "Ընդունված է",
+    "add": "Ավելացնել",
+    "advanced": "Լրացուցիչ",
+    "cancel": "Չեղարկել",
+    "close": "Փակել",
+    "confirm": "Հաստատել",
+    "continueStr": "Շարունակել",
+    "copy": "Պատճենել",
+    "copiedToClipboard": "Պատճենվեց",
+    "decline": "Մերժել",
+    "done": "Պատրաստ",
+    "delete": "Ջնջել",
+    "edit": "Փոփոխել",
+    "error": "Սխալ",
+    "example": "Օրինակ",
+    "files": "Ֆայլեր",
+    "finished": "Ավարտված",
+    "hide": "Թաքցնել",
+    "off": "Անջ․",
+    "offline": "Օֆլայն",
+    "on": "Միացված",
+    "online": "Առցանց",
+    "open": "Բացել",
+    "queue": "Հերթ",
+    "quickSave": "Արագ պահպանում",
+    "quickSaveFromFavorites": "Արագ պահպանում «Սիրվածներ»-ում",
+    "renamed": "Վերանվանվեց",
+    "reset": "Չեղարկել փոփոխությունները",
+    "restart": "Վերաբացել",
+    "settings": "Կարգավորումներ",
+    "skipped": "Բաց թողնված",
+    "start": "Սկսել",
+    "stop": "Կանգնեցնել",
+    "save": "Պահել",
+    "unchanged": "Անփոփոխ",
+    "unknown": "Անհայտ",
+    "noItemInClipboard": "Փոխանակման բուֆերում բան չկա"
+  },
+  "receiveTab": {
+    "title": "Ստանալ",
+    "infoBox": {
+      "ip": "IP:",
+      "port": "Port:",
+      "alias": "Սարքի անունը՝"
+    },
+    "quickSave": {
+      "off": "@:general.off",
+      "favorites": "Սիրվածներ",
+      "on": "@:general.on"
+    },
+    "link": "Ստանալ հղումով"
+  },
+  "sendTab": {
+    "title": "Ուղարկել",
+    "selection": {
+      "title": "Ընտրություն",
+      "files": "Ֆայլեր՝ {files}",
+      "size": "Չափսը՝ {size}"
+    },
+    "picker": {
+      "file": "Ֆայլ",
+      "folder": "Պանակ",
+      "media": "Մեդիա",
+      "text": "Տեքստ",
+      "app": "Ծրագիր",
+      "clipboard": "Տեղադրել"
+    },
+    "shareIntentInfo": "Կարող եք նաև օգտագործել ձեր հեռախոսի «Կիսվել» ֆունկցիան՝ ֆայլերն ավելի հեշտությամբ ընտրելու համար։",
+    "nearbyDevices": "Սարքեր մոտակայքում",
+    "thisDevice": "Այս սարքը",
+    "scan": "Որոնել սարքեր",
+    "manualSending": "Ձեռքով ուղարկում",
+    "sendMode": "Ուղարկման ռեժիմ",
+    "sendModes": {
+      "single": "Մեկ ստացող",
+      "multiple": "Մի քանի ստացող",
+      "link": "Կիսվել հղման միջոցով"
+    },
+    "sendModeHelp": "Բացատրություն",
+    "help": "Համոզվեք, որ ստացողը և Դուք միացած եք նույն Wi-Fi-ին։",
+    "placeItems": "Ընտրեք իրերը կիսվելու համար։"
+  },
+  "settingsTab": {
+    "title": "Կարգավորումներ",
+    "general": {
+      "title": "Ընդհանուր",
+      "brightness": "Տեսք",
+      "brightnessOptions": {
+        "system": "Համակարգ",
+        "dark": "Մութ",
+        "light": "Լուսավոր"
+      },
+      "color": "Գույն",
+      "colorOptions": {
+        "system": "Համակարգ",
+        "oled": "OLED",
+        "custom": "Հատուկ"
+      },
+      "language": "Լեզու",
+      "languageOptions": {
+        "system": "Համակարգ"
+      },
+      "saveWindowPlacement": "Պահել պատուհանի դիրքը դուրս գալուց հետո",
+      "saveWindowPlacementWindows": "Պահել պատուհանի դիրքը դուրս գալուց հետո",
+      "minimizeToTray": "Փոքրացնել համակարգի տրեյում/տողում փակելու ժամանակ",
+      "launchAtStartup": "Ավտոբացում",
+      "launchMinimized": "Թաքնված ավտոբացում",
+      "showInContextMenu": "Ցուցադրել LocalSend-ը կոնտեքստային մենյուում",
+      "animations": "Անիմացիաներ"
+    },
+    "receive": {
+      "title": "Ստանալ",
+      "quickSave": "@:general.quickSave",
+      "quickSaveFromFavorites": "@:general.quickSaveFromFavorites",
+      "requirePin": "@:webSharePage.requirePin",
+      "autoFinish": "Ավտոմատ ավարտ",
+      "destination": "Պահել պանակում",
+      "downloads": "(Ներբեռնումներ)",
+      "saveToGallery": "Պահել մեդիան սարքում",
+      "saveToHistory": "Պահել պատմությունում",
+      "verifyChecksums": "Ստուգել ստուգվող գումարները ֆայլեր ստանալիս"
+    },
+    "send": {
+      "title": "Ուղարկում",
+      "shareViaLinkAutoAccept": "Ավտոմատ ընդունել հարցումները «Կիսվել հղումի միջոցով» ռեժիմում",
+      "createChecksums": "Ստեղծել ստուգվող գումարներ ֆայլեր ուղարկելիս"
+    },
+    "network": {
+      "title": "Ցանց",
+      "needRestart": "Որպեսզի կարգավորումները ընդունվեն, պետք է թարմացնել սերվերը։",
+      "server": "Սերվեր",
+      "alias": "Սարքի անունը",
+      "deviceType": "Սարքի տեսակը",
+      "deviceModel": "Սարքի մոդել",
+      "port": "Port",
+      "network": "Ցանց",
+      "networkOptions": {
+        "all": "Բոլորը",
+        "filtered": "Ֆիլտրված"
+      },
+      "discoveryTimeout": "Որոնման ժամանակի սպառում",
+      "useSystemName": "Օգտագործել համակարգի անունը",
+      "generateRandomAlias": "Ստեղծել պատահական կեղծանուններ",
+      "portWarning": "Հնարավոր է՝ ձեզ չհայտնաբերեն այլ սարքերը, քանի որ օգտագործում եք հատուկ պորտ (լռելյայն՝ {defaultPort}):",
+      "encryption": "Գաղտնագրում",
+      "multicastGroup": "Բազմահեռարձակման հասցե",
+      "multicastGroupWarning": "Հնարավոր է՝ ձեզ չհայտնաբերեն այլ սարքերը, քանի որ օգտագործում եք հատուկ բազմահեռարձակման հասցե: (լռելյայն՝ {defaultMulticast})"
+    },
+    "other": {
+      "title": "Այլ",
+      "support": "Աջակցել LocalSend-ին",
+      "donate": "Նվիրաբերել",
+      "privacyPolicy": "Գաղտնիության քաղաքականություն",
+      "termsOfUse": "Օգտագործման պայմաններ"
+    },
+    "advancedSettings": "Ընդլայնված կարգավորումներ"
+  },
+  "troubleshootPage": {
+    "title": "Խնդիրների լուծում",
+    "subTitle": "Ծրագիրը չի՞ աշխատում սպասվածի պես: Այստեղ կարող եք գտնել խնդիրների որոշ տարածված լուծումներ:",
+    "solution": "Լուծում.",
+    "fixButton": "Ավտոմատ ուղղել",
+    "firewall": {
+      "symptom": "Այս սարքը կարող է ֆայլեր ուղարկել այլ սարքերի, բայց այլ սարքերը չեն կարող ֆայլեր ուղարկել այս սարքին։",
+      "solution": "Սա, ամենայն հավանականությամբ, firewall-ի խնդիր է։ Դուք կարող եք լուծել այս խնդիրը՝ թույլատրելով մուտքային միացումները (UDP և TCP) {port} պորտի վրա։",
+      "openFirewall": "Բացել Firewall-ը"
+    },
+    "noDiscovery": {
+      "symptom": "Այս սարքը չի կարողանում գտնել այլ սարքեր։",
+      "solution": "Համոզվեք, որ բոլոր սարքերը միացված են նույն Wi-Fi ցանցին և ունեն նույն կարգավորումները (պորտ, բազմահեռարձակման հասցե, գաղտնագրում): Կարող եք փորձել ձեռքով մուտքագրել նպատակային սարքի IP հասցեն: Եթե սա աշխատում է, խորհուրդ ենք տալիս ավելացնել այս սարքը սիրվածների ցանկում, որպեսզի այն ապագայում ավտոմատ կերպով հայտնաբերվի:"
+    },
+    "noConnection": {
+      "symptom": "Երկու սարքերն էլ չեն կարողանում միմյանց գտնել և ֆայլեր փոխանակել։",
+      "solution": "Արդյո՞ք խնդիրը գոյություն ունի երկու կողմերում: Եթե այո, ապա պետք է համոզվեք, որ երկու սարքերն էլ միացված են նույն Wi-Fi-ին և ունեն նույն կարգավորումները (պորտ, բազմահեռարձակման հասցե, գաղտնագրում): Wi-Fi-ն կարող է թույլ չտալ մասնակիցների միջև փոխանակում՝ մուտքի կետի (AP) մեկուսացման պատճառով: Այս դեպքում այս տարբերակը պետք է անջատված լինի ռոուտերի վրա:"
+    }
+  },
+  "networkInterfacesPage": {
+    "title": "Ցանցային ինտերֆեյսներ",
+    "info": "Լռելյայն, LocalSend-ը օգտագործում է բոլոր հասանելի ցանցային ինտերֆեյսները: Այստեղ կարող եք բացառել անցանկալի ցանցերը: Փոփոխությունները կիրառելու համար պետք է թարմացնել սերվերը:",
+    "preview": "Նախադիտում",
+    "whitelist": "Սպիտակ ցուցակ",
+    "blacklist": "Սև ցուցակ"
+  },
+  "receiveHistoryPage": {
+    "title": "Պատմություն",
+    "openFolder": "Բացել պանակը",
+    "deleteHistory": "Ջնջել պատմությունը",
+    "empty": "Պատմությունը դատարկ է։",
+    "entryActions": {
+      "open": "Բացել ֆայլ",
+      "showInFolder": "Ցուցադրել պանակում",
+      "info": "Ինֆորմացիա",
+      "deleteFromHistory": "Ջնջել պատմությունից"
+    }
+  },
+  "apkPickerPage": {
+    "title": "Ծրագրեր (APK)",
+    "excludeSystemApps": "Բացառել համակարգի ծրագրերը",
+    "excludeAppsWithoutLaunchIntent": "Բացառել չբացվող ծրագրերը",
+    "apps": "{n} ծրագիր"
+  },
+  "selectedFilesPage": {
+    "deleteAll": "Ջնջել բոլորը"
+  },
+  "deviceDetailsPage": {
+    "title": "Սարքի մանրամասները",
+    "favorite": "Սիրված",
+    "verify": "Հաստատել",
+    "info": {
+      "name": "Անուն",
+      "address": "Հասցե",
+      "version": "Վերսիա",
+      "protocol": "v{version} պրոտոկոլ"
+    },
+    "logs": {
+      "title": "Լոգեր",
+      "empty": "Լոգեր չկան։",
+      "discovered": "Գտնվել է {protocol} ({host}) միջոցով",
+      "updated": "Թարմացվել է {protocol} ({host}) միջոցով"
+    }
+  },
+  "verifyPage": {
+    "title": "Հաստատել",
+    "icons": "Նշաններ",
+    "text": "Տեքստ",
+    "question": "Նո՞ւյն տեսքն ունի մյուս սարքի վրա։"
+  },
+  "receivePage": {
+    "subTitle": {
+      "one": "ուզում է ձեզ ֆայլ ուղարկել",
+      "other": "ուզում է ձեզ {n} ֆայլ ուղարկել"
+    },
+    "subTitleMessage": "ձեզ նամակ ուղարկեց՝",
+    "subTitleLink": "ուղարկել է ձեզ հղում՝",
+    "canceled": "Ուղարկողը չեղարկել է հարցումը։"
+  },
+  "receiveOptionsPage": {
+    "title": "Տարբերակներ",
+    "destination": "@:settingsTab.receive.destination",
+    "appDirectory": "(LocalSend պանակ)",
+    "saveToGallery": "@:settingsTab.receive.saveToGallery",
+    "saveToGalleryOff": "Ավտոմատ անջատված է, քանի որ կան պանակներ։"
+  },
+  "sendPage": {
+    "calculatingChecksum": "Գումարային թվի հաշվվում ({curr}/{n})",
+    "waiting": "Սպասում ենք պատասխանի․․․",
+    "rejected": "Ստացողը մերժել է հարցումը։",
+    "tooManyAttempts": "@:web.tooManyAttempts",
+    "busy": "Ստացողը զբաղված է մեկ այլ հարցումով։"
+  },
+  "progressPage": {
+    "titleSending": "Ֆայլերի ուղարկում",
+    "titleReceiving": "Ֆայլերի ստացում",
+    "savedToGallery": "Պահված է սարքում",
+    "total": {
+      "title": {
+        "sending": "Փոխանակման ընդհանուր ժամանակ ({time})",
+        "finishedError": "Ավարտվեց սխալով",
+        "canceledSender": "Ուղարկողը չեղարկեց",
+        "canceledReceiver": "Ստացողը չեղարկեց"
+      },
+      "count": "Ֆայլեր՝ {curr} / {n}",
+      "size": "Չափսը՝ {curr} / {n}",
+      "speed": "Արագություն՝ {speed}/վրկ"
+    },
+    "remainingTime": {
+      "minutesUnit(plural, param=m)": {
+        "other": "{m}ր",
+        "one": "{m}ր"
+      },
+      "hoursUnit(plural, param=h)": {
+        "other": "{h}ժ",
+        "one": "{h}ժ"
+      },
+      "minutes": "{m}:{ss}",
+      "hours": "@:.hoursUnit @:.minutesUnit"
+    }
+  },
+  "webSharePage": {
+    "title": "Կիսվել հղման միջոցով",
+    "loading": "Սերվերի սկսում․․․",
+    "stopping": "Սերվերը կանգնեցվում է…",
+    "error": "Սերվերը սկսելիս սխալ տեղի ունեցավ։",
+    "openLink": {
+      "one": "Բացել այս հղումը բրաուզերում",
+      "other": "Բացել այս հղումները բրաուզերում"
+    },
+    "requests": "Հարցումներ",
+    "noRequests": "Դեռևս հարցումներ չկան։",
+    "encryption": "@:settingsTab.network.encryption",
+    "autoAccept": "Ավտոմատ ընդունել հարցումները",
+    "requirePin": "Պահանջել PIN կոդ",
+    "pinHint": "PIN կոդը՝ «{pin}»",
+    "encryptionHint": "LocalSend-ը օգտագործում է ինքնաստորագրված վկայական։ Դուք պետք է ընդունեք այն ձեր բրաուզերում։",
+    "pendingRequests": "Սպասող հարցումներ՝ {n}"
+  },
+  "webReceivePage": {
+    "title": "Ստանալ հղումով"
+  },
+  "aboutPage": {
+    "title": "LocalSend-ի մասին",
+    "description": [
+      "LocalSend-ը անվճար, բաց կոդով ծրագիր է, որը թույլ է տալիս անվտանգ կերպով կիսվել ֆայլերով և նամակներով մոտակա սարքերի հետ ձեր տեղական ցանցի միջոցով՝ առանց ինտերնետ կապի անհրաժեշտության:",
+      "Ծրագիրը հասանելի է Android, iOS, macOS, Windows և Linux օպերացիոն համակարգերում: Դուք կարող եք գտնել բոլոր ներբեռնման տարբերակները պաշտոնական գլխավոր էջում:"
+    ],
+    "author": "Հեղինակ",
+    "contributors": "Աջակցողներ",
+    "packagers": "Փաթեթավորողներ",
+    "translators": "Թարգմանիչներ"
+  },
+  "donationPage": {
+    "title": "Նվիրաբերել",
+    "info": "LocalSend-ը անվճար է, բաց կոդով և առանց որևէ գովազդի: Եթե ​​ձեզ դուր է գալիս ծրագիրը, կարող եք աջակցել զարգացմանը նվիրաբերելով:",
+    "donate": "Նվիրաբերել {amount}",
+    "thanks": "Շա՜տ շնորհակալ ենք",
+    "restore": "Վերականգնել գնումը"
+  },
+  "changelogPage": {
+    "title": "Փոփոխությունների պատմություն"
+  },
+  "whatsNewPage": {
+    "title": "Ի՞նչ նոր բաներ կան {version}-ում",
+    "changes(interface=WhatsNewStrings)": {
+      "v1_18_0": {
+        "changes": [
+          "Գաղտնագրումն այլևս չի դանդաղեցնում փոխանցումները: Այն վերագործարկվել է այս սարքի վրա, եթե դուք այն նախկինում անջատել եք:",
+          "Սիրվածներից ստացված հարցումները այժմ ընդունվում են ավտոմատ: Սա միացված է լռելյայնորեն և կարող է անջատվել կարգավորումներում:",
+          "Android-ում տվյալների փոխանցումը շարունակվում է, երբ ծրագիրը ֆոնային ռեժիմում է կամ էկրանը անջատված է։ iOS-ում հավելվածը պետք է մնա առաջին պլանում։"
+        ]
+      }
+    }
+  },
+  "aliasGenerator(ignoreMissing, ignoreGpt)": {
+    "adjectives": [
+      "Adorable",
+      "Beautiful",
+      "Big",
+      "Bright",
+      "Clean",
+      "Clever",
+      "Cool",
+      "Cute",
+      "Cunning",
+      "Determined",
+      "Energetic",
+      "Efficient",
+      "Fantastic",
+      "Fast",
+      "Fine",
+      "Fresh",
+      "Good",
+      "Gorgeous",
+      "Great",
+      "Handsome",
+      "Hot",
+      "Kind",
+      "Lovely",
+      "Mystic",
+      "Neat",
+      "Nice",
+      "Patient",
+      "Pretty",
+      "Powerful",
+      "Rich",
+      "Secret",
+      "Smart",
+      "Solid",
+      "Special",
+      "Strategic",
+      "Strong",
+      "Tidy",
+      "Wise"
+    ],
+    "fruits": [
+      "Apple",
+      "Avocado",
+      "Banana",
+      "Blackberry",
+      "Blueberry",
+      "Broccoli",
+      "Carrot",
+      "Cherry",
+      "Coconut",
+      "Grape",
+      "Lemon",
+      "Lettuce",
+      "Mango",
+      "Melon",
+      "Mushroom",
+      "Onion",
+      "Orange",
+      "Papaya",
+      "Peach",
+      "Pear",
+      "Pineapple",
+      "Potato",
+      "Pumpkin",
+      "Raspberry",
+      "Strawberry",
+      "Tomato"
+    ],
+    "combination": "{adjective} {fruit}"
+  },
+  "dialogs": {
+    "addFile": {
+      "title": "Ավելացնել ընտրությանը",
+      "content": "Ի՞նչ եք ուզում ավելացնել։"
+    },
+    "openFile": {
+      "title": "Բացել ֆայլ",
+      "content": "Ցանկանո՞ւմ եք բացել ստացված ֆայլը։"
+    },
+    "addressInput": {
+      "title": "Գրեք հասցեն",
+      "recentlyUsed": "Վերջերս օգտագործված՝ "
+    },
+    "cancelSession": {
+      "title": "Չեղարկել ֆայլերի փոխանցումը",
+      "content": "Հաստա՞տ ուզում եք չեղարկել ֆայլերի փոխանցումը"
+    },
+    "cannotOpenFile": {
+      "title": "Չստացվեց բացել ֆայլը",
+      "content": "Չստացվեց բացել «{file}»։ Այս ֆայլը տեղափոխվե՞լ, վերանվանվե՞լ կամ ջնջվե՞լ է։"
+    },
+    "encryptionDisabledNotice": {
+      "title": "Գաղտնագրումն անջատված է",
+      "content": "Փոխանցումը այժմ տեղի է ունենում չգաղտնագրված HTTP պրոտոկոլի միջոցով: HTTPS պրոտոկոլն օգտագործելու համար կրկին միացրեք գաղտնագրումը:"
+    },
+    "errorDialog": {
+      "title": "@:general.error"
+    },
+    "favoriteDialog": {
+      "title": "Սիրվածներ",
+      "noFavorites": "Դեռևս սիրված սարքեր չկան։",
+      "addFavorite": "Ավելացնել"
+    },
+    "favoriteDeleteDialog": {
+      "title": "Ջնջել սիրվածներից",
+      "content": "Հաստա՞տ ուզում եք ջնջել «{name}» սիրվածներից։"
+    },
+    "favoriteEditDialog": {
+      "titleAdd": "Ավելացնել սիրվածներին",
+      "titleEdit": "Կարգավորումներ",
+      "name": "Սարքի անունը",
+      "auto": "(ավտոմատ)",
+      "ip": "IP հասցե",
+      "port": "Port"
+    },
+    "fileInfo": {
+      "title": "Ֆայլի մասին",
+      "fileName": "Ֆայլի անունը՝",
+      "path": "Ուղի՝",
+      "size": "Չափսը՝",
+      "sender": "Ուղարկող՝",
+      "time": "Ժամանակը՝"
+    },
+    "fileNameInput": {
+      "title": "Գրեք ֆայլի անունը",
+      "original": "Օրիգինալը՝ {original}"
+    },
+    "historyClearDialog": {
+      "title": "Մաքրել պատմությունը",
+      "content": "Հաստա՞տ ուզում եք ջնջել ամբողջ պատմությունը"
+    },
+    "localNetworkUnauthorized": {
+      "title": "@:dialogs.noPermission.title",
+      "description": "LocalSend-ը չի կարող գտնել այլ սարքեր՝ առանց այդ թույլտվության: Խնդրում ենք տրամադրել այս թույլտվությունը կարգավորումներում:",
+      "gotoSettings": "Կարգավորումներ"
+    },
+    "messageInput": {
+      "title": "Գրեք նամակը",
+      "multiline": "Բազմագիծ"
+    },
+    "noFiles": {
+      "title": "Ընտրված ֆայլեր չկան",
+      "content": "Խնդրում ենք ընտրել առնվազն մեկ ֆայլ։"
+    },
+    "noPermission": {
+      "title": "Թույլտվություն չկա",
+      "content": "Դուք չեք տրամադրել անհրաժեշտ թույլտվությունները։ Խնդրում ենք տրամադրել դրանք կարգավորումներում։"
+    },
+    "notAvailableOnPlatform": {
+      "title": "Հասանելի չէ",
+      "content": "Այս գործառույթը հասանելի է միայն հետևյալ սարքերում՝"
+    },
+    "qr": {
+      "title": "QR կոդ"
+    },
+    "quickActions": {
+      "title": "Արագ գործողություններ",
+      "counter": "Հաշվիչ",
+      "prefix": "Նախածանց",
+      "padZero": "Սկզբում ավելացնել զրոներ",
+      "sortBeforeCount": "Դասավորել այբբենական կարգով (Ա-Ֆ)",
+      "random": "Պատահական"
+    },
+    "quickSaveNotice": {
+      "title": "@:general.quickSave",
+      "content": "Ֆայլերի հարցումները այժմ ընդունվում են ավտոմատ: Հաշվի առեք, որ տեղական ցանցի բոլոր օգտատերերը կարող են ձեզ ֆայլեր ուղարկել:"
+    },
+    "quickSaveFromFavoritesNotice": {
+      "title": "@:general.quickSaveFromFavorites",
+      "content": [
+        "Ֆայլերի հարցումները այժմ ընդունվում են ավտոմատ ձեր սիրվածների ցանկում գտնվող սարքերից։"
+      ]
+    },
+    "pin": {
+      "title": "Գրեք PIN-ը"
+    },
+    "sendModeHelp": {
+      "title": "Ուղարկման ռեժիմներ",
+      "single": "Ֆայլերը ուղարկում է մեկ ստացողի: Ընտրությունը կջնջվի ֆայլերի փոխանցման ավարտից հետո:",
+      "multiple": "Ֆայլերը ուղարկում է մի քանի ստացողների: Ընտրությունը չի ջնջվի ֆայլերի փոխանցման ավարտից հետո:",
+      "link": "Ստացողները, որոնք չունեն LocalSend տեղադրված, կարող են ներբեռնել ընտրված ֆայլերը՝ բացելով հղումը իրենց բրաուզերում։"
+    },
+    "zoom": {
+      "title": "URL"
+    }
+  },
+  "sanitization": {
+    "empty": "Ֆայլի անունը չի կարող դատարկ լինել",
+    "invalid": "Ֆայլի անունը պարունակում է անվավեր նիշեր"
+  },
+  "tray": {
+    "open": "@:general.open",
+    "close": "Դուրս գալ LocalSend-ից",
+    "closeWindows": "Դուրս գալ"
+  },
+  "web": {
+    "waiting": "@:sendPage.waiting",
+    "enterPin": "Գրեք PIN-ը",
+    "invalidPin": "Անվավեր PIN կոդ",
+    "tooManyAttempts": "Չափից շատ փորձեր",
+    "rejected": "Մերժված",
+    "files": "Ֆայլեր",
+    "fileName": "Ֆայլի անունը",
+    "size": "Չափը"
+  },
+  "assetPicker": {
+    "confirm": "Հաստատել",
+    "cancel": "Չեղարկել",
+    "edit": "Փոփոխել",
+    "gifIndicator": "GIF",
+    "loadFailed": "Չհաջողվեց բեռնել",
+    "original": "Ծագումը",
+    "preview": "Նախադիտում",
+    "select": "Ընտրել",
+    "emptyList": "Դատարկ ցուցակ",
+    "unSupportedAssetType": "Չաջակցվող ֆայլի տեսակ",
+    "unableToAccessAll": "Չհաջողվեց մուտք ստանալ սարքի բոլոր ֆայլերին",
+    "viewingLimitedAssetsTip": "Ծրագիրը կարող է միայն տեսնել այն ֆայլերն ու ալբոմները, որոնց մուտք ունի։",
+    "changeAccessibleLimitedAssets": "Սեղմեք՝ հասանելի ֆայլերը թարմացնելու համար",
+    "accessAllTip": "Ծրագիրը մուտք ունի սարքի միայն որոշ ֆայլերին: Անցեք համակարգի կարգավորումներ և թույլ տվեք ծրագրին մուտք գործել սարքի վրա գտնվող բոլոր մեդիա ֆայլերին:",
+    "goToSystemSettings": "Գնալ համակարգի կարգավորումներ",
+    "accessLimitedAssets": "Շարունակել սահմանափակ մուտքով",
+    "accessiblePathName": "Հասանելի ֆայլեր",
+    "sTypeAudioLabel": "Աուդիո",
+    "sTypeImageLabel": "Նկար",
+    "sTypeVideoLabel": "Վիդեո",
+    "sTypeOtherLabel": "Այլ մեդիա",
+    "sActionPlayHint": "նվագարկել",
+    "sActionPreviewHint": "նախադիտում",
+    "sActionSelectHint": "ընտրել",
+    "sActionSwitchPathLabel": "փոխել ուղին",
+    "sActionUseCameraHint": "օգտագործել տեսախցիկը",
+    "sNameDurationLabel": "տևողություն",
+    "sUnitAssetCountLabel": "քանակը"
+  }
+}

@@ -2,6 +2,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 // ignore_for_file: type=lint
+// ignore_for_file: invalid_use_of_protected_member
 // ignore_for_file: unused_element, unnecessary_cast, override_on_non_overriding_member
 // ignore_for_file: strict_raw_type, inference_failure_on_untyped_parameter
 
@@ -65,12 +66,6 @@ class ReceiveHistoryEntryMapper extends ClassMapperBase<ReceiveHistoryEntry> {
     'timestamp',
     _$timestamp,
   );
-  static String _$timestampString(ReceiveHistoryEntry v) => v.timestampString;
-  static const Field<ReceiveHistoryEntry, String> _f$timestampString = Field(
-    'timestampString',
-    _$timestampString,
-    mode: FieldMode.member,
-  );
 
   @override
   final MappableFields<ReceiveHistoryEntry> fields = const {
@@ -83,7 +78,6 @@ class ReceiveHistoryEntryMapper extends ClassMapperBase<ReceiveHistoryEntry> {
     #fileSize: _f$fileSize,
     #senderAlias: _f$senderAlias,
     #timestamp: _f$timestamp,
-    #timestampString: _f$timestampString,
   };
 
   static ReceiveHistoryEntry _instantiate(DecodingData data) {

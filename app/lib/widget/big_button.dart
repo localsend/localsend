@@ -9,12 +9,14 @@ class BigButton extends StatelessWidget {
   final IconData icon;
   final String label;
   final bool filled;
+  final double? width;
   final VoidCallback onTap;
 
   const BigButton({
     required this.icon,
     required this.label,
     required this.filled,
+    this.width,
     required this.onTap,
   });
 
@@ -22,7 +24,7 @@ class BigButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
     final sizingInformation = SizingInformation(MediaQuery.sizeOf(context).width);
-    final buttonWidth = sizingInformation.isDesktop ? desktopWidth : mobileWidth;
+    final buttonWidth = width ?? (sizingInformation.isDesktop ? desktopWidth : mobileWidth);
     return SizedBox(
       width: buttonWidth,
       height: 65.0,
@@ -33,7 +35,7 @@ class BigButton extends StatelessWidget {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           ),
-          padding: EdgeInsets.only(left: 2, right: 2, top: 10 + desktopPaddingFix, bottom: 8 + desktopPaddingFix),
+          padding: const EdgeInsets.only(left: 2, right: 2, top: 10, bottom: 8),
         ),
         onPressed: onTap,
         child: Column(

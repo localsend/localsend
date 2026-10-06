@@ -2,6 +2,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 // ignore_for_file: type=lint
+// ignore_for_file: invalid_use_of_protected_member
 // ignore_for_file: unused_element, unnecessary_cast, override_on_non_overriding_member
 // ignore_for_file: strict_raw_type, inference_failure_on_untyped_parameter
 
@@ -23,11 +24,6 @@ class SendingFileMapper extends ClassMapperBase<SendingFile> {
 
   static FileDto _$file(SendingFile v) => v.file;
   static const Field<SendingFile, FileDto> _f$file = Field('file', _$file);
-  static FileStatus _$status(SendingFile v) => v.status;
-  static const Field<SendingFile, FileStatus> _f$status = Field(
-    'status',
-    _$status,
-  );
   static String? _$token(SendingFile v) => v.token;
   static const Field<SendingFile, String> _f$token = Field('token', _$token);
   static Uint8List? _$thumbnail(SendingFile v) => v.thumbnail;
@@ -53,7 +49,6 @@ class SendingFileMapper extends ClassMapperBase<SendingFile> {
   @override
   final MappableFields<SendingFile> fields = const {
     #file: _f$file,
-    #status: _f$status,
     #token: _f$token,
     #thumbnail: _f$thumbnail,
     #asset: _f$asset,
@@ -65,7 +60,6 @@ class SendingFileMapper extends ClassMapperBase<SendingFile> {
   static SendingFile _instantiate(DecodingData data) {
     return SendingFile(
       file: data.dec(_f$file),
-      status: data.dec(_f$status),
       token: data.dec(_f$token),
       thumbnail: data.dec(_f$thumbnail),
       asset: data.dec(_f$asset),
@@ -138,7 +132,6 @@ abstract class SendingFileCopyWith<$R, $In extends SendingFile, $Out>
   ListCopyWith<$R, int, ObjectCopyWith<$R, int, int>>? get bytes;
   $R call({
     FileDto? file,
-    FileStatus? status,
     String? token,
     Uint8List? thumbnail,
     AssetEntity? asset,
@@ -169,7 +162,6 @@ class _SendingFileCopyWithImpl<$R, $Out>
   @override
   $R call({
     FileDto? file,
-    FileStatus? status,
     Object? token = $none,
     Object? thumbnail = $none,
     Object? asset = $none,
@@ -179,7 +171,6 @@ class _SendingFileCopyWithImpl<$R, $Out>
   }) => $apply(
     FieldCopyWithData({
       if (file != null) #file: file,
-      if (status != null) #status: status,
       if (token != $none) #token: token,
       if (thumbnail != $none) #thumbnail: thumbnail,
       if (asset != $none) #asset: asset,
@@ -191,7 +182,6 @@ class _SendingFileCopyWithImpl<$R, $Out>
   @override
   SendingFile $make(CopyWithData data) => SendingFile(
     file: data.get(#file, or: $value.file),
-    status: data.get(#status, or: $value.status),
     token: data.get(#token, or: $value.token),
     thumbnail: data.get(#thumbnail, or: $value.thumbnail),
     asset: data.get(#asset, or: $value.asset),

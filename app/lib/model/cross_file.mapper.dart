@@ -2,6 +2,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 // ignore_for_file: type=lint
+// ignore_for_file: invalid_use_of_protected_member
 // ignore_for_file: unused_element, unnecessary_cast, override_on_non_overriding_member
 // ignore_for_file: strict_raw_type, inference_failure_on_untyped_parameter
 
@@ -42,13 +43,13 @@ class CrossFileMapper extends ClassMapperBase<CrossFile> {
   static const Field<CrossFile, String> _f$path = Field('path', _$path);
   static List<int>? _$bytes(CrossFile v) => v.bytes;
   static const Field<CrossFile, List<int>> _f$bytes = Field('bytes', _$bytes);
-  static DateTime? _$lastModified(CrossFile v) => v.lastModified;
-  static const Field<CrossFile, DateTime> _f$lastModified = Field(
+  static String? _$lastModified(CrossFile v) => v.lastModified;
+  static const Field<CrossFile, String> _f$lastModified = Field(
     'lastModified',
     _$lastModified,
   );
-  static DateTime? _$lastAccessed(CrossFile v) => v.lastAccessed;
-  static const Field<CrossFile, DateTime> _f$lastAccessed = Field(
+  static String? _$lastAccessed(CrossFile v) => v.lastAccessed;
+  static const Field<CrossFile, String> _f$lastAccessed = Field(
     'lastAccessed',
     _$lastAccessed,
   );
@@ -148,8 +149,8 @@ abstract class CrossFileCopyWith<$R, $In extends CrossFile, $Out>
     AssetEntity? asset,
     String? path,
     List<int>? bytes,
-    DateTime? lastModified,
-    DateTime? lastAccessed,
+    String? lastModified,
+    String? lastAccessed,
   });
   CrossFileCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }

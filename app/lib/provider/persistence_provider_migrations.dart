@@ -1,13 +1,15 @@
 part of 'persistence_provider.dart';
 
-const _latestVersion = 2;
+const _latestVersion = 3;
 
 Future<void> _runMigrations(int from) async {
-  switch (from) {
-    case 1:
-      await _migrate2();
-      await SharedPreferencesStorePlatform.instance.setValue('Int', 'flutter.$_version', 2);
-      break;
+  if (from < 2) {
+    await _migrate2();
+    await SharedPreferencesStorePlatform.instance.setValue('Int', 'flutter.$_version', 2);
+  }
+  if (from < 3) {
+    await _migrate3();
+    await SharedPreferencesStorePlatform.instance.setValue('Int', 'flutter.$_version', 3);
   }
 }
 
@@ -32,4 +34,18 @@ Future<void> _migrate2() async {
       SharedPreferencesStorePlatform.instance = SharedPreferencesFile(filePath: _windowsFile);
     }
   }
+}
+
+Future<void> _migrate3() async {
+  _logger.info('Migrating to version 3');
+  final prefs = await SharedPreferencesStorePlatform.instance.getAll();
+
+  // ls_quick_save becomes a QuickSaveMode: keep "on" if it was enabled, otherwise apply the new default "paired"
+  // (which is what ls_quick_save_from_favorites used to do)
+  final quickSave = prefs['flutter.$_quickSave'] == true ? QuickSaveMode.on : QuickSaveMode.paired;
+  await SharedPreferencesStorePlatform.instance.setValue('String', 'flutter.$_quickSave', quickSave.name);
+  await SharedPreferencesStorePlatform.instance.remove('flutter.ls_quick_save_from_favorites');
+
+  // some users disabled HTTPS for performance reasons which no longer apply since the Rust migration
+  await SharedPreferencesStorePlatform.instance.setValue('Bool', 'flutter.$_https', true);
 }

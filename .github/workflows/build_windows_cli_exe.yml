@@ -1,0 +1,83 @@
+name: Build windows CLI exe
+
+on:
+  workflow_dispatch:
+  workflow_call:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.get_version.outputs.version }}
+
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Get version from pubspec.yaml
+        id: get_version
+        run: |
+          VERSION=$(sed -n 's/^version: \([0-9]*\.[0-9]*\.[0-9]*\).*/\1/p' app/pubspec.yaml)
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+  build_cli_windows_exe:
+    needs: build
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - runner: windows-latest
+            suffix: x86-64
+            signtool_arch: x64
+          - runner: windows-11-arm
+            suffix: arm-64
+            signtool_arch: arm64
+    runs-on: ${{ matrix.runner }}
+    environment: packaging
+    permissions:
+      id-token: write # OIDC token for Azure login
+      contents: read
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Install Rust
+        run: rustup toolchain install # version from rust-toolchain.toml
+
+      - name: Compile CLI
+        run: cargo build --release --package localsend-cli
+
+      - name: Rename CLI executable
+        run: Rename-Item -Path "target\release\localsend-cli.exe" -NewName "LocalSend-CLI-${{ needs.build.outputs.version }}-windows-${{ matrix.suffix }}.exe"
+
+      - name: Azure login
+        uses: azure/login@v3
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+      - name: Sign CLI (Azure Trusted Signing)
+        uses: azure/trusted-signing-action@v2
+        with:
+          endpoint: https://neu.codesigning.azure.net/
+          trusted-signing-account-name: tienisto
+          certificate-profile-name: localsend
+          files-folder: ${{ github.workspace }}\target\release
+          files-folder-filter: exe
+          file-digest: SHA256
+          timestamp-rfc3161: http://timestamp.acs.microsoft.com
+          timestamp-digest: SHA256
+
+      - name: Verify signature
+        continue-on-error: true
+        run: |
+          $signtool = Get-ChildItem 'C:\Program Files (x86)\Windows Kits\10\bin\10.*\${{ matrix.signtool_arch }}\signtool.exe' | Select-Object -Last 1
+          & $signtool.FullName verify /pa /v "target\release\LocalSend-CLI-${{ needs.build.outputs.version }}-windows-${{ matrix.suffix }}.exe"
+
+      - name: Upload signed CLI
+        uses: actions/upload-artifact@v6
+        with:
+          name: windows-cli-exe-${{ matrix.suffix }}-result
+          path: target\release\LocalSend-CLI-${{ needs.build.outputs.version }}-windows-${{ matrix.suffix }}.exe
+          if-no-files-found: error

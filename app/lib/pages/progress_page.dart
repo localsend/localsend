@@ -1,35 +1,39 @@
 import 'dart:async';
 import 'dart:typed_data';
 
-import 'package:bitsdojo_window/bitsdojo_window.dart';
-import 'package:common/model/dto/file_dto.dart';
-import 'package:common/model/file_status.dart';
-import 'package:common/model/session_status.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:localsend_app/config/theme.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/model/state/server/receive_session_state.dart';
+import 'package:localsend_app/pages/web_share_page.dart';
+import 'package:localsend_app/provider/file_transfer_provider.dart';
 import 'package:localsend_app/provider/network/send_provider.dart';
 import 'package:localsend_app/provider/network/server/server_provider.dart';
-import 'package:localsend_app/provider/progress_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
-import 'package:localsend_app/util/file_size_helper.dart';
-import 'package:localsend_app/util/file_speed_helper.dart';
 import 'package:localsend_app/util/native/open_file.dart';
 import 'package:localsend_app/util/native/open_folder.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_app/util/native/taskbar_helper.dart';
+import 'package:localsend_app/util/notification_strings.dart';
 import 'package:localsend_app/util/ui/nav_bar_padding.dart';
-import 'package:localsend_app/widget/custom_basic_appbar.dart';
 import 'package:localsend_app/widget/custom_progress_bar.dart';
 import 'package:localsend_app/widget/dialogs/cancel_session_dialog.dart';
 import 'package:localsend_app/widget/dialogs/error_dialog.dart';
 import 'package:localsend_app/widget/file_thumbnail.dart';
+import 'package:localsend_isolates/model/dto/file_dto.dart';
+import 'package:localsend_isolates/model/file_status.dart';
+import 'package:localsend_isolates/model/session_status.dart';
+import 'package:localsend_isolates/util/file_size_helper.dart';
+import 'package:localsend_isolates/util/file_speed_helper.dart';
+import 'package:refena_flutter/addons.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 import 'package:routerino/routerino.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
+
+/// Extra space needed below the file list while the progress details are expanded.
+const _advancedProgressPanelExtraPadding = 100.0;
 
 class ProgressPage extends StatefulWidget {
   final bool showAppBar;
@@ -61,40 +65,41 @@ class _ProgressPageState extends State<ProgressPage> with Refena {
 
   bool _advanced = false;
 
+  /// On Android the foreground service keeps the process and the connection alive,
+  /// so there is no reason to also keep the screen on.
+  bool get _useWakelock => checkPlatformIsNot([TargetPlatform.android]);
+
   @override
   void initState() {
     super.initState();
 
     // init
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      try {
-        unawaited(WakelockPlus.enable());
-      } catch (_) {}
+      if (_useWakelock) {
+        try {
+          unawaited(WakelockPlus.enable());
+        } catch (_) {}
 
-      // Periodically call WakelockPlus.enable() to keep the screen awake
-      _wakelockPlusTimer = Timer.periodic(const Duration(seconds: 30), (timer) {
-        final finished =
-            ref.read(serverProvider)?.session?.files.values.map((e) => e.status).isFinishedOrSkipped ??
-            ref.read(sendProvider)[widget.sessionId]?.files.values.map((e) => e.status).isFinishedOrSkipped ??
-            true;
-        if (finished) {
-          timer.cancel();
-          try {
-            unawaited(WakelockPlus.disable());
-          } catch (_) {}
-        } else {
-          try {
-            unawaited(WakelockPlus.enable());
-          } catch (_) {}
-        }
-      });
+        // Poll for completion and disable the wakelock once.
+        // We must NOT call WakelockPlus.enable() repeatedly here: on Linux (FreeDesktop D-Bus ScreenSaver)
+        // each enable() acquires a new inhibit cookie while disable() only releases one, so re-calling
+        // enable() every 30s leaks inhibit locks that keep the screen awake indefinitely (issue #3209).
+        _wakelockPlusTimer = Timer.periodic(const Duration(seconds: 30), (timer) {
+          // an empty iterable (session already removed) also counts as finished
+          final finished = ref.read(fileTransferProvider).getStatuses(widget.sessionId).isFinishedOrSkipped;
+          if (finished) {
+            timer.cancel();
+            try {
+              unawaited(WakelockPlus.disable());
+            } catch (_) {}
+          }
+        });
+      }
 
       if (ref.read(settingsProvider).autoFinish) {
         _finishTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
-          final finished =
-              ref.read(serverProvider)?.session?.files.values.map((e) => e.status).isFinishedOrSkipped ??
-              ref.read(sendProvider)[widget.sessionId]?.files.values.map((e) => e.status).isFinishedOrSkipped ??
-              true;
+          // an empty iterable (session already removed) also counts as finished
+          final finished = ref.read(fileTransferProvider).getStatuses(widget.sessionId).isFinishedOrSkipped;
           if (finished) {
             if (_finishCounter == 1) {
               timer.cancel();
@@ -112,16 +117,19 @@ class _ProgressPageState extends State<ProgressPage> with Refena {
         final receiveSession = ref.read(serverProvider)?.session;
         if (receiveSession != null) {
           _files = receiveSession.files.values.map((f) => f.file).toList();
-
-          // We previously used f.token != null here, but this may not work on very fast networks.
-          _selectedFiles = receiveSession.files.values.where((f) => f.status != FileStatus.skipped).map((f) => f.file.id).toSet();
         } else {
           final sendSession = ref.read(sendProvider)[widget.sessionId];
           if (sendSession != null) {
             _files = sendSession.files.values.map((f) => f.file).toList();
-            _selectedFiles = sendSession.files.values.where((f) => f.status != FileStatus.skipped).map((f) => f.file.id).toSet();
           }
         }
+
+        // We previously used f.token != null here, but this may not work on very fast networks.
+        final transferNotifier = ref.read(fileTransferProvider);
+        _selectedFiles = _files
+            .where((f) => transferNotifier.getStatus(sessionId: widget.sessionId, fileId: f.id) != FileStatus.skipped)
+            .map((f) => f.id)
+            .toSet();
 
         _totalBytes = _files.where((f) => _selectedFiles.contains(f.id)).fold(0, (prev, curr) => prev + curr.size);
       });
@@ -136,8 +144,11 @@ class _ProgressPageState extends State<ProgressPage> with Refena {
     final result = status == null || keepSession || await _askCancelConfirmation(status);
 
     if (result && mounted) {
-      // ignore: unawaited_futures
-      context.popUntilRoot();
+      if (ref.read(serverProvider)?.webUpload == true) {
+        context.global.dispatch(NavigateAction.popUntil<WebSharePage>());
+      } else {
+        context.global.dispatch(NavigateAction.popUntilRoot());
+      }
     }
   }
 
@@ -173,25 +184,41 @@ class _ProgressPageState extends State<ProgressPage> with Refena {
     _finishTimer?.cancel();
     _wakelockPlusTimer?.cancel();
     TaskbarHelper.clearProgressBar(); // ignore: discarded_futures
-    try {
-      WakelockPlus.disable(); // ignore: discarded_futures
-    } catch (_) {}
+    if (_useWakelock) {
+      try {
+        WakelockPlus.disable(); // ignore: discarded_futures
+      } catch (_) {}
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    final progressNotifier = ref.watch(progressProvider);
+    final transferNotifier = ref.watch(fileTransferProvider);
     final currBytes = _files.fold<int>(
       0,
-      (prev, curr) => prev + ((progressNotifier.getProgress(sessionId: widget.sessionId, fileId: curr.id) * curr.size).round()),
+      (prev, curr) => prev + ((transferNotifier.getProgress(sessionId: widget.sessionId, fileId: curr.id) * curr.size).round()),
     );
 
-    final receiveSession = ref.watch(serverProvider.select((s) => s?.session));
+    // No select: comparing the selected session runs the dart_mappable deep equality
+    // over the whole files map on every state change.
+    final receiveSession = ref.watch(serverProvider)?.session;
     final sendSession = ref.watch(sendProvider)[widget.sessionId];
 
     final SessionState? commonSessionState = receiveSession ?? sendSession;
 
     if (commonSessionState == null) {
+      // The session no longer exists, e.g. a multi-send session that finished successfully
+      // in background gets removed while this page is still open.
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (!mounted) {
+          return;
+        }
+        if (ref.read(serverProvider)?.webUpload == true) {
+          context.global.dispatch(NavigateAction.popUntil<WebSharePage>());
+        } else {
+          context.global.dispatch(NavigateAction.popUntilRoot());
+        }
+      });
       return Scaffold(
         body: Container(),
       );
@@ -217,15 +244,14 @@ class _ProgressPageState extends State<ProgressPage> with Refena {
 
       final now = DateTime.now().millisecondsSinceEpoch;
       if (now - _lastRemainingTimeUpdate >= 1000) {
-        _remainingTime = getRemainingTime(bytesPerSeconds: speedInBytes, remainingBytes: _totalBytes - currBytes);
+        _remainingTime = getRemainingTime(bytesPerSeconds: speedInBytes, remainingBytes: _totalBytes - currBytes, strings: notificationStrings);
         _lastRemainingTimeUpdate = now;
       }
     } else {
       speedInBytes = null;
     }
 
-    final fileStatusMap = receiveSession?.files.map((k, f) => MapEntry(k, f.status)) ?? sendSession!.files.map((k, f) => MapEntry(k, f.status));
-    final finishedCount = fileStatusMap.values.where((s) => s == FileStatus.finished).length;
+    final finishedCount = transferNotifier.getStatuses(widget.sessionId).where((s) => s == FileStatus.finished).length;
 
     return PopScope(
       onPopInvokedWithResult: (didPop, result) {
@@ -238,13 +264,17 @@ class _ProgressPageState extends State<ProgressPage> with Refena {
       },
       canPop: false,
       child: Scaffold(
-        appBar: widget.showAppBar ? basicLocalSendAppbar(title) : null,
+        appBar: widget.showAppBar
+            ? AppBar(
+                title: Text(title),
+              )
+            : null,
         body: Stack(
           children: [
             ListView.builder(
               padding: EdgeInsets.only(
                 top: MediaQuery.of(context).padding.top + 20,
-                bottom: 150 + getNavBarPadding(context),
+                bottom: 150 + (_advanced ? _advancedProgressPanelExtraPadding : 0) + getNavBarPadding(context),
                 left: 15,
                 right: 30,
               ),
@@ -306,7 +336,7 @@ class _ProgressPageState extends State<ProgressPage> with Refena {
                 final file = _files[index - 2];
                 final String fileName = receiveSession?.files[file.id]?.desiredName ?? file.fileName;
 
-                final fileStatus = fileStatusMap[file.id]!;
+                final fileStatus = transferNotifier.getStatus(sessionId: widget.sessionId, fileId: file.id);
                 final savedToGallery = receiveSession?.files[file.id]?.savedToGallery ?? false;
 
                 final String? filePath;
@@ -378,7 +408,7 @@ class _ProgressPageState extends State<ProgressPage> with Refena {
                                 Padding(
                                   padding: const EdgeInsets.only(top: 5),
                                   child: CustomProgressBar(
-                                    progress: progressNotifier.getProgress(sessionId: widget.sessionId, fileId: file.id),
+                                    progress: transferNotifier.getProgress(sessionId: widget.sessionId, fileId: file.id),
                                   ),
                                 )
                               else
@@ -418,7 +448,6 @@ class _ProgressPageState extends State<ProgressPage> with Refena {
                                   .notifier(sendProvider)
                                   .sendFile(
                                     sessionId: widget.sessionId,
-                                    isolateIndex: 0,
                                     file: sendSession.files[file.id]!,
                                     isRetry: true,
                                   );
@@ -525,15 +554,6 @@ class _ProgressPageState extends State<ProgressPage> with Refena {
                 ),
               ),
             ),
-            checkPlatform([TargetPlatform.macOS])
-                ? Positioned(
-                    top: 0,
-                    left: 0,
-                    right: 0,
-                    height: 40,
-                    child: MoveWindow(),
-                  )
-                : SizedBox(),
           ],
         ),
       ),

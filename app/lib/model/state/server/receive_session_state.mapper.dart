@@ -2,6 +2,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 // ignore_for_file: type=lint
+// ignore_for_file: invalid_use_of_protected_member
 // ignore_for_file: unused_element, unnecessary_cast, override_on_non_overriding_member
 // ignore_for_file: strict_raw_type, inference_failure_on_untyped_parameter
 
@@ -74,27 +75,6 @@ class ReceiveSessionStateMapper extends ClassMapperBase<ReceiveSessionState> {
       v.createdDirectories;
   static const Field<ReceiveSessionState, Set<String>> _f$createdDirectories =
       Field('createdDirectories', _$createdDirectories);
-  static StreamController<Map<String, String>?>? _$responseHandler(
-    ReceiveSessionState v,
-  ) => v.responseHandler;
-  static const Field<
-    ReceiveSessionState,
-    StreamController<Map<String, String>?>
-  >
-  _f$responseHandler = Field('responseHandler', _$responseHandler);
-  static String? _$message(ReceiveSessionState v) => v.message;
-  static const Field<ReceiveSessionState, String> _f$message = Field(
-    'message',
-    _$message,
-    mode: FieldMode.member,
-  );
-  static bool _$containsDirectories(ReceiveSessionState v) =>
-      v.containsDirectories;
-  static const Field<ReceiveSessionState, bool> _f$containsDirectories = Field(
-    'containsDirectories',
-    _$containsDirectories,
-    mode: FieldMode.member,
-  );
 
   @override
   final MappableFields<ReceiveSessionState> fields = const {
@@ -109,9 +89,6 @@ class ReceiveSessionStateMapper extends ClassMapperBase<ReceiveSessionState> {
     #cacheDirectory: _f$cacheDirectory,
     #saveToGallery: _f$saveToGallery,
     #createdDirectories: _f$createdDirectories,
-    #responseHandler: _f$responseHandler,
-    #message: _f$message,
-    #containsDirectories: _f$containsDirectories,
   };
 
   static ReceiveSessionState _instantiate(DecodingData data) {
@@ -127,7 +104,6 @@ class ReceiveSessionStateMapper extends ClassMapperBase<ReceiveSessionState> {
       cacheDirectory: data.dec(_f$cacheDirectory),
       saveToGallery: data.dec(_f$saveToGallery),
       createdDirectories: data.dec(_f$createdDirectories),
-      responseHandler: data.dec(_f$responseHandler),
     );
   }
 
@@ -221,7 +197,6 @@ abstract class ReceiveSessionStateCopyWith<
     String? cacheDirectory,
     bool? saveToGallery,
     Set<String>? createdDirectories,
-    StreamController<Map<String, String>?>? responseHandler,
   });
   ReceiveSessionStateCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
     Then<$Out2, $R2> t,
@@ -264,7 +239,6 @@ class _ReceiveSessionStateCopyWithImpl<$R, $Out>
     String? cacheDirectory,
     bool? saveToGallery,
     Set<String>? createdDirectories,
-    Object? responseHandler = $none,
   }) => $apply(
     FieldCopyWithData({
       if (sessionId != null) #sessionId: sessionId,
@@ -279,7 +253,6 @@ class _ReceiveSessionStateCopyWithImpl<$R, $Out>
       if (cacheDirectory != null) #cacheDirectory: cacheDirectory,
       if (saveToGallery != null) #saveToGallery: saveToGallery,
       if (createdDirectories != null) #createdDirectories: createdDirectories,
-      if (responseHandler != $none) #responseHandler: responseHandler,
     }),
   );
   @override
@@ -301,7 +274,6 @@ class _ReceiveSessionStateCopyWithImpl<$R, $Out>
       #createdDirectories,
       or: $value.createdDirectories,
     ),
-    responseHandler: data.get(#responseHandler, or: $value.responseHandler),
   );
 
   @override

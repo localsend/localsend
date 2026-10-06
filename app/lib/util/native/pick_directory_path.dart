@@ -19,7 +19,7 @@ Future<String?> pickDirectoryPath() async {
     /// We need the raw path to properly manipulate the path to save new files, or
     /// to list files recursively.
     /// Also, on iOS, file_selector does not work with directories.
-    return await FilePicker.platform.getDirectoryPath();
+    return await FilePicker.getDirectoryPath();
   } else {
     return await file_selector.getDirectoryPath();
   }

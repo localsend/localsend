@@ -7,7 +7,7 @@ on:
     branches: [main]
 
 env:
-  FLUTTER_VERSION: "3.38.10"
+  FLUTTER_VERSION: "3.41.9"
 
 jobs:
   format:
@@ -25,20 +25,13 @@ jobs:
         working-directory: app
         run: flutter pub get
       - name: Dependencies (cargokit - rust_builder)
-        working-directory: app/rust_builder/cargokit/build_tool
+        working-directory: packages/localsend_isolates/rust_builder/cargokit/build_tool
         run: flutter pub get
       - name: Remove gen directory (app)
         working-directory: app
         run: rm -rf lib/gen
       - name: Check format (app)
         working-directory: app
-        run: dart format --set-exit-if-changed lib test
-
-      - name: Dependencies (common)
-        working-directory: common
-        run: dart pub get
-      - name: Check format (common)
-        working-directory: common
         run: dart format --set-exit-if-changed lib test
 
   test:
@@ -56,7 +49,7 @@ jobs:
         working-directory: app
         run: flutter pub get
       - name: Dependencies (cargokit - rust_builder)
-        working-directory: app/rust_builder/cargokit/build_tool
+        working-directory: packages/localsend_isolates/rust_builder/cargokit/build_tool
         run: flutter pub get
       - name: Analyze (app)
         working-directory: app
@@ -64,16 +57,39 @@ jobs:
       - name: Test (app)
         working-directory: app
         run: flutter test
+      - name: Dependencies (localsend_isolates)
+        working-directory: packages/localsend_isolates
+        run: flutter pub get
+      - name: Test (localsend_isolates)
+        working-directory: packages/localsend_isolates
+        run: flutter test
 
-      - name: Dependencies (common)
-        working-directory: common
-        run: dart pub get
-      - name: Analyze (common)
-        working-directory: common
-        run: dart analyze
-      - name: Test (common)
-        working-directory: common
-        run: dart test
+  rust:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v6
+      - name: Setup Rust
+        run: rustup toolchain install --profile minimal # version from rust-toolchain.toml
+      - name: Cache
+        uses: Swatinem/rust-cache@v2
+
+      # `cargo fmt --check` is deliberately left out: the tree is not
+      # rustfmt-clean today, and `frb_generated.rs` never will be.
+      #
+      # `packages/core` declares its modules unconditionally while their
+      # dependencies are optional, so it only builds with a feature set that
+      # pulls all of them in.
+      - name: Clippy (core)
+        working-directory: packages/core
+        run: cargo clippy --features full --all-targets
+      - name: Test (core)
+        working-directory: packages/core
+        run: cargo test --features full
+      - name: Test (signaling server)
+        run: cargo test --package server
+      - name: Check (plugin crate, CLI)
+        run: cargo check --package rust_lib_localsend_app --package localsend-cli
 
   packaging:
     runs-on: ubuntu-latest
@@ -90,16 +106,80 @@ jobs:
       - name: Extract version from Inno Setup configuration
         id: inno_version
         run: |
-          VERSION=$(grep '#define MyAppVersion ' scripts/compile_windows_exe-inno.iss | sed 's/#define MyAppVersion "//' | sed 's/"//')
+          VERSION=$(grep '#define MyAppVersion ' support/scripts/compile_windows_exe-inno.iss | sed 's/#define MyAppVersion "//' | sed 's/"//')
           echo "Inno Setup version is $VERSION"
           echo "inno_version=$VERSION" >> $GITHUB_ENV
 
-      - name: Compare pubspec and Inno Setup versions
+      - name: Extract version from CLI Cargo.toml
+        id: cli_version
         run: |
-          if [ "$pubspec_version" != "$inno_version" ]; then
+          VERSION=$(grep '^version = ' cli/Cargo.toml | sed 's/version = "//' | sed 's/"//')
+          echo "CLI version is $VERSION"
+          echo "cli_version=$VERSION" >> $GITHUB_ENV
+
+      - name: Extract version from MSIX helper manifest
+        id: msix_version
+        run: |
+          VERSION=$(grep -o ' Version="[0-9.]*"' support/build/msix/content/AppxManifest.xml | sed 's/ Version="//' | sed 's/"//')
+          echo "MSIX helper version is $VERSION"
+          echo "msix_version=$VERSION" >> $GITHUB_ENV
+
+      - name: Extract version from AppImage recipes
+        id: appimage_version
+        run: |
+          VERSION_X86_64=$(grep '^    version: ' support/build/appimage/AppImageBuilder_x86_64.yml | sed 's/    version: //')
+          echo "AppImage x86_64 version is $VERSION_X86_64"
+          echo "appimage_x86_64_version=$VERSION_X86_64" >> $GITHUB_ENV
+          VERSION_ARM_64=$(grep '^    version: ' support/build/appimage/AppImageBuilder_arm_64.yml | sed 's/    version: //')
+          echo "AppImage arm_64 version is $VERSION_ARM_64"
+          echo "appimage_arm_64_version=$VERSION_ARM_64" >> $GITHUB_ENV
+
+      - name: Compare pubspec, Inno Setup, CLI, MSIX helper and AppImage versions
+        run: |
+          if [ "$pubspec_version" != "$inno_version" ] || [ "$pubspec_version" != "$cli_version" ] || [ "$pubspec_version.0" != "$msix_version" ] || [ "$pubspec_version" != "$appimage_x86_64_version" ] || [ "$pubspec_version" != "$appimage_arm_64_version" ]; then
             echo "Version mismatch detected!"
             exit 1
           else
             echo "Versions match."
+          fi
+
+      # Binaries must carry identical copyright strings (macOS conventionally uses
+      # the © symbol, which is normalized for the comparison). License files use the
+      # Apache boilerplate format ("Copyright 2022-2026 Tien Do Nam") and typed_isolates
+      # has its own start year, so only their end year is compared.
+      # The vendored cargokit LICENSE is third-party and deliberately not checked.
+      - name: Compare copyright strings
+        run: |
+          APP_COPYRIGHT=$(grep -o 'Copyright (C) [^"]*' app/windows/runner/Runner.rc)
+          CLI_COPYRIGHT=$(grep -o 'Copyright (C) [^"]*' cli/build.rs)
+          MACOS_COPYRIGHT=$(sed -n 's/^PRODUCT_COPYRIGHT = //p' app/macos/Runner/Configs/AppInfo.xcconfig | sed 's/©/(C)/')
+          APP_YEAR=$(echo "$APP_COPYRIGHT" | grep -o '[0-9]\{4\}' | tail -1)
+          ROOT_LICENSE_YEAR=$(grep -o 'Copyright [0-9][0-9-]* Tien Do Nam' LICENSE | grep -o '[0-9]\{4\}' | tail -1)
+          TYPED_LICENSE_YEAR=$(grep -o 'Copyright [0-9][0-9-]* Tien Do Nam' packages/typed_isolates/LICENSE | grep -o '[0-9]\{4\}' | tail -1)
+          echo "App copyright is:                   $APP_COPYRIGHT"
+          echo "CLI copyright is:                   $CLI_COPYRIGHT"
+          echo "macOS copyright is:                 $MACOS_COPYRIGHT"
+          echo "Root LICENSE end year is:           $ROOT_LICENSE_YEAR"
+          echo "typed_isolates LICENSE end year is: $TYPED_LICENSE_YEAR"
+          if [ -z "$APP_COPYRIGHT" ] || [ "$APP_COPYRIGHT" != "$CLI_COPYRIGHT" ] || [ "$APP_COPYRIGHT" != "$MACOS_COPYRIGHT" ]; then
+            echo "Copyright mismatch detected!"
+            exit 1
+          fi
+          if [ -z "$APP_YEAR" ] || [ "$APP_YEAR" != "$ROOT_LICENSE_YEAR" ] || [ "$APP_YEAR" != "$TYPED_LICENSE_YEAR" ]; then
+            echo "License copyright year mismatch detected!"
+            exit 1
+          fi
+          echo "Copyright strings match."
+
+      - name: Compare Rust toolchain versions
+        run: |
+          ROOT_TOOLCHAIN=$(grep '^channel = ' rust-toolchain.toml | sed 's/channel = "//' | sed 's/"//')
+          PLUGIN_TOOLCHAIN=$(grep '^channel = ' packages/localsend_isolates/rust-toolchain.toml | sed 's/channel = "//' | sed 's/"//')
+          echo "Root toolchain is $ROOT_TOOLCHAIN, plugin toolchain is $PLUGIN_TOOLCHAIN"
+          if [ "$ROOT_TOOLCHAIN" != "$PLUGIN_TOOLCHAIN" ]; then
+            echo "Rust toolchain version mismatch detected!"
+            exit 1
+          else
+            echo "Toolchain versions match."
           fi
 

@@ -1,23 +1,28 @@
 import Cocoa
 import FlutterMacOS
 import window_manager
-import bitsdojo_window_macos  // used to make custom window bars on macOS (or any desktop operating system for that matter)
 
-class MainFlutterWindow: BitsdojoWindow {
-  // just following intructions from https://pub.dev/packages/bitsdojo_window
-  override func bitsdojo_window_configure() -> UInt {
-    return BDW_CUSTOM_FRAME | BDW_HIDE_ON_STARTUP
-  }
+class MainFlutterWindow: NSWindow {
   override func awakeFromNib() {
     let flutterViewController = FlutterViewController.init()
+
+    // Register before installing the view controller: Dart can start before `applicationDidFinishLaunching`
+    // and call this channel, causing MissingPluginException if registration waits until then.
+    let appDelegate = NSApplication.shared.delegate as! AppDelegate
+    appDelegate.registerMethodChannel(binaryMessenger: flutterViewController.engine.binaryMessenger)
+
     let windowFrame = self.frame
     self.contentViewController = flutterViewController
     self.setFrame(windowFrame, display: true)
 
     RegisterGeneratedPlugins(registry: flutterViewController)
-    // window_manager: start window hidden
-    hiddenWindowAtLaunch()  
 
     super.awakeFromNib()
+  }
+
+  // window_manager: start hidden
+  override public func order(_ place: NSWindow.OrderingMode, relativeTo otherWin: Int) {
+    super.order(place, relativeTo: otherWin)
+    hiddenWindowAtLaunch()
   }
 }
