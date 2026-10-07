@@ -6,6 +6,7 @@ import 'package:localsend_app/model/persistence/quick_save_mode.dart';
 import 'package:localsend_app/model/send_mode.dart';
 import 'package:localsend_app/model/state/settings_state.dart';
 import 'package:localsend_app/provider/persistence_provider.dart';
+import 'package:localsend_app/provider/window_dimensions_provider.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_isolates/isolate.dart';
 import 'package:localsend_isolates/model/device.dart';
@@ -244,6 +245,7 @@ class SettingsService extends PureNotifier<SettingsState> {
   }
 
   Future<void> setSaveWindowPlacement(bool savePlacement) async {
+    await WindowDimensionsController(_persistence).configureWindowFrameAutosave(enabled: savePlacement);
     await _persistence.setSaveWindowPlacement(savePlacement);
     state = state.copyWith(
       saveWindowPlacement: savePlacement,
