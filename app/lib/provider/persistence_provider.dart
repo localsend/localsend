@@ -130,14 +130,16 @@ class PersistenceService {
     }
 
     final bool isFirstAppStart;
-    final existingVersion = (await SharedPreferencesStorePlatform.instance.getAll())['flutter.$_version'] as int?;
+    final existingPrefs = await SharedPreferencesStorePlatform.instance.getAll();
+    final existingVersion = existingPrefs['flutter.$_version'] as int?;
     _logger.info('Existing version: $existingVersion');
-    if (existingVersion == null && !usingLegacyStore) {
-      isFirstAppStart = true;
+    isFirstAppStart = existingVersion == null && !usingLegacyStore && !existingPrefs.keys.any((key) => key.startsWith('flutter.ls_'));
+    if (isFirstAppStart) {
       await SharedPreferencesStorePlatform.instance.setValue('Int', 'flutter.$_version', _latestVersion);
     } else {
-      isFirstAppStart = false;
-      final fromVersion = existingVersion ?? 1;
+      // Unversioned profiles in the current store may already contain string modes.
+      // Only apply the repair migration; older migrations would replace those modes.
+      final fromVersion = existingVersion ?? (usingLegacyStore ? 1 : 3);
       if (fromVersion < _latestVersion) {
         await _runMigrations(fromVersion);
       }
