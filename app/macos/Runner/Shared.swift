@@ -4,6 +4,20 @@ import Defaults
 let teamIdentifierPrefix = Bundle.main.infoDictionary!["AppIdentifierPrefix"] as! String
 let sharedDefaults = UserDefaults(suiteName: "\(teamIdentifierPrefix)localsend.shared_group")!
 
+/**
+ The app group must actually be available for the Share Extension handoff to work.
+ If the entitlements are misconfigured (e.g. an unresolved `$(AppIdentifierPrefix)`,
+ which can happen when the app is re-signed after building), the app and the
+ extension silently end up with separate suites and shared files go nowhere.
+ `UserDefaults` does not report this, so check it explicitly.
+ */
+func checkSharedDefaultsAvailability() {
+    let group = "\(teamIdentifierPrefix)localsend.shared_group"
+    if FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: group) == nil {
+        print("App group '\(group)' is unavailable. Files shared from the Share Extension will not be received.")
+    }
+}
+
 typealias FileBookmarkData = Data
 extension Defaults.Keys {
     static let pendingFiles = Key<[FileBookmarkData]>("pendingFiles", default: [], suite: sharedDefaults)

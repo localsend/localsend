@@ -54,6 +54,8 @@ class AppDelegate: FlutterAppDelegate {
     }
     
     private func setupPendingItemsObservation() {
+        checkSharedDefaultsAvailability()
+
         self.pendingFilesObservation = Defaults.observe(.pendingFiles) { change in
             guard !Defaults[.pendingFiles].isEmpty else { return }
             self.sendPendingItemsToFlutter()
@@ -130,6 +132,8 @@ class AppDelegate: FlutterAppDelegate {
         
         if !filePaths.isEmpty {
             channel?.invokeMethod("onPendingFiles", arguments: filePaths)
+        } else if !pendingFileBookmarks.isEmpty {
+            print("Dropped \(pendingFileBookmarks.count) file bookmark(s), none resolved to a path")
         }
         if !pendingStrings.isEmpty {
             channel?.invokeMethod("onPendingStrings", arguments: pendingStrings)
