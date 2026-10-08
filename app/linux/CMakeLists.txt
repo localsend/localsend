@@ -137,3 +137,8 @@ if(NOT CMAKE_BUILD_TYPE MATCHES "Debug")
   install(FILES "${AOT_LIBRARY}" DESTINATION "${INSTALL_BUNDLE_LIB_DIR}"
     COMPONENT Runtime)
 endif()
+
+# KDE service menu ("Send with LocalSend" in Dolphin's context menu).
+# Linked into /usr/share/kio/servicemenus by the deb postinst script.
+install(FILES "packaging/kde/${BINARY_NAME}.desktop"
+  DESTINATION "${CMAKE_INSTALL_PREFIX}/share/kio/servicemenus" COMPONENT Runtime)
