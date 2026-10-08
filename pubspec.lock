@@ -1660,6 +1660,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.4.1"
+  system_date_time_format:
+    dependency: transitive
+    description:
+      name: system_date_time_format
+      sha256: ce491f93c7f8340f1763fd304acab53e8f884800c8da71020356258187671196
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.4.0"
   system_settings_2:
     dependency: transitive
     description:

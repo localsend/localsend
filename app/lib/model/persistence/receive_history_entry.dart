@@ -1,6 +1,6 @@
 import 'package:dart_mappable/dart_mappable.dart';
-import 'package:intl/intl.dart';
-import 'package:localsend_app/gen/strings.g.dart';
+import 'package:flutter/widgets.dart';
+import 'package:localsend_app/util/system_date_time_formatter.dart';
 import 'package:localsend_isolates/model/file_type.dart';
 
 part 'receive_history_entry.mapper.dart';
@@ -36,12 +36,10 @@ class ReceiveHistoryEntry with ReceiveHistoryEntryMappable {
     required this.timestamp,
   });
 
-  /// Format string using the intl package.
+  /// Format string using the system date and time format.
   /// Because the raw timestamp is saved in UTC, we need to transform it to local time zone first.
-  String get timestampString {
-    final localTimestamp = timestamp.toLocal();
-    final languageTag = LocaleSettings.currentLocale.languageTag;
-    return '${DateFormat.yMd(languageTag).format(localTimestamp)} ${DateFormat.jm(languageTag).format(localTimestamp)}';
+  String timestampString(BuildContext context) {
+    return SystemDateTimeFormatter.dateTime(context, timestamp.toLocal());
   }
 
   static const fromJson = ReceiveHistoryEntryMapper.fromJson;

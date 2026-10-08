@@ -12,6 +12,7 @@ import android.os.Build
 import android.os.Environment
 import android.provider.DocumentsContract
 import android.provider.Settings
+import android.webkit.MimeTypeMap
 import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.plugin.common.MethodCall
@@ -207,7 +208,6 @@ class MainActivity : FlutterActivity() {
     private fun handleCreateFile(call: MethodCall, result: MethodChannel.Result) {
         val parentUriString = call.argument<String>("parentUri")
         val fileName = call.argument<String>("fileName")
-        val mimeType = call.argument<String>("mimeType") ?: "application/octet-stream"
         if (parentUriString == null || fileName == null) {
             result.error("INVALID_ARGUMENT", "Missing parentUri or fileName", null)
             return
@@ -227,6 +227,13 @@ class MainActivity : FlutterActivity() {
             } else {
                 parentUri
             }
+
+            // Providers append an extension when the MIME type does not match the one Android maps the
+            // file's extension to (e.g. "test.conf" as text/plain becomes "test.conf.txt"), so derive it
+            // from the same map. application/octet-stream keeps the name as-is for unknown extensions.
+            val extension = fileName.substringAfterLast('.', "").lowercase(Locale.ROOT)
+            val mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension)
+                ?: "application/octet-stream"
 
             val documentUri =
                 DocumentsContract.createDocument(contentResolver, parentDocumentUri, mimeType, fileName)

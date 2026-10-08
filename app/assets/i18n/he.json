@@ -106,6 +106,8 @@
       },
       "saveWindowPlacement": "יציאה: שמירת מיקום החלון",
       "saveWindowPlacementWindows": "שמור את מיקום החלון בעת יציאה",
+      "alwaysOnTop": "הצג תמיד מעל חלונות אחרים",
+      "alwaysOnTopUnavailable": "לא נתמך ב־Wayland",
       "minimizeToTray": "יציאה: מזעור למגש",
       "launchAtStartup": "הפעלה אוטומטית לאחר הכניסה",
       "launchMinimized": "הפעלה אוטומטית: התחל מוסתר",

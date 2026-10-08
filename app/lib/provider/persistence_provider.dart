@@ -64,6 +64,7 @@ const _windowOffsetY = 'ls_window_offset_y';
 const _windowWidth = 'ls_window_width';
 const _windowHeight = 'ls_window_height';
 const _saveWindowPlacement = 'ls_save_window_placement';
+const _alwaysOnTop = 'ls_always_on_top';
 
 // Settings
 const _showToken = 'ls_show_token';
@@ -555,6 +556,14 @@ class PersistenceService {
   bool getSaveWindowPlacement() {
     if (!checkPlatformIsNotWaylandDesktop()) return false;
     return _prefs.getBool(_saveWindowPlacement) ?? true;
+  }
+
+  Future<void> setAlwaysOnTop(bool alwaysOnTop) async {
+    await _prefs.setBool(_alwaysOnTop, alwaysOnTop);
+  }
+
+  bool getAlwaysOnTop() {
+    return _prefs.getBool(_alwaysOnTop) ?? false;
   }
 
   Future<void> setEnableAnimations(bool enableAnimations) async {

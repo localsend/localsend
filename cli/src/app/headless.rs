@@ -1,9 +1,9 @@
-//! The headless `send --to` mode: discover the destination, send the files,
-//! exit with the transfer result. There is no keyboard and no overlay — only
+//! The headless `send --to` mode: discover the destination, send the files
+//! or the text message, exit with the transfer result. There is no keyboard and no overlay — only
 //! the network events a send needs are handled, and incoming transfer
 //! requests are declined.
 
-use super::sending::{self, SendState};
+use super::sending::{self, Payload, SendState};
 use super::status;
 use super::target::TargetSelector;
 use super::{AppEvent, Network, discovery, spawn_staged_discovery, start_network, stop_network};
@@ -13,7 +13,6 @@ use crate::ui::{Category, Ui};
 use crate::util;
 use localsend::discovery::{DiscoveryEvent, DiscoveryHandle};
 use localsend::http::server::v2::{PrepareUploadDecisionV2, ServerEventV2};
-use std::path::PathBuf;
 use std::sync::Arc;
 use std::sync::atomic::Ordering;
 use std::time::Duration;
@@ -22,7 +21,7 @@ use tokio::sync::mpsc;
 pub(super) async fn run(
     mut storage: Repository,
     target: TargetSelector,
-    paths: Vec<PathBuf>,
+    payload: Payload,
 ) -> anyhow::Result<()> {
     let mut ui = Ui::new();
     let identity = storage.identity.clone();
@@ -73,14 +72,7 @@ pub(super) async fn run(
             AppEvent::Tick => render_progress(&mut ui, &mut send),
             AppEvent::Log { category, text } => ui.log(category, &text),
             AppEvent::DiscoveryFinished => {
-                match start_send(
-                    &mut ui,
-                    &storage,
-                    &discovery,
-                    &target,
-                    paths.clone(),
-                    &events_tx,
-                ) {
+                match start_send(&mut ui, &storage, &discovery, &target, &payload, &events_tx) {
                     Ok(state) => send = Some(state),
                     Err(reason) => break Err(anyhow::anyhow!(reason)),
                 }
@@ -117,20 +109,29 @@ fn start_send(
     storage: &Repository,
     discovery: &DiscoveryHandle,
     target: &TargetSelector,
-    paths: Vec<PathBuf>,
+    payload: &Payload,
     events_tx: &mpsc::Sender<AppEvent>,
 ) -> Result<SendState, String> {
     let fingerprint = target.resolve(&discovery.devices())?;
     let device = discovery
         .device_by_fingerprint(&fingerprint)
         .ok_or_else(|| format!("Destination {target} was not discovered"))?;
-    sending::spawn_send(
-        ui,
-        storage.identity.clone(),
-        device,
-        paths,
-        events_tx.clone(),
-    )
+    match payload {
+        Payload::Files(paths) => sending::spawn_send(
+            ui,
+            storage.identity.clone(),
+            device,
+            paths.clone(),
+            events_tx.clone(),
+        ),
+        Payload::Text(text) => sending::spawn_send_text(
+            ui,
+            storage.identity.clone(),
+            device,
+            text.clone(),
+            events_tx.clone(),
+        ),
+    }
 }
 
 fn handle_server_event(
