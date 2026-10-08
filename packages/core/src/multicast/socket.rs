@@ -14,6 +14,9 @@ pub(crate) struct MulticastSocket {
     /// The group address announcements are sent to through this socket.
     pub(crate) target: SocketAddr,
 
+    /// The directed broadcast target for this interface, when available.
+    pub(crate) broadcast_target: Option<SocketAddr>,
+
     pub(crate) socket: Arc<UdpSocket>,
 }
 
@@ -45,6 +48,9 @@ pub(crate) fn bind_multicast_sockets(
                 sockets.push(MulticastSocket {
                     description,
                     target: SocketAddr::from(SocketAddrV4::new(group, port)),
+                    broadcast_target: interface
+                        .broadcast
+                        .map(|broadcast| SocketAddr::from(SocketAddrV4::new(broadcast, port))),
                     socket: Arc::new(socket),
                 });
             }
@@ -109,6 +115,10 @@ fn bind_multicast_socket_v4(
     // Pin outgoing datagrams to this interface, otherwise the routing table
     // decides and every socket would announce on the same one.
     socket.set_multicast_if_v4(&interface)?;
+
+    // Directly connected Ethernet links may not deliver multicast at all.
+    // Broadcast is enabled for the per-interface fallback target below.
+    socket.set_broadcast(true)?;
 
     // Keep loopback enabled so that several instances on the same host can see
     // each other; own messages are filtered out by fingerprint.
