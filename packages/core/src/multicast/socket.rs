@@ -18,6 +18,10 @@ pub(crate) struct MulticastSocket {
     pub(crate) broadcast_target: Option<SocketAddr>,
 
     pub(crate) socket: Arc<UdpSocket>,
+
+    /// Uses the interface address as its source, so directed broadcasts leave
+    /// through the corresponding adapter even when subnets overlap.
+    pub(crate) broadcast_socket: Option<Arc<UdpSocket>>,
 }
 
 /// Binds and joins the multicast groups on every interface that passes
@@ -42,6 +46,18 @@ pub(crate) fn bind_multicast_sockets(
         let description = format!("{} ({})", interface.name, interface.address);
         match bind_multicast_socket_v4(group, port, interface.address) {
             Ok(socket) => {
+                let broadcast_socket = match interface.broadcast {
+                    Some(_) => match bind_broadcast_socket_v4(interface.address) {
+                        Ok(socket) => Some(Arc::new(socket)),
+                        Err(err) => {
+                            tracing::warn!(
+                                "Could not bind UDP broadcast socket (interface: {description}): {err:#}",
+                            );
+                            None
+                        }
+                    },
+                    None => None,
+                };
                 tracing::info!(
                     "Bound UDP multicast socket (interface: {description}, group: {group}, port: {port})",
                 );
@@ -52,6 +68,7 @@ pub(crate) fn bind_multicast_sockets(
                         .broadcast
                         .map(|broadcast| SocketAddr::from(SocketAddrV4::new(broadcast, port))),
                     socket: Arc::new(socket),
+                    broadcast_socket,
                 });
             }
             Err(err) => {
@@ -78,7 +95,9 @@ pub(crate) fn bind_multicast_sockets(
                             0,
                             interface.index,
                         )),
+                        broadcast_target: None,
                         socket: Arc::new(socket),
+                        broadcast_socket: None,
                     });
                 }
                 Err(err) => {
@@ -127,6 +146,19 @@ fn bind_multicast_socket_v4(
     // Discovery is limited to the local subnet.
     socket.set_multicast_ttl_v4(1)?;
 
+    socket.set_nonblocking(true)?;
+
+    UdpSocket::from_std(socket.into())
+}
+
+/// Binds a separate IPv4 socket to the interface address for directed
+/// broadcasts. The receive socket must use the wildcard address to accept
+/// multicast, but a wildcard-bound sender lets the routing table choose a
+/// different adapter on overlapping subnets.
+fn bind_broadcast_socket_v4(interface: Ipv4Addr) -> std::io::Result<UdpSocket> {
+    let socket = Socket::new(Domain::IPV4, Type::DGRAM, Some(Protocol::UDP))?;
+    socket.bind(&SocketAddr::from(SocketAddrV4::new(interface, 0)).into())?;
+    socket.set_broadcast(true)?;
     socket.set_nonblocking(true)?;
 
     UdpSocket::from_std(socket.into())
