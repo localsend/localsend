@@ -5,6 +5,9 @@
 #ifdef GDK_WINDOWING_X11
 #include <gdk/gdkx.h>
 #endif
+#ifdef GDK_WINDOWING_WAYLAND
+#include <gdk/gdkwayland.h>
+#endif
 
 #include "flutter/generated_plugin_registrant.h"
 
@@ -17,6 +20,19 @@ struct _MyApplication {
 };
 
 G_DEFINE_TYPE(MyApplication, my_application, GTK_TYPE_APPLICATION)
+
+static void platform_method_call_cb(FlMethodChannel* channel,
+                                    FlMethodCall* method_call,
+                                    gpointer user_data) {
+  g_autoptr(FlMethodResponse) response = nullptr;
+  if (strcmp(fl_method_call_get_name(method_call), "isWayland") == 0) {
+    response = FL_METHOD_RESPONSE(fl_method_success_response_new(
+        fl_value_new_bool(GPOINTER_TO_INT(user_data))));
+  } else {
+    response = FL_METHOD_RESPONSE(fl_method_not_implemented_response_new());
+  }
+  fl_method_call_respond(method_call, response, nullptr);
+}
 
 // Implements GApplication::activate.
 static void my_application_activate(GApplication* application) {
@@ -62,6 +78,20 @@ static void my_application_activate(GApplication* application) {
   fl_dart_project_set_dart_entrypoint_arguments(project, self->dart_entrypoint_arguments);
 
   FlView* view = fl_view_new(project);
+
+  g_autoptr(FlStandardMethodCodec) codec = fl_standard_method_codec_new();
+  g_autoptr(FlMethodChannel) platform_channel = fl_method_channel_new(
+      fl_engine_get_binary_messenger(fl_view_get_engine(view)),
+      "org.localsend.localsend_app/platform", FL_METHOD_CODEC(codec));
+  bool is_wayland = false;
+#ifdef GDK_WINDOWING_WAYLAND
+  is_wayland = GDK_IS_WAYLAND_DISPLAY(
+      gtk_widget_get_display(GTK_WIDGET(window)));
+#endif
+  fl_method_channel_set_method_call_handler(
+      platform_channel, platform_method_call_cb, GINT_TO_POINTER(is_wayland),
+      nullptr);
+
   gtk_widget_show(GTK_WIDGET(view));
   gtk_container_add(GTK_CONTAINER(window), GTK_WIDGET(view));
 

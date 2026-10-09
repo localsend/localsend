@@ -31,6 +31,7 @@ class SettingsState with SettingsStateMappable {
   final bool https;
   final SendMode sendMode;
   final bool saveWindowPlacement;
+  final bool alwaysOnTop;
   final bool enableAnimations;
   final DeviceType? deviceType;
   final String? deviceModel;
@@ -64,6 +65,7 @@ class SettingsState with SettingsStateMappable {
     required this.https,
     required this.sendMode,
     required this.saveWindowPlacement,
+    required this.alwaysOnTop,
     required this.enableAnimations,
     required this.deviceType,
     required this.deviceModel,

@@ -37,6 +37,8 @@ PODS:
   - shared_preferences_foundation (0.0.1):
     - Flutter
     - FlutterMacOS
+  - system_date_time_format (1.4.0):
+    - FlutterMacOS
   - tray_manager (0.0.1):
     - FlutterMacOS
   - uri_content (0.0.1):
@@ -70,6 +72,7 @@ DEPENDENCIES:
   - rust_lib_localsend_app (from `Flutter/ephemeral/.symlinks/plugins/rust_lib_localsend_app/macos`)
   - screen_retriever_macos (from `Flutter/ephemeral/.symlinks/plugins/screen_retriever_macos/macos`)
   - shared_preferences_foundation (from `Flutter/ephemeral/.symlinks/plugins/shared_preferences_foundation/darwin`)
+  - system_date_time_format (from `Flutter/ephemeral/.symlinks/plugins/system_date_time_format/macos`)
   - tray_manager (from `Flutter/ephemeral/.symlinks/plugins/tray_manager/macos`)
   - uri_content (from `Flutter/ephemeral/.symlinks/plugins/uri_content/macos`)
   - url_launcher_macos (from `Flutter/ephemeral/.symlinks/plugins/url_launcher_macos/macos`)
@@ -116,6 +119,8 @@ EXTERNAL SOURCES:
     :path: Flutter/ephemeral/.symlinks/plugins/screen_retriever_macos/macos
   shared_preferences_foundation:
     :path: Flutter/ephemeral/.symlinks/plugins/shared_preferences_foundation/darwin
+  system_date_time_format:
+    :path: Flutter/ephemeral/.symlinks/plugins/system_date_time_format/macos
   tray_manager:
     :path: Flutter/ephemeral/.symlinks/plugins/tray_manager/macos
   uri_content:
@@ -148,6 +153,7 @@ SPEC CHECKSUMS:
   rust_lib_localsend_app: 293779a82668308386129c9669c081d201d3e278
   screen_retriever_macos: c5508cc3c66ff0d4db650480cf0ab691e220d933
   shared_preferences_foundation: 7036424c3d8ec98dfe75ff1667cb0cd531ec82bb
+  system_date_time_format: 6fe6ddfff66afd442565f0a1a0a1d4e738a31b36
   tray_manager: 19c369010e59c073f13b82354d78a35f7972d609
   uri_content: 6c7c098bcc83078659b4d274f42db92691eb9123
   url_launcher_macos: f87a979182d112f911de6820aefddaf56ee9fbfd

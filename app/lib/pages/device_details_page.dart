@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/model/persistence/favorite_device.dart';
 import 'package:localsend_app/pages/verify_page.dart';
 import 'package:localsend_app/provider/favorites_provider.dart';
 import 'package:localsend_app/util/favorites.dart';
+import 'package:localsend_app/util/system_date_time_formatter.dart';
 import 'package:localsend_app/widget/big_button.dart';
 import 'package:localsend_app/widget/dialogs/favorite_delete_dialog.dart';
 import 'package:localsend_app/widget/dialogs/favorite_edit_dialog.dart';
@@ -13,8 +13,6 @@ import 'package:localsend_isolates/isolate.dart';
 import 'package:localsend_isolates/model/device.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 import 'package:routerino/routerino.dart';
-
-final _timeFormat = DateFormat.jm(LocaleSettings.currentLocale.languageTag);
 
 /// Shows the general information of a discovered device and
 /// the log of its retained discovery confirmations.
@@ -134,7 +132,7 @@ class _DeviceDetailsPageState extends State<DeviceDetailsPage> with Refena {
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('[${_timeFormat.format(log.timestamp)}]'),
+                    Text('[${SystemDateTimeFormatter.time(context, log.timestamp)}]'),
                     const SizedBox(width: 4),
                     Expanded(
                       child: Text(log.description),

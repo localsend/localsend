@@ -13,8 +13,8 @@ extension IsolateTaskStreamConnector<R, S> on IsolateConnector<IsolateTaskStream
   Stream<R> convertResponseToStream({
     required int taskId,
   }) {
-    final controller = StreamController<R>();
     late StreamSubscription subscription;
+    final controller = StreamController<R>(onCancel: () => subscription.cancel());
     subscription = receiveFromIsolate.listen((result) {
       if (result.id == taskId) {
         if (result.data != null) {
@@ -22,10 +22,9 @@ extension IsolateTaskStreamConnector<R, S> on IsolateConnector<IsolateTaskStream
         } else if (result.done) {
           if (result.error != null) {
             controller.addError(result.error!);
-          } else {
-            subscription.cancel(); // ignore: discarded_futures
-            controller.close(); // ignore: discarded_futures
           }
+          subscription.cancel(); // ignore: discarded_futures
+          controller.close(); // ignore: discarded_futures
         }
       }
     });
