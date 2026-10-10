@@ -292,7 +292,19 @@ Future<void> _pickText(BuildContext context, Ref ref) async {
 Future<void> _pickClipboard(BuildContext context, Ref ref) async {
   final data = await Clipboard.getData(Clipboard.kTextPlain);
   if (data?.text != null) {
-    ref.redux(selectedSendingFilesProvider).dispatch(AddMessageAction(message: data!.text!));
+    final text = data!.text!;
+
+    // Some file managers also put the copied file's path on the clipboard as
+    // text, so prefer the file when the text is a path that exists. Otherwise
+    // this stays a text message, as before.
+    // https://github.com/localsend/localsend/issues/3499
+    final path = existingLocalPath(text);
+    if (path != null) {
+      await _addClipboardFiles(ref, [path]);
+      return;
+    }
+
+    ref.redux(selectedSendingFilesProvider).dispatch(AddMessageAction(message: text));
     return;
   }
 
@@ -330,30 +342,7 @@ Future<void> _pickClipboard(BuildContext context, Ref ref) async {
 
   final List<String> files = await Pasteboard.files();
   if (files.isNotEmpty) {
-    await ref
-        .redux(selectedSendingFilesProvider)
-        .dispatchAsync(
-          AddFilesAction(
-            files: files.map((e) => XFile(e)).toList(),
-            converter: (file) async {
-              if (!file.path.startsWith('content://')) {
-                return CrossFileConverters.convertXFile(file);
-              }
-              // handle content uri
-              return CrossFile(
-                name: file.name,
-                fileType: file.name.guessFileType(),
-                size: await _uriContent.getContentLength(Uri.parse(file.path)) ?? -1,
-                path: file.path,
-                thumbnail: null,
-                asset: null,
-                bytes: null,
-                lastModified: null,
-                lastAccessed: null,
-              );
-            },
-          ),
-        );
+    await _addClipboardFiles(ref, files);
     return;
   }
 
@@ -366,6 +355,34 @@ Future<void> _pickClipboard(BuildContext context, Ref ref) async {
       content: Text(t.general.noItemInClipboard),
     ),
   );
+}
+
+/// Adds clipboard files at [paths] to the selection.
+Future<void> _addClipboardFiles(Ref ref, List<String> paths) async {
+  await ref
+      .redux(selectedSendingFilesProvider)
+      .dispatchAsync(
+        AddFilesAction(
+          files: paths.map((e) => XFile(e)).toList(),
+          converter: (file) async {
+            if (!file.path.startsWith('content://')) {
+              return CrossFileConverters.convertXFile(file);
+            }
+            // handle content uri
+            return CrossFile(
+              name: file.name,
+              fileType: file.name.guessFileType(),
+              size: await _uriContent.getContentLength(Uri.parse(file.path)) ?? -1,
+              path: file.path,
+              thumbnail: null,
+              asset: null,
+              bytes: null,
+              lastModified: null,
+              lastAccessed: null,
+            );
+          },
+        ),
+      );
 }
 
 Future<void> _pickApp(BuildContext context) async {
