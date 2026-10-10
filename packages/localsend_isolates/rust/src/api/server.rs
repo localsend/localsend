@@ -762,6 +762,7 @@ fn resolve_file_content(
 
 #[frb(mirror(WebI18n))]
 pub struct _WebI18n {
+    pub locale: String,
     pub waiting: String,
     pub enter_pin: String,
     pub invalid_pin: String,
@@ -773,6 +774,7 @@ pub struct _WebI18n {
     pub file_name: String,
     pub size: String,
     pub drop_hint: String,
+    pub upload: String,
 }
 
 #[frb(mirror(WebPages))]

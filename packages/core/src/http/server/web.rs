@@ -66,6 +66,7 @@ pub enum WebDownloadEvent {
 }
 
 const DOWNLOAD_HTML: &str = include_str!("../../../assets/web/download.html");
+const FILE_SIZE_JS: &str = include_str!("../../../assets/web/file-size.js");
 const UPLOAD_HTML: &str = include_str!("../../../assets/web/upload.html");
 const ERROR_403_HTML: &str = include_str!("../../../assets/web/error-403.html");
 
@@ -153,6 +154,7 @@ pub struct WebDownloadConfig {
 #[derive(Clone, Debug, Serialize)]
 #[serde(rename_all = "camelCase")]
 pub struct WebI18n {
+    pub locale: String,
     pub waiting: String,
     pub enter_pin: String,
     pub invalid_pin: String,
@@ -164,11 +166,13 @@ pub struct WebI18n {
     pub file_name: String,
     pub size: String,
     pub drop_hint: String,
+    pub upload: String,
 }
 
 impl Default for WebI18n {
     fn default() -> Self {
         Self {
+            locale: "en".to_string(),
             waiting: "Waiting for response…".to_string(),
             enter_pin: "Enter PIN".to_string(),
             invalid_pin: "Invalid PIN".to_string(),
@@ -180,6 +184,7 @@ impl Default for WebI18n {
             file_name: "File name".to_string(),
             size: "Size".to_string(),
             drop_hint: "Place items to share.".to_string(),
+            upload: "Upload".to_string(),
         }
     }
 }
@@ -303,6 +308,14 @@ pub(crate) fn i18n(state: &AppState) -> Result<Response<BoxedBody>, AppError> {
         body: &state.web.i18n,
     }
     .into_response())
+}
+
+pub(crate) fn file_size_script() -> Response<BoxedBody> {
+    html_response(
+        StatusCode::OK,
+        FILE_SIZE_JS,
+        "application/javascript; charset=utf-8",
+    )
 }
 
 pub(crate) async fn prepare_download(

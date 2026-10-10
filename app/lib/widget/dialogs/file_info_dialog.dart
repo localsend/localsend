@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/model/persistence/receive_history_entry.dart';
-import 'package:localsend_isolates/util/file_size_helper.dart';
+import 'package:localsend_app/util/ui/file_size.dart';
 import 'package:routerino/routerino.dart';
 
 class FileInfoDialog extends StatelessWidget {
@@ -48,7 +48,7 @@ class FileInfoDialog extends StatelessWidget {
                     children: [
                       Text(t.dialogs.fileInfo.size),
                       const SizedBox(width: 10),
-                      SelectableText(entry.fileSize.asReadableFileSize),
+                      SelectableText(entry.fileSize.asLocalizedFileSize),
                     ],
                   ),
                   TableRow(

@@ -16,6 +16,7 @@ import 'package:localsend_app/util/native/open_folder.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_app/util/native/taskbar_helper.dart';
 import 'package:localsend_app/util/notification_strings.dart';
+import 'package:localsend_app/util/ui/file_size.dart';
 import 'package:localsend_app/util/ui/nav_bar_padding.dart';
 import 'package:localsend_app/widget/custom_progress_bar.dart';
 import 'package:localsend_app/widget/dialogs/cancel_session_dialog.dart';
@@ -24,7 +25,6 @@ import 'package:localsend_app/widget/file_thumbnail.dart';
 import 'package:localsend_isolates/model/dto/file_dto.dart';
 import 'package:localsend_isolates/model/file_status.dart';
 import 'package:localsend_isolates/model/session_status.dart';
-import 'package:localsend_isolates/util/file_size_helper.dart';
 import 'package:localsend_isolates/util/file_speed_helper.dart';
 import 'package:refena_flutter/addons.dart';
 import 'package:refena_flutter/refena_flutter.dart';
@@ -400,7 +400,7 @@ class _ProgressPageState extends State<ProgressPage> with Refena {
                                       softWrap: false,
                                     ),
                                   ),
-                                  Text(' (${file.size.asReadableFileSize})', style: const TextStyle(fontSize: 16, height: 1)),
+                                  Text(' (${file.size.asLocalizedFileSize})', style: const TextStyle(fontSize: 16, height: 1)),
                                 ],
                               ),
                               const SizedBox(height: 5),
@@ -507,14 +507,14 @@ class _ProgressPageState extends State<ProgressPage> with Refena {
                                   ),
                                   Text(
                                     t.progressPage.total.size(
-                                      curr: currBytes.asReadableFileSize,
-                                      n: _totalBytes == double.maxFinite.toInt() ? '-' : _totalBytes.asReadableFileSize,
+                                      curr: currBytes.asLocalizedFileSize,
+                                      n: _totalBytes == double.maxFinite.toInt() ? '-' : _totalBytes.asLocalizedFileSize,
                                     ),
                                   ),
                                   if (speedInBytes != null)
                                     Text(
                                       t.progressPage.total.speed(
-                                        speed: speedInBytes.asReadableFileSize,
+                                        speed: speedInBytes.asLocalizedFileSize,
                                       ),
                                     ),
                                 ],
