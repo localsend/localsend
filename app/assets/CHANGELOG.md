@@ -1,5 +1,6 @@
 ## Unreleased
 
+- fix(linux): tray icon fails to load in Snap installations (@vicajilau)
 - fix: avoid adding a trailing dot when renaming files without an extension (@ShlomoCode)
 - fix(macos): prevent intermittent MissingPluginException during startup (@ShlomoCode)
 - fix(macos): file sharing via Share Extension doesn't work in DMG builds (@ShlomoCode, @vdmkotai)
