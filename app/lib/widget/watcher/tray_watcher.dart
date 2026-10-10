@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_app/util/native/tray_helper.dart';
 import 'package:tray_manager/tray_manager.dart';
+import 'package:window_manager/window_manager.dart';
 
 class TrayWatcher extends StatefulWidget {
   final Widget child;
@@ -37,6 +38,8 @@ class _TrayWatcherState extends State<TrayWatcher> with TrayListener {
   void onTrayIconMouseDown() async {
     if (checkPlatform([TargetPlatform.macOS])) {
       await trayManager.popUpContextMenu();
+    } else if (await windowManager.isVisible()) {
+      await hideToTray();
     } else {
       await showFromTray();
     }
