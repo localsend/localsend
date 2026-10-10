@@ -46,6 +46,7 @@ Future<FileSaveTarget> prepareFileSaveTarget({
   required String fileName,
   required bool saveToGallery,
   required Set<String> createdDirectories,
+  Set<String>? reservedPaths,
   int? androidSdkInt,
 }) async {
   final parentDirectory = saveToGallery ? cacheDirectory : destinationDirectory;
@@ -54,6 +55,7 @@ Future<FileSaveTarget> prepareFileSaveTarget({
     parentDirectory: parentDirectory,
     fileName: fileName,
     createdDirectories: createdDirectories,
+    reservedPaths: reservedPaths,
   );
 
   // When saveToGallery is enabled, the cache directory is used so SAF is not needed
@@ -129,6 +131,7 @@ Future<(bool, String?)> saveCachedFileToGallery({
   required String fileName,
   required bool isImage,
   required Set<String> createdDirectories,
+  Set<String>? reservedPaths,
 }) async {
   try {
     isImage ? await Gal.putImage(cachedPath) : await Gal.putVideo(cachedPath);
@@ -139,6 +142,7 @@ Future<(bool, String?)> saveCachedFileToGallery({
       parentDirectory: destinationDirectory,
       fileName: fileName,
       createdDirectories: createdDirectories,
+      reservedPaths: reservedPaths,
     );
 
     _logger.info('Moving file from $cachedPath to $fallbackPath');
@@ -193,11 +197,15 @@ List<String> sanitizeRelativeName(String fileName) {
   return components;
 }
 
-/// If the name is already occupied, appends a number to the file name.
+/// If the name is already occupied or reserved, appends a number to the file name.
+///
+/// [reservedPaths] is shared by callers allocating paths concurrently, including
+/// paths that have been selected but have not yet been created on disk.
 Future<(String, String?, String)> digestFilePathAndPrepareDirectory({
   required String parentDirectory,
   required String fileName,
   required Set<String> createdDirectories,
+  Set<String>? reservedPaths,
 }) async {
   final components = sanitizeRelativeName(fileName);
   fileName = components.join('/');
@@ -244,7 +252,10 @@ Future<(String, String?, String)> digestFilePathAndPrepareDirectory({
   do {
     destinationPath = counter == 1 ? p.join(dir, actualFileName) : p.join(dir, actualFileName.withCount(counter));
     counter++;
-  } while (await FileSystemEntity.type(destinationPath, followLinks: false) != FileSystemEntityType.notFound);
+    // Claim after the asynchronous check: another allocation may have selected
+    // the same missing path while this one was waiting for the filesystem.
+  } while (await FileSystemEntity.type(destinationPath, followLinks: false) != FileSystemEntityType.notFound ||
+      (reservedPaths != null && !reservedPaths.add(destinationPath)));
   return (destinationPath, null, p.basename(destinationPath));
 }
 
