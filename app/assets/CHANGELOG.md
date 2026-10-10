@@ -1,10 +1,39 @@
 ## Unreleased
 
-- fix: avoid adding a trailing dot when renaming files without an extension (@ShlomoCode)
-- fix(macos): prevent intermittent MissingPluginException during startup (@ShlomoCode)
-- fix(macos): file sharing via Share Extension doesn't work in DMG builds (@ShlomoCode, @vdmkotai)
+- feat(desktop): add an option to keep the LocalSend window above other windows (@ShlomoCode)
+- feat: format timestamps using system date and time settings (@ShlomoCode)
+- feat(cli): send text using --text, including input from stdin (@Tienisto)
+- feat: add keyboard shortcuts to accept or decline incoming transfers (@Tienisto)
+- feat(macos): use native window restoration to keep partially off-screen windows near their saved position (@ShlomoCode)
+- feat(cli)!: replace `--file` with the `send` command for sending files and directories (@otanim)
+- feat: restore hashtag codes for connecting to devices (@Tienisto)
+- i18n: add Kyrgyz (@nidara-duo)
+- security(cli): sanitize remote text before displaying it in the terminal (@Tienisto)
+- security: limit simultaneous incoming connections to prevent resource exhaustion (@Tienisto)
 - fix: show the real error when a file cannot be read while sending, instead of transferring it as an empty file (@leopalmieri-spec)
+- fix(macos): prevent intermittent MissingPluginException during startup (@ShlomoCode)
+- fix: avoid directory name collisions when receiving files (@ShlomoCode)
+- fix: accept PINs containing special characters (@ShlomoCode)
+- fix(macos): file sharing via Share Extension doesn't work in DMG builds (@ShlomoCode, @vdmkotai)
+- fix(ios): show LocalSend in the share menu on iOS 14 and 15 (@ShlomoCode)
+- fix(windows): correct the MSIX helper architecture in ARM64 builds (@Tienisto)
+- fix(android): keep file names when saving to a custom folder (@Tienisto)
+- fix(android): can't open files with unrecognized extensions (@ShlomoCode)
 - fix: show the actual save location path for receiving files (@ShlomoCode)
+- fix(android): avoid display flashes when opening or closing the app on some Android TVs (@ShlomoCode)
+- fix(linux): keep keyboard shortcuts working when Num Lock is enabled (@ShlomoCode)
+- fix(android): use the phone's configured name or model when selecting "Use system name" in settings (@ShlomoCode)
+- fix: pressing Enter now confirms file renaming (@ShlomoCode)
+- fix: avoid adding a trailing dot when renaming files without an extension (@ShlomoCode)
+- fix(cli): cancel pending web shortcuts when pressing non-character keys (@ShlomoCode)
+- fix(desktop): respect custom error-403.html even when web sharing is disabled (@Tienisto)
+- fix(windows): sign the embedded uninstaller as well as the installer (@Tienisto)
+- fix: hide unsupported troubleshooting options (@ShlomoCode)
+- fix: apply zero-padding when numbering renamed files (@A-M-D-R-3-W)
+- fix(linux): match the native title bar to the app theme (@ShlomoCode)
+- fix(linux): don't show the farewell message during deb upgrades or reinstalls (@ShlomoCode)
+- perf: reduce memory use during file transfers (@luojiyin1987)
+- perf: release isolate listeners after task errors and stream cancellation (@ShlomoCode)
 
 ## 1.18.2 (2026-08-21)
 
@@ -13,6 +42,9 @@
 - feat(cli): add version info to the Windows executable
 - feat(linux): set actual version in the AppImage
 - security: do not follow HTTP redirects sent by peers
+- perf: improve file transfer throughput and reduce response delays
+- fix: avoid startup failure in portable mode when the working directory is inaccessible (@Shlomo116)
+- fix: use the standard port 3478 for the default STUN server
 - fix: restore compatibility with 1.17.0 and earlier versions on missing multicast networks
 - fix: devices running 1.17.0 and earlier could not add 1.18.0+ device as favorite
 - fix: ignore proxies, fixes "TLS info not found" when a system proxy (e.g. Shadowrocket) is enabled
