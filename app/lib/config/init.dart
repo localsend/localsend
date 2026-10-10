@@ -303,7 +303,7 @@ Future<void> postInit(BuildContext context, Ref ref, bool appStart) async {
     }
   }
 
-  if (appStart && !hasInitialShare && (checkPlatformWithGallery() || checkPlatformCanReceiveShareIntent())) {
+  if (appStart && !hasInitialShare) {
     // Clear cache on every app start.
     // If we received a share intent, then don't clear it, otherwise the shared file will be lost.
     ref.global.dispatchAsync(ClearCacheAction()); // ignore: unawaited_futures
