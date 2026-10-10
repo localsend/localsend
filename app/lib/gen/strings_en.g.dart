@@ -1069,6 +1069,9 @@ class Translations$settingsTab$general$en {
 
   late final Translations$settingsTab$general$colorOptions$en colorOptions = Translations$settingsTab$general$colorOptions$en.internal(_root);
 
+  /// en: 'Color intensity'
+  String get colorIntensity => 'Color intensity';
+
   /// en: 'Language'
   String get language => 'Language';
 

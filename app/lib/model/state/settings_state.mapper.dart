@@ -45,6 +45,11 @@ class SettingsStateMapper extends ClassMapperBase<SettingsState> {
     'customColor',
     _$customColor,
   );
+  static int? _$colorIntensity(SettingsState v) => v.colorIntensity;
+  static const Field<SettingsState, int> _f$colorIntensity = Field(
+    'colorIntensity',
+    _$colorIntensity,
+  );
   static AppLocale? _$locale(SettingsState v) => v.locale;
   static const Field<SettingsState, AppLocale> _f$locale = Field(
     'locale',
@@ -182,6 +187,7 @@ class SettingsStateMapper extends ClassMapperBase<SettingsState> {
     #theme: _f$theme,
     #colorMode: _f$colorMode,
     #customColor: _f$customColor,
+    #colorIntensity: _f$colorIntensity,
     #locale: _f$locale,
     #port: _f$port,
     #networkWhitelist: _f$networkWhitelist,
@@ -217,6 +223,7 @@ class SettingsStateMapper extends ClassMapperBase<SettingsState> {
       theme: data.dec(_f$theme),
       colorMode: data.dec(_f$colorMode),
       customColor: data.dec(_f$customColor),
+      colorIntensity: data.dec(_f$colorIntensity),
       locale: data.dec(_f$locale),
       port: data.dec(_f$port),
       networkWhitelist: data.dec(_f$networkWhitelist),
@@ -318,6 +325,7 @@ abstract class SettingsStateCopyWith<$R, $In extends SettingsState, $Out>
     ThemeMode? theme,
     ColorMode? colorMode,
     Color? customColor,
+    int? colorIntensity,
     AppLocale? locale,
     int? port,
     List<String>? networkWhitelist,
@@ -381,6 +389,7 @@ class _SettingsStateCopyWithImpl<$R, $Out>
     ThemeMode? theme,
     ColorMode? colorMode,
     Color? customColor,
+    Object? colorIntensity = $none,
     Object? locale = $none,
     int? port,
     Object? networkWhitelist = $none,
@@ -414,6 +423,7 @@ class _SettingsStateCopyWithImpl<$R, $Out>
       if (theme != null) #theme: theme,
       if (colorMode != null) #colorMode: colorMode,
       if (customColor != null) #customColor: customColor,
+      if (colorIntensity != $none) #colorIntensity: colorIntensity,
       if (locale != $none) #locale: locale,
       if (port != null) #port: port,
       if (networkWhitelist != $none) #networkWhitelist: networkWhitelist,
@@ -453,6 +463,7 @@ class _SettingsStateCopyWithImpl<$R, $Out>
     theme: data.get(#theme, or: $value.theme),
     colorMode: data.get(#colorMode, or: $value.colorMode),
     customColor: data.get(#customColor, or: $value.customColor),
+    colorIntensity: data.get(#colorIntensity, or: $value.colorIntensity),
     locale: data.get(#locale, or: $value.locale),
     port: data.get(#port, or: $value.port),
     networkWhitelist: data.get(#networkWhitelist, or: $value.networkWhitelist),
