@@ -169,6 +169,21 @@ To compile LocalSend from the source code, follow these steps:
 ## Command Line Interface
 
 The LocalSend CLI is a terminal client built on LocalSend Protocol v2.
+
+On macOS and Linux, install the CLI with [Homebrew](https://brew.sh):
+
+```shell
+brew update
+brew install localsend-cli
+```
+
+To upgrade an existing installation:
+
+```shell
+brew update
+brew upgrade localsend-cli
+```
+
 Run `localsend-cli --help` to see every available option and hotkey.
 
 Use the `send` command with one or more files, directories, or a mixture of both:
