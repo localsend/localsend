@@ -1,6 +1,7 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:localsend_app/gen/strings.g.dart';
+import 'package:localsend_app/model/persistence/color_intensity.dart';
 import 'package:localsend_app/model/persistence/color_mode.dart';
 import 'package:localsend_app/model/persistence/quick_save_mode.dart';
 import 'package:localsend_app/model/send_mode.dart';
@@ -110,7 +111,7 @@ class SettingsService extends PureNotifier<SettingsState> {
     );
   }
 
-  Future<void> setColorIntensity(int? colorIntensity) async {
+  Future<void> setColorIntensity(ColorIntensity colorIntensity) async {
     await _persistence.setColorIntensity(colorIntensity);
     state = state.copyWith(
       colorIntensity: colorIntensity,

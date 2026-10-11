@@ -1,6 +1,7 @@
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:flutter/material.dart';
 import 'package:localsend_app/gen/strings.g.dart';
+import 'package:localsend_app/model/persistence/color_intensity.dart';
 import 'package:localsend_app/model/persistence/color_mode.dart';
 import 'package:localsend_app/model/send_mode.dart';
 import 'package:localsend_isolates/model/device.dart';
@@ -14,7 +15,7 @@ class SettingsState with SettingsStateMappable {
   final ThemeMode theme;
   final ColorMode colorMode;
   final Color customColor; // seed color for ColorMode.custom
-  final int? colorIntensity; // null = default Material tone mapping; see config/theme.dart
+  final ColorIntensity colorIntensity; // see config/theme.dart
   final AppLocale? locale;
   final int port;
   final List<String>? networkWhitelist; // null = disabled

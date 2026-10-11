@@ -101,6 +101,11 @@
         "custom": "Custom"
       },
       "colorIntensity": "Color intensity",
+      "colorIntensityOptions": {
+        "low": "Low",
+        "medium": "Medium",
+        "high": "High"
+      },
       "language": "Language",
       "languageOptions": {
         "system": "System"

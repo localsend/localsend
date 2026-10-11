@@ -45,8 +45,8 @@ class SettingsStateMapper extends ClassMapperBase<SettingsState> {
     'customColor',
     _$customColor,
   );
-  static int? _$colorIntensity(SettingsState v) => v.colorIntensity;
-  static const Field<SettingsState, int> _f$colorIntensity = Field(
+  static ColorIntensity _$colorIntensity(SettingsState v) => v.colorIntensity;
+  static const Field<SettingsState, ColorIntensity> _f$colorIntensity = Field(
     'colorIntensity',
     _$colorIntensity,
   );
@@ -325,7 +325,7 @@ abstract class SettingsStateCopyWith<$R, $In extends SettingsState, $Out>
     ThemeMode? theme,
     ColorMode? colorMode,
     Color? customColor,
-    int? colorIntensity,
+    ColorIntensity? colorIntensity,
     AppLocale? locale,
     int? port,
     List<String>? networkWhitelist,
@@ -389,7 +389,7 @@ class _SettingsStateCopyWithImpl<$R, $Out>
     ThemeMode? theme,
     ColorMode? colorMode,
     Color? customColor,
-    Object? colorIntensity = $none,
+    ColorIntensity? colorIntensity,
     Object? locale = $none,
     int? port,
     Object? networkWhitelist = $none,
@@ -423,7 +423,7 @@ class _SettingsStateCopyWithImpl<$R, $Out>
       if (theme != null) #theme: theme,
       if (colorMode != null) #colorMode: colorMode,
       if (customColor != null) #customColor: customColor,
-      if (colorIntensity != $none) #colorIntensity: colorIntensity,
+      if (colorIntensity != null) #colorIntensity: colorIntensity,
       if (locale != $none) #locale: locale,
       if (port != null) #port: port,
       if (networkWhitelist != $none) #networkWhitelist: networkWhitelist,

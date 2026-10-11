@@ -5,6 +5,7 @@ import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:localsend_app/gen/strings.g.dart';
+import 'package:localsend_app/model/persistence/color_intensity.dart';
 import 'package:localsend_app/model/persistence/color_mode.dart';
 import 'package:localsend_app/model/persistence/favorite_device.dart';
 import 'package:localsend_app/model/persistence/quick_save_mode.dart';
@@ -72,7 +73,7 @@ const _aliasKey = 'ls_alias';
 const _themeKey = 'ls_theme'; // now called brightness
 const _colorKey = 'ls_color';
 const _customColorKey = 'ls_custom_color'; // RRGGBB hex, used by ColorMode.custom
-const _colorIntensityKey = 'ls_color_intensity'; // null = default Material tone mapping
+const _colorIntensityKey = 'ls_color_intensity';
 const _localeKey = 'ls_locale';
 const _portKey = 'ls_port';
 const _networkWhitelistKey = 'ls_network_whitelist';
@@ -325,16 +326,13 @@ class PersistenceService {
     await _prefs.setString(_customColorKey, color.toARGB32().toRadixString(16).padLeft(8, '0').substring(2));
   }
 
-  int? getColorIntensity() {
-    return _prefs.getInt(_colorIntensityKey);
+  ColorIntensity getColorIntensity() {
+    final value = _prefs.getString(_colorIntensityKey);
+    return ColorIntensity.values.firstWhereOrNull((intensity) => intensity.name == value) ?? ColorIntensity.off;
   }
 
-  Future<void> setColorIntensity(int? colorIntensity) async {
-    if (colorIntensity == null) {
-      await _prefs.remove(_colorIntensityKey);
-    } else {
-      await _prefs.setInt(_colorIntensityKey, colorIntensity);
-    }
+  Future<void> setColorIntensity(ColorIntensity colorIntensity) async {
+    await _prefs.setString(_colorIntensityKey, colorIntensity.name);
   }
 
   AppLocale? getLocale() {

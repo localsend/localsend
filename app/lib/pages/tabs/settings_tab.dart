@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:localsend_app/config/theme.dart';
 import 'package:localsend_app/gen/strings.g.dart';
+import 'package:localsend_app/model/persistence/color_intensity.dart';
 import 'package:localsend_app/model/persistence/color_mode.dart';
 import 'package:localsend_app/pages/about/about_page.dart';
 import 'package:localsend_app/pages/changelog_page.dart';
@@ -85,11 +86,17 @@ class SettingsTab extends StatelessWidget {
                 if (vm.advanced && (vm.settings.colorMode == ColorMode.system || vm.settings.colorMode == ColorMode.custom))
                   _SettingsEntry(
                     label: t.settingsTab.general.colorIntensity,
-                    child: TextFieldTv(
-                      name: t.settingsTab.general.colorIntensity,
-                      controller: vm.colorIntensityController,
-                      onChanged: (s) async {
-                        await ref.notifier(settingsProvider).setColorIntensity(int.tryParse(s));
+                    child: CustomDropdownButton<ColorIntensity>(
+                      value: vm.settings.colorIntensity,
+                      items: ColorIntensity.values.map((intensity) {
+                        return DropdownMenuItem(
+                          value: intensity,
+                          alignment: Alignment.center,
+                          child: Text(intensity.humanName),
+                        );
+                      }).toList(),
+                      onChanged: (intensity) async {
+                        await ref.notifier(settingsProvider).setColorIntensity(intensity);
                       },
                     ),
                   ),
@@ -801,6 +808,17 @@ extension on ColorMode {
       ColorMode.oled => t.settingsTab.general.colorOptions.oled,
       ColorMode.yaru => 'Yaru',
       ColorMode.custom => t.settingsTab.general.colorOptions.custom,
+    };
+  }
+}
+
+extension on ColorIntensity {
+  String get humanName {
+    return switch (this) {
+      ColorIntensity.off => t.general.off,
+      ColorIntensity.low => t.settingsTab.general.colorIntensityOptions.low,
+      ColorIntensity.medium => t.settingsTab.general.colorIntensityOptions.medium,
+      ColorIntensity.high => t.settingsTab.general.colorIntensityOptions.high,
     };
   }
 }
