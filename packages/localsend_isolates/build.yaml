@@ -1,0 +1,10 @@
+targets:
+  $default:
+    builders:
+      dart_mappable_builder:
+        options:
+          renameMethods:
+            fromJson: deserialize
+            toJson: serialize
+            fromMap: fromJson
+            toMap: toJson

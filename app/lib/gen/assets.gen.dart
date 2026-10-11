@@ -42,28 +42,11 @@ class $AssetsImgGen {
   List<dynamic> get values => [logo128, logo256, logo32Black, logo32White, logo32, logo512White, logo512, logo];
 }
 
-class $AssetsWebGen {
-  const $AssetsWebGen();
-
-  /// File path: assets/web/error-403.html
-  String get error403 => 'assets/web/error-403.html';
-
-  /// File path: assets/web/index.html
-  String get index => 'assets/web/index.html';
-
-  /// File path: assets/web/main.js
-  String get main => 'assets/web/main.js';
-
-  /// List of all assets
-  List<String> get values => [error403, index, main];
-}
-
 class Assets {
   const Assets._();
 
   static const String changelog = 'assets/CHANGELOG.md';
   static const $AssetsImgGen img = $AssetsImgGen();
-  static const $AssetsWebGen web = $AssetsWebGen();
 
   /// List of all assets
   static List<String> get values => [changelog];

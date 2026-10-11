@@ -43,9 +43,6 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 
   // Translations
 
-  /// en: 'English'
-  String get locale => 'English';
-
   /// en: 'LocalSend'
   String get appName => 'LocalSend';
 
@@ -58,14 +55,18 @@ class Translations with BaseTranslations<AppLocale, Translations> {
   late final Translations$receiveHistoryPage$en receiveHistoryPage = Translations$receiveHistoryPage$en.internal(_root);
   late final Translations$apkPickerPage$en apkPickerPage = Translations$apkPickerPage$en.internal(_root);
   late final Translations$selectedFilesPage$en selectedFilesPage = Translations$selectedFilesPage$en.internal(_root);
+  late final Translations$deviceDetailsPage$en deviceDetailsPage = Translations$deviceDetailsPage$en.internal(_root);
+  late final Translations$verifyPage$en verifyPage = Translations$verifyPage$en.internal(_root);
   late final Translations$receivePage$en receivePage = Translations$receivePage$en.internal(_root);
   late final Translations$receiveOptionsPage$en receiveOptionsPage = Translations$receiveOptionsPage$en.internal(_root);
   late final Translations$sendPage$en sendPage = Translations$sendPage$en.internal(_root);
   late final Translations$progressPage$en progressPage = Translations$progressPage$en.internal(_root);
   late final Translations$webSharePage$en webSharePage = Translations$webSharePage$en.internal(_root);
+  late final Translations$webReceivePage$en webReceivePage = Translations$webReceivePage$en.internal(_root);
   late final Translations$aboutPage$en aboutPage = Translations$aboutPage$en.internal(_root);
   late final Translations$donationPage$en donationPage = Translations$donationPage$en.internal(_root);
   late final Translations$changelogPage$en changelogPage = Translations$changelogPage$en.internal(_root);
+  late final Translations$whatsNewPage$en whatsNewPage = Translations$whatsNewPage$en.internal(_root);
   late final Translations$aliasGenerator$en aliasGenerator = Translations$aliasGenerator$en.internal(_root);
   late final Translations$dialogs$en dialogs = Translations$dialogs$en.internal(_root);
   late final Translations$sanitization$en sanitization = Translations$sanitization$en.internal(_root);
@@ -210,6 +211,9 @@ class Translations$receiveTab$en {
 
   late final Translations$receiveTab$infoBox$en infoBox = Translations$receiveTab$infoBox$en.internal(_root);
   late final Translations$receiveTab$quickSave$en quickSave = Translations$receiveTab$quickSave$en.internal(_root);
+
+  /// en: 'Receive via link'
+  String get link => 'Receive via link';
 }
 
 // Path: sendTab
@@ -383,6 +387,48 @@ class Translations$selectedFilesPage$en {
   String get deleteAll => 'Delete all';
 }
 
+// Path: deviceDetailsPage
+class Translations$deviceDetailsPage$en {
+  Translations$deviceDetailsPage$en.internal(this._root);
+
+  final Translations _root; // ignore: unused_field
+
+  // Translations
+
+  /// en: 'Device Details'
+  String get title => 'Device Details';
+
+  /// en: 'Favorite'
+  String get favorite => 'Favorite';
+
+  /// en: 'Verify'
+  String get verify => 'Verify';
+
+  late final Translations$deviceDetailsPage$info$en info = Translations$deviceDetailsPage$info$en.internal(_root);
+  late final Translations$deviceDetailsPage$logs$en logs = Translations$deviceDetailsPage$logs$en.internal(_root);
+}
+
+// Path: verifyPage
+class Translations$verifyPage$en {
+  Translations$verifyPage$en.internal(this._root);
+
+  final Translations _root; // ignore: unused_field
+
+  // Translations
+
+  /// en: 'Verify'
+  String get title => 'Verify';
+
+  /// en: 'Icons'
+  String get icons => 'Icons';
+
+  /// en: 'Text'
+  String get text => 'Text';
+
+  /// en: 'Does it look the same on the other device?'
+  String get question => 'Does it look the same on the other device?';
+}
+
 // Path: receivePage
 class Translations$receivePage$en {
   Translations$receivePage$en.internal(this._root);
@@ -439,6 +485,9 @@ class Translations$sendPage$en {
   final Translations _root; // ignore: unused_field
 
   // Translations
+
+  /// en: 'Calculating checksum ({curr} / {n})'
+  String calculatingChecksum({required Object curr, required Object n}) => 'Calculating checksum (${curr} / ${n})';
 
   /// en: 'Waiting for response…'
   String get waiting => 'Waiting for response…';
@@ -526,6 +575,18 @@ class Translations$webSharePage$en {
   String pendingRequests({required Object n}) => 'Pending requests: ${n}';
 }
 
+// Path: webReceivePage
+class Translations$webReceivePage$en {
+  Translations$webReceivePage$en.internal(this._root);
+
+  final Translations _root; // ignore: unused_field
+
+  // Translations
+
+  /// en: 'Receive via link'
+  String get title => 'Receive via link';
+}
+
 // Path: aboutPage
 class Translations$aboutPage$en {
   Translations$aboutPage$en.internal(this._root);
@@ -589,6 +650,20 @@ class Translations$changelogPage$en {
 
   /// en: 'Changelog'
   String get title => 'Changelog';
+}
+
+// Path: whatsNewPage
+class Translations$whatsNewPage$en {
+  Translations$whatsNewPage$en.internal(this._root);
+
+  final Translations _root; // ignore: unused_field
+
+  // Translations
+
+  /// en: 'What's new in {version}'
+  String title({required Object version}) => 'What\'s new in ${version}';
+
+  late final Translations$whatsNewPage$changes$en changes = Translations$whatsNewPage$changes$en.internal(_root);
 }
 
 // Path: aliasGenerator
@@ -1007,6 +1082,12 @@ class Translations$settingsTab$general$en {
   /// en: 'Save window position after exit'
   String get saveWindowPlacementWindows => 'Save window position after exit';
 
+  /// en: 'Always on top'
+  String get alwaysOnTop => 'Always on top';
+
+  /// en: 'Not supported on Wayland'
+  String get alwaysOnTopUnavailable => 'Not supported on Wayland';
+
   /// en: 'Minimize to the System Tray/Menu Bar when closing'
   String get minimizeToTray => 'Minimize to the System Tray/Menu Bar when closing';
 
@@ -1057,6 +1138,9 @@ class Translations$settingsTab$receive$en {
 
   /// en: 'Save to history'
   String get saveToHistory => 'Save to history';
+
+  /// en: 'Verify checksums when receiving files'
+  String get verifyChecksums => 'Verify checksums when receiving files';
 }
 
 // Path: settingsTab.send
@@ -1072,6 +1156,9 @@ class Translations$settingsTab$send$en {
 
   /// en: 'Automatically accept requests in "Share via link" mode'
   String get shareViaLinkAutoAccept => 'Automatically accept requests in "Share via link" mode';
+
+  /// en: 'Create checksums when sending files'
+  String get createChecksums => 'Create checksums when sending files';
 }
 
 // Path: settingsTab.network
@@ -1228,6 +1315,48 @@ class Translations$receiveHistoryPage$entryActions$en {
   String get deleteFromHistory => 'Delete from history';
 }
 
+// Path: deviceDetailsPage.info
+class Translations$deviceDetailsPage$info$en {
+  Translations$deviceDetailsPage$info$en.internal(this._root);
+
+  final Translations _root; // ignore: unused_field
+
+  // Translations
+
+  /// en: 'Name'
+  String get name => 'Name';
+
+  /// en: 'Address'
+  String get address => 'Address';
+
+  /// en: 'Version'
+  String get version => 'Version';
+
+  /// en: 'Protocol v{version}'
+  String protocol({required Object version}) => 'Protocol v${version}';
+}
+
+// Path: deviceDetailsPage.logs
+class Translations$deviceDetailsPage$logs$en {
+  Translations$deviceDetailsPage$logs$en.internal(this._root);
+
+  final Translations _root; // ignore: unused_field
+
+  // Translations
+
+  /// en: 'Logs'
+  String get title => 'Logs';
+
+  /// en: 'No logs available.'
+  String get empty => 'No logs available.';
+
+  /// en: 'Discovered via {protocol} ({host})'
+  String discovered({required Object protocol, required Object host}) => 'Discovered via ${protocol} (${host})';
+
+  /// en: 'Updated via {protocol} ({host})'
+  String updated({required Object protocol, required Object host}) => 'Updated via ${protocol} (${host})';
+}
+
 // Path: progressPage.total
 class Translations$progressPage$total$en {
   Translations$progressPage$total$en.internal(this._root);
@@ -1255,21 +1384,34 @@ class Translations$progressPage$remainingTime$en {
 
   // Translations
 
-  /// en: '{n}:{ss}'
-  String seconds({required Object n, required Object ss}) => '${n}:${ss}';
+  /// en: '(other) {{m}m}'
+  String minutesUnit({required num m}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(
+    m,
+    other: '${m}m',
+  );
 
-  /// en: '{n}:{ss}'
-  String minutes({required Object n, required Object ss}) => '${n}:${ss}';
+  /// en: '(other) {{h}h}'
+  String hoursUnit({required num h}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(
+    h,
+    other: '${h}h',
+  );
 
-  /// Use 'h' for hours abbreviation and 'm' for minutes
-  ///
-  /// en: '{h}h {m}m'
-  String hours({required Object h, required Object m}) => '${h}h ${m}m';
+  /// en: '{m}:{ss}'
+  String minutes({required Object m, required Object ss}) => '${m}:${ss}';
 
-  /// Use 'd' for days, 'h' for hours, and 'm' for minutes
-  ///
-  /// en: '{d}d {h}h {m}m'
-  String days({required Object d, required Object h, required Object m}) => '${d}d ${h}h ${m}m';
+  /// en: '(other) {{h}h} (other) {{m}m}'
+  String hours({required num h, required num m}) =>
+      '${_root.progressPage.remainingTime.hoursUnit(h: h)} ${_root.progressPage.remainingTime.minutesUnit(m: m)}';
+}
+
+// Path: whatsNewPage.changes
+class Translations$whatsNewPage$changes$en {
+  Translations$whatsNewPage$changes$en.internal(this._root);
+
+  final Translations _root; // ignore: unused_field
+
+  // Translations
+  late final Translations$whatsNewPage$changes$v1_18_0$en v1_18_0 = Translations$whatsNewPage$changes$v1_18_0$en.internal(_root);
 }
 
 // Path: dialogs.addFile
@@ -1643,8 +1785,6 @@ class Translations$dialogs$quickSaveFromFavoritesNotice$en {
 
   List<String> get content => [
     'File requests are now accepted automatically from devices in your favorites list.',
-    'Warning! Currently, this is not entirely secure, as a hacker who has the fingerprint of any device from your favorites list can send you files without restriction.',
-    'However, this option is still safer than allowing all users on the local network to send you files without restriction.',
   ];
 }
 
@@ -1724,6 +1864,9 @@ class Translations$settingsTab$general$colorOptions$en {
 
   /// en: 'OLED'
   String get oled => 'OLED';
+
+  /// en: 'Custom'
+  String get custom => 'Custom';
 }
 
 // Path: settingsTab.general.languageOptions
@@ -1772,4 +1915,19 @@ class Translations$progressPage$total$title$en {
 
   /// en: 'Canceled by receiver'
   String get canceledReceiver => 'Canceled by receiver';
+}
+
+// Path: whatsNewPage.changes.v1_18_0
+class Translations$whatsNewPage$changes$v1_18_0$en with WhatsNewStrings {
+  Translations$whatsNewPage$changes$v1_18_0$en.internal(this._root);
+
+  final Translations _root; // ignore: unused_field
+
+  // Translations
+  @override
+  List<String> get changes => [
+    'Encryption no longer slows down transfers. It has been re-enabled on this device if you turned it off before.',
+    'Requests from favorites are now accepted automatically. This is turned on by default and can be disabled in the settings.',
+    'On Android, transfers continue while the app is in the background or the screen is off. On iOS, the app must still stay in the foreground.',
+  ];
 }

@@ -1,3 +1,4 @@
+use crate::http::client::scoped_host;
 use std::borrow::Cow;
 
 pub struct TargetUrl<'a> {
@@ -7,8 +8,7 @@ pub struct TargetUrl<'a> {
     pub port: u16,
     pub path: &'static str,
 
-    /// Query parameters as key-value pairs.
-    /// Note: It is expected that the caller will URL-encode the values if necessary.
+    /// Query parameters as raw key-value pairs; encoded when building the URL.
     pub params: &'a [(&'static str, &'a str)],
 }
 
@@ -22,9 +22,14 @@ impl<'a> TargetUrl<'a> {
         let base = format!(
             "{}://{}:{}/api/localsend/{}{}",
             self.protocol,
-            match self.host.contains(':') {
-                true => Cow::Owned(format!("[{}]", self.host)), // IPv6 addresses need to be enclosed in brackets
-                false => Cow::Borrowed(&self.host),
+            // A scoped IPv6 address (`fe80::1%3`) cannot be represented in a
+            // URL and becomes a synthetic host name instead.
+            match scoped_host::encode(&self.host) {
+                Some(encoded) => Cow::Owned(encoded),
+                None => match self.host.contains(':') {
+                    true => Cow::Owned(format!("[{}]", self.host)), // IPv6 addresses need to be enclosed in brackets
+                    false => Cow::Borrowed(&self.host),
+                },
             },
             self.port,
             match self.version {
@@ -36,12 +41,9 @@ impl<'a> TargetUrl<'a> {
         if self.params.is_empty() {
             base
         } else {
-            let query = self
-                .params
-                .iter()
-                .map(|(k, v)| format!("{}={}", k, v))
-                .collect::<Vec<_>>()
-                .join("&");
+            let query = form_urlencoded::Serializer::new(String::new())
+                .extend_pairs(self.params.iter().copied())
+                .finish();
             format!("{}?{}", base, query)
         }
     }
@@ -50,6 +52,33 @@ impl<'a> TargetUrl<'a> {
 #[cfg(test)]
 mod tests {
     use super::{ApiVersion, TargetUrl};
+
+    #[test]
+    fn test_pin_survives_query_round_trip() {
+        for pin in ["1234", "a+b", "a&b", "a#b", "%41", "a b", "קוד", ""] {
+            let url = TargetUrl {
+                version: ApiVersion::V2,
+                protocol: "https",
+                host: "192.168.1.1".to_string(),
+                port: 53317,
+                path: "/prepare-download",
+                params: &[("pin", pin), ("sessionId", "session-1")],
+            }
+            .to_string();
+            let url = reqwest::Url::parse(&url).unwrap();
+            let params: Vec<_> = form_urlencoded::parse(url.query().unwrap().as_bytes())
+                .into_owned()
+                .collect();
+            assert_eq!(
+                params,
+                vec![
+                    ("pin".to_string(), pin.to_string()),
+                    ("sessionId".to_string(), "session-1".to_string())
+                ],
+                "PIN: {pin:?}"
+            );
+        }
+    }
 
     #[test]
     fn test_build_url_ipv4() {
@@ -77,6 +106,23 @@ mod tests {
         }
         .to_string();
         assert_eq!(url, "https://[::1]:53317/api/localsend/v2/register");
+    }
+
+    #[test]
+    fn test_build_url_scoped_ipv6() {
+        let url = TargetUrl {
+            version: ApiVersion::V2,
+            protocol: "https",
+            host: "fe80::1%3".to_string(),
+            port: 53317,
+            path: "/register",
+            params: &[],
+        }
+        .to_string();
+        assert_eq!(
+            url,
+            "https://fe80--1s3.scoped.localsend.internal:53317/api/localsend/v2/register"
+        );
     }
 
     #[test]

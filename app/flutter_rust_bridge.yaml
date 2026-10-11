@@ -1,3 +1,0 @@
-rust_input: crate::api
-rust_root: rust/
-dart_output: lib/rust

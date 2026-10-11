@@ -40,8 +40,6 @@ class TranslationsZhCn extends Translations with BaseTranslations<AppLocale, Tra
 
   // Translations
   @override
-  String get locale => '简体中文';
-  @override
   String get appName => 'LocalSend';
   @override
   late final Translations$general$zh_CN general = Translations$general$zh_CN.internal(_root);
@@ -54,11 +52,17 @@ class TranslationsZhCn extends Translations with BaseTranslations<AppLocale, Tra
   @override
   late final Translations$troubleshootPage$zh_CN troubleshootPage = Translations$troubleshootPage$zh_CN.internal(_root);
   @override
+  late final Translations$networkInterfacesPage$zh_CN networkInterfacesPage = Translations$networkInterfacesPage$zh_CN.internal(_root);
+  @override
   late final Translations$receiveHistoryPage$zh_CN receiveHistoryPage = Translations$receiveHistoryPage$zh_CN.internal(_root);
   @override
   late final Translations$apkPickerPage$zh_CN apkPickerPage = Translations$apkPickerPage$zh_CN.internal(_root);
   @override
   late final Translations$selectedFilesPage$zh_CN selectedFilesPage = Translations$selectedFilesPage$zh_CN.internal(_root);
+  @override
+  late final Translations$deviceDetailsPage$zh_CN deviceDetailsPage = Translations$deviceDetailsPage$zh_CN.internal(_root);
+  @override
+  late final Translations$verifyPage$zh_CN verifyPage = Translations$verifyPage$zh_CN.internal(_root);
   @override
   late final Translations$receivePage$zh_CN receivePage = Translations$receivePage$zh_CN.internal(_root);
   @override
@@ -70,11 +74,15 @@ class TranslationsZhCn extends Translations with BaseTranslations<AppLocale, Tra
   @override
   late final Translations$webSharePage$zh_CN webSharePage = Translations$webSharePage$zh_CN.internal(_root);
   @override
+  late final Translations$webReceivePage$zh_CN webReceivePage = Translations$webReceivePage$zh_CN.internal(_root);
+  @override
   late final Translations$aboutPage$zh_CN aboutPage = Translations$aboutPage$zh_CN.internal(_root);
   @override
   late final Translations$donationPage$zh_CN donationPage = Translations$donationPage$zh_CN.internal(_root);
   @override
   late final Translations$changelogPage$zh_CN changelogPage = Translations$changelogPage$zh_CN.internal(_root);
+  @override
+  late final Translations$whatsNewPage$zh_CN whatsNewPage = Translations$whatsNewPage$zh_CN.internal(_root);
   @override
   late final Translations$aliasGenerator$zh_CN aliasGenerator = Translations$aliasGenerator$zh_CN.internal(_root);
   @override
@@ -87,8 +95,6 @@ class TranslationsZhCn extends Translations with BaseTranslations<AppLocale, Tra
   late final Translations$web$zh_CN web = Translations$web$zh_CN.internal(_root);
   @override
   late final Translations$assetPicker$zh_CN assetPicker = Translations$assetPicker$zh_CN.internal(_root);
-  @override
-  late final Translations$networkInterfacesPage$zh_CN networkInterfacesPage = Translations$networkInterfacesPage$zh_CN.internal(_root);
 }
 
 // Path: general
@@ -189,6 +195,8 @@ class Translations$receiveTab$zh_CN extends Translations$receiveTab$en {
   late final Translations$receiveTab$infoBox$zh_CN infoBox = Translations$receiveTab$infoBox$zh_CN.internal(_root);
   @override
   late final Translations$receiveTab$quickSave$zh_CN quickSave = Translations$receiveTab$quickSave$zh_CN.internal(_root);
+  @override
+  String get link => '通过链接接收';
 }
 
 // Path: sendTab
@@ -272,6 +280,25 @@ class Translations$troubleshootPage$zh_CN extends Translations$troubleshootPage$
   late final Translations$troubleshootPage$noConnection$zh_CN noConnection = Translations$troubleshootPage$noConnection$zh_CN.internal(_root);
 }
 
+// Path: networkInterfacesPage
+class Translations$networkInterfacesPage$zh_CN extends Translations$networkInterfacesPage$en {
+  Translations$networkInterfacesPage$zh_CN.internal(TranslationsZhCn root) : this._root = root, super.internal(root);
+
+  final TranslationsZhCn _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => '网络接口';
+  @override
+  String get info => '默认情况下，LocalSend 使用所有可用的网络接口。您可以在此处排除不需要的网络接口。您需要重新启动服务器以应用更改。';
+  @override
+  String get preview => '预览';
+  @override
+  String get whitelist => '白名单';
+  @override
+  String get blacklist => '黑名单';
+}
+
 // Path: receiveHistoryPage
 class Translations$receiveHistoryPage$zh_CN extends Translations$receiveHistoryPage$en {
   Translations$receiveHistoryPage$zh_CN.internal(TranslationsZhCn root) : this._root = root, super.internal(root);
@@ -317,6 +344,42 @@ class Translations$selectedFilesPage$zh_CN extends Translations$selectedFilesPag
   // Translations
   @override
   String get deleteAll => '全部删除';
+}
+
+// Path: deviceDetailsPage
+class Translations$deviceDetailsPage$zh_CN extends Translations$deviceDetailsPage$en {
+  Translations$deviceDetailsPage$zh_CN.internal(TranslationsZhCn root) : this._root = root, super.internal(root);
+
+  final TranslationsZhCn _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => '设备详情';
+  @override
+  String get favorite => '收藏';
+  @override
+  String get verify => '验证';
+  @override
+  late final Translations$deviceDetailsPage$info$zh_CN info = Translations$deviceDetailsPage$info$zh_CN.internal(_root);
+  @override
+  late final Translations$deviceDetailsPage$logs$zh_CN logs = Translations$deviceDetailsPage$logs$zh_CN.internal(_root);
+}
+
+// Path: verifyPage
+class Translations$verifyPage$zh_CN extends Translations$verifyPage$en {
+  Translations$verifyPage$zh_CN.internal(TranslationsZhCn root) : this._root = root, super.internal(root);
+
+  final TranslationsZhCn _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => '验证';
+  @override
+  String get icons => '图标';
+  @override
+  String get text => '文本';
+  @override
+  String get question => '在另一台设备上显示的内容相同吗？';
 }
 
 // Path: receivePage
@@ -366,6 +429,8 @@ class Translations$sendPage$zh_CN extends Translations$sendPage$en {
   final TranslationsZhCn _root; // ignore: unused_field
 
   // Translations
+  @override
+  String calculatingChecksum({required Object curr, required Object n}) => '正在计算校验和（${curr} / ${n}）';
   @override
   String get waiting => '等待响应中……';
   @override
@@ -434,6 +499,17 @@ class Translations$webSharePage$zh_CN extends Translations$webSharePage$en {
   String pendingRequests({required Object n}) => '待处理请求：${n}';
 }
 
+// Path: webReceivePage
+class Translations$webReceivePage$zh_CN extends Translations$webReceivePage$en {
+  Translations$webReceivePage$zh_CN.internal(TranslationsZhCn root) : this._root = root, super.internal(root);
+
+  final TranslationsZhCn _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => '通过链接接收';
+}
+
 // Path: aboutPage
 class Translations$aboutPage$zh_CN extends Translations$aboutPage$en {
   Translations$aboutPage$zh_CN.internal(TranslationsZhCn root) : this._root = root, super.internal(root);
@@ -486,6 +562,19 @@ class Translations$changelogPage$zh_CN extends Translations$changelogPage$en {
   // Translations
   @override
   String get title => '更新日志';
+}
+
+// Path: whatsNewPage
+class Translations$whatsNewPage$zh_CN extends Translations$whatsNewPage$en {
+  Translations$whatsNewPage$zh_CN.internal(TranslationsZhCn root) : this._root = root, super.internal(root);
+
+  final TranslationsZhCn _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String title({required Object version}) => '${version} 中的新增功能';
+  @override
+  late final Translations$whatsNewPage$changes$zh_CN changes = Translations$whatsNewPage$changes$zh_CN.internal(_root);
 }
 
 // Path: aliasGenerator
@@ -751,25 +840,6 @@ class Translations$assetPicker$zh_CN extends Translations$assetPicker$en {
   String get sUnitAssetCountLabel => '计数';
 }
 
-// Path: networkInterfacesPage
-class Translations$networkInterfacesPage$zh_CN extends Translations$networkInterfacesPage$en {
-  Translations$networkInterfacesPage$zh_CN.internal(TranslationsZhCn root) : this._root = root, super.internal(root);
-
-  final TranslationsZhCn _root; // ignore: unused_field
-
-  // Translations
-  @override
-  String get title => '网络接口';
-  @override
-  String get info => '默认情况下，LocalSend 使用所有可用的网络接口。您可以在此处排除不需要的网络接口。您需要重新启动服务器以应用更改。';
-  @override
-  String get preview => '预览';
-  @override
-  String get whitelist => '白名单';
-  @override
-  String get blacklist => '黑名单';
-}
-
 // Path: receiveTab.infoBox
 class Translations$receiveTab$infoBox$zh_CN extends Translations$receiveTab$infoBox$en {
   Translations$receiveTab$infoBox$zh_CN.internal(TranslationsZhCn root) : this._root = root, super.internal(root);
@@ -916,6 +986,8 @@ class Translations$settingsTab$receive$zh_CN extends Translations$settingsTab$re
   String get saveToGallery => '保存到相册';
   @override
   String get saveToHistory => '保存到历史记录';
+  @override
+  String get verifyChecksums => '接收文件时验证校验和';
 }
 
 // Path: settingsTab.send
@@ -929,6 +1001,8 @@ class Translations$settingsTab$send$zh_CN extends Translations$settingsTab$send$
   String get title => '发送';
   @override
   String get shareViaLinkAutoAccept => '通过链接分享：自动同意接收请求';
+  @override
+  String get createChecksums => '发送文件时创建校验和';
 }
 
 // Path: settingsTab.network
@@ -953,6 +1027,12 @@ class Translations$settingsTab$network$zh_CN extends Translations$settingsTab$ne
   @override
   String get port => '端口';
   @override
+  String get network => '网络';
+  @override
+  late final Translations$settingsTab$network$networkOptions$zh_CN networkOptions = Translations$settingsTab$network$networkOptions$zh_CN.internal(
+    _root,
+  );
+  @override
   String get discoveryTimeout => '搜索设备超时';
   @override
   String get useSystemName => '使用系统名称';
@@ -966,12 +1046,6 @@ class Translations$settingsTab$network$zh_CN extends Translations$settingsTab$ne
   String get multicastGroup => '多播';
   @override
   String multicastGroupWarning({required Object defaultMulticast}) => '由于正在使用自定义多播地址，你可能不会被其他设备检测到。（默认地址：${defaultMulticast}）';
-  @override
-  String get network => '网络';
-  @override
-  late final Translations$settingsTab$network$networkOptions$zh_CN networkOptions = Translations$settingsTab$network$networkOptions$zh_CN.internal(
-    _root,
-  );
 }
 
 // Path: settingsTab.other
@@ -1051,6 +1125,40 @@ class Translations$receiveHistoryPage$entryActions$zh_CN extends Translations$re
   String get deleteFromHistory => '从历史记录中删除';
 }
 
+// Path: deviceDetailsPage.info
+class Translations$deviceDetailsPage$info$zh_CN extends Translations$deviceDetailsPage$info$en {
+  Translations$deviceDetailsPage$info$zh_CN.internal(TranslationsZhCn root) : this._root = root, super.internal(root);
+
+  final TranslationsZhCn _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get name => '名称';
+  @override
+  String get address => '地址';
+  @override
+  String get version => '版本';
+  @override
+  String protocol({required Object version}) => '协议 v${version}';
+}
+
+// Path: deviceDetailsPage.logs
+class Translations$deviceDetailsPage$logs$zh_CN extends Translations$deviceDetailsPage$logs$en {
+  Translations$deviceDetailsPage$logs$zh_CN.internal(TranslationsZhCn root) : this._root = root, super.internal(root);
+
+  final TranslationsZhCn _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => '日志';
+  @override
+  String get empty => '没有可用的日志。';
+  @override
+  String discovered({required Object protocol, required Object host}) => '通过 ${protocol} 发现 (${host})';
+  @override
+  String updated({required Object protocol, required Object host}) => '通过 ${protocol} 更新 (${host})';
+}
+
 // Path: progressPage.total
 class Translations$progressPage$total$zh_CN extends Translations$progressPage$total$en {
   Translations$progressPage$total$zh_CN.internal(TranslationsZhCn root) : this._root = root, super.internal(root);
@@ -1075,19 +1183,32 @@ class Translations$progressPage$remainingTime$zh_CN extends Translations$progres
   final TranslationsZhCn _root; // ignore: unused_field
 
   // Translations
+  @override
+  String minutesUnit({required num m}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('zh'))(
+    m,
+    other: '${m}分钟',
+  );
+  @override
+  String hoursUnit({required num h}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('zh'))(
+    h,
+    other: '${h}小时',
+  );
+  @override
+  String minutes({required Object m, required Object ss}) => '${m}:${ss}';
+  @override
+  String hours({required num h, required num m}) =>
+      '${_root.progressPage.remainingTime.hoursUnit(h: h)} ${_root.progressPage.remainingTime.minutesUnit(m: m)}';
+}
 
-  /// 使用'h'作为小时缩写，使用'm'作为分钟缩写
-  @override
-  String hours({required Object h, required Object m}) => '${h}h ${m}m';
+// Path: whatsNewPage.changes
+class Translations$whatsNewPage$changes$zh_CN extends Translations$whatsNewPage$changes$en {
+  Translations$whatsNewPage$changes$zh_CN.internal(TranslationsZhCn root) : this._root = root, super.internal(root);
 
-  /// 使用'd'作为天缩写，使用'h'作为小时缩写，使用'm'作为分钟缩写
-  @override
-  String days({required Object d, required Object h, required Object m}) => '${d}d ${h}h ${m}m';
+  final TranslationsZhCn _root; // ignore: unused_field
 
+  // Translations
   @override
-  String seconds({required Object n, required Object ss}) => '${n}:${ss}';
-  @override
-  String minutes({required Object n, required Object ss}) => '${n}:${ss}';
+  late final Translations$whatsNewPage$changes$v1_18_0$zh_CN v1_18_0 = Translations$whatsNewPage$changes$v1_18_0$zh_CN.internal(_root);
 }
 
 // Path: dialogs.addFile
@@ -1403,8 +1524,6 @@ class Translations$dialogs$quickSaveFromFavoritesNotice$zh_CN extends Translatio
   @override
   List<String> get content => [
     '当前会自动接受收藏夹中设备的文件请求。',
-    '警告：这目前并非绝对安全，知道您收藏夹列表中的设备指纹被黑客窃取，其仍可以向您发送文件。',
-    '但是，此选项比“允许任何设备”更安全。',
   ];
 }
 
@@ -1473,6 +1592,8 @@ class Translations$settingsTab$general$colorOptions$zh_CN extends Translations$s
   String get system => '跟随系统';
   @override
   String get oled => 'OLED';
+  @override
+  String get custom => '自定义';
 }
 
 // Path: settingsTab.general.languageOptions
@@ -1514,4 +1635,19 @@ class Translations$progressPage$total$title$zh_CN extends Translations$progressP
   String get canceledSender => '发送者已取消';
   @override
   String get canceledReceiver => '接收者已取消';
+}
+
+// Path: whatsNewPage.changes.v1_18_0
+class Translations$whatsNewPage$changes$v1_18_0$zh_CN extends Translations$whatsNewPage$changes$v1_18_0$en with WhatsNewStrings {
+  Translations$whatsNewPage$changes$v1_18_0$zh_CN.internal(TranslationsZhCn root) : this._root = root, super.internal(root);
+
+  final TranslationsZhCn _root; // ignore: unused_field
+
+  // Translations
+  @override
+  List<String> get changes => [
+    '加密不再减缓传输速度。如果您之前将其关闭，则现在已在此设备上重新启用。',
+    '来自收藏夹的请求现在会被自动接受。这项功能是默认打开的，可以在设置中禁用。',
+    '在Android上，当应用处于后台或屏幕关闭时，传输仍会继续。在iOS上，应用仍必须保持在前台。',
+  ];
 }

@@ -8,3 +8,5 @@ template: |
   $CHANGES
 
   [Full Changelog](https://github.com/localsend/localsend/blob/main/app/assets/CHANGELOG.md)
+
+  Windows binaries are signed according to the [Code signing policy](https://github.com/localsend/localsend/blob/main/CODE_SIGNING.md).

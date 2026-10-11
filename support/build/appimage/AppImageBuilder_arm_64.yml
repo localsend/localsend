@@ -10,7 +10,7 @@ AppDir:
     id: org.localsend.localsend_app
     name: LocalSend
     icon: localsend
-    version: latest
+    version: 1.18.2
     exec: localsend_app
     exec_args: $@
   apt:

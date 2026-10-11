@@ -40,8 +40,6 @@ class TranslationsBg extends Translations with BaseTranslations<AppLocale, Trans
 
   // Translations
   @override
-  String get locale => 'Български';
-  @override
   String get appName => 'LocalSend';
   @override
   late final _Translations$general$bg general = _Translations$general$bg._(_root);
@@ -54,11 +52,17 @@ class TranslationsBg extends Translations with BaseTranslations<AppLocale, Trans
   @override
   late final _Translations$troubleshootPage$bg troubleshootPage = _Translations$troubleshootPage$bg._(_root);
   @override
+  late final _Translations$networkInterfacesPage$bg networkInterfacesPage = _Translations$networkInterfacesPage$bg._(_root);
+  @override
   late final _Translations$receiveHistoryPage$bg receiveHistoryPage = _Translations$receiveHistoryPage$bg._(_root);
   @override
   late final _Translations$apkPickerPage$bg apkPickerPage = _Translations$apkPickerPage$bg._(_root);
   @override
   late final _Translations$selectedFilesPage$bg selectedFilesPage = _Translations$selectedFilesPage$bg._(_root);
+  @override
+  late final _Translations$deviceDetailsPage$bg deviceDetailsPage = _Translations$deviceDetailsPage$bg._(_root);
+  @override
+  late final _Translations$verifyPage$bg verifyPage = _Translations$verifyPage$bg._(_root);
   @override
   late final _Translations$receivePage$bg receivePage = _Translations$receivePage$bg._(_root);
   @override
@@ -70,11 +74,15 @@ class TranslationsBg extends Translations with BaseTranslations<AppLocale, Trans
   @override
   late final _Translations$webSharePage$bg webSharePage = _Translations$webSharePage$bg._(_root);
   @override
+  late final _Translations$webReceivePage$bg webReceivePage = _Translations$webReceivePage$bg._(_root);
+  @override
   late final _Translations$aboutPage$bg aboutPage = _Translations$aboutPage$bg._(_root);
   @override
   late final _Translations$donationPage$bg donationPage = _Translations$donationPage$bg._(_root);
   @override
   late final _Translations$changelogPage$bg changelogPage = _Translations$changelogPage$bg._(_root);
+  @override
+  late final _Translations$whatsNewPage$bg whatsNewPage = _Translations$whatsNewPage$bg._(_root);
   @override
   late final _Translations$dialogs$bg dialogs = _Translations$dialogs$bg._(_root);
   @override
@@ -85,8 +93,6 @@ class TranslationsBg extends Translations with BaseTranslations<AppLocale, Trans
   late final _Translations$web$bg web = _Translations$web$bg._(_root);
   @override
   late final _Translations$assetPicker$bg assetPicker = _Translations$assetPicker$bg._(_root);
-  @override
-  late final _Translations$networkInterfacesPage$bg networkInterfacesPage = _Translations$networkInterfacesPage$bg._(_root);
 }
 
 // Path: general
@@ -187,6 +193,8 @@ class _Translations$receiveTab$bg extends Translations$receiveTab$en {
   late final _Translations$receiveTab$infoBox$bg infoBox = _Translations$receiveTab$infoBox$bg._(_root);
   @override
   late final _Translations$receiveTab$quickSave$bg quickSave = _Translations$receiveTab$quickSave$bg._(_root);
+  @override
+  String get link => 'Получаване чрез връзка';
 }
 
 // Path: sendTab
@@ -270,6 +278,26 @@ class _Translations$troubleshootPage$bg extends Translations$troubleshootPage$en
   late final _Translations$troubleshootPage$noConnection$bg noConnection = _Translations$troubleshootPage$noConnection$bg._(_root);
 }
 
+// Path: networkInterfacesPage
+class _Translations$networkInterfacesPage$bg extends Translations$networkInterfacesPage$en {
+  _Translations$networkInterfacesPage$bg._(TranslationsBg root) : this._root = root, super.internal(root);
+
+  final TranslationsBg _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Мрежови интерфейси';
+  @override
+  String get info =>
+      'По подразбиране, LocalSend използва всички налични мрежови интерфейси. Тук можете да изключите нежелани мрежи. Трябва да рестартирате сървъра, за да приложите промените.';
+  @override
+  String get preview => 'Преглед';
+  @override
+  String get whitelist => 'Бял списък';
+  @override
+  String get blacklist => 'Черен списък';
+}
+
 // Path: receiveHistoryPage
 class _Translations$receiveHistoryPage$bg extends Translations$receiveHistoryPage$en {
   _Translations$receiveHistoryPage$bg._(TranslationsBg root) : this._root = root, super.internal(root);
@@ -315,6 +343,42 @@ class _Translations$selectedFilesPage$bg extends Translations$selectedFilesPage$
   // Translations
   @override
   String get deleteAll => 'Изтриване на всички';
+}
+
+// Path: deviceDetailsPage
+class _Translations$deviceDetailsPage$bg extends Translations$deviceDetailsPage$en {
+  _Translations$deviceDetailsPage$bg._(TranslationsBg root) : this._root = root, super.internal(root);
+
+  final TranslationsBg _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Данни за устройството';
+  @override
+  String get favorite => 'Любимо';
+  @override
+  String get verify => 'Проверка';
+  @override
+  late final _Translations$deviceDetailsPage$info$bg info = _Translations$deviceDetailsPage$info$bg._(_root);
+  @override
+  late final _Translations$deviceDetailsPage$logs$bg logs = _Translations$deviceDetailsPage$logs$bg._(_root);
+}
+
+// Path: verifyPage
+class _Translations$verifyPage$bg extends Translations$verifyPage$en {
+  _Translations$verifyPage$bg._(TranslationsBg root) : this._root = root, super.internal(root);
+
+  final TranslationsBg _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Проверка';
+  @override
+  String get icons => 'Икони';
+  @override
+  String get text => 'Текст';
+  @override
+  String get question => 'Изглежда ли по същия начин на другото устройство?';
 }
 
 // Path: receivePage
@@ -364,6 +428,8 @@ class _Translations$sendPage$bg extends Translations$sendPage$en {
   final TranslationsBg _root; // ignore: unused_field
 
   // Translations
+  @override
+  String calculatingChecksum({required Object curr, required Object n}) => 'Изчисляване на контролна сума (${curr} / ${n})';
   @override
   String get waiting => 'В очакване на отговор…';
   @override
@@ -432,6 +498,17 @@ class _Translations$webSharePage$bg extends Translations$webSharePage$en {
   String pendingRequests({required Object n}) => 'Чакащи заявки: ${n}';
 }
 
+// Path: webReceivePage
+class _Translations$webReceivePage$bg extends Translations$webReceivePage$en {
+  _Translations$webReceivePage$bg._(TranslationsBg root) : this._root = root, super.internal(root);
+
+  final TranslationsBg _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Получаване чрез връзка';
+}
+
 // Path: aboutPage
 class _Translations$aboutPage$bg extends Translations$aboutPage$en {
   _Translations$aboutPage$bg._(TranslationsBg root) : this._root = root, super.internal(root);
@@ -485,6 +562,19 @@ class _Translations$changelogPage$bg extends Translations$changelogPage$en {
   // Translations
   @override
   String get title => 'Дневник на промените';
+}
+
+// Path: whatsNewPage
+class _Translations$whatsNewPage$bg extends Translations$whatsNewPage$en {
+  _Translations$whatsNewPage$bg._(TranslationsBg root) : this._root = root, super.internal(root);
+
+  final TranslationsBg _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String title({required Object version}) => 'Новите неща в ${version}';
+  @override
+  late final _Translations$whatsNewPage$changes$bg changes = _Translations$whatsNewPage$changes$bg._(_root);
 }
 
 // Path: dialogs
@@ -666,26 +756,6 @@ class _Translations$assetPicker$bg extends Translations$assetPicker$en {
   String get sUnitAssetCountLabel => 'брой';
 }
 
-// Path: networkInterfacesPage
-class _Translations$networkInterfacesPage$bg extends Translations$networkInterfacesPage$en {
-  _Translations$networkInterfacesPage$bg._(TranslationsBg root) : this._root = root, super.internal(root);
-
-  final TranslationsBg _root; // ignore: unused_field
-
-  // Translations
-  @override
-  String get preview => 'Преглед';
-  @override
-  String get whitelist => 'Бял списък';
-  @override
-  String get blacklist => 'Черен списък';
-  @override
-  String get title => 'Мрежови интерфейси';
-  @override
-  String get info =>
-      'По подразбиране, LocalSend използва всички налични мрежови интерфейси. Тук можете да изключите нежелани мрежи. Трябва да рестартирате сървъра, за да приложите промените.';
-}
-
 // Path: receiveTab.infoBox
 class _Translations$receiveTab$infoBox$bg extends Translations$receiveTab$infoBox$en {
   _Translations$receiveTab$infoBox$bg._(TranslationsBg root) : this._root = root, super.internal(root);
@@ -831,6 +901,8 @@ class _Translations$settingsTab$receive$bg extends Translations$settingsTab$rece
   String get saveToGallery => 'Запази медия в галерия';
   @override
   String get saveToHistory => 'Запази в история';
+  @override
+  String get verifyChecksums => 'Проверяване на контролните суми при получаване на файлове';
 }
 
 // Path: settingsTab.send
@@ -844,6 +916,8 @@ class _Translations$settingsTab$send$bg extends Translations$settingsTab$send$en
   String get title => 'Изпращане';
   @override
   String get shareViaLinkAutoAccept => 'Автоматично приемане на заявки в режим "Споделяне чрез връзка"';
+  @override
+  String get createChecksums => 'Създаване на контролни суми при изпращане на файлове';
 }
 
 // Path: settingsTab.network
@@ -868,6 +942,10 @@ class _Translations$settingsTab$network$bg extends Translations$settingsTab$netw
   @override
   String get port => 'Порт';
   @override
+  String get network => 'Мрежа';
+  @override
+  late final _Translations$settingsTab$network$networkOptions$bg networkOptions = _Translations$settingsTab$network$networkOptions$bg._(_root);
+  @override
   String get discoveryTimeout => 'Изчакване за откриване';
   @override
   String get useSystemName => 'Използвай системно име';
@@ -883,10 +961,6 @@ class _Translations$settingsTab$network$bg extends Translations$settingsTab$netw
   @override
   String multicastGroupWarning({required Object defaultMulticast}) =>
       'Възможно е да не бъдете открити от други устройства, защото използвате персонализиран адрес за множествено предаване. (default: ${defaultMulticast})';
-  @override
-  String get network => 'Мрежа';
-  @override
-  late final _Translations$settingsTab$network$networkOptions$bg networkOptions = _Translations$settingsTab$network$networkOptions$bg._(_root);
 }
 
 // Path: settingsTab.other
@@ -970,6 +1044,40 @@ class _Translations$receiveHistoryPage$entryActions$bg extends Translations$rece
   String get deleteFromHistory => 'Изтриване от историята';
 }
 
+// Path: deviceDetailsPage.info
+class _Translations$deviceDetailsPage$info$bg extends Translations$deviceDetailsPage$info$en {
+  _Translations$deviceDetailsPage$info$bg._(TranslationsBg root) : this._root = root, super.internal(root);
+
+  final TranslationsBg _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get name => 'Име';
+  @override
+  String get address => 'Адрес';
+  @override
+  String get version => 'Версия';
+  @override
+  String protocol({required Object version}) => 'Протокол v${version}';
+}
+
+// Path: deviceDetailsPage.logs
+class _Translations$deviceDetailsPage$logs$bg extends Translations$deviceDetailsPage$logs$en {
+  _Translations$deviceDetailsPage$logs$bg._(TranslationsBg root) : this._root = root, super.internal(root);
+
+  final TranslationsBg _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Дневници';
+  @override
+  String get empty => 'Няма налични дневници.';
+  @override
+  String discovered({required Object protocol, required Object host}) => 'Открито чрез ${protocol} (${host})';
+  @override
+  String updated({required Object protocol, required Object host}) => 'Обновено чрез ${protocol} (${host})';
+}
+
 // Path: progressPage.total
 class _Translations$progressPage$total$bg extends Translations$progressPage$total$en {
   _Translations$progressPage$total$bg._(TranslationsBg root) : this._root = root, super.internal(root);
@@ -995,17 +1103,31 @@ class _Translations$progressPage$remainingTime$bg extends Translations$progressP
 
   // Translations
   @override
-  String seconds({required Object n, required Object ss}) => '${n}:${ss}';
+  String minutesUnit({required num m}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('bg'))(
+    m,
+    other: '${m}мин',
+  );
   @override
-  String minutes({required Object n, required Object ss}) => '${n}:${ss}';
+  String hoursUnit({required num h}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('bg'))(
+    h,
+    other: '${h}ч',
+  );
+  @override
+  String minutes({required Object m, required Object ss}) => '${m}:${ss}';
+  @override
+  String hours({required num h, required num m}) =>
+      '${_root.progressPage.remainingTime.hoursUnit(h: h)} ${_root.progressPage.remainingTime.minutesUnit(m: m)}';
+}
 
-  /// Използвайте „h“ като съкращение за часове и „m“ за минути
-  @override
-  String hours({required Object h, required Object m}) => '${h}ч ${m}мин';
+// Path: whatsNewPage.changes
+class _Translations$whatsNewPage$changes$bg extends Translations$whatsNewPage$changes$en {
+  _Translations$whatsNewPage$changes$bg._(TranslationsBg root) : this._root = root, super.internal(root);
 
-  /// Използвайте „d“ за дни, „h“ за часове и „m“ за минути
+  final TranslationsBg _root; // ignore: unused_field
+
+  // Translations
   @override
-  String days({required Object d, required Object h, required Object m}) => '${d}д ${h}ч ${m}мин';
+  late final _Translations$whatsNewPage$changes$v1_18_0$bg v1_18_0 = _Translations$whatsNewPage$changes$v1_18_0$bg._(_root);
 }
 
 // Path: dialogs.addFile
@@ -1323,8 +1445,6 @@ class _Translations$dialogs$quickSaveFromFavoritesNotice$bg extends Translations
   @override
   List<String> get content => [
     'Заявките за файлове вече се приемат автоматично от устройства в списъка ви с любими.',
-    'Внимание! В момента това не е напълно сигурно, тъй като хакер, който има пръстов отпечатък на всяко устройство от списъка ви с любими, може да ви изпраща файлове без ограничения.',
-    'Въпреки това, тази опция все още е по-безопасна от разрешаването на всички потребители в локалната мрежа да ви изпращат файлове без ограничения.',
   ];
 }
 
@@ -1393,6 +1513,8 @@ class _Translations$settingsTab$general$colorOptions$bg extends Translations$set
   String get system => 'Система';
   @override
   String get oled => 'OLED';
+  @override
+  String get custom => 'По избор';
 }
 
 // Path: settingsTab.general.languageOptions
@@ -1434,4 +1556,19 @@ class _Translations$progressPage$total$title$bg extends Translations$progressPag
   String get canceledSender => 'Отменено от подателя';
   @override
   String get canceledReceiver => 'Отменено от получателя';
+}
+
+// Path: whatsNewPage.changes.v1_18_0
+class _Translations$whatsNewPage$changes$v1_18_0$bg extends Translations$whatsNewPage$changes$v1_18_0$en with WhatsNewStrings {
+  _Translations$whatsNewPage$changes$v1_18_0$bg._(TranslationsBg root) : this._root = root, super.internal(root);
+
+  final TranslationsBg _root; // ignore: unused_field
+
+  // Translations
+  @override
+  List<String> get changes => [
+    'Шифроването вече няма да забавя прехвърлянията. Ако преди сте го били изключили на това устройство, то сега е включено отново.',
+    'Заявките за любимите неща вече се приемат автоматично. По подразбиране това е включено, но може да бъде изключено в настройките.',
+    'Под Андроид, прехвърлянията продължават дори когато приложението е на заден план и/или екранът е изключен. Под iOS, приложението все още трябва да бъде на преден план, за да работи.',
+  ];
 }

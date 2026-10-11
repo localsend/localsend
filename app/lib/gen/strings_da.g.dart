@@ -40,8 +40,6 @@ class TranslationsDa extends Translations with BaseTranslations<AppLocale, Trans
 
   // Translations
   @override
-  String get locale => 'Dansk';
-  @override
   String get appName => 'LocalSend';
   @override
   late final _Translations$general$da general = _Translations$general$da._(_root);
@@ -54,11 +52,17 @@ class TranslationsDa extends Translations with BaseTranslations<AppLocale, Trans
   @override
   late final _Translations$troubleshootPage$da troubleshootPage = _Translations$troubleshootPage$da._(_root);
   @override
+  late final _Translations$networkInterfacesPage$da networkInterfacesPage = _Translations$networkInterfacesPage$da._(_root);
+  @override
   late final _Translations$receiveHistoryPage$da receiveHistoryPage = _Translations$receiveHistoryPage$da._(_root);
   @override
   late final _Translations$apkPickerPage$da apkPickerPage = _Translations$apkPickerPage$da._(_root);
   @override
   late final _Translations$selectedFilesPage$da selectedFilesPage = _Translations$selectedFilesPage$da._(_root);
+  @override
+  late final _Translations$deviceDetailsPage$da deviceDetailsPage = _Translations$deviceDetailsPage$da._(_root);
+  @override
+  late final _Translations$verifyPage$da verifyPage = _Translations$verifyPage$da._(_root);
   @override
   late final _Translations$receivePage$da receivePage = _Translations$receivePage$da._(_root);
   @override
@@ -70,11 +74,15 @@ class TranslationsDa extends Translations with BaseTranslations<AppLocale, Trans
   @override
   late final _Translations$webSharePage$da webSharePage = _Translations$webSharePage$da._(_root);
   @override
+  late final _Translations$webReceivePage$da webReceivePage = _Translations$webReceivePage$da._(_root);
+  @override
   late final _Translations$aboutPage$da aboutPage = _Translations$aboutPage$da._(_root);
   @override
   late final _Translations$donationPage$da donationPage = _Translations$donationPage$da._(_root);
   @override
   late final _Translations$changelogPage$da changelogPage = _Translations$changelogPage$da._(_root);
+  @override
+  late final _Translations$whatsNewPage$da whatsNewPage = _Translations$whatsNewPage$da._(_root);
   @override
   late final _Translations$dialogs$da dialogs = _Translations$dialogs$da._(_root);
   @override
@@ -85,8 +93,6 @@ class TranslationsDa extends Translations with BaseTranslations<AppLocale, Trans
   late final _Translations$web$da web = _Translations$web$da._(_root);
   @override
   late final _Translations$assetPicker$da assetPicker = _Translations$assetPicker$da._(_root);
-  @override
-  late final _Translations$networkInterfacesPage$da networkInterfacesPage = _Translations$networkInterfacesPage$da._(_root);
 }
 
 // Path: general
@@ -187,6 +193,8 @@ class _Translations$receiveTab$da extends Translations$receiveTab$en {
   late final _Translations$receiveTab$infoBox$da infoBox = _Translations$receiveTab$infoBox$da._(_root);
   @override
   late final _Translations$receiveTab$quickSave$da quickSave = _Translations$receiveTab$quickSave$da._(_root);
+  @override
+  String get link => 'Modtag via link';
 }
 
 // Path: sendTab
@@ -270,6 +278,26 @@ class _Translations$troubleshootPage$da extends Translations$troubleshootPage$en
   late final _Translations$troubleshootPage$noConnection$da noConnection = _Translations$troubleshootPage$noConnection$da._(_root);
 }
 
+// Path: networkInterfacesPage
+class _Translations$networkInterfacesPage$da extends Translations$networkInterfacesPage$en {
+  _Translations$networkInterfacesPage$da._(TranslationsDa root) : this._root = root, super.internal(root);
+
+  final TranslationsDa _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Netværksgrænseflader';
+  @override
+  String get info =>
+      'Som standard bruger LocalSend alle tilgængelige netværksgrænseflader. Du kan ekskludere uønskede netværk her. Du skal genstarte serveren for at anvende ændringerne.';
+  @override
+  String get preview => 'Forhåndsvisning';
+  @override
+  String get whitelist => 'Hvidliste';
+  @override
+  String get blacklist => 'Sortliste';
+}
+
 // Path: receiveHistoryPage
 class _Translations$receiveHistoryPage$da extends Translations$receiveHistoryPage$en {
   _Translations$receiveHistoryPage$da._(TranslationsDa root) : this._root = root, super.internal(root);
@@ -315,6 +343,42 @@ class _Translations$selectedFilesPage$da extends Translations$selectedFilesPage$
   // Translations
   @override
   String get deleteAll => 'Slet alle';
+}
+
+// Path: deviceDetailsPage
+class _Translations$deviceDetailsPage$da extends Translations$deviceDetailsPage$en {
+  _Translations$deviceDetailsPage$da._(TranslationsDa root) : this._root = root, super.internal(root);
+
+  final TranslationsDa _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Enhedsdetaljer';
+  @override
+  String get favorite => 'Favorit';
+  @override
+  String get verify => 'Verificer';
+  @override
+  late final _Translations$deviceDetailsPage$info$da info = _Translations$deviceDetailsPage$info$da._(_root);
+  @override
+  late final _Translations$deviceDetailsPage$logs$da logs = _Translations$deviceDetailsPage$logs$da._(_root);
+}
+
+// Path: verifyPage
+class _Translations$verifyPage$da extends Translations$verifyPage$en {
+  _Translations$verifyPage$da._(TranslationsDa root) : this._root = root, super.internal(root);
+
+  final TranslationsDa _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Verificer';
+  @override
+  String get icons => 'Ikoner';
+  @override
+  String get text => 'Tekst';
+  @override
+  String get question => 'Ser det ens ud på den anden enhed?';
 }
 
 // Path: receivePage
@@ -365,6 +429,8 @@ class _Translations$sendPage$da extends Translations$sendPage$en {
 
   // Translations
   @override
+  String calculatingChecksum({required Object curr, required Object n}) => 'Beregner kontrolsum (${curr} / ${n})';
+  @override
   String get waiting => 'Venter på svar…';
   @override
   String get rejected => 'Modtageren har afvist delingen.';
@@ -389,6 +455,8 @@ class _Translations$progressPage$da extends Translations$progressPage$en {
   String get savedToGallery => 'Gemt i fotos';
   @override
   late final _Translations$progressPage$total$da total = _Translations$progressPage$total$da._(_root);
+  @override
+  late final _Translations$progressPage$remainingTime$da remainingTime = _Translations$progressPage$remainingTime$da._(_root);
 }
 
 // Path: webSharePage
@@ -428,6 +496,17 @@ class _Translations$webSharePage$da extends Translations$webSharePage$en {
   String get encryptionHint => 'LocalSend bruger et selvsigneret certifikat. Du skal acceptere det i din browser.';
   @override
   String pendingRequests({required Object n}) => 'Afventende forespørgsler: ${n}';
+}
+
+// Path: webReceivePage
+class _Translations$webReceivePage$da extends Translations$webReceivePage$en {
+  _Translations$webReceivePage$da._(TranslationsDa root) : this._root = root, super.internal(root);
+
+  final TranslationsDa _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Modtag via link';
 }
 
 // Path: aboutPage
@@ -484,6 +563,19 @@ class _Translations$changelogPage$da extends Translations$changelogPage$en {
   String get title => 'Ændringslog';
 }
 
+// Path: whatsNewPage
+class _Translations$whatsNewPage$da extends Translations$whatsNewPage$en {
+  _Translations$whatsNewPage$da._(TranslationsDa root) : this._root = root, super.internal(root);
+
+  final TranslationsDa _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String title({required Object version}) => 'Nyheder i ${version}';
+  @override
+  late final _Translations$whatsNewPage$changes$da changes = _Translations$whatsNewPage$changes$da._(_root);
+}
+
 // Path: dialogs
 class _Translations$dialogs$da extends Translations$dialogs$en {
   _Translations$dialogs$da._(TranslationsDa root) : this._root = root, super.internal(root);
@@ -493,6 +585,8 @@ class _Translations$dialogs$da extends Translations$dialogs$en {
   // Translations
   @override
   late final _Translations$dialogs$addFile$da addFile = _Translations$dialogs$addFile$da._(_root);
+  @override
+  late final _Translations$dialogs$openFile$da openFile = _Translations$dialogs$openFile$da._(_root);
   @override
   late final _Translations$dialogs$addressInput$da addressInput = _Translations$dialogs$addressInput$da._(_root);
   @override
@@ -540,8 +634,6 @@ class _Translations$dialogs$da extends Translations$dialogs$en {
   late final _Translations$dialogs$sendModeHelp$da sendModeHelp = _Translations$dialogs$sendModeHelp$da._(_root);
   @override
   late final _Translations$dialogs$zoom$da zoom = _Translations$dialogs$zoom$da._(_root);
-  @override
-  late final _Translations$dialogs$openFile$da openFile = _Translations$dialogs$openFile$da._(_root);
 }
 
 // Path: sanitization
@@ -663,26 +755,6 @@ class _Translations$assetPicker$da extends Translations$assetPicker$en {
   String get sUnitAssetCountLabel => 'Antal';
 }
 
-// Path: networkInterfacesPage
-class _Translations$networkInterfacesPage$da extends Translations$networkInterfacesPage$en {
-  _Translations$networkInterfacesPage$da._(TranslationsDa root) : this._root = root, super.internal(root);
-
-  final TranslationsDa _root; // ignore: unused_field
-
-  // Translations
-  @override
-  String get title => 'Netværksgrænseflader';
-  @override
-  String get info =>
-      'Som standard bruger LocalSend alle tilgængelige netværksgrænseflader. Du kan ekskludere uønskede netværk her. Du skal genstarte serveren for at anvende ændringerne.';
-  @override
-  String get preview => 'Forhåndsvisning';
-  @override
-  String get whitelist => 'Hvidliste';
-  @override
-  String get blacklist => 'Sortliste';
-}
-
 // Path: receiveTab.infoBox
 class _Translations$receiveTab$infoBox$da extends Translations$receiveTab$infoBox$en {
   _Translations$receiveTab$infoBox$da._(TranslationsDa root) : this._root = root, super.internal(root);
@@ -706,9 +778,9 @@ class _Translations$receiveTab$quickSave$da extends Translations$receiveTab$quic
 
   // Translations
   @override
-  String get favorites => 'Favoritter';
-  @override
   String get off => _root.general.off;
+  @override
+  String get favorites => 'Favoritter';
   @override
   String get on => _root.general.on;
 }
@@ -828,6 +900,8 @@ class _Translations$settingsTab$receive$da extends Translations$settingsTab$rece
   String get saveToGallery => 'Gem medier til galleri';
   @override
   String get saveToHistory => 'Gem til historik';
+  @override
+  String get verifyChecksums => 'Verificer kontrolsummer ved modtagelse af filer';
 }
 
 // Path: settingsTab.send
@@ -841,6 +915,8 @@ class _Translations$settingsTab$send$da extends Translations$settingsTab$send$en
   String get title => 'Send';
   @override
   String get shareViaLinkAutoAccept => 'Acceptér automatisk anmodninger i "Del med link"-tilstand';
+  @override
+  String get createChecksums => 'Opret kontrolsummer ved afsendelse af filer';
 }
 
 // Path: settingsTab.network
@@ -865,7 +941,15 @@ class _Translations$settingsTab$network$da extends Translations$settingsTab$netw
   @override
   String get port => 'Port';
   @override
+  String get network => 'Netværk';
+  @override
+  late final _Translations$settingsTab$network$networkOptions$da networkOptions = _Translations$settingsTab$network$networkOptions$da._(_root);
+  @override
   String get discoveryTimeout => 'Timeout for søgning';
+  @override
+  String get useSystemName => 'Brug systemnavn';
+  @override
+  String get generateRandomAlias => 'Generér tilfældigt alias';
   @override
   String portWarning({required Object defaultPort}) =>
       'Andre enheder registrerer dig muligvis ikke, da du bruger en brugerdefineret port (standard: ${defaultPort}).';
@@ -876,14 +960,6 @@ class _Translations$settingsTab$network$da extends Translations$settingsTab$netw
   @override
   String multicastGroupWarning({required Object defaultMulticast}) =>
       'Andre enheder registrerer dig muligvis ikke, da du bruger en brugerdefineret multicast-adresse (standard: ${defaultMulticast}).';
-  @override
-  String get network => 'Netværk';
-  @override
-  late final _Translations$settingsTab$network$networkOptions$da networkOptions = _Translations$settingsTab$network$networkOptions$da._(_root);
-  @override
-  String get useSystemName => 'Brug systemnavn';
-  @override
-  String get generateRandomAlias => 'Generér tilfældigt alias';
 }
 
 // Path: settingsTab.other
@@ -966,6 +1042,40 @@ class _Translations$receiveHistoryPage$entryActions$da extends Translations$rece
   String get deleteFromHistory => 'Slet fra historik';
 }
 
+// Path: deviceDetailsPage.info
+class _Translations$deviceDetailsPage$info$da extends Translations$deviceDetailsPage$info$en {
+  _Translations$deviceDetailsPage$info$da._(TranslationsDa root) : this._root = root, super.internal(root);
+
+  final TranslationsDa _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get name => 'Navn';
+  @override
+  String get address => 'Adresse';
+  @override
+  String get version => 'Version';
+  @override
+  String protocol({required Object version}) => 'Protokol v${version}';
+}
+
+// Path: deviceDetailsPage.logs
+class _Translations$deviceDetailsPage$logs$da extends Translations$deviceDetailsPage$logs$en {
+  _Translations$deviceDetailsPage$logs$da._(TranslationsDa root) : this._root = root, super.internal(root);
+
+  final TranslationsDa _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Logfiler';
+  @override
+  String get empty => 'Ingen logfiler tilgængelige.';
+  @override
+  String discovered({required Object protocol, required Object host}) => 'Opdaget via ${protocol} (${host})';
+  @override
+  String updated({required Object protocol, required Object host}) => 'Opdateret via ${protocol} (${host})';
+}
+
 // Path: progressPage.total
 class _Translations$progressPage$total$da extends Translations$progressPage$total$en {
   _Translations$progressPage$total$da._(TranslationsDa root) : this._root = root, super.internal(root);
@@ -983,6 +1093,41 @@ class _Translations$progressPage$total$da extends Translations$progressPage$tota
   String speed({required Object speed}) => 'Hastighed: ${speed}/s';
 }
 
+// Path: progressPage.remainingTime
+class _Translations$progressPage$remainingTime$da extends Translations$progressPage$remainingTime$en {
+  _Translations$progressPage$remainingTime$da._(TranslationsDa root) : this._root = root, super.internal(root);
+
+  final TranslationsDa _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String minutesUnit({required num m}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('da'))(
+    m,
+    other: '${m}m',
+  );
+  @override
+  String hoursUnit({required num h}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('da'))(
+    h,
+    other: '${h}t',
+  );
+  @override
+  String minutes({required Object m, required Object ss}) => '${m}:${ss}';
+  @override
+  String hours({required num h, required num m}) =>
+      '${_root.progressPage.remainingTime.hoursUnit(h: h)} ${_root.progressPage.remainingTime.minutesUnit(m: m)}';
+}
+
+// Path: whatsNewPage.changes
+class _Translations$whatsNewPage$changes$da extends Translations$whatsNewPage$changes$en {
+  _Translations$whatsNewPage$changes$da._(TranslationsDa root) : this._root = root, super.internal(root);
+
+  final TranslationsDa _root; // ignore: unused_field
+
+  // Translations
+  @override
+  late final _Translations$whatsNewPage$changes$v1_18_0$da v1_18_0 = _Translations$whatsNewPage$changes$v1_18_0$da._(_root);
+}
+
 // Path: dialogs.addFile
 class _Translations$dialogs$addFile$da extends Translations$dialogs$addFile$en {
   _Translations$dialogs$addFile$da._(TranslationsDa root) : this._root = root, super.internal(root);
@@ -994,6 +1139,19 @@ class _Translations$dialogs$addFile$da extends Translations$dialogs$addFile$en {
   String get title => 'Føj til valg';
   @override
   String get content => 'Hvad vil du tilføje?';
+}
+
+// Path: dialogs.openFile
+class _Translations$dialogs$openFile$da extends Translations$dialogs$openFile$en {
+  _Translations$dialogs$openFile$da._(TranslationsDa root) : this._root = root, super.internal(root);
+
+  final TranslationsDa _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Åbn fil';
+  @override
+  String get content => 'Vil du åbne den modtagne fil?';
 }
 
 // Path: dialogs.addressInput
@@ -1284,8 +1442,6 @@ class _Translations$dialogs$quickSaveFromFavoritesNotice$da extends Translations
   @override
   List<String> get content => [
     'Filoverførsler accepteres nu automatisk fra enheder på din favoritliste.',
-    'Advarsel! Dette er ikke helt sikkert, da hvis en hacker har fingeraftrykket på enhver enhed fra din favoritliste, kan de sende filer til dig uden restriktioner.',
-    'Denne mulighed er dog stadig sikrere end at tillade alle brugere på det lokale netværk at sende filer til dig uden restriktioner.',
   ];
 }
 
@@ -1328,19 +1484,6 @@ class _Translations$dialogs$zoom$da extends Translations$dialogs$zoom$en {
   String get title => 'URL';
 }
 
-// Path: dialogs.openFile
-class _Translations$dialogs$openFile$da extends Translations$dialogs$openFile$en {
-  _Translations$dialogs$openFile$da._(TranslationsDa root) : this._root = root, super.internal(root);
-
-  final TranslationsDa _root; // ignore: unused_field
-
-  // Translations
-  @override
-  String get title => 'Åbn fil';
-  @override
-  String get content => 'Vil du åbne den modtagne fil?';
-}
-
 // Path: settingsTab.general.brightnessOptions
 class _Translations$settingsTab$general$brightnessOptions$da extends Translations$settingsTab$general$brightnessOptions$en {
   _Translations$settingsTab$general$brightnessOptions$da._(TranslationsDa root) : this._root = root, super.internal(root);
@@ -1367,6 +1510,8 @@ class _Translations$settingsTab$general$colorOptions$da extends Translations$set
   String get system => 'System';
   @override
   String get oled => 'OLED';
+  @override
+  String get custom => 'Brugerdefineret';
 }
 
 // Path: settingsTab.general.languageOptions
@@ -1408,4 +1553,19 @@ class _Translations$progressPage$total$title$da extends Translations$progressPag
   String get canceledSender => 'Afbrudt af afsender';
   @override
   String get canceledReceiver => 'Afbrudt af modtager';
+}
+
+// Path: whatsNewPage.changes.v1_18_0
+class _Translations$whatsNewPage$changes$v1_18_0$da extends Translations$whatsNewPage$changes$v1_18_0$en with WhatsNewStrings {
+  _Translations$whatsNewPage$changes$v1_18_0$da._(TranslationsDa root) : this._root = root, super.internal(root);
+
+  final TranslationsDa _root; // ignore: unused_field
+
+  // Translations
+  @override
+  List<String> get changes => [
+    'Kryptering gør ikke længere overførsler langsommere. Den er blevet genaktiveret på denne enhed, hvis du tidligere havde slået den fra.',
+    'Anmodninger fra favoritter accepteres nu automatisk. Dette er slået til som standard og kan deaktiveres i indstillingerne.',
+    'På Android fortsætter overførsler, mens appen er i baggrunden, eller skærmen er slukket. På iOS skal appen stadig forblive i forgrunden.',
+  ];
 }

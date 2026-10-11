@@ -40,8 +40,6 @@ class TranslationsEnIn extends Translations with BaseTranslations<AppLocale, Tra
 
   // Translations
   @override
-  String get locale => 'English(India)';
-  @override
   String get appName => 'LocalSend';
   @override
   late final _Translations$general$en_IN general = _Translations$general$en_IN._(_root);
@@ -53,6 +51,8 @@ class TranslationsEnIn extends Translations with BaseTranslations<AppLocale, Tra
   late final _Translations$settingsTab$en_IN settingsTab = _Translations$settingsTab$en_IN._(_root);
   @override
   late final _Translations$troubleshootPage$en_IN troubleshootPage = _Translations$troubleshootPage$en_IN._(_root);
+  @override
+  late final _Translations$networkInterfacesPage$en_IN networkInterfacesPage = _Translations$networkInterfacesPage$en_IN._(_root);
   @override
   late final _Translations$receiveHistoryPage$en_IN receiveHistoryPage = _Translations$receiveHistoryPage$en_IN._(_root);
   @override
@@ -87,8 +87,6 @@ class TranslationsEnIn extends Translations with BaseTranslations<AppLocale, Tra
   late final _Translations$web$en_IN web = _Translations$web$en_IN._(_root);
   @override
   late final _Translations$assetPicker$en_IN assetPicker = _Translations$assetPicker$en_IN._(_root);
-  @override
-  late final _Translations$networkInterfacesPage$en_IN networkInterfacesPage = _Translations$networkInterfacesPage$en_IN._(_root);
 }
 
 // Path: general
@@ -272,6 +270,26 @@ class _Translations$troubleshootPage$en_IN extends Translations$troubleshootPage
   late final _Translations$troubleshootPage$noConnection$en_IN noConnection = _Translations$troubleshootPage$noConnection$en_IN._(_root);
 }
 
+// Path: networkInterfacesPage
+class _Translations$networkInterfacesPage$en_IN extends Translations$networkInterfacesPage$en {
+  _Translations$networkInterfacesPage$en_IN._(TranslationsEnIn root) : this._root = root, super.internal(root);
+
+  final TranslationsEnIn _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Network Interfaces';
+  @override
+  String get info =>
+      'By default, LocalSend uses all available network interfaces. You can exclude unwanted networks here. You need to restart the server to apply the changes.';
+  @override
+  String get preview => 'Preview';
+  @override
+  String get whitelist => 'Whitelist';
+  @override
+  String get blacklist => 'Blacklist';
+}
+
 // Path: receiveHistoryPage
 class _Translations$receiveHistoryPage$en_IN extends Translations$receiveHistoryPage$en {
   _Translations$receiveHistoryPage$en_IN._(TranslationsEnIn root) : this._root = root, super.internal(root);
@@ -391,8 +409,6 @@ class _Translations$progressPage$en_IN extends Translations$progressPage$en {
   String get savedToGallery => 'Saved in Photos';
   @override
   late final _Translations$progressPage$total$en_IN total = _Translations$progressPage$total$en_IN._(_root);
-  @override
-  late final _Translations$progressPage$remainingTime$en_IN remainingTime = _Translations$progressPage$remainingTime$en_IN._(_root);
 }
 
 // Path: webSharePage
@@ -754,26 +770,6 @@ class _Translations$assetPicker$en_IN extends Translations$assetPicker$en {
   String get sUnitAssetCountLabel => 'count';
 }
 
-// Path: networkInterfacesPage
-class _Translations$networkInterfacesPage$en_IN extends Translations$networkInterfacesPage$en {
-  _Translations$networkInterfacesPage$en_IN._(TranslationsEnIn root) : this._root = root, super.internal(root);
-
-  final TranslationsEnIn _root; // ignore: unused_field
-
-  // Translations
-  @override
-  String get preview => 'Preview';
-  @override
-  String get info =>
-      'By default, LocalSend uses all available network interfaces. You can exclude unwanted networks here. You need to restart the server to apply the changes.';
-  @override
-  String get whitelist => 'Whitelist';
-  @override
-  String get blacklist => 'Blacklist';
-  @override
-  String get title => 'Network Interfaces';
-}
-
 // Path: receiveTab.infoBox
 class _Translations$receiveTab$infoBox$en_IN extends Translations$receiveTab$infoBox$en {
   _Translations$receiveTab$infoBox$en_IN._(TranslationsEnIn root) : this._root = root, super.internal(root);
@@ -957,6 +953,10 @@ class _Translations$settingsTab$network$en_IN extends Translations$settingsTab$n
   @override
   String get port => 'Port';
   @override
+  String get network => 'Network';
+  @override
+  late final _Translations$settingsTab$network$networkOptions$en_IN networkOptions = _Translations$settingsTab$network$networkOptions$en_IN._(_root);
+  @override
   String get discoveryTimeout => 'Discovery Timeout';
   @override
   String get useSystemName => 'Use system name';
@@ -972,10 +972,6 @@ class _Translations$settingsTab$network$en_IN extends Translations$settingsTab$n
   @override
   String multicastGroupWarning({required Object defaultMulticast}) =>
       'You might not be detected by other devices because you are using a custom multicast address. (default: ${defaultMulticast})';
-  @override
-  String get network => 'Network';
-  @override
-  late final _Translations$settingsTab$network$networkOptions$en_IN networkOptions = _Translations$settingsTab$network$networkOptions$en_IN._(_root);
 }
 
 // Path: settingsTab.other
@@ -1073,27 +1069,6 @@ class _Translations$progressPage$total$en_IN extends Translations$progressPage$t
   String size({required Object curr, required Object n}) => 'Size: ${curr} / ${n}';
   @override
   String speed({required Object speed}) => 'Speed: ${speed}/s';
-}
-
-// Path: progressPage.remainingTime
-class _Translations$progressPage$remainingTime$en_IN extends Translations$progressPage$remainingTime$en {
-  _Translations$progressPage$remainingTime$en_IN._(TranslationsEnIn root) : this._root = root, super.internal(root);
-
-  final TranslationsEnIn _root; // ignore: unused_field
-
-  // Translations
-  @override
-  String seconds({required Object n, required Object ss}) => '${n}:${ss}';
-  @override
-  String minutes({required Object n, required Object ss}) => '${n}:${ss}';
-
-  /// Use 'h' for hours abbreviation and 'm' for minutes
-  @override
-  String hours({required Object h, required Object m}) => '${h}h ${m}m';
-
-  /// Use 'd' for days, 'h' for hours, and 'm' for minutes
-  @override
-  String days({required Object d, required Object h, required Object m}) => '${d}d ${h}h ${m}m';
 }
 
 // Path: dialogs.addFile
@@ -1410,8 +1385,6 @@ class _Translations$dialogs$quickSaveFromFavoritesNotice$en_IN extends Translati
   @override
   List<String> get content => [
     'File requests are now accepted automatically from devices in your favourites list.',
-    'Warning! Currently, this is not entirely secure, as a hacker who has the fingerprint of any device from your favourites list can send you files without restriction.',
-    'However, this option is still safer than allowing all users on the local network to send you files without restriction.',
   ];
 }
 

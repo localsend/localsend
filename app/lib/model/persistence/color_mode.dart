@@ -3,4 +3,5 @@ enum ColorMode {
   localsend,
   oled,
   yaru,
+  custom, // user-defined seed color
 }

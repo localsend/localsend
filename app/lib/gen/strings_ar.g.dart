@@ -40,8 +40,6 @@ class TranslationsAr extends Translations with BaseTranslations<AppLocale, Trans
 
   // Translations
   @override
-  String get locale => 'العربية';
-  @override
   String get appName => 'LocalSend';
   @override
   late final _Translations$general$ar general = _Translations$general$ar._(_root);
@@ -54,11 +52,17 @@ class TranslationsAr extends Translations with BaseTranslations<AppLocale, Trans
   @override
   late final _Translations$troubleshootPage$ar troubleshootPage = _Translations$troubleshootPage$ar._(_root);
   @override
+  late final _Translations$networkInterfacesPage$ar networkInterfacesPage = _Translations$networkInterfacesPage$ar._(_root);
+  @override
   late final _Translations$receiveHistoryPage$ar receiveHistoryPage = _Translations$receiveHistoryPage$ar._(_root);
   @override
   late final _Translations$apkPickerPage$ar apkPickerPage = _Translations$apkPickerPage$ar._(_root);
   @override
   late final _Translations$selectedFilesPage$ar selectedFilesPage = _Translations$selectedFilesPage$ar._(_root);
+  @override
+  late final _Translations$deviceDetailsPage$ar deviceDetailsPage = _Translations$deviceDetailsPage$ar._(_root);
+  @override
+  late final _Translations$verifyPage$ar verifyPage = _Translations$verifyPage$ar._(_root);
   @override
   late final _Translations$receivePage$ar receivePage = _Translations$receivePage$ar._(_root);
   @override
@@ -70,11 +74,15 @@ class TranslationsAr extends Translations with BaseTranslations<AppLocale, Trans
   @override
   late final _Translations$webSharePage$ar webSharePage = _Translations$webSharePage$ar._(_root);
   @override
+  late final _Translations$webReceivePage$ar webReceivePage = _Translations$webReceivePage$ar._(_root);
+  @override
   late final _Translations$aboutPage$ar aboutPage = _Translations$aboutPage$ar._(_root);
   @override
   late final _Translations$donationPage$ar donationPage = _Translations$donationPage$ar._(_root);
   @override
   late final _Translations$changelogPage$ar changelogPage = _Translations$changelogPage$ar._(_root);
+  @override
+  late final _Translations$whatsNewPage$ar whatsNewPage = _Translations$whatsNewPage$ar._(_root);
   @override
   late final _Translations$aliasGenerator$ar aliasGenerator = _Translations$aliasGenerator$ar._(_root);
   @override
@@ -87,8 +95,6 @@ class TranslationsAr extends Translations with BaseTranslations<AppLocale, Trans
   late final _Translations$web$ar web = _Translations$web$ar._(_root);
   @override
   late final _Translations$assetPicker$ar assetPicker = _Translations$assetPicker$ar._(_root);
-  @override
-  late final _Translations$networkInterfacesPage$ar networkInterfacesPage = _Translations$networkInterfacesPage$ar._(_root);
 }
 
 // Path: general
@@ -189,6 +195,8 @@ class _Translations$receiveTab$ar extends Translations$receiveTab$en {
   late final _Translations$receiveTab$infoBox$ar infoBox = _Translations$receiveTab$infoBox$ar._(_root);
   @override
   late final _Translations$receiveTab$quickSave$ar quickSave = _Translations$receiveTab$quickSave$ar._(_root);
+  @override
+  String get link => 'الاستلام عبر رابط';
 }
 
 // Path: sendTab
@@ -272,6 +280,26 @@ class _Translations$troubleshootPage$ar extends Translations$troubleshootPage$en
   late final _Translations$troubleshootPage$noConnection$ar noConnection = _Translations$troubleshootPage$noConnection$ar._(_root);
 }
 
+// Path: networkInterfacesPage
+class _Translations$networkInterfacesPage$ar extends Translations$networkInterfacesPage$en {
+  _Translations$networkInterfacesPage$ar._(TranslationsAr root) : this._root = root, super.internal(root);
+
+  final TranslationsAr _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'واجهات الشبكة';
+  @override
+  String get info =>
+      'بشكل افتراضي، يستخدم LocalSend جميع واجهات الشبكة المتاحة. يمكنك استبعاد الشبكات غير المرغوب فيها هنا. تحتاج إلى إعادة تشغيل الخادم لتطبيق التغييرات.';
+  @override
+  String get preview => 'معاينة';
+  @override
+  String get whitelist => 'القائمة البيضاء';
+  @override
+  String get blacklist => 'القائمة السوداء';
+}
+
 // Path: receiveHistoryPage
 class _Translations$receiveHistoryPage$ar extends Translations$receiveHistoryPage$en {
   _Translations$receiveHistoryPage$ar._(TranslationsAr root) : this._root = root, super.internal(root);
@@ -317,6 +345,42 @@ class _Translations$selectedFilesPage$ar extends Translations$selectedFilesPage$
   // Translations
   @override
   String get deleteAll => 'احذف الكل';
+}
+
+// Path: deviceDetailsPage
+class _Translations$deviceDetailsPage$ar extends Translations$deviceDetailsPage$en {
+  _Translations$deviceDetailsPage$ar._(TranslationsAr root) : this._root = root, super.internal(root);
+
+  final TranslationsAr _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'تفاصيل الجهاز';
+  @override
+  String get favorite => 'المفضلة';
+  @override
+  String get verify => 'تحقق';
+  @override
+  late final _Translations$deviceDetailsPage$info$ar info = _Translations$deviceDetailsPage$info$ar._(_root);
+  @override
+  late final _Translations$deviceDetailsPage$logs$ar logs = _Translations$deviceDetailsPage$logs$ar._(_root);
+}
+
+// Path: verifyPage
+class _Translations$verifyPage$ar extends Translations$verifyPage$en {
+  _Translations$verifyPage$ar._(TranslationsAr root) : this._root = root, super.internal(root);
+
+  final TranslationsAr _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'تحقق';
+  @override
+  String get icons => 'الأيقونات';
+  @override
+  String get text => 'النص';
+  @override
+  String get question => 'هل يبدو متطابقًا على الجهاز الآخر؟';
 }
 
 // Path: receivePage
@@ -366,6 +430,8 @@ class _Translations$sendPage$ar extends Translations$sendPage$en {
   final TranslationsAr _root; // ignore: unused_field
 
   // Translations
+  @override
+  String calculatingChecksum({required Object curr, required Object n}) => 'يحسب تدقيق المجموع (${curr} / ${n})';
   @override
   String get waiting => 'بإنتظار الرد…';
   @override
@@ -434,6 +500,17 @@ class _Translations$webSharePage$ar extends Translations$webSharePage$en {
   String pendingRequests({required Object n}) => 'الطلبات المعلقة: ${n}';
 }
 
+// Path: webReceivePage
+class _Translations$webReceivePage$ar extends Translations$webReceivePage$en {
+  _Translations$webReceivePage$ar._(TranslationsAr root) : this._root = root, super.internal(root);
+
+  final TranslationsAr _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'استلم من خلال رابط';
+}
+
 // Path: aboutPage
 class _Translations$aboutPage$ar extends Translations$aboutPage$en {
   _Translations$aboutPage$ar._(TranslationsAr root) : this._root = root, super.internal(root);
@@ -486,6 +563,19 @@ class _Translations$changelogPage$ar extends Translations$changelogPage$en {
   // Translations
   @override
   String get title => 'سجل التغييرات';
+}
+
+// Path: whatsNewPage
+class _Translations$whatsNewPage$ar extends Translations$whatsNewPage$en {
+  _Translations$whatsNewPage$ar._(TranslationsAr root) : this._root = root, super.internal(root);
+
+  final TranslationsAr _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String title({required Object version}) => 'ما الجديد في ${version}';
+  @override
+  late final _Translations$whatsNewPage$changes$ar changes = _Translations$whatsNewPage$changes$ar._(_root);
 }
 
 // Path: aliasGenerator
@@ -750,26 +840,6 @@ class _Translations$assetPicker$ar extends Translations$assetPicker$en {
   String get sUnitAssetCountLabel => 'عدد';
 }
 
-// Path: networkInterfacesPage
-class _Translations$networkInterfacesPage$ar extends Translations$networkInterfacesPage$en {
-  _Translations$networkInterfacesPage$ar._(TranslationsAr root) : this._root = root, super.internal(root);
-
-  final TranslationsAr _root; // ignore: unused_field
-
-  // Translations
-  @override
-  String get whitelist => 'القائمة البيضاء';
-  @override
-  String get title => 'واجهات الشبكة';
-  @override
-  String get blacklist => 'القائمة السوداء';
-  @override
-  String get info =>
-      'بشكل افتراضي، يستخدم LocalSend جميع واجهات الشبكة المتاحة. يمكنك استبعاد الشبكات غير المرغوب فيها هنا. تحتاج إلى إعادة تشغيل الخادم لتطبيق التغييرات.';
-  @override
-  String get preview => 'معاينة';
-}
-
 // Path: receiveTab.infoBox
 class _Translations$receiveTab$infoBox$ar extends Translations$receiveTab$infoBox$en {
   _Translations$receiveTab$infoBox$ar._(TranslationsAr root) : this._root = root, super.internal(root);
@@ -915,6 +985,8 @@ class _Translations$settingsTab$receive$ar extends Translations$settingsTab$rece
   String get saveToGallery => 'حفظ الوسائط في المعرض';
   @override
   String get saveToHistory => 'حفظ في التاريخ';
+  @override
+  String get verifyChecksums => 'التحقق من المجاميع الاختبارية عند استلام الملفات';
 }
 
 // Path: settingsTab.send
@@ -928,6 +1000,8 @@ class _Translations$settingsTab$send$ar extends Translations$settingsTab$send$en
   String get title => 'أرسِل';
   @override
   String get shareViaLinkAutoAccept => 'المشاركة عبر الرابط: قبول تلقائي';
+  @override
+  String get createChecksums => 'إنشاء المجاميع الاختبارية عند إرسال الملفات';
 }
 
 // Path: settingsTab.network
@@ -952,6 +1026,10 @@ class _Translations$settingsTab$network$ar extends Translations$settingsTab$netw
   @override
   String get port => 'منفذ';
   @override
+  String get network => 'الشبكة';
+  @override
+  late final _Translations$settingsTab$network$networkOptions$ar networkOptions = _Translations$settingsTab$network$networkOptions$ar._(_root);
+  @override
   String get discoveryTimeout => 'مهلة الاكتشاف';
   @override
   String get useSystemName => 'استخدم اسم النظام';
@@ -967,10 +1045,6 @@ class _Translations$settingsTab$network$ar extends Translations$settingsTab$netw
   @override
   String multicastGroupWarning({required Object defaultMulticast}) =>
       'ربما لا يتم الكشف عنك من قبل الأجهزة الأخرى لأنك تستخدم عنوان بث متعدد مخصص. (الافتراضي: ${defaultMulticast})';
-  @override
-  late final _Translations$settingsTab$network$networkOptions$ar networkOptions = _Translations$settingsTab$network$networkOptions$ar._(_root);
-  @override
-  String get network => 'الشبكة';
 }
 
 // Path: settingsTab.other
@@ -1053,6 +1127,40 @@ class _Translations$receiveHistoryPage$entryActions$ar extends Translations$rece
   String get deleteFromHistory => 'احذف من التاريخ';
 }
 
+// Path: deviceDetailsPage.info
+class _Translations$deviceDetailsPage$info$ar extends Translations$deviceDetailsPage$info$en {
+  _Translations$deviceDetailsPage$info$ar._(TranslationsAr root) : this._root = root, super.internal(root);
+
+  final TranslationsAr _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get name => 'الاسم';
+  @override
+  String get address => 'العنوان';
+  @override
+  String get version => 'الإصدار';
+  @override
+  String protocol({required Object version}) => 'البروتوكول v${version}';
+}
+
+// Path: deviceDetailsPage.logs
+class _Translations$deviceDetailsPage$logs$ar extends Translations$deviceDetailsPage$logs$en {
+  _Translations$deviceDetailsPage$logs$ar._(TranslationsAr root) : this._root = root, super.internal(root);
+
+  final TranslationsAr _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'السجلات';
+  @override
+  String get empty => 'لا توجد سجلات متاحة.';
+  @override
+  String discovered({required Object protocol, required Object host}) => 'تم الاكتشاف عبر ${protocol} (${host})';
+  @override
+  String updated({required Object protocol, required Object host}) => 'تم التحديث عبر ${protocol} (${host})';
+}
+
 // Path: progressPage.total
 class _Translations$progressPage$total$ar extends Translations$progressPage$total$en {
   _Translations$progressPage$total$ar._(TranslationsAr root) : this._root = root, super.internal(root);
@@ -1078,17 +1186,31 @@ class _Translations$progressPage$remainingTime$ar extends Translations$progressP
 
   // Translations
   @override
-  String seconds({required Object n, required Object ss}) => '${n}:${ss}';
+  String minutesUnit({required num m}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ar'))(
+    m,
+    other: '${m}د',
+  );
   @override
-  String minutes({required Object n, required Object ss}) => '${n}:${ss}';
+  String hoursUnit({required num h}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ar'))(
+    h,
+    other: '${h}س',
+  );
+  @override
+  String minutes({required Object m, required Object ss}) => '${m}:${ss}';
+  @override
+  String hours({required num h, required num m}) =>
+      '${_root.progressPage.remainingTime.hoursUnit(h: h)} ${_root.progressPage.remainingTime.minutesUnit(m: m)}';
+}
 
-  /// استخدم 'س' لاختصار الساعات و'د' للدقائق
-  @override
-  String hours({required Object h, required Object m}) => '${h}س ${m}د';
+// Path: whatsNewPage.changes
+class _Translations$whatsNewPage$changes$ar extends Translations$whatsNewPage$changes$en {
+  _Translations$whatsNewPage$changes$ar._(TranslationsAr root) : this._root = root, super.internal(root);
 
-  /// استخدم 'ي' للأيام، و'س' للساعات، و'د' للدقائق
+  final TranslationsAr _root; // ignore: unused_field
+
+  // Translations
   @override
-  String days({required Object d, required Object h, required Object m}) => '${d}ي ${h}س ${m}د';
+  late final _Translations$whatsNewPage$changes$v1_18_0$ar v1_18_0 = _Translations$whatsNewPage$changes$v1_18_0$ar._(_root);
 }
 
 // Path: dialogs.addFile
@@ -1114,7 +1236,7 @@ class _Translations$dialogs$openFile$ar extends Translations$dialogs$openFile$en
   @override
   String get title => 'افتح الملف';
   @override
-  String get content => 'هل تريد فتح الملف المُستلم؟';
+  String get content => 'أتريد فتح الملف المُستلم؟';
 }
 
 // Path: dialogs.addressInput
@@ -1144,7 +1266,7 @@ class _Translations$dialogs$cancelSession$ar extends Translations$dialogs$cancel
   @override
   String get title => 'ألغِ نقل الملف';
   @override
-  String get content => 'هل تريد حقًا إلغاء نقل الملف؟';
+  String get content => 'أتريد حقًا إلغاء نقل الملف؟';
 }
 
 // Path: dialogs.cannotOpenFile
@@ -1209,7 +1331,7 @@ class _Translations$dialogs$favoriteDeleteDialog$ar extends Translations$dialogs
   @override
   String get title => 'احذف من المفضلات';
   @override
-  String content({required Object name}) => 'هل ترغب حقًا في حذف "${name}" من المفضلات؟';
+  String content({required Object name}) => 'أترغب حقًا في حذف "${name}" من المفضلات؟';
 }
 
 // Path: dialogs.favoriteEditDialog
@@ -1277,7 +1399,7 @@ class _Translations$dialogs$historyClearDialog$ar extends Translations$dialogs$h
   @override
   String get title => 'امسح التاريخ';
   @override
-  String get content => 'هل ترغب حقًا في مسح التاريخ بالكامل؟';
+  String get content => 'أترغب حقًا في مسح التاريخ بالكامل؟';
 }
 
 // Path: dialogs.localNetworkUnauthorized
@@ -1404,8 +1526,6 @@ class _Translations$dialogs$quickSaveFromFavoritesNotice$ar extends Translations
   @override
   List<String> get content => [
     'يتم الآن قبول طلبات الملفات تلقائيًا من الأجهزة الموجودة في قائمة المفضلات لديك.',
-    'تحذير! في الوقت الحالي، هذا ليس آمنًا تمامًا، حيث يمكن للمخترق الذي لديه بصمة أي جهاز من قائمة المفضلات لديك أن يرسل لك ملفات دون قيود.',
-    'ومع ذلك، يظل هذا الخيار أكثر أمانًا من السماح لجميع المستخدمين على الشبكة المحلية بإرسال الملفات إليك دون قيود.',
   ];
 }
 
@@ -1456,7 +1576,7 @@ class _Translations$settingsTab$general$brightnessOptions$ar extends Translation
 
   // Translations
   @override
-  String get system => 'نظام';
+  String get system => 'النظام';
   @override
   String get dark => 'داكنة';
   @override
@@ -1474,6 +1594,8 @@ class _Translations$settingsTab$general$colorOptions$ar extends Translations$set
   String get system => 'النظام';
   @override
   String get oled => 'OLED';
+  @override
+  String get custom => 'مخصص';
 }
 
 // Path: settingsTab.general.languageOptions
@@ -1495,9 +1617,9 @@ class _Translations$settingsTab$network$networkOptions$ar extends Translations$s
 
   // Translations
   @override
-  String get filtered => 'مُصفاة';
-  @override
   String get all => 'الكل';
+  @override
+  String get filtered => 'مُصفاة';
 }
 
 // Path: progressPage.total.title
@@ -1514,5 +1636,20 @@ class _Translations$progressPage$total$title$ar extends Translations$progressPag
   @override
   String get canceledSender => 'أُلغِيَ من قِبل المرسل';
   @override
-  String get canceledReceiver => 'أُلغِيَ من قِبل المتلقي';
+  String get canceledReceiver => 'أُلغِيَ من قِبل المُستلم';
+}
+
+// Path: whatsNewPage.changes.v1_18_0
+class _Translations$whatsNewPage$changes$v1_18_0$ar extends Translations$whatsNewPage$changes$v1_18_0$en with WhatsNewStrings {
+  _Translations$whatsNewPage$changes$v1_18_0$ar._(TranslationsAr root) : this._root = root, super.internal(root);
+
+  final TranslationsAr _root; // ignore: unused_field
+
+  // Translations
+  @override
+  List<String> get changes => [
+    'لم تعد التعمية تُبطئ عمليات النقل. وقد أُعيد تفعيلها على هذا الجهاز إذا كنت قد أقفت تشغيلها من قبل.',
+    'يتم الآن قبول الطلبات الواردة من المفضلات تلقائيًا. هذه الميزة مفعَّلة افتراضيًا ويمكن تعطيلها من خلال الإعدادات.',
+    'في نظام أندرويد، تستمر عمليات النقل حتى عندما يكون التطبيق قيد التشغيل في الخلفية أو تكون الشاشة مطفأة. أما في نظام iOS، فيجب أن يظل التطبيق قيد التشغيل في المقدمة.',
+  ];
 }

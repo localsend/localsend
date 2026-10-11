@@ -40,8 +40,6 @@ class TranslationsSi extends Translations with BaseTranslations<AppLocale, Trans
 
   // Translations
   @override
-  String get locale => 'සිංහල';
-  @override
   String get appName => 'LocalSend';
   @override
   late final _Translations$general$si general = _Translations$general$si._(_root);
@@ -54,11 +52,17 @@ class TranslationsSi extends Translations with BaseTranslations<AppLocale, Trans
   @override
   late final _Translations$troubleshootPage$si troubleshootPage = _Translations$troubleshootPage$si._(_root);
   @override
+  late final _Translations$networkInterfacesPage$si networkInterfacesPage = _Translations$networkInterfacesPage$si._(_root);
+  @override
   late final _Translations$receiveHistoryPage$si receiveHistoryPage = _Translations$receiveHistoryPage$si._(_root);
   @override
   late final _Translations$apkPickerPage$si apkPickerPage = _Translations$apkPickerPage$si._(_root);
   @override
   late final _Translations$selectedFilesPage$si selectedFilesPage = _Translations$selectedFilesPage$si._(_root);
+  @override
+  late final _Translations$deviceDetailsPage$si deviceDetailsPage = _Translations$deviceDetailsPage$si._(_root);
+  @override
+  late final _Translations$verifyPage$si verifyPage = _Translations$verifyPage$si._(_root);
   @override
   late final _Translations$receivePage$si receivePage = _Translations$receivePage$si._(_root);
   @override
@@ -70,11 +74,15 @@ class TranslationsSi extends Translations with BaseTranslations<AppLocale, Trans
   @override
   late final _Translations$webSharePage$si webSharePage = _Translations$webSharePage$si._(_root);
   @override
+  late final _Translations$webReceivePage$si webReceivePage = _Translations$webReceivePage$si._(_root);
+  @override
   late final _Translations$aboutPage$si aboutPage = _Translations$aboutPage$si._(_root);
   @override
   late final _Translations$donationPage$si donationPage = _Translations$donationPage$si._(_root);
   @override
   late final _Translations$changelogPage$si changelogPage = _Translations$changelogPage$si._(_root);
+  @override
+  late final _Translations$whatsNewPage$si whatsNewPage = _Translations$whatsNewPage$si._(_root);
   @override
   late final _Translations$dialogs$si dialogs = _Translations$dialogs$si._(_root);
   @override
@@ -85,8 +93,6 @@ class TranslationsSi extends Translations with BaseTranslations<AppLocale, Trans
   late final _Translations$web$si web = _Translations$web$si._(_root);
   @override
   late final _Translations$assetPicker$si assetPicker = _Translations$assetPicker$si._(_root);
-  @override
-  late final _Translations$networkInterfacesPage$si networkInterfacesPage = _Translations$networkInterfacesPage$si._(_root);
 }
 
 // Path: general
@@ -187,6 +193,8 @@ class _Translations$receiveTab$si extends Translations$receiveTab$en {
   late final _Translations$receiveTab$infoBox$si infoBox = _Translations$receiveTab$infoBox$si._(_root);
   @override
   late final _Translations$receiveTab$quickSave$si quickSave = _Translations$receiveTab$quickSave$si._(_root);
+  @override
+  String get link => 'සබැඳිය හරහා ලබාගන්න';
 }
 
 // Path: sendTab
@@ -270,6 +278,26 @@ class _Translations$troubleshootPage$si extends Translations$troubleshootPage$en
   late final _Translations$troubleshootPage$noConnection$si noConnection = _Translations$troubleshootPage$noConnection$si._(_root);
 }
 
+// Path: networkInterfacesPage
+class _Translations$networkInterfacesPage$si extends Translations$networkInterfacesPage$en {
+  _Translations$networkInterfacesPage$si._(TranslationsSi root) : this._root = root, super.internal(root);
+
+  final TranslationsSi _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'ජාල අතුරුමුහුණත්';
+  @override
+  String get info =>
+      'සාමාන්‍යයෙන් LocalSend ඔබගේ පවතින සියලු ජාල මුහුණත් භාවිතා කරයි. ඔබට අනවශ්‍ය මුහුණතක් වේ නම් එය මෙතනින් ඉවත් කළ හැක. ඔබ සිදු කරන වෙනස්කම් ක්‍රියාත්මක වීමට නම් server එක restart කළ යුතුය.';
+  @override
+  String get preview => 'පෙනෙන අයුරු';
+  @override
+  String get whitelist => 'අවසර ලත් ලැයිස්තුව';
+  @override
+  String get blacklist => 'අවහිර කල ලැයිස්තුව';
+}
+
 // Path: receiveHistoryPage
 class _Translations$receiveHistoryPage$si extends Translations$receiveHistoryPage$en {
   _Translations$receiveHistoryPage$si._(TranslationsSi root) : this._root = root, super.internal(root);
@@ -315,6 +343,42 @@ class _Translations$selectedFilesPage$si extends Translations$selectedFilesPage$
   // Translations
   @override
   String get deleteAll => 'සියල්ල මකන්න';
+}
+
+// Path: deviceDetailsPage
+class _Translations$deviceDetailsPage$si extends Translations$deviceDetailsPage$en {
+  _Translations$deviceDetailsPage$si._(TranslationsSi root) : this._root = root, super.internal(root);
+
+  final TranslationsSi _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'උපාංග විස්තර';
+  @override
+  String get favorite => 'ප්‍රියතම';
+  @override
+  String get verify => 'සත්‍යාපනය';
+  @override
+  late final _Translations$deviceDetailsPage$info$si info = _Translations$deviceDetailsPage$info$si._(_root);
+  @override
+  late final _Translations$deviceDetailsPage$logs$si logs = _Translations$deviceDetailsPage$logs$si._(_root);
+}
+
+// Path: verifyPage
+class _Translations$verifyPage$si extends Translations$verifyPage$en {
+  _Translations$verifyPage$si._(TranslationsSi root) : this._root = root, super.internal(root);
+
+  final TranslationsSi _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'සත්‍යාපනය';
+  @override
+  String get icons => 'අයිකන';
+  @override
+  String get text => 'පෙළ';
+  @override
+  String get question => 'අනෙක් උපාංගයේද සමානව පෙනේද?';
 }
 
 // Path: receivePage
@@ -365,6 +429,8 @@ class _Translations$sendPage$si extends Translations$sendPage$en {
 
   // Translations
   @override
+  String calculatingChecksum({required Object curr, required Object n}) => 'checksum ගණනය කරමින් (${curr} / ${n})';
+  @override
   String get waiting => 'ප්‍රතිචාරයක් බලාපොරොත්තු වෙමින්…';
   @override
   String get rejected => 'ලැබුම්කරු ඉල්ලීම ප්‍රතික්ෂේප කර ඇත.';
@@ -389,6 +455,8 @@ class _Translations$progressPage$si extends Translations$progressPage$en {
   String get savedToGallery => 'Photos තුළ සේව් කරන ලදි';
   @override
   late final _Translations$progressPage$total$si total = _Translations$progressPage$total$si._(_root);
+  @override
+  late final _Translations$progressPage$remainingTime$si remainingTime = _Translations$progressPage$remainingTime$si._(_root);
 }
 
 // Path: webSharePage
@@ -429,6 +497,17 @@ class _Translations$webSharePage$si extends Translations$webSharePage$en {
       'LocalSend self-signed certificate එකක් භාවිතා කරයි. ඔබ විසින් එය බ්‍රවුසරය (browser) තුළ දි පිළිගැනීම (accept) අවශ්‍ය වේ.';
   @override
   String pendingRequests({required Object n}) => 'Pending වන ඉල්ලීම්: ${n}';
+}
+
+// Path: webReceivePage
+class _Translations$webReceivePage$si extends Translations$webReceivePage$en {
+  _Translations$webReceivePage$si._(TranslationsSi root) : this._root = root, super.internal(root);
+
+  final TranslationsSi _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'සබැඳිය හරහා ලබාගන්න';
 }
 
 // Path: aboutPage
@@ -484,6 +563,19 @@ class _Translations$changelogPage$si extends Translations$changelogPage$en {
   // Translations
   @override
   String get title => 'වෙනස්කම් ලේඛනය';
+}
+
+// Path: whatsNewPage
+class _Translations$whatsNewPage$si extends Translations$whatsNewPage$en {
+  _Translations$whatsNewPage$si._(TranslationsSi root) : this._root = root, super.internal(root);
+
+  final TranslationsSi _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String title({required Object version}) => '${version} හි අලුත් දේ';
+  @override
+  late final _Translations$whatsNewPage$changes$si changes = _Translations$whatsNewPage$changes$si._(_root);
 }
 
 // Path: dialogs
@@ -665,26 +757,6 @@ class _Translations$assetPicker$si extends Translations$assetPicker$en {
   String get sUnitAssetCountLabel => 'ගණන';
 }
 
-// Path: networkInterfacesPage
-class _Translations$networkInterfacesPage$si extends Translations$networkInterfacesPage$en {
-  _Translations$networkInterfacesPage$si._(TranslationsSi root) : this._root = root, super.internal(root);
-
-  final TranslationsSi _root; // ignore: unused_field
-
-  // Translations
-  @override
-  String get info =>
-      'සාමාන්‍යයෙන් LocalSend ඔබගේ පවතින සියලු ජාල මුහුණත් භාවිතා කරයි. ඔබට අනවශ්‍ය මුහුණතක් වේ නම් එය මෙතනින් ඉවත් කළ හැක. ඔබ සිදු කරන වෙනස්කම් ක්‍රියාත්මක වීමට නම් server එක restart කළ යුතුය.';
-  @override
-  String get title => 'ජාල අතුරුමුහුණත්';
-  @override
-  String get preview => 'පෙනෙන අයුරු';
-  @override
-  String get whitelist => 'අවසර ලත් ලැයිස්තුව';
-  @override
-  String get blacklist => 'අවහිර කල ලැයිස්තුව';
-}
-
 // Path: receiveTab.infoBox
 class _Translations$receiveTab$infoBox$si extends Translations$receiveTab$infoBox$en {
   _Translations$receiveTab$infoBox$si._(TranslationsSi root) : this._root = root, super.internal(root);
@@ -830,6 +902,8 @@ class _Translations$settingsTab$receive$si extends Translations$settingsTab$rece
   String get saveToGallery => 'මාධ්‍ය ගැලරියට සුරකින්න';
   @override
   String get saveToHistory => 'ඉතිහාසයට සුරකින්න';
+  @override
+  String get verifyChecksums => 'ගොනු ලැබෙන විට checksum සත්‍යාපනය කරන්න';
 }
 
 // Path: settingsTab.send
@@ -843,6 +917,8 @@ class _Translations$settingsTab$send$si extends Translations$settingsTab$send$en
   String get title => 'යවන්න';
   @override
   String get shareViaLinkAutoAccept => '"ලින්ක් (Link) ඔස්සේ බෙදාගන්න (Share)" මාදිලියේ ඉල්ලීම් ස්වයංක්‍රීයව පිළිගන්න';
+  @override
+  String get createChecksums => 'ගොනු යවන විට checksum සාදන්න';
 }
 
 // Path: settingsTab.network
@@ -867,6 +943,10 @@ class _Translations$settingsTab$network$si extends Translations$settingsTab$netw
   @override
   String get port => 'Port';
   @override
+  String get network => 'ජාලය';
+  @override
+  late final _Translations$settingsTab$network$networkOptions$si networkOptions = _Translations$settingsTab$network$networkOptions$si._(_root);
+  @override
   String get discoveryTimeout => 'සොයා ගැනීමේ කාලසීමාව';
   @override
   String get useSystemName => 'පද්ධති නම භාවිතා කරන්න';
@@ -882,10 +962,6 @@ class _Translations$settingsTab$network$si extends Translations$settingsTab$netw
   @override
   String multicastGroupWarning({required Object defaultMulticast}) =>
       'ඔබ custom multicast ලිපිනයක් භාවිතා කරන්නේ නම්, වෙනත් උපාංග වලට ඔබව හඳුනා ගත නොහැක. (default: ${defaultMulticast})';
-  @override
-  String get network => 'ජාලය';
-  @override
-  late final _Translations$settingsTab$network$networkOptions$si networkOptions = _Translations$settingsTab$network$networkOptions$si._(_root);
 }
 
 // Path: settingsTab.other
@@ -968,6 +1044,40 @@ class _Translations$receiveHistoryPage$entryActions$si extends Translations$rece
   String get deleteFromHistory => 'ඉතිහාසයෙන් මකන්න';
 }
 
+// Path: deviceDetailsPage.info
+class _Translations$deviceDetailsPage$info$si extends Translations$deviceDetailsPage$info$en {
+  _Translations$deviceDetailsPage$info$si._(TranslationsSi root) : this._root = root, super.internal(root);
+
+  final TranslationsSi _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get name => 'නම';
+  @override
+  String get address => 'ලිපිනය';
+  @override
+  String get version => 'අනුවාදය';
+  @override
+  String protocol({required Object version}) => 'නියමාවලිය v${version}';
+}
+
+// Path: deviceDetailsPage.logs
+class _Translations$deviceDetailsPage$logs$si extends Translations$deviceDetailsPage$logs$en {
+  _Translations$deviceDetailsPage$logs$si._(TranslationsSi root) : this._root = root, super.internal(root);
+
+  final TranslationsSi _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'ලොග';
+  @override
+  String get empty => 'ලොග නොමැත.';
+  @override
+  String discovered({required Object protocol, required Object host}) => '${protocol} හරහා සොයාගන්නා ලදී (${host})';
+  @override
+  String updated({required Object protocol, required Object host}) => '${protocol} හරහා යාවත්කාල කරන ලදී (${host})';
+}
+
 // Path: progressPage.total
 class _Translations$progressPage$total$si extends Translations$progressPage$total$en {
   _Translations$progressPage$total$si._(TranslationsSi root) : this._root = root, super.internal(root);
@@ -983,6 +1093,41 @@ class _Translations$progressPage$total$si extends Translations$progressPage$tota
   String size({required Object curr, required Object n}) => 'විශාලත්වය: ${curr} / ${n}';
   @override
   String speed({required Object speed}) => 'වේගය: ${speed}/s';
+}
+
+// Path: progressPage.remainingTime
+class _Translations$progressPage$remainingTime$si extends Translations$progressPage$remainingTime$en {
+  _Translations$progressPage$remainingTime$si._(TranslationsSi root) : this._root = root, super.internal(root);
+
+  final TranslationsSi _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String minutesUnit({required num m}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('si'))(
+    m,
+    other: '${m}මි',
+  );
+  @override
+  String hoursUnit({required num h}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('si'))(
+    h,
+    other: '${h}පැ',
+  );
+  @override
+  String minutes({required Object m, required Object ss}) => '${m}:${ss}';
+  @override
+  String hours({required num h, required num m}) =>
+      '${_root.progressPage.remainingTime.hoursUnit(h: h)} ${_root.progressPage.remainingTime.minutesUnit(m: m)}';
+}
+
+// Path: whatsNewPage.changes
+class _Translations$whatsNewPage$changes$si extends Translations$whatsNewPage$changes$en {
+  _Translations$whatsNewPage$changes$si._(TranslationsSi root) : this._root = root, super.internal(root);
+
+  final TranslationsSi _root; // ignore: unused_field
+
+  // Translations
+  @override
+  late final _Translations$whatsNewPage$changes$v1_18_0$si v1_18_0 = _Translations$whatsNewPage$changes$v1_18_0$si._(_root);
 }
 
 // Path: dialogs.addFile
@@ -1300,8 +1445,6 @@ class _Translations$dialogs$quickSaveFromFavoritesNotice$si extends Translations
   @override
   List<String> get content => [
     'ඔබගේ ප්‍රියතම ලැයිස්තුවේ ඇති උපාංගවලින් ලැබෙන ගොනු ඉල්ලීම් දැන් ස්වයංක්‍රීයව පිළිගනු ලැබේ.',
-    'අවවාදයයි! දැනට, මෙය සම්පූර්ණයෙන්ම ආරක්ෂිත නැත, ඔබේ ප්‍රියතම ලැයිස්තුවේ ඇති ඕනෑම උපාංගයක ඇඟිලි සලකුණක් සහිත හැකර්වරයෙකුට (Hacker) කිසිඳු සීමාවකින් තොරව ඔබ වෙත ගොනු එවිය හැක.',
-    'කෙසේ වෙතත්, මෙම විකල්පය ජාලයේ සියලුම පරිශීලකයින්ට කිසිඳු සීමාවකින් තොරව ගොනු එවීමට ඉඩ දීමට වඩා ආරක්ෂිත වේ.',
   ];
 }
 
@@ -1371,6 +1514,8 @@ class _Translations$settingsTab$general$colorOptions$si extends Translations$set
   String get system => 'පද්ධතිය';
   @override
   String get oled => 'OLED';
+  @override
+  String get custom => 'අභිරුචි';
 }
 
 // Path: settingsTab.general.languageOptions
@@ -1412,4 +1557,19 @@ class _Translations$progressPage$total$title$si extends Translations$progressPag
   String get canceledSender => 'යවන්නා විසින් අවලංගු කරන ලදී';
   @override
   String get canceledReceiver => 'ලැබුම්කරු විසින් අවලංගු කරන ලදී';
+}
+
+// Path: whatsNewPage.changes.v1_18_0
+class _Translations$whatsNewPage$changes$v1_18_0$si extends Translations$whatsNewPage$changes$v1_18_0$en with WhatsNewStrings {
+  _Translations$whatsNewPage$changes$v1_18_0$si._(TranslationsSi root) : this._root = root, super.internal(root);
+
+  final TranslationsSi _root; // ignore: unused_field
+
+  // Translations
+  @override
+  List<String> get changes => [
+    'සංකේතනය තවදුරටත් හුවමාරු මන්දගාමී නොකරයි. ඔබ කලින් එය අක්‍රිය කර තිබුණේ නම්, මෙම උපාංගයේ එය නැවත සක්‍රිය කර ඇත.',
+    'ප්‍රියතමවලින් එන ඉල්ලීම් දැන් ස්වයංක්‍රීයව පිළිගනු ලැබේ. මෙය පෙරනිමියෙන් සක්‍රිය අතර සැකසුම් හරහා අක්‍රිය කළ හැක.',
+    'Android හි, යෙදුම පසුබිමේ ඇති විට හෝ තිරය නිවා ඇති විට හුවමාරු දිගටම සිදුවේ. iOS හි, යෙදුම තවමත් පෙරබිමේ තිබිය යුතුය.',
+  ];
 }

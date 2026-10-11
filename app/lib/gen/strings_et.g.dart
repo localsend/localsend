@@ -40,8 +40,6 @@ class TranslationsEt extends Translations with BaseTranslations<AppLocale, Trans
 
   // Translations
   @override
-  String get locale => 'Eesti keel';
-  @override
   String get appName => 'LocalSend';
   @override
   late final _Translations$general$et general = _Translations$general$et._(_root);
@@ -54,11 +52,17 @@ class TranslationsEt extends Translations with BaseTranslations<AppLocale, Trans
   @override
   late final _Translations$troubleshootPage$et troubleshootPage = _Translations$troubleshootPage$et._(_root);
   @override
+  late final _Translations$networkInterfacesPage$et networkInterfacesPage = _Translations$networkInterfacesPage$et._(_root);
+  @override
   late final _Translations$receiveHistoryPage$et receiveHistoryPage = _Translations$receiveHistoryPage$et._(_root);
   @override
   late final _Translations$apkPickerPage$et apkPickerPage = _Translations$apkPickerPage$et._(_root);
   @override
   late final _Translations$selectedFilesPage$et selectedFilesPage = _Translations$selectedFilesPage$et._(_root);
+  @override
+  late final _Translations$deviceDetailsPage$et deviceDetailsPage = _Translations$deviceDetailsPage$et._(_root);
+  @override
+  late final _Translations$verifyPage$et verifyPage = _Translations$verifyPage$et._(_root);
   @override
   late final _Translations$receivePage$et receivePage = _Translations$receivePage$et._(_root);
   @override
@@ -70,11 +74,15 @@ class TranslationsEt extends Translations with BaseTranslations<AppLocale, Trans
   @override
   late final _Translations$webSharePage$et webSharePage = _Translations$webSharePage$et._(_root);
   @override
+  late final _Translations$webReceivePage$et webReceivePage = _Translations$webReceivePage$et._(_root);
+  @override
   late final _Translations$aboutPage$et aboutPage = _Translations$aboutPage$et._(_root);
   @override
   late final _Translations$donationPage$et donationPage = _Translations$donationPage$et._(_root);
   @override
   late final _Translations$changelogPage$et changelogPage = _Translations$changelogPage$et._(_root);
+  @override
+  late final _Translations$whatsNewPage$et whatsNewPage = _Translations$whatsNewPage$et._(_root);
   @override
   late final _Translations$dialogs$et dialogs = _Translations$dialogs$et._(_root);
   @override
@@ -85,8 +93,6 @@ class TranslationsEt extends Translations with BaseTranslations<AppLocale, Trans
   late final _Translations$web$et web = _Translations$web$et._(_root);
   @override
   late final _Translations$assetPicker$et assetPicker = _Translations$assetPicker$et._(_root);
-  @override
-  late final _Translations$networkInterfacesPage$et networkInterfacesPage = _Translations$networkInterfacesPage$et._(_root);
 }
 
 // Path: general
@@ -187,6 +193,8 @@ class _Translations$receiveTab$et extends Translations$receiveTab$en {
   late final _Translations$receiveTab$infoBox$et infoBox = _Translations$receiveTab$infoBox$et._(_root);
   @override
   late final _Translations$receiveTab$quickSave$et quickSave = _Translations$receiveTab$quickSave$et._(_root);
+  @override
+  String get link => 'Võta vastu lingi kaudu';
 }
 
 // Path: sendTab
@@ -270,6 +278,26 @@ class _Translations$troubleshootPage$et extends Translations$troubleshootPage$en
   late final _Translations$troubleshootPage$noConnection$et noConnection = _Translations$troubleshootPage$noConnection$et._(_root);
 }
 
+// Path: networkInterfacesPage
+class _Translations$networkInterfacesPage$et extends Translations$networkInterfacesPage$en {
+  _Translations$networkInterfacesPage$et._(TranslationsEt root) : this._root = root, super.internal(root);
+
+  final TranslationsEt _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Võrguliidesed';
+  @override
+  String get info =>
+      'Vaikimisi kasutab LocalSend kõiki võrguliideseid. Kui sul on vaja, siis saad mittesoovitud võrgud siinkohal välistada ning muudatuste jõustumine eeldab serverikomponendi uuesti käivitamist.';
+  @override
+  String get preview => 'Eelvaade';
+  @override
+  String get whitelist => 'Lubatud loend';
+  @override
+  String get blacklist => 'Keelatud loend';
+}
+
 // Path: receiveHistoryPage
 class _Translations$receiveHistoryPage$et extends Translations$receiveHistoryPage$en {
   _Translations$receiveHistoryPage$et._(TranslationsEt root) : this._root = root, super.internal(root);
@@ -315,6 +343,42 @@ class _Translations$selectedFilesPage$et extends Translations$selectedFilesPage$
   // Translations
   @override
   String get deleteAll => 'Kustuta kõik';
+}
+
+// Path: deviceDetailsPage
+class _Translations$deviceDetailsPage$et extends Translations$deviceDetailsPage$en {
+  _Translations$deviceDetailsPage$et._(TranslationsEt root) : this._root = root, super.internal(root);
+
+  final TranslationsEt _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Seadme üksikasjad';
+  @override
+  String get favorite => 'Lemmik';
+  @override
+  String get verify => 'Kontrolli';
+  @override
+  late final _Translations$deviceDetailsPage$info$et info = _Translations$deviceDetailsPage$info$et._(_root);
+  @override
+  late final _Translations$deviceDetailsPage$logs$et logs = _Translations$deviceDetailsPage$logs$et._(_root);
+}
+
+// Path: verifyPage
+class _Translations$verifyPage$et extends Translations$verifyPage$en {
+  _Translations$verifyPage$et._(TranslationsEt root) : this._root = root, super.internal(root);
+
+  final TranslationsEt _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Kontrolli';
+  @override
+  String get icons => 'Ikoonid';
+  @override
+  String get text => 'Tekst';
+  @override
+  String get question => 'Kas see näeb teises seadmes samasugune välja?';
 }
 
 // Path: receivePage
@@ -364,6 +428,8 @@ class _Translations$sendPage$et extends Translations$sendPage$en {
   final TranslationsEt _root; // ignore: unused_field
 
   // Translations
+  @override
+  String calculatingChecksum({required Object curr, required Object n}) => 'Arvutan kontrollsummat (${curr} / ${n})';
   @override
   String get waiting => 'Ootame vastust…';
   @override
@@ -432,6 +498,17 @@ class _Translations$webSharePage$et extends Translations$webSharePage$en {
   String pendingRequests({required Object n}) => 'Ootel päringuid: ${n}';
 }
 
+// Path: webReceivePage
+class _Translations$webReceivePage$et extends Translations$webReceivePage$en {
+  _Translations$webReceivePage$et._(TranslationsEt root) : this._root = root, super.internal(root);
+
+  final TranslationsEt _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Võta vastu lingi kaudu';
+}
+
 // Path: aboutPage
 class _Translations$aboutPage$et extends Translations$aboutPage$en {
   _Translations$aboutPage$et._(TranslationsEt root) : this._root = root, super.internal(root);
@@ -485,6 +562,19 @@ class _Translations$changelogPage$et extends Translations$changelogPage$en {
   // Translations
   @override
   String get title => 'Muudatuste logi';
+}
+
+// Path: whatsNewPage
+class _Translations$whatsNewPage$et extends Translations$whatsNewPage$en {
+  _Translations$whatsNewPage$et._(TranslationsEt root) : this._root = root, super.internal(root);
+
+  final TranslationsEt _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String title({required Object version}) => 'Mis on uut versioonis ${version}';
+  @override
+  late final _Translations$whatsNewPage$changes$et changes = _Translations$whatsNewPage$changes$et._(_root);
 }
 
 // Path: dialogs
@@ -666,26 +756,6 @@ class _Translations$assetPicker$et extends Translations$assetPicker$en {
   String get sUnitAssetCountLabel => 'kogus';
 }
 
-// Path: networkInterfacesPage
-class _Translations$networkInterfacesPage$et extends Translations$networkInterfacesPage$en {
-  _Translations$networkInterfacesPage$et._(TranslationsEt root) : this._root = root, super.internal(root);
-
-  final TranslationsEt _root; // ignore: unused_field
-
-  // Translations
-  @override
-  String get title => 'Võrguliidesed';
-  @override
-  String get preview => 'Eelvaade';
-  @override
-  String get whitelist => 'Lubatud loend';
-  @override
-  String get blacklist => 'Keelatud loend';
-  @override
-  String get info =>
-      'Vaikimisi kasutab LocalSend kõiki võrguliideseid. Kui sul on vaja, siis saad mittesoovitud võrgud siinkohal välistada ning muudatuste jõustumine eeldab serverikomponendi uuesti käivitamist.';
-}
-
 // Path: receiveTab.infoBox
 class _Translations$receiveTab$infoBox$et extends Translations$receiveTab$infoBox$en {
   _Translations$receiveTab$infoBox$et._(TranslationsEt root) : this._root = root, super.internal(root);
@@ -831,6 +901,8 @@ class _Translations$settingsTab$receive$et extends Translations$settingsTab$rece
   String get saveToGallery => 'Lisa meedia galeriisse';
   @override
   String get saveToHistory => 'Salvesta ajalukku';
+  @override
+  String get verifyChecksums => 'Kontrolli failide vastuvõtmisel kontrollsummasid';
 }
 
 // Path: settingsTab.send
@@ -844,6 +916,8 @@ class _Translations$settingsTab$send$et extends Translations$settingsTab$send$en
   String get title => 'Saatmine';
   @override
   String get shareViaLinkAutoAccept => 'Kui kasutusel on „Jaga lingi abil“, siis nõustu vastuvõtmisega automaatselt';
+  @override
+  String get createChecksums => 'Loo failide saatmisel kontrollsummad';
 }
 
 // Path: settingsTab.network
@@ -868,6 +942,10 @@ class _Translations$settingsTab$network$et extends Translations$settingsTab$netw
   @override
   String get port => 'Kasutatav port';
   @override
+  String get network => 'Võrk';
+  @override
+  late final _Translations$settingsTab$network$networkOptions$et networkOptions = _Translations$settingsTab$network$networkOptions$et._(_root);
+  @override
   String get discoveryTimeout => 'Leitavuse aegumine';
   @override
   String get useSystemName => 'Kasuta süsteemset nime';
@@ -883,10 +961,6 @@ class _Translations$settingsTab$network$et extends Translations$settingsTab$netw
   @override
   String multicastGroupWarning({required Object defaultMulticast}) =>
       'Kuna kasutad endamääratud multiedastuse aadressi, siis muud seadmed ei pruugi seda seadet leida. (vaikimisi: ${defaultMulticast})';
-  @override
-  late final _Translations$settingsTab$network$networkOptions$et networkOptions = _Translations$settingsTab$network$networkOptions$et._(_root);
-  @override
-  String get network => 'Võrk';
 }
 
 // Path: settingsTab.other
@@ -969,6 +1043,40 @@ class _Translations$receiveHistoryPage$entryActions$et extends Translations$rece
   String get deleteFromHistory => 'Kustuta ajaloost';
 }
 
+// Path: deviceDetailsPage.info
+class _Translations$deviceDetailsPage$info$et extends Translations$deviceDetailsPage$info$en {
+  _Translations$deviceDetailsPage$info$et._(TranslationsEt root) : this._root = root, super.internal(root);
+
+  final TranslationsEt _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get name => 'Nimi';
+  @override
+  String get address => 'Aadress';
+  @override
+  String get version => 'Versioon';
+  @override
+  String protocol({required Object version}) => 'Protokoll v${version}';
+}
+
+// Path: deviceDetailsPage.logs
+class _Translations$deviceDetailsPage$logs$et extends Translations$deviceDetailsPage$logs$en {
+  _Translations$deviceDetailsPage$logs$et._(TranslationsEt root) : this._root = root, super.internal(root);
+
+  final TranslationsEt _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Logid';
+  @override
+  String get empty => 'Logisid pole saadaval.';
+  @override
+  String discovered({required Object protocol, required Object host}) => 'Avastatud ${protocol} kaudu (${host})';
+  @override
+  String updated({required Object protocol, required Object host}) => 'Uuendatud ${protocol} kaudu (${host})';
+}
+
 // Path: progressPage.total
 class _Translations$progressPage$total$et extends Translations$progressPage$total$en {
   _Translations$progressPage$total$et._(TranslationsEt root) : this._root = root, super.internal(root);
@@ -994,17 +1102,31 @@ class _Translations$progressPage$remainingTime$et extends Translations$progressP
 
   // Translations
   @override
-  String seconds({required Object n, required Object ss}) => '${n}:${ss}';
+  String minutesUnit({required num m}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('et'))(
+    m,
+    other: '${m}min',
+  );
   @override
-  String minutes({required Object n, required Object ss}) => '${n}:${ss}';
+  String hoursUnit({required num h}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('et'))(
+    h,
+    other: '${h}t',
+  );
+  @override
+  String minutes({required Object m, required Object ss}) => '${m}:${ss}';
+  @override
+  String hours({required num h, required num m}) =>
+      '${_root.progressPage.remainingTime.hoursUnit(h: h)} ${_root.progressPage.remainingTime.minutesUnit(m: m)}';
+}
 
-  /// Kasuta „h“ tunni lühendina ja „m“ minutite jaoks
-  @override
-  String hours({required Object h, required Object m}) => '${h} t ${m} min';
+// Path: whatsNewPage.changes
+class _Translations$whatsNewPage$changes$et extends Translations$whatsNewPage$changes$en {
+  _Translations$whatsNewPage$changes$et._(TranslationsEt root) : this._root = root, super.internal(root);
 
-  /// Kasuta „d“ päeva, lühendina „h“ tunni lühendina ja „m“ minutite jaoks
+  final TranslationsEt _root; // ignore: unused_field
+
+  // Translations
   @override
-  String days({required Object d, required Object h, required Object m}) => '${d} pv ${h} t ${m} min';
+  late final _Translations$whatsNewPage$changes$v1_18_0$et v1_18_0 = _Translations$whatsNewPage$changes$v1_18_0$et._(_root);
 }
 
 // Path: dialogs.addFile
@@ -1322,8 +1444,6 @@ class _Translations$dialogs$quickSaveFromFavoritesNotice$et extends Translations
   @override
   List<String> get content => [
     'Failipäringutega nõustume nüüd automaatselt vaid nende seadmete puhul, mis on lemmikuks märgitud.',
-    'Hoiatus! Kui kohtvõrgus tegutsev võimalik pahatahtlik osapool saaks kätte sinul lemmikuks märgitud seadmete võtmed ja sõrmejäljed, siis saaks sulle piiranguteta faile saata ja seega pole lahendus hetkel täiesti turvaline.',
-    'Aga siiski on see valik turvalisem, kui lubada kõigil sinu kohtvõrgu kasutajatel saata sulle faile ilma igasuguste piiranguteta.',
   ];
 }
 
@@ -1393,6 +1513,8 @@ class _Translations$settingsTab$general$colorOptions$et extends Translations$set
   String get system => 'Süsteemi värvid';
   @override
   String get oled => 'OLED';
+  @override
+  String get custom => 'Kohandatud';
 }
 
 // Path: settingsTab.general.languageOptions
@@ -1414,9 +1536,9 @@ class _Translations$settingsTab$network$networkOptions$et extends Translations$s
 
   // Translations
   @override
-  String get filtered => 'Filtreeritud';
-  @override
   String get all => 'Kõik';
+  @override
+  String get filtered => 'Filtreeritud';
 }
 
 // Path: progressPage.total.title
@@ -1434,4 +1556,19 @@ class _Translations$progressPage$total$title$et extends Translations$progressPag
   String get canceledSender => 'Saatja poolt katkestatud';
   @override
   String get canceledReceiver => 'Vastuvõtja poolt katkestatud';
+}
+
+// Path: whatsNewPage.changes.v1_18_0
+class _Translations$whatsNewPage$changes$v1_18_0$et extends Translations$whatsNewPage$changes$v1_18_0$en with WhatsNewStrings {
+  _Translations$whatsNewPage$changes$v1_18_0$et._(TranslationsEt root) : this._root = root, super.internal(root);
+
+  final TranslationsEt _root; // ignore: unused_field
+
+  // Translations
+  @override
+  List<String> get changes => [
+    'Krüpteerimine ei aeglusta enam ülekandeid. Kui olite selle varem välja lülitanud, on see selles seadmes uuesti sisse lülitatud.',
+    'Lemmikute päringud võetakse nüüd automaatselt vastu. See on vaikimisi sisse lülitatud ja seda saab seadetes välja lülitada.',
+    'Androidis jätkuvad ülekanded, kui rakendus on taustal või ekraan on väljas. iOS-is peab rakendus endiselt esiplaanile jääma.',
+  ];
 }

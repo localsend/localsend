@@ -3,112 +3,13 @@ use crate::model::transfer::FileDto;
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 
-/// The protocol version (major.minor) implemented by this crate for the v2 protocol.
-pub const PROTOCOL_VERSION_V2: &str = "2.1";
+// Discovery types are shared with the (HTTP-independent) multicast module and
+// therefore live in `crate::model::discovery`. They are re-exported here so that
+// the v2 DTOs remain available under a single path.
+use crate::model::discovery::ProtocolType;
+use crate::model::discovery::{device_type_v2, protocol_type_v2};
 
-/// Serde helpers for `DeviceType` in the v2 protocol.
-///
-/// The v2 protocol uses lowercase values (e.g. "desktop") on the wire.
-/// Unknown values fall back to `Desktop` as required by the protocol (section 7.1).
-pub(crate) mod device_type_v2 {
-    use crate::model::discovery::DeviceType;
-    use serde::{Deserialize, Deserializer, Serializer};
-
-    pub fn serialize<S: Serializer>(
-        value: &Option<DeviceType>,
-        serializer: S,
-    ) -> Result<S::Ok, S::Error> {
-        match value {
-            Some(device_type) => serializer.serialize_str(match device_type {
-                DeviceType::Mobile => "mobile",
-                DeviceType::Desktop => "desktop",
-                DeviceType::Web => "web",
-                DeviceType::Headless => "headless",
-                DeviceType::Server => "server",
-            }),
-            None => serializer.serialize_none(),
-        }
-    }
-
-    pub fn deserialize<'de, D: Deserializer<'de>>(
-        deserializer: D,
-    ) -> Result<Option<DeviceType>, D::Error> {
-        let value = Option::<String>::deserialize(deserializer)?;
-        Ok(value.map(|value| match value.to_lowercase().as_str() {
-            "mobile" => DeviceType::Mobile,
-            "desktop" => DeviceType::Desktop,
-            "web" => DeviceType::Web,
-            "headless" => DeviceType::Headless,
-            "server" => DeviceType::Server,
-            _ => DeviceType::Desktop,
-        }))
-    }
-}
-
-/// Protocol type for HTTP or HTTPS connections.
-#[derive(Clone, Debug, Deserialize, Eq, Serialize, PartialEq)]
-#[serde(rename_all = "lowercase")]
-pub enum ProtocolTypeV2 {
-    Http,
-    Https,
-}
-
-impl ProtocolTypeV2 {
-    pub fn as_str(&self) -> &'static str {
-        match self {
-            ProtocolTypeV2::Http => "http",
-            ProtocolTypeV2::Https => "https",
-        }
-    }
-}
-
-/// Multicast announcement/response message for UDP discovery (v2.1).
-///
-/// Used for both sending announcements and responding to announcements.
-/// When `announce` is true, other devices should respond.
-/// When `announce` is false, this is a response to an announcement.
-#[derive(Debug, Clone, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
-pub struct MulticastMessageV2 {
-    /// The display name of the device.
-    pub alias: String,
-
-    /// Protocol version (e.g., "2.1").
-    pub version: String,
-
-    /// Device model (e.g., "Samsung", "Windows"). Optional.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub device_model: Option<String>,
-
-    /// Device type category. Optional.
-    #[serde(
-        default,
-        with = "device_type_v2",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub device_type: Option<DeviceType>,
-
-    /// Fingerprint for device identification.
-    /// In HTTPS mode: SHA-256 hash of the certificate.
-    /// In HTTP mode: randomly generated string.
-    pub fingerprint: String,
-
-    /// Port number the device is listening on.
-    pub port: u16,
-
-    /// Protocol type (http or https).
-    pub protocol: ProtocolTypeV2,
-
-    /// Whether the download API (sections 5.2, 5.3) is active.
-    #[serde(default)]
-    pub download: bool,
-
-    /// Whether this is an announcement (true) or a response (false).
-    /// Other devices should only respond when this is true.
-    pub announce: bool,
-}
-
-/// Register request DTO for v2.1 protocol.
+/// Register request DTO for v2.2 protocol.
 ///
 /// Sent to POST /api/localsend/v2/register for device discovery.
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -117,7 +18,7 @@ pub struct RegisterDtoV2 {
     /// The display name of the device.
     pub alias: String,
 
-    /// Protocol version (e.g., "2.0", "2.1").
+    /// Protocol version (e.g., "2.0", "2.2").
     pub version: String,
 
     /// Device model (e.g., "Samsung", "Windows"). Optional.
@@ -140,14 +41,15 @@ pub struct RegisterDtoV2 {
     pub port: u16,
 
     /// Protocol type (http or https).
-    pub protocol: ProtocolTypeV2,
+    #[serde(with = "protocol_type_v2")]
+    pub protocol: ProtocolType,
 
     /// Whether the download API (sections 5.2, 5.3) is active.
     #[serde(default)]
     pub download: bool,
 }
 
-/// Register response DTO for v2.1 protocol.
+/// Register response DTO for v2.2 protocol.
 ///
 /// Response from POST /api/localsend/v2/register.
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -156,7 +58,7 @@ pub struct RegisterResponseDtoV2 {
     /// The display name of the device.
     pub alias: String,
 
-    /// Protocol version (e.g., "2.0", "2.1").
+    /// Protocol version (e.g., "2.0", "2.2").
     pub version: String,
 
     /// Device model. Optional.
@@ -181,7 +83,7 @@ pub struct RegisterResponseDtoV2 {
     pub download: bool,
 }
 
-/// Prepare upload request DTO for v2.1 protocol.
+/// Prepare upload request DTO for v2.2 protocol.
 ///
 /// Sent to POST /api/localsend/v2/prepare-upload to initiate a file transfer.
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -194,7 +96,7 @@ pub struct PrepareUploadRequestDtoV2 {
     pub files: HashMap<String, FileDto>,
 }
 
-/// Prepare upload response DTO for v2.1 protocol.
+/// Prepare upload response DTO for v2.2 protocol.
 ///
 /// Response from POST /api/localsend/v2/prepare-upload.
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -213,7 +115,7 @@ pub struct PrepareUploadResultV2 {
     pub response: Option<PrepareUploadResponseDtoV2>,
 }
 
-/// Prepare download response DTO for v2.1 protocol (Download API).
+/// Prepare download response DTO for v2.2 protocol (Download API).
 ///
 /// Response from POST /api/localsend/v2/prepare-download.
 /// Used when the sender provides files for others to download.
@@ -230,7 +132,7 @@ pub struct PrepareDownloadResponseDtoV2 {
     pub files: HashMap<String, FileDto>,
 }
 
-/// Info response DTO for v2.1 protocol.
+/// Info response DTO for v2.2 protocol.
 ///
 /// Response from GET /api/localsend/v2/info.
 /// Also used as the `info` field in PrepareDownloadResponseDtoV2.
@@ -240,7 +142,7 @@ pub struct InfoResponseDtoV2 {
     /// The display name of the device.
     pub alias: String,
 
-    /// Protocol version (e.g., "2.0", "2.1").
+    /// Protocol version (e.g., "2.0", "2.2").
     pub version: String,
 
     /// Device model. Optional.
@@ -268,30 +170,6 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test_multicast_message_serialization() {
-        let msg = MulticastMessageV2 {
-            alias: "Nice Orange".to_string(),
-            version: "2.1".to_string(),
-            device_model: Some("Samsung".to_string()),
-            device_type: Some(DeviceType::Mobile),
-            fingerprint: "random string".to_string(),
-            port: 53317,
-            protocol: ProtocolTypeV2::Https,
-            download: true,
-            announce: true,
-        };
-
-        let json = serde_json::to_string(&msg).unwrap();
-        assert!(json.contains("\"alias\":\"Nice Orange\""));
-        assert!(json.contains("\"version\":\"2.1\""));
-        assert!(json.contains("\"fingerprint\":\"random string\""));
-        assert!(json.contains("\"announce\":true"));
-        assert!(json.contains("\"download\":true"));
-        assert!(json.contains("\"protocol\":\"https\""));
-        assert!(json.contains("\"deviceType\":\"mobile\""));
-    }
-
-    #[test]
     fn test_register_dto_v2_deserialization() {
         let json = r#"{
             "alias": "Secret Banana",
@@ -311,7 +189,7 @@ mod tests {
         assert_eq!(dto.device_type, Some(DeviceType::Desktop));
         assert_eq!(dto.fingerprint, "random string");
         assert_eq!(dto.port, 53317);
-        assert_eq!(dto.protocol, ProtocolTypeV2::Https);
+        assert_eq!(dto.protocol, ProtocolType::Https);
         assert!(dto.download);
     }
 
@@ -350,12 +228,12 @@ mod tests {
         let request = PrepareUploadRequestDtoV2 {
             info: RegisterDtoV2 {
                 alias: "Sender".to_string(),
-                version: "2.1".to_string(),
+                version: "2.2".to_string(),
                 device_model: None,
                 device_type: None,
                 fingerprint: "sender-fingerprint".to_string(),
                 port: 53317,
-                protocol: ProtocolTypeV2::Https,
+                protocol: ProtocolType::Https,
                 download: false,
             },
             files: HashMap::from([(

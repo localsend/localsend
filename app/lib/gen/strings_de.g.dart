@@ -40,8 +40,6 @@ class TranslationsDe extends Translations with BaseTranslations<AppLocale, Trans
 
   // Translations
   @override
-  String get locale => 'Deutsch';
-  @override
   String get appName => 'LocalSend';
   @override
   late final _Translations$general$de general = _Translations$general$de._(_root);
@@ -62,6 +60,10 @@ class TranslationsDe extends Translations with BaseTranslations<AppLocale, Trans
   @override
   late final _Translations$selectedFilesPage$de selectedFilesPage = _Translations$selectedFilesPage$de._(_root);
   @override
+  late final _Translations$deviceDetailsPage$de deviceDetailsPage = _Translations$deviceDetailsPage$de._(_root);
+  @override
+  late final _Translations$verifyPage$de verifyPage = _Translations$verifyPage$de._(_root);
+  @override
   late final _Translations$receivePage$de receivePage = _Translations$receivePage$de._(_root);
   @override
   late final _Translations$receiveOptionsPage$de receiveOptionsPage = _Translations$receiveOptionsPage$de._(_root);
@@ -72,11 +74,15 @@ class TranslationsDe extends Translations with BaseTranslations<AppLocale, Trans
   @override
   late final _Translations$webSharePage$de webSharePage = _Translations$webSharePage$de._(_root);
   @override
+  late final _Translations$webReceivePage$de webReceivePage = _Translations$webReceivePage$de._(_root);
+  @override
   late final _Translations$aboutPage$de aboutPage = _Translations$aboutPage$de._(_root);
   @override
   late final _Translations$donationPage$de donationPage = _Translations$donationPage$de._(_root);
   @override
   late final _Translations$changelogPage$de changelogPage = _Translations$changelogPage$de._(_root);
+  @override
+  late final _Translations$whatsNewPage$de whatsNewPage = _Translations$whatsNewPage$de._(_root);
   @override
   late final _Translations$dialogs$de dialogs = _Translations$dialogs$de._(_root);
   @override
@@ -187,6 +193,8 @@ class _Translations$receiveTab$de extends Translations$receiveTab$en {
   late final _Translations$receiveTab$infoBox$de infoBox = _Translations$receiveTab$infoBox$de._(_root);
   @override
   late final _Translations$receiveTab$quickSave$de quickSave = _Translations$receiveTab$quickSave$de._(_root);
+  @override
+  String get link => 'Per Link empfangen';
 }
 
 // Path: sendTab
@@ -285,9 +293,9 @@ class _Translations$networkInterfacesPage$de extends Translations$networkInterfa
   @override
   String get preview => 'Vorschau';
   @override
-  String get whitelist => 'Whitelist';
+  String get whitelist => 'Zulassungsliste';
   @override
-  String get blacklist => 'Blacklist';
+  String get blacklist => 'Sperrliste';
 }
 
 // Path: receiveHistoryPage
@@ -337,6 +345,42 @@ class _Translations$selectedFilesPage$de extends Translations$selectedFilesPage$
   String get deleteAll => 'Alle löschen';
 }
 
+// Path: deviceDetailsPage
+class _Translations$deviceDetailsPage$de extends Translations$deviceDetailsPage$en {
+  _Translations$deviceDetailsPage$de._(TranslationsDe root) : this._root = root, super.internal(root);
+
+  final TranslationsDe _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Gerätedetails';
+  @override
+  String get favorite => 'Favorit';
+  @override
+  String get verify => 'Verifizieren';
+  @override
+  late final _Translations$deviceDetailsPage$info$de info = _Translations$deviceDetailsPage$info$de._(_root);
+  @override
+  late final _Translations$deviceDetailsPage$logs$de logs = _Translations$deviceDetailsPage$logs$de._(_root);
+}
+
+// Path: verifyPage
+class _Translations$verifyPage$de extends Translations$verifyPage$en {
+  _Translations$verifyPage$de._(TranslationsDe root) : this._root = root, super.internal(root);
+
+  final TranslationsDe _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Verifizieren';
+  @override
+  String get icons => 'Symbole';
+  @override
+  String get text => 'Text';
+  @override
+  String get question => 'Sieht es auf dem anderen Gerät gleich aus?';
+}
+
 // Path: receivePage
 class _Translations$receivePage$de extends Translations$receivePage$en {
   _Translations$receivePage$de._(TranslationsDe root) : this._root = root, super.internal(root);
@@ -384,6 +428,8 @@ class _Translations$sendPage$de extends Translations$sendPage$en {
   final TranslationsDe _root; // ignore: unused_field
 
   // Translations
+  @override
+  String calculatingChecksum({required Object curr, required Object n}) => 'Berechne Prüfsumme (${curr} / ${n})';
   @override
   String get waiting => 'Warte auf Antwort…';
   @override
@@ -452,6 +498,17 @@ class _Translations$webSharePage$de extends Translations$webSharePage$en {
   String pendingRequests({required Object n}) => 'Offene Anfragen: ${n}';
 }
 
+// Path: webReceivePage
+class _Translations$webReceivePage$de extends Translations$webReceivePage$en {
+  _Translations$webReceivePage$de._(TranslationsDe root) : this._root = root, super.internal(root);
+
+  final TranslationsDe _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Per Link empfangen';
+}
+
 // Path: aboutPage
 class _Translations$aboutPage$de extends Translations$aboutPage$en {
   _Translations$aboutPage$de._(TranslationsDe root) : this._root = root, super.internal(root);
@@ -505,6 +562,19 @@ class _Translations$changelogPage$de extends Translations$changelogPage$en {
   // Translations
   @override
   String get title => 'Änderungsprotokoll';
+}
+
+// Path: whatsNewPage
+class _Translations$whatsNewPage$de extends Translations$whatsNewPage$en {
+  _Translations$whatsNewPage$de._(TranslationsDe root) : this._root = root, super.internal(root);
+
+  final TranslationsDe _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String title({required Object version}) => 'Was ist neu in ${version}';
+  @override
+  late final _Translations$whatsNewPage$changes$de changes = _Translations$whatsNewPage$changes$de._(_root);
 }
 
 // Path: dialogs
@@ -650,7 +720,7 @@ class _Translations$assetPicker$de extends Translations$assetPicker$en {
   @override
   String get unableToAccessAll => 'Zugriff nicht möglich';
   @override
-  String get viewingLimitedAssetsTip => 'Zeige nur Dateien und Alben an, auf die die App zugreifen kann.';
+  String get viewingLimitedAssetsTip => 'Nur Dateien und Alben anzeigen, auf die die App zugreifen kann.';
   @override
   String get changeAccessibleLimitedAssets => 'Tippen, um erlaubte Dateien zu aktualisieren';
   @override
@@ -831,6 +901,8 @@ class _Translations$settingsTab$receive$de extends Translations$settingsTab$rece
   String get saveToGallery => 'Medien in die Galerie speichern';
   @override
   String get saveToHistory => 'In Verlauf speichern';
+  @override
+  String get verifyChecksums => 'Prüfsummen beim Empfangen überprüfen';
 }
 
 // Path: settingsTab.send
@@ -844,6 +916,8 @@ class _Translations$settingsTab$send$de extends Translations$settingsTab$send$en
   String get title => 'Senden';
   @override
   String get shareViaLinkAutoAccept => 'Link teilen: Autom. akzeptieren';
+  @override
+  String get createChecksums => 'Prüfsummen beim Senden erstellen';
 }
 
 // Path: settingsTab.network
@@ -969,6 +1043,40 @@ class _Translations$receiveHistoryPage$entryActions$de extends Translations$rece
   String get deleteFromHistory => 'Vom Verlauf entfernen';
 }
 
+// Path: deviceDetailsPage.info
+class _Translations$deviceDetailsPage$info$de extends Translations$deviceDetailsPage$info$en {
+  _Translations$deviceDetailsPage$info$de._(TranslationsDe root) : this._root = root, super.internal(root);
+
+  final TranslationsDe _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get name => 'Name';
+  @override
+  String get address => 'Adresse';
+  @override
+  String get version => 'Version';
+  @override
+  String protocol({required Object version}) => 'Protokoll v${version}';
+}
+
+// Path: deviceDetailsPage.logs
+class _Translations$deviceDetailsPage$logs$de extends Translations$deviceDetailsPage$logs$en {
+  _Translations$deviceDetailsPage$logs$de._(TranslationsDe root) : this._root = root, super.internal(root);
+
+  final TranslationsDe _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Logs';
+  @override
+  String get empty => 'Keine Logs vorhanden.';
+  @override
+  String discovered({required Object protocol, required Object host}) => 'Entdeckt über ${protocol} (${host})';
+  @override
+  String updated({required Object protocol, required Object host}) => 'Aktualisiert über ${protocol} (${host})';
+}
+
 // Path: progressPage.total
 class _Translations$progressPage$total$de extends Translations$progressPage$total$en {
   _Translations$progressPage$total$de._(TranslationsDe root) : this._root = root, super.internal(root);
@@ -994,17 +1102,31 @@ class _Translations$progressPage$remainingTime$de extends Translations$progressP
 
   // Translations
   @override
-  String seconds({required Object n, required Object ss}) => '${n}:${ss}';
+  String minutesUnit({required num m}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('de'))(
+    m,
+    other: '${m}m',
+  );
   @override
-  String minutes({required Object n, required Object ss}) => '${n}:${ss}';
+  String hoursUnit({required num h}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('de'))(
+    h,
+    other: '${h}h',
+  );
+  @override
+  String minutes({required Object m, required Object ss}) => '${m}:${ss}';
+  @override
+  String hours({required num h, required num m}) =>
+      '${_root.progressPage.remainingTime.hoursUnit(h: h)} ${_root.progressPage.remainingTime.minutesUnit(m: m)}';
+}
 
-  /// Benutze 'h' als Abkürzung für Stunden und 'm' für Minuten
-  @override
-  String hours({required Object h, required Object m}) => '${h}h ${m}m';
+// Path: whatsNewPage.changes
+class _Translations$whatsNewPage$changes$de extends Translations$whatsNewPage$changes$en {
+  _Translations$whatsNewPage$changes$de._(TranslationsDe root) : this._root = root, super.internal(root);
 
-  /// Benutze 'd' für Tage, 'h' für Stunden und 'm' für Minuten
+  final TranslationsDe _root; // ignore: unused_field
+
+  // Translations
   @override
-  String days({required Object d, required Object h, required Object m}) => '${d}d ${h}h ${m}m';
+  late final _Translations$whatsNewPage$changes$v1_18_0$de v1_18_0 = _Translations$whatsNewPage$changes$v1_18_0$de._(_root);
 }
 
 // Path: dialogs.addFile
@@ -1285,7 +1407,7 @@ class _Translations$dialogs$quickActions$de extends Translations$dialogs$quickAc
 
   // Translations
   @override
-  String get title => 'Quick Actions';
+  String get title => 'Schnellaktionen';
   @override
   String get counter => 'Zähler';
   @override
@@ -1323,8 +1445,6 @@ class _Translations$dialogs$quickSaveFromFavoritesNotice$de extends Translations
   @override
   List<String> get content => [
     'Dateianfragen werden jetzt automatisch von Geräten in deiner Favoritenliste akzeptiert.',
-    'Warnung: Dies ist derzeit nicht vollständig sicher, da ein Hacker, der den Fingerabdruck der Geräte in deiner Favoritenliste kennt, dir immer noch Dateien senden kann.',
-    'Diese Option ist jedoch immer noch sicherer als die Erlaubnis für jedes Gerät.',
   ];
 }
 
@@ -1394,6 +1514,8 @@ class _Translations$settingsTab$general$colorOptions$de extends Translations$set
   String get system => 'System';
   @override
   String get oled => 'OLED';
+  @override
+  String get custom => 'Benutzerdefiniert';
 }
 
 // Path: settingsTab.general.languageOptions
@@ -1435,4 +1557,19 @@ class _Translations$progressPage$total$title$de extends Translations$progressPag
   String get canceledSender => 'Abgebrochen durch Absender';
   @override
   String get canceledReceiver => 'Abgebrochen durch Empfänger';
+}
+
+// Path: whatsNewPage.changes.v1_18_0
+class _Translations$whatsNewPage$changes$v1_18_0$de extends Translations$whatsNewPage$changes$v1_18_0$en with WhatsNewStrings {
+  _Translations$whatsNewPage$changes$v1_18_0$de._(TranslationsDe root) : this._root = root, super.internal(root);
+
+  final TranslationsDe _root; // ignore: unused_field
+
+  // Translations
+  @override
+  List<String> get changes => [
+    'Die Verschlüsselung bremst die Übertragung nicht mehr aus. Sie wurde auf diesem Gerät wieder aktiviert, falls du sie zuvor deaktiviert hattest.',
+    'Anfragen von Favoriten werden jetzt automatisch akzeptiert. Diese Option ist standardmäßig aktiviert und kann in den Einstellungen deaktiviert werden.',
+    'Unter Android laufen Übertragungen weiter, während die App im Hintergrund ist oder der Bildschirm aus ist. Unter iOS muss die App weiterhin im Vordergrund bleiben.',
+  ];
 }

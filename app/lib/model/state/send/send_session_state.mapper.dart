@@ -52,6 +52,11 @@ class SendSessionStateMapper extends ClassMapperBase<SendSessionState> {
   static Map<String, SendingFile> _$files(SendSessionState v) => v.files;
   static const Field<SendSessionState, Map<String, SendingFile>> _f$files =
       Field('files', _$files);
+  static int _$hashedFileCount(SendSessionState v) => v.hashedFileCount;
+  static const Field<SendSessionState, int> _f$hashedFileCount = Field(
+    'hashedFileCount',
+    _$hashedFileCount,
+  );
   static int? _$startTime(SendSessionState v) => v.startTime;
   static const Field<SendSessionState, int> _f$startTime = Field(
     'startTime',
@@ -80,6 +85,7 @@ class SendSessionStateMapper extends ClassMapperBase<SendSessionState> {
     #status: _f$status,
     #target: _f$target,
     #files: _f$files,
+    #hashedFileCount: _f$hashedFileCount,
     #startTime: _f$startTime,
     #endTime: _f$endTime,
     #sendingTasks: _f$sendingTasks,
@@ -94,6 +100,7 @@ class SendSessionStateMapper extends ClassMapperBase<SendSessionState> {
       status: data.dec(_f$status),
       target: data.dec(_f$target),
       files: data.dec(_f$files),
+      hashedFileCount: data.dec(_f$hashedFileCount),
       startTime: data.dec(_f$startTime),
       endTime: data.dec(_f$endTime),
       sendingTasks: data.dec(_f$sendingTasks),
@@ -180,6 +187,7 @@ abstract class SendSessionStateCopyWith<$R, $In extends SendSessionState, $Out>
     SessionStatus? status,
     Device? target,
     Map<String, SendingFile>? files,
+    int? hashedFileCount,
     int? startTime,
     int? endTime,
     List<SendingTask>? sendingTasks,
@@ -230,6 +238,7 @@ class _SendSessionStateCopyWithImpl<$R, $Out>
     SessionStatus? status,
     Device? target,
     Map<String, SendingFile>? files,
+    int? hashedFileCount,
     Object? startTime = $none,
     Object? endTime = $none,
     Object? sendingTasks = $none,
@@ -242,6 +251,7 @@ class _SendSessionStateCopyWithImpl<$R, $Out>
       if (status != null) #status: status,
       if (target != null) #target: target,
       if (files != null) #files: files,
+      if (hashedFileCount != null) #hashedFileCount: hashedFileCount,
       if (startTime != $none) #startTime: startTime,
       if (endTime != $none) #endTime: endTime,
       if (sendingTasks != $none) #sendingTasks: sendingTasks,
@@ -256,6 +266,7 @@ class _SendSessionStateCopyWithImpl<$R, $Out>
     status: data.get(#status, or: $value.status),
     target: data.get(#target, or: $value.target),
     files: data.get(#files, or: $value.files),
+    hashedFileCount: data.get(#hashedFileCount, or: $value.hashedFileCount),
     startTime: data.get(#startTime, or: $value.startTime),
     endTime: data.get(#endTime, or: $value.endTime),
     sendingTasks: data.get(#sendingTasks, or: $value.sendingTasks),

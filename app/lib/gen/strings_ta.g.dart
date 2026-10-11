@@ -40,8 +40,6 @@ class TranslationsTa extends Translations with BaseTranslations<AppLocale, Trans
 
   // Translations
   @override
-  String get locale => 'தமிழ்';
-  @override
   String get appName => 'உள்ளக';
   @override
   late final _Translations$general$ta general = _Translations$general$ta._(_root);
@@ -54,11 +52,17 @@ class TranslationsTa extends Translations with BaseTranslations<AppLocale, Trans
   @override
   late final _Translations$troubleshootPage$ta troubleshootPage = _Translations$troubleshootPage$ta._(_root);
   @override
+  late final _Translations$networkInterfacesPage$ta networkInterfacesPage = _Translations$networkInterfacesPage$ta._(_root);
+  @override
   late final _Translations$receiveHistoryPage$ta receiveHistoryPage = _Translations$receiveHistoryPage$ta._(_root);
   @override
   late final _Translations$apkPickerPage$ta apkPickerPage = _Translations$apkPickerPage$ta._(_root);
   @override
   late final _Translations$selectedFilesPage$ta selectedFilesPage = _Translations$selectedFilesPage$ta._(_root);
+  @override
+  late final _Translations$deviceDetailsPage$ta deviceDetailsPage = _Translations$deviceDetailsPage$ta._(_root);
+  @override
+  late final _Translations$verifyPage$ta verifyPage = _Translations$verifyPage$ta._(_root);
   @override
   late final _Translations$receivePage$ta receivePage = _Translations$receivePage$ta._(_root);
   @override
@@ -70,11 +74,15 @@ class TranslationsTa extends Translations with BaseTranslations<AppLocale, Trans
   @override
   late final _Translations$webSharePage$ta webSharePage = _Translations$webSharePage$ta._(_root);
   @override
+  late final _Translations$webReceivePage$ta webReceivePage = _Translations$webReceivePage$ta._(_root);
+  @override
   late final _Translations$aboutPage$ta aboutPage = _Translations$aboutPage$ta._(_root);
   @override
   late final _Translations$donationPage$ta donationPage = _Translations$donationPage$ta._(_root);
   @override
   late final _Translations$changelogPage$ta changelogPage = _Translations$changelogPage$ta._(_root);
+  @override
+  late final _Translations$whatsNewPage$ta whatsNewPage = _Translations$whatsNewPage$ta._(_root);
   @override
   late final _Translations$aliasGenerator$ta aliasGenerator = _Translations$aliasGenerator$ta._(_root);
   @override
@@ -87,8 +95,6 @@ class TranslationsTa extends Translations with BaseTranslations<AppLocale, Trans
   late final _Translations$web$ta web = _Translations$web$ta._(_root);
   @override
   late final _Translations$assetPicker$ta assetPicker = _Translations$assetPicker$ta._(_root);
-  @override
-  late final _Translations$networkInterfacesPage$ta networkInterfacesPage = _Translations$networkInterfacesPage$ta._(_root);
 }
 
 // Path: general
@@ -189,6 +195,8 @@ class _Translations$receiveTab$ta extends Translations$receiveTab$en {
   late final _Translations$receiveTab$infoBox$ta infoBox = _Translations$receiveTab$infoBox$ta._(_root);
   @override
   late final _Translations$receiveTab$quickSave$ta quickSave = _Translations$receiveTab$quickSave$ta._(_root);
+  @override
+  String get link => 'இணைப்பு வழியாகப் பெறுக';
 }
 
 // Path: sendTab
@@ -272,6 +280,26 @@ class _Translations$troubleshootPage$ta extends Translations$troubleshootPage$en
   late final _Translations$troubleshootPage$noConnection$ta noConnection = _Translations$troubleshootPage$noConnection$ta._(_root);
 }
 
+// Path: networkInterfacesPage
+class _Translations$networkInterfacesPage$ta extends Translations$networkInterfacesPage$en {
+  _Translations$networkInterfacesPage$ta._(TranslationsTa root) : this._root = root, super.internal(root);
+
+  final TranslationsTa _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'பிணைய இடைமுகங்கள்';
+  @override
+  String get info =>
+      'இயல்பாக, லோக்கல்சென்ட் கிடைக்கக்கூடிய அனைத்து பிணைய இடைமுகங்களையும் பயன்படுத்துகிறது. தேவையற்ற நெட்வொர்க்குகளை இங்கே விலக்கலாம். மாற்றங்களைப் பயன்படுத்த நீங்கள் சேவையகத்தை மறுதொடக்கம் செய்ய வேண்டும்.';
+  @override
+  String get preview => 'முன்னோட்டம்';
+  @override
+  String get whitelist => 'அனுமதிப்பட்டியலாளர்';
+  @override
+  String get blacklist => 'தடுப்புப்பட்டியல்';
+}
+
 // Path: receiveHistoryPage
 class _Translations$receiveHistoryPage$ta extends Translations$receiveHistoryPage$en {
   _Translations$receiveHistoryPage$ta._(TranslationsTa root) : this._root = root, super.internal(root);
@@ -317,6 +345,42 @@ class _Translations$selectedFilesPage$ta extends Translations$selectedFilesPage$
   // Translations
   @override
   String get deleteAll => 'அனைத்தையும் நீக்கவும்';
+}
+
+// Path: deviceDetailsPage
+class _Translations$deviceDetailsPage$ta extends Translations$deviceDetailsPage$en {
+  _Translations$deviceDetailsPage$ta._(TranslationsTa root) : this._root = root, super.internal(root);
+
+  final TranslationsTa _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'சாதன விவரங்கள்';
+  @override
+  String get favorite => 'பிடித்தவை';
+  @override
+  String get verify => 'சரிபார்';
+  @override
+  late final _Translations$deviceDetailsPage$info$ta info = _Translations$deviceDetailsPage$info$ta._(_root);
+  @override
+  late final _Translations$deviceDetailsPage$logs$ta logs = _Translations$deviceDetailsPage$logs$ta._(_root);
+}
+
+// Path: verifyPage
+class _Translations$verifyPage$ta extends Translations$verifyPage$en {
+  _Translations$verifyPage$ta._(TranslationsTa root) : this._root = root, super.internal(root);
+
+  final TranslationsTa _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'சரிபார்';
+  @override
+  String get icons => 'ஐகான்கள்';
+  @override
+  String get text => 'உரை';
+  @override
+  String get question => 'மற்ற சாதனத்தில் இது ஒரே மாதிரி தெரிகிறதா?';
 }
 
 // Path: receivePage
@@ -367,6 +431,8 @@ class _Translations$sendPage$ta extends Translations$sendPage$en {
 
   // Translations
   @override
+  String calculatingChecksum({required Object curr, required Object n}) => 'checksum கணக்கிடப்படுகிறது (${curr} / ${n})';
+  @override
   String get waiting => 'பதில் வரும் வரை காத்திருக்கிறது…';
   @override
   String get rejected => 'பெறுநர் கோரிக்கையை நிராகரித்துள்ளார்.';
@@ -391,6 +457,8 @@ class _Translations$progressPage$ta extends Translations$progressPage$en {
   String get savedToGallery => 'புகைப்படங்களில் சேமிக்கப்பட்டது';
   @override
   late final _Translations$progressPage$total$ta total = _Translations$progressPage$total$ta._(_root);
+  @override
+  late final _Translations$progressPage$remainingTime$ta remainingTime = _Translations$progressPage$remainingTime$ta._(_root);
 }
 
 // Path: webSharePage
@@ -430,6 +498,17 @@ class _Translations$webSharePage$ta extends Translations$webSharePage$en {
   String get encryptionHint => 'LocalSend ஒரு சுய கையொப்பம் செய்யப்பட்ட சான்றிதழைப் பயன்படுத்துகிறது. உங்களின் உலாவியில் அதை ஏற்க வேண்டும்.';
   @override
   String pendingRequests({required Object n}) => 'நிலுவை கோரிக்கைகள்: ${n}';
+}
+
+// Path: webReceivePage
+class _Translations$webReceivePage$ta extends Translations$webReceivePage$en {
+  _Translations$webReceivePage$ta._(TranslationsTa root) : this._root = root, super.internal(root);
+
+  final TranslationsTa _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'இணைப்பு வழியாகப் பெறுக';
 }
 
 // Path: aboutPage
@@ -485,6 +564,19 @@ class _Translations$changelogPage$ta extends Translations$changelogPage$en {
   // Translations
   @override
   String get title => 'மாற்றம் பதிவு';
+}
+
+// Path: whatsNewPage
+class _Translations$whatsNewPage$ta extends Translations$whatsNewPage$en {
+  _Translations$whatsNewPage$ta._(TranslationsTa root) : this._root = root, super.internal(root);
+
+  final TranslationsTa _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String title({required Object version}) => '${version} இல் புதியது என்ன';
+  @override
+  late final _Translations$whatsNewPage$changes$ta changes = _Translations$whatsNewPage$changes$ta._(_root);
 }
 
 // Path: aliasGenerator
@@ -749,26 +841,6 @@ class _Translations$assetPicker$ta extends Translations$assetPicker$en {
   String get sUnitAssetCountLabel => 'எண்ணிக்கை';
 }
 
-// Path: networkInterfacesPage
-class _Translations$networkInterfacesPage$ta extends Translations$networkInterfacesPage$en {
-  _Translations$networkInterfacesPage$ta._(TranslationsTa root) : this._root = root, super.internal(root);
-
-  final TranslationsTa _root; // ignore: unused_field
-
-  // Translations
-  @override
-  String get title => 'பிணைய இடைமுகங்கள்';
-  @override
-  String get info =>
-      'இயல்பாக, லோக்கல்சென்ட் கிடைக்கக்கூடிய அனைத்து பிணைய இடைமுகங்களையும் பயன்படுத்துகிறது. தேவையற்ற நெட்வொர்க்குகளை இங்கே விலக்கலாம். மாற்றங்களைப் பயன்படுத்த நீங்கள் சேவையகத்தை மறுதொடக்கம் செய்ய வேண்டும்.';
-  @override
-  String get preview => 'முன்னோட்டம்';
-  @override
-  String get whitelist => 'அனுமதிப்பட்டியலாளர்';
-  @override
-  String get blacklist => 'தடுப்புப்பட்டியல்';
-}
-
 // Path: receiveTab.infoBox
 class _Translations$receiveTab$infoBox$ta extends Translations$receiveTab$infoBox$en {
   _Translations$receiveTab$infoBox$ta._(TranslationsTa root) : this._root = root, super.internal(root);
@@ -914,6 +986,8 @@ class _Translations$settingsTab$receive$ta extends Translations$settingsTab$rece
   String get saveToGallery => 'மீடியாவை கேலரியில் சேமிக்கவும்';
   @override
   String get saveToHistory => 'வரலாற்றில் சேமிக்கவும்';
+  @override
+  String get verifyChecksums => 'கோப்புகளைப் பெறும்போது checksum சரிபார்க்கவும்';
 }
 
 // Path: settingsTab.send
@@ -927,6 +1001,8 @@ class _Translations$settingsTab$send$ta extends Translations$settingsTab$send$en
   String get title => 'அனுப்பு';
   @override
   String get shareViaLinkAutoAccept => '"இணைப்பு வழியாக பகிர்" பயன்முறையில் கோரிக்கைகளை தானாக ஏற்கவும்';
+  @override
+  String get createChecksums => 'கோப்புகளை அனுப்பும்போது checksum உருவாக்கவும்';
 }
 
 // Path: settingsTab.network
@@ -951,6 +1027,10 @@ class _Translations$settingsTab$network$ta extends Translations$settingsTab$netw
   @override
   String get port => 'போர்ட்';
   @override
+  String get network => 'பிணையம்';
+  @override
+  late final _Translations$settingsTab$network$networkOptions$ta networkOptions = _Translations$settingsTab$network$networkOptions$ta._(_root);
+  @override
   String get discoveryTimeout => 'கண்டுபிடிப்பு நேரம் முடிந்தது';
   @override
   String get useSystemName => 'அமைப்பின் பெயரைப் பயன்படுத்தவும்';
@@ -966,10 +1046,6 @@ class _Translations$settingsTab$network$ta extends Translations$settingsTab$netw
   @override
   String multicastGroupWarning({required Object defaultMulticast}) =>
       'நீங்கள் தனிப்பயன் மல்டிகாஸ்ட் முகவரியைப் பயன்படுத்துவதால் பிற சாதனங்களால் உங்களைக் கண்டறிய முடியாமல் போகலாம். (இயல்புநிலை: ${defaultMulticast})';
-  @override
-  String get network => 'பிணையம்';
-  @override
-  late final _Translations$settingsTab$network$networkOptions$ta networkOptions = _Translations$settingsTab$network$networkOptions$ta._(_root);
 }
 
 // Path: settingsTab.other
@@ -1052,6 +1128,40 @@ class _Translations$receiveHistoryPage$entryActions$ta extends Translations$rece
   String get deleteFromHistory => 'வரலாற்றில் இருந்து நீக்கவும்';
 }
 
+// Path: deviceDetailsPage.info
+class _Translations$deviceDetailsPage$info$ta extends Translations$deviceDetailsPage$info$en {
+  _Translations$deviceDetailsPage$info$ta._(TranslationsTa root) : this._root = root, super.internal(root);
+
+  final TranslationsTa _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get name => 'பெயர்';
+  @override
+  String get address => 'முகவரி';
+  @override
+  String get version => 'பதிப்பு';
+  @override
+  String protocol({required Object version}) => 'நெறிமுறை v${version}';
+}
+
+// Path: deviceDetailsPage.logs
+class _Translations$deviceDetailsPage$logs$ta extends Translations$deviceDetailsPage$logs$en {
+  _Translations$deviceDetailsPage$logs$ta._(TranslationsTa root) : this._root = root, super.internal(root);
+
+  final TranslationsTa _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'பதிவுகள்';
+  @override
+  String get empty => 'பதிவுகள் எதுவும் இல்லை.';
+  @override
+  String discovered({required Object protocol, required Object host}) => '${protocol} வழியாகக் கண்டறியப்பட்டது (${host})';
+  @override
+  String updated({required Object protocol, required Object host}) => '${protocol} வழியாக புதுப்பிக்கப்பட்டது (${host})';
+}
+
 // Path: progressPage.total
 class _Translations$progressPage$total$ta extends Translations$progressPage$total$en {
   _Translations$progressPage$total$ta._(TranslationsTa root) : this._root = root, super.internal(root);
@@ -1067,6 +1177,41 @@ class _Translations$progressPage$total$ta extends Translations$progressPage$tota
   String size({required Object curr, required Object n}) => 'அளவு: ${curr} / ${n}';
   @override
   String speed({required Object speed}) => 'வேகம்: ${speed}/s';
+}
+
+// Path: progressPage.remainingTime
+class _Translations$progressPage$remainingTime$ta extends Translations$progressPage$remainingTime$en {
+  _Translations$progressPage$remainingTime$ta._(TranslationsTa root) : this._root = root, super.internal(root);
+
+  final TranslationsTa _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String minutesUnit({required num m}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ta'))(
+    m,
+    other: '${m}நி',
+  );
+  @override
+  String hoursUnit({required num h}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ta'))(
+    h,
+    other: '${h}மணி',
+  );
+  @override
+  String minutes({required Object m, required Object ss}) => '${m}:${ss}';
+  @override
+  String hours({required num h, required num m}) =>
+      '${_root.progressPage.remainingTime.hoursUnit(h: h)} ${_root.progressPage.remainingTime.minutesUnit(m: m)}';
+}
+
+// Path: whatsNewPage.changes
+class _Translations$whatsNewPage$changes$ta extends Translations$whatsNewPage$changes$en {
+  _Translations$whatsNewPage$changes$ta._(TranslationsTa root) : this._root = root, super.internal(root);
+
+  final TranslationsTa _root; // ignore: unused_field
+
+  // Translations
+  @override
+  late final _Translations$whatsNewPage$changes$v1_18_0$ta v1_18_0 = _Translations$whatsNewPage$changes$v1_18_0$ta._(_root);
 }
 
 // Path: dialogs.addFile
@@ -1384,9 +1529,7 @@ class _Translations$dialogs$quickSaveFromFavoritesNotice$ta extends Translations
   String get title => '@: general.quick பிடித்தவைகளிலிருந்து சேமிக்கவும்';
   @override
   List<String> get content => [
-    'உங்கள் பிடித்த பட்டியலில் உள்ள சாதனங்களில் இருந்து கோப்பு கோரிக்கைகள் இப்போது தானாகவே ஏற்கப்படும்.',
-    'எச்சரிக்கை! தற்போது, இது முழுமையாக பாதுகாப்பாக இல்லை, ஏனெனில் உங்கள் பிடித்த பட்டியலில் உள்ள சாதனங்களின் விரலடிகளை வைத்துள்ள ஒரு ஹேக்கர் எந்த கட்டுப்பாடுகளும் இல்லாமல் உங்களுக்கு கோப்புகளை அனுப்ப முடியும்.',
-    'என்ன தவிர, இந்த விருப்பம் உள்ளூர் நெட்வொர்க்கில் உள்ள அனைத்து பயனர்களும் எந்த கட்டுப்பாடுகளும் இல்லாமல் உங்களுக்கு கோப்புகளை அனுப்புவதை அனுமதிக்கும் விருப்பத்தை விட அதிகமாக பாதுகாப்பாக உள்ளது.',
+    'உங்கள் பிடிக்க பட்டியலில் உள்ள சாதனங்களில் இருந்து கோப்பு கோரிக்கைகள் இப்போது தானாகவே ஏற்கப்படும்.',
   ];
 }
 
@@ -1456,6 +1599,8 @@ class _Translations$settingsTab$general$colorOptions$ta extends Translations$set
   String get system => 'கணினி நிறம்';
   @override
   String get oled => 'ஓஎல்இடி';
+  @override
+  String get custom => 'தனிப்பயன்';
 }
 
 // Path: settingsTab.general.languageOptions
@@ -1497,4 +1642,19 @@ class _Translations$progressPage$total$title$ta extends Translations$progressPag
   String get canceledSender => 'அனுப்புநரால் ரத்து செய்யப்பட்டது';
   @override
   String get canceledReceiver => 'பெறுநரால் ரத்து செய்யப்பட்டது';
+}
+
+// Path: whatsNewPage.changes.v1_18_0
+class _Translations$whatsNewPage$changes$v1_18_0$ta extends Translations$whatsNewPage$changes$v1_18_0$en with WhatsNewStrings {
+  _Translations$whatsNewPage$changes$v1_18_0$ta._(TranslationsTa root) : this._root = root, super.internal(root);
+
+  final TranslationsTa _root; // ignore: unused_field
+
+  // Translations
+  @override
+  List<String> get changes => [
+    'மறைகுறியாக்கம் இனி பரிமாற்றங்களை மெதுவாக்காது. நீங்கள் முன்பு அதை அணைத்திருந்தால், இந்தச் சாதனத்தில் அது மீண்டும் இயக்கப்பட்டுள்ளது.',
+    'பிடித்தவைகளில் இருந்து வரும் கோரிக்கைகள் இப்போது தானாகவே ஏற்கப்படுகின்றன. இது இயல்பாக இயக்கத்தில் உள்ளது; அமைப்புகளில் முடக்கலாம்.',
+    'Android இல், செயலி பின்னணியில் இருந்தாலும் அல்லது திரை அணைந்திருந்தாலும் பரிமாற்றங்கள் தொடரும். iOS இல், செயலி இன்னும் முன்னணியில் இருக்க வேண்டும்.',
+  ];
 }

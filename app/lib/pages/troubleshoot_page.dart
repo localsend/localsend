@@ -7,7 +7,6 @@ import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/util/native/cmd_helper.dart';
 import 'package:localsend_app/util/native/macos_channel.dart' as macos_channel;
 import 'package:localsend_app/util/native/platform_check.dart';
-import 'package:localsend_app/widget/custom_basic_appbar.dart';
 import 'package:localsend_app/widget/custom_icon_button.dart';
 import 'package:localsend_app/widget/dialogs/not_available_on_platform_dialog.dart';
 import 'package:localsend_app/widget/responsive_list_view.dart';
@@ -20,38 +19,41 @@ class TroubleshootPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final settings = context.ref.watch(settingsProvider);
     return Scaffold(
-      appBar: basicLocalSendAppbar(t.troubleshootPage.title),
+      appBar: AppBar(
+        title: Text(t.troubleshootPage.title),
+      ),
       body: ResponsiveListView(
         padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 30),
         children: [
           Text(t.troubleshootPage.subTitle, textAlign: TextAlign.center),
           const SizedBox(height: 5),
-          _TroubleshootItem(
-            symptomText: t.troubleshootPage.firewall.symptom,
-            solutionText: t.troubleshootPage.firewall.solution(port: settings.port),
-            primaryButton: _FixButton(
-              label: t.troubleshootPage.fixButton,
-              onTapMap: {
-                TargetPlatform.windows: _CommandFixAction(
-                  adminPrivileges: true,
-                  commands: [
-                    'netsh advfirewall firewall add rule name="LocalSend" dir=in action=allow protocol=TCP localport=${settings.port}',
-                    'netsh advfirewall firewall add rule name="LocalSend" dir=in action=allow protocol=UDP localport=${settings.port}',
-                  ],
-                ),
-              },
+          if (checkPlatformIsDesktop())
+            _TroubleshootItem(
+              symptomText: t.troubleshootPage.firewall.symptom,
+              solutionText: t.troubleshootPage.firewall.solution(port: settings.port),
+              primaryButton: _FixButton(
+                label: t.troubleshootPage.fixButton,
+                onTapMap: {
+                  TargetPlatform.windows: _CommandFixAction(
+                    adminPrivileges: true,
+                    commands: [
+                      'netsh advfirewall firewall add rule name="LocalSend" dir=in action=allow protocol=TCP localport=${settings.port}',
+                      'netsh advfirewall firewall add rule name="LocalSend" dir=in action=allow protocol=UDP localport=${settings.port}',
+                    ],
+                  ),
+                },
+              ),
+              secondaryButton: _FixButton(
+                label: t.troubleshootPage.firewall.openFirewall,
+                onTapMap: {
+                  TargetPlatform.windows: _CommandFixAction(
+                    adminPrivileges: false,
+                    commands: ['wf'],
+                  ),
+                  TargetPlatform.macOS: _NativeFixAction(() => macos_channel.openFirewallSettings()),
+                },
+              ),
             ),
-            secondaryButton: _FixButton(
-              label: t.troubleshootPage.firewall.openFirewall,
-              onTapMap: {
-                TargetPlatform.windows: _CommandFixAction(
-                  adminPrivileges: false,
-                  commands: ['wf'],
-                ),
-                TargetPlatform.macOS: _NativeFixAction(() => macos_channel.openFirewallSettings()),
-              },
-            ),
-          ),
           _TroubleshootItem(
             symptomText: t.troubleshootPage.noDiscovery.symptom,
             solutionText: t.troubleshootPage.noDiscovery.solution,
@@ -100,17 +102,17 @@ class _TroubleshootItemState extends State<_TroubleshootItem> {
               const SizedBox(height: 10),
               Text(t.troubleshootPage.solution),
               Text(widget.solutionText),
-              if (widget.primaryButton != null) ...[
+              if (widget.primaryButton?.onTap != null || widget.secondaryButton?.onTap != null) ...[
                 const SizedBox(height: 10),
                 Wrap(
                   runSpacing: 10,
                   children: [
-                    widget.primaryButton!,
-                    if (widget.secondaryButton != null) ...[
-                      const SizedBox(width: 10),
+                    if (widget.primaryButton?.onTap != null) widget.primaryButton!,
+                    if (widget.secondaryButton?.onTap != null) ...[
+                      if (widget.primaryButton?.onTap != null) const SizedBox(width: 10),
                       widget.secondaryButton!,
                     ],
-                    if (widget.primaryButton!.onTap?.commands != null) ...[
+                    if (widget.primaryButton?.onTap?.commands != null) ...[
                       const SizedBox(width: 10),
                       CustomIconButton(
                         onPressed: () {

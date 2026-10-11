@@ -3,16 +3,15 @@
 #
 
 list(APPEND FLUTTER_PLUGIN_LIST
-  bitsdojo_window_windows
   connectivity_plus
   desktop_drop
   dynamic_color
   file_selector_windows
   gal
-  open_dir_windows
   pasteboard
   permission_handler_windows
   screen_retriever_windows
+  system_date_time_format
   tray_manager
   uri_content
   url_launcher_windows

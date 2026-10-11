@@ -40,8 +40,6 @@ class TranslationsHe extends Translations with BaseTranslations<AppLocale, Trans
 
   // Translations
   @override
-  String get locale => 'עברית';
-  @override
   String get appName => 'LocalSend';
   @override
   late final _Translations$general$he general = _Translations$general$he._(_root);
@@ -54,11 +52,17 @@ class TranslationsHe extends Translations with BaseTranslations<AppLocale, Trans
   @override
   late final _Translations$troubleshootPage$he troubleshootPage = _Translations$troubleshootPage$he._(_root);
   @override
+  late final _Translations$networkInterfacesPage$he networkInterfacesPage = _Translations$networkInterfacesPage$he._(_root);
+  @override
   late final _Translations$receiveHistoryPage$he receiveHistoryPage = _Translations$receiveHistoryPage$he._(_root);
   @override
   late final _Translations$apkPickerPage$he apkPickerPage = _Translations$apkPickerPage$he._(_root);
   @override
   late final _Translations$selectedFilesPage$he selectedFilesPage = _Translations$selectedFilesPage$he._(_root);
+  @override
+  late final _Translations$deviceDetailsPage$he deviceDetailsPage = _Translations$deviceDetailsPage$he._(_root);
+  @override
+  late final _Translations$verifyPage$he verifyPage = _Translations$verifyPage$he._(_root);
   @override
   late final _Translations$receivePage$he receivePage = _Translations$receivePage$he._(_root);
   @override
@@ -70,11 +74,15 @@ class TranslationsHe extends Translations with BaseTranslations<AppLocale, Trans
   @override
   late final _Translations$webSharePage$he webSharePage = _Translations$webSharePage$he._(_root);
   @override
+  late final _Translations$webReceivePage$he webReceivePage = _Translations$webReceivePage$he._(_root);
+  @override
   late final _Translations$aboutPage$he aboutPage = _Translations$aboutPage$he._(_root);
   @override
   late final _Translations$donationPage$he donationPage = _Translations$donationPage$he._(_root);
   @override
   late final _Translations$changelogPage$he changelogPage = _Translations$changelogPage$he._(_root);
+  @override
+  late final _Translations$whatsNewPage$he whatsNewPage = _Translations$whatsNewPage$he._(_root);
   @override
   late final _Translations$dialogs$he dialogs = _Translations$dialogs$he._(_root);
   @override
@@ -85,8 +93,6 @@ class TranslationsHe extends Translations with BaseTranslations<AppLocale, Trans
   late final _Translations$web$he web = _Translations$web$he._(_root);
   @override
   late final _Translations$assetPicker$he assetPicker = _Translations$assetPicker$he._(_root);
-  @override
-  late final _Translations$networkInterfacesPage$he networkInterfacesPage = _Translations$networkInterfacesPage$he._(_root);
 }
 
 // Path: general
@@ -187,6 +193,8 @@ class _Translations$receiveTab$he extends Translations$receiveTab$en {
   late final _Translations$receiveTab$infoBox$he infoBox = _Translations$receiveTab$infoBox$he._(_root);
   @override
   late final _Translations$receiveTab$quickSave$he quickSave = _Translations$receiveTab$quickSave$he._(_root);
+  @override
+  String get link => 'קבלה באמצעות קישור';
 }
 
 // Path: sendTab
@@ -270,6 +278,26 @@ class _Translations$troubleshootPage$he extends Translations$troubleshootPage$en
   late final _Translations$troubleshootPage$noConnection$he noConnection = _Translations$troubleshootPage$noConnection$he._(_root);
 }
 
+// Path: networkInterfacesPage
+class _Translations$networkInterfacesPage$he extends Translations$networkInterfacesPage$en {
+  _Translations$networkInterfacesPage$he._(TranslationsHe root) : this._root = root, super.internal(root);
+
+  final TranslationsHe _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'ממשקי רשת';
+  @override
+  String get info =>
+      'כברירת מחדל, LocalSend משתמש בכל ממשקי הרשת הזמינים. באפשרותך להסיר רשתות שאינן רצויות כאן. עליך להפעיל מחדש את השרת כדי להחיל את השינויים.';
+  @override
+  String get preview => 'תצוגה מקדימה';
+  @override
+  String get whitelist => 'רשימה לבנה';
+  @override
+  String get blacklist => 'רשימה שחורה';
+}
+
 // Path: receiveHistoryPage
 class _Translations$receiveHistoryPage$he extends Translations$receiveHistoryPage$en {
   _Translations$receiveHistoryPage$he._(TranslationsHe root) : this._root = root, super.internal(root);
@@ -301,7 +329,7 @@ class _Translations$apkPickerPage$he extends Translations$apkPickerPage$en {
   @override
   String get excludeSystemApps => 'אל תכלול אפליקציות מערכת';
   @override
-  String get excludeAppsWithoutLaunchIntent => 'אל תכלול אפליקציות שאינן ניתנות להפעלה';
+  String get excludeAppsWithoutLaunchIntent => 'אל תכלול אפליקציות שאינן ניתנות לפתיחה';
   @override
   String apps({required Object n}) => '${n} אפליקציות';
 }
@@ -315,6 +343,42 @@ class _Translations$selectedFilesPage$he extends Translations$selectedFilesPage$
   // Translations
   @override
   String get deleteAll => 'מחק הכל';
+}
+
+// Path: deviceDetailsPage
+class _Translations$deviceDetailsPage$he extends Translations$deviceDetailsPage$en {
+  _Translations$deviceDetailsPage$he._(TranslationsHe root) : this._root = root, super.internal(root);
+
+  final TranslationsHe _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'פרטי מכשיר';
+  @override
+  String get favorite => 'מועדף';
+  @override
+  String get verify => 'אימות';
+  @override
+  late final _Translations$deviceDetailsPage$info$he info = _Translations$deviceDetailsPage$info$he._(_root);
+  @override
+  late final _Translations$deviceDetailsPage$logs$he logs = _Translations$deviceDetailsPage$logs$he._(_root);
+}
+
+// Path: verifyPage
+class _Translations$verifyPage$he extends Translations$verifyPage$en {
+  _Translations$verifyPage$he._(TranslationsHe root) : this._root = root, super.internal(root);
+
+  final TranslationsHe _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'אימות';
+  @override
+  String get icons => 'סמלים';
+  @override
+  String get text => 'טקסט';
+  @override
+  String get question => 'האם זה נראה אותו דבר במכשיר השני?';
 }
 
 // Path: receivePage
@@ -365,6 +429,8 @@ class _Translations$sendPage$he extends Translations$sendPage$en {
 
   // Translations
   @override
+  String calculatingChecksum({required Object curr, required Object n}) => 'מאמת שלמות (${curr} / ${n})';
+  @override
   String get waiting => 'ממתין לתגובה…';
   @override
   String get rejected => 'הנמען דחה את הבקשה.';
@@ -389,6 +455,8 @@ class _Translations$progressPage$he extends Translations$progressPage$en {
   String get savedToGallery => 'נשמר בתמונות';
   @override
   late final _Translations$progressPage$total$he total = _Translations$progressPage$total$he._(_root);
+  @override
+  late final _Translations$progressPage$remainingTime$he remainingTime = _Translations$progressPage$remainingTime$he._(_root);
 }
 
 // Path: webSharePage
@@ -428,6 +496,17 @@ class _Translations$webSharePage$he extends Translations$webSharePage$en {
   String get encryptionHint => 'LocalSend משתמש בתעודה עצמית. עליך לאשר אותה בדפדפן.';
   @override
   String pendingRequests({required Object n}) => 'בקשות בהמתנה: ${n}';
+}
+
+// Path: webReceivePage
+class _Translations$webReceivePage$he extends Translations$webReceivePage$en {
+  _Translations$webReceivePage$he._(TranslationsHe root) : this._root = root, super.internal(root);
+
+  final TranslationsHe _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'קבלה באמצעות קישור';
 }
 
 // Path: aboutPage
@@ -482,6 +561,19 @@ class _Translations$changelogPage$he extends Translations$changelogPage$en {
   // Translations
   @override
   String get title => 'יומן שינויים';
+}
+
+// Path: whatsNewPage
+class _Translations$whatsNewPage$he extends Translations$whatsNewPage$en {
+  _Translations$whatsNewPage$he._(TranslationsHe root) : this._root = root, super.internal(root);
+
+  final TranslationsHe _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String title({required Object version}) => 'מה חדש בגרסה ${version}?';
+  @override
+  late final _Translations$whatsNewPage$changes$he changes = _Translations$whatsNewPage$changes$he._(_root);
 }
 
 // Path: dialogs
@@ -662,26 +754,6 @@ class _Translations$assetPicker$he extends Translations$assetPicker$en {
   String get sUnitAssetCountLabel => 'מספר';
 }
 
-// Path: networkInterfacesPage
-class _Translations$networkInterfacesPage$he extends Translations$networkInterfacesPage$en {
-  _Translations$networkInterfacesPage$he._(TranslationsHe root) : this._root = root, super.internal(root);
-
-  final TranslationsHe _root; // ignore: unused_field
-
-  // Translations
-  @override
-  String get title => 'ממשקי רשת';
-  @override
-  String get info =>
-      'כברירת מחדל, LocalSend משתמש בכל ממשקי הרשת הזמינים. באפשרותך להסיר רשתות שאינן רצויות כאן. עליך להפעיל מחדש את השרת כדי להחיל את השינויים.';
-  @override
-  String get preview => 'תצוגה מקדימה';
-  @override
-  String get whitelist => 'רשימה לבנה';
-  @override
-  String get blacklist => 'רשימה שחורה';
-}
-
 // Path: receiveTab.infoBox
 class _Translations$receiveTab$infoBox$he extends Translations$receiveTab$infoBox$en {
   _Translations$receiveTab$infoBox$he._(TranslationsHe root) : this._root = root, super.internal(root);
@@ -791,6 +863,10 @@ class _Translations$settingsTab$general$he extends Translations$settingsTab$gene
   @override
   String get saveWindowPlacementWindows => 'שמור את מיקום החלון בעת יציאה';
   @override
+  String get alwaysOnTop => 'הצג תמיד מעל חלונות אחרים';
+  @override
+  String get alwaysOnTopUnavailable => 'לא נתמך ב־Wayland';
+  @override
   String get minimizeToTray => 'יציאה: מזעור למגש';
   @override
   String get launchAtStartup => 'הפעלה אוטומטית לאחר הכניסה';
@@ -827,6 +903,8 @@ class _Translations$settingsTab$receive$he extends Translations$settingsTab$rece
   String get saveToGallery => 'שמור מדיה לגלריה';
   @override
   String get saveToHistory => 'שמור בהיסטוריה';
+  @override
+  String get verifyChecksums => 'אימות שלמות קבצים בעת קבלה';
 }
 
 // Path: settingsTab.send
@@ -840,6 +918,8 @@ class _Translations$settingsTab$send$he extends Translations$settingsTab$send$en
   String get title => 'שליחה';
   @override
   String get shareViaLinkAutoAccept => 'שיתוף באמצעות קישור: אישור אוטומטי';
+  @override
+  String get createChecksums => 'צור סכומי שלמות קבצים בעת שליחה';
 }
 
 // Path: settingsTab.network
@@ -864,6 +944,10 @@ class _Translations$settingsTab$network$he extends Translations$settingsTab$netw
   @override
   String get port => 'יציאה';
   @override
+  String get network => 'רשת';
+  @override
+  late final _Translations$settingsTab$network$networkOptions$he networkOptions = _Translations$settingsTab$network$networkOptions$he._(_root);
+  @override
   String get discoveryTimeout => 'זמן קצוב לגילוי';
   @override
   String get useSystemName => 'השתמש בשם מערכת';
@@ -879,10 +963,6 @@ class _Translations$settingsTab$network$he extends Translations$settingsTab$netw
   @override
   String multicastGroupWarning({required Object defaultMulticast}) =>
       'יתכן שלא יזוהו מכשירים אחרים בגלל שאתה משתמש בכתובת מולטיקאסט מותאמת אישית. (ברירת־מחדל: ${defaultMulticast})';
-  @override
-  late final _Translations$settingsTab$network$networkOptions$he networkOptions = _Translations$settingsTab$network$networkOptions$he._(_root);
-  @override
-  String get network => 'רשת';
 }
 
 // Path: settingsTab.other
@@ -965,6 +1045,40 @@ class _Translations$receiveHistoryPage$entryActions$he extends Translations$rece
   String get deleteFromHistory => 'מחק מההיסטוריה';
 }
 
+// Path: deviceDetailsPage.info
+class _Translations$deviceDetailsPage$info$he extends Translations$deviceDetailsPage$info$en {
+  _Translations$deviceDetailsPage$info$he._(TranslationsHe root) : this._root = root, super.internal(root);
+
+  final TranslationsHe _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get name => 'שם';
+  @override
+  String get address => 'כתובת';
+  @override
+  String get version => 'גרסה';
+  @override
+  String protocol({required Object version}) => 'פרוטוקול גרסה ${version}';
+}
+
+// Path: deviceDetailsPage.logs
+class _Translations$deviceDetailsPage$logs$he extends Translations$deviceDetailsPage$logs$en {
+  _Translations$deviceDetailsPage$logs$he._(TranslationsHe root) : this._root = root, super.internal(root);
+
+  final TranslationsHe _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'יומני רישום';
+  @override
+  String get empty => 'אין יומנים זמינים';
+  @override
+  String discovered({required Object protocol, required Object host}) => 'התגלה באמצעות ${protocol} (${host})';
+  @override
+  String updated({required Object protocol, required Object host}) => 'עודכן באמצעות ${protocol} (${host})';
+}
+
 // Path: progressPage.total
 class _Translations$progressPage$total$he extends Translations$progressPage$total$en {
   _Translations$progressPage$total$he._(TranslationsHe root) : this._root = root, super.internal(root);
@@ -980,6 +1094,44 @@ class _Translations$progressPage$total$he extends Translations$progressPage$tota
   String size({required Object curr, required Object n}) => 'גודל: ${curr}/${n}';
   @override
   String speed({required Object speed}) => 'מהירות: ${speed}/שניה';
+}
+
+// Path: progressPage.remainingTime
+class _Translations$progressPage$remainingTime$he extends Translations$progressPage$remainingTime$en {
+  _Translations$progressPage$remainingTime$he._(TranslationsHe root) : this._root = root, super.internal(root);
+
+  final TranslationsHe _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String minutesUnit({required num m}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('he'))(
+    m,
+    other: 'ו־${m} דקות',
+    one: 'ודקה',
+  );
+  @override
+  String hoursUnit({required num h}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('he'))(
+    h,
+    other: '${h} שעות',
+    one: 'שעה',
+    two: 'שעתיים',
+  );
+  @override
+  String minutes({required Object m, required Object ss}) => '${m}:${ss}';
+  @override
+  String hours({required num h, required num m}) =>
+      '${_root.progressPage.remainingTime.hoursUnit(h: h)} ${_root.progressPage.remainingTime.minutesUnit(m: m)}';
+}
+
+// Path: whatsNewPage.changes
+class _Translations$whatsNewPage$changes$he extends Translations$whatsNewPage$changes$en {
+  _Translations$whatsNewPage$changes$he._(TranslationsHe root) : this._root = root, super.internal(root);
+
+  final TranslationsHe _root; // ignore: unused_field
+
+  // Translations
+  @override
+  late final _Translations$whatsNewPage$changes$v1_18_0$he v1_18_0 = _Translations$whatsNewPage$changes$v1_18_0$he._(_root);
 }
 
 // Path: dialogs.addFile
@@ -1295,8 +1447,6 @@ class _Translations$dialogs$quickSaveFromFavoritesNotice$he extends Translations
   @override
   List<String> get content => [
     'כעת בקשות לקבצים ייתקבלו אוטומטית ממכשירים ברשימת המועדפים שלך.',
-    'אזהרה: כרגע זה לא לגמרי מאובטח מכיוון שהאקר שנמצא ברשת שלך ויודע את טביעת האצבע של המכשירים האהובים עליך עדיין יכול לשלוח לך קבצים ללא אישור.',
-    'עם זאת, אפשרות זו עדיין מאובטחת יותר מאשר לאפשר קבלה אוטומטית מכל מכשיר.',
   ];
 }
 
@@ -1365,6 +1515,8 @@ class _Translations$settingsTab$general$colorOptions$he extends Translations$set
   String get system => 'מערכת';
   @override
   String get oled => 'OLED';
+  @override
+  String get custom => 'מותאם אישית';
 }
 
 // Path: settingsTab.general.languageOptions
@@ -1386,9 +1538,9 @@ class _Translations$settingsTab$network$networkOptions$he extends Translations$s
 
   // Translations
   @override
-  String get filtered => 'מסונן';
-  @override
   String get all => 'הכל';
+  @override
+  String get filtered => 'מסונן';
 }
 
 // Path: progressPage.total.title
@@ -1406,4 +1558,19 @@ class _Translations$progressPage$total$title$he extends Translations$progressPag
   String get canceledSender => 'בוטל על ידי השולח';
   @override
   String get canceledReceiver => 'בוטל על ידי הצד המקבל';
+}
+
+// Path: whatsNewPage.changes.v1_18_0
+class _Translations$whatsNewPage$changes$v1_18_0$he extends Translations$whatsNewPage$changes$v1_18_0$en with WhatsNewStrings {
+  _Translations$whatsNewPage$changes$v1_18_0$he._(TranslationsHe root) : this._root = root, super.internal(root);
+
+  final TranslationsHe _root; // ignore: unused_field
+
+  // Translations
+  @override
+  List<String> get changes => [
+    'הצפנה כבר לא מאטה את ההעברות! הפעלנו אותה מחדש אם כיבית אותה בעבר',
+    'מהיום העברות ממכשירים מועדפים יתקבלו באופן אוטומטי. ניתן לבטל זאת בהגדרות האפליקציה',
+    'באנדרואיד, ההעברות נמשכות גם כשהאפליקציה ברקע או שהמסך כבוי (ב-iOS כרגע האפליקציה עדיין חייבת להישאר פתוחה והמסך דולק)',
+  ];
 }

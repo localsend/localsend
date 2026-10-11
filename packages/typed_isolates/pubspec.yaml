@@ -1,9 +1,10 @@
 name: typed_isolates
 description: Create isolates and communicate with them in a type-safe manner.
 version: 1.0.0
+resolution: workspace
 
 environment:
   sdk: ^3.5.0
 
 dev_dependencies:
-  lints: ^2.0.0
+  lints: ^6.0.0

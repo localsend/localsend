@@ -1,21 +1,27 @@
 pub mod common;
+mod connection_limit;
+pub mod internal;
+mod peer_ip;
 pub mod v2;
 pub mod v3;
 pub mod web;
 
-use crate::crypto::cert::public_key_from_cert_der;
+pub use peer_ip::PeerIp;
+
+use crate::crypto::cert::{fingerprint_from_cert_der, public_key_from_cert_der};
+use crate::http::server::internal::{InternalConfig, InternalState};
 use crate::http::server::v2::ServerEventV2;
-use crate::http::server::web::WebSendConfig;
+use crate::http::server::web::{WebConfig, WebShare};
 use crate::http::state::ClientInfo;
 use common::client_cert_verifier::CustomClientCertVerifier;
 use common::error::AppError;
 use common::response;
 use common::response::BoxedBody;
 use common::session::SessionStateV2;
+use connection_limit::{ConnectionLimiter, LimitReached, MAX_CONNECTIONS, MAX_CONNECTIONS_PER_IP};
 use hyper::body::Incoming;
 use hyper::{Method, Request, Response, StatusCode};
-use hyper_util::rt::{TokioExecutor, TokioIo};
-use hyper_util::server::conn::auto::Builder;
+use hyper_util::rt::TokioIo;
 use lru::LruCache;
 use rustls::pki_types::pem::PemObject;
 use rustls::pki_types::{CertificateDer, PrivateKeyDer};
@@ -24,13 +30,21 @@ use std::net::{IpAddr, Ipv4Addr, Ipv6Addr, SocketAddr};
 use std::num::NonZeroUsize;
 use std::ops::Deref;
 use std::sync::Arc;
+use tokio::io::{AsyncRead, AsyncWrite};
 use tokio::sync::{mpsc, oneshot, Mutex};
-use web::WebPageState;
+use tokio_util::sync::CancellationToken;
+use tokio_util::task::TaskTracker;
+use web::WebState;
 
 /// Configuration for the v2 (legacy) protocol endpoints.
 pub struct ServerConfigV2 {
     /// Optional PIN that senders must provide via the `pin` query parameter.
     pub pin: Option<String>,
+
+    /// Whether the SHA-256 checksums that senders provide for their files are
+    /// verified after receiving. When disabled, received files are not hashed
+    /// and a mismatch is not detected.
+    pub verify_checksums: bool,
 
     /// Channel on which the server emits events that must be handled by the application.
     pub event_tx: mpsc::Sender<ServerEventV2>,
@@ -40,6 +54,9 @@ pub struct ServerConfigV2 {
 pub(crate) struct V2State {
     /// Optional PIN required for prepare-upload requests.
     pub(crate) pin: Option<String>,
+
+    /// Whether sender-provided SHA-256 checksums are verified after receiving.
+    pub(crate) verify_checksums: bool,
 
     /// Channel on which server events are emitted to the application.
     pub(crate) event_tx: mpsc::Sender<ServerEventV2>,
@@ -56,8 +73,11 @@ pub struct AppState {
     /// Information about server's device.
     info: Arc<Mutex<ClientInfo>>,
 
-    /// State for serving web pages.
-    web: Option<Arc<WebPageState>>,
+    /// Runtime state of the browser-facing pages and web download.
+    web: Arc<WebState>,
+
+    /// State for application-internal endpoints.
+    internal: Option<Arc<InternalState>>,
 
     /// Maps client identifiers to nonces that have been received from remote.
     received_nonce_map: Arc<Mutex<LruCache<String, Vec<u8>>>>,
@@ -67,28 +87,34 @@ pub struct AppState {
 
     /// State of the v2 protocol endpoints. `None` disables the v2 routes.
     v2: Option<Arc<V2State>>,
+
+    /// Limits the connections being served, shared by the IPv4 and IPv6 listeners.
+    connection_limiter: Arc<ConnectionLimiter>,
 }
 
 impl AppState {
     fn new(
         info: Arc<Mutex<ClientInfo>>,
+        internal_config: Option<InternalConfig>,
         v2_config: Option<ServerConfigV2>,
-        web_send_config: Option<WebSendConfig>,
+        web_config: WebConfig,
     ) -> Self {
         let v2 = v2_config.map(|config| {
             Arc::new(V2State {
                 pin: config.pin,
+                verify_checksums: config.verify_checksums,
                 event_tx: config.event_tx,
                 session: Mutex::new(None),
                 pin_attempts: Mutex::new(LruCache::new(NonZeroUsize::new(200).unwrap())),
             })
         });
 
-        let web = web_send_config.map(|config| Arc::new(WebPageState::new(config)));
+        let internal = internal_config.map(|config| Arc::new(InternalState::new(config)));
 
         Self {
             info,
-            web,
+            web: Arc::new(WebState::from(web_config)),
+            internal,
             received_nonce_map: Arc::new(Mutex::new(LruCache::new(
                 NonZeroUsize::new(200).unwrap(),
             ))),
@@ -96,6 +122,93 @@ impl AppState {
                 NonZeroUsize::new(200).unwrap(),
             ))),
             v2,
+            connection_limiter: ConnectionLimiter::new(MAX_CONNECTIONS, MAX_CONNECTIONS_PER_IP),
+        }
+    }
+}
+
+/// A handle to a running server for interactions initiated by the application
+/// (as opposed to the event channels which are driven by incoming requests).
+pub struct ServerHandle {
+    v2: Option<Arc<V2State>>,
+
+    /// The port the listeners are bound to.
+    port: u16,
+
+    /// Whether the IPv6 wildcard listener could be bound.
+    ipv6_bound: bool,
+
+    /// The task running the accept loops. Completes after a stop has been
+    /// requested, the listeners have been dropped and all connections have
+    /// been closed.
+    task: Mutex<Option<tokio::task::JoinHandle<()>>>,
+}
+
+impl ServerHandle {
+    /// The port the listeners are bound to. Relevant when the server was
+    /// started with port 0, where the OS picks the port.
+    pub fn port(&self) -> u16 {
+        self.port
+    }
+
+    /// The socket addresses this server can be reached at: every address of
+    /// the non-loopback interfaces, restricted to the address families that
+    /// are actually bound. The listeners themselves only know the wildcard
+    /// addresses, so the concrete addresses come from interface enumeration.
+    ///
+    /// Link-local IPv6 addresses are skipped: peers can only use them together
+    /// with their own scope, which this device cannot know.
+    ///
+    /// Empty when the interfaces cannot be enumerated.
+    pub fn local_addresses(&self) -> Vec<SocketAddr> {
+        let Ok(interfaces) = if_addrs::get_if_addrs() else {
+            return Vec::new();
+        };
+        let mut addresses: Vec<SocketAddr> = interfaces
+            .into_iter()
+            .filter(|interface| !interface.is_loopback())
+            .filter_map(|interface| match interface.ip() {
+                IpAddr::V4(address) => Some(SocketAddr::new(address.into(), self.port)),
+                IpAddr::V6(address) if self.ipv6_bound && !address.is_unicast_link_local() => {
+                    Some(SocketAddr::new(address.into(), self.port))
+                }
+                IpAddr::V6(_) => None,
+            })
+            .collect();
+        addresses.sort();
+        addresses.dedup();
+        addresses
+    }
+
+    /// Waits until the server task has terminated, the listeners are closed
+    /// and all connections have been dropped, so that the port can be bound again.
+    /// Must be called after requesting a stop via the stop channel.
+    pub async fn wait_stopped(&self) {
+        if let Some(task) = self.task.lock().await.take() {
+            let _ = task.await;
+        }
+    }
+
+    /// Cancels the active v2 upload session if it matches `session_id`,
+    /// e.g. because the user aborted the transfer on the receiving side.
+    ///
+    /// Uploads that are already in progress still run to completion, but new
+    /// upload requests fail and a new session can be created.
+    /// No [ServerEventV2::SessionEnd] is emitted: the application initiated
+    /// the cancellation itself.
+    ///
+    /// Returns `true` when a session was cancelled.
+    pub async fn cancel_v2_session(&self, session_id: &str) -> bool {
+        let Some(v2) = &self.v2 else {
+            return false;
+        };
+        let mut slot = v2.session.lock().await;
+        match slot.as_ref() {
+            Some(SessionStateV2::Active(session)) if session.session_id == session_id => {
+                *slot = None;
+                true
+            }
+            _ => false,
         }
     }
 }
@@ -105,16 +218,23 @@ pub async fn start_with_port(
     port: u16,
     tls_config: Option<TlsConfig>,
     info: ClientInfo,
+    internal_config: Option<InternalConfig>,
     v2_config: Option<ServerConfigV2>,
-    web_send_config: Option<WebSendConfig>,
+    web_config: WebConfig,
     stop_rx: oneshot::Receiver<()>,
-) -> anyhow::Result<()> {
+) -> anyhow::Result<ServerHandle> {
+    // Installed before returning, so that a client built right after (which
+    // skips the install when a provider exists) does not race the accept task.
+    let _ = rustls::crypto::ring::default_provider().install_default();
+
     let ipv4_socket_addr = SocketAddr::new(Ipv4Addr::UNSPECIFIED.into(), port);
-    let ipv6_socket_addr = SocketAddr::new(Ipv6Addr::UNSPECIFIED.into(), port);
     let info = Arc::new(Mutex::new(info));
-    let state = AppState::new(info.clone(), v2_config, web_send_config);
+    let state = AppState::new(info.clone(), internal_config, v2_config, web_config);
 
     let ipv4_listener = tokio::net::TcpListener::bind(ipv4_socket_addr).await?;
+    // With port 0, the IPv6 listener must reuse the port the IPv4 listener got.
+    let bound_port = ipv4_listener.local_addr()?.port();
+    let ipv6_socket_addr = SocketAddr::new(Ipv6Addr::UNSPECIFIED.into(), bound_port);
     let ipv6_listener = match bind_ipv6_only(ipv6_socket_addr) {
         Ok(listener) => Some(listener),
         Err(err) => {
@@ -122,17 +242,38 @@ pub async fn start_with_port(
             None
         }
     };
+    let ipv6_bound = ipv6_listener.is_some();
 
-    tokio::spawn({
+    let cancel = CancellationToken::new();
+    let connections = TaskTracker::new();
+
+    let task = tokio::spawn({
         let state = state.clone();
+        let cancel = cancel.clone();
+        let connections = connections.clone();
+        let v2_event_tx = state.v2.as_ref().map(|v2| v2.event_tx.clone());
         async move {
             tokio::select! {
-                _ = start_server_with_listener(ipv4_listener, tls_config.clone(), state.clone()) => {
+                result = start_server_with_listener(ipv4_listener, tls_config.clone(), state.clone(), cancel.clone(), connections.clone()) => {
+                    if let Err(err) = result {
+                        tracing::error!("Server listener failed on {}: {err:#}", ipv4_socket_addr);
+                        // Tell the application, so it can restart the server.
+                        // `try_send` because this task must reach its end even
+                        // when nobody consumes events anymore, so that
+                        // `wait_stopped` cannot hang.
+                        if let Some(event_tx) = v2_event_tx {
+                            let _ = event_tx.try_send(ServerEventV2::ListenerFailed {
+                                error: format!("{err:#}"),
+                            });
+                        }
+                    }
                     tracing::info!("Server stopped on: {}", ipv4_socket_addr);
                 }
                 _ = async {
                     if let Some(listener) = ipv6_listener {
-                        let _ = start_server_with_listener(listener, tls_config, state).await;
+                        if let Err(err) = start_server_with_listener(listener, tls_config, state, cancel.clone(), connections.clone()).await {
+                            tracing::error!("IPv6 server listener failed on {}: {err:#}", ipv6_socket_addr);
+                        }
                     }
 
                     // Keep the future running forever, so we continue using "ipv4 only" even if ipv6 fails.
@@ -140,10 +281,21 @@ pub async fn start_with_port(
                 } => {}
                 _ = stop_rx => {}
             }
+
+            // Hard-drop connections that are still being served, so that no
+            // client keeps talking to the stopped server.
+            cancel.cancel();
+            connections.close();
+            connections.wait().await;
         }
     });
 
-    Ok(())
+    Ok(ServerHandle {
+        v2: state.v2.clone(),
+        port: bound_port,
+        ipv6_bound,
+        task: Mutex::new(Some(task)),
+    })
 }
 
 /// Binds an IPv6 listener with `IPV6_V6ONLY` enabled.
@@ -171,17 +323,74 @@ pub struct TlsConfig {
     pub private_key: String,
 }
 
+/// How long the accept loop waits after a failure that would repeat
+/// immediately, doubling up to [`ACCEPT_BACKOFF_MAX`].
+const ACCEPT_BACKOFF_MIN: std::time::Duration = std::time::Duration::from_millis(50);
+const ACCEPT_BACKOFF_MAX: std::time::Duration = std::time::Duration::from_secs(1);
+
+/// How many times in a row accepting may fail with a per-connection error
+/// before the listener itself is considered broken. A healthy listener
+/// interleaves such errors with successful accepts; only a dead one (e.g. a
+/// socket the OS invalidated during app suspension, whose exact error code is
+/// OS-specific) produces them in an endless, immediate sequence.
+const ACCEPT_FAILURE_LIMIT: u32 = 100;
+
+/// Detects peers that vanished without closing their connections (e.g. left
+/// the network mid-transfer), which would otherwise count towards the
+/// connection limits forever.
+const TCP_KEEPALIVE: socket2::TcpKeepalive = socket2::TcpKeepalive::new()
+    .with_time(std::time::Duration::from_secs(60))
+    .with_interval(std::time::Duration::from_secs(10));
+
+/// Whether the failed accept concerned only the connection being accepted, so
+/// the next one can be attempted right away.
+fn is_transient_accept_error(err: &std::io::Error) -> bool {
+    matches!(
+        err.kind(),
+        std::io::ErrorKind::ConnectionAborted
+            | std::io::ErrorKind::ConnectionReset
+            | std::io::ErrorKind::Interrupted
+    )
+}
+
+/// Whether the failed accept means the process momentarily ran out of
+/// resources (a subnet scan opens a few hundred sockets), which resolves once
+/// they are freed again.
+fn is_resource_accept_error(err: &std::io::Error) -> bool {
+    if err.kind() == std::io::ErrorKind::OutOfMemory {
+        return true;
+    }
+    #[cfg(unix)]
+    return matches!(
+        err.raw_os_error(),
+        Some(libc::EMFILE | libc::ENFILE | libc::ENOBUFS | libc::ENOMEM)
+    );
+    #[cfg(windows)]
+    return matches!(
+        err.raw_os_error(),
+        Some(10024 /* WSAEMFILE */ | 10055 /* WSAENOBUFS */)
+    );
+    #[allow(unreachable_code)]
+    false
+}
+
 async fn start_server_with_listener(
     incoming: tokio::net::TcpListener,
     tls_config: Option<TlsConfig>,
     app_state: AppState,
+    cancel: CancellationToken,
+    connections: TaskTracker,
 ) -> anyhow::Result<()> {
-    let _ = rustls::crypto::ring::default_provider().install_default();
+    // Browsers have no client certificate, so presenting one is optional while
+    // the web pages are served. A certificate that is presented is still verified.
+    let mandatory_client_auth = matches!(app_state.web.share, WebShare::Disabled);
 
     let tls_acceptor = match tls_config {
-        Some(tls_config) => Some(create_tls_config(&tls_config).inspect_err(|err| {
-            tracing::error!("failed to create tls config: {err:#}");
-        })?),
+        Some(tls_config) => Some(
+            create_tls_config(&tls_config, mandatory_client_auth).inspect_err(|err| {
+                tracing::error!("failed to create tls config: {err:#}");
+            })?,
+        ),
         None => None,
     };
 
@@ -191,73 +400,163 @@ async fn start_server_with_listener(
         tls_acceptor.is_some()
     );
 
+    let mut accept_backoff = ACCEPT_BACKOFF_MIN;
+    let mut accept_failures = 0u32;
+    let mut at_connection_limit = false;
     loop {
-        let (tcp_stream, remote_addr) = incoming.accept().await?;
+        let (tcp_stream, remote_addr) = match incoming.accept().await {
+            Ok(accepted) => {
+                accept_backoff = ACCEPT_BACKOFF_MIN;
+                accept_failures = 0;
+                // Disable Nagle: it delays small responses (reqwest already does this on the client side).
+                let _ = accepted.0.set_nodelay(true);
+                let _ = socket2::SockRef::from(&accepted.0).set_tcp_keepalive(&TCP_KEEPALIVE);
+                accepted
+            }
+            // Accepting fails for two kinds of reasons that say nothing about
+            // the listener, which must both keep the loop alive: the peer went
+            // away before the handshake completed (retried right away, but
+            // bounded by [ACCEPT_FAILURE_LIMIT] because a listener the OS
+            // invalidated during app suspension may report an OS-specific
+            // error that looks per-connection), or the process momentarily ran
+            // out of resources (a subnet scan opens a few hundred sockets).
+            // Exhaustion would otherwise spin: the pending connection stays in
+            // the backlog and fails again immediately, so back off before
+            // retrying, without a limit — it says nothing about the listener,
+            // however long it lasts.
+            //
+            // Every other error means the listening socket itself is broken.
+            // Retrying that forever would leave the application believing it
+            // can still receive, so give up and let the caller report it.
+            Err(err) => {
+                if is_resource_accept_error(&err) {
+                    tracing::warn!("Could not accept a connection: {err:#}");
+                    tokio::time::sleep(accept_backoff).await;
+                    accept_backoff = (accept_backoff * 2).min(ACCEPT_BACKOFF_MAX);
+                    continue;
+                }
+                accept_failures += 1;
+                if is_transient_accept_error(&err) && accept_failures < ACCEPT_FAILURE_LIMIT {
+                    tracing::warn!("Could not accept a connection: {err:#}");
+                    continue;
+                }
+                return Err(anyhow::Error::from(err).context(format!(
+                    "accepting connections failed {accept_failures} time(s) in a row"
+                )));
+            }
+        };
+
+        // Dropping the stream closes the connection.
+        let permit = match app_state.connection_limiter.try_acquire(remote_addr.ip()) {
+            Ok(permit) => permit,
+            Err(LimitReached::Total) => {
+                if !at_connection_limit {
+                    tracing::warn!(
+                        "Refusing connections: {MAX_CONNECTIONS} connections are being served"
+                    );
+                    at_connection_limit = true;
+                }
+                continue;
+            }
+            // Debug only: the peer decides how often this happens.
+            Err(LimitReached::PerIp) => {
+                tracing::debug!(
+                    "Refusing connection from {}: {MAX_CONNECTIONS_PER_IP} of its connections are being served",
+                    remote_addr.ip()
+                );
+                continue;
+            }
+        };
+        at_connection_limit = false;
 
         let tls_acceptor = tls_acceptor.clone();
         let app_state = app_state.clone();
-        tokio::spawn(async move {
-            let res = match tls_acceptor {
-                Some(tls_acceptor) => {
-                    let tls_stream = match tls_acceptor.accept(tcp_stream).await {
-                        Ok(tls_stream) => tls_stream,
-                        Err(err) => {
-                            tracing::warn!("TLS handshake error: {err:#}");
-                            return;
-                        }
-                    };
-
-                    let client_info = {
-                        let (_, server_connection) = tls_stream.get_ref();
-                        RequestClientInfo {
-                            ip: remote_addr.ip(),
-                            cert: server_connection
-                                .deref()
-                                .deref()
-                                .peer_certificates()
-                                .map(|cert| cert.get(0).unwrap().to_vec()),
-                        }
-                    };
-
-                    Builder::new(TokioExecutor::new())
-                        .serve_connection(
-                            TokioIo::new(tls_stream),
-                            hyper::service::service_fn(move |mut req: Request<Incoming>| {
-                                req.extensions_mut()
-                                    .insert::<RequestClientInfo>(client_info.clone());
-                                req.extensions_mut().insert::<AppState>(app_state.clone());
-                                handle_request(req)
-                            }),
-                        )
-                        .await
-                }
-                None => {
-                    Builder::new(TokioExecutor::new())
-                        .serve_connection(
-                            TokioIo::new(tcp_stream),
-                            hyper::service::service_fn(move |mut req: Request<Incoming>| {
-                                req.extensions_mut().insert::<RequestClientInfo>(
-                                    RequestClientInfo {
-                                        ip: remote_addr.ip(),
-                                        cert: None,
-                                    },
-                                );
-                                req.extensions_mut().insert::<AppState>(app_state.clone());
-                                handle_request(req)
-                            }),
-                        )
-                        .await
-                }
-            };
-
-            if let Err(err) = res {
-                tracing::warn!("Failed to serve connection: {err:#}");
+        let cancel = cancel.clone();
+        connections.spawn(async move {
+            let _permit = permit;
+            let serve = serve_connection(tcp_stream, remote_addr, tls_acceptor, app_state);
+            tokio::select! {
+                _ = serve => {}
+                // Hard-drop the connection when the server is stopped.
+                _ = cancel.cancelled() => {}
             }
         });
     }
 }
 
-fn create_tls_config(tls_config: &TlsConfig) -> anyhow::Result<tokio_rustls::TlsAcceptor> {
+async fn serve_connection(
+    tcp_stream: tokio::net::TcpStream,
+    remote_addr: SocketAddr,
+    tls_acceptor: Option<tokio_rustls::TlsAcceptor>,
+    app_state: AppState,
+) {
+    let res = match tls_acceptor {
+        Some(tls_acceptor) => {
+            let tls_stream = match tls_acceptor.accept(tcp_stream).await {
+                Ok(tls_stream) => tls_stream,
+                Err(err) => {
+                    tracing::warn!("TLS handshake error: {err:#}");
+                    return;
+                }
+            };
+
+            let client_info = {
+                let (_, server_connection) = tls_stream.get_ref();
+                RequestClientInfo {
+                    ip: PeerIp::from_remote_addr(&remote_addr),
+                    // No certificate when client auth is optional (web pages served)
+                    // and the client (e.g. a browser) did not present one.
+                    cert: server_connection
+                        .deref()
+                        .deref()
+                        .peer_certificates()
+                        .and_then(|certs| certs.first().map(|cert| cert.to_vec())),
+                }
+            };
+
+            serve_http(tls_stream, client_info, app_state).await
+        }
+        None => {
+            let client_info = RequestClientInfo {
+                ip: PeerIp::from_remote_addr(&remote_addr),
+                cert: None,
+            };
+            serve_http(tcp_stream, client_info, app_state).await
+        }
+    };
+
+    if let Err(err) = res {
+        tracing::warn!("Failed to serve connection: {err:#}");
+    }
+}
+
+/// Serves HTTP/1.1 only: HTTP/2 multiplexes many requests over one connection,
+/// so the connection limits would no longer bound the requests of a peer.
+async fn serve_http<I>(
+    io: I,
+    client_info: RequestClientInfo,
+    app_state: AppState,
+) -> hyper::Result<()>
+where
+    I: AsyncRead + AsyncWrite + Unpin + Send + 'static,
+{
+    hyper::server::conn::http1::Builder::new()
+        .serve_connection(
+            TokioIo::new(io),
+            hyper::service::service_fn(move |mut req: Request<Incoming>| {
+                req.extensions_mut()
+                    .insert::<RequestClientInfo>(client_info.clone());
+                req.extensions_mut().insert::<AppState>(app_state.clone());
+                handle_request(req)
+            }),
+        )
+        .await
+}
+
+fn create_tls_config(
+    tls_config: &TlsConfig,
+    mandatory_client_auth: bool,
+) -> anyhow::Result<tokio_rustls::TlsAcceptor> {
     let config = {
         let certs = vec![CertificateDer::from_pem_slice(&tls_config.cert.as_bytes())?];
         let key = PrivateKeyDer::from_pem_slice(&tls_config.private_key.as_bytes())?;
@@ -265,6 +564,7 @@ fn create_tls_config(tls_config: &TlsConfig) -> anyhow::Result<tokio_rustls::Tls
         rustls::ServerConfig::builder()
             .with_client_cert_verifier(Arc::new(CustomClientCertVerifier::try_new(
                 &tls_config.cert,
+                mandatory_client_auth,
             )?))
             .with_single_cert(certs, key)?
     };
@@ -273,14 +573,21 @@ fn create_tls_config(tls_config: &TlsConfig) -> anyhow::Result<tokio_rustls::Tls
 
 #[derive(Clone, Debug)]
 pub struct RequestClientInfo {
-    /// The IP address of the client.
-    ip: IpAddr,
+    /// The IP address of the client, including the IPv6 scope when present.
+    ip: PeerIp,
 
     /// The client certificate in DER format.
     cert: Option<Vec<u8>>,
 }
 
 impl RequestClientInfo {
+    /// The SHA-256 fingerprint (uppercase hex) of the client certificate
+    /// verified during the mTLS handshake.
+    /// `None` when the server runs without TLS.
+    fn cert_fingerprint(&self) -> Option<String> {
+        self.cert.as_deref().map(fingerprint_from_cert_der)
+    }
+
     fn extract_public_key(&self) -> Option<String> {
         match &self.cert {
             Some(cert) => match public_key_from_cert_der(cert) {
@@ -320,7 +627,6 @@ async fn handle_request_inner(mut req: Request<Incoming>) -> Result<Response<Box
 
     match (req.method(), req.uri().path()) {
         (&Method::GET, "/") => Ok(web::index(&state)),
-        (&Method::GET, "/main.js") => Ok(web::main_js(&state)),
         (&Method::GET, "/i18n.json") => web::i18n(&state),
         (&Method::POST, "/api/localsend/v2/prepare-download") => {
             web::prepare_download(req, state, client_info).await
@@ -337,7 +643,8 @@ async fn handle_request_inner(mut req: Request<Incoming>) -> Result<Response<Box
                 .await?
                 .into_response())
         }
-        (&Method::GET, "/api/localsend/v2/info") => {
+        // Old clients (v1.17 and earlier) probe unknown peers on the v1 route
+        (&Method::GET, "/api/localsend/v1/info") | (&Method::GET, "/api/localsend/v2/info") => {
             if !v2_enabled {
                 return Err(AppError::Status(StatusCode::NOT_FOUND));
             }
@@ -363,8 +670,10 @@ async fn handle_request_inner(mut req: Request<Incoming>) -> Result<Response<Box
                 return Err(AppError::Status(StatusCode::NOT_FOUND));
             }
 
-            v2::cancel(req, state).await
+            v2::cancel(req, state, client_info).await
         }
+        // The versioned path is retained for compatibility, but this endpoint is internal.
+        (&Method::POST, "/api/localsend/v2/show") => internal::show(req, state).await,
         (&Method::POST, "/api/localsend/v3/nonce") => {
             Ok(v3::nonce_exchange(req.into_body(), state, client_info)
                 .await?

@@ -15,9 +15,9 @@ class IsolateTaskSuccessResult<T> extends IsolateTaskResult<T> {
   final T data;
 
   IsolateTaskSuccessResult({
-    required int id,
+    required super.id,
     required this.data,
-  }) : super._(id: id);
+  }) : super._();
 }
 
 class IsolateTaskErrorResult<T> extends IsolateTaskResult<T> {
@@ -25,9 +25,9 @@ class IsolateTaskErrorResult<T> extends IsolateTaskResult<T> {
   final String error;
 
   IsolateTaskErrorResult({
-    required int id,
+    required super.id,
     required this.error,
-  }) : super._(id: id);
+  }) : super._();
 }
 
 /// Stream version of [IsolateTaskResult].

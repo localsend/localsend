@@ -8,7 +8,6 @@ import 'package:localsend_app/pages/debug/security_debug_page.dart';
 import 'package:localsend_app/provider/app_arguments_provider.dart';
 import 'package:localsend_app/provider/persistence_provider.dart';
 import 'package:localsend_app/util/shared_preferences/shared_preferences_file.dart';
-import 'package:localsend_app/widget/custom_basic_appbar.dart';
 import 'package:localsend_app/widget/debug_entry.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 import 'package:routerino/routerino.dart';
@@ -24,7 +23,9 @@ class DebugPage extends StatelessWidget {
     final store = SharedPreferencesStorePlatform.instance;
 
     return Scaffold(
-      appBar: basicLocalSendAppbar('Debugging'),
+      appBar: AppBar(
+        title: const Text('Debugging'),
+      ),
       body: ListView(
         padding: const EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 30),
         children: [

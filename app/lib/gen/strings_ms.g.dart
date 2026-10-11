@@ -40,8 +40,6 @@ class TranslationsMs extends Translations with BaseTranslations<AppLocale, Trans
 
   // Translations
   @override
-  String get locale => 'Bahasa Inggeris';
-  @override
   String get appName => 'LocalSend';
   @override
   late final _Translations$general$ms general = _Translations$general$ms._(_root);
@@ -54,11 +52,17 @@ class TranslationsMs extends Translations with BaseTranslations<AppLocale, Trans
   @override
   late final _Translations$troubleshootPage$ms troubleshootPage = _Translations$troubleshootPage$ms._(_root);
   @override
+  late final _Translations$networkInterfacesPage$ms networkInterfacesPage = _Translations$networkInterfacesPage$ms._(_root);
+  @override
   late final _Translations$receiveHistoryPage$ms receiveHistoryPage = _Translations$receiveHistoryPage$ms._(_root);
   @override
   late final _Translations$apkPickerPage$ms apkPickerPage = _Translations$apkPickerPage$ms._(_root);
   @override
   late final _Translations$selectedFilesPage$ms selectedFilesPage = _Translations$selectedFilesPage$ms._(_root);
+  @override
+  late final _Translations$deviceDetailsPage$ms deviceDetailsPage = _Translations$deviceDetailsPage$ms._(_root);
+  @override
+  late final _Translations$verifyPage$ms verifyPage = _Translations$verifyPage$ms._(_root);
   @override
   late final _Translations$receivePage$ms receivePage = _Translations$receivePage$ms._(_root);
   @override
@@ -70,11 +74,15 @@ class TranslationsMs extends Translations with BaseTranslations<AppLocale, Trans
   @override
   late final _Translations$webSharePage$ms webSharePage = _Translations$webSharePage$ms._(_root);
   @override
+  late final _Translations$webReceivePage$ms webReceivePage = _Translations$webReceivePage$ms._(_root);
+  @override
   late final _Translations$aboutPage$ms aboutPage = _Translations$aboutPage$ms._(_root);
   @override
   late final _Translations$donationPage$ms donationPage = _Translations$donationPage$ms._(_root);
   @override
   late final _Translations$changelogPage$ms changelogPage = _Translations$changelogPage$ms._(_root);
+  @override
+  late final _Translations$whatsNewPage$ms whatsNewPage = _Translations$whatsNewPage$ms._(_root);
   @override
   late final _Translations$aliasGenerator$ms aliasGenerator = _Translations$aliasGenerator$ms._(_root);
   @override
@@ -87,8 +95,6 @@ class TranslationsMs extends Translations with BaseTranslations<AppLocale, Trans
   late final _Translations$web$ms web = _Translations$web$ms._(_root);
   @override
   late final _Translations$assetPicker$ms assetPicker = _Translations$assetPicker$ms._(_root);
-  @override
-  late final _Translations$networkInterfacesPage$ms networkInterfacesPage = _Translations$networkInterfacesPage$ms._(_root);
 }
 
 // Path: general
@@ -189,6 +195,8 @@ class _Translations$receiveTab$ms extends Translations$receiveTab$en {
   late final _Translations$receiveTab$infoBox$ms infoBox = _Translations$receiveTab$infoBox$ms._(_root);
   @override
   late final _Translations$receiveTab$quickSave$ms quickSave = _Translations$receiveTab$quickSave$ms._(_root);
+  @override
+  String get link => 'Terima melalui pautan';
 }
 
 // Path: sendTab
@@ -272,6 +280,26 @@ class _Translations$troubleshootPage$ms extends Translations$troubleshootPage$en
   late final _Translations$troubleshootPage$noConnection$ms noConnection = _Translations$troubleshootPage$noConnection$ms._(_root);
 }
 
+// Path: networkInterfacesPage
+class _Translations$networkInterfacesPage$ms extends Translations$networkInterfacesPage$en {
+  _Translations$networkInterfacesPage$ms._(TranslationsMs root) : this._root = root, super.internal(root);
+
+  final TranslationsMs _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Antara Muka Rangkaian';
+  @override
+  String get info =>
+      'Secara lalai, LocalSend menggunakan semua antara muka rangkaian tersedia. Anda boleh memulaukan rangkaian yang tidak diingini. Anda perlu mula semula pelayan untuk mengenakan perubahan.';
+  @override
+  String get preview => 'Pratonton';
+  @override
+  String get whitelist => 'Senarai Putih';
+  @override
+  String get blacklist => 'Senarai Hitam';
+}
+
 // Path: receiveHistoryPage
 class _Translations$receiveHistoryPage$ms extends Translations$receiveHistoryPage$en {
   _Translations$receiveHistoryPage$ms._(TranslationsMs root) : this._root = root, super.internal(root);
@@ -317,6 +345,42 @@ class _Translations$selectedFilesPage$ms extends Translations$selectedFilesPage$
   // Translations
   @override
   String get deleteAll => 'Padam semua';
+}
+
+// Path: deviceDetailsPage
+class _Translations$deviceDetailsPage$ms extends Translations$deviceDetailsPage$en {
+  _Translations$deviceDetailsPage$ms._(TranslationsMs root) : this._root = root, super.internal(root);
+
+  final TranslationsMs _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Butiran Peranti';
+  @override
+  String get favorite => 'Kegemaran';
+  @override
+  String get verify => 'Sahkan';
+  @override
+  late final _Translations$deviceDetailsPage$info$ms info = _Translations$deviceDetailsPage$info$ms._(_root);
+  @override
+  late final _Translations$deviceDetailsPage$logs$ms logs = _Translations$deviceDetailsPage$logs$ms._(_root);
+}
+
+// Path: verifyPage
+class _Translations$verifyPage$ms extends Translations$verifyPage$en {
+  _Translations$verifyPage$ms._(TranslationsMs root) : this._root = root, super.internal(root);
+
+  final TranslationsMs _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Sahkan';
+  @override
+  String get icons => 'Ikon';
+  @override
+  String get text => 'Teks';
+  @override
+  String get question => 'Adakah ia kelihatan sama pada peranti yang satu lagi?';
 }
 
 // Path: receivePage
@@ -367,13 +431,15 @@ class _Translations$sendPage$ms extends Translations$sendPage$en {
 
   // Translations
   @override
+  String calculatingChecksum({required Object curr, required Object n}) => 'Mengira checksum (${curr} / ${n})';
+  @override
   String get waiting => 'Menunggu respons…';
   @override
   String get rejected => 'Penerima telah menolak permintaan.';
   @override
-  String get busy => 'Penerima sibuk dengan permintaan lain.';
-  @override
   String get tooManyAttempts => _root.web.tooManyAttempts;
+  @override
+  String get busy => 'Penerima sibuk dengan permintaan lain.';
 }
 
 // Path: progressPage
@@ -391,6 +457,8 @@ class _Translations$progressPage$ms extends Translations$progressPage$en {
   String get savedToGallery => 'Disimpan dalam Foto';
   @override
   late final _Translations$progressPage$total$ms total = _Translations$progressPage$total$ms._(_root);
+  @override
+  late final _Translations$progressPage$remainingTime$ms remainingTime = _Translations$progressPage$remainingTime$ms._(_root);
 }
 
 // Path: webSharePage
@@ -427,9 +495,20 @@ class _Translations$webSharePage$ms extends Translations$webSharePage$en {
   @override
   String pinHint({required Object pin}) => 'PIN ialah "${pin}"';
   @override
-  String pendingRequests({required Object n}) => 'Permintaan yang masih belum selesai: ${n}';
-  @override
   String get encryptionHint => 'LocalSend menggunakan sijil yang ditandatangani sendiri. Anda perlu menerimanya di pelayar anda.';
+  @override
+  String pendingRequests({required Object n}) => 'Permintaan yang masih belum selesai: ${n}';
+}
+
+// Path: webReceivePage
+class _Translations$webReceivePage$ms extends Translations$webReceivePage$en {
+  _Translations$webReceivePage$ms._(TranslationsMs root) : this._root = root, super.internal(root);
+
+  final TranslationsMs _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Terima melalui pautan';
 }
 
 // Path: aboutPage
@@ -451,9 +530,9 @@ class _Translations$aboutPage$ms extends Translations$aboutPage$en {
   @override
   String get contributors => 'Penyumbang';
   @override
-  String get translators => 'Penterjemah';
-  @override
   String get packagers => 'Pembungkus';
+  @override
+  String get translators => 'Penterjemah';
 }
 
 // Path: donationPage
@@ -485,6 +564,19 @@ class _Translations$changelogPage$ms extends Translations$changelogPage$en {
   // Translations
   @override
   String get title => 'Log perubahan';
+}
+
+// Path: whatsNewPage
+class _Translations$whatsNewPage$ms extends Translations$whatsNewPage$en {
+  _Translations$whatsNewPage$ms._(TranslationsMs root) : this._root = root, super.internal(root);
+
+  final TranslationsMs _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String title({required Object version}) => 'Apa yang baharu dalam ${version}';
+  @override
+  late final _Translations$whatsNewPage$changes$ms changes = _Translations$whatsNewPage$changes$ms._(_root);
 }
 
 // Path: aliasGenerator
@@ -577,6 +669,8 @@ class _Translations$dialogs$ms extends Translations$dialogs$en {
   @override
   late final _Translations$dialogs$addFile$ms addFile = _Translations$dialogs$addFile$ms._(_root);
   @override
+  late final _Translations$dialogs$openFile$ms openFile = _Translations$dialogs$openFile$ms._(_root);
+  @override
   late final _Translations$dialogs$addressInput$ms addressInput = _Translations$dialogs$addressInput$ms._(_root);
   @override
   late final _Translations$dialogs$cancelSession$ms cancelSession = _Translations$dialogs$cancelSession$ms._(_root);
@@ -623,8 +717,6 @@ class _Translations$dialogs$ms extends Translations$dialogs$en {
   late final _Translations$dialogs$sendModeHelp$ms sendModeHelp = _Translations$dialogs$sendModeHelp$ms._(_root);
   @override
   late final _Translations$dialogs$zoom$ms zoom = _Translations$dialogs$zoom$ms._(_root);
-  @override
-  late final _Translations$dialogs$openFile$ms openFile = _Translations$dialogs$openFile$ms._(_root);
 }
 
 // Path: sanitization
@@ -665,6 +757,12 @@ class _Translations$web$ms extends Translations$web$en {
   @override
   String get waiting => _root.sendPage.waiting;
   @override
+  String get enterPin => 'Masukkan PIN';
+  @override
+  String get invalidPin => 'PIN Tidak Sah';
+  @override
+  String get tooManyAttempts => 'Terlalu banyak percubaan';
+  @override
   String get rejected => 'Ditolak';
   @override
   String get files => 'Fail';
@@ -672,12 +770,6 @@ class _Translations$web$ms extends Translations$web$en {
   String get fileName => 'Nama fail';
   @override
   String get size => 'Saiz';
-  @override
-  String get enterPin => 'Masukkan PIN';
-  @override
-  String get invalidPin => 'PIN Tidak Sah';
-  @override
-  String get tooManyAttempts => 'Terlalu banyak percubaan';
 }
 
 // Path: assetPicker
@@ -746,26 +838,6 @@ class _Translations$assetPicker$ms extends Translations$assetPicker$en {
   String get sUnitAssetCountLabel => 'kiraan';
 }
 
-// Path: networkInterfacesPage
-class _Translations$networkInterfacesPage$ms extends Translations$networkInterfacesPage$en {
-  _Translations$networkInterfacesPage$ms._(TranslationsMs root) : this._root = root, super.internal(root);
-
-  final TranslationsMs _root; // ignore: unused_field
-
-  // Translations
-  @override
-  String get info =>
-      'Secara lalai, LocalSend menggunakan semua antara muka rangkaian tersedia. Anda boleh memulaukan rangkaian yang tidak diingini. Anda perlu mula semula pelayan untuk mengenakan perubahan.';
-  @override
-  String get title => 'Antara Muka Rangkaian';
-  @override
-  String get preview => 'Pratonton';
-  @override
-  String get whitelist => 'Senarai Putih';
-  @override
-  String get blacklist => 'Senarai Hitam';
-}
-
 // Path: receiveTab.infoBox
 class _Translations$receiveTab$infoBox$ms extends Translations$receiveTab$infoBox$en {
   _Translations$receiveTab$infoBox$ms._(TranslationsMs root) : this._root = root, super.internal(root);
@@ -789,9 +861,9 @@ class _Translations$receiveTab$quickSave$ms extends Translations$receiveTab$quic
 
   // Translations
   @override
-  String get favorites => 'Kegemaran';
-  @override
   String get off => _root.general.off;
+  @override
+  String get favorites => 'Kegemaran';
   @override
   String get on => _root.general.on;
 }
@@ -873,6 +945,8 @@ class _Translations$settingsTab$general$ms extends Translations$settingsTab$gene
   @override
   String get saveWindowPlacement => 'Simpan kedudukan tetingkap selepas keluar';
   @override
+  String get saveWindowPlacementWindows => 'Simpan kedudukan tetingkap selepas keluar';
+  @override
   String get minimizeToTray => 'Minimumkan ke dulang sistem/menu bar apabila menutup';
   @override
   String get launchAtStartup => 'Mula automatik selepas log masuk';
@@ -882,8 +956,6 @@ class _Translations$settingsTab$general$ms extends Translations$settingsTab$gene
   String get showInContextMenu => 'Tunjukkan LocalSend dalam menu konteks';
   @override
   String get animations => 'Animasi';
-  @override
-  String get saveWindowPlacementWindows => 'Simpan kedudukan tetingkap selepas keluar';
 }
 
 // Path: settingsTab.receive
@@ -911,6 +983,8 @@ class _Translations$settingsTab$receive$ms extends Translations$settingsTab$rece
   String get saveToGallery => 'Simpan media ke galeri';
   @override
   String get saveToHistory => 'Simpan ke sejarah';
+  @override
+  String get verifyChecksums => 'Sahkan checksum semasa menerima fail';
 }
 
 // Path: settingsTab.send
@@ -924,6 +998,8 @@ class _Translations$settingsTab$send$ms extends Translations$settingsTab$send$en
   String get title => 'Hantar';
   @override
   String get shareViaLinkAutoAccept => 'Terima permintaan secara automatik dalam mod "Kongsi melalui pautan"';
+  @override
+  String get createChecksums => 'Cipta checksum semasa menghantar fail';
 }
 
 // Path: settingsTab.network
@@ -948,6 +1024,10 @@ class _Translations$settingsTab$network$ms extends Translations$settingsTab$netw
   @override
   String get port => 'Port';
   @override
+  String get network => 'Rangkaian';
+  @override
+  late final _Translations$settingsTab$network$networkOptions$ms networkOptions = _Translations$settingsTab$network$networkOptions$ms._(_root);
+  @override
   String get discoveryTimeout => 'Tamat Masa Penemuan';
   @override
   String get useSystemName => 'Gunakan nama sistem';
@@ -963,10 +1043,6 @@ class _Translations$settingsTab$network$ms extends Translations$settingsTab$netw
   @override
   String multicastGroupWarning({required Object defaultMulticast}) =>
       'Anda mungkin tidak dapat dikesan oleh peranti lain kerana anda menggunakan alamat multicast tersuai. (lalai: ${defaultMulticast})';
-  @override
-  String get network => 'Rangkaian';
-  @override
-  late final _Translations$settingsTab$network$networkOptions$ms networkOptions = _Translations$settingsTab$network$networkOptions$ms._(_root);
 }
 
 // Path: settingsTab.other
@@ -1049,6 +1125,40 @@ class _Translations$receiveHistoryPage$entryActions$ms extends Translations$rece
   String get deleteFromHistory => 'Padam dari sejarah';
 }
 
+// Path: deviceDetailsPage.info
+class _Translations$deviceDetailsPage$info$ms extends Translations$deviceDetailsPage$info$en {
+  _Translations$deviceDetailsPage$info$ms._(TranslationsMs root) : this._root = root, super.internal(root);
+
+  final TranslationsMs _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get name => 'Nama';
+  @override
+  String get address => 'Alamat';
+  @override
+  String get version => 'Versi';
+  @override
+  String protocol({required Object version}) => 'Protokol v${version}';
+}
+
+// Path: deviceDetailsPage.logs
+class _Translations$deviceDetailsPage$logs$ms extends Translations$deviceDetailsPage$logs$en {
+  _Translations$deviceDetailsPage$logs$ms._(TranslationsMs root) : this._root = root, super.internal(root);
+
+  final TranslationsMs _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Log';
+  @override
+  String get empty => 'Tiada log tersedia.';
+  @override
+  String discovered({required Object protocol, required Object host}) => 'Ditemui melalui ${protocol} (${host})';
+  @override
+  String updated({required Object protocol, required Object host}) => 'Dikemas kini melalui ${protocol} (${host})';
+}
+
 // Path: progressPage.total
 class _Translations$progressPage$total$ms extends Translations$progressPage$total$en {
   _Translations$progressPage$total$ms._(TranslationsMs root) : this._root = root, super.internal(root);
@@ -1066,6 +1176,41 @@ class _Translations$progressPage$total$ms extends Translations$progressPage$tota
   String speed({required Object speed}) => 'Kelajuan: ${speed}/s';
 }
 
+// Path: progressPage.remainingTime
+class _Translations$progressPage$remainingTime$ms extends Translations$progressPage$remainingTime$en {
+  _Translations$progressPage$remainingTime$ms._(TranslationsMs root) : this._root = root, super.internal(root);
+
+  final TranslationsMs _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String minutesUnit({required num m}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ms'))(
+    m,
+    other: '${m}m',
+  );
+  @override
+  String hoursUnit({required num h}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ms'))(
+    h,
+    other: '${h}j',
+  );
+  @override
+  String minutes({required Object m, required Object ss}) => '${m}:${ss}';
+  @override
+  String hours({required num h, required num m}) =>
+      '${_root.progressPage.remainingTime.hoursUnit(h: h)} ${_root.progressPage.remainingTime.minutesUnit(m: m)}';
+}
+
+// Path: whatsNewPage.changes
+class _Translations$whatsNewPage$changes$ms extends Translations$whatsNewPage$changes$en {
+  _Translations$whatsNewPage$changes$ms._(TranslationsMs root) : this._root = root, super.internal(root);
+
+  final TranslationsMs _root; // ignore: unused_field
+
+  // Translations
+  @override
+  late final _Translations$whatsNewPage$changes$v1_18_0$ms v1_18_0 = _Translations$whatsNewPage$changes$v1_18_0$ms._(_root);
+}
+
 // Path: dialogs.addFile
 class _Translations$dialogs$addFile$ms extends Translations$dialogs$addFile$en {
   _Translations$dialogs$addFile$ms._(TranslationsMs root) : this._root = root, super.internal(root);
@@ -1077,6 +1222,19 @@ class _Translations$dialogs$addFile$ms extends Translations$dialogs$addFile$en {
   String get title => 'Tambah ke pilihan';
   @override
   String get content => 'Apa yang anda ingin tambah?';
+}
+
+// Path: dialogs.openFile
+class _Translations$dialogs$openFile$ms extends Translations$dialogs$openFile$en {
+  _Translations$dialogs$openFile$ms._(TranslationsMs root) : this._root = root, super.internal(root);
+
+  final TranslationsMs _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Buka fail';
+  @override
+  String get content => 'Adakah anda mahu untuk membuka fail yang diterima?';
 }
 
 // Path: dialogs.addressInput
@@ -1369,8 +1527,6 @@ class _Translations$dialogs$quickSaveFromFavoritesNotice$ms extends Translations
   @override
   List<String> get content => [
     'Permintaan fail kini diterima secara automatik daripada peranti-peranti yang dalam senarai kegemaran anda.',
-    'Amaran! Pada waktu sekarang, ini tidak terjamin sepenuhnya, kerana penggodam yang mempunyai cap jari mana-mana peranti daripada senarai kegemaran anda boleh menghantar fail kepada anda tanpa sekatan.',
-    'Walau bagaimanapun, pilihan ini tetap lebih selamat daripada membenarkan semua pengguna dalam rangkaian tempatan menghantar fail kepada anda tanpa sekatan.',
   ];
 }
 
@@ -1414,19 +1570,6 @@ class _Translations$dialogs$zoom$ms extends Translations$dialogs$zoom$en {
   String get title => 'URL';
 }
 
-// Path: dialogs.openFile
-class _Translations$dialogs$openFile$ms extends Translations$dialogs$openFile$en {
-  _Translations$dialogs$openFile$ms._(TranslationsMs root) : this._root = root, super.internal(root);
-
-  final TranslationsMs _root; // ignore: unused_field
-
-  // Translations
-  @override
-  String get title => 'Buka fail';
-  @override
-  String get content => 'Adakah anda mahu untuk membuka fail yang diterima?';
-}
-
 // Path: settingsTab.general.brightnessOptions
 class _Translations$settingsTab$general$brightnessOptions$ms extends Translations$settingsTab$general$brightnessOptions$en {
   _Translations$settingsTab$general$brightnessOptions$ms._(TranslationsMs root) : this._root = root, super.internal(root);
@@ -1453,6 +1596,8 @@ class _Translations$settingsTab$general$colorOptions$ms extends Translations$set
   String get system => 'Sistem';
   @override
   String get oled => 'OLED';
+  @override
+  String get custom => 'Tersuai';
 }
 
 // Path: settingsTab.general.languageOptions
@@ -1494,4 +1639,19 @@ class _Translations$progressPage$total$title$ms extends Translations$progressPag
   String get canceledSender => 'Dibatalkan oleh penghantar';
   @override
   String get canceledReceiver => 'Dibatalkan oleh penerima';
+}
+
+// Path: whatsNewPage.changes.v1_18_0
+class _Translations$whatsNewPage$changes$v1_18_0$ms extends Translations$whatsNewPage$changes$v1_18_0$en with WhatsNewStrings {
+  _Translations$whatsNewPage$changes$v1_18_0$ms._(TranslationsMs root) : this._root = root, super.internal(root);
+
+  final TranslationsMs _root; // ignore: unused_field
+
+  // Translations
+  @override
+  List<String> get changes => [
+    'Penyulitan tidak lagi memperlahankan pemindahan. Ia telah diaktifkan semula pada peranti ini jika anda mematikannya sebelum ini.',
+    'Permintaan daripada kegemaran kini diterima secara automatik. Ini diaktifkan secara lalai dan boleh dimatikan dalam tetapan.',
+    'Pada Android, pemindahan diteruskan semasa aplikasi berada di latar belakang atau skrin dimatikan. Pada iOS, aplikasi masih perlu kekal di latar depan.',
+  ];
 }

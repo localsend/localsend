@@ -4,6 +4,57 @@ use x509_parser::certificate::X509Certificate;
 use x509_parser::pem::Pem;
 use x509_parser::x509::SubjectPublicKeyInfo;
 
+/// A freshly generated device identity: an RSA-2048 key pair and a
+/// self-signed certificate whose SHA-256 fingerprint identifies the device.
+pub struct SelfSignedCert {
+    /// The private key, PEM-encoded (PKCS#8).
+    pub private_key_pem: String,
+    /// The public key, PEM-encoded (SPKI).
+    pub public_key_pem: String,
+    /// The self-signed certificate, PEM-encoded.
+    pub certificate_pem: String,
+    /// The SHA-256 fingerprint of the certificate in DER format,
+    /// encoded as uppercase hex (see [fingerprint_from_cert_der]).
+    pub fingerprint: String,
+}
+
+/// Generates a new device identity, used for both the HTTP server and client
+/// certificates.
+///
+/// - RSA-2048, matching the certificates the Flutter app has historically
+///   generated in Dart.
+/// - `CN=LocalSend User` and no SANs: peers identify each other purely by the
+///   certificate fingerprint, so the name carries no information.
+/// - The serial number is derived from the hash of the public key
+///   (rcgen's default when no serial number is set).
+/// - Validity is rcgen's default (1975 to 4096), so certificates do not expire
+///   in practice and never need to be rotated for time reasons.
+pub fn generate_self_signed() -> anyhow::Result<SelfSignedCert> {
+    use rsa::pkcs8::{EncodePrivateKey, EncodePublicKey, LineEnding};
+
+    let mut rng = rsa::rand_core::OsRng;
+    let private_key = rsa::RsaPrivateKey::new(&mut rng, 2048)?;
+    let private_key_pem = private_key.to_pkcs8_pem(LineEnding::LF)?;
+    let public_key_pem = private_key
+        .to_public_key()
+        .to_public_key_pem(LineEnding::LF)?;
+
+    let key_pair = rcgen::KeyPair::try_from(private_key.to_pkcs8_der()?.as_bytes())?;
+    let mut params = rcgen::CertificateParams::default();
+    params.distinguished_name = rcgen::DistinguishedName::new();
+    params
+        .distinguished_name
+        .push(rcgen::DnType::CommonName, "LocalSend User");
+    let certificate = params.self_signed(&key_pair)?;
+
+    Ok(SelfSignedCert {
+        private_key_pem: private_key_pem.to_string(),
+        public_key_pem,
+        certificate_pem: certificate.pem(),
+        fingerprint: fingerprint_from_cert_der(certificate.der()),
+    })
+}
+
 pub fn verify_cert_from_pem(cert: String, public_key: Option<&str>) -> anyhow::Result<()> {
     let (cert_pem, _) = Pem::read(Cursor::new(cert.into_bytes()))?;
     let parsed_cert: X509Certificate = cert_pem.parse_x509()?;
@@ -45,10 +96,13 @@ fn verify_cert_from_cert(cert: X509Certificate, public_key: Option<&str>) -> any
     Ok(())
 }
 
-pub fn public_key_from_cert_pem(cert: String) -> anyhow::Result<String> {
-    let (cert_pem, _) = Pem::read(Cursor::new(cert.into_bytes()))?;
-    let parsed_cert: X509Certificate = cert_pem.parse_x509()?;
-    public_key_from_cert(parsed_cert)
+/// Computes the SHA-256 fingerprint of a certificate in DER format.
+/// Encoded as uppercase hex, the format used for LocalSend fingerprints.
+pub fn fingerprint_from_cert_der(cert: &[u8]) -> String {
+    crate::crypto::hash::sha256(cert)
+        .iter()
+        .map(|byte| format!("{byte:02X}"))
+        .collect()
 }
 
 /// Extracts the public key from the certificate which is in DER format.
@@ -80,9 +134,7 @@ iK5jecOBG0RVVWLuw+TkuX8TUgrpIktH2+qEM1KdLyAMnL71hx2wMvE+lDKFKK9p
 bQIDAQAB
 -----END PUBLIC KEY-----";
 
-    #[test]
-    fn test_verify_cert() {
-        let cert = "-----BEGIN CERTIFICATE-----
+    static CERT: &str = "-----BEGIN CERTIFICATE-----
 MIIDGTCCAgGgAwIBAgIBATANBgkqhkiG9w0BAQsFADBQMRcwFQYDVQQDEw5Mb2Nh
 bFNlbmQgVXNlcjEJMAcGA1UEChMAMQkwBwYDVQQLEwAxCTAHBgNVBAcTADEJMAcG
 A1UECBMAMQkwBwYDVQQGEwAwHhcNMjUwMjA5MDAwMzE0WhcNMzUwMjA3MDAwMzE0
@@ -100,10 +152,12 @@ bfSiFW4hXWp75grVO8xfML7ZcWMlhKrOsOMUGiy1qs3qsyJ3w7B2Tz78HhXGO5dd
 jyPmZarhixKO92UpEvKGxjO0E/3UUNUzxKTAAgFfhKpuwHUgIijM/EppZtA8OcSh
 fEztiV0xKfcPVx4d6dqRt/NMElK1Ivw2vUuxTymphZkkFOzht9m73/kyKaeFp8Ij
 VRus1zGVD8IVpIdPMyz01WJyS7M0fWaHXKWo+Bo=
------END CERTIFICATE-----"
-            .to_string();
+-----END CERTIFICATE-----";
+
+    #[test]
+    fn test_verify_cert() {
         assert_eq!(
-            verify_cert_from_pem(cert, Some(PUBLIC_KEY)).map_err(|e| e.to_string()),
+            verify_cert_from_pem(CERT.to_string(), Some(PUBLIC_KEY)).map_err(|e| e.to_string()),
             Ok(())
         );
 
@@ -182,6 +236,50 @@ nidU/qXQvBJ7NPUkXXgbcgqxK735iijOqQHmKts=
         assert_eq!(
             verify_cert_from_pem(cert_expired, Some(PUBLIC_KEY)).map_err(|e| e.to_string()),
             Err("Time validity error".to_string())
+        );
+    }
+
+    #[test]
+    fn test_generate_self_signed() {
+        let generated = generate_self_signed().unwrap();
+
+        assert!(generated
+            .private_key_pem
+            .starts_with("-----BEGIN PRIVATE KEY-----"));
+        assert!(generated
+            .public_key_pem
+            .starts_with("-----BEGIN PUBLIC KEY-----"));
+
+        // The certificate is self-consistent and carries the generated public key.
+        verify_cert_from_pem(
+            generated.certificate_pem.clone(),
+            Some(&generated.public_key_pem),
+        )
+        .unwrap();
+
+        // The fingerprint matches the DER bytes of the certificate.
+        let (cert_pem, _) =
+            Pem::read(Cursor::new(generated.certificate_pem.as_bytes().to_vec())).unwrap();
+        assert_eq!(
+            generated.fingerprint,
+            fingerprint_from_cert_der(&cert_pem.contents)
+        );
+
+        // The public key extracted from the certificate is the generated one.
+        let extracted = public_key_from_cert_der(&cert_pem.contents).unwrap();
+        assert_eq!(
+            extracted.replace("\r\n", "\n").trim(),
+            generated.public_key_pem.trim()
+        );
+    }
+
+    #[test]
+    fn test_fingerprint_from_cert_der() {
+        let (cert_pem, _) = Pem::read(Cursor::new(CERT.as_bytes().to_vec())).unwrap();
+        assert_eq!(
+            fingerprint_from_cert_der(&cert_pem.contents),
+            // Must match the Dart side: uppercase hex SHA-256 of the DER bytes.
+            "4BADDE53A7F7CDEEED93189FD898E02BF6B4806CA4C05DE0ACE08319B86552FA"
         );
     }
 }

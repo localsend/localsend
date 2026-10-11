@@ -18,7 +18,7 @@ class FastDocumentFile(
     val uri: Uri,
     val name: String,
     val size: Long,
-    val lastModified: Long,
+    val lastModified: Long?,
 ) {
     val isDirectory: Boolean = mime == MIME_TYPE_DIR
     val isFile: Boolean = !isDirectory && mime.isNotBlank()
@@ -58,7 +58,7 @@ class FastDocumentFile(
                         ),
                         name = cursor.getString(2),
                         size = cursor.getLong(3),
-                        lastModified = cursor.getLong(4)
+                        lastModified = readLastModified(cursor, 4)
                     )
                 )
             }
@@ -74,6 +74,16 @@ class FastDocumentFile(
 
     companion object {
         const val TAG = "FastDocumentFile"
+
+        /**
+         * Treats null, 0 (File.lastModified() errors) and negative sentinels as unknown.
+         */
+        private fun readLastModified(cursor: Cursor, columnIndex: Int): Long? {
+            if (cursor.isNull(columnIndex)) {
+                return null
+            }
+            return cursor.getLong(columnIndex).takeIf { it > 0L }
+        }
 
         /**
          * Create a FastDocumentFile from a tree Uri.
@@ -96,7 +106,7 @@ class FastDocumentFile(
                 ),
                 name = "",
                 size = 0,
-                lastModified = 0,
+                lastModified = null,
             )
         }
 
@@ -123,7 +133,7 @@ class FastDocumentFile(
                         uri = documentUri,
                         name = cursor.getString(1),
                         size = cursor.getLong(2),
-                        lastModified = cursor.getLong(3),
+                        lastModified = readLastModified(cursor, 3),
                     )
                 } else {
                     null
