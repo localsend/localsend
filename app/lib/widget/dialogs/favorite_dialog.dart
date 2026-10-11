@@ -80,74 +80,67 @@ class _FavoritesDialogState extends State<FavoritesDialog> with Refena {
       title: Text(t.dialogs.favoriteDialog.title),
       content: ConstrainedBox(
         constraints: BoxConstraints(maxHeight: MediaQuery.sizeOf(context).height * 0.6),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            if (favorites.isEmpty)
-              Text(
-                t.dialogs.favoriteDialog.noFavorites,
-                style: const TextStyle(color: Colors.grey),
-              )
-            else
-              Flexible(
-                child: Scrollbar(
-                  controller: _scrollController,
-                  child: SingleChildScrollView(
-                    controller: _scrollController,
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
+        child: Scrollbar(
+          controller: _scrollController,
+          child: SingleChildScrollView(
+            controller: _scrollController,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                if (favorites.isEmpty)
+                  Text(
+                    t.dialogs.favoriteDialog.noFavorites,
+                    style: const TextStyle(color: Colors.grey),
+                  )
+                else
+                  for (final favorite in favorites)
+                    Row(
                       children: [
-                        for (final favorite in favorites)
-                          Row(
-                            children: [
-                              Expanded(
-                                child: TextButton(
-                                  style: TextButton.styleFrom(foregroundColor: Theme.of(context).colorScheme.onSurface),
-                                  onPressed: _fetching ? null : () async => await _checkConnectionToDevice(favorite),
-                                  child: Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: Text('${favorite.alias}\n(${favorite.ip})'),
-                                  ),
-                                ),
-                              ),
-                              TextButton(
-                                style: TextButton.styleFrom(foregroundColor: Theme.of(context).colorScheme.onSurface, iconSize: 24),
-                                onPressed: _fetching ? null : () async => await _showDeviceDialog(favorite),
-                                child: const Icon(Icons.edit),
-                              ),
-                            ],
+                        Expanded(
+                          child: TextButton(
+                            style: TextButton.styleFrom(foregroundColor: Theme.of(context).colorScheme.onSurface),
+                            onPressed: _fetching ? null : () async => await _checkConnectionToDevice(favorite),
+                            child: Align(
+                              alignment: Alignment.centerLeft,
+                              child: Text('${favorite.alias}\n(${favorite.ip})'),
+                            ),
                           ),
+                        ),
+                        TextButton(
+                          style: TextButton.styleFrom(foregroundColor: Theme.of(context).colorScheme.onSurface, iconSize: 24),
+                          onPressed: _fetching ? null : () async => await _showDeviceDialog(favorite),
+                          child: const Icon(Icons.edit),
+                        ),
+                      ],
+                    ),
+                if (_error != null)
+                  Padding(
+                    padding: const EdgeInsets.only(top: 10),
+                    child: Row(
+                      children: [
+                        Text(t.general.error, style: TextStyle(color: Theme.of(context).colorScheme.warning)),
+                        if (_error != null) ...[
+                          const SizedBox(width: 5),
+                          InkWell(
+                            onTap: () async {
+                              await showDialog(
+                                context: context,
+                                builder: (_) => ErrorDialog(error: _error!),
+                              );
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 5),
+                              child: Icon(Icons.info, color: Theme.of(context).colorScheme.warning, size: 20),
+                            ),
+                          ),
+                        ],
                       ],
                     ),
                   ),
-                ),
-              ),
-            if (_error != null)
-              Padding(
-                padding: const EdgeInsets.only(top: 10),
-                child: Row(
-                  children: [
-                    Text(t.general.error, style: TextStyle(color: Theme.of(context).colorScheme.warning)),
-                    if (_error != null) ...[
-                      const SizedBox(width: 5),
-                      InkWell(
-                        onTap: () async {
-                          await showDialog(
-                            context: context,
-                            builder: (_) => ErrorDialog(error: _error!),
-                          );
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 5),
-                          child: Icon(Icons.info, color: Theme.of(context).colorScheme.warning, size: 20),
-                        ),
-                      ),
-                    ],
-                  ],
-                ),
-              ),
-          ],
+              ],
+            ),
+          ),
         ),
       ),
       actions: [
