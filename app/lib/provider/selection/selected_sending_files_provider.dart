@@ -8,6 +8,7 @@ import 'package:localsend_app/util/native/channel/android_channel.dart' as andro
 import 'package:localsend_app/util/native/cross_file_converters.dart';
 import 'package:localsend_app/util/native/macos_app_archive.dart';
 import 'package:localsend_app/util/send_ignore.dart';
+import 'package:localsend_isolates/model/content_source.dart';
 import 'package:localsend_isolates/model/file_type.dart';
 import 'package:localsend_isolates/rust/api/metadata.dart';
 import 'package:localsend_isolates/util/content_uri_helper.dart';
@@ -51,8 +52,7 @@ class AddMessageAction extends ReduxAction<SelectedSendingFilesNotifier, List<Cr
       size: bytes.length,
       thumbnail: null,
       asset: null,
-      path: null,
-      bytes: bytes,
+      source: ContentSource.fromBytes(bytes),
       lastModified: null,
       lastAccessed: null,
     );
@@ -104,8 +104,7 @@ class AddBinaryAction extends ReduxAction<SelectedSendingFilesNotifier, List<Cro
       size: bytes.length,
       thumbnail: fileType == FileType.image ? bytes : null,
       asset: null,
-      path: null,
-      bytes: bytes,
+      source: ContentSource.fromBytes(bytes),
       lastModified: null,
       lastAccessed: null,
     );
@@ -194,8 +193,7 @@ class AddDirectoryAction extends AsyncReduxAction<SelectedSendingFilesNotifier, 
           size: entity.lengthSync(),
           thumbnail: null,
           asset: null,
-          path: entity.path,
-          bytes: null,
+          source: ContentSource.fromPath(entity.path),
           lastModified: metadata?.modified,
           lastAccessed: metadata?.accessed,
         );
@@ -255,8 +253,7 @@ class AddAndroidDirectoryAction extends AsyncReduxAction<SelectedSendingFilesNot
         size: file.size,
         thumbnail: null,
         asset: null,
-        path: file.uri,
-        bytes: null,
+        source: ContentSource.fromPath(file.uri),
         // SAF only provides milliseconds, so there is no point statting in Rust.
         lastModified: file.lastModified,
         lastAccessed: null,

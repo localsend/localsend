@@ -186,8 +186,7 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
               token: null,
               thumbnail: file.thumbnail,
               asset: file.asset,
-              path: file.path,
-              bytes: file.bytes,
+              source: file.source,
               errorMessage: null,
             ),
         },
@@ -225,24 +224,28 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
       try {
         for (final (:id, :file) in selectedFiles) {
           try {
-            hashes[id] = await calculateFileHash(
-              path: file.path,
-              bytes: file.bytes,
-              cancelToken: hashCancelToken,
-              onProgress: (bytes) {
-                if (state[sessionId] == null) {
-                  // session has been canceled while calculating the checksums
-                  return;
-                }
-                ref
-                    .notifier(fileTransferProvider)
-                    .setProgress(
-                      sessionId: sessionId,
-                      fileId: id,
-                      progress: file.size == 0 ? 1 : (bytes / file.size).clamp(0, 1),
-                    );
-              },
-            );
+            if (file.sha256 != null) {
+              hashes[id] = file.sha256!;
+            } else {
+              hashes[id] = await calculateFileHash(
+                path: file.path,
+                bytes: file.bytes,
+                cancelToken: hashCancelToken,
+                onProgress: (bytes) {
+                  if (state[sessionId] == null) {
+                    // session has been canceled while calculating the checksums
+                    return;
+                  }
+                  ref
+                      .notifier(fileTransferProvider)
+                      .setProgress(
+                        sessionId: sessionId,
+                        fileId: id,
+                        progress: file.size == 0 ? 1 : (bytes / file.size).clamp(0, 1),
+                      );
+                },
+              );
+            }
           } catch (e) {
             if (state[sessionId] != null) {
               // Sending the checksum is optional, so a file that cannot be read
@@ -660,8 +663,7 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
           HttpUploadFile(
             remoteFileToken: file.token!,
             fileId: file.file.id,
-            filePath: file.path,
-            fileBytes: file.bytes,
+            source: file.source,
             fileSize: file.file.size,
           ),
     ];
