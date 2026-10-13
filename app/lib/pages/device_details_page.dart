@@ -4,6 +4,7 @@ import 'package:localsend_app/model/persistence/favorite_device.dart';
 import 'package:localsend_app/pages/verify_page.dart';
 import 'package:localsend_app/provider/favorites_provider.dart';
 import 'package:localsend_app/util/favorites.dart';
+import 'package:localsend_app/util/ip_helper.dart';
 import 'package:localsend_app/util/system_date_time_formatter.dart';
 import 'package:localsend_app/widget/big_button.dart';
 import 'package:localsend_app/widget/dialogs/favorite_delete_dialog.dart';
@@ -104,7 +105,7 @@ class _DeviceDetailsPageState extends State<DeviceDetailsPage> with Refena {
               for (final entry in {
                 t.deviceDetailsPage.info.name: device.alias,
                 t.deviceDetailsPage.info.version: t.deviceDetailsPage.info.protocol(version: device.version),
-                if (device.ip != null) t.deviceDetailsPage.info.address: '${device.ip}:${device.port}',
+                if (device.ip != null) t.deviceDetailsPage.info.address: device.ip!.withPort(device.port),
               }.entries)
                 TableRow(
                   children: [

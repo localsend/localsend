@@ -55,7 +55,8 @@ class _ReceiveTabState extends State<ReceiveTab> {
   Widget build(BuildContext context) {
     final alias = context.watch(settingsProvider.select((s) => s.alias));
     final serverState = context.watch(serverProvider);
-    final localIps = context.watch(localIpProvider.select((s) => s.localIps));
+    final networkState = context.watch(localIpProvider);
+    final localIps = networkState.localIps;
 
     return Stack(
       children: [
@@ -94,7 +95,7 @@ class _ReceiveTabState extends State<ReceiveTab> {
                           duration: const Duration(milliseconds: 300),
                           delay: const Duration(milliseconds: 500),
                           child: Text(
-                            serverState == null ? t.general.offline : localIps.map((ip) => '#${ip.visualId}').toSet().join(' '),
+                            serverState == null ? t.general.offline : networkState.localIpv4Ips.map((ip) => '#${ip.visualId}').toSet().join(' '),
                             style: const TextStyle(fontSize: 24),
                             textAlign: TextAlign.center,
                           ),
@@ -206,7 +207,7 @@ class _InfoBox extends StatelessWidget {
                 columnWidths: const {
                   0: IntrinsicColumnWidth(),
                   1: IntrinsicColumnWidth(),
-                  2: IntrinsicColumnWidth(),
+                  2: FlexColumnWidth(),
                 },
                 children: [
                   TableRow(
