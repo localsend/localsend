@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter_rust_bridge/flutter_rust_bridge.dart' show AnyhowException;
+import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart' show ExternalLibrary;
 import 'package:localsend_isolates/constants.dart';
 import 'package:localsend_isolates/model/device.dart';
 import 'package:localsend_isolates/model/dto/file_dto.dart';
@@ -7,8 +10,10 @@ import 'package:localsend_isolates/rust/api/discovery.dart' as rust_discovery;
 import 'package:localsend_isolates/rust/api/http.dart' as rust_http;
 import 'package:localsend_isolates/rust/api/model.dart' as rust_model;
 import 'package:localsend_isolates/rust/api/server.dart' as rust_server;
+import 'package:localsend_isolates/rust/frb_generated.dart';
 import 'package:localsend_isolates/src/isolate/child/sync_provider.dart';
 import 'package:mime/mime.dart';
+import 'package:path/path.dart' as path;
 
 extension ProtocolTypeExt on ProtocolType {
   rust_model.ProtocolType toRust() {
@@ -225,5 +230,61 @@ extension RegisterResponseDtoExt on rust_model.RegisterResponseDto {
       download: hasWebInterface,
       channels: [HttpChannel(host: ip, port: port, https: https)],
     );
+  }
+}
+
+/// Attempts to locate the compiled Rust library next to the executable
+/// or in the platform bundle directory (e.g. Linux bundle `lib/`).
+///
+/// Returns [ExternalLibrary] if found, or null to fall back to default
+/// library loading behavior.
+ExternalLibrary? resolveRustLibExternalLibrary() {
+  if (!Platform.isWindows && !Platform.isLinux) {
+    return null;
+  }
+
+  String? executablePath;
+  try {
+    final resolved = Platform.resolvedExecutable;
+    if (resolved.isNotEmpty) {
+      executablePath = resolved;
+    }
+  } catch (_) {
+    return null;
+  }
+
+  if (executablePath == null) {
+    return null;
+  }
+
+  final dir = path.dirname(executablePath);
+
+  if (Platform.isWindows) {
+    final candidate = path.join(dir, 'rust_lib_localsend_app.dll');
+    if (File(candidate).existsSync()) {
+      return ExternalLibrary.open(candidate);
+    }
+  } else if (Platform.isLinux) {
+    final candidates = [
+      path.join(dir, 'lib', 'librust_lib_localsend_app.so'),
+      path.join(dir, 'librust_lib_localsend_app.so'),
+    ];
+    for (final candidate in candidates) {
+      if (File(candidate).existsSync()) {
+        return ExternalLibrary.open(candidate);
+      }
+    }
+  }
+
+  return null;
+}
+
+/// Initializes flutter_rust_bridge with the resolved library path if available.
+Future<void> initRustLib({ExternalLibrary? externalLibrary}) async {
+  final library = externalLibrary ?? resolveRustLibExternalLibrary();
+  if (library != null) {
+    await RustLib.init(externalLibrary: library);
+  } else {
+    await RustLib.init();
   }
 }
