@@ -3,6 +3,7 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:localsend_app/model/cross_file.dart';
+import 'package:localsend_app/provider/network/auto_send_action.dart';
 import 'package:localsend_app/util/native/cache_helper.dart';
 import 'package:localsend_app/util/native/channel/android_channel.dart' as android_channel;
 import 'package:localsend_app/util/native/cross_file_converters.dart';
@@ -22,9 +23,18 @@ const _uuid = Uuid();
 
 /// Manages files selected for sending.
 /// Will stay alive even after a session has been completed to send the same files to another device.
-final selectedSendingFilesProvider = ReduxProvider<SelectedSendingFilesNotifier, List<CrossFile>>((ref) {
-  return SelectedSendingFilesNotifier();
-});
+final selectedSendingFilesProvider = ReduxProvider<SelectedSendingFilesNotifier, List<CrossFile>>(
+  (ref) {
+    return SelectedSendingFilesNotifier();
+  },
+  onChanged: (prev, next, ref) {
+    final wasEmpty = prev == null || prev.isEmpty;
+    if (wasEmpty && next.isNotEmpty) {
+      // ignore: discarded_futures
+      ref.global.dispatchAsync(TryAutoSendAction(next));
+    }
+  },
+);
 
 class SelectedSendingFilesNotifier extends ReduxNotifier<List<CrossFile>> {
   @override

@@ -68,6 +68,11 @@ final sendTabVmProvider = ViewProvider((ref) {
           context: context,
           options: pickerOptions,
         );
+
+        final linked = ref.read(favoritesProvider).firstOrNull;
+        if (linked != null && ref.read(settingsProvider).sendMode == SendMode.single) {
+          return;
+        }
       }
 
       files = ref.read(selectedSendingFilesProvider);
@@ -101,6 +106,11 @@ final sendTabVmProvider = ViewProvider((ref) {
             context: context,
             options: pickerOptions,
           );
+
+          final linked = ref.read(favoritesProvider).firstOrNull;
+          if (linked != null && ref.read(settingsProvider).sendMode == SendMode.single) {
+            return;
+          }
         }
 
         files = ref.read(selectedSendingFilesProvider);
@@ -149,6 +159,12 @@ final sendTabVmProvider = ViewProvider((ref) {
           context: context,
           options: pickerOptions,
         );
+
+        // When a linked favorite exists, TryAutoSendAction owns the empty→files path.
+        final linked = ref.read(favoritesProvider).firstOrNull;
+        if (linked != null && ref.read(settingsProvider).sendMode == SendMode.single) {
+          return;
+        }
       }
 
       files = ref.read(selectedSendingFilesProvider);

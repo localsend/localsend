@@ -87,9 +87,23 @@ class RegisterDeviceAction extends AsyncReduxAction<NearbyDevicesService, Nearby
     assert(device.ip?.isNotEmpty ?? false, 'IP must not be empty');
 
     final favoriteDevice = notifier._favoriteService.state.firstWhereOrNull((e) => e.fingerprint == device.fingerprint);
-    if (favoriteDevice != null && !favoriteDevice.customAlias) {
-      // Update existing favorite with new alias
-      await external(notifier._favoriteService).dispatchAsync(UpdateFavoriteAction(favoriteDevice.copyWith(alias: device.alias)));
+    if (favoriteDevice != null) {
+      final ip = device.ip;
+      final needsAlias = !favoriteDevice.customAlias && favoriteDevice.alias != device.alias;
+      final needsAddress = ip != null && (favoriteDevice.ip != ip || favoriteDevice.port != device.port);
+      if (needsAlias || needsAddress) {
+        await external(notifier._favoriteService).dispatchAsync(
+          UpdateFavoriteAction(
+            favoriteDevice.copyWith(
+              alias: needsAlias ? device.alias : favoriteDevice.alias,
+              ip: (needsAddress ? ip : null) ?? favoriteDevice.ip,
+              port: needsAddress ? device.port : favoriteDevice.port,
+            ),
+          ),
+        );
+      } else {
+        await Future.microtask(() {});
+      }
     } else {
       await Future.microtask(() {});
     }

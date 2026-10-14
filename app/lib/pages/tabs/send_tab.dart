@@ -54,6 +54,16 @@ class SendTab extends StatelessWidget {
           padding: EdgeInsets.zero,
           children: [
             const SizedBox(height: 20),
+            if (vm.favoriteDevices.isNotEmpty && vm.sendMode == SendMode.single)
+              Padding(
+                padding: const EdgeInsets.only(left: _horizontalPadding, right: _horizontalPadding, bottom: 10),
+                child: Text(
+                  'Auto-sending to ${vm.favoriteDevices.first.alias}',
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
+                ),
+              ),
             if (vm.selectedFiles.isEmpty) ...[
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: _horizontalPadding),
