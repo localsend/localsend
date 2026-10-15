@@ -1,4 +1,6 @@
+import 'dart:async';
 import 'dart:io';
+import 'dart:ui' show PlatformDispatcher;
 
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +17,7 @@ class TrayWatcher extends StatefulWidget {
   State<TrayWatcher> createState() => _TrayWatcherState();
 }
 
-class _TrayWatcherState extends State<TrayWatcher> with TrayListener {
+class _TrayWatcherState extends State<TrayWatcher> with TrayListener, WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
     return widget.child;
@@ -25,12 +27,22 @@ class _TrayWatcherState extends State<TrayWatcher> with TrayListener {
   void initState() {
     super.initState();
     trayManager.addListener(this);
+    WidgetsBinding.instance.addObserver(this);
   }
 
   @override
   void dispose() {
     trayManager.removeListener(this);
+    WidgetsBinding.instance.removeObserver(this);
     super.dispose();
+  }
+
+  /// The tray icon follows the system brightness, so a light panel does not get
+  /// an invisible white icon.
+  /// https://github.com/localsend/localsend/issues/3312
+  @override
+  void didChangePlatformBrightness() {
+    unawaited(setTrayIcon(PlatformDispatcher.instance.platformBrightness));
   }
 
   @override
