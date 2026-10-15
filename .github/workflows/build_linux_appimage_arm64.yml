@@ -15,10 +15,14 @@ jobs:
     steps:
       - uses: actions/checkout@v6
 
-      - name: Get version from pubspec.yaml
+      - name: Get version from AppImage recipe
         id: get_version
         run: |
-          VERSION=$(sed -n 's/^version: \([0-9]*\.[0-9]*\.[0-9]*\).*/\1/p' app/pubspec.yaml)
+          VERSION=$(sed -n 's/^    version: \([0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*\)$/\1/p' support/build/appimage/AppImageBuilder_arm_64.yml)
+          if [ -z "$VERSION" ]; then
+            echo "Could not extract version from support/build/appimage/AppImageBuilder_arm_64.yml" >&2
+            exit 1
+          fi
           echo "version=$VERSION" >> $GITHUB_OUTPUT
 
   build_appimage_arm_64:
@@ -76,11 +80,20 @@ jobs:
 
       - name: Build AppImage
         uses: AppImageCrafters/build-appimage@57c3bc6963f870ce3be103117de5b5e33ffbaeb6
+        env:
+          APP_VERSION: ${{ needs.build.outputs.version }}
         with:
           recipe: ./AppImageBuilder.yml
 
-      - name: Upload AppImage file
+      - name: Verify AppImage update files
+        run: |
+          test -f "LocalSend-${{ needs.build.outputs.version }}-linux-arm-64.AppImage"
+          test -f "LocalSend-${{ needs.build.outputs.version }}-linux-arm-64.AppImage.zsync"
+
+      - name: Upload AppImage files
         uses: actions/upload-artifact@v6
         with:
           name: appimage-arm-64-result
-          path: ./*.AppImage
+          path: |
+            ./LocalSend-${{ needs.build.outputs.version }}-linux-arm-64.AppImage
+            ./LocalSend-${{ needs.build.outputs.version }}-linux-arm-64.AppImage.zsync
