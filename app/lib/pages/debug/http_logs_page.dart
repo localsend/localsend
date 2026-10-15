@@ -25,13 +25,19 @@ class HttpLogsPage extends StatelessWidget {
             onPressed: logs.isEmpty
                 ? null
                 : () async {
-                    await Clipboard.setData(
-                      ClipboardData(
-                        text: logs.map((log) => '[${_dateFormat.format(log.timestamp)}] ${log.log}').join('\n'),
-                      ),
-                    );
-                    if (context.mounted) {
-                      context.showSnackBar('Copied HTTP logs to clipboard');
+                    try {
+                      await Clipboard.setData(
+                        ClipboardData(
+                          text: logs.map((log) => '[${_dateFormat.format(log.timestamp)}] ${log.log}').join('\n'),
+                        ),
+                      );
+                      if (context.mounted) {
+                        context.showSnackBar('Copied HTTP logs to clipboard');
+                      }
+                    } catch (e) {
+                      if (context.mounted) {
+                        context.showSnackBar('Failed to copy logs: $e');
+                      }
                     }
                   },
           ),

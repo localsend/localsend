@@ -132,13 +132,19 @@ class _DeviceDetailsPageState extends State<DeviceDetailsPage> with Refena {
                 onPressed: _logs.isEmpty
                     ? null
                     : () async {
-                        await Clipboard.setData(
-                          ClipboardData(
-                            text: _logs.map((log) => '[${SystemDateTimeFormatter.time(context, log.timestamp)}] ${log.description}').join('\n'),
-                          ),
-                        );
-                        if (context.mounted) {
-                          context.showSnackBar(t.general.copiedToClipboard);
+                        try {
+                          await Clipboard.setData(
+                            ClipboardData(
+                              text: _logs.map((log) => '[${SystemDateTimeFormatter.time(context, log.timestamp)}] ${log.description}').join('\n'),
+                            ),
+                          );
+                          if (context.mounted) {
+                            context.showSnackBar(t.general.copiedToClipboard);
+                          }
+                        } catch (e) {
+                          if (context.mounted) {
+                            context.showSnackBar('${t.general.error}: $e');
+                          }
                         }
                       },
               ),
