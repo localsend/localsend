@@ -6,13 +6,12 @@
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 import 'package:freezed_annotation/freezed_annotation.dart' hide protected;
 import 'package:localsend_isolates/rust/api/cancel.dart';
+import 'package:localsend_isolates/rust/api/content_source.dart';
 import 'package:localsend_isolates/rust/api/model.dart';
-import 'package:localsend_isolates/rust/api/stream.dart';
 import 'package:localsend_isolates/rust/frb_generated.dart';
 
 part 'http.freezed.dart';
 
-// These functions are ignored because they are not marked as `pub`: `resolve_file_content`
 // These function are ignored because they are on traits that is not defined in current crate (put an empty `#[frb]` on it to unignore): `clone`, `clone`, `from`
 
 /// Creates an HTTP client.
@@ -34,6 +33,9 @@ RsHttpClient createClient({
   expectedFingerprint: expectedFingerprint,
   timeoutMs: timeoutMs,
 );
+
+// Rust type: RustOpaqueMoi<RsContentStreamReceiver>
+abstract class RsContentStreamReceiver implements RustOpaqueInterface {}
 
 // Rust type: RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<RsHttpClient>>
 abstract class RsHttpClient implements RustOpaqueInterface {
@@ -70,9 +72,7 @@ abstract class RsHttpClient implements RustOpaqueInterface {
     required String sessionId,
     required String fileId,
     required String token,
-    Dart2RustStreamReceiver? binary,
-    String? path,
-    int? fileDescriptor,
+    required RsContentSource source,
     required BigInt contentLength,
     required RsCancellationToken cancelToken,
   });

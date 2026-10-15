@@ -15,6 +15,7 @@ class SendingFileMapper extends ClassMapperBase<SendingFile> {
   static SendingFileMapper ensureInitialized() {
     if (_instance == null) {
       MapperContainer.globals.use(_instance = SendingFileMapper._());
+      ContentSourceMapper.ensureInitialized();
     }
     return _instance!;
   }
@@ -36,10 +37,11 @@ class SendingFileMapper extends ClassMapperBase<SendingFile> {
     'asset',
     _$asset,
   );
-  static String? _$path(SendingFile v) => v.path;
-  static const Field<SendingFile, String> _f$path = Field('path', _$path);
-  static List<int>? _$bytes(SendingFile v) => v.bytes;
-  static const Field<SendingFile, List<int>> _f$bytes = Field('bytes', _$bytes);
+  static ContentSource _$source(SendingFile v) => v.source;
+  static const Field<SendingFile, ContentSource> _f$source = Field(
+    'source',
+    _$source,
+  );
   static String? _$errorMessage(SendingFile v) => v.errorMessage;
   static const Field<SendingFile, String> _f$errorMessage = Field(
     'errorMessage',
@@ -52,8 +54,7 @@ class SendingFileMapper extends ClassMapperBase<SendingFile> {
     #token: _f$token,
     #thumbnail: _f$thumbnail,
     #asset: _f$asset,
-    #path: _f$path,
-    #bytes: _f$bytes,
+    #source: _f$source,
     #errorMessage: _f$errorMessage,
   };
 
@@ -63,8 +64,7 @@ class SendingFileMapper extends ClassMapperBase<SendingFile> {
       token: data.dec(_f$token),
       thumbnail: data.dec(_f$thumbnail),
       asset: data.dec(_f$asset),
-      path: data.dec(_f$path),
-      bytes: data.dec(_f$bytes),
+      source: data.dec(_f$source),
       errorMessage: data.dec(_f$errorMessage),
     );
   }
@@ -129,14 +129,13 @@ extension SendingFileValueCopy<$R, $Out>
 
 abstract class SendingFileCopyWith<$R, $In extends SendingFile, $Out>
     implements ClassCopyWith<$R, $In, $Out> {
-  ListCopyWith<$R, int, ObjectCopyWith<$R, int, int>>? get bytes;
+  ContentSourceCopyWith<$R, ContentSource, ContentSource> get source;
   $R call({
     FileDto? file,
     String? token,
     Uint8List? thumbnail,
     AssetEntity? asset,
-    String? path,
-    List<int>? bytes,
+    ContentSource? source,
     String? errorMessage,
   });
   SendingFileCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
@@ -151,22 +150,15 @@ class _SendingFileCopyWithImpl<$R, $Out>
   late final ClassMapperBase<SendingFile> $mapper =
       SendingFileMapper.ensureInitialized();
   @override
-  ListCopyWith<$R, int, ObjectCopyWith<$R, int, int>>? get bytes =>
-      $value.bytes != null
-      ? ListCopyWith(
-          $value.bytes!,
-          (v, t) => ObjectCopyWith(v, $identity, t),
-          (v) => call(bytes: v),
-        )
-      : null;
+  ContentSourceCopyWith<$R, ContentSource, ContentSource> get source =>
+      $value.source.copyWith.$chain((v) => call(source: v));
   @override
   $R call({
     FileDto? file,
     Object? token = $none,
     Object? thumbnail = $none,
     Object? asset = $none,
-    Object? path = $none,
-    Object? bytes = $none,
+    ContentSource? source,
     Object? errorMessage = $none,
   }) => $apply(
     FieldCopyWithData({
@@ -174,8 +166,7 @@ class _SendingFileCopyWithImpl<$R, $Out>
       if (token != $none) #token: token,
       if (thumbnail != $none) #thumbnail: thumbnail,
       if (asset != $none) #asset: asset,
-      if (path != $none) #path: path,
-      if (bytes != $none) #bytes: bytes,
+      if (source != null) #source: source,
       if (errorMessage != $none) #errorMessage: errorMessage,
     }),
   );
@@ -185,8 +176,7 @@ class _SendingFileCopyWithImpl<$R, $Out>
     token: data.get(#token, or: $value.token),
     thumbnail: data.get(#thumbnail, or: $value.thumbnail),
     asset: data.get(#asset, or: $value.asset),
-    path: data.get(#path, or: $value.path),
-    bytes: data.get(#bytes, or: $value.bytes),
+    source: data.get(#source, or: $value.source),
     errorMessage: data.get(#errorMessage, or: $value.errorMessage),
   );
 

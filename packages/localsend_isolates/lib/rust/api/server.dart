@@ -5,12 +5,14 @@
 
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 import 'package:freezed_annotation/freezed_annotation.dart' hide protected;
+import 'package:localsend_isolates/rust/api/content_source.dart';
+import 'package:localsend_isolates/rust/api/http.dart';
 import 'package:localsend_isolates/rust/api/model.dart';
 import 'package:localsend_isolates/rust/frb_generated.dart';
 
 part 'server.freezed.dart';
 
-// These functions are ignored because they are not marked as `pub`: `handle_server_event`, `handle_web_event`, `recv_opt`, `resolve_file_content`, `resolve_upload_target`, `stop`
+// These functions are ignored because they are not marked as `pub`: `handle_server_event`, `handle_web_event`, `recv_opt`, `resolve_upload_target`, `stop`
 // These types are ignored because they are neither used by any `pub` functions nor (for structs and enums) marked `#[frb(unignore)]`: `ServerInstance`
 
 /// Starts the HTTP server on the given port (IPv4 and IPv6).
@@ -88,10 +90,10 @@ abstract class RsHttpServer implements RustOpaqueInterface {
   Stream<RsServerEvent> listen();
 
   /// Answers the pending [RsServerEvent::WebFileDownload] event with the source
-  /// the file content should be read from (either a path or a file descriptor).
+  /// that produces the file content.
   ///
   /// The server reads the content and streams it to the web client.
-  Future<void> respondFileDownload({required String sessionId, required String fileId, String? path, int? fileDescriptor});
+  Future<void> respondFileDownload({required String sessionId, required String fileId, required RsContentSource source});
 
   /// Answers the pending [RsServerEvent::FileUpload] event with the target
   /// the file should be saved to (either a path or a file descriptor)

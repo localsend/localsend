@@ -1,5 +1,6 @@
 import 'package:flutter/services.dart';
 import 'package:localsend_isolates/isolate.dart';
+import 'package:localsend_isolates/model/content_source.dart';
 import 'package:localsend_isolates/model/device.dart';
 import 'package:localsend_isolates/rust/api/cancel.dart';
 import 'package:localsend_isolates/rust/api/http.dart';
@@ -7,7 +8,6 @@ import 'package:localsend_isolates/src/isolate/child/http_provider.dart';
 import 'package:localsend_isolates/src/isolate/child/main.dart';
 import 'package:localsend_isolates/src/isolate/dto/send_to_isolate_data.dart';
 import 'package:localsend_isolates/src/task/upload/http_upload.dart';
-import 'package:localsend_isolates/util/android_channel.dart';
 import 'package:localsend_isolates/util/rust.dart';
 import 'package:pool/pool.dart';
 import 'package:refena_flutter/refena_flutter.dart';
@@ -27,15 +27,13 @@ sealed class BaseHttpUploadTask {}
 class HttpUploadFile {
   final String remoteFileToken;
   final String fileId;
-  final String? filePath;
-  final List<int>? fileBytes;
+  final ContentSource source;
   final int fileSize;
 
   HttpUploadFile({
     required this.remoteFileToken,
     required this.fileId,
-    required this.filePath,
-    required this.fileBytes,
+    required this.source,
     required this.fileSize,
   });
 }
@@ -116,8 +114,7 @@ Future<void> setupHttpUploadIsolate(
     sendToMain: sendToMain,
     initialData: initialData,
     init: (ref) async {
-      // Initialize the platform method channel so getFileDescriptorAndroid
-      // (used to resolve "content://" files) works inside this isolate.
+      // Source resolution may open an Android content URI through the platform channel.
       BackgroundIsolateBinaryMessenger.ensureInitialized(
         ref.read(syncProvider).rootIsolateToken as RootIsolateToken,
       );
@@ -157,22 +154,13 @@ Future<void> setupHttpUploadIsolate(
           );
 
           try {
-            final filePath = file.filePath;
-            final isContentUri = filePath?.startsWith('content://') ?? false;
-
             for (var attempt = 1; ; attempt++) {
-              // The file descriptor is consumed by the upload, so a fresh one
-              // is needed for every attempt.
-              final fileDescriptor = isContentUri ? await getFileDescriptorAndroid(uri: filePath!) : null;
-
               try {
                 await ref
                     .read(httpUploadProvider)
                     .upload(
                       client: client,
-                      stream: filePath == null && file.fileBytes != null ? Stream.value(file.fileBytes!) : null,
-                      path: !isContentUri ? filePath : null,
-                      fileDescriptor: fileDescriptor,
+                      source: file.source,
                       contentLength: file.fileSize,
                       target: uploadTask.device,
                       remoteSessionId: uploadTask.remoteSessionId,

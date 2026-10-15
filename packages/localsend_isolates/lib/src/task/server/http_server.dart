@@ -1,3 +1,4 @@
+import 'package:localsend_isolates/model/content_source.dart';
 import 'package:localsend_isolates/rust/api/model.dart';
 import 'package:localsend_isolates/rust/api/server.dart';
 import 'package:refena_flutter/refena_flutter.dart';
@@ -99,19 +100,21 @@ class HttpServerService {
     await _requireServer().respondPrepareDownload(sessionId: sessionId, accept: accept);
   }
 
-  /// Answers a pending web file download with the source the file content should be
-  /// read from (either a [path] or a [fileDescriptor]). The server streams the content.
+  /// Answers a pending web file download with a replayable source.
+  /// The server streams its content.
   Future<void> respondFileDownload({
     required String sessionId,
     required String fileId,
-    required String? path,
-    required int? fileDescriptor,
+    required ContentSource source,
+    required int contentLength,
   }) async {
-    await _requireServer().respondFileDownload(
-      sessionId: sessionId,
-      fileId: fileId,
-      path: path,
-      fileDescriptor: fileDescriptor,
+    await ContentSource.fromStream(source.openRead).transfer<void>(
+      (resolved) => _requireServer().respondFileDownload(
+        sessionId: sessionId,
+        fileId: fileId,
+        source: resolved,
+      ),
+      contentLength: contentLength,
     );
   }
 

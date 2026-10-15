@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:localsend_isolates/model/content_source.dart';
 import 'package:localsend_isolates/model/device.dart';
 import 'package:localsend_isolates/rust/api/server.dart' show WebParams;
 import 'package:localsend_isolates/src/isolate/child/discovery_isolate.dart';
@@ -464,19 +465,18 @@ class IsolateHttpServerPrepareDownloadDecisionAction extends ReduxAction<Isolate
   }
 }
 
-/// Answers a pending [HttpServerWebFileDownloadEvent] with the source the file
-/// content should be read from (either a [path] or a readable [fileDescriptor]).
+/// Answers a pending [HttpServerWebFileDownloadEvent] with a replayable source.
 class IsolateHttpServerFileDownloadTargetAction extends ReduxAction<IsolateController, ParentIsolateState> {
   final String sessionId;
   final String fileId;
-  final String? path;
-  final int? fileDescriptor;
+  final ContentSource source;
+  final int contentLength;
 
   IsolateHttpServerFileDownloadTargetAction({
     required this.sessionId,
     required this.fileId,
-    required this.path,
-    required this.fileDescriptor,
+    required this.source,
+    required this.contentLength,
   });
 
   @override
@@ -493,8 +493,8 @@ class IsolateHttpServerFileDownloadTargetAction extends ReduxAction<IsolateContr
           data: HttpServerFileDownloadTargetTask(
             sessionId: sessionId,
             fileId: fileId,
-            path: path,
-            fileDescriptor: fileDescriptor,
+            source: source,
+            contentLength: contentLength,
           ),
         ),
       ),
