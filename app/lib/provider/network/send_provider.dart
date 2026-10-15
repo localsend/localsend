@@ -775,7 +775,7 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
   }
 
   /// Closes the session
-  void closeSession(String sessionId) {
+  void closeSession(String sessionId, {bool clearSelection = true}) {
     final sessionState = state[sessionId];
     if (sessionState == null) {
       return;
@@ -784,7 +784,7 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
     _hashCancelTokens.remove(sessionId)?.cancel();
     _prepareUploadCancelTokens.remove(sessionId)?.cancel();
     state = state.removeSession(ref, sessionId);
-    if (sessionState.status == SessionStatus.finished && ref.read(settingsProvider).sendMode == SendMode.single) {
+    if (clearSelection && sessionState.status == SessionStatus.finished && ref.read(settingsProvider).sendMode == SendMode.single) {
       // clear selected files
       ref.redux(selectedSendingFilesProvider).dispatch(ClearSelectionAction());
     }

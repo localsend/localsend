@@ -21,6 +21,7 @@ import 'package:localsend_app/provider/persistence_provider.dart';
 // [FOSS_REMOVE_START]
 import 'package:localsend_app/provider/purchase_provider.dart';
 // [FOSS_REMOVE_END]
+import 'package:localsend_app/provider/selection/prepare_send_selection_action.dart';
 import 'package:localsend_app/provider/selection/selected_sending_files_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/provider/tv_provider.dart';
@@ -252,7 +253,12 @@ Future<void> postInit(BuildContext context, Ref ref, bool appStart) async {
 
       // handle dropped strings
       pendingStringsStream.listen((pendingStrings) {
-        for (final string in pendingStrings) {
+        final strings = pendingStrings.where((string) => string.trim().isNotEmpty).toList();
+        if (strings.isEmpty) {
+          return;
+        }
+        ref.global.dispatch(PrepareSendSelectionAction());
+        for (final string in strings) {
           ref.redux(selectedSendingFilesProvider).dispatch(AddMessageAction(message: string));
         }
         ref.redux(homePageControllerProvider).dispatch(ChangeTabAction(HomeTab.send));
@@ -280,7 +286,7 @@ Future<void> postInit(BuildContext context, Ref ref, bool appStart) async {
         hasInitialShare = true;
         // ignore: unawaited_futures
         ref.global.dispatchAsync(
-          _HandleShareIntentAction(
+          HandleShareIntentAction(
             payload: initialSharedPayload,
           ),
         );
@@ -290,7 +296,7 @@ Future<void> postInit(BuildContext context, Ref ref, bool appStart) async {
     _sharedMediaSubscription?.cancel(); // ignore: unawaited_futures
     _sharedMediaSubscription = shareHandler.sharedMediaStream.listen((SharedMedia payload) async {
       await ref.global.dispatchAsync(
-        _HandleShareIntentAction(
+        HandleShareIntentAction(
           payload: payload,
         ),
       );
@@ -329,16 +335,23 @@ Future<void> postInit(BuildContext context, Ref ref, bool appStart) async {
   // [FOSS_REMOVE_END]
 }
 
-class _HandleShareIntentAction extends AsyncGlobalAction {
+class HandleShareIntentAction extends AsyncGlobalAction {
   final SharedMedia payload;
 
-  _HandleShareIntentAction({
+  HandleShareIntentAction({
     required this.payload,
   });
 
   @override
   Future<void> reduce() async {
+    final attachments = payload.attachments?.whereType<SharedAttachment>().toList() ?? <SharedAttachment>[];
     final message = payload.content;
+    if ((message == null || message.trim().isEmpty) && attachments.isEmpty) {
+      return;
+    }
+
+    // Incoming attachments may already be in a cache directory.
+    ref.global.dispatch(PrepareSendSelectionAction(preserveCachePaths: attachments.map((attachment) => attachment.path).toSet()));
     if (message != null && message.trim().isNotEmpty) {
       ref.redux(selectedSendingFilesProvider).dispatch(AddMessageAction(message: message));
     }
@@ -346,7 +359,7 @@ class _HandleShareIntentAction extends AsyncGlobalAction {
         .redux(selectedSendingFilesProvider)
         .dispatchAsync(
           AddFilesAction(
-            files: payload.attachments?.where((a) => a != null).cast<SharedAttachment>() ?? <SharedAttachment>[],
+            files: attachments,
             converter: CrossFileConverters.convertSharedAttachment,
           ),
         );
