@@ -2,6 +2,7 @@ name: Build linux arm64 AppImage
 
 on:
   workflow_dispatch:
+  workflow_call:
 
 env:
   FLUTTER_VERSION: "3.41.9"
