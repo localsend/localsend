@@ -1,11 +1,15 @@
+import 'dart:async';
 import 'dart:io';
 
+import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:localsend_isolates/rust/frb_generated.dart';
 import 'package:localsend_isolates/src/task/server/file_saver.dart';
 import 'package:path/path.dart' as p;
 
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
+  const channel = MethodChannel('org.localsend.localsend_app/localsend');
   late Directory tempDir;
 
   setUpAll(() {
@@ -17,9 +21,29 @@ void main() {
   });
 
   tearDown(() {
+    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger.setMockMethodCallHandler(channel, null);
     if (tempDir.existsSync()) {
       tempDir.deleteSync(recursive: true);
     }
+  });
+
+  testWidgets('waits for Android media scan to complete', (tester) async {
+    final file = File(p.join(tempDir.path, 'received.txt'))..writeAsStringSync('received');
+    final scan = Completer<bool>();
+    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger.setMockMethodCallHandler(channel, (call) {
+      expect(call.method, 'scanFile');
+      expect(call.arguments, {'path': file.path});
+      return scan.future;
+    });
+    var finished = false;
+    final mediaScan = scanSavedFileAndroid(path: file.path).then((_) => finished = true);
+
+    await tester.pump();
+    expect(finished, isFalse);
+    scan.complete(true);
+    await tester.pump();
+    await mediaScan;
+    expect(finished, isTrue);
   });
 
   Future<String> digest(String parentDirectory, String fileName) async {

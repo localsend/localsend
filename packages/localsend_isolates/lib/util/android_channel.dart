@@ -5,6 +5,18 @@ import 'package:logging/logging.dart';
 const _methodChannel = MethodChannel('org.localsend.localsend_app/localsend');
 final _logger = Logger('AndroidSaf');
 
+/// Scans a saved file at an absolute filesystem [path].
+///
+/// Returns whether Android reported a URI, or false if scanning timed out.
+Future<bool> scanFileAndroid({required String path}) async {
+  final scanned = await _methodChannel
+      .invokeMethod<bool>('scanFile', {
+        'path': path,
+      })
+      .timeout(const Duration(seconds: 30), onTimeout: () => false);
+  return scanned ?? false;
+}
+
 /// Opens [uri] for reading and returns an owned Linux file descriptor.
 ///
 /// The descriptor stays open after this call and must be closed by the native
