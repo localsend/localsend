@@ -10,6 +10,9 @@ class NotificationStrings {
   /// Title while files are being sent, e.g. "Sending files".
   final String titleSending;
 
+  /// Locale used to format transfer sizes in the notification.
+  final String locale;
+
   /// Remaining time below an hour, e.g. "1:30" or "0:45". [ss] is zero padded.
   final String Function({required Object m, required Object ss}) remainingTimeMinutes;
 
@@ -19,6 +22,7 @@ class NotificationStrings {
   const NotificationStrings({
     required this.titleReceiving,
     required this.titleSending,
+    required this.locale,
     required this.remainingTimeMinutes,
     required this.remainingTimeLong,
   });

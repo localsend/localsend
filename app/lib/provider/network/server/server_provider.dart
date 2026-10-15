@@ -164,6 +164,7 @@ class ServerService extends Notifier<ServerState?> {
                 null => const WebMode.disabled(),
               },
               i18N: WebI18n(
+                locale: LocaleSettings.currentLocale.languageTag,
                 waiting: t.web.waiting,
                 enterPin: t.web.enterPin,
                 invalidPin: t.web.invalidPin,
@@ -175,6 +176,7 @@ class ServerService extends Notifier<ServerState?> {
                 fileName: t.web.fileName,
                 size: t.web.size,
                 dropHint: t.sendTab.placeItems,
+                upload: t.web.upload,
               ),
               pages: customWebPages,
             ),

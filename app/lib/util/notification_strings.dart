@@ -8,6 +8,7 @@ import 'package:localsend_isolates/util/notification_strings.dart';
 final notificationStrings = NotificationStrings(
   titleReceiving: t.progressPage.titleReceiving,
   titleSending: t.progressPage.titleSending,
+  locale: LocaleSettings.currentLocale.languageTag,
   remainingTimeMinutes: t.progressPage.remainingTime.minutes,
   remainingTimeLong: _remainingTimeLong,
 );

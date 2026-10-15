@@ -56,6 +56,7 @@ void main() {
       web: const WebParams(
         mode: WebMode.disabled(),
         i18N: WebI18n(
+          locale: 'en',
           waiting: '',
           enterPin: '',
           invalidPin: '',
@@ -67,6 +68,7 @@ void main() {
           fileName: '',
           size: '',
           dropHint: '',
+          upload: '',
         ),
         pages: WebPages(),
       ),

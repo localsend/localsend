@@ -203,7 +203,12 @@
     "title": "Apps (APK)",
     "excludeSystemApps": "Exclude system apps",
     "excludeAppsWithoutLaunchIntent": "Exclude non-launchable apps",
-    "apps": "{n} Apps"
+    "apps": "{n} Apps",
+    "selectMultipleApps": "Select multiple apps",
+    "addSelectedApps(plural, param=n)": {
+      "one": "Add {n} app",
+      "other": "Add {n} apps"
+    }
   },
   "selectedFilesPage": {
     "deleteAll": "Delete all"
@@ -310,7 +315,10 @@
     "author": "Author",
     "contributors": "Contributors",
     "packagers": "Packagers",
-    "translators": "Translators"
+    "translators": "Translators",
+    "homepage": "Homepage",
+    "sourceCode": "Source Code ({site})",
+    "licenseNotices": "License Notices"
   },
   "donationPage": {
     "title": "Donate",
@@ -543,7 +551,8 @@
     "rejected": "Rejected",
     "files": "Files",
     "fileName": "File name",
-    "size": "Size"
+    "size": "Size",
+    "upload": "Upload"
   },
   "assetPicker": {
     "@info": "Translations for the Media selection tool for Android and iPhone",

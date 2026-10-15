@@ -373,6 +373,16 @@ class Translations$apkPickerPage$en {
 
   /// en: '{n} Apps'
   String apps({required Object n}) => '${n} Apps';
+
+  /// en: 'Select multiple apps'
+  String get selectMultipleApps => 'Select multiple apps';
+
+  /// en: '(one) {Add {n} app} (other) {Add {n} apps}'
+  String addSelectedApps({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(
+    n,
+    one: 'Add ${n} app',
+    other: 'Add ${n} apps',
+  );
 }
 
 // Path: selectedFilesPage
@@ -614,6 +624,15 @@ class Translations$aboutPage$en {
 
   /// en: 'Translators'
   String get translators => 'Translators';
+
+  /// en: 'Homepage'
+  String get homepage => 'Homepage';
+
+  /// en: 'Source Code ({site})'
+  String sourceCode({required Object site}) => 'Source Code (${site})';
+
+  /// en: 'License Notices'
+  String get licenseNotices => 'License Notices';
 }
 
 // Path: donationPage
@@ -851,6 +870,9 @@ class Translations$web$en {
 
   /// en: 'Size'
   String get size => 'Size';
+
+  /// en: 'Upload'
+  String get upload => 'Upload';
 }
 
 // Path: assetPicker
