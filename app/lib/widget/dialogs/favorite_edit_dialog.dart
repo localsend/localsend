@@ -178,6 +178,12 @@ class _FavoriteEditDialogState extends State<FavoriteEditDialog> with Refena {
                             ),
                           ),
                         );
+                    if (context.mounted) {
+                      final route = ModalRoute.of(context);
+                      if (route != null && route.isActive) {
+                        Navigator.of(context).removeRoute(route);
+                      }
+                    }
                   } else {
                     // Add new favorite
                     final ip = _ipController.text;
