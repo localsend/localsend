@@ -10,6 +10,8 @@
 - i18n: add Kyrgyz (@nidara-duo)
 - security(cli): sanitize remote text before displaying it in the terminal (@Tienisto)
 - security: limit simultaneous incoming connections to prevent resource exhaustion (@Tienisto)
+- fix: prevent a startup crash with legacy Quick Save settings (@ShlomoCode)
+- fix(linux): load bundled Rust library relative to the executable (@ShlomoCode)
 - fix: show the real error when a file cannot be read while sending, instead of transferring it as an empty file (@leopalmieri-spec)
 - fix(macos): prevent intermittent MissingPluginException during startup (@ShlomoCode)
 - fix: avoid directory name collisions when receiving files (@ShlomoCode)
