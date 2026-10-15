@@ -8,6 +8,7 @@ import 'dart:ui' as _i3;
 
 import 'package:flutter/material.dart' as _i9;
 import 'package:localsend_app/gen/strings.g.dart' as _i11;
+import 'package:localsend_app/model/persistence/color_intensity.dart' as _i16;
 import 'package:localsend_app/model/persistence/color_mode.dart' as _i10;
 import 'package:localsend_app/model/persistence/favorite_device.dart' as _i7;
 import 'package:localsend_app/model/persistence/quick_save_mode.dart' as _i12;
@@ -237,6 +238,24 @@ class MockPersistenceService extends _i1.Mock implements _i4.PersistenceService 
   _i5.Future<void> setCustomColor(_i3.Color? color) =>
       (super.noSuchMethod(
             Invocation.method(#setCustomColor, [color]),
+            returnValue: _i5.Future<void>.value(),
+            returnValueForMissingStub: _i5.Future<void>.value(),
+          )
+          as _i5.Future<void>);
+
+  @override
+  _i16.ColorIntensity getColorIntensity() =>
+      (super.noSuchMethod(
+            Invocation.method(#getColorIntensity, []),
+            returnValue: _i16.ColorIntensity.off,
+            returnValueForMissingStub: _i16.ColorIntensity.off,
+          )
+          as _i16.ColorIntensity);
+
+  @override
+  _i5.Future<void> setColorIntensity(_i16.ColorIntensity? colorIntensity) =>
+      (super.noSuchMethod(
+            Invocation.method(#setColorIntensity, [colorIntensity]),
             returnValue: _i5.Future<void>.value(),
             returnValueForMissingStub: _i5.Future<void>.value(),
           )
