@@ -12,6 +12,7 @@ class NoPermissionDialog extends StatelessWidget {
       content: Text(t.dialogs.noPermission.content),
       actions: [
         TextButton(
+          autofocus: true,
           onPressed: () => context.pop(),
           child: Text(t.general.close),
         ),
