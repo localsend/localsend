@@ -452,7 +452,8 @@
       "name": "Device name",
       "auto": "(auto)",
       "ip": "IP Address",
-      "port": "Port"
+      "port": "Port",
+      "invalidPort": "Enter a whole number between 1 and 65535."
     },
     "fileInfo": {
       "title": "File information",
