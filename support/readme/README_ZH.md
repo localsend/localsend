@@ -157,6 +157,21 @@ LocalSend 使用安全通信协议，允许设备通过 REST API 进行通信。
 ## 命令行界面
 
 LocalSend CLI 是一个基于 LocalSend 协议 v2 的终端客户端。
+
+在 macOS 和 Linux 上，使用 [Homebrew](https://brew.sh) 安装 CLI：
+
+```shell
+brew update
+brew install localsend-cli
+```
+
+如需升级已安装的 CLI：
+
+```shell
+brew update
+brew upgrade localsend-cli
+```
+
 运行 `localsend-cli --help` 查看所有可用选项和快捷键。
 
 使用 `send` 命令发送一个或多个文件、目录，或两者混合：
