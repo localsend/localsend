@@ -6,6 +6,7 @@ import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/provider/animation_provider.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:logging/logging.dart';
+import 'package:path/path.dart' as p;
 import 'package:refena_flutter/refena_flutter.dart';
 import 'package:tray_manager/tray_manager.dart' as tm;
 import 'package:window_manager/window_manager.dart';
@@ -32,6 +33,11 @@ Future<void> initTray() async {
       if (await File('/.flatpak-info').exists()) {
         // Icon for Flatpak, which must exist in /app/share/icons/hicolor/*x*/apps.
         icon = 'org.localsend.localsend_app-tray';
+      } else if (Platform.environment.containsKey('SNAP')) {
+        // tray_manager only resolves the asset path against the executable directory when it does not detect a sandbox,
+        // and it treats $SNAP as one. The relative path would then reach libayatana-appindicator, which interprets
+        // anything that is not absolute as an icon theme name. A snap sees the same paths as the host, so resolve it here.
+        icon = p.join(p.dirname(Platform.resolvedExecutable), 'data', 'flutter_assets', Assets.img.logo32White.path);
       } else {
         icon = Assets.img.logo32White.path;
       }
