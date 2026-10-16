@@ -31,8 +31,8 @@ void main(List<String> args) {
   );
   _replace(
     file: '$root/Cargo.lock',
-    pattern: 'name = "localsend-cli"\nversion = ".+"',
-    replacement: 'name = "localsend-cli"\nversion = "$version"',
+    pattern: r'(?<=name = "localsend-cli"\r?\n)version = ".+"',
+    replacement: 'version = "$version"',
   );
   _replace(
     file: '$root/support/scripts/compile_windows_exe-inno.iss',
