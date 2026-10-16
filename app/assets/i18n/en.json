@@ -45,7 +45,9 @@
     "infoBox": {
       "ip": "IP:",
       "port": "Port:",
-      "alias": "Device name:"
+      "alias": "Device name:",
+      "showQrCode": "Show QR code",
+      "qrCodeLabel": "Scan to connect"
     },
     "quickSave": {
       "off": "@:general.off",
