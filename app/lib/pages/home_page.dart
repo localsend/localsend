@@ -6,6 +6,7 @@ import 'package:localsend_app/config/init.dart';
 import 'package:localsend_app/config/theme.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/pages/home_page_controller.dart';
+import 'package:localsend_app/pages/receive_history_page.dart';
 import 'package:localsend_app/pages/tabs/receive_tab.dart';
 import 'package:localsend_app/pages/tabs/send_tab.dart';
 import 'package:localsend_app/pages/tabs/settings_tab.dart';
@@ -17,6 +18,7 @@ import 'package:refena_flutter/refena_flutter.dart';
 enum HomeTab {
   receive(Icons.wifi),
   send(Icons.send),
+  history(Icons.history),
   settings(Icons.settings)
   ;
 
@@ -30,6 +32,8 @@ enum HomeTab {
         return t.receiveTab.title;
       case HomeTab.send:
         return t.sendTab.title;
+      case HomeTab.history:
+        return t.receiveHistoryPage.title;
       case HomeTab.settings:
         return t.settingsTab.title;
     }
@@ -145,6 +149,7 @@ class _HomePageState extends State<HomePage> with Refena {
                           children: const [
                             ReceiveTab(),
                             SendTab(),
+                            ReceiveHistoryPage(),
                             SettingsTab(),
                           ],
                         ),
