@@ -113,6 +113,8 @@ MyApplication* my_application_new() {
   // the application to be recognized beyond its binary name.
   g_set_prgname(APPLICATION_ID);
   // Use a readable application name for the system tray.
+  // TODO: Remove this after upgrading to tray_manager 0.7.0
+  // See https://github.com/localsend/localsend/issues/3484
   g_set_application_name("LocalSend");
 
   return MY_APPLICATION(g_object_new(my_application_get_type(),
