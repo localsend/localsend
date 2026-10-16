@@ -12,6 +12,7 @@ import 'package:localsend_isolates/src/isolate/child/sync_provider.dart';
 import 'package:localsend_isolates/src/isolate/dto/send_to_isolate_data.dart';
 import 'package:localsend_isolates/src/task/server/file_saver.dart';
 import 'package:localsend_isolates/src/task/server/http_server.dart';
+import 'package:localsend_isolates/util/android_channel.dart';
 import 'package:localsend_isolates/util/future_queue.dart';
 import 'package:localsend_isolates/util/rust.dart';
 import 'package:logging/logging.dart';
@@ -722,7 +723,7 @@ Future<void> _handleFileUpload({
         // Scan before reporting success so Android can handle the saved file correctly
         // when it is moved to Trash, allowing another file with the same name.
         // https://github.com/localsend/localsend/issues/2007
-        await scanSavedFileAndroid(path: path);
+        await scanFileAndroid(path: path);
       }
     }
 

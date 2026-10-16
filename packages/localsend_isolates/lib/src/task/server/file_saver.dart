@@ -112,19 +112,6 @@ Future<FileSaveTarget> reopenFileSaveTarget(FileSaveTarget target) async {
   );
 }
 
-/// Scans a saved Android file after its native writer has closed.
-Future<void> scanSavedFileAndroid({required String path}) async {
-  try {
-    if (!await android_channel.scanFileAndroid(path: path)) {
-      _logger.warning('Android could not scan the saved file: $path');
-    }
-  } catch (e, st) {
-    // The bytes are already saved; a metadata failure must not discard them
-    // or report the completed transfer as a failed write.
-    _logger.warning('Could not scan the saved file: $path', e, st);
-  }
-}
-
 /// Moves a file that has been written to the cache directory into the
 /// OS gallery (Photos/Videos).
 ///
