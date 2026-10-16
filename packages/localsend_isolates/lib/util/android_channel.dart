@@ -7,9 +7,7 @@ import 'package:logging/logging.dart';
 const _methodChannel = MethodChannel('org.localsend.localsend_app/localsend');
 final _logger = Logger('AndroidSaf');
 
-/// Scans a saved file at an absolute filesystem [path] after its writer has closed.
-///
-/// Logs scan failures without failing the completed file transfer.
+/// Scans a saved file at an absolute filesystem [path]
 Future<void> scanFileAndroid({required String path}) async {
   try {
     final scanned = await _methodChannel
