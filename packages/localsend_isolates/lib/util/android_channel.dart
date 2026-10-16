@@ -21,7 +21,6 @@ Future<void> scanFileAndroid({required String path}) async {
   } on TimeoutException {
     _logger.warning('Android media scan timed out after 30 seconds for the saved file: $path');
   } catch (e, st) {
-    // The bytes are already saved; a metadata failure must not fail the transfer.
     _logger.warning('Android media scan failed for the saved file: $path', e, st);
   }
 }
