@@ -176,6 +176,9 @@ class Translations$general$en {
   /// en: 'Settings'
   String get settings => 'Settings';
 
+  /// en: 'Show'
+  String get show => 'Show';
+
   /// en: 'Skipped'
   String get skipped => 'Skipped';
 
