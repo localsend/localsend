@@ -201,11 +201,16 @@
       hideProgress();
       showStatus(i18n.waiting);
 
+      // Zero-byte files (e.g. corrupted leftovers that the browser includes
+      // with a selection, #3140) would abort the whole transfer midway.
       var selectedFiles = {};
       var filesDto = {};
       for (var i = 0; i < fileList.length; i++) {
         var file = fileList[i];
-        var fileId = String(i);
+        if (!file.size) {
+          continue;
+        }
+        var fileId = String(Object.keys(selectedFiles).length);
         selectedFiles[fileId] = file;
         filesDto[fileId] = {
           id: fileId,
@@ -213,6 +218,11 @@
           size: file.size,
           fileType: file.type || 'application/octet-stream'
         };
+      }
+
+      if (Object.keys(selectedFiles).length === 0) {
+        finishWithError(i18n.nothingToSend || 'Nothing to send');
+        return;
       }
 
       var body = JSON.stringify({
@@ -283,34 +293,48 @@
     function uploadFiles(sessionId, tokens, selectedFiles) {
       var fileIds = getKeys(tokens);
       var total = fileIds.length;
+      var processed = 0;
+      var failed = 0;
 
       showStatus('');
-      showProgress(0, total);
+      showProgress(processed, total);
 
-      function uploadNext(index) {
-        if (index >= total) {
-          finishWithSuccess();
+      function uploadNext() {
+        if (processed >= total) {
+          if (failed > 0) {
+            finishWithError(failed + '/' + total + ' ' + (i18n.filesFailed || 'file(s) failed'));
+          } else {
+            finishWithSuccess();
+          }
           return;
         }
 
-        var fileId = fileIds[index];
+        var fileId = fileIds[processed];
         var url = BASE_URL + '/upload' +
             '?sessionId=' + encodeURIComponent(sessionId) +
             '&fileId=' + encodeURIComponent(fileId) +
             '&token=' + encodeURIComponent(tokens[fileId]);
 
         makeRequest(url, 'POST', selectedFiles[fileId], function (response) {
-          if (response.status !== 200) {
+          // The session is gone; retrying the remaining files cannot succeed.
+          if (response.status === 403 || response.status === 409 || response.status === 404) {
             finishWithError(errorText(response.status));
             return;
           }
 
-          showProgress(index + 1, total);
-          uploadNext(index + 1);
+          // A single file failing (e.g. a zero-byte leftover, #3140) must not
+          // cancel the rest of the queue.
+          if (response.status !== 200) {
+            failed++;
+          }
+
+          processed++;
+          showProgress(processed, total);
+          uploadNext();
         });
       }
 
-      uploadNext(0);
+      uploadNext();
     }
 
     function getFingerprint() {
