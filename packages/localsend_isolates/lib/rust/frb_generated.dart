@@ -2591,6 +2591,12 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  bool dco_decode_box_autoadd_bool(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return raw as bool;
+  }
+
+  @protected
   ClientInfo dco_decode_box_autoadd_client_info(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return dco_decode_client_info(raw);
@@ -2772,7 +2778,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   FileDto dco_decode_file_dto(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     final arr = raw as List<dynamic>;
-    if (arr.length != 7) throw Exception('unexpected arr length: expect 7 but see ${arr.length}');
+    if (arr.length != 8) throw Exception('unexpected arr length: expect 8 but see ${arr.length}');
     return FileDto(
       id: dco_decode_String(arr[0]),
       fileName: dco_decode_String(arr[1]),
@@ -2781,6 +2787,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       sha256: dco_decode_opt_String(arr[4]),
       preview: dco_decode_opt_String(arr[5]),
       metadata: dco_decode_opt_box_autoadd_file_metadata(arr[6]),
+      secret: dco_decode_opt_box_autoadd_bool(arr[7]),
     );
   }
 
@@ -2891,6 +2898,12 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
     return raw == null
         ? null
         : dco_decode_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDart2RustStreamReceiver(raw);
+  }
+
+  @protected
+  bool? dco_decode_opt_box_autoadd_bool(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return raw == null ? null : dco_decode_box_autoadd_bool(raw);
   }
 
   @protected
@@ -3880,6 +3893,12 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  bool sse_decode_box_autoadd_bool(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return (sse_decode_bool(deserializer));
+  }
+
+  @protected
   ClientInfo sse_decode_box_autoadd_client_info(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     return (sse_decode_client_info(deserializer));
@@ -4060,6 +4079,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
     var var_sha256 = sse_decode_opt_String(deserializer);
     var var_preview = sse_decode_opt_String(deserializer);
     var var_metadata = sse_decode_opt_box_autoadd_file_metadata(deserializer);
+    var var_secret = sse_decode_opt_box_autoadd_bool(deserializer);
     return FileDto(
       id: var_id,
       fileName: var_fileName,
@@ -4068,6 +4088,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       sha256: var_sha256,
       preview: var_preview,
       metadata: var_metadata,
+      secret: var_secret,
     );
   }
 
@@ -4224,6 +4245,17 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
 
     if (sse_decode_bool(deserializer)) {
       return (sse_decode_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDart2RustStreamReceiver(deserializer));
+    } else {
+      return null;
+    }
+  }
+
+  @protected
+  bool? sse_decode_opt_box_autoadd_bool(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    if (sse_decode_bool(deserializer)) {
+      return (sse_decode_box_autoadd_bool(deserializer));
     } else {
       return null;
     }
@@ -5363,6 +5395,12 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  void sse_encode_box_autoadd_bool(bool self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_bool(self, serializer);
+  }
+
+  @protected
   void sse_encode_box_autoadd_client_info(ClientInfo self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_client_info(self, serializer);
@@ -5538,6 +5576,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
     sse_encode_opt_String(self.sha256, serializer);
     sse_encode_opt_String(self.preview, serializer);
     sse_encode_opt_box_autoadd_file_metadata(self.metadata, serializer);
+    sse_encode_opt_box_autoadd_bool(self.secret, serializer);
   }
 
   @protected
@@ -5669,6 +5708,16 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
     sse_encode_bool(self != null, serializer);
     if (self != null) {
       sse_encode_box_autoadd_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerDart2RustStreamReceiver(self, serializer);
+    }
+  }
+
+  @protected
+  void sse_encode_opt_box_autoadd_bool(bool? self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    sse_encode_bool(self != null, serializer);
+    if (self != null) {
+      sse_encode_box_autoadd_bool(self, serializer);
     }
   }
 

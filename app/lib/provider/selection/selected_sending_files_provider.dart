@@ -3,6 +3,7 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:localsend_app/model/cross_file.dart';
+import 'package:localsend_app/provider/selection/secret_send_provider.dart';
 import 'package:localsend_app/util/native/cache_helper.dart';
 import 'package:localsend_app/util/native/channel/android_channel.dart' as android_channel;
 import 'package:localsend_app/util/native/cross_file_converters.dart';
@@ -279,6 +280,7 @@ class RemoveSelectedFileAction extends ReduxAction<SelectedSendingFilesNotifier,
   void after() {
     if (state.isEmpty) {
       global.dispatchAsync(ClearCacheAction()); // ignore: discarded_futures
+      global.dispatch(ResetSecretSendAction());
     }
   }
 }
@@ -364,5 +366,6 @@ class ClearSelectionAction extends ReduxAction<SelectedSendingFilesNotifier, Lis
   @override
   void after() {
     global.dispatchAsync(ClearCacheAction()); // ignore: discarded_futures
+    global.dispatch(ResetSecretSendAction());
   }
 }

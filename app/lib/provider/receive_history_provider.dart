@@ -31,6 +31,7 @@ class AddHistoryEntryAction extends AsyncReduxAction<ReceiveHistoryService, List
   final int fileSize;
   final String senderAlias;
   final DateTime timestamp;
+  final bool secret;
 
   AddHistoryEntryAction({
     required this.entryId,
@@ -42,11 +43,12 @@ class AddHistoryEntryAction extends AsyncReduxAction<ReceiveHistoryService, List
     required this.fileSize,
     required this.senderAlias,
     required this.timestamp,
+    required this.secret,
   });
 
   @override
   Future<List<ReceiveHistoryEntry>> reduce() async {
-    if (!notifier._persistence.isSaveToHistory()) {
+    if (secret || !notifier._persistence.isSaveToHistory()) {
       return state;
     }
 

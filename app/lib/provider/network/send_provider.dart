@@ -12,6 +12,7 @@ import 'package:localsend_app/pages/send_page.dart';
 import 'package:localsend_app/provider/device_info_provider.dart';
 import 'package:localsend_app/provider/file_transfer_provider.dart';
 import 'package:localsend_app/provider/http_provider.dart';
+import 'package:localsend_app/provider/selection/secret_send_provider.dart';
 import 'package:localsend_app/provider/selection/selected_sending_files_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/widget/dialogs/pin_dialog.dart';
@@ -95,6 +96,7 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
     final client = ref.read(httpProvider).pinnedTo(target.fingerprint);
     final sessionId = _uuid.v4();
     final createChecksums = ref.read(settingsProvider).createChecksums;
+    final secret = ref.read(secretSendProvider);
 
     // The ids are assigned upfront, so the checksums calculated below
     // can be mapped back to the corresponding file.
@@ -127,6 +129,7 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
                         lastAccessed: file.lastAccessed,
                       )
                     : null,
+                secret: secret,
               ),
               token: null,
               thumbnail: file.thumbnail,

@@ -59,7 +59,9 @@
     "selection": {
       "title": "Selection",
       "files": "Files: {files}",
-      "size": "Size: {size}"
+      "size": "Size: {size}",
+      "secret": "Secret",
+      "secretTooltip": "Not kept in the receiver's history"
     },
     "picker": {
       "file": "File",

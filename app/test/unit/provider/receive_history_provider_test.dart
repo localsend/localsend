@@ -38,6 +38,7 @@ void main() {
         fileSize: entry.fileSize,
         senderAlias: entry.senderAlias,
         timestamp: entry.timestamp,
+        secret: false,
       ),
     );
 
@@ -65,6 +66,33 @@ void main() {
         fileSize: entry.fileSize,
         senderAlias: entry.senderAlias,
         timestamp: entry.timestamp,
+        secret: false,
+      ),
+    );
+
+    expect(service.state, []);
+    verifyNever(persistenceService.setReceiveHistory(any));
+  });
+
+  test('Should not add an entry if the sender marked it secret', () async {
+    final service = ReduxNotifier.test(
+      redux: ReceiveHistoryService(persistenceService),
+    );
+
+    final entry = _createEntry('1');
+
+    await service.dispatchAsync(
+      AddHistoryEntryAction(
+        entryId: entry.id,
+        fileName: entry.fileName,
+        fileType: entry.fileType,
+        path: entry.path,
+        savedToGallery: entry.savedToGallery,
+        isMessage: entry.isMessage,
+        fileSize: entry.fileSize,
+        senderAlias: entry.senderAlias,
+        timestamp: entry.timestamp,
+        secret: true,
       ),
     );
 
@@ -95,6 +123,7 @@ void main() {
         fileSize: entry.fileSize,
         senderAlias: entry.senderAlias,
         timestamp: entry.timestamp,
+        secret: false,
       ),
     );
 
