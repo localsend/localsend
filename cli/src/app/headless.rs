@@ -67,14 +67,32 @@ pub(super) async fn run(
                 handle_server_event(&mut ui, &storage, &discovery, &mut send, event)
             }
             AppEvent::Discovery(event) => {
-                handle_discovery(&mut ui, &mut storage, &discovery, event)
+                handle_discovery(&mut ui, &mut storage, &discovery, event);
+                // Early start only for explicit IPs: the direct probe
+                // confirms them in one round trip and an IP cannot be
+                // ambiguous, so waiting out the 2.6 s announcement burst
+                // buys nothing. Alias targets stay on DiscoveryFinished
+                // below, where a second same-alias device can still turn
+                // the resolve into an "ambiguous" error before any send.
+                if send.is_none()
+                    && matches!(target, TargetSelector::Ip(_))
+                    && let Ok(state) =
+                        start_send(&mut ui, &storage, &discovery, &target, &payload, &events_tx)
+                {
+                    send = Some(state);
+                }
             }
             AppEvent::Tick => render_progress(&mut ui, &mut send),
             AppEvent::Log { category, text } => ui.log(category, &text),
             AppEvent::DiscoveryFinished => {
-                match start_send(&mut ui, &storage, &discovery, &target, &payload, &events_tx) {
-                    Ok(state) => send = Some(state),
-                    Err(reason) => break Err(anyhow::anyhow!(reason)),
+                // Fallback: if no Discovery event already started the send
+                // (alias targets, a destination that never appeared), resolve
+                // now and surface the error.
+                if send.is_none() {
+                    match start_send(&mut ui, &storage, &discovery, &target, &payload, &events_tx) {
+                        Ok(state) => send = Some(state),
+                        Err(reason) => break Err(anyhow::anyhow!(reason)),
+                    }
                 }
             }
             AppEvent::SendSessionStarted {
