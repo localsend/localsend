@@ -246,6 +246,7 @@ mod tests {
                     sha256: None,
                     preview: None,
                     metadata: None,
+                    secret: None,
                 },
             )]),
         };
@@ -254,5 +255,37 @@ mod tests {
         assert!(json.contains("\"info\""));
         assert!(json.contains("\"files\""));
         assert!(json.contains("\"fingerprint\":\"sender-fingerprint\""));
+        assert!(!json.contains("\"secret\""));
+    }
+
+    #[test]
+    fn test_file_dto_secret_round_trip() {
+        let json = r#"{
+            "id": "file1",
+            "fileName": "secret.pdf",
+            "size": 1024,
+            "fileType": "application/pdf",
+            "secret": true
+        }"#;
+
+        let dto: FileDto = serde_json::from_str(json).unwrap();
+        assert_eq!(dto.secret, Some(true));
+        assert!(serde_json::to_string(&dto)
+            .unwrap()
+            .contains("\"secret\":true"));
+    }
+
+    #[test]
+    fn test_file_dto_without_secret_field() {
+        // Peers that do not know the field omit it
+        let json = r#"{
+            "id": "file1",
+            "fileName": "test.png",
+            "size": 1024,
+            "fileType": "image/png"
+        }"#;
+
+        let dto: FileDto = serde_json::from_str(json).unwrap();
+        assert_eq!(dto.secret, None);
     }
 }

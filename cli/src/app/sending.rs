@@ -111,6 +111,7 @@ fn text_transfer(ui: &mut Ui, text: Bytes) -> Transfer {
         sha256: None,
         preview,
         metadata: None,
+        secret: None,
     };
     (
         HashMap::from([(id.clone(), file)]),
@@ -329,6 +330,7 @@ pub(super) fn collect_files(
                 sha256: None,
                 preview: None,
                 metadata: FileMetadata::from_fs_metadata(&metadata),
+                secret: None,
             },
         );
         paths.insert(id, path);

@@ -68,6 +68,8 @@ extension FileDtoExt on FileDto {
               accessed: metadata!.lastAccessed,
             )
           : null,
+      // Omitted unless set, so regular transfers stay unchanged on the wire
+      secret: secret ? true : null,
     );
   }
 }
@@ -127,6 +129,7 @@ extension RustFileDtoExt on rust_model.FileDto {
               lastAccessed: metadata!.accessed,
             )
           : null,
+      secret: secret ?? false,
     );
   }
 }

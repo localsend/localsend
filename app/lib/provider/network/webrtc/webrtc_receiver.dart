@@ -199,6 +199,7 @@ extension on FileDto {
       hash: null,
       preview: preview,
       metadata: metadata?.toFileMetadata(),
+      secret: secret ?? false,
     );
   }
 }
