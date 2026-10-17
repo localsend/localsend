@@ -3,6 +3,7 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:localsend_app/model/cross_file.dart';
+import 'package:localsend_app/util/file_uri_helper.dart';
 import 'package:localsend_app/util/native/cache_helper.dart';
 import 'package:localsend_app/util/native/channel/android_channel.dart' as android_channel;
 import 'package:localsend_app/util/native/cross_file_converters.dart';
@@ -333,8 +334,9 @@ class LoadSelectionFromArgsAction extends AsyncReduxActionWithResult<SelectedSen
         continue;
       }
 
-      final file = File(arg);
-      final directory = Directory(arg);
+      final path = resolveFilePathArgument(arg);
+      final file = File(path);
+      final directory = Directory(path);
 
       if (file.existsSync()) {
         await dispatchAsync(
@@ -345,7 +347,7 @@ class LoadSelectionFromArgsAction extends AsyncReduxActionWithResult<SelectedSen
         );
         filesAdded = true;
       } else if (directory.existsSync()) {
-        await dispatchAsync(AddDirectoryAction(arg));
+        await dispatchAsync(AddDirectoryAction(path));
         filesAdded = true;
       }
     }
