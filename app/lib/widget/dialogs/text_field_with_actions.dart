@@ -56,11 +56,11 @@ class _TextFieldWithActionsState extends State<TextFieldWithActions> {
                 ],
               ),
               actions: [
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Theme.of(context).colorScheme.primary,
-                    foregroundColor: Theme.of(context).colorScheme.onPrimary,
-                  ),
+                TextButton(
+                  onPressed: () => context.pop(),
+                  child: Text(t.general.cancel),
+                ),
+                TextButton(
                   onPressed: () => context.pop(),
                   child: Text(t.general.confirm),
                 ),
