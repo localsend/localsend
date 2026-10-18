@@ -5,7 +5,11 @@ import 'package:routerino/routerino.dart';
 class MessageInputDialog extends StatefulWidget {
   final String? initialText;
 
-  const MessageInputDialog({this.initialText});
+  /// Called with the current text on every change, so callers can persist a
+  /// draft that survives the dialog being dismissed by unrelated navigation.
+  final ValueChanged<String>? onChanged;
+
+  const MessageInputDialog({this.initialText, this.onChanged});
 
   @override
   State<MessageInputDialog> createState() => _MessageInputDialogState();
@@ -35,6 +39,7 @@ class _MessageInputDialogState extends State<MessageInputDialog> {
         keyboardType: TextInputType.multiline,
         maxLines: null,
         autofocus: true,
+        onChanged: widget.onChanged,
       ),
       actions: [
         TextButton(

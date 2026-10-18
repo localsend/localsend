@@ -283,9 +283,18 @@ Future<void> _pickMedia(BuildContext context, Ref ref) async {
 }
 
 Future<void> _pickText(BuildContext context, Ref ref) async {
-  final result = await showDialog<String>(context: context, builder: (_) => const MessageInputDialog());
+  // Restore a previously uncommitted draft, if any.
+  final draft = ref.read(messageDraftProvider).pending;
+  final result = await showDialog<String>(
+    context: context,
+    builder: (_) => MessageInputDialog(
+      initialText: draft,
+      onChanged: (text) => ref.redux(messageDraftProvider).dispatch(SetMessageDraftAction(text: text)),
+    ),
+  );
   if (result != null) {
     ref.redux(selectedSendingFilesProvider).dispatch(AddMessageAction(message: result));
+    ref.redux(messageDraftProvider).dispatch(ClearMessageDraftsAction());
   }
 }
 

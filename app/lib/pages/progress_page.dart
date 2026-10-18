@@ -144,7 +144,13 @@ class _ProgressPageState extends State<ProgressPage> with Refena {
     final result = status == null || keepSession || await _askCancelConfirmation(status);
 
     if (result && mounted) {
-      if (ref.read(serverProvider)?.webUpload == true) {
+      if (receiveSession != null) {
+        // Receiving session: only close this progress page and return to the
+        // page that was interrupted (e.g. a pending message input dialog).
+        // Popping the whole stack here would silently discard uncommitted
+        // user input in dialogs below.
+        context.global.dispatch(NavigateAction.pop());
+      } else if (ref.read(serverProvider)?.webUpload == true) {
         context.global.dispatch(NavigateAction.popUntil<WebSharePage>());
       } else {
         context.global.dispatch(NavigateAction.popUntilRoot());

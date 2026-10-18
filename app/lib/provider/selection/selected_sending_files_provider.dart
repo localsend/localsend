@@ -366,3 +366,53 @@ class ClearSelectionAction extends ReduxAction<SelectedSendingFilesNotifier, Lis
     global.dispatchAsync(ClearCacheAction()); // ignore: discarded_futures
   }
 }
+
+/// Uncommitted message input draft.
+///
+/// The message text the user typed into [MessageInputDialog] is kept here even
+/// if the dialog gets dismissed by unrelated navigation (e.g. an incoming
+/// receive request whose handling pops routes below the dialog). Drafts are
+/// only cleared when the message is actually committed, so reopening the
+/// dialog restores the typed text and long inputs are never silently lost.
+class MessageDraft {
+  /// Draft for the "text" picker entry (no list index yet).
+  final String? pending;
+
+  /// Drafts for text entries already in the selection list, keyed by index.
+  final Map<int, String> byIndex;
+
+  const MessageDraft({this.pending, this.byIndex = const {}});
+}
+
+/// Manages uncommitted message input drafts.
+final messageDraftProvider = ReduxProvider<MessageDraftNotifier, MessageDraft>((ref) {
+  return MessageDraftNotifier();
+});
+
+class MessageDraftNotifier extends ReduxNotifier<MessageDraft> {
+  @override
+  MessageDraft init() => const MessageDraft();
+}
+
+/// Updates the draft for a message input.
+/// [index] is null for the "text" picker entry and the list index otherwise.
+class SetMessageDraftAction extends ReduxAction<MessageDraftNotifier, MessageDraft> {
+  final int? index;
+  final String text;
+
+  SetMessageDraftAction({this.index, required this.text});
+
+  @override
+  MessageDraft reduce() {
+    if (index == null) {
+      return MessageDraft(pending: text, byIndex: state.byIndex);
+    }
+    return MessageDraft(pending: state.pending, byIndex: {...state.byIndex, index!: text});
+  }
+}
+
+/// Clears all message drafts after a message has been committed.
+class ClearMessageDraftsAction extends ReduxAction<MessageDraftNotifier, MessageDraft> {
+  @override
+  MessageDraft reduce() => const MessageDraft();
+}

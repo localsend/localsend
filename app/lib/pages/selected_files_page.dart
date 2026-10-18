@@ -108,12 +108,21 @@ class SelectedFilesPage extends StatelessWidget {
                                     iconSize: 24,
                                   ),
                                   onPressed: () async {
+                                    // Restore the uncommitted draft for this
+                                    // entry, falling back to its committed text.
+                                    final drafts = ref.read(messageDraftProvider);
+                                    final initialText = drafts.byIndex[index] ?? message;
+                                    void saveDraft(String text) {
+                                      ref.redux(messageDraftProvider).dispatch(SetMessageDraftAction(index: index, text: text));
+                                    }
+
                                     final result = await showDialog<String>(
                                       context: context,
-                                      builder: (_) => MessageInputDialog(initialText: message),
+                                      builder: (_) => MessageInputDialog(initialText: initialText, onChanged: saveDraft),
                                     );
                                     if (result != null) {
                                       ref.redux(selectedSendingFilesProvider).dispatch(UpdateMessageAction(message: result, index: index));
+                                      ref.redux(messageDraftProvider).dispatch(ClearMessageDraftsAction());
                                     }
                                   },
                                   child: const Icon(Icons.edit),
