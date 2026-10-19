@@ -14,6 +14,11 @@ void main() {
       final duplicates = byCodePoint.entries.where((e) => e.value > 1).map((e) => '0x${e.key.toRadixString(16)}').toList();
       expect(duplicates, isEmpty, reason: 'duplicate glyphs: ${duplicates.join(', ')}');
     });
+
+    test('has one spoken name per icon', () {
+      expect(iconAlphabetNames.length, iconAlphabet.length, reason: 'index mismatch between iconAlphabet and iconAlphabetNames');
+      expect(iconAlphabetNames.every((name) => name.trim().isNotEmpty), isTrue, reason: 'empty spoken name');
+    });
   });
 
   group('fingerprintToIcons', () {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/util/ui/snackbar.dart';
 
 class CopyableText extends StatelessWidget {
@@ -21,7 +22,7 @@ class CopyableText extends StatelessWidget {
           : () async {
               await Clipboard.setData(ClipboardData(text: value!));
               if (context.mounted) {
-                context.showSnackBar('Copied $name to clipboard!');
+                context.showSnackBar(t.general.copiedToClipboard);
               }
             },
       child: Text.rich(

@@ -56,6 +56,7 @@ class ReceiveOptionsPage extends StatelessWidget {
                               ref.notifier(serverProvider).setSessionDestinationDir(directory);
                             }
                           },
+                          tooltip: t.receiveOptionsPage.destination,
                           child: const Icon(Icons.edit),
                         ),
                       ),
@@ -179,17 +180,20 @@ class ReceiveOptionsPage extends StatelessWidget {
                             },
                       child: const Icon(Icons.edit),
                     ),
-                    Checkbox(
-                      value: selectState.containsKey(file.id),
-                      activeColor: Theme.of(context).colorScheme.onSurface,
-                      checkColor: Theme.of(context).colorScheme.surface,
-                      onChanged: (selected) {
-                        if (selected == true) {
-                          ref.notifier(selectedReceivingFilesProvider).select(file);
-                        } else {
-                          ref.notifier(selectedReceivingFilesProvider).unselect(file.id);
-                        }
-                      },
+                    Semantics(
+                      label: selectState[file.id] ?? file.fileName,
+                      child: Checkbox(
+                        value: selectState.containsKey(file.id),
+                        activeColor: Theme.of(context).colorScheme.onSurface,
+                        checkColor: Theme.of(context).colorScheme.surface,
+                        onChanged: (selected) {
+                          if (selected == true) {
+                            ref.notifier(selectedReceivingFilesProvider).select(file);
+                          } else {
+                            ref.notifier(selectedReceivingFilesProvider).unselect(file.id);
+                          }
+                        },
+                      ),
                     ),
                   ],
                 ),
