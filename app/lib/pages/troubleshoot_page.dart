@@ -118,6 +118,7 @@ class _TroubleshootItemState extends State<_TroubleshootItem> {
                         onPressed: () {
                           setState(() => _showCommands = !_showCommands);
                         },
+                        tooltip: t.general.showDetails,
                         child: const Icon(Icons.info),
                       ),
                     ],

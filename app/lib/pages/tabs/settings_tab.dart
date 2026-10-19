@@ -415,7 +415,10 @@ class SettingsTab extends StatelessWidget {
                         return DropdownMenuItem(
                           value: type,
                           alignment: Alignment.center,
-                          child: Icon(type.icon),
+                          child: Semantics(
+                            label: type.name,
+                            child: Icon(type.icon),
+                          ),
                         );
                       }).toList(),
                       onChanged: (type) async {
@@ -673,29 +676,32 @@ class _BooleanEntry extends StatelessWidget {
     return _SettingsEntry(
       label: label,
       description: description,
-      child: Stack(
-        children: [
-          Container(
-            width: double.infinity,
-            height: 50,
-            decoration: BoxDecoration(
-              color: theme.inputDecorationTheme.fillColor,
-              borderRadius: theme.inputDecorationTheme.borderRadius,
-            ),
-          ),
-          Positioned.fill(
-            child: Center(
-              child: Switch(
-                value: value,
-                onChanged: onChanged,
-                activeTrackColor: theme.colorScheme.primary,
-                activeThumbColor: theme.colorScheme.onPrimary,
-                inactiveThumbColor: theme.colorScheme.outline,
-                inactiveTrackColor: theme.colorScheme.surface,
+      child: Semantics(
+        label: label,
+        child: Stack(
+          children: [
+            Container(
+              width: double.infinity,
+              height: 50,
+              decoration: BoxDecoration(
+                color: theme.inputDecorationTheme.fillColor,
+                borderRadius: theme.inputDecorationTheme.borderRadius,
               ),
             ),
-          ),
-        ],
+            Positioned.fill(
+              child: Center(
+                child: Switch(
+                  value: value,
+                  onChanged: onChanged,
+                  activeTrackColor: theme.colorScheme.primary,
+                  activeThumbColor: theme.colorScheme.onPrimary,
+                  inactiveThumbColor: theme.colorScheme.outline,
+                  inactiveTrackColor: theme.colorScheme.surface,
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

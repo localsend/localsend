@@ -76,6 +76,7 @@ class _TextFieldTvState extends State<TextFieldTv> with Refena {
         decoration: InputDecoration(
           suffixIcon: widget.onDelete != null
               ? IconButton(
+                  tooltip: t.general.clear,
                   icon: Icon(Icons.clear),
                   onPressed: () {
                     widget.onDelete?.call();

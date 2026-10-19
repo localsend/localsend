@@ -13,37 +13,39 @@ class DevicePlaceholderListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final animations = context.ref.watch(animationProvider);
-    return CustomListTile(
-      icon: OpacitySlideshow(
-        durationMillis: 3000,
-        running: animations,
-        children: [
-          ...DeviceType.values.map((d) => Icon(d.icon, size: 46)),
-        ],
-      ),
-      title: const Visibility(
-        visible: false,
-        maintainSize: true,
-        maintainAnimation: true,
-        maintainState: true,
-        // A workaround to have an implicit height
-        child: Text('A', style: TextStyle(fontSize: 20)),
-      ),
-      subTitle: Wrap(
-        runSpacing: 10,
-        spacing: 10,
-        children: [
-          DeviceBadge(
-            backgroundColor: Theme.of(context).colorScheme.onSecondaryContainer.withValues(alpha: 0.5),
-            foregroundColor: Colors.transparent,
-            label: '       ',
-          ),
-          DeviceBadge(
-            backgroundColor: Theme.of(context).colorScheme.onSecondaryContainer.withValues(alpha: 0.5),
-            foregroundColor: Colors.transparent,
-            label: '              ',
-          ),
-        ],
+    return ExcludeSemantics(
+      child: CustomListTile(
+        icon: OpacitySlideshow(
+          durationMillis: 3000,
+          running: animations,
+          children: [
+            ...DeviceType.values.map((d) => Icon(d.icon, size: 46)),
+          ],
+        ),
+        title: const Visibility(
+          visible: false,
+          maintainSize: true,
+          maintainAnimation: true,
+          maintainState: true,
+          // A workaround to have an implicit height
+          child: Text('A', style: TextStyle(fontSize: 20)),
+        ),
+        subTitle: Wrap(
+          runSpacing: 10,
+          spacing: 10,
+          children: [
+            DeviceBadge(
+              backgroundColor: Theme.of(context).colorScheme.onSecondaryContainer.withValues(alpha: 0.5),
+              foregroundColor: Colors.transparent,
+              label: '       ',
+            ),
+            DeviceBadge(
+              backgroundColor: Theme.of(context).colorScheme.onSecondaryContainer.withValues(alpha: 0.5),
+              foregroundColor: Colors.transparent,
+              label: '              ',
+            ),
+          ],
+        ),
       ),
     );
   }

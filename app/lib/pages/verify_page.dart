@@ -107,7 +107,12 @@ class VerifyWidget extends StatelessWidget {
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
                 children: [
-                  for (final icon in fingerprint.icons) Icon(icon, size: 32),
+                  // Icons are announced by their spoken name so the fingerprint can be compared by ear.
+                  for (final icon in fingerprint.icons)
+                    Semantics(
+                      label: iconAlphabetNames[iconAlphabet.indexOf(icon)],
+                      child: Icon(icon, size: 32),
+                    ),
                 ],
               ),
             ),

@@ -98,6 +98,9 @@ class Translations$general$en {
   /// en: 'Cancel'
   String get cancel => 'Cancel';
 
+  /// en: 'Clear'
+  String get clear => 'Clear';
+
   /// en: 'Close'
   String get close => 'Close';
 
@@ -134,11 +137,17 @@ class Translations$general$en {
   /// en: 'Files'
   String get files => 'Files';
 
+  /// en: 'Filter'
+  String get filter => 'Filter';
+
   /// en: 'Finished'
   String get finished => 'Finished';
 
   /// en: 'Hide'
   String get hide => 'Hide';
+
+  /// en: 'More'
+  String get more => 'More';
 
   /// en: 'Off'
   String get off => 'Off';
@@ -173,8 +182,14 @@ class Translations$general$en {
   /// en: 'Restart'
   String get restart => 'Restart';
 
+  /// en: 'Retry'
+  String get retry => 'Retry';
+
   /// en: 'Settings'
   String get settings => 'Settings';
+
+  /// en: 'Show details'
+  String get showDetails => 'Show details';
 
   /// en: 'Skipped'
   String get skipped => 'Skipped';
@@ -373,6 +388,16 @@ class Translations$apkPickerPage$en {
 
   /// en: '{n} Apps'
   String apps({required Object n}) => '${n} Apps';
+
+  /// en: '(one) {Add 1 app} (other) {Add {n} apps}'
+  String addApps({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(
+    n,
+    one: 'Add 1 app',
+    other: 'Add ${n} apps',
+  );
+
+  /// en: 'Select multiple apps'
+  String get selectMultipleApps => 'Select multiple apps';
 }
 
 // Path: selectedFilesPage
@@ -614,6 +639,15 @@ class Translations$aboutPage$en {
 
   /// en: 'Translators'
   String get translators => 'Translators';
+
+  /// en: 'Homepage'
+  String get homepage => 'Homepage';
+
+  /// en: 'License Notices'
+  String get licenseNotices => 'License Notices';
+
+  /// en: 'Debugging'
+  String get debugging => 'Debugging';
 }
 
 // Path: donationPage
