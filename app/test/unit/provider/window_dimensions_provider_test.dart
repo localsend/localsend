@@ -1,183 +1,255 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:localsend_app/provider/window_dimensions_provider.dart';
 import 'package:mockito/mockito.dart';
-import 'package:screen_retriever/screen_retriever.dart';
 
 import '../../mocks.mocks.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
-  late MockPersistenceService persistence;
-  late WindowDimensionsController controller;
-  late ScreenRetrieverPlatform originalPlatform;
-  late _ScreenRetriever screens;
-  late Rect windowBounds;
-  late List<MethodCall> windowCalls;
+  const nativeChannel = MethodChannel('main-delegate-channel');
+  const windowChannel = MethodChannel('window_manager');
+  const screenChannel = MethodChannel('dev.leanflutter.plugins/screen_retriever');
+  final legacyFrame = WindowDimensions(position: const Offset(120, 80), size: const Size(700, 550));
 
-  const display = Display(id: 'primary', size: Size(1440, 900), visiblePosition: Offset(0, 25), visibleSize: Size(1440, 875));
+  late MockPersistenceService persistence;
+  late List<MethodCall> nativeCalls;
+  late List<MethodCall> windowCalls;
+  late List<MethodCall> screenCalls;
+  var nativeRestoreResult = false;
+  late List<Rect> visibleDisplays;
+
+  Map<String, Object> displayFor(Rect bounds, int index) => {
+    'id': '$index',
+    'name': 'Display $index',
+    'size': {'width': bounds.width, 'height': bounds.height},
+    'visibleSize': {'width': bounds.width, 'height': bounds.height},
+    'visiblePosition': {'dx': bounds.left, 'dy': bounds.top},
+    'scaleFactor': 1.0,
+  };
 
   setUp(() {
+    debugDefaultTargetPlatformOverride = TargetPlatform.macOS;
     persistence = MockPersistenceService();
-    controller = WindowDimensionsController(persistence);
-    originalPlatform = ScreenRetrieverPlatform.instance;
-    screens = _ScreenRetriever([display]);
-    ScreenRetrieverPlatform.instance = screens;
-    windowBounds = const Rect.fromLTWH(100, 100, 400, 500);
+    nativeCalls = [];
     windowCalls = [];
-    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger.setMockMethodCallHandler(const MethodChannel('window_manager'), (call) async {
+    screenCalls = [];
+    nativeRestoreResult = false;
+    visibleDisplays = [const Rect.fromLTWH(0, 0, 1440, 900)];
+    when(persistence.getSaveWindowPlacement()).thenReturn(true);
+    when(persistence.isPortableMode()).thenReturn(false);
+    when(persistence.getWindowLastDimensions()).thenReturn(legacyFrame);
+
+    final messenger = TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger;
+    messenger.setMockMethodCallHandler(nativeChannel, (call) async {
+      nativeCalls.add(call);
+      if (call.method == 'restoreWindowFrame') return nativeRestoreResult;
+      return null;
+    });
+    messenger.setMockMethodCallHandler(windowChannel, (call) async {
       windowCalls.add(call);
-      switch (call.method) {
-        case 'setMinimumSize':
-          return null;
-        case 'setBounds':
-          final arguments = (call.arguments as Map).cast<String, dynamic>();
-          windowBounds = Rect.fromLTWH(
-            (arguments['x'] as num?)?.toDouble() ?? windowBounds.left,
-            (arguments['y'] as num?)?.toDouble() ?? windowBounds.top,
-            (arguments['width'] as num?)?.toDouble() ?? windowBounds.width,
-            (arguments['height'] as num?)?.toDouble() ?? windowBounds.height,
-          );
-          return null;
-        case 'getBounds':
-          return {
-            'x': windowBounds.left,
-            'y': windowBounds.top,
-            'width': windowBounds.width,
-            'height': windowBounds.height,
-          };
-        default:
-          throw UnimplementedError(call.method);
+      if (call.method == 'getBounds') return {'x': 0.0, 'y': 0.0, 'width': 900.0, 'height': 600.0};
+      return null;
+    });
+    messenger.setMockMethodCallHandler(screenChannel, (call) async {
+      screenCalls.add(call);
+      final display = displayFor(visibleDisplays.first, 0);
+      if (call.method == 'getAllDisplays') {
+        return {
+          'displays': [for (var i = 0; i < visibleDisplays.length; i++) displayFor(visibleDisplays[i], i)],
+        };
       }
+      if (call.method == 'getPrimaryDisplay') return display;
+      if (call.method == 'getCursorScreenPoint') return {'dx': 500.0, 'dy': 400.0};
+      return null;
     });
   });
 
   tearDown(() {
-    ScreenRetrieverPlatform.instance = originalPlatform;
-    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger.setMockMethodCallHandler(const MethodChannel('window_manager'), null);
+    debugDefaultTargetPlatformOverride = null;
+    final messenger = TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger;
+    messenger.setMockMethodCallHandler(nativeChannel, null);
+    messenger.setMockMethodCallHandler(windowChannel, null);
+    messenger.setMockMethodCallHandler(screenChannel, null);
   });
 
-  group('isInScreenBounds', () {
-    test('accepts a window near the bottom edge below the menu bar', () async {
-      // Five pixels above the actual bottom (25 + 875), but below height 875.
-      expect(await controller.isInScreenBounds(const Offset(535, 295), const Size(900, 600)), isTrue);
-    });
+  test('macOS native frame wins over a legacy saved frame', () async {
+    nativeRestoreResult = true;
 
-    test('accepts a window far from the edges', () async {
-      expect(await controller.isInScreenBounds(const Offset(100, 100), const Size(900, 600)), isTrue);
-    });
+    await WindowDimensionsController(persistence).initDimensionsConfiguration();
 
-    test('includes all four visible boundaries', () async {
-      expect(await controller.isInScreenBounds(display.visiblePosition!, display.visibleSize), isTrue);
-    });
-
-    for (final position in [const Offset(-1, 25), const Offset(0, 24), const Offset(541, 25), const Offset(0, 301)]) {
-      test('rejects a window crossing the visible boundary at $position', () async {
-        expect(await controller.isInScreenBounds(position, const Size(900, 600)), isFalse);
-      });
-    }
-
-    test('uses the display origin when a Dock reduces visible width', () async {
-      screens.displays = [const Display(id: 'primary', size: Size(1440, 900), visiblePosition: Offset(80, 25), visibleSize: Size(1360, 875))];
-      expect(await controller.isInScreenBounds(const Offset(535, 100), const Size(900, 600)), isTrue);
-      expect(await controller.isInScreenBounds(const Offset(79, 100)), isFalse);
-    });
-
-    test('uses full display size when visible bounds are unavailable', () async {
-      screens.displays = [const Display(id: 'primary', size: Size(1440, 900))];
-      expect(await controller.isInScreenBounds(const Offset(540, 300), const Size(900, 600)), isTrue);
-      expect(await controller.isInScreenBounds(const Offset(541, 300), const Size(900, 600)), isFalse);
-    });
-
-    test('supports a display to the left without extending the right edge', () async {
-      screens.displays = [
-        const Display(id: 'left', size: Size(1280, 900), visiblePosition: Offset(-1280, 25), visibleSize: Size(1280, 875)),
-        display,
-      ];
-      expect(await controller.isInScreenBounds(const Offset(-1200, 100), const Size(900, 600)), isTrue);
-      expect(await controller.isInScreenBounds(const Offset(1441, 100)), isFalse);
-    });
-
-    test('supports a display below the primary display', () async {
-      screens.displays.add(const Display(id: 'below', size: Size(1440, 900), visiblePosition: Offset(0, 900), visibleSize: Size(1440, 900)));
-      expect(await controller.isInScreenBounds(const Offset(100, 1000), const Size(900, 600)), isTrue);
-    });
-
-    test('preserves windows spanning adjacent displays', () async {
-      screens.displays.add(const Display(id: 'right', size: Size(1440, 900), visiblePosition: Offset(1440, 25), visibleSize: Size(1440, 875)));
-      expect(await controller.isInScreenBounds(const Offset(1300, 100), const Size(900, 600)), isTrue);
-    });
-
-    test('rejects placement when no displays are available', () async {
-      screens.displays.clear();
-      expect(await controller.isInScreenBounds(Offset.zero), isFalse);
-    });
+    expect(nativeCalls.map((call) => call.method), ['restoreWindowFrame', 'configureWindowFrameAutosave']);
+    expect(nativeCalls.last.arguments, {'enabled': true});
+    expect(windowCalls.map((call) => call.method), ['setMinimumSize']);
+    verifyNever(persistence.getWindowLastDimensions());
+    expect(screenCalls, isEmpty);
   });
 
-  group('initDimensionsConfiguration', () {
-    test('restores saved position and size near the bottom edge', () async {
-      when(persistence.getSaveWindowPlacement()).thenReturn(true);
-      when(persistence.getWindowLastDimensions()).thenReturn(WindowDimensions(position: const Offset(615, 345), size: const Size(820, 550)));
+  test('macOS ignores a legacy frame on a disconnected display', () async {
+    when(persistence.getWindowLastDimensions()).thenReturn(
+      WindowDimensions(position: const Offset(1200, 80), size: const Size(700, 550)),
+    );
 
-      await controller.initDimensionsConfiguration();
+    await WindowDimensionsController(persistence).initDimensionsConfiguration();
 
-      expect(windowBounds, const Rect.fromLTWH(615, 345, 820, 550));
+    expect(screenCalls.map((call) => call.method), [
+      'getAllDisplays',
+      'getPrimaryDisplay',
+      'getPrimaryDisplay',
+      'getAllDisplays',
+      'getCursorScreenPoint',
+    ]);
+    expect(windowCalls.map((call) => call.method), ['setMinimumSize', 'setBounds', 'getBounds', 'setBounds']);
+    expect((windowCalls[1].arguments as Map)['width'], 900.0);
+    expect((windowCalls[1].arguments as Map)['height'], 600.0);
+    expect((windowCalls[3].arguments as Map)['x'], 270.0);
+    expect((windowCalls[3].arguments as Map)['y'], 150.0);
+    expect(nativeCalls.map((call) => call.method), ['restoreWindowFrame', 'configureWindowFrameAutosave']);
+  });
+
+  test('macOS migrates the legacy frame when no native frame exists', () async {
+    await WindowDimensionsController(persistence).initDimensionsConfiguration();
+
+    expect(nativeCalls.map((call) => call.method), ['restoreWindowFrame', 'configureWindowFrameAutosave']);
+    expect(windowCalls.map((call) => call.method), ['setMinimumSize', 'setBounds', 'setBounds']);
+    expect((windowCalls[1].arguments as Map)['width'], legacyFrame.size.width);
+    expect((windowCalls[1].arguments as Map)['height'], legacyFrame.size.height);
+    expect((windowCalls[2].arguments as Map)['x'], legacyFrame.position.dx);
+    expect((windowCalls[2].arguments as Map)['y'], legacyFrame.position.dy);
+    expect(screenCalls.map((call) => call.method), ['getAllDisplays']);
+  });
+
+  test('changing frame autosave preference does not restore a frame', () async {
+    final controller = WindowDimensionsController(persistence);
+
+    await controller.configureWindowFrameAutosave(enabled: false);
+    await controller.configureWindowFrameAutosave(enabled: true);
+
+    expect(nativeCalls.map((call) => call.method), ['configureWindowFrameAutosave', 'configureWindowFrameAutosave']);
+    expect(nativeCalls.map((call) => call.arguments), [
+      {'enabled': false},
+      {'enabled': true},
+    ]);
+    expect(windowCalls, isEmpty);
+  });
+
+  test('macOS native autosave suppresses legacy placement writes', () async {
+    final controller = WindowDimensionsController(persistence);
+
+    await controller.storeDimensions(windowOffset: legacyFrame.position, windowSize: legacyFrame.size);
+    await controller.storePosition(windowOffset: legacyFrame.position);
+    await controller.storeSize(windowSize: legacyFrame.size);
+
+    verifyNever(persistence.setWindowOffsetX(any));
+    verifyNever(persistence.setWindowOffsetY(any));
+    verifyNever(persistence.setWindowWidth(any));
+    verifyNever(persistence.setWindowHeight(any));
+    expect(screenCalls, isEmpty);
+  });
+
+  test('portable macOS keeps the legacy placement path', () async {
+    when(persistence.isPortableMode()).thenReturn(true);
+
+    await WindowDimensionsController(persistence).initDimensionsConfiguration();
+
+    expect(nativeCalls, isEmpty);
+    expect(screenCalls.map((call) => call.method), ['getAllDisplays']);
+    expect(windowCalls.map((call) => call.method), ['setMinimumSize', 'setBounds', 'setBounds']);
+    expect((windowCalls[2].arguments as Map)['x'], legacyFrame.position.dx);
+    expect((windowCalls[2].arguments as Map)['y'], legacyFrame.position.dy);
+  });
+
+  final geometryCases = <({String name, List<Rect> displays, Offset position, Size? size, bool expected})>[
+    (
+      name: 'visible top inset retains bottom edge',
+      displays: [const Rect.fromLTWH(0, 25, 1440, 875)],
+      position: const Offset(500, 395),
+      size: const Size(900, 500),
+      expected: true,
+    ),
+    (
+      name: 'visible left inset retains right edge',
+      displays: [const Rect.fromLTWH(60, 25, 1380, 875)],
+      position: const Offset(535, 100),
+      size: const Size(900, 600),
+      expected: true,
+    ),
+    (
+      name: 'vertical displays accept a saved frame',
+      displays: [const Rect.fromLTWH(0, 0, 1440, 900), const Rect.fromLTWH(0, 900, 1440, 900)],
+      position: const Offset(100, 1000),
+      size: const Size(900, 600),
+      expected: true,
+    ),
+    (
+      name: 'left display does not extend the right boundary',
+      displays: [const Rect.fromLTWH(-1280, 0, 1280, 900), const Rect.fromLTWH(0, 0, 1920, 1080)],
+      position: const Offset(2500, 100),
+      size: const Size(500, 500),
+      expected: false,
+    ),
+    (
+      name: 'position-only rejects the phantom right area',
+      displays: [const Rect.fromLTWH(-1280, 0, 1280, 900), const Rect.fromLTWH(0, 0, 1920, 1080)],
+      position: const Offset(2500, 100),
+      size: null,
+      expected: false,
+    ),
+    (
+      name: 'bounding rectangle retains existing gap behavior',
+      displays: [const Rect.fromLTWH(0, 0, 1000, 900), const Rect.fromLTWH(2000, 0, 1000, 900)],
+      position: const Offset(1200, 100),
+      size: const Size(500, 500),
+      expected: true,
+    ),
+    (
+      name: 'ordinary zero-origin frame remains accepted',
+      displays: [const Rect.fromLTWH(0, 0, 1440, 900)],
+      position: const Offset(120, 80),
+      size: const Size(700, 550),
+      expected: true,
+    ),
+  ];
+
+  for (final c in geometryCases) {
+    test('legacy geometry: ${c.name}', () async {
+      visibleDisplays = c.displays;
+      expect(await WindowDimensionsController(persistence).isInScreenBounds(c.position, c.size), c.expected);
+    });
+  }
+
+  for (final portable in [false, true]) {
+    test('macOS portable=$portable restores a legacy frame at the visible bottom edge', () async {
+      when(persistence.isPortableMode()).thenReturn(portable);
+      visibleDisplays = [const Rect.fromLTWH(0, 25, 1440, 875)];
+      when(persistence.getWindowLastDimensions()).thenReturn(
+        WindowDimensions(position: const Offset(500, 395), size: const Size(900, 500)),
+      );
+
+      await WindowDimensionsController(persistence).initDimensionsConfiguration();
+
       expect(windowCalls.map((call) => call.method), ['setMinimumSize', 'setBounds', 'setBounds']);
-      verifyNever(persistence.setWindowOffsetX(any));
-      verifyNever(persistence.setWindowOffsetY(any));
+      expect((windowCalls[1].arguments as Map)['height'], 500.0);
+      expect((windowCalls[2].arguments as Map)['x'], 500.0);
+      expect((windowCalls[2].arguments as Map)['y'], 395.0);
+      expect(screenCalls.map((call) => call.method), ['getAllDisplays']);
+      expect(nativeCalls.map((call) => call.method), portable ? <String>[] : ['restoreWindowFrame', 'configureWindowFrameAutosave']);
     });
+  }
 
-    test('centers the default size when saved placement is off screen', () async {
-      when(persistence.getSaveWindowPlacement()).thenReturn(true);
-      when(persistence.getWindowLastDimensions()).thenReturn(WindowDimensions(position: const Offset(615, 351), size: const Size(820, 550)));
+  test('portable macOS does not persist positions beyond the visible desktop', () async {
+    when(persistence.isPortableMode()).thenReturn(true);
+    visibleDisplays = [const Rect.fromLTWH(-1280, 0, 1280, 900), const Rect.fromLTWH(0, 0, 1920, 1080)];
+    final controller = WindowDimensionsController(persistence);
 
-      await controller.initDimensionsConfiguration();
+    await controller.storeDimensions(windowOffset: const Offset(2500, 100), windowSize: const Size(500, 500));
+    await controller.storePosition(windowOffset: const Offset(2500, 100));
 
-      expect(windowBounds, const Rect.fromLTWH(270, 162.5, 900, 600));
-    });
-
-    test('centers the default size when saving placement is disabled', () async {
-      when(persistence.getSaveWindowPlacement()).thenReturn(false);
-      when(persistence.getWindowLastDimensions()).thenReturn(WindowDimensions(position: const Offset(615, 345), size: const Size(820, 550)));
-
-      await controller.initDimensionsConfiguration();
-
-      expect(windowBounds, const Rect.fromLTWH(270, 162.5, 900, 600));
-    });
-
-    test('uses the minimum size on a small display without saved placement', () async {
-      screens.displays = [const Display(id: 'small', size: Size(1024, 768), visiblePosition: Offset(0, 25), visibleSize: Size(1024, 743))];
-      when(persistence.getSaveWindowPlacement()).thenReturn(true);
-      when(persistence.getWindowLastDimensions()).thenReturn(null);
-
-      await controller.initDimensionsConfiguration();
-
-      expect(windowBounds, const Rect.fromLTWH(312, 146.5, 400, 500));
-    });
+    verifyNever(persistence.setWindowOffsetX(any));
+    verifyNever(persistence.setWindowOffsetY(any));
+    verifyNever(persistence.setWindowWidth(any));
+    verifyNever(persistence.setWindowHeight(any));
   });
-
-  test('stores dimensions near the bottom edge', () async {
-    await controller.storeDimensions(windowOffset: const Offset(615, 345), windowSize: const Size(820, 550));
-
-    verify(persistence.setWindowOffsetX(615));
-    verify(persistence.setWindowOffsetY(345));
-    verify(persistence.setWindowWidth(820));
-    verify(persistence.setWindowHeight(550));
-  });
-}
-
-class _ScreenRetriever extends ScreenRetrieverPlatform {
-  List<Display> displays;
-
-  _ScreenRetriever(this.displays);
-
-  @override
-  Future<List<Display>> getAllDisplays() async => displays;
-
-  @override
-  Future<Display> getPrimaryDisplay() async => displays.first;
-
-  @override
-  Future<Offset> getCursorScreenPoint() async => const Offset(100, 100);
 }

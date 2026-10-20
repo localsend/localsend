@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:localsend_app/config/theme.dart';
@@ -16,6 +14,7 @@ import 'package:localsend_app/provider/version_provider.dart';
 import 'package:localsend_app/util/alias_generator.dart';
 import 'package:localsend_app/util/device_type_ext.dart';
 import 'package:localsend_app/util/i18n.dart';
+import 'package:localsend_app/util/native/device_info_helper.dart';
 import 'package:localsend_app/util/native/macos_channel.dart';
 import 'package:localsend_app/util/native/pick_directory_path.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
@@ -393,12 +392,9 @@ class SettingsTab extends StatelessWidget {
                         message: t.settingsTab.network.useSystemName,
                         child: IconButton(
                           onPressed: () async {
-                            final String newAlias;
-                            if (Platform.isMacOS) {
-                              final result = await Process.run('scutil', ['--get', 'ComputerName']);
-                              newAlias = result.stdout.toString().trim();
-                            } else {
-                              newAlias = Platform.localHostname;
+                            final newAlias = await getDeviceName();
+                            if (newAlias == null) {
+                              return;
                             }
 
                             vm.aliasController.text = newAlias;
