@@ -14,6 +14,10 @@ constexpr char kPortalRequestInterface[] = "org.freedesktop.portal.Request";
 constexpr guint kPortalCallTimeoutMs = 10000;
 // `directory` was added to the FileChooser portal in version 3.
 constexpr guint kPortalDirectoryVersion = 3;
+// org.freedesktop.portal.Request.Response codes.
+constexpr guint32 kPortalResponseSuccess = 0;
+constexpr guint32 kPortalResponseCancelled = 1;
+constexpr guint32 kPortalResponseOther = 2;
 
 guint next_handle_token = 0;
 
@@ -124,8 +128,21 @@ void portal_response_cb(GDBusConnection* connection,
   g_autoptr(GVariant) results = nullptr;
   g_variant_get(parameters, "(u@a{sv})", &response, &results);
 
+  if (response == kPortalResponseOther) {
+    // The backend accepted the request but could not complete the interaction.
+    // GtkFileChooserNative silently stalls in this case; fall back instead.
+    g_warning("LocalSend: XDG desktop portal file chooser ended unexpectedly, falling back");
+    fall_back_to_in_process_dialog(request);
+    return;
+  }
+
+  if (response == kPortalResponseCancelled) {
+    finish_with_paths(request, nullptr);
+    return;
+  }
+
   GSList* paths = nullptr;
-  if (response == 0) {
+  if (response == kPortalResponseSuccess) {
     g_autoptr(GVariant) uris = g_variant_lookup_value(results, "uris", G_VARIANT_TYPE_STRING_ARRAY);
     if (uris != nullptr) {
       const gsize uri_count = g_variant_n_children(uris);
