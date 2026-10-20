@@ -53,5 +53,6 @@ void main() {
     expect(find.text('test-fingerprint'), findsOneWidget);
     final textWidget = tester.widget<SelectableText>(find.byType(SelectableText));
     expect(textWidget.data, 'test-fingerprint');
+    expect(Directionality.of(tester.element(find.byType(SelectableText))), TextDirection.ltr);
   });
 }
