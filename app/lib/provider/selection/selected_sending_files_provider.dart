@@ -3,6 +3,7 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:localsend_app/model/cross_file.dart';
+import 'package:localsend_app/provider/selection/prepare_send_selection_action.dart';
 import 'package:localsend_app/util/native/cache_helper.dart';
 import 'package:localsend_app/util/native/channel/android_channel.dart' as android_channel;
 import 'package:localsend_app/util/native/cross_file_converters.dart';
@@ -285,14 +286,15 @@ class RemoveSelectedFileAction extends ReduxAction<SelectedSendingFilesNotifier,
 
 /// Loads the selection from the arguments of the app start.
 /// Returns `true` if files were added.
-class LoadSelectionFromArgsAction extends AsyncReduxActionWithResult<SelectedSendingFilesNotifier, List<CrossFile>, bool> {
+class LoadSelectionFromArgsAction extends AsyncReduxActionWithResult<SelectedSendingFilesNotifier, List<CrossFile>, bool> with GlobalActions {
   final List<String> args;
 
   LoadSelectionFromArgsAction(this.args);
 
   @override
   Future<(List<CrossFile>, bool)> reduce() async {
-    bool filesAdded = false;
+    final queuedActions = <Future<void> Function()>[];
+    final preserveCachePaths = <String>{};
     bool nextShare = false;
     bool nextText = false;
     for (final arg in args) {
@@ -310,22 +312,32 @@ class LoadSelectionFromArgsAction extends AsyncReduxActionWithResult<SelectedSen
         final SharedMedia payload = SharedMedia.decode(json);
         final message = payload.content;
         if (message != null && message.trim().isNotEmpty) {
-          dispatch(AddMessageAction(message: message));
+          queuedActions.add(() async {
+            dispatch(AddMessageAction(message: message));
+          });
         }
-        await dispatchAsync(
-          AddFilesAction(
-            files: payload.attachments?.where((a) => a != null).cast<SharedAttachment>() ?? <SharedAttachment>[],
-            converter: CrossFileConverters.convertSharedAttachment,
-          ),
-        );
-        filesAdded = true;
+        final attachments = payload.attachments?.whereType<SharedAttachment>().toList() ?? <SharedAttachment>[];
+        if (attachments.isNotEmpty) {
+          preserveCachePaths.addAll(attachments.map((attachment) => attachment.path));
+          queuedActions.add(
+            () async {
+              await dispatchAsync(
+                AddFilesAction(
+                  files: attachments,
+                  converter: CrossFileConverters.convertSharedAttachment,
+                ),
+              );
+            },
+          );
+        }
         continue;
       }
       if (nextText) {
         nextText = false;
         if (arg.trim().isNotEmpty) {
-          dispatch(AddMessageAction(message: arg.trim()));
-          filesAdded = true;
+          queuedActions.add(() async {
+            dispatch(AddMessageAction(message: arg.trim()));
+          });
         }
         continue;
       }
@@ -337,25 +349,44 @@ class LoadSelectionFromArgsAction extends AsyncReduxActionWithResult<SelectedSen
       final directory = Directory(arg);
 
       if (file.existsSync()) {
-        await dispatchAsync(
-          AddFilesAction(
-            files: [file],
-            converter: CrossFileConverters.convertFile,
-          ),
+        preserveCachePaths.add(file.path);
+        queuedActions.add(
+          () async {
+            await dispatchAsync(
+              AddFilesAction(
+                files: [file],
+                converter: CrossFileConverters.convertFile,
+              ),
+            );
+          },
         );
-        filesAdded = true;
       } else if (directory.existsSync()) {
-        await dispatchAsync(AddDirectoryAction(arg));
-        filesAdded = true;
+        preserveCachePaths.add(arg);
+        queuedActions.add(() async {
+          await dispatchAsync(AddDirectoryAction(arg));
+        });
       }
     }
 
-    return (state, filesAdded);
+    if (queuedActions.isEmpty) {
+      return (state, false);
+    }
+
+    global.dispatch(PrepareSendSelectionAction(preserveCachePaths: preserveCachePaths));
+    for (final action in queuedActions) {
+      await action();
+    }
+
+    return (state, true);
   }
 }
 
 /// Removes all files from the list.
 class ClearSelectionAction extends ReduxAction<SelectedSendingFilesNotifier, List<CrossFile>> with GlobalActions {
+  final Set<String> preserveCachePaths;
+
+  ClearSelectionAction({this.preserveCachePaths = const {}});
+
   @override
   List<CrossFile> reduce() {
     return const [];
@@ -363,6 +394,6 @@ class ClearSelectionAction extends ReduxAction<SelectedSendingFilesNotifier, Lis
 
   @override
   void after() {
-    global.dispatchAsync(ClearCacheAction()); // ignore: discarded_futures
+    global.dispatchAsync(ClearCacheAction(preservePaths: preserveCachePaths)); // ignore: discarded_futures
   }
 }
