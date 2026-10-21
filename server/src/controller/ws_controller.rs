@@ -18,6 +18,7 @@ use std::collections::HashMap;
 use std::net::{IpAddr, SocketAddr};
 use std::str::FromStr;
 use std::sync::LazyLock;
+use std::time::Duration;
 use tokio::sync::mpsc;
 use uuid::Uuid;
 
@@ -34,6 +35,14 @@ static MAX_REQUESTS: LazyLock<u32> = LazyLock::new(|| {
         .parse::<u32>()
         .unwrap()
 });
+
+/// Clients send a ping after 120 seconds without outgoing messages.
+/// A client that stays silent for longer is considered dead and disconnected.
+const IDLE_TIMEOUT: Duration = Duration::from_secs(300);
+
+/// Buffer for messages to a single peer.
+/// Messages to a peer with a full buffer are dropped instead of blocking the sender.
+const PEER_CHANNEL_CAPACITY: usize = 32;
 
 #[derive(Deserialize)]
 pub struct WsQuery {
@@ -93,7 +102,7 @@ async fn handle_socket(
     peer: ClientInfo,
 ) {
     let peer_id = peer.id;
-    let (tx, mut rx) = mpsc::channel(4);
+    let (tx, mut rx) = mpsc::channel(PEER_CHANNEL_CAPACITY);
     {
         // Tx of other peers in the IP group.
         let mut peers_tx: Vec<mpsc::Sender<WsServerMessage>> = Vec::new();
@@ -150,9 +159,7 @@ async fn handle_socket(
         }
 
         for peer_tx in peers_tx {
-            let _ = peer_tx
-                .send(WsServerMessage::Join { peer: peer.clone() })
-                .await;
+            let _ = peer_tx.try_send(WsServerMessage::Join { peer: peer.clone() });
         }
 
         let _ = tx
@@ -179,7 +186,7 @@ async fn handle_socket(
     let tx_map_clone = tx_map.clone();
     let ip_group_clone = ip_group.clone();
     let mut recv_task = tokio::spawn(async move {
-        while let Some(Ok(msg)) = receiver.next().await {
+        while let Ok(Some(Ok(msg))) = tokio::time::timeout(IDLE_TIMEOUT, receiver.next()).await {
             if let Message::Text(text) = msg {
                 if let Ok(msg) = serde_json::from_str::<WsClientMessage>(&text) {
                     if protect_ddos_request_count(&request_count_map, &ip_group_clone)
@@ -268,7 +275,7 @@ async fn handle_socket(
     }
 
     for tx in remaining_tx {
-        let _ = tx.send(WsServerMessage::Left { peer_id }).await;
+        let _ = tx.try_send(WsServerMessage::Left { peer_id });
     }
 }
 
@@ -297,11 +304,9 @@ async fn send_update_to_other_peers_with_lock(
     }
 
     for peer_tx in peers_tx {
-        let _ = peer_tx
-            .send(WsServerMessage::Update {
-                peer: response_info.clone(),
-            })
-            .await;
+        let _ = peer_tx.try_send(WsServerMessage::Update {
+            peer: response_info.clone(),
+        });
     }
 }
 
@@ -351,7 +356,7 @@ async fn send_to_peer_with_lock(
             }
         };
 
-        let _ = tx.send(server_message).await;
+        let _ = tx.try_send(server_message);
     }
 }
 
