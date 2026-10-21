@@ -18,7 +18,7 @@ class StartSmartScan extends AsyncGlobalAction {
   Future<void> reduce() async {
     final favorites = ref.read(favoritesProvider);
     final settings = ref.read(settingsProvider);
-    final networkInterfaces = ref.read(localIpProvider).localIps.take(maxInterfaces).toList();
+    final networkInterfaces = ref.read(localIpProvider).localIpv4Ips.take(maxInterfaces).toList();
 
     await ref
         .redux(nearbyDevicesProvider)
