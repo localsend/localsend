@@ -185,20 +185,28 @@ void handle_portal_response(FileDialogRequest* request, GVariant* parameters) {
     return;
   }
 
-  GSList* paths = nullptr;
   g_autoptr(GVariant) uris = g_variant_lookup_value(results, "uris", G_VARIANT_TYPE_STRING_ARRAY);
-  if (uris != nullptr) {
-    const gsize uri_count = g_variant_n_children(uris);
-    for (gsize i = 0; i < uri_count; i++) {
-      const gchar* uri = nullptr;
-      g_variant_get_child(uris, i, "&s", &uri);
-      g_autofree gchar* path = g_filename_from_uri(uri, nullptr, nullptr);
-      if (path != nullptr) {
-        paths = g_slist_prepend(paths, g_strdup(path));
-      }
-    }
-    paths = g_slist_reverse(paths);
+  const gsize uri_count = uris != nullptr ? g_variant_n_children(uris) : 0;
+  if (uri_count == 0) {
+    g_warning("LocalSend: XDG desktop portal returned no file URIs, falling back");
+    fall_back_to_in_process_dialog(request);
+    return;
   }
+
+  GSList* paths = nullptr;
+  for (gsize i = 0; i < uri_count; i++) {
+    const gchar* uri = nullptr;
+    g_variant_get_child(uris, i, "&s", &uri);
+    g_autofree gchar* path = g_filename_from_uri(uri, nullptr, nullptr);
+    if (path == nullptr) {
+      g_slist_free_full(paths, g_free);
+      g_warning("LocalSend: XDG desktop portal returned a non-file URI, falling back");
+      fall_back_to_in_process_dialog(request);
+      return;
+    }
+    paths = g_slist_prepend(paths, g_strdup(path));
+  }
+  paths = g_slist_reverse(paths);
 
   finish_with_paths(request, paths);
 }
