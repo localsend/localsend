@@ -20,7 +20,9 @@ import io.flutter.plugin.common.MethodChannel
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+import java.util.ArrayDeque
 import java.util.TimeZone
+import java.util.concurrent.Executors
 
 
 private const val CHANNEL = "org.localsend.localsend_app/localsend"
@@ -36,6 +38,7 @@ private const val API_LEVEL_ANDROID_17 = 37
 class MainActivity : FlutterActivity() {
     private var pendingResult: MethodChannel.Result? = null
     private var pendingPermissionResult: MethodChannel.Result? = null
+    private val ioExecutor = Executors.newSingleThreadExecutor()
 
     /// share_handler drops share intents arriving via onNewIntent while the Dart side
     /// is not subscribed to its media stream yet, which happens when this singleTask
@@ -349,11 +352,25 @@ class MainActivity : FlutterActivity() {
                 if (uri != null) {
                     contentResolver.takePersistableUriPermission(uri, takeFlags)
 
-                    val files = mutableListOf<FileInfo>()
-                    listFiles(uri, files)
-                    val resultData = PickDirectoryResult(uri.toString(), files)
-                    pendingResult?.success(resultData.toMap())
+                    val callback = pendingResult
                     pendingResult = null
+
+                    ioExecutor.execute {
+                        try {
+                            val files = listFilesNonRecursive(uri)
+                            val resultData = mapOf(
+                                "directoryUri" to uri.toString(),
+                                "files" to files
+                            )
+                            runOnUiThread {
+                                callback?.success(resultData)
+                            }
+                        } catch (e: Throwable) {
+                            runOnUiThread {
+                                callback?.error("Error", e.message ?: "Failed to access directory", null)
+                            }
+                        }
+                    }
                 } else {
                     pendingResult?.error("Error", "Failed to access directory", null)
                     pendingResult = null
@@ -419,24 +436,64 @@ class MainActivity : FlutterActivity() {
         }
     }
 
-    private fun listFiles(uri: Uri, files: MutableList<FileInfo>) {
-        val pickedDir: FastDocumentFile = FastDocumentFile.fromTreeUri(this, uri)
+    private fun listFilesNonRecursive(treeUri: Uri): List<List<Any?>> {
+        val rootDocId = if (DocumentsContract.isDocumentUri(this, treeUri)) {
+            DocumentsContract.getDocumentId(treeUri)
+        } else {
+            DocumentsContract.getTreeDocumentId(treeUri)
+        }
 
-        for (file in pickedDir.listFiles()) {
-            if (file.isDirectory) {
-                // Recursive call
-                listFiles(file.uri, files)
-            } else if (file.isFile) {
-                files.add(
-                    FileInfo(
-                        name = file.name,
-                        size = file.size,
-                        uri = file.uri.toString(),
-                        lastModified = file.lastModified?.toRfc3339(),
-                    ),
-                )
+        val dirQueue = ArrayDeque<String>()
+        dirQueue.add(rootDocId)
+
+        val results = ArrayList<List<Any?>>()
+        val resolver = contentResolver
+        val projection = arrayOf(
+            DocumentsContract.Document.COLUMN_DOCUMENT_ID,
+            DocumentsContract.Document.COLUMN_MIME_TYPE,
+            DocumentsContract.Document.COLUMN_DISPLAY_NAME,
+            DocumentsContract.Document.COLUMN_SIZE,
+            DocumentsContract.Document.COLUMN_LAST_MODIFIED
+        )
+
+        while (!dirQueue.isEmpty()) {
+            val currentDocId = dirQueue.removeFirst()
+            val childrenUri = DocumentsContract.buildChildDocumentsUriUsingTree(treeUri, currentDocId)
+
+            var cursor: Cursor? = null
+            try {
+                cursor = resolver.query(childrenUri, projection, null, null, null)
+                if (cursor != null) {
+                    while (cursor.moveToNext()) {
+                        val docId = cursor.getString(0) ?: continue
+                        val mime = cursor.getString(1) ?: ""
+                        val name = cursor.getString(2) ?: ""
+
+                        if (mime == MIME_TYPE_DIR) {
+                            dirQueue.addLast(docId)
+                        } else if (mime.isNotBlank()) {
+                            val size = cursor.getLong(3)
+                            val lastMod = if (cursor.isNull(4)) null else cursor.getLong(4).takeIf { it > 0L }?.toRfc3339()
+                            val fileUri = DocumentsContract.buildDocumentUriUsingTree(treeUri, docId).toString()
+                            results.add(listOf(name, size, fileUri, lastMod))
+                        }
+                    }
+                }
+            } catch (e: Exception) {
+                // Ignore single directory read failure and continue traversal
+            } finally {
+                try {
+                    cursor?.close()
+                } catch (_: Exception) {}
             }
         }
+
+        return results
+    }
+
+    override fun onDestroy() {
+        ioExecutor.shutdown()
+        super.onDestroy()
     }
 
     @SuppressLint("WrongConstant")

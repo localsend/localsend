@@ -33,6 +33,7 @@
         android:banner="@drawable/banner"
         android:icon="@mipmap/ic_launcher"
         android:requestLegacyExternalStorage="true"
+        android:largeHeap="true"
     >
 
         <!-- localsend: prevent multiple instances by android:launchMode="singleTask" -->

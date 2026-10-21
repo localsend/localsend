@@ -19,10 +19,23 @@ Future<PickDirectoryResult?> pickDirectoryAndroid() async {
     return null;
   }
 
-  return PickDirectoryResultMapper.fromJson({
-    'directoryUri': result['directoryUri'],
-    'files': (result['files'] as List).map((e) => FileInfoMapper.fromJson((e as Map).cast<String, dynamic>())).toList(),
-  });
+  final filesRaw = result['files'] as List;
+  final files = filesRaw.map((e) {
+    if (e is List) {
+      return FileInfo(
+        name: e[0] as String,
+        size: e[1] as int,
+        uri: e[2] as String,
+        lastModified: e[3] as String?,
+      );
+    }
+    return FileInfoMapper.fromJson((e as Map).cast<String, dynamic>());
+  }).toList();
+
+  return PickDirectoryResult(
+    directoryUri: result['directoryUri'] as String,
+    files: files,
+  );
 }
 
 Future<String?> pickDirectoryPathAndroid() async {

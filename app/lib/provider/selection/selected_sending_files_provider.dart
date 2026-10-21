@@ -158,6 +158,7 @@ class AddDirectoryAction extends AsyncReduxAction<SelectedSendingFilesNotifier, 
     final newFiles = <CrossFile>[];
     final directoryName = p.basename(directoryPath);
     final sendIgnore = SendIgnore();
+    final existingPaths = state.map((element) => element.path ?? '').toSet();
     await for (final entity in Directory(directoryPath).list(recursive: true)) {
       if (entity is File) {
         final innerRelative = p.relative(entity.path, from: directoryPath).replaceAll('\\', '/');
@@ -174,7 +175,10 @@ class AddDirectoryAction extends AsyncReduxAction<SelectedSendingFilesNotifier, 
           continue;
         }
 
-        _logger.info('Add file $relative');
+        if (existingPaths.contains(entity.path)) {
+          continue;
+        }
+        existingPaths.add(entity.path);
 
         final metadata = await readFileMetadata(path: entity.path);
         final file = CrossFile(
@@ -189,12 +193,11 @@ class AddDirectoryAction extends AsyncReduxAction<SelectedSendingFilesNotifier, 
           lastAccessed: metadata?.accessed,
         );
 
-        final isAlreadySelect = state.any((element) => element.isSameFile(otherFile: file));
-        if (!isAlreadySelect) {
-          newFiles.add(file);
-        }
+        newFiles.add(file);
       }
     }
+
+    _logger.info('Added ${newFiles.length} files from $directoryPath');
 
     return List.unmodifiable([
       ...state,
@@ -225,6 +228,8 @@ class AddAndroidDirectoryAction extends AsyncReduxAction<SelectedSendingFilesNot
       return state;
     }
 
+    final existingPaths = state.map((element) => element.path ?? '').toSet();
+
     for (final file in result.files) {
       final relative = ContentUriHelper.guessRelativePathFromPickedFileContentUri(
         folderContentUri: result.directoryUri,
@@ -236,7 +241,11 @@ class AddAndroidDirectoryAction extends AsyncReduxAction<SelectedSendingFilesNot
         _logger.warning('Could not get relative path from ${file.uri}');
         continue;
       }
-      _logger.info('Add file $relative (${file.uri})');
+
+      if (existingPaths.contains(file.uri)) {
+        continue;
+      }
+      existingPaths.add(file.uri);
 
       final crossFile = CrossFile(
         name: relative,
@@ -251,11 +260,10 @@ class AddAndroidDirectoryAction extends AsyncReduxAction<SelectedSendingFilesNot
         lastAccessed: null,
       );
 
-      final isAlreadySelect = state.any((element) => element.isSameFile(otherFile: crossFile));
-      if (!isAlreadySelect) {
-        newFiles.add(crossFile);
-      }
+      newFiles.add(crossFile);
     }
+
+    _logger.info('Added ${newFiles.length} files from ${result.directoryUri}');
 
     return List.unmodifiable([
       ...state,
