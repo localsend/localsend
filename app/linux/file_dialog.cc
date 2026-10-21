@@ -234,7 +234,7 @@ void portal_open_file_cb(GObject* source_object, GAsyncResult* result, gpointer 
   if (reply == nullptr) {
     // GtkFileChooserNative silently stops waiting in this case, leaving the
     // caller with a dialog that never appears. Fall back instead.
-    g_warning("LocalSend: XDG desktop portal rejected the file chooser request: %s", error->message);
+    g_warning("LocalSend: XDG desktop portal rejected the file chooser request: %s", error != nullptr ? error->message : "unknown error");
     fall_back_to_in_process_dialog(request);
     return;
   }
@@ -298,7 +298,7 @@ void start_portal_dialog(FileDialogRequest* request) {
   g_autoptr(GError) error = nullptr;
   GDBusConnection* connection = g_bus_get_sync(G_BUS_TYPE_SESSION, nullptr, &error);
   if (connection == nullptr) {
-    g_warning("LocalSend: cannot connect to the session bus: %s", error->message);
+    g_warning("LocalSend: cannot connect to the session bus: %s", error != nullptr ? error->message : "unknown error");
     fall_back_to_in_process_dialog(request);
     return;
   }
