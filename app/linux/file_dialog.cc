@@ -11,7 +11,11 @@ constexpr char kPortalDestination[] = "org.freedesktop.portal.Desktop";
 constexpr char kPortalObjectPath[] = "/org/freedesktop/portal/desktop";
 constexpr char kPortalFileChooserInterface[] = "org.freedesktop.portal.FileChooser";
 constexpr char kPortalRequestInterface[] = "org.freedesktop.portal.Request";
+constexpr char kPortalRequestPathPrefix[] = "/org/freedesktop/portal/desktop/request/";
 constexpr guint kPortalCallTimeoutMs = 10000;
+// Generous watchdog for a portal that returns a request handle but never emits
+// Response. It is not meant to interrupt normal user interaction.
+constexpr guint kPortalResponseTimeoutSeconds = 600;
 // `directory` was added to the FileChooser portal in version 3.
 constexpr guint kPortalDirectoryVersion = 3;
 // org.freedesktop.portal.Request.Response codes.
@@ -31,11 +35,20 @@ struct FileDialogRequest {
   gchar* cancel_label = nullptr;
   GDBusConnection* connection = nullptr;
   gulong response_subscription = 0;
+  guint response_timeout_id = 0;
   gchar* handle_path = nullptr;
+  GVariant* early_response = nullptr;
+  gboolean open_call_done = FALSE;
   gboolean finished = FALSE;
 };
 
 void file_dialog_request_free(FileDialogRequest* request) {
+  if (request->response_timeout_id != 0) {
+    g_source_remove(request->response_timeout_id);
+    request->response_timeout_id = 0;
+  }
+
+  g_clear_pointer(&request->early_response, g_variant_unref);
   g_clear_object(&request->method_call);
   g_clear_object(&request->window);
   g_clear_object(&request->connection);
@@ -109,21 +122,40 @@ void fall_back_to_in_process_dialog(FileDialogRequest* request) {
   finish_with_paths(request, run_in_process_dialog(request));
 }
 
-void portal_response_cb(GDBusConnection* connection,
-                        const gchar* sender_name,
-                        const gchar* object_path,
-                        const gchar* interface_name,
-                        const gchar* signal_name,
-                        GVariant* parameters,
-                        gpointer user_data) {
-  auto* request = static_cast<FileDialogRequest*>(user_data);
-  if (request->finished || request->handle_path == nullptr) {
-    return;
-  }
-  if (g_strcmp0(object_path, request->handle_path) != 0) {
+void close_portal_request(FileDialogRequest* request) {
+  if (request->connection == nullptr || request->handle_path == nullptr) {
     return;
   }
 
+  g_dbus_connection_call(
+      request->connection,
+      kPortalDestination,
+      request->handle_path,
+      kPortalRequestInterface,
+      "Close",
+      nullptr,
+      nullptr,
+      G_DBUS_CALL_FLAGS_NONE,
+      -1,
+      nullptr,
+      nullptr,
+      nullptr);
+}
+
+gboolean response_timeout_cb(gpointer user_data) {
+  auto* request = static_cast<FileDialogRequest*>(user_data);
+  request->response_timeout_id = 0;
+  if (request->finished) {
+    return G_SOURCE_REMOVE;
+  }
+
+  g_warning("LocalSend: XDG desktop portal file chooser did not respond, falling back");
+  close_portal_request(request);
+  fall_back_to_in_process_dialog(request);
+  return G_SOURCE_REMOVE;
+}
+
+void handle_portal_response(FileDialogRequest* request, GVariant* parameters) {
   guint32 response = 0;
   g_autoptr(GVariant) results = nullptr;
   g_variant_get(parameters, "(u@a{sv})", &response, &results);
@@ -161,6 +193,32 @@ void portal_response_cb(GDBusConnection* connection,
   finish_with_paths(request, paths);
 }
 
+void portal_response_cb(GDBusConnection* connection,
+                        const gchar* sender_name,
+                        const gchar* object_path,
+                        const gchar* interface_name,
+                        const gchar* signal_name,
+                        GVariant* parameters,
+                        gpointer user_data) {
+  auto* request = static_cast<FileDialogRequest*>(user_data);
+  if (request->finished || request->handle_path == nullptr) {
+    return;
+  }
+  if (g_strcmp0(object_path, request->handle_path) != 0) {
+    return;
+  }
+
+  if (!request->open_call_done) {
+    // A fast portal can emit Response before the OpenFile reply stores the
+    // handle. Keep the first matching response until the handle is known.
+    g_clear_pointer(&request->early_response, g_variant_unref);
+    request->early_response = g_variant_ref(parameters);
+    return;
+  }
+
+  handle_portal_response(request, parameters);
+}
+
 void portal_open_file_cb(GObject* source_object, GAsyncResult* result, gpointer user_data) {
   auto* request = static_cast<FileDialogRequest*>(user_data);
 
@@ -176,8 +234,24 @@ void portal_open_file_cb(GObject* source_object, GAsyncResult* result, gpointer 
 
   const gchar* handle_path = nullptr;
   g_variant_get(reply, "(&o)", &handle_path);
-  g_free(request->handle_path);
-  request->handle_path = g_strdup(handle_path);
+
+  if (g_strcmp0(handle_path, request->handle_path) != 0) {
+    // The portal did not use the expected request path. A buffered response
+    // belongs to the old path and must not complete this request.
+    g_clear_pointer(&request->early_response, g_variant_unref);
+    g_free(request->handle_path);
+    request->handle_path = g_strdup(handle_path);
+  }
+
+  request->open_call_done = TRUE;
+  request->response_timeout_id = g_timeout_add_seconds(kPortalResponseTimeoutSeconds, response_timeout_cb, request);
+
+  if (request->early_response != nullptr) {
+    GVariant* early_response = request->early_response;
+    request->early_response = nullptr;
+    handle_portal_response(request, early_response);
+    g_variant_unref(early_response);
+  }
 }
 
 guint get_portal_file_chooser_version(GDBusConnection* connection) {
@@ -225,6 +299,23 @@ void start_portal_dialog(FileDialogRequest* request) {
     return;
   }
 
+  g_autofree gchar* handle_token = g_strdup_printf("localsend_%u", next_handle_token++);
+
+  // The portal derives the request path from our unique name and handle_token.
+  // Set it before subscribing so that a response arriving before the OpenFile
+  // reply can be buffered instead of being dropped.
+  const gchar* unique_name = g_dbus_connection_get_unique_name(connection);
+  if (unique_name != nullptr) {
+    const gchar* sender = unique_name[0] == ':' ? unique_name + 1 : unique_name;
+    g_autofree gchar* sender_path = g_strdup(sender);
+    for (gchar* c = sender_path; *c != '\0'; c++) {
+      if (*c == '.') {
+        *c = '_';
+      }
+    }
+    request->handle_path = g_strdup_printf("%s%s/%s", kPortalRequestPathPrefix, sender_path, handle_token);
+  }
+
   request->response_subscription = g_dbus_connection_signal_subscribe(
       connection,
       kPortalDestination,
@@ -236,8 +327,6 @@ void start_portal_dialog(FileDialogRequest* request) {
       portal_response_cb,
       request,
       nullptr);
-
-  g_autofree gchar* handle_token = g_strdup_printf("localsend_%u", next_handle_token++);
 
   GVariantBuilder options;
   g_variant_builder_init(&options, G_VARIANT_TYPE_VARDICT);
