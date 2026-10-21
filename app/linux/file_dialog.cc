@@ -21,7 +21,6 @@ constexpr guint kPortalDirectoryVersion = 3;
 // org.freedesktop.portal.Request.Response codes.
 constexpr guint32 kPortalResponseSuccess = 0;
 constexpr guint32 kPortalResponseCancelled = 1;
-constexpr guint32 kPortalResponseOther = 2;
 
 guint next_handle_token = 0;
 
@@ -81,8 +80,7 @@ void finish_with_paths(FileDialogRequest* request, GSList* paths) {
   file_dialog_request_free(request);
 }
 
-// Runs GTK's own file chooser. Only used when the process can access files
-// directly, or as a last resort when the portal is unavailable.
+// Runs GTK's own file chooser as a fallback when the portal cannot be used.
 GSList* run_in_process_dialog(FileDialogRequest* request) {
   const gchar* accept_label = request->accept_label != nullptr ? request->accept_label : "_Open";
   const gchar* cancel_label = request->cancel_label != nullptr ? request->cancel_label : "_Cancel";
@@ -98,6 +96,9 @@ GSList* run_in_process_dialog(FileDialogRequest* request) {
       nullptr);
 
   gtk_file_chooser_set_select_multiple(GTK_FILE_CHOOSER(dialog), request->multiple);
+  if (request->action == GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER) {
+    gtk_file_chooser_set_create_folders(GTK_FILE_CHOOSER(dialog), FALSE);
+  }
   gtk_window_set_modal(GTK_WINDOW(dialog), TRUE);
 
   GSList* paths = nullptr;
@@ -117,6 +118,13 @@ void fall_back_to_in_process_dialog(FileDialogRequest* request) {
   if (request->response_subscription != 0 && request->connection != nullptr) {
     g_dbus_connection_signal_unsubscribe(request->connection, request->response_subscription);
     request->response_subscription = 0;
+  }
+
+  // The in-process dialog runs a nested main loop. Cancel the watchdog first
+  // so it cannot open a second dialog while this one is still open.
+  if (request->response_timeout_id != 0) {
+    g_source_remove(request->response_timeout_id);
+    request->response_timeout_id = 0;
   }
 
   finish_with_paths(request, run_in_process_dialog(request));
@@ -160,34 +168,33 @@ void handle_portal_response(FileDialogRequest* request, GVariant* parameters) {
   g_autoptr(GVariant) results = nullptr;
   g_variant_get(parameters, "(u@a{sv})", &response, &results);
 
-  if (response == kPortalResponseOther) {
-    // The backend accepted the request but could not complete the interaction.
-    // GtkFileChooserNative silently stalls in this case; fall back instead.
-    g_warning("LocalSend: XDG desktop portal file chooser ended unexpectedly, falling back");
-    fall_back_to_in_process_dialog(request);
-    return;
-  }
-
   if (response == kPortalResponseCancelled) {
     finish_with_paths(request, nullptr);
     return;
   }
 
+  if (response != kPortalResponseSuccess) {
+    // Code 2 means the backend accepted the request but could not complete it;
+    // any other value is outside the current portal protocol. GtkFileChooserNative
+    // silently stalls in this case, so fall back instead.
+    g_warning("LocalSend: XDG desktop portal file chooser failed (response %u), falling back", response);
+    fall_back_to_in_process_dialog(request);
+    return;
+  }
+
   GSList* paths = nullptr;
-  if (response == kPortalResponseSuccess) {
-    g_autoptr(GVariant) uris = g_variant_lookup_value(results, "uris", G_VARIANT_TYPE_STRING_ARRAY);
-    if (uris != nullptr) {
-      const gsize uri_count = g_variant_n_children(uris);
-      for (gsize i = 0; i < uri_count; i++) {
-        const gchar* uri = nullptr;
-        g_variant_get_child(uris, i, "&s", &uri);
-        g_autofree gchar* path = g_filename_from_uri(uri, nullptr, nullptr);
-        if (path != nullptr) {
-          paths = g_slist_prepend(paths, g_strdup(path));
-        }
+  g_autoptr(GVariant) uris = g_variant_lookup_value(results, "uris", G_VARIANT_TYPE_STRING_ARRAY);
+  if (uris != nullptr) {
+    const gsize uri_count = g_variant_n_children(uris);
+    for (gsize i = 0; i < uri_count; i++) {
+      const gchar* uri = nullptr;
+      g_variant_get_child(uris, i, "&s", &uri);
+      g_autofree gchar* path = g_filename_from_uri(uri, nullptr, nullptr);
+      if (path != nullptr) {
+        paths = g_slist_prepend(paths, g_strdup(path));
       }
-      paths = g_slist_reverse(paths);
     }
+    paths = g_slist_reverse(paths);
   }
 
   finish_with_paths(request, paths);
@@ -245,6 +252,12 @@ void portal_open_file_cb(GObject* source_object, GAsyncResult* result, gpointer 
 
   request->open_call_done = TRUE;
   request->response_timeout_id = g_timeout_add_seconds(kPortalResponseTimeoutSeconds, response_timeout_cb, request);
+  if (request->response_timeout_id == 0) {
+    g_warning("LocalSend: cannot start XDG desktop portal response watchdog, falling back");
+    close_portal_request(request);
+    fall_back_to_in_process_dialog(request);
+    return;
+  }
 
   if (request->early_response != nullptr) {
     GVariant* early_response = request->early_response;
@@ -327,6 +340,11 @@ void start_portal_dialog(FileDialogRequest* request) {
       portal_response_cb,
       request,
       nullptr);
+  if (request->response_subscription == 0) {
+    g_warning("LocalSend: cannot subscribe to XDG desktop portal responses, falling back");
+    fall_back_to_in_process_dialog(request);
+    return;
+  }
 
   GVariantBuilder options;
   g_variant_builder_init(&options, G_VARIANT_TYPE_VARDICT);
