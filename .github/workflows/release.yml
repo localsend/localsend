@@ -26,6 +26,9 @@ jobs:
   build_appimage_x86_64:
     uses: ./.github/workflows/build_linux_appimage_x64.yml
 
+  build_appimage_arm_64:
+    uses: ./.github/workflows/build_linux_appimage_arm64.yml
+
   build_windows_zip_x86_64:
     uses: ./.github/workflows/build_windows_zip_x64.yml
     secrets: inherit
@@ -65,6 +68,7 @@ jobs:
       - build_deb_x86_64
       - build_deb_arm_64
       - build_appimage_x86_64
+      - build_appimage_arm_64
       - build_windows_zip_x86_64
       - build_windows_zip_arm_64
       - build_windows_exe_x86_64
@@ -244,6 +248,33 @@ jobs:
           upload_url: ${{ steps.draft_release.outputs.upload_url }}
           asset_path: appimage-x86-64-result/LocalSend-${{ steps.get_version.outputs.version }}-linux-x86-64.AppImage.zsync
           asset_name: LocalSend-${{ steps.get_version.outputs.version }}-linux-x86-64.AppImage.zsync
+          asset_content_type: application/octet-stream
+
+      # APPIMAGE (arm_64)
+      - name: Download ARM AppImage files
+        uses: actions/download-artifact@v7
+        with:
+          name: appimage-arm-64-result
+          path: appimage-arm-64-result
+
+      - name: Upload Release Asset (ARM AppImage)
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.draft_release.outputs.upload_url }}
+          asset_path: appimage-arm-64-result/LocalSend-${{ steps.get_version.outputs.version }}-linux-arm-64.AppImage
+          asset_name: LocalSend-${{ steps.get_version.outputs.version }}-linux-arm-64.AppImage
+          asset_content_type: application/x-appimage
+
+      - name: Upload Release Asset (ARM AppImage zsync)
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.draft_release.outputs.upload_url }}
+          asset_path: appimage-arm-64-result/LocalSend-${{ steps.get_version.outputs.version }}-linux-arm-64.AppImage.zsync
+          asset_name: LocalSend-${{ steps.get_version.outputs.version }}-linux-arm-64.AppImage.zsync
           asset_content_type: application/octet-stream
 
       # WINDOWS ZIP (x86_64)
