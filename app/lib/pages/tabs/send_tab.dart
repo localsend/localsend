@@ -12,6 +12,7 @@ import 'package:localsend_app/provider/file_transfer_provider.dart';
 import 'package:localsend_app/provider/network/nearby_devices_provider.dart';
 import 'package:localsend_app/provider/network/scan_facade.dart';
 import 'package:localsend_app/provider/network/send_provider.dart';
+import 'package:localsend_app/provider/selection/secret_send_provider.dart';
 import 'package:localsend_app/provider/selection/selected_sending_files_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/util/favorites.dart';
@@ -50,6 +51,9 @@ class SendTab extends StatelessWidget {
         final sizingInformation = SizingInformation(MediaQuery.sizeOf(context).width);
         final buttonWidth = sizingInformation.isDesktop ? BigButton.desktopWidth : BigButton.mobileWidth;
         final ref = context.ref;
+        final secret = context.watch(secretSendProvider);
+        // Share via link is downloaded by a browser, which keeps no receive history
+        final showModifiers = vm.sendMode != SendMode.link;
         return ResponsiveListView(
           padding: EdgeInsets.zero,
           children: [
@@ -82,88 +86,132 @@ class SendTab extends StatelessWidget {
                 }).toList(),
               ),
             ] else ...[
-              Card(
-                margin: const EdgeInsets.only(bottom: 10, left: _horizontalPadding, right: _horizontalPadding),
-                child: Padding(
-                  padding: const EdgeInsetsDirectional.only(start: 15, top: 5, bottom: 15),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          Text(
-                            t.sendTab.selection.title,
-                            style: Theme.of(context).textTheme.titleMedium,
-                          ),
-                          const Spacer(),
-                          CustomIconButton(
-                            onPressed: () => ref.redux(selectedSendingFilesProvider).dispatch(ClearSelectionAction()),
-                            child: Icon(Icons.close, color: Theme.of(context).colorScheme.secondary),
-                          ),
-                          const SizedBox(width: 5),
-                        ],
-                      ),
-                      const SizedBox(height: 5),
-                      Text(t.sendTab.selection.files(files: vm.selectedFiles.length)),
-                      Text(t.sendTab.selection.size(size: vm.selectedFiles.fold(0, (prev, curr) => prev + curr.size).asReadableFileSize)),
-                      const SizedBox(height: 10),
-                      SizedBox(
-                        height: defaultThumbnailSize,
-                        child: ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: vm.selectedFiles.length,
-                          itemBuilder: (context, index) {
-                            final file = vm.selectedFiles[index];
-                            return Padding(
-                              padding: const EdgeInsets.only(right: 10),
-                              child: SmartFileThumbnail.fromCrossFile(file),
-                            );
-                          },
+              Padding(
+                padding: const EdgeInsets.only(bottom: 10, left: _horizontalPadding, right: _horizontalPadding),
+                child: Stack(
+                  children: [
+                    if (showModifiers)
+                      Positioned.fill(
+                        child: Card(
+                          margin: EdgeInsets.zero,
+                          elevation: 2,
+                          color: Theme.of(context).brightness == Brightness.dark
+                              ? Theme.of(context).colorScheme.surfaceContainerLowest
+                              : Theme.of(context).colorScheme.surfaceContainerHighest,
                         ),
                       ),
-                      const SizedBox(height: 10),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          TextButton(
-                            style: TextButton.styleFrom(
-                              foregroundColor: Theme.of(context).colorScheme.onSurface,
-                            ),
-                            onPressed: () async {
-                              await context.push(() => const SelectedFilesPage());
-                            },
-                            child: Text(t.general.edit),
-                          ),
-                          const SizedBox(width: 15),
-                          ElevatedButton.icon(
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Theme.of(context).colorScheme.primary,
-                              foregroundColor: Theme.of(context).colorScheme.onPrimary,
-                            ),
-                            onPressed: () async {
-                              if (pickerOptions.length == 1) {
-                                // open directly
-                                await ref.global.dispatchAsync(
-                                  PickFileAction(
-                                    option: pickerOptions.first,
-                                    context: context,
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Card(
+                          margin: EdgeInsets.zero,
+                          elevation: showModifiers ? 4 : null,
+                          child: Padding(
+                            padding: const EdgeInsetsDirectional.only(start: 15, top: 5, bottom: 15),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  children: [
+                                    Text(
+                                      t.sendTab.selection.title,
+                                      style: Theme.of(context).textTheme.titleMedium,
+                                    ),
+                                    const Spacer(),
+                                    CustomIconButton(
+                                      onPressed: () => ref.redux(selectedSendingFilesProvider).dispatch(ClearSelectionAction()),
+                                      child: Icon(Icons.close, color: Theme.of(context).colorScheme.secondary),
+                                    ),
+                                    const SizedBox(width: 5),
+                                  ],
+                                ),
+                                const SizedBox(height: 5),
+                                Text(t.sendTab.selection.files(files: vm.selectedFiles.length)),
+                                Text(t.sendTab.selection.size(size: vm.selectedFiles.fold(0, (prev, curr) => prev + curr.size).asReadableFileSize)),
+                                const SizedBox(height: 10),
+                                SizedBox(
+                                  height: defaultThumbnailSize,
+                                  child: ListView.builder(
+                                    scrollDirection: Axis.horizontal,
+                                    itemCount: vm.selectedFiles.length,
+                                    itemBuilder: (context, index) {
+                                      final file = vm.selectedFiles[index];
+                                      return Padding(
+                                        padding: const EdgeInsets.only(right: 10),
+                                        child: SmartFileThumbnail.fromCrossFile(file),
+                                      );
+                                    },
                                   ),
-                                );
-                                return;
-                              }
-                              await AddFileDialog.open(
-                                context: context,
-                                options: pickerOptions,
-                              );
-                            },
-                            icon: const Icon(Icons.add),
-                            label: Text(t.general.add),
+                                ),
+                                const SizedBox(height: 10),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    TextButton(
+                                      style: TextButton.styleFrom(
+                                        foregroundColor: Theme.of(context).colorScheme.onSurface,
+                                      ),
+                                      onPressed: () async {
+                                        await context.push(() => const SelectedFilesPage());
+                                      },
+                                      child: Text(t.general.edit),
+                                    ),
+                                    const SizedBox(width: 15),
+                                    ElevatedButton.icon(
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: Theme.of(context).colorScheme.primary,
+                                        foregroundColor: Theme.of(context).colorScheme.onPrimary,
+                                      ),
+                                      onPressed: () async {
+                                        if (pickerOptions.length == 1) {
+                                          // open directly
+                                          await ref.global.dispatchAsync(
+                                            PickFileAction(
+                                              option: pickerOptions.first,
+                                              context: context,
+                                            ),
+                                          );
+                                          return;
+                                        }
+                                        await AddFileDialog.open(
+                                          context: context,
+                                          options: pickerOptions,
+                                        );
+                                      },
+                                      icon: const Icon(Icons.add),
+                                      label: Text(t.general.add),
+                                    ),
+                                    const SizedBox(width: 15),
+                                  ],
+                                ),
+                              ],
+                            ),
                           ),
-                          const SizedBox(width: 15),
-                        ],
-                      ),
-                    ],
-                  ),
+                        ),
+                        // Options that modify how the selection is sent
+                        if (showModifiers)
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
+                            child: Row(
+                              children: [
+                                FilterChip(
+                                  label: Text(t.sendTab.selection.secret),
+                                  tooltip: t.sendTab.selection.secretTooltip,
+                                  selected: secret,
+                                  onSelected: (selected) => ref.notifier(secretSendProvider).setState((_) => selected),
+                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                                  side: secret ? const BorderSide(color: Colors.transparent) : null,
+                                  backgroundColor: Theme.of(context).cardColorWithElevation,
+                                  selectedColor: Theme.of(context).colorScheme.primary,
+                                  checkmarkColor: Theme.of(context).colorScheme.onPrimary,
+                                  labelStyle: secret ? TextStyle(color: Theme.of(context).colorScheme.onPrimary) : null,
+                                ),
+                              ],
+                            ),
+                          ),
+                      ],
+                    ),
+                  ],
                 ),
               ),
             ],

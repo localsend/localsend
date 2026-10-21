@@ -53,6 +53,7 @@ pub struct _FileDto {
     pub sha256: Option<String>,
     pub preview: Option<String>,
     pub metadata: Option<FileMetadata>,
+    pub secret: Option<bool>,
 }
 
 #[frb(mirror(FileMetadata))]

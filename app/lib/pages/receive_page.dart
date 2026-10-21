@@ -35,6 +35,9 @@ class ReceivePageVm {
   final List<FileDto> files;
   final String? message;
   final bool isLink;
+
+  /// The sender marked the message as secret, so it is masked until revealed.
+  final bool secret;
   final void Function() onAccept;
   final void Function() onDecline;
   final void Function() onClose;
@@ -48,7 +51,8 @@ class ReceivePageVm {
     required this.onAccept,
     required this.onDecline,
     required this.onClose,
-  }) : isLink = message != null && !message.trim().contains(RegExp(r'\s')) && (Uri.tryParse(message.trim())?.isAbsolute ?? false);
+  }) : isLink = message != null && !message.trim().contains(RegExp(r'\s')) && (Uri.tryParse(message.trim())?.isAbsolute ?? false),
+       secret = message != null && files.any((f) => f.secret);
 }
 
 class ReceivePage extends StatefulWidget {
@@ -61,6 +65,9 @@ class ReceivePage extends StatefulWidget {
 }
 
 class _ReceivePageState extends State<ReceivePage> with Refena {
+  /// Whether a secret message is shown in plain text.
+  bool _secretRevealed = false;
+
   @override
   Widget build(BuildContext context) {
     final vm = context.watch(
@@ -198,13 +205,29 @@ class _ReceivePageState extends State<ReceivePage> with Refena {
                                               child: SizedBox(
                                                 height: 100,
                                                 child: Card(
-                                                  child: SingleChildScrollView(
-                                                    child: Padding(
-                                                      padding: const EdgeInsets.all(10),
-                                                      child: SelectableText(
-                                                        vm.message!,
+                                                  child: Row(
+                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                    children: [
+                                                      Expanded(
+                                                        child: SingleChildScrollView(
+                                                          child: Padding(
+                                                            padding: const EdgeInsets.all(10),
+                                                            child: vm.secret && !_secretRevealed
+                                                                // A fixed number of dots, so the mask does not reveal the length
+                                                                ? const Text('••••••••••••')
+                                                                : SelectableText(
+                                                                    vm.message!,
+                                                                  ),
+                                                          ),
+                                                        ),
                                                       ),
-                                                    ),
+                                                      if (vm.secret)
+                                                        IconButton(
+                                                          tooltip: _secretRevealed ? t.general.hide : t.general.show,
+                                                          icon: Icon(_secretRevealed ? Icons.visibility_off : Icons.visibility),
+                                                          onPressed: () => setState(() => _secretRevealed = !_secretRevealed),
+                                                        ),
+                                                    ],
                                                   ),
                                                 ),
                                               ),

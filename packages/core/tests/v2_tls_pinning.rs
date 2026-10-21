@@ -171,6 +171,7 @@ fn file_dto(id: &str, size: u64) -> FileDto {
         sha256: None,
         preview: None,
         metadata: None,
+        secret: None,
     }
 }
 

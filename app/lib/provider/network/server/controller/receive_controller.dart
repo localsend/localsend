@@ -177,6 +177,7 @@ class ReceiveController {
               fileSize: utf8.encode(message).length,
               senderAlias: server.getState().session!.senderAlias,
               timestamp: DateTime.now().toUtc(),
+              secret: server.getState().session!.files.values.first.file.secret,
             ),
           );
     }
@@ -350,7 +351,7 @@ class ReceiveController {
         ),
       );
 
-      // Track it in history
+      // Track it in history (skipped if disabled in settings or the sender marked it secret)
       await server.ref
           .redux(receiveHistoryProvider)
           .dispatchAsync(
@@ -364,6 +365,7 @@ class ReceiveController {
               fileSize: receivingFile.file.size,
               senderAlias: receiveState.senderAlias,
               timestamp: DateTime.now().toUtc(),
+              secret: receivingFile.file.secret,
             ),
           );
     } else {

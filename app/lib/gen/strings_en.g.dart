@@ -176,6 +176,9 @@ class Translations$general$en {
   /// en: 'Settings'
   String get settings => 'Settings';
 
+  /// en: 'Show'
+  String get show => 'Show';
+
   /// en: 'Skipped'
   String get skipped => 'Skipped';
 
@@ -999,6 +1002,12 @@ class Translations$sendTab$selection$en {
 
   /// en: 'Size: {size}'
   String size({required Object size}) => 'Size: ${size}';
+
+  /// en: 'Secret'
+  String get secret => 'Secret';
+
+  /// en: 'Not kept in the receiver's history'
+  String get secretTooltip => 'Not kept in the receiver\'s history';
 }
 
 // Path: sendTab.picker

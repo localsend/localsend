@@ -22,6 +22,7 @@ class FileDto {
   final String? sha256;
   final String? preview;
   final FileMetadata? metadata;
+  final bool? secret;
 
   const FileDto({
     required this.id,
@@ -31,10 +32,12 @@ class FileDto {
     this.sha256,
     this.preview,
     this.metadata,
+    this.secret,
   });
 
   @override
-  int get hashCode => id.hashCode ^ fileName.hashCode ^ size.hashCode ^ fileType.hashCode ^ sha256.hashCode ^ preview.hashCode ^ metadata.hashCode;
+  int get hashCode =>
+      id.hashCode ^ fileName.hashCode ^ size.hashCode ^ fileType.hashCode ^ sha256.hashCode ^ preview.hashCode ^ metadata.hashCode ^ secret.hashCode;
 
   @override
   bool operator ==(Object other) =>
@@ -47,7 +50,8 @@ class FileDto {
           fileType == other.fileType &&
           sha256 == other.sha256 &&
           preview == other.preview &&
-          metadata == other.metadata;
+          metadata == other.metadata &&
+          secret == other.secret;
 }
 
 class FileMetadata {

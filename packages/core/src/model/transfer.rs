@@ -144,6 +144,8 @@ pub struct FileDto {
     pub preview: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub metadata: Option<FileMetadata>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub secret: Option<bool>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]

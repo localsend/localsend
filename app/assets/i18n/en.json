@@ -32,6 +32,7 @@
     "reset": "Undo changes",
     "restart": "Restart",
     "settings": "Settings",
+    "show": "Show",
     "skipped": "Skipped",
     "start": "Start",
     "stop": "Stop",
@@ -59,7 +60,9 @@
     "selection": {
       "title": "Selection",
       "files": "Files: {files}",
-      "size": "Size: {size}"
+      "size": "Size: {size}",
+      "secret": "Secret",
+      "secretTooltip": "Not kept in the receiver's history"
     },
     "picker": {
       "file": "File",

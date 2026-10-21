@@ -30,6 +30,7 @@ class FileDto {
   final String? hash;
   final String? preview;
   final FileMetadata? metadata;
+  final bool secret;
 
   const FileDto({
     required this.id,
@@ -39,6 +40,7 @@ class FileDto {
     required this.hash,
     required this.preview,
     required this.metadata,
+    required this.secret,
   });
 
   String lookupMime() => lookupMimeType(fileName) ?? 'application/octet-stream';
@@ -53,6 +55,7 @@ class FileDto {
       hash: hash,
       preview: preview,
       metadata: metadata,
+      secret: secret,
     );
   }
 
@@ -66,10 +69,11 @@ class FileDto {
           size == other.size &&
           fileType == other.fileType &&
           hash == other.hash &&
-          preview == other.preview;
+          preview == other.preview &&
+          secret == other.secret;
 
   @override
-  int get hashCode => Object.hash(id, fileName, size, fileType, hash, preview);
+  int get hashCode => Object.hash(id, fileName, size, fileType, hash, preview, secret);
 }
 
 class FileDtoMapper extends SimpleMapper<FileDto> {
@@ -99,6 +103,7 @@ class FileDtoMapper extends SimpleMapper<FileDto> {
         Map<String, dynamic> metadata => FileMetadataMapper.fromJson(metadata),
         _ => null,
       },
+      secret: map['secret'] == true,
     );
   }
 
@@ -112,6 +117,7 @@ class FileDtoMapper extends SimpleMapper<FileDto> {
       if (self.hash != null) 'hash': self.hash,
       if (self.preview != null) 'preview': self.preview,
       if (self.metadata != null) 'metadata': self.metadata!.toJson(),
+      if (self.secret) 'secret': true,
     };
   }
 }

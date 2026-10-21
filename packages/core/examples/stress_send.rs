@@ -41,6 +41,7 @@ async fn main() -> anyhow::Result<()> {
                 sha256: None,
                 preview: None,
                 metadata: None,
+                secret: None,
             };
             (id, file)
         })
