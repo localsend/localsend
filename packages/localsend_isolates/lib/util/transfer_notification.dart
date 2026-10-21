@@ -139,11 +139,12 @@ class TransferNotification {
     }
 
     final percentage = totalBytes == 0 ? 0 : (100 * currentBytes / totalBytes).floor();
-    final text = StringBuffer('$percentage% (${currentBytes.asReadableFileSize} / ${totalBytes.asReadableFileSize})');
+    final locale = _requiredStrings.locale;
+    final text = StringBuffer('$percentage% (${currentBytes.readableFileSize(locale: locale)} / ${totalBytes.readableFileSize(locale: locale)})');
 
     if (speedInBytes != null) {
       text.write('\n${getRemainingTime(bytesPerSeconds: speedInBytes, remainingBytes: totalBytes - currentBytes, strings: _requiredStrings)}');
-      text.write(' · ${speedInBytes.asReadableFileSize}/s');
+      text.write(' · ${speedInBytes.readableFileSize(locale: locale)}/s');
     }
 
     return text.toString();

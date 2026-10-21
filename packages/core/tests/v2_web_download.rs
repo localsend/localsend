@@ -4,7 +4,7 @@ use bytes::Bytes;
 use localsend::http::client::{ClientError, LsHttpClientV2};
 use localsend::http::server::v2::ServerEventV2;
 use localsend::http::server::web::WebDownloadConfig;
-use localsend::http::server::web::{WebConfig, WebDownloadEvent, WebMode, WebPages};
+use localsend::http::server::web::{WebConfig, WebDownloadEvent, WebI18n, WebMode, WebPages};
 use localsend::http::server::{start_with_port, ServerConfigV2};
 use localsend::http::state::ClientInfo;
 use localsend::model::discovery::ProtocolType;
@@ -247,6 +247,10 @@ async fn test_web_page() {
     assert!(body.contains("LocalSend"));
     assert!(body.contains("prepare-download"));
 
+    let response = client.get(format!("{base_url}/file-size.js")).send().await.unwrap();
+    assert_eq!(response.status().as_u16(), 200);
+    assert_eq!(response.headers().get("content-type").unwrap(), "application/javascript; charset=utf-8");
+
     let response = client
         .get(format!("{base_url}/i18n.json"))
         .send()
@@ -316,6 +320,12 @@ async fn test_upload_page() {
         }),
         WebConfig {
             mode: WebMode::Upload,
+            i18n: WebI18n {
+                locale: "fr-CA".to_string(),
+                upload: "Choose & upload".to_string(),
+                drop_hint: "Drop items here".to_string(),
+                ..WebI18n::default()
+            },
             ..WebConfig::default()
         },
         stop_rx,
@@ -346,6 +356,8 @@ async fn test_upload_page() {
     assert!(i18n.contains_key("busy"));
     assert!(i18n.contains_key("uploadRejected"));
     assert!(i18n.contains_key("dropHint"));
+    assert_eq!(i18n["upload"], "Choose & upload");
+    assert_eq!(i18n["locale"], "fr-CA");
 }
 
 #[tokio::test]

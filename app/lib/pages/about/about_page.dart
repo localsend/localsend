@@ -139,19 +139,19 @@ class AboutPage extends StatelessWidget {
                 onPressed: () async {
                   await launchUrl(Uri.parse('https://localsend.org'));
                 },
-                child: const Text('Homepage'),
+                child: Text(t.aboutPage.homepage),
               ),
               TextButton(
                 onPressed: () async {
                   await launchUrl(Uri.parse('https://github.com/localsend/localsend'), mode: LaunchMode.externalApplication);
                 },
-                child: const Text('Source Code (Github)'),
+                child: Text(t.aboutPage.sourceCode(site: 'GitHub')),
               ),
               TextButton(
                 onPressed: () async {
                   await launchUrl(Uri.parse('https://codeberg.org/localsend/localsend'), mode: LaunchMode.externalApplication);
                 },
-                child: const Text('Source Code (Codeberg)'),
+                child: Text(t.aboutPage.sourceCode(site: 'Codeberg')),
               ),
               TextButton(
                 onPressed: () async {
@@ -163,7 +163,7 @@ class AboutPage extends StatelessWidget {
                 onPressed: () async {
                   await context.push(() => const LicensePage());
                 },
-                child: const Text('License Notices'),
+                child: Text(t.aboutPage.licenseNotices),
               ),
               TextButton(
                 onPressed: () async {

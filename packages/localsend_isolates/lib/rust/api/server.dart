@@ -287,6 +287,7 @@ class TlsConfig {
 }
 
 class WebI18n {
+  final String locale;
   final String waiting;
   final String enterPin;
   final String invalidPin;
@@ -298,8 +299,10 @@ class WebI18n {
   final String fileName;
   final String size;
   final String dropHint;
+  final String upload;
 
   const WebI18n({
+    required this.locale,
     required this.waiting,
     required this.enterPin,
     required this.invalidPin,
@@ -311,10 +314,12 @@ class WebI18n {
     required this.fileName,
     required this.size,
     required this.dropHint,
+    required this.upload,
   });
 
   @override
   int get hashCode =>
+      locale.hashCode ^
       waiting.hashCode ^
       enterPin.hashCode ^
       invalidPin.hashCode ^
@@ -325,13 +330,15 @@ class WebI18n {
       files.hashCode ^
       fileName.hashCode ^
       size.hashCode ^
-      dropHint.hashCode;
+      dropHint.hashCode ^
+      upload.hashCode;
 
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is WebI18n &&
           runtimeType == other.runtimeType &&
+          locale == other.locale &&
           waiting == other.waiting &&
           enterPin == other.enterPin &&
           invalidPin == other.invalidPin &&
@@ -342,7 +349,8 @@ class WebI18n {
           files == other.files &&
           fileName == other.fileName &&
           size == other.size &&
-          dropHint == other.dropHint;
+          dropHint == other.dropHint &&
+          upload == other.upload;
 }
 
 @freezed

@@ -3486,6 +3486,7 @@ const _: fn() = || {
     }
     {
         let WebI18n = None::<crate::api::server::WebI18n>.unwrap();
+        let _: String = WebI18n.locale;
         let _: String = WebI18n.waiting;
         let _: String = WebI18n.enter_pin;
         let _: String = WebI18n.invalid_pin;
@@ -3497,6 +3498,7 @@ const _: fn() = || {
         let _: String = WebI18n.file_name;
         let _: String = WebI18n.size;
         let _: String = WebI18n.drop_hint;
+        let _: String = WebI18n.upload;
     }
     {
         let WebPages = None::<crate::api::server::WebPages>.unwrap();
@@ -4976,6 +4978,7 @@ impl SseDecode for usize {
 impl SseDecode for crate::api::server::WebI18n {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut var_locale = <String>::sse_decode(deserializer);
         let mut var_waiting = <String>::sse_decode(deserializer);
         let mut var_enterPin = <String>::sse_decode(deserializer);
         let mut var_invalidPin = <String>::sse_decode(deserializer);
@@ -4987,7 +4990,9 @@ impl SseDecode for crate::api::server::WebI18n {
         let mut var_fileName = <String>::sse_decode(deserializer);
         let mut var_size = <String>::sse_decode(deserializer);
         let mut var_dropHint = <String>::sse_decode(deserializer);
+        let mut var_upload = <String>::sse_decode(deserializer);
         return crate::api::server::WebI18n {
+            locale: var_locale,
             waiting: var_waiting,
             enter_pin: var_enterPin,
             invalid_pin: var_invalidPin,
@@ -4999,6 +5004,7 @@ impl SseDecode for crate::api::server::WebI18n {
             file_name: var_fileName,
             size: var_size,
             drop_hint: var_dropHint,
+            upload: var_upload,
         };
     }
 }
@@ -6431,6 +6437,7 @@ impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<crate::api::server::TlsConfig>
 impl flutter_rust_bridge::IntoDart for FrbWrapper<crate::api::server::WebI18n> {
     fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
         [
+            self.0.locale.into_into_dart().into_dart(),
             self.0.waiting.into_into_dart().into_dart(),
             self.0.enter_pin.into_into_dart().into_dart(),
             self.0.invalid_pin.into_into_dart().into_dart(),
@@ -6442,6 +6449,7 @@ impl flutter_rust_bridge::IntoDart for FrbWrapper<crate::api::server::WebI18n> {
             self.0.file_name.into_into_dart().into_dart(),
             self.0.size.into_into_dart().into_dart(),
             self.0.drop_hint.into_into_dart().into_dart(),
+            self.0.upload.into_into_dart().into_dart(),
         ]
         .into_dart()
     }
@@ -7764,6 +7772,7 @@ impl SseEncode for usize {
 impl SseEncode for crate::api::server::WebI18n {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <String>::sse_encode(self.locale, serializer);
         <String>::sse_encode(self.waiting, serializer);
         <String>::sse_encode(self.enter_pin, serializer);
         <String>::sse_encode(self.invalid_pin, serializer);
@@ -7775,6 +7784,7 @@ impl SseEncode for crate::api::server::WebI18n {
         <String>::sse_encode(self.file_name, serializer);
         <String>::sse_encode(self.size, serializer);
         <String>::sse_encode(self.drop_hint, serializer);
+        <String>::sse_encode(self.upload, serializer);
     }
 }
 
