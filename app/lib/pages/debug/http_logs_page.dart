@@ -38,7 +38,6 @@ class HttpLogsPage extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              name: log.log,
               value: log.log,
             ),
           ),
