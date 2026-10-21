@@ -857,6 +857,11 @@ class _Translations$settingsTab$general$ru extends Translations$settingsTab$gene
   @override
   late final _Translations$settingsTab$general$colorOptions$ru colorOptions = _Translations$settingsTab$general$colorOptions$ru._(_root);
   @override
+  String get colorIntensity => 'Интенсивность цвета';
+  @override
+  late final _Translations$settingsTab$general$colorIntensityOptions$ru colorIntensityOptions =
+      _Translations$settingsTab$general$colorIntensityOptions$ru._(_root);
+  @override
   String get language => 'Язык';
   @override
   late final _Translations$settingsTab$general$languageOptions$ru languageOptions = _Translations$settingsTab$general$languageOptions$ru._(_root);
@@ -1515,6 +1520,21 @@ class _Translations$settingsTab$general$colorOptions$ru extends Translations$set
   String get oled => 'OLED';
   @override
   String get custom => 'Собственный';
+}
+
+// Path: settingsTab.general.colorIntensityOptions
+class _Translations$settingsTab$general$colorIntensityOptions$ru extends Translations$settingsTab$general$colorIntensityOptions$en {
+  _Translations$settingsTab$general$colorIntensityOptions$ru._(TranslationsRu root) : this._root = root, super.internal(root);
+
+  final TranslationsRu _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get low => 'Низкая';
+  @override
+  String get medium => 'Средняя';
+  @override
+  String get high => 'Высокая';
 }
 
 // Path: settingsTab.general.languageOptions
