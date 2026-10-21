@@ -170,7 +170,7 @@ class _CornerButtons extends StatelessWidget {
             CustomIconButton(
               key: const ValueKey('info-btn'),
               onPressed: toggleAdvanced,
-              tooltip: t.general.advanced,
+              tooltip: showAdvanced ? t.general.hide : t.general.advanced,
               child: const Icon(Icons.info),
             ),
           ],

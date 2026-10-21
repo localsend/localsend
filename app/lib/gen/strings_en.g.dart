@@ -493,6 +493,9 @@ class Translations$receiveOptionsPage$en {
   /// en: 'Save to folder'
   String get destination => _root.settingsTab.receive.destination;
 
+  /// en: 'Change destination'
+  String get changeDestination => 'Change destination';
+
   /// en: '(LocalSend folder)'
   String get appDirectory => '(LocalSend folder)';
 
@@ -1218,6 +1221,8 @@ class Translations$settingsTab$network$en {
   /// en: 'Device type'
   String get deviceType => 'Device type';
 
+  late final Translations$settingsTab$network$deviceTypes$en deviceTypes = Translations$settingsTab$network$deviceTypes$en.internal(_root);
+
   /// en: 'Device model'
   String get deviceModel => 'Device model';
 
@@ -1916,6 +1921,30 @@ class Translations$settingsTab$general$languageOptions$en {
 
   /// en: 'System'
   String get system => 'System';
+}
+
+// Path: settingsTab.network.deviceTypes
+class Translations$settingsTab$network$deviceTypes$en {
+  Translations$settingsTab$network$deviceTypes$en.internal(this._root);
+
+  final Translations _root; // ignore: unused_field
+
+  // Translations
+
+  /// en: 'Mobile'
+  String get mobile => 'Mobile';
+
+  /// en: 'Desktop'
+  String get desktop => 'Desktop';
+
+  /// en: 'Web'
+  String get web => 'Web';
+
+  /// en: 'Headless'
+  String get headless => 'Headless';
+
+  /// en: 'Server'
+  String get server => 'Server';
 }
 
 // Path: settingsTab.network.networkOptions
