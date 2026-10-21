@@ -355,6 +355,10 @@ class _ReceiveSession {
   /// files of the session.
   final Set<String> createdDirectories = {};
 
+  /// Paths selected by files of the session, including those not yet created.
+  /// Kept across retries so other file IDs cannot reuse their destinations.
+  final Set<String> reservedPaths = {};
+
   /// One queue per file ID, so that uploads of the same file do not overlap.
   ///
   /// A sender may upload the same file again after it was rejected because of
@@ -657,6 +661,7 @@ Future<void> _handleFileUpload({
             fileName: desiredName,
             saveToGallery: shouldSaveToGallery,
             createdDirectories: session.createdDirectories,
+            reservedPaths: session.reservedPaths,
             androidSdkInt: config.androidSdkInt,
           );
     session.targets[fileId] = target;
@@ -713,6 +718,7 @@ Future<void> _handleFileUpload({
         fileName: desiredName,
         isImage: isImage,
         createdDirectories: session.createdDirectories,
+        reservedPaths: session.reservedPaths,
       );
     } else {
       filePath = target.displayPath;
