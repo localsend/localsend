@@ -1580,6 +1580,9 @@ class Translations$dialogs$favoriteEditDialog$en {
 
   /// en: 'Port'
   String get port => 'Port';
+
+  /// en: 'Enter a whole number between 1 and 65535.'
+  String get invalidPort => 'Enter a whole number between 1 and 65535.';
 }
 
 // Path: dialogs.fileInfo
