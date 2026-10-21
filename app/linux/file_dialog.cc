@@ -41,7 +41,16 @@ struct FileDialogRequest {
   gboolean finished = FALSE;
 };
 
+void unsubscribe_portal_response(FileDialogRequest* request) {
+  if (request->response_subscription != 0 && request->connection != nullptr) {
+    g_dbus_connection_signal_unsubscribe(request->connection, request->response_subscription);
+    request->response_subscription = 0;
+  }
+}
+
 void file_dialog_request_free(FileDialogRequest* request) {
+  unsubscribe_portal_response(request);
+
   if (request->response_timeout_id != 0) {
     g_source_remove(request->response_timeout_id);
     request->response_timeout_id = 0;
@@ -65,10 +74,7 @@ void finish_with_paths(FileDialogRequest* request, GSList* paths) {
   }
   request->finished = TRUE;
 
-  if (request->response_subscription != 0 && request->connection != nullptr) {
-    g_dbus_connection_signal_unsubscribe(request->connection, request->response_subscription);
-    request->response_subscription = 0;
-  }
+  unsubscribe_portal_response(request);
 
   g_autoptr(FlValue) result = fl_value_new_list();
   for (GSList* node = paths; node != nullptr; node = node->next) {
@@ -115,10 +121,7 @@ void fall_back_to_in_process_dialog(FileDialogRequest* request) {
     return;
   }
 
-  if (request->response_subscription != 0 && request->connection != nullptr) {
-    g_dbus_connection_signal_unsubscribe(request->connection, request->response_subscription);
-    request->response_subscription = 0;
-  }
+  unsubscribe_portal_response(request);
 
   // The in-process dialog runs a nested main loop. Cancel the watchdog first
   // so it cannot open a second dialog while this one is still open.
