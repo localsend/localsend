@@ -12,6 +12,9 @@ pub enum HashError {
 
     #[error("Hashing has been cancelled")]
     Cancelled,
+
+    #[error("File hashing task failed: {0}")]
+    Task(#[from] tokio::task::JoinError),
 }
 
 pub fn sha256(data: &[u8]) -> Vec<u8> {
@@ -29,10 +32,13 @@ pub fn sha256_hex(data: &[u8]) -> String {
 ///
 /// `progress` is invoked with the cumulative number of bytes hashed as each
 /// chunk is consumed, mirroring the upload progress callback.
+/// For files it runs on a blocking worker, along with the reads and hashing,
+/// so neither CPU work nor a thread-pool round trip per chunk occupies the
+/// async runtime. The file is never fully loaded into memory.
 pub async fn sha256_file_content(
     content: FileContent,
     cancel_token: &CancellationToken,
-    progress: impl Fn(u64),
+    progress: impl Fn(u64) + Send + 'static,
 ) -> Result<String, HashError> {
     let mut hasher = Sha256::new();
     match content {
@@ -56,8 +62,12 @@ pub async fn sha256_file_content(
         }
         FileContent::Path(path) => {
             tracing::info!("Hashing file content from path: {}", path.display());
-            let file = tokio::fs::File::open(&path).await?;
-            read_and_hash_from_file(&mut hasher, file, cancel_token, progress).await?;
+            return read_and_hash_from_file(
+                move || std::fs::File::open(path),
+                cancel_token,
+                progress,
+            )
+            .await;
         }
         #[cfg(target_os = "android")]
         FileContent::Fd(fd) => {
@@ -67,39 +77,57 @@ pub async fn sha256_file_content(
             // SAFETY: the descriptor is owned by this call; wrapping it in a File
             // transfers that ownership so it is closed once hashing finishes.
             let std_file = unsafe { std::fs::File::from_raw_fd(fd) };
-            let file = tokio::fs::File::from_std(std_file);
-            read_and_hash_from_file(&mut hasher, file, cancel_token, progress).await?;
+            return read_and_hash_from_file(move || Ok(std_file), cancel_token, progress).await;
         }
     }
 
     Ok(to_hex(&hasher.finalize()))
 }
 
-/// Reads `file` to EOF, feeding every chunk into `hasher`.
+/// Opens, reads and hashes a file in one blocking task. Tokio's file API would
+/// otherwise dispatch a blocking read and copy its buffer for every chunk.
 async fn read_and_hash_from_file(
-    hasher: &mut Sha256,
-    mut file: tokio::fs::File,
+    open: impl FnOnce() -> std::io::Result<std::fs::File> + Send + 'static,
     cancel_token: &CancellationToken,
-    progress: impl Fn(u64),
-) -> Result<(), HashError> {
-    use tokio::io::AsyncReadExt;
+    progress: impl Fn(u64) + Send + 'static,
+) -> Result<String, HashError> {
+    use std::io::Read;
 
-    let mut buffer = vec![0u8; HASH_BUFFER_SIZE];
-    let mut hashed = 0_u64;
-    loop {
-        let read = tokio::select! {
-            biased;
-            _ = cancel_token.cancelled() => return Err(HashError::Cancelled),
-            read = file.read(&mut buffer) => read?,
-        };
-        if read == 0 {
-            break;
+    // A blocking task cannot be aborted. Stop it between reads when the caller
+    // cancels or drops this future, without cancelling the caller's own token.
+    let token = cancel_token.child_token();
+    let _cancel_on_drop = token.clone().drop_guard();
+    let task = tokio::task::spawn_blocking(move || {
+        if token.is_cancelled() {
+            return Err(HashError::Cancelled);
         }
-        hasher.update(&buffer[..read]);
-        hashed += read as u64;
-        progress(hashed);
+        let mut file = open()?;
+        let mut hasher = Sha256::new();
+        let mut buffer = vec![0u8; HASH_BUFFER_SIZE];
+        let mut hashed = 0_u64;
+        loop {
+            if token.is_cancelled() {
+                return Err(HashError::Cancelled);
+            }
+            let read = file.read(&mut buffer)?;
+            if token.is_cancelled() {
+                return Err(HashError::Cancelled);
+            }
+            if read == 0 {
+                break;
+            }
+            hasher.update(&buffer[..read]);
+            hashed += read as u64;
+            progress(hashed);
+        }
+        Ok(to_hex(&hasher.finalize()))
+    });
+
+    tokio::select! {
+        biased;
+        _ = cancel_token.cancelled() => Err(HashError::Cancelled),
+        result = task => result?,
     }
-    Ok(())
 }
 
 pub(crate) fn to_hex(bytes: &[u8]) -> String {
