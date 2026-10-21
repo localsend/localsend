@@ -13,6 +13,7 @@ import 'package:localsend_app/util/ip_helper.dart';
 import 'package:localsend_app/widget/animations/initial_fade_transition.dart';
 import 'package:localsend_app/widget/column_list_view.dart';
 import 'package:localsend_app/widget/custom_icon_button.dart';
+import 'package:localsend_app/widget/dialogs/qr_dialog.dart';
 import 'package:localsend_app/widget/local_send_logo.dart';
 import 'package:localsend_app/widget/responsive_list_view.dart';
 import 'package:localsend_app/widget/rotating_widget.dart';
@@ -20,6 +21,7 @@ import 'package:localsend_isolates/util/sleep.dart';
 import 'package:refena_flutter/addons.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 import 'package:routerino/routerino.dart';
+import 'package:localsend_app/widget/dialogs/qr_dialog.dart';
 
 class ReceiveTab extends StatefulWidget {
   const ReceiveTab();
@@ -202,43 +204,69 @@ class _InfoBox extends StatelessWidget {
           child: Card(
             child: Padding(
               padding: const EdgeInsets.all(15),
-              child: Table(
-                columnWidths: const {
-                  0: IntrinsicColumnWidth(),
-                  1: IntrinsicColumnWidth(),
-                  2: IntrinsicColumnWidth(),
-                },
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  TableRow(
+                  Table(
+                    columnWidths: const {
+                      0: IntrinsicColumnWidth(),
+                      1: IntrinsicColumnWidth(),
+                      2: IntrinsicColumnWidth(),
+                    },
                     children: [
-                      Text(t.receiveTab.infoBox.alias),
-                      const SizedBox(width: 10),
-                      Padding(
-                        padding: const EdgeInsets.only(right: 30),
-                        child: SelectableText(serverState?.alias ?? '-'),
-                      ),
-                    ],
-                  ),
-                  TableRow(
-                    children: [
-                      Text(t.receiveTab.infoBox.ip),
-                      const SizedBox(width: 10),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                      TableRow(
                         children: [
-                          if (localIps.isEmpty) Text(t.general.unknown),
-                          ...localIps.map((ip) => SelectableText(ip)),
+                          Text(t.receiveTab.infoBox.alias),
+                          const SizedBox(width: 10),
+                          Padding(
+                            padding: const EdgeInsets.only(right: 30),
+                            child: SelectableText(serverState?.alias ?? '-'),
+                          ),
+                        ],
+                      ),
+                      TableRow(
+                        children: [
+                          Text(t.receiveTab.infoBox.ip),
+                          const SizedBox(width: 10),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              if (localIps.isEmpty) Text(t.general.unknown),
+                              ...localIps.map((ip) => SelectableText(ip)),
+                            ],
+                          ),
+                        ],
+                      ),
+                      TableRow(
+                        children: [
+                          Text(t.receiveTab.infoBox.port),
+                          const SizedBox(width: 10),
+                          SelectableText(serverState?.port.toString() ?? '-'),
                         ],
                       ),
                     ],
                   ),
-                  TableRow(
-                    children: [
-                      Text(t.receiveTab.infoBox.port),
-                      const SizedBox(width: 10),
-                      SelectableText(serverState?.port.toString() ?? '-'),
-                    ],
-                  ),
+
+                  // Table
+                  if (localIps.isNotEmpty && serverState?.port != null) ...[
+                    const SizedBox(height: 8),
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: TextButton.icon(
+                        onPressed: () {
+                          showDialog(
+                            context: context,
+                            builder: (_) => QrDialog(
+                              data: 'http://${localIps.first}:${serverState!.port}',
+                              label: t.receiveTab.infoBox.qrCodeLabel,
+                            ),
+                          );
+                        },
+                        icon: const Icon(Icons.qr_code),
+                        label: Text(t.receiveTab.infoBox.showQrCode),
+                      ),
+                    ),
+                  ],
                 ],
               ),
             ),
