@@ -13,7 +13,7 @@ essential: false
 icon: assets/img/logo-512.png
 
 pre_dependencies:
-  - libc6 (>= 2.31)
+  - libc6 (>= 2.34)
 
 dependencies:
   - libappindicator3-1 | libayatana-appindicator3-1
