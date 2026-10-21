@@ -20,6 +20,7 @@ import 'package:localsend_app/util/ui/asset_picker_translated_text_delegate.dart
 import 'package:localsend_app/widget/dialogs/loading_dialog.dart';
 import 'package:localsend_app/widget/dialogs/message_input_dialog.dart';
 import 'package:localsend_app/widget/dialogs/no_permission_dialog.dart';
+import 'package:localsend_isolates/model/content_source.dart';
 import 'package:localsend_isolates/model/file_type.dart';
 import 'package:localsend_isolates/util/file_path_helper.dart';
 import 'package:localsend_isolates/util/sleep.dart';
@@ -344,10 +345,9 @@ Future<void> _pickClipboard(BuildContext context, Ref ref) async {
                 name: file.name,
                 fileType: file.name.guessFileType(),
                 size: await _uriContent.getContentLength(Uri.parse(file.path)) ?? -1,
-                path: file.path,
+                source: ContentSource.fromPath(file.path),
                 thumbnail: null,
                 asset: null,
-                bytes: null,
                 lastModified: null,
                 lastAccessed: null,
               );
