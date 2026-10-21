@@ -16,6 +16,7 @@ class QuickSaveFromFavoritesNotice extends StatelessWidget {
           content: Text(t.dialogs.quickSaveFromFavoritesNotice.content.join('\n')),
           actions: [
             TextButton(
+              autofocus: true,
               onPressed: () => context.pop(),
               child: Text(t.general.close),
             ),
@@ -34,6 +35,7 @@ class QuickSaveFromFavoritesNotice extends StatelessWidget {
       description: t.dialogs.quickSaveFromFavoritesNotice.content.join('\n'),
       child: Center(
         child: ElevatedButton(
+          autofocus: true,
           onPressed: () => context.popUntilRoot(),
           child: Text(t.general.close),
         ),
