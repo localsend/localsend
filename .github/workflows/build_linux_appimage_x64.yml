@@ -32,7 +32,8 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y clang cmake libgtk-3-dev ninja-build libayatana-appindicator3-dev libfuse2
+          # TODO: When download_wayland_client.sh is removed, remove curl ca-certificates unzip zstd if otherwise unused.
+          sudo apt-get install -y clang cmake libgtk-3-dev ninja-build libayatana-appindicator3-dev libfuse2 curl ca-certificates unzip zstd
 
       - uses: subosito/flutter-action@v2
         with:
@@ -72,6 +73,9 @@ jobs:
 
       - name: Copy Recipe to correct location
         run: cp support/build/appimage/AppImageBuilder_x86_64.yml AppImageBuilder.yml
+
+      - name: Download Wayland client
+        run: bash support/build/appimage/download_wayland_client.sh AppDir
 
       - name: Build AppImage
         uses: AppImageCrafters/build-appimage@57c3bc6963f870ce3be103117de5b5e33ffbaeb6
