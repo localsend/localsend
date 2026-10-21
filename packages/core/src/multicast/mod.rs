@@ -160,7 +160,9 @@ pub enum MulticastEvent {
 #[derive(Clone)]
 struct SendSocket {
     target: SocketAddr,
+    broadcast_target: Option<SocketAddr>,
     socket: Arc<UdpSocket>,
+    broadcast_socket: Option<Arc<UdpSocket>>,
 }
 
 struct MulticastState {
@@ -196,9 +198,20 @@ impl MulticastState {
         };
 
         let sockets = self.sockets.read().await.clone();
-        for SendSocket { target, socket } in sockets {
+        for SendSocket {
+            target,
+            broadcast_target,
+            socket,
+            broadcast_socket,
+        } in sockets
+        {
             if let Err(err) = socket.send_to(&payload, target).await {
                 tracing::warn!("Could not send multicast message to {target}: {err:#}");
+            }
+            if let (Some(target), Some(socket)) = (broadcast_target, broadcast_socket) {
+                if let Err(err) = socket.send_to(&payload, target).await {
+                    tracing::warn!("Could not send direct-link broadcast to {target}: {err:#}");
+                }
             }
         }
     }
@@ -274,7 +287,9 @@ pub async fn start(
                 .iter()
                 .map(|socket| SendSocket {
                     target: socket.target,
+                    broadcast_target: socket.broadcast_target,
                     socket: socket.socket.clone(),
+                    broadcast_socket: socket.broadcast_socket.clone(),
                 })
                 .collect(),
         ),
