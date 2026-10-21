@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:flutter/material.dart';
 import 'package:localsend_app/util/fingerprint_alphabet.dart';
 import 'package:test/test.dart';
 
@@ -13,6 +14,34 @@ void main() {
       }
       final duplicates = byCodePoint.entries.where((e) => e.value > 1).map((e) => '0x${e.key.toRadixString(16)}').toList();
       expect(duplicates, isEmpty, reason: 'duplicate glyphs: ${duplicates.join(', ')}');
+    });
+
+    test('has one spoken name per icon', () {
+      expect(iconAlphabetNames.length, iconAlphabet.length, reason: 'index mismatch between iconAlphabet and iconAlphabetNames');
+      expect(iconAlphabetNames.every((name) => name.trim().isNotEmpty), isTrue, reason: 'empty spoken name');
+    });
+
+    test('no two icons share a spoken name', () {
+      // The same name for two glyphs means a fingerprint cannot be read out
+      // loud: the two symbols sound the same.
+      final names = iconAlphabetNames.toSet();
+      expect(names.length, iconAlphabetNames.length, reason: 'two icons share a spoken name');
+    });
+
+    test('the spoken name belongs to the glyph', () {
+      // A name that describes another icon makes the alphabet useless for
+      // comparing two fingerprints by ear.
+      final expected = <IconData, String>{
+        Icons.local_pizza: 'pizza',
+        Icons.local_shipping: 'delivery truck',
+        Icons.change_history: 'history',
+        Icons.warning: 'warning sign',
+      };
+      for (final entry in expected.entries) {
+        final index = iconAlphabet.indexOf(entry.key);
+        expect(index, isNonNegative, reason: 'the icon is not in the alphabet');
+        expect(iconAlphabetNames[index], entry.value);
+      }
     });
   });
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/util/device_type_ext.dart';
 import 'package:localsend_app/widget/custom_progress_bar.dart';
 import 'package:localsend_app/widget/device_bage.dart';
@@ -45,6 +46,7 @@ class DeviceListTile extends StatelessWidget {
       ),
       trailing: onDetailsTap != null
           ? IconButton(
+              tooltip: t.deviceDetailsPage.title,
               icon: const Icon(Icons.info_outline),
               onPressed: onDetailsTap,
             )
