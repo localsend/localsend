@@ -10,6 +10,7 @@ import 'package:localsend_app/provider/http_provider.dart';
 import 'package:localsend_app/provider/last_devices.provider.dart';
 import 'package:localsend_app/provider/local_ip_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
+import 'package:localsend_app/util/device_address.dart';
 import 'package:localsend_app/widget/dialogs/error_dialog.dart';
 import 'package:localsend_isolates/model/device.dart';
 import 'package:localsend_isolates/rust/api/model.dart';
@@ -48,11 +49,14 @@ class _AddressInputDialogState extends State<AddressInputDialog> with Refena {
 
   Future<void> _submit(List<String> localIps, int port, [String? candidate]) async {
     final List<String> candidates;
+    int targetPort = port;
     final String input = _input.trim();
     if (candidate != null) {
       candidates = [candidate];
     } else if (_mode == _InputMode.ip) {
-      candidates = [input];
+      final address = parseDeviceAddress(input, defaultPort: port);
+      candidates = [address.host];
+      targetPort = address.port;
     } else {
       candidates = localIps.map((ip) => '${ip.ipPrefix}.$input').toList();
     }
@@ -79,11 +83,11 @@ class _AddressInputDialogState extends State<AddressInputDialog> with Refena {
                 .register(
                   protocol: https ? ProtocolType.https : ProtocolType.http,
                   ip: ip,
-                  port: port,
+                  port: targetPort,
                   payload: payload,
                 );
 
-            foundDevice = response.body.toDevice(ip, port, https);
+            foundDevice = response.body.toDevice(ip, targetPort, https);
             deviceCompleter.complete();
           } catch (e) {
             error = e.toString();
@@ -203,7 +207,7 @@ class _AddressInputDialogState extends State<AddressInputDialog> with Refena {
                             TextSpan(
                               text: device.ip,
                               style: TextStyle(color: Theme.of(context).colorScheme.primary),
-                              recognizer: TapGestureRecognizer()..onTap = () async => _submit(localIps, settings.port, device.ip),
+                              recognizer: TapGestureRecognizer()..onTap = () async => _submit(localIps, device.port, device.ip),
                             ),
                           ];
                         })
