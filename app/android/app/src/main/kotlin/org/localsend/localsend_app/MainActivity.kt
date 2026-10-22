@@ -480,7 +480,11 @@ class MainActivity : FlutterActivity() {
                     }
                 }
             } catch (e: Exception) {
-                // Ignore single directory read failure and continue traversal
+                if (currentDocId == rootDocId) {
+                    throw e
+                }
+                // Skip a failed subdirectory and continue traversal
+                android.util.Log.w("MainActivity", "Failed to list directory $currentDocId", e)
             } finally {
                 try {
                     cursor?.close()

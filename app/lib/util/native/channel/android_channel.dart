@@ -13,14 +13,11 @@ final _logger = Logger('AndroidSaf');
 /// Older versions might also work but the encoded content URI is not guaranteed to work with our algorithm.
 const contentUriMinSdk = 27;
 
-Future<PickDirectoryResult?> pickDirectoryAndroid() async {
-  final result = await _methodChannel.invokeMethod<Map>('pickDirectory');
-  if (result == null) {
-    return null;
-  }
-
-  final filesRaw = result['files'] as List;
-  final files = filesRaw.map((e) {
+/// Parses picked directory file representations into [FileInfo] objects.
+/// Supports both the memory-efficient [List] representation `[name, size, uri, lastModified]`
+/// and the legacy [Map] representation.
+List<FileInfo> parsePickDirectoryFiles(List rawFiles) {
+  return rawFiles.map((e) {
     if (e is List) {
       return FileInfo(
         name: e[0] as String,
@@ -31,6 +28,16 @@ Future<PickDirectoryResult?> pickDirectoryAndroid() async {
     }
     return FileInfoMapper.fromJson((e as Map).cast<String, dynamic>());
   }).toList();
+}
+
+Future<PickDirectoryResult?> pickDirectoryAndroid() async {
+  final result = await _methodChannel.invokeMethod<Map>('pickDirectory');
+  if (result == null) {
+    return null;
+  }
+
+  final filesRaw = result['files'] as List;
+  final files = parsePickDirectoryFiles(filesRaw);
 
   return PickDirectoryResult(
     directoryUri: result['directoryUri'] as String,
