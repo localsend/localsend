@@ -32,6 +32,10 @@ Future<void> initTray() async {
       if (await File('/.flatpak-info').exists()) {
         // Icon for Flatpak, which must exist in /app/share/icons/hicolor/*x*/apps.
         icon = 'org.localsend.localsend_app-tray';
+      } else if (Platform.environment['LINGLONG_APPID']?.isNotEmpty == true) {
+        // Icon for Linglong, resolved by the host tray from the exported theme
+        // icon that matches the desktop entry Icon= (localsend_app).
+        icon = 'localsend_app';
       } else {
         icon = Assets.img.logo32White.path;
       }
