@@ -12,7 +12,7 @@ flate2 = { version = "1.1.9", optional = true }
 form_urlencoded = { version = "1.2.2", optional = true }
 futures-util = { version = "0.3.33", features = ["sink"] }
 http-body-util = { version = "0.1.4", optional = true }
-hyper = { version = "1.11.0", optional = true }
+hyper = { version = "1.11.0", features = ["http1", "server"], optional = true }
 if-addrs = { version = "0.15.0", optional = true }
 hyper-util = { version = "0.1.20", features = ["server"], optional = true }
 lru = "0.18.1"

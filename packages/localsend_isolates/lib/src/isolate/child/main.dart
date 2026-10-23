@@ -1,9 +1,9 @@
 import 'dart:async';
 
-import 'package:localsend_isolates/rust/frb_generated.dart';
 import 'package:localsend_isolates/src/isolate/child/sync_provider.dart';
 import 'package:localsend_isolates/src/isolate/dto/send_to_isolate_data.dart';
 import 'package:localsend_isolates/util/logger.dart';
+import 'package:localsend_isolates/util/rust_init.dart';
 import 'package:logging/logging.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 
@@ -52,7 +52,7 @@ Future<void> setupChildIsolateHelper<S, R>({
         ),
       );
 
-      await RustLib.init();
+      await initRustLib();
 
       if (init != null) {
         await init(_isolateContainer);

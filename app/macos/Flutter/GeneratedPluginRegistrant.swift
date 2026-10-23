@@ -20,6 +20,7 @@ import pasteboard
 import photo_manager
 import screen_retriever_macos
 import shared_preferences_foundation
+import system_date_time_format
 import tray_manager
 import uri_content
 import url_launcher_macos
@@ -43,6 +44,7 @@ func RegisterGeneratedPlugins(registry: FlutterPluginRegistry) {
   PhotoManagerPlugin.register(with: registry.registrar(forPlugin: "PhotoManagerPlugin"))
   ScreenRetrieverMacosPlugin.register(with: registry.registrar(forPlugin: "ScreenRetrieverMacosPlugin"))
   SharedPreferencesPlugin.register(with: registry.registrar(forPlugin: "SharedPreferencesPlugin"))
+  SystemDateTimeFormatPlugin.register(with: registry.registrar(forPlugin: "SystemDateTimeFormatPlugin"))
   TrayManagerPlugin.register(with: registry.registrar(forPlugin: "TrayManagerPlugin"))
   UriContentPlugin.register(with: registry.registrar(forPlugin: "UriContentPlugin"))
   UrlLauncherPlugin.register(with: registry.registrar(forPlugin: "UrlLauncherPlugin"))

@@ -17,6 +17,7 @@ class AppDelegate: FlutterAppDelegate {
     private var pendingFilesObservation: Defaults.Observation?
     private var pendingStringsObservation: Defaults.Observation?
     private var isLaunchedAsLoginItem: Bool?
+    private var pendingLoginItemResults: [FlutterResult] = []
     
     override func applicationSupportsSecureRestorableState(_ app: NSApplication) -> Bool {
         return true
@@ -27,17 +28,22 @@ class AppDelegate: FlutterAppDelegate {
         return false
     }
     
-    override func applicationDidFinishLaunching(_ notification: Notification) {
-        let controller = mainFlutterWindow?.contentViewController as! FlutterViewController
-        channel = FlutterMethodChannel(name: "main-delegate-channel", binaryMessenger: controller.engine.binaryMessenger)
+    func registerMethodChannel(binaryMessenger: FlutterBinaryMessenger) {
+        channel = FlutterMethodChannel(name: "main-delegate-channel", binaryMessenger: binaryMessenger)
         channel?.setMethodCallHandler(handleFlutterCall)
-        
+    }
+
+    override func applicationDidFinishLaunching(_ notification: Notification) {
         NSApplication.shared.servicesProvider = self
         
         let localsendBrandColor = NSColor(red: 0, green: 0.392, blue: 0.353, alpha: 0.8) // #00645a
         DockProgress.style = .squircle(color: localsendBrandColor)
         
         isLaunchedAsLoginItem = LaunchAtLogin.wasLaunchedAtLogin
+        for result in pendingLoginItemResults {
+            result(isLaunchedAsLoginItem)
+        }
+        pendingLoginItemResults.removeAll()
         
         restoreDestinationFolderAccess()
     }
@@ -146,6 +152,38 @@ class AppDelegate: FlutterAppDelegate {
             let i18n = call.arguments as! [String: String]
             setupStatusBarItem(i18n: i18n)
             result(nil)
+        case "restoreWindowFrame":
+            guard let window = mainFlutterWindow else {
+                result(FlutterError(code: "WINDOW_UNAVAILABLE", message: "Main window is unavailable", details: nil))
+                return
+            }
+            result(window.setFrameUsingName("LocalSendMainWindow"))
+        case "configureWindowFrameAutosave":
+            let windowFrameStorageName = "LocalSendMainWindow"
+            guard let arguments = call.arguments as? [String: Any],
+                  let enabled = arguments["enabled"] as? Bool else {
+                result(FlutterError(code: "INVALID_ARGUMENT", message: "Expected window frame autosave options", details: nil))
+                return
+            }
+            guard let window = mainFlutterWindow else {
+                result(FlutterError(code: "WINDOW_UNAVAILABLE", message: "Main window is unavailable", details: nil))
+                return
+            }
+            if enabled {
+                // AppKit reloads the saved frame when enabling autosave. Keep the current placement.
+                window.saveFrame(usingName: windowFrameStorageName)
+                guard window.setFrameAutosaveName(windowFrameStorageName) else {
+                    result(FlutterError(code: "AUTOSAVE_UNAVAILABLE", message: "Window frame autosave name is unavailable", details: nil))
+                    return
+                }
+            } else {
+                guard window.setFrameAutosaveName("") else {
+                    result(FlutterError(code: "AUTOSAVE_UNAVAILABLE", message: "Could not disable window frame autosave", details: nil))
+                    return
+                }
+                NSWindow.removeFrame(usingName: windowFrameStorageName)
+            }
+            result(nil)
         case "removeDestinationFolderAccess":
             removeExistingDestinationAccess()
             result(nil)
@@ -184,7 +222,12 @@ class AppDelegate: FlutterAppDelegate {
                 result(FlutterError(code: "INVALID_ARGUMENT", message: "Expected a boolean value", details: nil))
             }
         case "isLaunchedAsLoginItem":
-            result(isLaunchedAsLoginItem)
+            if let isLaunchedAsLoginItem = isLaunchedAsLoginItem {
+                result(isLaunchedAsLoginItem)
+            } else {
+                // The launch Apple event is only available in `applicationDidFinishLaunching`.
+                pendingLoginItemResults.append(result)
+            }
         case "isReduceMotionEnabled":
             result(NSWorkspace.shared.accessibilityDisplayShouldReduceMotion)
         case "openFirewallSettings":

@@ -9,7 +9,15 @@ import java.util.Locale
 fun openUri(context: Context, uriStr: String) {
     val uri = Uri.parse(uriStr)
     val intent = Intent(Intent.ACTION_VIEW, uri)
-    val type = getFileType(uriStr)
+    val type = if (DocumentsContract.isTreeUri(uri) && !DocumentsContract.isDocumentUri(context, uri)) {
+        DocumentsContract.Document.MIME_TYPE_DIR
+    } else {
+        // The table below takes precedence, as providers report e.g. .conf as application/octet-stream,
+        // which almost no app opens. The provider type covers extensions missing from the table (e.g. .webp).
+        getFileType(uriStr)
+            ?: context.contentResolver.getType(uri)?.takeIf { it != "application/octet-stream" }
+            ?: "*/*"
+    }
 
     println("Inferred type: $type")
 
@@ -18,7 +26,7 @@ fun openUri(context: Context, uriStr: String) {
     context.startActivity(intent)
 }
 
-private fun getFileType(filePath: String): String {
+private fun getFileType(filePath: String): String? {
     val fileExt = filePath.substring(filePath.lastIndexOf(".") + 1).lowercase(Locale.ROOT)
     println("File extension: $fileExt")
     return when (fileExt) {
@@ -88,6 +96,6 @@ private fun getFileType(filePath: String): String {
         "xml" -> "text/plain"
         "z" -> "application/x-compress"
         "zip" -> "application/x-zip-compressed"
-        else -> DocumentsContract.Document.MIME_TYPE_DIR
+        else -> null
     }
 }

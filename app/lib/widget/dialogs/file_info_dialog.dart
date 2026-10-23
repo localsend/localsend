@@ -62,7 +62,7 @@ class FileInfoDialog extends StatelessWidget {
                     children: [
                       Text(t.dialogs.fileInfo.time),
                       const SizedBox(width: 10),
-                      SelectableText(entry.timestampString),
+                      SelectableText(entry.timestampString(context)),
                     ],
                   ),
                 ],

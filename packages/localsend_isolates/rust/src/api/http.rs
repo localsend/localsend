@@ -8,7 +8,6 @@ pub use localsend::http::dto::{
     RegisterDto, RegisterResponseDto,
 };
 use localsend::model::discovery::ProtocolType;
-use localsend::reqwest;
 use localsend::util::error::ErrorChain;
 
 pub struct RsHttpClient {

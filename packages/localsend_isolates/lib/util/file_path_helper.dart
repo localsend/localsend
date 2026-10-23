@@ -18,7 +18,7 @@ extension FilePathStringExt on String {
   }
 
   String withFileNameKeepExtension(String fileNameWithoutExt) {
-    return '$fileNameWithoutExt.$extension';
+    return fileNameWithoutExt.withExtension(extension);
   }
 
   String withExtension(String ext) {

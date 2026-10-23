@@ -17,7 +17,6 @@ use rustls::pki_types::{CertificateDer, PrivateKeyDer};
 use serde::{Deserialize, Serialize};
 use std::sync::Arc;
 use thiserror::Error;
-use tokio_stream::wrappers::ReceiverStream;
 
 pub enum LsHttpClient {
     V2(LsHttpClientV2),
@@ -175,12 +174,17 @@ impl LsHttpClient {
 
 /// Builds a streaming request body from the file content, invoking `progress`
 /// with the cumulative number of bytes read as each chunk is sent.
+///
+/// An I/O error while reading the file fails the body, which aborts the
+/// request. Ending the body early instead would send a complete but truncated
+/// upload that the receiver stores as a short (often empty) file.
 pub(super) fn upload_body(
     content: model::transfer::FileContent,
     progress: impl Fn(u64) + Send + 'static,
 ) -> reqwest::Body {
     let mut sent = 0_u64;
-    let stream = ReceiverStream::new(content.into_receiver()).map(move |chunk| {
+    let stream = content.into_stream().map(move |chunk| {
+        let chunk = chunk?;
         sent += chunk.len() as u64;
         progress(sent);
         Ok::<Bytes, anyhow::Error>(chunk)
