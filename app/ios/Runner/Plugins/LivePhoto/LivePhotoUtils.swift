@@ -1,12 +1,10 @@
 import Foundation
 import ImageIO
-import MobileCoreServices
 import AVFoundation
-import Photos
 
+/// Adds the shared content identifier and still-image time required by PhotoKit.
 class LivePhotoUtils {
-    private let logger = Logger(module: "LivePhotoUtils")
-    
+    /// Copies the source image with the Live Photo identifier in its Apple metadata.
     func addPhotoIdentifier(
         _ identifier: String,
         fromPhotoURL photoURL: URL,
@@ -14,354 +12,243 @@ class LivePhotoUtils {
     ) throws -> URL {
         guard let imageSource = CGImageSourceCreateWithURL(photoURL as CFURL, nil),
               let imageType = CGImageSourceGetType(imageSource),
-              let imageRef = CGImageSourceCreateImageAtIndex(imageSource, 0, nil),
-              var imageProperties = CGImageSourceCopyPropertiesAtIndex(imageSource, 0, nil) as? [AnyHashable : Any] else {
-            let error = ImageProcessingError.invalidImageSource
-            logger.error("Unable to create image source")
-            throw error
+              var properties = CGImageSourceCopyPropertiesAtIndex(imageSource, 0, nil) as? [AnyHashable: Any] else {
+            throw ImageProcessingError.invalidImageSource
         }
-        var identifierInfo = imageProperties[kCGImagePropertyMakerAppleDictionary] as? [String: Any] ?? [:]
-        identifierInfo["17"] = identifier
-        imageProperties[kCGImagePropertyMakerAppleDictionary] = identifierInfo
-        // The temporary file keeps the source extension, so keep its image format too.
-        guard let imageDestination = CGImageDestinationCreateWithURL(destinationURL as CFURL, imageType, 1, nil) else {
-            let error = ImageProcessingError.unableToReadImage
-            logger.error("Unable to create image destination")
-            throw error
+        var appleMetadata = properties[kCGImagePropertyMakerAppleDictionary] as? [String: Any] ?? [:]
+        appleMetadata["17"] = identifier
+        properties[kCGImagePropertyMakerAppleDictionary] = appleMetadata
+        guard let destination = CGImageDestinationCreateWithURL(destinationURL as CFURL, imageType, 1, nil) else {
+            throw ImageProcessingError.unableToWriteImage
         }
-        CGImageDestinationAddImage(imageDestination, imageRef, imageProperties as CFDictionary)
-        if CGImageDestinationFinalize(imageDestination) {
-            logger.info("Successfully processed image: \(destinationURL.lastPathComponent)")
-            return destinationURL
-        } else {
-            let error = ImageProcessingError.unableToWriteImage
-            logger.error("Unable to write image")
-            throw error
+        CGImageDestinationAddImageFromSource(destination, imageSource, 0, properties as CFDictionary)
+        guard CGImageDestinationFinalize(destination) else {
+            throw ImageProcessingError.unableToWriteImage
         }
+        return destinationURL
     }
-    
+
+    /// Associates the MOV with the image's MakerApple content identifier.
     private func metadataItem(for identifier: String) -> AVMetadataItem {
         let item = AVMutableMetadataItem()
-        item.keySpace = AVMetadataKeySpace.quickTimeMetadata // "mdta"
-        item.dataType = "com.apple.metadata.datatype.UTF-8"
-        item.key = AVMetadataKey.quickTimeMetadataKeyContentIdentifier as any NSCopying & NSObjectProtocol // "com.apple.quicktime.content.identifier"
-        item.value = identifier as any NSCopying & NSObjectProtocol
+        item.keySpace = .quickTimeMetadata
+        item.dataType = kCMMetadataBaseDataType_UTF8 as String
+        item.key = AVMetadataKey.quickTimeMetadataKeyContentIdentifier as NSString
+        item.value = identifier as NSString
         return item
     }
-    
+
+    /// Creates the signed-byte timed-metadata track recognized by PhotoKit.
     private func stillImageTimeMetadataAdaptor() -> AVAssetWriterInputMetadataAdaptor {
-        let quickTimeMetadataKeySpace = AVMetadataKeySpace.quickTimeMetadata.rawValue // "mdta"
-        let stillImageTimeKey = "com.apple.quicktime.still-image-time"
-        let spec: [NSString : Any] = [
-            kCMMetadataFormatDescriptionMetadataSpecificationKey_Identifier as NSString : "\(quickTimeMetadataKeySpace)/\(stillImageTimeKey)",
-            kCMMetadataFormatDescriptionMetadataSpecificationKey_DataType as NSString : kCMMetadataBaseDataType_SInt8]
-        var desc : CMFormatDescription? = nil
+        let spec: [NSString: Any] = [
+            kCMMetadataFormatDescriptionMetadataSpecificationKey_Identifier as NSString:
+                "mdta/com.apple.quicktime.still-image-time",
+            kCMMetadataFormatDescriptionMetadataSpecificationKey_DataType as NSString:
+                kCMMetadataBaseDataType_SInt8
+        ]
+        var description: CMFormatDescription?
         CMMetadataFormatDescriptionCreateWithMetadataSpecifications(
             allocator: kCFAllocatorDefault,
             metadataType: kCMMetadataFormatType_Boxed,
             metadataSpecifications: [spec] as CFArray,
-            formatDescriptionOut: &desc)
-        let input = AVAssetWriterInput(
-            mediaType: .metadata,
-            outputSettings: nil,
-            sourceFormatHint: desc)
+            formatDescriptionOut: &description)
+        let input = AVAssetWriterInput(mediaType: .metadata, outputSettings: nil, sourceFormatHint: description)
         return AVAssetWriterInputMetadataAdaptor(assetWriterInput: input)
     }
-    
+
+    /// Marks the selected still frame in the paired video.
     private func stillImageTimeMetadataItem() -> AVMetadataItem {
         let item = AVMutableMetadataItem()
-        item.key = "com.apple.quicktime.still-image-time" as any NSCopying & NSObjectProtocol
-        item.keySpace = AVMetadataKeySpace.quickTimeMetadata // "mdta"
-        item.value = 0 as any NSCopying & NSObjectProtocol
-        item.dataType = kCMMetadataBaseDataType_SInt8 as String // "com.apple.metadata.datatype.int8"
+        item.key = "com.apple.quicktime.still-image-time" as NSString
+        item.keySpace = .quickTimeMetadata
+        item.value = NSNumber(value: Int8(0))
+        item.dataType = kCMMetadataBaseDataType_SInt8 as String
         return item
     }
-    
-    // Get video bitrate function
-    private func getVideoBitRate(from videoTrack: AVAssetTrack) -> Int {
-        // Get original bitrate
-        let bitRate = videoTrack.estimatedDataRate
-        
-        return Int(bitRate)
-    }
-    
+
+    /// Remuxes compressed video/audio into MOV, preserving their formats and orientation.
+    /// All sample callbacks share a serial queue so failure cancels processing exactly once.
     func addVideoIdentifier(
         _ identifier: String,
         fromVideoURL videoURL: URL,
         to destinationURL: URL,
-        progress: ((Float) -> Void)? = nil,
         completion: @escaping (Result<URL, Error>) -> Void
     ) {
-        logger.info("Starting to process video file: \(videoURL.path)")
-        
         let asset = AVURLAsset(url: videoURL)
-        
-        // --- Reader ---
-        
-        // Create the video reader
-        guard let videoReader = try? AVAssetReader(asset: asset) else {
-            logger.error("Failed to create video reader")
-            let error = VideoProcessingError.loadTracksFailed
-            ErrorUtils.logError(error, context: "Video reading")
+        let reader: AVAssetReader
+        let writer: AVAssetWriter
+        do {
+            reader = try AVAssetReader(asset: asset)
+            writer = try AVAssetWriter(outputURL: destinationURL, fileType: .mov)
+        } catch {
             completion(.failure(error))
             return
         }
-        
-        // Create the video reader output
-        let videoTracks = asset.tracks(withMediaType: .video)
-        guard let videoTrack = videoTracks.first else {
-            logger.error("No video track found in video file")
-            let error = VideoProcessingError.loadTracksFailed
-            ErrorUtils.logError(error, context: "Video track")
-            completion(.failure(error))
+        guard let videoTrack = asset.tracks(withMediaType: .video).first,
+              let videoFormat = videoTrack.formatDescriptions.first,
+              asset.duration.isNumeric, CMTimeGetSeconds(asset.duration) > 0 else {
+            completion(.failure(VideoProcessingError.loadTracksFailed))
             return
         }
-        
-        logger.info("Found video track, size: \(videoTrack.naturalSize), frame rate: \(videoTrack.nominalFrameRate)")
-        
-        let videoReaderOutputSettings : [String : Any] = [kCVPixelBufferPixelFormatTypeKey as String : kCVPixelFormatType_32BGRA]
-        let videoReaderOutput = AVAssetReaderTrackOutput(track: videoTrack, outputSettings: videoReaderOutputSettings)
-        
-        // Add the video reader output to video reader
-        videoReader.add(videoReaderOutput)
-        
-        // Create the audio reader
-        guard let audioReader = try? AVAssetReader(asset: asset) else {
-            logger.error("Failed to create audio reader")
-            let error = VideoProcessingError.loadTracksFailed
-            ErrorUtils.logError(error, context: "Audio reading")
-            completion(.failure(error))
+        let videoOutput = AVAssetReaderTrackOutput(track: videoTrack, outputSettings: nil)
+        let videoInput = AVAssetWriterInput(
+            mediaType: .video, outputSettings: nil, sourceFormatHint: (videoFormat as! CMFormatDescription))
+        videoInput.transform = videoTrack.preferredTransform
+        videoInput.expectsMediaDataInRealTime = false
+        guard reader.canAdd(videoOutput), writer.canAdd(videoInput) else {
+            completion(.failure(VideoProcessingError.unableToWriteVideo))
             return
         }
-        
-        // Check if there are audio tracks
-        let audioTracks = asset.tracks(withMediaType: .audio)
-        if audioTracks.isEmpty {
-            logger.warning("No audio track found in video file, will create Live Photo without audio")
+        reader.add(videoOutput)
+        writer.add(videoInput)
+
+        var audioReader: AVAssetReader?
+        var audioOutput: AVAssetReaderTrackOutput?
+        var audioInput: AVAssetWriterInput?
+        if let track = asset.tracks(withMediaType: .audio).first {
+            let trackReader: AVAssetReader
+            do {
+                trackReader = try AVAssetReader(asset: asset)
+            } catch {
+                completion(.failure(error))
+                return
+            }
+            guard let format = track.formatDescriptions.first else {
+                completion(.failure(VideoProcessingError.loadTracksFailed))
+                return
+            }
+            let output = AVAssetReaderTrackOutput(track: track, outputSettings: nil)
+            let input = AVAssetWriterInput(mediaType: .audio, outputSettings: nil, sourceFormatHint: (format as! CMFormatDescription))
+            input.expectsMediaDataInRealTime = false
+            guard trackReader.canAdd(output), writer.canAdd(input) else {
+                completion(.failure(VideoProcessingError.unableToWriteVideo))
+                return
+            }
+            trackReader.add(output)
+            audioReader = trackReader
+            writer.add(input)
+            audioOutput = output
+            audioInput = input
         }
-        
-        var audioReaderOutput: AVAssetReaderTrackOutput? = nil
-        var audioTrack: AVAssetTrack? = nil
-        
-        if let firstAudioTrack = audioTracks.first {
-            audioTrack = firstAudioTrack
-            audioReaderOutput = AVAssetReaderTrackOutput(track: firstAudioTrack, outputSettings: nil)
-            audioReader.add(audioReaderOutput!)
-            logger.info("Found audio track")
-        }
-        
-        // --- Writer ---
-        
-        // Create the asset writer
-        guard let assetWriter = try? AVAssetWriter(outputURL: destinationURL, fileType: .mov) else {
-            logger.error("Failed to create video writer")
-            let error = VideoProcessingError.unableToWriteVideo
-            ErrorUtils.logError(error, context: "Video writing")
-            completion(.failure(error))
+
+        let metadata = stillImageTimeMetadataAdaptor()
+        guard writer.canAdd(metadata.assetWriterInput) else {
+            completion(.failure(VideoProcessingError.unableToWriteVideo))
             return
         }
-        
-        // Create the video writer input
-        let bitRate = getVideoBitRate(from: videoTrack)
-        let videoWriterInputOutputSettings : [String : Any] = [
-            AVVideoCodecKey : AVVideoCodecType.h264,
-            AVVideoWidthKey : videoTrack.naturalSize.width,
-            AVVideoHeightKey : videoTrack.naturalSize.height,
-            AVVideoCompressionPropertiesKey : [
-                AVVideoAverageBitRateKey : bitRate // Use original bitrate
-            ]
-        ]
-        
-        let videoWriterInput = AVAssetWriterInput(mediaType: .video, outputSettings: videoWriterInputOutputSettings)
-        videoWriterInput.transform = videoTrack.preferredTransform
-        videoWriterInput.expectsMediaDataInRealTime = true
-        
-        // Add the video writer input to asset writer
-        assetWriter.add(videoWriterInput)
-        
-        // Create the audio writer input if we have audio
-        var audioWriterInput: AVAssetWriterInput? = nil
-        if audioTrack != nil {
-            audioWriterInput = AVAssetWriterInput(mediaType: .audio, outputSettings: nil)
-            audioWriterInput?.expectsMediaDataInRealTime = false
-            assetWriter.add(audioWriterInput!)
+        writer.add(metadata.assetWriterInput)
+        writer.metadata = asset.metadata.filter {
+            $0.identifier != .quickTimeMetadataContentIdentifier
+        } + [metadataItem(for: identifier)]
+        guard writer.startWriting() else {
+            completion(.failure(writer.error ?? VideoProcessingError.unableToWriteVideo))
+            return
         }
-        
-        let identifierMetadata = self.metadataItem(for: identifier)
-        // Create still image time metadata track
-        let stillImageTimeMetadataAdaptor = self.stillImageTimeMetadataAdaptor()
-        assetWriter.metadata = [identifierMetadata]
-        assetWriter.add(stillImageTimeMetadataAdaptor.assetWriterInput)
-        
-        // Start the asset writer
-        assetWriter.startWriting()
-        assetWriter.startSession(atSourceTime: .zero)
-        
-        // Calculate frame count
-        let frameCount = Int(CMTimeGetSeconds(asset.duration) * Float64(videoTrack.nominalFrameRate))
-        let stillImagePercent: Float = 0.5
-        
-        let stillImageTime = CMTime(value: Int64(Float(frameCount) * stillImagePercent), timescale: CMTimeScale(videoTrack.nominalFrameRate))
-        let stillImageTimeRange = CMTimeRange(start: stillImageTime, duration: .zero)
-        
-        stillImageTimeMetadataAdaptor.append(
-            AVTimedMetadataGroup(
-                items: [self.stillImageTimeMetadataItem()],
-                timeRange: stillImageTimeRange))
-        
-        // Start reading and writing
-        videoReader.startReading()
-        if audioTrack != nil {
-            audioReader.startReading()
+        writer.startSession(atSourceTime: .zero)
+        // A finite duration also works for variable frame rates and a nominal rate of zero.
+        let stillTime = CMTimeMultiplyByFloat64(asset.duration, multiplier: 0.5)
+        guard metadata.append(AVTimedMetadataGroup(
+            items: [stillImageTimeMetadataItem()],
+            timeRange: CMTimeRange(start: stillTime, duration: CMTimeMinimum(
+                CMTime(value: 1, timescale: 30), CMTimeSubtract(asset.duration, stillTime))))) else {
+            writer.cancelWriting()
+            completion(.failure(writer.error ?? VideoProcessingError.unableToWriteVideo))
+            return
         }
-        
-        let videoQueue = DispatchQueue(label: "videoWriterInputQueue")
-        let audioQueue = DispatchQueue(label: "audioWriterInputQueue")
-        
-        var currentFrameCount = 0
-        
-        // Group to track completion
-        let group = DispatchGroup()
-        group.enter() // Video
-        if audioTrack != nil {
-            group.enter() // Audio
+        metadata.assetWriterInput.markAsFinished()
+        guard reader.startReading() else {
+            writer.cancelWriting()
+            completion(.failure(reader.error ?? VideoProcessingError.loadTracksFailed))
+            return
         }
-        
-        // Process video
-        videoWriterInput.requestMediaDataWhenReady(on: videoQueue) {
-            while videoWriterInput.isReadyForMoreMediaData {
-                if let sampleBuffer = videoReaderOutput.copyNextSampleBuffer() {
-                    currentFrameCount += 1
-                    if let progress = progress {
-                        let progressValue = min(Float(currentFrameCount)/Float(frameCount), 1.0)
-                        DispatchQueue.main.async {
-                            progress(progressValue)
-                        }
-                    }
-                    if !videoWriterInput.append(sampleBuffer) {
-                        videoReader.cancelReading()
-                        self.logger.error("Failed to write video data")
-                        let error = VideoProcessingError.unableToWriteVideo
-                        completion(.failure(error))
+
+        if let audioReader = audioReader, !audioReader.startReading() {
+            reader.cancelReading()
+            writer.cancelWriting()
+            completion(.failure(audioReader.error ?? VideoProcessingError.loadTracksFailed))
+            return
+        }
+
+        let queue = DispatchQueue(label: "org.localsend.live-photo-remux")
+        var videoFinished = false
+        var audioFinished = audioInput == nil
+        var finished = false
+        var videoEnd = CMTime.invalid
+        var audioEnd = CMTime.invalid
+
+        func fail(_ error: Error) {
+            guard !finished else { return }
+            finished = true
+            reader.cancelReading()
+            audioReader?.cancelReading()
+            writer.cancelWriting()
+            completion(.failure(error))
+        }
+
+        func finishIfReady() {
+            guard !finished, videoFinished, audioFinished else { return }
+            finished = true
+            guard reader.status == .completed, audioReader == nil || audioReader?.status == .completed else {
+                reader.cancelReading()
+                writer.cancelWriting()
+                completion(.failure(reader.error ?? audioReader?.error ?? VideoProcessingError.loadTracksFailed))
+                return
+            }
+            writer.finishWriting {
+                if writer.status == .completed {
+                    completion(.success(destinationURL))
+                } else {
+                    completion(.failure(writer.error ?? VideoProcessingError.unableToWriteVideo))
+                }
+            }
+        }
+
+        func copySamples(reader: AVAssetReader, track: AVAssetTrack, from output: AVAssetReaderTrackOutput,
+                         to input: AVAssetWriterInput, isVideo: Bool) {
+            guard !finished, !(isVideo ? videoFinished : audioFinished) else { return }
+            while input.isReadyForMoreMediaData {
+                guard let sample = output.copyNextSampleBuffer() else {
+                    guard reader.status == .completed else {
+                        fail(reader.error ?? VideoProcessingError.loadTracksFailed)
                         return
                     }
-                } else {
-                    self.logger.info("Video processing completed")
-                    videoWriterInput.markAsFinished()
-                    group.leave()
-                    break
-                }
-            }
-        }
-        
-        // Process audio if available
-        if let audioReaderOutput = audioReaderOutput, let audioWriterInput = audioWriterInput {
-            audioWriterInput.requestMediaDataWhenReady(on: audioQueue) {
-                while audioWriterInput.isReadyForMoreMediaData {
-                    if let sampleBuffer = audioReaderOutput.copyNextSampleBuffer() {
-                        if !audioWriterInput.append(sampleBuffer) {
-                            audioReader.cancelReading()
-                            self.logger.error("Failed to write audio data")
-                            let error = VideoProcessingError.unableToWriteVideo
-                            completion(.failure(error))
-                            return
-                        }
-                    } else {
-                        self.logger.info("Audio processing completed")
-                        audioWriterInput.markAsFinished()
-                        group.leave()
-                        break
+                    // Some truncated containers report a normal EOF. Require samples
+                    // to reach the declared track end before accepting the result.
+                    let end = isVideo ? videoEnd : audioEnd
+                    let tolerance = CMTime(value: 1, timescale: track.naturalTimeScale)
+                    guard end.isNumeric, CMTimeCompare(CMTimeAdd(end, tolerance), CMTimeRangeGetEnd(track.timeRange)) >= 0 else {
+                        fail(VideoProcessingError.loadTracksFailed)
+                        return
                     }
-                }
-            }
-        }
-        
-        // Wait for both video and audio to finish
-        group.notify(queue: .main) {
-            assetWriter.finishWriting {
-                switch assetWriter.status {
-                case .completed:
-                    self.logger.info("Video conversion completed successfully")
-                    completion(.success(destinationURL))
-                case .failed:
-                    self.logger.error("Video conversion failed: \(assetWriter.error?.localizedDescription ?? "unknown error")")
-                    if let error = assetWriter.error {
-                        ErrorUtils.logError(error, context: "Video conversion")
-                        completion(.failure(error))
-                    } else {
-                        let error = VideoProcessingError.unableToWriteVideo
-                        completion(.failure(error))
-                    }
-                case .cancelled:
-                    self.logger.error("Video conversion was cancelled")
-                    let error = VideoProcessingError.unableToWriteVideo
-                    completion(.failure(error))
-                default:
-                    self.logger.error("Video conversion status unknown: \(assetWriter.status.rawValue)")
-                    let error = VideoProcessingError.unableToWriteVideo
-                    completion(.failure(error))
-                }
-            }
-        }
-    }
-    
-    private let serialQueue = DispatchQueue(label: "com.example.LivePhotoSaver")
-    func saveAsLivePhoto(imageURL: URL, videoURL: URL, completion: @escaping (Bool, Error?) -> Void) {
-        PHPhotoLibrary.requestAuthorization { status in
-            if status == .authorized {
-                let semaphore = DispatchSemaphore(value: 0)
-
-                // Check if files exist
-                if !FileUtils.fileExists(at: imageURL.path) || !FileUtils.fileExists(at: videoURL.path) {
-                    self.logger.error("Files do not exist: \(imageURL) or \(videoURL)")
-                    let error = AppErrorType.fileNotFound(path: "\(imageURL) or \(videoURL)")
-                    completion(false, error)
+                    input.markAsFinished()
+                    if isVideo { videoFinished = true } else { audioFinished = true }
+                    finishIfReady()
                     return
                 }
-
-                // Save Live Photo
-                PHPhotoLibrary.shared().performChanges({
-                    let request = PHAssetCreationRequest.forAsset()
-                    request.addResource(with: .photo, fileURL: imageURL, options: nil)
-                    request.addResource(with: .pairedVideo, fileURL: videoURL, options: nil)
-                }) { success, error in
-                    if success {
-                        self.logger.info("Live Photo saved successfully: \(imageURL.lastPathComponent)")
-                    } else if let error = error {
-                        self.logger.error("Save failed: \(error.localizedDescription)")
-                        ErrorUtils.logError(error, context: "Save Live Photo")
-                    }
-                    completion(success, error)
-                    semaphore.signal()
+                guard input.append(sample) else {
+                    fail(writer.error ?? VideoProcessingError.unableToWriteVideo)
+                    return
                 }
+                if CMSampleBufferGetNumSamples(sample) > 0 {
+                    let end = CMTimeAdd(CMSampleBufferGetPresentationTimeStamp(sample), CMSampleBufferGetDuration(sample))
+                    if end.isNumeric {
+                        if isVideo {
+                            videoEnd = videoEnd.isNumeric ? CMTimeMaximum(videoEnd, end) : end
+                        } else {
+                            audioEnd = audioEnd.isNumeric ? CMTimeMaximum(audioEnd, end) : end
+                        }
+                    }
+                }
+            }
+        }
 
-                semaphore.wait()
-            } else {
-                let error = AppErrorType.permissionDenied(type: "photo library access")
-                self.logger.error("Unauthorized access to photo library")
-                completion(false, error)
+        videoInput.requestMediaDataWhenReady(on: queue) {
+            copySamples(reader: reader, track: videoTrack, from: videoOutput, to: videoInput, isVideo: true)
+        }
+        if let output = audioOutput, let input = audioInput, let audioReader = audioReader {
+            input.requestMediaDataWhenReady(on: queue) {
+                copySamples(reader: audioReader, track: output.track, from: output, to: input, isVideo: false)
             }
         }
     }
 }
-
-extension AVAsset {
-    func calculateFrameCount() -> Int {
-        let videoReader = try? AVAssetReader(asset: self)
-        guard let videoTrack = self.tracks(withMediaType: .video).first else { return 0 }
-        return Int(CMTimeGetSeconds(self.duration) * Float64(videoTrack.nominalFrameRate))
-    }
-    
-    func makeStillImageTimeRange(percent: Float, inFrameCount: Int = 0) -> CMTimeRange {
-        var time = self.duration
-        var frameCount = inFrameCount
-        if frameCount == 0 {
-            frameCount = self.calculateFrameCount()
-        }
-        let duration = Int64(Float(time.value) / Float(frameCount))
-        time.value = Int64(Float(time.value) * percent)
-        return CMTimeRangeMake(start: time, duration: CMTimeMake(value: duration, timescale: time.timescale))
-    }
-}
-
-

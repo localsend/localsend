@@ -36,7 +36,7 @@ object LivePhotoManager {
      */
     @Throws(LivePhotoException::class)
     fun saveLivePhoto(context: Context, imagePath: String, videoPath: String, album: String? = null) {
-        Log.i(TAG, "Starting to save LivePhoto: image=$imagePath, video=$videoPath, album=$album")
+        Log.i(TAG, "Starting to save LivePhoto")
         
         try {
             strategy.saveLivePhoto(context, imagePath, videoPath, album)

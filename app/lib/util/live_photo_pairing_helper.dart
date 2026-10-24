@@ -21,6 +21,7 @@ Map<String, String> findLivePhotoPairs(Map<String, ReceivingFile> files) {
   return pairs;
 }
 
+/// All accepted component IDs belonging to unambiguous filename pairs.
 Set<String> findLivePhotoPairFileIds(Map<String, ReceivingFile> files) {
   final pairs = findLivePhotoPairs(files);
   return {...pairs.keys, ...pairs.values};

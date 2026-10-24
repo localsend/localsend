@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
@@ -80,7 +81,57 @@ void main() {
     expect((await handler.close()).single.id, 'image');
     expect((await handler.receive(video)).single.id, 'video');
     expect(singles, ['image', 'video']);
-    expect(await handler.close(), isEmpty);
+    expect((await handler.close()).single.id, 'image');
+    expect(singles, ['image', 'video']);
+  });
+
+  test('concurrent close calls wait for a delayed fallback save', () async {
+    final saving = Completer<void>();
+    final releaseSave = Completer<void>();
+    final handler = LivePhotoReceiver(
+      pairs: {'image': 'video'},
+      saveSingle: (file) async {
+        singles.add(file.id);
+        saving.complete();
+        await releaseSave.future;
+        return (true, null);
+      },
+    );
+    await handler.receive(image);
+    final first = handler.close();
+    await saving.future;
+    final second = handler.close();
+    var closed = false;
+    unawaited(second.then((_) => closed = true));
+    await Future<void>.delayed(Duration.zero);
+    expect(closed, isFalse);
+    releaseSave.complete();
+    expect((await first).single.id, 'image');
+    expect((await second).single.id, 'image');
+    expect(singles, ['image']);
+  });
+
+  test('close waits for a pair already being saved, including its failure fallback', () async {
+    final saving = Completer<void>();
+    final releasePair = Completer<void>();
+    final handler = receiver(
+      savePair: (_, _) async {
+        saving.complete();
+        await releasePair.future;
+        throw StateError('PhotoKit rejected pair');
+      },
+    );
+    await handler.receive(image);
+    final received = handler.receive(video);
+    await saving.future;
+    var closed = false;
+    final closing = handler.close().then((_) => closed = true);
+    await Future<void>.delayed(Duration.zero);
+    expect(closed, isFalse);
+    releasePair.complete();
+    await closing;
+    expect((await received).map((r) => r.id), ['image', 'video']);
+    expect(singles, ['image', 'video']);
   });
 
   test('sessions cannot pair components with one another', () async {

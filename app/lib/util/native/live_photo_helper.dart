@@ -20,25 +20,6 @@ class LivePhotoHelper {
       return false;
     }
   }
-
-  /// Creates and saves a Live Photo from image and video files
-  static Future<void> putLivePhoto({
-    required String imagePath,
-    required String videoPath,
-    String? album,
-  }) async {
-    try {
-      _logger.info('Saving live photo: image=$imagePath, video=$videoPath');
-      await _methodChannel.invokeMethod<void>('putLivePhoto', {
-        'imagePath': imagePath,
-        'videoPath': videoPath,
-        'album': album,
-      });
-    } on PlatformException catch (e, stackTrace) {
-      _logger.severe('Failed to save live photo', e, stackTrace);
-      rethrow;
-    }
-  }
 }
 
 /// Function to check if the device supports Live Photo feature

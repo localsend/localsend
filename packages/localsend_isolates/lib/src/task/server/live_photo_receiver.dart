@@ -42,7 +42,9 @@ class LivePhotoReceiver {
   final Future<(bool, String?)> Function(LivePhotoFile file) saveSingle;
   final _pending = <String, LivePhotoFile>{};
   final _failed = <String>{};
+  final _saves = <Future<List<LivePhotoResult>>>{};
   bool _closed = false;
+  Future<List<LivePhotoResult>>? _closing;
 
   LivePhotoReceiver({
     required this.pairs,
@@ -50,11 +52,15 @@ class LivePhotoReceiver {
     this.savePair = saveNativeLivePhoto,
   });
 
+  /// Whether [id] belongs to an accepted image/video pair.
   bool contains(String id) => pairs.containsKey(id) || pairs.containsValue(id);
 
   String _partner(String id) => pairs[id] ?? pairs.entries.firstWhere((entry) => entry.value == id).key;
 
-  Future<List<LivePhotoResult>> receive(LivePhotoFile file) async {
+  /// Saves a completed component, or holds it until its partner arrives.
+  Future<List<LivePhotoResult>> receive(LivePhotoFile file) => _track(_receive(file));
+
+  Future<List<LivePhotoResult>> _receive(LivePhotoFile file) async {
     if (_closed || !contains(file.id) || _failed.contains(file.id) || _failed.contains(_partner(file.id))) {
       return [await _saveSingle(file)];
     }
@@ -91,7 +97,10 @@ class LivePhotoReceiver {
     ];
   }
 
-  Future<List<LivePhotoResult>> failed(String id) async {
+  /// Releases a completed component when its partner cannot be received.
+  Future<List<LivePhotoResult>> failed(String id) => _track(_failedFile(id));
+
+  Future<List<LivePhotoResult>> _failedFile(String id) async {
     if (!contains(id)) return [];
     _failed.add(id);
     final partner = _pending.remove(_partner(id));
@@ -99,12 +108,28 @@ class LivePhotoReceiver {
   }
 
   /// Cancellation must preserve any fully received, unmatched components.
-  /// In-flight uploads that finish after this call are saved separately too.
-  Future<List<LivePhotoResult>> close() async {
+  /// Waits for pending fallback saves and any pair already being saved.
+  /// Repeated calls share the same completion; late uploads save separately.
+  Future<List<LivePhotoResult>> close() => _closing ??= _close();
+
+  Future<List<LivePhotoResult>> _close() async {
     _closed = true;
     final pending = _pending.values.toList();
     _pending.clear();
-    return [for (final file in pending) await _saveSingle(file)];
+    final results = [for (final file in pending) await _saveSingle(file)];
+    while (_saves.isNotEmpty) {
+      await Future.wait(_saves.toList());
+    }
+    return results;
+  }
+
+  Future<List<LivePhotoResult>> _track(Future<List<LivePhotoResult>> save) async {
+    _saves.add(save);
+    try {
+      return await save;
+    } finally {
+      _saves.remove(save);
+    }
   }
 
   Future<LivePhotoResult> _saveSingle(LivePhotoFile file) async {
@@ -123,6 +148,7 @@ class LivePhotoReceiver {
   }
 }
 
+/// Saves paired resources through the platform's Live Photo channel.
 Future<void> saveNativeLivePhoto(String image, String video) async {
   await const MethodChannel(
     'org.localsend.localsend_app/live_photo',

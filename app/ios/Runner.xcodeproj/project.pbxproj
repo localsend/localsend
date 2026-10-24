@@ -22,7 +22,6 @@
 		FEAC3B7E2DCCEB3800838618 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEAC3B7C2DCCEB3800838618 /* Logger.swift */; };
 		FEAC3B7F2DCCEB3800838618 /* ErrorUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEAC3B7A2DCCEB3800838618 /* ErrorUtils.swift */; };
 		FEAC3B802DCCEB3800838618 /* FileUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEAC3B7B2DCCEB3800838618 /* FileUtils.swift */; };
-		FEC635D32D8EB58E00B053A8 /* LivePhotoSaver.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEC635D02D8EB58E00B053A8 /* LivePhotoSaver.swift */; };
 		FEC635D42D8EB58E00B053A8 /* LivePhotoHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEC635CF2D8EB58E00B053A8 /* LivePhotoHandler.swift */; };
 		FEF4DF5F2DCA53810052666D /* LivePhotoUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEF4DF5E2DCA53800052666D /* LivePhotoUtils.swift */; };
 /* End PBXBuildFile section */
@@ -95,7 +94,6 @@
 		FEAC3B7B2DCCEB3800838618 /* FileUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileUtils.swift; sourceTree = "<group>"; };
 		FEAC3B7C2DCCEB3800838618 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		FEC635CF2D8EB58E00B053A8 /* LivePhotoHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LivePhotoHandler.swift; sourceTree = "<group>"; };
-		FEC635D02D8EB58E00B053A8 /* LivePhotoSaver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LivePhotoSaver.swift; sourceTree = "<group>"; };
 		FEF4DF5E2DCA53800052666D /* LivePhotoUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LivePhotoUtils.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -218,7 +216,6 @@
 			children = (
 				FEF4DF5E2DCA53800052666D /* LivePhotoUtils.swift */,
 				FEC635CF2D8EB58E00B053A8 /* LivePhotoHandler.swift */,
-				FEC635D02D8EB58E00B053A8 /* LivePhotoSaver.swift */,
 			);
 			path = LivePhoto;
 			sourceTree = "<group>";
@@ -469,7 +466,6 @@
 				FEAC3B7E2DCCEB3800838618 /* Logger.swift in Sources */,
 				FEAC3B7F2DCCEB3800838618 /* ErrorUtils.swift in Sources */,
 				FEAC3B802DCCEB3800838618 /* FileUtils.swift in Sources */,
-				FEC635D32D8EB58E00B053A8 /* LivePhotoSaver.swift in Sources */,
 				FEF4DF5F2DCA53810052666D /* LivePhotoUtils.swift in Sources */,
 				FEC635D42D8EB58E00B053A8 /* LivePhotoHandler.swift in Sources */,
 			);

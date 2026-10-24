@@ -383,10 +383,22 @@ class _ReceiveSession {
     ),
   );
 
-  void close() {
+  /// Finishes gallery saves, flushing unmatched components after cancellation.
+  Future<void> close({bool cancelled = true}) async {
     // Preserve completed components using ordinary gallery saving. As with
     // other uploads, results after cancellation do not update the closed UI/history.
-    unawaited(livePhotos.close());
+    if (!cancelled) {
+      // Rust can report completion before Dart finishes post-processing the last
+      // uploads. Let those handlers pair their resources before flushing leftovers.
+      final pending = <Future<void>>[];
+      for (final queue in uploads.values) {
+        final done = Completer<void>();
+        pending.add(done.future);
+        queue.add(() async => done.complete());
+      }
+      await Future.wait(pending);
+    }
+    await livePhotos.close();
   }
 
   _ReceiveSession(this.config);
@@ -397,6 +409,20 @@ final _receiveSessionProvider = Provider((ref) => _ReceiveSessionHolder());
 
 class _ReceiveSessionHolder {
   _ReceiveSession? session;
+  final _closing = <Future<void>>{};
+
+  /// Detaches the session and waits for concurrent cleanup calls to finish.
+  Future<void> close({bool cancelled = true}) async {
+    final previous = session;
+    session = null;
+    final closing = previous?.close(cancelled: cancelled);
+    if (closing != null) _closing.add(closing);
+    try {
+      await Future.wait(_closing.toList());
+    } finally {
+      if (closing != null) _closing.remove(closing);
+    }
+  }
 }
 
 Future<void> setupHttpServerIsolate(
@@ -479,8 +505,7 @@ Future<void> setupHttpServerIsolate(
                 case RsServerEvent_PrepareUpload(:final sessionId, :final ip, :final info, :final certFingerprint, :final files):
                   // The Rust server is the authority on the single-session
                   // invariant: a new request means the old session is over.
-                  holder.session?.close();
-                  holder.session = null;
+                  await holder.close();
                   emit(
                     HttpServerPrepareUploadEvent(
                       sessionId: sessionId,
@@ -526,10 +551,7 @@ Future<void> setupHttpServerIsolate(
                   });
                 case RsServerEvent_SessionEnd(:final sessionId, :final reason):
                   if (holder.session?.config.sessionId == sessionId) {
-                    if (reason == SessionEndReasonV2.cancelled) {
-                      holder.session?.close();
-                    }
-                    holder.session = null;
+                    await holder.close(cancelled: reason == SessionEndReasonV2.cancelled);
                   }
                   emit(
                     HttpServerSessionEndEvent(
@@ -569,14 +591,12 @@ Future<void> setupHttpServerIsolate(
                 case RsServerEvent_Show(:final args):
                   emit(HttpServerShowEvent(args: args));
                 case RsServerEvent_ListenerFailed(:final error):
-                  ref.read(_receiveSessionProvider).session?.close();
-                  ref.read(_receiveSessionProvider).session = null;
+                  await ref.read(_receiveSessionProvider).close();
                   emit(HttpServerListenerFailedEvent(error: error));
               }
             }
           } finally {
-            ref.read(_receiveSessionProvider).session?.close();
-            ref.read(_receiveSessionProvider).session = null;
+            await ref.read(_receiveSessionProvider).close();
             sendToMain(
               IsolateTaskStreamResult.done(
                 id: task.id,
@@ -585,8 +605,7 @@ Future<void> setupHttpServerIsolate(
           }
           return;
         case HttpServerStopTask _:
-          ref.read(_receiveSessionProvider).session?.close();
-          ref.read(_receiveSessionProvider).session = null;
+          await ref.read(_receiveSessionProvider).close();
           await ref.read(httpServerProvider).stop();
           sendToMain(
             IsolateTaskStreamResult.done(
@@ -604,8 +623,7 @@ Future<void> setupHttpServerIsolate(
         case HttpServerCancelSessionTask cancelTask:
           final holder = ref.read(_receiveSessionProvider);
           if (holder.session?.config.sessionId == cancelTask.sessionId) {
-            holder.session?.close();
-            holder.session = null;
+            await holder.close();
           }
           await ref.read(httpServerProvider).cancelSession(sessionId: cancelTask.sessionId);
           return;

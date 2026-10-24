@@ -26,9 +26,9 @@ public class FileUtils {
         if fileManager.fileExists(atPath: fileURL.path) {
             do {
                 try fileManager.removeItem(at: fileURL)
-                logger.debug("Temp file removed: \(fileURL.path)")
+                logger.debug("Temp file removed")
             } catch {
-                logger.error("Failed to remove temp file: \(fileURL.path), error: \(error.localizedDescription)")
+                logger.error("Failed to remove temporary file")
             }
         }
     }
@@ -51,7 +51,7 @@ public class FileUtils {
             let attributes = try fileManager.attributesOfItem(atPath: path)
             return attributes[.size] as? Int64
         } catch {
-            logger.error("Failed to get file size for \(path): \(error.localizedDescription)")
+            logger.error("Failed to get file size")
             return nil
         }
     }
@@ -74,7 +74,7 @@ public class FileUtils {
             try fileManager.copyItem(atPath: sourcePath, toPath: destinationPath)
             return true
         } catch {
-            logger.error("Failed to copy file from \(sourcePath) to \(destinationPath): \(error.localizedDescription)")
+            logger.error("Failed to copy file")
             return false
         }
     }

@@ -16,8 +16,6 @@
 
 # FVM Version Cache
 .fvm/
-/build/
-.vscode
 
 # macOS
 .DS_Store

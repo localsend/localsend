@@ -45,3 +45,10 @@ without Live Photo support receives the two component files separately.
 Automated coverage is in `unit/util/native/live_photo_selection_test.dart`.
 It uses simulated library assets and real temporary files; it cannot validate
 PhotoKit/iCloud behavior or native Live Photo reconstruction on a device.
+
+For native media-processing regressions on macOS, install Xcode and ffmpeg,
+then run `bash support/scripts/test_live_photo_utils.sh` from the repository
+root. It type-checks the iOS implementation and verifies JPEG/HEIC identifiers,
+H.264/HEVC compressed samples, AAC audio, rotation, still-image metadata, and
+single failure callbacks for invalid/truncated inputs. These tests do not save
+to the Photos library; repeat the iPhone reception checks after native changes.
