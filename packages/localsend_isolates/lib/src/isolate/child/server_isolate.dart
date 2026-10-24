@@ -11,6 +11,7 @@ import 'package:localsend_isolates/src/isolate/child/sync_provider.dart';
 import 'package:localsend_isolates/src/isolate/dto/send_to_isolate_data.dart';
 import 'package:localsend_isolates/src/task/server/file_saver.dart';
 import 'package:localsend_isolates/src/task/server/http_server.dart';
+import 'package:localsend_isolates/src/task/server/live_photo_receiver.dart';
 import 'package:localsend_isolates/util/future_queue.dart';
 import 'package:localsend_isolates/util/rust.dart';
 import 'package:logging/logging.dart';
@@ -73,6 +74,9 @@ class HttpServerReceiveConfig {
   /// [destinationDirectory].
   final bool saveToGallery;
 
+  /// Accepted image IDs mapped to paired video IDs for Live Photo reception.
+  final Map<String, String> livePhotoPairs;
+
   /// The Android SDK version, `null` on other platforms. Enables SAF handling
   /// for destinations that cannot be written directly.
   final int? androidSdkInt;
@@ -83,6 +87,7 @@ class HttpServerReceiveConfig {
     required this.destinationDirectory,
     required this.cacheDirectory,
     required this.saveToGallery,
+    this.livePhotoPairs = const {},
     required this.androidSdkInt,
   });
 }
@@ -367,6 +372,35 @@ class _ReceiveSession {
   /// of being saved next to it under a numbered name.
   final Map<String, FileSaveTarget> targets = {};
 
+  late final livePhotos = LivePhotoReceiver(
+    pairs: config.saveToGallery ? config.livePhotoPairs : const {},
+    saveSingle: (file) => saveCachedFileToGallery(
+      cachedPath: file.path,
+      destinationDirectory: config.destinationDirectory,
+      fileName: file.name,
+      isImage: file.isImage,
+      createdDirectories: createdDirectories,
+    ),
+  );
+
+  /// Finishes gallery saves, flushing unmatched components after cancellation.
+  Future<void> close({bool cancelled = true}) async {
+    // Preserve completed components using ordinary gallery saving. As with
+    // other uploads, results after cancellation do not update the closed UI/history.
+    if (!cancelled) {
+      // Rust can report completion before Dart finishes post-processing the last
+      // uploads. Let those handlers pair their resources before flushing leftovers.
+      final pending = <Future<void>>[];
+      for (final queue in uploads.values) {
+        final done = Completer<void>();
+        pending.add(done.future);
+        queue.add(() async => done.complete());
+      }
+      await Future.wait(pending);
+    }
+    await livePhotos.close();
+  }
+
   _ReceiveSession(this.config);
 }
 
@@ -375,6 +409,20 @@ final _receiveSessionProvider = Provider((ref) => _ReceiveSessionHolder());
 
 class _ReceiveSessionHolder {
   _ReceiveSession? session;
+  final _closing = <Future<void>>{};
+
+  /// Detaches the session and waits for concurrent cleanup calls to finish.
+  Future<void> close({bool cancelled = true}) async {
+    final previous = session;
+    session = null;
+    final closing = previous?.close(cancelled: cancelled);
+    if (closing != null) _closing.add(closing);
+    try {
+      await Future.wait(_closing.toList());
+    } finally {
+      if (closing != null) _closing.remove(closing);
+    }
+  }
 }
 
 Future<void> setupHttpServerIsolate(
@@ -457,7 +505,7 @@ Future<void> setupHttpServerIsolate(
                 case RsServerEvent_PrepareUpload(:final sessionId, :final ip, :final info, :final certFingerprint, :final files):
                   // The Rust server is the authority on the single-session
                   // invariant: a new request means the old session is over.
-                  holder.session = null;
+                  await holder.close();
                   emit(
                     HttpServerPrepareUploadEvent(
                       sessionId: sessionId,
@@ -503,7 +551,7 @@ Future<void> setupHttpServerIsolate(
                   });
                 case RsServerEvent_SessionEnd(:final sessionId, :final reason):
                   if (holder.session?.config.sessionId == sessionId) {
-                    holder.session = null;
+                    await holder.close(cancelled: reason == SessionEndReasonV2.cancelled);
                   }
                   emit(
                     HttpServerSessionEndEvent(
@@ -543,12 +591,12 @@ Future<void> setupHttpServerIsolate(
                 case RsServerEvent_Show(:final args):
                   emit(HttpServerShowEvent(args: args));
                 case RsServerEvent_ListenerFailed(:final error):
-                  ref.read(_receiveSessionProvider).session = null;
+                  await ref.read(_receiveSessionProvider).close();
                   emit(HttpServerListenerFailedEvent(error: error));
               }
             }
           } finally {
-            ref.read(_receiveSessionProvider).session = null;
+            await ref.read(_receiveSessionProvider).close();
             sendToMain(
               IsolateTaskStreamResult.done(
                 id: task.id,
@@ -557,7 +605,7 @@ Future<void> setupHttpServerIsolate(
           }
           return;
         case HttpServerStopTask _:
-          ref.read(_receiveSessionProvider).session = null;
+          await ref.read(_receiveSessionProvider).close();
           await ref.read(httpServerProvider).stop();
           sendToMain(
             IsolateTaskStreamResult.done(
@@ -575,7 +623,7 @@ Future<void> setupHttpServerIsolate(
         case HttpServerCancelSessionTask cancelTask:
           final holder = ref.read(_receiveSessionProvider);
           if (holder.session?.config.sessionId == cancelTask.sessionId) {
-            holder.session = null;
+            await holder.close();
           }
           await ref.read(httpServerProvider).cancelSession(sessionId: cancelTask.sessionId);
           return;
@@ -630,7 +678,21 @@ Future<void> _handleFileUpload({
   final isImage = dartFile.fileType == FileType.image;
   final shouldSaveToGallery = config.saveToGallery && (isImage || dartFile.fileType == FileType.video);
 
-  void emitFailed(Object e) {
+  void emitLivePhotoResults(List<LivePhotoResult> results) {
+    for (final result in results) {
+      emit(
+        HttpServerFileUploadResultEvent(
+          sessionId: sessionId,
+          fileId: result.id,
+          path: result.path,
+          savedToGallery: result.savedToGallery,
+          error: result.error,
+        ),
+      );
+    }
+  }
+
+  Future<void> emitFailed(Object e) async {
     emit(
       HttpServerFileUploadResultEvent(
         sessionId: sessionId,
@@ -640,6 +702,7 @@ Future<void> _handleFileUpload({
         error: e.humanErrorMessage,
       ),
     );
+    emitLivePhotoResults(await session.livePhotos.failed(fileId));
   }
 
   _logger.info('Saving ${dartFile.fileName}');
@@ -671,7 +734,7 @@ Future<void> _handleFileUpload({
       _logger.warning('Could not fail the pending file upload', e);
     }
 
-    emitFailed(e);
+    await emitFailed(e);
     return;
   }
 
@@ -699,13 +762,26 @@ Future<void> _handleFileUpload({
     // The incomplete file is kept: a retry of this file overwrites it, and
     // otherwise it stays behind as the partial file of a failed transfer.
     _logger.severe('Failed to save file', e, st);
-    emitFailed(e);
+    await emitFailed(e);
     return;
   }
 
   try {
     String? filePath;
     bool savedToGallery = false;
+    if (shouldSaveToGallery && session.livePhotos.contains(fileId)) {
+      emitLivePhotoResults(
+        await session.livePhotos.receive(
+          LivePhotoFile(
+            id: fileId,
+            path: target.displayPath,
+            name: desiredName,
+            isImage: isImage,
+          ),
+        ),
+      );
+      return;
+    }
     if (shouldSaveToGallery) {
       (savedToGallery, filePath) = await saveCachedFileToGallery(
         cachedPath: target.displayPath,
@@ -730,6 +806,6 @@ Future<void> _handleFileUpload({
     );
   } catch (e, st) {
     _logger.severe('Failed to post-process file', e, st);
-    emitFailed(e);
+    await emitFailed(e);
   }
 }

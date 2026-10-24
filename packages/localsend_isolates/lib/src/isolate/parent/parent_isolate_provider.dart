@@ -5,6 +5,7 @@ import 'package:localsend_isolates/src/isolate/child/server_isolate.dart';
 import 'package:localsend_isolates/src/isolate/child/sync_provider.dart';
 import 'package:localsend_isolates/src/isolate/child/upload_isolate.dart';
 import 'package:localsend_isolates/src/isolate/dto/send_to_isolate_data.dart';
+import 'package:localsend_isolates/src/isolate/parent/actions.dart';
 import 'package:logging/logging.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 import 'package:typed_isolates/typed_isolates.dart';
@@ -96,12 +97,19 @@ class IsolateSetupAction extends AsyncReduxAction<IsolateController, ParentIsola
   }
 }
 
-class IsolateDisposeAction extends ReduxAction<IsolateController, ParentIsolateState> {
+/// Stops the receiver and finishes gallery saves before killing child isolates.
+class IsolateDisposeAction extends AsyncReduxAction<IsolateController, ParentIsolateState> {
   @override
-  ParentIsolateState reduce() {
+  Future<ParentIsolateState> reduce() async {
     state.discovery?.isolate.kill();
     state.httpUpload?.isolate.kill();
-    state.httpServer?.isolate.kill();
+    try {
+      if (state.httpServer != null) {
+        await dispatchAsync(IsolateHttpServerStopAction());
+      }
+    } finally {
+      state.httpServer?.isolate.kill();
+    }
     return state;
   }
 }

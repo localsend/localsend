@@ -76,7 +76,8 @@ class LocalSendApp extends StatelessWidget {
               case AppLifecycleState.detached:
                 // The main isolate is only exited when all child isolates are exited.
                 // https://github.com/localsend/localsend/issues/1568
-                ref.redux(parentIsolateProvider).dispatch(IsolateDisposeAction());
+                // ignore: discarded_futures
+                ref.redux(parentIsolateProvider).dispatchAsync(IsolateDisposeAction());
                 break;
               default:
                 break;

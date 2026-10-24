@@ -10,6 +10,7 @@ import 'package:localsend_app/model/cross_file.dart';
 import 'package:localsend_app/pages/apk_picker_page.dart';
 import 'package:localsend_app/provider/device_info_provider.dart';
 import 'package:localsend_app/provider/selection/selected_sending_files_provider.dart';
+import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/util/determine_image_type.dart';
 import 'package:localsend_app/util/image_converter.dart';
 import 'package:localsend_app/util/native/channel/android_channel.dart' as android_channel;
@@ -17,6 +18,7 @@ import 'package:localsend_app/util/native/cross_file_converters.dart';
 import 'package:localsend_app/util/native/pick_directory_path.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_app/util/ui/asset_picker_translated_text_delegate.dart';
+import 'package:localsend_app/widget/dialogs/error_dialog.dart';
 import 'package:localsend_app/widget/dialogs/loading_dialog.dart';
 import 'package:localsend_app/widget/dialogs/message_input_dialog.dart';
 import 'package:localsend_app/widget/dialogs/no_permission_dialog.dart';
@@ -270,15 +272,40 @@ Future<void> _pickMedia(BuildContext context, Ref ref) async {
     }
   });
 
-  if (result != null) {
+  if (result == null || result.isEmpty || !context.mounted) return;
+
+  // Exporting originals may download both Live Photo components from iCloud.
+  // Keep the user informed and prevent sending until the full selection is ready.
+  final navigator = Navigator.of(context, rootNavigator: true);
+  final loadingRoute = DialogRoute<void>(
+    context: context,
+    barrierDismissible: false,
+    builder: (_) => const LoadingDialog(),
+  );
+  unawaited(navigator.push(loadingRoute));
+  Object? exportError;
+  try {
     await ref
         .redux(selectedSendingFilesProvider)
         .dispatchAsync(
-          AddFilesAction(
-            files: result,
-            converter: CrossFileConverters.convertAssetEntity,
+          AddAssetsAction(
+            result,
+            sendLivePhotoVideo: checkPlatform([TargetPlatform.iOS]) && ref.read(settingsProvider).sendLivePhotoVideo,
           ),
         );
+  } catch (e, st) {
+    _logger.warning('Failed to prepare selected media', e, st);
+    exportError = e;
+  } finally {
+    if (loadingRoute.isActive) {
+      navigator.removeRoute(loadingRoute);
+    }
+  }
+  if (exportError != null && context.mounted) {
+    await showDialog<void>(
+      context: context,
+      builder: (_) => ErrorDialog(error: exportError.toString()),
+    );
   }
 }
 

@@ -16,6 +16,7 @@ import 'package:path/path.dart' as p;
 import 'package:refena_flutter/refena_flutter.dart';
 import 'package:share_handler/share_handler.dart';
 import 'package:uuid/uuid.dart';
+import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 
 final _logger = Logger('SelectedSendingFiles');
 const _uuid = Uuid();
@@ -143,6 +144,54 @@ class AddFilesAction<T> extends AsyncReduxAction<SelectedSendingFilesNotifier, L
       ...state,
       ...newFiles,
     ]);
+  }
+}
+
+/// Expands library assets into files, keeping Live Photo components together.
+class AddAssetsAction extends AsyncReduxAction<SelectedSendingFilesNotifier, List<CrossFile>> {
+  final Iterable<AssetEntity> assets;
+  final bool sendLivePhotoVideo;
+
+  AddAssetsAction(this.assets, {this.sendLivePhotoVideo = false});
+
+  @override
+  Future<List<CrossFile>> reduce() async {
+    final batches = <List<CrossFile>>[];
+    for (final asset in assets) {
+      // Export sequentially, just like AddFilesAction. Commit the selection only
+      // after all requested components are ready, so failures leave no partial batch.
+      batches.add(await CrossFileConverters.convertAssetEntity(asset, sendLivePhotoVideo: sendLivePhotoVideo));
+    }
+
+    // Like AddFilesAction, merge into the current selection after exporting.
+    // Shares and removals may have changed it while an iCloud download was pending.
+    final files = [...state];
+    for (final components in batches) {
+      final existing = files.where((file) => components.any((component) => file.isSameFile(otherFile: component))).toList();
+      if (components.every((component) => existing.any((file) => file.isSameFile(otherFile: component)))) {
+        continue;
+      }
+
+      final originalBase = p.basenameWithoutExtension(components.first.name);
+      var base = existing.isEmpty ? originalBase : p.basenameWithoutExtension(existing.first.name);
+      if (existing.isEmpty) {
+        // Albums and imported photos can contain identical filenames. Rename
+        // both components together to keep filename-based reception unambiguous.
+        final usedNames = files.map((file) => p.basenameWithoutExtension(file.name).toLowerCase()).toSet();
+        var suffix = 2;
+        while (usedNames.contains(base.toLowerCase())) {
+          base = '$originalBase ($suffix)';
+          suffix++;
+        }
+      }
+
+      for (final component in components) {
+        if (!existing.any((file) => file.isSameFile(otherFile: component))) {
+          files.add(component.copyWith(name: '$base${p.extension(component.name)}'));
+        }
+      }
+    }
+    return List.unmodifiable(files);
   }
 }
 
