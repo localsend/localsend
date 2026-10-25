@@ -40,7 +40,6 @@
 - fix(linux): match the native title bar to the app theme (@ShlomoCode)
 - fix(linux): don't show the farewell message during deb upgrades or reinstalls (@ShlomoCode)
 - perf: reduce memory use during file transfers (@luojiyin1987)
-- perf: release isolate listeners after task errors and stream cancellation (@ShlomoCode)
 
 ## 1.18.2 (2026-08-21)
 
