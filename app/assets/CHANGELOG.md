@@ -39,7 +39,6 @@
 - fix: apply zero-padding when numbering renamed files (@A-M-D-R-3-W)
 - fix(linux): match the native title bar to the app theme (@ShlomoCode)
 - fix(linux): don't show the farewell message during deb upgrades or reinstalls (@ShlomoCode)
-- fix(macos): complete Dock icon updates without leaving the app waiting (@ShlomoCode)
 - fix(webrtc): less blocking implementation (@Tienisto)
 - perf: reduce memory use during file transfers (@luojiyin1987)
 - perf: release isolate listeners after task errors and stream cancellation (@ShlomoCode)
