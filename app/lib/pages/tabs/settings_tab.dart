@@ -25,7 +25,6 @@ import 'package:localsend_app/widget/dialogs/quick_save_from_favorites_notice.da
 import 'package:localsend_app/widget/dialogs/quick_save_notice.dart';
 import 'package:localsend_app/widget/dialogs/text_field_tv.dart';
 import 'package:localsend_app/widget/dialogs/text_field_with_actions.dart';
-import 'package:localsend_app/widget/labeled_checkbox.dart';
 import 'package:localsend_app/widget/local_send_logo.dart';
 import 'package:localsend_app/widget/responsive_list_view.dart';
 import 'package:localsend_isolates/constants.dart';
@@ -218,6 +217,7 @@ class SettingsTab extends StatelessWidget {
                 if (checkPlatformWithFileSystem())
                   _SettingsEntry(
                     label: t.settingsTab.receive.destination,
+                    adaptiveWidth: true,
                     child: TextButton(
                       style: TextButton.styleFrom(
                         backgroundColor: Theme.of(context).inputDecorationTheme.fillColor,
@@ -568,10 +568,10 @@ class SettingsTab extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                LabeledCheckbox(
-                  label: t.settingsTab.advancedSettings,
+                Flexible(child: Text(t.settingsTab.advancedSettings)),
+                const SizedBox(width: 5),
+                Checkbox(
                   value: vm.advanced,
-                  labelFirst: true,
                   onChanged: (b) async {
                     vm.onTapAdvanced(b == true);
                     await ref.notifier(settingsProvider).setAdvancedSettingsEnabled(b == true);
@@ -620,35 +620,49 @@ class _SettingsEntry extends StatelessWidget {
   final String label;
   final Widget child;
   final String? description;
+  final bool adaptiveWidth;
 
-  const _SettingsEntry({required this.label, required this.child, this.description});
+  const _SettingsEntry({required this.label, required this.child, this.description, this.adaptiveWidth = false});
 
   @override
   Widget build(BuildContext context) {
+    final labelWidget = Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(label),
+        if (description != null)
+          Text(
+            description!,
+            style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
+          ),
+      ],
+    );
+
     return Padding(
       padding: const EdgeInsets.only(bottom: 15),
-      child: Row(
-        children: [
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+      child: adaptiveWidth
+          ? OverflowBar(
+              alignment: MainAxisAlignment.spaceBetween,
+              spacing: 10,
+              overflowSpacing: 10,
               children: [
-                Text(label),
-                if (description != null)
-                  Text(
-                    description!,
-                    style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
-                  ),
+                labelWidget,
+                ConstrainedBox(
+                  constraints: const BoxConstraints(minWidth: 150),
+                  child: child,
+                ),
+              ],
+            )
+          : Row(
+              children: [
+                Expanded(child: labelWidget),
+                const SizedBox(width: 10),
+                SizedBox(
+                  width: 150,
+                  child: child,
+                ),
               ],
             ),
-          ),
-          const SizedBox(width: 10),
-          SizedBox(
-            width: 150,
-            child: child,
-          ),
-        ],
-      ),
     );
   }
 }
@@ -717,6 +731,7 @@ class _ButtonEntry extends StatelessWidget {
   Widget build(BuildContext context) {
     return _SettingsEntry(
       label: label,
+      adaptiveWidth: true,
       child: TextButton(
         style: TextButton.styleFrom(
           backgroundColor: Theme.of(context).inputDecorationTheme.fillColor,
