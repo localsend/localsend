@@ -5,11 +5,38 @@ import 'package:flutter/foundation.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:localsend_app/model/cross_file.dart';
 import 'package:localsend_app/util/native/channel/android_channel.dart' as android_channel;
+import 'package:localsend_app/util/native/macos_app_archive.dart';
+import 'package:localsend_isolates/model/content_source.dart';
 import 'package:localsend_isolates/model/file_type.dart';
+import 'package:localsend_isolates/rust/api/cancel.dart' as rust_cancel;
+import 'package:localsend_isolates/rust/api/macos_app_archive.dart' as rust_archive;
 import 'package:localsend_isolates/rust/api/metadata.dart';
 import 'package:localsend_isolates/util/file_path_helper.dart';
+import 'package:logging/logging.dart';
+import 'package:path/path.dart' as p;
 import 'package:share_handler/share_handler.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
+
+final _logger = Logger('PreparedSendingFiles');
+
+class PreparedSendingFiles {
+  final List<CrossFile> files;
+  final List<Directory> archiveDirectories;
+
+  PreparedSendingFiles(this.files, this.archiveDirectories);
+
+  Future<void> dispose() async {
+    for (final directory in archiveDirectories) {
+      try {
+        if (await directory.exists()) {
+          await directory.delete(recursive: true);
+        }
+      } catch (e) {
+        _logger.warning('Could not delete application archive at ${directory.path}', e);
+      }
+    }
+  }
+}
 
 /// Utility functions to convert third party models to common [CrossFile] model.
 class CrossFileConverters {
@@ -22,14 +49,16 @@ class CrossFileConverters {
       size: await file.length(),
       thumbnail: null,
       asset: asset,
-      path: file.path,
-      bytes: null,
+      source: ContentSource.fromPath(file.path),
       lastModified: metadata?.modified,
       lastAccessed: metadata?.accessed,
     );
   }
 
   static Future<CrossFile> convertXFile(XFile file) async {
+    if (!kIsWeb && isMacosApp(Directory(file.path)) && await Directory(file.path).exists()) {
+      return await selectMacosAppForSending(Directory(file.path));
+    }
     final metadata = kIsWeb ? null : await readFileMetadata(path: file.path);
     return CrossFile(
       name: file.name,
@@ -37,14 +66,16 @@ class CrossFileConverters {
       size: await file.length(),
       thumbnail: null,
       asset: null,
-      path: kIsWeb ? null : file.path,
-      bytes: kIsWeb ? await file.readAsBytes() : null, // we can fetch it now because in Web it is already there
+      source: kIsWeb ? ContentSource.fromBytes(await file.readAsBytes()) : ContentSource.fromPath(file.path),
       lastModified: metadata?.modified,
       lastAccessed: metadata?.accessed,
     );
   }
 
   static Future<CrossFile> convertFile(File file) async {
+    if (isMacosApp(Directory(file.path)) && await Directory(file.path).exists()) {
+      return await selectMacosAppForSending(Directory(file.path));
+    }
     final metadata = await readFileMetadata(path: file.path);
     return CrossFile(
       name: file.path.fileName,
@@ -52,8 +83,7 @@ class CrossFileConverters {
       size: await file.length(),
       thumbnail: null,
       asset: null,
-      path: file.path,
-      bytes: null,
+      source: ContentSource.fromPath(file.path),
       lastModified: metadata?.modified,
       lastAccessed: metadata?.accessed,
     );
@@ -66,8 +96,7 @@ class CrossFileConverters {
       size: file.size,
       thumbnail: null,
       asset: null,
-      path: file.uri,
-      bytes: null,
+      source: ContentSource.fromPath(file.uri),
       // SAF only provides milliseconds, so there is no point statting in Rust.
       lastModified: file.lastModified,
       lastAccessed: null,
@@ -75,6 +104,9 @@ class CrossFileConverters {
   }
 
   static Future<CrossFile> convertSharedAttachment(SharedAttachment attachment) async {
+    if (isMacosApp(Directory(attachment.path)) && await Directory(attachment.path).exists()) {
+      return await selectMacosAppForSending(Directory(attachment.path));
+    }
     final file = File(attachment.path);
     final fileName = attachment.path.fileName;
     final metadata = await readFileMetadata(path: file.path);
@@ -84,8 +116,7 @@ class CrossFileConverters {
       size: await file.length(),
       thumbnail: null,
       asset: null,
-      path: file.path,
-      bytes: null,
+      source: ContentSource.fromPath(file.path),
       lastModified: metadata?.modified,
       lastAccessed: metadata?.accessed,
     );
@@ -99,11 +130,50 @@ class CrossFileConverters {
       thumbnail: app is ApplicationWithIcon ? app.icon : null,
       size: await file.length(),
       asset: null,
-      path: app.apkFilePath,
-      bytes: null,
+      source: ContentSource.fromPath(app.apkFilePath),
       lastModified: null,
       lastAccessed: null,
     );
+  }
+
+  static Future<CrossFile> selectMacosAppForSending(Directory app) async {
+    return CrossFile(
+      name: '${p.basename(p.normalize(app.path))}.zip',
+      fileType: FileType.other,
+      size: await estimateMacosAppSize(app),
+      thumbnail: null,
+      asset: null,
+      source: ContentSource.fromPath(app.path),
+      lastModified: null,
+      lastAccessed: null,
+    );
+  }
+
+  static Future<CrossFile> prepareMacosAppForSending(CrossFile file) async {
+    if (!isPendingMacosAppArchive(file)) {
+      return file;
+    }
+
+    final archive = await rust_archive.prepareMacosAppArchive(
+      path: file.path!,
+      cancelToken: rust_cancel.createCancellationToken(),
+    );
+    return file.copyWith(source: ContentSource.fromRust(archive.source), sha256: archive.sha256, size: archive.size.toInt());
+  }
+
+  static Future<PreparedSendingFiles> prepareFilesForSending(List<CrossFile> files) async {
+    final prepared = <CrossFile>[];
+    final archiveDirectories = <Directory>[];
+    try {
+      for (final file in files) {
+        final preparedFile = await prepareMacosAppForSending(file);
+        prepared.add(preparedFile);
+      }
+    } catch (_) {
+      await PreparedSendingFiles(prepared, archiveDirectories).dispose();
+      rethrow;
+    }
+    return PreparedSendingFiles(prepared, archiveDirectories);
   }
 }
 

@@ -10,6 +10,7 @@ import 'package:localsend_app/provider/network/server/controller/send_controller
 import 'package:localsend_app/provider/network/server/server_utils.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/util/alias_generator.dart';
+import 'package:localsend_app/util/native/cross_file_converters.dart';
 import 'package:localsend_app/util/native/web_pages_loader.dart';
 import 'package:localsend_isolates/constants.dart';
 import 'package:localsend_isolates/isolate.dart';
@@ -72,6 +73,7 @@ class ServerService extends Notifier<ServerState?> {
 
   late final _receiveController = ReceiveController(_serverUtils);
   late final _sendController = SendController(_serverUtils);
+  PreparedSendingFiles? _webPreparedFiles;
 
   StreamSubscription<HttpServerEvent>? _subscription;
 
@@ -226,12 +228,17 @@ class ServerService extends Notifier<ServerState?> {
     return newServerState;
   }
 
-  Future<void> stopServer() async {
+  Future<void> stopServer({bool preserveWebPreparedFiles = false}) async {
     _logger.info('Stopping server...');
     await _subscription?.cancel();
     _subscription = null;
     await ref.redux(parentIsolateProvider).dispatchAsync(IsolateHttpServerStopAction());
     state = null;
+    if (!preserveWebPreparedFiles) {
+      final prepared = _webPreparedFiles;
+      _webPreparedFiles = null;
+      await prepared?.dispose();
+    }
     _logger.info('Server stopped.');
   }
 
@@ -245,9 +252,19 @@ class ServerService extends Notifier<ServerState?> {
     required int port,
     required bool https,
     WebShareState? web,
+    bool preserveWebPreparedFiles = false,
   }) async {
-    await stopServer();
-    return await startServer(alias: alias, port: port, https: https, web: web);
+    await stopServer(preserveWebPreparedFiles: preserveWebPreparedFiles);
+    try {
+      return await startServer(alias: alias, port: port, https: https, web: web);
+    } catch (_) {
+      if (preserveWebPreparedFiles) {
+        final prepared = _webPreparedFiles;
+        _webPreparedFiles = null;
+        await prepared?.dispose();
+      }
+      rethrow;
+    }
   }
 
   Future<void> acceptFileRequest(Map<String, String> fileNameMap) async {
@@ -287,13 +304,19 @@ class ServerService extends Notifier<ServerState?> {
     required List<CrossFile> files,
     String? pin,
   }) async {
-    final webDownloadState = await _sendController.buildWebDownloadState(files: files);
-    await restartServer(
-      alias: alias,
-      port: port,
-      https: https,
-      web: WebShareDownload(state: webDownloadState, pin: pin),
-    );
+    final (webDownloadState, prepared) = await _sendController.buildWebDownloadState(files: files);
+    try {
+      await restartServer(
+        alias: alias,
+        port: port,
+        https: https,
+        web: WebShareDownload(state: webDownloadState, pin: pin),
+      );
+      _webPreparedFiles = prepared;
+    } catch (_) {
+      await prepared.dispose();
+      rethrow;
+    }
   }
 
   /// Updates the pin of the active web share mode (download or upload page).
@@ -309,6 +332,7 @@ class ServerService extends Notifier<ServerState?> {
       alias: current.alias,
       port: current.port,
       https: current.https,
+      preserveWebPreparedFiles: web is WebShareDownload,
       web: switch (web) {
         // Sessions do not survive a server restart.
         WebShareDownload(:final state) => WebShareDownload(
@@ -416,6 +440,7 @@ class ServerService extends Notifier<ServerState?> {
         alias: current.alias,
         port: current.port,
         https: current.https,
+        preserveWebPreparedFiles: current.web is WebShareDownload,
         web: switch (current.web) {
           // Sessions do not survive a server restart.
           WebShareDownload(:final state, :final pin) => WebShareDownload(

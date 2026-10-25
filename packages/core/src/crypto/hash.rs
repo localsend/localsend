@@ -1,4 +1,6 @@
 use crate::model::transfer::FileContent;
+#[cfg(feature = "http")]
+use futures_util::StreamExt;
 use sha2::{Digest, Sha256};
 use tokio_util::sync::CancellationToken;
 
@@ -36,6 +38,27 @@ pub async fn sha256_file_content(
 ) -> Result<String, HashError> {
     let mut hasher = Sha256::new();
     match content {
+        #[cfg(feature = "http")]
+        FileContent::Source(source) => {
+            let mut stream = source.open_stream()?;
+            let mut hashed = 0_u64;
+            loop {
+                let chunk = tokio::select! {
+                    biased;
+                    _ = cancel_token.cancelled() => return Err(HashError::Cancelled),
+                    chunk = stream.next() => chunk,
+                };
+                match chunk {
+                    Some(chunk) => {
+                        let chunk = chunk?;
+                        hasher.update(&chunk);
+                        hashed += chunk.len() as u64;
+                        progress(hashed);
+                    }
+                    None => break,
+                }
+            }
+        }
         FileContent::Stream(mut receiver) => {
             let mut hashed = 0_u64;
             loop {

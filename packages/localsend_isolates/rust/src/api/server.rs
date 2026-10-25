@@ -1,3 +1,4 @@
+use crate::api::content_source::RsContentSource;
 use crate::frb_generated::StreamSink;
 use flutter_rust_bridge::frb;
 pub use localsend::http::dto_v2::RegisterDtoV2;
@@ -8,7 +9,7 @@ use localsend::http::server::internal::{InternalConfig, InternalEvent};
 pub use localsend::http::server::v2::SessionEndReasonV2;
 use localsend::http::server::v2::{PrepareUploadDecisionV2, ServerEventV2};
 use localsend::http::server::web::{
-    WebConfig, WebMode as CoreWebMode, WebDownloadConfig, WebDownloadEvent,
+    WebConfig, WebDownloadConfig, WebDownloadEvent, WebMode as CoreWebMode,
 };
 pub use localsend::http::server::web::{WebI18n, WebPages};
 use localsend::http::state::ClientInfo;
@@ -617,15 +618,14 @@ impl RsHttpServer {
     }
 
     /// Answers the pending [RsServerEvent::WebFileDownload] event with the source
-    /// the file content should be read from (either a path or a file descriptor).
+    /// that produces the file content.
     ///
     /// The server reads the content and streams it to the web client.
     pub async fn respond_file_download(
         &self,
         session_id: String,
         file_id: String,
-        path: Option<String>,
-        file_descriptor: Option<i32>,
+        source: RsContentSource,
     ) -> anyhow::Result<()> {
         let Some(content_tx) = self
             .pending_downloads
@@ -636,7 +636,7 @@ impl RsHttpServer {
             return Err(anyhow::anyhow!("No pending file download for this file"));
         };
 
-        let content = resolve_file_content(path, file_descriptor)?;
+        let content = source.into_content().await?;
 
         content_tx
             .send(content)
@@ -731,31 +731,6 @@ fn resolve_upload_target(
         }
         _ => Err(anyhow::anyhow!(
             "Exactly one upload target must be provided"
-        )),
-    }
-}
-
-fn resolve_file_content(
-    path: Option<String>,
-    file_descriptor: Option<i32>,
-) -> anyhow::Result<FileContent> {
-    match (path, file_descriptor) {
-        (Some(path), None) => Ok(FileContent::Path(path.into())),
-        (None, Some(file_descriptor)) => {
-            #[cfg(target_os = "android")]
-            {
-                Ok(FileContent::Fd(file_descriptor))
-            }
-            #[cfg(not(target_os = "android"))]
-            {
-                let _ = file_descriptor;
-                Err(anyhow::anyhow!(
-                    "File descriptors are only supported on Android"
-                ))
-            }
-        }
-        _ => Err(anyhow::anyhow!(
-            "Exactly one download source must be provided"
         )),
     }
 }

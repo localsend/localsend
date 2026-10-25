@@ -14,6 +14,10 @@ import 'package:localsend_app/provider/file_transfer_provider.dart';
 import 'package:localsend_app/provider/http_provider.dart';
 import 'package:localsend_app/provider/selection/selected_sending_files_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
+import 'package:localsend_app/util/native/cross_file_converters.dart';
+import 'package:localsend_app/util/native/macos_app_archive.dart';
+import 'package:localsend_app/widget/dialogs/error_dialog.dart';
+import 'package:localsend_app/widget/dialogs/loading_dialog.dart';
 import 'package:localsend_app/widget/dialogs/pin_dialog.dart';
 import 'package:localsend_isolates/isolate.dart';
 import 'package:localsend_isolates/model/device.dart';
@@ -48,6 +52,13 @@ final sendProvider = NotifierProvider<SendNotifier, Map<String, SendSessionState
 
 class SendNotifier extends Notifier<Map<String, SendSessionState>> {
   SendNotifier();
+
+  final _preparedAppArchives = <String, PreparedSendingFiles>{};
+  final _runningStartSessions = <String>{};
+
+  Future<void> _disposeAppArchives(String sessionId) async {
+    await _preparedAppArchives.remove(sessionId)?.dispose();
+  }
 
   /// Cancel tokens of the running checksum calculations.
   /// Session ID -> Cancel token
@@ -90,10 +101,54 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
     required List<CrossFile> files,
     required bool background,
   }) async {
+    PreparedSendingFiles? prepared;
+    // The protocol needs the exact archive size before it can announce the files.
+    if (files.any(isPendingMacosAppArchive)) {
+      final context = Routerino.context;
+      unawaited(showDialog<void>(context: context, barrierDismissible: false, builder: (_) => const LoadingDialog()));
+      try {
+        prepared = await CrossFileConverters.prepareFilesForSending(files);
+        files = prepared.files;
+      } catch (e, st) {
+        _logger.severe('Could not prepare application archive', e, st);
+        if (context.mounted) {
+          Navigator.of(context, rootNavigator: true).pop();
+          await showDialog<void>(
+            context: context,
+            builder: (_) => ErrorDialog(error: e.humanErrorMessage),
+          );
+        }
+        return;
+      }
+      if (context.mounted) {
+        Navigator.of(context, rootNavigator: true).pop();
+      }
+    }
+
+    final sessionId = _uuid.v4();
+    if (prepared != null) {
+      _preparedAppArchives[sessionId] = prepared;
+    }
+    _runningStartSessions.add(sessionId);
+    try {
+      await _startPreparedSession(sessionId: sessionId, target: target, files: files, background: background);
+    } finally {
+      _runningStartSessions.remove(sessionId);
+      if (state[sessionId] == null) {
+        await _disposeAppArchives(sessionId);
+      }
+    }
+  }
+
+  Future<void> _startPreparedSession({
+    required String sessionId,
+    required Device target,
+    required List<CrossFile> files,
+    required bool background,
+  }) async {
     // Pinned to the device the user picked, so the request is not sent at all
     // if someone else answers on that address.
     final client = ref.read(httpProvider).pinnedTo(target.fingerprint);
-    final sessionId = _uuid.v4();
     final createChecksums = ref.read(settingsProvider).createChecksums;
 
     // The ids are assigned upfront, so the checksums calculated below
@@ -131,8 +186,7 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
               token: null,
               thumbnail: file.thumbnail,
               asset: file.asset,
-              path: file.path,
-              bytes: file.bytes,
+              source: file.source,
               errorMessage: null,
             ),
         },
@@ -170,24 +224,28 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
       try {
         for (final (:id, :file) in selectedFiles) {
           try {
-            hashes[id] = await calculateFileHash(
-              path: file.path,
-              bytes: file.bytes,
-              cancelToken: hashCancelToken,
-              onProgress: (bytes) {
-                if (state[sessionId] == null) {
-                  // session has been canceled while calculating the checksums
-                  return;
-                }
-                ref
-                    .notifier(fileTransferProvider)
-                    .setProgress(
-                      sessionId: sessionId,
-                      fileId: id,
-                      progress: file.size == 0 ? 1 : (bytes / file.size).clamp(0, 1),
-                    );
-              },
-            );
+            if (file.sha256 != null) {
+              hashes[id] = file.sha256!;
+            } else {
+              hashes[id] = await calculateFileHash(
+                path: file.path,
+                bytes: file.bytes,
+                cancelToken: hashCancelToken,
+                onProgress: (bytes) {
+                  if (state[sessionId] == null) {
+                    // session has been canceled while calculating the checksums
+                    return;
+                  }
+                  ref
+                      .notifier(fileTransferProvider)
+                      .setProgress(
+                        sessionId: sessionId,
+                        fileId: id,
+                        progress: file.size == 0 ? 1 : (bytes / file.size).clamp(0, 1),
+                      );
+                },
+              );
+            }
           } catch (e) {
             if (state[sessionId] != null) {
               // Sending the checksum is optional, so a file that cannot be read
@@ -605,8 +663,7 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
           HttpUploadFile(
             remoteFileToken: file.token!,
             fileId: file.file.id,
-            filePath: file.path,
-            fileBytes: file.bytes,
+            source: file.source,
             fileSize: file.file.size,
           ),
     ];
@@ -784,6 +841,9 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
     _hashCancelTokens.remove(sessionId)?.cancel();
     _prepareUploadCancelTokens.remove(sessionId)?.cancel();
     state = state.removeSession(ref, sessionId);
+    if (!_runningStartSessions.contains(sessionId)) {
+      unawaited(_disposeAppArchives(sessionId));
+    }
     if (sessionState.status == SessionStatus.finished && ref.read(settingsProvider).sendMode == SendMode.single) {
       // clear selected files
       ref.redux(selectedSendingFilesProvider).dispatch(ClearSelectionAction());
@@ -803,6 +863,11 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
     }
     _prepareUploadCancelTokens.clear();
     state = {};
+    for (final sessionId in _preparedAppArchives.keys.toList()) {
+      if (!_runningStartSessions.contains(sessionId)) {
+        unawaited(_disposeAppArchives(sessionId));
+      }
+    }
     ref.notifier(fileTransferProvider).removeAllSessions();
   }
 

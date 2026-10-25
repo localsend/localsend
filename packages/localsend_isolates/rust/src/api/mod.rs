@@ -1,11 +1,13 @@
 pub mod cancel;
+pub mod content_source;
+pub mod content_stream;
 pub mod crypto;
 pub mod discovery;
 pub mod filename;
 pub mod http;
 pub mod logging;
+pub mod macos_app_archive;
 pub mod metadata;
 pub mod model;
 pub mod server;
-pub mod stream;
 pub mod webrtc;
