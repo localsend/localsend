@@ -293,10 +293,10 @@ packages:
     dependency: transitive
     description:
       name: dbus
-      sha256: "792974a4007974fbc5c1b5433eb2330a9db3e368c3f906253af4c007d0f49a91"
+      sha256: "a48d5da28e89bd02196e80d81ed8d7954923d00a0f4a68cc20b575038f023383"
       url: "https://pub.dev"
     source: hosted
-    version: "0.7.13"
+    version: "0.7.15"
   desktop_drop:
     dependency: transitive
     description:
@@ -1716,6 +1716,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.6"
+  tray_kit:
+    dependency: transitive
+    description:
+      name: tray_kit
+      sha256: "596f62d79e21d78b7e9e593a9540503a1e5ecd3b45eee3c4f3d8b7af28f5f436"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.1.0"
   tray_manager:
     dependency: transitive
     description:

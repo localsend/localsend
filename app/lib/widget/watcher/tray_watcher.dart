@@ -24,12 +24,16 @@ class _TrayWatcherState extends State<TrayWatcher> with TrayListener {
   @override
   void initState() {
     super.initState();
-    trayManager.addListener(this);
+    if (!checkPlatform([TargetPlatform.linux])) {
+      trayManager.addListener(this);
+    }
   }
 
   @override
   void dispose() {
-    trayManager.removeListener(this);
+    if (!checkPlatform([TargetPlatform.linux])) {
+      trayManager.removeListener(this);
+    }
     super.dispose();
   }
 
