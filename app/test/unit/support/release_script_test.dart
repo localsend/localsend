@@ -79,7 +79,8 @@ Map<String, String> _files(String version, int build, String lockEnding, String 
   final files = {
     'app/pubspec.yaml': 'name: localsend_app\nversion: $version+$build\n# Keep this comment.\n',
     'cli/Cargo.toml': '[package]\nname = "localsend-cli"\nversion = "$version"\n',
-    'Cargo.lock': '[[package]]\nname = "other-before"\nversion = "1.0.0"\n\n'
+    'Cargo.lock':
+        '[[package]]\nname = "other-before"\nversion = "1.0.0"\n\n'
         '[[package]]\nname = "localsend-cli"\nversion = "$version"\n\n'
         '[[package]]\nname = "other-after"\nversion = "1.0.0"\n',
     'support/scripts/compile_windows_exe-inno.iss': '#define MyAppVersion "$version"\n#define MyAppName "LocalSend"\n',
