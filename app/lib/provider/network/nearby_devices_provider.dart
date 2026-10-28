@@ -5,6 +5,7 @@ import 'package:localsend_app/model/persistence/favorite_device.dart';
 import 'package:localsend_app/model/state/nearby_devices_state.dart';
 import 'package:localsend_app/provider/favorites_provider.dart';
 import 'package:localsend_app/provider/logging/discovery_logs_provider.dart';
+import 'package:localsend_app/util/favorites.dart';
 import 'package:localsend_isolates/isolate.dart';
 import 'package:localsend_isolates/model/device.dart';
 import 'package:refena_flutter/refena_flutter.dart';
@@ -87,9 +88,10 @@ class RegisterDeviceAction extends AsyncReduxAction<NearbyDevicesService, Nearby
     assert(device.ip?.isNotEmpty ?? false, 'IP must not be empty');
 
     final favoriteDevice = notifier._favoriteService.state.firstWhereOrNull((e) => e.fingerprint == device.fingerprint);
-    if (favoriteDevice != null && !favoriteDevice.customAlias) {
-      // Update existing favorite with new alias
-      await external(notifier._favoriteService).dispatchAsync(UpdateFavoriteAction(favoriteDevice.copyWith(alias: device.alias)));
+    if (favoriteDevice != null) {
+      await external(notifier._favoriteService).dispatchAsync(
+        UpdateFavoriteAction(updateFavoriteFromDevice(favoriteDevice, device)),
+      );
     } else {
       await Future.microtask(() {});
     }
