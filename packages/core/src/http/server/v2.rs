@@ -137,6 +137,10 @@ pub enum PrepareUploadDecisionV2 {
     /// An empty set responds with 204 (no file transfer needed).
     Accept(HashSet<String>),
 
+    /// Accept and retain interrupted uploads for manual retry until closed or
+    /// replaced by a new request. The application must retain their save targets.
+    AcceptWithManualRetries(HashSet<String>),
+
     /// Decline the request (403).
     Decline,
 }
@@ -251,24 +255,41 @@ pub(crate) async fn prepare_upload(
     let session_id = Uuid::new_v4().to_string();
     let cancelled = CancellationToken::new();
 
-    // Claim the single session slot.
-    {
+    // An idle failed batch can be replaced, but queued or active uploads cannot.
+    let replaced_session = {
         let mut slot = v2.session.lock().await;
-        if slot.is_some() {
-            return Err(AppError::Message(
-                StatusCode::CONFLICT,
-                "Blocked by another session".to_string(),
-            ));
-        }
+        let replaced = match slot.as_ref() {
+            None => None,
+            Some(SessionStateV2::Active(session)) if session.is_complete() => {
+                Some(session.session_id.clone())
+            }
+            _ => {
+                return Err(AppError::Message(
+                    StatusCode::CONFLICT,
+                    "Blocked by another session".to_string(),
+                ));
+            }
+        };
         *slot = Some(SessionStateV2::Pending(PendingSessionV2 {
             session_id: session_id.clone(),
             sender_ip: client_info.ip,
             cancel: cancelled.clone(),
         }));
-    }
+        replaced
+    };
 
     // Frees the slot again if this request is aborted before a session is created.
     let mut pending_guard = PendingSessionGuard::new(v2.clone(), session_id.clone());
+
+    if let Some(session_id) = replaced_session {
+        v2.event_tx
+            .send(ServerEventV2::SessionEnd {
+                session_id,
+                reason: SessionEndReasonV2::Finished,
+            })
+            .await
+            .map_err(|_| AppError::Status(StatusCode::INTERNAL_SERVER_ERROR))?;
+    }
 
     let (decision_tx, decision_rx) = oneshot::channel();
     let event = ServerEventV2::PrepareUpload {
@@ -298,7 +319,7 @@ pub(crate) async fn prepare_upload(
         }
     };
 
-    let accepted_ids = match decision {
+    let (accepted_ids, manual_retries) = match decision {
         PrepareUploadDecisionV2::Decline => {
             pending_guard.clear().await;
             return Err(AppError::Message(
@@ -306,7 +327,8 @@ pub(crate) async fn prepare_upload(
                 "Rejected".to_string(),
             ));
         }
-        PrepareUploadDecisionV2::Accept(ids) => ids,
+        PrepareUploadDecisionV2::Accept(ids) => (ids, false),
+        PrepareUploadDecisionV2::AcceptWithManualRetries(ids) => (ids, true),
     };
 
     let files: HashMap<String, SessionFileV2> = payload
@@ -343,6 +365,7 @@ pub(crate) async fn prepare_upload(
             session_id: session_id.clone(),
             sender_ip: client_info.ip,
             files,
+            manual_retries,
         }));
     }
     pending_guard.disarm();
@@ -390,7 +413,12 @@ pub(crate) async fn upload(
         let Some(file) = session.files.get_mut(file_id) else {
             return Err(invalid_token_error());
         };
-        if file.token != *token || file.status != FileStatusV2::Pending {
+        if file.token != *token
+            || !matches!(
+                file.status,
+                FileStatusV2::Pending | FileStatusV2::RetryableFailed
+            )
+        {
             return Err(invalid_token_error());
         }
         file.status = FileStatusV2::InProgress;
@@ -645,7 +673,7 @@ impl Drop for UploadGuard {
 /// Senders must not retry more often than this (see the upload isolate).
 const MAX_UPLOAD_ATTEMPTS: u8 = 3;
 
-/// Sets the final status of a file and ends the session once all files are done.
+/// Ends a settled session unless ordinary failures were retained for manual retry.
 ///
 /// A checksum mismatch resets the file to [FileStatusV2::Pending] (as long as
 /// [MAX_UPLOAD_ATTEMPTS] is not exhausted) so the sender can retry the upload
@@ -666,11 +694,12 @@ async fn finalize_file(v2: &V2State, session_id: &str, file_id: &str, result: Sa
                     SaveResult::HashMismatch if file.attempts < MAX_UPLOAD_ATTEMPTS => {
                         FileStatusV2::Pending
                     }
+                    SaveResult::Failed if session.manual_retries => FileStatusV2::RetryableFailed,
                     SaveResult::Failed | SaveResult::HashMismatch => FileStatusV2::Failed,
                 };
             }
         }
-        match session.is_complete() {
+        match session.is_complete() && !session.has_retryable_failures() {
             true => {
                 *slot = None;
                 true

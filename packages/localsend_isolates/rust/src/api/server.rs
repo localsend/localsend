@@ -493,7 +493,9 @@ impl RsHttpServer {
         };
 
         let decision = match accepted_file_ids {
-            Some(ids) => PrepareUploadDecisionV2::Accept(ids.into_iter().collect()),
+            Some(ids) => {
+                PrepareUploadDecisionV2::AcceptWithManualRetries(ids.into_iter().collect())
+            }
             None => PrepareUploadDecisionV2::Decline,
         };
 
