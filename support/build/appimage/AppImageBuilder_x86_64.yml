@@ -31,6 +31,8 @@ AppDir:
     include:
       - libayatana-appindicator3-1:amd64
       - librsvg2-common:amd64
+      - libwayland-cursor0:amd64
+      - libwayland-egl1:amd64
     exclude:
       - adwaita-icon-theme:*
   runtime:
