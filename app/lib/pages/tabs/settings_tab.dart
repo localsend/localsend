@@ -640,8 +640,9 @@ class _SettingsEntry extends StatelessWidget {
   final String label;
   final Widget child;
   final String? description;
+  final bool excludeLabelSemantics;
 
-  const _SettingsEntry({required this.label, required this.child, this.description});
+  const _SettingsEntry({required this.label, required this.child, this.description, this.excludeLabelSemantics = false});
 
   @override
   Widget build(BuildContext context) {
@@ -653,7 +654,7 @@ class _SettingsEntry extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(label),
+                Semantics(excludeSemantics: excludeLabelSemantics, child: Text(label)),
                 if (description != null)
                   Text(
                     description!,
@@ -693,6 +694,7 @@ class _BooleanEntry extends StatelessWidget {
     return _SettingsEntry(
       label: label,
       description: description,
+      excludeLabelSemantics: true,
       // The switch carries the name. The visible text beside it would be
       // announced a second time without this.
       child: MergeSemantics(

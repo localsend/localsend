@@ -34,7 +34,7 @@ void main() {
       final expected = <IconData, String>{
         Icons.local_pizza: 'pizza',
         Icons.local_shipping: 'delivery truck',
-        Icons.change_history: 'history',
+        Icons.change_history: 'triangle',
         Icons.warning: 'warning sign',
       };
       for (final entry in expected.entries) {

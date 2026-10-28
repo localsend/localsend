@@ -312,7 +312,7 @@ const iconAlphabetNames = <String>[
   'confetti',
   'cell tower',
   'chair',
-  'history',
+  'triangle',
   'chat bubble',
   'clothes rack',
   'church',
