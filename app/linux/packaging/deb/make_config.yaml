@@ -22,8 +22,12 @@ dependencies:
   - xdg-user-dirs
 
 postinstall_scripts:
+  - mkdir -p /usr/share/kio/servicemenus /usr/share/kservices5/ServiceMenus
+  - ln -sf /opt/localsend_app/share/kio/servicemenus/localsend_app.desktop /usr/share/kio/servicemenus/localsend_app.desktop
+  - ln -sf /opt/localsend_app/share/kio/servicemenus/localsend_app.desktop /usr/share/kservices5/ServiceMenus/localsend_app.desktop
   - echo "Installed Localsend successfully"
 postuninstall_scripts:
+  - rm -f /usr/share/kio/servicemenus/localsend_app.desktop /usr/share/kservices5/ServiceMenus/localsend_app.desktop
   - if [ "$1" = "remove" ]; then echo "Sorry to see you go :("; fi
 
 keywords:
