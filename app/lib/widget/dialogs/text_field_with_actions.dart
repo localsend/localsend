@@ -69,6 +69,10 @@ class _TextFieldWithActionsState extends State<TextFieldWithActions> {
                 ],
               ),
               actions: [
+                TextButton(
+                  onPressed: () => dialogContext.pop(),
+                  child: Text(t.general.cancel),
+                ),
                 ValueListenableBuilder<TextEditingValue>(
                   valueListenable: widget.controller,
                   builder: (context, value, child) => ElevatedButton(
