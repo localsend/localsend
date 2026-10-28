@@ -1,9 +1,29 @@
+import 'dart:async';
+
 import 'package:flutter/services.dart';
 import 'package:localsend_isolates/util/content_uri_helper.dart';
 import 'package:logging/logging.dart';
 
 const _methodChannel = MethodChannel('org.localsend.localsend_app/localsend');
 final _logger = Logger('AndroidSaf');
+
+/// Scans a saved file at an absolute filesystem [path]
+Future<void> scanFileAndroid({required String path}) async {
+  try {
+    final scanned = await _methodChannel
+        .invokeMethod<bool>('scanFile', {
+          'path': path,
+        })
+        .timeout(const Duration(seconds: 30));
+    if (scanned != true) {
+      _logger.warning('Android media scan returned no URI for the saved file: $path');
+    }
+  } on TimeoutException {
+    _logger.warning('Android media scan timed out after 30 seconds for the saved file: $path');
+  } catch (e, st) {
+    _logger.warning('Android media scan failed for the saved file: $path', e, st);
+  }
+}
 
 /// Opens [uri] for reading and returns an owned Linux file descriptor.
 ///
