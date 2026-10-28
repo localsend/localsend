@@ -75,7 +75,11 @@ class _TextFieldWithActionsState extends State<TextFieldWithActions> {
                 ),
                 ValueListenableBuilder<TextEditingValue>(
                   valueListenable: widget.controller,
-                  builder: (context, value, child) => TextButton(
+                  builder: (context, value, child) => ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Theme.of(dialogContext).colorScheme.primary,
+                      foregroundColor: Theme.of(dialogContext).colorScheme.onPrimary,
+                    ),
                     onPressed: widget.allowEmpty || value.text.trim().isNotEmpty ? () => dialogContext.pop(widget.controller.text) : null,
                     child: Text(t.general.confirm),
                   ),
