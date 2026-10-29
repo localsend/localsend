@@ -160,6 +160,9 @@ class AddDirectoryAction extends AsyncReduxAction<SelectedSendingFilesNotifier, 
     final sendIgnore = SendIgnore();
     await for (final entity in Directory(directoryPath).list(recursive: true)) {
       if (entity is File) {
+        if (p.basename(entity.path).startsWith(r'~$')) {
+          continue;
+        }
         final innerRelative = p.relative(entity.path, from: directoryPath).replaceAll('\\', '/');
         final relative = '$directoryName/$innerRelative';
         if (sendIgnore.isIgnoreFile(p.basename(entity.path))) {
