@@ -9,24 +9,50 @@ import 'package:refena_flutter/refena_flutter.dart';
 
 import '../mocks.mocks.dart';
 
+const _favorite = FavoriteDevice(
+  id: 'device-id',
+  fingerprint: 'fingerprint',
+  ip: '192.168.1.2',
+  port: 53317,
+  alias: 'Nearby device',
+);
+
 void main() {
-  testWidgets('rejects invalid ports and saves a corrected port', (tester) async {
-    final persistence = MockPersistenceService();
-    final favorite = FavoriteDevice(
-      id: 'device-id',
-      fingerprint: 'fingerprint',
-      ip: '192.168.1.2',
-      port: 53317,
-      alias: 'Nearby device',
-    );
-    when(persistence.getFavorites()).thenReturn([favorite]);
+  late MockPersistenceService persistence;
+
+  setUp(() {
+    persistence = MockPersistenceService();
+    when(persistence.getFavorites()).thenReturn([_favorite]);
     when(persistence.setFavorites(any)).thenAnswer((_) async {});
+  });
+
+  Future<void> pumpEditor(WidgetTester tester) async {
     await tester.pumpWidget(
       RefenaScope(
         overrides: [persistenceProvider.overrideWithValue(persistence)],
-        child: MaterialApp(home: FavoriteEditDialog(favorite: favorite)),
+        child: MaterialApp(
+          home: Builder(
+            builder: (context) => TextButton(
+              onPressed: () => showDialog<void>(
+                context: context,
+                builder: (_) => const FavoriteEditDialog(favorite: _favorite),
+              ),
+              child: const Text('Edit favorite'),
+            ),
+          ),
+        ),
       ),
     );
+  }
+
+  Future<void> openEditor(WidgetTester tester) async {
+    await tester.tap(find.text('Edit favorite'));
+    await tester.pumpAndSettle();
+  }
+
+  testWidgets('rejects invalid ports and saves a corrected port', (tester) async {
+    await pumpEditor(tester);
+    await openEditor(tester);
 
     final portField = find.byType(TextFormField).at(2);
     final confirm = find.byType(FilledButton);
@@ -45,8 +71,23 @@ void main() {
       await tester.tap(confirm);
       await tester.pumpAndSettle();
       expect(tester.takeException(), isNull);
+      expect(find.byType(FavoriteEditDialog), findsNothing);
+      verify(persistence.setFavorites([_favorite.copyWith(port: port)])).called(1);
+      await openEditor(tester);
       expect(error, findsNothing);
-      verify(persistence.setFavorites([favorite.copyWith(port: port)])).called(1);
     }
+  });
+
+  testWidgets('saving a favorite closes the editor', (tester) async {
+    await pumpEditor(tester);
+    await openEditor(tester);
+
+    await tester.enterText(find.byType(TextFormField).first, 'Changed');
+    await tester.tap(find.text(t.general.confirm));
+    await tester.pumpAndSettle();
+
+    verify(persistence.setFavorites(argThat(predicate<List<FavoriteDevice>>((devices) => devices.single.alias == 'Changed')))).called(1);
+    expect(find.byType(FavoriteEditDialog), findsNothing);
+    expect(find.text('Edit favorite'), findsOneWidget);
   });
 }

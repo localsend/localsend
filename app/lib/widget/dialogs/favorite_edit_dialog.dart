@@ -183,6 +183,9 @@ class _FavoriteEditDialogState extends State<FavoriteEditDialog> with Refena {
                             ),
                           ),
                         );
+                    if (context.mounted) {
+                      context.pop();
+                    }
                   } else {
                     // Add new favorite
                     final ip = _ipController.text;
