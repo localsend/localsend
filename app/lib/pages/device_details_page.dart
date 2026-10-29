@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/model/persistence/favorite_device.dart';
 import 'package:localsend_app/pages/verify_page.dart';
 import 'package:localsend_app/provider/favorites_provider.dart';
 import 'package:localsend_app/util/favorites.dart';
 import 'package:localsend_app/util/system_date_time_formatter.dart';
+import 'package:localsend_app/util/ui/snackbar.dart';
 import 'package:localsend_app/widget/big_button.dart';
 import 'package:localsend_app/widget/dialogs/favorite_delete_dialog.dart';
 import 'package:localsend_app/widget/dialogs/favorite_edit_dialog.dart';
@@ -121,7 +123,33 @@ class _DeviceDetailsPageState extends State<DeviceDetailsPage> with Refena {
             ],
           ),
           const SizedBox(height: 20),
-          Text(t.deviceDetailsPage.logs.title, style: Theme.of(context).textTheme.titleMedium),
+          Row(
+            children: [
+              Expanded(child: Text(t.deviceDetailsPage.logs.title, style: Theme.of(context).textTheme.titleMedium)),
+              IconButton(
+                tooltip: t.general.copy,
+                icon: const Icon(Icons.copy),
+                onPressed: _logs.isEmpty
+                    ? null
+                    : () async {
+                        try {
+                          await Clipboard.setData(
+                            ClipboardData(
+                              text: _logs.map((log) => '[${SystemDateTimeFormatter.time(context, log.timestamp)}] ${log.description}').join('\n'),
+                            ),
+                          );
+                          if (context.mounted) {
+                            context.showSnackBar(t.general.copiedToClipboard);
+                          }
+                        } catch (e) {
+                          if (context.mounted) {
+                            context.showSnackBar('${t.general.error}: $e');
+                          }
+                        }
+                      },
+              ),
+            ],
+          ),
           const SizedBox(height: 10),
           if (_logs.isEmpty)
             Text(t.deviceDetailsPage.logs.empty, style: const TextStyle(color: Colors.grey))

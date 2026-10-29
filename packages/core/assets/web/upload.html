@@ -109,13 +109,20 @@
 
     function fetchI18n(then) {
       makeRequest('/i18n.json', 'GET', null, function (response) {
-        if (response.status === 200) {
-          i18n = JSON.parse(response.responseText);
-          if (i18n.dropHint) {
-            document.getElementById('drop-hint').innerText = i18n.dropHint;
-          }
-          then();
+        if (response.status !== 200) {
+          alert('Could not load translations. Please reload the page to try again.');
+          return;
         }
+        try {
+          i18n = JSON.parse(response.responseText);
+        } catch (e) {
+          alert('Could not parse translations. Please reload the page to try again.');
+          return;
+        }
+        if (i18n.dropHint) {
+          document.getElementById('drop-hint').innerText = i18n.dropHint;
+        }
+        then();
       });
     }
 
