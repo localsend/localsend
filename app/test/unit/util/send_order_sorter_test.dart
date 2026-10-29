@@ -39,12 +39,17 @@ void main() {
     });
 
     test('keeps the selection order of equally sized files', () {
-      final first = _createFile('first', 100);
-      final second = _createFile('second', 100);
+      // More than 32 files, because List.sort is only stable below that.
+      final manyFiles = List.generate(100, (i) => _createFile('$i', i.isEven ? 100 : 200));
 
-      final sorted = sortBySendOrder([first, second], SendOrder.smallestFirst, (file) => file.fileSize);
+      for (final sendOrder in [SendOrder.smallestFirst, SendOrder.largestFirst]) {
+        final sorted = sortBySendOrder(manyFiles, sendOrder, (file) => file.fileSize);
+        final small = sorted.where((file) => file.fileSize == 100).map((file) => int.parse(file.fileId));
+        final large = sorted.where((file) => file.fileSize == 200).map((file) => int.parse(file.fileId));
 
-      expect(sorted.map((file) => file.fileId), ['first', 'second']);
+        expect(small, [for (var i = 0; i < 100; i += 2) i], reason: sendOrder.name);
+        expect(large, [for (var i = 1; i < 100; i += 2) i], reason: sendOrder.name);
+      }
     });
 
     test('does not mutate the given list', () {
