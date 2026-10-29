@@ -108,7 +108,7 @@
       "saveWindowPlacementWindows": "退出时保存窗口位置",
       "minimizeToTray": "关闭时最小化到系统托盘",
       "launchAtStartup": "登录系统后自动启动程序",
-      "launchMinimized": "启动时最小化到任务栏",
+      "launchMinimized": "自动启动时隐藏窗口",
       "showInContextMenu": "在“发送到...”文件菜单中显示 LocalSend",
       "animations": "动画效果"
     },
@@ -552,7 +552,7 @@
     "original": "原文件",
     "preview": "预览",
     "select": "选择",
-    "emptyList": "清空列表",
+    "emptyList": "列表为空",
     "unSupportedAssetType": "不支持该文件格式",
     "unableToAccessAll": "无法访问设备上的所有文件",
     "viewingLimitedAssetsTip": "应用程序仅能查看您允许的文件和相册。",

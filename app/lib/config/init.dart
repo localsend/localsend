@@ -44,8 +44,8 @@ import 'package:localsend_isolates/isolate.dart';
 import 'package:localsend_isolates/model/dto/file_dto.dart';
 import 'package:localsend_isolates/model/dto/multicast_dto.dart';
 import 'package:localsend_isolates/rust/api/logging.dart' as rust_logging;
-import 'package:localsend_isolates/rust/frb_generated.dart';
 import 'package:localsend_isolates/util/logger.dart';
+import 'package:localsend_isolates/util/rust_init.dart';
 import 'package:localsend_isolates/util/show_instance.dart';
 import 'package:localsend_isolates/util/transfer_notification.dart';
 import 'package:logging/logging.dart';
@@ -73,7 +73,7 @@ Future<RefenaContainer> preInit(List<String> args) async {
 
   MapperContainer.globals.use(const FileDtoMapper());
 
-  await RustLib.init();
+  await initRustLib();
 
   if (kDebugMode) {
     try {

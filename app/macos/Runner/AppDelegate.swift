@@ -203,6 +203,7 @@ class AppDelegate: FlutterAppDelegate {
             let newIconIndex = call.arguments as! Int
             let newIcon = DockIcon.allCases[newIconIndex]
             setDockIcon(icon: newIcon)
+            result(nil)
         case "getLaunchAtLogin":
             result(LaunchAtLogin.isEnabled)
         case "setLaunchAtLogin":

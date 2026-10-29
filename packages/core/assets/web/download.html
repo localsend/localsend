@@ -196,10 +196,17 @@
 
     function fetchI18n(then) {
       makeRequest('/i18n.json', 'GET', function (response) {
-        if (response.status === 200) {
-          i18n = JSON.parse(response.responseText);
-          then();
+        if (response.status !== 200) {
+          alert('Could not load translations. Please reload the page to try again.');
+          return;
         }
+        try {
+          i18n = JSON.parse(response.responseText);
+        } catch (e) {
+          alert('Could not parse translations. Please reload the page to try again.');
+          return;
+        }
+        then();
       });
     }
 

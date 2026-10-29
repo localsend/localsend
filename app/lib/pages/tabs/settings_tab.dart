@@ -368,39 +368,42 @@ class SettingsTab extends StatelessWidget {
                   child: TextFieldWithActions(
                     name: t.settingsTab.network.alias,
                     controller: vm.aliasController,
-                    onChanged: (s) async {
-                      await ref.notifier(settingsProvider).setAlias(s);
+                    allowEmpty: false,
+                    onSubmitted: (confirmedAlias) async {
+                      final alias = confirmedAlias.trim();
+                      vm.aliasController.text = alias;
+                      await ref.notifier(settingsProvider).setAlias(alias);
                     },
                     actions: [
                       Tooltip(
                         message: t.settingsTab.network.generateRandomAlias,
                         child: IconButton(
-                          onPressed: () async {
-                            // Generates random alias
-                            final newAlias = generateRandomAlias();
-
-                            // Update the TextField with the new alias
-                            vm.aliasController.text = newAlias;
-
-                            // Persist the new alias using the settingsProvider
-                            await ref.notifier(settingsProvider).setAlias(newAlias);
+                          onPressed: () {
+                            final randomAlias = generateRandomAlias();
+                            vm.aliasController.text = randomAlias;
                           },
                           icon: const Icon(Icons.casino),
                         ),
                       ),
-                      Tooltip(
-                        message: t.settingsTab.network.useSystemName,
-                        child: IconButton(
-                          onPressed: () async {
-                            final newAlias = await getDeviceName();
-                            if (newAlias == null) {
-                              return;
-                            }
+                      Builder(
+                        builder: (dialogContext) => Tooltip(
+                          message: t.settingsTab.network.useSystemName,
+                          child: IconButton(
+                            onPressed: () async {
+                              final systemName = await getDeviceName();
+                              if (systemName == null || !dialogContext.mounted) {
+                                return;
+                              }
 
-                            vm.aliasController.text = newAlias;
-                            await ref.notifier(settingsProvider).setAlias(newAlias);
-                          },
-                          icon: const Icon(Icons.desktop_windows_rounded),
+                              final isDialogOpen = ModalRoute.of(dialogContext)?.isCurrent ?? false;
+                              if (!isDialogOpen) {
+                                return;
+                              }
+
+                              vm.aliasController.text = systemName;
+                            },
+                            icon: const Icon(Icons.desktop_windows_rounded),
+                          ),
                         ),
                       ),
                     ],
