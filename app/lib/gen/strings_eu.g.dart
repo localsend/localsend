@@ -1166,6 +1166,10 @@ class _Translations$dialogs$addressInput$eu extends Translations$dialogs$address
   @override
   String get title => 'Sartu helbidea';
   @override
+  String get hashtag => 'Hashtag';
+  @override
+  String get ip => 'IP Helbidea';
+  @override
   String get recentlyUsed => 'Duela gutxi erabilitakoak: ';
 }
 

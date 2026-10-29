@@ -1164,6 +1164,10 @@ class _Translations$dialogs$addressInput$cs extends Translations$dialogs$address
   @override
   String get title => 'Zadat adresu';
   @override
+  String get hashtag => 'Hashtag';
+  @override
+  String get ip => 'IP Adresa';
+  @override
   String get recentlyUsed => 'Nedávno použité: ';
 }
 

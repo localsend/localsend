@@ -106,6 +106,7 @@ fn message_of(files: &HashMap<String, FileDto>) -> Option<&str> {
 const MAX_LISTED_FILES: usize = 20;
 
 /// The user's decision on a [`PendingReceive`].
+#[derive(Debug, PartialEq)]
 pub(super) enum Answer {
     Accept,
     Decline,
@@ -136,7 +137,10 @@ impl App {
                     let _ = decision_tx.send(PrepareUploadDecisionV2::Accept(HashSet::new()));
                     self.ui.log(
                         Category::Receive,
-                        &format!("{alias}: Message received\n{}", sanitize::multi_line(message)),
+                        &format!(
+                            "{alias}: Message received\n{}",
+                            sanitize::multi_line(message)
+                        ),
                     );
                     return;
                 }

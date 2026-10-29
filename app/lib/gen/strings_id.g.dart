@@ -1165,6 +1165,10 @@ class _Translations$dialogs$addressInput$id extends Translations$dialogs$address
   @override
   String get title => 'Masukkan Alamat';
   @override
+  String get hashtag => 'Tagar';
+  @override
+  String get ip => 'Alamat IP';
+  @override
   String get recentlyUsed => 'Baru saja digunakan: ';
 }
 

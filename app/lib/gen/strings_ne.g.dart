@@ -1250,6 +1250,10 @@ class _Translations$dialogs$addressInput$ne extends Translations$dialogs$address
   @override
   String get title => 'ठेगाना प्रविष्ट गर्नुहोस्';
   @override
+  String get hashtag => 'ह्यासट्याग';
+  @override
+  String get ip => 'IP ठेगाना';
+  @override
   String get recentlyUsed => 'हालसालै प्रयोग गरिएको: ';
 }
 

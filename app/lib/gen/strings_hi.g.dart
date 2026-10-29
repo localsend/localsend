@@ -1249,6 +1249,10 @@ class _Translations$dialogs$addressInput$hi extends Translations$dialogs$address
   @override
   String get title => 'पता दर्ज करें';
   @override
+  String get hashtag => 'हैशटैग';
+  @override
+  String get ip => 'IP पता';
+  @override
   String get recentlyUsed => 'हाल ही में उपयोग किया गया: ';
 }
 

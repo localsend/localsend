@@ -1159,6 +1159,10 @@ class _Translations$dialogs$addressInput$ko extends Translations$dialogs$address
   @override
   String get title => '주소 입력';
   @override
+  String get hashtag => '해시태그';
+  @override
+  String get ip => 'IP 주소';
+  @override
   String get recentlyUsed => '최근 사용된 주소: ';
 }
 

@@ -1164,6 +1164,10 @@ class _Translations$dialogs$addressInput$ml extends Translations$dialogs$address
   @override
   String get title => 'വിലാസം എഴുതുക';
   @override
+  String get hashtag => 'ഹാഷ്ടാഗ്';
+  @override
+  String get ip => 'ഐ പി അഡ്രസ്';
+  @override
   String get recentlyUsed => 'ഈയ്യിടെ ഉപയോഗിച്ചത്: ';
 }
 

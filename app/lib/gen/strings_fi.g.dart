@@ -1258,6 +1258,10 @@ class _Translations$dialogs$addressInput$fi extends Translations$dialogs$address
   @override
   String get title => 'Anna osoite';
   @override
+  String get hashtag => 'Hashtag';
+  @override
+  String get ip => 'IP-osoite';
+  @override
   String get recentlyUsed => 'Äskettäin käytetty: ';
 }
 

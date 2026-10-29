@@ -1159,6 +1159,10 @@ class _Translations$dialogs$addressInput$ja extends Translations$dialogs$address
   @override
   String get title => 'アドレスを入力';
   @override
+  String get hashtag => 'ハッシュタグ';
+  @override
+  String get ip => 'IPアドレス';
+  @override
   String get recentlyUsed => '最近使用したアドレス: ';
 }
 

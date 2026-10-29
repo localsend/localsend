@@ -71,5 +71,11 @@
         ]
       }
     }
+  },
+  "dialogs": {
+    "addressInput": {
+      "hashtag": "Hashtag",
+      "ip": "IP Address"
+    }
   }
 }

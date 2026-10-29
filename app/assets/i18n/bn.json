@@ -416,6 +416,8 @@
     },
     "addressInput": {
       "title": "এড্রেস লিখুন",
+      "hashtag": "হ্যাশট্যাগ",
+      "ip": "আইপি অ্যাড্রেস",
       "recentlyUsed": "সম্প্রতি ব্যবহৃত: "
     },
     "cancelSession": {

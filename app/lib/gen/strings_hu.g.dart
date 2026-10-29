@@ -1165,6 +1165,10 @@ class _Translations$dialogs$addressInput$hu extends Translations$dialogs$address
   @override
   String get title => 'Adja meg a címet';
   @override
+  String get hashtag => 'Hashtag';
+  @override
+  String get ip => 'IP cím';
+  @override
   String get recentlyUsed => 'Nemrég használt: ';
 }
 

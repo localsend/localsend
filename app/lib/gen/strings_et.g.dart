@@ -1165,6 +1165,10 @@ class _Translations$dialogs$addressInput$et extends Translations$dialogs$address
   @override
   String get title => 'Sisesta aadress';
   @override
+  String get hashtag => 'Teemaviide';
+  @override
+  String get ip => 'IP-aadress';
+  @override
   String get recentlyUsed => 'Hiljuti kasutatud: ';
 }
 

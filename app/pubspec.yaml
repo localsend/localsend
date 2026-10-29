@@ -43,8 +43,7 @@ dependencies:
   moform: 0.2.11
   nanoid2: 2.0.1
   network_info_plus: 7.0.0
-  open_dir: 0.0.2+1
-  open_filex: 4.7.0
+  open_file: 4.0.0
   package_info_plus: 9.0.1
   pasteboard: 0.3.0
   path: 1.9.1
@@ -61,6 +60,7 @@ dependencies:
   shared_preferences_platform_interface: any
   slang: 4.19.0
   slang_flutter: 4.19.0
+  system_date_time_format: ^1.4.0
   system_settings_2: 3.0.2
   tray_manager: 0.5.3
   uri_content: 3.1.1
@@ -78,6 +78,8 @@ dev_dependencies:
   dart_mappable_builder: 4.8.0
   flutter_gen_runner: 5.15.0
   flutter_lints: 6.0.0
+  flutter_test:
+    sdk: flutter
   freezed: 3.2.5
   mockito: any
   refena_inspector: 2.1.1

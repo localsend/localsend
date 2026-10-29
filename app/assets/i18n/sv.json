@@ -416,6 +416,8 @@
     },
     "addressInput": {
       "title": "Ange adress",
+      "hashtag": "Hashtagg",
+      "ip": "IP-adress",
       "recentlyUsed": "Senast använda: "
     },
     "cancelSession": {

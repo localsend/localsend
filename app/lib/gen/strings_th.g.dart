@@ -1251,6 +1251,10 @@ class _Translations$dialogs$addressInput$th extends Translations$dialogs$address
   @override
   String get title => 'กรอกที่อยู่';
   @override
+  String get hashtag => 'แฮชแท็ก';
+  @override
+  String get ip => 'ที่อยู่ไอพี';
+  @override
   String get recentlyUsed => 'ใช้งานล่าสุดเมื่อ: ';
 }
 

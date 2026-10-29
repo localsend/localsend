@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:localsend_app/config/theme.dart';
@@ -18,6 +16,7 @@ import 'package:localsend_app/provider/version_provider.dart';
 import 'package:localsend_app/util/alias_generator.dart';
 import 'package:localsend_app/util/device_type_ext.dart';
 import 'package:localsend_app/util/i18n.dart';
+import 'package:localsend_app/util/native/device_info_helper.dart';
 import 'package:localsend_app/util/native/macos_channel.dart';
 import 'package:localsend_app/util/native/pick_directory_path.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
@@ -91,6 +90,17 @@ class SettingsTab extends StatelessWidget {
                   onTap: () => vm.onTapLanguage(context),
                 ),
                 if (checkPlatformIsDesktop()) ...[
+                  _BooleanEntry(
+                    label: t.settingsTab.general.alwaysOnTop,
+                    value: checkPlatformIsNotWaylandDesktop() && vm.settings.alwaysOnTop,
+                    description: checkPlatformIsNotWaylandDesktop() ? null : t.settingsTab.general.alwaysOnTopUnavailable,
+                    onChanged: checkPlatformIsNotWaylandDesktop()
+                        ? (b) async {
+                            await ref.notifier(settingsProvider).setAlwaysOnTop(b);
+                          }
+                        : null,
+                  ),
+
                   /// Wayland does window position handling, so there's no need for it. See [https://github.com/localsend/localsend/issues/544]
                   if (vm.advanced && checkPlatformIsNotWaylandDesktop())
                     _BooleanEntry(
@@ -392,42 +402,42 @@ class SettingsTab extends StatelessWidget {
                   child: TextFieldWithActions(
                     name: t.settingsTab.network.alias,
                     controller: vm.aliasController,
-                    onChanged: (s) async {
-                      await ref.notifier(settingsProvider).setAlias(s);
+                    allowEmpty: false,
+                    onSubmitted: (confirmedAlias) async {
+                      final alias = confirmedAlias.trim();
+                      vm.aliasController.text = alias;
+                      await ref.notifier(settingsProvider).setAlias(alias);
                     },
                     actions: [
                       Tooltip(
                         message: t.settingsTab.network.generateRandomAlias,
                         child: IconButton(
-                          onPressed: () async {
-                            // Generates random alias
-                            final newAlias = generateRandomAlias();
-
-                            // Update the TextField with the new alias
-                            vm.aliasController.text = newAlias;
-
-                            // Persist the new alias using the settingsProvider
-                            await ref.notifier(settingsProvider).setAlias(newAlias);
+                          onPressed: () {
+                            final randomAlias = generateRandomAlias();
+                            vm.aliasController.text = randomAlias;
                           },
                           icon: const Icon(Icons.casino),
                         ),
                       ),
-                      Tooltip(
-                        message: t.settingsTab.network.useSystemName,
-                        child: IconButton(
-                          onPressed: () async {
-                            final String newAlias;
-                            if (Platform.isMacOS) {
-                              final result = await Process.run('scutil', ['--get', 'ComputerName']);
-                              newAlias = result.stdout.toString().trim();
-                            } else {
-                              newAlias = Platform.localHostname;
-                            }
+                      Builder(
+                        builder: (dialogContext) => Tooltip(
+                          message: t.settingsTab.network.useSystemName,
+                          child: IconButton(
+                            onPressed: () async {
+                              final systemName = await getDeviceName();
+                              if (systemName == null || !dialogContext.mounted) {
+                                return;
+                              }
 
-                            vm.aliasController.text = newAlias;
-                            await ref.notifier(settingsProvider).setAlias(newAlias);
-                          },
-                          icon: const Icon(Icons.desktop_windows_rounded),
+                              final isDialogOpen = ModalRoute.of(dialogContext)?.isCurrent ?? false;
+                              if (!isDialogOpen) {
+                                return;
+                              }
+
+                              vm.aliasController.text = systemName;
+                            },
+                            icon: const Icon(Icons.desktop_windows_rounded),
+                          ),
                         ),
                       ),
                     ],
@@ -646,8 +656,9 @@ class SettingsTab extends StatelessWidget {
 class _SettingsEntry extends StatelessWidget {
   final String label;
   final Widget child;
+  final String? description;
 
-  const _SettingsEntry({required this.label, required this.child});
+  const _SettingsEntry({required this.label, required this.child, this.description});
 
   @override
   Widget build(BuildContext context) {
@@ -656,7 +667,17 @@ class _SettingsEntry extends StatelessWidget {
       child: Row(
         children: [
           Expanded(
-            child: Text(label),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(label),
+                if (description != null)
+                  Text(
+                    description!,
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
+                  ),
+              ],
+            ),
           ),
           const SizedBox(width: 10),
           SizedBox(
@@ -673,12 +694,14 @@ class _SettingsEntry extends StatelessWidget {
 class _BooleanEntry extends StatelessWidget {
   final String label;
   final bool value;
-  final ValueChanged<bool> onChanged;
+  final ValueChanged<bool>? onChanged;
+  final String? description;
 
   const _BooleanEntry({
     required this.label,
     required this.value,
     required this.onChanged,
+    this.description,
   });
 
   @override
@@ -686,6 +709,7 @@ class _BooleanEntry extends StatelessWidget {
     final theme = Theme.of(context);
     return _SettingsEntry(
       label: label,
+      description: description,
       child: Stack(
         children: [
           Container(

@@ -346,6 +346,8 @@
     },
     "addressInput": {
       "title": "Nhập địa chỉ",
+      "hashtag": "Hashtag",
+      "ip": "Địa chỉ IP",
       "recentlyUsed": "Sử dụng gần đây: "
     },
     "cancelSession": {

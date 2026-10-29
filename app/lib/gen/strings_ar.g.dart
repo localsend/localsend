@@ -1249,6 +1249,10 @@ class _Translations$dialogs$addressInput$ar extends Translations$dialogs$address
   @override
   String get title => 'أدخل العنوان';
   @override
+  String get hashtag => 'رابطة هاشتاق';
+  @override
+  String get ip => 'عنوان IP';
+  @override
   String get recentlyUsed => 'المستخدمة حديثًا: ';
 }
 

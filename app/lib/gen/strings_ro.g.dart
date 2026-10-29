@@ -1248,6 +1248,10 @@ class _Translations$dialogs$addressInput$ro extends Translations$dialogs$address
   @override
   String get title => 'Introdu adresa';
   @override
+  String get hashtag => 'Hashtag';
+  @override
+  String get ip => 'Adresă IP';
+  @override
   String get recentlyUsed => 'Folosit recent: ';
 }
 

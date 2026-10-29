@@ -132,6 +132,11 @@ class SettingsStateMapper extends ClassMapperBase<SettingsState> {
     'saveWindowPlacement',
     _$saveWindowPlacement,
   );
+  static bool _$alwaysOnTop(SettingsState v) => v.alwaysOnTop;
+  static const Field<SettingsState, bool> _f$alwaysOnTop = Field(
+    'alwaysOnTop',
+    _$alwaysOnTop,
+  );
   static bool _$enableAnimations(SettingsState v) => v.enableAnimations;
   static const Field<SettingsState, bool> _f$enableAnimations = Field(
     'enableAnimations',
@@ -205,6 +210,7 @@ class SettingsStateMapper extends ClassMapperBase<SettingsState> {
     #sendOrder: _f$sendOrder,
     #sendConcurrency: _f$sendConcurrency,
     #saveWindowPlacement: _f$saveWindowPlacement,
+    #alwaysOnTop: _f$alwaysOnTop,
     #enableAnimations: _f$enableAnimations,
     #deviceType: _f$deviceType,
     #deviceModel: _f$deviceModel,
@@ -241,6 +247,7 @@ class SettingsStateMapper extends ClassMapperBase<SettingsState> {
       sendOrder: data.dec(_f$sendOrder),
       sendConcurrency: data.dec(_f$sendConcurrency),
       saveWindowPlacement: data.dec(_f$saveWindowPlacement),
+      alwaysOnTop: data.dec(_f$alwaysOnTop),
       enableAnimations: data.dec(_f$enableAnimations),
       deviceType: data.dec(_f$deviceType),
       deviceModel: data.dec(_f$deviceModel),
@@ -343,6 +350,7 @@ abstract class SettingsStateCopyWith<$R, $In extends SettingsState, $Out>
     SendOrder? sendOrder,
     int? sendConcurrency,
     bool? saveWindowPlacement,
+    bool? alwaysOnTop,
     bool? enableAnimations,
     DeviceType? deviceType,
     String? deviceModel,
@@ -407,6 +415,7 @@ class _SettingsStateCopyWithImpl<$R, $Out>
     SendOrder? sendOrder,
     int? sendConcurrency,
     bool? saveWindowPlacement,
+    bool? alwaysOnTop,
     bool? enableAnimations,
     Object? deviceType = $none,
     Object? deviceModel = $none,
@@ -443,6 +452,7 @@ class _SettingsStateCopyWithImpl<$R, $Out>
       if (sendConcurrency != null) #sendConcurrency: sendConcurrency,
       if (saveWindowPlacement != null)
         #saveWindowPlacement: saveWindowPlacement,
+      if (alwaysOnTop != null) #alwaysOnTop: alwaysOnTop,
       if (enableAnimations != null) #enableAnimations: enableAnimations,
       if (deviceType != $none) #deviceType: deviceType,
       if (deviceModel != $none) #deviceModel: deviceModel,
@@ -487,6 +497,7 @@ class _SettingsStateCopyWithImpl<$R, $Out>
       #saveWindowPlacement,
       or: $value.saveWindowPlacement,
     ),
+    alwaysOnTop: data.get(#alwaysOnTop, or: $value.alwaysOnTop),
     enableAnimations: data.get(#enableAnimations, or: $value.enableAnimations),
     deviceType: data.get(#deviceType, or: $value.deviceType),
     deviceModel: data.get(#deviceModel, or: $value.deviceModel),

@@ -346,6 +346,8 @@
     },
     "addressInput": {
       "title": "Sisesta aadress",
+      "hashtag": "Teemaviide",
+      "ip": "IP-aadress",
       "recentlyUsed": "Hiljuti kasutatud: "
     },
     "cancelSession": {

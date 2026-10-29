@@ -413,6 +413,8 @@
     },
     "addressInput": {
       "title": "Masukkan alamat",
+      "hashtag": "Tanda pagar",
+      "ip": "Alamat IP",
       "recentlyUsed": "Digunakan baru-baru ini: "
     },
     "cancelSession": {

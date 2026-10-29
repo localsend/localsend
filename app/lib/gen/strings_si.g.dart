@@ -1166,6 +1166,10 @@ class _Translations$dialogs$addressInput$si extends Translations$dialogs$address
   @override
   String get title => 'ලිපිනය ඇතුලත් කරන්න';
   @override
+  String get hashtag => 'හැශ්ටැග්';
+  @override
+  String get ip => 'IP ලිපිනය';
+  @override
   String get recentlyUsed => 'පෙර භාවිතා කළ: ';
 }
 

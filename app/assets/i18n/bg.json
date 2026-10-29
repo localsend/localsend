@@ -346,6 +346,8 @@
     },
     "addressInput": {
       "title": "Въведете адрес",
+      "hashtag": "Хаштаг",
+      "ip": "IP адрес",
       "recentlyUsed": "Наскоро използван: "
     },
     "cancelSession": {

@@ -18,8 +18,13 @@ use std::sync::Arc;
 use std::sync::atomic::{AtomicBool, AtomicU64, Ordering};
 use std::time::Instant;
 use tokio::sync::mpsc;
-use tokio_stream::wrappers::ReceiverStream;
 use tokio_util::sync::CancellationToken;
+
+/// Where the content of an outgoing file comes from.
+pub enum FileSource {
+    Path(PathBuf),
+    Bytes(Bytes),
+}
 
 /// Cancellation state of a send, shared between the app and the send task.
 #[derive(Clone)]
@@ -43,19 +48,21 @@ impl SendCancel {
 
 /// Sends the given files to a device: prepare-upload, then one upload request
 /// per accepted file. Progress is reported through `progress` (cumulative
-/// bytes over all files) and log lines through `events`.
+/// bytes over all files) and log lines through `events`. A message (a single
+/// file with a preview) usually ends after prepare-upload, as the receiver
+/// has nothing left to download.
 ///
 /// Always ends by emitting [AppEvent::SendEnded] with the transfer result.
 pub async fn run_send(
     identity: Arc<Identity>,
     device: StatefulDevice,
     files: HashMap<String, FileDto>,
-    paths: HashMap<String, PathBuf>,
+    sources: HashMap<String, FileSource>,
     progress: Arc<AtomicU64>,
     cancel: SendCancel,
     events: mpsc::Sender<AppEvent>,
 ) {
-    let success = send_inner(identity, device, files, paths, progress, cancel, &events).await;
+    let success = send_inner(identity, device, files, sources, progress, cancel, &events).await;
     let _ = events.send(AppEvent::SendEnded { success }).await;
 }
 
@@ -63,7 +70,7 @@ async fn send_inner(
     identity: Arc<Identity>,
     device: StatefulDevice,
     files: HashMap<String, FileDto>,
-    paths: HashMap<String, PathBuf>,
+    mut sources: HashMap<String, FileSource>,
     progress: Arc<AtomicU64>,
     cancel: SendCancel,
     events: &mpsc::Sender<AppEvent>,
@@ -107,6 +114,7 @@ async fn send_inner(
     };
 
     let offered = files.len();
+    let is_message = offered == 1 && files.values().all(|file| file.preview.is_some());
     let payload = PrepareUploadRequestDtoV2 {
         info: identity.register_dto(),
         files: files.clone(),
@@ -151,9 +159,24 @@ async fn send_inner(
     };
 
     let Some(response) = prepared.response else {
+        if is_message {
+            log(format!("{alias}: Message sent")).await;
+            return true;
+        }
         log(format!("{alias}: all files were declined")).await;
         return false;
     };
+    if prepared.status_code != 200
+        || response.session_id.is_empty()
+        || response.files.is_empty()
+        || response
+            .files
+            .iter()
+            .any(|(id, token)| !files.contains_key(id) || token.is_empty())
+    {
+        log(format!("{alias}: Invalid prepare-upload response")).await;
+        return false;
+    }
 
     let accepted_bytes: u64 = response
         .files
@@ -185,12 +208,20 @@ async fn send_inner(
     for file_id in file_ids {
         let token = &response.files[file_id];
         let file = &files[file_id];
-        let path = paths[file_id].clone();
+        let content = match sources.remove(file_id.as_str()) {
+            Some(FileSource::Path(path)) => FileContent::Path(path),
+            Some(FileSource::Bytes(bytes)) => {
+                let (tx, rx) = mpsc::channel(1);
+                let _ = tx.try_send(bytes);
+                FileContent::Stream(rx)
+            }
+            None => unreachable!("every offered file has a source"),
+        };
 
         let body = {
             let progress = progress.clone();
             let base = sent_bytes;
-            upload_body(FileContent::Path(path), move |bytes_of_file| {
+            upload_body(content, move |bytes_of_file| {
                 progress.store(base + bytes_of_file, Ordering::Relaxed);
             })
         };
@@ -253,6 +284,10 @@ async fn send_inner(
         }
     }
 
+    if is_message && sent_files == 1 {
+        log(format!("{alias}: Message sent")).await;
+        return true;
+    }
     log(format!(
         "{alias}: Sent {sent_files} file{} ({}, took {})",
         if sent_files == 1 { "" } else { "s" },
@@ -267,7 +302,8 @@ async fn send_inner(
 /// with the cumulative number of bytes of this file as chunks are sent.
 fn upload_body(content: FileContent, progress: impl Fn(u64) + Send + 'static) -> reqwest::Body {
     let mut sent = 0u64;
-    let stream = ReceiverStream::new(content.into_receiver()).map(move |chunk| {
+    let stream = content.into_stream().map(move |chunk| {
+        let chunk = chunk?;
         sent += chunk.len() as u64;
         progress(sent);
         Ok::<Bytes, anyhow::Error>(chunk)

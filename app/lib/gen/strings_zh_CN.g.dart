@@ -799,7 +799,7 @@ class Translations$assetPicker$zh_CN extends Translations$assetPicker$en {
   @override
   String get select => '选择';
   @override
-  String get emptyList => '清空列表';
+  String get emptyList => '列表为空';
   @override
   String get unSupportedAssetType => '不支持该文件格式';
   @override
@@ -954,7 +954,7 @@ class Translations$settingsTab$general$zh_CN extends Translations$settingsTab$ge
   @override
   String get launchAtStartup => '登录系统后自动启动程序';
   @override
-  String get launchMinimized => '启动时最小化到任务栏';
+  String get launchMinimized => '自动启动时隐藏窗口';
   @override
   String get showInContextMenu => '在“发送到...”文件菜单中显示 LocalSend';
   @override
@@ -1246,6 +1246,10 @@ class Translations$dialogs$addressInput$zh_CN extends Translations$dialogs$addre
   // Translations
   @override
   String get title => '输入地址';
+  @override
+  String get hashtag => '标签';
+  @override
+  String get ip => 'IP 地址';
   @override
   String get recentlyUsed => '最近使用： ';
 }

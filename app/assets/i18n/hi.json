@@ -416,6 +416,8 @@
     },
     "addressInput": {
       "title": "पता दर्ज करें",
+      "hashtag": "हैशटैग",
+      "ip": "IP पता",
       "recentlyUsed": "हाल ही में उपयोग किया गया: "
     },
     "cancelSession": {

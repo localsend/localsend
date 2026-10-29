@@ -1250,6 +1250,10 @@ class _Translations$dialogs$addressInput$bn extends Translations$dialogs$address
   @override
   String get title => 'এড্রেস লিখুন';
   @override
+  String get hashtag => 'হ্যাশট্যাগ';
+  @override
+  String get ip => 'আইপি অ্যাড্রেস';
+  @override
   String get recentlyUsed => 'সম্প্রতি ব্যবহৃত: ';
 }
 

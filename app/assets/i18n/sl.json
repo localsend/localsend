@@ -416,6 +416,8 @@
     },
     "addressInput": {
       "title": "Vnesite naslov",
+      "hashtag": "Hashtag",
+      "ip": "IP naslov",
       "recentlyUsed": "Nedavno uporabljeno: "
     },
     "cancelSession": {

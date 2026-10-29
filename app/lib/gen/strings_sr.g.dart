@@ -1255,6 +1255,10 @@ class Translations$dialogs$addressInput$sr extends Translations$dialogs$addressI
   @override
   String get title => 'Unesite adresu';
   @override
+  String get hashtag => 'Heš-oznaka';
+  @override
+  String get ip => 'IP adresa';
+  @override
   String get recentlyUsed => 'Nedavno korišćeno: ';
 }
 

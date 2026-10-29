@@ -1252,6 +1252,10 @@ class _Translations$dialogs$addressInput$el extends Translations$dialogs$address
   @override
   String get title => 'Εισαγωγή διεύθυνσης';
   @override
+  String get hashtag => 'Χάσταγκ';
+  @override
+  String get ip => 'Διεύθυνση IP';
+  @override
   String get recentlyUsed => 'Χρησιμοποιήθηκε πρόσφατα: ';
 }
 

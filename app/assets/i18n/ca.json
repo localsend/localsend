@@ -416,6 +416,8 @@
     },
     "addressInput": {
       "title": "Introduïu l'adreça",
+      "hashtag": "Etiqueta",
+      "ip": "Adreça IP",
       "recentlyUsed": "Utilitzades recentment: "
     },
     "cancelSession": {

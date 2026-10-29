@@ -1165,6 +1165,10 @@ class _Translations$dialogs$addressInput$uz extends Translations$dialogs$address
   @override
   String get title => 'Manzilni kiriting';
   @override
+  String get hashtag => 'Hashtag';
+  @override
+  String get ip => 'IP manzil';
+  @override
   String get recentlyUsed => 'Yaqinda ishlatilgan: ';
 }
 

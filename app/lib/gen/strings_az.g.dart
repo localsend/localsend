@@ -1165,6 +1165,10 @@ class _Translations$dialogs$addressInput$az extends Translations$dialogs$address
   @override
   String get title => 'Ünvanı daxil et';
   @override
+  String get hashtag => 'Heşteq';
+  @override
+  String get ip => 'IP ünvan';
+  @override
   String get recentlyUsed => 'Son istifadə olunan: ';
 }
 

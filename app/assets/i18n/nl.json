@@ -346,6 +346,8 @@
     },
     "addressInput": {
       "title": "Vul een adres in",
+      "hashtag": "Hashtag",
+      "ip": "IP-adres",
       "recentlyUsed": "Onlangs gebruikt: "
     },
     "cancelSession": {

@@ -1,11 +1,12 @@
-name: Build CLI for Linux
+name: Build linux CLI
 
 on:
   workflow_dispatch:
+  workflow_call:
 
 jobs:
   build:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     outputs:
       version: ${{ steps.get_version.outputs.version }}
 
@@ -39,6 +40,7 @@ jobs:
       - name: Compile CLI
         run: cargo build --release --package localsend-cli
 
+      # tar preserves the executable bit, which a bare artifact upload would lose
       - name: Create tar.gz archive
         run: tar -czvf LocalSend-CLI-${{ needs.build.outputs.version }}-${{ matrix.suffix }}.tar.gz -C target/release localsend-cli
 

@@ -33,6 +33,7 @@ class SettingsState with SettingsStateMappable {
   final SendOrder sendOrder;
   final int sendConcurrency;
   final bool saveWindowPlacement;
+  final bool alwaysOnTop;
   final bool enableAnimations;
   final DeviceType? deviceType;
   final String? deviceModel;
@@ -67,6 +68,7 @@ class SettingsState with SettingsStateMappable {
     required this.sendOrder,
     required this.sendConcurrency,
     required this.saveWindowPlacement,
+    required this.alwaysOnTop,
     required this.enableAnimations,
     required this.deviceType,
     required this.deviceModel,

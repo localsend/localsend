@@ -346,6 +346,8 @@
     },
     "addressInput": {
       "title": "Introduce enderezo",
+      "hashtag": "Etiqueta",
+      "ip": "Enderezo IP",
       "recentlyUsed": "Empregados recentemente: "
     },
     "cancelSession": {

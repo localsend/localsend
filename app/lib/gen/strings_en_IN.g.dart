@@ -1107,6 +1107,10 @@ class _Translations$dialogs$addressInput$en_IN extends Translations$dialogs$addr
   @override
   String get title => 'Enter address';
   @override
+  String get hashtag => 'Hashtag';
+  @override
+  String get ip => 'IP Address';
+  @override
   String get recentlyUsed => 'Recently used: ';
 }
 

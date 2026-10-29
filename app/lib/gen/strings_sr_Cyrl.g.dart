@@ -1257,6 +1257,10 @@ class _Translations$dialogs$addressInput$sr_Cyrl extends Translations$dialogs$ad
   @override
   String get title => 'Унесите адресу';
   @override
+  String get hashtag => 'Хеш-ознака';
+  @override
+  String get ip => 'IP адреса';
+  @override
   String get recentlyUsed => 'Недавно коришћено: ';
 }
 

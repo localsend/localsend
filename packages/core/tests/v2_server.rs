@@ -3,7 +3,7 @@
 use bytes::Bytes;
 use futures_util::StreamExt;
 use localsend::crypto::hash::sha256_hex;
-use localsend::http::client::{ClientError, LsHttpClientV2};
+use localsend::http::client::{ClientError, LsHttpClient, LsHttpClientV2};
 use localsend::http::dto_v2::{PrepareUploadRequestDtoV2, RegisterDtoV2};
 use localsend::http::server::common::save::FileUploadTarget;
 use localsend::http::server::v2::{PrepareUploadDecisionV2, ServerEventV2, SessionEndReasonV2};
@@ -11,7 +11,7 @@ use localsend::http::server::web::WebConfig;
 use localsend::http::server::{start_with_port, ServerConfigV2};
 use localsend::http::state::ClientInfo;
 use localsend::model::discovery::ProtocolType;
-use localsend::model::transfer::{FileDto, FileMetadata};
+use localsend::model::transfer::{FileContent, FileDto, FileMetadata};
 use std::collections::HashMap;
 use std::path::PathBuf;
 use std::sync::atomic::{AtomicU64, Ordering};
@@ -789,6 +789,74 @@ async fn test_upload_saved_to_path_by_server() {
         *session_ends,
         vec![(response.session_id.clone(), SessionEndReasonV2::Finished)]
     );
+
+    let _ = tokio::fs::remove_dir_all(&save_dir).await;
+}
+
+/// A source file the sender cannot read must fail the upload instead of being
+/// sent as an empty body.
+///
+/// The receiver creates the destination before the first byte arrives, so an
+/// upload that silently ends without data leaves a 0-byte file behind while
+/// the sender streamed a well-formed, complete-looking request.
+#[tokio::test]
+async fn test_upload_of_unreadable_file_fails_instead_of_sending_an_empty_body() {
+    let save_dir = std::env::temp_dir().join(format!("localsend-test-{}", uuid::Uuid::new_v4()));
+    tokio::fs::create_dir_all(&save_dir).await.unwrap();
+
+    let server = start_test_server(None, true, Some(save_dir.clone())).await;
+    let client = LsHttpClientV2::try_new_without_cert().unwrap();
+
+    let file = file_dto("file-a", "a.bin", 5);
+    let result = client
+        .prepare_upload(
+            ProtocolType::Http,
+            "127.0.0.1",
+            server.port,
+            None,
+            prepare_upload_request(&[file]),
+            None,
+            CancellationToken::new(),
+        )
+        .await
+        .unwrap();
+    let response = result.response.unwrap();
+
+    // The source is gone by the time the upload starts, as an OS-managed
+    // temporary copy of a picked file can be.
+    let missing = save_dir.join("source-is-gone.bin");
+    let result = LsHttpClient::V2(client)
+        .upload(
+            ProtocolType::Http,
+            "127.0.0.1",
+            server.port,
+            None,
+            &response.session_id,
+            "file-a",
+            &response.files["file-a"],
+            FileContent::Path(missing),
+            |_| {},
+            CancellationToken::new(),
+        )
+        .await;
+
+    // The sender has to fail on its own. A status code here would mean the
+    // empty body was sent and only the receiver objected, which is exactly the
+    // behaviour this fixes - and it would still be an `Err`, so asserting
+    // `is_err()` alone would not catch a regression.
+    match result {
+        Err(ClientError::StatusCode(err)) => panic!(
+            "the empty body reached the receiver, which rejected it with {}; \
+             the sender should have failed before sending anything",
+            err.status
+        ),
+        Ok(()) => panic!("an unreadable source must not produce a successful upload"),
+        Err(_) => {}
+    }
+
+    // The receiver must not have stored the file as completely received.
+    tokio::time::sleep(Duration::from_millis(100)).await;
+    assert!(!server.received.lock().await.contains_key("file-a"));
 
     let _ = tokio::fs::remove_dir_all(&save_dir).await;
 }

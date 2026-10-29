@@ -1250,6 +1250,10 @@ class _Translations$dialogs$addressInput$ta extends Translations$dialogs$address
   @override
   String get title => 'முகவரியை உள்ளிடவும்';
   @override
+  String get hashtag => 'ஹாஷ்டேக்';
+  @override
+  String get ip => 'IP முகவரி';
+  @override
   String get recentlyUsed => 'சமீபத்தில் பயன்படுத்தப்பட்டது: ';
 }
 

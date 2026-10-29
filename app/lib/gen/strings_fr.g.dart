@@ -1166,6 +1166,10 @@ class _Translations$dialogs$addressInput$fr extends Translations$dialogs$address
   @override
   String get title => 'Entrez l\'adresse IP';
   @override
+  String get hashtag => 'Hashtag';
+  @override
+  String get ip => 'Adresse IP';
+  @override
   String get recentlyUsed => 'Récemment utilisé : ';
 }
 

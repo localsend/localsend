@@ -1250,6 +1250,10 @@ class _Translations$dialogs$addressInput$fa extends Translations$dialogs$address
   @override
   String get title => 'آدرس را وارد کنید';
   @override
+  String get hashtag => 'هشتگ';
+  @override
+  String get ip => 'آدرس آی‌پی';
+  @override
   String get recentlyUsed => 'اخیرا استفاده شده: ';
 }
 

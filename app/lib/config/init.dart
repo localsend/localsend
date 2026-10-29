@@ -44,8 +44,8 @@ import 'package:localsend_isolates/isolate.dart';
 import 'package:localsend_isolates/model/dto/file_dto.dart';
 import 'package:localsend_isolates/model/dto/multicast_dto.dart';
 import 'package:localsend_isolates/rust/api/logging.dart' as rust_logging;
-import 'package:localsend_isolates/rust/frb_generated.dart';
 import 'package:localsend_isolates/util/logger.dart';
+import 'package:localsend_isolates/util/rust_init.dart';
 import 'package:localsend_isolates/util/show_instance.dart';
 import 'package:localsend_isolates/util/transfer_notification.dart';
 import 'package:logging/logging.dart';
@@ -62,9 +62,18 @@ Future<RefenaContainer> preInit(List<String> args) async {
   WidgetsFlutterBinding.ensureInitialized();
 
   initLogger(args.contains('-v') || args.contains('--verbose') ? Level.ALL : Level.INFO);
+
+  if (checkPlatform([TargetPlatform.linux])) {
+    try {
+      cacheWaylandStatus(await isWaylandDisplay());
+    } catch (e) {
+      _logger.warning('Reading display backend failed; using session type: $e');
+    }
+  }
+
   MapperContainer.globals.use(const FileDtoMapper());
 
-  await RustLib.init();
+  await initRustLib();
 
   if (kDebugMode) {
     try {
@@ -113,6 +122,9 @@ Future<RefenaContainer> preInit(List<String> args) async {
 
     // initialize size and position
     await WindowManager.instance.ensureInitialized();
+    if (checkPlatformIsNotWaylandDesktop()) {
+      await windowManager.setAlwaysOnTop(persistenceService.getAlwaysOnTop());
+    }
     await WindowDimensionsController(persistenceService).initDimensionsConfiguration();
     if (args.contains(startHiddenFlag)) {
       // keep this app hidden
@@ -187,10 +199,14 @@ Future<void> postInit(BuildContext context, Ref ref, bool appStart) async {
   await updateSystemOverlayStyle(context);
 
   if (checkPlatform([TargetPlatform.android])) {
-    try {
-      await FlutterDisplayMode.setHighRefreshRate();
-    } catch (e) {
-      _logger.warning('Setting high refresh rate failed', e);
+    // On some TVs, requesting a high refresh rate can trigger HDMI resync and blank the display when entering or leaving the app.
+    // https://github.com/localsend/localsend/issues/3452
+    if (!ref.read(tvProvider)) {
+      try {
+        await FlutterDisplayMode.setHighRefreshRate();
+      } catch (e) {
+        _logger.warning('Setting high refresh rate failed', e);
+      }
     }
 
     // Android 17+ blocks multicast discovery and LAN connections until this permission is granted,

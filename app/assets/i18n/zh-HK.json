@@ -347,6 +347,8 @@
     },
     "addressInput": {
       "title": "輸入地址",
+      "hashtag": "Hashtag",
+      "ip": "IP 地址",
       "recentlyUsed": "輸入記錄："
     },
     "cancelSession": {

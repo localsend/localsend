@@ -416,6 +416,8 @@
     },
     "addressInput": {
       "title": "Унесите адресу",
+      "hashtag": "Хеш-ознака",
+      "ip": "IP адреса",
       "recentlyUsed": "Недавно коришћено: "
     },
     "cancelSession": {

@@ -346,6 +346,8 @@
     },
     "addressInput": {
       "title": "Introducir dirección",
+      "hashtag": "Etiqueta",
+      "ip": "Dirección IP",
       "recentlyUsed": "Usados recientemente: "
     },
     "cancelSession": {

@@ -423,6 +423,8 @@
     },
     "addressInput": {
       "title": "Anna osoite",
+      "hashtag": "Hashtag",
+      "ip": "IP-osoite",
       "recentlyUsed": "Äskettäin käytetty: "
     },
     "cancelSession": {

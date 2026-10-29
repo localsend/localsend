@@ -419,6 +419,8 @@
     },
     "addressInput": {
       "title": "Digite o endereço",
+      "hashtag": "Hashtag",
+      "ip": "Endereço IP",
       "recentlyUsed": "Recém ligado: "
     },
     "cancelSession": {

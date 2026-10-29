@@ -1247,6 +1247,10 @@ class _Translations$dialogs$addressInput$ms extends Translations$dialogs$address
   @override
   String get title => 'Masukkan alamat';
   @override
+  String get hashtag => 'Tanda pagar';
+  @override
+  String get ip => 'Alamat IP';
+  @override
   String get recentlyUsed => 'Digunakan baru-baru ini: ';
 }
 

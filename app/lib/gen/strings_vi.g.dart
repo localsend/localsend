@@ -1165,6 +1165,10 @@ class _Translations$dialogs$addressInput$vi extends Translations$dialogs$address
   @override
   String get title => 'Nhập địa chỉ';
   @override
+  String get hashtag => 'Hashtag';
+  @override
+  String get ip => 'Địa chỉ IP';
+  @override
   String get recentlyUsed => 'Sử dụng gần đây: ';
 }
 

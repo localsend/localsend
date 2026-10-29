@@ -416,6 +416,8 @@
     },
     "addressInput": {
       "title": "กรอกที่อยู่",
+      "hashtag": "แฮชแท็ก",
+      "ip": "ที่อยู่ไอพี",
       "recentlyUsed": "ใช้งานล่าสุดเมื่อ: "
     },
     "cancelSession": {

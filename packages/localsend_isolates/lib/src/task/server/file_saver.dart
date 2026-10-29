@@ -6,7 +6,6 @@ import 'package:localsend_isolates/util/android_channel.dart' as android_channel
 import 'package:localsend_isolates/util/content_uri_helper.dart';
 import 'package:localsend_isolates/util/file_path_helper.dart';
 import 'package:logging/logging.dart';
-import 'package:mime/mime.dart';
 import 'package:path/path.dart' as p;
 
 final _logger = Logger('FileSaver');
@@ -46,7 +45,6 @@ Future<FileSaveTarget> prepareFileSaveTarget({
   required String cacheDirectory,
   required String fileName,
   required bool saveToGallery,
-  required bool isImage,
   required Set<String> createdDirectories,
   int? androidSdkInt,
 }) async {
@@ -76,7 +74,6 @@ Future<FileSaveTarget> prepareFileSaveTarget({
       final createdFile = await android_channel.createFileAndroid(
         parentUri: parentUri,
         fileName: finalName,
-        mimeType: lookupMimeType(finalName) ?? (isImage ? 'image/*' : '*/*'),
       );
       return FileSaveTarget(
         path: null,
@@ -196,7 +193,7 @@ List<String> sanitizeRelativeName(String fileName) {
   return components;
 }
 
-/// If there is a file with the same name, then it appends a number to its file name
+/// If the name is already occupied, appends a number to the file name.
 Future<(String, String?, String)> digestFilePathAndPrepareDirectory({
   required String parentDirectory,
   required String fileName,
@@ -247,7 +244,7 @@ Future<(String, String?, String)> digestFilePathAndPrepareDirectory({
   do {
     destinationPath = counter == 1 ? p.join(dir, actualFileName) : p.join(dir, actualFileName.withCount(counter));
     counter++;
-  } while (await File(destinationPath).exists());
+  } while (await FileSystemEntity.type(destinationPath, followLinks: false) != FileSystemEntityType.notFound);
   return (destinationPath, null, p.basename(destinationPath));
 }
 

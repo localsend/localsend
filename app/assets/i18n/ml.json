@@ -346,6 +346,8 @@
     },
     "addressInput": {
       "title": "വിലാസം എഴുതുക",
+      "hashtag": "ഹാഷ്ടാഗ്",
+      "ip": "ഐ പി അഡ്രസ്",
       "recentlyUsed": "ഈയ്യിടെ ഉപയോഗിച്ചത്: "
     },
     "cancelSession": {

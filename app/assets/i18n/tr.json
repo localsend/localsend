@@ -346,6 +346,8 @@
     },
     "addressInput": {
       "title": "Adresi giriniz",
+      "hashtag": "Hashtag",
+      "ip": "IP adresi",
       "recentlyUsed": "Daha önce kullanılmış: "
     },
     "cancelSession": {

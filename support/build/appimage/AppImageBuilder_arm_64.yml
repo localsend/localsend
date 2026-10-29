@@ -65,4 +65,5 @@ AppDir:
 #      command: ./AppRun
 AppImage:
   arch: arm_64
-  update-information: guess
+  file_name: !ENV 'LocalSend-${APP_VERSION}-linux-arm-64.AppImage'
+  update-information: gh-releases-zsync|localsend|localsend|latest|LocalSend-*-linux-arm-64.AppImage.zsync

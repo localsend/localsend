@@ -1248,6 +1248,10 @@ class _Translations$dialogs$addressInput$gu extends Translations$dialogs$address
   @override
   String get title => 'સરનામું દાખલ કરો';
   @override
+  String get hashtag => 'હૅશટૅગ';
+  @override
+  String get ip => 'IP સરનામું';
+  @override
   String get recentlyUsed => 'હાલમાં ઉપયોગમાં લીધેલું: ';
 }
 

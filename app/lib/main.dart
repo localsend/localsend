@@ -14,11 +14,13 @@ import 'package:localsend_app/util/ui/dynamic_colors.dart';
 import 'package:localsend_app/widget/watcher/life_cycle_watcher.dart';
 import 'package:localsend_app/widget/watcher/shortcut_watcher.dart';
 import 'package:localsend_app/widget/watcher/tray_watcher.dart';
+import 'package:localsend_app/widget/watcher/window_brightness_watcher.dart';
 import 'package:localsend_app/widget/watcher/window_watcher.dart';
 import 'package:localsend_isolates/isolate.dart';
 import 'package:refena_flutter/addons.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 import 'package:routerino/routerino.dart';
+import 'package:system_date_time_format/system_date_time_format.dart';
 
 Future<void> main(List<String> args) async {
   final RefenaContainer container;
@@ -35,8 +37,10 @@ Future<void> main(List<String> args) async {
   runApp(
     RefenaScope.withContainer(
       container: container,
-      child: TranslationProvider(
-        child: const LocalSendApp(),
+      child: SDTFScope(
+        child: TranslationProvider(
+          child: const LocalSendApp(),
+        ),
       ),
     ),
   );
@@ -88,6 +92,7 @@ class LocalSendApp extends StatelessWidget {
               theme: getTheme(colorMode, customColor, Brightness.light, dynamicColors),
               darkTheme: getTheme(colorMode, customColor, Brightness.dark, dynamicColors),
               themeMode: colorMode == ColorMode.oled ? ThemeMode.dark : themeMode,
+              builder: (context, child) => WindowBrightnessWatcher(child: child!),
               navigatorKey: context.read(navigationProvider).key,
               home: RouterinoHome(
                 builder: () => const HomePage(

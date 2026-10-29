@@ -1260,6 +1260,10 @@ class _Translations$dialogs$addressInput$fil_PH extends Translations$dialogs$add
   @override
   String get title => 'Ilagay ang address';
   @override
+  String get hashtag => 'Hashtag';
+  @override
+  String get ip => 'IP Address';
+  @override
   String get recentlyUsed => 'Recently used: ';
 }
 

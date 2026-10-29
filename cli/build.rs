@@ -1,6 +1,6 @@
 fn main() {
     // VERSIONINFO metadata for the Windows exe, mirroring app/windows/runner/Runner.rc.
-    // SignPath requires ProductName/ProductVersion on all signed binaries.
+    // Code signing expects ProductName/ProductVersion on all signed binaries.
     if std::env::var_os("CARGO_CFG_WINDOWS").is_some() {
         let mut res = winresource::WindowsResource::new();
         res.set("ProductName", "LocalSend");

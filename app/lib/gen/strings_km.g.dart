@@ -1250,6 +1250,10 @@ class _Translations$dialogs$addressInput$km extends Translations$dialogs$address
   @override
   String get title => 'បញ្ចូលអាសយដ្ឋាន';
   @override
+  String get hashtag => 'Hashtag';
+  @override
+  String get ip => 'អាស័យដ្ឋាន IP';
+  @override
   String get recentlyUsed => 'បានប្រើថ្មីៗនេះ: ';
 }
 

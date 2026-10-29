@@ -1165,6 +1165,10 @@ class _Translations$dialogs$addressInput$ur extends Translations$dialogs$address
   @override
   String get title => 'پتہ درج کریں۔';
   @override
+  String get hashtag => 'Hashtag';
+  @override
+  String get ip => 'اپ ایڈریس';
+  @override
   String get recentlyUsed => 'حال ہی میں استعمال ہوا:';
 }
 

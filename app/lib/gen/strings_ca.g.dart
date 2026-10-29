@@ -1251,6 +1251,10 @@ class _Translations$dialogs$addressInput$ca extends Translations$dialogs$address
   @override
   String get title => 'Introduïu l\'adreça';
   @override
+  String get hashtag => 'Etiqueta';
+  @override
+  String get ip => 'Adreça IP';
+  @override
   String get recentlyUsed => 'Utilitzades recentment: ';
 }
 

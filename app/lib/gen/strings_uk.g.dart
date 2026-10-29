@@ -1165,6 +1165,10 @@ class _Translations$dialogs$addressInput$uk extends Translations$dialogs$address
   @override
   String get title => 'Введіть адресу';
   @override
+  String get hashtag => 'Хештег';
+  @override
+  String get ip => 'IP-адреса';
+  @override
   String get recentlyUsed => 'Нещодавно використані: ';
 }
 

@@ -41,7 +41,9 @@ UninstallDisplayIcon={app}\{#MyAppExeName}
 Compression=lzma
 SolidCompression=yes
 WizardStyle=modern
-; CI passes /DSkipSignTool and signs the resulting installer afterwards (SignPath)
+; Sign at compile time: the uninstaller is embedded during compilation, so signing the finished
+; installer afterwards would leave it unsigned. CI defines the command via "iscc /SMySignTool=...";
+; deliberately unsigned builds pass /DSkipSignTool.
 #ifndef SkipSignTool
 SignTool=MySignTool
 #endif

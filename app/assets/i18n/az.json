@@ -346,6 +346,8 @@
     },
     "addressInput": {
       "title": "Ünvanı daxil et",
+      "hashtag": "Heşteq",
+      "ip": "IP ünvan",
       "recentlyUsed": "Son istifadə olunan: "
     },
     "cancelSession": {

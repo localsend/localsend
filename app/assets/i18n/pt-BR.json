@@ -413,6 +413,8 @@
     },
     "addressInput": {
       "title": "Digite o endereço",
+      "hashtag": "Jogo da velha",
+      "ip": "Endereço de IP",
       "recentlyUsed": "Usado recentemente: "
     },
     "cancelSession": {

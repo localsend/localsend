@@ -1245,6 +1245,10 @@ class _Translations$dialogs$addressInput$lo extends Translations$dialogs$address
   @override
   String get title => 'ໃສ່ທີ່ຢູ່';
   @override
+  String get hashtag => 'ແຮັຊແທັກ';
+  @override
+  String get ip => 'ທີ່ຢູ່ IP';
+  @override
   String get recentlyUsed => 'ໃຊ້ຫຼ້າສຸດ: ';
 }
 

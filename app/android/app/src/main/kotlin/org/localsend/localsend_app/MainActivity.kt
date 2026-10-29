@@ -7,15 +7,18 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.database.Cursor
+import android.media.MediaScannerConnection
 import android.net.Uri
 import android.os.Build
 import android.os.Environment
 import android.provider.DocumentsContract
 import android.provider.Settings
+import android.webkit.MimeTypeMap
 import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
+import java.io.File
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -103,6 +106,8 @@ class MainActivity : FlutterActivity() {
 
                 "openFileForWriting" -> handleOpenFileForWriting(call, result)
 
+                "scanFile" -> handleScanFile(call, result)
+
                 "openContentUri" -> {
                     openUri(context, call.argument<String>("uri")!!)
                     result.success(null)
@@ -167,6 +172,22 @@ class MainActivity : FlutterActivity() {
             Settings.Global.ANIMATOR_DURATION_SCALE, 1.0f) != 0.0f;
     }
 
+    private fun handleScanFile(call: MethodCall, result: MethodChannel.Result) {
+        val path = call.argument<String>("path")
+        if (path.isNullOrBlank() || !File(path).isAbsolute) {
+            result.error("INVALID_ARGUMENT", "Expected an absolute filesystem path", null)
+            return
+        }
+
+        try {
+            MediaScannerConnection.scanFile(applicationContext, arrayOf(path), null) { _, uri ->
+                result.success(uri != null)
+            }
+        } catch (e: Exception) {
+            result.error("SCAN_FAILED", e.message ?: "Failed to scan file", null)
+        }
+    }
+
     private fun handleGetFileDescriptor(call: MethodCall, result: MethodChannel.Result) {
         val uriString = call.argument<String>("uri")
         if (uriString == null) {
@@ -207,7 +228,6 @@ class MainActivity : FlutterActivity() {
     private fun handleCreateFile(call: MethodCall, result: MethodChannel.Result) {
         val parentUriString = call.argument<String>("parentUri")
         val fileName = call.argument<String>("fileName")
-        val mimeType = call.argument<String>("mimeType") ?: "application/octet-stream"
         if (parentUriString == null || fileName == null) {
             result.error("INVALID_ARGUMENT", "Missing parentUri or fileName", null)
             return
@@ -227,6 +247,13 @@ class MainActivity : FlutterActivity() {
             } else {
                 parentUri
             }
+
+            // Providers append an extension when the MIME type does not match the one Android maps the
+            // file's extension to (e.g. "test.conf" as text/plain becomes "test.conf.txt"), so derive it
+            // from the same map. application/octet-stream keeps the name as-is for unknown extensions.
+            val extension = fileName.substringAfterLast('.', "").lowercase(Locale.ROOT)
+            val mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension)
+                ?: "application/octet-stream"
 
             val documentUri =
                 DocumentsContract.createDocument(contentResolver, parentDocumentUri, mimeType, fileName)

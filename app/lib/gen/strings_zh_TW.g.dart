@@ -1164,6 +1164,10 @@ class Translations$dialogs$addressInput$zh_TW extends Translations$dialogs$addre
   @override
   String get title => '輸入位址';
   @override
+  String get hashtag => '雜湊標記';
+  @override
+  String get ip => 'IP 位址';
+  @override
   String get recentlyUsed => '最近使用： ';
 }
 

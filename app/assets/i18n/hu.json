@@ -346,6 +346,8 @@
     },
     "addressInput": {
       "title": "Adja meg a címet",
+      "hashtag": "Hashtag",
+      "ip": "IP cím",
       "recentlyUsed": "Nemrég használt: "
     },
     "cancelSession": {

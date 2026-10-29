@@ -1165,6 +1165,10 @@ class _Translations$dialogs$addressInput$gl extends Translations$dialogs$address
   @override
   String get title => 'Introduce enderezo';
   @override
+  String get hashtag => 'Etiqueta';
+  @override
+  String get ip => 'Enderezo IP';
+  @override
   String get recentlyUsed => 'Empregados recentemente: ';
 }
 

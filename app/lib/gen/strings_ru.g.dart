@@ -1166,6 +1166,10 @@ class _Translations$dialogs$addressInput$ru extends Translations$dialogs$address
   @override
   String get title => 'Введите адрес';
   @override
+  String get hashtag => 'Хэштег';
+  @override
+  String get ip => 'IP-адрес';
+  @override
   String get recentlyUsed => 'Недавно использованные: ';
 }
 

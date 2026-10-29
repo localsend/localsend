@@ -346,6 +346,8 @@
     },
     "addressInput": {
       "title": "Indtast adresse",
+      "hashtag": "Hashtag",
+      "ip": "IP-adresse",
       "recentlyUsed": "Senest brugt: "
     },
     "cancelSession": {
