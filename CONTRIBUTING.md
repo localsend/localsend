@@ -69,7 +69,8 @@ Git based distribution:
 | [Winget][]     | [Winget Repo][]     | [@sitiom][], [@Tienisto], Github Actions           |
 | [Scoop][]      | [Scoop Repo][]      | [@sitiom][], [@Tienisto], Github Actions           |
 | [Chocolatey][] | [Chocolatey Repo][] | [@brogers5][]                                      |
-| [Homebrew][]   | [Homebrew Repo][]   | [@Tienisto][], Github Actions                      |
+| [Homebrew][]   | [Homebrew Repo][]   | [@Tienisto][], Homebrew autobump                    |
+| Homebrew (`localsend-cli`) | [Homebrew CLI Repo][] | [@ShlomoCode][], Homebrew autobump |
 | [Flathub][]    | [Flathub Repo][]    | [@proletarius101][], [@Tienisto][], Github Actions |
 | [AUR][]        | [AUR Repo][]        | [@Nixuge][]                                        |
 | [Nixpkgs][]    | [Nixpkgs Repo][]    | [@sikmir][], [@linsui][]                           |
@@ -84,6 +85,7 @@ Git based distribution:
 [chocolatey repo]: https://github.com/brogers5/chocolatey-package-localsend/tree/main
 [homebrew]: https://formulae.brew.sh/cask/localsend
 [homebrew repo]: https://github.com/Homebrew/homebrew-cask/blob/master/Casks/l/localsend.rb
+[homebrew cli repo]: https://github.com/Homebrew/homebrew-core/blob/main/Formula/l/localsend-cli.rb
 [flathub]: https://flathub.org/apps/details/org.localsend.localsend_app
 [flathub repo]: https://github.com/flathub/org.localsend.localsend_app
 [aur]: https://aur.archlinux.org/packages/localsend-bin
@@ -121,6 +123,7 @@ Binary distribution:
 | DMG         | [@Tienisto][] |                              |
 
 [@Tienisto]: https://github.com/Tienisto
+[@ShlomoCode]: https://github.com/ShlomoCode
 [@TheGB0077]: https://github.com/TheGB0077
 [@sitiom]: https://github.com/sitiom
 [@Nixuge]: https://github.com/Nixuge
