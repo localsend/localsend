@@ -184,10 +184,7 @@ class _FavoriteEditDialogState extends State<FavoriteEditDialog> with Refena {
                           ),
                         );
                     if (context.mounted) {
-                      final route = ModalRoute.of(context);
-                      if (route != null && route.isActive) {
-                        Navigator.of(context).removeRoute(route);
-                      }
+                      context.pop();
                     }
                   } else {
                     // Add new favorite
