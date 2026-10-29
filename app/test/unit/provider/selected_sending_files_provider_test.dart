@@ -26,6 +26,7 @@ void main() {
     File(p.join(tempDir.path, 'Presentation.pptx')).writeAsStringSync('presentation');
     File(p.join(tempDir.path, r'~$Presentation.pptx')).writeAsStringSync('lock');
     File(p.join(tempDir.path, 'document.pdf')).writeAsStringSync('document');
+    File(p.join(tempDir.path, r'~$100-budget.pdf')).writeAsStringSync('budget');
     final service = ReduxNotifier.test(
       redux: SelectedSendingFilesNotifier(),
     );
@@ -34,7 +35,7 @@ void main() {
 
     expect(
       service.state.map((file) => p.basename(file.name)),
-      unorderedEquals(['Presentation.pptx', 'document.pdf']),
+      unorderedEquals(['Presentation.pptx', 'document.pdf', r'~$100-budget.pdf']),
     );
   });
 }
