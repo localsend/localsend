@@ -12,9 +12,10 @@ use crate::multicast::{self, MulticastConfig, MulticastDevice, MulticastEvent, M
 use crate::util::error::ErrorChain;
 use crate::util::interface::InterfaceFilter;
 use futures_util::StreamExt;
+use portable_atomic::AtomicU64;
 use std::collections::HashSet;
 use std::net::{IpAddr, Ipv4Addr, Ipv6Addr};
-use std::sync::atomic::{AtomicBool, AtomicU64, Ordering};
+use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::Arc;
 use std::time::{Duration, SystemTime};
 use store::DeviceStore;

@@ -11,9 +11,10 @@ use localsend::http::server::common::save::FileUploadTarget;
 use localsend::http::server::v2::{PrepareUploadDecisionV2, ServerEventV2, SessionEndReasonV2};
 use localsend::model::discovery::ProtocolType;
 use localsend::model::transfer::FileDto;
+use portable_atomic::AtomicU64;
 use std::collections::{HashMap, HashSet};
 use std::sync::Arc;
-use std::sync::atomic::{AtomicU64, Ordering};
+use std::sync::atomic::Ordering;
 use std::time::{Duration, Instant};
 use tokio::sync::{mpsc, oneshot};
 
