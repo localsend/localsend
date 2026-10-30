@@ -63,6 +63,18 @@ jobs:
       - name: Test (localsend_isolates)
         working-directory: packages/localsend_isolates
         run: flutter test
+      - name: Setup Rust for native bridge tests
+        run: rustup toolchain install --profile minimal # version from rust-toolchain.toml
+      - name: Cache Rust for native bridge tests
+        uses: Swatinem/rust-cache@v2
+      - name: Build native bridge for tests
+        run: cargo build --package rust_lib_localsend_app --locked
+      - name: Test real prepare-upload bridge
+        working-directory: app
+        env:
+          LOCALSEND_NATIVE_TESTS: "1"
+          FRB_DART_LOAD_EXTERNAL_LIBRARY_NATIVE_LIB_DIR: ${{ github.workspace }}/target/debug
+        run: flutter test test/unit/util/native_prepare_upload_fallback_test.dart
 
   rust:
     runs-on: ubuntu-latest
@@ -86,6 +98,8 @@ jobs:
       - name: Test (core)
         working-directory: packages/core
         run: cargo test --features full
+      - name: Test prepare-upload error classification (native bridge)
+        run: cargo test --package rust_lib_localsend_app prepare_upload_error_tests --locked
       - name: Test (signaling server)
         run: cargo test --package server
       - name: Check (plugin crate, CLI)

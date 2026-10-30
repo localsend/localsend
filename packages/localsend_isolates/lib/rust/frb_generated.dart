@@ -3,23 +3,22 @@
 
 // ignore_for_file: unused_import, unused_element, unnecessary_import, duplicate_ignore, invalid_use_of_internal_member, annotate_overrides, non_constant_identifier_names, curly_braces_in_flow_control_structures, prefer_const_literals_to_create_immutables, unused_field
 
+import 'api/cancel.dart';
+import 'api/crypto.dart';
+import 'api/discovery.dart';
+import 'api/filename.dart';
+import 'api/http.dart';
+import 'api/logging.dart';
+import 'api/metadata.dart';
+import 'api/model.dart';
+import 'api/server.dart';
+import 'api/stream.dart';
+import 'api/webrtc.dart';
 import 'dart:async';
 import 'dart:convert';
-
+import 'frb_generated.dart';
+import 'frb_generated.io.dart' if (dart.library.js_interop) 'frb_generated.web.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
-import 'package:localsend_isolates/rust/api/cancel.dart';
-import 'package:localsend_isolates/rust/api/crypto.dart';
-import 'package:localsend_isolates/rust/api/discovery.dart';
-import 'package:localsend_isolates/rust/api/filename.dart';
-import 'package:localsend_isolates/rust/api/http.dart';
-import 'package:localsend_isolates/rust/api/logging.dart';
-import 'package:localsend_isolates/rust/api/metadata.dart';
-import 'package:localsend_isolates/rust/api/model.dart';
-import 'package:localsend_isolates/rust/api/server.dart';
-import 'package:localsend_isolates/rust/api/stream.dart';
-import 'package:localsend_isolates/rust/api/webrtc.dart';
-import 'package:localsend_isolates/rust/frb_generated.dart';
-import 'package:localsend_isolates/rust/frb_generated.io.dart' if (dart.library.js_interop) 'frb_generated.web.dart';
 import 'package:uuid/uuid.dart';
 
 /// Main entrypoint of the Rust API
@@ -413,8 +412,8 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   TaskConstMeta get kCrateApiStreamDart2RustStreamSinkAddConstMeta => const TaskConstMeta(
-    debugName: 'Dart2RustStreamSink_add',
-    argNames: ['that', 'data'],
+    debugName: "Dart2RustStreamSink_add",
+    argNames: ["that", "data"],
   );
 
   @override
@@ -438,8 +437,8 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   TaskConstMeta get kCrateApiStreamDart2RustStreamSinkCloseConstMeta => const TaskConstMeta(
-    debugName: 'Dart2RustStreamSink_close',
-    argNames: ['that'],
+    debugName: "Dart2RustStreamSink_close",
+    argNames: ["that"],
   );
 
   @override
@@ -475,8 +474,8 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   TaskConstMeta get kCrateApiWebrtcLsSignalingConnectionAcceptOfferConstMeta => const TaskConstMeta(
-    debugName: 'LsSignalingConnection_accept_offer',
-    argNames: ['that', 'stunServers', 'offer', 'privateKey', 'expectingPublicKey', 'pin'],
+    debugName: "LsSignalingConnection_accept_offer",
+    argNames: ["that", "stunServers", "offer", "privateKey", "expectingPublicKey", "pin"],
   );
 
   @override
@@ -514,8 +513,8 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   TaskConstMeta get kCrateApiWebrtcLsSignalingConnectionSendOfferConstMeta => const TaskConstMeta(
-    debugName: 'LsSignalingConnection_send_offer',
-    argNames: ['that', 'stunServers', 'target', 'privateKey', 'expectingPublicKey', 'pin', 'files'],
+    debugName: "LsSignalingConnection_send_offer",
+    argNames: ["that", "stunServers", "target", "privateKey", "expectingPublicKey", "pin", "files"],
   );
 
   @override
@@ -540,8 +539,8 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   TaskConstMeta get kCrateApiWebrtcLsSignalingConnectionUpdateInfoConstMeta => const TaskConstMeta(
-    debugName: 'LsSignalingConnection_update_info',
-    argNames: ['that', 'info'],
+    debugName: "LsSignalingConnection_update_info",
+    argNames: ["that", "info"],
   );
 
   @override
@@ -565,8 +564,8 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   TaskConstMeta get kCrateApiCancelRsCancellationTokenCancelConstMeta => const TaskConstMeta(
-    debugName: 'RsCancellationToken_cancel',
-    argNames: ['that'],
+    debugName: "RsCancellationToken_cancel",
+    argNames: ["that"],
   );
 
   @override
@@ -591,8 +590,8 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   TaskConstMeta get kCrateApiDiscoveryRsDiscoveryAddDeviceConstMeta => const TaskConstMeta(
-    debugName: 'RsDiscovery_add_device',
-    argNames: ['that', 'device'],
+    debugName: "RsDiscovery_add_device",
+    argNames: ["that", "device"],
   );
 
   @override
@@ -616,8 +615,8 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   TaskConstMeta get kCrateApiDiscoveryRsDiscoveryAnnounceConstMeta => const TaskConstMeta(
-    debugName: 'RsDiscovery_announce',
-    argNames: ['that'],
+    debugName: "RsDiscovery_announce",
+    argNames: ["that"],
   );
 
   @override
@@ -642,8 +641,8 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   TaskConstMeta get kCrateApiDiscoveryRsDiscoveryDeviceLogsConstMeta => const TaskConstMeta(
-    debugName: 'RsDiscovery_device_logs',
-    argNames: ['that', 'fingerprint'],
+    debugName: "RsDiscovery_device_logs",
+    argNames: ["that", "fingerprint"],
   );
 
   @override
@@ -679,8 +678,8 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   TaskConstMeta get kCrateApiDiscoveryRsDiscoveryDiscoverStagedConstMeta => const TaskConstMeta(
-    debugName: 'RsDiscovery_discover_staged',
-    argNames: ['that', 'channels', 'interfaceIps', 'port', 'protocol', 'graceMs'],
+    debugName: "RsDiscovery_discover_staged",
+    argNames: ["that", "channels", "interfaceIps", "port", "protocol", "graceMs"],
   );
 
   @override
@@ -709,8 +708,8 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   TaskConstMeta get kCrateApiDiscoveryRsDiscoveryListenConstMeta => const TaskConstMeta(
-    debugName: 'RsDiscovery_listen',
-    argNames: ['that', 'sink'],
+    debugName: "RsDiscovery_listen",
+    argNames: ["that", "sink"],
   );
 
   @override
@@ -734,8 +733,8 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   TaskConstMeta get kCrateApiDiscoveryRsDiscoveryMulticastErrorConstMeta => const TaskConstMeta(
-    debugName: 'RsDiscovery_multicast_error',
-    argNames: ['that'],
+    debugName: "RsDiscovery_multicast_error",
+    argNames: ["that"],
   );
 
   @override
@@ -767,8 +766,8 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   TaskConstMeta get kCrateApiDiscoveryRsDiscoveryScanSubnetConstMeta => const TaskConstMeta(
-    debugName: 'RsDiscovery_scan_subnet',
-    argNames: ['that', 'interfaceIp', 'port', 'protocol'],
+    debugName: "RsDiscovery_scan_subnet",
+    argNames: ["that", "interfaceIp", "port", "protocol"],
   );
 
   @override
@@ -793,8 +792,8 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   TaskConstMeta get kCrateApiDiscoveryRsDiscoverySetAnswerAnnouncementsConstMeta => const TaskConstMeta(
-    debugName: 'RsDiscovery_set_answer_announcements',
-    argNames: ['that', 'answer'],
+    debugName: "RsDiscovery_set_answer_announcements",
+    argNames: ["that", "answer"],
   );
 
   @override
@@ -818,8 +817,8 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   TaskConstMeta get kCrateApiDiscoveryRsDiscoveryStopConstMeta => const TaskConstMeta(
-    debugName: 'RsDiscovery_stop',
-    argNames: ['that'],
+    debugName: "RsDiscovery_stop",
+    argNames: ["that"],
   );
 
   @override
@@ -853,8 +852,8 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   TaskConstMeta get kCrateApiHttpRsHttpClientCancelConstMeta => const TaskConstMeta(
-    debugName: 'RsHttpClient_cancel',
-    argNames: ['that', 'protocol', 'ip', 'port', 'sessionId'],
+    debugName: "RsHttpClient_cancel",
+    argNames: ["that", "protocol", "ip", "port", "sessionId"],
   );
 
   @override
@@ -894,8 +893,8 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   TaskConstMeta get kCrateApiHttpRsHttpClientPrepareUploadConstMeta => const TaskConstMeta(
-    debugName: 'RsHttpClient_prepare_upload',
-    argNames: ['that', 'protocol', 'ip', 'port', 'payload', 'publicKey', 'pin', 'cancelToken'],
+    debugName: "RsHttpClient_prepare_upload",
+    argNames: ["that", "protocol", "ip", "port", "payload", "publicKey", "pin", "cancelToken"],
   );
 
   @override
@@ -929,8 +928,8 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   TaskConstMeta get kCrateApiHttpRsHttpClientRegisterConstMeta => const TaskConstMeta(
-    debugName: 'RsHttpClient_register',
-    argNames: ['that', 'protocol', 'ip', 'port', 'payload'],
+    debugName: "RsHttpClient_register",
+    argNames: ["that", "protocol", "ip", "port", "payload"],
   );
 
   @override
@@ -988,22 +987,22 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   TaskConstMeta get kCrateApiHttpRsHttpClientUploadConstMeta => const TaskConstMeta(
-    debugName: 'RsHttpClient_upload',
+    debugName: "RsHttpClient_upload",
     argNames: [
-      'that',
-      'sink',
-      'protocol',
-      'ip',
-      'port',
-      'publicKey',
-      'sessionId',
-      'fileId',
-      'token',
-      'binary',
-      'path',
-      'fileDescriptor',
-      'contentLength',
-      'cancelToken',
+      "that",
+      "sink",
+      "protocol",
+      "ip",
+      "port",
+      "publicKey",
+      "sessionId",
+      "fileId",
+      "token",
+      "binary",
+      "path",
+      "fileDescriptor",
+      "contentLength",
+      "cancelToken",
     ],
   );
 
@@ -1029,8 +1028,8 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   TaskConstMeta get kCrateApiServerRsHttpServerCancelSessionConstMeta => const TaskConstMeta(
-    debugName: 'RsHttpServer_cancel_session',
-    argNames: ['that', 'sessionId'],
+    debugName: "RsHttpServer_cancel_session",
+    argNames: ["that", "sessionId"],
   );
 
   @override
@@ -1056,8 +1055,8 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   TaskConstMeta get kCrateApiServerRsHttpServerFailFileDownloadConstMeta => const TaskConstMeta(
-    debugName: 'RsHttpServer_fail_file_download',
-    argNames: ['that', 'sessionId', 'fileId'],
+    debugName: "RsHttpServer_fail_file_download",
+    argNames: ["that", "sessionId", "fileId"],
   );
 
   @override
@@ -1083,8 +1082,8 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   TaskConstMeta get kCrateApiServerRsHttpServerFailFileUploadConstMeta => const TaskConstMeta(
-    debugName: 'RsHttpServer_fail_file_upload',
-    argNames: ['that', 'sessionId', 'fileId'],
+    debugName: "RsHttpServer_fail_file_upload",
+    argNames: ["that", "sessionId", "fileId"],
   );
 
   @override
@@ -1113,8 +1112,8 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   TaskConstMeta get kCrateApiServerRsHttpServerListenConstMeta => const TaskConstMeta(
-    debugName: 'RsHttpServer_listen',
-    argNames: ['that', 'sink'],
+    debugName: "RsHttpServer_listen",
+    argNames: ["that", "sink"],
   );
 
   @override
@@ -1148,8 +1147,8 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   TaskConstMeta get kCrateApiServerRsHttpServerRespondFileDownloadConstMeta => const TaskConstMeta(
-    debugName: 'RsHttpServer_respond_file_download',
-    argNames: ['that', 'sessionId', 'fileId', 'path', 'fileDescriptor'],
+    debugName: "RsHttpServer_respond_file_download",
+    argNames: ["that", "sessionId", "fileId", "path", "fileDescriptor"],
   );
 
   @override
@@ -1190,8 +1189,8 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   TaskConstMeta get kCrateApiServerRsHttpServerRespondFileUploadConstMeta => const TaskConstMeta(
-    debugName: 'RsHttpServer_respond_file_upload',
-    argNames: ['that', 'sink', 'sessionId', 'fileId', 'path', 'fileDescriptor', 'fileSize'],
+    debugName: "RsHttpServer_respond_file_upload",
+    argNames: ["that", "sink", "sessionId", "fileId", "path", "fileDescriptor", "fileSize"],
   );
 
   @override
@@ -1217,8 +1216,8 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   TaskConstMeta get kCrateApiServerRsHttpServerRespondPrepareDownloadConstMeta => const TaskConstMeta(
-    debugName: 'RsHttpServer_respond_prepare_download',
-    argNames: ['that', 'sessionId', 'accept'],
+    debugName: "RsHttpServer_respond_prepare_download",
+    argNames: ["that", "sessionId", "accept"],
   );
 
   @override
@@ -1243,8 +1242,8 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   TaskConstMeta get kCrateApiServerRsHttpServerRespondPrepareUploadConstMeta => const TaskConstMeta(
-    debugName: 'RsHttpServer_respond_prepare_upload',
-    argNames: ['that', 'acceptedFileIds'],
+    debugName: "RsHttpServer_respond_prepare_upload",
+    argNames: ["that", "acceptedFileIds"],
   );
 
   @override
@@ -1268,8 +1267,8 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   TaskConstMeta get kCrateApiServerRsHttpServerStopConstMeta => const TaskConstMeta(
-    debugName: 'RsHttpServer_stop',
-    argNames: ['that'],
+    debugName: "RsHttpServer_stop",
+    argNames: ["that"],
   );
 
   @override
@@ -1293,8 +1292,8 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   TaskConstMeta get kCrateApiWebrtcRtcFileReceiverGetFileIdConstMeta => const TaskConstMeta(
-    debugName: 'RtcFileReceiver_get_file_id',
-    argNames: ['that'],
+    debugName: "RtcFileReceiver_get_file_id",
+    argNames: ["that"],
   );
 
   @override
@@ -1323,8 +1322,8 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   TaskConstMeta get kCrateApiWebrtcRtcFileReceiverReceiveConstMeta => const TaskConstMeta(
-    debugName: 'RtcFileReceiver_receive',
-    argNames: ['that', 'sink'],
+    debugName: "RtcFileReceiver_receive",
+    argNames: ["that", "sink"],
   );
 
   @override
@@ -1349,8 +1348,8 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   TaskConstMeta get kCrateApiWebrtcRtcFileSenderSendConstMeta => const TaskConstMeta(
-    debugName: 'RtcFileSender_send',
-    argNames: ['that', 'data'],
+    debugName: "RtcFileSender_send",
+    argNames: ["that", "data"],
   );
 
   @override
@@ -1374,8 +1373,8 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   TaskConstMeta get kCrateApiWebrtcRtcReceiveControllerDeclineConstMeta => const TaskConstMeta(
-    debugName: 'RtcReceiveController_decline',
-    argNames: ['that'],
+    debugName: "RtcReceiveController_decline",
+    argNames: ["that"],
   );
 
   @override
@@ -1404,8 +1403,8 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   TaskConstMeta get kCrateApiWebrtcRtcReceiveControllerListenErrorConstMeta => const TaskConstMeta(
-    debugName: 'RtcReceiveController_listen_error',
-    argNames: ['that', 'sink'],
+    debugName: "RtcReceiveController_listen_error",
+    argNames: ["that", "sink"],
   );
 
   @override
@@ -1429,8 +1428,8 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   TaskConstMeta get kCrateApiWebrtcRtcReceiveControllerListenFilesConstMeta => const TaskConstMeta(
-    debugName: 'RtcReceiveController_listen_files',
-    argNames: ['that'],
+    debugName: "RtcReceiveController_listen_files",
+    argNames: ["that"],
   );
 
   @override
@@ -1459,8 +1458,8 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   TaskConstMeta get kCrateApiWebrtcRtcReceiveControllerListenReceivingConstMeta => const TaskConstMeta(
-    debugName: 'RtcReceiveController_listen_receiving',
-    argNames: ['that', 'sink'],
+    debugName: "RtcReceiveController_listen_receiving",
+    argNames: ["that", "sink"],
   );
 
   @override
@@ -1489,8 +1488,8 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   TaskConstMeta get kCrateApiWebrtcRtcReceiveControllerListenStatusConstMeta => const TaskConstMeta(
-    debugName: 'RtcReceiveController_listen_status',
-    argNames: ['that', 'sink'],
+    debugName: "RtcReceiveController_listen_status",
+    argNames: ["that", "sink"],
   );
 
   @override
@@ -1515,8 +1514,8 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   TaskConstMeta get kCrateApiWebrtcRtcReceiveControllerSendFileStatusConstMeta => const TaskConstMeta(
-    debugName: 'RtcReceiveController_send_file_status',
-    argNames: ['that', 'status'],
+    debugName: "RtcReceiveController_send_file_status",
+    argNames: ["that", "status"],
   );
 
   @override
@@ -1541,8 +1540,8 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   TaskConstMeta get kCrateApiWebrtcRtcReceiveControllerSendPinConstMeta => const TaskConstMeta(
-    debugName: 'RtcReceiveController_send_pin',
-    argNames: ['that', 'pin'],
+    debugName: "RtcReceiveController_send_pin",
+    argNames: ["that", "pin"],
   );
 
   @override
@@ -1567,8 +1566,8 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   TaskConstMeta get kCrateApiWebrtcRtcReceiveControllerSendSelectionConstMeta => const TaskConstMeta(
-    debugName: 'RtcReceiveController_send_selection',
-    argNames: ['that', 'selection'],
+    debugName: "RtcReceiveController_send_selection",
+    argNames: ["that", "selection"],
   );
 
   @override
@@ -1597,8 +1596,8 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   TaskConstMeta get kCrateApiWebrtcRtcSendControllerListenErrorConstMeta => const TaskConstMeta(
-    debugName: 'RtcSendController_listen_error',
-    argNames: ['that', 'sink'],
+    debugName: "RtcSendController_listen_error",
+    argNames: ["that", "sink"],
   );
 
   @override
@@ -1622,8 +1621,8 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   TaskConstMeta get kCrateApiWebrtcRtcSendControllerListenSelectedFilesConstMeta => const TaskConstMeta(
-    debugName: 'RtcSendController_listen_selected_files',
-    argNames: ['that'],
+    debugName: "RtcSendController_listen_selected_files",
+    argNames: ["that"],
   );
 
   @override
@@ -1652,8 +1651,8 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   TaskConstMeta get kCrateApiWebrtcRtcSendControllerListenStatusConstMeta => const TaskConstMeta(
-    debugName: 'RtcSendController_listen_status',
-    argNames: ['that', 'sink'],
+    debugName: "RtcSendController_listen_status",
+    argNames: ["that", "sink"],
   );
 
   @override
@@ -1678,8 +1677,8 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   TaskConstMeta get kCrateApiWebrtcRtcSendControllerSendFileConstMeta => const TaskConstMeta(
-    debugName: 'RtcSendController_send_file',
-    argNames: ['that', 'fileId'],
+    debugName: "RtcSendController_send_file",
+    argNames: ["that", "fileId"],
   );
 
   @override
@@ -1704,8 +1703,8 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   TaskConstMeta get kCrateApiWebrtcRtcSendControllerSendPinConstMeta => const TaskConstMeta(
-    debugName: 'RtcSendController_send_pin',
-    argNames: ['that', 'pin'],
+    debugName: "RtcSendController_send_pin",
+    argNames: ["that", "pin"],
   );
 
   @override
@@ -1745,8 +1744,8 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   TaskConstMeta get kCrateApiWebrtcConnectConstMeta => const TaskConstMeta(
-    debugName: 'connect',
-    argNames: ['sink', 'uri', 'info', 'privateKey', 'onConnection'],
+    debugName: "connect",
+    argNames: ["sink", "uri", "info", "privateKey", "onConnection"],
   );
 
   @override
@@ -1769,7 +1768,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   TaskConstMeta get kCrateApiCancelCreateCancellationTokenConstMeta => const TaskConstMeta(
-    debugName: 'create_cancellation_token',
+    debugName: "create_cancellation_token",
     argNames: [],
   );
 
@@ -1804,8 +1803,8 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   TaskConstMeta get kCrateApiHttpCreateClientConstMeta => const TaskConstMeta(
-    debugName: 'create_client',
-    argNames: ['privateKey', 'cert', 'version', 'expectedFingerprint', 'timeoutMs'],
+    debugName: "create_client",
+    argNames: ["privateKey", "cert", "version", "expectedFingerprint", "timeoutMs"],
   );
 
   @override
@@ -1829,7 +1828,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   TaskConstMeta get kCrateApiStreamCreateStreamConstMeta => const TaskConstMeta(
-    debugName: 'create_stream',
+    debugName: "create_stream",
     argNames: [],
   );
 
@@ -1853,7 +1852,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   TaskConstMeta get kCrateApiLoggingEnableDebugLoggingConstMeta => const TaskConstMeta(
-    debugName: 'enable_debug_logging',
+    debugName: "enable_debug_logging",
     argNames: [],
   );
 
@@ -1877,7 +1876,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   TaskConstMeta get kCrateApiCryptoGenerateKeyPairConstMeta => const TaskConstMeta(
-    debugName: 'generate_key_pair',
+    debugName: "generate_key_pair",
     argNames: [],
   );
 
@@ -1901,7 +1900,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   TaskConstMeta get kCrateApiCryptoGenerateSecurityContextConstMeta => const TaskConstMeta(
-    debugName: 'generate_security_context',
+    debugName: "generate_security_context",
     argNames: [],
   );
 
@@ -1934,8 +1933,8 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   TaskConstMeta get kCrateApiCryptoHashFileConstMeta => const TaskConstMeta(
-    debugName: 'hash_file',
-    argNames: ['sink', 'path', 'fileDescriptor', 'bytes', 'cancelToken'],
+    debugName: "hash_file",
+    argNames: ["sink", "path", "fileDescriptor", "bytes", "cancelToken"],
   );
 
   @override
@@ -1959,8 +1958,8 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   TaskConstMeta get kCrateApiFilenameIsValidFileNameConstMeta => const TaskConstMeta(
-    debugName: 'is_valid_file_name',
-    argNames: ['name'],
+    debugName: "is_valid_file_name",
+    argNames: ["name"],
   );
 
   @override
@@ -1984,8 +1983,8 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   TaskConstMeta get kCrateApiMetadataReadFileMetadataConstMeta => const TaskConstMeta(
-    debugName: 'read_file_metadata',
-    argNames: ['path'],
+    debugName: "read_file_metadata",
+    argNames: ["path"],
   );
 
   @override
@@ -2009,8 +2008,8 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   TaskConstMeta get kCrateApiFilenameSanitizeFileNameConstMeta => const TaskConstMeta(
-    debugName: 'sanitize_file_name',
-    argNames: ['name'],
+    debugName: "sanitize_file_name",
+    argNames: ["name"],
   );
 
   @override
@@ -2077,22 +2076,22 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   TaskConstMeta get kCrateApiDiscoveryStartDiscoveryConstMeta => const TaskConstMeta(
-    debugName: 'start_discovery',
+    debugName: "start_discovery",
     argNames: [
-      'group',
-      'port',
-      'networkWhitelist',
-      'networkBlacklist',
-      'alias',
-      'version',
-      'deviceModel',
-      'deviceType',
-      'fingerprint',
-      'protocol',
-      'download',
-      'certPem',
-      'privateKeyPem',
-      'timeoutMs',
+      "group",
+      "port",
+      "networkWhitelist",
+      "networkBlacklist",
+      "alias",
+      "version",
+      "deviceModel",
+      "deviceType",
+      "fingerprint",
+      "protocol",
+      "download",
+      "certPem",
+      "privateKeyPem",
+      "timeoutMs",
     ],
   );
 
@@ -2139,8 +2138,8 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   TaskConstMeta get kCrateApiServerStartServerConstMeta => const TaskConstMeta(
-    debugName: 'start_server',
-    argNames: ['port', 'tls', 'alias', 'version', 'deviceModel', 'deviceType', 'fingerprint', 'pin', 'verifyChecksums', 'web', 'showToken'],
+    debugName: "start_server",
+    argNames: ["port", "tls", "alias", "version", "deviceModel", "deviceType", "fingerprint", "pin", "verifyChecksums", "web", "showToken"],
   );
 
   @override
@@ -2165,8 +2164,8 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   TaskConstMeta get kCrateApiCryptoVerifyCertConstMeta => const TaskConstMeta(
-    debugName: 'verify_cert',
-    argNames: ['cert', 'publicKey'],
+    debugName: "verify_cert",
+    argNames: ["cert", "publicKey"],
   );
 
   Future<void> Function(int, dynamic)
@@ -2181,7 +2180,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       try {
         rawOutput = Box(await raw(arg0));
       } catch (e, s) {
-        rawError = Box(AnyhowException('$e\n\n$s'));
+        rawError = Box(AnyhowException("$e\n\n$s"));
       }
 
       final serializer = SseSerializer(generalizedFrbRustBinding);
@@ -3173,7 +3172,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           hash: dco_decode_String(raw[1]),
         );
       default:
-        throw Exception('unreachable');
+        throw Exception("unreachable");
     }
   }
 
@@ -3202,8 +3201,12 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
         return RsHttpClientError_Other(
           dco_decode_String(raw[1]),
         );
+      case 5:
+        return RsHttpClientError_Unreachable(
+          dco_decode_String(raw[1]),
+        );
       default:
-        throw Exception('unreachable');
+        throw Exception("unreachable");
     }
   }
 
@@ -3265,7 +3268,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           error: dco_decode_String(raw[1]),
         );
       default:
-        throw Exception('unreachable');
+        throw Exception("unreachable");
     }
   }
 
@@ -3298,7 +3301,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           error: dco_decode_box_autoadd_rs_http_client_error(raw[1]),
         );
       default:
-        throw Exception('unreachable');
+        throw Exception("unreachable");
     }
   }
 
@@ -3348,7 +3351,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           dco_decode_String(raw[1]),
         );
       default:
-        throw Exception('unreachable');
+        throw Exception("unreachable");
     }
   }
 
@@ -3452,7 +3455,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       case 2:
         return WebMode_Upload();
       default:
-        throw Exception('unreachable');
+        throw Exception("unreachable");
     }
   }
 
@@ -3514,7 +3517,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           code: dco_decode_u_16(raw[1]),
         );
       default:
-        throw Exception('unreachable');
+        throw Exception("unreachable");
     }
   }
 
@@ -4570,6 +4573,9 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       case 4:
         var var_field0 = sse_decode_String(deserializer);
         return RsHttpClientError_Other(var_field0);
+      case 5:
+        var var_field0 = sse_decode_String(deserializer);
+        return RsHttpClientError_Unreachable(var_field0);
       default:
         throw UnimplementedError('');
     }
@@ -5946,6 +5952,9 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
         sse_encode_String(field0, serializer);
       case RsHttpClientError_Other(field0: final field0):
         sse_encode_i_32(4, serializer);
+        sse_encode_String(field0, serializer);
+      case RsHttpClientError_Unreachable(field0: final field0):
+        sse_encode_i_32(5, serializer);
         sse_encode_String(field0, serializer);
     }
   }

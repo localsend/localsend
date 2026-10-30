@@ -99,7 +99,7 @@ impl StatefulDevice {
         channels.sort_by_key(|(channel, status)| {
             std::cmp::Reverse((
                 **status == ChannelStatus::Available,
-                channel.is_ipv6(),
+                channel.address_preference(),
                 self.last_confirmed(channel),
             ))
         });
@@ -146,13 +146,30 @@ impl DeviceChannel {
         }
     }
 
-    /// Whether the channel dials an IPv6 address.
-    fn is_ipv6(&self) -> bool {
+    /// A scope preference, not proof of an installed route or reachability.
+    /// Prefer GUA/ULA IPv6, then IPv4, retaining scoped link-local and other
+    /// special/unknown hosts as candidates of last resort.
+    fn address_preference(&self) -> u8 {
         match self {
             DeviceChannel::Http(http) => {
-                // Strip the scope of a link-local address like `fe80::1%3`.
                 let host = http.host.split('%').next().unwrap_or(&http.host);
-                matches!(host.parse::<IpAddr>(), Ok(IpAddr::V6(_)))
+                match host.parse::<IpAddr>() {
+                    Ok(IpAddr::V6(address)) if address.is_unicast_link_local() => 0,
+                    Ok(IpAddr::V6(address)) if address.to_ipv4_mapped().is_some() => 1,
+                    Ok(IpAddr::V6(address)) => {
+                        let prefix = address.segments()[0];
+                        if prefix & 0xe000 == 0x2000 || prefix & 0xfe00 == 0xfc00 {
+                            2
+                        } else {
+                            0
+                        }
+                    }
+                    Ok(IpAddr::V4(_)) => 1,
+                    // Discovery normally supplies IP literals. Keep DNS/unknown
+                    // hosts as a last resort: their family and scope are unknown.
+                    // Do not perform DNS lookups just to rank channels.
+                    Err(_) => 0,
+                }
             }
         }
     }
@@ -415,14 +432,14 @@ mod tests {
     fn test_get_channel_prefers_ipv6_over_ipv4() {
         let store = DeviceStore::new();
 
-        store.upsert(device("a", "fe80::1%3"), SystemTime::now());
+        store.upsert(device("a", "fd00::1"), SystemTime::now());
         store.upsert(device("a", "192.168.0.10"), SystemTime::now());
 
         let known = store.by_fingerprint("a").unwrap();
         assert_eq!(
             channel_host(known.get_best_channel().unwrap()),
-            "fe80::1%3",
-            "IPv6 must beat a more recent IPv4 confirmation"
+            "fd00::1",
+            "ULA IPv6 must beat a more recent IPv4 confirmation"
         );
     }
 
@@ -452,7 +469,7 @@ mod tests {
 
         store.upsert(device("a", "192.168.0.10"), SystemTime::now());
         store.upsert(device("a", "10.0.0.10"), SystemTime::now());
-        store.upsert(device("a", "fe80::1%3"), SystemTime::now());
+        store.upsert(device("a", "fd00::1"), SystemTime::now());
 
         let mut known = store.by_fingerprint("a").unwrap();
         let hosts: Vec<&str> = known
@@ -462,12 +479,12 @@ mod tests {
             .collect();
         assert_eq!(
             hosts,
-            ["fe80::1%3", "10.0.0.10", "192.168.0.10"],
-            "IPv6 must come first, then the more recent IPv4 confirmation"
+            ["fd00::1", "10.0.0.10", "192.168.0.10"],
+            "ULA IPv6 must come first, then the more recent IPv4 confirmation"
         );
 
         for (channel, status) in known.channels.iter_mut() {
-            if channel_host(channel) == "fe80::1%3" {
+            if channel_host(channel) == "fd00::1" {
                 *status = ChannelStatus::NotReachable;
             }
         }
@@ -478,9 +495,70 @@ mod tests {
             .collect();
         assert_eq!(
             hosts,
-            ["10.0.0.10", "192.168.0.10", "fe80::1%3"],
+            ["10.0.0.10", "192.168.0.10", "fd00::1"],
             "a not-reachable channel must sort last"
         );
+    }
+
+    #[test]
+    fn test_link_local_is_retained_after_ipv4_and_ula() {
+        let store = DeviceStore::new();
+        store.upsert(device("a", "fd00::1"), SystemTime::now());
+        store.upsert(device("a", "192.168.0.10"), SystemTime::now());
+        store.upsert(device("a", "fe80::1%3"), SystemTime::now());
+        let known = store.by_fingerprint("a").unwrap();
+        let hosts: Vec<_> = known
+            .get_ranked_channels()
+            .into_iter()
+            .map(channel_host)
+            .collect();
+        assert_eq!(hosts, ["fd00::1", "192.168.0.10", "fe80::1%3"]);
+        assert_eq!(known.channels.len(), 3);
+    }
+
+    #[test]
+    fn test_link_local_only_device_still_has_a_best_channel() {
+        let store = DeviceStore::new();
+        store.upsert(device("a", "fe80::1%3"), SystemTime::now());
+        let known = store.by_fingerprint("a").unwrap();
+        assert_eq!(channel_host(known.get_best_channel().unwrap()), "fe80::1%3");
+    }
+
+    #[test]
+    fn test_available_link_local_beats_failed_ula() {
+        let store = DeviceStore::new();
+        store.upsert(device("a", "fe80::1%3"), SystemTime::now());
+        store.upsert(device("a", "fd00::1"), SystemTime::now());
+        let mut known = store.by_fingerprint("a").unwrap();
+        for (channel, status) in &mut known.channels {
+            if channel_host(channel) == "fd00::1" {
+                *status = ChannelStatus::NotReachable;
+            }
+        }
+        assert_eq!(channel_host(known.get_best_channel().unwrap()), "fe80::1%3");
+    }
+
+    #[test]
+    fn test_address_preference_is_scope_classification_not_reachability() {
+        for (host, expected) in [
+            ("2001:4860::1", 2),
+            ("fc00::1", 2),
+            ("fdff::1", 2),
+            ("192.168.0.10", 1),
+            ("::ffff:192.168.0.10", 1),
+            ("fe80::1%3", 0),
+            ("febf::1%4", 0),
+            ("::", 0),
+            ("::1", 0),
+            ("ff02::1", 0),
+            ("invalid-host", 0),
+        ] {
+            assert_eq!(
+                device("a", host).channel.address_preference(),
+                expected,
+                "{host}"
+            );
+        }
     }
 
     #[test]
