@@ -115,14 +115,19 @@ jobs:
           # The VS install path differs per runner image generation (VS2022 -> ...\2022, VS2026 -> ...\18)
           $dir = $null
           foreach ($root in @('C:\Program Files\Microsoft Visual Studio\2022', 'C:\Program Files\Microsoft Visual Studio\18')) {
-            $hit = Get-ChildItem "$root\VC\Redist\MSVC\*\arm64\Microsoft.VC*.CRT" -ErrorAction SilentlyContinue | Select-Object -Last 1
+            # the wildcard covers the Visual Studio edition directory (Community/Professional/Enterprise/BuildTools)
+            $hit = Get-ChildItem "$root\*\VC\Redist\MSVC\*\arm64\Microsoft.VC*.CRT" -ErrorAction SilentlyContinue | Select-Object -Last 1
             if ($hit) { $dir = $hit.FullName; break }
           }
           if (-not $dir) {
             Write-Host "No arm64 CRT under Visual Studio; installing the official arm64 redistributable"
             $redist = "${{ runner.temp }}\vc_redist.arm64.exe"
             Invoke-WebRequest -Uri 'https://aka.ms/vs/17/release/vc_redist.arm64.exe' -OutFile $redist
-            Start-Process -FilePath $redist -ArgumentList '/install', '/quiet', '/norestart' -Wait
+            # 0 = success, 3010 = success with reboot required
+            $proc = Start-Process -FilePath $redist -ArgumentList '/install', '/quiet', '/norestart' -Wait -PassThru
+            if ($proc.ExitCode -ne 0 -and $proc.ExitCode -ne 3010) {
+              throw "vc_redist.arm64.exe failed with exit code $($proc.ExitCode)"
+            }
             $dir = 'C:\Windows\System32' # System32 holds the native arm64 DLLs after the install
           }
           Write-Host "Using CRT from $dir"
