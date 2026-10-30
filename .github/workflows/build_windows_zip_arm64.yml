@@ -111,10 +111,24 @@ jobs:
       - name: Add DLL files
         working-directory: app
         run: |
-          $crt = Get-ChildItem 'C:\Program Files\Microsoft Visual Studio\2022\*\VC\Redist\MSVC\*\arm64\Microsoft.VC143.CRT' | Select-Object -Last 1
-          Copy-Item "$($crt.FullName)\msvcp140.dll" build/windows/arm64/runner/Release/
-          Copy-Item "$($crt.FullName)\vcruntime140.dll" build/windows/arm64/runner/Release/
-          Copy-Item "$($crt.FullName)\vcruntime140_1.dll" build/windows/arm64/runner/Release/
+          $target = "build/windows/arm64/runner/Release"
+          # The VS install path differs per runner image generation (VS2022 -> ...\2022, VS2026 -> ...\18)
+          $dir = $null
+          foreach ($root in @('C:\Program Files\Microsoft Visual Studio\2022', 'C:\Program Files\Microsoft Visual Studio\18')) {
+            $hit = Get-ChildItem "$root\VC\Redist\MSVC\*\arm64\Microsoft.VC*.CRT" -ErrorAction SilentlyContinue | Select-Object -Last 1
+            if ($hit) { $dir = $hit.FullName; break }
+          }
+          if (-not $dir) {
+            Write-Host "No arm64 CRT under Visual Studio; installing the official arm64 redistributable"
+            $redist = "${{ runner.temp }}\vc_redist.arm64.exe"
+            Invoke-WebRequest -Uri 'https://aka.ms/vs/17/release/vc_redist.arm64.exe' -OutFile $redist
+            Start-Process -FilePath $redist -ArgumentList '/install', '/quiet', '/norestart' -Wait
+            $dir = 'C:\Windows\System32' # System32 holds the native arm64 DLLs after the install
+          }
+          Write-Host "Using CRT from $dir"
+          Copy-Item "$dir\msvcp140.dll" $target/
+          Copy-Item "$dir\vcruntime140.dll" $target/
+          Copy-Item "$dir\vcruntime140_1.dll" $target/
 
       # The MSIX helper only makes sense for the installer; portable users should not register an MSIX package
       - name: Remove MSIX helper from portable bundle
