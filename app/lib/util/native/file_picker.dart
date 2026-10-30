@@ -252,6 +252,15 @@ Future<void> _pickMedia(BuildContext context, Ref ref) async {
         ),
       ),
     );
+  } else if (checkPlatform([TargetPlatform.iOS])) {
+    final permission = await PhotoManager.requestPermissionExtend(
+      requestOption: const PermissionRequestOption(iosAccessLevel: IosAccessLevel.readWrite),
+    );
+    if (permission != PermissionState.authorized && permission != PermissionState.limited) {
+      if (!context.mounted) return;
+      await showDialog(context: context, builder: (_) => const NoPermissionDialog());
+      return;
+    }
   }
 
   if (!context.mounted) return;
@@ -259,7 +268,11 @@ Future<void> _pickMedia(BuildContext context, Ref ref) async {
   final oldBrightness = Theme.of(context).brightness;
   final List<AssetEntity>? result = await AssetPicker.pickAssets(
     context,
-    pickerConfig: const AssetPickerConfig(maxAssets: 999, textDelegate: TranslatedAssetPickerTextDelegate()),
+    pickerConfig: AssetPickerConfig(
+      maxAssets: 999,
+      textDelegate: const TranslatedAssetPickerTextDelegate(),
+      limitedPermissionOverlayPredicate: checkPlatform([TargetPlatform.iOS]) ? (_) => false : null,
+    ),
   );
 
   WidgetsBinding.instance.addPostFrameCallback((_) async {
