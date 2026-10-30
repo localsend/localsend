@@ -121,11 +121,32 @@ jobs:
           }
           if (-not $dir) {
             Write-Host "No arm64 CRT under Visual Studio; installing the official arm64 redistributable"
-            $redist = "${{ runner.temp }}\vc_redist.arm64.exe"
-            Invoke-WebRequest -Uri 'https://aka.ms/vs/17/release/vc_redist.arm64.exe' -OutFile $redist
-            # 0 = success, 3010 = success with reboot required
+            # VS2026 ships MSVC 14.50, so prefer the VS2026-channel redistributable; each aka.ms permalink serves the latest build of its channel
+            $redist = $null
+            foreach ($url in @('https://aka.ms/vs/18/release/vc_redist.arm64.exe', 'https://aka.ms/vs/17/release/vc_redist.arm64.exe')) {
+              $out = "${{ runner.temp }}\vc_redist.arm64.exe"
+              try {
+                Invoke-WebRequest -Uri $url -OutFile $out -ErrorAction Stop
+                $redist = $out
+                Write-Host "Downloaded $url (file version $((Get-Item $out).VersionInfo.FileVersion))"
+                break
+              } catch {
+                Write-Host "Download failed: $url"
+              }
+            }
+            if (-not $redist) { throw "Could not download any arm64 VC redistributable" }
+            # the packaged runtime must be at least as recent as the toolset that built the app
+            $toolset = Get-ChildItem 'C:\Program Files\Microsoft Visual Studio\*\*\VC\Tools\MSVC\*' -ErrorAction SilentlyContinue |
+              Sort-Object { try { [version]$_.Name } catch { [version]'0.0' } } | Select-Object -Last 1
+            if ($toolset) {
+              $fv = [version]((Get-Item $redist).VersionInfo.FileVersion)
+              if ($fv -lt ([version]$toolset.Name)) {
+                throw "Redistributable $fv is older than the installed MSVC toolset $($toolset.Name)"
+              }
+            }
+            # only a clean install is usable: exit 3010 (reboot required) can leave the previous DLLs in System32 until the runner restarts
             $proc = Start-Process -FilePath $redist -ArgumentList '/install', '/quiet', '/norestart' -Wait -PassThru
-            if ($proc.ExitCode -ne 0 -and $proc.ExitCode -ne 3010) {
+            if ($proc.ExitCode -ne 0) {
               throw "vc_redist.arm64.exe failed with exit code $($proc.ExitCode)"
             }
             $dir = 'C:\Windows\System32' # System32 holds the native arm64 DLLs after the install
