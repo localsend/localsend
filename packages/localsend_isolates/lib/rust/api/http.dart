@@ -3,16 +3,15 @@
 
 // ignore_for_file: invalid_use_of_internal_member, unused_import, unnecessary_import
 
+import '../frb_generated.dart';
+import 'cancel.dart';
+import 'model.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 import 'package:freezed_annotation/freezed_annotation.dart' hide protected;
-import 'package:localsend_isolates/rust/api/cancel.dart';
-import 'package:localsend_isolates/rust/api/model.dart';
-import 'package:localsend_isolates/rust/api/stream.dart';
-import 'package:localsend_isolates/rust/frb_generated.dart';
-
+import 'stream.dart';
 part 'http.freezed.dart';
 
-// These functions are ignored because they are not marked as `pub`: `resolve_file_content`
+// These functions are ignored because they are not marked as `pub`: `prepare_upload_error`, `resolve_file_content`
 // These function are ignored because they are on traits that is not defined in current crate (put an empty `#[frb]` on it to unignore): `clone`, `clone`, `from`
 
 /// Creates an HTTP client.
@@ -139,6 +138,12 @@ sealed class RsHttpClientError with _$RsHttpClientError implements FrbException 
   const factory RsHttpClientError.other(
     String field0,
   ) = RsHttpClientError_Other;
+
+  /// Connection setup failed before prepare-upload could be dispatched.
+  /// This is the only category safe for trying another prepare endpoint.
+  const factory RsHttpClientError.unreachable(
+    String field0,
+  ) = RsHttpClientError_Unreachable;
 }
 
 @freezed

@@ -207,6 +207,8 @@ pub(super) fn create_reqwest_client(
 ) -> Result<reqwest::Client, ClientError> {
     let _ = rustls::crypto::ring::default_provider().install_default();
 
+    let pinned = expected_fingerprint.is_some();
+
     let mut tls_config = {
         let certs =
             vec![CertificateDer::from_pem_slice(cert.as_bytes()).map_err(anyhow::Error::from)?];
@@ -240,6 +242,12 @@ pub(super) fn create_reqwest_client(
         // than the one whose certificate is being verified.
         .redirect(reqwest::redirect::Policy::none())
         .dns_resolver(Arc::new(ScopedHostResolver));
+
+    // Bound only connection establishment. A prepare-upload can wait for
+    // the receiver to accept, and uploads must not have a total time limit.
+    if pinned {
+        builder = builder.connect_timeout(std::time::Duration::from_secs(3));
+    }
 
     if let Some(timeout) = timeout {
         builder = builder.timeout(timeout);
@@ -346,5 +354,52 @@ impl ResponseExt for Response {
                 Some(message)
             },
         }))
+    }
+}
+
+#[cfg(test)]
+mod connect_timeout_tests {
+    use super::*;
+    use tokio::io::{AsyncReadExt, AsyncWriteExt};
+
+    #[tokio::test]
+    async fn pinned_client_can_wait_longer_than_connect_timeout_for_response() {
+        let identity = crate::crypto::cert::generate_self_signed().unwrap();
+        let client = create_reqwest_client(
+            &identity.private_key_pem,
+            &identity.certificate_pem,
+            Some(identity.fingerprint),
+            None,
+        )
+        .unwrap();
+        let listener = tokio::net::TcpListener::bind("127.0.0.1:0").await.unwrap();
+        let address = listener.local_addr().unwrap();
+        let server = tokio::spawn(async move {
+            let (mut stream, _) = listener.accept().await.unwrap();
+            let mut bytes = [0u8; 4096];
+            let mut request = Vec::new();
+            while !request.windows(4).any(|part| part == b"\r\n\r\n") {
+                let count = stream.read(&mut bytes).await.unwrap();
+                assert!(count > 0, "request ended before its headers were received");
+                request.extend_from_slice(&bytes[..count]);
+                assert!(request.len() <= 16 * 1024, "request headers are too large");
+            }
+            tokio::time::sleep(std::time::Duration::from_millis(3200)).await;
+            stream
+                .write_all(b"HTTP/1.1 204 No Content\r\nConnection: close\r\n\r\n")
+                .await
+                .unwrap();
+        });
+        let response = tokio::time::timeout(
+            std::time::Duration::from_secs(10),
+            client
+                .post(format!("http://{address}/prepare-upload"))
+                .send(),
+        )
+        .await
+        .unwrap()
+        .unwrap();
+        assert_eq!(response.status().as_u16(), 204);
+        server.await.unwrap();
     }
 }

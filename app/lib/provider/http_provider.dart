@@ -27,12 +27,16 @@ class HttpClientCollection {
   /// The check happens during the TLS handshake, so a different peer never
   /// receives the request. Use this for everything that carries file data or
   /// belongs to a session with a device the user has picked.
-  RsHttpClient pinnedTo(String fingerprint) {
+  /// Rust always bounds connection setup to 3 seconds for a pinned client.
+  /// [timeoutMs] limits the whole request when a short operation, such as
+  /// cancellation, must finish even if the connected peer stops responding.
+  RsHttpClient pinnedTo(String fingerprint, {int? timeoutMs}) {
     return createClient(
       privateKey: _privateKey,
       cert: _certificate,
       version: LsHttpClientVersion.v2,
       expectedFingerprint: fingerprint,
+      timeoutMs: timeoutMs,
     );
   }
 }

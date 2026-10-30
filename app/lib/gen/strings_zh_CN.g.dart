@@ -232,6 +232,8 @@ class Translations$sendTab$zh_CN extends Translations$sendTab$en {
   String get help => '请确保目标连接到同一个 Wi‑Fi 网络。';
   @override
   String get placeItems => '列出要分享的项目。';
+  @override
+  String get noHttpChannel => '此设备没有可用的传输地址。请重新搜索设备后再试。';
 }
 
 // Path: settingsTab
@@ -799,7 +801,7 @@ class Translations$assetPicker$zh_CN extends Translations$assetPicker$en {
   @override
   String get select => '选择';
   @override
-  String get emptyList => '列表为空';
+  String get emptyList => '清空列表';
   @override
   String get unSupportedAssetType => '不支持该文件格式';
   @override
@@ -954,7 +956,7 @@ class Translations$settingsTab$general$zh_CN extends Translations$settingsTab$ge
   @override
   String get launchAtStartup => '登录系统后自动启动程序';
   @override
-  String get launchMinimized => '自动启动时隐藏窗口';
+  String get launchMinimized => '启动时最小化到任务栏';
   @override
   String get showInContextMenu => '在“发送到...”文件菜单中显示 LocalSend';
   @override

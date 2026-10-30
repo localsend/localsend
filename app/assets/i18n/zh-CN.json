@@ -82,7 +82,8 @@
     },
     "sendModeHelp": "提示",
     "help": "请确保目标连接到同一个 Wi‑Fi 网络。",
-    "placeItems": "列出要分享的项目。"
+    "placeItems": "列出要分享的项目。",
+    "noHttpChannel": "此设备没有可用的传输地址。请重新搜索设备后再试。"
   },
   "settingsTab": {
     "title": "设置",
@@ -108,7 +109,7 @@
       "saveWindowPlacementWindows": "退出时保存窗口位置",
       "minimizeToTray": "关闭时最小化到系统托盘",
       "launchAtStartup": "登录系统后自动启动程序",
-      "launchMinimized": "自动启动时隐藏窗口",
+      "launchMinimized": "启动时最小化到任务栏",
       "showInContextMenu": "在“发送到...”文件菜单中显示 LocalSend",
       "animations": "动画效果"
     },
@@ -552,7 +553,7 @@
     "original": "原文件",
     "preview": "预览",
     "select": "选择",
-    "emptyList": "列表为空",
+    "emptyList": "清空列表",
     "unSupportedAssetType": "不支持该文件格式",
     "unableToAccessAll": "无法访问设备上的所有文件",
     "viewingLimitedAssetsTip": "应用程序仅能查看您允许的文件和相册。",
