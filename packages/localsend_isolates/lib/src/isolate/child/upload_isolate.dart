@@ -13,9 +13,6 @@ import 'package:pool/pool.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 import 'package:typed_isolates/typed_isolates.dart';
 
-/// How many files of a [HttpUploadFilesTask] are uploaded in parallel.
-const _concurrency = 2;
-
 /// How often a single file is uploaded at most when the receiver keeps
 /// rejecting it with a checksum mismatch (HTTP 422).
 /// Must not exceed MAX_UPLOAD_ATTEMPTS of the Rust server which stops
@@ -43,17 +40,19 @@ class HttpUploadFile {
 /// Uploads a list of files as one isolate task.
 ///
 /// This task is intended to replace the file scheduling loop in the parent
-/// isolate. Up to [_concurrency] files are uploaded in parallel and progress
+/// isolate. Up to [concurrency] files are uploaded in parallel and progress
 /// is reported across the complete list.
 class HttpUploadFilesTask implements BaseHttpUploadTask {
   final String? remoteSessionId;
   final List<HttpUploadFile> files;
   final Device device;
+  final int concurrency;
 
   HttpUploadFilesTask({
     required this.remoteSessionId,
     required this.files,
     required this.device,
+    required this.concurrency,
   });
 }
 
@@ -143,7 +142,7 @@ Future<void> setupHttpUploadIsolate(
       final cancelToken = createCancellationToken();
       ref.read(_cancelTokenProvider).putIfAbsent(task.id, () => cancelToken);
       try {
-        await Pool(_concurrency).forEach<HttpUploadFile, void>(uploadTask.files, (file) async {
+        await Pool(uploadTask.concurrency).forEach<HttpUploadFile, void>(uploadTask.files, (file) async {
           if (!ref.read(_cancelTokenProvider).containsKey(task.id)) {
             // the task was canceled, do not upload the remaining files
             return;

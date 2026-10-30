@@ -16,6 +16,7 @@ import 'package:localsend_app/util/native/open_folder.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_app/util/native/taskbar_helper.dart';
 import 'package:localsend_app/util/notification_strings.dart';
+import 'package:localsend_app/util/send_order_sorter.dart';
 import 'package:localsend_app/util/ui/nav_bar_padding.dart';
 import 'package:localsend_app/widget/custom_progress_bar.dart';
 import 'package:localsend_app/widget/dialogs/cancel_session_dialog.dart';
@@ -120,7 +121,11 @@ class _ProgressPageState extends State<ProgressPage> with Refena {
         } else {
           final sendSession = ref.read(sendProvider)[widget.sessionId];
           if (sendSession != null) {
-            _files = sendSession.files.values.map((f) => f.file).toList();
+            _files = sortBySendOrder(
+              sendSession.files.values.map((f) => f.file).toList(),
+              ref.read(settingsProvider).sendOrder,
+              (file) => file.size,
+            );
           }
         }
 
