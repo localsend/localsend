@@ -258,6 +258,9 @@ class Translations$sendTab$en {
 
   /// en: 'Place items to share.'
   String get placeItems => 'Place items to share.';
+
+  /// en: 'No transfer address is available for this device. Search for devices and try again.'
+  String get noHttpChannel => 'No transfer address is available for this device. Search for devices and try again.';
 }
 
 // Path: settingsTab

@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/model/cross_file.dart';
 import 'package:localsend_app/model/send_mode.dart';
 import 'package:localsend_app/model/state/send/send_session_state.dart';
@@ -14,6 +15,7 @@ import 'package:localsend_app/provider/file_transfer_provider.dart';
 import 'package:localsend_app/provider/http_provider.dart';
 import 'package:localsend_app/provider/selection/selected_sending_files_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
+import 'package:localsend_app/util/prepare_upload_fallback.dart';
 import 'package:localsend_app/widget/dialogs/pin_dialog.dart';
 import 'package:localsend_isolates/isolate.dart';
 import 'package:localsend_isolates/model/device.dart';
@@ -36,6 +38,7 @@ import 'package:uri_content/uri_content.dart';
 import 'package:uuid/uuid.dart';
 
 const _uuid = Uuid();
+const _cancelRequestTimeoutMs = 3000;
 final _logger = Logger('Send');
 
 /// This provider manages sending files to other devices.
@@ -248,6 +251,10 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
       },
     );
 
+    final channels = prepareUploadChannels(target);
+    var channelIndex = 0;
+    bool isActive() => state[sessionId]?.status == SessionStatus.waiting;
+
     rust_http.PrepareUploadResult? response;
     bool invalidPin;
     bool pinFirstAttempt = true;
@@ -258,24 +265,67 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
       do {
         invalidPin = false;
         try {
-          response = await client.prepareUpload(
-            protocol: target.getProtocolType(),
-            ip: target.ip!,
-            port: target.port,
-            payload: requestDto,
-            // The peer is already verified during the TLS handshake by the
-            // fingerprint the client is pinned to.
-            publicKey: null,
-            pin: pin,
-            cancelToken: prepareUploadCancelToken,
+          final prepared = await prepareUploadWithFallback(
+            channels: channels,
+            startIndex: channelIndex,
+            isActive: isActive,
+            onAttempt: (index) {
+              channelIndex = index;
+              if (index > 0) {
+                _logger.info('Trying alternate prepare-upload channel ${channels[index].host}:${channels[index].port}');
+              }
+            },
+            attempt: (channel) => client.prepareUpload(
+              protocol: channel.https ? rust_model.ProtocolType.https : rust_model.ProtocolType.http,
+              ip: channel.host,
+              port: channel.port,
+              payload: requestDto,
+              publicKey: null,
+              pin: pin,
+              cancelToken: prepareUploadCancelToken,
+            ),
+          );
+          if (!isActive()) {
+            // Acceptance can race with local cancellation. Close any session
+            // created by that late reply on the endpoint that actually replied.
+            final remoteSessionId = prepared.response.response?.sessionId;
+            if (remoteSessionId != null) {
+              try {
+                await ref
+                    .read(httpProvider)
+                    .pinnedTo(target.fingerprint, timeoutMs: _cancelRequestTimeoutMs)
+                    .cancel(
+                      protocol: prepared.channel.https ? rust_model.ProtocolType.https : rust_model.ProtocolType.http,
+                      ip: prepared.channel.host,
+                      port: prepared.channel.port,
+                      sessionId: remoteSessionId,
+                    );
+              } catch (e, stack) {
+                _logger.warning('Could not cancel late prepare-upload response', e, stack);
+              }
+            }
+            return;
+          }
+          response = prepared.response;
+          state = state.updateSession(
+            sessionId: sessionId,
+            state: (s) => s?.copyWith(
+              target: s.target.copyWith(ip: prepared.channel.host, port: prepared.channel.port, https: prepared.channel.https),
+            ),
           );
         } on rust_http.RsHttpClientError_StatusCode catch (e) {
+          if (!isActive()) {
+            return;
+          }
           switch (e.status) {
             case 401:
               invalidPin = true;
 
               // wait until animation is finished
               await sleepAsync(500);
+              if (!isActive()) {
+                return;
+              }
 
               pin = await showDialog<String>(
                 context: Routerino.context, // ignore: use_build_context_synchronously
@@ -285,6 +335,9 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
                 ),
               );
 
+              if (!isActive()) {
+                return;
+              }
               pinFirstAttempt = false;
 
               if (pin == null) {
@@ -332,11 +385,14 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
               return;
           }
         } catch (e) {
+          if (!isActive()) {
+            return;
+          }
           state = state.updateSession(
             sessionId: sessionId,
             state: (s) => s?.copyWith(
               status: SessionStatus.finishedWithErrors,
-              errorMessage: e.humanErrorMessage,
+              errorMessage: e is NoHttpChannelException ? t.sendTab.noHttpChannel : e.humanErrorMessage,
             ),
           );
           return;
@@ -724,18 +780,22 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
     // notify the receiver
     final target = sessionState.target;
     try {
-      ref
-          .read(httpProvider)
-          .pinnedTo(target.fingerprint)
-          // ignore: discarded_futures
-          .cancel(
-            protocol: target.getProtocolType(),
-            ip: target.ip!,
-            port: target.port,
-            sessionId: remoteSessionId,
-          );
-    } catch (e) {
-      _logger.warning('Error while canceling session', e);
+      unawaited(
+        ref
+            .read(httpProvider)
+            .pinnedTo(target.fingerprint, timeoutMs: _cancelRequestTimeoutMs)
+            .cancel(
+              protocol: target.getProtocolType(),
+              ip: target.ip!,
+              port: target.port,
+              sessionId: remoteSessionId,
+            )
+            .catchError((Object e, StackTrace stack) {
+              _logger.warning('Error while canceling session', e, stack);
+            }),
+      );
+    } catch (e, stack) {
+      _logger.warning('Error while canceling session', e, stack);
     }
 
     // finally, close session locally
