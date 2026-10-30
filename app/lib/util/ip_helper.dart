@@ -2,6 +2,11 @@ import 'package:collection/collection.dart';
 
 extension StringIpExt on String {
   String get visualId => split('.').last;
+
+  String withPort(int port) {
+    final isIpv6 = contains(':');
+    return isIpv6 ? '[$this]:$port' : '$this:$port';
+  }
 }
 
 class IpHelper {

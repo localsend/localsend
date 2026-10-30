@@ -119,7 +119,7 @@ class _AddressInputDialogState extends State<AddressInputDialog> with Refena {
 
   @override
   Widget build(BuildContext context) {
-    final localIps = (ref.watch(localIpProvider.select((info) => info.localIps))).uniqueIpPrefix;
+    final localIps = (ref.watch(localIpProvider.select((info) => info.localIpv4Ips))).uniqueIpPrefix;
     final settings = ref.watch(settingsProvider);
     final lastDevices = ref.watch(lastDevicesProvider);
 
