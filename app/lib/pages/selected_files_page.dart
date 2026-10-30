@@ -102,35 +102,41 @@ class SelectedFilesPage extends StatelessWidget {
                                 ),
                               ),
                               if (file.fileType == FileType.text && file.bytes != null)
-                                TextButton(
+                                Tooltip(
+                                  message: t.general.edit,
+                                  child: TextButton(
+                                    style: TextButton.styleFrom(
+                                      foregroundColor: Theme.of(context).colorScheme.onSurface,
+                                      iconSize: 24,
+                                    ),
+                                    onPressed: () async {
+                                      final result = await showDialog<String>(
+                                        context: context,
+                                        builder: (_) => MessageInputDialog(initialText: message),
+                                      );
+                                      if (result != null) {
+                                        ref.redux(selectedSendingFilesProvider).dispatch(UpdateMessageAction(message: result, index: index));
+                                      }
+                                    },
+                                    child: const Icon(Icons.edit),
+                                  ),
+                                ),
+                              Tooltip(
+                                message: t.general.delete,
+                                child: TextButton(
                                   style: TextButton.styleFrom(
                                     foregroundColor: Theme.of(context).colorScheme.onSurface,
                                     iconSize: 24,
                                   ),
-                                  onPressed: () async {
-                                    final result = await showDialog<String>(
-                                      context: context,
-                                      builder: (_) => MessageInputDialog(initialText: message),
-                                    );
-                                    if (result != null) {
-                                      ref.redux(selectedSendingFilesProvider).dispatch(UpdateMessageAction(message: result, index: index));
+                                  onPressed: () {
+                                    final currCount = ref.read(selectedSendingFilesProvider).length;
+                                    ref.redux(selectedSendingFilesProvider).dispatch(RemoveSelectedFileAction(index));
+                                    if (currCount == 1) {
+                                      context.popUntilRoot();
                                     }
                                   },
-                                  child: const Icon(Icons.edit),
+                                  child: const Icon(Icons.delete),
                                 ),
-                              TextButton(
-                                style: TextButton.styleFrom(
-                                  foregroundColor: Theme.of(context).colorScheme.onSurface,
-                                  iconSize: 24,
-                                ),
-                                onPressed: () {
-                                  final currCount = ref.read(selectedSendingFilesProvider).length;
-                                  ref.redux(selectedSendingFilesProvider).dispatch(RemoveSelectedFileAction(index));
-                                  if (currCount == 1) {
-                                    context.popUntilRoot();
-                                  }
-                                },
-                                child: const Icon(Icons.delete),
                               ),
                             ],
                           ),

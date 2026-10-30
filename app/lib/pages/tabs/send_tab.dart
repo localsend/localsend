@@ -98,6 +98,7 @@ class SendTab extends StatelessWidget {
                           const Spacer(),
                           CustomIconButton(
                             onPressed: () => ref.redux(selectedSendingFilesProvider).dispatch(ClearSelectionAction()),
+                            tooltip: t.general.clear,
                             child: Icon(Icons.close, color: Theme.of(context).colorScheme.secondary),
                           ),
                           const SizedBox(width: 5),

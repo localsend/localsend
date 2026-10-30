@@ -34,6 +34,23 @@ import 'package:refena_flutter/refena_flutter.dart';
 import 'package:routerino/routerino.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+/// The spoken name of a device type. The enum's own name is an identifier,
+/// not a word a person would say.
+String _deviceTypeName(DeviceType type) {
+  switch (type) {
+    case DeviceType.mobile:
+      return t.settingsTab.network.deviceTypes.mobile;
+    case DeviceType.desktop:
+      return t.settingsTab.network.deviceTypes.desktop;
+    case DeviceType.web:
+      return t.settingsTab.network.deviceTypes.web;
+    case DeviceType.headless:
+      return t.settingsTab.network.deviceTypes.headless;
+    case DeviceType.server:
+      return t.settingsTab.network.deviceTypes.server;
+  }
+}
+
 class SettingsTab extends StatelessWidget {
   const SettingsTab();
 
@@ -418,7 +435,10 @@ class SettingsTab extends StatelessWidget {
                         return DropdownMenuItem(
                           value: type,
                           alignment: Alignment.center,
-                          child: Icon(type.icon),
+                          child: Semantics(
+                            label: _deviceTypeName(type),
+                            child: Icon(type.icon),
+                          ),
                         );
                       }).toList(),
                       onChanged: (type) async {
@@ -623,8 +643,9 @@ class _SettingsEntry extends StatelessWidget {
   final String label;
   final Widget child;
   final String? description;
+  final bool excludeLabelSemantics;
 
-  const _SettingsEntry({required this.label, required this.child, this.description});
+  const _SettingsEntry({required this.label, required this.child, this.description, this.excludeLabelSemantics = false});
 
   @override
   Widget build(BuildContext context) {
@@ -636,7 +657,7 @@ class _SettingsEntry extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(label),
+                Semantics(excludeSemantics: excludeLabelSemantics, child: Text(label)),
                 if (description != null)
                   Text(
                     description!,
@@ -676,29 +697,37 @@ class _BooleanEntry extends StatelessWidget {
     return _SettingsEntry(
       label: label,
       description: description,
-      child: Stack(
-        children: [
-          Container(
-            width: double.infinity,
-            height: 50,
-            decoration: BoxDecoration(
-              color: theme.inputDecorationTheme.fillColor,
-              borderRadius: theme.inputDecorationTheme.borderRadius,
-            ),
-          ),
-          Positioned.fill(
-            child: Center(
-              child: Switch(
-                value: value,
-                onChanged: onChanged,
-                activeTrackColor: theme.colorScheme.primary,
-                activeThumbColor: theme.colorScheme.onPrimary,
-                inactiveThumbColor: theme.colorScheme.outline,
-                inactiveTrackColor: theme.colorScheme.surface,
+      excludeLabelSemantics: true,
+      // The switch carries the name. The visible text beside it would be
+      // announced a second time without this.
+      child: MergeSemantics(
+        child: Semantics(
+          label: label,
+          child: Stack(
+            children: [
+              Container(
+                width: double.infinity,
+                height: 50,
+                decoration: BoxDecoration(
+                  color: theme.inputDecorationTheme.fillColor,
+                  borderRadius: theme.inputDecorationTheme.borderRadius,
+                ),
               ),
-            ),
+              Positioned.fill(
+                child: Center(
+                  child: Switch(
+                    value: value,
+                    onChanged: onChanged,
+                    activeTrackColor: theme.colorScheme.primary,
+                    activeThumbColor: theme.colorScheme.onPrimary,
+                    inactiveTrackColor: theme.colorScheme.outline,
+                    inactiveThumbColor: theme.colorScheme.surface,
+                  ),
+                ),
+              ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }

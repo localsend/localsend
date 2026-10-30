@@ -163,12 +163,14 @@ class _CornerButtons extends StatelessWidget {
                   onPressed: () async {
                     await context.push(() => const ReceiveHistoryPage());
                   },
+                  tooltip: t.receiveHistoryPage.title,
                   child: const Icon(Icons.history),
                 ),
               ),
             CustomIconButton(
               key: const ValueKey('info-btn'),
               onPressed: toggleAdvanced,
+              tooltip: showAdvanced ? t.general.hide : t.general.advanced,
               child: const Icon(Icons.info),
             ),
           ],
