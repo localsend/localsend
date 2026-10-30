@@ -19,6 +19,16 @@ void main() {
   late List<MethodCall> windowCalls;
   late List<MethodCall> screenCalls;
   var nativeRestoreResult = false;
+  late List<Rect> visibleDisplays;
+
+  Map<String, Object> displayFor(Rect bounds, int index) => {
+    'id': '$index',
+    'name': 'Display $index',
+    'size': {'width': bounds.width, 'height': bounds.height},
+    'visibleSize': {'width': bounds.width, 'height': bounds.height},
+    'visiblePosition': {'dx': bounds.left, 'dy': bounds.top},
+    'scaleFactor': 1.0,
+  };
 
   setUp(() {
     debugDefaultTargetPlatformOverride = TargetPlatform.macOS;
@@ -27,6 +37,7 @@ void main() {
     windowCalls = [];
     screenCalls = [];
     nativeRestoreResult = false;
+    visibleDisplays = [const Rect.fromLTWH(0, 0, 1440, 900)];
     when(persistence.getSaveWindowPlacement()).thenReturn(true);
     when(persistence.isPortableMode()).thenReturn(false);
     when(persistence.getWindowLastDimensions()).thenReturn(legacyFrame);
@@ -44,17 +55,10 @@ void main() {
     });
     messenger.setMockMethodCallHandler(screenChannel, (call) async {
       screenCalls.add(call);
-      final display = {
-        'id': 'primary',
-        'name': 'Primary',
-        'size': {'width': 1440.0, 'height': 900.0},
-        'visibleSize': {'width': 1440.0, 'height': 900.0},
-        'visiblePosition': {'dx': 0.0, 'dy': 0.0},
-        'scaleFactor': 1.0,
-      };
+      final display = displayFor(visibleDisplays.first, 0);
       if (call.method == 'getAllDisplays') {
         return {
-          'displays': [display],
+          'displays': [for (var i = 0; i < visibleDisplays.length; i++) displayFor(visibleDisplays[i], i)],
         };
       }
       if (call.method == 'getPrimaryDisplay') return display;
@@ -155,5 +159,97 @@ void main() {
     expect(windowCalls.map((call) => call.method), ['setMinimumSize', 'setBounds', 'setBounds']);
     expect((windowCalls[2].arguments as Map)['x'], legacyFrame.position.dx);
     expect((windowCalls[2].arguments as Map)['y'], legacyFrame.position.dy);
+  });
+
+  final geometryCases = <({String name, List<Rect> displays, Offset position, Size? size, bool expected})>[
+    (
+      name: 'visible top inset retains bottom edge',
+      displays: [const Rect.fromLTWH(0, 25, 1440, 875)],
+      position: const Offset(500, 395),
+      size: const Size(900, 500),
+      expected: true,
+    ),
+    (
+      name: 'visible left inset retains right edge',
+      displays: [const Rect.fromLTWH(60, 25, 1380, 875)],
+      position: const Offset(535, 100),
+      size: const Size(900, 600),
+      expected: true,
+    ),
+    (
+      name: 'vertical displays accept a saved frame',
+      displays: [const Rect.fromLTWH(0, 0, 1440, 900), const Rect.fromLTWH(0, 900, 1440, 900)],
+      position: const Offset(100, 1000),
+      size: const Size(900, 600),
+      expected: true,
+    ),
+    (
+      name: 'left display does not extend the right boundary',
+      displays: [const Rect.fromLTWH(-1280, 0, 1280, 900), const Rect.fromLTWH(0, 0, 1920, 1080)],
+      position: const Offset(2500, 100),
+      size: const Size(500, 500),
+      expected: false,
+    ),
+    (
+      name: 'position-only rejects the phantom right area',
+      displays: [const Rect.fromLTWH(-1280, 0, 1280, 900), const Rect.fromLTWH(0, 0, 1920, 1080)],
+      position: const Offset(2500, 100),
+      size: null,
+      expected: false,
+    ),
+    (
+      name: 'bounding rectangle retains existing gap behavior',
+      displays: [const Rect.fromLTWH(0, 0, 1000, 900), const Rect.fromLTWH(2000, 0, 1000, 900)],
+      position: const Offset(1200, 100),
+      size: const Size(500, 500),
+      expected: true,
+    ),
+    (
+      name: 'ordinary zero-origin frame remains accepted',
+      displays: [const Rect.fromLTWH(0, 0, 1440, 900)],
+      position: const Offset(120, 80),
+      size: const Size(700, 550),
+      expected: true,
+    ),
+  ];
+
+  for (final c in geometryCases) {
+    test('legacy geometry: ${c.name}', () async {
+      visibleDisplays = c.displays;
+      expect(await WindowDimensionsController(persistence).isInScreenBounds(c.position, c.size), c.expected);
+    });
+  }
+
+  for (final portable in [false, true]) {
+    test('macOS portable=$portable restores a legacy frame at the visible bottom edge', () async {
+      when(persistence.isPortableMode()).thenReturn(portable);
+      visibleDisplays = [const Rect.fromLTWH(0, 25, 1440, 875)];
+      when(persistence.getWindowLastDimensions()).thenReturn(
+        WindowDimensions(position: const Offset(500, 395), size: const Size(900, 500)),
+      );
+
+      await WindowDimensionsController(persistence).initDimensionsConfiguration();
+
+      expect(windowCalls.map((call) => call.method), ['setMinimumSize', 'setBounds', 'setBounds']);
+      expect((windowCalls[1].arguments as Map)['height'], 500.0);
+      expect((windowCalls[2].arguments as Map)['x'], 500.0);
+      expect((windowCalls[2].arguments as Map)['y'], 395.0);
+      expect(screenCalls.map((call) => call.method), ['getAllDisplays']);
+      expect(nativeCalls.map((call) => call.method), portable ? <String>[] : ['restoreWindowFrame', 'configureWindowFrameAutosave']);
+    });
+  }
+
+  test('portable macOS does not persist positions beyond the visible desktop', () async {
+    when(persistence.isPortableMode()).thenReturn(true);
+    visibleDisplays = [const Rect.fromLTWH(-1280, 0, 1280, 900), const Rect.fromLTWH(0, 0, 1920, 1080)];
+    final controller = WindowDimensionsController(persistence);
+
+    await controller.storeDimensions(windowOffset: const Offset(2500, 100), windowSize: const Size(500, 500));
+    await controller.storePosition(windowOffset: const Offset(2500, 100));
+
+    verifyNever(persistence.setWindowOffsetX(any));
+    verifyNever(persistence.setWindowOffsetY(any));
+    verifyNever(persistence.setWindowWidth(any));
+    verifyNever(persistence.setWindowHeight(any));
   });
 }
