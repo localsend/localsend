@@ -14,6 +14,7 @@ import 'package:localsend_app/util/determine_image_type.dart';
 import 'package:localsend_app/util/image_converter.dart';
 import 'package:localsend_app/util/native/channel/android_channel.dart' as android_channel;
 import 'package:localsend_app/util/native/cross_file_converters.dart';
+import 'package:localsend_app/util/native/linux_file_dialog.dart';
 import 'package:localsend_app/util/native/pick_directory_path.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_app/util/ui/asset_picker_translated_text_delegate.dart';
@@ -143,6 +144,34 @@ class PickFileAction extends AsyncGlobalAction {
   }
 }
 
+@visibleForTesting
+Future<List<XFile>> pickDesktopFiles({
+  required Future<List<String>> Function() pickNative,
+  required Future<List<XFile>> Function() pickFallback,
+}) async {
+  if (defaultTargetPlatform == TargetPlatform.linux) {
+    try {
+      final paths = await pickNative();
+      return paths.map((path) => XFile(path)).toList();
+    } catch (e) {
+      _logger.warning('Linux file dialog failed, falling back to file_selector', e);
+    }
+  }
+
+  return await pickFallback();
+}
+
+Future<List<XFile>> _pickDesktopFiles() {
+  return pickDesktopFiles(
+    pickNative: () => openFilesLinux(
+      title: t.dialogs.openFile.title,
+      acceptLabel: t.general.open,
+      cancelLabel: t.general.cancel,
+    ),
+    pickFallback: () => openFiles(confirmButtonText: t.general.open),
+  );
+}
+
 Future<void> _pickFiles(BuildContext context, Ref ref) async {
   if (checkPlatform([TargetPlatform.android])) {
     // On android, the files are copied to the cache which takes some time.
@@ -167,7 +196,7 @@ Future<void> _pickFiles(BuildContext context, Ref ref) async {
             );
       }
     } else {
-      final result = await openFiles();
+      final result = await _pickDesktopFiles();
       await ref
           .redux(selectedSendingFilesProvider)
           .dispatchAsync(

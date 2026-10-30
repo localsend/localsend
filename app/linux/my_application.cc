@@ -9,6 +9,7 @@
 #include <gdk/gdkwayland.h>
 #endif
 
+#include "file_dialog.h"
 #include "flutter/generated_plugin_registrant.h"
 
 #include <stdlib.h>
@@ -96,6 +97,7 @@ static void my_application_activate(GApplication* application) {
   gtk_container_add(GTK_CONTAINER(window), GTK_WIDGET(view));
 
   fl_register_plugins(FL_PLUGIN_REGISTRY(view));
+  file_dialog_register(view, window);
 
   if (!start_hidden) {
     gtk_widget_grab_focus(GTK_WIDGET(view));
