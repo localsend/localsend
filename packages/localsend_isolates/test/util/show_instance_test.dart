@@ -218,7 +218,14 @@ void main() {
     expect(stopwatch.elapsed, lessThan(const Duration(seconds: 2)));
   });
 
-  test('does not treat other bind errors as a port in use', () {
+  test('only treats address-in-use as a port in use', () {
+    final addressInUse = switch (Platform.operatingSystem) {
+      'windows' => 10048,
+      'macos' || 'ios' => 48,
+      _ => 98,
+    };
+    expect(isAddressInUse(SocketException('bind failed', osError: OSError('address in use', addressInUse))), isTrue);
+
     // e.g. a port inside a range reserved by Windows (WSAEACCES) or a privileged port (EACCES)
     expect(isAddressInUse(const SocketException('bind failed', osError: OSError('access denied', 10013))), isFalse);
     expect(isAddressInUse(const SocketException('bind failed', osError: OSError('permission denied', 13))), isFalse);
