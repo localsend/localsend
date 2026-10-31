@@ -56,6 +56,7 @@ class ReceiveOptionsPage extends StatelessWidget {
                               ref.notifier(serverProvider).setSessionDestinationDir(directory);
                             }
                           },
+                          tooltip: t.receiveOptionsPage.changeDestination,
                           child: const Icon(Icons.edit),
                         ),
                       ),
@@ -177,9 +178,13 @@ class ReceiveOptionsPage extends StatelessWidget {
                                 ref.notifier(selectedReceivingFilesProvider).rename(file.id, result);
                               }
                             },
+                      tooltip: t.general.edit,
                       child: const Icon(Icons.edit),
                     ),
                     Checkbox(
+                      // The name belongs on the control, or it is spoken twice:
+                      // once by the checkbox and once by the text beside it.
+                      semanticLabel: selectState[file.id] ?? file.fileName,
                       value: selectState.containsKey(file.id),
                       activeColor: Theme.of(context).colorScheme.onSurface,
                       checkColor: Theme.of(context).colorScheme.surface,

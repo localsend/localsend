@@ -98,6 +98,9 @@ class Translations$general$en {
   /// en: 'Cancel'
   String get cancel => 'Cancel';
 
+  /// en: 'Clear'
+  String get clear => 'Clear';
+
   /// en: 'Close'
   String get close => 'Close';
 
@@ -134,11 +137,17 @@ class Translations$general$en {
   /// en: 'Files'
   String get files => 'Files';
 
+  /// en: 'Filter'
+  String get filter => 'Filter';
+
   /// en: 'Finished'
   String get finished => 'Finished';
 
   /// en: 'Hide'
   String get hide => 'Hide';
+
+  /// en: 'More'
+  String get more => 'More';
 
   /// en: 'Off'
   String get off => 'Off';
@@ -173,8 +182,14 @@ class Translations$general$en {
   /// en: 'Restart'
   String get restart => 'Restart';
 
+  /// en: 'Retry'
+  String get retry => 'Retry';
+
   /// en: 'Settings'
   String get settings => 'Settings';
+
+  /// en: 'Show details'
+  String get showDetails => 'Show details';
 
   /// en: 'Skipped'
   String get skipped => 'Skipped';
@@ -373,6 +388,16 @@ class Translations$apkPickerPage$en {
 
   /// en: '{n} Apps'
   String apps({required Object n}) => '${n} Apps';
+
+  /// en: '(one) {Add 1 app} (other) {Add {n} apps}'
+  String addApps({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('en'))(
+    n,
+    one: 'Add 1 app',
+    other: 'Add ${n} apps',
+  );
+
+  /// en: 'Select multiple apps'
+  String get selectMultipleApps => 'Select multiple apps';
 }
 
 // Path: selectedFilesPage
@@ -467,6 +492,9 @@ class Translations$receiveOptionsPage$en {
 
   /// en: 'Save to folder'
   String get destination => _root.settingsTab.receive.destination;
+
+  /// en: 'Change destination'
+  String get changeDestination => 'Change destination';
 
   /// en: '(LocalSend folder)'
   String get appDirectory => '(LocalSend folder)';
@@ -614,6 +642,15 @@ class Translations$aboutPage$en {
 
   /// en: 'Translators'
   String get translators => 'Translators';
+
+  /// en: 'Homepage'
+  String get homepage => 'Homepage';
+
+  /// en: 'License Notices'
+  String get licenseNotices => 'License Notices';
+
+  /// en: 'Debugging'
+  String get debugging => 'Debugging';
 }
 
 // Path: donationPage
@@ -1183,6 +1220,8 @@ class Translations$settingsTab$network$en {
 
   /// en: 'Device type'
   String get deviceType => 'Device type';
+
+  late final Translations$settingsTab$network$deviceTypes$en deviceTypes = Translations$settingsTab$network$deviceTypes$en.internal(_root);
 
   /// en: 'Device model'
   String get deviceModel => 'Device model';
@@ -1882,6 +1921,30 @@ class Translations$settingsTab$general$languageOptions$en {
 
   /// en: 'System'
   String get system => 'System';
+}
+
+// Path: settingsTab.network.deviceTypes
+class Translations$settingsTab$network$deviceTypes$en {
+  Translations$settingsTab$network$deviceTypes$en.internal(this._root);
+
+  final Translations _root; // ignore: unused_field
+
+  // Translations
+
+  /// en: 'Mobile'
+  String get mobile => 'Mobile';
+
+  /// en: 'Desktop'
+  String get desktop => 'Desktop';
+
+  /// en: 'Web'
+  String get web => 'Web';
+
+  /// en: 'Headless'
+  String get headless => 'Headless';
+
+  /// en: 'Server'
+  String get server => 'Server';
 }
 
 // Path: settingsTab.network.networkOptions

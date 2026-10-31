@@ -124,16 +124,19 @@ class _FavoriteEditDialogState extends State<FavoriteEditDialog> with Refena {
                     Text(t.general.error, style: TextStyle(color: Theme.of(context).colorScheme.warning)),
                     if (_error != null) ...[
                       const SizedBox(width: 5),
-                      InkWell(
-                        onTap: () async {
-                          await showDialog(
-                            context: context,
-                            builder: (_) => ErrorDialog(error: _error!),
-                          );
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 5),
-                          child: Icon(Icons.info, color: Theme.of(context).colorScheme.warning, size: 20),
+                      Tooltip(
+                        message: t.general.showDetails,
+                        child: InkWell(
+                          onTap: () async {
+                            await showDialog(
+                              context: context,
+                              builder: (_) => ErrorDialog(error: _error!),
+                            );
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 5),
+                            child: Icon(Icons.info, color: Theme.of(context).colorScheme.warning, size: 20),
+                          ),
                         ),
                       ),
                     ],
