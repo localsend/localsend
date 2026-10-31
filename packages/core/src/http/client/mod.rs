@@ -362,6 +362,8 @@ mod connect_timeout_tests {
     use super::*;
     use tokio::io::{AsyncReadExt, AsyncWriteExt};
 
+    /// The pinned client's 3-second connect timeout bounds connection setup
+    /// only; waiting for the response may take longer.
     #[tokio::test]
     async fn pinned_client_can_wait_longer_than_connect_timeout_for_response() {
         let identity = crate::crypto::cert::generate_self_signed().unwrap();

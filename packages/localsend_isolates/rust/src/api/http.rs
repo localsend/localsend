@@ -60,6 +60,9 @@ impl RsHttpClient {
         })
     }
 
+    /// Sends prepare-upload through the versioned client and classifies failures with
+    /// [`prepare_upload_error`], so a connection-setup failure surfaces as the retryable
+    /// [`RsHttpClientError::Unreachable`] while dispatched requests keep other categories.
     pub async fn prepare_upload(
         &self,
         protocol: ProtocolType,
@@ -284,6 +287,7 @@ fn prepare_upload_error(error: ClientError) -> RsHttpClientError {
 mod prepare_upload_error_tests {
     use super::*;
 
+    /// Builds a fingerprint-pinned test client and an empty prepare-upload payload.
     fn client_and_payload() -> (RsHttpClient, PrepareUploadRequestDto) {
         let identity = localsend::crypto::cert::generate_self_signed().unwrap();
         let client = create_client(
@@ -310,6 +314,9 @@ mod prepare_upload_error_tests {
         (client, payload)
     }
 
+    /// Serves one raw HTTP response on a local port. Returns the port, a signal that
+    /// fires once the response has been written, and the server task. With
+    /// `keep_open`, the connection never closes, so body reads stay pending.
     async fn response_peer(
         response: &'static [u8],
         keep_open: bool,
@@ -356,6 +363,7 @@ mod prepare_upload_error_tests {
         (port, ready_rx, task)
     }
 
+    /// A connection failure must not leak the PIN that the prepare URL carries.
     #[tokio::test]
     async fn prepare_upload_hides_pin_in_connection_error() {
         let (client, payload) = client_and_payload();
@@ -385,6 +393,8 @@ mod prepare_upload_error_tests {
         assert!(!message.contains("pin="));
     }
 
+    /// A TLS peer that never answers must surface as retryable `Unreachable`,
+    /// bounded by the pinned client's connect timeout.
     #[tokio::test]
     async fn prepare_upload_tls_connect_timeout_is_retryable() {
         let (client, payload) = client_and_payload();
@@ -416,6 +426,8 @@ mod prepare_upload_error_tests {
         assert!(started.elapsed() >= std::time::Duration::from_secs(2));
     }
 
+    /// Dialing an unroutable documentation-only IPv6 address must classify as
+    /// retryable `Unreachable`.
     #[tokio::test]
     async fn prepare_upload_ipv6_connect_failure_is_retryable() {
         let (client, payload) = client_and_payload();
@@ -439,6 +451,8 @@ mod prepare_upload_error_tests {
         eprintln!("IPv6 connection failure: {message}");
     }
 
+    /// Cancellation must also abort while waiting for response headers or a
+    /// truncated body, on both client versions.
     #[tokio::test]
     async fn prepare_upload_cancels_while_reading_response_body() {
         for version in [LsHttpClientVersion::V2, LsHttpClientVersion::V3] {
@@ -489,6 +503,7 @@ mod prepare_upload_error_tests {
         }
     }
 
+    /// A closed port must map to the distinct retryable `Unreachable` category.
     #[tokio::test]
     async fn prepare_upload_connection_failure_has_a_distinct_retry_error() {
         let (client, payload) = client_and_payload();
@@ -511,6 +526,8 @@ mod prepare_upload_error_tests {
         assert!(matches!(error, RsHttpClientError::Unreachable(_)));
     }
 
+    /// A dispatched request that fails while reading the response must stay out of
+    /// the retryable branch: retrying could create a second session.
     #[tokio::test]
     async fn only_connection_errors_enter_the_retry_branch() {
         use localsend::http::client::{LsHttpClient, LsHttpClientVersion};
@@ -569,6 +586,8 @@ mod prepare_upload_error_tests {
         ));
     }
 
+    /// Response/read failures and file IO errors keep their own categories and
+    /// must not be offered to the prepare-upload fallback.
     #[test]
     fn cancellation_and_file_io_have_separate_categories() {
         assert!(matches!(

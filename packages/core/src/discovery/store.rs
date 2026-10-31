@@ -428,6 +428,7 @@ mod tests {
         );
     }
 
+    /// A global-scope (ULA) IPv6 channel outranks a more recent IPv4 confirmation.
     #[test]
     fn test_get_channel_prefers_ipv6_over_ipv4() {
         let store = DeviceStore::new();
@@ -463,6 +464,8 @@ mod tests {
         );
     }
 
+    /// Equal-class channels keep discovery order, and a not-reachable channel
+    /// sorts last.
     #[test]
     fn test_get_channels_sorts_best_first() {
         let store = DeviceStore::new();
@@ -500,6 +503,7 @@ mod tests {
         );
     }
 
+    /// Link-local channels stay candidates, ranked after global IPv6 and IPv4.
     #[test]
     fn test_link_local_is_retained_after_ipv4_and_ula() {
         let store = DeviceStore::new();
@@ -516,6 +520,7 @@ mod tests {
         assert_eq!(known.channels.len(), 3);
     }
 
+    /// A device with only a link-local channel still exposes a best channel.
     #[test]
     fn test_link_local_only_device_still_has_a_best_channel() {
         let store = DeviceStore::new();
@@ -524,6 +529,8 @@ mod tests {
         assert_eq!(channel_host(known.get_best_channel().unwrap()), "fe80::1%3");
     }
 
+    /// Reachability status dominates scope: an available link-local beats a
+    /// failed global IPv6 channel.
     #[test]
     fn test_available_link_local_beats_failed_ula() {
         let store = DeviceStore::new();
@@ -538,6 +545,8 @@ mod tests {
         assert_eq!(channel_host(known.get_best_channel().unwrap()), "fe80::1%3");
     }
 
+    /// The preference classifies scope only: global/ULA IPv6, then IPv4 and
+    /// IPv4-mapped, with link-local, multicast, loopback and unknown hosts last.
     #[test]
     fn test_address_preference_is_scope_classification_not_reachability() {
         for (host, expected) in [
