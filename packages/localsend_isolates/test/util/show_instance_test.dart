@@ -71,7 +71,6 @@ void main() {
   Future<(HttpServer, _Received)> startStub({
     int statusCode = 200,
     Duration delay = Duration.zero,
-    InternetAddress? address,
   }) async {
     final context = SecurityContext(withTrustedRoots: false)
       ..useCertificateChainBytes(utf8.encode(identity.certificate))
@@ -80,7 +79,7 @@ void main() {
       ..setTrustedCertificatesBytes(utf8.encode(identity.certificate));
 
     final server = await HttpServer.bindSecure(
-      address ?? InternetAddress.loopbackIPv4,
+      InternetAddress.loopbackIPv4,
       0,
       context,
       requestClientCertificate: true,
@@ -173,8 +172,7 @@ void main() {
       markTestSkipped('Rust dylib not built (cargo build -p rust_lib_localsend_app)');
       return;
     }
-    // The real server binds the wildcard address, which is what the port check looks at.
-    final (server, received) = await startStub(address: InternetAddress.anyIPv4, delay: const Duration(seconds: 1));
+    final (server, received) = await startStub(delay: const Duration(seconds: 1));
     addTearDown(() => server.close(force: true));
 
     const args = [r'C:\Users\Test\holiday.png'];
@@ -187,10 +185,53 @@ void main() {
       connectionTimeout: const Duration(seconds: 10),
       responseTimeout: const Duration(milliseconds: 200),
       busyTimeout: const Duration(seconds: 10),
+      // The stub runs in this process, where Dart rejects a second bind before the OS sees it.
+      isPortInUse: (_) async => true,
     );
 
     expect(handedOver, isTrue, reason: 'a slow instance still holds the port, so a second instance would collide on it');
     expect(jsonDecode(received.body!), {'args': args});
+  });
+
+  test('does not wait when the port is not taken by an instance', () async {
+    if (!_findDylib().existsSync()) {
+      markTestSkipped('Rust dylib not built (cargo build -p rust_lib_localsend_app)');
+      return;
+    }
+    final (server, _) = await startStub(delay: const Duration(seconds: 2));
+    addTearDown(() => server.close(force: true));
+
+    final stopwatch = Stopwatch()..start();
+    final handedOver = await notifyRunningInstance(
+      securityContext: identity,
+      port: server.port,
+      https: true,
+      showToken: _token,
+      args: const [],
+      connectionTimeout: const Duration(seconds: 10),
+      responseTimeout: const Duration(milliseconds: 200),
+      busyTimeout: const Duration(seconds: 10),
+      isPortInUse: (_) async => false,
+    );
+
+    expect(handedOver, isFalse);
+    expect(stopwatch.elapsed, lessThan(const Duration(seconds: 2)));
+  });
+
+  test('recognizes the address-in-use error of this platform', () {
+    final code = switch (Platform.operatingSystem) {
+      'windows' => 10048,
+      'macos' || 'ios' => 48,
+      _ => 98,
+    };
+    expect(isAddressInUse(SocketException('bind failed', osError: OSError('address in use', code))), isTrue);
+  });
+
+  test('does not treat other bind errors as a port in use', () {
+    // e.g. a port inside a range reserved by Windows (WSAEACCES) or a privileged port (EACCES)
+    expect(isAddressInUse(const SocketException('bind failed', osError: OSError('access denied', 10013))), isFalse);
+    expect(isAddressInUse(const SocketException('bind failed', osError: OSError('permission denied', 13))), isFalse);
+    expect(isAddressInUse(const SocketException('bind failed')), isFalse);
   });
 
   test('reports no running instance when nothing listens', () async {
