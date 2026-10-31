@@ -55,7 +55,7 @@ extension RsHttpClientErrorPatterns on RsHttpClientError {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( RsHttpClientError_StatusCode value)?  statusCode,TResult Function( RsHttpClientError_Reqwest value)?  reqwest,TResult Function( RsHttpClientError_Json value)?  json,TResult Function( RsHttpClientError_Io value)?  io,TResult Function( RsHttpClientError_Other value)?  other,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( RsHttpClientError_StatusCode value)?  statusCode,TResult Function( RsHttpClientError_Reqwest value)?  reqwest,TResult Function( RsHttpClientError_Json value)?  json,TResult Function( RsHttpClientError_Io value)?  io,TResult Function( RsHttpClientError_Other value)?  other,TResult Function( RsHttpClientError_Unreachable value)?  unreachable,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
 case RsHttpClientError_StatusCode() when statusCode != null:
@@ -63,7 +63,8 @@ return statusCode(_that);case RsHttpClientError_Reqwest() when reqwest != null:
 return reqwest(_that);case RsHttpClientError_Json() when json != null:
 return json(_that);case RsHttpClientError_Io() when io != null:
 return io(_that);case RsHttpClientError_Other() when other != null:
-return other(_that);case _:
+return other(_that);case RsHttpClientError_Unreachable() when unreachable != null:
+return unreachable(_that);case _:
   return orElse();
 
 }
@@ -81,7 +82,7 @@ return other(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( RsHttpClientError_StatusCode value)  statusCode,required TResult Function( RsHttpClientError_Reqwest value)  reqwest,required TResult Function( RsHttpClientError_Json value)  json,required TResult Function( RsHttpClientError_Io value)  io,required TResult Function( RsHttpClientError_Other value)  other,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( RsHttpClientError_StatusCode value)  statusCode,required TResult Function( RsHttpClientError_Reqwest value)  reqwest,required TResult Function( RsHttpClientError_Json value)  json,required TResult Function( RsHttpClientError_Io value)  io,required TResult Function( RsHttpClientError_Other value)  other,required TResult Function( RsHttpClientError_Unreachable value)  unreachable,}){
 final _that = this;
 switch (_that) {
 case RsHttpClientError_StatusCode():
@@ -89,7 +90,8 @@ return statusCode(_that);case RsHttpClientError_Reqwest():
 return reqwest(_that);case RsHttpClientError_Json():
 return json(_that);case RsHttpClientError_Io():
 return io(_that);case RsHttpClientError_Other():
-return other(_that);}
+return other(_that);case RsHttpClientError_Unreachable():
+return unreachable(_that);}
 }
 /// A variant of `map` that fallback to returning `null`.
 ///
@@ -103,7 +105,7 @@ return other(_that);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( RsHttpClientError_StatusCode value)?  statusCode,TResult? Function( RsHttpClientError_Reqwest value)?  reqwest,TResult? Function( RsHttpClientError_Json value)?  json,TResult? Function( RsHttpClientError_Io value)?  io,TResult? Function( RsHttpClientError_Other value)?  other,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( RsHttpClientError_StatusCode value)?  statusCode,TResult? Function( RsHttpClientError_Reqwest value)?  reqwest,TResult? Function( RsHttpClientError_Json value)?  json,TResult? Function( RsHttpClientError_Io value)?  io,TResult? Function( RsHttpClientError_Other value)?  other,TResult? Function( RsHttpClientError_Unreachable value)?  unreachable,}){
 final _that = this;
 switch (_that) {
 case RsHttpClientError_StatusCode() when statusCode != null:
@@ -111,7 +113,8 @@ return statusCode(_that);case RsHttpClientError_Reqwest() when reqwest != null:
 return reqwest(_that);case RsHttpClientError_Json() when json != null:
 return json(_that);case RsHttpClientError_Io() when io != null:
 return io(_that);case RsHttpClientError_Other() when other != null:
-return other(_that);case _:
+return other(_that);case RsHttpClientError_Unreachable() when unreachable != null:
+return unreachable(_that);case _:
   return null;
 
 }
@@ -128,14 +131,15 @@ return other(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( int status,  String? message)?  statusCode,TResult Function( String field0)?  reqwest,TResult Function( String field0)?  json,TResult Function( String field0)?  io,TResult Function( String field0)?  other,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( int status,  String? message)?  statusCode,TResult Function( String field0)?  reqwest,TResult Function( String field0)?  json,TResult Function( String field0)?  io,TResult Function( String field0)?  other,TResult Function( String field0)?  unreachable,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case RsHttpClientError_StatusCode() when statusCode != null:
 return statusCode(_that.status,_that.message);case RsHttpClientError_Reqwest() when reqwest != null:
 return reqwest(_that.field0);case RsHttpClientError_Json() when json != null:
 return json(_that.field0);case RsHttpClientError_Io() when io != null:
 return io(_that.field0);case RsHttpClientError_Other() when other != null:
-return other(_that.field0);case _:
+return other(_that.field0);case RsHttpClientError_Unreachable() when unreachable != null:
+return unreachable(_that.field0);case _:
   return orElse();
 
 }
@@ -153,14 +157,15 @@ return other(_that.field0);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( int status,  String? message)  statusCode,required TResult Function( String field0)  reqwest,required TResult Function( String field0)  json,required TResult Function( String field0)  io,required TResult Function( String field0)  other,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( int status,  String? message)  statusCode,required TResult Function( String field0)  reqwest,required TResult Function( String field0)  json,required TResult Function( String field0)  io,required TResult Function( String field0)  other,required TResult Function( String field0)  unreachable,}) {final _that = this;
 switch (_that) {
 case RsHttpClientError_StatusCode():
 return statusCode(_that.status,_that.message);case RsHttpClientError_Reqwest():
 return reqwest(_that.field0);case RsHttpClientError_Json():
 return json(_that.field0);case RsHttpClientError_Io():
 return io(_that.field0);case RsHttpClientError_Other():
-return other(_that.field0);}
+return other(_that.field0);case RsHttpClientError_Unreachable():
+return unreachable(_that.field0);}
 }
 /// A variant of `when` that fallback to returning `null`
 ///
@@ -174,14 +179,15 @@ return other(_that.field0);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( int status,  String? message)?  statusCode,TResult? Function( String field0)?  reqwest,TResult? Function( String field0)?  json,TResult? Function( String field0)?  io,TResult? Function( String field0)?  other,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( int status,  String? message)?  statusCode,TResult? Function( String field0)?  reqwest,TResult? Function( String field0)?  json,TResult? Function( String field0)?  io,TResult? Function( String field0)?  other,TResult? Function( String field0)?  unreachable,}) {final _that = this;
 switch (_that) {
 case RsHttpClientError_StatusCode() when statusCode != null:
 return statusCode(_that.status,_that.message);case RsHttpClientError_Reqwest() when reqwest != null:
 return reqwest(_that.field0);case RsHttpClientError_Json() when json != null:
 return json(_that.field0);case RsHttpClientError_Io() when io != null:
 return io(_that.field0);case RsHttpClientError_Other() when other != null:
-return other(_that.field0);case _:
+return other(_that.field0);case RsHttpClientError_Unreachable() when unreachable != null:
+return unreachable(_that.field0);case _:
   return null;
 
 }
@@ -194,7 +200,7 @@ return other(_that.field0);case _:
 
 class RsHttpClientError_StatusCode extends RsHttpClientError {
   const RsHttpClientError_StatusCode({required this.status, this.message}): super._();
-  
+
 
  final  int status;
  final  String? message;
@@ -262,7 +268,7 @@ as String?,
 
 class RsHttpClientError_Reqwest extends RsHttpClientError {
   const RsHttpClientError_Reqwest(this.field0): super._();
-  
+
 
  final  String field0;
 
@@ -328,7 +334,7 @@ as String,
 
 class RsHttpClientError_Json extends RsHttpClientError {
   const RsHttpClientError_Json(this.field0): super._();
-  
+
 
  final  String field0;
 
@@ -394,7 +400,7 @@ as String,
 
 class RsHttpClientError_Io extends RsHttpClientError {
   const RsHttpClientError_Io(this.field0): super._();
-  
+
 
  final  String field0;
 
@@ -460,7 +466,7 @@ as String,
 
 class RsHttpClientError_Other extends RsHttpClientError {
   const RsHttpClientError_Other(this.field0): super._();
-  
+
 
  final  String field0;
 
@@ -513,6 +519,72 @@ class _$RsHttpClientError_OtherCopyWithImpl<$Res>
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') $Res call({Object? field0 = null,}) {
   return _then(RsHttpClientError_Other(
+null == field0 ? _self.field0 : field0 // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+
+}
+
+/// @nodoc
+
+
+class RsHttpClientError_Unreachable extends RsHttpClientError {
+  const RsHttpClientError_Unreachable(this.field0): super._();
+
+
+ final  String field0;
+
+/// Create a copy of RsHttpClientError
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$RsHttpClientError_UnreachableCopyWith<RsHttpClientError_Unreachable> get copyWith => _$RsHttpClientError_UnreachableCopyWithImpl<RsHttpClientError_Unreachable>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is RsHttpClientError_Unreachable&&(identical(other.field0, field0) || other.field0 == field0));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,field0);
+
+@override
+String toString() {
+  return 'RsHttpClientError.unreachable(field0: $field0)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $RsHttpClientError_UnreachableCopyWith<$Res> implements $RsHttpClientErrorCopyWith<$Res> {
+  factory $RsHttpClientError_UnreachableCopyWith(RsHttpClientError_Unreachable value, $Res Function(RsHttpClientError_Unreachable) _then) = _$RsHttpClientError_UnreachableCopyWithImpl;
+@useResult
+$Res call({
+ String field0
+});
+
+
+
+
+}
+/// @nodoc
+class _$RsHttpClientError_UnreachableCopyWithImpl<$Res>
+    implements $RsHttpClientError_UnreachableCopyWith<$Res> {
+  _$RsHttpClientError_UnreachableCopyWithImpl(this._self, this._then);
+
+  final RsHttpClientError_Unreachable _self;
+  final $Res Function(RsHttpClientError_Unreachable) _then;
+
+/// Create a copy of RsHttpClientError
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? field0 = null,}) {
+  return _then(RsHttpClientError_Unreachable(
 null == field0 ? _self.field0 : field0 // ignore: cast_nullable_to_non_nullable
 as String,
   ));
@@ -686,7 +758,7 @@ return failed(_that.error);case _:
 
 class RsUploadEvent_Progress extends RsUploadEvent {
   const RsUploadEvent_Progress({required this.progress}): super._();
-  
+
 
  final  double progress;
 
@@ -752,7 +824,7 @@ as double,
 
 class RsUploadEvent_Failed extends RsUploadEvent {
   const RsUploadEvent_Failed({required this.error}): super._();
-  
+
 
  final  RsHttpClientError error;
 
@@ -815,7 +887,7 @@ as RsHttpClientError,
 @override
 @pragma('vm:prefer-inline')
 $RsHttpClientErrorCopyWith<$Res> get error {
-  
+
   return $RsHttpClientErrorCopyWith<$Res>(_self.error, (value) {
     return _then(_self.copyWith(error: value));
   });

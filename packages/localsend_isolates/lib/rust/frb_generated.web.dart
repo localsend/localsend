@@ -6,22 +6,21 @@
 // Static analysis wrongly picks the IO variant, thus ignore this
 // ignore_for_file: argument_type_not_assignable
 
+import 'api/cancel.dart';
+import 'api/crypto.dart';
+import 'api/discovery.dart';
+import 'api/filename.dart';
+import 'api/http.dart';
+import 'api/logging.dart';
+import 'api/metadata.dart';
+import 'api/model.dart';
+import 'api/server.dart';
+import 'api/stream.dart';
+import 'api/webrtc.dart';
 import 'dart:async';
 import 'dart:convert';
-
+import 'frb_generated.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated_web.dart';
-import 'package:localsend_isolates/rust/api/cancel.dart';
-import 'package:localsend_isolates/rust/api/crypto.dart';
-import 'package:localsend_isolates/rust/api/discovery.dart';
-import 'package:localsend_isolates/rust/api/filename.dart';
-import 'package:localsend_isolates/rust/api/http.dart';
-import 'package:localsend_isolates/rust/api/logging.dart';
-import 'package:localsend_isolates/rust/api/metadata.dart';
-import 'package:localsend_isolates/rust/api/model.dart';
-import 'package:localsend_isolates/rust/api/server.dart';
-import 'package:localsend_isolates/rust/api/stream.dart';
-import 'package:localsend_isolates/rust/api/webrtc.dart';
-import 'package:localsend_isolates/rust/frb_generated.dart';
 import 'package:uuid/uuid.dart';
 
 abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {

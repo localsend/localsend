@@ -3,11 +3,10 @@
 
 // ignore_for_file: invalid_use_of_internal_member, unused_import, unnecessary_import
 
+import '../frb_generated.dart';
+import 'model.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 import 'package:freezed_annotation/freezed_annotation.dart' hide protected;
-import 'package:localsend_isolates/rust/api/model.dart';
-import 'package:localsend_isolates/rust/frb_generated.dart';
-
 part 'server.freezed.dart';
 
 // These functions are ignored because they are not marked as `pub`: `handle_server_event`, `handle_web_event`, `recv_opt`, `resolve_file_content`, `resolve_upload_target`, `stop`

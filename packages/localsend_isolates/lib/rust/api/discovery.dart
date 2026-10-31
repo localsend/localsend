@@ -3,9 +3,9 @@
 
 // ignore_for_file: invalid_use_of_internal_member, unused_import, unnecessary_import
 
+import '../frb_generated.dart';
+import 'model.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
-import 'package:localsend_isolates/rust/api/model.dart';
-import 'package:localsend_isolates/rust/frb_generated.dart';
 
 // These functions are ignored because they are not marked as `pub`: `rs_device_log`, `rs_stored_device`, `stop`
 // These types are ignored because they are neither used by any `pub` functions nor (for structs and enums) marked `#[frb(unignore)]`: `DiscoveryInstance`
