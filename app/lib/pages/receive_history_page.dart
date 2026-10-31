@@ -198,6 +198,7 @@ class ReceiveHistoryPage extends StatelessWidget {
                       ),
                       const SizedBox(width: 10),
                       PopupMenuButton<_EntryOption>(
+                        tooltip: t.general.more,
                         onSelected: (_EntryOption item) async {
                           switch (item) {
                             case _EntryOption.open:

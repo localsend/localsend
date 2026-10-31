@@ -20,7 +20,6 @@ class DebugEntry extends StatelessWidget {
         const SizedBox(height: 20),
         Text(name, style: headerStyle),
         CopyableText(
-          name: name,
           value: value,
         ),
       ],

@@ -24,6 +24,7 @@ class LanguagePage extends StatelessWidget {
             ...AppLocale.values,
           ].map((locale) {
             return ListTile(
+              selected: locale == activeLocale,
               onTap: () async {
                 await context.ref.notifier(settingsProvider).setLocale(locale);
                 if (locale == null) {

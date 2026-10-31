@@ -139,7 +139,7 @@ class AboutPage extends StatelessWidget {
                 onPressed: () async {
                   await launchUrl(Uri.parse('https://localsend.org'));
                 },
-                child: const Text('Homepage'),
+                child: Text(t.aboutPage.homepage),
               ),
               TextButton(
                 onPressed: () async {
@@ -163,13 +163,13 @@ class AboutPage extends StatelessWidget {
                 onPressed: () async {
                   await context.push(() => const LicensePage());
                 },
-                child: const Text('License Notices'),
+                child: Text(t.aboutPage.licenseNotices),
               ),
               TextButton(
                 onPressed: () async {
                   await context.push(() => const DebugPage());
                 },
-                child: const Text('Debugging'),
+                child: Text(t.aboutPage.debugging),
               ),
             ],
           ),

@@ -39,13 +39,17 @@ class QrDialog extends StatelessWidget {
             child: SizedBox(
               width: 200,
               height: 200,
-              child: PrettyQrView.data(
-                errorCorrectLevel: QrErrorCorrectLevel.Q,
-                data: data,
-                decoration: PrettyQrDecoration(
-                  shape: PrettyQrSmoothSymbol(
-                    roundFactor: 0,
-                    color: Theme.of(context).colorScheme.onSurface,
+              child: Semantics(
+                label: t.dialogs.qr.title,
+                image: true,
+                child: PrettyQrView.data(
+                  errorCorrectLevel: QrErrorCorrectLevel.Q,
+                  data: data,
+                  decoration: PrettyQrDecoration(
+                    shape: PrettyQrSmoothSymbol(
+                      roundFactor: 0,
+                      color: Theme.of(context).colorScheme.onSurface,
+                    ),
                   ),
                 ),
               ),

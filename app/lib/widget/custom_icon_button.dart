@@ -4,16 +4,18 @@ import 'package:localsend_app/util/native/platform_check.dart';
 class CustomIconButton extends StatelessWidget {
   final VoidCallback? onPressed;
   final Widget child;
+  final String? tooltip;
 
   const CustomIconButton({
     required this.onPressed,
     required this.child,
+    this.tooltip,
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
-    return TextButton(
+    final button = TextButton(
       style: TextButton.styleFrom(
         foregroundColor: Theme.of(context).colorScheme.onSurface,
         iconSize: 24,
@@ -24,6 +26,15 @@ class CustomIconButton extends StatelessWidget {
       ),
       onPressed: onPressed,
       child: child,
+    );
+
+    if (tooltip == null) {
+      return button;
+    }
+
+    return Tooltip(
+      message: tooltip!,
+      child: button,
     );
   }
 }
