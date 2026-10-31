@@ -167,7 +167,7 @@ class _NetworkInterfacesPageState extends State<NetworkInterfacesPage> {
                   },
                   builder: (context, controller) {
                     return TextFieldTv(
-                      name: t.networkInterfacesPage.whitelist,
+                      name: settings.networkWhitelist != null ? t.networkInterfacesPage.whitelist : t.networkInterfacesPage.blacklist,
                       controller: controller,
                       onDelete: () async {
                         if (currList.length == 1) {
