@@ -67,8 +67,12 @@ void main() {
   });
 
   /// Serves the `show` endpoint like a running instance would, over TLS with
-  /// client certificates requested, and answers with [statusCode].
-  Future<(HttpServer, _Received)> startStub({int statusCode = 200}) async {
+  /// client certificates requested, and answers with [statusCode] after [delay].
+  Future<(HttpServer, _Received)> startStub({
+    int statusCode = 200,
+    Duration delay = Duration.zero,
+    InternetAddress? address,
+  }) async {
     final context = SecurityContext(withTrustedRoots: false)
       ..useCertificateChainBytes(utf8.encode(identity.certificate))
       ..usePrivateKeyBytes(utf8.encode(identity.privateKey))
@@ -76,7 +80,7 @@ void main() {
       ..setTrustedCertificatesBytes(utf8.encode(identity.certificate));
 
     final server = await HttpServer.bindSecure(
-      InternetAddress.loopbackIPv4,
+      address ?? InternetAddress.loopbackIPv4,
       0,
       context,
       requestClientCertificate: true,
@@ -100,6 +104,7 @@ void main() {
         _Received(token: != _token) => HttpStatus.forbidden,
         _ => statusCode,
       };
+      await Future<void>.delayed(delay);
       await request.response.close();
     });
 
@@ -160,6 +165,32 @@ void main() {
     );
 
     expect(handedOver, isFalse);
+  });
+
+  // Regression test for https://github.com/localsend/localsend/issues/2479
+  test('waits for a running instance that answers slowly', () async {
+    if (!_findDylib().existsSync()) {
+      markTestSkipped('Rust dylib not built (cargo build -p rust_lib_localsend_app)');
+      return;
+    }
+    // The real server binds the wildcard address, which is what the port check looks at.
+    final (server, received) = await startStub(address: InternetAddress.anyIPv4, delay: const Duration(seconds: 1));
+    addTearDown(() => server.close(force: true));
+
+    const args = [r'C:\Users\Test\holiday.png'];
+    final handedOver = await notifyRunningInstance(
+      securityContext: identity,
+      port: server.port,
+      https: true,
+      showToken: _token,
+      args: args,
+      connectionTimeout: const Duration(seconds: 10),
+      responseTimeout: const Duration(milliseconds: 200),
+      busyTimeout: const Duration(seconds: 10),
+    );
+
+    expect(handedOver, isTrue, reason: 'a slow instance still holds the port, so a second instance would collide on it');
+    expect(jsonDecode(received.body!), {'args': args});
   });
 
   test('reports no running instance when nothing listens', () async {

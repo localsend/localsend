@@ -17,6 +17,10 @@ final _logger = Logger('ShowInstance');
 /// served, so this client must present the device's own certificate. Without
 /// it, the TLS handshake is rejected before the request is ever sent and the
 /// running instance is never reached.
+///
+/// The first attempt uses the short [connectionTimeout] and [responseTimeout],
+/// so a regular app start is not delayed. If it gets no answer while [port] is
+/// taken, the handover is retried once with [busyTimeout].
 Future<bool> notifyRunningInstance({
   required StoredSecurityContext securityContext,
   required int port,
@@ -25,6 +29,67 @@ Future<bool> notifyRunningInstance({
   required List<String> args,
   Duration connectionTimeout = const Duration(milliseconds: 100),
   Duration responseTimeout = const Duration(milliseconds: 500),
+  Duration busyTimeout = const Duration(seconds: 3),
+}) async {
+  final firstAttempt = await _requestHandover(
+    securityContext: securityContext,
+    port: port,
+    https: https,
+    showToken: showToken,
+    args: args,
+    connectionTimeout: connectionTimeout,
+    responseTimeout: responseTimeout,
+  );
+  if (firstAttempt != _Handover.noAnswer) {
+    return firstAttempt == _Handover.accepted;
+  }
+
+  // No answer in time usually means that nothing is listening: on Windows,
+  // connecting to a closed loopback port does not fail fast but runs into the
+  // connection timeout. It can also be a running instance that is too slow to
+  // answer, e.g. after hours in the tray while Windows throttles it
+  // (https://github.com/localsend/localsend/issues/2479). Giving up then starts
+  // a second instance that collides on the port, so be more patient whenever
+  // the port is taken.
+  if (!await _isPortInUse(port)) {
+    return false;
+  }
+
+  _logger.warning('Port $port is in use but the running instance did not answer in time, retrying');
+  final secondAttempt = await _requestHandover(
+    securityContext: securityContext,
+    port: port,
+    https: https,
+    showToken: showToken,
+    args: args,
+    connectionTimeout: busyTimeout,
+    responseTimeout: busyTimeout,
+  );
+  if (secondAttempt == _Handover.noAnswer) {
+    _logger.warning('The running instance on port $port did not answer within $busyTimeout');
+  }
+  return secondAttempt == _Handover.accepted;
+}
+
+enum _Handover {
+  /// The running instance took over the arguments.
+  accepted,
+
+  /// Something answered on the port but refused the handover.
+  rejected,
+
+  /// Nothing answered in time.
+  noAnswer,
+}
+
+Future<_Handover> _requestHandover({
+  required StoredSecurityContext securityContext,
+  required int port,
+  required bool https,
+  required String showToken,
+  required List<String> args,
+  required Duration connectionTimeout,
+  required Duration responseTimeout,
 }) async {
   final client = HttpClient(context: https ? _clientContext(securityContext) : null);
   client.connectionTimeout = connectionTimeout;
@@ -65,20 +130,34 @@ Future<bool> notifyRunningInstance({
       // normal, and it is exactly what silently degrades into a second instance
       // fighting over the port, so it must not be swallowed.
       _logger.warning('The running instance refused to take over the arguments: HTTP $statusCode');
-      return false;
+      return _Handover.rejected;
     }
-    return true;
+    return _Handover.accepted;
   } on HandshakeException catch (e) {
     // An instance is listening but the TLS handshake did not complete, e.g.
     // because it did not accept this device's certificate. Also never normal.
     _logger.warning('TLS handshake with the running instance failed: $e');
-    return false;
+    return _Handover.rejected;
   } catch (e) {
-    // Nothing is listening - the normal case on a regular app start.
+    // Usually nothing is listening - the normal case on a regular app start.
     _logger.fine('No running instance took over the arguments: $e');
-    return false;
+    return _Handover.noAnswer;
   } finally {
     client.close(force: true);
+  }
+}
+
+/// Whether something, usually a running instance, holds [port].
+///
+/// The server binds the IPv4 wildcard address, so binding it here fails while
+/// the port is taken.
+Future<bool> _isPortInUse(int port) async {
+  try {
+    final socket = await ServerSocket.bind(InternetAddress.anyIPv4, port);
+    await socket.close();
+    return false;
+  } on SocketException {
+    return true;
   }
 }
 
