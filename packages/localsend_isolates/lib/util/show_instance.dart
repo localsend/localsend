@@ -65,7 +65,7 @@ Future<bool> notifyRunningInstance({
     responseTimeout: busyTimeout,
   );
   if (secondAttempt == _Handover.noAnswer) {
-    _logger.warning('The running instance on port $port did not answer within $busyTimeout');
+    _logger.warning('The running instance on port $port did not answer in time (timeout ${busyTimeout.inSeconds} s per step)');
   }
   return secondAttempt == _Handover.accepted;
 }
