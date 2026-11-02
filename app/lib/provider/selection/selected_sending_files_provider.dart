@@ -158,48 +158,81 @@ class AddDirectoryAction extends AsyncReduxAction<SelectedSendingFilesNotifier, 
     final newFiles = <CrossFile>[];
     final directoryName = p.basename(directoryPath);
     final sendIgnore = SendIgnore();
-    await for (final entity in Directory(directoryPath).list(recursive: true)) {
-      if (entity is File) {
-        final innerRelative = p.relative(entity.path, from: directoryPath).replaceAll('\\', '/');
-        final relative = '$directoryName/$innerRelative';
-        if (sendIgnore.isIgnoreFile(p.basename(entity.path))) {
-          sendIgnore.loadIgnoreContent(
-            parentPath: innerRelative.contains('/') ? p.dirname(innerRelative) : null,
-            ignoreContents: await entity.readAsLines(),
-          );
-          _logger.info('Loaded ignore file: $innerRelative');
-          continue;
-        } else if (sendIgnore.isIgnored(innerRelative)) {
-          _logger.info('Ignored: $innerRelative');
-          continue;
-        }
 
-        _logger.info('Add file $relative');
-
-        final metadata = await readFileMetadata(path: entity.path);
-        final file = CrossFile(
-          name: relative,
-          fileType: relative.guessFileType(),
-          size: entity.lengthSync(),
-          thumbnail: null,
-          asset: null,
-          path: entity.path,
-          bytes: null,
-          lastModified: metadata?.modified,
-          lastAccessed: metadata?.accessed,
-        );
-
-        final isAlreadySelect = state.any((element) => element.isSameFile(otherFile: file));
-        if (!isAlreadySelect) {
-          newFiles.add(file);
-        }
-      }
-    }
+    await _collect(Directory(directoryPath), directoryPath, directoryName, sendIgnore, newFiles);
 
     return List.unmodifiable([
       ...state,
       ...newFiles,
     ]);
+  }
+
+  /// Recursively collects all non-hidden files inside [dir].
+  ///
+  /// Hidden files and directories (names starting with a dot) are skipped.
+  /// Hidden directories are pruned entirely, so their content is never
+  /// traversed and never transmitted.
+  ///
+  /// [rootPath] is the originally selected directory and is used to compute
+  /// the path relative to the selection (and therefore the name sent over
+  /// the wire), independent of how deep the current directory is.
+  Future<void> _collect(
+    Directory dir,
+    String rootPath,
+    String directoryName,
+    SendIgnore sendIgnore,
+    List<CrossFile> newFiles,
+  ) async {
+    await for (final entity in dir.list()) {
+      final fileName = p.basename(entity.path);
+      if (sendIgnore.isHidden(fileName)) {
+        _logger.info('Skipped hidden file or directory: $fileName');
+        continue;
+      }
+
+      if (entity is Directory) {
+        await _collect(entity, rootPath, directoryName, sendIgnore, newFiles);
+        continue;
+      }
+
+      if (entity is! File) {
+        continue;
+      }
+
+      final innerRelative = p.relative(entity.path, from: rootPath).replaceAll('\\', '/');
+      final relative = '$directoryName/$innerRelative';
+      if (sendIgnore.isIgnoreFile(p.basename(entity.path))) {
+        sendIgnore.loadIgnoreContent(
+          parentPath: innerRelative.contains('/') ? p.dirname(innerRelative) : null,
+          ignoreContents: await entity.readAsLines(),
+        );
+        _logger.info('Loaded ignore file: $innerRelative');
+        continue;
+      } else if (sendIgnore.isIgnored(innerRelative)) {
+        _logger.info('Ignored: $innerRelative');
+        continue;
+      }
+
+      _logger.info('Add file $relative');
+
+      final metadata = await readFileMetadata(path: entity.path);
+      final file = CrossFile(
+        name: relative,
+        fileType: relative.guessFileType(),
+        size: entity.lengthSync(),
+        thumbnail: null,
+        asset: null,
+        path: entity.path,
+        bytes: null,
+        lastModified: metadata?.modified,
+        lastAccessed: metadata?.accessed,
+      );
+
+      final isAlreadySelect = state.any((element) => element.isSameFile(otherFile: file));
+      if (!isAlreadySelect) {
+        newFiles.add(file);
+      }
+    }
   }
 }
 
