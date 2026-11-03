@@ -1259,14 +1259,34 @@ fn encode_sdp(s: &str) -> String {
     base64::encode(&compressed)
 }
 
+/// The largest SDP that is accepted from a peer, once decompressed.
+///
+/// A session description, ICE candidates included, is a few kilobytes; this
+/// leaves room for an unusually large one while keeping the decompressed size
+/// bounded.
+const MAX_SDP_SIZE: usize = 1024 * 1024;
+
 fn decode_sdp(s: &str) -> Result<String> {
     let decoded_data =
         base64::decode(s).map_err(|e| anyhow::anyhow!("Base64 decode of SDP failed: {e}"))?;
-    let mut d = ZlibDecoder::new(&*decoded_data);
-    let mut result = String::new();
-    d.read_to_string(&mut result)
+
+    // Bounded because the peer chose what to compress: zlib expands by up to
+    // ~1000x, so a payload of a few hundred kilobytes would otherwise be
+    // enough to exhaust this device's memory. The SDP is decoded before
+    // anything about the peer has been verified.
+    let mut decompressed = Vec::new();
+    ZlibDecoder::new(&*decoded_data)
+        .take(MAX_SDP_SIZE as u64 + 1)
+        .read_to_end(&mut decompressed)
         .map_err(|e| anyhow::anyhow!("Failed to decompress SDP: {e}"))?;
-    Ok(result)
+
+    if decompressed.len() > MAX_SDP_SIZE {
+        return Err(anyhow::anyhow!(
+            "SDP exceeds the limit of {MAX_SDP_SIZE} bytes"
+        ));
+    }
+
+    String::from_utf8(decompressed).map_err(|e| anyhow::anyhow!("SDP is not valid UTF-8: {e}"))
 }
 
 async fn send_delimiter(data_channel: &Arc<RTCDataChannel>) -> Result<()> {
@@ -1372,6 +1392,28 @@ fn to_receive_stream(
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    /// An SDP a peer sends is zlib-compressed, and it is decoded before
+    /// anything about that peer has been verified. One that expands beyond the
+    /// limit must be refused instead of allocated, however small the payload
+    /// carrying it is.
+    #[test]
+    fn test_oversized_sdp_is_rejected() {
+        assert!(decode_sdp(&encode_sdp(&"a".repeat(MAX_SDP_SIZE + 1))).is_err());
+        assert_eq!(
+            decode_sdp(&encode_sdp(&"a".repeat(MAX_SDP_SIZE)))
+                .unwrap()
+                .len(),
+            MAX_SDP_SIZE
+        );
+    }
+
+    /// A normal SDP still round-trips.
+    #[test]
+    fn test_sdp_round_trip() {
+        let sdp = "v=0\r\no=- 4611731400430051336 2 IN IP4 127.0.0.1\r\ns=-\r\n".repeat(50);
+        assert_eq!(decode_sdp(&encode_sdp(&sdp)).unwrap(), sdp);
+    }
 
     #[tokio::test]
     async fn test_process_in_chunks() {
