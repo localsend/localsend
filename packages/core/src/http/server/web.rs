@@ -69,18 +69,21 @@ const DOWNLOAD_HTML: &str = include_str!("../../../assets/web/download.html");
 const UPLOAD_HTML: &str = include_str!("../../../assets/web/upload.html");
 const ERROR_403_HTML: &str = include_str!("../../../assets/web/error-403.html");
 
-/// Characters that are percent-encoded in the content-disposition file name.
-/// Matches the component encoding of RFC 2396 (letters, digits and marks are kept).
+/// Characters that are percent-encoded in the `filename*` parameter of the
+/// content-disposition header: everything but the `attr-char` set of RFC 8187.
 const FILE_NAME_ENCODE_SET: &AsciiSet = &NON_ALPHANUMERIC
-    .remove(b'-')
-    .remove(b'_')
-    .remove(b'.')
     .remove(b'!')
-    .remove(b'~')
-    .remove(b'*')
-    .remove(b'\'')
-    .remove(b'(')
-    .remove(b')');
+    .remove(b'#')
+    .remove(b'$')
+    .remove(b'&')
+    .remove(b'+')
+    .remove(b'-')
+    .remove(b'.')
+    .remove(b'^')
+    .remove(b'_')
+    .remove(b'`')
+    .remove(b'|')
+    .remove(b'~');
 
 /// Configuration for the pages served to browsers.
 #[derive(Default)]
@@ -449,7 +452,6 @@ pub(crate) async fn download(
 
     // The file name may be inside directories.
     let file_name = file.file_name.replace('/', "-");
-    let encoded_file_name = utf8_percent_encode(&file_name, FILE_NAME_ENCODE_SET);
 
     let mut response = Response::new(body);
     let headers = response.headers_mut();
@@ -459,12 +461,35 @@ pub(crate) async fn download(
     );
     headers.insert(
         http::header::CONTENT_DISPOSITION,
-        http::HeaderValue::from_str(&format!("attachment; filename=\"{encoded_file_name}\""))
+        http::HeaderValue::from_str(&content_disposition(&file_name))
             .map_err(|_| AppError::Status(StatusCode::INTERNAL_SERVER_ERROR))?,
     );
     headers.insert(http::header::CONTENT_LENGTH, http::HeaderValue::from(size));
 
     Ok(response)
+}
+
+/// Builds the content-disposition value that makes a browser save the file as `file_name`.
+///
+/// Browsers disagree on percent-escapes in the plain `filename` parameter: Chrome
+/// decodes them, Firefox saves them as they are (`holiday%20photo.jpg`). Names that
+/// need escaping are therefore sent in `filename*` (RFC 6266, RFC 8187), which all
+/// browsers decode, and `filename` only carries an ASCII fallback.
+fn content_disposition(file_name: &str) -> String {
+    // Printable ASCII is taken literally by every browser, except for the
+    // quoted-string specials and `%`, which Chrome would try to decode.
+    let is_plain = |c: char| matches!(c, ' '..='~') && !matches!(c, '"' | '\\' | '%');
+
+    if file_name.chars().all(is_plain) {
+        return format!("attachment; filename=\"{file_name}\"");
+    }
+
+    let fallback: String = file_name
+        .chars()
+        .map(|c| if is_plain(c) { c } else { '_' })
+        .collect();
+    let encoded = utf8_percent_encode(file_name, FILE_NAME_ENCODE_SET);
+    format!("attachment; filename=\"{fallback}\"; filename*=UTF-8''{encoded}")
 }
 
 fn require_web(state: &AppState) -> Result<Arc<WebDownloadState>, AppError> {
@@ -583,5 +608,39 @@ async fn clear_pending_session(web: &WebDownloadState, session_id: &str) {
         .is_some_and(|session| !session.accepted)
     {
         sessions.remove(session_id);
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::content_disposition;
+
+    #[test]
+    fn test_content_disposition_plain_ascii() {
+        assert_eq!(
+            content_disposition("holiday photo (1).jpg"),
+            "attachment; filename=\"holiday photo (1).jpg\""
+        );
+    }
+
+    #[test]
+    fn test_content_disposition_non_ascii() {
+        assert_eq!(
+            content_disposition("文件 1.txt"),
+            "attachment; filename=\"__ 1.txt\"; filename*=UTF-8''%E6%96%87%E4%BB%B6%201.txt"
+        );
+    }
+
+    #[test]
+    fn test_content_disposition_special_characters() {
+        assert_eq!(
+            content_disposition("50% \"off\".txt"),
+            "attachment; filename=\"50_ _off_.txt\"; filename*=UTF-8''50%25%20%22off%22.txt"
+        );
+        // `'` separates the charset from the value in `filename*`.
+        assert_eq!(
+            content_disposition("l'été.txt"),
+            "attachment; filename=\"l'_t_.txt\"; filename*=UTF-8''l%27%C3%A9t%C3%A9.txt"
+        );
     }
 }
