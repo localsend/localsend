@@ -1,8 +1,11 @@
 class UserAgentAnalyzer {
+  static final _comments = RegExp(r'\([^)]*\)');
+  static final _edgeProduct = RegExp(r'(?:^|\s)Edg(?:e|A|iOS)?/');
+
   String? getBrowser(String userAgent) {
     if (userAgent.contains('Firefox')) {
       return 'Firefox';
-    } else if (userAgent.contains('Edg')) {
+    } else if (_edgeProduct.hasMatch(userAgent.replaceAll(_comments, ' '))) {
       return 'Edge';
     } else if (userAgent.contains('Chrome')) {
       return 'Chrome';
