@@ -2,7 +2,7 @@ class UserAgentAnalyzer {
   String? getBrowser(String userAgent) {
     if (userAgent.contains('Firefox')) {
       return 'Firefox';
-    } else if (userAgent.contains('Edg')) {
+    } else if (RegExp(r'\bEdg(e|A|iOS)?/').hasMatch(userAgent)) {
       return 'Edge';
     } else if (userAgent.contains('Chrome')) {
       return 'Chrome';

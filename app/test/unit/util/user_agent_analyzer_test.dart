@@ -20,6 +20,23 @@ void main() {
       expect(parseDeviceInfoFromUserAgent(userAgent), 'Edge (Android)');
     });
 
+    test('identifies Edge on iOS and legacy Windows', () {
+      const iphone =
+          'Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 EdgiOS/120.0.6099.119 Mobile/15E148 Safari/604.1';
+      const windows =
+          'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36 Edge/18.19582';
+      expect(analyzer.getBrowser(iphone), 'Edge');
+      expect(parseDeviceInfoFromUserAgent(iphone), 'Edge (iOS)');
+      expect(analyzer.getBrowser(windows), 'Edge');
+      expect(parseDeviceInfoFromUserAgent(windows), 'Edge (Windows)');
+    });
+
+    test('does not mistake an Android model name for the Edge browser', () {
+      const userAgent = 'Mozilla/5.0 (Linux; Android 11; Edge 20) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.45 Mobile Safari/537.36';
+      expect(analyzer.getBrowser(userAgent), 'Chrome');
+      expect(parseDeviceInfoFromUserAgent(userAgent), 'Chrome (Android)');
+    });
+
     test('preserves Chrome on Windows and Android', () {
       const windows = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36';
       const android = 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36';
