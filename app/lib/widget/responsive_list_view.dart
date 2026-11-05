@@ -3,9 +3,8 @@ import 'package:localsend_app/util/ui/nav_bar_padding.dart';
 import 'package:localsend_app/widget/responsive_builder.dart';
 
 class ResponsiveListView extends StatelessWidget {
-  static const defaultMaxWidth = 600.0;
-
-  final double maxWidth;
+  /// If null, the column follows the layout profile of the screen.
+  final double? maxWidth;
   final ScrollController? controller;
   final EdgeInsets padding;
   final EdgeInsets desktopPadding;
@@ -15,7 +14,7 @@ class ResponsiveListView extends StatelessWidget {
   final IndexedWidgetBuilder? itemBuilder;
 
   const ResponsiveListView.single({
-    this.maxWidth = defaultMaxWidth,
+    this.maxWidth,
     this.controller,
     required this.padding,
     EdgeInsets? tabletPadding,
@@ -27,7 +26,7 @@ class ResponsiveListView extends StatelessWidget {
        itemBuilder = null;
 
   const ResponsiveListView({
-    this.maxWidth = defaultMaxWidth,
+    this.maxWidth,
     this.controller,
     required this.padding,
     EdgeInsets? tabletPadding,
@@ -39,7 +38,7 @@ class ResponsiveListView extends StatelessWidget {
        itemBuilder = null;
 
   const ResponsiveListView.builder({
-    this.maxWidth = defaultMaxWidth,
+    this.maxWidth,
     this.controller,
     required this.padding,
     EdgeInsets? tabletPadding,
@@ -52,10 +51,11 @@ class ResponsiveListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final resolvedMaxWidth = maxWidth ?? SizingInformation.of(context).contentMaxWidth;
     if (itemBuilder != null) {
       return Center(
         child: ConstrainedBox(
-          constraints: BoxConstraints(maxWidth: maxWidth),
+          constraints: BoxConstraints(maxWidth: resolvedMaxWidth),
           child: ResponsiveBuilder(
             builder: (sizingInformation) {
               final resolvedPadding = sizingInformation.isDesktop ? desktopPadding : padding;
@@ -76,7 +76,7 @@ class ResponsiveListView extends StatelessWidget {
         controller: controller,
         child: Center(
           child: ConstrainedBox(
-            constraints: BoxConstraints(maxWidth: maxWidth),
+            constraints: BoxConstraints(maxWidth: resolvedMaxWidth),
             child: ResponsiveBuilder(
               builder: (sizingInformation) {
                 final bottom = sizingInformation.isDesktop ? desktopPadding.bottom : padding.bottom;
@@ -97,7 +97,7 @@ class ResponsiveListView extends StatelessWidget {
     } else {
       return Center(
         child: ConstrainedBox(
-          constraints: BoxConstraints(maxWidth: maxWidth),
+          constraints: BoxConstraints(maxWidth: resolvedMaxWidth),
           child: ResponsiveBuilder(
             builder: (sizingInformation) {
               return Padding(

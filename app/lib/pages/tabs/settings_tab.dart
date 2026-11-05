@@ -8,6 +8,7 @@ import 'package:localsend_app/pages/changelog_page.dart';
 import 'package:localsend_app/pages/donation/donation_page.dart';
 import 'package:localsend_app/pages/settings/network_interfaces_page.dart';
 import 'package:localsend_app/pages/tabs/settings_tab_controller.dart';
+import 'package:localsend_app/provider/car_mode_provider.dart';
 import 'package:localsend_app/provider/network/server/server_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/provider/version_provider.dart';
@@ -18,6 +19,7 @@ import 'package:localsend_app/util/native/device_info_helper.dart';
 import 'package:localsend_app/util/native/macos_channel.dart';
 import 'package:localsend_app/util/native/pick_directory_path.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
+import 'package:localsend_app/widget/car_mode_scope.dart';
 import 'package:localsend_app/widget/custom_dropdown_button.dart';
 import 'package:localsend_app/widget/dialogs/encryption_disabled_notice.dart';
 import 'package:localsend_app/widget/dialogs/pin_dialog.dart';
@@ -86,6 +88,20 @@ class SettingsTab extends StatelessWidget {
                   label: t.settingsTab.general.language,
                   buttonLabel: vm.settings.locale?.getLocaleName() ?? t.settingsTab.general.languageOptions.system,
                   onTap: () => vm.onTapLanguage(context),
+                ),
+                _BooleanEntry(
+                  label: _carModeLabel(),
+                  description: _carModeDescription(),
+                  value: CarModeScope.of(context),
+                  onChanged: (b) async {
+                    final autoValue = resolveCarMode(
+                      override: null,
+                      size: MediaQuery.sizeOf(context),
+                      isAndroid: checkPlatform([TargetPlatform.android]),
+                    );
+                    await ref.notifier(carModeProvider).setEnabled(b, matchesAuto: autoValue == b);
+                    await applyCarModeSystemChrome(b);
+                  },
                 ),
                 if (checkPlatformIsDesktop()) ...[
                   _BooleanEntry(
@@ -795,4 +811,30 @@ extension on ColorMode {
       ColorMode.custom => t.settingsTab.general.colorOptions.custom,
     };
   }
+}
+
+/// Label of the car dashboard switch.
+///
+/// The translation files live on Weblate and the generated bundle is not rebuilt
+/// in this fork, so the few new strings stay local.
+String _carModeLabel() {
+  final tag = LocaleSettings.currentLocale.languageTag;
+  if (tag.startsWith('ru')) {
+    return 'Автомобильный режим';
+  }
+  if (tag.startsWith('zh')) {
+    return '车载模式';
+  }
+  return 'Car mode';
+}
+
+String _carModeDescription() {
+  final tag = LocaleSettings.currentLocale.languageTag;
+  if (tag.startsWith('ru')) {
+    return 'Крупные кнопки и две панели для широкого экрана автомобиля.';
+  }
+  if (tag.startsWith('zh')) {
+    return '为车载大屏提供更大的按钮和双栏布局。';
+  }
+  return 'Large touch targets and a two-pane layout for wide car displays.';
 }

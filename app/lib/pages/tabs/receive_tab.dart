@@ -14,7 +14,7 @@ import 'package:localsend_app/widget/animations/initial_fade_transition.dart';
 import 'package:localsend_app/widget/column_list_view.dart';
 import 'package:localsend_app/widget/custom_icon_button.dart';
 import 'package:localsend_app/widget/local_send_logo.dart';
-import 'package:localsend_app/widget/responsive_list_view.dart';
+import 'package:localsend_app/widget/responsive_builder.dart';
 import 'package:localsend_app/widget/rotating_widget.dart';
 import 'package:localsend_isolates/util/sleep.dart';
 import 'package:refena_flutter/addons.dart';
@@ -61,7 +61,7 @@ class _ReceiveTabState extends State<ReceiveTab> {
       children: [
         Center(
           child: ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: ResponsiveListView.defaultMaxWidth),
+            constraints: BoxConstraints(maxWidth: SizingInformation.of(context).contentMaxWidth),
             child: Padding(
               padding: const EdgeInsets.all(30),
               child: ColumnListView(

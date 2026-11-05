@@ -112,9 +112,10 @@ class _HomePageState extends State<HomePage> with Refena {
                   NavigationRail(
                     selectedIndex: vm.currentTab.index,
                     onDestinationSelected: (index) => vm.changeTab(HomeTab.values[index]),
-                    extended: sizingInformation.isDesktop,
+                    extended: sizingInformation.isDesktop && !sizingInformation.isCar,
+                    labelType: sizingInformation.isCar ? NavigationRailLabelType.all : null,
                     backgroundColor: Theme.of(context).cardColorWithElevation,
-                    leading: sizingInformation.isDesktop
+                    leading: sizingInformation.isDesktop && !sizingInformation.isCar
                         ? const Column(
                             children: [
                               SizedBox(height: 20),
@@ -139,15 +140,18 @@ class _HomePageState extends State<HomePage> with Refena {
                     left: sizingInformation.isMobile,
                     child: Stack(
                       children: [
-                        PageView(
-                          controller: vm.controller,
-                          physics: const NeverScrollableScrollPhysics(),
-                          children: const [
-                            ReceiveTab(),
-                            SendTab(),
-                            SettingsTab(),
-                          ],
-                        ),
+                        if (sizingInformation.isCar)
+                          Positioned.fill(child: _CarDashboard(currentTab: vm.currentTab))
+                        else
+                          PageView(
+                            controller: vm.controller,
+                            physics: const NeverScrollableScrollPhysics(),
+                            children: const [
+                              ReceiveTab(),
+                              SendTab(),
+                              SettingsTab(),
+                            ],
+                          ),
                         if (_dragAndDropIndicator)
                           Container(
                             width: double.infinity,
@@ -181,6 +185,39 @@ class _HomePageState extends State<HomePage> with Refena {
           );
         },
       ),
+    );
+  }
+}
+
+/// The dashboard layout for wide in-car screens.
+///
+/// Receiving and sending stay visible side by side, so no page switch is needed.
+/// Settings use the full width.
+class _CarDashboard extends StatelessWidget {
+  final HomeTab currentTab;
+
+  const _CarDashboard({required this.currentTab});
+
+  @override
+  Widget build(BuildContext context) {
+    if (currentTab == HomeTab.settings) {
+      return const SettingsTab();
+    }
+
+    // Both panes stay visible. The selected pane takes more room, so a tap on
+    // the rail always gives visible feedback.
+    final receiveFlex = currentTab == HomeTab.receive ? 3 : 2;
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Expanded(flex: receiveFlex, child: const ReceiveTab()),
+        VerticalDivider(
+          width: 1,
+          thickness: 1,
+          color: Theme.of(context).dividerColor,
+        ),
+        Expanded(flex: 5 - receiveFlex, child: const SendTab()),
+      ],
     );
   }
 }

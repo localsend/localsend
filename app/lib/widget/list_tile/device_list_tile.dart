@@ -3,6 +3,7 @@ import 'package:localsend_app/util/device_type_ext.dart';
 import 'package:localsend_app/widget/custom_progress_bar.dart';
 import 'package:localsend_app/widget/device_bage.dart';
 import 'package:localsend_app/widget/list_tile/custom_list_tile.dart';
+import 'package:localsend_app/widget/responsive_builder.dart';
 import 'package:localsend_isolates/model/device.dart';
 
 class DeviceListTile extends StatelessWidget {
@@ -30,13 +31,14 @@ class DeviceListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final sizingInformation = SizingInformation.of(context);
     final badgeColor = Color.lerp(Theme.of(context).colorScheme.secondaryContainer, Colors.white, 0.3)!;
     return CustomListTile(
-      icon: Icon(device.deviceType.icon, size: 46),
+      icon: Icon(device.deviceType.icon, size: sizingInformation.isCar ? 64 : 46),
       title: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text(nameOverride ?? device.alias, style: const TextStyle(fontSize: 20)),
+          Text(nameOverride ?? device.alias, style: TextStyle(fontSize: sizingInformation.isCar ? 26 : 20)),
           if (isFavorite) ...[
             const SizedBox(width: 5),
             Icon(Icons.check_circle, size: 16),

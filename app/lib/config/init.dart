@@ -39,6 +39,7 @@ import 'package:localsend_app/util/native/tray_helper.dart';
 import 'package:localsend_app/util/notification_strings.dart';
 import 'package:localsend_app/util/ui/dynamic_colors.dart';
 import 'package:localsend_app/util/ui/snackbar.dart';
+import 'package:localsend_app/widget/car_mode_scope.dart';
 import 'package:localsend_app/widget/dialogs/local_network_dialog.dart';
 import 'package:localsend_isolates/isolate.dart';
 import 'package:localsend_isolates/model/dto/file_dto.dart';
@@ -197,6 +198,7 @@ StreamSubscription? _sharedMediaSubscription;
 /// Will be called when home page has been initialized
 Future<void> postInit(BuildContext context, Ref ref, bool appStart) async {
   await updateSystemOverlayStyle(context);
+  await applyCarModeSystemChrome(CarModeScope.of(context));
 
   if (checkPlatform([TargetPlatform.android])) {
     // On some TVs, requesting a high refresh rate can trigger HDMI resync and blank the display when entering or leaving the app.

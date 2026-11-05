@@ -17,7 +17,7 @@ import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_app/util/native/taskbar_helper.dart';
 import 'package:localsend_app/util/ui/snackbar.dart';
 import 'package:localsend_app/widget/device_bage.dart';
-import 'package:localsend_app/widget/responsive_list_view.dart';
+import 'package:localsend_app/widget/responsive_builder.dart';
 import 'package:localsend_isolates/model/device.dart';
 import 'package:localsend_isolates/model/dto/file_dto.dart';
 import 'package:localsend_isolates/model/session_status.dart';
@@ -99,7 +99,7 @@ class _ReceivePageState extends State<ReceivePage> with Refena {
             body: SafeArea(
               child: Center(
                 child: ConstrainedBox(
-                  constraints: const BoxConstraints(maxWidth: ResponsiveListView.defaultMaxWidth),
+                  constraints: BoxConstraints(maxWidth: SizingInformation.of(context).contentMaxWidth),
                   child: Builder(
                     builder: (context) {
                       final height = MediaQuery.of(context).size.height;

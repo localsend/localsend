@@ -22,6 +22,10 @@ if (flutterVersionName == null) {
     flutterVersionName = '1.0'
 }
 
+// The car build installs next to the official LocalSend app.
+// Enable it with: flutter build apk --release --android-project-arg=carBuild=true
+def carBuild = project.hasProperty("carBuild") && project.property("carBuild") == "true"
+
 android {
     namespace "org.localsend.localsend_app"
     compileSdkVersion 36
@@ -48,6 +52,9 @@ android {
         targetSdkVersion 37
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
+
+        // The app name lives in the manifest, so a second build can use its own name.
+        manifestPlaceholders = [appName: "LocalSend"]
     }
 
     signingConfigs {
@@ -68,6 +75,12 @@ android {
     buildTypes {
         release {
             signingConfig signingConfigs.release
+            if (carBuild) {
+                // A separate package id keeps both apps installed and their data apart.
+                applicationIdSuffix ".a06"
+                versionNameSuffix "-a06"
+                manifestPlaceholders.appName = "LocalSend A06"
+            }
         }
         debug {
             applicationIdSuffix ".debug"

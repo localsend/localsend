@@ -36,7 +36,11 @@ class ChangeTabAction extends ReduxAction<HomePageController, HomePageVm> {
 
   @override
   HomePageVm reduce() {
-    state.controller.jumpToPage(tab.index);
+    // The car dashboard shows both panes directly and has no PageView,
+    // so the controller has no attached position there.
+    if (state.controller.hasClients) {
+      state.controller.jumpToPage(tab.index);
+    }
     return HomePageVm(
       controller: state.controller,
       currentTab: tab,

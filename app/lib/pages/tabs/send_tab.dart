@@ -47,8 +47,12 @@ class SendTab extends StatelessWidget {
       provider: (ref) => sendTabVmProvider,
       init: (context) async => context.global.dispatchAsync(SendTabInitAction(context)), // ignore: discarded_futures
       builder: (context, vm) {
-        final sizingInformation = SizingInformation(MediaQuery.sizeOf(context).width);
-        final buttonWidth = sizingInformation.isDesktop ? BigButton.desktopWidth : BigButton.mobileWidth;
+        final sizingInformation = SizingInformation.of(context);
+        final buttonWidth = sizingInformation.isCar
+            ? BigButton.carWidth
+            : sizingInformation.isDesktop
+            ? BigButton.desktopWidth
+            : BigButton.mobileWidth;
         final ref = context.ref;
         return ResponsiveListView(
           padding: EdgeInsets.zero,

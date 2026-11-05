@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:localsend_app/config/theme.dart';
+import 'package:localsend_app/widget/responsive_builder.dart';
 
 class CustomListTile extends StatelessWidget {
   final Widget? icon;
   final Widget title;
   final Widget subTitle;
   final Widget? trailing;
-  final EdgeInsets padding;
+
+  /// If null, the padding follows the layout profile of the screen.
+  final EdgeInsets? padding;
   final VoidCallback? onTap;
 
   const CustomListTile({
@@ -14,12 +17,13 @@ class CustomListTile extends StatelessWidget {
     required this.title,
     required this.subTitle,
     this.trailing,
-    this.padding = const EdgeInsets.all(15),
+    this.padding,
     this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
+    final resolvedPadding = padding ?? EdgeInsets.all(SizingInformation.of(context).isCar ? 24 : 15);
     return Card(
       margin: EdgeInsets.zero,
       shape: RoundedRectangleBorder(
@@ -30,7 +34,7 @@ class CustomListTile extends StatelessWidget {
         onTap: onTap,
         borderRadius: BorderRadius.circular(10),
         child: Padding(
-          padding: padding,
+          padding: resolvedPadding,
           child: Row(
             children: [
               if (icon != null) ...[

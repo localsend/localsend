@@ -5,6 +5,7 @@ import 'package:localsend_app/model/persistence/color_mode.dart';
 import 'package:localsend_app/provider/device_info_provider.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_app/util/ui/dynamic_colors.dart';
+import 'package:localsend_app/widget/car_mode_scope.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 import 'package:yaru/yaru.dart' as yaru;
 
@@ -84,17 +85,18 @@ ThemeData getTheme(ColorMode colorMode, Color customColor, Brightness brightness
 
 Future<void> updateSystemOverlayStyle(BuildContext context) async {
   final brightness = Theme.of(context).brightness;
-  await updateSystemOverlayStyleWithBrightness(brightness);
+  await updateSystemOverlayStyleWithBrightness(brightness, carMode: CarModeScope.of(context));
 }
 
-Future<void> updateSystemOverlayStyleWithBrightness(Brightness brightness) async {
+Future<void> updateSystemOverlayStyleWithBrightness(Brightness brightness, {bool carMode = false}) async {
   if (checkPlatform([TargetPlatform.android])) {
     // See https://github.com/flutter/flutter/issues/90098
     final darkMode = brightness == Brightness.dark;
     final androidSdkInt = RefenaScope.defaultRef.read(deviceInfoProvider).androidSdkInt ?? 0;
     final bool edgeToEdge = androidSdkInt >= 29;
 
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge); // ignore: unawaited_futures
+    // The car dashboard gives the whole screen to content.
+    SystemChrome.setEnabledSystemUIMode(carMode ? SystemUiMode.immersiveSticky : SystemUiMode.edgeToEdge); // ignore: unawaited_futures
 
     SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(

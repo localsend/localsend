@@ -96,6 +96,7 @@ const _createChecksums = 'ls_create_checksums';
 const _verifyChecksums = 'ls_verify_checksums';
 const _advancedSettingsKey = 'ls_advanced_settings';
 const _whatsNewKey = 'ls_whats_new';
+const _carModeKey = 'ls_car_mode';
 
 final persistenceProvider = Provider<PersistenceService>((ref) {
   throw Exception('persistenceProvider not initialized');
@@ -454,6 +455,20 @@ class PersistenceService {
 
   Future<void> setAdvancedSettingsEnabled(bool isEnabled) async {
     await _prefs.setBool(_advancedSettingsKey, isEnabled);
+  }
+
+  /// Returns the stored car dashboard choice. A null value means auto-detection.
+  bool? getCarModeOverride() {
+    return _prefs.getBool(_carModeKey);
+  }
+
+  /// Stores the car dashboard choice. A null value restores auto-detection.
+  Future<void> setCarModeOverride(bool? enabled) async {
+    if (enabled == null) {
+      await _prefs.remove(_carModeKey);
+    } else {
+      await _prefs.setBool(_carModeKey, enabled);
+    }
   }
 
   QuickSaveMode getQuickSave() {
