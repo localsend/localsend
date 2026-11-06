@@ -105,6 +105,11 @@ class SettingsStateMapper extends ClassMapperBase<SettingsState> {
     'autoFinish',
     _$autoFinish,
   );
+  static bool _$autoOpenFolder(SettingsState v) => v.autoOpenFolder;
+  static const Field<SettingsState, bool> _f$autoOpenFolder = Field(
+    'autoOpenFolder',
+    _$autoOpenFolder,
+  );
   static bool _$minimizeToTray(SettingsState v) => v.minimizeToTray;
   static const Field<SettingsState, bool> _f$minimizeToTray = Field(
     'minimizeToTray',
@@ -194,6 +199,7 @@ class SettingsStateMapper extends ClassMapperBase<SettingsState> {
     #quickSaveFromFavorites: _f$quickSaveFromFavorites,
     #receivePin: _f$receivePin,
     #autoFinish: _f$autoFinish,
+    #autoOpenFolder: _f$autoOpenFolder,
     #minimizeToTray: _f$minimizeToTray,
     #https: _f$https,
     #sendMode: _f$sendMode,
@@ -229,6 +235,7 @@ class SettingsStateMapper extends ClassMapperBase<SettingsState> {
       quickSaveFromFavorites: data.dec(_f$quickSaveFromFavorites),
       receivePin: data.dec(_f$receivePin),
       autoFinish: data.dec(_f$autoFinish),
+      autoOpenFolder: data.dec(_f$autoOpenFolder),
       minimizeToTray: data.dec(_f$minimizeToTray),
       https: data.dec(_f$https),
       sendMode: data.dec(_f$sendMode),
@@ -330,6 +337,7 @@ abstract class SettingsStateCopyWith<$R, $In extends SettingsState, $Out>
     bool? quickSaveFromFavorites,
     String? receivePin,
     bool? autoFinish,
+    bool? autoOpenFolder,
     bool? minimizeToTray,
     bool? https,
     SendMode? sendMode,
@@ -393,6 +401,7 @@ class _SettingsStateCopyWithImpl<$R, $Out>
     bool? quickSaveFromFavorites,
     Object? receivePin = $none,
     bool? autoFinish,
+    bool? autoOpenFolder,
     bool? minimizeToTray,
     bool? https,
     SendMode? sendMode,
@@ -427,6 +436,7 @@ class _SettingsStateCopyWithImpl<$R, $Out>
         #quickSaveFromFavorites: quickSaveFromFavorites,
       if (receivePin != $none) #receivePin: receivePin,
       if (autoFinish != null) #autoFinish: autoFinish,
+      if (autoOpenFolder != null) #autoOpenFolder: autoOpenFolder,
       if (minimizeToTray != null) #minimizeToTray: minimizeToTray,
       if (https != null) #https: https,
       if (sendMode != null) #sendMode: sendMode,
@@ -468,6 +478,7 @@ class _SettingsStateCopyWithImpl<$R, $Out>
     ),
     receivePin: data.get(#receivePin, or: $value.receivePin),
     autoFinish: data.get(#autoFinish, or: $value.autoFinish),
+    autoOpenFolder: data.get(#autoOpenFolder, or: $value.autoOpenFolder),
     minimizeToTray: data.get(#minimizeToTray, or: $value.minimizeToTray),
     https: data.get(#https, or: $value.https),
     sendMode: data.get(#sendMode, or: $value.sendMode),

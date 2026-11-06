@@ -979,6 +979,8 @@ class Translations$settingsTab$receive$zh_CN extends Translations$settingsTab$re
   @override
   String get autoFinish => '自动完成传输任务';
   @override
+  String get autoOpenFolder => '接收完成后打开文件夹';
+  @override
   String get destination => '保存目录';
   @override
   String get downloads => '(下载)';

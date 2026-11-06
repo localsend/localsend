@@ -23,6 +23,7 @@ import 'package:localsend_app/provider/selection/selected_receiving_files_provid
 import 'package:localsend_app/provider/selection/selected_sending_files_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/util/native/directories.dart';
+import 'package:localsend_app/util/native/open_folder.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_app/util/native/tray_helper.dart';
 import 'package:localsend_app/widget/dialogs/open_file_dialog.dart';
@@ -410,6 +411,9 @@ class ReceiveController {
         ),
       );
       final settings = server.ref.read(settingsProvider);
+      if (settings.autoOpenFolder && !hasError && session.message == null && checkPlatformIsDesktop()) {
+        unawaited(openFolder(folderPath: session.destinationDirectory));
+      }
       // Only auto-close fully successful sessions: a failed file may still be
       // retried by the sender (e.g. after a checksum mismatch), which requires
       // the session to stay open.
