@@ -15,21 +15,13 @@ Future<bool> enableAutoStart({required bool startHidden}) async {
     final packageInfo = await PackageInfo.fromPlatform();
     switch (defaultTargetPlatform) {
       case TargetPlatform.linux:
-        String contents =
-            '''
-[Desktop Entry]
-Type=Application
-Name=${packageInfo.appName}
-Comment=${packageInfo.appName} startup script
-Exec=${Platform.resolvedExecutable}${startHidden ? ' $startHiddenFlag' : ''}
-StartupNotify=false
-Terminal=false
-''';
-        final file = File(_getLinuxFilePath(packageInfo.packageName));
-        if (!file.parent.existsSync()) {
-          file.parent.createSync(recursive: true);
-        }
-        file.writeAsStringSync(contents);
+        final appImage = Platform.environment['APPIMAGE'];
+        _writeLinuxAutoStartFile(
+          File(_getLinuxFilePath(packageInfo.packageName)),
+          appName: packageInfo.appName,
+          executable: appImage != null && appImage.isNotEmpty ? appImage : Platform.resolvedExecutable,
+          startHidden: startHidden,
+        );
         return true;
       case TargetPlatform.macOS:
         await setLaunchAtLogin(true);
@@ -50,6 +42,43 @@ Terminal=false
     _logger.warning('Could enable auto start', e);
     return false;
   }
+}
+
+void _writeLinuxAutoStartFile(
+  File file, {
+  required String appName,
+  required String executable,
+  required bool startHidden,
+}) {
+  final contents =
+      '''
+[Desktop Entry]
+Type=Application
+Name=$appName
+Comment=$appName startup script
+Exec=${_desktopExecExecutable(executable)}${startHidden ? ' $startHiddenFlag' : ''}
+StartupNotify=false
+Terminal=false
+''';
+  file.parent.createSync(recursive: true);
+  file.writeAsStringSync(contents);
+}
+
+// The desktop entry's string escaping runs before Exec quoting, so a literal
+// backslash in a quoted argument needs four backslashes in the file.
+String _desktopExecExecutable(String executable) {
+  const escapes = {
+    '\\': r'\\\\',
+    '"': r'\\"',
+    '`': r'\\`',
+    r'$': r'\\$',
+    '\n': r'\n',
+    '\r': r'\r',
+    '\t': r'\t',
+    '%': '%%',
+  };
+  final escaped = executable.replaceAllMapped(RegExp(r'[\\"`$\n\r\t%]'), (match) => escapes[match[0]]!);
+  return '"$escaped"';
 }
 
 Future<bool> disableAutoStart() async {
