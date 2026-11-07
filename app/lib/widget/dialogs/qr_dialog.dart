@@ -31,6 +31,7 @@ class QrDialog extends StatelessWidget {
 
     return AlertDialog(
       title: Text(t.dialogs.qr.title),
+      scrollable: true,
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -53,6 +54,7 @@ class QrDialog extends StatelessWidget {
                       roundFactor: 0,
                       color: Colors.black,
                     ),
+                    quietZone: PrettyQrQuietZone.modules(2),
                   ),
                 ),
               ),
