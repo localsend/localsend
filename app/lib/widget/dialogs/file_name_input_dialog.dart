@@ -25,8 +25,7 @@ class _FileNameInputDialogState extends State<FileNameInputDialog> {
   @override
   void initState() {
     super.initState();
-    // Normalize so an NFD name from macOS pre-fills as valid NFC.
-    _textController.text = sanitizeFileName(name: widget.initialName);
+    _textController.text = widget.initialName;
   }
 
   bool _validate(String input) {
