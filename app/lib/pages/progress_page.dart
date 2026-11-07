@@ -86,7 +86,7 @@ class _ProgressPageState extends State<ProgressPage> with Refena {
         // enable() every 30s leaks inhibit locks that keep the screen awake indefinitely (issue #3209).
         _wakelockPlusTimer = Timer.periodic(const Duration(seconds: 30), (timer) {
           // an empty iterable (session already removed) also counts as finished
-          final finished = ref.read(fileTransferProvider).getStatuses(widget.sessionId).isFinishedOrSkipped;
+          final finished = ref.read(fileTransferProvider).getStatuses(widget.sessionId).isFinishedOrError;
           if (finished) {
             timer.cancel();
             try {
