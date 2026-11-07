@@ -26,8 +26,7 @@ enum _EntryOption {
   open,
   showInFolder,
   info,
-  delete
-  ;
+  delete;
 
   String get label {
     return switch (this) {

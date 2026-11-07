@@ -10,8 +10,7 @@ import 'package:uuid/uuid.dart';
 
 enum _QuickAction {
   counter,
-  random
-  ;
+  random;
 
   String get label {
     switch (this) {

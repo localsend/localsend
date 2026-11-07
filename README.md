@@ -104,8 +104,8 @@ Windows binaries are signed. Read more about the [Code signing policy][].
 | Platform | Minimum Version | Note                                                                                                                        |
 |----------|-----------------|-----------------------------------------------------------------------------------------------------------------------------|
 | Android  | 7.0             | The last version to support Android 5 and 6 is v1.17.0.                                                                     |
-| iOS      | 13.0            | The last version to support iOS 12 is v1.17.0. Sharing from other apps requires iOS 14 or later.                               |
-| macOS    | 11 Big Sur      | Use OpenCore Legacy Patcher 2.0.2 (See [#1005](https://github.com/localsend/localsend/issues/1005#issuecomment-2449899384)) |
+| iOS      | 15.0            | The last version to support iOS 13 and 14 is v1.18.2 (sharing from other apps requires iOS 14), and iOS 12 is v1.17.0.       |
+| macOS    | 12 Monterey     | The last version to support macOS 11 is v1.18.2. Use OpenCore Legacy Patcher 2.0.2 (See [#1005](https://github.com/localsend/localsend/issues/1005#issuecomment-2449899384)) |
 | Windows  | 10              | The last version to support Windows 7 is v1.15.4.   |
 | Linux    | N.A.            | Deps: Gnome: `xdg-desktop-portal` and `xdg-desktop-portal-gtk`, KDE: `xdg-desktop-portal` and `xdg-desktop-portal-kde`      |
 
