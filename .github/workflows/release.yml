@@ -23,6 +23,9 @@ jobs:
   build_deb_arm_64:
     uses: ./.github/workflows/build_linux_deb_arm64.yml
 
+  build_rpm_x86_64:
+    uses: ./.github/workflows/build_linux_rpm_x64.yml
+
   build_appimage_x86_64:
     uses: ./.github/workflows/build_linux_appimage_x64.yml
 
@@ -64,6 +67,7 @@ jobs:
       - build_tar_arm_64
       - build_deb_x86_64
       - build_deb_arm_64
+      - build_rpm_x86_64
       - build_appimage_x86_64
       - build_windows_zip_x86_64
       - build_windows_zip_arm_64
@@ -215,6 +219,26 @@ jobs:
           asset_path: result.deb
           asset_name: LocalSend-${{ steps.get_version.outputs.version }}-linux-arm-64.deb
           asset_content_type: application/vnd.debian.binary-package
+
+      # RPM (x86_64)
+      - name: Download rpm file
+        uses: actions/download-artifact@v7
+        with:
+          name: rpm-x86-64-result
+          path: rpm-x86-64-result
+
+      - name: Copy rpm file to root
+        run: cp rpm-x86-64-result/*.rpm result.rpm
+
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.draft_release.outputs.upload_url }}
+          asset_path: result.rpm
+          asset_name: LocalSend-${{ steps.get_version.outputs.version }}-linux-x86-64.rpm
+          asset_content_type: application/x-rpm
 
       # APPIMAGE (x86_64)
       - name: Download AppImage file
