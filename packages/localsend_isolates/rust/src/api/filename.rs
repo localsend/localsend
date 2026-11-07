@@ -9,7 +9,7 @@ pub fn sanitize_file_name(name: String) -> String {
 }
 
 /// Whether `name` is a legal file name on the current platform, i.e. whether
-/// [sanitize_file_name] would leave it untouched.
+/// [sanitize_file_name] would leave it untouched apart from NFC normalization.
 #[frb(sync)]
 pub fn is_valid_file_name(name: String) -> bool {
     filename::is_valid(&name, filename::Rules::current())

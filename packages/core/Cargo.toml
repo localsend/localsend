@@ -37,6 +37,7 @@ tokio-util = { version = "0.7.19", features = ["rt"], optional = true }
 tracing = "0.1.44"
 tracing-subscriber = { version = "0.3.23" }
 tungstenite = "0.30.0"
+unicode-normalization = "0.1"
 uuid = { version = "1.24.0", features = ["serde", "v4"] }
 webrtc = { version = "0.14.0", optional = true }
 x509-parser = { version = "0.18.1", features = ["verify"], optional = true }

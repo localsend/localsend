@@ -15,6 +15,7 @@ use crate::http::server::PeerIp;
 use crate::http::server::{common, AppState, RequestClientInfo, V2State};
 use crate::model::discovery::PROTOCOL_VERSION_V2;
 use crate::model::transfer::FileDto;
+use crate::util::filename;
 use hyper::body::Incoming;
 use hyper::{Request, Response, StatusCode};
 use std::collections::{HashMap, HashSet};
@@ -239,13 +240,19 @@ pub(crate) async fn prepare_upload(
     )
     .await?;
 
-    let payload = req
+    let mut payload = req
         .into_body()
         .collect_to_json::<PrepareUploadRequestDtoV2>()
         .await?;
 
     if payload.files.is_empty() {
         return Err(AppError::BadRequest("No files provided".to_string()));
+    }
+
+    // Senders on macOS send NFD names (e.g. Korean as separate jamo). Normalize
+    // once here so every consumer (UI, history, save path) sees NFC.
+    for file in payload.files.values_mut() {
+        file.file_name = filename::normalize(&file.file_name);
     }
 
     let session_id = Uuid::new_v4().to_string();
