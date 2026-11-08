@@ -104,6 +104,14 @@ dependency_overrides:
     git:
       url: https://github.com/localsend/permission_handler_windows_noop.git
       ref: 2dadd8afbf81e0e3e4791d7144e689555e58f649
+  tray_manager:
+    # Linglong sandbox passthrough: runningInSandbox() recognizes LINGLONG_APPID
+    # so setIcon() passes the theme icon name through verbatim. Keep the 0.5.3
+    # behavior for every other environment.
+    git:
+      url: https://github.com/wrj97-alt/tray_manager.git
+      ref: 8b03569be918c6c97a05f94397994ec90f689a2f
+      path: packages/tray_manager
 
 flutter:
   uses-material-design: true
