@@ -62,6 +62,7 @@ dependencies:
   slang_flutter: 4.19.0
   system_date_time_format: ^1.4.0
   system_settings_2: 3.0.2
+  tray_kit: 0.1.0
   tray_manager: 0.5.3
   uri_content: 3.1.1
   url_launcher: 6.3.2
