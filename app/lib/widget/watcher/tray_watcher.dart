@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:collection/collection.dart';
@@ -15,7 +16,7 @@ class TrayWatcher extends StatefulWidget {
   State<TrayWatcher> createState() => _TrayWatcherState();
 }
 
-class _TrayWatcherState extends State<TrayWatcher> with TrayListener {
+class _TrayWatcherState extends State<TrayWatcher> with TrayListener, WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
     return widget.child;
@@ -25,12 +26,19 @@ class _TrayWatcherState extends State<TrayWatcher> with TrayListener {
   void initState() {
     super.initState();
     trayManager.addListener(this);
+    WidgetsBinding.instance.addObserver(this);
   }
 
   @override
   void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
     trayManager.removeListener(this);
     super.dispose();
+  }
+
+  @override
+  void didChangePlatformBrightness() {
+    unawaited(updateLinuxTrayIcon());
   }
 
   @override
