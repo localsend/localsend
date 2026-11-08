@@ -10,13 +10,17 @@
 include: package:flutter_lints/flutter.yaml
 
 analyzer:
-  plugins:
-    - custom_lint
   exclude:
     - build/**
     - lib/**.g.dart
     - lib/**.freezed.dart
     - submodules/**
+    - android/**
+    - ios/**
+    - web/**
+    - windows/**
+    - macos/**
+    - linux/**
 
 formatter:
   trailing_commas: preserve
