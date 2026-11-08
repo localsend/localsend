@@ -243,20 +243,18 @@ Future<void> _pickFolder(BuildContext context, Ref ref) async {
 }
 
 Future<void> _pickMedia(BuildContext context, Ref ref) async {
-  if (checkPlatform([TargetPlatform.android])) {
-    await PhotoManager.requestPermissionExtend(
+  if (checkPlatform([TargetPlatform.android, TargetPlatform.iOS])) {
+    final permission = await PhotoManager.requestPermissionExtend(
       requestOption: const PermissionRequestOption(
+        iosAccessLevel: IosAccessLevel.readWrite,
         androidPermission: AndroidPermission(
           type: RequestType.common,
           mediaLocation: true,
         ),
       ),
     );
-  } else if (checkPlatform([TargetPlatform.iOS])) {
-    final permission = await PhotoManager.requestPermissionExtend(
-      requestOption: const PermissionRequestOption(iosAccessLevel: IosAccessLevel.readWrite),
-    );
-    if (permission != PermissionState.authorized && permission != PermissionState.limited) {
+    // AssetPicker.pickAssets throws a StateError without access, so show a dialog instead
+    if (!permission.hasAccess) {
       if (!context.mounted) return;
       await showDialog(context: context, builder: (_) => const NoPermissionDialog());
       return;
