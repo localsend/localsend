@@ -1,5 +1,7 @@
 ## Unreleased
 
+- fix: show a permission error message when photo access is denied (@trustworthy-tech)
+- fix(ios): allow selecting photos with limited photo access (@trustworthy-tech)
 - fix: avoid adding a trailing dot when renaming files without an extension (@ShlomoCode)
 - fix(macos): prevent intermittent MissingPluginException during startup (@ShlomoCode)
 - fix(macos): file sharing via Share Extension doesn't work in DMG builds (@ShlomoCode, @vdmkotai)
