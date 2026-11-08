@@ -37,9 +37,11 @@ class LocalIpService extends ReduxNotifier<NetworkState> {
       return plugin.NetworkInfo().getWifiIP();
     }
 
-    return _pendingWindowsWifiIp ??= Isolate.run(_windowsWifiIp).whenComplete(() {
-      _pendingWindowsWifiIp = null;
-    });
+    return _pendingWindowsWifiIp ??= Isolate.run(_windowsWifiIp)
+        .whenComplete(() {
+          _pendingWindowsWifiIp = null;
+        })
+        .timeout(const Duration(seconds: 2), onTimeout: () => null);
   }
 
   @override

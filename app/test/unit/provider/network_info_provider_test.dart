@@ -45,6 +45,30 @@ void main() {
     await expectLater(next, throwsStateError);
   }, skip: !Platform.isWindows);
 
+  test('Windows Wi-Fi refresh stops waiting without starting another worker', () async {
+    final directory = await Directory.systemTemp.createTemp('localsend-wifi-timeout');
+    addTearDown(() => directory.delete(recursive: true));
+    final ready = ReceivePort();
+    addTearDown(ready.close);
+    final release = File('${directory.path}/release');
+    final service = LocalIpService(SettingsService(MockPersistenceService()), windowsWifiIp: _blockingLookup(ready.sendPort, release.path));
+
+    final first = service.lookupWifiIp();
+    try {
+      await ready.first.timeout(const Duration(seconds: 10));
+      expect(await first.timeout(const Duration(seconds: 4)), isNull);
+      expect(service.lookupWifiIp(), same(first));
+    } finally {
+      await release.create();
+    }
+
+    final deadline = Stopwatch()..start();
+    while (identical(service.lookupWifiIp(), first) && deadline.elapsed < const Duration(seconds: 5)) {
+      await Future<void>.delayed(const Duration(milliseconds: 10));
+    }
+    expect(await service.lookupWifiIp(), '198.51.100.42');
+  }, skip: !Platform.isWindows);
+
   group('rankIpAddresses', () {
     test('should only sort list if no primary', () {
       expect(rankIpAddresses(['123.456', '222.1', '321.222'], null), ['123.456', '321.222', '222.1']);
