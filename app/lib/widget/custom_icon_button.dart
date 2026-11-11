@@ -32,9 +32,11 @@ class CustomIconButton extends StatelessWidget {
       return button;
     }
 
-    return Tooltip(
-      message: tooltip!,
-      child: button,
+    return MergeSemantics(
+      child: Tooltip(
+        message: tooltip!,
+        child: button,
+      ),
     );
   }
 }
