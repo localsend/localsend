@@ -1127,6 +1127,9 @@ class Translations$settingsTab$receive$en {
   /// en: 'Auto Finish'
   String get autoFinish => 'Auto Finish';
 
+  /// en: 'Open folder after receiving'
+  String get autoOpenFolder => 'Open folder after receiving';
+
   /// en: 'Save to folder'
   String get destination => 'Save to folder';
 
