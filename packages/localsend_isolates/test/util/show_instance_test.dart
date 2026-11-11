@@ -67,8 +67,11 @@ void main() {
   });
 
   /// Serves the `show` endpoint like a running instance would, over TLS with
-  /// client certificates requested, and answers with [statusCode].
-  Future<(HttpServer, _Received)> startStub({int statusCode = 200}) async {
+  /// client certificates requested, and answers with [statusCode] after [delay].
+  Future<(HttpServer, _Received)> startStub({
+    int statusCode = 200,
+    Duration delay = Duration.zero,
+  }) async {
     final context = SecurityContext(withTrustedRoots: false)
       ..useCertificateChainBytes(utf8.encode(identity.certificate))
       ..usePrivateKeyBytes(utf8.encode(identity.privateKey))
@@ -100,6 +103,7 @@ void main() {
         _Received(token: != _token) => HttpStatus.forbidden,
         _ => statusCode,
       };
+      await Future<void>.delayed(delay);
       await request.response.close();
     });
 
@@ -160,6 +164,72 @@ void main() {
     );
 
     expect(handedOver, isFalse);
+  });
+
+  // Regression test for https://github.com/localsend/localsend/issues/2479
+  test('waits for a running instance that answers slowly', () async {
+    if (!_findDylib().existsSync()) {
+      markTestSkipped('Rust dylib not built (cargo build -p rust_lib_localsend_app)');
+      return;
+    }
+    final (server, received) = await startStub(delay: const Duration(seconds: 1));
+    addTearDown(() => server.close(force: true));
+
+    const args = [r'C:\Users\Test\holiday.png'];
+    final handedOver = await notifyRunningInstance(
+      securityContext: identity,
+      port: server.port,
+      https: true,
+      showToken: _token,
+      args: args,
+      connectionTimeout: const Duration(seconds: 10),
+      responseTimeout: const Duration(milliseconds: 200),
+      busyTimeout: const Duration(seconds: 10),
+      // The stub runs in this process, where Dart rejects a second bind before the OS sees it.
+      isPortInUse: (_) async => true,
+    );
+
+    expect(handedOver, isTrue, reason: 'a slow instance still holds the port, so a second instance would collide on it');
+    expect(jsonDecode(received.body!), {'args': args});
+  });
+
+  test('does not wait when the port is not taken by an instance', () async {
+    if (!_findDylib().existsSync()) {
+      markTestSkipped('Rust dylib not built (cargo build -p rust_lib_localsend_app)');
+      return;
+    }
+    final (server, _) = await startStub(delay: const Duration(seconds: 2));
+    addTearDown(() => server.close(force: true));
+
+    final stopwatch = Stopwatch()..start();
+    final handedOver = await notifyRunningInstance(
+      securityContext: identity,
+      port: server.port,
+      https: true,
+      showToken: _token,
+      args: const [],
+      connectionTimeout: const Duration(seconds: 10),
+      responseTimeout: const Duration(milliseconds: 200),
+      busyTimeout: const Duration(seconds: 10),
+      isPortInUse: (_) async => false,
+    );
+
+    expect(handedOver, isFalse);
+    expect(stopwatch.elapsed, lessThan(const Duration(seconds: 2)));
+  });
+
+  test('only treats address-in-use as a port in use', () {
+    final addressInUse = switch (Platform.operatingSystem) {
+      'windows' => 10048,
+      'macos' || 'ios' => 48,
+      _ => 98,
+    };
+    expect(isAddressInUse(SocketException('bind failed', osError: OSError('address in use', addressInUse))), isTrue);
+
+    // e.g. a port inside a range reserved by Windows (WSAEACCES) or a privileged port (EACCES)
+    expect(isAddressInUse(const SocketException('bind failed', osError: OSError('access denied', 10013))), isFalse);
+    expect(isAddressInUse(const SocketException('bind failed', osError: OSError('permission denied', 13))), isFalse);
+    expect(isAddressInUse(const SocketException('bind failed')), isFalse);
   });
 
   test('reports no running instance when nothing listens', () async {
