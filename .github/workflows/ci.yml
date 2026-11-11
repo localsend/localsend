@@ -91,6 +91,16 @@ jobs:
       - name: Check (plugin crate, CLI)
         run: cargo check --package rust_lib_localsend_app --package localsend-cli
 
+      # Unlike i686, this 32-bit target does not provide AtomicU64
+      - name: Check without 64-bit atomics (core, CLI)
+        env:
+          CC_powerpc_unknown_linux_gnu: powerpc-linux-gnu-gcc
+        run: |
+          rustup target add powerpc-unknown-linux-gnu
+          sudo apt-get update
+          sudo apt-get install -y gcc-powerpc-linux-gnu
+          cargo check --locked --package localsend --package localsend-cli --features localsend/full --all-targets --target powerpc-unknown-linux-gnu
+
   packaging:
     runs-on: ubuntu-latest
 
