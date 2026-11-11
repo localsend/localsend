@@ -75,6 +75,112 @@ void main() {
     expect(existingContent.readAsStringSync(), 'keep');
     expect(existingFile.readAsStringSync(), 'existing');
   });
+
+  test('parallel same-name allocations stay distinct before any file is written', () async {
+    final reservedPaths = <String>{};
+    final targets = await Future.wait([
+      for (var i = 0; i < 10; i++)
+        prepareFileSaveTarget(
+          destinationDirectory: tempDir.path,
+          cacheDirectory: tempDir.path,
+          fileName: 'Frame.bin',
+          saveToGallery: false,
+          createdDirectories: {},
+          reservedPaths: reservedPaths,
+        ),
+    ]);
+
+    expect(targets.map((target) => target.path).toSet(), hasLength(10));
+    expect(reservedPaths, hasLength(10));
+    expect(tempDir.listSync(), isEmpty, reason: 'Reserving targets must not create placeholder files');
+  });
+
+  test('considers both existing entries and targets not yet written', () async {
+    final original = File(p.join(tempDir.path, 'Frame.bin'))..writeAsStringSync('keep');
+    final reservedPaths = {p.join(tempDir.path, 'Frame (2).bin')};
+
+    final (path, _, _) = await digestFilePathAndPrepareDirectory(
+      parentDirectory: tempDir.path,
+      fileName: 'Frame.bin',
+      createdDirectories: {},
+      reservedPaths: reservedPaths,
+    );
+
+    expect(path, p.join(tempDir.path, 'Frame (3).bin'));
+    expect(original.readAsStringSync(), 'keep');
+    expect(reservedPaths, contains(path));
+  });
+
+  test('a retry reuses its target without another reservation', () async {
+    final reservedPaths = <String>{};
+    final target = await prepareFileSaveTarget(
+      destinationDirectory: tempDir.path,
+      cacheDirectory: tempDir.path,
+      fileName: 'Frame.bin',
+      saveToGallery: false,
+      createdDirectories: {},
+      reservedPaths: reservedPaths,
+    );
+    await File(target.path!).writeAsString('partial');
+
+    expect(await reopenFileSaveTarget(target), same(target));
+    expect(reservedPaths, {target.path});
+    expect(tempDir.listSync(), hasLength(1));
+  });
+
+  test('reservations belong to one receive session', () async {
+    Future<FileSaveTarget> prepare(Set<String> reservations) => prepareFileSaveTarget(
+      destinationDirectory: tempDir.path,
+      cacheDirectory: tempDir.path,
+      fileName: 'Frame.bin',
+      saveToGallery: false,
+      createdDirectories: {},
+      reservedPaths: reservations,
+    );
+    final firstSession = <String>{};
+    final secondSession = <String>{};
+
+    final first = await prepare(firstSession);
+    final second = await prepare(secondSession);
+
+    expect(first.path, second.path, reason: 'An unwritten target from a finished session is not globally reserved');
+    expect(firstSession, {first.path});
+    expect(secondSession, {second.path});
+  });
+
+  test('same names in different directories retain their names', () async {
+    final reservedPaths = <String>{};
+    final results = await Future.wait([
+      for (final folder in ['first', 'second'])
+        digestFilePathAndPrepareDirectory(
+          parentDirectory: tempDir.path,
+          fileName: '$folder/Frame.bin',
+          createdDirectories: {},
+          reservedPaths: reservedPaths,
+        ),
+    ]);
+
+    expect(results.map((result) => p.basename(result.$1)), everyElement('Frame.bin'));
+    expect(reservedPaths, hasLength(2));
+  });
+
+  test('failed directory preparation does not reserve a target', () async {
+    final parent = File(p.join(tempDir.path, 'not-a-directory'))..writeAsStringSync('keep');
+    final reservedPaths = <String>{};
+
+    await expectLater(
+      digestFilePathAndPrepareDirectory(
+        parentDirectory: parent.path,
+        fileName: 'Frame.bin',
+        createdDirectories: {},
+        reservedPaths: reservedPaths,
+      ),
+      throwsA(isA<FileSystemException>()),
+    );
+
+    expect(reservedPaths, isEmpty);
+    expect(parent.readAsStringSync(), 'keep');
+  });
 }
 
 /// The sanitizer lives in the Rust library, which is not loaded in unit tests.
