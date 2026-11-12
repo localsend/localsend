@@ -22,6 +22,7 @@ dependencies:
   file_picker: 11.0.3
   file_selector: 1.1.0
   flex_color_picker: 3.8.0
+  flex_seed_scheme: 4.0.0
   flutter:
     sdk: flutter
   flutter_displaymode: 0.7.0
