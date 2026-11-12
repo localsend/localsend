@@ -350,8 +350,8 @@ class _Actions extends StatelessWidget {
               case LogicalKeyboardKey.escape:
                 decline();
                 return KeyEventResult.handled;
-              // Only while no button is focused, so that Enter still activates the focused button.
-              case LogicalKeyboardKey.enter || LogicalKeyboardKey.numpadEnter when node.hasPrimaryFocus:
+              // Only while no button is focused, so that Enter and TV OK still activate the focused button.
+              case LogicalKeyboardKey.enter || LogicalKeyboardKey.numpadEnter || LogicalKeyboardKey.select when node.hasPrimaryFocus:
                 onAccept?.call();
                 return KeyEventResult.handled;
             }
