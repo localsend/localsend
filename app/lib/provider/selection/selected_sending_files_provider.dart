@@ -160,6 +160,11 @@ class AddDirectoryAction extends AsyncReduxAction<SelectedSendingFilesNotifier, 
     final sendIgnore = SendIgnore();
     await for (final entity in Directory(directoryPath).list(recursive: true)) {
       if (entity is File) {
+        final fileName = p.basename(entity.path);
+        const officeExtensions = {'.doc', '.docx', '.xls', '.xlsx', '.ppt', '.pptx'};
+        if (fileName.startsWith(r'~$') && officeExtensions.contains(p.extension(fileName).toLowerCase())) {
+          continue;
+        }
         final innerRelative = p.relative(entity.path, from: directoryPath).replaceAll('\\', '/');
         final relative = '$directoryName/$innerRelative';
         if (sendIgnore.isIgnoreFile(p.basename(entity.path))) {
