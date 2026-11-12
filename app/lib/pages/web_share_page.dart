@@ -7,6 +7,7 @@ import 'package:localsend_app/model/state/server/web_share_state.dart';
 import 'package:localsend_app/provider/local_ip_provider.dart';
 import 'package:localsend_app/provider/network/server/server_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
+import 'package:localsend_app/util/ip_helper.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_app/util/ui/snackbar.dart';
 import 'package:localsend_app/widget/dialogs/pin_dialog.dart';
@@ -192,7 +193,7 @@ class _WebSharePageState extends State<WebSharePage> with Refena {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         ...networkState.localIps.map((ip) {
-                          final url = '${_encrypted ? 'https' : 'http'}://$ip:${serverState.port}';
+                          final url = '${_encrypted ? 'https' : 'http'}://${ip.withPort(serverState.port)}';
                           final urlWithPin = switch (pin) {
                             String() => '$url/?pin=${Uri.encodeQueryComponent(pin)}',
                             null => url,
@@ -201,9 +202,11 @@ class _WebSharePageState extends State<WebSharePage> with Refena {
                             padding: const EdgeInsets.all(5),
                             child: Row(
                               children: [
-                                SelectableText(
-                                  url,
-                                  style: Theme.of(context).textTheme.bodyMedium,
+                                Flexible(
+                                  child: SelectableText(
+                                    url,
+                                    style: Theme.of(context).textTheme.bodyMedium,
+                                  ),
                                 ),
                                 const SizedBox(width: 5),
                                 InkWell(
