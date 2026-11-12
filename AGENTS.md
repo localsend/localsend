@@ -29,6 +29,10 @@ The three Dart packages (`app`, `packages/localsend_isolates`, `packages/typed_i
 Dependency direction: `app` → `localsend_isolates` → (`typed_isolates`, `rust_lib_localsend_app` → `localsend` core).
 The app depends on **only** `localsend_isolates` — not on `flutter_rust_bridge`, `typed_isolates`, or the plugin crate directly.
 
+## App UX
+
+For changes to the app's UI, interactions, focus, or keyboard behavior, read and follow [`support/docs/ux-guidelines.md`](support/docs/ux-guidelines.md).
+
 ## Flutter version
 
 Pinned to the version in `.fvmrc` (also mirrored in `.github/workflows/ci.yml` and `app/pubspec.yaml`, plus the `support/submodules/flutter` git submodule). Use **`fvm flutter` / `fvm dart`** instead of the system-wide toolchain.

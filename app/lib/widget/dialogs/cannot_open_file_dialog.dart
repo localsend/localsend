@@ -44,6 +44,7 @@ class CannotOpenFileDialog extends StatelessWidget {
       description: t.dialogs.cannotOpenFile.content(file: path),
       child: Center(
         child: ElevatedButton(
+          autofocus: true,
           onPressed: () => context.popUntilRoot(),
           child: Text(t.general.close),
         ),

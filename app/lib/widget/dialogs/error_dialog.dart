@@ -14,6 +14,7 @@ class ErrorDialog extends StatelessWidget {
       content: SelectableText(error),
       actions: [
         TextButton(
+          autofocus: true,
           onPressed: () => context.pop(),
           child: Text(t.general.close),
         ),

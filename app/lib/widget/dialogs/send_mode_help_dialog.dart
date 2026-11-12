@@ -31,6 +31,7 @@ class SendModeHelpDialog extends StatelessWidget {
       ),
       actions: [
         TextButton(
+          autofocus: true,
           onPressed: () => context.pop(),
           child: Text(t.general.close),
         ),
