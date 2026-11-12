@@ -13,6 +13,7 @@ import 'package:localsend_app/widget/dialogs/pin_dialog.dart';
 import 'package:localsend_app/widget/dialogs/qr_dialog.dart';
 import 'package:localsend_app/widget/dialogs/zoom_dialog.dart';
 import 'package:localsend_app/widget/responsive_list_view.dart';
+import 'package:localsend_app/widget/web_share_links.dart';
 import 'package:localsend_isolates/util/sleep.dart';
 import 'package:logging/logging.dart';
 import 'package:refena_flutter/refena_flutter.dart';
@@ -188,74 +189,47 @@ class _WebSharePageState extends State<WebSharePage> with Refena {
                   color: Theme.of(context).colorScheme.secondaryContainer,
                   child: Padding(
                     padding: const EdgeInsets.all(10),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        ...networkState.localIps.map((ip) {
-                          final url = '${_encrypted ? 'https' : 'http'}://$ip:${serverState.port}';
-                          final urlWithPin = switch (pin) {
-                            String() => '$url/?pin=${Uri.encodeQueryComponent(pin)}',
-                            null => url,
-                          };
-                          return Padding(
-                            padding: const EdgeInsets.all(5),
-                            child: Row(
-                              children: [
-                                SelectableText(
-                                  url,
-                                  style: Theme.of(context).textTheme.bodyMedium,
-                                ),
-                                const SizedBox(width: 5),
-                                InkWell(
-                                  onTap: () async {
-                                    await Clipboard.setData(ClipboardData(text: url));
-                                    if (context.mounted && checkPlatformIsDesktop()) {
-                                      context.showSnackBar(t.general.copiedToClipboard);
-                                    }
-                                  },
-                                  child: const Padding(
-                                    padding: EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-                                    child: Icon(Icons.content_copy, size: 16),
-                                  ),
-                                ),
-                                InkWell(
-                                  onTap: () async {
-                                    await showDialog(
-                                      context: context,
-                                      builder: (_) => QrDialog(
-                                        data: urlWithPin,
-                                        label: url,
-                                        listenIncomingWebDownloadRequests: _sendMode,
-                                        pin: pin,
-                                      ),
-                                    );
-                                  },
-                                  child: const Padding(
-                                    padding: EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-                                    child: Icon(Icons.qr_code, size: 16),
-                                  ),
-                                ),
-                                InkWell(
-                                  onTap: () async {
-                                    await showDialog(
-                                      context: context,
-                                      builder: (_) => ZoomDialog(
-                                        label: url,
-                                        listenIncomingWebDownloadRequests: _sendMode,
-                                        pin: pin,
-                                      ),
-                                    );
-                                  },
-                                  child: const Padding(
-                                    padding: EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-                                    child: Icon(Icons.tv, size: 16),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          );
-                        }),
-                      ],
+                    child: WebShareLinks(
+                      style: Theme.of(context).textTheme.bodyMedium,
+                      minIconSpacing: 2,
+                      maxIconSpacing: 4,
+                      links: networkState.localIps.map((ip) {
+                        final url = '${_encrypted ? 'https' : 'http'}://$ip:${serverState.port}';
+                        final urlWithPin = switch (pin) {
+                          String() => '$url/?pin=${Uri.encodeQueryComponent(pin)}',
+                          null => url,
+                        };
+                        return WebShareLink(
+                          url: url,
+                          onCopy: () async {
+                            await Clipboard.setData(ClipboardData(text: url));
+                            if (context.mounted && checkPlatformIsDesktop()) {
+                              context.showSnackBar(t.general.copiedToClipboard);
+                            }
+                          },
+                          onQr: () async {
+                            await showDialog(
+                              context: context,
+                              builder: (_) => QrDialog(
+                                data: urlWithPin,
+                                label: url,
+                                listenIncomingWebDownloadRequests: _sendMode,
+                                pin: pin,
+                              ),
+                            );
+                          },
+                          onZoom: () async {
+                            await showDialog(
+                              context: context,
+                              builder: (_) => ZoomDialog(
+                                label: url,
+                                listenIncomingWebDownloadRequests: _sendMode,
+                                pin: pin,
+                              ),
+                            );
+                          },
+                        );
+                      }).toList(),
                     ),
                   ),
                 ),
