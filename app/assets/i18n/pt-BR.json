@@ -127,7 +127,14 @@
     "send": {
       "title": "Envio",
       "shareViaLinkAutoAccept": "Aceitar solicitações por link automaticamente",
-      "createChecksums": "Criar checksums ao enviar arquivos"
+      "createChecksums": "Criar checksums ao enviar arquivos",
+      "order": "Ordem de envio dos arquivos",
+      "orderOptions": {
+        "selection": "Ordem de seleção",
+        "smallestFirst": "Menores primeiro",
+        "largestFirst": "Maiores primeiro"
+      },
+      "concurrency": "Arquivos enviados ao mesmo tempo"
     },
     "network": {
       "title": "Rede",

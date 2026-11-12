@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/model/persistence/color_mode.dart';
 import 'package:localsend_app/model/persistence/quick_save_mode.dart';
+import 'package:localsend_app/model/send_concurrency.dart';
 import 'package:localsend_app/model/send_mode.dart';
+import 'package:localsend_app/model/send_order.dart';
 import 'package:localsend_app/model/state/settings_state.dart';
 import 'package:localsend_app/provider/persistence_provider.dart';
 import 'package:localsend_app/provider/window_dimensions_provider.dart';
@@ -68,6 +70,8 @@ class SettingsService extends PureNotifier<SettingsState> {
     minimizeToTray: _persistence.isMinimizeToTray(),
     https: _persistence.isHttps(),
     sendMode: _persistence.getSendMode(),
+    sendOrder: _persistence.getSendOrder(),
+    sendConcurrency: _persistence.getSendConcurrency(),
     saveWindowPlacement: _persistence.getSaveWindowPlacement(),
     alwaysOnTop: _persistence.getAlwaysOnTop(),
     enableAnimations: _persistence.getEnableAnimations(),
@@ -241,6 +245,21 @@ class SettingsService extends PureNotifier<SettingsState> {
     await _persistence.setSendMode(mode);
     state = state.copyWith(
       sendMode: mode,
+    );
+  }
+
+  Future<void> setSendOrder(SendOrder order) async {
+    await _persistence.setSendOrder(order);
+    state = state.copyWith(
+      sendOrder: order,
+    );
+  }
+
+  Future<void> setSendConcurrency(int concurrency) async {
+    final sanitizedConcurrency = sanitizeSendConcurrency(concurrency);
+    await _persistence.setSendConcurrency(sanitizedConcurrency);
+    state = state.copyWith(
+      sendConcurrency: sanitizedConcurrency,
     );
   }
 

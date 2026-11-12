@@ -117,6 +117,16 @@ class SettingsStateMapper extends ClassMapperBase<SettingsState> {
     'sendMode',
     _$sendMode,
   );
+  static SendOrder _$sendOrder(SettingsState v) => v.sendOrder;
+  static const Field<SettingsState, SendOrder> _f$sendOrder = Field(
+    'sendOrder',
+    _$sendOrder,
+  );
+  static int _$sendConcurrency(SettingsState v) => v.sendConcurrency;
+  static const Field<SettingsState, int> _f$sendConcurrency = Field(
+    'sendConcurrency',
+    _$sendConcurrency,
+  );
   static bool _$saveWindowPlacement(SettingsState v) => v.saveWindowPlacement;
   static const Field<SettingsState, bool> _f$saveWindowPlacement = Field(
     'saveWindowPlacement',
@@ -197,6 +207,8 @@ class SettingsStateMapper extends ClassMapperBase<SettingsState> {
     #minimizeToTray: _f$minimizeToTray,
     #https: _f$https,
     #sendMode: _f$sendMode,
+    #sendOrder: _f$sendOrder,
+    #sendConcurrency: _f$sendConcurrency,
     #saveWindowPlacement: _f$saveWindowPlacement,
     #alwaysOnTop: _f$alwaysOnTop,
     #enableAnimations: _f$enableAnimations,
@@ -232,6 +244,8 @@ class SettingsStateMapper extends ClassMapperBase<SettingsState> {
       minimizeToTray: data.dec(_f$minimizeToTray),
       https: data.dec(_f$https),
       sendMode: data.dec(_f$sendMode),
+      sendOrder: data.dec(_f$sendOrder),
+      sendConcurrency: data.dec(_f$sendConcurrency),
       saveWindowPlacement: data.dec(_f$saveWindowPlacement),
       alwaysOnTop: data.dec(_f$alwaysOnTop),
       enableAnimations: data.dec(_f$enableAnimations),
@@ -333,6 +347,8 @@ abstract class SettingsStateCopyWith<$R, $In extends SettingsState, $Out>
     bool? minimizeToTray,
     bool? https,
     SendMode? sendMode,
+    SendOrder? sendOrder,
+    int? sendConcurrency,
     bool? saveWindowPlacement,
     bool? alwaysOnTop,
     bool? enableAnimations,
@@ -396,6 +412,8 @@ class _SettingsStateCopyWithImpl<$R, $Out>
     bool? minimizeToTray,
     bool? https,
     SendMode? sendMode,
+    SendOrder? sendOrder,
+    int? sendConcurrency,
     bool? saveWindowPlacement,
     bool? alwaysOnTop,
     bool? enableAnimations,
@@ -430,6 +448,8 @@ class _SettingsStateCopyWithImpl<$R, $Out>
       if (minimizeToTray != null) #minimizeToTray: minimizeToTray,
       if (https != null) #https: https,
       if (sendMode != null) #sendMode: sendMode,
+      if (sendOrder != null) #sendOrder: sendOrder,
+      if (sendConcurrency != null) #sendConcurrency: sendConcurrency,
       if (saveWindowPlacement != null)
         #saveWindowPlacement: saveWindowPlacement,
       if (alwaysOnTop != null) #alwaysOnTop: alwaysOnTop,
@@ -471,6 +491,8 @@ class _SettingsStateCopyWithImpl<$R, $Out>
     minimizeToTray: data.get(#minimizeToTray, or: $value.minimizeToTray),
     https: data.get(#https, or: $value.https),
     sendMode: data.get(#sendMode, or: $value.sendMode),
+    sendOrder: data.get(#sendOrder, or: $value.sendOrder),
+    sendConcurrency: data.get(#sendConcurrency, or: $value.sendConcurrency),
     saveWindowPlacement: data.get(
       #saveWindowPlacement,
       or: $value.saveWindowPlacement,
