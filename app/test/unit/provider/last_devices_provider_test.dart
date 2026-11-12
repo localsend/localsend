@@ -48,6 +48,44 @@ void main() {
       _createDevice('2'), // 5th device removed
     ]);
   });
+
+  test('Should replace a renamed endpoint before limiting recent devices', () {
+    final devices = [
+      _createDevice('192.168.1.6'),
+      _createDevice('192.168.1.5'),
+      _createDevice('192.168.1.4'),
+      _createDevice('192.168.1.3'),
+      _createDevice('192.168.1.2'),
+    ];
+    final service = ReduxNotifier.test(
+      redux: LastDevicesService(),
+      initialState: devices,
+    );
+    final renamedDevice = devices[2].copyWith(alias: 'Work laptop');
+
+    service.dispatch(AddLastDeviceAction(renamedDevice));
+
+    expect(service.state, [
+      renamedDevice,
+      devices[0],
+      devices[1],
+      devices[3],
+      devices[4],
+    ]);
+  });
+
+  test('Should keep different ports at the same IP', () {
+    final device = _createDevice('192.168.1.2');
+    final otherPort = device.copyWith(port: 456);
+    final service = ReduxNotifier.test(
+      redux: LastDevicesService(),
+      initialState: [device],
+    );
+
+    service.dispatch(AddLastDeviceAction(otherPort));
+
+    expect(service.state, [otherPort, device]);
+  });
 }
 
 Device _createDevice(String ip) {
