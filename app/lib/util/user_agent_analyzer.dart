@@ -2,14 +2,14 @@ class UserAgentAnalyzer {
   String? getBrowser(String userAgent) {
     if (userAgent.contains('Firefox')) {
       return 'Firefox';
+    } else if (RegExp(r'\bEdg(e|A|iOS)?/').hasMatch(userAgent)) {
+      return 'Edge';
     } else if (userAgent.contains('Chrome')) {
       return 'Chrome';
     } else if (userAgent.contains('Safari')) {
       return 'Safari';
     } else if (userAgent.contains('Opera') || userAgent.contains('OPR')) {
       return 'Opera';
-    } else if (userAgent.contains('Edg')) {
-      return 'Edge';
     } else if (userAgent.contains('MSIE') || userAgent.contains('Trident')) {
       return 'Internet Explorer';
     } else if (userAgent.contains('insomnia')) {
