@@ -232,6 +232,8 @@ class Translations$sendTab$zh_CN extends Translations$sendTab$en {
   String get help => '请确保目标连接到同一个 Wi‑Fi 网络。';
   @override
   String get placeItems => '列出要分享的项目。';
+  @override
+  String get noHttpChannel => '此设备没有可用的传输地址。请重新搜索设备后再试。';
 }
 
 // Path: settingsTab

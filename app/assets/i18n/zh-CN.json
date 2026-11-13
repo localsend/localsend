@@ -82,7 +82,8 @@
     },
     "sendModeHelp": "提示",
     "help": "请确保目标连接到同一个 Wi‑Fi 网络。",
-    "placeItems": "列出要分享的项目。"
+    "placeItems": "列出要分享的项目。",
+    "noHttpChannel": "此设备没有可用的传输地址。请重新搜索设备后再试。"
   },
   "settingsTab": {
     "title": "设置",
