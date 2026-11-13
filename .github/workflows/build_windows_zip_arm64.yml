@@ -111,10 +111,50 @@ jobs:
       - name: Add DLL files
         working-directory: app
         run: |
-          $crt = Get-ChildItem 'C:\Program Files\Microsoft Visual Studio\2022\*\VC\Redist\MSVC\*\arm64\Microsoft.VC143.CRT' | Select-Object -Last 1
-          Copy-Item "$($crt.FullName)\msvcp140.dll" build/windows/arm64/runner/Release/
-          Copy-Item "$($crt.FullName)\vcruntime140.dll" build/windows/arm64/runner/Release/
-          Copy-Item "$($crt.FullName)\vcruntime140_1.dll" build/windows/arm64/runner/Release/
+          $target = "build/windows/arm64/runner/Release"
+          # The VS install path differs per runner image generation (VS2022 -> ...\2022, VS2026 -> ...\18)
+          $dir = $null
+          foreach ($root in @('C:\Program Files\Microsoft Visual Studio\2022', 'C:\Program Files\Microsoft Visual Studio\18')) {
+            # the wildcard covers the Visual Studio edition directory (Community/Professional/Enterprise/BuildTools)
+            $hit = Get-ChildItem "$root\*\VC\Redist\MSVC\*\arm64\Microsoft.VC*.CRT" -ErrorAction SilentlyContinue | Select-Object -Last 1
+            if ($hit) { $dir = $hit.FullName; break }
+          }
+          if (-not $dir) {
+            Write-Host "No arm64 CRT under Visual Studio; installing the official arm64 redistributable"
+            # VS2026 ships MSVC 14.50, so prefer the VS2026-channel redistributable; each aka.ms permalink serves the latest build of its channel
+            $redist = $null
+            foreach ($url in @('https://aka.ms/vs/18/release/vc_redist.arm64.exe', 'https://aka.ms/vs/17/release/vc_redist.arm64.exe')) {
+              $out = "${{ runner.temp }}\vc_redist.arm64.exe"
+              try {
+                Invoke-WebRequest -Uri $url -OutFile $out -ErrorAction Stop
+                $redist = $out
+                Write-Host "Downloaded $url (file version $((Get-Item $out).VersionInfo.FileVersion))"
+                break
+              } catch {
+                Write-Host "Download failed: $url"
+              }
+            }
+            if (-not $redist) { throw "Could not download any arm64 VC redistributable" }
+            # the packaged runtime must be at least as recent as the toolset that built the app
+            $toolset = Get-ChildItem 'C:\Program Files\Microsoft Visual Studio\*\*\VC\Tools\MSVC\*' -ErrorAction SilentlyContinue |
+              Sort-Object { try { [version]$_.Name } catch { [version]'0.0' } } | Select-Object -Last 1
+            if ($toolset) {
+              $fv = [version]((Get-Item $redist).VersionInfo.FileVersion)
+              if ($fv -lt ([version]$toolset.Name)) {
+                throw "Redistributable $fv is older than the installed MSVC toolset $($toolset.Name)"
+              }
+            }
+            # only a clean install is usable: exit 3010 (reboot required) can leave the previous DLLs in System32 until the runner restarts
+            $proc = Start-Process -FilePath $redist -ArgumentList '/install', '/quiet', '/norestart' -Wait -PassThru
+            if ($proc.ExitCode -ne 0) {
+              throw "vc_redist.arm64.exe failed with exit code $($proc.ExitCode)"
+            }
+            $dir = 'C:\Windows\System32' # System32 holds the native arm64 DLLs after the install
+          }
+          Write-Host "Using CRT from $dir"
+          Copy-Item "$dir\msvcp140.dll" $target/
+          Copy-Item "$dir\vcruntime140.dll" $target/
+          Copy-Item "$dir\vcruntime140_1.dll" $target/
 
       # The MSIX helper only makes sense for the installer; portable users should not register an MSIX package
       - name: Remove MSIX helper from portable bundle
