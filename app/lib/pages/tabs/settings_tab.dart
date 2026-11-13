@@ -302,6 +302,19 @@ class SettingsTab extends StatelessWidget {
                       await ref.notifier(settingsProvider).setCreateChecksums(b);
                     },
                   ),
+                  _SettingsEntry(
+                    label: t.settingsTab.send.maxParallelSends,
+                    child: TextFieldTv(
+                      name: t.settingsTab.send.maxParallelSends,
+                      controller: vm.maxParallelSendsController,
+                      onChanged: (s) async {
+                        final maxParallelSends = int.tryParse(s);
+                        if (maxParallelSends != null) {
+                          await ref.notifier(settingsProvider).setMaxParallelSends(maxParallelSends < 1 ? 1 : maxParallelSends);
+                        }
+                      },
+                    ),
+                  ),
                 ],
               ),
             _SettingsSection(

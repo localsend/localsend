@@ -77,6 +77,7 @@ class SettingsService extends PureNotifier<SettingsState> {
     receiveViaLinkAutoAccept: _persistence.getReceiveViaLinkAutoAccept(),
     createChecksums: _persistence.getCreateChecksums(),
     verifyChecksums: _persistence.getVerifyChecksums(),
+    maxParallelSends: _persistence.getMaxParallelSends(),
     discoveryTimeout: _persistence.getDiscoveryTimeout(),
     advancedSettings: _persistence.getAdvancedSettingsEnabled(),
   );
@@ -309,6 +310,14 @@ class SettingsService extends PureNotifier<SettingsState> {
     await _persistence.setVerifyChecksums(verifyChecksums);
     state = state.copyWith(
       verifyChecksums: verifyChecksums,
+    );
+  }
+
+  Future<void> setMaxParallelSends(int maxParallelSends) async {
+    final value = maxParallelSends < 1 ? 1 : maxParallelSends;
+    await _persistence.setMaxParallelSends(value);
+    state = state.copyWith(
+      maxParallelSends: value,
     );
   }
 }
