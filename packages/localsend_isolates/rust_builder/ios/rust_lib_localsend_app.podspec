@@ -19,6 +19,7 @@ A new Flutter FFI plugin project.
   # `../src/*` so that the C sources can be shared among all target platforms.
   s.source           = { :path => '.' }
   s.source_files = 'Classes/**/*'
+  s.resources = 'PrivacyInfo.xcprivacy'
   s.dependency 'Flutter'
   s.platform = :ios, '11.0'
 

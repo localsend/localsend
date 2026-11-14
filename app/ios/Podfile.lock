@@ -51,12 +51,12 @@ SPEC CHECKSUMS:
   Flutter: 71a624a5bc0c04062bf19101d501e466baf2fb47
   flutter_foreground_task: a159d2c2173b33699ddb3e6c2a067045d7cebb89
   pasteboard: 49088aeb6119d51f976a421db60d8e1ab079b63c
-  rust_lib_localsend_app: e74fed7b12bd94b7fb63a29f9b6afdde78f6a0a7
+  rust_lib_localsend_app: 2159d4a644a0ed2ad67cff0a7e2a8bdc49191888
   share_handler_ios: e2244e990f826b2c8eaa291ac3831569438ba0fb
   share_handler_ios_models: fc638c9b4330dc7f082586c92aee9dfa0b87b871
   system_settings_2: 5c4a7aaed51dfd09b46aaa9d36bb57f578642191
   uri_content: 70a99850f89322ef5eca2e69451ee38221b917ec
 
-PODFILE CHECKSUM: eeee5f5f0b4e1d6b5db5096a37dcbaa9b5f93e7a
+PODFILE CHECKSUM: 9802c49813a2c99a249f52565f5c1c0e84716318
 
 COCOAPODS: 1.17.0
