@@ -13,6 +13,7 @@ environment:
 dependencies:
   collection: ^1.17.2 # allow newer versions, so it can compile with newer Flutter versions
   connectivity_plus: 7.3.1
+  cross_file: 0.3.5+4
   crypto: 3.0.7
   dart_mappable: 4.8.0
   desktop_drop: 0.8.4
@@ -31,7 +32,6 @@ dependencies:
   freezed_annotation: 3.1.0
   glob: 2.1.3
   image: 4.9.1
-  image_picker: 1.2.3
   in_app_purchase: 3.3.0 # [FOSS_REMOVE]
   intl: ^0.20.2 # allow newer versions, so it can compile with newer Flutter versions
   local_hero: 0.3.0
@@ -108,6 +108,10 @@ dependency_overrides:
       ref: 2dadd8afbf81e0e3e4791d7144e689555e58f649
 
 flutter:
+  # file_picker's Swift package includes camera code even for document-only use.
+  # CocoaPods supports excluding those unused media components in ios/Podfile.
+  config:
+    enable-swift-package-manager: false
   uses-material-design: true
 
   assets:

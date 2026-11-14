@@ -4,6 +4,11 @@ platform :ios, '15.0'
 # CocoaPods analytics sends network stats synchronously affecting flutter build latency.
 ENV['COCOAPODS_DISABLE_STATS'] = 'true'
 
+# LocalSend uses file_selector/PhotoManager for media, not file_picker's capture
+# components. Keep file_picker's document support for the legacy directory path.
+Pod::PICKER_MEDIA = false
+Pod::PICKER_AUDIO = false
+
 project 'Runner', {
   'Debug' => :debug,
   'Profile' => :release,
