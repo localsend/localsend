@@ -234,11 +234,13 @@ class IsolateHttpUploadFilesAction extends ReduxActionWithResult<IsolateControll
   final String? remoteSessionId;
   final List<HttpUploadFile> files;
   final Device device;
+  final int maxParallelSends;
 
   IsolateHttpUploadFilesAction({
     required this.remoteSessionId,
     required this.files,
     required this.device,
+    required this.maxParallelSends,
   });
 
   @override
@@ -253,6 +255,7 @@ class IsolateHttpUploadFilesAction extends ReduxActionWithResult<IsolateControll
         remoteSessionId: remoteSessionId,
         files: files,
         device: device,
+        maxParallelSends: maxParallelSends,
       ),
       taskId: taskId,
     );

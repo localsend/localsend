@@ -1159,6 +1159,9 @@ class Translations$settingsTab$send$en {
 
   /// en: 'Create checksums when sending files'
   String get createChecksums => 'Create checksums when sending files';
+
+  /// en: 'Max parallel sends'
+  String get maxParallelSends => 'Max parallel sends';
 }
 
 // Path: settingsTab.network

@@ -622,6 +622,7 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
             remoteSessionId: sessionState.remoteSessionId,
             files: uploadFiles,
             device: sessionState.target,
+            maxParallelSends: ref.read(settingsProvider).maxParallelSends,
           ),
         );
 
