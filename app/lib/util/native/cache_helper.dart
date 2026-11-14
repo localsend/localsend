@@ -36,7 +36,7 @@ Future<void> _clear(RootIsolateToken token) async {
     checkPlatform([TargetPlatform.iOS])
         ? PathProviderFoundation()
               .getContainerPath(
-                appGroupIdentifier: 'group.org.localsend.localsendApp',
+                appGroupIdentifier: const String.fromEnvironment('IOS_APP_GROUP', defaultValue: 'group.org.localsend.localsendApp'),
               )
               .then((directoryPath) async {
                 if (directoryPath == null) {

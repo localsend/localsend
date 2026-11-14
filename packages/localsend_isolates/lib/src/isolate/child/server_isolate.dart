@@ -703,6 +703,8 @@ Future<void> _handleFileUpload({
     _logger.severe('Failed to save file', e, st);
     emitFailed(e);
     return;
+  } finally {
+    await finishFileSaveTarget(target);
   }
 
   try {

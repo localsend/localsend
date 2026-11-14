@@ -81,6 +81,8 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   freezed: 3.2.5
+  integration_test:
+    sdk: flutter
   mockito: any
   refena_inspector: 2.1.1
   slang_build_runner: 4.19.0

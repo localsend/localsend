@@ -50,9 +50,14 @@ bool checkPlatformWithGallery() {
 }
 
 /// This platform has access to file system
-/// On android, do not allow to change
 bool checkPlatformWithFileSystem() {
-  return checkPlatform([TargetPlatform.linux, TargetPlatform.windows, TargetPlatform.android, TargetPlatform.macOS]);
+  return checkPlatform([
+    TargetPlatform.linux,
+    TargetPlatform.windows,
+    TargetPlatform.android,
+    TargetPlatform.macOS,
+    TargetPlatform.iOS,
+  ]);
 }
 
 /// Convenience function to check if the app is not running on a Linux device with the Wayland display manager

@@ -17,11 +17,13 @@ import 'package:localsend_app/util/native/cross_file_converters.dart';
 import 'package:localsend_app/util/native/pick_directory_path.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_app/util/ui/asset_picker_translated_text_delegate.dart';
+import 'package:localsend_app/widget/dialogs/error_dialog.dart';
 import 'package:localsend_app/widget/dialogs/loading_dialog.dart';
 import 'package:localsend_app/widget/dialogs/message_input_dialog.dart';
 import 'package:localsend_app/widget/dialogs/no_permission_dialog.dart';
 import 'package:localsend_isolates/model/file_type.dart';
 import 'package:localsend_isolates/util/file_path_helper.dart';
+import 'package:localsend_isolates/util/rust.dart';
 import 'package:localsend_isolates/util/sleep.dart';
 import 'package:logging/logging.dart';
 import 'package:pasteboard/pasteboard.dart';
@@ -205,11 +207,14 @@ Future<void> _pickFolder(BuildContext context, Ref ref) async {
     return;
   }
 
-  // ignore: unawaited_futures
-  showDialog(
+  final navigator = Navigator.of(context, rootNavigator: true);
+  final loadingRoute = DialogRoute<void>(
     context: context,
     barrierDismissible: false,
     builder: (_) => const LoadingDialog(),
+  );
+  unawaited(
+    navigator.push(loadingRoute),
   );
   await sleepAsync(200); // Wait for the dialog to be shown
   try {
@@ -233,11 +238,13 @@ Future<void> _pickFolder(BuildContext context, Ref ref) async {
     }
 
     _logger.warning('Failed to pick directory', e);
-    // ignore: use_build_context_synchronously
-    await showDialog(context: context, builder: (_) => const NoPermissionDialog());
+    if (!context.mounted) return;
+    await showDialog(
+      context: context,
+      builder: (_) => ErrorDialog(error: e.humanErrorMessage),
+    );
   } finally {
-    // ignore: use_build_context_synchronously
-    Routerino.context.popUntilRoot(); // remove loading dialog
+    if (loadingRoute.isActive) navigator.removeRoute(loadingRoute);
   }
 }
 

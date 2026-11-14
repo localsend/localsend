@@ -521,6 +521,9 @@ class Translations$progressPage$en {
 
   late final Translations$progressPage$total$en total = Translations$progressPage$total$en.internal(_root);
   late final Translations$progressPage$remainingTime$en remainingTime = Translations$progressPage$remainingTime$en.internal(_root);
+
+  /// en: 'Retry failed files'
+  String get retryFailed => 'Retry failed files';
 }
 
 // Path: webSharePage

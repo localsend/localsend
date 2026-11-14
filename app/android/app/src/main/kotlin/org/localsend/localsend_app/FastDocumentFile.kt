@@ -47,7 +47,7 @@ class FastDocumentFile(
                 null,
                 null
             )
-            while (cursor!!.moveToNext()) {
+            while ((cursor ?: throw java.io.IOException("The document provider returned no folder listing")).moveToNext()) {
                 results.add(
                     FastDocumentFile(
                         context = context,
@@ -64,6 +64,7 @@ class FastDocumentFile(
             }
         } catch (e: Exception) {
             Log.w(TAG, "Error: $e")
+            throw e
         } finally {
             try {
                 cursor?.close()
