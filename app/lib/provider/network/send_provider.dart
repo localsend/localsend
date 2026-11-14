@@ -89,6 +89,7 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
     required Device target,
     required List<CrossFile> files,
     required bool background,
+    String? replacesSessionId,
   }) async {
     // Pinned to the device the user picked, so the request is not sent at all
     // if someone else answers on that address.
@@ -154,11 +155,32 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
         );
 
     if (!background) {
-      // ignore: use_build_context_synchronously, unawaited_futures
-      Routerino.context.push(
-        () => SendPage(showAppBar: false, closeSessionOnClose: true, sessionId: sessionId),
-        transition: RouterinoTransition.fade(),
-      );
+      if (replacesSessionId == null) {
+        // ignore: use_build_context_synchronously, unawaited_futures
+        Routerino.context.push(
+          () => SendPage(showAppBar: false, closeSessionOnClose: true, sessionId: sessionId),
+          transition: RouterinoTransition.fade(),
+        );
+      } else {
+        final route = MaterialPageRoute<void>(
+          builder: (_) => SendPage(showAppBar: false, closeSessionOnClose: true, sessionId: sessionId),
+        );
+        // Replace the old result even when preparation subsequently fails: the
+        // new page owns that error. Retire its state after route disposal.
+        unawaited(Navigator.of(Routerino.context).pushReplacement<void, void>(route));
+        bool retired = false;
+        void retire() {
+          if (retired) return;
+          retired = true;
+          WidgetsBinding.instance.addPostFrameCallback((_) => closeSession(replacesSessionId));
+        }
+
+        route.animation?.addStatusListener((status) {
+          if (status == AnimationStatus.completed) retire();
+        });
+        if (route.animation?.status == AnimationStatus.completed) retire();
+        unawaited(route.completed.then((_) => retire()));
+      }
     }
 
     // Calculate the checksums which are part of the request.
@@ -540,49 +562,54 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
 
   final uriContent = UriContent();
 
-  /// Sends a single file. Currently only used to retry a failed file.
-  Future<void> sendFile({
-    required String sessionId,
-    required SendingFile file,
-    required bool isRetry,
-  }) async {
-    if (file.token == null) {
+  final _retryingSessions = <String>{};
+
+  /// A completed receiver session no longer accepts its upload tokens. Negotiate
+  /// a new transfer containing only failures instead of replaying expired tokens.
+  Future<void> retryFailedFiles(String sessionId, {required bool Function() isCurrent}) async {
+    final session = state[sessionId];
+    if (session == null || session.status != SessionStatus.finishedWithErrors || !_retryingSessions.add(sessionId)) {
       return;
     }
-
-    final status = state[sessionId]?.status;
-    const allowedStates = {SessionStatus.sending, SessionStatus.finishedWithErrors};
-    if (status == null || !allowedStates.contains(status)) {
-      return;
-    }
-
-    if (isRetry) {
-      _logger.info('Retrying ${file.file.fileName}');
-
-      ref.notifier(fileTransferProvider).setStatus(sessionId: sessionId, fileId: file.file.id, status: FileStatus.queue);
-      state = state.updateSession(
-        sessionId: sessionId,
-        state: (s) => s?.copyWith(
-          status: SessionStatus.sending,
-          files: s.files.map((key, value) {
-            if (key == file.file.id) {
-              return MapEntry(key, value.copyWith(errorMessage: null));
-            }
-            return MapEntry(key, value);
-          }),
-        ),
+    try {
+      final files = failedFilesForRetry(
+        session,
+        ref.read(fileTransferProvider),
       );
-    }
+      if (files.isEmpty) return;
 
-    await _sendFiles(
-      sessionId: sessionId,
-      files: [file],
-    );
-
-    if (isRetry) {
-      if (state[sessionId] != null && ref.read(fileTransferProvider).getStatuses(sessionId).isFinishedOrError) {
-        _finish(sessionId: sessionId);
+      // A source-open error may leave the receiver waiting for a file it never
+      // saw. Release that slot before preparing another transfer.
+      if (session.remoteSessionId != null) {
+        try {
+          await ref
+              .read(httpProvider)
+              .pinnedTo(session.target.fingerprint)
+              .cancel(
+                protocol: session.target.getProtocolType(),
+                ip: session.target.ip!,
+                port: session.target.port,
+                sessionId: session.remoteSessionId!,
+              )
+              .timeout(const Duration(seconds: 10));
+        } on rust_http.RsHttpClientError_StatusCode catch (e) {
+          // An already-ended session has no token to cancel.
+          if (e.status != 403 && e.status != 404) rethrow;
+        }
       }
+      // The user may leave while cancellation is pending. Do not replace a
+      // different page or resurrect a session that was explicitly closed.
+      if (!identical(state[sessionId], session) || !isCurrent()) return;
+      // Keep the old page's state until the new route has replaced it. Removing
+      // it earlier schedules an automatic pop from ProgressPage.
+      await startSession(
+        target: session.target,
+        files: files,
+        background: false,
+        replacesSessionId: sessionId,
+      );
+    } finally {
+      _retryingSessions.remove(sessionId);
     }
   }
 
@@ -848,4 +875,31 @@ extension on SendSessionState {
         ),
     );
   }
+}
+
+/// Preserves the original sources and relative names while excluding successes.
+List<CrossFile> failedFilesForRetry(
+  SendSessionState session,
+  FileTransferNotifier transfers,
+) {
+  if (session.status != SessionStatus.finishedWithErrors) return [];
+  return [
+    for (final file in session.files.values)
+      if (transfers.getStatus(
+            sessionId: session.sessionId,
+            fileId: file.file.id,
+          ) ==
+          FileStatus.failed)
+        CrossFile(
+          name: file.file.fileName,
+          fileType: file.file.fileType,
+          size: file.file.size,
+          thumbnail: file.thumbnail,
+          asset: file.asset,
+          path: file.path,
+          bytes: file.bytes,
+          lastModified: file.file.metadata?.lastModified,
+          lastAccessed: file.file.metadata?.lastAccessed,
+        ),
+  ];
 }

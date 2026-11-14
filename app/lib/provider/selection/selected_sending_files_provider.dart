@@ -9,7 +9,6 @@ import 'package:localsend_app/util/native/cross_file_converters.dart';
 import 'package:localsend_app/util/send_ignore.dart';
 import 'package:localsend_isolates/model/file_type.dart';
 import 'package:localsend_isolates/rust/api/metadata.dart';
-import 'package:localsend_isolates/util/content_uri_helper.dart';
 import 'package:localsend_isolates/util/file_path_helper.dart';
 import 'package:logging/logging.dart';
 import 'package:path/path.dart' as p;
@@ -214,28 +213,10 @@ class AddAndroidDirectoryAction extends AsyncReduxAction<SelectedSendingFilesNot
     final newFiles = <CrossFile>[];
     _logger.info('Reading files in ${result.directoryUri}');
 
-    final basePath = ContentUriHelper.getPathFromTreeUri(result.directoryUri);
-    if (basePath == null) {
-      _logger.warning('Could not get base path from ${result.directoryUri}');
-      return state;
-    }
-    final folderName = ContentUriHelper.getEntityNameFromPath(basePath);
-    if (folderName == null) {
-      _logger.warning('Could not get folder name from $basePath');
-      return state;
-    }
-
+    // The native traversal builds relative names from display names. Document
+    // IDs are opaque and cannot be decoded into a filesystem hierarchy.
     for (final file in result.files) {
-      final relative = ContentUriHelper.guessRelativePathFromPickedFileContentUri(
-        folderContentUri: result.directoryUri,
-        basePath: basePath,
-        folderName: folderName,
-        uri: file.uri,
-      );
-      if (relative == null) {
-        _logger.warning('Could not get relative path from ${file.uri}');
-        continue;
-      }
+      final relative = file.name;
       _logger.info('Add file $relative (${file.uri})');
 
       final crossFile = CrossFile(

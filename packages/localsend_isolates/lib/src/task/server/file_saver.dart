@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:flutter/services.dart';
+
 import 'package:gal/gal.dart';
 import 'package:localsend_isolates/rust/api/filename.dart' as rust_filename;
 import 'package:localsend_isolates/util/android_channel.dart' as android_channel;
@@ -24,10 +26,13 @@ class FileSaveTarget {
   /// and to locate the file after it has been written.
   final String displayPath;
 
+  final String? iosWriteId;
+
   FileSaveTarget({
     required this.path,
     required this.fileDescriptor,
     required this.displayPath,
+    this.iosWriteId,
   });
 }
 
@@ -49,6 +54,26 @@ Future<FileSaveTarget> prepareFileSaveTarget({
   int? androidSdkInt,
 }) async {
   final parentDirectory = saveToGallery ? cacheDirectory : destinationDirectory;
+
+  if (Platform.isIOS && !saveToGallery) {
+    return _prepareIOSFile(
+      parentDirectory,
+      sanitizeRelativeName(fileName).join('/'),
+    );
+  }
+
+  if (!saveToGallery && androidSdkInt != null && parentDirectory.startsWith('content://')) {
+    final relativeName = sanitizeRelativeName(fileName).join('/');
+    final createdFile = await android_channel.createFileAndroid(
+      parentUri: parentDirectory,
+      fileName: relativeName,
+    );
+    return FileSaveTarget(
+      path: null,
+      fileDescriptor: createdFile.fileDescriptor,
+      displayPath: createdFile.uri,
+    );
+  }
 
   final (destinationPath, documentUri, finalName) = await digestFilePathAndPrepareDirectory(
     parentDirectory: parentDirectory,
@@ -97,6 +122,9 @@ Future<FileSaveTarget> prepareFileSaveTarget({
 /// created a second time under a numbered name.
 Future<FileSaveTarget> reopenFileSaveTarget(FileSaveTarget target) async {
   final path = target.path;
+  if (target.iosWriteId != null && path != null) {
+    return _prepareIOSFile(p.dirname(path), p.basename(path), overwrite: true);
+  }
   if (path != null) {
     // The server opens (and truncates) the path itself.
     return target;
@@ -266,4 +294,32 @@ SdCardPath? getSdCardPath(String path) {
     return null;
   }
   return SdCardPath(match.group(1)!, match.group(2)!);
+}
+
+const _iosChannel = MethodChannel('ios-delegate-channel');
+
+Future<FileSaveTarget> _prepareIOSFile(
+  String directory,
+  String name, {
+  bool overwrite = false,
+}) async {
+  final result = await _iosChannel.invokeMapMethod<String, String>(
+    'prepareReceivedFile',
+    {'directory': directory, 'name': name, 'overwrite': overwrite},
+  );
+  if (result == null) throw StateError('Could not access the selected destination');
+  return FileSaveTarget(
+    path: result['path']!,
+    fileDescriptor: null,
+    displayPath: result['path']!,
+    iosWriteId: result['id']!,
+  );
+}
+
+Future<void> finishFileSaveTarget(FileSaveTarget target) async {
+  if (target.iosWriteId != null) {
+    await _iosChannel.invokeMethod<void>('finishReceivedFile', {
+      'id': target.iosWriteId,
+    });
+  }
 }

@@ -105,6 +105,9 @@ extension HumanErrorMessageExt on Object {
   String get humanErrorMessage {
     final e = this;
     return switch (e) {
+      rust_http.RsHttpClientError_StatusCode(:final status, :final message)
+          when status == 500 && (message == null || message == 'Status code: 500 Internal Server Error') =>
+        '[500] The receiving device could not save this file. Check its error details and destination access, then retry.',
       rust_http.RsHttpClientError_StatusCode(:final status, :final message) when message != null => '[$status] $message',
       AnyhowException(:final message) => message,
       _ => e.toString(),

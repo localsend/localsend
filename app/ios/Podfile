@@ -4,6 +4,11 @@ platform :ios, '15.0'
 # CocoaPods analytics sends network stats synchronously affecting flutter build latency.
 ENV['COCOAPODS_DISABLE_STATS'] = 'true'
 
+# LocalSend uses file_selector/PhotoManager for media, not file_picker's capture
+# components. Keep file_picker's document support for the legacy directory path.
+Pod::PICKER_MEDIA = false
+Pod::PICKER_AUDIO = false
+
 project 'Runner', {
   'Debug' => :debug,
   'Profile' => :release,
@@ -42,8 +47,21 @@ target 'Runner' do
 end
 
 post_install do |installer|
+  # These pinned plugins omit manifests for their UserDefaults usage. Bundle
+  # declarations with each framework, rather than relying on the app manifest.
+  privacy_manifests = {
+    'share_handler_ios' => 'share_handler_ios',
+    'share_handler_ios_models' => 'share_handler_ios',
+    'flutter_foreground_task' => 'flutter_foreground_task',
+  }
   installer.pods_project.targets.each do |target|
     flutter_additional_ios_build_settings(target)
+    if privacy_manifests.key?(target.name)
+      manifest_path = File.expand_path("PrivacyManifests/#{privacy_manifests.fetch(target.name)}/PrivacyInfo.xcprivacy", __dir__)
+      manifest = installer.pods_project.files.find { |file| file.real_path.to_s == manifest_path }
+      manifest ||= installer.pods_project.new_file(manifest_path)
+      target.resources_build_phase.add_file_reference(manifest, true)
+    end
     target.build_configurations.each do |config|
       config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '15.0'
     end

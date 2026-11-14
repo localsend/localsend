@@ -239,7 +239,7 @@ class MainActivity : FlutterActivity() {
             // A pure tree URI (content://…/tree/X) must be converted to its
             // document form before it can be used as a parent document.
             val segments = parentUri.pathSegments
-            val parentDocumentUri = if (segments.size == 2 && segments[0] == "tree") {
+            var parentDocumentUri = if (segments.size == 2 && segments[0] == "tree") {
                 DocumentsContract.buildDocumentUriUsingTree(
                     parentUri,
                     DocumentsContract.getTreeDocumentId(parentUri)
@@ -248,15 +248,26 @@ class MainActivity : FlutterActivity() {
                 parentUri
             }
 
+            val components = fileName.split('/')
+            require(components.all { it.isNotBlank() && it != "." && it != ".." }) { "Invalid relative file name" }
+            for (directory in components.dropLast(1)) {
+                val existing = FastDocumentFile.fromTreeUri(this, parentDocumentUri).listFiles()
+                    .firstOrNull { it.isDirectory && it.name == directory }
+                parentDocumentUri = existing?.uri ?: DocumentsContract.createDocument(
+                    contentResolver, parentDocumentUri, DocumentsContract.Document.MIME_TYPE_DIR, directory
+                ) ?: throw java.io.IOException("Could not create folder $directory")
+            }
+            val leafName = components.last()
+
             // Providers append an extension when the MIME type does not match the one Android maps the
             // file's extension to (e.g. "test.conf" as text/plain becomes "test.conf.txt"), so derive it
             // from the same map. application/octet-stream keeps the name as-is for unknown extensions.
-            val extension = fileName.substringAfterLast('.', "").lowercase(Locale.ROOT)
+            val extension = leafName.substringAfterLast('.', "").lowercase(Locale.ROOT)
             val mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension)
                 ?: "application/octet-stream"
 
             val documentUri =
-                DocumentsContract.createDocument(contentResolver, parentDocumentUri, mimeType, fileName)
+                DocumentsContract.createDocument(contentResolver, parentDocumentUri, mimeType, leafName)
             if (documentUri == null) {
                 result.error("CREATE_FAILED", "Could not create $fileName in $parentUriString", null)
                 return
@@ -328,6 +339,7 @@ class MainActivity : FlutterActivity() {
     private fun openDirectoryPicker(onlyPath: Boolean) {
         val intent = Intent(Intent.ACTION_OPEN_DOCUMENT_TREE)
         intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION)
+        if (onlyPath) intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
         startActivityForResult(
             intent,
             if (onlyPath) REQUEST_CODE_PICK_DIRECTORY_PATH else REQUEST_CODE_PICK_DIRECTORY
@@ -361,95 +373,114 @@ class MainActivity : FlutterActivity() {
             return
         }
 
-        when (requestCode) {
-            REQUEST_CODE_PICK_DIRECTORY -> {
-                val uri: Uri? = data.data
-                val takeFlags: Int =
-                    data.flags and (Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
-                if (uri != null) {
-                    contentResolver.takePersistableUriPermission(uri, takeFlags)
+        try {
+            when (requestCode) {
+                REQUEST_CODE_PICK_DIRECTORY -> {
+                    val uri: Uri? = data.data
+                    val takeFlags: Int =
+                        data.flags and (Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
+                    if (uri != null) {
+                        contentResolver.takePersistableUriPermission(uri, takeFlags)
 
-                    val files = mutableListOf<FileInfo>()
-                    listFiles(uri, files)
-                    val resultData = PickDirectoryResult(uri.toString(), files)
-                    pendingResult?.success(resultData.toMap())
-                    pendingResult = null
-                } else {
-                    pendingResult?.error("Error", "Failed to access directory", null)
-                    pendingResult = null
+                        val callback = pendingResult
+                        pendingResult = null
+                        Thread {
+                            try {
+                                val root = FastDocumentFile.fromTreeUri(this, uri)
+                                val name = FastDocumentFile.fromDocumentUri(this, root.uri)?.name
+                                    ?: throw java.io.IOException("Could not read the selected folder")
+                                val files = mutableListOf<FileInfo>()
+                                listFiles(uri, files, name)
+                                runOnUiThread { callback?.success(PickDirectoryResult(uri.toString(), files).toMap()) }
+                            } catch (e: Exception) {
+                                runOnUiThread { callback?.error("READ_FAILED", e.message, null) }
+                            }
+                        }.start()
+                    } else {
+                        pendingResult?.error("Error", "Failed to access directory", null)
+                        pendingResult = null
+                    }
                 }
-            }
 
-            REQUEST_CODE_PICK_DIRECTORY_PATH -> {
-                val uri: Uri? = data.data
-                val takeFlags: Int =
-                    data.flags and (Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
-                if (uri != null) {
-                    contentResolver.takePersistableUriPermission(uri, takeFlags)
-                    pendingResult?.success(uri.toString())
-                    pendingResult = null
-                } else {
-                    pendingResult?.error("Error", "Failed to access directory", null)
-                    pendingResult = null
-                }
-            }
-
-            REQUEST_CODE_PICK_FILE -> {
-                val uriList: List<Uri> = when {
-                    data.clipData != null -> {
-                        val clipData = data.clipData
-                        val uris = mutableListOf<Uri>()
-                        for (i in 0 until clipData!!.itemCount) {
-                            uris.add(clipData.getItemAt(i).uri)
+                REQUEST_CODE_PICK_DIRECTORY_PATH -> {
+                    val uri: Uri? = data.data
+                    val takeFlags: Int =
+                        data.flags and (Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
+                    if (uri != null) {
+                        if (takeFlags and Intent.FLAG_GRANT_WRITE_URI_PERMISSION == 0) {
+                            pendingResult?.error("PERMISSION_DENIED", "The selected folder does not grant write access. Choose a writable folder.", null)
+                            pendingResult = null
+                            return
                         }
-                        uris
-                    }
-
-                    data.data != null -> listOf(data.data!!)
-                    else -> {
-                        pendingResult?.error("Error", "Failed to access file", null)
-                        return
+                        contentResolver.takePersistableUriPermission(uri, takeFlags)
+                        pendingResult?.success(uri.toString())
+                        pendingResult = null
+                    } else {
+                        pendingResult?.error("Error", "Failed to access directory", null)
+                        pendingResult = null
                     }
                 }
 
-                val takeFlags: Int =
-                    data.flags and (Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
+                REQUEST_CODE_PICK_FILE -> {
+                    val uriList: List<Uri> = when {
+                        data.clipData != null -> {
+                            val clipData = data.clipData
+                            val uris = mutableListOf<Uri>()
+                            for (i in 0 until clipData!!.itemCount) {
+                                uris.add(clipData.getItemAt(i).uri)
+                            }
+                            uris
+                        }
 
-                val resultList = mutableListOf<FileInfo>()
-                for (uri in uriList) {
-                    contentResolver.takePersistableUriPermission(uri, takeFlags)
-                    val documentFile = FastDocumentFile.fromDocumentUri(this, uri)
-                    if (documentFile == null) {
-                        pendingResult?.error("Error", "Failed to access file", null)
-                        return
+                        data.data != null -> listOf(data.data!!)
+                        else -> {
+                            pendingResult?.error("Error", "Failed to access file", null)
+                            return
+                        }
                     }
-                    resultList.add(
-                        FileInfo(
-                            name = documentFile.name,
-                            size = documentFile.size,
-                            uri = uri.toString(),
-                            lastModified = documentFile.lastModified?.toRfc3339(),
+
+                    val takeFlags: Int =
+                        data.flags and (Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
+
+                    val resultList = mutableListOf<FileInfo>()
+                    for (uri in uriList) {
+                        contentResolver.takePersistableUriPermission(uri, takeFlags)
+                        val documentFile = FastDocumentFile.fromDocumentUri(this, uri)
+                        if (documentFile == null) {
+                            pendingResult?.error("Error", "Failed to access file", null)
+                            return
+                        }
+                        resultList.add(
+                            FileInfo(
+                                name = documentFile.name,
+                                size = documentFile.size,
+                                uri = uri.toString(),
+                                lastModified = documentFile.lastModified?.toRfc3339(),
+                            )
                         )
-                    )
-                }
+                    }
 
-                pendingResult?.success(resultList.map { it.toMap() })
-                pendingResult = null
+                    pendingResult?.success(resultList.map { it.toMap() })
+                    pendingResult = null
+                }
             }
+        } catch (e: Exception) {
+            pendingResult?.error("FOLDER_ACCESS", e.message ?: "Could not access the selected files", null)
+            pendingResult = null
         }
     }
 
-    private fun listFiles(uri: Uri, files: MutableList<FileInfo>) {
+    private fun listFiles(uri: Uri, files: MutableList<FileInfo>, relativePath: String) {
         val pickedDir: FastDocumentFile = FastDocumentFile.fromTreeUri(this, uri)
 
         for (file in pickedDir.listFiles()) {
             if (file.isDirectory) {
                 // Recursive call
-                listFiles(file.uri, files)
+                listFiles(file.uri, files, "$relativePath/${file.name}")
             } else if (file.isFile) {
                 files.add(
                     FileInfo(
-                        name = file.name,
+                        name = "$relativePath/${file.name}",
                         size = file.size,
                         uri = file.uri.toString(),
                         lastModified = file.lastModified?.toRfc3339(),

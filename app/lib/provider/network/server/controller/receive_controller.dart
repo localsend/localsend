@@ -631,6 +631,7 @@ class ReceiveController {
       (oldState) => oldState?.copyWith(
         session: oldState.session?.copyWith(
           destinationDirectory: destinationDirectory.replaceAll('\\', '/'),
+          saveToGallery: false,
         ),
       ),
     );

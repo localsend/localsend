@@ -233,17 +233,21 @@ class SettingsTab extends StatelessWidget {
                           return;
                         }
 
-                        final directory = await pickDirectoryPath();
+                        final directory = await pickReceiveDirectory(context, persist: true);
                         if (directory != null) {
                           if (defaultTargetPlatform == TargetPlatform.macOS) {
                             await persistDestinationFolderAccess(directory);
                           }
                           await ref.notifier(settingsProvider).setDestination(directory);
+                          await ref.notifier(settingsProvider).setSaveToGallery(false);
                         }
                       },
                       child: Padding(
                         padding: const EdgeInsets.symmetric(vertical: 5),
-                        child: Text(vm.settings.destination ?? t.settingsTab.receive.downloads, style: Theme.of(context).textTheme.titleMedium),
+                        child: Text(
+                          vm.settings.destination ?? (checkPlatform([TargetPlatform.iOS]) ? t.receiveOptionsPage.appDirectory : t.settingsTab.receive.downloads),
+                          style: Theme.of(context).textTheme.titleMedium,
+                        ),
                       ),
                     ),
                   ),

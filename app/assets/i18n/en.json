@@ -278,7 +278,8 @@
       },
       "minutes": "{m}:{ss}",
       "hours": "@:.hoursUnit @:.minutesUnit"
-    }
+    },
+    "retryFailed": "Retry failed files"
   },
   "webSharePage": {
     "title": "Share via link",

@@ -51,7 +51,7 @@ class ReceiveOptionsPage extends StatelessWidget {
                         padding: const EdgeInsets.only(left: 10),
                         child: CustomIconButton(
                           onPressed: () async {
-                            final directory = await pickDirectoryPath();
+                            final directory = await pickReceiveDirectory(context);
                             if (directory != null) {
                               ref.notifier(serverProvider).setSessionDestinationDir(directory);
                             }
