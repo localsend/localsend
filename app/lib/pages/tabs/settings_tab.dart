@@ -308,10 +308,15 @@ class SettingsTab extends StatelessWidget {
                       name: t.settingsTab.send.maxParallelSends,
                       controller: vm.maxParallelSendsController,
                       onChanged: (s) async {
-                        final maxParallelSends = int.tryParse(s);
-                        if (maxParallelSends != null) {
-                          await ref.notifier(settingsProvider).setMaxParallelSends(maxParallelSends < 1 ? 1 : maxParallelSends);
+                        final value = int.tryParse(s);
+                        final int maxParallelSends;
+                        if (value == null || value < 1) {
+                          maxParallelSends = 1;
+                        } else {
+                          maxParallelSends = value;
                         }
+                        await ref.notifier(settingsProvider).setMaxParallelSends(maxParallelSends);
+                        vm.maxParallelSendsController.text = maxParallelSends.toString();
                       },
                     ),
                   ),
