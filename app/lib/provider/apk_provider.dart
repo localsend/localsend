@@ -37,6 +37,7 @@ final apkProvider = ViewProvider<AsyncValue<List<Application>>>((ref) {
           apps.sort((a, b) => a.appName.compareTo(b.appName));
           return AsyncValue<List<Application>>.data(apps);
         },
+        error: (error, stackTrace) => AsyncValue<List<Application>>.error(error, stackTrace),
         orElse: () => const AsyncValue<List<Application>>.loading(),
       );
 });

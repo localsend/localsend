@@ -7,7 +7,7 @@ resolution: workspace
 version: 1.18.2+64
 
 environment:
-  flutter: ^3.41.0
+  flutter: ^3.47.0
   sdk: ^3.11.0
 
 dependencies:
@@ -15,7 +15,7 @@ dependencies:
   connectivity_plus: 7.3.1
   crypto: 3.0.7
   dart_mappable: 4.8.0
-  desktop_drop: 0.7.1
+  desktop_drop: 0.8.4
   device_apps: 2.2.0
   device_info_plus: 12.4.0
   dynamic_color: 1.8.1
@@ -60,6 +60,7 @@ dependencies:
   shared_preferences_platform_interface: any
   slang: 4.19.0
   slang_flutter: 4.19.0
+  system_date_time_format: ^1.4.0
   system_settings_2: 3.0.2
   tray_manager: 0.5.3
   uri_content: 3.1.1
@@ -77,6 +78,8 @@ dev_dependencies:
   dart_mappable_builder: 4.8.0
   flutter_gen_runner: 5.15.0
   flutter_lints: 6.0.0
+  flutter_test:
+    sdk: flutter
   freezed: 3.2.5
   mockito: any
   refena_inspector: 2.1.1

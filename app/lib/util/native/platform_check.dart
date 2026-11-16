@@ -1,5 +1,17 @@
 import 'dart:io' show Platform;
 import 'package:flutter/foundation.dart';
+import 'package:flutter/services.dart';
+
+const _platformChannel = MethodChannel('org.localsend.localsend_app/platform');
+bool _isWayland = Platform.environment['XDG_SESSION_TYPE'] == 'wayland';
+
+Future<bool> isWaylandDisplay() async {
+  return (await _platformChannel.invokeMethod<bool>('isWayland'))!;
+}
+
+void cacheWaylandStatus(bool isWayland) {
+  _isWayland = isWayland;
+}
 
 bool checkPlatform(List<TargetPlatform> platforms, {bool web = false}) {
   if (web && kIsWeb) {
@@ -45,14 +57,7 @@ bool checkPlatformWithFileSystem() {
 
 /// Convenience function to check if the app is not running on a Linux device with the Wayland display manager
 bool checkPlatformIsNotWaylandDesktop() {
-  if (checkPlatform([TargetPlatform.linux])) {
-    if (Platform.environment['XDG_SESSION_TYPE'] == 'wayland') {
-      return false;
-    } else {
-      return true;
-    }
-  }
-  return true;
+  return !checkPlatform([TargetPlatform.linux]) || !_isWayland;
 }
 
 /// This platform supports payment (in-app purchase)

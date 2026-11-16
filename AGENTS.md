@@ -34,6 +34,10 @@ The app depends on **only** `localsend_isolates` — not on `flutter_rust_bridge
 Pinned to the version in `.fvmrc` (also mirrored in `.github/workflows/ci.yml` and `app/pubspec.yaml`, plus the `support/submodules/flutter` git submodule). Use **`fvm flutter` / `fvm dart`** instead of the system-wide toolchain.
 Bumping the version means updating all four places — see the "Bump Flutter" section of `CONTRIBUTING.md`.
 
+## Platform detection
+
+Use `Theme.of(context).platform` for platform-specific styling in Material widgets, and `defaultTargetPlatform` for platform behavior in lower layers. Use `dart:io.Platform` for OS-specific native APIs: with the `FLUTTER_TEST` environment variable and assertions enabled, `defaultTargetPlatform` is set to Android regardless of the actual OS (unless `debugDefaultTargetPlatformOverride` is set).
+
 ## Commands
 
 Run from `app/` unless stated otherwise.

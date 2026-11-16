@@ -1,6 +1,6 @@
 part of 'persistence_provider.dart';
 
-const _latestVersion = 3;
+const _latestVersion = 4;
 
 Future<void> _runMigrations(int from) async {
   if (from < 2) {
@@ -10,6 +10,10 @@ Future<void> _runMigrations(int from) async {
   if (from < 3) {
     await _migrate3();
     await SharedPreferencesStorePlatform.instance.setValue('Int', 'flutter.$_version', 3);
+  }
+  if (from < 4) {
+    await _migrate4();
+    await SharedPreferencesStorePlatform.instance.setValue('Int', 'flutter.$_version', 4);
   }
 }
 
@@ -48,4 +52,15 @@ Future<void> _migrate3() async {
 
   // some users disabled HTTPS for performance reasons which no longer apply since the Rust migration
   await SharedPreferencesStorePlatform.instance.setValue('Bool', 'flutter.$_https', true);
+}
+
+Future<void> _migrate4() async {
+  _logger.info('Migrating to version 4');
+  final prefs = await SharedPreferencesStorePlatform.instance.getAll();
+  final value = prefs['flutter.$_quickSave'];
+  if (value is bool) {
+    // Match migration 3 and the favorites-only default announced in What's new in 1.18.0.
+    final quickSave = value ? QuickSaveMode.on : QuickSaveMode.paired;
+    await SharedPreferencesStorePlatform.instance.setValue('String', 'flutter.$_quickSave', quickSave.name);
+  }
 }

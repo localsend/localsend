@@ -14,14 +14,18 @@ use std::path::PathBuf;
 
 #[derive(Subcommand)]
 pub enum Command {
-    /// Send one or more files or directories
+    /// Send one or more files or directories, or a text message
     Send {
         /// Destination device: an exact alias or IP address
         #[arg(long, value_name = "TARGET")]
         to: Option<String>,
 
+        /// Send this text as a message instead of files; `-` reads it from stdin
+        #[arg(long, value_name = "TEXT", requires = "to", conflicts_with = "paths")]
+        text: Option<String>,
+
         /// Files or directories to send (directories are collected recursively)
-        #[arg(value_name = "PATH", required = true, num_args = 1..)]
+        #[arg(value_name = "PATH", required_unless_present = "text", num_args = 1..)]
         paths: Vec<PathBuf>,
     },
 }
@@ -76,7 +80,7 @@ mod tests {
         let args = Args::try_parse_from(["localsend-cli", "send", "one.txt", "two.txt", "backup"])
             .unwrap();
 
-        let Some(Command::Send { to, paths }) = args.command else {
+        let Some(Command::Send { to, paths, .. }) = args.command else {
             panic!("expected the send command");
         };
         assert_eq!(to, None);
@@ -96,7 +100,7 @@ mod tests {
             Args::try_parse_from(["localsend-cli", "send", "--to", "Cute Tomato", "one.txt"])
                 .unwrap();
 
-        let Some(Command::Send { to, paths }) = args.command else {
+        let Some(Command::Send { to, paths, .. }) = args.command else {
             panic!("expected the send command");
         };
         assert_eq!(to.as_deref(), Some("Cute Tomato"));
@@ -109,7 +113,7 @@ mod tests {
             Args::try_parse_from(["localsend-cli", "send", "--to", "192.168.27.26", "one.txt"])
                 .unwrap();
 
-        let Some(Command::Send { to, paths }) = args.command else {
+        let Some(Command::Send { to, paths, .. }) = args.command else {
             panic!("expected the send command");
         };
         assert_eq!(to.as_deref(), Some("192.168.27.26"));
@@ -119,6 +123,41 @@ mod tests {
     #[test]
     fn requires_at_least_one_send_path() {
         assert!(Args::try_parse_from(["localsend-cli", "send"]).is_err());
+    }
+
+    #[test]
+    fn accepts_a_text_message() {
+        let args =
+            Args::try_parse_from(["localsend-cli", "send", "--to", "Phone", "--text", "hello"])
+                .unwrap();
+
+        let Some(Command::Send { to, text, paths }) = args.command else {
+            panic!("expected the send command");
+        };
+        assert_eq!(to.as_deref(), Some("Phone"));
+        assert_eq!(text.as_deref(), Some("hello"));
+        assert!(paths.is_empty());
+    }
+
+    #[test]
+    fn rejects_text_together_with_paths() {
+        assert!(
+            Args::try_parse_from([
+                "localsend-cli",
+                "send",
+                "--to",
+                "Phone",
+                "--text",
+                "hello",
+                "one.txt"
+            ])
+            .is_err()
+        );
+    }
+
+    #[test]
+    fn requires_a_destination_for_text() {
+        assert!(Args::try_parse_from(["localsend-cli", "send", "--text", "hello"]).is_err());
     }
 
     #[test]

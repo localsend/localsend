@@ -1376,6 +1376,64 @@ async fn test_prepare_upload_declined() {
     assert_status(result, 403);
 }
 
+/// macOS sends NFD names; the app must only ever see NFC (e.g. Korean as
+/// precomposed syllables instead of separate jamo).
+#[tokio::test]
+async fn test_prepare_upload_normalizes_file_names_to_nfc() {
+    let (event_tx, mut event_rx) = mpsc::channel::<ServerEventV2>(16);
+    let (_stop_tx, stop_rx) = oneshot::channel::<()>();
+    let handle = start_with_port(
+        0,
+        None,
+        ClientInfo {
+            alias: "Test Server".to_string(),
+            version: "2.2".to_string(),
+            device_model: None,
+            device_type: None,
+            token: "server-fingerprint".to_string(),
+        },
+        None,
+        Some(ServerConfigV2 {
+            pin: None,
+            verify_checksums: true,
+            event_tx,
+        }),
+        WebConfig::default(),
+        stop_rx,
+    )
+    .await
+    .expect("Failed to start server");
+
+    // "오삐한테" as decomposed jamo, inside a folder.
+    let nfd = "dir/\u{110B}\u{1169}\u{1108}\u{1175}\u{1112}\u{1161}\u{11AB}\u{1110}\u{1166}.txt";
+    let client = LsHttpClientV2::try_new_without_cert().unwrap();
+    let request = client.prepare_upload(
+        ProtocolType::Http,
+        "127.0.0.1",
+        handle.port(),
+        None,
+        prepare_upload_request(&[file_dto("file-a", nfd, 5)]),
+        None,
+        CancellationToken::new(),
+    );
+
+    let observe = async {
+        loop {
+            if let Some(ServerEventV2::PrepareUpload {
+                files, decision_tx, ..
+            }) = event_rx.recv().await
+            {
+                let _ = decision_tx.send(PrepareUploadDecisionV2::Decline);
+                return files["file-a"].file_name.clone();
+            }
+        }
+    };
+
+    let (result, file_name) = tokio::join!(request, observe);
+    assert_status(result, 403);
+    assert_eq!(file_name, "dir/오삐한테.txt");
+}
+
 #[tokio::test]
 async fn test_pin() {
     let server = start_test_server(Some("123456".to_string()), true, None).await;

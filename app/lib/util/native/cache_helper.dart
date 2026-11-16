@@ -1,5 +1,3 @@
-// ignore_for_file: discarded_futures, unawaited_futures
-
 import 'dart:io';
 import 'dart:isolate';
 
@@ -34,17 +32,7 @@ Future<void> _clear(RootIsolateToken token) async {
   final futures = (
     FilePicker.clearTemporaryFiles(),
     PhotoManager.clearFileCache(),
-    checkPlatform([TargetPlatform.iOS, TargetPlatform.android])
-        ? getTemporaryDirectory().then((cacheDir) {
-            cacheDir.list().listen((event) {
-              if (event is File) {
-                event.delete().then((_) {}).catchError((error) {
-                  _logger.warning('Failed to delete file: $error');
-                });
-              }
-            });
-          })
-        : Future.value(),
+    checkPlatform([TargetPlatform.iOS, TargetPlatform.android]) ? getTemporaryDirectory().then(clearTemporaryCacheFiles) : Future.value(),
     checkPlatform([TargetPlatform.iOS])
         ? PathProviderFoundation()
               .getContainerPath(
@@ -73,5 +61,17 @@ Future<void> _clear(RootIsolateToken token) async {
     await futures;
   } catch (e) {
     _logger.warning('Failed to clear cache: $e');
+  }
+}
+
+Future<void> clearTemporaryCacheFiles(Directory cacheDir) async {
+  await for (final event in cacheDir.list()) {
+    if (event is File) {
+      try {
+        await event.delete();
+      } catch (error) {
+        _logger.warning('Failed to delete cache file: $error');
+      }
+    }
   }
 }

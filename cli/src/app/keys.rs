@@ -52,6 +52,7 @@ impl KeyDecoder {
             return Some(Intent::Overlay(key));
         }
         let KeyCode::Char(c) = key.code else {
+            self.chord_w = false;
             return None;
         };
         let chord_w = std::mem::replace(&mut self.chord_w, false);
@@ -110,6 +111,27 @@ mod tests {
         );
         // The chord was consumed: a plain S means nothing.
         assert_eq!(decoder.decode(char_key('s'), false), None);
+    }
+
+    #[test]
+    fn non_character_keys_end_the_web_chords() {
+        for code in [
+            KeyCode::Up,
+            KeyCode::Enter,
+            KeyCode::Esc,
+            KeyCode::Backspace,
+        ] {
+            for suffix in ['s', 'r'] {
+                let mut decoder = KeyDecoder::new();
+
+                assert_eq!(decoder.decode(char_key('w'), false), None);
+                assert_eq!(
+                    decoder.decode(KeyEvent::new(code, KeyModifiers::NONE), false),
+                    None
+                );
+                assert_eq!(decoder.decode(char_key(suffix), false), None);
+            }
+        }
     }
 
     #[test]

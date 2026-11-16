@@ -1082,6 +1082,12 @@ class Translations$settingsTab$general$en {
   /// en: 'Save window position after exit'
   String get saveWindowPlacementWindows => 'Save window position after exit';
 
+  /// en: 'Always on top'
+  String get alwaysOnTop => 'Always on top';
+
+  /// en: 'Not supported on Wayland'
+  String get alwaysOnTopUnavailable => 'Not supported on Wayland';
+
   /// en: 'Minimize to the System Tray/Menu Bar when closing'
   String get minimizeToTray => 'Minimize to the System Tray/Menu Bar when closing';
 
@@ -1574,6 +1580,9 @@ class Translations$dialogs$favoriteEditDialog$en {
 
   /// en: 'Port'
   String get port => 'Port';
+
+  /// en: 'Enter a whole number between 1 and 65535.'
+  String get invalidPort => 'Enter a whole number between 1 and 65535.';
 }
 
 // Path: dialogs.fileInfo

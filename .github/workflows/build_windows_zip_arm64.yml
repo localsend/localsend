@@ -6,7 +6,7 @@ on:
 
 # Windows ARM64 requires 3.47+
 env:
-  FLUTTER_VERSION: "3.47.4"
+  FLUTTER_VERSION: "3.47.9"
 
 jobs:
   build:

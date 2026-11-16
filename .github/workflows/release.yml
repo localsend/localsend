@@ -6,7 +6,7 @@ on:
 jobs:
   # Each platform build lives in its own reusable workflow (also dispatchable standalone),
   # so the release build and the individual workflows cannot drift apart.
-  # Each called workflow computes the version from pubspec.yaml itself.
+  # Each called workflow reads the version from its package metadata.
   build_apk:
     uses: ./.github/workflows/build_android_apk.yml
     secrets: inherit
@@ -22,6 +22,9 @@ jobs:
 
   build_deb_arm_64:
     uses: ./.github/workflows/build_linux_deb_arm64.yml
+
+  build_rpm_x86_64:
+    uses: ./.github/workflows/build_linux_rpm_x64.yml
 
   build_appimage_x86_64:
     uses: ./.github/workflows/build_linux_appimage_x64.yml
@@ -64,6 +67,7 @@ jobs:
       - build_tar_arm_64
       - build_deb_x86_64
       - build_deb_arm_64
+      - build_rpm_x86_64
       - build_appimage_x86_64
       - build_windows_zip_x86_64
       - build_windows_zip_arm_64
@@ -216,6 +220,26 @@ jobs:
           asset_name: LocalSend-${{ steps.get_version.outputs.version }}-linux-arm-64.deb
           asset_content_type: application/vnd.debian.binary-package
 
+      # RPM (x86_64)
+      - name: Download rpm file
+        uses: actions/download-artifact@v7
+        with:
+          name: rpm-x86-64-result
+          path: rpm-x86-64-result
+
+      - name: Copy rpm file to root
+        run: cp rpm-x86-64-result/*.rpm result.rpm
+
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.draft_release.outputs.upload_url }}
+          asset_path: result.rpm
+          asset_name: LocalSend-${{ steps.get_version.outputs.version }}-linux-x86-64.rpm
+          asset_content_type: application/x-rpm
+
       # APPIMAGE (x86_64)
       - name: Download AppImage file
         uses: actions/download-artifact@v7
@@ -226,23 +250,25 @@ jobs:
       - name: List files in appimage-directory
         run: ls -l appimage-x86-64-result
 
-      - name: Copy AppImage file to root
-        run: |
-          for file in appimage-x86-64-result/*; do
-            if [[ $file == *.AppImage && $file != *.AppImage.zsync ]]; then
-              cp "$file" result.AppImage
-            fi
-          done
-
       - name: Upload Release Asset (AppImage)
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.draft_release.outputs.upload_url }}
-          asset_path: result.AppImage
+          asset_path: appimage-x86-64-result/LocalSend-${{ steps.get_version.outputs.version }}-linux-x86-64.AppImage
           asset_name: LocalSend-${{ steps.get_version.outputs.version }}-linux-x86-64.AppImage
           asset_content_type: application/x-appimage
+
+      - name: Upload Release Asset (AppImage zsync)
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.draft_release.outputs.upload_url }}
+          asset_path: appimage-x86-64-result/LocalSend-${{ steps.get_version.outputs.version }}-linux-x86-64.AppImage.zsync
+          asset_name: LocalSend-${{ steps.get_version.outputs.version }}-linux-x86-64.AppImage.zsync
+          asset_content_type: application/octet-stream
 
       # WINDOWS ZIP (x86_64)
       - name: Download windows zip file

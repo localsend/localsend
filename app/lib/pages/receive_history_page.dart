@@ -26,8 +26,7 @@ enum _EntryOption {
   open,
   showInFolder,
   info,
-  delete
-  ;
+  delete;
 
   String get label {
     return switch (this) {
@@ -187,7 +186,7 @@ class ReceiveHistoryPage extends StatelessWidget {
                               softWrap: false,
                             ),
                             Text(
-                              '${entry.timestampString} - ${entry.fileSize.asReadableFileSize} - ${entry.senderAlias}',
+                              '${entry.timestampString(context)} - ${entry.fileSize.asReadableFileSize} - ${entry.senderAlias}',
                               maxLines: 1,
                               overflow: TextOverflow.fade,
                               softWrap: false,

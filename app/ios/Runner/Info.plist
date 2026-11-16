@@ -157,6 +157,8 @@
     </array>
 
     <!-- share_handler -->
+    <key>FlutterDeepLinkingEnabled</key>
+    <false/>
     <key>CFBundleURLTypes</key>
     <array>
         <dict>

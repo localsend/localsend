@@ -330,35 +330,58 @@ class _Actions extends StatelessWidget {
       );
     }
 
+    void decline() {
+      vm.onDecline();
+      context.global.dispatch(NavigateAction.popUntil<WebSharePage>());
+    }
+
+    final onAccept = selectedFiles.isEmpty ? null : vm.onAccept;
+
     return Column(
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ElevatedButton.icon(
-              style: ElevatedButton.styleFrom(
-                elevation: colorMode == ColorMode.yaru ? 0 : null,
-                backgroundColor: colorMode == ColorMode.yaru ? Theme.of(context).colorScheme.surface : Theme.of(context).colorScheme.error,
-                foregroundColor: colorMode == ColorMode.yaru ? Theme.of(context).colorScheme.onSurface : Theme.of(context).colorScheme.onError,
+        Focus(
+          autofocus: true,
+          onKeyEvent: (node, event) {
+            final keyboard = HardwareKeyboard.instance;
+            if (event is! KeyDownEvent || keyboard.isControlPressed || keyboard.isShiftPressed || keyboard.isAltPressed || keyboard.isMetaPressed) {
+              return KeyEventResult.ignored;
+            }
+            switch (event.logicalKey) {
+              case LogicalKeyboardKey.escape:
+                decline();
+                return KeyEventResult.handled;
+              // Only while no button is focused, so that Enter still activates the focused button.
+              case LogicalKeyboardKey.enter || LogicalKeyboardKey.numpadEnter when node.hasPrimaryFocus:
+                onAccept?.call();
+                return KeyEventResult.handled;
+            }
+            return KeyEventResult.ignored;
+          },
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ElevatedButton.icon(
+                style: ElevatedButton.styleFrom(
+                  elevation: colorMode == ColorMode.yaru ? 0 : null,
+                  backgroundColor: colorMode == ColorMode.yaru ? Theme.of(context).colorScheme.surface : Theme.of(context).colorScheme.error,
+                  foregroundColor: colorMode == ColorMode.yaru ? Theme.of(context).colorScheme.onSurface : Theme.of(context).colorScheme.onError,
+                ),
+                onPressed: decline,
+                icon: const Icon(Icons.close),
+                label: Text(t.general.decline),
               ),
-              onPressed: () {
-                vm.onDecline();
-                context.global.dispatch(NavigateAction.popUntil<WebSharePage>());
-              },
-              icon: const Icon(Icons.close),
-              label: Text(t.general.decline),
-            ),
-            const SizedBox(width: 20),
-            ElevatedButton.icon(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Theme.of(context).colorScheme.primary,
-                foregroundColor: Theme.of(context).colorScheme.onPrimary,
+              const SizedBox(width: 20),
+              ElevatedButton.icon(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Theme.of(context).colorScheme.primary,
+                  foregroundColor: Theme.of(context).colorScheme.onPrimary,
+                ),
+                onPressed: onAccept,
+                icon: const Icon(Icons.check_circle),
+                label: Text(t.general.accept),
               ),
-              onPressed: selectedFiles.isEmpty ? null : () => vm.onAccept(),
-              icon: const Icon(Icons.check_circle),
-              label: Text(t.general.accept),
-            ),
-          ],
+            ],
+          ),
         ),
       ],
     );

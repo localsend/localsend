@@ -48,6 +48,7 @@
 - fix: hide unsupported troubleshooting options (@ShlomoCode)
 - fix: apply zero-padding when numbering renamed files (@A-M-D-R-3-W)
 - fix(linux): match the native title bar to the app theme (@ShlomoCode)
+- fix(linux): tray icon fails to load in Snap installations (@vicajilau)
 - fix(linux): show the AppImage icon in the GNOME dash (@ShlomoCode)
 - fix(linux): don't show the farewell message during deb upgrades or reinstalls (@ShlomoCode)
 - perf: reduce memory use during file transfers (@luojiyin1987)

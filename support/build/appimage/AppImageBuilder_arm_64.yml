@@ -3,6 +3,7 @@ version: 1
 script:
   # Workaround for error in Github Actions (https://github.com/AppImageCrafters/appimage-builder/issues/271)
   - which mksquashfs || apt install squashfs-tools
+  - install -Dm644 support/build/appimage/org.localsend.localsend_app.desktop AppDir/usr/share/applications/org.localsend.localsend_app.desktop
 
 AppDir:
   path: AppDir
@@ -65,4 +66,5 @@ AppDir:
 #      command: ./AppRun
 AppImage:
   arch: arm_64
-  update-information: guess
+  file_name: !ENV 'LocalSend-${APP_VERSION}-linux-arm-64.AppImage'
+  update-information: gh-releases-zsync|localsend|localsend|latest|LocalSend-*-linux-arm-64.AppImage.zsync

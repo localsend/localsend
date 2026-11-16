@@ -19,8 +19,7 @@ import 'package:routerino/routerino.dart';
 
 enum _InputMode {
   hashtag,
-  ip
-  ;
+  ip;
 
   String get label {
     return switch (this) {
