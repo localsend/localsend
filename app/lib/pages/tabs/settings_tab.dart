@@ -569,14 +569,17 @@ class SettingsTab extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                LabeledCheckbox(
-                  label: t.settingsTab.advancedSettings,
-                  value: vm.advanced,
-                  labelFirst: true,
-                  onChanged: (b) async {
-                    vm.onTapAdvanced(b == true);
-                    await ref.notifier(settingsProvider).setAdvancedSettingsEnabled(b == true);
-                  },
+                Flexible(
+                  child: LabeledCheckbox(
+                    label: t.settingsTab.advancedSettings,
+                    value: vm.advanced,
+                    labelFirst: true,
+                    wrapLabel: true,
+                    onChanged: (b) async {
+                      vm.onTapAdvanced(b == true);
+                      await ref.notifier(settingsProvider).setAdvancedSettingsEnabled(b == true);
+                    },
+                  ),
                 ),
                 const SizedBox(width: 10),
               ],
