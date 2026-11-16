@@ -25,6 +25,7 @@ import 'package:localsend_app/widget/dialogs/quick_save_from_favorites_notice.da
 import 'package:localsend_app/widget/dialogs/quick_save_notice.dart';
 import 'package:localsend_app/widget/dialogs/text_field_tv.dart';
 import 'package:localsend_app/widget/dialogs/text_field_with_actions.dart';
+import 'package:localsend_app/widget/labeled_checkbox.dart';
 import 'package:localsend_app/widget/local_send_logo.dart';
 import 'package:localsend_app/widget/responsive_list_view.dart';
 import 'package:localsend_isolates/constants.dart';
@@ -568,10 +569,10 @@ class SettingsTab extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                Flexible(child: Text(t.settingsTab.advancedSettings)),
-                const SizedBox(width: 5),
-                Checkbox(
+                LabeledCheckbox(
+                  label: t.settingsTab.advancedSettings,
                   value: vm.advanced,
+                  labelFirst: true,
                   onChanged: (b) async {
                     vm.onTapAdvanced(b == true);
                     await ref.notifier(settingsProvider).setAdvancedSettingsEnabled(b == true);
