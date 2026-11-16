@@ -11,8 +11,6 @@
 - feat(linux): support delta updates for the AppImage (@ShlomoCode)
 - feat: add a Cancel button to the device name dialog (@ShlomoCode)
 - feat: add x86_64 rpm package to release workflow (@basil)
-- deps: bump flutter to 3.47.9 (@Tienisto)
-  - The minimum supported versions are now iOS 15 and macOS 12.
 - i18n: add Kyrgyz (@nidara-duo)
 - security(cli): sanitize remote text before displaying it in the terminal (@Tienisto)
 - security: limit simultaneous incoming connections to prevent resource exhaustion (@Tienisto)
