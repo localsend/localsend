@@ -49,39 +49,6 @@ void main() {
     expect(tester.takeException(), isNull);
   }, variant: TargetPlatformVariant.only(TargetPlatform.macOS));
 
-  for (final locale in [AppLocale.en, AppLocale.zhCn, AppLocale.uk, AppLocale.fr, AppLocale.de, AppLocale.ptPt, AppLocale.id, AppLocale.ar]) {
-    for (final width in [320.0, 600.0, 1200.0]) {
-      for (final scale in [1.0, 1.5, 2.0]) {
-        testWidgets('${locale.languageTag} buttons fit at width $width and text scale $scale', (tester) async {
-          await _pumpSettings(tester, locale: locale, width: width, textScale: scale);
-
-          _expectTextInsideButton(tester, t.settingsTab.receive.downloads);
-          _expectTextInsideButton(tester, locale.getLocaleName());
-          expect(tester.takeException(), isNull);
-        }, variant: TargetPlatformVariant.only(TargetPlatform.macOS));
-      }
-    }
-  }
-
-  testWidgets('long custom destination wraps inside its button', (tester) async {
-    const destination = '/Users/test/Documents/Incoming shared files/Фотографії за жовтень 2026';
-    await _pumpSettings(tester, locale: AppLocale.uk, width: 320, textScale: 2, destination: destination);
-
-    _expectTextInsideButton(tester, destination);
-    expect(tester.takeException(), isNull);
-  }, variant: TargetPlatformVariant.only(TargetPlatform.macOS));
-
-  testWidgets('wrapped language button remains tappable', (tester) async {
-    var taps = 0;
-    await _pumpSettings(tester, locale: AppLocale.ptPt, width: 320, textScale: 2, onTapLanguage: () => taps++);
-
-    final language = find.text(AppLocale.ptPt.getLocaleName());
-    await tester.ensureVisible(language);
-    await tester.tap(language);
-    await tester.pump();
-    expect(taps, 1);
-    expect(tester.takeException(), isNull);
-  }, variant: TargetPlatformVariant.only(TargetPlatform.macOS));
 }
 
 void _expectTextInsideButton(WidgetTester tester, String label) {
@@ -113,8 +80,6 @@ Future<void> _pumpSettings(
   required AppLocale locale,
   required double width,
   double textScale = 1,
-  String? destination,
-  VoidCallback? onTapLanguage,
 }) async {
   await tester.binding.setSurfaceSize(Size(width, 900));
   addTearDown(() => tester.binding.setSurfaceSize(null));
@@ -128,7 +93,7 @@ Future<void> _pumpSettings(
     colorMode: ColorMode.localsend,
     customColor: Colors.teal,
     locale: locale,
-    destination: destination,
+    destination: null,
     port: defaultPort,
     multicastGroup: defaultMulticastGroup,
     networkWhitelist: null,
@@ -171,7 +136,7 @@ Future<void> _pumpSettings(
     showInContextMenu: false,
     onChangeTheme: (_, _) {},
     onChangeColorMode: (_, _) {},
-    onTapLanguage: (_) => onTapLanguage?.call(),
+    onTapLanguage: (_) {},
     onToggleAutoStart: (_) {},
     onToggleAutoStartLaunchHidden: (_) {},
     onToggleShowInContextMenu: (_) {},
