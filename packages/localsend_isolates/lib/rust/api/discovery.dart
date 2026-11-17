@@ -120,7 +120,8 @@ abstract class RsDiscovery implements RustOpaqueInterface {
   /// emitted on [RsDiscovery::listen].
   ///
   /// Only the inbound direction of the address is confirmed: an address
-  /// new to the device is stored with [RsOutbound::Untested].
+  /// new to the device is stored with [RsOutbound::Untested] and dialed
+  /// back in the background, whose outcome is emitted as well.
   Future<void> observeInbound({required RsDiscoveredDevice device});
 
   /// Records the outcome of a request the application sent to a stored

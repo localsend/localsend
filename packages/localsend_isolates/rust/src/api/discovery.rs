@@ -490,7 +490,8 @@ impl RsDiscovery {
     /// emitted on [RsDiscovery::listen].
     ///
     /// Only the inbound direction of the address is confirmed: an address
-    /// new to the device is stored with [RsOutbound::Untested].
+    /// new to the device is stored with [RsOutbound::Untested] and dialed
+    /// back in the background, whose outcome is emitted as well.
     pub async fn observe_inbound(&self, device: RsDiscoveredDevice) {
         self.instance
             .handle

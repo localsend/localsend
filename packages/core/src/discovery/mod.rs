@@ -137,6 +137,10 @@ struct DiscoveryState {
     /// The interface addresses a subnet scan is currently running for.
     scanning: std::sync::Mutex<HashSet<Ipv4Addr>>,
 
+    /// The devices (by fingerprint) and channels a dial-back is currently
+    /// running for, see [`dial_back`].
+    dialing_back: std::sync::Mutex<HashSet<(String, DeviceChannel)>>,
+
     /// Number of confirmations in this run, on which
     /// [`DiscoveryHandle::discover_staged`] decides whether to escalate.
     confirmations: AtomicU64,
@@ -430,8 +434,25 @@ impl DiscoveryHandle {
     /// channel is confirmed: a device new to the address is stored with
     /// [`Outbound::Untested`], because its request says nothing about
     /// whether it can be dialed back.
+    ///
+    /// An untested channel is therefore dialed back in the background, with
+    /// a register request: the outcome makes it [`Outbound::Reachable`] or
+    /// [`Outbound::Failed`] and is emitted as `Updated` or `Unreachable`.
+    /// A channel that was dialed before is not dialed again, so two devices
+    /// running this do not keep answering each other.
     pub async fn observe_inbound(&self, device: DiscoveredDevice) -> bool {
-        self.state.observed(device, Observation::ReachedUs, None).0
+        let (is_new, merged) = self
+            .state
+            .observed(device.clone(), Observation::ReachedUs, None);
+
+        let untested = merged
+            .channels
+            .get(&device.channel)
+            .is_some_and(|channel| channel.outbound == Outbound::Untested);
+        if untested {
+            dial_back(self.state.clone(), device);
+        }
+        is_new
     }
 
     /// Records the outcome of a request the application sent to a stored
@@ -544,6 +565,7 @@ pub async fn start(config: DiscoveryConfig, stop_rx: oneshot::Receiver<()>) -> D
         event_tx: config.event_tx,
         answering: AtomicBool::new(true),
         scanning: std::sync::Mutex::new(HashSet::new()),
+        dialing_back: std::sync::Mutex::new(HashSet::new()),
         confirmations: AtomicU64::new(0),
     });
 
@@ -599,10 +621,78 @@ async fn answer_announcement(
         None => ip.to_string(),
     };
 
+    // Nothing but the announcement is known about the device so far.
+    let device = DiscoveredDevice {
+        alias: message.alias,
+        version: message.version,
+        device_model: message.device_model,
+        device_type: message.device_type,
+        fingerprint: message.fingerprint,
+        channel: DeviceChannel::Http(HttpChannel {
+            host,
+            port: message.port,
+            protocol: message.protocol,
+        }),
+        download: message.download,
+    };
+    dial(&state, device, Some(announcement)).await;
+}
+
+/// Dials a device that reached this device's server back on the channel its
+/// request came from, to learn whether that channel also works in the
+/// outbound direction. Runs in the background.
+///
+/// At most one dial-back runs per device and channel: a peer typically sends
+/// several requests in a row, e.g. one for every message of an announcement
+/// burst.
+fn dial_back(state: Arc<DiscoveryState>, device: DiscoveredDevice) {
+    let key = (device.fingerprint.clone(), device.channel.clone());
+    if !state.dialing_back.lock().unwrap().insert(key.clone()) {
+        return;
+    }
+
+    tokio::spawn(async move {
+        let _guard = DialBackGuard { state: &state, key };
+        dial(&state, device, None).await;
+    });
+}
+
+/// Releases the channel of a finished dial-back, also when the task is
+/// cancelled.
+struct DialBackGuard<'a> {
+    state: &'a DiscoveryState,
+    key: (String, DeviceChannel),
+}
+
+impl Drop for DialBackGuard<'_> {
+    fn drop(&mut self) {
+        self.state.dialing_back.lock().unwrap().remove(&self.key);
+    }
+}
+
+/// Sends a register request to a device whose identity is already claimed —
+/// by its announcement, heard as `announcement`, or by a request it sent to
+/// this device's server — over `device.channel`, and puts the outcome into
+/// the store: the channel is reachable when the device answered, failed when
+/// it could not be reached.
+async fn dial(
+    state: &DiscoveryState,
+    device: DiscoveredDevice,
+    announcement: Option<Announcement>,
+) {
+    let Some(HttpChannel {
+        host,
+        port,
+        protocol,
+    }) = device.http().cloned()
+    else {
+        return;
+    };
+
     // Pin the claimed fingerprint, so nothing is sent to a device that does
     // not hold the matching certificate.
-    let expected_fingerprint = match message.protocol {
-        ProtocolType::Https => Some(message.fingerprint.clone()),
+    let expected_fingerprint = match protocol {
+        ProtocolType::Https => Some(device.fingerprint.clone()),
         ProtocolType::Http => None,
     };
     let client = match LsHttpClientV2::try_new(
@@ -614,7 +704,7 @@ async fn answer_announcement(
         Ok(client) => client,
         Err(err) => {
             tracing::error!(
-                "Could not create the client to answer {host}: {}",
+                "Could not create the client to register with {host}: {}",
                 ErrorChain(&err)
             );
             return;
@@ -622,28 +712,22 @@ async fn answer_announcement(
     };
 
     let result = client
-        .register(message.protocol, &host, message.port, state.register_dto())
+        .register(protocol, &host, port, state.register_dto())
         .await;
 
     match result {
         Ok(response) => {
             // The pinned certificate identifies the peer, so the fingerprint
-            // is taken from the announcement, not from the response body.
-            let device = confirmed_device(
-                response.body,
-                host,
-                message.port,
-                message.protocol,
-                message.fingerprint,
-            );
-            state.observed(device, Observation::Reached, Some(announcement));
+            // is the claimed one, not the one from the response body.
+            let device = confirmed_device(response.body, host, port, protocol, device.fingerprint);
+            state.observed(device, Observation::Reached, announcement);
         }
         Err(err) => {
             let error = ErrorChain(&err).to_string();
-            let url = format!("{}://{host}:{}", message.protocol.as_str(), message.port);
+            let url = format!("{}://{host}:{port}", protocol.as_str());
             tracing::debug!(
-                "Could not register with announcing device {} ({url}): {error}",
-                message.alias,
+                "Could not register with device {} ({url}): {error}",
+                device.alias,
             );
             if !err.is_unreachable() {
                 // The device answered, just not with its registration:
@@ -652,22 +736,8 @@ async fn answer_announcement(
             }
 
             // The device is around but cannot be dialed, typically because
-            // a firewall blocks its server. Nothing but the announcement is
-            // known about it.
-            let device = DiscoveredDevice {
-                alias: message.alias,
-                version: message.version,
-                device_model: message.device_model,
-                device_type: message.device_type,
-                fingerprint: message.fingerprint,
-                channel: DeviceChannel::Http(HttpChannel {
-                    host,
-                    port: message.port,
-                    protocol: message.protocol,
-                }),
-                download: message.download,
-            };
-            state.observed(device, Observation::Failed(error), Some(announcement));
+            // a firewall blocks its server.
+            state.observed(device, Observation::Failed(error), announcement);
         }
     }
 }

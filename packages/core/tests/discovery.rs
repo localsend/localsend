@@ -103,6 +103,16 @@ impl TestInstance {
         .await
     }
 
+    /// Waits for a re-confirmation of the device with the given fingerprint,
+    /// ignoring unrelated devices that may be on the network.
+    async fn next_update(&mut self, fingerprint: &str) -> Option<DiscoveredDevice> {
+        self.next_device(fingerprint, |event| match event {
+            DiscoveryEvent::Updated { device } => Some(device),
+            _ => None,
+        })
+        .await
+    }
+
     /// Waits for a failed request to the device with the given fingerprint,
     /// ignoring unrelated devices that may be on the network.
     async fn next_unreachable(&mut self, fingerprint: &str) -> Option<DiscoveredDevice> {
@@ -475,8 +485,26 @@ async fn test_announcement_is_answered_and_device_stored() {
     );
 }
 
+/// A device as the application reports it after the device sent a request to
+/// this device's server from 127.0.0.1, claiming to serve on `port`.
+fn inbound_peer(port: u16) -> DiscoveredDevice {
+    DiscoveredDevice {
+        alias: "Peer".to_string(),
+        version: PROTOCOL_VERSION_V2.to_string(),
+        device_model: None,
+        device_type: None,
+        fingerprint: "peer-fingerprint".to_string(),
+        channel: DeviceChannel::Http(HttpChannel {
+            host: "127.0.0.1".to_string(),
+            port,
+            protocol: ProtocolType::Http,
+        }),
+        download: false,
+    }
+}
+
 #[tokio::test]
-async fn test_inbound_device_is_untested_until_it_answers() {
+async fn test_inbound_device_is_dialed_back() {
     let multicast_port = NEXT_MULTICAST_PORT.fetch_add(1, Ordering::Relaxed);
     let (server_port, _server_stop) = start_register_server("Peer", "peer-fingerprint", None).await;
 
@@ -484,57 +512,129 @@ async fn test_inbound_device_is_untested_until_it_answers() {
         return skip("no network interface available for multicast");
     };
 
-    // The peer registered with this device's server, as the application
-    // reports it.
-    let channel = DeviceChannel::Http(HttpChannel {
-        host: "127.0.0.1".to_string(),
-        port: server_port,
-        protocol: ProtocolType::Http,
-    });
-    let is_new = instance
-        .handle
-        .observe_inbound(DiscoveredDevice {
-            alias: "Peer".to_string(),
-            version: PROTOCOL_VERSION_V2.to_string(),
-            device_model: None,
-            device_type: None,
-            fingerprint: "peer-fingerprint".to_string(),
-            channel: channel.clone(),
-            download: false,
-        })
-        .await;
+    // The peer registered with this device's server.
+    let peer = inbound_peer(server_port);
+    let channel = peer.channel.clone();
+    let is_new = instance.handle.observe_inbound(peer).await;
     assert!(is_new, "a device reaching us must be discovered");
     instance
         .next_discovery("peer-fingerprint")
         .await
         .expect("The inbound device must be emitted");
 
+    // Its request says nothing about the way back, which is why the peer is
+    // dialed back on its own.
+    let dialed = instance
+        .next_update("peer-fingerprint")
+        .await
+        .expect("The answer to the dial-back must be emitted");
+    assert_eq!(dialed.channel, channel);
+
     let stored = instance
         .handle
         .device_by_fingerprint("peer-fingerprint")
         .expect("The inbound device must be stored");
     let state = stored.channels[&channel];
-    assert_eq!(
-        state.outbound,
-        Outbound::Untested,
-        "a device reaching us must not count as reachable"
-    );
-    assert!(state.inbound.is_some());
-
-    // Dialing the peer back proves the other direction.
-    let dialed = instance
-        .handle
-        .discover("127.0.0.1", server_port, ProtocolType::Http)
-        .await
-        .expect("Targeted discovery failed")
-        .expect("The peer must not be mistaken for the device itself");
-    let state = dialed.channels[&channel];
     assert!(matches!(state.outbound, Outbound::Reachable(_)));
     assert!(
         state.inbound.is_some(),
         "dialing back must keep the inbound direction"
     );
-    assert_eq!(dialed.channels.len(), 1);
+    assert_eq!(stored.channels.len(), 1);
+    assert_eq!(
+        stored
+            .logs
+            .iter()
+            .map(|log| log.event.clone())
+            .collect::<Vec<_>>(),
+        vec![
+            DeviceLogEvent::Inbound {
+                channel: channel.clone()
+            },
+            DeviceLogEvent::Outbound { channel },
+        ],
+    );
+}
+
+#[tokio::test]
+async fn test_inbound_device_that_cannot_be_dialed_back_is_marked_as_failed() {
+    let multicast_port = NEXT_MULTICAST_PORT.fetch_add(1, Ordering::Relaxed);
+
+    let Some(mut instance) = start_instance("Host", multicast_port, announce_port()).await else {
+        return skip("no network interface available for multicast");
+    };
+
+    // The peer claims a port that nobody listens on, like a device whose
+    // server is blocked by a firewall.
+    let peer = inbound_peer(announce_port());
+    let channel = peer.channel.clone();
+    instance.handle.observe_inbound(peer).await;
+    instance
+        .next_discovery("peer-fingerprint")
+        .await
+        .expect("The inbound device must be emitted");
+
+    let failed = instance
+        .next_unreachable("peer-fingerprint")
+        .await
+        .expect("The failed dial-back must be emitted");
+    assert_eq!(failed.channel, channel);
+
+    let stored = instance
+        .handle
+        .device_by_fingerprint("peer-fingerprint")
+        .expect("A device that reached us must stay confirmed");
+    let state = stored.channels[&channel];
+    assert!(matches!(state.outbound, Outbound::Failed(_)));
+    assert!(state.inbound.is_some());
+    assert!(instance.handle.unconfirmed_devices().is_empty());
+}
+
+#[tokio::test]
+async fn test_inbound_device_is_not_dialed_back_on_a_tested_channel() {
+    let multicast_port = NEXT_MULTICAST_PORT.fetch_add(1, Ordering::Relaxed);
+    let (server_port, _server_stop) = start_register_server("Peer", "peer-fingerprint", None).await;
+
+    let Some(instance) = start_instance("Host", multicast_port, announce_port()).await else {
+        return skip("no network interface available for multicast");
+    };
+
+    // The peer was dialed before it reached us, like a device answering a
+    // register request with one of its own: answering that one again would
+    // go back and forth forever.
+    instance
+        .handle
+        .discover("127.0.0.1", server_port, ProtocolType::Http)
+        .await
+        .expect("Targeted discovery failed")
+        .expect("The peer must not be mistaken for the device itself");
+
+    let peer = inbound_peer(server_port);
+    let channel = peer.channel.clone();
+    let is_new = instance.handle.observe_inbound(peer).await;
+    assert!(!is_new);
+
+    // A dial-back over loopback would be answered long before this.
+    tokio::time::sleep(Duration::from_millis(200)).await;
+
+    let stored = instance
+        .handle
+        .device_by_fingerprint("peer-fingerprint")
+        .expect("The peer must be stored");
+    assert_eq!(
+        stored
+            .logs
+            .iter()
+            .map(|log| log.event.clone())
+            .collect::<Vec<_>>(),
+        vec![
+            DeviceLogEvent::Outbound {
+                channel: channel.clone()
+            },
+            DeviceLogEvent::Inbound { channel },
+        ],
+        "a channel that was dialed before must not be dialed again"
+    );
 }
 
 #[tokio::test]

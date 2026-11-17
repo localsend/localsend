@@ -216,8 +216,10 @@ class DiscoveryService {
 
   /// Feeds a device that reached this device's HTTP server into the store,
   /// e.g. one that registered. Only the inbound direction of its address is
-  /// confirmed: whether the device can be dialed back there stays untested.
-  /// The device comes back on the [startListener] stream.
+  /// confirmed: whether the device can be dialed back there is then tested by
+  /// the discovery in the background.
+  /// The device comes back on the [startListener] stream, and again with the
+  /// outcome of that test.
   Future<void> observeInbound(Device device) async {
     final discovery = _discovery;
     final ip = device.ip;
