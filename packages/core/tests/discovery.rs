@@ -10,7 +10,8 @@
 
 use localsend::crypto::cert::generate_self_signed;
 use localsend::discovery::{
-    self, DeviceIdentity, DiscoveryConfig, DiscoveryEvent, DiscoveryHandle,
+    self, DeviceChannel, DeviceIdentity, DeviceLogEvent, DiscoveredDevice, DiscoveryConfig,
+    DiscoveryEvent, DiscoveryHandle, HttpChannel, Outbound,
 };
 use localsend::http::server::web::WebConfig;
 use localsend::http::server::{start_with_port, ServerConfigV2, TlsConfig};
@@ -94,20 +95,40 @@ struct TestInstance {
 impl TestInstance {
     /// Waits for the discovery of the device with the given fingerprint,
     /// ignoring unrelated devices that may be on the network.
-    async fn next_discovery(
+    async fn next_discovery(&mut self, fingerprint: &str) -> Option<DiscoveredDevice> {
+        self.next_device(fingerprint, |event| match event {
+            DiscoveryEvent::Discovered { device } => Some(device),
+            _ => None,
+        })
+        .await
+    }
+
+    /// Waits for a failed request to the device with the given fingerprint,
+    /// ignoring unrelated devices that may be on the network.
+    async fn next_unreachable(&mut self, fingerprint: &str) -> Option<DiscoveredDevice> {
+        self.next_device(fingerprint, |event| match event {
+            DiscoveryEvent::Unreachable { device } => Some(device),
+            _ => None,
+        })
+        .await
+    }
+
+    /// Waits for an event that `pick` accepts and that is about the device
+    /// with the given fingerprint.
+    async fn next_device(
         &mut self,
         fingerprint: &str,
-    ) -> Option<localsend::discovery::DiscoveredDevice> {
+        pick: impl Fn(DiscoveryEvent) -> Option<DiscoveredDevice>,
+    ) -> Option<DiscoveredDevice> {
         let deadline = tokio::time::Instant::now() + RECEIVE_TIMEOUT;
         loop {
             let event = tokio::time::timeout_at(deadline, self.events.recv())
                 .await
                 .ok()??;
-            let DiscoveryEvent::Discovered { device } = event else {
-                continue;
-            };
-            if device.fingerprint == fingerprint {
-                return Some(device);
+            if let Some(device) = pick(event) {
+                if device.fingerprint == fingerprint {
+                    return Some(device);
+                }
             }
         }
     }
@@ -451,5 +472,178 @@ async fn test_announcement_is_answered_and_device_stored() {
             .device_by_fingerprint(&receiver.fingerprint)
             .is_none(),
         "answering over HTTP must not make the receiver appear on the announcer's side"
+    );
+}
+
+#[tokio::test]
+async fn test_inbound_device_is_untested_until_it_answers() {
+    let multicast_port = NEXT_MULTICAST_PORT.fetch_add(1, Ordering::Relaxed);
+    let (server_port, _server_stop) = start_register_server("Peer", "peer-fingerprint", None).await;
+
+    let Some(mut instance) = start_instance("Host", multicast_port, announce_port()).await else {
+        return skip("no network interface available for multicast");
+    };
+
+    // The peer registered with this device's server, as the application
+    // reports it.
+    let channel = DeviceChannel::Http(HttpChannel {
+        host: "127.0.0.1".to_string(),
+        port: server_port,
+        protocol: ProtocolType::Http,
+    });
+    let is_new = instance
+        .handle
+        .observe_inbound(DiscoveredDevice {
+            alias: "Peer".to_string(),
+            version: PROTOCOL_VERSION_V2.to_string(),
+            device_model: None,
+            device_type: None,
+            fingerprint: "peer-fingerprint".to_string(),
+            channel: channel.clone(),
+            download: false,
+        })
+        .await;
+    assert!(is_new, "a device reaching us must be discovered");
+    instance
+        .next_discovery("peer-fingerprint")
+        .await
+        .expect("The inbound device must be emitted");
+
+    let stored = instance
+        .handle
+        .device_by_fingerprint("peer-fingerprint")
+        .expect("The inbound device must be stored");
+    let state = stored.channels[&channel];
+    assert_eq!(
+        state.outbound,
+        Outbound::Untested,
+        "a device reaching us must not count as reachable"
+    );
+    assert!(state.inbound.is_some());
+
+    // Dialing the peer back proves the other direction.
+    let dialed = instance
+        .handle
+        .discover("127.0.0.1", server_port, ProtocolType::Http)
+        .await
+        .expect("Targeted discovery failed")
+        .expect("The peer must not be mistaken for the device itself");
+    let state = dialed.channels[&channel];
+    assert!(matches!(state.outbound, Outbound::Reachable(_)));
+    assert!(
+        state.inbound.is_some(),
+        "dialing back must keep the inbound direction"
+    );
+    assert_eq!(dialed.channels.len(), 1);
+}
+
+#[tokio::test]
+async fn test_reported_failure_marks_the_channel_and_is_emitted() {
+    let multicast_port = NEXT_MULTICAST_PORT.fetch_add(1, Ordering::Relaxed);
+    let (server_port, _server_stop) =
+        start_register_server("Target", "target-fingerprint", None).await;
+
+    let Some(mut instance) = start_instance("Finder", multicast_port, announce_port()).await else {
+        return skip("no network interface available for multicast");
+    };
+
+    let device = instance
+        .handle
+        .discover("127.0.0.1", server_port, ProtocolType::Http)
+        .await
+        .expect("Targeted discovery failed")
+        .expect("The target must not be mistaken for the device itself");
+    let channel = device.device.channel.clone();
+
+    assert!(instance.handle.report_outbound(
+        "target-fingerprint",
+        channel.clone(),
+        Err("connection refused".to_string()),
+    ));
+
+    let failed = instance
+        .next_unreachable("target-fingerprint")
+        .await
+        .expect("The failure must be emitted");
+    assert_eq!(failed.channel, channel);
+
+    let stored = instance
+        .handle
+        .device_by_fingerprint("target-fingerprint")
+        .expect("A failure must not remove a confirmed device");
+    assert!(matches!(
+        stored.channels[&channel].outbound,
+        Outbound::Failed(_)
+    ));
+    assert!(instance.handle.unconfirmed_devices().is_empty());
+
+    assert!(
+        !instance
+            .handle
+            .report_outbound("unknown-fingerprint", channel, Ok(())),
+        "an outcome for an unknown device must be rejected"
+    );
+}
+
+#[tokio::test]
+async fn test_unanswered_announcement_is_stored_unconfirmed() {
+    let multicast_port = NEXT_MULTICAST_PORT.fetch_add(1, Ordering::Relaxed);
+
+    let Some(mut receiver) = start_instance("Receiver", multicast_port, announce_port()).await
+    else {
+        return skip("no network interface available for multicast");
+    };
+    // The announcer advertises a port that nobody listens on, like a device
+    // whose server is blocked by a firewall.
+    let Some(announcer) = start_instance("Announcer", multicast_port, announce_port()).await else {
+        return skip("no network interface available for multicast");
+    };
+
+    announcer.handle.announce().await;
+
+    let Some(device) = receiver.next_unreachable(&announcer.fingerprint).await else {
+        return skip("multicast traffic is not delivered on this machine");
+    };
+    assert_eq!(device.alias, "Announcer");
+
+    assert!(
+        receiver
+            .handle
+            .device_by_fingerprint(&announcer.fingerprint)
+            .is_none(),
+        "a device that did not answer must not be discovered"
+    );
+    assert!(receiver
+        .handle
+        .devices()
+        .iter()
+        .all(|known| known.device.fingerprint != announcer.fingerprint));
+
+    let unconfirmed = receiver
+        .handle
+        .unconfirmed_devices()
+        .into_iter()
+        .find(|known| known.device.fingerprint == announcer.fingerprint)
+        .expect("The device that did not answer must be kept for diagnostics");
+    assert!(!unconfirmed.confirmed);
+    assert!(
+        unconfirmed.channels.values().all(|state| {
+            matches!(state.outbound, Outbound::Failed(_)) && state.inbound.is_none()
+        }),
+        "every address the device announced from must be marked as failed"
+    );
+    assert!(
+        unconfirmed
+            .logs
+            .iter()
+            .any(|log| matches!(log.event, DeviceLogEvent::MulticastInbound { .. })),
+        "the heard announcement must be logged"
+    );
+    assert!(
+        unconfirmed
+            .logs
+            .iter()
+            .any(|log| matches!(log.event, DeviceLogEvent::OutboundFailed { .. })),
+        "the failed register request must be logged"
     );
 }

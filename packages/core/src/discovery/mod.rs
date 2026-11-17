@@ -1,8 +1,8 @@
 mod store;
 
 pub use store::{
-    ChannelStatus, DeviceChannel, DeviceLog, DeviceLogKind, DiscoveredDevice, HttpChannel,
-    StatefulDevice,
+    ChannelState, DeviceChannel, DeviceLog, DeviceLogEvent, DiscoveredDevice, HttpChannel,
+    Outbound, StatefulDevice,
 };
 
 use crate::http::client::{ClientError, LsHttpClientV2};
@@ -17,7 +17,7 @@ use std::net::{IpAddr, Ipv4Addr, Ipv6Addr};
 use std::sync::atomic::{AtomicBool, AtomicU64, Ordering};
 use std::sync::Arc;
 use std::time::{Duration, SystemTime};
-use store::DeviceStore;
+use store::{Announcement, DeviceStore, Observation};
 use tokio::sync::{mpsc, oneshot};
 
 /// The default timeout of the register requests sent by discovery, matching
@@ -77,9 +77,14 @@ pub struct DiscoveryConfig {
     pub event_tx: Option<mpsc::Sender<DiscoveryEvent>>,
 }
 
-/// An event emitted by the discovery. Every confirmation is also logged in
+/// An event emitted by the discovery. Every observation is also logged in
 /// [`StatefulDevice::logs`]; the accumulated state is read from
 /// [`DiscoveryHandle::devices`].
+///
+/// A confirmation is an HTTP request exchanged with the device in either
+/// direction: the device answered a request of this device, or it sent one
+/// to this device's server. Which direction a channel was confirmed in is
+/// kept in [`StatefulDevice::channels`].
 #[derive(Clone, Debug)]
 pub enum DiscoveryEvent {
     /// A device was confirmed over one of its channels for the first time
@@ -95,6 +100,18 @@ pub enum DiscoveryEvent {
     Updated {
         /// The device as it was confirmed, like in
         /// [`DiscoveryEvent::Discovered`].
+        device: DiscoveredDevice,
+    },
+
+    /// A request to a device failed: it was heard announcing itself but did
+    /// not answer the register request, or the application reported a failed
+    /// request via [`DiscoveryHandle::report_outbound`].
+    ///
+    /// The device is not necessarily a confirmed one: a device that never
+    /// answered is only listed in [`DiscoveryHandle::unconfirmed_devices`].
+    Unreachable {
+        /// The device carrying the channel that failed. Unverified when the
+        /// device is unconfirmed: it is what the announcement claimed.
         device: DiscoveredDevice,
     },
 
@@ -179,17 +196,32 @@ impl DiscoveryState {
         }
 
         let device = confirmed_device(response.body, host.to_string(), port, protocol, fingerprint);
-        let (_, merged) = self.found(device).await;
+        let (_, merged) = self.observed(device, Observation::Reached, None);
         Ok(Some(merged))
     }
 
-    /// Puts a device into the store, logging the confirmation on it, and
-    /// emits the resulting event. Returns whether the device is new, and
-    /// its stored state after the merge.
-    async fn found(&self, device: DiscoveredDevice) -> (bool, StatefulDevice) {
-        self.confirmations.fetch_add(1, Ordering::Relaxed);
-        let (event, merged) = self.store.upsert(device, SystemTime::now());
+    /// Puts an observation of a device (made on `device.channel`), after
+    /// hearing `announcement` when that is what led to it — into the store,
+    /// logging it on the device, and emits the resulting event. Returns
+    /// whether the device is new, and its stored state after the merge.
+    fn observed(
+        &self,
+        device: DiscoveredDevice,
+        observation: Observation,
+        announcement: Option<Announcement>,
+    ) -> (bool, StatefulDevice) {
+        if !matches!(observation, Observation::Failed(_)) {
+            self.confirmations.fetch_add(1, Ordering::Relaxed);
+        }
+        let (event, merged) =
+            self.store
+                .observe(device, observation, announcement, SystemTime::now());
         let is_new = matches!(event, DiscoveryEvent::Discovered { .. });
+        self.emit(event);
+        (is_new, merged)
+    }
+
+    fn emit(&self, event: DiscoveryEvent) {
         if let Some(event_tx) = &self.event_tx {
             // Never wait for the application here. A subnet scan confirms up to
             // 255 devices in a burst, far more than the channel holds, and
@@ -205,7 +237,6 @@ impl DiscoveryState {
                 tracing::debug!("Dropped a discovery event: {err}");
             }
         }
-        (is_new, merged)
     }
 }
 
@@ -224,7 +255,7 @@ impl DiscoveryHandle {
     ///
     /// Devices registering in response arrive at the application as server
     /// events, not here: discovery only learns about peers that announce
-    /// themselves. Feed them back via [`DiscoveryHandle::add_device`].
+    /// themselves. Feed them back via [`DiscoveryHandle::observe_inbound`].
     ///
     /// Returns once the whole announcement burst has been sent, which takes a
     /// few seconds, or immediately once discovery has been stopped or
@@ -240,7 +271,8 @@ impl DiscoveryHandle {
     ///
     /// Discovery then neither hears nor sends announcements; it still learns
     /// about devices through [`DiscoveryHandle::discover`],
-    /// [`DiscoveryHandle::scan_subnet`] and [`DiscoveryHandle::add_device`].
+    /// [`DiscoveryHandle::scan_subnet`] and
+    /// [`DiscoveryHandle::observe_inbound`].
     pub fn multicast_error(&self) -> Option<&anyhow::Error> {
         self.multicast.as_ref().err()
     }
@@ -388,19 +420,66 @@ impl DiscoveryHandle {
         self.state.answering.store(answer, Ordering::Relaxed);
     }
 
-    /// Puts a device confirmed outside of discovery into the store, e.g. one
-    /// that answered an announcement by registering with this device's HTTP
-    /// server. The confirmation is emitted as `Discovered` or `Updated`;
-    /// returns `true` when the device is new.
-    pub async fn add_device(&self, device: DiscoveredDevice) -> bool {
-        self.state.found(device).await.0
+    /// Puts a device that reached this device's HTTP server into the store,
+    /// e.g. one that answered an announcement by registering. The
+    /// confirmation is emitted as `Discovered` or `Updated`; returns `true`
+    /// when the device is new.
+    ///
+    /// `device.channel` is the address the request came from, with the port
+    /// the device claims to serve on. Only the inbound direction of that
+    /// channel is confirmed: a device new to the address is stored with
+    /// [`Outbound::Untested`], because its request says nothing about
+    /// whether it can be dialed back.
+    pub async fn observe_inbound(&self, device: DiscoveredDevice) -> bool {
+        self.state.observed(device, Observation::ReachedUs, None).0
     }
 
-    /// All discovered devices in discovery order.
+    /// Records the outcome of a request the application sent to a stored
+    /// device over `channel`, e.g. a transfer: `Ok` makes the channel
+    /// [`Outbound::Reachable`], `Err` — carrying the reason, for display —
+    /// makes it [`Outbound::Failed`], which ranks it behind the device's
+    /// other channels. Emitted as `Updated` or `Unreachable`.
+    ///
+    /// Only report failures to reach the device at all, not requests that
+    /// the device answered with an error.
+    ///
+    /// Returns `false` when no device has the fingerprint.
+    pub fn report_outbound(
+        &self,
+        fingerprint: &str,
+        channel: DeviceChannel,
+        result: Result<(), String>,
+    ) -> bool {
+        let event =
+            self.state
+                .store
+                .report_outbound(fingerprint, channel, result, SystemTime::now());
+        match event {
+            Some(event) => {
+                self.state.emit(event);
+                true
+            }
+            None => false,
+        }
+    }
+
+    /// All confirmed devices in the order they were first observed.
     pub fn devices(&self) -> Vec<StatefulDevice> {
         self.state.store.devices()
     }
 
+    /// The devices that were heard announcing themselves but did not answer
+    /// the register request, in the order they were first heard.
+    ///
+    /// Nothing about them is verified (announcements are unauthenticated),
+    /// so they are for diagnostics only — e.g. to tell the user that a
+    /// device is around but blocked by a firewall — and not transfer
+    /// targets. A device leaves this list with its first confirmation.
+    pub fn unconfirmed_devices(&self) -> Vec<StatefulDevice> {
+        self.state.store.unconfirmed_devices()
+    }
+
+    /// The confirmed device with the given fingerprint.
     pub fn device_by_fingerprint(&self, fingerprint: &str) -> Option<StatefulDevice> {
         self.state.store.by_fingerprint(fingerprint)
     }
@@ -501,14 +580,19 @@ pub async fn start(config: DiscoveryConfig, stop_rx: oneshot::Receiver<()>) -> D
 }
 
 /// Answers an announcement with a register request, as the protocol requires.
-/// The device enters the store only once that request succeeded, so that
-/// everything in the store is known to be reachable.
+/// The device is confirmed only once that request succeeded; a device that
+/// does not answer is stored unconfirmed, with the channel marked as failed.
 async fn answer_announcement(
     state: Arc<DiscoveryState>,
     ip: IpAddr,
     scope_id: Option<u32>,
     message: MulticastMessageV2,
 ) {
+    let announcement = Announcement {
+        ip,
+        scope_id,
+        timestamp: SystemTime::now(),
+    };
     let host = match scope_id {
         Some(scope_id) => format!("{ip}%{scope_id}"),
         None => ip.to_string(),
@@ -551,15 +635,33 @@ async fn answer_announcement(
                 message.protocol,
                 message.fingerprint,
             );
-            state.found(device).await;
+            state.observed(device, Observation::Reached, Some(announcement));
         }
         Err(err) => {
+            let error = ErrorChain(&err).to_string();
             let url = format!("{}://{host}:{}", message.protocol.as_str(), message.port);
             tracing::debug!(
-                "Could not register with announcing device {} ({url}): {}",
+                "Could not register with announcing device {} ({url}): {error}",
                 message.alias,
-                ErrorChain(&err),
             );
+
+            // The device is around but cannot be dialed, typically because
+            // a firewall blocks its server. Nothing but the announcement is
+            // known about it.
+            let device = DiscoveredDevice {
+                alias: message.alias,
+                version: message.version,
+                device_model: message.device_model,
+                device_type: message.device_type,
+                fingerprint: message.fingerprint,
+                channel: DeviceChannel::Http(HttpChannel {
+                    host,
+                    port: message.port,
+                    protocol: message.protocol,
+                }),
+                download: message.download,
+            };
+            state.observed(device, Observation::Failed(error), Some(announcement));
         }
     }
 }

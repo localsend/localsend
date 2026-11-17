@@ -1,9 +1,7 @@
 use crate::frb_generated::StreamSink;
-use flutter_rust_bridge::frb;
-pub use localsend::discovery::DeviceLogKind;
 use localsend::discovery::{
-    DeviceChannel, DeviceIdentity, DeviceLog, DiscoveredDevice, DiscoveryConfig, DiscoveryEvent,
-    DiscoveryHandle, HttpChannel, StatefulDevice,
+    DeviceChannel, DeviceIdentity, DeviceLog, DeviceLogEvent, DiscoveredDevice, DiscoveryConfig,
+    DiscoveryEvent, DiscoveryHandle, HttpChannel, StatefulDevice,
 };
 use localsend::model::discovery::{DeviceType, ProtocolType};
 use localsend::multicast::{DEFAULT_MULTICAST_GROUP_V6, MulticastDevice};
@@ -99,8 +97,8 @@ pub struct RsDeviceLog {
     pub channel: RsDeviceChannel,
 }
 
-#[frb(mirror(DeviceLogKind))]
-pub enum _DeviceLogKind {
+/// Whether a retained confirmation discovered the device or re-confirmed it.
+pub enum DeviceLogKind {
     Discovered,
     Updated,
 }
@@ -265,6 +263,8 @@ impl RsDiscovery {
                 Some(
                     DiscoveryEvent::Discovered { device } | DiscoveryEvent::Updated { device },
                 ) => device,
+                // Failed requests are not exposed to the Dart side yet.
+                Some(DiscoveryEvent::Unreachable { .. }) => continue,
                 Some(DiscoveryEvent::MulticastFailed) => {
                     tracing::error!(
                         "Multicast sockets failed, ending the discovery event stream"
@@ -396,7 +396,7 @@ impl RsDiscovery {
     pub async fn add_device(&self, device: RsDiscoveredDevice) {
         self.instance
             .handle
-            .add_device(DiscoveredDevice {
+            .observe_inbound(DiscoveredDevice {
                 alias: device.alias,
                 version: device.version,
                 device_model: device.device_model,
@@ -418,7 +418,7 @@ impl RsDiscovery {
         self.instance
             .handle
             .device_by_fingerprint(&fingerprint)
-            .map(|stored| stored.logs.into_iter().map(rs_device_log).collect())
+            .map(|stored| rs_device_logs(stored.logs))
             .unwrap_or_default()
     }
 
@@ -437,21 +437,45 @@ impl RsDiscovery {
     }
 }
 
-fn rs_device_log(log: DeviceLog) -> RsDeviceLog {
-    let DeviceChannel::Http(http) = log.channel;
-    RsDeviceLog {
-        timestamp_millis: log
-            .timestamp
-            .duration_since(std::time::UNIX_EPOCH)
-            .map(|elapsed| elapsed.as_millis() as u64)
-            .unwrap_or(0),
-        kind: log.kind,
-        channel: RsDeviceChannel {
-            host: http.host,
-            port: http.port,
-            protocol: http.protocol,
-        },
-    }
+/// The confirmations among the logs of a stored device, in the shape the
+/// Dart side knows: the direction of a confirmation, failed requests and
+/// heard announcements are not exposed yet.
+fn rs_device_logs(logs: Vec<DeviceLog>) -> Vec<RsDeviceLog> {
+    logs.into_iter()
+        .filter_map(|log| {
+            let channel = match log.event {
+                DeviceLogEvent::Outbound { channel } | DeviceLogEvent::Inbound { channel } => {
+                    channel
+                }
+                DeviceLogEvent::OutboundFailed { .. } | DeviceLogEvent::MulticastInbound { .. } => {
+                    return None;
+                }
+            };
+            Some((log.timestamp, channel))
+        })
+        .enumerate()
+        .map(|(index, (timestamp, channel))| {
+            let DeviceChannel::Http(http) = channel;
+            RsDeviceLog {
+                timestamp_millis: timestamp
+                    .duration_since(std::time::UNIX_EPOCH)
+                    .map(|elapsed| elapsed.as_millis() as u64)
+                    .unwrap_or(0),
+                // The core no longer tells the first confirmation apart; it
+                // is the oldest one as long as the log cap was not hit.
+                kind: if index == 0 {
+                    DeviceLogKind::Discovered
+                } else {
+                    DeviceLogKind::Updated
+                },
+                channel: RsDeviceChannel {
+                    host: http.host,
+                    port: http.port,
+                    protocol: http.protocol,
+                },
+            }
+        })
+        .collect()
 }
 
 /// The merged stored device flattened for the Dart side, its channels ranked

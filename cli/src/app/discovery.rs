@@ -18,6 +18,8 @@ impl App {
     pub(super) fn handle_discovery(&mut self, event: DiscoveryEvent) {
         let device = match &event {
             DiscoveryEvent::Discovered { device } | DiscoveryEvent::Updated { device } => device,
+            // Failed requests are not surfaced: the device stays out of reach.
+            DiscoveryEvent::Unreachable { .. } => return,
             DiscoveryEvent::MulticastFailed => {
                 self.ui.log(
                     Category::Discovery,
@@ -122,6 +124,6 @@ pub(super) fn device_confirmed(
     };
     let discovery = discovery.clone();
     tokio::spawn(async move {
-        discovery.add_device(device).await;
+        discovery.observe_inbound(device).await;
     });
 }

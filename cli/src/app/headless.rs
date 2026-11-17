@@ -194,6 +194,8 @@ fn handle_discovery(
 ) {
     let device = match &event {
         DiscoveryEvent::Discovered { device } | DiscoveryEvent::Updated { device } => device,
+        // Failed requests are not surfaced: the device stays out of reach.
+        DiscoveryEvent::Unreachable { .. } => return,
         DiscoveryEvent::MulticastFailed => {
             ui.log(
                 Category::Discovery,
