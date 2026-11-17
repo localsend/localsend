@@ -66,6 +66,56 @@ extension DeviceTypeMapperExtension on DeviceType {
   }
 }
 
+class ChannelOutboundMapper extends EnumMapper<ChannelOutbound> {
+  ChannelOutboundMapper._();
+
+  static ChannelOutboundMapper? _instance;
+  static ChannelOutboundMapper ensureInitialized() {
+    if (_instance == null) {
+      MapperContainer.globals.use(_instance = ChannelOutboundMapper._());
+    }
+    return _instance!;
+  }
+
+  static ChannelOutbound fromValue(dynamic value) {
+    ensureInitialized();
+    return MapperContainer.globals.fromValue(value);
+  }
+
+  @override
+  ChannelOutbound decode(dynamic value) {
+    switch (value) {
+      case r'untested':
+        return ChannelOutbound.untested;
+      case r'reachable':
+        return ChannelOutbound.reachable;
+      case r'failed':
+        return ChannelOutbound.failed;
+      default:
+        throw MapperException.unknownEnumValue(value);
+    }
+  }
+
+  @override
+  dynamic encode(ChannelOutbound self) {
+    switch (self) {
+      case ChannelOutbound.untested:
+        return r'untested';
+      case ChannelOutbound.reachable:
+        return r'reachable';
+      case ChannelOutbound.failed:
+        return r'failed';
+    }
+  }
+}
+
+extension ChannelOutboundMapperExtension on ChannelOutbound {
+  String toValue() {
+    ChannelOutboundMapper.ensureInitialized();
+    return MapperContainer.globals.toValue<ChannelOutbound>(this) as String;
+  }
+}
+
 class DeviceChannelMapper extends ClassMapperBase<DeviceChannel> {
   DeviceChannelMapper._();
 
@@ -122,6 +172,7 @@ class HttpChannelMapper extends ClassMapperBase<HttpChannel> {
     if (_instance == null) {
       MapperContainer.globals.use(_instance = HttpChannelMapper._());
       DeviceChannelMapper.ensureInitialized();
+      ChannelOutboundMapper.ensureInitialized();
     }
     return _instance!;
   }
@@ -135,12 +186,27 @@ class HttpChannelMapper extends ClassMapperBase<HttpChannel> {
   static const Field<HttpChannel, int> _f$port = Field('port', _$port);
   static bool _$https(HttpChannel v) => v.https;
   static const Field<HttpChannel, bool> _f$https = Field('https', _$https);
+  static ChannelOutbound _$outbound(HttpChannel v) => v.outbound;
+  static const Field<HttpChannel, ChannelOutbound> _f$outbound = Field(
+    'outbound',
+    _$outbound,
+    opt: true,
+    def: ChannelOutbound.untested,
+  );
+  static DateTime? _$inbound(HttpChannel v) => v.inbound;
+  static const Field<HttpChannel, DateTime> _f$inbound = Field(
+    'inbound',
+    _$inbound,
+    opt: true,
+  );
 
   @override
   final MappableFields<HttpChannel> fields = const {
     #host: _f$host,
     #port: _f$port,
     #https: _f$https,
+    #outbound: _f$outbound,
+    #inbound: _f$inbound,
   };
 
   static HttpChannel _instantiate(DecodingData data) {
@@ -148,6 +214,8 @@ class HttpChannelMapper extends ClassMapperBase<HttpChannel> {
       host: data.dec(_f$host),
       port: data.dec(_f$port),
       https: data.dec(_f$https),
+      outbound: data.dec(_f$outbound),
+      inbound: data.dec(_f$inbound),
     );
   }
 
@@ -212,7 +280,13 @@ extension HttpChannelValueCopy<$R, $Out>
 abstract class HttpChannelCopyWith<$R, $In extends HttpChannel, $Out>
     implements DeviceChannelCopyWith<$R, $In, $Out> {
   @override
-  $R call({String? host, int? port, bool? https});
+  $R call({
+    String? host,
+    int? port,
+    bool? https,
+    ChannelOutbound? outbound,
+    DateTime? inbound,
+  });
   HttpChannelCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
 
@@ -225,11 +299,19 @@ class _HttpChannelCopyWithImpl<$R, $Out>
   late final ClassMapperBase<HttpChannel> $mapper =
       HttpChannelMapper.ensureInitialized();
   @override
-  $R call({String? host, int? port, bool? https}) => $apply(
+  $R call({
+    String? host,
+    int? port,
+    bool? https,
+    ChannelOutbound? outbound,
+    Object? inbound = $none,
+  }) => $apply(
     FieldCopyWithData({
       if (host != null) #host: host,
       if (port != null) #port: port,
       if (https != null) #https: https,
+      if (outbound != null) #outbound: outbound,
+      if (inbound != $none) #inbound: inbound,
     }),
   );
   @override
@@ -237,6 +319,8 @@ class _HttpChannelCopyWithImpl<$R, $Out>
     host: data.get(#host, or: $value.host),
     port: data.get(#port, or: $value.port),
     https: data.get(#https, or: $value.https),
+    outbound: data.get(#outbound, or: $value.outbound),
+    inbound: data.get(#inbound, or: $value.inbound),
   );
 
   @override

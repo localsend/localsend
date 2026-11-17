@@ -1138,8 +1138,6 @@ class _Translations$deviceDetailsPage$info$ky extends Translations$deviceDetails
   @override
   String get name => 'Түзмөктүн аты';
   @override
-  String get address => 'Дарек';
-  @override
   String get version => 'Версия';
   @override
   String protocol({required Object version}) => 'Протокол v${version}';
@@ -1156,10 +1154,6 @@ class _Translations$deviceDetailsPage$logs$ky extends Translations$deviceDetails
   String get title => 'Журналдар';
   @override
   String get empty => 'Журналдар жок.';
-  @override
-  String discovered({required Object protocol, required Object host}) => '${protocol} аркылуу табылды (${host})';
-  @override
-  String updated({required Object protocol, required Object host}) => '${protocol} аркылуу жаңыртылды (${host})';
 }
 
 // Path: progressPage.total

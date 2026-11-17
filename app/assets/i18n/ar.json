@@ -212,15 +212,12 @@
     "verify": "تحقق",
     "info": {
       "name": "الاسم",
-      "address": "العنوان",
       "version": "الإصدار",
       "protocol": "البروتوكول v{version}"
     },
     "logs": {
       "title": "السجلات",
-      "empty": "لا توجد سجلات متاحة.",
-      "discovered": "تم الاكتشاف عبر {protocol} ({host})",
-      "updated": "تم التحديث عبر {protocol} ({host})"
+      "empty": "لا توجد سجلات متاحة."
     }
   },
   "verifyPage": {

@@ -1133,8 +1133,6 @@ class _Translations$deviceDetailsPage$info$lo extends Translations$deviceDetails
   @override
   String get name => 'ຊື່';
   @override
-  String get address => 'ທີ່ຢູ່';
-  @override
   String get version => 'ເວີຊັນ';
   @override
   String protocol({required Object version}) => 'ໂປຣໂຕເຄລ v${version}';
@@ -1151,10 +1149,6 @@ class _Translations$deviceDetailsPage$logs$lo extends Translations$deviceDetails
   String get title => 'ບັນທຶກ';
   @override
   String get empty => 'ບໍ່ມີບັນທຶກ.';
-  @override
-  String discovered({required Object protocol, required Object host}) => 'ຄົ້ນພົບຜ່ານ ${protocol} (${host})';
-  @override
-  String updated({required Object protocol, required Object host}) => 'ອັບເດດຜ່ານ ${protocol} (${host})';
 }
 
 // Path: progressPage.total

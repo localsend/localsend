@@ -1,10 +1,11 @@
 use crate::util;
 use crossterm::event::{KeyCode, KeyEvent};
+use localsend::discovery::{ChannelState, Outbound};
 use ratatui::Terminal;
 use ratatui::backend::CrosstermBackend;
 use ratatui::layout::{Constraint, Layout};
 use ratatui::style::{Color, Modifier, Style};
-use ratatui::text::Span;
+use ratatui::text::{Line, Span};
 use ratatui::widgets::{Block, Borders, HighlightSpacing, List, ListItem, ListState, Paragraph};
 use std::io::Stdout;
 
@@ -33,10 +34,16 @@ pub struct DeviceRow {
     /// The addresses the device was seen on, the best first; empty for a paired
     /// device that has not been discovered in this run and therefore cannot
     /// be sent to.
-    pub hosts: Vec<String>,
+    pub hosts: Vec<DeviceHost>,
 
     /// Whether the device is paired; the pair hotkey toggles it.
     pub paired: bool,
+}
+
+/// An address of a device, with what is known about each direction of it.
+pub struct DeviceHost {
+    pub host: String,
+    pub state: ChannelState,
 }
 
 /// What a key press did to the device list.
@@ -191,10 +198,13 @@ impl DeviceList {
             list_state,
         } = self;
 
-        let help = Span::raw(" ↑/↓: navigate  Enter: send  P: pair/unpair  Esc: close");
+        let help = vec![
+            Line::raw(" ↑/↓: navigate  Enter: send  P: pair/unpair  Esc: close"),
+            Line::raw(DIRECTION_LEGEND),
+        ];
         let _ = terminal.draw(|frame| {
             let [main_area, help_area] =
-                Layout::vertical([Constraint::Fill(1), Constraint::Length(1)]).areas(frame.area());
+                Layout::vertical([Constraint::Fill(1), Constraint::Length(2)]).areas(frame.area());
 
             let list = List::new(rows.iter().map(row_item))
                 .block(
@@ -231,8 +241,7 @@ fn row_item(row: &Row) -> ListItem<'_> {
             };
             match device.hosts.is_empty() {
                 false => {
-                    let hosts: Vec<String> =
-                        device.hosts.iter().map(|host| shorten_host(host)).collect();
+                    let hosts: Vec<String> = device.hosts.iter().map(host_label).collect();
                     ListItem::new(Span::raw(format!(
                         "  [{slot}] {} ({})",
                         device.alias,
@@ -246,6 +255,27 @@ fn row_item(row: &Row) -> ListItem<'_> {
             }
         }
     }
+}
+
+/// Explains the markers of [`host_label`] below the list.
+const DIRECTION_LEGEND: &str = " ←: reached us  →: reachable  →?: untested  →x: failed";
+
+/// A host for the row, followed by what is known about each direction of
+/// its channel: `←` when the device reached us from the address (nothing
+/// when it never did, which cannot be told from being unable to), then `→`
+/// when we reached the device there, `→?` when that was never tried and
+/// `→x` when it failed. A channel proven both ways reads `←→`.
+fn host_label(host: &DeviceHost) -> String {
+    let inbound = match host.state.inbound {
+        Some(_) => "←",
+        None => "",
+    };
+    let outbound = match host.state.outbound {
+        Outbound::Reachable(_) => "→",
+        Outbound::Untested => "→?",
+        Outbound::Failed(_) => "→x",
+    };
+    format!("{} {inbound}{outbound}", shorten_host(&host.host))
 }
 
 /// Shortens a host for the row: an IPv6 address is reduced to its last group
@@ -269,6 +299,119 @@ fn shorten_host(host: &str) -> String {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use ratatui::buffer::Buffer;
+    use ratatui::layout::Rect;
+    use ratatui::widgets::Widget;
+    use std::time::SystemTime;
+
+    fn host(host: &str, outbound: Outbound, inbound: bool) -> DeviceHost {
+        DeviceHost {
+            host: host.to_string(),
+            state: ChannelState {
+                outbound,
+                inbound: inbound.then(SystemTime::now),
+            },
+        }
+    }
+
+    fn label(name: &str, outbound: Outbound, inbound: bool) -> String {
+        host_label(&host(name, outbound, inbound))
+    }
+
+    /// The row as the list draws it.
+    fn rendered(row: &Row) -> String {
+        let area = Rect::new(0, 0, 80, 1);
+        let mut buffer = Buffer::empty(area);
+        List::new([row_item(row)]).render(area, &mut buffer);
+        let line: String = buffer.content().iter().map(|cell| cell.symbol()).collect();
+        line.trim_end().to_string()
+    }
+
+    #[test]
+    fn test_device_row_lists_the_hosts_with_their_directions() {
+        let now = SystemTime::now();
+        let row = Row::Device(DeviceRow {
+            fingerprint: "tomato".to_string(),
+            alias: "Cute Tomato".to_string(),
+            slot: Some(1),
+            hosts: vec![
+                host("192.168.178.183", Outbound::Reachable(now), true),
+                host("fe80::6888:8aff:febd:8578%15", Outbound::Untested, true),
+                host("10.0.0.5", Outbound::Failed(now), false),
+            ],
+            paired: false,
+        });
+
+        assert_eq!(
+            rendered(&row),
+            "  [1] Cute Tomato (192.168.178.183 ←→, ::8578%15 ←→?, 10.0.0.5 →x)"
+        );
+    }
+
+    #[test]
+    fn test_device_row_without_hosts_is_offline() {
+        let row = Row::Device(DeviceRow {
+            fingerprint: "cherry".to_string(),
+            alias: "Wise Cherry".to_string(),
+            slot: None,
+            hosts: Vec::new(),
+            paired: true,
+        });
+
+        assert_eq!(rendered(&row), "  [-] Wise Cherry (offline)");
+    }
+
+    #[test]
+    fn test_host_label_marks_each_direction() {
+        let now = SystemTime::now();
+
+        assert_eq!(
+            label("192.168.178.183", Outbound::Reachable(now), true),
+            "192.168.178.183 ←→"
+        );
+        assert_eq!(
+            label("192.168.178.183", Outbound::Reachable(now), false),
+            "192.168.178.183 →"
+        );
+        assert_eq!(
+            label("192.168.178.183", Outbound::Untested, true),
+            "192.168.178.183 ←→?"
+        );
+        assert_eq!(
+            label("192.168.178.183", Outbound::Failed(now), true),
+            "192.168.178.183 ←→x"
+        );
+        assert_eq!(
+            label("192.168.178.183", Outbound::Failed(now), false),
+            "192.168.178.183 →x"
+        );
+    }
+
+    #[test]
+    fn test_host_label_shortens_the_host() {
+        assert_eq!(
+            label("fe80::6888:8aff:febd:8578%15", Outbound::Untested, true),
+            "::8578%15 ←→?"
+        );
+    }
+
+    #[test]
+    fn test_direction_legend_explains_every_marker() {
+        let now = SystemTime::now();
+        for outbound in [
+            Outbound::Reachable(now),
+            Outbound::Untested,
+            Outbound::Failed(now),
+        ] {
+            let label = label("10.0.0.1", outbound, false);
+            let marker = label.strip_prefix("10.0.0.1 ").unwrap();
+            assert!(
+                DIRECTION_LEGEND.contains(&format!(" {marker}: ")),
+                "the legend must explain {marker}"
+            );
+        }
+        assert!(DIRECTION_LEGEND.contains(" ←: "));
+    }
 
     #[test]
     fn test_shorten_host() {

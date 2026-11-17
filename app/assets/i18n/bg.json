@@ -212,15 +212,12 @@
     "verify": "Проверка",
     "info": {
       "name": "Име",
-      "address": "Адрес",
       "version": "Версия",
       "protocol": "Протокол v{version}"
     },
     "logs": {
       "title": "Дневници",
-      "empty": "Няма налични дневници.",
-      "discovered": "Открито чрез {protocol} ({host})",
-      "updated": "Обновено чрез {protocol} ({host})"
+      "empty": "Няма налични дневници."
     }
   },
   "verifyPage": {

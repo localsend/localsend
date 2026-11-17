@@ -212,15 +212,12 @@
     "verify": "I-verify",
     "info": {
       "name": "Pangalan",
-      "address": "Address",
       "version": "Bersyon",
       "protocol": "Protocol v{version}"
     },
     "logs": {
       "title": "Mga Log",
-      "empty": "Walang available na mga log.",
-      "discovered": "Natuklasan sa pamamagitan ng {protocol} ({host})",
-      "updated": "Na-update sa pamamagitan ng {protocol} ({host})"
+      "empty": "Walang available na mga log."
     }
   },
   "verifyPage": {

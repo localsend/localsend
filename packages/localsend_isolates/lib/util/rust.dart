@@ -1,6 +1,7 @@
 import 'package:flutter_rust_bridge/flutter_rust_bridge.dart' show AnyhowException;
 import 'package:localsend_isolates/constants.dart';
 import 'package:localsend_isolates/model/device.dart';
+import 'package:localsend_isolates/model/discovery_event.dart';
 import 'package:localsend_isolates/model/dto/file_dto.dart';
 import 'package:localsend_isolates/model/dto/multicast_dto.dart';
 import 'package:localsend_isolates/rust/api/discovery.dart' as rust_discovery;
@@ -106,6 +107,7 @@ extension HumanErrorMessageExt on Object {
     final e = this;
     return switch (e) {
       rust_http.RsHttpClientError_StatusCode(:final status, :final message) when message != null => '[$status] $message',
+      rust_http.RsHttpClientError_Unreachable(:final field0) => field0,
       AnyhowException(:final message) => message,
       _ => e.toString(),
     };
@@ -133,7 +135,8 @@ extension RustFileDtoExt on rust_model.FileDto {
 
 extension RsStoredDeviceExt on rust_discovery.RsStoredDevice {
   /// Maps the merged stored state to a [Device]: the best channel becomes the
-  /// dialed address, every channel is kept as a [HttpChannel], best first.
+  /// dialed address, every channel is kept as a [HttpChannel] with its state
+  /// per direction, best first.
   Device toDevice() {
     final best = channels.first;
     return Device(
@@ -148,14 +151,57 @@ extension RsStoredDeviceExt on rust_discovery.RsStoredDevice {
       deviceType: deviceType?.toDart() ?? DeviceType.desktop,
       download: download,
       channels: [
-        for (final channel in channels)
-          HttpChannel(
-            host: channel.host,
-            port: channel.port,
-            https: channel.protocol == rust_model.ProtocolType.https,
-          ),
+        for (final channel in channels) channel.toHttpChannel(),
       ],
     );
+  }
+}
+
+extension RsStoredChannelExt on rust_discovery.RsStoredChannel {
+  HttpChannel toHttpChannel() {
+    final inboundAtMillis = this.inboundAtMillis;
+    return HttpChannel(
+      host: host,
+      port: port,
+      https: protocol == rust_model.ProtocolType.https,
+      outbound: switch (outbound) {
+        rust_discovery.RsOutbound.untested => ChannelOutbound.untested,
+        rust_discovery.RsOutbound.reachable => ChannelOutbound.reachable,
+        rust_discovery.RsOutbound.failed => ChannelOutbound.failed,
+      },
+      inbound: inboundAtMillis != null ? DateTime.fromMillisecondsSinceEpoch(inboundAtMillis.toInt()) : null,
+    );
+  }
+}
+
+extension RsDeviceChannelExt on rust_discovery.RsDeviceChannel {
+  /// Maps the address to a [HttpChannel] without any state per direction.
+  HttpChannel toHttpChannel() {
+    return HttpChannel(
+      host: host,
+      port: port,
+      https: protocol == rust_model.ProtocolType.https,
+    );
+  }
+}
+
+extension HttpChannelToRsDeviceChannelExt on HttpChannel {
+  /// Maps the address of the channel; the state per direction is dropped.
+  rust_discovery.RsDeviceChannel toRsDeviceChannel() {
+    return rust_discovery.RsDeviceChannel(
+      host: host,
+      port: port,
+      protocol: https ? rust_model.ProtocolType.https : rust_model.ProtocolType.http,
+    );
+  }
+}
+
+extension RsDiscoveryEventExt on rust_discovery.RsDiscoveryEvent {
+  DiscoveryEvent toDiscoveryEvent() {
+    return switch (this) {
+      rust_discovery.RsDiscoveryEvent_Device(:final field0) => DiscoveryDeviceEvent(device: field0.toDevice()),
+      rust_discovery.RsDiscoveryEvent_Unreachable(:final device, :final error) => DiscoveryUnreachableEvent(device: device.toDevice(), error: error),
+    };
   }
 }
 
@@ -163,20 +209,23 @@ extension RsDeviceLogExt on rust_discovery.RsDeviceLog {
   DeviceLog toDeviceLog() {
     return DeviceLog(
       timestamp: DateTime.fromMillisecondsSinceEpoch(timestampMillis.toInt()),
-      kind: switch (kind) {
-        rust_discovery.DeviceLogKind.discovered => DeviceLogKind.discovered,
-        rust_discovery.DeviceLogKind.updated => DeviceLogKind.updated,
+      event: switch (event) {
+        rust_discovery.RsDeviceLogEvent_Outbound(:final channel) => DeviceLogOutbound(channel: channel.toHttpChannel()),
+        rust_discovery.RsDeviceLogEvent_OutboundFailed(:final channel, :final error) => DeviceLogOutboundFailed(
+          channel: channel.toHttpChannel(),
+          error: error,
+        ),
+        rust_discovery.RsDeviceLogEvent_Inbound(:final channel) => DeviceLogInbound(channel: channel.toHttpChannel()),
+        rust_discovery.RsDeviceLogEvent_MulticastInbound(:final host) => DeviceLogMulticastInbound(host: host),
       },
-      channel: HttpChannel(
-        host: channel.host,
-        port: channel.port,
-        https: channel.protocol == rust_model.ProtocolType.https,
-      ),
     );
   }
 }
 
 extension DeviceToRsDiscoveredDeviceExt on Device {
+  /// Maps a device that reached this device's HTTP server from [ip], as fed
+  /// into the discovery store via `observeInbound`. Only [ip] and the claimed
+  /// port and protocol are passed on: the [channels] play no role here.
   rust_discovery.RsDiscoveredDevice toRsDiscoveredDevice(String ip) {
     return rust_discovery.RsDiscoveredDevice(
       alias: alias,

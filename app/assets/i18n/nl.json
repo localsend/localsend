@@ -212,15 +212,12 @@
     "verify": "Verifiëren",
     "info": {
       "name": "Naam",
-      "address": "Adres",
       "version": "Versie",
       "protocol": "Protocol v{version}"
     },
     "logs": {
       "title": "Logboeken",
-      "empty": "Geen logboeken beschikbaar.",
-      "discovered": "Ontdekt via {protocol} ({host})",
-      "updated": "Bijgewerkt via {protocol} ({host})"
+      "empty": "Geen logboeken beschikbaar."
     }
   },
   "verifyPage": {

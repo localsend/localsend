@@ -212,15 +212,12 @@
     "verify": "ตรวจสอบ",
     "info": {
       "name": "ชื่อ",
-      "address": "ที่อยู่",
       "version": "เวอร์ชัน",
       "protocol": "โปรโตคอล v{version}"
     },
     "logs": {
       "title": "บันทึก",
-      "empty": "ไม่มีบันทึก",
-      "discovered": "ค้นพบผ่าน {protocol} ({host})",
-      "updated": "อัปเดตผ่าน {protocol} ({host})"
+      "empty": "ไม่มีบันทึก"
     }
   },
   "verifyPage": {

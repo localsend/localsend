@@ -1137,8 +1137,6 @@ class _Translations$deviceDetailsPage$info$ar extends Translations$deviceDetails
   @override
   String get name => 'الاسم';
   @override
-  String get address => 'العنوان';
-  @override
   String get version => 'الإصدار';
   @override
   String protocol({required Object version}) => 'البروتوكول v${version}';
@@ -1155,10 +1153,6 @@ class _Translations$deviceDetailsPage$logs$ar extends Translations$deviceDetails
   String get title => 'السجلات';
   @override
   String get empty => 'لا توجد سجلات متاحة.';
-  @override
-  String discovered({required Object protocol, required Object host}) => 'تم الاكتشاف عبر ${protocol} (${host})';
-  @override
-  String updated({required Object protocol, required Object host}) => 'تم التحديث عبر ${protocol} (${host})';
 }
 
 // Path: progressPage.total

@@ -212,15 +212,12 @@
     "verify": "සත්‍යාපනය",
     "info": {
       "name": "නම",
-      "address": "ලිපිනය",
       "version": "අනුවාදය",
       "protocol": "නියමාවලිය v{version}"
     },
     "logs": {
       "title": "ලොග",
-      "empty": "ලොග නොමැත.",
-      "discovered": "{protocol} හරහා සොයාගන්නා ලදී ({host})",
-      "updated": "{protocol} හරහා යාවත්කාල කරන ලදී ({host})"
+      "empty": "ලොග නොමැත."
     }
   },
   "verifyPage": {

@@ -1146,8 +1146,6 @@ class _Translations$deviceDetailsPage$info$fi extends Translations$deviceDetails
   @override
   String get name => 'Nimi';
   @override
-  String get address => 'Osoite';
-  @override
   String get version => 'Versio';
   @override
   String protocol({required Object version}) => 'Protokolla v${version}';
@@ -1164,10 +1162,6 @@ class _Translations$deviceDetailsPage$logs$fi extends Translations$deviceDetails
   String get title => 'Lokit';
   @override
   String get empty => 'Lokeja ei ole saatavilla.';
-  @override
-  String discovered({required Object protocol, required Object host}) => 'Löydetty ${protocol}-protokollan kautta (${host})';
-  @override
-  String updated({required Object protocol, required Object host}) => 'Päivitetty ${protocol}-protokollan kautta (${host})';
 }
 
 // Path: progressPage.total

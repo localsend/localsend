@@ -212,15 +212,12 @@
     "verify": "Текшерүү",
     "info": {
       "name": "Түзмөктүн аты",
-      "address": "Дарек",
       "version": "Версия",
       "protocol": "Протокол v{version}"
     },
     "logs": {
       "title": "Журналдар",
-      "empty": "Журналдар жок.",
-      "discovered": "{protocol} аркылуу табылды ({host})",
-      "updated": "{protocol} аркылуу жаңыртылды ({host})"
+      "empty": "Журналдар жок."
     }
   },
   "verifyPage": {

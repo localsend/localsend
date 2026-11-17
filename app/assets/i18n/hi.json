@@ -212,15 +212,12 @@
     "verify": "सत्यापित करें",
     "info": {
       "name": "नाम",
-      "address": "पता",
       "version": "संस्करण",
       "protocol": "प्रोटोकॉल v{version}"
     },
     "logs": {
       "title": "लॉग",
-      "empty": "कोई लॉग उपलब्ध नहीं।",
-      "discovered": "{protocol} के ज़रिए खोजा गया ({host})",
-      "updated": "{protocol} के ज़रिए अपडेट किया गया ({host})"
+      "empty": "कोई लॉग उपलब्ध नहीं।"
     }
   },
   "verifyPage": {

@@ -55,6 +55,7 @@ pub(super) async fn run(
     tick.set_missed_tick_behavior(tokio::time::MissedTickBehavior::Skip);
 
     let mut send: Option<SendState> = None;
+    let mut unreachable = discovery::UnreachableNotices::new();
     let result = loop {
         let event = tokio::select! {
             Some(event) = events_rx.recv() => event,
@@ -67,7 +68,7 @@ pub(super) async fn run(
                 handle_server_event(&mut ui, &storage, &discovery, &mut send, event)
             }
             AppEvent::Discovery(event) => {
-                handle_discovery(&mut ui, &mut storage, &discovery, event)
+                handle_discovery(&mut ui, &mut storage, &discovery, &mut unreachable, event)
             }
             AppEvent::Tick => render_progress(&mut ui, &mut send),
             AppEvent::Log { category, text } => ui.log(category, &text),
@@ -76,6 +77,14 @@ pub(super) async fn run(
                     Ok(state) => send = Some(state),
                     Err(reason) => break Err(anyhow::anyhow!(reason)),
                 }
+            }
+            AppEvent::SendDialed {
+                fingerprint,
+                channel,
+                result,
+            } => {
+                // Comes back as a discovery event, like every observation.
+                discovery.report_outbound(&fingerprint, channel, result);
             }
             AppEvent::SendSessionStarted {
                 session_id,
@@ -190,12 +199,17 @@ fn handle_discovery(
     ui: &mut Ui,
     storage: &mut Repository,
     discovery: &DiscoveryHandle,
+    unreachable: &mut discovery::UnreachableNotices,
     event: DiscoveryEvent,
 ) {
     let device = match &event {
         DiscoveryEvent::Discovered { device } | DiscoveryEvent::Updated { device } => device,
-        // Failed requests are not surfaced: the device stays out of reach.
-        DiscoveryEvent::Unreachable { .. } => return,
+        // Explains a destination that "was not discovered": it is around,
+        // but its server cannot be dialed.
+        DiscoveryEvent::Unreachable { device } => {
+            discovery::log_unreachable(ui, unreachable, discovery, device);
+            device
+        }
         DiscoveryEvent::MulticastFailed => {
             ui.log(
                 Category::Discovery,
@@ -204,6 +218,7 @@ fn handle_discovery(
             return;
         }
     };
+    // Also after a failure: it changed the ranking of the channels.
     discovery::refresh_paired_channels(ui, &mut storage.paired, discovery, &device.fingerprint);
 
     let DiscoveryEvent::Discovered { device } = event else {

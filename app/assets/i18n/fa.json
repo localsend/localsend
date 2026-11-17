@@ -212,15 +212,12 @@
     "verify": "تأیید هویت",
     "info": {
       "name": "نام",
-      "address": "آدرس",
       "version": "نسخه",
       "protocol": "پروتکل نسخه {version}"
     },
     "logs": {
       "title": "گزارش‌ها",
-      "empty": "هیچ گزارشی موجود نیست.",
-      "discovered": "شناسایی شده از طریق {protocol} ({host})",
-      "updated": "به‌روزرسانی شده از طریق {protocol} ({host})"
+      "empty": "هیچ گزارشی موجود نیست."
     }
   },
   "verifyPage": {

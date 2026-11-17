@@ -1053,8 +1053,6 @@ class _Translations$deviceDetailsPage$info$uz extends Translations$deviceDetails
   @override
   String get name => 'Nomi';
   @override
-  String get address => 'Manzil';
-  @override
   String get version => 'Versiya';
   @override
   String protocol({required Object version}) => 'Protokol v${version}';
@@ -1071,10 +1069,6 @@ class _Translations$deviceDetailsPage$logs$uz extends Translations$deviceDetails
   String get title => 'Jurnallar';
   @override
   String get empty => 'Jurnallar mavjud emas.';
-  @override
-  String discovered({required Object protocol, required Object host}) => '${protocol} orqali topildi (${host})';
-  @override
-  String updated({required Object protocol, required Object host}) => '${protocol} orqali yangilandi (${host})';
 }
 
 // Path: progressPage.total

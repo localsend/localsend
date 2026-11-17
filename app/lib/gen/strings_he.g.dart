@@ -1055,8 +1055,6 @@ class _Translations$deviceDetailsPage$info$he extends Translations$deviceDetails
   @override
   String get name => 'שם';
   @override
-  String get address => 'כתובת';
-  @override
   String get version => 'גרסה';
   @override
   String protocol({required Object version}) => 'פרוטוקול גרסה ${version}';
@@ -1073,10 +1071,6 @@ class _Translations$deviceDetailsPage$logs$he extends Translations$deviceDetails
   String get title => 'יומני רישום';
   @override
   String get empty => 'אין יומנים זמינים';
-  @override
-  String discovered({required Object protocol, required Object host}) => 'התגלה באמצעות ${protocol} (${host})';
-  @override
-  String updated({required Object protocol, required Object host}) => 'עודכן באמצעות ${protocol} (${host})';
 }
 
 // Path: progressPage.total

@@ -1052,8 +1052,6 @@ class _Translations$deviceDetailsPage$info$ml extends Translations$deviceDetails
   @override
   String get name => 'പേര്';
   @override
-  String get address => 'വിലാസം';
-  @override
   String get version => 'പതിപ്പ്';
   @override
   String protocol({required Object version}) => 'പ്രോട്ടോക്കോൾ v${version}';
@@ -1070,10 +1068,6 @@ class _Translations$deviceDetailsPage$logs$ml extends Translations$deviceDetails
   String get title => 'ലോഗുകൾ';
   @override
   String get empty => 'ലോഗുകളൊന്നും ലഭ്യമല്ല.';
-  @override
-  String discovered({required Object protocol, required Object host}) => '${protocol} വഴി കണ്ടെത്തി (${host})';
-  @override
-  String updated({required Object protocol, required Object host}) => '${protocol} വഴി അപ്ഡേറ്റ് ചെയ്തു (${host})';
 }
 
 // Path: progressPage.total

@@ -127,6 +127,16 @@ sealed class RsHttpClientError with _$RsHttpClientError implements FrbException 
     required int status,
     String? message,
   }) = RsHttpClientError_StatusCode;
+
+  /// The request got no response: the connection could not be established
+  /// (refused, timed out, failed TLS handshake) or broke before the peer
+  /// answered. Carries the reason, for display.
+  const factory RsHttpClientError.unreachable(
+    String field0,
+  ) = RsHttpClientError_Unreachable;
+
+  /// Another error of the transport: the peer answered, but its response
+  /// could not be read.
   const factory RsHttpClientError.reqwest(
     String field0,
   ) = RsHttpClientError_Reqwest;

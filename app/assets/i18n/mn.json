@@ -212,15 +212,12 @@
     "verify": "Баталгаажуулах",
     "info": {
       "name": "Нэр",
-      "address": "Хаяг",
       "version": "Хувилбар",
       "protocol": "Протокол v{version}"
     },
     "logs": {
       "title": "Логууд",
-      "empty": "Лог байхгүй байна.",
-      "discovered": "{protocol}-оор илэрсэн ({host})",
-      "updated": "{protocol}-оор шинэчлэгдсэн ({host})"
+      "empty": "Лог байхгүй байна."
     }
   },
   "verifyPage": {

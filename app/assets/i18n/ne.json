@@ -212,15 +212,12 @@
     "verify": "प्रमाणित गर्नुहोस्",
     "info": {
       "name": "नाम",
-      "address": "ठेगाना",
       "version": "संस्करण",
       "protocol": "प्रोटोकल v{version}"
     },
     "logs": {
       "title": "लगहरू",
-      "empty": "कुनै लग उपलब्ध छैन।",
-      "discovered": "{protocol} मार्फत फेला पर्यो ({host})",
-      "updated": "{protocol} मार्फत अपडेट भयो ({host})"
+      "empty": "कुनै लग उपलब्ध छैन।"
     }
   },
   "verifyPage": {

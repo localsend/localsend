@@ -16,8 +16,9 @@ import 'package:localsend_isolates/model/device.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 import 'package:routerino/routerino.dart';
 
-/// Shows the general information of a discovered device and
-/// the log of its retained discovery confirmations.
+/// Shows the general information of a discovered device, its addresses with
+/// what is known about each direction, and the log of its retained
+/// observations.
 class DeviceDetailsPage extends StatefulWidget {
   final Device device;
 
@@ -65,6 +66,7 @@ class _DeviceDetailsPageState extends State<DeviceDetailsPage> with Refena {
   Widget build(BuildContext context) {
     final device = widget.device;
     final favoriteEntry = ref.watch(favoritesProvider).findDevice(device);
+    final httpChannels = device.channels.whereType<HttpChannel>().toList();
     return Scaffold(
       appBar: AppBar(
         title: Text(t.deviceDetailsPage.title),
@@ -106,7 +108,6 @@ class _DeviceDetailsPageState extends State<DeviceDetailsPage> with Refena {
               for (final entry in {
                 t.deviceDetailsPage.info.name: device.alias,
                 t.deviceDetailsPage.info.version: t.deviceDetailsPage.info.protocol(version: device.version),
-                if (device.ip != null) t.deviceDetailsPage.info.address: '${device.ip}:${device.port}',
               }.entries)
                 TableRow(
                   children: [
@@ -122,6 +123,12 @@ class _DeviceDetailsPageState extends State<DeviceDetailsPage> with Refena {
                 ),
             ],
           ),
+          if (httpChannels.isNotEmpty) ...[
+            const SizedBox(height: 20),
+            Text(t.deviceDetailsPage.addresses.title, style: Theme.of(context).textTheme.titleMedium),
+            const SizedBox(height: 10),
+            for (final channel in httpChannels) _ChannelInfo(channel),
+          ],
           const SizedBox(height: 20),
           Row(
             children: [
@@ -175,12 +182,80 @@ class _DeviceDetailsPageState extends State<DeviceDetailsPage> with Refena {
   }
 }
 
+/// One address of the device with the status of each direction as text.
+class _ChannelInfo extends StatelessWidget {
+  final HttpChannel channel;
+
+  const _ChannelInfo(this.channel);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 10),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SelectableText('${channel.host}:${channel.port}'),
+          const SizedBox(height: 5),
+          Table(
+            columnWidths: const {
+              0: IntrinsicColumnWidth(),
+              1: FlexColumnWidth(),
+            },
+            children: [
+              for (final entry in {
+                t.deviceDetailsPage.addresses.outgoing: channel.outgoingStatus,
+                t.deviceDetailsPage.addresses.incoming: channel.incomingStatus,
+              }.entries)
+                TableRow(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(right: 15, bottom: 5),
+                      child: Text(entry.key, style: const TextStyle(color: Colors.grey)),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 5),
+                      child: Text(entry.value),
+                    ),
+                  ],
+                ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+extension on HttpChannel {
+  String get protocolLabel => https ? 'HTTPS' : 'HTTP';
+
+  /// This device → the peer.
+  String get outgoingStatus {
+    return switch (outbound) {
+      ChannelOutbound.reachable => t.deviceDetailsPage.addresses.works,
+      ChannelOutbound.untested => t.deviceDetailsPage.addresses.notTested,
+      ChannelOutbound.failed => t.deviceDetailsPage.addresses.failed,
+    };
+  }
+
+  /// The peer → this device.
+  String get incomingStatus {
+    return inbound != null ? t.deviceDetailsPage.addresses.works : t.deviceDetailsPage.addresses.notSeen;
+  }
+}
+
 extension on DeviceLog {
   String get description {
-    final protocol = channel.https ? 'HTTPS' : 'HTTP';
-    return switch (kind) {
-      DeviceLogKind.discovered => t.deviceDetailsPage.logs.discovered(protocol: protocol, host: channel.host),
-      DeviceLogKind.updated => t.deviceDetailsPage.logs.updated(protocol: protocol, host: channel.host),
+    return switch (event) {
+      DeviceLogOutbound(:final channel) => t.deviceDetailsPage.logs.outbound(protocol: channel.protocolLabel, host: channel.host),
+      DeviceLogOutboundFailed(:final channel, :final error) => t.deviceDetailsPage.logs.outboundFailed(
+        protocol: channel.protocolLabel,
+        host: channel.host,
+        error: error,
+      ),
+      DeviceLogInbound(:final channel) => t.deviceDetailsPage.logs.inbound(protocol: channel.protocolLabel, host: channel.host),
+      DeviceLogMulticastInbound(:final host) => t.deviceDetailsPage.logs.multicastInbound(host: host),
     };
   }
 }

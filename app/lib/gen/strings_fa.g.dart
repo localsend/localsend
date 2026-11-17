@@ -1138,8 +1138,6 @@ class _Translations$deviceDetailsPage$info$fa extends Translations$deviceDetails
   @override
   String get name => 'نام';
   @override
-  String get address => 'آدرس';
-  @override
   String get version => 'نسخه';
   @override
   String protocol({required Object version}) => 'پروتکل نسخه ${version}';
@@ -1156,10 +1154,6 @@ class _Translations$deviceDetailsPage$logs$fa extends Translations$deviceDetails
   String get title => 'گزارش‌ها';
   @override
   String get empty => 'هیچ گزارشی موجود نیست.';
-  @override
-  String discovered({required Object protocol, required Object host}) => 'شناسایی شده از طریق ${protocol} (${host})';
-  @override
-  String updated({required Object protocol, required Object host}) => 'به‌روزرسانی شده از طریق ${protocol} (${host})';
 }
 
 // Path: progressPage.total

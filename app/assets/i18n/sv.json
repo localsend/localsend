@@ -212,15 +212,12 @@
     "verify": "Verifiera",
     "info": {
       "name": "Namn",
-      "address": "Adress",
       "version": "Version",
       "protocol": "Protokoll v{version}"
     },
     "logs": {
       "title": "Loggar",
-      "empty": "Inga loggar tillgängliga.",
-      "discovered": "Upptäckt via {protocol} ({host})",
-      "updated": "Uppdaterad via {protocol} ({host})"
+      "empty": "Inga loggar tillgängliga."
     }
   },
   "verifyPage": {

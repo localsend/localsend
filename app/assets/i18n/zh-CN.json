@@ -212,15 +212,12 @@
     "verify": "验证",
     "info": {
       "name": "名称",
-      "address": "地址",
       "version": "版本",
       "protocol": "协议 v{version}"
     },
     "logs": {
       "title": "日志",
-      "empty": "没有可用的日志。",
-      "discovered": "通过 {protocol} 发现 ({host})",
-      "updated": "通过 {protocol} 更新 ({host})"
+      "empty": "没有可用的日志。"
     }
   },
   "verifyPage": {

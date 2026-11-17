@@ -1,19 +1,20 @@
 use crate::frb_generated::StreamSink;
 use localsend::discovery::{
-    DeviceChannel, DeviceIdentity, DeviceLog, DeviceLogEvent, DiscoveredDevice, DiscoveryConfig,
-    DiscoveryEvent, DiscoveryHandle, HttpChannel, StatefulDevice,
+    ChannelState, DeviceChannel, DeviceIdentity, DeviceLog, DeviceLogEvent, DiscoveredDevice,
+    DiscoveryConfig, DiscoveryEvent, DiscoveryHandle, HttpChannel, Outbound, StatefulDevice,
 };
 use localsend::model::discovery::{DeviceType, ProtocolType};
 use localsend::multicast::{DEFAULT_MULTICAST_GROUP_V6, MulticastDevice};
 use localsend::util::interface::InterfaceFilter;
 use std::sync::Arc;
-use std::time::Duration;
+use std::time::{Duration, SystemTime};
 use tokio::sync::{Mutex, mpsc, oneshot};
 use tokio_util::sync::CancellationToken;
 
-/// A single device confirmation over HTTP, fed into the store via
-/// [RsDiscovery::add_device]: the device's register request was accepted by
-/// our server, so it is known to be reachable at [RsDiscoveredDevice::host].
+/// A device that reached this device's HTTP server, fed into the store via
+/// [RsDiscovery::observe_inbound]: its request arrived from
+/// [RsDiscoveredDevice::host], which says nothing about whether it can be
+/// dialed back there.
 pub struct RsDiscoveredDevice {
     pub alias: String,
 
@@ -27,12 +28,12 @@ pub struct RsDiscoveredDevice {
     /// Fingerprint identifying the device; devices are deduplicated by it.
     pub fingerprint: String,
 
-    /// The host the device was confirmed on: an IP address, or the scoped
-    /// form `fe80::1%3` for link-local IPv6 (the Rust HTTP client accepts
-    /// both back as a host).
+    /// The host the request came from: an IP address, or the scoped form
+    /// `fe80::1%3` for link-local IPv6 (the Rust HTTP client accepts both
+    /// back as a host).
     pub host: String,
 
-    /// The port of the device's HTTP server.
+    /// The port the device claims its HTTP server listens on.
     pub port: u16,
 
     pub protocol: ProtocolType,
@@ -41,7 +42,7 @@ pub struct RsDiscoveredDevice {
     pub download: bool,
 }
 
-/// An address a stored device was confirmed on and is dialed at.
+/// The address of a device's HTTP server.
 pub struct RsDeviceChannel {
     /// The host to dial: an IP address, or the scoped form `fe80::1%3` for
     /// link-local IPv6 (the Rust HTTP client accepts both back as a host).
@@ -53,15 +54,45 @@ pub struct RsDeviceChannel {
     pub protocol: ProtocolType,
 }
 
+/// An address of a stored device with what is known about each direction: a
+/// channel that works one way does not have to work the other way (e.g.
+/// because of a firewall on one of the devices).
+pub struct RsStoredChannel {
+    /// The host to dial: an IP address, or the scoped form `fe80::1%3` for
+    /// link-local IPv6 (the Rust HTTP client accepts both back as a host).
+    pub host: String,
+
+    /// The port of the device's HTTP server at this address.
+    pub port: u16,
+
+    pub protocol: ProtocolType,
+
+    /// This device → the peer: whether the peer can be dialed at this address.
+    pub outbound: RsOutbound,
+
+    /// The peer → this device: when the peer last reached this device's
+    /// server from this address, in milliseconds since the Unix epoch.
+    /// `None` when it never did.
+    pub inbound_at_millis: Option<u64>,
+}
+
+/// Whether a peer can be dialed on a channel.
+pub enum RsOutbound {
+    /// No request was sent over the channel yet: the peer reached this
+    /// device from it, which says nothing about the way back.
+    Untested,
+
+    /// The last request over the channel was answered.
+    Reachable,
+
+    /// The last request over the channel failed.
+    Failed,
+}
+
 /// The merged stored state of a discovered device: one entry per fingerprint,
-/// carrying every address the device was confirmed on. A multi-homed device
+/// carrying every address the device was observed on. A multi-homed device
 /// that is reachable over several network interfaces is still one
 /// [RsStoredDevice].
-///
-/// Emitted on [RsDiscovery::listen] for every confirmation (answered
-/// announcements, scan results and devices fed in via
-/// [RsDiscovery::add_device]), so a device re-appears — with its channels
-/// accumulated so far — whenever it re-announces itself or is re-discovered.
 pub struct RsStoredDevice {
     pub alias: String,
 
@@ -78,29 +109,69 @@ pub struct RsStoredDevice {
     /// Whether the device's download API is active.
     pub download: bool,
 
-    /// Every address the device was confirmed on, best first (available
-    /// before not-reachable, IPv6 before IPv4, most recently confirmed
-    /// first). Never empty: a device only enters the store through a
-    /// confirmation.
-    pub channels: Vec<RsDeviceChannel>,
+    /// Every address the device was observed on, in the order to dial them
+    /// (reachable before untested before failed, IPv6 before IPv4, most
+    /// recently confirmed first). Never empty: a device only enters the
+    /// store through an observation on one of its addresses.
+    pub channels: Vec<RsStoredChannel>,
 }
 
-/// One retained confirmation of a stored device, for the device details UI.
+/// An event emitted on [RsDiscovery::listen].
+pub enum RsDiscoveryEvent {
+    /// The state of a confirmed device changed: it was discovered or
+    /// confirmed again (answered announcements, scan results and devices fed
+    /// in via [RsDiscovery::observe_inbound]), or a request to it failed.
+    /// Carries the merged state, so the device re-appears with everything
+    /// known about its channels so far.
+    Device(RsStoredDevice),
+
+    /// A device was heard announcing itself but did not answer the register
+    /// request, typically because a firewall blocks its server.
+    ///
+    /// Nothing about such a device is verified (announcements are
+    /// unauthenticated): it is for diagnostics only and must not be offered
+    /// as a transfer target.
+    Unreachable {
+        /// The merged state of the device, as its announcements claim it.
+        device: RsStoredDevice,
+
+        /// Why the most recent register request failed, for display.
+        error: String,
+    },
+}
+
+/// One retained observation of a stored device, for the device details UI.
 pub struct RsDeviceLog {
-    /// When the confirmation happened, in milliseconds since the Unix epoch.
+    /// When the observation happened, in milliseconds since the Unix epoch.
     pub timestamp_millis: u64,
 
-    /// Whether the confirmation discovered the device or re-confirmed it.
-    pub kind: DeviceLogKind,
-
-    /// The channel the confirmation happened on.
-    pub channel: RsDeviceChannel,
+    pub event: RsDeviceLogEvent,
 }
 
-/// Whether a retained confirmation discovered the device or re-confirmed it.
-pub enum DeviceLogKind {
-    Discovered,
-    Updated,
+/// What was observed about a device, and in which direction.
+pub enum RsDeviceLogEvent {
+    /// This device → the peer: a request over the channel was answered.
+    Outbound { channel: RsDeviceChannel },
+
+    /// This device → the peer: a request over the channel failed.
+    OutboundFailed {
+        channel: RsDeviceChannel,
+
+        /// Why the request failed, for display.
+        error: String,
+    },
+
+    /// The peer → this device: the peer sent a request to this device's
+    /// server. The channel is the address the request came from, with the
+    /// port the peer claims to serve on.
+    Inbound { channel: RsDeviceChannel },
+
+    /// The peer → this device: an announcement of the peer was heard.
+    MulticastInbound {
+        /// The address the announcement came from, in the scoped form
+        /// `fe80::1%3` for link-local IPv6.
+        host: String,
+    },
 }
 
 pub struct RsDiscovery {
@@ -158,8 +229,8 @@ static RUNNING_DISCOVERY: Mutex<Option<Arc<DiscoveryInstance>>> = Mutex::const_n
 /// Cannot fail besides an invalid [group]: when no multicast socket could be
 /// bound (e.g. the port is taken by another process), discovery still runs
 /// without multicast — see [RsDiscovery::multicast_error] — and still learns
-/// about devices through [RsDiscovery::discover], [RsDiscovery::scan_subnet]
-/// and [RsDiscovery::add_device].
+/// about devices through [RsDiscovery::discover_staged],
+/// [RsDiscovery::scan_subnet] and [RsDiscovery::observe_inbound].
 pub async fn start_discovery(
     group: String,
     port: u16,
@@ -235,8 +306,8 @@ pub async fn start_discovery(
 }
 
 impl RsDiscovery {
-    /// Emits a [RsStoredDevice] for every device confirmation until the
-    /// discovery is stopped. Can only be listened to once.
+    /// Emits a [RsDiscoveryEvent] for every observation of a device until
+    /// the discovery is stopped. Can only be listened to once.
     ///
     /// Also ends when the multicast sockets failed permanently (e.g. because
     /// the OS invalidated them while the application was suspended): the
@@ -245,7 +316,7 @@ impl RsDiscovery {
     ///
     /// Also returns when the Dart side of the stream is gone (e.g. after a
     /// hot restart), so this call does not keep the discovery alive forever.
-    pub async fn listen(&self, sink: StreamSink<RsStoredDevice>) {
+    pub async fn listen(&self, sink: StreamSink<RsDiscoveryEvent>) {
         let Some(mut event_rx) = self.event_rx.lock().await.take() else {
             let _ = sink.add_error(anyhow::anyhow!("Discovery events already listened to"));
             return;
@@ -261,10 +332,10 @@ impl RsDiscovery {
             };
             let device = match event {
                 Some(
-                    DiscoveryEvent::Discovered { device } | DiscoveryEvent::Updated { device },
+                    DiscoveryEvent::Discovered { device }
+                    | DiscoveryEvent::Updated { device }
+                    | DiscoveryEvent::Unreachable { device },
                 ) => device,
-                // Failed requests are not exposed to the Dart side yet.
-                Some(DiscoveryEvent::Unreachable { .. }) => continue,
                 Some(DiscoveryEvent::MulticastFailed) => {
                     tracing::error!(
                         "Multicast sockets failed, ending the discovery event stream"
@@ -274,17 +345,41 @@ impl RsDiscovery {
                 None => break,
             };
             // The store is updated before the event is emitted, so the merged
-            // state is at least as new as the confirmation.
-            if let Some(stored) = self
-                .instance
-                .handle
-                .device_by_fingerprint(&device.fingerprint)
-                && sink.add(rs_stored_device(stored)).is_err()
-            {
+            // state is at least as new as the observation.
+            let Some(event) = self.merged_event(&device.fingerprint) else {
+                continue;
+            };
+            if sink.add(event).is_err() {
                 // The Dart listener is gone; the remaining events have no receiver.
                 break;
             }
         }
+    }
+
+    /// The event carrying the merged state of the device an observation was
+    /// about.
+    fn merged_event(&self, fingerprint: &str) -> Option<RsDiscoveryEvent> {
+        let handle = &self.instance.handle;
+        if let Some(stored) = handle.device_by_fingerprint(fingerprint) {
+            return Some(RsDiscoveryEvent::Device(rs_stored_device(stored)));
+        }
+
+        // Not confirmed, so the observation was a failed answer to an
+        // announcement.
+        let stored = unconfirmed_device(handle, fingerprint)?;
+        let error = stored
+            .logs
+            .iter()
+            .rev()
+            .find_map(|log| match &log.event {
+                DeviceLogEvent::OutboundFailed { error, .. } => Some(error.clone()),
+                _ => None,
+            })
+            .unwrap_or_default();
+        Some(RsDiscoveryEvent::Unreachable {
+            device: rs_stored_device(stored),
+            error,
+        })
     }
 
     /// The reason the multicast sockets could not be bound, when they could
@@ -300,7 +395,7 @@ impl RsDiscovery {
     /// device on it register with this device over HTTP.
     ///
     /// Devices registering in response arrive at the application as server
-    /// events, not here: feed them back via [RsDiscovery::add_device].
+    /// events, not here: feed them back via [RsDiscovery::observe_inbound].
     ///
     /// Returns once the whole announcement burst has been sent, which takes a
     /// few seconds, or immediately once the discovery has been stopped or
@@ -390,10 +485,13 @@ impl RsDiscovery {
         Ok(())
     }
 
-    /// Puts a device confirmed outside of the discovery into the store, e.g.
-    /// one that answered an announcement by registering with this device's
-    /// HTTP server. The device is emitted on [RsDiscovery::listen].
-    pub async fn add_device(&self, device: RsDiscoveredDevice) {
+    /// Puts a device that reached this device's HTTP server into the store,
+    /// e.g. one that answered an announcement by registering. The device is
+    /// emitted on [RsDiscovery::listen].
+    ///
+    /// Only the inbound direction of the address is confirmed: an address
+    /// new to the device is stored with [RsOutbound::Untested].
+    pub async fn observe_inbound(&self, device: RsDiscoveredDevice) {
         self.instance
             .handle
             .observe_inbound(DiscoveredDevice {
@@ -412,13 +510,44 @@ impl RsDiscovery {
             .await;
     }
 
-    /// The retained confirmations of a stored device, oldest first, capped at
+    /// Records the outcome of a request the application sent to a stored
+    /// device over [channel], e.g. a transfer: without an [error] the channel
+    /// becomes [RsOutbound::Reachable], with one — the reason, for display —
+    /// it becomes [RsOutbound::Failed], which ranks it behind the device's
+    /// other channels. The device is emitted on [RsDiscovery::listen].
+    ///
+    /// Only report failures to reach the device at all, not requests that
+    /// the device answered with an error.
+    ///
+    /// Returns `false` when no device has the fingerprint.
+    pub fn report_outbound(
+        &self,
+        fingerprint: String,
+        channel: RsDeviceChannel,
+        error: Option<String>,
+    ) -> bool {
+        self.instance.handle.report_outbound(
+            &fingerprint,
+            DeviceChannel::Http(HttpChannel {
+                host: channel.host,
+                port: channel.port,
+                protocol: channel.protocol,
+            }),
+            match error {
+                Some(error) => Err(error),
+                None => Ok(()),
+            },
+        )
+    }
+
+    /// The retained observations of a stored device, oldest first, capped at
     /// the store's log limit. Empty when the fingerprint is unknown.
     pub fn device_logs(&self, fingerprint: String) -> Vec<RsDeviceLog> {
-        self.instance
-            .handle
+        let handle = &self.instance.handle;
+        handle
             .device_by_fingerprint(&fingerprint)
-            .map(|stored| rs_device_logs(stored.logs))
+            .or_else(|| unconfirmed_device(handle, &fingerprint))
+            .map(|stored| stored.logs.into_iter().map(rs_device_log).collect())
             .unwrap_or_default()
     }
 
@@ -437,61 +566,78 @@ impl RsDiscovery {
     }
 }
 
-/// The confirmations among the logs of a stored device, in the shape the
-/// Dart side knows: the direction of a confirmation, failed requests and
-/// heard announcements are not exposed yet.
-fn rs_device_logs(logs: Vec<DeviceLog>) -> Vec<RsDeviceLog> {
-    logs.into_iter()
-        .filter_map(|log| {
-            let channel = match log.event {
-                DeviceLogEvent::Outbound { channel } | DeviceLogEvent::Inbound { channel } => {
-                    channel
-                }
-                DeviceLogEvent::OutboundFailed { .. } | DeviceLogEvent::MulticastInbound { .. } => {
-                    return None;
-                }
-            };
-            Some((log.timestamp, channel))
-        })
-        .enumerate()
-        .map(|(index, (timestamp, channel))| {
-            let DeviceChannel::Http(http) = channel;
-            RsDeviceLog {
-                timestamp_millis: timestamp
-                    .duration_since(std::time::UNIX_EPOCH)
-                    .map(|elapsed| elapsed.as_millis() as u64)
-                    .unwrap_or(0),
-                // The core no longer tells the first confirmation apart; it
-                // is the oldest one as long as the log cap was not hit.
-                kind: if index == 0 {
-                    DeviceLogKind::Discovered
-                } else {
-                    DeviceLogKind::Updated
-                },
-                channel: RsDeviceChannel {
-                    host: http.host,
-                    port: http.port,
-                    protocol: http.protocol,
-                },
-            }
-        })
-        .collect()
+/// The device with the given fingerprint that was heard announcing itself
+/// but never confirmed.
+fn unconfirmed_device(handle: &DiscoveryHandle, fingerprint: &str) -> Option<StatefulDevice> {
+    handle
+        .unconfirmed_devices()
+        .into_iter()
+        .find(|stored| stored.device.fingerprint == fingerprint)
 }
 
-/// The merged stored device flattened for the Dart side, its channels ranked
-/// best first.
+fn rs_device_log(log: DeviceLog) -> RsDeviceLog {
+    RsDeviceLog {
+        timestamp_millis: millis_since_epoch(log.timestamp),
+        event: match log.event {
+            DeviceLogEvent::Outbound { channel } => RsDeviceLogEvent::Outbound {
+                channel: rs_device_channel(&channel),
+            },
+            DeviceLogEvent::OutboundFailed { channel, error } => RsDeviceLogEvent::OutboundFailed {
+                channel: rs_device_channel(&channel),
+                error,
+            },
+            DeviceLogEvent::Inbound { channel } => RsDeviceLogEvent::Inbound {
+                channel: rs_device_channel(&channel),
+            },
+            DeviceLogEvent::MulticastInbound { ip, scope_id } => {
+                RsDeviceLogEvent::MulticastInbound {
+                    host: match scope_id {
+                        Some(scope_id) => format!("{ip}%{scope_id}"),
+                        None => ip.to_string(),
+                    },
+                }
+            }
+        },
+    }
+}
+
+fn rs_device_channel(channel: &DeviceChannel) -> RsDeviceChannel {
+    let DeviceChannel::Http(http) = channel;
+    RsDeviceChannel {
+        host: http.host.clone(),
+        port: http.port,
+        protocol: http.protocol,
+    }
+}
+
+fn rs_stored_channel(channel: &DeviceChannel, state: &ChannelState) -> RsStoredChannel {
+    let DeviceChannel::Http(http) = channel;
+    RsStoredChannel {
+        host: http.host.clone(),
+        port: http.port,
+        protocol: http.protocol,
+        outbound: match state.outbound {
+            Outbound::Untested => RsOutbound::Untested,
+            Outbound::Reachable(_) => RsOutbound::Reachable,
+            Outbound::Failed(_) => RsOutbound::Failed,
+        },
+        inbound_at_millis: state.inbound.map(millis_since_epoch),
+    }
+}
+
+fn millis_since_epoch(time: SystemTime) -> u64 {
+    time.duration_since(std::time::UNIX_EPOCH)
+        .map(|elapsed| elapsed.as_millis() as u64)
+        .unwrap_or(0)
+}
+
+/// The merged stored device flattened for the Dart side, its channels in the
+/// order to dial them.
 fn rs_stored_device(stored: StatefulDevice) -> RsStoredDevice {
     let channels = stored
         .get_ranked_channels()
         .into_iter()
-        .map(|channel| {
-            let DeviceChannel::Http(http) = channel;
-            RsDeviceChannel {
-                host: http.host.clone(),
-                port: http.port,
-                protocol: http.protocol,
-            }
-        })
+        .map(|channel| rs_stored_channel(channel, &stored.channels[channel]))
         .collect();
 
     let device = stored.device;

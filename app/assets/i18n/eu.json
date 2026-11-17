@@ -212,15 +212,12 @@
     "verify": "Egiaztatu",
     "info": {
       "name": "Izena",
-      "address": "Helbidea",
       "version": "Bertsioa",
       "protocol": "Protokoloa v{version}"
     },
     "logs": {
       "title": "Erregistroak",
-      "empty": "Ez dago erregistrorik eskuragarri.",
-      "discovered": "{protocol} bidez aurkitua ({host})",
-      "updated": "{protocol} bidez eguneratua ({host})"
+      "empty": "Ez dago erregistrorik eskuragarri."
     }
   },
   "verifyPage": {

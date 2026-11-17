@@ -212,15 +212,12 @@
     "verify": "ផ្ទៀងផ្ទាត់",
     "info": {
       "name": "ឈ្មោះ",
-      "address": "អាសយដ្ឋាន",
       "version": "កំណែ",
       "protocol": "ពិធីការ v{version}"
     },
     "logs": {
       "title": "កំណត់ហេតុ",
-      "empty": "មិនមានកំណត់ហេតុទេ។",
-      "discovered": "បានរកឃើញតាមរយៈ {protocol} ({host})",
-      "updated": "បានធ្វើបច្ចុប្បន្នភាពតាមរយៈ {protocol} ({host})"
+      "empty": "មិនមានកំណត់ហេតុទេ។"
     }
   },
   "verifyPage": {

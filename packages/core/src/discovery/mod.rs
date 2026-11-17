@@ -103,9 +103,9 @@ pub enum DiscoveryEvent {
         device: DiscoveredDevice,
     },
 
-    /// A request to a device failed: it was heard announcing itself but did
-    /// not answer the register request, or the application reported a failed
-    /// request via [`DiscoveryHandle::report_outbound`].
+    /// A device could not be reached: it was heard announcing itself but
+    /// the register request got no response, or the application reported a
+    /// failed request via [`DiscoveryHandle::report_outbound`].
     ///
     /// The device is not necessarily a confirmed one: a device that never
     /// answered is only listed in [`DiscoveryHandle::unconfirmed_devices`].
@@ -440,8 +440,9 @@ impl DiscoveryHandle {
     /// makes it [`Outbound::Failed`], which ranks it behind the device's
     /// other channels. Emitted as `Updated` or `Unreachable`.
     ///
-    /// Only report failures to reach the device at all, not requests that
-    /// the device answered with an error.
+    /// Only report failures to reach the device at all
+    /// ([`ClientError::is_unreachable`]), not requests that the device
+    /// answered with an error.
     ///
     /// Returns `false` when no device has the fingerprint.
     pub fn report_outbound(
@@ -581,7 +582,7 @@ pub async fn start(config: DiscoveryConfig, stop_rx: oneshot::Receiver<()>) -> D
 
 /// Answers an announcement with a register request, as the protocol requires.
 /// The device is confirmed only once that request succeeded; a device that
-/// does not answer is stored unconfirmed, with the channel marked as failed.
+/// cannot be reached is stored unconfirmed, with the channel marked as failed.
 async fn answer_announcement(
     state: Arc<DiscoveryState>,
     ip: IpAddr,
@@ -644,6 +645,11 @@ async fn answer_announcement(
                 "Could not register with announcing device {} ({url}): {error}",
                 message.alias,
             );
+            if !err.is_unreachable() {
+                // The device answered, just not with its registration:
+                // there is neither a failed channel nor a device to store.
+                return;
+            }
 
             // The device is around but cannot be dialed, typically because
             // a firewall blocks its server. Nothing but the announcement is

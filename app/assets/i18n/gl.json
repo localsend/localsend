@@ -212,15 +212,12 @@
     "verify": "Verificar",
     "info": {
       "name": "Nome",
-      "address": "Enderezo",
       "version": "Versión",
       "protocol": "Protocolo v{version}"
     },
     "logs": {
       "title": "Rexistros",
-      "empty": "Non hai rexistros dispoñibles.",
-      "discovered": "Descuberto mediante {protocol} ({host})",
-      "updated": "Actualizado mediante {protocol} ({host})"
+      "empty": "Non hai rexistros dispoñibles."
     }
   },
   "verifyPage": {

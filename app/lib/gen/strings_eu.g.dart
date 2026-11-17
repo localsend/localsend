@@ -1054,8 +1054,6 @@ class _Translations$deviceDetailsPage$info$eu extends Translations$deviceDetails
   @override
   String get name => 'Izena';
   @override
-  String get address => 'Helbidea';
-  @override
   String get version => 'Bertsioa';
   @override
   String protocol({required Object version}) => 'Protokoloa v${version}';
@@ -1072,10 +1070,6 @@ class _Translations$deviceDetailsPage$logs$eu extends Translations$deviceDetails
   String get title => 'Erregistroak';
   @override
   String get empty => 'Ez dago erregistrorik eskuragarri.';
-  @override
-  String discovered({required Object protocol, required Object host}) => '${protocol} bidez aurkitua (${host})';
-  @override
-  String updated({required Object protocol, required Object host}) => '${protocol} bidez eguneratua (${host})';
 }
 
 // Path: progressPage.total

@@ -212,15 +212,12 @@
     "verify": "Doğrula",
     "info": {
       "name": "Ad",
-      "address": "Ünvan",
       "version": "Versiya",
       "protocol": "Protokol v{version}"
     },
     "logs": {
       "title": "Jurnallar",
-      "empty": "Jurnal mövcud deyil.",
-      "discovered": "{protocol} vasitəsilə aşkarlandı ({host})",
-      "updated": "{protocol} vasitəsilə yeniləndi ({host})"
+      "empty": "Jurnal mövcud deyil."
     }
   },
   "verifyPage": {

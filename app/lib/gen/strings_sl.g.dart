@@ -1136,8 +1136,6 @@ class _Translations$deviceDetailsPage$info$sl extends Translations$deviceDetails
   @override
   String get name => 'Ime';
   @override
-  String get address => 'Naslov';
-  @override
   String get version => 'Različica';
   @override
   String protocol({required Object version}) => 'Protokol v${version}';
@@ -1154,10 +1152,6 @@ class _Translations$deviceDetailsPage$logs$sl extends Translations$deviceDetails
   String get title => 'Dnevniki';
   @override
   String get empty => 'Ni razpoložljivih dnevnikov.';
-  @override
-  String discovered({required Object protocol, required Object host}) => 'Odkrito prek ${protocol} (${host})';
-  @override
-  String updated({required Object protocol, required Object host}) => 'Posodobljeno prek ${protocol} (${host})';
 }
 
 // Path: progressPage.total

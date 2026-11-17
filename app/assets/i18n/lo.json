@@ -212,15 +212,12 @@
     "verify": "ກວດສອບ",
     "info": {
       "name": "ຊື່",
-      "address": "ທີ່ຢູ່",
       "version": "ເວີຊັນ",
       "protocol": "ໂປຣໂຕເຄລ v{version}"
     },
     "logs": {
       "title": "ບັນທຶກ",
-      "empty": "ບໍ່ມີບັນທຶກ.",
-      "discovered": "ຄົ້ນພົບຜ່ານ {protocol} ({host})",
-      "updated": "ອັບເດດຜ່ານ {protocol} ({host})"
+      "empty": "ບໍ່ມີບັນທຶກ."
     }
   },
   "verifyPage": {

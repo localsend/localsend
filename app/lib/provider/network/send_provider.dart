@@ -251,6 +251,7 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
     rust_http.PrepareUploadResult? response;
     bool invalidPin;
     bool pinFirstAttempt = true;
+    bool reachedReported = false;
     String? pin;
     final prepareUploadCancelToken = rust_cancel.createCancellationToken();
     _prepareUploadCancelTokens[sessionId] = prepareUploadCancelToken;
@@ -269,7 +270,16 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
             pin: pin,
             cancelToken: prepareUploadCancelToken,
           );
+          if (!reachedReported) {
+            reachedReported = true;
+            _reportOutbound(target);
+          }
         } on rust_http.RsHttpClientError_StatusCode catch (e) {
+          // Declined, busy, wrong PIN, ...: the peer answered, so it was reached.
+          if (!reachedReported) {
+            reachedReported = true;
+            _reportOutbound(target);
+          }
           switch (e.status) {
             case 401:
               invalidPin = true;
@@ -332,6 +342,12 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
               return;
           }
         } catch (e) {
+          if (e is rust_http.RsHttpClientError_Unreachable) {
+            // Only a request without any response says that the address
+            // cannot be dialed; a canceled request or an answer that could
+            // not be read does not.
+            _reportOutbound(target, error: e.field0);
+          }
           state = state.updateSession(
             sessionId: sessionId,
             state: (s) => s?.copyWith(
@@ -451,6 +467,32 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
     TransferNotification.start(sessionId: sessionId, receiving: false);
 
     await _sendLoop(sessionId, sendingFiles);
+  }
+
+  /// Tells the discovery whether [target] could be reached at the address it
+  /// was dialed at: without an [error] the address is marked as working in
+  /// the outgoing direction, with one — the reason — as failed.
+  /// Does nothing for a device without an address (WebRTC only).
+  void _reportOutbound(Device target, {String? error}) {
+    final ip = target.ip;
+    if (ip == null) {
+      return;
+    }
+
+    try {
+      ref
+          .redux(parentIsolateProvider)
+          .dispatch(
+            IsolateDiscoveryReportOutboundAction(
+              fingerprint: target.fingerprint,
+              channel: HttpChannel(host: ip, port: target.port, https: target.https),
+              error: error,
+            ),
+          );
+    } catch (e) {
+      // Only diagnostics: must never fail the transfer.
+      _logger.warning('Could not report the dialed address to the discovery', e);
+    }
   }
 
   /// Reports the total session progress to the foreground service notification,
