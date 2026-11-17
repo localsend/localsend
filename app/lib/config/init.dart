@@ -49,6 +49,7 @@ import 'package:localsend_isolates/util/rust_init.dart';
 import 'package:localsend_isolates/util/show_instance.dart';
 import 'package:localsend_isolates/util/transfer_notification.dart';
 import 'package:logging/logging.dart';
+import 'package:marionette_flutter/marionette_flutter.dart';
 import 'package:refena_flutter/addons.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 import 'package:routerino/routerino.dart';
@@ -59,7 +60,12 @@ final _logger = Logger('Init');
 
 /// Will be called before the MaterialApp started
 Future<RefenaContainer> preInit(List<String> args) async {
-  WidgetsFlutterBinding.ensureInitialized();
+  if (kDebugMode) {
+    // Lets the Marionette MCP server drive the app (tap, scroll, screenshot).
+    MarionetteBinding.ensureInitialized();
+  } else {
+    WidgetsFlutterBinding.ensureInitialized();
+  }
 
   initLogger(args.contains('-v') || args.contains('--verbose') ? Level.ALL : Level.INFO);
 
