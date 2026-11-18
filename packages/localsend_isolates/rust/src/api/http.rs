@@ -218,6 +218,14 @@ pub enum RsHttpClientError {
         status: u16,
         message: Option<String>,
     },
+
+    /// The request got no response: the connection could not be established
+    /// (refused, timed out, failed TLS handshake) or broke before the peer
+    /// answered. Carries the reason, for display.
+    Unreachable(String),
+
+    /// Another error of the transport: the peer answered, but its response
+    /// could not be read.
     Reqwest(String),
     Json(String),
     Io(String),
@@ -226,6 +234,9 @@ pub enum RsHttpClientError {
 
 impl From<ClientError> for RsHttpClientError {
     fn from(e: ClientError) -> Self {
+        if e.is_unreachable() {
+            return RsHttpClientError::Unreachable(ErrorChain(&e).to_string());
+        }
         match e {
             ClientError::StatusCode(e) => RsHttpClientError::StatusCode {
                 status: e.status,

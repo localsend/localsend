@@ -1047,8 +1047,6 @@ class _Translations$deviceDetailsPage$info$ko extends Translations$deviceDetails
   @override
   String get name => '이름';
   @override
-  String get address => '주소';
-  @override
   String get version => '버전';
   @override
   String protocol({required Object version}) => '프로토콜 v${version}';
@@ -1065,10 +1063,6 @@ class _Translations$deviceDetailsPage$logs$ko extends Translations$deviceDetails
   String get title => '로그';
   @override
   String get empty => '사용 가능한 로그가 없습니다.';
-  @override
-  String discovered({required Object protocol, required Object host}) => '${protocol}을(를) 통해 발견됨 (${host})';
-  @override
-  String updated({required Object protocol, required Object host}) => '${protocol}을(를) 통해 업데이트됨 (${host})';
 }
 
 // Path: progressPage.total

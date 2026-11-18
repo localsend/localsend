@@ -212,15 +212,12 @@
     "verify": "Verifica",
     "info": {
       "name": "Nome",
-      "address": "Indirizzo",
       "version": "Versione",
       "protocol": "Protocollo v{version}"
     },
     "logs": {
       "title": "Log",
-      "empty": "Nessun log disponibile.",
-      "discovered": "Rilevato tramite {protocol} ({host})",
-      "updated": "Aggiornato tramite {protocol} ({host})"
+      "empty": "Nessun log disponibile."
     }
   },
   "verifyPage": {

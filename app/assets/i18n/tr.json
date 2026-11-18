@@ -212,15 +212,12 @@
     "verify": "Doğrula",
     "info": {
       "name": "Ad",
-      "address": "Adres",
       "version": "Sürüm",
       "protocol": "Protokol v{version}"
     },
     "logs": {
       "title": "Günlükler",
-      "empty": "Kullanılabilir günlük yok.",
-      "discovered": "{protocol} üzerinden keşfedildi ({host})",
-      "updated": "{protocol} üzerinden güncellendi ({host})"
+      "empty": "Kullanılabilir günlük yok."
     }
   },
   "verifyPage": {

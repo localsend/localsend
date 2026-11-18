@@ -212,15 +212,12 @@
     "verify": "Sahkan",
     "info": {
       "name": "Nama",
-      "address": "Alamat",
       "version": "Versi",
       "protocol": "Protokol v{version}"
     },
     "logs": {
       "title": "Log",
-      "empty": "Tiada log tersedia.",
-      "discovered": "Ditemui melalui {protocol} ({host})",
-      "updated": "Dikemas kini melalui {protocol} ({host})"
+      "empty": "Tiada log tersedia."
     }
   },
   "verifyPage": {

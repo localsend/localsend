@@ -212,15 +212,12 @@
     "verify": "যাচাই করুন",
     "info": {
       "name": "নাম",
-      "address": "ঠিকানা",
       "version": "সংস্করণ",
       "protocol": "প্রোটোকল v{version}"
     },
     "logs": {
       "title": "লগ",
-      "empty": "কোনো লগ নেই।",
-      "discovered": "{protocol} এর মাধ্যমে আবিষ্কৃত ({host})",
-      "updated": "{protocol} এর মাধ্যমে আপডেট হয়েছে ({host})"
+      "empty": "কোনো লগ নেই।"
     }
   },
   "verifyPage": {

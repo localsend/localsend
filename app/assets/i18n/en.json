@@ -214,15 +214,26 @@
     "verify": "Verify",
     "info": {
       "name": "Name",
-      "address": "Address",
       "version": "Version",
       "protocol": "Protocol v{version}"
+    },
+    "channels": {
+      "title": "Channels",
+      "you": "You",
+      "outgoing": "Outgoing",
+      "incoming": "Incoming",
+      "works": "Works",
+      "notTested": "Not tested",
+      "failed": "Failed",
+      "notSeen": "Not seen"
     },
     "logs": {
       "title": "Logs",
       "empty": "No logs available.",
-      "discovered": "Discovered via {protocol} ({host})",
-      "updated": "Updated via {protocol} ({host})"
+      "outbound": "Reached via {protocol} ({host})",
+      "outboundFailed": "Could not reach via {protocol} ({host}): {error}",
+      "inbound": "Reached us via {protocol} ({host})",
+      "multicastInbound": "Announcement heard ({host})"
     }
   },
   "verifyPage": {

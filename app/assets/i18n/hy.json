@@ -212,15 +212,12 @@
     "verify": "Հաստատել",
     "info": {
       "name": "Անուն",
-      "address": "Հասցե",
       "version": "Վերսիա",
       "protocol": "v{version} պրոտոկոլ"
     },
     "logs": {
       "title": "Լոգեր",
-      "empty": "Լոգեր չկան։",
-      "discovered": "Գտնվել է {protocol} ({host}) միջոցով",
-      "updated": "Թարմացվել է {protocol} ({host}) միջոցով"
+      "empty": "Լոգեր չկան։"
     }
   },
   "verifyPage": {

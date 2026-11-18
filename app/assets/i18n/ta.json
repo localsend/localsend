@@ -212,15 +212,12 @@
     "verify": "சரிபார்",
     "info": {
       "name": "பெயர்",
-      "address": "முகவரி",
       "version": "பதிப்பு",
       "protocol": "நெறிமுறை v{version}"
     },
     "logs": {
       "title": "பதிவுகள்",
-      "empty": "பதிவுகள் எதுவும் இல்லை.",
-      "discovered": "{protocol} வழியாகக் கண்டறியப்பட்டது ({host})",
-      "updated": "{protocol} வழியாக புதுப்பிக்கப்பட்டது ({host})"
+      "empty": "பதிவுகள் எதுவும் இல்லை."
     }
   },
   "verifyPage": {

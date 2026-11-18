@@ -212,15 +212,12 @@
     "verify": "Verificer",
     "info": {
       "name": "Navn",
-      "address": "Adresse",
       "version": "Version",
       "protocol": "Protokol v{version}"
     },
     "logs": {
       "title": "Logfiler",
-      "empty": "Ingen logfiler tilgængelige.",
-      "discovered": "Opdaget via {protocol} ({host})",
-      "updated": "Opdateret via {protocol} ({host})"
+      "empty": "Ingen logfiler tilgængelige."
     }
   },
   "verifyPage": {

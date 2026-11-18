@@ -212,15 +212,12 @@
     "verify": "تصدیق کریں",
     "info": {
       "name": "نام",
-      "address": "پتہ",
       "version": "ورژن",
       "protocol": "پروٹوکول v{version}"
     },
     "logs": {
       "title": "لاگز",
-      "empty": "کوئی لاگ دستیاب نہیں۔",
-      "discovered": "{protocol} کے ذریعے دریافت ہوا ({host})",
-      "updated": "{protocol} کے ذریعے اپ ڈیٹ ہوا ({host})"
+      "empty": "کوئی لاگ دستیاب نہیں۔"
     }
   },
   "verifyPage": {

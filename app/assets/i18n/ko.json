@@ -212,15 +212,12 @@
     "verify": "검증",
     "info": {
       "name": "이름",
-      "address": "주소",
       "version": "버전",
       "protocol": "프로토콜 v{version}"
     },
     "logs": {
       "title": "로그",
-      "empty": "사용 가능한 로그가 없습니다.",
-      "discovered": "{protocol}을(를) 통해 발견됨 ({host})",
-      "updated": "{protocol}을(를) 통해 업데이트됨 ({host})"
+      "empty": "사용 가능한 로그가 없습니다."
     }
   },
   "verifyPage": {

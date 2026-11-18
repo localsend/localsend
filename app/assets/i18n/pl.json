@@ -212,15 +212,12 @@
     "verify": "Zweryfikuj",
     "info": {
       "name": "Nazwa",
-      "address": "Adres",
       "version": "Wersja",
       "protocol": "Protokół v{version}"
     },
     "logs": {
       "title": "Dzienniki",
-      "empty": "Brak dostępnych dzienników.",
-      "discovered": "Wykryto przez {protocol} ({host})",
-      "updated": "Zaktualizowano przez {protocol} ({host})"
+      "empty": "Brak dostępnych dzienników."
     }
   },
   "verifyPage": {

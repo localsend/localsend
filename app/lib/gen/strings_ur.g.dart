@@ -1053,8 +1053,6 @@ class _Translations$deviceDetailsPage$info$ur extends Translations$deviceDetails
   @override
   String get name => 'نام';
   @override
-  String get address => 'پتہ';
-  @override
   String get version => 'ورژن';
   @override
   String protocol({required Object version}) => 'پروٹوکول v${version}';
@@ -1071,10 +1069,6 @@ class _Translations$deviceDetailsPage$logs$ur extends Translations$deviceDetails
   String get title => 'لاگز';
   @override
   String get empty => 'کوئی لاگ دستیاب نہیں۔';
-  @override
-  String discovered({required Object protocol, required Object host}) => '${protocol} کے ذریعے دریافت ہوا (${host})';
-  @override
-  String updated({required Object protocol, required Object host}) => '${protocol} کے ذریعے اپ ڈیٹ ہوا (${host})';
 }
 
 // Path: progressPage.total

@@ -213,15 +213,12 @@
     "verify": "驗證",
     "info": {
       "name": "名稱",
-      "address": "地址",
       "version": "版本",
       "protocol": "Protocol v{version}"
     },
     "logs": {
       "title": "記錄",
-      "empty": "冇任何記錄。",
-      "discovered": "透過 {protocol} ({host}) 偵測到",
-      "updated": "透過 {protocol} ({host}) 更新"
+      "empty": "冇任何記錄。"
     }
   },
   "verifyPage": {

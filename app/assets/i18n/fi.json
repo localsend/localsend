@@ -212,15 +212,12 @@
     "verify": "Vahvista",
     "info": {
       "name": "Nimi",
-      "address": "Osoite",
       "version": "Versio",
       "protocol": "Protokolla v{version}"
     },
     "logs": {
       "title": "Lokit",
-      "empty": "Lokeja ei ole saatavilla.",
-      "discovered": "Löydetty {protocol}-protokollan kautta ({host})",
-      "updated": "Päivitetty {protocol}-protokollan kautta ({host})"
+      "empty": "Lokeja ei ole saatavilla."
     }
   },
   "verifyPage": {

@@ -214,15 +214,12 @@
     "verify": "אימות",
     "info": {
       "name": "שם",
-      "address": "כתובת",
       "version": "גרסה",
       "protocol": "פרוטוקול גרסה {version}"
     },
     "logs": {
       "title": "יומני רישום",
-      "empty": "אין יומנים זמינים",
-      "discovered": "התגלה באמצעות {protocol} ({host})",
-      "updated": "עודכן באמצעות {protocol} ({host})"
+      "empty": "אין יומנים זמינים"
     }
   },
   "verifyPage": {

@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:localsend_isolates/model/device.dart';
+import 'package:localsend_isolates/model/discovery_event.dart';
 import 'package:localsend_isolates/rust/api/server.dart' show WebParams;
 import 'package:localsend_isolates/src/isolate/child/discovery_isolate.dart';
 import 'package:localsend_isolates/src/isolate/child/server_isolate.dart';
@@ -11,13 +12,19 @@ import 'package:refena_flutter/refena_flutter.dart';
 import 'package:typed_isolates/id.dart';
 import 'package:typed_isolates/typed_isolates.dart';
 
-/// Starts the discovery and returns the stream of confirmed devices:
-/// answered announcements, scan results and devices fed in via
-/// [IsolateDiscoveryAddDeviceAction] all arrive on this one stream.
+/// Starts the discovery and returns the stream of its events.
+///
+/// A [DiscoveryDeviceEvent] carries a confirmed device whose state changed:
+/// answered announcements, scan results, devices fed in via
+/// [IsolateDiscoveryObserveInboundAction] and outcomes reported via
+/// [IsolateDiscoveryReportOutboundAction] all arrive on this one stream.
+/// A [DiscoveryUnreachableEvent] carries a device that was only heard
+/// announcing itself and did not answer: it is not a transfer target.
+///
 /// The stream never completes; it survives [IsolateDiscoveryRestartAction]s.
-class IsolateDiscoveryListenAction extends ReduxActionWithResult<IsolateController, ParentIsolateState, Stream<Device>> {
+class IsolateDiscoveryListenAction extends ReduxActionWithResult<IsolateController, ParentIsolateState, Stream<DiscoveryEvent>> {
   @override
-  (ParentIsolateState, Stream<Device>) reduce() {
+  (ParentIsolateState, Stream<DiscoveryEvent>) reduce() {
     final connection = state.discovery;
     if (connection == null) {
       throw StateError('discovery is not initialized');
@@ -29,7 +36,7 @@ class IsolateDiscoveryListenAction extends ReduxActionWithResult<IsolateControll
           .sendWrappedTaskAndListenStream(
             task: DiscoveryListenTask(),
           )
-          .toDeviceStream(),
+          .toEventStream(),
     );
   }
 }
@@ -38,7 +45,7 @@ class IsolateDiscoveryListenAction extends ReduxActionWithResult<IsolateControll
 /// for networks that do not carry multicast.
 /// The returned stream completes (without events) when the scan is finished;
 /// the found devices arrive on the [IsolateDiscoveryListenAction] stream.
-class IsolateDiscoverySubnetScanAction extends ReduxActionWithResult<IsolateController, ParentIsolateState, Stream<Device>> {
+class IsolateDiscoverySubnetScanAction extends ReduxActionWithResult<IsolateController, ParentIsolateState, Stream<void>> {
   final String networkInterface;
   final int port;
   final bool https;
@@ -50,7 +57,7 @@ class IsolateDiscoverySubnetScanAction extends ReduxActionWithResult<IsolateCont
   });
 
   @override
-  (ParentIsolateState, Stream<Device>) reduce() {
+  (ParentIsolateState, Stream<void>) reduce() {
     final connection = state.discovery;
     if (connection == null) {
       throw StateError('discovery is not initialized');
@@ -58,15 +65,13 @@ class IsolateDiscoverySubnetScanAction extends ReduxActionWithResult<IsolateCont
 
     return (
       state,
-      connection
-          .sendWrappedTaskAndListenStream(
-            task: DiscoverySubnetScanTask(
-              networkInterface: networkInterface,
-              port: port,
-              https: https,
-            ),
-          )
-          .toDeviceStream(),
+      connection.sendWrappedTaskAndListenStream(
+        task: DiscoverySubnetScanTask(
+          networkInterface: networkInterface,
+          port: port,
+          https: https,
+        ),
+      ),
     );
   }
 }
@@ -77,7 +82,7 @@ class IsolateDiscoverySubnetScanAction extends ReduxActionWithResult<IsolateCont
 /// The returned stream completes (without events) when every stage has
 /// finished; the found devices arrive on the [IsolateDiscoveryListenAction]
 /// stream.
-class IsolateDiscoveryStagedScanAction extends ReduxActionWithResult<IsolateController, ParentIsolateState, Stream<Device>> {
+class IsolateDiscoveryStagedScanAction extends ReduxActionWithResult<IsolateController, ParentIsolateState, Stream<void>> {
   final List<(String, int)> favorites;
   final List<String> networkInterfaces;
   final int port;
@@ -93,7 +98,7 @@ class IsolateDiscoveryStagedScanAction extends ReduxActionWithResult<IsolateCont
   });
 
   @override
-  (ParentIsolateState, Stream<Device>) reduce() {
+  (ParentIsolateState, Stream<void>) reduce() {
     final connection = state.discovery;
     if (connection == null) {
       throw StateError('discovery is not initialized');
@@ -101,22 +106,21 @@ class IsolateDiscoveryStagedScanAction extends ReduxActionWithResult<IsolateCont
 
     return (
       state,
-      connection
-          .sendWrappedTaskAndListenStream(
-            task: DiscoveryStagedScanTask(
-              favorites: favorites,
-              networkInterfaces: networkInterfaces,
-              port: port,
-              https: https,
-              grace: grace,
-            ),
-          )
-          .toDeviceStream(),
+      connection.sendWrappedTaskAndListenStream(
+        task: DiscoveryStagedScanTask(
+          favorites: favorites,
+          networkInterfaces: networkInterfaces,
+          port: port,
+          https: https,
+          grace: grace,
+        ),
+      ),
     );
   }
 }
 
-/// Fetches the retained confirmations of a stored device, oldest first.
+/// Fetches the retained observations of a stored device, oldest first,
+/// including a device that was only heard announcing itself.
 /// The logs are empty when the fingerprint is unknown or the discovery is
 /// not running.
 class IsolateDiscoveryDeviceLogsAction extends AsyncReduxActionWithResult<IsolateController, ParentIsolateState, List<DeviceLog>> {
@@ -188,13 +192,16 @@ class IsolateDiscoveryRestartAction extends ReduxAction<IsolateController, Paren
   }
 }
 
-/// Feeds a device confirmed outside of the discovery into the discovery store,
-/// e.g. one that registered with this device's HTTP server. The device comes
-/// back on the [IsolateDiscoveryListenAction] stream.
-class IsolateDiscoveryAddDeviceAction extends ReduxAction<IsolateController, ParentIsolateState> {
+/// Feeds a device that reached this device's HTTP server into the discovery
+/// store, e.g. one that registered. Only the inbound direction of its address
+/// is confirmed: whether the device can be dialed back there is then tested
+/// by the discovery in the background.
+/// The device comes back on the [IsolateDiscoveryListenAction] stream, and
+/// again with the outcome of that test.
+class IsolateDiscoveryObserveInboundAction extends ReduxAction<IsolateController, ParentIsolateState> {
   final Device device;
 
-  IsolateDiscoveryAddDeviceAction({
+  IsolateDiscoveryObserveInboundAction({
     required this.device,
   });
 
@@ -209,8 +216,52 @@ class IsolateDiscoveryAddDeviceAction extends ReduxAction<IsolateController, Par
       SendToIsolateData(
         syncState: null,
         data: IsolateTask(
-          data: DiscoveryAddDeviceTask(
+          data: DiscoveryObserveInboundTask(
             device: device,
+          ),
+        ),
+      ),
+    );
+
+    return state;
+  }
+}
+
+/// Records the outcome of a request the application itself sent to the
+/// stored device with the given [fingerprint] over [channel], e.g. a
+/// transfer: without an [error] the device was reached, with one (the
+/// reason, for display) it could not be reached at all.
+/// The device comes back on the [IsolateDiscoveryListenAction] stream;
+/// nothing happens when no stored device has the fingerprint.
+///
+/// Only report failures to reach the device, not requests that the device
+/// answered with an error.
+class IsolateDiscoveryReportOutboundAction extends ReduxAction<IsolateController, ParentIsolateState> {
+  final String fingerprint;
+  final HttpChannel channel;
+  final String? error;
+
+  IsolateDiscoveryReportOutboundAction({
+    required this.fingerprint,
+    required this.channel,
+    this.error,
+  });
+
+  @override
+  ParentIsolateState reduce() {
+    final connection = state.discovery;
+    if (connection == null) {
+      throw StateError('discovery is not initialized');
+    }
+
+    connection.sendToIsolate(
+      SendToIsolateData(
+        syncState: null,
+        data: IsolateTask(
+          data: DiscoveryReportOutboundTask(
+            fingerprint: fingerprint,
+            channel: channel,
+            error: error,
           ),
         ),
       ),
@@ -541,10 +592,10 @@ class IsolateHttpServerFailFileDownloadAction extends ReduxAction<IsolateControl
   }
 }
 
-extension _DeviceStreamExt on Stream<DiscoveryResult> {
-  /// Unwraps the [DiscoveryDeviceResult]s of a device stream.
-  Stream<Device> toDeviceStream() {
-    return map((result) => (result as DiscoveryDeviceResult).device);
+extension _DiscoveryStreamExt on Stream<DiscoveryResult> {
+  /// Unwraps the [DiscoveryEventResult]s of the listen stream.
+  Stream<DiscoveryEvent> toEventStream() {
+    return map((result) => (result as DiscoveryEventResult).event);
   }
 }
 

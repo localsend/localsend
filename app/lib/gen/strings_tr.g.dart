@@ -1053,8 +1053,6 @@ class _Translations$deviceDetailsPage$info$tr extends Translations$deviceDetails
   @override
   String get name => 'Ad';
   @override
-  String get address => 'Adres';
-  @override
   String get version => 'Sürüm';
   @override
   String protocol({required Object version}) => 'Protokol v${version}';
@@ -1071,10 +1069,6 @@ class _Translations$deviceDetailsPage$logs$tr extends Translations$deviceDetails
   String get title => 'Günlükler';
   @override
   String get empty => 'Kullanılabilir günlük yok.';
-  @override
-  String discovered({required Object protocol, required Object host}) => '${protocol} üzerinden keşfedildi (${host})';
-  @override
-  String updated({required Object protocol, required Object host}) => '${protocol} üzerinden güncellendi (${host})';
 }
 
 // Path: progressPage.total

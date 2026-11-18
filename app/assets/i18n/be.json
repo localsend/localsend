@@ -212,15 +212,12 @@
     "verify": "Спраўдзіць",
     "info": {
       "name": "Назва",
-      "address": "Адрас",
       "version": "Версія",
       "protocol": "Пратакол v{version}"
     },
     "logs": {
       "title": "Журнал",
-      "empty": "Няма запісаў у журнале.",
-      "discovered": "Выяўлена праз {protocol} ({host})",
-      "updated": "Абноўлена праз {protocol} ({host})"
+      "empty": "Няма запісаў у журнале."
     }
   },
   "verifyPage": {

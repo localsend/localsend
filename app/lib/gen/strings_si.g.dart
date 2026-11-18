@@ -1054,8 +1054,6 @@ class _Translations$deviceDetailsPage$info$si extends Translations$deviceDetails
   @override
   String get name => 'නම';
   @override
-  String get address => 'ලිපිනය';
-  @override
   String get version => 'අනුවාදය';
   @override
   String protocol({required Object version}) => 'නියමාවලිය v${version}';
@@ -1072,10 +1070,6 @@ class _Translations$deviceDetailsPage$logs$si extends Translations$deviceDetails
   String get title => 'ලොග';
   @override
   String get empty => 'ලොග නොමැත.';
-  @override
-  String discovered({required Object protocol, required Object host}) => '${protocol} හරහා සොයාගන්නා ලදී (${host})';
-  @override
-  String updated({required Object protocol, required Object host}) => '${protocol} හරහා යාවත්කාල කරන ලදී (${host})';
 }
 
 // Path: progressPage.total

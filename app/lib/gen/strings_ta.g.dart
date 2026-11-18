@@ -1138,8 +1138,6 @@ class _Translations$deviceDetailsPage$info$ta extends Translations$deviceDetails
   @override
   String get name => 'பெயர்';
   @override
-  String get address => 'முகவரி';
-  @override
   String get version => 'பதிப்பு';
   @override
   String protocol({required Object version}) => 'நெறிமுறை v${version}';
@@ -1156,10 +1154,6 @@ class _Translations$deviceDetailsPage$logs$ta extends Translations$deviceDetails
   String get title => 'பதிவுகள்';
   @override
   String get empty => 'பதிவுகள் எதுவும் இல்லை.';
-  @override
-  String discovered({required Object protocol, required Object host}) => '${protocol} வழியாகக் கண்டறியப்பட்டது (${host})';
-  @override
-  String updated({required Object protocol, required Object host}) => '${protocol} வழியாக புதுப்பிக்கப்பட்டது (${host})';
 }
 
 // Path: progressPage.total

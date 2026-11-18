@@ -49,6 +49,20 @@ pub enum ClientError {
     Cancelled,
 }
 
+impl ClientError {
+    /// Whether the request got no response: the connection could not be
+    /// established (refused, timed out, failed TLS handshake) or broke
+    /// before the peer answered.
+    ///
+    /// `false` for every error that leaves open whether the peer was
+    /// reached, and for a peer that answered with an error status or with a
+    /// body that could not be read: it was reached just as well as one that
+    /// answered properly.
+    pub fn is_unreachable(&self) -> bool {
+        matches!(self, ClientError::Reqwest(err) if !err.is_body() && !err.is_decode())
+    }
+}
+
 impl LsHttpClient {
     /// Creates a client for the given protocol version.
     ///

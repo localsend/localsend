@@ -1053,8 +1053,6 @@ class _Translations$deviceDetailsPage$info$hu extends Translations$deviceDetails
   @override
   String get name => 'Név';
   @override
-  String get address => 'Cím';
-  @override
   String get version => 'Verzió';
   @override
   String protocol({required Object version}) => 'Protokoll v${version}';
@@ -1071,10 +1069,6 @@ class _Translations$deviceDetailsPage$logs$hu extends Translations$deviceDetails
   String get title => 'Naplók';
   @override
   String get empty => 'Nincs elérhető napló.';
-  @override
-  String discovered({required Object protocol, required Object host}) => 'Felfedezve ${protocol} útján (${host})';
-  @override
-  String updated({required Object protocol, required Object host}) => 'Frissítve ${protocol} útján (${host})';
 }
 
 // Path: progressPage.total

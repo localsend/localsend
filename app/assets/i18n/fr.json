@@ -212,15 +212,12 @@
     "verify": "Vérifier",
     "info": {
       "name": "Nom",
-      "address": "Adresse",
       "version": "Version",
       "protocol": "Protocole v{version}"
     },
     "logs": {
       "title": "Journaux",
-      "empty": "Aucun journal disponible.",
-      "discovered": "Découvert via {protocol} ({host})",
-      "updated": "Mis à jour via {protocol} ({host})"
+      "empty": "Aucun journal disponible."
     }
   },
   "verifyPage": {

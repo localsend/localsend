@@ -1052,8 +1052,6 @@ class Translations$deviceDetailsPage$info$zh_TW extends Translations$deviceDetai
   @override
   String get name => '名稱';
   @override
-  String get address => '位址';
-  @override
   String get version => '版本';
   @override
   String protocol({required Object version}) => '協定 v${version}';
@@ -1070,10 +1068,6 @@ class Translations$deviceDetailsPage$logs$zh_TW extends Translations$deviceDetai
   String get title => '記錄';
   @override
   String get empty => '沒有可用的記錄。';
-  @override
-  String discovered({required Object protocol, required Object host}) => '透過 ${protocol} 發現 (${host})';
-  @override
-  String updated({required Object protocol, required Object host}) => '透過 ${protocol} 更新 (${host})';
 }
 
 // Path: progressPage.total

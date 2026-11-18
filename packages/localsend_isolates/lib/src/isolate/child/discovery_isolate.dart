@@ -1,4 +1,5 @@
 import 'package:localsend_isolates/model/device.dart';
+import 'package:localsend_isolates/model/discovery_event.dart';
 import 'package:localsend_isolates/src/isolate/child/main.dart';
 import 'package:localsend_isolates/src/isolate/dto/send_to_isolate_data.dart';
 import 'package:localsend_isolates/src/task/discovery/discovery.dart';
@@ -10,16 +11,17 @@ sealed class DiscoveryTask {}
 /// routed to the task that requested it.
 sealed class DiscoveryResult {}
 
-/// A confirmed device, emitted on the [DiscoveryListenTask] stream.
-class DiscoveryDeviceResult implements DiscoveryResult {
-  final Device device;
+/// An event of the running discovery, emitted on the [DiscoveryListenTask]
+/// stream.
+class DiscoveryEventResult implements DiscoveryResult {
+  final DiscoveryEvent event;
 
-  DiscoveryDeviceResult({
-    required this.device,
+  DiscoveryEventResult({
+    required this.event,
   });
 }
 
-/// The retained confirmations of one stored device, answering a
+/// The retained observations of one stored device, answering a
 /// [DiscoveryDeviceLogsTask].
 class DiscoveryDeviceLogsResult implements DiscoveryResult {
   final List<DeviceLog> logs;
@@ -29,7 +31,8 @@ class DiscoveryDeviceLogsResult implements DiscoveryResult {
   });
 }
 
-/// Starts the discovery and streams every confirmed device.
+/// Starts the discovery and streams its events: every confirmed device whose
+/// state changed, and every device that was only heard announcing itself.
 /// The stream never completes; it survives [DiscoveryRestartTask]s.
 class DiscoveryListenTask implements DiscoveryTask {}
 
@@ -76,18 +79,34 @@ class DiscoveryStagedScanTask implements DiscoveryTask {
   });
 }
 
-/// Feeds a device confirmed outside of the discovery into the store, e.g. one
-/// that registered with this device's HTTP server. The device comes back on
-/// the [DiscoveryListenTask] stream.
-class DiscoveryAddDeviceTask implements DiscoveryTask {
+/// Feeds a device that reached this device's HTTP server into the store, e.g.
+/// one that registered. Only the inbound direction of its address is
+/// confirmed. The device comes back on the [DiscoveryListenTask] stream.
+class DiscoveryObserveInboundTask implements DiscoveryTask {
   final Device device;
 
-  DiscoveryAddDeviceTask({
+  DiscoveryObserveInboundTask({
     required this.device,
   });
 }
 
-/// Fetches the retained confirmations of a stored device, oldest first.
+/// Records the outcome of a request the application itself sent to a stored
+/// device over [channel]: without an [error] the device was reached, with one
+/// it could not be reached at all. The device comes back on the
+/// [DiscoveryListenTask] stream.
+class DiscoveryReportOutboundTask implements DiscoveryTask {
+  final String fingerprint;
+  final HttpChannel channel;
+  final String? error;
+
+  DiscoveryReportOutboundTask({
+    required this.fingerprint,
+    required this.channel,
+    required this.error,
+  });
+}
+
+/// Fetches the retained observations of a stored device, oldest first.
 /// Answered with one [DiscoveryDeviceLogsResult]; the logs are empty when
 /// the fingerprint is unknown.
 class DiscoveryDeviceLogsTask implements DiscoveryTask {
@@ -111,11 +130,11 @@ Future<void> setupDiscoveryIsolate(
     handler: (ref, task) async {
       switch (task.data) {
         case DiscoveryListenTask():
-          await for (final device in ref.read(discoveryProvider).startListener()) {
+          await for (final event in ref.read(discoveryProvider).startListener()) {
             sendToMain(
               IsolateTaskStreamResult.event(
                 id: task.id,
-                data: DiscoveryDeviceResult(device: device),
+                data: DiscoveryEventResult(event: event),
               ),
             );
           }
@@ -146,8 +165,11 @@ Future<void> setupDiscoveryIsolate(
                 grace: data.grace,
               );
           break;
-        case DiscoveryAddDeviceTask data:
-          await ref.read(discoveryProvider).addDevice(data.device);
+        case DiscoveryObserveInboundTask data:
+          await ref.read(discoveryProvider).observeInbound(data.device);
+          break;
+        case DiscoveryReportOutboundTask data:
+          await ref.read(discoveryProvider).reportOutbound(data.fingerprint, data.channel, error: data.error);
           break;
         case DiscoveryDeviceLogsTask data:
           final logs = await ref.read(discoveryProvider).deviceLogs(data.fingerprint);

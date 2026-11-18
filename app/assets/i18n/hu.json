@@ -212,15 +212,12 @@
     "verify": "Ellenőrzés",
     "info": {
       "name": "Név",
-      "address": "Cím",
       "version": "Verzió",
       "protocol": "Protokoll v{version}"
     },
     "logs": {
       "title": "Naplók",
-      "empty": "Nincs elérhető napló.",
-      "discovered": "Felfedezve {protocol} útján ({host})",
-      "updated": "Frissítve {protocol} útján ({host})"
+      "empty": "Nincs elérhető napló."
     }
   },
   "verifyPage": {

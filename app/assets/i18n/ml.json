@@ -212,15 +212,12 @@
     "verify": "പരിശോധിക്കുക",
     "info": {
       "name": "പേര്",
-      "address": "വിലാസം",
       "version": "പതിപ്പ്",
       "protocol": "പ്രോട്ടോക്കോൾ v{version}"
     },
     "logs": {
       "title": "ലോഗുകൾ",
-      "empty": "ലോഗുകളൊന്നും ലഭ്യമല്ല.",
-      "discovered": "{protocol} വഴി കണ്ടെത്തി ({host})",
-      "updated": "{protocol} വഴി അപ്ഡേറ്റ് ചെയ്തു ({host})"
+      "empty": "ലോഗുകളൊന്നും ലഭ്യമല്ല."
     }
   },
   "verifyPage": {
