@@ -185,14 +185,15 @@ impl StatefulDevice {
     }
 
     /// The channels in the order to dial them: reachable before untested
-    /// before failed, then IPv6 before IPv4, then most recently confirmed
-    /// first.
+    /// before failed, then by [`DeviceChannel::address_preference`] (global
+    /// IPv6, then IPv4, then link-local and other special addresses), then
+    /// most recently confirmed first.
     pub fn get_ranked_channels(&self) -> Vec<&DeviceChannel> {
         let mut channels: Vec<_> = self.channels.iter().collect();
         channels.sort_by_key(|(channel, state)| {
             std::cmp::Reverse((
                 state.outbound.rank(),
-                channel.is_ipv6(),
+                channel.address_preference(),
                 self.last_confirmed(channel),
             ))
         });
@@ -359,13 +360,37 @@ impl DeviceChannel {
         }
     }
 
-    /// Whether the channel dials an IPv6 address.
-    fn is_ipv6(&self) -> bool {
+    /// How much the channel's address is preferred among channels that are
+    /// equally reachable, higher first. It only judges the address's scope,
+    /// not whether a route to it exists:
+    ///
+    /// - 2: global (`2000::/3`) and unique-local (`fc00::/7`) IPv6
+    /// - 1: IPv4, including IPv4-mapped IPv6
+    /// - 0: link-local IPv6 and any other special or unparsable host
+    ///
+    /// Link-local addresses come last because networks such as phone
+    /// hotspots often do not deliver them, while a global address or IPv4 of
+    /// the same device works. They stay candidates for when nothing else is.
+    fn address_preference(&self) -> u8 {
         match self {
             DeviceChannel::Http(http) => {
                 // Strip the scope of a link-local address like `fe80::1%3`.
                 let host = http.host.split('%').next().unwrap_or(&http.host);
-                matches!(host.parse::<IpAddr>(), Ok(IpAddr::V6(_)))
+                match host.parse::<IpAddr>() {
+                    Ok(IpAddr::V4(_)) => 1,
+                    Ok(IpAddr::V6(address)) if address.to_ipv4_mapped().is_some() => 1,
+                    Ok(IpAddr::V6(address)) => {
+                        let prefix = address.segments()[0];
+                        let global = prefix & 0xe000 == 0x2000;
+                        let unique_local = prefix & 0xfe00 == 0xfc00;
+                        if global || unique_local {
+                            2
+                        } else {
+                            0
+                        }
+                    }
+                    Err(_) => 0,
+                }
             }
         }
     }
@@ -969,18 +994,83 @@ mod tests {
     }
 
     #[test]
-    fn test_ranking_prefers_ipv6_over_ipv4() {
+    fn test_ranking_prefers_global_ipv6_over_ipv4() {
         let store = DeviceStore::new();
 
-        reach(&store, device("a", "fe80::1%3"));
+        reach(&store, device("a", "fd00::1"));
         reach(&store, device("a", "192.168.0.10"));
 
         let known = store.by_fingerprint("a").unwrap();
         assert_eq!(
             channel_host(known.get_best_channel().unwrap()),
-            "fe80::1%3",
-            "IPv6 must beat a more recent IPv4 confirmation"
+            "fd00::1",
+            "global IPv6 must beat a more recent IPv4 confirmation"
         );
+    }
+
+    #[test]
+    fn test_ranking_prefers_ipv4_over_link_local() {
+        let store = DeviceStore::new();
+
+        // As on a phone hotspot: both addresses only reached us so far, and
+        // the link-local one may not be delivered in the other direction.
+        reached_by(&store, device("a", "192.168.0.10"));
+        reached_by(&store, device("a", "fe80::1%3"));
+
+        let known = store.by_fingerprint("a").unwrap();
+        assert_eq!(
+            ranked_hosts(&known),
+            ["192.168.0.10", "fe80::1%3"],
+            "IPv4 must beat a more recent link-local confirmation"
+        );
+    }
+
+    #[test]
+    fn test_ranking_prefers_reachable_link_local_over_untested_ipv4() {
+        let store = DeviceStore::new();
+
+        reach(&store, device("a", "fe80::1%3"));
+        reached_by(&store, device("a", "192.168.0.10"));
+
+        let known = store.by_fingerprint("a").unwrap();
+        assert_eq!(
+            ranked_hosts(&known),
+            ["fe80::1%3", "192.168.0.10"],
+            "a proven link-local channel must beat an untested IPv4 one"
+        );
+    }
+
+    #[test]
+    fn test_link_local_only_device_has_a_best_channel() {
+        let store = DeviceStore::new();
+
+        reached_by(&store, device("a", "fe80::1%3"));
+
+        let known = store.by_fingerprint("a").unwrap();
+        assert_eq!(channel_host(known.get_best_channel().unwrap()), "fe80::1%3");
+    }
+
+    #[test]
+    fn test_address_preference() {
+        for (host, expected) in [
+            ("2001:db8::1", 2),
+            ("fc00::1", 2),
+            ("fd12:3456::1", 2),
+            ("192.168.0.10", 1),
+            ("::ffff:192.168.0.10", 1),
+            ("fe80::1%3", 0),
+            ("febf::1%4", 0),
+            ("::1", 0),
+            ("::", 0),
+            ("ff02::1", 0),
+            ("localhost", 0),
+        ] {
+            assert_eq!(
+                channel(host, 53317).address_preference(),
+                expected,
+                "{host}"
+            );
+        }
     }
 
     #[test]
@@ -1005,20 +1095,20 @@ mod tests {
 
         reach(&store, device("a", "192.168.0.10"));
         reach(&store, device("a", "10.0.0.10"));
-        reach(&store, device("a", "fe80::1%3"));
+        reach(&store, device("a", "fd00::1"));
 
         let known = store.by_fingerprint("a").unwrap();
         assert_eq!(
             ranked_hosts(&known),
-            ["fe80::1%3", "10.0.0.10", "192.168.0.10"],
-            "IPv6 must come first, then the more recent IPv4 confirmation"
+            ["fd00::1", "10.0.0.10", "192.168.0.10"],
+            "global IPv6 must come first, then the more recent IPv4 confirmation"
         );
 
-        fail(&store, device("a", "fe80::1%3"));
+        fail(&store, device("a", "fd00::1"));
         let known = store.by_fingerprint("a").unwrap();
         assert_eq!(
             ranked_hosts(&known),
-            ["10.0.0.10", "192.168.0.10", "fe80::1%3"],
+            ["10.0.0.10", "192.168.0.10", "fd00::1"],
             "a failed channel must sort last"
         );
     }

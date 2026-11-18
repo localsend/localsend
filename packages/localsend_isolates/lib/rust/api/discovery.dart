@@ -406,9 +406,9 @@ class RsStoredDevice {
   final bool download;
 
   /// Every address the device was observed on, in the order to dial them
-  /// (reachable before untested before failed, IPv6 before IPv4, most
-  /// recently confirmed first). Never empty: a device only enters the
-  /// store through an observation on one of its addresses.
+  /// (reachable before untested before failed, then global IPv6 before IPv4
+  /// before link-local, then most recently confirmed first). Never empty:
+  /// a device only enters the store through an observation on one of its addresses.
   final List<RsStoredChannel> channels;
 
   const RsStoredDevice({
