@@ -129,7 +129,8 @@
     "send": {
       "title": "Send",
       "shareViaLinkAutoAccept": "Automatically accept requests in \"Share via link\" mode",
-      "createChecksums": "Create checksums when sending files"
+      "createChecksums": "Create checksums when sending files",
+      "maxParallelSends": "Max parallel sends"
     },
     "network": {
       "title": "Network",

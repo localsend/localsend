@@ -164,6 +164,11 @@ class SettingsStateMapper extends ClassMapperBase<SettingsState> {
     'verifyChecksums',
     _$verifyChecksums,
   );
+  static int _$maxParallelSends(SettingsState v) => v.maxParallelSends;
+  static const Field<SettingsState, int> _f$maxParallelSends = Field(
+    'maxParallelSends',
+    _$maxParallelSends,
+  );
   static int _$discoveryTimeout(SettingsState v) => v.discoveryTimeout;
   static const Field<SettingsState, int> _f$discoveryTimeout = Field(
     'discoveryTimeout',
@@ -206,6 +211,7 @@ class SettingsStateMapper extends ClassMapperBase<SettingsState> {
     #receiveViaLinkAutoAccept: _f$receiveViaLinkAutoAccept,
     #createChecksums: _f$createChecksums,
     #verifyChecksums: _f$verifyChecksums,
+    #maxParallelSends: _f$maxParallelSends,
     #discoveryTimeout: _f$discoveryTimeout,
     #advancedSettings: _f$advancedSettings,
   };
@@ -241,6 +247,7 @@ class SettingsStateMapper extends ClassMapperBase<SettingsState> {
       receiveViaLinkAutoAccept: data.dec(_f$receiveViaLinkAutoAccept),
       createChecksums: data.dec(_f$createChecksums),
       verifyChecksums: data.dec(_f$verifyChecksums),
+      maxParallelSends: data.dec(_f$maxParallelSends),
       discoveryTimeout: data.dec(_f$discoveryTimeout),
       advancedSettings: data.dec(_f$advancedSettings),
     );
@@ -342,6 +349,7 @@ abstract class SettingsStateCopyWith<$R, $In extends SettingsState, $Out>
     bool? receiveViaLinkAutoAccept,
     bool? createChecksums,
     bool? verifyChecksums,
+    int? maxParallelSends,
     int? discoveryTimeout,
     bool? advancedSettings,
   });
@@ -405,6 +413,7 @@ class _SettingsStateCopyWithImpl<$R, $Out>
     bool? receiveViaLinkAutoAccept,
     bool? createChecksums,
     bool? verifyChecksums,
+    int? maxParallelSends,
     int? discoveryTimeout,
     bool? advancedSettings,
   }) => $apply(
@@ -442,6 +451,7 @@ class _SettingsStateCopyWithImpl<$R, $Out>
         #receiveViaLinkAutoAccept: receiveViaLinkAutoAccept,
       if (createChecksums != null) #createChecksums: createChecksums,
       if (verifyChecksums != null) #verifyChecksums: verifyChecksums,
+      if (maxParallelSends != null) #maxParallelSends: maxParallelSends,
       if (discoveryTimeout != null) #discoveryTimeout: discoveryTimeout,
       if (advancedSettings != null) #advancedSettings: advancedSettings,
     }),
@@ -489,6 +499,7 @@ class _SettingsStateCopyWithImpl<$R, $Out>
     ),
     createChecksums: data.get(#createChecksums, or: $value.createChecksums),
     verifyChecksums: data.get(#verifyChecksums, or: $value.verifyChecksums),
+    maxParallelSends: data.get(#maxParallelSends, or: $value.maxParallelSends),
     discoveryTimeout: data.get(#discoveryTimeout, or: $value.discoveryTimeout),
     advancedSettings: data.get(#advancedSettings, or: $value.advancedSettings),
   );
