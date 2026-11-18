@@ -1,63 +1,63 @@
 {
   "appName": "LocalSend",
   "general": {
-    "accept": "Kabul et",
-    "accepted": "Kabul edildi",
+    "accept": "Kabul Et",
+    "accepted": "Kabul Edildi",
     "add": "Ekle",
     "advanced": "Gelişmiş",
-    "cancel": "İptal et",
+    "cancel": "İptal",
     "close": "Kapat",
     "confirm": "Onayla",
-    "continueStr": "Devam et",
+    "continueStr": "Devam Et",
     "copy": "Kopyala",
     "copiedToClipboard": "Panoya kopyalandı",
     "decline": "Reddet",
-    "done": "Bitir",
+    "done": "Bitti",
     "delete": "Sil",
     "edit": "Düzenle",
     "error": "Hata",
     "example": "Örnek",
     "files": "Dosyalar",
-    "finished": "Sonlandırıldı",
+    "finished": "Tamamlandı",
     "hide": "Gizle",
     "off": "Kapalı",
-    "offline": "Çevrim dışı",
+    "offline": "Çevrimdışı",
     "on": "Açık",
-    "online": "Çevrim içi",
+    "online": "Çevrimiçi",
     "open": "Aç",
     "queue": "Sıra",
-    "quickSave": "Hızlı kaydetme",
-    "quickSaveFromFavorites": "Favoriler",
+    "quickSave": "Hızlı Kaydet",
+    "quickSaveFromFavorites": "\"Favoriler\" için Hızlı Kaydet",
     "renamed": "Yeniden adlandırıldı",
-    "reset": "Sıfırla",
+    "reset": "Değişiklikleri geri al",
     "restart": "Yeniden başlat",
     "settings": "Ayarlar",
-    "skipped": "Geçildi",
+    "skipped": "Atlandı",
     "start": "Başlat",
     "stop": "Durdur",
     "save": "Kaydet",
-    "unchanged": "Değiştirilmemiş",
+    "unchanged": "Değişmedi",
     "unknown": "Bilinmiyor",
-    "noItemInClipboard": "Panoda öğe yok."
+    "noItemInClipboard": "Panoda hiçbir öğe yok."
   },
   "receiveTab": {
-    "title": "Alım",
+    "title": "Al",
     "infoBox": {
       "ip": "IP:",
       "port": "Port:",
-      "alias": "Takma isminiz:"
+      "alias": "Cihaz adı:"
     },
     "quickSave": {
       "off": "@:general.off",
       "favorites": "Favoriler",
       "on": "@:general.on"
     },
-    "link": "Link üzerinden al"
+    "link": "Bağlantıyla al"
   },
   "sendTab": {
     "title": "Gönder",
     "selection": {
-      "title": "Seçiminiz",
+      "title": "Seçilenler",
       "files": "Dosyalar: {files}",
       "size": "Boyut: {size}"
     },
@@ -69,20 +69,20 @@
       "app": "Uygulama",
       "clipboard": "Yapıştır"
     },
-    "shareIntentInfo": "Dosyalarınızı daha kolay seçmek için cihazınızın \"Paylaş\" özelliğini kullanabilirsiniz.",
-    "nearbyDevices": "Yakınınızdaki cihazlar",
-    "thisDevice": "Cihazınız",
-    "scan": "Cihazları tara",
-    "manualSending": "Manuel Gönderme",
-    "sendMode": "Gönderme Modu",
+    "shareIntentInfo": "Dosyaları daha kolay seçmek için mobil cihazınızın \"Paylaş\" özelliğini de kullanabilirsiniz.",
+    "nearbyDevices": "Yakındaki cihazlar",
+    "thisDevice": "Bu Cihaz",
+    "scan": "Cihaz ara",
+    "manualSending": "Manuel gönderim",
+    "sendMode": "Gönderim modu",
     "sendModes": {
       "single": "Tek alıcı",
-      "multiple": "Birden fazla alıcı",
-      "link": "Link üzerinden paylaşın"
+      "multiple": "Çoklu alıcı",
+      "link": "Bağlantıyla paylaş"
     },
     "sendModeHelp": "Açıklama",
-    "help": "Lütfen hedef cihaz ile aynı wifi ağında olduğunuzdan emin olun.",
-    "placeItems": "Paylaşmak istediğiniz dosyayı yerleştiriniz."
+    "help": "Lütfen göndermek istediğiniz cihazın da aynı Wi-Fi ağında olduğundan emin olun.",
+    "placeItems": "Paylaşmak istediğiniz öğeleri buraya bırakın."
   },
   "settingsTab": {
     "title": "Ayarlar",
@@ -90,7 +90,7 @@
       "title": "Genel",
       "brightness": "Tema",
       "brightnessOptions": {
-        "system": "Sistem teması",
+        "system": "Sistem",
         "dark": "Koyu",
         "light": "Açık"
       },
@@ -102,39 +102,41 @@
       },
       "language": "Dil",
       "languageOptions": {
-        "system": "Sistem dili"
+        "system": "Sistem"
       },
-      "saveWindowPlacement": "Çıkış: Burayı Kaydet",
-      "saveWindowPlacementWindows": "Çıkıştan sonra pencere konumunu kaydet",
-      "minimizeToTray": "Çıkış: Simge durumuna küçült",
-      "launchAtStartup": "Giriş yapıldıktan sonra otomatik başlat",
-      "launchMinimized": "Otomatik başlatma: Gizli Başlatma",
-      "showInContextMenu": "LocalSend'i bağlam menüsünde göster",
+      "saveWindowPlacement": "Uygulamadan çıkınca pencere konumunu kaydet",
+      "saveWindowPlacementWindows": "Çıkışta pencere konumunu kaydet",
+      "alwaysOnTop": "Her zaman üstte tut",
+      "alwaysOnTopUnavailable": "Wayland'de desteklenmiyor",
+      "minimizeToTray": "Kapatırken sistem tepsisine/menü çubuğuna küçült",
+      "launchAtStartup": "Oturum açılışında otomatik başlat",
+      "launchMinimized": "Otomatik başlatma: Gizli başlat",
+      "showInContextMenu": "Sağ tık menüsünde LocalSend'i göster",
       "animations": "Animasyonlar"
     },
     "receive": {
-      "title": "Alım",
+      "title": "Alma",
       "quickSave": "@:general.quickSave",
       "quickSaveFromFavorites": "@:general.quickSaveFromFavorites",
       "requirePin": "@:webSharePage.requirePin",
-      "autoFinish": "Otomatik bitir",
-      "destination": "Hedef klasör",
+      "autoFinish": "Otomatik Bitir",
+      "destination": "Kaydedilecek klasör",
       "downloads": "(İndirilenler)",
       "saveToGallery": "Medyayı galeriye kaydet",
       "saveToHistory": "Geçmişe kaydet",
-      "verifyChecksums": "Dosyaları alırken sağlama toplamlarını doğrula"
+      "verifyChecksums": "Dosya alırken sağlama toplamını (checksum) doğrula"
     },
     "send": {
-      "title": "Gönder",
-      "shareViaLinkAutoAccept": "Link aracılığıyla paylaş: Otomatik olarak kabul et",
-      "createChecksums": "Dosya gönderirken sağlama toplamlarını oluştur"
+      "title": "Gönderme",
+      "shareViaLinkAutoAccept": "\"Bağlantıyla paylaş\" modunda istekleri otomatik kabul et",
+      "createChecksums": "Dosya gönderirken sağlama toplamı (checksum) oluştur"
     },
     "network": {
       "title": "Ağ",
-      "needRestart": "Ayarları uygulamak için sunucuyu yeniden başlatınız!",
+      "needRestart": "Ayarların geçerli olması için sunucuyu yeniden başlatın!",
       "server": "Sunucu",
-      "alias": "Takma isminiz",
-      "deviceType": "Cihaz tipi",
+      "alias": "Cihaz adı",
+      "deviceType": "Cihaz türü",
       "deviceModel": "Cihaz modeli",
       "port": "Port",
       "network": "Ağ",
@@ -142,69 +144,69 @@
         "all": "Tümü",
         "filtered": "Filtrelenmiş"
       },
-      "discoveryTimeout": "Arama zaman aşımına uğradı",
+      "discoveryTimeout": "Keşif zaman aşımı",
       "useSystemName": "Sistem adını kullan",
-      "generateRandomAlias": "Rastgele takma ad oluştur",
-      "portWarning": "Kişiselleştirilmiş bir port kullanıyorsanız ağınızdaki diğer cihazlar tarafından bulunamayabilirsiniz. (varsayılan: {defaultPort})",
+      "generateRandomAlias": "Rastgele ad oluştur",
+      "portWarning": "Özel bir port kullandığınız için diğer cihazlar sizi göremeyebilir. (varsayılan: {defaultPort})",
       "encryption": "Şifreleme",
-      "multicastGroup": "Çoklu yayın",
-      "multicastGroupWarning": "Özel çoklu yayın adresini kullandığınız için diğer cihazlar tarafından algılanamayabilirsiniz.(varsayılan: {defaultMulticast})"
+      "multicastGroup": "Multicast adresi",
+      "multicastGroupWarning": "Özel bir multicast adresi kullandığınız için diğer cihazlar sizi göremeyebilir. (varsayılan: {defaultMulticast})"
     },
     "other": {
       "title": "Diğer",
-      "support": "LocalSend'i destekle",
-      "donate": "Bağış yap",
-      "privacyPolicy": "Gizlilik politikası",
-      "termsOfUse": "Kullanım koşulları"
+      "support": "LocalSend'i Destekle",
+      "donate": "Bağış Yap",
+      "privacyPolicy": "Gizlilik Politikası",
+      "termsOfUse": "Kullanım Koşulları"
     },
     "advancedSettings": "Gelişmiş ayarlar"
   },
   "troubleshootPage": {
     "title": "Sorun Giderme",
-    "subTitle": "Bu uygulama beklendiği gibi çalışmıyor mu? Burada ortak çözümler bulabilirsiniz.",
+    "subTitle": "Uygulama beklediğiniz gibi çalışmıyor mu? Yaygın sorunların çözümlerini burada bulabilirsiniz.",
     "solution": "Çözüm:",
-    "fixButton": "Otomatik olarak düzelt",
+    "fixButton": "Otomatik düzelt",
     "firewall": {
-      "symptom": "Bu uygulama diğer cihazlara dosya gönderebilir, ancak diğer cihazlar bu cihaza dosya gönderemez.",
-      "solution": "Bu büyük olasılıkla bir güvenlik duvarı sorunudur. Port {port} 'da gelen bağlantılara (UDP ve TCP) izin vererek bunu çözebilirsiniz.",
+      "symptom": "Bu cihaz diğer cihazlara dosya gönderebiliyor ama diğer cihazlar bu cihaza dosya gönderemiyor.",
+      "solution": "Büyük ihtimalle güvenlik duvarından kaynaklanıyor. {port} numaralı portta gelen bağlantılara (UDP ve TCP) izin vererek bu sorunu çözebilirsiniz.",
       "openFirewall": "Güvenlik Duvarını Aç"
     },
     "noDiscovery": {
-      "symptom": "Bu cihaz diğer cihazları keşfedemez.",
-      "solution": "Lütfen tüm cihazların aynı Wi-Fi ağında olduğundan ve aynı yapılandırmayı (bağlantı noktası, çok noktaya yayın adresi, şifreleme) paylaştığından emin olun. Hedef cihazın IP adresini manuel olarak yazmayı deneyebilirsiniz. Bu işe yararsa, gelecekte otomatik olarak keşfedilebilmesi için bu cihazı favorilere eklemeyi düşünün."
+      "symptom": "Bu cihaz diğer cihazları bulamıyor.",
+      "solution": "Lütfen tüm cihazların aynı Wi-Fi ağında olduğundan ve aynı ayarları (port, multicast adresi, şifreleme) kullandığından emin olun. Hedef cihazın IP adresini elle girmeyi de deneyebilirsiniz. Bu yöntem işe yararsa, ileride otomatik olarak bulunabilmesi için cihazı favorilerinize ekleyebilirsiniz."
     },
     "noConnection": {
-      "symptom": "Her iki cihaz da birbirini keşfedemez ve dosya paylaşamazlar.",
-      "solution": "Sorun her iki tarafta da var mı? O zaman her iki cihazın da aynı WiFi ağında olduğundan ve aynı yapılandırmayı (bağlantı noktası, çoklu yayın adresi, şifreleme) paylaştığından emin olmanız gerekir. WiFi, katılımcılar arasında iletişime izin vermeyebilir. Bu durumda, bu seçenek yönlendiricide etkinleştirilmelidir."
+      "symptom": "Cihazlar ne birbirini bulabiliyor ne de dosya paylaşabiliyor.",
+      "solution": "Sorun her iki tarafta da mı yaşanıyor? Öyleyse her iki cihazın da aynı Wi-Fi ağında olduğundan ve aynı ayarları (port, multicast adresi, şifreleme) kullandığından emin olun. Wi-Fi ağınız, Erişim Noktası (AP) İzolasyonu nedeniyle cihazlar arası iletişimi engelliyor olabilir. Bu durumda yönlendirici (modem/router) ayarlarından bu özelliği kapatmanız gerekir."
     }
   },
   "networkInterfacesPage": {
     "title": "Ağ Arayüzleri",
-    "info": "Varsayılan olarak, LocalSend mevcut olan tüm ağları kullanır. Burada istenmeyen ağları engelleyebilirsiniz. Değişikliklerin uygulanması için sunucuyu yeniden başlatmanız gerekir.",
-    "preview": "Önizle",
-    "whitelist": "Beyaz liste",
-    "blacklist": "Kara liste"
+    "info": "LocalSend varsayılan olarak kullanılabilir tüm ağ arayüzlerini kullanır. İstemediğiniz ağları buradan hariç tutabilirsiniz. Değişikliklerin geçerli olması için sunucuyu yeniden başlatmanız gerekir.",
+    "preview": "Önizleme",
+    "whitelist": "Beyaz Liste",
+    "blacklist": "Kara Liste"
   },
   "receiveHistoryPage": {
     "title": "Geçmiş",
-    "openFolder": "Dosyayı aç",
-    "deleteHistory": "Geçmişi sil",
-    "empty": "Geçmiş yok.",
+    "openFolder": "Klasörü aç",
+    "deleteHistory": "Geçmişi temizle",
+    "empty": "Geçmiş boş.",
     "entryActions": {
-      "open": "Dosya aç",
+      "open": "Dosyayı aç",
       "showInFolder": "Klasörde göster",
-      "info": "Bilgi",
+      "info": "Bilgiler",
       "deleteFromHistory": "Geçmişten sil"
     }
   },
   "apkPickerPage": {
     "title": "Uygulamalar (APK)",
-    "excludeSystemApps": "Sistem uygulamalarını hariç tut",
-    "excludeAppsWithoutLaunchIntent": "Başlatılamayan uygulamaları hariç tut",
-    "apps": "{n} Uygulamalar"
+    "excludeSystemApps": "Sistem uygulamalarını gizle",
+    "excludeAppsWithoutLaunchIntent": "Başlatılamayan uygulamaları gizle",
+    "apps": "{n} Uygulama"
   },
   "selectedFilesPage": {
-    "deleteAll": "Hepsini sil"
+    "deleteAll": "Tümünü kaldır"
   },
   "deviceDetailsPage": {
     "title": "Cihaz Ayrıntıları",
@@ -217,8 +219,8 @@
       "protocol": "Protokol v{version}"
     },
     "logs": {
-      "title": "Günlükler",
-      "empty": "Kullanılabilir günlük yok.",
+      "title": "Kayıtlar",
+      "empty": "Henüz kayıt yok.",
       "discovered": "{protocol} üzerinden keşfedildi ({host})",
       "updated": "{protocol} üzerinden güncellendi ({host})"
     }
@@ -227,15 +229,15 @@
     "title": "Doğrula",
     "icons": "Simgeler",
     "text": "Metin",
-    "question": "Diğer cihazda aynı görünüyor mu?"
+    "question": "Diğer cihazda da aynı şekilde mi görünüyor?"
   },
   "receivePage": {
     "subTitle": {
-      "one": "sana bir dosya göndermek istiyor",
-      "other": "sana {n} tane dosya göndermek istiyor"
+      "one": "size bir dosya göndermek istiyor",
+      "other": "size {n} dosya göndermek istiyor"
     },
-    "subTitleMessage": "bir mesaj gönderdi:",
-    "subTitleLink": "bir bağlantı gönderdi:",
+    "subTitleMessage": "size bir mesaj gönderdi:",
+    "subTitleLink": "size bir bağlantı gönderdi:",
     "canceled": "Gönderici isteği iptal etti."
   },
   "receiveOptionsPage": {
@@ -243,229 +245,300 @@
     "destination": "@:settingsTab.receive.destination",
     "appDirectory": "(LocalSend klasörü)",
     "saveToGallery": "@:settingsTab.receive.saveToGallery",
-    "saveToGalleryOff": "Otomatik olarak kapanır çünkü bunlar klasör."
+    "saveToGalleryOff": "Klasör içerdiği için otomatik olarak kapatıldı."
   },
   "sendPage": {
     "calculatingChecksum": "Sağlama toplamı hesaplanıyor ({curr} / {n})",
-    "waiting": "Alıcıdan cevap bekleniyor…",
+    "waiting": "Yanıt bekleniyor…",
     "rejected": "Alıcı isteği reddetti.",
     "tooManyAttempts": "@:web.tooManyAttempts",
-    "busy": "Alıcı başka bir istekle meşgul."
+    "busy": "Alıcı şu anda başka bir istekle meşgul."
   },
   "progressPage": {
     "titleSending": "Dosyalar gönderiliyor",
     "titleReceiving": "Dosyalar alınıyor",
-    "savedToGallery": "Galeriye kaydedildi",
+    "savedToGallery": "Fotoğraflar'a kaydedildi",
     "total": {
       "title": {
         "sending": "Toplam ilerleme ({time})",
-        "finishedError": "İşlem hatayla sonuçlandı",
-        "canceledSender": "Gönderici tarafından iptal edildi",
-        "canceledReceiver": "Alıcı tarafından iptal edildi"
+        "finishedError": "Hata ile sonuçlandı",
+        "canceledSender": "Gönderici iptal etti",
+        "canceledReceiver": "Alıcı iptal etti"
       },
       "count": "Dosyalar: {curr} / {n}",
       "size": "Boyut: {curr} / {n}",
-      "speed": "Hız: {speed}/s"
+      "speed": "Hız: {speed}/sn"
     },
     "remainingTime": {
       "minutesUnit(plural, param=m)": {
-        "other": "{m}dk"
+        "other": "{m} dk"
       },
       "hoursUnit(plural, param=h)": {
-        "other": "{h}sa"
+        "other": "{h} sa"
       },
       "minutes": "{m}:{ss}",
       "hours": "@:.hoursUnit @:.minutesUnit"
     }
   },
   "webSharePage": {
-    "title": "Link üzerinden paylaşın",
-    "loading": "Sunucu başlıyor…",
+    "title": "Bağlantıyla paylaş",
+    "loading": "Sunucu başlatılıyor…",
     "stopping": "Sunucu durduruluyor…",
-    "error": "Sunucuyu başlatırken bir hata oluştu.",
+    "error": "Sunucu başlatılırken bir hata oluştu.",
     "openLink": {
-      "one": "Bu bağlantıyı tarayıcıda açın:",
-      "other": "Bu bağlantılardan birini tarayıcıda açın:"
+      "one": "Bu bağlantıyı tarayıcınızda açın:",
+      "other": "Bu bağlantılardan birini tarayıcınızda açın:"
     },
     "requests": "İstekler",
     "noRequests": "Henüz istek yok.",
     "encryption": "@:settingsTab.network.encryption",
-    "autoAccept": "İstekleri otomatik olarak kabul et",
-    "requirePin": "PIN gerektir",
-    "pinHint": "PIN \"{pin}\"",
-    "encryptionHint": "LocalSend, tarayıcıda kabul etmeniz gereken kendi-üretimli bir sertifika kullanır.",
+    "autoAccept": "İstekleri otomatik kabul et",
+    "requirePin": "PIN iste",
+    "pinHint": "PIN kodu: \"{pin}\"",
+    "encryptionHint": "LocalSend kendinden imzalı (self-signed) bir sertifika kullanır. Tarayıcınızda bu sertifikayı onaylamanız gerekir.",
     "pendingRequests": "Bekleyen istekler: {n}"
   },
   "webReceivePage": {
-    "title": "Link üzerinden al"
+    "title": "Bağlantıyla al"
   },
   "aboutPage": {
-    "title": "LocalSend hakkında",
+    "title": "LocalSend Hakkında",
     "description": [
-      "LocalSend, internet bağlantısına ihtiyaç duymadan yerel ağınız üzerinden yakınınızdaki cihazlarla dosya ve mesajlarınızı güvenli bir şekilde paylaşmanıza olanak tanıyan özgür ve açık kaynaklı bir uygulamadır.",
-      "Bu uygulama Android, iOS, macOS, Windows ve Linux'ta mevcuttur. Tüm indirme seçeneklerini resmi ana sayfada bulabilirsiniz."
+      "LocalSend; internet bağlantısına ihtiyaç duymadan, yerel ağınız üzerinden yakındaki cihazlarla güvenli bir şekilde dosya ve mesaj paylaşmanızı sağlayan ücretsiz ve açık kaynaklı bir uygulamadır.",
+      "Bu uygulama Android, iOS, macOS, Windows ve Linux platformlarında kullanılabilir. Tüm indirme seçeneklerini resmi web sitesinde bulabilirsiniz."
     ],
-    "author": "Yazar",
-    "contributors": "Katkıda bulunanlar",
+    "author": "Geliştirici",
+    "contributors": "Katkıda Bulunanlar",
     "packagers": "Paketleyiciler",
     "translators": "Çevirmenler"
   },
   "donationPage": {
-    "title": "Bağış yap",
-    "info": "LocalSend ücretsiz, açık kaynaklı ve reklamsız bir uygulamadır. Eğer uygulamayı beğendiyseniz, bağış yaparak uygulamanın gelişimine katkıda bulunabilirsiniz.",
-    "donate": "Bağışta bulun {amount}",
-    "thanks": "Çok teşekkür ederim!",
-    "restore": "Satın alınanları geri yükle"
+    "title": "Bağış Yap",
+    "info": "LocalSend ücretsiz, açık kaynaklı ve reklamsız bir uygulamadır. Uygulamayı beğendiyseniz geliştirme sürecine bağış yaparak destek olabilirsiniz.",
+    "donate": "{amount} Bağış Yap",
+    "thanks": "Çok teşekkür ederiz!",
+    "restore": "Satın alımı geri yükle"
   },
   "changelogPage": {
-    "title": "Değişiklik günlüğü"
+    "title": "Sürüm Notları"
   },
   "whatsNewPage": {
     "title": "{version} sürümündeki yenilikler",
     "changes(interface=WhatsNewStrings)": {
       "v1_18_0": {
         "changes": [
-          "Şifreleme artık aktarımları yavaşlatmıyor. Daha önce bu özelliği devre dışı bıraktıysanız, bu aygıtta yeniden etkinleştirildi.",
-          "Favorilerden gelen istekler artık otomatik olarak kabul ediliyor. Bu özellik varsayılan olarak etkindir ve ayarlardan devre dışı bırakılabilir.",
-          "Android'de, uygulama arka planda çalışırken veya ekran kapalıyken aktarımlar devam eder. iOS'ta ise uygulamanın ön planda kalması gerekir."
+          "Şifreleme artık aktarımları yavaşlatmıyor. Daha önce kapattıysanız bu cihazda yeniden etkinleştirildi.",
+          "Favorilerden gelen istekler artık otomatik olarak kabul ediliyor. Bu özellik varsayılan olarak açıktır; dilerseniz ayarlardan kapatabilirsiniz.",
+          "Android'de uygulama arka plandayken ya da ekran kapalıyken bile aktarımlar devam eder. iOS'te ise uygulamanın ön planda kalması gerekir."
         ]
       }
     }
   },
   "aliasGenerator(ignoreMissing, ignoreGpt)": {
-    "@info": "Inherits from the English version"
+    "@info": "Different locales may have different words, it may not match 1:1",
+    "adjectives": [
+      "Sevimli",
+      "Güzel",
+      "Kocaman",
+      "Parlak",
+      "Temiz",
+      "Zeki",
+      "Havalı",
+      "Şirin",
+      "Kurnaz",
+      "Kararlı",
+      "Enerjik",
+      "Becerikli",
+      "Harika",
+      "Hızlı",
+      "Hoş",
+      "Taze",
+      "İyi",
+      "Görkemli",
+      "Şahane",
+      "Yakışıklı",
+      "Sıcak",
+      "Nazik",
+      "Tatlı",
+      "Gizemli",
+      "Şık",
+      "Kibar",
+      "Sabırlı",
+      "Alımlı",
+      "Güçlü",
+      "Zengin",
+      "Gizli",
+      "Akıllı",
+      "Sağlam",
+      "Özel",
+      "Stratejik",
+      "Kuvvetli",
+      "Titiz",
+      "Bilge"
+    ],
+    "fruits": [
+      "Elma",
+      "Avokado",
+      "Muz",
+      "Böğürtlen",
+      "Yaban Mersini",
+      "Brokoli",
+      "Havuç",
+      "Kiraz",
+      "Hindistan Cevizi",
+      "Üzüm",
+      "Limon",
+      "Marul",
+      "Mango",
+      "Kavun",
+      "Mantar",
+      "Soğan",
+      "Portakal",
+      "Papaya",
+      "Şeftali",
+      "Armut",
+      "Ananas",
+      "Patates",
+      "Balkabağı",
+      "Ahududu",
+      "Çilek",
+      "Domates"
+    ],
+    "combination": "{adjective} {fruit}",
+    "@combination": "In some languages, the adjective must be last."
   },
   "dialogs": {
     "addFile": {
       "title": "Seçime ekle",
-      "content": "Ne eklemek istiyorsunuz ?"
+      "content": "Ne eklemek istersiniz?"
     },
     "openFile": {
-      "title": "Dosya Aç",
-      "content": "Alınan dosyayı açmak istiyor musunuz?"
+      "title": "Dosyayı aç",
+      "content": "Gelen dosyayı açmak istiyor musunuz?"
     },
     "addressInput": {
-      "title": "Adresi giriniz",
+      "title": "Adres girin",
       "hashtag": "Hashtag",
-      "ip": "IP adresi",
-      "recentlyUsed": "Daha önce kullanılmış: "
+      "ip": "IP Adresi",
+      "recentlyUsed": "Son kullanılanlar: "
     },
     "cancelSession": {
-      "title": "Dosya transferini iptal et",
-      "content": "Gerçekten dosya transferini iptal etmek istiyor musunuz?"
+      "title": "Dosya aktarımını iptal et",
+      "content": "Dosya aktarımını iptal etmek istediğinizden emin misiniz?"
     },
     "cannotOpenFile": {
-      "title": "Dosya açılamadı",
-      "content": "\"{file}\" dosyası açılamadı. Dosya taşınmış, silinmiş veya ismi değiştirilmiş olabilir mi?"
+      "title": "Dosya açılamıyor",
+      "content": "\"{file}\" açılamadı. Dosya taşınmış, yeniden adlandırılmış veya silinmiş olabilir mi?"
     },
     "encryptionDisabledNotice": {
-      "title": "Şifreleme devre dışı bırakıldı",
-      "content": "Artık iletişim şifrelenmemiş HTTP protokolü aracılığıyla gerçekleşiyor. HTTPS protokolünü kullanmak için şifrelemeyi yeniden aktif edin."
+      "title": "Şifreleme devre dışı",
+      "content": "İletişim artık şifrelenmemiş HTTP protokolü üzerinden gerçekleşiyor. HTTPS protokolünü kullanmak için şifrelemeyi tekrar açın."
     },
     "errorDialog": {
       "title": "@:general.error"
     },
     "favoriteDialog": {
       "title": "Favoriler",
-      "noFavorites": "Henüz favori cihaz yok.",
+      "noFavorites": "Henüz favori cihazınız yok.",
       "addFavorite": "Ekle"
     },
     "favoriteDeleteDialog": {
       "title": "Favorilerden sil",
-      "content": "Favorilerden \"{name}\" öğesini gerçekten silmek istiyor musunuz?"
+      "content": "\"{name}\" cihazını favorilerden silmek istediğinizden emin misiniz?"
     },
     "favoriteEditDialog": {
       "titleAdd": "Favorilere ekle",
-      "titleEdit": "Düzenle",
-      "name": "Takma ad",
+      "titleEdit": "Ayarlar",
+      "name": "Cihaz adı",
       "auto": "(otomatik)",
       "ip": "IP Adresi",
-      "port": "Port"
+      "port": "Port",
+      "invalidPort": "1 ile 65535 arasında bir tam sayı girin."
     },
     "fileInfo": {
       "title": "Dosya bilgileri",
       "fileName": "Dosya adı:",
-      "path": "Yolu:",
-      "size": "Boyutu:",
+      "path": "Dosya yolu:",
+      "size": "Boyut:",
       "sender": "Gönderen:",
       "time": "Zaman:"
     },
     "fileNameInput": {
-      "title": "Dosya adını giriniz",
-      "original": "Orijinal: {original}"
+      "title": "Dosya adını girin",
+      "original": "Orijinali: {original}"
     },
     "historyClearDialog": {
       "title": "Geçmişi temizle",
-      "content": "Gerçekten tüm geçmişi silmek istiyor musunuz?"
+      "content": "Tüm geçmişi temizlemek istediğinizden emin misiniz?"
     },
     "localNetworkUnauthorized": {
       "title": "@:dialogs.noPermission.title",
-      "description": "LocalSend, lokal ağı tarama iznine sahip olmadan başka cihazları bulamıyor. Lütfen bu izni ayarlarda verin.",
+      "description": "LocalSend, yerel ağı tarama izni olmadan diğer cihazları bulamaz. Lütfen ayarlardan bu izni verin.",
       "gotoSettings": "Ayarlar"
     },
     "messageInput": {
-      "title": "Mesaj yazınız",
-      "multiline": "Çok satırlı mesaj"
+      "title": "Mesaj yazın",
+      "multiline": "Çok satırlı"
     },
     "noFiles": {
-      "title": "Herhangi bir dosya seçilmedi",
-      "content": "Lütfen bir dosya seçiniz."
+      "title": "Dosya seçilmedi",
+      "content": "Lütfen en az bir dosya seçin."
     },
     "noPermission": {
       "title": "İzin yok",
-      "content": "Gerekli izinleri vermediniz. Lütfen ayarlardan izinleri verin."
+      "content": "Gerekli izinleri vermediniz. Lütfen ayarlardan gerekli izinleri verin."
     },
     "notAvailableOnPlatform": {
-      "title": "Müsait değil",
-      "content": "Bu özellik yalnızca şurada mevcuttur:"
+      "title": "Kullanılamıyor",
+      "content": "Bu özellik yalnızca şu platformlarda kullanılabilir:"
     },
     "qr": {
-      "title": "QR Kod"
+      "title": "QR Kodu"
     },
     "quickActions": {
-      "title": "Hızlı eylemler",
+      "title": "Hızlı İşlemler",
       "counter": "Sayaç",
       "prefix": "Ön ek",
-      "padZero": "Sıfırlar ile doldurun",
-      "sortBeforeCount": "Önceden alfabetik olarak sırala",
+      "padZero": "Başına sıfır ekle",
+      "sortBeforeCount": "Öncesinde alfabetik sırala (A-Z)",
       "random": "Rastgele"
     },
     "quickSaveNotice": {
       "title": "@:general.quickSave",
-      "content": "Dosya gönderim istekleri otomatik olarak gerçekleşir. Yerel ağınızdaki herkesin size dosya gönderebileceğinin farkında olunuz."
+      "content": "Gelen dosya istekleri artık otomatik olarak kabul edilecek. Yerel ağdaki herkesin size dosya gönderebileceğini unutmayın."
     },
     "quickSaveFromFavoritesNotice": {
       "title": "@:general.quickSaveFromFavorites",
       "content": [
-        "Favoriler listenizdeki cihazların paylaşım istekleri otomatik olarak kabul edilecektir."
+        "Favori listenizdeki cihazlardan gelen dosya istekleri artık otomatik olarak kabul edilecek."
       ]
     },
     "pin": {
-      "title": "PIN girin"
+      "title": "PIN'i girin"
     },
     "sendModeHelp": {
-      "title": "Gönderme Modu",
-      "single": "Dosyaları bir alıcıya gönderir. Seçim, bitmiş dosya aktarımından sonra temizlenir.",
-      "multiple": "Dosyaları birden çok alıcıya gönderir. Seçim temizlenmeyecektir.",
-      "link": "LocalSend yüklü olmayan alıcılar, tarayıcılarındaki bağlantıyı açarak seçilen dosyaları indirebilir."
+      "title": "Gönderim modları",
+      "single": "Dosyaları tek bir alıcıya gönderir. Aktarım tamamlandıktan sonra seçilen dosyalar temizlenir.",
+      "multiple": "Dosyaları birden fazla alıcıya gönderir. Aktarım tamamlandıktan sonra seçilen dosyalar listede kalır.",
+      "link": "LocalSend yüklü olmayan kişiler, verilen bağlantıyı tarayıcılarında açarak seçili dosyaları indirebilir."
     },
     "zoom": {
       "title": "URL"
     }
   },
   "sanitization": {
-    "empty": "Dosya ismi boş olamaz",
-    "invalid": "Dosya ismi geçersiz karakter bulunduruyor"
+    "empty": "Dosya adı boş bırakılamaz",
+    "invalid": "Dosya adı geçersiz karakterler içeriyor"
   },
   "tray": {
-    "@info": "Apple'ın yönergeleri, 'kapat' ifadesi konusunda çok katıdır.",
+    "@info": "Apple Guidelines are very strict about the \"close\" wording.",
     "open": "@:general.open",
-    "close": "LocalSend'den çık",
+    "close": "LocalSend'den Çık",
     "closeWindows": "Çıkış"
   },
   "web": {
     "waiting": "@:sendPage.waiting",
-    "enterPin": "PIN girin",
+    "enterPin": "PIN'i girin",
     "invalidPin": "Geçersiz PIN",
     "tooManyAttempts": "Çok fazla deneme",
     "rejected": "Reddedildi",
@@ -474,34 +547,34 @@
     "size": "Boyut"
   },
   "assetPicker": {
-    "@info": "Translations for the Media selection tool for Android and Iphone",
-    "confirm": "Onay",
+    "@info": "Translations for the Media selection tool for Android and iPhone",
+    "confirm": "Onayla",
     "cancel": "İptal",
     "edit": "Düzenle",
     "gifIndicator": "GIF",
-    "loadFailed": "Yükleme başarısız",
+    "loadFailed": "Yüklenemedi",
     "original": "Orijinal",
-    "preview": "Ön izleme",
+    "preview": "Önizleme",
     "select": "Seç",
-    "emptyList": "Boş liste",
+    "emptyList": "Liste boş",
     "unSupportedAssetType": "Desteklenmeyen dosya türü.",
     "unableToAccessAll": "Cihazdaki tüm dosyalara erişilemiyor",
-    "viewingLimitedAssetsTip": "Yalnızca uygulamanın erişilebilir dosyalarını ve albümlerini görüntüleyin.",
-    "changeAccessibleLimitedAssets": "Erişilebilir dosyaları güncellemek için tıklayın",
-    "accessAllTip": "Uygulama yalnızca cihazdaki bazı dosyalara erişebilir. Sistem ayarlarına gidin ve uygulamanın cihazdaki tüm medyalara erişmesine izin verin.",
-    "goToSystemSettings": "Sistem ayarlarına gidin",
-    "accessLimitedAssets": "Sınırlı Erişimle Devam Et",
+    "viewingLimitedAssetsTip": "Yalnızca uygulamanın erişebildiği dosya ve albümleri görüntülüyorsunuz.",
+    "changeAccessibleLimitedAssets": "Erişilebilir dosyaları güncellemek için dokunun",
+    "accessAllTip": "Uygulama cihazdaki dosyaların yalnızca bir kısmına erişebiliyor. Tüm medyaya erişim izni vermek için sistem ayarlarına gidin.",
+    "goToSystemSettings": "Sistem ayarlarına git",
+    "accessLimitedAssets": "Sınırlı erişimle devam et",
     "accessiblePathName": "Erişilebilir dosyalar",
     "sTypeAudioLabel": "Ses",
-    "sTypeImageLabel": "Görüntü",
+    "sTypeImageLabel": "Görsel",
     "sTypeVideoLabel": "Video",
     "sTypeOtherLabel": "Diğer medya",
     "sActionPlayHint": "oynat",
-    "sActionPreviewHint": "Ön izleme",
+    "sActionPreviewHint": "önizle",
     "sActionSelectHint": "seç",
-    "sActionSwitchPathLabel": "dosya uzantısını değiştir",
-    "sActionUseCameraHint": "Kamera kullan",
+    "sActionSwitchPathLabel": "klasör değiştir",
+    "sActionUseCameraHint": "kamerayı kullan",
     "sNameDurationLabel": "süre",
-    "sUnitAssetCountLabel": "sayım"
+    "sUnitAssetCountLabel": "adet"
   }
 }
