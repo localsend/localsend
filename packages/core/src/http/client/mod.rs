@@ -206,7 +206,16 @@ pub(super) fn upload_body(
     reqwest::Body::wrap_stream(stream)
 }
 
+/// Connect timeout of pinned clients, i.e. clients talking to a device the
+/// user has picked. It bounds connection setup only (TCP connect plus TLS
+/// handshake), so a dead address fails fast. Waiting for the receiver to
+/// accept and the upload itself are not limited by it.
+const PINNED_CONNECT_TIMEOUT: std::time::Duration = std::time::Duration::from_secs(5);
+
 /// Builds the reqwest client used for all outgoing requests.
+///
+/// Pinned clients (`expected_fingerprint` is set) get
+/// [`PINNED_CONNECT_TIMEOUT`]; unpinned ones keep reqwest's default.
 ///
 /// The TLS config is assembled by hand instead of using reqwest's own TLS
 /// options, because only a preconfigured [`rustls::ClientConfig`] can carry a
@@ -218,6 +227,27 @@ pub(super) fn create_reqwest_client(
     cert: &str,
     expected_fingerprint: Option<String>,
     timeout: Option<std::time::Duration>,
+) -> Result<reqwest::Client, ClientError> {
+    let connect_timeout = expected_fingerprint
+        .is_some()
+        .then_some(PINNED_CONNECT_TIMEOUT);
+    build_reqwest_client(
+        private_key,
+        cert,
+        expected_fingerprint,
+        timeout,
+        connect_timeout,
+    )
+}
+
+/// [`create_reqwest_client`] with an explicit connect timeout, so tests do not
+/// have to wait out [`PINNED_CONNECT_TIMEOUT`].
+fn build_reqwest_client(
+    private_key: &str,
+    cert: &str,
+    expected_fingerprint: Option<String>,
+    timeout: Option<std::time::Duration>,
+    connect_timeout: Option<std::time::Duration>,
 ) -> Result<reqwest::Client, ClientError> {
     let _ = rustls::crypto::ring::default_provider().install_default();
 
@@ -239,7 +269,7 @@ pub(super) fn create_reqwest_client(
             .map_err(anyhow::Error::from)?
     };
 
-    // Must be set explicitly, see the doc comment above.
+    // Must be set explicitly, see the doc comment of `create_reqwest_client`.
     // HTTP/1.1 only: HTTP/2's flow-control window caps bulk upload throughput.
     tls_config.alpn_protocols = vec![b"http/1.1".to_vec()];
 
@@ -254,6 +284,10 @@ pub(super) fn create_reqwest_client(
         // than the one whose certificate is being verified.
         .redirect(reqwest::redirect::Policy::none())
         .dns_resolver(Arc::new(ScopedHostResolver));
+
+    if let Some(connect_timeout) = connect_timeout {
+        builder = builder.connect_timeout(connect_timeout);
+    }
 
     if let Some(timeout) = timeout {
         builder = builder.timeout(timeout);
@@ -556,5 +590,87 @@ mod tests {
                 result.err()
             );
         }
+    }
+
+    /// Short stand-in for [`PINNED_CONNECT_TIMEOUT`], so the tests stay fast.
+    const TEST_CONNECT_TIMEOUT: Duration = Duration::from_millis(300);
+
+    fn pinned_test_client() -> reqwest::Client {
+        let identity = crypto::cert::generate_self_signed().unwrap();
+        build_reqwest_client(
+            &identity.private_key_pem,
+            &identity.certificate_pem,
+            Some(identity.fingerprint),
+            None,
+            Some(TEST_CONNECT_TIMEOUT),
+        )
+        .unwrap()
+    }
+
+    /// The connect timeout includes the TLS handshake: a peer that accepts
+    /// the TCP connection but never answers the ClientHello must not keep a
+    /// pinned client waiting.
+    #[tokio::test]
+    async fn pinned_connect_timeout_covers_tls_handshake() {
+        let client = pinned_test_client();
+        let listener = tokio::net::TcpListener::bind("127.0.0.1:0").await.unwrap();
+        let port = listener.local_addr().unwrap().port();
+        let peer = tokio::spawn(async move {
+            let (_stream, _) = listener.accept().await.unwrap();
+            std::future::pending::<()>().await;
+        });
+
+        let started = std::time::Instant::now();
+        let result = tokio::time::timeout(
+            Duration::from_secs(5),
+            client.get(format!("https://127.0.0.1:{port}/")).send(),
+        )
+        .await;
+        peer.abort();
+
+        let err = result
+            .expect("the TLS handshake must be bounded by the connect timeout")
+            .expect_err("the peer never completes the handshake");
+        assert!(
+            err.is_connect() && err.is_timeout(),
+            "unexpected error: {err:?}"
+        );
+        assert!(started.elapsed() >= TEST_CONNECT_TIMEOUT);
+    }
+
+    /// The connect timeout does not limit waiting for the response, e.g. for
+    /// the receiver to accept a prepare-upload.
+    #[tokio::test]
+    async fn pinned_connect_timeout_does_not_limit_response_wait() {
+        let client = pinned_test_client();
+        let listener = tokio::net::TcpListener::bind("127.0.0.1:0").await.unwrap();
+        let port = listener.local_addr().unwrap().port();
+        let peer = tokio::spawn(async move {
+            let (mut stream, _) = listener.accept().await.unwrap();
+            let mut request = Vec::new();
+            while !request.windows(4).any(|w| w == b"\r\n\r\n") {
+                let mut chunk = [0u8; 4096];
+                let read = stream.read(&mut chunk).await.unwrap();
+                assert_ne!(read, 0, "client closed before sending the request");
+                request.extend_from_slice(&chunk[..read]);
+            }
+            tokio::time::sleep(TEST_CONNECT_TIMEOUT * 3).await;
+            stream
+                .write_all(b"HTTP/1.1 204 No Content\r\nConnection: close\r\n\r\n")
+                .await
+                .unwrap();
+        });
+
+        let result = tokio::time::timeout(
+            Duration::from_secs(5),
+            client.get(format!("http://127.0.0.1:{port}/")).send(),
+        )
+        .await;
+        peer.abort();
+
+        let response = result
+            .expect("the request must not hang")
+            .expect("waiting for the response must not hit the connect timeout");
+        assert_eq!(response.status(), reqwest::StatusCode::NO_CONTENT);
     }
 }
