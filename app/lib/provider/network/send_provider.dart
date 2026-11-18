@@ -340,9 +340,11 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
         } catch (e) {
           if (e is rust_http.RsHttpClientError_Unreachable) {
             // Only a request without any response says that the address
-            // cannot be dialed; a canceled request or an answer that could
-            // not be read does not.
+            // cannot be dialed; a canceled request does not.
             _reportOutbound(target, error: e.field0);
+          } else if (e is rust_http.RsHttpClientError_Reqwest) {
+            // The peer answered, its response just could not be read.
+            _reportOutbound(target);
           }
           state = state.updateSession(
             sessionId: sessionId,

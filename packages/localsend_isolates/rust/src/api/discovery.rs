@@ -343,6 +343,17 @@ impl RsDiscovery {
                     .map(|stored| RsDiscoveryEvent::Device(rs_stored_device(stored))),
                 Some(DiscoveryEvent::Unreachable { device, error }) => {
                     unconfirmed_device(handle, &device.fingerprint).map(|stored| {
+                        // The stored state may include a later failure than
+                        // the event; its reason must match that state.
+                        let error = stored
+                            .logs
+                            .iter()
+                            .rev()
+                            .find_map(|log| match &log.event {
+                                DeviceLogEvent::OutboundFailed { error, .. } => Some(error.clone()),
+                                _ => None,
+                            })
+                            .unwrap_or(error);
                         RsDiscoveryEvent::Unreachable {
                             device: rs_stored_device(stored),
                             error,
