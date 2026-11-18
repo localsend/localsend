@@ -65,6 +65,7 @@ class SettingsService extends PureNotifier<SettingsState> {
     quickSaveFromFavorites: _persistence.getQuickSave() == QuickSaveMode.paired,
     receivePin: _persistence.getReceivePin(),
     autoFinish: _persistence.isAutoFinish(),
+    autoOpenFolder: _persistence.isAutoOpenFolder(),
     minimizeToTray: _persistence.isMinimizeToTray(),
     https: _persistence.isHttps(),
     sendMode: _persistence.getSendMode(),
@@ -220,6 +221,13 @@ class SettingsService extends PureNotifier<SettingsState> {
     await _persistence.setAutoFinish(autoFinish);
     state = state.copyWith(
       autoFinish: autoFinish,
+    );
+  }
+
+  Future<void> setAutoOpenFolder(bool autoOpenFolder) async {
+    await _persistence.setAutoOpenFolder(autoOpenFolder);
+    state = state.copyWith(
+      autoOpenFolder: autoOpenFolder,
     );
   }
 

@@ -84,6 +84,7 @@ const _saveToHistory = 'ls_save_to_history';
 const _quickSave = 'ls_quick_save'; // a QuickSaveMode; was a bool until storage version 2 ('ls_quick_save_from_favorites' is merged into this key)
 const _receivePin = 'ls_receive_pin';
 const _autoFinish = 'ls_auto_finish';
+const _autoOpenFolder = 'ls_auto_open_folder';
 const _minimizeToTray = 'ls_minimize_to_tray';
 const _https = 'ls_https';
 const _sendMode = 'ls_send_mode';
@@ -483,6 +484,14 @@ class PersistenceService {
 
   Future<void> setAutoFinish(bool autoFinish) async {
     await _prefs.setBool(_autoFinish, autoFinish);
+  }
+
+  bool isAutoOpenFolder() {
+    return _prefs.getBool(_autoOpenFolder) ?? true;
+  }
+
+  Future<void> setAutoOpenFolder(bool autoOpenFolder) async {
+    await _prefs.setBool(_autoOpenFolder, autoOpenFolder);
   }
 
   bool isMinimizeToTray() {

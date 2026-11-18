@@ -516,6 +516,24 @@ class MockPersistenceService extends _i1.Mock implements _i4.PersistenceService 
           as _i5.Future<void>);
 
   @override
+  bool isAutoOpenFolder() =>
+      (super.noSuchMethod(
+            Invocation.method(#isAutoOpenFolder, []),
+            returnValue: false,
+            returnValueForMissingStub: false,
+          )
+          as bool);
+
+  @override
+  _i5.Future<void> setAutoOpenFolder(bool? autoOpenFolder) =>
+      (super.noSuchMethod(
+            Invocation.method(#setAutoOpenFolder, [autoOpenFolder]),
+            returnValue: _i5.Future<void>.value(),
+            returnValueForMissingStub: _i5.Future<void>.value(),
+          )
+          as _i5.Future<void>);
+
+  @override
   bool isMinimizeToTray() =>
       (super.noSuchMethod(
             Invocation.method(#isMinimizeToTray, []),
@@ -618,6 +636,24 @@ class MockPersistenceService extends _i1.Mock implements _i4.PersistenceService 
   bool getSaveWindowPlacement() =>
       (super.noSuchMethod(
             Invocation.method(#getSaveWindowPlacement, []),
+            returnValue: false,
+            returnValueForMissingStub: false,
+          )
+          as bool);
+
+  @override
+  _i5.Future<void> setAlwaysOnTop(bool? alwaysOnTop) =>
+      (super.noSuchMethod(
+            Invocation.method(#setAlwaysOnTop, [alwaysOnTop]),
+            returnValue: _i5.Future<void>.value(),
+            returnValueForMissingStub: _i5.Future<void>.value(),
+          )
+          as _i5.Future<void>);
+
+  @override
+  bool getAlwaysOnTop() =>
+      (super.noSuchMethod(
+            Invocation.method(#getAlwaysOnTop, []),
             returnValue: false,
             returnValueForMissingStub: false,
           )
