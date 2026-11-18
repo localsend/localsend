@@ -1,0 +1,75 @@
+name: Windows E2E tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  discover:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.tests.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@v6
+      - id: tests
+        name: Discover Windows E2E tests
+        run: |
+          node <<'JS'
+          const fs = require('fs');
+          const suffix = '.e2e.ps1';
+          const tests = fs.readdirSync('support/test/windows/e2e')
+            .filter(file => file.endsWith(suffix)).sort()
+            .map(file => ({ file, id: file.slice(0, -suffix.length) }));
+          if (!tests.length) throw new Error('No Windows E2E tests found');
+          fs.appendFileSync(process.env.GITHUB_OUTPUT, `matrix=${JSON.stringify({ include: tests })}\n`);
+          JS
+  test:
+    needs: discover
+    name: Windows E2E / ${{ matrix.id }}
+    runs-on: windows-11-arm
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJSON(needs.discover.outputs.matrix) }}
+    env:
+      E2E_TEST_FILE: ${{ matrix.file }}
+      E2E_TEST_ID: ${{ matrix.id }}
+    steps:
+      - uses: actions/checkout@v6
+      - name: Run E2E lifecycle
+        shell: powershell
+        run: |
+          $test = Join-Path 'support/test/windows/e2e' $env:E2E_TEST_FILE
+          $evidence = Join-Path 'windows-e2e-evidence' $env:E2E_TEST_ID
+          powershell.exe -NoProfile -MTA -ExecutionPolicy Bypass -File $test -EvidenceDirectory $evidence
+          if ($LASTEXITCODE -ne 0) { throw "Windows E2E failed: $env:E2E_TEST_ID" }
+      - name: Build visual evidence gallery
+        if: always()
+        shell: powershell
+        run: |
+          & support/test/windows/helpers/write_evidence_report.ps1 -EvidenceDirectory (Join-Path 'windows-e2e-evidence' $env:E2E_TEST_ID)
+      - uses: actions/upload-artifact@v6
+        id: evidence
+        if: always()
+        with:
+          name: windows-e2e-${{ matrix.id }}
+          path: windows-e2e-evidence/${{ matrix.id }}
+          if-no-files-found: error
+      - name: Link visual evidence
+        if: always() && steps.evidence.outputs.artifact-url != ''
+        shell: powershell
+        env:
+          E2E_ARTIFACT_URL: ${{ steps.evidence.outputs.artifact-url }}
+        run: |
+          @"
+          ### Windows E2E evidence: $env:E2E_TEST_ID
+
+          [Download screenshots, recordings, test results, and logs]($env:E2E_ARTIFACT_URL).
+
+          Extract the artifact and open ``index.html`` to browse images and play videos.
+          "@ | Out-File $env:GITHUB_STEP_SUMMARY -Append -Encoding utf8
