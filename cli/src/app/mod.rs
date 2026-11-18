@@ -425,6 +425,14 @@ impl App {
                 // Comes back as a discovery event, like every observation.
                 self.discovery
                     .report_outbound(&fingerprint, channel, result);
+                // Saved right away: in `send` mode, `SendEnded` may quit
+                // before that discovery event is handled.
+                discovery::refresh_paired_channels(
+                    &mut self.ui,
+                    &mut self.storage.paired,
+                    &self.discovery,
+                    &fingerprint,
+                );
             }
             AppEvent::SendSessionStarted {
                 session_id,

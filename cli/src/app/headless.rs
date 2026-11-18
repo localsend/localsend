@@ -85,6 +85,14 @@ pub(super) async fn run(
             } => {
                 // Comes back as a discovery event, like every observation.
                 discovery.report_outbound(&fingerprint, channel, result);
+                // Saved right away: `SendEnded` may end the loop before that
+                // discovery event is handled.
+                discovery::refresh_paired_channels(
+                    &mut ui,
+                    &mut storage.paired,
+                    &discovery,
+                    &fingerprint,
+                );
             }
             AppEvent::SendSessionStarted {
                 session_id,

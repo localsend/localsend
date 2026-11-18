@@ -195,6 +195,8 @@ class _HttpChannels extends StatelessWidget {
   Widget build(BuildContext context) {
     final outgoing = _outgoingState(channels);
     final incoming = channels.any((c) => c.inbound != null) ? _ArrowState.works : _ArrowState.unknown;
+    // The row starts with this device, so in RTL the outgoing arrow points left.
+    final outgoingRightwards = Directionality.of(context) == TextDirection.ltr;
     return Card(
       margin: EdgeInsets.zero,
       shape: RoundedRectangleBorder(
@@ -225,10 +227,10 @@ class _HttpChannels extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Padding(
-                          padding: const EdgeInsets.only(left: _swapShift),
+                          padding: const EdgeInsetsDirectional.only(start: _swapShift),
                           child: _DirectionArrow(
                             state: outgoing,
-                            rightwards: true,
+                            rightwards: outgoingRightwards,
                             tooltip:
                                 '${t.deviceDetailsPage.channels.outgoing}: ${switch (outgoing) {
                                   _ArrowState.works => t.deviceDetailsPage.channels.works,
@@ -240,7 +242,7 @@ class _HttpChannels extends StatelessWidget {
                         const SizedBox(height: 2),
                         _DirectionArrow(
                           state: incoming,
-                          rightwards: false,
+                          rightwards: !outgoingRightwards,
                           tooltip:
                               '${t.deviceDetailsPage.channels.incoming}: ${incoming == _ArrowState.works ? t.deviceDetailsPage.channels.works : t.deviceDetailsPage.channels.notSeen}',
                         ),

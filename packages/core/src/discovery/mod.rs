@@ -716,8 +716,14 @@ async fn dial(
                 device.alias,
             );
             if !err.is_unreachable() {
-                // The device answered, just not with its registration:
-                // there is neither a failed channel nor a device to store.
+                // The device answered, just not with its registration.
+                // A device dialed back already confirmed itself with its
+                // request, so the answer shows the channel works outbound.
+                // An announcing device stays unconfirmed: nothing it
+                // claimed is verified.
+                if announcement.is_none() {
+                    state.observed(device, Observation::Reached, None);
+                }
                 return;
             }
 
