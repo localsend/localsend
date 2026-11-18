@@ -27,6 +27,9 @@ class HttpClientCollection {
   /// The check happens during the TLS handshake, so a different peer never
   /// receives the request. Use this for everything that carries file data or
   /// belongs to a session with a device the user has picked.
+  ///
+  /// Connection setup (TCP connect and TLS handshake) is limited to 5 seconds;
+  /// the request itself, e.g. waiting for the receiver to accept, is not.
   RsHttpClient pinnedTo(String fingerprint) {
     return createClient(
       privateKey: _privateKey,
