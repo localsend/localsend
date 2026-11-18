@@ -10,8 +10,7 @@ use crate::slots::slot_label;
 use crate::storage::{PairedChannel, PairedDevices};
 use crate::ui::{Category, Ui};
 use localsend::discovery::{
-    DeviceChannel, DeviceLogEvent, DiscoveredDevice, DiscoveryEvent, DiscoveryHandle, HttpChannel,
-    StatefulDevice,
+    DeviceChannel, DiscoveredDevice, DiscoveryEvent, DiscoveryHandle, HttpChannel,
 };
 use localsend::http::dto_v2::RegisterDtoV2;
 use std::collections::HashSet;
@@ -25,9 +24,9 @@ impl App {
     pub(super) fn handle_discovery(&mut self, event: DiscoveryEvent) {
         let device = match &event {
             DiscoveryEvent::Discovered { device } | DiscoveryEvent::Updated { device } => device,
-            DiscoveryEvent::Unreachable { device } => {
-                log_unreachable(&mut self.ui, &mut self.unreachable, &self.discovery, device);
-                device
+            DiscoveryEvent::Unreachable { device, error } => {
+                log_unreachable(&mut self.ui, &mut self.unreachable, device, error);
+                return;
             }
             DiscoveryEvent::MulticastFailed => {
                 self.ui.log(
@@ -37,7 +36,7 @@ impl App {
                 return;
             }
         };
-        // Also after a failure: it changed the ranking of the channels.
+        // Also after a failed request: it changed the ranking of the channels.
         refresh_paired_channels(
             &mut self.ui,
             &mut self.storage.paired,
@@ -47,8 +46,7 @@ impl App {
 
         let DiscoveryEvent::Discovered { device } = event else {
             // Re-confirmations update the store silently; multi-homed peers
-            // re-announce with a different address all the time. A device
-            // that never answered gets no slot: it is not a send target.
+            // re-announce with a different address all the time.
             return;
         };
         let slot = self.slots.assign(&device.fingerprint);
@@ -99,49 +97,27 @@ impl UnreachableNotices {
     }
 
     /// The line telling the user that `device` — as carried by an
-    /// `Unreachable` event — is around but cannot be dialed. `None` when
-    /// that was said before for the address, or when the device is not
-    /// among the `unconfirmed` devices of the store: a failed request to a
-    /// confirmed device only changes the ranking of its channels.
-    ///
-    /// `unconfirmed` is only called for a device and address not logged yet,
-    /// which spares cloning the store for every datagram of a burst.
-    fn notice(
-        &mut self,
-        device: &DiscoveredDevice,
-        unconfirmed: impl FnOnce() -> Vec<StatefulDevice>,
-    ) -> Option<String> {
+    /// `Unreachable` event, with its `error` — is around but cannot be
+    /// dialed. `None` when that was said before for the address.
+    fn notice(&mut self, device: &DiscoveredDevice, error: &str) -> Option<String> {
         let host = device
             .http()
             .map(|http| http.host.as_str())
             .unwrap_or("unknown address");
-        let key = (device.fingerprint.clone(), host.to_string());
-        if self.logged.contains(&key) {
+        if !self
+            .logged
+            .insert((device.fingerprint.clone(), host.to_string()))
+        {
             return None;
         }
-        let stored = unconfirmed()
-            .into_iter()
-            .find(|stored| stored.device.fingerprint == device.fingerprint)?;
-
-        // The failure of this address: another address of the device may
-        // have failed since the event was emitted.
-        let reason = stored.logs.iter().rev().find_map(|log| match &log.event {
-            DeviceLogEvent::OutboundFailed { channel, error } if *channel == device.channel => {
-                Some(shorten_reason(error))
-            }
-            _ => None,
-        });
-        self.logged.insert(key);
 
         // Everything but the host is unverified: it is what the announcement
         // claimed, and what the peer answered.
-        let alias = sanitize::single_line(&device.alias);
-        Some(match reason {
-            Some(reason) => {
-                format!("{alias} ({host}): Announced itself, but could not be reached: {reason}")
-            }
-            None => format!("{alias} ({host}): Announced itself, but could not be reached"),
-        })
+        Some(format!(
+            "{} ({host}): Announced itself, but could not be reached: {}",
+            sanitize::single_line(&device.alias),
+            shorten_reason(error),
+        ))
     }
 }
 
@@ -162,10 +138,10 @@ fn shorten_reason(reason: &str) -> String {
 pub(super) fn log_unreachable(
     ui: &mut Ui,
     notices: &mut UnreachableNotices,
-    discovery: &DiscoveryHandle,
     device: &DiscoveredDevice,
+    error: &str,
 ) {
-    if let Some(line) = notices.notice(device, || discovery.unconfirmed_devices()) {
+    if let Some(line) = notices.notice(device, error) {
         ui.log(Category::Discovery, &line);
     }
 }
@@ -231,20 +207,8 @@ pub(super) fn device_confirmed(
 #[cfg(test)]
 mod tests {
     use super::{MAX_REASON_CHARS, UnreachableNotices};
-    use localsend::discovery::{
-        ChannelState, DeviceChannel, DeviceLog, DeviceLogEvent, DiscoveredDevice, HttpChannel,
-        Outbound, StatefulDevice,
-    };
+    use localsend::discovery::{DeviceChannel, DiscoveredDevice, HttpChannel};
     use localsend::model::discovery::ProtocolType;
-    use std::time::SystemTime;
-
-    fn channel(host: &str) -> DeviceChannel {
-        DeviceChannel::Http(HttpChannel {
-            host: host.to_string(),
-            port: 53317,
-            protocol: ProtocolType::Https,
-        })
-    }
 
     /// The device as an `Unreachable` event carries it.
     fn device(alias: &str, fingerprint: &str, host: &str) -> DiscoveredDevice {
@@ -254,47 +218,20 @@ mod tests {
             device_model: None,
             device_type: None,
             fingerprint: fingerprint.to_string(),
-            channel: channel(host),
+            channel: DeviceChannel::Http(HttpChannel {
+                host: host.to_string(),
+                port: 53317,
+                protocol: ProtocolType::Https,
+            }),
             download: false,
-        }
-    }
-
-    /// The device as the store keeps it after the given failed requests,
-    /// oldest first.
-    fn unconfirmed(device: &DiscoveredDevice, failures: &[(&str, &str)]) -> StatefulDevice {
-        let now = SystemTime::now();
-        StatefulDevice {
-            device: device.clone(),
-            confirmed: false,
-            channels: failures
-                .iter()
-                .map(|(host, _)| {
-                    let state = ChannelState {
-                        outbound: Outbound::Failed(now),
-                        inbound: None,
-                    };
-                    (channel(host), state)
-                })
-                .collect(),
-            logs: failures
-                .iter()
-                .map(|(host, error)| DeviceLog {
-                    timestamp: now,
-                    event: DeviceLogEvent::OutboundFailed {
-                        channel: channel(host),
-                        error: error.to_string(),
-                    },
-                })
-                .collect(),
         }
     }
 
     #[test]
     fn tells_about_an_unconfirmed_device_with_the_reason() {
         let device = device("Cute Tomato", "tomato", "192.168.0.10");
-        let stored = unconfirmed(&device, &[("192.168.0.10", "connection refused")]);
 
-        let line = UnreachableNotices::new().notice(&device, || vec![stored]);
+        let line = UnreachableNotices::new().notice(&device, "connection refused");
 
         assert_eq!(
             line.as_deref(),
@@ -310,98 +247,31 @@ mod tests {
         let tomato = device("Cute Tomato", "tomato", "192.168.0.10");
         let tomato_v6 = device("Cute Tomato", "tomato", "fe80::1%3");
         let cherry = device("Wise Cherry", "cherry", "192.168.0.10");
-        let store = || {
-            vec![
-                unconfirmed(
-                    &tomato,
-                    &[("192.168.0.10", "timed out"), ("fe80::1%3", "timed out")],
-                ),
-                unconfirmed(&cherry, &[("192.168.0.10", "timed out")]),
-            ]
-        };
         let mut notices = UnreachableNotices::new();
 
-        assert!(notices.notice(&tomato, store).is_some());
+        assert!(notices.notice(&tomato, "timed out").is_some());
         assert!(
-            notices.notice(&tomato, store).is_none(),
+            notices.notice(&tomato, "timed out").is_none(),
             "the datagrams of a burst must not repeat the line"
         );
         assert!(
-            notices.notice(&tomato_v6, store).is_some(),
+            notices.notice(&tomato_v6, "timed out").is_some(),
             "another address of the device must be told"
         );
         assert!(
-            notices.notice(&cherry, store).is_some(),
+            notices.notice(&cherry, "timed out").is_some(),
             "another device at the same address must be told"
         );
-        assert!(notices.notice(&tomato_v6, store).is_none());
-        assert!(notices.notice(&cherry, store).is_none());
-    }
-
-    #[test]
-    fn does_not_ask_the_store_about_a_notice_that_was_logged() {
-        let device = device("Cute Tomato", "tomato", "192.168.0.10");
-        let stored = unconfirmed(&device, &[("192.168.0.10", "timed out")]);
-        let mut notices = UnreachableNotices::new();
-        assert!(notices.notice(&device, || vec![stored]).is_some());
-
-        let line = notices.notice(&device, || panic!("the store must not be cloned again"));
-
-        assert!(line.is_none());
-    }
-
-    #[test]
-    fn stays_silent_about_a_confirmed_device() {
-        let device = device("Cute Tomato", "tomato", "192.168.0.10");
-        let mut notices = UnreachableNotices::new();
-
-        // A confirmed device is not among the unconfirmed devices.
-        assert!(notices.notice(&device, Vec::new).is_none());
-        assert!(
-            notices.logged.is_empty(),
-            "a device that was not told about must not count as logged"
-        );
-    }
-
-    #[test]
-    fn gives_the_most_recent_reason_of_the_failed_address() {
-        let device = device("Cute Tomato", "tomato", "192.168.0.10");
-        let stored = unconfirmed(
-            &device,
-            &[
-                ("192.168.0.10", "timed out"),
-                ("192.168.0.10", "connection refused"),
-                ("fe80::1%3", "no route to host"),
-            ],
-        );
-
-        let line = UnreachableNotices::new()
-            .notice(&device, || vec![stored])
-            .unwrap();
-
-        assert!(line.ends_with(": connection refused"), "{line}");
-    }
-
-    #[test]
-    fn omits_a_reason_that_is_no_longer_logged() {
-        let device = device("Cute Tomato", "tomato", "192.168.0.10");
-        let stored = unconfirmed(&device, &[("fe80::1%3", "timed out")]);
-
-        let line = UnreachableNotices::new().notice(&device, || vec![stored]);
-
-        assert_eq!(
-            line.as_deref(),
-            Some("Cute Tomato (192.168.0.10): Announced itself, but could not be reached")
-        );
+        assert!(notices.notice(&tomato_v6, "timed out").is_none());
+        assert!(notices.notice(&cherry, "timed out").is_none());
     }
 
     #[test]
     fn sanitizes_what_the_peer_controls() {
         let device = device("Cute\u{1b}[31m\nTomato", "tomato", "192.168.0.10");
-        let stored = unconfirmed(&device, &[("192.168.0.10", "500;\u{1b}[2Jgone\r\n")]);
 
         let line = UnreachableNotices::new()
-            .notice(&device, || vec![stored])
+            .notice(&device, "500;\u{1b}[2Jgone\r\n")
             .unwrap();
 
         assert_eq!(
@@ -415,11 +285,8 @@ mod tests {
     fn cuts_an_overlong_reason() {
         let device = device("Cute Tomato", "tomato", "192.168.0.10");
         let reason = "ä".repeat(MAX_REASON_CHARS + 50);
-        let stored = unconfirmed(&device, &[("192.168.0.10", &reason)]);
 
-        let line = UnreachableNotices::new()
-            .notice(&device, || vec![stored])
-            .unwrap();
+        let line = UnreachableNotices::new().notice(&device, &reason).unwrap();
 
         let shown = line.rsplit(": ").next().unwrap();
         assert_eq!(shown.chars().count(), MAX_REASON_CHARS + 1);

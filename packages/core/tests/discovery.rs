@@ -113,11 +113,11 @@ impl TestInstance {
         .await
     }
 
-    /// Waits for a failed request to the device with the given fingerprint,
-    /// ignoring unrelated devices that may be on the network.
+    /// Waits for a failed request to the unconfirmed device with the given
+    /// fingerprint, ignoring unrelated devices that may be on the network.
     async fn next_unreachable(&mut self, fingerprint: &str) -> Option<DiscoveredDevice> {
         self.next_device(fingerprint, |event| match event {
-            DiscoveryEvent::Unreachable { device } => Some(device),
+            DiscoveryEvent::Unreachable { device, .. } => Some(device),
             _ => None,
         })
         .await
@@ -575,7 +575,7 @@ async fn test_inbound_device_that_cannot_be_dialed_back_is_marked_as_failed() {
         .expect("The inbound device must be emitted");
 
     let failed = instance
-        .next_unreachable("peer-fingerprint")
+        .next_update("peer-fingerprint")
         .await
         .expect("The failed dial-back must be emitted");
     assert_eq!(failed.channel, channel);
@@ -662,7 +662,7 @@ async fn test_reported_failure_marks_the_channel_and_is_emitted() {
     ));
 
     let failed = instance
-        .next_unreachable("target-fingerprint")
+        .next_update("target-fingerprint")
         .await
         .expect("The failure must be emitted");
     assert_eq!(failed.channel, channel);

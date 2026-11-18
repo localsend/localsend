@@ -330,56 +330,38 @@ impl RsDiscovery {
                 // the end explicitly.
                 _ = self.instance.cancel.cancelled() => break,
             };
-            let device = match event {
+            // The store is updated before the event is emitted, so the merged
+            // state is at least as new as the observation. It is missing when
+            // the device changed between confirmed and unconfirmed since; the
+            // event about that change follows.
+            let handle = &self.instance.handle;
+            let event = match event {
                 Some(
-                    DiscoveryEvent::Discovered { device }
-                    | DiscoveryEvent::Updated { device }
-                    | DiscoveryEvent::Unreachable { device },
-                ) => device,
+                    DiscoveryEvent::Discovered { device } | DiscoveryEvent::Updated { device },
+                ) => handle
+                    .device_by_fingerprint(&device.fingerprint)
+                    .map(|stored| RsDiscoveryEvent::Device(rs_stored_device(stored))),
+                Some(DiscoveryEvent::Unreachable { device, error }) => {
+                    unconfirmed_device(handle, &device.fingerprint).map(|stored| {
+                        RsDiscoveryEvent::Unreachable {
+                            device: rs_stored_device(stored),
+                            error,
+                        }
+                    })
+                }
                 Some(DiscoveryEvent::MulticastFailed) => {
-                    tracing::error!(
-                        "Multicast sockets failed, ending the discovery event stream"
-                    );
+                    tracing::error!("Multicast sockets failed, ending the discovery event stream");
                     break;
                 }
                 None => break,
             };
-            // The store is updated before the event is emitted, so the merged
-            // state is at least as new as the observation.
-            let Some(event) = self.merged_event(&device.fingerprint) else {
-                continue;
-            };
-            if sink.add(event).is_err() {
+            if let Some(event) = event
+                && sink.add(event).is_err()
+            {
                 // The Dart listener is gone; the remaining events have no receiver.
                 break;
             }
         }
-    }
-
-    /// The event carrying the merged state of the device an observation was
-    /// about.
-    fn merged_event(&self, fingerprint: &str) -> Option<RsDiscoveryEvent> {
-        let handle = &self.instance.handle;
-        if let Some(stored) = handle.device_by_fingerprint(fingerprint) {
-            return Some(RsDiscoveryEvent::Device(rs_stored_device(stored)));
-        }
-
-        // Not confirmed, so the observation was a failed answer to an
-        // announcement.
-        let stored = unconfirmed_device(handle, fingerprint)?;
-        let error = stored
-            .logs
-            .iter()
-            .rev()
-            .find_map(|log| match &log.event {
-                DeviceLogEvent::OutboundFailed { error, .. } => Some(error.clone()),
-                _ => None,
-            })
-            .unwrap_or_default();
-        Some(RsDiscoveryEvent::Unreachable {
-            device: rs_stored_device(stored),
-            error,
-        })
     }
 
     /// The reason the multicast sockets could not be bound, when they could
@@ -590,14 +572,9 @@ fn rs_device_log(log: DeviceLog) -> RsDeviceLog {
             DeviceLogEvent::Inbound { channel } => RsDeviceLogEvent::Inbound {
                 channel: rs_device_channel(&channel),
             },
-            DeviceLogEvent::MulticastInbound { ip, scope_id } => {
-                RsDeviceLogEvent::MulticastInbound {
-                    host: match scope_id {
-                        Some(scope_id) => format!("{ip}%{scope_id}"),
-                        None => ip.to_string(),
-                    },
-                }
-            }
+            DeviceLogEvent::MulticastInbound { ip } => RsDeviceLogEvent::MulticastInbound {
+                host: ip.to_string(),
+            },
         },
     }
 }

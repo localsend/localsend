@@ -7,6 +7,7 @@ pub use store::{
 
 use crate::http::client::{ClientError, LsHttpClientV2};
 use crate::http::dto_v2::{RegisterDtoV2, RegisterResponseDtoV2};
+use crate::http::server::PeerIp;
 use crate::model::discovery::{MulticastMessageV2, ProtocolType};
 use crate::multicast::{self, MulticastConfig, MulticastDevice, MulticastEvent, MulticastHandle};
 use crate::util::error::ErrorChain;
@@ -95,24 +96,26 @@ pub enum DiscoveryEvent {
         device: DiscoveredDevice,
     },
 
-    /// An already known device was confirmed again: it re-announced itself
-    /// or was re-discovered, at a known or a new address.
+    /// An already confirmed device was observed again: it re-announced
+    /// itself or was re-discovered, at a known or a new address, or a
+    /// request to it failed (which only changes the ranking of its
+    /// channels).
     Updated {
-        /// The device as it was confirmed, like in
-        /// [`DiscoveryEvent::Discovered`].
+        /// The device as it was observed, carrying only the channel the
+        /// observation happened on.
         device: DiscoveredDevice,
     },
 
-    /// A device could not be reached: it was heard announcing itself but
-    /// the register request got no response, or the application reported a
-    /// failed request via [`DiscoveryHandle::report_outbound`].
-    ///
-    /// The device is not necessarily a confirmed one: a device that never
-    /// answered is only listed in [`DiscoveryHandle::unconfirmed_devices`].
+    /// A device that was never confirmed could not be reached: it was heard
+    /// announcing itself but the register request got no response. Such a
+    /// device is only listed in [`DiscoveryHandle::unconfirmed_devices`].
     Unreachable {
-        /// The device carrying the channel that failed. Unverified when the
-        /// device is unconfirmed: it is what the announcement claimed.
+        /// The device carrying the channel that failed. Unverified: it is
+        /// what the announcement claimed.
         device: DiscoveredDevice,
+
+        /// Why the request failed, for display.
+        error: String,
     },
 
     /// The multicast sockets failed permanently, e.g. because the OS
@@ -437,7 +440,7 @@ impl DiscoveryHandle {
     ///
     /// An untested channel is therefore dialed back in the background, with
     /// a register request: the outcome makes it [`Outbound::Reachable`] or
-    /// [`Outbound::Failed`] and is emitted as `Updated` or `Unreachable`.
+    /// [`Outbound::Failed`] and is emitted as `Updated`.
     /// A channel that was dialed before is not dialed again, so two devices
     /// running this do not keep answering each other.
     pub async fn observe_inbound(&self, device: DiscoveredDevice) -> bool {
@@ -459,7 +462,7 @@ impl DiscoveryHandle {
     /// device over `channel`, e.g. a transfer: `Ok` makes the channel
     /// [`Outbound::Reachable`], `Err` — carrying the reason, for display —
     /// makes it [`Outbound::Failed`], which ranks it behind the device's
-    /// other channels. Emitted as `Updated` or `Unreachable`.
+    /// other channels. Emitted as `Updated` for a confirmed device.
     ///
     /// Only report failures to reach the device at all
     /// ([`ClientError::is_unreachable`]), not requests that the device
@@ -612,14 +615,10 @@ async fn answer_announcement(
     message: MulticastMessageV2,
 ) {
     let announcement = Announcement {
-        ip,
-        scope_id,
+        ip: PeerIp { ip, scope_id },
         timestamp: SystemTime::now(),
     };
-    let host = match scope_id {
-        Some(scope_id) => format!("{ip}%{scope_id}"),
-        None => ip.to_string(),
-    };
+    let host = announcement.ip.to_string();
 
     // Nothing but the announcement is known about the device so far.
     let device = DiscoveredDevice {
@@ -652,22 +651,9 @@ fn dial_back(state: Arc<DiscoveryState>, device: DiscoveredDevice) {
     }
 
     tokio::spawn(async move {
-        let _guard = DialBackGuard { state: &state, key };
         dial(&state, device, None).await;
+        state.dialing_back.lock().unwrap().remove(&key);
     });
-}
-
-/// Releases the channel of a finished dial-back, also when the task is
-/// cancelled.
-struct DialBackGuard<'a> {
-    state: &'a DiscoveryState,
-    key: (String, DeviceChannel),
-}
-
-impl Drop for DialBackGuard<'_> {
-    fn drop(&mut self) {
-        self.state.dialing_back.lock().unwrap().remove(&self.key);
-    }
 }
 
 /// Sends a register request to a device whose identity is already claimed —

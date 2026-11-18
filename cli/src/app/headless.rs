@@ -206,9 +206,9 @@ fn handle_discovery(
         DiscoveryEvent::Discovered { device } | DiscoveryEvent::Updated { device } => device,
         // Explains a destination that "was not discovered": it is around,
         // but its server cannot be dialed.
-        DiscoveryEvent::Unreachable { device } => {
-            discovery::log_unreachable(ui, unreachable, discovery, device);
-            device
+        DiscoveryEvent::Unreachable { device, error } => {
+            discovery::log_unreachable(ui, unreachable, device, error);
+            return;
         }
         DiscoveryEvent::MulticastFailed => {
             ui.log(
@@ -218,7 +218,7 @@ fn handle_discovery(
             return;
         }
     };
-    // Also after a failure: it changed the ranking of the channels.
+    // Also after a failed request: it changed the ranking of the channels.
     discovery::refresh_paired_channels(ui, &mut storage.paired, discovery, &device.fingerprint);
 
     let DiscoveryEvent::Discovered { device } = event else {

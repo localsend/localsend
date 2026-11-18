@@ -45,7 +45,7 @@ class IsolateDiscoveryListenAction extends ReduxActionWithResult<IsolateControll
 /// for networks that do not carry multicast.
 /// The returned stream completes (without events) when the scan is finished;
 /// the found devices arrive on the [IsolateDiscoveryListenAction] stream.
-class IsolateDiscoverySubnetScanAction extends ReduxActionWithResult<IsolateController, ParentIsolateState, Stream<Device>> {
+class IsolateDiscoverySubnetScanAction extends ReduxActionWithResult<IsolateController, ParentIsolateState, Stream<void>> {
   final String networkInterface;
   final int port;
   final bool https;
@@ -57,7 +57,7 @@ class IsolateDiscoverySubnetScanAction extends ReduxActionWithResult<IsolateCont
   });
 
   @override
-  (ParentIsolateState, Stream<Device>) reduce() {
+  (ParentIsolateState, Stream<void>) reduce() {
     final connection = state.discovery;
     if (connection == null) {
       throw StateError('discovery is not initialized');
@@ -65,15 +65,13 @@ class IsolateDiscoverySubnetScanAction extends ReduxActionWithResult<IsolateCont
 
     return (
       state,
-      connection
-          .sendWrappedTaskAndListenStream(
-            task: DiscoverySubnetScanTask(
-              networkInterface: networkInterface,
-              port: port,
-              https: https,
-            ),
-          )
-          .toDeviceStream(),
+      connection.sendWrappedTaskAndListenStream(
+        task: DiscoverySubnetScanTask(
+          networkInterface: networkInterface,
+          port: port,
+          https: https,
+        ),
+      ),
     );
   }
 }
@@ -84,7 +82,7 @@ class IsolateDiscoverySubnetScanAction extends ReduxActionWithResult<IsolateCont
 /// The returned stream completes (without events) when every stage has
 /// finished; the found devices arrive on the [IsolateDiscoveryListenAction]
 /// stream.
-class IsolateDiscoveryStagedScanAction extends ReduxActionWithResult<IsolateController, ParentIsolateState, Stream<Device>> {
+class IsolateDiscoveryStagedScanAction extends ReduxActionWithResult<IsolateController, ParentIsolateState, Stream<void>> {
   final List<(String, int)> favorites;
   final List<String> networkInterfaces;
   final int port;
@@ -100,7 +98,7 @@ class IsolateDiscoveryStagedScanAction extends ReduxActionWithResult<IsolateCont
   });
 
   @override
-  (ParentIsolateState, Stream<Device>) reduce() {
+  (ParentIsolateState, Stream<void>) reduce() {
     final connection = state.discovery;
     if (connection == null) {
       throw StateError('discovery is not initialized');
@@ -108,17 +106,15 @@ class IsolateDiscoveryStagedScanAction extends ReduxActionWithResult<IsolateCont
 
     return (
       state,
-      connection
-          .sendWrappedTaskAndListenStream(
-            task: DiscoveryStagedScanTask(
-              favorites: favorites,
-              networkInterfaces: networkInterfaces,
-              port: port,
-              https: https,
-              grace: grace,
-            ),
-          )
-          .toDeviceStream(),
+      connection.sendWrappedTaskAndListenStream(
+        task: DiscoveryStagedScanTask(
+          favorites: favorites,
+          networkInterfaces: networkInterfaces,
+          port: port,
+          https: https,
+          grace: grace,
+        ),
+      ),
     );
   }
 }
@@ -600,12 +596,6 @@ extension _DiscoveryStreamExt on Stream<DiscoveryResult> {
   /// Unwraps the [DiscoveryEventResult]s of the listen stream.
   Stream<DiscoveryEvent> toEventStream() {
     return map((result) => (result as DiscoveryEventResult).event);
-  }
-
-  /// The stream of a scan task: it only signals completion, the found
-  /// devices arrive on the listen stream.
-  Stream<Device> toDeviceStream() {
-    return map<Device>((result) => throw StateError('Unexpected result of a scan task: ${result.runtimeType}'));
   }
 }
 

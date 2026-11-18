@@ -252,6 +252,13 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
     bool invalidPin;
     bool pinFirstAttempt = true;
     bool reachedReported = false;
+    void reportReached() {
+      if (!reachedReported) {
+        reachedReported = true;
+        _reportOutbound(target);
+      }
+    }
+
     String? pin;
     final prepareUploadCancelToken = rust_cancel.createCancellationToken();
     _prepareUploadCancelTokens[sessionId] = prepareUploadCancelToken;
@@ -270,16 +277,10 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
             pin: pin,
             cancelToken: prepareUploadCancelToken,
           );
-          if (!reachedReported) {
-            reachedReported = true;
-            _reportOutbound(target);
-          }
+          reportReached();
         } on rust_http.RsHttpClientError_StatusCode catch (e) {
           // Declined, busy, wrong PIN, ...: the peer answered, so it was reached.
-          if (!reachedReported) {
-            reachedReported = true;
-            _reportOutbound(target);
-          }
+          reportReached();
           switch (e.status) {
             case 401:
               invalidPin = true;

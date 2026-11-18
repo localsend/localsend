@@ -325,26 +325,25 @@ async fn send_inner(
 /// A device that answers with an error status (declined, busy, PIN required)
 /// was reached just as well as one that accepts.
 fn channel_outcome<T>(result: &Result<T, ClientError>) -> Option<Result<(), String>> {
-    let err = match result {
-        Ok(_) => return Some(Ok(())),
-        Err(err) => err,
-    };
-    match err {
-        ClientError::StatusCode(_) => Some(Ok(())),
-
+    match result {
         // The request got no response: the connection could not be
         // established (refused, timed out, failed TLS handshake) or broke.
-        ClientError::Reqwest(_) if err.is_unreachable() => Some(Err(ErrorChain(err).to_string())),
+        Err(err) if err.is_unreachable() => Some(Err(ErrorChain(err).to_string())),
 
-        // The response arrived, only its body could not be read or parsed.
-        ClientError::Reqwest(_) => Some(Ok(())),
+        // Any other transport error means the response arrived, only its
+        // body could not be read or parsed.
+        Ok(_) | Err(ClientError::StatusCode(_) | ClientError::Reqwest(_)) => Some(Ok(())),
 
-        // The user gave up waiting, which is not a failure of the channel.
-        ClientError::Cancelled => None,
-
-        // Not errors of the transport. Whether the device was reached cannot
-        // be told from them, so nothing is claimed in either direction.
-        ClientError::Json(_) | ClientError::Io(_) | ClientError::Other(_) => None,
+        // The user gave up waiting, which is not a failure of the channel;
+        // the other errors are not errors of the transport. Whether the
+        // device was reached cannot be told from them, so nothing is claimed
+        // in either direction.
+        Err(
+            ClientError::Cancelled
+            | ClientError::Json(_)
+            | ClientError::Io(_)
+            | ClientError::Other(_),
+        ) => None,
     }
 }
 

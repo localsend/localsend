@@ -1,6 +1,7 @@
 //! The in-memory store of discovered devices.
 
 use super::DiscoveryEvent;
+use crate::http::server::PeerIp;
 use crate::model::discovery::{DeviceType, ProtocolType};
 use std::collections::HashMap;
 use std::net::IpAddr;
@@ -138,12 +139,9 @@ pub enum DeviceLogEvent {
     /// The opposite direction has no counterpart: whether the peer hears
     /// this device's announcements cannot be observed.
     MulticastInbound {
-        /// The address the announcement came from.
-        ip: IpAddr,
-
-        /// The interface index the announcement arrived on, for link-local
-        /// IPv6 sources.
-        scope_id: Option<u32>,
+        /// The address the announcement came from, with the interface index
+        /// it arrived on for link-local IPv6 sources.
+        ip: PeerIp,
     },
 }
 
@@ -173,8 +171,7 @@ pub(super) enum Observation {
 
 /// An announcement heard over multicast, which led to an [`Observation`].
 pub(super) struct Announcement {
-    pub(super) ip: IpAddr,
-    pub(super) scope_id: Option<u32>,
+    pub(super) ip: PeerIp,
 
     /// When the announcement was heard.
     pub(super) timestamp: SystemTime,
@@ -222,36 +219,36 @@ impl StatefulDevice {
         self.update_channel(&device.channel, &observation, timestamp);
 
         let channel = device.channel.clone();
-        match observation {
-            Observation::Reached | Observation::ReachedUs => {
-                self.log(
-                    timestamp,
-                    match observation {
-                        Observation::ReachedUs => DeviceLogEvent::Inbound { channel },
-                        _ => DeviceLogEvent::Outbound { channel },
-                    },
-                );
+        self.log(
+            timestamp,
+            match &observation {
+                Observation::Reached => DeviceLogEvent::Outbound { channel },
+                Observation::ReachedUs => DeviceLogEvent::Inbound { channel },
+                Observation::Failed(error) => DeviceLogEvent::OutboundFailed {
+                    channel,
+                    error: error.clone(),
+                },
+            },
+        );
 
-                let is_new = !self.confirmed;
-                self.confirmed = true;
-                self.device = device.clone();
-                if is_new {
-                    DiscoveryEvent::Discovered { device }
-                } else {
-                    DiscoveryEvent::Updated { device }
-                }
+        if let Observation::Failed(error) = observation {
+            // A failed request carries no verified information: what a
+            // confirmed device said about itself must not be replaced by
+            // what an announcement claims.
+            if self.confirmed {
+                return DiscoveryEvent::Updated { device };
             }
-            Observation::Failed(error) => {
-                self.log(timestamp, DeviceLogEvent::OutboundFailed { channel, error });
+            self.device = device.clone();
+            return DiscoveryEvent::Unreachable { device, error };
+        }
 
-                // A failed request carries no verified information: what a
-                // confirmed device said about itself must not be replaced by
-                // what an announcement claims.
-                if !self.confirmed {
-                    self.device = device.clone();
-                }
-                DiscoveryEvent::Unreachable { device }
-            }
+        let is_new = !self.confirmed;
+        self.confirmed = true;
+        self.device = device.clone();
+        if is_new {
+            DiscoveryEvent::Discovered { device }
+        } else {
+            DiscoveryEvent::Updated { device }
         }
     }
 
@@ -408,9 +405,9 @@ impl DeviceStore {
     ///
     /// A confirmation ([`Observation::Reached`], [`Observation::ReachedUs`])
     /// yields [`DiscoveryEvent::Discovered`] the first time and
-    /// [`DiscoveryEvent::Updated`] afterwards. A failure yields
-    /// [`DiscoveryEvent::Unreachable`]; an unknown device then enters the
-    /// store unconfirmed.
+    /// [`DiscoveryEvent::Updated`] afterwards. A failure yields `Updated`
+    /// for a confirmed device and [`DiscoveryEvent::Unreachable`] otherwise;
+    /// an unknown device then enters the store unconfirmed.
     pub(super) fn observe(
         &self,
         device: DiscoveredDevice,
@@ -441,7 +438,6 @@ impl DeviceStore {
                 announcement.timestamp,
                 DeviceLogEvent::MulticastInbound {
                     ip: announcement.ip,
-                    scope_id: announcement.scope_id,
                 },
             );
         }
@@ -634,14 +630,16 @@ mod tests {
     fn test_announcement_is_logged_before_what_it_led_to() {
         let store = DeviceStore::new();
         let heard = SystemTime::now();
-        let ip: IpAddr = "192.168.0.10".parse().unwrap();
+        let ip = PeerIp {
+            ip: "192.168.0.10".parse().unwrap(),
+            scope_id: None,
+        };
 
         store.observe(
             device("a", "192.168.0.10"),
             Observation::Reached,
             Some(Announcement {
                 ip,
-                scope_id: None,
                 timestamp: heard,
             }),
             SystemTime::now(),
@@ -649,10 +647,7 @@ mod tests {
 
         let logs = store.by_fingerprint("a").unwrap().logs;
         assert_eq!(logs.len(), 2);
-        assert_eq!(
-            logs[0].event,
-            DeviceLogEvent::MulticastInbound { ip, scope_id: None }
-        );
+        assert_eq!(logs[0].event, DeviceLogEvent::MulticastInbound { ip });
         assert_eq!(
             logs[0].timestamp, heard,
             "the announcement must be logged with the time it was heard"
@@ -850,7 +845,10 @@ mod tests {
         let store = DeviceStore::new();
 
         let event = fail(&store, device("a", "192.168.0.10"));
-        assert!(matches!(event, DiscoveryEvent::Unreachable { .. }));
+        match event {
+            DiscoveryEvent::Unreachable { error, .. } => assert_eq!(error, "connection refused"),
+            other => panic!("expected an Unreachable event, got {other:?}"),
+        }
 
         assert!(
             store.devices().is_empty(),
@@ -922,11 +920,13 @@ mod tests {
             now,
         );
         match event {
-            Some(DiscoveryEvent::Unreachable { device }) => {
+            // The device stays confirmed: only the ranking of its channels
+            // changed.
+            Some(DiscoveryEvent::Updated { device }) => {
                 assert_eq!(device.alias, "Alias of a");
                 assert_eq!(channel_host(&device.channel), "192.168.0.10");
             }
-            other => panic!("expected an Unreachable event, got {other:?}"),
+            other => panic!("expected an Updated event, got {other:?}"),
         }
         let known = store.by_fingerprint("a").unwrap();
         assert_eq!(
