@@ -217,8 +217,9 @@
       "version": "Version",
       "protocol": "Protocol v{version}"
     },
-    "addresses": {
-      "title": "Addresses",
+    "channels": {
+      "title": "Channels",
+      "you": "You",
       "outgoing": "Outgoing",
       "incoming": "Incoming",
       "works": "Works",

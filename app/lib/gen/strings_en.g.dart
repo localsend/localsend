@@ -405,7 +405,7 @@ class Translations$deviceDetailsPage$en {
   String get verify => 'Verify';
 
   late final Translations$deviceDetailsPage$info$en info = Translations$deviceDetailsPage$info$en.internal(_root);
-  late final Translations$deviceDetailsPage$addresses$en addresses = Translations$deviceDetailsPage$addresses$en.internal(_root);
+  late final Translations$deviceDetailsPage$channels$en channels = Translations$deviceDetailsPage$channels$en.internal(_root);
   late final Translations$deviceDetailsPage$logs$en logs = Translations$deviceDetailsPage$logs$en.internal(_root);
 }
 
@@ -1334,16 +1334,19 @@ class Translations$deviceDetailsPage$info$en {
   String protocol({required Object version}) => 'Protocol v${version}';
 }
 
-// Path: deviceDetailsPage.addresses
-class Translations$deviceDetailsPage$addresses$en {
-  Translations$deviceDetailsPage$addresses$en.internal(this._root);
+// Path: deviceDetailsPage.channels
+class Translations$deviceDetailsPage$channels$en {
+  Translations$deviceDetailsPage$channels$en.internal(this._root);
 
   final Translations _root; // ignore: unused_field
 
   // Translations
 
-  /// en: 'Addresses'
-  String get title => 'Addresses';
+  /// en: 'Channels'
+  String get title => 'Channels';
+
+  /// en: 'You'
+  String get you => 'You';
 
   /// en: 'Outgoing'
   String get outgoing => 'Outgoing';
