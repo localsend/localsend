@@ -362,3 +362,199 @@ impl ResponseExt for Response {
         }))
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::model::discovery::ProtocolType;
+    use std::time::Duration;
+    use tokio::io::{AsyncReadExt, AsyncWriteExt};
+    use tokio::sync::oneshot;
+    use tokio::task::JoinHandle;
+    use tokio_util::sync::CancellationToken;
+
+    fn prepare_upload_payload() -> http::dto::PrepareUploadRequestDto {
+        http::dto::PrepareUploadRequestDto {
+            info: http::dto::RegisterDto {
+                alias: "Sender".to_string(),
+                version: "2.1".to_string(),
+                device_model: None,
+                device_type: None,
+                token: "FINGERPRINT".to_string(),
+                port: 53317,
+                protocol: ProtocolType::Http,
+                has_web_interface: false,
+            },
+            files: Default::default(),
+        }
+    }
+
+    /// Accepts one connection, reads the whole request to `path` (with a
+    /// `Content-Length` or chunked body) and answers with `response`. The
+    /// connection is never closed, so a body shorter than its `Content-Length`
+    /// keeps the client reading forever. The returned receiver fires once the
+    /// response has been written.
+    async fn stalling_peer(
+        path: &'static str,
+        response: &'static [u8],
+    ) -> (u16, oneshot::Receiver<()>, JoinHandle<()>) {
+        let listener = tokio::net::TcpListener::bind("127.0.0.1:0").await.unwrap();
+        let port = listener.local_addr().unwrap().port();
+        let (written_tx, written_rx) = oneshot::channel();
+        let task = tokio::spawn(async move {
+            let (mut stream, _) = listener.accept().await.unwrap();
+            let mut request = Vec::new();
+            loop {
+                let mut chunk = [0u8; 4096];
+                let read = stream.read(&mut chunk).await.unwrap();
+                assert_ne!(read, 0, "client closed before sending the request");
+                request.extend_from_slice(&chunk[..read]);
+                let Some(end) = request.windows(4).position(|w| w == b"\r\n\r\n") else {
+                    continue;
+                };
+                let head = std::str::from_utf8(&request[..end]).unwrap();
+                assert!(head.lines().next().unwrap().contains(path));
+                let length = head.lines().find_map(|line| {
+                    let (name, value) = line.split_once(':')?;
+                    name.eq_ignore_ascii_case("content-length")
+                        .then(|| value.trim().parse::<usize>().unwrap())
+                });
+                let complete = match length {
+                    Some(length) => request.len() >= end + 4 + length,
+                    None => request.ends_with(b"0\r\n\r\n"),
+                };
+                if complete {
+                    break;
+                }
+            }
+            stream.write_all(response).await.unwrap();
+            let _ = written_tx.send(());
+            std::future::pending::<()>().await;
+        });
+        (port, written_rx, task)
+    }
+
+    /// Cancelling must abort `prepare_upload` even after the response headers
+    /// arrived, while the (success or error) body is still being read.
+    #[tokio::test]
+    async fn prepare_upload_cancels_while_reading_response_body() {
+        let identity = crypto::cert::generate_self_signed().unwrap();
+        for version in [LsHttpClientVersion::V2, LsHttpClientVersion::V3] {
+            let client = LsHttpClient::new(
+                &identity.private_key_pem,
+                &identity.certificate_pem,
+                version,
+                None,
+                None,
+            )
+            .unwrap();
+            for response in [
+                b"HTTP/1.1 200 OK\r\nContent-Length: 1000\r\n\r\n{".as_slice(),
+                b"HTTP/1.1 403 Forbidden\r\nContent-Length: 1000\r\n\r\n{".as_slice(),
+            ] {
+                let (port, written, peer) = stalling_peer("/prepare-upload", response).await;
+                let cancel = CancellationToken::new();
+                let request = client.prepare_upload(
+                    ProtocolType::Http,
+                    "127.0.0.1",
+                    port,
+                    None,
+                    prepare_upload_payload(),
+                    None,
+                    cancel.clone(),
+                );
+                tokio::pin!(request);
+
+                tokio::select! {
+                    res = written => res.expect("peer failed before writing the response"),
+                    _ = &mut request => panic!("request finished before the response was written"),
+                    _ = tokio::time::sleep(Duration::from_secs(2)) => {
+                        peer.abort();
+                        panic!("the peer did not receive the whole request in time");
+                    }
+                }
+                // Give the client time to parse the headers and start reading the body.
+                tokio::select! {
+                    _ = tokio::time::sleep(Duration::from_millis(50)) => {}
+                    _ = &mut request => panic!("request finished despite the incomplete body"),
+                }
+
+                cancel.cancel();
+                let result = tokio::time::timeout(Duration::from_secs(2), request).await;
+                peer.abort();
+                let result = result.expect("cancellation must interrupt reading the response body");
+                assert!(
+                    matches!(result, Err(ClientError::Cancelled)),
+                    "unexpected result: {:?}",
+                    result.err()
+                );
+            }
+        }
+    }
+
+    /// Cancelling must abort `upload` even after the error response headers
+    /// arrived, while the error body is still being read.
+    #[tokio::test]
+    async fn upload_cancels_while_reading_error_body() {
+        let identity = crypto::cert::generate_self_signed().unwrap();
+        for version in [LsHttpClientVersion::V2, LsHttpClientVersion::V3] {
+            let client = LsHttpClient::new(
+                &identity.private_key_pem,
+                &identity.certificate_pem,
+                version,
+                None,
+                None,
+            )
+            .unwrap();
+            let (port, written, peer) = stalling_peer(
+                "/upload",
+                b"HTTP/1.1 403 Forbidden\r\nContent-Length: 1000\r\n\r\n{",
+            )
+            .await;
+            let (content_tx, content_rx) = tokio::sync::mpsc::channel(1);
+            content_tx
+                .send(bytes::Bytes::from_static(b"data"))
+                .await
+                .unwrap();
+            drop(content_tx);
+            let cancel = CancellationToken::new();
+            let request = client.upload(
+                ProtocolType::Http,
+                "127.0.0.1",
+                port,
+                None,
+                "session",
+                "file",
+                "token",
+                model::transfer::FileContent::Stream(content_rx),
+                |_| {},
+                cancel.clone(),
+            );
+            tokio::pin!(request);
+
+            tokio::select! {
+                res = written => res.expect("peer failed before writing the response"),
+                _ = &mut request => panic!("request finished before the response was written"),
+                _ = tokio::time::sleep(Duration::from_secs(2)) => {
+                    peer.abort();
+                    panic!("the peer did not receive the whole request in time");
+                }
+            }
+            // Give the client time to parse the headers and start reading the body.
+            tokio::select! {
+                _ = tokio::time::sleep(Duration::from_millis(50)) => {}
+                _ = &mut request => panic!("request finished despite the incomplete body"),
+            }
+
+            cancel.cancel();
+            let result = tokio::time::timeout(Duration::from_secs(2), request).await;
+            peer.abort();
+            let result = result.expect("cancellation must interrupt reading the error body");
+            assert!(
+                matches!(result, Err(ClientError::Cancelled)),
+                "unexpected result: {:?}",
+                result.err()
+            );
+        }
+    }
+}

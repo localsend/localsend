@@ -152,50 +152,57 @@ impl LsHttpClientV3 {
         payload: http::dto::PrepareUploadRequestDto,
         cancel: CancellationToken,
     ) -> Result<http::dto::PrepareUploadResult, ClientError> {
-        let send = self
-            .client
-            .post(
-                TargetUrl {
-                    version: ApiVersion::V3,
-                    protocol: protocol.as_str(),
-                    host: ip.to_string(),
-                    port,
-                    path: "/prepare-upload",
-                    params: &[],
-                }
-                .to_string(),
-            )
-            .body(serde_json::to_string(&payload)?)
-            .send();
+        // Cancellation must also cover reading the response body: a receiver
+        // that stalls after sending the headers would otherwise keep the
+        // cancelled request alive.
+        let response = async {
+            let res = self
+                .client
+                .post(
+                    TargetUrl {
+                        version: ApiVersion::V3,
+                        protocol: protocol.as_str(),
+                        host: ip.to_string(),
+                        port,
+                        path: "/prepare-upload",
+                        params: &[],
+                    }
+                    .to_string(),
+                )
+                .body(serde_json::to_string(&payload)?)
+                .send()
+                .await?;
 
-        let res = tokio::select! {
-            res = send => res?,
-            _ = cancel.cancelled() => return Err(ClientError::Cancelled),
+            if protocol == ProtocolType::Https {
+                super::verify_cert_from_res(&res, public_key)?;
+            }
+
+            let status = res.status();
+
+            if status.as_u16() >= 400 {
+                return res.into_error().await;
+            }
+
+            if status == StatusCode::NO_CONTENT {
+                return Ok(http::dto::PrepareUploadResult {
+                    status_code: status.as_u16(),
+                    response: None,
+                });
+            }
+
+            let body = res.json::<http::dto::PrepareUploadResponseDto>().await?;
+
+            Ok(http::dto::PrepareUploadResult {
+                status_code: status.as_u16(),
+                response: Some(body),
+            })
         };
 
-        if protocol == ProtocolType::Https {
-            super::verify_cert_from_res(&res, public_key)?;
+        tokio::select! {
+            biased;
+            _ = cancel.cancelled() => Err(ClientError::Cancelled),
+            result = response => result,
         }
-
-        let status = res.status();
-
-        if status.as_u16() >= 400 {
-            return res.into_error().await;
-        }
-
-        if status == StatusCode::NO_CONTENT {
-            return Ok(http::dto::PrepareUploadResult {
-                status_code: status.as_u16(),
-                response: None,
-            });
-        }
-
-        let body = res.json::<http::dto::PrepareUploadResponseDto>().await?;
-
-        Ok(http::dto::PrepareUploadResult {
-            status_code: status.as_u16(),
-            response: Some(body),
-        })
     }
 
     /// Uploads a file to the server.
@@ -216,40 +223,45 @@ impl LsHttpClientV3 {
         body: reqwest::Body,
         cancel: CancellationToken,
     ) -> Result<(), ClientError> {
-        let send = self
-            .client
-            .post(
-                TargetUrl {
-                    version: ApiVersion::V3,
-                    protocol: protocol.as_str(),
-                    host: ip.to_string(),
-                    port,
-                    path: "/upload",
-                    params: &[
-                        ("sessionId", &session_id),
-                        ("fileId", &file_id),
-                        ("token", &token),
-                    ],
-                }
-                .to_string(),
-            )
-            .body(body)
-            .send();
+        // Cancellation must also cover reading an error body.
+        let response = async {
+            let res = self
+                .client
+                .post(
+                    TargetUrl {
+                        version: ApiVersion::V3,
+                        protocol: protocol.as_str(),
+                        host: ip.to_string(),
+                        port,
+                        path: "/upload",
+                        params: &[
+                            ("sessionId", &session_id),
+                            ("fileId", &file_id),
+                            ("token", &token),
+                        ],
+                    }
+                    .to_string(),
+                )
+                .body(body)
+                .send()
+                .await?;
 
-        let res = tokio::select! {
-            res = send => res?,
-            _ = cancel.cancelled() => return Err(ClientError::Cancelled),
+            if protocol == ProtocolType::Https {
+                super::verify_cert_from_res(&res, public_key)?;
+            }
+
+            if res.status() != StatusCode::OK {
+                return res.into_error().await;
+            }
+
+            Ok(())
         };
 
-        if protocol == ProtocolType::Https {
-            super::verify_cert_from_res(&res, public_key)?;
+        tokio::select! {
+            biased;
+            _ = cancel.cancelled() => Err(ClientError::Cancelled),
+            result = response => result,
         }
-
-        if res.status() != StatusCode::OK {
-            return res.into_error().await;
-        }
-
-        Ok(())
     }
 
     pub async fn cancel(
