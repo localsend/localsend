@@ -147,6 +147,14 @@ class SettingsTab extends StatelessWidget {
                       onChanged: (_) => vm.onToggleShowInContextMenu(context),
                     ),
                   ],
+                  if (vm.advanced && checkPlatform([TargetPlatform.linux])) ...[
+                    _BooleanEntry(
+                      label: t.settingsTab.general.softwareRendering,
+                      description: t.settingsTab.general.softwareRenderingDescription,
+                      value: vm.softwareRendering,
+                      onChanged: (_) => vm.onToggleSoftwareRendering(context),
+                    ),
+                  ],
                 ],
                 _BooleanEntry(
                   label: t.settingsTab.general.animations,
