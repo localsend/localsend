@@ -97,4 +97,32 @@ void main() {
     await wakelock.update(next, active: false);
     expect(calls, [true, false, false]);
   });
+
+  test('an active update retries a failed acquire', () async {
+    final calls = <bool>[];
+    final wakelock = TransferWakelock(
+      toggle: ({required enable}) async {
+        calls.add(enable);
+        if (calls.length == 1) {
+          throw StateError('could not acquire the wake lock');
+        }
+      },
+    );
+    final first = Object();
+    final next = Object();
+
+    await wakelock.update(first, active: true);
+    expect(calls, [true]);
+
+    final retry = wakelock.update(next, active: true);
+    final repeated = wakelock.update(next, active: true);
+    await retry;
+    await repeated;
+    expect(calls, [true, true]);
+
+    await wakelock.update(first, active: false);
+    expect(calls, [true, true]);
+    await wakelock.update(next, active: false);
+    expect(calls, [true, true, false]);
+  });
 }

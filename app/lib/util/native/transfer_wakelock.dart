@@ -15,7 +15,6 @@ class TransferWakelock {
   bool _enabled = false;
 
   Future<void> update(Object page, {required bool active}) {
-    final wasActive = _activePages.isNotEmpty;
     if (active) {
       _activePages.add(page);
     } else {
@@ -23,12 +22,8 @@ class TransferWakelock {
     }
 
     final enable = _activePages.isNotEmpty;
-    if (enable && wasActive) {
-      return _pending;
-    }
-
     // Wait for the previous toggle so a release can use the Linux portal handle
-    // and a later idle update can retry if that release failed.
+    // and a later update can retry a failed toggle.
     _pending = _pending.then((_) async {
       if (enable == _enabled) {
         return;
