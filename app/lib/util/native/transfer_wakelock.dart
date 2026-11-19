@@ -12,6 +12,7 @@ class TransferWakelock {
   final Future<void> Function({required bool enable}) _toggle;
   final _activePages = Set<Object>.identity();
   Future<void> _pending = Future.value();
+  bool _enabled = false;
 
   Future<void> update(Object page, {required bool active}) {
     final wasActive = _activePages.isNotEmpty;
@@ -22,20 +23,27 @@ class TransferWakelock {
     }
 
     final enable = _activePages.isNotEmpty;
-    if (enable != wasActive) {
-      // On Linux, disabling before the portal returns its inhibit handle is a no-op.
-      _pending = _pending.then((_) async {
-        try {
-          await _toggle(enable: enable);
-        } catch (error, stackTrace) {
-          _logger.warning(
-            'Could not update the transfer wake lock',
-            error,
-            stackTrace,
-          );
-        }
-      });
+    if (enable && wasActive) {
+      return _pending;
     }
+
+    // Wait for the previous toggle so a release can use the Linux portal handle
+    // and a later idle update can retry if that release failed.
+    _pending = _pending.then((_) async {
+      if (enable == _enabled) {
+        return;
+      }
+      try {
+        await _toggle(enable: enable);
+        _enabled = enable;
+      } catch (error, stackTrace) {
+        _logger.warning(
+          'Could not update the transfer wake lock',
+          error,
+          stackTrace,
+        );
+      }
+    });
     return _pending;
   }
 }
