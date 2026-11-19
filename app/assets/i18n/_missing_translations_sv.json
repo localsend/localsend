@@ -2,5 +2,16 @@
   "@@info": [
     "Here are translations that exist in <en> but not in <sv>.",
     "After editing this file, you can run 'dart run slang apply --locale=sv' to quickly apply the newly added translations."
-  ]
+  ],
+  "settingsTab": {
+    "general": {
+      "alwaysOnTop": "Alltid överst",
+      "alwaysOnTopUnavailable": "Stöds inte i Wayland"
+    }
+  },
+  "dialogs": {
+    "favoriteEditDialog": {
+      "invalidPort": "Ange ett heltal mellan 1 och 65 535."
+    }
+  }
 }
