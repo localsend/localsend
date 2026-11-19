@@ -104,7 +104,7 @@
       "languageOptions": {
         "system": "Sistem dili"
       },
-      "saveWindowPlacement": "Çıkış: Burayı Kaydet",
+      "saveWindowPlacement": "Çıkış: Pencere konumunu kaydet",
       "saveWindowPlacementWindows": "Çıkıştan sonra pencere konumunu kaydet",
       "minimizeToTray": "Çıkış: Simge durumuna küçült",
       "launchAtStartup": "Giriş yapıldıktan sonra otomatik başlat",
@@ -142,13 +142,13 @@
         "all": "Tümü",
         "filtered": "Filtrelenmiş"
       },
-      "discoveryTimeout": "Arama zaman aşımına uğradı",
+      "discoveryTimeout": "Keşif zaman aşımı",
       "useSystemName": "Sistem adını kullan",
       "generateRandomAlias": "Rastgele takma ad oluştur",
-      "portWarning": "Kişiselleştirilmiş bir port kullanıyorsanız ağınızdaki diğer cihazlar tarafından bulunamayabilirsiniz. (varsayılan: {defaultPort})",
+      "portWarning": "Kişiselleştirilmiş bir port kullanıyorsanız ağınızdaki diğer cihazlar tarafından bulunamayabilirsiniz (varsayılan: {defaultPort}).",
       "encryption": "Şifreleme",
       "multicastGroup": "Çoklu yayın",
-      "multicastGroupWarning": "Özel çoklu yayın adresini kullandığınız için diğer cihazlar tarafından algılanamayabilirsiniz.(varsayılan: {defaultMulticast})"
+      "multicastGroupWarning": "Özel çoklu yayın adresini kullandığınız için diğer cihazlar tarafından algılanamayabilirsiniz (varsayılan: {defaultMulticast})."
     },
     "other": {
       "title": "Diğer",
@@ -166,7 +166,7 @@
     "fixButton": "Otomatik olarak düzelt",
     "firewall": {
       "symptom": "Bu uygulama diğer cihazlara dosya gönderebilir, ancak diğer cihazlar bu cihaza dosya gönderemez.",
-      "solution": "Bu büyük olasılıkla bir güvenlik duvarı sorunudur. Port {port} 'da gelen bağlantılara (UDP ve TCP) izin vererek bunu çözebilirsiniz.",
+      "solution": "Bu büyük olasılıkla bir güvenlik duvarı sorunudur. Port {port} üzerinde gelen bağlantılara (UDP ve TCP) izin vererek bunu çözebilirsiniz.",
       "openFirewall": "Güvenlik Duvarını Aç"
     },
     "noDiscovery": {
@@ -187,7 +187,7 @@
   },
   "receiveHistoryPage": {
     "title": "Geçmiş",
-    "openFolder": "Dosyayı aç",
+    "openFolder": "Klasörü aç",
     "deleteHistory": "Geçmişi sil",
     "empty": "Geçmiş yok.",
     "entryActions": {
@@ -201,7 +201,7 @@
     "title": "Uygulamalar (APK)",
     "excludeSystemApps": "Sistem uygulamalarını hariç tut",
     "excludeAppsWithoutLaunchIntent": "Başlatılamayan uygulamaları hariç tut",
-    "apps": "{n} Uygulamalar"
+    "apps": "{n} uygulama"
   },
   "selectedFilesPage": {
     "deleteAll": "Hepsini sil"
@@ -240,7 +240,7 @@
     "destination": "@:settingsTab.receive.destination",
     "appDirectory": "(LocalSend klasörü)",
     "saveToGallery": "@:settingsTab.receive.saveToGallery",
-    "saveToGalleryOff": "Otomatik olarak kapanır çünkü bunlar klasör."
+    "saveToGalleryOff": "Klasörler olduğu için otomatik olarak kapatılır."
   },
   "sendPage": {
     "calculatingChecksum": "Sağlama toplamı hesaplanıyor ({curr} / {n})",
@@ -262,7 +262,7 @@
       },
       "count": "Dosyalar: {curr} / {n}",
       "size": "Boyut: {curr} / {n}",
-      "speed": "Hız: {speed}/s"
+      "speed": "Hız: {speed}/sn"
     },
     "remainingTime": {
       "minutesUnit(plural, param=m)": {
@@ -290,7 +290,7 @@
     "autoAccept": "İstekleri otomatik olarak kabul et",
     "requirePin": "PIN gerektir",
     "pinHint": "PIN \"{pin}\"",
-    "encryptionHint": "LocalSend, tarayıcıda kabul etmeniz gereken kendi-üretimli bir sertifika kullanır.",
+    "encryptionHint": "LocalSend, tarayıcıda kabul etmeniz gereken kendinden imzalı bir sertifika kullanır.",
     "pendingRequests": "Bekleyen istekler: {n}"
   },
   "webReceivePage": {
@@ -335,7 +335,7 @@
   "dialogs": {
     "addFile": {
       "title": "Seçime ekle",
-      "content": "Ne eklemek istiyorsunuz ?"
+      "content": "Ne eklemek istiyorsunuz?"
     },
     "openFile": {
       "title": "Dosya Aç",
@@ -429,7 +429,7 @@
     },
     "quickSaveNotice": {
       "title": "@:general.quickSave",
-      "content": "Dosya gönderim istekleri otomatik olarak gerçekleşir. Yerel ağınızdaki herkesin size dosya gönderebileceğinin farkında olunuz."
+      "content": "Dosya gönderim istekleri otomatik olarak kabul edilir. Yerel ağınızdaki herkesin size dosya gönderebileceğinin farkında olunuz."
     },
     "quickSaveFromFavoritesNotice": {
       "title": "@:general.quickSaveFromFavorites",
@@ -496,9 +496,9 @@
     "sActionPlayHint": "oynat",
     "sActionPreviewHint": "Ön izleme",
     "sActionSelectHint": "seç",
-    "sActionSwitchPathLabel": "dosya uzantısını değiştir",
+    "sActionSwitchPathLabel": "klasör yolunu değiştir",
     "sActionUseCameraHint": "Kamera kullan",
     "sNameDurationLabel": "süre",
-    "sUnitAssetCountLabel": "sayım"
+    "sUnitAssetCountLabel": "öğe"
   }
 }
