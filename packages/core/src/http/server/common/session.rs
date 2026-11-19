@@ -35,14 +35,25 @@ pub(crate) struct UploadSessionV2 {
 
     /// The accepted files, mapped by file ID.
     pub(crate) files: HashMap<String, SessionFileV2>,
+
+    pub(crate) manual_retries: bool,
 }
 
 impl UploadSessionV2 {
-    /// Whether all files reached a final state.
+    /// Whether all files have settled, including failures awaiting manual retry.
     pub(crate) fn is_complete(&self) -> bool {
+        self.files.values().all(|file| {
+            matches!(
+                file.status,
+                FileStatusV2::Finished | FileStatusV2::Failed | FileStatusV2::RetryableFailed
+            )
+        })
+    }
+
+    pub(crate) fn has_retryable_failures(&self) -> bool {
         self.files
             .values()
-            .all(|file| matches!(file.status, FileStatusV2::Finished | FileStatusV2::Failed))
+            .any(|file| file.status == FileStatusV2::RetryableFailed)
     }
 }
 
@@ -66,4 +77,5 @@ pub(crate) enum FileStatusV2 {
     InProgress,
     Finished,
     Failed,
+    RetryableFailed,
 }
