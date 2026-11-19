@@ -468,6 +468,53 @@ async fn test_full_download_flow() {
     let _ = std::fs::remove_file(disk_path);
 }
 
+/// Firefox keeps percent-escapes in the plain `filename` parameter, so the
+/// browser would save `holiday%20photo.jpg`. Plain names are sent as they are
+/// and everything else goes through `filename*`.
+#[tokio::test]
+async fn test_download_file_name() {
+    let (mut config, mut contents, disk_path, _) = web_download_config(None);
+    for (id, name) in [
+        ("file-space", "holiday photo.jpg"),
+        ("file-cjk", "文件.txt"),
+    ] {
+        config.files.insert(id.to_string(), file_dto(id, name, 5));
+        contents.insert(
+            id.to_string(),
+            TestFileContent::Bytes(Bytes::from_static(b"hello")),
+        );
+    }
+    let server = start_test_server(Some((config, contents)), true).await;
+    let client = LsHttpClientV2::try_new_without_cert().unwrap();
+
+    let response = client
+        .prepare_download(ProtocolType::Http, "127.0.0.1", server.port, None, None)
+        .await
+        .unwrap();
+
+    for (id, expected) in [
+        ("file-space", "attachment; filename=\"holiday photo.jpg\""),
+        (
+            "file-cjk",
+            "attachment; filename=\"__.txt\"; filename*=UTF-8''%E6%96%87%E4%BB%B6.txt",
+        ),
+    ] {
+        let download_response = client
+            .download(
+                ProtocolType::Http,
+                "127.0.0.1",
+                server.port,
+                &response.session_id,
+                id,
+            )
+            .await
+            .unwrap();
+        assert_eq!(download_response.headers()["content-disposition"], expected);
+    }
+
+    let _ = std::fs::remove_file(disk_path);
+}
+
 #[tokio::test]
 async fn test_prepare_download_rejected() {
     let (config, contents, disk_path, _) = web_download_config(None);
