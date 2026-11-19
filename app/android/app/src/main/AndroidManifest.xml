@@ -100,5 +100,10 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+
+        <!-- Based on the split-screen metadata declared by DiLink system apps. -->
+        <meta-data
+            android:name="BYD_SUPPORT_SPLIT_ACTIVITY"
+            android:value="1" />
     </application>
 </manifest>
