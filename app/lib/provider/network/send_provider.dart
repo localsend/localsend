@@ -282,6 +282,10 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
 
               // wait until animation is finished
               await sleepAsync(500);
+              if (state[sessionId] == null) {
+                // session has been canceled in the meantime
+                return;
+              }
 
               pin = await showDialog<String>(
                 context: Routerino.context, // ignore: use_build_context_synchronously
@@ -292,6 +296,11 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
               );
 
               pinFirstAttempt = false;
+
+              if (state[sessionId] == null) {
+                // session has been canceled while the dialog was open
+                return;
+              }
 
               if (pin == null) {
                 state = state.updateSession(
@@ -361,6 +370,16 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
     }
 
     if (response == null) {
+      return;
+    }
+
+    if (state[sessionId] == null) {
+      // The session has been canceled locally while the response was on its way,
+      // so the session the receiver just created must be canceled as well.
+      final remoteSessionId = response.response?.sessionId;
+      if (remoteSessionId != null) {
+        unawaited(_notifyReceiverCancel(target, remoteSessionId));
+      }
       return;
     }
 
@@ -762,12 +781,19 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
     }
 
     // notify the receiver
-    final target = sessionState.target;
+    unawaited(_notifyReceiverCancel(sessionState.target, remoteSessionId));
+
+    // finally, close session locally
+    closeSession(sessionId);
+  }
+
+  /// Tells [target] that its session [remoteSessionId] is canceled.
+  /// Errors are only logged.
+  Future<void> _notifyReceiverCancel(Device target, String remoteSessionId) async {
     try {
-      ref
+      await ref
           .read(httpProvider)
           .pinnedTo(target.fingerprint)
-          // ignore: discarded_futures
           .cancel(
             protocol: target.getProtocolType(),
             ip: target.ip!,
@@ -777,9 +803,6 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
     } catch (e) {
       _logger.warning('Error while canceling session', e);
     }
-
-    // finally, close session locally
-    closeSession(sessionId);
   }
 
   void cancelSessionByReceiver(String sessionId) {
