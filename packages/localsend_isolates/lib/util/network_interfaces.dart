@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:isolate';
 
 import 'package:logging/logging.dart';
 
@@ -13,7 +14,11 @@ Future<List<NetworkInterface>> getNetworkInterfaces({
   final digestedWhitelist = whitelist?.map(buildRegExpFromIpFilter).toList();
   final digestedBlacklist = blacklist?.map(buildRegExpFromIpFilter).toList();
 
-  for (final interface in await NetworkInterface.list()) {
+  // NetworkInterface.list() is a synchronous OS call (GetAdaptersAddresses on
+  // Windows) that can block for seconds while the DNS Client service answers.
+  // Run it in a worker isolate so the UI isolate stays responsive.
+  final interfaces = await Isolate.run(() => NetworkInterface.list());
+  for (final interface in interfaces) {
     if (isNetworkIgnored(
       networkWhitelist: digestedWhitelist,
       networkBlacklist: digestedBlacklist,
