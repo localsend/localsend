@@ -133,7 +133,6 @@ jobs:
         run: Rename-Item -Path "${{ runner.temp }}\inno-result\localsend.exe" -NewName "LocalSend-${{ needs.build.outputs.version }}-windows-x86-64.exe"
 
       - name: Verify signature
-        continue-on-error: true
         run: |
           $signtool = Get-ChildItem 'C:\Program Files (x86)\Windows Kits\10\bin\10.*\x64\signtool.exe' | Select-Object -Last 1
           & $signtool.FullName verify /pa /v "${{ runner.temp }}\inno-result\LocalSend-${{ needs.build.outputs.version }}-windows-x86-64.exe"
