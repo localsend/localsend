@@ -218,6 +218,7 @@ class SettingsTab extends StatelessWidget {
                 if (checkPlatformWithFileSystem())
                   _SettingsEntry(
                     label: t.settingsTab.receive.destination,
+                    adaptiveWidth: true,
                     child: TextButton(
                       style: TextButton.styleFrom(
                         backgroundColor: Theme.of(context).inputDecorationTheme.fillColor,
@@ -571,14 +572,17 @@ class SettingsTab extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                LabeledCheckbox(
-                  label: t.settingsTab.advancedSettings,
-                  value: vm.advanced,
-                  labelFirst: true,
-                  onChanged: (b) async {
-                    vm.onTapAdvanced(b == true);
-                    await ref.notifier(settingsProvider).setAdvancedSettingsEnabled(b == true);
-                  },
+                Flexible(
+                  child: LabeledCheckbox(
+                    label: t.settingsTab.advancedSettings,
+                    value: vm.advanced,
+                    labelFirst: true,
+                    wrapLabel: true,
+                    onChanged: (b) async {
+                      vm.onTapAdvanced(b == true);
+                      await ref.notifier(settingsProvider).setAdvancedSettingsEnabled(b == true);
+                    },
+                  ),
                 ),
                 const SizedBox(width: 10),
               ],
@@ -623,35 +627,49 @@ class _SettingsEntry extends StatelessWidget {
   final String label;
   final Widget child;
   final String? description;
+  final bool adaptiveWidth;
 
-  const _SettingsEntry({required this.label, required this.child, this.description});
+  const _SettingsEntry({required this.label, required this.child, this.description, this.adaptiveWidth = false});
 
   @override
   Widget build(BuildContext context) {
+    final labelWidget = Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(label),
+        if (description != null)
+          Text(
+            description!,
+            style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
+          ),
+      ],
+    );
+
     return Padding(
       padding: const EdgeInsets.only(bottom: 15),
-      child: Row(
-        children: [
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+      child: adaptiveWidth
+          ? OverflowBar(
+              alignment: MainAxisAlignment.spaceBetween,
+              spacing: 10,
+              overflowSpacing: 10,
               children: [
-                Text(label),
-                if (description != null)
-                  Text(
-                    description!,
-                    style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
-                  ),
+                labelWidget,
+                ConstrainedBox(
+                  constraints: const BoxConstraints(minWidth: 150),
+                  child: child,
+                ),
+              ],
+            )
+          : Row(
+              children: [
+                Expanded(child: labelWidget),
+                const SizedBox(width: 10),
+                SizedBox(
+                  width: 150,
+                  child: child,
+                ),
               ],
             ),
-          ),
-          const SizedBox(width: 10),
-          SizedBox(
-            width: 150,
-            child: child,
-          ),
-        ],
-      ),
     );
   }
 }
@@ -720,6 +738,7 @@ class _ButtonEntry extends StatelessWidget {
   Widget build(BuildContext context) {
     return _SettingsEntry(
       label: label,
+      adaptiveWidth: true,
       child: TextButton(
         style: TextButton.styleFrom(
           backgroundColor: Theme.of(context).inputDecorationTheme.fillColor,
