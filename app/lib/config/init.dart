@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:io';
 
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:flutter/foundation.dart';
@@ -33,9 +32,9 @@ import 'package:localsend_app/util/native/channel/android_channel.dart';
 import 'package:localsend_app/util/native/context_menu_helper.dart';
 import 'package:localsend_app/util/native/cross_file_converters.dart';
 import 'package:localsend_app/util/native/device_info_helper.dart';
+import 'package:localsend_app/util/native/exit_helper.dart';
 import 'package:localsend_app/util/native/macos_channel.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
-import 'package:localsend_app/util/native/software_rendering_helper.dart';
 import 'package:localsend_app/util/native/tray_helper.dart';
 import 'package:localsend_app/util/notification_strings.dart';
 import 'package:localsend_app/util/ui/dynamic_colors.dart';
@@ -117,8 +116,7 @@ Future<RefenaContainer> preInit(List<String> args) async {
       args: args,
     );
     if (handedOver) {
-      await cancelRenderCheck(); // exiting without a frame is not a rendering crash
-      exit(0); // Another instance does exist
+      await exitApp(); // Another instance does exist
     }
 
     // initialize tray AFTER i18n has been initialized

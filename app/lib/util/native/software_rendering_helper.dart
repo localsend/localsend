@@ -36,16 +36,17 @@ Future<bool> setSoftwareRenderingEnabled(bool enabled) async {
   }
 }
 
-/// Must be called before exiting without rendering a frame,
-/// otherwise the next launch assumes a rendering crash and falls back to software rendering.
-Future<void> cancelRenderCheck() async {
+/// Tells the runner that the app quits on purpose, otherwise a quit shortly after the start looks like a rendering
+/// crash to the next launch, which then falls back to software rendering (Linux only).
+/// Needed because `exit` ends the process without running native exit handlers, so the runner can't tell on its own.
+Future<void> releaseRenderCheck() async {
   if (defaultTargetPlatform != TargetPlatform.linux) {
     return;
   }
 
   try {
-    await _platformChannel.invokeMethod<void>('cancelRenderCheck');
+    await _platformChannel.invokeMethod<void>('releaseRenderCheck');
   } catch (e) {
-    _logger.warning('Failed to cancel render check', e);
+    _logger.warning('Failed to release render check', e);
   }
 }
