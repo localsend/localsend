@@ -11,6 +11,7 @@ import 'package:localsend_app/pages/tabs/send_tab.dart';
 import 'package:localsend_app/pages/tabs/settings_tab.dart';
 import 'package:localsend_app/provider/selection/selected_sending_files_provider.dart';
 import 'package:localsend_app/util/native/cross_file_converters.dart';
+import 'package:localsend_app/widget/floating_navigation_bar.dart';
 import 'package:localsend_app/widget/responsive_builder.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 
@@ -19,7 +20,7 @@ enum HomeTab {
   send(Icons.send),
   settings(Icons.settings)
   ;
-
+  
   const HomeTab(this.icon);
 
   final IconData icon;
@@ -106,6 +107,7 @@ class _HomePageState extends State<HomePage> with Refena {
       child: ResponsiveBuilder(
         builder: (sizingInformation) {
           return Scaffold(
+            extendBody: sizingInformation.isMobile,
             body: Row(
               children: [
                 if (!sizingInformation.isMobile)
@@ -137,6 +139,7 @@ class _HomePageState extends State<HomePage> with Refena {
                 Expanded(
                   child: SafeArea(
                     left: sizingInformation.isMobile,
+                    bottom: !sizingInformation.isMobile,
                     child: Stack(
                       children: [
                         PageView(
@@ -170,11 +173,11 @@ class _HomePageState extends State<HomePage> with Refena {
               ],
             ),
             bottomNavigationBar: sizingInformation.isMobile
-                ? NavigationBar(
+                ? FloatingNavigationBar(
                     selectedIndex: vm.currentTab.index,
                     onDestinationSelected: (index) => vm.changeTab(HomeTab.values[index]),
                     destinations: HomeTab.values.map((tab) {
-                      return NavigationDestination(icon: Icon(tab.icon), label: tab.label);
+                      return FloatingNavigationDestination(icon: tab.icon, label: tab.label);
                     }).toList(),
                   )
                 : null,
