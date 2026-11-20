@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:localsend_app/model/cross_file.dart';
 import 'package:localsend_app/model/state/settings_state.dart';
@@ -50,6 +51,7 @@ class _HttpClient extends Fake implements RsHttpClient {
   final prepareUploadResponse = Completer<PrepareUploadResult>();
   final prepareUploadCalled = Completer<void>();
   final canceledSessions = <String>[];
+  PrepareUploadRequestDto? payload;
 
   @override
   Future<PrepareUploadResult> prepareUpload({
@@ -61,6 +63,7 @@ class _HttpClient extends Fake implements RsHttpClient {
     String? pin,
     required RsCancellationToken cancelToken,
   }) {
+    this.payload = payload;
     prepareUploadCalled.complete();
     return prepareUploadResponse.future;
   }
@@ -139,6 +142,59 @@ void main() {
     expect(ref.read(fileTransferProvider).getData(), isEmpty);
     expect(client.canceledSessions, ['remote-session']);
   });
+
+  for (final text in ['Hello, 你好 👋', 'a' * 16384, 'a' * 105000, '中' * 6000]) {
+    final bytes = utf8.encode(text);
+    test('inline preview is bounded without losing ${bytes.length} bytes of text', () async {
+      final client = _HttpClient();
+      final ref = RefenaContainer(
+        overrides: [
+          settingsProvider.overrideWithNotifier((ref) => _TestSettingsService(MockPersistenceService())),
+          httpProvider.overrideWithBuilder((_) => _HttpClientCollection(client)),
+          deviceFullInfoProvider.overrideWithBuilder((_) => _createDevice(fingerprint: 'self')),
+          parentIsolateProvider.overrideWithReducer(
+            notifier: (_) => IsolateController(initialState: ParentIsolateState.initial(_SyncState())),
+            reducer: {IsolateDiscoveryReportOutboundAction: null},
+          ),
+        ],
+      );
+      addTearDown(ref.disposeContainer);
+      final session = ref
+          .notifier(sendProvider)
+          .startSession(
+            target: _createDevice(fingerprint: 'target'),
+            files: [
+              CrossFile(
+                name: 'message.txt',
+                fileType: FileType.text,
+                size: bytes.length,
+                thumbnail: null,
+                asset: null,
+                path: null,
+                bytes: bytes,
+                lastModified: null,
+                lastAccessed: null,
+              ),
+            ],
+            background: true,
+          );
+      await client.prepareUploadCalled.future;
+      final sessionId = ref.read(sendProvider).keys.single;
+      final sendingFile = ref.read(sendProvider)[sessionId]!.files.values.single;
+      expect(client.payload!.files.values.single.preview, bytes.length <= 16384 ? text : isNull);
+      expect(sendingFile.bytes, bytes);
+      expect(sendingFile.file.size, bytes.length);
+
+      ref.notifier(sendProvider).cancelSession(sessionId);
+      client.prepareUploadResponse.complete(
+        const PrepareUploadResult(
+          statusCode: 200,
+          response: PrepareUploadResponseDto(sessionId: 'remote', files: {}),
+        ),
+      );
+      await session;
+    });
+  }
 }
 
 Device _createDevice({required String fingerprint}) {
