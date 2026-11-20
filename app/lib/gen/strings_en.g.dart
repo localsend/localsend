@@ -1101,6 +1101,12 @@ class Translations$settingsTab$general$en {
   /// en: 'Show LocalSend in context menu'
   String get showInContextMenu => 'Show LocalSend in context menu';
 
+  /// en: 'Software rendering'
+  String get softwareRendering => 'Software rendering';
+
+  /// en: 'Use if the window stays blank, glitches or closes on start. Takes effect after a restart.'
+  String get softwareRenderingDescription => 'Use if the window stays blank, glitches or closes on start. Takes effect after a restart.';
+
   /// en: 'Animations'
   String get animations => 'Animations';
 }

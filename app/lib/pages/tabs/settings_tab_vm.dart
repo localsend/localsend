@@ -24,12 +24,14 @@ class SettingsTabVm with SettingsTabVmMappable {
   final bool autoStart;
   final bool autoStartLaunchHidden;
   final bool showInContextMenu;
+  final bool softwareRendering;
   final void Function(BuildContext context, ThemeMode mode) onChangeTheme;
   final void Function(BuildContext context, ColorMode mode) onChangeColorMode;
   final void Function(BuildContext context) onTapLanguage;
   final void Function(BuildContext context) onToggleAutoStart;
   final void Function(BuildContext context) onToggleAutoStartLaunchHidden;
   final void Function(BuildContext context) onToggleShowInContextMenu;
+  final void Function(BuildContext context) onToggleSoftwareRendering;
   final void Function(BuildContext context) onTapRestartServer;
   final void Function(BuildContext context) onTapStartServer;
   final void Function() onTapStopServer;
@@ -49,12 +51,14 @@ class SettingsTabVm with SettingsTabVmMappable {
     required this.autoStart,
     required this.autoStartLaunchHidden,
     required this.showInContextMenu,
+    required this.softwareRendering,
     required this.onChangeTheme,
     required this.onChangeColorMode,
     required this.onTapLanguage,
     required this.onToggleAutoStart,
     required this.onToggleAutoStartLaunchHidden,
     required this.onToggleShowInContextMenu,
+    required this.onToggleSoftwareRendering,
     required this.onTapRestartServer,
     required this.onTapStartServer,
     required this.onTapStopServer,
