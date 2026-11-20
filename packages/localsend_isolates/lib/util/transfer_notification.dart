@@ -3,10 +3,6 @@ import 'package:localsend_isolates/util/file_speed_helper.dart';
 import 'package:localsend_isolates/util/foreground_service.dart';
 import 'package:localsend_isolates/util/notification_strings.dart';
 
-/// A transfer only becomes fast enough to measure after a while; the first chunks are not
-/// representative. Same threshold as `ProgressPage`.
-const _minBytesForSpeed = 500 * 1024;
-
 /// Drives the single foreground service notification on behalf of all running transfers.
 ///
 /// There is one notification but there can be several transfers: receiving is limited to one
@@ -70,7 +66,7 @@ class TransferNotification {
 
     transfer.currentBytes = currentBytes;
     transfer.totalBytes = totalBytes;
-    transfer.speedInBytes = _speed(currentBytes: currentBytes, startTime: startTime, endTime: endTime);
+    transfer.speedInBytes = measureSpeed(startTime: startTime, endTime: endTime, bytes: currentBytes);
 
     ForegroundService.updateNotification(title: _title(), text: _text());
   }
@@ -86,21 +82,6 @@ class TransferNotification {
     } else {
       ForegroundService.updateNotification(title: _title(), text: _text());
     }
-  }
-
-  /// The transfer speed in bytes per second, or null while it cannot be measured yet.
-  static int? _speed({required int currentBytes, required int? startTime, required int? endTime}) {
-    if (startTime == null || currentBytes < _minBytesForSpeed) {
-      return null;
-    }
-
-    final end = endTime ?? DateTime.now().millisecondsSinceEpoch;
-    if (end <= startTime) {
-      // guards the division in [getFileSpeed]
-      return null;
-    }
-
-    return getFileSpeed(start: startTime, end: end, bytes: currentBytes);
   }
 
   static NotificationStrings get _requiredStrings {

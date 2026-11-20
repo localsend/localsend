@@ -238,17 +238,13 @@ class _ProgressPageState extends State<ProgressPage> with Refena {
     final title = receiveSession != null ? t.progressPage.titleReceiving : t.progressPage.titleSending;
     final startTime = commonSessionState.startTime;
     final endTime = commonSessionState.endTime;
-    final int? speedInBytes;
-    if (startTime != null && currBytes >= 500 * 1024) {
-      speedInBytes = getFileSpeed(start: startTime, end: endTime ?? DateTime.now().millisecondsSinceEpoch, bytes: currBytes);
-
+    final speedInBytes = measureSpeed(startTime: startTime, endTime: endTime, bytes: currBytes);
+    if (speedInBytes != null) {
       final now = DateTime.now().millisecondsSinceEpoch;
       if (now - _lastRemainingTimeUpdate >= 1000) {
         _remainingTime = getRemainingTime(bytesPerSeconds: speedInBytes, remainingBytes: _totalBytes - currBytes, strings: notificationStrings);
         _lastRemainingTimeUpdate = now;
       }
-    } else {
-      speedInBytes = null;
     }
 
     final finishedCount = transferNotifier.getStatuses(widget.sessionId).where((s) => s == FileStatus.finished).length;
