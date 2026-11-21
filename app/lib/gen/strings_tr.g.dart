@@ -125,7 +125,7 @@ class _Translations$general$tr extends Translations$general$en {
   @override
   String get decline => 'Reddet';
   @override
-  String get done => 'Bitir';
+  String get done => 'Bitti';
   @override
   String get delete => 'Sil';
   @override
@@ -151,7 +151,7 @@ class _Translations$general$tr extends Translations$general$en {
   @override
   String get open => 'Aç';
   @override
-  String get queue => 'Sıra';
+  String get queue => 'Sıradaki';
   @override
   String get quickSave => 'Hızlı kaydetme';
   @override
