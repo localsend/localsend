@@ -112,7 +112,13 @@ jobs:
       - name: Add DLL files
         working-directory: app
         run: |
-          $crt = Get-ChildItem 'C:\Program Files\Microsoft Visual Studio\2022\*\VC\Redist\MSVC\*\arm64\Microsoft.VC143.CRT' | Select-Object -Last 1
+          $vs = & "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vswhere.exe" -latest -products * -property installationPath
+          $crt = Get-ChildItem "$vs\VC\Redist\MSVC\*\arm64\Microsoft.VC14*.CRT" | Where-Object { $_.Parent.Parent.Name -match '^\d' } | Sort-Object { [version]$_.Parent.Parent.Name } | Select-Object -Last 1
+          if (-not $crt) {
+            Write-Error "arm64 CRT redist not found under $vs"
+            exit 1
+          }
+          Write-Host "Using CRT from $($crt.FullName)"
           Copy-Item "$($crt.FullName)\msvcp140.dll" build/windows/arm64/runner/Release/
           Copy-Item "$($crt.FullName)\vcruntime140.dll" build/windows/arm64/runner/Release/
           Copy-Item "$($crt.FullName)\vcruntime140_1.dll" build/windows/arm64/runner/Release/
