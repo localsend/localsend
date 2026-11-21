@@ -8,6 +8,7 @@ class SendModeHelpDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
+      scrollable: true,
       title: Text(t.dialogs.sendModeHelp.title),
       content: Column(
         mainAxisSize: MainAxisSize.min,
