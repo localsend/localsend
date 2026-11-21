@@ -212,15 +212,12 @@
     "verify": "Xác minh",
     "info": {
       "name": "Tên",
-      "address": "Địa chỉ",
       "version": "Phiên bản",
       "protocol": "Giao thức v{version}"
     },
     "logs": {
       "title": "Nhật ký",
-      "empty": "Không có nhật ký nào.",
-      "discovered": "Được phát hiện qua {protocol} ({host})",
-      "updated": "Được cập nhật qua {protocol} ({host})"
+      "empty": "Không có nhật ký nào."
     }
   },
   "verifyPage": {

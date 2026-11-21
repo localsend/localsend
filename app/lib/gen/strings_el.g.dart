@@ -1140,8 +1140,6 @@ class _Translations$deviceDetailsPage$info$el extends Translations$deviceDetails
   @override
   String get name => 'Όνομα';
   @override
-  String get address => 'Διεύθυνση';
-  @override
   String get version => 'Έκδοση';
   @override
   String protocol({required Object version}) => 'Πρωτόκολλο v${version}';
@@ -1158,10 +1156,6 @@ class _Translations$deviceDetailsPage$logs$el extends Translations$deviceDetails
   String get title => 'Αρχεία καταγραφής';
   @override
   String get empty => 'Δεν υπάρχουν διαθέσιμα αρχεία καταγραφής.';
-  @override
-  String discovered({required Object protocol, required Object host}) => 'Εντοπίστηκε μέσω ${protocol} (${host})';
-  @override
-  String updated({required Object protocol, required Object host}) => 'Ενημερώθηκε μέσω ${protocol} (${host})';
 }
 
 // Path: progressPage.total

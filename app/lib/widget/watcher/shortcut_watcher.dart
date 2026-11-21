@@ -1,9 +1,8 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:localsend_app/pages/home_page.dart';
 import 'package:localsend_app/pages/home_page_controller.dart';
+import 'package:localsend_app/util/native/exit_helper.dart';
 import 'package:localsend_app/util/native/file_picker.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:refena_flutter/refena_flutter.dart';
@@ -37,7 +36,7 @@ class ShortcutWatcher extends StatelessWidget {
       },
       child: Actions(
         actions: {
-          _ExitAppIntent: CallbackAction(onInvoke: (_) => exit(0)),
+          _ExitAppIntent: CallbackAction(onInvoke: (_) => exitApp()),
           _PopPageIntent: CallbackAction(onInvoke: (_) async => Navigator.of(Routerino.context).maybePop()),
           _PasteIntent: CallbackAction(
             onInvoke: (_) async {

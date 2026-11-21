@@ -212,15 +212,12 @@
     "verify": "Preveri",
     "info": {
       "name": "Ime",
-      "address": "Naslov",
       "version": "Različica",
       "protocol": "Protokol v{version}"
     },
     "logs": {
       "title": "Dnevniki",
-      "empty": "Ni razpoložljivih dnevnikov.",
-      "discovered": "Odkrito prek {protocol} ({host})",
-      "updated": "Posodobljeno prek {protocol} ({host})"
+      "empty": "Ni razpoložljivih dnevnikov."
     }
   },
   "verifyPage": {

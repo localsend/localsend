@@ -212,15 +212,12 @@
     "verify": "検証",
     "info": {
       "name": "名前",
-      "address": "アドレス",
       "version": "バージョン",
       "protocol": "プロトコル v{version}"
     },
     "logs": {
       "title": "ログ",
-      "empty": "ログはありません。",
-      "discovered": "{protocol} 経由で発見 ({host})",
-      "updated": "{protocol} 経由で更新 ({host})"
+      "empty": "ログはありません。"
     }
   },
   "verifyPage": {

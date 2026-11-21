@@ -1053,8 +1053,6 @@ class _Translations$deviceDetailsPage$info$pl extends Translations$deviceDetails
   @override
   String get name => 'Nazwa';
   @override
-  String get address => 'Adres';
-  @override
   String get version => 'Wersja';
   @override
   String protocol({required Object version}) => 'Protokół v${version}';
@@ -1071,10 +1069,6 @@ class _Translations$deviceDetailsPage$logs$pl extends Translations$deviceDetails
   String get title => 'Dzienniki';
   @override
   String get empty => 'Brak dostępnych dzienników.';
-  @override
-  String discovered({required Object protocol, required Object host}) => 'Wykryto przez ${protocol} (${host})';
-  @override
-  String updated({required Object protocol, required Object host}) => 'Zaktualizowano przez ${protocol} (${host})';
 }
 
 // Path: progressPage.total

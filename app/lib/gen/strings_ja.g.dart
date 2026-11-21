@@ -1047,8 +1047,6 @@ class _Translations$deviceDetailsPage$info$ja extends Translations$deviceDetails
   @override
   String get name => '名前';
   @override
-  String get address => 'アドレス';
-  @override
   String get version => 'バージョン';
   @override
   String protocol({required Object version}) => 'プロトコル v${version}';
@@ -1065,10 +1063,6 @@ class _Translations$deviceDetailsPage$logs$ja extends Translations$deviceDetails
   String get title => 'ログ';
   @override
   String get empty => 'ログはありません。';
-  @override
-  String discovered({required Object protocol, required Object host}) => '${protocol} 経由で発見 (${host})';
-  @override
-  String updated({required Object protocol, required Object host}) => '${protocol} 経由で更新 (${host})';
 }
 
 // Path: progressPage.total

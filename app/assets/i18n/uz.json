@@ -212,15 +212,12 @@
     "verify": "Tasdiqlash",
     "info": {
       "name": "Nomi",
-      "address": "Manzil",
       "version": "Versiya",
       "protocol": "Protokol v{version}"
     },
     "logs": {
       "title": "Jurnallar",
-      "empty": "Jurnallar mavjud emas.",
-      "discovered": "{protocol} orqali topildi ({host})",
-      "updated": "{protocol} orqali yangilandi ({host})"
+      "empty": "Jurnallar mavjud emas."
     }
   },
   "verifyPage": {

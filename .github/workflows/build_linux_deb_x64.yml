@@ -5,7 +5,7 @@ on:
   workflow_call:
 
 env:
-  FLUTTER_VERSION: "3.47.9"
+  FLUTTER_VERSION: "3.41.9"
 
 jobs:
   build:
@@ -50,6 +50,20 @@ jobs:
 
       - name: Enable dart_distributor
         run: dart pub global activate flutter_distributor
+
+      # Name the desktop file after the application id (linux/CMakeLists.txt),
+      # as the rpm and AppImage do. flutter_app_packager names it after the
+      # binary and has no option for it. KWin finds the window's desktop file
+      # by the Wayland app id alone, so with localsend_app.desktop the title
+      # bar shows a generic icon.
+      - name: Patch flutter_app_packager
+        run: |
+          F=$(find "$HOME/.pub-cache/hosted/pub.dev" -path '*/flutter_app_packager-*/lib/src/makers/deb/app_package_maker_deb.dart' | head -1)
+          test -n "$F"
+          sed -i "s|'\${makeConfig.appBinaryName}.desktop'|'org.localsend.localsend_app.desktop'|" "$F"
+          test "$(grep -cF "'org.localsend.localsend_app.desktop'" "$F")" -eq 1
+          dart pub global deactivate flutter_distributor
+          dart pub global activate flutter_distributor
 
       - name: Update PATH
         run: echo 'export PATH="$PATH:$HOME/.pub-cache/bin"' >> ~/.bashrc

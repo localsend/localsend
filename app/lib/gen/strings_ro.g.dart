@@ -1136,8 +1136,6 @@ class _Translations$deviceDetailsPage$info$ro extends Translations$deviceDetails
   @override
   String get name => 'Nume';
   @override
-  String get address => 'Adresă';
-  @override
   String get version => 'Versiune';
   @override
   String protocol({required Object version}) => 'Protocol v${version}';
@@ -1154,10 +1152,6 @@ class _Translations$deviceDetailsPage$logs$ro extends Translations$deviceDetails
   String get title => 'Jurnale';
   @override
   String get empty => 'Nu sunt jurnale disponibile.';
-  @override
-  String discovered({required Object protocol, required Object host}) => 'Descoperit prin ${protocol} (${host})';
-  @override
-  String updated({required Object protocol, required Object host}) => 'Actualizat prin ${protocol} (${host})';
 }
 
 // Path: progressPage.total

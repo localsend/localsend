@@ -1148,8 +1148,6 @@ class _Translations$deviceDetailsPage$info$fil_PH extends Translations$deviceDet
   @override
   String get name => 'Pangalan';
   @override
-  String get address => 'Address';
-  @override
   String get version => 'Bersyon';
   @override
   String protocol({required Object version}) => 'Protocol v${version}';
@@ -1166,10 +1164,6 @@ class _Translations$deviceDetailsPage$logs$fil_PH extends Translations$deviceDet
   String get title => 'Mga Log';
   @override
   String get empty => 'Walang available na mga log.';
-  @override
-  String discovered({required Object protocol, required Object host}) => 'Natuklasan sa pamamagitan ng ${protocol} (${host})';
-  @override
-  String updated({required Object protocol, required Object host}) => 'Na-update sa pamamagitan ng ${protocol} (${host})';
 }
 
 // Path: progressPage.total

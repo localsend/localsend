@@ -212,15 +212,12 @@
     "verify": "驗證",
     "info": {
       "name": "名稱",
-      "address": "位址",
       "version": "版本",
       "protocol": "協定 v{version}"
     },
     "logs": {
       "title": "記錄",
-      "empty": "沒有可用的記錄。",
-      "discovered": "透過 {protocol} 發現 ({host})",
-      "updated": "透過 {protocol} 更新 ({host})"
+      "empty": "沒有可用的記錄。"
     }
   },
   "verifyPage": {

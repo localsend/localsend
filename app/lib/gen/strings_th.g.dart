@@ -1139,8 +1139,6 @@ class _Translations$deviceDetailsPage$info$th extends Translations$deviceDetails
   @override
   String get name => 'ชื่อ';
   @override
-  String get address => 'ที่อยู่';
-  @override
   String get version => 'เวอร์ชัน';
   @override
   String protocol({required Object version}) => 'โปรโตคอล v${version}';
@@ -1157,10 +1155,6 @@ class _Translations$deviceDetailsPage$logs$th extends Translations$deviceDetails
   String get title => 'บันทึก';
   @override
   String get empty => 'ไม่มีบันทึก';
-  @override
-  String discovered({required Object protocol, required Object host}) => 'ค้นพบผ่าน ${protocol} (${host})';
-  @override
-  String updated({required Object protocol, required Object host}) => 'อัปเดตผ่าน ${protocol} (${host})';
 }
 
 // Path: progressPage.total

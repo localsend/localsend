@@ -22,6 +22,9 @@ class HttpClientCollection {
   /// [timeoutMs] bounds each request. Leave it out for uploads, which may
   /// legitimately run for a long time; set it when the peer is unverified and
   /// could keep the request open forever.
+  ///
+  /// Connection setup (TCP connect and TLS handshake) is limited to 5 seconds;
+  /// the request itself is only limited by [timeoutMs].
   RsHttpClient pinnedTo(String fingerprint, {int? timeoutMs}) {
     return createClient(
       privateKey: _privateKey,

@@ -1053,8 +1053,6 @@ class _Translations$deviceDetailsPage$info$et extends Translations$deviceDetails
   @override
   String get name => 'Nimi';
   @override
-  String get address => 'Aadress';
-  @override
   String get version => 'Versioon';
   @override
   String protocol({required Object version}) => 'Protokoll v${version}';
@@ -1071,10 +1069,6 @@ class _Translations$deviceDetailsPage$logs$et extends Translations$deviceDetails
   String get title => 'Logid';
   @override
   String get empty => 'Logisid pole saadaval.';
-  @override
-  String discovered({required Object protocol, required Object host}) => 'Avastatud ${protocol} kaudu (${host})';
-  @override
-  String updated({required Object protocol, required Object host}) => 'Uuendatud ${protocol} kaudu (${host})';
 }
 
 // Path: progressPage.total

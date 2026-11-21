@@ -1139,8 +1139,6 @@ class _Translations$deviceDetailsPage$info$ca extends Translations$deviceDetails
   @override
   String get name => 'Nom';
   @override
-  String get address => 'Adreça';
-  @override
   String get version => 'Versió';
   @override
   String protocol({required Object version}) => 'Protocol v${version}';
@@ -1157,10 +1155,6 @@ class _Translations$deviceDetailsPage$logs$ca extends Translations$deviceDetails
   String get title => 'Registres';
   @override
   String get empty => 'No hi ha registres disponibles.';
-  @override
-  String discovered({required Object protocol, required Object host}) => 'Descobert mitjançant ${protocol} (${host})';
-  @override
-  String updated({required Object protocol, required Object host}) => 'Actualitzat mitjançant ${protocol} (${host})';
 }
 
 // Path: progressPage.total

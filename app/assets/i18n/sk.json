@@ -212,15 +212,12 @@
     "verify": "Overiť",
     "info": {
       "name": "Názov",
-      "address": "Adresa",
       "version": "Verzia",
       "protocol": "Protokol v{version}"
     },
     "logs": {
       "title": "Záznamy",
-      "empty": "Nie sú k dispozícii žiadne záznamy.",
-      "discovered": "Objavené cez {protocol} ({host})",
-      "updated": "Aktualizované cez {protocol} ({host})"
+      "empty": "Nie sú k dispozícii žiadne záznamy."
     }
   },
   "verifyPage": {

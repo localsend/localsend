@@ -40,7 +40,8 @@ enum FilePickerOption {
   media(Icons.image),
   text(Icons.subject),
   app(Icons.apps),
-  clipboard(Icons.paste);
+  clipboard(Icons.paste)
+  ;
 
   const FilePickerOption(this.icon);
 

@@ -1138,8 +1138,6 @@ class _Translations$deviceDetailsPage$info$ne extends Translations$deviceDetails
   @override
   String get name => 'नाम';
   @override
-  String get address => 'ठेगाना';
-  @override
   String get version => 'संस्करण';
   @override
   String protocol({required Object version}) => 'प्रोटोकल v${version}';
@@ -1156,10 +1154,6 @@ class _Translations$deviceDetailsPage$logs$ne extends Translations$deviceDetails
   String get title => 'लगहरू';
   @override
   String get empty => 'कुनै लग उपलब्ध छैन।';
-  @override
-  String discovered({required Object protocol, required Object host}) => '${protocol} मार्फत फेला पर्यो (${host})';
-  @override
-  String updated({required Object protocol, required Object host}) => '${protocol} मार्फत अपडेट भयो (${host})';
 }
 
 // Path: progressPage.total

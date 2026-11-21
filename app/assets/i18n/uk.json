@@ -212,15 +212,12 @@
     "verify": "Перевірити",
     "info": {
       "name": "Ім'я пристрою",
-      "address": "Адреса",
       "version": "Версія",
       "protocol": "Протокол v{version}"
     },
     "logs": {
       "title": "Журнали",
-      "empty": "Немає доступних журналів.",
-      "discovered": "Виявлено через {protocol} ({host})",
-      "updated": "Оновлено через {protocol} ({host})"
+      "empty": "Немає доступних журналів."
     }
   },
   "verifyPage": {

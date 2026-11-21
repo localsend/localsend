@@ -212,15 +212,12 @@
     "verify": "Verifică",
     "info": {
       "name": "Nume",
-      "address": "Adresă",
       "version": "Versiune",
       "protocol": "Protocol v{version}"
     },
     "logs": {
       "title": "Jurnale",
-      "empty": "Nu sunt jurnale disponibile.",
-      "discovered": "Descoperit prin {protocol} ({host})",
-      "updated": "Actualizat prin {protocol} ({host})"
+      "empty": "Nu sunt jurnale disponibile."
     }
   },
   "verifyPage": {

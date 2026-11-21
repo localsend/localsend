@@ -7,6 +7,7 @@ import 'package:localsend_app/provider/favorites_provider.dart';
 import 'package:localsend_app/provider/logging/discovery_logs_provider.dart';
 import 'package:localsend_isolates/isolate.dart';
 import 'package:localsend_isolates/model/device.dart';
+import 'package:localsend_isolates/model/discovery_event.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 
 /// This provider is responsible for:
@@ -46,15 +47,25 @@ class NearbyDevicesService extends ReduxNotifier<NearbyDevicesState> {
 
 /// Starts the discovery (which binds the UDP port) and registers every
 /// confirmed device: answered announcements, scan results and devices fed in
-/// via [IsolateDiscoveryAddDeviceAction] all arrive on this one stream.
+/// via [IsolateDiscoveryObserveInboundAction] all arrive on this one stream.
+///
+/// A device that was only heard announcing itself and did not answer is not
+/// registered: nothing about it is verified, so it only shows up in the
+/// discovery logs.
+///
 /// This should run forever as long as the app is running.
 class StartDiscoveryListener extends AsyncReduxAction<NearbyDevicesService, NearbyDevicesState> {
   @override
   Future<NearbyDevicesState> reduce() async {
     final stream = external(notifier._isolateController).dispatchTakeResult(IsolateDiscoveryListenAction());
-    await for (final device in stream) {
-      await dispatchAsync(RegisterDeviceAction(device));
-      notifier._discoveryLogger.addLog('[DISCOVER] ${device.alias} (${device.ip}, model: ${device.deviceModel})');
+    await for (final event in stream) {
+      switch (event) {
+        case DiscoveryDeviceEvent(:final device):
+          await dispatchAsync(RegisterDeviceAction(device));
+          notifier._discoveryLogger.addLog('[DISCOVER] ${device.alias} (${device.ip}, model: ${device.deviceModel})');
+        case DiscoveryUnreachableEvent(:final device, :final error):
+          notifier._discoveryLogger.addLog('[UNREACHABLE] ${device.alias} (${device.ip}:${device.port}): $error');
+      }
     }
     return state;
   }

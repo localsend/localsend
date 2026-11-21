@@ -5,6 +5,7 @@ import 'package:localsend_app/model/state/settings_state.dart';
 import 'package:localsend_app/pages/receive_page.dart';
 import 'package:localsend_app/provider/network/webrtc/signaling_provider.dart';
 import 'package:localsend_app/provider/selection/selected_receiving_files_provider.dart';
+import 'package:localsend_app/util/message_preview.dart';
 import 'package:localsend_isolates/model/dto/file_dto.dart' as dart_model;
 import 'package:localsend_isolates/model/session_status.dart';
 import 'package:localsend_isolates/model/stored_security_context.dart';
@@ -119,7 +120,7 @@ class _AcceptOfferAction extends AsyncReduxAction<WebRTCReceiveService, WebRTCRe
         sender: state.offer.peer.toDevice(notifier._signalingServer),
         showSenderInfo: true,
         files: convertedFiles,
-        message: files.length == 1 && files[0].fileType.startsWith('text/') ? files[0].preview : null,
+        message: extractMessagePreview(convertedFiles),
         onAccept: () {},
         onDecline: () {},
         onClose: () {},

@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:localsend_app/model/cross_file.dart';
 import 'package:localsend_app/model/send_mode.dart';
@@ -14,6 +13,7 @@ import 'package:localsend_app/provider/file_transfer_provider.dart';
 import 'package:localsend_app/provider/http_provider.dart';
 import 'package:localsend_app/provider/selection/selected_sending_files_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
+import 'package:localsend_app/util/message_preview.dart';
 import 'package:localsend_app/widget/dialogs/pin_dialog.dart';
 import 'package:localsend_isolates/isolate.dart';
 import 'package:localsend_isolates/model/device.dart';
@@ -118,9 +118,7 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
                 fileType: file.fileType,
                 hash: null,
                 // calculated below
-                preview: files.length == 1 && files.first.fileType == FileType.text && files.first.bytes != null
-                    ? utf8.decode(files.first.bytes!) // send simple message by embedding it into the preview
-                    : null,
+                preview: files.length == 1 && file.fileType == FileType.text ? createMessagePreview(file.bytes) : null,
                 metadata: file.lastModified != null || file.lastAccessed != null
                     ? FileMetadata(
                         lastModified: file.lastModified,
@@ -251,6 +249,7 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
     rust_http.PrepareUploadResult? response;
     bool invalidPin;
     bool pinFirstAttempt = true;
+
     String? pin;
     final prepareUploadCancelToken = rust_cancel.createCancellationToken();
     _prepareUploadCancelTokens[sessionId] = prepareUploadCancelToken;
@@ -269,13 +268,22 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
             pin: pin,
             cancelToken: prepareUploadCancelToken,
           );
+          // Every answered request is reported: a failure observed in the
+          // meantime (e.g. while the PIN dialog was open) must be overwritten.
+          _reportOutbound(target);
         } on rust_http.RsHttpClientError_StatusCode catch (e) {
+          // Declined, busy, wrong PIN, ...: the peer answered, so it was reached.
+          _reportOutbound(target);
           switch (e.status) {
             case 401:
               invalidPin = true;
 
               // wait until animation is finished
               await sleepAsync(500);
+              if (state[sessionId] == null) {
+                // session has been canceled in the meantime
+                return;
+              }
 
               pin = await showDialog<String>(
                 context: Routerino.context, // ignore: use_build_context_synchronously
@@ -286,6 +294,11 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
               );
 
               pinFirstAttempt = false;
+
+              if (state[sessionId] == null) {
+                // session has been canceled while the dialog was open
+                return;
+              }
 
               if (pin == null) {
                 state = state.updateSession(
@@ -332,6 +345,14 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
               return;
           }
         } catch (e) {
+          if (e is rust_http.RsHttpClientError_Unreachable) {
+            // Only a request without any response says that the address
+            // cannot be dialed; a canceled request does not.
+            _reportOutbound(target, error: e.field0);
+          } else if (e is rust_http.RsHttpClientError_Reqwest) {
+            // The peer answered, its response just could not be read.
+            _reportOutbound(target);
+          }
           state = state.updateSession(
             sessionId: sessionId,
             state: (s) => s?.copyWith(
@@ -347,6 +368,16 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
     }
 
     if (response == null) {
+      return;
+    }
+
+    if (state[sessionId] == null) {
+      // The session has been canceled locally while the response was on its way,
+      // so the session the receiver just created must be canceled as well.
+      final remoteSessionId = response.response?.sessionId;
+      if (remoteSessionId != null) {
+        unawaited(_notifyReceiverCancel(target, remoteSessionId));
+      }
       return;
     }
 
@@ -451,6 +482,32 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
     TransferNotification.start(sessionId: sessionId, receiving: false);
 
     await _sendLoop(sessionId, sendingFiles);
+  }
+
+  /// Tells the discovery whether [target] could be reached at the address it
+  /// was dialed at: without an [error] the address is marked as working in
+  /// the outgoing direction, with one — the reason — as failed.
+  /// Does nothing for a device without an address (WebRTC only).
+  void _reportOutbound(Device target, {String? error}) {
+    final ip = target.ip;
+    if (ip == null) {
+      return;
+    }
+
+    try {
+      ref
+          .redux(parentIsolateProvider)
+          .dispatch(
+            IsolateDiscoveryReportOutboundAction(
+              fingerprint: target.fingerprint,
+              channel: HttpChannel(host: ip, port: target.port, https: target.https),
+              error: error,
+            ),
+          );
+    } catch (e) {
+      // Only diagnostics: must never fail the transfer.
+      _logger.warning('Could not report the dialed address to the discovery', e);
+    }
   }
 
   /// Reports the total session progress to the foreground service notification,
@@ -722,12 +779,19 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
     }
 
     // notify the receiver
-    final target = sessionState.target;
+    unawaited(_notifyReceiverCancel(sessionState.target, remoteSessionId));
+
+    // finally, close session locally
+    closeSession(sessionId);
+  }
+
+  /// Tells [target] that its session [remoteSessionId] is canceled.
+  /// Errors are only logged.
+  Future<void> _notifyReceiverCancel(Device target, String remoteSessionId) async {
     try {
-      ref
+      await ref
           .read(httpProvider)
           .pinnedTo(target.fingerprint)
-          // ignore: discarded_futures
           .cancel(
             protocol: target.getProtocolType(),
             ip: target.ip!,
@@ -737,9 +801,6 @@ class SendNotifier extends Notifier<Map<String, SendSessionState>> {
     } catch (e) {
       _logger.warning('Error while canceling session', e);
     }
-
-    // finally, close session locally
-    closeSession(sessionId);
   }
 
   void cancelSessionByReceiver(String sessionId) {

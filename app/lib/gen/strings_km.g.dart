@@ -1138,8 +1138,6 @@ class _Translations$deviceDetailsPage$info$km extends Translations$deviceDetails
   @override
   String get name => 'ឈ្មោះ';
   @override
-  String get address => 'អាសយដ្ឋាន';
-  @override
   String get version => 'កំណែ';
   @override
   String protocol({required Object version}) => 'ពិធីការ v${version}';
@@ -1156,10 +1154,6 @@ class _Translations$deviceDetailsPage$logs$km extends Translations$deviceDetails
   String get title => 'កំណត់ហេតុ';
   @override
   String get empty => 'មិនមានកំណត់ហេតុទេ។';
-  @override
-  String discovered({required Object protocol, required Object host}) => 'បានរកឃើញតាមរយៈ ${protocol} (${host})';
-  @override
-  String updated({required Object protocol, required Object host}) => 'បានធ្វើបច្ចុប្បន្នភាពតាមរយៈ ${protocol} (${host})';
 }
 
 // Path: progressPage.total

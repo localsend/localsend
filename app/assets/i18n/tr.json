@@ -214,15 +214,12 @@
     "verify": "Doğrula",
     "info": {
       "name": "Ad",
-      "address": "Adres",
       "version": "Sürüm",
       "protocol": "Protokol v{version}"
     },
     "logs": {
       "title": "Kayıtlar",
-      "empty": "Henüz kayıt yok.",
-      "discovered": "{protocol} üzerinden keşfedildi ({host})",
-      "updated": "{protocol} üzerinden güncellendi ({host})"
+      "empty": "Henüz kayıt yok."
     }
   },
   "verifyPage": {

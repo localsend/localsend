@@ -170,41 +170,48 @@ impl LsHttpClientV2 {
         }
         .to_string();
 
-        let send = self
-            .client
-            .post(&url)
-            .header("Content-Type", "application/json")
-            .body(serde_json::to_string(&payload)?)
-            .send();
+        // Cancellation must also cover reading the response body: a receiver
+        // that stalls after sending the headers would otherwise keep the
+        // cancelled request alive.
+        let response = async {
+            let res = self
+                .client
+                .post(&url)
+                .header("Content-Type", "application/json")
+                .body(serde_json::to_string(&payload)?)
+                .send()
+                .await?;
 
-        let res = tokio::select! {
-            res = send => res?,
-            _ = cancel.cancelled() => return Err(ClientError::Cancelled),
+            if protocol == ProtocolType::Https {
+                super::verify_cert_from_res(&res, public_key)?;
+            }
+
+            let status = res.status();
+
+            if status.as_u16() >= 400 {
+                return res.into_error().await;
+            }
+
+            if status == StatusCode::NO_CONTENT {
+                return Ok(PrepareUploadResultV2 {
+                    status_code: status.as_u16(),
+                    response: None,
+                });
+            }
+
+            let body = res.json::<PrepareUploadResponseDtoV2>().await?;
+
+            Ok(PrepareUploadResultV2 {
+                status_code: status.as_u16(),
+                response: Some(body),
+            })
         };
 
-        if protocol == ProtocolType::Https {
-            super::verify_cert_from_res(&res, public_key)?;
+        tokio::select! {
+            biased;
+            _ = cancel.cancelled() => Err(ClientError::Cancelled),
+            result = response => result,
         }
-
-        let status = res.status();
-
-        if status.as_u16() >= 400 {
-            return res.into_error().await;
-        }
-
-        if status == StatusCode::NO_CONTENT {
-            return Ok(PrepareUploadResultV2 {
-                status_code: status.as_u16(),
-                response: None,
-            });
-        }
-
-        let body = res.json::<PrepareUploadResponseDtoV2>().await?;
-
-        Ok(PrepareUploadResultV2 {
-            status_code: status.as_u16(),
-            response: Some(body),
-        })
     }
 
     /// Uploads a file to the receiver.
@@ -256,20 +263,26 @@ impl LsHttpClientV2 {
         }
         .to_string();
 
-        let res = tokio::select! {
-            res = self.client.post(&url).body(body).send() => res?,
-            _ = cancel.cancelled() => return Err(ClientError::Cancelled),
+        // Cancellation must also cover reading an error body.
+        let response = async {
+            let res = self.client.post(&url).body(body).send().await?;
+
+            if protocol == ProtocolType::Https {
+                super::verify_cert_from_res(&res, public_key)?;
+            }
+
+            if res.status() != StatusCode::OK {
+                return res.into_error().await;
+            }
+
+            Ok(())
         };
 
-        if protocol == ProtocolType::Https {
-            super::verify_cert_from_res(&res, public_key)?;
+        tokio::select! {
+            biased;
+            _ = cancel.cancelled() => Err(ClientError::Cancelled),
+            result = response => result,
         }
-
-        if res.status() != StatusCode::OK {
-            return res.into_error().await;
-        }
-
-        Ok(())
     }
 
     /// Cancels an ongoing file transfer session.

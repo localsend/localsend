@@ -1052,8 +1052,6 @@ class _Translations$deviceDetailsPage$info$cs extends Translations$deviceDetails
   @override
   String get name => 'Název';
   @override
-  String get address => 'Adresa';
-  @override
   String get version => 'Verze';
   @override
   String protocol({required Object version}) => 'Protokol v${version}';
@@ -1070,10 +1068,6 @@ class _Translations$deviceDetailsPage$logs$cs extends Translations$deviceDetails
   String get title => 'Záznamy';
   @override
   String get empty => 'Žádné záznamy nejsou k dispozici.';
-  @override
-  String discovered({required Object protocol, required Object host}) => 'Objeveno přes ${protocol} (${host})';
-  @override
-  String updated({required Object protocol, required Object host}) => 'Aktualizováno přes ${protocol} (${host})';
 }
 
 // Path: progressPage.total

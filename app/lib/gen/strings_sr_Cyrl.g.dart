@@ -1145,8 +1145,6 @@ class _Translations$deviceDetailsPage$info$sr_Cyrl extends Translations$deviceDe
   @override
   String get name => 'Име';
   @override
-  String get address => 'Адреса';
-  @override
   String get version => 'Верзија';
   @override
   String protocol({required Object version}) => 'Протокол v${version}';
@@ -1163,10 +1161,6 @@ class _Translations$deviceDetailsPage$logs$sr_Cyrl extends Translations$deviceDe
   String get title => 'Евиденција';
   @override
   String get empty => 'Нема доступне евиденције.';
-  @override
-  String discovered({required Object protocol, required Object host}) => 'Откривено путем ${protocol} (${host})';
-  @override
-  String updated({required Object protocol, required Object host}) => 'Ажурирано путем ${protocol} (${host})';
 }
 
 // Path: progressPage.total

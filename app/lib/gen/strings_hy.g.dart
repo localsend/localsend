@@ -1136,8 +1136,6 @@ class _Translations$deviceDetailsPage$info$hy extends Translations$deviceDetails
   @override
   String get name => 'Անուն';
   @override
-  String get address => 'Հասցե';
-  @override
   String get version => 'Վերսիա';
   @override
   String protocol({required Object version}) => 'v${version} պրոտոկոլ';
@@ -1154,10 +1152,6 @@ class _Translations$deviceDetailsPage$logs$hy extends Translations$deviceDetails
   String get title => 'Լոգեր';
   @override
   String get empty => 'Լոգեր չկան։';
-  @override
-  String discovered({required Object protocol, required Object host}) => 'Գտնվել է ${protocol} (${host}) միջոցով';
-  @override
-  String updated({required Object protocol, required Object host}) => 'Թարմացվել է ${protocol} (${host}) միջոցով';
 }
 
 // Path: progressPage.total

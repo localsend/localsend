@@ -9,6 +9,7 @@ import 'package:localsend_app/provider/network/server/server_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/util/native/autostart_helper.dart';
 import 'package:localsend_app/util/native/context_menu_helper.dart';
+import 'package:localsend_app/util/native/software_rendering_helper.dart';
 import 'package:localsend_app/util/ui/dynamic_colors.dart';
 import 'package:localsend_app/util/ui/snackbar.dart';
 import 'package:localsend_app/widget/dialogs/custom_color_dialog.dart';
@@ -74,6 +75,7 @@ class SettingsTabController extends ReduxNotifier<SettingsTabVm> {
       autoStart: false,
       autoStartLaunchHidden: false,
       showInContextMenu: false,
+      softwareRendering: false,
       onChangeTheme: (context, theme) async {
         await _settingsService.setTheme(theme);
         await sleepAsync(500); // workaround: brightness takes some time to be updated
@@ -132,6 +134,12 @@ class SettingsTabController extends ReduxNotifier<SettingsTabVm> {
           redux.dispatch(_SetShowInContextMenuAction(!state.showInContextMenu));
         }
       },
+      onToggleSoftwareRendering: (context) async {
+        final enabled = !state.softwareRendering;
+        if (await setSoftwareRenderingEnabled(enabled)) {
+          redux.dispatch(_SetSoftwareRenderingAction(enabled));
+        }
+      },
       onTapRestartServer: (context) async {
         try {
           final newServerState = await _serverService.restartServer(
@@ -188,10 +196,12 @@ class _SettingsTabInitAction extends AsyncReduxAction<SettingsTabController, Set
     final autoStartEnabled = await isAutoStartEnabled();
     final autoStartHidden = await isAutoStartHidden();
     final showInContextMenu = await isContextMenuEnabled();
+    final softwareRendering = await isSoftwareRenderingEnabled();
     return state.copyWith(
       autoStart: autoStartEnabled,
       autoStartLaunchHidden: autoStartHidden,
       showInContextMenu: showInContextMenu,
+      softwareRendering: softwareRendering,
     );
   }
 }
@@ -248,5 +258,16 @@ class _SetShowInContextMenuAction extends ReduxAction<SettingsTabController, Set
   @override
   SettingsTabVm reduce() {
     return state.copyWith(showInContextMenu: enabled);
+  }
+}
+
+class _SetSoftwareRenderingAction extends ReduxAction<SettingsTabController, SettingsTabVm> {
+  final bool enabled;
+
+  _SetSoftwareRenderingAction(this.enabled);
+
+  @override
+  SettingsTabVm reduce() {
+    return state.copyWith(softwareRendering: enabled);
   }
 }

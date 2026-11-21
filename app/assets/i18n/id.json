@@ -212,15 +212,12 @@
     "verify": "Verifikasi",
     "info": {
       "name": "Nama",
-      "address": "Alamat",
       "version": "Versi",
       "protocol": "Protokol v{version}"
     },
     "logs": {
       "title": "Log",
-      "empty": "Tidak ada log yang tersedia.",
-      "discovered": "Ditemukan melalui {protocol} ({host})",
-      "updated": "Diperbarui melalui {protocol} ({host})"
+      "empty": "Tidak ada log yang tersedia."
     }
   },
   "verifyPage": {

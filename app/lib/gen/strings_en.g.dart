@@ -405,6 +405,7 @@ class Translations$deviceDetailsPage$en {
   String get verify => 'Verify';
 
   late final Translations$deviceDetailsPage$info$en info = Translations$deviceDetailsPage$info$en.internal(_root);
+  late final Translations$deviceDetailsPage$channels$en channels = Translations$deviceDetailsPage$channels$en.internal(_root);
   late final Translations$deviceDetailsPage$logs$en logs = Translations$deviceDetailsPage$logs$en.internal(_root);
 }
 
@@ -1100,6 +1101,12 @@ class Translations$settingsTab$general$en {
   /// en: 'Show LocalSend in context menu'
   String get showInContextMenu => 'Show LocalSend in context menu';
 
+  /// en: 'Software rendering'
+  String get softwareRendering => 'Software rendering';
+
+  /// en: 'Use if the window stays blank, glitches or closes on start. Takes effect after a restart.'
+  String get softwareRenderingDescription => 'Use if the window stays blank, glitches or closes on start. Takes effect after a restart.';
+
   /// en: 'Animations'
   String get animations => 'Animations';
 }
@@ -1326,14 +1333,44 @@ class Translations$deviceDetailsPage$info$en {
   /// en: 'Name'
   String get name => 'Name';
 
-  /// en: 'Address'
-  String get address => 'Address';
-
   /// en: 'Version'
   String get version => 'Version';
 
   /// en: 'Protocol v{version}'
   String protocol({required Object version}) => 'Protocol v${version}';
+}
+
+// Path: deviceDetailsPage.channels
+class Translations$deviceDetailsPage$channels$en {
+  Translations$deviceDetailsPage$channels$en.internal(this._root);
+
+  final Translations _root; // ignore: unused_field
+
+  // Translations
+
+  /// en: 'Channels'
+  String get title => 'Channels';
+
+  /// en: 'You'
+  String get you => 'You';
+
+  /// en: 'Outgoing'
+  String get outgoing => 'Outgoing';
+
+  /// en: 'Incoming'
+  String get incoming => 'Incoming';
+
+  /// en: 'Works'
+  String get works => 'Works';
+
+  /// en: 'Not tested'
+  String get notTested => 'Not tested';
+
+  /// en: 'Failed'
+  String get failed => 'Failed';
+
+  /// en: 'Not seen'
+  String get notSeen => 'Not seen';
 }
 
 // Path: deviceDetailsPage.logs
@@ -1350,11 +1387,18 @@ class Translations$deviceDetailsPage$logs$en {
   /// en: 'No logs available.'
   String get empty => 'No logs available.';
 
-  /// en: 'Discovered via {protocol} ({host})'
-  String discovered({required Object protocol, required Object host}) => 'Discovered via ${protocol} (${host})';
+  /// en: 'Reached via {protocol} ({host})'
+  String outbound({required Object protocol, required Object host}) => 'Reached via ${protocol} (${host})';
 
-  /// en: 'Updated via {protocol} ({host})'
-  String updated({required Object protocol, required Object host}) => 'Updated via ${protocol} (${host})';
+  /// en: 'Could not reach via {protocol} ({host}): {error}'
+  String outboundFailed({required Object protocol, required Object host, required Object error}) =>
+      'Could not reach via ${protocol} (${host}): ${error}';
+
+  /// en: 'Reached us via {protocol} ({host})'
+  String inbound({required Object protocol, required Object host}) => 'Reached us via ${protocol} (${host})';
+
+  /// en: 'Announcement heard ({host})'
+  String multicastInbound({required Object host}) => 'Announcement heard (${host})';
 }
 
 // Path: progressPage.total

@@ -1053,8 +1053,6 @@ class _Translations$deviceDetailsPage$info$vi extends Translations$deviceDetails
   @override
   String get name => 'Tên';
   @override
-  String get address => 'Địa chỉ';
-  @override
   String get version => 'Phiên bản';
   @override
   String protocol({required Object version}) => 'Giao thức v${version}';
@@ -1071,10 +1069,6 @@ class _Translations$deviceDetailsPage$logs$vi extends Translations$deviceDetails
   String get title => 'Nhật ký';
   @override
   String get empty => 'Không có nhật ký nào.';
-  @override
-  String discovered({required Object protocol, required Object host}) => 'Được phát hiện qua ${protocol} (${host})';
-  @override
-  String updated({required Object protocol, required Object host}) => 'Được cập nhật qua ${protocol} (${host})';
 }
 
 // Path: progressPage.total

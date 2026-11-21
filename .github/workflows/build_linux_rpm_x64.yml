@@ -5,7 +5,7 @@ on:
   workflow_call:
 
 env:
-  FLUTTER_VERSION: "3.47.9"
+  FLUTTER_VERSION: "3.41.9"
 
 jobs:
   build:
@@ -52,15 +52,29 @@ jobs:
       - name: Enable dart_distributor
         run: dart pub global activate flutter_distributor
 
-      # rpm 4.20+ runs %install in a per-package build subdirectory, while
-      # flutter_app_packager stages the bundle and desktop assets in its parent.
-      # Patch the Dart template variables and verify all four copy commands.
-      - name: Patch flutter_app_packager for rpm 4.20
+      # Patch flutter_app_packager's hardcoded rpm spec and desktop entry:
+      # - rpm 4.20+ runs %install in a per-package build subdirectory, while
+      #   flutter_app_packager stages the bundle and desktop assets in its parent.
+      #   Patch the Dart template variables and verify all four copy commands.
+      # - The pixmap is installed setuid (4755); install it as 644.
+      # - The rpm desktop entry has no StartupWMClass option. It must match the
+      #   GTK application id in linux/CMakeLists.txt, otherwise the desktop
+      #   environment cannot map the window to the entry and shows a generic icon.
+      # - Name the desktop file after the application id too. KWin finds the
+      #   window's desktop file by the Wayland app id alone, so with
+      #   localsend_app.desktop the title bar shows a generic icon.
+      - name: Patch flutter_app_packager
         run: |
           F=$(find "$HOME/.pub-cache/hosted/pub.dev" -path '*/flutter_app_packager-*/lib/src/makers/rpm/make_rpm_config.dart' | head -1)
           test -n "$F"
           sed -i 's|cp -r \$appName/|cp -r ../$appName/|; s|cp -r \$appBinaryName|cp -r ../$appBinaryName|g' "$F"
           test "$(grep -cF 'cp -r ../' "$F")" -eq 4
+          sed -i "s|'(4755, root, root) %{_datadir}/pixmaps/|'(644, root, root) %{_datadir}/pixmaps/|" "$F"
+          test "$(grep -cF "'(644, root, root) %{_datadir}/pixmaps/" "$F")" -eq 1
+          sed -i "s|'StartupNotify': startupNotify,|&\n        'StartupWMClass': 'org.localsend.localsend_app',|" "$F"
+          test "$(grep -cF "'StartupWMClass': 'org.localsend.localsend_app'," "$F")" -eq 1
+          sed -i 's|applications/%{name}\.desktop|applications/org.localsend.localsend_app.desktop|g' "$F"
+          test "$(grep -cF 'applications/org.localsend.localsend_app.desktop' "$F")" -eq 2
           dart pub global deactivate flutter_distributor
           dart pub global activate flutter_distributor
 

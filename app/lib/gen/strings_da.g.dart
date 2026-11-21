@@ -1052,8 +1052,6 @@ class _Translations$deviceDetailsPage$info$da extends Translations$deviceDetails
   @override
   String get name => 'Navn';
   @override
-  String get address => 'Adresse';
-  @override
   String get version => 'Version';
   @override
   String protocol({required Object version}) => 'Protokol v${version}';
@@ -1070,10 +1068,6 @@ class _Translations$deviceDetailsPage$logs$da extends Translations$deviceDetails
   String get title => 'Logfiler';
   @override
   String get empty => 'Ingen logfiler tilgængelige.';
-  @override
-  String discovered({required Object protocol, required Object host}) => 'Opdaget via ${protocol} (${host})';
-  @override
-  String updated({required Object protocol, required Object host}) => 'Opdateret via ${protocol} (${host})';
 }
 
 // Path: progressPage.total
