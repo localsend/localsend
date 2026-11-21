@@ -21,4 +21,17 @@ void main() {
     expect(createMessagePreview(null), isNull);
     expect(createMessagePreview([0xff, 0xfe]), isNull);
   });
+
+  test('message labels decode only the start of the text', () {
+    expect(createMessageLabel(utf8.encode('Hello')), 'Hello');
+    expect(createMessageLabel(utf8.encode('a' * 100000)), '${'a' * 256}…');
+    // 中 is 3 bytes: 85 characters fit, the cut-off 86th is dropped.
+    expect(createMessageLabel(utf8.encode('中' * 1000)), '${'中' * 85}…');
+  });
+
+  test('the cheap length check agrees with the encoded length', () {
+    for (final text in ['a' * maxMessagePreviewBytes, '中' * 5461, '中' * 5462, '👋' * 4096, '👋' * 4097]) {
+      expect(isMessagePreviewWithinLimit(text), utf8.encode(text).length <= maxMessagePreviewBytes, reason: '${text.length} code units');
+    }
+  });
 }

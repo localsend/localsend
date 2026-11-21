@@ -44,7 +44,12 @@ void main() {
     ),
   );
 
-  test('each shared file receives its own preview instead of the first file preview', () async {
+  test('a single shared text file embeds its own preview', () async {
+    final result = await controller.buildWebDownloadState(files: [_file('message.txt', 'First message')]);
+    expect(result.files.values.single.file.preview, 'First message');
+  });
+
+  test('multi-file shares embed no previews', () async {
     final result = await controller.buildWebDownloadState(
       files: [
         _file('first.txt', 'First message'),
@@ -52,10 +57,7 @@ void main() {
         _file('picture.png', 'binary', type: FileType.image),
       ],
     );
-    final files = result.files.values.toList();
-    expect(files[0].file.preview, 'First message');
-    expect(files[1].file.preview, 'Second message');
-    expect(files[2].file.preview, isNull);
+    expect(result.files.values.map((f) => f.file.preview), everyElement(isNull));
   });
 
   test('large browser shares retain the file contents without embedding a preview', () async {

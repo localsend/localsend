@@ -2,6 +2,7 @@
 //! active receive session.
 
 use super::App;
+use super::sending::MAX_MESSAGE_BYTES;
 use super::web_link::WebMode;
 use crate::sanitize;
 use crate::ui::Category;
@@ -91,6 +92,7 @@ impl ReceiveSession {
 
 /// Returns the text of a "message request": a single text file whose content
 /// is already included as a preview, so there is nothing left to transfer.
+/// Text larger than [`MAX_MESSAGE_BYTES`] is received as a file instead.
 fn message_of(files: &HashMap<String, FileDto>) -> Option<&str> {
     if files.len() != 1 {
         return None;
@@ -99,7 +101,12 @@ fn message_of(files: &HashMap<String, FileDto>) -> Option<&str> {
     if file.file_type != "text" && !file.file_type.starts_with("text/") {
         return None;
     }
-    file.preview.as_deref()
+    if file.size > MAX_MESSAGE_BYTES as u64 {
+        return None;
+    }
+    file.preview
+        .as_deref()
+        .filter(|preview| preview.len() <= MAX_MESSAGE_BYTES)
 }
 
 /// Maximum number of files listed in an incoming request prompt.
@@ -501,5 +508,45 @@ impl App {
                 ));
             }
         }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::{MAX_MESSAGE_BYTES, message_of};
+    use localsend::model::transfer::FileDto;
+    use std::collections::HashMap;
+
+    fn text_request(preview: &str, size: u64) -> HashMap<String, FileDto> {
+        let file = FileDto {
+            id: "id".to_string(),
+            file_name: "id.txt".to_string(),
+            size,
+            file_type: "text/plain".to_string(),
+            sha256: None,
+            preview: Some(preview.to_string()),
+            metadata: None,
+        };
+        HashMap::from([(file.id.clone(), file)])
+    }
+
+    #[test]
+    fn short_text_is_a_message() {
+        assert_eq!(message_of(&text_request("hello", 5)), Some("hello"));
+        let limit = "a".repeat(MAX_MESSAGE_BYTES);
+        assert_eq!(
+            message_of(&text_request(&limit, MAX_MESSAGE_BYTES as u64)),
+            Some(limit.as_str())
+        );
+    }
+
+    #[test]
+    fn oversized_text_is_received_as_a_file() {
+        let text = "a".repeat(MAX_MESSAGE_BYTES + 1);
+        assert_eq!(message_of(&text_request(&text, text.len() as u64)), None);
+        // A peer cannot bypass the limit by claiming a small size.
+        assert_eq!(message_of(&text_request(&text, 1)), None);
+        // Nor send a short preview of a large file.
+        assert_eq!(message_of(&text_request("preview", 42_000_000)), None);
     }
 }

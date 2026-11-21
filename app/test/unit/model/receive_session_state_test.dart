@@ -45,6 +45,7 @@ void main() {
   test('short messages and links remain inline', () {
     for (final text in ['Hello, 你好 👋', 'https://localsend.org', '']) {
       expect(_session([_text(text)]).message, text);
+      expect(_session([_text(text)]).isMessageRequest, isTrue);
     }
   });
 
@@ -57,6 +58,7 @@ void main() {
     for (final text in ['a' * (_previewLimit + 1), 'a' * 105000, '中' * 6000, '👋' * 5000]) {
       final session = _session([_text(text)]);
       expect(session.message, isNull);
+      expect(session.isMessageRequest, isTrue);
       expect(session.files.values.single.file.preview, text);
     }
   });
@@ -71,5 +73,11 @@ void main() {
 
   test('multiple text files are never treated as an inline message', () {
     expect(_session([_text('one'), _text('two', id: 'other')]).message, isNull);
+    expect(_session([_text('one'), _text('two', id: 'other')]).isMessageRequest, isFalse);
+  });
+
+  test('a text file without a preview is not a message request', () {
+    final file = FileDto(id: 'file', fileName: 'file.txt', size: 3, fileType: FileType.text, hash: null, preview: null, metadata: null);
+    expect(_session([file]).isMessageRequest, isFalse);
   });
 }

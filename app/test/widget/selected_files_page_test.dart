@@ -54,12 +54,16 @@ void main() {
     expect(tester.takeException(), isNull);
   });
 
-  testWidgets('large clipboard text is shown as a file without laying out the full content', (tester) async {
+  testWidgets('large clipboard text stays editable without laying out the full content', (tester) async {
     final text = 'a' * 105000;
     await pumpSelection(tester, text);
-    expect(find.text('message.txt'), findsOneWidget);
-    expect(find.byIcon(Icons.edit), findsNothing);
     expect(find.textContaining(text), findsNothing);
+    expect(find.textContaining('"aaa'), findsOneWidget);
+    expect(find.byIcon(Icons.edit), findsOneWidget);
     expect(tester.takeException(), isNull);
+
+    await tester.tap(find.byIcon(Icons.edit));
+    await tester.pumpAndSettle();
+    expect(tester.widget<TextFormField>(find.byType(TextFormField)).controller!.text, text);
   });
 }

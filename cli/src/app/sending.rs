@@ -28,8 +28,10 @@ type CollectedPath = Result<(PathBuf, String), (PathBuf, String)>;
 type Transfer = (HashMap<String, FileDto>, HashMap<String, FileSource>, u64);
 
 /// Largest text sent as a message (embedded in the request as a preview).
-/// Longer text is sent as a `.txt` file instead.
-const MAX_MESSAGE_BYTES: usize = 64_000;
+/// Longer text is sent as a `.txt` file instead, and is received that way
+/// too. Same limit as `maxMessagePreviewBytes` in the app, which lays out a
+/// message as a single paragraph.
+pub(super) const MAX_MESSAGE_BYTES: usize = 16 * 1024;
 
 /// Largest input read from stdin, which is held in memory until sent.
 const MAX_STDIN_BYTES: u64 = 16_000_000;

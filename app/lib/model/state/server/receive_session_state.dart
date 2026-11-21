@@ -61,6 +61,10 @@ class ReceiveSessionState with ReceiveSessionStateMappable implements SessionSta
   /// instead of laying it out as one paragraph in the message dialog.
   String? get message => extractMessagePreview(files.values.map((f) => f.file));
 
+  /// Returns true if this is a "message request", even if the message is too large for [message].
+  /// Such requests must never be accepted automatically.
+  bool get isMessageRequest => isMessageRequestOf(files.values.map((f) => f.file));
+
   /// Returns true if this request contains files having a directory path.
   /// "Save to gallery" is disabled for such requests.
   bool get containsDirectories {

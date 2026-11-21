@@ -60,7 +60,7 @@ class SendController {
                   size: file.size,
                   fileType: file.fileType,
                   hash: null,
-                  preview: file.fileType == FileType.text ? createMessagePreview(file.bytes) : null,
+                  preview: files.length == 1 && file.fileType == FileType.text ? createMessagePreview(file.bytes) : null,
                   metadata: file.lastModified != null || file.lastAccessed != null
                       ? FileMetadata(
                           lastModified: file.lastModified,
