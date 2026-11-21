@@ -60,6 +60,9 @@ jobs:
       # - The rpm desktop entry has no StartupWMClass option. It must match the
       #   GTK application id in linux/CMakeLists.txt, otherwise the desktop
       #   environment cannot map the window to the entry and shows a generic icon.
+      # - Name the desktop file after the application id too. KWin finds the
+      #   window's desktop file by the Wayland app id alone, so with
+      #   localsend_app.desktop the title bar shows a generic icon.
       - name: Patch flutter_app_packager
         run: |
           F=$(find "$HOME/.pub-cache/hosted/pub.dev" -path '*/flutter_app_packager-*/lib/src/makers/rpm/make_rpm_config.dart' | head -1)
@@ -70,6 +73,8 @@ jobs:
           test "$(grep -cF "'(644, root, root) %{_datadir}/pixmaps/" "$F")" -eq 1
           sed -i "s|'StartupNotify': startupNotify,|&\n        'StartupWMClass': 'org.localsend.localsend_app',|" "$F"
           test "$(grep -cF "'StartupWMClass': 'org.localsend.localsend_app'," "$F")" -eq 1
+          sed -i 's|applications/%{name}\.desktop|applications/org.localsend.localsend_app.desktop|g' "$F"
+          test "$(grep -cF 'applications/org.localsend.localsend_app.desktop' "$F")" -eq 2
           dart pub global deactivate flutter_distributor
           dart pub global activate flutter_distributor
 
