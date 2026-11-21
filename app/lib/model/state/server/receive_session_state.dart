@@ -1,7 +1,7 @@
 import 'package:dart_mappable/dart_mappable.dart';
 import 'package:localsend_app/model/state/server/receiving_file.dart';
+import 'package:localsend_app/util/message_preview.dart';
 import 'package:localsend_isolates/model/device.dart';
-import 'package:localsend_isolates/model/file_type.dart';
 import 'package:localsend_isolates/model/session_status.dart';
 
 part 'receive_session_state.mapper.dart';
@@ -56,11 +56,14 @@ class ReceiveSessionState with ReceiveSessionStateMappable implements SessionSta
   });
 
   /// Returns the message of this request if this is a "message request".
-  /// Message requests must contain a single text file with preview included.
-  String? get message {
-    final firstFile = files.values.first.file;
-    return files.length == 1 && firstFile.fileType == FileType.text ? firstFile.preview : null;
-  }
+  /// Message requests must contain a single small text file with preview included.
+  /// Older peers may embed an entire large text file; receive it as a file
+  /// instead of laying it out as one paragraph in the message dialog.
+  String? get message => extractMessagePreview(files.values.map((f) => f.file));
+
+  /// Returns true if this is a "message request", even if it is too large for [message].
+  /// See [isMessageRequestOf].
+  bool get isMessageRequest => isMessageRequestOf(files.values.map((f) => f.file));
 
   /// Returns true if this request contains files having a directory path.
   /// "Save to gallery" is disabled for such requests.

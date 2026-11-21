@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/provider/selection/selected_sending_files_provider.dart';
+import 'package:localsend_app/util/message_preview.dart';
 import 'package:localsend_app/util/native/open_file.dart';
 import 'package:localsend_app/util/ui/nav_bar_padding.dart';
 import 'package:localsend_app/widget/dialogs/message_input_dialog.dart';
@@ -65,12 +66,9 @@ class SelectedFilesPage extends StatelessWidget {
                 (context, index) {
                   final file = selectedFiles[index];
 
-                  final String? message;
-                  if (file.fileType == FileType.text && file.bytes != null) {
-                    message = utf8.decode(file.bytes!);
-                  } else {
-                    message = null;
-                  }
+                  // In-memory text is a message typed or pasted by the user.
+                  // Only its start is decoded for the label, so large text stays cheap to lay out.
+                  final messageBytes = file.fileType == FileType.text ? file.bytes : null;
 
                   return Padding(
                     padding: const EdgeInsets.only(bottom: 10),
@@ -92,7 +90,7 @@ class SelectedFilesPage extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      message != null ? '"${message.replaceAll('\n', ' ')}"' : file.name,
+                                      messageBytes != null ? '"${createMessageLabel(messageBytes).replaceAll('\n', ' ')}"' : file.name,
                                       maxLines: 1,
                                       overflow: TextOverflow.fade,
                                       softWrap: false,
@@ -101,7 +99,7 @@ class SelectedFilesPage extends StatelessWidget {
                                   ],
                                 ),
                               ),
-                              if (file.fileType == FileType.text && file.bytes != null)
+                              if (messageBytes != null)
                                 TextButton(
                                   style: TextButton.styleFrom(
                                     foregroundColor: Theme.of(context).colorScheme.onSurface,
@@ -110,7 +108,7 @@ class SelectedFilesPage extends StatelessWidget {
                                   onPressed: () async {
                                     final result = await showDialog<String>(
                                       context: context,
-                                      builder: (_) => MessageInputDialog(initialText: message),
+                                      builder: (_) => MessageInputDialog(initialText: utf8.decode(messageBytes, allowMalformed: true)),
                                     );
                                     if (result != null) {
                                       ref.redux(selectedSendingFilesProvider).dispatch(UpdateMessageAction(message: result, index: index));
