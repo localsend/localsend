@@ -47,8 +47,13 @@ bool isMessagePreviewWithinLimit(String preview) {
 }
 
 /// Returns true if [files] is a "message request": a single text file with its preview included.
-/// Unlike [extractMessagePreview], this also covers messages too large to be shown inline,
-/// so they are never saved automatically.
+///
+/// Unlike [extractMessagePreview], this ignores the size of the preview. Older peers
+/// embed text of any length, which is received as a file instead of shown inline,
+/// but must still not be accepted automatically, as before.
+///
+/// Current senders omit the preview above [maxMessagePreviewBytes], so their large
+/// text is indistinguishable from a regular `.txt` file and is treated as one.
 bool isMessageRequestOf(Iterable<FileDto> files) {
   if (files.length != 1) {
     return false;
