@@ -112,6 +112,8 @@
       "launchAtStartup": "Oturum açılışında otomatik başlat",
       "launchMinimized": "Otomatik başlatma: Gizli başlat",
       "showInContextMenu": "Sağ tık menüsünde LocalSend'i göster",
+      "softwareRendering": "Yazılımsal işleme",
+      "softwareRenderingDescription": "Pencere boş kalıyor, bozuk görünüyor veya açılışta kapanıyorsa kullanın. Yeniden başlatmadan sonra geçerli olur.",
       "animations": "Animasyonlar"
     },
     "receive": {
@@ -217,9 +219,23 @@
       "version": "Sürüm",
       "protocol": "Protokol v{version}"
     },
+    "channels": {
+      "title": "Kanallar",
+      "you": "Siz",
+      "outgoing": "Giden",
+      "incoming": "Gelen",
+      "works": "Çalışıyor",
+      "notTested": "Test edilmedi",
+      "failed": "Başarısız",
+      "notSeen": "Görülmedi"
+    },
     "logs": {
       "title": "Kayıtlar",
-      "empty": "Henüz kayıt yok."
+      "empty": "Henüz kayıt yok.",
+      "outbound": "{protocol} üzerinden ulaşıldı ({host})",
+      "outboundFailed": "{protocol} üzerinden ulaşılamadı ({host}): {error}",
+      "inbound": "Bize {protocol} üzerinden ulaştı ({host})",
+      "multicastInbound": "Duyuru alındı ({host})"
     }
   },
   "verifyPage": {

@@ -60,6 +60,10 @@ class TranslationsGa extends Translations with BaseTranslations<AppLocale, Trans
   @override
   late final _Translations$selectedFilesPage$ga selectedFilesPage = _Translations$selectedFilesPage$ga._(_root);
   @override
+  late final _Translations$deviceDetailsPage$ga deviceDetailsPage = _Translations$deviceDetailsPage$ga._(_root);
+  @override
+  late final _Translations$verifyPage$ga verifyPage = _Translations$verifyPage$ga._(_root);
+  @override
   late final _Translations$receivePage$ga receivePage = _Translations$receivePage$ga._(_root);
   @override
   late final _Translations$receiveOptionsPage$ga receiveOptionsPage = _Translations$receiveOptionsPage$ga._(_root);
@@ -70,11 +74,15 @@ class TranslationsGa extends Translations with BaseTranslations<AppLocale, Trans
   @override
   late final _Translations$webSharePage$ga webSharePage = _Translations$webSharePage$ga._(_root);
   @override
+  late final _Translations$webReceivePage$ga webReceivePage = _Translations$webReceivePage$ga._(_root);
+  @override
   late final _Translations$aboutPage$ga aboutPage = _Translations$aboutPage$ga._(_root);
   @override
   late final _Translations$donationPage$ga donationPage = _Translations$donationPage$ga._(_root);
   @override
   late final _Translations$changelogPage$ga changelogPage = _Translations$changelogPage$ga._(_root);
+  @override
+  late final _Translations$whatsNewPage$ga whatsNewPage = _Translations$whatsNewPage$ga._(_root);
   @override
   late final _Translations$aliasGenerator$ga aliasGenerator = _Translations$aliasGenerator$ga._(_root);
   @override
@@ -187,6 +195,8 @@ class _Translations$receiveTab$ga extends Translations$receiveTab$en {
   late final _Translations$receiveTab$infoBox$ga infoBox = _Translations$receiveTab$infoBox$ga._(_root);
   @override
   late final _Translations$receiveTab$quickSave$ga quickSave = _Translations$receiveTab$quickSave$ga._(_root);
+  @override
+  String get link => 'Faigh trí nasc';
 }
 
 // Path: sendTab
@@ -339,6 +349,44 @@ class _Translations$selectedFilesPage$ga extends Translations$selectedFilesPage$
   String get deleteAll => 'Scrios gach rud';
 }
 
+// Path: deviceDetailsPage
+class _Translations$deviceDetailsPage$ga extends Translations$deviceDetailsPage$en {
+  _Translations$deviceDetailsPage$ga._(TranslationsGa root) : this._root = root, super.internal(root);
+
+  final TranslationsGa _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Sonraí an Ghléis';
+  @override
+  String get favorite => 'Ceanán';
+  @override
+  String get verify => 'Fíoraigh';
+  @override
+  late final _Translations$deviceDetailsPage$info$ga info = _Translations$deviceDetailsPage$info$ga._(_root);
+  @override
+  late final _Translations$deviceDetailsPage$channels$ga channels = _Translations$deviceDetailsPage$channels$ga._(_root);
+  @override
+  late final _Translations$deviceDetailsPage$logs$ga logs = _Translations$deviceDetailsPage$logs$ga._(_root);
+}
+
+// Path: verifyPage
+class _Translations$verifyPage$ga extends Translations$verifyPage$en {
+  _Translations$verifyPage$ga._(TranslationsGa root) : this._root = root, super.internal(root);
+
+  final TranslationsGa _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Fíoraigh';
+  @override
+  String get icons => 'Deilbhíní';
+  @override
+  String get text => 'Téacs';
+  @override
+  String get question => 'An bhfuil sé mar an gcéanna ar an ngléas eile?';
+}
+
 // Path: receivePage
 class _Translations$receivePage$ga extends Translations$receivePage$en {
   _Translations$receivePage$ga._(TranslationsGa root) : this._root = root, super.internal(root);
@@ -387,6 +435,8 @@ class _Translations$sendPage$ga extends Translations$sendPage$en {
 
   // Translations
   @override
+  String calculatingChecksum({required Object curr, required Object n}) => 'Suim sheiceála á ríomh (${curr} / ${n})';
+  @override
   String get waiting => 'Ag fanacht le freagra…';
   @override
   String get rejected => 'Dhiúltaigh an faighteoir don iarratas.';
@@ -411,6 +461,8 @@ class _Translations$progressPage$ga extends Translations$progressPage$en {
   String get savedToGallery => 'Sábháilte i nGrianghraif';
   @override
   late final _Translations$progressPage$total$ga total = _Translations$progressPage$total$ga._(_root);
+  @override
+  late final _Translations$progressPage$remainingTime$ga remainingTime = _Translations$progressPage$remainingTime$ga._(_root);
 }
 
 // Path: webSharePage
@@ -450,6 +502,17 @@ class _Translations$webSharePage$ga extends Translations$webSharePage$en {
   String get encryptionHint => 'Úsáideann LocalSend teastas féinshínithe. Ní mór duit glacadh leis i do bhrabhsálaí.';
   @override
   String pendingRequests({required Object n}) => 'Iarratais ar feitheamh: ${n}';
+}
+
+// Path: webReceivePage
+class _Translations$webReceivePage$ga extends Translations$webReceivePage$en {
+  _Translations$webReceivePage$ga._(TranslationsGa root) : this._root = root, super.internal(root);
+
+  final TranslationsGa _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Faigh trí nasc';
 }
 
 // Path: aboutPage
@@ -505,6 +568,19 @@ class _Translations$changelogPage$ga extends Translations$changelogPage$en {
   // Translations
   @override
   String get title => 'Log Athruithe';
+}
+
+// Path: whatsNewPage
+class _Translations$whatsNewPage$ga extends Translations$whatsNewPage$en {
+  _Translations$whatsNewPage$ga._(TranslationsGa root) : this._root = root, super.internal(root);
+
+  final TranslationsGa _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String title({required Object version}) => 'Cad atá nua i leagan ${version}';
+  @override
+  late final _Translations$whatsNewPage$changes$ga changes = _Translations$whatsNewPage$changes$ga._(_root);
 }
 
 // Path: aliasGenerator
@@ -878,6 +954,10 @@ class _Translations$settingsTab$general$ga extends Translations$settingsTab$gene
   @override
   String get saveWindowPlacementWindows => 'Sábháil suíomh na fuinneoige tar éis imeachta';
   @override
+  String get alwaysOnTop => 'I gcónaí ar barr';
+  @override
+  String get alwaysOnTopUnavailable => 'Ní thacaítear leis ar Wayland';
+  @override
   String get minimizeToTray => 'Íoslaghdaigh go dtí an Tráidire Córais/Barra Roghchláir agus é á dhúnadh';
   @override
   String get launchAtStartup => 'Uaththosú tar éis logáil isteach';
@@ -885,6 +965,11 @@ class _Translations$settingsTab$general$ga extends Translations$settingsTab$gene
   String get launchMinimized => 'Uaththosú: Tosaigh i bhfolach';
   @override
   String get showInContextMenu => 'Taispeáin LocalSend sa roghchlár comhthéacs';
+  @override
+  String get softwareRendering => 'Rindreáil bogearraí';
+  @override
+  String get softwareRenderingDescription =>
+      'Úsáid é seo má fhanann an fhuinneog bán, má bhíonn fabhtanna inti nó má dhúnann sí ag an tús. Tagann sé i bhfeidhm tar éis atosaithe.';
   @override
   String get animations => 'Beochana';
 }
@@ -914,6 +999,8 @@ class _Translations$settingsTab$receive$ga extends Translations$settingsTab$rece
   String get saveToGallery => 'Sábháil meáin chuig an ngailearaí';
   @override
   String get saveToHistory => 'Sábháil chuig an stair';
+  @override
+  String get verifyChecksums => 'Fíoraigh suimeanna seiceála agus comhaid á bhfáil';
 }
 
 // Path: settingsTab.send
@@ -927,6 +1014,8 @@ class _Translations$settingsTab$send$ga extends Translations$settingsTab$send$en
   String get title => 'Seol';
   @override
   String get shareViaLinkAutoAccept => 'Glac le hiarratais go huathoibríoch sa mhód "Comhroinn trí nasc"';
+  @override
+  String get createChecksums => 'Cruthaigh suimeanna seiceála agus comhaid á seoladh';
 }
 
 // Path: settingsTab.network
@@ -1053,6 +1142,68 @@ class _Translations$receiveHistoryPage$entryActions$ga extends Translations$rece
   String get deleteFromHistory => 'Scrios ón stair';
 }
 
+// Path: deviceDetailsPage.info
+class _Translations$deviceDetailsPage$info$ga extends Translations$deviceDetailsPage$info$en {
+  _Translations$deviceDetailsPage$info$ga._(TranslationsGa root) : this._root = root, super.internal(root);
+
+  final TranslationsGa _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get name => 'Ainm';
+  @override
+  String get version => 'Leagan';
+  @override
+  String protocol({required Object version}) => 'Prótacal v${version}';
+}
+
+// Path: deviceDetailsPage.channels
+class _Translations$deviceDetailsPage$channels$ga extends Translations$deviceDetailsPage$channels$en {
+  _Translations$deviceDetailsPage$channels$ga._(TranslationsGa root) : this._root = root, super.internal(root);
+
+  final TranslationsGa _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Cainéil';
+  @override
+  String get you => 'Tusa';
+  @override
+  String get outgoing => 'Amach';
+  @override
+  String get incoming => 'Isteach';
+  @override
+  String get works => 'Ag obair';
+  @override
+  String get notTested => 'Gan tástáil';
+  @override
+  String get failed => 'Theip air';
+  @override
+  String get notSeen => 'Gan feiceáil';
+}
+
+// Path: deviceDetailsPage.logs
+class _Translations$deviceDetailsPage$logs$ga extends Translations$deviceDetailsPage$logs$en {
+  _Translations$deviceDetailsPage$logs$ga._(TranslationsGa root) : this._root = root, super.internal(root);
+
+  final TranslationsGa _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Logaí';
+  @override
+  String get empty => 'Níl aon logaí ar fáil.';
+  @override
+  String outbound({required Object protocol, required Object host}) => 'Sroichte trí ${protocol} (${host})';
+  @override
+  String outboundFailed({required Object protocol, required Object host, required Object error}) =>
+      'Níorbh fhéidir é a shroicheadh trí ${protocol} (${host}): ${error}';
+  @override
+  String inbound({required Object protocol, required Object host}) => 'Shroich sé sinn trí ${protocol} (${host})';
+  @override
+  String multicastInbound({required Object host}) => 'Fógra cloiste (${host})';
+}
+
 // Path: progressPage.total
 class _Translations$progressPage$total$ga extends Translations$progressPage$total$en {
   _Translations$progressPage$total$ga._(TranslationsGa root) : this._root = root, super.internal(root);
@@ -1068,6 +1219,41 @@ class _Translations$progressPage$total$ga extends Translations$progressPage$tota
   String size({required Object curr, required Object n}) => 'Méid: ${curr} / ${n}';
   @override
   String speed({required Object speed}) => 'Luas: ${speed}/s';
+}
+
+// Path: progressPage.remainingTime
+class _Translations$progressPage$remainingTime$ga extends Translations$progressPage$remainingTime$en {
+  _Translations$progressPage$remainingTime$ga._(TranslationsGa root) : this._root = root, super.internal(root);
+
+  final TranslationsGa _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String minutesUnit({required num m}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ga'))(
+    m,
+    other: '${m}m',
+  );
+  @override
+  String hoursUnit({required num h}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('ga'))(
+    h,
+    other: '${h}h',
+  );
+  @override
+  String minutes({required Object m, required Object ss}) => '${m}:${ss}';
+  @override
+  String hours({required num h, required num m}) =>
+      '${_root.progressPage.remainingTime.hoursUnit(h: h)} ${_root.progressPage.remainingTime.minutesUnit(m: m)}';
+}
+
+// Path: whatsNewPage.changes
+class _Translations$whatsNewPage$changes$ga extends Translations$whatsNewPage$changes$en {
+  _Translations$whatsNewPage$changes$ga._(TranslationsGa root) : this._root = root, super.internal(root);
+
+  final TranslationsGa _root; // ignore: unused_field
+
+  // Translations
+  @override
+  late final _Translations$whatsNewPage$changes$v1_18_0$ga v1_18_0 = _Translations$whatsNewPage$changes$v1_18_0$ga._(_root);
 }
 
 // Path: dialogs.addFile
@@ -1105,6 +1291,10 @@ class _Translations$dialogs$addressInput$ga extends Translations$dialogs$address
   // Translations
   @override
   String get title => 'Iontráil seoladh';
+  @override
+  String get hashtag => 'Haischlib';
+  @override
+  String get ip => 'Seoladh IP';
   @override
   String get recentlyUsed => 'Úsáidte le déanaí: ';
 }
@@ -1206,6 +1396,8 @@ class _Translations$dialogs$favoriteEditDialog$ga extends Translations$dialogs$f
   String get ip => 'Seoladh IP';
   @override
   String get port => 'Port';
+  @override
+  String get invalidPort => 'Iontráil slánuimhir idir 1 agus 65535.';
 }
 
 // Path: dialogs.fileInfo
@@ -1452,6 +1644,8 @@ class _Translations$settingsTab$general$colorOptions$ga extends Translations$set
   String get system => 'Córas';
   @override
   String get oled => 'OLED';
+  @override
+  String get custom => 'Saincheaptha';
 }
 
 // Path: settingsTab.general.languageOptions
@@ -1493,4 +1687,19 @@ class _Translations$progressPage$total$title$ga extends Translations$progressPag
   String get canceledSender => 'Cealaithe ag an seoltóir';
   @override
   String get canceledReceiver => 'Cealaithe ag an nglacadóir';
+}
+
+// Path: whatsNewPage.changes.v1_18_0
+class _Translations$whatsNewPage$changes$v1_18_0$ga extends Translations$whatsNewPage$changes$v1_18_0$en with WhatsNewStrings {
+  _Translations$whatsNewPage$changes$v1_18_0$ga._(TranslationsGa root) : this._root = root, super.internal(root);
+
+  final TranslationsGa _root; // ignore: unused_field
+
+  // Translations
+  @override
+  List<String> get changes => [
+    'Ní mhoillíonn criptiú aistrithe a thuilleadh. Athchumasaíodh é ar an ngléas seo má mhúch tú roimhe seo é.',
+    'Glactar le hiarratais ó cheanáin go huathoibríoch anois. Tá sé seo casta air de réir réamhshocraithe agus is féidir é a dhíchumasú sna socruithe.',
+    'Ar Android, leanann aistrithe ar aghaidh agus an aip sa chúlra nó an scáileán múchta. Ar iOS, ní mór don aip fanacht sa tulra fós.',
+  ];
 }

@@ -361,6 +361,8 @@ class _Translations$deviceDetailsPage$pl extends Translations$deviceDetailsPage$
   @override
   late final _Translations$deviceDetailsPage$info$pl info = _Translations$deviceDetailsPage$info$pl._(_root);
   @override
+  late final _Translations$deviceDetailsPage$channels$pl channels = _Translations$deviceDetailsPage$channels$pl._(_root);
+  @override
   late final _Translations$deviceDetailsPage$logs$pl logs = _Translations$deviceDetailsPage$logs$pl._(_root);
 }
 
@@ -865,6 +867,10 @@ class _Translations$settingsTab$general$pl extends Translations$settingsTab$gene
   @override
   String get saveWindowPlacementWindows => 'Zapisz pozycję okna po zamknięciu';
   @override
+  String get alwaysOnTop => 'Zawsze na wierzchu';
+  @override
+  String get alwaysOnTopUnavailable => 'Nieobsługiwane w Wayland';
+  @override
   String get minimizeToTray => 'Zminimalizuj do menu ukrytych ikon przy zamykaniu';
   @override
   String get launchAtStartup => 'Autostart po zalogowaniu';
@@ -872,6 +878,11 @@ class _Translations$settingsTab$general$pl extends Translations$settingsTab$gene
   String get launchMinimized => 'Autostart: start ukryty';
   @override
   String get showInContextMenu => 'Pokaż LocalSend w menu kontekstowym';
+  @override
+  String get softwareRendering => 'Renderowanie programowe';
+  @override
+  String get softwareRenderingDescription =>
+      'Użyj, jeśli okno pozostaje puste, wyświetla się błędnie lub zamyka się przy starcie. Zmiana zadziała po ponownym uruchomieniu.';
   @override
   String get animations => 'Animacje';
 }
@@ -1058,6 +1069,31 @@ class _Translations$deviceDetailsPage$info$pl extends Translations$deviceDetails
   String protocol({required Object version}) => 'Protokół v${version}';
 }
 
+// Path: deviceDetailsPage.channels
+class _Translations$deviceDetailsPage$channels$pl extends Translations$deviceDetailsPage$channels$en {
+  _Translations$deviceDetailsPage$channels$pl._(TranslationsPl root) : this._root = root, super.internal(root);
+
+  final TranslationsPl _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Kanały';
+  @override
+  String get you => 'Ty';
+  @override
+  String get outgoing => 'Wychodzące';
+  @override
+  String get incoming => 'Przychodzące';
+  @override
+  String get works => 'Działa';
+  @override
+  String get notTested => 'Nie testowano';
+  @override
+  String get failed => 'Nieudane';
+  @override
+  String get notSeen => 'Nie widziano';
+}
+
 // Path: deviceDetailsPage.logs
 class _Translations$deviceDetailsPage$logs$pl extends Translations$deviceDetailsPage$logs$en {
   _Translations$deviceDetailsPage$logs$pl._(TranslationsPl root) : this._root = root, super.internal(root);
@@ -1069,6 +1105,15 @@ class _Translations$deviceDetailsPage$logs$pl extends Translations$deviceDetails
   String get title => 'Dzienniki';
   @override
   String get empty => 'Brak dostępnych dzienników.';
+  @override
+  String outbound({required Object protocol, required Object host}) => 'Połączono przez ${protocol} (${host})';
+  @override
+  String outboundFailed({required Object protocol, required Object host, required Object error}) =>
+      'Nie udało się połączyć przez ${protocol} (${host}): ${error}';
+  @override
+  String inbound({required Object protocol, required Object host}) => 'Połączyło się z nami przez ${protocol} (${host})';
+  @override
+  String multicastInbound({required Object host}) => 'Odebrano ogłoszenie (${host})';
 }
 
 // Path: progressPage.total
@@ -1263,6 +1308,8 @@ class _Translations$dialogs$favoriteEditDialog$pl extends Translations$dialogs$f
   String get ip => 'Adres IP';
   @override
   String get port => 'Port';
+  @override
+  String get invalidPort => 'Wpisz liczbę całkowitą od 1 do 65535.';
 }
 
 // Path: dialogs.fileInfo

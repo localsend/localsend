@@ -106,10 +106,14 @@
       },
       "saveWindowPlacement": "Сохранять расположение окна после выхода",
       "saveWindowPlacementWindows": "Сохранять расположение окна после выхода",
+      "alwaysOnTop": "Поверх всех окон",
+      "alwaysOnTopUnavailable": "Не поддерживается в Wayland",
       "minimizeToTray": "Сворачивать в системный трей/строку меню при закрытии",
       "launchAtStartup": "Автозагрузка",
       "launchMinimized": "Скрытая автозагрузка",
       "showInContextMenu": "Отображать LocalSend в контекстном меню",
+      "softwareRendering": "Программная отрисовка",
+      "softwareRenderingDescription": "Используйте, если окно остается пустым, работает со сбоями или закрывается при запуске. Вступает в силу после перезапуска.",
       "animations": "Анимации"
     },
     "receive": {
@@ -215,9 +219,23 @@
       "version": "Версия",
       "protocol": "Протокол v{version}"
     },
+    "channels": {
+      "title": "Каналы",
+      "you": "Вы",
+      "outgoing": "Исходящее",
+      "incoming": "Входящее",
+      "works": "Работает",
+      "notTested": "Не проверено",
+      "failed": "Ошибка",
+      "notSeen": "Не обнаружено"
+    },
     "logs": {
       "title": "Журналы",
-      "empty": "Нет доступных журналов."
+      "empty": "Нет доступных журналов.",
+      "outbound": "Подключено через {protocol} ({host})",
+      "outboundFailed": "Не удалось подключиться через {protocol} ({host}): {error}",
+      "inbound": "Входящее подключение через {protocol} ({host})",
+      "multicastInbound": "Получено объявление ({host})"
     }
   },
   "verifyPage": {
@@ -377,7 +395,8 @@
       "name": "Имя устройства",
       "auto": "(автоматически)",
       "ip": "IP-адрес",
-      "port": "Порт"
+      "port": "Порт",
+      "invalidPort": "Введите целое число от 1 до 65535."
     },
     "fileInfo": {
       "title": "О файле",

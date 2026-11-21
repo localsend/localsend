@@ -364,6 +364,8 @@ class Translations$deviceDetailsPage$pt_BR extends Translations$deviceDetailsPag
   @override
   late final Translations$deviceDetailsPage$info$pt_BR info = Translations$deviceDetailsPage$info$pt_BR.internal(_root);
   @override
+  late final Translations$deviceDetailsPage$channels$pt_BR channels = Translations$deviceDetailsPage$channels$pt_BR.internal(_root);
+  @override
   late final Translations$deviceDetailsPage$logs$pt_BR logs = Translations$deviceDetailsPage$logs$pt_BR.internal(_root);
 }
 
@@ -946,6 +948,10 @@ class Translations$settingsTab$general$pt_BR extends Translations$settingsTab$ge
   @override
   String get saveWindowPlacementWindows => 'Salvar posição da janela ao sair';
   @override
+  String get alwaysOnTop => 'Sempre no topo';
+  @override
+  String get alwaysOnTopUnavailable => 'Não suportado no Wayland';
+  @override
   String get minimizeToTray => 'Minimizar para a bandeja ao fechar';
   @override
   String get launchAtStartup => 'Abrir junto com o usuário';
@@ -953,6 +959,11 @@ class Translations$settingsTab$general$pt_BR extends Translations$settingsTab$ge
   String get launchMinimized => 'Início automático: Abrir minimizado';
   @override
   String get showInContextMenu => 'Mostrar LocalSend no menu de contexto';
+  @override
+  String get softwareRendering => 'Renderização por software';
+  @override
+  String get softwareRenderingDescription =>
+      'Use se a janela ficar em branco, apresentar falhas ou fechar ao iniciar. Entra em vigor após reiniciar.';
   @override
   String get animations => 'Animações';
 }
@@ -1142,6 +1153,31 @@ class Translations$deviceDetailsPage$info$pt_BR extends Translations$deviceDetai
   String protocol({required Object version}) => 'Protocolo v${version}';
 }
 
+// Path: deviceDetailsPage.channels
+class Translations$deviceDetailsPage$channels$pt_BR extends Translations$deviceDetailsPage$channels$en {
+  Translations$deviceDetailsPage$channels$pt_BR.internal(TranslationsPtBr root) : this._root = root, super.internal(root);
+
+  final TranslationsPtBr _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Canais';
+  @override
+  String get you => 'Você';
+  @override
+  String get outgoing => 'Saída';
+  @override
+  String get incoming => 'Entrada';
+  @override
+  String get works => 'Funciona';
+  @override
+  String get notTested => 'Não testado';
+  @override
+  String get failed => 'Falhou';
+  @override
+  String get notSeen => 'Não visto';
+}
+
 // Path: deviceDetailsPage.logs
 class Translations$deviceDetailsPage$logs$pt_BR extends Translations$deviceDetailsPage$logs$en {
   Translations$deviceDetailsPage$logs$pt_BR.internal(TranslationsPtBr root) : this._root = root, super.internal(root);
@@ -1153,6 +1189,15 @@ class Translations$deviceDetailsPage$logs$pt_BR extends Translations$deviceDetai
   String get title => 'Registros';
   @override
   String get empty => 'Nenhum registro disponível.';
+  @override
+  String outbound({required Object protocol, required Object host}) => 'Conectado via ${protocol} (${host})';
+  @override
+  String outboundFailed({required Object protocol, required Object host, required Object error}) =>
+      'Não foi possível conectar via ${protocol} (${host}): ${error}';
+  @override
+  String inbound({required Object protocol, required Object host}) => 'Conectou-se a nós via ${protocol} (${host})';
+  @override
+  String multicastInbound({required Object host}) => 'Anúncio recebido (${host})';
 }
 
 // Path: progressPage.total
@@ -1347,6 +1392,8 @@ class Translations$dialogs$favoriteEditDialog$pt_BR extends Translations$dialogs
   String get ip => 'Endereço de IP';
   @override
   String get port => 'Porta';
+  @override
+  String get invalidPort => 'Digite um número inteiro entre 1 e 65535.';
 }
 
 // Path: dialogs.fileInfo

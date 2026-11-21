@@ -361,6 +361,8 @@ class _Translations$deviceDetailsPage$ru extends Translations$deviceDetailsPage$
   @override
   late final _Translations$deviceDetailsPage$info$ru info = _Translations$deviceDetailsPage$info$ru._(_root);
   @override
+  late final _Translations$deviceDetailsPage$channels$ru channels = _Translations$deviceDetailsPage$channels$ru._(_root);
+  @override
   late final _Translations$deviceDetailsPage$logs$ru logs = _Translations$deviceDetailsPage$logs$ru._(_root);
 }
 
@@ -865,6 +867,10 @@ class _Translations$settingsTab$general$ru extends Translations$settingsTab$gene
   @override
   String get saveWindowPlacementWindows => 'Сохранять расположение окна после выхода';
   @override
+  String get alwaysOnTop => 'Поверх всех окон';
+  @override
+  String get alwaysOnTopUnavailable => 'Не поддерживается в Wayland';
+  @override
   String get minimizeToTray => 'Сворачивать в системный трей/строку меню при закрытии';
   @override
   String get launchAtStartup => 'Автозагрузка';
@@ -872,6 +878,11 @@ class _Translations$settingsTab$general$ru extends Translations$settingsTab$gene
   String get launchMinimized => 'Скрытая автозагрузка';
   @override
   String get showInContextMenu => 'Отображать LocalSend в контекстном меню';
+  @override
+  String get softwareRendering => 'Программная отрисовка';
+  @override
+  String get softwareRenderingDescription =>
+      'Используйте, если окно остается пустым, работает со сбоями или закрывается при запуске. Вступает в силу после перезапуска.';
   @override
   String get animations => 'Анимации';
 }
@@ -1059,6 +1070,31 @@ class _Translations$deviceDetailsPage$info$ru extends Translations$deviceDetails
   String protocol({required Object version}) => 'Протокол v${version}';
 }
 
+// Path: deviceDetailsPage.channels
+class _Translations$deviceDetailsPage$channels$ru extends Translations$deviceDetailsPage$channels$en {
+  _Translations$deviceDetailsPage$channels$ru._(TranslationsRu root) : this._root = root, super.internal(root);
+
+  final TranslationsRu _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Каналы';
+  @override
+  String get you => 'Вы';
+  @override
+  String get outgoing => 'Исходящее';
+  @override
+  String get incoming => 'Входящее';
+  @override
+  String get works => 'Работает';
+  @override
+  String get notTested => 'Не проверено';
+  @override
+  String get failed => 'Ошибка';
+  @override
+  String get notSeen => 'Не обнаружено';
+}
+
 // Path: deviceDetailsPage.logs
 class _Translations$deviceDetailsPage$logs$ru extends Translations$deviceDetailsPage$logs$en {
   _Translations$deviceDetailsPage$logs$ru._(TranslationsRu root) : this._root = root, super.internal(root);
@@ -1070,6 +1106,15 @@ class _Translations$deviceDetailsPage$logs$ru extends Translations$deviceDetails
   String get title => 'Журналы';
   @override
   String get empty => 'Нет доступных журналов.';
+  @override
+  String outbound({required Object protocol, required Object host}) => 'Подключено через ${protocol} (${host})';
+  @override
+  String outboundFailed({required Object protocol, required Object host, required Object error}) =>
+      'Не удалось подключиться через ${protocol} (${host}): ${error}';
+  @override
+  String inbound({required Object protocol, required Object host}) => 'Входящее подключение через ${protocol} (${host})';
+  @override
+  String multicastInbound({required Object host}) => 'Получено объявление (${host})';
 }
 
 // Path: progressPage.total
@@ -1264,6 +1309,8 @@ class _Translations$dialogs$favoriteEditDialog$ru extends Translations$dialogs$f
   String get ip => 'IP-адрес';
   @override
   String get port => 'Порт';
+  @override
+  String get invalidPort => 'Введите целое число от 1 до 65535.';
 }
 
 // Path: dialogs.fileInfo

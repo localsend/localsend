@@ -363,6 +363,8 @@ class _Translations$deviceDetailsPage$sv extends Translations$deviceDetailsPage$
   @override
   late final _Translations$deviceDetailsPage$info$sv info = _Translations$deviceDetailsPage$info$sv._(_root);
   @override
+  late final _Translations$deviceDetailsPage$channels$sv channels = _Translations$deviceDetailsPage$channels$sv._(_root);
+  @override
   late final _Translations$deviceDetailsPage$logs$sv logs = _Translations$deviceDetailsPage$logs$sv._(_root);
 }
 
@@ -949,6 +951,10 @@ class _Translations$settingsTab$general$sv extends Translations$settingsTab$gene
   @override
   String get saveWindowPlacementWindows => 'Spara fönsterposition vid avslut';
   @override
+  String get alwaysOnTop => 'Alltid överst';
+  @override
+  String get alwaysOnTopUnavailable => 'Stöds inte på Wayland';
+  @override
   String get minimizeToTray => 'Minimera till systemfältet eller menyraden vid stängning';
   @override
   String get launchAtStartup => 'Starta automatiskt efter inloggning';
@@ -956,6 +962,11 @@ class _Translations$settingsTab$general$sv extends Translations$settingsTab$gene
   String get launchMinimized => 'Automatisk start: starta dolt';
   @override
   String get showInContextMenu => 'Visa LocalSend i snabbmenyn';
+  @override
+  String get softwareRendering => 'Programvarurendering';
+  @override
+  String get softwareRenderingDescription =>
+      'Använd om fönstret förblir tomt, får grafikfel eller stängs vid start. Träder i kraft efter en omstart.';
   @override
   String get animations => 'Animationer';
 }
@@ -1141,6 +1152,31 @@ class _Translations$deviceDetailsPage$info$sv extends Translations$deviceDetails
   String protocol({required Object version}) => 'Protokoll v${version}';
 }
 
+// Path: deviceDetailsPage.channels
+class _Translations$deviceDetailsPage$channels$sv extends Translations$deviceDetailsPage$channels$en {
+  _Translations$deviceDetailsPage$channels$sv._(TranslationsSv root) : this._root = root, super.internal(root);
+
+  final TranslationsSv _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Kanaler';
+  @override
+  String get you => 'Du';
+  @override
+  String get outgoing => 'Utgående';
+  @override
+  String get incoming => 'Inkommande';
+  @override
+  String get works => 'Fungerar';
+  @override
+  String get notTested => 'Inte testad';
+  @override
+  String get failed => 'Misslyckades';
+  @override
+  String get notSeen => 'Inte sedd';
+}
+
 // Path: deviceDetailsPage.logs
 class _Translations$deviceDetailsPage$logs$sv extends Translations$deviceDetailsPage$logs$en {
   _Translations$deviceDetailsPage$logs$sv._(TranslationsSv root) : this._root = root, super.internal(root);
@@ -1152,6 +1188,15 @@ class _Translations$deviceDetailsPage$logs$sv extends Translations$deviceDetails
   String get title => 'Loggar';
   @override
   String get empty => 'Inga loggar tillgängliga.';
+  @override
+  String outbound({required Object protocol, required Object host}) => 'Nådd via ${protocol} (${host})';
+  @override
+  String outboundFailed({required Object protocol, required Object host, required Object error}) =>
+      'Kunde inte nås via ${protocol} (${host}): ${error}';
+  @override
+  String inbound({required Object protocol, required Object host}) => 'Nådde oss via ${protocol} (${host})';
+  @override
+  String multicastInbound({required Object host}) => 'Annonsering mottagen (${host})';
 }
 
 // Path: progressPage.total
@@ -1346,6 +1391,8 @@ class _Translations$dialogs$favoriteEditDialog$sv extends Translations$dialogs$f
   String get ip => 'IP-adress';
   @override
   String get port => 'Port';
+  @override
+  String get invalidPort => 'Ange ett heltal mellan 1 och 65535.';
 }
 
 // Path: dialogs.fileInfo

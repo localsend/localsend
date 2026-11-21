@@ -112,6 +112,8 @@
       "launchAtStartup": "הפעלה אוטומטית לאחר הכניסה",
       "launchMinimized": "הפעלה אוטומטית: התחל מוסתר",
       "showInContextMenu": "הצג את LocalSend בתפריט ההקשר",
+      "softwareRendering": "רינדור תוכנה",
+      "softwareRenderingDescription": "השתמש באפשרות זו אם החלון נשאר ריק, משתבש או נסגר בעת ההפעלה. ייכנס לתוקף לאחר הפעלה מחדש.",
       "animations": "אנימציות"
     },
     "receive": {
@@ -217,9 +219,23 @@
       "version": "גרסה",
       "protocol": "פרוטוקול גרסה {version}"
     },
+    "channels": {
+      "title": "ערוצים",
+      "you": "אתה",
+      "outgoing": "יוצא",
+      "incoming": "נכנס",
+      "works": "עובד",
+      "notTested": "לא נבדק",
+      "failed": "נכשל",
+      "notSeen": "לא נראה"
+    },
     "logs": {
       "title": "יומני רישום",
-      "empty": "אין יומנים זמינים"
+      "empty": "אין יומנים זמינים",
+      "outbound": "נוצר קשר דרך {protocol} ({host})",
+      "outboundFailed": "לא ניתן ליצור קשר דרך {protocol} ({host}): {error}",
+      "inbound": "יצר איתנו קשר דרך {protocol} ({host})",
+      "multicastInbound": "התקבלה הכרזה ({host})"
     }
   },
   "verifyPage": {

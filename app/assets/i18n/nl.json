@@ -106,10 +106,14 @@
       },
       "saveWindowPlacement": "Vensterpositie na beëindigen opslaan",
       "saveWindowPlacementWindows": "Vensterpositie na afsluiten opslaan",
+      "alwaysOnTop": "Altijd op voorgrond",
+      "alwaysOnTopUnavailable": "Niet ondersteund op Wayland",
       "minimizeToTray": "Sluiten: minimaliseren naar systeemvak/menubalk",
       "launchAtStartup": "Automatisch starten na aanmelden",
       "launchMinimized": "Automatisch starten: verborgen",
       "showInContextMenu": "LocalSend weergeven in contextmenu",
+      "softwareRendering": "Softwarematige weergave",
+      "softwareRenderingDescription": "Gebruik dit als het venster leeg blijft, haperingen vertoont of bij het opstarten sluit. Wordt na een herstart toegepast.",
       "animations": "Animaties"
     },
     "receive": {
@@ -215,9 +219,23 @@
       "version": "Versie",
       "protocol": "Protocol v{version}"
     },
+    "channels": {
+      "title": "Kanalen",
+      "you": "Jij",
+      "outgoing": "Uitgaand",
+      "incoming": "Inkomend",
+      "works": "Werkt",
+      "notTested": "Niet getest",
+      "failed": "Mislukt",
+      "notSeen": "Niet gezien"
+    },
     "logs": {
       "title": "Logboeken",
-      "empty": "Geen logboeken beschikbaar."
+      "empty": "Geen logboeken beschikbaar.",
+      "outbound": "Bereikt via {protocol} ({host})",
+      "outboundFailed": "Niet bereikbaar via {protocol} ({host}): {error}",
+      "inbound": "Heeft ons bereikt via {protocol} ({host})",
+      "multicastInbound": "Aankondiging ontvangen ({host})"
     }
   },
   "verifyPage": {
@@ -377,7 +395,8 @@
       "name": "Apparaatnaam",
       "auto": "(automatisch)",
       "ip": "IP-adres",
-      "port": "Poort"
+      "port": "Poort",
+      "invalidPort": "Vul een geheel getal in tussen 1 en 65535."
     },
     "fileInfo": {
       "title": "Bestandsinformatie",
