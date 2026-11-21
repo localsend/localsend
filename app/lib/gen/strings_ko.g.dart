@@ -360,6 +360,8 @@ class _Translations$deviceDetailsPage$ko extends Translations$deviceDetailsPage$
   @override
   late final _Translations$deviceDetailsPage$info$ko info = _Translations$deviceDetailsPage$info$ko._(_root);
   @override
+  late final _Translations$deviceDetailsPage$channels$ko channels = _Translations$deviceDetailsPage$channels$ko._(_root);
+  @override
   late final _Translations$deviceDetailsPage$logs$ko logs = _Translations$deviceDetailsPage$logs$ko._(_root);
 }
 
@@ -862,6 +864,10 @@ class _Translations$settingsTab$general$ko extends Translations$settingsTab$gene
   @override
   String get saveWindowPlacementWindows => '종료 후 창 위치 기억';
   @override
+  String get alwaysOnTop => '항상 위에 표시';
+  @override
+  String get alwaysOnTopUnavailable => 'Wayland에서는 지원되지 않음';
+  @override
   String get minimizeToTray => '종료 시 시스템 트레이로 최소화';
   @override
   String get launchAtStartup => '로그인 시 자동으로 시작';
@@ -869,6 +875,10 @@ class _Translations$settingsTab$general$ko extends Translations$settingsTab$gene
   String get launchMinimized => '최소화된 상태로 시작';
   @override
   String get showInContextMenu => '컨텍스트 메뉴에 LocalSend 표시';
+  @override
+  String get softwareRendering => '소프트웨어 렌더링';
+  @override
+  String get softwareRenderingDescription => '창이 빈 화면으로 남거나, 깨지거나, 시작 시 닫히는 경우 사용하세요. 재시작 후 적용됩니다.';
   @override
   String get animations => '애니메이션';
 }
@@ -1052,6 +1062,31 @@ class _Translations$deviceDetailsPage$info$ko extends Translations$deviceDetails
   String protocol({required Object version}) => '프로토콜 v${version}';
 }
 
+// Path: deviceDetailsPage.channels
+class _Translations$deviceDetailsPage$channels$ko extends Translations$deviceDetailsPage$channels$en {
+  _Translations$deviceDetailsPage$channels$ko._(TranslationsKo root) : this._root = root, super.internal(root);
+
+  final TranslationsKo _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => '채널';
+  @override
+  String get you => '나';
+  @override
+  String get outgoing => '발신';
+  @override
+  String get incoming => '수신';
+  @override
+  String get works => '작동함';
+  @override
+  String get notTested => '테스트 안 됨';
+  @override
+  String get failed => '실패';
+  @override
+  String get notSeen => '감지 안 됨';
+}
+
 // Path: deviceDetailsPage.logs
 class _Translations$deviceDetailsPage$logs$ko extends Translations$deviceDetailsPage$logs$en {
   _Translations$deviceDetailsPage$logs$ko._(TranslationsKo root) : this._root = root, super.internal(root);
@@ -1063,6 +1098,14 @@ class _Translations$deviceDetailsPage$logs$ko extends Translations$deviceDetails
   String get title => '로그';
   @override
   String get empty => '사용 가능한 로그가 없습니다.';
+  @override
+  String outbound({required Object protocol, required Object host}) => '${protocol}로 연결됨 (${host})';
+  @override
+  String outboundFailed({required Object protocol, required Object host, required Object error}) => '${protocol}로 연결할 수 없음 (${host}): ${error}';
+  @override
+  String inbound({required Object protocol, required Object host}) => '상대 기기가 ${protocol}로 연결함 (${host})';
+  @override
+  String multicastInbound({required Object host}) => '알림 수신됨 (${host})';
 }
 
 // Path: progressPage.total
@@ -1257,6 +1300,8 @@ class _Translations$dialogs$favoriteEditDialog$ko extends Translations$dialogs$f
   String get ip => 'IP 주소';
   @override
   String get port => '포트';
+  @override
+  String get invalidPort => '1에서 65535 사이의 정수를 입력하세요.';
 }
 
 // Path: dialogs.fileInfo

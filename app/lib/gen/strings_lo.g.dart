@@ -363,6 +363,8 @@ class _Translations$deviceDetailsPage$lo extends Translations$deviceDetailsPage$
   @override
   late final _Translations$deviceDetailsPage$info$lo info = _Translations$deviceDetailsPage$info$lo._(_root);
   @override
+  late final _Translations$deviceDetailsPage$channels$lo channels = _Translations$deviceDetailsPage$channels$lo._(_root);
+  @override
   late final _Translations$deviceDetailsPage$logs$lo logs = _Translations$deviceDetailsPage$logs$lo._(_root);
 }
 
@@ -946,6 +948,10 @@ class _Translations$settingsTab$general$lo extends Translations$settingsTab$gene
   @override
   String get saveWindowPlacementWindows => 'ບັນທຶກຕຳແໜ່ງໜ້າຕ່າງຫຼັງອອກ';
   @override
+  String get alwaysOnTop => 'ຢູ່ເທິງສຸດສະເໝີ';
+  @override
+  String get alwaysOnTopUnavailable => 'ບໍ່ຮອງຮັບໃນ Wayland';
+  @override
   String get minimizeToTray => 'ຫຍໍ້ລົງໃສ່ System Tray/Menu Bar ເມື່ອປິດ';
   @override
   String get launchAtStartup => 'ເປີດອັດຕະໂນມັດຫຼັງເຂົ້າສູ່ລະບົບ';
@@ -953,6 +959,10 @@ class _Translations$settingsTab$general$lo extends Translations$settingsTab$gene
   String get launchMinimized => 'ເປີດອັດຕະໂນມັດ: ເລີ່ມແບບເຊື່ອງ';
   @override
   String get showInContextMenu => 'ສະແດງ LocalSend ໃນເມນູຄລິກຂວາ';
+  @override
+  String get softwareRendering => 'ສະແດງຜົນດ້ວຍຊອບແວ';
+  @override
+  String get softwareRenderingDescription => 'ໃຊ້ເມື່ອໜ້າຕ່າງວ່າງເປົ່າ, ສະແດງຜົນຜິດປົກກະຕິ ຫຼື ປິດເອງເມື່ອເລີ່ມ. ມີຜົນຫຼັງຈາກເລີ່ມໃໝ່.';
   @override
   String get animations => 'ອະນິເມຊັນ';
 }
@@ -1138,6 +1148,31 @@ class _Translations$deviceDetailsPage$info$lo extends Translations$deviceDetails
   String protocol({required Object version}) => 'ໂປຣໂຕເຄລ v${version}';
 }
 
+// Path: deviceDetailsPage.channels
+class _Translations$deviceDetailsPage$channels$lo extends Translations$deviceDetailsPage$channels$en {
+  _Translations$deviceDetailsPage$channels$lo._(TranslationsLo root) : this._root = root, super.internal(root);
+
+  final TranslationsLo _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'ຊ່ອງທາງ';
+  @override
+  String get you => 'ທ່ານ';
+  @override
+  String get outgoing => 'ຂາອອກ';
+  @override
+  String get incoming => 'ຂາເຂົ້າ';
+  @override
+  String get works => 'ໃຊ້ໄດ້';
+  @override
+  String get notTested => 'ຍັງບໍ່ໄດ້ທົດສອບ';
+  @override
+  String get failed => 'ລົ້ມເຫຼວ';
+  @override
+  String get notSeen => 'ຍັງບໍ່ພົບ';
+}
+
 // Path: deviceDetailsPage.logs
 class _Translations$deviceDetailsPage$logs$lo extends Translations$deviceDetailsPage$logs$en {
   _Translations$deviceDetailsPage$logs$lo._(TranslationsLo root) : this._root = root, super.internal(root);
@@ -1149,6 +1184,15 @@ class _Translations$deviceDetailsPage$logs$lo extends Translations$deviceDetails
   String get title => 'ບັນທຶກ';
   @override
   String get empty => 'ບໍ່ມີບັນທຶກ.';
+  @override
+  String outbound({required Object protocol, required Object host}) => 'ເຊື່ອມຕໍ່ສຳເລັດຜ່ານ ${protocol} (${host})';
+  @override
+  String outboundFailed({required Object protocol, required Object host, required Object error}) =>
+      'ບໍ່ສາມາດເຊື່ອມຕໍ່ຜ່ານ ${protocol} (${host}): ${error}';
+  @override
+  String inbound({required Object protocol, required Object host}) => 'ອີກຝ່າຍເຊື່ອມຕໍ່ມາຜ່ານ ${protocol} (${host})';
+  @override
+  String multicastInbound({required Object host}) => 'ໄດ້ຮັບການປະກາດ (${host})';
 }
 
 // Path: progressPage.total
@@ -1343,6 +1387,8 @@ class _Translations$dialogs$favoriteEditDialog$lo extends Translations$dialogs$f
   String get ip => 'ທີ່ຢູ່ IP';
   @override
   String get port => 'ພອດ';
+  @override
+  String get invalidPort => 'ກະລຸນາໃສ່ຈຳນວນເຕັມລະຫວ່າງ 1 ຫາ 65535.';
 }
 
 // Path: dialogs.fileInfo

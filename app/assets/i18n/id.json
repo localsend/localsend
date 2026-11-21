@@ -106,10 +106,14 @@
       },
       "saveWindowPlacement": "Keluar: Simpan posisi jendela",
       "saveWindowPlacementWindows": "Simpan posisi jendela setelah keluar",
+      "alwaysOnTop": "Selalu di atas",
+      "alwaysOnTopUnavailable": "Tidak didukung di Wayland",
       "minimizeToTray": "Keluar: Perkecil ke pojok bawah",
       "launchAtStartup": "Mulai otomatis setelah masuk",
       "launchMinimized": "Mulai otomatis: Berjalan di latar",
       "showInContextMenu": "Tampilkan LocalSend di menu konteks",
+      "softwareRendering": "Rendering perangkat lunak",
+      "softwareRenderingDescription": "Gunakan jika jendela tetap kosong, bermasalah, atau tertutup saat dimulai. Berlaku setelah dimulai ulang.",
       "animations": "Animasi"
     },
     "receive": {
@@ -215,9 +219,23 @@
       "version": "Versi",
       "protocol": "Protokol v{version}"
     },
+    "channels": {
+      "title": "Saluran",
+      "you": "Anda",
+      "outgoing": "Keluar",
+      "incoming": "Masuk",
+      "works": "Berfungsi",
+      "notTested": "Belum diuji",
+      "failed": "Gagal",
+      "notSeen": "Belum terlihat"
+    },
     "logs": {
       "title": "Log",
-      "empty": "Tidak ada log yang tersedia."
+      "empty": "Tidak ada log yang tersedia.",
+      "outbound": "Terhubung melalui {protocol} ({host})",
+      "outboundFailed": "Tidak dapat terhubung melalui {protocol} ({host}): {error}",
+      "inbound": "Menghubungi kami melalui {protocol} ({host})",
+      "multicastInbound": "Pengumuman diterima ({host})"
     }
   },
   "verifyPage": {
@@ -377,7 +395,8 @@
       "name": "Nama perangkat",
       "auto": "(otomatis)",
       "ip": "Alamat IP",
-      "port": "Porta"
+      "port": "Porta",
+      "invalidPort": "Masukkan bilangan bulat antara 1 dan 65535."
     },
     "fileInfo": {
       "title": "Informasi Berkas",

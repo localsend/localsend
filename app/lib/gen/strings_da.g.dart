@@ -361,6 +361,8 @@ class _Translations$deviceDetailsPage$da extends Translations$deviceDetailsPage$
   @override
   late final _Translations$deviceDetailsPage$info$da info = _Translations$deviceDetailsPage$info$da._(_root);
   @override
+  late final _Translations$deviceDetailsPage$channels$da channels = _Translations$deviceDetailsPage$channels$da._(_root);
+  @override
   late final _Translations$deviceDetailsPage$logs$da logs = _Translations$deviceDetailsPage$logs$da._(_root);
 }
 
@@ -864,6 +866,10 @@ class _Translations$settingsTab$general$da extends Translations$settingsTab$gene
   @override
   String get saveWindowPlacementWindows => 'Gem vinduesposition ved lukning';
   @override
+  String get alwaysOnTop => 'Altid øverst';
+  @override
+  String get alwaysOnTopUnavailable => 'Understøttes ikke på Wayland';
+  @override
   String get minimizeToTray => 'Minimer til systembakken/menulinjen ved lukning';
   @override
   String get launchAtStartup => 'Autostart efter login';
@@ -871,6 +877,11 @@ class _Translations$settingsTab$general$da extends Translations$settingsTab$gene
   String get launchMinimized => 'Autostart: Start skjult';
   @override
   String get showInContextMenu => 'Vis LocalSend i kontekstmenu';
+  @override
+  String get softwareRendering => 'Softwarerendering';
+  @override
+  String get softwareRenderingDescription =>
+      'Brug dette, hvis vinduet forbliver tomt, har grafikfejl eller lukker ved start. Træder i kraft efter en genstart.';
   @override
   String get animations => 'Animationer';
 }
@@ -1057,6 +1068,31 @@ class _Translations$deviceDetailsPage$info$da extends Translations$deviceDetails
   String protocol({required Object version}) => 'Protokol v${version}';
 }
 
+// Path: deviceDetailsPage.channels
+class _Translations$deviceDetailsPage$channels$da extends Translations$deviceDetailsPage$channels$en {
+  _Translations$deviceDetailsPage$channels$da._(TranslationsDa root) : this._root = root, super.internal(root);
+
+  final TranslationsDa _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Kanaler';
+  @override
+  String get you => 'Dig';
+  @override
+  String get outgoing => 'Udgående';
+  @override
+  String get incoming => 'Indgående';
+  @override
+  String get works => 'Virker';
+  @override
+  String get notTested => 'Ikke testet';
+  @override
+  String get failed => 'Mislykkedes';
+  @override
+  String get notSeen => 'Ikke set';
+}
+
 // Path: deviceDetailsPage.logs
 class _Translations$deviceDetailsPage$logs$da extends Translations$deviceDetailsPage$logs$en {
   _Translations$deviceDetailsPage$logs$da._(TranslationsDa root) : this._root = root, super.internal(root);
@@ -1068,6 +1104,15 @@ class _Translations$deviceDetailsPage$logs$da extends Translations$deviceDetails
   String get title => 'Logfiler';
   @override
   String get empty => 'Ingen logfiler tilgængelige.';
+  @override
+  String outbound({required Object protocol, required Object host}) => 'Nået via ${protocol} (${host})';
+  @override
+  String outboundFailed({required Object protocol, required Object host, required Object error}) =>
+      'Kunne ikke nås via ${protocol} (${host}): ${error}';
+  @override
+  String inbound({required Object protocol, required Object host}) => 'Nåede os via ${protocol} (${host})';
+  @override
+  String multicastInbound({required Object host}) => 'Annoncering modtaget (${host})';
 }
 
 // Path: progressPage.total
@@ -1262,6 +1307,8 @@ class _Translations$dialogs$favoriteEditDialog$da extends Translations$dialogs$f
   String get ip => 'IP-adresse';
   @override
   String get port => 'Port';
+  @override
+  String get invalidPort => 'Indtast et heltal mellem 1 og 65535.';
 }
 
 // Path: dialogs.fileInfo
