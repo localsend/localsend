@@ -26,7 +26,7 @@ body:
     attributes:
       label: App version
       description: Enter the LocalSend app version shown at the bottom of the Settings screen
-      placeholder: 1.18.2 (64)
+      placeholder: 1.19.0 (65)
     validations:
       required: true
 

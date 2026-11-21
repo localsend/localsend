@@ -4,7 +4,7 @@ homepage: https://localsend.org/
 publish_to: "none"
 resolution: workspace
 
-version: 1.18.2+64
+version: 1.19.0+65
 
 environment:
   flutter: ^3.41.0
