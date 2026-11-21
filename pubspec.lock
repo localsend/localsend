@@ -586,10 +586,10 @@ packages:
     dependency: transitive
     description:
       name: gal
-      sha256: f71e79840fe023a21f2f949771375444b6efcd34b9e625d5f4f5504971380a77
+      sha256: "5bd6542d6a387b76b50a803ad87573f3f505baea7c7153054f6d8fac7fc46d98"
       url: "https://pub.dev"
     source: hosted
-    version: "2.3.3"
+    version: "3.0.1"
   glob:
     dependency: transitive
     description:
