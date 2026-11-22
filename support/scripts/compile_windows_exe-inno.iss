@@ -114,7 +114,7 @@ Filename: "powershell.exe"; Parameters: "-NoProfile -ExecutionPolicy Bypass -Com
 ; The app itself, not this installer, creates the "Send to" shortcut on its first start (context_menu_helper.dart). Remove it if it
 ; starts this installation. This runs in 64-bit PowerShell because a 32-bit process, like the uninstaller, reads a shortcut
 ; into C:\Program Files as C:\Program Files (x86).
-Filename: "powershell.exe"; Parameters: "-NoProfile -ExecutionPolicy Bypass -Command ""$exe = Join-Path $PWD.Path '{#MyAppExeName}'; $lnk = Join-Path ([Environment]::GetFolderPath('SendTo')) '{#MyAppName}.lnk'; if ((Test-Path $lnk) -and (New-Object -ComObject WScript.Shell).CreateShortcut($lnk).TargetPath -eq $exe) {{ Remove-Item $lnk }"""; WorkingDir: {app}; Flags: runhidden waituntilterminated; RunOnceId: "RemoveSendToShortcut"
+Filename: "powershell.exe"; Parameters: "-NoProfile -ExecutionPolicy Bypass -Command ""$exe = Join-Path $PWD.Path '{#MyAppExeName}'; $lnk = Join-Path ([Environment]::GetFolderPath('SendTo')) '{#MyAppName}.lnk'; if ((Test-Path -LiteralPath $lnk) -and (New-Object -ComObject WScript.Shell).CreateShortcut($lnk).TargetPath -eq $exe) {{ Remove-Item -LiteralPath $lnk }"""; WorkingDir: {app}; Flags: runhidden waituntilterminated; RunOnceId: "RemoveSendToShortcut"
 ; Windows adds firewall rules for the exe when the user allows access on the first start. Removing them requires admin rights.
 Filename: "{sys}\netsh.exe"; Parameters: "advfirewall firewall delete rule name=all program=""{app}\{#MyAppExeName}"""; Flags: runhidden waituntilterminated; Check: IsAdminInstallMode; RunOnceId: "DeleteFirewallRules"
 #ifndef SkipMsixHelper
