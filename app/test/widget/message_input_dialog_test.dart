@@ -33,6 +33,7 @@ void main() {
     await tester.ensureVisible(field);
     await tester.tap(field);
     await tester.enterText(field, 'Hello from LocalSend');
+    await tester.pumpAndSettle();
     final confirm = find.widgetWithText(ElevatedButton, t.general.confirm);
     expect(confirm.hitTestable(), findsOneWidget);
     await tester.tap(confirm);
