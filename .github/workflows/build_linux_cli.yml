@@ -27,22 +27,42 @@ jobs:
         include:
           - runner: ubuntu-22.04
             suffix: linux-x86-64
+            target: x86_64-unknown-linux-gnu
           - runner: ubuntu-22.04-arm
             suffix: linux-arm-64
+            target: aarch64-unknown-linux-gnu
+          - runner: ubuntu-22.04
+            suffix: linux-x86-64-musl
+            target: x86_64-unknown-linux-musl
+          - runner: ubuntu-22.04-arm
+            suffix: linux-arm-64-musl
+            target: aarch64-unknown-linux-musl
     runs-on: ${{ matrix.runner }}
 
     steps:
       - uses: actions/checkout@v6
 
       - name: Install Rust
-        run: rustup toolchain install # version from rust-toolchain.toml
+        run: |
+          rustup toolchain install # version from rust-toolchain.toml
+          rustup target add ${{ matrix.target }}
+
+      - name: Install musl tools
+        if: endsWith(matrix.target, '-musl')
+        run: sudo apt-get update && sudo apt-get install -y musl-tools
 
       - name: Compile CLI
-        run: cargo build --release --package localsend-cli
+        env:
+          CC: ${{ endsWith(matrix.target, '-musl') && 'musl-gcc' || 'gcc' }}
+        run: cargo build --release --package localsend-cli --target ${{ matrix.target }}
+
+      - name: Test CLI on Alpine
+        if: endsWith(matrix.target, '-musl')
+        run: docker run --rm -v "$PWD/target/${{ matrix.target }}/release:/cli:ro" alpine:latest /cli/localsend-cli --help
 
       # tar preserves the executable bit, which a bare artifact upload would lose
       - name: Create tar.gz archive
-        run: tar -czvf LocalSend-CLI-${{ needs.build.outputs.version }}-${{ matrix.suffix }}.tar.gz -C target/release localsend-cli
+        run: tar -czvf LocalSend-CLI-${{ needs.build.outputs.version }}-${{ matrix.suffix }}.tar.gz -C target/${{ matrix.target }}/release localsend-cli
 
       - name: Upload CLI
         uses: actions/upload-artifact@v6
