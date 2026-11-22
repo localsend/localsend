@@ -364,6 +364,40 @@ jobs:
           asset_name: LocalSend-CLI-${{ steps.get_version.outputs.version }}-linux-arm-64.tar.gz
           asset_content_type: application/gzip
 
+      # LINUX CLI MUSL (x86_64)
+      - name: Download linux musl CLI file
+        uses: actions/download-artifact@v7
+        with:
+          name: cli-linux-x86-64-musl-result
+          path: cli-linux-x86-64-musl-result
+
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.draft_release.outputs.upload_url }}
+          asset_path: cli-linux-x86-64-musl-result/LocalSend-CLI-${{ steps.get_version.outputs.version }}-linux-x86-64-musl.tar.gz
+          asset_name: LocalSend-CLI-${{ steps.get_version.outputs.version }}-linux-x86-64-musl.tar.gz
+          asset_content_type: application/gzip
+
+      # LINUX CLI MUSL (arm_64)
+      - name: Download linux musl CLI file
+        uses: actions/download-artifact@v7
+        with:
+          name: cli-linux-arm-64-musl-result
+          path: cli-linux-arm-64-musl-result
+
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.draft_release.outputs.upload_url }}
+          asset_path: cli-linux-arm-64-musl-result/LocalSend-CLI-${{ steps.get_version.outputs.version }}-linux-arm-64-musl.tar.gz
+          asset_name: LocalSend-CLI-${{ steps.get_version.outputs.version }}-linux-arm-64-musl.tar.gz
+          asset_content_type: application/gzip
+
       # WINDOWS CLI EXE (x86_64)
       - name: Download windows CLI exe file
         uses: actions/download-artifact@v7
