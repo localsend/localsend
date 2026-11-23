@@ -33,9 +33,11 @@ extension FilePathStringExt on String {
     final index = lastIndexOf('.');
     final String fileName;
     final String extension;
-    if (index != -1) {
+    // A leading dot (e.g. ".bashrc") belongs to the name of a hidden file and does not start an extension.
+    // The extension keeps its original case, the counter must not rename "Photo.JPG" to "Photo (2).jpg".
+    if (index > 0) {
       fileName = substring(0, index);
-      extension = substring(index + 1).toLowerCase();
+      extension = substring(index + 1);
     } else {
       fileName = this;
       extension = '';
