@@ -651,6 +651,11 @@ class Translations$changelogPage$en {
 
   /// en: 'Changelog'
   String get title => 'Changelog';
+
+  late final Translations$changelogPage$categories$en categories = Translations$changelogPage$categories$en.internal(_root);
+
+  /// en: 'Breaking change'
+  String get breaking => 'Breaking change';
 }
 
 // Path: whatsNewPage
@@ -1446,6 +1451,30 @@ class Translations$progressPage$remainingTime$en {
   /// en: '(other) {{h}h} (other) {{m}m}'
   String hours({required num h, required num m}) =>
       '${_root.progressPage.remainingTime.hoursUnit(h: h)} ${_root.progressPage.remainingTime.minutesUnit(m: m)}';
+}
+
+// Path: changelogPage.categories
+class Translations$changelogPage$categories$en {
+  Translations$changelogPage$categories$en.internal(this._root);
+
+  final Translations _root; // ignore: unused_field
+
+  // Translations
+
+  /// en: 'New features'
+  String get feature => 'New features';
+
+  /// en: 'Security'
+  String get security => 'Security';
+
+  /// en: 'Performance'
+  String get performance => 'Performance';
+
+  /// en: 'Bug fixes'
+  String get fix => 'Bug fixes';
+
+  /// en: 'Other'
+  String get other => 'Other';
 }
 
 // Path: whatsNewPage.changes

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
-import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:localsend_app/gen/assets.gen.dart';
 import 'package:localsend_app/gen/strings.g.dart';
-import 'package:localsend_app/util/ui/nav_bar_padding.dart';
+import 'package:localsend_app/util/changelog.dart';
+import 'package:localsend_app/widget/changelog_release.dart';
+import 'package:localsend_app/widget/responsive_list_view.dart';
 
 class ChangelogPage extends StatelessWidget {
   const ChangelogPage();
@@ -20,14 +21,27 @@ class ChangelogPage extends StatelessWidget {
           if (!data.hasData) {
             return Container();
           }
-          return Markdown(
-            padding: EdgeInsets.only(
-              left: 15,
-              right: 15,
-              top: 15,
-              bottom: 15 + getNavBarPadding(context),
-            ),
-            data: data.data!,
+          final releases = parseChangelog(data.data!);
+          return ResponsiveListView.builder(
+            padding: const EdgeInsets.all(15),
+            itemCount: releases.length,
+            itemBuilder: (context, index) {
+              final release = releases[index];
+              return ChangelogReleaseCard(
+                margin: const EdgeInsets.only(bottom: 10),
+                child: ExpansionTile(
+                  // Restores the expansion when the card is scrolled out of view and back.
+                  key: PageStorageKey(release.version),
+                  initiallyExpanded: index == 0,
+                  shape: const Border(),
+                  collapsedShape: const Border(),
+                  title: ChangelogReleaseTitle(release: release, title: release.version),
+                  expandedCrossAxisAlignment: CrossAxisAlignment.stretch,
+                  childrenPadding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+                  children: [ChangelogReleaseBody(release: release)],
+                ),
+              );
+            },
           );
         },
       ),
