@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:localsend_app/config/theme.dart';
-import 'package:localsend_app/gen/strings.g.dart';
 import 'package:localsend_app/model/changelog.dart';
 import 'package:localsend_app/util/system_date_time_formatter.dart';
 import 'package:localsend_app/widget/device_bage.dart';
@@ -74,34 +73,36 @@ class ChangelogReleaseBody extends StatelessWidget {
       },
     );
     final scopeBadgeColor = Color.lerp(colors.secondaryContainer, Colors.white, 0.3)!;
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        if (release.notes.isNotEmpty) _ltr(Text(release.notes)),
-        for (final (category, icon, label) in [
-          (ChangelogCategory.feature, Icons.auto_awesome, t.changelogPage.categories.feature),
-          (ChangelogCategory.security, Icons.shield_outlined, t.changelogPage.categories.security),
-          (ChangelogCategory.performance, Icons.speed, t.changelogPage.categories.performance),
-          (ChangelogCategory.fix, Icons.bug_report_outlined, t.changelogPage.categories.fix),
-          (ChangelogCategory.other, Icons.more_horiz, t.changelogPage.categories.other),
-        ])
-          if (release.entries.any((entry) => entry.category == category)) ...[
-            Padding(
-              padding: const EdgeInsets.only(top: 14, bottom: 2),
-              child: Row(
-                children: [
-                  Icon(icon, size: 18, color: colors.primary),
-                  const SizedBox(width: 8),
-                  Text(label, style: theme.textTheme.titleSmall?.copyWith(color: colors.primary)),
-                ],
+    // The changelog is only available in English, so it is laid out left-to-right in every locale.
+    return Directionality(
+      textDirection: TextDirection.ltr,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          if (release.notes.isNotEmpty) Text(release.notes),
+          for (final (category, icon, label) in [
+            (ChangelogCategory.feature, Icons.auto_awesome, 'New features'),
+            (ChangelogCategory.security, Icons.shield_outlined, 'Security'),
+            (ChangelogCategory.performance, Icons.speed, 'Performance'),
+            (ChangelogCategory.fix, Icons.bug_report_outlined, 'Bug fixes'),
+            (ChangelogCategory.other, Icons.more_horiz, 'Other'),
+          ])
+            if (release.entries.any((entry) => entry.category == category)) ...[
+              Padding(
+                padding: const EdgeInsets.only(top: 14, bottom: 2),
+                child: Row(
+                  children: [
+                    Icon(icon, size: 18, color: colors.primary),
+                    const SizedBox(width: 8),
+                    Text(label, style: theme.textTheme.titleSmall?.copyWith(color: colors.primary)),
+                  ],
+                ),
               ),
-            ),
-            for (final entry in release.entries)
-              if (entry.category == category)
-                Padding(
-                  padding: const EdgeInsets.only(top: 6),
-                  child: _ltr(
-                    Row(
+              for (final entry in release.entries)
+                if (entry.category == category)
+                  Padding(
+                    padding: const EdgeInsets.only(top: 6),
+                    child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const Text('•'),
@@ -112,7 +113,7 @@ class ChangelogReleaseBody extends StatelessWidget {
                               children: [
                                 for (final scope in entry.scopes)
                                   _badge(_scopeLabels[scope.toLowerCase()] ?? scope, scopeBadgeColor, colors.onSecondaryContainer),
-                                if (entry.breaking) _badge(t.changelogPage.breaking, colors.warning.withValues(alpha: 0.15), colors.warning),
+                                if (entry.breaking) _badge('Breaking change', colors.warning.withValues(alpha: 0.15), colors.warning),
                                 ..._spansWithInlineCode(entry.text, codeStyle),
                               ],
                             ),
@@ -121,15 +122,12 @@ class ChangelogReleaseBody extends StatelessWidget {
                       ],
                     ),
                   ),
-                ),
-          ],
-      ],
+            ],
+        ],
+      ),
     );
   }
 }
-
-/// The changelog is only available in English, so its text is laid out left-to-right in every locale.
-Widget _ltr(Widget child) => Directionality(textDirection: TextDirection.ltr, child: child);
 
 InlineSpan _badge(String label, Color backgroundColor, Color foregroundColor) {
   return WidgetSpan(
