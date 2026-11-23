@@ -16,6 +16,7 @@
 - feat(linux): add x86_64 rpm package to release workflow (@basil)
 - feat(linux): add software rendering toggle with automatic fallback after a rendering crash (@Tienisto)
 - security: limit simultaneous incoming connections to prevent resource exhaustion (@Tienisto)
+- security: prevent senders without a client certificate from impersonating favorite devices while sharing via link (@Tienisto)
 - security(cli): sanitize remote text before displaying it in the terminal (@Tienisto)
 - perf: reduce memory use during file transfers (@luojiyin1987)
 - fix: strip request URLs from HTTP client errors so the PIN is not exposed (@Tienisto)
