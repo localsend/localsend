@@ -94,27 +94,30 @@ class VerifyWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        switch (mode) {
-          VerifyMode.icons => Center(
-            child: ConstrainedBox(
-              constraints: const BoxConstraints(maxWidth: 240),
-              child: GridView.count(
-                crossAxisCount: 4,
-                mainAxisSpacing: 10,
-                crossAxisSpacing: 10,
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                children: [
-                  for (final icon in fingerprint.icons) Icon(icon, size: 32),
-                ],
+    return Directionality(
+      textDirection: TextDirection.ltr,
+      child: Column(
+        children: [
+          switch (mode) {
+            VerifyMode.icons => Center(
+              child: ConstrainedBox(
+                constraints: const BoxConstraints(maxWidth: 240),
+                child: GridView.count(
+                  crossAxisCount: 4,
+                  mainAxisSpacing: 10,
+                  crossAxisSpacing: 10,
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  children: [
+                    for (final icon in fingerprint.icons) Icon(icon, size: 32),
+                  ],
+                ),
               ),
             ),
-          ),
-          VerifyMode.text => SelectableText(fingerprint.combined),
-        },
-      ],
+            VerifyMode.text => SelectableText(fingerprint.combined),
+          },
+        ],
+      ),
     );
   }
 }
