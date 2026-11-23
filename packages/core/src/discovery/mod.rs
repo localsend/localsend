@@ -223,8 +223,10 @@ impl DiscoveryState {
         let (event, merged) =
             self.store
                 .observe(device, observation, announcement, SystemTime::now());
-        let is_new = matches!(event, DiscoveryEvent::Discovered { .. });
-        self.emit(event);
+        let is_new = matches!(event, Some(DiscoveryEvent::Discovered { .. }));
+        if let Some(event) = event {
+            self.emit(event);
+        }
         (is_new, merged)
     }
 
@@ -468,6 +470,9 @@ impl DiscoveryHandle {
     /// ([`ClientError::is_unreachable`]), not requests that the device
     /// answered with an error.
     ///
+    /// A request over HTTPS must have been pinned to `fingerprint`: its
+    /// success verifies the device ([`StatefulDevice::verified`]).
+    ///
     /// Returns `false` when no device has the fingerprint.
     pub fn report_outbound(
         &self,
@@ -481,7 +486,9 @@ impl DiscoveryHandle {
                 .report_outbound(fingerprint, channel, result, SystemTime::now());
         match event {
             Some(event) => {
-                self.state.emit(event);
+                if let Some(event) = event {
+                    self.state.emit(event);
+                }
                 true
             }
             None => false,

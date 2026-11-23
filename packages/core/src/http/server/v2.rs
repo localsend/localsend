@@ -31,7 +31,8 @@ pub enum ServerEventV2 {
     ///
     /// On TLS, this event is only emitted when `info.fingerprint` matches the
     /// SHA-256 fingerprint of the client certificate verified during the mTLS
-    /// handshake, so the fingerprint cannot be spoofed.
+    /// handshake, so the fingerprint cannot be spoofed. Clients without a
+    /// certificate are ignored.
     Register {
         /// The IP address of the remote device.
         ip: PeerIp,
@@ -54,13 +55,23 @@ pub enum ServerEventV2 {
         ip: PeerIp,
 
         /// The device information of the sender.
+        ///
+        /// On TLS with a client certificate, `info.fingerprint` matches
+        /// `sender_fingerprint` (up to case): the request is rejected
+        /// otherwise. Without one, `info` is self-reported.
         info: RegisterDtoV2,
 
-        /// The SHA-256 fingerprint (uppercase hex) of the sender's client
-        /// certificate verified during the mTLS handshake. Unlike
-        /// `info.fingerprint`, this value cannot be spoofed.
-        /// `None` when the server runs without TLS.
-        cert_fingerprint: Option<String>,
+        /// The fingerprint identifying the sender. Use this instead of
+        /// `info.fingerprint`, which is self-reported.
+        ///
+        /// On TLS, the SHA-256 fingerprint (uppercase hex) of the sender's
+        /// client certificate verified during the mTLS handshake, so it cannot
+        /// be spoofed. Without TLS, the self-reported `info.fingerprint`.
+        ///
+        /// `None` when the sender presented no client certificate on TLS (e.g. a
+        /// browser while the web pages are served): the sender is anonymous and
+        /// must not be treated as a known device.
+        sender_fingerprint: Option<String>,
 
         /// The offered files, mapped by file ID.
         files: HashMap<String, FileDto>,
@@ -161,9 +172,9 @@ pub(crate) async fn register(
 
     // On TLS, only trust registrations whose claimed fingerprint is proven
     // by the client certificate of the mTLS handshake.
-    let fingerprint_valid = match client_info.cert_fingerprint() {
-        Some(cert_fingerprint) => payload.fingerprint.to_ascii_uppercase() == cert_fingerprint,
-        None => true,
+    let fingerprint_valid = match client_info.sender_fingerprint(&payload.fingerprint) {
+        Some(fingerprint) => payload.fingerprint.eq_ignore_ascii_case(&fingerprint),
+        None => false,
     };
 
     if let Some(v2) = &state.v2 {
@@ -185,7 +196,7 @@ pub(crate) async fn register(
             }
         } else {
             tracing::warn!(
-                "Ignoring register from {}: claimed fingerprint does not match the client certificate",
+                "Ignoring register from {}: claimed fingerprint is not proven by a client certificate",
                 client_info.ip
             );
         }
@@ -255,6 +266,21 @@ pub(crate) async fn prepare_upload(
         file.file_name = filename::normalize(&file.file_name);
     }
 
+    // Like `register`: a sender with a client certificate must claim the
+    // fingerprint of that certificate, so that `info` cannot pass itself off
+    // as another device. Plain HTTP and anonymous senders have nothing to
+    // check the claim against.
+    let sender_fingerprint = client_info.sender_fingerprint(&payload.info.fingerprint);
+    if sender_fingerprint
+        .as_deref()
+        .is_some_and(|fingerprint| !payload.info.fingerprint.eq_ignore_ascii_case(fingerprint))
+    {
+        return Err(AppError::Message(
+            StatusCode::FORBIDDEN,
+            "Fingerprint does not match the client certificate".to_string(),
+        ));
+    }
+
     let session_id = Uuid::new_v4().to_string();
     let cancelled = CancellationToken::new();
 
@@ -282,7 +308,7 @@ pub(crate) async fn prepare_upload(
         session_id: session_id.clone(),
         ip: client_info.ip,
         info: payload.info,
-        cert_fingerprint: client_info.cert_fingerprint(),
+        sender_fingerprint,
         files: payload.files.clone(),
         decision_tx,
     };

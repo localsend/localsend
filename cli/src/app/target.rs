@@ -98,6 +98,7 @@ mod tests {
                 download: false,
             },
             confirmed: true,
+            verified: true,
             channels: HashMap::from([(
                 channel,
                 ChannelState {
