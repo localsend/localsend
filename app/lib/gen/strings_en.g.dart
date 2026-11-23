@@ -1070,6 +1070,12 @@ class Translations$settingsTab$general$en {
 
   late final Translations$settingsTab$general$colorOptions$en colorOptions = Translations$settingsTab$general$colorOptions$en.internal(_root);
 
+  /// en: 'Color intensity'
+  String get colorIntensity => 'Color intensity';
+
+  late final Translations$settingsTab$general$colorIntensityOptions$en colorIntensityOptions =
+      Translations$settingsTab$general$colorIntensityOptions$en.internal(_root);
+
   /// en: 'Language'
   String get language => 'Language';
 
@@ -1914,6 +1920,24 @@ class Translations$settingsTab$general$colorOptions$en {
 
   /// en: 'Custom'
   String get custom => 'Custom';
+}
+
+// Path: settingsTab.general.colorIntensityOptions
+class Translations$settingsTab$general$colorIntensityOptions$en {
+  Translations$settingsTab$general$colorIntensityOptions$en.internal(this._root);
+
+  final Translations _root; // ignore: unused_field
+
+  // Translations
+
+  /// en: 'Low'
+  String get low => 'Low';
+
+  /// en: 'Medium'
+  String get medium => 'Medium';
+
+  /// en: 'High'
+  String get high => 'High';
 }
 
 // Path: settingsTab.general.languageOptions

@@ -100,6 +100,12 @@
         "oled": "OLED",
         "custom": "Собственный"
       },
+      "colorIntensity": "Интенсивность цвета",
+      "colorIntensityOptions": {
+        "low": "Низкая",
+        "medium": "Средняя",
+        "high": "Высокая"
+      },
       "language": "Язык",
       "languageOptions": {
         "system": "Системный"
