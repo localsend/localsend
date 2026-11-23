@@ -29,6 +29,7 @@ class _MessageInputDialogState extends State<MessageInputDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
+      scrollable: true,
       title: Text(t.dialogs.messageInput.title),
       content: TextFormField(
         controller: _textController,
