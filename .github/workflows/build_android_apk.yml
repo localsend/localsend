@@ -51,11 +51,11 @@ jobs:
           ENCODED_STRING: ${{ secrets.ANDROID_KEY_STORE }}
         run: mkdir secrets && echo $ENCODED_STRING | base64 -di > secrets/android-keystore.jks
 
-      - name: Set up JDK 17
+      - name: Set up JDK 21
         uses: actions/setup-java@v5
         with:
           distribution: 'temurin'
-          java-version: '17'
+          java-version: '21'
 
       - name: Install Flutter
         uses: subosito/flutter-action@v2
