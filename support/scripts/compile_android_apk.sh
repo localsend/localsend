@@ -6,7 +6,7 @@
 # Check Build ID via "readelf --wide --notes libapp.so"
 
 # REQUIREMENTS
-# (1) sudo apt install openjdk-11-jdk sdkmanager
+# (1) sudo apt install openjdk-21-jdk sdkmanager
 # (2) sudo chown -R <user> /opt/android-sdk
 # (3) sdkmanager "platform-tools" "platforms;android-33"
 # (4) sdkmanager --licenses
