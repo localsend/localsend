@@ -8,6 +8,7 @@
 - feat: show inbound/outbound reachability per device to help diagnose firewall issues (@Tienisto)
 - feat: add a copy button to the log screens (@ShlomoCode)
 - feat: add a Cancel button to the device name dialog (@ShlomoCode)
+- feat: group the changelog by release and type, and show what's new after an update (@ShlomoCode)
 - feat(cli): send text using --text, including input from stdin (@Tienisto)
 - feat(cli)!: replace `--file` with the `send` command for sending files and directories (@otanim)
 - feat(desktop): add an option to keep the LocalSend window above other windows (@ShlomoCode)
