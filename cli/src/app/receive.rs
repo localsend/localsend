@@ -136,6 +136,13 @@ impl App {
                 files,
                 decision_tx,
             } => {
+                // Queued by a server that has since been stopped (e.g. a web
+                // mode toggle): the sender is gone, and `verified` below would
+                // be judged against the new mode.
+                if decision_tx.is_closed() {
+                    return;
+                }
+
                 // The sender is clearly reachable; make sure it has a slot.
                 self.device_confirmed(ip.to_string(), info.clone());
 
