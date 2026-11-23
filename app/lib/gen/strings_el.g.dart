@@ -364,6 +364,8 @@ class _Translations$deviceDetailsPage$el extends Translations$deviceDetailsPage$
   @override
   late final _Translations$deviceDetailsPage$info$el info = _Translations$deviceDetailsPage$info$el._(_root);
   @override
+  late final _Translations$deviceDetailsPage$channels$el channels = _Translations$deviceDetailsPage$channels$el._(_root);
+  @override
   late final _Translations$deviceDetailsPage$logs$el logs = _Translations$deviceDetailsPage$logs$el._(_root);
 }
 
@@ -951,6 +953,10 @@ class _Translations$settingsTab$general$el extends Translations$settingsTab$gene
   @override
   String get saveWindowPlacementWindows => 'Αποθήκευση της θέσης του παραθύρου κατά την έξοδο';
   @override
+  String get alwaysOnTop => 'Πάντα σε πρώτο πλάνο';
+  @override
+  String get alwaysOnTopUnavailable => 'Δεν υποστηρίζεται στο Wayland';
+  @override
   String get minimizeToTray => 'Έξοδος: Ελαχιστοποίηση στη γραμμή εργασιών/μενού';
   @override
   String get launchAtStartup => 'Αυτόματη εκκίνηση μετά τη σύνδεση';
@@ -958,6 +964,11 @@ class _Translations$settingsTab$general$el extends Translations$settingsTab$gene
   String get launchMinimized => 'Αυτόματη εκκίνηση: Έναρξη ελαχιστοποιημένο';
   @override
   String get showInContextMenu => 'Προβολή του LocalSend στο μενού του περιβάλλοντος εργασίας';
+  @override
+  String get softwareRendering => 'Απόδοση μέσω λογισμικού';
+  @override
+  String get softwareRenderingDescription =>
+      'Χρησιμοποιήστε το αν το παράθυρο μένει κενό, εμφανίζει σφάλματα ή κλείνει κατά την εκκίνηση. Ισχύει μετά από επανεκκίνηση.';
   @override
   String get animations => 'Οπτικά εφέ';
 }
@@ -1140,11 +1151,34 @@ class _Translations$deviceDetailsPage$info$el extends Translations$deviceDetails
   @override
   String get name => 'Όνομα';
   @override
-  String get address => 'Διεύθυνση';
-  @override
   String get version => 'Έκδοση';
   @override
   String protocol({required Object version}) => 'Πρωτόκολλο v${version}';
+}
+
+// Path: deviceDetailsPage.channels
+class _Translations$deviceDetailsPage$channels$el extends Translations$deviceDetailsPage$channels$en {
+  _Translations$deviceDetailsPage$channels$el._(TranslationsEl root) : this._root = root, super.internal(root);
+
+  final TranslationsEl _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Κανάλια';
+  @override
+  String get you => 'Εσείς';
+  @override
+  String get outgoing => 'Εξερχόμενη';
+  @override
+  String get incoming => 'Εισερχόμενη';
+  @override
+  String get works => 'Λειτουργεί';
+  @override
+  String get notTested => 'Δεν δοκιμάστηκε';
+  @override
+  String get failed => 'Απέτυχε';
+  @override
+  String get notSeen => 'Δεν εντοπίστηκε';
 }
 
 // Path: deviceDetailsPage.logs
@@ -1159,9 +1193,14 @@ class _Translations$deviceDetailsPage$logs$el extends Translations$deviceDetails
   @override
   String get empty => 'Δεν υπάρχουν διαθέσιμα αρχεία καταγραφής.';
   @override
-  String discovered({required Object protocol, required Object host}) => 'Εντοπίστηκε μέσω ${protocol} (${host})';
+  String outbound({required Object protocol, required Object host}) => 'Συνδέθηκε μέσω ${protocol} (${host})';
   @override
-  String updated({required Object protocol, required Object host}) => 'Ενημερώθηκε μέσω ${protocol} (${host})';
+  String outboundFailed({required Object protocol, required Object host, required Object error}) =>
+      'Αδυναμία σύνδεσης μέσω ${protocol} (${host}): ${error}';
+  @override
+  String inbound({required Object protocol, required Object host}) => 'Συνδέθηκε σε εμάς μέσω ${protocol} (${host})';
+  @override
+  String multicastInbound({required Object host}) => 'Λήφθηκε ανακοίνωση (${host})';
 }
 
 // Path: progressPage.total
@@ -1357,6 +1396,8 @@ class _Translations$dialogs$favoriteEditDialog$el extends Translations$dialogs$f
   String get ip => 'Διεύθυνση IP';
   @override
   String get port => 'Θύρα';
+  @override
+  String get invalidPort => 'Εισαγάγετε έναν ακέραιο αριθμό από 1 έως 65535.';
 }
 
 // Path: dialogs.fileInfo

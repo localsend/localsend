@@ -106,10 +106,14 @@
       },
       "saveWindowPlacement": "Պահել պատուհանի դիրքը դուրս գալուց հետո",
       "saveWindowPlacementWindows": "Պահել պատուհանի դիրքը դուրս գալուց հետո",
+      "alwaysOnTop": "Միշտ վերևում",
+      "alwaysOnTopUnavailable": "Չի աջակցվում Wayland-ում",
       "minimizeToTray": "Փոքրացնել համակարգի տրեյում/տողում փակելու ժամանակ",
       "launchAtStartup": "Ավտոբացում",
       "launchMinimized": "Թաքնված ավտոբացում",
       "showInContextMenu": "Ցուցադրել LocalSend-ը կոնտեքստային մենյուում",
+      "softwareRendering": "Ծրագրային արտապատկերում",
+      "softwareRenderingDescription": "Օգտագործեք, եթե պատուհանը մնում է դատարկ, խափանվում է կամ փակվում է գործարկման ժամանակ։ Կկիրառվի վերագործարկումից հետո։",
       "animations": "Անիմացիաներ"
     },
     "receive": {
@@ -212,15 +216,26 @@
     "verify": "Հաստատել",
     "info": {
       "name": "Անուն",
-      "address": "Հասցե",
       "version": "Վերսիա",
       "protocol": "v{version} պրոտոկոլ"
+    },
+    "channels": {
+      "title": "Ալիքներ",
+      "you": "Դուք",
+      "outgoing": "Ելքային",
+      "incoming": "Մուտքային",
+      "works": "Աշխատում է",
+      "notTested": "Չի ստուգվել",
+      "failed": "Ձախողվել է",
+      "notSeen": "Չի նկատվել"
     },
     "logs": {
       "title": "Լոգեր",
       "empty": "Լոգեր չկան։",
-      "discovered": "Գտնվել է {protocol} ({host}) միջոցով",
-      "updated": "Թարմացվել է {protocol} ({host}) միջոցով"
+      "outbound": "Կապ է հաստատվել {protocol}-ով ({host})",
+      "outboundFailed": "Չհաջողվեց կապ հաստատել {protocol}-ով ({host}): {error}",
+      "inbound": "Կապ է հաստատել մեզ հետ {protocol}-ով ({host})",
+      "multicastInbound": "Ստացվել է հայտարարություն ({host})"
     }
   },
   "verifyPage": {
@@ -416,6 +431,8 @@
     },
     "addressInput": {
       "title": "Գրեք հասցեն",
+      "hashtag": "Հեշթեգ",
+      "ip": "IP հասցե",
       "recentlyUsed": "Վերջերս օգտագործված՝ "
     },
     "cancelSession": {
@@ -448,7 +465,8 @@
       "name": "Սարքի անունը",
       "auto": "(ավտոմատ)",
       "ip": "IP հասցե",
-      "port": "Port"
+      "port": "Port",
+      "invalidPort": "Մուտքագրեք 1-ից 65535 ամբողջ թիվ։"
     },
     "fileInfo": {
       "title": "Ֆայլի մասին",

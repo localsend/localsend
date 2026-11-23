@@ -106,10 +106,14 @@
       },
       "saveWindowPlacement": "چھوڑیں: ونڈو کی جگہ کو محفوظ کریں",
       "saveWindowPlacementWindows": "بند ہونے پر ونڈو کی پوزیشن محفوظ کریں",
+      "alwaysOnTop": "ہمیشہ سب سے اوپر",
+      "alwaysOnTopUnavailable": "Wayland پر معاونت نہیں ہے",
       "minimizeToTray": "چھوڑیں: ٹرے میں چھوٹا کریں",
       "launchAtStartup": "لاگ ان کے بعد آٹو اسٹارٹ",
       "launchMinimized": "آٹو سٹارٹ: سٹارٹ پوشیدہ",
       "showInContextMenu": "سیاق و سباق کے مینو میں LocalSend دکھائیں",
+      "softwareRendering": "سافٹ ویئر رینڈرنگ",
+      "softwareRenderingDescription": "اگر ونڈو خالی رہے، خراب ہو یا شروع ہوتے ہی بند ہو جائے تو استعمال کریں۔ دوبارہ شروع کرنے کے بعد لاگو ہوگا۔",
       "animations": "تحریکات"
     },
     "receive": {
@@ -212,15 +216,26 @@
     "verify": "تصدیق کریں",
     "info": {
       "name": "نام",
-      "address": "پتہ",
       "version": "ورژن",
       "protocol": "پروٹوکول v{version}"
+    },
+    "channels": {
+      "title": "چینلز",
+      "you": "آپ",
+      "outgoing": "باہر جانے والا",
+      "incoming": "آنے والا",
+      "works": "کام کر رہا ہے",
+      "notTested": "جانچ نہیں ہوئی",
+      "failed": "ناکام",
+      "notSeen": "نظر نہیں آیا"
     },
     "logs": {
       "title": "لاگز",
       "empty": "کوئی لاگ دستیاب نہیں۔",
-      "discovered": "{protocol} کے ذریعے دریافت ہوا ({host})",
-      "updated": "{protocol} کے ذریعے اپ ڈیٹ ہوا ({host})"
+      "outbound": "{protocol} ({host}) کے ذریعے رابطہ ہو گیا",
+      "outboundFailed": "{protocol} ({host}) کے ذریعے رابطہ نہیں ہو سکا: {error}",
+      "inbound": "{protocol} ({host}) کے ذریعے ہم سے رابطہ کیا",
+      "multicastInbound": "اعلان موصول ہوا ({host})"
     }
   },
   "verifyPage": {
@@ -380,7 +395,8 @@
       "name": "آلے کا نام",
       "auto": "(خودکار)",
       "ip": "IP پتہ",
-      "port": "پورٹ"
+      "port": "پورٹ",
+      "invalidPort": "1 اور 65535 کے درمیان ایک مکمل عدد درج کریں۔"
     },
     "fileInfo": {
       "title": "فائل کی معلومات",

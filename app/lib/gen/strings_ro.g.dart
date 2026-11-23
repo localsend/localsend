@@ -363,6 +363,8 @@ class _Translations$deviceDetailsPage$ro extends Translations$deviceDetailsPage$
   @override
   late final _Translations$deviceDetailsPage$info$ro info = _Translations$deviceDetailsPage$info$ro._(_root);
   @override
+  late final _Translations$deviceDetailsPage$channels$ro channels = _Translations$deviceDetailsPage$channels$ro._(_root);
+  @override
   late final _Translations$deviceDetailsPage$logs$ro logs = _Translations$deviceDetailsPage$logs$ro._(_root);
 }
 
@@ -947,6 +949,10 @@ class _Translations$settingsTab$general$ro extends Translations$settingsTab$gene
   @override
   String get saveWindowPlacementWindows => 'Salvarea poziției ferestrei după închidere';
   @override
+  String get alwaysOnTop => 'Mereu deasupra';
+  @override
+  String get alwaysOnTopUnavailable => 'Neacceptat pe Wayland';
+  @override
   String get minimizeToTray => 'Minimizează în Bara de Meniuri/Tray la închidere';
   @override
   String get launchAtStartup => 'Pornire automată după autentificare';
@@ -954,6 +960,11 @@ class _Translations$settingsTab$general$ro extends Translations$settingsTab$gene
   String get launchMinimized => 'Autopornire: Pornire ascunsă';
   @override
   String get showInContextMenu => 'Afișează LocalSend în meniul contextual';
+  @override
+  String get softwareRendering => 'Randare software';
+  @override
+  String get softwareRenderingDescription =>
+      'Folosește dacă fereastra rămâne goală, are erori grafice sau se închide la pornire. Se aplică după repornire.';
   @override
   String get animations => 'Animații';
 }
@@ -1136,11 +1147,34 @@ class _Translations$deviceDetailsPage$info$ro extends Translations$deviceDetails
   @override
   String get name => 'Nume';
   @override
-  String get address => 'Adresă';
-  @override
   String get version => 'Versiune';
   @override
   String protocol({required Object version}) => 'Protocol v${version}';
+}
+
+// Path: deviceDetailsPage.channels
+class _Translations$deviceDetailsPage$channels$ro extends Translations$deviceDetailsPage$channels$en {
+  _Translations$deviceDetailsPage$channels$ro._(TranslationsRo root) : this._root = root, super.internal(root);
+
+  final TranslationsRo _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Canale';
+  @override
+  String get you => 'Tu';
+  @override
+  String get outgoing => 'De ieșire';
+  @override
+  String get incoming => 'De intrare';
+  @override
+  String get works => 'Funcționează';
+  @override
+  String get notTested => 'Netestat';
+  @override
+  String get failed => 'Eșuat';
+  @override
+  String get notSeen => 'Nevăzut';
 }
 
 // Path: deviceDetailsPage.logs
@@ -1155,9 +1189,14 @@ class _Translations$deviceDetailsPage$logs$ro extends Translations$deviceDetails
   @override
   String get empty => 'Nu sunt jurnale disponibile.';
   @override
-  String discovered({required Object protocol, required Object host}) => 'Descoperit prin ${protocol} (${host})';
+  String outbound({required Object protocol, required Object host}) => 'Contactat prin ${protocol} (${host})';
   @override
-  String updated({required Object protocol, required Object host}) => 'Actualizat prin ${protocol} (${host})';
+  String outboundFailed({required Object protocol, required Object host, required Object error}) =>
+      'Nu a putut fi contactat prin ${protocol} (${host}): ${error}';
+  @override
+  String inbound({required Object protocol, required Object host}) => 'Ne-a contactat prin ${protocol} (${host})';
+  @override
+  String multicastInbound({required Object host}) => 'Anunț recepționat (${host})';
 }
 
 // Path: progressPage.total
@@ -1352,6 +1391,8 @@ class _Translations$dialogs$favoriteEditDialog$ro extends Translations$dialogs$f
   String get ip => 'Adresă IP';
   @override
   String get port => 'Port';
+  @override
+  String get invalidPort => 'Introdu un număr întreg între 1 și 65535.';
 }
 
 // Path: dialogs.fileInfo

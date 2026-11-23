@@ -106,10 +106,14 @@
       },
       "saveWindowPlacement": "Poistu: Tallenna ikkunan sijainti",
       "saveWindowPlacementWindows": "Tallenna ikkunan sijainti poistumisen jälkeen",
+      "alwaysOnTop": "Aina päällimmäisenä",
+      "alwaysOnTopUnavailable": "Ei tuettu Waylandissa",
       "minimizeToTray": "Poistu: Minimoi ilmoitusalueelle",
       "launchAtStartup": "Automaattinen käynnistys",
       "launchMinimized": "Automaattinen käynnistys: Käynnistä piiilotettuna",
       "showInContextMenu": "Näytä LocalSend kontekstivalikossa",
+      "softwareRendering": "Ohjelmistorenderöinti",
+      "softwareRenderingDescription": "Käytä, jos ikkuna jää tyhjäksi, välkkyy tai sulkeutuu käynnistyksessä. Tulee voimaan uudelleenkäynnistyksen jälkeen.",
       "animations": "Animaatiot"
     },
     "receive": {
@@ -212,15 +216,26 @@
     "verify": "Vahvista",
     "info": {
       "name": "Nimi",
-      "address": "Osoite",
       "version": "Versio",
       "protocol": "Protokolla v{version}"
+    },
+    "channels": {
+      "title": "Kanavat",
+      "you": "Sinä",
+      "outgoing": "Lähtevä",
+      "incoming": "Saapuva",
+      "works": "Toimii",
+      "notTested": "Ei testattu",
+      "failed": "Epäonnistui",
+      "notSeen": "Ei nähty"
     },
     "logs": {
       "title": "Lokit",
       "empty": "Lokeja ei ole saatavilla.",
-      "discovered": "Löydetty {protocol}-protokollan kautta ({host})",
-      "updated": "Päivitetty {protocol}-protokollan kautta ({host})"
+      "outbound": "Tavoitettu protokollalla {protocol} ({host})",
+      "outboundFailed": "Ei tavoitettu protokollalla {protocol} ({host}): {error}",
+      "inbound": "Tavoitti meidät protokollalla {protocol} ({host})",
+      "multicastInbound": "Ilmoitus vastaanotettu ({host})"
     }
   },
   "verifyPage": {
@@ -457,7 +472,8 @@
       "name": "Laitteen nimi",
       "auto": "(automaattinen)",
       "ip": "IP-osoite",
-      "port": "Portti"
+      "port": "Portti",
+      "invalidPort": "Anna kokonaisluku väliltä 1–65535."
     },
     "fileInfo": {
       "title": "Tiedoston tiedot",

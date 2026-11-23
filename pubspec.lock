@@ -301,10 +301,10 @@ packages:
     dependency: transitive
     description:
       name: desktop_drop
-      sha256: aa1e797255bfbc76f9eb5aa4f61e5b68dbf69962ab1be6495816d2f251bc0d1f
+      sha256: "47ded09c85909edfed644fd4cbb5051b040d0aed5c79e7e062ea4b3b7156dbe4"
       url: "https://pub.dev"
     source: hosted
-    version: "0.7.1"
+    version: "0.8.4"
   device_apps:
     dependency: "direct overridden"
     description:
@@ -524,14 +524,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_markdown:
-    dependency: transitive
-    description:
-      name: flutter_markdown
-      sha256: "08fb8315236099ff8e90cb87bb2b935e0a724a3af1623000a9cec930468e0f27"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.7.7+1"
   flutter_plugin_android_lifecycle:
     dependency: transitive
     description:
@@ -586,10 +578,10 @@ packages:
     dependency: transitive
     description:
       name: gal
-      sha256: f71e79840fe023a21f2f949771375444b6efcd34b9e625d5f4f5504971380a77
+      sha256: "5bd6542d6a387b76b50a803ad87573f3f505baea7c7153054f6d8fac7fc46d98"
       url: "https://pub.dev"
     source: hosted
-    version: "2.3.3"
+    version: "3.0.1"
   glob:
     dependency: transitive
     description:
@@ -894,14 +886,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.3.0"
-  markdown:
+  marionette_flutter:
     dependency: transitive
     description:
-      name: markdown
-      sha256: ee85086ad7698b42522c6ad42fe195f1b9898e4d974a1af4576c1a3a176cada9
+      name: marionette_flutter
+      sha256: f74b192ddd7e486b026203caa35b5a5d0c515de023e73958ba2035531c0a62bf
       url: "https://pub.dev"
     source: hosted
-    version: "7.3.1"
+    version: "0.7.0"
   matcher:
     dependency: transitive
     description:

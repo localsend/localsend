@@ -361,6 +361,8 @@ class _Translations$deviceDetailsPage$mn extends Translations$deviceDetailsPage$
   @override
   late final _Translations$deviceDetailsPage$info$mn info = _Translations$deviceDetailsPage$info$mn._(_root);
   @override
+  late final _Translations$deviceDetailsPage$channels$mn channels = _Translations$deviceDetailsPage$channels$mn._(_root);
+  @override
   late final _Translations$deviceDetailsPage$logs$mn logs = _Translations$deviceDetailsPage$logs$mn._(_root);
 }
 
@@ -865,6 +867,10 @@ class _Translations$settingsTab$general$mn extends Translations$settingsTab$gene
   @override
   String get saveWindowPlacementWindows => 'Гарсаны дараа цонхны байрлал хадгалах';
   @override
+  String get alwaysOnTop => 'Үргэлж дээр харуулах';
+  @override
+  String get alwaysOnTopUnavailable => 'Wayland дээр дэмжигдэхгүй';
+  @override
   String get minimizeToTray => 'Цонх хаах үед програмыг нуух';
   @override
   String get launchAtStartup => 'Нэвтрэх үед хамт нээх';
@@ -872,6 +878,11 @@ class _Translations$settingsTab$general$mn extends Translations$settingsTab$gene
   String get launchMinimized => 'Авто эхлүүлэх: Нуугдсан эхлэх';
   @override
   String get showInContextMenu => 'Системийн цэсэнд LocalSend-д харуулах';
+  @override
+  String get softwareRendering => 'Програм хангамжийн рендеринг';
+  @override
+  String get softwareRenderingDescription =>
+      'Цонх хоосон хэвээр байх, алдаатай харагдах эсвэл эхлэхдээ хаагдах үед ашиглана уу. Дахин ачаалсны дараа хүчинтэй болно.';
   @override
   String get animations => 'Анимэйшн';
 }
@@ -1053,11 +1064,34 @@ class _Translations$deviceDetailsPage$info$mn extends Translations$deviceDetails
   @override
   String get name => 'Нэр';
   @override
-  String get address => 'Хаяг';
-  @override
   String get version => 'Хувилбар';
   @override
   String protocol({required Object version}) => 'Протокол v${version}';
+}
+
+// Path: deviceDetailsPage.channels
+class _Translations$deviceDetailsPage$channels$mn extends Translations$deviceDetailsPage$channels$en {
+  _Translations$deviceDetailsPage$channels$mn._(TranslationsMn root) : this._root = root, super.internal(root);
+
+  final TranslationsMn _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Сувгууд';
+  @override
+  String get you => 'Та';
+  @override
+  String get outgoing => 'Гарах';
+  @override
+  String get incoming => 'Орох';
+  @override
+  String get works => 'Ажиллаж байна';
+  @override
+  String get notTested => 'Шалгаагүй';
+  @override
+  String get failed => 'Амжилтгүй';
+  @override
+  String get notSeen => 'Илрээгүй';
 }
 
 // Path: deviceDetailsPage.logs
@@ -1072,9 +1106,14 @@ class _Translations$deviceDetailsPage$logs$mn extends Translations$deviceDetails
   @override
   String get empty => 'Лог байхгүй байна.';
   @override
-  String discovered({required Object protocol, required Object host}) => '${protocol}-оор илэрсэн (${host})';
+  String outbound({required Object protocol, required Object host}) => '${protocol} (${host}) ашиглан холбогдсон';
   @override
-  String updated({required Object protocol, required Object host}) => '${protocol}-оор шинэчлэгдсэн (${host})';
+  String outboundFailed({required Object protocol, required Object host, required Object error}) =>
+      '${protocol} (${host}) ашиглан холбогдож чадсангүй: ${error}';
+  @override
+  String inbound({required Object protocol, required Object host}) => '${protocol} (${host}) ашиглан бидэнтэй холбогдсон';
+  @override
+  String multicastInbound({required Object host}) => 'Зарлал хүлээн авсан (${host})';
 }
 
 // Path: progressPage.total
@@ -1164,6 +1203,10 @@ class _Translations$dialogs$addressInput$mn extends Translations$dialogs$address
   // Translations
   @override
   String get title => 'Хаяг оруулах';
+  @override
+  String get hashtag => 'Хаштаг';
+  @override
+  String get ip => 'IP хаяг';
   @override
   String get recentlyUsed => 'Саяхан ашигласан: ';
 }
@@ -1265,6 +1308,8 @@ class _Translations$dialogs$favoriteEditDialog$mn extends Translations$dialogs$f
   String get ip => 'IP хаяг';
   @override
   String get port => 'Порт';
+  @override
+  String get invalidPort => '1-ээс 65535 хүртэлх бүхэл тоо оруулна уу.';
 }
 
 // Path: dialogs.fileInfo

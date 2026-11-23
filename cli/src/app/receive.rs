@@ -2,7 +2,7 @@
 //! active receive session.
 
 use super::App;
-use super::web_link::WebMode;
+use super::sending::MAX_MESSAGE_BYTES;
 use crate::sanitize;
 use crate::ui::Category;
 use crate::util::{self, SpeedMeter};
@@ -32,6 +32,9 @@ pub(super) struct PendingReceive {
     pub(super) session_id: String,
     pub(super) alias: String,
     pub(super) sender: SenderTarget,
+    /// Whether `sender.fingerprint` is proven by a client certificate.
+    /// Only verified senders can be paired.
+    pub(super) verified: bool,
     pub(super) files: HashMap<String, FileDto>,
     pub(super) decision_tx: oneshot::Sender<PrepareUploadDecisionV2>,
 }
@@ -91,6 +94,7 @@ impl ReceiveSession {
 
 /// Returns the text of a "message request": a single text file whose content
 /// is already included as a preview, so there is nothing left to transfer.
+/// Text larger than [`MAX_MESSAGE_BYTES`] is received as a file instead.
 fn message_of(files: &HashMap<String, FileDto>) -> Option<&str> {
     if files.len() != 1 {
         return None;
@@ -99,7 +103,12 @@ fn message_of(files: &HashMap<String, FileDto>) -> Option<&str> {
     if file.file_type != "text" && !file.file_type.starts_with("text/") {
         return None;
     }
-    file.preview.as_deref()
+    if file.size > MAX_MESSAGE_BYTES as u64 {
+        return None;
+    }
+    file.preview
+        .as_deref()
+        .filter(|preview| preview.len() <= MAX_MESSAGE_BYTES)
 }
 
 /// Maximum number of files listed in an incoming request prompt.
@@ -123,12 +132,30 @@ impl App {
                 session_id,
                 ip,
                 info,
-                cert_fingerprint,
+                sender_fingerprint,
                 files,
                 decision_tx,
             } => {
+                // Queued by a server that has since been stopped (e.g. a web
+                // mode toggle): the sender is gone, and `verified` below would
+                // be judged against the new mode.
+                if decision_tx.is_closed() {
+                    return;
+                }
+
+                // While a web page is served, the server runs without TLS (see
+                // `restart_server`), so the fingerprint is only self-reported
+                // and any sender could claim to be a paired device. Otherwise
+                // it is proven by the client certificate, and core rejects a
+                // request whose `info` claims another one.
+                let verified = self.web.is_none() && sender_fingerprint.is_some();
+
                 // The sender is clearly reachable; make sure it has a slot.
-                self.device_confirmed(ip.to_string(), info.clone());
+                // Only a proven `info` may enter the store: a claim could
+                // rename a known device or attach a channel to it.
+                if verified {
+                    self.device_confirmed(ip.to_string(), info.clone());
+                }
 
                 let alias = sanitize::single_line(&info.alias);
                 if let Some(message) = message_of(&files) {
@@ -149,10 +176,10 @@ impl App {
                     host: ip.to_string(),
                     port: info.port,
                     protocol: info.protocol,
-                    fingerprint: cert_fingerprint.unwrap_or_else(|| info.fingerprint.clone()),
+                    fingerprint: sender_fingerprint.unwrap_or_else(|| info.fingerprint.clone()),
                 };
 
-                if self.storage.paired.contains(&sender.fingerprint) {
+                if verified && self.storage.paired.contains(&sender.fingerprint) {
                     let ids: HashSet<String> = files.keys().cloned().collect();
                     if decision_tx
                         .send(PrepareUploadDecisionV2::Accept(ids))
@@ -183,11 +210,11 @@ impl App {
                             sorted.len() - MAX_LISTED_FILES
                         ));
                     }
-                    // Web senders have no stable identity worth pairing: the
-                    // fingerprint is an unverified payload value.
-                    let prompt = match self.web {
-                        Some(WebMode::Receive) => "\nAccept? Y/N",
-                        _ => "\nAccept? Y/N/P (P = accept and pair)",
+                    // Unverified senders have no stable identity worth pairing:
+                    // the fingerprint is a self-reported payload value.
+                    let prompt = match verified {
+                        false => "\nAccept? Y/N",
+                        true => "\nAccept? Y/N/P (P = accept and pair)",
                     };
                     lines.push(prompt.to_string());
                     self.ui.log(Category::Receive, &lines.join("\n"));
@@ -195,6 +222,7 @@ impl App {
                         session_id,
                         alias,
                         sender,
+                        verified,
                         files,
                         decision_tx,
                     });
@@ -450,11 +478,9 @@ impl App {
                     Category::Receive,
                     &format!("{}: You accepted", pending.alias),
                 );
-                // While "receive via link" is on, P was not offered; a stray
-                // press still accepts, but never pairs.
-                if matches!(answer, Answer::AcceptAndPair)
-                    && !matches!(self.web, Some(WebMode::Receive))
-                {
+                // P was not offered for an unverified sender; a stray press
+                // still accepts, but never pairs.
+                if matches!(answer, Answer::AcceptAndPair) && pending.verified {
                     let channels = self
                         .discovery
                         .device_by_fingerprint(&pending.sender.fingerprint)
@@ -501,5 +527,45 @@ impl App {
                 ));
             }
         }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::{MAX_MESSAGE_BYTES, message_of};
+    use localsend::model::transfer::FileDto;
+    use std::collections::HashMap;
+
+    fn text_request(preview: &str, size: u64) -> HashMap<String, FileDto> {
+        let file = FileDto {
+            id: "id".to_string(),
+            file_name: "id.txt".to_string(),
+            size,
+            file_type: "text/plain".to_string(),
+            sha256: None,
+            preview: Some(preview.to_string()),
+            metadata: None,
+        };
+        HashMap::from([(file.id.clone(), file)])
+    }
+
+    #[test]
+    fn short_text_is_a_message() {
+        assert_eq!(message_of(&text_request("hello", 5)), Some("hello"));
+        let limit = "a".repeat(MAX_MESSAGE_BYTES);
+        assert_eq!(
+            message_of(&text_request(&limit, MAX_MESSAGE_BYTES as u64)),
+            Some(limit.as_str())
+        );
+    }
+
+    #[test]
+    fn oversized_text_is_received_as_a_file() {
+        let text = "a".repeat(MAX_MESSAGE_BYTES + 1);
+        assert_eq!(message_of(&text_request(&text, text.len() as u64)), None);
+        // A peer cannot bypass the limit by claiming a small size.
+        assert_eq!(message_of(&text_request(&text, 1)), None);
+        // Nor send a short preview of a large file.
+        assert_eq!(message_of(&text_request("preview", 42_000_000)), None);
     }
 }

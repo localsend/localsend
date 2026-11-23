@@ -363,6 +363,8 @@ class _Translations$deviceDetailsPage$fi extends Translations$deviceDetailsPage$
   @override
   late final _Translations$deviceDetailsPage$info$fi info = _Translations$deviceDetailsPage$info$fi._(_root);
   @override
+  late final _Translations$deviceDetailsPage$channels$fi channels = _Translations$deviceDetailsPage$channels$fi._(_root);
+  @override
   late final _Translations$deviceDetailsPage$logs$fi logs = _Translations$deviceDetailsPage$logs$fi._(_root);
 }
 
@@ -957,6 +959,10 @@ class _Translations$settingsTab$general$fi extends Translations$settingsTab$gene
   @override
   String get saveWindowPlacementWindows => 'Tallenna ikkunan sijainti poistumisen jälkeen';
   @override
+  String get alwaysOnTop => 'Aina päällimmäisenä';
+  @override
+  String get alwaysOnTopUnavailable => 'Ei tuettu Waylandissa';
+  @override
   String get minimizeToTray => 'Poistu: Minimoi ilmoitusalueelle';
   @override
   String get launchAtStartup => 'Automaattinen käynnistys';
@@ -964,6 +970,11 @@ class _Translations$settingsTab$general$fi extends Translations$settingsTab$gene
   String get launchMinimized => 'Automaattinen käynnistys: Käynnistä piiilotettuna';
   @override
   String get showInContextMenu => 'Näytä LocalSend kontekstivalikossa';
+  @override
+  String get softwareRendering => 'Ohjelmistorenderöinti';
+  @override
+  String get softwareRenderingDescription =>
+      'Käytä, jos ikkuna jää tyhjäksi, välkkyy tai sulkeutuu käynnistyksessä. Tulee voimaan uudelleenkäynnistyksen jälkeen.';
   @override
   String get animations => 'Animaatiot';
 }
@@ -1146,11 +1157,34 @@ class _Translations$deviceDetailsPage$info$fi extends Translations$deviceDetails
   @override
   String get name => 'Nimi';
   @override
-  String get address => 'Osoite';
-  @override
   String get version => 'Versio';
   @override
   String protocol({required Object version}) => 'Protokolla v${version}';
+}
+
+// Path: deviceDetailsPage.channels
+class _Translations$deviceDetailsPage$channels$fi extends Translations$deviceDetailsPage$channels$en {
+  _Translations$deviceDetailsPage$channels$fi._(TranslationsFi root) : this._root = root, super.internal(root);
+
+  final TranslationsFi _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Kanavat';
+  @override
+  String get you => 'Sinä';
+  @override
+  String get outgoing => 'Lähtevä';
+  @override
+  String get incoming => 'Saapuva';
+  @override
+  String get works => 'Toimii';
+  @override
+  String get notTested => 'Ei testattu';
+  @override
+  String get failed => 'Epäonnistui';
+  @override
+  String get notSeen => 'Ei nähty';
 }
 
 // Path: deviceDetailsPage.logs
@@ -1165,9 +1199,14 @@ class _Translations$deviceDetailsPage$logs$fi extends Translations$deviceDetails
   @override
   String get empty => 'Lokeja ei ole saatavilla.';
   @override
-  String discovered({required Object protocol, required Object host}) => 'Löydetty ${protocol}-protokollan kautta (${host})';
+  String outbound({required Object protocol, required Object host}) => 'Tavoitettu protokollalla ${protocol} (${host})';
   @override
-  String updated({required Object protocol, required Object host}) => 'Päivitetty ${protocol}-protokollan kautta (${host})';
+  String outboundFailed({required Object protocol, required Object host, required Object error}) =>
+      'Ei tavoitettu protokollalla ${protocol} (${host}): ${error}';
+  @override
+  String inbound({required Object protocol, required Object host}) => 'Tavoitti meidät protokollalla ${protocol} (${host})';
+  @override
+  String multicastInbound({required Object host}) => 'Ilmoitus vastaanotettu (${host})';
 }
 
 // Path: progressPage.total
@@ -1362,6 +1401,8 @@ class _Translations$dialogs$favoriteEditDialog$fi extends Translations$dialogs$f
   String get ip => 'IP-osoite';
   @override
   String get port => 'Portti';
+  @override
+  String get invalidPort => 'Anna kokonaisluku väliltä 1–65535.';
 }
 
 // Path: dialogs.fileInfo

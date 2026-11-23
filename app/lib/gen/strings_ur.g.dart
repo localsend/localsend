@@ -361,6 +361,8 @@ class _Translations$deviceDetailsPage$ur extends Translations$deviceDetailsPage$
   @override
   late final _Translations$deviceDetailsPage$info$ur info = _Translations$deviceDetailsPage$info$ur._(_root);
   @override
+  late final _Translations$deviceDetailsPage$channels$ur channels = _Translations$deviceDetailsPage$channels$ur._(_root);
+  @override
   late final _Translations$deviceDetailsPage$logs$ur logs = _Translations$deviceDetailsPage$logs$ur._(_root);
 }
 
@@ -865,6 +867,10 @@ class _Translations$settingsTab$general$ur extends Translations$settingsTab$gene
   @override
   String get saveWindowPlacementWindows => 'بند ہونے پر ونڈو کی پوزیشن محفوظ کریں';
   @override
+  String get alwaysOnTop => 'ہمیشہ سب سے اوپر';
+  @override
+  String get alwaysOnTopUnavailable => 'Wayland پر معاونت نہیں ہے';
+  @override
   String get minimizeToTray => 'چھوڑیں: ٹرے میں چھوٹا کریں';
   @override
   String get launchAtStartup => 'لاگ ان کے بعد آٹو اسٹارٹ';
@@ -872,6 +878,11 @@ class _Translations$settingsTab$general$ur extends Translations$settingsTab$gene
   String get launchMinimized => 'آٹو سٹارٹ: سٹارٹ پوشیدہ';
   @override
   String get showInContextMenu => 'سیاق و سباق کے مینو میں LocalSend دکھائیں';
+  @override
+  String get softwareRendering => 'سافٹ ویئر رینڈرنگ';
+  @override
+  String get softwareRenderingDescription =>
+      'اگر ونڈو خالی رہے، خراب ہو یا شروع ہوتے ہی بند ہو جائے تو استعمال کریں۔ دوبارہ شروع کرنے کے بعد لاگو ہوگا۔';
   @override
   String get animations => 'تحریکات';
 }
@@ -1053,11 +1064,34 @@ class _Translations$deviceDetailsPage$info$ur extends Translations$deviceDetails
   @override
   String get name => 'نام';
   @override
-  String get address => 'پتہ';
-  @override
   String get version => 'ورژن';
   @override
   String protocol({required Object version}) => 'پروٹوکول v${version}';
+}
+
+// Path: deviceDetailsPage.channels
+class _Translations$deviceDetailsPage$channels$ur extends Translations$deviceDetailsPage$channels$en {
+  _Translations$deviceDetailsPage$channels$ur._(TranslationsUr root) : this._root = root, super.internal(root);
+
+  final TranslationsUr _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'چینلز';
+  @override
+  String get you => 'آپ';
+  @override
+  String get outgoing => 'باہر جانے والا';
+  @override
+  String get incoming => 'آنے والا';
+  @override
+  String get works => 'کام کر رہا ہے';
+  @override
+  String get notTested => 'جانچ نہیں ہوئی';
+  @override
+  String get failed => 'ناکام';
+  @override
+  String get notSeen => 'نظر نہیں آیا';
 }
 
 // Path: deviceDetailsPage.logs
@@ -1072,9 +1106,14 @@ class _Translations$deviceDetailsPage$logs$ur extends Translations$deviceDetails
   @override
   String get empty => 'کوئی لاگ دستیاب نہیں۔';
   @override
-  String discovered({required Object protocol, required Object host}) => '${protocol} کے ذریعے دریافت ہوا (${host})';
+  String outbound({required Object protocol, required Object host}) => '${protocol} (${host}) کے ذریعے رابطہ ہو گیا';
   @override
-  String updated({required Object protocol, required Object host}) => '${protocol} کے ذریعے اپ ڈیٹ ہوا (${host})';
+  String outboundFailed({required Object protocol, required Object host, required Object error}) =>
+      '${protocol} (${host}) کے ذریعے رابطہ نہیں ہو سکا: ${error}';
+  @override
+  String inbound({required Object protocol, required Object host}) => '${protocol} (${host}) کے ذریعے ہم سے رابطہ کیا';
+  @override
+  String multicastInbound({required Object host}) => 'اعلان موصول ہوا (${host})';
 }
 
 // Path: progressPage.total
@@ -1269,6 +1308,8 @@ class _Translations$dialogs$favoriteEditDialog$ur extends Translations$dialogs$f
   String get ip => 'IP پتہ';
   @override
   String get port => 'پورٹ';
+  @override
+  String get invalidPort => '1 اور 65535 کے درمیان ایک مکمل عدد درج کریں۔';
 }
 
 // Path: dialogs.fileInfo

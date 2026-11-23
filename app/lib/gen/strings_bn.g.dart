@@ -363,6 +363,8 @@ class _Translations$deviceDetailsPage$bn extends Translations$deviceDetailsPage$
   @override
   late final _Translations$deviceDetailsPage$info$bn info = _Translations$deviceDetailsPage$info$bn._(_root);
   @override
+  late final _Translations$deviceDetailsPage$channels$bn channels = _Translations$deviceDetailsPage$channels$bn._(_root);
+  @override
   late final _Translations$deviceDetailsPage$logs$bn logs = _Translations$deviceDetailsPage$logs$bn._(_root);
 }
 
@@ -950,6 +952,10 @@ class _Translations$settingsTab$general$bn extends Translations$settingsTab$gene
   @override
   String get saveWindowPlacementWindows => 'বের হবার পরে উইন্ডোর অবস্থান সেভ করুন';
   @override
+  String get alwaysOnTop => 'সবসময় উপরে রাখুন';
+  @override
+  String get alwaysOnTopUnavailable => 'Wayland-এ সাপোর্টেড নয়';
+  @override
   String get minimizeToTray => 'বের হোন: ট্রেতে মিনিমাইজ করুন';
   @override
   String get launchAtStartup => 'লগইন করার পরে অটোস্টার্ট করুন';
@@ -957,6 +963,10 @@ class _Translations$settingsTab$general$bn extends Translations$settingsTab$gene
   String get launchMinimized => 'অটোস্টার্ট: হিডেন রেখে শুরু করুন';
   @override
   String get showInContextMenu => 'কনটেক্সট মেনুতে LocalSend দেখান';
+  @override
+  String get softwareRendering => 'সফটওয়্যার রেন্ডারিং';
+  @override
+  String get softwareRenderingDescription => 'উইন্ডো ফাঁকা থাকলে, গ্লিচ করলে বা শুরুতেই বন্ধ হয়ে গেলে ব্যবহার করুন। রিস্টার্টের পরে কার্যকর হবে।';
   @override
   String get animations => 'অ্যানিমেশন';
 }
@@ -1138,11 +1148,34 @@ class _Translations$deviceDetailsPage$info$bn extends Translations$deviceDetails
   @override
   String get name => 'নাম';
   @override
-  String get address => 'ঠিকানা';
-  @override
   String get version => 'সংস্করণ';
   @override
   String protocol({required Object version}) => 'প্রোটোকল v${version}';
+}
+
+// Path: deviceDetailsPage.channels
+class _Translations$deviceDetailsPage$channels$bn extends Translations$deviceDetailsPage$channels$en {
+  _Translations$deviceDetailsPage$channels$bn._(TranslationsBn root) : this._root = root, super.internal(root);
+
+  final TranslationsBn _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'চ্যানেল';
+  @override
+  String get you => 'আপনি';
+  @override
+  String get outgoing => 'আউটগোয়িং';
+  @override
+  String get incoming => 'ইনকামিং';
+  @override
+  String get works => 'কাজ করছে';
+  @override
+  String get notTested => 'টেস্ট করা হয়নি';
+  @override
+  String get failed => 'ব্যর্থ';
+  @override
+  String get notSeen => 'দেখা যায়নি';
 }
 
 // Path: deviceDetailsPage.logs
@@ -1157,9 +1190,14 @@ class _Translations$deviceDetailsPage$logs$bn extends Translations$deviceDetails
   @override
   String get empty => 'কোনো লগ নেই।';
   @override
-  String discovered({required Object protocol, required Object host}) => '${protocol} এর মাধ্যমে আবিষ্কৃত (${host})';
+  String outbound({required Object protocol, required Object host}) => '${protocol} (${host}) দিয়ে পৌঁছানো গেছে';
   @override
-  String updated({required Object protocol, required Object host}) => '${protocol} এর মাধ্যমে আপডেট হয়েছে (${host})';
+  String outboundFailed({required Object protocol, required Object host, required Object error}) =>
+      '${protocol} (${host}) দিয়ে পৌঁছানো যায়নি: ${error}';
+  @override
+  String inbound({required Object protocol, required Object host}) => '${protocol} (${host}) দিয়ে আমাদের কাছে পৌঁছেছে';
+  @override
+  String multicastInbound({required Object host}) => 'অ্যানাউন্সমেন্ট পাওয়া গেছে (${host})';
 }
 
 // Path: progressPage.total
@@ -1354,6 +1392,8 @@ class _Translations$dialogs$favoriteEditDialog$bn extends Translations$dialogs$f
   String get ip => 'আইপি অ্যাড্রেস';
   @override
   String get port => 'পোর্ট';
+  @override
+  String get invalidPort => '1 থেকে 65535-এর মধ্যে একটি পূর্ণসংখ্যা লিখুন।';
 }
 
 // Path: dialogs.fileInfo

@@ -60,7 +60,7 @@ class ReceiveController {
 
     // Feed the device into the discovery store; it comes back (and is
     // registered) via the [StartDiscoveryListener] stream.
-    server.ref.redux(parentIsolateProvider).dispatch(IsolateDiscoveryAddDeviceAction(device: event.info.toDevice(event.ip, withChannel: true)));
+    server.ref.redux(parentIsolateProvider).dispatch(IsolateDiscoveryObserveInboundAction(device: event.info.toDevice(event.ip, withChannel: true)));
     server.ref.notifier(discoveryLoggerProvider).addLog('[DISCOVER/TCP] Received "/register" HTTP request: ${event.info.alias} (${event.ip})');
   }
 
@@ -83,10 +83,14 @@ class ReceiveController {
       for (final entry in event.files.entries) entry.key: entry.value.toDart(),
     };
 
-    // The fingerprint of the sender's mTLS certificate cannot be spoofed, unlike the
-    // self-reported fingerprint in the JSON payload which is only used as fallback
-    // when encryption is disabled.
-    final senderFingerprint = event.certFingerprint ?? event.info.fingerprint;
+    // Never use the self-reported fingerprint in the JSON payload: the server provides
+    // the one proven by the sender's mTLS certificate (or, with encryption disabled, the
+    // self-reported one). It is null for an anonymous sender (e.g. a browser on the
+    // receive-via-link page), which must never be treated as a favorite.
+    final senderFingerprint = event.senderFingerprint;
+    final senderFavorite = senderFingerprint == null
+        ? null
+        : server.ref.read(favoritesProvider).firstWhereOrNull((e) => e.fingerprint == senderFingerprint);
 
     _logger.info('Session Id: $sessionId');
     _logger.info('Destination Directory: $destinationDir');
@@ -96,8 +100,8 @@ class ReceiveController {
         session: ReceiveSessionState(
           sessionId: sessionId,
           status: SessionStatus.waiting,
-          sender: event.info.toDevice(event.ip, withChannel: false).copyWith(fingerprint: senderFingerprint),
-          senderAlias: server.ref.read(favoritesProvider).firstWhereOrNull((e) => e.fingerprint == senderFingerprint)?.alias ?? event.info.alias,
+          sender: event.info.toDevice(event.ip, withChannel: false).copyWith(fingerprint: senderFingerprint ?? ''),
+          senderAlias: senderFavorite?.alias ?? event.info.alias,
           files: {
             for (final file in files.values)
               file.id: ReceivingFile(
@@ -126,15 +130,12 @@ class ReceiveController {
           statuses: {for (final file in files.values) file.id: FileStatus.queue},
         );
 
-    bool quickSave = settings.quickSave && server.getState().session?.message == null;
-    final quickSaveFromFavorites = settings.quickSaveFromFavorites && server.getState().session?.message == null;
-    if (quickSaveFromFavorites) {
-      final bool isFavorite = server.ref.read(favoritesProvider).any((e) => e.fingerprint == senderFingerprint);
-      if (isFavorite) {
-        quickSave = true;
-      }
+    bool quickSave = settings.quickSave && server.getState().session?.isMessageRequest != true;
+    final quickSaveFromFavorites = settings.quickSaveFromFavorites && server.getState().session?.isMessageRequest != true;
+    if (quickSaveFromFavorites && senderFavorite != null) {
+      quickSave = true;
     }
-    if (server.getState().webUpload && settings.receiveViaLinkAutoAccept && server.getState().session?.message == null) {
+    if (server.getState().webUpload && settings.receiveViaLinkAutoAccept && server.getState().session?.isMessageRequest != true) {
       // The upload page (receive via link) is being served and requests should be accepted automatically.
       quickSave = true;
     }
@@ -188,7 +189,8 @@ class ReceiveController {
       return ReceivePageVm(
         status: session?.status,
         sender: session?.sender ?? Device.empty,
-        showSenderInfo: true,
+        // An anonymous sender (empty fingerprint) has nothing to verify.
+        showSenderInfo: session == null || session.sender.fingerprint.isNotEmpty,
         files: session?.files.values.map((f) => f.file).toList() ?? [],
         message: message,
         onAccept: () async {
@@ -413,9 +415,9 @@ class ReceiveController {
       // Only auto-close fully successful sessions: a failed file may still be
       // retried by the sender (e.g. after a checksum mismatch), which requires
       // the session to stay open.
-      bool quickSave = settings.quickSave && !hasError && server.getState().session?.message == null;
-      final quickSaveFromFavorites = settings.quickSaveFromFavorites && !hasError && server.getState().session?.message == null;
-      if (quickSaveFromFavorites) {
+      bool quickSave = settings.quickSave && !hasError && server.getState().session?.isMessageRequest != true;
+      final quickSaveFromFavorites = settings.quickSaveFromFavorites && !hasError && server.getState().session?.isMessageRequest != true;
+      if (quickSaveFromFavorites && session.sender.fingerprint.isNotEmpty) {
         final bool isFavorite = server.ref.read(favoritesProvider).any((e) => e.fingerprint == session.sender.fingerprint);
         if (isFavorite) {
           quickSave = true;

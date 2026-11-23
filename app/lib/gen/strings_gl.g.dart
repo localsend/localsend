@@ -361,6 +361,8 @@ class _Translations$deviceDetailsPage$gl extends Translations$deviceDetailsPage$
   @override
   late final _Translations$deviceDetailsPage$info$gl info = _Translations$deviceDetailsPage$info$gl._(_root);
   @override
+  late final _Translations$deviceDetailsPage$channels$gl channels = _Translations$deviceDetailsPage$channels$gl._(_root);
+  @override
   late final _Translations$deviceDetailsPage$logs$gl logs = _Translations$deviceDetailsPage$logs$gl._(_root);
 }
 
@@ -865,6 +867,10 @@ class _Translations$settingsTab$general$gl extends Translations$settingsTab$gene
   @override
   String get saveWindowPlacementWindows => 'Garda a posición da xanela despois da saída';
   @override
+  String get alwaysOnTop => 'Sempre enriba';
+  @override
+  String get alwaysOnTopUnavailable => 'Non compatible con Wayland';
+  @override
   String get minimizeToTray => 'Minimizar á Bandexa do Sistema/Barra de Menú ao Pechar';
   @override
   String get launchAtStartup => 'Arrancar automáticamente despois do inicio de sesión';
@@ -872,6 +878,11 @@ class _Translations$settingsTab$general$gl extends Translations$settingsTab$gene
   String get launchMinimized => 'Arranque automático: Iniciar minimizada';
   @override
   String get showInContextMenu => 'Amosar LocalSend no menú contextual';
+  @override
+  String get softwareRendering => 'Renderizado por software';
+  @override
+  String get softwareRenderingDescription =>
+      'Úsao se a xanela queda en branco, presenta erros gráficos ou se pecha ao iniciar. Aplícase despois de reiniciar.';
   @override
   String get animations => 'Animacións';
 }
@@ -1053,11 +1064,34 @@ class _Translations$deviceDetailsPage$info$gl extends Translations$deviceDetails
   @override
   String get name => 'Nome';
   @override
-  String get address => 'Enderezo';
-  @override
   String get version => 'Versión';
   @override
   String protocol({required Object version}) => 'Protocolo v${version}';
+}
+
+// Path: deviceDetailsPage.channels
+class _Translations$deviceDetailsPage$channels$gl extends Translations$deviceDetailsPage$channels$en {
+  _Translations$deviceDetailsPage$channels$gl._(TranslationsGl root) : this._root = root, super.internal(root);
+
+  final TranslationsGl _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Canles';
+  @override
+  String get you => 'Ti';
+  @override
+  String get outgoing => 'Saínte';
+  @override
+  String get incoming => 'Entrante';
+  @override
+  String get works => 'Funciona';
+  @override
+  String get notTested => 'Sen probar';
+  @override
+  String get failed => 'Fallou';
+  @override
+  String get notSeen => 'Nunca visto';
 }
 
 // Path: deviceDetailsPage.logs
@@ -1072,9 +1106,14 @@ class _Translations$deviceDetailsPage$logs$gl extends Translations$deviceDetails
   @override
   String get empty => 'Non hai rexistros dispoñibles.';
   @override
-  String discovered({required Object protocol, required Object host}) => 'Descuberto mediante ${protocol} (${host})';
+  String outbound({required Object protocol, required Object host}) => 'Contactado mediante ${protocol} (${host})';
   @override
-  String updated({required Object protocol, required Object host}) => 'Actualizado mediante ${protocol} (${host})';
+  String outboundFailed({required Object protocol, required Object host, required Object error}) =>
+      'Non se puido contactar mediante ${protocol} (${host}): ${error}';
+  @override
+  String inbound({required Object protocol, required Object host}) => 'Contactounos mediante ${protocol} (${host})';
+  @override
+  String multicastInbound({required Object host}) => 'Anuncio recibido (${host})';
 }
 
 // Path: progressPage.total
@@ -1270,6 +1309,8 @@ class _Translations$dialogs$favoriteEditDialog$gl extends Translations$dialogs$f
   String get ip => 'Enderezo IP';
   @override
   String get port => 'Porto';
+  @override
+  String get invalidPort => 'Introduce un número enteiro entre 1 e 65535.';
 }
 
 // Path: dialogs.fileInfo

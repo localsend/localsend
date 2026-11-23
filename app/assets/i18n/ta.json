@@ -106,10 +106,14 @@
       },
       "saveWindowPlacement": "வெளியேறிய பிறகு சாளர நிலையை சேமிக்கவும்",
       "saveWindowPlacementWindows": "வெளியேறிய பிறகு சாளர நிலையை சேமிக்கவும்",
+      "alwaysOnTop": "எப்போதும் மேலே",
+      "alwaysOnTopUnavailable": "Wayland-இல் ஆதரிக்கப்படவில்லை",
       "minimizeToTray": "மூடும் போது சிஸ்டம் ட்ரே/மெனு பட்டியில் குறைக்கவும்",
       "launchAtStartup": "உள்நுழைந்த பிறகு தானாக துவக்கவும்",
       "launchMinimized": "ஆட்டோஸ்டார்ட்: மறைக்கப்பட்ட தொடக்கம்",
       "showInContextMenu": "சூழல் மெனுவில் LocalSend ஐக் காட்டு",
+      "softwareRendering": "மென்பொருள் ரெண்டரிங்",
+      "softwareRenderingDescription": "சாளரம் வெறுமையாக இருந்தால், குறைபாடுடன் தோன்றினால் அல்லது தொடக்கத்திலேயே மூடினால் பயன்படுத்தவும். மறுதொடக்கத்திற்குப் பிறகு நடைமுறைக்கு வரும்.",
       "animations": "அனிமேஷன்கள்"
     },
     "receive": {
@@ -212,15 +216,26 @@
     "verify": "சரிபார்",
     "info": {
       "name": "பெயர்",
-      "address": "முகவரி",
       "version": "பதிப்பு",
       "protocol": "நெறிமுறை v{version}"
+    },
+    "channels": {
+      "title": "சேனல்கள்",
+      "you": "நீங்கள்",
+      "outgoing": "வெளிச்செல்லும்",
+      "incoming": "உள்வரும்",
+      "works": "இயங்குகிறது",
+      "notTested": "சோதிக்கப்படவில்லை",
+      "failed": "தோல்வியடைந்தது",
+      "notSeen": "காணப்படவில்லை"
     },
     "logs": {
       "title": "பதிவுகள்",
       "empty": "பதிவுகள் எதுவும் இல்லை.",
-      "discovered": "{protocol} வழியாகக் கண்டறியப்பட்டது ({host})",
-      "updated": "{protocol} வழியாக புதுப்பிக்கப்பட்டது ({host})"
+      "outbound": "{protocol} ({host}) வழியாக அணுகப்பட்டது",
+      "outboundFailed": "{protocol} ({host}) வழியாக அணுக முடியவில்லை: {error}",
+      "inbound": "{protocol} ({host}) வழியாக நம்மை அணுகியது",
+      "multicastInbound": "அறிவிப்பு கிடைத்தது ({host})"
     }
   },
   "verifyPage": {
@@ -450,7 +465,8 @@
       "name": "சாதனத்தின் பெயர்",
       "auto": "(தானாக)",
       "ip": "IP முகவரி",
-      "port": "போர்ட்"
+      "port": "போர்ட்",
+      "invalidPort": "1 முதல் 65535 வரையிலான முழு எண்ணை உள்ளிடவும்."
     },
     "fileInfo": {
       "title": "கோப்பு தகவல்",

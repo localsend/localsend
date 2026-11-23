@@ -363,6 +363,8 @@ class _Translations$deviceDetailsPage$sk extends Translations$deviceDetailsPage$
   @override
   late final _Translations$deviceDetailsPage$info$sk info = _Translations$deviceDetailsPage$info$sk._(_root);
   @override
+  late final _Translations$deviceDetailsPage$channels$sk channels = _Translations$deviceDetailsPage$channels$sk._(_root);
+  @override
   late final _Translations$deviceDetailsPage$logs$sk logs = _Translations$deviceDetailsPage$logs$sk._(_root);
 }
 
@@ -949,6 +951,10 @@ class _Translations$settingsTab$general$sk extends Translations$settingsTab$gene
   @override
   String get saveWindowPlacementWindows => 'Uložiť polohu okna po ukončení';
   @override
+  String get alwaysOnTop => 'Vždy navrchu';
+  @override
+  String get alwaysOnTopUnavailable => 'Nepodporované vo Waylande';
+  @override
   String get minimizeToTray => 'Minimalizovať na systémový panel/panel ponuky pri zatvorení';
   @override
   String get launchAtStartup => 'Autoštart po prihlásení';
@@ -956,6 +962,11 @@ class _Translations$settingsTab$general$sk extends Translations$settingsTab$gene
   String get launchMinimized => 'Autoštart: Spustiť skryté';
   @override
   String get showInContextMenu => 'Zobraziť LocalSend v kontextovej ponuke';
+  @override
+  String get softwareRendering => 'Softvérové vykresľovanie';
+  @override
+  String get softwareRenderingDescription =>
+      'Použite, ak okno zostáva prázdne, má grafické chyby alebo sa pri spustení zavrie. Prejaví sa po reštarte.';
   @override
   String get animations => 'Animácie';
 }
@@ -1137,11 +1148,34 @@ class _Translations$deviceDetailsPage$info$sk extends Translations$deviceDetails
   @override
   String get name => 'Názov';
   @override
-  String get address => 'Adresa';
-  @override
   String get version => 'Verzia';
   @override
   String protocol({required Object version}) => 'Protokol v${version}';
+}
+
+// Path: deviceDetailsPage.channels
+class _Translations$deviceDetailsPage$channels$sk extends Translations$deviceDetailsPage$channels$en {
+  _Translations$deviceDetailsPage$channels$sk._(TranslationsSk root) : this._root = root, super.internal(root);
+
+  final TranslationsSk _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Kanály';
+  @override
+  String get you => 'Vy';
+  @override
+  String get outgoing => 'Odchádzajúce';
+  @override
+  String get incoming => 'Prichádzajúce';
+  @override
+  String get works => 'Funguje';
+  @override
+  String get notTested => 'Netestované';
+  @override
+  String get failed => 'Zlyhalo';
+  @override
+  String get notSeen => 'Nezaznamenané';
 }
 
 // Path: deviceDetailsPage.logs
@@ -1156,9 +1190,14 @@ class _Translations$deviceDetailsPage$logs$sk extends Translations$deviceDetails
   @override
   String get empty => 'Nie sú k dispozícii žiadne záznamy.';
   @override
-  String discovered({required Object protocol, required Object host}) => 'Objavené cez ${protocol} (${host})';
+  String outbound({required Object protocol, required Object host}) => 'Pripojené cez ${protocol} (${host})';
   @override
-  String updated({required Object protocol, required Object host}) => 'Aktualizované cez ${protocol} (${host})';
+  String outboundFailed({required Object protocol, required Object host, required Object error}) =>
+      'Nepodarilo sa pripojiť cez ${protocol} (${host}): ${error}';
+  @override
+  String inbound({required Object protocol, required Object host}) => 'Pripojilo sa k nám cez ${protocol} (${host})';
+  @override
+  String multicastInbound({required Object host}) => 'Prijaté oznámenie (${host})';
 }
 
 // Path: progressPage.total
@@ -1353,6 +1392,8 @@ class _Translations$dialogs$favoriteEditDialog$sk extends Translations$dialogs$f
   String get ip => 'IP adresa';
   @override
   String get port => 'Port';
+  @override
+  String get invalidPort => 'Zadajte celé číslo od 1 do 65535.';
 }
 
 // Path: dialogs.fileInfo

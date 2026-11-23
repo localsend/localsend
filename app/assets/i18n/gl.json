@@ -106,10 +106,14 @@
       },
       "saveWindowPlacement": "Garda a posición da xanela despois de saír",
       "saveWindowPlacementWindows": "Garda a posición da xanela despois da saída",
+      "alwaysOnTop": "Sempre enriba",
+      "alwaysOnTopUnavailable": "Non compatible con Wayland",
       "minimizeToTray": "Minimizar á Bandexa do Sistema/Barra de Menú ao Pechar",
       "launchAtStartup": "Arrancar automáticamente despois do inicio de sesión",
       "launchMinimized": "Arranque automático: Iniciar minimizada",
       "showInContextMenu": "Amosar LocalSend no menú contextual",
+      "softwareRendering": "Renderizado por software",
+      "softwareRenderingDescription": "Úsao se a xanela queda en branco, presenta erros gráficos ou se pecha ao iniciar. Aplícase despois de reiniciar.",
       "animations": "Animacións"
     },
     "receive": {
@@ -212,15 +216,26 @@
     "verify": "Verificar",
     "info": {
       "name": "Nome",
-      "address": "Enderezo",
       "version": "Versión",
       "protocol": "Protocolo v{version}"
+    },
+    "channels": {
+      "title": "Canles",
+      "you": "Ti",
+      "outgoing": "Saínte",
+      "incoming": "Entrante",
+      "works": "Funciona",
+      "notTested": "Sen probar",
+      "failed": "Fallou",
+      "notSeen": "Nunca visto"
     },
     "logs": {
       "title": "Rexistros",
       "empty": "Non hai rexistros dispoñibles.",
-      "discovered": "Descuberto mediante {protocol} ({host})",
-      "updated": "Actualizado mediante {protocol} ({host})"
+      "outbound": "Contactado mediante {protocol} ({host})",
+      "outboundFailed": "Non se puido contactar mediante {protocol} ({host}): {error}",
+      "inbound": "Contactounos mediante {protocol} ({host})",
+      "multicastInbound": "Anuncio recibido ({host})"
     }
   },
   "verifyPage": {
@@ -380,7 +395,8 @@
       "name": "Nome do dispositivo",
       "auto": "(auto)",
       "ip": "Enderezo IP",
-      "port": "Porto"
+      "port": "Porto",
+      "invalidPort": "Introduce un número enteiro entre 1 e 65535."
     },
     "fileInfo": {
       "title": "Información do ficheiro",

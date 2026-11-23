@@ -114,7 +114,7 @@ Save targets are decided in Dart (`prepareFileSaveTarget`) and written by Rust: 
 
 Server event `ip`s are `PeerIp` (IP + IPv6 scope): a link-local peer renders as `fe80::1%3`, which the HTTP client accepts back as a host, so event ips stay dialable.
 
-TLS uses per-device on-the-fly certificates with **mandatory client certificates** (optional while the web pages are served, so browsers can connect); the peer identity is the uppercase-hex SHA-256 of the client cert DER, and `Register` is simply not emitted when a payload's claimed fingerprint disagrees with the cert. Prefer `event.certFingerprint ?? event.info.fingerprint` — the payload fallback only exists for encryption-off mode.
+TLS uses per-device on-the-fly certificates with **mandatory client certificates** (optional while the web pages are served, so browsers can connect); the peer identity is the uppercase-hex SHA-256 of the client cert DER, and `Register` is simply not emitted when a payload's claimed fingerprint disagrees with the cert or no cert was presented; `prepare-upload` with a cert whose fingerprint disagrees with the claim is rejected with 403. Use `PrepareUpload`'s `sender_fingerprint` (Dart: `event.senderFingerprint`), never `info.fingerprint`: it is the cert fingerprint on TLS, the self-reported one only in encryption-off mode, and `null` for a cert-less TLS client (a browser while the web pages are served) — such a sender is anonymous and must never match a favorite.
 
 Both the receive pin and the web-send pin are fixed at server start, so changing either restarts the server.
 
@@ -126,6 +126,8 @@ Web assets for the browser download page are embedded from `packages/core/assets
 Integration mirrors the HTTP server: `multicast::start` takes a `MulticastConfig { group, group_v6, port, interface_filter, device, event_tx }` and emits `MulticastEvent::Discovered { ip, message }`; the returned `MulticastHandle` offers `announce` (the announcement burst) and `wait_stopped`.
 
 UDP is **announce-only**: responses go back over HTTP as a unicast register request to the announcing device.
+
+The discovery store (`packages/core/src/discovery/store.rs`) dedupes devices by fingerprint. Over plain HTTP a fingerprint is only claimed, so once a device is reached over (pinned) HTTPS it is `verified`: its HTTP channels are dropped and later HTTP observations of that fingerprint are ignored, otherwise anyone could route transfers to a known device through an unpinned HTTP channel.
 
 One socket is bound per interface IPv4 address (`SO_REUSEPORT`/`SO_REUSEADDR` + `IP_MULTICAST_IF`), because a single socket only sends on one interface. Multicast loopback stays on so that instances on one host see each other; own messages are dropped by fingerprint. IPv6 is a LocalSend extension (group `ff12::fd3a:e420`, `DEFAULT_MULTICAST_GROUP_V6`), enabled by setting `group_v6`: one `IPV6_V6ONLY` socket per interface, joined by interface index. `Discovered` carries the source's scope ID (interface index), which link-local IPv6 sources need for the HTTP answer.
 

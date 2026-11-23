@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:localsend_isolates/constants.dart';
 import 'package:localsend_isolates/model/device.dart';
+import 'package:localsend_isolates/model/discovery_event.dart';
 import 'package:localsend_isolates/rust/api/discovery.dart';
 import 'package:localsend_isolates/rust/api/model.dart' as rust_model;
 import 'package:localsend_isolates/src/isolate/child/sync_provider.dart';
@@ -17,8 +18,8 @@ final discoveryProvider = Provider((ref) {
 
 /// Owns the Rust discovery (`core/discovery`): the multicast sockets, the
 /// register requests answering announcements, the subnet scans and the store
-/// of confirmed devices all live on the Rust side. This service configures it
-/// from the [syncProvider] state and maps every confirmation to a [Device].
+/// of devices all live on the Rust side. This service configures it from the
+/// [syncProvider] state and maps every observation to a [DiscoveryEvent].
 class DiscoveryService {
   DiscoveryService(this._ref);
 
@@ -31,10 +32,14 @@ class DiscoveryService {
   /// opposed to stopping itself because the multicast sockets failed.
   bool _restartRequested = false;
 
-  /// Starts the discovery and emits every device confirmation:
-  /// answered announcements, scan results and devices fed in
-  /// via [addDevice] all arrive on this one stream.
-  Stream<Device> startListener() {
+  /// Starts the discovery and emits its events on this one stream.
+  ///
+  /// A [DiscoveryDeviceEvent] carries a confirmed device whose state changed:
+  /// answered announcements, scan results, devices fed in via
+  /// [observeInbound] and outcomes reported via [reportOutbound].
+  /// A [DiscoveryUnreachableEvent] carries a device that was only heard
+  /// announcing itself and did not answer.
+  Stream<DiscoveryEvent> startListener() {
     if (_listening) {
       _logger.info('Already listening to discovery');
       return const Stream.empty();
@@ -42,12 +47,12 @@ class DiscoveryService {
 
     _listening = true;
 
-    final devices = StreamController<Device>();
-    unawaited(_runListener(devices));
-    return devices.stream;
+    final events = StreamController<DiscoveryEvent>();
+    unawaited(_runListener(events));
+    return events.stream;
   }
 
-  Future<void> _runListener(StreamController<Device> devices) async {
+  Future<void> _runListener(StreamController<DiscoveryEvent> events) async {
     // Announcements are only answered while the server runs: the answer would
     // advertise an HTTP port that nobody listens on otherwise.
     _ref.stream(syncProvider).listen((event) {
@@ -99,9 +104,9 @@ class DiscoveryService {
       // Tell everyone in the network that I am online.
       unawaited(discovery.announce());
 
-      await for (final device in discovery.listen()) {
-        if (!devices.isClosed) {
-          devices.add(device.toDevice());
+      await for (final event in discovery.listen()) {
+        if (!events.isClosed) {
+          events.add(event.toDiscoveryEvent());
         }
       }
 
@@ -195,7 +200,8 @@ class DiscoveryService {
     );
   }
 
-  /// The retained confirmations of a stored device, oldest first.
+  /// The retained observations of a stored device, oldest first, including a
+  /// device that was only heard announcing itself.
   /// Empty when the fingerprint is unknown or the discovery is not running.
   Future<List<DeviceLog>> deviceLogs(String fingerprint) async {
     final discovery = _discovery;
@@ -208,10 +214,13 @@ class DiscoveryService {
     return logs.map((log) => log.toDeviceLog()).toList();
   }
 
-  /// Feeds a device confirmed outside of the discovery into the store, e.g.
-  /// one that registered with this device's HTTP server.
-  /// The device comes back on the [startListener] stream.
-  Future<void> addDevice(Device device) async {
+  /// Feeds a device that reached this device's HTTP server into the store,
+  /// e.g. one that registered. Only the inbound direction of its address is
+  /// confirmed: whether the device can be dialed back there is then tested by
+  /// the discovery in the background.
+  /// The device comes back on the [startListener] stream, and again with the
+  /// outcome of that test.
+  Future<void> observeInbound(Device device) async {
     final discovery = _discovery;
     final ip = device.ip;
     if (discovery == null || ip == null) {
@@ -221,6 +230,27 @@ class DiscoveryService {
       return;
     }
 
-    await discovery.addDevice(device: device.toRsDiscoveredDevice(ip));
+    await discovery.observeInbound(device: device.toRsDiscoveredDevice(ip));
+  }
+
+  /// Records the outcome of a request the application itself sent to the
+  /// stored device with the given [fingerprint] over [channel], e.g. a
+  /// transfer: without an [error] the device was reached, with one (the
+  /// reason, for display) it could not be reached at all.
+  /// The device comes back on the [startListener] stream.
+  ///
+  /// Only report failures to reach the device, not requests that the device
+  /// answered with an error.
+  Future<void> reportOutbound(String fingerprint, HttpChannel channel, {String? error}) async {
+    final discovery = _discovery;
+    if (discovery == null) {
+      _logger.info('Discovery is not running, skipping outcome of ${channel.host}:${channel.port}');
+      return;
+    }
+
+    final known = await discovery.reportOutbound(fingerprint: fingerprint, channel: channel.toRsDeviceChannel(), error: error);
+    if (!known) {
+      _logger.info('Unknown device, skipping outcome of ${channel.host}:${channel.port}');
+    }
   }
 }

@@ -42,6 +42,10 @@ struct TestServer {
     port: u16,
     /// Requests that reached the application layer.
     prepare_uploads: Arc<Mutex<Vec<String>>>,
+    /// The `sender_fingerprint` of every `PrepareUpload` event.
+    sender_fingerprints: Arc<Mutex<Vec<Option<String>>>>,
+    /// The claimed fingerprint of every `Register` event.
+    registers: Arc<Mutex<Vec<String>>>,
     /// Uploaded file contents, mapped by file ID.
     received: Arc<Mutex<Vec<(String, Vec<u8>)>>>,
     _stop_tx: oneshot::Sender<()>,
@@ -57,19 +61,30 @@ async fn start_tls_server(identity: &Identity) -> TestServer {
 async fn start_tls_server_with_web(identity: &Identity, web: WebConfig) -> TestServer {
     let _ = tracing_subscriber::fmt().with_test_writer().try_init();
     let prepare_uploads: Arc<Mutex<Vec<String>>> = Arc::new(Mutex::new(Vec::new()));
+    let sender_fingerprints: Arc<Mutex<Vec<Option<String>>>> = Arc::new(Mutex::new(Vec::new()));
+    let registers: Arc<Mutex<Vec<String>>> = Arc::new(Mutex::new(Vec::new()));
     let received: Arc<Mutex<Vec<(String, Vec<u8>)>>> = Arc::new(Mutex::new(Vec::new()));
 
     let (event_tx, mut event_rx) = mpsc::channel::<ServerEventV2>(16);
 
     tokio::spawn({
         let prepare_uploads = prepare_uploads.clone();
+        let sender_fingerprints = sender_fingerprints.clone();
+        let registers = registers.clone();
         let received = received.clone();
         async move {
             while let Some(event) = event_rx.recv().await {
                 match event {
+                    ServerEventV2::Register { info, .. } => {
+                        registers.lock().await.push(info.fingerprint);
+                    }
                     ServerEventV2::PrepareUpload {
-                        files, decision_tx, ..
+                        sender_fingerprint,
+                        files,
+                        decision_tx,
+                        ..
                     } => {
+                        sender_fingerprints.lock().await.push(sender_fingerprint);
                         prepare_uploads
                             .lock()
                             .await
@@ -134,6 +149,8 @@ async fn start_tls_server_with_web(identity: &Identity, web: WebConfig) -> TestS
     TestServer {
         port: handle.port(),
         prepare_uploads,
+        sender_fingerprints,
+        registers,
         received,
         _stop_tx: stop_tx,
     }
@@ -273,6 +290,12 @@ async fn test_transfer_with_matching_fingerprint() {
     let received = server.received.lock().await;
     assert_eq!(received.len(), 1);
     assert_eq!(received[0].1, content);
+
+    // The sender is identified by its client certificate.
+    assert_eq!(
+        *server.sender_fingerprints.lock().await,
+        vec![Some(sender.fingerprint.clone())]
+    );
 }
 
 /// The peer presents a valid self-signed certificate, but not the one that was
@@ -429,4 +452,118 @@ async fn test_register_without_pin_returns_public_key() {
 
     assert!(response.public_key.is_some());
     assert_eq!(response.body.fingerprint, server_identity.fingerprint);
+}
+
+/// A browser-like client without a client certificate while the web pages are
+/// served. It must not be able to pass itself off as a known device by
+/// claiming that device's fingerprint (GHSA-hxmj-fjxh-v795).
+#[tokio::test]
+async fn test_client_without_cert_cannot_claim_fingerprint() {
+    let server_identity = generate_identity();
+    let favorite = generate_identity();
+    let server = start_tls_server_with_web(
+        &server_identity,
+        WebConfig {
+            mode: WebMode::Upload,
+            ..WebConfig::default()
+        },
+    )
+    .await;
+
+    let attacker = localsend::reqwest::Client::builder()
+        .use_rustls_tls()
+        .danger_accept_invalid_certs(true)
+        .build()
+        .unwrap();
+    let base = format!("https://127.0.0.1:{}/api/localsend/v2", server.port);
+
+    // A register claiming the favorite's fingerprint is answered, but ignored.
+    let response = attacker
+        .post(format!("{base}/register"))
+        .body(serde_json::to_string(&sender_info(&favorite.fingerprint)).unwrap())
+        .send()
+        .await
+        .unwrap();
+    assert_eq!(response.status().as_u16(), 200);
+
+    // Register events are delivered in order: once the authenticated one
+    // arrives, the anonymous one would have arrived before it.
+    let peer = generate_identity();
+    client(&peer, Some(&server_identity.fingerprint))
+        .register(
+            ProtocolType::Https,
+            "127.0.0.1",
+            server.port,
+            sender_info(&peer.fingerprint),
+        )
+        .await
+        .expect("register with client certificate should succeed");
+    tokio::time::timeout(std::time::Duration::from_secs(5), async {
+        while server.registers.lock().await.is_empty() {
+            tokio::time::sleep(std::time::Duration::from_millis(10)).await;
+        }
+    })
+    .await
+    .expect("the authenticated register should arrive");
+    assert_eq!(*server.registers.lock().await, vec![peer.fingerprint.clone()]);
+
+    // A prepare-upload still reaches the application (browsers upload this
+    // way), but as an anonymous sender, not as the claimed favorite.
+    let files = vec![file_dto("file-1", 10)];
+    let response = attacker
+        .post(format!("{base}/prepare-upload"))
+        .body(serde_json::to_string(&prepare_upload_request(&favorite, &files)).unwrap())
+        .send()
+        .await
+        .unwrap();
+    assert_eq!(response.status().as_u16(), 200);
+    assert_eq!(*server.sender_fingerprints.lock().await, vec![None]);
+}
+
+/// A sender with a valid client certificate that claims another device's
+/// fingerprint in its payload: the claim is disproven by the certificate, so
+/// the request is rejected instead of passing `info` on as that device.
+#[tokio::test]
+async fn test_prepare_upload_rejected_when_claim_disagrees_with_cert() {
+    let server_identity = generate_identity();
+    let sender = generate_identity();
+    let impersonated = generate_identity();
+    let server = start_tls_server(&server_identity).await;
+    let client = client(&sender, Some(&server_identity.fingerprint));
+
+    let files = vec![file_dto("file-1", 10)];
+    let result = client
+        .prepare_upload(
+            ProtocolType::Https,
+            "127.0.0.1",
+            server.port,
+            None,
+            prepare_upload_request(&impersonated, &files),
+            None,
+            CancellationToken::new(),
+        )
+        .await;
+
+    match result {
+        Err(ClientError::StatusCode(err)) => assert_eq!(err.status, 403),
+        Err(err) => panic!("expected 403, got {err:?}"),
+        Ok(_) => panic!("expected 403, got success"),
+    }
+    assert!(server.prepare_uploads.lock().await.is_empty());
+
+    // The claim is compared case-insensitively.
+    let mut request = prepare_upload_request(&sender, &files);
+    request.info.fingerprint = sender.fingerprint.to_lowercase();
+    client
+        .prepare_upload(
+            ProtocolType::Https,
+            "127.0.0.1",
+            server.port,
+            None,
+            request,
+            None,
+            CancellationToken::new(),
+        )
+        .await
+        .expect("a lowercase claim of the own fingerprint should be accepted");
 }

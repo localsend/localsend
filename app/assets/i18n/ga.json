@@ -51,7 +51,8 @@
       "off": "@:general.off",
       "favorites": "Ceanáin",
       "on": "@:general.on"
-    }
+    },
+    "link": "Faigh trí nasc"
   },
   "sendTab": {
     "title": "Seol",
@@ -96,7 +97,8 @@
       "color": "Dath",
       "colorOptions": {
         "system": "Córas",
-        "oled": "OLED"
+        "oled": "OLED",
+        "custom": "Saincheaptha"
       },
       "language": "Teanga",
       "languageOptions": {
@@ -104,10 +106,14 @@
       },
       "saveWindowPlacement": "Sábháil suíomh na fuinneoige tar éis scoir",
       "saveWindowPlacementWindows": "Sábháil suíomh na fuinneoige tar éis imeachta",
+      "alwaysOnTop": "I gcónaí ar barr",
+      "alwaysOnTopUnavailable": "Ní thacaítear leis ar Wayland",
       "minimizeToTray": "Íoslaghdaigh go dtí an Tráidire Córais/Barra Roghchláir agus é á dhúnadh",
       "launchAtStartup": "Uaththosú tar éis logáil isteach",
       "launchMinimized": "Uaththosú: Tosaigh i bhfolach",
       "showInContextMenu": "Taispeáin LocalSend sa roghchlár comhthéacs",
+      "softwareRendering": "Rindreáil bogearraí",
+      "softwareRenderingDescription": "Úsáid é seo má fhanann an fhuinneog bán, má bhíonn fabhtanna inti nó má dhúnann sí ag an tús. Tagann sé i bhfeidhm tar éis atosaithe.",
       "animations": "Beochana"
     },
     "receive": {
@@ -119,11 +125,13 @@
       "destination": "Sábháil chuig fillteán",
       "downloads": "(Íoslódálacha)",
       "saveToGallery": "Sábháil meáin chuig an ngailearaí",
-      "saveToHistory": "Sábháil chuig an stair"
+      "saveToHistory": "Sábháil chuig an stair",
+      "verifyChecksums": "Fíoraigh suimeanna seiceála agus comhaid á bhfáil"
     },
     "send": {
       "title": "Seol",
-      "shareViaLinkAutoAccept": "Glac le hiarratais go huathoibríoch sa mhód \"Comhroinn trí nasc\""
+      "shareViaLinkAutoAccept": "Glac le hiarratais go huathoibríoch sa mhód \"Comhroinn trí nasc\"",
+      "createChecksums": "Cruthaigh suimeanna seiceála agus comhaid á seoladh"
     },
     "network": {
       "title": "Líonra",
@@ -202,6 +210,40 @@
   "selectedFilesPage": {
     "deleteAll": "Scrios gach rud"
   },
+  "deviceDetailsPage": {
+    "title": "Sonraí an Ghléis",
+    "favorite": "Ceanán",
+    "verify": "Fíoraigh",
+    "info": {
+      "name": "Ainm",
+      "version": "Leagan",
+      "protocol": "Prótacal v{version}"
+    },
+    "channels": {
+      "title": "Cainéil",
+      "you": "Tusa",
+      "outgoing": "Amach",
+      "incoming": "Isteach",
+      "works": "Ag obair",
+      "notTested": "Gan tástáil",
+      "failed": "Theip air",
+      "notSeen": "Gan feiceáil"
+    },
+    "logs": {
+      "title": "Logaí",
+      "empty": "Níl aon logaí ar fáil.",
+      "outbound": "Sroichte trí {protocol} ({host})",
+      "outboundFailed": "Níorbh fhéidir é a shroicheadh trí {protocol} ({host}): {error}",
+      "inbound": "Shroich sé sinn trí {protocol} ({host})",
+      "multicastInbound": "Fógra cloiste ({host})"
+    }
+  },
+  "verifyPage": {
+    "title": "Fíoraigh",
+    "icons": "Deilbhíní",
+    "text": "Téacs",
+    "question": "An bhfuil sé mar an gcéanna ar an ngléas eile?"
+  },
   "receivePage": {
     "subTitle": {
       "one": "ag iarraidh comhad a sheoladh chugat",
@@ -219,6 +261,7 @@
     "saveToGalleryOff": "Múchta go huathoibríoch mar go bhfuil fillteáin ann."
   },
   "sendPage": {
+    "calculatingChecksum": "Suim sheiceála á ríomh ({curr} / {n})",
     "waiting": "Ag fanacht le freagra…",
     "rejected": "Dhiúltaigh an faighteoir don iarratas.",
     "tooManyAttempts": "@:web.tooManyAttempts",
@@ -238,6 +281,16 @@
       "count": "Comhaid: {curr} / {n}",
       "size": "Méid: {curr} / {n}",
       "speed": "Luas: {speed}/s"
+    },
+    "remainingTime": {
+      "minutesUnit(plural, param=m)": {
+        "other": "{m}m"
+      },
+      "hoursUnit(plural, param=h)": {
+        "other": "{h}h"
+      },
+      "minutes": "{m}:{ss}",
+      "hours": "@:.hoursUnit @:.minutesUnit"
     }
   },
   "webSharePage": {
@@ -257,6 +310,9 @@
     "pinHint": "Is é an UAP ná \"{pin}\"",
     "encryptionHint": "Úsáideann LocalSend teastas féinshínithe. Ní mór duit glacadh leis i do bhrabhsálaí.",
     "pendingRequests": "Iarratais ar feitheamh: {n}"
+  },
+  "webReceivePage": {
+    "title": "Faigh trí nasc"
   },
   "aboutPage": {
     "title": "Maidir le LocalSend",
@@ -278,6 +334,18 @@
   },
   "changelogPage": {
     "title": "Log Athruithe"
+  },
+  "whatsNewPage": {
+    "title": "Cad atá nua i leagan {version}",
+    "changes(interface=WhatsNewStrings)": {
+      "v1_18_0": {
+        "changes": [
+          "Ní mhoillíonn criptiú aistrithe a thuilleadh. Athchumasaíodh é ar an ngléas seo má mhúch tú roimhe seo é.",
+          "Glactar le hiarratais ó cheanáin go huathoibríoch anois. Tá sé seo casta air de réir réamhshocraithe agus is féidir é a dhíchumasú sna socruithe.",
+          "Ar Android, leanann aistrithe ar aghaidh agus an aip sa chúlra nó an scáileán múchta. Ar iOS, ní mór don aip fanacht sa tulra fós."
+        ]
+      }
+    }
   },
   "aliasGenerator(ignoreMissing, ignoreGpt)": {
     "@info": "D’fhéadfadh focail éagsúla a bheith ag logáin éagsúla, agus b’fhéidir nach mbeadh siad ag teacht le chéile 1:1.",
@@ -363,6 +431,8 @@
     },
     "addressInput": {
       "title": "Iontráil seoladh",
+      "hashtag": "Haischlib",
+      "ip": "Seoladh IP",
       "recentlyUsed": "Úsáidte le déanaí: "
     },
     "cancelSession": {
@@ -395,7 +465,8 @@
       "name": "Ainm an ghléis",
       "auto": "(uathoibríoch)",
       "ip": "Seoladh IP",
-      "port": "Port"
+      "port": "Port",
+      "invalidPort": "Iontráil slánuimhir idir 1 agus 65535."
     },
     "fileInfo": {
       "title": "Eolas comhaid",

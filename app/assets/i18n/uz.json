@@ -106,10 +106,14 @@
       },
       "saveWindowPlacement": "Chiqishdan soʻng oyna joylashuvini saqlash",
       "saveWindowPlacementWindows": "Chiqishdan soʻng oyna joylashuvini saqlash",
+      "alwaysOnTop": "Doim yuqorida",
+      "alwaysOnTopUnavailable": "Waylandda qoʻllab-quvvatlanmaydi",
       "minimizeToTray": "Yopganda tizim treyi/menyu paneliga kichraytirish",
       "launchAtStartup": "Tizimga kirgandan soʻng avtomatik ishga tushirish",
       "launchMinimized": "Avtomatik ishga tushirish: yashirin holda boshlash",
       "showInContextMenu": "LocalSendni kontekst menyusida koʻrsatish",
+      "softwareRendering": "Dasturiy renderlash",
+      "softwareRenderingDescription": "Oyna boʻsh qolsa, buzilib koʻrinsa yoki ishga tushganda yopilsa, foydalaning. Qayta ishga tushirilgandan soʻng kuchga kiradi.",
       "animations": "Animatsiyalar"
     },
     "receive": {
@@ -212,15 +216,26 @@
     "verify": "Tasdiqlash",
     "info": {
       "name": "Nomi",
-      "address": "Manzil",
       "version": "Versiya",
       "protocol": "Protokol v{version}"
+    },
+    "channels": {
+      "title": "Kanallar",
+      "you": "Siz",
+      "outgoing": "Chiquvchi",
+      "incoming": "Kiruvchi",
+      "works": "Ishlaydi",
+      "notTested": "Sinalmagan",
+      "failed": "Muvaffaqiyatsiz",
+      "notSeen": "Koʻrilmagan"
     },
     "logs": {
       "title": "Jurnallar",
       "empty": "Jurnallar mavjud emas.",
-      "discovered": "{protocol} orqali topildi ({host})",
-      "updated": "{protocol} orqali yangilandi ({host})"
+      "outbound": "{protocol} orqali ulanildi ({host})",
+      "outboundFailed": "{protocol} orqali ulanib boʻlmadi ({host}): {error}",
+      "inbound": "Biz bilan {protocol} orqali bogʻlandi ({host})",
+      "multicastInbound": "Eʼlon qabul qilindi ({host})"
     }
   },
   "verifyPage": {
@@ -377,7 +392,8 @@
       "name": "Qurilma nomi",
       "auto": "(avto)",
       "ip": "IP manzil",
-      "port": "Port"
+      "port": "Port",
+      "invalidPort": "1 dan 65535 gacha butun son kiriting."
     },
     "fileInfo": {
       "title": "Fayl maʼlumoti",

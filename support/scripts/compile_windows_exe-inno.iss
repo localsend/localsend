@@ -12,7 +12,7 @@
 #endif
 
 #define MyAppName "LocalSend"
-#define MyAppVersion "1.18.2"
+#define MyAppVersion "1.19.0"
 #define MyAppPublisher "Tien Do Nam"
 #define MyAppURL "https://localsend.org"
 #define MyAppExeName "localsend_app.exe"
@@ -91,6 +91,9 @@ Source: "{#PayloadDir}\data\*"; DestDir: "{app}\data"; Flags: ignoreversion recu
 #ifndef SkipMsixHelper
 Source: "{#PayloadDir}\{#MyAppExeName}.manifest"; DestDir: "{app}"; Flags: ignoreversion
 Source: "{#PayloadDir}\{#MyAppMsixHelper}"; DestDir: "{app}"; Flags: ignoreversion
+; Windows reads the share icons from the app's install folder. Copy their images and resource index (resources.pri) there.
+Source: "..\build\msix\content\Images\*"; DestDir: "{app}\Images"; Flags: ignoreversion
+Source: "..\build\msix\content\resources.pri"; DestDir: "{app}"; Flags: ignoreversion
 #endif
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
@@ -105,6 +108,50 @@ Filename: "powershell.exe"; Parameters: "-ExecutionPolicy Bypass -Command Add-Ap
 #endif
 
 [UninstallRun]
+; [UninstallRun] runs before any file is removed. LocalSend may still be running (e.g. hidden in the tray after autostart),
+; which would keep its exe and DLLs in use. Terminate the instances started from this installation, also those of other users.
+Filename: "powershell.exe"; Parameters: "-NoProfile -ExecutionPolicy Bypass -Command ""$exe = Join-Path $PWD.Path '{#MyAppExeName}'; Get-Process localsend_app -ErrorAction SilentlyContinue | Where-Object Path -eq $exe | ForEach-Object {{ $_.Kill(); $_.WaitForExit(10000) }"""; WorkingDir: {app}; Flags: runhidden waituntilterminated; RunOnceId: "CloseApp"
+; The app itself, not this installer, creates the "Send to" shortcut on its first start (context_menu_helper.dart). Remove it if it
+; starts this installation. This runs in 64-bit PowerShell because a 32-bit process, like the uninstaller, reads a shortcut
+; into C:\Program Files as C:\Program Files (x86).
+Filename: "powershell.exe"; Parameters: "-NoProfile -ExecutionPolicy Bypass -Command ""$exe = Join-Path $PWD.Path '{#MyAppExeName}'; $lnk = Join-Path ([Environment]::GetFolderPath('SendTo')) '{#MyAppName}.lnk'; if ((Test-Path -LiteralPath $lnk) -and (New-Object -ComObject WScript.Shell).CreateShortcut($lnk).TargetPath -eq $exe) {{ Remove-Item -LiteralPath $lnk }"""; WorkingDir: {app}; Flags: runhidden waituntilterminated; RunOnceId: "RemoveSendToShortcut"
+; Windows adds firewall rules for the exe when the user allows access on the first start. Removing them requires admin rights.
+Filename: "{sys}\netsh.exe"; Parameters: "advfirewall firewall delete rule name=all program=""{app}\{#MyAppExeName}"""; Flags: runhidden waituntilterminated; Check: IsAdminInstallMode; RunOnceId: "DeleteFirewallRules"
 #ifndef SkipMsixHelper
 Filename: "powershell.exe"; Parameters: "-ExecutionPolicy Bypass -Command Get-AppxPackage LocalSend.App | Remove-AppxPackage"; Flags: nowait runhidden
 #endif
+
+[Code]
+const
+  RunKey = 'Software\Microsoft\Windows\CurrentVersion\Run';
+  RunValue = 'LocalSend';
+
+function IsAppExe(Path: String): Boolean;
+begin
+  Result := CompareText(Path, ExpandConstant('{app}\{#MyAppExeName}')) = 0;
+end;
+
+// The exe of a command line like "C:\Program Files\LocalSend\localsend_app.exe" --hidden
+function CommandExe(Command: String): String;
+var
+  P: Integer;
+begin
+  Result := Trim(Command);
+  if (Length(Result) > 0) and (Result[1] = '"') then
+  begin
+    Delete(Result, 1, 1);
+    P := Pos('"', Result);
+    if P > 0 then
+      Result := Copy(Result, 1, P - 1);
+  end;
+end;
+
+// The app itself, not this installer, adds the autostart value (autostart_helper.dart). Remove it if it starts this
+// installation, so that it doesn't start a missing exe at every sign-in. It belongs to the user running the uninstaller.
+procedure CurUninstallStepChanged(CurUninstallStep: TUninstallStep);
+var
+  Value: String;
+begin
+  if (CurUninstallStep = usPostUninstall) and RegQueryStringValue(HKCU, RunKey, RunValue, Value) and IsAppExe(CommandExe(Value)) then
+    RegDeleteValue(HKCU, RunKey, RunValue);
+end;

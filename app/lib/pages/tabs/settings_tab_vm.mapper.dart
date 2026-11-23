@@ -88,6 +88,11 @@ class SettingsTabVmMapper extends ClassMapperBase<SettingsTabVm> {
     'showInContextMenu',
     _$showInContextMenu,
   );
+  static bool _$softwareRendering(SettingsTabVm v) => v.softwareRendering;
+  static const Field<SettingsTabVm, bool> _f$softwareRendering = Field(
+    'softwareRendering',
+    _$softwareRendering,
+  );
   static Function _$onChangeTheme(SettingsTabVm v) =>
       (v as dynamic).onChangeTheme as Function;
   static dynamic _arg$onChangeTheme(f) =>
@@ -141,6 +146,16 @@ class SettingsTabVmMapper extends ClassMapperBase<SettingsTabVm> {
         'onToggleShowInContextMenu',
         _$onToggleShowInContextMenu,
         arg: _arg$onToggleShowInContextMenu,
+      );
+  static Function _$onToggleSoftwareRendering(SettingsTabVm v) =>
+      (v as dynamic).onToggleSoftwareRendering as Function;
+  static dynamic _arg$onToggleSoftwareRendering(f) =>
+      f<void Function(BuildContext)>();
+  static const Field<SettingsTabVm, Function> _f$onToggleSoftwareRendering =
+      Field(
+        'onToggleSoftwareRendering',
+        _$onToggleSoftwareRendering,
+        arg: _arg$onToggleSoftwareRendering,
       );
   static Function _$onTapRestartServer(SettingsTabVm v) =>
       (v as dynamic).onTapRestartServer as Function;
@@ -196,12 +211,14 @@ class SettingsTabVmMapper extends ClassMapperBase<SettingsTabVm> {
     #autoStart: _f$autoStart,
     #autoStartLaunchHidden: _f$autoStartLaunchHidden,
     #showInContextMenu: _f$showInContextMenu,
+    #softwareRendering: _f$softwareRendering,
     #onChangeTheme: _f$onChangeTheme,
     #onChangeColorMode: _f$onChangeColorMode,
     #onTapLanguage: _f$onTapLanguage,
     #onToggleAutoStart: _f$onToggleAutoStart,
     #onToggleAutoStartLaunchHidden: _f$onToggleAutoStartLaunchHidden,
     #onToggleShowInContextMenu: _f$onToggleShowInContextMenu,
+    #onToggleSoftwareRendering: _f$onToggleSoftwareRendering,
     #onTapRestartServer: _f$onTapRestartServer,
     #onTapStartServer: _f$onTapStartServer,
     #onTapStopServer: _f$onTapStopServer,
@@ -224,12 +241,14 @@ class SettingsTabVmMapper extends ClassMapperBase<SettingsTabVm> {
       autoStart: data.dec(_f$autoStart),
       autoStartLaunchHidden: data.dec(_f$autoStartLaunchHidden),
       showInContextMenu: data.dec(_f$showInContextMenu),
+      softwareRendering: data.dec(_f$softwareRendering),
       onChangeTheme: data.dec(_f$onChangeTheme),
       onChangeColorMode: data.dec(_f$onChangeColorMode),
       onTapLanguage: data.dec(_f$onTapLanguage),
       onToggleAutoStart: data.dec(_f$onToggleAutoStart),
       onToggleAutoStartLaunchHidden: data.dec(_f$onToggleAutoStartLaunchHidden),
       onToggleShowInContextMenu: data.dec(_f$onToggleShowInContextMenu),
+      onToggleSoftwareRendering: data.dec(_f$onToggleSoftwareRendering),
       onTapRestartServer: data.dec(_f$onTapRestartServer),
       onTapStartServer: data.dec(_f$onTapStartServer),
       onTapStopServer: data.dec(_f$onTapStopServer),
@@ -317,12 +336,14 @@ abstract class SettingsTabVmCopyWith<$R, $In extends SettingsTabVm, $Out>
     bool? autoStart,
     bool? autoStartLaunchHidden,
     bool? showInContextMenu,
+    bool? softwareRendering,
     void Function(BuildContext, ThemeMode)? onChangeTheme,
     void Function(BuildContext, ColorMode)? onChangeColorMode,
     void Function(BuildContext)? onTapLanguage,
     void Function(BuildContext)? onToggleAutoStart,
     void Function(BuildContext)? onToggleAutoStartLaunchHidden,
     void Function(BuildContext)? onToggleShowInContextMenu,
+    void Function(BuildContext)? onToggleSoftwareRendering,
     void Function(BuildContext)? onTapRestartServer,
     void Function(BuildContext)? onTapStartServer,
     void Function()? onTapStopServer,
@@ -367,12 +388,14 @@ class _SettingsTabVmCopyWithImpl<$R, $Out>
     bool? autoStart,
     bool? autoStartLaunchHidden,
     bool? showInContextMenu,
+    bool? softwareRendering,
     void Function(BuildContext, ThemeMode)? onChangeTheme,
     void Function(BuildContext, ColorMode)? onChangeColorMode,
     void Function(BuildContext)? onTapLanguage,
     void Function(BuildContext)? onToggleAutoStart,
     void Function(BuildContext)? onToggleAutoStartLaunchHidden,
     void Function(BuildContext)? onToggleShowInContextMenu,
+    void Function(BuildContext)? onToggleSoftwareRendering,
     void Function(BuildContext)? onTapRestartServer,
     void Function(BuildContext)? onTapStartServer,
     void Function()? onTapStopServer,
@@ -395,6 +418,7 @@ class _SettingsTabVmCopyWithImpl<$R, $Out>
       if (autoStartLaunchHidden != null)
         #autoStartLaunchHidden: autoStartLaunchHidden,
       if (showInContextMenu != null) #showInContextMenu: showInContextMenu,
+      if (softwareRendering != null) #softwareRendering: softwareRendering,
       if (onChangeTheme != null) #onChangeTheme: onChangeTheme,
       if (onChangeColorMode != null) #onChangeColorMode: onChangeColorMode,
       if (onTapLanguage != null) #onTapLanguage: onTapLanguage,
@@ -403,6 +427,8 @@ class _SettingsTabVmCopyWithImpl<$R, $Out>
         #onToggleAutoStartLaunchHidden: onToggleAutoStartLaunchHidden,
       if (onToggleShowInContextMenu != null)
         #onToggleShowInContextMenu: onToggleShowInContextMenu,
+      if (onToggleSoftwareRendering != null)
+        #onToggleSoftwareRendering: onToggleSoftwareRendering,
       if (onTapRestartServer != null) #onTapRestartServer: onTapRestartServer,
       if (onTapStartServer != null) #onTapStartServer: onTapStartServer,
       if (onTapStopServer != null) #onTapStopServer: onTapStopServer,
@@ -439,6 +465,10 @@ class _SettingsTabVmCopyWithImpl<$R, $Out>
       #showInContextMenu,
       or: $value.showInContextMenu,
     ),
+    softwareRendering: data.get(
+      #softwareRendering,
+      or: $value.softwareRendering,
+    ),
     onChangeTheme: data.get(#onChangeTheme, or: $value.onChangeTheme),
     onChangeColorMode: data.get(
       #onChangeColorMode,
@@ -456,6 +486,10 @@ class _SettingsTabVmCopyWithImpl<$R, $Out>
     onToggleShowInContextMenu: data.get(
       #onToggleShowInContextMenu,
       or: $value.onToggleShowInContextMenu,
+    ),
+    onToggleSoftwareRendering: data.get(
+      #onToggleSoftwareRendering,
+      or: $value.onToggleSoftwareRendering,
     ),
     onTapRestartServer: data.get(
       #onTapRestartServer,

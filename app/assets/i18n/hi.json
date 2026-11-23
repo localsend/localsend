@@ -106,10 +106,14 @@
       },
       "saveWindowPlacement": "बंद करें: विंडो प्लेसमेंट सहेजें",
       "saveWindowPlacementWindows": "बाहर निकलने के बाद विंडो की स्थिति सहेजें",
+      "alwaysOnTop": "हमेशा ऊपर रखें",
+      "alwaysOnTopUnavailable": "Wayland पर समर्थित नहीं",
       "minimizeToTray": "बंद करें: ट्रे/मेनू बार में मिनिमाइज करें",
       "launchAtStartup": "लॉगिन के बाद ऑटोस्टार्ट",
       "launchMinimized": "ऑटोस्टार्ट: छुपा हुआ प्रारंभ करें",
       "showInContextMenu": "कॉन्टेक्स्ट मेनू में LocalSend दिखाएं",
+      "softwareRendering": "सॉफ़्टवेयर रेंडरिंग",
+      "softwareRenderingDescription": "यदि विंडो खाली रहती है, गड़बड़ होती है या शुरू होते ही बंद हो जाती है तो उपयोग करें। पुनः प्रारंभ के बाद लागू होगा।",
       "animations": "एनिमेशन"
     },
     "receive": {
@@ -212,15 +216,26 @@
     "verify": "सत्यापित करें",
     "info": {
       "name": "नाम",
-      "address": "पता",
       "version": "संस्करण",
       "protocol": "प्रोटोकॉल v{version}"
+    },
+    "channels": {
+      "title": "चैनल",
+      "you": "आप",
+      "outgoing": "आउटगोइंग",
+      "incoming": "इनकमिंग",
+      "works": "काम करता है",
+      "notTested": "परीक्षण नहीं किया गया",
+      "failed": "विफल",
+      "notSeen": "नहीं देखा गया"
     },
     "logs": {
       "title": "लॉग",
       "empty": "कोई लॉग उपलब्ध नहीं।",
-      "discovered": "{protocol} के ज़रिए खोजा गया ({host})",
-      "updated": "{protocol} के ज़रिए अपडेट किया गया ({host})"
+      "outbound": "{protocol} ({host}) के माध्यम से पहुँचा गया",
+      "outboundFailed": "{protocol} ({host}) के माध्यम से नहीं पहुँच सके: {error}",
+      "inbound": "{protocol} ({host}) के माध्यम से हम तक पहुँचा",
+      "multicastInbound": "घोषणा प्राप्त हुई ({host})"
     }
   },
   "verifyPage": {
@@ -450,7 +465,8 @@
       "name": "डिवाइस नाम",
       "auto": "(auto)",
       "ip": "IP पता",
-      "port": "पोर्ट"
+      "port": "पोर्ट",
+      "invalidPort": "1 और 65535 के बीच एक पूर्ण संख्या दर्ज करें।"
     },
     "fileInfo": {
       "title": "फ़ाइल की जानकारी",

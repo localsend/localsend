@@ -106,10 +106,14 @@
       },
       "saveWindowPlacement": "រក្សាទុកផ្ទាំងវីនដូ ក្រោយពេលចាកចេញ",
       "saveWindowPlacementWindows": "រក្សាទុកទីតាំងផ្ទាំងអេក្រង់នៅដដែលបន្ទាប់ពីចាកចេញ",
+      "alwaysOnTop": "នៅខាងលើជានិច្ច",
+      "alwaysOnTopUnavailable": "មិនគាំទ្រលើ Wayland",
       "minimizeToTray": "ចាកចេញ: បង្រួមអប្បបរមាទៅរបារម៉ឺនុយ",
       "launchAtStartup": "ចាប់ផ្តើមដោយស្វ័យប្រវត្តិបន្ទាប់ពីចូលគណនី",
       "launchMinimized": "ចាប់ផ្តើមដោយស្វ័យប្រវត្តិ: ការចាប់ផ្តើមត្រូវបានលាក់",
       "showInContextMenu": "បង្ហាញ LocalSend in នៅលើរបារម៉ឺនុយ",
+      "softwareRendering": "ការបង្ហាញតាមសូហ្វវែរ",
+      "softwareRenderingDescription": "ប្រើប្រសិនបើផ្ទាំងវីនដូនៅទទេ មានបញ្ហាបង្ហាញ ឬបិទនៅពេលចាប់ផ្តើម។ មានប្រសិទ្ធភាពបន្ទាប់ពីចាប់ផ្តើមឡើងវិញ។",
       "animations": "ចលនារស់រវើក"
     },
     "receive": {
@@ -212,15 +216,26 @@
     "verify": "ផ្ទៀងផ្ទាត់",
     "info": {
       "name": "ឈ្មោះ",
-      "address": "អាសយដ្ឋាន",
       "version": "កំណែ",
       "protocol": "ពិធីការ v{version}"
+    },
+    "channels": {
+      "title": "ឆានែល",
+      "you": "អ្នក",
+      "outgoing": "ចេញ",
+      "incoming": "ចូល",
+      "works": "ដំណើរការ",
+      "notTested": "មិនទាន់សាកល្បង",
+      "failed": "បរាជ័យ",
+      "notSeen": "មិនទាន់ឃើញ"
     },
     "logs": {
       "title": "កំណត់ហេតុ",
       "empty": "មិនមានកំណត់ហេតុទេ។",
-      "discovered": "បានរកឃើញតាមរយៈ {protocol} ({host})",
-      "updated": "បានធ្វើបច្ចុប្បន្នភាពតាមរយៈ {protocol} ({host})"
+      "outbound": "បានភ្ជាប់តាម {protocol} ({host})",
+      "outboundFailed": "មិនអាចភ្ជាប់តាម {protocol} ({host}): {error}",
+      "inbound": "ឧបករណ៍នោះបានភ្ជាប់មកយើងតាម {protocol} ({host})",
+      "multicastInbound": "បានទទួលការប្រកាស ({host})"
     }
   },
   "verifyPage": {
@@ -450,7 +465,8 @@
       "name": "ឈ្មោះឧបករណ៍",
       "auto": "(auto)",
       "ip": "អាសយដ្ឋាន IP",
-      "port": "ច្រក"
+      "port": "ច្រក",
+      "invalidPort": "សូមបញ្ចូលចំនួនគត់ចន្លោះពី 1 ដល់ 65535។"
     },
     "fileInfo": {
       "title": "ព័ត៌មាននៃឯកសារ",

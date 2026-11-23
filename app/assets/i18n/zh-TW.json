@@ -106,10 +106,14 @@
       },
       "saveWindowPlacement": "退出時儲存視窗位置",
       "saveWindowPlacementWindows": "離開時儲存視窗位置",
+      "alwaysOnTop": "視窗置頂",
+      "alwaysOnTopUnavailable": "Wayland 不支援",
       "minimizeToTray": "關閉時最小化至系統匣",
       "launchAtStartup": "登入後自動啟動",
       "launchMinimized": "自動啟動至系統匣",
       "showInContextMenu": "在檔案功能表「傳送到」項目中顯示 LocalSend",
+      "softwareRendering": "軟體渲染",
+      "softwareRenderingDescription": "若視窗持續空白、顯示異常或啟動時關閉，請啟用此項。重新啟動後生效。",
       "animations": "動畫"
     },
     "receive": {
@@ -212,15 +216,26 @@
     "verify": "驗證",
     "info": {
       "name": "名稱",
-      "address": "位址",
       "version": "版本",
       "protocol": "協定 v{version}"
+    },
+    "channels": {
+      "title": "通道",
+      "you": "您",
+      "outgoing": "傳出",
+      "incoming": "傳入",
+      "works": "正常",
+      "notTested": "未測試",
+      "failed": "失敗",
+      "notSeen": "未偵測到"
     },
     "logs": {
       "title": "記錄",
       "empty": "沒有可用的記錄。",
-      "discovered": "透過 {protocol} 發現 ({host})",
-      "updated": "透過 {protocol} 更新 ({host})"
+      "outbound": "已透過 {protocol}（{host}）連線",
+      "outboundFailed": "無法透過 {protocol}（{host}）連線：{error}",
+      "inbound": "對方已透過 {protocol}（{host}）連線至本機",
+      "multicastInbound": "已收到多點傳送公告（{host}）"
     }
   },
   "verifyPage": {
@@ -380,7 +395,8 @@
       "name": "裝置名稱",
       "auto": "(自動)",
       "ip": "IP 位址",
-      "port": "連接埠"
+      "port": "連接埠",
+      "invalidPort": "請輸入 1 到 65535 之間的整數。"
     },
     "fileInfo": {
       "title": "檔案資訊",

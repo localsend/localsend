@@ -363,6 +363,8 @@ class _Translations$deviceDetailsPage$km extends Translations$deviceDetailsPage$
   @override
   late final _Translations$deviceDetailsPage$info$km info = _Translations$deviceDetailsPage$info$km._(_root);
   @override
+  late final _Translations$deviceDetailsPage$channels$km channels = _Translations$deviceDetailsPage$channels$km._(_root);
+  @override
   late final _Translations$deviceDetailsPage$logs$km logs = _Translations$deviceDetailsPage$logs$km._(_root);
 }
 
@@ -950,6 +952,10 @@ class _Translations$settingsTab$general$km extends Translations$settingsTab$gene
   @override
   String get saveWindowPlacementWindows => 'រក្សាទុកទីតាំងផ្ទាំងអេក្រង់នៅដដែលបន្ទាប់ពីចាកចេញ';
   @override
+  String get alwaysOnTop => 'នៅខាងលើជានិច្ច';
+  @override
+  String get alwaysOnTopUnavailable => 'មិនគាំទ្រលើ Wayland';
+  @override
   String get minimizeToTray => 'ចាកចេញ: បង្រួមអប្បបរមាទៅរបារម៉ឺនុយ';
   @override
   String get launchAtStartup => 'ចាប់ផ្តើមដោយស្វ័យប្រវត្តិបន្ទាប់ពីចូលគណនី';
@@ -957,6 +963,11 @@ class _Translations$settingsTab$general$km extends Translations$settingsTab$gene
   String get launchMinimized => 'ចាប់ផ្តើមដោយស្វ័យប្រវត្តិ: ការចាប់ផ្តើមត្រូវបានលាក់';
   @override
   String get showInContextMenu => 'បង្ហាញ LocalSend in នៅលើរបារម៉ឺនុយ';
+  @override
+  String get softwareRendering => 'ការបង្ហាញតាមសូហ្វវែរ';
+  @override
+  String get softwareRenderingDescription =>
+      'ប្រើប្រសិនបើផ្ទាំងវីនដូនៅទទេ មានបញ្ហាបង្ហាញ ឬបិទនៅពេលចាប់ផ្តើម។ មានប្រសិទ្ធភាពបន្ទាប់ពីចាប់ផ្តើមឡើងវិញ។';
   @override
   String get animations => 'ចលនារស់រវើក';
 }
@@ -1138,11 +1149,34 @@ class _Translations$deviceDetailsPage$info$km extends Translations$deviceDetails
   @override
   String get name => 'ឈ្មោះ';
   @override
-  String get address => 'អាសយដ្ឋាន';
-  @override
   String get version => 'កំណែ';
   @override
   String protocol({required Object version}) => 'ពិធីការ v${version}';
+}
+
+// Path: deviceDetailsPage.channels
+class _Translations$deviceDetailsPage$channels$km extends Translations$deviceDetailsPage$channels$en {
+  _Translations$deviceDetailsPage$channels$km._(TranslationsKm root) : this._root = root, super.internal(root);
+
+  final TranslationsKm _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'ឆានែល';
+  @override
+  String get you => 'អ្នក';
+  @override
+  String get outgoing => 'ចេញ';
+  @override
+  String get incoming => 'ចូល';
+  @override
+  String get works => 'ដំណើរការ';
+  @override
+  String get notTested => 'មិនទាន់សាកល្បង';
+  @override
+  String get failed => 'បរាជ័យ';
+  @override
+  String get notSeen => 'មិនទាន់ឃើញ';
 }
 
 // Path: deviceDetailsPage.logs
@@ -1157,9 +1191,13 @@ class _Translations$deviceDetailsPage$logs$km extends Translations$deviceDetails
   @override
   String get empty => 'មិនមានកំណត់ហេតុទេ។';
   @override
-  String discovered({required Object protocol, required Object host}) => 'បានរកឃើញតាមរយៈ ${protocol} (${host})';
+  String outbound({required Object protocol, required Object host}) => 'បានភ្ជាប់តាម ${protocol} (${host})';
   @override
-  String updated({required Object protocol, required Object host}) => 'បានធ្វើបច្ចុប្បន្នភាពតាមរយៈ ${protocol} (${host})';
+  String outboundFailed({required Object protocol, required Object host, required Object error}) => 'មិនអាចភ្ជាប់តាម ${protocol} (${host}): ${error}';
+  @override
+  String inbound({required Object protocol, required Object host}) => 'ឧបករណ៍នោះបានភ្ជាប់មកយើងតាម ${protocol} (${host})';
+  @override
+  String multicastInbound({required Object host}) => 'បានទទួលការប្រកាស (${host})';
 }
 
 // Path: progressPage.total
@@ -1355,6 +1393,8 @@ class _Translations$dialogs$favoriteEditDialog$km extends Translations$dialogs$f
   String get ip => 'អាសយដ្ឋាន IP';
   @override
   String get port => 'ច្រក';
+  @override
+  String get invalidPort => 'សូមបញ្ចូលចំនួនគត់ចន្លោះពី 1 ដល់ 65535។';
 }
 
 // Path: dialogs.fileInfo

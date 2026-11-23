@@ -106,10 +106,14 @@
       },
       "saveWindowPlacement": "종료 후 창 위치 기억",
       "saveWindowPlacementWindows": "종료 후 창 위치 기억",
+      "alwaysOnTop": "항상 위에 표시",
+      "alwaysOnTopUnavailable": "Wayland에서는 지원되지 않음",
       "minimizeToTray": "종료 시 시스템 트레이로 최소화",
       "launchAtStartup": "로그인 시 자동으로 시작",
       "launchMinimized": "최소화된 상태로 시작",
       "showInContextMenu": "컨텍스트 메뉴에 LocalSend 표시",
+      "softwareRendering": "소프트웨어 렌더링",
+      "softwareRenderingDescription": "창이 빈 화면으로 남거나, 깨지거나, 시작 시 닫히는 경우 사용하세요. 재시작 후 적용됩니다.",
       "animations": "애니메이션"
     },
     "receive": {
@@ -212,15 +216,26 @@
     "verify": "검증",
     "info": {
       "name": "이름",
-      "address": "주소",
       "version": "버전",
       "protocol": "프로토콜 v{version}"
+    },
+    "channels": {
+      "title": "채널",
+      "you": "나",
+      "outgoing": "발신",
+      "incoming": "수신",
+      "works": "작동함",
+      "notTested": "테스트 안 됨",
+      "failed": "실패",
+      "notSeen": "감지 안 됨"
     },
     "logs": {
       "title": "로그",
       "empty": "사용 가능한 로그가 없습니다.",
-      "discovered": "{protocol}을(를) 통해 발견됨 ({host})",
-      "updated": "{protocol}을(를) 통해 업데이트됨 ({host})"
+      "outbound": "{protocol}로 연결됨 ({host})",
+      "outboundFailed": "{protocol}로 연결할 수 없음 ({host}): {error}",
+      "inbound": "상대 기기가 {protocol}로 연결함 ({host})",
+      "multicastInbound": "알림 수신됨 ({host})"
     }
   },
   "verifyPage": {
@@ -380,7 +395,8 @@
       "name": "별명",
       "auto": "(자동)",
       "ip": "IP 주소",
-      "port": "포트"
+      "port": "포트",
+      "invalidPort": "1에서 65535 사이의 정수를 입력하세요."
     },
     "fileInfo": {
       "title": "파일 정보",

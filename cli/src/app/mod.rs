@@ -17,8 +17,8 @@ use crate::{Args, Command};
 use crossterm::event::{Event, KeyEvent, KeyEventKind};
 use keys::{Intent, KeyDecoder};
 use localsend::discovery::{
-    DEFAULT_DISCOVERY_TIMEOUT, DeviceIdentity, DiscoveryConfig, DiscoveryEvent, DiscoveryHandle,
-    HttpChannel,
+    DEFAULT_DISCOVERY_TIMEOUT, DeviceChannel, DeviceIdentity, DiscoveryConfig, DiscoveryEvent,
+    DiscoveryHandle, HttpChannel,
 };
 use localsend::http::server::v2::ServerEventV2;
 use localsend::http::server::web::{WebConfig, WebDownloadEvent};
@@ -55,6 +55,15 @@ pub enum AppEvent {
     ReceiveFileResult {
         session_id: String,
         file_id: String,
+        result: Result<(), String>,
+    },
+
+    /// The first request of the send task had an outcome: the device
+    /// answered (`Ok`), or it could not be reached over `channel` (`Err`
+    /// with the reason).
+    SendDialed {
+        fingerprint: String,
+        channel: DeviceChannel,
         result: Result<(), String>,
     },
 
@@ -265,6 +274,10 @@ struct App {
     /// The hotkeys (1-9) of the devices in the discovery store.
     slots: Slots,
 
+    /// The devices that were logged as announcing themselves but out of
+    /// reach.
+    unreachable: discovery::UnreachableNotices,
+
     /// Config, identity and paired devices, see [`storage::Repository`].
     storage: storage::Repository,
 
@@ -339,6 +352,7 @@ async fn run_interactive(
         keys: KeyDecoder::new(),
         discovery: discovery.clone(),
         slots: Slots::new(),
+        unreachable: discovery::UnreachableNotices::new(),
         storage,
         pending: None,
         receive: None,
@@ -403,6 +417,23 @@ impl App {
                 file_id,
                 result,
             } => self.receive_file_result(session_id, file_id, result),
+            AppEvent::SendDialed {
+                fingerprint,
+                channel,
+                result,
+            } => {
+                // Comes back as a discovery event, like every observation.
+                self.discovery
+                    .report_outbound(&fingerprint, channel, result);
+                // Saved right away: in `send` mode, `SendEnded` may quit
+                // before that discovery event is handled.
+                discovery::refresh_paired_channels(
+                    &mut self.ui,
+                    &mut self.storage.paired,
+                    &self.discovery,
+                    &fingerprint,
+                );
+            }
             AppEvent::SendSessionStarted {
                 session_id,
                 accepted_bytes,

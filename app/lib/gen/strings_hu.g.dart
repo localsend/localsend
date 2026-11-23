@@ -361,6 +361,8 @@ class _Translations$deviceDetailsPage$hu extends Translations$deviceDetailsPage$
   @override
   late final _Translations$deviceDetailsPage$info$hu info = _Translations$deviceDetailsPage$info$hu._(_root);
   @override
+  late final _Translations$deviceDetailsPage$channels$hu channels = _Translations$deviceDetailsPage$channels$hu._(_root);
+  @override
   late final _Translations$deviceDetailsPage$logs$hu logs = _Translations$deviceDetailsPage$logs$hu._(_root);
 }
 
@@ -865,6 +867,10 @@ class _Translations$settingsTab$general$hu extends Translations$settingsTab$gene
   @override
   String get saveWindowPlacementWindows => 'Az ablak pozíciójának mentése kilépés után';
   @override
+  String get alwaysOnTop => 'Mindig felül';
+  @override
+  String get alwaysOnTopUnavailable => 'Waylanden nem támogatott';
+  @override
   String get minimizeToTray => 'Kilépés: Minimalizálja a tálcára';
   @override
   String get launchAtStartup => 'Auto. indítás bejelentkezés után';
@@ -872,6 +878,11 @@ class _Translations$settingsTab$general$hu extends Translations$settingsTab$gene
   String get launchMinimized => 'Auto. indítás: Kis méretben';
   @override
   String get showInContextMenu => 'A LocalSend megjelenítése a helyi menüben';
+  @override
+  String get softwareRendering => 'Szoftveres megjelenítés';
+  @override
+  String get softwareRenderingDescription =>
+      'Akkor használja, ha az ablak üres marad, hibásan jelenik meg vagy indításkor bezárul. Újraindítás után lép életbe.';
   @override
   String get animations => 'Animációk';
 }
@@ -1053,11 +1064,34 @@ class _Translations$deviceDetailsPage$info$hu extends Translations$deviceDetails
   @override
   String get name => 'Név';
   @override
-  String get address => 'Cím';
-  @override
   String get version => 'Verzió';
   @override
   String protocol({required Object version}) => 'Protokoll v${version}';
+}
+
+// Path: deviceDetailsPage.channels
+class _Translations$deviceDetailsPage$channels$hu extends Translations$deviceDetailsPage$channels$en {
+  _Translations$deviceDetailsPage$channels$hu._(TranslationsHu root) : this._root = root, super.internal(root);
+
+  final TranslationsHu _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Csatornák';
+  @override
+  String get you => 'Ön';
+  @override
+  String get outgoing => 'Kimenő';
+  @override
+  String get incoming => 'Bejövő';
+  @override
+  String get works => 'Működik';
+  @override
+  String get notTested => 'Nem tesztelt';
+  @override
+  String get failed => 'Sikertelen';
+  @override
+  String get notSeen => 'Nem észlelt';
 }
 
 // Path: deviceDetailsPage.logs
@@ -1072,9 +1106,13 @@ class _Translations$deviceDetailsPage$logs$hu extends Translations$deviceDetails
   @override
   String get empty => 'Nincs elérhető napló.';
   @override
-  String discovered({required Object protocol, required Object host}) => 'Felfedezve ${protocol} útján (${host})';
+  String outbound({required Object protocol, required Object host}) => 'Elérve: ${protocol} (${host})';
   @override
-  String updated({required Object protocol, required Object host}) => 'Frissítve ${protocol} útján (${host})';
+  String outboundFailed({required Object protocol, required Object host, required Object error}) => 'Nem érhető el: ${protocol} (${host}): ${error}';
+  @override
+  String inbound({required Object protocol, required Object host}) => 'Kapcsolódott hozzánk: ${protocol} (${host})';
+  @override
+  String multicastInbound({required Object host}) => 'Bejelentés érkezett (${host})';
 }
 
 // Path: progressPage.total
@@ -1270,6 +1308,8 @@ class _Translations$dialogs$favoriteEditDialog$hu extends Translations$dialogs$f
   String get ip => 'IP cím';
   @override
   String get port => 'Port';
+  @override
+  String get invalidPort => 'Adjon meg egy egész számot 1 és 65535 között.';
 }
 
 // Path: dialogs.fileInfo

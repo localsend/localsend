@@ -363,6 +363,8 @@ class _Translations$deviceDetailsPage$fil_PH extends Translations$deviceDetailsP
   @override
   late final _Translations$deviceDetailsPage$info$fil_PH info = _Translations$deviceDetailsPage$info$fil_PH._(_root);
   @override
+  late final _Translations$deviceDetailsPage$channels$fil_PH channels = _Translations$deviceDetailsPage$channels$fil_PH._(_root);
+  @override
   late final _Translations$deviceDetailsPage$logs$fil_PH logs = _Translations$deviceDetailsPage$logs$fil_PH._(_root);
 }
 
@@ -957,6 +959,10 @@ class _Translations$settingsTab$general$fil_PH extends Translations$settingsTab$
   @override
   String get saveWindowPlacementWindows => 'I-save ang posisyon ng window pagkasara';
   @override
+  String get alwaysOnTop => 'Laging nasa itaas';
+  @override
+  String get alwaysOnTopUnavailable => 'Hindi suportado sa Wayland';
+  @override
   String get minimizeToTray => 'Quit: Paliitin sa Tray/Menu Bar';
   @override
   String get launchAtStartup => 'I-autostart pagkatapos mag-login';
@@ -964,6 +970,11 @@ class _Translations$settingsTab$general$fil_PH extends Translations$settingsTab$
   String get launchMinimized => 'Autostart: I-start nang nakatago';
   @override
   String get showInContextMenu => 'Ipakita ang LocalSend sa context menu';
+  @override
+  String get softwareRendering => 'Software rendering';
+  @override
+  String get softwareRenderingDescription =>
+      'Gamitin kung nananatiling blangko, nagloloko, o nagsasara ang window pagbukas. Magkakabisa pagkatapos mag-restart.';
   @override
   String get animations => 'Animations';
 }
@@ -1148,11 +1159,34 @@ class _Translations$deviceDetailsPage$info$fil_PH extends Translations$deviceDet
   @override
   String get name => 'Pangalan';
   @override
-  String get address => 'Address';
-  @override
   String get version => 'Bersyon';
   @override
   String protocol({required Object version}) => 'Protocol v${version}';
+}
+
+// Path: deviceDetailsPage.channels
+class _Translations$deviceDetailsPage$channels$fil_PH extends Translations$deviceDetailsPage$channels$en {
+  _Translations$deviceDetailsPage$channels$fil_PH._(TranslationsFilPh root) : this._root = root, super.internal(root);
+
+  final TranslationsFilPh _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Mga Channel';
+  @override
+  String get you => 'Ikaw';
+  @override
+  String get outgoing => 'Palabas';
+  @override
+  String get incoming => 'Papasok';
+  @override
+  String get works => 'Gumagana';
+  @override
+  String get notTested => 'Hindi pa nasubukan';
+  @override
+  String get failed => 'Nabigo';
+  @override
+  String get notSeen => 'Hindi pa nakita';
 }
 
 // Path: deviceDetailsPage.logs
@@ -1167,9 +1201,14 @@ class _Translations$deviceDetailsPage$logs$fil_PH extends Translations$deviceDet
   @override
   String get empty => 'Walang available na mga log.';
   @override
-  String discovered({required Object protocol, required Object host}) => 'Natuklasan sa pamamagitan ng ${protocol} (${host})';
+  String outbound({required Object protocol, required Object host}) => 'Naabot gamit ang ${protocol} (${host})';
   @override
-  String updated({required Object protocol, required Object host}) => 'Na-update sa pamamagitan ng ${protocol} (${host})';
+  String outboundFailed({required Object protocol, required Object host, required Object error}) =>
+      'Hindi maabot gamit ang ${protocol} (${host}): ${error}';
+  @override
+  String inbound({required Object protocol, required Object host}) => 'Kumonekta sa atin gamit ang ${protocol} (${host})';
+  @override
+  String multicastInbound({required Object host}) => 'Narinig ang announcement (${host})';
 }
 
 // Path: progressPage.total
@@ -1365,6 +1404,8 @@ class _Translations$dialogs$favoriteEditDialog$fil_PH extends Translations$dialo
   String get ip => 'IP Address';
   @override
   String get port => 'Port';
+  @override
+  String get invalidPort => 'Maglagay ng buong numero mula 1 hanggang 65535.';
 }
 
 // Path: dialogs.fileInfo

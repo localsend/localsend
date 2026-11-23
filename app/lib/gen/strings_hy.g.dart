@@ -363,6 +363,8 @@ class _Translations$deviceDetailsPage$hy extends Translations$deviceDetailsPage$
   @override
   late final _Translations$deviceDetailsPage$info$hy info = _Translations$deviceDetailsPage$info$hy._(_root);
   @override
+  late final _Translations$deviceDetailsPage$channels$hy channels = _Translations$deviceDetailsPage$channels$hy._(_root);
+  @override
   late final _Translations$deviceDetailsPage$logs$hy logs = _Translations$deviceDetailsPage$logs$hy._(_root);
 }
 
@@ -948,6 +950,10 @@ class _Translations$settingsTab$general$hy extends Translations$settingsTab$gene
   @override
   String get saveWindowPlacementWindows => 'Պահել պատուհանի դիրքը դուրս գալուց հետո';
   @override
+  String get alwaysOnTop => 'Միշտ վերևում';
+  @override
+  String get alwaysOnTopUnavailable => 'Չի աջակցվում Wayland-ում';
+  @override
   String get minimizeToTray => 'Փոքրացնել համակարգի տրեյում/տողում փակելու ժամանակ';
   @override
   String get launchAtStartup => 'Ավտոբացում';
@@ -955,6 +961,11 @@ class _Translations$settingsTab$general$hy extends Translations$settingsTab$gene
   String get launchMinimized => 'Թաքնված ավտոբացում';
   @override
   String get showInContextMenu => 'Ցուցադրել LocalSend-ը կոնտեքստային մենյուում';
+  @override
+  String get softwareRendering => 'Ծրագրային արտապատկերում';
+  @override
+  String get softwareRenderingDescription =>
+      'Օգտագործեք, եթե պատուհանը մնում է դատարկ, խափանվում է կամ փակվում է գործարկման ժամանակ։ Կկիրառվի վերագործարկումից հետո։';
   @override
   String get animations => 'Անիմացիաներ';
 }
@@ -1136,11 +1147,34 @@ class _Translations$deviceDetailsPage$info$hy extends Translations$deviceDetails
   @override
   String get name => 'Անուն';
   @override
-  String get address => 'Հասցե';
-  @override
   String get version => 'Վերսիա';
   @override
   String protocol({required Object version}) => 'v${version} պրոտոկոլ';
+}
+
+// Path: deviceDetailsPage.channels
+class _Translations$deviceDetailsPage$channels$hy extends Translations$deviceDetailsPage$channels$en {
+  _Translations$deviceDetailsPage$channels$hy._(TranslationsHy root) : this._root = root, super.internal(root);
+
+  final TranslationsHy _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Ալիքներ';
+  @override
+  String get you => 'Դուք';
+  @override
+  String get outgoing => 'Ելքային';
+  @override
+  String get incoming => 'Մուտքային';
+  @override
+  String get works => 'Աշխատում է';
+  @override
+  String get notTested => 'Չի ստուգվել';
+  @override
+  String get failed => 'Ձախողվել է';
+  @override
+  String get notSeen => 'Չի նկատվել';
 }
 
 // Path: deviceDetailsPage.logs
@@ -1155,9 +1189,14 @@ class _Translations$deviceDetailsPage$logs$hy extends Translations$deviceDetails
   @override
   String get empty => 'Լոգեր չկան։';
   @override
-  String discovered({required Object protocol, required Object host}) => 'Գտնվել է ${protocol} (${host}) միջոցով';
+  String outbound({required Object protocol, required Object host}) => 'Կապ է հաստատվել ${protocol}-ով (${host})';
   @override
-  String updated({required Object protocol, required Object host}) => 'Թարմացվել է ${protocol} (${host}) միջոցով';
+  String outboundFailed({required Object protocol, required Object host, required Object error}) =>
+      'Չհաջողվեց կապ հաստատել ${protocol}-ով (${host}): ${error}';
+  @override
+  String inbound({required Object protocol, required Object host}) => 'Կապ է հաստատել մեզ հետ ${protocol}-ով (${host})';
+  @override
+  String multicastInbound({required Object host}) => 'Ստացվել է հայտարարություն (${host})';
 }
 
 // Path: progressPage.total
@@ -1249,6 +1288,10 @@ class _Translations$dialogs$addressInput$hy extends Translations$dialogs$address
   // Translations
   @override
   String get title => 'Գրեք հասցեն';
+  @override
+  String get hashtag => 'Հեշթեգ';
+  @override
+  String get ip => 'IP հասցե';
   @override
   String get recentlyUsed => 'Վերջերս օգտագործված՝ ';
 }
@@ -1351,6 +1394,8 @@ class _Translations$dialogs$favoriteEditDialog$hy extends Translations$dialogs$f
   String get ip => 'IP հասցե';
   @override
   String get port => 'Port';
+  @override
+  String get invalidPort => 'Մուտքագրեք 1-ից 65535 ամբողջ թիվ։';
 }
 
 // Path: dialogs.fileInfo

@@ -361,6 +361,8 @@ class _Translations$deviceDetailsPage$eu extends Translations$deviceDetailsPage$
   @override
   late final _Translations$deviceDetailsPage$info$eu info = _Translations$deviceDetailsPage$info$eu._(_root);
   @override
+  late final _Translations$deviceDetailsPage$channels$eu channels = _Translations$deviceDetailsPage$channels$eu._(_root);
+  @override
   late final _Translations$deviceDetailsPage$logs$eu logs = _Translations$deviceDetailsPage$logs$eu._(_root);
 }
 
@@ -865,6 +867,10 @@ class _Translations$settingsTab$general$eu extends Translations$settingsTab$gene
   @override
   String get saveWindowPlacementWindows => 'Irteeran leihoaren kokapena gorde';
   @override
+  String get alwaysOnTop => 'Beti gainean';
+  @override
+  String get alwaysOnTopUnavailable => 'Ez da onartzen Wayland-en';
+  @override
   String get minimizeToTray => 'Itxi: txikitu lehioa';
   @override
   String get launchAtStartup => 'Hasieratze automatikoa';
@@ -872,6 +878,11 @@ class _Translations$settingsTab$general$eu extends Translations$settingsTab$gene
   String get launchMinimized => 'Hasieratze automatikoa: hasi txikituta';
   @override
   String get showInContextMenu => 'Erakutsi LocalSend testuinguru menuan';
+  @override
+  String get softwareRendering => 'Software bidezko errendatzea';
+  @override
+  String get softwareRenderingDescription =>
+      'Erabili leihoa hutsik geratzen bada, akatsak baditu edo abiaraztean ixten bada. Berrabiarazi ondoren aplikatuko da.';
   @override
   String get animations => 'Animazioak';
 }
@@ -1054,11 +1065,34 @@ class _Translations$deviceDetailsPage$info$eu extends Translations$deviceDetails
   @override
   String get name => 'Izena';
   @override
-  String get address => 'Helbidea';
-  @override
   String get version => 'Bertsioa';
   @override
   String protocol({required Object version}) => 'Protokoloa v${version}';
+}
+
+// Path: deviceDetailsPage.channels
+class _Translations$deviceDetailsPage$channels$eu extends Translations$deviceDetailsPage$channels$en {
+  _Translations$deviceDetailsPage$channels$eu._(TranslationsEu root) : this._root = root, super.internal(root);
+
+  final TranslationsEu _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Kanalak';
+  @override
+  String get you => 'Zu';
+  @override
+  String get outgoing => 'Irteerakoa';
+  @override
+  String get incoming => 'Sarrerakoa';
+  @override
+  String get works => 'Badabil';
+  @override
+  String get notTested => 'Probatu gabe';
+  @override
+  String get failed => 'Huts egin du';
+  @override
+  String get notSeen => 'Ikusi gabe';
 }
 
 // Path: deviceDetailsPage.logs
@@ -1073,9 +1107,14 @@ class _Translations$deviceDetailsPage$logs$eu extends Translations$deviceDetails
   @override
   String get empty => 'Ez dago erregistrorik eskuragarri.';
   @override
-  String discovered({required Object protocol, required Object host}) => '${protocol} bidez aurkitua (${host})';
+  String outbound({required Object protocol, required Object host}) => '${protocol} bidez konektatuta (${host})';
   @override
-  String updated({required Object protocol, required Object host}) => '${protocol} bidez eguneratua (${host})';
+  String outboundFailed({required Object protocol, required Object host, required Object error}) =>
+      'Ezin izan da ${protocol} bidez konektatu (${host}): ${error}';
+  @override
+  String inbound({required Object protocol, required Object host}) => 'Gurekin ${protocol} bidez konektatu da (${host})';
+  @override
+  String multicastInbound({required Object host}) => 'Iragarpena jasota (${host})';
 }
 
 // Path: progressPage.total
@@ -1270,6 +1309,8 @@ class _Translations$dialogs$favoriteEditDialog$eu extends Translations$dialogs$f
   String get ip => 'IP Helbidea';
   @override
   String get port => 'Portua';
+  @override
+  String get invalidPort => 'Sartu 1 eta 65535 arteko zenbaki oso bat.';
 }
 
 // Path: dialogs.fileInfo

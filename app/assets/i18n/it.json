@@ -106,10 +106,14 @@
       },
       "saveWindowPlacement": "Salva la posizione della finestra all'uscita",
       "saveWindowPlacementWindows": "Salva la posizione della finestra alla chiusura",
+      "alwaysOnTop": "Sempre in primo piano",
+      "alwaysOnTopUnavailable": "Non supportato su Wayland",
       "minimizeToTray": "Riduci a icona anziché chiudere",
       "launchAtStartup": "Avvio automatico all'accesso",
       "launchMinimized": "Avvio automatico: ridotto a icona",
       "showInContextMenu": "Mostra LocalSend nel menù contestuale",
+      "softwareRendering": "Rendering software",
+      "softwareRenderingDescription": "Usalo se la finestra resta vuota, presenta difetti grafici o si chiude all'avvio. Ha effetto dopo il riavvio.",
       "animations": "Animazioni"
     },
     "receive": {
@@ -212,15 +216,26 @@
     "verify": "Verifica",
     "info": {
       "name": "Nome",
-      "address": "Indirizzo",
       "version": "Versione",
       "protocol": "Protocollo v{version}"
+    },
+    "channels": {
+      "title": "Canali",
+      "you": "Tu",
+      "outgoing": "In uscita",
+      "incoming": "In entrata",
+      "works": "Funziona",
+      "notTested": "Non testato",
+      "failed": "Non riuscito",
+      "notSeen": "Mai visto"
     },
     "logs": {
       "title": "Log",
       "empty": "Nessun log disponibile.",
-      "discovered": "Rilevato tramite {protocol} ({host})",
-      "updated": "Aggiornato tramite {protocol} ({host})"
+      "outbound": "Raggiunto tramite {protocol} ({host})",
+      "outboundFailed": "Impossibile raggiungere tramite {protocol} ({host}): {error}",
+      "inbound": "Ci ha raggiunto tramite {protocol} ({host})",
+      "multicastInbound": "Annuncio ricevuto ({host})"
     }
   },
   "verifyPage": {
@@ -380,7 +395,8 @@
       "name": "Nome del dispositivo",
       "auto": "(automatico)",
       "ip": "Indirizzo IP",
-      "port": "Porta"
+      "port": "Porta",
+      "invalidPort": "Inserisci un numero intero tra 1 e 65535."
     },
     "fileInfo": {
       "title": "Informazioni sul file",

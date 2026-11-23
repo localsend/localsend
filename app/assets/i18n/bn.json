@@ -106,10 +106,14 @@
       },
       "saveWindowPlacement": "বের হোন: উইন্ডো প্লেসমেন্ট সেভ করুন",
       "saveWindowPlacementWindows": "বের হবার পরে উইন্ডোর অবস্থান সেভ করুন",
+      "alwaysOnTop": "সবসময় উপরে রাখুন",
+      "alwaysOnTopUnavailable": "Wayland-এ সাপোর্টেড নয়",
       "minimizeToTray": "বের হোন: ট্রেতে মিনিমাইজ করুন",
       "launchAtStartup": "লগইন করার পরে অটোস্টার্ট করুন",
       "launchMinimized": "অটোস্টার্ট: হিডেন রেখে শুরু করুন",
       "showInContextMenu": "কনটেক্সট মেনুতে LocalSend দেখান",
+      "softwareRendering": "সফটওয়্যার রেন্ডারিং",
+      "softwareRenderingDescription": "উইন্ডো ফাঁকা থাকলে, গ্লিচ করলে বা শুরুতেই বন্ধ হয়ে গেলে ব্যবহার করুন। রিস্টার্টের পরে কার্যকর হবে।",
       "animations": "অ্যানিমেশন"
     },
     "receive": {
@@ -212,15 +216,26 @@
     "verify": "যাচাই করুন",
     "info": {
       "name": "নাম",
-      "address": "ঠিকানা",
       "version": "সংস্করণ",
       "protocol": "প্রোটোকল v{version}"
+    },
+    "channels": {
+      "title": "চ্যানেল",
+      "you": "আপনি",
+      "outgoing": "আউটগোয়িং",
+      "incoming": "ইনকামিং",
+      "works": "কাজ করছে",
+      "notTested": "টেস্ট করা হয়নি",
+      "failed": "ব্যর্থ",
+      "notSeen": "দেখা যায়নি"
     },
     "logs": {
       "title": "লগ",
       "empty": "কোনো লগ নেই।",
-      "discovered": "{protocol} এর মাধ্যমে আবিষ্কৃত ({host})",
-      "updated": "{protocol} এর মাধ্যমে আপডেট হয়েছে ({host})"
+      "outbound": "{protocol} ({host}) দিয়ে পৌঁছানো গেছে",
+      "outboundFailed": "{protocol} ({host}) দিয়ে পৌঁছানো যায়নি: {error}",
+      "inbound": "{protocol} ({host}) দিয়ে আমাদের কাছে পৌঁছেছে",
+      "multicastInbound": "অ্যানাউন্সমেন্ট পাওয়া গেছে ({host})"
     }
   },
   "verifyPage": {
@@ -450,7 +465,8 @@
       "name": "এলিয়াস",
       "auto": "(auto)",
       "ip": "আইপি অ্যাড্রেস",
-      "port": "পোর্ট"
+      "port": "পোর্ট",
+      "invalidPort": "1 থেকে 65535-এর মধ্যে একটি পূর্ণসংখ্যা লিখুন।"
     },
     "fileInfo": {
       "title": "ফাইল ইনফো",

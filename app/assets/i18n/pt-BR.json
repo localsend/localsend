@@ -106,10 +106,14 @@
       },
       "saveWindowPlacement": "Salvar a posição da janela ao fechar",
       "saveWindowPlacementWindows": "Salvar posição da janela ao sair",
+      "alwaysOnTop": "Sempre no topo",
+      "alwaysOnTopUnavailable": "Não suportado no Wayland",
       "minimizeToTray": "Minimizar para a bandeja ao fechar",
       "launchAtStartup": "Abrir junto com o usuário",
       "launchMinimized": "Início automático: Abrir minimizado",
       "showInContextMenu": "Mostrar LocalSend no menu de contexto",
+      "softwareRendering": "Renderização por software",
+      "softwareRenderingDescription": "Use se a janela ficar em branco, apresentar falhas ou fechar ao iniciar. Entra em vigor após reiniciar.",
       "animations": "Animações"
     },
     "receive": {
@@ -212,15 +216,26 @@
     "verify": "Verificar",
     "info": {
       "name": "Nome",
-      "address": "Endereço",
       "version": "Versão",
       "protocol": "Protocolo v{version}"
+    },
+    "channels": {
+      "title": "Canais",
+      "you": "Você",
+      "outgoing": "Saída",
+      "incoming": "Entrada",
+      "works": "Funciona",
+      "notTested": "Não testado",
+      "failed": "Falhou",
+      "notSeen": "Não visto"
     },
     "logs": {
       "title": "Registros",
       "empty": "Nenhum registro disponível.",
-      "discovered": "Descoberto via {protocol} ({host})",
-      "updated": "Atualizado via {protocol} ({host})"
+      "outbound": "Conectado via {protocol} ({host})",
+      "outboundFailed": "Não foi possível conectar via {protocol} ({host}): {error}",
+      "inbound": "Conectou-se a nós via {protocol} ({host})",
+      "multicastInbound": "Anúncio recebido ({host})"
     }
   },
   "verifyPage": {
@@ -440,7 +455,8 @@
       "name": "Nome do dispositivo",
       "auto": "(auto.)",
       "ip": "Endereço de IP",
-      "port": "Porta"
+      "port": "Porta",
+      "invalidPort": "Digite um número inteiro entre 1 e 65535."
     },
     "fileInfo": {
       "title": "Informação do arquivo",

@@ -106,10 +106,14 @@
       },
       "saveWindowPlacement": "Чыккандан кийин терезенин ордун сактоо",
       "saveWindowPlacementWindows": "Чыккандан кийин терезенин ордун сактоо",
+      "alwaysOnTop": "Бардык терезелердин үстүндө",
+      "alwaysOnTopUnavailable": "Wayland'де колдоого алынбайт",
       "minimizeToTray": "Жапканда трейге/меню тилкесине жашыруу",
       "launchAtStartup": "Автоматтык ишке киргизүү",
       "launchMinimized": "Автоматтык ишке киргизүү: жашыруун баштоо",
       "showInContextMenu": "LocalSend'ди контексттик менюда көрсөтүү",
+      "softwareRendering": "Программалык рендеринг",
+      "softwareRenderingDescription": "Терезе бош бойдон калса, катачылык менен көрсөтүлсө же ишке киргизүүдө жабылып калса колдонуңуз. Кайра иштеткенден кийин күчүнө кирет.",
       "animations": "Анимациялар"
     },
     "receive": {
@@ -212,15 +216,26 @@
     "verify": "Текшерүү",
     "info": {
       "name": "Түзмөктүн аты",
-      "address": "Дарек",
       "version": "Версия",
       "protocol": "Протокол v{version}"
+    },
+    "channels": {
+      "title": "Каналдар",
+      "you": "Сиз",
+      "outgoing": "Чыгуучу",
+      "incoming": "Кирүүчү",
+      "works": "Иштейт",
+      "notTested": "Текшерилген эмес",
+      "failed": "Ката",
+      "notSeen": "Байкалган эмес"
     },
     "logs": {
       "title": "Журналдар",
       "empty": "Журналдар жок.",
-      "discovered": "{protocol} аркылуу табылды ({host})",
-      "updated": "{protocol} аркылуу жаңыртылды ({host})"
+      "outbound": "{protocol} ({host}) аркылуу байланышты",
+      "outboundFailed": "{protocol} ({host}) аркылуу байланышуу мүмкүн болгон жок: {error}",
+      "inbound": "Бизге {protocol} ({host}) аркылуу байланышты",
+      "multicastInbound": "Жарыя кабыл алынды ({host})"
     }
   },
   "verifyPage": {
@@ -416,6 +431,8 @@
     },
     "addressInput": {
       "title": "Даректи киргизиңиз",
+      "hashtag": "Хэштег",
+      "ip": "IP-дарек",
       "recentlyUsed": "Акыркы колдонулгандар: "
     },
     "cancelSession": {
@@ -448,7 +465,8 @@
       "name": "Түзмөктүн аты",
       "auto": "(автоматтык)",
       "ip": "IP-дарек",
-      "port": "Порт"
+      "port": "Порт",
+      "invalidPort": "1ден 65535ке чейинки бүтүн санды киргизиңиз."
     },
     "fileInfo": {
       "title": "Файл жөнүндө маалымат",

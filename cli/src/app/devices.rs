@@ -2,7 +2,7 @@
 //! and unpair actions.
 
 use super::{App, Overlay};
-use crate::device_list::{DeviceList, DeviceListOutcome, DeviceRow, Row};
+use crate::device_list::{DeviceHost, DeviceList, DeviceListOutcome, DeviceRow, Row};
 use crate::picker::PickerTarget;
 use crate::sanitize;
 use crate::storage::PairedChannel;
@@ -162,12 +162,86 @@ impl App {
     }
 }
 
-/// The addresses a stored device can be dialed at, best first.
-fn channel_hosts(stored: &StatefulDevice) -> Vec<String> {
+/// The addresses a stored device can be dialed at, best first, each with
+/// the state of its channel.
+fn channel_hosts(stored: &StatefulDevice) -> Vec<DeviceHost> {
     stored
         .get_ranked_channels()
         .into_iter()
-        .filter_map(|channel| channel.http())
-        .map(|http| http.host.clone())
+        .filter_map(|channel| {
+            Some(DeviceHost {
+                host: channel.http()?.host.clone(),
+                state: *stored.channels.get(channel)?,
+            })
+        })
         .collect()
+}
+
+#[cfg(test)]
+mod tests {
+    use super::channel_hosts;
+    use localsend::discovery::{
+        ChannelState, DeviceChannel, DiscoveredDevice, HttpChannel, Outbound, StatefulDevice,
+    };
+    use localsend::model::discovery::ProtocolType;
+    use std::time::SystemTime;
+
+    fn channel(host: &str) -> DeviceChannel {
+        DeviceChannel::Http(HttpChannel {
+            host: host.to_string(),
+            port: 53317,
+            protocol: ProtocolType::Https,
+        })
+    }
+
+    #[test]
+    fn lists_each_host_with_the_state_of_its_channel_best_first() {
+        let now = SystemTime::now();
+        let failed = ChannelState {
+            outbound: Outbound::Failed(now),
+            inbound: None,
+        };
+        let untested = ChannelState {
+            outbound: Outbound::Untested,
+            inbound: Some(now),
+        };
+        let reachable = ChannelState {
+            outbound: Outbound::Reachable(now),
+            inbound: None,
+        };
+        let stored = StatefulDevice {
+            device: DiscoveredDevice {
+                alias: "Cute Tomato".to_string(),
+                version: "2.2".to_string(),
+                device_model: None,
+                device_type: None,
+                fingerprint: "tomato".to_string(),
+                channel: channel("192.168.0.10"),
+                download: false,
+            },
+            confirmed: true,
+            verified: true,
+            channels: [
+                (channel("10.0.0.10"), failed),
+                (channel("fe80::1%3"), untested),
+                (channel("192.168.0.10"), reachable),
+            ]
+            .into(),
+            logs: Vec::new(),
+        };
+
+        let hosts: Vec<(String, ChannelState)> = channel_hosts(&stored)
+            .into_iter()
+            .map(|host| (host.host, host.state))
+            .collect();
+
+        assert_eq!(
+            hosts,
+            [
+                ("192.168.0.10".to_string(), reachable),
+                ("fe80::1%3".to_string(), untested),
+                ("10.0.0.10".to_string(), failed),
+            ]
+        );
+    }
 }

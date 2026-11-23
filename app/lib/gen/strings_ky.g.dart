@@ -363,6 +363,8 @@ class _Translations$deviceDetailsPage$ky extends Translations$deviceDetailsPage$
   @override
   late final _Translations$deviceDetailsPage$info$ky info = _Translations$deviceDetailsPage$info$ky._(_root);
   @override
+  late final _Translations$deviceDetailsPage$channels$ky channels = _Translations$deviceDetailsPage$channels$ky._(_root);
+  @override
   late final _Translations$deviceDetailsPage$logs$ky logs = _Translations$deviceDetailsPage$logs$ky._(_root);
 }
 
@@ -950,6 +952,10 @@ class _Translations$settingsTab$general$ky extends Translations$settingsTab$gene
   @override
   String get saveWindowPlacementWindows => 'Чыккандан кийин терезенин ордун сактоо';
   @override
+  String get alwaysOnTop => 'Бардык терезелердин үстүндө';
+  @override
+  String get alwaysOnTopUnavailable => 'Wayland\'де колдоого алынбайт';
+  @override
   String get minimizeToTray => 'Жапканда трейге/меню тилкесине жашыруу';
   @override
   String get launchAtStartup => 'Автоматтык ишке киргизүү';
@@ -957,6 +963,11 @@ class _Translations$settingsTab$general$ky extends Translations$settingsTab$gene
   String get launchMinimized => 'Автоматтык ишке киргизүү: жашыруун баштоо';
   @override
   String get showInContextMenu => 'LocalSend\'ди контексттик менюда көрсөтүү';
+  @override
+  String get softwareRendering => 'Программалык рендеринг';
+  @override
+  String get softwareRenderingDescription =>
+      'Терезе бош бойдон калса, катачылык менен көрсөтүлсө же ишке киргизүүдө жабылып калса колдонуңуз. Кайра иштеткенден кийин күчүнө кирет.';
   @override
   String get animations => 'Анимациялар';
 }
@@ -1138,11 +1149,34 @@ class _Translations$deviceDetailsPage$info$ky extends Translations$deviceDetails
   @override
   String get name => 'Түзмөктүн аты';
   @override
-  String get address => 'Дарек';
-  @override
   String get version => 'Версия';
   @override
   String protocol({required Object version}) => 'Протокол v${version}';
+}
+
+// Path: deviceDetailsPage.channels
+class _Translations$deviceDetailsPage$channels$ky extends Translations$deviceDetailsPage$channels$en {
+  _Translations$deviceDetailsPage$channels$ky._(TranslationsKy root) : this._root = root, super.internal(root);
+
+  final TranslationsKy _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Каналдар';
+  @override
+  String get you => 'Сиз';
+  @override
+  String get outgoing => 'Чыгуучу';
+  @override
+  String get incoming => 'Кирүүчү';
+  @override
+  String get works => 'Иштейт';
+  @override
+  String get notTested => 'Текшерилген эмес';
+  @override
+  String get failed => 'Ката';
+  @override
+  String get notSeen => 'Байкалган эмес';
 }
 
 // Path: deviceDetailsPage.logs
@@ -1157,9 +1191,14 @@ class _Translations$deviceDetailsPage$logs$ky extends Translations$deviceDetails
   @override
   String get empty => 'Журналдар жок.';
   @override
-  String discovered({required Object protocol, required Object host}) => '${protocol} аркылуу табылды (${host})';
+  String outbound({required Object protocol, required Object host}) => '${protocol} (${host}) аркылуу байланышты';
   @override
-  String updated({required Object protocol, required Object host}) => '${protocol} аркылуу жаңыртылды (${host})';
+  String outboundFailed({required Object protocol, required Object host, required Object error}) =>
+      '${protocol} (${host}) аркылуу байланышуу мүмкүн болгон жок: ${error}';
+  @override
+  String inbound({required Object protocol, required Object host}) => 'Бизге ${protocol} (${host}) аркылуу байланышты';
+  @override
+  String multicastInbound({required Object host}) => 'Жарыя кабыл алынды (${host})';
 }
 
 // Path: progressPage.total
@@ -1249,6 +1288,10 @@ class _Translations$dialogs$addressInput$ky extends Translations$dialogs$address
   // Translations
   @override
   String get title => 'Даректи киргизиңиз';
+  @override
+  String get hashtag => 'Хэштег';
+  @override
+  String get ip => 'IP-дарек';
   @override
   String get recentlyUsed => 'Акыркы колдонулгандар: ';
 }
@@ -1350,6 +1393,8 @@ class _Translations$dialogs$favoriteEditDialog$ky extends Translations$dialogs$f
   String get ip => 'IP-дарек';
   @override
   String get port => 'Порт';
+  @override
+  String get invalidPort => '1ден 65535ке чейинки бүтүн санды киргизиңиз.';
 }
 
 // Path: dialogs.fileInfo

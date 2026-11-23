@@ -408,7 +408,7 @@ class PersistenceService {
   }
 
   bool getCreateChecksums() {
-    return _prefs.getBool(_createChecksums) ?? true;
+    return _prefs.getBool(_createChecksums) ?? false;
   }
 
   Future<void> setCreateChecksums(bool createChecksums) async {

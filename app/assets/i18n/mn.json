@@ -106,10 +106,14 @@
       },
       "saveWindowPlacement": "Гарсаны дараа цонхны байрлал хадгалах",
       "saveWindowPlacementWindows": "Гарсаны дараа цонхны байрлал хадгалах",
+      "alwaysOnTop": "Үргэлж дээр харуулах",
+      "alwaysOnTopUnavailable": "Wayland дээр дэмжигдэхгүй",
       "minimizeToTray": "Цонх хаах үед програмыг нуух",
       "launchAtStartup": "Нэвтрэх үед хамт нээх",
       "launchMinimized": "Авто эхлүүлэх: Нуугдсан эхлэх",
       "showInContextMenu": "Системийн цэсэнд LocalSend-д харуулах",
+      "softwareRendering": "Програм хангамжийн рендеринг",
+      "softwareRenderingDescription": "Цонх хоосон хэвээр байх, алдаатай харагдах эсвэл эхлэхдээ хаагдах үед ашиглана уу. Дахин ачаалсны дараа хүчинтэй болно.",
       "animations": "Анимэйшн"
     },
     "receive": {
@@ -212,15 +216,26 @@
     "verify": "Баталгаажуулах",
     "info": {
       "name": "Нэр",
-      "address": "Хаяг",
       "version": "Хувилбар",
       "protocol": "Протокол v{version}"
+    },
+    "channels": {
+      "title": "Сувгууд",
+      "you": "Та",
+      "outgoing": "Гарах",
+      "incoming": "Орох",
+      "works": "Ажиллаж байна",
+      "notTested": "Шалгаагүй",
+      "failed": "Амжилтгүй",
+      "notSeen": "Илрээгүй"
     },
     "logs": {
       "title": "Логууд",
       "empty": "Лог байхгүй байна.",
-      "discovered": "{protocol}-оор илэрсэн ({host})",
-      "updated": "{protocol}-оор шинэчлэгдсэн ({host})"
+      "outbound": "{protocol} ({host}) ашиглан холбогдсон",
+      "outboundFailed": "{protocol} ({host}) ашиглан холбогдож чадсангүй: {error}",
+      "inbound": "{protocol} ({host}) ашиглан бидэнтэй холбогдсон",
+      "multicastInbound": "Зарлал хүлээн авсан ({host})"
     }
   },
   "verifyPage": {
@@ -346,6 +361,8 @@
     },
     "addressInput": {
       "title": "Хаяг оруулах",
+      "hashtag": "Хаштаг",
+      "ip": "IP хаяг",
       "recentlyUsed": "Саяхан ашигласан: "
     },
     "cancelSession": {
@@ -378,7 +395,8 @@
       "name": "Төхөөрөмжийн нэр",
       "auto": "(авто)",
       "ip": "IP хаяг",
-      "port": "Порт"
+      "port": "Порт",
+      "invalidPort": "1-ээс 65535 хүртэлх бүхэл тоо оруулна уу."
     },
     "fileInfo": {
       "title": "Файлын мэдээлэл",

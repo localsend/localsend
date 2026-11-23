@@ -106,10 +106,14 @@
       },
       "saveWindowPlacement": "Çıxdıqdan sonra pəncərə mövqeyini saxla",
       "saveWindowPlacementWindows": "Çıxış sonrası pəncərə mövqeyin saxla",
+      "alwaysOnTop": "Həmişə üstdə",
+      "alwaysOnTopUnavailable": "Wayland-də dəstəklənmir",
       "minimizeToTray": "Bağlayanda Sistem Sahəsi/Menyu Cizgisinə kiçilt",
       "launchAtStartup": "Girişdən sonra birbaşa başlat",
       "launchMinimized": "Birbaşa başlat: Gizli başlat",
       "showInContextMenu": "Məzmun menyusunda LocalSend-i göstər",
+      "softwareRendering": "Proqram təminatı ilə renderləmə",
+      "softwareRenderingDescription": "Pəncərə boş qalırsa, nasaz görünürsə və ya açılışda bağlanırsa istifadə edin. Yenidən başladıqdan sonra qüvvəyə minir.",
       "animations": "Animasiyalar"
     },
     "receive": {
@@ -212,15 +216,26 @@
     "verify": "Doğrula",
     "info": {
       "name": "Ad",
-      "address": "Ünvan",
       "version": "Versiya",
       "protocol": "Protokol v{version}"
+    },
+    "channels": {
+      "title": "Kanallar",
+      "you": "Siz",
+      "outgoing": "Gedən",
+      "incoming": "Gələn",
+      "works": "İşləyir",
+      "notTested": "Yoxlanılmayıb",
+      "failed": "Uğursuz",
+      "notSeen": "Görülməyib"
     },
     "logs": {
       "title": "Jurnallar",
       "empty": "Jurnal mövcud deyil.",
-      "discovered": "{protocol} vasitəsilə aşkarlandı ({host})",
-      "updated": "{protocol} vasitəsilə yeniləndi ({host})"
+      "outbound": "{protocol} üzərindən əlaqə quruldu ({host})",
+      "outboundFailed": "{protocol} üzərindən əlaqə qurulmadı ({host}): {error}",
+      "inbound": "Bizimlə {protocol} üzərindən əlaqə qurdu ({host})",
+      "multicastInbound": "Elan alındı ({host})"
     }
   },
   "verifyPage": {
@@ -380,7 +395,8 @@
       "name": "Cihazın adı",
       "auto": "(avtomatik)",
       "ip": "IP ünvan",
-      "port": "Port"
+      "port": "Port",
+      "invalidPort": "1 ilə 65535 arasında tam ədəd daxil edin."
     },
     "fileInfo": {
       "title": "Fayl məlumatı",

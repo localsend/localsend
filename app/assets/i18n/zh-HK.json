@@ -106,10 +106,14 @@
       },
       "saveWindowPlacement": "退出嗰陣記低視窗位置",
       "saveWindowPlacementWindows": "離開嗰陣記低視窗位置",
+      "alwaysOnTop": "視窗置頂",
+      "alwaysOnTopUnavailable": "Wayland 唔支援",
       "minimizeToTray": "關閉嗰陣縮細做通知圖示",
       "launchAtStartup": "開機自動啟動",
       "launchMinimized": "自動啟動成通知圖示",
       "showInContextMenu": "喺檔案功能表嘅「傳送到」項目顯示 LocalSend",
+      "softwareRendering": "軟件渲染",
+      "softwareRenderingDescription": "如果視窗一直空白、顯示唔正常或者一開就閂咗，就開呢個選項。重新啟動之後先生效。",
       "animations": "動畫"
     },
     "receive": {
@@ -213,15 +217,26 @@
     "verify": "驗證",
     "info": {
       "name": "名稱",
-      "address": "地址",
       "version": "版本",
       "protocol": "Protocol v{version}"
+    },
+    "channels": {
+      "title": "通道",
+      "you": "你",
+      "outgoing": "傳出",
+      "incoming": "傳入",
+      "works": "正常",
+      "notTested": "未測試",
+      "failed": "失敗",
+      "notSeen": "未見過"
     },
     "logs": {
       "title": "記錄",
       "empty": "冇任何記錄。",
-      "discovered": "透過 {protocol} ({host}) 偵測到",
-      "updated": "透過 {protocol} ({host}) 更新"
+      "outbound": "經 {protocol}（{host}）連到對方",
+      "outboundFailed": "經 {protocol}（{host}）連唔到：{error}",
+      "inbound": "對方經 {protocol}（{host}）連到你",
+      "multicastInbound": "收到多播廣播（{host}）"
     }
   },
   "verifyPage": {
@@ -381,7 +396,8 @@
       "name": "名",
       "auto": "（自動）",
       "ip": "IP 地址",
-      "port": "Port"
+      "port": "Port",
+      "invalidPort": "請輸入 1 至 65535 之間嘅整數。"
     },
     "fileInfo": {
       "title": "檔案資訊",

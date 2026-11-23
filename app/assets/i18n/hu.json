@@ -106,10 +106,14 @@
       },
       "saveWindowPlacement": "Kilépés: Ablak pozíció mentése",
       "saveWindowPlacementWindows": "Az ablak pozíciójának mentése kilépés után",
+      "alwaysOnTop": "Mindig felül",
+      "alwaysOnTopUnavailable": "Waylanden nem támogatott",
       "minimizeToTray": "Kilépés: Minimalizálja a tálcára",
       "launchAtStartup": "Auto. indítás bejelentkezés után",
       "launchMinimized": "Auto. indítás: Kis méretben",
       "showInContextMenu": "A LocalSend megjelenítése a helyi menüben",
+      "softwareRendering": "Szoftveres megjelenítés",
+      "softwareRenderingDescription": "Akkor használja, ha az ablak üres marad, hibásan jelenik meg vagy indításkor bezárul. Újraindítás után lép életbe.",
       "animations": "Animációk"
     },
     "receive": {
@@ -212,15 +216,26 @@
     "verify": "Ellenőrzés",
     "info": {
       "name": "Név",
-      "address": "Cím",
       "version": "Verzió",
       "protocol": "Protokoll v{version}"
+    },
+    "channels": {
+      "title": "Csatornák",
+      "you": "Ön",
+      "outgoing": "Kimenő",
+      "incoming": "Bejövő",
+      "works": "Működik",
+      "notTested": "Nem tesztelt",
+      "failed": "Sikertelen",
+      "notSeen": "Nem észlelt"
     },
     "logs": {
       "title": "Naplók",
       "empty": "Nincs elérhető napló.",
-      "discovered": "Felfedezve {protocol} útján ({host})",
-      "updated": "Frissítve {protocol} útján ({host})"
+      "outbound": "Elérve: {protocol} ({host})",
+      "outboundFailed": "Nem érhető el: {protocol} ({host}): {error}",
+      "inbound": "Kapcsolódott hozzánk: {protocol} ({host})",
+      "multicastInbound": "Bejelentés érkezett ({host})"
     }
   },
   "verifyPage": {
@@ -380,7 +395,8 @@
       "name": "Álnév",
       "auto": "(auto)",
       "ip": "IP cím",
-      "port": "Port"
+      "port": "Port",
+      "invalidPort": "Adjon meg egy egész számot 1 és 65535 között."
     },
     "fileInfo": {
       "title": "Fájl információ",

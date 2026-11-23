@@ -41,11 +41,13 @@ pub enum RsServerEvent {
         session_id: String,
         ip: String,
         info: RegisterDtoV2,
-        /// The SHA-256 fingerprint (uppercase hex) of the sender's client
-        /// certificate verified during the mTLS handshake. Unlike
-        /// `info.fingerprint`, this value cannot be spoofed.
-        /// `None` when the server runs without TLS.
-        cert_fingerprint: Option<String>,
+        /// The fingerprint identifying the sender. Use this instead of
+        /// `info.fingerprint`, which is self-reported.
+        /// On TLS, the fingerprint of the verified client certificate, so it
+        /// cannot be spoofed. Without TLS, the self-reported `info.fingerprint`.
+        /// `None` when the sender presented no client certificate on TLS (e.g. a
+        /// browser on the receive-via-link page): the sender is anonymous.
+        sender_fingerprint: Option<String>,
         files: HashMap<String, FileDto>,
     },
 
@@ -371,7 +373,7 @@ impl RsHttpServer {
                 session_id,
                 ip,
                 info,
-                cert_fingerprint,
+                sender_fingerprint,
                 files,
                 decision_tx,
             } => {
@@ -380,7 +382,7 @@ impl RsHttpServer {
                     session_id,
                     ip: ip.to_string(),
                     info,
-                    cert_fingerprint,
+                    sender_fingerprint,
                     files,
                 })
                 .is_ok()

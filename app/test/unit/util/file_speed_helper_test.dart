@@ -43,11 +43,29 @@ void main() {
     });
   });
 
-  group('getFileSpeed', () {
+  group('measureSpeed', () {
     test('calculates bytes per second correctly', () {
-      expect(getFileSpeed(start: 0, end: 1000, bytes: 1000), 1000);
-      expect(getFileSpeed(start: 0, end: 2000, bytes: 4000), 2000);
-      expect(getFileSpeed(start: 1000, end: 3000, bytes: 10000), 5000);
+      expect(measureSpeed(startTime: 0, endTime: 1000, bytes: 1000000), 1000000);
+      expect(measureSpeed(startTime: 0, endTime: 2000, bytes: 4000000), 2000000);
+      expect(measureSpeed(startTime: 1000, endTime: 3000, bytes: 10000000), 5000000);
+    });
+
+    test('returns null before the transfer started', () {
+      expect(measureSpeed(startTime: null, endTime: null, bytes: 1000000), null);
+    });
+
+    test('returns null below 500 KB', () {
+      expect(measureSpeed(startTime: 0, endTime: 1000, bytes: 500 * 1024 - 1), null);
+      expect(measureSpeed(startTime: 0, endTime: 1000, bytes: 500 * 1024), 512000);
+    });
+
+    test('returns null when the transfer ended in the millisecond it started', () {
+      expect(measureSpeed(startTime: 1000, endTime: 1000, bytes: 20000000), null);
+    });
+
+    test('uses the current time while the transfer is running', () {
+      final startTime = DateTime.now().millisecondsSinceEpoch - 10000;
+      expect(measureSpeed(startTime: startTime, endTime: null, bytes: 10000000), inInclusiveRange(900000, 1000000));
     });
   });
 }

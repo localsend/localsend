@@ -363,6 +363,8 @@ class _Translations$deviceDetailsPage$ms extends Translations$deviceDetailsPage$
   @override
   late final _Translations$deviceDetailsPage$info$ms info = _Translations$deviceDetailsPage$info$ms._(_root);
   @override
+  late final _Translations$deviceDetailsPage$channels$ms channels = _Translations$deviceDetailsPage$channels$ms._(_root);
+  @override
   late final _Translations$deviceDetailsPage$logs$ms logs = _Translations$deviceDetailsPage$logs$ms._(_root);
 }
 
@@ -947,6 +949,10 @@ class _Translations$settingsTab$general$ms extends Translations$settingsTab$gene
   @override
   String get saveWindowPlacementWindows => 'Simpan kedudukan tetingkap selepas keluar';
   @override
+  String get alwaysOnTop => 'Sentiasa di atas';
+  @override
+  String get alwaysOnTopUnavailable => 'Tidak disokong pada Wayland';
+  @override
   String get minimizeToTray => 'Minimumkan ke dulang sistem/menu bar apabila menutup';
   @override
   String get launchAtStartup => 'Mula automatik selepas log masuk';
@@ -954,6 +960,11 @@ class _Translations$settingsTab$general$ms extends Translations$settingsTab$gene
   String get launchMinimized => 'Mula automatik: Mula tersembunyi';
   @override
   String get showInContextMenu => 'Tunjukkan LocalSend dalam menu konteks';
+  @override
+  String get softwareRendering => 'Pemaparan perisian';
+  @override
+  String get softwareRenderingDescription =>
+      'Gunakan jika tetingkap kekal kosong, bermasalah atau tertutup semasa dimulakan. Berkuat kuasa selepas dimulakan semula.';
   @override
   String get animations => 'Animasi';
 }
@@ -1135,11 +1146,34 @@ class _Translations$deviceDetailsPage$info$ms extends Translations$deviceDetails
   @override
   String get name => 'Nama';
   @override
-  String get address => 'Alamat';
-  @override
   String get version => 'Versi';
   @override
   String protocol({required Object version}) => 'Protokol v${version}';
+}
+
+// Path: deviceDetailsPage.channels
+class _Translations$deviceDetailsPage$channels$ms extends Translations$deviceDetailsPage$channels$en {
+  _Translations$deviceDetailsPage$channels$ms._(TranslationsMs root) : this._root = root, super.internal(root);
+
+  final TranslationsMs _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Saluran';
+  @override
+  String get you => 'Anda';
+  @override
+  String get outgoing => 'Keluar';
+  @override
+  String get incoming => 'Masuk';
+  @override
+  String get works => 'Berfungsi';
+  @override
+  String get notTested => 'Belum diuji';
+  @override
+  String get failed => 'Gagal';
+  @override
+  String get notSeen => 'Belum dikesan';
 }
 
 // Path: deviceDetailsPage.logs
@@ -1154,9 +1188,14 @@ class _Translations$deviceDetailsPage$logs$ms extends Translations$deviceDetails
   @override
   String get empty => 'Tiada log tersedia.';
   @override
-  String discovered({required Object protocol, required Object host}) => 'Ditemui melalui ${protocol} (${host})';
+  String outbound({required Object protocol, required Object host}) => 'Dihubungi melalui ${protocol} (${host})';
   @override
-  String updated({required Object protocol, required Object host}) => 'Dikemas kini melalui ${protocol} (${host})';
+  String outboundFailed({required Object protocol, required Object host, required Object error}) =>
+      'Tidak dapat dihubungi melalui ${protocol} (${host}): ${error}';
+  @override
+  String inbound({required Object protocol, required Object host}) => 'Menghubungi kami melalui ${protocol} (${host})';
+  @override
+  String multicastInbound({required Object host}) => 'Pengumuman diterima (${host})';
 }
 
 // Path: progressPage.total
@@ -1352,6 +1391,8 @@ class _Translations$dialogs$favoriteEditDialog$ms extends Translations$dialogs$f
   String get ip => 'Alamat IP';
   @override
   String get port => 'Port';
+  @override
+  String get invalidPort => 'Masukkan nombor bulat antara 1 hingga 65535.';
 }
 
 // Path: dialogs.fileInfo

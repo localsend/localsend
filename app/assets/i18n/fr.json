@@ -106,10 +106,14 @@
       },
       "saveWindowPlacement": "Sauvegarder l'emplacement de la fenêtre à la fermeture",
       "saveWindowPlacementWindows": "Sauvegarder la position de la fenêtre en quittant",
+      "alwaysOnTop": "Toujours au premier plan",
+      "alwaysOnTopUnavailable": "Non pris en charge sous Wayland",
       "minimizeToTray": "Réduire dans la barre des tâches à la fermeture",
       "launchAtStartup": "Lancer LocalSend à la connexion de l'utilisateur",
       "launchMinimized": "Minimiser LocalSend lors du lancement",
       "showInContextMenu": "Afficher LocalSend dans le menu contextuel",
+      "softwareRendering": "Rendu logiciel",
+      "softwareRenderingDescription": "À utiliser si la fenêtre reste vide, présente des défauts d'affichage ou se ferme au démarrage. Prend effet après un redémarrage.",
       "animations": "Animations"
     },
     "receive": {
@@ -212,15 +216,26 @@
     "verify": "Vérifier",
     "info": {
       "name": "Nom",
-      "address": "Adresse",
       "version": "Version",
       "protocol": "Protocole v{version}"
+    },
+    "channels": {
+      "title": "Canaux",
+      "you": "Vous",
+      "outgoing": "Sortant",
+      "incoming": "Entrant",
+      "works": "Fonctionne",
+      "notTested": "Non testé",
+      "failed": "Échec",
+      "notSeen": "Jamais vu"
     },
     "logs": {
       "title": "Journaux",
       "empty": "Aucun journal disponible.",
-      "discovered": "Découvert via {protocol} ({host})",
-      "updated": "Mis à jour via {protocol} ({host})"
+      "outbound": "Contacté via {protocol} ({host})",
+      "outboundFailed": "Impossible de contacter via {protocol} ({host}) : {error}",
+      "inbound": "Nous a contactés via {protocol} ({host})",
+      "multicastInbound": "Annonce reçue ({host})"
     }
   },
   "verifyPage": {
@@ -380,7 +395,8 @@
       "name": "Alias",
       "auto": "(automatique)",
       "ip": "Adresse IP",
-      "port": "Port"
+      "port": "Port",
+      "invalidPort": "Entrez un nombre entier entre 1 et 65535."
     },
     "fileInfo": {
       "title": "Informations sur le fichier",

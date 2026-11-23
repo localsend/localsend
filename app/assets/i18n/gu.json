@@ -106,10 +106,14 @@
       },
       "saveWindowPlacement": "બંધ કરો: વિન્ડો પ્લેસમેન્ટ સેવ કરો",
       "saveWindowPlacementWindows": "બહાર નીકળ્યા પછી વિન્ડો ની જગ્યા સાચવો",
+      "alwaysOnTop": "હંમેશા ટોચ પર",
+      "alwaysOnTopUnavailable": "Wayland પર સપોર્ટેડ નથી",
       "minimizeToTray": "બંધ કરો: ટ્રે/મેનુ બારમાં મિનિમાઇઝ",
       "launchAtStartup": "લૉગિન પછી સ્વયંચાલિત શરૂઆત",
       "launchMinimized": "સ્વયંચાલિત શરૂઆત: છુપાવેલી સ્થિતિમાં શરૂ કરો",
       "showInContextMenu": "કૉટેક્સ્ટ મેન્યુ માં LocalSend દેખાડો",
+      "softwareRendering": "સોફ્ટવેર રેન્ડરિંગ",
+      "softwareRenderingDescription": "જો વિન્ડો ખાલી રહે, ગ્લિચ થાય અથવા શરૂ થતાં જ બંધ થઈ જાય તો ઉપયોગ કરો. ફરીથી શરૂ કર્યા પછી લાગુ થશે.",
       "animations": "એનિમેશન"
     },
     "receive": {
@@ -212,15 +216,26 @@
     "verify": "ચકાસો",
     "info": {
       "name": "નામ",
-      "address": "સરનામું",
       "version": "સંસ્કરણ",
       "protocol": "પ્રોટોકોલ v{version}"
+    },
+    "channels": {
+      "title": "ચેનલ",
+      "you": "તમે",
+      "outgoing": "આઉટગોઇંગ",
+      "incoming": "ઇનકમિંગ",
+      "works": "કામ કરે છે",
+      "notTested": "ચકાસાયેલ નથી",
+      "failed": "નિષ્ફળ",
+      "notSeen": "જોવા મળ્યું નથી"
     },
     "logs": {
       "title": "લોગ",
       "empty": "કોઈ લોગ ઉપલબ્ધ નથી.",
-      "discovered": "{protocol} દ્વારા શોધાયું ({host})",
-      "updated": "{protocol} દ્વારા અપડેટ થયું ({host})"
+      "outbound": "{protocol} ({host}) દ્વારા પહોંચ્યા",
+      "outboundFailed": "{protocol} ({host}) દ્વારા પહોંચી શકાયું નહીં: {error}",
+      "inbound": "{protocol} ({host}) દ્વારા અમારા સુધી પહોંચ્યું",
+      "multicastInbound": "ઘોષણા મળી ({host})"
     }
   },
   "verifyPage": {
@@ -450,7 +465,8 @@
       "name": "ઉપકરણનું નામ",
       "auto": "(આપમેળે)",
       "ip": "IP સરનામું",
-      "port": "પોર્ટ"
+      "port": "પોર્ટ",
+      "invalidPort": "1 અને 65535 વચ્ચે પૂર્ણ સંખ્યા દાખલ કરો."
     },
     "fileInfo": {
       "title": "ફાઇલ માહિતી",

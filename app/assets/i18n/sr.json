@@ -212,15 +212,12 @@
     "verify": "Proveri",
     "info": {
       "name": "Ime",
-      "address": "Adresa",
       "version": "Verzija",
       "protocol": "Protokol v{version}"
     },
     "logs": {
       "title": "Evidencija",
-      "empty": "Nema dostupne evidencije.",
-      "discovered": "Otkriveno putem {protocol} ({host})",
-      "updated": "Ažurirano putem {protocol} ({host})"
+      "empty": "Nema dostupne evidencije."
     }
   },
   "verifyPage": {

@@ -191,11 +191,13 @@ sealed class RsServerEvent with _$RsServerEvent {
     required String ip,
     required RegisterDtoV2 info,
 
-    /// The SHA-256 fingerprint (uppercase hex) of the sender's client
-    /// certificate verified during the mTLS handshake. Unlike
-    /// `info.fingerprint`, this value cannot be spoofed.
-    /// `None` when the server runs without TLS.
-    String? certFingerprint,
+    /// The fingerprint identifying the sender. Use this instead of
+    /// `info.fingerprint`, which is self-reported.
+    /// On TLS, the fingerprint of the verified client certificate, so it
+    /// cannot be spoofed. Without TLS, the self-reported `info.fingerprint`.
+    /// `None` when the sender presented no client certificate on TLS (e.g. a
+    /// browser on the receive-via-link page): the sender is anonymous.
+    String? senderFingerprint,
     required Map<String, FileDto> files,
   }) = RsServerEvent_PrepareUpload;
 

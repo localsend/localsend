@@ -84,6 +84,8 @@ class TranslationsTr extends Translations with BaseTranslations<AppLocale, Trans
   @override
   late final _Translations$whatsNewPage$tr whatsNewPage = _Translations$whatsNewPage$tr._(_root);
   @override
+  late final _Translations$aliasGenerator$tr aliasGenerator = _Translations$aliasGenerator$tr._(_root);
+  @override
   late final _Translations$dialogs$tr dialogs = _Translations$dialogs$tr._(_root);
   @override
   late final _Translations$sanitization$tr sanitization = _Translations$sanitization$tr._(_root);
@@ -103,21 +105,21 @@ class _Translations$general$tr extends Translations$general$en {
 
   // Translations
   @override
-  String get accept => 'Kabul et';
+  String get accept => 'Kabul Et';
   @override
-  String get accepted => 'Kabul edildi';
+  String get accepted => 'Kabul Edildi';
   @override
   String get add => 'Ekle';
   @override
   String get advanced => 'Gelişmiş';
   @override
-  String get cancel => 'İptal et';
+  String get cancel => 'İptal';
   @override
   String get close => 'Kapat';
   @override
   String get confirm => 'Onayla';
   @override
-  String get continueStr => 'Devam et';
+  String get continueStr => 'Devam Et';
   @override
   String get copy => 'Kopyala';
   @override
@@ -125,7 +127,7 @@ class _Translations$general$tr extends Translations$general$en {
   @override
   String get decline => 'Reddet';
   @override
-  String get done => 'Bitir';
+  String get done => 'Bitti';
   @override
   String get delete => 'Sil';
   @override
@@ -137,35 +139,35 @@ class _Translations$general$tr extends Translations$general$en {
   @override
   String get files => 'Dosyalar';
   @override
-  String get finished => 'Sonlandırıldı';
+  String get finished => 'Tamamlandı';
   @override
   String get hide => 'Gizle';
   @override
   String get off => 'Kapalı';
   @override
-  String get offline => 'Çevrim dışı';
+  String get offline => 'Çevrimdışı';
   @override
   String get on => 'Açık';
   @override
-  String get online => 'Çevrim içi';
+  String get online => 'Çevrimiçi';
   @override
   String get open => 'Aç';
   @override
   String get queue => 'Sıra';
   @override
-  String get quickSave => 'Hızlı kaydetme';
+  String get quickSave => 'Hızlı Kaydet';
   @override
-  String get quickSaveFromFavorites => 'Favoriler';
+  String get quickSaveFromFavorites => '"Favoriler" için Hızlı Kaydet';
   @override
   String get renamed => 'Yeniden adlandırıldı';
   @override
-  String get reset => 'Sıfırla';
+  String get reset => 'Değişiklikleri geri al';
   @override
   String get restart => 'Yeniden başlat';
   @override
   String get settings => 'Ayarlar';
   @override
-  String get skipped => 'Geçildi';
+  String get skipped => 'Atlandı';
   @override
   String get start => 'Başlat';
   @override
@@ -173,11 +175,11 @@ class _Translations$general$tr extends Translations$general$en {
   @override
   String get save => 'Kaydet';
   @override
-  String get unchanged => 'Değiştirilmemiş';
+  String get unchanged => 'Değişmedi';
   @override
   String get unknown => 'Bilinmiyor';
   @override
-  String get noItemInClipboard => 'Panoda öğe yok.';
+  String get noItemInClipboard => 'Panoda hiçbir öğe yok.';
 }
 
 // Path: receiveTab
@@ -188,13 +190,13 @@ class _Translations$receiveTab$tr extends Translations$receiveTab$en {
 
   // Translations
   @override
-  String get title => 'Alım';
+  String get title => 'Al';
   @override
   late final _Translations$receiveTab$infoBox$tr infoBox = _Translations$receiveTab$infoBox$tr._(_root);
   @override
   late final _Translations$receiveTab$quickSave$tr quickSave = _Translations$receiveTab$quickSave$tr._(_root);
   @override
-  String get link => 'Link üzerinden al';
+  String get link => 'Bağlantıyla al';
 }
 
 // Path: sendTab
@@ -211,25 +213,25 @@ class _Translations$sendTab$tr extends Translations$sendTab$en {
   @override
   late final _Translations$sendTab$picker$tr picker = _Translations$sendTab$picker$tr._(_root);
   @override
-  String get shareIntentInfo => 'Dosyalarınızı daha kolay seçmek için cihazınızın "Paylaş" özelliğini kullanabilirsiniz.';
+  String get shareIntentInfo => 'Dosyaları daha kolay seçmek için mobil cihazınızın "Paylaş" özelliğini de kullanabilirsiniz.';
   @override
-  String get nearbyDevices => 'Yakınınızdaki cihazlar';
+  String get nearbyDevices => 'Yakındaki cihazlar';
   @override
-  String get thisDevice => 'Cihazınız';
+  String get thisDevice => 'Bu Cihaz';
   @override
-  String get scan => 'Cihazları tara';
+  String get scan => 'Cihaz ara';
   @override
-  String get manualSending => 'Manuel Gönderme';
+  String get manualSending => 'Manuel gönderim';
   @override
-  String get sendMode => 'Gönderme Modu';
+  String get sendMode => 'Gönderim modu';
   @override
   late final _Translations$sendTab$sendModes$tr sendModes = _Translations$sendTab$sendModes$tr._(_root);
   @override
   String get sendModeHelp => 'Açıklama';
   @override
-  String get help => 'Lütfen hedef cihaz ile aynı wifi ağında olduğunuzdan emin olun.';
+  String get help => 'Lütfen göndermek istediğiniz cihazın da aynı Wi-Fi ağında olduğundan emin olun.';
   @override
-  String get placeItems => 'Paylaşmak istediğiniz dosyayı yerleştiriniz.';
+  String get placeItems => 'Paylaşmak istediğiniz öğeleri buraya bırakın.';
 }
 
 // Path: settingsTab
@@ -265,11 +267,11 @@ class _Translations$troubleshootPage$tr extends Translations$troubleshootPage$en
   @override
   String get title => 'Sorun Giderme';
   @override
-  String get subTitle => 'Bu uygulama beklendiği gibi çalışmıyor mu? Burada ortak çözümler bulabilirsiniz.';
+  String get subTitle => 'Uygulama beklediğiniz gibi çalışmıyor mu? Yaygın sorunların çözümlerini burada bulabilirsiniz.';
   @override
   String get solution => 'Çözüm:';
   @override
-  String get fixButton => 'Otomatik olarak düzelt';
+  String get fixButton => 'Otomatik düzelt';
   @override
   late final _Translations$troubleshootPage$firewall$tr firewall = _Translations$troubleshootPage$firewall$tr._(_root);
   @override
@@ -289,13 +291,13 @@ class _Translations$networkInterfacesPage$tr extends Translations$networkInterfa
   String get title => 'Ağ Arayüzleri';
   @override
   String get info =>
-      'Varsayılan olarak, LocalSend mevcut olan tüm ağları kullanır. Burada istenmeyen ağları engelleyebilirsiniz. Değişikliklerin uygulanması için sunucuyu yeniden başlatmanız gerekir.';
+      'LocalSend varsayılan olarak kullanılabilir tüm ağ arayüzlerini kullanır. İstemediğiniz ağları buradan hariç tutabilirsiniz. Değişikliklerin geçerli olması için sunucuyu yeniden başlatmanız gerekir.';
   @override
-  String get preview => 'Önizle';
+  String get preview => 'Önizleme';
   @override
-  String get whitelist => 'Beyaz liste';
+  String get whitelist => 'Beyaz Liste';
   @override
-  String get blacklist => 'Kara liste';
+  String get blacklist => 'Kara Liste';
 }
 
 // Path: receiveHistoryPage
@@ -308,11 +310,11 @@ class _Translations$receiveHistoryPage$tr extends Translations$receiveHistoryPag
   @override
   String get title => 'Geçmiş';
   @override
-  String get openFolder => 'Dosyayı aç';
+  String get openFolder => 'Klasörü aç';
   @override
-  String get deleteHistory => 'Geçmişi sil';
+  String get deleteHistory => 'Geçmişi temizle';
   @override
-  String get empty => 'Geçmiş yok.';
+  String get empty => 'Geçmiş boş.';
   @override
   late final _Translations$receiveHistoryPage$entryActions$tr entryActions = _Translations$receiveHistoryPage$entryActions$tr._(_root);
 }
@@ -327,11 +329,11 @@ class _Translations$apkPickerPage$tr extends Translations$apkPickerPage$en {
   @override
   String get title => 'Uygulamalar (APK)';
   @override
-  String get excludeSystemApps => 'Sistem uygulamalarını hariç tut';
+  String get excludeSystemApps => 'Sistem uygulamalarını gizle';
   @override
-  String get excludeAppsWithoutLaunchIntent => 'Başlatılamayan uygulamaları hariç tut';
+  String get excludeAppsWithoutLaunchIntent => 'Başlatılamayan uygulamaları gizle';
   @override
-  String apps({required Object n}) => '${n} Uygulamalar';
+  String apps({required Object n}) => '${n} Uygulama';
 }
 
 // Path: selectedFilesPage
@@ -342,7 +344,7 @@ class _Translations$selectedFilesPage$tr extends Translations$selectedFilesPage$
 
   // Translations
   @override
-  String get deleteAll => 'Hepsini sil';
+  String get deleteAll => 'Tümünü kaldır';
 }
 
 // Path: deviceDetailsPage
@@ -361,6 +363,8 @@ class _Translations$deviceDetailsPage$tr extends Translations$deviceDetailsPage$
   @override
   late final _Translations$deviceDetailsPage$info$tr info = _Translations$deviceDetailsPage$info$tr._(_root);
   @override
+  late final _Translations$deviceDetailsPage$channels$tr channels = _Translations$deviceDetailsPage$channels$tr._(_root);
+  @override
   late final _Translations$deviceDetailsPage$logs$tr logs = _Translations$deviceDetailsPage$logs$tr._(_root);
 }
 
@@ -378,7 +382,7 @@ class _Translations$verifyPage$tr extends Translations$verifyPage$en {
   @override
   String get text => 'Metin';
   @override
-  String get question => 'Diğer cihazda aynı görünüyor mu?';
+  String get question => 'Diğer cihazda da aynı şekilde mi görünüyor?';
 }
 
 // Path: receivePage
@@ -391,13 +395,13 @@ class _Translations$receivePage$tr extends Translations$receivePage$en {
   @override
   String subTitle({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('tr'))(
     n,
-    one: 'sana bir dosya göndermek istiyor',
-    other: 'sana ${n} tane dosya göndermek istiyor',
+    one: 'size bir dosya göndermek istiyor',
+    other: 'size ${n} dosya göndermek istiyor',
   );
   @override
-  String get subTitleMessage => 'bir mesaj gönderdi:';
+  String get subTitleMessage => 'size bir mesaj gönderdi:';
   @override
-  String get subTitleLink => 'bir bağlantı gönderdi:';
+  String get subTitleLink => 'size bir bağlantı gönderdi:';
   @override
   String get canceled => 'Gönderici isteği iptal etti.';
 }
@@ -418,7 +422,7 @@ class _Translations$receiveOptionsPage$tr extends Translations$receiveOptionsPag
   @override
   String get saveToGallery => _root.settingsTab.receive.saveToGallery;
   @override
-  String get saveToGalleryOff => 'Otomatik olarak kapanır çünkü bunlar klasör.';
+  String get saveToGalleryOff => 'Klasör içerdiği için otomatik olarak kapatıldı.';
 }
 
 // Path: sendPage
@@ -431,13 +435,13 @@ class _Translations$sendPage$tr extends Translations$sendPage$en {
   @override
   String calculatingChecksum({required Object curr, required Object n}) => 'Sağlama toplamı hesaplanıyor (${curr} / ${n})';
   @override
-  String get waiting => 'Alıcıdan cevap bekleniyor…';
+  String get waiting => 'Yanıt bekleniyor…';
   @override
   String get rejected => 'Alıcı isteği reddetti.';
   @override
   String get tooManyAttempts => _root.web.tooManyAttempts;
   @override
-  String get busy => 'Alıcı başka bir istekle meşgul.';
+  String get busy => 'Alıcı şu anda başka bir istekle meşgul.';
 }
 
 // Path: progressPage
@@ -452,7 +456,7 @@ class _Translations$progressPage$tr extends Translations$progressPage$en {
   @override
   String get titleReceiving => 'Dosyalar alınıyor';
   @override
-  String get savedToGallery => 'Galeriye kaydedildi';
+  String get savedToGallery => 'Fotoğraflar\'a kaydedildi';
   @override
   late final _Translations$progressPage$total$tr total = _Translations$progressPage$total$tr._(_root);
   @override
@@ -467,18 +471,18 @@ class _Translations$webSharePage$tr extends Translations$webSharePage$en {
 
   // Translations
   @override
-  String get title => 'Link üzerinden paylaşın';
+  String get title => 'Bağlantıyla paylaş';
   @override
-  String get loading => 'Sunucu başlıyor…';
+  String get loading => 'Sunucu başlatılıyor…';
   @override
   String get stopping => 'Sunucu durduruluyor…';
   @override
-  String get error => 'Sunucuyu başlatırken bir hata oluştu.';
+  String get error => 'Sunucu başlatılırken bir hata oluştu.';
   @override
   String openLink({required num n}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('tr'))(
     n,
-    one: 'Bu bağlantıyı tarayıcıda açın:',
-    other: 'Bu bağlantılardan birini tarayıcıda açın:',
+    one: 'Bu bağlantıyı tarayıcınızda açın:',
+    other: 'Bu bağlantılardan birini tarayıcınızda açın:',
   );
   @override
   String get requests => 'İstekler';
@@ -487,13 +491,13 @@ class _Translations$webSharePage$tr extends Translations$webSharePage$en {
   @override
   String get encryption => _root.settingsTab.network.encryption;
   @override
-  String get autoAccept => 'İstekleri otomatik olarak kabul et';
+  String get autoAccept => 'İstekleri otomatik kabul et';
   @override
-  String get requirePin => 'PIN gerektir';
+  String get requirePin => 'PIN iste';
   @override
-  String pinHint({required Object pin}) => 'PIN "${pin}"';
+  String pinHint({required Object pin}) => 'PIN kodu: "${pin}"';
   @override
-  String get encryptionHint => 'LocalSend, tarayıcıda kabul etmeniz gereken kendi-üretimli bir sertifika kullanır.';
+  String get encryptionHint => 'LocalSend kendinden imzalı (self-signed) bir sertifika kullanır. Tarayıcınızda bu sertifikayı onaylamanız gerekir.';
   @override
   String pendingRequests({required Object n}) => 'Bekleyen istekler: ${n}';
 }
@@ -506,7 +510,7 @@ class _Translations$webReceivePage$tr extends Translations$webReceivePage$en {
 
   // Translations
   @override
-  String get title => 'Link üzerinden al';
+  String get title => 'Bağlantıyla al';
 }
 
 // Path: aboutPage
@@ -517,16 +521,16 @@ class _Translations$aboutPage$tr extends Translations$aboutPage$en {
 
   // Translations
   @override
-  String get title => 'LocalSend hakkında';
+  String get title => 'LocalSend Hakkında';
   @override
   List<String> get description => [
-    'LocalSend, internet bağlantısına ihtiyaç duymadan yerel ağınız üzerinden yakınınızdaki cihazlarla dosya ve mesajlarınızı güvenli bir şekilde paylaşmanıza olanak tanıyan özgür ve açık kaynaklı bir uygulamadır.',
-    'Bu uygulama Android, iOS, macOS, Windows ve Linux\'ta mevcuttur. Tüm indirme seçeneklerini resmi ana sayfada bulabilirsiniz.',
+    'LocalSend; internet bağlantısına ihtiyaç duymadan, yerel ağınız üzerinden yakındaki cihazlarla güvenli bir şekilde dosya ve mesaj paylaşmanızı sağlayan ücretsiz ve açık kaynaklı bir uygulamadır.',
+    'Bu uygulama Android, iOS, macOS, Windows ve Linux platformlarında kullanılabilir. Tüm indirme seçeneklerini resmi web sitesinde bulabilirsiniz.',
   ];
   @override
-  String get author => 'Yazar';
+  String get author => 'Geliştirici';
   @override
-  String get contributors => 'Katkıda bulunanlar';
+  String get contributors => 'Katkıda Bulunanlar';
   @override
   String get packagers => 'Paketleyiciler';
   @override
@@ -541,16 +545,16 @@ class _Translations$donationPage$tr extends Translations$donationPage$en {
 
   // Translations
   @override
-  String get title => 'Bağış yap';
+  String get title => 'Bağış Yap';
   @override
   String get info =>
-      'LocalSend ücretsiz, açık kaynaklı ve reklamsız bir uygulamadır. Eğer uygulamayı beğendiyseniz, bağış yaparak uygulamanın gelişimine katkıda bulunabilirsiniz.';
+      'LocalSend ücretsiz, açık kaynaklı ve reklamsız bir uygulamadır. Uygulamayı beğendiyseniz geliştirme sürecine bağış yaparak destek olabilirsiniz.';
   @override
-  String donate({required Object amount}) => 'Bağışta bulun ${amount}';
+  String donate({required Object amount}) => '${amount} Bağış Yap';
   @override
-  String get thanks => 'Çok teşekkür ederim!';
+  String get thanks => 'Çok teşekkür ederiz!';
   @override
-  String get restore => 'Satın alınanları geri yükle';
+  String get restore => 'Satın alımı geri yükle';
 }
 
 // Path: changelogPage
@@ -561,7 +565,7 @@ class _Translations$changelogPage$tr extends Translations$changelogPage$en {
 
   // Translations
   @override
-  String get title => 'Değişiklik günlüğü';
+  String get title => 'Sürüm Notları';
 }
 
 // Path: whatsNewPage
@@ -575,6 +579,89 @@ class _Translations$whatsNewPage$tr extends Translations$whatsNewPage$en {
   String title({required Object version}) => '${version} sürümündeki yenilikler';
   @override
   late final _Translations$whatsNewPage$changes$tr changes = _Translations$whatsNewPage$changes$tr._(_root);
+}
+
+// Path: aliasGenerator
+class _Translations$aliasGenerator$tr extends Translations$aliasGenerator$en {
+  _Translations$aliasGenerator$tr._(TranslationsTr root) : this._root = root, super.internal(root);
+
+  final TranslationsTr _root; // ignore: unused_field
+
+  // Translations
+  @override
+  List<String> get adjectives => [
+    'Sevimli',
+    'Güzel',
+    'Kocaman',
+    'Parlak',
+    'Temiz',
+    'Zeki',
+    'Havalı',
+    'Şirin',
+    'Kurnaz',
+    'Kararlı',
+    'Enerjik',
+    'Becerikli',
+    'Harika',
+    'Hızlı',
+    'Hoş',
+    'Taze',
+    'İyi',
+    'Görkemli',
+    'Şahane',
+    'Yakışıklı',
+    'Sıcak',
+    'Nazik',
+    'Tatlı',
+    'Gizemli',
+    'Şık',
+    'Kibar',
+    'Sabırlı',
+    'Alımlı',
+    'Güçlü',
+    'Zengin',
+    'Gizli',
+    'Akıllı',
+    'Sağlam',
+    'Özel',
+    'Stratejik',
+    'Kuvvetli',
+    'Titiz',
+    'Bilge',
+  ];
+  @override
+  List<String> get fruits => [
+    'Elma',
+    'Avokado',
+    'Muz',
+    'Böğürtlen',
+    'Yaban Mersini',
+    'Brokoli',
+    'Havuç',
+    'Kiraz',
+    'Hindistan Cevizi',
+    'Üzüm',
+    'Limon',
+    'Marul',
+    'Mango',
+    'Kavun',
+    'Mantar',
+    'Soğan',
+    'Portakal',
+    'Papaya',
+    'Şeftali',
+    'Armut',
+    'Ananas',
+    'Patates',
+    'Balkabağı',
+    'Ahududu',
+    'Çilek',
+    'Domates',
+  ];
+
+  /// In some languages, the adjective must be last.
+  @override
+  String combination({required Object adjective, required Object fruit}) => '${adjective} ${fruit}';
 }
 
 // Path: dialogs
@@ -645,9 +732,9 @@ class _Translations$sanitization$tr extends Translations$sanitization$en {
 
   // Translations
   @override
-  String get empty => 'Dosya ismi boş olamaz';
+  String get empty => 'Dosya adı boş bırakılamaz';
   @override
-  String get invalid => 'Dosya ismi geçersiz karakter bulunduruyor';
+  String get invalid => 'Dosya adı geçersiz karakterler içeriyor';
 }
 
 // Path: tray
@@ -660,7 +747,7 @@ class _Translations$tray$tr extends Translations$tray$en {
   @override
   String get open => _root.general.open;
   @override
-  String get close => 'LocalSend\'den çık';
+  String get close => 'LocalSend\'den Çık';
   @override
   String get closeWindows => 'Çıkış';
 }
@@ -675,7 +762,7 @@ class _Translations$web$tr extends Translations$web$en {
   @override
   String get waiting => _root.sendPage.waiting;
   @override
-  String get enterPin => 'PIN girin';
+  String get enterPin => 'PIN\'i girin';
   @override
   String get invalidPin => 'Geçersiz PIN';
   @override
@@ -698,7 +785,7 @@ class _Translations$assetPicker$tr extends Translations$assetPicker$en {
 
   // Translations
   @override
-  String get confirm => 'Onay';
+  String get confirm => 'Onayla';
   @override
   String get cancel => 'İptal';
   @override
@@ -706,36 +793,36 @@ class _Translations$assetPicker$tr extends Translations$assetPicker$en {
   @override
   String get gifIndicator => 'GIF';
   @override
-  String get loadFailed => 'Yükleme başarısız';
+  String get loadFailed => 'Yüklenemedi';
   @override
   String get original => 'Orijinal';
   @override
-  String get preview => 'Ön izleme';
+  String get preview => 'Önizleme';
   @override
   String get select => 'Seç';
   @override
-  String get emptyList => 'Boş liste';
+  String get emptyList => 'Liste boş';
   @override
   String get unSupportedAssetType => 'Desteklenmeyen dosya türü.';
   @override
   String get unableToAccessAll => 'Cihazdaki tüm dosyalara erişilemiyor';
   @override
-  String get viewingLimitedAssetsTip => 'Yalnızca uygulamanın erişilebilir dosyalarını ve albümlerini görüntüleyin.';
+  String get viewingLimitedAssetsTip => 'Yalnızca uygulamanın erişebildiği dosya ve albümleri görüntülüyorsunuz.';
   @override
-  String get changeAccessibleLimitedAssets => 'Erişilebilir dosyaları güncellemek için tıklayın';
+  String get changeAccessibleLimitedAssets => 'Erişilebilir dosyaları güncellemek için dokunun';
   @override
   String get accessAllTip =>
-      'Uygulama yalnızca cihazdaki bazı dosyalara erişebilir. Sistem ayarlarına gidin ve uygulamanın cihazdaki tüm medyalara erişmesine izin verin.';
+      'Uygulama cihazdaki dosyaların yalnızca bir kısmına erişebiliyor. Tüm medyaya erişim izni vermek için sistem ayarlarına gidin.';
   @override
-  String get goToSystemSettings => 'Sistem ayarlarına gidin';
+  String get goToSystemSettings => 'Sistem ayarlarına git';
   @override
-  String get accessLimitedAssets => 'Sınırlı Erişimle Devam Et';
+  String get accessLimitedAssets => 'Sınırlı erişimle devam et';
   @override
   String get accessiblePathName => 'Erişilebilir dosyalar';
   @override
   String get sTypeAudioLabel => 'Ses';
   @override
-  String get sTypeImageLabel => 'Görüntü';
+  String get sTypeImageLabel => 'Görsel';
   @override
   String get sTypeVideoLabel => 'Video';
   @override
@@ -743,17 +830,17 @@ class _Translations$assetPicker$tr extends Translations$assetPicker$en {
   @override
   String get sActionPlayHint => 'oynat';
   @override
-  String get sActionPreviewHint => 'Ön izleme';
+  String get sActionPreviewHint => 'önizle';
   @override
   String get sActionSelectHint => 'seç';
   @override
-  String get sActionSwitchPathLabel => 'dosya uzantısını değiştir';
+  String get sActionSwitchPathLabel => 'klasör değiştir';
   @override
-  String get sActionUseCameraHint => 'Kamera kullan';
+  String get sActionUseCameraHint => 'kamerayı kullan';
   @override
   String get sNameDurationLabel => 'süre';
   @override
-  String get sUnitAssetCountLabel => 'sayım';
+  String get sUnitAssetCountLabel => 'adet';
 }
 
 // Path: receiveTab.infoBox
@@ -768,7 +855,7 @@ class _Translations$receiveTab$infoBox$tr extends Translations$receiveTab$infoBo
   @override
   String get port => 'Port:';
   @override
-  String get alias => 'Takma isminiz:';
+  String get alias => 'Cihaz adı:';
 }
 
 // Path: receiveTab.quickSave
@@ -794,7 +881,7 @@ class _Translations$sendTab$selection$tr extends Translations$sendTab$selection$
 
   // Translations
   @override
-  String get title => 'Seçiminiz';
+  String get title => 'Seçilenler';
   @override
   String files({required Object files}) => 'Dosyalar: ${files}';
   @override
@@ -832,9 +919,9 @@ class _Translations$sendTab$sendModes$tr extends Translations$sendTab$sendModes$
   @override
   String get single => 'Tek alıcı';
   @override
-  String get multiple => 'Birden fazla alıcı';
+  String get multiple => 'Çoklu alıcı';
   @override
-  String get link => 'Link üzerinden paylaşın';
+  String get link => 'Bağlantıyla paylaş';
 }
 
 // Path: settingsTab.general
@@ -861,17 +948,26 @@ class _Translations$settingsTab$general$tr extends Translations$settingsTab$gene
   @override
   late final _Translations$settingsTab$general$languageOptions$tr languageOptions = _Translations$settingsTab$general$languageOptions$tr._(_root);
   @override
-  String get saveWindowPlacement => 'Çıkış: Burayı Kaydet';
+  String get saveWindowPlacement => 'Uygulamadan çıkınca pencere konumunu kaydet';
   @override
-  String get saveWindowPlacementWindows => 'Çıkıştan sonra pencere konumunu kaydet';
+  String get saveWindowPlacementWindows => 'Çıkışta pencere konumunu kaydet';
   @override
-  String get minimizeToTray => 'Çıkış: Simge durumuna küçült';
+  String get alwaysOnTop => 'Her zaman üstte tut';
   @override
-  String get launchAtStartup => 'Giriş yapıldıktan sonra otomatik başlat';
+  String get alwaysOnTopUnavailable => 'Wayland\'de desteklenmiyor';
   @override
-  String get launchMinimized => 'Otomatik başlatma: Gizli Başlatma';
+  String get minimizeToTray => 'Kapatırken sistem tepsisine/menü çubuğuna küçült';
   @override
-  String get showInContextMenu => 'LocalSend\'i bağlam menüsünde göster';
+  String get launchAtStartup => 'Oturum açılışında otomatik başlat';
+  @override
+  String get launchMinimized => 'Otomatik başlatma: Gizli başlat';
+  @override
+  String get showInContextMenu => 'Sağ tık menüsünde LocalSend\'i göster';
+  @override
+  String get softwareRendering => 'Yazılımsal işleme';
+  @override
+  String get softwareRenderingDescription =>
+      'Pencere boş kalıyor, bozuk görünüyor veya açılışta kapanıyorsa kullanın. Yeniden başlatmadan sonra geçerli olur.';
   @override
   String get animations => 'Animasyonlar';
 }
@@ -884,7 +980,7 @@ class _Translations$settingsTab$receive$tr extends Translations$settingsTab$rece
 
   // Translations
   @override
-  String get title => 'Alım';
+  String get title => 'Alma';
   @override
   String get quickSave => _root.general.quickSave;
   @override
@@ -892,9 +988,9 @@ class _Translations$settingsTab$receive$tr extends Translations$settingsTab$rece
   @override
   String get requirePin => _root.webSharePage.requirePin;
   @override
-  String get autoFinish => 'Otomatik bitir';
+  String get autoFinish => 'Otomatik Bitir';
   @override
-  String get destination => 'Hedef klasör';
+  String get destination => 'Kaydedilecek klasör';
   @override
   String get downloads => '(İndirilenler)';
   @override
@@ -902,7 +998,7 @@ class _Translations$settingsTab$receive$tr extends Translations$settingsTab$rece
   @override
   String get saveToHistory => 'Geçmişe kaydet';
   @override
-  String get verifyChecksums => 'Dosyaları alırken sağlama toplamlarını doğrula';
+  String get verifyChecksums => 'Dosya alırken sağlama toplamını (checksum) doğrula';
 }
 
 // Path: settingsTab.send
@@ -913,11 +1009,11 @@ class _Translations$settingsTab$send$tr extends Translations$settingsTab$send$en
 
   // Translations
   @override
-  String get title => 'Gönder';
+  String get title => 'Gönderme';
   @override
-  String get shareViaLinkAutoAccept => 'Link aracılığıyla paylaş: Otomatik olarak kabul et';
+  String get shareViaLinkAutoAccept => '"Bağlantıyla paylaş" modunda istekleri otomatik kabul et';
   @override
-  String get createChecksums => 'Dosya gönderirken sağlama toplamlarını oluştur';
+  String get createChecksums => 'Dosya gönderirken sağlama toplamı (checksum) oluştur';
 }
 
 // Path: settingsTab.network
@@ -930,13 +1026,13 @@ class _Translations$settingsTab$network$tr extends Translations$settingsTab$netw
   @override
   String get title => 'Ağ';
   @override
-  String get needRestart => 'Ayarları uygulamak için sunucuyu yeniden başlatınız!';
+  String get needRestart => 'Ayarların geçerli olması için sunucuyu yeniden başlatın!';
   @override
   String get server => 'Sunucu';
   @override
-  String get alias => 'Takma isminiz';
+  String get alias => 'Cihaz adı';
   @override
-  String get deviceType => 'Cihaz tipi';
+  String get deviceType => 'Cihaz türü';
   @override
   String get deviceModel => 'Cihaz modeli';
   @override
@@ -946,21 +1042,21 @@ class _Translations$settingsTab$network$tr extends Translations$settingsTab$netw
   @override
   late final _Translations$settingsTab$network$networkOptions$tr networkOptions = _Translations$settingsTab$network$networkOptions$tr._(_root);
   @override
-  String get discoveryTimeout => 'Arama zaman aşımına uğradı';
+  String get discoveryTimeout => 'Keşif zaman aşımı';
   @override
   String get useSystemName => 'Sistem adını kullan';
   @override
-  String get generateRandomAlias => 'Rastgele takma ad oluştur';
+  String get generateRandomAlias => 'Rastgele ad oluştur';
   @override
   String portWarning({required Object defaultPort}) =>
-      'Kişiselleştirilmiş bir port kullanıyorsanız ağınızdaki diğer cihazlar tarafından bulunamayabilirsiniz. (varsayılan: ${defaultPort})';
+      'Özel bir port kullandığınız için diğer cihazlar sizi göremeyebilir. (varsayılan: ${defaultPort})';
   @override
   String get encryption => 'Şifreleme';
   @override
-  String get multicastGroup => 'Çoklu yayın';
+  String get multicastGroup => 'Multicast adresi';
   @override
   String multicastGroupWarning({required Object defaultMulticast}) =>
-      'Özel çoklu yayın adresini kullandığınız için diğer cihazlar tarafından algılanamayabilirsiniz.(varsayılan: ${defaultMulticast})';
+      'Özel bir multicast adresi kullandığınız için diğer cihazlar sizi göremeyebilir. (varsayılan: ${defaultMulticast})';
 }
 
 // Path: settingsTab.other
@@ -973,13 +1069,13 @@ class _Translations$settingsTab$other$tr extends Translations$settingsTab$other$
   @override
   String get title => 'Diğer';
   @override
-  String get support => 'LocalSend\'i destekle';
+  String get support => 'LocalSend\'i Destekle';
   @override
-  String get donate => 'Bağış yap';
+  String get donate => 'Bağış Yap';
   @override
-  String get privacyPolicy => 'Gizlilik politikası';
+  String get privacyPolicy => 'Gizlilik Politikası';
   @override
-  String get termsOfUse => 'Kullanım koşulları';
+  String get termsOfUse => 'Kullanım Koşulları';
 }
 
 // Path: troubleshootPage.firewall
@@ -990,10 +1086,10 @@ class _Translations$troubleshootPage$firewall$tr extends Translations$troublesho
 
   // Translations
   @override
-  String get symptom => 'Bu uygulama diğer cihazlara dosya gönderebilir, ancak diğer cihazlar bu cihaza dosya gönderemez.';
+  String get symptom => 'Bu cihaz diğer cihazlara dosya gönderebiliyor ama diğer cihazlar bu cihaza dosya gönderemiyor.';
   @override
   String solution({required Object port}) =>
-      'Bu büyük olasılıkla bir güvenlik duvarı sorunudur. Port ${port} \'da gelen bağlantılara (UDP ve TCP) izin vererek bunu çözebilirsiniz.';
+      'Büyük ihtimalle güvenlik duvarından kaynaklanıyor. ${port} numaralı portta gelen bağlantılara (UDP ve TCP) izin vererek bu sorunu çözebilirsiniz.';
   @override
   String get openFirewall => 'Güvenlik Duvarını Aç';
 }
@@ -1006,10 +1102,10 @@ class _Translations$troubleshootPage$noDiscovery$tr extends Translations$trouble
 
   // Translations
   @override
-  String get symptom => 'Bu cihaz diğer cihazları keşfedemez.';
+  String get symptom => 'Bu cihaz diğer cihazları bulamıyor.';
   @override
   String get solution =>
-      'Lütfen tüm cihazların aynı Wi-Fi ağında olduğundan ve aynı yapılandırmayı (bağlantı noktası, çok noktaya yayın adresi, şifreleme) paylaştığından emin olun. Hedef cihazın IP adresini manuel olarak yazmayı deneyebilirsiniz. Bu işe yararsa, gelecekte otomatik olarak keşfedilebilmesi için bu cihazı favorilere eklemeyi düşünün.';
+      'Lütfen tüm cihazların aynı Wi-Fi ağında olduğundan ve aynı ayarları (port, multicast adresi, şifreleme) kullandığından emin olun. Hedef cihazın IP adresini elle girmeyi de deneyebilirsiniz. Bu yöntem işe yararsa, ileride otomatik olarak bulunabilmesi için cihazı favorilerinize ekleyebilirsiniz.';
 }
 
 // Path: troubleshootPage.noConnection
@@ -1020,10 +1116,10 @@ class _Translations$troubleshootPage$noConnection$tr extends Translations$troubl
 
   // Translations
   @override
-  String get symptom => 'Her iki cihaz da birbirini keşfedemez ve dosya paylaşamazlar.';
+  String get symptom => 'Cihazlar ne birbirini bulabiliyor ne de dosya paylaşabiliyor.';
   @override
   String get solution =>
-      'Sorun her iki tarafta da var mı? O zaman her iki cihazın da aynı WiFi ağında olduğundan ve aynı yapılandırmayı (bağlantı noktası, çoklu yayın adresi, şifreleme) paylaştığından emin olmanız gerekir. WiFi, katılımcılar arasında iletişime izin vermeyebilir. Bu durumda, bu seçenek yönlendiricide etkinleştirilmelidir.';
+      'Sorun her iki tarafta da mı yaşanıyor? Öyleyse her iki cihazın da aynı Wi-Fi ağında olduğundan ve aynı ayarları (port, multicast adresi, şifreleme) kullandığından emin olun. Wi-Fi ağınız, Erişim Noktası (AP) İzolasyonu nedeniyle cihazlar arası iletişimi engelliyor olabilir. Bu durumda yönlendirici (modem/router) ayarlarından bu özelliği kapatmanız gerekir.';
 }
 
 // Path: receiveHistoryPage.entryActions
@@ -1034,11 +1130,11 @@ class _Translations$receiveHistoryPage$entryActions$tr extends Translations$rece
 
   // Translations
   @override
-  String get open => 'Dosya aç';
+  String get open => 'Dosyayı aç';
   @override
   String get showInFolder => 'Klasörde göster';
   @override
-  String get info => 'Bilgi';
+  String get info => 'Bilgiler';
   @override
   String get deleteFromHistory => 'Geçmişten sil';
 }
@@ -1053,11 +1149,34 @@ class _Translations$deviceDetailsPage$info$tr extends Translations$deviceDetails
   @override
   String get name => 'Ad';
   @override
-  String get address => 'Adres';
-  @override
   String get version => 'Sürüm';
   @override
   String protocol({required Object version}) => 'Protokol v${version}';
+}
+
+// Path: deviceDetailsPage.channels
+class _Translations$deviceDetailsPage$channels$tr extends Translations$deviceDetailsPage$channels$en {
+  _Translations$deviceDetailsPage$channels$tr._(TranslationsTr root) : this._root = root, super.internal(root);
+
+  final TranslationsTr _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Kanallar';
+  @override
+  String get you => 'Siz';
+  @override
+  String get outgoing => 'Giden';
+  @override
+  String get incoming => 'Gelen';
+  @override
+  String get works => 'Çalışıyor';
+  @override
+  String get notTested => 'Test edilmedi';
+  @override
+  String get failed => 'Başarısız';
+  @override
+  String get notSeen => 'Görülmedi';
 }
 
 // Path: deviceDetailsPage.logs
@@ -1068,13 +1187,18 @@ class _Translations$deviceDetailsPage$logs$tr extends Translations$deviceDetails
 
   // Translations
   @override
-  String get title => 'Günlükler';
+  String get title => 'Kayıtlar';
   @override
-  String get empty => 'Kullanılabilir günlük yok.';
+  String get empty => 'Henüz kayıt yok.';
   @override
-  String discovered({required Object protocol, required Object host}) => '${protocol} üzerinden keşfedildi (${host})';
+  String outbound({required Object protocol, required Object host}) => '${protocol} üzerinden ulaşıldı (${host})';
   @override
-  String updated({required Object protocol, required Object host}) => '${protocol} üzerinden güncellendi (${host})';
+  String outboundFailed({required Object protocol, required Object host, required Object error}) =>
+      '${protocol} üzerinden ulaşılamadı (${host}): ${error}';
+  @override
+  String inbound({required Object protocol, required Object host}) => 'Bize ${protocol} üzerinden ulaştı (${host})';
+  @override
+  String multicastInbound({required Object host}) => 'Duyuru alındı (${host})';
 }
 
 // Path: progressPage.total
@@ -1091,7 +1215,7 @@ class _Translations$progressPage$total$tr extends Translations$progressPage$tota
   @override
   String size({required Object curr, required Object n}) => 'Boyut: ${curr} / ${n}';
   @override
-  String speed({required Object speed}) => 'Hız: ${speed}/s';
+  String speed({required Object speed}) => 'Hız: ${speed}/sn';
 }
 
 // Path: progressPage.remainingTime
@@ -1104,12 +1228,12 @@ class _Translations$progressPage$remainingTime$tr extends Translations$progressP
   @override
   String minutesUnit({required num m}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('tr'))(
     m,
-    other: '${m}dk',
+    other: '${m} dk',
   );
   @override
   String hoursUnit({required num h}) => (_root.$meta.cardinalResolver ?? PluralResolvers.cardinal('tr'))(
     h,
-    other: '${h}sa',
+    other: '${h} sa',
   );
   @override
   String minutes({required Object m, required Object ss}) => '${m}:${ss}';
@@ -1139,7 +1263,7 @@ class _Translations$dialogs$addFile$tr extends Translations$dialogs$addFile$en {
   @override
   String get title => 'Seçime ekle';
   @override
-  String get content => 'Ne eklemek istiyorsunuz ?';
+  String get content => 'Ne eklemek istersiniz?';
 }
 
 // Path: dialogs.openFile
@@ -1150,9 +1274,9 @@ class _Translations$dialogs$openFile$tr extends Translations$dialogs$openFile$en
 
   // Translations
   @override
-  String get title => 'Dosya Aç';
+  String get title => 'Dosyayı aç';
   @override
-  String get content => 'Alınan dosyayı açmak istiyor musunuz?';
+  String get content => 'Gelen dosyayı açmak istiyor musunuz?';
 }
 
 // Path: dialogs.addressInput
@@ -1163,13 +1287,13 @@ class _Translations$dialogs$addressInput$tr extends Translations$dialogs$address
 
   // Translations
   @override
-  String get title => 'Adresi giriniz';
+  String get title => 'Adres girin';
   @override
   String get hashtag => 'Hashtag';
   @override
-  String get ip => 'IP adresi';
+  String get ip => 'IP Adresi';
   @override
-  String get recentlyUsed => 'Daha önce kullanılmış: ';
+  String get recentlyUsed => 'Son kullanılanlar: ';
 }
 
 // Path: dialogs.cancelSession
@@ -1180,9 +1304,9 @@ class _Translations$dialogs$cancelSession$tr extends Translations$dialogs$cancel
 
   // Translations
   @override
-  String get title => 'Dosya transferini iptal et';
+  String get title => 'Dosya aktarımını iptal et';
   @override
-  String get content => 'Gerçekten dosya transferini iptal etmek istiyor musunuz?';
+  String get content => 'Dosya aktarımını iptal etmek istediğinizden emin misiniz?';
 }
 
 // Path: dialogs.cannotOpenFile
@@ -1193,9 +1317,9 @@ class _Translations$dialogs$cannotOpenFile$tr extends Translations$dialogs$canno
 
   // Translations
   @override
-  String get title => 'Dosya açılamadı';
+  String get title => 'Dosya açılamıyor';
   @override
-  String content({required Object file}) => '"${file}" dosyası açılamadı. Dosya taşınmış, silinmiş veya ismi değiştirilmiş olabilir mi?';
+  String content({required Object file}) => '"${file}" açılamadı. Dosya taşınmış, yeniden adlandırılmış veya silinmiş olabilir mi?';
 }
 
 // Path: dialogs.encryptionDisabledNotice
@@ -1206,10 +1330,10 @@ class _Translations$dialogs$encryptionDisabledNotice$tr extends Translations$dia
 
   // Translations
   @override
-  String get title => 'Şifreleme devre dışı bırakıldı';
+  String get title => 'Şifreleme devre dışı';
   @override
   String get content =>
-      'Artık iletişim şifrelenmemiş HTTP protokolü aracılığıyla gerçekleşiyor. HTTPS protokolünü kullanmak için şifrelemeyi yeniden aktif edin.';
+      'İletişim artık şifrelenmemiş HTTP protokolü üzerinden gerçekleşiyor. HTTPS protokolünü kullanmak için şifrelemeyi tekrar açın.';
 }
 
 // Path: dialogs.errorDialog
@@ -1233,7 +1357,7 @@ class _Translations$dialogs$favoriteDialog$tr extends Translations$dialogs$favor
   @override
   String get title => 'Favoriler';
   @override
-  String get noFavorites => 'Henüz favori cihaz yok.';
+  String get noFavorites => 'Henüz favori cihazınız yok.';
   @override
   String get addFavorite => 'Ekle';
 }
@@ -1248,7 +1372,7 @@ class _Translations$dialogs$favoriteDeleteDialog$tr extends Translations$dialogs
   @override
   String get title => 'Favorilerden sil';
   @override
-  String content({required Object name}) => 'Favorilerden "${name}" öğesini gerçekten silmek istiyor musunuz?';
+  String content({required Object name}) => '"${name}" cihazını favorilerden silmek istediğinizden emin misiniz?';
 }
 
 // Path: dialogs.favoriteEditDialog
@@ -1261,15 +1385,17 @@ class _Translations$dialogs$favoriteEditDialog$tr extends Translations$dialogs$f
   @override
   String get titleAdd => 'Favorilere ekle';
   @override
-  String get titleEdit => 'Düzenle';
+  String get titleEdit => 'Ayarlar';
   @override
-  String get name => 'Takma ad';
+  String get name => 'Cihaz adı';
   @override
   String get auto => '(otomatik)';
   @override
   String get ip => 'IP Adresi';
   @override
   String get port => 'Port';
+  @override
+  String get invalidPort => '1 ile 65535 arasında bir tam sayı girin.';
 }
 
 // Path: dialogs.fileInfo
@@ -1284,9 +1410,9 @@ class _Translations$dialogs$fileInfo$tr extends Translations$dialogs$fileInfo$en
   @override
   String get fileName => 'Dosya adı:';
   @override
-  String get path => 'Yolu:';
+  String get path => 'Dosya yolu:';
   @override
-  String get size => 'Boyutu:';
+  String get size => 'Boyut:';
   @override
   String get sender => 'Gönderen:';
   @override
@@ -1301,9 +1427,9 @@ class _Translations$dialogs$fileNameInput$tr extends Translations$dialogs$fileNa
 
   // Translations
   @override
-  String get title => 'Dosya adını giriniz';
+  String get title => 'Dosya adını girin';
   @override
-  String original({required Object original}) => 'Orijinal: ${original}';
+  String original({required Object original}) => 'Orijinali: ${original}';
 }
 
 // Path: dialogs.historyClearDialog
@@ -1316,7 +1442,7 @@ class _Translations$dialogs$historyClearDialog$tr extends Translations$dialogs$h
   @override
   String get title => 'Geçmişi temizle';
   @override
-  String get content => 'Gerçekten tüm geçmişi silmek istiyor musunuz?';
+  String get content => 'Tüm geçmişi temizlemek istediğinizden emin misiniz?';
 }
 
 // Path: dialogs.localNetworkUnauthorized
@@ -1329,7 +1455,7 @@ class _Translations$dialogs$localNetworkUnauthorized$tr extends Translations$dia
   @override
   String get title => _root.dialogs.noPermission.title;
   @override
-  String get description => 'LocalSend, lokal ağı tarama iznine sahip olmadan başka cihazları bulamıyor. Lütfen bu izni ayarlarda verin.';
+  String get description => 'LocalSend, yerel ağı tarama izni olmadan diğer cihazları bulamaz. Lütfen ayarlardan bu izni verin.';
   @override
   String get gotoSettings => 'Ayarlar';
 }
@@ -1342,9 +1468,9 @@ class _Translations$dialogs$messageInput$tr extends Translations$dialogs$message
 
   // Translations
   @override
-  String get title => 'Mesaj yazınız';
+  String get title => 'Mesaj yazın';
   @override
-  String get multiline => 'Çok satırlı mesaj';
+  String get multiline => 'Çok satırlı';
 }
 
 // Path: dialogs.noFiles
@@ -1355,9 +1481,9 @@ class _Translations$dialogs$noFiles$tr extends Translations$dialogs$noFiles$en {
 
   // Translations
   @override
-  String get title => 'Herhangi bir dosya seçilmedi';
+  String get title => 'Dosya seçilmedi';
   @override
-  String get content => 'Lütfen bir dosya seçiniz.';
+  String get content => 'Lütfen en az bir dosya seçin.';
 }
 
 // Path: dialogs.noPermission
@@ -1370,7 +1496,7 @@ class _Translations$dialogs$noPermission$tr extends Translations$dialogs$noPermi
   @override
   String get title => 'İzin yok';
   @override
-  String get content => 'Gerekli izinleri vermediniz. Lütfen ayarlardan izinleri verin.';
+  String get content => 'Gerekli izinleri vermediniz. Lütfen ayarlardan gerekli izinleri verin.';
 }
 
 // Path: dialogs.notAvailableOnPlatform
@@ -1381,9 +1507,9 @@ class _Translations$dialogs$notAvailableOnPlatform$tr extends Translations$dialo
 
   // Translations
   @override
-  String get title => 'Müsait değil';
+  String get title => 'Kullanılamıyor';
   @override
-  String get content => 'Bu özellik yalnızca şurada mevcuttur:';
+  String get content => 'Bu özellik yalnızca şu platformlarda kullanılabilir:';
 }
 
 // Path: dialogs.qr
@@ -1394,7 +1520,7 @@ class _Translations$dialogs$qr$tr extends Translations$dialogs$qr$en {
 
   // Translations
   @override
-  String get title => 'QR Kod';
+  String get title => 'QR Kodu';
 }
 
 // Path: dialogs.quickActions
@@ -1405,15 +1531,15 @@ class _Translations$dialogs$quickActions$tr extends Translations$dialogs$quickAc
 
   // Translations
   @override
-  String get title => 'Hızlı eylemler';
+  String get title => 'Hızlı İşlemler';
   @override
   String get counter => 'Sayaç';
   @override
   String get prefix => 'Ön ek';
   @override
-  String get padZero => 'Sıfırlar ile doldurun';
+  String get padZero => 'Başına sıfır ekle';
   @override
-  String get sortBeforeCount => 'Önceden alfabetik olarak sırala';
+  String get sortBeforeCount => 'Öncesinde alfabetik sırala (A-Z)';
   @override
   String get random => 'Rastgele';
 }
@@ -1428,8 +1554,7 @@ class _Translations$dialogs$quickSaveNotice$tr extends Translations$dialogs$quic
   @override
   String get title => _root.general.quickSave;
   @override
-  String get content =>
-      'Dosya gönderim istekleri otomatik olarak gerçekleşir. Yerel ağınızdaki herkesin size dosya gönderebileceğinin farkında olunuz.';
+  String get content => 'Gelen dosya istekleri artık otomatik olarak kabul edilecek. Yerel ağdaki herkesin size dosya gönderebileceğini unutmayın.';
 }
 
 // Path: dialogs.quickSaveFromFavoritesNotice
@@ -1443,7 +1568,7 @@ class _Translations$dialogs$quickSaveFromFavoritesNotice$tr extends Translations
   String get title => _root.general.quickSaveFromFavorites;
   @override
   List<String> get content => [
-    'Favoriler listenizdeki cihazların paylaşım istekleri otomatik olarak kabul edilecektir.',
+    'Favori listenizdeki cihazlardan gelen dosya istekleri artık otomatik olarak kabul edilecek.',
   ];
 }
 
@@ -1455,7 +1580,7 @@ class _Translations$dialogs$pin$tr extends Translations$dialogs$pin$en {
 
   // Translations
   @override
-  String get title => 'PIN girin';
+  String get title => 'PIN\'i girin';
 }
 
 // Path: dialogs.sendModeHelp
@@ -1466,13 +1591,13 @@ class _Translations$dialogs$sendModeHelp$tr extends Translations$dialogs$sendMod
 
   // Translations
   @override
-  String get title => 'Gönderme Modu';
+  String get title => 'Gönderim modları';
   @override
-  String get single => 'Dosyaları bir alıcıya gönderir. Seçim, bitmiş dosya aktarımından sonra temizlenir.';
+  String get single => 'Dosyaları tek bir alıcıya gönderir. Aktarım tamamlandıktan sonra seçilen dosyalar temizlenir.';
   @override
-  String get multiple => 'Dosyaları birden çok alıcıya gönderir. Seçim temizlenmeyecektir.';
+  String get multiple => 'Dosyaları birden fazla alıcıya gönderir. Aktarım tamamlandıktan sonra seçilen dosyalar listede kalır.';
   @override
-  String get link => 'LocalSend yüklü olmayan alıcılar, tarayıcılarındaki bağlantıyı açarak seçilen dosyaları indirebilir.';
+  String get link => 'LocalSend yüklü olmayan kişiler, verilen bağlantıyı tarayıcılarında açarak seçili dosyaları indirebilir.';
 }
 
 // Path: dialogs.zoom
@@ -1494,7 +1619,7 @@ class _Translations$settingsTab$general$brightnessOptions$tr extends Translation
 
   // Translations
   @override
-  String get system => 'Sistem teması';
+  String get system => 'Sistem';
   @override
   String get dark => 'Koyu';
   @override
@@ -1524,7 +1649,7 @@ class _Translations$settingsTab$general$languageOptions$tr extends Translations$
 
   // Translations
   @override
-  String get system => 'Sistem dili';
+  String get system => 'Sistem';
 }
 
 // Path: settingsTab.network.networkOptions
@@ -1550,11 +1675,11 @@ class _Translations$progressPage$total$title$tr extends Translations$progressPag
   @override
   String sending({required Object time}) => 'Toplam ilerleme (${time})';
   @override
-  String get finishedError => 'İşlem hatayla sonuçlandı';
+  String get finishedError => 'Hata ile sonuçlandı';
   @override
-  String get canceledSender => 'Gönderici tarafından iptal edildi';
+  String get canceledSender => 'Gönderici iptal etti';
   @override
-  String get canceledReceiver => 'Alıcı tarafından iptal edildi';
+  String get canceledReceiver => 'Alıcı iptal etti';
 }
 
 // Path: whatsNewPage.changes.v1_18_0
@@ -1566,8 +1691,8 @@ class _Translations$whatsNewPage$changes$v1_18_0$tr extends Translations$whatsNe
   // Translations
   @override
   List<String> get changes => [
-    'Şifreleme artık aktarımları yavaşlatmıyor. Daha önce bu özelliği devre dışı bıraktıysanız, bu aygıtta yeniden etkinleştirildi.',
-    'Favorilerden gelen istekler artık otomatik olarak kabul ediliyor. Bu özellik varsayılan olarak etkindir ve ayarlardan devre dışı bırakılabilir.',
-    'Android\'de, uygulama arka planda çalışırken veya ekran kapalıyken aktarımlar devam eder. iOS\'ta ise uygulamanın ön planda kalması gerekir.',
+    'Şifreleme artık aktarımları yavaşlatmıyor. Daha önce kapattıysanız bu cihazda yeniden etkinleştirildi.',
+    'Favorilerden gelen istekler artık otomatik olarak kabul ediliyor. Bu özellik varsayılan olarak açıktır; dilerseniz ayarlardan kapatabilirsiniz.',
+    'Android\'de uygulama arka plandayken ya da ekran kapalıyken bile aktarımlar devam eder. iOS\'te ise uygulamanın ön planda kalması gerekir.',
   ];
 }

@@ -364,6 +364,8 @@ class _Translations$deviceDetailsPage$ca extends Translations$deviceDetailsPage$
   @override
   late final _Translations$deviceDetailsPage$info$ca info = _Translations$deviceDetailsPage$info$ca._(_root);
   @override
+  late final _Translations$deviceDetailsPage$channels$ca channels = _Translations$deviceDetailsPage$channels$ca._(_root);
+  @override
   late final _Translations$deviceDetailsPage$logs$ca logs = _Translations$deviceDetailsPage$logs$ca._(_root);
 }
 
@@ -951,6 +953,10 @@ class _Translations$settingsTab$general$ca extends Translations$settingsTab$gene
   @override
   String get saveWindowPlacementWindows => 'Desa la posició de la finestra després de sortir';
   @override
+  String get alwaysOnTop => 'Sempre al davant';
+  @override
+  String get alwaysOnTopUnavailable => 'No és compatible amb Wayland';
+  @override
   String get minimizeToTray => 'Minimitza a la safata del sistema/barra de menú en tancar';
   @override
   String get launchAtStartup => 'Inici automàtic en iniciar la sessió';
@@ -958,6 +964,11 @@ class _Translations$settingsTab$general$ca extends Translations$settingsTab$gene
   String get launchMinimized => 'Inici automàtic: Inici minimitzat';
   @override
   String get showInContextMenu => 'Mostra el LocalSend al menú contextual';
+  @override
+  String get softwareRendering => 'Renderització per programari';
+  @override
+  String get softwareRenderingDescription =>
+      'Utilitzeu-ho si la finestra es queda en blanc, presenta errors gràfics o es tanca en iniciar. S\'aplica després de reiniciar.';
   @override
   String get animations => 'Animacions';
 }
@@ -1139,11 +1150,34 @@ class _Translations$deviceDetailsPage$info$ca extends Translations$deviceDetails
   @override
   String get name => 'Nom';
   @override
-  String get address => 'Adreça';
-  @override
   String get version => 'Versió';
   @override
   String protocol({required Object version}) => 'Protocol v${version}';
+}
+
+// Path: deviceDetailsPage.channels
+class _Translations$deviceDetailsPage$channels$ca extends Translations$deviceDetailsPage$channels$en {
+  _Translations$deviceDetailsPage$channels$ca._(TranslationsCa root) : this._root = root, super.internal(root);
+
+  final TranslationsCa _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Canals';
+  @override
+  String get you => 'Vós';
+  @override
+  String get outgoing => 'Sortint';
+  @override
+  String get incoming => 'Entrant';
+  @override
+  String get works => 'Funciona';
+  @override
+  String get notTested => 'No provat';
+  @override
+  String get failed => 'Ha fallat';
+  @override
+  String get notSeen => 'No vist';
 }
 
 // Path: deviceDetailsPage.logs
@@ -1158,9 +1192,14 @@ class _Translations$deviceDetailsPage$logs$ca extends Translations$deviceDetails
   @override
   String get empty => 'No hi ha registres disponibles.';
   @override
-  String discovered({required Object protocol, required Object host}) => 'Descobert mitjançant ${protocol} (${host})';
+  String outbound({required Object protocol, required Object host}) => 'Contactat mitjançant ${protocol} (${host})';
   @override
-  String updated({required Object protocol, required Object host}) => 'Actualitzat mitjançant ${protocol} (${host})';
+  String outboundFailed({required Object protocol, required Object host, required Object error}) =>
+      'No s\'ha pogut contactar mitjançant ${protocol} (${host}): ${error}';
+  @override
+  String inbound({required Object protocol, required Object host}) => 'Ens ha contactat mitjançant ${protocol} (${host})';
+  @override
+  String multicastInbound({required Object host}) => 'Anunci rebut (${host})';
 }
 
 // Path: progressPage.total
@@ -1355,6 +1394,8 @@ class _Translations$dialogs$favoriteEditDialog$ca extends Translations$dialogs$f
   String get ip => 'Adreça IP';
   @override
   String get port => 'Port';
+  @override
+  String get invalidPort => 'Introduïu un nombre enter entre 1 i 65535.';
 }
 
 // Path: dialogs.fileInfo

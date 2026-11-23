@@ -106,10 +106,14 @@
       },
       "saveWindowPlacement": "Thoát: Lưu vị trí cửa sổ hiển thị",
       "saveWindowPlacementWindows": "Lưu vị trí cửa sổ sau khi thoát ứng dụng",
+      "alwaysOnTop": "Luôn ở trên cùng",
+      "alwaysOnTopUnavailable": "Không hỗ trợ trên Wayland",
       "minimizeToTray": "Thoát: Ẩn xuống thanh tác vụ",
       "launchAtStartup": "Tự khởi động sau khi đăng nhập",
       "launchMinimized": "Tự khởi động: Khởi động ẩn",
       "showInContextMenu": "Hiển thị LocalSend ở danh mục",
+      "softwareRendering": "Kết xuất bằng phần mềm",
+      "softwareRenderingDescription": "Dùng nếu cửa sổ bị trắng, lỗi hiển thị hoặc tự đóng khi khởi động. Có hiệu lực sau khi khởi động lại.",
       "animations": "Hoạt ảnh"
     },
     "receive": {
@@ -212,15 +216,26 @@
     "verify": "Xác minh",
     "info": {
       "name": "Tên",
-      "address": "Địa chỉ",
       "version": "Phiên bản",
       "protocol": "Giao thức v{version}"
+    },
+    "channels": {
+      "title": "Kênh",
+      "you": "Bạn",
+      "outgoing": "Chiều đi",
+      "incoming": "Chiều đến",
+      "works": "Hoạt động",
+      "notTested": "Chưa thử",
+      "failed": "Thất bại",
+      "notSeen": "Chưa thấy"
     },
     "logs": {
       "title": "Nhật ký",
       "empty": "Không có nhật ký nào.",
-      "discovered": "Được phát hiện qua {protocol} ({host})",
-      "updated": "Được cập nhật qua {protocol} ({host})"
+      "outbound": "Đã kết nối qua {protocol} ({host})",
+      "outboundFailed": "Không thể kết nối qua {protocol} ({host}): {error}",
+      "inbound": "Thiết bị kia đã kết nối qua {protocol} ({host})",
+      "multicastInbound": "Đã nhận thông báo ({host})"
     }
   },
   "verifyPage": {
@@ -380,7 +395,8 @@
       "name": "Biệt danh",
       "auto": "(tự động)",
       "ip": "Địa chỉ IP",
-      "port": "Port"
+      "port": "Port",
+      "invalidPort": "Nhập số nguyên từ 1 đến 65535."
     },
     "fileInfo": {
       "title": "Thông tin tập tin",

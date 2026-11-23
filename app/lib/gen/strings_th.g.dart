@@ -363,6 +363,8 @@ class _Translations$deviceDetailsPage$th extends Translations$deviceDetailsPage$
   @override
   late final _Translations$deviceDetailsPage$info$th info = _Translations$deviceDetailsPage$info$th._(_root);
   @override
+  late final _Translations$deviceDetailsPage$channels$th channels = _Translations$deviceDetailsPage$channels$th._(_root);
+  @override
   late final _Translations$deviceDetailsPage$logs$th logs = _Translations$deviceDetailsPage$logs$th._(_root);
 }
 
@@ -951,6 +953,10 @@ class _Translations$settingsTab$general$th extends Translations$settingsTab$gene
   @override
   String get saveWindowPlacementWindows => 'บันทึกตำแหน่งหน้าต่างหลังจากออก';
   @override
+  String get alwaysOnTop => 'อยู่ด้านบนเสมอ';
+  @override
+  String get alwaysOnTopUnavailable => 'ไม่รองรับบน Wayland';
+  @override
   String get minimizeToTray => 'ย่อแอปไปยัง System Tray/แถบเมนูเมื่อปิดโปรแกรม';
   @override
   String get launchAtStartup => 'เริ่มอัตโนมัติหลังจากเข้าสู่ระบบ';
@@ -958,6 +964,10 @@ class _Translations$settingsTab$general$th extends Translations$settingsTab$gene
   String get launchMinimized => 'เริ่มอัตโนมัติ: ซ่อนโปรแกรมหลังจากเริ่ม';
   @override
   String get showInContextMenu => 'แสดง LocalSend ในเมนูคลิกขวา';
+  @override
+  String get softwareRendering => 'เรนเดอร์ด้วยซอฟต์แวร์';
+  @override
+  String get softwareRenderingDescription => 'ใช้เมื่อหน้าต่างว่างเปล่า แสดงผลผิดปกติ หรือปิดตัวเมื่อเริ่มต้น มีผลหลังจากเริ่มต้นใหม่';
   @override
   String get animations => 'ภาพเคลื่อนไหว';
 }
@@ -1139,11 +1149,34 @@ class _Translations$deviceDetailsPage$info$th extends Translations$deviceDetails
   @override
   String get name => 'ชื่อ';
   @override
-  String get address => 'ที่อยู่';
-  @override
   String get version => 'เวอร์ชัน';
   @override
   String protocol({required Object version}) => 'โปรโตคอล v${version}';
+}
+
+// Path: deviceDetailsPage.channels
+class _Translations$deviceDetailsPage$channels$th extends Translations$deviceDetailsPage$channels$en {
+  _Translations$deviceDetailsPage$channels$th._(TranslationsTh root) : this._root = root, super.internal(root);
+
+  final TranslationsTh _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'ช่องทาง';
+  @override
+  String get you => 'คุณ';
+  @override
+  String get outgoing => 'ขาออก';
+  @override
+  String get incoming => 'ขาเข้า';
+  @override
+  String get works => 'ใช้งานได้';
+  @override
+  String get notTested => 'ยังไม่ได้ทดสอบ';
+  @override
+  String get failed => 'ล้มเหลว';
+  @override
+  String get notSeen => 'ยังไม่พบ';
 }
 
 // Path: deviceDetailsPage.logs
@@ -1158,9 +1191,14 @@ class _Translations$deviceDetailsPage$logs$th extends Translations$deviceDetails
   @override
   String get empty => 'ไม่มีบันทึก';
   @override
-  String discovered({required Object protocol, required Object host}) => 'ค้นพบผ่าน ${protocol} (${host})';
+  String outbound({required Object protocol, required Object host}) => 'เชื่อมต่อสำเร็จผ่าน ${protocol} (${host})';
   @override
-  String updated({required Object protocol, required Object host}) => 'อัปเดตผ่าน ${protocol} (${host})';
+  String outboundFailed({required Object protocol, required Object host, required Object error}) =>
+      'ไม่สามารถเชื่อมต่อผ่าน ${protocol} (${host}): ${error}';
+  @override
+  String inbound({required Object protocol, required Object host}) => 'อีกฝ่ายเชื่อมต่อมาผ่าน ${protocol} (${host})';
+  @override
+  String multicastInbound({required Object host}) => 'ได้รับการประกาศ (${host})';
 }
 
 // Path: progressPage.total
@@ -1356,6 +1394,8 @@ class _Translations$dialogs$favoriteEditDialog$th extends Translations$dialogs$f
   String get ip => 'ที่อยู่ IP';
   @override
   String get port => 'พอร์ต';
+  @override
+  String get invalidPort => 'กรุณากรอกจำนวนเต็มระหว่าง 1 ถึง 65535';
 }
 
 // Path: dialogs.fileInfo

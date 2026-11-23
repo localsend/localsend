@@ -106,10 +106,14 @@
       },
       "saveWindowPlacement": "Ateratzean gorde lehioaren kokapena",
       "saveWindowPlacementWindows": "Irteeran leihoaren kokapena gorde",
+      "alwaysOnTop": "Beti gainean",
+      "alwaysOnTopUnavailable": "Ez da onartzen Wayland-en",
       "minimizeToTray": "Itxi: txikitu lehioa",
       "launchAtStartup": "Hasieratze automatikoa",
       "launchMinimized": "Hasieratze automatikoa: hasi txikituta",
       "showInContextMenu": "Erakutsi LocalSend testuinguru menuan",
+      "softwareRendering": "Software bidezko errendatzea",
+      "softwareRenderingDescription": "Erabili leihoa hutsik geratzen bada, akatsak baditu edo abiaraztean ixten bada. Berrabiarazi ondoren aplikatuko da.",
       "animations": "Animazioak"
     },
     "receive": {
@@ -212,15 +216,26 @@
     "verify": "Egiaztatu",
     "info": {
       "name": "Izena",
-      "address": "Helbidea",
       "version": "Bertsioa",
       "protocol": "Protokoloa v{version}"
+    },
+    "channels": {
+      "title": "Kanalak",
+      "you": "Zu",
+      "outgoing": "Irteerakoa",
+      "incoming": "Sarrerakoa",
+      "works": "Badabil",
+      "notTested": "Probatu gabe",
+      "failed": "Huts egin du",
+      "notSeen": "Ikusi gabe"
     },
     "logs": {
       "title": "Erregistroak",
       "empty": "Ez dago erregistrorik eskuragarri.",
-      "discovered": "{protocol} bidez aurkitua ({host})",
-      "updated": "{protocol} bidez eguneratua ({host})"
+      "outbound": "{protocol} bidez konektatuta ({host})",
+      "outboundFailed": "Ezin izan da {protocol} bidez konektatu ({host}): {error}",
+      "inbound": "Gurekin {protocol} bidez konektatu da ({host})",
+      "multicastInbound": "Iragarpena jasota ({host})"
     }
   },
   "verifyPage": {
@@ -380,7 +395,8 @@
       "name": "Aliasa",
       "auto": "(auto)",
       "ip": "IP Helbidea",
-      "port": "Portua"
+      "port": "Portua",
+      "invalidPort": "Sartu 1 eta 65535 arteko zenbaki oso bat."
     },
     "fileInfo": {
       "title": "Fitxategiari buruzko informazioa",

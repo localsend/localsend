@@ -106,10 +106,14 @@
       },
       "saveWindowPlacement": "Simpan kedudukan tetingkap selepas keluar",
       "saveWindowPlacementWindows": "Simpan kedudukan tetingkap selepas keluar",
+      "alwaysOnTop": "Sentiasa di atas",
+      "alwaysOnTopUnavailable": "Tidak disokong pada Wayland",
       "minimizeToTray": "Minimumkan ke dulang sistem/menu bar apabila menutup",
       "launchAtStartup": "Mula automatik selepas log masuk",
       "launchMinimized": "Mula automatik: Mula tersembunyi",
       "showInContextMenu": "Tunjukkan LocalSend dalam menu konteks",
+      "softwareRendering": "Pemaparan perisian",
+      "softwareRenderingDescription": "Gunakan jika tetingkap kekal kosong, bermasalah atau tertutup semasa dimulakan. Berkuat kuasa selepas dimulakan semula.",
       "animations": "Animasi"
     },
     "receive": {
@@ -212,15 +216,26 @@
     "verify": "Sahkan",
     "info": {
       "name": "Nama",
-      "address": "Alamat",
       "version": "Versi",
       "protocol": "Protokol v{version}"
+    },
+    "channels": {
+      "title": "Saluran",
+      "you": "Anda",
+      "outgoing": "Keluar",
+      "incoming": "Masuk",
+      "works": "Berfungsi",
+      "notTested": "Belum diuji",
+      "failed": "Gagal",
+      "notSeen": "Belum dikesan"
     },
     "logs": {
       "title": "Log",
       "empty": "Tiada log tersedia.",
-      "discovered": "Ditemui melalui {protocol} ({host})",
-      "updated": "Dikemas kini melalui {protocol} ({host})"
+      "outbound": "Dihubungi melalui {protocol} ({host})",
+      "outboundFailed": "Tidak dapat dihubungi melalui {protocol} ({host}): {error}",
+      "inbound": "Menghubungi kami melalui {protocol} ({host})",
+      "multicastInbound": "Pengumuman diterima ({host})"
     }
   },
   "verifyPage": {
@@ -447,7 +462,8 @@
       "name": "Nama peranti",
       "auto": "(auto)",
       "ip": "Alamat IP",
-      "port": "Port"
+      "port": "Port",
+      "invalidPort": "Masukkan nombor bulat antara 1 hingga 65535."
     },
     "fileInfo": {
       "title": "Maklumat fail",

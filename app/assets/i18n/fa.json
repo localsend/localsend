@@ -106,10 +106,14 @@
       },
       "saveWindowPlacement": "ذخیره موقعیت پنجره پس از خروج",
       "saveWindowPlacementWindows": "ذخیره موقعیت پنجره پس از خروج",
+      "alwaysOnTop": "همیشه در بالا",
+      "alwaysOnTopUnavailable": "در Wayland پشتیبانی نمی‌شود",
       "minimizeToTray": "ارسال برنامه به سیستم تری هنگام بستن",
       "launchAtStartup": "اجرای خودکار هنگام ورود به سیستم",
       "launchMinimized": "اجرای خودکار: اجرا به‌صورت پنجره پنهان",
       "showInContextMenu": "نمایش لوکال‌سند در منوی راست‌کلیک",
+      "softwareRendering": "رندر نرم‌افزاری",
+      "softwareRenderingDescription": "اگر پنجره هنگام اجرا خالی می‌ماند، دچار اختلال می‌شود یا بسته می‌شود، از این گزینه استفاده کنید. پس از راه‌اندازی مجدد اعمال می‌شود.",
       "animations": "پویانمایی‌ها"
     },
     "receive": {
@@ -212,15 +216,26 @@
     "verify": "تأیید هویت",
     "info": {
       "name": "نام",
-      "address": "آدرس",
       "version": "نسخه",
       "protocol": "پروتکل نسخه {version}"
+    },
+    "channels": {
+      "title": "کانال‌ها",
+      "you": "شما",
+      "outgoing": "خروجی",
+      "incoming": "ورودی",
+      "works": "کار می‌کند",
+      "notTested": "آزمایش نشده",
+      "failed": "ناموفق",
+      "notSeen": "دیده نشده"
     },
     "logs": {
       "title": "گزارش‌ها",
       "empty": "هیچ گزارشی موجود نیست.",
-      "discovered": "شناسایی شده از طریق {protocol} ({host})",
-      "updated": "به‌روزرسانی شده از طریق {protocol} ({host})"
+      "outbound": "از طریق {protocol} ({host}) در دسترس بود",
+      "outboundFailed": "از طریق {protocol} ({host}) در دسترس نبود: {error}",
+      "inbound": "از طریق {protocol} ({host}) به ما متصل شد",
+      "multicastInbound": "اعلان دریافت شد ({host})"
     }
   },
   "verifyPage": {
@@ -450,7 +465,8 @@
       "name": "نام دستگاه",
       "auto": "(خودکار)",
       "ip": "آدرس آی پی",
-      "port": "پورت"
+      "port": "پورت",
+      "invalidPort": "یک عدد صحیح بین 1 تا 65535 وارد کنید."
     },
     "fileInfo": {
       "title": "مشخصات فایل",

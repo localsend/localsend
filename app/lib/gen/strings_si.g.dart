@@ -361,6 +361,8 @@ class _Translations$deviceDetailsPage$si extends Translations$deviceDetailsPage$
   @override
   late final _Translations$deviceDetailsPage$info$si info = _Translations$deviceDetailsPage$info$si._(_root);
   @override
+  late final _Translations$deviceDetailsPage$channels$si channels = _Translations$deviceDetailsPage$channels$si._(_root);
+  @override
   late final _Translations$deviceDetailsPage$logs$si logs = _Translations$deviceDetailsPage$logs$si._(_root);
 }
 
@@ -866,6 +868,10 @@ class _Translations$settingsTab$general$si extends Translations$settingsTab$gene
   @override
   String get saveWindowPlacementWindows => 'පිටවීමෙන් පසු කවුළුවේ පිහිටීම සුරකින්න';
   @override
+  String get alwaysOnTop => 'සැමවිටම ඉහළින්';
+  @override
+  String get alwaysOnTopUnavailable => 'Wayland හි සහාය නොදක්වයි';
+  @override
   String get minimizeToTray => 'වසා දැමීමේදී System Tray/Menu Bar වෙත අවම කරන්න';
   @override
   String get launchAtStartup => 'පුරනය වීමෙන් පසු ස්වයංක්‍රීයව ආරම්භ කරන්න';
@@ -873,6 +879,11 @@ class _Translations$settingsTab$general$si extends Translations$settingsTab$gene
   String get launchMinimized => 'ස්වයංක්‍රීය ආරම්භය: සඟවා ආරම්භ කරන්න';
   @override
   String get showInContextMenu => 'Context මෙනුව තුළ LocalSend පෙන්වන්න';
+  @override
+  String get softwareRendering => 'මෘදුකාංග විදැහුම්කරණය';
+  @override
+  String get softwareRenderingDescription =>
+      'කවුළුව හිස්ව පවතී නම්, දෝෂ සහිතව පෙනේ නම් හෝ ආරම්භයේදීම වැසේ නම් භාවිතා කරන්න. නැවත ආරම්භ කිරීමෙන් පසු ක්‍රියාත්මක වේ.';
   @override
   String get animations => 'ඇනිමේශන්';
 }
@@ -1054,11 +1065,34 @@ class _Translations$deviceDetailsPage$info$si extends Translations$deviceDetails
   @override
   String get name => 'නම';
   @override
-  String get address => 'ලිපිනය';
-  @override
   String get version => 'අනුවාදය';
   @override
   String protocol({required Object version}) => 'නියමාවලිය v${version}';
+}
+
+// Path: deviceDetailsPage.channels
+class _Translations$deviceDetailsPage$channels$si extends Translations$deviceDetailsPage$channels$en {
+  _Translations$deviceDetailsPage$channels$si._(TranslationsSi root) : this._root = root, super.internal(root);
+
+  final TranslationsSi _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'නාලිකා';
+  @override
+  String get you => 'ඔබ';
+  @override
+  String get outgoing => 'පිටතට';
+  @override
+  String get incoming => 'ඇතුළට';
+  @override
+  String get works => 'ක්‍රියා කරයි';
+  @override
+  String get notTested => 'පරීක්ෂා කර නැත';
+  @override
+  String get failed => 'අසාර්ථකයි';
+  @override
+  String get notSeen => 'දැක නැත';
 }
 
 // Path: deviceDetailsPage.logs
@@ -1073,9 +1107,14 @@ class _Translations$deviceDetailsPage$logs$si extends Translations$deviceDetails
   @override
   String get empty => 'ලොග නොමැත.';
   @override
-  String discovered({required Object protocol, required Object host}) => '${protocol} හරහා සොයාගන්නා ලදී (${host})';
+  String outbound({required Object protocol, required Object host}) => '${protocol} (${host}) හරහා ළඟා විය';
   @override
-  String updated({required Object protocol, required Object host}) => '${protocol} හරහා යාවත්කාල කරන ලදී (${host})';
+  String outboundFailed({required Object protocol, required Object host, required Object error}) =>
+      '${protocol} (${host}) හරහා ළඟා විය නොහැකි විය: ${error}';
+  @override
+  String inbound({required Object protocol, required Object host}) => '${protocol} (${host}) හරහා අප වෙත ළඟා විය';
+  @override
+  String multicastInbound({required Object host}) => 'නිවේදනය ලැබුණි (${host})';
 }
 
 // Path: progressPage.total
@@ -1271,6 +1310,8 @@ class _Translations$dialogs$favoriteEditDialog$si extends Translations$dialogs$f
   String get ip => 'IP ලිපිනය';
   @override
   String get port => 'Port';
+  @override
+  String get invalidPort => '1 සහ 65535 අතර පූර්ණ සංඛ්‍යාවක් ඇතුලත් කරන්න.';
 }
 
 // Path: dialogs.fileInfo

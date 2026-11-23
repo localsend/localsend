@@ -11,5 +11,5 @@ import 'package:localsend_isolates/rust/frb_generated.dart';
 String sanitizeFileName({required String name}) => RustLib.instance.api.crateApiFilenameSanitizeFileName(name: name);
 
 /// Whether `name` is a legal file name on the current platform, i.e. whether
-/// [sanitize_file_name] would leave it untouched.
+/// [sanitize_file_name] would leave it untouched apart from NFC normalization.
 bool isValidFileName({required String name}) => RustLib.instance.api.crateApiFilenameIsValidFileName(name: name);

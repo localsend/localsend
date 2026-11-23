@@ -361,6 +361,8 @@ class _Translations$deviceDetailsPage$bg extends Translations$deviceDetailsPage$
   @override
   late final _Translations$deviceDetailsPage$info$bg info = _Translations$deviceDetailsPage$info$bg._(_root);
   @override
+  late final _Translations$deviceDetailsPage$channels$bg channels = _Translations$deviceDetailsPage$channels$bg._(_root);
+  @override
   late final _Translations$deviceDetailsPage$logs$bg logs = _Translations$deviceDetailsPage$logs$bg._(_root);
 }
 
@@ -865,6 +867,10 @@ class _Translations$settingsTab$general$bg extends Translations$settingsTab$gene
   @override
   String get saveWindowPlacementWindows => 'Запази позицията на прозореца след излизане';
   @override
+  String get alwaysOnTop => 'Винаги отгоре';
+  @override
+  String get alwaysOnTopUnavailable => 'Не се поддържа под Wayland';
+  @override
   String get minimizeToTray => 'Минимизирай в Системна област/Лента с менюта при затваряне';
   @override
   String get launchAtStartup => 'Автоматично стартиране след влизане';
@@ -872,6 +878,11 @@ class _Translations$settingsTab$general$bg extends Translations$settingsTab$gene
   String get launchMinimized => 'Автоматично стартиране: Стартирай скрито';
   @override
   String get showInContextMenu => 'Покажи LocalSend в контекстното меню';
+  @override
+  String get softwareRendering => 'Софтуерно изобразяване';
+  @override
+  String get softwareRenderingDescription =>
+      'Използвайте, ако прозорецът остава празен, работи с проблеми или се затваря при стартиране. Влиза в сила след рестартиране.';
   @override
   String get animations => 'Анимации';
 }
@@ -1054,11 +1065,34 @@ class _Translations$deviceDetailsPage$info$bg extends Translations$deviceDetails
   @override
   String get name => 'Име';
   @override
-  String get address => 'Адрес';
-  @override
   String get version => 'Версия';
   @override
   String protocol({required Object version}) => 'Протокол v${version}';
+}
+
+// Path: deviceDetailsPage.channels
+class _Translations$deviceDetailsPage$channels$bg extends Translations$deviceDetailsPage$channels$en {
+  _Translations$deviceDetailsPage$channels$bg._(TranslationsBg root) : this._root = root, super.internal(root);
+
+  final TranslationsBg _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Канали';
+  @override
+  String get you => 'Вие';
+  @override
+  String get outgoing => 'Изходяща';
+  @override
+  String get incoming => 'Входяща';
+  @override
+  String get works => 'Работи';
+  @override
+  String get notTested => 'Не е проверена';
+  @override
+  String get failed => 'Неуспешна';
+  @override
+  String get notSeen => 'Не е засечена';
 }
 
 // Path: deviceDetailsPage.logs
@@ -1073,9 +1107,14 @@ class _Translations$deviceDetailsPage$logs$bg extends Translations$deviceDetails
   @override
   String get empty => 'Няма налични дневници.';
   @override
-  String discovered({required Object protocol, required Object host}) => 'Открито чрез ${protocol} (${host})';
+  String outbound({required Object protocol, required Object host}) => 'Свързано чрез ${protocol} (${host})';
   @override
-  String updated({required Object protocol, required Object host}) => 'Обновено чрез ${protocol} (${host})';
+  String outboundFailed({required Object protocol, required Object host, required Object error}) =>
+      'Неуспешно свързване чрез ${protocol} (${host}): ${error}';
+  @override
+  String inbound({required Object protocol, required Object host}) => 'Входяща връзка чрез ${protocol} (${host})';
+  @override
+  String multicastInbound({required Object host}) => 'Получено обявяване (${host})';
 }
 
 // Path: progressPage.total
@@ -1271,6 +1310,8 @@ class _Translations$dialogs$favoriteEditDialog$bg extends Translations$dialogs$f
   String get ip => 'IP адрес';
   @override
   String get port => 'Порт';
+  @override
+  String get invalidPort => 'Въведете цяло число между 1 и 65535.';
 }
 
 // Path: dialogs.fileInfo

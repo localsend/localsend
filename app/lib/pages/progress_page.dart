@@ -86,7 +86,7 @@ class _ProgressPageState extends State<ProgressPage> with Refena {
         // enable() every 30s leaks inhibit locks that keep the screen awake indefinitely (issue #3209).
         _wakelockPlusTimer = Timer.periodic(const Duration(seconds: 30), (timer) {
           // an empty iterable (session already removed) also counts as finished
-          final finished = ref.read(fileTransferProvider).getStatuses(widget.sessionId).isFinishedOrSkipped;
+          final finished = ref.read(fileTransferProvider).getStatuses(widget.sessionId).isFinishedOrError;
           if (finished) {
             timer.cancel();
             try {
@@ -238,17 +238,13 @@ class _ProgressPageState extends State<ProgressPage> with Refena {
     final title = receiveSession != null ? t.progressPage.titleReceiving : t.progressPage.titleSending;
     final startTime = commonSessionState.startTime;
     final endTime = commonSessionState.endTime;
-    final int? speedInBytes;
-    if (startTime != null && currBytes >= 500 * 1024) {
-      speedInBytes = getFileSpeed(start: startTime, end: endTime ?? DateTime.now().millisecondsSinceEpoch, bytes: currBytes);
-
+    final speedInBytes = measureSpeed(startTime: startTime, endTime: endTime, bytes: currBytes);
+    if (speedInBytes != null) {
       final now = DateTime.now().millisecondsSinceEpoch;
       if (now - _lastRemainingTimeUpdate >= 1000) {
         _remainingTime = getRemainingTime(bytesPerSeconds: speedInBytes, remainingBytes: _totalBytes - currBytes, strings: notificationStrings);
         _lastRemainingTimeUpdate = now;
       }
-    } else {
-      speedInBytes = null;
     }
 
     final finishedCount = transferNotifier.getStatuses(widget.sessionId).where((s) => s == FileStatus.finished).length;

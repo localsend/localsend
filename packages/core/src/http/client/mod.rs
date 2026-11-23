@@ -49,6 +49,20 @@ pub enum ClientError {
     Cancelled,
 }
 
+impl ClientError {
+    /// Whether the request got no response: the connection could not be
+    /// established (refused, timed out, failed TLS handshake) or broke
+    /// before the peer answered.
+    ///
+    /// `false` for every error that leaves open whether the peer was
+    /// reached, and for a peer that answered with an error status or with a
+    /// body that could not be read: it was reached just as well as one that
+    /// answered properly.
+    pub fn is_unreachable(&self) -> bool {
+        matches!(self, ClientError::Reqwest(err) if !err.is_body() && !err.is_decode())
+    }
+}
+
 impl LsHttpClient {
     /// Creates a client for the given protocol version.
     ///
@@ -192,7 +206,16 @@ pub(super) fn upload_body(
     reqwest::Body::wrap_stream(stream)
 }
 
+/// Connect timeout of pinned clients, i.e. clients talking to a device the
+/// user has picked. It bounds connection setup only (TCP connect plus TLS
+/// handshake), so a dead address fails fast. Waiting for the receiver to
+/// accept and the upload itself are not limited by it.
+const PINNED_CONNECT_TIMEOUT: std::time::Duration = std::time::Duration::from_secs(5);
+
 /// Builds the reqwest client used for all outgoing requests.
+///
+/// Pinned clients (`expected_fingerprint` is set) get
+/// [`PINNED_CONNECT_TIMEOUT`]; unpinned ones keep reqwest's default.
 ///
 /// The TLS config is assembled by hand instead of using reqwest's own TLS
 /// options, because only a preconfigured [`rustls::ClientConfig`] can carry a
@@ -204,6 +227,27 @@ pub(super) fn create_reqwest_client(
     cert: &str,
     expected_fingerprint: Option<String>,
     timeout: Option<std::time::Duration>,
+) -> Result<reqwest::Client, ClientError> {
+    let connect_timeout = expected_fingerprint
+        .is_some()
+        .then_some(PINNED_CONNECT_TIMEOUT);
+    build_reqwest_client(
+        private_key,
+        cert,
+        expected_fingerprint,
+        timeout,
+        connect_timeout,
+    )
+}
+
+/// [`create_reqwest_client`] with an explicit connect timeout, so tests do not
+/// have to wait out [`PINNED_CONNECT_TIMEOUT`].
+fn build_reqwest_client(
+    private_key: &str,
+    cert: &str,
+    expected_fingerprint: Option<String>,
+    timeout: Option<std::time::Duration>,
+    connect_timeout: Option<std::time::Duration>,
 ) -> Result<reqwest::Client, ClientError> {
     let _ = rustls::crypto::ring::default_provider().install_default();
 
@@ -225,7 +269,7 @@ pub(super) fn create_reqwest_client(
             .map_err(anyhow::Error::from)?
     };
 
-    // Must be set explicitly, see the doc comment above.
+    // Must be set explicitly, see the doc comment of `create_reqwest_client`.
     // HTTP/1.1 only: HTTP/2's flow-control window caps bulk upload throughput.
     tls_config.alpn_protocols = vec![b"http/1.1".to_vec()];
 
@@ -240,6 +284,10 @@ pub(super) fn create_reqwest_client(
         // than the one whose certificate is being verified.
         .redirect(reqwest::redirect::Policy::none())
         .dns_resolver(Arc::new(ScopedHostResolver));
+
+    if let Some(connect_timeout) = connect_timeout {
+        builder = builder.connect_timeout(connect_timeout);
+    }
 
     if let Some(timeout) = timeout {
         builder = builder.timeout(timeout);
@@ -346,5 +394,283 @@ impl ResponseExt for Response {
                 Some(message)
             },
         }))
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::model::discovery::ProtocolType;
+    use std::time::Duration;
+    use tokio::io::{AsyncReadExt, AsyncWriteExt};
+    use tokio::sync::oneshot;
+    use tokio::task::JoinHandle;
+    use tokio_util::sync::CancellationToken;
+
+    fn prepare_upload_payload() -> http::dto::PrepareUploadRequestDto {
+        http::dto::PrepareUploadRequestDto {
+            info: http::dto::RegisterDto {
+                alias: "Sender".to_string(),
+                version: "2.1".to_string(),
+                device_model: None,
+                device_type: None,
+                token: "FINGERPRINT".to_string(),
+                port: 53317,
+                protocol: ProtocolType::Http,
+                has_web_interface: false,
+            },
+            files: Default::default(),
+        }
+    }
+
+    /// Accepts one connection, reads the whole request to `path` (with a
+    /// `Content-Length` or chunked body) and answers with `response`. The
+    /// connection is never closed, so a body shorter than its `Content-Length`
+    /// keeps the client reading forever. The returned receiver fires once the
+    /// response has been written.
+    async fn stalling_peer(
+        path: &'static str,
+        response: &'static [u8],
+    ) -> (u16, oneshot::Receiver<()>, JoinHandle<()>) {
+        let listener = tokio::net::TcpListener::bind("127.0.0.1:0").await.unwrap();
+        let port = listener.local_addr().unwrap().port();
+        let (written_tx, written_rx) = oneshot::channel();
+        let task = tokio::spawn(async move {
+            let (mut stream, _) = listener.accept().await.unwrap();
+            let mut request = Vec::new();
+            loop {
+                let mut chunk = [0u8; 4096];
+                let read = stream.read(&mut chunk).await.unwrap();
+                assert_ne!(read, 0, "client closed before sending the request");
+                request.extend_from_slice(&chunk[..read]);
+                let Some(end) = request.windows(4).position(|w| w == b"\r\n\r\n") else {
+                    continue;
+                };
+                let head = std::str::from_utf8(&request[..end]).unwrap();
+                assert!(head.lines().next().unwrap().contains(path));
+                let length = head.lines().find_map(|line| {
+                    let (name, value) = line.split_once(':')?;
+                    name.eq_ignore_ascii_case("content-length")
+                        .then(|| value.trim().parse::<usize>().unwrap())
+                });
+                let complete = match length {
+                    Some(length) => request.len() >= end + 4 + length,
+                    None => request.ends_with(b"0\r\n\r\n"),
+                };
+                if complete {
+                    break;
+                }
+            }
+            stream.write_all(response).await.unwrap();
+            let _ = written_tx.send(());
+            std::future::pending::<()>().await;
+        });
+        (port, written_rx, task)
+    }
+
+    /// Cancelling must abort `prepare_upload` even after the response headers
+    /// arrived, while the (success or error) body is still being read.
+    #[tokio::test]
+    async fn prepare_upload_cancels_while_reading_response_body() {
+        let identity = crypto::cert::generate_self_signed().unwrap();
+        for version in [LsHttpClientVersion::V2, LsHttpClientVersion::V3] {
+            let client = LsHttpClient::new(
+                &identity.private_key_pem,
+                &identity.certificate_pem,
+                version,
+                None,
+                None,
+            )
+            .unwrap();
+            for response in [
+                b"HTTP/1.1 200 OK\r\nContent-Length: 1000\r\n\r\n{".as_slice(),
+                b"HTTP/1.1 403 Forbidden\r\nContent-Length: 1000\r\n\r\n{".as_slice(),
+            ] {
+                let (port, written, peer) = stalling_peer("/prepare-upload", response).await;
+                let cancel = CancellationToken::new();
+                let request = client.prepare_upload(
+                    ProtocolType::Http,
+                    "127.0.0.1",
+                    port,
+                    None,
+                    prepare_upload_payload(),
+                    None,
+                    cancel.clone(),
+                );
+                tokio::pin!(request);
+
+                tokio::select! {
+                    res = written => res.expect("peer failed before writing the response"),
+                    _ = &mut request => panic!("request finished before the response was written"),
+                    _ = tokio::time::sleep(Duration::from_secs(2)) => {
+                        peer.abort();
+                        panic!("the peer did not receive the whole request in time");
+                    }
+                }
+                // Give the client time to parse the headers and start reading the body.
+                tokio::select! {
+                    _ = tokio::time::sleep(Duration::from_millis(50)) => {}
+                    _ = &mut request => panic!("request finished despite the incomplete body"),
+                }
+
+                cancel.cancel();
+                let result = tokio::time::timeout(Duration::from_secs(2), request).await;
+                peer.abort();
+                let result = result.expect("cancellation must interrupt reading the response body");
+                assert!(
+                    matches!(result, Err(ClientError::Cancelled)),
+                    "unexpected result: {:?}",
+                    result.err()
+                );
+            }
+        }
+    }
+
+    /// Cancelling must abort `upload` even after the error response headers
+    /// arrived, while the error body is still being read.
+    #[tokio::test]
+    async fn upload_cancels_while_reading_error_body() {
+        let identity = crypto::cert::generate_self_signed().unwrap();
+        for version in [LsHttpClientVersion::V2, LsHttpClientVersion::V3] {
+            let client = LsHttpClient::new(
+                &identity.private_key_pem,
+                &identity.certificate_pem,
+                version,
+                None,
+                None,
+            )
+            .unwrap();
+            let (port, written, peer) = stalling_peer(
+                "/upload",
+                b"HTTP/1.1 403 Forbidden\r\nContent-Length: 1000\r\n\r\n{",
+            )
+            .await;
+            let (content_tx, content_rx) = tokio::sync::mpsc::channel(1);
+            content_tx
+                .send(bytes::Bytes::from_static(b"data"))
+                .await
+                .unwrap();
+            drop(content_tx);
+            let cancel = CancellationToken::new();
+            let request = client.upload(
+                ProtocolType::Http,
+                "127.0.0.1",
+                port,
+                None,
+                "session",
+                "file",
+                "token",
+                model::transfer::FileContent::Stream(content_rx),
+                |_| {},
+                cancel.clone(),
+            );
+            tokio::pin!(request);
+
+            tokio::select! {
+                res = written => res.expect("peer failed before writing the response"),
+                _ = &mut request => panic!("request finished before the response was written"),
+                _ = tokio::time::sleep(Duration::from_secs(2)) => {
+                    peer.abort();
+                    panic!("the peer did not receive the whole request in time");
+                }
+            }
+            // Give the client time to parse the headers and start reading the body.
+            tokio::select! {
+                _ = tokio::time::sleep(Duration::from_millis(50)) => {}
+                _ = &mut request => panic!("request finished despite the incomplete body"),
+            }
+
+            cancel.cancel();
+            let result = tokio::time::timeout(Duration::from_secs(2), request).await;
+            peer.abort();
+            let result = result.expect("cancellation must interrupt reading the error body");
+            assert!(
+                matches!(result, Err(ClientError::Cancelled)),
+                "unexpected result: {:?}",
+                result.err()
+            );
+        }
+    }
+
+    /// Short stand-in for [`PINNED_CONNECT_TIMEOUT`], so the tests stay fast.
+    const TEST_CONNECT_TIMEOUT: Duration = Duration::from_millis(300);
+
+    fn pinned_test_client() -> reqwest::Client {
+        let identity = crypto::cert::generate_self_signed().unwrap();
+        build_reqwest_client(
+            &identity.private_key_pem,
+            &identity.certificate_pem,
+            Some(identity.fingerprint),
+            None,
+            Some(TEST_CONNECT_TIMEOUT),
+        )
+        .unwrap()
+    }
+
+    /// The connect timeout includes the TLS handshake: a peer that accepts
+    /// the TCP connection but never answers the ClientHello must not keep a
+    /// pinned client waiting.
+    #[tokio::test]
+    async fn pinned_connect_timeout_covers_tls_handshake() {
+        let client = pinned_test_client();
+        let listener = tokio::net::TcpListener::bind("127.0.0.1:0").await.unwrap();
+        let port = listener.local_addr().unwrap().port();
+        let peer = tokio::spawn(async move {
+            let (_stream, _) = listener.accept().await.unwrap();
+            std::future::pending::<()>().await;
+        });
+
+        let started = std::time::Instant::now();
+        let result = tokio::time::timeout(
+            Duration::from_secs(5),
+            client.get(format!("https://127.0.0.1:{port}/")).send(),
+        )
+        .await;
+        peer.abort();
+
+        let err = result
+            .expect("the TLS handshake must be bounded by the connect timeout")
+            .expect_err("the peer never completes the handshake");
+        assert!(
+            err.is_connect() && err.is_timeout(),
+            "unexpected error: {err:?}"
+        );
+        assert!(started.elapsed() >= TEST_CONNECT_TIMEOUT);
+    }
+
+    /// The connect timeout does not limit waiting for the response, e.g. for
+    /// the receiver to accept a prepare-upload.
+    #[tokio::test]
+    async fn pinned_connect_timeout_does_not_limit_response_wait() {
+        let client = pinned_test_client();
+        let listener = tokio::net::TcpListener::bind("127.0.0.1:0").await.unwrap();
+        let port = listener.local_addr().unwrap().port();
+        let peer = tokio::spawn(async move {
+            let (mut stream, _) = listener.accept().await.unwrap();
+            let mut request = Vec::new();
+            while !request.windows(4).any(|w| w == b"\r\n\r\n") {
+                let mut chunk = [0u8; 4096];
+                let read = stream.read(&mut chunk).await.unwrap();
+                assert_ne!(read, 0, "client closed before sending the request");
+                request.extend_from_slice(&chunk[..read]);
+            }
+            tokio::time::sleep(TEST_CONNECT_TIMEOUT * 3).await;
+            stream
+                .write_all(b"HTTP/1.1 204 No Content\r\nConnection: close\r\n\r\n")
+                .await
+                .unwrap();
+        });
+
+        let result = tokio::time::timeout(
+            Duration::from_secs(5),
+            client.get(format!("http://127.0.0.1:{port}/")).send(),
+        )
+        .await;
+        peer.abort();
+
+        let response = result
+            .expect("the request must not hang")
+            .expect("waiting for the response must not hit the connect timeout");
+        assert_eq!(response.status(), reqwest::StatusCode::NO_CONTENT);
     }
 }

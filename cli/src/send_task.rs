@@ -12,6 +12,7 @@ use localsend::http::dto_v2::PrepareUploadRequestDtoV2;
 use localsend::model::discovery::ProtocolType;
 use localsend::model::transfer::{FileContent, FileDto};
 use localsend::reqwest;
+use localsend::util::error::ErrorChain;
 use std::collections::HashMap;
 use std::path::PathBuf;
 use std::sync::Arc;
@@ -52,6 +53,8 @@ impl SendCancel {
 /// file with a preview) usually ends after prepare-upload, as the receiver
 /// has nothing left to download.
 ///
+/// Emits [AppEvent::SendDialed] once the first request shows whether the
+/// device can be reached over the dialed channel.
 /// Always ends by emitting [AppEvent::SendEnded] with the transfer result.
 pub async fn run_send(
     identity: Arc<Identity>,
@@ -88,7 +91,10 @@ async fn send_inner(
         }
     };
 
-    let Some(http) = device.get_best_channel().and_then(|channel| channel.http()) else {
+    let dialed = device
+        .get_best_channel()
+        .and_then(|channel| Some((channel, channel.http()?)));
+    let Some((channel, http)) = dialed else {
         log(format!("{alias}: No dialable address")).await;
         return false;
     };
@@ -119,7 +125,7 @@ async fn send_inner(
         info: identity.register_dto(),
         files: files.clone(),
     };
-    let prepared = match client
+    let prepared = client
         .prepare_upload(
             protocol.clone(),
             &http.host,
@@ -129,8 +135,21 @@ async fn send_inner(
             None,
             cancel.token.clone(),
         )
-        .await
-    {
+        .await;
+
+    // The first request tells whether the device can be dialed on the
+    // channel; the discovery store ranks the device's channels by it.
+    if let Some(result) = channel_outcome(&prepared) {
+        let _ = events
+            .send(AppEvent::SendDialed {
+                fingerprint: device.device.fingerprint.clone(),
+                channel: channel.clone(),
+                result,
+            })
+            .await;
+    }
+
+    let prepared = match prepared {
         Ok(prepared) => prepared,
         Err(ClientError::Cancelled) => {
             log(format!("{alias}: Cancelled")).await;
@@ -298,6 +317,36 @@ async fn send_inner(
     true
 }
 
+/// What the outcome of a request tells about the channel it was sent over:
+/// `Ok` when the device answered, `Err` — with the reason, for display —
+/// when it could not be reached. `None` when the outcome says nothing about
+/// the channel.
+///
+/// A device that answers with an error status (declined, busy, PIN required)
+/// was reached just as well as one that accepts.
+fn channel_outcome<T>(result: &Result<T, ClientError>) -> Option<Result<(), String>> {
+    match result {
+        // The request got no response: the connection could not be
+        // established (refused, timed out, failed TLS handshake) or broke.
+        Err(err) if err.is_unreachable() => Some(Err(ErrorChain(err).to_string())),
+
+        // Any other transport error means the response arrived, only its
+        // body could not be read or parsed.
+        Ok(_) | Err(ClientError::StatusCode(_) | ClientError::Reqwest(_)) => Some(Ok(())),
+
+        // The user gave up waiting, which is not a failure of the channel;
+        // the other errors are not errors of the transport. Whether the
+        // device was reached cannot be told from them, so nothing is claimed
+        // in either direction.
+        Err(
+            ClientError::Cancelled
+            | ClientError::Json(_)
+            | ClientError::Io(_)
+            | ClientError::Other(_),
+        ) => None,
+    }
+}
+
 /// Builds a streaming request body from the file content, invoking `progress`
 /// with the cumulative number of bytes of this file as chunks are sent.
 fn upload_body(content: FileContent, progress: impl Fn(u64) + Send + 'static) -> reqwest::Body {
@@ -309,4 +358,166 @@ fn upload_body(content: FileContent, progress: impl Fn(u64) + Send + 'static) ->
         Ok::<Bytes, anyhow::Error>(chunk)
     });
     reqwest::Body::wrap_stream(stream)
+}
+
+#[cfg(test)]
+mod tests {
+    use super::channel_outcome;
+    use localsend::http::client::ClientError;
+    use localsend::http::client::v2::LsHttpClientV2;
+    use localsend::http::dto_v2::{
+        PrepareUploadRequestDtoV2, PrepareUploadResultV2, RegisterDtoV2,
+    };
+    use localsend::model::discovery::ProtocolType;
+    use std::collections::HashMap;
+    use tokio::io::{AsyncReadExt, AsyncWriteExt};
+    use tokio::net::TcpListener;
+    use tokio_util::sync::CancellationToken;
+
+    /// A device on a loopback port that reads one request and answers it
+    /// with `response`, or closes the connection without an answer.
+    async fn peer(response: Option<String>) -> u16 {
+        let listener = TcpListener::bind("127.0.0.1:0").await.unwrap();
+        let port = listener.local_addr().unwrap().port();
+        tokio::spawn(async move {
+            let (mut stream, _) = listener.accept().await.unwrap();
+            let mut request = Vec::new();
+            let mut buffer = [0u8; 1024];
+            while !request.windows(4).any(|window| window == b"\r\n\r\n") {
+                match stream.read(&mut buffer).await {
+                    Ok(0) | Err(_) => return,
+                    Ok(read) => request.extend_from_slice(&buffer[..read]),
+                }
+            }
+            let Some(response) = response else {
+                return;
+            };
+            let _ = stream.write_all(response.as_bytes()).await;
+            let _ = stream.shutdown().await;
+
+            // Closing with unread request bytes would reset the connection
+            // before the client has read the response.
+            while matches!(stream.read(&mut buffer).await, Ok(read) if read > 0) {}
+        });
+        port
+    }
+
+    /// A loopback port nobody listens on.
+    async fn closed_port() -> u16 {
+        let listener = TcpListener::bind("127.0.0.1:0").await.unwrap();
+        listener.local_addr().unwrap().port()
+    }
+
+    /// The first request of a send, to the device on the loopback port.
+    async fn prepare_upload(port: u16) -> Result<PrepareUploadResultV2, ClientError> {
+        let payload = PrepareUploadRequestDtoV2 {
+            info: RegisterDtoV2 {
+                alias: "Cute Tomato".to_string(),
+                version: "2.2".to_string(),
+                device_model: None,
+                device_type: None,
+                fingerprint: "tomato".to_string(),
+                port: 53317,
+                protocol: ProtocolType::Http,
+                download: false,
+            },
+            files: HashMap::new(),
+        };
+        LsHttpClientV2::try_new_without_cert()
+            .unwrap()
+            .prepare_upload(
+                ProtocolType::Http,
+                "127.0.0.1",
+                port,
+                None,
+                payload,
+                None,
+                CancellationToken::new(),
+            )
+            .await
+    }
+
+    #[tokio::test]
+    async fn an_accepting_device_was_reached() {
+        let response = "HTTP/1.1 204 No Content\r\nconnection: close\r\n\r\n";
+        let port = peer(Some(response.to_string())).await;
+
+        let result = prepare_upload(port).await;
+
+        assert!(result.is_ok());
+        assert_eq!(channel_outcome(&result), Some(Ok(())));
+    }
+
+    #[tokio::test]
+    async fn a_refusing_device_was_reached() {
+        for status in ["401 Unauthorized", "403 Forbidden", "409 Conflict"] {
+            let response =
+                format!("HTTP/1.1 {status}\r\nconnection: close\r\ncontent-length: 0\r\n\r\n");
+            let port = peer(Some(response)).await;
+
+            let result = prepare_upload(port).await;
+
+            assert!(
+                matches!(result, Err(ClientError::StatusCode(_))),
+                "{status} must be an error status"
+            );
+            assert_eq!(
+                channel_outcome(&result),
+                Some(Ok(())),
+                "{status} must count as an answer"
+            );
+        }
+    }
+
+    #[tokio::test]
+    async fn a_device_answering_garbage_was_reached() {
+        let response = "HTTP/1.1 200 OK\r\nconnection: close\r\ncontent-length: 8\r\n\r\nnot json";
+        let port = peer(Some(response.to_string())).await;
+
+        let result = prepare_upload(port).await;
+
+        assert!(matches!(result, Err(ClientError::Reqwest(_))));
+        assert_eq!(channel_outcome(&result), Some(Ok(())));
+    }
+
+    #[tokio::test]
+    async fn a_refused_connection_fails_the_channel_with_the_cause() {
+        let result = prepare_upload(closed_port().await).await;
+
+        let outermost = result.as_ref().err().unwrap().to_string();
+        match channel_outcome(&result) {
+            Some(Err(reason)) => assert!(
+                reason.starts_with(&outermost) && reason.len() > outermost.len(),
+                "the reason must carry the whole error chain, got: {reason}"
+            ),
+            outcome => panic!("expected a failure, got {outcome:?}"),
+        }
+    }
+
+    #[tokio::test]
+    async fn a_connection_closed_without_an_answer_fails_the_channel() {
+        let port = peer(None).await;
+
+        let result = prepare_upload(port).await;
+
+        assert!(matches!(channel_outcome(&result), Some(Err(_))));
+    }
+
+    #[test]
+    fn a_cancellation_says_nothing_about_the_channel() {
+        let result: Result<(), ClientError> = Err(ClientError::Cancelled);
+
+        assert_eq!(channel_outcome(&result), None);
+    }
+
+    #[test]
+    fn an_error_outside_of_the_transport_says_nothing_about_the_channel() {
+        let result: Result<(), ClientError> =
+            Err(ClientError::Other(anyhow::anyhow!("Certificate not found")));
+        assert_eq!(channel_outcome(&result), None);
+
+        let result: Result<(), ClientError> =
+            Err(ClientError::Io(std::io::ErrorKind::PermissionDenied.into()));
+        assert_eq!(channel_outcome(&result), None);
+    }
 }

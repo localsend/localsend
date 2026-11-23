@@ -106,10 +106,14 @@
       },
       "saveWindowPlacement": "बन्द गरेपछि विन्डोको स्थिति सुरक्षित गर्नुहोस्",
       "saveWindowPlacementWindows": "बाहिर निस्किएपछि विन्डोको स्थिति सुरक्षित गर्नुहोस्",
+      "alwaysOnTop": "सधैं माथि राख्नुहोस्",
+      "alwaysOnTopUnavailable": "Wayland मा समर्थित छैन",
       "minimizeToTray": "छोड्नुहोस्: ट्रेमा न्यूनतम गर्नुहोस्",
       "launchAtStartup": "लगइन पछि स्वत: सुरु गर्नुहोस्",
       "launchMinimized": "स्वतः सुरु गर्नुहोस्: लुकेको सुरु गर्नुहोस्",
       "showInContextMenu": "कन्टेक्स्ट मेनुमा LocalSend देखाउनुहोस्",
+      "softwareRendering": "सफ्टवेयर रेन्डरिङ",
+      "softwareRenderingDescription": "विन्डो खाली रहेमा, गडबड भएमा वा सुरु हुँदा बन्द भएमा प्रयोग गर्नुहोस्। पुनः सुरु गरेपछि लागू हुन्छ।",
       "animations": "एनिमेसनहरू"
     },
     "receive": {
@@ -212,15 +216,26 @@
     "verify": "प्रमाणित गर्नुहोस्",
     "info": {
       "name": "नाम",
-      "address": "ठेगाना",
       "version": "संस्करण",
       "protocol": "प्रोटोकल v{version}"
+    },
+    "channels": {
+      "title": "च्यानलहरू",
+      "you": "तपाईं",
+      "outgoing": "बाहिर जाने",
+      "incoming": "भित्र आउने",
+      "works": "काम गर्छ",
+      "notTested": "परीक्षण गरिएको छैन",
+      "failed": "असफल",
+      "notSeen": "देखिएको छैन"
     },
     "logs": {
       "title": "लगहरू",
       "empty": "कुनै लग उपलब्ध छैन।",
-      "discovered": "{protocol} मार्फत फेला पर्यो ({host})",
-      "updated": "{protocol} मार्फत अपडेट भयो ({host})"
+      "outbound": "{protocol} ({host}) मार्फत पुगियो",
+      "outboundFailed": "{protocol} ({host}) मार्फत पुग्न सकिएन: {error}",
+      "inbound": "{protocol} ({host}) मार्फत हामीसम्म पुग्यो",
+      "multicastInbound": "घोषणा प्राप्त भयो ({host})"
     }
   },
   "verifyPage": {
@@ -450,7 +465,8 @@
       "name": "उपकरणको नाम",
       "auto": "(स्वचालित)",
       "ip": "IP ठेगाना",
-      "port": "पोर्ट"
+      "port": "पोर्ट",
+      "invalidPort": "1 देखि 65535 बीचको पूर्ण संख्या प्रविष्ट गर्नुहोस्।"
     },
     "fileInfo": {
       "title": "फ़ाइल की जानकारी",

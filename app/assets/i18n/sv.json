@@ -106,10 +106,14 @@
       },
       "saveWindowPlacement": "Spara fönsterposition vid avslut",
       "saveWindowPlacementWindows": "Spara fönsterposition vid avslut",
+      "alwaysOnTop": "Alltid överst",
+      "alwaysOnTopUnavailable": "Stöds inte på Wayland",
       "minimizeToTray": "Minimera till systemfältet eller menyraden vid stängning",
       "launchAtStartup": "Starta automatiskt efter inloggning",
       "launchMinimized": "Automatisk start: starta dolt",
       "showInContextMenu": "Visa LocalSend i snabbmenyn",
+      "softwareRendering": "Programvarurendering",
+      "softwareRenderingDescription": "Använd om fönstret förblir tomt, får grafikfel eller stängs vid start. Träder i kraft efter en omstart.",
       "animations": "Animationer"
     },
     "receive": {
@@ -212,15 +216,26 @@
     "verify": "Verifiera",
     "info": {
       "name": "Namn",
-      "address": "Adress",
       "version": "Version",
       "protocol": "Protokoll v{version}"
+    },
+    "channels": {
+      "title": "Kanaler",
+      "you": "Du",
+      "outgoing": "Utgående",
+      "incoming": "Inkommande",
+      "works": "Fungerar",
+      "notTested": "Inte testad",
+      "failed": "Misslyckades",
+      "notSeen": "Inte sedd"
     },
     "logs": {
       "title": "Loggar",
       "empty": "Inga loggar tillgängliga.",
-      "discovered": "Upptäckt via {protocol} ({host})",
-      "updated": "Uppdaterad via {protocol} ({host})"
+      "outbound": "Nådd via {protocol} ({host})",
+      "outboundFailed": "Kunde inte nås via {protocol} ({host}): {error}",
+      "inbound": "Nådde oss via {protocol} ({host})",
+      "multicastInbound": "Annonsering mottagen ({host})"
     }
   },
   "verifyPage": {
@@ -450,7 +465,8 @@
       "name": "Enhetens namn",
       "auto": "(automatiskt)",
       "ip": "IP-adress",
-      "port": "Port"
+      "port": "Port",
+      "invalidPort": "Ange ett heltal mellan 1 och 65535."
     },
     "fileInfo": {
       "title": "Filinformation",

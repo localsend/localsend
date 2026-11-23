@@ -361,6 +361,8 @@ class _Translations$deviceDetailsPage$et extends Translations$deviceDetailsPage$
   @override
   late final _Translations$deviceDetailsPage$info$et info = _Translations$deviceDetailsPage$info$et._(_root);
   @override
+  late final _Translations$deviceDetailsPage$channels$et channels = _Translations$deviceDetailsPage$channels$et._(_root);
+  @override
   late final _Translations$deviceDetailsPage$logs$et logs = _Translations$deviceDetailsPage$logs$et._(_root);
 }
 
@@ -865,6 +867,10 @@ class _Translations$settingsTab$general$et extends Translations$settingsTab$gene
   @override
   String get saveWindowPlacementWindows => 'Peale lõpetamist salvesta akna asukoht';
   @override
+  String get alwaysOnTop => 'Alati pealmine';
+  @override
+  String get alwaysOnTopUnavailable => 'Waylandis pole toetatud';
+  @override
   String get minimizeToTray => 'Sulgemisel aseta rakendus süsteemisalve';
   @override
   String get launchAtStartup => 'Sisselogimisel käivita automaatselt';
@@ -872,6 +878,10 @@ class _Translations$settingsTab$general$et extends Translations$settingsTab$gene
   String get launchMinimized => 'Automaatsel käivitamisel: käivita peidetuna';
   @override
   String get showInContextMenu => 'Näita LocalSendi kontekstimenüüs';
+  @override
+  String get softwareRendering => 'Tarkvaraline renderdamine';
+  @override
+  String get softwareRenderingDescription => 'Kasuta, kui aken jääb tühjaks, vilgub või sulgub käivitamisel. Jõustub pärast uuesti käivitamist.';
   @override
   String get animations => 'Animatsioonid';
 }
@@ -1053,11 +1063,34 @@ class _Translations$deviceDetailsPage$info$et extends Translations$deviceDetails
   @override
   String get name => 'Nimi';
   @override
-  String get address => 'Aadress';
-  @override
   String get version => 'Versioon';
   @override
   String protocol({required Object version}) => 'Protokoll v${version}';
+}
+
+// Path: deviceDetailsPage.channels
+class _Translations$deviceDetailsPage$channels$et extends Translations$deviceDetailsPage$channels$en {
+  _Translations$deviceDetailsPage$channels$et._(TranslationsEt root) : this._root = root, super.internal(root);
+
+  final TranslationsEt _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Kanalid';
+  @override
+  String get you => 'Sina';
+  @override
+  String get outgoing => 'Väljuv';
+  @override
+  String get incoming => 'Sisenev';
+  @override
+  String get works => 'Toimib';
+  @override
+  String get notTested => 'Testimata';
+  @override
+  String get failed => 'Ebaõnnestus';
+  @override
+  String get notSeen => 'Pole nähtud';
 }
 
 // Path: deviceDetailsPage.logs
@@ -1072,9 +1105,14 @@ class _Translations$deviceDetailsPage$logs$et extends Translations$deviceDetails
   @override
   String get empty => 'Logisid pole saadaval.';
   @override
-  String discovered({required Object protocol, required Object host}) => 'Avastatud ${protocol} kaudu (${host})';
+  String outbound({required Object protocol, required Object host}) => 'Ühendus õnnestus ${protocol} kaudu (${host})';
   @override
-  String updated({required Object protocol, required Object host}) => 'Uuendatud ${protocol} kaudu (${host})';
+  String outboundFailed({required Object protocol, required Object host, required Object error}) =>
+      'Ühendus ${protocol} kaudu ebaõnnestus (${host}): ${error}';
+  @override
+  String inbound({required Object protocol, required Object host}) => 'Ühendus meiega loodi ${protocol} kaudu (${host})';
+  @override
+  String multicastInbound({required Object host}) => 'Teadaanne vastu võetud (${host})';
 }
 
 // Path: progressPage.total
@@ -1270,6 +1308,8 @@ class _Translations$dialogs$favoriteEditDialog$et extends Translations$dialogs$f
   String get ip => 'IP-aadress';
   @override
   String get port => 'Kasutatav port';
+  @override
+  String get invalidPort => 'Sisesta täisarv vahemikus 1 kuni 65535.';
 }
 
 // Path: dialogs.fileInfo

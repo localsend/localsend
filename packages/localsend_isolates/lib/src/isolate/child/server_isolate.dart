@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:flutter/services.dart';
 import 'package:localsend_isolates/constants.dart';
@@ -11,6 +12,7 @@ import 'package:localsend_isolates/src/isolate/child/sync_provider.dart';
 import 'package:localsend_isolates/src/isolate/dto/send_to_isolate_data.dart';
 import 'package:localsend_isolates/src/task/server/file_saver.dart';
 import 'package:localsend_isolates/src/task/server/http_server.dart';
+import 'package:localsend_isolates/util/android_channel.dart';
 import 'package:localsend_isolates/util/future_queue.dart';
 import 'package:localsend_isolates/util/rust.dart';
 import 'package:logging/logging.dart';
@@ -193,11 +195,17 @@ class HttpServerPrepareUploadEvent extends HttpServerEvent {
   final String ip;
   final RegisterDtoV2 info;
 
-  /// The SHA-256 fingerprint (uppercase hex) of the sender's client
-  /// certificate verified during the mTLS handshake. Unlike
-  /// [RegisterDtoV2.fingerprint], this value cannot be spoofed.
-  /// `null` when the server runs without TLS.
-  final String? certFingerprint;
+  /// The fingerprint identifying the sender. Use this instead of
+  /// [RegisterDtoV2.fingerprint], which is self-reported.
+  ///
+  /// On TLS, the fingerprint of the sender's client certificate verified during
+  /// the mTLS handshake, so it cannot be spoofed. Without TLS (encryption off),
+  /// the self-reported [RegisterDtoV2.fingerprint].
+  ///
+  /// `null` when the sender presented no client certificate on TLS (e.g. a
+  /// browser on the receive-via-link page): the sender is anonymous and must
+  /// not be treated as a known device.
+  final String? senderFingerprint;
 
   final Map<String, FileDto> files;
 
@@ -205,7 +213,7 @@ class HttpServerPrepareUploadEvent extends HttpServerEvent {
     required this.sessionId,
     required this.ip,
     required this.info,
-    required this.certFingerprint,
+    required this.senderFingerprint,
     required this.files,
   });
 }
@@ -454,7 +462,7 @@ Future<void> setupHttpServerIsolate(
               switch (event) {
                 case RsServerEvent_Register(:final ip, :final info):
                   emit(HttpServerRegisterEvent(ip: ip, info: info));
-                case RsServerEvent_PrepareUpload(:final sessionId, :final ip, :final info, :final certFingerprint, :final files):
+                case RsServerEvent_PrepareUpload(:final sessionId, :final ip, :final info, :final senderFingerprint, :final files):
                   // The Rust server is the authority on the single-session
                   // invariant: a new request means the old session is over.
                   holder.session = null;
@@ -463,7 +471,7 @@ Future<void> setupHttpServerIsolate(
                       sessionId: sessionId,
                       ip: ip,
                       info: info,
-                      certFingerprint: certFingerprint,
+                      senderFingerprint: senderFingerprint,
                       files: files,
                     ),
                   );
@@ -716,6 +724,13 @@ Future<void> _handleFileUpload({
       );
     } else {
       filePath = target.displayPath;
+      final path = target.path;
+      if (Platform.isAndroid && path != null) {
+        // Scan before reporting success so Android can handle the saved file correctly
+        // when it is moved to Trash, allowing another file with the same name.
+        // https://github.com/localsend/localsend/issues/2007
+        await scanFileAndroid(path: path);
+      }
     }
 
     _logger.info('Saved ${dartFile.fileName}.');

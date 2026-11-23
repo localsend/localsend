@@ -106,10 +106,14 @@
       },
       "saveWindowPlacement": "Reține locația ferestrei după ieșire",
       "saveWindowPlacementWindows": "Salvarea poziției ferestrei după închidere",
+      "alwaysOnTop": "Mereu deasupra",
+      "alwaysOnTopUnavailable": "Neacceptat pe Wayland",
       "minimizeToTray": "Minimizează în Bara de Meniuri/Tray la închidere",
       "launchAtStartup": "Pornire automată după autentificare",
       "launchMinimized": "Autopornire: Pornire ascunsă",
       "showInContextMenu": "Afișează LocalSend în meniul contextual",
+      "softwareRendering": "Randare software",
+      "softwareRenderingDescription": "Folosește dacă fereastra rămâne goală, are erori grafice sau se închide la pornire. Se aplică după repornire.",
       "animations": "Animații"
     },
     "receive": {
@@ -212,15 +216,26 @@
     "verify": "Verifică",
     "info": {
       "name": "Nume",
-      "address": "Adresă",
       "version": "Versiune",
       "protocol": "Protocol v{version}"
+    },
+    "channels": {
+      "title": "Canale",
+      "you": "Tu",
+      "outgoing": "De ieșire",
+      "incoming": "De intrare",
+      "works": "Funcționează",
+      "notTested": "Netestat",
+      "failed": "Eșuat",
+      "notSeen": "Nevăzut"
     },
     "logs": {
       "title": "Jurnale",
       "empty": "Nu sunt jurnale disponibile.",
-      "discovered": "Descoperit prin {protocol} ({host})",
-      "updated": "Actualizat prin {protocol} ({host})"
+      "outbound": "Contactat prin {protocol} ({host})",
+      "outboundFailed": "Nu a putut fi contactat prin {protocol} ({host}): {error}",
+      "inbound": "Ne-a contactat prin {protocol} ({host})",
+      "multicastInbound": "Anunț recepționat ({host})"
     }
   },
   "verifyPage": {
@@ -448,7 +463,8 @@
       "name": "Numele dispozitivului",
       "auto": "(auto)",
       "ip": "Adresă IP",
-      "port": "Port"
+      "port": "Port",
+      "invalidPort": "Introdu un număr întreg între 1 și 65535."
     },
     "fileInfo": {
       "title": "Informații despre fișier",

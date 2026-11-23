@@ -360,6 +360,8 @@ class Translations$deviceDetailsPage$zh_HK extends Translations$deviceDetailsPag
   @override
   late final Translations$deviceDetailsPage$info$zh_HK info = Translations$deviceDetailsPage$info$zh_HK.internal(_root);
   @override
+  late final Translations$deviceDetailsPage$channels$zh_HK channels = Translations$deviceDetailsPage$channels$zh_HK.internal(_root);
+  @override
   late final Translations$deviceDetailsPage$logs$zh_HK logs = Translations$deviceDetailsPage$logs$zh_HK.internal(_root);
 }
 
@@ -867,6 +869,10 @@ class Translations$settingsTab$general$zh_HK extends Translations$settingsTab$ge
   @override
   String get saveWindowPlacementWindows => '離開嗰陣記低視窗位置';
   @override
+  String get alwaysOnTop => '視窗置頂';
+  @override
+  String get alwaysOnTopUnavailable => 'Wayland 唔支援';
+  @override
   String get minimizeToTray => '關閉嗰陣縮細做通知圖示';
   @override
   String get launchAtStartup => '開機自動啟動';
@@ -874,6 +880,10 @@ class Translations$settingsTab$general$zh_HK extends Translations$settingsTab$ge
   String get launchMinimized => '自動啟動成通知圖示';
   @override
   String get showInContextMenu => '喺檔案功能表嘅「傳送到」項目顯示 LocalSend';
+  @override
+  String get softwareRendering => '軟件渲染';
+  @override
+  String get softwareRenderingDescription => '如果視窗一直空白、顯示唔正常或者一開就閂咗，就開呢個選項。重新啟動之後先生效。';
   @override
   String get animations => '動畫';
 }
@@ -1053,11 +1063,34 @@ class Translations$deviceDetailsPage$info$zh_HK extends Translations$deviceDetai
   @override
   String get name => '名稱';
   @override
-  String get address => '地址';
-  @override
   String get version => '版本';
   @override
   String protocol({required Object version}) => 'Protocol v${version}';
+}
+
+// Path: deviceDetailsPage.channels
+class Translations$deviceDetailsPage$channels$zh_HK extends Translations$deviceDetailsPage$channels$en {
+  Translations$deviceDetailsPage$channels$zh_HK.internal(TranslationsZhHk root) : this._root = root, super.internal(root);
+
+  final TranslationsZhHk _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => '通道';
+  @override
+  String get you => '你';
+  @override
+  String get outgoing => '傳出';
+  @override
+  String get incoming => '傳入';
+  @override
+  String get works => '正常';
+  @override
+  String get notTested => '未測試';
+  @override
+  String get failed => '失敗';
+  @override
+  String get notSeen => '未見過';
 }
 
 // Path: deviceDetailsPage.logs
@@ -1072,9 +1105,13 @@ class Translations$deviceDetailsPage$logs$zh_HK extends Translations$deviceDetai
   @override
   String get empty => '冇任何記錄。';
   @override
-  String discovered({required Object protocol, required Object host}) => '透過 ${protocol} (${host}) 偵測到';
+  String outbound({required Object protocol, required Object host}) => '經 ${protocol}（${host}）連到對方';
   @override
-  String updated({required Object protocol, required Object host}) => '透過 ${protocol} (${host}) 更新';
+  String outboundFailed({required Object protocol, required Object host, required Object error}) => '經 ${protocol}（${host}）連唔到：${error}';
+  @override
+  String inbound({required Object protocol, required Object host}) => '對方經 ${protocol}（${host}）連到你';
+  @override
+  String multicastInbound({required Object host}) => '收到多播廣播（${host}）';
 }
 
 // Path: progressPage.total
@@ -1269,6 +1306,8 @@ class Translations$dialogs$favoriteEditDialog$zh_HK extends Translations$dialogs
   String get ip => 'IP 地址';
   @override
   String get port => 'Port';
+  @override
+  String get invalidPort => '請輸入 1 至 65535 之間嘅整數。';
 }
 
 // Path: dialogs.fileInfo

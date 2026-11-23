@@ -106,10 +106,14 @@
       },
       "saveWindowPlacement": "Запамінаць пазіцыю акна пасля выхаду",
       "saveWindowPlacementWindows": "Запамінаць пазіцыю акна пасля выхаду",
+      "alwaysOnTop": "Па-над усімі вокнамі",
+      "alwaysOnTopUnavailable": "Не падтрымліваецца ў Wayland",
       "minimizeToTray": "Згортваць у вобласць апавяшчэнняў/панэль меню пры закрыцці",
       "launchAtStartup": "Аўтазапуск пасля ўваходу",
       "launchMinimized": "Аўтазапуск: запускаць схаванай",
       "showInContextMenu": "Паказваць LocalSend у кантэкстным меню",
+      "softwareRendering": "Праграмны рэндэрынг",
+      "softwareRenderingDescription": "Выкарыстоўвайце, калі акно застаецца пустым, працуе са збоямі або закрываецца пры запуску. Уступіць у сілу пасля перазапуску.",
       "animations": "Анімацыі"
     },
     "receive": {
@@ -212,15 +216,26 @@
     "verify": "Спраўдзіць",
     "info": {
       "name": "Назва",
-      "address": "Адрас",
       "version": "Версія",
       "protocol": "Пратакол v{version}"
+    },
+    "channels": {
+      "title": "Каналы",
+      "you": "Вы",
+      "outgoing": "Выходнае",
+      "incoming": "Уваходнае",
+      "works": "Працуе",
+      "notTested": "Не праверана",
+      "failed": "Памылка",
+      "notSeen": "Не выяўлена"
     },
     "logs": {
       "title": "Журнал",
       "empty": "Няма запісаў у журнале.",
-      "discovered": "Выяўлена праз {protocol} ({host})",
-      "updated": "Абноўлена праз {protocol} ({host})"
+      "outbound": "Падключана праз {protocol} ({host})",
+      "outboundFailed": "Не ўдалося падключыцца праз {protocol} ({host}): {error}",
+      "inbound": "Уваходнае падключэнне праз {protocol} ({host})",
+      "multicastInbound": "Атрымана абвестка ({host})"
     }
   },
   "verifyPage": {
@@ -346,6 +361,8 @@
     },
     "addressInput": {
       "title": "Увядзіце адрас",
+      "hashtag": "Хэштэг",
+      "ip": "IP-адрас",
       "recentlyUsed": "Нядаўнія: "
     },
     "cancelSession": {
@@ -378,7 +395,8 @@
       "name": "Назва прылады",
       "auto": "(аўта)",
       "ip": "IP-адрас",
-      "port": "Порт"
+      "port": "Порт",
+      "invalidPort": "Увядзіце цэлы лік ад 1 да 65535."
     },
     "fileInfo": {
       "title": "Звесткі пра файл",

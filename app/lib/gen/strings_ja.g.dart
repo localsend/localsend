@@ -360,6 +360,8 @@ class _Translations$deviceDetailsPage$ja extends Translations$deviceDetailsPage$
   @override
   late final _Translations$deviceDetailsPage$info$ja info = _Translations$deviceDetailsPage$info$ja._(_root);
   @override
+  late final _Translations$deviceDetailsPage$channels$ja channels = _Translations$deviceDetailsPage$channels$ja._(_root);
+  @override
   late final _Translations$deviceDetailsPage$logs$ja logs = _Translations$deviceDetailsPage$logs$ja._(_root);
 }
 
@@ -862,6 +864,10 @@ class _Translations$settingsTab$general$ja extends Translations$settingsTab$gene
   @override
   String get saveWindowPlacementWindows => '終了時にウィンドウ配置を記憶';
   @override
+  String get alwaysOnTop => '常に最前面に表示';
+  @override
+  String get alwaysOnTopUnavailable => 'Waylandではサポートされていません';
+  @override
   String get minimizeToTray => '終了時: トレイに最小化';
   @override
   String get launchAtStartup => 'ログイン時に自動で起動';
@@ -869,6 +875,10 @@ class _Translations$settingsTab$general$ja extends Translations$settingsTab$gene
   String get launchMinimized => '自動起動時: 隠れた状態で開始';
   @override
   String get showInContextMenu => 'コンテキストメニューにLocalSendを表示';
+  @override
+  String get softwareRendering => 'ソフトウェアレンダリング';
+  @override
+  String get softwareRenderingDescription => 'ウィンドウが真っ白のまま、表示が乱れる、または起動時に閉じる場合に使用します。再起動後に反映されます。';
   @override
   String get animations => 'アニメーション';
 }
@@ -1047,11 +1057,34 @@ class _Translations$deviceDetailsPage$info$ja extends Translations$deviceDetails
   @override
   String get name => '名前';
   @override
-  String get address => 'アドレス';
-  @override
   String get version => 'バージョン';
   @override
   String protocol({required Object version}) => 'プロトコル v${version}';
+}
+
+// Path: deviceDetailsPage.channels
+class _Translations$deviceDetailsPage$channels$ja extends Translations$deviceDetailsPage$channels$en {
+  _Translations$deviceDetailsPage$channels$ja._(TranslationsJa root) : this._root = root, super.internal(root);
+
+  final TranslationsJa _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'チャネル';
+  @override
+  String get you => 'あなた';
+  @override
+  String get outgoing => 'アウトバウンド';
+  @override
+  String get incoming => 'インバウンド';
+  @override
+  String get works => '正常';
+  @override
+  String get notTested => '未テスト';
+  @override
+  String get failed => '失敗';
+  @override
+  String get notSeen => '未検出';
 }
 
 // Path: deviceDetailsPage.logs
@@ -1066,9 +1099,13 @@ class _Translations$deviceDetailsPage$logs$ja extends Translations$deviceDetails
   @override
   String get empty => 'ログはありません。';
   @override
-  String discovered({required Object protocol, required Object host}) => '${protocol} 経由で発見 (${host})';
+  String outbound({required Object protocol, required Object host}) => '${protocol} (${host}) で接続しました';
   @override
-  String updated({required Object protocol, required Object host}) => '${protocol} 経由で更新 (${host})';
+  String outboundFailed({required Object protocol, required Object host, required Object error}) => '${protocol} (${host}) で接続できませんでした: ${error}';
+  @override
+  String inbound({required Object protocol, required Object host}) => '${protocol} (${host}) で接続されました';
+  @override
+  String multicastInbound({required Object host}) => 'アナウンスを受信しました (${host})';
 }
 
 // Path: progressPage.total
@@ -1263,6 +1300,8 @@ class _Translations$dialogs$favoriteEditDialog$ja extends Translations$dialogs$f
   String get ip => 'IPアドレス';
   @override
   String get port => 'ポート';
+  @override
+  String get invalidPort => '1から65535までの整数を入力してください。';
 }
 
 // Path: dialogs.fileInfo

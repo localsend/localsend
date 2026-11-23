@@ -106,10 +106,14 @@
       },
       "saveWindowPlacement": "Zapisz pozycję okna po zakończeniu",
       "saveWindowPlacementWindows": "Zapisz pozycję okna po zamknięciu",
+      "alwaysOnTop": "Zawsze na wierzchu",
+      "alwaysOnTopUnavailable": "Nieobsługiwane w Wayland",
       "minimizeToTray": "Zminimalizuj do menu ukrytych ikon przy zamykaniu",
       "launchAtStartup": "Autostart po zalogowaniu",
       "launchMinimized": "Autostart: start ukryty",
       "showInContextMenu": "Pokaż LocalSend w menu kontekstowym",
+      "softwareRendering": "Renderowanie programowe",
+      "softwareRenderingDescription": "Użyj, jeśli okno pozostaje puste, wyświetla się błędnie lub zamyka się przy starcie. Zmiana zadziała po ponownym uruchomieniu.",
       "animations": "Animacje"
     },
     "receive": {
@@ -212,15 +216,26 @@
     "verify": "Zweryfikuj",
     "info": {
       "name": "Nazwa",
-      "address": "Adres",
       "version": "Wersja",
       "protocol": "Protokół v{version}"
+    },
+    "channels": {
+      "title": "Kanały",
+      "you": "Ty",
+      "outgoing": "Wychodzące",
+      "incoming": "Przychodzące",
+      "works": "Działa",
+      "notTested": "Nie testowano",
+      "failed": "Nieudane",
+      "notSeen": "Nie widziano"
     },
     "logs": {
       "title": "Dzienniki",
       "empty": "Brak dostępnych dzienników.",
-      "discovered": "Wykryto przez {protocol} ({host})",
-      "updated": "Zaktualizowano przez {protocol} ({host})"
+      "outbound": "Połączono przez {protocol} ({host})",
+      "outboundFailed": "Nie udało się połączyć przez {protocol} ({host}): {error}",
+      "inbound": "Połączyło się z nami przez {protocol} ({host})",
+      "multicastInbound": "Odebrano ogłoszenie ({host})"
     }
   },
   "verifyPage": {
@@ -380,7 +395,8 @@
       "name": "Alias",
       "auto": "(auto)",
       "ip": "Adres IP",
-      "port": "Port"
+      "port": "Port",
+      "invalidPort": "Wpisz liczbę całkowitą od 1 do 65535."
     },
     "fileInfo": {
       "title": "Informacje o pliku",

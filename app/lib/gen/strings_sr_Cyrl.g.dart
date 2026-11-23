@@ -364,6 +364,8 @@ class _Translations$deviceDetailsPage$sr_Cyrl extends Translations$deviceDetails
   @override
   late final _Translations$deviceDetailsPage$info$sr_Cyrl info = _Translations$deviceDetailsPage$info$sr_Cyrl._(_root);
   @override
+  late final _Translations$deviceDetailsPage$channels$sr_Cyrl channels = _Translations$deviceDetailsPage$channels$sr_Cyrl._(_root);
+  @override
   late final _Translations$deviceDetailsPage$logs$sr_Cyrl logs = _Translations$deviceDetailsPage$logs$sr_Cyrl._(_root);
 }
 
@@ -955,6 +957,10 @@ class _Translations$settingsTab$general$sr_Cyrl extends Translations$settingsTab
   @override
   String get saveWindowPlacementWindows => 'Сачувај положај прозора након излажења';
   @override
+  String get alwaysOnTop => 'Увек на врху';
+  @override
+  String get alwaysOnTopUnavailable => 'Није подржано на Wayland-у';
+  @override
   String get minimizeToTray => 'Минимизирај на системску траку/траку менија приликом затварања';
   @override
   String get launchAtStartup => 'Аутоматски покрени након пријаве';
@@ -962,6 +968,11 @@ class _Translations$settingsTab$general$sr_Cyrl extends Translations$settingsTab
   String get launchMinimized => 'Аутоматско покретање: Покретање скривено';
   @override
   String get showInContextMenu => 'Прикажи LocalSend у контекстуалном менију';
+  @override
+  String get softwareRendering => 'Софтверско исцртавање';
+  @override
+  String get softwareRenderingDescription =>
+      'Користите ако прозор остаје празан, има грешке у приказу или се затвара при покретању. Примењује се након рестартовања.';
   @override
   String get animations => 'Анимације';
 }
@@ -1145,11 +1156,34 @@ class _Translations$deviceDetailsPage$info$sr_Cyrl extends Translations$deviceDe
   @override
   String get name => 'Име';
   @override
-  String get address => 'Адреса';
-  @override
   String get version => 'Верзија';
   @override
   String protocol({required Object version}) => 'Протокол v${version}';
+}
+
+// Path: deviceDetailsPage.channels
+class _Translations$deviceDetailsPage$channels$sr_Cyrl extends Translations$deviceDetailsPage$channels$en {
+  _Translations$deviceDetailsPage$channels$sr_Cyrl._(TranslationsSrCyrl root) : this._root = root, super.internal(root);
+
+  final TranslationsSrCyrl _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Канали';
+  @override
+  String get you => 'Ви';
+  @override
+  String get outgoing => 'Одлазна';
+  @override
+  String get incoming => 'Долазна';
+  @override
+  String get works => 'Ради';
+  @override
+  String get notTested => 'Није тестирана';
+  @override
+  String get failed => 'Неуспешна';
+  @override
+  String get notSeen => 'Није виђена';
 }
 
 // Path: deviceDetailsPage.logs
@@ -1164,9 +1198,14 @@ class _Translations$deviceDetailsPage$logs$sr_Cyrl extends Translations$deviceDe
   @override
   String get empty => 'Нема доступне евиденције.';
   @override
-  String discovered({required Object protocol, required Object host}) => 'Откривено путем ${protocol} (${host})';
+  String outbound({required Object protocol, required Object host}) => 'Повезано преко ${protocol} (${host})';
   @override
-  String updated({required Object protocol, required Object host}) => 'Ажурирано путем ${protocol} (${host})';
+  String outboundFailed({required Object protocol, required Object host, required Object error}) =>
+      'Повезивање преко ${protocol} (${host}) није успело: ${error}';
+  @override
+  String inbound({required Object protocol, required Object host}) => 'Долазна веза преко ${protocol} (${host})';
+  @override
+  String multicastInbound({required Object host}) => 'Примљена најава (${host})';
 }
 
 // Path: progressPage.total
@@ -1362,6 +1401,8 @@ class _Translations$dialogs$favoriteEditDialog$sr_Cyrl extends Translations$dial
   String get ip => 'IP адреса';
   @override
   String get port => 'Порт';
+  @override
+  String get invalidPort => 'Унесите цео број између 1 и 65535.';
 }
 
 // Path: dialogs.fileInfo

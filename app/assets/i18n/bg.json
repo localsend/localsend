@@ -106,10 +106,14 @@
       },
       "saveWindowPlacement": "Запази позицията на прозореца след напускане",
       "saveWindowPlacementWindows": "Запази позицията на прозореца след излизане",
+      "alwaysOnTop": "Винаги отгоре",
+      "alwaysOnTopUnavailable": "Не се поддържа под Wayland",
       "minimizeToTray": "Минимизирай в Системна област/Лента с менюта при затваряне",
       "launchAtStartup": "Автоматично стартиране след влизане",
       "launchMinimized": "Автоматично стартиране: Стартирай скрито",
       "showInContextMenu": "Покажи LocalSend в контекстното меню",
+      "softwareRendering": "Софтуерно изобразяване",
+      "softwareRenderingDescription": "Използвайте, ако прозорецът остава празен, работи с проблеми или се затваря при стартиране. Влиза в сила след рестартиране.",
       "animations": "Анимации"
     },
     "receive": {
@@ -212,15 +216,26 @@
     "verify": "Проверка",
     "info": {
       "name": "Име",
-      "address": "Адрес",
       "version": "Версия",
       "protocol": "Протокол v{version}"
+    },
+    "channels": {
+      "title": "Канали",
+      "you": "Вие",
+      "outgoing": "Изходяща",
+      "incoming": "Входяща",
+      "works": "Работи",
+      "notTested": "Не е проверена",
+      "failed": "Неуспешна",
+      "notSeen": "Не е засечена"
     },
     "logs": {
       "title": "Дневници",
       "empty": "Няма налични дневници.",
-      "discovered": "Открито чрез {protocol} ({host})",
-      "updated": "Обновено чрез {protocol} ({host})"
+      "outbound": "Свързано чрез {protocol} ({host})",
+      "outboundFailed": "Неуспешно свързване чрез {protocol} ({host}): {error}",
+      "inbound": "Входяща връзка чрез {protocol} ({host})",
+      "multicastInbound": "Получено обявяване ({host})"
     }
   },
   "verifyPage": {
@@ -380,7 +395,8 @@
       "name": "Име на устройство",
       "auto": "(автоматично)",
       "ip": "IP адрес",
-      "port": "Порт"
+      "port": "Порт",
+      "invalidPort": "Въведете цяло число между 1 и 65535."
     },
     "fileInfo": {
       "title": "Информация за файла",

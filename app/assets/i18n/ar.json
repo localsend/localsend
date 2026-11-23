@@ -106,10 +106,14 @@
       },
       "saveWindowPlacement": "إنهاء: حفظ موقع النافذة",
       "saveWindowPlacementWindows": "حفظ موضع النافذة بعد الخروج",
+      "alwaysOnTop": "دائمًا في المقدمة",
+      "alwaysOnTopUnavailable": "غير مدعوم على Wayland",
       "minimizeToTray": "إنهاء : أخفاء في شريط المهام",
       "launchAtStartup": "تشغيل تلقائي بعد تسجيل الدخول",
       "launchMinimized": "تشغيل تلقائي: ابدأ مخفيًا",
       "showInContextMenu": "إظهار LocalSend في قائمة السياق",
+      "softwareRendering": "العرض البرمجي",
+      "softwareRenderingDescription": "استخدمه إذا ظلت النافذة فارغة أو ظهرت بها أعطال أو أُغلقت عند البدء. يسري بعد إعادة التشغيل.",
       "animations": "الرسوم المتحركة"
     },
     "receive": {
@@ -212,15 +216,26 @@
     "verify": "تحقق",
     "info": {
       "name": "الاسم",
-      "address": "العنوان",
       "version": "الإصدار",
       "protocol": "البروتوكول v{version}"
+    },
+    "channels": {
+      "title": "القنوات",
+      "you": "أنت",
+      "outgoing": "صادر",
+      "incoming": "وارد",
+      "works": "يعمل",
+      "notTested": "لم يُختبر",
+      "failed": "فشل",
+      "notSeen": "لم يُرصد"
     },
     "logs": {
       "title": "السجلات",
       "empty": "لا توجد سجلات متاحة.",
-      "discovered": "تم الاكتشاف عبر {protocol} ({host})",
-      "updated": "تم التحديث عبر {protocol} ({host})"
+      "outbound": "تم الوصول عبر {protocol} ({host})",
+      "outboundFailed": "تعذر الوصول عبر {protocol} ({host}): {error}",
+      "inbound": "وصل إلينا عبر {protocol} ({host})",
+      "multicastInbound": "تم استقبال إعلان ({host})"
     }
   },
   "verifyPage": {
@@ -450,7 +465,8 @@
       "name": "اسم الجهاز",
       "auto": "(تلقائي)",
       "ip": "عنوان IP",
-      "port": "المنفذ"
+      "port": "المنفذ",
+      "invalidPort": "أدخل عددًا صحيحًا بين 1 و 65535."
     },
     "fileInfo": {
       "title": "معلومات الملف",

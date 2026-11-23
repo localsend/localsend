@@ -106,10 +106,14 @@
       },
       "saveWindowPlacement": "ออก: บันทึกตำแหน่งหน้าต่างของโปรแกรม",
       "saveWindowPlacementWindows": "บันทึกตำแหน่งหน้าต่างหลังจากออก",
+      "alwaysOnTop": "อยู่ด้านบนเสมอ",
+      "alwaysOnTopUnavailable": "ไม่รองรับบน Wayland",
       "minimizeToTray": "ย่อแอปไปยัง System Tray/แถบเมนูเมื่อปิดโปรแกรม",
       "launchAtStartup": "เริ่มอัตโนมัติหลังจากเข้าสู่ระบบ",
       "launchMinimized": "เริ่มอัตโนมัติ: ซ่อนโปรแกรมหลังจากเริ่ม",
       "showInContextMenu": "แสดง LocalSend ในเมนูคลิกขวา",
+      "softwareRendering": "เรนเดอร์ด้วยซอฟต์แวร์",
+      "softwareRenderingDescription": "ใช้เมื่อหน้าต่างว่างเปล่า แสดงผลผิดปกติ หรือปิดตัวเมื่อเริ่มต้น มีผลหลังจากเริ่มต้นใหม่",
       "animations": "ภาพเคลื่อนไหว"
     },
     "receive": {
@@ -212,15 +216,26 @@
     "verify": "ตรวจสอบ",
     "info": {
       "name": "ชื่อ",
-      "address": "ที่อยู่",
       "version": "เวอร์ชัน",
       "protocol": "โปรโตคอล v{version}"
+    },
+    "channels": {
+      "title": "ช่องทาง",
+      "you": "คุณ",
+      "outgoing": "ขาออก",
+      "incoming": "ขาเข้า",
+      "works": "ใช้งานได้",
+      "notTested": "ยังไม่ได้ทดสอบ",
+      "failed": "ล้มเหลว",
+      "notSeen": "ยังไม่พบ"
     },
     "logs": {
       "title": "บันทึก",
       "empty": "ไม่มีบันทึก",
-      "discovered": "ค้นพบผ่าน {protocol} ({host})",
-      "updated": "อัปเดตผ่าน {protocol} ({host})"
+      "outbound": "เชื่อมต่อสำเร็จผ่าน {protocol} ({host})",
+      "outboundFailed": "ไม่สามารถเชื่อมต่อผ่าน {protocol} ({host}): {error}",
+      "inbound": "อีกฝ่ายเชื่อมต่อมาผ่าน {protocol} ({host})",
+      "multicastInbound": "ได้รับการประกาศ ({host})"
     }
   },
   "verifyPage": {
@@ -450,7 +465,8 @@
       "name": "ชื่ออุปกรณ์",
       "auto": "(ตั้งให้อัตโนมัติ)",
       "ip": "ที่อยู่ IP",
-      "port": "พอร์ต"
+      "port": "พอร์ต",
+      "invalidPort": "กรุณากรอกจำนวนเต็มระหว่าง 1 ถึง 65535"
     },
     "fileInfo": {
       "title": "ข้อมูลไฟล์",

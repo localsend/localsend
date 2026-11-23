@@ -363,6 +363,8 @@ class _Translations$deviceDetailsPage$sl extends Translations$deviceDetailsPage$
   @override
   late final _Translations$deviceDetailsPage$info$sl info = _Translations$deviceDetailsPage$info$sl._(_root);
   @override
+  late final _Translations$deviceDetailsPage$channels$sl channels = _Translations$deviceDetailsPage$channels$sl._(_root);
+  @override
   late final _Translations$deviceDetailsPage$logs$sl logs = _Translations$deviceDetailsPage$logs$sl._(_root);
 }
 
@@ -949,6 +951,10 @@ class _Translations$settingsTab$general$sl extends Translations$settingsTab$gene
   @override
   String get saveWindowPlacementWindows => 'Shrani položaj okna ob zaprtju';
   @override
+  String get alwaysOnTop => 'Vedno na vrhu';
+  @override
+  String get alwaysOnTopUnavailable => 'Ni podprto v Waylandu';
+  @override
   String get minimizeToTray => 'Ob zaprtju minimiziraj v sistemski pladenj / meni';
   @override
   String get launchAtStartup => 'Samodejni zagon po prijavi';
@@ -956,6 +962,11 @@ class _Translations$settingsTab$general$sl extends Translations$settingsTab$gene
   String get launchMinimized => 'Samodejni zagon: Začni skrito';
   @override
   String get showInContextMenu => 'Prikaži LocalSend v kontekstnem meniju';
+  @override
+  String get softwareRendering => 'Programsko upodabljanje';
+  @override
+  String get softwareRenderingDescription =>
+      'Uporabite, če okno ostane prazno, se napačno prikazuje ali se ob zagonu zapre. Učinkuje po ponovnem zagonu.';
   @override
   String get animations => 'Animacije';
 }
@@ -1136,11 +1147,34 @@ class _Translations$deviceDetailsPage$info$sl extends Translations$deviceDetails
   @override
   String get name => 'Ime';
   @override
-  String get address => 'Naslov';
-  @override
   String get version => 'Različica';
   @override
   String protocol({required Object version}) => 'Protokol v${version}';
+}
+
+// Path: deviceDetailsPage.channels
+class _Translations$deviceDetailsPage$channels$sl extends Translations$deviceDetailsPage$channels$en {
+  _Translations$deviceDetailsPage$channels$sl._(TranslationsSl root) : this._root = root, super.internal(root);
+
+  final TranslationsSl _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Kanali';
+  @override
+  String get you => 'Vi';
+  @override
+  String get outgoing => 'Odhodno';
+  @override
+  String get incoming => 'Dohodno';
+  @override
+  String get works => 'Deluje';
+  @override
+  String get notTested => 'Ni preizkušeno';
+  @override
+  String get failed => 'Ni uspelo';
+  @override
+  String get notSeen => 'Ni zaznano';
 }
 
 // Path: deviceDetailsPage.logs
@@ -1155,9 +1189,14 @@ class _Translations$deviceDetailsPage$logs$sl extends Translations$deviceDetails
   @override
   String get empty => 'Ni razpoložljivih dnevnikov.';
   @override
-  String discovered({required Object protocol, required Object host}) => 'Odkrito prek ${protocol} (${host})';
+  String outbound({required Object protocol, required Object host}) => 'Dosegljivo prek ${protocol} (${host})';
   @override
-  String updated({required Object protocol, required Object host}) => 'Posodobljeno prek ${protocol} (${host})';
+  String outboundFailed({required Object protocol, required Object host, required Object error}) =>
+      'Ni dosegljivo prek ${protocol} (${host}): ${error}';
+  @override
+  String inbound({required Object protocol, required Object host}) => 'Povezalo se je z nami prek ${protocol} (${host})';
+  @override
+  String multicastInbound({required Object host}) => 'Prejeta najava (${host})';
 }
 
 // Path: progressPage.total
@@ -1352,6 +1391,8 @@ class _Translations$dialogs$favoriteEditDialog$sl extends Translations$dialogs$f
   String get ip => 'IP naslov';
   @override
   String get port => 'Vrata';
+  @override
+  String get invalidPort => 'Vnesite celo število med 1 in 65535.';
 }
 
 // Path: dialogs.fileInfo

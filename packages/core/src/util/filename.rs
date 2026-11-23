@@ -1,5 +1,7 @@
 //! Filename sanitization for untrusted, peer-supplied file names.
 
+use unicode_normalization::UnicodeNormalization;
+
 /// Characters that are illegal on Windows and FAT volumes.
 const ILLEGAL_WINDOWS_CHARS: &[char] = &['<', '>', ':', '"', '/', '\\', '|', '?', '*'];
 
@@ -108,10 +110,19 @@ pub fn sanitize(name: &str, rules: Rules) -> String {
     sanitize_with(name, rules, &Options::default())
 }
 
+/// Normalizes `name` to Unicode NFC without any other rewriting.
+///
+/// macOS (HFS+/APFS) emits NFD; Windows and most Linux desktops expect NFC.
+/// Without this, Korean jamo and accented Latin characters arrive decomposed.
+pub fn normalize(name: &str) -> String {
+    name.nfc().collect()
+}
+
 /// [`sanitize`] with explicit replacement and placeholder strings.
 pub fn sanitize_with(name: &str, rules: Rules, options: &Options) -> String {
-    let mut result = String::with_capacity(name.len());
-    for c in name.chars() {
+    let normalized = normalize(name);
+    let mut result = String::with_capacity(normalized.len());
+    for c in normalized.chars() {
         if rules.is_illegal_char(c) {
             result.push_str(options.replacement);
         } else {
@@ -154,9 +165,15 @@ fn collapse_trailing_run(result: &mut String, replacement: &str) {
 }
 
 /// Whether `name` is already legal under `rules`, i.e. whether [`sanitize`]
-/// would leave it untouched. Suitable for validating user input before it is
-/// written.
+/// would leave it untouched apart from NFC normalization. Suitable for
+/// validating user input before it is written.
+///
+/// Decomposed input (e.g. a name pasted from macOS Finder) is legal: sanitize
+/// only composes it, so it is checked in its composed form.
 pub fn is_valid(name: &str, rules: Rules) -> bool {
+    let normalized = normalize(name);
+    let name = normalized.as_str();
+
     if name.is_empty() || name.len() > MAX_LEN || is_relative(name) {
         return false;
     }
@@ -341,8 +358,47 @@ mod tests {
         assert!(is_valid(&"a".repeat(255), Rules::Posix));
     }
 
-    /// `is_valid` must agree with `sanitize` — otherwise a name the UI accepts
-    /// still gets rewritten on save, or vice versa.
+    /// NFD names (e.g. Korean jamo from macOS) are normalized to NFC so they
+    /// display correctly on Windows and Linux.
+    #[test]
+    fn test_nfc_normalization() {
+        // Korean "오삐한테" in NFD (decomposed jamo)
+        let nfd = "\u{110B}\u{1169}\u{1108}\u{1175}\u{1112}\u{1161}\u{11AB}\u{1110}\u{1166}";
+        // Same string in NFC (precomposed syllables)
+        let nfc = "오삐한테";
+        assert_ne!(nfd, nfc);
+
+        for rules in [
+            Rules::Windows,
+            Rules::Hfs,
+            Rules::Fat,
+            Rules::Posix,
+            Rules::Universal,
+        ] {
+            assert_eq!(
+                sanitize(nfd, rules),
+                nfc,
+                "NFD not normalized for {rules:?}"
+            );
+            assert!(is_valid(nfc, rules), "NFC should be valid for {rules:?}");
+            assert!(is_valid(nfd, rules), "NFD should be valid for {rules:?}");
+        }
+
+        // Latin with combining accent: e + combining acute → é
+        let nfd_latin = "re\u{0301}sume\u{0301}.txt";
+        let nfc_latin = "résumé.txt";
+        assert_eq!(sanitize(nfd_latin, Rules::Posix), nfc_latin);
+
+        // normalize only composes; it must not rewrite separators or illegal characters.
+        assert_eq!(
+            normalize(&format!("dir/{nfd}:.txt")),
+            format!("dir/{nfc}:.txt")
+        );
+    }
+
+    /// `is_valid` must agree with `sanitize` (up to NFC normalization) —
+    /// otherwise a name the UI accepts still gets rewritten on save, or vice
+    /// versa.
     #[test]
     fn test_is_valid_matches_sanitize() {
         let names = [
@@ -367,6 +423,15 @@ mod tests {
             "文件.txt",
             &"a".repeat(255),
             &"a".repeat(256),
+            // NFD: "오삐한테" as jamo, and "résumé" with combining accents.
+            "\u{110B}\u{1169}\u{1108}\u{1175}\u{1112}\u{1161}\u{11AB}\u{1110}\u{1166}.txt",
+            "re\u{0301}sume\u{0301}.txt",
+            "a\u{0301}:b",
+            "con\u{0301}",
+            // Over the limit in NFD (720 bytes) but not in NFC (240 bytes).
+            &"\u{1112}\u{1161}\u{11AB}".repeat(80),
+            // Over the limit even in NFC (400 bytes).
+            &"e\u{0301}".repeat(200),
         ];
 
         for rules in [
@@ -379,7 +444,7 @@ mod tests {
             for name in names {
                 assert_eq!(
                     is_valid(name, rules),
-                    sanitize(name, rules) == name,
+                    sanitize(name, rules) == normalize(name),
                     "mismatch for {name:?} under {rules:?}"
                 );
             }

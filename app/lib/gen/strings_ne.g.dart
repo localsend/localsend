@@ -363,6 +363,8 @@ class _Translations$deviceDetailsPage$ne extends Translations$deviceDetailsPage$
   @override
   late final _Translations$deviceDetailsPage$info$ne info = _Translations$deviceDetailsPage$info$ne._(_root);
   @override
+  late final _Translations$deviceDetailsPage$channels$ne channels = _Translations$deviceDetailsPage$channels$ne._(_root);
+  @override
   late final _Translations$deviceDetailsPage$logs$ne logs = _Translations$deviceDetailsPage$logs$ne._(_root);
 }
 
@@ -950,6 +952,10 @@ class _Translations$settingsTab$general$ne extends Translations$settingsTab$gene
   @override
   String get saveWindowPlacementWindows => 'बाहिर निस्किएपछि विन्डोको स्थिति सुरक्षित गर्नुहोस्';
   @override
+  String get alwaysOnTop => 'सधैं माथि राख्नुहोस्';
+  @override
+  String get alwaysOnTopUnavailable => 'Wayland मा समर्थित छैन';
+  @override
   String get minimizeToTray => 'छोड्नुहोस्: ट्रेमा न्यूनतम गर्नुहोस्';
   @override
   String get launchAtStartup => 'लगइन पछि स्वत: सुरु गर्नुहोस्';
@@ -957,6 +963,10 @@ class _Translations$settingsTab$general$ne extends Translations$settingsTab$gene
   String get launchMinimized => 'स्वतः सुरु गर्नुहोस्: लुकेको सुरु गर्नुहोस्';
   @override
   String get showInContextMenu => 'कन्टेक्स्ट मेनुमा LocalSend देखाउनुहोस्';
+  @override
+  String get softwareRendering => 'सफ्टवेयर रेन्डरिङ';
+  @override
+  String get softwareRenderingDescription => 'विन्डो खाली रहेमा, गडबड भएमा वा सुरु हुँदा बन्द भएमा प्रयोग गर्नुहोस्। पुनः सुरु गरेपछि लागू हुन्छ।';
   @override
   String get animations => 'एनिमेसनहरू';
 }
@@ -1138,11 +1148,34 @@ class _Translations$deviceDetailsPage$info$ne extends Translations$deviceDetails
   @override
   String get name => 'नाम';
   @override
-  String get address => 'ठेगाना';
-  @override
   String get version => 'संस्करण';
   @override
   String protocol({required Object version}) => 'प्रोटोकल v${version}';
+}
+
+// Path: deviceDetailsPage.channels
+class _Translations$deviceDetailsPage$channels$ne extends Translations$deviceDetailsPage$channels$en {
+  _Translations$deviceDetailsPage$channels$ne._(TranslationsNe root) : this._root = root, super.internal(root);
+
+  final TranslationsNe _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'च्यानलहरू';
+  @override
+  String get you => 'तपाईं';
+  @override
+  String get outgoing => 'बाहिर जाने';
+  @override
+  String get incoming => 'भित्र आउने';
+  @override
+  String get works => 'काम गर्छ';
+  @override
+  String get notTested => 'परीक्षण गरिएको छैन';
+  @override
+  String get failed => 'असफल';
+  @override
+  String get notSeen => 'देखिएको छैन';
 }
 
 // Path: deviceDetailsPage.logs
@@ -1157,9 +1190,14 @@ class _Translations$deviceDetailsPage$logs$ne extends Translations$deviceDetails
   @override
   String get empty => 'कुनै लग उपलब्ध छैन।';
   @override
-  String discovered({required Object protocol, required Object host}) => '${protocol} मार्फत फेला पर्यो (${host})';
+  String outbound({required Object protocol, required Object host}) => '${protocol} (${host}) मार्फत पुगियो';
   @override
-  String updated({required Object protocol, required Object host}) => '${protocol} मार्फत अपडेट भयो (${host})';
+  String outboundFailed({required Object protocol, required Object host, required Object error}) =>
+      '${protocol} (${host}) मार्फत पुग्न सकिएन: ${error}';
+  @override
+  String inbound({required Object protocol, required Object host}) => '${protocol} (${host}) मार्फत हामीसम्म पुग्यो';
+  @override
+  String multicastInbound({required Object host}) => 'घोषणा प्राप्त भयो (${host})';
 }
 
 // Path: progressPage.total
@@ -1356,6 +1394,8 @@ class _Translations$dialogs$favoriteEditDialog$ne extends Translations$dialogs$f
   String get ip => 'IP ठेगाना';
   @override
   String get port => 'पोर्ट';
+  @override
+  String get invalidPort => '1 देखि 65535 बीचको पूर्ण संख्या प्रविष्ट गर्नुहोस्।';
 }
 
 // Path: dialogs.fileInfo

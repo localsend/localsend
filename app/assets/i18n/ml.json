@@ -106,10 +106,14 @@
       },
       "saveWindowPlacement": "എക്സിറ് ആയ ശേഷം ഇപ്പോൾ ഉള്ള വിന്ഡോ പൊസിഷൻ സേവ് ചെയ്യുക",
       "saveWindowPlacementWindows": "എക്സിറ് ആയ ശേഷം ഇപ്പോൾ ഉള്ള വിൻഡോ പൊസിഷൻ സേവ് ചെയ്യുക",
+      "alwaysOnTop": "എപ്പോഴും മുകളിൽ",
+      "alwaysOnTopUnavailable": "Wayland-ൽ പിന്തുണയില്ല",
       "minimizeToTray": "ക്ലോസ് ചെയ്യുന്ന സമയത്തു മെനുബാറിലേക്കോ/സിസ്റ്റം ട്രയിലേക്കോ മിനിമൈസ് ചെയ്യുക",
       "launchAtStartup": "ലോഗിൻ ആയ ശേഷം താനേ പ്രവർത്തിക്കുക",
       "launchMinimized": "താനെ പ്രവർത്തിക്കുക: തുടങ്ങുമ്പോൾ ഹൈഡ് ആയി തുടങ്ങുക",
       "showInContextMenu": "കണ്ടെക്സ്റ് മെനുവിൽ ഈ അപ്ലിക്കേഷൻ കാണിക്കുക",
+      "softwareRendering": "സോഫ്റ്റ്‌വെയർ റെൻഡറിംഗ്",
+      "softwareRenderingDescription": "വിൻഡോ ശൂന്യമായി തുടരുകയോ തകരാറിലാവുകയോ തുടങ്ങുമ്പോൾ തന്നെ ക്ലോസ് ആവുകയോ ചെയ്താൽ ഉപയോഗിക്കുക. റീസ്റ്റാർട്ട് ചെയ്ത ശേഷം പ്രാബല്യത്തിൽ വരും.",
       "animations": "അനിമേഷനുകൾ"
     },
     "receive": {
@@ -212,15 +216,26 @@
     "verify": "പരിശോധിക്കുക",
     "info": {
       "name": "പേര്",
-      "address": "വിലാസം",
       "version": "പതിപ്പ്",
       "protocol": "പ്രോട്ടോക്കോൾ v{version}"
+    },
+    "channels": {
+      "title": "ചാനലുകൾ",
+      "you": "നിങ്ങൾ",
+      "outgoing": "പുറത്തേക്ക്",
+      "incoming": "അകത്തേക്ക്",
+      "works": "പ്രവർത്തിക്കുന്നു",
+      "notTested": "പരിശോധിച്ചിട്ടില്ല",
+      "failed": "പരാജയപ്പെട്ടു",
+      "notSeen": "കണ്ടിട്ടില്ല"
     },
     "logs": {
       "title": "ലോഗുകൾ",
       "empty": "ലോഗുകളൊന്നും ലഭ്യമല്ല.",
-      "discovered": "{protocol} വഴി കണ്ടെത്തി ({host})",
-      "updated": "{protocol} വഴി അപ്ഡേറ്റ് ചെയ്തു ({host})"
+      "outbound": "{protocol} ({host}) വഴി എത്തി",
+      "outboundFailed": "{protocol} ({host}) വഴി എത്താനായില്ല: {error}",
+      "inbound": "{protocol} ({host}) വഴി ഇങ്ങോട്ട് എത്തി",
+      "multicastInbound": "അറിയിപ്പ് ലഭിച്ചു ({host})"
     }
   },
   "verifyPage": {
@@ -380,7 +395,8 @@
       "name": "ഡിവൈസ് നാമം",
       "auto": "(സ്വയം)",
       "ip": "ഐ പി അഡ്രസ്",
-      "port": "പോർട്ട്"
+      "port": "പോർട്ട്",
+      "invalidPort": "1-നും 65535-നും ഇടയിലുള്ള ഒരു പൂർണ്ണസംഖ്യ നൽകുക."
     },
     "fileInfo": {
       "title": "ഫയൽ വിവരങ്ങൾ",

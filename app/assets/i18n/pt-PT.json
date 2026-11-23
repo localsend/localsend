@@ -106,10 +106,14 @@
       },
       "saveWindowPlacement": "Guardar a posição da janela ao fechar",
       "saveWindowPlacementWindows": "Gravar posição da janela ao sair",
+      "alwaysOnTop": "Sempre no topo",
+      "alwaysOnTopUnavailable": "Não suportado no Wayland",
       "minimizeToTray": "Minimizar para a área de notificação ao fechar",
       "launchAtStartup": "Abrir automaticamente após iniciar sessão",
       "launchMinimized": "Início automático: Abrir minimizado",
       "showInContextMenu": "Mostrar LocalSend no menu de contexto",
+      "softwareRendering": "Renderização por software",
+      "softwareRenderingDescription": "Utilize se a janela ficar em branco, apresentar falhas ou fechar ao iniciar. Tem efeito após reiniciar.",
       "animations": "Animações"
     },
     "receive": {
@@ -212,15 +216,26 @@
     "verify": "Verificar",
     "info": {
       "name": "Nome",
-      "address": "Endereço",
       "version": "Versão",
       "protocol": "Protocolo v{version}"
+    },
+    "channels": {
+      "title": "Canais",
+      "you": "Você",
+      "outgoing": "Saída",
+      "incoming": "Entrada",
+      "works": "Funciona",
+      "notTested": "Não testado",
+      "failed": "Falhou",
+      "notSeen": "Não visto"
     },
     "logs": {
       "title": "Registos",
       "empty": "Nenhum registo disponível.",
-      "discovered": "Descoberto via {protocol} ({host})",
-      "updated": "Atualizado via {protocol} ({host})"
+      "outbound": "Ligado via {protocol} ({host})",
+      "outboundFailed": "Não foi possível ligar via {protocol} ({host}): {error}",
+      "inbound": "Ligou-se a nós via {protocol} ({host})",
+      "multicastInbound": "Anúncio recebido ({host})"
     }
   },
   "verifyPage": {
@@ -453,7 +468,8 @@
       "name": "Nome do dispositivo",
       "auto": "(auto)",
       "ip": "Endereço IP",
-      "port": "Porta"
+      "port": "Porta",
+      "invalidPort": "Introduza um número inteiro entre 1 e 65535."
     },
     "fileInfo": {
       "title": "Informação do ficheiro",

@@ -74,11 +74,12 @@ impl std::fmt::Display for TargetSelector {
 mod tests {
     use super::TargetSelector;
     use localsend::discovery::{
-        ChannelStatus, DeviceChannel, DiscoveredDevice, HttpChannel, StatefulDevice,
+        ChannelState, DeviceChannel, DiscoveredDevice, HttpChannel, Outbound, StatefulDevice,
     };
     use localsend::model::discovery::ProtocolType;
     use std::collections::HashMap;
     use std::net::{IpAddr, Ipv4Addr};
+    use std::time::SystemTime;
 
     fn device(alias: &str, fingerprint: &str, host: &str) -> StatefulDevice {
         let channel = DeviceChannel::Http(HttpChannel {
@@ -96,7 +97,15 @@ mod tests {
                 channel: channel.clone(),
                 download: false,
             },
-            channels: HashMap::from([(channel, ChannelStatus::Available)]),
+            confirmed: true,
+            verified: true,
+            channels: HashMap::from([(
+                channel,
+                ChannelState {
+                    outbound: Outbound::Reachable(SystemTime::now()),
+                    inbound: None,
+                },
+            )]),
             logs: Vec::new(),
         }
     }

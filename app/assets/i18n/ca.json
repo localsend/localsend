@@ -106,10 +106,14 @@
       },
       "saveWindowPlacement": "Desa la posició de la finestra en sortir",
       "saveWindowPlacementWindows": "Desa la posició de la finestra després de sortir",
+      "alwaysOnTop": "Sempre al davant",
+      "alwaysOnTopUnavailable": "No és compatible amb Wayland",
       "minimizeToTray": "Minimitza a la safata del sistema/barra de menú en tancar",
       "launchAtStartup": "Inici automàtic en iniciar la sessió",
       "launchMinimized": "Inici automàtic: Inici minimitzat",
       "showInContextMenu": "Mostra el LocalSend al menú contextual",
+      "softwareRendering": "Renderització per programari",
+      "softwareRenderingDescription": "Utilitzeu-ho si la finestra es queda en blanc, presenta errors gràfics o es tanca en iniciar. S'aplica després de reiniciar.",
       "animations": "Animacions"
     },
     "receive": {
@@ -212,15 +216,26 @@
     "verify": "Verifica",
     "info": {
       "name": "Nom",
-      "address": "Adreça",
       "version": "Versió",
       "protocol": "Protocol v{version}"
+    },
+    "channels": {
+      "title": "Canals",
+      "you": "Vós",
+      "outgoing": "Sortint",
+      "incoming": "Entrant",
+      "works": "Funciona",
+      "notTested": "No provat",
+      "failed": "Ha fallat",
+      "notSeen": "No vist"
     },
     "logs": {
       "title": "Registres",
       "empty": "No hi ha registres disponibles.",
-      "discovered": "Descobert mitjançant {protocol} ({host})",
-      "updated": "Actualitzat mitjançant {protocol} ({host})"
+      "outbound": "Contactat mitjançant {protocol} ({host})",
+      "outboundFailed": "No s'ha pogut contactar mitjançant {protocol} ({host}): {error}",
+      "inbound": "Ens ha contactat mitjançant {protocol} ({host})",
+      "multicastInbound": "Anunci rebut ({host})"
     }
   },
   "verifyPage": {
@@ -450,7 +465,8 @@
       "name": "Nom del dispositiu",
       "auto": "(auto)",
       "ip": "Adreça IP",
-      "port": "Port"
+      "port": "Port",
+      "invalidPort": "Introduïu un nombre enter entre 1 i 65535."
     },
     "fileInfo": {
       "title": "Informació del fitxer",

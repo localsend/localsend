@@ -4,10 +4,13 @@
 // ignore_for_file: invalid_use_of_internal_member, unused_import, unnecessary_import
 
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
+import 'package:freezed_annotation/freezed_annotation.dart' hide protected;
 import 'package:localsend_isolates/rust/api/model.dart';
 import 'package:localsend_isolates/rust/frb_generated.dart';
 
-// These functions are ignored because they are not marked as `pub`: `rs_device_log`, `rs_stored_device`, `stop`
+part 'discovery.freezed.dart';
+
+// These functions are ignored because they are not marked as `pub`: `merged_event`, `millis_since_epoch`, `rs_device_channel`, `rs_device_log`, `rs_stored_channel`, `rs_stored_device`, `stop`, `unconfirmed_device`
 // These types are ignored because they are neither used by any `pub` functions nor (for structs and enums) marked `#[frb(unignore)]`: `DiscoveryInstance`
 
 /// Starts the discovery: binds the UDP multicast sockets on all usable
@@ -27,8 +30,8 @@ import 'package:localsend_isolates/rust/frb_generated.dart';
 /// Cannot fail besides an invalid [group]: when no multicast socket could be
 /// bound (e.g. the port is taken by another process), discovery still runs
 /// without multicast — see [RsDiscovery::multicast_error] — and still learns
-/// about devices through [RsDiscovery::discover], [RsDiscovery::scan_subnet]
-/// and [RsDiscovery::add_device].
+/// about devices through [RsDiscovery::discover_staged],
+/// [RsDiscovery::scan_subnet] and [RsDiscovery::observe_inbound].
 Future<RsDiscovery> startDiscovery({
   required String group,
   required int port,
@@ -63,23 +66,18 @@ Future<RsDiscovery> startDiscovery({
 
 // Rust type: RustOpaqueMoi<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<RsDiscovery>>
 abstract class RsDiscovery implements RustOpaqueInterface {
-  /// Puts a device confirmed outside of the discovery into the store, e.g.
-  /// one that answered an announcement by registering with this device's
-  /// HTTP server. The device is emitted on [RsDiscovery::listen].
-  Future<void> addDevice({required RsDiscoveredDevice device});
-
   /// Announces this device to the network, which makes every other LocalSend
   /// device on it register with this device over HTTP.
   ///
   /// Devices registering in response arrive at the application as server
-  /// events, not here: feed them back via [RsDiscovery::add_device].
+  /// events, not here: feed them back via [RsDiscovery::observe_inbound].
   ///
   /// Returns once the whole announcement burst has been sent, which takes a
   /// few seconds, or immediately once the discovery has been stopped or
   /// multicast is unavailable.
   Future<void> announce();
 
-  /// The retained confirmations of a stored device, oldest first, capped at
+  /// The retained observations of a stored device, oldest first, capped at
   /// the store's log limit. Empty when the fingerprint is unknown.
   Future<List<RsDeviceLog>> deviceLogs({required String fingerprint});
 
@@ -101,8 +99,8 @@ abstract class RsDiscovery implements RustOpaqueInterface {
     required BigInt graceMs,
   });
 
-  /// Emits a [RsStoredDevice] for every device confirmation until the
-  /// discovery is stopped. Can only be listened to once.
+  /// Emits a [RsDiscoveryEvent] for every observation of a device until
+  /// the discovery is stopped. Can only be listened to once.
   ///
   /// Also ends when the multicast sockets failed permanently (e.g. because
   /// the OS invalidated them while the application was suspended): the
@@ -111,11 +109,32 @@ abstract class RsDiscovery implements RustOpaqueInterface {
   ///
   /// Also returns when the Dart side of the stream is gone (e.g. after a
   /// hot restart), so this call does not keep the discovery alive forever.
-  Stream<RsStoredDevice> listen();
+  Stream<RsDiscoveryEvent> listen();
 
   /// The reason the multicast sockets could not be bound, when they could
   /// not. Discovery then neither hears nor sends announcements.
   Future<String?> multicastError();
+
+  /// Puts a device that reached this device's HTTP server into the store,
+  /// e.g. one that answered an announcement by registering. The device is
+  /// emitted on [RsDiscovery::listen].
+  ///
+  /// Only the inbound direction of the address is confirmed: an address
+  /// new to the device is stored with [RsOutbound::Untested] and dialed
+  /// back in the background, whose outcome is emitted as well.
+  Future<void> observeInbound({required RsDiscoveredDevice device});
+
+  /// Records the outcome of a request the application sent to a stored
+  /// device over [channel], e.g. a transfer: without an [error] the channel
+  /// becomes [RsOutbound::Reachable], with one — the reason, for display —
+  /// it becomes [RsOutbound::Failed], which ranks it behind the device's
+  /// other channels. The device is emitted on [RsDiscovery::listen].
+  ///
+  /// Only report failures to reach the device at all, not requests that
+  /// the device answered with an error.
+  ///
+  /// Returns `false` when no device has the fingerprint.
+  Future<bool> reportOutbound({required String fingerprint, required RsDeviceChannel channel, String? error});
 
   /// Scans the `/24` subnet of the local interface address [interface_ip]
   /// by sending every other host a register request, for networks that do
@@ -140,12 +159,7 @@ abstract class RsDiscovery implements RustOpaqueInterface {
   Future<void> stop();
 }
 
-enum DeviceLogKind {
-  discovered,
-  updated,
-}
-
-/// An address a stored device was confirmed on and is dialed at.
+/// The address of a device's HTTP server.
 class RsDeviceChannel {
   /// The host to dial: an IP address, or the scoped form `fe80::1%3` for
   /// link-local IPv6 (the Rust HTTP client accepts both back as a host).
@@ -170,39 +184,62 @@ class RsDeviceChannel {
       other is RsDeviceChannel && runtimeType == other.runtimeType && host == other.host && port == other.port && protocol == other.protocol;
 }
 
-/// One retained confirmation of a stored device, for the device details UI.
+/// One retained observation of a stored device, for the device details UI.
 class RsDeviceLog {
-  /// When the confirmation happened, in milliseconds since the Unix epoch.
+  /// When the observation happened, in milliseconds since the Unix epoch.
   final BigInt timestampMillis;
-
-  /// Whether the confirmation discovered the device or re-confirmed it.
-  final DeviceLogKind kind;
-
-  /// The channel the confirmation happened on.
-  final RsDeviceChannel channel;
+  final RsDeviceLogEvent event;
 
   const RsDeviceLog({
     required this.timestampMillis,
-    required this.kind,
-    required this.channel,
+    required this.event,
   });
 
   @override
-  int get hashCode => timestampMillis.hashCode ^ kind.hashCode ^ channel.hashCode;
+  int get hashCode => timestampMillis.hashCode ^ event.hashCode;
 
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is RsDeviceLog &&
-          runtimeType == other.runtimeType &&
-          timestampMillis == other.timestampMillis &&
-          kind == other.kind &&
-          channel == other.channel;
+      other is RsDeviceLog && runtimeType == other.runtimeType && timestampMillis == other.timestampMillis && event == other.event;
 }
 
-/// A single device confirmation over HTTP, fed into the store via
-/// [RsDiscovery::add_device]: the device's register request was accepted by
-/// our server, so it is known to be reachable at [RsDiscoveredDevice::host].
+@freezed
+sealed class RsDeviceLogEvent with _$RsDeviceLogEvent {
+  const RsDeviceLogEvent._();
+
+  /// This device → the peer: a request over the channel was answered.
+  const factory RsDeviceLogEvent.outbound({
+    required RsDeviceChannel channel,
+  }) = RsDeviceLogEvent_Outbound;
+
+  /// This device → the peer: a request over the channel failed.
+  const factory RsDeviceLogEvent.outboundFailed({
+    required RsDeviceChannel channel,
+
+    /// Why the request failed, for display.
+    required String error,
+  }) = RsDeviceLogEvent_OutboundFailed;
+
+  /// The peer → this device: the peer sent a request to this device's
+  /// server. The channel is the address the request came from, with the
+  /// port the peer claims to serve on.
+  const factory RsDeviceLogEvent.inbound({
+    required RsDeviceChannel channel,
+  }) = RsDeviceLogEvent_Inbound;
+
+  /// The peer → this device: an announcement of the peer was heard.
+  const factory RsDeviceLogEvent.multicastInbound({
+    /// The address the announcement came from, in the scoped form
+    /// `fe80::1%3` for link-local IPv6.
+    required String host,
+  }) = RsDeviceLogEvent_MulticastInbound;
+}
+
+/// A device that reached this device's HTTP server, fed into the store via
+/// [RsDiscovery::observe_inbound]: its request arrived from
+/// [RsDiscoveredDevice::host], which says nothing about whether it can be
+/// dialed back there.
 class RsDiscoveredDevice {
   final String alias;
 
@@ -214,12 +251,12 @@ class RsDiscoveredDevice {
   /// Fingerprint identifying the device; devices are deduplicated by it.
   final String fingerprint;
 
-  /// The host the device was confirmed on: an IP address, or the scoped
-  /// form `fe80::1%3` for link-local IPv6 (the Rust HTTP client accepts
-  /// both back as a host).
+  /// The host the request came from: an IP address, or the scoped form
+  /// `fe80::1%3` for link-local IPv6 (the Rust HTTP client accepts both
+  /// back as a host).
   final String host;
 
-  /// The port of the device's HTTP server.
+  /// The port the device claims its HTTP server listens on.
   final int port;
   final ProtocolType protocol;
 
@@ -266,15 +303,94 @@ class RsDiscoveredDevice {
           download == other.download;
 }
 
+@freezed
+sealed class RsDiscoveryEvent with _$RsDiscoveryEvent {
+  const RsDiscoveryEvent._();
+
+  /// The state of a confirmed device changed: it was discovered or
+  /// confirmed again (answered announcements, scan results and devices fed
+  /// in via [RsDiscovery::observe_inbound]), or a request to it failed.
+  /// Carries the merged state, so the device re-appears with everything
+  /// known about its channels so far.
+  const factory RsDiscoveryEvent.device(
+    RsStoredDevice field0,
+  ) = RsDiscoveryEvent_Device;
+
+  /// A device was heard announcing itself but did not answer the register
+  /// request, typically because a firewall blocks its server.
+  ///
+  /// Nothing about such a device is verified (announcements are
+  /// unauthenticated): it is for diagnostics only and must not be offered
+  /// as a transfer target.
+  const factory RsDiscoveryEvent.unreachable({
+    /// The merged state of the device, as its announcements claim it.
+    required RsStoredDevice device,
+
+    /// Why the most recent register request failed, for display.
+    required String error,
+  }) = RsDiscoveryEvent_Unreachable;
+}
+
+/// Whether a peer can be dialed on a channel.
+enum RsOutbound {
+  /// No request was sent over the channel yet: the peer reached this
+  /// device from it, which says nothing about the way back.
+  untested,
+
+  /// The last request over the channel was answered.
+  reachable,
+
+  /// The last request over the channel failed.
+  failed,
+}
+
+/// An address of a stored device with what is known about each direction: a
+/// channel that works one way does not have to work the other way (e.g.
+/// because of a firewall on one of the devices).
+class RsStoredChannel {
+  /// The host to dial: an IP address, or the scoped form `fe80::1%3` for
+  /// link-local IPv6 (the Rust HTTP client accepts both back as a host).
+  final String host;
+
+  /// The port of the device's HTTP server at this address.
+  final int port;
+  final ProtocolType protocol;
+
+  /// This device → the peer: whether the peer can be dialed at this address.
+  final RsOutbound outbound;
+
+  /// The peer → this device: when the peer last reached this device's
+  /// server from this address, in milliseconds since the Unix epoch.
+  /// `None` when it never did.
+  final BigInt? inboundAtMillis;
+
+  const RsStoredChannel({
+    required this.host,
+    required this.port,
+    required this.protocol,
+    required this.outbound,
+    this.inboundAtMillis,
+  });
+
+  @override
+  int get hashCode => host.hashCode ^ port.hashCode ^ protocol.hashCode ^ outbound.hashCode ^ inboundAtMillis.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is RsStoredChannel &&
+          runtimeType == other.runtimeType &&
+          host == other.host &&
+          port == other.port &&
+          protocol == other.protocol &&
+          outbound == other.outbound &&
+          inboundAtMillis == other.inboundAtMillis;
+}
+
 /// The merged stored state of a discovered device: one entry per fingerprint,
-/// carrying every address the device was confirmed on. A multi-homed device
+/// carrying every address the device was observed on. A multi-homed device
 /// that is reachable over several network interfaces is still one
 /// [RsStoredDevice].
-///
-/// Emitted on [RsDiscovery::listen] for every confirmation (answered
-/// announcements, scan results and devices fed in via
-/// [RsDiscovery::add_device]), so a device re-appears — with its channels
-/// accumulated so far — whenever it re-announces itself or is re-discovered.
 class RsStoredDevice {
   final String alias;
 
@@ -289,11 +405,11 @@ class RsStoredDevice {
   /// Whether the device's download API is active.
   final bool download;
 
-  /// Every address the device was confirmed on, best first (available
-  /// before not-reachable, IPv6 before IPv4, most recently confirmed
-  /// first). Never empty: a device only enters the store through a
-  /// confirmation.
-  final List<RsDeviceChannel> channels;
+  /// Every address the device was observed on, in the order to dial them
+  /// (reachable before untested before failed, then global IPv6 before IPv4
+  /// before link-local, then most recently confirmed first). Never empty:
+  /// a device only enters the store through an observation on one of its addresses.
+  final List<RsStoredChannel> channels;
 
   const RsStoredDevice({
     required this.alias,

@@ -13,12 +13,17 @@ essential: false
 icon: assets/img/logo-512.png
 
 pre_dependencies:
-  - libc6 (>= 2.31)
+  - libc6 (>= 2.34)
 
 dependencies:
-  - libappindicator3-1 | libayatana-appindicator3-1
-  - gir1.2-appindicator3-0.1 | gir1.2-ayatanaappindicator3-0.1
+  # The app links libayatana-appindicator3.so.1 (built against
+  # libayatana-appindicator3-dev). Canonical's libappindicator3-1 is a
+  # different library: offered as an alternative, apt picks it on systems
+  # without Ayatana and the app fails to start.
+  - libayatana-appindicator3-1
   - libayatana-ido3-0.4-0
+  - libegl1
+  - libgles2
   - xdg-user-dirs
 
 postinstall_scripts:
@@ -39,3 +44,8 @@ categories:
   - Utility
 
 startup_notify: true
+
+# Must match the GTK application id set in linux/CMakeLists.txt, otherwise the
+# desktop environment cannot map the running window back to this desktop entry.
+# https://github.com/localsend/localsend/pull/3355
+startup_wm_class: org.localsend.localsend_app

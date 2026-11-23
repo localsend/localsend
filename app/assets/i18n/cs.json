@@ -106,10 +106,14 @@
       },
       "saveWindowPlacement": "Při ukončení uložit umístění okna",
       "saveWindowPlacementWindows": "Uložit polohu okna po ukončení",
+      "alwaysOnTop": "Vždy navrchu",
+      "alwaysOnTopUnavailable": "Není podporováno ve Waylandu",
       "minimizeToTray": "Při ukončení minimalizovat do lišty",
       "launchAtStartup": "Automatické spuštění po přihlášení",
       "launchMinimized": "Automatické spuštění: skrytý start",
       "showInContextMenu": "Zobrazit LocalSend v kontextové nabídce",
+      "softwareRendering": "Softwarové vykreslování",
+      "softwareRenderingDescription": "Použijte, pokud okno zůstává prázdné, má grafické chyby nebo se při spuštění zavře. Projeví se po restartu.",
       "animations": "Animace"
     },
     "receive": {
@@ -212,15 +216,26 @@
     "verify": "Ověřit",
     "info": {
       "name": "Název",
-      "address": "Adresa",
       "version": "Verze",
       "protocol": "Protokol v{version}"
+    },
+    "channels": {
+      "title": "Kanály",
+      "you": "Vy",
+      "outgoing": "Odchozí",
+      "incoming": "Příchozí",
+      "works": "Funguje",
+      "notTested": "Netestováno",
+      "failed": "Selhalo",
+      "notSeen": "Nezaznamenáno"
     },
     "logs": {
       "title": "Záznamy",
       "empty": "Žádné záznamy nejsou k dispozici.",
-      "discovered": "Objeveno přes {protocol} ({host})",
-      "updated": "Aktualizováno přes {protocol} ({host})"
+      "outbound": "Připojeno přes {protocol} ({host})",
+      "outboundFailed": "Nelze se připojit přes {protocol} ({host}): {error}",
+      "inbound": "Připojilo se k nám přes {protocol} ({host})",
+      "multicastInbound": "Přijato oznámení ({host})"
     }
   },
   "verifyPage": {
@@ -380,7 +395,8 @@
       "name": "Název zařízení",
       "auto": "(auto)",
       "ip": "IP adresa",
-      "port": "Port"
+      "port": "Port",
+      "invalidPort": "Zadejte celé číslo od 1 do 65535."
     },
     "fileInfo": {
       "title": "Informace o souboru",

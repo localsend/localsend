@@ -361,6 +361,8 @@ class _Translations$deviceDetailsPage$vi extends Translations$deviceDetailsPage$
   @override
   late final _Translations$deviceDetailsPage$info$vi info = _Translations$deviceDetailsPage$info$vi._(_root);
   @override
+  late final _Translations$deviceDetailsPage$channels$vi channels = _Translations$deviceDetailsPage$channels$vi._(_root);
+  @override
   late final _Translations$deviceDetailsPage$logs$vi logs = _Translations$deviceDetailsPage$logs$vi._(_root);
 }
 
@@ -865,6 +867,10 @@ class _Translations$settingsTab$general$vi extends Translations$settingsTab$gene
   @override
   String get saveWindowPlacementWindows => 'Lưu vị trí cửa sổ sau khi thoát ứng dụng';
   @override
+  String get alwaysOnTop => 'Luôn ở trên cùng';
+  @override
+  String get alwaysOnTopUnavailable => 'Không hỗ trợ trên Wayland';
+  @override
   String get minimizeToTray => 'Thoát: Ẩn xuống thanh tác vụ';
   @override
   String get launchAtStartup => 'Tự khởi động sau khi đăng nhập';
@@ -872,6 +878,10 @@ class _Translations$settingsTab$general$vi extends Translations$settingsTab$gene
   String get launchMinimized => 'Tự khởi động: Khởi động ẩn';
   @override
   String get showInContextMenu => 'Hiển thị LocalSend ở danh mục';
+  @override
+  String get softwareRendering => 'Kết xuất bằng phần mềm';
+  @override
+  String get softwareRenderingDescription => 'Dùng nếu cửa sổ bị trắng, lỗi hiển thị hoặc tự đóng khi khởi động. Có hiệu lực sau khi khởi động lại.';
   @override
   String get animations => 'Hoạt ảnh';
 }
@@ -1053,11 +1063,34 @@ class _Translations$deviceDetailsPage$info$vi extends Translations$deviceDetails
   @override
   String get name => 'Tên';
   @override
-  String get address => 'Địa chỉ';
-  @override
   String get version => 'Phiên bản';
   @override
   String protocol({required Object version}) => 'Giao thức v${version}';
+}
+
+// Path: deviceDetailsPage.channels
+class _Translations$deviceDetailsPage$channels$vi extends Translations$deviceDetailsPage$channels$en {
+  _Translations$deviceDetailsPage$channels$vi._(TranslationsVi root) : this._root = root, super.internal(root);
+
+  final TranslationsVi _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Kênh';
+  @override
+  String get you => 'Bạn';
+  @override
+  String get outgoing => 'Chiều đi';
+  @override
+  String get incoming => 'Chiều đến';
+  @override
+  String get works => 'Hoạt động';
+  @override
+  String get notTested => 'Chưa thử';
+  @override
+  String get failed => 'Thất bại';
+  @override
+  String get notSeen => 'Chưa thấy';
 }
 
 // Path: deviceDetailsPage.logs
@@ -1072,9 +1105,14 @@ class _Translations$deviceDetailsPage$logs$vi extends Translations$deviceDetails
   @override
   String get empty => 'Không có nhật ký nào.';
   @override
-  String discovered({required Object protocol, required Object host}) => 'Được phát hiện qua ${protocol} (${host})';
+  String outbound({required Object protocol, required Object host}) => 'Đã kết nối qua ${protocol} (${host})';
   @override
-  String updated({required Object protocol, required Object host}) => 'Được cập nhật qua ${protocol} (${host})';
+  String outboundFailed({required Object protocol, required Object host, required Object error}) =>
+      'Không thể kết nối qua ${protocol} (${host}): ${error}';
+  @override
+  String inbound({required Object protocol, required Object host}) => 'Thiết bị kia đã kết nối qua ${protocol} (${host})';
+  @override
+  String multicastInbound({required Object host}) => 'Đã nhận thông báo (${host})';
 }
 
 // Path: progressPage.total
@@ -1269,6 +1307,8 @@ class _Translations$dialogs$favoriteEditDialog$vi extends Translations$dialogs$f
   String get ip => 'Địa chỉ IP';
   @override
   String get port => 'Port';
+  @override
+  String get invalidPort => 'Nhập số nguyên từ 1 đến 65535.';
 }
 
 // Path: dialogs.fileInfo

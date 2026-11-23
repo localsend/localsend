@@ -8,13 +8,21 @@ import 'package:routerino/routerino.dart';
 class TextFieldWithActions extends StatefulWidget {
   final String name;
   final TextEditingController controller;
-  final ValueChanged<String> onChanged;
+  final bool allowEmpty;
+
+  /// Called while typing. Cancellation does not undo this callback's effects.
+  final ValueChanged<String>? onChanged;
+
+  /// Called on confirmation. Cancellation always restores the original text in the controller.
+  final ValueChanged<String>? onSubmitted;
   final List<Widget> actions;
 
   const TextFieldWithActions({
     required this.name,
     required this.controller,
-    required this.onChanged,
+    this.allowEmpty = true,
+    this.onChanged,
+    this.onSubmitted,
     required this.actions,
   });
 
@@ -32,9 +40,10 @@ class _TextFieldWithActionsState extends State<TextFieldWithActions> {
         foregroundColor: Theme.of(context).colorScheme.onSurface,
       ),
       onPressed: () async {
-        await showDialog(
+        final originalText = widget.controller.text;
+        final confirmedText = await showDialog<String>(
           context: context,
-          builder: (context) {
+          builder: (dialogContext) {
             return AlertDialog(
               title: Text(widget.name),
               content: Column(
@@ -51,23 +60,47 @@ class _TextFieldWithActionsState extends State<TextFieldWithActions> {
                     textAlign: TextAlign.center,
                     onChanged: widget.onChanged,
                     autofocus: true,
-                    onFieldSubmitted: (_) => context.pop(),
+                    onFieldSubmitted: (text) {
+                      if (widget.allowEmpty || text.trim().isNotEmpty) {
+                        dialogContext.pop(text);
+                      }
+                    },
                   ),
                 ],
               ),
               actions: [
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Theme.of(context).colorScheme.primary,
-                    foregroundColor: Theme.of(context).colorScheme.onPrimary,
+                TextButton(
+                  onPressed: () => dialogContext.pop(),
+                  child: Text(t.general.cancel),
+                ),
+                ValueListenableBuilder<TextEditingValue>(
+                  valueListenable: widget.controller,
+                  builder: (context, value, child) => ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Theme.of(dialogContext).colorScheme.primary,
+                      foregroundColor: Theme.of(dialogContext).colorScheme.onPrimary,
+                    ),
+                    onPressed: widget.allowEmpty || value.text.trim().isNotEmpty ? () => dialogContext.pop(widget.controller.text) : null,
+                    child: Text(t.general.confirm),
                   ),
-                  onPressed: () => context.pop(),
-                  child: Text(t.general.confirm),
                 ),
               ],
             );
           },
         );
+        if (!mounted) {
+          return;
+        }
+        setState(() {
+          if (confirmedText != null) {
+            widget.controller.text = confirmedText;
+          } else {
+            widget.controller.text = originalText;
+          }
+        });
+        if (confirmedText != null) {
+          widget.onSubmitted?.call(confirmedText);
+        }
       },
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 5),

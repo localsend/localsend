@@ -361,6 +361,8 @@ class _Translations$deviceDetailsPage$de extends Translations$deviceDetailsPage$
   @override
   late final _Translations$deviceDetailsPage$info$de info = _Translations$deviceDetailsPage$info$de._(_root);
   @override
+  late final _Translations$deviceDetailsPage$channels$de channels = _Translations$deviceDetailsPage$channels$de._(_root);
+  @override
   late final _Translations$deviceDetailsPage$logs$de logs = _Translations$deviceDetailsPage$logs$de._(_root);
 }
 
@@ -865,6 +867,10 @@ class _Translations$settingsTab$general$de extends Translations$settingsTab$gene
   @override
   String get saveWindowPlacementWindows => 'Beenden: Fensterposition speichern';
   @override
+  String get alwaysOnTop => 'Immer im Vordergrund';
+  @override
+  String get alwaysOnTopUnavailable => 'Unter Wayland nicht unterstützt';
+  @override
   String get minimizeToTray => 'Beenden: in Symbolleiste minimieren';
   @override
   String get launchAtStartup => 'Autostart nach Login';
@@ -872,6 +878,11 @@ class _Translations$settingsTab$general$de extends Translations$settingsTab$gene
   String get launchMinimized => 'Autostart: versteckt starten';
   @override
   String get showInContextMenu => 'LocalSend im Kontextmenü anzeigen';
+  @override
+  String get softwareRendering => 'Software-Rendering';
+  @override
+  String get softwareRenderingDescription =>
+      'Nutze dies, wenn das Fenster leer bleibt, Grafikfehler zeigt oder sich beim Start schließt. Wird nach einem Neustart wirksam.';
   @override
   String get animations => 'Animationen';
 }
@@ -1053,11 +1064,34 @@ class _Translations$deviceDetailsPage$info$de extends Translations$deviceDetails
   @override
   String get name => 'Name';
   @override
-  String get address => 'Adresse';
-  @override
   String get version => 'Version';
   @override
   String protocol({required Object version}) => 'Protokoll v${version}';
+}
+
+// Path: deviceDetailsPage.channels
+class _Translations$deviceDetailsPage$channels$de extends Translations$deviceDetailsPage$channels$en {
+  _Translations$deviceDetailsPage$channels$de._(TranslationsDe root) : this._root = root, super.internal(root);
+
+  final TranslationsDe _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Kanäle';
+  @override
+  String get you => 'Du';
+  @override
+  String get outgoing => 'Ausgehend';
+  @override
+  String get incoming => 'Eingehend';
+  @override
+  String get works => 'Funktioniert';
+  @override
+  String get notTested => 'Nicht getestet';
+  @override
+  String get failed => 'Fehlgeschlagen';
+  @override
+  String get notSeen => 'Nicht gesehen';
 }
 
 // Path: deviceDetailsPage.logs
@@ -1072,9 +1106,14 @@ class _Translations$deviceDetailsPage$logs$de extends Translations$deviceDetails
   @override
   String get empty => 'Keine Logs vorhanden.';
   @override
-  String discovered({required Object protocol, required Object host}) => 'Entdeckt über ${protocol} (${host})';
+  String outbound({required Object protocol, required Object host}) => 'Erreicht über ${protocol} (${host})';
   @override
-  String updated({required Object protocol, required Object host}) => 'Aktualisiert über ${protocol} (${host})';
+  String outboundFailed({required Object protocol, required Object host, required Object error}) =>
+      'Nicht erreichbar über ${protocol} (${host}): ${error}';
+  @override
+  String inbound({required Object protocol, required Object host}) => 'Hat uns über ${protocol} (${host}) erreicht';
+  @override
+  String multicastInbound({required Object host}) => 'Ankündigung empfangen (${host})';
 }
 
 // Path: progressPage.total
@@ -1271,6 +1310,8 @@ class _Translations$dialogs$favoriteEditDialog$de extends Translations$dialogs$f
   String get ip => 'IP-Adresse';
   @override
   String get port => 'Port';
+  @override
+  String get invalidPort => 'Gib eine ganze Zahl zwischen 1 und 65535 ein.';
 }
 
 // Path: dialogs.fileInfo

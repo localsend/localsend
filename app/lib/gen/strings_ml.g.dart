@@ -361,6 +361,8 @@ class _Translations$deviceDetailsPage$ml extends Translations$deviceDetailsPage$
   @override
   late final _Translations$deviceDetailsPage$info$ml info = _Translations$deviceDetailsPage$info$ml._(_root);
   @override
+  late final _Translations$deviceDetailsPage$channels$ml channels = _Translations$deviceDetailsPage$channels$ml._(_root);
+  @override
   late final _Translations$deviceDetailsPage$logs$ml logs = _Translations$deviceDetailsPage$logs$ml._(_root);
 }
 
@@ -864,6 +866,10 @@ class _Translations$settingsTab$general$ml extends Translations$settingsTab$gene
   @override
   String get saveWindowPlacementWindows => 'എക്സിറ് ആയ ശേഷം ഇപ്പോൾ ഉള്ള വിൻഡോ പൊസിഷൻ സേവ് ചെയ്യുക';
   @override
+  String get alwaysOnTop => 'എപ്പോഴും മുകളിൽ';
+  @override
+  String get alwaysOnTopUnavailable => 'Wayland-ൽ പിന്തുണയില്ല';
+  @override
   String get minimizeToTray => 'ക്ലോസ് ചെയ്യുന്ന സമയത്തു മെനുബാറിലേക്കോ/സിസ്റ്റം ട്രയിലേക്കോ മിനിമൈസ് ചെയ്യുക';
   @override
   String get launchAtStartup => 'ലോഗിൻ ആയ ശേഷം താനേ പ്രവർത്തിക്കുക';
@@ -871,6 +877,11 @@ class _Translations$settingsTab$general$ml extends Translations$settingsTab$gene
   String get launchMinimized => 'താനെ പ്രവർത്തിക്കുക: തുടങ്ങുമ്പോൾ ഹൈഡ് ആയി തുടങ്ങുക';
   @override
   String get showInContextMenu => 'കണ്ടെക്സ്റ് മെനുവിൽ ഈ അപ്ലിക്കേഷൻ കാണിക്കുക';
+  @override
+  String get softwareRendering => 'സോഫ്റ്റ്‌വെയർ റെൻഡറിംഗ്';
+  @override
+  String get softwareRenderingDescription =>
+      'വിൻഡോ ശൂന്യമായി തുടരുകയോ തകരാറിലാവുകയോ തുടങ്ങുമ്പോൾ തന്നെ ക്ലോസ് ആവുകയോ ചെയ്താൽ ഉപയോഗിക്കുക. റീസ്റ്റാർട്ട് ചെയ്ത ശേഷം പ്രാബല്യത്തിൽ വരും.';
   @override
   String get animations => 'അനിമേഷനുകൾ';
 }
@@ -1052,11 +1063,34 @@ class _Translations$deviceDetailsPage$info$ml extends Translations$deviceDetails
   @override
   String get name => 'പേര്';
   @override
-  String get address => 'വിലാസം';
-  @override
   String get version => 'പതിപ്പ്';
   @override
   String protocol({required Object version}) => 'പ്രോട്ടോക്കോൾ v${version}';
+}
+
+// Path: deviceDetailsPage.channels
+class _Translations$deviceDetailsPage$channels$ml extends Translations$deviceDetailsPage$channels$en {
+  _Translations$deviceDetailsPage$channels$ml._(TranslationsMl root) : this._root = root, super.internal(root);
+
+  final TranslationsMl _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'ചാനലുകൾ';
+  @override
+  String get you => 'നിങ്ങൾ';
+  @override
+  String get outgoing => 'പുറത്തേക്ക്';
+  @override
+  String get incoming => 'അകത്തേക്ക്';
+  @override
+  String get works => 'പ്രവർത്തിക്കുന്നു';
+  @override
+  String get notTested => 'പരിശോധിച്ചിട്ടില്ല';
+  @override
+  String get failed => 'പരാജയപ്പെട്ടു';
+  @override
+  String get notSeen => 'കണ്ടിട്ടില്ല';
 }
 
 // Path: deviceDetailsPage.logs
@@ -1071,9 +1105,14 @@ class _Translations$deviceDetailsPage$logs$ml extends Translations$deviceDetails
   @override
   String get empty => 'ലോഗുകളൊന്നും ലഭ്യമല്ല.';
   @override
-  String discovered({required Object protocol, required Object host}) => '${protocol} വഴി കണ്ടെത്തി (${host})';
+  String outbound({required Object protocol, required Object host}) => '${protocol} (${host}) വഴി എത്തി';
   @override
-  String updated({required Object protocol, required Object host}) => '${protocol} വഴി അപ്ഡേറ്റ് ചെയ്തു (${host})';
+  String outboundFailed({required Object protocol, required Object host, required Object error}) =>
+      '${protocol} (${host}) വഴി എത്താനായില്ല: ${error}';
+  @override
+  String inbound({required Object protocol, required Object host}) => '${protocol} (${host}) വഴി ഇങ്ങോട്ട് എത്തി';
+  @override
+  String multicastInbound({required Object host}) => 'അറിയിപ്പ് ലഭിച്ചു (${host})';
 }
 
 // Path: progressPage.total
@@ -1270,6 +1309,8 @@ class _Translations$dialogs$favoriteEditDialog$ml extends Translations$dialogs$f
   String get ip => 'ഐ പി അഡ്രസ്';
   @override
   String get port => 'പോർട്ട്';
+  @override
+  String get invalidPort => '1-നും 65535-നും ഇടയിലുള്ള ഒരു പൂർണ്ണസംഖ്യ നൽകുക.';
 }
 
 // Path: dialogs.fileInfo

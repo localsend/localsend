@@ -363,6 +363,8 @@ class _Translations$deviceDetailsPage$ar extends Translations$deviceDetailsPage$
   @override
   late final _Translations$deviceDetailsPage$info$ar info = _Translations$deviceDetailsPage$info$ar._(_root);
   @override
+  late final _Translations$deviceDetailsPage$channels$ar channels = _Translations$deviceDetailsPage$channels$ar._(_root);
+  @override
   late final _Translations$deviceDetailsPage$logs$ar logs = _Translations$deviceDetailsPage$logs$ar._(_root);
 }
 
@@ -949,6 +951,10 @@ class _Translations$settingsTab$general$ar extends Translations$settingsTab$gene
   @override
   String get saveWindowPlacementWindows => 'حفظ موضع النافذة بعد الخروج';
   @override
+  String get alwaysOnTop => 'دائمًا في المقدمة';
+  @override
+  String get alwaysOnTopUnavailable => 'غير مدعوم على Wayland';
+  @override
   String get minimizeToTray => 'إنهاء : أخفاء في شريط المهام';
   @override
   String get launchAtStartup => 'تشغيل تلقائي بعد تسجيل الدخول';
@@ -956,6 +962,10 @@ class _Translations$settingsTab$general$ar extends Translations$settingsTab$gene
   String get launchMinimized => 'تشغيل تلقائي: ابدأ مخفيًا';
   @override
   String get showInContextMenu => 'إظهار LocalSend في قائمة السياق';
+  @override
+  String get softwareRendering => 'العرض البرمجي';
+  @override
+  String get softwareRenderingDescription => 'استخدمه إذا ظلت النافذة فارغة أو ظهرت بها أعطال أو أُغلقت عند البدء. يسري بعد إعادة التشغيل.';
   @override
   String get animations => 'الرسوم المتحركة';
 }
@@ -1137,11 +1147,34 @@ class _Translations$deviceDetailsPage$info$ar extends Translations$deviceDetails
   @override
   String get name => 'الاسم';
   @override
-  String get address => 'العنوان';
-  @override
   String get version => 'الإصدار';
   @override
   String protocol({required Object version}) => 'البروتوكول v${version}';
+}
+
+// Path: deviceDetailsPage.channels
+class _Translations$deviceDetailsPage$channels$ar extends Translations$deviceDetailsPage$channels$en {
+  _Translations$deviceDetailsPage$channels$ar._(TranslationsAr root) : this._root = root, super.internal(root);
+
+  final TranslationsAr _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'القنوات';
+  @override
+  String get you => 'أنت';
+  @override
+  String get outgoing => 'صادر';
+  @override
+  String get incoming => 'وارد';
+  @override
+  String get works => 'يعمل';
+  @override
+  String get notTested => 'لم يُختبر';
+  @override
+  String get failed => 'فشل';
+  @override
+  String get notSeen => 'لم يُرصد';
 }
 
 // Path: deviceDetailsPage.logs
@@ -1156,9 +1189,13 @@ class _Translations$deviceDetailsPage$logs$ar extends Translations$deviceDetails
   @override
   String get empty => 'لا توجد سجلات متاحة.';
   @override
-  String discovered({required Object protocol, required Object host}) => 'تم الاكتشاف عبر ${protocol} (${host})';
+  String outbound({required Object protocol, required Object host}) => 'تم الوصول عبر ${protocol} (${host})';
   @override
-  String updated({required Object protocol, required Object host}) => 'تم التحديث عبر ${protocol} (${host})';
+  String outboundFailed({required Object protocol, required Object host, required Object error}) => 'تعذر الوصول عبر ${protocol} (${host}): ${error}';
+  @override
+  String inbound({required Object protocol, required Object host}) => 'وصل إلينا عبر ${protocol} (${host})';
+  @override
+  String multicastInbound({required Object host}) => 'تم استقبال إعلان (${host})';
 }
 
 // Path: progressPage.total
@@ -1353,6 +1390,8 @@ class _Translations$dialogs$favoriteEditDialog$ar extends Translations$dialogs$f
   String get ip => 'عنوان IP';
   @override
   String get port => 'المنفذ';
+  @override
+  String get invalidPort => 'أدخل عددًا صحيحًا بين 1 و 65535.';
 }
 
 // Path: dialogs.fileInfo

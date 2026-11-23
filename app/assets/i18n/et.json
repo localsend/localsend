@@ -106,10 +106,14 @@
       },
       "saveWindowPlacement": "Peale väljumist salvesta akna asukoht",
       "saveWindowPlacementWindows": "Peale lõpetamist salvesta akna asukoht",
+      "alwaysOnTop": "Alati pealmine",
+      "alwaysOnTopUnavailable": "Waylandis pole toetatud",
       "minimizeToTray": "Sulgemisel aseta rakendus süsteemisalve",
       "launchAtStartup": "Sisselogimisel käivita automaatselt",
       "launchMinimized": "Automaatsel käivitamisel: käivita peidetuna",
       "showInContextMenu": "Näita LocalSendi kontekstimenüüs",
+      "softwareRendering": "Tarkvaraline renderdamine",
+      "softwareRenderingDescription": "Kasuta, kui aken jääb tühjaks, vilgub või sulgub käivitamisel. Jõustub pärast uuesti käivitamist.",
       "animations": "Animatsioonid"
     },
     "receive": {
@@ -212,15 +216,26 @@
     "verify": "Kontrolli",
     "info": {
       "name": "Nimi",
-      "address": "Aadress",
       "version": "Versioon",
       "protocol": "Protokoll v{version}"
+    },
+    "channels": {
+      "title": "Kanalid",
+      "you": "Sina",
+      "outgoing": "Väljuv",
+      "incoming": "Sisenev",
+      "works": "Toimib",
+      "notTested": "Testimata",
+      "failed": "Ebaõnnestus",
+      "notSeen": "Pole nähtud"
     },
     "logs": {
       "title": "Logid",
       "empty": "Logisid pole saadaval.",
-      "discovered": "Avastatud {protocol} kaudu ({host})",
-      "updated": "Uuendatud {protocol} kaudu ({host})"
+      "outbound": "Ühendus õnnestus {protocol} kaudu ({host})",
+      "outboundFailed": "Ühendus {protocol} kaudu ebaõnnestus ({host}): {error}",
+      "inbound": "Ühendus meiega loodi {protocol} kaudu ({host})",
+      "multicastInbound": "Teadaanne vastu võetud ({host})"
     }
   },
   "verifyPage": {
@@ -380,7 +395,8 @@
       "name": "Seadme nimi",
       "auto": "(automaatne)",
       "ip": "IP-aadress",
-      "port": "Kasutatav port"
+      "port": "Kasutatav port",
+      "invalidPort": "Sisesta täisarv vahemikus 1 kuni 65535."
     },
     "fileInfo": {
       "title": "Faili teave",

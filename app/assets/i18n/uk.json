@@ -106,10 +106,14 @@
       },
       "saveWindowPlacement": "Зберігати розташування вікна після виходу",
       "saveWindowPlacementWindows": "Зберігати розташування вікна після виходу",
+      "alwaysOnTop": "Поверх усіх вікон",
+      "alwaysOnTopUnavailable": "Не підтримується у Wayland",
       "minimizeToTray": "Згортати в системний трей/смугу меню при закритті",
       "launchAtStartup": "Автозапуск",
       "launchMinimized": "Прихований автозапуск",
       "showInContextMenu": "Відображати LocalSend в контекстному меню",
+      "softwareRendering": "Програмний рендеринг",
+      "softwareRenderingDescription": "Використовуйте, якщо вікно залишається порожнім, працює зі збоями або закривається під час запуску. Набуде чинності після перезапуску.",
       "animations": "Анімації"
     },
     "receive": {
@@ -212,15 +216,26 @@
     "verify": "Перевірити",
     "info": {
       "name": "Ім'я пристрою",
-      "address": "Адреса",
       "version": "Версія",
       "protocol": "Протокол v{version}"
+    },
+    "channels": {
+      "title": "Канали",
+      "you": "Ви",
+      "outgoing": "Вихідне",
+      "incoming": "Вхідне",
+      "works": "Працює",
+      "notTested": "Не перевірено",
+      "failed": "Помилка",
+      "notSeen": "Не виявлено"
     },
     "logs": {
       "title": "Журнали",
       "empty": "Немає доступних журналів.",
-      "discovered": "Виявлено через {protocol} ({host})",
-      "updated": "Оновлено через {protocol} ({host})"
+      "outbound": "Підключено через {protocol} ({host})",
+      "outboundFailed": "Не вдалося підключитися через {protocol} ({host}): {error}",
+      "inbound": "Вхідне підключення через {protocol} ({host})",
+      "multicastInbound": "Отримано оголошення ({host})"
     }
   },
   "verifyPage": {
@@ -380,7 +395,8 @@
       "name": "Ім'я пристрою",
       "auto": "(автоматично)",
       "ip": "IP-адреса",
-      "port": "Порт"
+      "port": "Порт",
+      "invalidPort": "Введіть ціле число від 1 до 65535."
     },
     "fileInfo": {
       "title": "Інформація про файл",

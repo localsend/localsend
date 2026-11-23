@@ -504,6 +504,7 @@ async fn serve_connection(
                 let (_, server_connection) = tls_stream.get_ref();
                 RequestClientInfo {
                     ip: PeerIp::from_remote_addr(&remote_addr),
+                    tls: true,
                     // No certificate when client auth is optional (web pages served)
                     // and the client (e.g. a browser) did not present one.
                     cert: server_connection
@@ -519,6 +520,7 @@ async fn serve_connection(
         None => {
             let client_info = RequestClientInfo {
                 ip: PeerIp::from_remote_addr(&remote_addr),
+                tls: false,
                 cert: None,
             };
             serve_http(tcp_stream, client_info, app_state).await
@@ -576,16 +578,30 @@ pub struct RequestClientInfo {
     /// The IP address of the client, including the IPv6 scope when present.
     ip: PeerIp,
 
+    /// Whether the connection uses TLS.
+    tls: bool,
+
     /// The client certificate in DER format.
+    /// `None` without TLS, or on TLS when the client presented no certificate
+    /// (only possible while the web pages are served).
     cert: Option<Vec<u8>>,
 }
 
 impl RequestClientInfo {
-    /// The SHA-256 fingerprint (uppercase hex) of the client certificate
-    /// verified during the mTLS handshake.
-    /// `None` when the server runs without TLS.
-    fn cert_fingerprint(&self) -> Option<String> {
-        self.cert.as_deref().map(fingerprint_from_cert_der)
+    /// The fingerprint identifying the client, given the one it `claimed`:
+    /// - TLS with a client certificate: the SHA-256 fingerprint (uppercase hex)
+    ///   of that certificate, verified during the mTLS handshake.
+    /// - Plain HTTP: the claimed fingerprint, as there is nothing to verify it
+    ///   against (encryption is turned off).
+    /// - TLS without a client certificate (e.g. a browser while the web pages
+    ///   are served): `None`, the client is anonymous. Its claimed fingerprint
+    ///   must not be trusted, otherwise it could impersonate any device.
+    fn sender_fingerprint(&self, claimed: &str) -> Option<String> {
+        match (&self.cert, self.tls) {
+            (Some(cert), _) => Some(fingerprint_from_cert_der(cert)),
+            (None, false) => Some(claimed.to_string()),
+            (None, true) => None,
+        }
     }
 
     fn extract_public_key(&self) -> Option<String> {

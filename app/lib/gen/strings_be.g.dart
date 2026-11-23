@@ -361,6 +361,8 @@ class _Translations$deviceDetailsPage$be extends Translations$deviceDetailsPage$
   @override
   late final _Translations$deviceDetailsPage$info$be info = _Translations$deviceDetailsPage$info$be._(_root);
   @override
+  late final _Translations$deviceDetailsPage$channels$be channels = _Translations$deviceDetailsPage$channels$be._(_root);
+  @override
   late final _Translations$deviceDetailsPage$logs$be logs = _Translations$deviceDetailsPage$logs$be._(_root);
 }
 
@@ -865,6 +867,10 @@ class _Translations$settingsTab$general$be extends Translations$settingsTab$gene
   @override
   String get saveWindowPlacementWindows => 'Запамінаць пазіцыю акна пасля выхаду';
   @override
+  String get alwaysOnTop => 'Па-над усімі вокнамі';
+  @override
+  String get alwaysOnTopUnavailable => 'Не падтрымліваецца ў Wayland';
+  @override
   String get minimizeToTray => 'Згортваць у вобласць апавяшчэнняў/панэль меню пры закрыцці';
   @override
   String get launchAtStartup => 'Аўтазапуск пасля ўваходу';
@@ -872,6 +878,11 @@ class _Translations$settingsTab$general$be extends Translations$settingsTab$gene
   String get launchMinimized => 'Аўтазапуск: запускаць схаванай';
   @override
   String get showInContextMenu => 'Паказваць LocalSend у кантэкстным меню';
+  @override
+  String get softwareRendering => 'Праграмны рэндэрынг';
+  @override
+  String get softwareRenderingDescription =>
+      'Выкарыстоўвайце, калі акно застаецца пустым, працуе са збоямі або закрываецца пры запуску. Уступіць у сілу пасля перазапуску.';
   @override
   String get animations => 'Анімацыі';
 }
@@ -1053,11 +1064,34 @@ class _Translations$deviceDetailsPage$info$be extends Translations$deviceDetails
   @override
   String get name => 'Назва';
   @override
-  String get address => 'Адрас';
-  @override
   String get version => 'Версія';
   @override
   String protocol({required Object version}) => 'Пратакол v${version}';
+}
+
+// Path: deviceDetailsPage.channels
+class _Translations$deviceDetailsPage$channels$be extends Translations$deviceDetailsPage$channels$en {
+  _Translations$deviceDetailsPage$channels$be._(TranslationsBe root) : this._root = root, super.internal(root);
+
+  final TranslationsBe _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Каналы';
+  @override
+  String get you => 'Вы';
+  @override
+  String get outgoing => 'Выходнае';
+  @override
+  String get incoming => 'Уваходнае';
+  @override
+  String get works => 'Працуе';
+  @override
+  String get notTested => 'Не праверана';
+  @override
+  String get failed => 'Памылка';
+  @override
+  String get notSeen => 'Не выяўлена';
 }
 
 // Path: deviceDetailsPage.logs
@@ -1072,9 +1106,14 @@ class _Translations$deviceDetailsPage$logs$be extends Translations$deviceDetails
   @override
   String get empty => 'Няма запісаў у журнале.';
   @override
-  String discovered({required Object protocol, required Object host}) => 'Выяўлена праз ${protocol} (${host})';
+  String outbound({required Object protocol, required Object host}) => 'Падключана праз ${protocol} (${host})';
   @override
-  String updated({required Object protocol, required Object host}) => 'Абноўлена праз ${protocol} (${host})';
+  String outboundFailed({required Object protocol, required Object host, required Object error}) =>
+      'Не ўдалося падключыцца праз ${protocol} (${host}): ${error}';
+  @override
+  String inbound({required Object protocol, required Object host}) => 'Уваходнае падключэнне праз ${protocol} (${host})';
+  @override
+  String multicastInbound({required Object host}) => 'Атрымана абвестка (${host})';
 }
 
 // Path: progressPage.total
@@ -1164,6 +1203,10 @@ class _Translations$dialogs$addressInput$be extends Translations$dialogs$address
   // Translations
   @override
   String get title => 'Увядзіце адрас';
+  @override
+  String get hashtag => 'Хэштэг';
+  @override
+  String get ip => 'IP-адрас';
   @override
   String get recentlyUsed => 'Нядаўнія: ';
 }
@@ -1265,6 +1308,8 @@ class _Translations$dialogs$favoriteEditDialog$be extends Translations$dialogs$f
   String get ip => 'IP-адрас';
   @override
   String get port => 'Порт';
+  @override
+  String get invalidPort => 'Увядзіце цэлы лік ад 1 да 65535.';
 }
 
 // Path: dialogs.fileInfo

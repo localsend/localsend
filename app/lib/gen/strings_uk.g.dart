@@ -361,6 +361,8 @@ class _Translations$deviceDetailsPage$uk extends Translations$deviceDetailsPage$
   @override
   late final _Translations$deviceDetailsPage$info$uk info = _Translations$deviceDetailsPage$info$uk._(_root);
   @override
+  late final _Translations$deviceDetailsPage$channels$uk channels = _Translations$deviceDetailsPage$channels$uk._(_root);
+  @override
   late final _Translations$deviceDetailsPage$logs$uk logs = _Translations$deviceDetailsPage$logs$uk._(_root);
 }
 
@@ -865,6 +867,10 @@ class _Translations$settingsTab$general$uk extends Translations$settingsTab$gene
   @override
   String get saveWindowPlacementWindows => 'Зберігати розташування вікна після виходу';
   @override
+  String get alwaysOnTop => 'Поверх усіх вікон';
+  @override
+  String get alwaysOnTopUnavailable => 'Не підтримується у Wayland';
+  @override
   String get minimizeToTray => 'Згортати в системний трей/смугу меню при закритті';
   @override
   String get launchAtStartup => 'Автозапуск';
@@ -872,6 +878,11 @@ class _Translations$settingsTab$general$uk extends Translations$settingsTab$gene
   String get launchMinimized => 'Прихований автозапуск';
   @override
   String get showInContextMenu => 'Відображати LocalSend в контекстному меню';
+  @override
+  String get softwareRendering => 'Програмний рендеринг';
+  @override
+  String get softwareRenderingDescription =>
+      'Використовуйте, якщо вікно залишається порожнім, працює зі збоями або закривається під час запуску. Набуде чинності після перезапуску.';
   @override
   String get animations => 'Анімації';
 }
@@ -1053,11 +1064,34 @@ class _Translations$deviceDetailsPage$info$uk extends Translations$deviceDetails
   @override
   String get name => 'Ім\'я пристрою';
   @override
-  String get address => 'Адреса';
-  @override
   String get version => 'Версія';
   @override
   String protocol({required Object version}) => 'Протокол v${version}';
+}
+
+// Path: deviceDetailsPage.channels
+class _Translations$deviceDetailsPage$channels$uk extends Translations$deviceDetailsPage$channels$en {
+  _Translations$deviceDetailsPage$channels$uk._(TranslationsUk root) : this._root = root, super.internal(root);
+
+  final TranslationsUk _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Канали';
+  @override
+  String get you => 'Ви';
+  @override
+  String get outgoing => 'Вихідне';
+  @override
+  String get incoming => 'Вхідне';
+  @override
+  String get works => 'Працює';
+  @override
+  String get notTested => 'Не перевірено';
+  @override
+  String get failed => 'Помилка';
+  @override
+  String get notSeen => 'Не виявлено';
 }
 
 // Path: deviceDetailsPage.logs
@@ -1072,9 +1106,14 @@ class _Translations$deviceDetailsPage$logs$uk extends Translations$deviceDetails
   @override
   String get empty => 'Немає доступних журналів.';
   @override
-  String discovered({required Object protocol, required Object host}) => 'Виявлено через ${protocol} (${host})';
+  String outbound({required Object protocol, required Object host}) => 'Підключено через ${protocol} (${host})';
   @override
-  String updated({required Object protocol, required Object host}) => 'Оновлено через ${protocol} (${host})';
+  String outboundFailed({required Object protocol, required Object host, required Object error}) =>
+      'Не вдалося підключитися через ${protocol} (${host}): ${error}';
+  @override
+  String inbound({required Object protocol, required Object host}) => 'Вхідне підключення через ${protocol} (${host})';
+  @override
+  String multicastInbound({required Object host}) => 'Отримано оголошення (${host})';
 }
 
 // Path: progressPage.total
@@ -1270,6 +1309,8 @@ class _Translations$dialogs$favoriteEditDialog$uk extends Translations$dialogs$f
   String get ip => 'IP-адреса';
   @override
   String get port => 'Порт';
+  @override
+  String get invalidPort => 'Введіть ціле число від 1 до 65535.';
 }
 
 // Path: dialogs.fileInfo

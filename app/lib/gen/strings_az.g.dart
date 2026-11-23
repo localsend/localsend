@@ -361,6 +361,8 @@ class _Translations$deviceDetailsPage$az extends Translations$deviceDetailsPage$
   @override
   late final _Translations$deviceDetailsPage$info$az info = _Translations$deviceDetailsPage$info$az._(_root);
   @override
+  late final _Translations$deviceDetailsPage$channels$az channels = _Translations$deviceDetailsPage$channels$az._(_root);
+  @override
   late final _Translations$deviceDetailsPage$logs$az logs = _Translations$deviceDetailsPage$logs$az._(_root);
 }
 
@@ -865,6 +867,10 @@ class _Translations$settingsTab$general$az extends Translations$settingsTab$gene
   @override
   String get saveWindowPlacementWindows => 'Çıxış sonrası pəncərə mövqeyin saxla';
   @override
+  String get alwaysOnTop => 'Həmişə üstdə';
+  @override
+  String get alwaysOnTopUnavailable => 'Wayland-də dəstəklənmir';
+  @override
   String get minimizeToTray => 'Bağlayanda Sistem Sahəsi/Menyu Cizgisinə kiçilt';
   @override
   String get launchAtStartup => 'Girişdən sonra birbaşa başlat';
@@ -872,6 +878,11 @@ class _Translations$settingsTab$general$az extends Translations$settingsTab$gene
   String get launchMinimized => 'Birbaşa başlat: Gizli başlat';
   @override
   String get showInContextMenu => 'Məzmun menyusunda LocalSend-i göstər';
+  @override
+  String get softwareRendering => 'Proqram təminatı ilə renderləmə';
+  @override
+  String get softwareRenderingDescription =>
+      'Pəncərə boş qalırsa, nasaz görünürsə və ya açılışda bağlanırsa istifadə edin. Yenidən başladıqdan sonra qüvvəyə minir.';
   @override
   String get animations => 'Animasiyalar';
 }
@@ -1053,11 +1064,34 @@ class _Translations$deviceDetailsPage$info$az extends Translations$deviceDetails
   @override
   String get name => 'Ad';
   @override
-  String get address => 'Ünvan';
-  @override
   String get version => 'Versiya';
   @override
   String protocol({required Object version}) => 'Protokol v${version}';
+}
+
+// Path: deviceDetailsPage.channels
+class _Translations$deviceDetailsPage$channels$az extends Translations$deviceDetailsPage$channels$en {
+  _Translations$deviceDetailsPage$channels$az._(TranslationsAz root) : this._root = root, super.internal(root);
+
+  final TranslationsAz _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Kanallar';
+  @override
+  String get you => 'Siz';
+  @override
+  String get outgoing => 'Gedən';
+  @override
+  String get incoming => 'Gələn';
+  @override
+  String get works => 'İşləyir';
+  @override
+  String get notTested => 'Yoxlanılmayıb';
+  @override
+  String get failed => 'Uğursuz';
+  @override
+  String get notSeen => 'Görülməyib';
 }
 
 // Path: deviceDetailsPage.logs
@@ -1072,9 +1106,14 @@ class _Translations$deviceDetailsPage$logs$az extends Translations$deviceDetails
   @override
   String get empty => 'Jurnal mövcud deyil.';
   @override
-  String discovered({required Object protocol, required Object host}) => '${protocol} vasitəsilə aşkarlandı (${host})';
+  String outbound({required Object protocol, required Object host}) => '${protocol} üzərindən əlaqə quruldu (${host})';
   @override
-  String updated({required Object protocol, required Object host}) => '${protocol} vasitəsilə yeniləndi (${host})';
+  String outboundFailed({required Object protocol, required Object host, required Object error}) =>
+      '${protocol} üzərindən əlaqə qurulmadı (${host}): ${error}';
+  @override
+  String inbound({required Object protocol, required Object host}) => 'Bizimlə ${protocol} üzərindən əlaqə qurdu (${host})';
+  @override
+  String multicastInbound({required Object host}) => 'Elan alındı (${host})';
 }
 
 // Path: progressPage.total
@@ -1270,6 +1309,8 @@ class _Translations$dialogs$favoriteEditDialog$az extends Translations$dialogs$f
   String get ip => 'IP ünvan';
   @override
   String get port => 'Port';
+  @override
+  String get invalidPort => '1 ilə 65535 arasında tam ədəd daxil edin.';
 }
 
 // Path: dialogs.fileInfo

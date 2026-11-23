@@ -106,10 +106,14 @@
       },
       "saveWindowPlacement": "Quit: I-save ang window placement",
       "saveWindowPlacementWindows": "I-save ang posisyon ng window pagkasara",
+      "alwaysOnTop": "Laging nasa itaas",
+      "alwaysOnTopUnavailable": "Hindi suportado sa Wayland",
       "minimizeToTray": "Quit: Paliitin sa Tray/Menu Bar",
       "launchAtStartup": "I-autostart pagkatapos mag-login",
       "launchMinimized": "Autostart: I-start nang nakatago",
       "showInContextMenu": "Ipakita ang LocalSend sa context menu",
+      "softwareRendering": "Software rendering",
+      "softwareRenderingDescription": "Gamitin kung nananatiling blangko, nagloloko, o nagsasara ang window pagbukas. Magkakabisa pagkatapos mag-restart.",
       "animations": "Animations"
     },
     "receive": {
@@ -212,15 +216,26 @@
     "verify": "I-verify",
     "info": {
       "name": "Pangalan",
-      "address": "Address",
       "version": "Bersyon",
       "protocol": "Protocol v{version}"
+    },
+    "channels": {
+      "title": "Mga Channel",
+      "you": "Ikaw",
+      "outgoing": "Palabas",
+      "incoming": "Papasok",
+      "works": "Gumagana",
+      "notTested": "Hindi pa nasubukan",
+      "failed": "Nabigo",
+      "notSeen": "Hindi pa nakita"
     },
     "logs": {
       "title": "Mga Log",
       "empty": "Walang available na mga log.",
-      "discovered": "Natuklasan sa pamamagitan ng {protocol} ({host})",
-      "updated": "Na-update sa pamamagitan ng {protocol} ({host})"
+      "outbound": "Naabot gamit ang {protocol} ({host})",
+      "outboundFailed": "Hindi maabot gamit ang {protocol} ({host}): {error}",
+      "inbound": "Kumonekta sa atin gamit ang {protocol} ({host})",
+      "multicastInbound": "Narinig ang announcement ({host})"
     }
   },
   "verifyPage": {
@@ -450,7 +465,8 @@
       "name": "Alias",
       "auto": "(auto)",
       "ip": "IP Address",
-      "port": "Port"
+      "port": "Port",
+      "invalidPort": "Maglagay ng buong numero mula 1 hanggang 65535."
     },
     "fileInfo": {
       "title": "Impormasyon sa file",

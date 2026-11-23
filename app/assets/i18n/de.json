@@ -106,10 +106,14 @@
       },
       "saveWindowPlacement": "Beenden: Fensterposition speichern",
       "saveWindowPlacementWindows": "Beenden: Fensterposition speichern",
+      "alwaysOnTop": "Immer im Vordergrund",
+      "alwaysOnTopUnavailable": "Unter Wayland nicht unterstützt",
       "minimizeToTray": "Beenden: in Symbolleiste minimieren",
       "launchAtStartup": "Autostart nach Login",
       "launchMinimized": "Autostart: versteckt starten",
       "showInContextMenu": "LocalSend im Kontextmenü anzeigen",
+      "softwareRendering": "Software-Rendering",
+      "softwareRenderingDescription": "Nutze dies, wenn das Fenster leer bleibt, Grafikfehler zeigt oder sich beim Start schließt. Wird nach einem Neustart wirksam.",
       "animations": "Animationen"
     },
     "receive": {
@@ -212,15 +216,26 @@
     "verify": "Verifizieren",
     "info": {
       "name": "Name",
-      "address": "Adresse",
       "version": "Version",
       "protocol": "Protokoll v{version}"
+    },
+    "channels": {
+      "title": "Kanäle",
+      "you": "Du",
+      "outgoing": "Ausgehend",
+      "incoming": "Eingehend",
+      "works": "Funktioniert",
+      "notTested": "Nicht getestet",
+      "failed": "Fehlgeschlagen",
+      "notSeen": "Nicht gesehen"
     },
     "logs": {
       "title": "Logs",
       "empty": "Keine Logs vorhanden.",
-      "discovered": "Entdeckt über {protocol} ({host})",
-      "updated": "Aktualisiert über {protocol} ({host})"
+      "outbound": "Erreicht über {protocol} ({host})",
+      "outboundFailed": "Nicht erreichbar über {protocol} ({host}): {error}",
+      "inbound": "Hat uns über {protocol} ({host}) erreicht",
+      "multicastInbound": "Ankündigung empfangen ({host})"
     }
   },
   "verifyPage": {
@@ -380,7 +395,8 @@
       "name": "Name",
       "auto": "(auto)",
       "ip": "IP-Adresse",
-      "port": "Port"
+      "port": "Port",
+      "invalidPort": "Gib eine ganze Zahl zwischen 1 und 65535 ein."
     },
     "fileInfo": {
       "title": "Datei-Information",

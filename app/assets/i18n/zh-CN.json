@@ -106,10 +106,14 @@
       },
       "saveWindowPlacement": "退出时保存窗口位置",
       "saveWindowPlacementWindows": "退出时保存窗口位置",
+      "alwaysOnTop": "窗口置顶",
+      "alwaysOnTopUnavailable": "Wayland 下不支持",
       "minimizeToTray": "关闭时最小化到系统托盘",
       "launchAtStartup": "登录系统后自动启动程序",
       "launchMinimized": "自动启动时隐藏窗口",
       "showInContextMenu": "在“发送到...”文件菜单中显示 LocalSend",
+      "softwareRendering": "软件渲染",
+      "softwareRenderingDescription": "如果窗口一直空白、显示异常或启动时闪退，请启用此项。重启后生效。",
       "animations": "动画效果"
     },
     "receive": {
@@ -212,15 +216,26 @@
     "verify": "验证",
     "info": {
       "name": "名称",
-      "address": "地址",
       "version": "版本",
       "protocol": "协议 v{version}"
+    },
+    "channels": {
+      "title": "通道",
+      "you": "你",
+      "outgoing": "出站",
+      "incoming": "入站",
+      "works": "正常",
+      "notTested": "未测试",
+      "failed": "失败",
+      "notSeen": "未收到"
     },
     "logs": {
       "title": "日志",
       "empty": "没有可用的日志。",
-      "discovered": "通过 {protocol} 发现 ({host})",
-      "updated": "通过 {protocol} 更新 ({host})"
+      "outbound": "已通过 {protocol}（{host}）连接",
+      "outboundFailed": "无法通过 {protocol}（{host}）连接：{error}",
+      "inbound": "对方已通过 {protocol}（{host}）连接到本机",
+      "multicastInbound": "收到多播通告（{host}）"
     }
   },
   "verifyPage": {
@@ -449,7 +464,8 @@
       "name": "名称",
       "auto": "(自动)",
       "ip": "IP 地址",
-      "port": "端口"
+      "port": "端口",
+      "invalidPort": "请输入 1 到 65535 之间的整数。"
     },
     "fileInfo": {
       "title": "文件信息",

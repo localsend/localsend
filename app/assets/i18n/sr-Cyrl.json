@@ -106,10 +106,14 @@
       },
       "saveWindowPlacement": "Сачувај положај прозора након напуштања",
       "saveWindowPlacementWindows": "Сачувај положај прозора након излажења",
+      "alwaysOnTop": "Увек на врху",
+      "alwaysOnTopUnavailable": "Није подржано на Wayland-у",
       "minimizeToTray": "Минимизирај на системску траку/траку менија приликом затварања",
       "launchAtStartup": "Аутоматски покрени након пријаве",
       "launchMinimized": "Аутоматско покретање: Покретање скривено",
       "showInContextMenu": "Прикажи LocalSend у контекстуалном менију",
+      "softwareRendering": "Софтверско исцртавање",
+      "softwareRenderingDescription": "Користите ако прозор остаје празан, има грешке у приказу или се затвара при покретању. Примењује се након рестартовања.",
       "animations": "Анимације"
     },
     "receive": {
@@ -212,15 +216,26 @@
     "verify": "Провери",
     "info": {
       "name": "Име",
-      "address": "Адреса",
       "version": "Верзија",
       "protocol": "Протокол v{version}"
+    },
+    "channels": {
+      "title": "Канали",
+      "you": "Ви",
+      "outgoing": "Одлазна",
+      "incoming": "Долазна",
+      "works": "Ради",
+      "notTested": "Није тестирана",
+      "failed": "Неуспешна",
+      "notSeen": "Није виђена"
     },
     "logs": {
       "title": "Евиденција",
       "empty": "Нема доступне евиденције.",
-      "discovered": "Откривено путем {protocol} ({host})",
-      "updated": "Ажурирано путем {protocol} ({host})"
+      "outbound": "Повезано преко {protocol} ({host})",
+      "outboundFailed": "Повезивање преко {protocol} ({host}) није успело: {error}",
+      "inbound": "Долазна веза преко {protocol} ({host})",
+      "multicastInbound": "Примљена најава ({host})"
     }
   },
   "verifyPage": {
@@ -450,7 +465,8 @@
       "name": "Назив уређаја",
       "auto": "(аутоматски)",
       "ip": "IP адреса",
-      "port": "Порт"
+      "port": "Порт",
+      "invalidPort": "Унесите цео број између 1 и 65535."
     },
     "fileInfo": {
       "title": "Информације о фајлу",

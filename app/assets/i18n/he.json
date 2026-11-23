@@ -112,6 +112,8 @@
       "launchAtStartup": "הפעלה אוטומטית לאחר הכניסה",
       "launchMinimized": "הפעלה אוטומטית: התחל מוסתר",
       "showInContextMenu": "הצג את LocalSend בתפריט ההקשר",
+      "softwareRendering": "רינדור תוכנה",
+      "softwareRenderingDescription": "השתמש באפשרות זו אם החלון נשאר ריק, משתבש או נסגר בעת ההפעלה. ייכנס לתוקף לאחר הפעלה מחדש.",
       "animations": "אנימציות"
     },
     "receive": {
@@ -214,15 +216,26 @@
     "verify": "אימות",
     "info": {
       "name": "שם",
-      "address": "כתובת",
       "version": "גרסה",
       "protocol": "פרוטוקול גרסה {version}"
+    },
+    "channels": {
+      "title": "ערוצים",
+      "you": "אתה",
+      "outgoing": "יוצא",
+      "incoming": "נכנס",
+      "works": "עובד",
+      "notTested": "לא נבדק",
+      "failed": "נכשל",
+      "notSeen": "לא נראה"
     },
     "logs": {
       "title": "יומני רישום",
       "empty": "אין יומנים זמינים",
-      "discovered": "התגלה באמצעות {protocol} ({host})",
-      "updated": "עודכן באמצעות {protocol} ({host})"
+      "outbound": "נוצר קשר דרך {protocol} ({host})",
+      "outboundFailed": "לא ניתן ליצור קשר דרך {protocol} ({host}): {error}",
+      "inbound": "יצר איתנו קשר דרך {protocol} ({host})",
+      "multicastInbound": "התקבלה הכרזה ({host})"
     }
   },
   "verifyPage": {
@@ -385,7 +398,8 @@
       "name": "כינוי",
       "auto": "(אוטומטי)",
       "ip": "כתובת IP",
-      "port": "יציאה"
+      "port": "יציאה",
+      "invalidPort": "יש להזין מספר שלם בין 1 ל־65535."
     },
     "fileInfo": {
       "title": "מידע על הקובץ",

@@ -8,7 +8,9 @@ license: MIT
 icon: assets/img/logo-512.png
 
 requires:
-  - libappindicator
+  # The app links libappindicator3.so.1. Plain "libappindicator" is the GTK2
+  # variant and pulls in gtk2, which the app does not use.
+  - libappindicator-gtk3
   - xdg-user-dirs
 
 keywords:

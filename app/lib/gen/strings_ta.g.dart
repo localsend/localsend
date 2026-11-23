@@ -363,6 +363,8 @@ class _Translations$deviceDetailsPage$ta extends Translations$deviceDetailsPage$
   @override
   late final _Translations$deviceDetailsPage$info$ta info = _Translations$deviceDetailsPage$info$ta._(_root);
   @override
+  late final _Translations$deviceDetailsPage$channels$ta channels = _Translations$deviceDetailsPage$channels$ta._(_root);
+  @override
   late final _Translations$deviceDetailsPage$logs$ta logs = _Translations$deviceDetailsPage$logs$ta._(_root);
 }
 
@@ -950,6 +952,10 @@ class _Translations$settingsTab$general$ta extends Translations$settingsTab$gene
   @override
   String get saveWindowPlacementWindows => 'வெளியேறிய பிறகு சாளர நிலையை சேமிக்கவும்';
   @override
+  String get alwaysOnTop => 'எப்போதும் மேலே';
+  @override
+  String get alwaysOnTopUnavailable => 'Wayland-இல் ஆதரிக்கப்படவில்லை';
+  @override
   String get minimizeToTray => 'மூடும் போது சிஸ்டம் ட்ரே/மெனு பட்டியில் குறைக்கவும்';
   @override
   String get launchAtStartup => 'உள்நுழைந்த பிறகு தானாக துவக்கவும்';
@@ -957,6 +963,11 @@ class _Translations$settingsTab$general$ta extends Translations$settingsTab$gene
   String get launchMinimized => 'ஆட்டோஸ்டார்ட்: மறைக்கப்பட்ட தொடக்கம்';
   @override
   String get showInContextMenu => 'சூழல் மெனுவில் LocalSend ஐக் காட்டு';
+  @override
+  String get softwareRendering => 'மென்பொருள் ரெண்டரிங்';
+  @override
+  String get softwareRenderingDescription =>
+      'சாளரம் வெறுமையாக இருந்தால், குறைபாடுடன் தோன்றினால் அல்லது தொடக்கத்திலேயே மூடினால் பயன்படுத்தவும். மறுதொடக்கத்திற்குப் பிறகு நடைமுறைக்கு வரும்.';
   @override
   String get animations => 'அனிமேஷன்கள்';
 }
@@ -1138,11 +1149,34 @@ class _Translations$deviceDetailsPage$info$ta extends Translations$deviceDetails
   @override
   String get name => 'பெயர்';
   @override
-  String get address => 'முகவரி';
-  @override
   String get version => 'பதிப்பு';
   @override
   String protocol({required Object version}) => 'நெறிமுறை v${version}';
+}
+
+// Path: deviceDetailsPage.channels
+class _Translations$deviceDetailsPage$channels$ta extends Translations$deviceDetailsPage$channels$en {
+  _Translations$deviceDetailsPage$channels$ta._(TranslationsTa root) : this._root = root, super.internal(root);
+
+  final TranslationsTa _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'சேனல்கள்';
+  @override
+  String get you => 'நீங்கள்';
+  @override
+  String get outgoing => 'வெளிச்செல்லும்';
+  @override
+  String get incoming => 'உள்வரும்';
+  @override
+  String get works => 'இயங்குகிறது';
+  @override
+  String get notTested => 'சோதிக்கப்படவில்லை';
+  @override
+  String get failed => 'தோல்வியடைந்தது';
+  @override
+  String get notSeen => 'காணப்படவில்லை';
 }
 
 // Path: deviceDetailsPage.logs
@@ -1157,9 +1191,14 @@ class _Translations$deviceDetailsPage$logs$ta extends Translations$deviceDetails
   @override
   String get empty => 'பதிவுகள் எதுவும் இல்லை.';
   @override
-  String discovered({required Object protocol, required Object host}) => '${protocol} வழியாகக் கண்டறியப்பட்டது (${host})';
+  String outbound({required Object protocol, required Object host}) => '${protocol} (${host}) வழியாக அணுகப்பட்டது';
   @override
-  String updated({required Object protocol, required Object host}) => '${protocol} வழியாக புதுப்பிக்கப்பட்டது (${host})';
+  String outboundFailed({required Object protocol, required Object host, required Object error}) =>
+      '${protocol} (${host}) வழியாக அணுக முடியவில்லை: ${error}';
+  @override
+  String inbound({required Object protocol, required Object host}) => '${protocol} (${host}) வழியாக நம்மை அணுகியது';
+  @override
+  String multicastInbound({required Object host}) => 'அறிவிப்பு கிடைத்தது (${host})';
 }
 
 // Path: progressPage.total
@@ -1355,6 +1394,8 @@ class _Translations$dialogs$favoriteEditDialog$ta extends Translations$dialogs$f
   String get ip => 'IP முகவரி';
   @override
   String get port => 'போர்ட்';
+  @override
+  String get invalidPort => '1 முதல் 65535 வரையிலான முழு எண்ணை உள்ளிடவும்.';
 }
 
 // Path: dialogs.fileInfo

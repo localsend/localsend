@@ -2,6 +2,12 @@ name: Publish to WinGet
 on:
   release:
     types: [released]
+  workflow_dispatch:
+    inputs:
+      release_tag:
+        description: Published release tag to publish to WinGet
+        required: true
+        type: string
 
 jobs:
   publish:
@@ -11,11 +17,13 @@ jobs:
         uses: vedantmgoyal9/winget-releaser@main
         with:
           identifier: LocalSend.LocalSend
-          installers-regex: 'LocalSend-(?!CLI-).*\.exe$'
+          installers-regex: '^LocalSend-[0-9]+\.[0-9]+\.[0-9]+-windows-x86-64\.exe$'
+          release-tag: ${{ inputs.release_tag || github.event.release.tag_name }}
           token: ${{ secrets.WINGET_TOKEN }}
       - name: Publish LocalSend CLI
         uses: vedantmgoyal9/winget-releaser@main
         with:
           identifier: LocalSend.LocalSend.CLI
           installers-regex: 'LocalSend-CLI-.*\.exe$'
+          release-tag: ${{ inputs.release_tag || github.event.release.tag_name }}
           token: ${{ secrets.WINGET_TOKEN }}

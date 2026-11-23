@@ -106,10 +106,14 @@
       },
       "saveWindowPlacement": "Έξοδος: Αποθήκευση θέσης παραθύρου",
       "saveWindowPlacementWindows": "Αποθήκευση της θέσης του παραθύρου κατά την έξοδο",
+      "alwaysOnTop": "Πάντα σε πρώτο πλάνο",
+      "alwaysOnTopUnavailable": "Δεν υποστηρίζεται στο Wayland",
       "minimizeToTray": "Έξοδος: Ελαχιστοποίηση στη γραμμή εργασιών/μενού",
       "launchAtStartup": "Αυτόματη εκκίνηση μετά τη σύνδεση",
       "launchMinimized": "Αυτόματη εκκίνηση: Έναρξη ελαχιστοποιημένο",
       "showInContextMenu": "Προβολή του LocalSend στο μενού του περιβάλλοντος εργασίας",
+      "softwareRendering": "Απόδοση μέσω λογισμικού",
+      "softwareRenderingDescription": "Χρησιμοποιήστε το αν το παράθυρο μένει κενό, εμφανίζει σφάλματα ή κλείνει κατά την εκκίνηση. Ισχύει μετά από επανεκκίνηση.",
       "animations": "Οπτικά εφέ"
     },
     "receive": {
@@ -212,15 +216,26 @@
     "verify": "Επαλήθευση",
     "info": {
       "name": "Όνομα",
-      "address": "Διεύθυνση",
       "version": "Έκδοση",
       "protocol": "Πρωτόκολλο v{version}"
+    },
+    "channels": {
+      "title": "Κανάλια",
+      "you": "Εσείς",
+      "outgoing": "Εξερχόμενη",
+      "incoming": "Εισερχόμενη",
+      "works": "Λειτουργεί",
+      "notTested": "Δεν δοκιμάστηκε",
+      "failed": "Απέτυχε",
+      "notSeen": "Δεν εντοπίστηκε"
     },
     "logs": {
       "title": "Αρχεία καταγραφής",
       "empty": "Δεν υπάρχουν διαθέσιμα αρχεία καταγραφής.",
-      "discovered": "Εντοπίστηκε μέσω {protocol} ({host})",
-      "updated": "Ενημερώθηκε μέσω {protocol} ({host})"
+      "outbound": "Συνδέθηκε μέσω {protocol} ({host})",
+      "outboundFailed": "Αδυναμία σύνδεσης μέσω {protocol} ({host}): {error}",
+      "inbound": "Συνδέθηκε σε εμάς μέσω {protocol} ({host})",
+      "multicastInbound": "Λήφθηκε ανακοίνωση ({host})"
     }
   },
   "verifyPage": {
@@ -450,7 +465,8 @@
       "name": "Όνομα συσκευής",
       "auto": "(αυτόματα)",
       "ip": "Διεύθυνση IP",
-      "port": "Θύρα"
+      "port": "Θύρα",
+      "invalidPort": "Εισαγάγετε έναν ακέραιο αριθμό από 1 έως 65535."
     },
     "fileInfo": {
       "title": "Πληροφορίες αρχείου",

@@ -106,10 +106,14 @@
       },
       "saveWindowPlacement": "終了時: ウィンドウ配置を記憶",
       "saveWindowPlacementWindows": "終了時にウィンドウ配置を記憶",
+      "alwaysOnTop": "常に最前面に表示",
+      "alwaysOnTopUnavailable": "Waylandではサポートされていません",
       "minimizeToTray": "終了時: トレイに最小化",
       "launchAtStartup": "ログイン時に自動で起動",
       "launchMinimized": "自動起動時: 隠れた状態で開始",
       "showInContextMenu": "コンテキストメニューにLocalSendを表示",
+      "softwareRendering": "ソフトウェアレンダリング",
+      "softwareRenderingDescription": "ウィンドウが真っ白のまま、表示が乱れる、または起動時に閉じる場合に使用します。再起動後に反映されます。",
       "animations": "アニメーション"
     },
     "receive": {
@@ -212,15 +216,26 @@
     "verify": "検証",
     "info": {
       "name": "名前",
-      "address": "アドレス",
       "version": "バージョン",
       "protocol": "プロトコル v{version}"
+    },
+    "channels": {
+      "title": "チャネル",
+      "you": "あなた",
+      "outgoing": "アウトバウンド",
+      "incoming": "インバウンド",
+      "works": "正常",
+      "notTested": "未テスト",
+      "failed": "失敗",
+      "notSeen": "未検出"
     },
     "logs": {
       "title": "ログ",
       "empty": "ログはありません。",
-      "discovered": "{protocol} 経由で発見 ({host})",
-      "updated": "{protocol} 経由で更新 ({host})"
+      "outbound": "{protocol} ({host}) で接続しました",
+      "outboundFailed": "{protocol} ({host}) で接続できませんでした: {error}",
+      "inbound": "{protocol} ({host}) で接続されました",
+      "multicastInbound": "アナウンスを受信しました ({host})"
     }
   },
   "verifyPage": {
@@ -380,7 +395,8 @@
       "name": "別名",
       "auto": "(自動)",
       "ip": "IPアドレス",
-      "port": "ポート"
+      "port": "ポート",
+      "invalidPort": "1から65535までの整数を入力してください。"
     },
     "fileInfo": {
       "title": "ファイルの情報",

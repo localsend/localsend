@@ -361,6 +361,8 @@ class _Translations$deviceDetailsPage$he extends Translations$deviceDetailsPage$
   @override
   late final _Translations$deviceDetailsPage$info$he info = _Translations$deviceDetailsPage$info$he._(_root);
   @override
+  late final _Translations$deviceDetailsPage$channels$he channels = _Translations$deviceDetailsPage$channels$he._(_root);
+  @override
   late final _Translations$deviceDetailsPage$logs$he logs = _Translations$deviceDetailsPage$logs$he._(_root);
 }
 
@@ -875,6 +877,10 @@ class _Translations$settingsTab$general$he extends Translations$settingsTab$gene
   @override
   String get showInContextMenu => 'הצג את LocalSend בתפריט ההקשר';
   @override
+  String get softwareRendering => 'רינדור תוכנה';
+  @override
+  String get softwareRenderingDescription => 'השתמש באפשרות זו אם החלון נשאר ריק, משתבש או נסגר בעת ההפעלה. ייכנס לתוקף לאחר הפעלה מחדש.';
+  @override
   String get animations => 'אנימציות';
 }
 
@@ -1055,11 +1061,34 @@ class _Translations$deviceDetailsPage$info$he extends Translations$deviceDetails
   @override
   String get name => 'שם';
   @override
-  String get address => 'כתובת';
-  @override
   String get version => 'גרסה';
   @override
   String protocol({required Object version}) => 'פרוטוקול גרסה ${version}';
+}
+
+// Path: deviceDetailsPage.channels
+class _Translations$deviceDetailsPage$channels$he extends Translations$deviceDetailsPage$channels$en {
+  _Translations$deviceDetailsPage$channels$he._(TranslationsHe root) : this._root = root, super.internal(root);
+
+  final TranslationsHe _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'ערוצים';
+  @override
+  String get you => 'אתה';
+  @override
+  String get outgoing => 'יוצא';
+  @override
+  String get incoming => 'נכנס';
+  @override
+  String get works => 'עובד';
+  @override
+  String get notTested => 'לא נבדק';
+  @override
+  String get failed => 'נכשל';
+  @override
+  String get notSeen => 'לא נראה';
 }
 
 // Path: deviceDetailsPage.logs
@@ -1074,9 +1103,14 @@ class _Translations$deviceDetailsPage$logs$he extends Translations$deviceDetails
   @override
   String get empty => 'אין יומנים זמינים';
   @override
-  String discovered({required Object protocol, required Object host}) => 'התגלה באמצעות ${protocol} (${host})';
+  String outbound({required Object protocol, required Object host}) => 'נוצר קשר דרך ${protocol} (${host})';
   @override
-  String updated({required Object protocol, required Object host}) => 'עודכן באמצעות ${protocol} (${host})';
+  String outboundFailed({required Object protocol, required Object host, required Object error}) =>
+      'לא ניתן ליצור קשר דרך ${protocol} (${host}): ${error}';
+  @override
+  String inbound({required Object protocol, required Object host}) => 'יצר איתנו קשר דרך ${protocol} (${host})';
+  @override
+  String multicastInbound({required Object host}) => 'התקבלה הכרזה (${host})';
 }
 
 // Path: progressPage.total
@@ -1274,6 +1308,8 @@ class _Translations$dialogs$favoriteEditDialog$he extends Translations$dialogs$f
   String get ip => 'כתובת IP';
   @override
   String get port => 'יציאה';
+  @override
+  String get invalidPort => 'יש להזין מספר שלם בין 1 ל־65535.';
 }
 
 // Path: dialogs.fileInfo

@@ -363,6 +363,8 @@ class _Translations$deviceDetailsPage$fa extends Translations$deviceDetailsPage$
   @override
   late final _Translations$deviceDetailsPage$info$fa info = _Translations$deviceDetailsPage$info$fa._(_root);
   @override
+  late final _Translations$deviceDetailsPage$channels$fa channels = _Translations$deviceDetailsPage$channels$fa._(_root);
+  @override
   late final _Translations$deviceDetailsPage$logs$fa logs = _Translations$deviceDetailsPage$logs$fa._(_root);
 }
 
@@ -950,6 +952,10 @@ class _Translations$settingsTab$general$fa extends Translations$settingsTab$gene
   @override
   String get saveWindowPlacementWindows => 'ذخیره موقعیت پنجره پس از خروج';
   @override
+  String get alwaysOnTop => 'همیشه در بالا';
+  @override
+  String get alwaysOnTopUnavailable => 'در Wayland پشتیبانی نمی‌شود';
+  @override
   String get minimizeToTray => 'ارسال برنامه به سیستم تری هنگام بستن';
   @override
   String get launchAtStartup => 'اجرای خودکار هنگام ورود به سیستم';
@@ -957,6 +963,11 @@ class _Translations$settingsTab$general$fa extends Translations$settingsTab$gene
   String get launchMinimized => 'اجرای خودکار: اجرا به‌صورت پنجره پنهان';
   @override
   String get showInContextMenu => 'نمایش لوکال‌سند در منوی راست‌کلیک';
+  @override
+  String get softwareRendering => 'رندر نرم‌افزاری';
+  @override
+  String get softwareRenderingDescription =>
+      'اگر پنجره هنگام اجرا خالی می‌ماند، دچار اختلال می‌شود یا بسته می‌شود، از این گزینه استفاده کنید. پس از راه‌اندازی مجدد اعمال می‌شود.';
   @override
   String get animations => 'پویانمایی‌ها';
 }
@@ -1138,11 +1149,34 @@ class _Translations$deviceDetailsPage$info$fa extends Translations$deviceDetails
   @override
   String get name => 'نام';
   @override
-  String get address => 'آدرس';
-  @override
   String get version => 'نسخه';
   @override
   String protocol({required Object version}) => 'پروتکل نسخه ${version}';
+}
+
+// Path: deviceDetailsPage.channels
+class _Translations$deviceDetailsPage$channels$fa extends Translations$deviceDetailsPage$channels$en {
+  _Translations$deviceDetailsPage$channels$fa._(TranslationsFa root) : this._root = root, super.internal(root);
+
+  final TranslationsFa _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'کانال‌ها';
+  @override
+  String get you => 'شما';
+  @override
+  String get outgoing => 'خروجی';
+  @override
+  String get incoming => 'ورودی';
+  @override
+  String get works => 'کار می‌کند';
+  @override
+  String get notTested => 'آزمایش نشده';
+  @override
+  String get failed => 'ناموفق';
+  @override
+  String get notSeen => 'دیده نشده';
 }
 
 // Path: deviceDetailsPage.logs
@@ -1157,9 +1191,14 @@ class _Translations$deviceDetailsPage$logs$fa extends Translations$deviceDetails
   @override
   String get empty => 'هیچ گزارشی موجود نیست.';
   @override
-  String discovered({required Object protocol, required Object host}) => 'شناسایی شده از طریق ${protocol} (${host})';
+  String outbound({required Object protocol, required Object host}) => 'از طریق ${protocol} (${host}) در دسترس بود';
   @override
-  String updated({required Object protocol, required Object host}) => 'به‌روزرسانی شده از طریق ${protocol} (${host})';
+  String outboundFailed({required Object protocol, required Object host, required Object error}) =>
+      'از طریق ${protocol} (${host}) در دسترس نبود: ${error}';
+  @override
+  String inbound({required Object protocol, required Object host}) => 'از طریق ${protocol} (${host}) به ما متصل شد';
+  @override
+  String multicastInbound({required Object host}) => 'اعلان دریافت شد (${host})';
 }
 
 // Path: progressPage.total
@@ -1354,6 +1393,8 @@ class _Translations$dialogs$favoriteEditDialog$fa extends Translations$dialogs$f
   String get ip => 'آدرس آی پی';
   @override
   String get port => 'پورت';
+  @override
+  String get invalidPort => 'یک عدد صحیح بین 1 تا 65535 وارد کنید.';
 }
 
 // Path: dialogs.fileInfo

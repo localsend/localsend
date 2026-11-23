@@ -106,10 +106,14 @@
       },
       "saveWindowPlacement": "Gem vinduesposition ved afslutning",
       "saveWindowPlacementWindows": "Gem vinduesposition ved lukning",
+      "alwaysOnTop": "Altid øverst",
+      "alwaysOnTopUnavailable": "Understøttes ikke på Wayland",
       "minimizeToTray": "Minimer til systembakken/menulinjen ved lukning",
       "launchAtStartup": "Autostart efter login",
       "launchMinimized": "Autostart: Start skjult",
       "showInContextMenu": "Vis LocalSend i kontekstmenu",
+      "softwareRendering": "Softwarerendering",
+      "softwareRenderingDescription": "Brug dette, hvis vinduet forbliver tomt, har grafikfejl eller lukker ved start. Træder i kraft efter en genstart.",
       "animations": "Animationer"
     },
     "receive": {
@@ -212,15 +216,26 @@
     "verify": "Verificer",
     "info": {
       "name": "Navn",
-      "address": "Adresse",
       "version": "Version",
       "protocol": "Protokol v{version}"
+    },
+    "channels": {
+      "title": "Kanaler",
+      "you": "Dig",
+      "outgoing": "Udgående",
+      "incoming": "Indgående",
+      "works": "Virker",
+      "notTested": "Ikke testet",
+      "failed": "Mislykkedes",
+      "notSeen": "Ikke set"
     },
     "logs": {
       "title": "Logfiler",
       "empty": "Ingen logfiler tilgængelige.",
-      "discovered": "Opdaget via {protocol} ({host})",
-      "updated": "Opdateret via {protocol} ({host})"
+      "outbound": "Nået via {protocol} ({host})",
+      "outboundFailed": "Kunne ikke nås via {protocol} ({host}): {error}",
+      "inbound": "Nåede os via {protocol} ({host})",
+      "multicastInbound": "Annoncering modtaget ({host})"
     }
   },
   "verifyPage": {
@@ -380,7 +395,8 @@
       "name": "Enhedsnavn",
       "auto": "(auto)",
       "ip": "IP-adresse",
-      "port": "Port"
+      "port": "Port",
+      "invalidPort": "Indtast et heltal mellem 1 og 65535."
     },
     "fileInfo": {
       "title": "Filoplysninger",

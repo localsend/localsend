@@ -106,10 +106,14 @@
       },
       "saveWindowPlacement": "ບັນທຶກຕຳແໜ່ງໜ້າຕ່າງຫຼັງອອກຈາກໂປຣແກຣມ",
       "saveWindowPlacementWindows": "ບັນທຶກຕຳແໜ່ງໜ້າຕ່າງຫຼັງອອກ",
+      "alwaysOnTop": "ຢູ່ເທິງສຸດສະເໝີ",
+      "alwaysOnTopUnavailable": "ບໍ່ຮອງຮັບໃນ Wayland",
       "minimizeToTray": "ຫຍໍ້ລົງໃສ່ System Tray/Menu Bar ເມື່ອປິດ",
       "launchAtStartup": "ເປີດອັດຕະໂນມັດຫຼັງເຂົ້າສູ່ລະບົບ",
       "launchMinimized": "ເປີດອັດຕະໂນມັດ: ເລີ່ມແບບເຊື່ອງ",
       "showInContextMenu": "ສະແດງ LocalSend ໃນເມນູຄລິກຂວາ",
+      "softwareRendering": "ສະແດງຜົນດ້ວຍຊອບແວ",
+      "softwareRenderingDescription": "ໃຊ້ເມື່ອໜ້າຕ່າງວ່າງເປົ່າ, ສະແດງຜົນຜິດປົກກະຕິ ຫຼື ປິດເອງເມື່ອເລີ່ມ. ມີຜົນຫຼັງຈາກເລີ່ມໃໝ່.",
       "animations": "ອະນິເມຊັນ"
     },
     "receive": {
@@ -212,15 +216,26 @@
     "verify": "ກວດສອບ",
     "info": {
       "name": "ຊື່",
-      "address": "ທີ່ຢູ່",
       "version": "ເວີຊັນ",
       "protocol": "ໂປຣໂຕເຄລ v{version}"
+    },
+    "channels": {
+      "title": "ຊ່ອງທາງ",
+      "you": "ທ່ານ",
+      "outgoing": "ຂາອອກ",
+      "incoming": "ຂາເຂົ້າ",
+      "works": "ໃຊ້ໄດ້",
+      "notTested": "ຍັງບໍ່ໄດ້ທົດສອບ",
+      "failed": "ລົ້ມເຫຼວ",
+      "notSeen": "ຍັງບໍ່ພົບ"
     },
     "logs": {
       "title": "ບັນທຶກ",
       "empty": "ບໍ່ມີບັນທຶກ.",
-      "discovered": "ຄົ້ນພົບຜ່ານ {protocol} ({host})",
-      "updated": "ອັບເດດຜ່ານ {protocol} ({host})"
+      "outbound": "ເຊື່ອມຕໍ່ສຳເລັດຜ່ານ {protocol} ({host})",
+      "outboundFailed": "ບໍ່ສາມາດເຊື່ອມຕໍ່ຜ່ານ {protocol} ({host}): {error}",
+      "inbound": "ອີກຝ່າຍເຊື່ອມຕໍ່ມາຜ່ານ {protocol} ({host})",
+      "multicastInbound": "ໄດ້ຮັບການປະກາດ ({host})"
     }
   },
   "verifyPage": {
@@ -448,7 +463,8 @@
       "name": "ຊື່ອຸປະກອນ",
       "auto": "(ອັດຕະໂນມັດ)",
       "ip": "ທີ່ຢູ່ IP",
-      "port": "ພອດ"
+      "port": "ພອດ",
+      "invalidPort": "ກະລຸນາໃສ່ຈຳນວນເຕັມລະຫວ່າງ 1 ຫາ 65535."
     },
     "fileInfo": {
       "title": "ຂໍ້ມູນໄຟລ໌",

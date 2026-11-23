@@ -106,10 +106,14 @@
       },
       "saveWindowPlacement": "ඉවත් වූ පසු කවුළුවේ පිහිටීම සුරකින්න",
       "saveWindowPlacementWindows": "පිටවීමෙන් පසු කවුළුවේ පිහිටීම සුරකින්න",
+      "alwaysOnTop": "සැමවිටම ඉහළින්",
+      "alwaysOnTopUnavailable": "Wayland හි සහාය නොදක්වයි",
       "minimizeToTray": "වසා දැමීමේදී System Tray/Menu Bar වෙත අවම කරන්න",
       "launchAtStartup": "පුරනය වීමෙන් පසු ස්වයංක්‍රීයව ආරම්භ කරන්න",
       "launchMinimized": "ස්වයංක්‍රීය ආරම්භය: සඟවා ආරම්භ කරන්න",
       "showInContextMenu": "Context මෙනුව තුළ LocalSend පෙන්වන්න",
+      "softwareRendering": "මෘදුකාංග විදැහුම්කරණය",
+      "softwareRenderingDescription": "කවුළුව හිස්ව පවතී නම්, දෝෂ සහිතව පෙනේ නම් හෝ ආරම්භයේදීම වැසේ නම් භාවිතා කරන්න. නැවත ආරම්භ කිරීමෙන් පසු ක්‍රියාත්මක වේ.",
       "animations": "ඇනිමේශන්"
     },
     "receive": {
@@ -212,15 +216,26 @@
     "verify": "සත්‍යාපනය",
     "info": {
       "name": "නම",
-      "address": "ලිපිනය",
       "version": "අනුවාදය",
       "protocol": "නියමාවලිය v{version}"
+    },
+    "channels": {
+      "title": "නාලිකා",
+      "you": "ඔබ",
+      "outgoing": "පිටතට",
+      "incoming": "ඇතුළට",
+      "works": "ක්‍රියා කරයි",
+      "notTested": "පරීක්ෂා කර නැත",
+      "failed": "අසාර්ථකයි",
+      "notSeen": "දැක නැත"
     },
     "logs": {
       "title": "ලොග",
       "empty": "ලොග නොමැත.",
-      "discovered": "{protocol} හරහා සොයාගන්නා ලදී ({host})",
-      "updated": "{protocol} හරහා යාවත්කාල කරන ලදී ({host})"
+      "outbound": "{protocol} ({host}) හරහා ළඟා විය",
+      "outboundFailed": "{protocol} ({host}) හරහා ළඟා විය නොහැකි විය: {error}",
+      "inbound": "{protocol} ({host}) හරහා අප වෙත ළඟා විය",
+      "multicastInbound": "නිවේදනය ලැබුණි ({host})"
     }
   },
   "verifyPage": {
@@ -380,7 +395,8 @@
       "name": "උපාංගයේ නම",
       "auto": "(ස්වයංක්‍රීය)",
       "ip": "IP ලිපිනය",
-      "port": "Port"
+      "port": "Port",
+      "invalidPort": "1 සහ 65535 අතර පූර්ණ සංඛ්‍යාවක් ඇතුලත් කරන්න."
     },
     "fileInfo": {
       "title": "ගොනු විස්තර",

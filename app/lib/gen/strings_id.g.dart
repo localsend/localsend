@@ -361,6 +361,8 @@ class _Translations$deviceDetailsPage$id extends Translations$deviceDetailsPage$
   @override
   late final _Translations$deviceDetailsPage$info$id info = _Translations$deviceDetailsPage$info$id._(_root);
   @override
+  late final _Translations$deviceDetailsPage$channels$id channels = _Translations$deviceDetailsPage$channels$id._(_root);
+  @override
   late final _Translations$deviceDetailsPage$logs$id logs = _Translations$deviceDetailsPage$logs$id._(_root);
 }
 
@@ -865,6 +867,10 @@ class _Translations$settingsTab$general$id extends Translations$settingsTab$gene
   @override
   String get saveWindowPlacementWindows => 'Simpan posisi jendela setelah keluar';
   @override
+  String get alwaysOnTop => 'Selalu di atas';
+  @override
+  String get alwaysOnTopUnavailable => 'Tidak didukung di Wayland';
+  @override
   String get minimizeToTray => 'Keluar: Perkecil ke pojok bawah';
   @override
   String get launchAtStartup => 'Mulai otomatis setelah masuk';
@@ -872,6 +878,11 @@ class _Translations$settingsTab$general$id extends Translations$settingsTab$gene
   String get launchMinimized => 'Mulai otomatis: Berjalan di latar';
   @override
   String get showInContextMenu => 'Tampilkan LocalSend di menu konteks';
+  @override
+  String get softwareRendering => 'Rendering perangkat lunak';
+  @override
+  String get softwareRenderingDescription =>
+      'Gunakan jika jendela tetap kosong, bermasalah, atau tertutup saat dimulai. Berlaku setelah dimulai ulang.';
   @override
   String get animations => 'Animasi';
 }
@@ -1053,11 +1064,34 @@ class _Translations$deviceDetailsPage$info$id extends Translations$deviceDetails
   @override
   String get name => 'Nama';
   @override
-  String get address => 'Alamat';
-  @override
   String get version => 'Versi';
   @override
   String protocol({required Object version}) => 'Protokol v${version}';
+}
+
+// Path: deviceDetailsPage.channels
+class _Translations$deviceDetailsPage$channels$id extends Translations$deviceDetailsPage$channels$en {
+  _Translations$deviceDetailsPage$channels$id._(TranslationsId root) : this._root = root, super.internal(root);
+
+  final TranslationsId _root; // ignore: unused_field
+
+  // Translations
+  @override
+  String get title => 'Saluran';
+  @override
+  String get you => 'Anda';
+  @override
+  String get outgoing => 'Keluar';
+  @override
+  String get incoming => 'Masuk';
+  @override
+  String get works => 'Berfungsi';
+  @override
+  String get notTested => 'Belum diuji';
+  @override
+  String get failed => 'Gagal';
+  @override
+  String get notSeen => 'Belum terlihat';
 }
 
 // Path: deviceDetailsPage.logs
@@ -1072,9 +1106,14 @@ class _Translations$deviceDetailsPage$logs$id extends Translations$deviceDetails
   @override
   String get empty => 'Tidak ada log yang tersedia.';
   @override
-  String discovered({required Object protocol, required Object host}) => 'Ditemukan melalui ${protocol} (${host})';
+  String outbound({required Object protocol, required Object host}) => 'Terhubung melalui ${protocol} (${host})';
   @override
-  String updated({required Object protocol, required Object host}) => 'Diperbarui melalui ${protocol} (${host})';
+  String outboundFailed({required Object protocol, required Object host, required Object error}) =>
+      'Tidak dapat terhubung melalui ${protocol} (${host}): ${error}';
+  @override
+  String inbound({required Object protocol, required Object host}) => 'Menghubungi kami melalui ${protocol} (${host})';
+  @override
+  String multicastInbound({required Object host}) => 'Pengumuman diterima (${host})';
 }
 
 // Path: progressPage.total
@@ -1269,6 +1308,8 @@ class _Translations$dialogs$favoriteEditDialog$id extends Translations$dialogs$f
   String get ip => 'Alamat IP';
   @override
   String get port => 'Porta';
+  @override
+  String get invalidPort => 'Masukkan bilangan bulat antara 1 dan 65535.';
 }
 
 // Path: dialogs.fileInfo

@@ -106,10 +106,14 @@
       },
       "saveWindowPlacement": "Shrani položaj okna ob izhodu",
       "saveWindowPlacementWindows": "Shrani položaj okna ob zaprtju",
+      "alwaysOnTop": "Vedno na vrhu",
+      "alwaysOnTopUnavailable": "Ni podprto v Waylandu",
       "minimizeToTray": "Ob zaprtju minimiziraj v sistemski pladenj / meni",
       "launchAtStartup": "Samodejni zagon po prijavi",
       "launchMinimized": "Samodejni zagon: Začni skrito",
       "showInContextMenu": "Prikaži LocalSend v kontekstnem meniju",
+      "softwareRendering": "Programsko upodabljanje",
+      "softwareRenderingDescription": "Uporabite, če okno ostane prazno, se napačno prikazuje ali se ob zagonu zapre. Učinkuje po ponovnem zagonu.",
       "animations": "Animacije"
     },
     "receive": {
@@ -212,15 +216,26 @@
     "verify": "Preveri",
     "info": {
       "name": "Ime",
-      "address": "Naslov",
       "version": "Različica",
       "protocol": "Protokol v{version}"
+    },
+    "channels": {
+      "title": "Kanali",
+      "you": "Vi",
+      "outgoing": "Odhodno",
+      "incoming": "Dohodno",
+      "works": "Deluje",
+      "notTested": "Ni preizkušeno",
+      "failed": "Ni uspelo",
+      "notSeen": "Ni zaznano"
     },
     "logs": {
       "title": "Dnevniki",
       "empty": "Ni razpoložljivih dnevnikov.",
-      "discovered": "Odkrito prek {protocol} ({host})",
-      "updated": "Posodobljeno prek {protocol} ({host})"
+      "outbound": "Dosegljivo prek {protocol} ({host})",
+      "outboundFailed": "Ni dosegljivo prek {protocol} ({host}): {error}",
+      "inbound": "Povezalo se je z nami prek {protocol} ({host})",
+      "multicastInbound": "Prejeta najava ({host})"
     }
   },
   "verifyPage": {
@@ -450,7 +465,8 @@
       "name": "Ime naprave",
       "auto": "(samodejno)",
       "ip": "IP naslov",
-      "port": "Vrata"
+      "port": "Vrata",
+      "invalidPort": "Vnesite celo število med 1 in 65535."
     },
     "fileInfo": {
       "title": "Informacije o datoteki",
