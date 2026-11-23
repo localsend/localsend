@@ -143,8 +143,19 @@ impl App {
                     return;
                 }
 
+                // While a web page is served, the server runs without TLS (see
+                // `restart_server`), so the fingerprint is only self-reported
+                // and any sender could claim to be a paired device. Otherwise
+                // it is proven by the client certificate, and core rejects a
+                // request whose `info` claims another one.
+                let verified = self.web.is_none() && sender_fingerprint.is_some();
+
                 // The sender is clearly reachable; make sure it has a slot.
-                self.device_confirmed(ip.to_string(), info.clone());
+                // Only a proven `info` may enter the store: a claim could
+                // rename a known device or attach a channel to it.
+                if verified {
+                    self.device_confirmed(ip.to_string(), info.clone());
+                }
 
                 let alias = sanitize::single_line(&info.alias);
                 if let Some(message) = message_of(&files) {
@@ -161,10 +172,6 @@ impl App {
                     return;
                 }
 
-                // While a web page is served, the server runs without TLS (see
-                // `restart_server`), so the fingerprint is only self-reported
-                // and any sender could claim to be a paired device.
-                let verified = self.web.is_none() && sender_fingerprint.is_some();
                 let sender = SenderTarget {
                     host: ip.to_string(),
                     port: info.port,

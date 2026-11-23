@@ -55,6 +55,10 @@ pub enum ServerEventV2 {
         ip: PeerIp,
 
         /// The device information of the sender.
+        ///
+        /// On TLS with a client certificate, `info.fingerprint` matches
+        /// `sender_fingerprint` (up to case): the request is rejected
+        /// otherwise. Without one, `info` is self-reported.
         info: RegisterDtoV2,
 
         /// The fingerprint identifying the sender. Use this instead of
@@ -262,6 +266,21 @@ pub(crate) async fn prepare_upload(
         file.file_name = filename::normalize(&file.file_name);
     }
 
+    // Like `register`: a sender with a client certificate must claim the
+    // fingerprint of that certificate, so that `info` cannot pass itself off
+    // as another device. Plain HTTP and anonymous senders have nothing to
+    // check the claim against.
+    let sender_fingerprint = client_info.sender_fingerprint(&payload.info.fingerprint);
+    if sender_fingerprint
+        .as_deref()
+        .is_some_and(|fingerprint| !payload.info.fingerprint.eq_ignore_ascii_case(fingerprint))
+    {
+        return Err(AppError::Message(
+            StatusCode::FORBIDDEN,
+            "Fingerprint does not match the client certificate".to_string(),
+        ));
+    }
+
     let session_id = Uuid::new_v4().to_string();
     let cancelled = CancellationToken::new();
 
@@ -284,7 +303,6 @@ pub(crate) async fn prepare_upload(
     // Frees the slot again if this request is aborted before a session is created.
     let mut pending_guard = PendingSessionGuard::new(v2.clone(), session_id.clone());
 
-    let sender_fingerprint = client_info.sender_fingerprint(&payload.info.fingerprint);
     let (decision_tx, decision_rx) = oneshot::channel();
     let event = ServerEventV2::PrepareUpload {
         session_id: session_id.clone(),

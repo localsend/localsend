@@ -2,6 +2,7 @@
 
 use bytes::Bytes;
 use futures_util::StreamExt;
+use localsend::crypto::cert::fingerprint_from_cert_der;
 use localsend::crypto::hash::sha256_hex;
 use localsend::http::client::{ClientError, LsHttpClient, LsHttpClientV2};
 use localsend::http::dto_v2::{PrepareUploadRequestDtoV2, RegisterDtoV2};
@@ -1292,6 +1293,9 @@ async fn test_prepare_upload_aborted_by_sender_disconnect_tls() {
     let client =
         LsHttpClientV2::try_new(&sender_key.serialize_pem(), &sender_cert.pem(), None, None)
             .unwrap();
+    // On TLS, the sender must claim the fingerprint of its certificate.
+    let mut request = prepare_upload_request(&[file_dto("file-a", "a.bin", 5)]);
+    request.info.fingerprint = fingerprint_from_cert_der(sender_cert.der());
     let cancel = CancellationToken::new();
     tokio::spawn({
         let cancel = cancel.clone();
@@ -1306,7 +1310,7 @@ async fn test_prepare_upload_aborted_by_sender_disconnect_tls() {
             "127.0.0.1",
             port,
             None,
-            prepare_upload_request(&[file_dto("file-a", "a.bin", 5)]),
+            request,
             None,
             cancel,
         )

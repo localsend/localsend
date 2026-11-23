@@ -519,3 +519,51 @@ async fn test_client_without_cert_cannot_claim_fingerprint() {
     assert_eq!(response.status().as_u16(), 200);
     assert_eq!(*server.sender_fingerprints.lock().await, vec![None]);
 }
+
+/// A sender with a valid client certificate that claims another device's
+/// fingerprint in its payload: the claim is disproven by the certificate, so
+/// the request is rejected instead of passing `info` on as that device.
+#[tokio::test]
+async fn test_prepare_upload_rejected_when_claim_disagrees_with_cert() {
+    let server_identity = generate_identity();
+    let sender = generate_identity();
+    let impersonated = generate_identity();
+    let server = start_tls_server(&server_identity).await;
+    let client = client(&sender, Some(&server_identity.fingerprint));
+
+    let files = vec![file_dto("file-1", 10)];
+    let result = client
+        .prepare_upload(
+            ProtocolType::Https,
+            "127.0.0.1",
+            server.port,
+            None,
+            prepare_upload_request(&impersonated, &files),
+            None,
+            CancellationToken::new(),
+        )
+        .await;
+
+    match result {
+        Err(ClientError::StatusCode(err)) => assert_eq!(err.status, 403),
+        Err(err) => panic!("expected 403, got {err:?}"),
+        Ok(_) => panic!("expected 403, got success"),
+    }
+    assert!(server.prepare_uploads.lock().await.is_empty());
+
+    // The claim is compared case-insensitively.
+    let mut request = prepare_upload_request(&sender, &files);
+    request.info.fingerprint = sender.fingerprint.to_lowercase();
+    client
+        .prepare_upload(
+            ProtocolType::Https,
+            "127.0.0.1",
+            server.port,
+            None,
+            request,
+            None,
+            CancellationToken::new(),
+        )
+        .await
+        .expect("a lowercase claim of the own fingerprint should be accepted");
+}
