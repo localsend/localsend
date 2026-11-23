@@ -3,7 +3,6 @@
 
 use super::App;
 use super::sending::MAX_MESSAGE_BYTES;
-use super::web_link::WebMode;
 use crate::sanitize;
 use crate::ui::Category;
 use crate::util::{self, SpeedMeter};
@@ -33,6 +32,9 @@ pub(super) struct PendingReceive {
     pub(super) session_id: String,
     pub(super) alias: String,
     pub(super) sender: SenderTarget,
+    /// Whether `sender.fingerprint` is proven by a client certificate.
+    /// Only verified senders can be paired.
+    pub(super) verified: bool,
     pub(super) files: HashMap<String, FileDto>,
     pub(super) decision_tx: oneshot::Sender<PrepareUploadDecisionV2>,
 }
@@ -130,7 +132,7 @@ impl App {
                 session_id,
                 ip,
                 info,
-                cert_fingerprint,
+                sender_fingerprint,
                 files,
                 decision_tx,
             } => {
@@ -152,14 +154,18 @@ impl App {
                     return;
                 }
 
+                // While a web page is served, the server runs without TLS (see
+                // `restart_server`), so the fingerprint is only self-reported
+                // and any sender could claim to be a paired device.
+                let verified = self.web.is_none() && sender_fingerprint.is_some();
                 let sender = SenderTarget {
                     host: ip.to_string(),
                     port: info.port,
                     protocol: info.protocol,
-                    fingerprint: cert_fingerprint.unwrap_or_else(|| info.fingerprint.clone()),
+                    fingerprint: sender_fingerprint.unwrap_or_else(|| info.fingerprint.clone()),
                 };
 
-                if self.storage.paired.contains(&sender.fingerprint) {
+                if verified && self.storage.paired.contains(&sender.fingerprint) {
                     let ids: HashSet<String> = files.keys().cloned().collect();
                     if decision_tx
                         .send(PrepareUploadDecisionV2::Accept(ids))
@@ -190,11 +196,11 @@ impl App {
                             sorted.len() - MAX_LISTED_FILES
                         ));
                     }
-                    // Web senders have no stable identity worth pairing: the
-                    // fingerprint is an unverified payload value.
-                    let prompt = match self.web {
-                        Some(WebMode::Receive) => "\nAccept? Y/N",
-                        _ => "\nAccept? Y/N/P (P = accept and pair)",
+                    // Unverified senders have no stable identity worth pairing:
+                    // the fingerprint is a self-reported payload value.
+                    let prompt = match verified {
+                        false => "\nAccept? Y/N",
+                        true => "\nAccept? Y/N/P (P = accept and pair)",
                     };
                     lines.push(prompt.to_string());
                     self.ui.log(Category::Receive, &lines.join("\n"));
@@ -202,6 +208,7 @@ impl App {
                         session_id,
                         alias,
                         sender,
+                        verified,
                         files,
                         decision_tx,
                     });
@@ -457,11 +464,9 @@ impl App {
                     Category::Receive,
                     &format!("{}: You accepted", pending.alias),
                 );
-                // While "receive via link" is on, P was not offered; a stray
-                // press still accepts, but never pairs.
-                if matches!(answer, Answer::AcceptAndPair)
-                    && !matches!(self.web, Some(WebMode::Receive))
-                {
+                // P was not offered for an unverified sender; a stray press
+                // still accepts, but never pairs.
+                if matches!(answer, Answer::AcceptAndPair) && pending.verified {
                     let channels = self
                         .discovery
                         .device_by_fingerprint(&pending.sender.fingerprint)

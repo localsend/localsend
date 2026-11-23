@@ -3338,7 +3338,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
           sessionId: dco_decode_String(raw[1]),
           ip: dco_decode_String(raw[2]),
           info: dco_decode_box_autoadd_register_dto_v_2(raw[3]),
-          certFingerprint: dco_decode_opt_String(raw[4]),
+          senderFingerprint: dco_decode_opt_String(raw[4]),
           files: dco_decode_Map_String_file_dto_None(raw[5]),
         );
       case 2:
@@ -4805,13 +4805,13 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
         var var_sessionId = sse_decode_String(deserializer);
         var var_ip = sse_decode_String(deserializer);
         var var_info = sse_decode_box_autoadd_register_dto_v_2(deserializer);
-        var var_certFingerprint = sse_decode_opt_String(deserializer);
+        var var_senderFingerprint = sse_decode_opt_String(deserializer);
         var var_files = sse_decode_Map_String_file_dto_None(deserializer);
         return RsServerEvent_PrepareUpload(
           sessionId: var_sessionId,
           ip: var_ip,
           info: var_info,
-          certFingerprint: var_certFingerprint,
+          senderFingerprint: var_senderFingerprint,
           files: var_files,
         );
       case 2:
@@ -6262,14 +6262,14 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
         sessionId: final sessionId,
         ip: final ip,
         info: final info,
-        certFingerprint: final certFingerprint,
+        senderFingerprint: final senderFingerprint,
         files: final files,
       ):
         sse_encode_i_32(1, serializer);
         sse_encode_String(sessionId, serializer);
         sse_encode_String(ip, serializer);
         sse_encode_box_autoadd_register_dto_v_2(info, serializer);
-        sse_encode_opt_String(certFingerprint, serializer);
+        sse_encode_opt_String(senderFingerprint, serializer);
         sse_encode_Map_String_file_dto_None(files, serializer);
       case RsServerEvent_FileUpload(sessionId: final sessionId, fileId: final fileId, file: final file):
         sse_encode_i_32(2, serializer);
@@ -6714,7 +6714,8 @@ class RsDiscoveryImpl extends RustOpaque implements RsDiscovery {
   /// emitted on [RsDiscovery::listen].
   ///
   /// Only the inbound direction of the address is confirmed: an address
-  /// new to the device is stored with [RsOutbound::Untested].
+  /// new to the device is stored with [RsOutbound::Untested] and dialed
+  /// back in the background, whose outcome is emitted as well.
   Future<void> observeInbound({required RsDiscoveredDevice device}) =>
       RustLib.instance.api.crateApiDiscoveryRsDiscoveryObserveInbound(that: this, device: device);
 
