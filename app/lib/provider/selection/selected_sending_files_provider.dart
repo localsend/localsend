@@ -3,6 +3,7 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:localsend_app/model/cross_file.dart';
+import 'package:localsend_app/util/directory_walker.dart';
 import 'package:localsend_app/util/native/cache_helper.dart';
 import 'package:localsend_app/util/native/channel/android_channel.dart' as android_channel;
 import 'package:localsend_app/util/native/cross_file_converters.dart';
@@ -158,48 +159,72 @@ class AddDirectoryAction extends AsyncReduxAction<SelectedSendingFilesNotifier, 
     final newFiles = <CrossFile>[];
     final directoryName = p.basename(directoryPath);
     final sendIgnore = SendIgnore();
-    await for (final entity in Directory(directoryPath).list(recursive: true)) {
-      if (entity is File) {
-        final innerRelative = p.relative(entity.path, from: directoryPath).replaceAll('\\', '/');
-        final relative = '$directoryName/$innerRelative';
-        if (sendIgnore.isIgnoreFile(p.basename(entity.path))) {
-          sendIgnore.loadIgnoreContent(
-            parentPath: innerRelative.contains('/') ? p.dirname(innerRelative) : null,
-            ignoreContents: await entity.readAsLines(),
-          );
-          _logger.info('Loaded ignore file: $innerRelative');
-          continue;
-        } else if (sendIgnore.isIgnored(innerRelative)) {
-          _logger.info('Ignored: $innerRelative');
-          continue;
-        }
 
-        _logger.info('Add file $relative');
-
-        final metadata = await readFileMetadata(path: entity.path);
-        final file = CrossFile(
-          name: relative,
-          fileType: relative.guessFileType(),
-          size: entity.lengthSync(),
-          thumbnail: null,
-          asset: null,
-          path: entity.path,
-          bytes: null,
-          lastModified: metadata?.modified,
-          lastAccessed: metadata?.accessed,
-        );
-
-        final isAlreadySelect = state.any((element) => element.isSameFile(otherFile: file));
-        if (!isAlreadySelect) {
-          newFiles.add(file);
-        }
-      }
-    }
+    await _collect(directoryPath, directoryName, sendIgnore, newFiles);
 
     return List.unmodifiable([
       ...state,
       ...newFiles,
     ]);
+  }
+
+  /// Recursively collects all non-hidden files inside [directoryPath].
+  ///
+  /// Hidden files and directories (names starting with a dot) are skipped.
+  /// Hidden directories are pruned entirely, so their content is never
+  /// traversed and never transmitted.
+  ///
+  /// The path of every collected file relative to the selected directory is
+  /// unchanged, so the names sent over the wire stay the same.
+  Future<void> _collect(
+    String directoryPath,
+    String directoryName,
+    SendIgnore sendIgnore,
+    List<CrossFile> newFiles,
+  ) async {
+    final walker = DirectoryWalker(
+      sendIgnore: sendIgnore,
+      onSkip: (message) => _logger.info(message),
+    );
+
+    final innerRelatives = await walker.listFiles(directoryPath);
+
+    for (final innerRelative in innerRelatives) {
+      final entity = File(p.join(directoryPath, innerRelative));
+      final relative = '$directoryName/$innerRelative';
+
+      if (sendIgnore.isIgnoreFile(p.basename(entity.path))) {
+        sendIgnore.loadIgnoreContent(
+          parentPath: innerRelative.contains('/') ? p.dirname(innerRelative) : null,
+          ignoreContents: await entity.readAsLines(),
+        );
+        _logger.info('Loaded ignore file: $innerRelative');
+        continue;
+      } else if (sendIgnore.isIgnored(innerRelative)) {
+        _logger.info('Ignored: $innerRelative');
+        continue;
+      }
+
+      _logger.info('Add file $relative');
+
+      final metadata = await readFileMetadata(path: entity.path);
+      final file = CrossFile(
+        name: relative,
+        fileType: relative.guessFileType(),
+        size: entity.lengthSync(),
+        thumbnail: null,
+        asset: null,
+        path: entity.path,
+        bytes: null,
+        lastModified: metadata?.modified,
+        lastAccessed: metadata?.accessed,
+      );
+
+      final isAlreadySelect = state.any((element) => element.isSameFile(otherFile: file));
+      if (!isAlreadySelect) {
+        newFiles.add(file);
+      }
+    }
   }
 }
 
@@ -225,6 +250,8 @@ class AddAndroidDirectoryAction extends AsyncReduxAction<SelectedSendingFilesNot
       return state;
     }
 
+    final sendIgnore = SendIgnore();
+
     for (final file in result.files) {
       final relative = ContentUriHelper.guessRelativePathFromPickedFileContentUri(
         folderContentUri: result.directoryUri,
@@ -236,6 +263,21 @@ class AddAndroidDirectoryAction extends AsyncReduxAction<SelectedSendingFilesNot
         _logger.warning('Could not get relative path from ${file.uri}');
         continue;
       }
+
+      // Android's Storage Access Framework already traversed the hidden
+      // directories when it listed the picked folder, so they cannot be
+      // pruned while walking the tree. Instead every path component below
+      // the picked folder is checked here and files inside (or below) a
+      // hidden entry are skipped.
+      //
+      // The name of the picked folder itself is not checked, because the
+      // user selected it explicitly. This matches the behavior of the
+      // desktop implementation.
+      if (sendIgnore.isHiddenFileInFolder(folderName: folderName, relativePath: relative)) {
+        _logger.info('Skipped hidden file or directory: $relative');
+        continue;
+      }
+
       _logger.info('Add file $relative (${file.uri})');
 
       final crossFile = CrossFile(
