@@ -20,3 +20,11 @@ opt-level = 2
 
 [profile.dev.package.num-bigint-dig]
 opt-level = 2
+
+# Shipped builds (the Flutter app via cargokit, and the CLI) all use --release.
+# Whole-program optimization produces smaller, faster binaries at the cost of
+# longer release compile times. Do not add `panic = "abort"`: flutter_rust_bridge
+# catches Rust panics and turns them into Dart exceptions.
+[profile.release]
+lto = "fat"
+codegen-units = 1
