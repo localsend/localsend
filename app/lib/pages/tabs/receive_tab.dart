@@ -10,6 +10,7 @@ import 'package:localsend_app/provider/local_ip_provider.dart';
 import 'package:localsend_app/provider/network/server/server_provider.dart';
 import 'package:localsend_app/provider/settings_provider.dart';
 import 'package:localsend_app/util/ip_helper.dart';
+import 'package:localsend_app/util/ui/nav_bar_padding.dart';
 import 'package:localsend_app/widget/animations/initial_fade_transition.dart';
 import 'package:localsend_app/widget/column_list_view.dart';
 import 'package:localsend_app/widget/custom_icon_button.dart';
@@ -63,7 +64,7 @@ class _ReceiveTabState extends State<ReceiveTab> {
           child: ConstrainedBox(
             constraints: const BoxConstraints(maxWidth: ResponsiveListView.defaultMaxWidth),
             child: Padding(
-              padding: const EdgeInsets.all(30),
+              padding: EdgeInsets.fromLTRB(30, 30, 30, 30 + getNavBarPadding(context)),
               child: ColumnListView(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
