@@ -333,15 +333,7 @@
     "restore": "Restore purchase"
   },
   "changelogPage": {
-    "title": "Changelog",
-    "categories": {
-      "feature": "New features",
-      "security": "Security",
-      "performance": "Performance",
-      "fix": "Bug fixes",
-      "other": "Other"
-    },
-    "breaking": "Breaking change"
+    "title": "Changelog"
   },
   "whatsNewPage": {
     "title": "What's new in {version}",
