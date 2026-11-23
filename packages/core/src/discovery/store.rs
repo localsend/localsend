@@ -56,6 +56,19 @@ pub struct StatefulDevice {
     /// offered as a transfer target.
     pub confirmed: bool,
 
+    /// Whether the device's fingerprint is proven: this device reached it
+    /// over a channel that authenticates the peer
+    /// ([`DeviceChannel::authenticates`], i.e. HTTPS).
+    ///
+    /// From then on, observations over channels that do not authenticate
+    /// the peer (plain HTTP, where the fingerprint is only claimed) are
+    /// ignored, and such channels are dropped. Otherwise anyone could attach
+    /// a channel to the device by claiming its fingerprint, and a transfer
+    /// to the device would go to them without the certificate pin ever
+    /// being checked. A device that switches to plain HTTP is therefore
+    /// only seen again once the store is recreated.
+    pub verified: bool,
+
     /// Every channel the device was observed on, with what is known about
     /// each direction.
     pub channels: HashMap<DeviceChannel, ChannelState>,
@@ -232,6 +245,11 @@ impl StatefulDevice {
             },
         );
 
+        if matches!(observation, Observation::Reached) && device.channel.authenticates() {
+            self.verified = true;
+            self.channels.retain(|channel, _| channel.authenticates());
+        }
+
         if let Observation::Failed(error) = observation {
             // A failed request carries no verified information: what a
             // confirmed device said about itself must not be replaced by
@@ -318,6 +336,12 @@ impl StatefulDevice {
         }
     }
 
+    /// Whether an observation over `channel` must be ignored, see
+    /// [`StatefulDevice::verified`].
+    fn ignores(&self, channel: &DeviceChannel) -> bool {
+        self.verified && !channel.authenticates()
+    }
+
     fn log(&mut self, timestamp: SystemTime, event: DeviceLogEvent) {
         self.logs.push(DeviceLog { timestamp, event });
         if self.logs.len() > MAX_LOGS {
@@ -349,6 +373,16 @@ impl DeviceChannel {
     pub fn http(&self) -> Option<&HttpChannel> {
         match self {
             DeviceChannel::Http(http) => Some(http),
+        }
+    }
+
+    /// Whether a successful request over the channel authenticates the peer,
+    /// i.e. proves that it holds the fingerprint it claims: HTTPS requests
+    /// are pinned to the fingerprint (the hash of the peer's certificate),
+    /// while plain HTTP has nothing to verify it with.
+    pub fn authenticates(&self) -> bool {
+        match self {
+            DeviceChannel::Http(http) => http.protocol == ProtocolType::Https,
         }
     }
 
@@ -433,13 +467,16 @@ impl DeviceStore {
     /// [`DiscoveryEvent::Updated`] afterwards. A failure yields `Updated`
     /// for a confirmed device and [`DiscoveryEvent::Unreachable`] otherwise;
     /// an unknown device then enters the store unconfirmed.
+    ///
+    /// Yields no event when the observation is ignored because it does not
+    /// authenticate a verified device ([`StatefulDevice::verified`]).
     pub(super) fn observe(
         &self,
         device: DiscoveredDevice,
         observation: Observation,
         announcement: Option<Announcement>,
         timestamp: SystemTime,
-    ) -> (DiscoveryEvent, StatefulDevice) {
+    ) -> (Option<DiscoveryEvent>, StatefulDevice) {
         let mut devices = self.devices.lock().unwrap();
         let index = match devices
             .iter()
@@ -450,6 +487,7 @@ impl DeviceStore {
                 devices.push(StatefulDevice {
                     device: device.clone(),
                     confirmed: false,
+                    verified: false,
                     channels: HashMap::new(),
                     logs: Vec::new(),
                 });
@@ -457,6 +495,15 @@ impl DeviceStore {
             }
         };
         let known = &mut devices[index];
+
+        if known.ignores(&device.channel) {
+            tracing::debug!(
+                "Ignoring an unauthenticated observation of verified device {}: {:?}",
+                known.device.alias,
+                device.channel
+            );
+            return (None, known.clone());
+        }
 
         if let Some(announcement) = announcement {
             known.log(
@@ -467,23 +514,27 @@ impl DeviceStore {
             );
         }
         let event = known.apply(device, observation, timestamp);
-        (event, known.clone())
+        (Some(event), known.clone())
     }
 
     /// Merges the outcome of a request sent to a known device over
     /// `channel` into the store, like [`DeviceStore::observe`]. Returns
-    /// `None` when no device has the fingerprint.
+    /// `None` when no device has the fingerprint, and `Some(None)` when the
+    /// outcome is ignored like in [`DeviceStore::observe`].
     pub(super) fn report_outbound(
         &self,
         fingerprint: &str,
         channel: DeviceChannel,
         result: Result<(), String>,
         timestamp: SystemTime,
-    ) -> Option<DiscoveryEvent> {
+    ) -> Option<Option<DiscoveryEvent>> {
         let mut devices = self.devices.lock().unwrap();
         let known = devices
             .iter_mut()
             .find(|known| known.device.fingerprint == fingerprint)?;
+        if known.ignores(&channel) {
+            return Some(None);
+        }
 
         let device = DiscoveredDevice {
             channel,
@@ -493,7 +544,7 @@ impl DeviceStore {
             Ok(()) => Observation::Reached,
             Err(error) => Observation::Failed(error),
         };
-        Some(known.apply(device, observation, timestamp))
+        Some(Some(known.apply(device, observation, timestamp)))
     }
 
     /// All confirmed devices in the order they were first observed.
@@ -557,6 +608,7 @@ mod tests {
         store
             .observe(device, Observation::Reached, None, SystemTime::now())
             .0
+            .expect("the observation was ignored")
     }
 
     /// `device` reached this device.
@@ -564,6 +616,7 @@ mod tests {
         store
             .observe(device, Observation::ReachedUs, None, SystemTime::now())
             .0
+            .expect("the observation was ignored")
     }
 
     /// This device could not reach `device`.
@@ -576,6 +629,7 @@ mod tests {
                 SystemTime::now(),
             )
             .0
+            .expect("the observation was ignored")
     }
 
     fn channel_host(channel: &DeviceChannel) -> &str {
@@ -947,7 +1001,7 @@ mod tests {
         match event {
             // The device stays confirmed: only the ranking of its channels
             // changed.
-            Some(DiscoveryEvent::Updated { device }) => {
+            Some(Some(DiscoveryEvent::Updated { device })) => {
                 assert_eq!(device.alias, "Alias of a");
                 assert_eq!(channel_host(&device.channel), "192.168.0.10");
             }
@@ -960,7 +1014,7 @@ mod tests {
         );
 
         let event = store.report_outbound("a", channel("192.168.0.10", 53317), Ok(()), now);
-        assert!(matches!(event, Some(DiscoveryEvent::Updated { .. })));
+        assert!(matches!(event, Some(Some(DiscoveryEvent::Updated { .. }))));
         let known = store.by_fingerprint("a").unwrap();
         assert_eq!(
             state_of(&known, "192.168.0.10").outbound,
@@ -1139,5 +1193,95 @@ mod tests {
             "192.168.0.11"
         );
         assert!(store.by_fingerprint("c").is_none());
+    }
+
+    fn http_device(fingerprint: &str, host: &str) -> DiscoveredDevice {
+        DiscoveredDevice {
+            channel: DeviceChannel::Http(HttpChannel {
+                host: host.to_string(),
+                port: 53317,
+                protocol: ProtocolType::Http,
+            }),
+            ..device(fingerprint, host)
+        }
+    }
+
+    fn observe(
+        store: &DeviceStore,
+        device: DiscoveredDevice,
+        observation: Observation,
+    ) -> Option<DiscoveryEvent> {
+        store
+            .observe(device, observation, None, SystemTime::now())
+            .0
+    }
+
+    /// Plain HTTP proves nothing about the fingerprint, so once a device is
+    /// verified over HTTPS, nobody can attach an HTTP channel to it by
+    /// claiming its fingerprint (GHSA-hxmj-fjxh-v795).
+    #[test]
+    fn test_http_observations_of_a_verified_device_are_ignored() {
+        let store = DeviceStore::new();
+        reach(&store, device("a", "192.168.0.10"));
+        assert!(store.by_fingerprint("a").unwrap().verified);
+
+        for observation in [
+            Observation::Reached,
+            Observation::ReachedUs,
+            Observation::Failed("connection refused".to_string()),
+        ] {
+            let event = observe(&store, http_device("a", "192.168.0.66"), observation);
+            assert!(event.is_none(), "expected no event, got {event:?}");
+        }
+        let event = store.report_outbound(
+            "a",
+            http_device("a", "192.168.0.66").channel,
+            Ok(()),
+            SystemTime::now(),
+        );
+        assert!(matches!(event, Some(None)), "expected no event, got {event:?}");
+
+        let known = store.by_fingerprint("a").unwrap();
+        assert_eq!(ranked_hosts(&known), ["192.168.0.10"]);
+        assert_eq!(known.device.alias, "Alias of a");
+    }
+
+    /// HTTP channels attached before the device was verified are dropped
+    /// with the verification, so they cannot outrank the proven ones.
+    #[test]
+    fn test_verification_drops_http_channels() {
+        let store = DeviceStore::new();
+        reach(&store, http_device("a", "192.168.0.66"));
+        assert!(!store.by_fingerprint("a").unwrap().verified);
+
+        reach(&store, device("a", "192.168.0.10"));
+
+        let known = store.by_fingerprint("a").unwrap();
+        assert!(known.verified);
+        assert_eq!(ranked_hosts(&known), ["192.168.0.10"]);
+    }
+
+    /// A device that only uses plain HTTP is never verified and keeps
+    /// working as before.
+    #[test]
+    fn test_unverified_device_keeps_http_channels() {
+        let store = DeviceStore::new();
+        reach(&store, http_device("a", "192.168.0.10"));
+        reached_by(&store, http_device("a", "10.0.0.10"));
+
+        let known = store.by_fingerprint("a").unwrap();
+        assert!(!known.verified);
+        assert_eq!(known.channels.len(), 2);
+    }
+
+    /// Only this device reaching the peer over HTTPS verifies it: an
+    /// inbound request merely claims its channel.
+    #[test]
+    fn test_inbound_https_does_not_verify() {
+        let store = DeviceStore::new();
+        reached_by(&store, device("a", "192.168.0.10"));
+        fail(&store, device("a", "10.0.0.10"));
+
+        assert!(!store.by_fingerprint("a").unwrap().verified);
     }
 }

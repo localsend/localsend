@@ -127,6 +127,8 @@ Integration mirrors the HTTP server: `multicast::start` takes a `MulticastConfig
 
 UDP is **announce-only**: responses go back over HTTP as a unicast register request to the announcing device.
 
+The discovery store (`packages/core/src/discovery/store.rs`) dedupes devices by fingerprint. Over plain HTTP a fingerprint is only claimed, so once a device is reached over (pinned) HTTPS it is `verified`: its HTTP channels are dropped and later HTTP observations of that fingerprint are ignored, otherwise anyone could route transfers to a known device through an unpinned HTTP channel.
+
 One socket is bound per interface IPv4 address (`SO_REUSEPORT`/`SO_REUSEADDR` + `IP_MULTICAST_IF`), because a single socket only sends on one interface. Multicast loopback stays on so that instances on one host see each other; own messages are dropped by fingerprint. IPv6 is a LocalSend extension (group `ff12::fd3a:e420`, `DEFAULT_MULTICAST_GROUP_V6`), enabled by setting `group_v6`: one `IPV6_V6ONLY` socket per interface, joined by interface index. `Discovered` carries the source's scope ID (interface index), which link-local IPv6 sources need for the HTTP answer.
 
 ### i18n

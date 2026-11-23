@@ -456,7 +456,7 @@ async fn test_register_without_pin_returns_public_key() {
 
 /// A browser-like client without a client certificate while the web pages are
 /// served. It must not be able to pass itself off as a known device by
-/// claiming that device's fingerprint (GHSA-8mh2-95m7-mr5w).
+/// claiming that device's fingerprint (GHSA-hxmj-fjxh-v795).
 #[tokio::test]
 async fn test_client_without_cert_cannot_claim_fingerprint() {
     let server_identity = generate_identity();

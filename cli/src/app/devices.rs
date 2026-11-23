@@ -220,6 +220,7 @@ mod tests {
                 download: false,
             },
             confirmed: true,
+            verified: true,
             channels: [
                 (channel("10.0.0.10"), failed),
                 (channel("fe80::1%3"), untested),
