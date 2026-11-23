@@ -1,4 +1,4 @@
-## 1.19.0 (2026-11-21)
+## 1.19.0 (2026-11-23)
 
 - feat: make sending checksums opt-in (@Tienisto)
 - feat: format timestamps using system date and time settings (@ShlomoCode)
