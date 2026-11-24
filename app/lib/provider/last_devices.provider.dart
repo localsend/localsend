@@ -23,7 +23,9 @@ class AddLastDeviceAction extends ReduxAction<LastDevicesService, List<Device>> 
   List<Device> reduce() {
     return {
       device,
-      ...state,
+      ...state.where(
+        (previous) => device.ip == null || previous.ip != device.ip || previous.port != device.port || previous.https != device.https,
+      ),
     }.take(5).toList();
   }
 }
