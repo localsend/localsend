@@ -26,6 +26,9 @@
     <uses-feature android:name="android.software.leanback" android:required="false" />
     <uses-feature android:name="android.hardware.touchscreen" android:required="false" />
 
+    <!-- ACCESS_WIFI_STATE (from network_info_plus) implies a Wi-Fi requirement; Ethernet works too. -->
+    <uses-feature android:name="android.hardware.wifi" android:required="false" />
+
     <application
         android:label="LocalSend"
         android:name="${applicationName}"
