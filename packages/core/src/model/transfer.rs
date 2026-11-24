@@ -52,17 +52,36 @@ impl FileContent {
     /// the peer would store a truncated (or empty) file and the transfer would
     /// look successful on this side.
     pub fn into_stream(self) -> FileStream {
+        self.into_stream_from(0)
+    }
+
+    /// Starts at a byte offset, seeking regular files instead of reading their prefix.
+    /// Application-provided streams are consumed until the offset is reached.
+    pub(crate) fn into_stream_from(self, offset: u64) -> FileStream {
         match self {
             FileContent::Stream(rx) => {
                 tracing::info!("Reading file content via byte stream from application");
-                Box::pin(ReceiverStream::new(rx).map(Ok))
+                let stream = ReceiverStream::new(rx);
+                Box::pin(futures_util::stream::unfold(
+                    (stream, offset),
+                    |(mut stream, mut remaining)| async move {
+                        while let Some(chunk) = stream.next().await {
+                            let skip = remaining.min(chunk.len() as u64) as usize;
+                            remaining -= skip as u64;
+                            if skip < chunk.len() {
+                                return Some((Ok(chunk.slice(skip..)), (stream, remaining)));
+                            }
+                        }
+                        None
+                    },
+                ))
             }
             FileContent::Path(path) => {
                 tracing::info!("Reading file content from path: {}", path.display());
                 let (tx, rx) = mpsc::channel(FILE_CHANNEL_CAPACITY);
                 tokio::spawn(async move {
                     match tokio::fs::File::open(&path).await {
-                        Ok(file) => read_file_into_sender(file, tx).await,
+                        Ok(file) => read_file_into_sender(file, tx, offset).await,
                         Err(e) => {
                             tracing::error!("Failed to open {}: {e}", path.display());
                             // Re-wrapped with the path: this message is what the
@@ -89,7 +108,7 @@ impl FileContent {
                 // a File transfers that ownership so it is closed once reading finishes.
                 let std_file = unsafe { std::fs::File::from_raw_fd(fd) };
                 let file = tokio::fs::File::from_std(std_file);
-                tokio::spawn(read_file_into_sender(file, tx));
+                tokio::spawn(read_file_into_sender(file, tx, offset));
                 Box::pin(ReceiverStream::new(rx))
             }
         }
@@ -104,8 +123,16 @@ impl FileContent {
 async fn read_file_into_sender(
     mut file: tokio::fs::File,
     tx: mpsc::Sender<Result<Bytes, std::io::Error>>,
+    offset: u64,
 ) {
-    use tokio::io::AsyncReadExt;
+    use tokio::io::{AsyncReadExt, AsyncSeekExt};
+
+    if offset != 0 {
+        if let Err(error) = file.seek(std::io::SeekFrom::Start(offset)).await {
+            let _ = tx.send(Err(error)).await;
+            return;
+        }
+    }
 
     let mut buffer = bytes::BytesMut::new();
     let mut total: u64 = 0;

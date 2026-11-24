@@ -2,7 +2,7 @@ use crate::http::dto_v2::{InfoResponseDtoV2, PrepareDownloadResponseDtoV2};
 use crate::http::server::common::error::AppError;
 use crate::http::server::common::pin::check_pin;
 use crate::http::server::common::query::parse_query;
-use crate::http::server::common::response::{full_body, BoxedBody, JsonResponse};
+use crate::http::server::common::response::{empty_body, full_body, BoxedBody, JsonResponse};
 use crate::http::server::PeerIp;
 use crate::http::server::{AppState, RequestClientInfo};
 use crate::model::discovery::PROTOCOL_VERSION_V2;
@@ -68,6 +68,69 @@ pub enum WebDownloadEvent {
 const DOWNLOAD_HTML: &str = include_str!("../../../assets/web/download.html");
 const UPLOAD_HTML: &str = include_str!("../../../assets/web/upload.html");
 const ERROR_403_HTML: &str = include_str!("../../../assets/web/error-403.html");
+const BYTE_RANGE_UNIT: &str = "bytes";
+
+/// Single byte ranges support resumed downloads. Unsupported or
+/// malformed ranges are ignored; valid ranges outside the file return 416.
+fn download_range(headers: &http::HeaderMap, size: u64) -> Result<Option<(u64, u64)>, ()> {
+    // No representation validator is advertised, so If-Range cannot match.
+    if headers.contains_key(http::header::IF_RANGE)
+        || headers.get_all(http::header::RANGE).iter().count() != 1
+    {
+        return Ok(None);
+    }
+    let Some(value) = headers
+        .get(http::header::RANGE)
+        .and_then(|v| v.to_str().ok())
+    else {
+        return Ok(None);
+    };
+    let Some((unit, value)) = value.split_once('=') else {
+        return Ok(None);
+    };
+    if !unit.eq_ignore_ascii_case(BYTE_RANGE_UNIT) || value.contains(',') {
+        return Ok(None);
+    }
+    let Some((start, end)) = value.split_once('-') else {
+        return Ok(None);
+    };
+    let number = |s: &str| -> Option<u64> {
+        if s.is_empty() || !s.bytes().all(|c| c.is_ascii_digit()) {
+            return None;
+        }
+        // Saturation preserves the meaning of arbitrarily large HTTP offsets.
+        Some(s.bytes().fold(0u64, |n, c| {
+            n.saturating_mul(10).saturating_add((c - b'0') as u64)
+        }))
+    };
+    if start.is_empty() {
+        let Some(length) = number(end) else {
+            return Ok(None);
+        };
+        if size == 0 || length == 0 {
+            return Err(());
+        }
+        return Ok(Some((size.saturating_sub(length), size - 1)));
+    }
+    let Some(start) = number(start) else {
+        return Ok(None);
+    };
+    let end = if end.is_empty() {
+        u64::MAX
+    } else {
+        let Some(end) = number(end) else {
+            return Ok(None);
+        };
+        if end < start {
+            return Ok(None);
+        }
+        end
+    };
+    if start >= size {
+        return Err(());
+    }
+    Ok(Some((start, end.min(size - 1))))
+}
 
 /// Characters that are percent-encoded in the content-disposition file name.
 /// Matches the component encoding of RFC 2396 (letters, digits and marks are kept).
@@ -428,31 +491,69 @@ pub(crate) async fn download(
         ));
     };
 
-    // The application provides the file content as a stream of bytes.
-    let (content_tx, content_rx) = oneshot::channel::<FileContent>();
-    let event = WebDownloadEvent::FileDownload {
-        session_id: session_id.clone(),
-        file_id: file_id.clone(),
-        file: file.clone(),
-        content_tx,
+    let head_only = req.method() == http::Method::HEAD;
+    let requested_range = if head_only {
+        Ok(None)
+    } else {
+        download_range(req.headers(), file.size)
     };
-    if web.event_tx.send(event).await.is_err() {
-        return Err(AppError::Status(StatusCode::INTERNAL_SERVER_ERROR));
-    }
+    let range = match requested_range {
+        Ok(range) => range,
+        Err(()) => {
+            let mut response = Response::new(empty_body());
+            *response.status_mut() = StatusCode::RANGE_NOT_SATISFIABLE;
+            response.headers_mut().insert(
+                http::header::CONTENT_RANGE,
+                http::HeaderValue::from_str(&format!("{BYTE_RANGE_UNIT} */{}", file.size))
+                    .map_err(|_| AppError::Status(StatusCode::INTERNAL_SERVER_ERROR))?,
+            );
+            return Ok(response);
+        }
+    };
 
-    let content = content_rx
-        .await
-        .map_err(|_| AppError::Status(StatusCode::INTERNAL_SERVER_ERROR))?;
+    let body = if head_only {
+        empty_body()
+    } else {
+        // The application provides the file content as a stream of bytes.
+        let (content_tx, content_rx) = oneshot::channel::<FileContent>();
+        let event = WebDownloadEvent::FileDownload {
+            session_id: session_id.clone(),
+            file_id: file_id.clone(),
+            file: file.clone(),
+            content_tx,
+        };
+        if web.event_tx.send(event).await.is_err() {
+            return Err(AppError::Status(StatusCode::INTERNAL_SERVER_ERROR));
+        }
 
-    let size = file.size;
-    let body = file_content_body(content);
+        let content = content_rx
+            .await
+            .map_err(|_| AppError::Status(StatusCode::INTERNAL_SERVER_ERROR))?;
+
+        file_content_body(content, range)
+    };
+    let size = range.map_or(file.size, |(start, end)| end - start + 1);
 
     // The file name may be inside directories.
     let file_name = file.file_name.replace('/', "-");
     let encoded_file_name = utf8_percent_encode(&file_name, FILE_NAME_ENCODE_SET);
 
     let mut response = Response::new(body);
+    if range.is_some() {
+        *response.status_mut() = StatusCode::PARTIAL_CONTENT;
+    }
     let headers = response.headers_mut();
+    headers.insert(
+        http::header::ACCEPT_RANGES,
+        http::HeaderValue::from_static(BYTE_RANGE_UNIT),
+    );
+    if let Some((start, end)) = range {
+        headers.insert(
+            http::header::CONTENT_RANGE,
+            http::HeaderValue::from_str(&format!("{BYTE_RANGE_UNIT} {start}-{end}/{}", file.size))
+                .map_err(|_| AppError::Status(StatusCode::INTERNAL_SERVER_ERROR))?,
+        );
+    }
     headers.insert(
         http::header::CONTENT_TYPE,
         http::HeaderValue::from_static("application/octet-stream"),
@@ -526,8 +627,27 @@ async fn file_list_response(
 /// An I/O error while reading fails the body. The response announces
 /// `Content-Length`, so ending it early instead would hand the browser a
 /// silently truncated file.
-fn file_content_body(content: FileContent) -> BoxedBody {
-    let stream = content.into_stream().map(|chunk| chunk.map(Frame::data));
+fn file_content_body(content: FileContent, range: Option<(u64, u64)>) -> BoxedBody {
+    let (offset, remaining) = range.map_or((0, u64::MAX), |(start, end)| (start, end - start + 1));
+    let stream = futures_util::stream::unfold(
+        (content.into_stream_from(offset), remaining),
+        |(mut stream, remaining)| async move {
+            if remaining == 0 {
+                return None;
+            }
+            match stream.next().await {
+                Some(Ok(chunk)) => {
+                    let length = remaining.min(chunk.len() as u64) as usize;
+                    Some((
+                        Ok(Frame::data(chunk.slice(..length))),
+                        (stream, remaining - length as u64),
+                    ))
+                }
+                Some(Err(error)) => Some((Err(error), (stream, 0))),
+                None => None,
+            }
+        },
+    );
     StreamBody::new(stream).boxed()
 }
 
