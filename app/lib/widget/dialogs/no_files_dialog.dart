@@ -13,6 +13,7 @@ class NoFilesDialog extends StatelessWidget {
       description: t.dialogs.noFiles.content,
       child: Center(
         child: FilledButton(
+          autofocus: true,
           onPressed: () => context.popUntilRoot(),
           child: Text(t.general.close),
         ),

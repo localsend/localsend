@@ -39,6 +39,7 @@ class WhatsNewPage extends StatelessWidget {
           Align(
             alignment: Alignment.centerRight,
             child: FilledButton.icon(
+              autofocus: true,
               onPressed: () => context.global.dispatch(NavigateAction.pop()),
               icon: Icon(Icons.done),
               label: Text(t.general.done),
