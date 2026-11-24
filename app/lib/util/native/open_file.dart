@@ -18,7 +18,13 @@ Future<void> openFile(
   }
 
   if (filePath.startsWith('content://')) {
-    await android_channel.openContentUri(uri: filePath);
+    try {
+      await android_channel.openContentUri(uri: filePath);
+    } catch (_) {
+      if (context.mounted) {
+        await CannotOpenFileDialog.open(context, filePath, onDeleteTap);
+      }
+    }
     return;
   }
 

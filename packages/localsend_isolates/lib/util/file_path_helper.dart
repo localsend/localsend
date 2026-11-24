@@ -76,6 +76,8 @@ extension FilePathStringExt on String {
         return FileType.text;
       case 'apk':
         return FileType.apk;
+      case 'epub':
+        return FileType.other;
       default:
         return FileType.other;
     }

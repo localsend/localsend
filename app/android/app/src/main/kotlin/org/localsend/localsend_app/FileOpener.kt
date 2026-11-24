@@ -1,12 +1,14 @@
 package org.localsend.localsend_app
 
+import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.provider.DocumentsContract
+import io.flutter.plugin.common.MethodChannel
 import java.util.Locale
 
-fun openUri(context: Context, uriStr: String) {
+fun openUri(context: Context, uriStr: String, result: MethodChannel.Result? = null) {
     val uri = Uri.parse(uriStr)
     val intent = Intent(Intent.ACTION_VIEW, uri)
     val type = if (DocumentsContract.isTreeUri(uri) && !DocumentsContract.isDocumentUri(context, uri)) {
@@ -23,7 +25,16 @@ fun openUri(context: Context, uriStr: String) {
 
     intent.setDataAndType(uri, type)
     intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-    context.startActivity(intent)
+    try {
+        context.startActivity(intent)
+        result?.success(null)
+    } catch (e: ActivityNotFoundException) {
+        result?.error("ACTIVITY_NOT_FOUND", e.message ?: "No activity found to open file", null)
+    } catch (e: SecurityException) {
+        result?.error("PERMISSION_DENIED", e.message ?: "Permission denied for content URI", null)
+    } catch (e: Exception) {
+        result?.error("OPEN_FAILED", e.message ?: "Failed to open content URI", null)
+    }
 }
 
 private fun getFileType(filePath: String): String? {
@@ -44,6 +55,7 @@ private fun getFileType(filePath: String): String? {
         "cpp" -> "text/plain"
         "doc" -> "application/msword"
         "docx" -> "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+        "epub" -> "application/epub+zip"
         "xls", "csv" -> "application/vnd.ms-excel"
         "xlsx" -> "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
         "gif" -> "image/gif"
