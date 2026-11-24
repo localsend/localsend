@@ -127,6 +127,8 @@ FileType decodeFromMime(String mime) {
     return FileType.text;
   } else if (mime == 'application/vnd.android.package-archive') {
     return FileType.apk;
+  } else if (mime == 'application/epub+zip') {
+    return FileType.other;
   } else {
     return FileType.other;
   }

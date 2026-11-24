@@ -109,8 +109,12 @@ class MainActivity : FlutterActivity() {
                 "scanFile" -> handleScanFile(call, result)
 
                 "openContentUri" -> {
-                    openUri(context, call.argument<String>("uri")!!)
-                    result.success(null)
+                    val uri = call.argument<String>("uri")
+                    if (uri != null) {
+                        openUri(context, uri, result)
+                    } else {
+                        result.error("INVALID_ARGUMENT", "Missing content URI", null)
+                    }
                 }
 
                 "openGallery" -> {
