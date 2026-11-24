@@ -15,6 +15,7 @@ import 'package:localsend_app/util/native/open_file.dart';
 import 'package:localsend_app/util/native/open_folder.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_app/util/native/taskbar_helper.dart';
+import 'package:localsend_app/util/native/transfer_wakelock.dart';
 import 'package:localsend_app/util/notification_strings.dart';
 import 'package:localsend_app/util/ui/nav_bar_padding.dart';
 import 'package:localsend_app/widget/custom_progress_bar.dart';
@@ -29,11 +30,12 @@ import 'package:localsend_isolates/util/file_speed_helper.dart';
 import 'package:refena_flutter/addons.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 import 'package:routerino/routerino.dart';
-import 'package:wakelock_plus/wakelock_plus.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 
 /// Extra space needed below the file list while the progress details are expanded.
 const _advancedProgressPanelExtraPadding = 100.0;
+
+final _transferWakelock = TransferWakelock();
 
 class ProgressPage extends StatefulWidget {
   final bool showAppBar;
@@ -61,7 +63,6 @@ class _ProgressPageState extends State<ProgressPage> with Refena {
   // If [autoFinish] is enabled, we wait a few seconds before automatically closing the session.
   int _finishCounter = 3;
   Timer? _finishTimer;
-  Timer? _wakelockPlusTimer;
 
   bool _advanced = false;
 
@@ -69,32 +70,29 @@ class _ProgressPageState extends State<ProgressPage> with Refena {
   /// so there is no reason to also keep the screen on.
   bool get _useWakelock => checkPlatformIsNot([TargetPlatform.android]);
 
+  void _updateWakelock() {
+    if (!_useWakelock) {
+      return;
+    }
+    final receiveSession = ref.read(serverProvider)?.session;
+    final status = receiveSession?.sessionId == widget.sessionId ? receiveSession?.status : ref.read(sendProvider)[widget.sessionId]?.status;
+    final active =
+        status == SessionStatus.waiting ||
+        (status == SessionStatus.sending && !ref.read(fileTransferProvider).getStatuses(widget.sessionId).isFinishedOrError);
+    unawaited(_transferWakelock.update(this, active: active));
+  }
+
   @override
   void initState() {
     super.initState();
 
     // init
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (_useWakelock) {
-        try {
-          unawaited(WakelockPlus.enable());
-        } catch (_) {}
-
-        // Poll for completion and disable the wakelock once.
-        // We must NOT call WakelockPlus.enable() repeatedly here: on Linux (FreeDesktop D-Bus ScreenSaver)
-        // each enable() acquires a new inhibit cookie while disable() only releases one, so re-calling
-        // enable() every 30s leaks inhibit locks that keep the screen awake indefinitely (issue #3209).
-        _wakelockPlusTimer = Timer.periodic(const Duration(seconds: 30), (timer) {
-          // an empty iterable (session already removed) also counts as finished
-          final finished = ref.read(fileTransferProvider).getStatuses(widget.sessionId).isFinishedOrError;
-          if (finished) {
-            timer.cancel();
-            try {
-              unawaited(WakelockPlus.disable());
-            } catch (_) {}
-          }
-        });
+      if (!mounted) {
+        return;
       }
+
+      _updateWakelock();
 
       if (ref.read(settingsProvider).autoFinish) {
         _finishTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
@@ -182,18 +180,13 @@ class _ProgressPageState extends State<ProgressPage> with Refena {
   void dispose() {
     super.dispose();
     _finishTimer?.cancel();
-    _wakelockPlusTimer?.cancel();
     TaskbarHelper.clearProgressBar(); // ignore: discarded_futures
-    if (_useWakelock) {
-      try {
-        WakelockPlus.disable(); // ignore: discarded_futures
-      } catch (_) {}
-    }
+    unawaited(_transferWakelock.update(this, active: false));
   }
 
   @override
   Widget build(BuildContext context) {
-    final transferNotifier = ref.watch(fileTransferProvider);
+    final transferNotifier = ref.watch(fileTransferProvider, listener: (_, _) => _updateWakelock());
     final currBytes = _files.fold<int>(
       0,
       (prev, curr) => prev + ((transferNotifier.getProgress(sessionId: widget.sessionId, fileId: curr.id) * curr.size).round()),
@@ -201,8 +194,8 @@ class _ProgressPageState extends State<ProgressPage> with Refena {
 
     // No select: comparing the selected session runs the dart_mappable deep equality
     // over the whole files map on every state change.
-    final receiveSession = ref.watch(serverProvider)?.session;
-    final sendSession = ref.watch(sendProvider)[widget.sessionId];
+    final receiveSession = ref.watch(serverProvider, listener: (_, _) => _updateWakelock())?.session;
+    final sendSession = ref.watch(sendProvider, listener: (_, _) => _updateWakelock())[widget.sessionId];
 
     final SessionState? commonSessionState = receiveSession ?? sendSession;
 
