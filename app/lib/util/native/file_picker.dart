@@ -17,6 +17,7 @@ import 'package:localsend_app/util/native/cross_file_converters.dart';
 import 'package:localsend_app/util/native/pick_directory_path.dart';
 import 'package:localsend_app/util/native/platform_check.dart';
 import 'package:localsend_app/util/ui/asset_picker_translated_text_delegate.dart';
+import 'package:localsend_app/widget/dialogs/error_dialog.dart';
 import 'package:localsend_app/widget/dialogs/loading_dialog.dart';
 import 'package:localsend_app/widget/dialogs/message_input_dialog.dart';
 import 'package:localsend_app/widget/dialogs/no_permission_dialog.dart';
@@ -184,9 +185,18 @@ Future<void> _pickFiles(BuildContext context, Ref ref) async {
       return;
     }
 
-    // ignore: use_build_context_synchronously
-    await showDialog(context: context, builder: (_) => const NoPermissionDialog());
     _logger.warning('Failed to pick files', e);
+    if (checkPlatform([TargetPlatform.android]) && !kIsWeb) {
+      // ignore: use_build_context_synchronously
+      await showDialog(context: context, builder: (_) => const NoPermissionDialog());
+    } else {
+      // No app-level file permission exists to grant outside native Android, so show the real error instead.
+      await showDialog(
+        // ignore: use_build_context_synchronously
+        context: context,
+        builder: (_) => ErrorDialog(error: e.toString()),
+      );
+    }
   } finally {
     // ignore: use_build_context_synchronously
     Routerino.context.popUntilRoot(); // remove loading dialog
@@ -234,8 +244,17 @@ Future<void> _pickFolder(BuildContext context, Ref ref) async {
     }
 
     _logger.warning('Failed to pick directory', e);
-    // ignore: use_build_context_synchronously
-    await showDialog(context: context, builder: (_) => const NoPermissionDialog());
+    if (checkPlatform([TargetPlatform.android]) && !kIsWeb) {
+      // ignore: use_build_context_synchronously
+      await showDialog(context: context, builder: (_) => const NoPermissionDialog());
+    } else {
+      // No app-level file permission exists to grant outside native Android, so show the real error instead.
+      await showDialog(
+        // ignore: use_build_context_synchronously
+        context: context,
+        builder: (_) => ErrorDialog(error: e.toString()),
+      );
+    }
   } finally {
     // ignore: use_build_context_synchronously
     Routerino.context.popUntilRoot(); // remove loading dialog
