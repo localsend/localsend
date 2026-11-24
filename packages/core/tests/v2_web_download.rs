@@ -38,7 +38,11 @@ impl TestFileContent {
     async fn stream(self, tx: mpsc::Sender<Bytes>) {
         match self {
             TestFileContent::Bytes(bytes) => {
-                let _ = tx.send(bytes).await;
+                for chunk in bytes.chunks(2) {
+                    if tx.send(Bytes::copy_from_slice(chunk)).await.is_err() {
+                        break;
+                    }
+                }
             }
             TestFileContent::Path(path) => {
                 let mut file = tokio::fs::File::open(&path)
@@ -66,6 +70,14 @@ impl TestFileContent {
 async fn start_test_server(
     web_download: Option<(WebDownloadConfig, HashMap<String, TestFileContent>)>,
     accept: bool,
+) -> TestServer {
+    start_test_server_with_tls(web_download, accept, None).await
+}
+
+async fn start_test_server_with_tls(
+    web_download: Option<(WebDownloadConfig, HashMap<String, TestFileContent>)>,
+    accept: bool,
+    tls: Option<localsend::http::server::TlsConfig>,
 ) -> TestServer {
     let _ = tracing_subscriber::fmt().with_test_writer().try_init();
     let prepare_download_events = Arc::new(AtomicU32::new(0));
@@ -97,6 +109,10 @@ async fn start_test_server(
                             .expect("FileDownload for unknown file")
                             .clone();
                         tokio::spawn(async move {
+                            if let TestFileContent::Path(path) = content {
+                                let _ = content_tx.send(FileContent::Path(path));
+                                return;
+                            }
                             let (tx, rx) = mpsc::channel::<Bytes>(16);
                             if content_tx.send(FileContent::Stream(rx)).is_err() {
                                 return;
@@ -130,7 +146,7 @@ async fn start_test_server(
     // Port 0 lets the OS pick a free port, avoiding collisions between tests.
     let handle = start_with_port(
         0,
-        None, // plain HTTP
+        tls,
         ClientInfo {
             alias: "Test Server".to_string(),
             version: "2.2".to_string(),
@@ -232,6 +248,228 @@ fn assert_status(result: Result<impl Sized, ClientError>, expected_status: u16) 
         Err(err) => panic!("Expected status code {expected_status}, got error: {err:?}"),
         Ok(_) => panic!("Expected status code {expected_status}, got success"),
     }
+}
+
+/// A download manager resumes an accepted download from its saved byte offset.
+#[tokio::test]
+async fn test_resume_download_with_byte_range() {
+    let (config, contents, disk_path, disk_content) = web_download_config(None);
+    let server = start_test_server(Some((config, contents)), true).await;
+    let client = LsHttpClientV2::try_new_without_cert().unwrap();
+    let session = client
+        .prepare_download(ProtocolType::Http, "127.0.0.1", server.port, None, None)
+        .await
+        .unwrap();
+    let response = localsend::reqwest::Client::new()
+        .get(format!(
+            "http://127.0.0.1:{}/api/localsend/v2/download?sessionId={}&fileId=file-disk",
+            server.port, session.session_id
+        ))
+        .header("Range", "bytes=4096-")
+        .send()
+        .await
+        .unwrap();
+    let status = response.status();
+    let headers = response.headers().clone();
+    let body = response.bytes().await.unwrap();
+    std::fs::remove_file(disk_path).unwrap();
+    assert_eq!(status.as_u16(), 206);
+    assert_eq!(headers["accept-ranges"], "bytes");
+    assert_eq!(headers["content-range"], "bytes 4096-99999/100000");
+    assert_eq!(body.as_ref(), &disk_content[4096..]);
+}
+
+#[tokio::test]
+async fn test_download_range_boundaries_and_authorization() {
+    let (mut config, mut contents, disk_path, _) = web_download_config(None);
+    config
+        .files
+        .insert("empty".into(), file_dto("empty", "empty", 0));
+    contents.insert("empty".into(), TestFileContent::Bytes(Bytes::new()));
+    let server = start_test_server(Some((config, contents)), true).await;
+    let session = LsHttpClientV2::try_new_without_cert()
+        .unwrap()
+        .prepare_download(ProtocolType::Http, "127.0.0.1", server.port, None, None)
+        .await
+        .unwrap();
+    let client = localsend::reqwest::Client::new();
+    let url = format!(
+        "http://127.0.0.1:{}/api/localsend/v2/download?sessionId={}&fileId=file-text",
+        server.port, session.session_id
+    );
+    for (range, status, expected, content_range) in [
+        ("bytes=1-3", 206, "ell", Some("bytes 1-3/5")),
+        ("bytes=4-", 206, "o", Some("bytes 4-4/5")),
+        ("bytes=-2", 206, "lo", Some("bytes 3-4/5")),
+        (
+            "bytes=-99999999999999999999999999",
+            206,
+            "hello",
+            Some("bytes 0-4/5"),
+        ),
+        (
+            "bytes=0-99999999999999999999999999",
+            206,
+            "hello",
+            Some("bytes 0-4/5"),
+        ),
+        ("bytes=5-", 416, "", Some("bytes */5")),
+        ("bytes=-0", 416, "", Some("bytes */5")),
+        (
+            "bytes=99999999999999999999999999-",
+            416,
+            "",
+            Some("bytes */5"),
+        ),
+        ("bytes=3-1", 200, "hello", None),
+        ("bytes=abc-", 200, "hello", None),
+        ("bytes=+1-", 200, "hello", None),
+        ("bytes=0-1,3-4", 200, "hello", None),
+        ("items=0-1", 200, "hello", None),
+    ] {
+        let response = client
+            .get(&url)
+            .header("Range", range)
+            .send()
+            .await
+            .unwrap();
+        assert_eq!(response.status().as_u16(), status, "{range}");
+        assert_eq!(
+            response
+                .headers()
+                .get("content-range")
+                .map(|v| v.to_str().unwrap()),
+            content_range,
+            "{range}"
+        );
+        assert_eq!(response.text().await.unwrap(), expected, "{range}");
+    }
+    let response = client
+        .get(&url)
+        .header("Range", "bytes=1-")
+        .header("If-Range", "\"unverified\"")
+        .send()
+        .await
+        .unwrap();
+    assert_eq!(response.status().as_u16(), 200);
+    assert_eq!(response.text().await.unwrap(), "hello");
+    let response = client
+        .get(url.replace("fileId=file-text", "fileId=empty"))
+        .header("Range", "bytes=0-")
+        .send()
+        .await
+        .unwrap();
+    assert_eq!(response.status().as_u16(), 416);
+    assert_eq!(response.headers()["content-range"], "bytes */0");
+    let response = client
+        .get(url.replace(
+            &format!("sessionId={}", session.session_id),
+            "sessionId=invalid",
+        ))
+        .header("Range", "bytes=0-1")
+        .send()
+        .await
+        .unwrap();
+    assert_eq!(response.status().as_u16(), 403);
+    let response = client.get(&url).send().await.unwrap();
+    assert_eq!(response.status().as_u16(), 200);
+    assert_eq!(response.headers()["accept-ranges"], "bytes");
+    assert_eq!(response.text().await.unwrap(), "hello");
+    let response = client
+        .head(&url)
+        .header("Range", "bytes=1-")
+        .send()
+        .await
+        .unwrap();
+    assert_eq!(response.status().as_u16(), 200);
+    assert_eq!(response.headers()["accept-ranges"], "bytes");
+    assert_eq!(response.headers()["content-length"], "5");
+    assert!(response.bytes().await.unwrap().is_empty());
+    std::fs::remove_file(disk_path).unwrap();
+}
+
+#[tokio::test]
+async fn test_https_browser_download_range_without_client_certificate() {
+    let (config, contents, disk_path, disk_content) = web_download_config(None);
+    let identity = localsend::crypto::cert::generate_self_signed().unwrap();
+    let server = start_test_server_with_tls(
+        Some((config, contents)),
+        true,
+        Some(localsend::http::server::TlsConfig {
+            cert: identity.certificate_pem,
+            private_key: identity.private_key_pem,
+        }),
+    )
+    .await;
+    // Only this loopback test client trusts the generated self-signed server.
+    let client = localsend::reqwest::Client::builder()
+        .danger_accept_invalid_certs(true)
+        .build()
+        .unwrap();
+    let base = format!("https://127.0.0.1:{}", server.port);
+    let session: serde_json::Value = client
+        .post(format!("{base}/api/localsend/v2/prepare-download"))
+        .send()
+        .await
+        .unwrap()
+        .error_for_status()
+        .unwrap()
+        .json()
+        .await
+        .unwrap();
+    let response = client
+        .get(format!(
+            "{base}/api/localsend/v2/download?sessionId={}&fileId=file-disk",
+            session["sessionId"].as_str().unwrap()
+        ))
+        .header("Range", "bytes=4096-8191")
+        .send()
+        .await
+        .unwrap();
+    assert_eq!(response.status().as_u16(), 206);
+    assert_eq!(response.headers()["content-length"], "4096");
+    assert_eq!(
+        response.bytes().await.unwrap().as_ref(),
+        &disk_content[4096..8192]
+    );
+    std::fs::remove_file(disk_path).unwrap();
+}
+
+#[tokio::test]
+async fn test_interrupted_download_resumes_without_corrupting_file() {
+    let (mut config, contents, disk_path, _) = web_download_config(None);
+    let original: Vec<u8> = (0..4_000_000u32)
+        .map(|n| (n.wrapping_mul(31) >> 8) as u8)
+        .collect();
+    std::fs::write(&disk_path, &original).unwrap();
+    config.files.get_mut("file-disk").unwrap().size = original.len() as u64;
+    let server = start_test_server(Some((config, contents)), true).await;
+    let session = LsHttpClientV2::try_new_without_cert()
+        .unwrap()
+        .prepare_download(ProtocolType::Http, "127.0.0.1", server.port, None, None)
+        .await
+        .unwrap();
+    let client = localsend::reqwest::Client::new();
+    let url = format!(
+        "http://127.0.0.1:{}/api/localsend/v2/download?sessionId={}&fileId=file-disk",
+        server.port, session.session_id
+    );
+    let mut response = client.get(&url).send().await.unwrap();
+    let mut downloaded = response.chunk().await.unwrap().unwrap().to_vec();
+    assert!(!downloaded.is_empty() && downloaded.len() < original.len());
+    drop(response);
+    // Use a fresh client so resuming also exercises a new TCP connection.
+    let response = localsend::reqwest::Client::new()
+        .get(&url)
+        .header("Range", format!("bytes={}-", downloaded.len()))
+        .send()
+        .await
+        .unwrap();
+    assert_eq!(response.status().as_u16(), 206);
+    downloaded.extend_from_slice(&response.bytes().await.unwrap());
+    assert_eq!(downloaded, original);
+    assert_eq!(server.prepare_download_events.load(Ordering::SeqCst), 1);
+    std::fs::remove_file(disk_path).unwrap();
 }
 
 #[tokio::test]
