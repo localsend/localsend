@@ -211,7 +211,7 @@ class _Translations$sendTab$be extends Translations$sendTab$en {
   @override
   late final _Translations$sendTab$picker$be picker = _Translations$sendTab$picker$be._(_root);
   @override
-  String get shareIntentInfo => 'Вы таксама можаце выкарыстоўваць функцыю «Абагуліць» вашай мабільнай прылады, каб зручней выбіраць файлы.';
+  String get shareIntentInfo => 'Вы таксама можаце выбіраць файлы праз функцыю «Абагуліць» на мабільнай прыладзе.';
   @override
   String get nearbyDevices => 'Прылады побач';
   @override
@@ -522,7 +522,7 @@ class _Translations$aboutPage$be extends Translations$aboutPage$en {
   String get title => 'Пра LocalSend';
   @override
   List<String> get description => [
-    'LocalSend — гэта бясплатная праграма з адкрытым зыходным кодам, якая дазваляе бяспечна абменьвацца файламі і паведамленнямі з прыладамі побач праз лакальную сетку без інтэрнэт-злучэння.',
+    'LocalSend — гэта бясплатная праграма з адкрытым зыходным кодам, якая дазваляе бяспечна абменьвацца файламі і паведамленнямі з прыладамі побач праз лакальную сетку без інтэрнэт-падключэння.',
     'Гэта праграма даступная на Android, iOS, macOS, Windows і Linux. Усе варыянты спампоўвання можна знайсці на афіцыйным сайце.',
   ];
   @override
@@ -879,7 +879,7 @@ class _Translations$settingsTab$general$be extends Translations$settingsTab$gene
   @override
   String get showInContextMenu => 'Паказваць LocalSend у кантэкстным меню';
   @override
-  String get softwareRendering => 'Праграмны рэндэрынг';
+  String get softwareRendering => 'Праграмная візуалізацыя';
   @override
   String get softwareRenderingDescription =>
       'Выкарыстоўвайце, калі акно застаецца пустым, працуе са збоямі або закрываецца пры запуску. Уступіць у сілу пасля перазапуску.';
@@ -1004,7 +1004,7 @@ class _Translations$troubleshootPage$firewall$be extends Translations$troublesho
   String get symptom => 'Гэта прылада можа адпраўляць файлы на іншыя прылады, але іншыя прылады не могуць адпраўляць файлы на гэту прыладу.';
   @override
   String solution({required Object port}) =>
-      'Хутчэй за ўсё, гэта праблема з міжсеткавым экранам. Вы можаце вырашыць яе, дазволіўшы ўваходныя злучэнні (UDP і TCP) на порце ${port}.';
+      'Хутчэй за ўсё, гэта праблема з міжсеткавым экранам. Вы можаце вырашыць яе, дазволіўшы ўваходныя падключэнні (UDP і TCP) на порце ${port}.';
   @override
   String get openFirewall => 'Адкрыць міжсеткавы экран';
 }
