@@ -56,9 +56,6 @@
         <uap:LockScreen BadgeLogo="Images\BadgeLogo.png" Notification="badge"/>
       </uap:VisualElements>
       <Extensions>
-        <desktop:Extension Category="windows.startupTask" Executable="localsend_app.exe" EntryPoint="Windows.FullTrustApplication" uap10:Parameters="autostart">
-          <desktop:StartupTask TaskId="localsend" Enabled="false" DisplayName="LocalSend"/>
-        </desktop:Extension>
         <uap:Extension Category="windows.shareTarget">
           <uap:ShareTarget Description="Send to Localsend">
             <uap:SupportedFileTypes>
