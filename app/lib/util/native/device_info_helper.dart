@@ -84,12 +84,65 @@ Future<String?> getDeviceName() async {
     }
   }
 
+  if (defaultTargetPlatform == TargetPlatform.iOS) {
+    try {
+      final info = await DeviceInfoPlugin().iosInfo;
+      return resolveIosDeviceName(
+        name: info.name,
+        model: info.model,
+        localizedModel: info.localizedModel,
+        modelName: info.modelName,
+      );
+    } catch (e, stackTrace) {
+      _logger.warning('Failed to get iOS device name', e, stackTrace);
+      return null;
+    }
+  }
+
   if (defaultTargetPlatform == TargetPlatform.macOS) {
     final result = await Process.run('scutil', ['--get', 'ComputerName']);
     return result.stdout.toString().trim();
   }
 
   return Platform.localHostname;
+}
+
+/// Resolves the best available iOS device name from `device_info_plus` fields.
+///
+/// Starting in iOS 16, `UIDevice.current.name` returns a generic model string
+/// (such as `"iPhone"`) unless the restricted `user-assigned-device-name`
+/// entitlement is present. When [name] is generic, fall back to the mapped
+/// hardware [modelName] (ignoring `device_info_plus`'s `'Unknown device'`
+/// sentinel), then [localizedModel], then [model].
+@visibleForTesting
+String? resolveIosDeviceName({
+  required String name,
+  required String model,
+  required String localizedModel,
+  required String modelName,
+}) {
+  final trimmedName = name.trim();
+  final trimmedModel = model.trim();
+  final trimmedLocalizedModel = localizedModel.trim();
+  final trimmedModelName = modelName.trim();
+
+  if (trimmedName.isNotEmpty && trimmedName != trimmedModel && trimmedName != trimmedLocalizedModel) {
+    return trimmedName;
+  }
+
+  if (trimmedModelName.isNotEmpty && trimmedModelName != 'Unknown device') {
+    return trimmedModelName;
+  }
+
+  if (trimmedLocalizedModel.isNotEmpty) {
+    return trimmedLocalizedModel;
+  }
+
+  if (trimmedModel.isNotEmpty) {
+    return trimmedModel;
+  }
+
+  return null;
 }
 
 extension on BrowserName {
