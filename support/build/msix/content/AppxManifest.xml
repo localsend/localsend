@@ -1,3 +1,4 @@
+
 <?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" 
         xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" 
@@ -31,7 +32,7 @@
     <uap10:AllowExternalContent>true</uap10:AllowExternalContent>
   </Properties>
   <Resources>
-    <Resource Language="en" /><Resource Language="ar" /><Resource Language="bn" /><Resource Language="cs" /><Resource Language="da" /><Resource Language="de" /><Resource Language="el" /><Resource Language="es-ES" /><Resource Language="eu" /><Resource Language="fa" /><Resource Language="fr" /><Resource Language="he" /><Resource Language="hu" /><Resource Language="in" /><Resource Language="it" /><Resource Language="ja" /><Resource Language="ko" /><Resource Language="ne" /><Resource Language="nl" /><Resource Language="pl" /><Resource Language="pt-BR" /><Resource Language="ru" /><Resource Language="sv" /><Resource Language="th" /><Resource Language="tr" /><Resource Language="uk" /><Resource Language="vi" /><Resource Language="zh-CN" /><Resource Language="zh-HK" /><Resource Language="zh-TW" />
+    <Resource Language="en" /><Resource Language="ar" /><Resource Language="bn" /><Resource Language="cs" /><Resource Language="da" /><Resource Language="de" /><Resource Language="el" /><Resource Language="es-ES" /><Resource Language="eu" /><Resource Language="fa" /><Resource Language="he" /><Resource Language="hu" /><Resource Language="in" /><Resource Language="it" /><Resource Language="ja" /><Resource Language="ko" /><Resource Language="ne" /><Resource Language="nl" /><Resource Language="pl" /><Resource Language="pt-BR" /><Resource Language="ru" /><Resource Language="sv" /><Resource Language="th" /><Resource Language="tr" /><Resource Language="uk" /><Resource Language="vi" /><Resource Language="zh-CN" /><Resource Language="zh-HK" /><Resource Language="zh-TW" />
   </Resources>
   <Dependencies>
     <TargetDeviceFamily Name="Windows.Desktop" MinVersion="10.0.19041.0" MaxVersionTested="10.0.22621.2506" />
@@ -44,8 +45,8 @@
       <uap:VisualElements AppListEntry="none" BackgroundColor="transparent"
         DisplayName="LocalSend" Square150x150Logo="Images\Square150x150Logo.png"
         Square44x44Logo="Images\Square44x44Logo.png" Description="An open source cross-platform alternative to AirDrop">
-        <uap:DefaultTile ShortName="LocalSend" Square310x310Logo="Images\LargeTile.png"
-          Square71x71Logo="Images\SmallTile.png" Wide310x150Logo="Images\Wide310x150Logo.png">
+        <uap:DefaultTile ShortName="LocalSend" Square70x70Logo="Images\SmallTile.png"
+          Square310x310Logo="Images\LargeTile.png" Wide310x150Logo="Images\Wide310x150Logo.png">
           <uap:ShowNameOnTiles>
             <uap:ShowOn Tile="square150x150Logo"/>
             <uap:ShowOn Tile="square310x310Logo"/>
@@ -56,9 +57,6 @@
         <uap:LockScreen BadgeLogo="Images\BadgeLogo.png" Notification="badge"/>
       </uap:VisualElements>
       <Extensions>
-        <desktop:Extension Category="windows.startupTask" Executable="localsend_app.exe" EntryPoint="Windows.FullTrustApplication" uap10:Parameters="autostart">
-          <desktop:StartupTask TaskId="localsend" Enabled="false" DisplayName="LocalSend"/>
-        </desktop:Extension>
         <uap:Extension Category="windows.shareTarget">
           <uap:ShareTarget Description="Send to Localsend">
             <uap:SupportedFileTypes>
