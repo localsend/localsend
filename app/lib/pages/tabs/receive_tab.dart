@@ -55,7 +55,9 @@ class _ReceiveTabState extends State<ReceiveTab> {
   Widget build(BuildContext context) {
     final alias = context.watch(settingsProvider.select((s) => s.alias));
     final serverState = context.watch(serverProvider);
-    final localIps = context.watch(localIpProvider.select((s) => s.localIps));
+    final (localIps, ipsFetched) = context.watch(localIpProvider.select((s) => (s.localIps, s.initialized)));
+    // No local IP: unreachable even with the server on.
+    final offline = serverState == null || (ipsFetched && localIps.isEmpty);
 
     return Stack(
       children: [
@@ -80,7 +82,7 @@ class _ReceiveTabState extends State<ReceiveTab> {
                               final activeTab = ref.watch(homePageControllerProvider.select((state) => state.currentTab));
                               return RotatingWidget(
                                 duration: const Duration(seconds: 15),
-                                spinning: serverState != null && animations && activeTab == HomeTab.receive,
+                                spinning: !offline && animations && activeTab == HomeTab.receive,
                                 child: const LocalSendLogo(withText: false),
                               );
                             },
@@ -94,7 +96,7 @@ class _ReceiveTabState extends State<ReceiveTab> {
                           duration: const Duration(milliseconds: 300),
                           delay: const Duration(milliseconds: 500),
                           child: Text(
-                            serverState == null ? t.general.offline : localIps.map((ip) => '#${ip.visualId}').toSet().join(' '),
+                            offline ? t.general.offline : localIps.map((ip) => '#${ip.visualId}').toSet().join(' '),
                             style: const TextStyle(fontSize: 24),
                             textAlign: TextAlign.center,
                           ),
