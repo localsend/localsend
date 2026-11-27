@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:localsend_isolates/model/file_status.dart';
 import 'package:refena_flutter/refena_flutter.dart';
 
@@ -18,6 +20,7 @@ class FileTransfer {
 
 class FileTransferNotifier extends ChangeNotifier {
   final _sessionMap = <String, Map<String, FileTransfer>>{}; // session id -> (file id -> live transfer state)
+  Timer? _progressTimer;
 
   void setStatus({required String sessionId, required String fileId, required FileStatus status}) {
     _sessionMap.putIfAbsent(sessionId, () => {}).putIfAbsent(fileId, () => FileTransfer(status)).status = status;
@@ -35,7 +38,12 @@ class FileTransferNotifier extends ChangeNotifier {
 
   void setProgress({required String sessionId, required String fileId, required double progress}) {
     _sessionMap.putIfAbsent(sessionId, () => {}).putIfAbsent(fileId, () => FileTransfer(FileStatus.queue)).progress = progress;
-    notifyListeners();
+
+    // Progress comes every ~20 ms; rebuild at most every 100 ms.
+    _progressTimer ??= Timer(const Duration(milliseconds: 100), () {
+      _progressTimer = null;
+      notifyListeners();
+    });
   }
 
   FileStatus getStatus({required String sessionId, required String fileId}) {
@@ -58,6 +66,12 @@ class FileTransferNotifier extends ChangeNotifier {
   void removeAllSessions() {
     _sessionMap.clear();
     notifyListeners();
+  }
+
+  @override
+  void dispose() {
+    _progressTimer?.cancel();
+    super.dispose();
   }
 
   /// Only for debug purposes
