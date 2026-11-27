@@ -25,6 +25,8 @@ class RotatingWidgetState extends State<RotatingWidget> {
   static const _maxRadians = 6.28; // 360 degrees in radians
   double _angle = 0; // in radians
   double _anglePerTick = 0;
+  bool _looping = false;
+  bool _ticking = true;
 
   @override
   void initState() {
@@ -33,6 +35,19 @@ class RotatingWidgetState extends State<RotatingWidget> {
       _updateAnglePerTick();
       _loop();
     });
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _ticking = TickerMode.valuesOf(context).enabled;
+    _loop();
+  }
+
+  @override
+  void didUpdateWidget(RotatingWidget oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    _loop();
   }
 
   void _updateAnglePerTick() {
@@ -44,18 +59,23 @@ class RotatingWidgetState extends State<RotatingWidget> {
 
   /// This loop has a much greater performance than using [AnimationController].
   void _loop() async {
-    while (true) {
-      await sleepAsync(_tickDuration);
-      if (!mounted) {
-        return;
+    if (_looping) {
+      return;
+    }
+    _looping = true;
+    while (mounted && widget.spinning && _ticking) {
+      if (!WidgetsBinding.instance.framesEnabled) {
+        await WidgetsBinding.instance.endOfFrame; // app hidden: wait for resume
       }
-      if (!widget.spinning) {
-        continue;
+      await sleepAsync(_tickDuration);
+      if (!mounted || !widget.spinning || !_ticking) {
+        break;
       }
       setState(() {
         _angle = (_angle + _anglePerTick) % _maxRadians;
       });
     }
+    _looping = false;
   }
 
   @override
