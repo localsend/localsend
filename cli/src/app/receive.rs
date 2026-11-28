@@ -293,7 +293,7 @@ impl App {
             return;
         };
 
-        let path = util::unique_path(&self.storage.destination, &file.file_name);
+        let relative = util::unique_relative_path(&self.storage.destination, &file.file_name);
 
         let progress = Arc::new(AtomicU64::new(0));
         session
@@ -325,8 +325,9 @@ impl App {
             }
         });
 
-        let _ = target_tx.send(FileUploadTarget::Path {
-            path,
+        let _ = target_tx.send(FileUploadTarget::ContainedPath {
+            root: self.storage.destination.clone(),
+            relative,
             result_tx,
             progress_tx: Some(progress_tx),
         });

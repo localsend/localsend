@@ -86,28 +86,61 @@ pub fn progress_bar(fraction: f64, width: usize) -> String {
     format!("{}{}", "#".repeat(filled), "-".repeat(width - filled))
 }
 
-/// A path in `dir` for `file_name` that does not exist yet, appending
+/// Returns a non-colliding relative path under `dir` for `file_name`, appending
 /// ` (1)`, ` (2)`, … before the extension on collisions.
 ///
 /// `file_name` comes from the sender and is untrusted: it is collapsed to its
 /// final path component and sanitized for the local filesystem, so it can
 /// neither escape the target directory nor carry illegal characters.
-pub fn unique_path(dir: &Path, file_name: &str) -> PathBuf {
+///
+/// Occupancy is checked without following symlinks so dangling leaf symlinks are
+/// treated as occupied rather than free, and intermediate symlink segments stop
+/// traversal cleanly (leaving rejection to `packages/core`'s directory-relative
+/// opener).
+pub fn unique_relative_path(dir: &Path, file_name: &str) -> PathBuf {
     let name = filename::sanitize_path(file_name, filename::Rules::current());
-
-    let candidate = dir.join(&name);
-    if !candidate.exists() {
+    let candidate = PathBuf::from(&name);
+    if !path_occupied_no_follow(dir, &candidate) {
         return candidate;
     }
 
-    let (stem, extension) = match name.rsplit_once('.') {
+    let parent = candidate.parent().unwrap_or_else(|| Path::new(""));
+    let base_name = candidate
+        .file_name()
+        .and_then(|s| s.to_str())
+        .unwrap_or(name.as_str());
+    let (stem, extension) = match base_name.rsplit_once('.') {
         Some((stem, extension)) if !stem.is_empty() => (stem, format!(".{extension}")),
-        _ => (name.as_str(), String::new()),
+        _ => (base_name, String::new()),
     };
+
     (1..)
-        .map(|i| dir.join(format!("{stem} ({i}){extension}")))
-        .find(|candidate| !candidate.exists())
+        .map(|i| parent.join(format!("{stem} ({i}){extension}")))
+        .find(|candidate| !path_occupied_no_follow(dir, candidate))
         .unwrap()
+}
+
+fn path_occupied_no_follow(root: &Path, relative: &Path) -> bool {
+    let mut current = root.to_path_buf();
+    let mut components = relative.components().peekable();
+    while let Some(component) = components.next() {
+        current.push(component);
+        let is_last = components.peek().is_none();
+        match std::fs::symlink_metadata(&current) {
+            Ok(meta) => {
+                if is_last {
+                    return true;
+                }
+                if meta.file_type().is_symlink() || !meta.is_dir() {
+                    // Do not probe through symlinks or non-directory segments; let `save` reject them.
+                    return false;
+                }
+            }
+            Err(err) if err.kind() == std::io::ErrorKind::NotFound => return false,
+            Err(_) => return false,
+        }
+    }
+    false
 }
 
 /// Estimates the transfer speed from cumulative byte counts, smoothed with an
@@ -141,5 +174,112 @@ impl SpeedMeter {
         self.last_bytes = bytes_now;
         self.last_time = now;
         self.ema
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use std::path::PathBuf;
+
+    struct TempDir(PathBuf);
+
+    impl TempDir {
+        fn new(name: &str) -> Self {
+            let path = std::env::temp_dir().join(format!(
+                "localsend-cli-util-{name}-{}",
+                uuid::Uuid::new_v4()
+            ));
+            std::fs::create_dir_all(&path).unwrap();
+            Self(path)
+        }
+    }
+
+    impl Drop for TempDir {
+        fn drop(&mut self) {
+            let _ = std::fs::remove_dir_all(&self.0);
+        }
+    }
+
+    #[test]
+    fn unique_relative_path_handles_regular_file_collision() {
+        let dir = TempDir::new("regular");
+        std::fs::write(dir.0.join("photo.jpg"), b"existing").unwrap();
+        assert_eq!(
+            unique_relative_path(&dir.0, "photo.jpg"),
+            PathBuf::from("photo (1).jpg")
+        );
+
+        std::fs::write(dir.0.join("photo (1).jpg"), b"existing").unwrap();
+        assert_eq!(
+            unique_relative_path(&dir.0, "photo.jpg"),
+            PathBuf::from("photo (2).jpg")
+        );
+    }
+
+    #[test]
+    fn unique_relative_path_handles_hidden_and_path_traversal_inputs() {
+        let dir = TempDir::new("hidden");
+        std::fs::write(dir.0.join(".hidden"), b"1").unwrap();
+        assert_eq!(
+            unique_relative_path(&dir.0, ".hidden"),
+            PathBuf::from(".hidden (1)")
+        );
+
+        std::fs::write(dir.0.join("passwd"), b"1").unwrap();
+        assert_eq!(
+            unique_relative_path(&dir.0, "../../etc/passwd"),
+            PathBuf::from("passwd (1)")
+        );
+    }
+
+    #[cfg(unix)]
+    #[test]
+    fn unique_relative_path_treats_dangling_and_valid_symlinks_as_occupied() {
+        use std::os::unix::fs::symlink;
+
+        let dir = TempDir::new("leaf-symlink");
+        let outside = TempDir::new("leaf-outside");
+        let outside_existing = outside.0.join("keep.txt");
+        std::fs::write(&outside_existing, b"keep").unwrap();
+
+        symlink(
+            outside.0.join("nonexistent.txt"),
+            dir.0.join("dangling.txt"),
+        )
+        .unwrap();
+        symlink(&outside_existing, dir.0.join("existing.txt")).unwrap();
+
+        assert_eq!(
+            unique_relative_path(&dir.0, "dangling.txt"),
+            PathBuf::from("dangling (1).txt")
+        );
+        assert_eq!(
+            unique_relative_path(&dir.0, "existing.txt"),
+            PathBuf::from("existing (1).txt")
+        );
+    }
+
+    #[cfg(unix)]
+    #[test]
+    fn path_occupied_no_follow_stops_at_symlinked_parent_and_checks_nested_paths() {
+        use std::os::unix::fs::symlink;
+
+        let dir = TempDir::new("parent-symlink");
+        let outside = TempDir::new("parent-outside");
+        std::fs::write(outside.0.join("secret.txt"), b"secret").unwrap();
+        symlink(&outside.0, dir.0.join("sub")).unwrap();
+
+        // Must not follow `dir/sub` to notice `outside/secret.txt` exists.
+        assert!(!path_occupied_no_follow(
+            &dir.0,
+            Path::new("sub/secret.txt")
+        ));
+
+        // Real nested directories ARE traversed safely.
+        std::fs::create_dir_all(dir.0.join("v1.0")).unwrap();
+        std::fs::write(dir.0.join("v1.0/readme"), b"1").unwrap();
+        assert!(path_occupied_no_follow(&dir.0, Path::new("v1.0/readme")));
+        assert!(!path_occupied_no_follow(&dir.0, Path::new("v1.0/other")));
     }
 }
