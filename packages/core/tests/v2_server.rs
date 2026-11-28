@@ -18,7 +18,7 @@ use std::path::PathBuf;
 use std::sync::atomic::{AtomicU64, Ordering};
 use std::sync::Arc;
 use std::time::Duration;
-use tokio::sync::{mpsc, oneshot, Mutex};
+use tokio::sync::{mpsc, oneshot, Mutex, Notify};
 use tokio_stream::wrappers::ReceiverStream;
 use tokio_util::sync::CancellationToken;
 
@@ -26,9 +26,24 @@ struct TestServer {
     port: u16,
     /// Uploaded file contents, mapped by file ID.
     received: Arc<Mutex<HashMap<String, Vec<u8>>>>,
+    received_notify: Arc<Notify>,
     /// Ended sessions with their reasons.
     session_ends: Arc<Mutex<Vec<(String, SessionEndReasonV2)>>>,
     _stop_tx: oneshot::Sender<()>,
+}
+
+async fn wait_for_received(server: &TestServer, file_id: &str) -> Vec<u8> {
+    tokio::time::timeout(Duration::from_secs(5), async {
+        loop {
+            let notified = server.received_notify.notified();
+            if let Some(bytes) = server.received.lock().await.get(file_id).cloned() {
+                return bytes;
+            }
+            notified.await;
+        }
+    })
+    .await
+    .expect("timed out waiting for uploaded file readback")
 }
 
 enum TestSaveMode {
@@ -77,6 +92,7 @@ async fn start_test_server_with_mode(
 ) -> TestServer {
     let _ = tracing_subscriber::fmt().with_test_writer().try_init();
     let received: Arc<Mutex<HashMap<String, Vec<u8>>>> = Arc::new(Mutex::new(HashMap::new()));
+    let received_notify = Arc::new(Notify::new());
     let session_ends: Arc<Mutex<Vec<(String, SessionEndReasonV2)>>> =
         Arc::new(Mutex::new(Vec::new()));
 
@@ -84,6 +100,7 @@ async fn start_test_server_with_mode(
 
     tokio::spawn({
         let received = received.clone();
+        let received_notify = received_notify.clone();
         let session_ends = session_ends.clone();
         async move {
             while let Some(event) = event_rx.recv().await {
@@ -107,6 +124,7 @@ async fn start_test_server_with_mode(
                         ..
                     } => {
                         let received = received.clone();
+                        let received_notify = received_notify.clone();
                         match &save_mode {
                             TestSaveMode::Stream => {
                                 let (binary_tx, mut binary_rx) = mpsc::channel(16);
@@ -121,6 +139,7 @@ async fn start_test_server_with_mode(
                                         bytes.extend_from_slice(&chunk);
                                     }
                                     received.lock().await.insert(file_id, bytes);
+                                    received_notify.notify_waiters();
                                     let _ = result_tx.send(Ok(()));
                                 });
                             }
@@ -136,6 +155,7 @@ async fn start_test_server_with_mode(
                                     if let Ok(Ok(())) = result_rx.await {
                                         let bytes = tokio::fs::read(&path).await.unwrap();
                                         received.lock().await.insert(file_id, bytes);
+                                        received_notify.notify_waiters();
                                     }
                                 });
                             }
@@ -154,6 +174,7 @@ async fn start_test_server_with_mode(
                                     if let Ok(Ok(())) = result_rx.await {
                                         let bytes = tokio::fs::read(&saved_path).await.unwrap();
                                         received.lock().await.insert(file_id, bytes);
+                                        received_notify.notify_waiters();
                                     }
                                 });
                             }
@@ -198,6 +219,7 @@ async fn start_test_server_with_mode(
     TestServer {
         port: handle.port(),
         received,
+        received_notify,
         session_ends,
         _stop_tx: stop_tx,
     }
@@ -1647,9 +1669,10 @@ async fn test_upload_path_rejects_dangling_and_valid_leaf_symlink() {
 async fn test_upload_contained_rejects_symlink_escape_end_to_end() {
     use std::os::unix::fs::symlink;
 
-    let save_dir = std::env::temp_dir().join(format!("localsend-test-{}", uuid::Uuid::new_v4()));
-    let outside_dir =
-        std::env::temp_dir().join(format!("localsend-outside-{}", uuid::Uuid::new_v4()));
+    let fixture_dir =
+        std::env::temp_dir().join(format!("localsend-fixture-{}", uuid::Uuid::new_v4()));
+    let save_dir = fixture_dir.join("save");
+    let outside_dir = fixture_dir.join("outside");
     tokio::fs::create_dir_all(save_dir.join("legit"))
         .await
         .unwrap();
@@ -1718,14 +1741,13 @@ async fn test_upload_contained_rejects_symlink_escape_end_to_end() {
     assert!(!outside_dir.join("evil.txt").exists());
     assert!(!outside_dir.join("nested").exists());
     assert!(!outside_dir.join("dangling_created.txt").exists());
-    assert!(!save_dir.parent().unwrap().join("escape.txt").exists());
+    assert!(!fixture_dir.join("escape.txt").exists());
     assert_eq!(
         tokio::fs::read(&outside_existing).await.unwrap(),
         b"ORIGINAL"
     );
 
-    let _ = tokio::fs::remove_dir_all(&save_dir).await;
-    let _ = tokio::fs::remove_dir_all(&outside_dir).await;
+    let _ = tokio::fs::remove_dir_all(&fixture_dir).await;
 }
 
 #[cfg(unix)]
@@ -1772,8 +1794,7 @@ async fn test_upload_contained_allows_symlinked_root_and_creates_nested_dirs() {
     .await
     .unwrap();
 
-    tokio::time::sleep(Duration::from_millis(100)).await;
-    assert_eq!(server.received.lock().await["file-a"], bytes);
+    assert_eq!(wait_for_received(&server, "file-a").await, bytes);
     assert_eq!(
         tokio::fs::read(real_root.join("folder/sub/hello.txt"))
             .await
@@ -1835,8 +1856,7 @@ async fn test_upload_contained_retry_after_hash_mismatch() {
     .await
     .unwrap();
 
-    tokio::time::sleep(Duration::from_millis(100)).await;
-    assert_eq!(server.received.lock().await["file-a"], bytes);
+    assert_eq!(wait_for_received(&server, "file-a").await, bytes);
     assert_eq!(
         tokio::fs::read(save_dir.join("nested/retry.bin"))
             .await

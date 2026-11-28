@@ -425,26 +425,46 @@ mod safe_open {
 
     /// Validates that `relative` is a non-empty relative path made strictly of normal segments.
     fn collect_relative_components(relative: &Path) -> Result<Vec<&OsStr>, String> {
+        collect_relative_components_for(relative, cfg!(windows))
+    }
+
+    pub(super) fn collect_relative_components_for(
+        relative: &Path,
+        windows_rules: bool,
+    ) -> Result<Vec<&OsStr>, String> {
         let bytes = relative.as_os_str().as_encoded_bytes();
         if bytes.is_empty() {
             return Err("Relative upload path must not be empty".to_string());
         }
         // Reject trailing separators so `"dir/"` cannot resolve to a file named `"dir"`,
         // and reject explicit `.` segments (including interior `a/./b`, which `Path::components` skips).
-        if bytes.ends_with(b"/") || (cfg!(windows) && bytes.ends_with(b"\\")) {
+        if bytes.ends_with(b"/") || (windows_rules && bytes.ends_with(b"\\")) {
             return Err(format!(
                 "Relative upload path must refer to a file, not a directory: {}",
                 relative.display()
             ));
         }
-        if bytes
-            .split(|b| *b == b'/' || (cfg!(windows) && *b == b'\\'))
-            .any(|seg| seg == b".")
-        {
-            return Err(format!(
-                "Relative upload path must not contain `.` segments: {}",
-                relative.display()
-            ));
+        for raw_segment in bytes.split(|b| *b == b'/' || (windows_rules && *b == b'\\')) {
+            if raw_segment == b"." {
+                return Err(format!(
+                    "Relative upload path must not contain `.` segments: {}",
+                    relative.display()
+                ));
+            }
+            if raw_segment == b".." {
+                return Err(format!(
+                    "Relative upload path must stay within destination root: {}",
+                    relative.display()
+                ));
+            }
+            // Reject Windows drive-letter prefixes (e.g. `C:foo`, even mid-path where
+            // `Path::components` treats `C:foo` as `Normal`) and NTFS alternate data streams (`foo:ads`).
+            if windows_rules && raw_segment.contains(&b':') {
+                return Err(format!(
+                    "Relative upload path must not contain drive prefixes or alternate data streams: {}",
+                    relative.display()
+                ));
+            }
         }
 
         let mut segments = Vec::new();
@@ -452,7 +472,11 @@ mod safe_open {
             match component {
                 Component::Normal(part) => {
                     let part_bytes = part.as_encoded_bytes();
-                    if part_bytes.is_empty() || part_bytes == b"." || part_bytes == b".." {
+                    if part_bytes.is_empty()
+                        || part_bytes == b"."
+                        || part_bytes == b".."
+                        || (windows_rules && part_bytes.contains(&b':'))
+                    {
                         return Err(format!(
                             "Invalid segment in relative upload path: {}",
                             relative.display()
@@ -511,7 +535,13 @@ mod safe_open {
     ) -> std::io::Result<std::os::fd::OwnedFd> {
         use std::os::fd::{AsRawFd, FromRawFd, OwnedFd};
 
+        // On Linux/Android, `O_PATH` only requires search (`x`) permission on the directory
+        // rather than read (`r`), matching direct path opening semantics on `0300` directories.
+        #[cfg(any(target_os = "linux", target_os = "android"))]
+        let mut flags = libc::O_PATH | libc::O_DIRECTORY | libc::O_CLOEXEC;
+        #[cfg(not(any(target_os = "linux", target_os = "android")))]
         let mut flags = libc::O_RDONLY | libc::O_DIRECTORY | libc::O_CLOEXEC;
+
         if nofollow {
             flags |= libc::O_NOFOLLOW;
         }
@@ -530,16 +560,54 @@ mod safe_open {
     }
 
     #[cfg(unix)]
+    fn finalize_opened_regular_file(
+        file: std::fs::File,
+        display: &Path,
+    ) -> Result<std::fs::File, String> {
+        use std::os::fd::AsRawFd;
+
+        let meta = file
+            .metadata()
+            .map_err(|e| format!("Failed to inspect {}: {e}", display.display()))?;
+        if !meta.is_file() {
+            return Err(format!(
+                "Refusing to write to non-regular file {}",
+                display.display()
+            ));
+        }
+
+        // Clear `O_NONBLOCK` used to reject FIFOs without blocking before returning to callers.
+        let fd = file.as_raw_fd();
+        let flags = retry_eintr(|| {
+            // SAFETY: `fd` is an open file descriptor owned by `file`.
+            unsafe { libc::fcntl(fd, libc::F_GETFL) }
+        })
+        .map_err(|e| format!("Failed to inspect flags for {}: {e}", display.display()))?;
+        if flags & libc::O_NONBLOCK != 0 {
+            retry_eintr(|| {
+                // SAFETY: `fd` is an open file descriptor owned by `file`.
+                unsafe { libc::fcntl(fd, libc::F_SETFL, flags & !libc::O_NONBLOCK) }
+            })
+            .map_err(|e| format!("Failed to clear O_NONBLOCK on {}: {e}", display.display()))?;
+        }
+
+        // Defer truncation until after verifying `meta.is_file()` so special files are untouched.
+        file.set_len(0)
+            .map_err(|e| format!("Failed to truncate {}: {e}", display.display()))?;
+        Ok(file)
+    }
+
+    #[cfg(unix)]
     pub(super) fn open_path_no_follow(path: &Path) -> Result<std::fs::File, String> {
         use std::os::unix::fs::OpenOptionsExt;
 
-        std::fs::OpenOptions::new()
+        let file = std::fs::OpenOptions::new()
             .write(true)
             .create(true)
-            .truncate(true)
-            .custom_flags(libc::O_NOFOLLOW)
+            .custom_flags(libc::O_NOFOLLOW | libc::O_NONBLOCK)
             .open(path)
-            .map_err(|e| format!("Failed to create {}: {e}", path.display()))
+            .map_err(|e| format!("Failed to create {}: {e}", path.display()))?;
+        finalize_opened_regular_file(file, path)
     }
 
     #[cfg(unix)]
@@ -589,8 +657,10 @@ mod safe_open {
         }
 
         let leaf_c = to_cstring(leaf, &display_path)?;
+        // Open without `O_TRUNC` and with `O_NONBLOCK` first so a pre-existing FIFO fails without
+        // blocking and non-regular files are rejected before truncation.
         let file_flags =
-            libc::O_WRONLY | libc::O_CREAT | libc::O_TRUNC | libc::O_NOFOLLOW | libc::O_CLOEXEC;
+            libc::O_WRONLY | libc::O_CREAT | libc::O_NOFOLLOW | libc::O_CLOEXEC | libc::O_NONBLOCK;
         let file_fd = retry_eintr(|| {
             // SAFETY: `dir_fd` is a valid open directory fd and `leaf_c` is NUL-terminated.
             unsafe {
@@ -606,7 +676,7 @@ mod safe_open {
 
         // SAFETY: `file_fd` was just returned by `openat` as a valid owned file descriptor.
         let owned_fd = unsafe { OwnedFd::from_raw_fd(file_fd) };
-        Ok(std::fs::File::from(owned_fd))
+        finalize_opened_regular_file(std::fs::File::from(owned_fd), &display_path)
     }
 
     #[cfg(windows)]
@@ -625,8 +695,11 @@ mod safe_open {
             Err(err) if err.kind() == std::io::ErrorKind::AlreadyExists => {
                 let meta = std::fs::symlink_metadata(path)
                     .map_err(|e| format!("Failed to inspect {}: {e}", path.display()))?;
-                if meta.file_type().is_symlink() {
-                    return Err(format!("Refusing to follow symlink at {}", path.display()));
+                if meta.file_type().is_symlink() || !meta.is_file() {
+                    return Err(format!(
+                        "Refusing to open symlink or non-regular file at {}",
+                        path.display()
+                    ));
                 }
                 let file = std::fs::OpenOptions::new()
                     .write(true)
@@ -636,8 +709,11 @@ mod safe_open {
                 // Re-check before truncating in case a symlink swapped in between metadata and open.
                 let post_meta = std::fs::symlink_metadata(path)
                     .map_err(|e| format!("Failed to inspect {}: {e}", path.display()))?;
-                if post_meta.file_type().is_symlink() {
-                    return Err(format!("Refusing to follow symlink at {}", path.display()));
+                if post_meta.file_type().is_symlink() || !post_meta.is_file() {
+                    return Err(format!(
+                        "Refusing to open symlink or non-regular file at {}",
+                        path.display()
+                    ));
                 }
                 file.set_len(0)
                     .map_err(|e| format!("Failed to truncate {}: {e}", path.display()))?;
@@ -1069,5 +1145,139 @@ mod tests {
         }
 
         assert_eq!(std::fs::read_dir(outside.path()).unwrap().count(), 0);
+    }
+
+    #[test]
+    fn windows_validation_rejects_drive_prefixes_and_alternate_data_streams() {
+        let invalid = [
+            "C:evil.txt",
+            "sub/C:evil.txt",
+            "file.txt:stream",
+            "sub/file.txt:stream",
+            r"a\..\b.txt",
+            r"a\.\b.txt",
+            r"dir\",
+        ];
+        for raw in invalid {
+            assert!(
+                safe_open::collect_relative_components_for(Path::new(raw), true).is_err(),
+                "expected Windows validation error for {raw:?}"
+            );
+        }
+
+        // Standard Unix filenames containing `:` (e.g. timestamps) remain allowed on Unix.
+        assert!(
+            safe_open::collect_relative_components_for(Path::new("sub/14:42:00.png"), false)
+                .is_ok()
+        );
+        assert!(safe_open::collect_relative_components_for(Path::new("sub/ok.txt"), true).is_ok());
+    }
+
+    #[cfg(unix)]
+    #[test]
+    fn unix_blocks_fifo_without_blocking() {
+        use std::ffi::CString;
+        use std::os::unix::ffi::OsStrExt;
+
+        let root = TempDir::new("fifo");
+        let fifo_path = root.path().join("pipe.txt");
+        let fifo_c = CString::new(fifo_path.as_os_str().as_bytes()).unwrap();
+        // SAFETY: `fifo_c` is a NUL-terminated path inside an existing temp directory.
+        let rc = unsafe { libc::mkfifo(fifo_c.as_ptr(), 0o600) };
+        assert_eq!(rc, 0, "mkfifo failed: {}", std::io::Error::last_os_error());
+
+        // Must fail immediately instead of hanging waiting for a FIFO reader.
+        assert!(safe_open::open_path_no_follow(&fifo_path).is_err());
+        assert!(safe_open::open_contained(root.path(), Path::new("pipe.txt")).is_err());
+    }
+
+    #[cfg(any(target_os = "linux", target_os = "android"))]
+    #[test]
+    fn linux_allows_search_only_destination_directory() {
+        use std::os::unix::fs::PermissionsExt;
+
+        struct RestorePerms(PathBuf);
+        impl Drop for RestorePerms {
+            fn drop(&mut self) {
+                let _ = std::fs::set_permissions(&self.0, std::fs::Permissions::from_mode(0o700));
+            }
+        }
+
+        let root = TempDir::new("search-only");
+        let sub = root.path().join("sub");
+        std::fs::create_dir_all(&sub).unwrap();
+
+        let _sub_guard = RestorePerms(sub.clone());
+        let _root_guard = RestorePerms(root.path().to_path_buf());
+        std::fs::set_permissions(&sub, std::fs::Permissions::from_mode(0o300)).unwrap();
+        std::fs::set_permissions(root.path(), std::fs::Permissions::from_mode(0o300)).unwrap();
+
+        let mut file = safe_open::open_contained(root.path(), Path::new("sub/ok.txt")).unwrap();
+        file.write_all(b"written into 0300 dir").unwrap();
+        drop(file);
+
+        // Restore read permission before reading back to verify contents.
+        std::fs::set_permissions(&sub, std::fs::Permissions::from_mode(0o700)).unwrap();
+        std::fs::set_permissions(root.path(), std::fs::Permissions::from_mode(0o700)).unwrap();
+        assert_eq!(
+            std::fs::read(sub.join("ok.txt")).unwrap(),
+            b"written into 0300 dir"
+        );
+    }
+
+    #[cfg(windows)]
+    #[test]
+    fn windows_reparse_point_and_containment_behavior() {
+        use std::os::windows::fs::{symlink_dir, symlink_file};
+
+        const ERROR_PRIVILEGE_NOT_HELD: i32 = 1314;
+
+        let container = TempDir::new("win-reparse");
+        let outside = TempDir::new("win-outside");
+        let real_root = container.path().join("real_root");
+        std::fs::create_dir_all(&real_root).unwrap();
+
+        // Ordinary existing regular file retry overwrites cleanly.
+        let regular = real_root.join("regular.txt");
+        std::fs::write(&regular, b"old longer data").unwrap();
+        let mut f = safe_open::open_path_no_follow(&regular).unwrap();
+        f.write_all(b"new").unwrap();
+        drop(f);
+        assert_eq!(std::fs::read(&regular).unwrap(), b"new");
+
+        let outside_existing = outside.path().join("keep.txt");
+        std::fs::write(&outside_existing, b"ORIGINAL").unwrap();
+        let outside_dangling = outside.path().join("dangling_out.txt");
+
+        let valid_leaf = real_root.join("valid_link.txt");
+        if let Err(err) = symlink_file(&outside_existing, &valid_leaf) {
+            if err.raw_os_error() == Some(ERROR_PRIVILEGE_NOT_HELD) {
+                return;
+            }
+            panic!("failed to create valid file symlink: {err}");
+        }
+        let dangling_leaf = real_root.join("dangling_link.txt");
+        symlink_file(&outside_dangling, &dangling_leaf).unwrap();
+
+        assert!(safe_open::open_path_no_follow(&valid_leaf).is_err());
+        assert!(safe_open::open_path_no_follow(&dangling_leaf).is_err());
+        assert_eq!(std::fs::read(&outside_existing).unwrap(), b"ORIGINAL");
+        assert!(!outside_dangling.exists());
+
+        // Symlinked root itself is allowed, while a symlink directory inside root is rejected.
+        let alias_root = container.path().join("alias_root");
+        symlink_dir(&real_root, &alias_root).unwrap();
+        let mut ok = safe_open::open_contained(&alias_root, Path::new("nested/ok.txt")).unwrap();
+        ok.write_all(b"ok").unwrap();
+        drop(ok);
+        assert_eq!(
+            std::fs::read(real_root.join("nested/ok.txt")).unwrap(),
+            b"ok"
+        );
+
+        let bad_dir = real_root.join("escape_dir");
+        symlink_dir(outside.path(), &bad_dir).unwrap();
+        assert!(safe_open::open_contained(&alias_root, Path::new("escape_dir/evil.txt")).is_err());
+        assert!(!outside.path().join("evil.txt").exists());
     }
 }
