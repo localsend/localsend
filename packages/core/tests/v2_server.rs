@@ -31,6 +31,12 @@ struct TestServer {
     _stop_tx: oneshot::Sender<()>,
 }
 
+enum TestSaveMode {
+    Stream,
+    Path(PathBuf),
+    Contained(PathBuf),
+}
+
 /// Starts a test server.
 ///
 /// Uploads are received as a stream, or written by the server into `save_dir`
@@ -43,11 +49,30 @@ async fn start_test_server(
     start_test_server_with_verification(pin, accept, save_dir, true).await
 }
 
+/// Starts a test server whose uploads use [`FileUploadTarget::ContainedPath`]
+/// rooted at `root`.
+async fn start_contained_test_server(root: PathBuf) -> TestServer {
+    start_test_server_with_mode(None, true, TestSaveMode::Contained(root), true).await
+}
+
 /// Like [start_test_server], but allows disabling the checksum verification.
 async fn start_test_server_with_verification(
     pin: Option<String>,
     accept: bool,
     save_dir: Option<PathBuf>,
+    verify_checksums: bool,
+) -> TestServer {
+    let save_mode = match save_dir {
+        Some(dir) => TestSaveMode::Path(dir),
+        None => TestSaveMode::Stream,
+    };
+    start_test_server_with_mode(pin, accept, save_mode, verify_checksums).await
+}
+
+async fn start_test_server_with_mode(
+    pin: Option<String>,
+    accept: bool,
+    save_mode: TestSaveMode,
     verify_checksums: bool,
 ) -> TestServer {
     let _ = tracing_subscriber::fmt().with_test_writer().try_init();
@@ -76,11 +101,14 @@ async fn start_test_server_with_verification(
                         let _ = decision_tx.send(decision);
                     }
                     ServerEventV2::FileUpload {
-                        file_id, target_tx, ..
+                        file_id,
+                        file,
+                        target_tx,
+                        ..
                     } => {
                         let received = received.clone();
-                        match &save_dir {
-                            None => {
+                        match &save_mode {
+                            TestSaveMode::Stream => {
                                 let (binary_tx, mut binary_rx) = mpsc::channel(16);
                                 let (result_tx, result_rx) = oneshot::channel();
                                 let _ = target_tx.send(FileUploadTarget::Stream {
@@ -96,7 +124,7 @@ async fn start_test_server_with_verification(
                                     let _ = result_tx.send(Ok(()));
                                 });
                             }
-                            Some(dir) => {
+                            TestSaveMode::Path(dir) => {
                                 let path = dir.join(&file_id);
                                 let (result_tx, result_rx) = oneshot::channel();
                                 let _ = target_tx.send(FileUploadTarget::Path {
@@ -107,6 +135,24 @@ async fn start_test_server_with_verification(
                                 tokio::spawn(async move {
                                     if let Ok(Ok(())) = result_rx.await {
                                         let bytes = tokio::fs::read(&path).await.unwrap();
+                                        received.lock().await.insert(file_id, bytes);
+                                    }
+                                });
+                            }
+                            TestSaveMode::Contained(root) => {
+                                let root = root.clone();
+                                let relative = PathBuf::from(&file.file_name);
+                                let saved_path = root.join(&relative);
+                                let (result_tx, result_rx) = oneshot::channel();
+                                let _ = target_tx.send(FileUploadTarget::ContainedPath {
+                                    root,
+                                    relative,
+                                    result_tx,
+                                    progress_tx: None,
+                                });
+                                tokio::spawn(async move {
+                                    if let Ok(Ok(())) = result_rx.await {
+                                        let bytes = tokio::fs::read(&saved_path).await.unwrap();
                                         received.lock().await.insert(file_id, bytes);
                                     }
                                 });
@@ -1523,4 +1569,287 @@ async fn test_pin_too_many_attempts() {
         )
         .await;
     assert_status(result, 429);
+}
+
+#[cfg(unix)]
+#[tokio::test]
+async fn test_upload_path_rejects_dangling_and_valid_leaf_symlink() {
+    use std::os::unix::fs::symlink;
+
+    let save_dir = std::env::temp_dir().join(format!("localsend-test-{}", uuid::Uuid::new_v4()));
+    let outside_dir =
+        std::env::temp_dir().join(format!("localsend-outside-{}", uuid::Uuid::new_v4()));
+    tokio::fs::create_dir_all(&save_dir).await.unwrap();
+    tokio::fs::create_dir_all(&outside_dir).await.unwrap();
+
+    let outside_existing = outside_dir.join("keep.txt");
+    let outside_dangling = outside_dir.join("should_not_exist.txt");
+    tokio::fs::write(&outside_existing, b"ORIGINAL")
+        .await
+        .unwrap();
+    symlink(&outside_dangling, save_dir.join("file-dangling")).unwrap();
+    symlink(&outside_existing, save_dir.join("file-existing")).unwrap();
+
+    let server = start_test_server(None, true, Some(save_dir.clone())).await;
+    let client = LsHttpClientV2::try_new_without_cert().unwrap();
+
+    let payload = b"attacker-overwrite";
+    let file_a = file_dto("file-dangling", "dangling.txt", payload.len() as u64);
+    let file_b = file_dto("file-existing", "existing.txt", payload.len() as u64);
+    let response = client
+        .prepare_upload(
+            ProtocolType::Http,
+            "127.0.0.1",
+            server.port,
+            None,
+            prepare_upload_request(&[file_a, file_b]),
+            None,
+            CancellationToken::new(),
+        )
+        .await
+        .unwrap()
+        .response
+        .unwrap();
+
+    let res_a = upload_bytes(
+        &client,
+        server.port,
+        &response.session_id,
+        "file-dangling",
+        &response.files["file-dangling"],
+        payload,
+    )
+    .await;
+    assert_status(res_a, 500);
+
+    let res_b = upload_bytes(
+        &client,
+        server.port,
+        &response.session_id,
+        "file-existing",
+        &response.files["file-existing"],
+        payload,
+    )
+    .await;
+    assert_status(res_b, 500);
+
+    assert!(!outside_dangling.exists());
+    assert_eq!(
+        tokio::fs::read(&outside_existing).await.unwrap(),
+        b"ORIGINAL"
+    );
+    let _ = tokio::fs::remove_dir_all(&save_dir).await;
+    let _ = tokio::fs::remove_dir_all(&outside_dir).await;
+}
+
+#[cfg(unix)]
+#[tokio::test]
+async fn test_upload_contained_rejects_symlink_escape_end_to_end() {
+    use std::os::unix::fs::symlink;
+
+    let save_dir = std::env::temp_dir().join(format!("localsend-test-{}", uuid::Uuid::new_v4()));
+    let outside_dir =
+        std::env::temp_dir().join(format!("localsend-outside-{}", uuid::Uuid::new_v4()));
+    tokio::fs::create_dir_all(save_dir.join("legit"))
+        .await
+        .unwrap();
+    tokio::fs::create_dir_all(&outside_dir).await.unwrap();
+
+    let outside_existing = outside_dir.join("keep.txt");
+    tokio::fs::write(&outside_existing, b"ORIGINAL")
+        .await
+        .unwrap();
+
+    symlink(&outside_dir, save_dir.join("link")).unwrap();
+    symlink(&outside_dir, save_dir.join("legit/hop")).unwrap();
+    symlink(
+        outside_dir.join("dangling_created.txt"),
+        save_dir.join("legit/dangling.txt"),
+    )
+    .unwrap();
+    symlink(&outside_existing, save_dir.join("legit/keep.txt")).unwrap();
+
+    let server = start_contained_test_server(save_dir.clone()).await;
+    let client = LsHttpClientV2::try_new_without_cert().unwrap();
+
+    let large_payload: Vec<u8> = (0..120_000u32).map(|i| (i % 251) as u8).collect();
+    let small_payload = b"evil";
+    let cases: [(&str, &str, &[u8]); 5] = [
+        ("f1", "link/evil.txt", small_payload),
+        ("f2", "legit/hop/nested/evil.bin", &large_payload),
+        ("f3", "legit/dangling.txt", small_payload),
+        ("f4", "legit/keep.txt", &large_payload),
+        ("f5", "../escape.txt", small_payload),
+    ];
+
+    let dtos: Vec<FileDto> = cases
+        .iter()
+        .map(|(id, name, data)| file_dto(id, name, data.len() as u64))
+        .collect();
+
+    let response = client
+        .prepare_upload(
+            ProtocolType::Http,
+            "127.0.0.1",
+            server.port,
+            None,
+            prepare_upload_request(&dtos),
+            None,
+            CancellationToken::new(),
+        )
+        .await
+        .unwrap()
+        .response
+        .unwrap();
+
+    for (id, _, data) in cases {
+        let result = upload_bytes(
+            &client,
+            server.port,
+            &response.session_id,
+            id,
+            &response.files[id],
+            data,
+        )
+        .await;
+        assert_status(result, 500);
+    }
+
+    assert!(!outside_dir.join("evil.txt").exists());
+    assert!(!outside_dir.join("nested").exists());
+    assert!(!outside_dir.join("dangling_created.txt").exists());
+    assert!(!save_dir.parent().unwrap().join("escape.txt").exists());
+    assert_eq!(
+        tokio::fs::read(&outside_existing).await.unwrap(),
+        b"ORIGINAL"
+    );
+
+    let _ = tokio::fs::remove_dir_all(&save_dir).await;
+    let _ = tokio::fs::remove_dir_all(&outside_dir).await;
+}
+
+#[cfg(unix)]
+#[tokio::test]
+async fn test_upload_contained_allows_symlinked_root_and_creates_nested_dirs() {
+    use std::os::unix::fs::symlink;
+
+    let base_dir = std::env::temp_dir().join(format!("localsend-test-{}", uuid::Uuid::new_v4()));
+    let real_root = base_dir.join("real_dest");
+    let alias_root = base_dir.join("alias_dest");
+    tokio::fs::create_dir_all(&real_root).await.unwrap();
+    symlink(&real_root, &alias_root).unwrap();
+
+    let server = start_contained_test_server(alias_root.clone()).await;
+    let client = LsHttpClientV2::try_new_without_cert().unwrap();
+
+    let bytes = b"hello through symlinked root into nested dir".to_vec();
+    let mut file = file_dto("file-a", "folder/sub/hello.txt", bytes.len() as u64);
+    file.sha256 = Some(sha256_hex(&bytes));
+
+    let response = client
+        .prepare_upload(
+            ProtocolType::Http,
+            "127.0.0.1",
+            server.port,
+            None,
+            prepare_upload_request(&[file]),
+            None,
+            CancellationToken::new(),
+        )
+        .await
+        .unwrap()
+        .response
+        .unwrap();
+
+    upload_bytes(
+        &client,
+        server.port,
+        &response.session_id,
+        "file-a",
+        &response.files["file-a"],
+        &bytes,
+    )
+    .await
+    .unwrap();
+
+    tokio::time::sleep(Duration::from_millis(100)).await;
+    assert_eq!(server.received.lock().await["file-a"], bytes);
+    assert_eq!(
+        tokio::fs::read(real_root.join("folder/sub/hello.txt"))
+            .await
+            .unwrap(),
+        bytes
+    );
+
+    let _ = tokio::fs::remove_dir_all(&base_dir).await;
+}
+
+#[tokio::test]
+async fn test_upload_contained_retry_after_hash_mismatch() {
+    let save_dir = std::env::temp_dir().join(format!("localsend-test-{}", uuid::Uuid::new_v4()));
+    tokio::fs::create_dir_all(&save_dir).await.unwrap();
+
+    let server = start_contained_test_server(save_dir.clone()).await;
+    let client = LsHttpClientV2::try_new_without_cert().unwrap();
+
+    let bytes: Vec<u8> = (0..64_000u32).map(|i| i as u8).collect();
+    let mut corrupted = bytes.clone();
+    *corrupted.last_mut().unwrap() ^= 0xff;
+    let mut file = file_dto("file-a", "nested/retry.bin", bytes.len() as u64);
+    file.sha256 = Some(sha256_hex(&bytes));
+
+    let response = client
+        .prepare_upload(
+            ProtocolType::Http,
+            "127.0.0.1",
+            server.port,
+            None,
+            prepare_upload_request(&[file]),
+            None,
+            CancellationToken::new(),
+        )
+        .await
+        .unwrap()
+        .response
+        .unwrap();
+
+    let mismatch = upload_bytes(
+        &client,
+        server.port,
+        &response.session_id,
+        "file-a",
+        &response.files["file-a"],
+        &corrupted,
+    )
+    .await;
+    assert_status(mismatch, 422);
+
+    upload_bytes(
+        &client,
+        server.port,
+        &response.session_id,
+        "file-a",
+        &response.files["file-a"],
+        &bytes,
+    )
+    .await
+    .unwrap();
+
+    tokio::time::sleep(Duration::from_millis(100)).await;
+    assert_eq!(server.received.lock().await["file-a"], bytes);
+    assert_eq!(
+        tokio::fs::read(save_dir.join("nested/retry.bin"))
+            .await
+            .unwrap(),
+        bytes
+    );
+
+    let mut entries = tokio::fs::read_dir(save_dir.join("nested")).await.unwrap();
+    let mut names = Vec::new();
+    while let Some(entry) = entries.next_entry().await.unwrap() {
+        names.push(entry.file_name().to_string_lossy().to_string());
+    }
+    assert_eq!(names, vec!["retry.bin"]);
+
+    let _ = tokio::fs::remove_dir_all(&save_dir).await;
 }

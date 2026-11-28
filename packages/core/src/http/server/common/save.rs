@@ -36,14 +36,47 @@ pub enum FileUploadTarget {
         result_rx: oneshot::Receiver<Result<(), String>>,
     },
 
-    /// The server writes the file to this path (created or truncated)
-    /// and reports the result on `result_tx`.
+    /// The server writes the file to this path (created or truncated) without
+    /// following a symlink at the final path component, and reports the result
+    /// on `result_tx`.
+    ///
+    /// This guards the leaf filename (`O_NOFOLLOW` on Unix / reparse checks on
+    /// Windows), but does not validate intermediate directories. Prefer
+    /// [`FileUploadTarget::ContainedPath`] when saving an untrusted relative
+    /// path under a destination directory.
     ///
     /// Timestamps provided in the sender's file metadata are applied to the
     /// written file, so the application does not need to set them itself.
     Path {
         /// The path to write the file to.
         path: PathBuf,
+
+        /// Channel on which the server reports whether the file was saved
+        /// successfully, including the checksum verification if one was given.
+        result_tx: oneshot::Sender<Result<(), String>>,
+
+        /// Optional channel on which the server reports the number of bytes
+        /// written so far. Events are dropped when the channel is full.
+        progress_tx: Option<mpsc::Sender<u64>>,
+    },
+
+    /// The server resolves `relative` step-by-step under `root`, creating any
+    /// missing intermediate directories without following symlinks at any
+    /// segment or at the final leaf, and writes the file there (created or
+    /// truncated).
+    ///
+    /// Symlinks in `root` itself are allowed so user-configured symlinked
+    /// destination folders continue to work, while `relative` must be a
+    /// non-empty relative path made solely of normal components.
+    ///
+    /// Timestamps provided in the sender's file metadata are applied to the
+    /// written file, so the application does not need to set them itself.
+    ContainedPath {
+        /// Trusted base destination directory (may itself contain symlinks).
+        root: PathBuf,
+
+        /// Relative sub-path within `root` (must not escape or contain `.` / `..` / prefixes).
+        relative: PathBuf,
 
         /// Channel on which the server reports whether the file was saved
         /// successfully, including the checksum verification if one was given.
@@ -126,12 +159,22 @@ pub(crate) async fn save_req_to_target(
             result_tx,
             progress_tx,
         } => {
-            let (binary_tx, result_rx) = spawn_file_writer(
-                async move {
-                    tokio::fs::File::create(&path)
-                        .await
-                        .map_err(|e| format!("Failed to create {}: {e}", path.display()))
-                },
+            let (binary_tx, result_rx) = spawn_blocking_file_writer(
+                move || safe_open::open_path_no_follow(&path),
+                file_size,
+                progress_tx,
+                timestamps,
+            );
+            (binary_tx, result_rx, Some(result_tx))
+        }
+        FileUploadTarget::ContainedPath {
+            root,
+            relative,
+            result_tx,
+            progress_tx,
+        } => {
+            let (binary_tx, result_rx) = spawn_blocking_file_writer(
+                move || safe_open::open_contained(&root, &relative),
                 file_size,
                 progress_tx,
                 timestamps,
@@ -352,4 +395,679 @@ async fn write_file_from_receiver(
     }
 
     Ok(())
+}
+
+fn spawn_blocking_file_writer<F>(
+    open: F,
+    expected_size: u64,
+    progress_tx: Option<mpsc::Sender<u64>>,
+    timestamps: FileTimestamps,
+) -> (mpsc::Sender<Bytes>, oneshot::Receiver<Result<(), String>>)
+where
+    F: FnOnce() -> Result<std::fs::File, String> + Send + 'static,
+{
+    spawn_file_writer(
+        async move {
+            let std_file = tokio::task::spawn_blocking(open)
+                .await
+                .map_err(|e| format!("Failed to join file open task: {e}"))??;
+            Ok(tokio::fs::File::from_std(std_file))
+        },
+        expected_size,
+        progress_tx,
+        timestamps,
+    )
+}
+
+mod safe_open {
+    use std::ffi::OsStr;
+    use std::path::{Component, Path};
+
+    /// Validates that `relative` is a non-empty relative path made strictly of normal segments.
+    fn collect_relative_components(relative: &Path) -> Result<Vec<&OsStr>, String> {
+        let bytes = relative.as_os_str().as_encoded_bytes();
+        if bytes.is_empty() {
+            return Err("Relative upload path must not be empty".to_string());
+        }
+        // Reject trailing separators so `"dir/"` cannot resolve to a file named `"dir"`,
+        // and reject explicit `.` segments (including interior `a/./b`, which `Path::components` skips).
+        if bytes.ends_with(b"/") || (cfg!(windows) && bytes.ends_with(b"\\")) {
+            return Err(format!(
+                "Relative upload path must refer to a file, not a directory: {}",
+                relative.display()
+            ));
+        }
+        if bytes
+            .split(|b| *b == b'/' || (cfg!(windows) && *b == b'\\'))
+            .any(|seg| seg == b".")
+        {
+            return Err(format!(
+                "Relative upload path must not contain `.` segments: {}",
+                relative.display()
+            ));
+        }
+
+        let mut segments = Vec::new();
+        for component in relative.components() {
+            match component {
+                Component::Normal(part) => {
+                    let part_bytes = part.as_encoded_bytes();
+                    if part_bytes.is_empty() || part_bytes == b"." || part_bytes == b".." {
+                        return Err(format!(
+                            "Invalid segment in relative upload path: {}",
+                            relative.display()
+                        ));
+                    }
+                    segments.push(part);
+                }
+                Component::CurDir
+                | Component::ParentDir
+                | Component::RootDir
+                | Component::Prefix(_) => {
+                    return Err(format!(
+                        "Relative upload path must stay within destination root: {}",
+                        relative.display()
+                    ));
+                }
+            }
+        }
+
+        if segments.is_empty() {
+            return Err("Relative upload path must not be empty".to_string());
+        }
+        Ok(segments)
+    }
+
+    #[cfg(unix)]
+    fn retry_eintr<F>(mut f: F) -> std::io::Result<libc::c_int>
+    where
+        F: FnMut() -> libc::c_int,
+    {
+        loop {
+            let rc = f();
+            if rc >= 0 {
+                return Ok(rc);
+            }
+            let err = std::io::Error::last_os_error();
+            if err.kind() != std::io::ErrorKind::Interrupted {
+                return Err(err);
+            }
+        }
+    }
+
+    #[cfg(unix)]
+    fn to_cstring(part: &OsStr, context: &Path) -> Result<std::ffi::CString, String> {
+        use std::os::unix::ffi::OsStrExt;
+
+        std::ffi::CString::new(part.as_bytes())
+            .map_err(|_| format!("Path contains an interior NUL byte: {}", context.display()))
+    }
+
+    #[cfg(unix)]
+    fn open_dir(
+        name: &std::ffi::CStr,
+        parent: Option<&std::os::fd::OwnedFd>,
+        nofollow: bool,
+    ) -> std::io::Result<std::os::fd::OwnedFd> {
+        use std::os::fd::{AsRawFd, FromRawFd, OwnedFd};
+
+        let mut flags = libc::O_RDONLY | libc::O_DIRECTORY | libc::O_CLOEXEC;
+        if nofollow {
+            flags |= libc::O_NOFOLLOW;
+        }
+        let fd = retry_eintr(|| match parent {
+            Some(dir) => {
+                // SAFETY: `dir` is a valid open directory fd and `name` is NUL-terminated.
+                unsafe { libc::openat(dir.as_raw_fd(), name.as_ptr(), flags) }
+            }
+            None => {
+                // SAFETY: `name` is NUL-terminated.
+                unsafe { libc::open(name.as_ptr(), flags) }
+            }
+        })?;
+        // SAFETY: `fd` was just returned by `open`/`openat` as a valid owned file descriptor.
+        Ok(unsafe { OwnedFd::from_raw_fd(fd) })
+    }
+
+    #[cfg(unix)]
+    pub(super) fn open_path_no_follow(path: &Path) -> Result<std::fs::File, String> {
+        use std::os::unix::fs::OpenOptionsExt;
+
+        std::fs::OpenOptions::new()
+            .write(true)
+            .create(true)
+            .truncate(true)
+            .custom_flags(libc::O_NOFOLLOW)
+            .open(path)
+            .map_err(|e| format!("Failed to create {}: {e}", path.display()))
+    }
+
+    #[cfg(unix)]
+    pub(super) fn open_contained(root: &Path, relative: &Path) -> Result<std::fs::File, String> {
+        use std::os::fd::{AsRawFd, FromRawFd, OwnedFd};
+
+        // POSIX `openat` with `O_CREAT` expects the creation mode promoted to `c_uint`.
+        const FILE_CREATE_MODE: libc::c_uint = 0o666;
+
+        let segments = collect_relative_components(relative)?;
+        let display_path = root.join(relative);
+
+        std::fs::create_dir_all(root)
+            .map_err(|e| format!("Failed to create destination root {}: {e}", root.display()))?;
+
+        let root_c = to_cstring(root.as_os_str(), root)?;
+        // Allow symlinks on `root` itself (e.g., `/tmp -> /private/tmp` or symlinked Downloads),
+        // then enforce `O_NOFOLLOW` on every segment inside `relative`.
+        let mut dir_fd = open_dir(&root_c, None, false)
+            .map_err(|e| format!("Failed to open destination root {}: {e}", root.display()))?;
+
+        let (leaf, parents) = segments
+            .split_last()
+            .ok_or_else(|| "Relative upload path must not be empty".to_string())?;
+
+        for segment in parents {
+            let seg_c = to_cstring(segment, &display_path)?;
+            let mkdir_res = retry_eintr(|| {
+                // SAFETY: `dir_fd` is a valid open directory fd and `seg_c` is NUL-terminated.
+                unsafe { libc::mkdirat(dir_fd.as_raw_fd(), seg_c.as_ptr(), 0o777) }
+            });
+            if let Err(err) = mkdir_res {
+                if err.kind() != std::io::ErrorKind::AlreadyExists {
+                    return Err(format!(
+                        "Failed to create directory {}: {err}",
+                        display_path.display()
+                    ));
+                }
+            }
+
+            dir_fd = open_dir(&seg_c, Some(&dir_fd), true).map_err(|e| {
+                format!(
+                    "Failed to open directory {} safely: {e}",
+                    display_path.display()
+                )
+            })?;
+        }
+
+        let leaf_c = to_cstring(leaf, &display_path)?;
+        let file_flags =
+            libc::O_WRONLY | libc::O_CREAT | libc::O_TRUNC | libc::O_NOFOLLOW | libc::O_CLOEXEC;
+        let file_fd = retry_eintr(|| {
+            // SAFETY: `dir_fd` is a valid open directory fd and `leaf_c` is NUL-terminated.
+            unsafe {
+                libc::openat(
+                    dir_fd.as_raw_fd(),
+                    leaf_c.as_ptr(),
+                    file_flags,
+                    FILE_CREATE_MODE,
+                )
+            }
+        })
+        .map_err(|e| format!("Failed to create {}: {e}", display_path.display()))?;
+
+        // SAFETY: `file_fd` was just returned by `openat` as a valid owned file descriptor.
+        let owned_fd = unsafe { OwnedFd::from_raw_fd(file_fd) };
+        Ok(std::fs::File::from(owned_fd))
+    }
+
+    #[cfg(windows)]
+    pub(super) fn open_path_no_follow(path: &Path) -> Result<std::fs::File, String> {
+        use std::os::windows::fs::OpenOptionsExt;
+
+        const FILE_FLAG_OPEN_REPARSE_POINT: u32 = 0x0020_0000;
+
+        match std::fs::OpenOptions::new()
+            .write(true)
+            .create_new(true)
+            .custom_flags(FILE_FLAG_OPEN_REPARSE_POINT)
+            .open(path)
+        {
+            Ok(file) => Ok(file),
+            Err(err) if err.kind() == std::io::ErrorKind::AlreadyExists => {
+                let meta = std::fs::symlink_metadata(path)
+                    .map_err(|e| format!("Failed to inspect {}: {e}", path.display()))?;
+                if meta.file_type().is_symlink() {
+                    return Err(format!("Refusing to follow symlink at {}", path.display()));
+                }
+                let file = std::fs::OpenOptions::new()
+                    .write(true)
+                    .custom_flags(FILE_FLAG_OPEN_REPARSE_POINT)
+                    .open(path)
+                    .map_err(|e| format!("Failed to open {}: {e}", path.display()))?;
+                // Re-check before truncating in case a symlink swapped in between metadata and open.
+                let post_meta = std::fs::symlink_metadata(path)
+                    .map_err(|e| format!("Failed to inspect {}: {e}", path.display()))?;
+                if post_meta.file_type().is_symlink() {
+                    return Err(format!("Refusing to follow symlink at {}", path.display()));
+                }
+                file.set_len(0)
+                    .map_err(|e| format!("Failed to truncate {}: {e}", path.display()))?;
+                Ok(file)
+            }
+            Err(err) => Err(format!("Failed to create {}: {err}", path.display())),
+        }
+    }
+
+    #[cfg(windows)]
+    pub(super) fn open_contained(root: &Path, relative: &Path) -> Result<std::fs::File, String> {
+        let segments = collect_relative_components(relative)?;
+        let display_path = root.join(relative);
+
+        std::fs::create_dir_all(root)
+            .map_err(|e| format!("Failed to create destination root {}: {e}", root.display()))?;
+        let canonical_root = std::fs::canonicalize(root)
+            .map_err(|e| format!("Failed to resolve destination root {}: {e}", root.display()))?;
+
+        let mut current = canonical_root.clone();
+        let (leaf, parents) = segments
+            .split_last()
+            .ok_or_else(|| "Relative upload path must not be empty".to_string())?;
+
+        for segment in parents {
+            current.push(segment);
+            if let Err(err) = std::fs::create_dir(&current) {
+                if err.kind() != std::io::ErrorKind::AlreadyExists {
+                    return Err(format!(
+                        "Failed to create directory {}: {err}",
+                        display_path.display()
+                    ));
+                }
+            }
+            let meta = std::fs::symlink_metadata(&current)
+                .map_err(|e| format!("Failed to inspect {}: {e}", display_path.display()))?;
+            if meta.file_type().is_symlink() {
+                return Err(format!(
+                    "Refusing to traverse symlink directory in {}",
+                    display_path.display()
+                ));
+            }
+            if !meta.is_dir() {
+                return Err(format!(
+                    "Path segment is not a directory in {}",
+                    display_path.display()
+                ));
+            }
+            let canonical_seg = std::fs::canonicalize(&current).map_err(|e| {
+                format!(
+                    "Failed to resolve directory {}: {e}",
+                    display_path.display()
+                )
+            })?;
+            if !canonical_seg.starts_with(&canonical_root) {
+                return Err(format!(
+                    "Directory traversal escapes destination root: {}",
+                    display_path.display()
+                ));
+            }
+        }
+
+        current.push(leaf);
+        if let Some(parent) = current.parent() {
+            let canonical_parent = std::fs::canonicalize(parent).map_err(|e| {
+                format!(
+                    "Failed to resolve parent of {}: {e}",
+                    display_path.display()
+                )
+            })?;
+            if !canonical_parent.starts_with(&canonical_root) {
+                return Err(format!(
+                    "Upload path escapes destination root: {}",
+                    display_path.display()
+                ));
+            }
+        }
+        open_path_no_follow(&current)
+    }
+
+    #[cfg(not(any(unix, windows)))]
+    pub(super) fn open_path_no_follow(path: &Path) -> Result<std::fs::File, String> {
+        if let Ok(meta) = std::fs::symlink_metadata(path) {
+            if meta.file_type().is_symlink() {
+                return Err(format!("Refusing to follow symlink at {}", path.display()));
+            }
+        }
+        std::fs::File::create(path).map_err(|e| format!("Failed to create {}: {e}", path.display()))
+    }
+
+    #[cfg(not(any(unix, windows)))]
+    pub(super) fn open_contained(root: &Path, relative: &Path) -> Result<std::fs::File, String> {
+        let segments = collect_relative_components(relative)?;
+        let display_path = root.join(relative);
+
+        std::fs::create_dir_all(root)
+            .map_err(|e| format!("Failed to create destination root {}: {e}", root.display()))?;
+        let mut current = root.to_path_buf();
+        let (leaf, parents) = segments
+            .split_last()
+            .ok_or_else(|| "Relative upload path must not be empty".to_string())?;
+
+        for segment in parents {
+            current.push(segment);
+            if let Err(err) = std::fs::create_dir(&current) {
+                if err.kind() != std::io::ErrorKind::AlreadyExists {
+                    return Err(format!(
+                        "Failed to create directory {}: {err}",
+                        display_path.display()
+                    ));
+                }
+            }
+            let meta = std::fs::symlink_metadata(&current)
+                .map_err(|e| format!("Failed to inspect {}: {e}", display_path.display()))?;
+            if meta.file_type().is_symlink() || !meta.is_dir() {
+                return Err(format!(
+                    "Refusing unsafe directory segment in {}",
+                    display_path.display()
+                ));
+            }
+        }
+
+        current.push(leaf);
+        open_path_no_follow(&current)
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use std::io::Write;
+    use std::path::{Path, PathBuf};
+    use std::time::{Duration, SystemTime};
+    use tokio::sync::mpsc;
+
+    struct TempDir(PathBuf);
+
+    impl TempDir {
+        fn new(name: &str) -> Self {
+            let path = std::env::temp_dir()
+                .join(format!("localsend-save-{name}-{}", uuid::Uuid::new_v4()));
+            std::fs::create_dir_all(&path).unwrap();
+            Self(path)
+        }
+
+        fn path(&self) -> &Path {
+            &self.0
+        }
+    }
+
+    impl Drop for TempDir {
+        fn drop(&mut self) {
+            let _ = std::fs::remove_dir_all(&self.0);
+        }
+    }
+
+    #[test]
+    fn contained_creates_nested_directories_and_writes_file() {
+        let root = TempDir::new("nested");
+        let mut file =
+            safe_open::open_contained(root.path(), Path::new("deep/a/b/hello.txt")).unwrap();
+        file.write_all(b"nested payload").unwrap();
+        drop(file);
+
+        assert_eq!(
+            std::fs::read(root.path().join("deep/a/b/hello.txt")).unwrap(),
+            b"nested payload"
+        );
+    }
+
+    #[test]
+    fn contained_creates_missing_root_and_overwrites_regular_file_on_retry() {
+        let base = TempDir::new("missing-root");
+        let root = base.path().join("new_dest/sub_root");
+
+        let mut first = safe_open::open_contained(&root, Path::new("folder/retry.bin")).unwrap();
+        first.write_all(b"corrupted longer content").unwrap();
+        drop(first);
+
+        let mut second = safe_open::open_contained(&root, Path::new("folder/retry.bin")).unwrap();
+        second.write_all(b"clean").unwrap();
+        drop(second);
+
+        assert_eq!(
+            std::fs::read(root.join("folder/retry.bin")).unwrap(),
+            b"clean"
+        );
+    }
+
+    #[test]
+    fn contained_rejects_traversal_absolute_empty_and_trailing_slash_paths() {
+        let root = TempDir::new("invalid-paths");
+        let invalid = [
+            "",
+            ".",
+            "..",
+            "a/../b.txt",
+            "a/./b.txt",
+            "../outside.txt",
+            "/etc/passwd",
+            "subdir/",
+        ];
+        for rel in invalid {
+            let err = safe_open::open_contained(root.path(), Path::new(rel)).unwrap_err();
+            assert!(!err.is_empty(), "expected error for {rel:?}");
+        }
+
+        #[cfg(unix)]
+        {
+            use std::ffi::OsStr;
+            use std::os::unix::ffi::OsStrExt;
+            for raw in [b"bad\0name.txt".as_slice(), b"dir\0bad/file.txt".as_slice()] {
+                let path = Path::new(OsStr::from_bytes(raw));
+                assert!(safe_open::open_contained(root.path(), path).is_err());
+            }
+        }
+    }
+
+    #[test]
+    fn contained_rejects_file_dir_collisions_cleanly() {
+        let root = TempDir::new("collisions");
+        std::fs::write(root.path().join("regular_file"), b"data").unwrap();
+        std::fs::create_dir_all(root.path().join("real_dir")).unwrap();
+
+        assert!(
+            safe_open::open_contained(root.path(), Path::new("regular_file/child.txt")).is_err()
+        );
+        assert!(safe_open::open_contained(root.path(), Path::new("real_dir")).is_err());
+    }
+
+    #[cfg(unix)]
+    #[test]
+    fn contained_allows_symlinked_root_directory() {
+        use std::os::unix::fs::symlink;
+
+        let container = TempDir::new("symlink-root");
+        let real_root = container.path().join("real");
+        let alias_root = container.path().join("alias");
+        std::fs::create_dir_all(&real_root).unwrap();
+        symlink(&real_root, &alias_root).unwrap();
+
+        let mut file = safe_open::open_contained(&alias_root, Path::new("nested/ok.txt")).unwrap();
+        file.write_all(b"allowed via root symlink").unwrap();
+        drop(file);
+
+        assert_eq!(
+            std::fs::read(real_root.join("nested/ok.txt")).unwrap(),
+            b"allowed via root symlink"
+        );
+
+        // Dangling symlink at `root` itself must fail without creating target.
+        let dangling_root_target = container.path().join("missing_root_target");
+        let dangling_root = container.path().join("dangling_root");
+        symlink(&dangling_root_target, &dangling_root).unwrap();
+        assert!(safe_open::open_contained(&dangling_root, Path::new("sub/ok.txt")).is_err());
+        assert!(!dangling_root_target.exists());
+    }
+
+    #[cfg(unix)]
+    #[test]
+    fn contained_blocks_symlinked_parent_dangling_and_chained_escapes() {
+        use std::os::unix::fs::symlink;
+
+        let root = TempDir::new("escape-root");
+        let outside = TempDir::new("escape-outside");
+        let outside_existing = outside.path().join("secret.txt");
+        std::fs::write(&outside_existing, b"ORIGINAL").unwrap();
+
+        // 1. Direct symlinked directory pointing outside.
+        symlink(outside.path(), root.path().join("dir_link")).unwrap();
+        assert!(safe_open::open_contained(root.path(), Path::new("dir_link/evil.txt")).is_err());
+        assert!(
+            safe_open::open_contained(root.path(), Path::new("dir_link/new_sub/evil.txt")).is_err()
+        );
+        assert!(!outside.path().join("evil.txt").exists());
+        assert!(!outside.path().join("new_sub").exists());
+
+        // 2. Nested symlinked directory inside a legitimate directory.
+        std::fs::create_dir_all(root.path().join("legit")).unwrap();
+        symlink(outside.path(), root.path().join("legit/hop")).unwrap();
+        assert!(
+            safe_open::open_contained(root.path(), Path::new("legit/hop/nested/pwn.txt")).is_err()
+        );
+        assert!(!outside.path().join("nested").exists());
+
+        // 3. Chained symlinks inside root ending outside root.
+        symlink(root.path().join("dir_link"), root.path().join("chain")).unwrap();
+        assert!(safe_open::open_contained(root.path(), Path::new("chain/pwn.txt")).is_err());
+        assert!(!outside.path().join("pwn.txt").exists());
+
+        // 4. Dangling leaf symlink inside real subdirectory.
+        let dangling_target = outside.path().join("created_via_dangling.txt");
+        symlink(&dangling_target, root.path().join("legit/dangling.txt")).unwrap();
+        assert!(safe_open::open_contained(root.path(), Path::new("legit/dangling.txt")).is_err());
+        assert!(!dangling_target.exists());
+
+        // 5. Existing leaf symlink pointing to an existing outside file.
+        symlink(&outside_existing, root.path().join("legit/existing.txt")).unwrap();
+        assert!(safe_open::open_contained(root.path(), Path::new("legit/existing.txt")).is_err());
+        assert_eq!(std::fs::read(&outside_existing).unwrap(), b"ORIGINAL");
+    }
+
+    #[cfg(unix)]
+    #[test]
+    fn path_blocks_dangling_and_valid_leaf_symlinks_while_allowing_symlink_ancestors() {
+        use std::os::unix::fs::symlink;
+
+        let container = TempDir::new("path-leaf");
+        let real_dir = container.path().join("real");
+        let alias_dir = container.path().join("alias");
+        let outside = TempDir::new("path-outside");
+        std::fs::create_dir_all(&real_dir).unwrap();
+        symlink(&real_dir, &alias_dir).unwrap();
+
+        // Ancestor symlink still allowed for regular target path.
+        let ok_path = alias_dir.join("ok.txt");
+        let mut f = safe_open::open_path_no_follow(&ok_path).unwrap();
+        f.write_all(b"fine").unwrap();
+        drop(f);
+        assert_eq!(std::fs::read(real_dir.join("ok.txt")).unwrap(), b"fine");
+
+        // Dangling leaf symlink must be rejected.
+        let dangling_target = outside.path().join("should_not_exist.txt");
+        let dangling_link = real_dir.join("dangling.txt");
+        symlink(&dangling_target, &dangling_link).unwrap();
+        assert!(safe_open::open_path_no_follow(&dangling_link).is_err());
+        assert!(!dangling_target.exists());
+
+        // Existing leaf symlink must not overwrite outside file.
+        let outside_existing = outside.path().join("keep.txt");
+        std::fs::write(&outside_existing, b"SAFE").unwrap();
+        let existing_link = real_dir.join("existing.txt");
+        symlink(&outside_existing, &existing_link).unwrap();
+        assert!(safe_open::open_path_no_follow(&existing_link).is_err());
+        assert_eq!(std::fs::read(&outside_existing).unwrap(), b"SAFE");
+    }
+
+    #[tokio::test]
+    async fn blocking_writer_reports_progress_and_applies_timestamps() {
+        let root = TempDir::new("writer");
+        let root_path = root.path().to_path_buf();
+        let (progress_tx, mut progress_rx) = mpsc::channel(16);
+        let modified = SystemTime::UNIX_EPOCH + Duration::from_secs(1_700_000_000);
+        let timestamps = FileTimestamps {
+            modified: Some(modified),
+            accessed: None,
+        };
+
+        let (binary_tx, result_rx) = spawn_blocking_file_writer(
+            move || safe_open::open_contained(&root_path, Path::new("sub/file.bin")),
+            11,
+            Some(progress_tx),
+            timestamps,
+        );
+
+        binary_tx.send(Bytes::from_static(b"hello ")).await.unwrap();
+        binary_tx.send(Bytes::from_static(b"world")).await.unwrap();
+        drop(binary_tx);
+
+        result_rx.await.unwrap().unwrap();
+        let mut updates = Vec::new();
+        while let Ok(bytes) = progress_rx.try_recv() {
+            updates.push(bytes);
+        }
+        assert_eq!(updates.last().copied(), Some(11));
+
+        let saved_path = root.path().join("sub/file.bin");
+        assert_eq!(std::fs::read(&saved_path).unwrap(), b"hello world");
+        assert_eq!(
+            std::fs::metadata(&saved_path).unwrap().modified().unwrap(),
+            modified
+        );
+    }
+
+    #[cfg(unix)]
+    #[tokio::test]
+    async fn concurrent_contained_uploads_and_escape_attempts_stress() {
+        use std::os::unix::fs::symlink;
+
+        let root = TempDir::new("concurrent-root");
+        let outside = TempDir::new("concurrent-outside");
+        symlink(outside.path(), root.path().join("escape_dir")).unwrap();
+
+        let mut handles = Vec::new();
+        for i in 0..24usize {
+            let root_path = root.path().to_path_buf();
+            handles.push(tokio::spawn(async move {
+                let rel = PathBuf::from(format!("batch/sub/file_{i}.bin"));
+                let payload = format!("payload-{i:02}-{}", "x".repeat(i * 17));
+                let (binary_tx, result_rx) = spawn_blocking_file_writer(
+                    move || safe_open::open_contained(&root_path, &rel),
+                    payload.len() as u64,
+                    None,
+                    FileTimestamps::default(),
+                );
+                binary_tx
+                    .send(Bytes::from(payload.as_bytes().to_vec()))
+                    .await
+                    .unwrap();
+                drop(binary_tx);
+                result_rx.await.unwrap().unwrap();
+                (i, payload)
+            }));
+        }
+
+        for i in 0..8usize {
+            let root_path = root.path().to_path_buf();
+            handles.push(tokio::spawn(async move {
+                let rel = PathBuf::from(format!("escape_dir/sub_{i}/evil_{i}.bin"));
+                let (binary_tx, result_rx) = spawn_blocking_file_writer(
+                    move || safe_open::open_contained(&root_path, &rel),
+                    4,
+                    None,
+                    FileTimestamps::default(),
+                );
+                let _ = binary_tx.send(Bytes::from_static(b"evil")).await;
+                drop(binary_tx);
+                assert!(result_rx.await.unwrap().is_err());
+                (usize::MAX, String::new())
+            }));
+        }
+
+        for handle in handles {
+            let (i, payload) = handle.await.unwrap();
+            if i != usize::MAX {
+                let path = root.path().join(format!("batch/sub/file_{i}.bin"));
+                assert_eq!(std::fs::read(path).unwrap(), payload.as_bytes());
+            }
+        }
+
+        assert_eq!(std::fs::read_dir(outside.path()).unwrap().count(), 0);
+    }
 }
